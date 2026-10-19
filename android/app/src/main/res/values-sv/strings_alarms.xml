@@ -32,7 +32,7 @@
     <string name="alarm_fires_now_save">Spara ändå</string>
     <string name="alarm_fires_now_title">Larmet utlöses direkt</string>
     <string name="alarm_first_battery_hint">Batterioptimering begränsar appen – larm kan komma sent.</string>
-    <string name="alarm_first_title">Allt klart</string>
+    <string name="alarm_first_title">Larm sparat</string>
     <string name="alarm_last_triggered">senast %1$s</string>
     <string name="alarm_more_conditions">Fler villkor</string>
     <string name="alarm_new_extreme">Ny %1$s</string>

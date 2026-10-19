@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_first_check">Vérifier que les alertes arrivent</string>
+    <string name="change_candle_source_hint">Calculé à partir des bougies %1$s – la plateforme ne fournit pas elle-même cette valeur.</string>
+    <string name="change_candle_source_action">Afficher la source de la variation</string>
+</resources>

@@ -87,7 +87,7 @@
     <string name="portfolio_price_unchecked">भाव अपुष्ट</string>
     <string name="portfolio_price_via_base">≈ %1$s भाव (ब्रिज्ड/रैप्ड)</string>
     <string name="portfolio_usdt_as_usd">USDT को उसके USD बाज़ार भाव से बदला गया</string>
-    <string name="portfolio_usdt_assumed">USDT = 1 माना गया</string>
+    <string name="portfolio_usdt_assumed">USDT की डॉलर दर उपलब्ध नहीं – 1 अमेरिकी डॉलर के रूप में गिना गया</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">पोर्टफ़ोलियो में जोड़ें</string>

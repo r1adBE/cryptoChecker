@@ -93,7 +93,7 @@
     <string name="portfolio_price_unchecked">Kurs niesprawdzony</string>
     <string name="portfolio_price_via_base">≈ kurs %1$s (zmostkowany/opakowany)</string>
     <string name="portfolio_usdt_as_usd">USDT przeliczone po rynkowym kursie w USD</string>
-    <string name="portfolio_usdt_assumed">Przyjęto USDT = 1</string>
+    <string name="portfolio_usdt_assumed">Brak kursu USDT w dolarach – liczono jako 1 dolar amerykański</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Dodaj do portfela</string>

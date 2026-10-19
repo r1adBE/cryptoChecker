@@ -151,6 +151,8 @@ internal fun RowPrice(
     flash: PriceFlash,
     /** %-Änderung aus den Kerzen einer anderen Börse: kleiner Marker «*» daneben ([DayChangePill] marker). */
     changeMarker: Boolean = false,
+    /** Tippen auf den Marker «*»: Hinweis zur Quelle ([DayChangePill] onMarkerClick); null = kein Tippziel. */
+    onChangeMarkerClick: (() -> Unit)? = null,
     /** Kurs ist der Mark-Preis (kein Mittelkurs, [LocalMarkFallback]): klein «Mark» hinter der Gegenwährung. */
     markPrice: Boolean = false,
     /** Neben dem Paar Abstand links; unter dem Paar (grösste Schrift) rechtsbündig. */
@@ -219,6 +221,7 @@ internal fun RowPrice(
                         view.basis,
                     ),
                     marker = changeMarker,
+                    onMarkerClick = onChangeMarkerClick,
                 )
             }
         }

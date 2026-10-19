@@ -6,9 +6,11 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
 import com.cryptochecker.marketdata.util.Change24h
+import com.cryptochecker.marketdata.util.TradFi
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.forEachOptJSONObject
 import com.cryptochecker.marketdata.util.optDoubleOrMissing
+import com.cryptochecker.marketdata.util.optStrings
 import com.cryptochecker.marketdata.util.optText
 import org.json.JSONArray
 import org.json.JSONObject
@@ -62,7 +64,7 @@ class Aster : SimpleMarket(
 
     /**
      * Nur handelbare Perpetuals; fehlen «contractType» oder «status», gilt der Eintrag als handelbares Perpetual
-     * (Aster führt nur solche).
+     * (Aster führt nur solche). Aktien, ETFs und Rohstoffe erkennt [TradFi.aster] an `underlyingSubType`.
      */
     override fun fillPairListJson(call: Int, json: JSONObject, out: MutableList<MarketPair>) {
         json.getJSONArray("symbols").forEachJSONObject { entry ->
@@ -74,6 +76,7 @@ class Aster : SimpleMarket(
                 entry.getString("quoteAsset"),
                 entry.getString("symbol"),
                 FuturesContractType.PERPETUAL,
+                tradFi = TradFi.aster(entry.optStrings("underlyingSubType")),
             )
         }
     }

@@ -34,7 +34,7 @@
     <string name="alarm_fires_now_save">Всё равно сохранить</string>
     <string name="alarm_fires_now_title">Оповещение сработает сразу</string>
     <string name="alarm_first_battery_hint">Оптимизация батареи ограничивает приложение – оповещения могут приходить с опозданием.</string>
-    <string name="alarm_first_title">Всё готово</string>
+    <string name="alarm_first_title">Оповещение сохранено</string>
     <string name="alarm_last_triggered">последнее в %1$s</string>
     <string name="alarm_more_conditions">Другие условия</string>
     <string name="alarm_new_extreme">Обновление %1$s</string>

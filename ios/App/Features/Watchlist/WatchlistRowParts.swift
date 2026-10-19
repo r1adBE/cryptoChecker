@@ -182,8 +182,10 @@ extension WatchlistRow {
                             : AnyTransition.opacity)
                 .frame(minHeight: namesEnabled ? line1 : nil, alignment: .trailing)
                 if watch.lastPrice != nil {
-                    // %-Änderung aus fremden Kerzen: kleines «*» daneben (Quelle im VoiceOver-Satz und im Blatt)
-                    WatchlistDayChangePill(watch: watch, marker: changeMarker != nil)
+                    // %-Änderung aus fremden Kerzen: kleines «*» daneben (Quelle im VoiceOver-Satz und im Blatt);
+                    // Tippen darauf erklärt die Quelle kurz
+                    WatchlistDayChangePill(watch: watch, marker: changeMarker != nil,
+                                           markerHint: changeSourceHint, showMarkerHint: $showSourceHint)
                         .frame(minHeight: namesEnabled ? line2 : nil, alignment: .trailing)
                 }
                 if let converted {

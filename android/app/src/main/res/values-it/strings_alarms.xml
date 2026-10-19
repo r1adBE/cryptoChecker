@@ -33,7 +33,7 @@
     <string name="alarm_fires_now_save">Salva comunque</string>
     <string name="alarm_fires_now_title">L’allarme scatterebbe subito</string>
     <string name="alarm_first_battery_hint">L’ottimizzazione della batteria limita l’app – gli allarmi possono arrivare in ritardo.</string>
-    <string name="alarm_first_title">Tutto pronto</string>
+    <string name="alarm_first_title">Avviso salvato</string>
     <string name="alarm_last_triggered">ultimo: %1$s</string>
     <string name="alarm_more_conditions">Altre condizioni</string>
     <string name="alarm_new_extreme">Nuovo %1$s</string>

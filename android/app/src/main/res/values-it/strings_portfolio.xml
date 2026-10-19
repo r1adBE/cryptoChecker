@@ -90,7 +90,7 @@
     <string name="portfolio_price_unchecked">Prezzo non verificato</string>
     <string name="portfolio_price_via_base">≈ prezzo di %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT convertito al suo prezzo di mercato in USD</string>
-    <string name="portfolio_usdt_assumed">USDT = 1 presunto</string>
+    <string name="portfolio_usdt_assumed">Manca il cambio in dollari di USDT – calcolato come 1 dollaro USA</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Aggiungi al portafoglio</string>

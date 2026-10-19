@@ -32,7 +32,7 @@
     <string name="alarm_fires_now_save">Save anyway</string>
     <string name="alarm_fires_now_title">Alert would trigger now</string>
     <string name="alarm_first_battery_hint">Battery optimization restricts the app – alerts may arrive late.</string>
-    <string name="alarm_first_title">All set</string>
+    <string name="alarm_first_title">Alert saved</string>
     <string name="alarm_last_triggered">last at %1$s</string>
     <string name="alarm_more_conditions">More conditions</string>
     <string name="alarm_new_extreme">New %1$s</string>

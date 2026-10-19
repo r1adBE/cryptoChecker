@@ -92,15 +92,18 @@ final class Lighter: Market {
     /// Symbole bleiben, wie Lighter sie schreibt (wie Hyperliquid «kPEPE»). Andere Marktarten werden übergangen.
     /// TradFi = `asset_type` «RWA» in `tokenlist` (gleiches Symbol, Spot mit «/USDC»). Fehlt das Symbol dort oder ist
     /// `tokenlist` unlesbar, bleibt das Paar unmarkiert wie bei Börsen ohne solches Feld: Die Liste kommt trotzdem
-    /// aus `orderBooks`, und eine fehlende Angabe soll keinen Krypto-Coin unter TradFi verstecken.
+    /// aus `orderBooks`, und eine fehlende Angabe soll keinen Krypto-Coin unter TradFi verstecken. Ausnahme:
+    /// Robinhood-Aktientoken als Spot («rhSPY/USDC», fehlen in `tokenlist`) — siehe `TradFi.lighterRobinhood`.
     override func fillPairListCombined(bodies: [String]) throws -> [MarketPair] {
         let assetTypes = Lighter.assetTypes(bodies.count > 1 ? bodies[1] : "")
         var out: [MarketPair] = []
         for book in try JObject(string: bodies[0]).array("order_books").optObjects() {
             guard book.optString("status") == "active", !book.optBool("is_frozen") else { continue }
             let symbol = book.optString("symbol")
-            let tradFi = TradFi.lighter(assetType: assetTypes[symbol] ?? "")
-            if let pair = Lighter.readPair(symbol, book.optString("market_type"), tradFi: tradFi) {
+            let type = book.optString("market_type")
+            let tradFi = assetTypes[symbol].map { TradFi.lighter(assetType: $0) }
+                ?? Lighter.unlistedSpotTradFi(symbol, type, assetTypes)
+            if let pair = Lighter.readPair(symbol, type, tradFi: tradFi) {
                 out.append(pair)
             }
         }
@@ -137,6 +140,16 @@ final class Lighter: Market {
         var types: [String: String] = [:]
         for token in tokens { types[token.optString("symbol")] = token.optString("asset_type") }
         return types
+    }
+
+    /// Spot ohne `tokenlist`-Eintrag: Robinhood-Aktientoken («rhSPY/USDC») sind TradFi, ausser `tokenlist` führt den
+    /// Rest («SPY» oder «SPY/USDC») als Krypto. Perps ohne Eintrag bleiben unmarkiert.
+    private static func unlistedSpotTradFi(_ symbol: String, _ type: String, _ assetTypes: [String: String]) -> Bool {
+        guard type == "spot", let slash = symbol.firstIndex(of: "/") else { return false }
+        let base = String(symbol[..<slash])
+        let rest = String(base.dropFirst(2))
+        let quote = String(symbol[symbol.index(after: slash)...])
+        return TradFi.lighterRobinhood(base: base, restAssetType: assetTypes[rest] ?? assetTypes[rest + "/" + quote])
     }
 
     /// Paar aus Symbol und Marktart; nil für leere oder unpassende Symbole und unbekannte Marktarten.

@@ -64,7 +64,7 @@ internal fun UsdtNoteLine(usdtNote: DepegAlarm.CardNote?, priceSourceText: Strin
             color = MaterialTheme.colorScheme.error,
             modifier = Modifier.padding(top = 2.dp)
         )
-        // Kurs nur aus USDC/USDT: Herkunft nennen (USDC = 1 angenommen)
+        // Kurs nur aus USDC/USDT: Herkunft nennen und warnen — ein Einbruch von USDC verschiebt sonst still alle Werte
         DepegAlarm.CardNoteKind.VIA_USDC -> Text(
             stringResource(R.string.portfolio_usdt_via_usdc),
             style = MaterialTheme.typography.bodySmall,

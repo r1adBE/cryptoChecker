@@ -68,6 +68,34 @@ class LighterPairListTest {
         }
     }
 
+    /** Robinhood-Aktientoken als Spot fehlen in `tokenlist` (echte Antwort vom 19.10.2026: «rhSPY/USDC», «rhQQQ/USDC»). */
+    private val robinhoodBooks = """{"code":200,"order_books":[
+        {"symbol":"rhSPY/USDC","market_id":2060,"market_type":"spot","status":"active","is_frozen":false},
+        {"symbol":"rhQQQ/USDC","market_id":2061,"market_type":"spot","status":"active","is_frozen":false},
+        {"symbol":"rhETH/USDC","market_id":2062,"market_type":"spot","status":"active","is_frozen":false},
+        {"symbol":"NEWX","market_id":300,"market_type":"perp","status":"active","is_frozen":false}
+    ]}"""
+
+    private val robinhoodTokens = """{"tokens":[
+        {"symbol":"QQQ","name":"Invesco QQQ","market":"PERPS","asset_type":"RWA","categories":["ETF"]},
+        {"symbol":"ETH","name":"Ethereum","market":"PERPS","asset_type":"CRYPTO","categories":["MAJOR"]}
+    ]}"""
+
+    @Test
+    fun robinhoodSpotWithoutTokenListEntryIsTradFi() {
+        val byId = pairs(robinhoodBooks, robinhoodTokens)
+        // SPY fehlt ganz, QQQ ist RWA: beide TradFi; Basis bleibt, wie Lighter sie schreibt
+        assertTrue(byId.getValue("rhSPY/USDC").tradFi)
+        assertEquals("rhSPY", byId.getValue("rhSPY/USDC").base)
+        assertTrue(byId.getValue("rhQQQ/USDC").tradFi)
+        // Rest als Krypto geführt: kein TradFi
+        assertFalse(byId.getValue("rhETH/USDC").tradFi)
+        assertFalse(byId.getValue("NEWX").tradFi)
+        // ohne lesbare tokenlist reicht die Vorsilbe
+        assertTrue(pairs(robinhoodBooks, "").getValue("rhSPY/USDC").tradFi)
+        assertFalse(pairs(robinhoodBooks, "").getValue("NEWX").tradFi)
+    }
+
     @Test
     fun namesPerBaseFromTokenList() {
         assertEquals(

@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">نرخ ارزی برای روز خرید وجود ندارد (در «از زمان خرید» و بهای تمام‌شده لحاظ نشده): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">بهای تمام‌شده در روزهای خرید بدون نرخ USDT/USD با USDT = 1 محاسبه شد.</string>
+    <string name="ledger_cost_fx_usdt_assumed">بهای تمام‌شده در روزهای خرید بدون نرخ دلاری USDT با ۱ دلار آمریکا برای هر USDT محاسبه شد.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">سود – مشمول مالیات هنگام دریافت</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

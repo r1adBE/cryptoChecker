@@ -33,7 +33,7 @@
     <string name="alarm_fires_now_save">לשמור בכל זאת</string>
     <string name="alarm_fires_now_title">ההתראה תופעל מיד</string>
     <string name="alarm_first_battery_hint">אופטימיזציית הסוללה מגבילה את האפליקציה – התראות עלולות להגיע באיחור.</string>
-    <string name="alarm_first_title">הכול מוכן</string>
+    <string name="alarm_first_title">ההתראה נשמרה</string>
     <string name="alarm_last_triggered">לאחרונה ב־%1$s</string>
     <string name="alarm_more_conditions">תנאים נוספים</string>
     <string name="alarm_new_extreme">%1$s חדש</string>

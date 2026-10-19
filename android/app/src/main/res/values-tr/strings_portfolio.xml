@@ -87,7 +87,7 @@
     <string name="portfolio_price_unchecked">Fiyat doğrulanmadı</string>
     <string name="portfolio_price_via_base">≈ %1$s fiyatı (köprülenmiş/sarılmış)</string>
     <string name="portfolio_usdt_as_usd">USDT, USD piyasa fiyatıyla çevrildi</string>
-    <string name="portfolio_usdt_assumed">USDT = 1 varsayıldı</string>
+    <string name="portfolio_usdt_assumed">USDT dolar kuru yok – 1 ABD doları olarak hesaplandı</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Portföye ekle</string>

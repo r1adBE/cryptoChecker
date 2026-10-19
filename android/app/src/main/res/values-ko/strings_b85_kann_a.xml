@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_first_check">경보가 도착하는지 확인</string>
+    <string name="change_candle_source_hint">%1$s 캔들로 계산 – 거래소 자체는 이 값을 제공하지 않습니다.</string>
+    <string name="change_candle_source_action">변동 출처 보기</string>
+</resources>

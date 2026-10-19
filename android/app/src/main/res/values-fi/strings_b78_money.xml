@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">Ostopäivälle ei ole valuuttakurssia (puuttuu kohdista ”Ostosta” ja hankintahinta): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">Hankintahinta ostopäiviltä ilman USDT/USD-kurssia muunnettu kurssilla USDT = 1.</string>
+    <string name="ledger_cost_fx_usdt_assumed">Hankintahinta ostopäiviltä ilman USDT:n dollarikurssia laskettu 1 Yhdysvaltain dollarina per USDT.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">Korko – veronalainen saatuna</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

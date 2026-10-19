@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">Fără curs de schimb pentru ziua cumpărării (lipsește din „De la cumpărare” și din cost): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">Costul din zilele de cumpărare fără curs USDT/USD convertit cu USDT = 1.</string>
+    <string name="ledger_cost_fx_usdt_assumed">Costul din zilele de cumpărare fără curs în dolari al USDT calculat ca 1 dolar american per USDT.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">Dobândă – impozabilă la încasare</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

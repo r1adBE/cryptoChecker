@@ -138,7 +138,7 @@ struct PortfolioTotalCard: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.top, 2)
                 case .VIA_USDC:
-                    // Kurs nur aus USDC/USDT: Herkunft nennen (USDC = 1 angenommen)
+                    // Kurs nur aus USDC/USDT: Herkunft nennen und warnen — ein Einbruch von USDC verschiebt sonst still alle Werte
                     Text(L("portfolio_usdt_via_usdc"))
                         .font(.footnote)
                         .foregroundStyle(AppColors.onSurfaceVariant)

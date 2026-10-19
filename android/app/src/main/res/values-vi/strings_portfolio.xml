@@ -84,7 +84,7 @@
     <string name="portfolio_price_unchecked">Giá chưa kiểm tra</string>
     <string name="portfolio_price_via_base">≈ giá %1$s (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT quy đổi theo giá thị trường bằng USD</string>
-    <string name="portfolio_usdt_assumed">Giả định USDT = 1</string>
+    <string name="portfolio_usdt_assumed">Thiếu tỷ giá đô la của USDT – tính là 1 đô la Mỹ</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Thêm vào danh mục</string>

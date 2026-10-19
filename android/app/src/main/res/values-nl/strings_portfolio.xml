@@ -87,7 +87,7 @@
     <string name="portfolio_price_unchecked">Koers niet gecontroleerd</string>
     <string name="portfolio_price_via_base">≈ %1$s-koers (gebridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT omgerekend tegen de USD-marktkoers</string>
-    <string name="portfolio_usdt_assumed">USDT = 1 aangenomen</string>
+    <string name="portfolio_usdt_assumed">Dollarkoers van USDT ontbreekt – gerekend als 1 Amerikaanse dollar</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Aan portfolio toevoegen</string>

@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">Немає курсу валют на день купівлі (не враховано в «З купівлі» та вартості купівлі): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">Вартість купівлі в дні без курсу USDT/USD перераховано за USDT = 1.</string>
+    <string name="ledger_cost_fx_usdt_assumed">Вартість купівлі в дні без курсу USDT до долара враховано як 1 долар США за USDT.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">Відсотки – оподатковуються при отриманні</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

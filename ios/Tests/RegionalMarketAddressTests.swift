@@ -11,6 +11,9 @@ final class RegionalMarketAddressTests: XCTestCase {
                        "https://public.bitbank.cc/btc_jpy/ticker")
         XCTAssertEqual(Bitbank().tickerAddress(call: 0, info: PairQuery("X", "Y", "eth_jpy")),
                        "https://public.bitbank.cc/eth_jpy/ticker")
+        // Bitcoin Cash heisst bei bitbank «bcc»; angezeigt wird BCH
+        XCTAssertEqual(Bitbank().tickerAddress(call: 0, info: PairQuery("BCH", "JPY", nil)),
+                       "https://public.bitbank.cc/bcc_jpy/ticker")
         XCTAssertEqual(Coincheck().tickerAddress(call: 0, info: PairQuery("BTC", "JPY", nil)),
                        "https://coincheck.com/api/ticker?pair=btc_jpy")
         XCTAssertEqual(HashKey().tickerAddress(call: 0, info: PairQuery("BTC", "HKD", nil)),

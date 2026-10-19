@@ -101,6 +101,112 @@
           }
         }
       }
+    },
+    {
+      "kind": "pairs",
+      "name": "exchangeInfo: underlyingType is always COIN; underlyingSubType STOCK/ETF/Commodities/USD1-RWA = TradFi (case-insensitive), Top/Meme/AI/AOS2/pre-launch/[] = crypto",
+      "market": "Aster",
+      "requestId": 0,
+      "note": "Rows shortened from the live /fapi/v1/exchangeInfo of 19.10.2026 (subtype combinations as listed there).",
+      "body": "{\"timezone\":\"UTC\",\"serverTime\":1792423148000,\"rateLimits\":[],\"assets\":[],\"symbols\":[{\"symbol\":\"BTCUSDT\",\"pair\":\"BTCUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"Top\"]},{\"symbol\":\"DOGEUSDT\",\"pair\":\"DOGEUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"DOGE\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"Meme\"]},{\"symbol\":\"WLDUSDT\",\"pair\":\"WLDUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"WLD\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"AI\"]},{\"symbol\":\"HYPEUSDT\",\"pair\":\"HYPEUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"HYPE\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[]},{\"symbol\":\"BTCU\",\"pair\":\"BTCU\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"BTC\",\"quoteAsset\":\"U\",\"marginAsset\":\"U\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"AOS2\"]},{\"symbol\":\"NEWUSDT\",\"pair\":\"NEWUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"NEW\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"pre-launch\"]},{\"symbol\":\"AAPLUSDT\",\"pair\":\"AAPLUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"AAPL\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"STOCK\"]},{\"symbol\":\"NVDAUSDT\",\"pair\":\"NVDAUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"NVDA\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"STOCK\",\"Semiconductor\"]},{\"symbol\":\"QQQUSDT\",\"pair\":\"QQQUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"QQQ\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"STOCK\",\"ETF\"]},{\"symbol\":\"SPYUSDT\",\"pair\":\"SPYUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"SPY\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"ETF\"]},{\"symbol\":\"XAUUSDT\",\"pair\":\"XAUUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"XAU\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"Commodities\"]},{\"symbol\":\"PAXGUSDT\",\"pair\":\"PAXGUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"PAXG\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"Commodities\"]},{\"symbol\":\"NATGASUSDT\",\"pair\":\"NATGASUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"NATGAS\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"Commodities\"]},{\"symbol\":\"METAUSD1\",\"pair\":\"METAUSD1\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"META\",\"quoteAsset\":\"USD1\",\"marginAsset\":\"USD1\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"STOCK\",\"AOS2\",\"USD1-RWA\"]},{\"symbol\":\"OPENAIUSDT\",\"pair\":\"OPENAIUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"TRADING\",\"baseAsset\":\"OPENAI\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"pre-launch\",\"STOCK\"]},{\"symbol\":\"TSLAUSDT\",\"pair\":\"TSLAUSDT\",\"contractType\":\"PERPETUAL\",\"status\":\"SETTLING\",\"baseAsset\":\"TSLA\",\"quoteAsset\":\"USDT\",\"marginAsset\":\"USDT\",\"underlyingType\":\"COIN\",\"underlyingSubType\":[\"STOCK\"]}]}",
+      "expect": {
+        "count": 15,
+        "absent": [
+          "TSLAUSDT"
+        ],
+        "pairs": {
+          "BTCUSDT": {
+            "base": "BTC",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": false
+          },
+          "DOGEUSDT": {
+            "base": "DOGE",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": false
+          },
+          "WLDUSDT": {
+            "base": "WLD",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": false
+          },
+          "HYPEUSDT": {
+            "base": "HYPE",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": false
+          },
+          "BTCU": {
+            "base": "BTC",
+            "quote": "U",
+            "contract": "PERPETUAL",
+            "tradFi": false
+          },
+          "NEWUSDT": {
+            "base": "NEW",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": false
+          },
+          "AAPLUSDT": {
+            "base": "AAPL",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "NVDAUSDT": {
+            "base": "NVDA",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "QQQUSDT": {
+            "base": "QQQ",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "SPYUSDT": {
+            "base": "SPY",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "XAUUSDT": {
+            "base": "XAU",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "PAXGUSDT": {
+            "base": "PAXG",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "NATGASUSDT": {
+            "base": "NATGAS",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "METAUSD1": {
+            "base": "META",
+            "quote": "USD1",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          },
+          "OPENAIUSDT": {
+            "base": "OPENAI",
+            "quote": "USDT",
+            "contract": "PERPETUAL",
+            "tradFi": true
+          }
+        }
+      }
     }
   ]
 }

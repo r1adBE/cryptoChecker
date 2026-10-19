@@ -84,7 +84,7 @@
     <string name="portfolio_price_unchecked">价格未核实</string>
     <string name="portfolio_price_via_base">≈ %1$s 价格（跨链/包装）</string>
     <string name="portfolio_usdt_as_usd">USDT 按其 USD 市场价换算</string>
-    <string name="portfolio_usdt_assumed">假定 USDT = 1</string>
+    <string name="portfolio_usdt_assumed">缺少 USDT 的美元汇率 – 按 1 美元计算</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">添加到投资组合</string>

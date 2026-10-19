@@ -30,6 +30,8 @@ import com.cryptochecker.app.util.PriceFormat
 /**
  * EIN Dialog nach dem allerersten Alarm statt mehrerer nacheinander: Bestätigung mit «Alarm testen», dazu optional
  * «Pünktlich prüfen» und, nur wenn die Akku-Optimierung die App einschränkt, die Akku-Einstellungen.
+ * Hauptknopf «Prüfen, ob Alarme ankommen» öffnet gleich «Damit Alarme ankommen» ([LocalOpenAlarmDelivery]):
+ * ob Alarme wirklich ankommen, soll man nach dem ersten Alarm sehen, nicht erst suchen müssen. Wie iOS.
  */
 @Composable
 internal fun FirstAlarmDialog(
@@ -84,9 +86,22 @@ internal fun FirstAlarmDialog(
             }
         },
         confirmButton = {
-            TextButton(onClick = viewModel::dismissFirstAlarm) { Text(stringResource(android.R.string.ok)) }
+            // Ohne Navigation (Vorschau): nur «OK» wie bisher
+            val openDelivery = LocalOpenAlarmDelivery.current
+            if (openDelivery != null) {
+                TextButton(onClick = {
+                    viewModel.dismissFirstAlarm()
+                    openDelivery()
+                }) { Text(stringResource(R.string.alarm_first_check)) }
+            } else {
+                TextButton(onClick = viewModel::dismissFirstAlarm) { Text(stringResource(android.R.string.ok)) }
+            }
         },
         dismissButton = {
+            // Mehrere Knöpfe in diesem Platz: der Dialog reiht sie (wie iOS: OK, Alarm testen, Prüfen)
+            if (LocalOpenAlarmDelivery.current != null) {
+                TextButton(onClick = viewModel::dismissFirstAlarm) { Text(stringResource(android.R.string.ok)) }
+            }
             TextButton(onClick = {
                 viewModel.dismissFirstAlarm()
                 testAlarm()

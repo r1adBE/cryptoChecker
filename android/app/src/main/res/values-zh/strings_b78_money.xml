@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">买入日无汇率（未计入“自买入”和成本）：%1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">无 USDT/USD 汇率的买入日成本按 USDT = 1 换算。</string>
+    <string name="ledger_cost_fx_usdt_assumed">无 USDT 美元汇率的买入日成本按每 USDT 1 美元计算。</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">利息 – 收到时应税</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

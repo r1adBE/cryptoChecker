@@ -93,7 +93,7 @@
     <string name="portfolio_price_unchecked">Cena neověřena</string>
     <string name="portfolio_price_via_base">≈ kurz %1$s (přemostěný/zabalený)</string>
     <string name="portfolio_usdt_as_usd">USDT přepočteno tržním kurzem v USD</string>
-    <string name="portfolio_usdt_assumed">Předpokládá se USDT = 1</string>
+    <string name="portfolio_usdt_assumed">Chybí dolarový kurz USDT – počítáno jako 1 americký dolar</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Přidat do portfolia</string>

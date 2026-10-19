@@ -32,7 +32,7 @@
     <string name="alarm_fires_now_save">Tallenna silti</string>
     <string name="alarm_fires_now_title">Hälytys laukeaisi heti</string>
     <string name="alarm_first_battery_hint">Akun optimointi rajoittaa sovellusta – hälytykset voivat tulla myöhässä.</string>
-    <string name="alarm_first_title">Kaikki valmista</string>
+    <string name="alarm_first_title">Hälytys tallennettu</string>
     <string name="alarm_last_triggered">viimeksi %1$s</string>
     <string name="alarm_more_conditions">Lisää ehtoja</string>
     <string name="alarm_new_extreme">Uusi %1$s</string>

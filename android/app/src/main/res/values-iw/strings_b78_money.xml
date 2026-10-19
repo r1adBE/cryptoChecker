@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">אין שער חליפין ליום הקנייה (חסר ב„מאז הקנייה” ובעלות הרכישה): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">עלות בימי קנייה ללא שער USDT/USD חושבה לפי USDT = 1.</string>
+    <string name="ledger_cost_fx_usdt_assumed">עלות בימי קנייה ללא שער דולר של USDT חושבה כדולר אמריקאי אחד לכל USDT.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">ריבית – חייבת במס בעת הקבלה</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

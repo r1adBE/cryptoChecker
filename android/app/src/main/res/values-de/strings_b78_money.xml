@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">Kein Devisenkurs am Kauftag (fehlt in «Seit Kauf» und Einstand): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">Einstand an Kauftagen ohne USDT/USD-Kurs mit USDT = 1 umgerechnet.</string>
+    <string name="ledger_cost_fx_usdt_assumed">Einstand an Kauftagen ohne Dollarkurs von USDT mit 1 US-Dollar je USDT gerechnet.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">Zins – steuerpflichtig beim Zufluss</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

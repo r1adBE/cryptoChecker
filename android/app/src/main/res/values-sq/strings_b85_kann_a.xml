@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_first_check">Kontrollo që alarmet të arrijnë</string>
+    <string name="change_candle_source_hint">Llogaritur nga qirinjtë e %1$s – vetë bursa nuk e jep këtë vlerë.</string>
+    <string name="change_candle_source_action">Shfaq burimin e ndryshimit</string>
+</resources>

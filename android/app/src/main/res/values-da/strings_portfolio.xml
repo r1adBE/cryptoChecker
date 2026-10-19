@@ -87,7 +87,7 @@
     <string name="portfolio_price_unchecked">Kurs ikke kontrolleret</string>
     <string name="portfolio_price_via_base">≈ %1$s-kurs (bridged/wrapped)</string>
     <string name="portfolio_usdt_as_usd">USDT omregnet til sin USD-markedskurs</string>
-    <string name="portfolio_usdt_assumed">USDT = 1 antaget</string>
+    <string name="portfolio_usdt_assumed">USDT-dollarkurs mangler – regnet som 1 amerikansk dollar</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Føj til portefølje</string>

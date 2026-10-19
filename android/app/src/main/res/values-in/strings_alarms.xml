@@ -31,7 +31,7 @@
     <string name="alarm_fires_now_save">Tetap simpan</string>
     <string name="alarm_fires_now_title">Alarm akan langsung berbunyi</string>
     <string name="alarm_first_battery_hint">Optimasi baterai membatasi aplikasi – alarm bisa datang terlambat.</string>
-    <string name="alarm_first_title">Semua siap</string>
+    <string name="alarm_first_title">Peringatan disimpan</string>
     <string name="alarm_last_triggered">terakhir %1$s</string>
     <string name="alarm_more_conditions">Kondisi lainnya</string>
     <string name="alarm_new_extreme">%1$s baru</string>

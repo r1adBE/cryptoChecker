@@ -93,7 +93,7 @@
     <string name="portfolio_price_unchecked">Цена не проверена</string>
     <string name="portfolio_price_via_base">≈ курс %1$s (через мост/обёрнутый)</string>
     <string name="portfolio_usdt_as_usd">USDT пересчитан по рыночному курсу в USD</string>
-    <string name="portfolio_usdt_assumed">Принято USDT = 1</string>
+    <string name="portfolio_usdt_assumed">Нет курса USDT к доллару – считается как 1 доллар США</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Добавить в портфель</string>

@@ -32,7 +32,7 @@
     <string name="alarm_fires_now_save">باز هم ذخیره کن</string>
     <string name="alarm_fires_now_title">هشدار فوراً فعال می‌شود</string>
     <string name="alarm_first_battery_hint">بهینه‌سازی باتری برنامه را محدود می‌کند – هشدارها ممکن است دیر برسند.</string>
-    <string name="alarm_first_title">همه چیز آماده است</string>
+    <string name="alarm_first_title">هشدار ذخیره شد</string>
     <string name="alarm_last_triggered">آخرین بار %1$s</string>
     <string name="alarm_more_conditions">شرط‌های بیشتر</string>
     <string name="alarm_new_extreme">تازه: %1$s</string>

@@ -7,6 +7,7 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.Change24h
+import com.cryptochecker.marketdata.util.TradFi
 import com.cryptochecker.marketdata.util.getText
 import com.cryptochecker.marketdata.util.optDoubleOrMissing
 import com.cryptochecker.marketdata.util.optText
@@ -103,6 +104,8 @@ abstract class BingXBase(
     /**
      * Spot: {"data": {"symbols": [{symbol, status}]}} — Basis und Kotierung nur im Symbol. Swap: {"data":
      * [{symbol, asset, currency, status}]}. Nur «status» 1 (online); offline, Voreröffnung und ausgesetzte nicht.
+     * Swap-TradFi ([TradFi.bingx]): `asset` ist eine interne Kennung («NCSKAAPL2USD»), die Basis kommt aus
+     * `displayName`; Krypto behält `asset` (`displayName` weicht dort ab, etwa NEIROCTO → «NEIRO»).
      */
     override fun fillPairListJson(call: Int, json: JSONObject, out: MutableList<MarketPair>) {
         val entries = if (perpetuals) json.getJSONArray("data") else json.getJSONObject("data").getJSONArray("symbols")
@@ -111,7 +114,10 @@ abstract class BingXBase(
             if (entry.optInt("status", -1) != BINGX_ONLINE) continue
             val symbol = entry.getString("symbol")
             if (perpetuals) {
-                out += MarketPair(entry.getString("asset"), entry.getString("currency"), symbol, contractType)
+                val asset = entry.getString("asset")
+                val tradFi = TradFi.bingx(asset)
+                val base = if (tradFi) TradFi.bingxBase(entry.optText("displayName"), asset) else asset
+                out += MarketPair(base, entry.getString("currency"), symbol, contractType, tradFi)
             } else {
                 // Kotierung = Teil nach dem letzten «-» (Kotierungen enthalten keinen Bindestrich)
                 val cut = symbol.lastIndexOf('-')

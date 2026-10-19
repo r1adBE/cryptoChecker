@@ -90,7 +90,7 @@
     <string name="portfolio_price_unchecked">מחיר לא נבדק</string>
     <string name="portfolio_price_via_base">≈ מחיר %1$s (מגושר/עטוף)</string>
     <string name="portfolio_usdt_as_usd">USDT מומר לפי מחיר השוק שלו ב-USD</string>
-    <string name="portfolio_usdt_assumed">מניחים USDT = 1</string>
+    <string name="portfolio_usdt_assumed">שער הדולר של USDT חסר – חושב כדולר אמריקאי אחד</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">הוספה לתיק ההשקעות</string>

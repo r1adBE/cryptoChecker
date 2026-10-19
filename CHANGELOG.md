@@ -22,8 +22,20 @@ Detailed build history below.
   Asia), CoinDCX (India), Paribu and ICRYPEX (Türkiye), BingX (spot and futures) and the perp DEXs Aster and Lighter.
   Each adapter was checked against recorded live responses; Android and iPhone read them identically.
 * The daily exchange check covers the new exchanges.
+* First alarm dialog is titled «Alert saved» instead of «All set»: whether alerts actually arrive is what the
+  checklist below it answers.
+* Stocks, ETFs and commodities on Aster, BingX Futures and Lighter (incl. Robinhood stock tokens) are marked as TradFi
+  with their real ticker (e.g. AAPL, not NCSKAAPL2USD); bitbank's «BCC» is shown as BCH.
 * Watchlist sort mode: «Sort by coin» and «Sort by exchange» order the shown pairs once (favorites stay on top) and
   save the result as your own order – same coins from different exchanges end up next to each other; drag as before.
+* Plain wording when the USDT dollar rate is missing: «USDT dollar rate missing – counted as 1 US dollar» instead of
+  «USDT = 1 assumed» (all 31 languages, also the cost-basis hint).
+* When USDT is valued via Binance USDC/USDT (no direct USDT/USD rate), the card line now also warns: «if USDC falls,
+  this value is wrong».
+* After the first alarm, the main button «Check that alerts arrive» opens the «Make sure alerts arrive» checklist
+  right away, so you see whether alerts will actually reach you.
+* Watchlist: tapping the small «*» next to a change explains it – «Calculated from Binance candles – the exchange
+  itself doesn’t provide this value»; screen readers get it as an action of the row.
 
 ## 16.2.2 (build 84)
 

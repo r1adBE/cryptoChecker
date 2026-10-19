@@ -33,7 +33,7 @@
     <string name="alarm_fires_now_save">Enregistrer quand même</string>
     <string name="alarm_fires_now_title">L’alerte se déclencherait tout de suite</string>
     <string name="alarm_first_battery_hint">L’optimisation de la batterie limite l’app – les alarmes peuvent arriver en retard.</string>
-    <string name="alarm_first_title">Tout est prêt</string>
+    <string name="alarm_first_title">Alerte enregistrée</string>
     <string name="alarm_last_triggered">dernière : %1$s</string>
     <string name="alarm_more_conditions">Plus de conditions</string>
     <string name="alarm_new_extreme">Nouveau %1$s</string>

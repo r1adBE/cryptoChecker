@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">Nincs árfolyam a vétel napjára (hiányzik a „Vétel óta” és a bekerülési érték számításából): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">A USDT/USD árfolyam nélküli vételi napok bekerülési értéke USDT = 1 árfolyammal átszámítva.</string>
+    <string name="ledger_cost_fx_usdt_assumed">Az USDT dolláros árfolyama nélküli vételi napok bekerülési értéke USDT-nként 1 amerikai dollárral számolva.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">Kamat – a jóváíráskor adóköteles</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

@@ -2,7 +2,7 @@
 <resources>
     <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
     <string name="portfolio_usdt_break">USDT-összeomlás – piac %1$s USD</string>
-    <string name="portfolio_usdt_via_usdc">USDT/USD az USDC/USDT-n keresztül (USDC = 1 feltételezve)</string>
+    <string name="portfolio_usdt_via_usdc">Az USDT dolláros árfolyama USDC/USDT alapján – ha az USDC esik, ez az érték nem helyes</string>
     <string name="dex_low_liquidity_no_alarm">Alacsony likviditás – nincs riasztás</string>
     <string name="dex_low_liquidity_alarm_hint">Ennek a poolnak 10 000 USD-nél kisebb a likviditása (vagy nincs adat). Már kis összegek is elmozdítják az árfolyamot, ezért itt nem állítható be riasztás. A meglévő riasztások megmaradnak, de csak akkor jeleznek, ha a likviditás ismét nő.</string>
     <string name="portfolio_csv_skip_duplicate_txid_different">azonos tranzakcióazonosító eltérő összeggel – ellenőrizd kézzel</string>

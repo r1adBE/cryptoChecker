@@ -1260,11 +1260,12 @@ the tests named here.
 * **USDT line on the card (build 58).** `DepegAlarm.cardNote` (both platforms, parity `depeg_alarm.json` › `cardNote`)
   decides the «USDT = 1» line independently of the depeg alarm: fresh reading ≥ threshold → deviation warning (as
   before, always shown); else values hanging on USDT = USD (`PortfolioExchangeRoute.usdtParityShown`) → price-source
-  line; else holdings containing USDT → `portfolio_usdt_assumed` («USDT = 1 assumed»); else no line.
+  line; else holdings containing USDT → `portfolio_usdt_assumed` («USDT dollar rate missing – counted as 1 US dollar»); else no line.
   With `usdtMarket = true` (USDT at market price, see below): a fresh plausible reading (`DepegAlarm.liveUsdtUsd`) →
   no line; otherwise `USDT_ASSUMED` whenever values depend on USDT – the visible marker of the 1-fallback.
   The total card gets the last reading, the threshold and the screen clock (`depegReading`, `depegThresholdTenths`,
   `now`) and calls `cardNote` itself; the price-source line moves under «Hints» unless it is the card line.
+  `VIA_USDC` (`portfolio_usdt_via_usdc`) warns that a USDC depeg falsifies the value (build 85); Aster's quote «U» (United Stables) is deliberately not in `USD_STABLES` – the set also classifies base coins (`PortfolioStables.isStable`), so a coin «U» would be treated as a stablecoin.
 * **Exchange connections checked (build 58).** `ExchangeVerification.LAST_VERIFIED` (Swift `lastVerified`) is the UTC
   date of the newest recorded exchange response; `ExchangeVerificationTest(s)` fail when a newer recording is added
   without moving the date. About shows it with `about_exchanges_verified` below the CoinGecko line, the date in the

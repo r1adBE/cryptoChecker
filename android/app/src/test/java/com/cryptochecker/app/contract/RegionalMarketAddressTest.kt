@@ -23,6 +23,8 @@ class RegionalMarketAddressTest {
     fun tickerAddressesUseStoredOrDerivedIds() {
         assertEquals("https://public.bitbank.cc/btc_jpy/ticker", Bitbank().tickerAddress(0, query("BTC", "JPY", null)))
         assertEquals("https://public.bitbank.cc/eth_jpy/ticker", Bitbank().tickerAddress(0, query("X", "Y", "eth_jpy")))
+        // Bitcoin Cash heisst bei bitbank «bcc»; angezeigt wird BCH
+        assertEquals("https://public.bitbank.cc/bcc_jpy/ticker", Bitbank().tickerAddress(0, query("BCH", "JPY", null)))
         assertEquals(
             "https://coincheck.com/api/ticker?pair=btc_jpy",
             Coincheck().tickerAddress(0, query("BTC", "JPY", null)),

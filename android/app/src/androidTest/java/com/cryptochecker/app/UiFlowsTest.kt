@@ -110,7 +110,9 @@ class UiFlowsTest {
         val alarm = runBlocking { watchRepository.observeAlarms(watchId).first() }.single()
         assertEquals(AlarmCondition.PRICE_ABOVE, alarm.condition)
         assertEquals(ALARM_THRESHOLD.toDouble(), alarm.threshold, 0.0)
-        // Allererster Alarm bzw. Hinweis «Wann geprüft wird»: Dialog mit «OK»
+        // Allererster Alarm: Hauptknopf öffnet «Damit Alarme ankommen», zurück zur Liste
+        openDeliveryFromFirstAlarm()
+        // Sonst ggf. Hinweis «Wann geprüft wird»: Dialog mit «OK»
         dismissOkDialogs()
         waitForTag(UiTestTags.ALARM_CARD)
     }
@@ -261,6 +263,23 @@ class UiFlowsTest {
             compose.waitUntil(DIALOG_TIMEOUT) { exists(UiTestTags.NOTIFICATION_PREPROMPT_CONTINUE) }
         }.isSuccess
         if (shown) clickTag(UiTestTags.NOTIFICATION_PREPROMPT_CONTINUE)
+    }
+
+    /**
+     * Bestätigung des allerersten Alarms: «Prüfen, ob Alarme ankommen» öffnet die Prüfliste, «Zurück» führt zu den
+     * Alarmen. Ohne Bestätigung (Alarm nicht der erste) nichts.
+     */
+    private fun openDeliveryFromFirstAlarm() {
+        val check = hasText(string(R.string.alarm_first_check)) and hasClickAction()
+        val shown = runCatching {
+            compose.waitUntil(DIALOG_TIMEOUT) { compose.onAllNodes(check).fetchSemanticsNodes().isNotEmpty() }
+        }.isSuccess
+        if (!shown) return
+        compose.onAllNodes(check).onFirst().performClick()
+        val title = hasText(string(R.string.delivery_title))
+        compose.waitUntil(TIMEOUT) { compose.onAllNodes(title).fetchSemanticsNodes().isNotEmpty() }
+        compose.runOnUiThread { compose.activity.onBackPressedDispatcher.onBackPressed() }
+        compose.waitForIdle()
     }
 
     /** Offene Dialoge mit «OK» schliessen (erster Alarm, Hinweis zur Prüfzeit); ohne Dialog nichts. */

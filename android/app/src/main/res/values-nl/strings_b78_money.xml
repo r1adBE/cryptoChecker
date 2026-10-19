@@ -5,7 +5,7 @@
     <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
     <string name="ledger_cost_fx_missing">Geen wisselkoers voor de aankoopdag (ontbreekt in ‘Sinds aankoop’ en kostprijs): %1$s</string>
     <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
-    <string name="ledger_cost_fx_usdt_assumed">Kostprijs op aankoopdagen zonder USDT/USD-koers omgerekend met USDT = 1.</string>
+    <string name="ledger_cost_fx_usdt_assumed">Kostprijs op aankoopdagen zonder dollarkoers van USDT gerekend als 1 Amerikaanse dollar per USDT.</string>
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">Rente – belast bij ontvangst</string>
     <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->

@@ -93,7 +93,7 @@
     <string name="portfolio_price_unchecked">Ціна не перевірена</string>
     <string name="portfolio_price_via_base">≈ курс %1$s (через міст/обгорнутий)</string>
     <string name="portfolio_usdt_as_usd">USDT перераховано за ринковим курсом у USD</string>
-    <string name="portfolio_usdt_assumed">Прийнято USDT = 1</string>
+    <string name="portfolio_usdt_assumed">Немає курсу USDT до долара – враховано як 1 долар США</string>
 
     <!-- Portfolio: Transaktionen erfassen und bearbeiten -->
     <string name="portfolio_add_from_watch">Додати до портфеля</string>

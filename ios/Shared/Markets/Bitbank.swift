@@ -8,6 +8,9 @@ private let bitbankTickers = bitbankAPI + "/tickers"
 /// Fehlercode «zu viele Anfragen» — bitbank schickt nur Codes, keinen Text.
 private let bitbankTooManyRequests = 10009
 
+/// bitbank führt Bitcoin Cash als «bcc»; angezeigt und verglichen wird das übliche Kürzel (wie Luno XBT → BTC).
+private let bitbankCommon: [String: String] = ["BCC": "BCH"]
+
 /// bitbank (Japan, JPY-Paare), öffentliche API: https://github.com/bitbankinc/bitbank-api-docs. Kennung «btc_jpy».
 /// Jede Antwort steckt in {"success":1,"data":…}; Fehler sind {"success":0,"data":{"code":…}} ohne Text.
 final class Bitbank: SimpleMarket {
@@ -23,7 +26,9 @@ final class Bitbank: SimpleMarket {
 
     // MARK: Einzelkurs
 
-    override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.baseLower + "_" + info.quoteLower }
+    override func pairId(_ info: PairQuery) -> String? {
+        info.pairId ?? Bitbank.bitbankCode(info.base) + "_" + Bitbank.bitbankCode(info.quote)
+    }
 
     override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         try copyRow(json.object("data"), into: &ticker)
@@ -64,7 +69,7 @@ final class Bitbank: SimpleMarket {
         for row in try json.array("data").allObjects() {
             let pair = row.optString("pair")
             let sides = pair.components(separatedBy: "_")
-            if sides.count == 2 { out.append(MarketPair(sides[0].uppercased(), sides[1].uppercased(), pair)) }
+            if sides.count == 2 { out.append(MarketPair(Bitbank.common(sides[0]), Bitbank.common(sides[1]), pair)) }
         }
         return out
     }
@@ -83,5 +88,16 @@ final class Bitbank: SimpleMarket {
         ticker.vol = row.optDoubleOrMissing("vol")
         // «open» laut Doku: Eröffnung vor 24 Stunden (gleitend)
         ticker.change24hPercent = Change24h.fromOpen(last: last, open: row.optDouble("open"))
+    }
+
+    private static func common(_ code: String) -> String {
+        let upper = code.uppercased()
+        return bitbankCommon[upper] ?? upper
+    }
+
+    /// Umkehrung von `common` für die Kennung ohne gespeicherte Paar-ID («bcc_jpy»), klein geschrieben.
+    private static func bitbankCode(_ code: String) -> String {
+        let upper = code.uppercased()
+        return (bitbankCommon.first { $0.value == upper }?.key ?? code).lowercased()
     }
 }

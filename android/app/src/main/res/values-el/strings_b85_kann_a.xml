@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_first_check">Έλεγχος ότι φτάνουν οι ειδοποιήσεις</string>
+    <string name="change_candle_source_hint">Υπολογίστηκε από κεριά %1$s – το ίδιο το ανταλλακτήριο δεν δίνει αυτή την τιμή.</string>
+    <string name="change_candle_source_action">Εμφάνιση πηγής μεταβολής</string>
+</resources>

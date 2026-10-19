@@ -173,6 +173,33 @@
           }
         }
       }
+    },
+    {
+      "kind": "pairs",
+      "name": "pair list from /tickers: bitbank lists Bitcoin Cash as «bcc» -> base BCH, pair id stays bcc_jpy",
+      "market": "Bitbank",
+      "requestId": 0,
+      "body": "{\"success\":1,\"data\":[{\"pair\":\"btc_jpy\",\"sell\":\"1\",\"buy\":\"1\",\"high\":\"1\",\"low\":\"1\",\"open\":\"1\",\"last\":\"1\",\"vol\":\"1\",\"timestamp\":1792423148000},{\"pair\":\"bcc_jpy\",\"sell\":\"1\",\"buy\":\"1\",\"high\":\"1\",\"low\":\"1\",\"open\":\"1\",\"last\":\"1\",\"vol\":\"1\",\"timestamp\":1792423148000},{\"pair\":\"bcc_btc\",\"sell\":\"1\",\"buy\":\"1\",\"high\":\"1\",\"low\":\"1\",\"open\":\"1\",\"last\":\"1\",\"vol\":\"1\",\"timestamp\":1792423148000}]}",
+      "expect": {
+        "count": 3,
+        "pairs": {
+          "btc_jpy": {
+            "base": "BTC",
+            "quote": "JPY",
+            "contract": "NONE"
+          },
+          "bcc_jpy": {
+            "base": "BCH",
+            "quote": "JPY",
+            "contract": "NONE"
+          },
+          "bcc_btc": {
+            "base": "BCH",
+            "quote": "BTC",
+            "contract": "NONE"
+          }
+        }
+      }
     }
   ]
 }
