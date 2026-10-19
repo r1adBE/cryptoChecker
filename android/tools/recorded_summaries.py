@@ -17,6 +17,27 @@ def escape(text):
     return text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
 
 
+def columns(body):
+    """Spalten-Antworten ({"a": [...], "b": [...]}): je Spalte mit wenigen verschiedenen Werten die Häufigkeiten."""
+    try:
+        data = json.loads(body)
+    except ValueError:
+        return ""
+    if not isinstance(data, dict):
+        return ""
+    lines = []
+    for key, value in data.items():
+        if isinstance(value, list) and value and all(not isinstance(v, (dict, list)) for v in value):
+            counts = {}
+            for v in value:
+                counts[str(v)] = counts.get(str(v), 0) + 1
+            if len(counts) <= 12:
+                lines.append(f"{key}: {counts}")
+            else:
+                lines.append(f"{key}: {len(counts)} Werte")
+    return ("\nSpalten: " + "; ".join(lines)) if lines else ""
+
+
 def main():
     start, end = int(sys.argv[1]), int(sys.argv[2])
     files = sorted(glob.glob(os.path.join(FOLDER, "recorded_*.json")))
@@ -32,7 +53,7 @@ def main():
             body = case.get("body") or case.get("response") or ""
             if not isinstance(body, str):
                 body = json.dumps(body)
-            parts.append(f"[{case.get('kind') or case.get('name')}] {case.get('request', '')}\n{body[:900]}")
+            parts.append(f"[{case.get('kind') or case.get('name')}] {case.get('request', '')}\n{body[:900]}{columns(body)}")
         notes = "; ".join(data.get("notes", [])) if isinstance(data.get("notes"), list) else ""
         message = "\n\n".join(parts) or f"keine Fälle {notes}"
         print(f"::notice title={os.path.basename(path)}::{escape(message[:6000])}")
