@@ -382,8 +382,11 @@ Rules:
 
 | Exchange / market | Field used | Unit / note |
 |---|---|---|
+| Aster | `priceChangePercent` (`/fapi/v1/ticker/24hr`) | percent (like Binance) |
 | Binance, Binance.US | `priceChangePercent` (`/ticker/24hr`) | percent |
 | Binance Futures (USD-M, COIN-M) | `priceChangePercent` (`/ticker/24hr`) | percent |
+| BingX, BingX Futures | `openPrice` | price 24 h ago; the spot `priceChangePercent` is text with «%» and not used |
+| bitbank | `open` | price 24 h ago |
 | bitFlyer | – fallback candles | ticker has no 24 h change |
 | Bitfinex | `DAILY_CHANGE_RELATIVE` (index 5, bulk 6) | fraction × 100 |
 | Bitget, Bitget Futures | `change24h` | fraction × 100; `changeUtc24h` (since 00:00 UTC) not used |
@@ -391,25 +394,34 @@ Rules:
 | Bitstamp | `open_24`, else `percent_change_24` | `open` is the start of the day and not used |
 | Bitvavo | `open` (`/ticker/24h`) | price 24 h ago |
 | BtcTurk | `open`, else `dailyPercent` | price 24 h ago / percent |
+| BTC Markets | `price24h`, else `pricePct24h` | absolute change → open = last − change / percent |
 | Bybit, Bybit Futures | `price24hPcnt` | fraction × 100 |
 | Coinbase | `open` from `/stats` (the only request), against `last` of the same response | price 24 h ago |
+| CoinDCX | `change_24_hour` | percent |
+| Coincheck | – fallback candles | ticker has no 24 h change |
 | Crypto.com | `c` | fraction × 100; `null` without trades |
 | Deribit | `stats.price_change` (single), `price_change` (bulk) | percent |
 | DexScreener | `priceChange.h24` | percent |
 | Gate.io | `change_percentage` | percent; `change_utc0`/`change_utc8` not used |
 | Gemini | – fallback candles | `/pricefeed` `percentChange24h`: unit unclear (docs show percent «5.23», real responses look like fractions «0.0146»); `pubticker` has no 24 h change |
+| HashKey | `o` (`/quote/v1/ticker/24hr`) | price 24 h ago |
 | HTX, HTX Futures | – fallback candles | `open` of the bulk ticker is documented as the open of the calendar day (Singapore time) |
 | Hyperliquid | `prevDayPx` against the shown price (`midPx`, else `markPx`) | mark price 24 h ago |
+| Icrypex | – fallback candles | `change` is percent (`qty` = absolute change), but its window is not documented; rows without an open report `change` 0 with `qty` = `last` |
 | Independent Reserve | – fallback candles | no change/open in `GetMarketSummary` |
 | Indodax | – fallback candles | no change/open in `ticker` / `ticker_all` |
 | Kraken | – fallback candles | `o` is today's open (UTC day), not rolling |
 | KuCoin | `changeRate` | fraction × 100 |
 | LATOKEN | `change24h` | percent |
+| Lighter | `daily_price_change` (`/exchangeStats`) | percent (rolling 24 h; checked against BTC high/low/last) |
+| Luno | – fallback candles | ticker has no 24 h change |
+| Mercado Bitcoin | `open` | price 24 h ago |
 | MEXC | `openPrice`, else `priceChangePercent` | price 24 h ago / **fraction** × 100 |
 | MEXC Futures | – fallback candles | `riseFallRate` is the change since 00:00 UTC+8, not rolling; the day values in `riseFallRates` are not used either |
 | NonKYC | – fallback candles | no documented rolling 24 h field |
 | OKX, OKX Futures | `open24h` | price 24 h ago; `sodUtc0`/`sodUtc8` not used |
 | One Trading | `price_change_percentage` | percent |
+| Paribu | – fallback candles | `percentChange` is percent, but its window is not documented |
 | Phemex | `openEp` (scaled 10^8) | price 24 h ago |
 | Phemex Futures | `openRp` | price 24 h ago |
 | Poloniex | `open` (`ticker24h`), else `dailyChange` | price 24 h ago / fraction × 100 |

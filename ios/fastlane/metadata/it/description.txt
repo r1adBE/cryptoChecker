@@ -14,7 +14,7 @@ CHIAREZZA SUI DATI
 • Gli importi restano sul dispositivo, a meno che non li esporti tu (CSV, backup). Per i prezzi solo i simboli della coppia vanno al suo exchange; in più tassi di cambio (Frankfurter), dati di mercato e loghi (CoinGecko, Binance), mirror dei dati (GitHub). Se osservi indirizzi o una xpub, i nodi blockchain pubblici vedono gli indirizzi (con una xpub, quelli derivati) e il tuo IP.
 
 WATCHLIST
-• 41 mercati su 32 exchange: spot e futures, token DEX tramite DexScreener, a scelta azioni, oro e valute (TradFi)
+• 54 mercati su 44 exchange: spot e futures, token DEX tramite DexScreener, a scelta azioni, oro e valute (TradFi)
 • Seconda riga «≈ valore» in una di 31 valute (EUR, CHF, USD …), convertita al tasso di cambio
 • Mini grafico e variazione % su 24 h o dalle 00:00 (tuo fuso orario)
 • Gruppi, preferiti, riordino con trascinamento e una nota per moneta

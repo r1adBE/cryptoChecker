@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watchlist_sort_by_coin">מיון לפי מטבע</string>
+    <string name="watchlist_sort_by_exchange">מיון לפי בורסה</string>
+</resources>

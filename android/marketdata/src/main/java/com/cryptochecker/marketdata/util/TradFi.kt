@@ -56,4 +56,10 @@ object TradFi {
 
     /** Phemex Futures (`/public/products`, `perpProductsV2`): `perpProductSubType` ist «TradFi». */
     fun phemex(perpProductSubType: String): Boolean = "TradFi".equals(perpProductSubType, ignoreCase = true)
+
+    /**
+     * Lighter (`/api/v1/tokenlist`): `asset_type` «RWA» (Aktien, ETFs, Rohstoffe, Devisen, Pre-IPO, Rechenleistung)
+     * statt «CRYPTO».
+     */
+    fun lighter(assetType: String): Boolean = assetType.equals("RWA", ignoreCase = true)
 }

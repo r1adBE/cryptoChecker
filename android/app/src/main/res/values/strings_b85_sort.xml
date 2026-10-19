@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sortiermodus der Merkliste: ordnet die gezeigten Paare einmal und speichert sie als eigene Reihenfolge (Favoriten bleiben oben). Coin = Anzeigename A–Z, gleiche Coins verschiedener Börsen untereinander -->
+    <string name="watchlist_sort_by_coin">Sort by coin</string>
+    <!-- Wie oben, aber nach Börse gruppiert, innerhalb der Börse A–Z -->
+    <string name="watchlist_sort_by_exchange">Sort by exchange</string>
+</resources>

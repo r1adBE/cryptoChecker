@@ -1,0 +1,190 @@
+{
+  "exchange": "BTC Markets",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Needs recorded verification (tools/record_exchange_fixtures.py). Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "endpoints": {
+    "single": "GET https://api.btcmarkets.net/v3/markets/BTC-AUD/ticker",
+    "bulk": "GET https://api.btcmarkets.net/v3/markets/tickers?marketId=BTC-AUD&marketId=ETH-AUD",
+    "pairs": "GET https://api.btcmarkets.net/v3/markets"
+  },
+  "cases": [
+    {
+      "kind": "single",
+      "name": "ticker BTC-AUD: price24h = absolute 24 h change (open = last − change); timestamp is the snapshot time (exchange time unknown)",
+      "market": "BtcMarkets",
+      "pair": {
+        "base": "BTC",
+        "quote": "AUD",
+        "id": "BTC-AUD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"marketId\":\"BTC-AUD\",\"bestBid\":\"95000.12\",\"bestAsk\":\"95010.5\",\"lastPrice\":\"95005\",\"volume24h\":\"123.456\",\"volumeQte24h\":\"11665432.1\",\"price24h\":\"1505\",\"pricePct24h\":\"1.61\",\"low24h\":\"93000\",\"high24h\":\"95500\",\"timestamp\":\"2024-10-10T06:00:00.123000Z\"}",
+      "expect": {
+        "last": 95005.0,
+        "bid": 95000.12,
+        "ask": 95010.5,
+        "high": 95500.0,
+        "low": 93000.0,
+        "vol": 123.456,
+        "volQuote": 11665432.1,
+        "change24hPercent": 1.609625668449198,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker without price24h: pricePct24h (percent) as fallback",
+      "market": "BtcMarkets",
+      "pair": {
+        "base": "BTC",
+        "quote": "AUD",
+        "id": "BTC-AUD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"marketId\":\"BTC-AUD\",\"bestBid\":\"95000.12\",\"bestAsk\":\"95010.5\",\"lastPrice\":\"95005\",\"volume24h\":\"123.456\",\"volumeQte24h\":\"11665432.1\",\"pricePct24h\":\"1.61\",\"low24h\":\"93000\",\"high24h\":\"95500\",\"timestamp\":\"2024-10-10T06:00:00.123000Z\"}",
+      "expect": {
+        "last": 95005.0,
+        "change24hPercent": 1.61,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "BtcMarkets",
+      "pair": {
+        "base": "FOO",
+        "quote": "AUD",
+        "id": "FOO-AUD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"MarketNotFound\",\"message\":\"market not found\"}",
+      "expect": {
+        "error": true,
+        "message": "market not found"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "rate limit: message «Too many requests»",
+      "market": "BtcMarkets",
+      "pair": {
+        "base": "BTC",
+        "quote": "AUD",
+        "id": "BTC-AUD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"code\":\"TooManyRequests\",\"message\":\"Too many requests\"}",
+      "expect": {
+        "error": true,
+        "message": "Too many requests"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "lastPrice 0 is no price, not a valid ticker (no error text)",
+      "market": "BtcMarkets",
+      "pair": {
+        "base": "OLD",
+        "quote": "AUD",
+        "id": "OLD-AUD",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"marketId\":\"OLD-AUD\",\"bestBid\":\"95000.12\",\"bestAsk\":\"95010.5\",\"lastPrice\":\"0\",\"volume24h\":\"123.456\",\"volumeQte24h\":\"11665432.1\",\"price24h\":\"0\",\"pricePct24h\":\"0\",\"low24h\":\"93000\",\"high24h\":\"95500\",\"timestamp\":\"2024-10-10T06:00:00.123000Z\"}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk tickers (selection): row with lastPrice 0 (inactive) is skipped, not reported as unreadable",
+      "market": "BtcMarkets",
+      "requestId": 0,
+      "body": "[{\"marketId\":\"BTC-AUD\",\"bestBid\":\"95000.12\",\"bestAsk\":\"95010.5\",\"lastPrice\":\"95005\",\"volume24h\":\"123.456\",\"volumeQte24h\":\"11665432.1\",\"price24h\":\"1505\",\"pricePct24h\":\"1.61\",\"low24h\":\"93000\",\"high24h\":\"95500\",\"timestamp\":\"2024-10-10T06:00:00.123000Z\"},{\"marketId\":\"ETH-AUD\",\"bestBid\":\"3899.5\",\"bestAsk\":\"3900.5\",\"lastPrice\":\"3900\",\"volume24h\":\"2345.6\",\"volumeQte24h\":\"9147840\",\"price24h\":\"-100\",\"pricePct24h\":\"-2.5\",\"low24h\":\"3850\",\"high24h\":\"4010\",\"timestamp\":\"2024-10-10T06:00:00.123000Z\"},{\"marketId\":\"OLD-AUD\",\"bestBid\":\"95000.12\",\"bestAsk\":\"95010.5\",\"lastPrice\":\"0\",\"volume24h\":\"123.456\",\"volumeQte24h\":\"11665432.1\",\"price24h\":\"1505\",\"pricePct24h\":\"1.61\",\"low24h\":\"93000\",\"high24h\":\"95500\",\"timestamp\":\"2024-10-10T06:00:00.123000Z\"}]",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "OLD-AUD"
+        ],
+        "failed": [],
+        "tickers": {
+          "BTC-AUD": {
+            "last": 95005.0,
+            "volQuote": 11665432.1,
+            "change24hPercent": 1.609625668449198,
+            "exchangeTime": null
+          },
+          "ETH-AUD": {
+            "last": 3900.0,
+            "change24hPercent": -2.5
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «lastPrice» in one row — that pair is reported as unreadable, the rest stays",
+      "market": "BtcMarkets",
+      "requestId": 0,
+      "body": "[{\"marketId\":\"BTC-AUD\",\"bestBid\":\"95000.12\",\"bestAsk\":\"95010.5\",\"lastPrice\":\"95005\",\"volume24h\":\"123.456\",\"volumeQte24h\":\"11665432.1\",\"price24h\":\"1505\",\"pricePct24h\":\"1.61\",\"low24h\":\"93000\",\"high24h\":\"95500\",\"timestamp\":\"2024-10-10T06:00:00.123000Z\"},{\"marketId\":\"ETH-AUD\",\"bestBid\":\"3899.5\",\"bestAsk\":\"3900.5\",\"last\":\"3900\",\"volume24h\":\"2345.6\",\"volumeQte24h\":\"9147840\",\"price24h\":\"-100\",\"pricePct24h\":\"-2.5\",\"low24h\":\"3850\",\"high24h\":\"4010\",\"timestamp\":\"2024-10-10T06:00:00.123000Z\"}]",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETH-AUD"
+        ],
+        "failed": [
+          "ETH-AUD"
+        ],
+        "tickers": {
+          "BTC-AUD": {
+            "last": 95005.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: selection rejected with an error object fails the batch (then single requests)",
+      "market": "BtcMarkets",
+      "requestId": 0,
+      "body": "{\"code\":\"InvalidMarket\",\"message\":\"invalid marketId FOO-AUD\"}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "pairs",
+      "name": "pair list: only status Online; Post Only dropped, missing status kept",
+      "market": "BtcMarkets",
+      "requestId": 0,
+      "body": "[{\"marketId\":\"BTC-AUD\",\"baseAssetName\":\"BTC\",\"quoteAssetName\":\"AUD\",\"minOrderAmount\":\"0.0001\",\"maxOrderAmount\":\"1000000\",\"amountDecimals\":\"8\",\"priceDecimals\":\"2\",\"status\":\"Online\"},{\"marketId\":\"ETH-AUD\",\"baseAssetName\":\"ETH\",\"quoteAssetName\":\"AUD\",\"minOrderAmount\":\"0.001\",\"maxOrderAmount\":\"1000000\",\"amountDecimals\":\"8\",\"priceDecimals\":\"2\",\"status\":\"Online\"},{\"marketId\":\"XRP-AUD\",\"baseAssetName\":\"XRP\",\"quoteAssetName\":\"AUD\",\"minOrderAmount\":\"1\",\"maxOrderAmount\":\"1000000\",\"amountDecimals\":\"8\",\"priceDecimals\":\"4\",\"status\":\"Post Only\"},{\"marketId\":\"NEW-AUD\",\"baseAssetName\":\"NEW\",\"quoteAssetName\":\"AUD\",\"minOrderAmount\":\"1\",\"maxOrderAmount\":\"1000000\",\"amountDecimals\":\"8\",\"priceDecimals\":\"4\"}]",
+      "expect": {
+        "address": "https://api.btcmarkets.net/v3/markets",
+        "count": 3,
+        "absent": [
+          "XRP-AUD"
+        ],
+        "pairs": {
+          "BTC-AUD": {
+            "base": "BTC",
+            "quote": "AUD",
+            "contract": "NONE"
+          },
+          "ETH-AUD": {
+            "base": "ETH",
+            "quote": "AUD"
+          },
+          "NEW-AUD": {
+            "base": "NEW",
+            "quote": "AUD"
+          }
+        }
+      }
+    }
+  ]
+}

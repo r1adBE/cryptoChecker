@@ -14,7 +14,7 @@ HONEST ABOUT THE DATA
 • Amounts stay on your device unless you export them yourself (CSV, backup). For prices, only pair tickers go to the exchange of the respective pair; plus exchange rates (Frankfurter), market data and logos (CoinGecko, Binance), data mirrors (GitHub). If you watch addresses or an xpub, public blockchain nodes see the addresses (for an xpub, the derived ones) and your IP.
 
 WATCHLIST
-• 41 markets on 32 exchanges: spot and futures, DEX tokens via DexScreener, optionally stocks, gold and FX (TradFi)
+• 54 markets on 44 exchanges: spot and futures, DEX tokens via DexScreener, optionally stocks, gold and FX (TradFi)
 • Second line “≈ value” in one of 31 currencies (EUR, CHF, USD …), converted at the FX rate
 • Mini chart and % change over 24 h or since 00:00 in your time zone
 • Groups, favorites, drag & drop and a note per coin

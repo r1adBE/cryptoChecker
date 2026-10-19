@@ -1,0 +1,152 @@
+{
+  "exchange": "Paribu",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). Needs recorded verification (tools/record_exchange_fixtures.py) before release.",
+  "endpoints": {
+    "pairs": "GET https://www.paribu.com/ticker (keys)",
+    "single": "GET https://www.paribu.com/ticker (whole list, row by key)",
+    "bulk": "GET https://www.paribu.com/ticker"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "ticker keys as pair list: TL shown as TRY, odd keys and non-objects dropped",
+      "market": "Paribu",
+      "requestId": 0,
+      "body": "{\"BTC_TL\":{\"lowestAsk\":2151000,\"highestBid\":2149000,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":2150000,\"change\":40000,\"percentChange\":1.9},\"ETH_TL\":{\"lowestAsk\":85100,\"highestBid\":84900,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":85000,\"change\":40000,\"percentChange\":1.9},\"BTC_USDT\":{\"lowestAsk\":62901,\"highestBid\":62900,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":62900.5,\"change\":40000,\"percentChange\":1.9},\"weird\":{\"last\":1},\"timestamp\":1728540000}",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "weird"
+        ],
+        "pairs": {
+          "BTC_TL": {
+            "base": "BTC",
+            "quote": "TRY"
+          },
+          "ETH_TL": {
+            "base": "ETH",
+            "quote": "TRY"
+          },
+          "BTC_USDT": {
+            "base": "BTC",
+            "quote": "USDT"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker BTC_TL from the whole list (volume/percentChange not used, no trade time)",
+      "market": "Paribu",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTC_TL",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"BTC_TL\":{\"lowestAsk\":2151000,\"highestBid\":2149000,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":2150000,\"change\":40000,\"percentChange\":1.9},\"ETH_TL\":{\"lowestAsk\":85100,\"highestBid\":84900,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":85000,\"change\":40000,\"percentChange\":1.9}}",
+      "expect": {
+        "last": 2150000.0,
+        "bid": 2149000.0,
+        "ask": 2151000.0,
+        "high": 2180000.0,
+        "low": 2100000.0,
+        "vol": -1.0,
+        "volQuote": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair missing from the list -> no data",
+      "market": "Paribu",
+      "pair": {
+        "base": "FOO",
+        "quote": "TRY",
+        "id": "FOO_TL",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"BTC_TL\":{\"lowestAsk\":2151000,\"highestBid\":2149000,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":2150000,\"change\":40000,\"percentChange\":1.9}}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "zero last -> no price",
+      "market": "Paribu",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTC_TL",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"BTC_TL\":{\"lowestAsk\":2151000,\"highestBid\":2149000,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":0,\"change\":40000,\"percentChange\":1.9}}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "single",
+      "name": "rate limit page (HTML, HTTP 429) -> no exchange text",
+      "market": "Paribu",
+      "pair": {
+        "base": "BTC",
+        "quote": "TRY",
+        "id": "BTC_TL",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "<html><head><title>429 Too Many Requests</title></head><body>Too Many Requests</body></html>",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "ticker: all markets",
+      "market": "Paribu",
+      "requestId": 0,
+      "body": "{\"BTC_TL\":{\"lowestAsk\":2151000,\"highestBid\":2149000,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":2150000,\"change\":40000,\"percentChange\":1.9},\"BTC_USDT\":{\"lowestAsk\":62901,\"highestBid\":62900,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":62900.5,\"change\":40000,\"percentChange\":1.9}}",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTC_TL": {
+            "last": 2150000.0,
+            "bid": 2149000.0
+          },
+          "BTC_USDT": {
+            "last": 62900.5
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays; row with zero «last» (inactive) is skipped, not failed",
+      "market": "Paribu",
+      "requestId": 0,
+      "body": "{\"BTC_TL\":{\"lowestAsk\":2151000,\"highestBid\":2149000,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":2150000,\"change\":40000,\"percentChange\":1.9},\"ETH_TL\":{\"lowestAsk\":85100,\"highestBid\":84900,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"change\":40000,\"percentChange\":1.9,\"last_renamed\":85000},\"OLD_TL\":{\"lowestAsk\":2151000,\"highestBid\":2149000,\"low24hr\":2100000,\"high24hr\":2180000,\"avg24hr\":2140000,\"volume\":123.45,\"last\":0,\"change\":40000,\"percentChange\":1.9}}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETH_TL",
+          "OLD_TL"
+        ],
+        "failed": [
+          "ETH_TL"
+        ],
+        "tickers": {
+          "BTC_TL": {
+            "last": 2150000.0
+          }
+        }
+      }
+    }
+  ]
+}

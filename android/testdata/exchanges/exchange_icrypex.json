@@ -1,0 +1,158 @@
+{
+  "exchange": "Icrypex",
+  "description": "Shortened excerpts of real responses of 19.10.2026 (rows taken verbatim, lists cut to a few rows; OLDUSDT is a made-up CancelOnly pair, the zero-price and renamed-field rows are edited copies). All numbers come as text. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). Needs recorded verification (tools/record_exchange_fixtures.py) before release.",
+  "endpoints": {
+    "pairs": "GET https://api.icrypex.com/v1/exchange/info (field pairs)",
+    "single": "GET https://api.icrypex.com/v1/tickers (whole list, row by symbol; /v1/ticker?symbol= answers 404)",
+    "bulk": "GET https://api.icrypex.com/v1/tickers"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "exchange/info pairs: only SPOT in status Running; perpetual «BTCUSDT/P» and CancelOnly dropped; quote ICPX taken from the field, not guessed from the symbol",
+      "market": "Icrypex",
+      "requestId": 0,
+      "body": "{\"version\":\"1792404416\",\"assets\":[{\"symbol\":\"BTC\",\"name\":\"Bitcoin\",\"categories\":[\"COIN\",\"LAYER 1\"],\"description\":\"Bitcoin\",\"type\":\"Crypto\",\"isEnabled\":true,\"isNew\":false,\"isWithdrawalEnabled\":true,\"isDepositEnabled\":true,\"precision\":8,\"displayPrecision\":8,\"minDeposit\":\"0\",\"minWithdrawal\":\"0.0006\",\"updatedDate\":1671455755,\"createdDate\":1671441355,\"isInvestmentEnabled\":false}],\"pairs\":[{\"symbol\":\"BTCUSDT\",\"base\":\"BTC\",\"quote\":\"USDT\",\"minExchangeValue\":\"1\",\"minPrice\":\"0\",\"maxPrice\":\"0\",\"quantityPrecision\":8,\"pricePrecision\":1,\"totalPrecision\":2,\"commissionPrecision\":8,\"displayOrder\":1000,\"status\":\"Running\",\"marketTypes\":[\"SPOT\"],\"orderTypes\":[\"MARKET\",\"LIMIT\"],\"tickSize\":\"0\",\"priceLimitFactor\":\"3\"},{\"symbol\":\"BTCUSDT/P\",\"base\":\"BTC\",\"quote\":\"USDT\",\"minExchangeValue\":\"1\",\"minPrice\":\"0\",\"maxPrice\":\"0\",\"quantityPrecision\":8,\"pricePrecision\":1,\"totalPrecision\":2,\"commissionPrecision\":8,\"displayOrder\":1000,\"status\":\"Running\",\"marketTypes\":[\"PERPETUAL\"],\"orderTypes\":[\"MARKET\",\"LIMIT\"],\"tickSize\":\"0\",\"priceLimitFactor\":\"3\"},{\"symbol\":\"JSTICPX\",\"base\":\"JST\",\"quote\":\"ICPX\",\"minExchangeValue\":\"1\",\"minPrice\":\"0\",\"maxPrice\":\"0\",\"quantityPrecision\":8,\"pricePrecision\":1,\"totalPrecision\":2,\"commissionPrecision\":8,\"displayOrder\":1000,\"status\":\"Running\",\"marketTypes\":[\"SPOT\"],\"orderTypes\":[\"MARKET\",\"LIMIT\"],\"tickSize\":\"0\",\"priceLimitFactor\":\"3\"},{\"symbol\":\"OLDUSDT\",\"base\":\"OLD\",\"quote\":\"USDT\",\"minExchangeValue\":\"1\",\"minPrice\":\"0\",\"maxPrice\":\"0\",\"quantityPrecision\":8,\"pricePrecision\":1,\"totalPrecision\":2,\"commissionPrecision\":8,\"displayOrder\":1000,\"status\":\"CancelOnly\",\"marketTypes\":[\"SPOT\"],\"orderTypes\":[\"MARKET\",\"LIMIT\"],\"tickSize\":\"0\",\"priceLimitFactor\":\"3\"}]}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "BTCUSDT/P",
+          "OLDUSDT"
+        ],
+        "pairs": {
+          "BTCUSDT": {
+            "base": "BTC",
+            "quote": "USDT"
+          },
+          "JSTICPX": {
+            "base": "JST",
+            "quote": "ICPX"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker BTCUSDT from the whole list, perpetual row of the same coin ignored (volume in base currency, change not used: window undocumented, no exchange time)",
+      "market": "Icrypex",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "BTCUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTCUSDT/P\",\"last\":\"82569\",\"ask\":\"82601.8\",\"bid\":\"82569\",\"high\":\"83125\",\"low\":\"80676.2\",\"avg\":\"81947.1\",\"change\":\"0.75\",\"qty\":\"622.5\",\"volume\":\"260.92375625\"},{\"symbol\":\"HOTUSDT\",\"last\":\"0.0003643\",\"ask\":\"0.0003643\",\"bid\":\"0.00035659\",\"high\":\"0.00037106\",\"low\":\"0.00034155\",\"avg\":\"0.00035805\",\"change\":\"-1.38\",\"qty\":\"-0.00000512\",\"volume\":\"6042801\"},{\"symbol\":\"BTCUSDT\",\"last\":\"82653.5\",\"ask\":\"82653.5\",\"bid\":\"82591\",\"high\":\"83177.9\",\"low\":\"80707.4\",\"avg\":\"81983\",\"change\":\"0.84\",\"qty\":\"693.4\",\"volume\":\"25.87431288\"}]",
+      "expect": {
+        "last": 82653.5,
+        "bid": 82591.0,
+        "ask": 82653.5,
+        "high": 83177.9,
+        "low": 80707.4,
+        "vol": 25.87431288,
+        "volQuote": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "pair missing from the list -> no data",
+      "market": "Icrypex",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "FOOUSDT",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTCUSDT/P\",\"last\":\"82569\",\"ask\":\"82601.8\",\"bid\":\"82569\",\"high\":\"83125\",\"low\":\"80676.2\",\"avg\":\"81947.1\",\"change\":\"0.75\",\"qty\":\"622.5\",\"volume\":\"260.92375625\"},{\"symbol\":\"BTCUSDT\",\"last\":\"82653.5\",\"ask\":\"82653.5\",\"bid\":\"82591\",\"high\":\"83177.9\",\"low\":\"80707.4\",\"avg\":\"81983\",\"change\":\"0.84\",\"qty\":\"693.4\",\"volume\":\"25.87431288\"},{\"symbol\":\"HOTUSDT\",\"last\":\"0.0003643\",\"ask\":\"0.0003643\",\"bid\":\"0.00035659\",\"high\":\"0.00037106\",\"low\":\"0.00034155\",\"avg\":\"0.00035805\",\"change\":\"-1.38\",\"qty\":\"-0.00000512\",\"volume\":\"6042801\"}]",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "zero last -> no price",
+      "market": "Icrypex",
+      "pair": {
+        "base": "JST",
+        "quote": "ICPX",
+        "id": "JSTICPX",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "[{\"symbol\":\"JSTICPX\",\"last\":\"0\",\"ask\":\"0.173201\",\"bid\":\"0.152085\",\"high\":\"0\",\"low\":\"0\",\"avg\":\"0\",\"change\":\"0\",\"qty\":\"0\",\"volume\":\"0\"}]",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "tickers: spot rows keyed by symbol, perpetual row «BTCUSDT/P» ignored (neither ticker nor failed)",
+      "market": "Icrypex",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"HOTUSDT\",\"last\":\"0.0003643\",\"ask\":\"0.0003643\",\"bid\":\"0.00035659\",\"high\":\"0.00037106\",\"low\":\"0.00034155\",\"avg\":\"0.00035805\",\"change\":\"-1.38\",\"qty\":\"-0.00000512\",\"volume\":\"6042801\"},{\"symbol\":\"BTCUSDT/P\",\"last\":\"82569\",\"ask\":\"82601.8\",\"bid\":\"82569\",\"high\":\"83125\",\"low\":\"80676.2\",\"avg\":\"81947.1\",\"change\":\"0.75\",\"qty\":\"622.5\",\"volume\":\"260.92375625\"},{\"symbol\":\"BTCUSDT\",\"last\":\"82653.5\",\"ask\":\"82653.5\",\"bid\":\"82591\",\"high\":\"83177.9\",\"low\":\"80707.4\",\"avg\":\"81983\",\"change\":\"0.84\",\"qty\":\"693.4\",\"volume\":\"25.87431288\"},{\"symbol\":\"JSTICPX\",\"last\":\"0.123097\",\"ask\":\"0.173201\",\"bid\":\"0.152085\",\"high\":\"0\",\"low\":\"0\",\"avg\":\"0\",\"change\":\"0\",\"qty\":\"0\",\"volume\":\"0\"}]",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "BTCUSDT/P"
+        ],
+        "tickers": {
+          "BTCUSDT": {
+            "last": 82653.5,
+            "vol": 25.87431288
+          },
+          "HOTUSDT": {
+            "last": 0.0003643,
+            "bid": 0.00035659
+          },
+          "JSTICPX": {
+            "last": 0.123097
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: row with last \"0\" (no price) is skipped, not failed",
+      "market": "Icrypex",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTCUSDT\",\"last\":\"82653.5\",\"ask\":\"82653.5\",\"bid\":\"82591\",\"high\":\"83177.9\",\"low\":\"80707.4\",\"avg\":\"81983\",\"change\":\"0.84\",\"qty\":\"693.4\",\"volume\":\"25.87431288\"},{\"symbol\":\"JSTICPX\",\"last\":\"0\",\"ask\":\"0.173201\",\"bid\":\"0.152085\",\"high\":\"0\",\"low\":\"0\",\"avg\":\"0\",\"change\":\"0\",\"qty\":\"0\",\"volume\":\"0\"}]",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "JSTICPX"
+        ],
+        "tickers": {
+          "BTCUSDT": {
+            "last": 82653.5
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «last» in one row — that pair is reported as unreadable, the rest stays",
+      "market": "Icrypex",
+      "requestId": 0,
+      "body": "[{\"symbol\":\"BTCUSDT\",\"last\":\"82653.5\",\"ask\":\"82653.5\",\"bid\":\"82591\",\"high\":\"83177.9\",\"low\":\"80707.4\",\"avg\":\"81983\",\"change\":\"0.84\",\"qty\":\"693.4\",\"volume\":\"25.87431288\"},{\"symbol\":\"HYPEUSDT\",\"ask\":\"79.9\",\"bid\":\"79.54\",\"high\":\"80.81\",\"low\":\"75.79\",\"avg\":\"78.65\",\"change\":\"1.39\",\"qty\":\"1.1\",\"volume\":\"3455.66404\",\"last_renamed\":\"79.9\"},{\"symbol\":\"BTCUSDT/P\",\"last\":\"82569\",\"ask\":\"82601.8\",\"bid\":\"82569\",\"high\":\"83125\",\"low\":\"80676.2\",\"avg\":\"81947.1\",\"change\":\"0.75\",\"qty\":\"622.5\",\"volume\":\"260.92375625\"}]",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "HYPEUSDT",
+          "BTCUSDT/P"
+        ],
+        "failed": [
+          "HYPEUSDT"
+        ],
+        "tickers": {
+          "BTCUSDT": {
+            "last": 82653.5
+          }
+        }
+      }
+    }
+  ]
+}

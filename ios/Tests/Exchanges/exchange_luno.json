@@ -1,0 +1,173 @@
+{
+  "exchange": "Luno",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). Needs recorded verification (tools/record_exchange_fixtures.py) before release.",
+  "endpoints": {
+    "pairs": "GET https://api.luno.com/api/exchange/1/markets",
+    "single": "GET https://api.luno.com/api/1/ticker?pair=XBTZAR",
+    "bulk": "GET https://api.luno.com/api/1/tickers"
+  },
+  "cases": [
+    {
+      "kind": "pairs",
+      "name": "markets: XBT shown as BTC, POST_ONLY kept, DISABLED dropped",
+      "market": "Luno",
+      "requestId": 0,
+      "body": "{\"markets\":[{\"market_id\":\"XBTZAR\",\"trading_status\":\"ACTIVE\",\"base_currency\":\"XBT\",\"counter_currency\":\"ZAR\",\"min_volume\":\"0.0005\",\"max_volume\":\"100\",\"volume_scale\":4,\"min_price\":\"1\",\"max_price\":\"10000000\",\"price_scale\":0,\"fee_scale\":8},{\"market_id\":\"ETHZAR\",\"trading_status\":\"POST_ONLY\",\"base_currency\":\"ETH\",\"counter_currency\":\"ZAR\"},{\"market_id\":\"XBTNGN\",\"trading_status\":\"ACTIVE\",\"base_currency\":\"XBT\",\"counter_currency\":\"NGN\"},{\"market_id\":\"OLDZAR\",\"trading_status\":\"DISABLED\",\"base_currency\":\"OLD\",\"counter_currency\":\"ZAR\"}]}",
+      "expect": {
+        "count": 3,
+        "absent": [
+          "OLDZAR"
+        ],
+        "pairs": {
+          "XBTZAR": {
+            "base": "BTC",
+            "quote": "ZAR"
+          },
+          "ETHZAR": {
+            "base": "ETH",
+            "quote": "ZAR"
+          },
+          "XBTNGN": {
+            "base": "BTC",
+            "quote": "NGN"
+          }
+        }
+      }
+    },
+    {
+      "kind": "single",
+      "name": "ticker XBTZAR (no high/low/change; timestamp is the snapshot, not a trade)",
+      "market": "Luno",
+      "pair": {
+        "base": "BTC",
+        "quote": "ZAR",
+        "id": "XBTZAR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"pair\":\"XBTZAR\",\"timestamp\":1728540000123,\"bid\":\"1150000.00\",\"ask\":\"1150500.00\",\"last_trade\":\"1150200.00\",\"rolling_24_hour_volume\":\"85.123456\",\"status\":\"ACTIVE\"}",
+      "expect": {
+        "last": 1150200.0,
+        "bid": 1150000.0,
+        "ask": 1150500.0,
+        "high": -1.0,
+        "low": -1.0,
+        "vol": 85.123456,
+        "volQuote": -1.0,
+        "change24hPercent": null,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "error payload",
+      "market": "Luno",
+      "pair": {
+        "base": "FOO",
+        "quote": "ZAR",
+        "id": "FOOZAR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":\"Market not found.\",\"error_code\":\"ErrMarketNotFound\",\"error_action\":{}}",
+      "expect": {
+        "error": true,
+        "message": "Market not found."
+      }
+    },
+    {
+      "kind": "single",
+      "name": "disabled market -> no data (last trade before the halt is not a current price)",
+      "market": "Luno",
+      "pair": {
+        "base": "OLD",
+        "quote": "ZAR",
+        "id": "OLDZAR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"pair\":\"OLDZAR\",\"timestamp\":1728540000123,\"bid\":\"1150000.00\",\"ask\":\"1150500.00\",\"last_trade\":\"12.50\",\"rolling_24_hour_volume\":\"85.123456\",\"status\":\"DISABLED\"}",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "single",
+      "name": "zero last_trade -> no price",
+      "market": "Luno",
+      "pair": {
+        "base": "BTC",
+        "quote": "ZAR",
+        "id": "XBTZAR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"pair\":\"XBTZAR\",\"timestamp\":1728540000123,\"bid\":\"1150000.00\",\"ask\":\"1150500.00\",\"last_trade\":\"0.00\",\"rolling_24_hour_volume\":\"85.123456\",\"status\":\"ACTIVE\"}",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "single",
+      "name": "rate limit payload (HTTP 429) -> exchange text",
+      "market": "Luno",
+      "pair": {
+        "base": "BTC",
+        "quote": "ZAR",
+        "id": "XBTZAR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"error\":\"Too many requests\",\"error_code\":\"ErrTooManyRequests\",\"error_action\":{}}",
+      "expect": {
+        "error": true,
+        "message": "Too many requests"
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "tickers: DISABLED row skipped silently",
+      "market": "Luno",
+      "requestId": 0,
+      "body": "{\"tickers\":[{\"pair\":\"XBTZAR\",\"timestamp\":1728540000123,\"bid\":\"1150000.00\",\"ask\":\"1150500.00\",\"last_trade\":\"1150200.00\",\"rolling_24_hour_volume\":\"85.123456\",\"status\":\"ACTIVE\"},{\"pair\":\"ETHZAR\",\"timestamp\":1728540000123,\"bid\":\"45000.00\",\"ask\":\"45100.00\",\"last_trade\":\"45050.00\",\"rolling_24_hour_volume\":\"310.5\",\"status\":\"POSTONLY\"},{\"pair\":\"OLDZAR\",\"timestamp\":1728540000123,\"bid\":\"1150000.00\",\"ask\":\"1150500.00\",\"last_trade\":\"12.50\",\"rolling_24_hour_volume\":\"85.123456\",\"status\":\"DISABLED\"}]}",
+      "expect": {
+        "count": 2,
+        "absent": [
+          "OLDZAR"
+        ],
+        "tickers": {
+          "XBTZAR": {
+            "last": 1150200.0,
+            "vol": 85.123456
+          },
+          "ETHZAR": {
+            "last": 45050.0
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: renamed field «last_trade» in one row — that pair is reported as unreadable, the rest stays; row with zero «last_trade» (inactive) is skipped, not failed",
+      "market": "Luno",
+      "requestId": 0,
+      "body": "{\"tickers\":[{\"pair\":\"XBTZAR\",\"timestamp\":1728540000123,\"bid\":\"1150000.00\",\"ask\":\"1150500.00\",\"last_trade\":\"1150200.00\",\"rolling_24_hour_volume\":\"85.123456\",\"status\":\"ACTIVE\"},{\"pair\":\"ETHZAR\",\"timestamp\":1728540000123,\"bid\":\"45000.00\",\"ask\":\"45100.00\",\"rolling_24_hour_volume\":\"310.5\",\"status\":\"POSTONLY\",\"last_trade_renamed\":\"45050.00\"},{\"pair\":\"NEWZAR\",\"timestamp\":1728540000123,\"bid\":\"1150000.00\",\"ask\":\"1150500.00\",\"last_trade\":\"0\",\"rolling_24_hour_volume\":\"85.123456\",\"status\":\"ACTIVE\"}]}",
+      "expect": {
+        "count": 1,
+        "absent": [
+          "ETHZAR",
+          "NEWZAR"
+        ],
+        "failed": [
+          "ETHZAR"
+        ],
+        "tickers": {
+          "XBTZAR": {
+            "last": 1150200.0
+          }
+        }
+      }
+    }
+  ]
+}

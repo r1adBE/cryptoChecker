@@ -14,7 +14,7 @@ DET SOM GÖR DEN ANNORLUNDA
 • Belopp stannar på enheten, om du inte själv exporterar dem (CSV, säkerhetskopia). För kurser skickas bara parets symbol till börsen för just det paret; dessutom valutakurser (Frankfurter), marknadsdata och logotyper (CoinGecko, Binance) och dataspeglar (GitHub). Bevakar du adresser eller en xpub ser publika blockkedjenoder adresserna (för en xpub de härledda) och din IP.
 
 BEVAKNINGSLISTA
-• 41 marknader på 32 börser: spot och terminer, DEX-tokens via DexScreener, valfritt aktier, guld och valutor (TradFi)
+• 54 marknader på 44 börser: spot och terminer, DEX-tokens via DexScreener, valfritt aktier, guld och valutor (TradFi)
 • Andra rad ”≈ värde” i en av 31 valutor (EUR, CHF, USD …), omräknat till växelkurs
 • Minidiagram och %-ändring över 24 h eller sedan 00:00 i din tidszon
 • Grupper, favoriter, sortering med dra och släpp och en anteckning per mynt

@@ -116,12 +116,18 @@ extension WatchlistScreen {
             }
 
             if sorting {
-                Text(L("watchlist_sort_hint"))
-                    .font(.footnote)
-                    .foregroundStyle(accent.primary)
-                    .padding(.horizontal, 4)
-                    .plainRow(top: 2, bottom: ListSegment.spacing)
-                    .id(topAnchor == .hint ? WatchlistJump.topId : "watchlist-sort-hint")
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text(L("watchlist_sort_hint"))
+                        .font(.footnote)
+                        .foregroundStyle(accent.primary)
+                        .padding(.horizontal, 4)
+                    // Gilt für die gezeigten Paare wie das Ziehen (gewählte Gruppe; ⚡/Suche sind im Sortiermodus aus)
+                    if rows.count > 1 {
+                        autoOrderButtons(rows)
+                    }
+                }
+                .plainRow(top: 2, bottom: ListSegment.spacing)
+                .id(topAnchor == .hint ? WatchlistJump.topId : "watchlist-sort-hint")
             } else if showGestureHint {
                 // Einmaliger Gesten-Hinweis, bleibt bis er weggeklickt wird.
                 gestureHint
@@ -264,6 +270,37 @@ extension WatchlistScreen {
         banner = WatchlistBannerMessage(text: text, icon: "checkmark.circle")
         // Einmal ansagen wie das Banner unter Android (TalkBack liest Snackbars selbst)
         AccessibilityNotification.Announcement(text).post()
+    }
+}
+
+// MARK: Automatisch ordnen
+
+extension WatchlistScreen {
+    /// «Nach Coin ordnen» · «Nach Börse ordnen» im Sortiermodus — wie `AutoOrderButtons` (Android); bei langen
+    /// Übersetzungen untereinander statt abgeschnitten.
+    func autoOrderButtons(_ shown: [Watch]) -> some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: Spacing.sm) {
+                autoOrderButton(.coin, shown)
+                autoOrderButton(.exchange, shown)
+            }
+            VStack(alignment: .leading, spacing: 0) {
+                autoOrderButton(.coin, shown)
+                autoOrderButton(.exchange, shown)
+            }
+        }
+    }
+
+    private func autoOrderButton(_ order: AutoOrder, _ shown: [Watch]) -> some View {
+        Button(L(order == .coin ? "watchlist_sort_by_coin" : "watchlist_sort_by_exchange")) {
+            autoOrder(order, shown)
+        }
+        .font(.subheadline.weight(.semibold))
+        .tint(accent.primary)
+        // In der Liste (Sortiermodus) sonst ganze Zeile als ein Knopf
+        .buttonStyle(.borderless)
+        .padding(.horizontal, 4)
+        .frame(minHeight: 44)
     }
 }
 

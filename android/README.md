@@ -5,7 +5,7 @@ Börse, Marktüberblick und «Was bewegt sich mit?» – ohne Prognosen, keine
 Anlageberatung.
 
 Kursüberwachung für Kryptowährungen: Merkliste, Benachrichtigungen, Alarme,
-Sprachausgabe und Startbildschirm-Widgets über 40 Märkte – 32 Börsen (teils
+Sprachausgabe und Startbildschirm-Widgets über 53 Märkte – 44 Börsen (teils
 mit Spot und Futures) plus DexScreener für DEX-Token. 31 Sprachen, kein Konto,
 keine Werbung, kein Tracking; die Kurse kommen direkt von den Börsen.
 
@@ -742,6 +742,8 @@ und DEX-Pools nie über die Kette). Ohne Kerzen
 zeigt sie grau «—» (`domain/watch/DayChange.kt`). Tippen öffnet die Aktionen (Alarm, Warum?,
 Favorit oben), wischen: links löschen, rechts Favorit; sortieren über ⋯ › Sortieren (ziehen am
 Griff oder lange drücken, nur im Sortiermodus).
+Im Sortiermodus ordnen «Nach Coin ordnen» bzw. «Nach Börse ordnen» die gezeigten Paare einmal (Favoriten
+oben) und speichern das als eigene Reihenfolge (`domain/watch/AutoOrder.kt`, iOS `AutoOrder.swift`).
 
 **Benachrichtigungen** — je Paar wahlweise eine lautlose Kurs-Benachrichtigung mit Kurs,
 Veränderung in Prozent und Uhrzeit (neue Paare ab Build 42 ohne; einschalten im Paar-Menü).
