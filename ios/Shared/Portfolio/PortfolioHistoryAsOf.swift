@@ -14,7 +14,9 @@ enum PortfolioHistoryAsOf {
     /// Abfrage gescheitert, es gilt ein gemerkter Stand von `savedAt`: Zeit, mit der die Reihe als älterer Stand markiert
     /// wird — nil, solange er jünger als `ttl` ist (dann ist er der heutige Verlauf, nur evtl. kürzer).
     static func staleSince(savedAt: Int64, now: Int64, ttl: Int64) -> Int64? {
-        let fresh = savedAt >= 1 && savedAt <= now && now - savedAt < ttl
+        // Uhr zurückgestellt (Stand «in der Zukunft»): wie frisch behandeln, nie eine künftige Zeit zeigen
+        if savedAt > now { return nil }
+        let fresh = savedAt >= 1 && now - savedAt < ttl
         return fresh ? nil : savedAt
     }
 }

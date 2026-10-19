@@ -99,7 +99,8 @@ class Coinbase : SimpleMarket(
      * Liste verlieren). Wie `Coinbase.isTradable` (iOS).
      */
     private fun isTradable(product: JSONObject): Boolean {
-        val status = product.optString("status")
+        // JSON null wie fehlend behandeln (optString gäbe «null»), wie iOS
+        val status = if (product.isNull("status")) "" else product.optString("status")
         if (status.isNotEmpty() && !status.equals("online", ignoreCase = true)) return false
         return !product.optBoolean("trading_disabled", false)
     }

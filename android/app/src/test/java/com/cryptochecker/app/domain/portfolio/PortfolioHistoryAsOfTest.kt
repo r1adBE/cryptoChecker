@@ -27,8 +27,8 @@ class PortfolioHistoryAsOfTest {
         // Älter: mit seiner Zeit markiert
         assertEquals(now - ttl, PortfolioHistoryAsOf.staleSince(now - ttl, now, ttl))
         assertEquals(now - 3 * ttl, PortfolioHistoryAsOf.staleSince(now - 3 * ttl, now, ttl))
-        // Unbekannte bzw. künftige Zeit gilt nicht als frisch
+        // Unbekannte Zeit gilt nicht als frisch; künftige (Uhr zurückgestellt) wie frisch, nie eine künftige Anzeige
         assertEquals(0L, PortfolioHistoryAsOf.staleSince(0L, now, ttl))
-        assertEquals(now + 60_000L, PortfolioHistoryAsOf.staleSince(now + 60_000L, now, ttl))
+        assertNull(PortfolioHistoryAsOf.staleSince(now + 60_000L, now, ttl))
     }
 }

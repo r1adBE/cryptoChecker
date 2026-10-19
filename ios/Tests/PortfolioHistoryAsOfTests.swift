@@ -21,8 +21,8 @@ final class PortfolioHistoryAsOfTests: XCTestCase {
         // Älter: mit seiner Zeit markiert
         XCTAssertEqual(PortfolioHistoryAsOf.staleSince(savedAt: now - ttl, now: now, ttl: ttl), now - ttl)
         XCTAssertEqual(PortfolioHistoryAsOf.staleSince(savedAt: now - 3 * ttl, now: now, ttl: ttl), now - 3 * ttl)
-        // Unbekannte bzw. künftige Zeit gilt nicht als frisch
+        // Unbekannte Zeit gilt nicht als frisch; künftige (Uhr zurückgestellt) wie frisch, nie eine künftige Anzeige
         XCTAssertEqual(PortfolioHistoryAsOf.staleSince(savedAt: 0, now: now, ttl: ttl), 0)
-        XCTAssertEqual(PortfolioHistoryAsOf.staleSince(savedAt: now + 60_000, now: now, ttl: ttl), now + 60_000)
+        XCTAssertNil(PortfolioHistoryAsOf.staleSince(savedAt: now + 60_000, now: now, ttl: ttl))
     }
 }

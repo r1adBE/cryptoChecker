@@ -75,7 +75,7 @@ class MarketFailureMappingTest {
         assertTrue(NotTraded.confirmedBySingle(false, noPrice.message, noPrice.toMarketFailure()))
         // Interner Fehler ohne Text: kein «nicht mehr gehandelt» (früher 6 h stumm)
         assertFalse(NotTraded.confirmedBySingle(false, null, MarketFailure.Other))
-        assertFalse(NotTraded.confirmedBySingle(false, "", parseMarketError(IllegalStateException())))
+        assertFalse(NotTraded.confirmedBySingle(false, "", IllegalStateException().toMarketFailure()))
         assertFalse(NotTraded.confirmedBySingle(false, " ", MarketFailure.Parse))
         // Ohne Art (gespeicherte Ergebnisse) wie bisher
         assertTrue(NotTraded.confirmedBySingle(false, null))

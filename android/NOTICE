@@ -14,7 +14,7 @@ of the Software and are not covered by the MIT License in LICENSE.
 Market data shown by the apps is fetched at runtime from third-party APIs (for
 example CoinGecko, Binance, alternative.me, Coin Metrics) and is subject to the
 terms of those providers. It is not part of the Software and is not covered by
-the MIT License above.
+the MIT License in LICENSE.
 
 Alarm sounds
 

@@ -20,5 +20,6 @@ object PortfolioHistoryAsOf {
      * wird — null, solange er jünger als [ttlMillis] ist (dann ist er der heutige Verlauf, nur evtl. kürzer).
      */
     fun staleSince(savedAt: Long, now: Long, ttlMillis: Long): Long? =
-        savedAt.takeIf { !(it in 1..now && now - it < ttlMillis) }
+        // Uhr zurückgestellt (Stand «in der Zukunft»): wie frisch behandeln, nie eine künftige Zeit zeigen
+        savedAt.takeIf { it <= now && !(it >= 1 && now - it < ttlMillis) }
 }
