@@ -7,9 +7,11 @@ import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioCostGaps
+import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxEngines
+import com.cryptochecker.app.domain.portfolio.TaxExport
 import com.cryptochecker.app.domain.portfolio.TaxMethod
 import com.cryptochecker.app.domain.portfolio.TaxTemplate
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
@@ -23,7 +25,7 @@ import java.time.ZoneOffset
 /**
  * Einstand für Adressguthaben und Einträge ohne Einstand (`testdata/parity/address_cost_lots.json`): Abdeckung der Posten,
  * Adress-Teil ohne Einstand, Rechner-Einträge, Karte je Einstandsmethode, Stichtag-Bestand (CH-Vermögenswert ohne
- * Posten), FR-Erwerbspreis-Summe samt Vermerk «Adressen ohne Einstand». Gegenstück: `Tests/AddressCostLotsParityTests.swift`.
+ * Posten), FR-Erwerbspreis-Summe samt Vermerk «Adressen ohne Einstand», Steuer-Export (Info-Zeilen, Jahre). Gegenstück: `Tests/AddressCostLotsParityTests.swift`.
  */
 class AddressCostLotsParityTest {
 
@@ -55,6 +57,8 @@ class AddressCostLotsParityTest {
             id = o["id"].num()!!.toLong(), coin = o["coin"] as String, type = PortfolioTxType.valueOf(o["type"] as String),
             amount = dec(o["amount"])!!, priceUsdt = dec(o["price"]), time = o["time"].num()!!.toLong(),
             exchange = o["exchange"] as String?, interestIncome = o["interest"] as Boolean? ?: false,
+            fee = dec(o["fee"]), feeUnit = (o["feeUnit"] as String?)?.let(PortfolioFeeUnit::valueOf),
+            transferFrom = o["transferFrom"] as String?, transferTo = o["transferTo"] as String?,
         )
     }
 
@@ -122,6 +126,26 @@ class AddressCostLotsParityTest {
                 near("$name fr cost", fr["cost"], d.costUsdt)
                 assertEquals("$name fr address note", fr["addressValueIncluded"] as Boolean, d.addressValueIncluded)
             }
+        }
+    }
+
+    /** Steuer-Export rechnet mit den Posten wie die Veräusserungen: keine Gebühr «ohne Kaufpreis», Jahr nur mit Posten. */
+    @Test
+    fun taxExportSeesLots() {
+        val c = data["taxExport"].obj()
+        val zone = ZoneOffset.UTC
+        val real = c["trades"].list().map(::trade)
+        val all = AddressBalance.withAddresses(real, c["addresses"].list().map(::address), data["today"].num()!!.toLong())
+        val ints = { key: String -> c[key].list().map { it.num()!!.toInt() } }
+        assertEquals("years", ints("years"), TaxExport.years(all, zone))
+        assertEquals("years without addresses", ints("yearsWithoutAddresses"), TaxExport.years(real, zone))
+        val year = c["infoYear"].num()!!.toInt()
+        for (m in c["methods"].list()) {
+            val method = CostMethod.valueOf(m as String)
+            val unassigned = TaxExport.unassignedFeesIn(all, method, year, zone)
+            assertEquals("$m unassigned", c["unassignedFees"].num()!!.toInt(), unassigned.size)
+            val lost = TaxExport.lostFeeCostsIn(all, method, year, zone)
+            assertEquals("$m lost fee cost", c["lostFeeCosts"].num()!!.toInt(), lost.size)
         }
     }
 

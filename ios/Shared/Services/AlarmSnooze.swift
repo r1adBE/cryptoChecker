@@ -1,8 +1,10 @@
 import Foundation
 
-/// «1 h später» aus der Alarm-Mitteilung — wie `AlarmSnooze.kt`: Der Alarm bleibt scharf, nur seine nächste Meldung
-/// wartet bis zum Ende der Pause, wie die Nachtruhe im Melde-Schritt (`AlarmDelivery`), nie in der Prüfung selbst
-/// (`AlarmEvaluator` bleibt unverändert). Gemeinsamer Testfall `alarm_snooze.json`.
+/// «1 h später» aus der Alarm-Mitteilung — wie `AlarmSnooze.kt`: Nur die nächste Meldung wartet bis zum Ende der
+/// Pause, wie die Nachtruhe im Melde-Schritt (`AlarmDelivery`), nie in der Prüfung selbst (`AlarmEvaluator` bleibt
+/// unverändert). Angeboten nur, wo das wirkt (`offeredFor`): Prozent- und Bewegungsalarme bleiben nach dem Auslösen
+/// scharf; ist die Bedingung nach der Pause noch erfüllt, melden sie sich beim nächsten Durchlauf.
+/// Gemeinsamer Testfall `alarm_snooze.json`.
 ///
 /// Die laufenden Pausen liegen im App-Group-Speicher (Alarm-Id → Ende), wie die unbestätigten Versuche von
 /// `AlarmDelivery`: App, Hintergrund-Aufgabe und Widget melden Alarme und müssen die Pause alle sehen.
@@ -21,6 +23,16 @@ enum AlarmSnooze {
         guard let until, until > 0 else { return false }
         let rest = until - now
         return rest > 0 && rest <= snoozeMillis
+    }
+
+    /// Knopf «1 h später» zeigen? Nur bei wiederholenden Alarmen (ein einmaliger ist nach dem Melden aus) und nur bei
+    /// Prozent- und Bewegungsalarmen (`isPercent`): Sie bleiben nach dem Auslösen scharf (neuer Bezug bzw. neues
+    /// Fenster, `AlarmEvaluator.triggered`), die Pause hält also wirklich eine Meldung zurück. Kursmarken, Funding und
+    /// Open Interest werden erst wieder scharf, wenn der Wert auf die andere Seite zurückkehrt; «Nahe am Hoch/Tief»
+    /// erst ausserhalb der Zone oder frühestens 1 h später bei einem weiteren Hoch/Tief; der Volumen-Spike meldet
+    /// ohnehin höchstens einmal je Stundenkerze — dort hielte die Pause nichts zurück. Wie Android.
+    static func offeredFor(_ condition: AlarmCondition, repeating: Bool) -> Bool {
+        repeating && condition.isPercent
     }
 
     /// Nur noch laufende Pausen (abgelaufene fallen beim Speichern weg).

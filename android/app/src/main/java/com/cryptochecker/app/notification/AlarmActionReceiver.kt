@@ -9,8 +9,9 @@ import timber.log.Timber
 import javax.inject.Inject
 
 /**
- * Knopf «1 h später» der Alarm-Meldung: vermerkt die Pause ([AlarmSnoozeStore]) und entfernt die Meldung. Der Alarm
- * bleibt scharf; nur seine nächste Meldung wartet höchstens eine Stunde (Melde-Schritt, wie die Nachtruhe).
+ * Knopf «1 h später» der Alarm-Meldung (nur Prozent- und Bewegungsalarme, siehe AlarmSnooze.offeredFor): vermerkt
+ * die Pause ([AlarmSnoozeStore]) und entfernt die Meldung. Nur die nächste Meldung wartet höchstens eine Stunde
+ * (Melde-Schritt, wie die Nachtruhe).
  * Nicht exportiert: nur der eigene PendingIntent erreicht ihn.
  */
 @AndroidEntryPoint

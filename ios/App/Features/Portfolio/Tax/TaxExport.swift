@@ -27,12 +27,16 @@ enum TaxExport {
         LocalDay(date: Date(timeIntervalSince1970: Double(millis) / 1000), timeZone: timeZone)
     }
 
-    /// Eigene Transaktionen (ohne Adress-Einträge).
+    /// Eigene Transaktionen samt Eröffnungsposten der Adressen, ohne Adress-Teil ohne Einstand — dieselbe Sicht wie die
+    /// Veräusserungen (wie `AddressBalance.split` in `TaxEngines` und `PortfolioCalculator.disposals`). Sonst fehlte der
+    /// Posten einer Adress-Wallet als Bestand: Eine Gebühr darauf stünde als «Gebühr auf Bestand ohne Kaufpreis», und ein
+    /// Jahr nur mit Posten fehlte in der Jahresauswahl. Die Posten sind schon aufs beobachtete Guthaben begrenzt
+    /// (`AddressCostLots`) und stecken nicht im Adress-Teil — nichts zählt doppelt. Wie Android.
     private static func real(_ trades: [PortfolioTx]) -> [PortfolioTx] {
-        trades.filter { !AddressBalance.isAddressTrade($0.id) && $0.amountExact > 0 }
+        trades.filter { !AddressBalance.isAddressPart($0.id) && $0.amountExact > 0 }
     }
 
-    /// Jahre mit Transaktionen, neueste zuerst.
+    /// Jahre mit Transaktionen (samt Eröffnungsposten), neueste zuerst.
     static func years(_ trades: [PortfolioTx], timeZone: TimeZone) -> [Int] {
         years(trades, timeZone: timeZone, template: .NEUTRAL)
     }

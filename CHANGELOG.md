@@ -45,6 +45,11 @@ Detailed build history below.
   «BTC removed from portfolio (N transactions)» with «Undo» instead of the watchlist text.
 * Portfolio total card: the weekly change is labelled «7 days» instead of the abbreviation «7 d» (all 31 languages;
   the history range chips and widgets keep the short form).
+* «1 h later» is offered only for percent and movement alerts, where it works; price-level alerts (also funding, open
+  interest and near high/low) re-arm when the value returns, and volume spikes report at most once per hourly candle.
+* Tax export: opening lots of watched addresses now also count for the fee notes and the year list, as they already did
+  for disposals – a network fee on a lotted address wallet no longer shows as «fee not assigned – cost basis unknown»,
+  and a year with only opening lots appears in the year selection.
 
 ## 16.2.2 (build 84)
 

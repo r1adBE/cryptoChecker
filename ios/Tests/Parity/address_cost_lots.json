@@ -109,5 +109,16 @@
       {"total": "100", "amount": "3", "expected": "33.33333333333333333333333333333333"},
       {"total": "-1", "amount": "3", "expected": null}
     ]
+  },
+  "taxExport": {
+    "_comment": "Steuer-Export mit Eröffnungsposten: dieselbe Sicht wie die Veräusserungen (Posten als Kauf in seiner Adress-Wallet). Umbuchung Ledger → Binance mit 0,0001 BTC Netzwerkgebühr: keine Info-Zeile «Gebühr nicht zugeordnet» und kein «Netzwerkgebühr-Einstand ohne bezahlten Posten»; 2019 (nur der Posten) steht in der Jahresliste. Zeitzone UTC.",
+    "addresses": [{"id": 5, "chain": "BTC", "address": "bc1qtestledger", "label": "Ledger", "lastBalance": "1", "costLots": [{"id": 1, "coin": "BTC", "t": 1551398400000, "amount": "1", "price": "4000"}]}],
+    "trades": [{"id": 1, "coin": "BTC", "type": "TRANSFER", "amount": "0.5", "time": 1622505600000, "fee": "0.0001", "feeUnit": "COIN", "transferFrom": "Ledger", "transferTo": "Binance"}],
+    "years": [2021, 2019],
+    "yearsWithoutAddresses": [2021],
+    "infoYear": 2021,
+    "methods": ["FIFO", "FIFO_WALLET", "AVERAGE"],
+    "unassignedFees": 0,
+    "lostFeeCosts": 0
   }
 }

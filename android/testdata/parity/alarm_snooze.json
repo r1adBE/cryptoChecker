@@ -1,5 +1,5 @@
 {
-  "_comment": "«1 h später» aus der Alarm-Mitteilung (Build 82): Ende der Pause (AlarmSnooze.snoozeUntil), hält sie die Meldung jetzt zurück (isSnoozed; Uhr zurückgestellt = vorbei) und Aufräumen (prune). Gemeinsam für AlarmSnoozeTest.kt und AlarmSnoozeTests.swift.",
+  "_comment": "«1 h später» aus der Alarm-Mitteilung (Build 82): Ende der Pause (AlarmSnooze.snoozeUntil), hält sie die Meldung jetzt zurück (isSnoozed; Uhr zurückgestellt = vorbei) und Aufräumen (prune); Knopf nur, wo die Pause wirkt (offeredFor: wiederholende Prozent- und Bewegungsalarme). Gemeinsam für AlarmSnoozeTest.kt und AlarmSnoozeTests.swift.",
   "snoozeMillis": 3600000,
   "until": [
     {"now": 1000, "until": 3601000},
@@ -18,5 +18,22 @@
     "now": 2000,
     "all": {"1": 3601000, "2": 1500, "3": 999999999},
     "kept": [1]
-  }
+  },
+  "offeredFor": [
+    {"name": "Kursmarke: erst nach Rückkehr wieder scharf", "condition": "PRICE_ABOVE", "repeating": true, "offered": false},
+    {"name": "Kursmarke: erst nach Rückkehr wieder scharf", "condition": "PRICE_BELOW", "repeating": true, "offered": false},
+    {"name": "Prozent: neuer Bezug, bleibt scharf", "condition": "CHANGE_PERCENT_UP", "repeating": true, "offered": true},
+    {"name": "Prozent: neuer Bezug, bleibt scharf", "condition": "CHANGE_PERCENT_DOWN", "repeating": true, "offered": true},
+    {"name": "Bewegung: neues Fenster, bleibt scharf", "condition": "MOVE_PERCENT_WINDOW", "repeating": true, "offered": true},
+    {"name": "Volumen: höchstens einmal je Stundenkerze", "condition": "VOLUME_SPIKE", "repeating": true, "offered": false},
+    {"name": "Nahe am Hoch: erst ausserhalb der Zone wieder scharf", "condition": "NEAR_HIGH", "repeating": true, "offered": false},
+    {"name": "Nahe am Tief: erst ausserhalb der Zone wieder scharf", "condition": "NEAR_LOW", "repeating": true, "offered": false},
+    {"name": "Funding: erst nach Rückkehr wieder scharf", "condition": "FUNDING_ABOVE", "repeating": true, "offered": false},
+    {"name": "Funding: erst nach Rückkehr wieder scharf", "condition": "FUNDING_BELOW", "repeating": true, "offered": false},
+    {"name": "Open Interest: erst nach Rückkehr wieder scharf", "condition": "OI_UP", "repeating": true, "offered": false},
+    {"name": "Open Interest: erst nach Rückkehr wieder scharf", "condition": "OI_DOWN", "repeating": true, "offered": false},
+    {"name": "einmalig: nach dem Melden aus", "condition": "CHANGE_PERCENT_UP", "repeating": false, "offered": false},
+    {"name": "einmalig: nach dem Melden aus", "condition": "MOVE_PERCENT_WINDOW", "repeating": false, "offered": false},
+    {"name": "einmalig: nach dem Melden aus", "condition": "PRICE_ABOVE", "repeating": false, "offered": false}
+  ]
 }

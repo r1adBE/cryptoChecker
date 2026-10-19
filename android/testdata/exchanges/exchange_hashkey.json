@@ -1,6 +1,6 @@
 {
   "exchange": "HashKey Exchange",
-  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Needs recorded verification (tools/record_exchange_fixtures.py). Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Checked against recorded live responses on 19 October 2026 (workflow «Record exchange fixtures» with ExchangeContractTest); re-record with tools/record_exchange_fixtures.py. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
   "endpoints": {
     "single": "GET https://api-pro.hashkey.com/quote/v1/ticker/24hr?symbol=BTCUSD",
     "bulk": "GET https://api-pro.hashkey.com/quote/v1/ticker/24hr",

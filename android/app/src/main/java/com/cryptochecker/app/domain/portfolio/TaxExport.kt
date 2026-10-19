@@ -49,11 +49,17 @@ object TaxExport {
      */
     fun localDate(millis: Long, zone: ZoneId): LocalDate = Instant.ofEpochMilli(millis).atZone(zone).toLocalDate()
 
-    /** Eigene Transaktionen (ohne Adress-Einträge). */
+    /**
+     * Eigene Transaktionen samt Eröffnungsposten der Adressen, ohne Adress-Teil ohne Einstand — dieselbe Sicht wie die
+     * Veräusserungen (wie [AddressBalance.split] in [TaxEngines] und [PortfolioCalculator.disposals]). Sonst fehlte der
+     * Posten einer Adress-Wallet als Bestand: Eine Gebühr darauf stünde als «Gebühr auf Bestand ohne Kaufpreis», und ein
+     * Jahr nur mit Posten fehlte in der Jahresauswahl. Die Posten sind schon aufs beobachtete Guthaben begrenzt
+     * ([AddressCostLots]) und stecken nicht im Adress-Teil — nichts zählt doppelt.
+     */
     private fun real(trades: List<PortfolioTrade>): List<PortfolioTrade> =
-        trades.filter { !AddressBalance.isAddressTrade(it.id) && it.amount.signum() > 0 }
+        trades.filter { !AddressBalance.isAddressPart(it.id) && it.amount.signum() > 0 }
 
-    /** Jahre mit Transaktionen, neueste zuerst. */
+    /** Jahre mit Transaktionen (samt Eröffnungsposten), neueste zuerst. */
     fun years(trades: List<PortfolioTrade>, zone: ZoneId): List<Int> = years(trades, zone, TaxTemplate.NEUTRAL)
 
     /** Steuerjahre ([TaxTemplate.periodOf], Beginnjahr) mit Transaktionen, neueste zuerst. */
