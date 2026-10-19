@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">ورودی‌های بدون بهای تمام‌شده: %1$d</string>
+    <string name="cost_gaps_card_text">بهای تمام‌شده را اضافه کنید تا سود و مالیات کامل شود.</string>
+    <string name="cost_gaps_sheet_title">ورودی‌های بدون بهای تمام‌شده</string>
+    <string name="cost_gaps_sheet_intro">این ورودی‌ها بهای تمام‌شده ندارند. پیشنهاد، قیمت بسته‌شدن روز است – می‌توانید آن را در ورودی تغییر دهید.</string>
+    <string name="cost_gaps_empty">همهٔ ورودی‌ها بهای تمام‌شده دارند.</string>
+    <string name="cost_gap_enter">ثبت بهای تمام‌شده</string>
+    <string name="cost_gap_leave_unknown">نامعلوم بماند</string>
+    <string name="cost_gap_left_unknown">نامعلوم ماند</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">پیشنهاد: بسته‌شدن %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">برای این تاریخ قیمت بسته‌شدن تأییدشده‌ای نیست</string>
+    <string name="cost_gap_suggestion_loading">در حال بارگیری قیمت بسته‌شدن …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">بهای تمام‌شده = ارزش هنگام دریافت (درآمد)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">بهای تمام‌شده = 0 (پاداش بدون ورود، اتریش)</string>
+    <string name="cost_gap_apply">اعمال</string>
+    <string name="address_lots_action">بهای تمام‌شده برای موجودی نشانی</string>
+    <string name="address_lots_title">بهای تمام‌شده برای موجودی نشانی</string>
+    <string name="address_lots_intro">تاریخ خرید، مقدار و بهای تمام‌شده را برای موجودی این نشانی وارد کنید. دسته‌ها مانند خرید در این نشانی حساب می‌شوند؛ بخش پوشش‌نیافته بدون بهای تمام‌شده می‌ماند.</string>
+    <string name="address_lots_add">افزودن دسته</string>
+    <string name="address_lots_new">دستهٔ جدید</string>
+    <string name="address_lots_edit">دسته</string>
+    <string name="address_lots_date">تاریخ خرید</string>
+    <string name="address_lots_amount">مقدار</string>
+    <string name="address_lots_mode_total">جمع</string>
+    <string name="address_lots_mode_price">برای هر کوین</string>
+    <string name="address_lots_price">قیمت هر کوین (USDT)</string>
+    <string name="address_lots_total">بهای تمام‌شدهٔ کل (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s از %2$s با بهای تمام‌شده</string>
+    <string name="address_lots_unlotted">%1$s بدون بهای تمام‌شده</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">دسته‌ها به اندازهٔ %1$s از موجودی بیشترند – قدیمی‌ترها اول مصرف می‌شوند.</string>
+    <string name="address_lots_not_loaded">موجودی هنوز بارگیری نشده – دسته‌ها به محض آماده‌شدن حساب می‌شوند.</string>
+    <string name="address_lots_invalid">مقدار و بهای تمام‌شده را وارد کنید</string>
+</resources>

@@ -220,6 +220,8 @@ fun PortfolioTxSheet(
                 // K-2: Preis/Wert in USDT oder in der Anzeigewährung (umgerechnet mit dem Tageskurs, gespeichert in USDT)
                 if (d.fiatPossible) TxEntryCurrencySection(state, d, currency)
                 TxPriceValueSection(state, d, currency)
+                // Gespeicherter Zugang ohne Preis: Vorschlag Tagesschluss bzw. «Wert bei Zufluss» (Build 84)
+                TxCostSuggestion(state, coin, coinValid, d.amount, viewModel)
                 // Notiz direkt unter dem Preis, bei allen Arten (Entscheid 18. Oktober 2026)
                 TxNoteField(state, 12.dp)
                 TxSwitchesSection(state)

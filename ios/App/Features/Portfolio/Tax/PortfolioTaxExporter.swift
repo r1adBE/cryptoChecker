@@ -27,12 +27,12 @@ enum PortfolioTaxExporter {
         return exact
     }
 
-    /// FR: Gesamtwert des Portfolios samt beobachteter Adressen («im Portfolio zählen») — ihre Guthaben-Änderungen als
-    /// Adress-Einträge (`AddressBalanceHistory.trades`, negative Id: keine Veräusserungen). Andere Vorlagen: nur die eigenen
-    /// Transaktionen. Wie `withAddressTrades` (Android).
+    /// Eigene Transaktionen + Eröffnungsposten beobachteter Adressen als Käufe (Build 84, `AddressCostLots.exportTrades`); FR
+    /// dazu der Gesamtwert samt beobachteter Adressen («im Portfolio zählen») — ihre Guthaben-Änderungen als Adress-Einträge
+    /// (`AddressBalanceHistory.trades`, negative Id: keine Veräusserungen) ohne den belegten Teil. Wie `withAddressTrades`
+    /// (Android).
     static func withAddressTrades(_ transactions: [PortfolioTx], method: TaxMethod) -> [PortfolioTx] {
-        guard method == .FR_PTA else { return transactions }
-        return transactions + AddressBalanceHistory.trades(AddressBalanceHistory.of(WatchedAddressStore.load().addresses))
+        AddressCostLots.exportTrades(transactions, addresses: WatchedAddressStore.load().addresses, frTotalValue: method == .FR_PTA)
     }
 
     /// Tageskurse der Vorlage: FR `frPrices`, Netzwerkgebühren als Veräusserung (`TaxTemplate.networkFeeIsDisposal`: UK,

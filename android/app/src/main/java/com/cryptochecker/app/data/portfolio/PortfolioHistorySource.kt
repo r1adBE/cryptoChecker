@@ -1,8 +1,8 @@
 package com.cryptochecker.app.data.portfolio
 
-import com.cryptochecker.app.data.CacheCodec
 import com.cryptochecker.app.data.CycleCacheStore
 import com.cryptochecker.app.data.MarketRepository
+import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.callMarket
@@ -12,6 +12,7 @@ import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.market.CycleCachePolicy
 import com.cryptochecker.app.domain.portfolio.ChainAssets
+import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioDayRange
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
@@ -30,8 +31,6 @@ import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
-import org.json.JSONArray
-import org.json.JSONObject
 import timber.log.Timber
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
@@ -76,6 +75,11 @@ data class PortfolioDailyPrices(
      * «Stand …» ([com.cryptochecker.app.domain.portfolio.PortfolioHistoryAsOf]) statt eines scheinbar heutigen Verlaufs.
      */
     val ownStale: Map<String, Long> = emptyMap(),
+    /**
+     * Coins mit Reihe aus der Ausweich-Kette (Binance führt sie nicht oder ist nicht erreichbar, keine eigene Börse) →
+     * Anbieter, z. B. «Kraken» ([HistoricCloseChain.SERIES_CHAIN]); die Karte nennt ihn («Tageskurse von …»).
+     */
+    val chainSources: Map<String, String> = emptyMap(),
 )
 
 /** Eigene Tageskerzen eines Coins (USDT) und für welchen Weg ([route] = Schlüssel des Paars). */
@@ -109,7 +113,11 @@ internal class HistoryRoutes(val pairs: Map<String, CandlePair>, val unresolved:
  * USDT zum Marktkurs (Owner-Entscheid Okt. 2026): Tagesschlüsse USDT/USD von Kraken ([usdtUsdDaily], Paar USDTZUSD über
  * dieselben eigenen Tageskerzen, 12 h gemerkt «phisto_USDTZUSD») — nur mit Portfolio (nur dessen Abrufe holen sie). Damit
  * rechnen USD- und Fiat-Kerzen eigener Börsen in USDT ([PortfolioExchangeRoute.ownDailyUsdt]) und die Umrechnung von
- * Verlauf und Export in Fiat ([com.cryptochecker.app.domain.portfolio.UsdtUsdRates]).
+ * Verlauf und Export in Fiat ([com.cryptochecker.app.domain.portfolio.UsdtUsdRates]). Fehlen Kraken Tage (nicht erreichbar,
+ * Lücke), füllt Coinbase USDT-USD sie ([HistoricCloseChain.fillUsdtUsd], «phisto_USDTUSDCB») — erst danach «USDT = 1».
+ *
+ * Ausweich-Kette (PortfolioHistorySourceChain.kt): Coins ohne Binance-Reihe und ohne eigene Börse bekommen die Tageskerzen
+ * von Coinbase → Kraken → OKX → Bybit, nur mit passendem Namen und ±25 % gegen den aktuellen Kurs (12 h, «phistc_<COIN>»).
  */
 @Singleton
 class PortfolioHistorySource @Inject constructor(
@@ -119,7 +127,15 @@ class PortfolioHistorySource @Inject constructor(
     internal val marketRepository: MarketRepository,
     internal val ownCandles: OwnCandleDataSource,
     internal val historicSource: HistoricPriceSource,
+    internal val tokenIdentityStore: TokenIdentityStore,
+    internal val priceSource: PortfolioPriceSource,
 ) {
+    /** Coin → (Reihe der Ausweich-Kette samt Weg, Abfragezeit). */
+    internal val chainMemory = ConcurrentHashMap<String, Pair<OwnCloses, Long>>()
+
+    /** Coin → Zeit der letzten Ausweich-Abfrage ohne Treffer (nicht bei jedem Öffnen alle Börsen erneut). */
+    internal val chainMisses = ConcurrentHashMap<String, Long>()
+
     /** Coin → (Schlüsse samt Spanne, Abfragezeit); leere Karte = kein Binance-Paar. */
     private val memory = ConcurrentHashMap<String, Pair<CoinCloses, Long>>()
 
@@ -153,13 +169,19 @@ class PortfolioHistorySource @Inject constructor(
             val limiter = Semaphore(PARALLEL)
             val loaded = coroutineScope {
                 symbols.map { coin -> async { coin to limiter.withPermit { closesOf(coin, span) } } }.awaitAll()
-            }.mapNotNull { (coin, entry) -> entry?.takeIf { it.closes.isNotEmpty() }?.let { coin to it } }
+            }.mapNotNull { (coin, entry) -> entry?.takeIf { it.closes.isNotEmpty() }?.let { coin to it } }.toMap()
             // Eingetragene Börse: deren eigene Tageskerzen statt Binance
             val routes = routes(symbols)
             val own = coroutineScope {
                 routes.pairs.map { (coin, pair) -> async { coin to limiter.withPermit { ownOf(coin, pair, span) } } }.awaitAll()
             }.mapNotNull { (coin, entry) -> entry?.let { coin to it } }.toMap()
-            mergeOwn(loaded.toMap(), own, routes.routed).withWrapped(requested).copy(usdtUsd = usdtUsdDaily(span))
+            // Weder Binance-Reihe noch eingetragene Börse: Ausweich-Kette (Coinbase → Kraken → OKX → Bybit)
+            val chain = coroutineScope {
+                symbols.filter { it !in loaded && it !in routes.routed }
+                    .map { coin -> async { coin to limiter.withPermit { chainOf(coin, span) } } }.awaitAll()
+            }.mapNotNull { (coin, entry) -> entry?.takeIf { it.entry.closes.isNotEmpty() }?.let { coin to it } }.toMap()
+            mergeOwn(loaded + chain.mapValues { it.value.entry }, own, routes.routed).withWrapped(requested)
+                .withChain(chain).copy(usdtUsd = usdtUsdDaily(span))
         }
 
     /**
@@ -169,16 +191,27 @@ class PortfolioHistorySource @Inject constructor(
      */
     suspend fun usdtUsdDaily(days: Int = PortfolioHistory.MAX_DAYS): Map<Long, Double> = withContext(Dispatchers.IO) {
         // Eine Abfrage für alle gleichzeitig ladenden Coins (die übrigen warten auf den Speicher)
-        usdtUsdMutex.withLock { ownOf(USDT_USD_KEY, USDT_USD_PAIR, days.coerceAtLeast(PortfolioHistory.MAX_DAYS))?.closes.orEmpty() }
+        usdtUsdMutex.withLock {
+            val span = days.coerceAtLeast(PortfolioHistory.MAX_DAYS)
+            val kraken = ownOf(USDT_USD_KEY, USDT_USD_PAIR, span)?.closes.orEmpty()
+            // Lücken bei Kraken (nicht erreichbar, Tag fehlt): Coinbase USDT-USD — erst danach «USDT = 1 angenommen»
+            val today = PortfolioHistory.epochDayOfUtcMillis(System.currentTimeMillis())
+            val gap = (today - minOf(span, USDT_USD_FILL_DAYS) + 1 until today).any { it !in kraken }
+            val coinbase = if (gap) ownOf(USDT_USD_FILL_KEY, USDT_USD_FILL_PAIR, span)?.closes.orEmpty() else emptyMap()
+            HistoricCloseChain.fillUsdtUsd(kraken, coinbase)
+        }
     }
 
     /** Wie [usdtUsdDaily], nur was schon da ist (Speicher, Gerät) — ohne Netz, ohne Altersgrenze (Widget). */
     private suspend fun cachedUsdtUsdDaily(): Map<Long, Double> {
-        val route = USDT_USD_PAIR.cacheKey
-        val entry = ownMemory[USDT_USD_KEY]?.first?.takeIf { it.route == route }
-            ?: cacheStore.read(ownCacheName(USDT_USD_KEY), OWN_CODEC)?.takeIf { it.value.route == route }
-                ?.also { ownMemory.putIfAbsent(USDT_USD_KEY, it.value to it.savedAt) }?.value
-        return entry?.entry?.closes.orEmpty()
+        suspend fun cachedOwn(key: String, pair: CandlePair): Map<Long, Double> {
+            val route = pair.cacheKey
+            val entry = ownMemory[key]?.first?.takeIf { it.route == route }
+                ?: cacheStore.read(ownCacheName(key), OWN_CODEC)?.takeIf { it.value.route == route }
+                    ?.also { ownMemory.putIfAbsent(key, it.value to it.savedAt) }?.value
+            return entry?.entry?.closes.orEmpty()
+        }
+        return HistoricCloseChain.fillUsdtUsd(cachedOwn(USDT_USD_KEY, USDT_USD_PAIR), cachedOwn(USDT_USD_FILL_KEY, USDT_USD_FILL_PAIR))
     }
 
     /**
@@ -207,7 +240,12 @@ class PortfolioHistorySource @Inject constructor(
                         ?.also { ownMemory.putIfAbsent(coin, it.value to it.savedAt) }?.value
                 entry?.entry?.takeIf { it.closes.isNotEmpty() }?.let { coin to it }
             }.toMap()
-            mergeOwn(loaded.toMap(), own, routes.routed).withWrapped(requested).copy(usdtUsd = cachedUsdtUsdDaily())
+            // Reihen der Ausweich-Kette, ebenfalls nur aus dem Speicher
+            val have = loaded.map { it.first }.toSet()
+            val chain = symbols.filter { it !in have && it !in routes.routed }
+                .mapNotNull { coin -> cachedChain(coin)?.takeIf { it.entry.closes.isNotEmpty() }?.let { coin to it } }.toMap()
+            mergeOwn(loaded.toMap() + chain.mapValues { it.value.entry }, own, routes.routed).withWrapped(requested)
+                .withChain(chain).copy(usdtUsd = cachedUsdtUsdDaily())
         }
 
     /**
@@ -311,6 +349,11 @@ class PortfolioHistorySource @Inject constructor(
             "USDT", "USD", com.cryptochecker.app.domain.alarm.DepegAlarm.KRAKEN_PAIR_ID,
         )
 
+        /** Lückenfüller USDT/USD: Coinbase USDT-USD (eigene Tageskerzen, etwa 600 Tage). */
+        const val USDT_USD_FILL_KEY = "USDTUSDCB"
+        const val USDT_USD_FILL_DAYS = 600
+        val USDT_USD_FILL_PAIR = CandlePair(HistoricCloseChain.COINBASE, HistoricCloseChain.COINBASE, "USDT", "USD", "USDT-USD")
+
         val HOSTS = listOf(
             "data-api.binance.vision" to "https://data-api.binance.vision/api/v3/klines",
             "api.binance.com" to "https://api.binance.com/api/v3/klines",
@@ -322,45 +365,12 @@ class PortfolioHistorySource @Inject constructor(
 
         fun ownCacheName(coin: String) = "phisto_" + coin.filter { it.isLetterOrDigit() }
 
-        /**
-         * {"span": 366, "days":[[epochDay, close, open, high, low], …]} — leere Liste = kein Paar.
-         * Ältere Einträge ohne «span» stammen aus der festen Jahres-Abfrage ([PortfolioHistory.MAX_DAYS]);
-         * ältere Tage nur mit [epochDay, close] haben keine Eröffnung/Hoch/Tief (Kerzen ohne Docht,
-         * bis der Eintrag nach 12 h neu geholt wird).
-         */
-        val CODEC = CacheCodec<CoinCloses>(
-            encode = { entry ->
-                val days = JSONArray()
-                entry.closes.entries.sortedBy { it.key }.forEach { (day, close) ->
-                    if (close.isFinite()) {
-                        val row = JSONArray().put(day).put(close)
-                        entry.ranges[day]?.let { row.put(it.open).put(it.high).put(it.low) }
-                        days.put(row)
-                    }
-                }
-                JSONObject().put("span", entry.span).put("days", days)
-            },
-            decode = { o ->
-                val days = o.getJSONArray("days")
-                val closes = HashMap<Long, Double>()
-                val ranges = HashMap<Long, PortfolioDayRange>()
-                for (i in 0 until days.length()) {
-                    val row = days.getJSONArray(i)
-                    val day = row.getLong(0)
-                    closes[day] = row.getDouble(1)
-                    if (row.length() >= 5) {
-                        PortfolioDayRange(row.getDouble(2), row.getDouble(3), row.getDouble(4))
-                            .takeIf { it.valid }?.let { ranges[day] = it }
-                    }
-                }
-                CoinCloses(closes, o.optInt("span", PortfolioHistory.MAX_DAYS), ranges)
-            },
-        )
+        fun chainCacheName(coin: String) = "phistc_" + coin.filter { it.isLetterOrDigit() }
 
-        /** Wie [CODEC], dazu der Weg («route»): ein anderer Weg (Börse/Paar geändert) gilt als nicht gemerkt. */
-        val OWN_CODEC = CacheCodec<OwnCloses>(
-            encode = { value -> CODEC.encode(value.entry).put("route", value.route) },
-            decode = { o -> OwnCloses(o.getString("route"), CODEC.decode(o)) },
-        )
+        /** Eintrag «phist_<COIN>» ([PortfolioHistoryCodecs.closes]). */
+        val CODEC = PortfolioHistoryCodecs.closes
+
+        /** Eintrag «phisto_…»/«phistc_…» mit Weg ([PortfolioHistoryCodecs.own]). */
+        val OWN_CODEC = PortfolioHistoryCodecs.own
     }
 }

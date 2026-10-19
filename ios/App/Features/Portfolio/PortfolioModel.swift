@@ -292,6 +292,9 @@ final class PortfolioModel: ObservableObject {
         let method = data.settings.costMethod
         // USDT zum Marktkurs: je Tag × USDT/USD-Tagesschluss (Tag ohne Schluss: 1, als Näherung markiert)
         let usdt = UsdtUsdRates(live: DepegAlarmCheck.liveUsdtUsd(), daily: loaded.prices.usdtUsd)
+        // Tageskurse aus der Ausweich-Kette (Binance führt den Coin nicht): Anbieter nennen
+        let chainAll = loaded.prices.chainSources
+        let txCoins = Set(txs.flatMap(\.coins).map { PortfolioCalculator.normalizeCoin($0) })
         historyTask?.cancel()
         historyTask = Task { [weak self] in
             let ui = await Task.detached(priority: .userInitiated) { () -> PortfolioHistoryUi in
@@ -330,7 +333,9 @@ final class PortfolioModel: ObservableObject {
                                           staleSince: staleSince)
             }.value
             guard !Task.isCancelled else { return }
-            self?.history = ui
+            var shown = ui
+            shown.chainSources = chainAll.filter { txCoins.contains($0.key) && !ui.series.skipped.contains($0.key) }
+            self?.history = shown
         }
     }
 

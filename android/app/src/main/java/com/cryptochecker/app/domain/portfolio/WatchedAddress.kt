@@ -79,6 +79,11 @@ data class WatchedAddress(
      * Mengenvergleich; gespeichert ohne «ovl2»). Beim Laden einmal geprüft ([WatchedAddressRules.overlapLegacyRevert]).
      */
     val overlapLegacy: Boolean = false,
+    /**
+     * Eröffnungsposten («Einstand für Adressguthaben», [AddressCostLots]): Einstand für einen Teil des Guthabens; eigene
+     * Spalte `costLots` (nicht in den Zusatzdaten — ein Abruf schreibt diese, nie die Posten).
+     */
+    val costLots: List<AddressCostLot> = emptyList(),
 ) {
     /** Erweiterter öffentlicher Schlüssel statt einzelner Adresse. */
     val isXpub: Boolean get() = chain == AddressChain.BTC && AddressValidation.isExtendedKey(address)
@@ -124,6 +129,8 @@ data class WatchedAddressBackupEntry(
     val networks: List<String>? = null,
     /** «Nur anzeigen» = false; in der Sicherung nur, wenn aus. */
     val countInPortfolio: Boolean = true,
+    /** Eröffnungsposten ([WatchedAddress.costLots]); in der Sicherung nur, wenn vorhanden («costLots»). */
+    val costLots: List<AddressCostLot> = emptyList(),
 )
 
 /**

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Poster uden anskaffelsespris: %1$d</string>
+    <string name="cost_gaps_card_text">Tilføj anskaffelsesprisen, så gevinst og skat er komplette.</string>
+    <string name="cost_gaps_sheet_title">Poster uden anskaffelsespris</string>
+    <string name="cost_gaps_sheet_intro">Disse tilgange mangler anskaffelsespris. Forslaget er dagens lukkekurs for datoen – du kan justere det i posten.</string>
+    <string name="cost_gaps_empty">Alle poster har en anskaffelsespris.</string>
+    <string name="cost_gap_enter">Angiv anskaffelsespris</string>
+    <string name="cost_gap_leave_unknown">Lad være ukendt</string>
+    <string name="cost_gap_left_unknown">Ladet ukendt</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Forslag: lukkekurs %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Ingen kontrolleret lukkekurs for denne dato</string>
+    <string name="cost_gap_suggestion_loading">Henter lukkekurs …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Anskaffelsespris = værdi ved modtagelse (indkomst)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Anskaffelsespris = 0 (belønning uden tilgang, Østrig)</string>
+    <string name="cost_gap_apply">Anvend</string>
+    <string name="address_lots_action">Anskaffelsespris for adressesaldo</string>
+    <string name="address_lots_title">Anskaffelsespris for adressesaldo</string>
+    <string name="address_lots_intro">Angiv købsdato, mængde og anskaffelsespris for saldoen på denne adresse. Posterne tæller som køb på denne adresse; resten forbliver uden anskaffelsespris.</string>
+    <string name="address_lots_add">Tilføj post</string>
+    <string name="address_lots_new">Ny post</string>
+    <string name="address_lots_edit">Post</string>
+    <string name="address_lots_date">Købsdato</string>
+    <string name="address_lots_amount">Mængde</string>
+    <string name="address_lots_mode_total">I alt</string>
+    <string name="address_lots_mode_price">Pr. coin</string>
+    <string name="address_lots_price">Pris pr. coin (USDT)</string>
+    <string name="address_lots_total">Samlet anskaffelsespris (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s af %2$s med anskaffelsespris</string>
+    <string name="address_lots_unlotted">%1$s uden anskaffelsespris</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Posterne overstiger saldoen med %1$s – de ældste bruges først.</string>
+    <string name="address_lots_not_loaded">Saldo endnu ikke hentet – posterne tæller, så snart den er der.</string>
+    <string name="address_lots_invalid">Angiv mængde og anskaffelsespris</string>
+</resources>

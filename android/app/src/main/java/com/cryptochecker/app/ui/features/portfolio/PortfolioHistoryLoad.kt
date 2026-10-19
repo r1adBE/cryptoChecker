@@ -49,6 +49,11 @@ data class PortfolioHistoryUi(
      * ([com.cryptochecker.app.domain.portfolio.PortfolioHistoryAsOf]) — die Karte sagt «Stand …»; null = frisch.
      */
     val staleSince: Long? = null,
+    /**
+     * Coins mit Tageskursen aus der Ausweich-Kette → Anbieter (z. B. «Kraken»,
+     * [com.cryptochecker.app.data.portfolio.PortfolioDailyPrices.chainSources]); die Karte nennt sie. Leer = keine.
+     */
+    val chainSources: Map<String, String> = emptyMap(),
 )
 
 /** Tageskurse USD → [currency] ab [from] bis [to] (letzter abgefragter Tag); [rates] null = nicht zu haben. */

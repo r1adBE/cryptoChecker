@@ -64,6 +64,7 @@ object WatchedAddressRules {
                 tokenObservations = cleanTokens(entry.chain, entry.tokenObservations),
                 networks = networks,
                 countInPortfolio = entry.countInPortfolio,
+                costLots = AddressCostLots.clean(entry.costLots),
             )
             // Reihen nur, wo sie heute zählen würden (Token aus, Netz abgewählt: weg)
             a = a.copy(tokenObservations = a.tokenObservations.filterKeys { counts(a, it) })
@@ -93,7 +94,7 @@ object WatchedAddressRules {
         list.map {
             WatchedAddressBackupEntry(
                 it.chain, it.address, it.label, it.addedAt, it.observations, it.countTokens, it.tokenObservations,
-                it.networks, it.countInPortfolio,
+                it.networks, it.countInPortfolio, it.costLots,
             )
         }
 
@@ -313,7 +314,8 @@ object WatchedAddressRules {
     /**
      * Für die App-Sicherung: `[{"chain":"BTC","address":"…","label":"…","addedAt":…,"observations":[{"t":…,"b":"…"}]}]`
      * («observations» nur, wenn vorhanden; dazu «countTokens»:false und «countInPortfolio»:false nur, wenn aus,
-     * «tokenObservations»:{"USDT":[…]} nur, wenn vorhanden, «networks»:[…] nur ETH nach der ersten Suche).
+     * «tokenObservations»:{"USDT":[…]} nur, wenn vorhanden, «networks»:[…] nur ETH nach der ersten Suche, «costLots»:[…]
+     * nur mit Eröffnungsposten — [AddressCostLots]; ältere Versionen übergehen das Feld).
      */
     fun toJson(entries: List<WatchedAddressBackupEntry>): JSONArray {
         val array = JSONArray()
@@ -328,6 +330,7 @@ object WatchedAddressRules {
             if (e.tokenObservations.isNotEmpty()) o.put("tokenObservations", WatchedAddressExtras.tokensToJson(e.tokenObservations))
             e.networks?.let { o.put("networks", JSONArray(it)) }
             if (!e.countInPortfolio) o.put("countInPortfolio", false)
+            if (e.costLots.isNotEmpty()) o.put("costLots", AddressCostLots.toJson(e.costLots))
             array.put(o)
         }
         return array
@@ -348,7 +351,10 @@ object WatchedAddressRules {
             val tokens = WatchedAddressExtras.tokensFromJson(chain, o.optJSONObject("tokenObservations"))
             val networks = WatchedAddressExtras.networksFromJson(o.optJSONArray("networks"))
             val countInPortfolio = o.opt("countInPortfolio") as? Boolean ?: true
-            out += WatchedAddressBackupEntry(chain, address, label, addedAt, observations, countTokens, tokens, networks, countInPortfolio)
+            val costLots = AddressCostLots.fromJson(o.optJSONArray("costLots"))
+            out += WatchedAddressBackupEntry(
+                chain, address, label, addedAt, observations, countTokens, tokens, networks, countInPortfolio, costLots,
+            )
         }
         return out
     }

@@ -1069,6 +1069,36 @@ the tests named here.
   Binance series. A scaled coin is named under the chart and on the card
   (`portfolio_history_scaled`, `portfolio_period_scaled`). Same series for value history, 7 d, 1 y
   and the portfolio widget.
+* **Fallback chain for historical daily closes** (build 84). `HistoricCloseChain` (pure, both platforms, parity
+  `testdata/parity/historic_close_chain.json`, tests `HistoricCloseChainParityTest(s)`) fixes the order and the
+  identity rules; only exchanges the app already talks to, **no new hosts** (all candles go through
+  `OwnCandleDataSource`: its time limit, `BlockedSources` 451/403 block, 429/418 pause via `CandleHostPauses` /
+  Binance group, 60 s cache – a constant 1000-candle request so all days of one pair share one fetch).
+  - Single day (`HistoricPriceSource.dailyCloseUsdt` / `dailyClosesUsdt`: cut-off export / CH wealth 31.12., tax
+    rows, «checked daily close» prefill): own route exchange (`resolveHistoryRoutes` on Android,
+    `PortfolioExchangeRouteStore` on iOS; fiat quote ÷ FX of the day; identity 1/3 … 3 like Binance spot, since
+    current portfolio prices come from it) → Binance group unchanged (spot, futures, Binance.US) → Coinbase unchanged
+    (day window, any age) → Kraken (`XBTUSD`, `…USDT`) → OKX (`-USDT`, `-USDC`) → Bybit (`…USDT`, `…USDC`). Chain
+    sources need the same name (`nameAllowed` = `TokenIdentity.fallbackSeriesAllowed`; a clash between the watchlist
+    name and Binance's name disables the whole chain, as for charts) **and** their latest close within ±25 % of the
+    current price (`decide` → `PricePlausibility.acceptSourceClose`). USD/USDC count as USDT here, as Binance.US and
+    Coinbase always did. Only rejected closes → «unchecked»; no close anywhere → «no price». The result carries its
+    source (`CloseResult.source`, e.g. «Kraken», «Binance.US»). Kraken serves 720 daily candles, OKX/Coinbase about
+    600 via the candle sources, Bybit 1000 – older days stay without a close there.
+  - Value history (`PortfolioHistorySource`): a coin with **no Binance series** (not listed, or Binance unreachable
+    and nothing stored) and **no route** gets Coinbase → Kraken → OKX → Bybit daily candles (`fetchOwn`, USD ÷
+    USDT/USD of the day) when the name matches and the latest close is within ±25 % of the current portfolio price
+    (`acceptSeries`; reference from the price cache/stored prices only – no extra request, no reference → no new
+    series). Cached 12 h as `phistc_<COIN>` (route = the chain pair), a miss is not retried for 1 h (memory only);
+    the widget reads the same cache. `closesMatchLive` still checks 1/3 … 3 later. `PortfolioDailyPrices.chainSources`
+    → `PortfolioHistoryUi.chainSources` → caption `portfolio_history_chain_sources` («Daily prices: Kraken (PEPE)
+    (instead of Binance)», `PortfolioExchangeRoute.sourcesText`).
+  - USDT/USD daily closes: Kraken `USDTZUSD` first; if Kraken misses a day of the last 600 (unreachable, gap),
+    Coinbase `USDT-USD` fills it (`fillUsdtUsd`: only plausible 0.5 … 1.5 values, Kraken wins; cached
+    `phisto_USDTUSDCB`). Only after both, a day falls back to «USDT = 1 assumed».
+  - FX is untouched: `usdTo` (Frankfurter answers a weekend/holiday with the last business day) and `usdToSeries`
+    (from `LEAD_DAYS` = 7 days earlier, gaps filled with the previous rate by `PortfolioHistoryFx.rateOn`) do not use
+    the chain. Stablecoin rules (`PortfolioStables`) are unchanged.
 * **Prefill only what is true for the chosen date** (build 45). The add-transaction sheet prefills
   the current price only for a transaction dated **today**. Choosing another date clears a prefilled
   (untouched) price and shows «Enter the price on the purchase day – leave empty if unknown»
@@ -1428,7 +1458,7 @@ the tests named here.
   `USDTZUSD` / Binance `USDCUSDT` tickers, at most every 5 min; with the alarm off they only store the reading
   (`DepegReadingStore` / `DepegAlarmCheck.lastReading`), never notify. Also started from the portfolio refresh.
   Daily closes: `PortfolioHistorySource.usdtUsdDaily` = Kraken daily candles `USDTZUSD` through `OwnCandleDataSource`
-  and the own-candle cache (`phisto_USDTZUSD`, 12 h); `PortfolioDailyPrices.usdtUsd` carries them with every history
+  and the own-candle cache (`phisto_USDTZUSD`, 12 h; gaps filled from Coinbase `USDT-USD`, build 84); `PortfolioDailyPrices.usdtUsd` carries them with every history
   load, and USD/fiat candles of own exchanges divide by them (`ownDailyUsdt`). Callers: total card and rows use
   `displayFxRate` / `displayRate(for:)` (FX × live USDT/USD) and `cardNote(usdtMarket = true)` (the deviation line
   and `portfolio_usdt_depeg_warning` are gone); history and «7 d»/«1 y» pass `UsdtUsdRates(live, daily)`

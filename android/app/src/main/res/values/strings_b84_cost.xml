@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Entries without cost basis: %1$d</string>
+    <string name="cost_gaps_card_text">Add the cost basis so gains and taxes are complete.</string>
+    <string name="cost_gaps_sheet_title">Entries without cost basis</string>
+    <string name="cost_gaps_sheet_intro">These inflows have no cost basis. The suggestion is the daily close of the date – you can adjust it in the entry.</string>
+    <string name="cost_gaps_empty">All entries have a cost basis.</string>
+    <string name="cost_gap_enter">Enter cost basis</string>
+    <string name="cost_gap_leave_unknown">Leave unknown</string>
+    <string name="cost_gap_left_unknown">Left unknown</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Suggestion: daily close %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">No verified daily close for this date</string>
+    <string name="cost_gap_suggestion_loading">Loading daily close …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Cost basis = value at receipt (income)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Cost basis = 0 (reward without inflow, Austria)</string>
+    <string name="cost_gap_apply">Apply</string>
+    <string name="address_lots_action">Cost basis for address balance</string>
+    <string name="address_lots_title">Cost basis for address balance</string>
+    <string name="address_lots_intro">Enter purchase date, amount and cost basis for the balance of this address. The lots count like purchases in this address; any part not covered stays without cost basis.</string>
+    <string name="address_lots_add">Add lot</string>
+    <string name="address_lots_new">New lot</string>
+    <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_date">Purchase date</string>
+    <string name="address_lots_amount">Amount</string>
+    <string name="address_lots_mode_total">Total</string>
+    <string name="address_lots_mode_price">Per coin</string>
+    <string name="address_lots_price">Price per coin (USDT)</string>
+    <string name="address_lots_total">Total cost basis (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s of %2$s with cost basis</string>
+    <string name="address_lots_unlotted">%1$s without cost basis</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">The lots exceed the balance by %1$s – the oldest are used up first.</string>
+    <string name="address_lots_not_loaded">Balance not loaded yet – the lots count as soon as it is.</string>
+    <string name="address_lots_invalid">Enter amount and cost basis</string>
+</resources>

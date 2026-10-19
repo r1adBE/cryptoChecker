@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Mục chưa có giá vốn: %1$d</string>
+    <string name="cost_gaps_card_text">Bổ sung giá vốn để lãi và thuế được đầy đủ.</string>
+    <string name="cost_gaps_sheet_title">Mục chưa có giá vốn</string>
+    <string name="cost_gaps_sheet_intro">Các khoản nhận này chưa có giá vốn. Gợi ý là giá đóng cửa trong ngày – bạn có thể sửa trong mục.</string>
+    <string name="cost_gaps_empty">Tất cả các mục đều có giá vốn.</string>
+    <string name="cost_gap_enter">Nhập giá vốn</string>
+    <string name="cost_gap_leave_unknown">Để chưa biết</string>
+    <string name="cost_gap_left_unknown">Đã để chưa biết</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Gợi ý: đóng cửa %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Không có giá đóng cửa đã xác minh cho ngày này</string>
+    <string name="cost_gap_suggestion_loading">Đang tải giá đóng cửa …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Giá vốn = giá trị khi nhận (thu nhập)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Giá vốn = 0 (phần thưởng không có dòng vào, Áo)</string>
+    <string name="cost_gap_apply">Áp dụng</string>
+    <string name="address_lots_action">Giá vốn cho số dư địa chỉ</string>
+    <string name="address_lots_title">Giá vốn cho số dư địa chỉ</string>
+    <string name="address_lots_intro">Nhập ngày mua, số lượng và giá vốn cho số dư của địa chỉ này. Các lô được tính như giao dịch mua tại địa chỉ này; phần không được phủ vẫn chưa có giá vốn.</string>
+    <string name="address_lots_add">Thêm lô</string>
+    <string name="address_lots_new">Lô mới</string>
+    <string name="address_lots_edit">Lô</string>
+    <string name="address_lots_date">Ngày mua</string>
+    <string name="address_lots_amount">Số lượng</string>
+    <string name="address_lots_mode_total">Tổng</string>
+    <string name="address_lots_mode_price">Mỗi coin</string>
+    <string name="address_lots_price">Giá mỗi coin (USDT)</string>
+    <string name="address_lots_total">Tổng giá vốn (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s trên %2$s có giá vốn</string>
+    <string name="address_lots_unlotted">%1$s chưa có giá vốn</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Các lô vượt số dư %1$s – lô cũ nhất được dùng trước.</string>
+    <string name="address_lots_not_loaded">Số dư chưa được tải – các lô sẽ được tính ngay khi có.</string>
+    <string name="address_lots_invalid">Nhập số lượng và giá vốn</string>
+</resources>

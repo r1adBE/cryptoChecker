@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Bekerülési érték nélküli tételek: %1$d</string>
+    <string name="cost_gaps_card_text">Add meg a bekerülési értéket, hogy a nyereség és az adó teljes legyen.</string>
+    <string name="cost_gaps_sheet_title">Bekerülési érték nélküli tételek</string>
+    <string name="cost_gaps_sheet_intro">Ezeknél a jóváírásoknál hiányzik a bekerülési érték. A javaslat a dátum napi záróárfolyama – a tételben módosíthatod.</string>
+    <string name="cost_gaps_empty">Minden tételnek van bekerülési értéke.</string>
+    <string name="cost_gap_enter">Bekerülési érték megadása</string>
+    <string name="cost_gap_leave_unknown">Ismeretlen marad</string>
+    <string name="cost_gap_left_unknown">Ismeretlen maradt</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Javaslat: záró %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Nincs ellenőrzött záróárfolyam erre a napra</string>
+    <string name="cost_gap_suggestion_loading">Záróárfolyam betöltése …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Bekerülési érték = érték a jóváíráskor (jövedelem)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Bekerülési érték = 0 (jutalom beáramlás nélkül, Ausztria)</string>
+    <string name="cost_gap_apply">Átvétel</string>
+    <string name="address_lots_action">Bekerülési érték a cím egyenlegéhez</string>
+    <string name="address_lots_title">Bekerülési érték a cím egyenlegéhez</string>
+    <string name="address_lots_intro">Add meg a vásárlás dátumát, a mennyiséget és a bekerülési értéket ennek a címnek az egyenlegéhez. A tételek vásárlásként számítanak ezen a címen; a lefedetlen rész bekerülési érték nélkül marad.</string>
+    <string name="address_lots_add">Tétel hozzáadása</string>
+    <string name="address_lots_new">Új tétel</string>
+    <string name="address_lots_edit">Tétel</string>
+    <string name="address_lots_date">Vásárlás dátuma</string>
+    <string name="address_lots_amount">Mennyiség</string>
+    <string name="address_lots_mode_total">Összesen</string>
+    <string name="address_lots_mode_price">Coinonként</string>
+    <string name="address_lots_price">Ár coinonként (USDT)</string>
+    <string name="address_lots_total">Teljes bekerülési érték (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s / %2$s bekerülési értékkel</string>
+    <string name="address_lots_unlotted">%1$s bekerülési érték nélkül</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">A tételek %1$s értékkel meghaladják az egyenleget – a legrégebbiek fogynak el először.</string>
+    <string name="address_lots_not_loaded">Az egyenleg még nincs betöltve – a tételek akkor számítanak, amint elérhető.</string>
+    <string name="address_lots_invalid">Add meg a mennyiséget és a bekerülési értéket</string>
+</resources>

@@ -271,8 +271,9 @@ enum TaxEngines {
                 out += jpTotal(entry.coin, steps(entry.events), timeZone, &lost)
             }
         case .FR_PTA:
-            // FR: Gesamtwert samt beobachteter Adressen (Adress-Einträge, `AddressBalance.isAddressTrade`)
-            out = frPta(real, priceAt, &outflows, addressTrades: trades.filter { AddressBalance.isAddressTrade($0.id) })
+            // FR: Gesamtwert samt beobachteter Adressen ohne Einstand (`AddressBalance.isAddressPart`); Eröffnungsposten
+            // stecken schon in `real` (Erwerbspreis-Summe und Bestand)
+            out = frPta(real, priceAt, &outflows, addressTrades: trades.filter { AddressBalance.isAddressPart($0.id) })
         case .AT_MOVING_AVERAGE:
             out = atSplit(real, timeZone, &lost)
         case .FIFO, .FIFO_WALLET, .AVERAGE:

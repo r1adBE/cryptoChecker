@@ -15,6 +15,7 @@ struct PortfolioPositionCard: View {
     @Environment(\.priceColorsInverted) private var invertedDependency
     @Environment(\.priceHighContrast) private var highContrastDependency
     @Environment(\.hidePortfolioAmounts) private var hideAmounts
+    @Environment(\.appAccent) private var accent
     let position: CoinPosition
     /// Teil aus beobachteten Adressen («Aus Adresse · ohne Kaufpreis»); nil = keiner.
     var addressAmount: Decimal? = nil
@@ -22,6 +23,10 @@ struct PortfolioPositionCard: View {
     var overlap = false
     /// Eigene Einzahlung/Umbuchung = Guthaben/Zugang einer zählenden Adresse (± 1 %): deutliche Warnung wie bei der Adresse.
     var matches: [PortfolioTx] = []
+    /// «ohne Kaufpreis» antippen: Einträge ohne Einstand (`PortfolioCostGapsSheet`); nil = nicht antippbar.
+    var onMissingCost: (() -> Void)? = nil
+    /// «Aus Adresse» antippen: Einstand für Adressguthaben (`PortfolioAddressLotsSheet`); nil = nicht antippbar.
+    var onAddressCost: (() -> Void)? = nil
 
     var body: some View {
         let p = position
@@ -63,9 +68,10 @@ struct PortfolioPositionCard: View {
                 Text(L("portfolio_address_not_since_buy",
                        PortfolioInsights.mask(PortfolioFormat.exactAmount(addressAmount, p.coin), hidden: hideAmounts)))
                     .font(.caption)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .foregroundStyle(onAddressCost == nil ? AppColors.onSurfaceVariant : accent.primary)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.top, 4)
+                    .costLink(onAddressCost)
                 if !matches.isEmpty {
                     let amounts: String = matches.map { t -> String in PortfolioFormat.exactAmount(t.amountExact, p.coin) }
                         .joined(separator: ", ")
@@ -103,8 +109,9 @@ struct PortfolioPositionCard: View {
                         Text(L("portfolio_unrealized_without_unpriced",
                                PortfolioInsights.mask(PortfolioFormat.exactAmount(p.unpricedHoldingsExact, p.coin), hidden: hideAmounts)))
                             .font(.caption)
-                            .foregroundStyle(AppColors.onSurfaceVariant)
+                            .foregroundStyle(onMissingCost == nil ? AppColors.onSurfaceVariant : accent.primary)
                             .fixedSize(horizontal: false, vertical: true)
+                            .costLink(onMissingCost)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -124,7 +131,8 @@ struct PortfolioPositionCard: View {
             // Wie Einstand und Ø gerechnet werden (nach der gewählten Methode) — wie Android
             PortfolioHint(text: L(p.method.isFifo ? "portfolio_fifo_hint" : "portfolio_avg_price_hint")).padding(.top, 8)
             if p.priceMissing {
-                PortfolioHint(text: L("portfolio_price_missing_hint")).padding(.top, 8)
+                // Antippbar: öffnet die Einträge ohne Einstand dieses Coins (Build 84)
+                PortfolioHint(text: L("portfolio_price_missing_hint")).padding(.top, 8).costLink(onMissingCost)
             }
             // Netzwerkgebühr, deren Einstand keinen bezahlten Posten mehr fand (weder Einstand noch realisiert)
             if p.lostFeeCostUsdt != 0 {
@@ -213,6 +221,18 @@ struct PortfolioOpenLotsSection: View {
                 .foregroundStyle(AppColors.onSurface)
                 .lineLimit(1)
                 .minimumScaleFactor(0.75)
+        }
+    }
+}
+
+extension View {
+    /// Antippbar, wenn `action` gesetzt ist (Hinweis «ohne Kaufpreis» → Blatt zum Ergänzen) — wie `Modifier.costLink`.
+    @ViewBuilder
+    func costLink(_ action: (() -> Void)?) -> some View {
+        if let action {
+            self.contentShape(Rectangle()).onTapGesture(perform: action).accessibilityAddTraits(.isButton)
+        } else {
+            self
         }
     }
 }

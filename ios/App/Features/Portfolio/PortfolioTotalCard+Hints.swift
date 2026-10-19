@@ -35,14 +35,16 @@ extension PortfolioTotalCard {
         // Was im Gewinn seit Kauf fehlt (M3: nur diese Coins, nicht das ganze Portfolio)
         if !summary.missingCostCoins.isEmpty {
             let count: Int = summary.missingCostCoins.count
-            items.append(HintItem(text: L("ledger_without_cost", count: count, count, summary.missingCostCoins.joined(separator: ", "))))
+            // Antippen: Einträge ohne Einstand (Build 84)
+            items.append(HintItem(text: L("ledger_without_cost", count: count, count, summary.missingCostCoins.joined(separator: ", ")),
+                                  txId: PortfolioCostGapUi.hintId))
         }
         // Nur ein Teil ohne Kaufpreis: «Seit Kauf» zählt den Teil mit Kaufpreis, der Rest fehlt — wie Android
         if !summary.partialCostParts.isEmpty {
             let parts: [String] = summary.partialCostParts.map {
                 PortfolioInsights.mask(PortfolioFormat.exactAmount($0.amount, $0.coin), hidden: hideAmounts)
             }
-            items.append(HintItem(text: L("ledger_partial_cost", parts.joined(separator: ", "))))
+            items.append(HintItem(text: L("ledger_partial_cost", parts.joined(separator: ", ")), txId: PortfolioCostGapUi.hintId))
         }
         // Heute / 7 T / 1 J: Coins ohne passende Kurse fehlen nur dort, die übrigen zählen — wie Android
         let skipped: [String] = todaySkipped + (weekChange?.skipped ?? []) + (yearChange?.skipped ?? [])

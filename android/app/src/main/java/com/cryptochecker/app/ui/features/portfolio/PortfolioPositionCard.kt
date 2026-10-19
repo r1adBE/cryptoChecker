@@ -43,6 +43,10 @@ internal fun PositionCard(
     addressAmount: java.math.BigDecimal? = null,
     overlap: Boolean = false,
     matches: List<PortfolioTrade> = emptyList(),
+    /** «ohne Kaufpreis» antippen: Einträge ohne Einstand ([PortfolioCostGapsSheet]); null = nicht antippbar. */
+    onMissingCost: (() -> Unit)? = null,
+    /** «Aus Adresse» antippen: Einstand für Adressguthaben ([PortfolioAddressLotsSheet]); null = nicht antippbar. */
+    onAddressCost: (() -> Unit)? = null,
 ) {
     AppCard {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -95,8 +99,8 @@ internal fun PositionCard(
             Text(
                 stringResource(R.string.portfolio_address_not_since_buy, maskAmount(PortfolioFormat.amount(addressAmount, p.coin))),
                 style = MaterialTheme.typography.label,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 4.dp)
+                color = if (onAddressCost != null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.costLink(onAddressCost).padding(top = 4.dp)
             )
             // Adresse und eigene Transaktionen im selben Coin: werden addiert — Hinweis statt stiller Doppelzählung;
             // gleiche Menge wie eine eigene Einzahlung/Umbuchung ([WatchedAddressRules.transferMatchesFor]): deutlicher
@@ -150,8 +154,8 @@ internal fun PositionCard(
                             maskAmount(PortfolioFormat.amount(p.unpricedHoldingsExact, p.coin))
                         ),
                         style = MaterialTheme.typography.label,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 2.dp)
+                        color = if (onMissingCost != null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.costLink(onMissingCost).padding(top = 2.dp)
                     )
                 }
             }
@@ -169,7 +173,12 @@ internal fun PositionCard(
             stringResource(if (p.method.isFifo) R.string.portfolio_fifo_hint else R.string.portfolio_avg_price_hint)
         )
         if (p.priceMissing) {
-            PortfolioHint(stringResource(R.string.portfolio_price_missing_hint))
+            if (onMissingCost == null) {
+                PortfolioHint(stringResource(R.string.portfolio_price_missing_hint))
+            } else {
+                // Zum Ergänzen: öffnet die Einträge ohne Einstand dieses Coins
+                CostLinkHint(stringResource(R.string.portfolio_price_missing_hint), onMissingCost)
+            }
         }
         // Netzwerkgebühr, deren Einstand keinen bezahlten Posten mehr fand (weder Einstand noch realisiert)
         if (p.lostFeeCostUsdt.signum() != 0) {

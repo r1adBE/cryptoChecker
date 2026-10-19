@@ -42,6 +42,7 @@ import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.ui.features.watchlist.ago
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.theme.label
 
 /**
  * Eine Adresse: Bezeichnung oder gekürzte Adresse, Netz, Guthaben, Stand bzw. Fehler; xpub mit Anzahl benutzter
@@ -59,6 +60,8 @@ internal fun AddressRow(
     onCountTokens: (Boolean) -> Unit,
     onNetworks: (List<String>) -> Unit,
     onShowOnly: (Boolean) -> Unit,
+    /** «Einstand für Adressguthaben» ([PortfolioAddressLotsSheet]). */
+    onCostLots: () -> Unit = {},
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -195,6 +198,24 @@ internal fun AddressRow(
                         modifier = Modifier.weight(1f)
                     )
                     Switch(checked = a.countTokens, onCheckedChange = null)
+                }
+            }
+            // Build 84: Einstand für das Guthaben (Posten wie Käufe in dieser Adresse); Stand je Coin, wenn erfasst
+            if (a.countInPortfolio) {
+                val covered = com.cryptochecker.app.domain.portfolio.AddressCostLots.coverage(a)
+                covered.forEach { c ->
+                    Text(
+                        stringResource(
+                            R.string.address_lots_status,
+                            if (hideAmounts) "•••" else PortfolioFormat.amount(c.lotted, c.coin),
+                            if (hideAmounts) "•••" else PortfolioFormat.amount(c.balance, c.coin),
+                        ),
+                        style = MaterialTheme.typography.label,
+                        color = if (c.capped && a.lastBalance != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                TextButton(onClick = onCostLots) {
+                    Text(stringResource(R.string.address_lots_action), style = MaterialTheme.typography.labelLarge)
                 }
             }
             // «Nur anzeigen, nicht zum Portfolio zählen»

@@ -1,14 +1,19 @@
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.data.MarketRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleDataSource
 import com.cryptochecker.app.data.remote.callMarket
+import com.cryptochecker.app.data.remote.candles.CandlePair
+import com.cryptochecker.app.data.remote.candles.OwnCandleDataSource
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.convert.CurrencyConversion
+import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.portfolio.CutoffCloses
 import com.cryptochecker.app.domain.portfolio.CutoffExport
+import com.cryptochecker.app.domain.portfolio.HistoricCloseChain
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
@@ -51,14 +56,25 @@ data class HistoricFx(val rate: Double, val date: String?)
  *    Kurse gefunden wurden.
  *  - Devisenkurs USD → Zielwährung dieses Tags (EZB über Frankfurter) und die Tageskurse eines
  *    Zeitraums für den Wertverlauf ([usdToSeries], gleicher Anbieter, 6 h im Speicher).
+ *  - Ausweich-Kette ([HistoricCloseChain], HistoricPriceSourceChain.kt): eigene Börse des Coins zuerst (Tageskerzen
+ *    dieser Börse, Identitätsprüfung 1/3…3 wie Binance-Spot), nach Binance und Coinbase noch Kraken → OKX → Bybit
+ *    (eigene Kerzen dieser Börsen, ±25 % und Name) — nur Hosts, die die App ohnehin anfragt. Der Kurs trägt seine
+ *    Quelle ([CloseResult.source]).
  * Stablecoins nach [PortfolioStables]: USDT = 1 ohne Abfrage, andere Stablecoins werden wie
- * jeder Coin abgefragt (fehlt der Kurs, setzt [CutoffExport.rows] 1). Kurse ohne Zwischenspeicher.
+ * jeder Coin abgefragt (fehlt der Kurs, setzt [CutoffExport.rows] 1). Kurse ohne eigenen Zwischenspeicher (die Kerzen der
+ * Ausweich-Börsen hält [OwnCandleDataSource] kurz, damit viele Tage desselben Coins eine Abfrage teilen).
  */
 @Singleton
 class HistoricPriceSource @Inject constructor(
     private val httpClient: OkHttpClient,
-    private val tokenIdentityStore: TokenIdentityStore,
+    internal val tokenIdentityStore: TokenIdentityStore,
+    internal val ownCandles: OwnCandleDataSource,
+    internal val portfolioDao: PortfolioDao,
+    internal val marketRepository: MarketRepository,
 ) {
+    /** Coin → (eigene Börse oder null, Lesezeit): die Steuer-Vorlage fragt je (Coin, Tag) einzeln ([ownRoutes]). */
+    internal val routeMemo = ConcurrentHashMap<String, Pair<CandlePair?, Long>>()
+
     /**
      * Schlusskurse der Coins am Tag [date]; Coins ohne bestätigten Kurs fehlen in den Preisen.
      * [current]: Bezugskurse in USDT für die Identitätsprüfung ([CutoffExport.referencePrices]);
@@ -71,10 +87,12 @@ class HistoricPriceSource @Inject constructor(
     ): CutoffCloses =
         withContext(Dispatchers.IO) {
             val symbols = coins.map { PortfolioCalculator.normalizeCoin(it) }.filter { isAsset(it) }.distinct()
+            // Eingetragene Börsen einmal für alle Coins (ohne Netz)
+            val own = ownRoutes(symbols)
             val limiter = Semaphore(PARALLEL)
             val results = coroutineScope {
                 symbols.map { coin ->
-                    async { coin to limiter.withPermit { dailyCloseUsdt(coin, date, current[coin]) } }
+                    async { coin to limiter.withPermit { closeUsdt(coin, date, current[coin], own[coin]) } }
                 }.awaitAll()
             }
             CutoffCloses(
@@ -84,8 +102,11 @@ class HistoricPriceSource @Inject constructor(
             )
         }
 
-    /** Ergebnis je Coin: bestätigter Kurs, sonst [unchecked] = Kurs nicht als derselbe Token bestätigt. */
-    data class CloseResult(val price: Double?, val unchecked: Boolean = false)
+    /**
+     * Ergebnis je Coin: bestätigter Kurs, sonst [unchecked] = Kurs nicht als derselbe Token bestätigt. [source] =
+     * Anbieter des Kurses (z. B. «Binance», «Kraken»; null ohne Kurs bzw. USDT = 1).
+     */
+    data class CloseResult(val price: Double?, val unchecked: Boolean = false, val source: String? = null)
 
     /**
      * Schlusskurs eines Coins am Tag [date] (UTC-Tageskerze). USDT = 1. [current] = aktueller
@@ -93,11 +114,39 @@ class HistoricPriceSource @Inject constructor(
      */
     suspend fun dailyCloseUsdt(coin: String, date: LocalDate, current: Double?): CloseResult {
         val b = PortfolioCalculator.normalizeCoin(coin)
+        if (!PortfolioStables.needsQuote(b) || !isAsset(b)) return closeUsdt(b, date, current, null)
+        return closeUsdt(b, date, current, ownRoutes(listOf(b))[b])
+    }
+
+    /** Wie [dailyCloseUsdt], mit schon gelesener eigener Börse [own] (null = keine bzw. Binance). */
+    private suspend fun closeUsdt(coin: String, date: LocalDate, current: Double?, own: CandlePair?): CloseResult {
+        val b = PortfolioCalculator.normalizeCoin(coin)
         if (!PortfolioStables.needsQuote(b)) return CloseResult(1.0)
         if (!isAsset(b)) return CloseResult(null)
         // Streng: ohne Bezug ist der gleiche Token nicht bestätigt — auch nicht über Ausweich-Quellen
         val reference = current?.takeIf { it > 0.0 && it.isFinite() } ?: return CloseResult(null, unchecked = true)
         val start = date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
+        val ownName = tokenIdentityStore.watchName(b)
+        val resolved = HistoricCloseChain.resolve(HistoricCloseChain.order(own?.marketKey)) { source ->
+            when {
+                own != null && source == own.marketKey -> ownOutcome(own, b, date, start, reference, ownName)
+                source == HistoricCloseChain.BINANCE -> binanceOutcome(b, start, reference, ownName)
+                source == HistoricCloseChain.COINBASE -> coinbaseOutcome(b, date, start, reference)
+                else -> chainOutcome(source, b, start, reference, ownName)
+            }
+        }
+        return CloseResult(resolved.price, resolved.unchecked, resolved.provider)
+    }
+
+    /** Coinbase wie bisher (Fenster genau über den Tag, jedes Alter; USD, sonst USDC; ±25 %). */
+    internal suspend fun coinbaseOutcome(b: String, date: LocalDate, start: Long, reference: Double): HistoricCloseChain.Outcome =
+        coinbaseClose(b, date, start, reference).let { HistoricCloseChain.Outcome(it.price, it.unchecked, DataFreshness.COINBASE) }
+
+    /**
+     * Binance-Gruppe wie bisher: Spot (data-api, api; 1/3…3), Futures (±25 %), Binance.US (USDT, sonst USD; ±25 %).
+     * Anbieter des Treffers: «Binance», «Binance Futures» bzw. «Binance.US».
+     */
+    private suspend fun binanceOutcome(b: String, start: Long, reference: Double, ownName: String?): HistoricCloseChain.Outcome {
         // Gab es einen Kurs, der die Prüfung nicht bestand?
         var rejected = false
 
@@ -108,21 +157,20 @@ class HistoricPriceSource @Inject constructor(
             Triple("fapi.binance.com", "https://fapi.binance.com/fapi/v1/klines", false),
         )
         // Gleicher Token (K-8): Nennen die Paare der Merkliste den Coin klar anders als Binance, fällt Binance aus
-        val binanceOk = tokenIdentityStore.binanceAllowed(b, tokenIdentityStore.watchName(b))
+        val binanceOk = tokenIdentityStore.binanceAllowed(b, ownName)
         if (!binanceOk) rejected = true
         for ((host, endpoint, primary) in binance) {
             if (!binanceOk) break
             val r = binanceClose(host, endpoint, "${b}USDT", start, primary, reference)
-            r.price?.let { return CloseResult(it) }
+            r.price?.let { return HistoricCloseChain.Outcome(it, provider = DataFreshness.candleProvider(host)) }
             rejected = rejected || r.unchecked
         }
         for (symbol in listOf("${b}USDT", "${b}USD")) {
             val r = binanceClose("api.binance.us", "https://api.binance.us/api/v3/klines", symbol, start, false, reference)
-            r.price?.let { return CloseResult(it) }
+            r.price?.let { return HistoricCloseChain.Outcome(it, provider = DataFreshness.BINANCE_US) }
             rejected = rejected || r.unchecked
         }
-        val r = coinbaseClose(b, date, start, reference)
-        return if (r.price != null) r else CloseResult(null, unchecked = rejected || r.unchecked)
+        return HistoricCloseChain.Outcome(null, rejected)
     }
 
     private suspend fun binanceClose(
@@ -181,6 +229,7 @@ class HistoricPriceSource @Inject constructor(
      * Datum steht in [HistoricFx.date]. null, wenn kein Kurs zu haben ist.
      */
     suspend fun usdTo(currency: String, date: LocalDate): HistoricFx? {
+        // Unverändert durch die Ausweich-Kette der Kurse: Wochenende/Feiertag → letzter Geschäftstag (Frankfurter)
         val target = currency.trim().uppercase()
         if (target == "USD") return HistoricFx(1.0, null)
         if (target.length != 3 || !target.all { it in 'A'..'Z' }) return null
@@ -283,7 +332,7 @@ class HistoricPriceSource @Inject constructor(
         return body
     }
 
-    private companion object {
+    internal companion object {
         const val PARALLEL = 4
         const val REQUEST_TIMEOUT_MILLIS = 10_000L
         const val FX_HOST = "frankfurter"

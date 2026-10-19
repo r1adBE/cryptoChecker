@@ -15,6 +15,15 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 84)
+
+* Portfolio: entries without cost basis can get one – a card «Entries without cost basis» lists them with a suggestion
+  (the day close of the entry date) to apply, edit or leave unknown; rewards and airdrops keep their value at receipt.
+* Watched addresses: opening lots (date, amount, cost) per coin; they count like purchases in FIFO, average and the tax
+  export, capped at the observed balance. The French note about addresses without cost disappears once they are lotted.
+* More sources for past daily closes: when Binance lacks a coin or day, Coinbase, Kraken, OKX and Bybit are asked in turn,
+  with the same token check; a second USDT/USD source makes «USDT = 1 assumed» rarer. The value history names the source.
+
 ## 16.2.2 (build 83)
 
 * Market tab «Now» has one main card: Crypto Pulse with «In short» inside it and a larger headline. Below it, quieter:

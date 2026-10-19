@@ -9,6 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
+import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.LegacyStorageMigration
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import timber.log.Timber
@@ -41,7 +42,7 @@ abstract class PortfolioDatabase : RoomDatabase() {
     abstract fun getWatchedAddressDao(): WatchedAddressDao
 
     companion object {
-        const val VERSION = 5
+        const val VERSION = 6
         const val DB_NAME = "cryptochecker_portfolio.db"
 
         /**
@@ -93,7 +94,7 @@ abstract class PortfolioDatabase : RoomDatabase() {
                 db.execSQL("ALTER TABLE `portfolio_tx` ADD COLUMN `swapValueUsdt` TEXT")
                 db.execSQL("ALTER TABLE `portfolio_tx` ADD COLUMN `importBatch` TEXT")
                 db.execSQL(IMPORT_KEY_INDEX_SQL)
-                db.execSQL(WatchedAddressEntity.CREATE_SQL)
+                db.execSQL(WatchedAddressEntity.CREATE_SQL_V3)
                 db.execSQL(WatchedAddressEntity.INDEX_SQL)
             }
         }
@@ -175,6 +176,16 @@ abstract class PortfolioDatabase : RoomDatabase() {
         }
 
         /**
+         * v5 → v6 (Build 84): Eröffnungsposten beobachteter Adressen («Einstand für Adressguthaben», [AddressCostLots]) in
+         * einer eigenen Spalte `costLots` (JSON, NULL = keine). Bestehende Adressen bleiben unverändert (ohne Posten).
+         */
+        val MIGRATION_5_6: Migration = object : Migration(5, 6) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE `${WatchedAddressEntity.TABLE}` ADD COLUMN `costLots` TEXT")
+            }
+        }
+
+        /**
          * Liegt das Portfolio in diesem Prozess nur im Arbeitsspeicher (kein Schlüssel, nie unverschlüsselt angelegt,
          * [DatabaseEncryptionNotice.inMemory])? Erst nach dem ersten Öffnen verlässlich.
          */
@@ -185,7 +196,7 @@ abstract class PortfolioDatabase : RoomDatabase() {
             "CREATE INDEX IF NOT EXISTS `index_portfolio_tx_importKey` ON `portfolio_tx` (`importKey`)"
 
         /** Alle Migrationen der Portfolio-Datenbank (LocalDataModule, Tests). */
-        val ALL_MIGRATIONS: Array<Migration> = arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+        val ALL_MIGRATIONS: Array<Migration> = arrayOf(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
 
         /**
          * Beim Anlegen der Datei: Portfolio aus der Systemsicherung übernehmen (nur wenn eine da ist —

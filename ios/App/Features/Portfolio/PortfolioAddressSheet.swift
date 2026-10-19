@@ -28,6 +28,8 @@ struct PortfolioAddressSheet: View {
     /// «Zählen» nach der Warnung zu einer gleich grossen Einzahlung: für dieses Blatt bestätigt (nur im Speicher,
     /// allgemeiner Hinweis bleibt) — wie Android.
     @State private var countConfirmed: Set<Int64> = []
+    /// «Einstand für Adressguthaben» einer Adresse (eigenes Blatt darüber, Build 84).
+    @State private var lotsFor: WatchedAddress?
 
     var body: some View {
         let addresses = data.watchedAddresses
@@ -107,6 +109,13 @@ struct PortfolioAddressSheet: View {
                 Button(L("action_cancel"), role: .cancel) {}
             } message: { chain in
                 Text(L("portfolio_address_overlap_ask", chain.coin))
+            }
+            .sheet(item: $lotsFor) { a in
+                PortfolioAddressLotsSheet(addressId: a.id)
+                    .environmentObject(data)
+                    .environment(\.appAccent, accent)
+                    .presentationDetents([.large])
+                    .presentationDragIndicator(.visible)
             }
             .alert(L("portfolio_addresses_title"), isPresented: $askPrivacy) {
                 Button(L("portfolio_address_add")) { addChecked(check) }
@@ -276,7 +285,23 @@ struct PortfolioAddressSheet: View {
                 set: { showOnly in data.setWatchedAddressCountInPortfolio(a.id, on: !showOnly) }
             ))
             .font(.subheadline)
+            // Build 84: Einstand für das Guthaben (Posten wie Käufe in dieser Adresse); Stand je Coin, wenn erfasst
+            if a.countInPortfolio {
+                ForEach(AddressCostLots.coverage(a), id: \.coin) { c in
+                    Text(L("address_lots_status", lotAmount(c.lotted, c.coin), lotAmount(c.balance, c.coin)))
+                        .font(.caption)
+                        .foregroundStyle(c.capped && a.lastBalance != nil ? AppColors.error : AppColors.onSurfaceVariant)
+                }
+                Button(L("address_lots_action")) { lotsFor = a }
+                    .font(.subheadline)
+                    .buttonStyle(.borderless)
+            }
         }
+    }
+
+    /// Menge mit Coin, verborgen mit «Beträge verbergen».
+    private func lotAmount(_ value: Decimal, _ coin: String) -> String {
+        data.settings.hidePortfolioAmounts ? "•••" : PortfolioFormat.exactAmount(value, coin)
     }
 
     /// Coins aus eigenen Transaktionen: Überschneidung mit einer Adresse = möglicherweise doppelt.

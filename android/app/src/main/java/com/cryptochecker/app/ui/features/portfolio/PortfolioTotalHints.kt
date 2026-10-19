@@ -144,7 +144,9 @@ internal fun totalHintItems(
                 summary.missingCostCoins.size,
                 summary.missingCostCoins.size,
                 summary.missingCostCoins.joinToString(", ")
-            )
+            ),
+            // Antippen: Einträge ohne Einstand (Build 84)
+            txId = COST_GAPS_HINT_ID,
         ))
     }
     // Nur ein Teil ohne Kaufpreis: «Seit Kauf» zählt den Teil mit Kaufpreis, der Rest fehlt
@@ -153,7 +155,8 @@ internal fun totalHintItems(
             stringResource(
                 R.string.ledger_partial_cost,
                 summary.partialCostParts.map { maskAmount(PortfolioFormat.amount(it.amount, it.coin)) }.joinToString(", ")
-            )
+            ),
+            txId = COST_GAPS_HINT_ID,
         ))
     }
     // Heute / 7 T / 1 J: Coins ohne passenden Kurs am Anfang fehlen nur dort, die übrigen zählen

@@ -89,6 +89,8 @@ class PortfolioViewModel @Inject constructor(
     depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
     /** USDT/USD messen, sobald ein Portfolio da ist (höchstens alle 5 Minuten, wie nach einer Kursaktualisierung). */
     internal val depegChecker: com.cryptochecker.app.domain.alarm.DepegAlarmChecker,
+    /** «Unbekannt lassen» bei Einträgen ohne Einstand (nur Ids, auf diesem Gerät). */
+    internal val costGapStore: com.cryptochecker.app.data.portfolio.PortfolioCostGapStore,
 ) : ViewModel() {
 
     /** null, bis die Datenbank geantwortet hat. Neueste zuerst. */

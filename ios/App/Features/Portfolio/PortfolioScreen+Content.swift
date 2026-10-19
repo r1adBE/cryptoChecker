@@ -7,6 +7,15 @@ import SwiftUI
 extension PortfolioScreen {
     // MARK: Inhalt
 
+    /// «Einstand erfassen» im Blatt der Einträge ohne Einstand: Eintrag öffnen, sobald das Blatt zu ist.
+    func openAfterSheet(_ tx: PortfolioTx) {
+        costGapsOpen = false
+        Task {
+            try? await Task.sleep(nanoseconds: 450_000_000)
+            sheet = PortfolioTxDraft(tx: tx)
+        }
+    }
+
     /// Zustand der Kurse wie in der Merkliste: aktuell / veraltet / offline mit «Stand …».
     private func priceState(_ summary: PortfolioSummary) -> PortfolioPriceState {
         PortfolioPriceFallback.state(updatedAt: model.prices.updatedAt, now: now, staleAfterMillis: model.staleAfterMillis,
@@ -47,7 +56,11 @@ extension PortfolioScreen {
                 periodScaled: model.periodScaled,
                 walletShortfalls: PortfolioCalculator.walletShortfalls(model.calcPortfolio, method: data.settings.costMethod),
                 onShortfall: { id in
-                    if let tx = data.portfolio.first(where: { $0.id == id }) { sheet = PortfolioTxDraft(tx: tx) }
+                    if id == PortfolioCostGapUi.hintId {
+                        costGapsOpen = true
+                    } else if let tx = data.portfolio.first(where: { $0.id == id }) {
+                        sheet = PortfolioTxDraft(tx: tx)
+                    }
                 },
                 // «USDT = 1 angenommen»: Messung 6 Std. gültig, mit der Uhr der Ansicht (`DepegAlarm.cardNote` in der Karte)
                 depegReading: DepegAlarmCheck.lastReading,
@@ -55,6 +68,14 @@ extension PortfolioScreen {
                 now: now
             )
             .portfolioListRow(top: 4, bottom: 8)
+
+            // Einträge ohne Einstand: sanfte Karte zum Ergänzen (Build 84)
+            let pendingGaps = PortfolioCostGaps.pending(PortfolioCostGaps.gaps(data.portfolio, template: data.settings.taxTemplate),
+                                                        acknowledged: PortfolioCostGapUi.ids(costGapsUnknown)).count
+            if pendingGaps > 0 {
+                PortfolioCostGapsCard(count: pendingGaps) { costGapsOpen = true }
+                    .portfolioListRow(top: 0, bottom: 8)
+            }
 
             // Wertverlauf über den Positionen
             PortfolioHistoryCard(history: model.history, range: $model.historyRange,

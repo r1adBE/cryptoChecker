@@ -168,6 +168,10 @@ struct PortfolioHistoryCard: View {
             // Grund: keine oder nicht passende Tageskurse (anderer Token, kein aktueller Kurs)
             caption(L("portfolio_history_without_matching", series.skipped.joined(separator: ", ")))
         }
+        if series.hasChart && !history.chainSources.isEmpty {
+            // Binance führt den Coin nicht: Tageskurse einer anderen Börse (geprüft auf denselben Token)
+            caption(L("portfolio_history_chain_sources", PortfolioExchangeRoute.sourcesText(history.chainSources)))
+        }
         if series.hasChart && !history.scaled.isEmpty {
             // Keine eigenen Tageskerzen der Börse: Binance-Verlauf auf den Börsenkurs skaliert
             caption(L("portfolio_history_scaled", history.scaled.joined(separator: ", ")))

@@ -323,8 +323,9 @@ object TaxEngines {
             TaxMethod.UK_POOL -> PortfolioLedger.eventsByCoin(real).flatMap { (coin, ev) -> ukPool(coin, steps(ev), zone, lost, unassigned) }
             TaxMethod.CA_ACB -> PortfolioLedger.eventsByCoin(real).flatMap { (coin, ev) -> caAcb(coin, steps(ev), zone, lost, unassigned, fx) }
             TaxMethod.JP_TOTAL_AVERAGE -> PortfolioLedger.eventsByCoin(real).flatMap { (coin, ev) -> jpTotal(coin, steps(ev), zone, lost) }
-            // FR: Gesamtwert samt beobachteter Adressen (Adress-Einträge, [AddressBalance.isAddressTrade])
-            TaxMethod.FR_PTA -> frPta(real, priceAt, outflows, trades.filter { AddressBalance.isAddressTrade(it.id) })
+            // FR: Gesamtwert samt beobachteter Adressen ohne Einstand ([AddressBalance.isAddressPart]); Eröffnungsposten
+            // stecken schon in `real` (Erwerbspreis-Summe und Bestand)
+            TaxMethod.FR_PTA -> frPta(real, priceAt, outflows, trades.filter { AddressBalance.isAddressPart(it.id) })
             TaxMethod.AT_MOVING_AVERAGE -> atSplit(real, zone, lost)
             TaxMethod.FIFO, TaxMethod.FIFO_WALLET, TaxMethod.AVERAGE -> emptyList()
         }

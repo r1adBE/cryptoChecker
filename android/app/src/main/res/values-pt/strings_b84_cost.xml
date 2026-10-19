@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Entradas sem custo de aquisição: %1$d</string>
+    <string name="cost_gaps_card_text">Adicione o custo para que ganhos e impostos fiquem completos.</string>
+    <string name="cost_gaps_sheet_title">Entradas sem custo de aquisição</string>
+    <string name="cost_gaps_sheet_intro">Estas entradas não têm custo de aquisição. A sugestão é o fecho diário da data – pode ajustá-lo na entrada.</string>
+    <string name="cost_gaps_empty">Todas as entradas têm custo de aquisição.</string>
+    <string name="cost_gap_enter">Introduzir custo</string>
+    <string name="cost_gap_leave_unknown">Deixar desconhecido</string>
+    <string name="cost_gap_left_unknown">Deixado desconhecido</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Sugestão: fecho de %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Sem fecho verificado para esta data</string>
+    <string name="cost_gap_suggestion_loading">A carregar fecho …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Custo = valor ao receber (rendimento)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Custo = 0 (recompensa sem rendimento, Áustria)</string>
+    <string name="cost_gap_apply">Aplicar</string>
+    <string name="address_lots_action">Custo do saldo do endereço</string>
+    <string name="address_lots_title">Custo do saldo do endereço</string>
+    <string name="address_lots_intro">Introduza data de compra, quantidade e custo para o saldo deste endereço. Os lotes contam como compras neste endereço; o que não estiver coberto fica sem custo.</string>
+    <string name="address_lots_add">Adicionar lote</string>
+    <string name="address_lots_new">Novo lote</string>
+    <string name="address_lots_edit">Lote</string>
+    <string name="address_lots_date">Data de compra</string>
+    <string name="address_lots_amount">Quantidade</string>
+    <string name="address_lots_mode_total">Total</string>
+    <string name="address_lots_mode_price">Por moeda</string>
+    <string name="address_lots_price">Preço por moeda (USDT)</string>
+    <string name="address_lots_total">Custo total (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s de %2$s com custo</string>
+    <string name="address_lots_unlotted">%1$s sem custo</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Os lotes excedem o saldo em %1$s – os mais antigos são consumidos primeiro.</string>
+    <string name="address_lots_not_loaded">Saldo ainda não carregado – os lotes contam assim que estiver.</string>
+    <string name="address_lots_invalid">Introduza quantidade e custo</string>
+</resources>

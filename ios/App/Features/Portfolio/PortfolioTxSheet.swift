@@ -276,6 +276,12 @@ struct PortfolioTxSheet: View {
                     }
                     if fields.price {
                         priceField
+                        // Gespeicherter Zugang ohne Preis: Vorschlag Tagesschluss bzw. «Wert bei Zufluss» (Build 84)
+                        PortfolioTxCostSuggestion(
+                            isEdit: isEdit, txId: initial.txId, storedPrice: initial.priceUsdt, type: type, coin: coin,
+                            coinValid: coinValid, amount: amount, millis: date.millis, interest: interest, entryFiat: entryFiat,
+                            template: data.settings.taxTemplate, priceText: $priceText, priceHint: $priceHint,
+                            priceAuto: $priceAuto, priceHistoricDay: $priceHistoricDay)
                     }
                     // Notiz direkt unter dem Preis, bei allen Arten (Entscheid 18. Oktober 2026) — wie Android
                     noteField

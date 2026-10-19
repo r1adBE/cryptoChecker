@@ -9,6 +9,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import androidx.room.Query
 import com.cryptochecker.app.domain.portfolio.AddressChain
+import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,7 @@ import kotlinx.coroutines.flow.Flow
  * Beobachtete öffentliche Adresse (nur lesen) in der PORTFOLIO-Datenbank — gehört zu den
  * Portfolio-Daten (gleiche Regel für die Systemsicherung, [PortfolioBackupMirror]).
  *
- * Registriert in [PortfolioDatabase] (v3, angelegt in [PortfolioDatabase.MIGRATION_2_3]).
+ * Registriert in [PortfolioDatabase] (v3, angelegt in [PortfolioDatabase.MIGRATION_2_3]; `costLots` seit v6).
  * Spalten, Typen und NOT NULL müssen exakt zu [CREATE_SQL] passen (Room prüft beim Öffnen).
  * [chain] als Text (Name von [AddressChain]) — so braucht die Datenbank keinen neuen TypeConverter.
  */
@@ -46,15 +47,29 @@ data class WatchedAddressEntity(
      * Eigene Spalte statt Tabelle: geht mit der Adresse weg, je Tag höchstens ein Eintrag.
      */
     @ColumnInfo val observations: String? = null,
+    /**
+     * Eröffnungsposten als JSON ([AddressCostLots.encode]); null = keine. Seit v6 ([PortfolioDatabase.MIGRATION_5_6]):
+     * eigene Spalte, damit ein Abruf (schreibt `observations`) nie die Posten überschreibt.
+     */
+    @ColumnInfo val costLots: String? = null,
 ) {
     companion object {
         const val TABLE = "watched_addresses"
 
-        /** Für die Migration (Spalten exakt wie die Entity). */
-        const val CREATE_SQL = "CREATE TABLE IF NOT EXISTS `watched_addresses` (" +
+        /**
+         * Tabelle wie in v3 ([PortfolioDatabase.MIGRATION_2_3]) — ohne `costLots`, die erst [PortfolioDatabase.MIGRATION_5_6]
+         * anfügt (sonst scheiterte die Kette 2 → 6 an einer doppelten Spalte).
+         */
+        const val CREATE_SQL_V3 = "CREATE TABLE IF NOT EXISTS `watched_addresses` (" +
             "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `chain` TEXT NOT NULL, `address` TEXT NOT NULL, " +
             "`label` TEXT, `lastBalance` TEXT, `lastUpdated` INTEGER NOT NULL, `lastAttempt` INTEGER NOT NULL, " +
             "`lastError` TEXT, `lastProvider` TEXT, `addedAt` INTEGER NOT NULL, `observations` TEXT)"
+
+        /** Aktuelle Tabelle (Spalten exakt wie die Entity, v6). */
+        const val CREATE_SQL = "CREATE TABLE IF NOT EXISTS `watched_addresses` (" +
+            "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `chain` TEXT NOT NULL, `address` TEXT NOT NULL, " +
+            "`label` TEXT, `lastBalance` TEXT, `lastUpdated` INTEGER NOT NULL, `lastAttempt` INTEGER NOT NULL, " +
+            "`lastError` TEXT, `lastProvider` TEXT, `addedAt` INTEGER NOT NULL, `observations` TEXT, `costLots` TEXT)"
 
         /** Name nach Room-Konvention (`index_<Tabelle>_<Spalten>`). */
         const val INDEX_SQL =
@@ -72,6 +87,7 @@ data class WatchedAddressEntity(
             lastProvider = a.lastProvider,
             addedAt = a.addedAt,
             observations = WatchedAddressExtras.encode(a),
+            costLots = AddressCostLots.encode(AddressCostLots.clean(a.costLots)),
         )
     }
 }
@@ -92,6 +108,7 @@ fun WatchedAddressEntity.toDomain(): WatchedAddress? {
         unknownTokens = extras.unknownTokens,
         overlapChecked = extras.overlapChecked,
         overlapLegacy = extras.overlapLegacy,
+        costLots = AddressCostLots.decode(costLots),
     )
 }
 
@@ -147,6 +164,10 @@ interface WatchedAddressDao {
     /** Zusatzdaten und letzten Versuch ersetzen («Tokens mitzählen»). */
     @Query("UPDATE watched_addresses SET observations = :observations, lastAttempt = :lastAttempt WHERE id = :id")
     suspend fun setExtras(id: Long, observations: String?, lastAttempt: Long)
+
+    /** Eröffnungsposten ersetzen ([AddressCostLots.encode] im Aufrufer); Guthaben und Zusatzdaten bleiben. */
+    @Query("UPDATE watched_addresses SET costLots = :costLots WHERE id = :id")
+    suspend fun setCostLots(id: Long, costLots: String?)
 
     /** Fehlgeschlagener Abruf: letztes Guthaben bleibt stehen. */
     @Query("UPDATE watched_addresses SET lastAttempt = :time, lastError = :error WHERE id = :id")

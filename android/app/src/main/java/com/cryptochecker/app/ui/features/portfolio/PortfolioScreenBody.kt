@@ -100,6 +100,9 @@ internal fun PortfolioList(
     onShowClosedChange: (Boolean) -> Unit,
     onDeleteCoin: (String) -> Unit,
     onOpenCoin: (String) -> Unit,
+    /** Offene Einträge ohne Einstand (Karte nur, wenn > 0). */
+    costGapsPending: Int = 0,
+    onOpenCostGaps: () -> Unit = {},
 ) {
     PullToRefreshBox(
         isRefreshing = refreshing,
@@ -164,6 +167,12 @@ internal fun PortfolioList(
                             depegThresholdTenths = depegThreshold,
                             now = now,
                         ) }
+                    }
+                    // Einträge ohne Einstand: sanfte Karte zum Ergänzen (Build 84)
+                    if (costGapsPending > 0) {
+                        item(key = "cost_gaps") {
+                            Box(Modifier.padding(bottom = ListSegment.Spacing)) { CostGapsCard(costGapsPending, onOpenCostGaps) }
+                        }
                     }
                     // Wertverlauf über den Positionen
                     item(key = "history") {

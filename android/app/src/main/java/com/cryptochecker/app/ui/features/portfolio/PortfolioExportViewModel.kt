@@ -160,14 +160,16 @@ class PortfolioExportViewModel @Inject constructor(
     internal suspend fun trades(): List<PortfolioTrade> = _trades.value ?: repository.getTransactions().map { it.toTrade() }
 
     /**
-     * FR: Gesamtwert des Portfolios samt beobachteter Adressen («im Portfolio zählen») — ihre Guthaben-Änderungen als
-     * Adress-Einträge ([AddressBalanceHistory.trades], negative Id: keine Veräusserungen). Andere Vorlagen und Fehler: nur
-     * die eigenen Transaktionen.
+     * Eigene Transaktionen + Eröffnungsposten beobachteter Adressen als Käufe (Build 84,
+     * [com.cryptochecker.app.domain.portfolio.AddressCostLots.exportTrades]); FR dazu der Gesamtwert samt beobachteter
+     * Adressen («im Portfolio zählen») — ihre Guthaben-Änderungen als Adress-Einträge ([AddressBalanceHistory.trades],
+     * negative Id: keine Veräusserungen) ohne den belegten Teil. Fehler: nur die eigenen Transaktionen.
      */
     private suspend fun withAddressTrades(trades: List<PortfolioTrade>, method: TaxMethod): List<PortfolioTrade> {
-        if (method != TaxMethod.FR_PTA) return trades
         return try {
-            trades + AddressBalanceHistory.trades(AddressBalanceHistory.of(repository.getWatchedAddresses()))
+            com.cryptochecker.app.domain.portfolio.AddressCostLots.exportTrades(
+                trades, repository.getWatchedAddresses(), frTotalValue = method == TaxMethod.FR_PTA,
+            )
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {

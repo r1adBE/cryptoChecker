@@ -3,6 +3,7 @@ package com.cryptochecker.app.data.portfolio
 import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.WatchedAddressExtras
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry
@@ -275,14 +276,17 @@ object PortfolioBackupMirror {
                 ),
             )
         }
-        // Beobachtete Adressen ohne Guthaben (lädt die nächste Aktualisierung), mit ihren Beobachtungen und
-        // Zusatzdaten (Token-Reihen, «Tokens mitzählen», EVM-Netze, «Nur anzeigen» — WatchedAddressExtras)
+        // Beobachtete Adressen ohne Guthaben (lädt die nächste Aktualisierung), mit ihren Beobachtungen,
+        // Zusatzdaten (Token-Reihen, «Tokens mitzählen», EVM-Netze, «Nur anzeigen» — WatchedAddressExtras) und
+        // Eröffnungsposten (Build 84, Portfolio-Datenbank v6)
         content.addresses.forEach { a ->
             db.execSQL(
                 "INSERT OR IGNORE INTO `${WatchedAddressEntity.TABLE}` (`chain`, `address`, `label`, `lastBalance`, " +
-                    "`lastUpdated`, `lastAttempt`, `lastError`, `lastProvider`, `addedAt`, `observations`) " +
-                    "VALUES (?, ?, ?, NULL, 0, 0, NULL, NULL, ?, ?)",
-                arrayOf<Any?>(a.chain.name, a.address, a.label, a.addedAt, WatchedAddressExtras.encode(a)),
+                    "`lastUpdated`, `lastAttempt`, `lastError`, `lastProvider`, `addedAt`, `observations`, `costLots`) " +
+                    "VALUES (?, ?, ?, NULL, 0, 0, NULL, NULL, ?, ?, ?)",
+                arrayOf<Any?>(
+                    a.chain.name, a.address, a.label, a.addedAt, WatchedAddressExtras.encode(a), AddressCostLots.encode(a.costLots),
+                ),
             )
         }
         if (content.invalid > 0) onInvalid(content.invalid)

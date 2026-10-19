@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Einträge ohne Einstand: %1$d</string>
+    <string name="cost_gaps_card_text">Einstand ergänzen, damit Gewinn und Steuer vollständig sind.</string>
+    <string name="cost_gaps_sheet_title">Einträge ohne Einstand</string>
+    <string name="cost_gaps_sheet_intro">Für diese Zugänge fehlt der Einstand. Der Vorschlag ist der Tagesschluss des Datums – du kannst ihn im Eintrag anpassen.</string>
+    <string name="cost_gaps_empty">Alle Einträge haben einen Einstand.</string>
+    <string name="cost_gap_enter">Einstand erfassen</string>
+    <string name="cost_gap_leave_unknown">Unbekannt lassen</string>
+    <string name="cost_gap_left_unknown">Unbekannt gelassen</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Vorschlag: Tagesschluss %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Kein geprüfter Tagesschluss für dieses Datum</string>
+    <string name="cost_gap_suggestion_loading">Tagesschluss wird geladen …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Einstand = Wert bei Zufluss (Einkommen)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Einstand = 0 (Belohnung ohne Zufluss, Österreich)</string>
+    <string name="cost_gap_apply">Übernehmen</string>
+    <string name="address_lots_action">Einstand für Adressguthaben</string>
+    <string name="address_lots_title">Einstand für Adressguthaben</string>
+    <string name="address_lots_intro">Erfasse Kaufdatum, Menge und Einstand für das Guthaben dieser Adresse. Die Posten zählen wie Käufe in dieser Adresse; was nicht belegt ist, bleibt ohne Einstand.</string>
+    <string name="address_lots_add">Posten hinzufügen</string>
+    <string name="address_lots_new">Neuer Posten</string>
+    <string name="address_lots_edit">Posten</string>
+    <string name="address_lots_date">Kaufdatum</string>
+    <string name="address_lots_amount">Menge</string>
+    <string name="address_lots_mode_total">Gesamt</string>
+    <string name="address_lots_mode_price">Je Coin</string>
+    <string name="address_lots_price">Preis je Coin (USDT)</string>
+    <string name="address_lots_total">Einstand gesamt (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s von %2$s mit Einstand</string>
+    <string name="address_lots_unlotted">%1$s ohne Einstand</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Die Posten übersteigen das Guthaben um %1$s – die ältesten werden zuerst verbraucht.</string>
+    <string name="address_lots_not_loaded">Guthaben noch nicht geladen – die Posten zählen, sobald es da ist.</string>
+    <string name="address_lots_invalid">Menge und Einstand eingeben</string>
+</resources>

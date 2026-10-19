@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Εγγραφές χωρίς κόστος κτήσης: %1$d</string>
+    <string name="cost_gaps_card_text">Συμπληρώστε το κόστος ώστε κέρδη και φόροι να είναι πλήρη.</string>
+    <string name="cost_gaps_sheet_title">Εγγραφές χωρίς κόστος κτήσης</string>
+    <string name="cost_gaps_sheet_intro">Σε αυτές τις εισροές λείπει το κόστος κτήσης. Η πρόταση είναι η τιμή κλεισίματος της ημέρας – μπορείτε να την αλλάξετε στην εγγραφή.</string>
+    <string name="cost_gaps_empty">Όλες οι εγγραφές έχουν κόστος κτήσης.</string>
+    <string name="cost_gap_enter">Καταχώριση κόστους</string>
+    <string name="cost_gap_leave_unknown">Άφησε άγνωστο</string>
+    <string name="cost_gap_left_unknown">Αφέθηκε άγνωστο</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Πρόταση: κλείσιμο %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Δεν υπάρχει επαληθευμένο κλείσιμο για αυτή την ημερομηνία</string>
+    <string name="cost_gap_suggestion_loading">Φόρτωση κλεισίματος …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Κόστος = αξία κατά την παραλαβή (εισόδημα)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Κόστος = 0 (ανταμοιβή χωρίς εισροή, Αυστρία)</string>
+    <string name="cost_gap_apply">Εφαρμογή</string>
+    <string name="address_lots_action">Κόστος για το υπόλοιπο διεύθυνσης</string>
+    <string name="address_lots_title">Κόστος για το υπόλοιπο διεύθυνσης</string>
+    <string name="address_lots_intro">Καταχωρίστε ημερομηνία αγοράς, ποσότητα και κόστος για το υπόλοιπο αυτής της διεύθυνσης. Οι παρτίδες μετρούν ως αγορές σε αυτή τη διεύθυνση· ό,τι δεν καλύπτεται μένει χωρίς κόστος.</string>
+    <string name="address_lots_add">Προσθήκη παρτίδας</string>
+    <string name="address_lots_new">Νέα παρτίδα</string>
+    <string name="address_lots_edit">Παρτίδα</string>
+    <string name="address_lots_date">Ημερομηνία αγοράς</string>
+    <string name="address_lots_amount">Ποσότητα</string>
+    <string name="address_lots_mode_total">Σύνολο</string>
+    <string name="address_lots_mode_price">Ανά νόμισμα</string>
+    <string name="address_lots_price">Τιμή ανά νόμισμα (USDT)</string>
+    <string name="address_lots_total">Συνολικό κόστος (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s από %2$s με κόστος</string>
+    <string name="address_lots_unlotted">%1$s χωρίς κόστος</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Οι παρτίδες υπερβαίνουν το υπόλοιπο κατά %1$s – οι παλαιότερες καταναλώνονται πρώτες.</string>
+    <string name="address_lots_not_loaded">Το υπόλοιπο δεν έχει φορτωθεί ακόμη – οι παρτίδες μετρούν μόλις φορτωθεί.</string>
+    <string name="address_lots_invalid">Καταχωρίστε ποσότητα και κόστος</string>
+</resources>

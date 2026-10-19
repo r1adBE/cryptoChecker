@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Intrări fără cost de achiziție: %1$d</string>
+    <string name="cost_gaps_card_text">Completează costul ca câștigul și impozitul să fie complete.</string>
+    <string name="cost_gaps_sheet_title">Intrări fără cost de achiziție</string>
+    <string name="cost_gaps_sheet_intro">Acestor intrări le lipsește costul de achiziție. Sugestia este prețul de închidere al zilei – îl poți ajusta în intrare.</string>
+    <string name="cost_gaps_empty">Toate intrările au cost de achiziție.</string>
+    <string name="cost_gap_enter">Introdu costul</string>
+    <string name="cost_gap_leave_unknown">Lasă necunoscut</string>
+    <string name="cost_gap_left_unknown">Lăsat necunoscut</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Sugestie: închidere %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Niciun preț de închidere verificat pentru această dată</string>
+    <string name="cost_gap_suggestion_loading">Se încarcă prețul de închidere …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Cost = valoarea la primire (venit)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Cost = 0 (recompensă fără venit, Austria)</string>
+    <string name="cost_gap_apply">Aplică</string>
+    <string name="address_lots_action">Cost pentru soldul adresei</string>
+    <string name="address_lots_title">Cost pentru soldul adresei</string>
+    <string name="address_lots_intro">Introdu data cumpărării, cantitatea și costul pentru soldul acestei adrese. Loturile contează ca achiziții în această adresă; partea neacoperită rămâne fără cost.</string>
+    <string name="address_lots_add">Adaugă lot</string>
+    <string name="address_lots_new">Lot nou</string>
+    <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_date">Data cumpărării</string>
+    <string name="address_lots_amount">Cantitate</string>
+    <string name="address_lots_mode_total">Total</string>
+    <string name="address_lots_mode_price">Per monedă</string>
+    <string name="address_lots_price">Preț per monedă (USDT)</string>
+    <string name="address_lots_total">Cost total (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s din %2$s cu cost</string>
+    <string name="address_lots_unlotted">%1$s fără cost</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Loturile depășesc soldul cu %1$s – cele mai vechi sunt consumate primele.</string>
+    <string name="address_lots_not_loaded">Soldul nu este încă încărcat – loturile contează imediat ce este.</string>
+    <string name="address_lots_invalid">Introdu cantitatea și costul</string>
+</resources>

@@ -40,6 +40,10 @@ struct PortfolioScreen: View {
     @State var csvPickerOpen = false
     /// ⋯ › «Importe»: Importläufe mit «Rückgängig».
     @State var importsOpen = false
+    /// Einträge ohne Einstand (Karte, Hinweise unter der Gesamtkarte; Build 84).
+    @State var costGapsOpen = false
+    /// «Unbekannt lassen»: Ids, die die Karte nicht mehr zählt (nur auf diesem Gerät).
+    @AppStorage(PortfolioCostGapUi.unknownKey) var costGapsUnknown = ""
     @State private var csvPreview: CsvImportLoaded?
     @State private var csvUnreadable = false
     @Environment(\.accessibilityReduceMotion) var reduceMotion
@@ -138,6 +142,13 @@ struct PortfolioScreen: View {
         base
         .sheet(isPresented: $addressesOpen) {
             PortfolioAddressSheet(onPortfolioEnabled: { toast = L("portfolio_enabled_banner") })
+                .environmentObject(data)
+                .environment(\.appAccent, accent)
+                .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
+        }
+        .sheet(isPresented: $costGapsOpen) {
+            PortfolioCostGapsSheet { tx in openAfterSheet(tx) }
                 .environmentObject(data)
                 .environment(\.appAccent, accent)
                 .presentationDetents([.large])

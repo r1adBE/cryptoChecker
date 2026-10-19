@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Wpisy bez kosztu nabycia: %1$d</string>
+    <string name="cost_gaps_card_text">Uzupełnij koszt nabycia, aby zysk i podatek były kompletne.</string>
+    <string name="cost_gaps_sheet_title">Wpisy bez kosztu nabycia</string>
+    <string name="cost_gaps_sheet_intro">Tym wpływom brakuje kosztu nabycia. Sugestia to kurs zamknięcia z tego dnia – możesz go zmienić we wpisie.</string>
+    <string name="cost_gaps_empty">Wszystkie wpisy mają koszt nabycia.</string>
+    <string name="cost_gap_enter">Wpisz koszt nabycia</string>
+    <string name="cost_gap_leave_unknown">Pozostaw nieznany</string>
+    <string name="cost_gap_left_unknown">Pozostawiono nieznany</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Sugestia: zamknięcie %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Brak sprawdzonego kursu zamknięcia dla tej daty</string>
+    <string name="cost_gap_suggestion_loading">Wczytywanie kursu zamknięcia …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Koszt nabycia = wartość przy otrzymaniu (dochód)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Koszt nabycia = 0 (nagroda bez wpływu, Austria)</string>
+    <string name="cost_gap_apply">Zastosuj</string>
+    <string name="address_lots_action">Koszt nabycia salda adresu</string>
+    <string name="address_lots_title">Koszt nabycia salda adresu</string>
+    <string name="address_lots_intro">Wpisz datę zakupu, ilość i koszt nabycia dla salda tego adresu. Partie liczą się jak zakupy na tym adresie; niepokryta część pozostaje bez kosztu nabycia.</string>
+    <string name="address_lots_add">Dodaj partię</string>
+    <string name="address_lots_new">Nowa partia</string>
+    <string name="address_lots_edit">Partia</string>
+    <string name="address_lots_date">Data zakupu</string>
+    <string name="address_lots_amount">Ilość</string>
+    <string name="address_lots_mode_total">Łącznie</string>
+    <string name="address_lots_mode_price">Za monetę</string>
+    <string name="address_lots_price">Cena za monetę (USDT)</string>
+    <string name="address_lots_total">Łączny koszt nabycia (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s z %2$s z kosztem nabycia</string>
+    <string name="address_lots_unlotted">%1$s bez kosztu nabycia</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Partie przekraczają saldo o %1$s – najstarsze są zużywane jako pierwsze.</string>
+    <string name="address_lots_not_loaded">Saldo jeszcze nie wczytane – partie liczą się, gdy tylko będzie dostępne.</string>
+    <string name="address_lots_invalid">Wpisz ilość i koszt nabycia</string>
+</resources>

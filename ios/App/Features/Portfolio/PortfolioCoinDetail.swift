@@ -15,6 +15,9 @@ struct PortfolioCoinDetail: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var sheet: PortfolioTxDraft?
+    /// Build 84: «ohne Kaufpreis» → Einträge ohne Einstand dieses Coins; «Aus Adresse» → Einstand für Adressguthaben.
+    @State private var costGapsOpen = false
+    @State private var lotsFor: WatchedAddress?
     @State private var banner: WatchlistBannerMessage?
     @State private var deleteTick = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -37,7 +40,9 @@ struct PortfolioCoinDetail: View {
         let fromAddress = addressAmount
         List {
             PortfolioPositionCard(position: position, addressAmount: fromAddress, overlap: !own.isEmpty,
-                                  matches: WatchedAddressRules.transferMatches(coin: coin, addresses: data.watchedAddresses, txs: own))
+                                  matches: WatchedAddressRules.transferMatches(coin: coin, addresses: data.watchedAddresses, txs: own),
+                                  onMissingCost: { costGapsOpen = true },
+                                  onAddressCost: lotAddress.map { a -> () -> Void in { lotsFor = a } })
                 .portfolioListRow(top: 4, bottom: 4)
 
             // FIFO je Wallet: Abgang über den Bestand seiner Wallet — antippen öffnet die Transaktion
@@ -113,6 +118,22 @@ struct PortfolioCoinDetail: View {
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
         }
         .sensoryFeedback(.impact(weight: .medium), trigger: deleteTick)
+        .sheet(isPresented: $costGapsOpen) {
+            PortfolioCostGapsSheet(coin: coin) { tx in
+                costGapsOpen = false
+                Task {
+                    try? await Task.sleep(nanoseconds: 450_000_000)
+                    sheet = PortfolioTxDraft(tx: tx)
+                }
+            }
+            .environmentObject(data)
+            .presentationDetents([.large])
+        }
+        .sheet(item: $lotsFor) { a in
+            PortfolioAddressLotsSheet(addressId: a.id)
+                .environmentObject(data)
+                .presentationDetents([.large])
+        }
         .sheet(item: $sheet) { draft in
             PortfolioTxSheet(initial: draft)
                 .environmentObject(data)
@@ -122,6 +143,11 @@ struct PortfolioCoinDetail: View {
                 .presentationCornerRadius(28)
                 .presentationBackground(AppColors.background)
         }
+    }
+
+    /// Erste zählende Adresse mit Guthaben in diesem Coin (Einstand für Adressguthaben); nil = keine.
+    private var lotAddress: WatchedAddress? {
+        AddressCostLots.counted(data.watchedAddresses).first { ($0.balances[coin] ?? 0) > 0 }?.address
     }
 
     /// Guthaben beobachteter Adressen für diesen Coin (> 0); nil = keins.

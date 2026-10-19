@@ -124,6 +124,21 @@ fun PortfolioDetailScreen(
     sheet?.let { draft ->
         PortfolioTxSheet(initial = draft, viewModel = viewModel, onDismiss = { sheet = null })
     }
+    // Build 84: «ohne Kaufpreis» → Einträge ohne Einstand dieses Coins; «Aus Adresse» → Einstand für Adressguthaben
+    var costGapsOpen by remember { mutableStateOf(false) }
+    var lotsFor by remember { mutableStateOf<Long?>(null) }
+    if (costGapsOpen) {
+        PortfolioCostGapsSheet(
+            viewModel, all.orEmpty(), coin = symbol,
+            onEdit = { tx -> costGapsOpen = false; sheet = tx.toDraft() },
+            onDismiss = { costGapsOpen = false },
+        )
+    }
+    lotsFor?.let { id -> PortfolioAddressLotsSheet(viewModel, id, onDismiss = { lotsFor = null }) }
+    val lotAddress = remember(watchedAddresses, symbol) {
+        com.cryptochecker.app.domain.portfolio.AddressCostLots.counted(watchedAddresses)
+            .firstOrNull { (_, balances) -> (balances[symbol]?.signum() ?: 0) > 0 }?.first
+    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -161,7 +176,13 @@ fun PortfolioDetailScreen(
                         contentPadding = PaddingValues(start = 16.dp + inset, top = 4.dp, end = 16.dp + inset, bottom = 96.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        item(key = "summary") { PositionCard(position, addressAmount, overlap = own.isNotEmpty(), matches = addressMatches) }
+                        item(key = "summary") {
+                            PositionCard(
+                                position, addressAmount, overlap = own.isNotEmpty(), matches = addressMatches,
+                                onMissingCost = { costGapsOpen = true },
+                                onAddressCost = lotAddress?.let { a -> { lotsFor = a.id } },
+                            )
+                        }
                         // FIFO je Wallet: Abgang über den Bestand seiner Wallet — antippen öffnet die Transaktion
                         if (ledger.walletShortfalls.isNotEmpty()) {
                             item(key = "shortfalls") {

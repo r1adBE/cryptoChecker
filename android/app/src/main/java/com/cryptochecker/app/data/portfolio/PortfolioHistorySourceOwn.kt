@@ -19,7 +19,6 @@ import java.time.LocalDate
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.MAX_OWN_DAYS
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.OWN_CODEC
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.TTL_MILLIS
-import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.USDT_USD_PAIR
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource.Companion.ownCacheName
 
 /**
@@ -55,7 +54,15 @@ internal fun PortfolioHistorySource.mergeOwn(binance: Map<String, CoinCloses>, o
  * kein Weg. Lässt sich der Weg nicht lesen, steht der Coin in [HistoryRoutes.unresolved] (Verlauf dann nur
  * Binance skaliert oder «ohne passende Tageskurse», [PortfolioExchangeRoute.historyCloses]) — nie still Binance.
  */
-internal suspend fun PortfolioHistorySource.routes(coins: Collection<String>): HistoryRoutes {
+internal suspend fun PortfolioHistorySource.routes(coins: Collection<String>): HistoryRoutes =
+    resolveHistoryRoutes(portfolioDao, marketRepository, coins)
+
+/** Wege wie [routes], ohne die Klasse — auch für einzelne Tagesschlüsse ([HistoricPriceSource.dailyCloseUsdt]). */
+internal suspend fun resolveHistoryRoutes(
+    portfolioDao: PortfolioDao,
+    marketRepository: com.cryptochecker.app.data.MarketRepository,
+    coins: Collection<String>,
+): HistoryRoutes {
     val wanted = coins.toSet()
     val byCoin = try {
         PortfolioExchangeRoute.exchangeByLedger(portfolioDao.getAll().flatMap { it.routeEntries() }).first.filterKeys { it in wanted }
@@ -155,7 +162,8 @@ internal suspend fun PortfolioHistorySource.fetchOwn(pair: CandlePair, span: Int
     val first = closes.keys.minOrNull() ?: return null
     val quote = pair.quote.uppercase()
     // USD- und Fiat-Kerzen: zusätzlich durch USDT/USD des Tags (USDT zum Marktkurs); nicht für USDT/USD selbst
-    val usdtUsd = if (quote == "USDT" || pair.cacheKey == USDT_USD_PAIR.cacheKey) null else usdtUsdDaily(span)
+    // (Kraken USDTZUSD, Coinbase USDT-USD als Lückenfüller — sonst riefe die Reihe sich selbst auf)
+    val usdtUsd = if (quote == "USDT" || pair.base.trim().equals("USDT", ignoreCase = true)) null else usdtUsdDaily(span)
     val rates = if (quote == "USDT" || quote == "USD") {
         emptyMap()
     } else {

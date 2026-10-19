@@ -45,12 +45,17 @@ struct PortfolioHistoryUi: Equatable, Sendable {
     /// Eigene Börse nicht erreichbar, Verlauf aus einem älteren Stand: dessen Zeit (`PortfolioHistoryAsOf`) — die Karte
     /// sagt «Stand …»; nil = frisch. Wie Android.
     var staleSince: Int64?
+    /// Coins mit Tageskursen aus der Ausweich-Kette → Anbieter (z. B. «Kraken», `PortfolioDailyPrices.chainSources`);
+    /// die Karte nennt sie. Leer = keine. Wie Android.
+    var chainSources: [String: String] = [:]
 
     /// In USDT: derselbe Verlauf unumgerechnet (Umschalter, Vergleich und Hinweise bleiben).
     func forView(_ view: PortfolioHistoryView) -> PortfolioHistoryUi {
         guard view == .usdt, let usdtSeries else { return self }
-        return PortfolioHistoryUi(range: range, series: usdtSeries, unit: PortfolioFormat.usdt, converted: converted,
-                                  approximateFx: approximateFx, usdtSeries: usdtSeries, compare: compare, scaled: scaled,
-                                  usdtApproximate: usdtApproximate, staleSince: staleSince)
+        var out = PortfolioHistoryUi(range: range, series: usdtSeries, unit: PortfolioFormat.usdt, converted: converted,
+                                     approximateFx: approximateFx, usdtSeries: usdtSeries, compare: compare, scaled: scaled,
+                                     usdtApproximate: usdtApproximate, staleSince: staleSince)
+        out.chainSources = chainSources
+        return out
     }
 }

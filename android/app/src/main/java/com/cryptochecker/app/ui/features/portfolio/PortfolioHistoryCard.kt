@@ -226,6 +226,15 @@ private fun HistoryContent(
         // Grund: keine oder nicht passende Tageskurse (anderer Token, kein aktueller Kurs)
         HistoryCaption(stringResource(R.string.portfolio_history_without_matching, series.skipped.joinToString(", ")))
     }
+    if (series.hasChart && history.chainSources.isNotEmpty()) {
+        // Binance führt den Coin nicht: Tageskurse einer anderen Börse (geprüft auf denselben Token)
+        HistoryCaption(
+            stringResource(
+                R.string.portfolio_history_chain_sources,
+                com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute.sourcesText(history.chainSources),
+            ),
+        )
+    }
     if (series.hasChart && history.scaled.isNotEmpty()) {
         // Keine eigenen Tageskerzen der Börse: Binance-Verlauf auf den Börsenkurs skaliert
         HistoryCaption(stringResource(R.string.portfolio_history_scaled, history.scaled.joinToString(", ")))

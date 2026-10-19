@@ -93,6 +93,16 @@ extension AppData {
         return restored
     }
 
+    /// Eröffnungsposten einer Adresse ersetzen (geprüft, `AddressCostLots.clean`) — wie
+    /// `PortfolioRepository.setWatchedAddressCostLots` (Android). Gleiche Datei und Versiegelung wie die Adressen.
+    func setWatchedAddressCostLots(_ id: Int64, lots: [AddressCostLot]) {
+        changeWatchedAddress(id) { a in
+            var out = a
+            out.costLots = AddressCostLots.clean(lots)
+            return out
+        }
+    }
+
     private func changeWatchedAddress(_ id: Int64, _ transform: (WatchedAddress) -> WatchedAddress) {
         var file = currentWatchedAddressFile()
         WatchedAddressStore.change(id: id, in: &file, transform)

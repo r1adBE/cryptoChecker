@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Entri tanpa harga perolehan: %1$d</string>
+    <string name="cost_gaps_card_text">Tambahkan harga perolehan agar laba dan pajak lengkap.</string>
+    <string name="cost_gaps_sheet_title">Entri tanpa harga perolehan</string>
+    <string name="cost_gaps_sheet_intro">Pemasukan ini tidak memiliki harga perolehan. Sarannya adalah harga penutupan harian tanggal itu – Anda bisa mengubahnya di entri.</string>
+    <string name="cost_gaps_empty">Semua entri memiliki harga perolehan.</string>
+    <string name="cost_gap_enter">Masukkan harga perolehan</string>
+    <string name="cost_gap_leave_unknown">Biarkan tidak diketahui</string>
+    <string name="cost_gap_left_unknown">Dibiarkan tidak diketahui</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Saran: penutupan %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Tidak ada harga penutupan terverifikasi untuk tanggal ini</string>
+    <string name="cost_gap_suggestion_loading">Memuat harga penutupan …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Harga perolehan = nilai saat diterima (penghasilan)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Harga perolehan = 0 (hadiah tanpa arus masuk, Austria)</string>
+    <string name="cost_gap_apply">Terapkan</string>
+    <string name="address_lots_action">Harga perolehan untuk saldo alamat</string>
+    <string name="address_lots_title">Harga perolehan untuk saldo alamat</string>
+    <string name="address_lots_intro">Masukkan tanggal beli, jumlah, dan harga perolehan untuk saldo alamat ini. Lot dihitung seperti pembelian di alamat ini; bagian yang tidak tercakup tetap tanpa harga perolehan.</string>
+    <string name="address_lots_add">Tambah lot</string>
+    <string name="address_lots_new">Lot baru</string>
+    <string name="address_lots_edit">Lot</string>
+    <string name="address_lots_date">Tanggal beli</string>
+    <string name="address_lots_amount">Jumlah</string>
+    <string name="address_lots_mode_total">Total</string>
+    <string name="address_lots_mode_price">Per koin</string>
+    <string name="address_lots_price">Harga per koin (USDT)</string>
+    <string name="address_lots_total">Total harga perolehan (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s dari %2$s dengan harga perolehan</string>
+    <string name="address_lots_unlotted">%1$s tanpa harga perolehan</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Lot melebihi saldo sebesar %1$s – yang tertua dipakai lebih dulu.</string>
+    <string name="address_lots_not_loaded">Saldo belum dimuat – lot dihitung segera setelah tersedia.</string>
+    <string name="address_lots_invalid">Masukkan jumlah dan harga perolehan</string>
+</resources>

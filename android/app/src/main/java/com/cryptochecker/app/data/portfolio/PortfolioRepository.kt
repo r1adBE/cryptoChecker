@@ -275,6 +275,10 @@ class PortfolioRepository @Inject constructor(
     suspend fun migrateWatchedAddressOverlap(id: Long, revert: Boolean) =
         changeWatched(id) { WatchedAddressRules.withOverlapMigrated(it, revert) }
 
+    /** Eröffnungsposten einer Adresse ersetzen (geprüft, [com.cryptochecker.app.domain.portfolio.AddressCostLots.clean]). */
+    suspend fun setWatchedAddressCostLots(id: Long, lots: List<com.cryptochecker.app.domain.portfolio.AddressCostLot>) =
+        watchedAddressDao.setCostLots(id, com.cryptochecker.app.domain.portfolio.AddressCostLots.run { encode(clean(lots)) })
+
     /** Zusatzdaten und letzten Versuch einer Adresse ändern (eine Transaktion). */
     private suspend fun changeWatched(id: Long, change: (com.cryptochecker.app.domain.portfolio.WatchedAddress) -> com.cryptochecker.app.domain.portfolio.WatchedAddress) =
         database.withTransaction {

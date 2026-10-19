@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">Hyrje pa kosto blerjeje: %1$d</string>
+    <string name="cost_gaps_card_text">Plotëso koston që fitimi dhe tatimi të jenë të plota.</string>
+    <string name="cost_gaps_sheet_title">Hyrje pa kosto blerjeje</string>
+    <string name="cost_gaps_sheet_intro">Këtyre hyrjeve u mungon kosto e blerjes. Sugjerimi është çmimi i mbylljes së ditës – mund ta ndryshosh te hyrja.</string>
+    <string name="cost_gaps_empty">Të gjitha hyrjet kanë kosto blerjeje.</string>
+    <string name="cost_gap_enter">Fut koston</string>
+    <string name="cost_gap_leave_unknown">Lëre të panjohur</string>
+    <string name="cost_gap_left_unknown">Lënë e panjohur</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">Sugjerim: mbyllja %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">Nuk ka mbyllje të verifikuar për këtë datë</string>
+    <string name="cost_gap_suggestion_loading">Po ngarkohet mbyllja …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">Kosto = vlera në marrje (të ardhura)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">Kosto = 0 (shpërblim pa hyrje, Austri)</string>
+    <string name="cost_gap_apply">Apliko</string>
+    <string name="address_lots_action">Kosto për balancën e adresës</string>
+    <string name="address_lots_title">Kosto për balancën e adresës</string>
+    <string name="address_lots_intro">Fut datën e blerjes, sasinë dhe koston për balancën e kësaj adrese. Pjesët llogariten si blerje në këtë adresë; pjesa e pambuluar mbetet pa kosto.</string>
+    <string name="address_lots_add">Shto pjesë</string>
+    <string name="address_lots_new">Pjesë e re</string>
+    <string name="address_lots_edit">Pjesë</string>
+    <string name="address_lots_date">Data e blerjes</string>
+    <string name="address_lots_amount">Sasia</string>
+    <string name="address_lots_mode_total">Gjithsej</string>
+    <string name="address_lots_mode_price">Për monedhë</string>
+    <string name="address_lots_price">Çmimi për monedhë (USDT)</string>
+    <string name="address_lots_total">Kosto gjithsej (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s nga %2$s me kosto</string>
+    <string name="address_lots_unlotted">%1$s pa kosto</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">Pjesët e tejkalojnë balancën me %1$s – më të vjetrat përdoren të parat.</string>
+    <string name="address_lots_not_loaded">Balanca ende e pangarkuar – pjesët llogariten sapo të jetë.</string>
+    <string name="address_lots_invalid">Fut sasinë dhe koston</string>
+</resources>

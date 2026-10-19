@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">取得価額のない記録：%1$d</string>
+    <string name="cost_gaps_card_text">損益と税金を完全にするため取得価額を追加してください。</string>
+    <string name="cost_gaps_sheet_title">取得価額のない記録</string>
+    <string name="cost_gaps_sheet_intro">これらの入金には取得価額がありません。提案はその日の終値です – 記録で変更できます。</string>
+    <string name="cost_gaps_empty">すべての記録に取得価額があります。</string>
+    <string name="cost_gap_enter">取得価額を入力</string>
+    <string name="cost_gap_leave_unknown">不明のままにする</string>
+    <string name="cost_gap_left_unknown">不明のまま</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">提案：%1$s の終値 – %2$s</string>
+    <string name="cost_gap_suggestion_none">この日付の確認済み終値はありません</string>
+    <string name="cost_gap_suggestion_loading">終値を読み込み中 …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">取得価額 = 受取時の価値（所得）</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">取得価額 = 0（流入のない報酬、オーストリア）</string>
+    <string name="cost_gap_apply">適用</string>
+    <string name="address_lots_action">アドレス残高の取得価額</string>
+    <string name="address_lots_title">アドレス残高の取得価額</string>
+    <string name="address_lots_intro">このアドレスの残高について購入日、数量、取得価額を入力します。ロットはこのアドレスでの購入として扱われ、カバーされない分は取得価額なしのままです。</string>
+    <string name="address_lots_add">ロットを追加</string>
+    <string name="address_lots_new">新しいロット</string>
+    <string name="address_lots_edit">ロット</string>
+    <string name="address_lots_date">購入日</string>
+    <string name="address_lots_amount">数量</string>
+    <string name="address_lots_mode_total">合計</string>
+    <string name="address_lots_mode_price">1コインあたり</string>
+    <string name="address_lots_price">1コインあたりの価格（USDT）</string>
+    <string name="address_lots_total">取得価額の合計（USDT）</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%2$s のうち %1$s に取得価額あり</string>
+    <string name="address_lots_unlotted">%1$s は取得価額なし</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">ロットが残高を %1$s 上回っています – 古いものから先に消費されます。</string>
+    <string name="address_lots_not_loaded">残高はまだ読み込まれていません – 読み込まれ次第ロットが反映されます。</string>
+    <string name="address_lots_invalid">数量と取得価額を入力してください</string>
+</resources>

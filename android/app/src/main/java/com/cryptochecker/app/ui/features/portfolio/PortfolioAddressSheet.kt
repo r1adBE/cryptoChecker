@@ -77,6 +77,9 @@ internal fun PortfolioAddressSheet(
     var label by rememberSaveable { mutableStateOf("") }
     // Angefangene Eingabe: Wischen / Tippen daneben / Zurück fragen erst nach (wie das Transaktionsblatt)
     var askDiscard by remember { mutableStateOf(false) }
+    // «Einstand für Adressguthaben» einer Adresse (eigenes Blatt darüber)
+    var lotsFor by remember { mutableStateOf<Long?>(null) }
+    lotsFor?.let { id -> PortfolioAddressLotsSheet(viewModel, id, onDismiss = { lotsFor = null }) }
     val dirty = input.isNotBlank() || label.isNotBlank()
     val dirtyNow by rememberUpdatedState(dirty)
     val sheetState = rememberModalBottomSheetState(
@@ -217,6 +220,7 @@ internal fun PortfolioAddressSheet(
                     onCountTokens = { on -> viewModel.setWatchedAddressCountTokens(a.id, on) },
                     onNetworks = { list -> viewModel.setWatchedAddressNetworks(a.id, list) },
                     onShowOnly = { showOnly -> viewModel.setWatchedAddressCountInPortfolio(a.id, !showOnly) },
+                    onCostLots = { lotsFor = a.id },
                 )
             }
             item(key = "form") {

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
+    <string name="cost_gaps_card">إدخالات بلا تكلفة اقتناء: %1$d</string>
+    <string name="cost_gaps_card_text">أضف تكلفة الاقتناء ليكتمل الربح والضريبة.</string>
+    <string name="cost_gaps_sheet_title">إدخالات بلا تكلفة اقتناء</string>
+    <string name="cost_gaps_sheet_intro">تفتقد هذه الواردات إلى تكلفة الاقتناء. الاقتراح هو سعر إغلاق اليوم – يمكنك تعديله في الإدخال.</string>
+    <string name="cost_gaps_empty">لكل الإدخالات تكلفة اقتناء.</string>
+    <string name="cost_gap_enter">إدخال التكلفة</string>
+    <string name="cost_gap_leave_unknown">اتركها غير معروفة</string>
+    <string name="cost_gap_left_unknown">تُركت غير معروفة</string>
+    <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
+    <string name="cost_gap_suggestion">اقتراح: إغلاق %1$s – %2$s</string>
+    <string name="cost_gap_suggestion_none">لا يوجد إغلاق موثّق لهذا التاريخ</string>
+    <string name="cost_gap_suggestion_loading">جارٍ تحميل الإغلاق …</string>
+    <!-- Belohnung/Airdrop: Einstand ist rechtlich der Wert beim Zufluss – kein Angebot, ihn zu ändern -->
+    <string name="cost_gap_income">التكلفة = القيمة عند الاستلام (دخل)</string>
+    <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
+    <string name="cost_gap_income_zero">التكلفة = 0 (مكافأة بلا تدفق، النمسا)</string>
+    <string name="cost_gap_apply">تطبيق</string>
+    <string name="address_lots_action">تكلفة رصيد العنوان</string>
+    <string name="address_lots_title">تكلفة رصيد العنوان</string>
+    <string name="address_lots_intro">أدخل تاريخ الشراء والكمية والتكلفة لرصيد هذا العنوان. تُحتسب الدفعات كمشتريات في هذا العنوان؛ وما لا يُغطّى يبقى بلا تكلفة.</string>
+    <string name="address_lots_add">إضافة دفعة</string>
+    <string name="address_lots_new">دفعة جديدة</string>
+    <string name="address_lots_edit">دفعة</string>
+    <string name="address_lots_date">تاريخ الشراء</string>
+    <string name="address_lots_amount">الكمية</string>
+    <string name="address_lots_mode_total">الإجمالي</string>
+    <string name="address_lots_mode_price">لكل عملة</string>
+    <string name="address_lots_price">السعر لكل عملة (USDT)</string>
+    <string name="address_lots_total">التكلفة الإجمالية (USDT)</string>
+    <!-- %1$s = belegte Menge, %2$s = Guthaben der Adresse (je mit Coin) -->
+    <string name="address_lots_status">%1$s من %2$s بتكلفة</string>
+    <string name="address_lots_unlotted">%1$s بلا تكلفة</string>
+    <!-- %1$s = Menge der Posten über dem Guthaben -->
+    <string name="address_lots_capped">تتجاوز الدفعات الرصيد بمقدار %1$s – تُستهلك الأقدم أولاً.</string>
+    <string name="address_lots_not_loaded">لم يُحمَّل الرصيد بعد – تُحتسب الدفعات فور توفره.</string>
+    <string name="address_lots_invalid">أدخل الكمية والتكلفة</string>
+</resources>

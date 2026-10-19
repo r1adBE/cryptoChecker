@@ -164,8 +164,12 @@ internal fun PortfolioViewModel.historyFlow(): StateFlow<PortfolioHistoryUi?> = 
     val staleSince = com.cryptochecker.app.domain.portfolio.PortfolioHistoryAsOf.of(
         loaded.daily.ownStale.filterKeys { it in routed.closes }, drawn,
     )
+    // Tageskurse aus der Ausweich-Kette (Binance führt den Coin nicht): Anbieter nennen
+    val chainSources = loaded.daily.chainSources.filterKeys { it in drawn }
     if (!converted) {
-        return@combine PortfolioHistoryUi(range, series, PortfolioFormat.USDT, false, scaled = scaled, staleSince = staleSince)
+        return@combine PortfolioHistoryUi(
+            range, series, PortfolioFormat.USDT, false, scaled = scaled, staleSince = staleSince, chainSources = chainSources,
+        )
     }
     // USDT zum Marktkurs: je Tag × USDT/USD-Tagesschluss (Tag ohne Schluss: 1, als Näherung markiert)
     val usdt = com.cryptochecker.app.domain.portfolio.UsdtUsdRates(live, loaded.daily.usdtUsd)
@@ -175,7 +179,7 @@ internal fun PortfolioViewModel.historyFlow(): StateFlow<PortfolioHistoryUi?> = 
     if (result.approximate) {
         return@combine PortfolioHistoryUi(
             range, result.series, code, true, true,
-            scaled = scaled, usdtApproximate = result.usdtApproximate, staleSince = staleSince,
+            scaled = scaled, usdtApproximate = result.usdtApproximate, staleSince = staleSince, chainSources = chainSources,
         )
     }
     PortfolioHistoryUi(
@@ -189,6 +193,7 @@ internal fun PortfolioViewModel.historyFlow(): StateFlow<PortfolioHistoryUi?> = 
         scaled = scaled,
         usdtApproximate = result.usdtApproximate,
         staleSince = staleSince,
+        chainSources = chainSources,
     )
 }
     .flowOn(Dispatchers.Default)

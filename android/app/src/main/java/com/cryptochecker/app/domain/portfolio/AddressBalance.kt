@@ -236,6 +236,8 @@ object AddressBalance {
     //    Guthaben-Reihe ([AddressBalanceHistory]) zählt, ab ihrer ersten Beobachtung; Änderungen zwischen
     //    Beobachtungen sind Zu-/Abflüsse zum Marktkurs (kein Gewinn).
     // Die echten Transaktionen bleiben unverändert (Liste, Export, Sicherung kennen diese Einträge nicht).
+    // Build 84: Eröffnungsposten ([AddressCostLots]) belegen einen Teil des Guthabens mit Einstand — sie rechnen wie Käufe
+    // (Wallet = Adresse), nur der Rest bleibt Adress-Teil ohne Einstand ([isAddressPart]).
 
     private const val DAY_MILLIS = 86_400_000L
 
@@ -264,19 +266,28 @@ object AddressBalance {
         return out
     }
 
-    /** Adress-Einzahlung statt echter Transaktion? */
+    /**
+     * Adress-Eintrag statt echter Transaktion (Adress-Einzahlung oder Eröffnungsposten, [AddressCostLots])? Zeiträume,
+     * Verlauf, Stichtag und Listen lassen beide weg.
+     */
     fun isAddressTrade(id: Long): Boolean = id < 0
 
     /**
-     * Echte Transaktionen und Adress-Guthaben je Coin (Summe der Adress-Einzahlungen, [withAddresses]),
-     * Coin in Grossschreibung.
+     * Adress-Teil OHNE Einstand (Adress-Einzahlung, kein Eröffnungsposten) — nur er steht neben der Buchhaltung; die
+     * Posten ([AddressCostLots.isLotTrade]) rechnen Einstand und Steuer wie Käufe.
+     */
+    fun isAddressPart(id: Long): Boolean = isAddressTrade(id) && !AddressCostLots.isLotTrade(id)
+
+    /**
+     * Echte Transaktionen samt Eröffnungsposten und Adress-Guthaben ohne Einstand je Coin (Summe der Adress-Einzahlungen,
+     * [withAddresses]), Coin in Grossschreibung.
      */
     fun split(trades: List<PortfolioTrade>): Pair<List<PortfolioTrade>, Map<String, BigDecimal>> {
-        if (trades.none { isAddressTrade(it.id) }) return trades to emptyMap()
+        if (trades.none { isAddressPart(it.id) }) return trades to emptyMap()
         val real = ArrayList<PortfolioTrade>(trades.size)
         val address = LinkedHashMap<String, BigDecimal>()
         for (t in trades) {
-            if (!isAddressTrade(t.id)) {
+            if (!isAddressPart(t.id)) {
                 real += t
             } else if (t.type == PortfolioTxType.DEPOSIT && t.amount.signum() > 0) {
                 val coin = PortfolioCalculator.normalizeCoin(t.coin)
@@ -296,16 +307,21 @@ object AddressBalance {
         return if (first != null && first < yearAgo) first else yearAgo
     }
 
-    /** Je Coin mit geladenem Guthaben > 0 eine Einzahlung ohne Kaufpreis ([holdings]), Reihenfolge BTC, ETH, Token. */
+    /**
+     * Je Coin mit geladenem Guthaben > 0 eine Einzahlung ohne Kaufpreis ([holdings]) für den Teil OHNE Eröffnungsposten,
+     * Reihenfolge BTC, ETH, Token; danach die Eröffnungsposten als Käufe ([AddressCostLots.trades]).
+     */
     fun trades(addresses: List<WatchedAddress>, realTrades: List<PortfolioTrade>, todayUtcDay: Long): List<PortfolioTrade> {
         val held = holdings(addresses)
         if (held.isEmpty()) return emptyList()
         val time = heldSince(realTrades, todayUtcDay)
         val ids = tradeIds(held.map { it.first })
+        val lotted = AddressCostLots.lotted(addresses)
         return held.mapNotNull { (coin, text) ->
-            val amount = PortfolioDecimal.parse(text)?.takeIf { it.signum() > 0 } ?: return@mapNotNull null
+            val amount = PortfolioDecimal.parse(text)?.let { it - (lotted[coin] ?: BigDecimal.ZERO) }?.takeIf { it.signum() > 0 }
+                ?: return@mapNotNull null
             PortfolioTrade(id = ids.getValue(coin), coin = coin, type = PortfolioTxType.DEPOSIT, amount = amount, priceUsdt = null, time = time)
-        }
+        } + AddressCostLots.trades(addresses)
     }
 
     /**
@@ -318,9 +334,14 @@ object AddressBalance {
         return realTrades + trades(addresses, realTrades, todayUtcDay)
     }
 
-    /** Guthaben aller Adressen für [coin] (Detailansicht «Aus Adresse · ohne Kaufpreis»); null = keins geladen. */
+    /**
+     * Guthaben aller Adressen für [coin] OHNE Eröffnungsposten (Detailansicht «Aus Adresse · ohne Kaufpreis»); null = keins
+     * geladen.
+     */
     fun amountFor(coin: String, addresses: List<WatchedAddress>): BigDecimal? {
         val key = PortfolioCalculator.normalizeCoin(coin)
+        val lotted = AddressCostLots.lotted(addresses)[key] ?: BigDecimal.ZERO
         return holdings(addresses).firstOrNull { it.first == key }?.let { PortfolioDecimal.parse(it.second) }
+            ?.let { (it - lotted).max(BigDecimal.ZERO) }
     }
 }

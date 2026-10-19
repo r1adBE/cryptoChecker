@@ -58,7 +58,8 @@ enum WatchedAddressRules {
                                    tokenObservations: cleanTokens(entry.chain, entry.tokenObservations),
                                    countTokens: entry.countTokens,
                                    networks: entry.chain == .ETH ? cleanNetworks(entry.networks) : nil,
-                                   countInPortfolio: entry.countInPortfolio)
+                                   countInPortfolio: entry.countInPortfolio,
+                                   costLots: AddressCostLots.clean(entry.costLots))
             // Reihen nur, wo sie heute zählen würden (Token aus, Netz abgewählt: weg)
             let snapshot = a
             a.tokenObservations = a.tokenObservations.filter { counts(snapshot, $0.key) }
@@ -95,7 +96,7 @@ enum WatchedAddressRules {
             WatchedAddressBackupEntry(chain: $0.chain, address: $0.address, label: $0.label, addedAt: $0.addedAt,
                                       observations: $0.observations, countTokens: $0.countTokens,
                                       tokenObservations: $0.tokenObservations, networks: $0.networks,
-                                      countInPortfolio: $0.countInPortfolio)
+                                      countInPortfolio: $0.countInPortfolio, costLots: $0.costLots)
         }
     }
 
@@ -366,7 +367,8 @@ enum WatchedAddressRules {
                                              countTokens: o["countTokens"] as? Bool ?? true,
                                              tokenObservations: cleanTokens(chain, tokens),
                                              networks: cleanNetworks(networks),
-                                             countInPortfolio: o["countInPortfolio"] as? Bool ?? true)
+                                             countInPortfolio: o["countInPortfolio"] as? Bool ?? true,
+                                             costLots: AddressCostLots.lots(fromJSON: o["costLots"]))
         }
     }
 }

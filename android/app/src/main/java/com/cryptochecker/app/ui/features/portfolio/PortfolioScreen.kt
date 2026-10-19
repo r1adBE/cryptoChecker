@@ -113,6 +113,9 @@ fun PortfolioScreen(
     var csvImportOpen by rememberSaveable { mutableStateOf(false) }
     // ⋯ › «Importe»: Importläufe mit «Rückgängig»
     var importsOpen by rememberSaveable { mutableStateOf(false) }
+    // Einträge ohne Einstand (Karte, Hinweise unter der Gesamtkarte)
+    var costGapsOpen by rememberSaveable { mutableStateOf(false) }
+    val costGaps = rememberCostGaps(viewModel, transactions)
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
     val scope = rememberCoroutineScope()
@@ -182,6 +185,14 @@ fun PortfolioScreen(
         askClear = askClear,
         onAskClearChange = { askClear = it },
     )
+
+    if (costGapsOpen) {
+        PortfolioCostGapsSheet(
+            viewModel, transactions.orEmpty(),
+            onEdit = { tx -> costGapsOpen = false; sheet = tx.toDraft() },
+            onDismiss = { costGapsOpen = false },
+        )
+    }
 
     val hasTransactions = !transactions.isNullOrEmpty()
     // Inhalt auch nur mit Adressen (Bestand ohne Kaufpreis)
@@ -280,7 +291,10 @@ fun PortfolioScreen(
             yearChange = yearChange,
             periodScaled = periodScaled,
             walletShortfalls = walletShortfalls,
-            onShortfall = { id -> transactions?.firstOrNull { it.id == id }?.let { sheet = it.toDraft() } },
+            onShortfall = { id ->
+                if (id == COST_GAPS_HINT_ID) costGapsOpen = true
+                else transactions?.firstOrNull { it.id == id }?.let { sheet = it.toDraft() }
+            },
             depegReading = depegReading,
             depegThreshold = depegThreshold,
             history = history,
@@ -297,6 +311,8 @@ fun PortfolioScreen(
             onShowClosedChange = { showClosed = it },
             onDeleteCoin = { deleteCoin(it) },
             onOpenCoin = onOpenCoin,
+            costGapsPending = costGaps.pending.size,
+            onOpenCostGaps = { costGapsOpen = true },
         )
     }
 }

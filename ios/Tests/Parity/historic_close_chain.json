@@ -1,0 +1,120 @@
+{
+  "_comment": "Ausweich-Kette der historischen Tagesschlüsse (HistoricCloseChain.kt / HistoricCloseChain.swift): Reihenfolge, Paare je Quelle, Namensprüfung, Urteil je Schluss, Auflösung der Kette, Ausweich-Reihe des Verlaufs und Lückenfüller USDT/USD. Gleiche Fälle auf beiden Plattformen.",
+  "order": [
+    {"own": null, "expected": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"]},
+    {"own": "", "expected": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"]},
+    {"own": "   ", "expected": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"]},
+    {"own": "Kraken", "expected": ["Kraken", "Binance", "Coinbase", "Okex", "Bybit"]},
+    {"own": "kraken", "expected": ["Kraken", "Binance", "Coinbase", "Okex", "Bybit"]},
+    {"own": "Bybit", "expected": ["Bybit", "Binance", "Coinbase", "Kraken", "Okex"]},
+    {"own": "Coinbase", "expected": ["Coinbase", "Binance", "Kraken", "Okex", "Bybit"]},
+    {"own": "Binance", "expected": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"]},
+    {"own": "Bitstamp", "expected": ["Bitstamp", "Binance", "Coinbase", "Kraken", "Okex", "Bybit"]}
+  ],
+  "seriesChain": ["Coinbase", "Kraken", "Okex", "Bybit"],
+  "provider": [
+    {"market": "Okex", "expected": "OKX"},
+    {"market": "Kraken", "expected": "Kraken"},
+    {"market": "Bybit", "expected": "Bybit"},
+    {"market": "Coinbase", "expected": "Coinbase"},
+    {"market": "Bitstamp", "expected": "Bitstamp"}
+  ],
+  "pairs": [
+    {"market": "Kraken", "base": "BTC", "expected": [["USD", "XBTUSD"], ["USDT", "XBTUSDT"]]},
+    {"market": "Kraken", "base": "doge", "expected": [["USD", "XDGUSD"], ["USDT", "XDGUSDT"]]},
+    {"market": "Kraken", "base": "PEPE", "expected": [["USD", "PEPEUSD"], ["USDT", "PEPEUSDT"]]},
+    {"market": "Okex", "base": "SOL", "expected": [["USDT", "SOL-USDT"], ["USDC", "SOL-USDC"]]},
+    {"market": "Bybit", "base": " wif ", "expected": [["USDT", "WIFUSDT"], ["USDC", "WIFUSDC"]]},
+    {"market": "Coinbase", "base": "ETH", "expected": [["USD", "ETH-USD"], ["USDC", "ETH-USDC"]]},
+    {"market": "Binance", "base": "BTC", "expected": []},
+    {"market": "Bitstamp", "base": "BTC", "expected": []},
+    {"market": "Kraken", "base": "BT-C", "expected": []},
+    {"market": "Bybit", "base": "", "expected": []},
+    {"market": "Okex", "base": "ABCDEFGHIJKLMNOP", "expected": []}
+  ],
+  "names": [
+    {"base": "PEPE", "own": false, "market": "Kraken", "ownName": null, "binanceName": null, "providerName": null, "expected": true},
+    {"base": "CAT", "own": false, "market": "Kraken", "ownName": "Simon's Cat", "binanceName": "Catcoin", "providerName": null, "expected": false},
+    {"base": "CAT", "own": false, "market": "Bybit", "ownName": "Simon's Cat", "binanceName": "Simons Cat", "providerName": "Catcoin", "expected": false},
+    {"base": "CAT", "own": false, "market": "Okex", "ownName": "Simon's Cat", "binanceName": null, "providerName": "Simons Cat", "expected": true},
+    {"base": "ZZZ", "own": false, "market": "Kraken", "ownName": "Alpha Beta", "binanceName": "Gamma Delta", "providerName": null, "expected": false},
+    {"base": "CAT", "own": true, "market": "Kraken", "ownName": "Simon's Cat", "binanceName": "Catcoin", "providerName": "Simons Cat", "expected": true},
+    {"base": "CAT", "own": true, "market": "Kraken", "ownName": "Simon's Cat", "binanceName": "Simons Cat", "providerName": "Catcoin", "expected": false},
+    {"base": "CAT", "own": true, "market": "Bitstamp", "ownName": null, "binanceName": "Catcoin", "providerName": "Simons Cat", "expected": true}
+  ],
+  "decide": [
+    {"close": 100, "latest": 105, "current": 100, "primary": false, "nameOk": true, "expected": "ACCEPT"},
+    {"close": 100, "latest": 85, "current": 100, "primary": false, "nameOk": true, "expected": "ACCEPT"},
+    {"close": 100, "latest": 140, "current": 100, "primary": false, "nameOk": true, "expected": "REJECT"},
+    {"close": 100, "latest": 140, "current": 100, "primary": true, "nameOk": true, "expected": "ACCEPT"},
+    {"close": 100, "latest": 400, "current": 100, "primary": true, "nameOk": true, "expected": "REJECT"},
+    {"close": 100, "latest": 20, "current": 100, "primary": true, "nameOk": true, "expected": "REJECT"},
+    {"close": 100, "latest": null, "current": 100, "primary": true, "nameOk": true, "expected": "REJECT"},
+    {"close": 100, "latest": 100, "current": null, "primary": false, "nameOk": true, "expected": "REJECT"},
+    {"close": 100, "latest": 100, "current": 100, "primary": false, "nameOk": false, "expected": "REJECT"},
+    {"close": null, "latest": 100, "current": 100, "primary": false, "nameOk": false, "expected": "MISSING"},
+    {"close": 0, "latest": 100, "current": 100, "primary": false, "nameOk": true, "expected": "MISSING"},
+    {"close": -5, "latest": 100, "current": 100, "primary": true, "nameOk": true, "expected": "MISSING"}
+  ],
+  "resolve": [
+    {
+      "name": "Kraken nach Binance und Coinbase",
+      "order": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"],
+      "outcomes": {"Binance": {"price": null, "rejected": false}, "Coinbase": {"price": null, "rejected": false}, "Kraken": {"price": 2.5, "rejected": false}, "Okex": {"price": 9, "rejected": false}},
+      "expected": {"price": 2.5, "source": "Kraken", "provider": "Kraken", "unchecked": false, "asked": ["Binance", "Coinbase", "Kraken"]}
+    },
+    {
+      "name": "nur verworfene Schlüsse: ungeprüft",
+      "order": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"],
+      "outcomes": {"Binance": {"price": null, "rejected": true}},
+      "expected": {"price": null, "source": null, "provider": null, "unchecked": true, "asked": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"]}
+    },
+    {
+      "name": "nirgends ein Schluss: ohne Kurs, nicht ungeprüft",
+      "order": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"],
+      "outcomes": {},
+      "expected": {"price": null, "source": null, "provider": null, "unchecked": false, "asked": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"]}
+    },
+    {
+      "name": "Binance-Gruppe nennt Binance.US",
+      "order": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"],
+      "outcomes": {"Binance": {"price": 1.25, "rejected": true, "provider": "Binance.US"}},
+      "expected": {"price": 1.25, "source": "Binance", "provider": "Binance.US", "unchecked": false, "asked": ["Binance"]}
+    },
+    {
+      "name": "eigene Börse zuerst, auch wenn Binance einen hätte",
+      "order": ["Kraken", "Binance", "Coinbase", "Okex", "Bybit"],
+      "outcomes": {"Kraken": {"price": 3, "rejected": false}, "Binance": {"price": 4, "rejected": false}},
+      "expected": {"price": 3, "source": "Kraken", "provider": "Kraken", "unchecked": false, "asked": ["Kraken"]}
+    },
+    {
+      "name": "OKX heisst OKX, verworfener Kurs davor zählt nicht",
+      "order": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"],
+      "outcomes": {"Coinbase": {"price": null, "rejected": true}, "Okex": {"price": 0.5, "rejected": false}},
+      "expected": {"price": 0.5, "source": "Okex", "provider": "OKX", "unchecked": false, "asked": ["Binance", "Coinbase", "Kraken", "Okex"]}
+    },
+    {
+      "name": "Schluss 0 gilt als keiner",
+      "order": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"],
+      "outcomes": {"Coinbase": {"price": 0, "rejected": false}, "Bybit": {"price": 5, "rejected": false}},
+      "expected": {"price": 5, "source": "Bybit", "provider": "Bybit", "unchecked": false, "asked": ["Binance", "Coinbase", "Kraken", "Okex", "Bybit"]}
+    }
+  ],
+  "acceptSeries": [
+    {"latest": 1.1, "current": 1.0, "nameOk": true, "expected": true},
+    {"latest": 0.85, "current": 1.0, "nameOk": true, "expected": true},
+    {"latest": 1.5, "current": 1.0, "nameOk": true, "expected": false},
+    {"latest": 0.7, "current": 1.0, "nameOk": true, "expected": false},
+    {"latest": 1.0, "current": 1.0, "nameOk": false, "expected": false},
+    {"latest": null, "current": 1.0, "nameOk": true, "expected": false},
+    {"latest": 1.0, "current": null, "nameOk": true, "expected": false}
+  ],
+  "fillUsdtUsd": [
+    {"primary": {"100": 1.001, "101": 0.999}, "secondary": {}, "expected": {"100": 1.001, "101": 0.999}},
+    {"primary": {"100": 1.001}, "secondary": {"100": 1.01, "101": 0.998, "102": 7.0}, "expected": {"100": 1.001, "101": 0.998}},
+    {"primary": {}, "secondary": {"200": 1.0005}, "expected": {"200": 1.0005}},
+    {"primary": {"300": 2.0}, "secondary": {"300": 1.002}, "expected": {"300": 1.002}},
+    {"primary": {"301": 2.0}, "secondary": {}, "expected": {"301": 2.0}},
+    {"primary": {"302": 2.0}, "secondary": {"302": 0.1}, "expected": {"302": 2.0}}
+  ]
+}
