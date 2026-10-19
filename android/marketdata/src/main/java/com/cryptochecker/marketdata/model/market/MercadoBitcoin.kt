@@ -1,13 +1,14 @@
 package com.cryptochecker.marketdata.model.market
 
 import com.cryptochecker.marketdata.exceptions.MarketParseException
-import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
 import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleOrMissing
+import com.cryptochecker.marketdata.util.optText
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -39,7 +40,7 @@ class MercadoBitcoin : SimpleMarket(
     override fun fillTicker(call: Int, body: String, ticker: Ticker, info: PairQuery) {
         val id = pairId(info)
         var found: JSONObject? = null
-        JSONArray(body).forEachJSONObject { row -> if (found == null && row.optString("pair") == id) found = row }
+        JSONArray(body).forEachJSONObject { row -> if (found == null && row.optText("pair") == id) found = row }
         copyRow(found ?: throw MarketParseException(MarketParseException.NO_DATA), ticker)
     }
 
@@ -67,7 +68,7 @@ class MercadoBitcoin : SimpleMarket(
         failed: MutableSet<String>,
     ) {
         JSONArray(body).forEachJSONObject { row ->
-            bulkRowIfActive(row.optString("pair"), row, "last", tickers, failed) { copyRow(row, it) }
+            bulkRowIfActive(row.optText("pair"), row, "last", tickers, failed) { copyRow(row, it) }
         }
     }
 

@@ -26,11 +26,13 @@ final class HashKey: SimpleMarket {
 
     override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.base + info.quote }
 
-    /// Liste mit einer Zeile (dokumentiert) oder, vorsichtshalber, ein einzelnes Objekt. Leere Liste wirft.
+    /// Liste mit einer Zeile (dokumentiert) oder, vorsichtshalber, ein einzelnes Objekt. Leere Liste = «No data».
     override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
         let row: JObject
         if body.drop(while: { $0.isWhitespace }).hasPrefix("[") {
-            row = try JArray(string: body).object(0)
+            let rows = try JArray(string: body)
+            if rows.isEmpty { throw JSONError(message: JSONError.noData) }
+            row = try rows.object(0)
         } else {
             row = try JObject(string: body)
         }

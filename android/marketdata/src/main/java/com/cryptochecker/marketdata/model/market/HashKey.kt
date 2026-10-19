@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.Ticker
@@ -36,9 +37,15 @@ class HashKey : SimpleMarket(
 
     override fun pairId(info: PairQuery): String = info.pairId ?: (info.base + info.quote)
 
-    /** Liste mit einer Zeile (dokumentiert) oder, vorsichtshalber, ein einzelnes Objekt. Leere Liste wirft. */
+    /** Liste mit einer Zeile (dokumentiert) oder, vorsichtshalber, ein einzelnes Objekt. Leere Liste = «No data». */
     override fun fillTicker(call: Int, body: String, ticker: Ticker, info: PairQuery) {
-        val row = if (body.trimStart().startsWith("[")) JSONArray(body).getJSONObject(0) else JSONObject(body)
+        val row = if (body.trimStart().startsWith("[")) {
+            val rows = JSONArray(body)
+            if (rows.length() == 0) throw MarketParseException(MarketParseException.NO_DATA)
+            rows.getJSONObject(0)
+        } else {
+            JSONObject(body)
+        }
         copyRow(row, ticker)
     }
 

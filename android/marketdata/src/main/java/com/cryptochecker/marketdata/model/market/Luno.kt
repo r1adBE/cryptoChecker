@@ -1,13 +1,14 @@
 package com.cryptochecker.marketdata.model.market
 
 import com.cryptochecker.marketdata.exceptions.MarketParseException
-import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
+import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.getText
 import com.cryptochecker.marketdata.util.optDoubleOrMissing
+import com.cryptochecker.marketdata.util.optText
 import org.json.JSONObject
 
 private const val LUNO_API = "https://api.luno.com"
@@ -59,7 +60,7 @@ class Luno : SimpleMarket(
     ) {
         JSONObject(body).getJSONArray("tickers").forEachJSONObject { row ->
             if (!isTrading(row)) return@forEachJSONObject
-            bulkRowIfActive(row.optString("pair"), row, "last_trade", tickers, failed) { copyRow(row, it) }
+            bulkRowIfActive(row.optText("pair"), row, "last_trade", tickers, failed) { copyRow(row, it) }
         }
     }
 
