@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s için tüm işlemler silinsin mi?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d işlem silinecek. Hemen ardından geri alabilirsiniz.</item>
+        <item quantity="other">%d işlem silinecek. Hemen ardından geri alabilirsiniz.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s portföyden kaldırıldı (%2$d işlem)</item>
+        <item quantity="other">%1$s portföyden kaldırıldı (%2$d işlem)</item>
+    </plurals>
+</resources>

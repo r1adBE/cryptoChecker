@@ -11,7 +11,7 @@ TË SINQERTË PËR TË DHËNAT
 • Ndryshimi në % dhe grafikët vijnë së pari nga bursa e vetë çiftit; nëse ajo nuk ka qirinj, aplikacioni përdor Binance ose Coinbase dhe të njofton.
 • Fear & Greed, dominanca dhe vlerat on-chain nga alternative.me, CoinGecko dhe Coin Metrics.
 • Me aplikacionin të mbyllur, Android vendos kur kontrollohen alarmet – rreth çdo 15 minuta, shpesh më rrallë. Kërcime të shkurtra në mes mund të humbasin; aplikacioni ta thotë këtë.
-• Shumat mbeten në pajisje, përveç nëse i eksporton vetë (CSV, kopje rezervë). Për çmimet, vetëm simbolet e çiftit shkojnë te bursa e atij çifti; përveç kësaj kurset e këmbimit (Frankfurter), të dhënat e tregut dhe logot (CoinGecko, Binance), pasqyrat e të dhënave (GitHub). Nëse ndjek adresa ose një xpub, nyjet publike blockchain shohin adresat (te xpub ato të derivuara) dhe IP-në tënde.
+• Shumat dalin nga pajisja vetëm me eksport ose kopje rezervë të Android-it. Për çmimet, vetëm simbolet e çiftit shkojnë te bursa e atij çifti; përveç kësaj kurset e këmbimit (Frankfurter), të dhënat e tregut dhe logot (CoinGecko, Binance), pasqyrat e të dhënave (GitHub). Nëse ndjek adresa ose një xpub, nyjet publike blockchain shohin adresat (te xpub ato të derivuara) dhe IP-në tënde.
 
 LISTA E NDJEKJES
 • 54 tregje në 44 bursa: spot dhe futures, tokenë DEX përmes DexScreener, sipas dëshirës aksione, ar dhe valuta (TradFi)

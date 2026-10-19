@@ -299,10 +299,11 @@ struct PortfolioTotalCard: View {
         return value.isFinite && !PortfolioFormat.isZero(value) ? value : nil
     }
 
-    /// 7 T · Seit Kauf nebeneinander (gleich breit); «Heute» steht unter dem Gesamtwert (Build 46).
+    /// 7 Tage · Seit Kauf nebeneinander (gleich breit); «Heute» steht unter dem Gesamtwert (Build 46). Ausgeschrieben
+    /// statt «7 T», weil das Kürzel allein unverständlich war — wie Android.
     private var figureRow: some View {
         HStack(alignment: .top, spacing: Spacing.sm) {
-            PortfolioInsightFigure(label: L("portfolio_history_range_7d"), spokenLabel: L("portfolio_history_period_7d"),
+            PortfolioInsightFigure(label: L("portfolio_history_period_7d"), spokenLabel: L("portfolio_history_period_7d"),
                                    amount: weekChange?.amount, percent: weekChange?.percent, unit: unit,
                                    rewards: weekChange?.rewards ?? 0)
             // «Seit Kauf (CHF)»: Gewinn/Verlust seit Kauf der Coins mit Kaufpreis (in der Einheit des Gesamtwerts);

@@ -11,7 +11,7 @@ VERİ KONUSUNDA DÜRÜST
 • % değişim ve grafikler önce çiftin kendi borsasından gelir; borsanın mumları yoksa uygulama Binance ya da Coinbase kullanır ve bunu belirtir.
 • Fear & Greed, dominans ve zincir üstü değerler alternative.me, CoinGecko ve Coin Metrics’ten.
 • Uygulama kapalıyken alarmların ne zaman kontrol edileceğine Android karar verir – yaklaşık 15 dakikada bir, çoğu zaman daha seyrek. Aradaki kısa sıçramalar kaçabilir; uygulama bunu sana söyler.
-• Tutarlar, sen kendin dışa aktarmadıkça (CSV, yedek) cihazda kalır. Fiyatlar için yalnızca çift sembolleri o çiftin borsasına gider; ayrıca döviz kurları (Frankfurter), piyasa verileri ve logolar (CoinGecko, Binance), veri aynaları (GitHub). Adresleri veya bir xpub’ı izlersen, herkese açık blokzincir düğümleri adresleri (xpub’da türetilenleri) ve IP’ni görür.
+• Tutarlar cihazdan sadece dışa aktarma ve Android yedeğiyle çıkar. Fiyatlar için yalnızca çift sembolleri o çiftin borsasına gider; ayrıca döviz kurları (Frankfurter), piyasa verileri ve logolar (CoinGecko, Binance), veri aynaları (GitHub). Adresleri veya bir xpub’ı izlersen, herkese açık blokzincir düğümleri adresleri (xpub’da türetilenleri) ve IP’ni görür.
 
 TAKİP LİSTESİ
 • 44 borsada 54 piyasa: spot ve vadeli, DexScreener üzerinden DEX tokenleri, istersen hisse, altın ve döviz (TradFi)

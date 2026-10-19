@@ -47,6 +47,9 @@ private fun ColorScheme.withCleanContainers(): ColorScheme = copy(
     tertiaryContainer = DarkSelectedContainer,
     onTertiaryContainer = onSurface,
     surfaceTint = onSurface,
+    // Fehler dunkel Orange-Rot statt Material-Rosa (#FFB4AB, fast wie «fallend»): #FF5833, 5.9:1 auf #131313
+    error = Color(0xFFFF5833),
+    onError = Color.Black,
 )
 
 private val orangeLight = lightColorScheme(

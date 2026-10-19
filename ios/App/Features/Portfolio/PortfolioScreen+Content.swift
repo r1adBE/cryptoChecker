@@ -136,17 +136,19 @@ extension PortfolioScreen {
                 }
                 .buttonStyle(.plain)
                 .accessibilityIdentifier(UiTestTags.portfolioCoin(position.coin))
-                // VoiceOver: Löschen wie nach links wischen (mit «Rückgängig»)
+                // VoiceOver: Löschen wie nach links wischen (Rückfrage, dann «Rückgängig»)
                 .accessibilityActions {
                     if (txCounts[position.coin] ?? 0) > 0 {
-                        Button(L("action_delete")) { deleteCoin(position.coin) }
+                        Button(L("action_delete")) { askDeleteCoin = position.coin }
                     }
                 }
-                // Nach links wischen = löschen ohne Rückfrage (Rückgängig im Banner); kein Favorit.
+                // Nach links wischen = löschen nach Rückfrage (Rückgängig im Banner); kein Favorit.
+                // Ohne Rolle «destructive»: sonst nimmt die Liste die Zeile schon vor der Antwort heraus;
+                // so federt sie zurück und bleibt bei «Abbrechen» stehen.
                 // Coin nur aus einer Adresse: nichts zu löschen (Adresse über ⋯ › «Adressen» entfernen)
                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                     if !voiceOver && (txCounts[position.coin] ?? 0) > 0 {
-                        Button(role: .destructive) { deleteCoin(position.coin) } label: {
+                        Button { askDeleteCoin = position.coin } label: {
                             Label(L("action_delete"), systemImage: "trash")
                         }
                         // Systemrot: weisse Schrift bleibt auch im Dunkelmodus lesbar

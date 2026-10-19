@@ -61,7 +61,8 @@ private const val SWIPE_THRESHOLD = 0.38f
  * nach Material-Version veränderte Bestätigungs-API aus.
  * Für den Screenreader sind beide Aktionen eigene Aktionen der Zeile (siehe WatchRow).
  * Ohne [onToggleFavorite] (Portfolio) gibt es nur das Löschen; zum Zeilenanfang hin bewegt
- * sich die Zeile dann nicht.
+ * sich die Zeile dann nicht. Mit [confirmsDelete] fragt [onDelete] erst nach (Dialog): Die Zeile
+ * federt dann sofort zurück, statt hinauszugleiten — bei «Abbrechen» steht sie wieder da.
  */
 @Composable
 internal fun SwipeActionsRow(
@@ -73,6 +74,8 @@ internal fun SwipeActionsRow(
     reduceMotion: Boolean = false,
     /** Form der Zeile (bei Listen als Einheit je nach Platz, [com.cryptochecker.app.ui.components.ListSegment]). */
     shape: androidx.compose.ui.graphics.Shape? = null,
+    /** [onDelete] öffnet eine Rückfrage statt sofort zu löschen (Portfolio: ganzer Coin). */
+    confirmsDelete: Boolean = false,
     content: @Composable () -> Unit,
 ) {
     val view = LocalView.current
@@ -113,6 +116,12 @@ internal fun SwipeActionsRow(
                     // Eigener Scope: unabhängig davon, wie die Geste ihr Ende meldet
                     scope.launch {
                         when {
+                            beyond(x) && isDelete(x) && confirmsDelete -> {
+                                // Rückfrage öffnen, Zeile zurück: verschwindet erst, wenn die Liste den Coin nicht mehr hat
+                                currentDelete()
+                                if (reduceMotion) offset = 0f
+                                else animate(x, 0f, animationSpec = spring()) { v, _ -> offset = v }
+                            }
                             beyond(x) && isDelete(x) -> {
                                 // Hinausgleiten, dann löschen (die Liste schliesst die Lücke)
                                 val target = width.toFloat() * if (x < 0f) -1f else 1f

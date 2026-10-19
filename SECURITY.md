@@ -165,7 +165,9 @@ keys or other secrets never belong in this repository.
 
 ### Kurz auf Deutsch
 
-Alle Daten (Merkliste, Alarme, Portfolio) bleiben auf dem Gerät. Zusätzlich zur
+Alle Daten (Merkliste, Alarme, Portfolio) gehen nie an den Entwickler. Unter Android nimmt die
+Systemsicherung (Google-Konto, Geräteübertragung) die Merkliste samt Menge und Notiz mit, sobald sie
+eingeschaltet ist, das Portfolio nur mit dem Schalter «Portfolio in Systemsicherung». Zusätzlich zur
 Verschlüsselung des Betriebssystems sind sie seit Build 59 verschlüsselt
 gespeichert (Android: SQLCipher, Schlüssel im Android Keystore; iOS: AES-256-GCM,
 Schlüssel im Schlüsselbund, seit Build 69 nur auf diesem Gerät und in keinem

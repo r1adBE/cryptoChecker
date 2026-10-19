@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Usunąć wszystkie transakcje %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">Zostanie usunięta %d transakcja. Możesz to cofnąć zaraz potem.</item>
+        <item quantity="few">Zostaną usunięte %d transakcje. Możesz to cofnąć zaraz potem.</item>
+        <item quantity="many">Zostanie usuniętych %d transakcji. Możesz to cofnąć zaraz potem.</item>
+        <item quantity="other">Zostanie usunięte %d transakcji. Możesz to cofnąć zaraz potem.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">Usunięto %1$s z portfela (%2$d transakcja)</item>
+        <item quantity="few">Usunięto %1$s z portfela (%2$d transakcje)</item>
+        <item quantity="many">Usunięto %1$s z portfela (%2$d transakcji)</item>
+        <item quantity="other">Usunięto %1$s z portfela (%2$d transakcji)</item>
+    </plurals>
+</resources>
