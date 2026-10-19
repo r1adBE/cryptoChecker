@@ -2,7 +2,7 @@
 """Gibt je aufgezeichnetem Markt einen GitHub-Hinweis (::notice) mit den ersten 900 Zeichen jeder Antwort aus.
 
 Aufruf (im Workflow «Record exchange fixtures»): python3 android/tools/recorded_summaries.py <von> <bis>
-– bearbeitet die Dateien recorded_*.json in alphabetischer Reihenfolge von Index <von> bis <bis> (ohne).
+– bearbeitet die Dateien (bei gesetzter Umgebungsvariable ONLY nur diese Märkte) recorded_*.json in alphabetischer Reihenfolge von Index <von> bis <bis> (ohne).
 """
 import glob
 import json
@@ -19,7 +19,11 @@ def escape(text):
 
 def main():
     start, end = int(sys.argv[1]), int(sys.argv[2])
-    files = sorted(glob.glob(os.path.join(FOLDER, "recorded_*.json")))[start:end]
+    files = sorted(glob.glob(os.path.join(FOLDER, "recorded_*.json")))
+    only = {k.strip().lower() for k in os.environ.get("ONLY", "").split(",") if k.strip()}
+    if only:
+        files = [f for f in files if os.path.basename(f)[len("recorded_"):-len(".json")] in only]
+    files = files[start:end]
     for path in files:
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
