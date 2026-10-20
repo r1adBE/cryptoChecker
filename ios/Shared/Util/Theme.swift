@@ -249,7 +249,10 @@ enum ColorTokens {
     static let outline = Pair(light: 0x777777, dark: 0x919191)
     /// Trennlinien: hell #ADA9A0 ≈ 2.2:1 auf #FBF9F6 (Build 58, vorher #C9C6BF 1.6:1) — wie Android.
     static let outlineVariant = Pair(light: 0xADA9A0, dark: 0x474747)
-    static let error = Pair(light: 0xBA1A1A, dark: 0xFF5833) // dunkel Orange-Rot statt Rosa (fast wie «fallend»), 5.9:1 auf #131313
+    /// Fehler in Hell und Dunkel warmes Orange-Rot statt Material-Rot/-Rosa — wie Android `ErrorColors.kt`.
+    /// Hell #B8361A: 5.58:1 auf #FBF9F6, 4.53:1 auf #E5E2DB, Weiss darauf 5.86:1; dunkel #FF5833: 5.9:1 auf #131313.
+    /// Hoher Kontrast lässt sie unverändert (wie Android). Fehlerflächen: `error` mit geringer Deckkraft.
+    static let error = Pair(light: 0xB8361A, dark: 0xFF5833)
     /// Tiefere Fläche im Widget (unter der Grundfläche `surfaceContainer`).
     static let widgetSurfaceDeep = Pair(light: 0xE7E4DD, dark: 0x151515)
     /// «Unverändert» im Widget (`WidgetPalette.neutral`): hell #5F5F5F statt `outline` #777777
@@ -300,8 +303,8 @@ enum AppColors {
     static let warning = Color.dynamic(light: 0xB26B00, dark: 0xFFC94D)
     /// Bernstein für Text: hell dunkler, damit es auch auf den Karten AA (≥ 4.5:1) erreicht.
     static let warningText = Color.dynamic(light: 0x8A5300, dark: 0xFFC94D)
-    /// Löschen in Wisch-Aktionen (Systemrot).
-    static let destructive = Color.red
+    /// Löschen und Zurücksetzen (Wisch-Aktionen, «App zurücksetzen»): der Fehlerton statt Systemrot, wie Android.
+    static let destructive = error
     /// Hinweis-Banner und Toasts: dunkle Fläche mit heller Schrift, in Hell und Dunkel gleich.
     static let toastBackground = Color.black.opacity(0.86)
     static let onToast = Color.white

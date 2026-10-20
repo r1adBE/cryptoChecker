@@ -514,6 +514,7 @@
 		5F4676CA882D7BD16A0F5832 /* IndicatorAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C3C58BC7DB6E3BC20FC992 /* IndicatorAlerts.swift */; };
 		5F9D43A59B6BF31E6C34C95D /* AlarmSoundRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B09E22CE833904376C459E /* AlarmSoundRow.swift */; };
 		5FBACF78D3348269F0C0AFF3 /* PortfolioPriceSource+Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D956160E8C848097668B303D /* PortfolioPriceSource+Requests.swift */; };
+		5FE6E971360A1E49743CC1FD /* ErrorColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516996D2A5E61B5EBB5C919A /* ErrorColorTests.swift */; };
 		607B3E06A999F1D8553DF1F5 /* exchange_bitstamp.json in Resources */ = {isa = PBXBuildFile; fileRef = FBC6A11767753091C8F4C13D /* exchange_bitstamp.json */; };
 		6092EA050831E80ECB714970 /* PriceRefresher+Deferred.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF195875706016B72EDC1F83 /* PriceRefresher+Deferred.swift */; };
 		60D9DD97D610E05C619E903E /* PortfolioWidgetChartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A01B51C23236D0BAF9272 /* PortfolioWidgetChartTests.swift */; };
@@ -1709,6 +1710,7 @@
 		50F88A2A74FDDE022A99450B /* AlarmSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSignal.swift; sourceTree = "<group>"; };
 		51298FDC1802B5704DADB3B3 /* DexScreenerBulkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DexScreenerBulkTests.swift; sourceTree = "<group>"; };
 		51533B7C394A702FAE175153 /* recorded_binanceus.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recorded_binanceus.json; sourceTree = "<group>"; };
+		516996D2A5E61B5EBB5C919A /* ErrorColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorColorTests.swift; sourceTree = "<group>"; };
 		519E5E56EDA73196DAE18B2B /* FuturesDataSource+FundingHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FuturesDataSource+FundingHistory.swift"; sourceTree = "<group>"; };
 		51D16C0B33A019689D229DC2 /* recorded_coinbase.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recorded_coinbase.json; sourceTree = "<group>"; };
 		5261C52CA9FB03209A649751 /* Lighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lighter.swift; sourceTree = "<group>"; };
@@ -3459,6 +3461,7 @@
 				573AD04ED668E4FBD227DAFE /* DexLiquidityTests.swift */,
 				51298FDC1802B5704DADB3B3 /* DexScreenerBulkTests.swift */,
 				06C26BECA386602A8D669404 /* DiagnosticReportTests.swift */,
+				516996D2A5E61B5EBB5C919A /* ErrorColorTests.swift */,
 				33A3CEBC2215ADAE67CD9C51 /* EstvKurslisteTests.swift */,
 				6EDF8B12B2B9691804394CE6 /* ExchangeBackoffTests.swift */,
 				4BCF2ABFFD62F23C29AC1D41 /* ExchangeContractTests.swift */,
@@ -4546,6 +4549,7 @@
 				278604103DD857464B1382E7 /* DexLiquidityTests.swift in Sources */,
 				6392C7F3A12C5CE253D974A1 /* DexScreenerBulkTests.swift in Sources */,
 				95023E80D70624FB20BB9AFC /* DiagnosticReportTests.swift in Sources */,
+				5FE6E971360A1E49743CC1FD /* ErrorColorTests.swift in Sources */,
 				42E5350CAF7532EDDC52152A /* EstvKurslisteTests.swift in Sources */,
 				D9569DDE4F1F9A40D0CFCB98 /* ExchangeBackoffTests.swift in Sources */,
 				8CB4EE6BA52029E8DFC5B18A /* ExchangeContractTests.swift in Sources */,

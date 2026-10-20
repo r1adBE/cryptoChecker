@@ -31,13 +31,13 @@ fun appColorScheme(accent: AccentColor, dark: Boolean): ColorScheme = when (acce
     AccentColor.BLUE -> if (dark) blueDark else blueLight
     AccentColor.GREEN -> if (dark) greenDark else greenLight
     AccentColor.MARRS_GREEN -> if (dark) marrsGreenDark else marrsGreenLight
-}.let { if (dark) it.withCleanContainers() else it }
+}.let { (if (dark) it.withCleanContainers() else it).withWarmError(dark) }
 
 /**
  * Dunkel sind die Tonstufen-Container der Akzentfarbe sehr dunkle Akzenttöne — bei Orange
  * und Rot bräunlich/matschig (z. B. #772D11, #603F34). Stattdessen: ausgewählt = neutral grau
  * mit Schrift in der Akzentfarbe, Hauptcontainer = die Akzentfarbe selbst, keine Einfärbung
- * erhöhter Flächen. Hell bleiben die zarten Akzent-Container.
+ * erhöhter Flächen. Hell bleiben die zarten Akzent-Container. Fehlerfarben: [withWarmError].
  */
 private fun ColorScheme.withCleanContainers(): ColorScheme = copy(
     primaryContainer = primary,
@@ -47,13 +47,6 @@ private fun ColorScheme.withCleanContainers(): ColorScheme = copy(
     tertiaryContainer = DarkSelectedContainer,
     onTertiaryContainer = onSurface,
     surfaceTint = onSurface,
-    // Fehler dunkel Orange-Rot statt Material-Rosa (#FFB4AB, fast wie «fallend»): #FF5833, 5.9:1 auf #131313
-    error = Color(0xFFFF5833),
-    onError = Color.Black,
-    // Fehlerflächen (Banner «Mitteilungen aus», Wisch-Leiste Löschen) im selben Orange-Rot statt Material-Rosa,
-    // wie iOS (error mit 12 % Deckkraft auf dunklem Grund wirkt ähnlich); Schrift darauf 12:1
-    errorContainer = Color(0xFF4A1C10),
-    onErrorContainer = Color(0xFFFFDBD0),
 )
 
 private val orangeLight = lightColorScheme(
