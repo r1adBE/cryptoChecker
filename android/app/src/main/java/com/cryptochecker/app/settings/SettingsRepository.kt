@@ -272,6 +272,15 @@ class SettingsRepository @Inject constructor(
     suspend fun setBatteryPromptSeen(seen: Boolean) = edit { it[SettingsKeys.batteryPromptSeen] = seen }
 
     /** Sortieren nach Spalte (gespeicherte Form); null = eigene Reihenfolge. */
+    /**
+     * Spalten-Sortierung aus dem gespeicherten Stand weiterschalten — in einem Schreibvorgang, damit schnelle Tipps nie
+     * einen veralteten Wert lesen (sonst schrieb der dritte Tipp den zweiten Zustand nochmals, statt aufzuheben).
+     */
+    suspend fun updateWatchlistColumnSort(next: (String?) -> String?) = edit {
+        val value = next(it[SettingsKeys.watchlistColumnSort])
+        if (value == null) it.remove(SettingsKeys.watchlistColumnSort) else it[SettingsKeys.watchlistColumnSort] = value
+    }
+
     suspend fun setWatchlistColumnSort(value: String?) = edit {
         if (value == null) it.remove(SettingsKeys.watchlistColumnSort) else it[SettingsKeys.watchlistColumnSort] = value
     }

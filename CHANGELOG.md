@@ -28,6 +28,7 @@ Detailed build history below.
 * Backups keep the «count anyway» decision for watched addresses; iOS backups now include address cost lots.
 * Legacy data keeps the old Austrian interest rule; the Swiss wealth overview counts known parts and marks a coin incomplete like the holdings file; CSV formula protection also after leading spaces; cancelling the import clears a stale preview.
 * Pulse widget: background checks wait briefly for its data. Accessibility: no duplicate Explorer label, «Loading…» while «What is moving with it?» loads, ellipsis on long chips, grammatical Russian, Ukrainian and Czech announcements.
+* Android: tapping a watchlist column quickly several times no longer skips back to the same order (the next step is computed from the stored sort, not the displayed one).
 * xpub scans keep the BIP44 gap of 20 unused addresses; the add-address sheet says so.
 * Store and privacy: Finnish, Romanian, Polish and Czech check-frequency sentences corrected; iOS text says amounts leave the device only by export or in the encrypted device backup; privacy page uses the current feature names, mentions the iOS device backup and names more countries.
 
