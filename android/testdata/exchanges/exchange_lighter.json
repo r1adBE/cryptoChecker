@@ -89,7 +89,7 @@
     },
     {
       "kind": "single",
-      "name": "last_trade_price 0 (never traded): error instead of a price of 0",
+      "name": "last_trade_price 0 (never traded): 'No data' (confirms not traded), never a price of 0",
       "market": "Lighter",
       "pair": {
         "base": "ARM",
@@ -101,7 +101,8 @@
       "body": "{\"code\":200,\"total\":426,\"order_book_stats\":[{\"symbol\":\"ARM\",\"last_trade_price\":0,\"daily_trades_count\":0,\"daily_base_token_volume\":0,\"daily_quote_token_volume\":0,\"daily_price_change\":0},{\"symbol\":\"BTC\",\"last_trade_price\":82575.5,\"daily_trades_count\":919761,\"daily_base_token_volume\":11215.26978,\"daily_quote_token_volume\":919241899.744675,\"daily_price_change\":1.3313981520900326}]}",
       "expect": {
         "error": true,
-        "message": null
+        "message": null,
+        "thrown": "No data"
       }
     },
     {

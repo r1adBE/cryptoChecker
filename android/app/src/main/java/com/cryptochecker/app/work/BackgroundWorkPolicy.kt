@@ -109,10 +109,16 @@ object BackgroundWorkPolicy {
     /**
      * Zeitzone oder Uhr geändert: Die Morgen-Meldung «Wirtschaftstermine» (MacroNotifyWorker) ist mit einer festen
      * Verzögerung bis 08:00 der alten Ortszeit geplant und muss neu gerechnet werden — sonst käme sie nach 12:00
-     * (entfällt) oder vor 08:00 (plant nur den nächsten Tag). Nur diese Aufgabe; WorkManager-Takt und Wecker
-     * hängen nicht an der Ortszeit.
+     * (entfällt) oder vor 08:00 (plant nur den nächsten Tag). Der WorkManager-Takt hängt nicht an der Ortszeit.
      */
     fun replansMacroOn(action: String?): Boolean = action == ACTION_TIMEZONE_CHANGED || action == ACTION_TIME_CHANGED
+
+    /**
+     * Wecker «Pünktlich prüfen» nach geänderter Uhr abgleichen (ExactCheckScheduler.sync, nicht erzwungen)? Er steht
+     * auf einer Uhrzeit (RTC): Zurückgestellt läge er weit in der Zukunft und setzte bis dahin aus; [BackgroundSchedule.needsArm]
+     * stellt einen unplausibel fernen bzw. abgelaufenen Wecker neu, ein passender bleibt stehen.
+     */
+    fun resyncsExactOn(action: String?): Boolean = action == ACTION_TIME_CHANGED || action == ACTION_TIMEZONE_CHANGED
 
     /**
      * Verzögerung der Morgen-Meldung nach einer Änderung von Zeitzone/Uhr. Liegt die neue Ortszeit im Meldefenster
@@ -191,6 +197,8 @@ object BackgroundWorkPolicy {
          * (DatabaseEncryptionNotice.isStoredKept): Die leere Liste sagt nichts über den Bedarf, darum geplant lassen.
          */
         val watchlistKept: Boolean = false,
+        /** Pulse-Widget auf dem Startbildschirm: zeichnet mit jedem Lauf neu (Marktdaten, auch ohne Paare). */
+        val pulseWidget: Boolean = false,
     )
 
     /**
@@ -203,11 +211,11 @@ object BackgroundWorkPolicy {
     /**
      * Braucht es die periodische Hintergrund-Aktualisierung? Nur wenn sie etwas bewirkt: Alarme,
      * Kurs-Mitteilungen bzw. -Ansagen eines aktiven Paars, Aktivitäts-Meldung, Widgets mit Paaren,
-     * Portfolio-Widget/-Alarm, Gas/Depeg. Sonst wird sie abgesagt (kein Akku für nichts).
+     * Portfolio-Widget/-Alarm, Pulse-Widget, Gas/Depeg. Sonst wird sie abgesagt (kein Akku für nichts).
      */
     fun periodicNeeded(d: WorkDemand): Boolean {
         if (d.watchlistKept) return true
-        if (d.portfolioWork || d.marketAlarms) return true
+        if (d.portfolioWork || d.marketAlarms || d.pulseWidget) return true
         val active = d.pairs.filterNot { it.disabled }
         if (active.isEmpty()) return false
         if (d.pairWidgets || d.activityAlerts) return true

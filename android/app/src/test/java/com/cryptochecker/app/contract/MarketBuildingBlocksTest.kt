@@ -20,6 +20,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -137,6 +138,18 @@ class MarketBuildingBlocksTest {
         assertEquals(10.0, parsed.tickers.getValue("A").last, 0.0)
         // Feld fehlt oder ist Unsinn: Fehler je Paar statt still «unverändert»
         assertEquals(setOf("MISSING", "TEXT"), parsed.failed)
+    }
+
+    /** Sammelzeile: dieselbe Hürde wie die Einzelabfrage — nur ein endlicher Kurs grösser als 0 zählt. */
+    @Test
+    fun bulkRowNeedsAPriceAboveZero() {
+        fun usable(last: Double) = BulkTickerRows.usable(SimpleTicker().also { it.last = last })
+        assertTrue(usable(0.0001))
+        assertFalse(usable(0.0))
+        assertFalse(usable(-0.5))
+        assertFalse(usable(Ticker.MISSING))
+        assertFalse(usable(Double.NaN))
+        assertFalse(usable(Double.POSITIVE_INFINITY))
     }
 
     @Test

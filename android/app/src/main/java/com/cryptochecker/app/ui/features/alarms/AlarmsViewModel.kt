@@ -114,6 +114,14 @@ class AlarmsViewModel @Inject constructor(
     val watch: StateFlow<WatchEntity?> = watchRepository.observeWatch(watchId)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
+    /**
+     * Paar gibt es (nach dem Laden) nicht mehr, z. B. «Anpassen» aus einer alten Alarm-Mitteilung eines gelöschten
+     * Paars: kein Editor, der Bildschirm geht zurück. null = noch nicht geladen.
+     */
+    val watchMissing: StateFlow<Boolean?> = watchRepository.observeWatch(watchId)
+        .map<WatchEntity?, Boolean?> { it == null }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
     val alarms: StateFlow<List<AlarmEntity>> = watchRepository.observeAlarms(watchId)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
@@ -237,29 +245,42 @@ class AlarmsViewModel @Inject constructor(
 
     /**
      * Schnell-Alarm sofort anlegen (einmalig, Ton/Vibration wie neue Alarme).
-     * [onCreated] bekommt die Id für «Rückgängig».
+     * [onCreated] bekommt den gespeicherten Alarm (Id für «Rückgängig», Bedingung für die Bestätigung).
      */
-    fun createFromTemplate(template: AlarmTemplates.Template, onCreated: (Long) -> Unit) {
+    fun createFromTemplate(template: AlarmTemplates.Template, onCreated: (AlarmEntity) -> Unit) {
         if (alarmSaveBlocked()) return
         viewModelScope.launch {
             val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
             val def = AlarmTemplates.definition(template, w.lastPrice) ?: return@launch
             val firstEver = notices.markFirstAlarm(existing = false)
             val timingHint = notices.markTimingHint(firstAlarmDialog = firstEver)
-            val id = watchRepository.saveAlarm(
-                AlarmEntity(
-                    watchId = watchId,
-                    condition = def.condition,
-                    threshold = def.threshold,
-                    enabled = true,
-                    repeating = def.repeating,
-                    referencePrice = def.referencePrice,
-                    windowHours = def.windowHours,
-                )
+            val alarm = AlarmEntity(
+                watchId = watchId,
+                condition = def.condition,
+                threshold = def.threshold,
+                enabled = true,
+                repeating = def.repeating,
+                referencePrice = def.referencePrice,
+                windowHours = def.windowHours,
             )
-            onCreated(id)
+            val id = saveIfWatchExists(alarm) ?: return@launch
+            onCreated(alarm.copy(id = id))
             if (firstEver) notices.showFirstAlarm()
             if (timingHint) notices.showTimingHint()
+        }
+    }
+
+    /**
+     * Alarm speichern, solange das Paar noch besteht; sonst nichts (null). Der Fremdschlüssel würde das Einfügen
+     * sonst mit einem Fehler abbrechen — etwa wenn das Paar gelöscht wurde, während der Editor offen war.
+     */
+    private suspend fun saveIfWatchExists(alarm: AlarmEntity): Long? {
+        if (watchRepository.getWatch(watchId) == null) return null
+        return try {
+            watchRepository.saveAlarm(alarm)
+        } catch (e: android.database.sqlite.SQLiteConstraintException) {
+            Timber.w(e, "Alarm nicht gespeichert: Paar fehlt")
+            null
         }
     }
 
@@ -350,7 +371,7 @@ class AlarmsViewModel @Inject constructor(
             // Nur Ton, Vibration, Ansage oder Wiederholung geändert: Zustand (ausgelöst/gemeldet,
             // Bezug, Ein/Aus) bleibt; neu scharf nur bei geänderter Bedingung ([AlarmEdit.merged])
             val alarm = AlarmEdit.merged(existing, edited)
-            watchRepository.saveAlarm(alarm)
+            if (saveIfWatchExists(alarm) == null) return@launch
             onSaved(alarm, runCatchingCancellable { appNotifier.canShowAlarm(alarm) }.getOrDefault(true), firstEver)
 
             if (firstEver) notices.showFirstAlarm()

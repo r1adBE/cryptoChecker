@@ -58,9 +58,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">%1$s 가격이</string>
     <string name="alarm_template_a11y">경보 만들기: %1$s</string>
-    <string name="alarm_template_a11y_down">마이너스 %1$s퍼센트에서 경보 만들기</string>
-    <string name="alarm_template_a11y_up">플러스 %1$s퍼센트에서 경보 만들기</string>
-    <string name="alarm_template_created">경보를 만들었습니다</string>
+    <string name="alarm_template_a11y_down">현재 가격 대비 마이너스 %1$s퍼센트에서 경보 만들기</string>
+    <string name="alarm_template_a11y_up">현재 가격 대비 플러스 %1$s퍼센트에서 경보 만들기</string>
+    <string name="alarm_template_from_now">지금부터</string>
     <string name="alarm_template_volume">거래량 ×%1$s</string>
     <string name="alarm_templates_title">빠른 경보</string>
 

@@ -60,9 +60,9 @@
     <string name="alarm_simple_end">geht</string>
     <string name="alarm_simple_when">Wenn %1$s</string>
     <string name="alarm_template_a11y">Alarm erstellen: %1$s</string>
-    <string name="alarm_template_a11y_down">Alarm bei minus %1$s Prozent erstellen</string>
-    <string name="alarm_template_a11y_up">Alarm bei plus %1$s Prozent erstellen</string>
-    <string name="alarm_template_created">Alarm erstellt</string>
+    <string name="alarm_template_a11y_down">Alarm bei minus %1$s Prozent ab dem aktuellen Kurs erstellen</string>
+    <string name="alarm_template_a11y_up">Alarm bei plus %1$s Prozent ab dem aktuellen Kurs erstellen</string>
+    <string name="alarm_template_from_now">ab jetzt</string>
     <string name="alarm_template_volume">Volumen ×%1$s</string>
     <string name="alarm_templates_title">Schnell-Alarme</string>
 

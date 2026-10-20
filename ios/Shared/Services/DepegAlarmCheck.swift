@@ -18,6 +18,11 @@ enum DepegAlarmCheck {
     /// Keine Quelle erreichbar: so lange bis zum nächsten Versuch (wie Android).
     private static let retryAfterFailure: Int64 = 2 * 60_000
 
+    /// Wie `DepegAlarmChecker.isDue` (Android): auch fällig, wenn die letzte Prüfung in der Zukunft liegt.
+    static func isDue(now: Int64, lastCheck: Int64) -> Bool {
+        TimeUtils.isIntervalDue(now: now, last: lastCheck, minInterval: minInterval)
+    }
+
     /// Nach einer Kursaktualisierung aufrufen; tut nichts ohne Alarm und ohne Portfolio.
     /// - Parameter hasPortfolioData: Transaktionen oder beobachtete Adressen vorhanden (`AppData.hasPortfolioData`).
     static func runIfDue(settings: AppSettings, hasPortfolioData: Bool) async {
@@ -26,7 +31,7 @@ enum DepegAlarmCheck {
         let defaults = SharedStorage.defaults
         let now = TimeUtils.nowMillis
         let last = Int64(defaults.double(forKey: keyLastCheck))
-        guard now - last >= minInterval else { return }
+        guard isDue(now: now, lastCheck: last) else { return }
         defaults.set(Double(now), forKey: keyLastCheck)
 
         guard let measurement = await fetchUsdt(now: now) else {

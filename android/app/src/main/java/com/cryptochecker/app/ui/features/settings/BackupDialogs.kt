@@ -195,7 +195,7 @@ private fun BackupPlainConfirmDialog(
 
 /**
  * Verschlüsselte Sicherung gewählt: Passwort abfragen. Nach einem Fehlversuch ([wrong]) mit
- * Hinweis erneut; während der Prüfung ([checking]) ist «Weiter» gesperrt.
+ * Hinweis erneut; während der Prüfung ([checking]) ist «Weiter» gesperrt. [failedAttempts] zählt die Fehlversuche.
  */
 @Composable
 internal fun BackupPasswordDialog(
@@ -203,9 +203,10 @@ internal fun BackupPasswordDialog(
     checking: Boolean,
     onSubmit: (String) -> Unit,
     onDismiss: () -> Unit,
+    failedAttempts: Int = 0,
 ) {
-    // Nach einem Fehlversuch leeres Feld
-    var password by remember(wrong) { mutableStateOf("") }
+    // Nach JEDEM Fehlversuch leeres Feld (an der Zahl der Versuche, nicht an «falsch» — das bliebe ab dem zweiten gleich)
+    var password by remember(failedAttempts) { mutableStateOf("") }
     var visible by remember { mutableStateOf(false) }
     val submit: () -> Unit = { if (password.isNotEmpty() && !checking) onSubmit(password) }
 

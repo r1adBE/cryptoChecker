@@ -60,9 +60,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">När %1$s</string>
     <string name="alarm_template_a11y">Skapa larm: %1$s</string>
-    <string name="alarm_template_a11y_down">Skapa larm vid minus %1$s procent</string>
-    <string name="alarm_template_a11y_up">Skapa larm vid plus %1$s procent</string>
-    <string name="alarm_template_created">Larm skapat</string>
+    <string name="alarm_template_a11y_down">Skapa larm vid minus %1$s procent från aktuell kurs</string>
+    <string name="alarm_template_a11y_up">Skapa larm vid plus %1$s procent från aktuell kurs</string>
+    <string name="alarm_template_from_now">från nu</string>
     <string name="alarm_template_volume">Volym ×%1$s</string>
     <string name="alarm_templates_title">Snabblarm</string>
 

@@ -95,7 +95,7 @@ class ZoneCheckWorker @AssistedInject constructor(
      */
     private suspend fun checkFearGreed(below: Int, above: Int, prefs: android.content.SharedPreferences): Boolean {
         if (below <= 0 && above <= 0) {
-            prefs.edit { remove(KEY_FNG) }
+            prefs.edit { remove(KEY_FNG); remove(KEY_FNG_BELOW); remove(KEY_FNG_ABOVE) }
             return true
         }
         val value = runCatching { insightsDataSource.fearGreed().value }
@@ -103,10 +103,15 @@ class ZoneCheckWorker @AssistedInject constructor(
             .onFailure { Timber.w(it, "Fear & Greed nicht verfügbar") }
             .getOrNull() ?: return false
         val last = if (prefs.contains(KEY_FNG)) prefs.getInt(KEY_FNG, 50) else null
+        // Grenze seit dem gemerkten Stand geändert: für sie zählt der alte Stand nicht
+        val belowChanged = MarketNoticeGate.boundChanged(storedInt(prefs, KEY_FNG_BELOW), below)
+        val aboveChanged = MarketNoticeGate.boundChanged(storedInt(prefs, KEY_FNG_ABOVE), above)
+        fun decide(canNotify: Boolean) =
+            MarketNoticeGate.fearGreed(value, last, below, above, canNotify, belowChanged, aboveChanged)
         // Erlaubnis/Kanal nur prüfen, wenn es etwas zu melden gibt
-        val pending = MarketNoticeGate.fearGreed(value, last, below, above, canNotify = true)
+        val pending = decide(canNotify = true)
         val decision = if (pending.step == MarketNoticeGate.Step.NOTIFY) {
-            MarketNoticeGate.fearGreed(value, last, below, above, canNotify = notifier.canShowMarketNotice())
+            decide(canNotify = notifier.canShowMarketNotice())
         } else pending
         val posted = when (decision.kind.takeIf { decision.step == MarketNoticeGate.Step.NOTIFY }) {
             MarketNoticeGate.FearGreedKind.BELOW -> notifier.showFearGreed(value, below = below)
@@ -114,15 +119,23 @@ class ZoneCheckWorker @AssistedInject constructor(
             null -> false
         }
         // Nicht angekommen: alten Wert behalten, damit die Grenze später noch gemeldet wird
-        if (MarketNoticeGate.storeAfterNotify(decision.step, posted)) prefs.edit { putInt(KEY_FNG, value) }
+        if (MarketNoticeGate.storeAfterNotify(decision.step, posted)) {
+            prefs.edit { putInt(KEY_FNG, value); putInt(KEY_FNG_BELOW, below); putInt(KEY_FNG_ABOVE, above) }
+        }
         return true
     }
+
+    private fun storedInt(prefs: android.content.SharedPreferences, key: String): Int? =
+        if (prefs.contains(key)) prefs.getInt(key, 0) else null
 
     companion object {
         const val WORK_NAME = "zone-check"
         private const val PREFS = "market_zone"
         private const val LEGACY_KEY_ZONE = "last_zone"
         private const val KEY_FNG = "last_fear_greed"
+        /** Grenzen, zu denen der gemerkte Stand gehört. */
+        private const val KEY_FNG_BELOW = "last_fear_greed_below"
+        private const val KEY_FNG_ABOVE = "last_fear_greed_above"
 
         /** Höchstens so viele erneute Versuche je 12-h-Lauf (30 s, 1 Min., 2 Min. …). */
         private const val MAX_RETRIES = 3

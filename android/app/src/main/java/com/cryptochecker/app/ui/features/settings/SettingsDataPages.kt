@@ -128,7 +128,8 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
             wrong = step.wrong,
             checking = step.checking,
             onSubmit = { password -> viewModel.submitRestorePassword(step.uri, password) },
-            onDismiss = viewModel::cancelRestore
+            onDismiss = viewModel::cancelRestore,
+            failedAttempts = step.failedAttempts,
         )
         is RestoreStep.Confirm -> AlertDialog(
             onDismissRequest = viewModel::cancelRestore,

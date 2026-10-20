@@ -74,12 +74,14 @@ fun AlarmsScreen(
     val newDraft: () -> AlarmDraft = { AlarmDraft.blankFor() }
     // Paar ohne Alarm: gleich den Editor öffnen statt der leeren Liste (einmal je Besuch)
     val noAlarms by viewModel.noAlarms.collectAsStateWithLifecycle()
+    val watchMissing by viewModel.watchMissing.collectAsStateWithLifecycle()
     var autoOpenDone by rememberSaveable { mutableStateOf(false) }
-    LaunchedEffect(noAlarms, lowLiquidityState) {
+    LaunchedEffect(noAlarms, lowLiquidityState, watchMissing) {
         val empty = noAlarms ?: return@LaunchedEffect
-        // Erst wenn feststeht, ob der DEX-Pool genug Liquidität hat (sonst kein Editor)
+        // Erst wenn feststeht, ob der DEX-Pool genug Liquidität hat (sonst kein Editor) und ob es das Paar noch gibt
         val low = lowLiquidityState ?: return@LaunchedEffect
-        if (!autoOpenDone && empty && !low) draft = newDraft()
+        val missing = watchMissing ?: return@LaunchedEffect
+        if (!autoOpenDone && empty && !low && !missing) draft = newDraft()
         autoOpenDone = true
     }
     // «Anpassen» aus der Alarm-Mitteilung: Editor dieses Alarms einmal öffnen, sobald er geladen ist (nicht bei zu
@@ -99,12 +101,20 @@ fun AlarmsScreen(
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val accessibilityManager = LocalAccessibilityManager.current
-    val createdText = stringResource(R.string.alarm_template_created)
     val undoLabel = stringResource(R.string.action_undo)
     val settingsLabel = stringResource(R.string.settings_title)
     val activeText = stringResource(R.string.alarm_saved_active)
     val testLabel = stringResource(R.string.alarm_test_action)
     val context = LocalContext.current
+    // Paar gibt es nicht mehr (z. B. «Anpassen» aus der Mitteilung eines gelöschten Paars): kein Editor ohne Paar —
+    // kurzer Hinweis (überdauert das Zurück, darum kein Snackbar) und zurück
+    val missingText = stringResource(R.string.watch_preview_not_watched)
+    LaunchedEffect(watchMissing) {
+        if (watchMissing != true) return@LaunchedEffect
+        draft = null
+        android.widget.Toast.makeText(context, missingText, android.widget.Toast.LENGTH_SHORT).show()
+        onBack()
+    }
     // Alarm angelegt: nach «Später» die Erklärung noch einmal (NotificationPrePrompt)
     val requestNotifications = com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest(
         com.cryptochecker.app.ui.components.NotificationAsk.ALARM_CREATED
@@ -328,7 +338,11 @@ fun AlarmsScreen(
                 if (showSaveLocked()) return@onTemplate
                 requestNotifications()
                 draft = null
-                viewModel.createFromTemplate(template) { id ->
+                viewModel.createFromTemplate(template) { created ->
+                    // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig»), nicht nur «erstellt»
+                    val createdText = alarmSavedText(
+                        context, created, watch?.baseAsset.orEmpty(), watch?.quoteAsset.orEmpty(), notificationsOff = false,
+                    )
                     scope.launch {
                         snackbar.currentSnackbarData?.dismiss()
                         // Mit Screenreader ggf. länger (Systemeinstellung «Zeit für Aktionen»)
@@ -338,7 +352,7 @@ fun AlarmsScreen(
                         val result = withTimeoutOrNull(timeout) {
                             snackbar.showSnackbar(createdText, actionLabel = undoLabel, duration = SnackbarDuration.Indefinite)
                         }
-                        if (result == SnackbarResult.ActionPerformed) viewModel.delete(id)
+                        if (result == SnackbarResult.ActionPerformed) viewModel.delete(created.id)
                     }
                 }
             },

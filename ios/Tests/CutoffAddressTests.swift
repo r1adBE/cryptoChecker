@@ -128,4 +128,27 @@ final class CutoffAddressTests: XCTestCase {
         XCTAssertTrue(CutoffExport.convertsUsdt("CHF") && CutoffExport.convertsUsdt(" usd "))
         XCTAssertFalse(CutoffExport.convertsUsdt("usdt"))
     }
+
+    /// Hinweis «Adressen mit Einstand» nach dem Stand des Stichtags: nur Posten mit Zeit ≤ Stichtag und nur eine Adresse,
+    /// die an dem Tag schon beobachtet war (wie Android). Ohne Stichtag der heutige Stand.
+    func testAddressLotsNoteFollowsTheCutoff() {
+        let early = AddressCostLot(id: 1, coin: "BTC", time: t(day - 20), amount: Decimal(string: "0.4")!, priceUsdt: 100)
+        let late = AddressCostLot(id: 2, coin: "BTC", time: t(day + 5), amount: Decimal(string: "0.4")!, priceUsdt: 100)
+        func address(_ lots: [AddressCostLot], observedAt: Int64?, fetchedAt: Int64 = 0) -> WatchedAddress {
+            WatchedAddress(id: 2, chain: .BTC, address: "bc1qsecondexampleaddress", lastBalance: "0.5", lastUpdated: fetchedAt,
+                           observations: observedAt.map { [AddressObservation(time: $0, balance: Decimal(string: "0.5")!)] } ?? [],
+                           costLots: lots)
+        }
+        XCTAssertTrue(AddressCostLots.hasCountedLots([address([early], observedAt: t(day - 30))], cutoffMillis: cutoff))
+        // Posten erst nach dem Stichtag erfasst: am Stichtag kein Hinweis, heute schon
+        XCTAssertFalse(AddressCostLots.hasCountedLots([address([late], observedAt: t(day - 30))], cutoffMillis: cutoff))
+        XCTAssertTrue(AddressCostLots.hasCountedLots([address([late], observedAt: t(day - 30))]))
+        // Adresse erst nach dem Stichtag beobachtet: ihr Guthaben fehlt in der Datei, also kein Hinweis
+        XCTAssertFalse(AddressCostLots.hasCountedLots([address([early], observedAt: t(day + 3))], cutoffMillis: cutoff))
+        // Ohne gespeicherte Beobachtung zählt der Abruf des Guthabens (`AddressBalanceHistory.of`)
+        XCTAssertTrue(AddressCostLots.hasCountedLots([address([early], observedAt: nil, fetchedAt: t(day - 1))],
+                                                     cutoffMillis: cutoff))
+        XCTAssertFalse(AddressCostLots.hasCountedLots([address([early], observedAt: nil, fetchedAt: t(day + 1))],
+                                                      cutoffMillis: cutoff))
+    }
 }

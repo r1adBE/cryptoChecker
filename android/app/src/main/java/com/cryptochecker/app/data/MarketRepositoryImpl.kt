@@ -18,6 +18,8 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.market.BinanceAlpha
 import com.cryptochecker.marketdata.model.market.DexPool
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /** Börsen, Paarlisten und Kurse: gespeicherte Listen aus Room, alles Übrige über das Netz. */
@@ -110,8 +112,9 @@ class MarketRepositoryImpl @Inject constructor(
         val fresh = remote.fetchMarketCurrencyPairsInfo(requireMarket(market.key))
         if (fresh.size <= 0) return
         local.saveMarketData(market.key, fresh)
-        // Volle Coin-Namen für «gleicher Token» (K-8), aus derselben Paarliste
-        tokenIdentityStore.saveMarket(market.key, fresh.baseNames)
+        // Volle Coin-Namen für «gleicher Token» (K-8), aus derselben Paarliste; schreibt eine Datei,
+        // darum nicht im Kontext des Aufrufers (Explorer: Haupt-Thread)
+        withContext(Dispatchers.IO) { tokenIdentityStore.saveMarket(market.key, fresh.baseNames) }
     }
 }
 

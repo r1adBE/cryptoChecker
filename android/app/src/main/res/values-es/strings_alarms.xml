@@ -62,9 +62,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Cuando %1$s</string>
     <string name="alarm_template_a11y">Crear alarma: %1$s</string>
-    <string name="alarm_template_a11y_down">Crear alarma al menos %1$s por ciento</string>
-    <string name="alarm_template_a11y_up">Crear alarma al más %1$s por ciento</string>
-    <string name="alarm_template_created">Alarma creada</string>
+    <string name="alarm_template_a11y_down">Crear alarma al menos %1$s por ciento desde el precio actual</string>
+    <string name="alarm_template_a11y_up">Crear alarma al más %1$s por ciento desde el precio actual</string>
+    <string name="alarm_template_from_now">desde ahora</string>
     <string name="alarm_template_volume">Volumen ×%1$s</string>
     <string name="alarm_templates_title">Alarmas rápidas</string>
 

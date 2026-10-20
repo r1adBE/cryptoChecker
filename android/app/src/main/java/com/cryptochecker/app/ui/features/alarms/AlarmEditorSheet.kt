@@ -29,8 +29,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.LiveRegionMode
-import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
@@ -172,7 +170,9 @@ internal fun AlarmEditorSheet(
                         ) {
                             Text(
                                 stringResource(if (repeating) R.string.alarm_repeat_each else R.string.alarm_repeat_once),
-                                maxLines = 1
+                                // Grosse Schrift: zweite Zeile statt abgeschnitten
+                                maxLines = 2,
+                                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
                             )
                         }
                     }
@@ -195,7 +195,8 @@ internal fun AlarmEditorSheet(
                     )
                 }
 
-                // Vorschau: der Alarm als Satz, live mit der Eingabe (zeigt auch, wie der Betrag gelesen wurde)
+                // Vorschau: der Alarm als Satz, live mit der Eingabe (zeigt auch, wie der Betrag gelesen wurde). Keine
+                // Live-Region: der Screenreader läse sonst nach jeder getippten Ziffer den ganzen Satz vor
                 val sentenceCurrency = if (offerCurrency && draft.currency != null) otherCurrency else quoteAsset.uppercase()
                 Text(
                     text = alarmSentence(
@@ -215,7 +216,6 @@ internal fun AlarmEditorSheet(
                         .clip(MaterialTheme.shapes.medium)
                         .background(MaterialTheme.colorScheme.secondaryContainer)
                         .padding(horizontal = Spacing.md, vertical = Spacing.md)
-                        .semantics { liveRegion = LiveRegionMode.Polite }
                 )
                 // Ehrlich: bei geschlossener App meldet der Alarm erst beim nächsten Abruf
                 ClosedAppHint()

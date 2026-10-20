@@ -1,5 +1,5 @@
 {
-  "_comment": "[B80] CH-Vermögenswert per 31.12. (TaxExport.chWealth, Android + iOS) — Orientierung, keine Steuerwerte der ESTV-Kursliste, Vermögenssteuer nicht gerechnet. Bestand am Ende des 31.12. in der Zeitzone der Vorlage (Europe/Zurich: 23:59 zählt, 1.1. 00:00 nicht, auch wenn es in UTC noch der 31.12. ist), nach der Einstandsmethode (methods: jede muss dasselbe ergeben); Kurs = Tagesschluss 31.12. in USDT (closes; unchecked = nicht als derselbe Token bestätigt); rate = USD→CHF des 31.12. (null = kein Devisenkurs); addresses = Guthaben beobachteter Adressen (balances, unobserved). Wert je Coin = Menge × Schluss × Kurs, exakt; fehlt ein Schluss: Wert leer (missing), Summe unvollständig — nie ein anderer Kurs. Werte je Coin exakt; Summen aus den je Coin auf 2 Stellen GERUNDETEN Werten (CutoffExport.roundedMoney, wie die Zeilen in der Datei; seit Build 87, wie der Stichtag-Export), moneyTotal = CutoffExport.money(totalTarget). rows: [Coin, Menge, Wert USDT, Wert CHF, nicht gerechnet]. summaries: TaxExport.yearSummary CH mit yearEndCloses — Posten CH_WEALTH_VALUE [usdt, target, unvollständig, kein Devisenkurs, nicht gerechnet] und die CSV-Zeilen ab dem Posten (Texte: Bezeichnung = Name des Postens, wealthCoin «{coin} – {amount}», incomplete, nofx, chwealth, nc, noprice, unchecked, unobserved).",
+  "_comment": "[B80] CH-Vermögenswert per 31.12. (TaxExport.chWealth, Android + iOS) — Orientierung, keine Steuerwerte der ESTV-Kursliste, Vermögenssteuer nicht gerechnet. Bestand am Ende des 31.12. in der Zeitzone der Vorlage (Europe/Zurich: 23:59 zählt, 1.1. 00:00 nicht, auch wenn es in UTC noch der 31.12. ist), nach der Einstandsmethode (methods: jede muss dasselbe ergeben); Kurs = Tagesschluss 31.12. in USDT (closes; unchecked = nicht als derselbe Token bestätigt); rate = USD→CHF des 31.12. (null = kein Devisenkurs); addresses = Guthaben beobachteter Adressen (balances, unobserved). Wert je Coin = Menge × Schluss × Kurs (je Teilzeile auf 2 Stellen gerundet, [B88]); fehlt ein Schluss: Wert leer (missing), Summe unvollständig — nie ein anderer Kurs. Werte je Coin exakt; Summen aus den je Coin auf 2 Stellen GERUNDETEN Werten (CutoffExport.roundedMoney, wie die Zeilen in der Datei; seit Build 87, wie der Stichtag-Export). [B88] Wert je Coin = Summe der GERUNDETEN Teilzeilen (eigener Bestand, je Adresse), genau wie die Zeilen der Bestandsdatei (Stichtag-Export) — beide Dateien weichen je Coin nicht um 0.01 ab, moneyTotal = CutoffExport.money(totalTarget). rows: [Coin, Menge, Wert USDT, Wert CHF, nicht gerechnet]. summaries: TaxExport.yearSummary CH mit yearEndCloses — Posten CH_WEALTH_VALUE [usdt, target, unvollständig, kein Devisenkurs, nicht gerechnet] und die CSV-Zeilen ab dem Posten (Texte: Bezeichnung = Name des Postens, wealthCoin «{coin} – {amount}», incomplete, nofx, chwealth, nc, noprice, unchecked, unobserved).",
   "zone": "Europe/Zurich",
   "date": "2025-12-31",
   "cases": [
@@ -186,22 +186,22 @@
           [
             "AAA",
             "0.00625",
-            "0.00625",
-            "0.005",
+            "0.01",
+            "0.01",
             false
           ],
           [
             "BBB",
             "0.00625",
-            "0.00625",
-            "0.005",
+            "0.01",
+            "0.01",
             false
           ],
           [
             "CCC",
             "0.00625",
-            "0.00625",
-            "0.005",
+            "0.01",
+            "0.01",
             false
           ],
           [
@@ -388,6 +388,51 @@
         "incomplete": true,
         "noFx": false,
         "moneyTotal": "108000.00"
+      }
+    },
+    {
+      "name": "[B88] Eigener Bestand und Adresse je auf 2 Stellen gerundet wie die Zeilen der Bestandsdatei (0.005 → 0.01 je Zeile = 0.02, CHF 0.004 → 0.00 je Zeile), nicht erst die Summe je Coin (0.01 bzw. 0.01)",
+      "_calc": "Bestand AAA 0.005 × 1 = 0.005 → 0.01, Adresse 0.005 → 0.01: 0.02 USDT (je Coin zusammen gerundet wären es 0.01). CHF: 0.004 → 0.00 je Zeile = 0.00 (zusammen 0.008 → 0.01).",
+      "methods": [
+        "FIFO",
+        "FIFO_WALLET",
+        "AVERAGE"
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "AAA",
+          "type": "BUY",
+          "amount": "0.005",
+          "time": 1740826800000,
+          "price": "1"
+        }
+      ],
+      "closes": {
+        "AAA": "1"
+      },
+      "rate": "0.8",
+      "addresses": {
+        "balances": {
+          "AAA": "0.005"
+        },
+        "unobserved": []
+      },
+      "expected": {
+        "rows": [
+          [
+            "AAA",
+            "0.01",
+            "0.02",
+            "0",
+            false
+          ]
+        ],
+        "totalUsdt": "0.02",
+        "totalTarget": "0",
+        "incomplete": false,
+        "noFx": false,
+        "moneyTotal": "0.00"
       }
     },
     {

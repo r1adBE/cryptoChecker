@@ -29,10 +29,11 @@ enum BulkTickerRows {
     /// Fehlertext für ein Paar mit unlesbarer Zeile in einer sonst guten Antwort.
     static let rowError = "Bulk row unreadable"
 
-    /// Letzter Kurs ist eine endliche Zahl und nicht «keine Daten» — dieselbe Hürde wie bei der Einzelabfrage.
+    /// Letzter Kurs ist eine endliche Zahl grösser als 0 — dieselbe Hürde wie bei der Einzelabfrage. Ein Kurs 0 hielte
+    /// sonst ein ruhendes Paar für gehandelt. Wie Android.
     static func usable(_ ticker: Ticker) -> Bool {
         let last = ticker.last
-        return last.isFinite && last > Ticker.missing
+        return last.isFinite && last > 0
     }
 
     /// Das Kursfeld ist da, aber leer (null, "" oder 0): ein ruhendes oder nie gehandeltes Paar. Solche Zeilen

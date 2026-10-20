@@ -16,7 +16,7 @@ import javax.inject.Inject
 /**
  * Plant die Hintergrund-Aktualisierung nach einem Neustart bzw. App-Update neu — samt Wecker
  * «Pünktlich prüfen», auch wenn «Wecker und Erinnerungen» gerade erlaubt wurde. Nach Wechsel von Zeitzone
- * oder Uhr nur die Morgen-Meldung «Wirtschaftstermine» (an die Ortszeit gebunden).
+ * oder Uhr die Morgen-Meldung «Wirtschaftstermine» (an die Ortszeit gebunden) und den Wecker abgleichen.
  */
 @AndroidEntryPoint
 class BootReceiver : BroadcastReceiver() {
@@ -25,11 +25,13 @@ class BootReceiver : BroadcastReceiver() {
 
     @Inject lateinit var scheduler: PriceUpdateScheduler
 
+    @Inject lateinit var exactScheduler: ExactCheckScheduler
+
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     override fun onReceive(context: Context, intent: Intent) {
-        if (BackgroundWorkPolicy.replansMacroOn(intent.action)) {
-            replanMacro(context)
+        if (BackgroundWorkPolicy.replansMacroOn(intent.action) || BackgroundWorkPolicy.resyncsExactOn(intent.action)) {
+            onClockChanged(context, intent.action)
             return
         }
         if (!BackgroundWorkPolicy.reschedulesOn(intent.action)) return
@@ -51,12 +53,17 @@ class BootReceiver : BroadcastReceiver() {
         }
     }
 
-    /** Zeitzone/Uhr geändert: nur die Morgen-Meldung «Wirtschaftstermine» neu planen, wenn sie eingeschaltet ist. */
-    private fun replanMacro(context: Context) {
+    /**
+     * Zeitzone/Uhr geändert: Morgen-Meldung «Wirtschaftstermine» neu planen (wenn eingeschaltet) und den Wecker
+     * «Pünktlich prüfen» abgleichen — nach zurückgestellter Uhr stünde er sonst weit in der Zukunft.
+     */
+    private fun onClockChanged(context: Context, action: String?) {
         val pendingResult = goAsync()
         scope.launch {
             try {
-                if (settingsRepository.current().macroNotifications) {
+                val settings = settingsRepository.current()
+                if (BackgroundWorkPolicy.resyncsExactOn(action)) exactScheduler.sync(settings.exactChecks)
+                if (BackgroundWorkPolicy.replansMacroOn(action) && settings.macroNotifications) {
                     MacroNotifyWorker.rescheduleAfterClockChange(context)
                 }
             } catch (e: CancellationException) {

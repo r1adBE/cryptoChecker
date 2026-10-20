@@ -60,9 +60,9 @@
     <string name="alarm_simple_end">برود</string>
     <string name="alarm_simple_when">وقتی %1$s</string>
     <string name="alarm_template_a11y">ساخت هشدار: %1$s</string>
-    <string name="alarm_template_a11y_down">ساخت هشدار در منفی %1$s درصد</string>
-    <string name="alarm_template_a11y_up">ساخت هشدار در مثبت %1$s درصد</string>
-    <string name="alarm_template_created">هشدار ساخته شد</string>
+    <string name="alarm_template_a11y_down">ساخت هشدار در منفی %1$s درصد نسبت به قیمت فعلی</string>
+    <string name="alarm_template_a11y_up">ساخت هشدار در مثبت %1$s درصد نسبت به قیمت فعلی</string>
+    <string name="alarm_template_from_now">از الان</string>
     <string name="alarm_template_volume">حجم ×%1$s</string>
     <string name="alarm_templates_title">هشدارهای سریع</string>
 

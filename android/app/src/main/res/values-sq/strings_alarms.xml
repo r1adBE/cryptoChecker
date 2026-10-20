@@ -60,9 +60,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Kur %1$s</string>
     <string name="alarm_template_a11y">Krijo alarmin: %1$s</string>
-    <string name="alarm_template_a11y_down">Krijo alarm në minus %1$s për qind</string>
-    <string name="alarm_template_a11y_up">Krijo alarm në plus %1$s për qind</string>
-    <string name="alarm_template_created">Alarmi u krijua</string>
+    <string name="alarm_template_a11y_down">Krijo alarm në minus %1$s për qind nga çmimi aktual</string>
+    <string name="alarm_template_a11y_up">Krijo alarm në plus %1$s për qind nga çmimi aktual</string>
+    <string name="alarm_template_from_now">nga tani</string>
     <string name="alarm_template_volume">Vëllimi ×%1$s</string>
     <string name="alarm_templates_title">Alarme të shpejta</string>
 

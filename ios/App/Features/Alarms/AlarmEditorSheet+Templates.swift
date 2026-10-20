@@ -53,10 +53,13 @@ extension AlarmEditorSheet {
         .accessibilityLabel(Self.templateA11y(template, label: label))
     }
 
-    /// Sichtbare Beschriftung: «+1 %», «−5 %», «Neues 30-Tage-Hoch», «Volumen ×3».
+    /// Sichtbare Beschriftung: «+1 % · ab jetzt», «−5 % · ab jetzt», «Neues 30-Tage-Hoch», «Volumen ×3».
     private static func templateLabel(_ template: AlarmTemplates.Template) -> String {
         if let percent = template.percent {
-            return BidiText.ltr((percent > 0 ? "+" : "\u{2212}") + AlarmTexts.percent(abs(percent)))
+            // Bezug aus der Vorlage: Zeitfenster oder ab dem Kurs von jetzt — wie Android
+            let reference = AlarmTemplates.windowHours(template).map { L("alarm_window_hours", count: $0) }
+                ?? L("alarm_template_from_now")
+            return BidiText.ltr((percent > 0 ? "+" : "\u{2212}") + AlarmTexts.percent(abs(percent))) + " · " + reference
         }
         switch template {
         case .NEW_HIGH_30: return AlarmTexts.newExtremeLabel(high: true, days: AlarmTemplates.newExtremeWindowDays)
@@ -65,7 +68,7 @@ extension AlarmEditorSheet {
         }
     }
 
-    /// Vorgelesen: «Alarm bei plus 1 Prozent erstellen», «Alarm erstellen: Neues 30-Tage-Hoch».
+    /// Vorgelesen: «Alarm bei plus 1 Prozent ab dem aktuellen Kurs erstellen», «Alarm erstellen: Neues 30-Tage-Hoch».
     private static func templateA11y(_ template: AlarmTemplates.Template, label: String) -> String {
         guard let percent = template.percent else { return L("alarm_template_a11y", label) }
         let amount = LocaleNumbers.decimal(abs(percent), maxDecimals: 2, minDecimals: 0)

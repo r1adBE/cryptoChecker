@@ -3,15 +3,16 @@ import Foundation
 // CH: Vermögenswert per 31.12. als Orientierung (`TaxExport.chWealth`) — wie `TaxWealthCh.kt` (Android).
 
 /// Ein Coin im Vermögenswert per 31.12. (`TaxWealth`): eigener Bestand und Guthaben beobachteter Adressen zusammen (das
-/// Vermögen zählt je Person, nicht je Wallet). Zahlen exakt, gerundet wird erst im Text. Wie `TaxWealthRow` (Android).
+/// Vermögen zählt je Person, nicht je Wallet). Menge und Kurs exakt; die Werte sind die Summe der auf 2 Stellen gerundeten
+/// Zeilen der Bestandsdatei (`CutoffExport.rows` + `addressRows`) — so stimmen beide Dateien je Coin überein. Wie Android.
 struct TaxWealthRow: Sendable, Equatable {
     let coin: String
     let amount: Decimal
     /// Tagesschluss 31.12. in USDT; nil = keiner.
     let priceUsdt: Decimal?
-    /// `amount` × `priceUsdt`; nil = nicht gerechnet.
+    /// Summe der gerundeten Teilwerte (Menge × `priceUsdt`); nil = nicht gerechnet.
     let valueUsdt: Decimal?
-    /// `valueUsdt` × Devisenkurs; nil = nicht gerechnet bzw. ohne Devisenkurs.
+    /// Summe der gerundeten Teilwerte in der Steuerwährung; nil = nicht gerechnet bzw. ohne Devisenkurs.
     let valueTarget: Decimal?
     /// Kein Tagesschluss 31.12. (`CutoffRow.noPrice`).
     var noPrice = false
@@ -27,9 +28,9 @@ struct TaxWealthRow: Sendable, Equatable {
 }
 
 /// CH: Vermögenswert per `date` (31.12. des Steuerjahrs) — ORIENTIERUNG (Börsen-Tagesschluss, nicht die Steuerwerte der
-/// ESTV-Kursliste; Vermögenssteuer nicht gerechnet). Werte je Coin exakt (gerundet erst in Anzeige bzw. CSV,
-/// `CutoffExport.money`), die Summen aber aus den GERUNDETEN Werten je Coin (`CutoffExport.roundedMoney`), wie sie in den
-/// Zeilen darunter stehen — wie der Stichtag-Export (3 × 0.335 → 1.02, nicht 1.01). Wie `TaxWealth` (Android).
+/// ESTV-Kursliste; Vermögenssteuer nicht gerechnet). Werte je Coin = Summe der GERUNDETEN Teilzeilen (eigener Bestand, je
+/// Adresse; `CutoffExport.roundedMoney`), genau wie in der Bestandsdatei; die Summen aus diesen Werten (3 × 0.335 → 1.02,
+/// nicht 1.01), und beide Dateien weichen je Coin nicht um 0.01 ab. Wie `TaxWealth` (Android).
 struct TaxWealth: Sendable, Equatable {
     let date: LocalDay
     let rows: [TaxWealthRow]
@@ -70,9 +71,11 @@ extension TaxExport {
             let unobserved = list.contains { $0.addressUnobserved }
             // Ein Teil ohne Wert (oder ein unbeobachtetes Guthaben) → der ganze Coin ist nicht gerechnet
             let missing = noPrice || unchecked || unobserved || list.contains { $0.valueUsdt == nil }
-            let valueUsdt: Decimal? = missing ? nil : list.reduce(Decimal(0)) { $0 + ($1.valueUsdt ?? 0) }
+            // Jeder Teil gerundet wie seine Zeile in der Bestandsdatei, erst dann zusammengezählt
+            let valueUsdt: Decimal? = missing ? nil
+                : list.reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1.valueUsdt ?? 0) }
             let valueTarget: Decimal? = (missing || list.contains { $0.valueTarget == nil }) ? nil
-                : list.reduce(Decimal(0)) { $0 + ($1.valueTarget ?? 0) }
+                : list.reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1.valueTarget ?? 0) }
             return TaxWealthRow(coin: coin, amount: list.reduce(Decimal(0)) { $0 + $1.amount },
                                 priceUsdt: list.lazy.compactMap(\.priceUsdt).first, valueUsdt: valueUsdt,
                                 valueTarget: valueTarget, noPrice: noPrice, unchecked: unchecked,

@@ -105,6 +105,21 @@ final class MarketBuildingBlocksTests: XCTestCase {
         XCTAssertEqual(parsed.failed, ["MISSING", "TEXT"])
     }
 
+    /// Sammelzeile: dieselbe Hürde wie die Einzelabfrage — nur ein endlicher Kurs grösser als 0 zählt. Wie Android.
+    func testBulkRowNeedsAPriceAboveZero() {
+        func usable(_ last: Double) -> Bool {
+            var ticker = Ticker()
+            ticker.last = last
+            return BulkTickerRows.usable(ticker)
+        }
+        XCTAssertTrue(usable(0.0001))
+        XCTAssertFalse(usable(0))
+        XCTAssertFalse(usable(-0.5))
+        XCTAssertFalse(usable(Ticker.missing))
+        XCTAssertFalse(usable(.nan))
+        XCTAssertFalse(usable(.infinity))
+    }
+
     func testMostlyUnreadableRowsFailTheWholeBatch() {
         let body = #"[{"id":"A","last":"1"},{"id":"X"},{"id":"Y","last":"abc"}]"#
         XCTAssertThrowsError(try BulkProbe().parseBulkTickersDetailed(call: 0, body: body)) {

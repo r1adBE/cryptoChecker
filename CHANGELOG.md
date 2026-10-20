@@ -15,6 +15,22 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 88)
+
+* Gas and Fear & Greed alerts: changing a threshold (or switching the alert off and on) re-arms it, so a value already beyond the new threshold is reported; unchanged thresholds do not repeat.
+* iOS: gas and USDT depeg checks no longer stay silent after the device clock was set back (as on Android).
+* Android: after a clock or time-zone change the «Check on time» alarm is set again; a Crypto pulse widget keeps background refresh scheduled.
+* Old alert notification for a deleted pair: «Adjust» no longer crashes (Android) or creates an orphaned alert (iOS); deleting pairs also removes their alert notifications.
+* Quick alerts show their reference («+5 % · from now») and the confirmation names the alert; the empty start no longer shows the watchlist tap hint.
+* CSV import: the loading dialog can be cancelled; nothing is written before «Import».
+* Android: while the saved portfolio cannot be unlocked, new transactions and imports are refused instead of being lost on restart; the notice stays visible.
+* Android: exchange pair lists are parsed off the main thread (no stutter when choosing Aster, BingX or CoinDCX).
+* Lighter: a price of 0 counts as «no data», so delisted markets are confirmed instead of showing a permanent error; bulk rows need a price above 0.
+* Austrian interest is recognised by whole words only («Verzinsung» no longer counts as interest).
+* Swiss wealth uses the same rounded values per line as the holdings file; the «addresses with cost basis» note follows the cutoff date.
+* Accessibility: alert preview no longer re-announces each digit, labels wrap at large text, search rows have one focus, every wrong backup password clears the field.
+* Store: iOS text no longer suggests a Live Activity makes background checks more reliable; release notes read as a first version. NOTICE lists fonts, libraries, icons and data sources; privacy page names the countries.
+
 ## 16.2.2 (build 87)
 
 * Alarm editor: quick alarms moved below the price condition, so the first thing you set is your own price; a chip still creates the alarm at once (with Undo).

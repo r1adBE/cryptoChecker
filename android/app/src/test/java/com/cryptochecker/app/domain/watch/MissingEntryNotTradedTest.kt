@@ -64,6 +64,17 @@ class MissingEntryNotTradedTest {
         assertEquals("Unknown symbol: GONE", err.message)
     }
 
+    /** Lighter Kurs 0 (nie gehandelt): «No data» bestätigt «nicht mehr gehandelt» statt eines Dauer-Lesefehlers. */
+    @Test
+    fun lighterPriceZeroIsNoData() {
+        val body = """{"code":200,"order_book_stats":[{"symbol":"ARM","last_trade_price":0,"daily_price_change":0}]}"""
+        val info = PairQuery("ARM", "USDC", "ARM", FuturesContractType.PERPETUAL)
+        val err = assertThrows(MarketParseException::class.java) { Lighter().readTicker(0, body, SimpleTicker(), info) }
+        assertEquals(MarketParseException.NO_DATA, err.message)
+        assertEquals(MarketFailure.UnknownInstrument, err.toMarketFailure())
+        assertTrue(NotTraded.confirmedBySingle(false, err.message, err.toMarketFailure()))
+    }
+
     @Test
     fun hyperliquidValidAnswerHasNoErrorText() {
         val info = PairQuery("FOO", "USDC", "FOO", FuturesContractType.PERPETUAL)

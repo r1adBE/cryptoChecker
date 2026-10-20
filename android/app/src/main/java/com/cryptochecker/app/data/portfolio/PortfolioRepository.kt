@@ -49,16 +49,31 @@ class PortfolioRepository @Inject constructor(
     /** Gibt es Transaktionen oder beobachtete Adressen (ein Portfolio, das bewertet wird)? */
     suspend fun hasData(): Boolean = portfolioDao.getCoins().isNotEmpty() || watchedAddressDao.getAll().isNotEmpty()
 
-    /** Neu anlegen (id 0) oder ändern. Coin wird vereinheitlicht (Grossbuchstaben). */
+    /**
+     * Neu anlegen (id 0) oder ändern. Coin wird vereinheitlicht (Grossbuchstaben).
+     * @throws PortfolioStorageLockedException gespeicherter Stand gerade nicht lesbar ([PortfolioStorageLock])
+     */
     suspend fun save(tx: PortfolioTxEntity): Long {
         val clean = cleanForSave(tx)
         require(clean.coin.isNotEmpty() && clean.amount.signum() > 0) { "Ungültige Transaktion" }
-        return if (clean.id == 0L) {
-            portfolioDao.insert(clean)
-        } else {
-            portfolioDao.update(clean)
-            clean.id
+        // In der Transaktion geprüft: Die Datenbank ist dann geöffnet, der Merker also verlässlich
+        return database.withTransaction {
+            ensureWritable()
+            if (clean.id == 0L) {
+                portfolioDao.insert(clean)
+            } else {
+                portfolioDao.update(clean)
+                clean.id
+            }
         }
+    }
+
+    /**
+     * Portfolio nur leer im Arbeitsspeicher, gespeicherter Stand bleibt in der Datei ([PortfolioStorageLock]): nicht
+     * schreiben — es ginge mit dem Lauf verloren. Erst nach dem Öffnen der Datenbank verlässlich.
+     */
+    private fun ensureWritable() {
+        if (PortfolioStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value)) throw PortfolioStorageLockedException()
     }
 
     suspend fun delete(id: Long) = portfolioDao.delete(id)
@@ -314,8 +329,11 @@ class PortfolioRepository @Inject constructor(
      * da ist, werden übersprungen.
      * [batch] = Kennung des Importlaufs ([PortfolioImportBatch.newId]) für alle angelegten Transaktionen (null = keine).
      * @return Anzahl angelegter Transaktionen.
+     * @throws PortfolioStorageLockedException gespeicherter Stand gerade nicht lesbar ([PortfolioStorageLock])
      */
     suspend fun insertImported(transactions: List<PortfolioTxEntity>, batch: String? = null): Int = database.withTransaction {
+        // Gesperrt ([PortfolioStorageLock]): ganz ablehnen statt jede Zeile still zu überspringen
+        ensureWritable()
         val known = portfolioDao.getImportKeys().toHashSet()
         var count = 0
         for (tx in transactions) {

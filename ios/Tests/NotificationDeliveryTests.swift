@@ -26,6 +26,37 @@ final class NotificationDeliveryTests: XCTestCase {
         XCTAssertTrue(GasAlertCheck.armedAfter(fire: false, posted: false, armedBefore: false, next: true))
     }
 
+    /// Wie `GasAlertLogicTest.changedOrReenabledThresholdRearms` (Android).
+    func testGasChangedOrReenabledThresholdRearms() {
+        XCTAssertTrue(GasAlertCheck.armedFor(storedArmed: false, storedThreshold: 2.0, threshold: 3.0))
+        let fired = GasAlertCheck.evaluate(
+            value: 2.5, threshold: 3.0, armed: GasAlertCheck.armedFor(storedArmed: false, storedThreshold: 2.0, threshold: 3.0))
+        XCTAssertTrue(fired.fire)
+        XCTAssertTrue(GasAlertCheck.armedFor(storedArmed: false, storedThreshold: 0.0, threshold: 2.0))
+        // Unveränderte Grenze: kein Doppelalarm
+        XCTAssertFalse(GasAlertCheck.armedFor(storedArmed: false, storedThreshold: 2.0, threshold: 2.0))
+        XCTAssertFalse(GasAlertCheck.evaluate(value: 1.5, threshold: 2.0, armed: false).fire)
+        XCTAssertFalse(GasAlertCheck.armedFor(storedArmed: false, storedThreshold: nil, threshold: 2.0))
+    }
+
+    /// Wie `CheckIntervalDueTest` (Android): nach zurückgestellter Uhr nicht stumm.
+    func testGasAndDepegDueAfterClockCorrection() {
+        let minute: Int64 = 60_000
+        let months: Int64 = 90 * 24 * 60 * minute
+        XCTAssertTrue(GasAlertCheck.isDue(now: now, lastCheck: 0))
+        XCTAssertFalse(GasAlertCheck.isDue(now: now, lastCheck: now))
+        XCTAssertFalse(GasAlertCheck.isDue(now: now, lastCheck: now - 9 * minute))
+        XCTAssertTrue(GasAlertCheck.isDue(now: now, lastCheck: now - 10 * minute))
+        XCTAssertTrue(GasAlertCheck.isDue(now: now, lastCheck: now + months))
+        XCTAssertTrue(GasAlertCheck.isDue(now: now, lastCheck: now + 1))
+        let stamp = now - 10 * minute + 2 * minute
+        XCTAssertFalse(GasAlertCheck.isDue(now: now + minute, lastCheck: stamp))
+        XCTAssertTrue(GasAlertCheck.isDue(now: now + 2 * minute, lastCheck: stamp))
+        XCTAssertFalse(DepegAlarmCheck.isDue(now: now, lastCheck: now - 4 * minute))
+        XCTAssertTrue(DepegAlarmCheck.isDue(now: now, lastCheck: now - 5 * minute))
+        XCTAssertTrue(DepegAlarmCheck.isDue(now: now, lastCheck: now + months))
+    }
+
     // MARK: Aktivität
 
     func testActivityUndeliverableStaysPendingWhileActive() {
@@ -101,5 +132,20 @@ final class MacroRescheduleQueueTests: XCTestCase {
         await queue.run { _ in await recorder.add("done") }
         let events = await recorder.events
         XCTAssertEqual(events, ["done"])
+    }
+}
+
+/// Fear & Greed nach geänderter Grenze — wie `MarketNoticeGateTest.kt` (Android).
+final class FearGreedBoundChangeTests: XCTestCase {
+    func testChangedBoundNotifiesUnchangedDoesNotRepeat() {
+        XCTAssertTrue(MarketNoticeGate.boundChanged(stored: 10, current: 20))
+        let step = MarketNoticeGate.fearGreed(value: 15, last: 15, below: 20, above: 0, canNotify: true, belowChanged: true)
+        XCTAssertEqual(step.step, .notify)
+        XCTAssertEqual(step.kind, .below)
+        XCTAssertFalse(MarketNoticeGate.boundChanged(stored: 20, current: 20))
+        XCTAssertEqual(MarketNoticeGate.fearGreed(value: 14, last: 15, below: 20, above: 0, canNotify: true).step, .store)
+        XCTAssertEqual(MarketNoticeGate.fearGreed(value: 15, last: 15, below: 20, above: 90, canNotify: true,
+                                                  aboveChanged: true).step, .store)
+        XCTAssertFalse(MarketNoticeGate.boundChanged(stored: nil, current: 20))
     }
 }

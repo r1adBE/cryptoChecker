@@ -1,8 +1,8 @@
 # Crypto Checker
 
-**Crypto Checker explains what is happening in the market.** Prices and alarms
+**Crypto Checker shows what is moving at the same time – no cause, no forecast.** Prices and alarms
 straight from the exchanges, a market overview and “What is moving with it?” for
-single coins – no account, no forecasts, no investment advice.
+single coins – no account, no investment advice.
 Android and iPhone · 31 languages · no ads · no tracking · open source (MIT).
 
 > **Deutsch:** Crypto Checker erklärt dir, was im Markt passiert – Kurse und

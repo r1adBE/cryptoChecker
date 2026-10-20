@@ -471,5 +471,108 @@
     }
    }
   }
+ ],
+ "_interestRewardComment": "Zins-Erkennung (TaxEngines.interestReward, AT: Anschaffungskosten = Wert beim Zufluss; auch legacyInterest und CSV-Import): nur ganze Wörter, Trenner = alles ausser Buchstaben/Ziffern und der Wechsel klein → gross. «Verzinsung», «Zinseszins», «keine Verzinsung» sind kein Zins (Build 88).",
+ "interestReward": [
+  {
+   "text": "Lending interest",
+   "interest": true
+  },
+  {
+   "text": "Interest",
+   "interest": true
+  },
+  {
+   "text": "Interests",
+   "interest": true
+  },
+  {
+   "text": "Intérêts",
+   "interest": true
+  },
+  {
+   "text": "intérêt",
+   "interest": true
+  },
+  {
+   "text": "Interet",
+   "interest": true
+  },
+  {
+   "text": "Zinsen",
+   "interest": true
+  },
+  {
+   "text": "Zins",
+   "interest": true
+  },
+  {
+   "text": "Zinsertrag",
+   "interest": true
+  },
+  {
+   "text": "Zinserträge Mai",
+   "interest": true
+  },
+  {
+   "text": "LENDING",
+   "interest": true
+  },
+  {
+   "text": "interest_payment",
+   "interest": true
+  },
+  {
+   "text": "LendingInterest",
+   "interest": true
+  },
+  {
+   "text": "Simple Earn Flexible Interest",
+   "interest": true
+  },
+  {
+   "text": "Zinsgutschrift",
+   "interest": true
+  },
+  {
+   "text": "Verzinsung",
+   "interest": false
+  },
+  {
+   "text": "Zinseszins",
+   "interest": false
+  },
+  {
+   "text": "keine Verzinsung",
+   "interest": false
+  },
+  {
+   "text": "Staking Reward",
+   "interest": false
+  },
+  {
+   "text": "Earn reward",
+   "interest": false
+  },
+  {
+   "text": "Airdrop",
+   "interest": false
+  },
+  {
+   "text": "Open interestless",
+   "interest": false
+  },
+  {
+   "text": "disinterest",
+   "interest": false
+  },
+  {
+   "text": "",
+   "interest": false
+  },
+  {
+   "text": null,
+   "interest": false
+  }
  ]
 }

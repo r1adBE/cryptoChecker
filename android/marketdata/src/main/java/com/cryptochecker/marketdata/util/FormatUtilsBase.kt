@@ -51,9 +51,8 @@ object FormatUtilsBase {
     private fun render(pattern: DecimalFormat, value: Double): String = synchronized(pattern) {
         try {
             pattern.format(value)
-        } catch (e: Exception) {
-            // Eine Anzeige darf nie abstürzen: lieber die rohe Zahl als gar keine (Spur im Log für die Fehlersuche)
-            e.printStackTrace()
+        } catch (_: Exception) {
+            // Eine Anzeige darf nie abstürzen: lieber die rohe Zahl als gar keine (kein Log – das Modul kennt Timber nicht)
             value.toString()
         }
     }

@@ -119,9 +119,21 @@ enum AddressCostLots {
 
     /// Adressen, deren Guthaben zählt, mit ihren Guthaben je Coin — gleiche Auswahl wie `AddressBalance.holdings`.
     /// Mindestens eine zählende Adresse (`counted`) mit Eröffnungsposten: dann können Stichtag-CSV und CH-Vermögen (volles
-    /// Adress-Guthaben + Buchungen) eine Umbuchung zur/von der Adresse doppelt oder fehlend zeigen — Hinweiszeile. Wie Android.
-    static func hasCountedLots(_ addresses: [WatchedAddress]) -> Bool {
-        counted(addresses).contains { !$0.address.costLots.isEmpty }
+    /// Adress-Guthaben + Buchungen) eine Umbuchung zur/von der Adresse doppelt oder fehlend zeigen — Hinweiszeile. Mit
+    /// `cutoffMillis` (Stichtag, Ende des Tags) nach dem Stand DES Tags: nur Posten mit Zeit ≤ Stichtag, und nur wenn die
+    /// Adresse an dem Tag schon beobachtet war (sonst fehlt ihr Guthaben in der Datei); nil = heutiger Stand. Wie Android.
+    static func hasCountedLots(_ addresses: [WatchedAddress], cutoffMillis: Int64? = nil) -> Bool {
+        counted(addresses).contains { item in
+            guard let cutoffMillis else { return !item.address.costLots.isEmpty }
+            return item.address.costLots.contains { $0.time <= cutoffMillis } && observed(item.address, by: cutoffMillis)
+        }
+    }
+
+    /// Hat eine Reihe der Adresse (`AddressBalanceHistory.of`) eine Beobachtung ≤ `cutoffMillis`? Wie Android `observedBy`.
+    private static func observed(_ address: WatchedAddress, by cutoffMillis: Int64) -> Bool {
+        AddressBalanceHistory.of([address]).contains { h in
+            (AddressBalanceHistory.clean(h.observations).first?.time).map { $0 <= cutoffMillis } ?? false
+        }
     }
 
     static func counted(_ addresses: [WatchedAddress]) -> [(address: WatchedAddress, balances: [String: Decimal])] {

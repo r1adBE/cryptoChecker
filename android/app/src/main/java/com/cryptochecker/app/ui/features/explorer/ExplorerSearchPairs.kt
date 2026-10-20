@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -21,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.UiTestTags
@@ -123,13 +123,18 @@ private fun pairSubtitle(hit: SearchHit): String = listOfNotNull(
 /** Ein Paar: antippen legt es direkt in die Merkliste; schon da → Häkchen statt «+». */
 @Composable
 internal fun PairHitRow(hit: SearchHit, search: SearchUi) {
+    // Schon in der Merkliste: Häkchen statt «+» (Screenreader: «Schon in der Merkliste»)
+    val watched = search.isWatched(hit)
+    val action = stringResource(if (watched) R.string.a11y_in_watchlist else R.string.explorer_add_to_watchlist)
+    // EIN Fokus je Treffer: die Zeile liest Paar und Börse samt Aktion vor; «+» ist nur Bild (vorher doppelt fokussierbar)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.medium)
             .background(MaterialTheme.colorScheme.surfaceContainer)
-            .clickable { search.onAdd(hit) }
+            .clickable(onClickLabel = action) { search.onAdd(hit) }
+            .semantics { if (watched) stateDescription = action }
             .padding(start = 16.dp, end = 4.dp, top = Spacing.sm, bottom = Spacing.sm)
     ) {
         Column(modifier = Modifier.weight(1f)) {
@@ -144,14 +149,10 @@ internal fun PairHitRow(hit: SearchHit, search: SearchUi) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
-        // Schon in der Merkliste: Häkchen statt «+» (Screenreader: «Schon in der Merkliste»)
-        val watched = search.isWatched(hit)
-        IconButton(onClick = { search.onAdd(hit) }) {
+        Box(modifier = Modifier.size(48.dp), contentAlignment = Alignment.Center) {
             Icon(
                 painterResource(if (watched) R.drawable.ic_check else R.drawable.ic_add),
-                contentDescription = stringResource(
-                    if (watched) R.string.a11y_in_watchlist else R.string.explorer_add_to_watchlist
-                ),
+                contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary
             )
         }

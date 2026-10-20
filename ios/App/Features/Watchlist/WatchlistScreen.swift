@@ -270,6 +270,13 @@ struct WatchlistScreen: View {
     private func openAlarmsFromRouter(_ id: Int64?) {
         guard let id else { return }
         router.openAlarmsWatchId = nil
+        // Paar gelöscht («Anpassen» aus einer alten Alarm-Mitteilung): keine Alarmseite ohne Paar, kurzer Hinweis —
+        // wie Android (dort zurück mit Hinweis)
+        guard data.watch(id) != nil else {
+            router.pendingEditAlarmId = nil
+            banner = WatchlistBannerMessage(text: L("watch_preview_not_watched"), icon: "info.circle.fill")
+            return
+        }
         actionsFor = nil
         showOverview = false
         alarmsFor = id

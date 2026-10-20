@@ -293,6 +293,9 @@ enum GasAlertCheck {
     private static let keyLastCheck = "gas_last_check"
     private static let keyEthArmed = "gas_eth_armed"
     private static let keyBtcArmed = "gas_btc_armed"
+    /// Grenze, zu der der gemerkte Zustand gehört (wie Android `eth_threshold`/`btc_threshold`).
+    private static let keyEthThreshold = "gas_eth_threshold"
+    private static let keyBtcThreshold = "gas_btc_threshold"
     /// Höchstens alle 10 Minuten.
     private static let minInterval: Int64 = 10 * 60_000
     /// Nach einem fehlgeschlagenen Abruf: so lange bis zum nächsten Versuch (wie Android).
@@ -312,15 +315,35 @@ enum GasAlertCheck {
         (fire && !posted) ? armedBefore : next
     }
 
+    /// Gespeicherter Zustand für die aktuelle Grenze: Wurde er bei einer anderen Grenze gemerkt (geändert
+    /// oder zwischendurch aus = 0), ist der Alarm wieder scharf. `storedThreshold` nil = Stand vor dieser
+    /// Regel: Zustand übernehmen. Wie `GasAlertLogic.armedFor`.
+    static func armedFor(storedArmed: Bool, storedThreshold: Double?, threshold: Double) -> Bool {
+        if let stored = storedThreshold, stored != threshold { return true }
+        return storedArmed
+    }
+
+    /// Wie `GasAlertChecker.isDue` (Android): auch fällig, wenn die letzte Prüfung in der Zukunft liegt.
+    static func isDue(now: Int64, lastCheck: Int64) -> Bool {
+        TimeUtils.isIntervalDue(now: now, last: lastCheck, minInterval: minInterval)
+    }
+
     /// Nach einer Kursaktualisierung aufrufen; tut nichts ohne eingestellte Grenze.
     static func runIfDue(settings: AppSettings) async {
         let ethThreshold = Double(settings.gasAlertEthTenths) / 10
         let btcThreshold = Double(settings.gasAlertBtc)
-        guard ethThreshold > 0 || btcThreshold > 0 else { return }
         let defaults = SharedStorage.defaults
+        guard ethThreshold > 0 || btcThreshold > 0 else {
+            // «Aus» merken, damit beim Wiedereinschalten (auch mit gleicher Grenze) der Alarm scharf ist
+            if defaults.object(forKey: keyEthThreshold) as? Double != 0 || defaults.object(forKey: keyBtcThreshold) as? Double != 0 {
+                defaults.set(0.0, forKey: keyEthThreshold)
+                defaults.set(0.0, forKey: keyBtcThreshold)
+            }
+            return
+        }
         let now = TimeUtils.nowMillis
         let last = Int64(defaults.double(forKey: keyLastCheck))
-        guard now - last >= minInterval else { return }
+        guard isDue(now: now, lastCheck: last) else { return }
         defaults.set(Double(now), forKey: keyLastCheck)
 
         guard let report = try? await GasDataSource.shared.fetch() else {
@@ -331,7 +354,7 @@ enum GasAlertCheck {
         // Käme eine Mitteilung jetzt an? Nachtruhe: lautlos wie bisher
         let deliverable = await Notifier.isAuthorized()
         if let eth = report.evm.first(where: { $0.network == .ethereum }) {
-            await check(keyEthArmed, eth.normalGwei, ethThreshold, deliverable, defaults) {
+            await check(keyEthArmed, keyEthThreshold, eth.normalGwei, ethThreshold, deliverable, defaults) {
                 await Notifier.showGas(
                     id: "gas-eth",
                     title: L("notification_gas_eth_title", GasFees.formatGwei(eth.normalGwei)),
@@ -341,7 +364,7 @@ enum GasAlertCheck {
             }
         }
         if let btc = report.btc {
-            await check(keyBtcArmed, btc.normal, btcThreshold, deliverable, defaults) {
+            await check(keyBtcArmed, keyBtcThreshold, btc.normal, btcThreshold, deliverable, defaults) {
                 await Notifier.showGas(
                     id: "gas-btc",
                     title: L("notification_gas_btc_title", GasFees.formatGwei(btc.normal)),
@@ -352,11 +375,13 @@ enum GasAlertCheck {
         }
     }
 
-    private static func check(_ key: String, _ value: Double, _ threshold: Double, _ deliverable: Bool,
-                              _ defaults: UserDefaults, notify: () async -> Bool) async {
-        let armed = defaults.object(forKey: key) as? Bool ?? true
+    private static func check(_ key: String, _ thresholdKey: String, _ value: Double, _ threshold: Double,
+                              _ deliverable: Bool, _ defaults: UserDefaults, notify: () async -> Bool) async {
+        let armed = armedFor(storedArmed: defaults.object(forKey: key) as? Bool ?? true,
+                             storedThreshold: defaults.object(forKey: thresholdKey) as? Double, threshold: threshold)
         let result = evaluate(value: value, threshold: threshold, armed: armed, deliverable: deliverable)
         let posted = result.fire ? await notify() : false
         defaults.set(armedAfter(fire: result.fire, posted: posted, armedBefore: armed, next: result.armed), forKey: key)
+        defaults.set(threshold, forKey: thresholdKey)
     }
 }

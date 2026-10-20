@@ -57,6 +57,16 @@ final class LegacyStorageMigrationTests: XCTestCase {
         XCTAssertNil(CsvRestoreState.from(json: long))
     }
 
+    /// Zins nur bei ganzen Wörtern («Verzinsung», «Zinseszins» nicht); wirkt auch auf `legacyInterest`. Wie Android.
+    func testInterestRewardMatchesWholeWords() throws {
+        for c in S.list(try data()["interestReward"]) {
+            let text = string(c["text"])
+            let expected = try XCTUnwrap(c["interest"] as? Bool)
+            XCTAssertEqual(TaxEngines.interestReward(text), expected, "interestReward: \(text ?? "nil")")
+            XCTAssertEqual(LegacyStorageMigration.legacyInterest(.REWARD, note: text), expected, "legacyInterest: \(text ?? "nil")")
+        }
+    }
+
     /// Datei bis Build 57 (`portfolio.json`): alte Formen werden beim Lesen Felder, das Speichern schreibt nur noch diese.
     func testOldFileFormsBecomeFieldsOnLoad() throws {
         let old = """

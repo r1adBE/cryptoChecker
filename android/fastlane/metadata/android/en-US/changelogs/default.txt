@@ -1,10 +1,1 @@
-New in 16.2.2
-• Crypto Pulse: what is happening now
-• “Notable”, “What is moving with it?” with a summary
-• Start with one tap: top 5 coins, current prices
-• Swipe to delete (with Undo) or mark a favorite
-• Prices and alerts in your currency, cut-off export (CSV)
-• Accessible: blue/orange, high contrast, swap colors, TalkBack
-• Quiet hours, test alert, alert as a sentence, portfolio lock and widget
-• New exchanges, gas alert, widget candles
-• Stocks, gold, FX (TradFi); % by time zone
+First version of Crypto Checker: prices straight from the exchange, alerts on your device, widgets – no account, no ads.

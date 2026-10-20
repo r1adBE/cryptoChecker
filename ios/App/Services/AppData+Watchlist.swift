@@ -181,6 +181,8 @@ extension AppData {
     func delete(_ watch: Watch) {
         Notifier.cancelPrice(watch.id)
         Notifier.cancelActivity(watch.id)
+        // Alte Alarm-Mitteilungen weg: ihr «Anpassen» zeigte sonst auf ein Paar, das es nicht mehr gibt — wie Android
+        snapshot.alarms.filter { $0.watchId == watch.id }.forEach { Notifier.cancelAlarm($0.id) }
         // Live-Aktivität des Paars endet mit ihm
         let watchId = watch.id
         Task { await LiveActivityController.stop(watchId: watchId) }
@@ -267,6 +269,7 @@ extension AppData {
             Notifier.cancelActivity(w.id)
             activityReports[w.id] = nil
         }
+        deleted.flatMap(\.alarms).forEach { Notifier.cancelAlarm($0.id) }
         // Live-Aktivitäten der Paare enden mit ihnen
         let live = deleted.filter(\.liveActivity).map(\.watch.id)
         if !live.isEmpty {
@@ -318,6 +321,7 @@ extension AppData {
             Notifier.cancelPrice($0.id)
             Notifier.cancelActivity($0.id)
         }
+        snapshot.alarms.forEach { Notifier.cancelAlarm($0.id) }
         activityReports = [:]
         Task { await LiveActivityController.endAll() }
         mutate { s in

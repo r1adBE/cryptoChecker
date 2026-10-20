@@ -5,19 +5,60 @@ Origin
 Parts of the code were originally derived from BitcoinChecker by mobnetic and
 Aneonex Software (MIT). Their copyright notices are kept in LICENSE.
 
-Third-party names, logos and data
+Bundled third-party components
 
-Names, logos and trademarks of coins, tokens, stocks, exchanges and other third
-parties shown by the apps belong to their respective owners. They are not part
-of the Software and are not covered by the MIT License in LICENSE.
+The full license texts ship inside the Android app (app/src/main/assets/licenses/)
+and are shown under About › Licenses.
 
-Market data shown by the apps is fetched at runtime from third-party APIs (for
-example CoinGecko, Binance, alternative.me, Coin Metrics) and is subject to the
-terms of those providers. It is not part of the Software and is not covered by
-the MIT License in LICENSE.
+- Rubik font (Android app, amounts)
+  Copyright 2015 The Rubik Project Authors (https://github.com/googlefonts/rubik)
+  SIL Open Font License, Version 1.1 – assets/licenses/Rubik-OFL.txt
+
+- SQLCipher for Android (net.zetetic:sqlcipher-android, encrypted databases)
+  Copyright (c) 2008-2023, ZETETIC LLC. All rights reserved.
+  BSD-style license – assets/licenses/SQLCipher-BSD.txt
+  Contains SQLite (public domain) and OpenSSL libcrypto (Apache License 2.0).
+
+- Apache License 2.0 – assets/licenses/Apache-2.0.txt
+  AndroidX (Core, Core SplashScreen, AppCompat, Activity, Lifecycle, Navigation,
+  Room, WorkManager, DataStore, Biometric, ProfileInstaller, Concurrent Futures,
+  Hilt Navigation Compose, Hilt Work), Jetpack Compose (UI, UI Util, Material 3,
+  ConstraintLayout), Kotlin standard library, kotlinx.coroutines,
+  kotlinx.serialization, Dagger / Hilt, OkHttp, Okio, Timber.
+
+- Fallback coin icons (Android and iOS)
+  "Cryptocurrency Icons" by Christopher Downer and contributors
+  (https://github.com/spothq/cryptocurrency-icons), CC0 1.0 Universal.
+  Names and logos remain trademarks of their projects.
+
+The iOS app uses no third-party libraries or fonts (system frameworks only).
 
 Alarm sounds
 
 The four iOS alarm sounds (cc_chime, cc_crystal, cc_dingdong, cc_pulse) are
 synthesised by ios/tools/gen_alarm_sounds.py (no third-party audio) and are
 dedicated to the public domain (CC0 1.0).
+
+Data sources
+
+Data is fetched at runtime directly from the providers; none of it is part of
+the Software or covered by the MIT License in LICENSE, and each provider's
+terms apply.
+
+- CoinGecko (market data, coin logos): "Powered by CoinGecko"
+  (https://www.coingecko.com), as required by the CoinGecko API terms.
+- Coin Metrics Community API (on-chain values): licensed under Creative
+  Commons Attribution-NonCommercial 4.0 (CC BY-NC 4.0). Non-commercial use
+  only: a fork that is monetised (paid app, ads, subscriptions) must not use
+  this source without its own licence from Coin Metrics.
+- alternative.me (Crypto Fear & Greed Index).
+- ExchangeRate-API (open.er-api.com, fallback FX rates): "Rates By Exchange
+  Rate API" (https://www.exchangerate-api.com).
+- Exchanges and other price sources named in the privacy policy (for example
+  Binance), each under its own API terms.
+
+Third-party names, logos and trademarks
+
+Names, logos and trademarks of coins, tokens, stocks, exchanges and other third
+parties shown by the apps belong to their respective owners. They are not part
+of the Software and are not covered by the MIT License in LICENSE.

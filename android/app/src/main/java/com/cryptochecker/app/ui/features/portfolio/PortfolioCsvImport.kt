@@ -74,8 +74,10 @@ fun PortfolioCsvImportFlow(
 
     when (val s = state) {
         CsvImportState.Idle -> Unit
+        // Laden (Datei, Kurse): «Abbrechen» und Zurück brechen ab, gespeichert ist noch nichts. Speichern: kurz, ohne Abbruch
         CsvImportState.Loading, CsvImportState.Saving -> AlertDialog(
-            onDismissRequest = {},
+            onDismissRequest = { if (s == CsvImportState.Loading) { viewModel.cancelLoad(); onDismiss() } },
+            properties = androidx.compose.ui.window.DialogProperties(dismissOnClickOutside = false),
             title = { Text(stringResource(R.string.portfolio_csv_import_action)) },
             text = {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -85,6 +87,11 @@ fun PortfolioCsvImportFlow(
                 }
             },
             confirmButton = {},
+            dismissButton = {
+                if (s == CsvImportState.Loading) {
+                    TextButton(onClick = { viewModel.cancelLoad(); onDismiss() }) { Text(stringResource(R.string.action_cancel)) }
+                }
+            },
         )
         CsvImportState.Unreadable -> AlertDialog(
             onDismissRequest = close,

@@ -28,6 +28,8 @@ import com.cryptochecker.marketdata.model.market.DexPool
 import com.cryptochecker.marketdata.model.market.DexScreener
 import com.cryptochecker.marketdata.util.BulkCompleteness
 import com.cryptochecker.marketdata.util.BulkTickerParse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import timber.log.Timber
 import javax.inject.Inject
@@ -52,10 +54,14 @@ class MarketRemoteDataSource @Inject constructor(
     /**
      * Lädt die ganze Paarliste der Börse. Scheitert die erste Anfrage (oder bei gemeinsam
      * ausgewerteten Listen irgendeine), scheitert der Abgleich; spätere Anfragen dürfen fehlen.
+     * Lesen, Sortieren und Coin-Namen laufen auf [Dispatchers.Default]: Die Listen sind gross, und das
+     * Warten auf die Antwort (`InFlightRequests`) setzt sonst im Kontext des Aufrufers fort — beim
+     * Explorer der Haupt-Thread. Gibt nur das Ergebnis zurück; Zustände setzt der Aufrufer.
      */
-    suspend fun fetchMarketCurrencyPairsInfo(market: Market): MarketPairsInfo =
+    suspend fun fetchMarketCurrencyPairsInfo(market: Market): MarketPairsInfo = withContext(Dispatchers.Default) {
         if (market.pairListCombined) loadCombinedPairList(market, pairListClient)
         else loadPairListByCall(market, pairListClient)
+    }
 
     /** Alle Antworten zuerst sammeln, dann gemeinsam lesen (z. B. LATOKEN: IDs → Kürzel). */
     private suspend fun loadCombinedPairList(market: Market, client: OkHttpClient): MarketPairsInfo {

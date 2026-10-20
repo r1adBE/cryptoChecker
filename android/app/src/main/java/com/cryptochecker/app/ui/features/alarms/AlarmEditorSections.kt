@@ -67,20 +67,26 @@ internal fun TemplateChips(templates: List<AlarmTemplates.Template>, onTemplate:
             val spoken = templateA11y(context, template, locale, label)
             AssistChip(
                 onClick = { onTemplate(template) },
-                // Vorgelesen nur der ganze Satz, nicht zusätzlich «+1 %»
-                label = { Text(label, maxLines = 1, modifier = Modifier.clearAndSetSemantics {}) },
+                // Vorgelesen nur der ganze Satz, nicht zusätzlich «+1 %»; grosse Schrift: zweite Zeile statt abschneiden
+                label = {
+                    Text(label, maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.clearAndSetSemantics {})
+                },
                 modifier = Modifier.semantics { contentDescription = spoken }
             )
         }
     }
 }
 
-/** Sichtbare Beschriftung: «+1 %», «−5 %», «Neues 30-Tage-Hoch», «Volumen ×3». */
+/** Sichtbare Beschriftung: «+1 % · ab jetzt», «−5 % · ab jetzt», «Neues 30-Tage-Hoch», «Volumen ×3». */
 private fun templateLabel(context: Context, template: AlarmTemplates.Template, locale: java.util.Locale): String {
     val percent = template.percent
     if (percent != null) {
         val text = AlarmSentence.percent(kotlin.math.abs(percent), locale)
-        return BidiText.ltr((if (percent > 0) "+" else "−") + text, locale)
+        // Bezug aus der Vorlage: Zeitfenster oder ab dem Kurs von jetzt — sonst bleibt offen, worauf sich «+5 %» bezieht
+        val reference = AlarmTemplates.windowHours(template)
+            ?.let { context.resources.getQuantityString(R.plurals.alarm_window_hours, it, it) }
+            ?: context.getString(R.string.alarm_template_from_now)
+        return BidiText.ltr((if (percent > 0) "+" else "−") + text, locale) + " · " + reference
     }
     return when (template) {
         AlarmTemplates.Template.NEW_HIGH_30 ->
@@ -91,7 +97,7 @@ private fun templateLabel(context: Context, template: AlarmTemplates.Template, l
     }
 }
 
-/** Vorgelesen: «Alarm bei plus 1 Prozent erstellen», «Alarm «Neues 30-Tage-Hoch» erstellen». */
+/** Vorgelesen: «Alarm bei plus 1 Prozent ab dem aktuellen Kurs erstellen», «Alarm erstellen: Neues 30-Tage-Hoch». */
 private fun templateA11y(context: Context, template: AlarmTemplates.Template, locale: java.util.Locale, label: String): String {
     val percent = template.percent ?: return context.getString(R.string.alarm_template_a11y, label)
     val amount = LocaleNumbers.decimal(kotlin.math.abs(percent), 2, minDecimals = 0, locale = locale)

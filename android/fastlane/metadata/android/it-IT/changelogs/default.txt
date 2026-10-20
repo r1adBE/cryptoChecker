@@ -1,10 +1,1 @@
-Novità 16.2.2
-• Crypto Pulse: cosa succede ora
-• «In evidenza», «Cosa si muove insieme?» con riepilogo
-• Un tocco: top 5 monete, prezzi attuali
-• Scorri: elimina (con Annulla) o preferito
-• Prezzi e allarmi nella tua valuta, export CSV alla data
-• Accessibile: blu/arancione, contrasto, colori invertiti, TalkBack
-• Ore di silenzio, prova allarme, allarme come frase, blocco e widget Portafoglio
-• Nuovi exchange, allarme gas, candele nel widget
-• Azioni, oro, valute (TradFi); % per fuso orario
+Prima versione di Crypto Checker: prezzi direttamente dall’exchange, allarmi sul dispositivo, widget – senza account, senza pubblicità.

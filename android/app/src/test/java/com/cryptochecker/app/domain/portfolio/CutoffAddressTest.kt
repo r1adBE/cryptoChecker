@@ -128,4 +128,29 @@ class CutoffAddressTest {
         assertTrue(rows.all { it.fromAddress && !it.addressUnobserved })
         assertEquals(listOf("BTC", "ETH"), rows.map { it.coin })
     }
+
+    /**
+     * Hinweis «Adressen mit Einstand» nach dem Stand des Stichtags: nur Posten mit Zeit ≤ Stichtag und nur eine Adresse,
+     * die an dem Tag schon beobachtet war (wie iOS). Ohne Stichtag der heutige Stand.
+     */
+    @Test
+    fun addressLotsNoteFollowsTheCutoff() {
+        val early = AddressCostLot(1, "BTC", t(day - 20), BigDecimal("0.4"), priceUsdt = BigDecimal("100"))
+        val late = early.copy(id = 2, time = t(day + 5))
+        val observed = WatchedAddress(
+            id = 2, chain = AddressChain.BTC, address = "bc1qsecondexampleaddress", lastBalance = "0.5",
+            observations = listOf(AddressObservation(t(day - 30), BigDecimal("0.5"))),
+        )
+        assertTrue(AddressCostLots.hasCountedLots(listOf(observed.copy(costLots = listOf(early))), cutoff))
+        // Posten erst nach dem Stichtag erfasst: am Stichtag kein Hinweis, heute schon
+        assertTrue(!AddressCostLots.hasCountedLots(listOf(observed.copy(costLots = listOf(late))), cutoff))
+        assertTrue(AddressCostLots.hasCountedLots(listOf(observed.copy(costLots = listOf(late)))))
+        // Adresse erst nach dem Stichtag beobachtet: ihr Guthaben fehlt in der Datei, also kein Hinweis
+        val laterObserved = observed.copy(costLots = listOf(early), observations = listOf(AddressObservation(t(day + 3), BigDecimal("0.5"))))
+        assertTrue(!AddressCostLots.hasCountedLots(listOf(laterObserved), cutoff))
+        // Ohne gespeicherte Beobachtung zählt der Abruf des Guthabens (AddressBalanceHistory.of)
+        val fetched = observed.copy(costLots = listOf(early), observations = emptyList(), lastUpdated = t(day - 1))
+        assertTrue(AddressCostLots.hasCountedLots(listOf(fetched), cutoff))
+        assertTrue(!AddressCostLots.hasCountedLots(listOf(fetched.copy(lastUpdated = t(day + 1))), cutoff))
+    }
 }

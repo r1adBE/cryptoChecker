@@ -33,11 +33,17 @@ object MarketNoticeGate {
     /**
      * Fear & Greed: einmal melden, wenn der Index die Grenze [below] unter- bzw. [above]
      * überschreitet (Grenze ≤ 0 = aus); [last] null = noch kein Stand gemerkt.
+     * [belowChanged]/[aboveChanged]: Diese Grenze ist seit dem gemerkten Stand eine andere ([boundChanged]) —
+     * dann zählt [last] für sie nicht, sodass ein schon jenseits der neuen Grenze liegender Wert gemeldet wird.
+     * Die unveränderte andere Grenze bewertet weiter mit [last] (keine Doppelmeldung).
      */
-    fun fearGreed(value: Int, last: Int?, below: Int, above: Int, canNotify: Boolean): FearGreedStep {
+    fun fearGreed(
+        value: Int, last: Int?, below: Int, above: Int, canNotify: Boolean,
+        belowChanged: Boolean = false, aboveChanged: Boolean = false,
+    ): FearGreedStep {
         val kind = when {
-            below > 0 && value <= below && (last == null || last > below) -> FearGreedKind.BELOW
-            above > 0 && value >= above && (last == null || last < above) -> FearGreedKind.ABOVE
+            below > 0 && value <= below && (last == null || belowChanged || last > below) -> FearGreedKind.BELOW
+            above > 0 && value >= above && (last == null || aboveChanged || last < above) -> FearGreedKind.ABOVE
             else -> null
         }
         return when {
@@ -46,6 +52,12 @@ object MarketNoticeGate {
             else -> FearGreedStep(Step.HOLD, kind)
         }
     }
+
+    /**
+     * Gilt die Grenze [current] nicht mehr für den gemerkten Stand? [stored] = mit dem Stand gemerkte Grenze;
+     * null = Stand vor dieser Regel (nichts gemerkt): als unverändert werten, damit nach dem Update nichts doppelt kommt.
+     */
+    fun boundChanged(stored: Int?, current: Int): Boolean = stored != null && stored != current
 
     /** Neuen Stand speichern? [posted] = die Meldung wurde abgesetzt (nur bei [Step.NOTIFY] von Belang). */
     fun storeAfterNotify(step: Step, posted: Boolean): Boolean = when (step) {

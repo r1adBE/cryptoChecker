@@ -1,10 +1,1 @@
-Újdonságok a 16.2.2-es verzióban
-• Crypto Pulse: mi történik most
-• „Feltűnő”, „Mi mozog vele együtt?” összefoglalóval
-• Egy koppintással: top 5 érme, aktuális árak
-• Húzással törlés (visszavonható) vagy kedvenc
-• Árak és riasztások a saját pénznemedben, fordulónapi CSV
-• Akadálymentesség: kék/narancs, kontraszt, TalkBack
-• Csendes órák, teszt, riasztás mondatként, zár, widget
-• Új tőzsdék, gas-riasztás, gyertyák a widgetben
-• Részvények, arany, devizák (TradFi); % időzóna szerint
+A Crypto Checker első verziója: árfolyamok közvetlenül a tőzsdéről, riasztások a készüléken, widgetek – fiók és reklám nélkül.

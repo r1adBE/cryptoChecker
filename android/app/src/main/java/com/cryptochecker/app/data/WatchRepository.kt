@@ -343,6 +343,9 @@ class WatchRepository @Inject constructor(
     /** Alle aktiven Alarme auf einmal — statt einer Abfrage je Paar. */
     suspend fun getAllEnabledAlarms(): List<AlarmEntity> = watchDao.getAllEnabledAlarms()
 
+    /** Ids aller Alarme (auch ausgeschalteter): ihre Mitteilungen vor dem Löschen aller Paare entfernen. */
+    suspend fun getAllAlarmIds(): List<Long> = watchDao.getAllAlarms().map { it.id }
+
     /** Paare mit mindestens einem aktiven Alarm (für die Planung der Hintergrund-Aktualisierung). */
     fun observeWatchIdsWithEnabledAlarms(): Flow<List<Long>> = watchDao.observeWatchIdsWithEnabledAlarms()
 

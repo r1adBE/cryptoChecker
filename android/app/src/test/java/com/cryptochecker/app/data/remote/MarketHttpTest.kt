@@ -203,7 +203,11 @@ class MarketHttpTest {
     // ---- Teilanfragen
 
     /** Test-Börse: zwei Kursanfragen (Kurs, dann Volumen), zwei Paarlisten, zwei Sammelanfragen (Gruppe 0 und 1). */
-    private class StubMarket(private val base: String, private val allCallsRequired: Boolean = false) : Market("Stub", "Stub") {
+    private class StubMarket(
+        private val base: String,
+        private val allCallsRequired: Boolean = false,
+        private val onPairListRead: (() -> Unit)? = null,
+    ) : Market("Stub", "Stub") {
         override val key: String = "Stub"
 
         override fun tickerCallCount(info: PairQuery?): Int = 2
@@ -216,6 +220,7 @@ class MarketHttpTest {
         override val pairListAllCallsRequired: Boolean get() = allCallsRequired
         override fun pairListAddress(call: Int): String = "$base/pairs/$call"
         override fun fillPairListJson(call: Int, json: JSONObject, out: MutableList<MarketPair>) {
+            onPairListRead?.invoke()
             val rows = json.getJSONArray("pairs")
             for (i in 0 until rows.length()) {
                 val row = rows.getJSONArray(i)
@@ -288,6 +293,19 @@ class MarketHttpTest {
         respond(502, body = "bad gateway")
         val info = MarketRemoteDataSource(client()).fetchMarketCurrencyPairsInfo(StubMarket(url("").trimEnd('/')))
         assertEquals(listOf("BTCUSDT", "ETHUSDT"), info.pairs.mapNotNull { it.pairId })
+    }
+
+    @Test
+    fun pairListIsParsedOffTheCallersThread() = runBlocking {
+        respond(body = """{"pairs":[["BTC","USDT","BTCUSDT"]]}""")
+        respond(body = """{"pairs":[]}""")
+        val caller = Thread.currentThread()
+        val readOn = ArrayList<Thread>()
+        val market = StubMarket(url("").trimEnd('/'), onPairListRead = { synchronized(readOn) { readOn += Thread.currentThread() } })
+        MarketRemoteDataSource(client()).fetchMarketCurrencyPairsInfo(market)
+        assertTrue("gelesen wurde", readOn.isNotEmpty())
+        // Explorer ruft vom Haupt-Thread auf: Lesen darf nie im Kontext des Aufrufers laufen
+        assertTrue(readOn.none { it === caller })
     }
 
     @Test

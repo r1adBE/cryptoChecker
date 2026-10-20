@@ -23,6 +23,7 @@ import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.widget.PortfolioWidgetProvider
 import com.cryptochecker.app.widget.PriceWidgetProvider
+import com.cryptochecker.app.widget.PulseWidgetProvider
 import com.cryptochecker.app.widget.SingleWidgetProvider
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -236,14 +237,16 @@ class PriceUpdateScheduler @Inject constructor(
         ),
         marketAlarms = settings.gasAlertEthTenths > 0 || settings.gasAlertBtc > 0 || settings.depegAlarm,
         watchlistKept = DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME),
+        pulseWidget = widgets.pulse,
     )
 
-    /** Listen-/Einzel-Widgets bzw. Portfolio-Widgets auf dem Startbildschirm. */
-    private data class WidgetPresence(val pairs: Boolean, val portfolio: Boolean)
+    /** Listen-/Einzel-Widgets, Portfolio- bzw. Pulse-Widgets auf dem Startbildschirm. */
+    private data class WidgetPresence(val pairs: Boolean, val portfolio: Boolean, val pulse: Boolean)
 
     private fun widgetPresence() = WidgetPresence(
         pairs = hasWidgets(PriceWidgetProvider::class.java) || hasWidgets(SingleWidgetProvider::class.java),
         portfolio = hasWidgets(PortfolioWidgetProvider::class.java),
+        pulse = hasWidgets(PulseWidgetProvider::class.java),
     )
 
     /** Widgets dieser Art auf dem Startbildschirm? Ohne Auskunft: ja (lieber planen). */

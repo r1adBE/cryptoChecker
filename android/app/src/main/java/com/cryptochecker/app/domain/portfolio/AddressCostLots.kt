@@ -114,8 +114,21 @@ object AddressCostLots {
     /**
      * Mindestens eine zählende Adresse ([counted]) mit Eröffnungsposten: dann können Stichtag-CSV und CH-Vermögen
      * (volles Adress-Guthaben + Buchungen) eine Umbuchung zur/von der Adresse doppelt oder fehlend zeigen — Hinweiszeile.
+     * Mit [cutoffMillis] (Stichtag, Ende des Tags) nach dem Stand DES Tags: nur Posten mit Zeit ≤ Stichtag, und nur wenn
+     * die Adresse an dem Tag schon beobachtet war (sonst fehlt ihr Guthaben in der Datei, [AddressBalanceHistory.balancesAt]).
+     * null = heutiger Stand.
      */
-    fun hasCountedLots(addresses: List<WatchedAddress>): Boolean = counted(addresses).any { (a, _) -> a.costLots.isNotEmpty() }
+    fun hasCountedLots(addresses: List<WatchedAddress>, cutoffMillis: Long? = null): Boolean =
+        counted(addresses).any { (a, _) ->
+            if (cutoffMillis == null) a.costLots.isNotEmpty()
+            else a.costLots.any { it.time <= cutoffMillis } && observedBy(a, cutoffMillis)
+        }
+
+    /** Hat eine Reihe der Adresse ([AddressBalanceHistory.of]) eine Beobachtung ≤ [cutoffMillis]? */
+    private fun observedBy(a: WatchedAddress, cutoffMillis: Long): Boolean =
+        AddressBalanceHistory.of(listOf(a)).any { h ->
+            AddressBalanceHistory.clean(h.observations).firstOrNull()?.let { it.time <= cutoffMillis } == true
+        }
 
     /** Ergebnis von [cover] für einen Coin einer Adresse. */
     data class Coverage(

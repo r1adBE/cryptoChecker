@@ -60,9 +60,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">When %1$s</string>
     <string name="alarm_template_a11y">Create alert: %1$s</string>
-    <string name="alarm_template_a11y_down">Create alert at minus %1$s percent</string>
-    <string name="alarm_template_a11y_up">Create alert at plus %1$s percent</string>
-    <string name="alarm_template_created">Alert created</string>
+    <string name="alarm_template_a11y_down">Create alert at minus %1$s percent from the current price</string>
+    <string name="alarm_template_a11y_up">Create alert at plus %1$s percent from the current price</string>
+    <string name="alarm_template_from_now">from now</string>
     <string name="alarm_template_volume">Volume ×%1$s</string>
     <string name="alarm_templates_title">Quick alerts</string>
 

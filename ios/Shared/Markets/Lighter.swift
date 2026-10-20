@@ -35,7 +35,8 @@ final class Lighter: Market {
     override func tickerAddress(call: Int, info: PairQuery) -> String { lighterStats }
 
     /// Unbekanntes Symbol oder Kurs 0 (nie gehandelt, abgelaufener Binärmarkt): Fehler statt Kurs 0, damit «nicht
-    /// mehr gehandelt» bestätigt werden kann (NotTraded).
+    /// mehr gehandelt» bestätigt werden kann (NotTraded). Kurs 0 meldet `JSONError.noData` (gültige Antwort ohne Kurs):
+    /// Ein eigener Text galt als Lesefehler, bestätigte nie und blieb ein Dauerfehler. Wie Android.
     override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
         let symbol = Lighter.symbol(of: info)
         let rows = try json.array("order_book_stats").optObjects()
@@ -43,7 +44,7 @@ final class Lighter: Market {
             throw JSONError(message: "Unknown symbol: \(symbol)")
         }
         if BulkTickerRows.inactivePrice(row, "last_trade_price") {
-            throw JSONError(message: "No price: \(symbol)")
+            throw JSONError(message: JSONError.noData)
         }
         try Lighter.copyRow(row, into: &ticker)
     }

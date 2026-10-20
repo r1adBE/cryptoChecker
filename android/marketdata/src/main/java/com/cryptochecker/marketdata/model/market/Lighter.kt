@@ -51,7 +51,8 @@ class Lighter : Market("Lighter", "Lighter") {
 
     /**
      * Unbekanntes Symbol oder Kurs 0 (nie gehandelt, abgelaufener Binärmarkt): Fehler statt Kurs 0, damit
-     * «nicht mehr gehandelt» bestätigt werden kann (NotTraded).
+     * «nicht mehr gehandelt» bestätigt werden kann (NotTraded). Kurs 0 meldet [MarketParseException.NO_DATA] (gültige
+     * Antwort ohne Kurs): Ein eigener Text galt als Lesefehler, bestätigte nie und blieb ein Dauerfehler.
      */
     override fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) {
         val symbol = symbolOf(info)
@@ -60,7 +61,7 @@ class Lighter : Market("Lighter", "Lighter") {
             if (row == null && entry.optText("symbol") == symbol) row = entry
         }
         val found = row ?: throw MarketParseException("Unknown symbol: $symbol")
-        if (BulkTickerRows.inactivePrice(found, "last_trade_price")) throw MarketParseException("No price: $symbol")
+        if (BulkTickerRows.inactivePrice(found, "last_trade_price")) throw MarketParseException(MarketParseException.NO_DATA)
         copyRow(found, ticker)
     }
 

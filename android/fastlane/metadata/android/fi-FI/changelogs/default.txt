@@ -1,10 +1,1 @@
-Uutta versiossa 16.2.2
-• Crypto Pulse: mitä nyt tapahtuu
-• ”Huomionarvoista”, ”Mikä liikkuu mukana?” yhteenvedolla
-• Nopea aloitus: top 5 -kolikot, nykyhinnat
-• Pyyhkäise: poista (Kumoa) tai suosikiksi
-• Hinnat ja hälytykset valuutassasi, CSV-vienti
-• Saavutettava: sininen/oranssi, kontrasti, TalkBack
-• Hiljaiset tunnit, testihälytys, hälytys lauseena, salkkulukitus ja -widget
-• Uusia pörssejä, gas-hälytys, kynttilät widgetiin
-• Osakkeet, kulta, valuutat (TradFi); % aikavyöhykkeittäin
+Crypto Checkerin ensimmäinen versio: kurssit suoraan pörssistä, hälytykset laitteella, widgetit – ilman tiliä, ilman mainoksia.

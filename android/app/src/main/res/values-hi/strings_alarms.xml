@@ -60,9 +60,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">जब %1$s</string>
     <string name="alarm_template_a11y">अलार्म बनाएँ: %1$s</string>
-    <string name="alarm_template_a11y_down">माइनस %1$s प्रतिशत पर अलार्म बनाएँ</string>
-    <string name="alarm_template_a11y_up">प्लस %1$s प्रतिशत पर अलार्म बनाएँ</string>
-    <string name="alarm_template_created">अलार्म बनाया गया</string>
+    <string name="alarm_template_a11y_down">मौजूदा भाव से माइनस %1$s प्रतिशत पर अलार्म बनाएँ</string>
+    <string name="alarm_template_a11y_up">मौजूदा भाव से प्लस %1$s प्रतिशत पर अलार्म बनाएँ</string>
+    <string name="alarm_template_from_now">अभी से</string>
     <string name="alarm_template_volume">वॉल्यूम ×%1$s</string>
     <string name="alarm_templates_title">त्वरित अलार्म</string>
 

@@ -58,9 +58,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">%1$s が</string>
     <string name="alarm_template_a11y">アラームを作成：%1$s</string>
-    <string name="alarm_template_a11y_down">マイナス %1$s パーセントでアラームを作成</string>
-    <string name="alarm_template_a11y_up">プラス %1$s パーセントでアラームを作成</string>
-    <string name="alarm_template_created">アラームを作成しました</string>
+    <string name="alarm_template_a11y_down">現在の価格からマイナス %1$s パーセントでアラームを作成</string>
+    <string name="alarm_template_a11y_up">現在の価格からプラス %1$s パーセントでアラームを作成</string>
+    <string name="alarm_template_from_now">現在から</string>
     <string name="alarm_template_volume">出来高 ×%1$s</string>
     <string name="alarm_templates_title">クイックアラーム</string>
 

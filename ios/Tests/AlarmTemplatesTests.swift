@@ -163,4 +163,15 @@ final class AlarmTemplatesTests: XCTestCase {
         // Negativer Abstand bleibt ungültig
         XCTAssertEqual(decide(price: 120, threshold: -1), .idle)
     }
+
+    func testChipReferenceComesFromTheTemplate() throws {
+        // ±1 %/±5 % messen ab dem Kurs beim Anlegen (kein Zeitfenster) → Chip «+5 % · ab jetzt» — wie Android
+        for template in [T.UP_1, .UP_5, .DOWN_1, .DOWN_5] {
+            XCTAssertNil(AlarmTemplates.windowHours(template))
+            XCTAssertNotEqual(try XCTUnwrap(AlarmTemplates.definition(template, currentPrice: 1)).condition, .MOVE_PERCENT_WINDOW)
+        }
+        // Vorlagen ohne Prozentwert haben keinen Bezug im Chip
+        XCTAssertNil(AlarmTemplates.windowHours(.NEW_HIGH_30))
+        XCTAssertNil(AlarmTemplates.windowHours(.VOLUME_X3))
+    }
 }

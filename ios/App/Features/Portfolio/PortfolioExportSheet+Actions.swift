@@ -26,8 +26,11 @@ extension PortfolioExportSheet {
             template, header: base + atNote + [L("tax_export_usdt_usd_note"), L("tax_export_day_close_rule"),
                                                L("tax_export_workpaper_disclaimer")],
             chWealthNote: Self.chWealthNote(year: year))
-        // CH-Vermögen mit Adressen mit Einstand: Hinweiszeile (wie Android)
-        let addressLots = AddressCostLots.hasCountedLots(WatchedAddressStore.loadChecked().file.addresses)
+        // CH-Vermögen mit Adressen mit Einstand am 31.12.: Hinweiszeile (wie Android)
+        let yearEnd = template.period(year).end
+        let addressLots = AddressCostLots.hasCountedLots(
+            WatchedAddressStore.loadChecked().file.addresses,
+            cutoffMillis: CutoffDay(year: yearEnd.year, month: yearEnd.month, day: yearEnd.day).endOfDayMillis(in: template.zone()))
         Task {
             let s: TaxYearSummary
             if let known {
@@ -131,8 +134,8 @@ extension PortfolioExportSheet {
         let watched = WatchedAddressStore.loadChecked()
         let addresses = AddressBalanceHistory.of(watched.file.addresses)
         let addressesUnreadable: Bool = !watched.intact
-        // Zählende Adresse mit Einstand: Hinweiszeile (Umbuchungen zur/von der Adresse evtl. doppelt/fehlend)
-        let addressLots = AddressCostLots.hasCountedLots(watched.file.addresses)
+        // Zählende Adresse mit Einstand am Stichtag: Hinweiszeile (Umbuchungen zur/von der Adresse evtl. doppelt/fehlend)
+        let addressLots = AddressCostLots.hasCountedLots(watched.file.addresses, cutoffMillis: day.endOfDayMillis(in: zone))
         Task {
             let csv = await PortfolioCutoffExporter.build(transactions: txs, day: day, currency: code, texts: texts,
                                                           method: method, addresses: addresses,
