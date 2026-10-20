@@ -19,6 +19,7 @@ Detailed build history below.
 
 * Internal clean-up: string files grouped by topic, unused strings removed, translation check enabled in lint, no change in behaviour.
 * Android watchlist widget: the refresh countdown no longer stays at 0:00 after unlocking – with the screen off the widget shows the refresh symbol straight away, and the redraw at the end of the 15 s lock is retried reliably.
+* Android pair search: results are computed in the background but set on the main thread (fixes an intermittent crash in the device tests).
 
 ## 16.2.2 (build 85)
 

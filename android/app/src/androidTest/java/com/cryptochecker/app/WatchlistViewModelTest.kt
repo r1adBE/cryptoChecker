@@ -128,8 +128,19 @@ class WatchlistViewModelTest {
 
     /** Nächster Stand, der [predicate] erfüllt (frühere werden übersprungen). */
     private suspend fun ReceiveTurbine<WatchlistUiState>.awaitUntil(predicate: (WatchlistUiState) -> Boolean): WatchlistUiState {
+        var last: WatchlistUiState? = null
         while (true) {
-            val state = awaitItem()
+            val state = try {
+                awaitItem()
+            } catch (e: AssertionError) {
+                // Wackelnder Test: im Bericht steht, worauf gewartet wurde (letzter Zustand)
+                throw AssertionError(
+                    "kein passender Zustand; zuletzt loaded=${last?.loaded}, columnSort=${last?.display?.columnSort}, " +
+                        "Paare=${last?.watches?.size}, gespeichert=${settingsRepository.cached.watchlistColumnSort}",
+                    e,
+                )
+            }
+            last = state
             if (predicate(state)) return state
         }
     }

@@ -116,7 +116,9 @@ internal fun ExplorerViewModel.runSearch() {
     val alphaNames = coinLogoRepository.alphaNames.value
     searchJob = viewModelScope.launch {
         delay(SEARCH_DEBOUNCE_MS)
-        withContext(Dispatchers.Default) {
+        // Rechnen im Hintergrund, Ergebnis auf dem Hauptthread setzen: Zustände nur von dort ändern
+        // (sonst kann Compose im Test auf einem Hintergrund-Thread neu zusammensetzen – Absturz «multithreaded access»)
+        val result = withContext(Dispatchers.Default) {
             val pairNames = markets.associate { it.key to tokenIdentityStore.marketNames(it.key) }
             val foundCoins = CoinSearch.coins(
                 text, markets, pairsByMarket,
@@ -141,14 +143,23 @@ internal fun ExplorerViewModel.runSearch() {
             val coinPairs = picked?.let {
                 CoinSearch.pairsFor(it, markets, pairsByMarket, preference, scope, hidden, alphaSymbols, alphaNames, pairNames)
             }.orEmpty()
-            ensureActive()
-            coinHitList.value = foundCoins
-            pairHitsShown.value = showPairs
-            pairHitList.value = foundPairs
-            chosenCoinPairList.value = coinPairs
+            SearchResult(foundCoins, showPairs, foundPairs, coinPairs)
         }
+        ensureActive()
+        coinHitList.value = result.coins
+        pairHitsShown.value = result.showPairs
+        pairHitList.value = result.pairs
+        chosenCoinPairList.value = result.coinPairs
     }
 }
+
+/** Ergebnis einer Suche, im Hintergrund gerechnet ([runSearch]). */
+private data class SearchResult(
+    val coins: List<CoinHit>,
+    val showPairs: Boolean,
+    val pairs: List<SearchHit>,
+    val coinPairs: List<SearchHit>,
+)
 
 /**
  * Vorschlag der Coin-Suche: Start-Börse der Region (bei Standort-Sperre Binance.US, wie die Start-Merkliste),
