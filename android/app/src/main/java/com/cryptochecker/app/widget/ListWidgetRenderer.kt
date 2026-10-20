@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.PowerManager
 import android.os.SystemClock
 import android.util.TypedValue
 import android.view.View
@@ -28,6 +29,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -59,6 +61,7 @@ class ListWidgetRenderer @Inject constructor(
 
     /** Ende der Sperre, für das das Neuzeichnen schon geplant ist (nur einmal je Sperre). */
     @Volatile private var unlockScheduledFor = 0L
+    @Volatile private var unlockJob: Job? = null
 
     /**
      * Nacheinander zeichnen: Läuft beim Speichern der Einrichtung (neue Gruppe) noch ein Zeichnen der
@@ -94,8 +97,11 @@ class ListWidgetRenderer @Inject constructor(
             runningSince = priceRefresher.get().fullRefreshStartedAt,
             now = now,
         )
-        val lockMillis = WidgetRefreshState.remainingMillis(blockedUntil, now)
-        val lockSeconds = WidgetRefreshState.remainingSeconds(blockedUntil, now)
+        // Bildschirm aus: Symbol statt Countdown – niemand sieht ihn, und ein eingefrorener Prozess
+        // zeichnet am Ende der Sperre womöglich nicht neu (Countdown bliebe nach dem Entsperren bei 0:00)
+        val screenOn = context.getSystemService(PowerManager::class.java)?.isInteractive ?: true
+        val lockMillis = WidgetRefreshState.countdownMillis(WidgetRefreshState.remainingMillis(blockedUntil, now), screenOn)
+        val lockSeconds = if (lockMillis > 0) WidgetRefreshState.remainingSeconds(blockedUntil, now) else 0
         if (lockMillis > 0) scheduleUnlock(blockedUntil, now)
 
         // Widgets, deren Zeilen der Dienst liefert: danach neu laden lassen
@@ -222,11 +228,14 @@ class ListWidgetRenderer @Inject constructor(
      * Absicherung (Prozess beendet oder eingefroren) der Wecker [WidgetRefreshUnlock].
      */
     private fun scheduleUnlock(blockedUntil: Long, now: Long) {
-        if (unlockScheduledFor == blockedUntil) return
+        // Nur überspringen, solange das Neuzeichnen für dieses Ende noch aussteht (sonst nie wieder eins)
+        if (unlockScheduledFor == blockedUntil && unlockJob?.isActive == true) return
         unlockScheduledFor = blockedUntil
         WidgetRefreshUnlock.schedule(context, blockedUntil, now)
-        unlockScope.launch {
-            delay((blockedUntil - System.currentTimeMillis()).coerceAtLeast(0))
+        unlockJob?.cancel()
+        unlockJob = unlockScope.launch {
+            // Etwas nach dem Ende: dann ist die Sperre sicher vorbei und es kommt das Symbol, kein «0»
+            delay((blockedUntil - System.currentTimeMillis()).coerceAtLeast(0) + WidgetRefreshState.UNLOCK_SLACK_MILLIS)
             runCatchingCancellable { update(toolkit.ids(PriceWidgetProvider::class.java)) }
                 .onFailure { Timber.w(it, "Listen-Widgets nach der Sperre nicht neu gezeichnet") }
         }

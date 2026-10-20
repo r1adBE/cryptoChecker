@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.SystemClock
+import com.cryptochecker.app.domain.refresh.WidgetRefreshState
 import com.cryptochecker.app.work.ExactCheckScheduler
 import timber.log.Timber
 
@@ -28,7 +29,8 @@ object WidgetRefreshUnlock {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         // Seit dem Start gemessen: unabhängig von einer verstellten Uhr
-        val at = SystemClock.elapsedRealtime() + (blockedUntil - now).coerceAtLeast(0)
+        val at = SystemClock.elapsedRealtime() + (blockedUntil - now).coerceAtLeast(0) +
+            WidgetRefreshState.UNLOCK_SLACK_MILLIS
         runCatching {
             if (!ExactCheckScheduler.canScheduleExact(context)) {
                 alarmManager.set(AlarmManager.ELAPSED_REALTIME, at, pending)

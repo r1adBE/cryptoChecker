@@ -18,6 +18,7 @@ Detailed build history below.
 ## 16.2.2 (build 86)
 
 * Internal clean-up: string files grouped by topic, unused strings removed, translation check enabled in lint, no change in behaviour.
+* Android watchlist widget: the refresh countdown no longer stays at 0:00 after unlocking – with the screen off the widget shows the refresh symbol straight away, and the redraw at the end of the 15 s lock is retried reliably.
 
 ## 16.2.2 (build 85)
 

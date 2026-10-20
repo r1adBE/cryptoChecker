@@ -2144,6 +2144,11 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Watchlist widget refresh lock (build 86): Android draws the countdown (Chronometer) only with the screen on
+  (`WidgetRefreshState.countdownMillis`); drawn with the screen off it shows the symbol at once, since a frozen
+  process may miss the redraw at the end of the lock. The redraw runs 300 ms after the end (`UNLOCK_SLACK_MILLIS`,
+  in-process and as the alarm fallback) and is planned again whenever the previous one has already run. iOS needs
+  no change: a timeline entry at the end of the lock brings the symbol back.
 * Reference data: `bip32_fuzz.json` (1,000 random xpub/ypub/zpub leaves with all four address types, 74
   point-arithmetic edge cases, 12 invalid keys; generator `android/tools/gen_bip32_vectors.py`, cross-checked with
   OpenSSL via Python `cryptography`) and `argon2_random.json` (20 random cases) on both platforms.
