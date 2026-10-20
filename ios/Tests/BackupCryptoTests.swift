@@ -336,4 +336,87 @@ final class BackupLimitsTests: XCTestCase {
         // Menge zu gross bzw. zu fein → ungültig; ungültiger Preis bzw. Gebühr → Eintrag gilt ohne
         XCTAssertEqual(try BackupManager.invalidEntries(Data(json.utf8)), 2)
     }
+
+    /// Wie `BackupLimitsTest.kt`: nie eine Datei schreiben, die sich danach nicht mehr einlesen lässt.
+    func testBackupLargerThanTheReadLimitIsNotWritten() throws {
+        try BackupLimits.checkWritable(Data(count: 10), max: 10)
+        XCTAssertThrowsError(try BackupLimits.checkWritable(Data(count: 11), max: 10)) { error in
+            guard case BackupLimits.Failure.exportTooLarge = error else { return XCTFail("\(error)") }
+        }
+        // Schreiben und Lesen mit derselben Grenze, gleich wie Android (`BackupLimits.MAX_BYTES`)
+        XCTAssertEqual(BackupLimits.maxBytes, 64 * 1024 * 1024)
+    }
+
+    /// Seit Build 92 kompakt (kein `.prettyPrinted`), Schlüssel weiter sortiert; das Einlesen nimmt die Datei an.
+    func testBackupIsWrittenCompactAndReadBack() throws {
+        let root: [String: Any] = [
+            "format": BackupManager.format, "version": BackupManager.version,
+            "watches": [["id": 7, "note": "zwei\nZeilen"]], "alarms": [],
+        ]
+        let data = try BackupManager.encode(root)
+        let text = String(decoding: data, as: UTF8.self)
+        XCTAssertFalse(text.contains("\n"))
+        XCTAssertFalse(text.contains("  "))
+        XCTAssertTrue(text.hasPrefix(#"{"alarms":[],"format":"cryptochecker-backup""#))
+        XCTAssertFalse(try BackupManager.needsPassword(data))
+        XCTAssertEqual(try BackupManager.plainJSON(data, password: nil), data)
+        XCTAssertEqual(try BackupManager.invalidEntries(data), 0)
+    }
+
+    /// Eingerückte Sicherung bis Build 91 (iOS `.prettyPrinted`, Android `toString(2)`) liest sich weiter.
+    func testIndentedBackupUpToBuild91IsStillRead() throws {
+        let indented = Data(#"""
+        {
+          "alarms" : [
+
+          ],
+          "format" : "cryptochecker-backup",
+          "version" : 1,
+          "watches" : [
+            {
+              "baseAsset" : "BTC",
+              "id" : 3,
+              "marketKey" : "binance",
+              "quoteAsset" : "USDT"
+            }
+          ]
+        }
+        """#.utf8)
+        XCTAssertFalse(try BackupManager.needsPassword(indented))
+        XCTAssertEqual(try BackupManager.plainJSON(indented, password: nil), indented)
+        XCTAssertEqual(try BackupManager.invalidEntries(indented), 0)
+    }
+}
+
+/// Zurückrollen eines abgebrochenen Wiederherstellens beim Start (`BackupManager.recoverInterruptedRestore`): Journal nur
+/// löschen, wenn erledigt oder nie zurückrollbar — wie Android `BackupManager.recoverInterruptedRestore`.
+final class RestoreRecoveryTests: XCTestCase {
+    private struct Boom: Error {}
+
+    func testJournalIsKeptWhenRollBackFailedWhileWriting() {
+        var deleted = false
+        var notices: [Bool] = []
+        BackupManager.finishRecovery(.incomplete, deleteJournal: { deleted = true }, notice: { notices.append($0) })
+        // Journal bleibt für den nächsten Start, der Hinweis «nicht vollständig» kommt trotzdem
+        XCTAssertFalse(deleted)
+        XCTAssertEqual(notices, [false])
+    }
+
+    func testJournalIsDeletedAfterRollBackOrWhenUnreadable() {
+        var deleted = 0
+        var notices: [Bool] = []
+        BackupManager.finishRecovery(.rolledBack, deleteJournal: { deleted += 1 }, notice: { notices.append($0) })
+        BackupManager.finishRecovery(.unreadable, deleteJournal: { deleted += 1 }, notice: { notices.append($0) })
+        XCTAssertEqual(deleted, 2)
+        XCTAssertEqual(notices, [true, false])
+    }
+
+    func testFailureWhileWritingIsIncompleteOtherwiseUnreadable() {
+        XCTAssertEqual(BackupManager.recoveryOutcome(failure: BackupManager.Failure.invalid("portfolio")), .incomplete)
+        XCTAssertEqual(BackupManager.recoveryOutcome(failure: BackupManager.Failure.invalid(WatchedAddressRules.backupKey)), .incomplete)
+        // Schon beim Lesen gescheitert: nie zurückrollbar
+        XCTAssertEqual(BackupManager.recoveryOutcome(failure: BackupManager.Failure.notABackup), .unreadable)
+        XCTAssertEqual(BackupManager.recoveryOutcome(failure: BackupManager.Failure.invalid("watches")), .unreadable)
+        XCTAssertEqual(BackupManager.recoveryOutcome(failure: Boom()), .unreadable)
+    }
 }

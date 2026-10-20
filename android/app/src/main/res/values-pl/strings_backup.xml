@@ -9,7 +9,8 @@
     <string name="backup_hint">Zapisuje listę z notatkami i grupami, alarmy, ulubione, portfel i ustawienia w pliku, który przechowujesz sam – np. na nowy telefon.</string>
     <string name="backup_import">Importuj</string>
     <string name="backup_title">Kopia zapasowa</string>
-    <string name="backup_too_large">Plik jest za duży lub nie jest prawidłową kopią (maks. 16 MB).</string>
+    <string name="backup_too_large">Plik jest za duży lub nie jest prawidłową kopią (maks. 64 MB).</string>
+    <string name="backup_export_too_large">Kopia przekroczyłaby 64 MB i nie dałoby się jej przywrócić, dlatego nie została zapisana.</string>
 
     <!-- Passwort der Sicherungsdatei -->
     <string name="backup_password">Hasło</string>
@@ -32,8 +33,8 @@
     <string name="backup_plain_confirm">Zapisz bez hasła</string>
     <string name="backup_plain_confirm_text">Plik nie jest zaszyfrowany. Każdy, kto go dostanie, może przeczytać:</string>
     <string name="backup_plain_confirm_title">Zapisać bez hasła?</string>
-    <string name="backup_plain_contents_addresses">Zapisane adresy walletów i klucze xpub</string>
-    <string name="backup_plain_contents_base">Lista obserwowanych z notatkami i grupami, alarmy, ulubione i ustawienia</string>
+    <string name="backup_plain_contents_addresses">Zapisane adresy walletów i klucze xpub z historią sald i kosztem nabycia</string>
+    <string name="backup_plain_contents_base">Lista obserwowanych z notatkami, grupami i posiadanymi ilościami, alarmy, ulubione i ustawienia</string>
     <string name="backup_plain_contents_portfolio">Portfel: transakcje z ilościami i cenami</string>
     <string name="backup_restore_app_lock_kept">Blokada portfela pozostaje włączona – niezaszyfrowana kopia nie może jej wyłączyć.</string>
     <string name="backup_restore_confirm">Import zastąpi Twoją listę (z notatkami i grupami), alarmy, ulubione, portfel i ustawienia kopią.</string>
@@ -88,6 +89,7 @@
     <string name="alarm_save_storage_locked">Alarmów nie można teraz zapisać – zapisana lista jest zablokowana. Uruchom aplikację ponownie.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">Kopia zapasowa nie jest teraz możliwa: zapisanych danych nie można w tej chwili odblokować. Uruchom aplikację ponownie i spróbuj jeszcze raz.</string>
+    <string name="backup_restore_storage_in_memory">Import nie jest teraz możliwy: aplikacja w tej chwili nie zapisuje danych (szyfrowanie nie jest jeszcze aktywne), więc import przepadłby po ponownym uruchomieniu. Uruchom aplikację ponownie i spróbuj jeszcze raz.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Szyfrowanie nie jest jeszcze aktywne – portfel nie jest zapisywany, a zmiany przepadną po zamknięciu aplikacji. Aplikacja spróbuje ponownie przy następnym uruchomieniu.</string>

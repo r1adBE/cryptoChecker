@@ -18,6 +18,8 @@ struct PortfolioTxCostSuggestion: View {
     let interest: Bool
     let entryFiat: Bool
     let template: TaxTemplate
+    /// Dezimalzeichen des Blatts (`PortfolioTxSheet.decimalSeparator`).
+    let decimalSeparator: Character
     @Binding var priceText: String
     @Binding var priceHint: Double?
     @Binding var priceAuto: Bool
@@ -53,7 +55,7 @@ struct PortfolioTxCostSuggestion: View {
                             .font(.subheadline)
                             .foregroundStyle(AppColors.onSurfaceVariant)
                         Button(L("cost_gap_apply")) {
-                            priceText = PriceFormat.exactAmountForInput(c, decimalSeparator: ThresholdParser.localeDecimalSeparator)
+                            priceText = PriceFormat.exactAmountForInput(c, decimalSeparator: decimalSeparator)
                             priceHint = PortfolioDecimal.double(c)
                             priceAuto = false
                             priceHistoricDay = PortfolioFormat.date(millis)

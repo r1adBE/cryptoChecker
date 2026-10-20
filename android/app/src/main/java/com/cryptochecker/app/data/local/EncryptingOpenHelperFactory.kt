@@ -19,8 +19,10 @@ import timber.log.Timber
  * - nur im Arbeitsspeicher, wenn eine Datenbank mit Verschlüsselungspflicht ([encryptionRequired]: Portfolio und seit
  *   Build 91 die Merkliste) ohne Schlüssel neu entstehen müsste: nie unverschlüsselt auf dem Speicher, wie iOS (Änderungen
  *   bleiben im Speicher, Portfolio und Merkliste nennen es); der nächste Start versucht es erneut
- *   ([DatabaseEncryptionNotice.inMemory]). Eine schon unverschlüsselt vorhandene Datei mit Pflicht bleibt seit Build 91
- *   unberührt: ihr Inhalt kommt in den Arbeitsspeicher ([PlaintextMemoryCopy]), Änderungen werden nicht gespeichert;
+ *   ([DatabaseEncryptionNotice.inMemory]). Eine schon unverschlüsselt vorhandene Datei mit Pflicht bleibt ohne Schlüssel
+ *   seit Build 91 unberührt: ihr Inhalt kommt in den Arbeitsspeicher ([PlaintextMemoryCopy],
+ *   [DatabaseEncryptionNotice.isVolatileCopy]), Änderungen werden nicht gespeichert (mit Schlüssel, aber gescheiterter
+ *   Überführung: unverschlüsselt weiter wie oben);
  * - gibt der Keystore den Schlüssel einer verschlüsselten Datei gerade nicht heraus: im Vordergrund und für Datenbanken
  *   aus [inMemoryWhenKeyUnavailable] (App: Portfolio und Merkliste) leer im Arbeitsspeicher für diesen Lauf — die
  *   Oberfläche stürzte sonst beim ersten Zugriff ab; die Datei bleibt unberührt, der gespeicherte Stand kommt nach einem
@@ -102,8 +104,9 @@ class EncryptingOpenHelperFactory(
                 }
                 Decision.Plaintext -> FrameworkSQLiteOpenHelperFactory().create(configuration)
                 Decision.PlaintextKept -> {
-                    // Datei mit gespeichertem Stand, aber nie im Klartext weiterschreiben (wie iOS): Hinweis «nicht gespeichert»
-                    DatabaseEncryptionNotice.markInMemory(name)
+                    // Datei mit gespeichertem Stand, aber nie im Klartext weiterschreiben (wie iOS): Hinweis «nicht gespeichert».
+                    // Als Kopie gemerkt: Alarme im Hintergrund warten, bis ein Start die Datei überführt (revertsOnRestart)
+                    DatabaseEncryptionNotice.markInMemory(name, copied = true)
                     inMemoryHelper(copyFrom = configuration.context.getDatabasePath(name))
                 }
                 Decision.Refused -> {

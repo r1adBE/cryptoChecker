@@ -75,6 +75,27 @@ jobs:
           bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
           exit $status
 
+      # Release configuration as archived for the App Store (no DEBUG branches, optimised):
+      # catches compile errors that only show up there before anyone archives on a Mac.
+      - name: Build Release configuration (no signing)
+        working-directory: ios
+        run: |
+          LOG="$RUNNER_TEMP/xcode-build-release.log"
+          set +e
+          xcodebuild build \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Release \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedDataRelease" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            > "$LOG" 2>&1
+          status=$?
+          set -e
+          tail -n 60 "$LOG"
+          bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
+          exit $status
+
       # Simulator for both test steps: "iPhone 17" if the installed Xcode has it, otherwise its
       # first available iPhone.
       - name: Pick iOS Simulator

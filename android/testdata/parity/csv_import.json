@@ -1119,6 +1119,59 @@
       ]
     },
     {
+      "name": "kraken_staking_refid_first",
+      "_comment": "Build 92: Staking-Auszahlung ETH2.S refid AAA, 10 min später Spot-Einzahlung XETH refid BBB, 20 min später Spot-Einzahlung XETH refid AAA — das Paar mit gleicher refid (AAA) wird übersprungen, die Einzahlung BBB gebucht. Vorher nahm das Zeitfenster BBB weg und AAA wurde als Einzahlung gebucht.",
+      "format": "KRAKEN",
+      "csv": "\"txid\",\"refid\",\"time\",\"type\",\"subtype\",\"aclass\",\"asset\",\"wallet\",\"amount\",\"fee\",\"balance\"\n\"L1\",\"AAA\",\"2024-06-01 10:00:00\",\"withdrawal\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"-1.0000000000\",\"0.0000000000\",\"0.0000000000\"\n\"L2\",\"BBB\",\"2024-06-01 10:10:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0000000000\",\"0.0000000000\",\"1.0000000000\"\n\"L3\",\"AAA\",\"2024-06-01 10:20:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0000000000\",\"0.0000000000\",\"2.0000000000\"\n",
+      "rows": [
+        {
+          "line": 3,
+          "kind": "DEPOSIT",
+          "rawKind": "deposit",
+          "coin": "ETH",
+          "amount": "1",
+          "price": null,
+          "quote": null,
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-06-01T10:10:00Z",
+          "externalId": "BBB",
+          "key": "KRAKEN|BBB"
+        }
+      ],
+      "skipped": [
+        {
+          "line": 2,
+          "reason": "UNSUPPORTED_KIND"
+        },
+        {
+          "line": 4,
+          "reason": "UNSUPPORTED_KIND"
+        }
+      ]
+    },
+    {
+      "name": "kraken_staking_window_after_refid",
+      "_comment": "Build 92: Staking-Auszahlung refid AAA ohne Gegenstück, Spot-Einzahlung refid CCC 1 min später, Staking-Auszahlung refid CCC 2 min später — CCC bildet ein Paar (gleiche refid zuerst), AAA bleibt STAKING_UNPAIRED. Vorher nahm AAA die Spot-Zeile über das Zeitfenster, CCC war ohne Gegenstück.",
+      "format": "KRAKEN",
+      "csv": "\"txid\",\"refid\",\"time\",\"type\",\"subtype\",\"aclass\",\"asset\",\"wallet\",\"amount\",\"fee\",\"balance\"\n\"L1\",\"AAA\",\"2024-06-02 10:00:00\",\"withdrawal\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"-1.0000000000\",\"0.0000000000\",\"1.0000000000\"\n\"L2\",\"CCC\",\"2024-06-02 10:01:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0000000000\",\"0.0000000000\",\"1.0000000000\"\n\"L3\",\"CCC\",\"2024-06-02 10:02:00\",\"withdrawal\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"-1.0000000000\",\"0.0000000000\",\"0.0000000000\"\n",
+      "rows": [],
+      "skipped": [
+        {
+          "line": 2,
+          "reason": "STAKING_UNPAIRED"
+        },
+        {
+          "line": 3,
+          "reason": "UNSUPPORTED_KIND"
+        },
+        {
+          "line": 4,
+          "reason": "UNSUPPORTED_KIND"
+        }
+      ]
+    },
+    {
       "name": "generic_utc_fiat",
       "_comment": "Review 13: Kopf «Date(UTC)» = Datumsspalte in UTC; Zeile nur in Fiat (EUR-Einzahlung) = NOT_CRYPTO.",
       "format": "GENERIC",

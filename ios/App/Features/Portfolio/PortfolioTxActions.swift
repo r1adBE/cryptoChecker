@@ -27,7 +27,7 @@ extension PortfolioTxSheet {
             if priceAuto { priceText = ""; priceAuto = false }
         } else if !entryFiat && (priceBlank || priceAuto) {
             priceText = current.map {
-                PriceFormat.exactAmountForInput(PortfolioDecimal.of($0), decimalSeparator: ThresholdParser.localeDecimalSeparator)
+                PriceFormat.exactAmountForInput(PortfolioDecimal.of($0), decimalSeparator: decimalSeparator)
             } ?? ""
             priceAuto = current != nil
         }
@@ -60,7 +60,7 @@ extension PortfolioTxSheet {
         let result = await HistoricPriceSource.dailyCloseUsdt(target, day: day, current: current)
         guard !Task.isCancelled, let close = result.price, close.isFinite, close > 0, priceBlank,
               let exact = PortfolioDecimal.of(close) else { return }
-        priceText = PriceFormat.exactAmountForInput(exact, decimalSeparator: ThresholdParser.localeDecimalSeparator)
+        priceText = PriceFormat.exactAmountForInput(exact, decimalSeparator: decimalSeparator)
         priceHint = close
         priceAuto = false
         priceHistoricDay = PortfolioFormat.date(date.millis)
@@ -80,7 +80,7 @@ extension PortfolioTxSheet {
         guard let current = await model.currentPrice(symbol), current.isFinite, current > 0,
               !Task.isCancelled, feeCoinPriceBlank else { return }
         feeCoinPriceText = PriceFormat.exactAmountForInput(PortfolioDecimal.of(current),
-                                                           decimalSeparator: ThresholdParser.localeDecimalSeparator)
+                                                           decimalSeparator: decimalSeparator)
         feeCoinPriceAuto = true
     }
 
@@ -100,7 +100,7 @@ extension PortfolioTxSheet {
         case .prefill:
             guard !entryFiat, coinValid, coin == pricedCoin, let current = priceHint, current.isFinite, current > 0 else { return }
             priceText = PriceFormat.exactAmountForInput(PortfolioDecimal.of(current),
-                                                        decimalSeparator: ThresholdParser.localeDecimalSeparator)
+                                                        decimalSeparator: decimalSeparator)
             priceAuto = true
         case .keep:
             break
@@ -118,7 +118,7 @@ extension PortfolioTxSheet {
     func switchToUsdt() {
         guard entryFiat else { return }
         if fiatActive {
-            let sep = ThresholdParser.localeDecimalSeparator
+            let sep = decimalSeparator
             priceText = price.map { PriceFormat.exactAmountForInput(Self.roundForInput($0), decimalSeparator: sep) } ?? ""
             swapValueText = swapValue.map { PriceFormat.exactAmountForInput(Self.roundForInput($0), decimalSeparator: sep) } ?? ""
             priceAuto = false
@@ -153,8 +153,9 @@ extension PortfolioTxSheet {
             entryFiat = false
             return
         }
-        priceText = Self.convertEntry(priceText, hint: priceHint) { PortfolioTxForm.usdtToFiat($0, usdToFiat: rate) }
-        swapValueText = Self.convertEntry(swapValueText, hint: nil) { PortfolioTxForm.usdtToFiat($0, usdToFiat: rate) }
+        let sep = decimalSeparator
+        priceText = Self.convertEntry(priceText, hint: priceHint, separator: sep) { PortfolioTxForm.usdtToFiat($0, usdToFiat: rate) }
+        swapValueText = Self.convertEntry(swapValueText, hint: nil, separator: sep) { PortfolioTxForm.usdtToFiat($0, usdToFiat: rate) }
         priceAuto = false
         priceHistoricDay = nil
     }
@@ -193,8 +194,8 @@ extension PortfolioTxSheet {
     }
 
     /// Feldtext in die andere Währung umrechnen; leer bzw. unlesbar bleibt, wie es ist.
-    private static func convertEntry(_ text: String, hint: Double?, _ convert: (Decimal) -> Decimal?) -> String {
-        let sep = ThresholdParser.localeDecimalSeparator
+    private static func convertEntry(_ text: String, hint: Double?, separator sep: Character,
+                                     _ convert: (Decimal) -> Decimal?) -> String {
         guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
               let value = PriceFormat.parseDecimalAmount(text, decimalSeparator: sep, priceHint: hint),
               let converted = convert(value) else { return text }

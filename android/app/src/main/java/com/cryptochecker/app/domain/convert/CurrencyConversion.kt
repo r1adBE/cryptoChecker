@@ -15,6 +15,12 @@ object CurrencyConversion {
         /** Fiat-Währung mit Devisenkurs (z. B. EUR, JPY). */
         FIAT,
 
+        /**
+         * Echte Fiat-Währung ohne Devisenkurs in der App ([KNOWN_FIAT], z. B. NGN, ARS): keine Umrechnung — nie als Krypto
+         * über einen USDT-Kurs (NGNUSDT gibt es nicht bzw. wäre ein falscher Kurs).
+         */
+        FIAT_UNSUPPORTED,
+
         /** Alles andere gilt als Krypto (z. B. BTC, ETH) und wird über USDT bewertet. */
         CRYPTO,
 
@@ -31,6 +37,21 @@ object CurrencyConversion {
     val USD_STABLES: Set<String> = setOf(
         "USD", "USDT", "USDC", "FDUSD", "BUSD", "DAI", "TUSD", "USDE", "USD1",
         "RLUSD", "PYUSD", "USDP", "GUSD",
+    )
+
+    /**
+     * Weitere Fiat-Währungen nach ISO 4217, für die die App keinen Devisenkurs hat ([FIAT_UNSUPPORTED]); die mit Kurs
+     * stehen in `FxRateSource.CURRENCIES`. Ohne Kürzel, die zugleich ein bekannter Coin sind (ALL, BOB, ERN, MNT, SCR,
+     * SOS, TOP) — dort bliebe die Bewertung als Krypto richtig. Gleiche Liste wie iOS `CurrencyConversion.knownFiat`.
+     */
+    val KNOWN_FIAT: Set<String> = setOf(
+        "AED", "AFN", "AMD", "ANG", "AOA", "ARS", "AWG", "AZN", "BAM", "BBD", "BDT", "BHD", "BIF", "BMD", "BND", "BSD",
+        "BTN", "BWP", "BYN", "BZD", "CDF", "CLP", "COP", "CRC", "CUP", "CVE", "DJF", "DOP", "DZD", "EGP", "ETB", "FJD",
+        "GEL", "GHS", "GMD", "GNF", "GTQ", "GYD", "HNL", "HTG", "IQD", "IRR", "JMD", "JOD", "KES", "KGS", "KHR", "KMF",
+        "KWD", "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LSL", "LYD", "MAD", "MDL", "MGA", "MKD", "MMK", "MOP", "MRU",
+        "MUR", "MVR", "MWK", "MZN", "NAD", "NGN", "NIO", "NPR", "OMR", "PAB", "PEN", "PGK", "PKR", "PYG", "QAR", "RSD",
+        "RUB", "RWF", "SAR", "SBD", "SDG", "SLE", "SRD", "SSP", "SVC", "SYP", "SZL", "TJS", "TMT", "TND", "TTD", "TWD",
+        "TZS", "UAH", "UGX", "UYU", "UZS", "VES", "VND", "VUV", "WST", "XAF", "XCD", "XOF", "XPF", "YER", "ZMW", "ZWL",
     )
 
     fun normalize(code: String?): String = code?.trim()?.uppercase().orEmpty()
@@ -54,12 +75,16 @@ object CurrencyConversion {
         return x.isNotEmpty() && x == normalize(b)
     }
 
-    /** Einordnung von [quote]; [fiat] = Währungen mit Devisenkurs (FxRateSource.CURRENCIES). */
+    /**
+     * Einordnung von [quote]; [fiat] = Währungen mit Devisenkurs (FxRateSource.CURRENCIES), übrige echte Fiat-Währungen
+     * ([KNOWN_FIAT]) ohne Umrechnung.
+     */
     fun classify(quote: String?, fiat: Collection<String>): QuoteKind {
         val code = normalize(quote)
         if (code.isEmpty() || code.length > 15 || !code.all { it.isLetterOrDigit() }) return QuoteKind.INVALID
         if (code in USD_STABLES) return QuoteKind.USD
         if (fiat.any { it.equals(code, ignoreCase = true) }) return QuoteKind.FIAT
+        if (code in KNOWN_FIAT) return QuoteKind.FIAT_UNSUPPORTED
         return QuoteKind.CRYPTO
     }
 
@@ -114,7 +139,7 @@ object CurrencyConversion {
 
     /**
      * Wert einer Einheit der Quote-Währung in USD.
-     * @param usdToQuote Einheiten der Quote-Währung je USD (nur bei FIAT nötig)
+     * @param usdToQuote Einheiten der Quote-Währung je USD (nur bei FIAT nötig; FIAT_UNSUPPORTED immer null)
      * @param cryptoUsdt Kurs der Quote-Währung in USDT (bei CRYPTO nötig; bei USD = Marktkurs des
      *   Stablecoins, ohne gültigen Kurs null — siehe [stableToUsd])
      * @param code Kürzel der Quote-Währung (nur bei USD: USD ist immer genau 1, USDT siehe [stableToUsd])
@@ -131,7 +156,7 @@ object CurrencyConversion {
         QuoteKind.USD -> stableToUsd(code, cryptoUsdt, usdtUsd)
         QuoteKind.FIAT -> usdToQuote?.takeIf { it.isValidRate() }?.let { 1.0 / it }
         QuoteKind.CRYPTO -> cryptoUsdt?.takeIf { it.isValidRate() }?.let { it * usdtFactor(usdtUsd) }
-        QuoteKind.INVALID -> null
+        QuoteKind.FIAT_UNSUPPORTED, QuoteKind.INVALID -> null
     }
 
     /**

@@ -9,7 +9,8 @@
     <string name="backup_hint">Lưu danh sách kèm ghi chú và nhóm, cảnh báo, yêu thích, danh mục và cài đặt vào tệp do bạn giữ – vd. cho điện thoại mới.</string>
     <string name="backup_import">Nhập</string>
     <string name="backup_title">Sao lưu &amp; khôi phục</string>
-    <string name="backup_too_large">Tệp quá lớn hoặc không phải bản sao lưu hợp lệ (tối đa 16 MB).</string>
+    <string name="backup_too_large">Tệp quá lớn hoặc không phải bản sao lưu hợp lệ (tối đa 64 MB).</string>
+    <string name="backup_export_too_large">Bản sao lưu sẽ lớn hơn 64 MB và không thể khôi phục, nên chưa được lưu.</string>
 
     <!-- Passwort der Sicherungsdatei -->
     <string name="backup_password">Mật khẩu</string>
@@ -32,8 +33,8 @@
     <string name="backup_plain_confirm">Lưu không mật khẩu</string>
     <string name="backup_plain_confirm_text">Tệp không được mã hóa. Bất kỳ ai có tệp đều đọc được:</string>
     <string name="backup_plain_confirm_title">Lưu không mật khẩu?</string>
-    <string name="backup_plain_contents_addresses">Địa chỉ ví và khóa xpub đã lưu</string>
-    <string name="backup_plain_contents_base">Danh sách theo dõi kèm ghi chú và nhóm, cảnh báo, mục yêu thích và cài đặt</string>
+    <string name="backup_plain_contents_addresses">Địa chỉ ví và khóa xpub đã lưu, kèm lịch sử số dư và giá vốn</string>
+    <string name="backup_plain_contents_base">Danh sách theo dõi kèm ghi chú, nhóm và số lượng nắm giữ, cảnh báo, mục yêu thích và cài đặt</string>
     <string name="backup_plain_contents_portfolio">Danh mục: giao dịch kèm số lượng và giá</string>
     <string name="backup_restore_app_lock_kept">Khóa danh mục vẫn bật – bản sao lưu không mã hóa không thể tắt nó.</string>
     <string name="backup_restore_confirm">Nhập sẽ thay danh sách (kèm ghi chú và nhóm), cảnh báo, yêu thích, danh mục và cài đặt bằng bản sao lưu.</string>
@@ -79,6 +80,7 @@
     <string name="alarm_save_storage_locked">Hiện không thể lưu cảnh báo – danh sách đã lưu đang bị khóa. Hãy khởi động lại ứng dụng.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">Hiện không thể sao lưu: dữ liệu đã lưu tạm thời không mở khóa được. Hãy khởi động lại ứng dụng và thử lại.</string>
+    <string name="backup_restore_storage_in_memory">Hiện không thể nhập: ứng dụng tạm thời không lưu dữ liệu (mã hóa chưa hoạt động), nên dữ liệu nhập sẽ mất khi khởi động lại. Hãy khởi động lại ứng dụng và thử lại.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Mã hóa chưa được bật – danh mục không được lưu, các thay đổi sẽ mất khi đóng ứng dụng. Ứng dụng sẽ thử lại ở lần khởi động tới.</string>

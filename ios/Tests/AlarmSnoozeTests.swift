@@ -86,6 +86,45 @@ final class AlarmSnoozeTests: XCTestCase {
         }
     }
 
+    /// «1 h später» auf dem gespeicherten Stand: Hat Widget oder Hintergrund die Kursmarke inzwischen ausgelöst
+    /// (aus, Marke gesetzt), schaltet die Pause sie trotzdem wieder ein und stellt sie scharf — gleich wie der Schalter.
+    func testRearmOnDiskSnapshotReenablesTriggeredPriceLevel() {
+        var snapshot = SharedStorage.Snapshot()
+        snapshot.alarms = [
+            Alarm(id: 1, watchId: 9, condition: .PRICE_ABOVE, threshold: 100, enabled: false,
+                  referencePrice: 101, lastTriggeredAt: 5_000, lastTriggeredPrice: 101, referenceAt: 5_000),
+            Alarm(id: 2, watchId: 9, condition: .CHANGE_PERCENT_UP, threshold: 5, enabled: false, referenceAt: 5_000),
+        ]
+        XCTAssertTrue(AlarmSnooze.rearm(1, in: &snapshot))
+        XCTAssertTrue(snapshot.alarms[0].enabled)
+        XCTAssertEqual(snapshot.alarms[0].referenceAt, 0)
+        XCTAssertNil(snapshot.alarms[0].referencePrice)
+        // Letzte Auslösung bleibt (Abklingzeit, Protokoll) — wie beim Einschalten in der Liste
+        XCTAssertEqual(snapshot.alarms[0].lastTriggeredAt, 5_000)
+        XCTAssertEqual(snapshot.alarms[0], AlarmEdit.settingEnabled(Alarm(id: 1, watchId: 9, condition: .PRICE_ABOVE,
+            threshold: 100, enabled: false, referencePrice: 101, lastTriggeredAt: 5_000, lastTriggeredPrice: 101,
+            referenceAt: 5_000), true))
+        // Keine Kursmarke bzw. gelöscht: nichts ändern
+        XCTAssertFalse(AlarmSnooze.rearm(2, in: &snapshot))
+        XCTAssertFalse(snapshot.alarms[1].enabled)
+        XCTAssertFalse(AlarmSnooze.rearm(3, in: &snapshot))
+    }
+
+    /// Ausschalten lässt Bezug und Marke stehen; Einschalten stellt nur die Bedingungen mit Marke neu scharf.
+    func testSettingEnabledRearmsOnlyOnEnable() {
+        let alarm = Alarm(id: 1, watchId: 9, condition: .PRICE_BELOW, threshold: 100, referencePrice: 99, referenceAt: 7)
+        let off = AlarmEdit.settingEnabled(alarm, false)
+        XCTAssertFalse(off.enabled)
+        XCTAssertEqual(off.referenceAt, 7)
+        XCTAssertEqual(off.referencePrice, 99)
+        let move = Alarm(id: 2, watchId: 9, condition: .MOVE_PERCENT_WINDOW, threshold: 3, enabled: false,
+                         referencePrice: 50, referenceAt: 7)
+        let on = AlarmEdit.settingEnabled(move, true)
+        XCTAssertTrue(on.enabled)
+        XCTAssertEqual(on.referenceAt, 7)
+        XCTAssertEqual(on.referencePrice, 50)
+    }
+
     func testAlarmEditTarget() throws {
         let target = AlarmEditTarget.of(watchId: 12, alarmId: 345)
         XCTAssertEqual(target, "alarm/12/345")

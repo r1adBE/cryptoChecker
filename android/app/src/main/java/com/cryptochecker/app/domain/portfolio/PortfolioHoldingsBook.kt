@@ -11,7 +11,9 @@ import java.math.BigDecimal
  *  - FIFO je Wallet: je Wallet ein Topf ([PortfolioWallets]). Abgänge (Verkauf, Tausch, Auszahlung, Gebühr-Abgang,
  *    Netzwerkgebühr) sind auf den Bestand DIESER Wallet gekappt — der Rest ist ungedeckt und wird NICHT aus anderen
  *    Wallets genommen; eine Umbuchung verschiebt (zuerst die Netzwerkgebühr, dann die Menge; was fehlt, kommt nicht
- *    an). Adress-Einträge ([AddressBalance.isAddressTrade]) liegen in einem eigenen Topf.
+ *    an). Adress-Teile ohne Einstand ([AddressBalance.isAddressPart]) liegen in einem eigenen Topf; Eröffnungsposten
+ *    ([AddressCostLots.isLotTrade]) liegen wie in [PortfolioFifo] in ihrer Wallet (der Adresse), sonst bliebe ein
+ *    Abgang aus dieser Wallet (Verkauf dort, Umbuchung weg) ungedeckt und der Posten zählte weiter.
  * [capFor] = Bestand, auf den [PortfolioLedger.flow] die Abgänge eines Schritts kappt (`holdingsBefore`).
  */
 class PortfolioHoldingsBook(val method: CostMethod = CostMethod.DEFAULT) {
@@ -22,7 +24,7 @@ class PortfolioHoldingsBook(val method: CostMethod = CostMethod.DEFAULT) {
     private val perWallet: Boolean get() = method == CostMethod.FIFO_WALLET
 
     private fun walletKey(e: PortfolioLedgerEvent, raw: String?): String =
-        if (AddressBalance.isAddressTrade(e.trade.id)) ADDRESS_POT else PortfolioWallets.key(raw)
+        if (AddressBalance.isAddressPart(e.trade.id)) ADDRESS_POT else PortfolioWallets.key(raw)
 
     private fun held(key: String): BigDecimal = wallets[key] ?: BigDecimal.ZERO
 
@@ -79,7 +81,7 @@ class PortfolioHoldingsBook(val method: CostMethod = CostMethod.DEFAULT) {
     }
 
     private companion object {
-        /** Eigener Topf der Adress-Einträge (kein gültiger Wallet-Schlüssel). */
+        /** Eigener Topf der Adress-Teile ohne Einstand (kein gültiger Wallet-Schlüssel). */
         const val ADDRESS_POT = "\u0000address"
     }
 }

@@ -14,7 +14,8 @@ import javax.inject.Singleton
  * Quote → USD: Stablecoins mit Marktkurs ([CurrencyConversion.stableToUsd]: USD/USDT 1, andere
  * ihr Marktkurs in USDT von der [PortfolioPriceSource] — ohne Kurs kein Faktor, wie die
  * Portfolio-Regel [com.cryptochecker.app.domain.portfolio.PortfolioStables]), Fiat über [FxRateSource],
- * alles andere als Krypto über den USDT-Kurs der [PortfolioPriceSource]. Danach USD → Ziel über
+ * echte Fiat-Währungen ohne Devisenkurs ([CurrencyConversion.KNOWN_FIAT]) ohne Faktor, alles andere als Krypto über
+ * den USDT-Kurs der [PortfolioPriceSource]. Danach USD → Ziel über
  * [FxRateSource]. Beide Quellen haben eigene Zwischenspeicher; Alter der Devisenkurse: [staleFxTime]. Krypto- und
  * Stablecoin-Kurse älter als [CurrencyConversion.QUOTE_MAX_AGE_MILLIS] ergeben keinen Faktor ([freshMarket]).
  * USDT zum Marktkurs (Owner-Entscheid Okt. 2026): USDT und alles, was über USDT bewertet wird, × Live-Kurs USDT/USD
@@ -72,7 +73,7 @@ class CurrencyConverter @Inject constructor(
             QuoteKind.USD -> CurrencyConversion.quoteToUsd(kind, null, stableMarket(from), from, liveUsdtUsd())
             QuoteKind.FIAT -> CurrencyConversion.quoteToUsd(kind, fxRateSource.cached(from), null)
             QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(kind, null, freshMarket(priceSource.cached(listOf(from)), from), usdtUsd = liveUsdtUsd())
-            QuoteKind.INVALID -> null
+            QuoteKind.FIAT_UNSUPPORTED, QuoteKind.INVALID -> null
         }
         val usdToTarget = when (classify(to)) {
             QuoteKind.USD -> usdToStable(to)
@@ -179,7 +180,7 @@ class CurrencyConverter @Inject constructor(
             QuoteKind.FIAT -> CurrencyConversion.quoteToUsd(kind, fxRateSource.usdTo(code), null)
             // Höchstens 15 min alt: scheitert die Abfrage, bleibt sonst der letzte Kurs beliebig lange stehen
             QuoteKind.CRYPTO -> CurrencyConversion.quoteToUsd(kind, null, freshMarket(priceSource.prices(listOf(code)), code), usdtUsd = liveUsdtUsd())
-            QuoteKind.INVALID -> null
+            QuoteKind.FIAT_UNSUPPORTED, QuoteKind.INVALID -> null
         }
     }
 }

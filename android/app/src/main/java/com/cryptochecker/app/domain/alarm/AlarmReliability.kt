@@ -9,10 +9,20 @@ package com.cryptochecker.app.domain.alarm
 object AlarmReliability {
 
     /**
-     * Letzte Prüfung im Hintergrund älter als das: Warnung. Strenger als die Seite ([AlarmReadiness.STALE_CHECK_MILLIS],
+     * Android: Letzte Prüfung im Hintergrund älter als das: Warnung. Strenger als die Seite ([AlarmReadiness.STALE_CHECK_MILLIS],
      * 6 h): Die Zeile soll früh zeigen, dass Alarme gerade nicht geprüft werden — bei 15-Min.-Takt sind 2 h klar zu viel.
      */
     const val STALE_MILLIS = 2L * 60 * 60_000
+
+    /**
+     * iOS: gleiche Grenze wie die Seite ([AlarmReadiness.STALE_CHECK_MILLIS], 6 h) — iOS startet die Hintergrund-Aufgabe
+     * nach eigenem Ermessen, oft nur alle paar Stunden (seit Build 92). Hier für den gemeinsamen Testfall.
+     */
+    const val STALE_MILLIS_IOS = AlarmReadiness.STALE_CHECK_MILLIS
+
+    /** Grenze «zu alt» je Plattform. */
+    fun staleMillis(platform: AlarmReadiness.Platform): Long =
+        if (platform == AlarmReadiness.Platform.ANDROID) STALE_MILLIS else STALE_MILLIS_IOS
 
     enum class Kind(val code: String) {
         /** Keine Alarme: keine Zeile. */
@@ -27,7 +37,7 @@ object AlarmReliability {
         BATTERY("battery"),
         /** iOS: Hintergrundaktualisierung aus. */
         BACKGROUND_REFRESH("background_refresh"),
-        /** Letzte Prüfung älter als [STALE_MILLIS] (oder weit in der Zukunft — Uhr verstellt). */
+        /** Letzte Prüfung älter als [staleMillis] (oder weit in der Zukunft — Uhr verstellt). */
         STALE("stale"),
     }
 
@@ -46,7 +56,7 @@ object AlarmReliability {
         if (android && input.backgroundRestricted) return Status(Kind.BATTERY, warn = true)
         if (!android && !input.backgroundRefresh) return Status(Kind.BACKGROUND_REFRESH, warn = true)
         val at = input.lastBackgroundCheck?.takeIf { it > 0 } ?: return Status(Kind.NEVER, warn = false)
-        val fresh = at - input.now <= AlarmReadiness.FUTURE_TOLERANCE_MILLIS && input.now - at <= STALE_MILLIS
+        val fresh = at - input.now <= AlarmReadiness.FUTURE_TOLERANCE_MILLIS && input.now - at <= staleMillis(input.platform)
         if (fresh) return Status(Kind.RECENT, warn = false)
         // Zu alt: Unter Android ist Akku-Optimierung bzw. das Akkusparen des Herstellers der wahrscheinliche Grund —
         // für sich allein aber nur ein Hinweis (fast jedes Gerät optimiert), darum erst zusammen mit der alten Prüfung

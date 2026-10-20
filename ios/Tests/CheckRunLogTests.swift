@@ -29,6 +29,17 @@ final class CheckRunLogTests: XCTestCase {
         XCTAssertEqual(CheckRunLog.result(checked: 5, failed: 5), .failed)
     }
 
+    /// «Letzte Prüfung»: nur geplante Läufe, die nicht gescheitert sind (misslungenes Vormerken, nichts gespeichert);
+    /// übersprungene zählen (das System hat die Aufgabe gestartet). Wie Android.
+    func testLastBackgroundCheckSkipsFailedAndUnscheduledRuns() {
+        let runs = [run(50, .bgTask, .failed), run(40, .widget), run(30, .foreground), run(20, .bgTask, .skipped),
+                    run(10, .bgTask)]
+        XCTAssertEqual(CheckRunLog.lastBackgroundCheck(runs), 20)
+        XCTAssertNil(CheckRunLog.lastBackgroundCheck([run(5, .bgTask, .failed), run(4, .widget)]))
+        XCTAssertNil(CheckRunLog.lastBackgroundCheck([]))
+        XCTAssertEqual(CheckRunLog.lastBackgroundCheck([run(7, .worker, .partial)]), 7)
+    }
+
     func testEncodeDecodeRoundTrip() {
         let runs = [
             CheckRun(at: 1_700_000_000_000, trigger: .exact, result: .partial, durationMillis: 2_345),

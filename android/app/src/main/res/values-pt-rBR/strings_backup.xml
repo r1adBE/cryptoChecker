@@ -9,7 +9,8 @@
     <string name="backup_hint">Salva a lista com notas e grupos, alarmes, favoritos, portfólio e configurações em um arquivo que você guarda – por ex. para um celular novo.</string>
     <string name="backup_import">Importar</string>
     <string name="backup_title">Backup e restauração</string>
-    <string name="backup_too_large">O arquivo é grande demais ou não é um backup válido (máx. 16 MB).</string>
+    <string name="backup_too_large">O arquivo é grande demais ou não é um backup válido (máx. 64 MB).</string>
+    <string name="backup_export_too_large">O backup passaria de 64 MB e não poderia ser restaurado, por isso não foi salvo.</string>
 
     <!-- Passwort der Sicherungsdatei -->
     <string name="backup_password">Senha</string>
@@ -32,8 +33,8 @@
     <string name="backup_plain_confirm">Salvar sem senha</string>
     <string name="backup_plain_confirm_text">O arquivo não está criptografado. Quem o obtiver pode ler:</string>
     <string name="backup_plain_confirm_title">Salvar sem senha?</string>
-    <string name="backup_plain_contents_addresses">Endereços de carteira e chaves xpub salvos</string>
-    <string name="backup_plain_contents_base">Lista de observação com notas e grupos, alarmes, favoritos e configurações</string>
+    <string name="backup_plain_contents_addresses">Endereços de carteira e chaves xpub salvos, com histórico de saldo e custo de aquisição</string>
+    <string name="backup_plain_contents_base">Lista de observação com notas, grupos e quantidades em posse, alarmes, favoritos e configurações</string>
     <string name="backup_plain_contents_portfolio">Portfólio: transações com quantidades e preços</string>
     <string name="backup_restore_app_lock_kept">O bloqueio do portfólio continua ativo – um backup sem criptografia não pode desativá-lo.</string>
     <string name="backup_restore_confirm">Importar substitui a lista (com notas e grupos), alarmes, favoritos, portfólio e configurações pelo backup.</string>
@@ -85,6 +86,7 @@
     <string name="alarm_save_storage_locked">Não é possível salvar alarmes agora – a lista salva está bloqueada. Reinicie o app.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">O backup não é possível agora: os dados salvos não podem ser desbloqueados no momento. Reinicie o app e tente novamente.</string>
+    <string name="backup_restore_storage_in_memory">A importação não é possível agora: o app não está salvando dados no momento (criptografia ainda não ativa), então a importação se perderia ao reiniciar. Reinicie o app e tente novamente.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Criptografia ainda não ativa – a carteira não está sendo salva e as alterações se perdem ao fechar o app. O app tentará de novo na próxima abertura.</string>

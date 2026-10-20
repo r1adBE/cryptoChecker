@@ -1,6 +1,7 @@
 package com.cryptochecker.marketdata.model
 
 import java.time.DayOfWeek.FRIDAY
+import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.temporal.TemporalAdjusters
@@ -88,20 +89,35 @@ enum class FuturesContractType(val value: Int) {
 
         /**
          * Ungefährer Verfallstag nach Kalender (Freitage, UTC) — nur für die Anzeige und als Ersatz, wenn die
-         * Kennung kein Datum trägt. null für Spot und Perpetuals.
+         * Kennung kein Datum trägt. null für Spot und Perpetuals. Abgerechnet wird freitags um 08:00 UTC: Ab dann gilt
+         * schon der nächste Kontrakt — seit Build 92 auch für Monat und Quartal, wenn ihr letzter Freitag vorbei ist
+         * (vorher z. B. am 31. Oktober noch der 30. Oktober). [now] für Tests; iOS: `FuturesContractType.delivery(asOf:)`.
          */
-        fun getDeliveryDate(contractType: FuturesContractType): LocalDate? {
-            val today = LocalDate.now(ZoneOffset.UTC)
+        fun getDeliveryDate(contractType: FuturesContractType, now: Instant = Instant.now()): LocalDate? {
+            val utc = now.atOffset(ZoneOffset.UTC)
+            // Erster Tag, an dem ein Kontrakt noch läuft: heute, ab der Abrechnungsstunde erst morgen
+            val start = if (utc.hour >= SETTLEMENT_HOUR_UTC) utc.toLocalDate().plusDays(1) else utc.toLocalDate()
             return when (contractType) {
                 NONE, PERPETUAL, INVERSE_PERPETUAL -> null
-                WEEKLY -> fridayOnOrAfter(today)
-                BIWEEKLY -> fridayOnOrAfter(today.plusWeeks(1))
-                MONTHLY -> lastFridayOfMonth(today)
-                BIMONTHLY -> lastFridayOfMonth(today.plusMonths(1))
-                QUARTERLY -> lastFridayOfQuarter(today)
-                BIQUARTERLY -> lastFridayOfQuarter(today.plusMonths(3))
+                WEEKLY -> fridayOnOrAfter(start)
+                BIWEEKLY -> fridayOnOrAfter(start).plusWeeks(1)
+                MONTHLY -> currentMonthly(start)
+                BIMONTHLY -> lastFridayOfMonth(currentMonthly(start).withDayOfMonth(1).plusMonths(1))
+                QUARTERLY -> currentQuarterly(start)
+                BIQUARTERLY -> lastFridayOfQuarter(currentQuarterly(start).withDayOfMonth(1).plusMonths(3))
             }
         }
+
+        /** Stunde der Abrechnung am Verfallstag (UTC), wie Binance und OKX. */
+        private const val SETTLEMENT_HOUR_UTC = 8
+
+        /** Letzter Freitag des Monats von [start]; ist er schon vorbei, der des nächsten Monats. */
+        private fun currentMonthly(start: LocalDate): LocalDate =
+            lastFridayOfMonth(start).takeIf { !it.isBefore(start) } ?: lastFridayOfMonth(start.withDayOfMonth(1).plusMonths(1))
+
+        /** Letzter Freitag des Quartals von [start]; ist er schon vorbei, der des nächsten Quartals. */
+        private fun currentQuarterly(start: LocalDate): LocalDate =
+            lastFridayOfQuarter(start).takeIf { !it.isBefore(start) } ?: lastFridayOfQuarter(start.withDayOfMonth(1).plusMonths(3))
 
         private fun fridayOnOrAfter(day: LocalDate): LocalDate = day.with(TemporalAdjusters.nextOrSame(FRIDAY))
 

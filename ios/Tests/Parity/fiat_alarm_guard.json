@@ -1,5 +1,5 @@
 {
-  "_comment": "Fiat-Alarme (Build 91): Alter des Devisenkurses in Bankarbeitszeit (ohne Wochenende/TARGET-Feiertage, 36 h), USDT/USD-Stand (angenommen/gemessen/unsicher über USDC) und Auslassen. Gemeinsam für FiatAlarmGuardTest.kt und FiatAlarmGuardTests.swift.",
+  "_comment": "Fiat-Alarme (Build 91): Alter des Devisenkurses in Bankarbeitszeit (ohne Wochenende/TARGET-Feiertage, 36 h), USDT/USD-Stand (angenommen/gemessen/unsicher über USDC) und Auslassen. Gemeinsam für FiatAlarmGuardTest.kt und FiatAlarmGuardTests.swift. Seit Build 92: echte Fiat-Währungen ohne Devisenkurs (NGN, ARS …) = FIAT_UNSUPPORTED — keine Umrechnung, nie über USDT («classify»).",
   "rateTimeOf": [
     {
       "name": "ECB date at 15:00 UTC",
@@ -200,6 +200,70 @@
       "from": "USDT",
       "to": "usdt",
       "expected": false
+    },
+    {
+      "name": "NGN to CHF (fiat without FX rate, no conversion)",
+      "from": "NGN",
+      "to": "CHF",
+      "expected": false
+    },
+    {
+      "name": "ARS to EUR (fiat without FX rate, no conversion)",
+      "from": "ars",
+      "to": "EUR",
+      "expected": false
+    }
+  ],
+  "classify": [
+    {
+      "name": "USDT stable",
+      "quote": "USDT",
+      "expected": "USD"
+    },
+    {
+      "name": "EUR with FX rate",
+      "quote": "eur",
+      "expected": "FIAT"
+    },
+    {
+      "name": "NGN fiat without FX rate",
+      "quote": "NGN",
+      "expected": "FIAT_UNSUPPORTED"
+    },
+    {
+      "name": "ARS fiat without FX rate",
+      "quote": " ars ",
+      "expected": "FIAT_UNSUPPORTED"
+    },
+    {
+      "name": "UAH fiat without FX rate",
+      "quote": "UAH",
+      "expected": "FIAT_UNSUPPORTED"
+    },
+    {
+      "name": "KES fiat without FX rate",
+      "quote": "KES",
+      "expected": "FIAT_UNSUPPORTED"
+    },
+    {
+      "name": "BTC crypto",
+      "quote": "BTC",
+      "expected": "CRYPTO"
+    },
+    {
+      "name": "MNT is Mantle, not the tugrik",
+      "quote": "MNT",
+      "expected": "CRYPTO"
+    },
+    {
+      "name": "BIDR token stays crypto",
+      "quote": "BIDR",
+      "expected": "CRYPTO"
+    },
+    {
+      "name": "empty",
+      "quote": "",
+      "expected": "INVALID"
     }
   ],
   "usdtState": [
@@ -344,6 +408,17 @@
           "CHF"
         ]
       ],
+      "expected": false
+    },
+    {
+      "name": "display in CHF, only NGN and EUR quotes",
+      "showConverted": true,
+      "displayCurrency": "CHF",
+      "watchQuotes": [
+        "NGN",
+        "EUR"
+      ],
+      "alarms": [],
       "expected": false
     }
   ],

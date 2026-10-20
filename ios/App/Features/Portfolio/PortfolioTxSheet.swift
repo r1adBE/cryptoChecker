@@ -65,6 +65,10 @@ struct PortfolioTxSheet: View {
     @State var entryFxUsdtAssumed = false
     @State var entryFxState: EntryFxState?
     @State var tried = false
+    /// Dezimalzeichen, mit dem die Texte vorbelegt und gelesen werden: einmal beim Öffnen festgehalten (`@State` übersteht
+    /// das Neu-Erzeugen der Ansicht) — ändert sich die Region bei offenem Blatt, bleibt «2,125» 2,125 statt 2125. Wie
+    /// Android `TxFormState.decimalSeparator` (seit Build 92 auch über einen Sprachwechsel gesichert).
+    @State var decimalSeparator: Character
     @State var askDelete = false
     @State private var askDiscard = false
     /// Speichern fehlgeschlagen: Meldung, Blatt bleibt offen mit den Eingaben (wie Android).
@@ -89,6 +93,7 @@ struct PortfolioTxSheet: View {
         _coinQuery = State(initialValue: initial.coin)
         // Dezimalzeichen der Region — wie bei den Alarmen (`ThresholdParser.localeDecimalSeparator`)
         let separator = ThresholdParser.localeDecimalSeparator
+        _decimalSeparator = State(initialValue: separator)
         _amountText = State(initialValue: PriceFormat.exactAmountForInput(initial.amount, decimalSeparator: separator))
         _priceText = State(initialValue: PriceFormat.exactAmountForInput(initial.priceUsdt, decimalSeparator: separator))
         _priceHint = State(initialValue: initial.priceUsdt.flatMap { $0 > 0 ? PortfolioDecimal.double($0) : nil })
@@ -124,7 +129,7 @@ struct PortfolioTxSheet: View {
     // Menge ohne Kurs-Hinweis (mehrdeutig → Dezimalzeichen der Region), Preis am Kurs gemessen.
     // Exakt gelesen (`Decimal`): 0.00000001 BTC = 1 Satoshi, ohne Gleitkomma-Rundung
     var amount: Decimal? {
-        PriceFormat.parseDecimalAmount(amountText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
+        PriceFormat.parseDecimalAmount(amountText, decimalSeparator: decimalSeparator)
             .flatMap { $0 > 0 ? $0 : nil }
     }
     var priceBlank: Bool { priceText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
@@ -132,7 +137,7 @@ struct PortfolioTxSheet: View {
         // In der Anzeigewährung am umgerechneten Kurs gemessen
         let hint = fiatActive ? fxRate.flatMap { r in priceHint.map { $0 * PortfolioDecimal.double(r) } } : priceHint
         return priceBlank ? nil
-            : PriceFormat.parseDecimalAmount(priceText, decimalSeparator: ThresholdParser.localeDecimalSeparator, priceHint: hint)
+            : PriceFormat.parseDecimalAmount(priceText, decimalSeparator: decimalSeparator, priceHint: hint)
     }
     /// Gespeichert wird USDT: Eingabe in der Anzeigewährung ÷ Tageskurs.
     var price: Decimal? {
@@ -152,14 +157,14 @@ struct PortfolioTxSheet: View {
     var toCoin: String { PortfolioCalculator.normalizeCoin(toCoinQuery) }
     var toCoinValid: Bool { check.toCoinValid }
     var toAmount: Decimal? {
-        PriceFormat.parseDecimalAmount(toAmountText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
+        PriceFormat.parseDecimalAmount(toAmountText, decimalSeparator: decimalSeparator)
             .flatMap { $0 > 0 ? $0 : nil }
     }
     private var toAmountValid: Bool { check.toAmountValid }
     private var swapValueBlank: Bool { swapValueText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     var swapValue: Decimal? {
         let entered = swapValueBlank ? nil
-            : PriceFormat.parseDecimalAmount(swapValueText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
+            : PriceFormat.parseDecimalAmount(swapValueText, decimalSeparator: decimalSeparator)
         return fiatActive ? PortfolioTxForm.fiatToUsdt(entered, usdToFiat: fxRate) : entered
     }
     var swapValueValid: Bool { check.swapValueValid }
@@ -180,18 +185,18 @@ struct PortfolioTxSheet: View {
     /// behalten — sonst würde sie still gelöscht oder als Gebühr im Coin umgedeutet. Wie `keepStoredFee` (Android).
     var keepStoredFee: Bool {
         isEdit && type == initial.type && initial.fee != nil
-            && feeText == PriceFormat.exactAmountForInput(initial.fee, decimalSeparator: ThresholdParser.localeDecimalSeparator)
+            && feeText == PriceFormat.exactAmountForInput(initial.fee, decimalSeparator: decimalSeparator)
             && !(fields.feeWithUnit || (fields.coinFeeOnly && initial.feeUnit == .COIN))
     }
     var feeCoinSymbol: String { PortfolioCalculator.normalizeCoin(feeCoinText) }
     private var feeCoinAmountBlank: Bool { feeCoinAmountText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     var feeCoinPriceBlank: Bool { feeCoinPriceText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     var feeCoinAmount: Decimal? {
-        PriceFormat.parseDecimalAmount(feeCoinAmountText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
+        PriceFormat.parseDecimalAmount(feeCoinAmountText, decimalSeparator: decimalSeparator)
     }
     var feeCoinPrice: Decimal? {
         feeCoinPriceBlank ? nil
-            : PriceFormat.parseDecimalAmount(feeCoinPriceText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
+            : PriceFormat.parseDecimalAmount(feeCoinPriceText, decimalSeparator: decimalSeparator)
     }
     var thirdFee: PortfolioTxForm.ThirdFee { check.thirdFee }
     /// Gebühr verbraucht die ganze erhaltene Menge: nicht speicherbar (Kauf: Gebühr im Coin, Tausch: im erhaltenen Coin).
@@ -204,7 +209,7 @@ struct PortfolioTxSheet: View {
             type: type, coinQuery: coinQuery, amount: amount, priceBlank: priceBlank, priceEntered: priceEntered,
             price: price, imported: !(initial.importKey?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true),
             feeBlank: feeBlank,
-            fee: feeBlank ? nil : PriceFormat.parseDecimalAmount(feeText, decimalSeparator: ThresholdParser.localeDecimalSeparator),
+            fee: feeBlank ? nil : PriceFormat.parseDecimalAmount(feeText, decimalSeparator: decimalSeparator),
             feeUnit: feeUnit, feeCoin: feeCoinText, feeCoinAmountBlank: feeCoinAmountBlank, feeCoinAmount: feeCoinAmount,
             feeCoinPriceBlank: feeCoinPriceBlank, feeCoinPrice: feeCoinPrice, toCoinQuery: toCoinQuery, toAmount: toAmount,
             swapValueBlank: swapValueBlank, swapValue: swapValue)
@@ -214,7 +219,7 @@ struct PortfolioTxSheet: View {
 
     /// Vom Nutzer geändert? Vorbelegte Preise (heutiger Kurs, Tagesschluss) zählen nicht — wie `dirty` (Android).
     private var dirty: Bool {
-        let sep = ThresholdParser.localeDecimalSeparator
+        let sep = decimalSeparator
         let initialDate = min(Date(millis: initial.time), Date())
         if type != initial.type || coinQuery != initial.coin { return true }
         if amountText != PriceFormat.exactAmountForInput(initial.amount, decimalSeparator: sep) { return true }
@@ -282,7 +287,7 @@ struct PortfolioTxSheet: View {
                         PortfolioTxCostSuggestion(
                             isEdit: isEdit, txId: initial.txId, storedPrice: initial.priceUsdt, type: type, coin: coin,
                             coinValid: coinValid, amount: amount, millis: date.millis, interest: interest, entryFiat: entryFiat,
-                            template: data.settings.taxTemplate, priceText: $priceText, priceHint: $priceHint,
+                            template: data.settings.taxTemplate, decimalSeparator: decimalSeparator, priceText: $priceText, priceHint: $priceHint,
                             priceAuto: $priceAuto, priceHistoricDay: $priceHistoricDay)
                     }
                     // Notiz direkt unter dem Preis, bei allen Arten (Entscheid 18. Oktober 2026) — wie Android

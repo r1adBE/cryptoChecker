@@ -4,14 +4,17 @@ import Foundation
 /// Wertverlauf, Widget, Alarm und Stichtag (gleiche Mengen wie `PortfolioFifo` bzw. der Ø im Rechner). Wie
 /// `PortfolioHoldingsBook` (Android): FIFO und Ø ein Topf (`PortfolioLedger.holdingsAfter`); FIFO je Wallet je Wallet ein
 /// Topf, Abgänge auf den Bestand DIESER Wallet gekappt (der Rest ist ungedeckt, nichts aus anderen Wallets), eine
-/// Umbuchung verschiebt (zuerst die Netzwerkgebühr, dann die Menge; was fehlt, kommt nicht an). Adress-Einträge in einem
-/// eigenen Topf. `cap(for:)` = Bestand, auf den `PortfolioLedger.flow` die Abgänge eines Schritts kappt.
+/// Umbuchung verschiebt (zuerst die Netzwerkgebühr, dann die Menge; was fehlt, kommt nicht an). Adress-Teile ohne
+/// Einstand (`AddressBalance.isAddressPart`) in einem eigenen Topf; Eröffnungsposten (`AddressCostLots.isLotTrade`) wie in
+/// `PortfolioFifo` in ihrer Wallet (der Adresse), sonst bliebe ein Abgang aus dieser Wallet (Verkauf dort, Umbuchung weg)
+/// ungedeckt und der Posten zählte weiter. `cap(for:)` = Bestand, auf den `PortfolioLedger.flow` die Abgänge eines
+/// Schritts kappt.
 struct PortfolioHoldingsBook {
     let method: CostMethod
     /// Bestand gesamt, exakt.
     private(set) var total: Decimal = 0
     private var wallets: [String: Decimal] = [:]
-    /// Eigener Topf der Adress-Einträge (kein gültiger Wallet-Schlüssel).
+    /// Eigener Topf der Adress-Teile ohne Einstand (kein gültiger Wallet-Schlüssel).
     private static let addressPot = "\u{0}address"
 
     init(method: CostMethod = .defaultMethod) {
@@ -21,7 +24,7 @@ struct PortfolioHoldingsBook {
     private var perWallet: Bool { method == .FIFO_WALLET }
 
     private func walletKey(_ e: PortfolioLedgerEvent, _ raw: String?) -> String {
-        AddressBalance.isAddressTrade(e.trade.id) ? Self.addressPot : PortfolioWallets.key(raw)
+        AddressBalance.isAddressPart(e.trade.id) ? Self.addressPot : PortfolioWallets.key(raw)
     }
 
     private func held(_ key: String) -> Decimal { wallets[key] ?? 0 }

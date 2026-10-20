@@ -44,7 +44,7 @@ struct CsvImportLoaded: Identifiable {
 /// `PortfolioHistoryFx.rateOn`) in USDT umrechnen und die Vorschau bauen (`CsvImportMapping.preview`); Umbuchungen zwischen
 /// Börsen schlägt die Vorschau vor (`CsvTransferMatch`).
 enum PortfolioCsvImporter {
-    /// Höchstens so gross (wie die Sicherung, `BackupLimits`).
+    /// Höchstens 16 MB, wie Android (`BackupLimits.CSV_MAX_BYTES`); die Sicherung selbst darf seit Build 92 64 MB.
     static let maxBytes = 16 * 1024 * 1024
 
     /// Erlaubte Dateien der Auswahl — CSV aus Dateien/Drive kommt teils als Text oder ohne Typ (`.data`);

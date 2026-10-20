@@ -298,7 +298,12 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
     }
 
     companion object {
-        /** Sichert die Felder und Merker in fester Reihenfolge (Bundle-taugliche Werte: Text, Zahlen, Enums). */
+        /**
+         * Sichert die Felder und Merker in fester Reihenfolge (Bundle-taugliche Werte: Text, Zahlen, Enums), zuletzt das
+         * Dezimalzeichen, mit dem die Texte getippt wurden: nach einem Sprachwechsel liest das Blatt «2,125» weiter mit
+         * dem alten Zeichen statt mit dem der neuen Sprache (sonst würde daraus 2125) — wie der Alarm-Entwurf. Eine
+         * ältere Liste ohne Zeichen nimmt [decimalSeparator].
+         */
         fun saver(initial: TxDraft, decimalSeparator: Char): Saver<TxFormState, Any> = listSaver(
             save = { s ->
                 listOf<Any?>(
@@ -306,11 +311,12 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
                     s.pricedCoin, s.time, s.acquiredTime, s.note, s.feeText, s.feeUnit, s.exchange, s.transferFrom,
                     s.transferTo, s.giftToSpouse, s.interest, s.feeCoinText, s.feeCoinAmountText, s.feeCoinPriceText,
                     s.feeCoinPriceAuto, s.toCoinQuery, s.toAmountText, s.swapValueText, s.entryFiat, s.pendingToFiat,
-                    s.showLedger, s.tried,
+                    s.showLedger, s.tried, s.decimalSeparator.toString(),
                 )
             },
             restore = { v ->
-                TxFormState(initial, decimalSeparator).apply {
+                val saved = (v.getOrNull(SEPARATOR_INDEX) as? String)?.singleOrNull()
+                TxFormState(initial, saved ?: decimalSeparator).apply {
                     type = v[0] as PortfolioTxType
                     coinQuery = v[1] as String
                     amountText = v[2] as String
@@ -343,5 +349,8 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
                 }
             },
         )
+
+        /** Stelle des Dezimalzeichens in der gesicherten Liste ([saver]). */
+        private const val SEPARATOR_INDEX = 29
     }
 }

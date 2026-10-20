@@ -36,6 +36,17 @@ class WooLastTradeTest {
         assertEquals((83_081.96 - opening) / opening * 100, ticker.change24hPercent!!, 1e-9)
     }
 
+    /** «inf» oder riesige Zeit: kein Absturz, die Zeit der Kerzen bleibt (der Kurs gilt trotzdem). */
+    @Test
+    fun unreadableTradeTimeKeepsTheCandleTime() {
+        for (raw in listOf("inf", "1e300")) {
+            val ticker = TickerImpl().apply { last = 80_000.0; exchangeTime = 1_792_533_600_000 }
+            market.readTicker(1, """{"success":true,"rows":[{"executed_price":83081.96,"executed_timestamp":"$raw"}]}""", ticker, info)
+            assertEquals(raw, 83_081.96, ticker.last, 0.0)
+            assertEquals(raw, 1_792_533_600_000L, ticker.exchangeTime)
+        }
+    }
+
     @Test
     fun emptyTradesLeaveTheCandlePrice() {
         val ticker = TickerImpl().apply { last = 80_000.0; change24hPercent = 10.0 }

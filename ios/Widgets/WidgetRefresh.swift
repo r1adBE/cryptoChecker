@@ -146,9 +146,11 @@ enum WidgetRefresh {
         if let stamp = outcome.changeStamp { SharedStorage.changeStamp = stamp }
         // Erst jetzt Kursalarme melden, je bestätigter Mitteilung speichern und die Lease freigeben — nach der
         // Uhrzeit, damit sie zur eben geschriebenen Datei passt (`WidgetDataFreshness`), auch wenn das Melden dauert
-        _ = await outcome.deliverAlarms(settings: settings, current: saved.alarms,
-                                        save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
-                                        recordLog: { AlarmLogStore.record(AlarmLog.withSource($0, .widget), live: $1) })
+        // Paar seit der Abfrage geändert (Bearbeiten, Wiederherstellung mit gleicher Id): nicht melden
+        _ = await outcome.keepingCurrentPairs(saved.watches)
+            .deliverAlarms(settings: settings, current: saved.alarms,
+                           save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
+                           recordLog: { AlarmLogStore.record(AlarmLog.withSource($0, .widget), live: $1) })
         // Ohne einen einzigen Kurs (offline, alle Börsen mit Fehler oder pausiert) bleiben die Daten
         // alt: vermerken, damit das Zeichnen nicht gleich wieder einen Versuch startet
         if gotPrices {

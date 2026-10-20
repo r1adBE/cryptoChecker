@@ -88,7 +88,7 @@ class AlarmDeliveryViewModel @Inject constructor(
     val settings: StateFlow<AppSettings> = settingsRepository.settings
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), settingsRepository.cached)
 
-    /** Ende der letzten vom System geplanten Prüfung (WorkManager, «Pünktlich prüfen»); Widget und App zählen nicht. */
+    /** Ende der letzten vom System geplanten Prüfung (WorkManager, «Pünktlich prüfen»); Widget, App und gescheiterte Läufe zählen nicht. */
     val lastBackgroundCheck: StateFlow<Long?> = checkRunStore.runs
         .map { runs -> lastScheduled(runs) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), lastScheduled(checkRunStore.runs.value))
@@ -114,7 +114,7 @@ class AlarmDeliveryViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
 
     private fun lastScheduled(runs: List<com.cryptochecker.app.domain.refresh.CheckRun>): Long? =
-        runs.firstOrNull { it.trigger.scheduled }?.at
+        com.cryptochecker.app.domain.refresh.CheckRunLog.lastBackgroundCheck(runs)
 }
 
 /** Alarm-Arten aus Einstellungen und Alarmen ([AlarmReadiness.hasBackgroundAlarms]); auch für «Diagnose teilen». */

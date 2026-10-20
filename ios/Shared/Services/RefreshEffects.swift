@@ -55,8 +55,9 @@ extension PriceRefresher {
             let speak = speechAllowed && alarm.speak
             outcome.pendingAlarms.append(PendingAlarm(
                 watch: updated, alarm: alarm, price: price, volumeRatio: volumeRatio, text: text,
-                update: AlarmUpdate(evaluated: alarm, result: after, setsEnabled: true),
-                speech: speak ? SpokenText.alarm(updated, alarm.condition, price) : nil,
+                update: AlarmUpdate(evaluated: alarm, result: after, setsEnabled: true, pair: updated.identity),
+                // Ansage wie die Mitteilung: Kursmarke mit Alarmwährung nennt den umgerechneten Kurs mit Währung
+                speech: speak ? SpokenText.alarm(updated, alarm.condition, shownPrice ?? price, currency: shownCurrency) : nil,
                 shownPrice: shownPrice, shownCurrency: shownCurrency,
                 // Ergebnis steht erst nach dem Melden fest (`deliverAlarms`): vorläufig «fällig»
                 logEntry: logPrice.flatMap {

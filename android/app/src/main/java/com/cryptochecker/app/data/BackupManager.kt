@@ -104,12 +104,15 @@ class BackupManager @Inject constructor(
             .put("settings", settingsCodec.settingsToJson())
             .put("portfolio", JSONArray().apply { portfolio.first.forEach { put(PortfolioJson.txToJson(it)) } })
             .put("portfolioAlarms", JSONArray().apply { portfolio.second.forEach { put(PortfolioJson.alarmToJson(it)) } })
-            // Seit Build 46: beobachtete Adressen (nur Netz, Adresse, Bezeichnung, Datum — kein Guthaben)
+            // Seit Build 46: beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
             .put(WatchedAddressRules.BACKUP_KEY, WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(portfolio.third)))
 
-        val plain = root.toString(2).toByteArray(Charsets.UTF_8)
+        // Kompakt seit Build 92 (vorher eingerückt, das Einlesen nimmt beides) und nie grösser als lesbar
+        val plain = BackupFormat.encode(root)
         val bytes = if (password == null) plain
         else withPasswordChars(password) { BackupCrypto.toJson(BackupCrypto.encrypt(plain, it)).toByteArray(Charsets.UTF_8) }
+        // Die verschlüsselte Hülle ist grösser (Base64): erst die fertige Datei zählt
+        BackupLimits.checkWritable(bytes.size)
 
         val stream = context.contentResolver.openOutputStream(uri, "wt")
             ?: error("Datei kann nicht geschrieben werden")
@@ -121,14 +124,22 @@ class BackupManager @Inject constructor(
     }
 
     /**
-     * Kein Sichern/Einspielen, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht ([BackupStorageKeptException]).
-     * Vorher beide Datenbanken öffnen ([openBoth]): Die Merker gelten erst nach dem ersten Öffnen, und das Portfolio ist bei
-     * ausgeschaltetem Portfolio sonst womöglich noch zu.
+     * Kein Sichern/Einspielen, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht ([BackupStorageKeptException]);
+     * kein Einspielen ([restoring]) in eine Datenbank nur im Arbeitsspeicher ([BackupStorageInMemoryException],
+     * [BackupRestorePolicy.storageRefusal]). Vorher beide Datenbanken öffnen ([openBoth]): Die Merker gelten erst nach dem
+     * ersten Öffnen, und das Portfolio ist bei ausgeschaltetem Portfolio sonst womöglich noch zu.
      */
-    private fun ensureStoredReadable() {
+    private fun ensureStoredReadable(restoring: Boolean = false) {
         openBoth()
-        val kept = listOf(AppDatabase.DB_NAME, PortfolioDatabase.DB_NAME).any { DatabaseEncryptionNotice.isStoredKept(it) }
-        if (kept) throw BackupStorageKeptException()
+        val refusals = listOf(AppDatabase.DB_NAME, PortfolioDatabase.DB_NAME).mapNotNull {
+            BackupRestorePolicy.storageRefusal(
+                storedKept = DatabaseEncryptionNotice.isStoredKept(it),
+                inMemory = DatabaseEncryptionNotice.isInMemory(it),
+                restoring = restoring,
+            )
+        }
+        if (BackupRestorePolicy.StorageRefusal.KEPT in refusals) throw BackupStorageKeptException()
+        if (BackupRestorePolicy.StorageRefusal.IN_MEMORY in refusals) throw BackupStorageInMemoryException()
     }
 
     /**
@@ -203,7 +214,7 @@ class BackupManager @Inject constructor(
      * bevor etwas ersetzt wird ([UnconfirmedInvalidEntriesException]).
      */
     suspend fun restore(uri: Uri, password: String?, acceptInvalid: Int = 0): RestoreResult = withContext(Dispatchers.IO) {
-        ensureStoredReadable()
+        ensureStoredReadable(restoring = true)
         val file = BackupFormat.read(context, uri)
         val root = JSONObject(plainText(file, password))
         // Ohne Passwort keine Echtheitsprüfung: die Sperre bleibt an ([BackupRestorePolicy])

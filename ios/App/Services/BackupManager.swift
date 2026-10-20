@@ -14,7 +14,7 @@ import CryptoKit
 ///                 "feeUnit","exchange","transferFrom","transferTo","feeCoin","feeCoinAmountText","feeCoinPriceText",
 ///                 "importKey","acquiredTime"?}…],
 ///   "portfolioAlarms":[{"id","kind","threshold","currency","enabled","repeating"}…],
-///   "watchedAddresses":[{"chain","address","label","addedAt","observations"?}…]}`
+///   "watchedAddresses":[{"chain","address","label","addedAt","observations"?,"tokenObservations"?,"costLots"?,…}…]}`
 ///
 /// Bewusst `JSONSerialization` statt `Codable`: fehlende Werte werden als
 /// `null` geschrieben (z. B. `pairId`, `darkMode`), wie `JSONObject.NULL`.
@@ -58,22 +58,26 @@ enum BackupManager {
     @MainActor
     static func exportData(_ data: AppData, password: String?) throws -> Data {
         let plain = try plainExportData(data)
+        try BackupLimits.checkWritable(plain)
         guard let password else { return plain }
         return try encryptedFile(plain, password: password)
     }
 
     /// Klartext verschlüsseln (`BackupCrypto` v3, Argon2id mit 64 MiB — einige 100 ms bis wenige Sekunden):
     /// nicht auf dem Main-Thread aufrufen. Die Passwort-Bytes werden danach überschrieben.
-    /// - Throws: `BackupCrypto.Failure.notEnoughMemory`, wenn der Speicher für Argon2id nicht reicht.
+    /// - Throws: `BackupCrypto.Failure.notEnoughMemory`, wenn der Speicher für Argon2id nicht reicht;
+    ///   `BackupLimits.Failure.exportTooLarge`, wenn die Hülle (Base64, grösser als der Klartext) nicht mehr lesbar wäre.
     static func encryptedFile(_ plain: Data, password: String) throws -> Data {
         var bytes = BackupCrypto.passwordBytes(password)
         defer { Argon2id.wipe(&bytes) }
-        return BackupCrypto.json(try BackupCrypto.encrypt(plain, password: bytes))
+        let file = BackupCrypto.json(try BackupCrypto.encrypt(plain, password: bytes))
+        try BackupLimits.checkWritable(file)
+        return file
     }
 
     /// Lesbares JSON der Sicherung (Merkliste, Alarme, Favoriten, Einstellungen, Portfolio). Ein Stand: alles wird in einem
     /// Durchgang auf dem Main Actor aus `AppData` gelesen — keine Änderung kann dazwischen kommen (wie Android, dort je
-    /// Datenbank eine Lesetransaktion).
+    /// Datenbank eine Lesetransaktion). Vor dem Schreiben als Datei `BackupLimits.checkWritable` (das Journal braucht es nicht).
     @MainActor
     static func plainExportData(_ data: AppData) throws -> Data {
         let snapshot = data.snapshot
@@ -99,10 +103,16 @@ enum BackupManager {
             "portfolio": data.portfolio.map(txToJson),
             // Alarme «Portfolio-Wert» (Runde 28), nach Id — wie Android
             "portfolioAlarms": data.portfolioAlarms.map(portfolioAlarmToJson),
-            // Seit Build 46: beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum und beobachteter Guthaben-Verlauf)
+            // Seit Build 46: beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
             WatchedAddressRules.backupKey: watchedToJson(WatchedAddressRules.backupEntries(data.watchedAddresses)),
         ]
-        return try JSONSerialization.data(withJSONObject: root, options: [.prettyPrinted, .sortedKeys])
+        return try encode(root)
+    }
+
+    /// Kompakt seit Build 92 (bis Build 91 `.prettyPrinted`, gut ein Drittel grösser); das Einlesen nimmt beides. Sortierte
+    /// Schlüssel wie bisher: gleicher Stand ergibt dieselbe Datei.
+    static func encode(_ root: [String: Any]) throws -> Data {
+        try JSONSerialization.data(withJSONObject: root, options: [.sortedKeys])
     }
 
     // MARK: Wiederherstellen
@@ -321,10 +331,41 @@ enum BackupManager {
             StorageRecoveryNotice.recordInterruptedRestore(rolledBack: false)
         case .found(let json):
             // Eigener Stand dieses Geräts: vertrauenswürdig (Sperre wie gemerkt), ungültige Einträge gibt es darin nicht
-            let rolledBack = (try? restore(json, into: data, acceptInvalid: .max, encrypted: true, journal: false)) != nil
-            RestoreJournal.delete()
-            StorageRecoveryNotice.recordInterruptedRestore(rolledBack: rolledBack)
+            let outcome: RecoveryOutcome
+            do {
+                _ = try restore(json, into: data, acceptInvalid: .max, encrypted: true, journal: false)
+                outcome = .rolledBack
+            } catch {
+                outcome = recoveryOutcome(failure: error)
+            }
+            finishRecovery(outcome)
         }
+    }
+
+    /// Ergebnis des Zurückrollens beim Start.
+    enum RecoveryOutcome: Equatable {
+        case rolledBack
+        /// Journal nicht als Sicherung lesbar: nie zurückrollbar, wie Android `previousFromJournal`.
+        case unreadable
+        /// Zurückschreiben scheiterte (Portfolio, Adressen): Journal behalten, der nächste Start versucht es erneut.
+        case incomplete
+    }
+
+    /// Scheiterte das Zurückrollen beim Schreiben (`restore` hat dann selbst zurückgesetzt) oder schon beim Lesen?
+    static func recoveryOutcome(failure: Error) -> RecoveryOutcome {
+        if case Failure.invalid(let step) = failure, step == "portfolio" || step == WatchedAddressRules.backupKey {
+            return .incomplete
+        }
+        return .unreadable
+    }
+
+    /// Nach dem Zurückrollen (Tests): Journal nur löschen, wenn es erledigt oder nie zurückrollbar ist — nach einem
+    /// gescheiterten Schreiben bleibt es, und der nächste Start versucht es erneut (seit Build 92 wie Android; vorher war
+    /// der gemerkte Stand dann weg). Den Hinweis gibt es in jedem Fall.
+    static func finishRecovery(_ outcome: RecoveryOutcome, deleteJournal: () -> Void = { RestoreJournal.delete() },
+                               notice: (Bool) -> Void = { StorageRecoveryNotice.recordInterruptedRestore(rolledBack: $0) }) {
+        if outcome != .incomplete { deleteJournal() }
+        notice(outcome == .rolledBack)
     }
 
     /// Eben geschriebene Sicherungsdatei zurücklesen und mit `expected` vergleichen (Grösse und SHA-256) — wie Android

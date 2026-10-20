@@ -20,7 +20,7 @@ import java.math.BigDecimal
  *    Staking-Gegenbuchungen) bleiben im selben Bestand → übersprungen ([CsvImportSkipReason.UNSUPPORTED_KIND]),
  *    ebenso Margin, Rollover, Anpassungen. Ebenso Spot ↔ Staking als Ein-/Auszahlung (Asset mit Staking-Variante, z. B.
  *    «withdrawal DOT» + «deposit DOT.S»: die Variante und ihr Gegenstück — Gegenrichtung, gleiches Basis-Asset, gleiche
- *    Menge, gleiche refid oder höchstens 1 h auseinander) und Paare spend/receive/trade mit gleichem Basis-Asset
+ *    Menge, zuerst gleiche refid, sonst höchstens 1 h auseinander) und Paare spend/receive/trade mit gleichem Basis-Asset
  *    (ETH → ETH2.S) — sonst entstünde Bestand doppelt bzw. ginge ein Posten mit Kaufpreis ab. Eine Staking-Zeile ohne
  *    solches Gegenstück wird ebenfalls nicht gebucht, aber als [CsvImportSkipReason.STAKING_UNPAIRED] gemeldet
  *    («Bestand prüfen»): Fehlt die Gegenbuchung im Export, stimmt der Bestand sonst unbemerkt nicht.
@@ -92,22 +92,32 @@ internal object CsvImportKraken {
 
     /**
      * Ein-/Auszahlungen zwischen Spot und Staking (Indizes in [legs]): jede Zeile mit Staking-Variante und ihr
-     * Gegenstück (Gegenrichtung, gleiches Basis-Asset, gleiche Menge, gleiche refid oder ≤ 1 h). [StakingMoves.unpaired]:
-     * Staking-Zeilen ohne gefundenes Gegenstück.
+     * Gegenstück (Gegenrichtung, gleiches Basis-Asset, gleiche Menge). Zuerst für ALLE Staking-Zeilen das Gegenstück mit
+     * derselben refid (irgendwo in der Datei), erst danach für die übrigen eine Zeile ≤ 1 h daneben — sonst nähme eine
+     * frühere Staking-Zeile über das Zeitfenster die Spot-Zeile einer anderen Umbuchung weg, und deren eigenes
+     * Gegenstück würde als echte Ein-/Auszahlung gebucht (seit Build 92). [StakingMoves.unpaired]: Staking-Zeilen ohne
+     * gefundenes Gegenstück.
      */
     private fun stakingMoves(legs: List<Leg>): StakingMoves {
         val out = HashSet<Int>()
         val unpaired = HashSet<Int>()
         fun move(l: Leg) = l.type == "deposit" || l.type == "withdrawal"
-        legs.forEachIndexed { i, l ->
-            if (!move(l) || !l.staked) return@forEachIndexed
-            out += i
-            val j = legs.indices.firstOrNull { k ->
-                val c = legs[k]
-                k !in out && move(c) && !c.staked && c.type != l.type && c.asset == l.asset &&
-                    c.signed.abs().compareTo(l.signed.abs()) == 0 &&
-                    ((l.refid.isNotEmpty() && c.refid == l.refid) || kotlin.math.abs(c.time - l.time) <= STAKING_PAIR_MILLIS)
-            }
+        val staked = legs.indices.filter { move(legs[it]) && legs[it].staked }
+        out += staked
+        fun counterpart(l: Leg, k: Int): Boolean {
+            val c = legs[k]
+            return k !in out && move(c) && !c.staked && c.type != l.type && c.asset == l.asset &&
+                c.signed.abs().compareTo(l.signed.abs()) == 0
+        }
+        val open = ArrayList<Int>()
+        for (i in staked) {
+            val l = legs[i]
+            val j = if (l.refid.isEmpty()) null else legs.indices.firstOrNull { k -> counterpart(l, k) && legs[k].refid == l.refid }
+            if (j != null) out += j else open += i
+        }
+        for (i in open) {
+            val l = legs[i]
+            val j = legs.indices.firstOrNull { k -> counterpart(l, k) && kotlin.math.abs(legs[k].time - l.time) <= STAKING_PAIR_MILLIS }
             if (j != null) out += j else unpaired += i
         }
         return StakingMoves(out, unpaired)

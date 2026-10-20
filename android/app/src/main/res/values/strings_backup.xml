@@ -9,7 +9,9 @@
     <string name="backup_hint">Saves your watchlist with notes and groups, alerts, favorites, portfolio and settings as a file you keep yourself – e.g. for a new phone.</string>
     <string name="backup_import">Import</string>
     <string name="backup_title">Backup &amp; restore</string>
-    <string name="backup_too_large">The file is too large or not a valid backup (limit 16 MB).</string>
+    <string name="backup_too_large">The file is too large or not a valid backup (limit 64 MB).</string>
+    <!-- Sichern abgelehnt: Datei wäre grösser als die Grenze beim Einlesen (BackupLimits, 64 MB) -->
+    <string name="backup_export_too_large">The backup would be larger than 64 MB and could not be restored, so it wasn\'t saved.</string>
 
     <!-- Passwort der Sicherungsdatei -->
     <string name="backup_password">Password</string>
@@ -32,8 +34,8 @@
     <string name="backup_plain_confirm">Save without password</string>
     <string name="backup_plain_confirm_text">The file is not encrypted. Anyone who gets it can read:</string>
     <string name="backup_plain_confirm_title">Save without password?</string>
-    <string name="backup_plain_contents_addresses">Saved wallet addresses and xpub keys</string>
-    <string name="backup_plain_contents_base">Watchlist with notes and groups, alerts, favorites and settings</string>
+    <string name="backup_plain_contents_addresses">Saved wallet addresses and xpub keys with balance history and cost basis</string>
+    <string name="backup_plain_contents_base">Watchlist with notes, groups and holdings, alerts, favorites and settings</string>
     <string name="backup_plain_contents_portfolio">Portfolio: transactions with amounts and prices</string>
     <string name="backup_restore_app_lock_kept">The portfolio lock stays on – an unencrypted backup can’t turn it off.</string>
     <string name="backup_restore_confirm">Importing replaces your current watchlist (with notes and groups), alerts, favorites, portfolio and settings with the backup.</string>
@@ -83,6 +85,8 @@
     <string name="alarm_save_storage_locked">Alarms can\'t be saved right now – the saved watchlist is locked. Restart the app.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">Backup isn\'t possible right now: the saved data can\'t be unlocked at the moment. Restart the app and try again.</string>
+    <!-- Nur Android: Einspielen abgelehnt, solange Merkliste oder Portfolio nur im Arbeitsspeicher liegen (kein Schlüssel; BackupStorageInMemoryException) -->
+    <string name="backup_restore_storage_in_memory">Import isn\'t possible right now: the app isn\'t saving data at the moment (encryption not active yet), so the import would be lost on restart. Restart the app and try again.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Encryption not active yet – the portfolio is not being saved, changes are lost when the app closes. The app will try again at the next start.</string>

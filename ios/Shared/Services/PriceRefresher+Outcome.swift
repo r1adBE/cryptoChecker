@@ -34,9 +34,14 @@ extension PriceRefresher {
         var threshold: Double
         var windowHours: Int
         var repeating: Bool
+        /// Ausgewertetes Paar (`Watch.identity`): Gehört die Watch-Id des Alarms beim Speichern zu einem anderen Paar
+        /// (Bearbeiten, Wiederherstellung mit gleicher Id), wird nichts übertragen — wie Android, das den Alarm nur
+        /// für tatsächlich geschriebene Paare speichert. nil = ohne Prüfung.
+        var pair: WatchIdentity.Key? = nil
 
         /// `evaluated` = Alarm wie ausgewertet, `result` = Zustand danach; `setsEnabled` nur beim Auslösen.
-        init(evaluated: Alarm, result: Alarm, setsEnabled: Bool) {
+        init(evaluated: Alarm, result: Alarm, setsEnabled: Bool, pair: WatchIdentity.Key? = nil) {
+            self.pair = pair
             enabled = setsEnabled ? result.enabled : nil
             referencePrice = result.referencePrice
             referenceAt = result.referenceAt
@@ -55,12 +60,17 @@ extension PriceRefresher {
                 && alarm.windowHours == windowHours && (enabled == nil || alarm.repeating == repeating)
         }
 
-        /// Überträgt die Änderung auf den Alarm `id` in `snapshot`, wenn er noch so ist wie ausgewertet.
-        /// - Returns: true = übertragen; false = inzwischen bearbeitet, abgeschaltet oder gelöscht.
+        /// Überträgt die Änderung auf den Alarm `id` in `snapshot`, wenn er noch so ist wie ausgewertet (und, mit
+        /// `pair`, sein Eintrag noch dasselbe Paar ist).
+        /// - Returns: true = übertragen; false = inzwischen bearbeitet, abgeschaltet, gelöscht oder Paar geändert.
         @discardableResult
         func apply(toAlarm id: Int64, in snapshot: inout SharedStorage.Snapshot) -> Bool {
             guard let i = snapshot.alarms.firstIndex(where: { $0.id == id }), matches(snapshot.alarms[i]) else {
                 return false
+            }
+            if let pair {
+                let watchId = snapshot.alarms[i].watchId
+                guard snapshot.watches.first(where: { $0.id == watchId })?.identity == pair else { return false }
             }
             if let enabled { snapshot.alarms[i].enabled = enabled }
             snapshot.alarms[i].referencePrice = referencePrice
@@ -235,6 +245,16 @@ extension PriceRefresher {
                 }
             }
             return delivered
+        }
+
+        /// Ausgelöste Alarme ohne die, deren Eintrag in `watches` (frisch gespeicherter Stand) inzwischen ein anderes
+        /// Paar ist (Bearbeiten, Wiederherstellung mit gleicher Id): Sie gehören nicht mehr zum abgefragten Kurs und
+        /// werden nicht gemeldet — der Alarm bleibt scharf. Vor `deliverAlarms` in App, Hintergrund und Widget.
+        func keepingCurrentPairs(_ watches: [Watch]) -> Outcome {
+            var kept = self
+            let identities = Dictionary(watches.map { ($0.id, $0.identity) }, uniquingKeysWith: { first, _ in first })
+            kept.pendingAlarms.removeAll { identities[$0.watch.id] != $0.watch.identity }
+            return kept
         }
 
         /// Ergebnis verworfen (z. B. von iOS abgebrochen, nicht gespeichert): nichts melden,

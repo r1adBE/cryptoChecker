@@ -108,7 +108,7 @@ enum FiatAlarmGuard {
         switch CurrencyConversion.classify(source, fiat: fiat) {
         case .usd: return source != "USD"
         case .crypto: return true
-        case .fiat, .invalid: return false
+        case .fiat, .fiatUnsupported, .invalid: return false
         }
     }
 

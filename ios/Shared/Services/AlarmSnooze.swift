@@ -43,6 +43,19 @@ enum AlarmSnooze {
     /// der Marke liegt. Wie Android.
     static func rearmsOnSnooze(_ condition: AlarmCondition) -> Bool { condition.isPriceThreshold }
 
+    /// «1 h später» auf dem gespeicherten Stand: Kursmarke wieder einschalten und scharf stellen, gleich wie das
+    /// Einschalten in der Liste (`AlarmEdit.settingEnabled`). Läuft abgestimmt auf der Datei
+    /// (`SharedStorage.updateSnapshot`), nicht auf dem Stand im Speicher der App: Haben Widget oder Hintergrund den
+    /// Alarm inzwischen ausgelöst und gespeichert, behielte das Zusammenführen sonst deren Auslösung (aus).
+    /// - Returns: true = geändert; false = Alarm gelöscht oder keine Kursmarke.
+    @discardableResult
+    static func rearm(_ alarmId: Int64, in snapshot: inout SharedStorage.Snapshot) -> Bool {
+        guard let i = snapshot.alarms.firstIndex(where: { $0.id == alarmId }),
+              rearmsOnSnooze(snapshot.alarms[i].condition) else { return false }
+        snapshot.alarms[i] = AlarmEdit.settingEnabled(snapshot.alarms[i], true)
+        return true
+    }
+
     /// Nur noch laufende Pausen (abgelaufene fallen beim Speichern weg).
     static func prune(_ all: [Int64: Int64], now: Int64) -> [Int64: Int64] {
         all.filter { isSnoozed(until: $0.value, now: now) }

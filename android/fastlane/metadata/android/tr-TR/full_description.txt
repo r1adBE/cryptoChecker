@@ -33,7 +33,7 @@ PİYASA
 
 AYRICA
 • Widget’lar: liste, portföy toplam değeri, grafikli tek coin
-• Portföy isteğe bağlı (Ayarlar’dan açılır): alımlar, satımlar, takaslar, transferler, ödüller, yatırma ve çekme işlemleri; FIFO (varsayılan) veya ortalama (Ø); seed olmadan salt okunur adresler: BTC (xpub dahil), ETH ve EVM ağları, SOL, TRX, XRP, LTC ve TON; Relai, Swissquote, Bitpanda, Kraken, Binance ve Coinbase’ten CSV içe aktarma; CSV olarak yıllık özet; ayrı kilit. Bitpanda ve Swissquote’un herkese açık fiyat akışı olmadığından kendi fiyatı yoktur – işlemleri CSV içe aktarmayla gelir.
+• Portföy isteğe bağlı (Ayarlar’dan açılır): alımlar, satımlar, takaslar, transferler, ödüller, yatırma ve çekme işlemleri; FIFO (varsayılan) veya ortalama (Ø); seed olmadan salt okunur adresler: BTC (xpub dahil), ETH ve EVM ağları, SOL, TRX, XRP, LTC, ADA ve TON; Relai, Swissquote, Bitpanda, Kraken, Binance ve Coinbase’ten CSV içe aktarma; CSV olarak yıllık özet; ayrı kilit. Bitpanda ve Swissquote’un herkese açık fiyat akışı olmadığından kendi fiyatı yoktur – işlemleri CSV içe aktarmayla gelir.
 • Herkes için okunur: yeşil/kırmızı veya mavi/turuncu, yalnızca renk yerine işaret ve ok; TalkBack her satırı tek cümle olarak okur
 • Bir dosyaya yedekleme ve geri yükleme – Android ile iPhone arasında da
 • Açık ve koyu mod, beş vurgu rengi, 31 dil

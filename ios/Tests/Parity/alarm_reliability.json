@@ -1,6 +1,7 @@
 {
-  "_comment": "Zeile über der Merkliste (Build 91): gelesener Zustand (wie alarm_delivery.json) → ein Satz (kind) und Farbe (warn = Bernstein). oem = Hersteller mit eigenem Akkusparen bekannt (nur Android). Gemeinsam für AlarmReliabilityParityTest.kt und AlarmReliabilityTests.swift.",
+  "_comment": "Zeile über der Merkliste (Build 91): gelesener Zustand (wie alarm_delivery.json) → ein Satz (kind) und Farbe (warn = Bernstein). oem = Hersteller mit eigenem Akkusparen bekannt (nur Android). Grenze «zu alt»: staleMillis (Android, 2 h), staleMillisIos (iOS, 6 h wie die Seite — BGAppRefreshTask läuft seltener). Gemeinsam für AlarmReliabilityParityTest.kt und AlarmReliabilityTests.swift.",
   "staleMillis": 7200000,
+  "staleMillisIos": 21600000,
   "cases": [
     {
       "name": "keine Alarme: keine Zeile",
@@ -289,7 +290,7 @@
       "warn": true
     },
     {
-      "name": "iOS Prüfung 3 h alt: kein Akku-Grund",
+      "name": "iOS Prüfung 7 h alt: kein Akku-Grund",
       "input": {
         "platform": "ios",
         "notifications": "granted",
@@ -297,7 +298,46 @@
         "minuteOfDay": 600,
         "hasAlarms": true,
         "batteryUnrestricted": false,
+        "lastBackgroundCheck": 1759974800000
+      },
+      "kind": "stale",
+      "warn": true
+    },
+    {
+      "name": "iOS Prüfung 3 h alt: noch ruhig (Grenze 6 h)",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
         "lastBackgroundCheck": 1759989200000
+      },
+      "kind": "recent",
+      "warn": false
+    },
+    {
+      "name": "iOS genau 6 h: noch ruhig",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "lastBackgroundCheck": 1759978400000
+      },
+      "kind": "recent",
+      "warn": false
+    },
+    {
+      "name": "iOS 6 h und 1 Minute",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "lastBackgroundCheck": 1759978340000
       },
       "kind": "stale",
       "warn": true

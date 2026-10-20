@@ -246,8 +246,8 @@ enum AlarmReadinessProbe {
         input.quietEnabled = settings.quietHoursEnabled
         input.quietStart = settings.quietHoursStart
         input.quietEnd = settings.quietHoursEnd
-        // Nur vom System geplante Prüfungen (BGAppRefreshTask) — App und Widget zählen nicht
-        input.lastBackgroundCheck = runs.first { $0.trigger.scheduled }?.at
+        // Nur vom System geplante Prüfungen (BGAppRefreshTask) — App, Widget und gescheiterte Läufe zählen nicht
+        input.lastBackgroundCheck = CheckRunLog.lastBackgroundCheck(runs)
         input.hasAlarms = hasAlarms
         input.alertEnabled = center.alertSetting != .disabled
         input.soundEnabled = center.soundSetting != .disabled

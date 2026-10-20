@@ -31,6 +31,19 @@ final class WooLastTradeTests: XCTestCase {
         XCTAssertEqual(try XCTUnwrap(ticker.change24hPercent), (83_081.96 - opening) / opening * 100, accuracy: 1e-9)
     }
 
+    /// «inf» oder riesige Zeit: kein Absturz, die Zeit der Kerzen bleibt (der Kurs gilt trotzdem).
+    func testUnreadableTradeTimeKeepsTheCandleTime() throws {
+        for raw in ["inf", "1e300"] {
+            var ticker = Ticker()
+            ticker.last = 80_000
+            ticker.exchangeTime = 1_792_533_600_000
+            let body = #"{"success":true,"rows":[{"executed_price":83081.96,"executed_timestamp":"\#(raw)"}]}"#
+            try market.readTicker(call: 1, body: body, ticker: &ticker, info: info)
+            XCTAssertEqual(ticker.last, 83_081.96, raw)
+            XCTAssertEqual(ticker.exchangeTime, 1_792_533_600_000, raw)
+        }
+    }
+
     func testEmptyTradesLeaveTheCandlePrice() {
         var ticker = Ticker()
         ticker.last = 80_000

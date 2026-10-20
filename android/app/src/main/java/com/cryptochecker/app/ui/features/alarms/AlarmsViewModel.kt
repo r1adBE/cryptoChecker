@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
-import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistStorageLock
 import com.cryptochecker.app.data.local.model.AlarmCondition
@@ -48,7 +47,7 @@ class AlarmsViewModel @Inject constructor(
     private val alarmTester: com.cryptochecker.app.notification.AlarmTester,
     private val nearExtremeDataSource: NearExtremeDataSource,
     private val volumeDataSource: VolumeDataSource,
-    /** Dürfen Alarme erscheinen? Für « · Mitteilungen aus» in der Bestätigung nach dem Speichern. */
+    /** Dürfen Alarme erscheinen (« · Mitteilungen aus» nach dem Speichern)? Entfernt auch Mitteilungen geänderter Alarme. */
     private val appNotifier: com.cryptochecker.app.notification.AppNotifier,
     alarmCheckStatus: AlarmCheckStatus,
     /** «Pünktlich prüfen» nach dem ersten Alarm einmal anbieten ([ExactCheckOffer]). */
@@ -97,10 +96,7 @@ class AlarmsViewModel @Inject constructor(
     /** Angebot angenommen: einschalten; Wecker stellen, sobald erlaubt (sonst nach der Berechtigung, BootReceiver). */
     fun acceptExactOffer() = notices.acceptExactOffer()
 
-    /**
-     * Hinweis «Wann Alarme geprüft werden» jetzt zeigen ([AlarmTimingHint]): einmal nach dem Speichern,
-     * nicht zusätzlich zur Bestätigung des allerersten Alarms.
-     */
+    /** Hinweis «Wann Alarme geprüft werden» jetzt zeigen ([AlarmTimingHint]): einmal nach dem Speichern, nicht zur ersten Bestätigung. */
     val timingHint: StateFlow<Boolean> = notices.timingHint
 
     fun dismissTimingHint() = notices.dismissTimingHint()
@@ -160,10 +156,7 @@ class AlarmsViewModel @Inject constructor(
      */
     fun alarmsAllowed(): Boolean = runCatching { appNotifier.alarmsAllowed() }.getOrDefault(true)
 
-    /**
-     * Paar hat (nach dem Laden) keinen Alarm: Der Bildschirm öffnet dann gleich den Editor
-     * statt der leeren Liste. null = noch nicht geladen.
-     */
+    /** Paar hat (nach dem Laden) keinen Alarm: Der Bildschirm öffnet gleich den Editor statt der leeren Liste. null = offen. */
     val noAlarms: StateFlow<Boolean?> = watchRepository.observeAlarms(watchId)
         .map { it.isEmpty() }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
@@ -373,6 +366,8 @@ class AlarmsViewModel @Inject constructor(
             // Nur Ton, Vibration, Ansage oder Wiederholung geändert: Zustand (ausgelöst/gemeldet,
             // Bezug, Ein/Aus) bleibt; neu scharf nur bei geänderter Bedingung ([AlarmEdit.merged])
             val alarm = AlarmEdit.merged(existing, edited)
+            // Bearbeitet: alte Mitteilung vor dem Speichern weg (eine neue, die gleich danach meldet, bleibt) — [AlarmUserChange]
+            if (existing != null && AlarmUserChange.cancelsNotification(enabled = null)) appNotifier.retractAlarm(existing.id)
             if (saveIfWatchExists(alarm) == null) return@launch
             val timingHint = notices.markSaved(firstEver)
             onSaved(alarm, runCatchingCancellable { appNotifier.canShowAlarm(alarm) }.getOrDefault(true), firstEver)
@@ -384,17 +379,19 @@ class AlarmsViewModel @Inject constructor(
     fun delete(alarmId: Long) {
         viewModelScope.launch {
             watchRepository.deleteAlarm(alarmId)
-            // Merkliste nur leer im Arbeitsspeicher: Die Id gilt nur für diesen Lauf und kann die eines gespeicherten
-            // Alarms sein — dessen Protokoll und Mitteilung bleiben
-            if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) return@launch
-            // Seine Mitteilung weg: ihr «Anpassen» zeigte sonst auf einen Alarm, den es nicht mehr gibt
-            runCatchingCancellable { appNotifier.cancelAlarms(listOf(alarmId)) }
+            // Mitteilung weg (ihr «Anpassen» zeigte ins Leere), nur im Arbeitsspeicher nicht ([AlarmUserChange.afterDelete])
+            val cleanup = AlarmUserChange.afterDelete()
+            if (cleanup.cancelNotification) appNotifier.retractAlarm(alarmId)
             // Datei versiegelt schreiben: nicht auf dem Hauptfaden
-            kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { alarmLogStore.removeAlarm(alarmId) }
+            if (cleanup.removeLog) kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { alarmLogStore.removeAlarm(alarmId) }
         }
     }
 
     fun setEnabled(alarmId: Long, enabled: Boolean) {
-        viewModelScope.launch { watchRepository.setAlarmEnabled(alarmId, enabled) }
+        viewModelScope.launch {
+            watchRepository.setAlarmEnabled(alarmId, enabled)
+            // Ausgeschaltet: Mitteilung weg, ihr «1 h später» schaltete ihn sonst wieder ein ([AlarmUserChange])
+            if (AlarmUserChange.cancelsNotification(enabled)) appNotifier.retractAlarm(alarmId)
+        }
     }
 }

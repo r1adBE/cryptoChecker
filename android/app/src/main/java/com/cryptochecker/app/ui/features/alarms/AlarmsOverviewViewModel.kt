@@ -23,6 +23,8 @@ class AlarmsOverviewViewModel @Inject constructor(
     private val watchRepository: WatchRepository,
     private val portfolioAlarmRepository: PortfolioAlarmRepository,
     settingsRepository: SettingsRepository,
+    /** Mitteilung eines ausgeschalteten Alarms entfernen ([AlarmUserChange]). */
+    private val appNotifier: com.cryptochecker.app.notification.AppNotifier,
 ) : ViewModel() {
 
     /** Alarme «Portfolio-Wert» — nur mit eingeschaltetem Portfolio (sonst prüft sie auch niemand). */
@@ -66,6 +68,10 @@ class AlarmsOverviewViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     fun setEnabled(alarmId: Long, enabled: Boolean) {
-        viewModelScope.launch { watchRepository.setAlarmEnabled(alarmId, enabled) }
+        viewModelScope.launch {
+            watchRepository.setAlarmEnabled(alarmId, enabled)
+            // Ausgeschaltet: Mitteilung weg, ihr «1 h später» schaltete ihn sonst wieder ein
+            if (AlarmUserChange.cancelsNotification(enabled)) appNotifier.retractAlarm(alarmId)
+        }
     }
 }

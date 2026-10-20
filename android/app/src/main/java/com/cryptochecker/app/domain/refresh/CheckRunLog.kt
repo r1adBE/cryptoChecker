@@ -66,6 +66,14 @@ object CheckRunLog {
         else -> CheckResult.PARTIAL
     }
 
+    /**
+     * Ende der letzten vom System geplanten Prüfung für «Letzte Prüfung» (Zeile über der Merkliste, «Damit Alarme
+     * ankommen»); Widget und App zählen nicht. Gescheiterte Läufe auch nicht: Sonst gälte eine Prüfung als eben
+     * gelaufen, die gar keine Kurse geholt hat. null = keine. Wie iOS.
+     */
+    fun lastBackgroundCheck(runs: List<CheckRun>): Long? =
+        runs.firstOrNull { it.trigger.scheduled && it.result != CheckResult.FAILED }?.at
+
     fun encode(runs: List<CheckRun>): String =
         runs.joinToString("\n") { "${it.at};${it.trigger.code};${it.result.code};${it.durationMillis}" }
 

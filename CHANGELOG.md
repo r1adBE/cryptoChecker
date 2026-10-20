@@ -7,13 +7,27 @@
 * Home-screen widgets for the watchlist, single pairs, the portfolio and the market pulse.
 * «What is moving with it?»: a checklist that puts a price move in context (market, Bitcoin and other factors).
 * Optional portfolio (off by default): own transactions, CSV import, watched addresses and tax worksheets.
-* Watchlist, alarms and portfolio are stored encrypted on the device (Android: the watchlist stays unencrypted until the device key is available – see the privacy page).
+* Watchlist, alarms and portfolio are stored encrypted on the device (Android: a database created unencrypted by an older version is converted once a device key is available; until then it is only read without a key – see the privacy page).
 * Backups with optional password (AES-256-GCM), interchangeable between Android and iPhone.
 * 31 languages.
 * Full source code of both apps under the MIT license.
 * No tracking, no ads, no analytics.
 
 Detailed build history below.
+
+## 16.2.2 (build 92)
+
+* Portfolio: with «FIFO per wallet» the cut-off file, the German holdings sheet and the Swiss wealth file no longer keep counting an address opening lot that was sold or transferred away (they now match the card).
+* Kraken CSV: a staking transfer is paired with the row that has the same refid first; the one-hour window only applies afterwards, so an unrelated deposit or withdrawal is no longer swallowed.
+* iOS alerts: background and widget checks no longer notify for a pair that was edited meanwhile; «1 h later» on a price level works when the widget had triggered it; speech uses the alert currency like the notification.
+* «1 h later» on an old notification can no longer switch an alert back on that you switched off meanwhile (switching off, editing or deleting removes its notification).
+* Backups: written compactly; up to 64 MB can be read on both platforms, and a backup that would be too large is refused with a clear message instead of an unrestorable file. iOS keeps an interrupted restore for another try when rolling back failed.
+* Android without a device key and an old unencrypted watchlist: background checks pause (alerts would otherwise repeat after every restart) and restoring a backup is refused until the data can be saved.
+* Transaction sheet keeps the decimal separator it was opened with (Android: across a language change; iOS: while open).
+* Quotes in fiat currencies without an exchange rate (e.g. NGN, ARS) no longer trigger lookups as if they were coins; they show no conversion.
+* Alert reliability line: failed runs no longer count as «last check»; iOS warns only after 6 hours (background refresh runs less often there); no line limit at large text sizes. iOS confirms copying the contract address, also for VoiceOver.
+* Futures: the delivery date moves to the next contract after expiry (search and old Binance ids). WOO X ignores an unusable trade time.
+* Plain backup warning names holdings, balance history and cost basis; store texts mention Cardano; the privacy page describes the Android fallback exactly; iOS CI also builds the Release configuration.
 
 ## 16.2.2 (build 91)
 
@@ -22,7 +36,7 @@ Detailed build history below.
 * Franc/euro alerts skip a check (and stay armed) when the FX rate is older than 36 business hours or when USDT/USD is only known via a USDC that is off by more than 1 %; USDT/USD is measured whenever such an alert or conversion needs it.
 * Exchanges: Lighter markets without trades show no «0.00 %»; delisted pairs are confirmed on CoinDCX, Luno, ICRYPEX and HashKey; BingX and bitbank rate limits are recognised; DexScreener pairs show the contract address in the pair sheet; Aster «U» counts as USD. WOO X spot shows the real last trade and its time (no more «hourly price»).
 * Portfolio: watched addresses count like the card in the cut-off file and the Swiss wealth file, also without cost lots; the card itself now counts a recorded transfer to an address once (and no longer drops a transfer away from it). Binance prices without a known coin name are only used for unambiguous symbols. DE 256 € line marked when values are estimated.
-* Storage: Android never writes the watchlist or the portfolio unencrypted, like iOS (without a device key it stays in memory with a notice; an older unencrypted file is only read and stays untouched); addresses cannot be changed while the stored portfolio is locked; iOS reads the watchlist off the main thread when coming to the foreground.
+* Storage: without a device key Android never writes the watchlist or the portfolio unencrypted, like iOS (it stays in memory with a notice; an older unencrypted file is only read and stays untouched); addresses cannot be changed while the stored portfolio is locked; iOS reads the watchlist off the main thread when coming to the foreground.
 * Tab labels shrink at large font sizes; widgets follow the app's type scale and use the system font for Arabic and Persian amounts; the portfolio sheet survives rotation; the single-coin widget opens its pair.
 * APK keeps only the 31 app languages (checked by a device test); the app's licence file matches LICENSE, the origin note is separate; Play texts say «at most once per 15 minutes».
 

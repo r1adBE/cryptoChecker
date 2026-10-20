@@ -20,6 +20,15 @@ class BackupMemoryMessageTest {
     }
 
     @Test
+    fun storageAndSizeRefusalsHaveOwnMessages() {
+        assertEquals(BackupMessage.StorageKept, BackupMessage.failure(com.cryptochecker.app.data.BackupStorageKeptException()))
+        assertEquals(BackupMessage.StorageInMemory, BackupMessage.failure(com.cryptochecker.app.data.BackupStorageInMemoryException()))
+        // Zu gross zum Schreiben ist nicht «Datei zu gross oder keine Sicherung» (das gilt beim Einlesen)
+        assertEquals(BackupMessage.ExportTooLarge, BackupMessage.failure(com.cryptochecker.app.data.BackupLimits.ExportTooLargeException(1)))
+        assertEquals(BackupMessage.TooLarge, BackupMessage.failure(com.cryptochecker.app.data.BackupLimits.TooLargeException()))
+    }
+
+    @Test
     fun manifestRequestsLargeHeap() {
         // Unit-Tests laufen im Modul-Ordner (android/app)
         val manifest = listOf(File("src/main/AndroidManifest.xml"), File("app/src/main/AndroidManifest.xml")).first { it.exists() }

@@ -70,4 +70,20 @@ class BackupRestorePolicyTest {
         assertFalse(BackupRestorePolicy.mayRollBackInto(storedKept = true, inMemory = true))
         assertFalse(BackupRestorePolicy.mayRollBackInto(storedKept = false, inMemory = true))
     }
+
+    /** Nur Android: Einspielen in eine Datenbank nur im Arbeitsspeicher meldete Erfolg, nach dem Neustart war alles weg. */
+    @Test
+    fun noRestoreIntoInMemoryDatabase() {
+        val kept = BackupRestorePolicy.StorageRefusal.KEPT
+        val inMemory = BackupRestorePolicy.StorageRefusal.IN_MEMORY
+        // Gespeicherte Datei normal geöffnet: Sichern und Einspielen
+        assertEquals(null, BackupRestorePolicy.storageRefusal(storedKept = false, inMemory = false, restoring = false))
+        assertEquals(null, BackupRestorePolicy.storageRefusal(storedKept = false, inMemory = false, restoring = true))
+        // Gespeicherter Stand gerade nicht lesbar: weder Sichern noch Einspielen
+        assertEquals(kept, BackupRestorePolicy.storageRefusal(storedKept = true, inMemory = true, restoring = false))
+        assertEquals(kept, BackupRestorePolicy.storageRefusal(storedKept = true, inMemory = true, restoring = true))
+        // Kein Schlüssel (neu oder Kopie einer alten unverschlüsselten Datei): Sichern ja, Einspielen nein
+        assertEquals(null, BackupRestorePolicy.storageRefusal(storedKept = false, inMemory = true, restoring = false))
+        assertEquals(inMemory, BackupRestorePolicy.storageRefusal(storedKept = false, inMemory = true, restoring = true))
+    }
 }

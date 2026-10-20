@@ -225,6 +225,32 @@
       "holdingsAt": {},
       "methods": {"FIFO": {"BTC": {"holdings": "0.5", "address": "0.1", "cost": "4000", "realized": "0"}}},
       "cutoff": {"time": 1704067199999, "holdings": {"BTC": "0.4"}, "address": {"BTC": "0.1"}, "lots": 1, "note": true}
+    },
+    {
+      "name": "lot moved away and sold elsewhere: FIFO per wallet cutoff counts 0",
+      "_comment": "Build 92: Posten 1 BTC auf «Ledger», Umbuchung Ledger → Binance 1, Verkauf 1 auf Binance. Der Stichtag (FIFO je Wallet) führte den Posten in einem eigenen Topf — die Umbuchung fand in «Ledger» nichts, der Verkauf blieb ungedeckt, Stichtag 1 statt 0 wie die Karte.",
+      "addresses": [{"id": 15, "chain": "BTC", "address": "bc1qtestlotmoved", "label": "Ledger", "lastBalance": "0", "lastUpdated": 1703980800000, "costLots": [{"id": 1, "coin": "BTC", "t": 1551398400000, "amount": "1", "price": "4000"}]}],
+      "trades": [{"id": 1, "coin": "BTC", "type": "TRANSFER", "amount": "1", "time": 1622505600000, "transferFrom": "Ledger", "transferTo": "Binance"}, {"id": 2, "coin": "BTC", "type": "SELL", "amount": "1", "price": "30000", "time": 1650000000000, "exchange": "Binance"}],
+      "coverage": [{"address": 15, "coin": "BTC", "lotted": "1", "excess": "0", "unlotted": "0"}],
+      "addressPart": {},
+      "lotTrades": [{"id": -1000015000, "coin": "BTC", "amount": "1", "price": "4000", "time": 1551398400000, "exchange": "Ledger"}],
+      "holdingsAt": {},
+      "methods": {"FIFO": {"BTC": {"holdings": "0", "address": "0", "realized": "26000"}}, "FIFO_WALLET": {"BTC": {"holdings": "0", "address": "0", "realized": "26000"}}, "AVERAGE": {"BTC": {"holdings": "0", "address": "0", "realized": "26000"}}},
+      "shortfalls": 0,
+      "cutoff": {"time": 1704067199999, "holdings": {}, "address": {}, "lots": 1, "note": false}
+    },
+    {
+      "name": "lot sold directly on the address wallet: FIFO per wallet cutoff counts 0",
+      "_comment": "Build 92: Posten 1 BTC auf «Ledger», Verkauf 1 direkt auf «Ledger». Vorher Stichtag (FIFO je Wallet) 1 statt 0.",
+      "addresses": [{"id": 16, "chain": "BTC", "address": "bc1qtestlotsold", "label": "Ledger", "lastBalance": "0", "lastUpdated": 1703980800000, "costLots": [{"id": 1, "coin": "BTC", "t": 1551398400000, "amount": "1", "price": "4000"}]}],
+      "trades": [{"id": 1, "coin": "BTC", "type": "SELL", "amount": "1", "price": "30000", "time": 1650000000000, "exchange": "Ledger"}],
+      "coverage": [{"address": 16, "coin": "BTC", "lotted": "1", "excess": "0", "unlotted": "0"}],
+      "addressPart": {},
+      "lotTrades": [{"id": -1000016000, "coin": "BTC", "amount": "1", "price": "4000", "time": 1551398400000, "exchange": "Ledger"}],
+      "holdingsAt": {},
+      "methods": {"FIFO": {"BTC": {"holdings": "0", "address": "0", "realized": "26000"}}, "FIFO_WALLET": {"BTC": {"holdings": "0", "address": "0", "realized": "26000"}}, "AVERAGE": {"BTC": {"holdings": "0", "address": "0", "realized": "26000"}}},
+      "shortfalls": 0,
+      "cutoff": {"time": 1704067199999, "holdings": {}, "address": {}, "lots": 1, "note": false}
     }
   ],
   "gaps": {

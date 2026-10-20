@@ -86,7 +86,7 @@ class DiagnosticsViewModel @Inject constructor(
         )
         val readiness = AlarmReadiness.rows(
             AlarmReadinessProbe.read(
-                context, settings, runs.firstOrNull { it.trigger.scheduled }?.at, hasAlarms, now,
+                context, settings, com.cryptochecker.app.domain.refresh.CheckRunLog.lastBackgroundCheck(runs), hasAlarms, now,
                 notificationsNotDetermined = com.cryptochecker.app.ui.components.NotificationPrePrompt.notDetermined(context),
             )
         )
