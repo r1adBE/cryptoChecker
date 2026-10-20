@@ -81,13 +81,40 @@ class BackgroundCheck @Inject constructor(
         if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) {
             throw DatabaseKeyUnavailableException(AppDatabase.DB_NAME, IllegalStateException("nur im Arbeitsspeicher"))
         }
-        return running.withLock { runLocked(trigger, networkGuaranteed, ttsWaitMillis, startedAt, deadlineAt) }
+        val summary = running.withLock { runLocked(trigger, networkGuaranteed, startedAt, deadlineAt) } ?: return null
+        // Warten auf Pulse-Widget und Ansagen erst nach Freigabe der Prüf-Sperre: sonst hielte es die Sperre bis zu
+        // 20 s und mehr, und ein geplanter Lauf in dieser Zeit fiele als «läuft bereits» weg
+        try {
+            awaitSideEffects(ttsWaitMillis, deadlineAt)
+        } catch (e: CancellationException) {
+            log(trigger, CheckResult.FAILED, startedAt)
+            throw e
+        } catch (e: Exception) {
+            log(trigger, CheckResult.FAILED, startedAt)
+            throw e
+        }
+        log(trigger, CheckRunLog.result(summary.checked, summary.failed), startedAt)
+        return summary
     }
 
+    /**
+     * Pulse-Widget: Abruf läuft losgelöst (WidgetUpdater.updateAll) — begrenzt abwarten, sonst beendet Android den Prozess
+     * mittendrin, und wer nur dieses Widget hat (keine Paare), sähe bloss den Zwischenspeicher. Danach die Ansagen dieses
+     * Durchlaufs (begrenzt, mit Frist nur die Restzeit), sonst kann Android den Prozess vorher beenden.
+     */
+    private suspend fun awaitSideEffects(ttsWaitMillis: Long, deadlineAt: Long?) {
+        val pulseWait = CheckBudget.waitMillis(deadlineAt, System.currentTimeMillis(), PULSE_WAIT_MILLIS, reserve = TTS_RESERVE_MILLIS)
+        if (!pulseWidgets.awaitBackgroundFetch(pulseWait)) Timber.d("Pulse-Widget nach %d ms noch nicht geladen", pulseWait)
+        val ttsWait = CheckBudget.waitMillis(deadlineAt, System.currentTimeMillis(), ttsWaitMillis, reserve = TTS_RESERVE_MILLIS)
+        if (ttsWait > 0 && !ttsSpeaker.awaitQueued(ttsWait)) {
+            Timber.d("Ansagen nach %d ms noch nicht fertig gesprochen", ttsWait)
+        }
+    }
+
+    /** Die Prüfung selbst unter der Sperre; null = übersprungen (schon vermerkt). Fehler werden vermerkt und weitergereicht. */
     private suspend fun runLocked(
         trigger: CheckTrigger,
         networkGuaranteed: Boolean,
-        ttsWaitMillis: Long,
         startedAt: Long,
         deadlineAt: Long?,
     ): RefreshSummary? {
@@ -100,23 +127,11 @@ class BackgroundCheck @Inject constructor(
         try {
             // Portfolio-Widget und Nebenprüfungen im Job abwarten (nicht losgelöst), siehe PriceRefresher.refreshAll
             // Herkunft fürs Alarm-Protokoll («im Hintergrund», «pünktlich», «über Widget»), siehe CheckOrigin
-            val summary = withContext(CheckOrigin(trigger)) {
+            return withContext(CheckOrigin(trigger)) {
                 priceRefresher.refreshAll(
                     awaitPortfolioSnapshot = true, networkGuaranteed = networkGuaranteed, deadlineAt = deadlineAt,
                 )
             }
-            // Pulse-Widget: Abruf läuft losgelöst (WidgetUpdater.updateAll) — begrenzt abwarten, sonst beendet Android
-            // den Prozess mittendrin, und wer nur dieses Widget hat (keine Paare), sähe bloss den Zwischenspeicher
-            val pulseWait = CheckBudget.waitMillis(deadlineAt, System.currentTimeMillis(), PULSE_WAIT_MILLIS, reserve = TTS_RESERVE_MILLIS)
-            if (!pulseWidgets.awaitBackgroundFetch(pulseWait)) Timber.d("Pulse-Widget nach %d ms noch nicht geladen", pulseWait)
-            // Ansagen dieses Durchlaufs abwarten (begrenzt, mit Frist nur die Restzeit), sonst kann
-            // Android den Prozess vorher beenden
-            val ttsWait = CheckBudget.waitMillis(deadlineAt, System.currentTimeMillis(), ttsWaitMillis, reserve = TTS_RESERVE_MILLIS)
-            if (ttsWait > 0 && !ttsSpeaker.awaitQueued(ttsWait)) {
-                Timber.d("Ansagen nach %d ms noch nicht fertig gesprochen", ttsWait)
-            }
-            log(trigger, CheckRunLog.result(summary.checked, summary.failed), startedAt)
-            return summary
         } catch (e: CancellationException) {
             log(trigger, CheckResult.FAILED, startedAt)
             throw e

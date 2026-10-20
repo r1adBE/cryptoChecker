@@ -157,17 +157,25 @@ struct PortfolioCoinDetail: View {
 
     /// Nach links gewischt oder VoiceOver «Löschen»: sofort löschen, Banner mit «Rückgängig».
     private func deleteTx(_ tx: PortfolioTx) {
-        deleteTick += 1
         let text = L("portfolio_tx_removed")
         // Banner zuerst: sonst ginge die Ansicht bei der letzten Transaktion gleich zurück
         banner = WatchlistBannerMessage(
             text: text,
             icon: "trash",
             action: WatchlistBannerAction(title: L("action_undo")) {
-                withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { data.restorePortfolioTxs([tx]) }
+                var saved = true
+                withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { saved = data.restorePortfolioTxs([tx]) }
+                if !saved { banner = .portfolioNotSaved }
             }
         )
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { data.deletePortfolioTx(tx.id) }
+        var deleted = true
+        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { deleted = data.deletePortfolioTx(tx.id) }
+        // Nicht geschrieben: Transaktion bleibt, statt «entfernt / Rückgängig» der Hinweis
+        guard deleted else {
+            banner = .portfolioNotSaved
+            return
+        }
+        deleteTick += 1
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 300_000_000)
             AccessibilityNotification.Announcement(text).post()

@@ -174,5 +174,5 @@
     <string name="alarm_status_low_liquidity">कोई अलार्म नहीं – कम लिक्विडिटी</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">मौजूदा भाव का इंतज़ार</string>
-    <string name="alarm_enter_amount">राशि डालें</string>
+    <string name="alarm_enter_amount">कोई मान डालें</string>
 </resources>

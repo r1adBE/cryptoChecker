@@ -297,6 +297,9 @@ enum GasAlertCheck {
     /// in den Einstellungen auf «aus» (0) gesetzt (`MarketAlertReset`).
     static let keyEthThreshold = "gas_eth_threshold"
     static let keyBtcThreshold = "gas_btc_threshold"
+    /// Zähler der «Aus»-Schaltungen (`MarketAlertReset.gasOff`): Eine laufende Prüfung schreibt danach ihren Stand nicht
+    /// mehr — sonst überschriebe sie das «Aus» mit der alten Grenze (Android: gemeinsame Sperre `GasAlertChecker.lock`).
+    static let keyResetGeneration = "gas_reset_generation"
     /// Höchstens alle 10 Minuten.
     private static let minInterval: Int64 = 10 * 60_000
     /// Nach einem fehlgeschlagenen Abruf: so lange bis zum nächsten Versuch (wie Android).
@@ -324,6 +327,11 @@ enum GasAlertCheck {
         return storedArmed
     }
 
+    /// Seit Beginn der Prüfung (`generation`) kein «Aus»? Sonst den Stand nicht schreiben; der nächste Lauf bewertet neu.
+    static func mayStore(generation: Int, defaults: UserDefaults) -> Bool {
+        defaults.integer(forKey: keyResetGeneration) == generation
+    }
+
     /// Wie `GasAlertChecker.isDue` (Android): auch fällig, wenn die letzte Prüfung in der Zukunft liegt.
     static func isDue(now: Int64, lastCheck: Int64) -> Bool {
         TimeUtils.isIntervalDue(now: now, last: lastCheck, minInterval: minInterval)
@@ -346,6 +354,7 @@ enum GasAlertCheck {
         let last = Int64(defaults.double(forKey: keyLastCheck))
         guard isDue(now: now, lastCheck: last) else { return }
         defaults.set(Double(now), forKey: keyLastCheck)
+        let generation = defaults.integer(forKey: keyResetGeneration)
 
         guard let report = try? await GasDataSource.shared.fetch() else {
             // Fehlschlag sperrt nicht die vollen 10 Minuten
@@ -355,7 +364,7 @@ enum GasAlertCheck {
         // Käme eine Mitteilung jetzt an? Nachtruhe: lautlos wie bisher
         let deliverable = await Notifier.isAuthorized()
         if let eth = report.evm.first(where: { $0.network == .ethereum }) {
-            await check(keyEthArmed, keyEthThreshold, eth.normalGwei, ethThreshold, deliverable, defaults) {
+            await check(keyEthArmed, keyEthThreshold, eth.normalGwei, ethThreshold, deliverable, defaults, generation) {
                 await Notifier.showGas(
                     id: "gas-eth",
                     title: L("notification_gas_eth_title", GasFees.formatGwei(eth.normalGwei)),
@@ -365,7 +374,7 @@ enum GasAlertCheck {
             }
         }
         if let btc = report.btc {
-            await check(keyBtcArmed, keyBtcThreshold, btc.normal, btcThreshold, deliverable, defaults) {
+            await check(keyBtcArmed, keyBtcThreshold, btc.normal, btcThreshold, deliverable, defaults, generation) {
                 await Notifier.showGas(
                     id: "gas-btc",
                     title: L("notification_gas_btc_title", GasFees.formatGwei(btc.normal)),
@@ -377,11 +386,13 @@ enum GasAlertCheck {
     }
 
     private static func check(_ key: String, _ thresholdKey: String, _ value: Double, _ threshold: Double,
-                              _ deliverable: Bool, _ defaults: UserDefaults, notify: () async -> Bool) async {
+                              _ deliverable: Bool, _ defaults: UserDefaults, _ generation: Int,
+                              notify: () async -> Bool) async {
         let armed = armedFor(storedArmed: defaults.object(forKey: key) as? Bool ?? true,
                              storedThreshold: defaults.object(forKey: thresholdKey) as? Double, threshold: threshold)
         let result = evaluate(value: value, threshold: threshold, armed: armed, deliverable: deliverable)
         let posted = result.fire ? await notify() : false
+        guard mayStore(generation: generation, defaults: defaults) else { return }
         defaults.set(armedAfter(fire: result.fire, posted: posted, armedBefore: armed, next: result.armed), forKey: key)
         defaults.set(threshold, forKey: thresholdKey)
     }

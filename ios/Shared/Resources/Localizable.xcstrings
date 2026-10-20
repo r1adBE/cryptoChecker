@@ -31998,121 +31998,121 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "أدخل مبلغًا"
+            "value" : "أدخل قيمة"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zadej částku"
+            "value" : "Zadejte hodnotu"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Indtast et beløb"
+            "value" : "Indtast en værdi"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Betrag eingeben"
+            "value" : "Wert eingeben"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Εισήγαγε ποσό"
+            "value" : "Εισήγαγε μια τιμή"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enter an amount"
+            "value" : "Enter a value"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Introduce un importe"
+            "value" : "Introduce un valor"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "مبلغ را وارد کن"
+            "value" : "یک مقدار وارد کن"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syötä summa"
+            "value" : "Syötä arvo"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saisissez un montant"
+            "value" : "Saisissez une valeur"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הזן סכום"
+            "value" : "הזן ערך"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "राशि डालें"
+            "value" : "कोई मान डालें"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adj meg egy összeget"
+            "value" : "Adj meg egy értéket"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Masukkan jumlah"
+            "value" : "Masukkan nilai"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inserisci un importo"
+            "value" : "Inserisci un valore"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "金額を入力してください"
+            "value" : "値を入力してください"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "금액을 입력하세요"
+            "value" : "값을 입력하세요"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Angi et beløp"
+            "value" : "Angi en verdi"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Voer een bedrag in"
+            "value" : "Voer een waarde in"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wpisz kwotę"
+            "value" : "Wpisz wartość"
           }
         },
         "pt" : {
@@ -32130,55 +32130,55 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Introdu o sumă"
+            "value" : "Introdu o valoare"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Введите сумму"
+            "value" : "Введите значение"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fut një shumë"
+            "value" : "Fut një vlerë"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ange ett belopp"
+            "value" : "Ange ett värde"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ใส่จำนวน"
+            "value" : "ใส่ค่า"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bir tutar gir"
+            "value" : "Bir değer gir"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Введіть суму"
+            "value" : "Введіть значення"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nhập số tiền"
+            "value" : "Nhập một giá trị"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "请输入金额"
+            "value" : "请输入数值"
           }
         }
       }
@@ -56317,7 +56317,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zadej hodnotu, aby se alarm uložil."
+            "value" : "Zadejte hodnotu, aby se alarm uložil."
           }
         },
         "da" : {
@@ -56699,7 +56699,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zadej platné číslo větší než 0."
+            "value" : "Zadejte platné číslo větší než 0."
           }
         },
         "da" : {
@@ -183822,7 +183822,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يتوقف البحث بعد %1$ld عناوين غير مستخدمة متتالية (معيار BIP44 الذي تستخدمه معظم المحافظ). لا يُحتسب عنوان مستخدم يقع بعد هذه الفجوة – أضفه بشكل منفصل."
+            "value" : "يتوقف البحث عندما يبلغ عدد العناوين غير المستخدمة المتتالية %1$ld (معيار BIP44 الذي تستخدمه معظم المحافظ). لا يُحتسب عنوان مستخدم يقع بعد هذه الفجوة – أضفه بشكل منفصل."
           }
         },
         "cs" : {
@@ -199237,6 +199237,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "正在读取文件和每日汇率…"
+          }
+        }
+      }
+    },
+    "portfolio_csv_import_locked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الاستيراد غير ممكن حاليًا: المحفظة المحفوظة مقفلة. افتح التطبيق مرة أخرى لاحقًا."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import teď není možný: uložené portfolio je uzamčené. Otevři aplikaci později znovu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import er ikke muligt lige nu: den gemte portefølje er låst. Åbn appen igen senere."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import gerade nicht möglich: Das gespeicherte Portfolio ist gesperrt. Öffne die App später erneut."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η εισαγωγή δεν είναι δυνατή αυτή τη στιγμή: το αποθηκευμένο χαρτοφυλάκιο είναι κλειδωμένο. Άνοιξε ξανά την εφαρμογή αργότερα."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import not possible right now: the saved portfolio is locked. Open the app again later."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ahora no se puede importar: la cartera guardada está bloqueada. Vuelve a abrir la app más tarde."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "واردکردن فعلاً ممکن نیست: سبد ذخیره‌شده قفل است. بعداً دوباره برنامه را باز کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuonti ei ole nyt mahdollista: tallennettu salkku on lukittu. Avaa sovellus myöhemmin uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importation impossible pour le moment : le portefeuille enregistré est verrouillé. Rouvrez l’app plus tard."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הייבוא אינו אפשרי כרגע: התיק השמור נעול. פתח שוב את האפליקציה מאוחר יותר."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अभी आयात संभव नहीं है: सहेजा गया पोर्टफ़ोलियो लॉक है। ऐप को बाद में फिर से खोलें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az importálás most nem lehetséges: a mentett portfólió zárolva van. Nyisd meg később újra az appot."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impor tidak dapat dilakukan saat ini: portofolio yang tersimpan terkunci. Buka aplikasi lagi nanti."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importazione non possibile al momento: il portafoglio salvato è bloccato. Riapri l’app più tardi."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在インポートできません：保存されたポートフォリオがロックされています。後でアプリを開き直してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금은 가져올 수 없습니다: 저장된 포트폴리오가 잠겨 있습니다. 나중에 앱을 다시 여세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import er ikke mulig akkurat nå: den lagrede porteføljen er låst. Åpne appen igjen senere."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importeren is nu niet mogelijk: de opgeslagen portefeuille is vergrendeld. Open de app later opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import nie jest teraz możliwy: zapisany portfel jest zablokowany. Otwórz aplikację ponownie później."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível importar agora: o portefólio guardado está bloqueado. Volte a abrir a app mais tarde."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível importar agora: o portfólio salvo está bloqueado. Abra o app novamente mais tarde."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importul nu este posibil acum: portofoliul salvat este blocat. Deschide aplicația din nou mai târziu."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импорт сейчас невозможен: сохранённый портфель заблокирован. Откройте приложение позже ещё раз."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importimi nuk është i mundur tani: portofoli i ruajtur është i kyçur. Hape aplikacionin përsëri më vonë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import är inte möjlig just nu: den sparade portföljen är låst. Öppna appen igen senare."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยังนำเข้าไม่ได้ในขณะนี้: พอร์ตโฟลิโอที่บันทึกไว้ถูกล็อกอยู่ เปิดแอปอีกครั้งในภายหลัง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İçe aktarma şu anda mümkün değil: kayıtlı portföy kilitli. Uygulamayı daha sonra yeniden açın."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Імпорт зараз неможливий: збережений портфель заблоковано. Відкрийте застосунок пізніше ще раз."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiện không thể nhập: danh mục đã lưu đang bị khóa. Hãy mở lại ứng dụng sau."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂时无法导入：已保存的投资组合已锁定。请稍后重新打开应用。"
           }
         }
       }

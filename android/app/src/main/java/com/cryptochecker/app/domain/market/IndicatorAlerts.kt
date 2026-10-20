@@ -45,7 +45,9 @@ object IndicatorAlertRules {
 
     /**
      * Einmal melden beim Überschreiten: [wasCrossed] = beim letzten Lauf schon jenseits (gemeldet). Ohne Wert
-     * (Daten fehlen) nichts ändern; zurück diesseits → wieder scharf.
+     * (Daten fehlen) nichts ändern; zurück diesseits → wieder scharf. Schon jenseits und gemeldet: Zustand erneut
+     * schreiben, damit die aktuelle Grenze mitgespeichert wird — ältere Stände ohne gemerkte Grenze ([wasCrossed])
+     * hielten sonst eine später geänderte Grenze für unverändert, und sie bliebe stumm.
      */
     fun decide(kind: IndicatorAlertKind, value: Double?, threshold: Double?, wasCrossed: Boolean): Decision {
         if (threshold == null) return Decision(false, false)
@@ -53,7 +55,7 @@ object IndicatorAlertRules {
         val now = crossed(kind, v, threshold)
         return when {
             now && !wasCrossed -> Decision(true, true)
-            now -> Decision(false, null)
+            now -> Decision(false, true)
             else -> Decision(false, false)
         }
     }

@@ -330,6 +330,8 @@ object CsvTransferMatch {
      * Gewählte Umbuchungen ([chosen]) anwenden: zwei neue Zeilen → eine neue Umbuchung an der Stelle der Auszahlung (die
      * Einzahlung entfällt; Herkunft beider in `importKey`/`linkedImportKey`); neue Zeile + gespeicherte Seite → die neue
      * Zeile entfällt, die gespeicherte wird die Umbuchung ([CsvTransferPlan.storedUpdates]). Andere Zeilen unverändert.
+     * Menge der Umbuchung = was ankommt ([CsvTransferLink.received]); die Gebühr im Coin geht zusätzlich von der Quelle ab
+     * (Konvention von [PortfolioTxType.TRANSFER] in FIFO und Wallet-Aufteilung). Ohne Differenz im Coin gleich [CsvTransferLink.sent].
      */
     fun apply(txs: List<CsvImportTx>, links: List<CsvTransferLink>, chosen: Set<String>): CsvTransferPlan {
         val active = links.filter { it.key in chosen }
@@ -342,7 +344,7 @@ object CsvTransferMatch {
                     line = tx.line,
                     coin = tx.coin,
                     type = PortfolioTxType.TRANSFER,
-                    amount = link.sent,
+                    amount = link.received,
                     priceUsdt = null,
                     time = link.withdrawalTime,
                     fee = link.fee,
@@ -364,7 +366,7 @@ object CsvTransferMatch {
             val state = restoreState(link) ?: return@mapNotNull null
             CsvStoredTransfer(
                 id = id,
-                amount = link.sent,
+                amount = link.received,
                 fee = link.fee,
                 feeUnit = link.feeUnit,
                 feeCoin = link.feeCoin,

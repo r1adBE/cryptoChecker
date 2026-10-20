@@ -153,6 +153,36 @@ final class CsvTransferMatchTests: XCTestCase {
         }
     }
 
+    /// Verknüpfte Umbuchung durch FIFO je Wallet: Menge = was ankommt, die Gebühr im Coin geht zusätzlich von der Quelle
+    /// ab — Bestand je Wallet stimmt (nicht nur gesamt). Wie Android `linkedTransferMovesReceivedAmountBetweenWallets`.
+    func testLinkedTransferMovesReceivedAmountBetweenWallets() throws {
+        for c in try cases() {
+            guard let f = c["fifoWallet"] as? [String: Any] else { continue }
+            let m = string(c["name"]) ?? "?"
+            let found = links(c)
+            let coin = try XCTUnwrap(found.first?.coin)
+            let plan = CsvTransferMatch.apply(S.list(c["txs"]).map(tx), links: found, chosen: CsvTransferMatch.defaultChoice(found))
+            let base = S.list(f["trades"]).map { o in
+                PortfolioTx(id: id(o["id"]) ?? 0, coin: string(o["coin"]) ?? "", type: PortfolioTxType(rawValue: string(o["type"]) ?? "") ?? .BUY,
+                            amountExact: dec(o["amount"]) ?? 0, priceExact: dec(o["priceUsdt"]), time: S.millis(o["time"]),
+                            exchange: string(o["exchange"]))
+            }
+            let moves = plan.storedUpdates.map { u -> PortfolioTx in
+                var t = PortfolioTx(id: u.id, coin: coin, type: .TRANSFER, amountExact: u.amount, priceExact: nil, time: u.time,
+                                    feeExact: u.fee, feeUnit: u.feeUnit)
+                t.feeCoin = u.feeCoin
+                t.feeCoinAmountExact = u.feeCoinAmount
+                t.transferFrom = u.transferFrom
+                t.transferTo = u.transferTo
+                return t
+            }
+            let ledger = PortfolioCalculator.ledger(coin, trades: base + moves, currentPrice: nil, method: .FIFO_WALLET)
+            let wallets = Dictionary(grouping: ledger.lots, by: { $0.wallet ?? "" })
+                .mapValues { lots in text(lots.reduce(Decimal(0)) { $0 + $1.amount }) ?? "" }
+            XCTAssertEqual(wallets, (f["wallets"] as? [String: String]) ?? [:], "\(m) wallets")
+        }
+    }
+
     /// «Import rückgängig»: verknüpfte Seite des späteren Laufs zurücksetzen, sonst löschen; früherer Lauf nimmt sie mit.
     func testUndoDissolvesLinksOfTheUndoneImport() throws {
         for c in S.list(try data()["undo"]) {

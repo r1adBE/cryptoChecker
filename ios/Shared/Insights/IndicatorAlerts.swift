@@ -67,7 +67,9 @@ enum IndicatorAlertRules {
         guard let v = value, v.isFinite else { return Decision(notify: false, crossed: nil) }
         let now = crossed(kind, value: v, threshold: threshold)
         if now && !wasCrossed { return Decision(notify: true, crossed: true) }
-        if now { return Decision(notify: false, crossed: nil) }
+        // Schon jenseits und gemeldet: erneut schreiben, damit die aktuelle Grenze mitgespeichert wird — ältere Stände
+        // ohne gemerkte Grenze hielten sonst eine später geänderte Grenze für unverändert (stumm). Wie Android.
+        if now { return Decision(notify: false, crossed: true) }
         return Decision(notify: false, crossed: false)
     }
 

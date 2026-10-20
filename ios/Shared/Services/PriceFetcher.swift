@@ -77,7 +77,7 @@ extension PriceRefresher {
             // gefilterte Liste → jedes Mal die ungefilterte (~2 MB). Sie fehlen dann in der vollständigen Liste.
             let notTradedIds = Set(group.filter { NotTraded.isMarker($0.lastError) }.compactMap(\.pairId))
             let plan = BulkDelistedMemory.shared.plan(sample.marketKey, pairIds: ids, notTraded: notTradedIds,
-                                                      now: TimeUtils.nowMillis)
+                                                      now: TimeUtils.nowMillis, lowMemory: lowMemory)
             if plan.request.isEmpty {
                 // Alle beobachteten Paare nicht mehr gehandelt (mit Stand, Neuprüfung nicht fällig): keine Abfrage,
                 // die Liste gilt als vollständig ohne sie
@@ -286,74 +286,5 @@ struct SingleRateGate: Sendable {
     static func isRateLimit(_ error: String?, failure: MarketFailure? = nil) -> Bool {
         guard let error else { return false }
         return RefreshReportLogic.classify(failure, error) == .RATE_LIMIT
-    }
-}
-
-/// Nicht mehr gehandelte Paare aus der GEFILTERTEN Sammelabfrage heraushalten. Binance verwirft `symbols=[…]` mit
-/// einem delisteten Symbol ganz (HTTP 400 «Invalid symbol») — dann lud jede Aktualisierung die ungefilterte Liste
-/// (~2 MB). Welches Symbol, sagt Binance nicht: erkannt an der vollständigen Ersatzliste (angefragt, aber nicht
-/// darin). Diese Paare und die schon als «nicht mehr gehandelt» gespeicherten (`NotTraded`) bleiben aus der Anfrage;
-/// sie fehlen dann in der vollständigen Liste und laufen über die bestehende Logik. Alle `recheckMillis` einmal
-/// alle Paare (wieder gelistet?). Wie `BulkDelisted` in `PriceFetcher.kt` (testdata/parity/bulk_delisted.json).
-enum BulkDelisted {
-    static let recheckMillis: Int64 = 6 * 60 * 60_000
-
-    /// `delisted`: zuletzt in der vollständigen Liste fehlende Paare; `recheckedAt`: letzter Lauf mit allen Paaren.
-    struct State: Equatable, Sendable {
-        var delisted: Set<String>
-        var recheckedAt: Int64
-    }
-
-    /// `all`: beobachtete Paare; `request`: davon anzufragen; `recheck`: Lauf mit allen Paaren.
-    struct Plan: Equatable, Sendable {
-        var all: [String]
-        var request: [String]
-        var recheck: Bool
-    }
-
-    static func plan(state: State?, pairIds: [String], notTraded: Set<String>, now: Int64) -> Plan {
-        // Ohne Stand (z. B. nach Prozess-Start) nicht gleich alles laden: die Frist läuft ab jetzt. Ausnahme: alle
-        // Paare schon «nicht mehr gehandelt» — ohne Abfrage entstünde nie ein Stand, die Neuprüfung käme nie.
-        var recheck = !pairIds.isEmpty && pairIds.allSatisfy { notTraded.contains($0) }
-        if let state {
-            let age = now - state.recheckedAt
-            recheck = age < 0 || age >= recheckMillis
-        }
-        if recheck { return Plan(all: pairIds, request: pairIds, recheck: true) }
-        let skip = (state?.delisted ?? []).union(notTraded)
-        return Plan(all: pairIds, request: pairIds.filter { !skip.contains($0) }, recheck: false)
-    }
-
-    /// Stand nach der Abfrage; nur eine vollständige Liste (`complete`) sagt etwas über fehlende Paare — und nur über
-    /// Paare, deren Teilabfrage geklappt hat (`incomplete`: z. B. Alpha gescheitert, Spot nicht).
-    static func learn(state: State?, plan: Plan, tickers: Set<String>, failed: Set<String>, complete: Bool,
-                      now: Int64, incomplete: Set<String> = []) -> State {
-        let base = state ?? State(delisted: [], recheckedAt: now)
-        guard complete else { return base }
-        let all = Set(plan.all)
-        let requested = Set(plan.request)
-        let kept = base.delisted.filter { all.contains($0) && !tickers.contains($0) && !requested.contains($0) }
-        let missing = plan.request.filter { !tickers.contains($0) && !failed.contains($0) && !incomplete.contains($0) }
-        return State(delisted: kept.union(missing), recheckedAt: plan.recheck ? now : base.recheckedAt)
-    }
-}
-
-/// Stand von `BulkDelisted` je Börse, prozessweit. Wie das Feld `delisted` in `PriceFetcher.kt`.
-final class BulkDelistedMemory: @unchecked Sendable { // @unchecked: veränderlicher Zustand nur unter `lock` (NSLock)
-    static let shared = BulkDelistedMemory()
-
-    private let lock = NSLock()
-    private var states: [String: BulkDelisted.State] = [:]
-
-    func plan(_ marketKey: String, pairIds: [String], notTraded: Set<String>, now: Int64) -> BulkDelisted.Plan {
-        lock.lock(); defer { lock.unlock() }
-        return BulkDelisted.plan(state: states[marketKey], pairIds: pairIds, notTraded: notTraded, now: now)
-    }
-
-    func learn(_ marketKey: String, plan: BulkDelisted.Plan, result: BulkTickers, now: Int64) {
-        lock.lock(); defer { lock.unlock() }
-        states[marketKey] = BulkDelisted.learn(state: states[marketKey], plan: plan, tickers: Set(result.tickers.keys),
-                                               failed: result.failed, complete: result.complete, now: now,
-                                               incomplete: result.incomplete)
     }
 }

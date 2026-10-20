@@ -174,5 +174,5 @@
     <string name="alarm_status_low_liquidity">Alarm yok – düşük likidite</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Güncel fiyat bekleniyor</string>
-    <string name="alarm_enter_amount">Bir tutar gir</string>
+    <string name="alarm_enter_amount">Bir değer gir</string>
 </resources>

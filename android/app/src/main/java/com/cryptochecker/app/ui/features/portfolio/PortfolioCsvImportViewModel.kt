@@ -14,12 +14,12 @@ import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioHistorySource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
+import com.cryptochecker.app.data.portfolio.linkStoredTransfers
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
-import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportFormat
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
@@ -27,7 +27,6 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportResult
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
-import com.cryptochecker.app.domain.portfolio.csvimport.CsvStoredTransfer
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
@@ -303,7 +302,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
             val batch = PortfolioImportBatch.newId(preview.format.name, System.currentTimeMillis(), txs.map { it.importKey })
             val insert = runCatchingCancellable { repository.insertImported(txs.map { it.toEntity() }, batch) }
                 .onFailure { Timber.w(it, "CSV-Import: Speichern fehlgeschlagen") }
-            val link = if (insert.isFailure) null else runCatchingCancellable { linkStored(plan.storedUpdates, batch) }
+            val link = if (insert.isFailure) null else runCatchingCancellable { repository.linkStoredTransfers(plan.storedUpdates, batch) }
                 .onFailure { Timber.w(it, "CSV-Import: Umbuchung nicht verknüpft") }
             val inserted = insert.getOrDefault(0)
             val count = inserted + (link?.getOrNull() ?: 0)
@@ -328,44 +327,6 @@ class PortfolioCsvImportViewModel @Inject constructor(
             // Wie iOS: eingeschaltet → diese Bestätigung (ersetzt die Anzahl)
             if (enabled) onPortfolioEnabled()
         }
-    }
-
-    /**
-     * Gespeicherte Seiten verknüpfter Umbuchungen ändern ([CsvStoredTransfer]): neu gelesen, damit nichts Veraltetes
-     * überschrieben wird; inzwischen gelöscht oder schon verknüpft → ausgelassen. Die Transaktion wechselt in diesen
-     * Importlauf [batch] (ihr Zustand davor samt früherem Lauf steht in `importRestoreState`): «Import rückgängig» dieses
-     * Laufs setzt sie zurück ([CsvTransferMatch.undoPlan]).
-     * @return Anzahl geänderter Transaktionen
-     */
-    private suspend fun linkStored(updates: List<CsvStoredTransfer>, batch: String): Int {
-        if (updates.isEmpty()) return 0
-        val current = repository.getTransactions().associateBy { it.id }
-        var count = 0
-        for (u in updates) {
-            val tx = current[u.id]?.takeIf { it.linkedImportKey == null } ?: continue
-            repository.save(
-                tx.copy(
-                    type = PortfolioTxType.TRANSFER,
-                    amount = u.amount,
-                    priceUsdt = null,
-                    time = u.time,
-                    fee = u.fee,
-                    feeUnit = u.feeUnit?.name,
-                    transferFrom = u.transferFrom,
-                    transferTo = u.transferTo,
-                    feeCoin = u.feeCoin,
-                    feeCoinAmount = u.feeCoinAmount,
-                    feeCoinPriceUsdt = tx.feeCoinPriceUsdt.takeIf { u.feeCoin == tx.feeCoin },
-                    importKey = u.importKey,
-                    acquiredTime = null,
-                    importBatch = batch,
-                    linkedImportKey = u.linkedImportKey,
-                    importRestoreState = u.restoreState,
-                ),
-            )
-            count++
-        }
-        return count
     }
 
     /**

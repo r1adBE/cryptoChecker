@@ -180,5 +180,5 @@
     <string name="alarm_status_low_liquidity">אין התראה – נזילות נמוכה</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">ממתין לשער עדכני</string>
-    <string name="alarm_enter_amount">הזן סכום</string>
+    <string name="alarm_enter_amount">הזן ערך</string>
 </resources>

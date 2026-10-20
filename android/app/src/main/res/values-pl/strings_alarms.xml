@@ -186,5 +186,5 @@
     <string name="alarm_status_low_liquidity">Brak alarmu – niska płynność</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Czeka na aktualny kurs</string>
-    <string name="alarm_enter_amount">Wpisz kwotę</string>
+    <string name="alarm_enter_amount">Wpisz wartość</string>
 </resources>

@@ -33,8 +33,8 @@ import javax.inject.Singleton
 @Singleton
 class PortfolioRepository @Inject constructor(
     @param:ApplicationContext private val context: Context,
-    /** Eigene Portfolio-Datenbank; die Merkliste ([watchDao]) liegt in der Hauptdatenbank. */
-    private val database: PortfolioDatabase,
+    /** Eigene Portfolio-Datenbank (auch für [linkStoredTransfers]); die Merkliste ([watchDao]) in der Hauptdatenbank. */
+    internal val database: PortfolioDatabase,
     private val portfolioDao: PortfolioDao,
     private val watchDao: WatchDao,
     private val watchedAddressDao: WatchedAddressDao,

@@ -101,7 +101,8 @@ fun PortfolioCsvImportFlow(
             title = { Text(stringResource(R.string.portfolio_csv_import_action)) },
             text = {
                 val message = when (s) {
-                    CsvImportState.Locked -> R.string.portfolio_storage_kept_in_memory
+                    // Ganz abgelehnt: eigener Text statt «Änderungen werden nicht gespeichert»
+                    CsvImportState.Locked -> R.string.portfolio_csv_import_locked
                     CsvImportState.SaveFailed -> R.string.portfolio_csv_import_failed
                     else -> R.string.portfolio_csv_import_unreadable
                 }

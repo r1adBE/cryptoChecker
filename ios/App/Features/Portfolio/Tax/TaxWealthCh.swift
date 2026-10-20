@@ -129,4 +129,11 @@ extension TaxSummaryTexts {
         let fxNote = r.noFx && !r.missing ? noFx : ""
         return [missing, fxNote].filter { !$0.isEmpty }.joined(separator: ", ")
     }
+
+    /// Karte: Hinweis unter einem vorhandenen Wert eines Coins (z. B. «unvollständig – Adresse nicht beobachtet»), damit ein
+    /// Teilwert nicht wie ein vollständiger aussieht; ohne Wert steht `wealthCoinNote` an Stelle des Werts. Wie Android.
+    func wealthCoinNoteBelowValue(_ r: TaxWealthRow, hasValue: Bool) -> String? {
+        let note = wealthCoinNote(r)
+        return hasValue && !note.isEmpty ? note : nil
+    }
 }

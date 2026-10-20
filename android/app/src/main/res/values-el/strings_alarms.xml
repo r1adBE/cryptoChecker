@@ -174,5 +174,5 @@
     <string name="alarm_status_low_liquidity">Χωρίς συναγερμό – χαμηλή ρευστότητα</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Αναμονή για τρέχουσα τιμή</string>
-    <string name="alarm_enter_amount">Εισήγαγε ποσό</string>
+    <string name="alarm_enter_amount">Εισήγαγε μια τιμή</string>
 </resources>

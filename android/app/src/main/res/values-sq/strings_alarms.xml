@@ -174,5 +174,5 @@
     <string name="alarm_status_low_liquidity">Pa alarm – likuiditet i ulët</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Në pritje të një kursi aktual</string>
-    <string name="alarm_enter_amount">Fut një shumë</string>
+    <string name="alarm_enter_amount">Fut një vlerë</string>
 </resources>

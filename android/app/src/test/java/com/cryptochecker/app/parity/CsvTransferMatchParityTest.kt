@@ -1,7 +1,10 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.LegacyStorageMigration
+import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
+import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
@@ -173,6 +176,32 @@ class CsvTransferMatchParityTest {
                     n.feeCoinAmount, n.importKey), listOf(r.type, r.amount, r.priceUsdt, r.time, r.fee, r.feeUnit, r.feeCoin,
                     r.feeCoinAmount, r.importKey))
             }
+        }
+    }
+
+    /**
+     * Verknüpfte Umbuchung durch FIFO je Wallet: Menge = was ankommt, die Gebühr im Coin geht zusätzlich von der Quelle ab
+     * — Bestand je Wallet stimmt (nicht nur gesamt).
+     */
+    @Test
+    fun linkedTransferMovesReceivedAmountBetweenWallets() {
+        cases().filter { it["fifoWallet"] != null }.forEach { c ->
+            val m = c["name"] as String
+            val f = c["fifoWallet"].obj()
+            val links = linksOf(c)
+            val plan = CsvTransferMatch.apply(c["txs"].list().map { tx(it.obj()) }, links, CsvTransferMatch.defaultChoice(links))
+            val base = f["trades"].list().map { it.obj() }.map { o ->
+                PortfolioTrade(o["id"].num()!!.toLong(), o["coin"] as String, PortfolioTxType.valueOf(o["type"] as String),
+                    dec(o["amount"])!!, dec(o["priceUsdt"]), millis(o["time"]), exchange = o["exchange"] as String?)
+            }
+            val moves = plan.storedUpdates.map { u ->
+                PortfolioTrade(u.id, links.first().coin, PortfolioTxType.TRANSFER,
+                    u.amount, null, u.time, fee = u.fee, feeUnit = u.feeUnit, feeCoin = u.feeCoin, feeCoinAmount = u.feeCoinAmount,
+                    transferFrom = u.transferFrom, transferTo = u.transferTo)
+            }
+            val ledger = PortfolioCalculator.ledger(links.first().coin, base + moves, null, CostMethod.FIFO_WALLET)
+            val wallets = ledger.lots.groupBy { it.wallet }.mapValues { (_, l) -> text(l.fold(BigDecimal.ZERO) { a, x -> a + x.amount }) }
+            assertEquals("$m wallets", f["wallets"].obj(), wallets)
         }
     }
 

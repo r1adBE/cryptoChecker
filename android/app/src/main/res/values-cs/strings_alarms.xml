@@ -46,9 +46,9 @@
     <string name="alarm_repeat_each">Pokaždé</string>
     <string name="alarm_repeat_once">Jednou</string>
     <string name="alarm_repeating">Pokaždé</string>
-    <string name="alarm_threshold_error_empty">Zadej hodnotu, aby se alarm uložil.</string>
+    <string name="alarm_threshold_error_empty">Zadejte hodnotu, aby se alarm uložil.</string>
     <string name="alarm_threshold_error_funding">Funding rate musí být číslo mezi −10 a +10 procenty.</string>
-    <string name="alarm_threshold_error_invalid">Zadej platné číslo větší než 0.</string>
+    <string name="alarm_threshold_error_invalid">Zadejte platné číslo větší než 0.</string>
     <string name="alarm_threshold_error_oi">Změna open interest: nejvýše 1000 procent.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">za %1$d h</item>
@@ -186,5 +186,5 @@
     <string name="alarm_status_low_liquidity">Žádný alarm – nízká likvidita</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Čeká na aktuální kurz</string>
-    <string name="alarm_enter_amount">Zadej částku</string>
+    <string name="alarm_enter_amount">Zadejte hodnotu</string>
 </resources>

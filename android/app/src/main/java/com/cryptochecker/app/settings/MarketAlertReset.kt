@@ -6,6 +6,7 @@ import androidx.core.content.edit
 import com.cryptochecker.app.domain.gas.GasAlertChecker
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.work.ZoneCheckWorker
+import kotlinx.coroutines.sync.withLock
 
 /**
  * Gemerkten Stand einer Markt-Meldung (Fear & Greed, eigene Grenzen der Bitcoin-Kennzahlen, Gas) vergessen, sobald ihre
@@ -38,8 +39,12 @@ object MarketAlertReset {
 
     fun indicatorOff(context: Context, kind: IndicatorAlertKind) = indicatorOff(zonePrefs(context), kind)
 
-    fun gasOff(context: Context, eth: Boolean) =
-        gasOff(context.getSharedPreferences(GasAlertChecker.PREFS, Context.MODE_PRIVATE), eth)
+    suspend fun gasOff(context: Context, eth: Boolean) =
+        gasOffLocked(context.getSharedPreferences(GasAlertChecker.PREFS, Context.MODE_PRIVATE), eth)
+
+    /** Unter der Sperre der Gas-Prüfung ([GasAlertChecker.lock]): eine laufende Prüfung überschreibt das «Aus» nicht. */
+    internal suspend fun gasOffLocked(prefs: SharedPreferences, eth: Boolean) =
+        GasAlertChecker.lock.withLock { gasOff(prefs, eth) }
 
     private fun zonePrefs(context: Context) = context.getSharedPreferences(ZoneCheckWorker.PREFS, Context.MODE_PRIVATE)
 }

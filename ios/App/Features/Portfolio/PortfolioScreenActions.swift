@@ -32,8 +32,13 @@ extension PortfolioScreen {
     /// mit Coin und Zahl, «Rückgängig» und Ansage — wie Android `PortfolioScreen`.
     func deleteCoin(_ coin: String) {
         var removed: [PortfolioTx] = []
+        let expected = coinTxCount(coin)
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { removed = data.deletePortfolioCoin(coin) }
-        guard !removed.isEmpty else { return }
+        guard !removed.isEmpty else {
+            // Nicht geschrieben (gesperrte Datei): kein «Coin entfernt», sondern sagen, dass nichts gespeichert wird
+            if expected > 0 { banner = .portfolioNotSaved }
+            return
+        }
         deleteTick += 1
         let restore = removed
         let text = L("portfolio_coin_removed", count: removed.count, coin, removed.count)
@@ -41,7 +46,7 @@ extension PortfolioScreen {
             text: text,
             icon: "trash",
             action: WatchlistBannerAction(title: L("action_undo")) {
-                withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { data.restorePortfolioTxs(restore) }
+                restoreOrWarn(restore)
             }
         )
         Task { @MainActor in
@@ -114,6 +119,13 @@ extension PortfolioScreen {
         }
     }
 
+    /// «Rückgängig» im Banner: zurücklegen; nicht geschrieben → Hinweis statt still nichts.
+    private func restoreOrWarn(_ restore: [PortfolioTx]) {
+        var saved = true
+        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { saved = data.restorePortfolioTxs(restore) }
+        if !saved { banner = .portfolioNotSaved }
+    }
+
     /// «Import rückgängig»: Lauf löschen, Banner mit «Rückgängig» (stellt die Transaktionen wieder her) — wie Android.
     func undoImport(_ batch: PortfolioImportBatchInfo) {
         var removed: [PortfolioTx] = []
@@ -126,12 +138,21 @@ extension PortfolioScreen {
             text: text,
             icon: "arrow.uturn.backward",
             action: WatchlistBannerAction(title: L("action_undo")) {
-                withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { data.restorePortfolioTxs(restore) }
+                restoreOrWarn(restore)
             }
         )
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 300_000_000)
             AccessibilityNotification.Announcement(text).post()
         }
+    }
+}
+
+extension WatchlistBannerMessage {
+    /// Portfolio-Datei nicht geschrieben (gespeicherter Stand gesperrt, Schlüsselbund nicht lesbar): Änderungen werden
+    /// nicht gespeichert — statt einer Erfolgsmeldung (wie Android `portfolio_storage_kept_in_memory`).
+    static var portfolioNotSaved: WatchlistBannerMessage {
+        WatchlistBannerMessage(text: L("portfolio_storage_kept_in_memory"), icon: "lock.trianglebadge.exclamationmark",
+                               long: true)
     }
 }

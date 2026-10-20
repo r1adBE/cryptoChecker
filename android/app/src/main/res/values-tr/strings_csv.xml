@@ -45,6 +45,7 @@
     <string name="portfolio_csv_import_transfers_title">Hesapların arasındaki transferler</string>
     <string name="portfolio_csv_import_unreadable">Desteklenen işlem bulunamadı. Desteklenenler: Relai, Swissquote, Kraken, Binance, Coinbase ve Bitpanda CSV dışa aktarımları.</string>
     <string name="portfolio_csv_import_failed">İçe aktarma başarısız oldu – hiçbir şey kaydedilmedi. Lütfen tekrar deneyin.</string>
+    <string name="portfolio_csv_import_locked">İçe aktarma şu anda mümkün değil: kayıtlı portföy kilitli. Uygulamayı daha sonra yeniden açın.</string>
     <string name="portfolio_csv_import_withdrawals_title">Çekimler – coin\'ler nereye gitti?</string>
     <string name="portfolio_csv_import_zone">Saat dilimi olmayan zamanlar şöyle okunur: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Cihaz (%1$s)</string>

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.theme
 
+import androidx.compose.ui.graphics.toArgb
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.widget.WidgetColors
 import com.cryptochecker.app.widget.WidgetContrast
@@ -100,7 +101,9 @@ class AccentContrastTest {
     @Test
     fun `Text und Linien erreichen den Kontrast auf warmen Flaechen`() {
         for (bg in WARM_SURFACES) {
-            for (fg in listOf(0xFF1B1B1B.toInt(), 0xFF474747.toInt(), 0xFF8A5300.toInt(), 0xFFBA1A1A.toInt())) {
+            // Fehlerfarbe aus dem echten hellen Schema (ErrorContrastTest prüft alle Akzentfarben)
+            val error = appColorScheme(AccentColor.ORANGE, false).error.toArgb()
+            for (fg in listOf(0xFF1B1B1B.toInt(), 0xFF474747.toInt(), 0xFF8A5300.toInt(), error)) {
                 val r = ratio(fg, bg)
                 assertTrue("%06X on %06X: %.2f".format(fg and 0xFFFFFF, bg and 0xFFFFFF, r), r >= 4.5)
             }

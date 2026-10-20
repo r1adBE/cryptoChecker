@@ -7,6 +7,10 @@ import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import com.cryptochecker.app.domain.market.IndicatorAlertRules
 import com.cryptochecker.app.domain.market.MarketNoticeGate
 import com.cryptochecker.app.work.ZoneCheckWorker
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -58,6 +62,26 @@ class MarketAlertResetTest {
         assertTrue(GasAlertLogic.armedFor(prefs.getBoolean(GasAlertChecker.KEY_ETH_ARMED, true), stored, 5.0))
         // Bitcoin unberührt
         assertFalse(prefs.contains(GasAlertChecker.KEY_BTC_THRESHOLD))
+    }
+
+    @Test
+    fun `gas off waits for a running check instead of being overwritten by it`() = runBlocking {
+        val prefs = FakePrefs()
+        prefs.edit().putBoolean(GasAlertChecker.KEY_ETH_ARMED, false)
+            .putLong(GasAlertChecker.KEY_ETH_THRESHOLD, 5.0.toRawBits()).apply()
+        // Laufende Prüfung hält die Sperre …
+        GasAlertChecker.lock.lock()
+        val reset = launch(Dispatchers.Default) { MarketAlertReset.gasOffLocked(prefs, eth = true) }
+        delay(50)
+        assertFalse(reset.isCompleted)
+        // … und schreibt am Ende die Grenze, mit der sie begann
+        prefs.edit().putLong(GasAlertChecker.KEY_ETH_THRESHOLD, 5.0.toRawBits()).apply()
+        GasAlertChecker.lock.unlock()
+        reset.join()
+        // Das «Aus» gilt danach: Wiedereinschalten mit derselben Grenze ist scharf
+        val stored = Double.fromBits(prefs.getLong(GasAlertChecker.KEY_ETH_THRESHOLD, -1))
+        assertEquals(0.0, stored, 0.0)
+        assertTrue(GasAlertLogic.armedFor(prefs.getBoolean(GasAlertChecker.KEY_ETH_ARMED, true), stored, 5.0))
     }
 
     @Test
