@@ -10,7 +10,7 @@ UCZCIWIE O DANYCH
 • „Oszczędny” jest domyślny: ceny odświeżają się przy otwarciu aplikacji i co pewien czas w tle. „Na żywo, gdy otwarta” dodaje ceny na żywo z Binance, Bybit, OKX, Coinbase i Kraken, gdy lista jest otwarta.
 • Zmiana % i wykresy pochodzą najpierw z giełdy danej pary; jeśli nie ma ona świec, aplikacja używa Binance lub Coinbase i o tym informuje.
 • Fear & Greed, dominacja i dane on-chain z alternative.me, CoinGecko i Coin Metrics.
-• Przy zamkniętej aplikacji to Android decyduje, kiedy alarmy są sprawdzane – najwyżej co 15 minut, często po godzinach. Krótkie skoki pomiędzy mogą umknąć; aplikacja Ci o tym mówi.
+• Przy zamkniętej aplikacji Android decyduje, kiedy alarmy są sprawdzane – najwyżej raz na 15 minut, często dopiero po kilku godzinach. Krótkie skoki pomiędzy mogą umknąć; aplikacja o tym mówi.
 • Kwoty opuszczają urządzenie tylko przez Twój eksport lub kopię zapasową Androida. Do cen trafiają tylko symbole pary – do giełdy danej pary; do tego kursy walut (Frankfurter), dane rynkowe i logo (CoinGecko, Binance), lustra danych (GitHub). Jeśli obserwujesz adresy lub xpub, publiczne węzły blockchain widzą adresy (przy xpub – pochodne) i Twój adres IP.
 
 LISTA OBSERWOWANYCH

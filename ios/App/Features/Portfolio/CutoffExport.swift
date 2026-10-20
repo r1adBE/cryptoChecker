@@ -175,12 +175,17 @@ enum CutoffExport {
     /// Erste Zeichen, mit denen Excel/LibreOffice/Sheets eine Zelle als Formel lesen (OWASP «CSV Injection»).
     private static let formulaStart: Set<Character> = ["=", "+", "-", "@", "\t", "\r", "\r\n"]
 
-    /// TEXT-Feld: beginnt es mit = + - @ (oder Tab/CR), wird ein Apostroph vorangestellt (keine Formel beim Öffnen); dann
-    /// in Anführungszeichen, wenn es das Trennzeichen, «"» oder einen Zeilenumbruch enthält. Zahlen gehen über
-    /// `escapeNumber` (eine negative Zahl «-12.50» bleibt eine Zahl). Wie Android.
+    /// TEXT-Feld: beginnt es mit = + - @ (oder Tab/CR), auch nach führenden Leerzeichen (Tabellen übergehen sie und lesen
+    /// « =1+1» trotzdem als Formel), wird ein Apostroph vorangestellt (keine Formel beim Öffnen); dann in Anführungszeichen,
+    /// wenn es das Trennzeichen, «"» oder einen Zeilenumbruch enthält. Zahlen gehen über `escapeNumber` (eine negative Zahl
+    /// «-12.50» bleibt eine Zahl). Wie Android.
     static func escape(_ field: String, separator: Character = ";") -> String {
         let safe: String
-        if let first = field.first, formulaStart.contains(first) { safe = "'" + field } else { safe = field }
+        if let first = field.first(where: { $0 != " " && $0 != "\u{00A0}" }), formulaStart.contains(first) {
+            safe = "'" + field
+        } else {
+            safe = field
+        }
         return quote(safe, separator: separator)
     }
 

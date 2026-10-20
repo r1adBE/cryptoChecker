@@ -151,7 +151,7 @@ prices still come straight from the exchanges.
 
 CoinGecko data is **not** mirrored: the CoinGecko API terms forbid redistributing it. The
 apps ask CoinGecko directly (market cap and dominance cached 30 minutes, top 30/40 for the
-starter coins 24 hours, top 40 for the Spot tab and «Why?» 10 minutes), no API key is used, and every screen with CoinGecko data
+starter coins 24 hours, top 40 for the Spot tab and «What is moving with it?» 10 minutes), no API key is used, and every screen with CoinGecko data
 says «Powered by CoinGecko».
 
 > **Deutsch:** Marktdaten, die für alle gleich sind, holt eine GitHub Action stündlich an

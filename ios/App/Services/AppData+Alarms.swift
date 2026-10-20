@@ -103,9 +103,13 @@ extension AppData {
         settings.portfolioEnabled && (snapshot.portfolioAlarms ?? []).contains(where: \.enabled)
     }
 
-    /// Neuer Portfolio-Alarm (scharf); Beträge in der Umrechnungswährung `currency`.
-    func addPortfolioAlarm(kind: PortfolioAlarmKind, threshold: Double, currency: String, repeating: Bool) {
-        guard PortfolioAlarmLogic.isValidThreshold(kind, threshold) else { return }
+    /// Neuer Portfolio-Alarm (scharf); Beträge in der Umrechnungswährung `currency`. Portfolio-Alarme liegen im selben
+    /// Stand wie die Merkliste: Ist sie gesperrt (`alarmSaveBlocked`), ginge der Alarm verloren — dann nichts anlegen
+    /// (der Bildschirm fragt vorher und zeigt den Hinweis). Android: eigene Datenbank, dort keine Sperre nötig.
+    /// - Returns: true = angelegt.
+    @discardableResult
+    func addPortfolioAlarm(kind: PortfolioAlarmKind, threshold: Double, currency: String, repeating: Bool) -> Bool {
+        guard !alarmSaveBlocked, PortfolioAlarmLogic.isValidThreshold(kind, threshold) else { return false }
         mutate({ s in
             var list = s.portfolioAlarms ?? []
             let id = max(s.nextPortfolioAlarmId ?? 1, (list.map(\.id).max() ?? 0) + 1)
@@ -116,6 +120,7 @@ extension AppData {
         }, reloadWidgets: false)
         // Alarm angelegt: nach «Später» die kurze Erklärung noch einmal (`NotificationPrePrompt`)
         NotificationPrePrompt.request(.alarmCreated)
+        return true
     }
 
     /// Ein-/Ausschalten; eingeschaltet wieder scharf (wie die Kursmarken der Paar-Alarme).
@@ -254,6 +259,8 @@ extension AppData {
 
     func deleteAlarm(_ id: Int64) {
         mutate({ s in s.alarms.removeAll { $0.id == id } }, reloadWidgets: false)
+        // Seine Mitteilung weg: ihr «Anpassen» zeigte sonst auf einen Alarm, den es nicht mehr gibt (wie Android)
+        Notifier.cancelAlarm(id)
         // Alarm-Protokoll: seine letzte Prüfung gehört zum Alarm (Protokoll-Einträge bleiben); Datei abseits des Hauptfadens
         Task.detached(priority: .utility) { AlarmLogStore.removeAlarm(id) }
     }

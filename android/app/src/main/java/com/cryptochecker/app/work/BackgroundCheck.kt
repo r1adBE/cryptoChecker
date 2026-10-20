@@ -17,6 +17,7 @@ import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.RefreshSummary
 import com.cryptochecker.app.tts.TtsSpeaker
+import com.cryptochecker.app.widget.PulseWidgetRenderer
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -38,6 +39,7 @@ class BackgroundCheck @Inject constructor(
     private val ttsSpeaker: TtsSpeaker,
     private val watchRepository: WatchRepository,
     private val checkRuns: CheckRunStore,
+    private val pulseWidgets: PulseWidgetRenderer,
 ) {
     /** Nie zwei Prüfungen gleichzeitig (exakter Wecker und WorkManager können zusammenfallen). */
     private val running = Mutex()
@@ -103,6 +105,10 @@ class BackgroundCheck @Inject constructor(
                     awaitPortfolioSnapshot = true, networkGuaranteed = networkGuaranteed, deadlineAt = deadlineAt,
                 )
             }
+            // Pulse-Widget: Abruf läuft losgelöst (WidgetUpdater.updateAll) — begrenzt abwarten, sonst beendet Android
+            // den Prozess mittendrin, und wer nur dieses Widget hat (keine Paare), sähe bloss den Zwischenspeicher
+            val pulseWait = CheckBudget.waitMillis(deadlineAt, System.currentTimeMillis(), PULSE_WAIT_MILLIS, reserve = TTS_RESERVE_MILLIS)
+            if (!pulseWidgets.awaitBackgroundFetch(pulseWait)) Timber.d("Pulse-Widget nach %d ms noch nicht geladen", pulseWait)
             // Ansagen dieses Durchlaufs abwarten (begrenzt, mit Frist nur die Restzeit), sonst kann
             // Android den Prozess vorher beenden
             val ttsWait = CheckBudget.waitMillis(deadlineAt, System.currentTimeMillis(), ttsWaitMillis, reserve = TTS_RESERVE_MILLIS)
@@ -123,5 +129,8 @@ class BackgroundCheck @Inject constructor(
     private companion object {
         /** Mit Frist: so viel bleibt nach dem Warten auf Ansagen (Lauf vermerken, finish()). */
         const val TTS_RESERVE_MILLIS = 300L
+
+        /** Höchstens so lange auf den Pulse-Abruf warten (eigene Grenze der Anfrage 12 s, dazu Warten auf die Sperre). */
+        const val PULSE_WAIT_MILLIS = 20_000L
     }
 }

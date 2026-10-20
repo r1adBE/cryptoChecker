@@ -10,7 +10,7 @@ struct TaxWealthRow: Sendable, Equatable {
     let amount: Decimal
     /// Tagesschluss 31.12. in USDT; nil = keiner.
     let priceUsdt: Decimal?
-    /// Summe der gerundeten Teilwerte (Menge × `priceUsdt`); nil = nicht gerechnet.
+    /// Summe der gerundeten bekannten Teilwerte (Menge × `priceUsdt`); nil = kein Teil gerechnet.
     let valueUsdt: Decimal?
     /// Summe der gerundeten Teilwerte in der Steuerwährung; nil = nicht gerechnet bzw. ohne Devisenkurs.
     let valueTarget: Decimal?
@@ -22,8 +22,10 @@ struct TaxWealthRow: Sendable, Equatable {
     var addressUnobserved = false
     /// Kein Devisenkurs für den 31.12.
     var noFx = false
+    /// Wert nur aus den bekannten Teilen (`addressUnobserved`: ein Guthaben fehlt) — «unvollständig», wie die Bestandsdatei.
+    var incomplete = false
 
-    /// Wert des Coins nicht gerechnet (Kurs fehlt, ungeprüft oder Guthaben unbekannt) — nie ein anderer Kurs.
+    /// Wert des Coins nicht gerechnet (Kurs fehlt, ungeprüft oder kein Teil bekannt) — nie ein anderer Kurs.
     var missing: Bool { valueUsdt == nil }
 }
 
@@ -39,8 +41,8 @@ struct TaxWealth: Sendable, Equatable {
     /// Summe der bekannten, je Coin gerundeten Werte in der Steuerwährung; nil = ohne Devisenkurs.
     let totalTarget: Decimal?
 
-    /// Mindestens ein Coin nicht gerechnet — die Summe ist «unvollständig».
-    var incomplete: Bool { rows.contains { $0.missing } }
+    /// Mindestens ein Coin nicht oder nur teilweise gerechnet — die Summe ist «unvollständig».
+    var incomplete: Bool { rows.contains { $0.missing || $0.incomplete } }
 
     /// Kein Devisenkurs für den Stichtag (bei Bestand).
     var noFx: Bool { totalTarget == nil && !rows.isEmpty }
@@ -53,8 +55,9 @@ extension TaxExport {
     /// nach `method` (Gebühren im Coin mindern den Bestand, Umbuchungen zwischen eigenen Wallets ändern die Summe nicht),
     /// dazu beobachtete Adressen (`addresses`), je Coin zusammengezählt; Kurs = Tagesschluss (UTC-Tageskerze) des 31.12. aus
     /// `closes` (Stablecoins nach `PortfolioStables`); `rate` = USD → Steuerwährung samt USDT/USD (`rateOn` am 31.12.).
-    /// Fehlt der Schluss eines Coins, ist er ungeprüft oder fehlt ein Teil seines Guthabens, bleibt SEIN Wert leer («nicht
-    /// gerechnet», nie der heutige Kurs) und die Summe ist unvollständig. Alphabetisch nach Coin. Wie Android `chWealth`.
+    /// Fehlt der Schluss eines Coins oder ist er ungeprüft, bleibt SEIN Wert leer («nicht gerechnet», nie der heutige Kurs);
+    /// fehlt nur ein Teil seines Guthabens (Adresse nicht beobachtet), zählt der bekannte Teil und der Coin ist unvollständig
+    /// — wie die Bestandsdatei. Die Summe ist dann unvollständig. Alphabetisch nach Coin. Wie Android `chWealth`.
     static func chWealth(_ trades: [PortfolioTx], method: CostMethod, date: LocalDay, timeZone: TimeZone,
                          closes: CutoffCloses, rate: Decimal?, addresses: AddressBalancesAt? = nil) -> TaxWealth {
         let cutoff = CutoffDay(year: date.year, month: date.month, day: date.day).endOfDayMillis(in: timeZone)
@@ -69,17 +72,18 @@ extension TaxExport {
             let noPrice = list.contains { $0.noPrice }
             let unchecked = list.contains { $0.unchecked }
             let unobserved = list.contains { $0.addressUnobserved }
-            // Ein Teil ohne Wert (oder ein unbeobachtetes Guthaben) → der ganze Coin ist nicht gerechnet
-            let missing = noPrice || unchecked || unobserved || list.contains { $0.valueUsdt == nil }
+            // Bekannte Teile zählen wie in der Bestandsdatei (deren Total summiert sie); ohne jeden: nicht gerechnet
+            let known: [CutoffRow] = (noPrice || unchecked) ? [] : list.filter { $0.valueUsdt != nil }
+            let partial = !known.isEmpty && (unobserved || known.count < list.count)
             // Jeder Teil gerundet wie seine Zeile in der Bestandsdatei, erst dann zusammengezählt
-            let valueUsdt: Decimal? = missing ? nil
-                : list.reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1.valueUsdt ?? 0) }
-            let valueTarget: Decimal? = (missing || list.contains { $0.valueTarget == nil }) ? nil
-                : list.reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1.valueTarget ?? 0) }
+            let valueUsdt: Decimal? = known.isEmpty ? nil
+                : known.reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1.valueUsdt ?? 0) }
+            let valueTarget: Decimal? = (known.isEmpty || known.contains { $0.valueTarget == nil }) ? nil
+                : known.reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1.valueTarget ?? 0) }
             return TaxWealthRow(coin: coin, amount: list.reduce(Decimal(0)) { $0 + $1.amount },
                                 priceUsdt: list.lazy.compactMap(\.priceUsdt).first, valueUsdt: valueUsdt,
                                 valueTarget: valueTarget, noPrice: noPrice, unchecked: unchecked,
-                                addressUnobserved: unobserved, noFx: list.contains { $0.noFx })
+                                addressUnobserved: unobserved, noFx: list.contains { $0.noFx }, incomplete: partial)
         }
         // Summen aus den gerundeten Zeilenwerten (wie sie in der Datei stehen), wie `CutoffExport.csv` — wie Android
         let totalUsdt = rows.reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1.valueUsdt ?? 0) }
@@ -113,14 +117,15 @@ extension TaxSummaryTexts {
             .replacingOccurrences(of: TaxExport.wealthAmountToken, with: amount)
     }
 
-    /// Hinweis eines Coins im Vermögenswert: «nicht gerechnet – kein Kurs» usw.; ohne Devisenkurs `noFx`; leer = gerechnet.
-    /// Wie Android `wealthCoinNote`.
+    /// Hinweis eines Coins im Vermögenswert: «nicht gerechnet – kein Kurs» usw., nur teilweise gerechnet «unvollständig –
+    /// Adresse nicht beobachtet» (`TaxWealthRow.incomplete`); ohne Devisenkurs `noFx`; leer = gerechnet. Wie Android.
     func wealthCoinNote(_ r: TaxWealthRow) -> String {
         var reasons: [String] = []
         if r.noPrice && !wealthNoPrice.isEmpty { reasons.append(wealthNoPrice) }
         if r.unchecked && !wealthUnchecked.isEmpty { reasons.append(wealthUnchecked) }
         if r.addressUnobserved && !wealthAddressUnobserved.isEmpty { reasons.append(wealthAddressUnobserved) }
-        let missing = r.missing ? ((wealthMissing.isEmpty ? [] : [wealthMissing]) + reasons).joined(separator: " – ") : ""
+        let head: String? = r.missing ? wealthMissing : (r.incomplete ? incomplete : nil)
+        let missing = head.map { (($0.isEmpty ? [] : [$0]) + reasons).joined(separator: " – ") } ?? ""
         let fxNote = r.noFx && !r.missing ? noFx : ""
         return [missing, fxNote].filter { !$0.isEmpty }.joined(separator: ", ")
     }

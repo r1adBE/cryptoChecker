@@ -55,6 +55,11 @@ enum PortfolioStore {
         case failed
     }
 
+    /// Ohne Schlüssel (`needsKey`) den Stand nur im Speicher behalten und als gespeichert melden? Nur, solange keine Datei
+    /// da ist (nichts gespeichert — wie Android «nur im Arbeitsspeicher» mit Hinweis). Liegt ein gespeicherter Stand in der
+    /// Datei, nicht: die Änderung gälte als gespeichert und ginge mit dem Prozess verloren (wie Android `PortfolioStorageLock`).
+    static func keepsUnsealed(storedFileExists: Bool) -> Bool { !storedFileExists }
+
     /// Schreibt die Datei versiegelt (`requireSealed`) und setzt danach das Backup-Merkmal neu (das atomare Schreiben
     /// ersetzt die Datei und verliert es). `includeInBackup` = Einstellung «Portfolio in Systemsicherung».
     @discardableResult

@@ -53,4 +53,27 @@ class DexLiquidityTest {
         assertEquals(2500.5, pools[1].liquidityUsd!!, 0.0)
         assertNull(pools[2].liquidityUsd)
     }
+
+    @Test
+    fun searchShowsTokenAddressAndRanksAddressMatchesFirst() {
+        // Zwei «PEPE»: der liquidere ist ein anderer Token; dazu ein Pool mit dem gesuchten Token nur als Gegenwährung
+        val body = """{"pairs":[
+            {"chainId":"ethereum","dexId":"uniswap","pairAddress":"0xp1","baseToken":{"symbol":"PEPE","address":"0x1111111111111111111111111111111111112222"},"quoteToken":{"symbol":"WETH"},"priceUsd":"0.1","liquidity":{"usd":900000}},
+            {"chainId":"ethereum","dexId":"uniswap","pairAddress":"0xp2","baseToken":{"symbol":"WETH","address":"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"},"quoteToken":{"symbol":"PEPE","address":"0x6982508145454Ce325dDbE47a25d4ec3d2311933"},"priceUsd":"2500","liquidity":{"usd":500000}},
+            {"chainId":"ethereum","dexId":"uniswap","pairAddress":"0xp3","baseToken":{"symbol":"PEPE","address":"0x6982508145454Ce325dDbE47a25d4ec3d2311933"},"quoteToken":{"symbol":"WETH"},"priceUsd":"0.00001","liquidity":{"usd":40000}},
+            {"chainId":"solana","dexId":"raydium","pairAddress":"p4","baseToken":{"symbol":"NOADDR"},"quoteToken":{"symbol":"SOL"},"priceUsd":"1"}
+        ]}"""
+        val byLiquidity = DexScreener.parseSearch(body)
+        assertEquals(listOf("0xp1", "0xp2", "0xp3", "p4"), byLiquidity.map { it.pairAddress })
+        assertEquals("0x1111…2222", byLiquidity[0].shortBaseAddress)
+        assertEquals("0x6982…1933", byLiquidity[2].shortBaseAddress)
+        assertEquals("", byLiquidity[3].shortBaseAddress)
+        // Suche per Vertragsadresse (andere Schreibweise): Pools mit dem Token als Basis zuerst, Rest nach Liquidität
+        val byAddress = DexScreener.parseSearch(body, " 0x6982508145454ce325ddbe47a25d4ec3d2311933 ")
+        assertEquals(listOf("0xp3", "0xp1", "0xp2", "p4"), byAddress.map { it.pairAddress })
+        // Kurze Adressen bleiben ganz
+        assertEquals("So11111", DexScreener.shortAddress(" So11111 "))
+        assertEquals("123456789012", DexScreener.shortAddress("123456789012"))
+        assertEquals("123456…0123", DexScreener.shortAddress("1234567890123"))
+    }
 }

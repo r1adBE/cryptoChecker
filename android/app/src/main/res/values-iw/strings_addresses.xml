@@ -21,6 +21,7 @@
     <string name="portfolio_address_tokens">לספור טוקנים</string>
     <string name="portfolio_address_unknown_tokens">+%1$d טוקנים לא מוכרים (לא נספרו)</string>
     <string name="portfolio_address_xpub_privacy">xpub חושף את כל הכתובות של הארנק הזה. הן נגזרות במכשיר שלך; אל %1$s נשלחות רק כתובות בודדות – בסריקה הראשונה לפחות 40 בקשות, אחר כך פחות. מפתחות פרטיים (xprv) לעולם לא מתקבלים.</string>
+    <string name="portfolio_address_xpub_gap">החיפוש נעצר אחרי %1$d כתובות לא בשימוש ברצף (תקן BIP44 שבו משתמשים רוב הארנקים). כתובת בשימוש שנמצאת מעבר לפער הזה לא נספרת – הוסף אותה בנפרד.</string>
     <string name="portfolio_address_xpub_used">כתובות בשימוש: %1$d</string>
     <string name="portfolio_addresses_title">כתובות</string>
 

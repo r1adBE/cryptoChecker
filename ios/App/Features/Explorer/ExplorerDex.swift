@@ -118,6 +118,8 @@ extension ExplorerScreen {
 
     private func dexSubtitle(_ pool: DexPool) -> String {
         var parts = ["\(pool.dexId) · \(pool.chainId)"]
+        // Vertragsadresse des Tokens: unterscheidet gleichnamige Token derselben Chain (wie Android)
+        if !pool.shortBaseAddress.isEmpty { parts.append(pool.shortBaseAddress) }
         if let price = pool.priceUsd { parts.append("$" + Self.formatDexPrice(price)) }
         if let liquidity = pool.liquidityUsd { parts.append(L("dex_liquidity", "$" + LocaleNumbers.compact(liquidity))) }
         return parts.joined(separator: " · ")

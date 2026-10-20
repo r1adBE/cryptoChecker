@@ -38,14 +38,14 @@ enum AlarmTexts {
         if alarm.condition.isNearExtreme && NearExtreme.isNewOnly(alarm.threshold) {
             return newExtremeLabel(high: alarm.condition == .NEAR_HIGH, days: alarm.windowHours)
         }
-        // «Nahe am Hoch 2.00% · 30 Tage»
+        // «Nahe am Hoch 2 % · 30 Tage» — Prozent im Format der Sprache wie Chip und Editor (wie Android)
         if alarm.condition.isNearExtreme {
-            return "\(name) " + String(format: "%.2f%%", locale: Locale.current, alarm.threshold) + " · "
+            return "\(name) " + percent(alarm.threshold) + " · "
                 + windowLabel(NearExtreme.windowDays(alarm.windowHours))
         }
         let value: String
         if alarm.condition.isPercent {
-            value = String(format: "%.2f%%", locale: Locale.current, alarm.threshold)
+            value = percent(alarm.threshold)
         } else if let currency = alarm.convertCurrency {
             // Schwellwert in eigener Währung: «Über 60’000 CHF» — genau wie gespeichert (1.0005 bleibt 1.0005)
             value = PriceFormat.thresholdWithCurrency(alarm.threshold, currency)

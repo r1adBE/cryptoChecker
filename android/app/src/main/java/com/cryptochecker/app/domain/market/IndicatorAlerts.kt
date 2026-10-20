@@ -58,6 +58,15 @@ object IndicatorAlertRules {
         }
     }
 
+    /**
+     * Gemerkter Zustand «jenseits der Grenze» für die eingestellte Grenze [current] (gespeicherte Ganzzahl): Wurde er
+     * bei einer anderen Grenze [storedThreshold] gemerkt, zählt er nicht — eine neue Grenze bewertet neu, auch wenn der
+     * Wert schon jenseits liegt (wie Fear & Greed, [MarketNoticeGate.boundChanged]). [storedThreshold] null = Stand vor
+     * dieser Regel: übernehmen, damit nach dem Update nichts doppelt kommt.
+     */
+    fun wasCrossed(storedCrossed: Boolean, storedThreshold: Int?, current: Int): Boolean =
+        storedCrossed && !MarketNoticeGate.boundChanged(storedThreshold, current)
+
     /** Eingeschaltete Grenzen aus den Einstellungen. */
     fun active(stored: Map<IndicatorAlertKind, Int>): Map<IndicatorAlertKind, Double> =
         stored.mapNotNull { (kind, v) -> threshold(kind, v)?.let { kind to it } }.toMap()

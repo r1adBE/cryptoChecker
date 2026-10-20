@@ -7,8 +7,8 @@ Aneonex Software (MIT). Their copyright notices are kept in LICENSE.
 
 Bundled third-party components
 
-The full license texts ship inside the Android app (app/src/main/assets/licenses/)
-and are shown under About › Licenses.
+The full license texts ship inside the Android app
+(android/app/src/main/assets/licenses/) and are shown under About › Licenses.
 
 - Rubik font (Android app, amounts)
   Copyright 2015 The Rubik Project Authors (https://github.com/googlefonts/rubik)
@@ -22,9 +22,9 @@ and are shown under About › Licenses.
 - Apache License 2.0 – assets/licenses/Apache-2.0.txt
   AndroidX (Core, Core SplashScreen, AppCompat, Activity, Lifecycle, Navigation,
   Room, WorkManager, DataStore, Biometric, ProfileInstaller, Concurrent Futures,
-  Hilt Navigation Compose, Hilt Work), Jetpack Compose (UI, UI Util, Material 3,
-  ConstraintLayout), Kotlin standard library, kotlinx.coroutines,
-  kotlinx.serialization, Dagger / Hilt, OkHttp, Okio, Timber.
+  Hilt Navigation Compose, Hilt Lifecycle ViewModel Compose, Hilt Work), Jetpack
+  Compose (UI, UI Util, Material 3, ConstraintLayout), Kotlin standard library,
+  kotlinx.coroutines, kotlinx.serialization, Dagger / Hilt, OkHttp, Okio, Timber.
 
 - Fallback coin icons (Android and iOS)
   "Cryptocurrency Icons" by Christopher Downer and contributors

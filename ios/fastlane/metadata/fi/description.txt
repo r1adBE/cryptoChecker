@@ -11,7 +11,7 @@ REHELLISESTI DATASTA
 • %-muutos ja kaaviot tulevat ensin parin omasta pörssistä; jos siltä puuttuvat kynttilät, sovellus käyttää Binancea tai Coinbasea ja kertoo sen.
 • Fear & Greed, dominanssi ja on-chain-arvot alternative.me:ltä, CoinGeckolta ja Coin Metricsiltä.
 • Kun sovellus on suljettu, iOS tarkistaa harvoin – usein vasta tuntien päästä, ja pois pyyhkäistyä sovellusta ei lainkaan. Luotettavinta, kun sovellus on auki. Lyhyet piikit välissä voivat jäädä huomaamatta; sovellus kertoo sen.
-• Summat pysyvät laitteella, ellet itse vie niitä (CSV, varmuuskopio). Hintoja varten vain parin tunnus lähtee parin pörssiin; lisäksi valuuttakurssit (Frankfurter), markkinatiedot ja logot (CoinGecko, Binance) sekä datapeilit (GitHub). Jos seuraat osoitteita tai xpubia, julkiset lohkoketjusolmut näkevät osoitteet (xpubissa johdetut) ja IP-osoitteesi.
+• Summat lähtevät laitteelta vain viennillä (CSV, varmuuskopio) tai salattuina iCloud-/laitevarmuuskopiossa. Hintoja varten vain parin tunnus lähtee parin pörssiin; lisäksi valuuttakurssit (Frankfurter), markkinatiedot ja logot (CoinGecko, Binance) sekä datapeilit (GitHub). Jos seuraat osoitteita tai xpubia, julkiset lohkoketjusolmut näkevät osoitteet (xpubissa johdetut) ja IP-osoitteesi.
 
 SEURANTALISTA
 • 54 markkinaa 44 pörssissä: spot ja futuurit, DEX-tokenit DexScreenerin kautta, halutessasi osakkeet, kulta ja valuutat (TradFi)

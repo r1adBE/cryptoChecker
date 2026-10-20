@@ -21,6 +21,7 @@
     <string name="portfolio_address_tokens">Contar tokens</string>
     <string name="portfolio_address_unknown_tokens">+%1$d tokens desconhecidos (não contados)</string>
     <string name="portfolio_address_xpub_privacy">Uma xpub revela todos os endereços desta carteira. Eles são derivados no seu dispositivo; para %1$s vão só endereços individuais – pelo menos 40 solicitações na primeira busca, depois menos. Chaves privadas (xprv) nunca são aceitas.</string>
+    <string name="portfolio_address_xpub_gap">A busca para depois de %1$d endereços não usados em sequência (o padrão BIP44 usado pela maioria das carteiras). Um endereço usado além desse intervalo não é contado – adicione-o separadamente.</string>
     <string name="portfolio_address_xpub_used">Endereços em uso: %1$d</string>
     <string name="portfolio_addresses_title">Endereços</string>
 

@@ -127,8 +127,9 @@ extension AppData {
 
     /// Verschwindet die gewählte Gruppe (letztes Paar entfernt oder umgruppiert) oder gilt «Token»
     /// nicht mehr (keine TradFi- bzw. keine anderen Paare), gilt wieder «Alle».
+    /// Merkliste gesperrt (`watchlistLocked`): Sie steht nur leer im Speicher — die Gruppe gibt es noch, Wahl behalten.
     func dropMissingWatchlistGroup() {
-        guard let group = settings.watchlistGroup,
+        guard !watchlistLocked, let group = settings.watchlistGroup,
               !WatchFilter.isAvailable(group, in: snapshot.watches) else { return }
         settings.watchlistGroup = nil
     }

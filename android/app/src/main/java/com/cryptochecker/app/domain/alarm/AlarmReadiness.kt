@@ -11,6 +11,9 @@ object AlarmReadiness {
     /** Letzte Prüfung im Hintergrund älter als das: «länger her» (bei Android-Takt 15 Min. und iOS-Laune ehrlich genug). */
     const val STALE_CHECK_MILLIS = 6L * 60 * 60_000
 
+    /** Letzte Prüfung so weit in der Zukunft gilt noch als eben geprüft (kleine Gangabweichung der Uhr). */
+    const val FUTURE_TOLERANCE_MILLIS = 5L * 60_000
+
     enum class Platform { ANDROID, IOS }
 
     /** Darf die App Mitteilungen zeigen? (Android: Erlaubnis und App-Benachrichtigungen an.) */
@@ -250,8 +253,9 @@ object AlarmReadiness {
         val missing = if (input.hasAlarms) State.WARN else State.INFO
         return when {
             at == null -> Item(Row.LAST_CHECK, missing, Detail.CHECK_NEVER, Action.CHECK_RUNS)
-            // Uhr zurückgestellt (Zeit in der Zukunft): als eben geprüft werten
-            input.now - at <= STALE_CHECK_MILLIS -> Item(Row.LAST_CHECK, State.OK, Detail.CHECK_RECENT)
+            // Weit in der Zukunft (Uhr vor- und zurückgestellt): nicht frisch — ob der Hintergrund wirklich läuft, ist offen
+            at - input.now <= FUTURE_TOLERANCE_MILLIS && input.now - at <= STALE_CHECK_MILLIS ->
+                Item(Row.LAST_CHECK, State.OK, Detail.CHECK_RECENT)
             else -> Item(Row.LAST_CHECK, missing, Detail.CHECK_OLD, Action.CHECK_RUNS)
         }
     }

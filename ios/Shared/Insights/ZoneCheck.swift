@@ -26,13 +26,20 @@ enum ZoneCheck {
     /// erreicht; wieder scharf, sobald er zurück ist. Kam die Meldung nicht an, bleibt sie offen — wie Android.
     private static func checkIndicators(_ stored: [String: Int], defaults: UserDefaults) async {
         let active = IndicatorAlertRules.active(stored)
-        for kind in IndicatorAlertKind.allCases where active[kind] == nil { defaults.removeObject(forKey: crossedKey(kind)) }
+        for kind in IndicatorAlertKind.allCases where active[kind] == nil {
+            defaults.removeObject(forKey: crossedKey(kind))
+            defaults.removeObject(forKey: thresholdKey(kind))
+        }
         guard !active.isEmpty, let inputs = try? await CycleDataSource.fetch() else { return }
         let report = BitcoinIndicatorModel.evaluate(inputs)
         for (kind, threshold) in active {
             let value = report.indicators.first { $0.id == kind.indicator }?.value
-            let decision = IndicatorAlertRules.decide(kind, value: value, threshold: threshold,
-                                                      wasCrossed: defaults.bool(forKey: crossedKey(kind)))
+            // Gemerkter Zustand gilt nur für die Grenze, zu der er gehört: eine neue Grenze bewertet neu
+            let storedThreshold = stored[kind.rawValue] ?? 0
+            let wasCrossed = IndicatorAlertRules.wasCrossed(
+                storedCrossed: defaults.bool(forKey: crossedKey(kind)),
+                storedThreshold: defaults.object(forKey: thresholdKey(kind)) as? Int, current: storedThreshold)
+            let decision = IndicatorAlertRules.decide(kind, value: value, threshold: threshold, wasCrossed: wasCrossed)
             var crossed = decision.crossed
             if decision.notify {
                 var posted = false
@@ -43,11 +50,17 @@ enum ZoneCheck {
                 }
                 if !posted { crossed = nil }
             }
-            if let crossed { defaults.set(crossed, forKey: crossedKey(kind)) }
+            if let crossed {
+                defaults.set(crossed, forKey: crossedKey(kind))
+                defaults.set(storedThreshold, forKey: thresholdKey(kind))
+            }
         }
     }
 
-    private static func crossedKey(_ kind: IndicatorAlertKind) -> String { "indicator_crossed_" + kind.rawValue.lowercased() }
+    static func crossedKey(_ kind: IndicatorAlertKind) -> String { "indicator_crossed_" + kind.rawValue.lowercased() }
+
+    /// Grenze (gespeicherte Ganzzahl), zu der der gemerkte Zustand «jenseits» gehört (wie Android).
+    static func thresholdKey(_ kind: IndicatorAlertKind) -> String { "indicator_threshold_" + kind.rawValue.lowercased() }
 
     /// Fear & Greed: einmal melden, wenn der Index die eingestellte Grenze
     /// unter- bzw. überschreitet — nicht bei jedem Lauf erneut.

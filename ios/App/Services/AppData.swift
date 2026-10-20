@@ -131,6 +131,9 @@ final class AppData: ObservableObject {
     /// `watchlist.json` ist da, aber gerade nicht lesbar (`WatchlistStorageLock`): Die Merkliste steht leer im Speicher und
     /// wird nicht gespeichert. Die Merkliste nennt es dauerhaft; Alarme werden dann nicht angelegt. Neu bei jedem Lesen.
     @Published private(set) var watchlistLocked = false
+    /// Merkliste in diesem Lauf schon einmal gelesen (`WatchlistStorageLock.holdsStoredState`): Dann hält der Speicher
+    /// den echten Stand, und ein später unlesbarer Zugriff setzt `watchlistLocked` nicht mehr.
+    private var watchlistReadOnce = false
     var appActive = false
     /// Dateien mit Nutzerdaten blieben beim Start unverschlüsselt (`LaunchOutcome.encryptionPending`): Einstellungen ›
     /// Sicherung nennt «Verschlüsselung noch nicht aktiv» — wie Android `DatabaseEncryptionNotice`.
@@ -154,6 +157,7 @@ final class AppData: ObservableObject {
         let read = SharedStorage.readSnapshot()
         snapshot = read.snapshot ?? SharedStorage.Snapshot()
         watchlistLocked = WatchlistStorageLock.isLocked(read)
+        watchlistReadOnce = WatchlistStorageLock.holdsStoredState(read)
         let loadedSettings = AppData.readSettings()
         settings = loadedSettings.settings
         settingsAccessible = loadedSettings.state != .inaccessible
@@ -307,8 +311,9 @@ final class AppData: ObservableObject {
         let read = SharedStorage.readSnapshot()
         let waiting = SharedStorage.watchlistPending
         if watchlistSavePending != waiting { watchlistSavePending = waiting }
-        let locked = WatchlistStorageLock.isLocked(read)
+        let locked = WatchlistStorageLock.isLocked(read, readBefore: watchlistReadOnce)
         if watchlistLocked != locked { watchlistLocked = locked }
+        if WatchlistStorageLock.holdsStoredState(read) { watchlistReadOnce = true }
         // Nur einen gelesenen Stand übernehmen: Ist die Datei gerade unlesbar oder nicht zugreifbar,
         // bleibt der Stand im Speicher (sonst stünde eine leere Merkliste da) — ebenso, solange die Merkliste
         // noch nicht versiegelt gespeichert ist (die Datei hat dann einen älteren Stand)

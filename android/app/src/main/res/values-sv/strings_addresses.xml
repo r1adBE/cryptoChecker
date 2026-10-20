@@ -21,6 +21,7 @@
     <string name="portfolio_address_tokens">Räkna med tokens</string>
     <string name="portfolio_address_unknown_tokens">+%1$d okända tokens (räknas inte)</string>
     <string name="portfolio_address_xpub_privacy">En xpub avslöjar alla adresser i den här walleten. De härleds på din enhet; bara enskilda adresser skickas till %1$s – minst 40 förfrågningar vid första sökningen, sedan färre. Privata nycklar (xprv) godtas aldrig.</string>
+    <string name="portfolio_address_xpub_gap">Sökningen avbryts efter %1$d oanvända adresser i rad (BIP44-standarden som de flesta plånböcker använder). En använd adress efter det glappet räknas inte – lägg till den separat.</string>
     <string name="portfolio_address_xpub_used">Använda adresser: %1$d</string>
     <string name="portfolio_addresses_title">Adresser</string>
 

@@ -106,6 +106,8 @@ internal fun DexSearchSection(dex: DexUi, groupTarget: GroupTargetUi) {
                         Text(
                             text = listOfNotNull(
                                 BidiText.isolate("${pool.dexId} · ${pool.chainId}"),
+                                // Vertragsadresse des Tokens: unterscheidet gleichnamige Token derselben Chain
+                                pool.shortBaseAddress.takeIf { it.isNotEmpty() }?.let { BidiText.isolate(it) },
                                 pool.priceUsd?.let { "$" + formatDexPrice(it) },
                                 pool.liquidityUsd?.let { stringResource(R.string.dex_liquidity, "$" + CompactAmount.number(it)) }
                             ).joinToString(" · "),

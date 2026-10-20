@@ -37,4 +37,17 @@ class IndicatorAlertRulesTest {
         // Abstand 3 % ≤ Grenze 5 % → nahe am Hoch
         assertTrue(IndicatorAlertRules.crossed(IndicatorAlertKind.ATH_WITHIN, 3.0, 5.0))
     }
+
+    @Test
+    fun `new bound rearms a crossed state like fear and greed`() {
+        // Gemeldet bei Grenze 2.40×; neue Grenze 2.00×, Wert liegt schon darüber → neu bewerten und melden
+        assertFalse(IndicatorAlertRules.wasCrossed(storedCrossed = true, storedThreshold = 240, current = 200))
+        val k = IndicatorAlertKind.MAYER_ABOVE
+        assertTrue(IndicatorAlertRules.decide(k, 2.5, 2.0, wasCrossed = false).notify)
+        // Gleiche Grenze: bleibt gemeldet (keine Doppelmeldung)
+        assertTrue(IndicatorAlertRules.wasCrossed(storedCrossed = true, storedThreshold = 240, current = 240))
+        // Stand vor dieser Regel (keine Grenze gemerkt): übernehmen
+        assertTrue(IndicatorAlertRules.wasCrossed(storedCrossed = true, storedThreshold = null, current = 200))
+        assertFalse(IndicatorAlertRules.wasCrossed(storedCrossed = false, storedThreshold = 240, current = 200))
+    }
 }

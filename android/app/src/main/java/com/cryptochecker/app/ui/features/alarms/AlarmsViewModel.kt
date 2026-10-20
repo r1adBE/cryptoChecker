@@ -252,8 +252,7 @@ class AlarmsViewModel @Inject constructor(
         viewModelScope.launch {
             val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
             val def = AlarmTemplates.definition(template, w.lastPrice) ?: return@launch
-            val firstEver = notices.markFirstAlarm(existing = false)
-            val timingHint = notices.markTimingHint(firstAlarmDialog = firstEver)
+            val firstEver = notices.isFirstAlarm(existing = false)
             val alarm = AlarmEntity(
                 watchId = watchId,
                 condition = def.condition,
@@ -264,9 +263,11 @@ class AlarmsViewModel @Inject constructor(
                 windowHours = def.windowHours,
             )
             val id = saveIfWatchExists(alarm) ?: return@launch
-            onCreated(alarm.copy(id = id))
+            val timingHint = notices.markSaved(firstEver)
+            // Dialoge zuerst: Die Bestätigung mit «Rückgängig» wartet, bis sie geschlossen sind (sonst liefe sie dahinter ab)
             if (firstEver) notices.showFirstAlarm()
             if (timingHint) notices.showTimingHint()
+            onCreated(alarm.copy(id = id))
         }
     }
 
@@ -322,8 +323,7 @@ class AlarmsViewModel @Inject constructor(
             val existing = alarms.value.firstOrNull { it.id == draft.id }
 
             // Allererster Alarm? Gab es schon Alarme (z. B. vor dem Update), gilt die Bestätigung als gezeigt.
-            val firstEver = notices.markFirstAlarm(existing = existing != null)
-            val timingHint = notices.markTimingHint(firstAlarmDialog = firstEver)
+            val firstEver = notices.isFirstAlarm(existing = existing != null)
             val keepReference = existing != null && existing.condition == draft.condition &&
                 existing.windowHours == draft.windowHours
             val referencePrice = when {
@@ -372,8 +372,8 @@ class AlarmsViewModel @Inject constructor(
             // Bezug, Ein/Aus) bleibt; neu scharf nur bei geänderter Bedingung ([AlarmEdit.merged])
             val alarm = AlarmEdit.merged(existing, edited)
             if (saveIfWatchExists(alarm) == null) return@launch
+            val timingHint = notices.markSaved(firstEver)
             onSaved(alarm, runCatchingCancellable { appNotifier.canShowAlarm(alarm) }.getOrDefault(true), firstEver)
-
             if (firstEver) notices.showFirstAlarm()
             if (timingHint) notices.showTimingHint()
         }
@@ -383,8 +383,10 @@ class AlarmsViewModel @Inject constructor(
         viewModelScope.launch {
             watchRepository.deleteAlarm(alarmId)
             // Merkliste nur leer im Arbeitsspeicher: Die Id gilt nur für diesen Lauf und kann die eines gespeicherten
-            // Alarms sein — dessen Protokoll bleibt
+            // Alarms sein — dessen Protokoll und Mitteilung bleiben
             if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) return@launch
+            // Seine Mitteilung weg: ihr «Anpassen» zeigte sonst auf einen Alarm, den es nicht mehr gibt
+            runCatchingCancellable { appNotifier.cancelAlarms(listOf(alarmId)) }
             // Datei versiegelt schreiben: nicht auf dem Hauptfaden
             kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { alarmLogStore.removeAlarm(alarmId) }
         }

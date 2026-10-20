@@ -5882,5 +5882,48 @@
       ],
       "due": true
     }
+  },
+  "backupOverlap": {
+    "_comment": "Sicherung beobachteter Adressen mit dem Ueberschneidungs-Entscheid (Build 89): «overlapChecked»:true nur, wenn entschieden (z. B. «trotzdem zaehlen»), «overlapLegacy»:true nur dazu (Entscheid nach der alten Regel, wie «ovl» ohne «ovl2» in den Zusatzdaten). Ohne Feld (aeltere Sicherung) = nicht entschieden; «overlapLegacy» ohne «overlapChecked» zaehlt nicht. Lesen, Schreiben (nur diese Felder), Einspielen (merge) und zurueck in die Sicherung uebernehmen den Wert.",
+    "text": "[{\"chain\":\"BTC\",\"address\":\"bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh\",\"addedAt\":1,\"overlapChecked\":true},{\"chain\":\"ETH\",\"address\":\"0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed\",\"addedAt\":2,\"countInPortfolio\":false,\"overlapChecked\":true,\"overlapLegacy\":true},{\"chain\":\"BTC\",\"address\":\"1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa\",\"addedAt\":3,\"overlapLegacy\":true},{\"chain\":\"BTC\",\"address\":\"bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4\",\"addedAt\":4}]",
+    "expected": [
+      {
+        "chain": "BTC",
+        "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+        "countInPortfolio": true,
+        "overlapChecked": true,
+        "overlapLegacy": false,
+        "written": [
+          "overlapChecked"
+        ]
+      },
+      {
+        "chain": "ETH",
+        "address": "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed",
+        "countInPortfolio": false,
+        "overlapChecked": true,
+        "overlapLegacy": true,
+        "written": [
+          "overlapChecked",
+          "overlapLegacy"
+        ]
+      },
+      {
+        "chain": "BTC",
+        "address": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+        "countInPortfolio": true,
+        "overlapChecked": false,
+        "overlapLegacy": false,
+        "written": []
+      },
+      {
+        "chain": "BTC",
+        "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+        "countInPortfolio": true,
+        "overlapChecked": false,
+        "overlapLegacy": false,
+        "written": []
+      }
+    ]
   }
 }

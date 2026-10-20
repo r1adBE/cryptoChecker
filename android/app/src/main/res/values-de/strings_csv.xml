@@ -44,6 +44,7 @@
     <string name="portfolio_csv_import_transfers_hint">Eine Auszahlung und die passende Einzahlung desselben Coins werden eine Umbuchung: Kaufpreis und Haltedauer bleiben, die Differenz gilt als Netzwerkgebühr.</string>
     <string name="portfolio_csv_import_transfers_title">Umbuchungen zwischen deinen Konten</string>
     <string name="portfolio_csv_import_unreadable">Keine unterstützten Transaktionen gefunden. Unterstützt: CSV-Exporte von Relai, Swissquote, Kraken, Binance, Coinbase und Bitpanda.</string>
+    <string name="portfolio_csv_import_failed">Der Import hat nicht geklappt – es wurde nichts gespeichert. Versuch es nochmals.</string>
     <string name="portfolio_csv_import_withdrawals_title">Auszahlungen – wohin gingen die Coins?</string>
     <string name="portfolio_csv_import_zone">Zeiten ohne Zeitzone gelesen als: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Gerät (%1$s)</string>

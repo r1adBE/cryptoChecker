@@ -1,5 +1,5 @@
 {
-  "description": "Pairs no longer traded (Android NotTraded.kt / iOS NotTraded.swift): stored lastError -> isMarker and the 24 h change that is shown (null = dash). Only the exact marker text counts. askSingleWhenMissing: pair missing from a complete bulk list -> ask it once by single ticker (not again once marked). confirmedBySingle: single result -> mark not traded only on a clear statement about the pair: answer without a price (no data, no error text), an explicit unknown-instrument text (does not exist, unknown asset pair, invalid symbol ...), the own reader text for a valid answer without an entry for the pair (exactly 'No data', or starting with 'Unknown coin' from Hyperliquid; only reached after the pair was missing from a complete bulk list) or HTTP 400/404; any other error (unreadable answer, unknown exception, network, timeout, rate limit, other 4xx, 5xx, missing adapter) stays an ordinary error.",
+  "description": "Pairs no longer traded (Android NotTraded.kt / iOS NotTraded.swift): stored lastError -> isMarker and the 24 h change that is shown (null = dash). Only the exact marker text counts. askSingleWhenMissing: pair missing from a complete bulk list -> ask it once by single ticker (not again once marked). confirmedBySingle: single result -> mark not traded only on a clear statement about the pair: answer without a price (no data, no error text), an explicit unknown-instrument text (does not exist, unknown asset pair, invalid symbol ...), the own reader text for a valid answer without an entry for the pair (exactly 'No data', or starting with 'Unknown coin' from Hyperliquid; only reached after the pair was missing from a complete bulk list) or HTTP 400/404; any other error (unreadable answer, unknown exception, network, timeout, rate limit, other 4xx, 5xx, missing adapter) stays an ordinary error. confirmWithoutBulk: without a bulk query (too few pairs) a single result is judged like confirmedBySingle only if the single request itself reads the complete list (Market.singleTickerReadsFullList: Lighter, Hyperliquid).",
   "marker": "Wird an der Börse nicht mehr gehandelt",
   "cases": [
     {"lastError": "Wird an der Börse nicht mehr gehandelt", "change24h": 13.9, "isMarker": true, "shown": null},
@@ -46,5 +46,11 @@
     {"gotPrice": false, "error": "no data available", "confirmed": false},
     {"gotPrice": false, "error": "No data for field last", "confirmed": false},
     {"gotPrice": true, "error": "No data", "confirmed": false}
+  ],
+  "confirmWithoutBulk": [
+    {"name": "too few pairs for the bulk query, single reads the full list (Lighter): judge like the bulk path", "bulkTried": false, "singleReadsFullList": true, "confirm": true},
+    {"name": "too few pairs, ordinary single request: no second statement, ordinary error", "bulkTried": false, "singleReadsFullList": false, "confirm": false},
+    {"name": "bulk query tried: the bulk path decides", "bulkTried": true, "singleReadsFullList": true, "confirm": false},
+    {"name": "bulk query tried, ordinary single request", "bulkTried": true, "singleReadsFullList": false, "confirm": false}
   ]
 }

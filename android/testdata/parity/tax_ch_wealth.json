@@ -1,5 +1,5 @@
 {
-  "_comment": "[B80] CH-Vermögenswert per 31.12. (TaxExport.chWealth, Android + iOS) — Orientierung, keine Steuerwerte der ESTV-Kursliste, Vermögenssteuer nicht gerechnet. Bestand am Ende des 31.12. in der Zeitzone der Vorlage (Europe/Zurich: 23:59 zählt, 1.1. 00:00 nicht, auch wenn es in UTC noch der 31.12. ist), nach der Einstandsmethode (methods: jede muss dasselbe ergeben); Kurs = Tagesschluss 31.12. in USDT (closes; unchecked = nicht als derselbe Token bestätigt); rate = USD→CHF des 31.12. (null = kein Devisenkurs); addresses = Guthaben beobachteter Adressen (balances, unobserved). Wert je Coin = Menge × Schluss × Kurs (je Teilzeile auf 2 Stellen gerundet, [B88]); fehlt ein Schluss: Wert leer (missing), Summe unvollständig — nie ein anderer Kurs. Werte je Coin exakt; Summen aus den je Coin auf 2 Stellen GERUNDETEN Werten (CutoffExport.roundedMoney, wie die Zeilen in der Datei; seit Build 87, wie der Stichtag-Export). [B88] Wert je Coin = Summe der GERUNDETEN Teilzeilen (eigener Bestand, je Adresse), genau wie die Zeilen der Bestandsdatei (Stichtag-Export) — beide Dateien weichen je Coin nicht um 0.01 ab, moneyTotal = CutoffExport.money(totalTarget). rows: [Coin, Menge, Wert USDT, Wert CHF, nicht gerechnet]. summaries: TaxExport.yearSummary CH mit yearEndCloses — Posten CH_WEALTH_VALUE [usdt, target, unvollständig, kein Devisenkurs, nicht gerechnet] und die CSV-Zeilen ab dem Posten (Texte: Bezeichnung = Name des Postens, wealthCoin «{coin} – {amount}», incomplete, nofx, chwealth, nc, noprice, unchecked, unobserved).",
+  "_comment": "[B80] CH-Vermögenswert per 31.12. (TaxExport.chWealth, Android + iOS) — Orientierung, keine Steuerwerte der ESTV-Kursliste, Vermögenssteuer nicht gerechnet. Bestand am Ende des 31.12. in der Zeitzone der Vorlage (Europe/Zurich: 23:59 zählt, 1.1. 00:00 nicht, auch wenn es in UTC noch der 31.12. ist), nach der Einstandsmethode (methods: jede muss dasselbe ergeben); Kurs = Tagesschluss 31.12. in USDT (closes; unchecked = nicht als derselbe Token bestätigt); rate = USD→CHF des 31.12. (null = kein Devisenkurs); addresses = Guthaben beobachteter Adressen (balances, unobserved). Wert je Coin = Menge × Schluss × Kurs (je Teilzeile auf 2 Stellen gerundet, [B88]); fehlt ein Schluss: Wert leer (missing), Summe unvollständig — nie ein anderer Kurs. Werte je Coin exakt; Summen aus den je Coin auf 2 Stellen GERUNDETEN Werten (CutoffExport.roundedMoney, wie die Zeilen in der Datei; seit Build 87, wie der Stichtag-Export). [B88] Wert je Coin = Summe der GERUNDETEN Teilzeilen (eigener Bestand, je Adresse), genau wie die Zeilen der Bestandsdatei (Stichtag-Export) — beide Dateien weichen je Coin nicht um 0.01 ab, moneyTotal = CutoffExport.money(totalTarget). rows: [Coin, Menge, Wert USDT, Wert CHF, nicht gerechnet]. summaries: TaxExport.yearSummary CH mit yearEndCloses — Posten CH_WEALTH_VALUE [usdt, target, unvollständig, kein Devisenkurs, nicht gerechnet] und die CSV-Zeilen ab dem Posten (Texte: Bezeichnung = Name des Postens, wealthCoin «{coin} – {amount}», incomplete, nofx, chwealth, nc, noprice, unchecked, unobserved). [B89] Fehlt nur ein Teil eines Coins (Adresse am 31.12. nicht beobachtet), zählt der bekannte Teil wie in der Bestandsdatei und der Coin ist «unvollständig» (6. Wert einer Zeile in rows, fehlt = false); «nicht gerechnet» (5. Wert) nur ohne jeden bekannten Teil.",
   "zone": "Europe/Zurich",
   "date": "2025-12-31",
   "cases": [
@@ -433,6 +433,49 @@
         "incomplete": false,
         "noFx": false,
         "moneyTotal": "0.00"
+      }
+    },
+    {
+      "name": "[B89] Eigener Bestand bewertet, Adresse desselben Coins am 31.12. nicht beobachtet: Coin mit dem Bekannten gerechnet und «unvollständig» (wie die Bestandsdatei: Zeile 6000, Total 6000 unvollständig), nicht «nicht gerechnet» mit Total 0",
+      "methods": [
+        "FIFO"
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "time": 1740826800000,
+          "price": "50000"
+        }
+      ],
+      "closes": {
+        "BTC": "60000"
+      },
+      "rate": "0.8",
+      "addresses": {
+        "balances": {},
+        "unobserved": [
+          "BTC"
+        ]
+      },
+      "expected": {
+        "rows": [
+          [
+            "BTC",
+            "0.1",
+            "6000",
+            "4800",
+            false,
+            true
+          ]
+        ],
+        "totalUsdt": "6000",
+        "totalTarget": "4800",
+        "incomplete": true,
+        "noFx": false,
+        "moneyTotal": "4800.00"
       }
     },
     {

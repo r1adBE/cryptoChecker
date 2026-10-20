@@ -233,13 +233,14 @@ final class ChangeBasisTests: XCTestCase {
     }
 
     func testMarkLabelOnlyForMarkChangeOnRollingBasis() {
-        // Hyperliquid: % Mark gegen Mark → «Mark», aber nur bei rollender Basis (Tages-Basen: Kerzen) — wie Android
+        // Änderung gegen Mark → «Mark», aber nur bei rollender Basis (Tages-Basen: Kerzen) — wie Android
         XCTAssertTrue(ChangeBasisMath.showsMark(changeIsMark: true, basis: .ROLLING_24H))
         XCTAssertFalse(ChangeBasisMath.showsMark(changeIsMark: true, basis: .SINCE_LAST))
         XCTAssertFalse(ChangeBasisMath.showsMark(changeIsMark: true, basis: .UTC_DAY))
         XCTAssertFalse(ChangeBasisMath.showsMark(changeIsMark: true, basis: .LOCAL_DAY))
         XCTAssertFalse(ChangeBasisMath.showsMark(changeIsMark: false, basis: .ROLLING_24H))
-        XCTAssertTrue(Hyperliquid().changeIsMark)
+        // Hyperliquid rechnet die Änderung mit dem gezeigten Kurs (Mittelkurs): kein «Mark» an der Änderung
+        XCTAssertFalse(Hyperliquid().changeIsMark)
         XCTAssertFalse(Kraken().changeIsMark)
     }
 

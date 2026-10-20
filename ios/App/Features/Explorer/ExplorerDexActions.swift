@@ -19,7 +19,7 @@ extension ExplorerViewModel {
         dexTask = Task { [weak self] in
             do {
                 let body = try await MarketHTTP.call(DexScreener.searchURL(term))
-                let pools = try DexScreener.parseSearch(body)
+                let pools = try DexScreener.parseSearch(body, query: term)
                 guard let self, !Task.isCancelled else { return }
                 self.dexResults = Self.distinctPools(pools)
                 self.dexNoResults = pools.isEmpty

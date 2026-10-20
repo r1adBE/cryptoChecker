@@ -21,6 +21,7 @@
     <string name="portfolio_address_tokens">Учитывать токены</string>
     <string name="portfolio_address_unknown_tokens">+%1$d неизвестных токенов (не учтены)</string>
     <string name="portfolio_address_xpub_privacy">Xpub раскрывает все адреса этого кошелька. Они вычисляются на вашем устройстве; в %1$s отправляются только отдельные адреса – при первом поиске не менее 40 запросов, потом меньше. Закрытые ключи (xprv) никогда не принимаются.</string>
+    <string name="portfolio_address_xpub_gap">Поиск останавливается после %1$d неиспользованных адресов подряд (стандарт BIP44, который используют большинство кошельков). Использованный адрес за этим промежутком не учитывается – добавьте его отдельно.</string>
     <string name="portfolio_address_xpub_used">Используемые адреса: %1$d</string>
     <string name="portfolio_addresses_title">Адреса</string>
 

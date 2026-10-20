@@ -66,6 +66,8 @@ fun PortfolioCsvImportFlow(
     LaunchedEffect(Unit) {
         if (!picked) {
             picked = true
+            // Das ViewModel lebt länger als der Ablauf: keine Vorschau eines früheren Imports stehen lassen
+            viewModel.reset()
             runCatchingCancellable { launcher.launch(CSV_MIME_TYPES) }
                 .onFailure { onDismiss() }
         }
@@ -93,10 +95,18 @@ fun PortfolioCsvImportFlow(
                 }
             },
         )
-        CsvImportState.Unreadable -> AlertDialog(
+        // Nicht lesbar, Portfolio gesperrt (PortfolioStorageLock) oder Schreiben gescheitert: Grund statt «0 importiert»
+        CsvImportState.Unreadable, CsvImportState.Locked, CsvImportState.SaveFailed -> AlertDialog(
             onDismissRequest = close,
             title = { Text(stringResource(R.string.portfolio_csv_import_action)) },
-            text = { Text(stringResource(R.string.portfolio_csv_import_unreadable)) },
+            text = {
+                val message = when (s) {
+                    CsvImportState.Locked -> R.string.portfolio_storage_kept_in_memory
+                    CsvImportState.SaveFailed -> R.string.portfolio_csv_import_failed
+                    else -> R.string.portfolio_csv_import_unreadable
+                }
+                Text(stringResource(message))
+            },
             confirmButton = { TextButton(onClick = close) { Text(stringResource(R.string.action_close)) } },
         )
         is CsvImportState.Preview -> CsvImportPreviewSheet(

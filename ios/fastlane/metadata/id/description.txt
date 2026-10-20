@@ -11,7 +11,7 @@ JUJUR SOAL DATA
 • Perubahan % dan grafik pertama berasal dari bursa pasangan itu; jika tidak ada candle, aplikasi memakai Binance atau Coinbase dan memberi tahu Anda.
 • Fear & Greed, dominasi, dan nilai on-chain dari alternative.me, CoinGecko, dan Coin Metrics.
 • Saat aplikasi ditutup, iOS jarang memeriksa – sering baru setelah berjam-jam, dan sama sekali tidak jika aplikasi diusap hingga tertutup. Paling andal saat aplikasi terbuka. Lonjakan singkat di antaranya bisa terlewat; aplikasi memberi tahu Anda.
-• Jumlah tetap di perangkat, kecuali Anda ekspor sendiri (CSV, cadangan). Untuk harga, hanya simbol pasangan yang dikirim ke bursanya; plus kurs (Frankfurter), data pasar dan logo (CoinGecko, Binance), cermin data (GitHub). Jika Anda memantau alamat atau xpub, node blockchain publik melihat alamatnya (untuk xpub, turunannya) dan IP Anda.
+• Jumlah hanya keluar dari perangkat lewat ekspor (CSV, cadangan) atau terenkripsi di cadangan iCloud atau komputer. Untuk harga, hanya simbol pasangan yang dikirim ke bursanya; plus kurs (Frankfurter), data pasar dan logo (CoinGecko, Binance), cermin data (GitHub). Jika Anda memantau alamat atau xpub, node blockchain publik melihat alamatnya (untuk xpub, turunannya) dan IP Anda.
 
 DAFTAR PANTAUAN
 • 54 pasar di 44 bursa: spot dan futures, token DEX via DexScreener, opsional saham, emas, dan valas (TradFi)

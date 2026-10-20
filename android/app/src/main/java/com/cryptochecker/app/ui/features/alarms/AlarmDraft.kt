@@ -116,6 +116,14 @@ data class AlarmDraft(
         get() = thresholdProblem.takeUnless { it == ThresholdProblem.EMPTY && blankStart }
 
     /**
+     * Hinweis «Betrag eingeben» unter dem gesperrten Knopf: nur solange das Feld eines neuen Alarms noch leer ist
+     * (der graue Platzhalter wirkt sonst wie ein Wert, und ohne Fehlertext bliebe offen, warum der Knopf gesperrt ist).
+     * Wie iOS.
+     */
+    val showsEnterAmountHint: Boolean
+        get() = thresholdProblem == ThresholdProblem.EMPTY && visibleProblem == null
+
+    /**
      * Platzhalter im leeren Betragsfeld eines neuen Alarms: der aktuelle Kurs in der Währung des
      * Schwellwerts ([priceHint]), sechs gültige Stellen, Format wie die Eingabe. null = keiner.
      */

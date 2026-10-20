@@ -133,7 +133,8 @@ internal fun PairHitRow(hit: SearchHit, search: SearchUi) {
             .fillMaxWidth()
             .clip(MaterialTheme.shapes.medium)
             .background(MaterialTheme.colorScheme.surfaceContainer)
-            .clickable(onClickLabel = action) { search.onAdd(hit) }
+            // Schon da: kein Klick-Label (sonst zweimal «Schon in der Merkliste» — Zustand und Aktion)
+            .clickable(onClickLabel = action.takeUnless { watched }) { search.onAdd(hit) }
             .semantics { if (watched) stateDescription = action }
             .padding(start = 16.dp, end = 4.dp, top = Spacing.sm, bottom = Spacing.sm)
     ) {

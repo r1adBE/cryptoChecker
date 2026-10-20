@@ -57,13 +57,17 @@ final class LegacyStorageMigrationTests: XCTestCase {
         XCTAssertNil(CsvRestoreState.from(json: long))
     }
 
-    /// Zins nur bei ganzen Wörtern («Verzinsung», «Zinseszins» nicht); wirkt auch auf `legacyInterest`. Wie Android.
+    /// Neue Eingaben: Zins nur bei ganzen Wörtern («Verzinsung», «Zinseszins» nicht). Altbestand (alte Dateien, Sicherungen
+    /// ohne Feld): eingefrorene Teilstring-Regel, damit sich alte Daten nicht nachträglich ändern. Wie Android.
     func testInterestRewardMatchesWholeWords() throws {
         for c in S.list(try data()["interestReward"]) {
             let text = string(c["text"])
             let expected = try XCTUnwrap(c["interest"] as? Bool)
+            let legacy = try XCTUnwrap(c["legacyInterest"] as? Bool)
             XCTAssertEqual(TaxEngines.interestReward(text), expected, "interestReward: \(text ?? "nil")")
-            XCTAssertEqual(LegacyStorageMigration.legacyInterest(.REWARD, note: text), expected, "legacyInterest: \(text ?? "nil")")
+            XCTAssertEqual(LegacyStorageMigration.interestRewardLegacy(text), legacy, "interestRewardLegacy: \(text ?? "nil")")
+            XCTAssertEqual(LegacyStorageMigration.legacyInterest(.REWARD, note: text), legacy, "legacyInterest: \(text ?? "nil")")
+            XCTAssertFalse(LegacyStorageMigration.legacyInterest(.BUY, note: text), "legacyInterest BUY: \(text ?? "nil")")
         }
     }
 

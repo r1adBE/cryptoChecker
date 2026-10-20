@@ -10,7 +10,7 @@ SINCER DESPRE DATE
 • „Economic” este implicit: prețurile se actualizează la deschidere și la intervale în fundal. „Live cât e deschisă” adaugă prețuri live pentru Binance, Bybit, OKX, Coinbase și Kraken cât timp lista e deschisă.
 • Variația în % și graficele vin întâi de la bursa perechii; dacă aceasta nu are lumânări, aplicația folosește Binance sau Coinbase și îți spune.
 • Fear & Greed, dominanță și valori on-chain de la alternative.me, CoinGecko și Coin Metrics.
-• Cu aplicația închisă, Android decide când sunt verificate alarmele – cel mult la 15 minute, adesea abia după ore. Vârfuri scurte între timp pot fi ratate; aplicația îți spune asta.
+• Cu aplicația închisă, Android decide când sunt verificate alarmele – cel mult o dată la 15 minute, adesea abia după ore. Vârfuri scurte între timp pot fi ratate; aplicația îți spune asta.
 • Sumele părăsesc dispozitivul doar prin export sau backupul de sistem Android. Pentru prețuri, doar simbolurile perechii ajung la bursa perechii respective; în plus cursuri valutare (Frankfurter), date de piață și logo-uri (CoinGecko, Binance), oglinzi de date (GitHub). Dacă urmărești adrese sau un xpub, nodurile blockchain publice văd adresele (la xpub, cele derivate) și IP-ul tău.
 
 LISTA DE URMĂRIRE

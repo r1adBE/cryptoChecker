@@ -19,6 +19,7 @@ import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.market.BinanceAlpha
 import com.cryptochecker.marketdata.model.market.DexPool
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -111,10 +112,13 @@ class MarketRepositoryImpl @Inject constructor(
     override suspend fun updateMarketCurrencyPairs(market: MarketInfo) {
         val fresh = remote.fetchMarketCurrencyPairsInfo(requireMarket(market.key))
         if (fresh.size <= 0) return
-        local.saveMarketData(market.key, fresh)
-        // Volle Coin-Namen für «gleicher Token» (K-8), aus derselben Paarliste; schreibt eine Datei,
-        // darum nicht im Kontext des Aufrufers (Explorer: Haupt-Thread)
-        withContext(Dispatchers.IO) { tokenIdentityStore.saveMarket(market.key, fresh.baseNames) }
+        // Paarliste und volle Coin-Namen («gleicher Token», aus derselben Paarliste) gehören zusammen: nach dem Abruf
+        // beide speichern, auch wenn der Aufrufer gerade abbricht — sonst Paare neu, Namen alt. Die Namen schreiben
+        // eine Datei, darum nicht im Kontext des Aufrufers (Explorer: Haupt-Thread).
+        withContext(NonCancellable + Dispatchers.IO) {
+            local.saveMarketData(market.key, fresh)
+            tokenIdentityStore.saveMarket(market.key, fresh.baseNames)
+        }
     }
 }
 

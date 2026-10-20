@@ -11,7 +11,7 @@ DET SOM GÖR DEN ANNORLUNDA
 • %-ändring och diagram kommer först från parets egen börs; saknar den candles använder appen Binance eller Coinbase och säger det.
 • Fear & Greed, dominans och on-chain-värden från alternative.me, CoinGecko och Coin Metrics.
 • Med appen stängd kontrollerar iOS sällan – ofta först efter flera timmar, och inte alls om du har svept bort appen. Mest tillförlitligt med appen öppen. Korta toppar däremellan kan missas; appen säger det till dig.
-• Belopp stannar på enheten, om du inte själv exporterar dem (CSV, säkerhetskopia). För kurser skickas bara parets symbol till börsen för just det paret; dessutom valutakurser (Frankfurter), marknadsdata och logotyper (CoinGecko, Binance) och dataspeglar (GitHub). Bevakar du adresser eller en xpub ser publika blockkedjenoder adresserna (för en xpub de härledda) och din IP.
+• Belopp lämnar enheten bara via din export (CSV, säkerhetskopia) eller krypterat i iCloud-/enhetsbackup. För kurser skickas bara parets symbol till börsen för just det paret; dessutom valutakurser (Frankfurter), marknadsdata och logotyper (CoinGecko, Binance) och dataspeglar (GitHub). Bevakar du adresser eller en xpub ser publika blockkedjenoder adresserna (för en xpub de härledda) och din IP.
 
 BEVAKNINGSLISTA
 • 54 marknader på 44 börser: spot och terminer, DEX-tokens via DexScreener, valfritt aktier, guld och valutor (TradFi)

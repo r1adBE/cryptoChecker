@@ -2144,6 +2144,19 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 89 (second audit of 20 October 2026): `bundle { language { enableSplit = false } }` keeps all locales in the
+  AAB for the in-app language picker. iOS `RefreshSchedule.isImplausiblyFar` replaces a far-off BG request (launch,
+  foreground, clock/time-zone change); readiness treats a last check > 5 min in the future as old
+  (`FUTURE_TOLERANCE_MILLIS`). `BulkDelisted.plan` rechecks all pairs once when every pair is marked and no state
+  exists; `NotTraded.confirmWithoutBulk` for markets whose single ticker reads the full list (Lighter,
+  Hyperliquid). Hyperliquid change = shown price vs `prevDayPx`. `DexPool` keeps `baseToken.address`. WOO spot rows
+  show `watch_price_hourly`. `MarketAlertReset` clears remembered alert state when a market alert is switched off;
+  indicator zones store their limit with the beyond-flag. Quick-alert undo waits for the first-alert dialog
+  (`AlarmsScreenSnackbars`). Portfolio writes (incl. delete/undo/clear/replace) are refused while locked;
+  `PortfolioStore.keepsUnsealed` on iOS. Backups carry `overlapChecked`/`overlapLegacy` (and costLots on iOS).
+  `LegacyStorageMigration.interestRewardLegacy` freezes the old interest rule for legacy data. `TaxWealthRow.incomplete`.
+  CSV `escape` skips leading spaces/NBSP before the formula check. `PulseBackgroundFetch` lets background checks
+  await the pulse fetch (≤ 20 s, within deadlines). xpub gap stays 20 (`portfolio_address_xpub_gap`).
 * Build 88 (audit of 20 October 2026): gas alerts store the threshold with the armed state and re-arm on change;
   Fear & Greed stores its thresholds with the last value and re-evaluates only the changed bound. iOS
   `TimeUtils.isIntervalDue` treats a last check in the future as due (gas, depeg). Android re-syncs the exact

@@ -38,6 +38,11 @@ enum BackgroundRefresh {
         scheduleRefresh(settings: settings)
     }
 
+    /// Uhr oder Zeitzone geändert (`significantTimeChange`, `NSSystemClockDidChange`): vorgemerkte Anfrage prüfen.
+    static func clockChanged() {
+        scheduleRefresh(settings: SharedStorage.loadSettings())
+    }
+
     /// Plant die Kurs-Aktualisierung im Hintergrund — wie Android (`ExistingPeriodicWorkPolicy.KEEP`):
     /// Ist schon eine vorgemerkt, bleibt sie stehen. Vorher wurde sie bei jedem Start und jedem Wechsel in
     /// den Hintergrund abgesagt und «Intervall ab jetzt» neu gelegt; wer die App oft öffnete, schob den
@@ -74,7 +79,14 @@ enum BackgroundRefresh {
             return
         }
         BGTaskScheduler.shared.getPendingTaskRequests { requests in
-            guard !requests.contains(where: { $0.identifier == refreshId }) else { return }
+            if let pending = requests.first(where: { $0.identifier == refreshId }) {
+                // Uhr verstellt: iOS hält den alten absoluten Beginn fest (Stunden weg) → ersetzen; sonst bleibt sie
+                let begin = pending.earliestBeginDate.map { Int64(($0.timeIntervalSince1970 * 1000).rounded()) }
+                guard RefreshSchedule.isImplausiblyFar(earliestBeginMillis: begin, intervalMinutes: minutes,
+                                                       now: TimeUtils.nowMillis) else { return }
+                AppLog.background.notice("BG-Anfrage unplausibel fern (Uhr verstellt?) – neu vorgemerkt")
+                BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: refreshId)
+            }
             submit()
         }
     }

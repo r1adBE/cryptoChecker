@@ -237,12 +237,14 @@ object CutoffExport {
     private val FORMULA_START = charArrayOf('=', '+', '-', '@', '\t', '\r')
 
     /**
-     * TEXT-Feld: beginnt es mit = + - @ (oder Tab/CR), wird ein Apostroph vorangestellt (keine Formel beim Öffnen); dann
-     * in Anführungszeichen, wenn es das Trennzeichen, «"» oder einen Zeilenumbruch enthält. Zahlen gehen über
-     * [escapeNumber] (eine negative Zahl «-12.50» bleibt eine Zahl).
+     * TEXT-Feld: beginnt es mit = + - @ (oder Tab/CR), auch nach führenden Leerzeichen (Tabellen übergehen sie und lesen
+     * « =1+1» trotzdem als Formel), wird ein Apostroph vorangestellt (keine Formel beim Öffnen); dann in Anführungszeichen,
+     * wenn es das Trennzeichen, «"» oder einen Zeilenumbruch enthält. Zahlen gehen über [escapeNumber] (eine negative Zahl
+     * «-12.50» bleibt eine Zahl).
      */
     internal fun escape(field: String, separator: Char = ';'): String {
-        val safe = if (field.isNotEmpty() && field[0] in FORMULA_START) "'$field" else field
+        val first = field.firstOrNull { it != ' ' && it != '\u00A0' }
+        val safe = if (first != null && first in FORMULA_START) "'$field" else field
         return quote(safe, separator)
     }
 

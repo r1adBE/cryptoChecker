@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.SheetValue
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -252,7 +253,12 @@ fun PortfolioTxSheet(
                                 onFailed = {
                                     saving = false
                                     val locked = PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value)
-                                    scope.launch { saveErrorHost.showSnackbar(if (locked) storageLockedText else saveFailedText) }
+                                    // Lang: Sperr-Hinweis ist länger, Screenreader brauchen die Zeit (wie AlarmsScreen)
+                                    scope.launch {
+                                        saveErrorHost.showSnackbar(
+                                            if (locked) storageLockedText else saveFailedText, duration = SnackbarDuration.Long,
+                                        )
+                                    }
                                 },
                             )
                         }

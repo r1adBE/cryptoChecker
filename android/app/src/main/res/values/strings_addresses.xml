@@ -21,6 +21,7 @@
     <string name="portfolio_address_tokens">Count tokens</string>
     <string name="portfolio_address_unknown_tokens">+%1$d unknown tokens (not counted)</string>
     <string name="portfolio_address_xpub_privacy">An xpub reveals all addresses of this wallet. They are derived on your device; only individual addresses are sent to %1$s – at least 40 requests on the first scan, later fewer. Private keys (xprv) are never accepted.</string>
+    <string name="portfolio_address_xpub_gap">The search stops after %1$d unused addresses in a row (the BIP44 standard most wallets use). A used address beyond that gap is not counted – add it separately.</string>
     <string name="portfolio_address_xpub_used">Addresses in use: %1$d</string>
     <string name="portfolio_addresses_title">Addresses</string>
 

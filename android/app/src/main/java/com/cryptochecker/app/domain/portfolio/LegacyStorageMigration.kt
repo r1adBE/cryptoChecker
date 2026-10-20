@@ -47,10 +47,22 @@ object LegacyStorageMigration {
 
     /**
      * Zins (Lending) nach der Regel bis v4: Belohnung, deren Notiz «interest», «lending», «Zins» … nennt
-     * ([TaxEngines.interestReward]). Seit v5 eigenes Feld `interest`; diese Regel nur noch beim einmaligen Ableiten.
+     * ([interestRewardLegacy]). Seit v5 eigenes Feld `interest`; diese Regel nur noch beim einmaligen Ableiten.
      */
     fun legacyInterest(type: PortfolioTxType?, note: String?): Boolean =
-        type == PortfolioTxType.REWARD && TaxEngines.interestReward(note)
+        type == PortfolioTxType.REWARD && interestRewardLegacy(note)
+
+    /**
+     * Zins-Erkennung, wie sie bis Build 87 galt (Teilstring, auch «Verzinsung»): eingefroren für Altbestand — Migration v4 →
+     * v5 und Sicherungen ohne Feld `interest` werden so abgeleitet, wie die App sie damals rechnete. Die Wort-Regel
+     * ([TaxEngines.interestReward]) gilt nur für neue Eingaben und Importe. Wie iOS.
+     */
+    fun interestRewardLegacy(text: String?): Boolean {
+        val t = text?.lowercase() ?: return false
+        return LEGACY_INTEREST_WORDS.any { it in t }
+    }
+
+    private val LEGACY_INTEREST_WORDS = listOf("interest", "lending", "zins", "interet", "intérêt")
     private const val VERSION_STORED_ONLY = "1"
 
     /** Die betroffenen Felder einer Transaktion (vorher bzw. nachher). */

@@ -180,4 +180,5 @@
     <string name="alarm_status_low_liquidity">Nessun allarme – liquidità bassa</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">In attesa di un prezzo aggiornato</string>
+    <string name="alarm_enter_amount">Inserisci un importo</string>
 </resources>

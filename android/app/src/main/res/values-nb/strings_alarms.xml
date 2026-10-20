@@ -174,4 +174,5 @@
     <string name="alarm_status_low_liquidity">Ingen alarm – lav likviditet</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Venter på en oppdatert kurs</string>
+    <string name="alarm_enter_amount">Angi et beløp</string>
 </resources>

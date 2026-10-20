@@ -64,8 +64,8 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Až %1$s</string>
     <string name="alarm_template_a11y">Vytvořit alarm: %1$s</string>
-    <string name="alarm_template_a11y_down">Vytvořit alarm při minus %1$s procentech od aktuální ceny</string>
-    <string name="alarm_template_a11y_up">Vytvořit alarm při plus %1$s procentech od aktuální ceny</string>
+    <string name="alarm_template_a11y_down">Vytvořit alarm: minus %1$s %% od aktuální ceny</string>
+    <string name="alarm_template_a11y_up">Vytvořit alarm: plus %1$s %% od aktuální ceny</string>
     <string name="alarm_template_from_now">od teď</string>
     <string name="alarm_template_volume">Objem ×%1$s</string>
     <string name="alarm_templates_title">Rychlé alarmy</string>
@@ -186,4 +186,5 @@
     <string name="alarm_status_low_liquidity">Žádný alarm – nízká likvidita</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Čeká na aktuální kurz</string>
+    <string name="alarm_enter_amount">Zadej částku</string>
 </resources>

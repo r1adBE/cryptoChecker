@@ -70,16 +70,23 @@ class PortfolioRepository @Inject constructor(
 
     /**
      * Portfolio nur leer im Arbeitsspeicher, gespeicherter Stand bleibt in der Datei ([PortfolioStorageLock]): nicht
-     * schreiben — es ginge mit dem Lauf verloren. Erst nach dem Öffnen der Datenbank verlässlich.
+     * schreiben — es ginge mit dem Lauf verloren. Erst nach dem Öffnen der Datenbank verlässlich. Gilt für alle Schreibwege
+     * des Nutzers (Speichern, Import, Löschen, «Rückgängig», Wiederherstellen); Abrufe der Adress-Guthaben laufen weiter.
      */
     private fun ensureWritable() {
         if (PortfolioStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value)) throw PortfolioStorageLockedException()
     }
 
-    suspend fun delete(id: Long) = portfolioDao.delete(id)
+    /** Schreiben gerade gesperrt ([PortfolioStorageLock])? Öffnet dazu die Datenbank (erst dann ist der Merker verlässlich). */
+    suspend fun writesBlocked(): Boolean =
+        database.withTransaction { PortfolioStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value) }
+
+    /** @throws PortfolioStorageLockedException wie alle Schreibwege des Nutzers ([ensureWritable]) */
+    suspend fun delete(id: Long) = database.withTransaction { ensureWritable(); portfolioDao.delete(id) }
 
     /** Löscht alle Transaktionen von [coin] (auch Tausche in diesen Coin) und gibt sie zurück (für «Rückgängig»). */
     suspend fun deleteCoin(coin: String): List<PortfolioTxEntity> = database.withTransaction {
+        ensureWritable()
         val key = PortfolioCalculator.normalizeCoin(coin)
         val removed = portfolioDao.getAll().filter { tx -> tx.coins().any { PortfolioCalculator.normalizeCoin(it) == key } }
         removed.forEach { portfolioDao.delete(it.id) }
@@ -89,30 +96,26 @@ class PortfolioRepository @Inject constructor(
     /** Legt gelöschte Transaktionen mit ihren alten ids wieder an («Rückgängig»). */
     suspend fun restore(transactions: List<PortfolioTxEntity>) {
         if (transactions.isEmpty()) return
-        database.withTransaction { transactions.forEach { portfolioDao.insert(it) } }
+        database.withTransaction { ensureWritable(); transactions.forEach { portfolioDao.insert(it) } }
     }
 
     /** «Portfolio leeren»: alle Transaktionen löschen. */
-    suspend fun clearAll() = portfolioDao.deleteAll()
+    suspend fun clearAll() = database.withTransaction { ensureWritable(); portfolioDao.deleteAll() }
 
     /** Ersetzt alle Transaktionen (Wiederherstellen einer Sicherung). */
     suspend fun replaceAll(transactions: List<PortfolioTxEntity>) {
         database.withTransaction {
+            ensureWritable()
             portfolioDao.deleteAll()
             transactions.forEach { portfolioDao.insert(it.copy(coin = PortfolioCalculator.normalizeCoin(it.coin))) }
         }
     }
 
     /**
-     * Einmalige Übernahme des alten Bestands je Paar (watches.holdings) ins
-     * Portfolio: je Coin ein Kauf ohne Preis (Mengen gleicher Coins addiert),
-     * danach wird der Bestand in der Merkliste geleert. Läuft nur einmal
-     * (Merker in den SharedPreferences).
-     *
-     * Wiederholbar ohne Doppel: Die Käufe und der Merker [HOLDINGS_MARKER] in `portfolio_meta`
-     * entstehen in derselben Portfolio-Transaktion. Bricht die App danach ab (Bestand noch nicht
-     * geleert, SharedPreferences-Merker fehlt), legt der nächste Start keine Käufe mehr an, sondern
-     * leert nur noch den Bestand.
+     * Einmalige Übernahme des alten Bestands je Paar (watches.holdings) ins Portfolio: je Coin ein Kauf ohne Preis (Mengen
+     * gleicher Coins addiert), danach wird der Bestand in der Merkliste geleert (Merker in den SharedPreferences).
+     * Wiederholbar ohne Doppel: Käufe und Merker [HOLDINGS_MARKER] in `portfolio_meta` entstehen in derselben
+     * Portfolio-Transaktion; nach einem Abbruch davor leert der nächste Start nur noch den Bestand.
      */
     suspend fun migrateHoldingsOnce() {
         if (prefs.getBoolean(KEY_MIGRATED, false)) return
@@ -131,13 +134,10 @@ class PortfolioRepository @Inject constructor(
     }
 
     /**
-     * Wandelt Bestände der Merkliste in Käufe ohne Preis um und leert sie.
-     * Mit [onlyNewCoins] nur für Coins, die noch keine Transaktion haben
-     * (Wiederherstellen einer alten Sicherung — sonst doppelt).
-     * Merkliste (Hauptdatenbank) und Portfolio (eigene Datenbank) sind getrennte Dateien, also
-     * keine gemeinsame Transaktion: erst die Käufe in einer Portfolio-Transaktion anlegen, dann den
-     * Bestand leeren. Bricht die App dazwischen ab, bleibt der Bestand stehen (nichts geht verloren).
-     * Nicht innerhalb einer Transaktion der Hauptdatenbank aufrufen.
+     * Wandelt Bestände der Merkliste in Käufe ohne Preis um und leert sie. Mit [onlyNewCoins] nur für Coins, die noch keine
+     * Transaktion haben (Wiederherstellen einer alten Sicherung — sonst doppelt). Merkliste (Hauptdatenbank) und Portfolio
+     * sind getrennte Dateien: erst die Käufe in einer Portfolio-Transaktion anlegen, dann den Bestand leeren (bricht die App
+     * dazwischen ab, bleibt der Bestand stehen). Nicht innerhalb einer Transaktion der Hauptdatenbank aufrufen.
      * @param onceMarker Merker in `portfolio_meta`: ist er schon gesetzt, werden keine Käufe mehr
      *   angelegt (nur der Bestand geleert); sonst wird er mit den Käufen in derselben Transaktion gesetzt.
      * @return Anzahl angelegter Käufe.
@@ -358,6 +358,7 @@ class PortfolioRepository @Inject constructor(
      * [restore] (ersetzt je id) stellt alles samt Verknüpfung wieder her.
      */
     suspend fun undoImport(batch: String): List<PortfolioTxEntity> = database.withTransaction {
+        ensureWritable()
         val all = portfolioDao.getAll()
         val plan = CsvTransferMatch.undoPlan(all.map { CsvImportedRef(it.id, it.importBatch, it.importRestoreState) }, batch)
         val touched = all.filter { it.id in plan.delete || it.id in plan.revert || it.id in plan.detach }

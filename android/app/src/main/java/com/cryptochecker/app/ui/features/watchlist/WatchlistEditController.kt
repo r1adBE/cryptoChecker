@@ -262,7 +262,10 @@ internal class WatchlistEditController(
         scope.launch {
             // Erst die Benachrichtigungen wegräumen, danach die Einträge —
             // sonst fehlen hinterher die Ids, um sie zu schliessen.
-            notifier.cancelAllPrices(watchRepository.getWatches().map { it.id })
+            val ids = watchRepository.getWatches().map { it.id }
+            notifier.cancelAllPrices(ids)
+            // Aktivitäts-Meldungen ebenso (wie beim Löschen einzelner Paare): sonst blieben sie zu gelöschten Paaren stehen
+            ids.forEach { notifier.cancelActivity(it) }
             notifier.cancelAlarms(watchRepository.getAllAlarmIds())
             watchRepository.deleteAllWatches()
             widgetUpdater.updateAll()

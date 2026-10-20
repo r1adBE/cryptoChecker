@@ -83,6 +83,8 @@ class TaxChWealthParityTest {
                     assertEquals("$name $m ${r.coin} usdt", r8(dec(x[2])), r8(r.valueUsdt))
                     assertEquals("$name $m ${r.coin} target", r8(dec(x[3])), r8(r.valueTarget))
                     assertEquals("$name $m ${r.coin} missing", x[4], r.missing)
+                    // Nur ein Teil fehlt: bekannter Teil gerechnet, «unvollständig» (wie die Bestandsdatei); fehlt = false
+                    assertEquals("$name $m ${r.coin} incomplete", x.getOrNull(5) ?: false, r.incomplete)
                 }
                 assertEquals("$name $m total usdt", r8(dec(e["totalUsdt"])), r8(w.totalUsdt))
                 assertEquals("$name $m total target", r8(dec(e["totalTarget"])), r8(w.totalTarget))

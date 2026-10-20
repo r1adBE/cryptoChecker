@@ -274,7 +274,10 @@ struct WatchlistScreen: View {
         // wie Android (dort zurück mit Hinweis)
         guard data.watch(id) != nil else {
             router.pendingEditAlarmId = nil
-            banner = WatchlistBannerMessage(text: L("watch_preview_not_watched"), icon: "info.circle.fill")
+            // Merkliste nur gesperrt (nicht lesbar): das sagen statt «Nicht in der Merkliste»
+            banner = data.watchlistLocked
+                ? WatchlistBannerMessage(text: L("alarm_save_storage_locked"), icon: "lock.fill", long: true)
+                : WatchlistBannerMessage(text: L("watch_preview_not_watched"), icon: "info.circle.fill")
             return
         }
         actionsFor = nil

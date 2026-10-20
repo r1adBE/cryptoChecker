@@ -155,6 +155,8 @@ internal fun RowPrice(
     onChangeMarkerClick: (() -> Unit)? = null,
     /** Kurs ist der Mark-Preis (kein Mittelkurs, [LocalMarkFallback]): klein «Mark» hinter der Gegenwährung. */
     markPrice: Boolean = false,
+    /** Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot): klein «Stundenkurs» wie im Aktionsblatt. */
+    hourlyPrice: Boolean = false,
     /** Neben dem Paar Abstand links; unter dem Paar (grösste Schrift) rechtsbündig. */
     modifier: Modifier = Modifier.padding(start = 8.dp),
 ) {
@@ -194,9 +196,9 @@ internal fun RowPrice(
                         maxLines = 1,
                         modifier = Modifier.alignByBaseline().padding(start = 4.dp)
                     )
-                    if (markPrice) {
+                    if (markPrice || hourlyPrice) {
                         Text(
-                            text = stringResource(R.string.watch_change_mark),
+                            text = stringResource(if (markPrice) R.string.watch_change_mark else R.string.watch_price_hourly),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 1,
@@ -215,7 +217,7 @@ internal fun RowPrice(
                 DayChangePill(
                     change = watch.shownChange(view),
                     neutral = watch.disabled,
-                    // Hyperliquid: % Mark gegen Mark, Kurs = Mittelkurs — als «Mark» benennen
+                    // Änderung gegen den Mark-Preis (Market.changeIsMark): als «Mark» benennen
                     mark = com.cryptochecker.app.domain.watch.ChangeBasisMath.showsMark(
                         com.cryptochecker.marketdata.util.MarketsConfigUtils.getMarketByKey(watch.marketKey).changeIsMark,
                         view.basis,

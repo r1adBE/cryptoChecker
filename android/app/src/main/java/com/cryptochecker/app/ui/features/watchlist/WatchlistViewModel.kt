@@ -162,8 +162,10 @@ class WatchlistViewModel @Inject constructor(
 
     /** Tipp auf eine Spalte: absteigend/aufsteigend/eigene Reihenfolge ([ColumnSort.next]). */
     fun tapColumn(key: SortKey) {
-        val next = ColumnSort.next(columnSort.value, key)
-        viewModelScope.launch { settingsRepository.setWatchlistColumnSort(next?.encode()) }
+        // Vom gespeicherten Stand aus, nicht vom angezeigten (der kann bei schnellen Tipps noch nachhinken)
+        viewModelScope.launch {
+            settingsRepository.updateWatchlistColumnSort { ColumnSort.next(ColumnSort.decode(it), key)?.encode() }
+        }
     }
 
     /** Sortieren nach Spalte aus (z. B. beim manuellen Sortieren, das die eigene Reihenfolge zeigt). */

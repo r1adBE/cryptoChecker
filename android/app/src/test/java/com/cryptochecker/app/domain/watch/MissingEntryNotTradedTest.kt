@@ -2,6 +2,10 @@ package com.cryptochecker.app.domain.watch
 
 import com.cryptochecker.app.domain.exceptions.toMarketFailure
 import com.cryptochecker.app.domain.refresh.MarketFailure
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.obj
+import com.cryptochecker.marketdata.config.MarketsConfig
 import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
@@ -73,6 +77,19 @@ class MissingEntryNotTradedTest {
         assertEquals(MarketParseException.NO_DATA, err.message)
         assertEquals(MarketFailure.UnknownInstrument, err.toMarketFailure())
         assertTrue(NotTraded.confirmedBySingle(false, err.message, err.toMarketFailure()))
+    }
+
+    /** Ohne Sammelabfrage (1–2 Paare): nur wo die Einzelabfrage die vollständige Liste liest (Lighter, Hyperliquid). */
+    @Test
+    fun confirmWithoutBulk() {
+        ParityJson.load("not_traded.json")["confirmWithoutBulk"].list().map { it.obj() }.forEach { c ->
+            val actual = NotTraded.confirmWithoutBulk(c["bulkTried"] as Boolean, c["singleReadsFullList"] as Boolean)
+            assertEquals(c["name"] as String, c["confirm"], actual)
+        }
+        val flagged = MarketsConfig.MARKETS.values.filter { it.singleTickerReadsFullList }
+        assertEquals(setOf("Lighter", "Hyperliquid"), flagged.map { it.key }.toSet())
+        // Nur sinnvoll, wo die Liste vollständig ist
+        assertTrue(flagged.all { it.bulkTickersComplete })
     }
 
     @Test

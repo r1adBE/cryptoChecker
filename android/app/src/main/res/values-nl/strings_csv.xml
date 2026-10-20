@@ -44,6 +44,7 @@
     <string name="portfolio_csv_import_transfers_hint">Een opname en de bijbehorende storting van dezelfde coin worden één overboeking: aankoopprijs en bezitsduur blijven behouden, het verschil telt als netwerkkosten.</string>
     <string name="portfolio_csv_import_transfers_title">Overboekingen tussen je rekeningen</string>
     <string name="portfolio_csv_import_unreadable">Geen ondersteunde transacties gevonden. Ondersteund: CSV-exports van Relai, Swissquote, Kraken, Binance, Coinbase en Bitpanda.</string>
+    <string name="portfolio_csv_import_failed">Importeren is mislukt – er is niets opgeslagen. Probeer het opnieuw.</string>
     <string name="portfolio_csv_import_withdrawals_title">Opnames – waar zijn de munten naartoe?</string>
     <string name="portfolio_csv_import_zone">Tijden zonder tijdzone gelezen als: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Apparaat (%1$s)</string>

@@ -7,7 +7,7 @@
   "cases": [
     {
       "kind": "single",
-      "name": "markPx null: price = midPx, no 24 h change (mid vs the mark-based prevDayPx would mix bases)",
+      "name": "markPx null: price = midPx, 24 h change from the shown price (midPx vs prevDayPx)",
       "market": "Hyperliquid",
       "pair": {
         "base": "BTC",
@@ -19,12 +19,12 @@
       "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40}]},[{\"funding\":\"0.0000125\",\"openInterest\":\"12345.6789\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"oraclePx\":\"62010.0\",\"markPx\":null,\"midPx\":\"62000.5\",\"dayBaseVlm\":\"20000.1\"}]]",
       "expect": {
         "last": 62000.5,
-        "change24hPercent": null
+        "change24hPercent": 2.4801652892561985
       }
     },
     {
       "kind": "single",
-      "name": "metaAndAssetCtxs: BTC price = midPx, 24 h change mark vs mark (markPx vs prevDayPx, prevDayPx is a mark price)",
+      "name": "metaAndAssetCtxs: BTC price = midPx, 24 h change from the shown price (midPx vs prevDayPx, not markPx) so price, change and alarms share one basis",
       "market": "Hyperliquid",
       "pair": {
         "base": "BTC",
@@ -40,14 +40,14 @@
         "volQuote": 1234567890.12,
         "bid": -1.0,
         "ask": -1.0,
-        "change24hPercent": 2.487603305785124,
+        "change24hPercent": 2.4801652892561985,
         "exchangeTime": null,
         "markFallback": false
       }
     },
     {
       "kind": "single",
-      "name": "midPx null -> markPx",
+      "name": "midPx null -> markPx, 24 h change from that shown markPx",
       "market": "Hyperliquid",
       "pair": {
         "base": "ETH",
@@ -101,6 +101,24 @@
       }
     },
     {
+      "kind": "single",
+      "name": "midPx \"0\" (empty book side) -> markPx, flagged as mark fallback (0 is no mid price)",
+      "market": "Hyperliquid",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDC",
+        "id": "BTC",
+        "contract": "PERPETUAL"
+      },
+      "requestId": 0,
+      "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40},{\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25}]},[{\"funding\":\"0.0000125\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"0\",\"dayBaseVlm\":\"20000.1\"},{\"funding\":\"0.00001\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"oraclePx\":\"2450.5\",\"markPx\":\"2450.2\",\"midPx\":\"2450.25\",\"dayBaseVlm\":\"403000.5\"}]]",
+      "expect": {
+        "last": 62005.0,
+        "markFallback": true,
+        "change24hPercent": 2.487603305785124
+      }
+    },
+    {
       "kind": "bulk",
       "name": "bulk: same request, delisted skipped",
       "market": "Hyperliquid",
@@ -124,7 +142,7 @@
           },
           "kPEPE": {
             "last": 0.0091205,
-            "change24hPercent": -3.297635457533671,
+            "change24hPercent": -3.292333792810943,
             "exchangeTime": null
           }
         }
@@ -149,6 +167,28 @@
         "tickers": {
           "BTC": {
             "last": 62000.5
+          }
+        }
+      }
+    },
+    {
+      "kind": "bulk",
+      "name": "bulk: midPx \"0\" -> markPx with mark fallback, not skipped and not failed",
+      "market": "Hyperliquid",
+      "requestId": 0,
+      "body": "[{\"universe\":[{\"szDecimals\":5,\"name\":\"BTC\",\"maxLeverage\":40},{\"szDecimals\":4,\"name\":\"ETH\",\"maxLeverage\":25}]},[{\"funding\":\"0.0000125\",\"prevDayPx\":\"60500.0\",\"dayNtlVlm\":\"1234567890.12\",\"oraclePx\":\"62010.0\",\"markPx\":\"62005.0\",\"midPx\":\"0\",\"dayBaseVlm\":\"20000.1\"},{\"funding\":\"0.00001\",\"prevDayPx\":\"2462.4\",\"dayNtlVlm\":\"987654321.0\",\"oraclePx\":\"2450.5\",\"markPx\":\"2450.2\",\"midPx\":\"2450.25\",\"dayBaseVlm\":\"403000.5\"}]]",
+      "expect": {
+        "count": 2,
+        "tickers": {
+          "BTC": {
+            "last": 62005.0,
+            "markFallback": true,
+            "change24hPercent": 2.487603305785124
+          },
+          "ETH": {
+            "last": 2450.25,
+            "markFallback": false,
+            "change24hPercent": -0.49342105263158265
           }
         }
       }

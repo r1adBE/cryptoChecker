@@ -55,8 +55,8 @@ abstract class Market(
     open val priceIsHourlyClose: Boolean get() = false
 
     /**
-     * true: the 24 h change refers to the mark price (Hyperliquid `markPx` vs. `prevDayPx`), not to the displayed
-     * price. Row and action sheet then add «Mark» (`ChangeBasisMath.showsMark`). iOS: `changeIsMark`.
+     * true: the 24 h change refers to the mark price (e.g. `markPx` vs. `prevDayPx`), not to the displayed
+     * price; no adapter sets it at the moment (Hyperliquid uses the displayed price). Row and action sheet then add «Mark» (`ChangeBasisMath.showsMark`). iOS: `changeIsMark`.
      */
     open val changeIsMark: Boolean get() = false
 
@@ -138,6 +138,13 @@ abstract class Market(
      * request would fail as well and only cost time.
      */
     open val bulkTickersComplete: Boolean get() = false
+
+    /**
+     * true: the single ticker reads the same complete list as the bulk query and picks the pair from it (Lighter,
+     * Hyperliquid). Its «no entry for this pair» is then as reliable as the pair missing from the bulk list, so a
+     * single-only refresh (too few pairs for the bulk query) may confirm «no longer traded» on its own (NotTraded).
+     */
+    open val singleTickerReadsFullList: Boolean get() = false
 
     /** Unfiltered URL of bulk request [call]; null = this request has no unfiltered form. */
     open fun getBulkTickersUrl(call: Int): String? = null

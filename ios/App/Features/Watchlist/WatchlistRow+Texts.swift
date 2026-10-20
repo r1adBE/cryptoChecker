@@ -96,9 +96,13 @@ extension WatchlistRow {
             // Änderung aus fremden Kerzen: «Veränderung aus Binance-Kerzen» vor der Umrechnung (wie Android)
             // Kurs nur der Mark-Preis (kein Mittelkurs): gleich danach gesagt, wie Android
             changeSource: {
+                let markPrice = MarkFallbackStore.contains(watch.id) && watch.lastPrice != nil
+                // Stundenkurs (WOO X Spot) wie die Marke der Zeile — wie Android
+                let hourlyPrice = !markPrice && watch.lastPrice != nil
+                    && MarketsConfig.market(watch.marketKey)?.priceIsHourlyClose == true
                 let parts = [changeMarker.map { L("change_candle_source", $0) },
-                             MarkFallbackStore.contains(watch.id) && watch.lastPrice != nil
-                                 ? L("watch_price_mark_fallback") : nil].compactMap { $0 }
+                             markPrice ? L("watch_price_mark_fallback") : nil,
+                             hourlyPrice ? L("watch_price_hourly") : nil].compactMap { $0 }
                 return parts.isEmpty ? nil : parts.joined(separator: ", ")
             }(),
             converted: converted,

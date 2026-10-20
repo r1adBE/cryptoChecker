@@ -263,13 +263,14 @@ class ChangeBasisTest {
 
     @Test
     fun `mark label only for mark change on rolling basis`() {
-        // Hyperliquid: % Mark gegen Mark → «Mark», aber nur bei rollender Basis (Tages-Basen: Kerzen)
+        // Änderung gegen Mark → «Mark», aber nur bei rollender Basis (Tages-Basen: Kerzen)
         assertTrue(ChangeBasisMath.showsMark(true, ChangeBasis.ROLLING_24H))
         assertFalse(ChangeBasisMath.showsMark(true, ChangeBasis.SINCE_LAST))
         assertFalse(ChangeBasisMath.showsMark(true, ChangeBasis.UTC_DAY))
         assertFalse(ChangeBasisMath.showsMark(true, ChangeBasis.LOCAL_DAY))
         assertFalse(ChangeBasisMath.showsMark(false, ChangeBasis.ROLLING_24H))
-        assertTrue(com.cryptochecker.marketdata.model.market.Hyperliquid().changeIsMark)
+        // Hyperliquid rechnet die Änderung mit dem gezeigten Kurs (Mittelkurs): kein «Mark» an der Änderung
+        assertFalse(com.cryptochecker.marketdata.model.market.Hyperliquid().changeIsMark)
         assertFalse(com.cryptochecker.marketdata.model.market.Kraken().changeIsMark)
     }
 

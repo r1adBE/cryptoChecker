@@ -44,6 +44,7 @@
     <string name="portfolio_csv_import_transfers_hint">En udbetaling og den matchende indbetaling af samme coin bliver én overførsel: købspris og ejertid bevares, forskellen tæller som netværksgebyr.</string>
     <string name="portfolio_csv_import_transfers_title">Overførsler mellem dine konti</string>
     <string name="portfolio_csv_import_unreadable">Ingen understøttede transaktioner fundet. Understøttet: CSV-eksporter fra Relai, Swissquote, Kraken, Binance, Coinbase og Bitpanda.</string>
+    <string name="portfolio_csv_import_failed">Importen mislykkedes – intet blev gemt. Prøv igen.</string>
     <string name="portfolio_csv_import_withdrawals_title">Udbetalinger – hvor blev coinsene af?</string>
     <string name="portfolio_csv_import_zone">Tidspunkter uden tidszone læses som: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Enhed (%1$s)</string>

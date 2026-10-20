@@ -70,6 +70,21 @@ final class MissingEntryNotTradedTests: XCTestCase {
         }
     }
 
+    /// Ohne Sammelabfrage (1–2 Paare): nur wo die Einzelabfrage die vollständige Liste liest (Lighter, Hyperliquid).
+    func testConfirmWithoutBulk() throws {
+        let cases = TestSupport.list(try TestSupport.fixture("not_traded")["confirmWithoutBulk"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            let actual = NotTraded.confirmWithoutBulk(bulkTried: c["bulkTried"] as? Bool ?? true,
+                                                      singleReadsFullList: c["singleReadsFullList"] as? Bool ?? false)
+            XCTAssertEqual(actual, c["confirm"] as? Bool, c["name"] as? String ?? "")
+        }
+        let flagged = MarketsConfig.all.filter(\.singleTickerReadsFullList)
+        XCTAssertEqual(Set(flagged.map(\.key)), ["Lighter", "Hyperliquid"])
+        // Nur sinnvoll, wo die Liste vollständig ist
+        XCTAssertTrue(flagged.allSatisfy(\.bulkTickersComplete))
+    }
+
     func testHyperliquidValidAnswerHasNoErrorText() throws {
         let info = PairQuery("FOO", "USDC", "FOO", .perpetual)
         // Gültige Antwort (Liste): kein Fehlertext, damit «Unknown coin» bleibt

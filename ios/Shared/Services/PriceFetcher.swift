@@ -79,7 +79,8 @@ extension PriceRefresher {
             let plan = BulkDelistedMemory.shared.plan(sample.marketKey, pairIds: ids, notTraded: notTradedIds,
                                                       now: TimeUtils.nowMillis)
             if plan.request.isEmpty {
-                // Alle beobachteten Paare nicht mehr gehandelt: keine Abfrage, die Liste gilt als vollständig ohne sie
+                // Alle beobachteten Paare nicht mehr gehandelt (mit Stand, Neuprüfung nicht fällig): keine Abfrage,
+                // die Liste gilt als vollständig ohne sie
                 bulk = BulkTickers(complete: true)
             } else {
                 bulk = await MarketService.fetchBulkTickers(market: market, pairIds: plan.request, lowMemory: lowMemory)
@@ -94,6 +95,10 @@ extension PriceRefresher {
         // Antwort mehrheitlich unlesbar (Format der Börse geändert): Einzelabfragen mit demselben Leser brächten
         // nichts — alle Paare dieses Durchlaufs als Fehler, kein Nachhaken (`BulkTickerRows`) — wie Android
         let bulkFormatError = BulkTickerRows.isFormatError(bulk.error)
+        // Ohne Sammelabfrage: liest die Einzelabfrage selbst die vollständige Liste (Lighter), bestätigt ihr «kein
+        // Eintrag» «nicht mehr gehandelt» wie im Sammelpfad (`NotTraded.confirmWithoutBulk`) — wie Android
+        let singleConfirms = NotTraded.confirmWithoutBulk(
+            bulkTried: bulkTried, singleReadsFullList: MarketsConfig.market(sample.marketKey)?.singleTickerReadsFullList == true)
 
         var results: [Int64: Fetched] = [:]
         var singles: [Watch] = []
@@ -123,6 +128,7 @@ extension PriceRefresher {
             } else if bulkFormatError {
                 results[watch.id] = Fetched(ticker: nil, error: bulk.error, marketFailure: bulk.marketFailure)
             } else {
+                if singleConfirms { missing.insert(watch.id) }
                 singles.append(watch)
             }
         }
@@ -306,8 +312,9 @@ enum BulkDelisted {
     }
 
     static func plan(state: State?, pairIds: [String], notTraded: Set<String>, now: Int64) -> Plan {
-        // Ohne Stand (z. B. nach Prozess-Start) nicht gleich alles laden: die Frist läuft ab jetzt
-        var recheck = false
+        // Ohne Stand (z. B. nach Prozess-Start) nicht gleich alles laden: die Frist läuft ab jetzt. Ausnahme: alle
+        // Paare schon «nicht mehr gehandelt» — ohne Abfrage entstünde nie ein Stand, die Neuprüfung käme nie.
+        var recheck = !pairIds.isEmpty && pairIds.allSatisfy { notTraded.contains($0) }
         if let state {
             let age = now - state.recheckedAt
             recheck = age < 0 || age >= recheckMillis

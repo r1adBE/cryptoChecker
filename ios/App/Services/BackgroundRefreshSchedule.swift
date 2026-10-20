@@ -116,4 +116,16 @@ enum RefreshSchedule {
         guard let zoneLastRunMillis else { return refresh }
         return min(refresh, ZoneSchedule.earliestBegin(lastRunMillis: zoneLastRunMillis, now: now))
     }
+
+    /// Spielraum über dem Intervall, bevor eine vorgemerkte Anfrage als unplausibel fern gilt.
+    static let implausibleSlackMillis: Int64 = 15 * 60_000
+
+    /// Liegt der Beginn einer vorgemerkten Anfrage weiter weg, als `nextBegin` je planen könnte (Intervall bzw.
+    /// `minDelayMillis` ab jetzt, plus Spielraum)? Dann wurde die Uhr verstellt (vor- und zurückgestellt): iOS hält
+    /// den absoluten Zeitpunkt fest, die Aufgabe käme erst Stunden später. nil = ohne Beginn, bleibt stehen.
+    static func isImplausiblyFar(earliestBeginMillis: Int64?, intervalMinutes: Int, now: Int64) -> Bool {
+        guard let begin = earliestBeginMillis else { return false }
+        // `SafeMillis` begrenzt auf rund 100 Jahre: die Summe läuft nicht über
+        return begin > now + max(SafeMillis.minutes(intervalMinutes), minDelayMillis) + implausibleSlackMillis
+    }
 }

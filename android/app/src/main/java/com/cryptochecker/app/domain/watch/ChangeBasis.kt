@@ -289,7 +289,7 @@ object ChangeBasisMath {
 
     /**
      * «Mark» neben der Änderung (Zeile, Aktionsblatt)? Nur wenn die Börse im Ticker eine Mark-Veränderung
-     * liefert (`Market.changeIsMark`, Hyperliquid) und die Basis rollend ist — Tages-Basen kommen aus
+     * liefert (`Market.changeIsMark`) und die Basis rollend ist — Tages-Basen kommen aus
      * Kerzen, «Seit letzter Aktualisierung» aus den Kursen selbst.
      */
     fun showsMark(changeIsMark: Boolean, basis: ChangeBasis): Boolean =
