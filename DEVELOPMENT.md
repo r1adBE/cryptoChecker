@@ -1364,7 +1364,8 @@ the tests named here.
   HTX `ts`, Bitget, Poloniex, MEXC futures, KuCoin, WOO X futures, Indodax): unknown exchange time lets «unchanged
   since» work from `priceChangedAt`. Exception (build 81): WOO X spot is an hourly close, so its exchange time is the
   end of the information in that candle (response time while it runs, start + 1 h once closed) and the 2-hour
-  alarm rule and «outdated» apply. A bulk response can declare itself incomplete (`bulkResponseComplete`; One
+  alarm rule and «outdated» apply; since build 91 the second request (last trade) replaces price and time with the
+  real trade when it succeeds. A bulk response can declare itself incomplete (`bulkResponseComplete`; One
   Trading keeps only ACTIVE spot rows and is incomplete when it dropped futures or closed books), so a missing
   pair falls back to the single ticker instead of «not traded».
 * **Token identity (build 46).** `TokenIdentity`: same contract → same token; known names compared after
@@ -1940,7 +1941,11 @@ next start.
   `cryptochecker_portfolio.db` is not created; `Decision.Refused` opens an in-memory SQLite instead
   (`DatabaseEncryptionNotice.inMemory`, banner `portfolio_storage_in_memory`; the portfolio callbacks skip the mirror
   takeover and the legacy import, `importHoldings` waits) and the next start tries again; an existing plaintext
-  portfolio file still opens and migrates as before (`DatabaseEncryptionMigration.planOpen`),
+  portfolio or watchlist file without a key is only read since build 91 (`OpenPlan.COPY_TO_MEMORY`,
+  `Decision.PlaintextKept`: `PlaintextMemoryCopy` attaches the file and copies every table into the in-memory database
+  when the Room `identity_hash` matches; the file stays byte-identical, changes are not saved – like iOS
+  `ProtectedFile.write(requireSealed:)`; `PlaintextMemoryCopyTest` on the device) and migrates at the next start with a key
+  (`DatabaseEncryptionMigration.planOpen`),
   or – while the Keystore temporarily refuses the key of an encrypted file – `DatabaseKeyUnavailableException`
   and nothing changed. Background entry points skip the run and retry later, logged at debug level
   (`Throwable.isDatabaseKeyUnavailable()` checks the cause chain): `PriceUpdateWorker` returns `Result.retry()`,
@@ -2155,7 +2160,10 @@ after the encryption step.
   watchlist; alert editor with «More»; Android undo survives «Check» (`AlarmUndoOffer`). Row price one step larger
   (`DenseRowText.largePrice`), change basis always shown; `TabLabelFit`; widget type scale (`WidgetType`) and
   ar/fa amount font; portfolio sheet/confirmations saveable; single widget opens the pair. Android watchlist never
-  created unencrypted (in memory + notice without key); address writes refused while the portfolio is locked;
+  created unencrypted (in memory + notice without key); an existing unencrypted watchlist or portfolio without a key is
+  only read (`PlaintextMemoryCopy`, decision 21 October: Android like iOS); WOO X spot makes a second request
+  (`/v1/public/market_trades`, live response 20 October) for the real last trade and its time, keeps the candle opening
+  for the change, and no longer shows «hourly price»; address writes refused while the portfolio is locked;
   iOS foreground reload off the main thread (`AppData+DiskReload`); lease in the future = orphaned. Stichtag and
   Swiss wealth count addresses like the card (`AddressCutoff`), including addresses without lots; the card counts a
   transfer to the address once (1.4, not 1.7). DE 256 € line marked estimated. `localeFilters` with
@@ -2172,7 +2180,7 @@ after the encryption step.
   (`FUTURE_TOLERANCE_MILLIS`). `BulkDelisted.plan` rechecks all pairs once when every pair is marked and no state
   exists; `NotTraded.confirmWithoutBulk` for markets whose single ticker reads the full list (Lighter,
   Hyperliquid). Hyperliquid change = shown price vs `prevDayPx`. `DexPool` keeps `baseToken.address`. WOO spot rows
-  show `watch_price_hourly`. `MarketAlertReset` clears remembered alert state when a market alert is switched off;
+  showed `watch_price_hourly` (build 91: real last trade instead). `MarketAlertReset` clears remembered alert state when a market alert is switched off;
   indicator zones store their limit with the beyond-flag. Quick-alert undo waits for the first-alert dialog
   (`AlarmsScreenSnackbars`). Portfolio writes (incl. delete/undo/clear/replace) are refused while locked;
   `PortfolioStore.keepsUnsealed` on iOS. Backups carry `overlapChecked`/`overlapLegacy` (and costLots on iOS).

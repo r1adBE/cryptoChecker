@@ -143,10 +143,11 @@ class DatabaseEncryptionMigrationTest {
 
     @Test
     fun requiredExistingPlaintextWithoutKeyKeepsWorkingUntouched() {
-        // Alte unverschlüsselte Datei aus einem früheren Fehlschlag: weiter öffnen, nie Daten verlieren
+        // Alte unverschlüsselte Datei aus einem früheren Fehlschlag: seit Build 91 nur gelesen (Inhalt im Arbeitsspeicher),
+        // nie weitergeschrieben wie iOS — und nie Daten verlieren: die Datei bleibt, wie sie ist
         val keys = FakeKeys(KeyLookup.Absent).apply { failCreate = true }
         val files = FakeFiles(FileKind.PLAINTEXT, content)
-        assertEquals(Decision.Plaintext, prepareRequired(files, keys))
+        assertEquals(Decision.PlaintextKept, prepareRequired(files, keys))
         assertEquals(FileKind.PLAINTEXT, files.kind)
         assertEquals(content, files.original)
         assertTrue(files.calls.isEmpty())
@@ -188,9 +189,10 @@ class DatabaseEncryptionMigrationTest {
             }
             // Verschlüsselte Datei: eigene Regeln, nie unverschlüsselt
             assertEquals(OpenPlan.ENCRYPTED, plan(FileKind.ENCRYPTED, false, required))
-            // Schon unverschlüsselt vorhanden: weiter wie bisher
-            assertEquals(OpenPlan.PLAINTEXT, plan(FileKind.PLAINTEXT, false, required))
         }
+        // Schon unverschlüsselt vorhanden: ohne Pflicht weiter wie bisher, mit Pflicht nur gelesen (seit Build 91, wie iOS)
+        assertEquals(OpenPlan.PLAINTEXT, plan(FileKind.PLAINTEXT, false, false))
+        assertEquals(OpenPlan.COPY_TO_MEMORY, plan(FileKind.PLAINTEXT, false, true))
         assertEquals(OpenPlan.PLAINTEXT, plan(FileKind.ABSENT, false, false))
         assertEquals(OpenPlan.REFUSE, plan(FileKind.ABSENT, false, true))
     }
@@ -217,7 +219,7 @@ class DatabaseEncryptionMigrationTest {
                 DatabaseEncryptionMigration.planOpen(FileKind.ABSENT, false, true, keyUnavailable = true, inMemoryAllowed = allowed, foreground = true),
             )
             assertEquals(
-                OpenPlan.PLAINTEXT,
+                OpenPlan.COPY_TO_MEMORY,
                 DatabaseEncryptionMigration.planOpen(FileKind.PLAINTEXT, false, true, keyUnavailable = true, inMemoryAllowed = allowed, foreground = true),
             )
         }

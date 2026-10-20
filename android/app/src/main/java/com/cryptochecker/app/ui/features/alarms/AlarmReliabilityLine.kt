@@ -33,6 +33,7 @@ import com.cryptochecker.app.domain.alarm.AlarmReliability
 import com.cryptochecker.app.ui.components.NotificationPrePrompt
 import com.cryptochecker.app.ui.features.watchlist.ago
 import com.cryptochecker.app.ui.theme.AppColors
+import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.AlarmReadinessProbe
 
 /** Test-Tag der Zeile (UI-Tests). */
@@ -93,7 +94,7 @@ private fun AlarmReliabilityContent(
     val color = if (status.warn) AppColors.warningText else MaterialTheme.colorScheme.onSurfaceVariant
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))

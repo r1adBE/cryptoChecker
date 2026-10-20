@@ -62,6 +62,10 @@ internal fun DatabaseEncryptionMigration.withoutKey(kind: FileKind, database: St
             log("$database: kein Schlüssel, nicht unverschlüsselt angelegt (nur im Arbeitsspeicher)", null)
             Decision.Refused
         }
+        OpenPlan.COPY_TO_MEMORY -> {
+            log("$database: kein Schlüssel, unverschlüsselte Datei bleibt unberührt (Inhalt im Arbeitsspeicher)", null)
+            Decision.PlaintextKept
+        }
         OpenPlan.ENCRYPTED, OpenPlan.PLAINTEXT, OpenPlan.KEEP_FILE_IN_MEMORY, OpenPlan.WAIT -> Decision.Plaintext
     }
 

@@ -17,7 +17,7 @@ object EncryptionPending {
      * (Portfolio ohne Schlüssel nur im Arbeitsspeicher) zählt wie unverschlüsselt: Verschlüsselung noch nicht aktiv.
      */
     fun updated(pending: Set<String>, database: String, decision: Decision): Set<String> = when (decision) {
-        Decision.Plaintext, Decision.Refused -> pending + database
+        Decision.Plaintext, Decision.Refused, Decision.PlaintextKept -> pending + database
         is Decision.Encrypted -> pending - database
         is Decision.KeyUnavailable -> pending
     }

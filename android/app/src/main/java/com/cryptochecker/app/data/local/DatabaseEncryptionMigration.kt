@@ -18,7 +18,8 @@ package com.cryptochecker.app.data.local
  *    die App nennt das, bis der Nutzer es bestätigt ([Decision.Encrypted.setAside]).
  * 5. Eine Datei mit Verschlüsselungspflicht ([encryptionRequired]; App: Portfolio und Merkliste) entsteht nie unverschlüsselt: Ohne
  *    Schlüssel wird sie gar nicht angelegt ([Decision.Refused]); eine schon unverschlüsselt vorhandene (früherer
- *    Fehlschlag) öffnet weiter wie bisher und wird beim nächsten Start mit Schlüssel überführt ([planOpen]).
+ *    Fehlschlag) bleibt seit Build 91 ohne Schlüssel unberührt: Ihr Inhalt wird in den Arbeitsspeicher kopiert, Änderungen
+ *    landen nie im Klartext ([Decision.PlaintextKept], wie iOS); mit Schlüssel wird sie beim nächsten Start überführt.
  *    Gibt der Keystore den Schlüssel einer schon verschlüsselten Datei gerade nicht heraus ([Decision.KeyUnavailable]),
  *    bleibt die Datei unberührt; die App hält die Datenbank dann für diesen Lauf im Arbeitsspeicher oder wartet
  *    ([OpenPlan.KEEP_FILE_IN_MEMORY], [OpenPlan.WAIT]).
@@ -163,6 +164,13 @@ class DatabaseEncryptionMigration(
          */
         data object Refused : Decision
 
+        /**
+         * Unverschlüsselte Datei mit Verschlüsselungspflicht, aber kein Schlüssel (seit Build 91, wie iOS
+         * `ProtectedFile.write(requireSealed:)`): Die Datei bleibt unberührt, ihr Inhalt wird für diesen Lauf in den
+         * Arbeitsspeicher kopiert; Änderungen werden nicht gespeichert. Der nächste Start mit Schlüssel überführt sie.
+         */
+        data object PlaintextKept : Decision
+
         /** Verschlüsselte Datei, Schlüssel gerade nicht lesbar: nicht öffnen und nichts verändern. */
         class KeyUnavailable(val error: Throwable) : Decision
     }
@@ -187,7 +195,7 @@ class DatabaseEncryptionMigration(
     }
 
     private fun migrate(database: String): Decision {
-        // Alte unverschlüsselte Datei ohne Schlüssel: weiter öffnen wie bisher (nie Daten verlieren), auch mit Pflicht
+        // Alte unverschlüsselte Datei ohne Schlüssel: ohne Pflicht weiter wie bisher, mit Pflicht nur gelesen (PlaintextKept)
         val passphrase = usableOrNewKey(database) ?: return withoutKey(FileKind.PLAINTEXT, database)
         return try {
             // Rest eines abgebrochenen Laufs: unvollständig oder ungeprüft, die Quelle ist noch da
@@ -262,6 +270,9 @@ class DatabaseEncryptionMigration(
         /** Nicht auf dem Speicher anlegen (nur im Arbeitsspeicher halten), der nächste Start versucht es erneut. */
         REFUSE,
 
+        /** Unverschlüsselte Datei mit Pflicht, kein Schlüssel: Inhalt in den Arbeitsspeicher kopieren, Datei unberührt. */
+        COPY_TO_MEMORY,
+
         /**
          * Verschlüsselte Datei, Schlüssel gerade nicht lesbar: für diesen Lauf eine leere Datenbank im Arbeitsspeicher;
          * die Datei bleibt unberührt (nie überschrieben, gelöscht oder beiseitegelegt), der nächste Start versucht es erneut.
@@ -276,7 +287,8 @@ class DatabaseEncryptionMigration(
         /**
          * Regel ohne Android (Unit-Test): Art der vorhandenen Datei × brauchbarer Schlüssel (gespeichert oder neu angelegt)
          * × Verschlüsselungspflicht → wie öffnen. Mit Schlüssel immer verschlüsselt. Ohne Schlüssel: eine schon
-         * unverschlüsselte Datei weiter unverschlüsselt (sie liegt schon so da; Überführung beim nächsten Start), eine
+         * unverschlüsselte Datei ohne Pflicht weiter unverschlüsselt, mit Pflicht nur in den Arbeitsspeicher kopiert
+         * (seit Build 91; Überführung beim nächsten Start mit Schlüssel), eine
          * fehlende nur ohne Pflicht neu unverschlüsselt — mit Pflicht (Portfolio: Beträge, Adressen, xpub) gar nicht, wie
          * iOS `ProtectedFile.write(requireSealed:)`. Eine verschlüsselte Datei folgt eigenen Regeln (Schlüssel gerade nicht
          * lesbar → nichts tun; verloren → beiseitelegen), nie unverschlüsselt.
@@ -298,7 +310,7 @@ class DatabaseEncryptionMigration(
             kind == FileKind.ENCRYPTED && keyUnavailable ->
                 if (inMemoryAllowed && foreground) OpenPlan.KEEP_FILE_IN_MEMORY else OpenPlan.WAIT
             keyUsable || kind == FileKind.ENCRYPTED -> OpenPlan.ENCRYPTED
-            kind == FileKind.PLAINTEXT -> OpenPlan.PLAINTEXT
+            kind == FileKind.PLAINTEXT -> if (encryptionRequired) OpenPlan.COPY_TO_MEMORY else OpenPlan.PLAINTEXT
             encryptionRequired -> OpenPlan.REFUSE
             else -> OpenPlan.PLAINTEXT
         }

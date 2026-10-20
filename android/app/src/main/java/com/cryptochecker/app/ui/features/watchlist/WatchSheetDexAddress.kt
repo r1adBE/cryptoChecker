@@ -20,6 +20,7 @@ import com.cryptochecker.app.data.DexTokenAddressStore
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.DexLiquidity
 import com.cryptochecker.app.domain.watch.DexTokenAddress
+import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.BidiText
 
 /**
@@ -34,7 +35,7 @@ internal fun DexTokenAddressLine(watch: WatchEntity) {
     val copyLabel = stringResource(R.string.dex_token_address_copy)
     Text(
         BidiText.isolate(DexTokenAddress.shown(address)),
-        style = MaterialTheme.typography.labelSmall,
+        style = MaterialTheme.typography.label,
         color = MaterialTheme.colorScheme.primary,
         modifier = Modifier
             .minimumInteractiveComponentSize()

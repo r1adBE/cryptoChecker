@@ -20,8 +20,9 @@ object WatchlistStorageLock {
         KEPT,
 
         /**
-         * Kein Schlüssel und keine Datei: nur im Arbeitsspeicher, nie unverschlüsselt angelegt — nichts wird gespeichert
-         * (nicht gesperrt, es gibt keinen gespeicherten Stand zu verlieren). Der nächste Start versucht es erneut.
+         * Kein Schlüssel: nur im Arbeitsspeicher, nie unverschlüsselt geschrieben — nichts wird gespeichert (nicht gesperrt:
+         * ohne Datei gibt es keinen gespeicherten Stand zu verlieren, eine alte unverschlüsselte Datei wird seit Build 91 in
+         * den Speicher kopiert und bleibt unberührt). Der nächste Start versucht es erneut.
          */
         NOT_SAVED,
     }

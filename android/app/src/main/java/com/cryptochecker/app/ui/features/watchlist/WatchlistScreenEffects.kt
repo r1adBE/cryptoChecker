@@ -102,8 +102,9 @@ private const val ALARM_HINT_MILLIS = 6_000L
 /**
  * Merkliste in diesem Lauf nur im Arbeitsspeicher ([WatchlistStorageLock.notice]): Der Keystore gab den Schlüssel der
  * verschlüsselten Datei gerade nicht heraus ([DatabaseEncryptionNotice.storedKept] — der gespeicherte Stand kommt nach
- * einem Neustart zurück, Änderungen dieses Laufs nicht), oder es gibt gar keinen Schlüssel und keine Datei (nie
- * unverschlüsselt angelegt — nichts wird gespeichert, gleicher Text wie iOS). Sagen statt still. Als Dauerhinweis
+ * einem Neustart zurück, Änderungen dieses Laufs nicht), oder es gibt gar keinen Schlüssel (keine Datei: nie
+ * unverschlüsselt angelegt; alte unverschlüsselte Datei: seit Build 91 nur gelesen — nichts wird gespeichert, gleicher
+ * Text wie iOS). Sagen statt still. Als Dauerhinweis
  * ([WatchlistBanner.showResting]): Er steht, solange der Zustand gilt, und kommt nach jedem anderen Banner wieder.
  */
 @Composable

@@ -87,6 +87,7 @@
 		102C33004AA727C16C8C7380 /* WatchSheetDexAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F5F1C57C0FF099BF9388BE /* WatchSheetDexAddress.swift */; };
 		102FE438AC097AA104A6A4AB /* AddressCutoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AAD319A92D95F95AED98A9 /* AddressCutoff.swift */; };
 		1045F22B96DFC829B6245DE3 /* MarketMoversCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1153FF165EAFC6868CC4B3B7 /* MarketMoversCard.swift */; };
+		1047B5DF222C10FC9128C3DF /* WooLastTradeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880F5F189826FDE60D3853FD /* WooLastTradeTests.swift */; };
 		10570DC400411ACBB2DC302F /* exchange_mercadobitcoin.json in Resources */ = {isa = PBXBuildFile; fileRef = CDA31F838E58A09656BB617A /* exchange_mercadobitcoin.json */; };
 		10C06E93B88EA306ABBBEED4 /* AlarmTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45CA5F3AC337753B893A728 /* AlarmTexts.swift */; };
 		111970264EF2C7B18FE89F35 /* MarketPlainSummaryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FD70E2B687FF68EC45F00E /* MarketPlainSummaryCard.swift */; };
@@ -1954,6 +1955,7 @@
 		871B606EC0AB15BF819D5EF0 /* ConnectionErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionErrors.swift; sourceTree = "<group>"; };
 		872217DE4EB8220A5017D247 /* ChainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainTests.swift; sourceTree = "<group>"; };
 		87AB10B4D187FD0D352B583F /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		880F5F189826FDE60D3853FD /* WooLastTradeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WooLastTradeTests.swift; sourceTree = "<group>"; };
 		88861DFDC34DCF68276B9BE9 /* PortfolioAlarmTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioAlarmTexts.swift; sourceTree = "<group>"; };
 		89048B96DB3561ADE1630FAA /* MarketHTTPLimitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketHTTPLimitTests.swift; sourceTree = "<group>"; };
 		893E3332A3F36E6B35346117 /* NotificationsOffBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsOffBanner.swift; sourceTree = "<group>"; };
@@ -3648,6 +3650,7 @@
 				AF7EA6D15B9D020D9BFB51BB /* WidgetGroupSelectionTests.swift */,
 				D41E85095CA6E5F8A75DA2C9 /* WidgetQuantityFormatTests.swift */,
 				E826CD6D747124E83392CD0F /* WidgetRefreshStateTests.swift */,
+				880F5F189826FDE60D3853FD /* WooLastTradeTests.swift */,
 				C09C840CCE4DC21C9D10AD97 /* XpubTokenTests.swift */,
 			);
 			path = Tests;
@@ -4755,6 +4758,7 @@
 				79EE1FA182C3F9CB6320BA2C /* WidgetGroupSelectionTests.swift in Sources */,
 				13356EA06BD3D6B510BFDCAD /* WidgetQuantityFormatTests.swift in Sources */,
 				46C0BE0F14350D06EEF233C6 /* WidgetRefreshStateTests.swift in Sources */,
+				1047B5DF222C10FC9128C3DF /* WooLastTradeTests.swift in Sources */,
 				E021363C8AD7693AC9AB70C1 /* XpubTokenTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

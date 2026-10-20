@@ -10,6 +10,7 @@ import com.cryptochecker.marketdata.util.Change24h
 import com.cryptochecker.marketdata.util.forEachJSONObject
 import com.cryptochecker.marketdata.util.optDoubleOrMissing
 import org.json.JSONObject
+import kotlin.math.roundToLong
 
 private const val WOO_API = "https://api.woox.io"
 
@@ -18,6 +19,9 @@ private const val WOO_HOURS = 25
 
 /** Grund, wenn die Kerzenliste leer ist. */
 private const val WOO_NO_CANDLES = "Keine Kerzen"
+
+/** Grund, wenn die Liste der letzten Abschlüsse leer oder unbrauchbar ist (zweite Anfrage, darf scheitern). */
+private const val WOO_NO_TRADES = "Keine Abschlüsse"
 
 /**
  * WOO X Spot (API v3, developer.woox.io).
@@ -30,7 +34,12 @@ private const val WOO_NO_CANDLES = "Keine Kerzen"
  * Hoch, Tief und Volumen über dieses Fenster; Veränderung gegen die Eröffnung seiner ältesten Kerze, aber nur bei
  * lückenlosem Fenster. Liegt die jüngste Kerze mehr als eine Stunde zurück, endet kein Fenster jetzt: keine
  * Veränderung (dann rechnet die App mit eigenen Kerzen). Zeit der Börse = Ende der Information der jüngsten Kerze
- * (laufend: Antwortzeit, sonst höchstens jetzt; abgeschlossen: Stundenende). Gegenstück: `Woo.swift`.
+ * (laufend: Antwortzeit, sonst höchstens jetzt; abgeschlossen: Stundenende).
+ *
+ * Seit Build 91 eine zweite Anfrage (`/v1/public/market_trades`, letzter Abschluss): Sie setzt den letzten Kurs auf
+ * den echten letzten Abschluss und die Zeit der Börse auf dessen Zeit; die Veränderung wird gegen dieselbe
+ * Eröffnung neu gerechnet. Scheitert sie, bleibt der Schluss der Stundenkerze (der laufenden Kerze = letzter
+ * Abschluss bis zur Antwortzeit). Darum kein «Stundenkurs» mehr. Gegenstück: `Woo.swift`.
  */
 class Woo : WooBase(
     name = "WOO X",
@@ -40,13 +49,20 @@ class Woo : WooBase(
 ) {
     override val key = "Woo"
 
-    /** Kurs = Schluss der jüngsten Stundenkerze: im Aktionsblatt «Stundenkurs». */
-    override val priceIsHourlyClose: Boolean
-        get() = true
-
     // ── Einzelkurs ──
 
+    /** Anfrage 0: Stundenkerzen (muss gelingen); Anfrage 1: letzter Abschluss (ergänzt, darf scheitern). */
+    override fun tickerCallCount(info: PairQuery?): Int = 2
+
+    override fun tickerAddress(call: Int, info: PairQuery): String =
+        if (call == 1) "$WOO_API/v1/public/market_trades?symbol=${pairId(info)}&limit=1"
+        else super.tickerAddress(call, info)
+
     override fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) {
+        if (call == 1) {
+            fillLastTrade(json, ticker)
+            return
+        }
         val candles = ArrayList<JSONObject>()
         json.getJSONObject("data").getJSONArray("rows").forEachJSONObject { candles.add(it) }
         // Neueste zuerst, je Stundenbeginn nur eine Kerze
@@ -81,6 +97,23 @@ class Woo : WooBase(
         val firstHour = if (endsNow) Change24h.hourlyWindowStart(window.map { it.start() }, span) else null
         val opening = firstHour?.let { start -> window.firstOrNull { it.start() == start } }
         ticker.change24hPercent = opening?.let { Change24h.fromOpen(last, it.optDouble("open")) }
+    }
+
+    /**
+     * Letzter Abschluss: Kurs und Zeit (Sekunden mit Bruchteil als Text). Erst alles lesen, dann schreiben — so
+     * bleibt der Kurs aus den Kerzen unverändert, wenn die Antwort unbrauchbar ist. Die Veränderung behält ihre
+     * Eröffnung (aus Kurs und Prozent der Kerzen zurückgerechnet).
+     */
+    private fun fillLastTrade(json: JSONObject, ticker: Ticker) {
+        val row = json.optJSONArray("rows")?.optJSONObject(0) ?: throw MarketParseException(WOO_NO_TRADES)
+        val price = row.optDouble("executed_price")
+        if (price.isNaN() || price <= 0.0 || price.isInfinite()) throw MarketParseException(WOO_NO_TRADES)
+        val seconds = row.optString("executed_timestamp").toDoubleOrNull()
+        val opening = ticker.change24hPercent?.let { pct -> ticker.last / (1 + pct / 100) }
+        ticker.last = price
+        // Ohne lesbare Zeit bleibt die der Kerzen (sonst gälte die Abrufzeit als Zeit der Börse)
+        ticker.timestamp = if (seconds != null && seconds > 0) (seconds * 1000).roundToLong() else ticker.exchangeTime ?: 0L
+        if (opening != null) ticker.change24hPercent = Change24h.fromOpen(price, opening)
     }
 
     // ── Lesen ──

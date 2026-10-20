@@ -19,7 +19,8 @@ import timber.log.Timber
  * - nur im Arbeitsspeicher, wenn eine Datenbank mit Verschlüsselungspflicht ([encryptionRequired]: Portfolio und seit
  *   Build 91 die Merkliste) ohne Schlüssel neu entstehen müsste: nie unverschlüsselt auf dem Speicher, wie iOS (Änderungen
  *   bleiben im Speicher, Portfolio und Merkliste nennen es); der nächste Start versucht es erneut
- *   ([DatabaseEncryptionNotice.inMemory]). Eine schon unverschlüsselt vorhandene Datei öffnet weiter wie bisher;
+ *   ([DatabaseEncryptionNotice.inMemory]). Eine schon unverschlüsselt vorhandene Datei mit Pflicht bleibt seit Build 91
+ *   unberührt: ihr Inhalt kommt in den Arbeitsspeicher ([PlaintextMemoryCopy]), Änderungen werden nicht gespeichert;
  * - gibt der Keystore den Schlüssel einer verschlüsselten Datei gerade nicht heraus: im Vordergrund und für Datenbanken
  *   aus [inMemoryWhenKeyUnavailable] (App: Portfolio und Merkliste) leer im Arbeitsspeicher für diesen Lauf — die
  *   Oberfläche stürzte sonst beim ersten Zugriff ab; die Datei bleibt unberührt, der gespeicherte Stand kommt nach einem
@@ -100,6 +101,11 @@ class EncryptingOpenHelperFactory(
                     SupportOpenHelperFactory(decision.passphrase).create(configuration)
                 }
                 Decision.Plaintext -> FrameworkSQLiteOpenHelperFactory().create(configuration)
+                Decision.PlaintextKept -> {
+                    // Datei mit gespeichertem Stand, aber nie im Klartext weiterschreiben (wie iOS): Hinweis «nicht gespeichert»
+                    DatabaseEncryptionNotice.markInMemory(name)
+                    inMemoryHelper(copyFrom = configuration.context.getDatabasePath(name))
+                }
                 Decision.Refused -> {
                     // Vor dem Öffnen gesetzt: Room-Callbacks (Übernahme aus Kopien, die danach gelöscht würden) sehen es schon
                     DatabaseEncryptionNotice.markInMemory(name)
@@ -129,9 +135,13 @@ class EncryptingOpenHelperFactory(
             return helper
         }
 
-        /** Gleiche Callbacks (Schema, Migrationen), aber ohne Namen: SQLite im Arbeitsspeicher, keine Datei. */
-        private fun inMemoryHelper(): SupportSQLiteOpenHelper {
-            val inMemory = SupportSQLiteOpenHelper.Configuration(configuration.context, null, configuration.callback)
+        /**
+         * Gleiche Callbacks (Schema, Migrationen), aber ohne Namen: SQLite im Arbeitsspeicher, keine Datei. [copyFrom]: Inhalt
+         * dieser unverschlüsselten Datei beim Öffnen übernehmen ([PlaintextMemoryCopy]), die Datei bleibt unberührt.
+         */
+        private fun inMemoryHelper(copyFrom: java.io.File? = null): SupportSQLiteOpenHelper {
+            val callback = copyFrom?.let { PlaintextMemoryCopy(it, configuration.callback) } ?: configuration.callback
+            val inMemory = SupportSQLiteOpenHelper.Configuration(configuration.context, null, callback)
             return FrameworkSQLiteOpenHelperFactory().create(inMemory)
         }
     }

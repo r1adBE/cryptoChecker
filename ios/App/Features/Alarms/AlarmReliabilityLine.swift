@@ -64,7 +64,7 @@ struct AlarmReliabilityLine: View {
     }
 
     private func label(_ line: Line) -> some View {
-        HStack(spacing: 6) {
+        HStack(spacing: Spacing.sm) {
             Image(systemName: line.warn ? "exclamationmark.triangle.fill" : "bell")
                 .font(.caption)
                 .foregroundStyle(line.warn ? AppColors.warning : AppColors.onSurfaceVariant)
