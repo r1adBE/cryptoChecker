@@ -119,7 +119,7 @@
     <string name="watch_enabled_banner">Đã bật %1$s</string>
     <string name="watch_error_offline">Không có kết nối</string>
     <string name="watch_gesture_hint_short">Chạm: cảnh báo và “Cái gì biến động cùng?” · nhấn giữ để chọn · vuốt trái để xóa · vuốt phải để yêu thích</string>
-    <string name="watch_hint_tap_why">Chạm vào một coin để xem điều gì đang biến động cùng nó</string>
+    <string name="watch_hint_tap_why">Chạm vào một coin để đặt cảnh báo và xem “Cái gì biến động cùng?”</string>
     <string name="watch_not_traded">Không còn giao dịch trên sàn này</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Không có trong danh sách</string>

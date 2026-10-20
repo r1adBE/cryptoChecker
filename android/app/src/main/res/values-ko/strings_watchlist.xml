@@ -119,7 +119,7 @@
     <string name="watch_enabled_banner">%1$s 활성화됨</string>
     <string name="watch_error_offline">연결 없음</string>
     <string name="watch_gesture_hint_short">탭: 경보와 ‘함께 움직이는 것은?’ · 길게 눌러 선택 · 왼쪽으로 밀어 삭제 · 오른쪽으로 밀어 즐겨찾기</string>
-    <string name="watch_hint_tap_why">코인을 탭하면 함께 움직이는 것을 볼 수 있습니다</string>
+    <string name="watch_hint_tap_why">코인 탭: 경보와 ‘함께 움직이는 것은?’</string>
     <string name="watch_not_traded">이 거래소에서 더 이상 거래되지 않음</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">관심 목록에 없음</string>

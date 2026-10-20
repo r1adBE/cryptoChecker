@@ -10,7 +10,7 @@ HONEST ABOUT THE DATA
 • “Economical” is the default: prices refresh when you open the app and at intervals in the background. “Live while open” adds live prices for Binance, Bybit, OKX, Coinbase and Kraken while the watchlist is open.
 • % change and charts come from the pair’s own exchange first; if it has no candles, the app uses Binance or Coinbase and tells you.
 • Fear & Greed, dominance and on-chain values from alternative.me, CoinGecko and Coin Metrics.
-• With the app closed, Android decides when alerts are checked – about every 15 minutes, often less frequently. Short spikes in between can be missed; the app tells you so.
+• With the app closed, Android decides when alerts are checked – at most every 15 minutes, often only after hours. Short spikes in between can be missed; the app tells you so.
 • Amounts leave the device only via your export or Android system backup. For prices, only pair tickers go to the exchange of the respective pair; plus exchange rates (Frankfurter), market data and logos (CoinGecko, Binance), data mirrors (GitHub). If you watch addresses or an xpub, public blockchain nodes see the addresses (for an xpub, the derived ones) and your IP.
 
 WATCHLIST

@@ -10,7 +10,7 @@ DET SOM GÖR DEN ANNORLUNDA
 • ”Sparsam” är standard: kurserna uppdateras när du öppnar appen och med jämna mellanrum i bakgrunden. ”Live medan den är öppen” ger livekurser för Binance, Bybit, OKX, Coinbase och Kraken medan bevakningslistan är öppen.
 • %-ändring och diagram kommer först från parets egen börs; saknar den candles använder appen Binance eller Coinbase och säger det.
 • Fear & Greed, dominans och on-chain-värden från alternative.me, CoinGecko och Coin Metrics.
-• När appen är stängd bestämmer Android när larmen kontrolleras – ungefär var 15:e minut, ofta mer sällan. Korta toppar däremellan kan missas; appen säger det till dig.
+• När appen är stängd bestämmer Android när larmen kontrolleras – högst var 15:e minut, ofta först efter timmar. Korta toppar däremellan kan missas; appen säger det till dig.
 • Belopp lämnar enheten bara via din export eller Androids systemsäkerhetskopia. För kurser skickas bara parets symbol till börsen för just det paret; dessutom valutakurser (Frankfurter), marknadsdata och logotyper (CoinGecko, Binance) och dataspeglar (GitHub). Bevakar du adresser eller en xpub ser publika blockkedjenoder adresserna (för en xpub de härledda) och din IP.
 
 BEVAKNINGSLISTA

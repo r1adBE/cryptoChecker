@@ -45239,6 +45239,197 @@
         }
       }
     },
+    "alarm_save_storage_locked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يمكن حفظ التنبيهات الآن – قائمة المتابعة المحفوظة مقفلة. أعد تشغيل التطبيق."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy teď nelze uložit – uložený seznam je zamčený. Restartujte aplikaci."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmer kan ikke gemmes lige nu – den gemte overvågningsliste er låst. Genstart appen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarme lassen sich gerade nicht speichern – die gespeicherte Merkliste ist gesperrt. Starte die App neu."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι συναγερμοί δεν μπορούν να αποθηκευτούν αυτή τη στιγμή – η αποθηκευμένη λίστα είναι κλειδωμένη. Επανεκκινήστε την εφαρμογή."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarms can't be saved right now – the saved watchlist is locked. Restart the app."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ahora no se pueden guardar alarmas: la lista guardada está bloqueada. Reinicia la app."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارها الان ذخیره نمی‌شوند – واچ‌لیست ذخیره‌شده قفل است. برنامه را دوباره راه‌اندازی کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hälytyksiä ei voi juuri nyt tallentaa – tallennettu seurantalista on lukittu. Käynnistä sovellus uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible d'enregistrer des alertes pour l'instant – la liste enregistrée est verrouillée. Redémarrez l'app."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא ניתן לשמור התראות כרגע – רשימת המעקב השמורה נעולה. הפעל מחדש את האפליקציה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अलार्म अभी सहेजे नहीं जा सकते – सहेजी गई वॉचलिस्ट लॉक है। ऐप दोबारा शुरू करें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riasztásokat most nem lehet menteni – a mentett figyelőlista zárolva van. Indítsa újra az alkalmazást."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm tidak bisa disimpan saat ini – daftar pantau tersimpan sedang terkunci. Mulai ulang aplikasi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al momento non è possibile salvare gli allarmi – la lista salvata è bloccata. Riavvia l'app."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在アラームを保存できません。保存済みのウォッチリストがロックされています。アプリを再起動してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금은 경보를 저장할 수 없습니다. 저장된 관심 목록이 잠겨 있습니다. 앱을 다시 시작하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmer kan ikke lagres akkurat nå – den lagrede overvåkingslisten er låst. Start appen på nytt."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmen kunnen nu niet worden opgeslagen – de opgeslagen volglijst is vergrendeld. Start de app opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmów nie można teraz zapisać – zapisana lista jest zablokowana. Uruchom aplikację ponownie."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível guardar alarmes agora – a lista guardada está bloqueada. Reinicie a app."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível salvar alarmes agora – a lista salva está bloqueada. Reinicie o app."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmele nu pot fi salvate acum – lista salvată este blocată. Repornește aplicația."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сейчас не удаётся сохранить оповещения – сохранённый список заблокирован. Перезапустите приложение."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet nuk mund të ruhen tani – lista e ruajtur është e kyçur. Rinis aplikacionin."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Larm kan inte sparas just nu – den sparade bevakningslistan är låst. Starta om appen."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่สามารถบันทึกสัญญาณเตือนได้ในขณะนี้ – รายการติดตามที่บันทึกไว้ถูกล็อกอยู่ โปรดเริ่มแอปใหม่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmlar şu anda kaydedilemiyor – kayıtlı liste kilitli. Uygulamayı yeniden başlatın."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сигнали зараз не вдається зберегти – збережений список заблоковано. Перезапустіть застосунок."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiện không thể lưu cảnh báo – danh sách đã lưu đang bị khóa. Hãy khởi động lại ứng dụng."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂时无法保存提醒——已保存的自选列表已锁定。请重启应用。"
+          }
+        }
+      }
+    },
     "alarm_saved_active" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -208163,6 +208354,197 @@
         }
       }
     },
+    "portfolio_export_address_lots_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ملاحظة: عناوين ذات تكلفة مسجلة – قد تظهر التحويلات إلى عنوان مراقَب أو منه هنا مرتين أو قد تكون مفقودة؛ بطاقة المحفظة تحسبها بشكل صحيح."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upozornění: adresy s pořizovací cenou – převody na sledovanou adresu nebo z ní se zde mohou objevit dvakrát nebo chybět; karta portfolia je počítá správně."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bemærk: adresser med anskaffelsespris – overførsler til eller fra en overvåget adresse kan her optræde to gange eller mangle; porteføljekortet beregner dem korrekt."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinweis: Adressen mit Einstand – Umbuchungen zur oder von einer beobachteten Adresse können hier doppelt oder fehlend erscheinen; die Portfolio-Karte rechnet sie richtig."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Σημείωση: διευθύνσεις με κόστος κτήσης – μεταφορές προς ή από μια παρακολουθούμενη διεύθυνση μπορεί να εμφανίζονται εδώ διπλές ή να λείπουν· η κάρτα χαρτοφυλακίου τις υπολογίζει σωστά."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Note: addresses with cost basis – transfers to or from a watched address may appear twice or be missing here; the portfolio card calculates them correctly."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nota: direcciones con coste – las transferencias hacia o desde una dirección vigilada pueden aparecer aquí dos veces o faltar; la tarjeta del portafolio las calcula correctamente."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "توجه: آدرس‌های دارای بهای تمام‌شده – انتقال‌ها به یک آدرس تحت نظر یا از آن ممکن است اینجا دوبار نشان داده شوند یا نباشند؛ کارت سبد آن‌ها را درست محاسبه می‌کند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huomio: osoitteet, joilla on hankintameno – siirrot seurattuun osoitteeseen tai sieltä voivat näkyä tässä kahdesti tai puuttua; salkkukortti laskee ne oikein."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remarque : adresses avec prix de revient – les transferts vers ou depuis une adresse surveillée peuvent apparaître ici en double ou manquer ; la carte du portefeuille les calcule correctement."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הערה: כתובות עם עלות רכישה – העברות אל כתובת במעקב או ממנה עשויות להופיע כאן פעמיים או לחסור; כרטיס התיק מחשב אותן נכון."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ध्यान दें: लागत वाले पते – किसी निगरानी वाले पते पर या उससे किए गए ट्रांसफ़र यहाँ दो बार दिख सकते हैं या गायब हो सकते हैं; पोर्टफ़ोलियो कार्ड उन्हें सही गिनता है।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Megjegyzés: bekerülési értékkel rendelkező címek – a figyelt címre vagy címről történő átvezetések itt kétszer szerepelhetnek vagy hiányozhatnak; a portfóliókártya helyesen számolja őket."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Catatan: alamat dengan biaya perolehan – transfer ke atau dari alamat yang dipantau dapat muncul dua kali atau hilang di sini; kartu portofolio menghitungnya dengan benar."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nota: indirizzi con costo – i trasferimenti verso o da un indirizzo osservato possono comparire qui due volte o mancare; la scheda del portafoglio li calcola correttamente."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注意：取得価額のあるアドレス – 監視中のアドレスへの、またはアドレスからの振替は、ここで二重に表示されたり欠けたりすることがあります。ポートフォリオカードでは正しく計算されます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "참고: 취득가가 있는 주소 – 관찰 중인 주소로의 또는 주소에서의 이체가 여기에서 두 번 표시되거나 누락될 수 있습니다. 포트폴리오 카드는 이를 올바르게 계산합니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merk: adresser med anskaffelseskost – overføringer til eller fra en overvåket adresse kan her vises to ganger eller mangle; porteføljekortet beregner dem riktig."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let op: adressen met aanschafwaarde – overboekingen naar of van een gevolgd adres kunnen hier dubbel of niet verschijnen; de portefeuillekaart rekent ze correct."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uwaga: adresy z kosztem nabycia – przelewy na obserwowany adres lub z niego mogą tu występować podwójnie lub ich brakować; karta portfela liczy je poprawnie."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nota: endereços com custo de aquisição – as transferências para ou de um endereço observado podem aparecer aqui em duplicado ou em falta; o cartão do portefólio calcula-as corretamente."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Observação: endereços com custo de aquisição – transferências para ou de um endereço monitorado podem aparecer aqui duplicadas ou faltando; o cartão do portfólio as calcula corretamente."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notă: adrese cu cost de achiziție – transferurile către sau de la o adresă urmărită pot apărea aici de două ori sau pot lipsi; cardul portofoliului le calculează corect."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Примечание: адреса со стоимостью приобретения – переводы на отслеживаемый адрес или с него могут здесь отображаться дважды или отсутствовать; карточка портфеля считает их правильно."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shënim: adresa me kosto blerjeje – transfertat drejt ose nga një adresë e vëzhguar mund të shfaqen këtu dy herë ose të mungojnë; karta e portofolit i llogarit saktë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obs: adresser med anskaffningsvärde – överföringar till eller från en bevakad adress kan här visas dubbelt eller saknas; portföljkortet beräknar dem korrekt."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หมายเหตุ: ที่อยู่ที่มีต้นทุน – การโอนไปยังหรือจากที่อยู่ที่ติดตามอาจแสดงซ้ำสองครั้งหรือหายไปในที่นี้ การ์ดพอร์ตโฟลิโอคำนวณได้ถูกต้อง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not: maliyeti girilmiş adresler – izlenen bir adrese veya adresten yapılan aktarımlar burada iki kez görünebilir ya da eksik olabilir; portföy kartı bunları doğru hesaplar."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Примітка: адреси з вартістю придбання – перекази на відстежувану адресу або з неї можуть тут відображатися двічі або бути відсутніми; картка портфеля рахує їх правильно."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lưu ý: địa chỉ có giá vốn – các khoản chuyển đến hoặc từ một địa chỉ đang theo dõi có thể xuất hiện hai lần hoặc bị thiếu ở đây; thẻ danh mục tính đúng các khoản này."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注意：已录入成本价的地址 – 转入或转出被关注地址的划转在此可能重复出现或缺失；投资组合卡片会正确计算。"
+          }
+        }
+      }
+    },
     "portfolio_export_address_unobserved" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -360631,187 +361013,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "انقر على عملة لترى ما الذي يتحرك معها"
+            "value" : "انقر على عملة للتنبيه و«ما الذي يتحرك معه؟»"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Klepnutím na minci uvidíte, co se hýbe spolu s ní"
+            "value" : "Klepněte na minci pro alarm a „Co se hýbe s ním?“"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryk på en mønt for at se, hvad der bevæger sig med den"
+            "value" : "Tryk på en mønt for alarm og »Hvad bevæger sig med?«"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tippe auf einen Coin, um zu sehen, was sich mit ihm bewegt"
+            "value" : "Tippe auf einen Coin für Alarm und «Was bewegt sich mit?»"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Πατήστε ένα νόμισμα για να δείτε τι κινείται μαζί του"
+            "value" : "Πατήστε ένα νόμισμα για συναγερμό και «Τι κινείται μαζί;»"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap a coin to see what is moving along with it"
+            "value" : "Tap a coin for alerts and “What is moving with it?”"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toca una moneda para ver qué se mueve junto con ella"
+            "value" : "Toca una moneda para alarma y «¿Qué se mueve con él?»"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "روی یک کوین ضربه بزنید تا ببینید چه چیزی همراه آن حرکت می‌کند"
+            "value" : "برای هشدار و «چه چیزی همراه آن حرکت می‌کند؟» روی یک کوین ضربه بزنید"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Napauta kolikkoa nähdäksesi, mikä liikkuu sen mukana"
+            "value" : "Napauta kolikkoa: hälytys ja ”Mikä liikkuu mukana?”"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Touchez une crypto pour voir ce qui bouge avec elle"
+            "value" : "Touchez une crypto pour l’alerte et « Qu’est-ce qui bouge avec ? »"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הקש על מטבע כדי לראות מה זז יחד איתו"
+            "value" : "הקש על מטבע להתראה ו\"מה זז יחד איתו?\""
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "किसी कॉइन पर टैप करें और देखें कि उसके साथ क्या चल रहा है"
+            "value" : "अलार्म और “साथ में किसमें हलचल है?” के लिए किसी कॉइन पर टैप करें"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Koppints egy érmére, és megnézheted, mi mozog vele együtt"
+            "value" : "Koppints egy érmére: riasztás és „Mi mozog vele együtt?”"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ketuk koin untuk melihat apa yang ikut bergerak bersamanya"
+            "value" : "Ketuk koin untuk alarm dan “Apa yang ikut bergerak?”"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tocca una moneta per vedere cosa si muove insieme a lei"
+            "value" : "Tocca una moneta per allarme e «Cosa si muove insieme?»"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "コインをタップすると、一緒に動いているものが分かります"
+            "value" : "コインをタップでアラームと「一緒に動いているのは？」"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "코인을 탭하면 함께 움직이는 것을 볼 수 있습니다"
+            "value" : "코인 탭: 경보와 ‘함께 움직이는 것은?’"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Trykk på en mynt for å se hva som beveger seg med den"
+            "value" : "Trykk på en mynt for alarm og «Hva beveger seg med?»"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tik op een munt om te zien wat er mee beweegt"
+            "value" : "Tik op een munt voor alarm en ‘Wat beweegt mee?’"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dotknij monety, aby zobaczyć, co porusza się razem z nią"
+            "value" : "Dotknij monety, aby ustawić alarm i zobaczyć „Co rusza się razem?”"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toque numa moeda para ver o que se move com ela"
+            "value" : "Toque numa moeda para alarme e «O que se mexe com ele?»"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Toque em uma moeda para ver o que se move junto com ela"
+            "value" : "Toque em uma moeda para alarme e “O que se move junto?”"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Atinge o monedă ca să vezi ce se mișcă odată cu ea"
+            "value" : "Atinge o monedă pentru alarmă și „Ce se mișcă odată cu el?”"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Нажмите на монету, чтобы увидеть, что движется вместе с ней"
+            "value" : "Нажмите на монету: оповещение и «Что движется вместе?»"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prek një monedhë për të parë çfarë lëviz bashkë me të"
+            "value" : "Prek një monedhë për alarm dhe “Çfarë lëviz bashkë?”"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryck på ett mynt för att se vad som rör sig med det"
+            "value" : "Tryck på ett mynt för larm och ”Vad rör sig med?”"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "แตะเหรียญเพื่อดูว่าอะไรเคลื่อนไหวไปพร้อมกับมัน"
+            "value" : "แตะเหรียญเพื่อตั้งสัญญาณเตือนและดู “อะไรเคลื่อนไหวไปด้วย?”"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Onunla birlikte neyin hareket ettiğini görmek için bir coin’e dokun"
+            "value" : "Alarm ve “Onunla birlikte ne hareket ediyor?” için bir coin’e dokun"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Торкніться монети, щоб побачити, що рухається разом із нею"
+            "value" : "Торкніться монети: сигнал і «Що рухається разом?»"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chạm vào một coin để xem điều gì đang biến động cùng nó"
+            "value" : "Chạm vào một coin để đặt cảnh báo và xem “Cái gì biến động cùng?”"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "轻点某个币种，查看有哪些在随它一起波动"
+            "value" : "轻点某个币种：提醒和“哪些在同步波动？”"
           }
         }
       }

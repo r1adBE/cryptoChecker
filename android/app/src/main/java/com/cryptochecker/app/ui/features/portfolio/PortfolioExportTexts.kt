@@ -128,6 +128,7 @@ internal fun cutoffTexts(currency: String): CutoffCsvTexts = CutoffCsvTexts(
     addressUnobserved = stringResource(R.string.portfolio_export_address_unobserved),
     usdtAssumed = stringResource(R.string.portfolio_usdt_assumed),
     addressesUnreadable = stringResource(R.string.portfolio_export_addresses_unreadable),
+    addressLots = stringResource(R.string.portfolio_export_address_lots_note),
 )
 
 /** Name einer Vorlage. */
@@ -317,4 +318,5 @@ internal fun taxSummaryTexts(t: TaxTemplate, yearLabel: String, currency: String
     wealthAddressUnobserved = stringResource(R.string.portfolio_export_address_unobserved),
     // USDT = 1 an einem Tag ohne USDT/USD-Schluss (z. B. vor dem Fenster der Quellen): eigene Zeile, nie still
     usdtAssumed = stringResource(R.string.portfolio_usdt_assumed),
+    addressLots = stringResource(R.string.portfolio_export_address_lots_note),
 )

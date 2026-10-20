@@ -88,6 +88,35 @@ class CutoffAddressTest {
         assertEquals("Total;;;100.00;0.9;90.00;", plain.last())
     }
 
+    /**
+     * Zählende Adresse mit Einstand: Hinweiszeile «Umbuchungen evtl. doppelt/fehlend» nach dem Kommentar — nur dann
+     * (ohne Posten, «Nur anzeigen» oder ohne Text keine Zeile); Zeilen und Total unverändert (wie iOS).
+     */
+    @Test
+    fun addressLotsNoteOnlyWhenNeeded() {
+        val lot = AddressCostLot(1, "BTC", t(day - 20), BigDecimal("0.4"), priceUsdt = BigDecimal("100"))
+        val plainAddress = WatchedAddress(id = 1, chain = AddressChain.BTC, address = "bc1qexampleaddress", lastBalance = "0.5")
+        // Eigene Adresse (gleiche Adresse zählt nur einmal, AddressCostLots.counted)
+        val withLots = plainAddress.copy(id = 2, address = "bc1qsecondexampleaddress", costLots = listOf(lot))
+        assertTrue(AddressCostLots.hasCountedLots(listOf(plainAddress, withLots)))
+        assertTrue(!AddressCostLots.hasCountedLots(listOf(plainAddress)))
+        assertTrue(!AddressCostLots.hasCountedLots(listOf(withLots.copy(countInPortfolio = false))))
+        assertTrue(!AddressCostLots.hasCountedLots(emptyList()))
+
+        val note = "Hinweis: Adressen mit Einstand"
+        val withText = texts.copy(addressLots = note)
+        val rows = CutoffExport.rows(listOf(CutoffHolding("BTC", BigDecimal("1"))), mapOf("BTC" to BigDecimal("100")), BigDecimal("0.9"))
+        fun lines(t: CutoffCsvTexts, lots: Boolean) = CutoffExport.csv(LocalDate.ofEpochDay(day), "CHF", "2024-10-04", rows, t, addressLots = lots)
+            .removePrefix("\uFEFF").split("\r\n").filter { it.isNotEmpty() }
+        val marked = lines(withText, true)
+        assertEquals(note, marked[1])
+        assertEquals(1, marked.count { it == note })
+        val plain = lines(withText, false)
+        assertTrue(plain.none { it == note })
+        assertEquals(plain, marked.filter { it != note })
+        assertEquals(lines(texts, false), lines(texts, true))
+    }
+
     @Test
     fun todayUsesCurrentBalance() {
         // Stichtag heute: alle Beobachtungen bis jetzt — das aktuelle Guthaben, nichts fehlt

@@ -67,12 +67,13 @@ struct WatchlistStarterPicker: View {
                 .foregroundStyle(AppColors.onSurfaceVariant)
             }
 
-            // Ein Satz, was die App hier tut: «Kurs beobachten, Alarm setzen» (Glocke oben rechts)
+            // Ein Satz, was die App hier tut: «Kurs beobachten, Alarm setzen»
             Label {
                 Text(L("starter_watch_alarm_hint"))
             } icon: {
-                // Dieselbe Alarm-Glocke wie oben rechts (die schlichte Glocke = Kurs-Mitteilung)
-                Image(systemName: "bell.and.waves.left.and.right")
+                // Neutrales Kurs-Symbol (wie «Linie» im Chart-Umschalter): die Alarm-Glocke im Kopf erscheint
+                // erst mit Alarmen, im leeren Start würde sie auf nichts zeigen — wie Android
+                Image(systemName: "chart.xyaxis.line")
                     .accessibilityHidden(true)
             }
             .font(.subheadline)
@@ -80,8 +81,8 @@ struct WatchlistStarterPicker: View {
             .multilineTextAlignment(.center)
             .padding(.top, 4)
 
-            // Und was man danach bekommt: Tipp auf einen Coin zeigt «Was bewegt sich mit?» (Symbol wie der ⚡ der
-            // Zeile) — wie Android
+            // Und was man danach bekommt: Tipp auf einen Coin öffnet Alarm und «Was bewegt sich mit?» (Symbol wie
+            // der ⚡ der Zeile) — wie Android
             Label {
                 Text(L("watch_hint_tap_why"))
             } icon: {

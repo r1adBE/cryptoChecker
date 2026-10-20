@@ -88,8 +88,10 @@ class TaxChWealthParityTest {
                 assertEquals("$name $m total target", r8(dec(e["totalTarget"])), r8(w.totalTarget))
                 assertEquals("$name $m incomplete", e["incomplete"], w.incomplete)
                 assertEquals("$name $m noFx", e["noFx"], w.noFx)
-                // Gerundet erst die Summe (nicht die Werte je Coin)
+                // Summe = Summe der gerundeten Zeilen, wie sie in der Datei stehen (Nachrechnen geht auf)
                 assertEquals("$name $m money", e["moneyTotal"], w.totalTarget?.let { CutoffExport.money(it) })
+                val sumOfRows = w.rows.mapNotNull { it.valueTarget }.fold(BigDecimal.ZERO) { a, v -> a + BigDecimal(CutoffExport.money(v)) }
+                if (w.totalTarget != null) assertEquals("$name $m sum of rows", CutoffExport.money(sumOfRows), CutoffExport.money(w.totalTarget!!))
             }
         }
     }
@@ -136,6 +138,13 @@ class TaxChWealthParityTest {
             csv.getOrNull(at + expected.size)?.let { next ->
                 assertTrue("$name CSV danach $next", TaxLine.entries.any { next.startsWith(it.name + ";") } || next == "Orientation")
             }
+            // Adressen mit Einstand: Hinweiszeile nur mit CH-Vermögen und nur bei Bedarf; sonst dieselbe Datei
+            val lotsTexts = texts.copy(addressLots = "lots")
+            val withLots = TaxExport.summaryCsv(s, lotsTexts, listOf("H"), addressLots = true).split("\r\n")
+            val without = TaxExport.summaryCsv(s, lotsTexts, listOf("H")).split("\r\n")
+            assertEquals("$name lots", if (s.wealth != null) 1 else 0, withLots.count { it == "lots" })
+            assertTrue("$name ohne lots", "lots" !in without)
+            assertEquals("$name sonst gleich", without, withLots.filter { it != "lots" })
         }
     }
 }

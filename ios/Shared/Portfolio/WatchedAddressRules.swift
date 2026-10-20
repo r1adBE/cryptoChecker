@@ -214,10 +214,20 @@ enum WatchedAddressRules {
     }
 
     /// Zählende Adressen, deren Guthaben MENGENMÄSSIG zu eigenen Transaktionen passt (`overlapMatched`) und die noch nie
-    /// entschieden wurden (`overlapChecked`): einmal automatisch «Nur anzeigen» (mit Hinweis und «Rückgängig»). Nur
-    /// gleicher Coin ohne passende Menge: zählt weiter, der Hinweis «Auch in eigenen Transaktionen» bleibt. Wie Android.
+    /// entschieden wurden (`overlapChecked`): einmal automatisch «Nur anzeigen» (mit Hinweis und «Rückgängig»). Nur wenn
+    /// ALLE Coins mit Guthaben > 0 passen (sonst fielen andere Token still aus dem Portfolio); teilweise bzw. gleicher
+    /// Coin ohne passende Menge: zählt weiter, der Hinweis «Auch in eigenen Transaktionen» bleibt. Wie Android.
     static func overlapAutoShowOnly(_ addresses: [WatchedAddress], txs: [PortfolioTx]) -> [WatchedAddress] {
-        addresses.filter { $0.countInPortfolio && !$0.overlapChecked && !overlapMatched($0, txs: txs).isEmpty }
+        addresses.filter { $0.countInPortfolio && !$0.overlapChecked && overlapAllMatched($0, txs: txs) }
+    }
+
+    /// Alle Coins der Adresse mit Guthaben > 0 passen mengenmässig (`overlapMatched`); leere Adresse: nein. Wie Android.
+    static func overlapAllMatched(_ a: WatchedAddress, txs: [PortfolioTx]) -> Bool {
+        var counted = a
+        counted.countInPortfolio = true
+        let positive = AddressBalance.holdings([counted]).filter { (PortfolioDecimal.parse($0.amount) ?? 0) > 0 }.count
+        let matched = overlapMatched(a, txs: txs)
+        return !matched.isEmpty && matched.count == positive
     }
 
     /// Einmal automatisch «Nur anzeigen» (`overlapAutoShowOnly`); schon entschieden bzw. nicht zählend: unverändert.

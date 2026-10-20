@@ -240,6 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">לא ניתן היה לקרוא את הכתובות שבמעקב – היתרות שלהן חסרות בקובץ זה</string>
+    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">הערה: כתובות עם עלות רכישה – העברות אל כתובת במעקב או ממנה עשויות להופיע כאן פעמיים או לחסור; כרטיס התיק מחשב אותן נכון.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">כתובות במעקב נכללות בשווי הכולל אך אין להן עלות רכישה – לכן הרווח כנראה גבוה מדי. רשמו את העלות כרכישה.</string>

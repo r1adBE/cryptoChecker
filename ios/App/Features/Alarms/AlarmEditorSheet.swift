@@ -1,8 +1,8 @@
 import SwiftUI
 
-/// Alarm anlegen/bearbeiten als Blatt von unten — wie `AlarmEditorSheet` in Android. Oben die Schnell-Alarme
-/// (nur beim Anlegen), dann nur die einfachen Bedingungen (Kurs über/unter, Steigt/Fällt um) — die
-/// Kursmarke als Satz «Wenn BTC über [Betrag] geht». Alle übrigen Bedingungen unter «Mehr Bedingungen»,
+/// Alarm anlegen/bearbeiten als Blatt von unten — wie `AlarmEditorSheet` in Android. Oben nur die einfachen
+/// Bedingungen (Kurs über/unter, Steigt/Fällt um) — die Kursmarke als Satz «Wenn BTC über [Betrag] geht»,
+/// darunter die Schnell-Alarme (nur beim Anlegen). Alle übrigen Bedingungen unter «Mehr Bedingungen»,
 /// Währung, Ton und Vorlesen unter «Erweitert» (beide zugeklappt, ausser beim Bearbeiten eines Alarms,
 /// der sie braucht), dazwischen «Einmal / Jedes Mal». Volle Höhe: Aufklappen scrollt im Inhalt.
 @MainActor
@@ -116,11 +116,6 @@ struct AlarmEditorSheet: View {
                             .fixedSize(horizontal: false, vertical: true)
                     }
 
-                    // Schnell-Alarme: ein Antippen legt den Alarm sofort an
-                    if !templates.isEmpty {
-                        templateChips
-                    }
-
                     // Einfache Bedingungen: Kurs über/unter, Steigt/Fällt um
                     simpleConditionTiles
 
@@ -129,6 +124,12 @@ struct AlarmEditorSheet: View {
                         simpleSentence
                     } else if draft.condition.isPercent && !AlarmTemplates.opensMoreConditions(condition: draft.condition) {
                         thresholdField
+                    }
+
+                    // Schnell-Alarme erst nach Bedingung und Kurssatz: zuerst sieht man, was man selbst einstellt;
+                    // ein Antippen legt den Alarm sofort an
+                    if !templates.isEmpty {
+                        templateChips
                     }
 
                     // Alle übrigen Bedingungen (Zeitfenster, Volumen, Hoch/Tief, Funding, Open Interest)

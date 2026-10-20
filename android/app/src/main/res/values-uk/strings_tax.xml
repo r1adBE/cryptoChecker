@@ -240,6 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Не вдалося прочитати відстежувані адреси – їхні баланси відсутні в цьому файлі</string>
+    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">Примітка: адреси з вартістю придбання – перекази на відстежувану адресу або з неї можуть тут відображатися двічі або бути відсутніми; картка портфеля рахує їх правильно.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Відстежувані адреси входять до загальної вартості, але не мають вартості придбання – тому прибуток, ймовірно, завищений. Внесіть вартість як купівлю.</string>

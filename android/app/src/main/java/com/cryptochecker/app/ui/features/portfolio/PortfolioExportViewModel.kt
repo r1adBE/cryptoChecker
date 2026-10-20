@@ -8,6 +8,7 @@ import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioPriceSource
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
+import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
@@ -213,7 +214,15 @@ class PortfolioExportViewModel @Inject constructor(
                         it.walletFrom == tpl.walletFrom(costMethod.value, year)
                 } ?: buildSummary(year, tpl, method, currency)
                 val format = CutoffCsvFormat.forLocale(deviceRegionLocale().country, inputDecimalSeparator())
-                write(uri, TaxExport.summaryCsv(summary, texts, header, zoneLine, format))
+                // CH-Vermögen mit Adressen mit Einstand: Hinweiszeile (nicht lesbar: ohne, die Adressen fehlen dann ohnehin)
+                val addressLots = try {
+                    AddressCostLots.hasCountedLots(repository.getWatchedAddresses())
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    false
+                }
+                write(uri, TaxExport.summaryCsv(summary, texts, header, zoneLine, format, addressLots))
                 CutoffExportState.Done
             } catch (e: CancellationException) {
                 throw e
@@ -292,7 +301,8 @@ class PortfolioExportViewModel @Inject constructor(
 
     /**
      * Stichtag-Export; [header] = Kopfzeilen davor (Bestand der Arbeitsunterlage), leer = keine. [zone]: Ende des Tags in
-     * dieser Zeitzone — für den Bestand der Arbeitsunterlage die der Vorlage, sonst die des Geräts.
+     * dieser Zeitzone — für den Bestand der Arbeitsunterlage die der Vorlage, sonst die des Geräts. [method]: Einstandsmethode
+     * des Bestands — für die Arbeitsunterlage die der Vorlage, null = die der App.
      */
     fun export(
         uri: Uri,
@@ -301,12 +311,13 @@ class PortfolioExportViewModel @Inject constructor(
         texts: CutoffCsvTexts,
         header: List<String> = emptyList(),
         zone: ZoneId = ZoneId.systemDefault(),
+        method: CostMethod? = null,
     ) {
         if (_state.value == CutoffExportState.Running) return
         _state.value = CutoffExportState.Running
         viewModelScope.launch {
             _state.value = try {
-                val csv = build(date, currency, texts, header, zone)
+                val csv = build(date, currency, texts, header, zone, method)
                 withContext(Dispatchers.IO) {
                     val stream = context.contentResolver.openOutputStream(uri, "wt")
                         ?: error("Datei kann nicht geschrieben werden")

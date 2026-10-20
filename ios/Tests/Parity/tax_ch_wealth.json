@@ -1,5 +1,5 @@
 {
-  "_comment": "[B80] CH-Vermögenswert per 31.12. (TaxExport.chWealth, Android + iOS) — Orientierung, keine Steuerwerte der ESTV-Kursliste, Vermögenssteuer nicht gerechnet. Bestand am Ende des 31.12. in der Zeitzone der Vorlage (Europe/Zurich: 23:59 zählt, 1.1. 00:00 nicht, auch wenn es in UTC noch der 31.12. ist), nach der Einstandsmethode (methods: jede muss dasselbe ergeben); Kurs = Tagesschluss 31.12. in USDT (closes; unchecked = nicht als derselbe Token bestätigt); rate = USD→CHF des 31.12. (null = kein Devisenkurs); addresses = Guthaben beobachteter Adressen (balances, unobserved). Wert je Coin = Menge × Schluss × Kurs, exakt; fehlt ein Schluss: Wert leer (missing), Summe unvollständig — nie ein anderer Kurs. Summen aus den unrunden Werten, gerundet erst im Text (moneyTotal = CutoffExport.money(totalTarget)). rows: [Coin, Menge, Wert USDT, Wert CHF, nicht gerechnet]. summaries: TaxExport.yearSummary CH mit yearEndCloses — Posten CH_WEALTH_VALUE [usdt, target, unvollständig, kein Devisenkurs, nicht gerechnet] und die CSV-Zeilen ab dem Posten (Texte: Bezeichnung = Name des Postens, wealthCoin «{coin} – {amount}», incomplete, nofx, chwealth, nc, noprice, unchecked, unobserved).",
+  "_comment": "[B80] CH-Vermögenswert per 31.12. (TaxExport.chWealth, Android + iOS) — Orientierung, keine Steuerwerte der ESTV-Kursliste, Vermögenssteuer nicht gerechnet. Bestand am Ende des 31.12. in der Zeitzone der Vorlage (Europe/Zurich: 23:59 zählt, 1.1. 00:00 nicht, auch wenn es in UTC noch der 31.12. ist), nach der Einstandsmethode (methods: jede muss dasselbe ergeben); Kurs = Tagesschluss 31.12. in USDT (closes; unchecked = nicht als derselbe Token bestätigt); rate = USD→CHF des 31.12. (null = kein Devisenkurs); addresses = Guthaben beobachteter Adressen (balances, unobserved). Wert je Coin = Menge × Schluss × Kurs, exakt; fehlt ein Schluss: Wert leer (missing), Summe unvollständig — nie ein anderer Kurs. Werte je Coin exakt; Summen aus den je Coin auf 2 Stellen GERUNDETEN Werten (CutoffExport.roundedMoney, wie die Zeilen in der Datei; seit Build 87, wie der Stichtag-Export), moneyTotal = CutoffExport.money(totalTarget). rows: [Coin, Menge, Wert USDT, Wert CHF, nicht gerechnet]. summaries: TaxExport.yearSummary CH mit yearEndCloses — Posten CH_WEALTH_VALUE [usdt, target, unvollständig, kein Devisenkurs, nicht gerechnet] und die CSV-Zeilen ab dem Posten (Texte: Bezeichnung = Name des Postens, wealthCoin «{coin} – {amount}», incomplete, nofx, chwealth, nc, noprice, unchecked, unobserved).",
   "zone": "Europe/Zurich",
   "date": "2025-12-31",
   "cases": [
@@ -127,7 +127,7 @@
       }
     },
     {
-      "name": "Mehrere Coins und Stablecoins: Summe vor dem Runden (3 × 0.005 = 0.015 → 0.02, nicht 3 × 0.01)",
+      "name": "[B87] Mehrere Coins und Stablecoins: Summe aus den GERUNDETEN Zeilen, wie sie in der Datei stehen (3 × 0.005 → je 0.01 = 0.03, nicht 0.015 → 0.02) — Nachrechnen der Spalte geht auf",
       "methods": [
         "FIFO",
         "AVERAGE"
@@ -219,11 +219,11 @@
             false
           ]
         ],
-        "totalUsdt": "1499.91875",
-        "totalTarget": "1199.935",
+        "totalUsdt": "1499.93",
+        "totalTarget": "1199.95",
         "incomplete": false,
         "noFx": false,
-        "moneyTotal": "1199.94"
+        "moneyTotal": "1199.95"
       }
     },
     {

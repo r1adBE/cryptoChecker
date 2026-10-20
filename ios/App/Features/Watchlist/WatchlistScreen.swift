@@ -175,6 +175,11 @@ struct WatchlistScreen: View {
         .onChange(of: router.tab) { _, _ in takeCelebration() }
         .onChange(of: router.showExplorer) { _, _ in takeCelebration() }
         .overlay(alignment: .bottom) {
+            // Merkliste gerade nicht lesbar: Dauerhinweis, solange kein anderes Banner steht
+            WatchlistStorageNotice(locked: data.watchlistLocked, bannerShown: banner != nil)
+                .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner == nil)
+        }
+        .overlay(alignment: .bottom) {
             // Animation nur für den Banner, nicht für die Liste darunter
             WatchlistBanner(message: $banner) { deleted in undoDelete(deleted) }
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)

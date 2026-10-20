@@ -22,6 +22,10 @@ enum TaxMethod: String, CaseIterable, Sendable {
         }
     }
 
+    /// Einstandsmethode für Bestände nach dieser Rechnung (Bestand der Arbeitsunterlage, CH-Vermögen): `costMethod`, bei
+    /// eigener Rechnung `CostMethod.defaultMethod` — so passt die Bestandsdatei zur Methode im Kopf. Wie Android.
+    var holdingsCostMethod: CostMethod { costMethod ?? .defaultMethod }
+
     static func of(_ method: CostMethod) -> TaxMethod {
         switch method {
         case .FIFO: return .FIFO

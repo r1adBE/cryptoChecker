@@ -198,6 +198,7 @@ struct AlarmsScreen: View {
                 targetCurrency: data.settings.portfolioCurrency,
                 existing: current.id == 0 ? nil : data.alarms(for: watchId).first(where: { $0.id == current.id }),
                 onSave: { saved in
+                    if data.alarmSaveBlocked { return showSaveLocked() }
                     guard let threshold = saved.threshold else { return }
                     WatchlistHaptics.impact(.light)
                     withAnimation {
@@ -212,6 +213,7 @@ struct AlarmsScreen: View {
                     showSaved(id: saved.id, firstAlarm: firstAlarmPending)
                 },
                 onTemplate: { template in
+                    if data.alarmSaveBlocked { return showSaveLocked() }
                     guard let def = AlarmTemplates.definition(template, currentPrice: watch?.lastPrice) else { return }
                     WatchlistHaptics.impact(.light)
                     let created = withAnimation { data.createAlarm(watchId: watchId, from: def) }
@@ -275,6 +277,11 @@ struct AlarmsScreen: View {
             WatchlistBanner(message: $banner) { _ in }
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
         }
+    }
+
+    /// Merkliste gerade nicht lesbar (`AppData.alarmSaveBlocked`): nichts angelegt, sagen warum (der Editor schliesst sich)
+    private func showSaveLocked() {
+        banner = WatchlistBannerMessage(text: L("alarm_save_storage_locked"), icon: "lock.fill", long: true)
     }
 
     /// Hinweis «Wann Alarme geprüft werden» prüfen und merken (`AlarmTimingHint`): einmal, nicht

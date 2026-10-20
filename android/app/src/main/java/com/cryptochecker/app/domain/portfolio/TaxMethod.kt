@@ -26,6 +26,13 @@ enum class TaxMethod {
             else -> null
         }
 
+    /**
+     * Einstandsmethode für Bestände nach dieser Rechnung (Bestand der Arbeitsunterlage, CH-Vermögen): [costMethod], bei
+     * eigener Rechnung [CostMethod.DEFAULT] — so passt die Bestandsdatei zur Methode im Kopf (Vorlage, nicht App).
+     */
+    val holdingsCostMethod: CostMethod
+        get() = costMethod ?: CostMethod.DEFAULT
+
     companion object {
         fun of(method: CostMethod): TaxMethod = when (method) {
             CostMethod.FIFO -> FIFO

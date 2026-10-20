@@ -240,6 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">A figyelt címek nem olvashatók – egyenlegük hiányzik ebből a fájlból</string>
+    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">Megjegyzés: bekerülési értékkel rendelkező címek – a figyelt címre vagy címről történő átvezetések itt kétszer szerepelhetnek vagy hiányozhatnak; a portfóliókártya helyesen számolja őket.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">A figyelt címek beleszámítanak a teljes értékbe, de nincs beszerzési áruk – ezért a nyereség inkább túl magas. Rögzítsd a beszerzési árat vételként.</string>

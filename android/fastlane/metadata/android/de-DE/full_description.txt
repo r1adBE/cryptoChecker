@@ -10,7 +10,7 @@ EHRLICH BEI DEN DATEN
 • «Sparsam» ist voreingestellt: Kurse kommen beim Öffnen und in Abständen im Hintergrund. «Live, solange offen» bringt Live-Kurse für Binance, Bybit, OKX, Coinbase und Kraken, solange die Merkliste offen ist.
 • %-Änderung und Charts kommen zuerst von der Börse des Paars; hat sie keine Kerzen, nimmt die App Binance oder Coinbase und sagt dir das.
 • Fear & Greed, Dominanz und On-Chain-Werte von alternative.me, CoinGecko und Coin Metrics.
-• Bei geschlossener App entscheidet Android, wann Alarme geprüft werden – etwa alle 15 Minuten, oft seltener. Kurze Spitzen dazwischen können fehlen; die App sagt dir das.
+• Bei geschlossener App entscheidet Android, wann Alarme geprüft werden – frühestens alle 15 Minuten, oft erst nach Stunden. Kurze Spitzen dazwischen können fehlen; die App sagt dir das.
 • Beträge verlassen das Gerät nur per Export oder Android-Systemsicherung. Für Kurse gehen nur Paar-Kürzel an die Börse des jeweiligen Paars; dazu Devisenkurse (Frankfurter), Marktdaten und Logos (CoinGecko, Binance), Daten-Spiegel (GitHub). Beobachtest du Adressen oder einen xpub, sehen öffentliche Blockchain-Knoten die Adressen (beim xpub die abgeleiteten) und deine IP.
 
 MERKLISTE

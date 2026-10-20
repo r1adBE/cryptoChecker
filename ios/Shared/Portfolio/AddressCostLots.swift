@@ -118,6 +118,12 @@ enum AddressCostLots {
     }
 
     /// Adressen, deren Guthaben zählt, mit ihren Guthaben je Coin — gleiche Auswahl wie `AddressBalance.holdings`.
+    /// Mindestens eine zählende Adresse (`counted`) mit Eröffnungsposten: dann können Stichtag-CSV und CH-Vermögen (volles
+    /// Adress-Guthaben + Buchungen) eine Umbuchung zur/von der Adresse doppelt oder fehlend zeigen — Hinweiszeile. Wie Android.
+    static func hasCountedLots(_ addresses: [WatchedAddress]) -> Bool {
+        counted(addresses).contains { !$0.address.costLots.isEmpty }
+    }
+
     static func counted(_ addresses: [WatchedAddress]) -> [(address: WatchedAddress, balances: [String: Decimal])] {
         let list = addresses.filter(\.countInPortfolio)
         let covered = WatchedAddressRules.coveredByXpub(list)

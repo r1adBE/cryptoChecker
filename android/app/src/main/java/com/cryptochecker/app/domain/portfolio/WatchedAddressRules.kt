@@ -197,11 +197,20 @@ object WatchedAddressRules {
     /**
      * Zählende Adressen, deren Guthaben MENGENMÄSSIG zu eigenen Transaktionen passt ([overlapMatched]) und die noch nie
      * entschieden wurden ([WatchedAddress.overlapChecked]): einmal automatisch «Nur anzeigen» (mit Hinweis und
-     * «Rückgängig») — kein stilles Doppelzählen. Nur gleicher Coin ohne passende Menge: zählt weiter, der Hinweis
-     * «Auch in eigenen Transaktionen» ([overlap]) bleibt.
+     * «Rückgängig») — kein stilles Doppelzählen. Nur wenn ALLE Coins mit Guthaben > 0 passen: sonst fielen andere Token
+     * der Adresse (z. B. USDC neben passendem ETH) still aus dem Portfolio. Teilweise bzw. gleicher Coin ohne passende
+     * Menge: zählt weiter, der Hinweis «Auch in eigenen Transaktionen» ([overlap]) bleibt.
      */
     fun overlapAutoShowOnly(addresses: List<WatchedAddress>, trades: List<PortfolioTrade>): List<WatchedAddress> =
-        addresses.filter { it.countInPortfolio && !it.overlapChecked && overlapMatched(it, trades).isNotEmpty() }
+        addresses.filter { it.countInPortfolio && !it.overlapChecked && overlapAllMatched(it, trades) }
+
+    /** Alle Coins der Adresse mit Guthaben > 0 passen mengenmässig ([overlapMatched]); leere Adresse: nein. */
+    fun overlapAllMatched(a: WatchedAddress, trades: List<PortfolioTrade>): Boolean {
+        val matched = overlapMatched(a, trades)
+        val positive = AddressBalance.holdings(listOf(a.copy(countInPortfolio = true)))
+            .count { (_, text) -> (PortfolioDecimal.parse(text)?.signum() ?: 0) > 0 }
+        return matched.isNotEmpty() && matched.size == positive
+    }
 
     /** Einmal automatisch «Nur anzeigen» ([overlapAutoShowOnly]); schon entschieden bzw. nicht zählend: unverändert. */
     fun withOverlapShowOnly(a: WatchedAddress): WatchedAddress =

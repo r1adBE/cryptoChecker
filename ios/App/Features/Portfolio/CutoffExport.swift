@@ -97,7 +97,7 @@ enum CutoffExport {
     /// Adressen), statt still eine zu tiefe Summe. Wie Android.
     static func csv(day: CutoffDay, currency: String, fxDate: String?, rows: [CutoffRow], texts: CutoffCsvTexts,
                     format: CutoffCsvFormat = .semicolonPoint, header: [String] = [],
-                    usdtApproximate: Bool = false, addressesUnreadable: Bool = false) -> String {
+                    usdtApproximate: Bool = false, addressesUnreadable: Bool = false, addressLots: Bool = false) -> String {
         // Zahlen ohne Tausendertrennung: Dezimalpunkt ggf. durch Komma ersetzen
         func n(_ text: String) -> CsvCell {
             CsvCell(text: format.decimal == "," ? text.replacingOccurrences(of: ".", with: ",") : text, numeric: true)
@@ -113,6 +113,9 @@ enum CutoffExport {
         if usdtApproximate && !texts.usdtAssumed.isEmpty { out += line([texts.usdtAssumed]) }
         // Adressen nicht lesbar: fehlende Guthaben nie still
         if addressesUnreadable && !texts.addressesUnreadable.isEmpty { out += line([texts.addressesUnreadable]) }
+        // Adressen mit Einstand (`addressLots`, `AddressCostLots.hasCountedLots`): volles Adress-Guthaben + Buchungen,
+        // Umbuchungen zur/von der Adresse evtl. doppelt/fehlend — nur bei Bedarf, keine Rechenänderung. Wie Android
+        if addressLots && !texts.addressLots.isEmpty { out += line([texts.addressLots]) }
         // In CHF per 31.12.: Hinweis auf die massgebende ESTV-Kursliste des Jahrs
         if let estv = EstvKursliste.noteLine(format: texts.estvNoteFormat, day: day, currency: currency,
                                              language: texts.estvLanguage) {

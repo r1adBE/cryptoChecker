@@ -111,6 +111,12 @@ object AddressCostLots {
         return out
     }
 
+    /**
+     * Mindestens eine zählende Adresse ([counted]) mit Eröffnungsposten: dann können Stichtag-CSV und CH-Vermögen
+     * (volles Adress-Guthaben + Buchungen) eine Umbuchung zur/von der Adresse doppelt oder fehlend zeigen — Hinweiszeile.
+     */
+    fun hasCountedLots(addresses: List<WatchedAddress>): Boolean = counted(addresses).any { (a, _) -> a.costLots.isNotEmpty() }
+
     /** Ergebnis von [cover] für einen Coin einer Adresse. */
     data class Coverage(
         val coin: String,

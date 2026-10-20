@@ -134,6 +134,8 @@ struct CutoffCsvTexts: Sendable {
     var usdtAssumed: String = ""
     /// Zeile «Adressen nicht lesbar – Guthaben fehlen» (`CutoffExport.csv` `addressesUnreadable`); leer = keine.
     var addressesUnreadable: String = ""
+    /// Zeile «Adressen mit Einstand – Umbuchungen evtl. doppelt/fehlend» (`CutoffExport.csv` `addressLots`); leer = keine.
+    var addressLots: String = ""
 
     /// Aus den App-Texten, Spaltentitel mit der Zielwährung.
     static func localized(currency: String) -> CutoffCsvTexts {
@@ -158,7 +160,8 @@ struct CutoffCsvTexts: Sendable {
             fromAddress: L("portfolio_export_from_address"),
             addressUnobserved: L("portfolio_export_address_unobserved"),
             usdtAssumed: L("portfolio_usdt_assumed"),
-            addressesUnreadable: L("portfolio_export_addresses_unreadable")
+            addressesUnreadable: L("portfolio_export_addresses_unreadable"),
+            addressLots: L("portfolio_export_address_lots_note")
         )
     }
 }
@@ -210,7 +213,7 @@ enum PortfolioCutoffExporter {
     /// für den Bestand der Arbeitsunterlage die der Vorlage, sonst die des Geräts (wie Android).
     static func build(transactions: [PortfolioTx], day: CutoffDay, currency: String, texts: CutoffCsvTexts,
                       method: CostMethod = .defaultMethod, addresses: [AddressBalanceHistory] = [],
-                      addressesUnreadable: Bool = false,
+                      addressesUnreadable: Bool = false, addressLots: Bool = false,
                       header: [String] = [], zone: TimeZone = .current) async -> String {
         let cutoff = day.endOfDayMillis(in: zone)
         let holdings = CutoffExport.holdingsAt(transactions, cutoffMillis: cutoff, method: method)
@@ -243,7 +246,7 @@ enum PortfolioCutoffExporter {
         let usdtApproximate = rate != nil && usdt == nil && CutoffExport.convertsUsdt(currency)
         return CutoffExport.csv(day: day, currency: currency, fxDate: fx?.date, rows: rows, texts: texts,
                                 format: .current, header: header, usdtApproximate: usdtApproximate,
-                                addressesUnreadable: addressesUnreadable)
+                                addressesUnreadable: addressesUnreadable, addressLots: addressLots)
     }
 
     /// USDT/USD am Stichtag `day`: heute der Live-Kurs, sonst der Tagesschluss DES Tags (plausibel, `TaxExport.usdtUsdOn`);

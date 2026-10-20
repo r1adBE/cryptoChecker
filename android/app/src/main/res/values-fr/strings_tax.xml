@@ -240,6 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Impossible de lire les adresses suivies – leurs soldes manquent dans ce fichier</string>
+    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">Remarque : adresses avec prix de revient – les transferts vers ou depuis une adresse surveillée peuvent apparaître ici en double ou manquer ; la carte du portefeuille les calcule correctement.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Les adresses surveillées comptent dans la valeur globale mais n\'ont pas de prix d\'acquisition – la plus-value est donc plutôt surestimée. Saisissez le prix d\'acquisition comme achat.</string>

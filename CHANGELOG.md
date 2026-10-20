@@ -7,13 +7,24 @@
 * Home-screen widgets for the watchlist, single pairs, the portfolio and the market pulse.
 * «What is moving with it?»: a checklist that puts a price move in context (market, Bitcoin and other factors).
 * Optional portfolio (off by default): own transactions, CSV import, watched addresses and tax worksheets.
-* Watchlist, alarms and portfolio are stored encrypted on the device.
+* Watchlist, alarms and portfolio are stored encrypted on the device (Android: the watchlist stays unencrypted until the device key is available – see the privacy page).
 * Backups with optional password (AES-256-GCM), interchangeable between Android and iPhone.
 * 31 languages.
 * Full source code of both apps under the MIT license.
 * No tracking, no ads, no analytics.
 
 Detailed build history below.
+
+## 16.2.2 (build 87)
+
+* Alarm editor: quick alarms moved below the price condition, so the first thing you set is your own price; a chip still creates the alarm at once (with Undo).
+* Watchlist hint now says that tapping a coin opens alerts and «What is moving with it?»; the empty start screen shows a chart icon instead of a bell that could not be tapped.
+* Watchlist that cannot be unlocked right now (device key briefly unavailable): the notice stays until it is resolved and saving alarms is blocked with an explanation instead of creating alarms that would be lost. iOS now shows the same notice.
+* Watched addresses switch to «show only» automatically only when every coin with a balance matches your own transactions (before, one matching coin hid the other tokens).
+* Tax workpaper: the holdings file uses the template's cost method stated in its header and carries the «template replaces the method» note.
+* Swiss wealth (31 Dec): the total is the sum of the rounded rows in the file.
+* Cut-off and Swiss wealth exports add a header note when a counted watched address has cost-basis lots (transfers to or from it may appear twice or be missing there; the portfolio card is correct).
+* Play store text (all languages): background checks «at most every 15 minutes, often only after hours», as the app itself says.
 
 ## 16.2.2 (build 86)
 

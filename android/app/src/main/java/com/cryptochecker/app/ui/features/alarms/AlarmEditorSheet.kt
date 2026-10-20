@@ -41,9 +41,9 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import androidx.compose.ui.semantics.heading
 
 /**
- * Alarm anlegen/bearbeiten als Blatt von unten. Oben die Schnell-Alarme (nur beim Anlegen),
- * dann nur die einfachen Bedingungen (Kurs über/unter, Steigt/Fällt um) — die Kursmarke als Satz
- * «Wenn BTC über [Betrag] geht». Alle übrigen Bedingungen unter «Mehr Bedingungen», Währung, Ton
+ * Alarm anlegen/bearbeiten als Blatt von unten. Oben nur die einfachen Bedingungen (Kurs über/unter,
+ * Steigt/Fällt um) — die Kursmarke als Satz «Wenn BTC über [Betrag] geht», darunter die Schnell-Alarme
+ * (nur beim Anlegen). Alle übrigen Bedingungen unter «Mehr Bedingungen», Währung, Ton
  * und Vorlesen unter «Erweitert» (beide zugeklappt, ausser beim Bearbeiten eines Alarms, der sie
  * braucht), dazwischen «Einmal / Jedes Mal». Volle Höhe: Aufklappen scrollt im Inhalt; «Speichern» und
  * «Abbrechen» stehen fest am unteren Rand über der Tastatur (bei grosser Schrift sonst unerreichbar).
@@ -123,11 +123,6 @@ internal fun AlarmEditorSheet(
                     )
                 }
 
-                // Schnell-Alarme: ein Antippen legt den Alarm sofort an (nur beim Anlegen)
-                if (draft.id == 0L && templates.isNotEmpty()) {
-                    TemplateChips(templates = templates, onTemplate = onTemplate)
-                }
-
                 // Einfache Bedingungen: Kurs über/unter, Steigt/Fällt um
                 Column(modifier = Modifier.padding(top = Spacing.sm)) {
                     ConditionChips(conditions = AlarmTemplates.SIMPLE_CONDITIONS, draft = draft, onDraftChange = onDraftChange)
@@ -142,6 +137,12 @@ internal fun AlarmEditorSheet(
                     )
                 } else if (draft.condition.isPercent && !AlarmTemplates.opensMoreConditions(draft.condition)) {
                     ThresholdField(draft = draft, onDraftChange = onDraftChange)
+                }
+
+                // Schnell-Alarme erst nach Bedingung und Kurssatz: zuerst sieht man, was man selbst einstellt;
+                // ein Antippen legt den Alarm sofort an (nur beim Anlegen)
+                if (draft.id == 0L && templates.isNotEmpty()) {
+                    TemplateChips(templates = templates, onTemplate = onTemplate)
                 }
 
                 // Alle übrigen Bedingungen (Zeitfenster, Volumen, Hoch/Tief, Funding, Open Interest)

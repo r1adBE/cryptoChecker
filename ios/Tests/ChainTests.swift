@@ -192,8 +192,8 @@ final class ChainTests: XCTestCase {
         let o = try XCTUnwrap(h["overlap"] as? [String: Any])
         let own = Set(o["ownCoins"] as? [String] ?? [])
         XCTAssertEqual(WatchedAddressRules.overlap(list[int(o["address"])], ownCoins: own), o["expected"] as? [String])
-        // Später aufgetauchte Überschneidung MIT passender Menge: einmal automatisch «Nur anzeigen», «Rückgängig» bleibt
-        // entschieden; nur gleicher Coin: zählt weiter — wie Android
+        // Später aufgetauchte Überschneidung MIT passender Menge aller Coins: einmal automatisch «Nur anzeigen»,
+        // «Rückgängig» bleibt entschieden; nur gleicher Coin bzw. nur ein Teil passt: zählt weiter — wie Android
         var counting = list[int(o["address"])]
         counting.countInPortfolio = true
         counting.overlapChecked = false
@@ -207,7 +207,11 @@ final class ChainTests: XCTestCase {
             let matched: [String] = c["matched"] as? [String] ?? []
             XCTAssertEqual(WatchedAddressRules.overlapMatched(a, txs: txs), matched, name)
             let due = !matched.isEmpty
-            XCTAssertEqual(WatchedAddressRules.overlapAutoShowOnly([a], txs: txs), due ? [a] : [], name)
+            // Automatisch nur, wenn ALLE Coins mit Guthaben passen (ETH passt, Token nicht: zählt weiter)
+            let auto = try XCTUnwrap(c["autoShowOnly"] as? Bool, name)
+            XCTAssertTrue(!auto || due, name)
+            XCTAssertEqual(WatchedAddressRules.overlapAllMatched(a, txs: txs), auto, name)
+            XCTAssertEqual(WatchedAddressRules.overlapAutoShowOnly([a], txs: txs), auto ? [a] : [], name)
             // Alter Entscheid «Nur anzeigen»: ohne passende Menge zurück auf zählen, mit bleibt er
             var legacy = a
             legacy.countInPortfolio = false
@@ -224,6 +228,7 @@ final class ChainTests: XCTestCase {
             XCTAssertFalse(WatchedAddressRules.overlapLegacyRevert(legacyCounting, txs: txs), name)
         }
         let matching: [PortfolioTx] = S.list(amountCases.first?["trades"]).map(overlapTx)
+        XCTAssertEqual(WatchedAddressRules.overlapAutoShowOnly([counting], txs: matching), [counting])
         let switched = WatchedAddressRules.withOverlapShowOnly(counting)
         XCTAssertFalse(switched.countInPortfolio)
         XCTAssertTrue(switched.overlapChecked)

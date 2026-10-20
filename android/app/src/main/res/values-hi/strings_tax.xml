@@ -240,6 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">निगरानी वाले पते पढ़े नहीं जा सके – उनकी शेष राशि इस फ़ाइल में नहीं है</string>
+    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">ध्यान दें: लागत वाले पते – किसी निगरानी वाले पते पर या उससे किए गए ट्रांसफ़र यहाँ दो बार दिख सकते हैं या गायब हो सकते हैं; पोर्टफ़ोलियो कार्ड उन्हें सही गिनता है।</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">निगरानी वाले पते कुल मूल्य में गिने जाते हैं, लेकिन उनकी कोई अधिग्रहण लागत नहीं है – इसलिए लाभ संभवतः अधिक दिखता है। लागत को खरीद के रूप में दर्ज करें।</string>

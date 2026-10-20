@@ -35,15 +35,16 @@ data class TaxWealthRow(
 /**
  * CH: Vermögenswert per [date] (31.12. des Steuerjahrs) — ORIENTIERUNG: Bestand × Börsen-Tagesschluss × Devisenkurs,
  * nicht die Steuerwerte der ESTV-Kursliste; die Vermögenssteuer selbst rechnet die App nicht (kantonale Tarife).
- * Summen exakt aus den unrunden Werten je Coin (wie der Stichtag-Export, [CutoffExport.csv]); gerundet auf 2 Stellen wird
- * erst in der Anzeige bzw. CSV ([CutoffExport.money]).
+ * Werte je Coin exakt (gerundet auf 2 Stellen erst in Anzeige bzw. CSV, [CutoffExport.money]); die Summen aber aus den
+ * GERUNDETEN Werten je Coin ([CutoffExport.roundedMoney]), wie sie in den Zeilen darunter stehen — wie der Stichtag-Export
+ * ([CutoffExport.csv]): wer nachrechnet, kommt auf das Total (3 × 0.335 → 1.02, nicht 1.01).
  */
 data class TaxWealth(
     val date: LocalDate,
     val rows: List<TaxWealthRow>,
-    /** Summe der bekannten Werte in USDT. */
+    /** Summe der bekannten, je Coin auf 2 Stellen gerundeten Werte in USDT. */
     val totalUsdt: BigDecimal,
-    /** Summe der bekannten Werte in der Steuerwährung; null = ohne Devisenkurs. */
+    /** Summe der bekannten, je Coin gerundeten Werte in der Steuerwährung; null = ohne Devisenkurs. */
     val totalTarget: BigDecimal?,
 ) {
     /** Mindestens ein Coin nicht gerechnet — die Summe ist «unvollständig». */
@@ -102,10 +103,11 @@ fun TaxExport.chWealth(
             noFx = list.any { it.noFx },
         )
     }
-    val totalUsdt = rows.fold(BigDecimal.ZERO) { a, r -> r.valueUsdt?.let { a + it } ?: a }
+    // Summen aus den gerundeten Zeilenwerten (wie sie in der Datei stehen), wie CutoffExport.csv
+    val totalUsdt = rows.fold(BigDecimal.ZERO) { a, r -> r.valueUsdt?.let { a + CutoffExport.roundedMoney(it) } ?: a }
     val fx = rate?.takeIf { it.signum() > 0 }
     val totalTarget = if (fx == null && rows.isNotEmpty()) null else {
-        rows.fold(BigDecimal.ZERO) { a, r -> r.valueTarget?.let { a + it } ?: a }
+        rows.fold(BigDecimal.ZERO) { a, r -> r.valueTarget?.let { a + CutoffExport.roundedMoney(it) } ?: a }
     }
     return TaxWealth(date, rows, totalUsdt, totalTarget)
 }

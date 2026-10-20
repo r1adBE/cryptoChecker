@@ -131,7 +131,7 @@
     <string name="watch_enabled_banner">%1$s enabled</string>
     <string name="watch_error_offline">No connection</string>
     <string name="watch_gesture_hint_short">Tap: alert and “What is moving with it?” · long-press to select · swipe left to delete · swipe right for favorite</string>
-    <string name="watch_hint_tap_why">Tap a coin to see what is moving along with it</string>
+    <string name="watch_hint_tap_why">Tap a coin for alerts and “What is moving with it?”</string>
     <string name="watch_not_traded">No longer traded on this exchange</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Not in watchlist</string>

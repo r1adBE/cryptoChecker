@@ -26,6 +26,8 @@ extension PortfolioExportSheet {
             template, header: base + atNote + [L("tax_export_usdt_usd_note"), L("tax_export_day_close_rule"),
                                                L("tax_export_workpaper_disclaimer")],
             chWealthNote: Self.chWealthNote(year: year))
+        // CH-Vermögen mit Adressen mit Einstand: Hinweiszeile (wie Android)
+        let addressLots = AddressCostLots.hasCountedLots(WatchedAddressStore.loadChecked().file.addresses)
         Task {
             let s: TaxYearSummary
             if let known {
@@ -34,7 +36,7 @@ extension PortfolioExportSheet {
                 s = await PortfolioTaxExporter.summary(transactions: txs, template: template, method: m, year: year,
                                                        currency: code, walletFrom: walletFrom)
             }
-            let csv = PortfolioTaxExporter.summaryCsv(s, texts: texts, header: header)
+            let csv = PortfolioTaxExporter.summaryCsv(s, texts: texts, header: header, addressLots: addressLots)
             running = false
             guard let data = csv.data(using: .utf8) else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
@@ -96,15 +98,17 @@ extension PortfolioExportSheet {
         }
     }
 
-    /// Bestand am Ende des Steuerjahrs in der Währung der Vorlage, mit Kopfzeilen der Arbeitsunterlage.
+    /// Bestand am Ende des Steuerjahrs in der Währung der Vorlage, mit Kopfzeilen der Arbeitsunterlage; gerechnet nach
+    /// der Methode der Vorlage (im Kopf genannt, samt «Vorlage ersetzt die Methode») — wie Android.
     func startHoldings(year: Int, period: TaxPeriod) {
         let end = CutoffDay(year: period.end.year, month: period.end.month, day: period.end.day)
         let header = [L("tax_export_holdings_title", Self.dayText(period.end)), info(year: year)] + rulesLine
+            + (methodNote.map { [$0] } ?? [])
             + [L("tax_export_usdt_usd_note"), L("tax_export_workpaper_disclaimer"),
                L("tax_export_year_local_zone", taxTemplate.zone().identifier)]
         startExport(day: end, currency: workCurrency,
                     header: TaxExport.withChWealthNote(taxTemplate, header: header, chWealthNote: Self.chWealthNote(year: year)),
-                    zone: taxTemplate.zone())
+                    zone: taxTemplate.zone(), method: yearMethod(year).holdingsCostMethod)
     }
 
     /// «Vermögenssteuer nicht gerechnet – Kursliste ESTV: <Link>» für die Kopfzeilen der CH-Arbeitsunterlage — wie Android.
@@ -113,23 +117,27 @@ extension PortfolioExportSheet {
           EstvKursliste.listUrl(year: year, language: Bundle.main.preferredLocalizations.first ?? "en"))
     }
 
+    /// Stichtag-CSV; `method` = Einstandsmethode des Bestands: nil = die der App (allgemeiner Stichtag-Export).
     func startExport(day: CutoffDay, currency exportCurrency: String? = nil, header: [String] = [],
-                             zone: TimeZone = .current) {
+                             zone: TimeZone = .current, method holdingsMethod: CostMethod? = nil) {
         guard !running else { return }
         running = true
         let txs = transactions
         let code = exportCurrency ?? currency
         let texts = CutoffCsvTexts.localized(currency: code)
-        let method = costMethod
+        let method = holdingsMethod ?? costMethod
         // Beobachtete Adressen (zählen im Portfolio) als eigene Zeilen — wie Android. Nicht lesbar: ohne Adressen, aber
         // in der Datei vermerkt und das Total «unvollständig» — nie still eine zu tiefe Summe
         let watched = WatchedAddressStore.loadChecked()
         let addresses = AddressBalanceHistory.of(watched.file.addresses)
         let addressesUnreadable: Bool = !watched.intact
+        // Zählende Adresse mit Einstand: Hinweiszeile (Umbuchungen zur/von der Adresse evtl. doppelt/fehlend)
+        let addressLots = AddressCostLots.hasCountedLots(watched.file.addresses)
         Task {
             let csv = await PortfolioCutoffExporter.build(transactions: txs, day: day, currency: code, texts: texts,
                                                           method: method, addresses: addresses,
-                                                          addressesUnreadable: addressesUnreadable, header: header, zone: zone)
+                                                          addressesUnreadable: addressesUnreadable, addressLots: addressLots,
+                                                          header: header, zone: zone)
             running = false
             guard let data = csv.data(using: .utf8) else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)

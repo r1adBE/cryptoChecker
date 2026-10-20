@@ -155,7 +155,7 @@
     <string name="watch_enabled_banner">Para %1$s włączona</string>
     <string name="watch_error_offline">Brak połączenia</string>
     <string name="watch_gesture_hint_short">Dotknij: alarm i „Co rusza się razem?” · przytrzymaj, aby zaznaczyć · przesuń w lewo, aby usunąć · w prawo – ulubione</string>
-    <string name="watch_hint_tap_why">Dotknij monety, aby zobaczyć, co porusza się razem z nią</string>
+    <string name="watch_hint_tap_why">Dotknij monety, aby ustawić alarm i zobaczyć „Co rusza się razem?”</string>
     <string name="watch_not_traded">Nie jest już notowana na tej giełdzie</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Nie ma na liście obserwowanych</string>

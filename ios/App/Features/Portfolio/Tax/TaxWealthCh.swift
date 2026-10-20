@@ -27,14 +27,15 @@ struct TaxWealthRow: Sendable, Equatable {
 }
 
 /// CH: Vermögenswert per `date` (31.12. des Steuerjahrs) — ORIENTIERUNG (Börsen-Tagesschluss, nicht die Steuerwerte der
-/// ESTV-Kursliste; Vermögenssteuer nicht gerechnet). Summen exakt aus den unrunden Werten je Coin, gerundet auf 2 Stellen
-/// erst in Anzeige bzw. CSV (`CutoffExport.money`). Wie `TaxWealth` (Android).
+/// ESTV-Kursliste; Vermögenssteuer nicht gerechnet). Werte je Coin exakt (gerundet erst in Anzeige bzw. CSV,
+/// `CutoffExport.money`), die Summen aber aus den GERUNDETEN Werten je Coin (`CutoffExport.roundedMoney`), wie sie in den
+/// Zeilen darunter stehen — wie der Stichtag-Export (3 × 0.335 → 1.02, nicht 1.01). Wie `TaxWealth` (Android).
 struct TaxWealth: Sendable, Equatable {
     let date: LocalDay
     let rows: [TaxWealthRow]
-    /// Summe der bekannten Werte in USDT.
+    /// Summe der bekannten, je Coin auf 2 Stellen gerundeten Werte in USDT.
     let totalUsdt: Decimal
-    /// Summe der bekannten Werte in der Steuerwährung; nil = ohne Devisenkurs.
+    /// Summe der bekannten, je Coin gerundeten Werte in der Steuerwährung; nil = ohne Devisenkurs.
     let totalTarget: Decimal?
 
     /// Mindestens ein Coin nicht gerechnet — die Summe ist «unvollständig».
@@ -77,9 +78,11 @@ extension TaxExport {
                                 valueTarget: valueTarget, noPrice: noPrice, unchecked: unchecked,
                                 addressUnobserved: unobserved, noFx: list.contains { $0.noFx })
         }
-        let totalUsdt = rows.reduce(Decimal(0)) { $0 + ($1.valueUsdt ?? 0) }
+        // Summen aus den gerundeten Zeilenwerten (wie sie in der Datei stehen), wie `CutoffExport.csv` — wie Android
+        let totalUsdt = rows.reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1.valueUsdt ?? 0) }
         let fx = rate.flatMap { $0 > 0 && $0.isFinite ? $0 : nil }
-        let totalTarget: Decimal? = (fx == nil && !rows.isEmpty) ? nil : rows.reduce(Decimal(0)) { $0 + ($1.valueTarget ?? 0) }
+        let totalTarget: Decimal? = (fx == nil && !rows.isEmpty) ? nil
+            : rows.reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1.valueTarget ?? 0) }
         return TaxWealth(date: date, rows: rows, totalUsdt: totalUsdt, totalTarget: totalTarget)
     }
 

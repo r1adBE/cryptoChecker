@@ -25,8 +25,8 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
-import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.local.WatchlistStorageLock
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.starter.AddMoment
 import kotlinx.coroutines.delay
@@ -102,22 +102,23 @@ private const val ALARM_HINT_MILLIS = 6_000L
 /**
  * Merkliste in diesem Lauf nur leer im Arbeitsspeicher: Der Keystore gab den Schlüssel der verschlüsselten Datei gerade
  * nicht heraus ([DatabaseEncryptionNotice.storedKept]). Sagen statt still eine leere Merkliste zeigen — der gespeicherte
- * Stand kommt nach einem Neustart zurück, Änderungen dieses Laufs nicht (wie das Banner im Portfolio).
+ * Stand kommt nach einem Neustart zurück, Änderungen dieses Laufs nicht. Als Dauerhinweis ([WatchlistBanner.showResting]):
+ * Er steht, solange der Zustand gilt, und kommt nach jedem anderen Banner wieder.
  */
 @Composable
 private fun WatchlistStorageNotice(banner: WatchlistBanner) {
     val kept by DatabaseEncryptionNotice.storedKept.collectAsStateWithLifecycle()
-    val watchlistKept = AppDatabase.DB_NAME in kept
+    val watchlistKept = WatchlistStorageLock.isLocked(kept)
     val resources = LocalResources.current
     val closeLabel = stringResource(R.string.action_close)
     LaunchedEffect(watchlistKept) {
-        if (!watchlistKept) return@LaunchedEffect
-        banner.showAction(resources.getString(R.string.watchlist_storage_kept_in_memory), closeLabel, STORAGE_NOTICE_MILLIS) {}
+        if (watchlistKept) {
+            banner.showResting(resources.getString(R.string.watchlist_storage_kept_in_memory), closeLabel)
+        } else {
+            banner.clearResting()
+        }
     }
 }
-
-/** So lange bleibt der Hinweis «nur im Arbeitsspeicher» stehen (wie im Portfolio). */
-private const val STORAGE_NOTICE_MILLIS = 12_000L
 
 /**
  * Taucht der Puls neu auf (Gruppe gewechselt, Suche zu, zweiter Kurs da), hielte LazyColumn

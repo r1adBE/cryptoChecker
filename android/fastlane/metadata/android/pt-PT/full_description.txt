@@ -10,7 +10,7 @@ TRANSPARÊNCIA NOS DADOS
 • «Poupança» é a predefinição: os preços são atualizados ao abrir a app e em intervalos em segundo plano. «Em direto enquanto aberta» acrescenta preços em direto da Binance, Bybit, OKX, Coinbase e Kraken enquanto a lista está aberta.
 • A variação em % e os gráficos vêm primeiro da exchange do par; se esta não tiver velas, a app usa a Binance ou a Coinbase e indica-o.
 • Fear & Greed, dominância e valores on-chain da alternative.me, CoinGecko e Coin Metrics.
-• Com a app fechada, é o Android que decide quando os alarmes são verificados – cerca de 15 em 15 minutos, muitas vezes com menos frequência. Picos curtos pelo meio podem escapar; a app avisa-o disso.
+• Com a app fechada, é o Android que decide quando os alarmes são verificados – no máximo de 15 em 15 minutos, muitas vezes só após horas. Picos curtos pelo meio podem escapar; a app avisa-o disso.
 • Os montantes só saem do dispositivo por exportação ou cópia de segurança do Android. Para os preços, só os símbolos do par vão para a exchange desse par; além disso, câmbios (Frankfurter), dados de mercado e logótipos (CoinGecko, Binance) e espelhos de dados (GitHub). Se observar endereços ou uma xpub, nós públicos de blockchain veem os endereços (na xpub, os derivados) e o seu IP.
 
 LISTA

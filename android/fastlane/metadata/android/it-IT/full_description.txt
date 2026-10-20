@@ -10,7 +10,7 @@ CHIAREZZA SUI DATI
 • «Leggero» è l’impostazione predefinita: i prezzi si aggiornano all’apertura e a intervalli in background. «Live mentre è aperta» aggiunge prezzi live per Binance, Bybit, OKX, Coinbase e Kraken finché la watchlist è aperta.
 • Variazione % e grafici arrivano prima dall’exchange della coppia; se non ha candele, l’app usa Binance o Coinbase e te lo dice.
 • Fear & Greed, dominance e valori on-chain da alternative.me, CoinGecko e Coin Metrics.
-• Ad app chiusa è Android a decidere quando controllare gli allarmi – circa ogni 15 minuti, spesso meno di frequente. Brevi picchi nel frattempo possono sfuggire; l’app te lo dice.
+• Ad app chiusa è Android a decidere quando controllare gli allarmi – al massimo ogni 15 minuti, spesso solo dopo ore. Brevi picchi nel frattempo possono sfuggire; l’app te lo dice.
 • Gli importi lasciano il dispositivo solo con export o backup di sistema Android. Per i prezzi solo i simboli della coppia vanno al suo exchange; in più tassi di cambio (Frankfurter), dati di mercato e loghi (CoinGecko, Binance), mirror dei dati (GitHub). Se osservi indirizzi o una xpub, i nodi blockchain pubblici vedono gli indirizzi (con una xpub, quelli derivati) e il tuo IP.
 
 WATCHLIST
