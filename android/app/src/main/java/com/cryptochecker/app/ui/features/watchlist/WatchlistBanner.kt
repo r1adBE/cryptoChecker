@@ -38,6 +38,36 @@ internal class WatchlistBanner(
 
     private var job: Job? = null
 
+    /** Dauerhinweis ([showResting]) als Text und Aktion, oder null. */
+    private var resting: Pair<String, String>? = null
+
+    /**
+     * Dauerhinweis (Merkliste nur leer im Arbeitsspeicher): steht ohne Ablauf, bis [clearResting]. Ein anderes Banner
+     * verdrängt ihn nur; ist jenes abgelaufen, weggewischt oder seine Aktion getippt, kommt er wieder. Die Aktion
+     * [label] («Schliessen») blendet ihn bis zum nächsten Banner aus.
+     */
+    fun showResting(text: String, label: String) {
+        resting = text to label
+        job?.cancel()
+        job = scope.launch {
+            host.currentSnackbarData?.dismiss()
+            host.showSnackbar(text, actionLabel = label, duration = SnackbarDuration.Indefinite)
+        }
+    }
+
+    /** Dauerhinweis aufheben; steht er gerade, verschwindet er. */
+    fun clearResting() {
+        val text = resting?.first ?: return
+        resting = null
+        host.currentSnackbarData?.takeIf { it.visuals.message == text }?.dismiss()
+    }
+
+    /** Nach einem anderen Banner: Dauerhinweis zurück — nur, wenn inzwischen kein neueres Banner dran ist. */
+    private fun restoreRestingAfter(finished: Job?) {
+        val (text, label) = resting ?: return
+        if (job === finished) showResting(text, label)
+    }
+
     /**
      * Banner mit Aktion [label] (z. B. «Alarm setzen») für [millis]; [onAction] beim Tippen darauf.
      * [onClosed] einmal, sobald das Banner weg ist (abgelaufen, weggewischt, ersetzt oder Aktion getippt) —
@@ -68,6 +98,8 @@ internal class WatchlistBanner(
                 // Auch beim Ersetzen durch ein neues Banner (Job abgebrochen)
                 onClosed?.invoke(performed)
             }
+            // Nur bei regulärem Ende (abgebrochen = ersetzt, dann kommt der Code hier nicht an)
+            restoreRestingAfter(coroutineContext[Job])
         }
     }
 
@@ -82,6 +114,7 @@ internal class WatchlistBanner(
                 } finally {
                     onClosed?.invoke(false)
                 }
+                restoreRestingAfter(coroutineContext[Job])
             }
         } else {
             showAction(text, undoLabel, UNDO_MILLIS, onClosed = onClosed, onAction = onUndo)

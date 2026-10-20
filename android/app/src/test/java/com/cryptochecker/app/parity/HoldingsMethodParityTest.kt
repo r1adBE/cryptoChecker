@@ -168,4 +168,28 @@ class HoldingsMethodParityTest {
             }
         }
     }
+
+    /** Bestand der Arbeitsunterlage nach der Methode der Vorlage (wie im Kopf), allgemeiner Stichtag nach der App-Methode. */
+    @Test
+    fun workpaperHoldingsUseTemplateMethod() {
+        val cases = data["workpaperHoldings"].list()
+        assertEquals(true, cases.size >= 3)
+        for (raw in cases) {
+            val c = raw.obj()
+            val name = c["name"] as String
+            val template = TaxTemplate.fromName(c["template"] as String)
+            val app = CostMethod.valueOf(c["appMethod"] as String)
+            val year = c["year"].num()!!.toInt()
+            val cutoff = c["cutoff"].num()!!.toLong()
+            val trades = c["trades"].list().map(::trade)
+            val taxMethod = template.methodFor(app, year)
+            assertEquals(name, TaxMethod.valueOf(c["taxMethod"] as String), taxMethod)
+            assertEquals(name, CostMethod.valueOf(c["holdingsCostMethod"] as String), taxMethod.holdingsCostMethod)
+            assertEquals(name, c["overridden"] as Boolean, template.methodOverridden(app, year))
+            val workpaper = CutoffExport.holdingsAt(trades, cutoff, taxMethod.holdingsCostMethod).associate { it.coin to it.amount }
+            assertHoldings("$name workpaper", c["holdings"].obj(), workpaper)
+            val general = CutoffExport.holdingsAt(trades, cutoff, app).associate { it.coin to it.amount }
+            assertHoldings("$name app", c["appHoldings"].obj(), general)
+        }
+    }
 }

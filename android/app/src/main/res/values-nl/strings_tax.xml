@@ -240,6 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Gevolgde adressen konden niet worden gelezen – hun saldi ontbreken in dit bestand</string>
+    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">Let op: adressen met aanschafwaarde – overboekingen naar of van een gevolgd adres kunnen hier dubbel of niet verschijnen; de portefeuillekaart rekent ze correct.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Gevolgde adressen tellen mee in de totale waarde, maar hebben geen aanschafwaarde – de winst is daardoor eerder te hoog. Leg de aanschafwaarde vast als aankoop.</string>

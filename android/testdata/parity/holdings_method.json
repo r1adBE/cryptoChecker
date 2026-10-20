@@ -725,5 +725,116 @@
         }
       }
     }
+  ],
+  "workpaperHoldingsDescription": "Bestand der Arbeitsunterlage (Steuer-Export mit Vorlage, Build 87): gerechnet nach der Methode der Vorlage (TaxTemplate.methodFor(app, year) = taxMethod, holdingsCostMethod = taxMethod.costMethod ?: CostMethod.DEFAULT) — dieselbe Methode, die im Kopf steht; overridden = TaxTemplate.methodOverridden (Hinweis «Vorlage ersetzt die Methode» auch im Kopf der Bestandsdatei). holdings = CutoffExport.holdingsAt(trades, cutoff, holdingsCostMethod); appHoldings = allgemeiner Stichtag-Export ohne Vorlage (App-Methode).",
+  "workpaperHoldings": [
+    {
+      "name": "DE (FIFO je Wallet), App FIFO: Kauf 1 BTC Binance, Verkauf 0.5 BTC Kraken — Bestandsdatei 1 (Kraken-Abgang gekappt), App-Stichtag 0.5",
+      "template": "DE",
+      "appMethod": "FIFO",
+      "year": 2024,
+      "cutoff": 1735689599999,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "40000",
+          "time": 1709294400000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "price": "60000",
+          "time": 1717243200000,
+          "exchange": "Kraken"
+        }
+      ],
+      "taxMethod": "FIFO_WALLET",
+      "holdingsCostMethod": "FIFO_WALLET",
+      "overridden": true,
+      "holdings": {
+        "BTC": "1"
+      },
+      "appHoldings": {
+        "BTC": "0.5"
+      }
+    },
+    {
+      "name": "Neutral, App FIFO: Vorlage = App-Methode, kein Hinweis",
+      "template": "NEUTRAL",
+      "appMethod": "FIFO",
+      "year": 2024,
+      "cutoff": 1735689599999,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "40000",
+          "time": 1709294400000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "price": "60000",
+          "time": 1717243200000,
+          "exchange": "Kraken"
+        }
+      ],
+      "taxMethod": "FIFO",
+      "holdingsCostMethod": "FIFO",
+      "overridden": false,
+      "holdings": {
+        "BTC": "0.5"
+      },
+      "appHoldings": {
+        "BTC": "0.5"
+      }
+    },
+    {
+      "name": "UK (eigene Rechnung UK_POOL), App FIFO je Wallet: Bestand nach CostMethod.DEFAULT (FIFO) wie CH-Vermögen",
+      "template": "UK",
+      "appMethod": "FIFO_WALLET",
+      "year": 2024,
+      "cutoff": 1735689599999,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "40000",
+          "time": 1709294400000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.5",
+          "price": "60000",
+          "time": 1717243200000,
+          "exchange": "Kraken"
+        }
+      ],
+      "taxMethod": "UK_POOL",
+      "holdingsCostMethod": "FIFO",
+      "overridden": true,
+      "holdings": {
+        "BTC": "0.5"
+      },
+      "appHoldings": {
+        "BTC": "1"
+      }
+    }
   ]
 }

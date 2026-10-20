@@ -7,6 +7,7 @@ package com.cryptochecker.app.ui.features.portfolio
 import com.cryptochecker.app.data.portfolio.HistoricFx
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
+import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.AddressBalancesAt
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffCloses
@@ -72,17 +73,32 @@ internal suspend fun PortfolioExportViewModel.chYearEnd(
     return closes to addressAt
 }
 
-internal suspend fun PortfolioExportViewModel.build(date: LocalDate, currency: String, texts: CutoffCsvTexts, header: List<String>, zone: ZoneId): String {
+/**
+ * Stichtag-CSV; [method] = Einstandsmethode des Bestands: null = die der App (allgemeiner Stichtag-Export), beim
+ * Bestand der Arbeitsunterlage die der Vorlage ([TaxMethod.holdingsCostMethod]) — wie im Kopf genannt.
+ */
+internal suspend fun PortfolioExportViewModel.build(
+    date: LocalDate,
+    currency: String,
+    texts: CutoffCsvTexts,
+    header: List<String>,
+    zone: ZoneId,
+    method: CostMethod? = null,
+): String {
     val trades = repository.getTransactions().map { it.toTrade() }
     val cutoff = CutoffExport.endOfDayMillis(date, zone)
     // Bestand nach derselben Einstandsmethode wie Karte, Verlauf und Steuer-Export (FIFO je Wallet je Wallet gekappt)
-    val holdings = CutoffExport.holdingsAt(trades, cutoff, settingsRepository.current().costMethod)
+    val holdings = CutoffExport.holdingsAt(trades, cutoff, method ?: settingsRepository.current().costMethod)
     // Beobachtete Adressen, die im Portfolio zählen: heute das aktuelle, früher das an dem Tag beobachtete Guthaben
     // (eigene Zeilen «aus Adresse – ohne Kaufpreis»). Nicht lesbar: ohne Adressen, aber in der Datei vermerkt und
     // das Total «unvollständig» — nie still eine zu tiefe Summe (wie iOS `intact`)
     var addressesUnreadable = false
+    // Zählende Adresse mit Einstand: Hinweiszeile (Umbuchungen zur/von der Adresse evtl. doppelt/fehlend)
+    var addressLots = false
     val addressAt = try {
-        AddressBalanceHistory.balancesAt(AddressBalanceHistory.of(repository.getWatchedAddresses()), cutoff)
+        val watched = repository.getWatchedAddresses()
+        addressLots = AddressCostLots.hasCountedLots(watched)
+        AddressBalanceHistory.balancesAt(AddressBalanceHistory.of(watched), cutoff)
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {
@@ -116,5 +132,5 @@ internal suspend fun PortfolioExportViewModel.build(date: LocalDate, currency: S
     // Trenn-/Dezimalzeichen wie Excel der Region (de-CH «;» + «.», de-DE «;» + «,», en «,» + «.»)
     val format = CutoffCsvFormat.forLocale(deviceRegionLocale().country, inputDecimalSeparator())
     val usdtApproximate = rate != null && usdt == null && CutoffExport.convertsUsdt(currency)
-    return CutoffExport.csv(date, currency, fx?.date, rows, texts, format, header, usdtApproximate, addressesUnreadable)
+    return CutoffExport.csv(date, currency, fx?.date, rows, texts, format, header, usdtApproximate, addressesUnreadable, addressLots)
 }

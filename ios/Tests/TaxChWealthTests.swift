@@ -73,8 +73,12 @@ final class TaxChWealthTests: XCTestCase {
                 XCTAssertEqual(r8(dec(e["totalTarget"])), r8(w.totalTarget), "\(name) \(m) total target")
                 XCTAssertEqual(e["incomplete"] as? Bool, w.incomplete, "\(name) \(m) incomplete")
                 XCTAssertEqual(e["noFx"] as? Bool, w.noFx, "\(name) \(m) noFx")
-                // Gerundet erst die Summe (nicht die Werte je Coin)
+                // Summe = Summe der gerundeten Zeilen, wie sie in der Datei stehen (Nachrechnen geht auf)
                 XCTAssertEqual(e["moneyTotal"] as? String, w.totalTarget.map { CutoffExport.money($0) }, "\(name) \(m) money")
+                let sumOfRows: Decimal = w.rows.compactMap(\.valueTarget).reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1) }
+                if let total = w.totalTarget {
+                    XCTAssertEqual(CutoffExport.money(sumOfRows), CutoffExport.money(total), "\(name) \(m) sum of rows")
+                }
             }
         }
     }
@@ -132,6 +136,15 @@ final class TaxChWealthTests: XCTestCase {
                 XCTAssertTrue(TaxLine.allCases.contains { next.hasPrefix($0.rawValue + ";") } || next == "Orientation",
                               "\(name) CSV danach \(next)")
             }
+            // Adressen mit Einstand: Hinweiszeile nur mit CH-Vermögen und nur bei Bedarf; sonst dieselbe Datei
+            var lotsTexts = texts
+            lotsTexts.addressLots = "lots"
+            let withLots = TaxExport.summaryCsv(s, texts: lotsTexts, header: ["H"], addressLots: true)
+                .components(separatedBy: "\r\n")
+            let without = TaxExport.summaryCsv(s, texts: lotsTexts, header: ["H"]).components(separatedBy: "\r\n")
+            XCTAssertEqual(withLots.filter { $0 == "lots" }.count, s.wealth != nil ? 1 : 0, "\(name) lots")
+            XCTAssertFalse(without.contains("lots"), "\(name) ohne lots")
+            XCTAssertEqual(withLots.filter { $0 != "lots" }, without, "\(name) sonst gleich")
         }
     }
 }

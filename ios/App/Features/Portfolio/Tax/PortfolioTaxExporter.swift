@@ -189,10 +189,11 @@ enum PortfolioTaxExporter {
     }
 
     /// CSV «Jahresübersicht» (Orientierung, keine Steuerberatung).
-    static func summaryCsv(_ summary: TaxYearSummary, texts: TaxSummaryTexts, header: [String]) -> String {
+    static func summaryCsv(_ summary: TaxYearSummary, texts: TaxSummaryTexts, header: [String],
+                           addressLots: Bool = false) -> String {
         TaxExport.summaryCsv(summary, texts: texts, header: header,
                              zoneLine: L("tax_export_year_local_zone", summary.template.zone().identifier),
-                             format: CutoffCsvFormat.current)
+                             format: CutoffCsvFormat.current, addressLots: addressLots)
     }
 
     static func build(kind: TaxExportKind, transactions: [PortfolioTx], template: TaxTemplate, method: TaxMethod, year: Int,

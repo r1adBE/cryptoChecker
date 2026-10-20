@@ -10,7 +10,7 @@ DET SOM GJØR DEN ANNERLEDES
 • «Sparsom» er standard: kursene oppdateres når du åpner appen, og med mellomrom i bakgrunnen. «Live mens den er åpen» gir livekurser for Binance, Bybit, OKX, Coinbase og Kraken mens listen er åpen.
 • %-endring og grafer kommer først fra parets egen børs; har den ingen candles, bruker appen Binance eller Coinbase og sier fra.
 • Fear & Greed, dominans og on-chain-verdier fra alternative.me, CoinGecko og Coin Metrics.
-• Når appen er lukket, bestemmer Android når alarmer sjekkes – omtrent hvert 15. minutt, ofte sjeldnere. Korte topper innimellom kan bli oversett; appen sier ifra om det.
+• Når appen er lukket, bestemmer Android når alarmer sjekkes – høyst hvert 15. minutt, ofte først etter timer. Korte topper innimellom kan bli oversett; appen sier ifra om det.
 • Beløp forlater bare enheten via din eksport eller Androids systemsikkerhetskopi. For kurser sendes bare parets symbol til børsen for det aktuelle paret; i tillegg valutakurser (Frankfurter), markedsdata og logoer (CoinGecko, Binance) og dataspeil (GitHub). Følger du adresser eller en xpub, ser offentlige blokkjede-noder adressene (ved xpub de avledede) og IP-en din.
 
 OVERVÅKINGSLISTE

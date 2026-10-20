@@ -6,6 +6,10 @@ import UserNotifications
 extension AppData {
     // MARK: Alarme
 
+    /// Merkliste gerade nicht lesbar (`watchlistLocked`): Ein Alarm ginge verloren. Der Bildschirm fragt vorher und zeigt
+    /// den Hinweis; `saveAlarm` und `createAlarm` legen dann nichts an — wie Android `AlarmsViewModel.alarmSaveBlocked`.
+    var alarmSaveBlocked: Bool { WatchlistStorageLock.blocksAlarmSave(locked: watchlistLocked) }
+
     /// Speichert einen Alarm (id 0 = neu) — Bezugskurs und Zustand wie in `AlarmsViewModel.save`.
     /// - Returns: true, wenn es der allererste Alarm ist (Bestätigung zeigen);
     ///   `firstAlarmShown` ist dann schon gesetzt.
@@ -13,6 +17,7 @@ extension AppData {
     func saveAlarm(watchId: Int64, id: Int64, condition: AlarmCondition, threshold: Double,
                    repeating: Bool, sound: Bool, vibrate: Bool, speak: Bool, windowHours: Int,
                    currency: String? = nil) -> Bool {
+        guard !alarmSaveBlocked else { return false }
         let existing = snapshot.alarms.first { $0.id == id && id != 0 }
         // Erster Alarm überhaupt? Gibt es schon Alarme, gilt die Bestätigung als gezeigt.
         let firstAlarm = !settings.firstAlarmShown && snapshot.alarms.isEmpty
@@ -69,6 +74,7 @@ extension AppData {
     /// `AlarmsViewModel.createFromTemplate`. Liefert die Id (für «Rückgängig») und ob es
     /// der allererste Alarm überhaupt ist (Bestätigung zeigen).
     func createAlarm(watchId: Int64, from def: AlarmTemplates.Definition) -> (id: Int64, firstAlarm: Bool) {
+        guard !alarmSaveBlocked else { return (0, false) }
         let firstAlarm = !settings.firstAlarmShown && snapshot.alarms.isEmpty
         if !settings.firstAlarmShown { settings.firstAlarmShown = true }
         var newId: Int64 = 0

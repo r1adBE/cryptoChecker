@@ -131,7 +131,7 @@
     <string name="watch_enabled_banner">%1$s u aktivizua</string>
     <string name="watch_error_offline">Pa lidhje</string>
     <string name="watch_gesture_hint_short">Prek: alarm dhe “Çfarë lëviz bashkë?” · shtyp gjatë për të zgjedhur · rrëshqit majtas për ta fshirë · djathtas për të preferuar</string>
-    <string name="watch_hint_tap_why">Prek një monedhë për të parë çfarë lëviz bashkë me të</string>
+    <string name="watch_hint_tap_why">Prek një monedhë për alarm dhe “Çfarë lëviz bashkë?”</string>
     <string name="watch_not_traded">Nuk tregtohet më në këtë bursë</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Nuk është në listën e ndjekjes</string>

@@ -2144,6 +2144,16 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 87 (review of 20 October 2026): quick-alarm chips come after the condition and the price sentence in the
+  alarm editor (tap still creates the alarm with a 6 s undo). While the saved watchlist cannot be unlocked
+  (`DatabaseEncryptionNotice.isStoredKept` on Android, `SnapshotRead.inaccessible` / `WatchlistStorageLock` on iOS)
+  the watchlist keeps a persistent notice that returns after other banners, and saving alarms or quick alarms is
+  blocked (`alarm_save_storage_locked`). Watched addresses switch to «show only» automatically only when every coin
+  with a balance matches (`overlapAllMatched`). The tax workpaper's holdings file uses the template's cost method
+  (`TaxMethod.holdingsCostMethod`) and states the method note; the general cut-off export keeps the app's method.
+  The Swiss wealth total is the sum of the rounded rows. Cut-off and Swiss wealth exports add
+  `portfolio_export_address_lots_note` when a counted address has cost-basis lots (`AddressCostLots.hasCountedLots`);
+  the double count of recorded transfers to such an address in those exports is a known limitation (roadmap).
 * Watchlist widget refresh lock (build 86): Android draws the countdown (Chronometer) only with the screen on
   (`WidgetRefreshState.countdownMillis`); drawn with the screen off it shows the symbol at once, since a frozen
   process may miss the redraw at the end of the lock. The redraw runs 300 ms after the end (`UNLOCK_SLACK_MILLIS`,

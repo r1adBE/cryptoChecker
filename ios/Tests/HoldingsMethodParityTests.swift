@@ -170,4 +170,26 @@ final class HoldingsMethodParityTests: XCTestCase {
             }
         }
     }
+
+    /// Bestand der Arbeitsunterlage nach der Methode der Vorlage (wie im Kopf), allgemeiner Stichtag nach der App-Methode.
+    func testWorkpaperHoldingsUseTemplateMethod() throws {
+        let cases = TestSupport.list(try TestSupport.fixture("holdings_method")["workpaperHoldings"])
+        XCTAssertGreaterThanOrEqual(cases.count, 3)
+        for c in cases {
+            let name = c["name"] as? String ?? ""
+            let template = TaxTemplate.fromName(c["template"] as? String)
+            let app = try XCTUnwrap(CostMethod(rawValue: c["appMethod"] as? String ?? ""), name)
+            let year = Int(TestSupport.number(c["year"]) ?? 0)
+            let cutoff = Int64(TestSupport.number(c["cutoff"]) ?? 0)
+            let trades = (c["trades"] as? [Any] ?? []).map(trade)
+            let taxMethod = template.methodFor(app, year)
+            XCTAssertEqual(taxMethod.rawValue, c["taxMethod"] as? String, name)
+            XCTAssertEqual(taxMethod.holdingsCostMethod.rawValue, c["holdingsCostMethod"] as? String, name)
+            XCTAssertEqual(template.methodOverridden(app, year), c["overridden"] as? Bool, name)
+            assertHoldings("\(name) workpaper", c["holdings"] as? [String: Any] ?? [:],
+                           map(CutoffExport.holdingsAt(trades, cutoffMillis: cutoff, method: taxMethod.holdingsCostMethod)))
+            assertHoldings("\(name) app", c["appHoldings"] as? [String: Any] ?? [:],
+                           map(CutoffExport.holdingsAt(trades, cutoffMillis: cutoff, method: app)))
+        }
+    }
 }

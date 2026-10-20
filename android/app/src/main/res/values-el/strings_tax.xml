@@ -240,6 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Οι παρακολουθούμενες διευθύνσεις δεν ήταν δυνατό να διαβαστούν – τα υπόλοιπά τους λείπουν από αυτό το αρχείο</string>
+    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">Σημείωση: διευθύνσεις με κόστος κτήσης – μεταφορές προς ή από μια παρακολουθούμενη διεύθυνση μπορεί να εμφανίζονται εδώ διπλές ή να λείπουν· η κάρτα χαρτοφυλακίου τις υπολογίζει σωστά.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Οι παρακολουθούμενες διευθύνσεις μετρούν στη συνολική αξία, αλλά δεν έχουν κόστος κτήσης – το κέρδος είναι επομένως μάλλον υψηλότερο. Καταχωρίστε το κόστος ως αγορά.</string>

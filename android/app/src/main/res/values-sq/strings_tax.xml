@@ -240,6 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Adresat e ndjekura nuk mund të lexoheshin – gjendjet e tyre mungojnë në këtë skedar</string>
+    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">Shënim: adresa me kosto blerjeje – transfertat drejt ose nga një adresë e vëzhguar mund të shfaqen këtu dy herë ose të mungojnë; karta e portofolit i llogarit saktë.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Adresat e vëzhguara llogariten në vlerën totale, por nuk kanë kosto blerjeje – prandaj fitimi ka gjasë të jetë më i lartë. Regjistroje koston si blerje.</string>

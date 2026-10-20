@@ -155,7 +155,7 @@
     <string name="watch_enabled_banner">Pár %1$s zapnut</string>
     <string name="watch_error_offline">Bez připojení</string>
     <string name="watch_gesture_hint_short">Klepnutím alarm a „Co se hýbe s ním?“ · podržením výběr · přejetím doleva smazat · doprava oblíbené</string>
-    <string name="watch_hint_tap_why">Klepnutím na minci uvidíte, co se hýbe spolu s ní</string>
+    <string name="watch_hint_tap_why">Klepněte na minci pro alarm a „Co se hýbe s ním?“</string>
     <string name="watch_not_traded">Na této burze se již neobchoduje</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Není ve sledovaných</string>

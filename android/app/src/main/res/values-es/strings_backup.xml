@@ -82,6 +82,7 @@
     <string name="portfolio_storage_kept_in_memory">La cartera guardada no se puede desbloquear ahora y no se muestra; volverá tras reiniciar la app. Los cambios hechos ahora no se guardarán.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">La lista guardada no se puede desbloquear ahora y no se muestra; volverá tras reiniciar la app. Los cambios hechos ahora no se guardarán.</string>
+    <string name="alarm_save_storage_locked">Ahora no se pueden guardar alarmas: la lista guardada está bloqueada. Reinicia la app.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">La copia de seguridad no es posible ahora: los datos guardados no se pueden desbloquear en este momento. Reinicia la app e inténtalo de nuevo.</string>
 

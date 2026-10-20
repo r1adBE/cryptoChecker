@@ -155,7 +155,7 @@
     <string name="watch_enabled_banner">Пару %1$s увімкнено</string>
     <string name="watch_error_offline">Немає з\'єднання</string>
     <string name="watch_gesture_hint_short">Торкніться: сигнал і «Що рухається разом?» · утримуйте для вибору · вліво – видалити · вправо – в обране</string>
-    <string name="watch_hint_tap_why">Торкніться монети, щоб побачити, що рухається разом із нею</string>
+    <string name="watch_hint_tap_why">Торкніться монети: сигнал і «Що рухається разом?»</string>
     <string name="watch_not_traded">Більше не торгується на цій біржі</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Немає в списку</string>

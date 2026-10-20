@@ -119,7 +119,7 @@
     <string name="watch_enabled_banner">已启用 %1$s</string>
     <string name="watch_error_offline">无连接</string>
     <string name="watch_gesture_hint_short">轻点：提醒和“哪些在同步波动？” · 长按选择 · 左滑删除 · 右滑收藏</string>
-    <string name="watch_hint_tap_why">轻点某个币种，查看有哪些在随它一起波动</string>
+    <string name="watch_hint_tap_why">轻点某个币种：提醒和“哪些在同步波动？”</string>
     <string name="watch_not_traded">该交易所已不再交易</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">不在自选中</string>

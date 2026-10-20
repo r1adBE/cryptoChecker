@@ -128,6 +128,9 @@ final class AppData: ObservableObject {
     /// Merkliste und Alarme warten im Speicher — `reloadFromDisk` ersetzt sie dann nicht durch den älteren Stand der Datei,
     /// versucht das Speichern erneut, und jedes weitere Speichern (`mutate`) schreibt den ganzen Stand.
     @Published private(set) var watchlistSavePending = false
+    /// `watchlist.json` ist da, aber gerade nicht lesbar (`WatchlistStorageLock`): Die Merkliste steht leer im Speicher und
+    /// wird nicht gespeichert. Die Merkliste nennt es dauerhaft; Alarme werden dann nicht angelegt. Neu bei jedem Lesen.
+    @Published private(set) var watchlistLocked = false
     var appActive = false
     /// Dateien mit Nutzerdaten blieben beim Start unverschlüsselt (`LaunchOutcome.encryptionPending`): Einstellungen ›
     /// Sicherung nennt «Verschlüsselung noch nicht aktiv» — wie Android `DatabaseEncryptionNotice`.
@@ -148,7 +151,9 @@ final class AppData: ObservableObject {
         if !protection.setAside.isEmpty { StorageRecoveryNotice.record() }
         if !protection.restored.isEmpty && protection.setAside.isEmpty { StorageRecoveryNotice.recordRestored() }
         encryptionPending = protection.encryptionPending
-        snapshot = SharedStorage.loadSnapshot()
+        let read = SharedStorage.readSnapshot()
+        snapshot = read.snapshot ?? SharedStorage.Snapshot()
+        watchlistLocked = WatchlistStorageLock.isLocked(read)
         let loadedSettings = AppData.readSettings()
         settings = loadedSettings.settings
         settingsAccessible = loadedSettings.state != .inaccessible
@@ -302,6 +307,8 @@ final class AppData: ObservableObject {
         let read = SharedStorage.readSnapshot()
         let waiting = SharedStorage.watchlistPending
         if watchlistSavePending != waiting { watchlistSavePending = waiting }
+        let locked = WatchlistStorageLock.isLocked(read)
+        if watchlistLocked != locked { watchlistLocked = locked }
         // Nur einen gelesenen Stand übernehmen: Ist die Datei gerade unlesbar oder nicht zugreifbar,
         // bleibt der Stand im Speicher (sonst stünde eine leere Merkliste da) — ebenso, solange die Merkliste
         // noch nicht versiegelt gespeichert ist (die Datei hat dann einen älteren Stand)

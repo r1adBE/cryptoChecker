@@ -10,7 +10,7 @@ CLARIDAD SOBRE LOS DATOS
 • «Ahorro» es el modo predeterminado: los precios se actualizan al abrir la app y a intervalos en segundo plano. «En vivo mientras está abierta» añade precios en vivo de Binance, Bybit, OKX, Coinbase y Kraken mientras la lista está abierta.
 • El cambio en % y los gráficos vienen primero del exchange del par; si no tiene velas, la app usa Binance o Coinbase y te lo indica.
 • Fear & Greed, dominancia y datos on-chain de alternative.me, CoinGecko y Coin Metrics.
-• Con la app cerrada, Android decide cuándo se comprueban las alarmas: cada 15 minutos aprox., a menudo con menos frecuencia. Pueden perderse picos breves entre medias; la app te lo indica.
+• Con la app cerrada, Android decide cuándo se comprueban las alarmas: como mucho cada 15 min., a menudo solo tras horas. Pueden perderse picos breves entre medias; la app te lo indica.
 • Los importes solo salen del dispositivo por exportación o copia de seguridad de Android. Para los precios, solo los símbolos del par van a su exchange; además, tipos de cambio (Frankfurter), datos de mercado y logotipos (CoinGecko, Binance) y espejos de datos (GitHub). Si vigilas direcciones o una xpub, los nodos públicos de blockchain ven las direcciones (con una xpub, las derivadas) y tu IP.
 
 LISTA DE SEGUIMIENTO

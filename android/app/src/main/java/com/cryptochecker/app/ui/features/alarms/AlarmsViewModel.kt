@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.local.WatchlistStorageLock
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
@@ -229,10 +230,17 @@ class AlarmsViewModel @Inject constructor(
     }
 
     /**
+     * Merkliste nur leer im Arbeitsspeicher ([WatchlistStorageLock]): Ein Alarm wäre nach dem Prozess-Ende weg. Der
+     * Bildschirm fragt vorher und zeigt den Hinweis; [save] und [createFromTemplate] legen dann nichts an.
+     */
+    fun alarmSaveBlocked(): Boolean = WatchlistStorageLock.blocksAlarmSave(DatabaseEncryptionNotice.storedKept.value)
+
+    /**
      * Schnell-Alarm sofort anlegen (einmalig, Ton/Vibration wie neue Alarme).
      * [onCreated] bekommt die Id für «Rückgängig».
      */
     fun createFromTemplate(template: AlarmTemplates.Template, onCreated: (Long) -> Unit) {
+        if (alarmSaveBlocked()) return
         viewModelScope.launch {
             val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
             val def = AlarmTemplates.definition(template, w.lastPrice) ?: return@launch
@@ -286,6 +294,7 @@ class AlarmsViewModel @Inject constructor(
      * Bestätigung des allerersten Alarms kommt (dann keine eigene Zeile) — für die Bestätigung.
      */
     fun save(draft: AlarmDraft, onSaved: (AlarmEntity, Boolean, Boolean) -> Unit = { _, _, _ -> }) {
+        if (alarmSaveBlocked()) return
         viewModelScope.launch {
             val threshold = draft.threshold ?: return@launch
 

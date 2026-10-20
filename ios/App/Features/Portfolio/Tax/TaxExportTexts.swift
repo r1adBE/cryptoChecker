@@ -153,7 +153,8 @@ extension TaxSummaryTexts {
             wealthUnchecked: L("portfolio_export_unchecked"),
             wealthAddressUnobserved: L("portfolio_export_address_unobserved"),
             // USDT = 1 an einem Tag ohne USDT/USD-Schluss (z. B. vor dem Fenster der Quellen): eigene Zeile, nie still
-            usdtAssumed: L("portfolio_usdt_assumed")
+            usdtAssumed: L("portfolio_usdt_assumed"),
+            addressLots: L("portfolio_export_address_lots_note")
         )
     }
 }

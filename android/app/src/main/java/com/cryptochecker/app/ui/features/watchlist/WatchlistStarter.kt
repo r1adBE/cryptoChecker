@@ -178,14 +178,15 @@ internal fun StarterPicker(
                 }
             }
 
-            // Ein Satz, was die App hier tut: «Kurs beobachten, Alarm setzen» (Glocke oben rechts)
+            // Ein Satz, was die App hier tut: «Kurs beobachten, Alarm setzen»
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(top = Spacing.md, start = 16.dp, end = 16.dp)
             ) {
-                // Dieselbe Alarm-Glocke wie oben rechts (die schlichte Glocke = Kurs-Mitteilung)
+                // Neutrales Kurs-Symbol (wie «Linie» im Chart-Umschalter): die Alarm-Glocke im Kopf erscheint
+                // erst mit Alarmen, im leeren Start würde sie auf nichts zeigen
                 Icon(
-                    painterResource(R.drawable.ic_notifications_active_outline),
+                    painterResource(R.drawable.ic_chart_line),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(18.dp)
@@ -197,7 +198,7 @@ internal fun StarterPicker(
                     modifier = Modifier.padding(start = Spacing.xs)
                 )
             }
-            // Und was man danach bekommt: Tipp auf einen Coin zeigt «Was bewegt sich mit?» (Symbol wie der ⚡ der Zeile)
+            // Und was man danach bekommt: Tipp auf einen Coin öffnet Alarm und «Was bewegt sich mit?» (Symbol wie der ⚡ der Zeile)
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(top = Spacing.xs, start = 16.dp, end = 16.dp)

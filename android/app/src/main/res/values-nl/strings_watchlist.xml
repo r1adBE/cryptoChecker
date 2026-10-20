@@ -131,7 +131,7 @@
     <string name="watch_enabled_banner">%1$s ingeschakeld</string>
     <string name="watch_error_offline">Geen verbinding</string>
     <string name="watch_gesture_hint_short">Tik: alarm en ‘Wat beweegt mee?’ · lang indrukken om te selecteren · veeg naar links om te verwijderen · naar rechts voor favoriet</string>
-    <string name="watch_hint_tap_why">Tik op een munt om te zien wat er mee beweegt</string>
+    <string name="watch_hint_tap_why">Tik op een munt voor alarm en ‘Wat beweegt mee?’</string>
     <string name="watch_not_traded">Wordt niet meer verhandeld op deze beurs</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Niet in de volglijst</string>

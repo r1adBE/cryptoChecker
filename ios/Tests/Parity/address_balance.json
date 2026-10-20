@@ -5607,7 +5607,52 @@
     ],
     "overlapAmounts": [
       {
-        "name": "own ETH holdings equal the address ETH (1.5) — same coins, auto «show only»",
+        "name": "every coin with a balance > 0 matches (ETH 1.5, USDC 15, BNB 2, BTCB 0.1) — same coins, auto «show only», never counted twice",
+        "address": 0,
+        "trades": [
+          {
+            "id": 1,
+            "coin": "ETH",
+            "type": "BUY",
+            "amount": "1.5",
+            "time": 86400000,
+            "price": "2000"
+          },
+          {
+            "id": 2,
+            "coin": "USDC",
+            "type": "BUY",
+            "amount": "15",
+            "time": 86400000,
+            "price": "1"
+          },
+          {
+            "id": 3,
+            "coin": "BNB",
+            "type": "BUY",
+            "amount": "2",
+            "time": 86400000,
+            "price": "300"
+          },
+          {
+            "id": 4,
+            "coin": "BTCB",
+            "type": "BUY",
+            "amount": "0.1",
+            "time": 86400000,
+            "price": "30000"
+          }
+        ],
+        "matched": [
+          "ETH",
+          "USDC",
+          "BNB",
+          "BTCB"
+        ],
+        "autoShowOnly": true
+      },
+      {
+        "name": "own ETH holdings equal the address ETH (1.5), but its tokens (USDC 15, BNB 2, BTCB 0.1) do not match — keeps counting (hint only), the tokens must not silently drop out",
         "address": 0,
         "trades": [
           {
@@ -5621,7 +5666,8 @@
         ],
         "matched": [
           "ETH"
-        ]
+        ],
+        "autoShowOnly": false
       },
       {
         "name": "within ±1 % (1.51 vs 1.5)",
@@ -5638,10 +5684,11 @@
         ],
         "matched": [
           "ETH"
-        ]
+        ],
+        "autoShowOnly": false
       },
       {
-        "name": "[R12] within ±5 % (1.53 booked vs 1.5 on chain — fees/dust): same coins, auto «show only», never counted twice",
+        "name": "[R12] within ±5 % (1.53 booked vs 1.5 on chain — fees/dust): ETH matches, tokens do not — keeps counting",
         "address": 0,
         "trades": [
           {
@@ -5655,7 +5702,8 @@
         ],
         "matched": [
           "ETH"
-        ]
+        ],
+        "autoShowOnly": false
       },
       {
         "name": "[R12] more than 5 % apart (1.6 vs 1.5) — keeps counting (soft hint only)",
@@ -5670,7 +5718,8 @@
             "price": "2000"
           }
         ],
-        "matched": []
+        "matched": [],
+        "autoShowOnly": false
       },
       {
         "name": "same symbols, different amounts — keeps counting (soft hint only)",
@@ -5693,7 +5742,8 @@
             "price": "1"
           }
         ],
-        "matched": []
+        "matched": [],
+        "autoShowOnly": false
       },
       {
         "name": "own deposit equal to the observed address balance — transfer match",
@@ -5717,7 +5767,8 @@
         ],
         "matched": [
           "ETH"
-        ]
+        ],
+        "autoShowOnly": false
       },
       {
         "name": "no own trades in these coins",
@@ -5732,10 +5783,55 @@
             "price": "30000"
           }
         ],
-        "matched": []
+        "matched": [],
+        "autoShowOnly": false
+      },
+      {
+        "name": "[B87] ETH matches, tokens do not (USDC 15 on the address, 1000 USDC booked) — address keeps counting, hint only",
+        "address": 0,
+        "trades": [
+          {
+            "id": 1,
+            "coin": "ETH",
+            "type": "BUY",
+            "amount": "1.5",
+            "time": 86400000,
+            "price": "2000"
+          },
+          {
+            "id": 2,
+            "coin": "USDC",
+            "type": "BUY",
+            "amount": "1000",
+            "time": 86400000,
+            "price": "1"
+          }
+        ],
+        "matched": [
+          "ETH"
+        ],
+        "autoShowOnly": false
+      },
+      {
+        "name": "single-coin address (LTC 1.5) equal to own LTC holdings — auto «show only»",
+        "address": 5,
+        "trades": [
+          {
+            "id": 1,
+            "coin": "LTC",
+            "type": "BUY",
+            "amount": "1.5",
+            "time": 86400000,
+            "price": "70"
+          }
+        ],
+        "matched": [
+          "LTC"
+        ],
+        "autoShowOnly": true
       }
     ],
-    "overlapAmountsNote": "overlapAmounts: WatchedAddressRules.overlapMatched(address counted, trades) = coins whose address balance ≈ own holdings (±1 %) or with a matching own deposit/transfer; overlapAutoShowOnly switches only then. A legacy decision (stored «ovl» without «ovl2», «show only») without a match goes back to counting (overlapLegacyRevert), with a match it stays."
+    "overlapAmountsNote": "overlapAmounts: WatchedAddressRules.overlapMatched(address counted, trades) = coins whose address balance ≈ own holdings (±5 %) or with a matching own deposit/transfer; overlapAutoShowOnly (autoShowOnly) switches only when EVERY coin of the address with a balance > 0 matches — otherwise the address keeps counting and only the overlap hint shows. A legacy decision (stored «ovl» without «ovl2», «show only») without any match goes back to counting (overlapLegacyRevert), with a match it stays. The first case must match fully (used for the switched/undone checks)."
   },
   "networkRules": {
     "firstScan": {

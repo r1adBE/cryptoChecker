@@ -246,8 +246,21 @@ fun AlarmsScreen(
         }
     }
 
+    // Merkliste nur leer im Arbeitsspeicher: Alarm nicht anlegen, Editor zu und sagen warum (sonst still verloren)
+    val lockedText = stringResource(R.string.alarm_save_storage_locked)
+    fun showSaveLocked(): Boolean {
+        if (!viewModel.alarmSaveBlocked()) return false
+        draft = null
+        scope.launch {
+            snackbar.currentSnackbarData?.dismiss()
+            snackbar.showSnackbar(lockedText, duration = SnackbarDuration.Long)
+        }
+        return true
+    }
+
     /** Speichern und bestätigen («Alarm gespeichert …»), Editor schliessen. */
     fun saveDraft(toSave: AlarmDraft) {
+        if (showSaveLocked()) return
         // Wird die Erlaubnis gleich erst erfragt, nennt die Bestätigung «Mitteilungen aus» noch nicht
         val asking = com.cryptochecker.app.ui.components.notificationPermissionMissing(context)
         // Ein Alarm braucht Benachrichtigungen: jetzt fragen, nicht beim Start.
@@ -311,7 +324,8 @@ fun AlarmsScreen(
             } == true,
             onLoadRate = viewModel::loadRate,
             onDraftChange = { draft = it },
-            onTemplate = { template ->
+            onTemplate = onTemplate@{ template ->
+                if (showSaveLocked()) return@onTemplate
                 requestNotifications()
                 draft = null
                 viewModel.createFromTemplate(template) { id ->

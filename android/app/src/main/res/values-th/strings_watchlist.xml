@@ -119,7 +119,7 @@
     <string name="watch_enabled_banner">เปิดใช้งาน %1$s แล้ว</string>
     <string name="watch_error_offline">ไม่มีการเชื่อมต่อ</string>
     <string name="watch_gesture_hint_short">แตะ: สัญญาณเตือนและ “อะไรเคลื่อนไหวไปด้วย?” · กดค้างเพื่อเลือก · ปัดซ้ายเพื่อลบ · ปัดขวาเพื่อเป็นรายการโปรด</string>
-    <string name="watch_hint_tap_why">แตะเหรียญเพื่อดูว่าอะไรเคลื่อนไหวไปพร้อมกับมัน</string>
+    <string name="watch_hint_tap_why">แตะเหรียญเพื่อตั้งสัญญาณเตือนและดู “อะไรเคลื่อนไหวไปด้วย?”</string>
     <string name="watch_not_traded">ไม่มีการซื้อขายในกระดานเทรดนี้แล้ว</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">ไม่อยู่ในรายการติดตาม</string>

@@ -267,6 +267,8 @@ fun TaxExport.summaryCsv(
     header: List<String>,
     zoneLine: String = "",
     format: CutoffCsvFormat = CutoffCsvFormat.SEMICOLON_POINT,
+    /** Zählende Adresse mit Eröffnungsposten ([AddressCostLots.hasCountedLots]): mit CH-Vermögen Zeile [TaxSummaryTexts.addressLots]. */
+    addressLots: Boolean = false,
 ): String {
     fun n(text: String): String = if (format.decimal == ',') text.replace('.', ',') else text
     fun money(v: BigDecimal?): String = n(v?.let { CutoffExport.money(it) }.orEmpty())
@@ -293,12 +295,14 @@ fun TaxExport.summaryCsv(
     if (zoneLine.isNotEmpty()) sb.append(textLine(listOf(zoneLine), format))
     // USDT = 1 an einem nötigen Tag: eigene Zeile (die Posten der Übersicht tragen keinen Vermerk je Transaktion)
     if (s.usdtApproximate && texts.usdtAssumed.isNotEmpty()) sb.append(textLine(listOf(texts.usdtAssumed), format))
+    // CH-Vermögen mit Adressen mit Einstand: Umbuchungen zur/von der Adresse evtl. doppelt/fehlend (keine Rechenänderung)
+    if (addressLots && s.wealth != null && texts.addressLots.isNotEmpty()) sb.append(textLine(listOf(texts.addressLots), format))
     sb.append(textLine(listOf(texts.item, texts.usdt, texts.target, texts.note), format))
     val (orientation, facts) = s.lines.partition { it.line.orientation }
     for (l in facts) {
         sb.append(row(l, texts.labels[l.line].orEmpty()))
         // CH Vermögenswert: darunter je Coin eine Zeile in denselben Spalten (Coin – Bestand | USDT | Währung | Hinweis);
-        // Werte unrund summiert, gerundet nur hier im Text
+        // Werte je Coin gerundet im Text, die Summe des Postens aus genau diesen gerundeten Werten ([chWealth])
         if (l.line == TaxLine.CH_WEALTH_VALUE) {
             s.wealth?.rows?.forEach { r ->
                 val label = texts.wealthCoinLabel(r.coin, n(CutoffExport.amount(r.amount)))

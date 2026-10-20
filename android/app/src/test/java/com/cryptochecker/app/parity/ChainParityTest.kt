@@ -202,8 +202,8 @@ class ChainParityTest {
         val o = h["overlap"].obj()
         val own = o["ownCoins"].list().map { it as String }.toSet()
         assertEquals(o["expected"], WatchedAddressRules.overlap(list[o["address"].num()!!.toInt()], own))
-        // Später aufgetauchte Überschneidung MIT passender Menge: einmal automatisch «Nur anzeigen», «Rückgängig» bleibt
-        // entschieden; nur gleicher Coin: zählt weiter
+        // Später aufgetauchte Überschneidung MIT passender Menge aller Coins: einmal automatisch «Nur anzeigen»,
+        // «Rückgängig» bleibt entschieden; nur gleicher Coin bzw. nur ein Teil der Coins passt: zählt weiter
         val counting = list[o["address"].num()!!.toInt()].copy(countInPortfolio = true, overlapChecked = false)
         for (c in h["overlapAmounts"].list().map { it.obj() }) {
             val name = c["name"] as String
@@ -212,7 +212,11 @@ class ChainParityTest {
             val matched = c["matched"].list()
             assertEquals(name, matched, WatchedAddressRules.overlapMatched(a, trades))
             val due = matched.isNotEmpty()
-            assertEquals(name, if (due) listOf(a) else emptyList(), WatchedAddressRules.overlapAutoShowOnly(listOf(a), trades))
+            // Automatisch nur, wenn ALLE Coins mit Guthaben passen (ETH passt, Token nicht: zählt weiter)
+            val auto = c["autoShowOnly"] as Boolean
+            assertTrue(name, !auto || due)
+            assertEquals(name, auto, WatchedAddressRules.overlapAllMatched(a, trades))
+            assertEquals(name, if (auto) listOf(a) else emptyList(), WatchedAddressRules.overlapAutoShowOnly(listOf(a), trades))
             // Alter Entscheid «Nur anzeigen»: ohne passende Menge zurück auf zählen, mit bleibt er
             val legacy = a.copy(countInPortfolio = false, overlapChecked = true, overlapLegacy = true)
             assertEquals(name, !due, WatchedAddressRules.overlapLegacyRevert(legacy, trades))
@@ -224,6 +228,7 @@ class ChainParityTest {
             assertFalse(name, WatchedAddressRules.overlapLegacyRevert(legacy.copy(countInPortfolio = true), trades))
         }
         val matching = h["overlapAmounts"].list().first().obj()["trades"].list().map { tradeOf(it.obj()) }
+        assertEquals(listOf(counting), WatchedAddressRules.overlapAutoShowOnly(listOf(counting), matching))
         val switched = WatchedAddressRules.withOverlapShowOnly(counting)
         assertFalse(switched.countInPortfolio)
         assertTrue(switched.overlapChecked)

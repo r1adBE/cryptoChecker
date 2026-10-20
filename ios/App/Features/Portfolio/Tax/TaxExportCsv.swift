@@ -223,7 +223,7 @@ extension TaxExport {
     /// USDT | Währung | Hinweis — zuerst nur Tatsachen, Schlüsse der Vorlage (Sätze, Grenzen, Freibeträge) nur im Block
     /// `texts.orientationHeading`, jeder Posten mit Vorsatz «Orientierung:» (`taxOrientationLabel`).
     static func summaryCsv(_ s: TaxYearSummary, texts: TaxSummaryTexts, header: [String], zoneLine: String = "",
-                           format: CutoffCsvFormat = .semicolonPoint) -> String {
+                           format: CutoffCsvFormat = .semicolonPoint, addressLots: Bool = false) -> String {
         func n(_ text: String) -> String {
             format.decimal == "," ? text.replacingOccurrences(of: ".", with: ",") : text
         }
@@ -235,6 +235,9 @@ extension TaxExport {
         if !zoneLine.isEmpty { out += textLine([zoneLine], format) }
         // USDT = 1 an einem nötigen Tag: eigene Zeile (die Posten der Übersicht tragen keinen Vermerk je Transaktion)
         if s.usdtApproximate && !texts.usdtAssumed.isEmpty { out += textLine([texts.usdtAssumed], format) }
+        // CH-Vermögen mit Adressen mit Einstand (`AddressCostLots.hasCountedLots`): Umbuchungen zur/von der Adresse evtl.
+        // doppelt/fehlend (keine Rechenänderung) — wie Android
+        if addressLots && s.wealth != nil && !texts.addressLots.isEmpty { out += textLine([texts.addressLots], format) }
         out += textLine([texts.item, texts.usdt, texts.target, texts.note], format)
         func row(_ l: TaxSummaryLine, _ label: String) -> String {
             var notes: [String] = []
@@ -257,7 +260,8 @@ extension TaxExport {
         for l in facts {
             out += row(l, texts.labels[l.line] ?? "")
             // CH Vermögenswert: darunter je Coin eine Zeile in denselben Spalten (Coin – Bestand | USDT | Währung |
-            // Hinweis); Werte unrund summiert, gerundet nur hier im Text — wie Android
+            // Hinweis); Werte je Coin gerundet im Text, die Summe des Postens aus genau diesen gerundeten Werten
+            // (`chWealth`) — wie Android
             if l.line == .CH_WEALTH_VALUE, let wealth = s.wealth {
                 for r in wealth.rows {
                     let label = texts.wealthCoinLabel(r.coin, amount: n(CutoffExport.amount(r.amount)))

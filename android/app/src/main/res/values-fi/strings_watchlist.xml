@@ -131,7 +131,7 @@
     <string name="watch_enabled_banner">%1$s otettu käyttöön</string>
     <string name="watch_error_offline">Ei yhteyttä</string>
     <string name="watch_gesture_hint_short">Napauta: hälytys ja ”Mikä liikkuu mukana?” · paina pitkään valitaksesi · pyyhkäise vasemmalle poistaaksesi · oikealle suosikiksi</string>
-    <string name="watch_hint_tap_why">Napauta kolikkoa nähdäksesi, mikä liikkuu sen mukana</string>
+    <string name="watch_hint_tap_why">Napauta kolikkoa: hälytys ja ”Mikä liikkuu mukana?”</string>
     <string name="watch_not_traded">Ei enää kaupankäynnin kohteena pörssissä</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Ei seurantalistalla</string>

@@ -10,7 +10,7 @@ MINH BẠCH VỀ DỮ LIỆU
 • “Tiết kiệm” là mặc định: giá được làm mới khi mở ứng dụng và theo chu kỳ ở chế độ nền. “Trực tiếp khi đang mở” thêm giá trực tiếp cho Binance, Bybit, OKX, Coinbase và Kraken khi danh sách đang mở.
 • % thay đổi và biểu đồ lấy trước tiên từ chính sàn của cặp; nếu sàn không có nến, ứng dụng dùng Binance hoặc Coinbase và cho bạn biết.
 • Fear & Greed, tỷ lệ thống trị và chỉ số on-chain từ alternative.me, CoinGecko và Coin Metrics.
-• Khi ứng dụng đóng, Android quyết định lúc nào kiểm tra cảnh báo – khoảng 15 phút một lần, thường thưa hơn. Biến động ngắn ở giữa có thể bị lỡ; ứng dụng sẽ cho bạn biết điều này.
+• Khi ứng dụng đóng, Android quyết định lúc nào kiểm tra cảnh báo – nhiều nhất 15 phút một lần, thường chỉ sau vài giờ. Biến động ngắn ở giữa có thể bị lỡ; ứng dụng sẽ cho bạn biết điều này.
 • Số tiền chỉ rời thiết bị khi bạn xuất ra hoặc qua sao lưu Android. Để lấy giá, chỉ mã cặp được gửi đến sàn của cặp đó; thêm vào đó là tỷ giá (Frankfurter), dữ liệu thị trường và logo (CoinGecko, Binance), bản sao dữ liệu (GitHub). Nếu bạn theo dõi địa chỉ hoặc xpub, các nút blockchain công khai thấy các địa chỉ (với xpub là các địa chỉ dẫn xuất) và IP của bạn.
 
 DANH SÁCH THEO DÕI

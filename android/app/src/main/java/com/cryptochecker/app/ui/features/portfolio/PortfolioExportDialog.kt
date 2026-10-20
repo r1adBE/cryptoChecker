@@ -159,7 +159,8 @@ fun PortfolioExportDialog(
             viewModel.exportTax(uri, kind, taxYear, currency, taxTexts, TaxExport.withChWealthNote(template, header, chWealthNote))
         }
     }
-    // Bestand per Stichtag = Ende des Steuerjahrs (CH: 31.12. in CHF mit ESTV-Hinweis), mit Kopfzeilen der Arbeitsunterlage
+    // Bestand per Stichtag = Ende des Steuerjahrs (CH: 31.12. in CHF mit ESTV-Hinweis), mit Kopfzeilen der Arbeitsunterlage;
+    // gerechnet nach der Methode der Vorlage (im Kopf genannt, samt «Vorlage ersetzt die Methode»)
     val holdingsTexts = cutoffTexts(workCurrency)
     val holdingsEnd = period?.end
     val holdingsTitle = holdingsEnd?.let {
@@ -171,8 +172,8 @@ fun PortfolioExportDialog(
         if (uri != null && holdingsEnd != null) {
             viewModel.export(
                 uri, holdingsEnd, workCurrency, holdingsTexts,
-                TaxExport.withChWealthNote(template, listOfNotNull(holdingsTitle, info, rulesLine, usdtNote, disclaimer, zoneLine), chWealthNote),
-                zone = taxZone,
+                TaxExport.withChWealthNote(template, listOfNotNull(holdingsTitle, info, rulesLine, methodNote, usdtNote, disclaimer, zoneLine), chWealthNote),
+                zone = taxZone, method = method.holdingsCostMethod, // Methode der Vorlage, wie im Kopf
             )
         }
     }

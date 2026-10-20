@@ -240,6 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">آدرس‌های زیر نظر خوانده نشدند – موجودی آن‌ها در این فایل نیست</string>
+    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">توجه: آدرس‌های دارای بهای تمام‌شده – انتقال‌ها به یک آدرس تحت نظر یا از آن ممکن است اینجا دوبار نشان داده شوند یا نباشند؛ کارت سبد آن‌ها را درست محاسبه می‌کند.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">آدرس‌های زیر نظر در ارزش کل حساب می‌شوند اما بهای تمام‌شده ندارند – بنابراین سود احتمالاً بیش از حد است. بهای تمام‌شده را به‌صورت خرید ثبت کنید.</string>

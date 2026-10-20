@@ -145,6 +145,12 @@ object CutoffExport {
          * Adressen), statt still eine zu tiefe Summe.
          */
         addressesUnreadable: Boolean = false,
+        /**
+         * Zählende Adresse mit Eröffnungsposten ([AddressCostLots.hasCountedLots]): Zeile [CutoffCsvTexts.addressLots] —
+         * die Datei addiert das volle Adress-Guthaben, eine erfasste Umbuchung zur/von der Adresse kann doppelt oder
+         * fehlend erscheinen (die Karte rechnet sie richtig). Keine Rechenänderung.
+         */
+        addressLots: Boolean = false,
     ): String {
         // Zahlen ohne Tausendertrennung: Dezimalpunkt ggf. durch Komma ersetzen
         fun n(text: String): CsvCell = CsvCell(if (format.decimal == ',') text.replace('.', ',') else text, numeric = true)
@@ -158,6 +164,8 @@ object CutoffExport {
         if (usdtApproximate && texts.usdtAssumed.isNotEmpty()) sb.append(line(listOf(texts.usdtAssumed)))
         // Adressen nicht lesbar: fehlende Guthaben nie still
         if (addressesUnreadable && texts.addressesUnreadable.isNotEmpty()) sb.append(line(listOf(texts.addressesUnreadable)))
+        // Adressen mit Einstand: Umbuchungen zur/von der Adresse evtl. doppelt/fehlend — nur bei Bedarf
+        if (addressLots && texts.addressLots.isNotEmpty()) sb.append(line(listOf(texts.addressLots)))
         // In CHF per 31.12.: Hinweis auf die massgebende ESTV-Kursliste des Jahrs
         EstvKursliste.noteLine(texts.estvNoteFormat, date, currency, texts.estvLanguage)?.let { sb.append(line(listOf(it))) }
         sb.append(

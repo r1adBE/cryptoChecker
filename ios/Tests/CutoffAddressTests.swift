@@ -67,6 +67,39 @@ final class CutoffAddressTests: XCTestCase {
         XCTAssertEqual(plain.last, "Total;;;100.00;0.9;90.00;")
     }
 
+    /// Zählende Adresse mit Einstand: Hinweiszeile «Umbuchungen evtl. doppelt/fehlend» nach dem Kommentar — nur dann
+    /// (ohne Posten, «Nur anzeigen» oder ohne Text keine Zeile); Zeilen und Total unverändert (wie Android).
+    func testAddressLotsNoteOnlyWhenNeeded() {
+        let lot = AddressCostLot(id: 1, coin: "BTC", time: t(day - 20), amount: Decimal(string: "0.4")!, priceUsdt: 100)
+        let plainAddress = WatchedAddress(id: 1, chain: .BTC, address: "bc1qexampleaddress", lastBalance: "0.5")
+        var withLots = plainAddress
+        withLots.costLots = [lot]
+        XCTAssertTrue(AddressCostLots.hasCountedLots([plainAddress, withLots]))
+        XCTAssertFalse(AddressCostLots.hasCountedLots([plainAddress]))
+        var shownOnly = withLots
+        shownOnly.countInPortfolio = false
+        XCTAssertFalse(AddressCostLots.hasCountedLots([shownOnly]))
+        XCTAssertFalse(AddressCostLots.hasCountedLots([]))
+
+        let note = "Hinweis: Adressen mit Einstand"
+        var withText = texts
+        withText.addressLots = note
+        let rows = CutoffExport.rows([CutoffHolding(coin: "BTC", amount: 1)], prices: ["BTC": 100],
+                                     fxRate: Decimal(string: "0.9"))
+        let cutoffDay = CutoffDay(year: 2024, month: 10, day: 4)
+        func lines(_ t: CutoffCsvTexts, _ lots: Bool) -> [String] {
+            CutoffExport.csv(day: cutoffDay, currency: "CHF", fxDate: "2024-10-04", rows: rows, texts: t, addressLots: lots)
+                .replacingOccurrences(of: "\u{FEFF}", with: "").components(separatedBy: "\r\n").filter { !$0.isEmpty }
+        }
+        let marked = lines(withText, true)
+        XCTAssertEqual(marked[1], note)
+        XCTAssertEqual(marked.filter { $0 == note }.count, 1)
+        let plain = lines(withText, false)
+        XCTAssertFalse(plain.contains(note))
+        XCTAssertEqual(plain, marked.filter { $0 != note })
+        XCTAssertEqual(lines(texts, false), lines(texts, true))
+    }
+
     func testTodayUsesCurrentBalance() {
         // Stichtag heute: alle Beobachtungen bis jetzt — das aktuelle Guthaben, nichts fehlt
         let at = AddressBalanceHistory.balancesAt(histories, time: (day + 3) * 86_400_000 - 1)

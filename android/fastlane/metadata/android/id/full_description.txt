@@ -10,7 +10,7 @@ JUJUR SOAL DATA
 • “Hemat” adalah bawaan: harga diperbarui saat aplikasi dibuka dan berkala di latar belakang. “Langsung selama terbuka” menambahkan harga langsung untuk Binance, Bybit, OKX, Coinbase, dan Kraken selama daftar pantauan terbuka.
 • Perubahan % dan grafik pertama-tama berasal dari bursa pasangan itu; jika tidak ada candle, aplikasi memakai Binance atau Coinbase dan memberi tahu Anda.
 • Fear & Greed, dominasi, dan nilai on-chain dari alternative.me, CoinGecko, dan Coin Metrics.
-• Saat aplikasi ditutup, Android yang menentukan kapan alarm diperiksa – sekitar tiap 15 menit, sering lebih jarang. Lonjakan singkat di antaranya bisa terlewat; aplikasi memberi tahu Anda.
+• Saat aplikasi ditutup, Android yang menentukan kapan alarm diperiksa – paling sering tiap 15 menit, kerap setelah berjam-jam. Lonjakan singkat di antaranya bisa terlewat; aplikasi memberi tahu Anda.
 • Jumlah hanya keluar dari perangkat lewat ekspor atau cadangan Android. Untuk harga, hanya simbol pasangan yang dikirim ke bursa pasangan itu; plus kurs (Frankfurter), data pasar dan logo (CoinGecko, Binance), cermin data (GitHub). Jika Anda memantau alamat atau xpub, node blockchain publik melihat alamatnya (untuk xpub, turunannya) dan IP Anda.
 
 DAFTAR PANTAUAN
