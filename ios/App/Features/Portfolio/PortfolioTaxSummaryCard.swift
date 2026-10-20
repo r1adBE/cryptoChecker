@@ -115,16 +115,26 @@ struct PortfolioTaxSummaryCard: View {
         let value: String = v.map {
             PriceFormat.valueWithCurrency(PortfolioDecimal.double($0), s.fxAvailable ? s.currency : "USDT")
         } ?? texts.wealthCoinNote(r)
-        return HStack(alignment: .firstTextBaseline, spacing: Spacing.sm) {
-            Text(verbatim: texts.wealthCoinLabel(r.coin, amount: PriceFormat.exactAmount(r.amount)))
-                .font(.caption)
-                .foregroundStyle(AppColors.onSurface)
-                .fixedSize(horizontal: false, vertical: true)
-            Spacer(minLength: 8)
-            Text(verbatim: value)
-                .font(.caption.monospacedDigit())
-                .foregroundStyle(v == nil ? AppColors.onSurfaceVariant : AppColors.onSurface)
-                .multilineTextAlignment(.trailing)
+        let below: String? = texts.wealthCoinNoteBelowValue(r, hasValue: v != nil)
+        return VStack(alignment: .leading, spacing: 1) {
+            HStack(alignment: .firstTextBaseline, spacing: Spacing.sm) {
+                Text(verbatim: texts.wealthCoinLabel(r.coin, amount: PriceFormat.exactAmount(r.amount)))
+                    .font(.caption)
+                    .foregroundStyle(AppColors.onSurface)
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 8)
+                Text(verbatim: value)
+                    .font(.caption.monospacedDigit())
+                    .foregroundStyle(v == nil ? AppColors.onSurfaceVariant : AppColors.onSurface)
+                    .multilineTextAlignment(.trailing)
+            }
+            // Teilwert: Wert und darunter «unvollständig – Grund» (wie die CSV)
+            if let below {
+                Text(verbatim: below)
+                    .font(.caption)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
         }
         .padding(.leading, 12)
     }

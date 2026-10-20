@@ -180,5 +180,5 @@
     <string name="alarm_status_low_liquidity">Pas d’alerte – liquidité faible</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">En attente d’un cours actuel</string>
-    <string name="alarm_enter_amount">Saisissez un montant</string>
+    <string name="alarm_enter_amount">Saisissez une valeur</string>
 </resources>

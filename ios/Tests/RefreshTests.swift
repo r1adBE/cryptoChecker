@@ -321,55 +321,6 @@ final class RefreshDeadlineTests: XCTestCase {
     }
 }
 
-/// Gemeinsame Testfälle `bulk_delisted.json` — wie `BulkDelistedTest.kt`.
-final class BulkDelistedTests: XCTestCase {
-    private typealias S = TestSupport
-
-    private func strings(_ v: Any?) -> [String] { (v as? [Any])?.compactMap { $0 as? String } ?? [] }
-
-    private func state(_ v: Any?) -> BulkDelisted.State? {
-        guard let o = v as? [String: Any] else { return nil }
-        return BulkDelisted.State(delisted: Set(strings(o["delisted"])), recheckedAt: Int64(S.number(o["recheckedAt"]) ?? 0))
-    }
-
-    func testRecheckInterval() throws {
-        let data = try S.fixture("bulk_delisted")
-        XCTAssertEqual(BulkDelisted.recheckMillis, Int64(S.number(data["recheckMillis"]) ?? 0))
-    }
-
-    func testPlan() throws {
-        let data = try S.fixture("bulk_delisted")
-        let cases = S.list(data["plan"])
-        XCTAssertFalse(cases.isEmpty)
-        for c in cases {
-            let name = c["name"] as? String ?? ""
-            let plan = BulkDelisted.plan(state: state(c["state"]), pairIds: strings(c["pairIds"]),
-                                         notTraded: Set(strings(c["notTraded"])), now: Int64(S.number(c["now"]) ?? 0))
-            XCTAssertEqual(plan.request, strings(c["request"]), name)
-            XCTAssertEqual(plan.recheck, c["recheck"] as? Bool, name)
-            XCTAssertEqual(plan.all, strings(c["pairIds"]), name)
-        }
-    }
-
-    func testLearn() throws {
-        let data = try S.fixture("bulk_delisted")
-        let cases = S.list(data["learn"])
-        XCTAssertFalse(cases.isEmpty)
-        for c in cases {
-            let name = c["name"] as? String ?? ""
-            let p = c["plan"] as? [String: Any] ?? [:]
-            let plan = BulkDelisted.Plan(all: strings(p["all"]), request: strings(p["request"]), recheck: p["recheck"] as? Bool ?? false)
-            let next = BulkDelisted.learn(state: state(c["state"]), plan: plan, tickers: Set(strings(c["tickers"])),
-                                          failed: Set(strings(c["failed"])), complete: c["complete"] as? Bool ?? false,
-                                          now: Int64(S.number(c["now"]) ?? 0),
-                                          // Teilabfrage gescheitert (z. B. Alpha): keine Aussage über diese Paare
-                                          incomplete: Set(strings(c["incomplete"])))
-            XCTAssertEqual(next.delisted, Set(strings(c["delisted"])), name)
-            XCTAssertEqual(next.recheckedAt, Int64(S.number(c["recheckedAt"]) ?? 0), name)
-        }
-    }
-}
-
 /// Ergebnis einer Abfrage nur auf dasselbe Paar übertragen: «Paar bearbeiten» oder eine Wiederherstellung mit
 /// gleicher Id während der Abfrage → weder Kurs noch Alarm-Bezug des alten Paars in die Zeile.
 final class OutcomePairIdentityTests: XCTestCase {

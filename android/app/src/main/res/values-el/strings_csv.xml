@@ -45,6 +45,7 @@
     <string name="portfolio_csv_import_transfers_title">Μεταφορές μεταξύ των λογαριασμών σου</string>
     <string name="portfolio_csv_import_unreadable">Δεν βρέθηκαν υποστηριζόμενες συναλλαγές. Υποστηρίζονται: εξαγωγές CSV από Relai, Swissquote, Kraken, Binance, Coinbase και Bitpanda.</string>
     <string name="portfolio_csv_import_failed">Η εισαγωγή απέτυχε – δεν αποθηκεύτηκε τίποτα. Δοκιμάστε ξανά.</string>
+    <string name="portfolio_csv_import_locked">Η εισαγωγή δεν είναι δυνατή αυτή τη στιγμή: το αποθηκευμένο χαρτοφυλάκιο είναι κλειδωμένο. Άνοιξε ξανά την εφαρμογή αργότερα.</string>
     <string name="portfolio_csv_import_withdrawals_title">Αναλήψεις – πού πήγαν τα νομίσματα;</string>
     <string name="portfolio_csv_import_zone">Ώρες χωρίς ζώνη ώρας διαβάζονται ως: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Συσκευή (%1$s)</string>

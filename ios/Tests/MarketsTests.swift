@@ -443,7 +443,7 @@ final class IndicatorAlertRulesTests: XCTestCase {
         let first = IndicatorAlertRules.decide(.MAYER_ABOVE, value: 2.5, threshold: 2.4, wasCrossed: false)
         XCTAssertEqual(first, .init(notify: true, crossed: true))
         let again = IndicatorAlertRules.decide(.MAYER_ABOVE, value: 2.6, threshold: 2.4, wasCrossed: true)
-        XCTAssertEqual(again, .init(notify: false, crossed: nil))
+        XCTAssertEqual(again, .init(notify: false, crossed: true)) // erneut schreiben (samt Grenze), nicht melden
         let back = IndicatorAlertRules.decide(.MAYER_ABOVE, value: 2.3, threshold: 2.4, wasCrossed: true)
         XCTAssertEqual(back, .init(notify: false, crossed: false))
         XCTAssertNil(IndicatorAlertRules.decide(.MAYER_ABOVE, value: nil, threshold: 2.4, wasCrossed: true).crossed)

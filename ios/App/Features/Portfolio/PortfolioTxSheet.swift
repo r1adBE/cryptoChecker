@@ -69,6 +69,8 @@ struct PortfolioTxSheet: View {
     @State private var askDiscard = false
     /// Speichern fehlgeschlagen: Meldung, Blatt bleibt offen mit den Eingaben (wie Android).
     @State var saveFailed = false
+    /// Löschen nicht geschrieben (gesperrte Datei): Blatt bleibt offen, Hinweis statt still geschlossen.
+    @State private var deleteFailed = false
     @FocusState var focusedField: PortfolioTxField?
 
     enum PortfolioTxField: Hashable {
@@ -351,12 +353,14 @@ struct PortfolioTxSheet: View {
         }
         .alert(L("portfolio_tx_delete_title"), isPresented: $askDelete) {
             Button(L("action_delete"), role: .destructive) {
-                data.deletePortfolioTx(initial.txId)
-                dismiss()
+                if data.deletePortfolioTx(initial.txId) { dismiss() } else { deleteFailed = true }
             }
             Button(L("action_cancel"), role: .cancel) {}
         } message: {
             Text(L("portfolio_tx_delete_confirm"))
+        }
+        .alert(L("portfolio_storage_kept_in_memory"), isPresented: $deleteFailed) {
+            Button(L("action_close"), role: .cancel) {}
         }
     }
 

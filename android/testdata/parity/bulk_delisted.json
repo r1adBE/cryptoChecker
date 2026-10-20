@@ -1,5 +1,5 @@
 {
-  "description": "Nicht mehr gehandelte Paare aus der gefilterten Sammelabfrage heraushalten (Binance verwirft symbols=[…] mit einem delisteten Symbol ganz) — BulkDelisted in PriceFetcher.kt / PriceFetcher.swift. recheckMillis = 6 h. state null = kein Stand (z. B. nach Prozess-Start); sind dann alle Paare schon «nicht mehr gehandelt», Neuprüfung mit allen (sonst entstünde nie ein Stand).",
+  "description": "Nicht mehr gehandelte Paare aus der gefilterten Sammelabfrage heraushalten (Binance verwirft symbols=[…] mit einem delisteten Symbol ganz) — BulkDelisted.kt / BulkDelisted.swift. recheckMillis = 6 h. state null = kein Stand (Erstinstallation; der Stand wird gespeichert, codec); sind dann alle Paare schon «nicht mehr gehandelt», Neuprüfung mit allen (sonst entstünde nie ein Stand).",
   "recheckMillis": 21600000,
   "plan": [
     {"name": "no state: everything except stored not-traded pairs, no recheck", "state": null, "pairIds": ["BTCUSDT", "ETHUSDT", "OLDUSDT"], "notTraded": ["OLDUSDT"], "now": 1000000, "request": ["BTCUSDT", "ETHUSDT"], "recheck": false},
@@ -20,5 +20,14 @@
     {"name": "excluded pair stays known while watched", "state": {"delisted": ["GONEUSDT", "REMOVEDUSDT"], "recheckedAt": 1000}, "plan": {"all": ["BTCUSDT", "GONEUSDT"], "request": ["BTCUSDT"], "recheck": false}, "tickers": ["BTCUSDT"], "failed": [], "complete": true, "now": 2000, "delisted": ["GONEUSDT"], "recheckedAt": 1000},
     {"name": "Alpha request failed, Spot ok: missing Spot pair learned, Alpha pairs not", "state": null, "plan": {"all": ["BTCUSDT", "GONEUSDT", "ALPHA_175USDT"], "request": ["BTCUSDT", "GONEUSDT", "ALPHA_175USDT"], "recheck": false}, "tickers": ["BTCUSDT"], "failed": [], "incomplete": ["ALPHA_175USDT"], "complete": true, "now": 1000, "delisted": ["GONEUSDT"], "recheckedAt": 1000},
     {"name": "recheck without state (all marked): relisted pair priced, the other learned", "state": null, "plan": {"all": ["OLDUSDT", "NEWUSDT"], "request": ["OLDUSDT", "NEWUSDT"], "recheck": true}, "tickers": ["NEWUSDT", "BTCUSDT"], "failed": [], "complete": true, "now": 1000000, "delisted": ["OLDUSDT"], "recheckedAt": 1000000}
+  ],
+  "codec": [
+    {"name": "two markets, sorted, pairs sorted", "states": {"Kraken": {"delisted": [], "recheckedAt": 5}, "Binance": {"delisted": ["OLDUSDT", "GONEUSDT"], "recheckedAt": 1000000}}, "encoded": "Binance\t1000000\tGONEUSDT OLDUSDT\nKraken\t5\t"},
+    {"name": "pair with whitespace dropped", "states": {"Binance": {"delisted": ["BAD PAIR", "GONEUSDT"], "recheckedAt": 7}}, "encoded": "Binance\t7\tGONEUSDT"},
+    {"name": "empty", "states": {}, "encoded": ""}
+  ],
+  "decodeInvalid": [
+    {"name": "garbage lines dropped, valid kept", "text": "x\ny\tz\t\nBinance\t12\tGONEUSDT\n\tnokey\t\nKraken\tabc\tX", "states": {"Binance": {"delisted": ["GONEUSDT"], "recheckedAt": 12}}},
+    {"name": "null", "text": null, "states": {}}
   ]
 }

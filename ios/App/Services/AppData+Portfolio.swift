@@ -168,45 +168,34 @@ extension AppData {
         return clean
     }
 
-    func deletePortfolioTx(_ id: Int64) {
-        var file = currentPortfolioFile()
-        file.transactions.removeAll { $0.id == id }
-        setPortfolioFile(file)
+    /// - Returns: false, wenn nicht geschrieben (gesperrte Datei, ohne Schlüssel) — die Transaktion bleibt.
+    @discardableResult
+    func deletePortfolioTx(_ id: Int64) -> Bool {
+        PortfolioEdits.deleteTx(id, in: currentPortfolioFile(), write: { setPortfolioFile($0) })
     }
 
     /// Wischen auf einem Coin: alle seine Transaktionen (auch Tausche in diesen Coin) löschen und zurückgeben (für
-    /// «Rückgängig») — wie `PortfolioRepository.deleteCoin`.
+    /// «Rückgängig») — wie `PortfolioRepository.deleteCoin`. Leer, wenn nichts da ist oder nicht geschrieben wurde.
     @discardableResult
     func deletePortfolioCoin(_ coin: String) -> [PortfolioTx] {
-        let key = PortfolioCalculator.normalizeCoin(coin)
-        var file = currentPortfolioFile()
-        let involves: (PortfolioTx) -> Bool = { tx in tx.coins.contains { PortfolioCalculator.normalizeCoin($0) == key } }
-        let removed = file.transactions.filter(involves)
-        guard !removed.isEmpty else { return [] }
-        file.transactions.removeAll(where: involves)
-        setPortfolioFile(file)
-        return removed
+        PortfolioEdits.deleteCoin(coin, in: currentPortfolioFile(), write: { setPortfolioFile($0) })
     }
 
     /// «Rückgängig»: gelöschte Transaktionen mit ihren alten ids wieder anlegen — wie
     /// `PortfolioRepository.restore`. Die ids vergibt `nextId` nie doppelt.
-    func restorePortfolioTxs(_ transactions: [PortfolioTx]) {
-        guard !transactions.isEmpty else { return }
-        var file = currentPortfolioFile()
-        let ids = Set(transactions.map(\.id))
-        file.transactions.removeAll { ids.contains($0.id) }
-        file.transactions.append(contentsOf: transactions)
-        setPortfolioFile(file)
+    /// - Returns: false, wenn nicht geschrieben.
+    @discardableResult
+    func restorePortfolioTxs(_ transactions: [PortfolioTx]) -> Bool {
+        PortfolioEdits.restore(transactions, in: currentPortfolioFile(), write: { setPortfolioFile($0) })
     }
 
     /// «Portfolio leeren» (nach Rückfrage): alle Transaktionen löschen — wie
-    /// `PortfolioRepository.clearAll`.
-    func clearPortfolio() {
-        var file = currentPortfolioFile()
-        file.transactions.removeAll()
-        setPortfolioFile(file)
-        // Gemerkte Kurse nennen die gehaltenen Coins: mit dem Portfolio weg (wie Android)
-        PortfolioPriceSource.clearStored()
+    /// `PortfolioRepository.clearAll`. Gemerkte Kurse nennen die gehaltenen Coins: mit dem Portfolio weg (wie Android),
+    /// aber nur, wenn das Leeren geschrieben wurde. - Returns: false, wenn nicht geschrieben.
+    @discardableResult
+    func clearPortfolio() -> Bool {
+        PortfolioEdits.clear(in: currentPortfolioFile(), write: { setPortfolioFile($0) },
+                             afterSave: { PortfolioPriceSource.clearStored() })
     }
 
     /// Bestand eines Coins ohne die Transaktion `excludingId` (für die Verkaufs-Warnung).

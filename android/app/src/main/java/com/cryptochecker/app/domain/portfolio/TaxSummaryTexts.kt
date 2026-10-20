@@ -90,6 +90,13 @@ fun TaxSummaryTexts.wealthCoinNote(r: TaxWealthRow): String {
 }
 
 /**
+ * Karte: Hinweis unter einem vorhandenen Wert eines Coins (z. B. «unvollständig – Adresse nicht beobachtet»), damit ein
+ * Teilwert nicht wie ein vollständiger aussieht; ohne Wert steht [wealthCoinNote] an Stelle des Werts (null = kein Zusatz).
+ */
+fun TaxSummaryTexts.wealthCoinNoteBelowValue(r: TaxWealthRow, hasValue: Boolean): String? =
+    wealthCoinNote(r).takeIf { hasValue && it.isNotEmpty() }
+
+/**
  * Posten im Orientierungs-Block: [item] mit «%s» für [label]; ohne [item] «[fallback]: [label]» (leer = nur [label]).
  * Jeder Schluss nach den Regeln einer Vorlage steht so sichtbar als Orientierung da (CSV und Karte).
  */

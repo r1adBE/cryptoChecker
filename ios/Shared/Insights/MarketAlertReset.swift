@@ -34,5 +34,7 @@ enum MarketAlertReset {
     /// Gas-Alarm Ethereum (`eth`) bzw. Bitcoin aus: «aus» (0) merken — beim Wiedereinschalten ist er scharf.
     static func gasOff(eth: Bool, defaults: UserDefaults) {
         defaults.set(0.0, forKey: eth ? GasAlertCheck.keyEthThreshold : GasAlertCheck.keyBtcThreshold)
+        // Eine gerade laufende Prüfung schreibt danach nichts mehr zurück (`GasAlertCheck.mayStore`)
+        defaults.set(defaults.integer(forKey: GasAlertCheck.keyResetGeneration) &+ 1, forKey: GasAlertCheck.keyResetGeneration)
     }
 }

@@ -93,4 +93,25 @@ final class MarketAlertResetTests: XCTestCase {
         draft.thresholdText = ""
         XCTAssertFalse(draft.showsEnterAmountHint)
     }
+
+    /// Stand vor der gemerkten Grenze (nur «jenseits»): übernehmen, ohne doppelt zu melden, aber den Zustand schreiben —
+    /// samt Grenze. Danach meldet eine neue Grenze, obwohl der Wert jenseits bleibt. Wie Android `IndicatorAlertRulesTest`.
+    func testLegacyCrossedStateWithoutBoundPicksUpBound() {
+        let wasCrossed = IndicatorAlertRules.wasCrossed(storedCrossed: true, storedThreshold: nil, current: 240)
+        let run = IndicatorAlertRules.decide(.MAYER_ABOVE, value: 2.6, threshold: 2.4, wasCrossed: wasCrossed)
+        XCTAssertEqual(run, .init(notify: false, crossed: true))
+        let afterChange = IndicatorAlertRules.wasCrossed(storedCrossed: true, storedThreshold: 240, current: 200)
+        XCTAssertFalse(afterChange)
+        XCTAssertTrue(IndicatorAlertRules.decide(.MAYER_ABOVE, value: 2.6, threshold: 2.0, wasCrossed: afterChange).notify)
+    }
+
+    /// «Aus» während einer laufenden Gas-Prüfung: Die Prüfung schreibt danach ihren Stand nicht mehr (sonst kehrte die
+    /// alte Grenze zurück und das Wiedereinschalten mit derselben Grenze bliebe stumm). Wie Android (gemeinsame Sperre).
+    func testGasOffDuringRunningCheckBlocksItsWrite() {
+        let generation = defaults.integer(forKey: GasAlertCheck.keyResetGeneration)
+        XCTAssertTrue(GasAlertCheck.mayStore(generation: generation, defaults: defaults))
+        MarketAlertReset.gasOff(eth: true, defaults: defaults)
+        XCTAssertFalse(GasAlertCheck.mayStore(generation: generation, defaults: defaults))
+        XCTAssertEqual(defaults.object(forKey: GasAlertCheck.keyEthThreshold) as? Double, 0)
+    }
 }

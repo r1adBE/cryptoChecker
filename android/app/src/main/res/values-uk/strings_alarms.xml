@@ -186,5 +186,5 @@
     <string name="alarm_status_low_liquidity">Немає сигналу – низька ліквідність</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Очікування актуального курсу</string>
-    <string name="alarm_enter_amount">Введіть суму</string>
+    <string name="alarm_enter_amount">Введіть значення</string>
 </resources>

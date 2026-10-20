@@ -27,6 +27,7 @@ import com.cryptochecker.app.domain.portfolio.noteText
 import com.cryptochecker.app.domain.portfolio.taxOrientationLabel
 import com.cryptochecker.app.domain.portfolio.wealthCoinLabel
 import com.cryptochecker.app.domain.portfolio.wealthCoinNote
+import com.cryptochecker.app.domain.portfolio.wealthCoinNoteBelowValue
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.PriceFormat
 import java.math.BigDecimal
@@ -110,6 +111,15 @@ internal fun TaxSummaryCard(summary: TaxYearSummary?, texts: TaxSummaryTexts, me
                             v?.let { PriceFormat.valueWithCurrency(it.toDouble(), unit) } ?: texts.wealthCoinNote(r),
                             indent = true,
                         )
+                        // Teilwert: Wert und darunter «unvollständig – Grund» (wie die CSV)
+                        texts.wealthCoinNoteBelowValue(r, hasValue = v != null)?.let { note ->
+                            Text(
+                                note,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.padding(start = 12.dp),
+                            )
+                        }
                     }
                 }
             }

@@ -20,7 +20,6 @@ import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -31,9 +30,9 @@ import javax.inject.Singleton
 @Singleton
 class PriceFetcher @Inject constructor(
     private val marketRepository: MarketRepository,
+    /** Je Börse: nicht mehr gehandelte Paare der Sammelabfrage ([BulkDelisted]), dauerhaft gespeichert. */
+    private val delisted: BulkDelistedStore,
 ) {
-    /** Je Börse: nicht mehr gehandelte Paare der Sammelabfrage ([BulkDelisted]), prozessweit. */
-    private val delisted = ConcurrentHashMap<String, BulkDelisted.State>()
 
     /**
      * Holt die Kurse aller Paare einer Börse; Schlüssel ist die Watch-Id.
@@ -171,9 +170,12 @@ class PriceFetcher @Inject constructor(
             withinBudget(deadline, onTimeout = { cut = true; BulkTickers(error = CheckBudget.TIMEOUT_ERROR) }) {
                 marketRepository.getBulkTickers(market, plan.request)
             }.also { r ->
-                delisted[sample.marketKey] = BulkDelisted.learn(
-                    delisted[sample.marketKey], plan, r.tickers.keys, r.failed, r.complete, System.currentTimeMillis(),
-                    r.incomplete,
+                delisted.put(
+                    sample.marketKey,
+                    BulkDelisted.learn(
+                        delisted[sample.marketKey], plan, r.tickers.keys, r.failed, r.complete, System.currentTimeMillis(),
+                        r.incomplete,
+                    ),
                 )
             }
         }
@@ -258,58 +260,6 @@ class PriceFetcher @Inject constructor(
             FuturesContractType.QUARTERLY,
             FuturesContractType.BIQUARTERLY,
         )
-    }
-}
-
-/**
- * Nicht mehr gehandelte Paare aus der GEFILTERTEN Sammelabfrage heraushalten. Binance verwirft `symbols=[…]` mit
- * einem delisteten Symbol ganz (HTTP 400 «Invalid symbol») — dann lud jede Aktualisierung die ungefilterte Liste
- * (~2 MB). Welches Symbol, sagt Binance nicht: erkannt an der vollständigen Ersatzliste (angefragt, aber nicht
- * darin). Diese Paare und die schon als «nicht mehr gehandelt» gespeicherten ([NotTraded]) bleiben aus der Anfrage;
- * sie fehlen dann in der vollständigen Liste und laufen über die bestehende Logik. Alle [RECHECK_MILLIS] einmal
- * alle Paare (wieder gelistet?). Reines Kotlin, gespiegelt in `PriceFetcher.swift` (testdata/parity/bulk_delisted.json).
- */
-object BulkDelisted {
-    const val RECHECK_MILLIS = 6 * 60 * 60_000L
-
-    /** [delisted]: zuletzt in der vollständigen Liste fehlende Paare; [recheckedAt]: letzter Lauf mit allen Paaren. */
-    data class State(val delisted: Set<String>, val recheckedAt: Long)
-
-    /** [all]: beobachtete Paare; [request]: davon anzufragen; [recheck]: Lauf mit allen Paaren. */
-    data class Plan(val all: List<String>, val request: List<String>, val recheck: Boolean)
-
-    fun plan(state: State?, pairIds: List<String>, notTraded: Set<String>, now: Long): Plan {
-        // Ohne Stand (z. B. nach Prozess-Start) nicht gleich alles laden: die Frist läuft ab jetzt. Ausnahme: alle
-        // Paare schon «nicht mehr gehandelt» — ohne Abfrage entstünde nie ein Stand, die Neuprüfung käme nie.
-        val recheck = if (state == null) {
-            pairIds.isNotEmpty() && pairIds.all { it in notTraded }
-        } else {
-            now - state.recheckedAt !in 0 until RECHECK_MILLIS
-        }
-        if (recheck) return Plan(pairIds, pairIds, true)
-        val skip = state?.delisted.orEmpty() + notTraded
-        return Plan(pairIds, pairIds.filter { it !in skip }, false)
-    }
-
-    /**
-     * Stand nach der Abfrage; nur eine vollständige Liste ([complete]) sagt etwas über fehlende Paare — und nur über
-     * Paare, deren Teilabfrage geklappt hat ([incomplete]: z. B. Alpha gescheitert, Spot nicht).
-     */
-    fun learn(
-        state: State?,
-        plan: Plan,
-        tickers: Set<String>,
-        failed: Set<String>,
-        complete: Boolean,
-        now: Long,
-        incomplete: Set<String> = emptySet(),
-    ): State {
-        val base = state ?: State(emptySet(), now)
-        if (!complete) return base
-        val all = plan.all.toSet()
-        val kept = base.delisted.filter { it in all && it !in tickers && it !in plan.request }
-        val missing = plan.request.filter { it !in tickers && it !in failed && it !in incomplete }
-        return State((kept + missing).toSet(), if (plan.recheck) now else base.recheckedAt)
     }
 }
 

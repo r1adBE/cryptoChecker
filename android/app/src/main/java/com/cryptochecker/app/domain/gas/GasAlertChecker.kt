@@ -64,10 +64,9 @@ class GasAlertChecker @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val notifier: AppNotifier,
 ) {
-    private val mutex = Mutex()
     private val prefs by lazy { context.getSharedPreferences(PREFS, Context.MODE_PRIVATE) }
 
-    suspend fun checkIfDue() = mutex.withLock {
+    suspend fun checkIfDue() = lock.withLock {
         val settings = settingsRepository.current()
         val ethThreshold = settings.gasAlertEthTenths / 10.0
         val btcThreshold = settings.gasAlertBtc.toDouble()
@@ -137,6 +136,13 @@ class GasAlertChecker @Inject constructor(
     }
 
     internal companion object {
+        /**
+         * Sperre für Prüfung und Zurücksetzen ([com.cryptochecker.app.settings.MarketAlertReset.gasOff]): Eine laufende
+         * Prüfung schreibt am Ende die Grenze, mit der sie begann — ein «Aus» während des Abrufs ginge sonst verloren,
+         * und das Wiedereinschalten mit derselben Grenze bliebe stumm. Prozessweit (die Klasse ist ohnehin einmalig).
+         */
+        val lock = Mutex()
+
         /**
          * Fällig, wenn seit [lastCheck] mindestens [MIN_INTERVAL_MILLIS] vergangen sind. Liegt
          * [lastCheck] in der Zukunft (Uhr war vorgestellt und wurde zurückgestellt), gilt die Prüfung

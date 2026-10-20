@@ -168,5 +168,5 @@
     <string name="alarm_status_low_liquidity">알람 없음 – 유동성 낮음</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">최신 시세를 기다리는 중</string>
-    <string name="alarm_enter_amount">금액을 입력하세요</string>
+    <string name="alarm_enter_amount">값을 입력하세요</string>
 </resources>
