@@ -102,4 +102,9 @@
     <string name="asset_kind_alpha">Alphaトークン</string>
     <string name="asset_kind_token">トークン</string>
     <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">流動性が低い – アラームなし</string>
+    <string name="dex_low_liquidity_alarm_hint">このプールの流動性は 10,000 USD 未満です（または情報なし）。少額でも価格が動くため、ここではアラームを設定できません。既存のアラームは残りますが、流動性が再び上がるまで鳴りません。</string>
+
+    <string name="explorer_bulk_show_all">すべて表示（%1$d）</string>
 </resources>

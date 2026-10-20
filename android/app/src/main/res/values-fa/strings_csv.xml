@@ -75,4 +75,7 @@
     </plurals>
     <string name="portfolio_imports_empty">وارد کردنی نیست</string>
     <string name="portfolio_imports_title">وارد کردن‌ها</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">همان شناسه تراکنش با مبلغ متفاوت – دستی بررسی کنید</string>
+    <string name="portfolio_csv_skip_staking_unpaired">ثبت استیکینگ بدون ثبت مقابل – موجودی را بررسی کنید</string>
 </resources>

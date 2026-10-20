@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
-    <string name="portfolio_storage_in_memory">A titkosítás még nem aktív – a portfólió nincs mentve, a változások az app bezárásakor elvesznek. Az app a következő indításkor újra megpróbálja.</string>
-</resources>

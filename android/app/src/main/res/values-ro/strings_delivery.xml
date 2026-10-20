@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Ca alertele să ajungă</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">În regulă</string>
+    <string name="delivery_state_warn">Atenție</string>
+    <string name="delivery_state_info">Notă</string>
+    <string name="delivery_allowed">Permise</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Notificări</string>
+    <string name="delivery_notifications_off">Dezactivate – alertele nu ajung</string>
+    <string name="delivery_notifications_not_asked">Încă nepermise</string>
+    <string name="delivery_channel">Canal de alerte</string>
+    <string name="delivery_channel_high">Importanță ridicată – apare în partea de sus a ecranului</string>
+    <string name="delivery_channel_low">Importanță scăzută – alertele apar doar silențios în listă</string>
+    <string name="delivery_channel_off">Dezactivat – alertele nu ajung</string>
+    <string name="delivery_exact_on">Activat – cam la fiecare 15 minute</string>
+    <string name="delivery_exact_off">Dezactivat – Android verifică neregulat</string>
+    <string name="delivery_battery">Optimizarea bateriei</string>
+    <string name="delivery_battery_unrestricted">Nerestricționată</string>
+    <string name="delivery_battery_optimized">Optimizată – Android poate întârzia verificările. Aplicația nu cere o excepție; poți schimba asta în setările de baterie ale aplicației.</string>
+    <string name="delivery_background">Utilizare în fundal</string>
+    <string name="delivery_background_restricted">Restricționată – Android oprește verificările în fundal</string>
+    <string name="delivery_dnd">Nu deranja</string>
+    <string name="delivery_dnd_on">Activat – alertele pot sosi fără sunet</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Activă până la %1$s – alertele scadente așteaptă până atunci</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – alertele scadente așteaptă în acest interval</string>
+    <string name="delivery_last_check">Ultima verificare în fundal</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – acum mai bine de 6 ore</string>
+    <string name="delivery_last_check_never">Niciuna încă</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Permite</string>
+    <string name="delivery_action_change">Modifică</string>
+    <string name="delivery_action_show">Afișează</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Bannere și sunet</string>
+    <string name="delivery_alert_off">Bannere dezactivate – alertele apar doar în Centrul de notificări</string>
+    <string name="delivery_sound_off">Sunet dezactivat – alertele sosesc silențios</string>
+    <string name="delivery_time_sensitive">Notificări urgente</string>
+    <string name="delivery_time_sensitive_off">Dezactivate – un mod de concentrare poate reține alertele</string>
+    <string name="delivery_background_refresh">Reîmprospătare în fundal</string>
+    <string name="delivery_low_power">Mod Consum redus</string>
+    <string name="delivery_swipe_away">Ai închis aplicația glisând?</string>
+    <string name="delivery_swipe_away_note">Dacă închizi aplicația glisând în comutatorul de aplicații, iOS nu mai verifică în fundal până când o deschizi din nou.</string>
+    <string name="delivery_live_activity">Activitate live</string>
+    <string name="delivery_live_activity_note">Afișează cursul pe ecranul de blocare, dar se actualizează doar când aplicația verifică – alertele nu sunt verificate mai des din cauza asta.</string>
+
+    <string name="alarm_first_check">Verifică dacă alertele ajung</string>
+
+    <string name="oem_battery_title">Economisirea bateriei a producătorului</string>
+    <string name="oem_battery_xiaomi">Xiaomi poate opri complet aplicația – atunci nu mai sosesc alerte. Activați „Pornire automată” și setați economisirea bateriei la „Fără restricții”.</string>
+    <string name="oem_battery_samsung">Samsung poate pune aplicația în somn profund – atunci nu mai sosesc alerte. În Baterie › Limite de utilizare în fundal, adăugați-o la „Aplicații care nu intră niciodată în repaus”.</string>
+    <string name="oem_battery_huawei">Huawei/Honor poate opri aplicația – atunci nu mai sosesc alerte. În Baterie › Lansare aplicații, alegeți „Gestionare manuală” și permiteți tot.</string>
+    <string name="oem_battery_oneplus">OnePlus poate opri aplicația – atunci nu mai sosesc alerte. Permiteți „Lansare automată” și, la Utilizarea bateriei, activitatea în fundal.</string>
+    <string name="oem_battery_oppo">Oppo/Realme poate opri aplicația – atunci nu mai sosesc alerte. Permiteți „Lansare automată” și, la Utilizarea bateriei, activitatea în fundal.</string>
+    <string name="oem_battery_vivo">Vivo poate opri aplicația – atunci nu mai sosesc alerte. Permiteți „Pornire automată” și, la Baterie, consumul ridicat în fundal.</string>
+</resources>

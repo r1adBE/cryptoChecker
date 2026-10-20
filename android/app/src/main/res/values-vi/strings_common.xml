@@ -43,4 +43,6 @@
     <string name="shortcut_add">Thêm cặp</string>
     <string name="shortcut_alarms">Tất cả cảnh báo</string>
     <string name="shortcut_cycle">Thị trường</string>
+
+    <string name="log_box_title">Nhật ký</string>
 </resources>

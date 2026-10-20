@@ -167,4 +167,11 @@
     <string name="alarm_a11y_speak_on">Puhe päällä</string>
     <string name="alarm_unchecked_no_candles">Ei voitu tarkistaa (ei kynttilädataa)</string>
     <string name="alarm_unchecked_no_rate">Ei voitu tarkistaa (ei valuuttakurssia)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Ilmoitukset pois – tämä hälytys ei tavoita sinua</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Ei hälytystä – vähäinen likviditeetti</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Odottaa ajantasaista kurssia</string>
 </resources>

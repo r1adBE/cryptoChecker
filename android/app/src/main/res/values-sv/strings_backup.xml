@@ -56,4 +56,32 @@
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">Den här enheten saknar nyckeln till appens krypterade data, så appen startade tom. Inget har raderats. Få tillbaka din lista och portfölj genom att importera en säkerhetskopia under ”%1$s” i inställningarna.</string>
     <string name="storage_recovery_title">Sparade data kunde inte låsas upp</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">Inte tillräckligt med ledigt minne för att skydda eller öppna säkerhetskopian med lösenord. Stäng andra appar och försök igen.</string>
+
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Återställ säkerhetskopia</string>
+    <string name="storage_recovery_acknowledge">Uppfattat</string>
+    <string name="storage_recovery_restored_title">Sparade data är upplåsta igen</string>
+    <string name="storage_recovery_restored_message">En tidigare nyckel på den här enheten öppnade de undanlagda uppgifterna igen, så de är tillbaka. Det som sparats under tiden ligger kvar oförändrat bredvid.</string>
+    <string name="backup_restore_interrupted_title">Återställningen avbröts</string>
+    <string name="backup_restore_interrupted_rolled_back">Appen stängdes medan en säkerhetskopia återställdes. Dina tidigare uppgifter har lagts tillbaka; inget från säkerhetskopian behölls.</string>
+    <string name="backup_restore_interrupted_incomplete">Appen stängdes medan en säkerhetskopia återställdes, och de tidigare uppgifterna kunde inte läggas tillbaka helt. Kontrollera bevakningslistan och portföljen, eller återställ säkerhetskopian igen under ”%1$s” i Inställningar.</string>
+    <string name="backup_not_verified">Säkerhetskopiefilen kunde inte bekräftas efter sparandet – den läses tillbaka annorlunda. Spara säkerhetskopian i en ny fil.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">Portföljen återställdes inte från systemsäkerhetskopian</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Portföljkopian från Androids systemsäkerhetskopia kunde inte läsas, inte ens vid andra försöket, och har raderats. Har du en säkerhetskopiefil återställer du den under ”%1$s” i Inställningar.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">Den sparade portföljen kan inte låsas upp just nu och visas inte – den är tillbaka när appen startas om. Ändringar du gör nu sparas inte.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">Den sparade bevakningslistan kan inte låsas upp just nu och visas inte – den är tillbaka när appen startas om. Ändringar du gör nu sparas inte.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">Säkerhetskopiering går inte just nu: sparade data kan inte låsas upp för tillfället. Starta om appen och försök igen.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">Krypteringen är inte aktiv än – portföljen sparas inte, och ändringar försvinner när appen stängs. Appen försöker igen vid nästa start.</string>
 </resources>

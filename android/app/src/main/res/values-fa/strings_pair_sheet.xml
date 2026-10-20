@@ -92,4 +92,10 @@
     <!-- Umrechnung und Sats -->
     <string name="converted_fx_stale">%1$s · نرخ %2$s</string>
     <string name="sats_per_unit">%1$s %2$s = %3$s ساتوشی</string>
+
+    <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
+    <string name="ticker_wide_spread">فاصله زیاد بین قیمت خرید و فروش (%1$s%%)</string>
+
+    <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
+    <string name="sheet_chart_usdt_today_rate">روند به %1$s، با نرخ امروز به %2$s تبدیل شده</string>
 </resources>

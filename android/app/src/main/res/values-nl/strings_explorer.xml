@@ -110,4 +110,9 @@
     <string name="asset_kind_alpha">Alpha-token</string>
     <string name="asset_kind_token">Token</string>
     <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Lage liquiditeit – geen alarm</string>
+    <string name="dex_low_liquidity_alarm_hint">Deze pool heeft minder dan 10.000 USD liquiditeit (of geen opgave). Kleine bedragen bewegen de koers al, daarom kun je hier geen alarmen instellen. Bestaande alarmen blijven, maar gaan pas weer af als de liquiditeit stijgt.</string>
+
+    <string name="explorer_bulk_show_all">Alles tonen (%1$d)</string>
 </resources>

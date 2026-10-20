@@ -38,4 +38,8 @@
     <string name="address_unsupported">Ky lloj adrese nuk mbështetet</string>
     <string name="address_wrong_chain">Adresa i përket një rrjeti tjetër</string>
     <string name="address_xpub_multisig">Çelësat multisig (Ypub/Zpub) nuk mbështeten</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Llogari Taproot (BIP86): nga ky çelës derivohen adresa bc1p…, për marrje dhe kusur.</string>
+    <string name="portfolio_address_taproot_hint">Wallet Taproot? Ngjit në vend të tij përshkruesin tr(…) nga wallet-i yt – një xpub i thjeshtë kërkohet vetëm si adresa Legacy dhe SegWit.</string>
 </resources>

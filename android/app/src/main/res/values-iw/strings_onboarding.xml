@@ -17,4 +17,6 @@
     <string name="starter_select_none">בטל בחירה</string>
     <string name="starter_title">התחילו עם המטבעות האלה</string>
     <string name="starter_watch_alarm_hint">עקוב אחרי המחיר והגדר התראה</string>
+
+    <string name="starter_source_text">מחירים מ-%1$s ב-%2$s. בטלו את הבחירה במה שלא תרצו והוסיפו את השאר בבת אחת. אפשר לשנות בורסה וצמד לכל מטבע.</string>
 </resources>

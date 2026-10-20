@@ -125,4 +125,7 @@
     <string name="battery_title">Udržovat ceny aktuální</string>
     <string name="ios_background_refresh_off">Aktualizace na pozadí je pro aplikaci vypnutá. Bez ní se alarmy kontrolují jen při otevřené aplikaci.</string>
     <string name="ios_low_power_mode">Úsporný režim je zapnutý. iOS na pozadí kontroluje jen zřídka, alarmy se mohou zpozdit.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Zpráva burzy: %1$s</string>
 </resources>

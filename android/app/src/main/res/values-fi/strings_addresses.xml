@@ -38,4 +38,8 @@
     <string name="address_unsupported">Tätä osoitetyyppiä ei tueta</string>
     <string name="address_wrong_chain">Osoite kuuluu toiseen verkkoon</string>
     <string name="address_xpub_multisig">Multisig-avaimia (Ypub/Zpub) ei tueta</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot-tili (BIP86): tästä avaimesta johdetaan bc1p…-osoitteet vastaanottoon ja vaihtorahaan.</string>
+    <string name="portfolio_address_taproot_hint">Taproot-lompakko? Liitä sen sijaan lompakkosi kuvaaja tr(…) – pelkästä xpubista haetaan vain Legacy- ja SegWit-osoitteita.</string>
 </resources>

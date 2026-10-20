@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
-    <string name="portfolio_storage_in_memory">Crittografia non ancora attiva: il portafoglio non viene salvato e le modifiche vanno perse alla chiusura dell\'app. L\'app riproverà al prossimo avvio.</string>
-</resources>

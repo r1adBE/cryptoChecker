@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
-    <string name="tax_export_day_close_rule">Markkina-arvot ilman kirjattua hintaa (kulut, lahjoitettu/maksettu, vaihto, palkkiot, verkkomaksut, salkun arvo) tapahtumapäivän päätöskurssiin (UTC)</string>
-</resources>

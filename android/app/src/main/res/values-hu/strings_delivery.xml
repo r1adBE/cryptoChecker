@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Hogy a riasztások megérkezzenek</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Rendben</string>
+    <string name="delivery_state_warn">Figyelem</string>
+    <string name="delivery_state_info">Megjegyzés</string>
+    <string name="delivery_allowed">Engedélyezve</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Értesítések</string>
+    <string name="delivery_notifications_off">Kikapcsolva – a riasztások nem érkeznek meg</string>
+    <string name="delivery_notifications_not_asked">Még nincs engedélyezve</string>
+    <string name="delivery_channel">Riasztási csatorna</string>
+    <string name="delivery_channel_high">Magas fontosság – a képernyő tetején jelenik meg</string>
+    <string name="delivery_channel_low">Alacsony fontosság – a riasztások csak csendben jelennek meg a listában</string>
+    <string name="delivery_channel_off">Kikapcsolva – a riasztások nem érkeznek meg</string>
+    <string name="delivery_exact_on">Bekapcsolva – nagyjából 15 percenként</string>
+    <string name="delivery_exact_off">Kikapcsolva – az Android rendszertelenül ellenőriz</string>
+    <string name="delivery_battery">Akkumulátor-optimalizálás</string>
+    <string name="delivery_battery_unrestricted">Nincs korlátozva</string>
+    <string name="delivery_battery_optimized">Optimalizált – az Android késleltetheti az ellenőrzéseket. Az app nem kér kivételt; ezt az app akkumulátor-beállításaiban módosíthatod.</string>
+    <string name="delivery_background">Háttérhasználat</string>
+    <string name="delivery_background_restricted">Korlátozott – az Android leállítja a háttérellenőrzéseket</string>
+    <string name="delivery_dnd">Ne zavarjanak</string>
+    <string name="delivery_dnd_on">Bekapcsolva – a riasztások hang nélkül érkezhetnek</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Aktív eddig: %1$s – az esedékes riasztások addig várnak</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – az esedékes riasztások ebben az időben várnak</string>
+    <string name="delivery_last_check">Utolsó háttérellenőrzés</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – több mint 6 órája</string>
+    <string name="delivery_last_check_never">Még egy sem</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Engedélyezés</string>
+    <string name="delivery_action_change">Módosítás</string>
+    <string name="delivery_action_show">Megjelenítés</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Szalagértesítések és hang</string>
+    <string name="delivery_alert_off">Szalagértesítések kikapcsolva – a riasztások csak az Értesítési központban jelennek meg</string>
+    <string name="delivery_sound_off">Hang kikapcsolva – a riasztások némán érkeznek</string>
+    <string name="delivery_time_sensitive">Időérzékeny értesítések</string>
+    <string name="delivery_time_sensitive_off">Kikapcsolva – egy Fókusz visszatarthatja a riasztásokat</string>
+    <string name="delivery_background_refresh">Háttérben frissítés</string>
+    <string name="delivery_low_power">Alacsony fogyasztású mód</string>
+    <string name="delivery_swipe_away">Elhúztad az appot?</string>
+    <string name="delivery_swipe_away_note">Ha az appváltóban elhúzod az appot, az iOS nem ellenőriz többé a háttérben, amíg újra meg nem nyitod.</string>
+    <string name="delivery_live_activity">Élő tevékenység</string>
+    <string name="delivery_live_activity_note">Megjeleníti az árfolyamot a zárolási képernyőn, de csak akkor frissül, amikor az app ellenőriz – ettől a riasztásokat nem ellenőrzi gyakrabban.</string>
+
+    <string name="alarm_first_check">Ellenőrzés, hogy megérkeznek-e a riasztások</string>
+
+    <string name="oem_battery_title">A gyártó akkukímélője</string>
+    <string name="oem_battery_xiaomi">A Xiaomi teljesen leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Kapcsolja be az „Automatikus indítás” opciót, és az akkukímélőt állítsa „Nincs korlátozás” értékre.</string>
+    <string name="oem_battery_samsung">A Samsung mély alvásba teheti az alkalmazást – ekkor nem érkezik riasztás. Az Akkumulátor › Háttérhasználati korlátok alatt adja hozzá a „Soha nem alvó alkalmazások” listához.</string>
+    <string name="oem_battery_huawei">A Huawei/Honor leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Az Akkumulátor › Alkalmazásindítás alatt válassza a „Kézi kezelés” lehetőséget, és engedélyezzen mindent.</string>
+    <string name="oem_battery_oneplus">A OnePlus leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Engedélyezze az „Automatikus indítás” opciót és az Akkuhasználatnál a háttértevékenységet.</string>
+    <string name="oem_battery_oppo">Az Oppo/Realme leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Engedélyezze az „Automatikus indítás” opciót és az Akkuhasználatnál a háttértevékenységet.</string>
+    <string name="oem_battery_vivo">A Vivo leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Engedélyezze az „Automatikus indítás” opciót és az Akkumulátornál a magas háttérfogyasztást.</string>
+</resources>

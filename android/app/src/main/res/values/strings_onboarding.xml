@@ -17,4 +17,7 @@
     <string name="starter_select_none">Select none</string>
     <string name="starter_title">Start with these coins</string>
     <string name="starter_watch_alarm_hint">Watch the price, set an alert</string>
+
+    <!-- Start-Auswahl: Börse und Quote der Startpaare (Binance, bei Standort-Sperre Binance.US), z. B. «Kurse von Binance in USDT. …» -->
+    <string name="starter_source_text">Prices from %1$s in %2$s. Deselect what you don\'t want and add the rest in one go. You can change the exchange and pair for each coin.</string>
 </resources>

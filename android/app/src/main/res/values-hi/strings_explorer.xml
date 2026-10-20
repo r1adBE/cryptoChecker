@@ -110,4 +110,9 @@
     <string name="asset_kind_alpha">Alpha टोकन</string>
     <string name="asset_kind_token">टोकन</string>
     <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">कम तरलता – कोई अलार्म नहीं</string>
+    <string name="dex_low_liquidity_alarm_hint">इस पूल में 10,000 USD से कम तरलता है (या कोई जानकारी नहीं)। छोटी रकम भी इसकी कीमत हिला सकती है, इसलिए यहाँ अलार्म नहीं लगाए जा सकते। मौजूदा अलार्म बने रहते हैं, लेकिन तरलता फिर से बढ़ने तक नहीं बजेंगे।</string>
+
+    <string name="explorer_bulk_show_all">सभी दिखाएँ (%1$d)</string>
 </resources>

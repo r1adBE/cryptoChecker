@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">确保提醒送达</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">正常</string>
+    <string name="delivery_state_warn">注意</string>
+    <string name="delivery_state_info">提示</string>
+    <string name="delivery_allowed">已允许</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">通知</string>
+    <string name="delivery_notifications_off">已关闭 – 提醒无法送达</string>
+    <string name="delivery_notifications_not_asked">尚未允许</string>
+    <string name="delivery_channel">提醒渠道</string>
+    <string name="delivery_channel_high">重要性高 – 会在屏幕顶部弹出</string>
+    <string name="delivery_channel_low">重要性低 – 提醒只会静默出现在列表中</string>
+    <string name="delivery_channel_off">已关闭 – 提醒无法送达</string>
+    <string name="delivery_exact_on">开启 – 约每 15 分钟</string>
+    <string name="delivery_exact_off">关闭 – Android 不定期检查</string>
+    <string name="delivery_battery">电池优化</string>
+    <string name="delivery_battery_unrestricted">不受限制</string>
+    <string name="delivery_battery_optimized">已优化 – Android 可能推迟检查。应用不会申请例外；你可以在应用的电池设置中更改。</string>
+    <string name="delivery_background">后台使用</string>
+    <string name="delivery_background_restricted">受限 – Android 会停止后台检查</string>
+    <string name="delivery_dnd">勿扰</string>
+    <string name="delivery_dnd_on">开启 – 提醒可能没有声音</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">生效至 %1$s – 已触发的提醒会等到那时</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – 已触发的提醒在此期间等待</string>
+    <string name="delivery_last_check">最近一次后台检查</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – 超过 6 小时前</string>
+    <string name="delivery_last_check_never">暂无</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">允许</string>
+    <string name="delivery_action_change">更改</string>
+    <string name="delivery_action_show">查看</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">横幅和声音</string>
+    <string name="delivery_alert_off">横幅已关闭 – 提醒只出现在通知中心</string>
+    <string name="delivery_sound_off">声音已关闭 – 提醒静音送达</string>
+    <string name="delivery_time_sensitive">时效性通知</string>
+    <string name="delivery_time_sensitive_off">已关闭 – 专注模式可能会暂缓提醒</string>
+    <string name="delivery_background_refresh">后台 App 刷新</string>
+    <string name="delivery_low_power">低电量模式</string>
+    <string name="delivery_swipe_away">是否已划掉应用？</string>
+    <string name="delivery_swipe_away_note">如果在 App 切换器中划掉应用，iOS 会停止后台检查，直到你再次打开它。</string>
+    <string name="delivery_live_activity">实时活动</string>
+    <string name="delivery_live_activity_note">在锁定屏幕上显示价格，但只在应用检查时更新 – 并不会让提醒检查得更频繁。</string>
+
+    <string name="alarm_first_check">检查提醒能否送达</string>
+
+    <string name="oem_battery_title">厂商省电设置</string>
+    <string name="oem_battery_xiaomi">小米可能会彻底停止应用，此时不会收到任何提醒。请开启「自启动」，并将省电策略设为「无限制」。</string>
+    <string name="oem_battery_samsung">三星可能会让应用深度休眠，此时不会收到任何提醒。请在 电池 › 后台使用限制 中将其加入「从不休眠的应用」。</string>
+    <string name="oem_battery_huawei">华为/荣耀可能会停止应用，此时不会收到任何提醒。请在 电池 › 应用启动管理 中选择「手动管理」并全部允许。</string>
+    <string name="oem_battery_oneplus">一加可能会停止应用，此时不会收到任何提醒。请允许「自动启动」，并在 耗电管理 中允许后台活动。</string>
+    <string name="oem_battery_oppo">OPPO/realme 可能会停止应用，此时不会收到任何提醒。请允许「自动启动」，并在 耗电管理 中允许后台活动。</string>
+    <string name="oem_battery_vivo">vivo 可能会停止应用，此时不会收到任何提醒。请允许「自启动」，并在 电池 中允许后台高耗电。</string>
+</resources>

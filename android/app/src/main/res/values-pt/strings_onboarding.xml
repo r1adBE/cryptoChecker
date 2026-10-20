@@ -17,4 +17,6 @@
     <string name="starter_select_none">Desmarcar tudo</string>
     <string name="starter_title">Comece com estas moedas</string>
     <string name="starter_watch_alarm_hint">Acompanhe o preço, defina um alarme</string>
+
+    <string name="starter_source_text">Preços da %1$s em %2$s. Desmarque o que não quiser e adicione o resto de uma só vez. Pode alterar a exchange e o par de cada moeda.</string>
 </resources>

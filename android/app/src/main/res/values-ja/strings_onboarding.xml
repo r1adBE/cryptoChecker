@@ -17,4 +17,6 @@
     <string name="starter_select_none">選択を解除</string>
     <string name="starter_title">まずはこれらのコインから</string>
     <string name="starter_watch_alarm_hint">価格をウォッチしてアラームを設定</string>
+
+    <string name="starter_source_text">%1$s の価格（%2$s 建て）。不要なものは選択を外し、残りをまとめて追加できます。取引所とペアはコインごとに変更できます。</string>
 </resources>

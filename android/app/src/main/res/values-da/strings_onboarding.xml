@@ -17,4 +17,6 @@
     <string name="starter_select_none">Fravælg alle</string>
     <string name="starter_title">Start med disse mønter</string>
     <string name="starter_watch_alarm_hint">Følg kursen, sæt en alarm</string>
+
+    <string name="starter_source_text">Kurser fra %1$s i %2$s. Fravælg det, du ikke vil have, og tilføj resten på én gang. Du kan ændre børs og par for hver coin.</string>
 </resources>

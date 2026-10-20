@@ -269,4 +269,48 @@
         <item quantity="many">Bez %1$d mince bez nákupní ceny (%2$s) – doplňte ceny, aby se započítaly.</item>
         <item quantity="other">Bez %1$d mincí bez nákupní ceny (%2$s) – doplňte ceny, aby se započítaly.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Propad USDT – trh na %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Dolarový kurz USDT přes USDC/USDT – když USDC klesne, tato hodnota nesedí</string>
+    <string name="portfolio_amount_bridged_stable">≈ vč. %1$s (přemostěno)</string>
+
+    <string name="portfolio_tx_interest">Úrok (půjčování)</string>
+    <string name="portfolio_tx_interest_hint">Počítá se jako příjem při připsání (Rakousko). U odměn ze stakingu a airdropů nech vypnuté.</string>
+    <string name="app_lock_no_screen_lock">Pro otevření portfolia nastav zámek obrazovky.</string>
+    <string name="app_lock_turn_off_action">Vypnout zámek portfolia</string>
+    <string name="app_lock_turn_off_confirm_title">Vypnout zámek portfolia?</string>
+    <string name="app_lock_turn_off_confirm_message">Bez zámku obrazovky nelze portfolio odemknout. Po vypnutí aplikace zobrazí portfolio opět bez dotazu. Až nastavíš zámek obrazovky, můžeš zámek znovu zapnout v Nastavení.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">„Od nákupu“ a pořizovací cena v %1$s: pořizovací cena podle kurzu dne nákupu, hodnota podle dnešního kurzu.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Chybí měnový kurz pro den nákupu (chybí v „Od nákupu“ a pořizovací ceně): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Pořizovací cena ve dnech nákupu bez dolarového kurzu USDT počítána jako 1 americký dolar za USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Stav k %1$s – burza je nedostupná</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Denní ceny: %1$s (místo Binance)</string>
+
+    <string name="portfolio_footer_short">Pracovní pomůcka, nejde o daňové ani investiční poradenství. Ochrana údajů: Nastavení › O aplikaci › Zásady ochrany osobních údajů.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Smazat všechny transakce %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">Odstraní se %d transakce. Hned poté to můžete vrátit zpět.</item>
+        <item quantity="few">Odstraní se %d transakce. Hned poté to můžete vrátit zpět.</item>
+        <item quantity="many">Odstraní se %d transakce. Hned poté to můžete vrátit zpět.</item>
+        <item quantity="other">Odstraní se %d transakcí. Hned poté to můžete vrátit zpět.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s odebráno z portfolia (%2$d transakce)</item>
+        <item quantity="few">%1$s odebráno z portfolia (%2$d transakce)</item>
+        <item quantity="many">%1$s odebráno z portfolia (%2$d transakce)</item>
+        <item quantity="other">%1$s odebráno z portfolia (%2$d transakcí)</item>
+    </plurals>
 </resources>

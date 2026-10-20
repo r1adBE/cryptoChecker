@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="starter_source_text">Τιμές από %1$s σε %2$s. Αποεπιλέξτε ό,τι δεν θέλετε και προσθέστε τα υπόλοιπα με μία κίνηση. Μπορείτε να αλλάξετε ανταλλακτήριο και ζεύγος για κάθε νόμισμα.</string>
-    <string name="watchlist_row_exchange_paused">%1$s · σε παύση έως %2$s</string>
-</resources>

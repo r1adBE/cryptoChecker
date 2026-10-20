@@ -31,8 +31,6 @@
     <string name="market_plain_standout_quiet">अभी कोई एक कॉइन ख़ास तौर पर अलग नहीं दिख रहा।</string>
     <string name="market_plain_standout_volume">%1$s सबसे अलग है: सामान्य से लगभग %2$s गुना ज़्यादा ट्रेडिंग।</string>
     <string name="market_plain_title">संक्षेप में</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · कल %2$s</string>
     <string name="market_section_collapse">%1$s छिपाएँ</string>
     <string name="market_section_context">भावना और चक्र</string>
     <string name="market_section_data">बाज़ार डेटा</string>
@@ -250,4 +248,22 @@
         <item quantity="other">केवल %1$d दिन का इतिहास – कुछ संकेतक नहीं हैं।</item>
     </plurals>
     <string name="coin_title">कॉइन विश्लेषण</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">डेटा: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">24 घंटे के विजेता और पिछड़े</string>
+    <string name="movers_gainers">विजेता</string>
+    <string name="movers_losers">पिछड़े</string>
+    <string name="movers_no_gainers">24 घंटे में कोई कॉइन नहीं बढ़ा</string>
+    <string name="movers_no_losers">24 घंटे में कोई कॉइन नहीं गिरा</string>
+    <string name="movers_source">CoinGecko, 24 घंटे, स्टेबलकॉइन के बिना शीर्ष 100</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">सभी दिखाएँ</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">कम दिखाएँ</string>
 </resources>

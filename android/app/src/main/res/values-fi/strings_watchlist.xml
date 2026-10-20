@@ -9,7 +9,6 @@
     </plurals>
     <string name="watchlist_last_run">Viimeisin ajo %1$s</string>
     <string name="watchlist_live_a11y">Live-hinnat käytössä</string>
-    <string name="watchlist_live_badge">SUORA</string>
     <string name="watchlist_offline_since">Ei yhteyttä · tilanne %1$s</string>
     <string name="watchlist_pull_to_refresh">Päivitä vetämällä alas</string>
     <string name="watchlist_refresh_report">Viimeisin päivitys</string>
@@ -190,4 +189,30 @@
     <string name="sort_move_down">Alas</string>
     <string name="sort_move_top">Ylimmäksi</string>
     <string name="sort_move_up">Ylös</string>
+
+    <string name="watchlist_first_alarm_title">Aseta ensimmäinen hälytys</string>
+    <string name="watchlist_first_alarm_text">Saat ilmoituksen, kun kurssi saavuttaa rajasi – kun sovellus on suljettu, Android tarkistaa epäsäännöllisesti.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark-hinta (ei keskikurssia)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">tuntihinta</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Aseta ensimmäinen hälytys – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Päivitä (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · tauolla klo %2$s asti</string>
+
+    <string name="watchlist_refresh_just_done">Juuri päivitetty · %1$d s sitten</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">viimeisin kauppa %1$s</string>
+
+    <string name="change_candle_source_hint">Laskettu %1$s-kynttilöistä – pörssi ei itse anna tätä arvoa.</string>
+    <string name="change_candle_source_action">Näytä muutoksen lähde</string>
+
+    <string name="watchlist_sort_by_coin">Järjestä kolikon mukaan</string>
+    <string name="watchlist_sort_by_exchange">Järjestä pörssin mukaan</string>
 </resources>

@@ -10,7 +10,6 @@
     </plurals>
     <string name="watchlist_last_run">Ultima rulare %1$s</string>
     <string name="watchlist_live_a11y">Prețuri live active</string>
-    <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_offline_since">Fără conexiune · stare %1$s</string>
     <string name="watchlist_pull_to_refresh">Trage în jos pentru actualizare</string>
     <string name="watchlist_refresh_report">Ultima actualizare</string>
@@ -202,4 +201,30 @@
     <string name="sort_move_down">Mută în jos</string>
     <string name="sort_move_top">Sus de tot</string>
     <string name="sort_move_up">Mută în sus</string>
+
+    <string name="watchlist_first_alarm_title">Setează prima alarmă</string>
+    <string name="watchlist_first_alarm_text">Primești o notificare când un preț atinge pragul tău – cu aplicația închisă, Android verifică neregulat.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">preț mark (fără preț mediu)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">preț orar</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Setează prima alarmă – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Actualizează (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · în pauză până la %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Abia actualizat · acum %1$d s</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">ultima tranzacție %1$s</string>
+
+    <string name="change_candle_source_hint">Calculat din lumânările %1$s – bursa nu oferă ea însăși această valoare.</string>
+    <string name="change_candle_source_action">Arată sursa variației</string>
+
+    <string name="watchlist_sort_by_coin">Sortează după monedă</string>
+    <string name="watchlist_sort_by_exchange">Sortează după bursă</string>
 </resources>

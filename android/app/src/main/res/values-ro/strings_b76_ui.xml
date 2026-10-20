@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="explorer_bulk_show_all">Arată tot (%1$d)</string>
-    <string name="log_box_title">Jurnal</string>
-    <string name="watchlist_first_alarm_title">Setează prima alarmă</string>
-    <string name="watchlist_first_alarm_text">Primești o notificare când un preț atinge pragul tău – cu aplicația închisă, Android verifică neregulat.</string>
-</resources>

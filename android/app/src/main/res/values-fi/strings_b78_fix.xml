@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
-    <string name="tax_line_at_interest_old">Lainauksen korot ennen 1.3.2022 (arvo vastaanotettaessa)</string>
-    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
-    <string name="tax_summary_at_interest_old_law">Korot ennen 1.3.2022: vanha sääntely (veroasteikko), ei 27,5 prosenttia</string>
-    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
-    <string name="tax_export_at_income_before_new_law">ennen 1.3.2022 – tarkista asiantuntijan kanssa</string>
-</resources>

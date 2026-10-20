@@ -68,4 +68,7 @@
     </plurals>
     <string name="portfolio_imports_empty">Chưa có lần nhập nào</string>
     <string name="portfolio_imports_title">Các lần nhập</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">cùng mã giao dịch nhưng số lượng khác – kiểm tra thủ công</string>
+    <string name="portfolio_csv_skip_staking_unpaired">bút toán staking không có bút toán đối ứng – kiểm tra số dư</string>
 </resources>

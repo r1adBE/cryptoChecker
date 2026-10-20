@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">כתובות במעקב נכללות בשווי הכולל אך אין להן עלות רכישה – לכן הרווח כנראה גבוה מדי. רשמו את העלות כרכישה.</string>
-</resources>

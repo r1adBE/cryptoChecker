@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="explorer_bulk_show_all">Tampilkan semua (%1$d)</string>
-    <string name="log_box_title">Log</string>
-    <string name="watchlist_first_alarm_title">Pasang alarm pertamamu</string>
-    <string name="watchlist_first_alarm_text">Dapatkan notifikasi saat harga mencapai batasmu – saat aplikasi ditutup, Android memeriksa secara tidak teratur.</string>
-</resources>

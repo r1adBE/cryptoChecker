@@ -38,4 +38,8 @@
     <string name="address_unsupported">यह पता प्रकार समर्थित नहीं है</string>
     <string name="address_wrong_chain">पता किसी दूसरे नेटवर्क का है</string>
     <string name="address_xpub_multisig">Multisig कुंजियाँ (Ypub/Zpub) समर्थित नहीं हैं</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot खाता (BIP86): इस कुंजी से bc1p… पते बनाए जाते हैं, प्राप्ति और चेंज दोनों के लिए।</string>
+    <string name="portfolio_address_taproot_hint">Taproot वॉलेट? इसके बजाय अपने वॉलेट से डिस्क्रिप्टर tr(…) चिपकाएँ – साधारण xpub में केवल Legacy और SegWit पते खोजे जाते हैं।</string>
 </resources>

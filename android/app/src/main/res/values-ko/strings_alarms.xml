@@ -161,4 +161,11 @@
     <string name="alarm_a11y_speak_on">음성 안내 켬</string>
     <string name="alarm_unchecked_no_candles">확인할 수 없음(캔들 데이터 없음)</string>
     <string name="alarm_unchecked_no_rate">확인할 수 없음(환율 없음)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">알림 꺼짐 – 이 알람은 전달되지 않습니다</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">알람 없음 – 유동성 낮음</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">최신 시세를 기다리는 중</string>
 </resources>

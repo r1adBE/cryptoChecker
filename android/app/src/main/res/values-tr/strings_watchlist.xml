@@ -9,7 +9,6 @@
     </plurals>
     <string name="watchlist_last_run">Son çalışma %1$s</string>
     <string name="watchlist_live_a11y">Canlı fiyatlar açık</string>
-    <string name="watchlist_live_badge">CANLI</string>
     <string name="watchlist_offline_since">Bağlantı yok · %1$s itibarıyla</string>
     <string name="watchlist_pull_to_refresh">Yenilemek için aşağı çekin</string>
     <string name="watchlist_refresh_report">Son yenileme</string>
@@ -190,4 +189,30 @@
     <string name="sort_move_down">Aşağı</string>
     <string name="sort_move_top">En üste</string>
     <string name="sort_move_up">Yukarı</string>
+
+    <string name="watchlist_first_alarm_title">İlk alarmını kur</string>
+    <string name="watchlist_first_alarm_text">Bir fiyat belirlediğin seviyeye ulaştığında bildirim al – uygulama kapalıyken Android düzensiz aralıklarla kontrol eder.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark fiyatı (orta fiyat yok)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">saatlik fiyat</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">İlk alarmını kur – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Yenile (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s saatine kadar duraklatıldı</string>
+
+    <string name="watchlist_refresh_just_done">Az önce güncellendi · %1$d sn önce</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">son işlem %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s mumlarından hesaplandı – borsanın kendisi bu değeri vermiyor.</string>
+    <string name="change_candle_source_action">Değişimin kaynağını göster</string>
+
+    <string name="watchlist_sort_by_coin">Coine göre sırala</string>
+    <string name="watchlist_sort_by_exchange">Borsaya göre sırala</string>
 </resources>

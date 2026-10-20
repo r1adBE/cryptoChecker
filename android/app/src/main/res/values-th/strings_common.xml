@@ -43,4 +43,6 @@
     <string name="shortcut_add">เพิ่มคู่เทรด</string>
     <string name="shortcut_alarms">สัญญาณเตือนทั้งหมด</string>
     <string name="shortcut_cycle">ตลาด</string>
+
+    <string name="log_box_title">บันทึก</string>
 </resources>

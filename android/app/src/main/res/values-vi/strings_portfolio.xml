@@ -257,4 +257,42 @@
     <plurals name="ledger_without_cost">
         <item quantity="other">Không gồm %1$d coin chưa có giá mua (%2$s) – thêm giá để được tính.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT sụp đổ – thị trường ở %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Tỷ giá đô la của USDT qua USDC/USDT – nếu USDC giảm, giá trị này không đúng</string>
+    <string name="portfolio_amount_bridged_stable">≈ gồm %1$s (qua cầu nối)</string>
+
+    <string name="portfolio_tx_interest">Lãi (cho vay)</string>
+    <string name="portfolio_tx_interest_hint">Được tính là thu nhập khi nhận (Áo). Để tắt cho phần thưởng staking và airdrop.</string>
+    <string name="app_lock_no_screen_lock">Hãy thiết lập khóa màn hình để mở danh mục.</string>
+    <string name="app_lock_turn_off_action">Tắt khóa danh mục</string>
+    <string name="app_lock_turn_off_confirm_title">Tắt khóa danh mục?</string>
+    <string name="app_lock_turn_off_confirm_message">Không có khóa màn hình thì không thể mở khóa danh mục. Khi tắt, ứng dụng lại hiển thị danh mục mà không hỏi. Sau khi thiết lập khóa màn hình, bạn có thể bật lại khóa trong Cài đặt.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">“Từ khi mua” và giá vốn bằng %1$s: giá vốn theo tỷ giá ngày mua, giá trị theo tỷ giá hôm nay.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Không có tỷ giá cho ngày mua (không tính trong “Từ khi mua” và giá vốn): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Giá vốn vào những ngày mua không có tỷ giá đô la của USDT được tính là 1 đô la Mỹ cho mỗi USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Dữ liệu lúc %1$s – không kết nối được sàn</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Giá theo ngày: %1$s (thay cho Binance)</string>
+
+    <string name="portfolio_footer_short">Công cụ hỗ trợ làm việc, không phải tư vấn thuế hay đầu tư. Quyền riêng tư: Cài đặt › Giới thiệu ứng dụng › Chính sách quyền riêng tư.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Xóa tất cả giao dịch của %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="other">Sẽ xóa %d giao dịch. Bạn có thể hoàn tác ngay sau đó.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="other">Đã xóa %1$s khỏi danh mục (%2$d giao dịch)</item>
+    </plurals>
 </resources>

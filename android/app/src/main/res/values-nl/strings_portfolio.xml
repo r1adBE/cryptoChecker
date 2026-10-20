@@ -261,4 +261,44 @@
         <item quantity="one">Zonder %1$d munt zonder aankoopprijs (%2$s) – vul de prijs in zodat hij meetelt.</item>
         <item quantity="other">Zonder %1$d munten zonder aankoopprijs (%2$s) – vul de prijzen in zodat ze meetellen.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT-crash – markt op %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Dollarkoers van USDT via USDC/USDT – daalt USDC, dan klopt deze waarde niet</string>
+    <string name="portfolio_amount_bridged_stable">≈ incl. %1$s (gebridged)</string>
+
+    <string name="portfolio_tx_interest">Rente (uitlenen)</string>
+    <string name="portfolio_tx_interest_hint">Telt als inkomen bij ontvangst (Oostenrijk). Laat uit voor stakingbeloningen en airdrops.</string>
+    <string name="app_lock_no_screen_lock">Stel een schermvergrendeling in om het portfolio te openen.</string>
+    <string name="app_lock_turn_off_action">Portfoliovergrendeling uitzetten</string>
+    <string name="app_lock_turn_off_confirm_title">Portfoliovergrendeling uitzetten?</string>
+    <string name="app_lock_turn_off_confirm_message">Zonder schermvergrendeling kan het portfolio niet worden ontgrendeld. Uitgezet toont de app je portfolio weer zonder te vragen. Zodra er een schermvergrendeling is ingesteld, kun je de vergrendeling weer aanzetten in Instellingen.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">‘Sinds aankoop’ en kostprijs in %1$s: kostprijs tegen de wisselkoers van de aankoopdag, waarde tegen de koers van vandaag.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Geen wisselkoers voor de aankoopdag (ontbreekt in ‘Sinds aankoop’ en kostprijs): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Kostprijs op aankoopdagen zonder dollarkoers van USDT gerekend als 1 Amerikaanse dollar per USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Stand %1$s – beurs niet bereikbaar</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Dagkoersen: %1$s (in plaats van Binance)</string>
+
+    <string name="portfolio_footer_short">Werkhulpmiddel, geen belasting- of beleggingsadvies. Privacy: Instellingen › Over de app › Privacybeleid.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Alle transacties van %1$s verwijderen?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d transactie wordt verwijderd. Je kunt dit direct daarna ongedaan maken.</item>
+        <item quantity="other">%d transacties worden verwijderd. Je kunt dit direct daarna ongedaan maken.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s uit het portfolio verwijderd (%2$d transactie)</item>
+        <item quantity="other">%1$s uit het portfolio verwijderd (%2$d transacties)</item>
+    </plurals>
 </resources>

@@ -15,7 +15,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * applicationId: `com.cryptochecker.app`
 * Module: `marketdata` (Börsen-Bibliothek), `app` (die App)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app`
-* Version: **16.2.2** (versionCode 85 – wird mit jedem Stand um eins erhöht)
+* Version: **16.2.2** (versionCode 86 – wird mit jedem Stand um eins erhöht)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
 
 ## Neu in 16.2.2
@@ -907,8 +907,8 @@ schreiben – sie sind die Grundlage für Migrationstests und für jede weitere 
   Portugiesisch als `values-pt` für Portugal und `values-pt-rBR` für Brasilien);
   die deutsche in `values-de` ist vollständig. Jeder Ordner hat dieselben Bereichsdateien
   `strings_<bereich>.xml` (common, watchlist, explorer, onboarding, pair_sheet, why, market,
-  indicators, alarms, notifications, refresh, portfolio, addresses, csv, tax, backup, settings,
-  widgets, a11y); ein Schlüssel steht in jeder Sprache in derselben Datei, nach Präfix gruppiert.
+  indicators, alarms, alarm_log, delivery, notifications, refresh, portfolio, portfolio_cost,
+  addresses, csv, tax, backup, settings, widgets, a11y); ein Schlüssel steht in jeder Sprache in derselben Datei, nach Präfix gruppiert.
 
 ## Dokumentation
 

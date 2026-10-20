@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">ที่อยู่ที่ติดตามนับรวมในมูลค่ารวม แต่ไม่มีต้นทุนการได้มา – กำไรจึงน่าจะสูงเกินจริง โปรดบันทึกต้นทุนเป็นการซื้อ</string>
-</resources>

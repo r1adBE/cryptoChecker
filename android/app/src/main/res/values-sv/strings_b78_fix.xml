@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
-    <string name="tax_line_at_interest_old">Ränta från lending före 1.3.2022 (värde vid mottagandet)</string>
-    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
-    <string name="tax_summary_at_interest_old_law">Ränta före 1.3.2022: gamla regler (skatteskala), inte 27,5 procent</string>
-    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
-    <string name="tax_export_at_income_before_new_law">före 1.3.2022 – stäm av med en fackperson</string>
-</resources>

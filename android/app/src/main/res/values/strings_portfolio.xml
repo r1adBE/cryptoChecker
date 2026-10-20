@@ -261,4 +261,44 @@
         <item quantity="one">Without %1$d coin lacking a buy price (%2$s) – add the price so it counts.</item>
         <item quantity="other">Without %1$d coins lacking a buy price (%2$s) – add the prices so they count.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT crash – market at %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDT dollar rate via USDC/USDT – if USDC falls, this value is wrong</string>
+    <string name="portfolio_amount_bridged_stable">≈ incl. %1$s (bridged)</string>
+
+    <string name="portfolio_tx_interest">Interest (lending)</string>
+    <string name="portfolio_tx_interest_hint">Counts as income when received (Austria). Leave off for staking rewards and airdrops.</string>
+    <string name="app_lock_no_screen_lock">Set up a screen lock to open the portfolio.</string>
+    <string name="app_lock_turn_off_action">Turn off portfolio lock</string>
+    <string name="app_lock_turn_off_confirm_title">Turn off portfolio lock?</string>
+    <string name="app_lock_turn_off_confirm_message">Without a screen lock the portfolio cannot be unlocked. Turned off, the app shows your portfolio again without asking. Once a screen lock is set up, you can turn the lock back on in Settings.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">“Since purchase” and cost basis in %1$s: cost at the exchange rate of the purchase day, value at today’s rate.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">No exchange rate for the purchase day (missing from “Since purchase” and cost basis): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Cost on purchase days without a USDT dollar rate counted as 1 US dollar per USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">As of %1$s – exchange not reachable</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Daily prices: %1$s (instead of Binance)</string>
+
+    <string name="portfolio_footer_short">Working aid, not tax or investment advice. Privacy: Settings › About the app › Privacy policy.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Delete all transactions of %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d transaction will be removed. You can undo this right afterwards.</item>
+        <item quantity="other">%d transactions will be removed. You can undo this right afterwards.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s removed from portfolio (%2$d transaction)</item>
+        <item quantity="other">%1$s removed from portfolio (%2$d transactions)</item>
+    </plurals>
 </resources>

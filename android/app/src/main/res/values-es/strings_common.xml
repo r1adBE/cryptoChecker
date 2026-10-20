@@ -43,4 +43,6 @@
     <string name="shortcut_add">Añadir par</string>
     <string name="shortcut_alarms">Todas las alarmas</string>
     <string name="shortcut_cycle">Mercado</string>
+
+    <string name="log_box_title">Registro</string>
 </resources>

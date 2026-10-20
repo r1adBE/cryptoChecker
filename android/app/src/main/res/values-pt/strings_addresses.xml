@@ -38,4 +38,8 @@
     <string name="address_unsupported">Este tipo de endereço não é suportado</string>
     <string name="address_wrong_chain">O endereço pertence a outra rede</string>
     <string name="address_xpub_multisig">As chaves multisig (Ypub/Zpub) não são suportadas</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Conta Taproot (BIP86): desta chave são derivados endereços bc1p…, para receção e troco.</string>
+    <string name="portfolio_address_taproot_hint">Carteira Taproot? Cole antes o descritor tr(…) da sua carteira – uma xpub simples só é pesquisada como endereços Legacy e SegWit.</string>
 </resources>

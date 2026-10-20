@@ -1,13 +1,14 @@
-# Nach dem Store-Start: keine laufenden Versions-Updates mehr (stabiler Unterbau, nur Börsen werden noch angepasst).
-# `open-pull-requests-limit: 0` schaltet die Versions-Pull-Requests ab; Sicherheits-Updates kommen weiterhin,
+# Nach dem Store-Start: keine laufenden Gradle-Versions-Updates mehr (stabiler Unterbau, nur Börsen werden noch angepasst).
+# `open-pull-requests-limit: 0` schaltet dort die Versions-Pull-Requests ab; Sicherheits-Updates kommen weiterhin,
 # solange «Dependabot security updates» unter Settings › Code security eingeschaltet ist.
+# GitHub Actions: monatliche Versions-Pull-Requests, höchstens zwei gleichzeitig offen.
 version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
-    open-pull-requests-limit: 0
+    open-pull-requests-limit: 2
   - package-ecosystem: gradle
     directory: /android
     schedule:

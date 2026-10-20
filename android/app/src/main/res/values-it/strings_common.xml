@@ -43,4 +43,6 @@
     <string name="shortcut_add">Aggiungi coppia</string>
     <string name="shortcut_alarms">Tutti gli allarmi</string>
     <string name="shortcut_cycle">Mercato</string>
+
+    <string name="log_box_title">Registro</string>
 </resources>

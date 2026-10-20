@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
-    <string name="portfolio_storage_in_memory">Η κρυπτογράφηση δεν είναι ακόμη ενεργή – το χαρτοφυλάκιο δεν αποθηκεύεται και οι αλλαγές χάνονται όταν κλείσει η εφαρμογή. Η εφαρμογή θα δοκιμάσει ξανά στην επόμενη εκκίνηση.</string>
-</resources>

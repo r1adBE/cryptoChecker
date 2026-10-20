@@ -257,4 +257,42 @@
     <plurals name="ledger_without_cost">
         <item quantity="other">不含 %1$d 个没有买入价的币（%2$s）——补充价格后即可计入。</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT 暴跌 – 市场价 %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">经 USDC/USDT 得出的 USDT 美元汇率 – 若 USDC 下跌，此数值不准确</string>
+    <string name="portfolio_amount_bridged_stable">≈ 含 %1$s（跨链桥）</string>
+
+    <string name="portfolio_tx_interest">利息（借贷）</string>
+    <string name="portfolio_tx_interest_hint">收到时计为收入（奥地利）。质押奖励和空投请保持关闭。</string>
+    <string name="app_lock_no_screen_lock">请设置屏幕锁定以打开投资组合。</string>
+    <string name="app_lock_turn_off_action">关闭投资组合锁定</string>
+    <string name="app_lock_turn_off_confirm_title">关闭投资组合锁定？</string>
+    <string name="app_lock_turn_off_confirm_message">没有屏幕锁定就无法解锁投资组合。关闭后，应用会再次无需确认地显示投资组合。设置好屏幕锁定后，可在设置中重新开启锁定。</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">“自买入”与成本（%1$s）：成本按买入日汇率换算，市值按今日汇率换算。</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">买入日无汇率（未计入“自买入”和成本）：%1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">无 USDT 美元汇率的买入日成本按每 USDT 1 美元计算。</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">截至 %1$s – 无法连接交易所</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">日价格：%1$s（代替 Binance）</string>
+
+    <string name="portfolio_footer_short">工作参考，不构成税务或投资建议。隐私：设置 › 关于应用 › 隐私政策</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">删除 %1$s 的所有交易？</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="other">将删除 %d 笔交易。删除后可立即撤销。</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="other">已从投资组合移除 %1$s（%2$d 笔交易）</item>
+    </plurals>
 </resources>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
-    <string name="portfolio_address_taproot_account">Λογαριασμός Taproot (BIP86): από αυτό το κλειδί παράγονται διευθύνσεις bc1p…, για λήψη και ρέστα.</string>
-    <string name="portfolio_address_taproot_hint">Πορτοφόλι Taproot; Επικόλλησε καλύτερα τον περιγραφέα tr(…) από το πορτοφόλι σου – ένα απλό xpub ελέγχεται μόνο ως διευθύνσεις Legacy και SegWit.</string>
-</resources>

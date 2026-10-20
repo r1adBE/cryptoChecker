@@ -116,4 +116,7 @@
     <string name="battery_title">Mantener los precios al día</string>
     <string name="ios_background_refresh_off">La actualización en segundo plano está desactivada para la app. Sin ella, las alarmas solo se comprueban con la app abierta.</string>
     <string name="ios_low_power_mode">El modo de bajo consumo está activado. iOS apenas comprueba en segundo plano y las alarmas pueden llegar tarde.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Mensaje del exchange: %1$s</string>
 </resources>

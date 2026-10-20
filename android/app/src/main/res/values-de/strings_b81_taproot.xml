@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
-    <string name="portfolio_address_taproot_account">Taproot-Konto (BIP86): Aus diesem Schlüssel werden bc1p…-Adressen abgeleitet, für Empfang und Wechselgeld.</string>
-    <string name="portfolio_address_taproot_hint">Taproot-Wallet? Füge stattdessen den Deskriptor tr(…) aus deiner Wallet ein – ein einfacher xpub wird nur als Legacy- und SegWit-Adressen durchsucht.</string>
-</resources>

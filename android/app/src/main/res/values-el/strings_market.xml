@@ -31,8 +31,6 @@
     <string name="market_plain_standout_quiet">Αυτή τη στιγμή κανένα νόμισμα δεν ξεχωρίζει ιδιαίτερα.</string>
     <string name="market_plain_standout_volume">Ξεχωρίζει το %1$s: περίπου %2$s φορές περισσότερες συναλλαγές από το συνηθισμένο.</string>
     <string name="market_plain_title">Με λίγα λόγια</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · χθες %2$s</string>
     <string name="market_section_collapse">Απόκρυψη: %1$s</string>
     <string name="market_section_context">Κλίμα &amp; κύκλος</string>
     <string name="market_section_data">Δεδομένα αγοράς</string>
@@ -250,4 +248,22 @@
         <item quantity="other">Μόνο %1$d ημέρες ιστορικού – λείπουν κάποιοι δείκτες.</item>
     </plurals>
     <string name="coin_title">Ανάλυση νομίσματος</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Δεδομένα: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Κερδισμένοι και χαμένοι 24 ω</string>
+    <string name="movers_gainers">Κερδισμένοι</string>
+    <string name="movers_losers">Χαμένοι</string>
+    <string name="movers_no_gainers">Κανένα νόμισμα δεν ανέβηκε σε 24 ω</string>
+    <string name="movers_no_losers">Κανένα νόμισμα δεν έπεσε σε 24 ω</string>
+    <string name="movers_source">CoinGecko, 24 ω, top 100 χωρίς stablecoins</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Εμφάνιση όλων</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Εμφάνιση λιγότερων</string>
 </resources>

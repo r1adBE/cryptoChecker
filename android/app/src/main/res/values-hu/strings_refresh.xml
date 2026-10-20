@@ -107,4 +107,7 @@
     <string name="battery_title">Naprakész árak</string>
     <string name="ios_background_refresh_off">A háttérben frissítés ki van kapcsolva az appnál. Nélküle a riasztások csak nyitott appnál ellenőrződnek.</string>
     <string name="ios_low_power_mode">Az alacsony fogyasztású mód be van kapcsolva. Az iOS ritkán ellenőriz a háttérben, a riasztások késhetnek.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">A tőzsde üzenete: %1$s</string>
 </resources>

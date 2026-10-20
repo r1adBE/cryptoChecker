@@ -267,4 +267,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">A vibração segue os ajustes do iPhone (Sons e Tátil).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Conta novos alarmes e avisos de mercado; volta a 0 ao abrir o app.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Seus dados</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">No aparelho</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Lista, alarmes e portfólio ficam criptografados neste aparelho; sem conta, sem servidor próprio.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Conexões</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">As cotações vêm direto das corretoras dos seus pares, além de taxas de câmbio, listas e logos de moedas e o espelho de dados no GitHub; eles veem seu endereço IP, nunca seus saldos (endereços monitorados vão para o provedor da respectiva rede).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Backup</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Só se você criar um; criptografado com senha (Argon2id + AES-256-GCM), legível sem senha.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Troca de aparelho</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">A chave fica no aparelho antigo – crie antes um arquivo de backup.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Compartilhar diagnóstico</string>
+    <string name="diagnostics_share_hint">Arquivo de texto para o suporte: versão, aparelho, configurações de alertas, últimas verificações e registro de alarmes – sem portfólio, valores, endereços nem notas. Você vê primeiro; nada é enviado automaticamente.</string>
+    <string name="diagnostics_preview_title">Diagnóstico – prévia</string>
+    <string name="diagnostics_action_share">Compartilhar</string>
 </resources>

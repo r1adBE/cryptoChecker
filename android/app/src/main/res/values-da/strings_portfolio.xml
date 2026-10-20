@@ -261,4 +261,44 @@
         <item quantity="one">Uden %1$d coin uden købspris (%2$s) – tilføj prisen, så den tæller med.</item>
         <item quantity="other">Uden %1$d coins uden købspris (%2$s) – tilføj priserne, så de tæller med.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT-krak – marked på %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDT-dollarkurs via USDC/USDT – falder USDC, passer denne værdi ikke</string>
+    <string name="portfolio_amount_bridged_stable">≈ inkl. %1$s (brobygget)</string>
+
+    <string name="portfolio_tx_interest">Rente (udlån)</string>
+    <string name="portfolio_tx_interest_hint">Tæller som indkomst ved modtagelse (Østrig). Lad være slået fra for staking-belønninger og airdrops.</string>
+    <string name="app_lock_no_screen_lock">Opsæt en skærmlås for at åbne porteføljen.</string>
+    <string name="app_lock_turn_off_action">Slå porteføljelås fra</string>
+    <string name="app_lock_turn_off_confirm_title">Slå porteføljelås fra?</string>
+    <string name="app_lock_turn_off_confirm_message">Uden skærmlås kan porteføljen ikke låses op. Slået fra viser appen din portefølje igen uden at spørge. Når en skærmlås er sat op, kan du slå låsen til igen i Indstillinger.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">»Siden køb« og anskaffelsespris i %1$s: anskaffelsespris til valutakursen på købsdagen, værdi til dagens kurs.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Ingen valutakurs for købsdagen (mangler i »Siden køb« og anskaffelsespris): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Anskaffelsespris på købsdage uden USDT-dollarkurs regnet som 1 amerikansk dollar pr. USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Status pr. %1$s – børsen kan ikke nås</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Dagskurser: %1$s (i stedet for Binance)</string>
+
+    <string name="portfolio_footer_short">Arbejdsredskab, ikke skatte- eller investeringsrådgivning. Privatliv: Indstillinger › Om appen › Privatlivspolitik.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Slet alle transaktioner for %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d transaktion bliver fjernet. Du kan fortryde det lige bagefter.</item>
+        <item quantity="other">%d transaktioner bliver fjernet. Du kan fortryde det lige bagefter.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s fjernet fra porteføljen (%2$d transaktion)</item>
+        <item quantity="other">%1$s fjernet fra porteføljen (%2$d transaktioner)</item>
+    </plurals>
 </resources>

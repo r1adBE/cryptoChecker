@@ -107,4 +107,7 @@
     <string name="battery_title">Διατηρήστε τις τιμές ενημερωμένες</string>
     <string name="ios_background_refresh_off">Η ανανέωση στο παρασκήνιο είναι απενεργοποιημένη για την εφαρμογή. Χωρίς αυτήν, οι συναγερμοί ελέγχονται μόνο με ανοιχτή εφαρμογή.</string>
     <string name="ios_low_power_mode">Η λειτουργία χαμηλής ισχύος είναι ενεργή. Το iOS σπάνια ελέγχει στο παρασκήνιο, οι συναγερμοί μπορεί να καθυστερήσουν.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Μήνυμα του ανταλλακτηρίου: %1$s</string>
 </resources>

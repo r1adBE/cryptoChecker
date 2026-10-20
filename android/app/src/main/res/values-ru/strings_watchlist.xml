@@ -11,7 +11,6 @@
     </plurals>
     <string name="watchlist_last_run">Последний проход %1$s</string>
     <string name="watchlist_live_a11y">Котировки в реальном времени включены</string>
-    <string name="watchlist_live_badge">ОНЛАЙН</string>
     <string name="watchlist_offline_since">Нет соединения · данные на %1$s</string>
     <string name="watchlist_pull_to_refresh">Потяните вниз, чтобы обновить</string>
     <string name="watchlist_refresh_report">Последнее обновление</string>
@@ -214,4 +213,30 @@
     <string name="sort_move_down">Вниз</string>
     <string name="sort_move_top">В самый верх</string>
     <string name="sort_move_up">Вверх</string>
+
+    <string name="watchlist_first_alarm_title">Создайте первое оповещение</string>
+    <string name="watchlist_first_alarm_text">Получайте уведомление, когда цена достигнет вашего уровня – при закрытом приложении Android проверяет нерегулярно.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">цена mark (нет среднего курса)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">часовой курс</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Создайте первое оповещение – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Обновить (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · пауза до %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Только что обновлено · %1$d с назад</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">последняя сделка %1$s</string>
+
+    <string name="change_candle_source_hint">Рассчитано по свечам %1$s – сама биржа это значение не даёт.</string>
+    <string name="change_candle_source_action">Показать источник изменения</string>
+
+    <string name="watchlist_sort_by_coin">Сортировать по монете</string>
+    <string name="watchlist_sort_by_exchange">Сортировать по бирже</string>
 </resources>

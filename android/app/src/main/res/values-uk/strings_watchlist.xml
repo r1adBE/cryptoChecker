@@ -11,7 +11,6 @@
     </plurals>
     <string name="watchlist_last_run">Останній прохід %1$s</string>
     <string name="watchlist_live_a11y">Курси наживо ввімкнено</string>
-    <string name="watchlist_live_badge">НАЖИВО</string>
     <string name="watchlist_offline_since">Немає з\'єднання · дані станом на %1$s</string>
     <string name="watchlist_pull_to_refresh">Потягніть униз, щоб оновити</string>
     <string name="watchlist_refresh_report">Останнє оновлення</string>
@@ -214,4 +213,30 @@
     <string name="sort_move_down">Вниз</string>
     <string name="sort_move_top">На самий верх</string>
     <string name="sort_move_up">Вгору</string>
+
+    <string name="watchlist_first_alarm_title">Створіть перший сигнал</string>
+    <string name="watchlist_first_alarm_text">Отримуйте сповіщення, коли ціна досягне вашого рівня – коли застосунок закрито, Android перевіряє нерегулярно.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">ціна mark (немає середнього курсу)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">погодинний курс</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Створіть перший сигнал – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Оновити (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · пауза до %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Щойно оновлено · %1$d с тому</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">остання угода %1$s</string>
+
+    <string name="change_candle_source_hint">Розраховано за свічками %1$s – сама біржа цього значення не надає.</string>
+    <string name="change_candle_source_action">Показати джерело зміни</string>
+
+    <string name="watchlist_sort_by_coin">Сортувати за монетою</string>
+    <string name="watchlist_sort_by_exchange">Сортувати за біржею</string>
 </resources>

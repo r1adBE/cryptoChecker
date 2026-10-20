@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="alarm_first_check">Kontrollera att larmen kommer fram</string>
-    <string name="change_candle_source_hint">Beräknat från %1$s-candlesticks – börsen anger inte själv det här värdet.</string>
-    <string name="change_candle_source_action">Visa källan till förändringen</string>
-</resources>

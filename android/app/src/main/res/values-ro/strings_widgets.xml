@@ -95,4 +95,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Atinge lung un loc liber pe ecranul principal până când aplicațiile încep să tremure.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Atinge sus „Editați” › „Adăugați widget” (sau „+” în versiunile iOS mai vechi).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">Caută „Crypto Checker”, alege un widget și atinge „Adăugați widget”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Actualizează – din nou posibil în %1$d s</string>
 </resources>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
-    <string name="tax_line_at_interest_old">Intérêts de prêt avant le 1.3.2022 (valeur à la réception)</string>
-    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
-    <string name="tax_summary_at_interest_old_law">Intérêts avant le 1.3.2022 : ancien régime (barème), pas 27,5 pour cent</string>
-    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
-    <string name="tax_export_at_income_before_new_law">avant le 1.3.2022 – à vérifier avec un professionnel</string>
-</resources>

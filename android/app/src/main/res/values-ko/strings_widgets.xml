@@ -91,4 +91,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">앱이 흔들릴 때까지 홈 화면의 빈 곳을 길게 누르세요.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">상단의 ‘편집’ › ‘위젯 추가’를 탭하세요(이전 iOS 버전에서는 ‘+’).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">‘Crypto Checker’를 검색하고 위젯을 선택한 다음 ‘위젯 추가’를 탭하세요.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">새로고침 – %1$d초 후 다시 가능</string>
 </resources>

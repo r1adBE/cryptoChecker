@@ -17,4 +17,6 @@
     <string name="starter_select_none">Zrušit výběr</string>
     <string name="starter_title">Začněte s těmito mincemi</string>
     <string name="starter_watch_alarm_hint">Sleduj cenu, nastav alarm</string>
+
+    <string name="starter_source_text">Ceny z burzy %1$s v %2$s. Odznačte, co nechcete, a zbytek přidejte najednou. Burzu a pár můžete změnit u každé mince.</string>
 </resources>

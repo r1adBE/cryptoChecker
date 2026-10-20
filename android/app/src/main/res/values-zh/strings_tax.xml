@@ -80,7 +80,6 @@
     <string name="tax_export_summary">年度汇总 %1$s（CSV）</string>
     <string name="tax_export_swap">兑换</string>
     <string name="tax_export_tax_year">纳税年度</string>
-    <string name="tax_export_time_zone">时区：%1$s</string>
     <string name="tax_export_transfer_fee_info">USDT/法币转移手续费——不算亏损，不计入成本，仅供参考</string>
     <string name="tax_export_unassigned_fee">手续费未分配——成本未知</string>
     <string name="tax_export_usdt_usd_note">USDT 按 USDT/USD 日收盘价换算；无收盘价时按 1 USD（逐行注明）</string>
@@ -134,15 +133,12 @@
     <string name="tax_de_explain_loss">净亏损：这些出售无需纳税。§ 23 EStG 下的亏损只能与私人出售收益抵扣——在同一年或向前一年结转及向以后年度结转（§ 23 Abs. 3 / § 10d EStG）。请在纳税申报中申报该亏损以便予以确认。</string>
     <string name="tax_de_explain_reached">自 %1$s 起全部金额计入（免税限额——不是扣除额）。</string>
     <string name="tax_de_explain_unknown">无法核查：缺少汇率、买入价或持有期。</string>
-    <string name="tax_de_income">服务收入（§ 22 Nr. 3 EStG）</string>
     <string name="tax_de_income_limit">服务免税限额（§ 22 Nr. 3 EStG）</string>
     <string name="tax_de_limit_scope">限额适用于全年所有私人出售或服务的合计——包括应用之外的部分。</string>
     <string name="tax_de_loading">正在计算…</string>
     <string name="tax_de_long_gains">收益、持有 &gt; 1 年</string>
     <string name="tax_de_long_losses">亏损、持有 &gt; 1 年</string>
     <string name="tax_de_loss">净亏损——仅可与私人出售收益抵扣（§ 23 EStG）</string>
-    <string name="tax_de_needs_eur">需要 EUR 数值（缺少汇率）</string>
-    <string name="tax_de_needs_holding">缺少持有期（平均法）——如需核查请选择 FIFO</string>
     <string name="tax_de_private_limit">私人出售免税限额（§ 23 EStG）</string>
     <string name="tax_de_reached">已达限额——通常全部金额计入——请核实</string>
     <string name="tax_de_short_gains">收益、持有 ≤ 1 年</string>
@@ -203,4 +199,51 @@
     <string name="tax_summary_title">年度汇总 %1$s %2$s</string>
     <string name="tax_summary_transfer_fee_info">USDT/法币转移手续费——不算亏损，也不计入成本，仅供参考</string>
     <string name="tax_summary_withdrawal_fee_info">USDT/法币提取手续费——不计为亏损，仅供参考</string>
+
+    <string name="tax_line_at_old_speculation_limit">投机交易（旧法，持有≤1年）：免税限额（旧版EStG第31条第3款）</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">2022年3月1日前的借贷利息（收到时的价值）</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">2022年3月1日前的利息：旧法（累进税率），而非百分之 27.5</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">2022年3月1日前 – 请咨询专业人士</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">利息 – 收到时应税</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">质押 – 仅供参考（取得成本为 0，出售时征税）</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">利息合计（应税）</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">质押合计（参考）</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">净资本亏损（结转）</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">未选择：包括2022年1月1日至2月28日的出售</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">2022年3月1日前的质押：取得成本按 0 计 – 请咨询专业人士</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 天规则仍可能改变这些数字（截至 %1$s 的买入）</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">扣除费用前的出售所得超过申报门槛（£50,000；2020/21–2022/23：£49,200）：如已登记 Self Assessment，即使没有应税收益也须向 HMRC 申报</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">%1$s年12月31日财富价值（仅供参考）</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">以 ESTV 价目表（ictax.admin.ch）为准。价目表未列出的币种通常适用交易所收盘价。不计算财富税。</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – 持仓 %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">未计算</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">无法读取关注的地址 – 此文件中缺少其余额</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">观察地址计入总价值，但没有购入成本——因此收益可能偏高。请将成本记录为买入。</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">没有记录价格的市值（手续费、赠送/支付、兑换、奖励、网络手续费、组合总值）按交易当日（UTC）收盘价计</string>
 </resources>

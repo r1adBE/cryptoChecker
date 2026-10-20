@@ -93,4 +93,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Πατήστε παρατεταμένα ένα κενό σημείο στην οθόνη Αφετηρίας μέχρι να αρχίσουν να κουνιούνται οι εφαρμογές.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Πατήστε επάνω «Επεξεργασία» › «Προσθήκη widget» (ή «+» σε παλαιότερες εκδόσεις iOS).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">Αναζητήστε «Crypto Checker», επιλέξτε ένα widget και πατήστε «Προσθήκη widget».</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Ανανέωση – ξανά δυνατό σε %1$d δ</string>
 </resources>

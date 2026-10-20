@@ -267,4 +267,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">La vibration suit les réglages de l\'iPhone (Sons et vibrations).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Compte les nouvelles alertes et alertes de marché ; revient à 0 à l’ouverture de l’app.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Vos données</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Sur l’appareil</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Votre liste, vos alertes et votre portefeuille sont stockés chiffrés sur cet appareil ; aucun compte, aucun serveur propre.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Connexions</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Les cours viennent directement des plateformes de vos paires, avec les taux de change, les listes et logos de coins et le miroir de données sur GitHub ; ils voient votre adresse IP, jamais vos avoirs (les adresses suivies sont envoyées au fournisseur du réseau concerné).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Sauvegarde</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Seulement si vous en créez une ; chiffrée avec un mot de passe (Argon2id + AES-256-GCM), lisible sans mot de passe.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Changement d’appareil</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">La clé reste sur l’ancien appareil – créez d’abord un fichier de sauvegarde.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Partager le diagnostic</string>
+    <string name="diagnostics_share_hint">Fichier texte pour le support : version, appareil, réglages des alertes, dernières vérifications et journal des alarmes – sans portefeuille, montants, adresses ni notes. Vous le voyez d\'abord ; rien n\'est envoyé automatiquement.</string>
+    <string name="diagnostics_preview_title">Diagnostic – aperçu</string>
+    <string name="diagnostics_action_share">Partager</string>
 </resources>

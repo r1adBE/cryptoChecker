@@ -38,4 +38,8 @@
     <string name="address_unsupported">Ez a címtípus nem támogatott</string>
     <string name="address_wrong_chain">A cím egy másik hálózathoz tartozik</string>
     <string name="address_xpub_multisig">A multisig kulcsok (Ypub/Zpub) nem támogatottak</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot-fiók (BIP86): ebből a kulcsból bc1p… címek származnak, fogadáshoz és visszajáróhoz.</string>
+    <string name="portfolio_address_taproot_hint">Taproot-tárca? Inkább a tárcád tr(…) leíróját illeszd be – egy sima xpub esetén csak Legacy és SegWit címeket keresünk.</string>
 </resources>

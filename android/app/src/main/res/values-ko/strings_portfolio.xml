@@ -257,4 +257,42 @@
     <plurals name="ledger_without_cost">
         <item quantity="other">매수가 없는 코인 %1$d개 제외(%2$s) – 가격을 입력하면 포함됩니다.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT 폭락 – 시장가 %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDC/USDT를 통한 USDT 달러 시세 – USDC가 하락하면 이 값은 맞지 않습니다</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s 포함 (브리지)</string>
+
+    <string name="portfolio_tx_interest">이자(대여)</string>
+    <string name="portfolio_tx_interest_hint">받을 때 소득으로 계산됩니다(오스트리아). 스테이킹 보상과 에어드롭은 끈 상태로 두세요.</string>
+    <string name="app_lock_no_screen_lock">포트폴리오를 열려면 화면 잠금을 설정하세요.</string>
+    <string name="app_lock_turn_off_action">포트폴리오 잠금 끄기</string>
+    <string name="app_lock_turn_off_confirm_title">포트폴리오 잠금을 끌까요?</string>
+    <string name="app_lock_turn_off_confirm_message">화면 잠금이 없으면 포트폴리오 잠금을 해제할 수 없습니다. 끄면 앱이 다시 묻지 않고 포트폴리오를 표시합니다. 화면 잠금을 설정한 뒤 설정에서 잠금을 다시 켤 수 있습니다.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">‘매수 이후’ 및 매입 원가(%1$s): 매입 원가는 매수일 환율, 평가액은 오늘 환율로 환산.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">매수일 환율 없음(‘매수 이후’와 매입 원가에서 제외): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT 달러 시세가 없는 매수일의 매입 원가는 USDT당 1 미국 달러로 계산했습니다.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s 기준 – 거래소에 연결할 수 없음</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">일별 시세: %1$s (Binance 대신)</string>
+
+    <string name="portfolio_footer_short">작업용 참고 자료이며 세무·투자 조언이 아닙니다. 개인정보: 설정 › 앱 정보 › 개인정보 처리방침</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s의 거래를 모두 삭제할까요?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="other">거래 %d건이 삭제됩니다. 삭제 직후에 실행 취소할 수 있습니다.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="other">포트폴리오에서 %1$s 삭제됨(거래 %2$d건)</item>
+    </plurals>
 </resources>

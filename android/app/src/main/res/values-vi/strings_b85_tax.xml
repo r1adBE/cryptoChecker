@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
-    <string name="tax_export_day_close_rule">Giá trị thị trường không có giá đã ghi (phí, tặng/thanh toán, hoán đổi, phần thưởng, phí mạng, giá trị danh mục) theo giá đóng cửa ngày (UTC) của ngày giao dịch</string>
-</resources>

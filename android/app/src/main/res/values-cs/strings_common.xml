@@ -43,4 +43,6 @@
     <string name="shortcut_add">Přidat pár</string>
     <string name="shortcut_alarms">Všechny alarmy</string>
     <string name="shortcut_cycle">Trh</string>
+
+    <string name="log_box_title">Protokol</string>
 </resources>

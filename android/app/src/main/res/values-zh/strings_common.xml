@@ -43,4 +43,6 @@
     <string name="shortcut_add">添加交易对</string>
     <string name="shortcut_alarms">全部提醒</string>
     <string name="shortcut_cycle">市场</string>
+
+    <string name="log_box_title">日志</string>
 </resources>

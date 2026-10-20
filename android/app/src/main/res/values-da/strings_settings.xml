@@ -265,4 +265,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibration følger iPhonens indstillinger (Lyde og haptik).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Tæller nye alarmer og markedsmeddelelser; nulstilles, når du åbner appen.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Dine data</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">På enheden</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Liste, alarmer og portefølje ligger krypteret på denne enhed; ingen konto, ingen egen server.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Forbindelser</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Kurser kommer direkte fra børserne for dine par, plus valutakurser, coinlister og logoer og dataspejlet på GitHub; de ser din IP-adresse, aldrig dine beholdninger (overvågede adresser går til udbyderen af det pågældende netværk).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Sikkerhedskopi</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Kun hvis du selv opretter en; krypteret med adgangskode (Argon2id + AES-256-GCM), læsbar uden adgangskode.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Skift af enhed</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Nøglen bliver på den gamle enhed – opret først en sikkerhedskopifil.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Del diagnose</string>
+    <string name="diagnostics_share_hint">Tekstfil til support: version, enhed, alarmindstillinger, seneste tjek og alarmlog – uden portefølje, beløb, adresser eller noter. Du ser den først; intet sendes automatisk.</string>
+    <string name="diagnostics_preview_title">Diagnose – forhåndsvisning</string>
+    <string name="diagnostics_action_share">Del</string>
 </resources>

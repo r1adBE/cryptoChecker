@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
-    <string name="portfolio_storage_in_memory">رمزگذاری هنوز فعال نیست – سبد ذخیره نمی‌شود و تغییرات با بستن برنامه از بین می‌روند. برنامه در اجرای بعدی دوباره تلاش می‌کند.</string>
-</resources>

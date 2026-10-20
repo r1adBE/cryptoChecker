@@ -9,7 +9,6 @@
     </plurals>
     <string name="watchlist_last_run">آخرین اجرا %1$s</string>
     <string name="watchlist_live_a11y">قیمت‌های زنده فعال است</string>
-    <string name="watchlist_live_badge">زنده</string>
     <string name="watchlist_offline_since">اتصال برقرار نیست · آخرین به‌روزرسانی %1$s</string>
     <string name="watchlist_pull_to_refresh">برای به‌روزرسانی به پایین بکشید</string>
     <string name="watchlist_refresh_report">آخرین تازه‌سازی</string>
@@ -190,4 +189,30 @@
     <string name="sort_move_down">پایین</string>
     <string name="sort_move_top">به بالای فهرست</string>
     <string name="sort_move_up">بالا</string>
+
+    <string name="watchlist_first_alarm_title">اولین هشدار را تنظیم کن</string>
+    <string name="watchlist_first_alarm_text">وقتی قیمت به حد تو رسید، باخبر شو – وقتی برنامه بسته است، Android به‌طور نامنظم بررسی می‌کند.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">قیمت mark (بدون قیمت میانه)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">قیمت ساعتی</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">اولین هشدار را تنظیم کن – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">تازه‌سازی (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · متوقف تا %2$s</string>
+
+    <string name="watchlist_refresh_just_done">همین الان به‌روز شد · %1$d ثانیه پیش</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">آخرین معامله %1$s</string>
+
+    <string name="change_candle_source_hint">محاسبه‌شده از شمع‌های %1$s – خود صرافی این مقدار را ارائه نمی‌دهد.</string>
+    <string name="change_candle_source_action">نمایش منبع تغییر</string>
+
+    <string name="watchlist_sort_by_coin">مرتب‌سازی بر اساس کوین</string>
+    <string name="watchlist_sort_by_exchange">مرتب‌سازی بر اساس صرافی</string>
 </resources>

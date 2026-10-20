@@ -33,7 +33,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 85
+        versionCode = 86
         versionName = "16.2.2"
 
         // Instrumentierte Tests mit Hilt (HiltTestApplication); betrifft nur androidTest
@@ -91,7 +91,6 @@ android {
 
     lint {
         abortOnError = true
-        disable += "MissingTranslation"
         enable += "LogNotTimber"
     }
 }

@@ -43,4 +43,6 @@
     <string name="shortcut_add">Dodaj parę</string>
     <string name="shortcut_alarms">Wszystkie alarmy</string>
     <string name="shortcut_cycle">Rynek</string>
+
+    <string name="log_box_title">Dziennik</string>
 </resources>

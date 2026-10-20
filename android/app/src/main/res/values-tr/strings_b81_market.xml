@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">İzlenen adresler toplam değere dahildir ancak edinme maliyetleri yoktur – bu nedenle kazanç büyük olasılıkla fazla yüksektir. Maliyeti alım olarak kaydedin.</string>
-</resources>

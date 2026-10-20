@@ -75,4 +75,7 @@
     </plurals>
     <string name="portfolio_imports_empty">No imports</string>
     <string name="portfolio_imports_title">Imports</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">same transaction ID with a different amount – check by hand</string>
+    <string name="portfolio_csv_skip_staking_unpaired">staking entry without counter-entry – check holdings</string>
 </resources>

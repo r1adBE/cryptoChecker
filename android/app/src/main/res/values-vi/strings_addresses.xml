@@ -38,4 +38,8 @@
     <string name="address_unsupported">Loại địa chỉ này không được hỗ trợ</string>
     <string name="address_wrong_chain">Địa chỉ thuộc mạng khác</string>
     <string name="address_xpub_multisig">Không hỗ trợ khóa multisig (Ypub/Zpub)</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Tài khoản Taproot (BIP86): các địa chỉ bc1p… cho nhận và tiền thối được suy ra từ khóa này.</string>
+    <string name="portfolio_address_taproot_hint">Ví Taproot? Hãy dán bộ mô tả tr(…) từ ví của bạn thay vào đó – một xpub thông thường chỉ được tìm dưới dạng địa chỉ Legacy và SegWit.</string>
 </resources>

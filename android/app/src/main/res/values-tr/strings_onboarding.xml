@@ -17,4 +17,6 @@
     <string name="starter_select_none">Seçimi kaldır</string>
     <string name="starter_title">Bu coinlerle başlayın</string>
     <string name="starter_watch_alarm_hint">Fiyatı izle, alarm kur</string>
+
+    <string name="starter_source_text">Fiyatlar: %1$s, %2$s cinsinden. İstemediklerinizin seçimini kaldırın, kalanları tek seferde ekleyin. Borsayı ve çifti her coin için değiştirebilirsiniz.</string>
 </resources>

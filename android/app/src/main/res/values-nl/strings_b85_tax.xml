@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
-    <string name="tax_export_day_close_rule">Marktwaarden zonder ingevoerde prijs (kosten, weggegeven/betaald, ruil, beloningen, netwerkkosten, portefeuillewaarde) tegen de dagslotkoers (UTC) van de transactiedag</string>
-</resources>

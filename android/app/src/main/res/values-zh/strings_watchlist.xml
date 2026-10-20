@@ -8,7 +8,6 @@
     </plurals>
     <string name="watchlist_last_run">上次刷新 %1$s</string>
     <string name="watchlist_live_a11y">实时价格已开启</string>
-    <string name="watchlist_live_badge">实时</string>
     <string name="watchlist_offline_since">无连接 · 数据时间 %1$s</string>
     <string name="watchlist_pull_to_refresh">下拉刷新</string>
     <string name="watchlist_refresh_report">上次刷新</string>
@@ -178,4 +177,30 @@
     <string name="sort_move_down">下移</string>
     <string name="sort_move_top">移到顶部</string>
     <string name="sort_move_up">上移</string>
+
+    <string name="watchlist_first_alarm_title">设置第一个提醒</string>
+    <string name="watchlist_first_alarm_text">价格到达你设定的位置时通知你——应用关闭时，Android 的检查时间不固定。</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">标记价格（无中间价）</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">小时价格</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">设置第一个提醒 – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">刷新（%1$d）</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · 暂停至 %2$s</string>
+
+    <string name="watchlist_refresh_just_done">刚刚刷新 · %1$d 秒前</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">最近成交 %1$s</string>
+
+    <string name="change_candle_source_hint">根据 %1$s K线计算 – 交易所本身不提供此数值。</string>
+    <string name="change_candle_source_action">显示涨跌来源</string>
+
+    <string name="watchlist_sort_by_coin">按币种排序</string>
+    <string name="watchlist_sort_by_exchange">按交易所排序</string>
 </resources>

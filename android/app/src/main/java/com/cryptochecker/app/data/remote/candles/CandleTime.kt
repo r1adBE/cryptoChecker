@@ -1,4 +1,4 @@
-// Zeit- und Kennungs-Helfer der eigenen Kerzen (Teil von `ExchangeCandleSourcesMore.kt`, gespiegelt in `CandleTime.swift`).
+// Zeit- und Kennungs-Helfer der eigenen Kerzen (Teil von `ExchangeCandleSourcesGlobal.kt`, gespiegelt in `CandleTime.swift`).
 package com.cryptochecker.app.data.remote.candles
 
 import com.cryptochecker.app.data.remote.CandleDataSource

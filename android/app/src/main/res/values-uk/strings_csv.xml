@@ -89,4 +89,7 @@
     </plurals>
     <string name="portfolio_imports_empty">Немає імпортів</string>
     <string name="portfolio_imports_title">Імпорти</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">той самий ID транзакції з іншою сумою – перевірте вручну</string>
+    <string name="portfolio_csv_skip_staking_unpaired">запис стейкінгу без зустрічного запису – перевірте залишок</string>
 </resources>

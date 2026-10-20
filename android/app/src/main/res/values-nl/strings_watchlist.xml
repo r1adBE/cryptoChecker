@@ -9,7 +9,6 @@
     </plurals>
     <string name="watchlist_last_run">Laatst uitgevoerd %1$s</string>
     <string name="watchlist_live_a11y">Livekoersen actief</string>
-    <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_offline_since">Geen verbinding · stand %1$s</string>
     <string name="watchlist_pull_to_refresh">Trek omlaag om te vernieuwen</string>
     <string name="watchlist_refresh_report">Laatste vernieuwing</string>
@@ -190,4 +189,30 @@
     <string name="sort_move_down">Omlaag</string>
     <string name="sort_move_top">Helemaal naar boven</string>
     <string name="sort_move_up">Omhoog</string>
+
+    <string name="watchlist_first_alarm_title">Stel je eerste alarm in</string>
+    <string name="watchlist_first_alarm_text">Krijg een melding wanneer een koers je grens bereikt – met de app gesloten controleert Android onregelmatig.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">markkoers (geen middenkoers)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">uurkoers</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Stel je eerste alarm in – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Vernieuwen (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · gepauzeerd tot %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Net bijgewerkt · %1$d s geleden</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">laatste transactie %1$s</string>
+
+    <string name="change_candle_source_hint">Berekend uit %1$s-candles – de beurs levert deze waarde niet zelf.</string>
+    <string name="change_candle_source_action">Bron van de wijziging tonen</string>
+
+    <string name="watchlist_sort_by_coin">Sorteren op munt</string>
+    <string name="watchlist_sort_by_exchange">Sorteren op beurs</string>
 </resources>

@@ -38,4 +38,8 @@
     <string name="address_unsupported">Acest tip de adresă nu este acceptat</string>
     <string name="address_wrong_chain">Adresa aparține altei rețele</string>
     <string name="address_xpub_multisig">Cheile multisig (Ypub/Zpub) nu sunt acceptate</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Cont Taproot (BIP86): din această cheie sunt derivate adrese bc1p…, pentru primire și rest.</string>
+    <string name="portfolio_address_taproot_hint">Portofel Taproot? Lipește în schimb descriptorul tr(…) din portofelul tău – un xpub simplu este căutat doar ca adrese Legacy și SegWit.</string>
 </resources>

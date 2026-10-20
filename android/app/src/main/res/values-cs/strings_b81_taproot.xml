@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
-    <string name="portfolio_address_taproot_account">Účet Taproot (BIP86): z tohoto klíče se odvozují adresy bc1p…, pro příjem i drobné.</string>
-    <string name="portfolio_address_taproot_hint">Peněženka Taproot? Vložte místo toho deskriptor tr(…) z vaší peněženky – u obyčejného xpub se hledají jen adresy Legacy a SegWit.</string>
-</resources>

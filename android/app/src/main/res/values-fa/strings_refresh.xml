@@ -107,4 +107,7 @@
     <string name="battery_title">قیمت‌ها را به‌روز نگه دارید</string>
     <string name="ios_background_refresh_off">به‌روزرسانی پس‌زمینه برای این برنامه خاموش است. بدون آن، هشدارها فقط وقتی برنامه باز است بررسی می‌شوند.</string>
     <string name="ios_low_power_mode">حالت کم‌مصرف روشن است. iOS به‌ندرت در پس‌زمینه بررسی می‌کند، پس هشدارها ممکن است دیر برسند.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">پیام صرافی: %1$s</string>
 </resources>

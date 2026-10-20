@@ -1,7 +1,7 @@
 import Foundation
 
-// Gemeinsame Helfer der eigenen Kerzen je Börse (`ExchangeCandleSources.swift`, `ExchangeCandleSourcesMore.swift`):
-// Zahlen lesen, Kennungen prüfen, Reihe abschliessen — wie `CandleParse` in `ExchangeCandleSources.kt` (Android).
+// Gemeinsame Helfer der eigenen Kerzen je Börse (`ExchangeCandleSourcesMajor.swift`, `ExchangeCandleSourcesGlobal.swift`):
+// Zahlen lesen, Kennungen prüfen, Reihe abschliessen — wie `CandleParse` in `ExchangeCandleSourcesMajor.kt` (Android).
 
 /// Gemeinsames für die Quellen: Zahlen lesen, Kennungen prüfen, Reihe abschliessen.
 enum CandleParse {

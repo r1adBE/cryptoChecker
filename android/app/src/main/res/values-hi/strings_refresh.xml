@@ -107,4 +107,7 @@
     <string name="battery_title">कीमतें अप-टू-डेट रखें</string>
     <string name="ios_background_refresh_off">इस ऐप के लिए बैकग्राउंड ऐप रिफ़्रेश बंद है। इसके बिना अलार्म सिर्फ़ ऐप खुला होने पर जाँचे जाते हैं।</string>
     <string name="ios_low_power_mode">लो पावर मोड चालू है। iOS बैकग्राउंड में कम ही जाँचता है, इसलिए अलार्म देर से आ सकते हैं।</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">एक्सचेंज का संदेश: %1$s</string>
 </resources>

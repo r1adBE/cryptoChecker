@@ -261,4 +261,44 @@
         <item quantity="one">Ilman %1$d kolikkoa, jolta puuttuu ostohinta (%2$s) – lisää hinta, jotta se lasketaan.</item>
         <item quantity="other">Ilman %1$d kolikkoa, joilta puuttuu ostohinta (%2$s) – lisää hinnat, jotta ne lasketaan.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT:n romahdus – markkina %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDT:n dollarikurssi USDC/USDT:n kautta – jos USDC laskee, tämä arvo ei pidä paikkaansa</string>
+    <string name="portfolio_amount_bridged_stable">≈ sis. %1$s (siltattu)</string>
+
+    <string name="portfolio_tx_interest">Korko (lainaus)</string>
+    <string name="portfolio_tx_interest_hint">Lasketaan tuloksi saatessa (Itävalta). Jätä pois päältä staking-palkkioille ja airdropeille.</string>
+    <string name="app_lock_no_screen_lock">Ota näytön lukitus käyttöön avataksesi salkun.</string>
+    <string name="app_lock_turn_off_action">Poista salkun lukitus</string>
+    <string name="app_lock_turn_off_confirm_title">Poistetaanko salkun lukitus?</string>
+    <string name="app_lock_turn_off_confirm_message">Ilman näytön lukitusta salkkua ei voi avata. Kun lukitus on pois päältä, sovellus näyttää salkun taas kysymättä. Kun näytön lukitus on otettu käyttöön, voit kytkeä lukituksen takaisin asetuksista.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">”Ostosta” ja hankintahinta valuutassa %1$s: hankintahinta ostopäivän valuuttakurssilla, arvo tämän päivän kurssilla.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Ostopäivälle ei ole valuuttakurssia (puuttuu kohdista ”Ostosta” ja hankintahinta): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Hankintahinta ostopäiviltä ilman USDT:n dollarikurssia laskettu 1 Yhdysvaltain dollarina per USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Tilanne %1$s – pörssiin ei saada yhteyttä</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Päivähinnat: %1$s (Binancen sijaan)</string>
+
+    <string name="portfolio_footer_short">Työapuväline, ei vero- eikä sijoitusneuvontaa. Tietosuoja: Asetukset › Tietoja sovelluksesta › Tietosuojaseloste.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Poistetaanko kaikki kohteen %1$s tapahtumat?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d tapahtuma poistetaan. Voit perua sen heti perään.</item>
+        <item quantity="other">%d tapahtumaa poistetaan. Voit perua sen heti perään.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s poistettu salkusta (%2$d tapahtuma)</item>
+        <item quantity="other">%1$s poistettu salkusta (%2$d tapahtumaa)</item>
+    </plurals>
 </resources>

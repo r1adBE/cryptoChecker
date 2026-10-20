@@ -17,4 +17,6 @@
     <string name="starter_select_none">Bỏ chọn tất cả</string>
     <string name="starter_title">Bắt đầu với các coin này</string>
     <string name="starter_watch_alarm_hint">Theo dõi giá, đặt cảnh báo</string>
+
+    <string name="starter_source_text">Giá từ %1$s bằng %2$s. Bỏ chọn những coin bạn không muốn và thêm phần còn lại cùng lúc. Bạn có thể đổi sàn và cặp cho từng coin.</string>
 </resources>

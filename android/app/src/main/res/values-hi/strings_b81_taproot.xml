@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
-    <string name="portfolio_address_taproot_account">Taproot खाता (BIP86): इस कुंजी से bc1p… पते बनाए जाते हैं, प्राप्ति और चेंज दोनों के लिए।</string>
-    <string name="portfolio_address_taproot_hint">Taproot वॉलेट? इसके बजाय अपने वॉलेट से डिस्क्रिप्टर tr(…) चिपकाएँ – साधारण xpub में केवल Legacy और SegWit पते खोजे जाते हैं।</string>
-</resources>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="starter_source_text">价格来自 %1$s，以 %2$s 计价。取消不需要的，其余一次性全部添加。交易所和交易对可以按币种更改。</string>
-    <string name="watchlist_row_exchange_paused">%1$s · 暂停至 %2$s</string>
-</resources>

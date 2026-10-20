@@ -98,4 +98,7 @@
     <string name="battery_title">ให้ราคาเป็นปัจจุบันเสมอ</string>
     <string name="ios_background_refresh_off">การรีเฟรชแอปในเบื้องหลังปิดอยู่สำหรับแอปนี้ หากไม่เปิด การแจ้งเตือนจะถูกตรวจเฉพาะตอนเปิดแอป</string>
     <string name="ios_low_power_mode">โหมดพลังงานต่ำเปิดอยู่ iOS แทบไม่ตรวจในเบื้องหลัง การแจ้งเตือนจึงอาจมาช้า</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">ข้อความจากกระดานเทรด: %1$s</string>
 </resources>

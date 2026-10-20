@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
-    <string name="a11y_alarm_count">अलार्म: %1$d</string>
     <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
     <string name="a11y_alarm_fired">अलार्म ट्रिगर हुआ</string>
     <string name="a11y_collapsed">संक्षिप्त</string>

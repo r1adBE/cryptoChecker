@@ -257,4 +257,42 @@
     <plurals name="ledger_without_cost">
         <item quantity="other">Tanpa %1$d koin tanpa harga beli (%2$s) – tambahkan harga agar dihitung.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT anjlok – pasar di %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Kurs dolar USDT melalui USDC/USDT – jika USDC turun, nilai ini tidak tepat</string>
+    <string name="portfolio_amount_bridged_stable">≈ termasuk %1$s (dijembatani)</string>
+
+    <string name="portfolio_tx_interest">Bunga (pinjaman)</string>
+    <string name="portfolio_tx_interest_hint">Dihitung sebagai penghasilan saat diterima (Austria). Biarkan nonaktif untuk hadiah staking dan airdrop.</string>
+    <string name="app_lock_no_screen_lock">Atur kunci layar untuk membuka portofolio.</string>
+    <string name="app_lock_turn_off_action">Matikan kunci portofolio</string>
+    <string name="app_lock_turn_off_confirm_title">Matikan kunci portofolio?</string>
+    <string name="app_lock_turn_off_confirm_message">Tanpa kunci layar, portofolio tidak dapat dibuka. Jika dimatikan, aplikasi menampilkan portofolio lagi tanpa bertanya. Setelah kunci layar diatur, kunci bisa diaktifkan lagi di Pengaturan.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">“Sejak beli” dan biaya perolehan dalam %1$s: biaya dengan kurs pada hari pembelian, nilai dengan kurs hari ini.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Tidak ada kurs untuk hari pembelian (tidak termasuk dalam “Sejak beli” dan biaya perolehan): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Biaya pada hari pembelian tanpa kurs dolar USDT dihitung sebagai 1 dolar AS per USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Per %1$s – bursa tidak dapat dijangkau</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Harga harian: %1$s (bukan Binance)</string>
+
+    <string name="portfolio_footer_short">Alat bantu kerja, bukan nasihat pajak atau investasi. Privasi: Pengaturan › Tentang aplikasi › Kebijakan privasi.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Hapus semua transaksi %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="other">%d transaksi akan dihapus. Anda dapat membatalkannya segera setelahnya.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="other">%1$s dihapus dari portofolio (%2$d transaksi)</item>
+    </plurals>
 </resources>

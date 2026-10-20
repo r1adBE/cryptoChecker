@@ -273,4 +273,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">يتبع الاهتزاز إعدادات iPhone (الأصوات والحس اللمسي).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">يعدّ التنبيهات وإشعارات السوق الجديدة، ويعود إلى 0 عند فتح التطبيق.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">بياناتك</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">على الجهاز</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">تبقى القائمة والتنبيهات والمحفظة مشفّرة على هذا الجهاز؛ بلا حساب وبلا خادم خاص بنا.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">الاتصالات</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">تأتي الأسعار مباشرة من منصات أزواجك، إضافة إلى أسعار الصرف وقوائم العملات وشعاراتها ومرآة البيانات على GitHub؛ ترى هذه الجهات عنوان IP الخاص بك ولا ترى أبدًا ممتلكاتك (العناوين المراقَبة تُرسل إلى مزوّد الشبكة المعنية).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">النسخ الاحتياطي</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">فقط إذا أنشأته بنفسك؛ مشفّر بكلمة مرور (Argon2id + AES-256-GCM)، ومقروء بدونها.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">تغيير الجهاز</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">يبقى المفتاح على الجهاز القديم – أنشئ ملف نسخة احتياطية أولًا.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">مشاركة التشخيص</string>
+    <string name="diagnostics_share_hint">ملف نصي للدعم: الإصدار والجهاز وإعدادات التنبيهات وآخر عمليات الفحص وسجل التنبيهات – بدون المحفظة أو المبالغ أو العناوين أو الملاحظات. تراه أولًا؛ لا يُرسل شيء تلقائيًا.</string>
+    <string name="diagnostics_preview_title">التشخيص – معاينة</string>
+    <string name="diagnostics_action_share">مشاركة</string>
 </resources>

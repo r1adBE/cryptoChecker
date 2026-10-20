@@ -17,4 +17,6 @@
     <string name="starter_select_none">कोई नहीं चुनें</string>
     <string name="starter_title">इन कॉइन से शुरू करें</string>
     <string name="starter_watch_alarm_hint">कीमत देखें, अलार्म सेट करें</string>
+
+    <string name="starter_source_text">भाव %1$s से, %2$s में। जो नहीं चाहिए उसका चयन हटाएँ और बाकी को एक साथ जोड़ें। एक्सचेंज और पेयर आप हर कॉइन के लिए बदल सकते हैं।</string>
 </resources>

@@ -265,4 +265,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Värinä noudattaa iPhonen asetuksia (Äänet ja tuntopalaute).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Laskee uudet hälytykset ja markkinailmoitukset; nollautuu, kun avaat sovelluksen.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Tietosi</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Laitteella</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Lista, hälytykset ja salkku ovat salattuina tällä laitteella; ei tiliä, ei omaa palvelinta.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Yhteydet</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Kurssit tulevat suoraan pariesi pörsseistä, lisäksi valuuttakurssit, kolikkolistat ja logot sekä datapeili GitHubissa; ne näkevät IP-osoitteesi, eivät koskaan omistuksiasi (seuratut osoitteet menevät kyseisen verkon palveluntarjoajalle).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Varmuuskopio</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Vain jos luot sellaisen; salattu salasanalla (Argon2id + AES-256-GCM), luettavissa ilman salasanaa.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Laitteen vaihto</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Avain jää vanhaan laitteeseen – luo ensin varmuuskopiotiedosto.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Jaa diagnostiikka</string>
+    <string name="diagnostics_share_hint">Tekstitiedosto tukea varten: versio, laite, hälytysasetukset, viimeisimmät tarkistukset ja hälytysloki – ilman salkkua, summia, osoitteita tai muistiinpanoja. Näet sen ensin; mitään ei lähetetä automaattisesti.</string>
+    <string name="diagnostics_preview_title">Diagnostiikka – esikatselu</string>
+    <string name="diagnostics_action_share">Jaa</string>
 </resources>

@@ -38,4 +38,8 @@
     <string name="address_unsupported">סוג כתובת זה אינו נתמך</string>
     <string name="address_wrong_chain">הכתובת שייכת לרשת אחרת</string>
     <string name="address_xpub_multisig">מפתחות multisig (Ypub/Zpub) אינם נתמכים</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">חשבון Taproot ‏(BIP86): מהמפתח הזה נגזרות כתובות bc1p…, לקבלה ולעודף.</string>
+    <string name="portfolio_address_taproot_hint">ארנק Taproot? הדבק במקום זאת את המתאר tr(…) מהארנק שלך – ב-xpub רגיל מחפשים רק כתובות Legacy ו-SegWit.</string>
 </resources>

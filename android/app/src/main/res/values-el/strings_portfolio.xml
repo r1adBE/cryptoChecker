@@ -261,4 +261,44 @@
         <item quantity="one">Χωρίς %1$d νόμισμα χωρίς τιμή αγοράς (%2$s) – προσθέστε την τιμή για να μετρήσει.</item>
         <item quantity="other">Χωρίς %1$d νομίσματα χωρίς τιμή αγοράς (%2$s) – προσθέστε τις τιμές για να μετρήσουν.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Κατάρρευση USDT – αγορά στα %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Ισοτιμία USDT σε δολάρια μέσω USDC/USDT – αν πέσει το USDC, η τιμή αυτή δεν ισχύει</string>
+    <string name="portfolio_amount_bridged_stable">≈ συμπ. %1$s (γεφυρωμένο)</string>
+
+    <string name="portfolio_tx_interest">Τόκος (δανεισμός)</string>
+    <string name="portfolio_tx_interest_hint">Μετράει ως εισόδημα κατά την είσπραξη (Αυστρία). Άφησέ το ανενεργό για ανταμοιβές staking και airdrops.</string>
+    <string name="app_lock_no_screen_lock">Ρύθμισε κλείδωμα οθόνης για να ανοίξεις το χαρτοφυλάκιο.</string>
+    <string name="app_lock_turn_off_action">Απενεργοποίηση κλειδώματος χαρτοφυλακίου</string>
+    <string name="app_lock_turn_off_confirm_title">Απενεργοποίηση κλειδώματος χαρτοφυλακίου;</string>
+    <string name="app_lock_turn_off_confirm_message">Χωρίς κλείδωμα οθόνης το χαρτοφυλάκιο δεν ξεκλειδώνει. Απενεργοποιημένο, η εφαρμογή δείχνει ξανά το χαρτοφυλάκιο χωρίς ερώτηση. Μόλις ρυθμίσεις κλείδωμα οθόνης, μπορείς να το ενεργοποιήσεις ξανά στις Ρυθμίσεις.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«Από την αγορά» και κόστος κτήσης σε %1$s: κόστος με την ισοτιμία της ημέρας αγοράς, αξία με τη σημερινή ισοτιμία.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Δεν υπάρχει ισοτιμία για την ημέρα αγοράς (λείπει από «Από την αγορά» και το κόστος κτήσης): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Κόστος σε ημέρες αγοράς χωρίς ισοτιμία USDT σε δολάρια υπολογισμένο ως 1 δολάριο ΗΠΑ ανά USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Κατάσταση %1$s – το ανταλλακτήριο δεν είναι διαθέσιμο</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Ημερήσιες τιμές: %1$s (αντί για Binance)</string>
+
+    <string name="portfolio_footer_short">Βοήθημα εργασίας, όχι φορολογική ή επενδυτική συμβουλή. Απόρρητο: Ρυθμίσεις › Σχετικά με την εφαρμογή › Πολιτική απορρήτου.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Διαγραφή όλων των συναλλαγών του %1$s;</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">Θα αφαιρεθεί %d συναλλαγή. Μπορείτε να το αναιρέσετε αμέσως μετά.</item>
+        <item quantity="other">Θα αφαιρεθούν %d συναλλαγές. Μπορείτε να το αναιρέσετε αμέσως μετά.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">Το %1$s αφαιρέθηκε από το χαρτοφυλάκιο (%2$d συναλλαγή)</item>
+        <item quantity="other">Το %1$s αφαιρέθηκε από το χαρτοφυλάκιο (%2$d συναλλαγές)</item>
+    </plurals>
 </resources>

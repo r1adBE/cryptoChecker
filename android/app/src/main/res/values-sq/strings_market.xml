@@ -31,8 +31,6 @@
     <string name="market_plain_standout_quiet">Tani për tani asnjë monedhë nuk bie veçanërisht në sy.</string>
     <string name="market_plain_standout_volume">Bie në sy %1$s: rreth %2$s herë më shumë tregtim se zakonisht.</string>
     <string name="market_plain_title">Shkurt</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · dje %2$s</string>
     <string name="market_section_collapse">Fshih %1$s</string>
     <string name="market_section_context">Sentimenti dhe cikli</string>
     <string name="market_section_data">Të dhëna tregu</string>
@@ -250,4 +248,22 @@
         <item quantity="other">Vetëm %1$d ditë histori – mungojnë disa tregues.</item>
     </plurals>
     <string name="coin_title">Analiza e monedhës</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Të dhëna: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Fituesit dhe humbësit 24 orë</string>
+    <string name="movers_gainers">Fituesit</string>
+    <string name="movers_losers">Humbësit</string>
+    <string name="movers_no_gainers">Asnjë monedhë nuk u rrit në 24 orë</string>
+    <string name="movers_no_losers">Asnjë monedhë nuk ra në 24 orë</string>
+    <string name="movers_source">CoinGecko, 24 orë, top 100 pa stablecoin</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Shfaqi të gjitha</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Shfaq më pak</string>
 </resources>

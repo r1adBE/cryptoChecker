@@ -9,7 +9,6 @@
     </plurals>
     <string name="watchlist_last_run">Utolsó futás %1$s</string>
     <string name="watchlist_live_a11y">Élő árfolyamok bekapcsolva</string>
-    <string name="watchlist_live_badge">ÉLŐ</string>
     <string name="watchlist_offline_since">Nincs kapcsolat · állapot: %1$s</string>
     <string name="watchlist_pull_to_refresh">Húzza le a frissítéshez</string>
     <string name="watchlist_refresh_report">Utolsó frissítés</string>
@@ -190,4 +189,30 @@
     <string name="sort_move_down">Le</string>
     <string name="sort_move_top">Legfelülre</string>
     <string name="sort_move_up">Fel</string>
+
+    <string name="watchlist_first_alarm_title">Állítsd be az első riasztást</string>
+    <string name="watchlist_first_alarm_text">Értesítést kapsz, ha egy árfolyam eléri a megadott szintet – bezárt alkalmazásnál az Android rendszertelenül ellenőriz.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark ár (nincs középárfolyam)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">órás árfolyam</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Állítsd be az első riasztást – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Frissítés (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · szüneteltetve eddig: %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Épp frissítve · %1$d mp-e</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">utolsó kötés %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s-gyertyákból számolva – a tőzsde maga nem adja meg ezt az értéket.</string>
+    <string name="change_candle_source_action">A változás forrásának megjelenítése</string>
+
+    <string name="watchlist_sort_by_coin">Rendezés coin szerint</string>
+    <string name="watchlist_sort_by_exchange">Rendezés tőzsde szerint</string>
 </resources>

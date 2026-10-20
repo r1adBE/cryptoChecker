@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">Các địa chỉ theo dõi được tính vào tổng giá trị nhưng không có giá vốn – vì vậy lãi có thể bị cao hơn thực tế. Hãy ghi giá vốn dưới dạng giao dịch mua.</string>
-</resources>

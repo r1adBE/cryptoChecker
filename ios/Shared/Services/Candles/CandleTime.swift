@@ -1,7 +1,7 @@
 import Foundation
 
-// Zeit- und Kennungs-Helfer der eigenen Kerzen, zweite Runde (`ExchangeCandleSourcesMore.swift`,
-// `ExchangeCandleSourcesMore2.swift`) — wie `CandleTime` in `ExchangeCandleSourcesMore.kt` (Android).
+// Zeit- und Kennungs-Helfer der eigenen Kerzen, zweite Runde (`ExchangeCandleSourcesGlobal.swift`,
+// `ExchangeCandleSourcesSpecial.swift`) — wie `CandleTime` in `ExchangeCandleSourcesGlobal.kt` (Android).
 
 /// Zeit- und Kennungs-Helfer der zweiten Runde.
 enum CandleTime {

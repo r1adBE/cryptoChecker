@@ -17,4 +17,6 @@
     <string name="starter_select_none">Batal pilih semua</string>
     <string name="starter_title">Mulai dengan koin-koin ini</string>
     <string name="starter_watch_alarm_hint">Pantau harga, pasang alarm</string>
+
+    <string name="starter_source_text">Harga dari %1$s dalam %2$s. Batalkan pilihan yang tidak Anda inginkan, lalu tambahkan sisanya sekaligus. Bursa dan pasangan bisa Anda ubah untuk tiap koin.</string>
 </resources>

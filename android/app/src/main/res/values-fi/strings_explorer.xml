@@ -110,4 +110,9 @@
     <string name="asset_kind_alpha">Alpha-token</string>
     <string name="asset_kind_token">Token</string>
     <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Matala likviditeetti – ei hälytystä</string>
+    <string name="dex_low_liquidity_alarm_hint">Tässä poolissa on alle 10 000 USD likviditeettiä (tai tieto puuttuu). Pienetkin summat liikuttavat hintaa, joten tähän ei voi asettaa hälytyksiä. Nykyiset hälytykset säilyvät, mutta laukeavat vasta, kun likviditeetti taas kasvaa.</string>
+
+    <string name="explorer_bulk_show_all">Näytä kaikki (%1$d)</string>
 </resources>

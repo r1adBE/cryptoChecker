@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
-    <string name="portfolio_address_taproot_account">Konto Taproot (BIP86): z tego klucza wyprowadzane są adresy bc1p…, do odbioru i reszty.</string>
-    <string name="portfolio_address_taproot_hint">Portfel Taproot? Wklej zamiast tego deskryptor tr(…) ze swojego portfela – zwykły xpub jest przeszukiwany tylko jako adresy Legacy i SegWit.</string>
-</resources>

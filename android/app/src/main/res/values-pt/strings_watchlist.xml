@@ -10,7 +10,6 @@
     </plurals>
     <string name="watchlist_last_run">Última execução %1$s</string>
     <string name="watchlist_live_a11y">Cotações ao vivo ativas</string>
-    <string name="watchlist_live_badge">DIRETO</string>
     <string name="watchlist_offline_since">Sem ligação · dados de %1$s</string>
     <string name="watchlist_pull_to_refresh">Puxe para baixo para atualizar</string>
     <string name="watchlist_refresh_report">Última atualização</string>
@@ -202,4 +201,30 @@
     <string name="sort_move_down">Descer</string>
     <string name="sort_move_top">Para o topo</string>
     <string name="sort_move_up">Subir</string>
+
+    <string name="watchlist_first_alarm_title">Defina o seu primeiro alarme</string>
+    <string name="watchlist_first_alarm_text">Receba um aviso quando um preço atingir o seu limite – com a app fechada, o Android verifica de forma irregular.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">preço mark (sem preço médio)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">preço horário</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Defina o seu primeiro alarme – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Atualizar (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · em pausa até às %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Acabado de atualizar · há %1$d s</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">última negociação %1$s</string>
+
+    <string name="change_candle_source_hint">Calculado com base nas velas da %1$s – a própria corretora não fornece este valor.</string>
+    <string name="change_candle_source_action">Mostrar origem da variação</string>
+
+    <string name="watchlist_sort_by_coin">Ordenar por moeda</string>
+    <string name="watchlist_sort_by_exchange">Ordenar por corretora</string>
 </resources>

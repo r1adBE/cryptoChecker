@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="starter_source_text">Prețuri de la %1$s în %2$s. Debifează ce nu vrei și adaugă restul dintr-odată. Poți schimba bursa și perechea pentru fiecare monedă.</string>
-    <string name="watchlist_row_exchange_paused">%1$s · în pauză până la %2$s</string>
-</resources>

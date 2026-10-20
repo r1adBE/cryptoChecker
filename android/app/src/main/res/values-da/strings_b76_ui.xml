@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="explorer_bulk_show_all">Vis alle (%1$d)</string>
-    <string name="log_box_title">Log</string>
-    <string name="watchlist_first_alarm_title">Sæt din første alarm</string>
-    <string name="watchlist_first_alarm_text">Få besked, når en kurs når dit niveau – når appen er lukket, tjekker Android uregelmæssigt.</string>
-</resources>

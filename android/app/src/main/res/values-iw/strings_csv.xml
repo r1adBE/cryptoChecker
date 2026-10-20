@@ -82,4 +82,7 @@
     </plurals>
     <string name="portfolio_imports_empty">אין ייבואים</string>
     <string name="portfolio_imports_title">ייבואים</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">אותו מזהה עסקה עם סכום שונה – לבדוק ידנית</string>
+    <string name="portfolio_csv_skip_staking_unpaired">רישום staking ללא רישום נגדי – לבדוק את היתרה</string>
 </resources>

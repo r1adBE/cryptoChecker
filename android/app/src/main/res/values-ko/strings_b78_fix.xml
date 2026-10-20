@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
-    <string name="tax_line_at_interest_old">2022년 3월 1일 이전 렌딩 이자(받은 시점의 가치)</string>
-    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
-    <string name="tax_summary_at_interest_old_law">2022년 3월 1일 이전 이자: 구법(누진세율) 적용, 27.5퍼센트 아님</string>
-    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
-    <string name="tax_export_at_income_before_new_law">2022년 3월 1일 이전 – 전문가와 확인하세요</string>
-</resources>

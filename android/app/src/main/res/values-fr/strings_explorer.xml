@@ -118,4 +118,9 @@
     <string name="asset_kind_alpha">Jeton Alpha</string>
     <string name="asset_kind_token">Jeton</string>
     <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Faible liquidité – pas d\'alarme</string>
+    <string name="dex_low_liquidity_alarm_hint">Ce pool a moins de 10 000 USD de liquidité (ou aucune indication). De petits montants suffisent à faire bouger son cours, aucune alarme ne peut donc être définie ici. Les alarmes existantes sont conservées, mais ne se déclenchent qu\'une fois la liquidité remontée.</string>
+
+    <string name="explorer_bulk_show_all">Tout afficher (%1$d)</string>
 </resources>

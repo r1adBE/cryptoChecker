@@ -65,4 +65,8 @@
     <string name="tts_direction_up">상승했습니다</string>
     <string name="tts_direction_volume_spike">거래량 급증과 함께</string>
     <string name="tts_price">%1$s, %2$s %3$s, %4$s</string>
+
+    <!-- Build 82: Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
+    <string name="notification_alarm_action_snooze">1시간 후</string>
+    <string name="notification_alarm_action_edit">조정</string>
 </resources>

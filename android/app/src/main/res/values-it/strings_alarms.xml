@@ -173,4 +173,11 @@
     <string name="alarm_a11y_speak_on">Voce attiva</string>
     <string name="alarm_unchecked_no_candles">Impossibile controllare (nessuna candela)</string>
     <string name="alarm_unchecked_no_rate">Impossibile controllare (nessun tasso di cambio)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Notifiche disattivate – questo allarme non ti raggiungerà</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Nessun allarme – liquidità bassa</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">In attesa di un prezzo aggiornato</string>
 </resources>

@@ -107,4 +107,7 @@
     <string name="battery_title">Kurse aktuell halten</string>
     <string name="ios_background_refresh_off">Die Hintergrundaktualisierung ist für die App aus. Ohne sie werden Alarme nur bei offener App geprüft.</string>
     <string name="ios_low_power_mode">Der Stromsparmodus ist an. iOS prüft im Hintergrund kaum, Alarme können sich verspäten.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Meldung der Börse: %1$s</string>
 </resources>

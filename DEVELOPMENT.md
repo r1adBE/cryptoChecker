@@ -588,8 +588,8 @@ screenshots is uploaded on failure).
 build and an unsigned release build with R8 (catches missing keep rules). Pushes to `main`
 submit the Gradle dependency graph (Dependabot alerts); pull requests run a dependency review
 that fails on new dependencies with known high-severity vulnerabilities.
-`.github/dependabot.yml` opens weekly update PRs for GitHub Actions and Gradle (version catalog
-`android/gradle/libs.versions.toml`). The *iOS*
+`.github/dependabot.yml` opens monthly version update PRs for GitHub Actions (at most two open);
+Gradle (version catalog `android/gradle/libs.versions.toml`) only gets security updates. The *iOS*
 workflow builds and tests in the Simulator (unit tests, then UI tests) when `ios/`, the shared parity
 cases or the UI-test files change.
 
@@ -1607,7 +1607,7 @@ Change a rule → change the JSON first, then both implementations.
 * **Candles come from the pair's own exchange first; fallback only labelled and same-token
   checked** (build 44). Sheet chart, mini chart, single-coin widget, the 24 h fallback reference and
   «Why?» ask the pair's own exchange first: `ExchangeCandleRegistry` with one `ExchangeCandleSource`
-  per exchange (Android `data/remote/candles/ExchangeCandleSources.kt` / `ExchangeCandleSourcesMore.kt`,
+  per exchange (Android `data/remote/candles/ExchangeCandleSourcesMajor.kt` / `ExchangeCandleSourcesGlobal.kt`,
   `OwnCandleDataSource`, `OwnHourlyCandles`; iOS `ios/Shared/Services/Candles/`; parity
   `testdata/parity/own_candles.json`). Covered today: Binance, Binance.US, Binance USDⓈ-M, Coinbase,
   Kraken, Bitstamp, Bitvavo, Bybit (spot, linear), OKX (spot, swap), Bitfinex, Bitget (spot, USDT

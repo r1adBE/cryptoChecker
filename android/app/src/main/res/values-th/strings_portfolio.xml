@@ -257,4 +257,42 @@
     <plurals name="ledger_without_cost">
         <item quantity="other">ไม่รวม %1$d เหรียญที่ไม่มีราคาซื้อ (%2$s) – ใส่ราคาเพื่อให้นับรวม</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT ร่วงหนัก – ตลาดที่ %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">อัตรา USDT เป็นดอลลาร์ผ่าน USDC/USDT – หาก USDC ร่วง ค่านี้จะไม่ถูกต้อง</string>
+    <string name="portfolio_amount_bridged_stable">≈ รวม %1$s (ผ่านบริดจ์)</string>
+
+    <string name="portfolio_tx_interest">ดอกเบี้ย (การให้ยืม)</string>
+    <string name="portfolio_tx_interest_hint">นับเป็นรายได้เมื่อได้รับ (ออสเตรีย) ปิดไว้สำหรับรางวัลสเตกกิ้งและแอร์ดรอป</string>
+    <string name="app_lock_no_screen_lock">ตั้งค่าล็อกหน้าจอเพื่อเปิดพอร์ตโฟลิโอ</string>
+    <string name="app_lock_turn_off_action">ปิดการล็อกพอร์ตโฟลิโอ</string>
+    <string name="app_lock_turn_off_confirm_title">ปิดการล็อกพอร์ตโฟลิโอใช่ไหม</string>
+    <string name="app_lock_turn_off_confirm_message">หากไม่มีล็อกหน้าจอจะปลดล็อกพอร์ตโฟลิโอไม่ได้ เมื่อปิดไว้ แอปจะแสดงพอร์ตโฟลิโออีกครั้งโดยไม่ถาม เมื่อตั้งค่าล็อกหน้าจอแล้ว คุณเปิดการล็อกอีกครั้งได้ในการตั้งค่า</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«ตั้งแต่ซื้อ» และต้นทุนเป็น %1$s: ต้นทุนตามอัตราแลกเปลี่ยนของวันที่ซื้อ มูลค่าตามอัตราวันนี้</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">ไม่มีอัตราแลกเปลี่ยนของวันที่ซื้อ (ไม่รวมใน «ตั้งแต่ซื้อ» และต้นทุน): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">ต้นทุนในวันที่ซื้อที่ไม่มีอัตรา USDT เป็นดอลลาร์ คิดเป็น 1 ดอลลาร์สหรัฐต่อ USDT</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">ข้อมูล ณ %1$s – เชื่อมต่อกระดานเทรดไม่ได้</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">ราคารายวัน: %1$s (แทน Binance)</string>
+
+    <string name="portfolio_footer_short">เครื่องมือช่วยทำงาน ไม่ใช่คำแนะนำด้านภาษีหรือการลงทุน ความเป็นส่วนตัว: ตั้งค่า › เกี่ยวกับแอป › นโยบายความเป็นส่วนตัว</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">ลบรายการทั้งหมดของ %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="other">จะลบ %d รายการ คุณเลิกทำได้ทันทีหลังจากนั้น</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="other">นำ %1$s ออกจากพอร์ตโฟลิโอแล้ว (%2$d รายการ)</item>
+    </plurals>
 </resources>

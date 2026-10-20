@@ -75,4 +75,7 @@
     </plurals>
     <string name="portfolio_imports_empty">İçe aktarma yok</string>
     <string name="portfolio_imports_title">İçe aktarmalar</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">aynı işlem kimliği farklı tutarla – elle kontrol et</string>
+    <string name="portfolio_csv_skip_staking_unpaired">karşı kaydı olmayan staking kaydı – bakiyeyi kontrol et</string>
 </resources>

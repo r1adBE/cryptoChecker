@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
-    <string name="tax_export_day_close_rule">Nilai pasar tanpa harga tercatat (biaya, diberikan/dibayar, tukar, imbalan, biaya jaringan, nilai portofolio) pada harga penutupan harian (UTC) hari transaksi</string>
-</resources>

@@ -89,4 +89,7 @@
     </plurals>
     <string name="portfolio_imports_empty">Žádné importy</string>
     <string name="portfolio_imports_title">Importy</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">stejné ID transakce s jinou částkou – zkontrolujte ručně</string>
+    <string name="portfolio_csv_skip_staking_unpaired">stakingový zápis bez protizápisu – zkontrolujte zůstatek</string>
 </resources>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">Overvåkede adresser teller med i totalverdien, men har ingen inngangsverdi – gevinsten blir derfor trolig for høy. Registrer inngangsverdien som et kjøp.</string>
-</resources>

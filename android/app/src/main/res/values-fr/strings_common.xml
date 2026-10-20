@@ -43,4 +43,6 @@
     <string name="shortcut_add">Ajouter une paire</string>
     <string name="shortcut_alarms">Toutes les alertes</string>
     <string name="shortcut_cycle">Marché</string>
+
+    <string name="log_box_title">Journal</string>
 </resources>

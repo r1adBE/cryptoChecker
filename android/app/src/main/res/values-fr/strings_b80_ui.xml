@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="starter_source_text">Cours de %1$s en %2$s. Désélectionnez ce que vous ne voulez pas et ajoutez le reste en une fois. Vous pouvez changer la plateforme et la paire pour chaque crypto.</string>
-    <string name="watchlist_row_exchange_paused">%1$s · en pause jusqu’à %2$s</string>
-</resources>

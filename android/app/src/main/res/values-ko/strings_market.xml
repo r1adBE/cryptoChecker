@@ -30,8 +30,6 @@
     <string name="market_plain_standout_quiet">지금은 특별히 눈에 띄는 코인이 없습니다.</string>
     <string name="market_plain_standout_volume">눈에 띄는 코인은 %1$s: 거래량이 평소의 약 %2$s배입니다.</string>
     <string name="market_plain_title">한눈에</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · 어제 %2$s</string>
     <string name="market_section_collapse">%1$s 접기</string>
     <string name="market_section_context">심리와 사이클</string>
     <string name="market_section_data">시장 데이터</string>
@@ -247,4 +245,22 @@
         <item quantity="other">가격 기록이 %1$d일분밖에 없어 일부 지표가 없습니다.</item>
     </plurals>
     <string name="coin_title">코인 분석</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">데이터: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">24시간 상승·하락 상위</string>
+    <string name="movers_gainers">상승</string>
+    <string name="movers_losers">하락</string>
+    <string name="movers_no_gainers">24시간 동안 오른 코인이 없습니다</string>
+    <string name="movers_no_losers">24시간 동안 내린 코인이 없습니다</string>
+    <string name="movers_source">CoinGecko, 24시간, 스테이블코인 제외 상위 100</string>
+    <string name="movers_a11y_row">%1$s(%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">모두 보기</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">간단히 보기</string>
 </resources>

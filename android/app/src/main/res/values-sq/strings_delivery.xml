@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Që alarmet të arrijnë</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Në rregull</string>
+    <string name="delivery_state_warn">Kujdes</string>
+    <string name="delivery_state_info">Shënim</string>
+    <string name="delivery_allowed">Të lejuara</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Njoftimet</string>
+    <string name="delivery_notifications_off">Joaktive – alarmet nuk arrijnë</string>
+    <string name="delivery_notifications_not_asked">Ende të palejuara</string>
+    <string name="delivery_channel">Kanali i alarmeve</string>
+    <string name="delivery_channel_high">Rëndësi e lartë – shfaqet në krye të ekranit</string>
+    <string name="delivery_channel_low">Rëndësi e ulët – alarmet shfaqen vetëm në heshtje në listë</string>
+    <string name="delivery_channel_off">I çaktivizuar – alarmet nuk arrijnë</string>
+    <string name="delivery_exact_on">Aktiv – afërsisht çdo 15 minuta</string>
+    <string name="delivery_exact_off">Joaktiv – Android kontrollon në mënyrë të parregullt</string>
+    <string name="delivery_battery">Optimizimi i baterisë</string>
+    <string name="delivery_battery_unrestricted">I pakufizuar</string>
+    <string name="delivery_battery_optimized">I optimizuar – Android mund t\'i vonojë kontrollet. Aplikacioni nuk kërkon përjashtim; mund ta ndryshosh te cilësimet e baterisë së aplikacionit.</string>
+    <string name="delivery_background">Përdorimi në sfond</string>
+    <string name="delivery_background_restricted">I kufizuar – Android i ndalon kontrollet në sfond</string>
+    <string name="delivery_dnd">Mos shqetëso</string>
+    <string name="delivery_dnd_on">Aktiv – alarmet mund të vijnë pa zë</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Aktive deri në %1$s – alarmet në pritje presin deri atëherë</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – alarmet në pritje presin gjatë kësaj kohe</string>
+    <string name="delivery_last_check">Kontrolli i fundit në sfond</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – më shumë se 6 orë më parë</string>
+    <string name="delivery_last_check_never">Asnjë ende</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Lejo</string>
+    <string name="delivery_action_change">Ndrysho</string>
+    <string name="delivery_action_show">Shfaq</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Banerët dhe zëri</string>
+    <string name="delivery_alert_off">Banerët joaktivë – alarmet shfaqen vetëm te Qendra e njoftimeve</string>
+    <string name="delivery_sound_off">Zëri joaktiv – alarmet vijnë në heshtje</string>
+    <string name="delivery_time_sensitive">Njoftime urgjente</string>
+    <string name="delivery_time_sensitive_off">Joaktive – një Fokus mund t\'i mbajë alarmet</string>
+    <string name="delivery_background_refresh">Rifreskimi në sfond</string>
+    <string name="delivery_low_power">Modaliteti i energjisë së ulët</string>
+    <string name="delivery_swipe_away">E hoqe aplikacionin me rrëshqitje?</string>
+    <string name="delivery_swipe_away_note">Nëse e heq aplikacionin me rrëshqitje te ndërruesi i aplikacioneve, iOS nuk kontrollon më në sfond derisa ta hapësh përsëri.</string>
+    <string name="delivery_live_activity">Aktivitet i drejtpërdrejtë</string>
+    <string name="delivery_live_activity_note">Shfaq kursin në ekranin e kyçjes, por përditësohet vetëm kur aplikacioni kontrollon – alarmet nuk kontrollohen më shpesh për këtë.</string>
+
+    <string name="alarm_first_check">Kontrollo që alarmet të arrijnë</string>
+
+    <string name="oem_battery_title">Kursimi i baterisë nga prodhuesi</string>
+    <string name="oem_battery_xiaomi">Xiaomi mund ta ndalë plotësisht aplikacionin – atëherë nuk vjen asnjë alarm. Aktivizoni «Nisja automatike» dhe vendosni kursyesin e baterisë në «Pa kufizime».</string>
+    <string name="oem_battery_samsung">Samsung mund ta vërë aplikacionin në gjumë të thellë – atëherë nuk vjen asnjë alarm. Te Bateria › Kufijtë e përdorimit në sfond shtojeni te «Aplikacionet që nuk flenë kurrë».</string>
+    <string name="oem_battery_huawei">Huawei/Honor mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Te Bateria › Nisja e aplikacioneve zgjidhni «Menaxho manualisht» dhe lejoni gjithçka.</string>
+    <string name="oem_battery_oneplus">OnePlus mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Lejoni «Nisja automatike» dhe aktivitetin në sfond te Përdorimi i baterisë.</string>
+    <string name="oem_battery_oppo">Oppo/Realme mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Lejoni «Nisja automatike» dhe aktivitetin në sfond te Përdorimi i baterisë.</string>
+    <string name="oem_battery_vivo">Vivo mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Lejoni «Nisja automatike» dhe konsumin e lartë në sfond te Bateria.</string>
+</resources>

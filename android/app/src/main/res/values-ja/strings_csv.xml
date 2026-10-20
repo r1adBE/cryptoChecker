@@ -68,4 +68,7 @@
     </plurals>
     <string name="portfolio_imports_empty">インポートなし</string>
     <string name="portfolio_imports_title">インポート</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">同じ取引 ID で数量が異なる – 手動で確認</string>
+    <string name="portfolio_csv_skip_staking_unpaired">対応する記帳のないステーキング記帳 – 残高を確認</string>
 </resources>

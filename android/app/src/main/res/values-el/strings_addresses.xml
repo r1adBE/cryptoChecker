@@ -38,4 +38,8 @@
     <string name="address_unsupported">Αυτός ο τύπος διεύθυνσης δεν υποστηρίζεται</string>
     <string name="address_wrong_chain">Η διεύθυνση ανήκει σε άλλο δίκτυο</string>
     <string name="address_xpub_multisig">Τα κλειδιά multisig (Ypub/Zpub) δεν υποστηρίζονται</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Λογαριασμός Taproot (BIP86): από αυτό το κλειδί παράγονται διευθύνσεις bc1p…, για λήψη και ρέστα.</string>
+    <string name="portfolio_address_taproot_hint">Πορτοφόλι Taproot; Επικόλλησε καλύτερα τον περιγραφέα tr(…) από το πορτοφόλι σου – ένα απλό xpub ελέγχεται μόνο ως διευθύνσεις Legacy και SegWit.</string>
 </resources>

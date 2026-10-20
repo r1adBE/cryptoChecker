@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="starter_source_text">%1$s の価格（%2$s 建て）。不要なものは選択を外し、残りをまとめて追加できます。取引所とペアはコインごとに変更できます。</string>
-    <string name="watchlist_row_exchange_paused">%1$s · %2$s まで一時停止</string>
-</resources>

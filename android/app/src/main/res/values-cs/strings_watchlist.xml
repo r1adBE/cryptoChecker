@@ -11,7 +11,6 @@
     </plurals>
     <string name="watchlist_last_run">Poslední běh %1$s</string>
     <string name="watchlist_live_a11y">Živé kurzy zapnuté</string>
-    <string name="watchlist_live_badge">ŽIVĚ</string>
     <string name="watchlist_offline_since">Bez připojení · stav k %1$s</string>
     <string name="watchlist_pull_to_refresh">Potažením dolů obnovíte</string>
     <string name="watchlist_refresh_report">Poslední obnovení</string>
@@ -214,4 +213,30 @@
     <string name="sort_move_down">Dolů</string>
     <string name="sort_move_top">Úplně nahoru</string>
     <string name="sort_move_up">Nahoru</string>
+
+    <string name="watchlist_first_alarm_title">Nastav první alarm</string>
+    <string name="watchlist_first_alarm_text">Dostaneš upozornění, když cena dosáhne tvé hranice – při zavřené aplikaci Android kontroluje nepravidelně.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">cena mark (bez středního kurzu)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">hodinový kurz</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Nastav první alarm – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Obnovit (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · pozastaveno do %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Právě aktualizováno · před %1$d s</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">poslední obchod %1$s</string>
+
+    <string name="change_candle_source_hint">Vypočteno ze svíček %1$s – burza sama tuto hodnotu neposkytuje.</string>
+    <string name="change_candle_source_action">Zobrazit zdroj změny</string>
+
+    <string name="watchlist_sort_by_coin">Seřadit podle coinu</string>
+    <string name="watchlist_sort_by_exchange">Seřadit podle burzy</string>
 </resources>

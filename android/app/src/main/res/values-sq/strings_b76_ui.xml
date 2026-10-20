@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="explorer_bulk_show_all">Shfaq të gjitha (%1$d)</string>
-    <string name="log_box_title">Regjistri</string>
-    <string name="watchlist_first_alarm_title">Vendos alarmin e parë</string>
-    <string name="watchlist_first_alarm_text">Merr njoftim kur një çmim të arrijë kufirin tënd – kur aplikacioni është i mbyllur, Android kontrollon në mënyrë të parregullt.</string>
-</resources>

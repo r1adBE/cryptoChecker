@@ -8,7 +8,6 @@
     </plurals>
     <string name="watchlist_last_run">마지막 실행 %1$s</string>
     <string name="watchlist_live_a11y">실시간 시세 켜짐</string>
-    <string name="watchlist_live_badge">실시간</string>
     <string name="watchlist_offline_since">연결 없음 · %1$s 기준</string>
     <string name="watchlist_pull_to_refresh">아래로 당겨 새로고침</string>
     <string name="watchlist_refresh_report">마지막 새로고침</string>
@@ -178,4 +177,30 @@
     <string name="sort_move_down">아래로</string>
     <string name="sort_move_top">맨 위로</string>
     <string name="sort_move_up">위로</string>
+
+    <string name="watchlist_first_alarm_title">첫 경보 설정</string>
+    <string name="watchlist_first_alarm_text">가격이 정한 기준에 도달하면 알려 드립니다. 앱을 닫으면 Android가 불규칙하게 확인합니다.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">마크 가격(중간 가격 없음)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">시간봉 가격</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">첫 경보 설정 – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">새로고침 (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s까지 일시 중지</string>
+
+    <string name="watchlist_refresh_just_done">방금 업데이트됨 · %1$d초 전</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">마지막 거래 %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s 캔들로 계산 – 거래소 자체는 이 값을 제공하지 않습니다.</string>
+    <string name="change_candle_source_action">변동 출처 보기</string>
+
+    <string name="watchlist_sort_by_coin">코인별 정렬</string>
+    <string name="watchlist_sort_by_exchange">거래소별 정렬</string>
 </resources>

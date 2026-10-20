@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
-    <string name="portfolio_storage_in_memory">एन्क्रिप्शन अभी सक्रिय नहीं है – पोर्टफ़ोलियो सहेजा नहीं जा रहा, ऐप बंद होने पर बदलाव खो जाएँगे। ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।</string>
-</resources>

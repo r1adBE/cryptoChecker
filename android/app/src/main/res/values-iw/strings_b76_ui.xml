@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="explorer_bulk_show_all">הצג הכול (%1$d)</string>
-    <string name="log_box_title">יומן</string>
-    <string name="watchlist_first_alarm_title">הגדר את ההתראה הראשונה</string>
-    <string name="watchlist_first_alarm_text">קבל הודעה כשמחיר מגיע לרף שלך – כשהאפליקציה סגורה, Android בודק באופן לא סדיר.</string>
-</resources>

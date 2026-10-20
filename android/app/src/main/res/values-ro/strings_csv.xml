@@ -82,4 +82,7 @@
     </plurals>
     <string name="portfolio_imports_empty">Niciun import</string>
     <string name="portfolio_imports_title">Importuri</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">același ID de tranzacție cu altă sumă – verifică manual</string>
+    <string name="portfolio_csv_skip_staking_unpaired">înregistrare de staking fără contrapartidă – verifică soldul</string>
 </resources>

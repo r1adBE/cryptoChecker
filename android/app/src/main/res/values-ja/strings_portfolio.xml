@@ -257,4 +257,42 @@
     <plurals name="ledger_without_cost">
         <item quantity="other">購入価格のないコイン%1$d件を除く（%2$s）。価格を入力すると含まれます。</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT の暴落 – 市場は %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDC/USDT 経由の USDT のドル相場 – USDC が下落するとこの値は正しくありません</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s を含む（ブリッジ）</string>
+
+    <string name="portfolio_tx_interest">利息（レンディング）</string>
+    <string name="portfolio_tx_interest_hint">受け取った時点で所得として計上します（オーストリア）。ステーキング報酬やエアドロップではオフのままにしてください。</string>
+    <string name="app_lock_no_screen_lock">ポートフォリオを開くには画面ロックを設定してください。</string>
+    <string name="app_lock_turn_off_action">ポートフォリオのロックをオフにする</string>
+    <string name="app_lock_turn_off_confirm_title">ポートフォリオのロックをオフにしますか？</string>
+    <string name="app_lock_turn_off_confirm_message">画面ロックがないとポートフォリオのロックを解除できません。オフにすると、アプリは確認なしで再びポートフォリオを表示します。画面ロックを設定したら、設定でロックを再びオンにできます。</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">「購入以来」と取得原価（%1$s）：取得原価は購入日の為替レート、評価額は本日のレートで換算。</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">購入日の為替レートがありません（「購入以来」と取得原価に含まれません）：%1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT のドル相場がない購入日の取得原価は、1 USDT を 1 米ドルとして計算しました。</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s 時点 – 取引所に接続できません</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">日足価格：%1$s（Binance の代わり）</string>
+
+    <string name="portfolio_footer_short">作業用の参考資料です。税務・投資の助言ではありません。プライバシー：設定 › アプリについて › プライバシーポリシー</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s の取引をすべて削除しますか？</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="other">%d 件の取引が削除されます。削除の直後なら元に戻せます。</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="other">%1$s をポートフォリオから削除しました（%2$d 件の取引）</item>
+    </plurals>
 </resources>

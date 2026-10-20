@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
-    <string name="tax_export_day_close_rule">दर्ज कीमत के बिना बाज़ार मूल्य (शुल्क, उपहार/भुगतान, स्वैप, रिवॉर्ड, नेटवर्क शुल्क, पोर्टफ़ोलियो मूल्य) लेन-देन के दिन के दैनिक क्लोज़ (UTC) पर</string>
-</resources>

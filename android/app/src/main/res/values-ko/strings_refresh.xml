@@ -98,4 +98,7 @@
     <string name="battery_title">가격을 최신 상태로 유지</string>
     <string name="ios_background_refresh_off">이 앱의 백그라운드 앱 새로 고침이 꺼져 있습니다. 꺼져 있으면 알람은 앱이 열려 있을 때만 확인됩니다.</string>
     <string name="ios_low_power_mode">저전력 모드가 켜져 있습니다. iOS가 백그라운드에서 거의 확인하지 않아 알람이 늦을 수 있습니다.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">거래소 메시지: %1$s</string>
 </resources>

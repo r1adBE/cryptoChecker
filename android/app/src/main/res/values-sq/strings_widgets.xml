@@ -93,4 +93,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Mbaj shtypur një vend bosh në ekranin bazë derisa aplikacionet të fillojnë të lëkunden.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Prek lart «Ndrysho» › «Shto widget» (ose «+» në versionet më të vjetra të iOS).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">Kërko «Crypto Checker», zgjidh një widget dhe prek «Shto widget».</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Rifresko – sërish e mundur pas %1$d s</string>
 </resources>

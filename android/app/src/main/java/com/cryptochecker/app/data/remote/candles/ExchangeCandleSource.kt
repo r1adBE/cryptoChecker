@@ -66,8 +66,8 @@ fun interface CandleHttp {
 
 /**
  * Kerzen einer Börse über ihren öffentlichen Endpunkt ohne Schlüssel. Erweiterung: neue Quelle als
- * `object` in ExchangeCandleSources.kt schreiben und in [ExchangeCandleRegistry.sources] eintragen
- * (Gegenstück in ExchangeCandleSources.swift), dazu ein Fall in testdata/parity/own_candles.json.
+ * `object` in ExchangeCandleSourcesMajor.kt schreiben und in [ExchangeCandleRegistry.sources] eintragen
+ * (Gegenstück in ExchangeCandleSourcesMajor.swift), dazu ein Fall in testdata/parity/own_candles.json.
  */
 interface ExchangeCandleSource {
     /** Börsen-Schlüssel ([com.cryptochecker.marketdata.model.Market.key]), für die die Quelle gilt. */
@@ -100,7 +100,7 @@ object ExchangeCandleRegistry {
         BitvavoCandles,
         BybitCandles,
         OkxCandles,
-        // Zweite Runde (ExchangeCandleSourcesMore.kt)
+        // Zweite Runde (ExchangeCandleSourcesGlobal.kt)
         BitfinexCandles,
         BitgetCandles,
         GateIoCandles,

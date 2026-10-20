@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_log_title">سجل التنبيهات</string>
+    <string name="alarm_log_open">عرض سجل التنبيهات</string>
+    <string name="alarm_log_intro">متى انطلق تنبيه – ومتى كان سينطلق لكنه أُوقف. يُحفظ على هذا الجهاز فقط لمدة 14 يومًا.</string>
+    <string name="alarm_log_empty_title">لا توجد إدخالات بعد</string>
+    <string name="alarm_log_empty_message">تظهر الإدخالات هنا عندما ينطلق تنبيه أو يُوقف – مثلًا بسبب سعر قديم أو خلال ساعات الصمت.</string>
+    <string name="alarm_log_clear">مسح السجل</string>
+    <string name="alarm_log_clear_title">مسح سجل التنبيهات؟</string>
+    <string name="alarm_log_clear_message">ستُحذف كل الإدخالات. تبقى تنبيهاتك كما هي.</string>
+    <string name="alarm_log_threshold">الحد %1$s</string>
+    <string name="alarm_last_check">آخر فحص: %1$s</string>
+    <string name="alarm_outcome_fired">انطلق</string>
+    <string name="alarm_outcome_not_reached">لم يُبلغ الحد</string>
+    <string name="alarm_outcome_already_triggered">أُبلغ عنه سابقًا – ينتظر عودة السعر إلى الجانب الآخر</string>
+    <string name="alarm_outcome_cooldown">لم ينطلق – فترة الهدوء بعد آخر تنبيه</string>
+    <string name="alarm_outcome_stale">لم ينطلق – السعر قديم (حتى %1$s)</string>
+    <string name="alarm_outcome_mark_price">لم ينطلق – سعر Mark، وليس سعر تداول</string>
+    <string name="alarm_outcome_low_liquidity">لم ينطلق – السيولة أقل من 10,000 USD أو غير معروفة</string>
+    <string name="alarm_outcome_quiet_hours">لم ينطلق – ساعات الصمت (ينبّه بعدها إن بقي الشرط محققًا)</string>
+    <string name="alarm_outcome_notifications_off">لم ينطلق – الإشعارات متوقفة</string>
+    <string name="alarm_outcome_not_shown">لم ينطلق – لم يصل الإشعار، ستتم المحاولة لاحقًا</string>
+    <string name="alarm_outcome_no_rate">لم يُفحص – لا يوجد سعر صرف</string>
+    <string name="alarm_outcome_no_price">لا يوجد سعر – فشل الاستعلام لدى المنصة</string>
+
+    <string name="alarm_outcome_snoozed">مؤجَّل – «بعد ساعة» ما زال ساريًا</string>
+    <string name="alarm_log_source_app">في التطبيق</string>
+    <string name="alarm_log_source_background">في الخلفية</string>
+    <string name="alarm_log_source_exact">فحص في الموعد</string>
+    <string name="alarm_log_source_widget">عبر الأداة</string>
+</resources>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
-    <string name="portfolio_storage_in_memory">ההצפנה עדיין לא פעילה – התיק לא נשמר, ושינויים יאבדו כשהאפליקציה תיסגר. האפליקציה תנסה שוב בהפעלה הבאה.</string>
-</resources>

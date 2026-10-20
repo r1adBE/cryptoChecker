@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">Seuratut osoitteet lasketaan kokonaisarvoon, mutta niillä ei ole hankintahintaa – voitto on siksi todennäköisesti liian suuri. Kirjaa hankintahinta ostona.</string>
-</resources>

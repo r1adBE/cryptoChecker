@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">Les adresses surveillées comptent dans la valeur globale mais n\'ont pas de prix d\'acquisition – la plus-value est donc plutôt surestimée. Saisissez le prix d\'acquisition comme achat.</string>
-</resources>

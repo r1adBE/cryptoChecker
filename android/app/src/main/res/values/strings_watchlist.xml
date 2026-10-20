@@ -9,7 +9,6 @@
     </plurals>
     <string name="watchlist_last_run">Last run %1$s</string>
     <string name="watchlist_live_a11y">Live prices on</string>
-    <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_offline_since">No connection · as of %1$s</string>
     <string name="watchlist_pull_to_refresh">Pull down to refresh</string>
     <string name="watchlist_refresh_report">Last refresh</string>
@@ -190,4 +189,35 @@
     <string name="sort_move_down">Move down</string>
     <string name="sort_move_top">Move to top</string>
     <string name="sort_move_up">Move up</string>
+
+    <string name="watchlist_first_alarm_title">Set your first alert</string>
+    <string name="watchlist_first_alarm_text">Get notified when a price reaches your mark – with the app closed, Android checks irregularly.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark price (no mid price)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">hourly price</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Set your first alert – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Refresh (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · paused until %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Just updated · %1$d s ago</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">last trade %1$s</string>
+
+    <!-- Hinweis beim Tippen auf das «*» an der %-Änderung der Merklisten-Zeile (Wert aus den Kerzen einer anderen Börse); %1$s = Anbieter («Binance», «Binance.US», «Coinbase»), wie change_candle_source -->
+    <string name="change_candle_source_hint">Calculated from %1$s candles – the exchange itself doesn’t provide this value.</string>
+    <!-- Screenreader-Aktion der Merklisten-Zeile, die denselben Hinweis zeigt -->
+    <string name="change_candle_source_action">Show source of change</string>
+
+    <!-- Sortiermodus der Merkliste: ordnet die gezeigten Paare einmal und speichert sie als eigene Reihenfolge (Favoriten bleiben oben). Coin = Anzeigename A–Z, gleiche Coins verschiedener Börsen untereinander -->
+    <string name="watchlist_sort_by_coin">Sort by coin</string>
+    <!-- Wie oben, aber nach Börse gruppiert, innerhalb der Börse A–Z -->
+    <string name="watchlist_sort_by_exchange">Sort by exchange</string>
 </resources>

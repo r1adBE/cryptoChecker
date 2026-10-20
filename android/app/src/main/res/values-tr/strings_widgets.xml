@@ -93,4 +93,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Uygulamalar kıpırdamaya başlayana kadar Ana Ekran\'da boş bir yere dokunup basılı tutun.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Üstte “Düzenle” › “Widget Ekle” seçeneğine dokunun (eski iOS sürümlerinde “+” düğmesine).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” için arama yapın, bir widget seçin ve “Widget Ekle” düğmesine dokunun.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Yenile – %1$d sn sonra yeniden mümkün</string>
 </resources>

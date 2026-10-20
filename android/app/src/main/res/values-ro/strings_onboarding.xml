@@ -17,4 +17,6 @@
     <string name="starter_select_none">Deselectează tot</string>
     <string name="starter_title">Începe cu aceste monede</string>
     <string name="starter_watch_alarm_hint">Urmărește prețul, setează o alarmă</string>
+
+    <string name="starter_source_text">Prețuri de la %1$s în %2$s. Debifează ce nu vrei și adaugă restul dintr-odată. Poți schimba bursa și perechea pentru fiecare monedă.</string>
 </resources>

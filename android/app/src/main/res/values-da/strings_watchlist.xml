@@ -9,7 +9,6 @@
     </plurals>
     <string name="watchlist_last_run">Seneste kørsel %1$s</string>
     <string name="watchlist_live_a11y">Livekurser er slået til</string>
-    <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_offline_since">Ingen forbindelse · pr. %1$s</string>
     <string name="watchlist_pull_to_refresh">Træk ned for at opdatere</string>
     <string name="watchlist_refresh_report">Seneste opdatering</string>
@@ -190,4 +189,30 @@
     <string name="sort_move_down">Flyt ned</string>
     <string name="sort_move_top">Helt op</string>
     <string name="sort_move_up">Flyt op</string>
+
+    <string name="watchlist_first_alarm_title">Sæt din første alarm</string>
+    <string name="watchlist_first_alarm_text">Få besked, når en kurs når dit niveau – når appen er lukket, tjekker Android uregelmæssigt.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">mark-kurs (ingen midterkurs)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">timekurs</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Sæt din første alarm – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Opdater (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · sat på pause til %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Lige opdateret · for %1$d s siden</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">seneste handel %1$s</string>
+
+    <string name="change_candle_source_hint">Beregnet ud fra %1$s-candlesticks – børsen leverer ikke selv denne værdi.</string>
+    <string name="change_candle_source_action">Vis kilden til ændringen</string>
+
+    <string name="watchlist_sort_by_coin">Sortér efter mønt</string>
+    <string name="watchlist_sort_by_exchange">Sortér efter børs</string>
 </resources>

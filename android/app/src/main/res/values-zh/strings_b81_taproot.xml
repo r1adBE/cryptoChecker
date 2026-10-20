@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
-    <string name="portfolio_address_taproot_account">Taproot 账户（BIP86）：将从此密钥派生用于收款和找零的 bc1p… 地址。</string>
-    <string name="portfolio_address_taproot_hint">使用 Taproot 钱包？请改为粘贴钱包中的描述符 tr(…)——普通 xpub 只会按 Legacy 和 SegWit 地址搜索。</string>
-</resources>

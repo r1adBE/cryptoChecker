@@ -93,4 +93,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Paina pitkään tyhjää kohtaa Koti-valikossa, kunnes apit alkavat heilua.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Napauta ylhäällä ”Muokkaa” › ”Lisää widget” (tai vanhemmissa iOS-versioissa ”+”).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">Etsi ”Crypto Checker”, valitse widget ja napauta ”Lisää widget”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Päivitä – taas mahdollista %1$d s kuluttua</string>
 </resources>

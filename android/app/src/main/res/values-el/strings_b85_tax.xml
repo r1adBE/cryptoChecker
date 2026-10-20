@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
-    <string name="tax_export_day_close_rule">Αγοραίες αξίες χωρίς καταχωρημένη τιμή (χρεώσεις, δωρεά/πληρωμή, ανταλλαγή, ανταμοιβές, χρεώσεις δικτύου, αξία χαρτοφυλακίου) στο ημερήσιο κλείσιμο (UTC) της ημέρας της συναλλαγής</string>
-</resources>

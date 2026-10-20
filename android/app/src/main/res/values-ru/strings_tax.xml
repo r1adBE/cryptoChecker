@@ -80,7 +80,6 @@
     <string name="tax_export_summary">Годовая сводка %1$s (CSV)</string>
     <string name="tax_export_swap">обмен</string>
     <string name="tax_export_tax_year">Налоговый год</string>
-    <string name="tax_export_time_zone">Часовой пояс: %1$s</string>
     <string name="tax_export_transfer_fee_info">Комиссия за перевод в USDT/фиате – не убыток, не в стоимости покупки, только для сведения</string>
     <string name="tax_export_unassigned_fee">комиссия не распределена – стоимость неизвестна</string>
     <string name="tax_export_usdt_usd_note">USDT пересчитан по дневному закрытию USDT/USD; без закрытия 1 USD (отмечено в строке)</string>
@@ -134,15 +133,12 @@
     <string name="tax_de_explain_loss">Чистый убыток: налога на эти продажи нет. Убытки по § 23 EStG зачитываются только против прибыли от частных продаж – в том же году либо переносом на предыдущий год и на последующие годы (§ 23 Abs. 3 / § 10d EStG). Укажите убыток в налоговой декларации чтобы его зафиксировали.</string>
     <string name="tax_de_explain_reached">С %1$s учитывается вся сумма (порог освобождения – не вычет).</string>
     <string name="tax_de_explain_unknown">Нельзя проверить: нет валютных курсов / цен покупки или сроков владения.</string>
-    <string name="tax_de_income">Доходы от услуг (§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_income_limit">Порог освобождения услуги (§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_limit_scope">Пороги действуют для всех частных продаж или услуг за год вместе – в том числе вне приложения.</string>
     <string name="tax_de_loading">Расчёт…</string>
     <string name="tax_de_long_gains">Прибыль – владение &gt; 1 года</string>
     <string name="tax_de_long_losses">Убытки – владение &gt; 1 года</string>
     <string name="tax_de_loss">чистый убыток – зачитывается только против прибыли от частных продаж (§ 23 EStG)</string>
-    <string name="tax_de_needs_eur">нужны значения в EUR (нет валютных курсов)</string>
-    <string name="tax_de_needs_holding">нет срока владения (метод средней) – для проверки выберите FIFO</string>
     <string name="tax_de_private_limit">Порог освобождения частные продажи (§ 23 EStG)</string>
     <string name="tax_de_reached">порог достигнут – как правило, учитывается вся сумма – проверьте</string>
     <string name="tax_de_short_gains">Прибыль – владение ≤ 1 года</string>
@@ -203,4 +199,51 @@
     <string name="tax_summary_title">Годовая сводка %1$s %2$s</string>
     <string name="tax_summary_transfer_fee_info">Комиссии за перевод в USDT/фиате – не убыток и не стоимость покупки, только для сведения</string>
     <string name="tax_summary_withdrawal_fee_info">Комиссии за вывод в USDT/фиате – не считаются убытком, только для сведения</string>
+
+    <string name="tax_line_at_old_speculation_limit">Спекулятивные сделки (прежние правила, удерживалось ≤ 1 года): необлагаемый предел (§ 31 абз. 3 EStG, старая редакция)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Проценты от лендинга до 01.03.2022 (стоимость при получении)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Проценты до 01.03.2022: прежнее законодательство (шкала), не 27,5 процента</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">до 01.03.2022 – уточните у специалиста</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Проценты – облагаются при получении</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Стейкинг – только для информации (стоимость приобретения 0, налог при продаже)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Итого проценты (облагаемые)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Итого стейкинг (информация)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Чистый капитальный убыток (перенос)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">без опции: включая продажи 01.01–28.02.2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Стейкинг до 01.03.2022: стоимость приобретения принята равной 0 – уточните у специалиста</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">Правило 30 дней ещё может изменить эти суммы (покупки до %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Выручка до вычета комиссий выше порога отчётности (50 000 £; 2020/21–2022/23: 49 200 £): сообщите в HMRC, если вы зарегистрированы в Self Assessment, даже без налогооблагаемой прибыли</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Стоимость имущества на 31.12.%1$s (ориентир)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Определяющим является курсовой лист ESTV (ictax.admin.ch). Для монет без записи в листе, как правило, применяется цена закрытия биржи. Налог на имущество не рассчитывается.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – остаток %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">не рассчитано</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Не удалось прочитать отслеживаемые адреса – их балансы отсутствуют в этом файле</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Отслеживаемые адреса входят в общую стоимость, но не имеют стоимости приобретения – поэтому прибыль, скорее всего, завышена. Внесите стоимость как покупку.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Рыночная стоимость без указанной цены (комиссии, подарено/оплачено, обмен, вознаграждения, сетевые комиссии, стоимость портфеля) по дневной цене закрытия (UTC) дня операции</string>
 </resources>

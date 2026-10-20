@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="alarm_first_check">Ellenőrzés, hogy megérkeznek-e a riasztások</string>
-    <string name="change_candle_source_hint">%1$s-gyertyákból számolva – a tőzsde maga nem adja meg ezt az értéket.</string>
-    <string name="change_candle_source_action">A változás forrásának megjelenítése</string>
-</resources>

@@ -97,4 +97,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Натисніть і утримуйте вільне місце на початковому екрані, доки програми не почнуть ворушитися.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Торкніться вгорі «Редагувати» › «Додати віджет» (або «+» у старіших версіях iOS).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">Знайдіть «Crypto Checker», виберіть віджет і торкніться «Додати віджет».</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Оновити – знову можна через %1$d с</string>
 </resources>

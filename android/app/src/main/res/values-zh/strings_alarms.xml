@@ -161,4 +161,11 @@
     <string name="alarm_a11y_speak_on">语音播报已开启</string>
     <string name="alarm_unchecked_no_candles">无法检查（无K线数据）</string>
     <string name="alarm_unchecked_no_rate">无法检查（无汇率）</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">通知已关闭——此提醒无法送达</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">无提醒——流动性低</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">正在等待最新价格</string>
 </resources>

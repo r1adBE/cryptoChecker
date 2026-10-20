@@ -107,4 +107,7 @@
     <string name="battery_title">Hold kursene oppdatert</string>
     <string name="ios_background_refresh_off">Bakgrunnsoppdatering er av for appen. Uten den sjekkes alarmer bare mens appen er åpen.</string>
     <string name="ios_low_power_mode">Strømsparingsmodus er på. iOS sjekker sjelden i bakgrunnen, så alarmer kan komme sent.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Melding fra børsen: %1$s</string>
 </resources>

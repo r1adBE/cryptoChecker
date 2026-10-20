@@ -173,4 +173,11 @@
     <string name="alarm_a11y_speak_on">הקראה פעילה</string>
     <string name="alarm_unchecked_no_candles">לא ניתן היה לבדוק (אין נתוני נרות)</string>
     <string name="alarm_unchecked_no_rate">לא ניתן היה לבדוק (אין שער חליפין)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">התראות המערכת כבויות – ההתראה הזו לא תגיע אליך</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">אין התראה – נזילות נמוכה</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">ממתין לשער עדכני</string>
 </resources>

@@ -101,4 +101,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">المس مكانًا فارغًا في الشاشة الرئيسية مع الاستمرار حتى تهتز التطبيقات.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">اضغط في الأعلى على «تعديل» › «إضافة أداة» (أو «+» في إصدارات iOS الأقدم).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">ابحث عن «Crypto Checker»، واختر أداة ثم اضغط على «إضافة أداة».</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">تحديث – ممكن مجددًا خلال %1$d ث</string>
 </resources>

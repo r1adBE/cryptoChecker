@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="explorer_bulk_show_all">सभी दिखाएँ (%1$d)</string>
-    <string name="log_box_title">लॉग</string>
-    <string name="watchlist_first_alarm_title">अपना पहला अलार्म सेट करें</string>
-    <string name="watchlist_first_alarm_text">जब कोई भाव आपकी तय सीमा तक पहुँचे, सूचना पाएँ – ऐप बंद होने पर Android अनियमित रूप से जाँचता है।</string>
-</resources>

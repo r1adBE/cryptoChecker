@@ -98,4 +98,7 @@
     <string name="battery_title">Jaga harga tetap terkini</string>
     <string name="ios_background_refresh_off">Refresh Aplikasi di Latar Belakang mati untuk aplikasi ini. Tanpanya, alarm hanya diperiksa saat aplikasi terbuka.</string>
     <string name="ios_low_power_mode">Mode Daya Rendah aktif. iOS jarang memeriksa di latar belakang, jadi alarm bisa terlambat.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Pesan bursa: %1$s</string>
 </resources>
