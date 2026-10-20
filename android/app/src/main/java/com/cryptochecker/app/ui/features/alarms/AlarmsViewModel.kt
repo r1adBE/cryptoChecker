@@ -386,7 +386,7 @@ class AlarmsViewModel @Inject constructor(
             // Alarms sein — dessen Protokoll und Mitteilung bleiben
             if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) return@launch
             // Seine Mitteilung weg: ihr «Anpassen» zeigte sonst auf einen Alarm, den es nicht mehr gibt
-            runCatching { appNotifier.cancelAlarms(listOf(alarmId)) }
+            runCatchingCancellable { appNotifier.cancelAlarms(listOf(alarmId)) }
             // Datei versiegelt schreiben: nicht auf dem Hauptfaden
             kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { alarmLogStore.removeAlarm(alarmId) }
         }

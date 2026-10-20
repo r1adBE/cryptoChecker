@@ -69,7 +69,7 @@ final class TaxChWealthTests: XCTestCase {
                     XCTAssertEqual(r8(dec(x[3])), r8(r.valueTarget), "\(name) \(m) \(r.coin) target")
                     XCTAssertEqual(x[4] as? Bool, r.missing, "\(name) \(m) \(r.coin) missing")
                     // Nur ein Teil fehlt: bekannter Teil gerechnet, «unvollständig» (wie die Bestandsdatei); fehlt = false
-                    XCTAssertEqual(x.count > 5 ? x[5] as? Bool : false, r.incomplete, "\(name) \(m) \(r.coin) incomplete")
+                    XCTAssertEqual(x.count > 5 ? (x[5] as? Bool ?? false) : false, r.incomplete, "\(name) \(m) \(r.coin) incomplete")
                 }
                 XCTAssertEqual(r8(dec(e["totalUsdt"])), r8(w.totalUsdt), "\(name) \(m) total usdt")
                 XCTAssertEqual(r8(dec(e["totalTarget"])), r8(w.totalTarget), "\(name) \(m) total target")

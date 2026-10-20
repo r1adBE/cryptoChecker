@@ -218,14 +218,11 @@ extension WatchlistRow {
                 Text(watch.quoteAsset)
                     .font(.footnote)
                     .foregroundStyle(AppColors.onSurfaceVariant)
-                // Kurs ist der Mark-Preis (kein Mittelkurs, `MarkFallbackStore`): klein «Mark» dahinter — wie Android
-                if MarkFallbackStore.contains(watch.id) {
-                    Text(L("watch_change_mark"))
-                        .font(.caption2)
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                } else if MarketsConfig.market(watch.marketKey)?.priceIsHourlyClose == true {
-                    // Kurs ist der Schluss der laufenden Stundenkerze (WOO X Spot): wie im Aktionsblatt — wie Android
-                    Text(L("watch_price_hourly"))
+                // Kurs ist der Mark-Preis (kein Mittelkurs, `MarkFallbackStore`): klein «Mark» dahinter; Schluss der
+                // laufenden Stundenkerze (WOO X Spot): «Stundenkurs» wie im Aktionsblatt — beides wie Android
+                if let marker = MarkFallbackStore.contains(watch.id) ? L("watch_change_mark")
+                    : MarketsConfig.market(watch.marketKey)?.priceIsHourlyClose == true ? L("watch_price_hourly") : nil {
+                    Text(marker)
                         .font(.caption2)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }

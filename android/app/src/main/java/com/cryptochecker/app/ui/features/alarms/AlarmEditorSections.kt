@@ -2,6 +2,7 @@
 // Eigene Datei, weil `AlarmEditorSheet` sonst zu lang würde.
 package com.cryptochecker.app.ui.features.alarms
 
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import androidx.compose.ui.platform.LocalConfiguration
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
@@ -150,7 +151,7 @@ internal fun SimpleSentence(
         LaunchedEffect(Unit) {
             delay(AUTO_FOCUS_DELAY_MILLIS)
             // Feld noch nicht im Layout (Blatt schon zu): kein Fokus, kein Absturz
-            runCatching { focusRequester.requestFocus() }
+            runCatchingCancellable { focusRequester.requestFocus() }
             focusDone = true
         }
     }
