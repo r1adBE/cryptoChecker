@@ -149,10 +149,10 @@ extension PortfolioScreen {
 }
 
 extension WatchlistBannerMessage {
-    /// Portfolio-Datei nicht geschrieben (gespeicherter Stand gesperrt, Schlüsselbund nicht lesbar): Änderungen werden
-    /// nicht gespeichert — statt einer Erfolgsmeldung (wie Android `portfolio_storage_kept_in_memory`).
+    /// Portfolio-Datei nicht geschrieben (gespeicherter Stand gesperrt, Schlüsselbund nicht lesbar): Änderungen erst nach
+    /// dem nächsten Start — statt einer Erfolgsmeldung (wie Android `portfolio_storage_locked`).
     static var portfolioNotSaved: WatchlistBannerMessage {
-        WatchlistBannerMessage(text: L("portfolio_storage_kept_in_memory"), icon: "lock.trianglebadge.exclamationmark",
+        WatchlistBannerMessage(text: L("portfolio_storage_locked"), icon: "lock.trianglebadge.exclamationmark",
                                long: true)
     }
 }

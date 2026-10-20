@@ -62,7 +62,7 @@ struct PortfolioHomeView: View {
         HStack(spacing: 4) {
             WidgetLogo(accent: entry.accent, dark: palette.dark, size: 16)
             Text(title)
-                .font(.system(size: 12.5, weight: .bold))
+                .font(.system(size: WidgetFont.body, weight: .bold))
                 .foregroundStyle(palette.text)
                 .lineLimit(1)
             Spacer(minLength: 0)
@@ -204,7 +204,7 @@ struct PortfolioHomeView: View {
         HStack(spacing: 8) {
             quantityPrefixed(p, size: 12) {
                 Text(p.symbol)
-                    .font(.system(size: 12.5, weight: .bold))
+                    .font(.system(size: WidgetFont.label, weight: .bold))
                     .foregroundStyle(palette.text)
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)

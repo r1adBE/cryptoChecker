@@ -41,4 +41,16 @@ class DenseRowTextTest {
             assertTrue(DenseRowText.stacksTrailing(scale))
         }
     }
+
+    @Test
+    fun `Kurs eine Stufe groesser nur mit Platz`() {
+        // Normale Schrift, normale Zeile: gross; schmale Zeile oder Umbruch-Schrift daneben: alte Stufe
+        assertTrue(DenseRowText.largePrice(1f, 360f))
+        assertTrue(DenseRowText.largePrice(1.15f, 412f))
+        assertFalse(DenseRowText.largePrice(1f, 320f))
+        assertFalse(DenseRowText.largePrice(1.3f, 412f))
+        // Gestapelt (Kurs unter dem Paar, volle Breite): immer gross
+        assertTrue(DenseRowText.largePrice(1.5f, 320f))
+        assertTrue(DenseRowText.largePrice(2f, 412f))
+    }
 }

@@ -16,6 +16,10 @@ extension PriceRefresher {
         var volumeRequested: Set<Int64> = []
         /// «Watch-Id|Währung» → Faktor Quote → Währung.
         var convertRates: [String: Double] = [:]
+        /// «Watch-Id|Währung» → diesmal nicht prüfen (Devisenkurs zu alt, USDT/USD unsicher; `FiatAlarmGuard.skip`).
+        var convertSkips: [String: FiatAlarmGuard.Skip] = [:]
+        /// «Watch-Id|Währung», deren Faktor mit USDT = 1 rechnet (keine Messung): Vermerk im Alarmtext.
+        var convertUsdtAssumed: Set<String> = []
         /// Mitteilungen erlaubt? Ohne bleiben Alarme (einmalige wie wiederholende) scharf, statt still verbraucht zu werden.
         var alarmsDeliverable = true
         /// Stufen, die aus Zeitmangel (Endzeit) nicht gelaufen oder nicht fertig geworden sind: Ihre Alarme
@@ -53,7 +57,10 @@ extension PriceRefresher {
             var seen = Set<String>()
             for a in prefetchByWatch[w.id] ?? [] {
                 if let currency = a.convertCurrency, seen.insert(currency).inserted {
-                    convertNeeds.append((watchId: w.id, quote: w.quoteAsset, currency: currency))
+                    // Aster «U» zählt als USD (`CurrencyConversion.conversionQuote`)
+                    convertNeeds.append((watchId: w.id,
+                                         quote: CurrencyConversion.conversionQuote(marketKey: w.marketKey, quote: w.quoteAsset),
+                                         currency: currency))
                 }
             }
         }
@@ -102,7 +109,9 @@ extension PriceRefresher {
         if needed.contains(.convert) && convert == nil { skipped.insert(.convert) }
         return AlarmInputs(volumes: volumes ?? [:], derivatives: derivatives ?? [:], nearRanges: near?.ranges ?? [:],
                            nearMissing: near?.missing ?? [:], volumeRequested: Set(volumeWatches.map(\.id)),
-                           convertRates: convert ?? [:], alarmsDeliverable: deliverable, skippedStages: skipped)
+                           convertRates: convert?.rates ?? [:], convertSkips: convert?.skips ?? [:],
+                           convertUsdtAssumed: convert?.usdtAssumed ?? [], alarmsDeliverable: deliverable,
+                           skippedStages: skipped)
     }
 
     /// Stundenvolumen je Paar, alle gleichzeitig.
@@ -178,8 +187,32 @@ extension PriceRefresher {
         return NearLoad(ranges: nearRanges, missing: nearMissing)
     }
 
-    /// Faktoren «Watch-Id|Währung» für Alarme in einer anderen Währung, alle gleichzeitig.
-    private static func loadConvertRates(_ needs: [(watchId: Int64, quote: String, currency: String)]) async -> [String: Double] {
+    /// Faktoren und Schranken der Alarme in einer anderen Währung (`FiatAlarmGuard`).
+    struct ConvertLoad: Sendable {
+        var rates: [String: Double] = [:]
+        var skips: [String: FiatAlarmGuard.Skip] = [:]
+        var usdtAssumed: Set<String> = []
+    }
+
+    /// Faktoren «Watch-Id|Währung» für Alarme in einer anderen Währung, alle gleichzeitig; danach je Faktor das Alter
+    /// des Devisenkurses und der Stand von USDT/USD (Auslassen bzw. Vermerk «USDT = 1 angenommen») — wie Android.
+    private static func loadConvertRates(_ needs: [(watchId: Int64, quote: String, currency: String)]) async -> ConvertLoad {
+        let rates = await loadRates(needs)
+        var load = ConvertLoad(rates: rates)
+        let now = TimeUtils.nowMillis
+        for need in needs {
+            let key = "\(need.watchId)|\(need.currency)"
+            let usdt = CurrencyConverter.usdtState(quote: need.quote, target: need.currency, now: now)
+            if let skip = FiatAlarmGuard.skip(fxRateTime: CurrencyConverter.fxRateTime(quote: need.quote, target: need.currency),
+                                              usdt: usdt, now: now) {
+                load.skips[key] = skip
+            }
+            if usdt == .ASSUMED { load.usdtAssumed.insert(key) }
+        }
+        return load
+    }
+
+    private static func loadRates(_ needs: [(watchId: Int64, quote: String, currency: String)]) async -> [String: Double] {
         var convertRates: [String: Double] = [:]
         await withTaskGroup(of: (String, Double?).self) { group in
             for need in needs {

@@ -36,6 +36,10 @@ final class CoinDcx: SimpleMarket {
 
     override var bulkTickersNumOfRequests: Int { 1 }
 
+    /// Der ungefilterte Ticker führt jeden aktiven Markt (Aufzeichnung 19.10.2026: 991 von 991 aktiven Paaren
+    /// der Paarliste), ein fehlendes Paar ist nicht mehr gelistet.
+    override var bulkTickersComplete: Bool { true }
+
     override func bulkTickersURL(call: Int) -> String? { coinDcxTicker }
 
     override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {

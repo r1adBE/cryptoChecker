@@ -48,6 +48,12 @@ enum class AlarmLogOutcome(val code: String) {
 
     /** Kein Kurs: Abfrage bei der Börse fehlgeschlagen. */
     NO_PRICE("no_price"),
+
+    /** Schwelle in anderer Währung, Devisenkurs älter als 36 h Bankarbeitszeit: diesmal nicht geprüft (bleibt scharf). */
+    FX_STALE("fx_stale"),
+
+    /** Schwelle in anderer Währung, USDT/USD nur über USDC und USDC/USDT mehr als 1 % neben 1: diesmal nicht geprüft. */
+    FX_UNSURE("fx_unsure"),
     ;
 
     companion object {
@@ -66,6 +72,10 @@ data class AlarmLogTrace(
     val markPrice: Boolean = false,
     val stale: Boolean = false,
     val noRate: Boolean = false,
+    /** Devisenkurs zu alt ([com.cryptochecker.app.domain.convert.FiatAlarmGuard.Skip.FX_STALE]). */
+    val fxStale: Boolean = false,
+    /** USDT/USD unsicher ([com.cryptochecker.app.domain.convert.FiatAlarmGuard.Skip.UNSURE]). */
+    val fxUnsure: Boolean = false,
     /** Bedingung erfüllt, der Alarm wäre fällig (bei einer Sperre: Vorschau mit denselben reinen Regeln). */
     val due: Boolean = false,
     /** Nicht fällig nur wegen der Ruhezeit nach der letzten Meldung (Bedingung selbst erfüllt). */
@@ -153,6 +163,8 @@ object AlarmLog {
         trace.markPrice -> AlarmLogOutcome.MARK_PRICE
         trace.stale -> AlarmLogOutcome.STALE
         trace.noRate -> AlarmLogOutcome.NO_RATE
+        trace.fxStale -> AlarmLogOutcome.FX_STALE
+        trace.fxUnsure -> AlarmLogOutcome.FX_UNSURE
         trace.due -> when {
             trace.quietHours -> AlarmLogOutcome.QUIET_HOURS
             trace.snoozed -> AlarmLogOutcome.SNOOZED
@@ -169,7 +181,8 @@ object AlarmLog {
     /** Ins Protokoll? Ausgelöst, oder zurückgehalten, obwohl die Bedingung erfüllt war. */
     fun notable(outcome: AlarmLogOutcome, trace: AlarmLogTrace): Boolean = when (outcome) {
         AlarmLogOutcome.FIRED -> true
-        AlarmLogOutcome.LOW_LIQUIDITY, AlarmLogOutcome.MARK_PRICE, AlarmLogOutcome.STALE -> trace.due
+        AlarmLogOutcome.LOW_LIQUIDITY, AlarmLogOutcome.MARK_PRICE, AlarmLogOutcome.STALE,
+        AlarmLogOutcome.FX_STALE, AlarmLogOutcome.FX_UNSURE -> trace.due
         AlarmLogOutcome.QUIET_HOURS, AlarmLogOutcome.SNOOZED, AlarmLogOutcome.NOTIFICATIONS_OFF, AlarmLogOutcome.NOT_SHOWN,
         AlarmLogOutcome.COOLDOWN -> true
         AlarmLogOutcome.NOT_REACHED, AlarmLogOutcome.ALREADY_TRIGGERED,

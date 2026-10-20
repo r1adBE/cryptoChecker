@@ -35,6 +35,8 @@ internal object AlarmLogTexts {
         AlarmLogOutcome.NOT_SHOWN -> context.getString(R.string.alarm_outcome_not_shown)
         AlarmLogOutcome.NO_RATE -> context.getString(R.string.alarm_outcome_no_rate)
         AlarmLogOutcome.NO_PRICE -> context.getString(R.string.alarm_outcome_no_price)
+        AlarmLogOutcome.FX_STALE -> context.getString(R.string.alarm_outcome_fx_stale)
+        AlarmLogOutcome.FX_UNSURE -> context.getString(R.string.alarm_outcome_fx_unsure)
     }
 
     /** Wer geprüft hat, z. B. «über Widget»; null bei älteren Einträgen ohne Angabe. */

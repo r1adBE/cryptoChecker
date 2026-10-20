@@ -10,7 +10,7 @@ extension WatchlistScreen {
     /// Kurs in CHF fürs Sortieren; nil ohne Kurs oder Umrechnungsfaktor (dann ans Ende).
     func sortValue(_ watch: Watch) -> Double? {
         guard let price = watch.lastPrice, price > 0 else { return nil }
-        let quote = CurrencyConversion.normalize(watch.quoteAsset)
+        let quote = WatchlistConversion.quote(watch)
         if CurrencyConversion.sameCurrency(quote, Self.sortCurrency) { return price }
         guard let rate = sortRates[quote], rate > 0 else { return nil }
         return price * rate
@@ -64,17 +64,20 @@ extension WatchlistScreen {
         guard let target = convertTarget else {
             convertRates = [:]
             convertFxTimes = [:]
+            convertUsdtNotes = [:]
             return
         }
         let quotes = WatchlistConversion.quotes(data.watches, target: target)
         guard !quotes.isEmpty else {
             convertRates = [:]
             convertFxTimes = [:]
+            convertUsdtNotes = [:]
             return
         }
         var known = CurrencyConverter.cachedRates(quotes: quotes, target: target)
         convertRates = known
         convertFxTimes = CurrencyConverter.staleFxTimes(quotes: quotes, target: target)
+        convertUsdtNotes = CurrencyConverter.usdtNotes(quotes: quotes, target: target)
         while !Task.isCancelled {
             let fresh = await CurrencyConverter.rates(quotes: quotes, target: target)
             if Task.isCancelled { return }
@@ -82,6 +85,8 @@ extension WatchlistScreen {
             convertRates = known
             // Alter der Devisenkurse nach dem Auffrischen (älter als 3 h: Uhrzeit in der Zeile)
             convertFxTimes = CurrencyConverter.staleFxTimes(quotes: quotes, target: target)
+            // USDT/USD: angenommen (keine Messung) bzw. unsicher (nur über USDC) — Vermerk an der Zeile
+            convertUsdtNotes = CurrencyConverter.usdtNotes(quotes: quotes, target: target)
             try? await Task.sleep(nanoseconds: WatchlistConversion.refreshNanos)
         }
     }

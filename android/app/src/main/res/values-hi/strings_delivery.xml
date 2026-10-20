@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus ऐप को बंद कर सकता है – तब कोई अलर्ट नहीं आता। “ऑटो-लॉन्च” और बैटरी उपयोग में बैकग्राउंड गतिविधि की अनुमति दें।</string>
     <string name="oem_battery_oppo">Oppo/Realme ऐप को बंद कर सकता है – तब कोई अलर्ट नहीं आता। “ऑटो-लॉन्च” और बैटरी उपयोग में बैकग्राउंड गतिविधि की अनुमति दें।</string>
     <string name="oem_battery_vivo">Vivo ऐप को बंद कर सकता है – तब कोई अलर्ट नहीं आता। “ऑटोस्टार्ट” और बैटरी में उच्च बैकग्राउंड बिजली उपयोग की अनुमति दें।</string>
+    <string name="alarm_reliability_recent">आख़िरी जाँच %1$s</string>
+    <string name="alarm_reliability_stale">आख़िरी जाँच %1$s – अलार्म देर से आ सकते हैं</string>
+    <string name="alarm_reliability_never">अलार्म चालू – अभी तक बैकग्राउंड में कोई जाँच नहीं</string>
+    <string name="alarm_reliability_notifications_off">नोटिफ़िकेशन बंद – अलार्म नहीं पहुँचेंगे</string>
+    <string name="alarm_reliability_battery">बैटरी बचत अलार्म की जाँच रोक सकती है</string>
+    <string name="alarm_reliability_background_refresh">बैकग्राउंड ऐप रीफ़्रेश बंद – अलार्म शायद न पहुँचें</string>
 </resources>

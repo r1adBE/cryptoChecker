@@ -67,22 +67,10 @@ final class CutoffAddressTests: XCTestCase {
         XCTAssertEqual(plain.last, "Total;;;100.00;0.9;90.00;")
     }
 
-    /// Zählende Adresse mit Einstand: Hinweiszeile «Umbuchungen evtl. doppelt/fehlend» nach dem Kommentar — nur dann
-    /// (ohne Posten, «Nur anzeigen» oder ohne Text keine Zeile); Zeilen und Total unverändert (wie Android).
+    /// Hinweiszeile `addressLots` nach dem Kommentar — nur wenn verlangt und mit Text; Zeilen und Total unverändert
+    /// (wie Android).
     func testAddressLotsNoteOnlyWhenNeeded() {
-        let lot = AddressCostLot(id: 1, coin: "BTC", time: t(day - 20), amount: Decimal(string: "0.4")!, priceUsdt: 100)
-        let plainAddress = WatchedAddress(id: 1, chain: .BTC, address: "bc1qexampleaddress", lastBalance: "0.5")
-        // Eigene Adresse (gleiche Adresse zählt nur einmal, AddressCostLots.counted)
-        var withLots = WatchedAddress(id: 2, chain: .BTC, address: "bc1qsecondexampleaddress", lastBalance: "0.5")
-        withLots.costLots = [lot]
-        XCTAssertTrue(AddressCostLots.hasCountedLots([plainAddress, withLots]))
-        XCTAssertFalse(AddressCostLots.hasCountedLots([plainAddress]))
-        var shownOnly = withLots
-        shownOnly.countInPortfolio = false
-        XCTAssertFalse(AddressCostLots.hasCountedLots([shownOnly]))
-        XCTAssertFalse(AddressCostLots.hasCountedLots([]))
-
-        let note = "Hinweis: Adressen mit Einstand"
+        let note = "Hinweis: Posten nach der letzten Beobachtung"
         var withText = texts
         withText.addressLots = note
         let rows = CutoffExport.rows([CutoffHolding(coin: "BTC", amount: 1)], prices: ["BTC": 100],
@@ -129,26 +117,27 @@ final class CutoffAddressTests: XCTestCase {
         XCTAssertFalse(CutoffExport.convertsUsdt("usdt"))
     }
 
-    /// Hinweis «Adressen mit Einstand» nach dem Stand des Stichtags: nur Posten mit Zeit ≤ Stichtag und nur eine Adresse,
-    /// die an dem Tag schon beobachtet war (wie Android). Ohne Stichtag der heutige Stand.
-    func testAddressLotsNoteFollowsTheCutoff() {
+    /// Hinweis nur, wo die Rechnung wie die Karte nicht greift (`AddressCutoffView.lotsAfterObservation`): ein Posten mit
+    /// Zeit ≤ Stichtag liegt NACH der benutzten Beobachtung der Adresse — sonst kein Hinweis (wie Android).
+    func testAddressLotsNoteOnlyForLotsAfterTheObservation() {
         let early = AddressCostLot(id: 1, coin: "BTC", time: t(day - 20), amount: Decimal(string: "0.4")!, priceUsdt: 100)
         let late = AddressCostLot(id: 2, coin: "BTC", time: t(day + 5), amount: Decimal(string: "0.4")!, priceUsdt: 100)
-        func address(_ lots: [AddressCostLot], observedAt: Int64?, fetchedAt: Int64 = 0) -> WatchedAddress {
+        func address(_ lots: [AddressCostLot], observedAt: Int64?, fetchedAt: Int64 = 0, counts: Bool = true) -> WatchedAddress {
             WatchedAddress(id: 2, chain: .BTC, address: "bc1qsecondexampleaddress", lastBalance: "0.5", lastUpdated: fetchedAt,
                            observations: observedAt.map { [AddressObservation(time: $0, balance: Decimal(string: "0.5")!)] } ?? [],
-                           costLots: lots)
+                           countInPortfolio: counts, costLots: lots)
         }
-        XCTAssertTrue(AddressCostLots.hasCountedLots([address([early], observedAt: t(day - 30))], cutoffMillis: cutoff))
-        // Posten erst nach dem Stichtag erfasst: am Stichtag kein Hinweis, heute schon
-        XCTAssertFalse(AddressCostLots.hasCountedLots([address([late], observedAt: t(day - 30))], cutoffMillis: cutoff))
-        XCTAssertTrue(AddressCostLots.hasCountedLots([address([late], observedAt: t(day - 30))]))
-        // Adresse erst nach dem Stichtag beobachtet: ihr Guthaben fehlt in der Datei, also kein Hinweis
-        XCTAssertFalse(AddressCostLots.hasCountedLots([address([early], observedAt: t(day + 3))], cutoffMillis: cutoff))
+        func note(_ a: WatchedAddress) -> Bool { AddressCutoff.at([a], real: [], cutoffMillis: cutoff).lotsAfterObservation }
+        XCTAssertTrue(note(address([early], observedAt: t(day - 30))))
+        XCTAssertFalse(note(address([early], observedAt: t(day - 10))))
+        // Posten erst nach dem Stichtag: zählt am Stichtag nicht, kein Hinweis
+        XCTAssertFalse(note(address([late], observedAt: t(day - 30))))
+        // Adresse erst nach dem Stichtag beobachtet: «nicht beobachtet» in der Datei, kein Hinweis
+        XCTAssertFalse(note(address([early], observedAt: t(day + 3))))
         // Ohne gespeicherte Beobachtung zählt der Abruf des Guthabens (`AddressBalanceHistory.of`)
-        XCTAssertTrue(AddressCostLots.hasCountedLots([address([early], observedAt: nil, fetchedAt: t(day - 1))],
-                                                     cutoffMillis: cutoff))
-        XCTAssertFalse(AddressCostLots.hasCountedLots([address([early], observedAt: nil, fetchedAt: t(day + 1))],
-                                                      cutoffMillis: cutoff))
+        XCTAssertFalse(note(address([early], observedAt: nil, fetchedAt: t(day - 1))))
+        XCTAssertTrue(note(address([early], observedAt: nil, fetchedAt: t(day - 25))))
+        XCTAssertFalse(note(address([early], observedAt: t(day - 30), counts: false)))
+        XCTAssertFalse(note(address([], observedAt: t(day - 30))))
     }
 }

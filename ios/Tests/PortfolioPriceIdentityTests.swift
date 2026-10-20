@@ -38,4 +38,29 @@ final class PortfolioPriceIdentityTests: XCTestCase {
         let allowed = PortfolioPriceIdentity.binanceTickerCoins(coins, watchNames: names, binanceName: { self.binance[$0] })
         XCTAssertEqual(allowed, ["HOT", "BTC"])
     }
+
+    /// Ohne bekannten Namen: Binance nur bei eindeutigem Kürzel, sonst «ungeprüft» — Fixture `portfolio_price_identity.json`.
+    func testParityBinanceCheckAndSplit() throws {
+        let data = try TestSupport.fixture("portfolio_price_identity")
+        let names = (data["binanceName"] as? [String: String]) ?? [:]
+        for c in TestSupport.list(data["checks"]) {
+            let coin = c["coin"] as? String ?? ""
+            let known = c["knownName"] as? String
+            let got = PortfolioPriceIdentity.binanceCheck(coin, knownName: known, binanceName: names[coin])
+            let want: PortfolioPriceIdentity.BinanceCheck
+            switch c["check"] as? String {
+            case "USE": want = .use
+            case "SKIP": want = .skip
+            default: want = .unchecked
+            }
+            XCTAssertEqual(got, want, "\(coin) / \(known ?? "nil")")
+        }
+        let split = try XCTUnwrap(data["split"] as? [String: Any])
+        let rawKnown = split["knownNames"] as? [String: Any] ?? [:]
+        let known: [String: String?] = rawKnown.mapValues { $0 as? String }
+        let got = PortfolioPriceIdentity.binanceSplit(split["coins"] as? [String] ?? [], knownNames: known,
+                                                      binanceName: { names[$0] })
+        XCTAssertEqual(got.use, split["use"] as? [String])
+        XCTAssertEqual(got.unchecked, Set(split["unchecked"] as? [String] ?? []))
+    }
 }

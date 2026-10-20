@@ -194,6 +194,18 @@ enum SheetChart {
         return (source, target)
     }
 
+    /// Vermerk «USDT = 1 angenommen» unter einem Fiat-Paar-Chart: die USDT-Reihe ist mit Devisenkursen USD → Fiat
+    /// umgerechnet (`.daily` bzw. `.current`), also mit USDT = 1 USD. Nur bei Umrechnung aus USDT — wie Android.
+    static func usdtParityNote(_ fx: SheetChartFx, sourcePair: String?) -> Bool {
+        guard fx != .none else { return false }
+        var source = "USDT"
+        if let pair = sourcePair, let slash = pair.lastIndex(of: "/") {
+            let tail = pair[pair.index(after: slash)...].trimmingCharacters(in: .whitespaces).uppercased()
+            if !tail.isEmpty { source = tail }
+        }
+        return source == "USDT"
+    }
+
     /// Gültige Tageskurse aufsteigend nach Tag.
     private static func sortedRates(_ dailyRates: [Int: Double]?) -> [(day: Int, rate: Double)] {
         (dailyRates ?? [:])

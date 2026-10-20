@@ -334,6 +334,8 @@ struct PortfolioAddressSheet: View {
             saveError = L("address_duplicate")
         case .limitReached:
             saveError = L("address_limit")
+        case .locked:
+            saveError = L("portfolio_storage_locked")
         }
     }
 

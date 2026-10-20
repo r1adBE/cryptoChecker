@@ -240,8 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">No se pudieron leer las direcciones vigiladas: sus saldos faltan en este archivo</string>
-    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">Nota: direcciones con coste – las transferencias hacia o desde una dirección vigilada pueden aparecer aquí dos veces o faltar; la tarjeta del portafolio las calcula correctamente.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">Nota: una dirección vigilada tiene lotes con coste fechados después de su última consulta de saldo antes de esta fecha; pueden faltar aquí.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Las direcciones vigiladas cuentan en el valor total pero no tienen coste de adquisición: la ganancia probablemente resulta demasiado alta. Registra el coste como compra.</string>

@@ -109,6 +109,41 @@ class CurrencyConverter @Inject constructor(
             .toMap()
 
     /**
+     * Ältester Zeitpunkt (laut Quelle, [FxRateSource.rateTime]) der Devisenkurse im Faktor [quote] → [target] — für das
+     * Alter im Fiat-Alarm ([com.cryptochecker.app.domain.convert.FiatAlarmGuard.fxTooOld]); null = kein Devisenkurs beteiligt.
+     */
+    fun fxRateTime(quote: String, target: String): Long? {
+        if (CurrencyConversion.sameCurrency(quote, target)) return null
+        val from = CurrencyConversion.normalize(quote)
+        val to = CurrencyConversion.normalize(target)
+        val quoteAt = if (classify(from) == QuoteKind.FIAT) fxRateSource.rateTime(from) else null
+        val targetAt = if (classify(to) == QuoteKind.FIAT) fxRateSource.rateTime(to) else null
+        return listOfNotNull(quoteAt, targetAt).minOrNull()
+    }
+
+    /**
+     * Stand von USDT/USD im Faktor [quote] → [target] ([com.cryptochecker.app.domain.convert.FiatAlarmGuard.usdtState]):
+     * nicht beteiligt, gemessen, angenommen (USDT = 1) oder unsicher (nur über USDC, USDC/USDT mehr als 1 % neben 1).
+     */
+    fun usdtState(quote: String, target: String, now: Long = System.currentTimeMillis()) =
+        com.cryptochecker.app.domain.convert.FiatAlarmGuard.usdtState(
+            com.cryptochecker.app.domain.convert.FiatAlarmGuard.involvesUsdt(quote, target, fiat),
+            depegReadings.reading.value,
+            now,
+        )
+
+    /** Wie [usdtState] für mehrere Quote-Währungen; nur angenommene bzw. unsichere. Schlüssel in Grossbuchstaben. */
+    fun usdtNotes(quotes: Collection<String>, target: String, now: Long = System.currentTimeMillis()) =
+        quotes.map { CurrencyConversion.normalize(it) }.filter { it.isNotEmpty() }.distinct()
+            .mapNotNull { q ->
+                usdtState(q, target, now).takeIf {
+                    it == com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState.ASSUMED ||
+                        it == com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState.UNSURE
+                }?.let { q to it }
+            }
+            .toMap()
+
+    /**
      * Marktkurs eines Stablecoins in USDT, nur aus dem Zwischenspeicher der Portfolio-Kurse (keine
      * zusätzliche Abfrage); null = keiner bekannt (dann kein Faktor). USD/USDT brauchen keinen.
      */

@@ -32,6 +32,12 @@ class FxRateSource @Inject constructor(
     private val cache = ConcurrentHashMap<String, Pair<Double, Long>>()
     private val mutex = Mutex()
 
+    /**
+     * Währung → Zeitpunkt des Kurses laut Quelle (EZB-Datum bzw. letzte Aktualisierung von open.er-api), für das Alter im
+     * Fiat-Alarm ([rateTime]); fehlt er, gilt die Abrufzeit.
+     */
+    private val rateTimes = ConcurrentHashMap<String, Long>()
+
     /** Letzter Abruf ohne eigenen BGN-Kurs (Epoch-ms; nur unter [mutex]). */
     private var bgnMissedAt = 0L
 
@@ -65,7 +71,10 @@ class FxRateSource @Inject constructor(
     private suspend fun load(target: String, now: Long): Pair<Double, Long>? {
         cache[target]?.let { if (now - it.second in 0 until TTL_MILLIS) return it }
         val fresh = frankfurter(target) ?: openErApi(target)
-        if (fresh != null) return (fresh to now).also { cache[target] = it }
+        if (fresh != null) {
+            fresh.second?.let { rateTimes[target] = it } ?: rateTimes.remove(target)
+            return (fresh.first to now).also { cache[target] = it }
+        }
         return cache[target]?.takeIf { now - it.second in 0 until STALE_MILLIS }
     }
 
@@ -86,6 +95,20 @@ class FxRateSource @Inject constructor(
         return cachedWithTime(target)?.second
     }
 
+    /**
+     * Zeitpunkt des Kurses von [currency] laut Quelle (EZB-Tageskurs: Datum um 15:00 UTC,
+     * [com.cryptochecker.app.domain.convert.FiatAlarmGuard.rateTimeOf]); ohne Angabe die Abrufzeit ([fetchedAt]). null für
+     * USD oder ohne Kurs. BGN ohne eigenen Kurs: die des EUR-Kurses. Für das Alter im Fiat-Alarm (36 h Bankarbeitszeit).
+     */
+    fun rateTime(currency: String): Long? {
+        val target = currency.trim().uppercase()
+        if (target == "USD") return null
+        val own = cache[target]?.takeIf { System.currentTimeMillis() - it.second in 0 until STALE_MILLIS }
+        val code = if (own == null && derivesBgn(target)) "EUR" else target
+        val fetched = fetchedAt(target) ?: return null
+        return rateTimes[code] ?: fetched
+    }
+
     /** Kurs und Abrufzeit aus dem Zwischenspeicher (höchstens 24 h alt); BGN ohne eigenen aus EUR ([CurrencyConversion.fxWithTime]). */
     private fun cachedWithTime(target: String): Pair<Double, Long>? {
         val now = System.currentTimeMillis()
@@ -96,15 +119,25 @@ class FxRateSource @Inject constructor(
     /** BGN ab der Euro-Einführung aus EUR ableiten ([CurrencyConversion.deriveBgnFromEur]). */
     private fun derivesBgn(target: String): Boolean = CurrencyConversion.deriveBgnFromEur(target, LocalDate.now(ZoneOffset.UTC))
 
-    private suspend fun frankfurter(target: String): Double? =
+    /** Kurs und Zeitpunkt des EZB-Tageskurses («date», [com.cryptochecker.app.domain.convert.FiatAlarmGuard.rateTimeOf]). */
+    private suspend fun frankfurter(target: String): Pair<Double, Long?>? =
         get("https://api.frankfurter.app/latest?from=USD&to=$target")?.let { body ->
-            runCatching { JSONObject(body).getJSONObject("rates").getDouble(target) }.getOrNull()
-        }?.takeIf { it > 0.0 }
+            runCatching {
+                val root = JSONObject(body)
+                root.getJSONObject("rates").getDouble(target) to
+                    com.cryptochecker.app.domain.convert.FiatAlarmGuard.rateTimeOf(root.optString("date"))
+            }.getOrNull()
+        }?.takeIf { it.first > 0.0 }
 
-    private suspend fun openErApi(target: String): Double? =
+    /** Kurs und Zeitpunkt der letzten Aktualisierung («time_last_update_unix», Sekunden). */
+    private suspend fun openErApi(target: String): Pair<Double, Long?>? =
         get("https://open.er-api.com/v6/latest/USD")?.let { body ->
-            runCatching { JSONObject(body).getJSONObject("rates").getDouble(target) }.getOrNull()
-        }?.takeIf { it > 0.0 }
+            runCatching {
+                val root = JSONObject(body)
+                root.getJSONObject("rates").getDouble(target) to
+                    root.optLong("time_last_update_unix", 0L).takeIf { it > 0L }?.times(1000L)
+            }.getOrNull()
+        }?.takeIf { it.first > 0.0 }
 
     private suspend fun get(url: String): String? = try {
         withTimeoutOrNull(REQUEST_TIMEOUT_MILLIS) { httpClient.callMarket(url, null) }

@@ -19,6 +19,7 @@ import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.domain.watch.shownChange
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.ChangeBasisText
@@ -106,14 +107,14 @@ class SingleWidgetRenderer @Inject constructor(
                 views.setViewVisibility(R.id.single_coin_logo, View.GONE)
                 views.setViewVisibility(R.id.single_logo, View.VISIBLE)
             }
-            // Noch ohne Paar (z. B. aus der App hinzugefügt, Einrichten nicht geöffnet):
-            // Tippen öffnet das Einrichten statt der App
-            views.setOnClickPendingIntent(R.id.single_root, if (watch == null) configureSingle(appWidgetId) else toolkit.openApp())
+            // Noch ohne Paar (z. B. aus der App hinzugefügt, Einrichten nicht geöffnet): Tippen öffnet das Einrichten;
+            // sonst das Paar in der Merkliste mit seinem Aktionsblatt (wie eine Zeile des Listen-Widgets, iOS `widgetURL`)
+            views.setOnClickPendingIntent(R.id.single_root, if (watch == null) configureSingle(appWidgetId) else openPair(appWidgetId, watch.id))
 
             if (watch == null) {
                 views.setTextViewText(R.id.single_pair, context.getString(R.string.single_widget_choose))
                 views.setTextColor(R.id.single_pair, colors.textColor)
-                views.setTextViewText(R.id.single_price, "—")
+                views.setAmountText(R.id.single_price, "—")
                 views.setTextColor(R.id.single_price, colors.textColor)
             } else {
                 // Deaktiviertes Paar: grau mit dem letzten Kurs, «Binance · deaktiviert», kein Chart (keine Abfrage)
@@ -125,10 +126,10 @@ class SingleWidgetRenderer @Inject constructor(
                     if (off) context.getString(R.string.watchlist_row_disabled, BidiText.isolate(watch.marketName)) else watch.marketName
                 )
                 views.setTextColor(R.id.single_market, colors.secondaryTextColor)
-                // Währung klein und grau (Verhältnis zur grössten Kursgrösse 28 sp, widget_single.xml; autoSize skaliert mit)
-                views.setTextViewText(
+                // Währung klein und grau (Verhältnis zur grössten Kursgrösse 28 sp = [WidgetType.DISPLAY_COMPACT], widget_single.xml; autoSize skaliert mit)
+                views.setAmountText(
                     R.id.single_price,
-                    toolkit.quoteText(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset), watch.quoteAsset, 28f, colors.secondaryTextColor)
+                    toolkit.quoteText(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset), watch.quoteAsset, WidgetType.DISPLAY_COMPACT, colors.secondaryTextColor)
                 )
                 views.setTextColor(R.id.single_price, mainText)
 
@@ -146,11 +147,11 @@ class SingleWidgetRenderer @Inject constructor(
                     } ?: PriceFormat.zeroPercent()
                 }
                 // Zeitraum dahinter klein und grau (nie rot/grün), wie iOS `WidgetChangeLabel.suffix`
-                views.setTextViewText(R.id.single_change, periodSuffixed(valueText, day, colors.secondaryTextColor))
+                views.setAmountText(R.id.single_change, periodSuffixed(valueText, day, colors.secondaryTextColor))
                 // Paar ganz, wenn es neben der Veränderung Platz hat, sonst nur die Basis
                 // («BTC» statt «BT…»); die Veränderung wird nie gekürzt
-                val changeWidth = toolkit.textWidthDp(valueText, 13f, tabular = true) +
-                    (if (day.isEmpty()) 0f else toolkit.textWidthDp(" $day", 13f * PERIOD_SCALE, tabular = true))
+                val changeWidth = toolkit.textWidthDp(valueText, WidgetType.LABEL, tabular = true) +
+                    (if (day.isEmpty()) 0f else toolkit.textWidthDp(" $day", WidgetType.LABEL * PERIOD_SCALE, tabular = true))
                 val pairLabel = WidgetTextFit.singlePairLabel(
                     pair = watch.displayName,
                     base = watch.baseAsset,
@@ -263,6 +264,22 @@ class SingleWidgetRenderer @Inject constructor(
     }
 
     /** Einrichten eines Einzel-Widgets öffnen (Tippen auf ein Widget ohne Paar). */
+    /** Öffnet die App beim Paar [watchId] ([MainActivity.EXTRA_WATCH_ID]); eigene data-Uri je Widget. */
+    private fun openPair(appWidgetId: Int, watchId: Long): PendingIntent {
+        val intent = Intent(context, MainActivity::class.java).apply {
+            action = ACTION_OPEN_SINGLE_WIDGET
+            data = Uri.parse("cryptochecker://widget/single/open/$appWidgetId")
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra(MainActivity.EXTRA_WATCH_ID, watchId)
+        }
+        return PendingIntent.getActivity(
+            context,
+            appWidgetId,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+    }
+
     private fun configureSingle(appWidgetId: Int): PendingIntent {
         val intent = Intent(context, SingleWidgetConfigureActivity::class.java).apply {
             action = AppWidgetManager.ACTION_APPWIDGET_CONFIGURE
@@ -321,5 +338,8 @@ class SingleWidgetRenderer @Inject constructor(
     private companion object {
         /** Zeitraum hinter der Veränderung: 80 % der Schrift (wie iOS `WidgetChangeLabel.suffix`). */
         const val PERIOD_SCALE = 0.8f
+
+        /** Eigene Action: sonst gleiche Identität wie die allgemeine «App öffnen» des Widgets. */
+        const val ACTION_OPEN_SINGLE_WIDGET = "com.cryptochecker.app.action.OPEN_FROM_SINGLE_WIDGET"
     }
 }

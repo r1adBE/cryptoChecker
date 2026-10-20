@@ -13,7 +13,8 @@ extension AppData {
 
     func setAppActive(_ active: Bool) {
         appActive = active
-        if active { reloadFromDisk() }
+        // Lesen im Hintergrund: Der Haupt-Thread wartet nicht auf Entschlüsseln oder das Widget (`NSFileCoordinator`)
+        if active { reloadFromDiskInBackground() }
         updateLiveStream()
     }
 

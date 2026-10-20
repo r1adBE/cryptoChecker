@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">A OnePlus leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Engedélyezze az „Automatikus indítás” opciót és az Akkuhasználatnál a háttértevékenységet.</string>
     <string name="oem_battery_oppo">Az Oppo/Realme leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Engedélyezze az „Automatikus indítás” opciót és az Akkuhasználatnál a háttértevékenységet.</string>
     <string name="oem_battery_vivo">A Vivo leállíthatja az alkalmazást – ekkor nem érkezik riasztás. Engedélyezze az „Automatikus indítás” opciót és az Akkumulátornál a magas háttérfogyasztást.</string>
+    <string name="alarm_reliability_recent">Utolsó ellenőrzés: %1$s</string>
+    <string name="alarm_reliability_stale">Utolsó ellenőrzés: %1$s – a riasztások késhetnek</string>
+    <string name="alarm_reliability_never">Riasztások bekapcsolva – még nem volt háttérellenőrzés</string>
+    <string name="alarm_reliability_notifications_off">Értesítések kikapcsolva – a riasztások nem érkeznek meg</string>
+    <string name="alarm_reliability_battery">Az energiatakarékosság leállíthatja a riasztások ellenőrzését</string>
+    <string name="alarm_reliability_background_refresh">Háttérben frissítés kikapcsolva – a riasztások talán nem érkeznek meg</string>
 </resources>

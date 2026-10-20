@@ -16,9 +16,10 @@ import timber.log.Timber
  * ([DatabaseEncryptionMigration]) läuft darum nie dort. Je nach Entscheidung öffnet der Helfer:
  * - verschlüsselt über SQLCipher (`SupportOpenHelperFactory`, roher Schlüssel aus [DatabaseKeyStore]);
  * - unverschlüsselt über das Android-SQLite wie bis Build 58 (Rückfall, der nächste Start versucht es erneut);
- * - nur im Arbeitsspeicher, wenn eine Datenbank mit Verschlüsselungspflicht ([encryptionRequired], das Portfolio) ohne
- *   Schlüssel neu entstehen müsste: nie unverschlüsselt auf dem Speicher, wie iOS (Änderungen bleiben im Speicher, das
- *   Portfolio nennt es); der nächste Start versucht es erneut ([DatabaseEncryptionNotice.inMemory]);
+ * - nur im Arbeitsspeicher, wenn eine Datenbank mit Verschlüsselungspflicht ([encryptionRequired]: Portfolio und seit
+ *   Build 91 die Merkliste) ohne Schlüssel neu entstehen müsste: nie unverschlüsselt auf dem Speicher, wie iOS (Änderungen
+ *   bleiben im Speicher, Portfolio und Merkliste nennen es); der nächste Start versucht es erneut
+ *   ([DatabaseEncryptionNotice.inMemory]). Eine schon unverschlüsselt vorhandene Datei öffnet weiter wie bisher;
  * - gibt der Keystore den Schlüssel einer verschlüsselten Datei gerade nicht heraus: im Vordergrund und für Datenbanken
  *   aus [inMemoryWhenKeyUnavailable] (App: Portfolio und Merkliste) leer im Arbeitsspeicher für diesen Lauf — die
  *   Oberfläche stürzte sonst beim ersten Zugriff ab; die Datei bleibt unberührt, der gespeicherte Stand kommt nach einem
@@ -32,8 +33,12 @@ class EncryptingOpenHelperFactory(
     private val context: Context,
     private val keys: DatabaseEncryptionMigration.Keys = DatabaseKeyStore(context),
     private val files: DatabaseEncryptionMigration.Files = SqlCipherDatabaseFiles(context),
-    /** Datenbanken, die ohne Schlüssel nie unverschlüsselt angelegt werden (Portfolio: Beträge, Adressen, xpub). */
-    private val encryptionRequired: Set<String> = setOf(PortfolioDatabase.DB_NAME),
+    /**
+     * Datenbanken, die ohne Schlüssel nie unverschlüsselt angelegt werden: Portfolio (Beträge, Adressen, xpub) und Merkliste
+     * (Paare, Alarme, Notizen; bis Build 90 ohne Schlüssel unverschlüsselt angelegt). Ohne Schlüssel und ohne Datei nur im
+     * Arbeitsspeicher; den Inhalt dieses Laufs übernimmt ein späterer Schlüssel nicht (der Hinweis sagt das).
+     */
+    private val encryptionRequired: Set<String> = ENCRYPTION_REQUIRED,
     /**
      * Darf [database] bei gerade nicht lesbarem Schlüssel für diesen Lauf im Arbeitsspeicher öffnen? Standard nein:
      * Die eigene Instanz der Systemsicherung
@@ -129,6 +134,11 @@ class EncryptingOpenHelperFactory(
             val inMemory = SupportSQLiteOpenHelper.Configuration(configuration.context, null, configuration.callback)
             return FrameworkSQLiteOpenHelperFactory().create(inMemory)
         }
+    }
+
+    companion object {
+        /** Standard von `encryptionRequired`: Portfolio und Merkliste (Unit-Test `EncryptingOpenHelperFactoryDefaultsTest`). */
+        val ENCRYPTION_REQUIRED: Set<String> = setOf(PortfolioDatabase.DB_NAME, AppDatabase.DB_NAME)
     }
 }
 

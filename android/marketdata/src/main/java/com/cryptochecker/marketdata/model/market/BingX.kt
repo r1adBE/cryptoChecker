@@ -143,10 +143,13 @@ abstract class BingXBase(
     }
 
     /** Einträge von `data`: Array → alle (jeder muss ein Objekt sein), Objekt → dieses eine. */
-    private fun dataRows(envelope: JSONObject): List<JSONObject> = when (val data = envelope.opt("data")) {
-        is JSONArray -> List(data.length()) { data.getJSONObject(it) }
-        is JSONObject -> listOf(data)
-        else -> throw JSONException("No value for data")
+    private fun dataRows(envelope: JSONObject): List<JSONObject> {
+        val data: Any = envelope.opt("data") ?: throw JSONException("No value for data")
+        return when (data) {
+            is JSONArray -> List(data.length()) { data.getJSONObject(it) }
+            is JSONObject -> listOf(data)
+            else -> throw JSONException("No value for data")
+        }
     }
 
     /** Hängt `timestamp` (jetzt, ms) an; die Börse prüft ihn gegen ihre Uhr. */

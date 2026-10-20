@@ -79,8 +79,8 @@ fun SettingsScreen(
     var query by rememberSaveable { mutableStateOf("") }
     // Treffer auf der Hauptseite selbst (Sprache, Widgets, Links): Zeile kurz hervorheben
     var mainHighlight by remember { mutableStateOf<String?>(null) }
-    // «App zurücksetzen» — Rückfrage
-    var askReset by remember { mutableStateOf(false) }
+    // «App zurücksetzen» — Rückfrage (saveable: übersteht Drehen, Dunkelmodus und Sprachwechsel)
+    var askReset by rememberSaveable { mutableStateOf(false) }
     val resetContext = LocalContext.current
     if (askReset) {
         AlertDialog(

@@ -141,7 +141,7 @@
     <string name="settings_change_basis_hint_since_last">A „%1$s” az előző frissítés árfolyamához hasonlít. Élő árfolyamoknál 0%% közelében marad.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
     <string name="settings_change_period">Időszak megjelenítése a változás mellett</string>
-    <string name="settings_change_period_hint">Kis „24h”, „ma” vagy „utolsó frissítés” a változás mellett a figyelőlistában és az egyérmés widgetben. A képernyőolvasó mindig felolvassa.</string>
+    <string name="settings_change_period_hint">Kis „24h”, „ma” vagy „utolsó frissítés” a változás mellett a pulzussorban és az egyérmés widgetben. A figyelőlista mindig mutatja, a képernyőolvasó mindig felolvassa.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Átváltási pénznem</string>

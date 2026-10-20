@@ -41,7 +41,7 @@
             android:maxLines="1"
             android:text="@string/widget_preview_btc_change"
             android:textColor="@color/widget_preview_up"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:fontFeatureSettings="tnum" />
     </LinearLayout>
@@ -69,7 +69,7 @@
             android:maxLines="1"
             android:text="@string/widget_preview_btc_price_value"
             android:textColor="@color/widget_preview_text"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:fontFeatureSettings="tnum" />
         <TextView

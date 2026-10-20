@@ -49,9 +49,16 @@ class Luno : SimpleMarket(
     override val bulkTickersNumOfRequests: Int
         get() = 1
 
+    /**
+     * `tickers` führt jeden handelbaren Markt (Aufzeichnung 19.10.2026: 147 von 147 Märkten der Paarliste),
+     * ein fehlendes Paar ist nicht mehr gelistet.
+     */
+    override val bulkTickersComplete: Boolean
+        get() = true
+
     override fun getBulkTickersUrl(call: Int): String = "$LUNO_API/api/1/tickers"
 
-    /** Gesperrte Märkte fallen still weg; die Einzelabfrage meldet sie dann als nicht gehandelt. */
+    /** Gesperrte Märkte fallen still weg und gelten damit als nicht mehr gehandelt ([bulkTickersComplete]). */
     override fun parseBulkTickers(
         call: Int,
         body: String,

@@ -141,7 +141,7 @@
     <string name="settings_change_basis_hint_since_last">„%1$s“ porovnává s cenou z předchozí aktualizace. U živých cen zůstává blízko 0 %%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
     <string name="settings_change_period">Zobrazit období vedle změny</string>
-    <string name="settings_change_period_hint">Malé „24h“, „dnes“ nebo „posl. aktualizace“ vedle změny v seznamu a ve widgetu jedné mince. Čtečka obrazovky ho vždy přečte.</string>
+    <string name="settings_change_period_hint">Malé „24h“, „dnes“ nebo „posl. aktualizace“ vedle změny v řádku pulzu a ve widgetu jedné mince. Seznam sledovaných ho ukazuje vždy, čtečka obrazovky ho vždy přečte.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Měna přepočtu</string>

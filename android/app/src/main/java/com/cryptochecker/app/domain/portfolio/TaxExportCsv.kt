@@ -267,7 +267,10 @@ fun TaxExport.summaryCsv(
     header: List<String>,
     zoneLine: String = "",
     format: CutoffCsvFormat = CutoffCsvFormat.SEMICOLON_POINT,
-    /** Zählende Adresse mit Eröffnungsposten ([AddressCostLots.hasCountedLots]): mit CH-Vermögen Zeile [TaxSummaryTexts.addressLots]. */
+    /**
+     * Zeile [TaxSummaryTexts.addressLots] beim CH-Vermögen erzwingen; sonst nur, wenn ein Posten nach der benutzten
+     * Beobachtung liegt ([TaxWealth.addressNote]).
+     */
     addressLots: Boolean = false,
 ): String {
     fun n(text: String): String = if (format.decimal == ',') text.replace('.', ',') else text
@@ -284,6 +287,7 @@ fun TaxExport.summaryCsv(
             texts.incomplete.takeIf { l.incomplete },
             texts.noFx.takeIf { l.noFx },
             texts.notCalculated.takeIf { l.notCalculated && it.isNotEmpty() },
+            texts.estimated.takeIf { l.estimated && it.isNotEmpty() },
             l.noteText(texts),
         ).joinToString(", ")
         return textLine(listOf(label, money(l.usdt), money(l.target), notes), format, setOf(1, 2))
@@ -295,8 +299,10 @@ fun TaxExport.summaryCsv(
     if (zoneLine.isNotEmpty()) sb.append(textLine(listOf(zoneLine), format))
     // USDT = 1 an einem nötigen Tag: eigene Zeile (die Posten der Übersicht tragen keinen Vermerk je Transaktion)
     if (s.usdtApproximate && texts.usdtAssumed.isNotEmpty()) sb.append(textLine(listOf(texts.usdtAssumed), format))
-    // CH-Vermögen mit Adressen mit Einstand: Umbuchungen zur/von der Adresse evtl. doppelt/fehlend (keine Rechenänderung)
-    if (addressLots && s.wealth != null && texts.addressLots.isNotEmpty()) sb.append(textLine(listOf(texts.addressLots), format))
+    // CH-Vermögen: Posten nach der benutzten Beobachtung einer Adresse — dort greift die Rechnung wie die Karte nicht
+    if ((addressLots || s.wealth?.addressNote == true) && s.wealth != null && texts.addressLots.isNotEmpty()) {
+        sb.append(textLine(listOf(texts.addressLots), format))
+    }
     sb.append(textLine(listOf(texts.item, texts.usdt, texts.target, texts.note), format))
     val (orientation, facts) = s.lines.partition { it.line.orientation }
     for (l in facts) {

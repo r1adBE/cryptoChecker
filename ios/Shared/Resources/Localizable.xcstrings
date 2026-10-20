@@ -31992,6 +31992,388 @@
         }
       }
     },
+    "alarm_editor_more" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المزيد"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Více"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mere"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mehr"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Περισσότερα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Más"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بیشتر"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lisää"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "עוד"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "और"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Továbbiak"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lainnya"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altro"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "その他"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "더보기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mer"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meer"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Więcej"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mais"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mai mult"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ещё"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Më shumë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mer"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เพิ่มเติม"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daha fazla"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Більше"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thêm"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更多"
+          }
+        }
+      }
+    },
+    "alarm_editor_more_summary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنبيهات سريعة، شروط إضافية، الصوت والنطق"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rychlé alarmy, další podmínky, zvuk a hlas"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hurtige alarmer, flere betingelser, lyd og oplæsning"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schnell-Alarme, weitere Bedingungen, Ton und Ansage"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Γρήγοροι συναγερμοί, άλλες συνθήκες, ήχος και εκφώνηση"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quick alerts, other conditions, sound and voice"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmas rápidas, otras condiciones, sonido y voz"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارهای سریع، شرط‌های دیگر، صدا و خواندن صوتی"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pikahälytykset, muut ehdot, ääni ja ääneen luku"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertes rapides, autres conditions, son et annonce"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות מהירות, תנאים נוספים, צליל והקראה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "त्वरित अलार्म, अन्य शर्तें, आवाज़ और बोलकर सुनाना"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gyors riasztások, további feltételek, hang és felolvasás"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm cepat, kondisi lainnya, suara dan ucapan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allarmi rapidi, altre condizioni, suono e lettura"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クイックアラーム、その他の条件、サウンドと読み上げ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "빠른 경보, 추가 조건, 소리와 읽어주기"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hurtigalarmer, flere betingelser, lyd og opplesning"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snelle alarmen, meer voorwaarden, geluid en voorlezen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Szybkie alarmy, inne warunki, dźwięk i czytanie"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes rápidos, outras condições, som e voz"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes rápidos, outras condições, som e voz"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarme rapide, alte condiții, sunet și citire"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Быстрые оповещения, другие условия, звук и озвучивание"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarme të shpejta, kushte të tjera, tingull dhe lexim me zë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snabblarm, fler villkor, ljud och uppläsning"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สัญญาณเตือนด่วน เงื่อนไขอื่น เสียงและการอ่านออกเสียง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hızlı alarmlar, diğer koşullar, ses ve sesli okuma"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Швидкі сигнали, інші умови, звук і озвучування"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo nhanh, điều kiện khác, âm thanh và đọc"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "快捷提醒、更多条件、声音和语音播报"
+          }
+        }
+      }
+    },
     "alarm_enter_amount" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -42947,6 +43329,388 @@
         }
       }
     },
+    "alarm_outcome_fx_stale" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم يُفحص – سعر الصرف أقدم من 36 ساعة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nezkontrolováno – směnný kurz starší než 36 hodin"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke tjekket – valutakurs ældre end 36 timer"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht geprüft – Devisenkurs älter als 36 Stunden"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ελέγχθηκε – ισοτιμία παλαιότερη από 36 ώρες"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not checked – exchange rate older than 36 hours"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin comprobar – tipo de cambio de hace más de 36 horas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بررسی نشد – نرخ ارز قدیمی‌تر از 36 ساعت"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei tarkistettu – valuuttakurssi yli 36 tuntia vanha"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non vérifiée – taux de change de plus de 36 heures"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא נבדקה – שער החליפין ישן מ־36 שעות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जाँच नहीं हुई – विनिमय दर 36 घंटे से पुरानी"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nincs ellenőrizve – 36 óránál régebbi devizaárfolyam"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak diperiksa – kurs lebih lama dari 36 jam"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non controllato – tasso di cambio più vecchio di 36 ore"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未確認――為替レートが36時間以上前のものです"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인 안 됨 – 환율이 36시간 이상 지남"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke sjekket – valutakurs eldre enn 36 timer"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet gecontroleerd – wisselkoers ouder dan 36 uur"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie sprawdzono – kurs wymiany starszy niż 36 godzin"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não verificado – taxa de câmbio com mais de 36 horas"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não verificado – taxa de câmbio com mais de 36 horas"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neverificată – curs de schimb mai vechi de 36 de ore"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не проверено – курс валют старше 36 часов"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk u kontrollua – kursi i këmbimit më i vjetër se 36 orë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte kontrollerad – växelkurs äldre än 36 timmar"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ได้ตรวจสอบ – อัตราแลกเปลี่ยนเก่ากว่า 36 ชั่วโมง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrol edilmedi – döviz kuru 36 saatten eski"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не перевірено – курс валют старший за 36 годин"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa kiểm tra – tỷ giá cũ hơn 36 giờ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未检查——汇率已超过 36 小时"
+          }
+        }
+      }
+    },
+    "alarm_outcome_fx_unsure" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم يُفحص – تحويل USDT غير مؤكد (عبر USDC فقط)"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nezkontrolováno – přepočet USDT nejistý (jen přes USDC)"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke tjekket – USDT-omregning usikker (kun via USDC)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht geprüft – USDT-Umrechnung unsicher (nur über USDC)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ελέγχθηκε – αβέβαιη μετατροπή USDT (μόνο μέσω USDC)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not checked – USDT conversion uncertain (only via USDC)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin comprobar – conversión de USDT incierta (solo vía USDC)"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بررسی نشد – تبدیل USDT نامطمئن (فقط از طریق USDC)"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei tarkistettu – USDT-muunnos epävarma (vain USDC:n kautta)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non vérifiée – conversion USDT incertaine (uniquement via USDC)"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא נבדקה – המרת USDT לא ודאית (רק דרך USDC)"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जाँच नहीं हुई – USDT रूपांतरण अनिश्चित (केवल USDC के ज़रिए)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nincs ellenőrizve – bizonytalan USDT-átváltás (csak USDC-n keresztül)"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak diperiksa – konversi USDT tidak pasti (hanya melalui USDC)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non controllato – conversione USDT incerta (solo tramite USDC)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未確認――USDT換算が不確か（USDC経由のみ）"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인 안 됨 – USDT 환산 불확실(USDC 경유만)"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke sjekket – USDT-omregning usikker (bare via USDC)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet gecontroleerd – USDT-omrekening onzeker (alleen via USDC)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie sprawdzono – przeliczenie USDT niepewne (tylko przez USDC)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não verificado – conversão de USDT incerta (apenas via USDC)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não verificado – conversão de USDT incerta (só via USDC)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neverificată – conversie USDT nesigură (doar prin USDC)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не проверено – пересчёт USDT ненадёжен (только через USDC)"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk u kontrollua – konvertim i pasigurt i USDT (vetëm përmes USDC)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte kontrollerad – USDT-omräkning osäker (endast via USDC)"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ได้ตรวจสอบ – การแปลง USDT ไม่แน่นอน (ผ่าน USDC เท่านั้น)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrol edilmedi – USDT dönüşümü belirsiz (yalnızca USDC üzerinden)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не перевірено – перерахунок USDT ненадійний (лише через USDC)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa kiểm tra – quy đổi USDT không chắc chắn (chỉ qua USDC)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未检查——USDT 换算不确定（仅经由 USDC）"
+          }
+        }
+      }
+    },
     "alarm_outcome_low_liquidity" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -44853,6 +45617,1152 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未触发——价格过时（截至 %1$@）"
+          }
+        }
+      }
+    },
+    "alarm_reliability_background_refresh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحديث التطبيقات في الخلفية متوقف – قد لا تصل التنبيهات"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktualizace na pozadí vypnuta – alarmy nemusí přijít"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baggrundsopdatering slået fra – alarmer når måske ikke frem"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hintergrundaktualisierung aus – Alarme kommen evtl. nicht an"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ανανέωση στο παρασκήνιο απενεργοποιημένη – οι συναγερμοί μπορεί να μη φτάσουν"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Background App Refresh off – alerts may not arrive"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualización en segundo plano desactivada – puede que las alarmas no lleguen"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بازخوانی در پس‌زمینه خاموش – ممکن است هشدارها نرسند"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appien päivitys taustalla pois – hälytykset eivät ehkä tule perille"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualisation en arrière-plan désactivée – les alertes risquent de ne pas arriver"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "רענון אפליקציות ברקע כבוי – ייתכן שההתראות לא יגיעו"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बैकग्राउंड ऐप रीफ़्रेश बंद – अलार्म शायद न पहुँचें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Háttérben frissítés kikapcsolva – a riasztások talán nem érkeznek meg"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh App di Latar nonaktif – alarm mungkin tidak sampai"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiorna app in background disattivato – gli allarmi potrebbero non arrivare"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appのバックグラウンド更新がオフ – アラームが届かない可能性があります"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백그라운드 앱 새로 고침 꺼짐 – 경보가 도착하지 않을 수 있음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oppdatering i bakgrunnen av – alarmer kommer kanskje ikke frem"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ververs op achtergrond uit – alarmen komen mogelijk niet aan"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odświeżanie w tle wyłączone – alarmy mogą nie dotrzeć"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização em segundo plano desativada – os alarmes podem não chegar"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualização em segundo plano desativada – os alarmes podem não chegar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reîmprospătare în fundal dezactivată – alarmele s-ar putea să nu ajungă"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обновление контента выключено – оповещения могут не прийти"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rifreskimi në sfond joaktiv – alarmet mund të mos mbërrijnë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uppdatera appar i bakgrunden av – larm kanske inte kommer fram"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ปิดรีเฟรชแอปเบื้องหลังอยู่ – สัญญาณเตือนอาจไม่มาถึง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arka Planda Yenile kapalı – alarmlar ulaşmayabilir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оновлення у фоні вимкнено – сигнали можуть не надійти"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Làm mới ứng dụng trong nền đang tắt – cảnh báo có thể không đến"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后台 App 刷新已关闭 – 提醒可能无法送达"
+          }
+        }
+      }
+    },
+    "alarm_reliability_battery" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "توفير البطارية قد يوقف فحص التنبيهات"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úspora baterie může zastavit kontrolu alarmů"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batterisparing kan stoppe tjek af alarmer"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Akkusparen kann die Prüfung der Alarme stoppen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η εξοικονόμηση μπαταρίας μπορεί να σταματήσει τους ελέγχους συναγερμών"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Battery saving may stop alert checks"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El ahorro de batería puede detener la comprobación de alarmas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "صرفه‌جویی باتری ممکن است بررسی هشدارها را متوقف کند"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Virransäästö voi pysäyttää hälytysten tarkistuksen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'économie de batterie peut arrêter la vérification des alertes"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "חיסכון בסוללה עלול לעצור את בדיקת ההתראות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बैटरी बचत अलार्म की जाँच रोक सकती है"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az energiatakarékosság leállíthatja a riasztások ellenőrzését"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Penghemat baterai dapat menghentikan pemeriksaan alarm"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il risparmio batteria può fermare il controllo degli allarmi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "省電力機能によりアラームの確認が止まる可能性があります"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "배터리 절약 기능이 경보 확인을 멈출 수 있음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batterisparing kan stoppe sjekk av alarmer"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batterijbesparing kan de controle van alarmen stoppen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oszczędzanie baterii może zatrzymać sprawdzanie alarmów"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A poupança de bateria pode parar a verificação dos alarmes"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A economia de bateria pode interromper a verificação dos alarmes"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Economisirea bateriei poate opri verificarea alarmelor"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Экономия заряда может останавливать проверку оповещений"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kursimi i baterisë mund të ndalojë kontrollin e alarmeve"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batterisparläge kan stoppa kontrollen av larm"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การประหยัดแบตเตอรี่อาจหยุดการตรวจสอบสัญญาณเตือน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pil tasarrufu alarm kontrollerini durdurabilir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Економія заряду може зупиняти перевірку сигналів"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiết kiệm pin có thể dừng việc kiểm tra cảnh báo"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "省电功能可能会停止检查提醒"
+          }
+        }
+      }
+    },
+    "alarm_reliability_never" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التنبيهات مفعّلة – لا يوجد فحص في الخلفية بعد"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy zapnuté – zatím žádná kontrola na pozadí"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmer slået til – intet tjek i baggrunden endnu"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarme an – noch keine Prüfung im Hintergrund"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Συναγερμοί ενεργοί – δεν έγινε ακόμη έλεγχος στο παρασκήνιο"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alerts on – no background check yet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmas activas – aún sin comprobación en segundo plano"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارها فعال – هنوز بررسی‌ای در پس‌زمینه انجام نشده"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hälytykset päällä – ei vielä tarkistusta taustalla"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertes actives – aucune vérification en arrière-plan pour l'instant"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות פעילות – עדיין אין בדיקה ברקע"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अलार्म चालू – अभी तक बैकग्राउंड में कोई जाँच नहीं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riasztások bekapcsolva – még nem volt háttérellenőrzés"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm aktif – belum ada pemeriksaan latar belakang"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allarmi attivi – ancora nessun controllo in background"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラームはオン – バックグラウンドでの確認はまだありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "경보 켜짐 – 아직 백그라운드 확인 없음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmer på – ingen sjekk i bakgrunnen ennå"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmen aan – nog geen controle op de achtergrond"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy włączone – jeszcze bez sprawdzenia w tle"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes ativos – ainda sem verificação em segundo plano"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes ativos – ainda sem verificação em segundo plano"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarme active – încă nicio verificare în fundal"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оповещения включены – фоновой проверки ещё не было"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet aktive – ende asnjë kontroll në sfond"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Larm på – ingen kontroll i bakgrunden än"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เปิดสัญญาณเตือนแล้ว – ยังไม่มีการตรวจสอบเบื้องหลัง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmlar açık – henüz arka plan kontrolü yok"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сигнали ввімкнено – фонової перевірки ще не було"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo đang bật – chưa có lần kiểm tra nền nào"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提醒已开启 – 尚无后台检查"
+          }
+        }
+      }
+    },
+    "alarm_reliability_notifications_off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإشعارات متوقفة – لن تصل التنبيهات"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oznámení vypnuta – alarmy nepřijdou"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifikationer slået fra – alarmer når ikke frem"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benachrichtigungen aus – Alarme kommen nicht an"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ειδοποιήσεις απενεργοποιημένες – οι συναγερμοί δεν θα φτάσουν"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications off – alerts won't arrive"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificaciones desactivadas – las alarmas no llegarán"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اعلان‌ها خاموش – هشدارها نمی‌رسند"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ilmoitukset pois – hälytykset eivät tule perille"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications désactivées – les alertes n'arriveront pas"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות מערכת כבויות – ההתראות לא יגיעו"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "नोटिफ़िकेशन बंद – अलार्म नहीं पहुँचेंगे"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Értesítések kikapcsolva – a riasztások nem érkeznek meg"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifikasi nonaktif – alarm tidak akan sampai"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifiche disattivate – gli allarmi non arriveranno"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知がオフ – アラームは届きません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "알림 꺼짐 – 경보가 도착하지 않음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varsler av – alarmer kommer ikke frem"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meldingen uit – alarmen komen niet aan"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Powiadomienia wyłączone – alarmy nie dotrą"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificações desativadas – os alarmes não vão chegar"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificações desativadas – os alarmes não vão chegar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notificări dezactivate – alarmele nu vor ajunge"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уведомления выключены – оповещения не придут"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Njoftimet joaktive – alarmet nuk do të mbërrijnë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aviseringar av – larm kommer inte fram"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ปิดการแจ้งเตือนอยู่ – สัญญาณเตือนจะไม่มาถึง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildirimler kapalı – alarmlar ulaşmaz"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сповіщення вимкнено – сигнали не надійдуть"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thông báo đang tắt – cảnh báo sẽ không đến"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知已关闭 – 提醒无法送达"
+          }
+        }
+      }
+    },
+    "alarm_reliability_recent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخر فحص %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poslední kontrola %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seneste tjek %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Letzte Prüfung %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τελευταίος έλεγχος %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last check %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última comprobación %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخرین بررسی %1$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viimeisin tarkistus %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dernière vérification %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בדיקה אחרונה %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आख़िरी जाँच %1$@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utolsó ellenőrzés: %1$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pemeriksaan terakhir %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultimo controllo %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最終確認：%1$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "마지막 확인: %1$@"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siste sjekk %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laatste controle %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ostatnie sprawdzenie: %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última verificação %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última verificação %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultima verificare %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Последняя проверка %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrolli i fundit %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senaste kontroll %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ตรวจสอบล่าสุด %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son kontrol: %1$@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Остання перевірка %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiểm tra gần nhất %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次检查：%1$@"
+          }
+        }
+      }
+    },
+    "alarm_reliability_stale" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخر فحص %1$@ – قد تتأخر التنبيهات"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poslední kontrola %1$@ – alarmy mohou přijít pozdě"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seneste tjek %1$@ – alarmer kan komme for sent"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Letzte Prüfung %1$@ – Alarme kommen evtl. verspätet"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τελευταίος έλεγχος %1$@ – οι συναγερμοί μπορεί να καθυστερήσουν"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last check %1$@ – alerts may be late"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última comprobación %1$@ – las alarmas pueden llegar tarde"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخرین بررسی %1$@ – ممکن است هشدارها دیر برسند"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viimeisin tarkistus %1$@ – hälytykset voivat myöhästyä"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dernière vérification %1$@ – les alertes peuvent arriver en retard"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בדיקה אחרונה %1$@ – התראות עלולות להתעכב"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आख़िरी जाँच %1$@ – अलार्म देर से आ सकते हैं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utolsó ellenőrzés: %1$@ – a riasztások késhetnek"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pemeriksaan terakhir %1$@ – alarm mungkin terlambat"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultimo controllo %1$@ – gli allarmi potrebbero arrivare in ritardo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最終確認：%1$@ – アラームが遅れる可能性があります"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "마지막 확인: %1$@ – 경보가 늦을 수 있음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siste sjekk %1$@ – alarmer kan komme sent"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laatste controle %1$@ – alarmen kunnen te laat komen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ostatnie sprawdzenie: %1$@ – alarmy mogą się spóźniać"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última verificação %1$@ – os alarmes podem chegar atrasados"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Última verificação %1$@ – os alarmes podem chegar atrasados"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultima verificare %1$@ – alarmele pot întârzia"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Последняя проверка %1$@ – оповещения могут опаздывать"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrolli i fundit %1$@ – alarmet mund të vonohen"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senaste kontroll %1$@ – larm kan komma sent"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ตรวจสอบล่าสุด %1$@ – สัญญาณเตือนอาจมาช้า"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Son kontrol: %1$@ – alarmlar gecikebilir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Остання перевірка %1$@ – сигнали можуть запізнюватися"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiểm tra gần nhất %1$@ – cảnh báo có thể đến muộn"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次检查：%1$@ – 提醒可能延迟"
           }
         }
       }
@@ -83652,6 +85562,197 @@
         }
       }
     },
+    "converted_unsure" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحويل غير مؤكد"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přepočet nejistý"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omregning usikker"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umrechnung unsicher"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αβέβαιη μετατροπή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversion uncertain"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversión incierta"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تبدیل نامطمئن"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muunnos epävarma"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversion incertaine"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "המרה לא ודאית"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "रूपांतरण अनिश्चित"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Átváltás bizonytalan"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konversi tidak pasti"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversione incerta"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "換算が不確か"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "환산 불확실"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omregning usikker"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omrekening onzeker"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przeliczenie niepewne"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversão incerta"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversão incerta"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conversie nesigură"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пересчёт ненадёжен"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konvertim i pasigurt"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omräkning osäker"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การแปลงไม่แน่นอน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dönüşüm belirsiz"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перерахунок ненадійний"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quy đổi không chắc chắn"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "换算不确定"
+          }
+        }
+      }
+    },
     "cost_gap_apply" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -98429,6 +100530,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "代币名称、符号或地址"
+          }
+        }
+      }
+    },
+    "dex_token_address_copy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخ عنوان الرمز"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopírovat adresu tokenu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopiér tokenadresse"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token-Adresse kopieren"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αντιγραφή διεύθυνσης token"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy token address"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiar dirección del token"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کپی آدرس توکن"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopioi tokenin osoite"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copier l'adresse du token"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "העתקת כתובת הטוקן"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "टोकन का पता कॉपी करें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token címének másolása"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salin alamat token"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copia l'indirizzo del token"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "トークンアドレスをコピー"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "토큰 주소 복사"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopier tokenadresse"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadres kopiëren"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopiuj adres tokena"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiar endereço do token"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiar endereço do token"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiază adresa tokenului"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Копировать адрес токена"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopjo adresën e tokenit"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopiera tokenadress"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คัดลอกแอดเดรสโทเค็น"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token adresini kopyala"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Копіювати адресу токена"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sao chép địa chỉ token"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "复制代币地址"
           }
         }
       }
@@ -209124,187 +211416,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ملاحظة: عناوين ذات تكلفة مسجلة – قد تظهر التحويلات إلى عنوان مراقَب أو منه هنا مرتين أو قد تكون مفقودة؛ بطاقة المحفظة تحسبها بشكل صحيح."
+            "value" : "ملاحظة: لعنوان مراقَب دفعات تكلفة بتاريخ بعد آخر فحص لرصيده قبل هذا التاريخ – قد تكون مفقودة هنا."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Upozornění: adresy s pořizovací cenou – převody na sledovanou adresu nebo z ní se zde mohou objevit dvakrát nebo chybět; karta portfolia je počítá správně."
+            "value" : "Upozornění: sledovaná adresa má položky pořizovací ceny s datem po své poslední kontrole zůstatku před tímto datem – zde mohou chybět."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bemærk: adresser med anskaffelsespris – overførsler til eller fra en overvåget adresse kan her optræde to gange eller mangle; porteføljekortet beregner dem korrekt."
+            "value" : "Bemærk: en overvåget adresse har anskaffelsesposter dateret efter dens seneste saldotjek før denne dato – de kan mangle her."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hinweis: Adressen mit Einstand – Umbuchungen zur oder von einer beobachteten Adresse können hier doppelt oder fehlend erscheinen; die Portfolio-Karte rechnet sie richtig."
+            "value" : "Hinweis: Eine beobachtete Adresse hat Einstandsposten nach ihrer letzten Guthabenabfrage vor diesem Datum – sie können hier fehlen."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Σημείωση: διευθύνσεις με κόστος κτήσης – μεταφορές προς ή από μια παρακολουθούμενη διεύθυνση μπορεί να εμφανίζονται εδώ διπλές ή να λείπουν· η κάρτα χαρτοφυλακίου τις υπολογίζει σωστά."
+            "value" : "Σημείωση: μια παρακολουθούμενη διεύθυνση έχει θέσεις κόστους κτήσης με ημερομηνία μετά τον τελευταίο έλεγχο υπολοίπου της πριν από αυτή την ημερομηνία – μπορεί να λείπουν εδώ."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Note: addresses with cost basis – transfers to or from a watched address may appear twice or be missing here; the portfolio card calculates them correctly."
+            "value" : "Note: a watched address has cost-basis lots dated after its last balance check before this date – they may be missing here."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nota: direcciones con coste – las transferencias hacia o desde una dirección vigilada pueden aparecer aquí dos veces o faltar; la tarjeta del portafolio las calcula correctamente."
+            "value" : "Nota: una dirección vigilada tiene lotes con coste fechados después de su última consulta de saldo antes de esta fecha; pueden faltar aquí."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "توجه: آدرس‌های دارای بهای تمام‌شده – انتقال‌ها به یک آدرس تحت نظر یا از آن ممکن است اینجا دوبار نشان داده شوند یا نباشند؛ کارت سبد آن‌ها را درست محاسبه می‌کند."
+            "value" : "توجه: یک آدرس تحت نظر اقلام بهای تمام‌شده‌ای دارد که تاریخشان پس از آخرین بررسی موجودی آن پیش از این تاریخ است – ممکن است اینجا نباشند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Huomio: osoitteet, joilla on hankintameno – siirrot seurattuun osoitteeseen tai sieltä voivat näkyä tässä kahdesti tai puuttua; salkkukortti laskee ne oikein."
+            "value" : "Huomio: seuratulla osoitteella on hankintamenoeriä, jotka on päivätty sen viimeisimmän ennen tätä päivää tehdyn saldotarkistuksen jälkeen – ne voivat puuttua tästä."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Remarque : adresses avec prix de revient – les transferts vers ou depuis une adresse surveillée peuvent apparaître ici en double ou manquer ; la carte du portefeuille les calcule correctement."
+            "value" : "Remarque : une adresse surveillée a des lots avec prix de revient datés après sa dernière consultation du solde avant cette date – ils peuvent manquer ici."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הערה: כתובות עם עלות רכישה – העברות אל כתובת במעקב או ממנה עשויות להופיע כאן פעמיים או לחסור; כרטיס התיק מחשב אותן נכון."
+            "value" : "הערה: לכתובת במעקב יש פריטי עלות רכישה שתאריכם אחרי בדיקת היתרה האחרונה שלה לפני תאריך זה – ייתכן שהם חסרים כאן."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ध्यान दें: लागत वाले पते – किसी निगरानी वाले पते पर या उससे किए गए ट्रांसफ़र यहाँ दो बार दिख सकते हैं या गायब हो सकते हैं; पोर्टफ़ोलियो कार्ड उन्हें सही गिनता है।"
+            "value" : "ध्यान दें: किसी निगरानी वाले पते में ऐसी लागत प्रविष्टियाँ हैं जिनकी तारीख इस तारीख से पहले उसकी आख़िरी बैलेंस जाँच के बाद की है – वे यहाँ गायब हो सकती हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Megjegyzés: bekerülési értékkel rendelkező címek – a figyelt címre vagy címről történő átvezetések itt kétszer szerepelhetnek vagy hiányozhatnak; a portfóliókártya helyesen számolja őket."
+            "value" : "Megjegyzés: egy figyelt címnek olyan bekerülési tételei vannak, amelyek dátuma az e dátum előtti utolsó egyenleglekérdezése utánra esik – ezek itt hiányozhatnak."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Catatan: alamat dengan biaya perolehan – transfer ke atau dari alamat yang dipantau dapat muncul dua kali atau hilang di sini; kartu portofolio menghitungnya dengan benar."
+            "value" : "Catatan: sebuah alamat yang dipantau memiliki lot biaya perolehan bertanggal setelah pengecekan saldo terakhirnya sebelum tanggal ini – lot tersebut mungkin tidak tercantum di sini."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nota: indirizzi con costo – i trasferimenti verso o da un indirizzo osservato possono comparire qui due volte o mancare; la scheda del portafoglio li calcola correttamente."
+            "value" : "Nota: un indirizzo osservato ha lotti con costo datati dopo l'ultima verifica del saldo prima di questa data – qui possono mancare."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "注意：取得価額のあるアドレス – 監視中のアドレスへの、またはアドレスからの振替は、ここで二重に表示されたり欠けたりすることがあります。ポートフォリオカードでは正しく計算されます。"
+            "value" : "注意：監視中のアドレスに、この日付より前の最後の残高確認より後の日付の取得価額ロットがあります。ここでは含まれていない場合があります。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "참고: 취득가가 있는 주소 – 관찰 중인 주소로의 또는 주소에서의 이체가 여기에서 두 번 표시되거나 누락될 수 있습니다. 포트폴리오 카드는 이를 올바르게 계산합니다."
+            "value" : "참고: 관찰 중인 주소에 이 날짜 이전의 마지막 잔액 확인 이후 날짜의 취득가 항목이 있습니다. 여기에서 누락될 수 있습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Merk: adresser med anskaffelseskost – overføringer til eller fra en overvåket adresse kan her vises to ganger eller mangle; porteføljekortet beregner dem riktig."
+            "value" : "Merk: en overvåket adresse har anskaffelsesposter datert etter siste saldosjekk før denne datoen – de kan mangle her."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Let op: adressen met aanschafwaarde – overboekingen naar of van een gevolgd adres kunnen hier dubbel of niet verschijnen; de portefeuillekaart rekent ze correct."
+            "value" : "Let op: een gevolgd adres heeft aanschafposten gedateerd na de laatste saldocontrole vóór deze datum – die kunnen hier ontbreken."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uwaga: adresy z kosztem nabycia – przelewy na obserwowany adres lub z niego mogą tu występować podwójnie lub ich brakować; karta portfela liczy je poprawnie."
+            "value" : "Uwaga: obserwowany adres ma pozycje kosztu nabycia z datą po ostatnim sprawdzeniu salda przed tą datą – może ich tu brakować."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nota: endereços com custo de aquisição – as transferências para ou de um endereço observado podem aparecer aqui em duplicado ou em falta; o cartão do portefólio calcula-as corretamente."
+            "value" : "Nota: um endereço observado tem lotes com custo de aquisição datados após a última consulta de saldo antes desta data – podem estar em falta aqui."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Observação: endereços com custo de aquisição – transferências para ou de um endereço monitorado podem aparecer aqui duplicadas ou faltando; o cartão do portfólio as calcula corretamente."
+            "value" : "Observação: um endereço monitorado tem lotes com custo de aquisição datados após a última consulta de saldo antes desta data – eles podem estar faltando aqui."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notă: adrese cu cost de achiziție – transferurile către sau de la o adresă urmărită pot apărea aici de două ori sau pot lipsi; cardul portofoliului le calculează corect."
+            "value" : "Notă: o adresă urmărită are loturi cu cost de achiziție datate după ultima verificare a soldului înainte de această dată – pot lipsi aici."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Примечание: адреса со стоимостью приобретения – переводы на отслеживаемый адрес или с него могут здесь отображаться дважды или отсутствовать; карточка портфеля считает их правильно."
+            "value" : "Примечание: у отслеживаемого адреса есть позиции со стоимостью приобретения, датированные после последней проверки баланса до этой даты, — здесь они могут отсутствовать."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shënim: adresa me kosto blerjeje – transfertat drejt ose nga një adresë e vëzhguar mund të shfaqen këtu dy herë ose të mungojnë; karta e portofolit i llogarit saktë."
+            "value" : "Shënim: një adresë e vëzhguar ka pozicione me kosto blerjeje të datuara pas kontrollit të fundit të bilancit para kësaj date – mund të mungojnë këtu."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Obs: adresser med anskaffningsvärde – överföringar till eller från en bevakad adress kan här visas dubbelt eller saknas; portföljkortet beräknar dem korrekt."
+            "value" : "Obs: en bevakad adress har anskaffningsposter daterade efter dess senaste saldokontroll före detta datum – de kan saknas här."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "หมายเหตุ: ที่อยู่ที่มีต้นทุน – การโอนไปยังหรือจากที่อยู่ที่ติดตามอาจแสดงซ้ำสองครั้งหรือหายไปในที่นี้ การ์ดพอร์ตโฟลิโอคำนวณได้ถูกต้อง"
+            "value" : "หมายเหตุ: ที่อยู่ที่ติดตามมีรายการต้นทุนที่ลงวันที่หลังการตรวจยอดคงเหลือครั้งล่าสุดก่อนวันที่นี้ – รายการเหล่านั้นอาจไม่ปรากฏที่นี่"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Not: maliyeti girilmiş adresler – izlenen bir adrese veya adresten yapılan aktarımlar burada iki kez görünebilir ya da eksik olabilir; portföy kartı bunları doğru hesaplar."
+            "value" : "Not: izlenen bir adresin, bu tarihten önceki son bakiye sorgusundan sonra tarihli maliyet kalemleri var – bunlar burada eksik olabilir."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Примітка: адреси з вартістю придбання – перекази на відстежувану адресу або з неї можуть тут відображатися двічі або бути відсутніми; картка портфеля рахує їх правильно."
+            "value" : "Примітка: відстежувана адреса має позиції з вартістю придбання, датовані після останньої перевірки балансу до цієї дати, — тут їх може не бути."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lưu ý: địa chỉ có giá vốn – các khoản chuyển đến hoặc từ một địa chỉ đang theo dõi có thể xuất hiện hai lần hoặc bị thiếu ở đây; thẻ danh mục tính đúng các khoản này."
+            "value" : "Lưu ý: một địa chỉ đang theo dõi có các lô giá vốn ghi ngày sau lần kiểm tra số dư cuối cùng của nó trước ngày này – chúng có thể bị thiếu ở đây."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "注意：已录入成本价的地址 – 转入或转出被关注地址的划转在此可能重复出现或缺失；投资组合卡片会正确计算。"
+            "value" : "注意：某个被关注地址有成本价条目，其日期晚于该地址在此日期之前最后一次查询余额的时间——这些条目在此可能缺失。"
           }
         }
       }
@@ -229574,187 +231866,378 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تعذّر فتح قفل المحفظة المحفوظة الآن ولذلك لا تُعرض – ستعود بعد إعادة تشغيل التطبيق. لن تُحفظ التغييرات التي تجريها الآن."
+            "value" : "تعذّر فتح قفل المحفظة المحفوظة الآن ولذلك لا تُعرض – ستعود بعد إعادة تشغيل التطبيق. لا يمكن إجراء تغييرات إلا بعد التشغيل التالي."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uložené portfolio teď nelze odemknout a nezobrazuje se – po restartu aplikace bude zpět. Změny provedené teď se neuloží."
+            "value" : "Uložené portfolio teď nelze odemknout a nezobrazuje se – po restartu aplikace bude zpět. Změny budou možné až po příštím spuštění."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den gemte portefølje kan ikke låses op lige nu og vises ikke – den er tilbage, når appen genstartes. Ændringer foretaget nu bliver ikke gemt."
+            "value" : "Den gemte portefølje kan ikke låses op lige nu og vises ikke – den er tilbage, når appen genstartes. Ændringer er først mulige efter næste start."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Das gespeicherte Portfolio lässt sich gerade nicht entsperren und wird nicht angezeigt – nach einem Neustart der App ist es wieder da. Änderungen von jetzt werden nicht gespeichert."
+            "value" : "Das gespeicherte Portfolio lässt sich gerade nicht entsperren und wird nicht angezeigt – nach einem Neustart der App ist es wieder da. Änderungen sind erst nach dem nächsten Start möglich."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το αποθηκευμένο χαρτοφυλάκιο δεν μπορεί να ξεκλειδωθεί αυτή τη στιγμή και δεν εμφανίζεται – θα επιστρέψει μετά την επανεκκίνηση της εφαρμογής. Οι αλλαγές που κάνετε τώρα δεν θα αποθηκευτούν."
+            "value" : "Το αποθηκευμένο χαρτοφυλάκιο δεν μπορεί να ξεκλειδωθεί αυτή τη στιγμή και δεν εμφανίζεται – θα επιστρέψει μετά την επανεκκίνηση της εφαρμογής. Αλλαγές θα είναι δυνατές μόνο μετά την επόμενη εκκίνηση."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The saved portfolio can't be unlocked right now and isn't shown – it will be back after restarting the app. Changes made now won't be saved."
+            "value" : "The saved portfolio can't be unlocked right now and isn't shown – it will be back after restarting the app. Changes are only possible after the next start."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La cartera guardada no se puede desbloquear ahora y no se muestra; volverá tras reiniciar la app. Los cambios hechos ahora no se guardarán."
+            "value" : "La cartera guardada no se puede desbloquear ahora y no se muestra; volverá tras reiniciar la app. Solo podrás hacer cambios tras el próximo inicio."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قفل سبد ذخیره‌شده الان باز نمی‌شود و نمایش داده نمی‌شود – پس از راه‌اندازی دوبارهٔ برنامه برمی‌گردد. تغییراتی که الان می‌دهید ذخیره نمی‌شوند."
+            "value" : "قفل سبد ذخیره‌شده الان باز نمی‌شود و نمایش داده نمی‌شود – پس از راه‌اندازی دوبارهٔ برنامه برمی‌گردد. تغییرات فقط پس از اجرای بعدی ممکن است."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tallennetun salkun lukitusta ei voi juuri nyt avata, eikä sitä näytetä – se palaa, kun sovellus käynnistetään uudelleen. Nyt tehtyjä muutoksia ei tallenneta."
+            "value" : "Tallennetun salkun lukitusta ei voi juuri nyt avata, eikä sitä näytetä – se palaa, kun sovellus käynnistetään uudelleen. Muutokset ovat mahdollisia vasta seuraavan käynnistyksen jälkeen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Le portefeuille enregistré ne peut pas être déverrouillé pour l'instant et n'est pas affiché – il reviendra après le redémarrage de l'app. Les modifications faites maintenant ne seront pas enregistrées."
+            "value" : "Le portefeuille enregistré ne peut pas être déverrouillé pour l'instant et n'est pas affiché – il reviendra après le redémarrage de l'app. Les modifications ne seront possibles qu'après le prochain démarrage."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "לא ניתן לבטל כרגע את נעילת התיק השמור ולכן הוא לא מוצג – הוא יחזור אחרי הפעלה מחדש של האפליקציה. שינויים שתבצע עכשיו לא יישמרו."
+            "value" : "לא ניתן לבטל כרגע את נעילת התיק השמור ולכן הוא לא מוצג – הוא יחזור אחרי הפעלה מחדש של האפליקציה. שינויים יתאפשרו רק אחרי ההפעלה הבאה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सहेजा गया पोर्टफ़ोलियो अभी अनलॉक नहीं हो पा रहा, इसलिए नहीं दिख रहा – ऐप दोबारा शुरू करने पर यह वापस आ जाएगा। अभी किए गए बदलाव सहेजे नहीं जाएँगे।"
+            "value" : "सहेजा गया पोर्टफ़ोलियो अभी अनलॉक नहीं हो पा रहा, इसलिए नहीं दिख रहा – ऐप दोबारा शुरू करने पर यह वापस आ जाएगा। बदलाव अगली बार ऐप शुरू होने के बाद ही हो सकेंगे।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A mentett portfóliót most nem lehet feloldani, ezért nem látható – az alkalmazás újraindítása után visszatér. A most végzett módosítások nem lesznek mentve."
+            "value" : "A mentett portfóliót most nem lehet feloldani, ezért nem látható – az alkalmazás újraindítása után visszatér. Módosítani csak a következő indítás után lehet."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portofolio tersimpan belum bisa dibuka saat ini dan tidak ditampilkan – akan kembali setelah aplikasi dimulai ulang. Perubahan yang dibuat sekarang tidak akan disimpan."
+            "value" : "Portofolio tersimpan belum bisa dibuka saat ini dan tidak ditampilkan – akan kembali setelah aplikasi dimulai ulang. Perubahan baru bisa dilakukan setelah aplikasi dibuka berikutnya."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Il portafoglio salvato non può essere sbloccato al momento e non viene mostrato – tornerà dopo il riavvio dell'app. Le modifiche fatte ora non verranno salvate."
+            "value" : "Il portafoglio salvato non può essere sbloccato al momento e non viene mostrato – tornerà dopo il riavvio dell'app. Le modifiche saranno possibili solo dopo il prossimo avvio."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "保存済みのポートフォリオを今はロック解除できないため表示していません。アプリを再起動すると戻ります。今行った変更は保存されません。"
+            "value" : "保存済みのポートフォリオを今はロック解除できないため表示していません。アプリを再起動すると戻ります。変更できるのは次回の起動後です。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "저장된 포트폴리오를 지금 잠금 해제할 수 없어 표시하지 않습니다. 앱을 다시 시작하면 돌아옵니다. 지금 변경한 내용은 저장되지 않습니다."
+            "value" : "저장된 포트폴리오를 지금 잠금 해제할 수 없어 표시하지 않습니다. 앱을 다시 시작하면 돌아옵니다. 변경은 다음 실행 후에만 가능합니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den lagrede porteføljen kan ikke låses opp akkurat nå og vises ikke – den er tilbake når appen startes på nytt. Endringer du gjør nå, blir ikke lagret."
+            "value" : "Den lagrede porteføljen kan ikke låses opp akkurat nå og vises ikke – den er tilbake når appen startes på nytt. Endringer er først mulig etter neste oppstart."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De opgeslagen portefeuille kan nu niet worden ontgrendeld en wordt niet getoond – na een herstart van de app is hij terug. Wijzigingen van nu worden niet opgeslagen."
+            "value" : "De opgeslagen portefeuille kan nu niet worden ontgrendeld en wordt niet getoond – na een herstart van de app is hij terug. Wijzigen kan pas na de volgende start."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zapisanego portfela nie można teraz odblokować i nie jest wyświetlany – wróci po ponownym uruchomieniu aplikacji. Zmiany wprowadzone teraz nie zostaną zapisane."
+            "value" : "Zapisanego portfela nie można teraz odblokować i nie jest wyświetlany – wróci po ponownym uruchomieniu aplikacji. Zmiany będą możliwe dopiero po następnym uruchomieniu."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O portefólio guardado não pode ser desbloqueado agora e não é mostrado – voltará depois de reiniciar a app. As alterações feitas agora não serão guardadas."
+            "value" : "O portefólio guardado não pode ser desbloqueado agora e não é mostrado – voltará depois de reiniciar a app. Só será possível fazer alterações depois do próximo arranque."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O portfólio salvo não pode ser desbloqueado agora e não é exibido – ele volta depois que você reiniciar o app. As alterações feitas agora não serão salvas."
+            "value" : "O portfólio salvo não pode ser desbloqueado agora e não é exibido – ele volta depois que você reiniciar o app. Só será possível fazer alterações depois da próxima abertura."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portofoliul salvat nu poate fi deblocat acum și nu este afișat – va reveni după repornirea aplicației. Modificările făcute acum nu vor fi salvate."
+            "value" : "Portofoliul salvat nu poate fi deblocat acum și nu este afișat – va reveni după repornirea aplicației. Modificările vor fi posibile abia după următoarea pornire."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сохранённый портфель сейчас не удаётся разблокировать, поэтому он не показан – он вернётся после перезапуска приложения. Изменения, сделанные сейчас, не сохранятся."
+            "value" : "Сохранённый портфель сейчас не удаётся разблокировать, поэтому он не показан – он вернётся после перезапуска приложения. Изменения станут возможны только после следующего запуска."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portofoli i ruajtur nuk mund të shkyçet tani dhe nuk shfaqet – do të rikthehet pas rinisjes së aplikacionit. Ndryshimet e bëra tani nuk do të ruhen."
+            "value" : "Portofoli i ruajtur nuk mund të shkyçet tani dhe nuk shfaqet – do të rikthehet pas rinisjes së aplikacionit. Ndryshimet do të jenë të mundshme vetëm pas nisjes së ardhshme."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den sparade portföljen kan inte låsas upp just nu och visas inte – den är tillbaka när appen startas om. Ändringar du gör nu sparas inte."
+            "value" : "Den sparade portföljen kan inte låsas upp just nu och visas inte – den är tillbaka när appen startas om. Ändringar går att göra först efter nästa start."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ไม่สามารถปลดล็อกพอร์ตโฟลิโอที่บันทึกไว้ได้ในขณะนี้ จึงไม่แสดง – จะกลับมาหลังจากเริ่มแอปใหม่ การเปลี่ยนแปลงที่ทำตอนนี้จะไม่ถูกบันทึก"
+            "value" : "ไม่สามารถปลดล็อกพอร์ตโฟลิโอที่บันทึกไว้ได้ในขณะนี้ จึงไม่แสดง – จะกลับมาหลังจากเริ่มแอปใหม่ จะแก้ไขได้หลังจากเปิดแอปครั้งถัดไปเท่านั้น"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kayıtlı portföyün kilidi şu anda açılamıyor ve gösterilmiyor – uygulama yeniden başlatıldığında geri gelir. Şimdi yapılan değişiklikler kaydedilmez."
+            "value" : "Kayıtlı portföyün kilidi şu anda açılamıyor ve gösterilmiyor – uygulama yeniden başlatıldığında geri gelir. Değişiklikler ancak bir sonraki açılıştan sonra mümkün."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Збережений портфель зараз не вдається розблокувати, тому він не показаний – він повернеться після перезапуску застосунку. Зміни, зроблені зараз, не збережуться."
+            "value" : "Збережений портфель зараз не вдається розблокувати, тому він не показаний – він повернеться після перезапуску застосунку. Зміни стануть можливими лише після наступного запуску."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Danh mục đã lưu hiện không thể mở khóa nên không được hiển thị – danh mục sẽ trở lại sau khi khởi động lại ứng dụng. Các thay đổi thực hiện bây giờ sẽ không được lưu."
+            "value" : "Danh mục đã lưu hiện không thể mở khóa nên không được hiển thị – danh mục sẽ trở lại sau khi khởi động lại ứng dụng. Chỉ có thể thay đổi sau lần khởi động tới."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已保存的投资组合暂时无法解锁，因此未显示——重启应用后会恢复。现在所做的更改不会被保存。"
+            "value" : "已保存的投资组合暂时无法解锁，因此未显示——重启应用后会恢复。下次启动后才能进行更改。"
+          }
+        }
+      }
+    },
+    "portfolio_storage_locked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المحفظة المحفوظة مقفلة الآن – لا يمكن إجراء تغييرات إلا بعد التشغيل التالي."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložené portfolio je teď uzamčené – změny budou možné až po příštím spuštění."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den gemte portefølje er låst lige nu – ændringer er først mulige efter næste start."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gespeichertes Portfolio gerade gesperrt – Änderungen sind erst nach dem nächsten Start möglich."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το αποθηκευμένο χαρτοφυλάκιο είναι κλειδωμένο αυτή τη στιγμή – αλλαγές θα είναι δυνατές μόνο μετά την επόμενη εκκίνηση."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The saved portfolio is locked right now – changes are only possible after the next start."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La cartera guardada está bloqueada ahora; solo podrás hacer cambios tras el próximo inicio."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سبد ذخیره‌شده الان قفل است – تغییرات فقط پس از اجرای بعدی ممکن است."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tallennettu salkku on juuri nyt lukittu – muutokset ovat mahdollisia vasta seuraavan käynnistyksen jälkeen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuille enregistré verrouillé pour l'instant – les modifications ne seront possibles qu'après le prochain démarrage."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התיק השמור נעול כרגע – שינויים יתאפשרו רק אחרי ההפעלה הבאה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सहेजा गया पोर्टफ़ोलियो अभी लॉक है – बदलाव अगली बार ऐप शुरू होने के बाद ही हो सकेंगे।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A mentett portfólió most zárolva van – módosítani csak a következő indítás után lehet."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofolio tersimpan sedang terkunci – perubahan baru bisa dilakukan setelah aplikasi dibuka berikutnya."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portafoglio salvato bloccato al momento – le modifiche saranno possibili solo dopo il prossimo avvio."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存済みのポートフォリオは現在ロックされています。変更できるのは次回の起動後です。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저장된 포트폴리오가 지금 잠겨 있습니다. 변경은 다음 실행 후에만 가능합니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den lagrede porteføljen er låst akkurat nå – endringer er først mulig etter neste oppstart."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De opgeslagen portefeuille is nu vergrendeld – wijzigen kan pas na de volgende start."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapisany portfel jest teraz zablokowany – zmiany będą możliwe dopiero po następnym uruchomieniu."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O portefólio guardado está bloqueado agora – só será possível fazer alterações depois do próximo arranque."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O portfólio salvo está bloqueado agora – só será possível fazer alterações depois da próxima abertura."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofoliul salvat este blocat acum – modificările vor fi posibile abia după următoarea pornire."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранённый портфель сейчас заблокирован – изменения станут возможны только после следующего запуска."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portofoli i ruajtur është i kyçur tani – ndryshimet do të jenë të mundshme vetëm pas nisjes së ardhshme."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den sparade portföljen är låst just nu – ändringar går att göra först efter nästa start."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "พอร์ตโฟลิโอที่บันทึกไว้ถูกล็อกอยู่ในขณะนี้ – จะแก้ไขได้หลังจากเปิดแอปครั้งถัดไปเท่านั้น"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kayıtlı portföy şu anda kilitli – değişiklikler ancak bir sonraki açılıştan sonra mümkün."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Збережений портфель зараз заблоковано – зміни стануть можливими лише після наступного запуску."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danh mục đã lưu hiện đang bị khóa – chỉ có thể thay đổi sau lần khởi động tới."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已保存的投资组合暂时被锁定——下次启动后才能进行更改。"
           }
         }
       }
@@ -279006,187 +281489,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«24h» أو «اليوم» أو «آخر تحديث» بخط صغير بجانب التغيّر في قائمة المتابعة وأداة العملة الواحدة. يذكره قارئ الشاشة دائمًا."
+            "value" : "«24h» أو «اليوم» أو «آخر تحديث» بخط صغير بجانب التغيّر في سطر النبض وأداة العملة الواحدة. تعرضه قائمة المتابعة دائمًا، ويذكره قارئ الشاشة دائمًا."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Malé „24h“, „dnes“ nebo „posl. aktualizace“ vedle změny v seznamu a ve widgetu jedné mince. Čtečka obrazovky ho vždy přečte."
+            "value" : "Malé „24h“, „dnes“ nebo „posl. aktualizace“ vedle změny v řádku pulzu a ve widgetu jedné mince. Seznam sledovaných ho ukazuje vždy, čtečka obrazovky ho vždy přečte."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lille ”24h”, ”i dag” eller ”sidste opdatering” ved ændringen i overvågningslisten og i widgetten med én mønt. Skærmlæseren siger den altid."
+            "value" : "Lille ”24h”, ”i dag” eller ”sidste opdatering” ved ændringen i pulslinjen og i widgetten med én mønt. Overvågningslisten viser den altid; skærmlæseren siger den altid."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Klein «24h», «heute» oder «letzter Stand» neben der Änderung in der Merkliste und im Einzel-Widget. Der Screenreader nennt ihn immer."
+            "value" : "Klein «24h», «heute» oder «letzter Stand» neben der Änderung in der Puls-Zeile und im Einzel-Widget. Die Merkliste zeigt ihn immer, der Screenreader nennt ihn immer."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Μικρό «24h», «σήμερα» ή «τελ. ενημέρωση» δίπλα στη μεταβολή στη λίστα και στο widget ενός νομίσματος. Ο αναγνώστης οθόνης το λέει πάντα."
+            "value" : "Μικρό «24h», «σήμερα» ή «τελ. ενημέρωση» δίπλα στη μεταβολή στη γραμμή παλμού και στο widget ενός νομίσματος. Η λίστα παρακολούθησης το δείχνει πάντα· ο αναγνώστης οθόνης το λέει πάντα."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Small “24h”, “today” or “last update” next to the percentage change in the watchlist and the single-coin widget. Screen readers always say it."
+            "value" : "Small “24h”, “today” or “last update” next to the change in the pulse line and the single-coin widget. The watchlist always shows it; screen readers always say it."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«24h», «hoy» o «últ. actualización» en pequeño junto a la variación en la lista y en el widget de una moneda. El lector de pantalla siempre lo dice."
+            "value" : "«24h», «hoy» o «últ. actualización» en pequeño junto a la variación en la línea de pulso y en el widget de una moneda. La lista de seguimiento siempre lo muestra; el lector de pantalla siempre lo dice."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«24h»، «امروز» یا «آخرین به‌روزرسانی» به‌صورت کوچک کنار تغییر در واچ‌لیست و ویجت تک‌کوین. صفحه‌خوان همیشه آن را می‌گوید."
+            "value" : "«24h»، «امروز» یا «آخرین به‌روزرسانی» به‌صورت کوچک کنار تغییر در خط نبض و ویجت تک‌کوین. واچ‌لیست همیشه آن را نشان می‌دهد و صفحه‌خوان همیشه آن را می‌گوید."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pieni ”24h”, ”tänään” tai ”ed. päivitys” muutoksen vieressä seurantalistassa ja yhden kolikon widgetissä. Ruudunlukija kertoo sen aina."
+            "value" : "Pieni ”24h”, ”tänään” tai ”ed. päivitys” muutoksen vieressä pulssirivillä ja yhden kolikon widgetissä. Seurantalista näyttää sen aina; ruudunlukija kertoo sen aina."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "« 24 h », « aujourd’hui » ou « dern. mise à jour » en petit à côté de la variation dans la liste et le widget d’une crypto. Le lecteur d’écran l’annonce toujours."
+            "value" : "« 24 h », « aujourd’hui » ou « dern. mise à jour » en petit à côté de la variation dans la ligne de pouls et le widget d’une crypto. La liste de suivi l’affiche toujours ; le lecteur d’écran l’annonce toujours."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "״24h״, ״היום״ או ״עדכון אחרון״ בקטן ליד השינוי ברשימת המעקב ובווידג׳ט של מטבע יחיד. קורא המסך תמיד מקריא אותו."
+            "value" : "״24h״, ״היום״ או ״עדכון אחרון״ בקטן ליד השינוי בשורת הדופק ובווידג׳ט של מטבע יחיד. רשימת המעקב תמיד מציגה אותו; קורא המסך תמיד מקריא אותו."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉचलिस्ट और एक-कॉइन विजेट में बदलाव के पास छोटा “24h”, “आज” या “पिछला अपडेट”। स्क्रीन रीडर इसे हमेशा बोलता है।"
+            "value" : "पल्स लाइन और एक-कॉइन विजेट में बदलाव के पास छोटा “24h”, “आज” या “पिछला अपडेट”। वॉचलिस्ट इसे हमेशा दिखाती है; स्क्रीन रीडर इसे हमेशा बोलता है।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kis „24h”, „ma” vagy „utolsó frissítés” a változás mellett a figyelőlistában és az egyérmés widgetben. A képernyőolvasó mindig felolvassa."
+            "value" : "Kis „24h”, „ma” vagy „utolsó frissítés” a változás mellett a pulzussorban és az egyérmés widgetben. A figyelőlista mindig mutatja, a képernyőolvasó mindig felolvassa."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“24h”, “hari ini”, atau “pembaruan terakhir” kecil di samping perubahan di daftar pantau dan widget satu koin. Pembaca layar selalu menyebutkannya."
+            "value" : "“24h”, “hari ini”, atau “pembaruan terakhir” kecil di samping perubahan di baris ringkasan dan widget satu koin. Daftar pantau selalu menampilkannya; pembaca layar selalu menyebutkannya."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«24h», «oggi» o «ult. aggiornamento» in piccolo accanto alla variazione nella lista e nel widget di una moneta. Lo screen reader lo legge sempre."
+            "value" : "«24h», «oggi» o «ult. aggiornamento» in piccolo accanto alla variazione nella riga del polso e nel widget di una moneta. La lista lo mostra sempre; lo screen reader lo legge sempre."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ウォッチリストと単一コインのウィジェットで、変動の横に「24h」「今日」「前回更新」を小さく表示します。スクリーンリーダーは常に読み上げます。"
+            "value" : "パルス行と単一コインのウィジェットで、変動の横に「24h」「今日」「前回更新」を小さく表示します。ウォッチリストでは常に表示され、スクリーンリーダーは常に読み上げます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "관심 목록과 단일 코인 위젯에서 변동 옆에 ‘24h’, ‘오늘’, ‘마지막 업데이트’를 작게 표시합니다. 화면 낭독기는 항상 읽어 줍니다."
+            "value" : "펄스 줄과 단일 코인 위젯에서 변동 옆에 ‘24h’, ‘오늘’, ‘마지막 업데이트’를 작게 표시합니다. 관심 목록에는 항상 표시되며 화면 낭독기는 항상 읽어 줍니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Liten «24h», «i dag» eller «siste oppdatering» ved endringen i overvåkingslisten og i widgeten med én mynt. Skjermleseren sier den alltid."
+            "value" : "Liten «24h», «i dag» eller «siste oppdatering» ved endringen i pulslinjen og i widgeten med én mynt. Overvåkingslisten viser den alltid; skjermleseren sier den alltid."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Klein ‘24h’, ‘vandaag’ of ‘laatste update’ naast de verandering in de volglijst en de widget met één munt. De schermlezer noemt hem altijd."
+            "value" : "Klein ‘24h’, ‘vandaag’ of ‘laatste update’ naast de verandering in de pulsregel en de widget met één munt. De volglijst toont hem altijd; de schermlezer noemt hem altijd."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Małe „24h”, „dziś” lub „ost. aktualizacja” obok zmiany na liście i w widżecie jednej monety. Czytnik ekranu zawsze go odczytuje."
+            "value" : "Małe „24h”, „dziś” lub „ost. aktualizacja” obok zmiany w linii pulsu i w widżecie jednej monety. Lista obserwowanych pokazuje go zawsze; czytnik ekranu zawsze go odczytuje."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«24h», «hoje» ou «última atualização» em pequeno junto à variação na lista e no widget de uma moeda. O leitor de ecrã diz sempre."
+            "value" : "«24h», «hoje» ou «última atualização» em pequeno junto à variação na linha de pulso e no widget de uma moeda. A lista de acompanhamento mostra sempre; o leitor de ecrã diz sempre."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“24h”, “hoje” ou “última atualização” pequeno ao lado da variação na lista e no widget de uma moeda. O leitor de tela sempre fala."
+            "value" : "“24h”, “hoje” ou “última atualização” pequeno ao lado da variação na linha de pulso e no widget de uma moeda. A lista de acompanhamento sempre mostra; o leitor de tela sempre fala."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "„24h”, „azi” sau „ultima actualizare” mic lângă variație în listă și în widgetul cu o monedă. Cititorul de ecran o spune mereu."
+            "value" : "„24h”, „azi” sau „ultima actualizare” mic lângă variație în linia de puls și în widgetul cu o monedă. Lista de urmărire o arată mereu; cititorul de ecran o spune mereu."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Мелко «24ч», «сегодня» или «посл. обновление» рядом с изменением в списке и в виджете одной монеты. Экранный диктор называет его всегда."
+            "value" : "Мелко «24ч», «сегодня» или «посл. обновление» рядом с изменением в строке пульса и в виджете одной монеты. Список наблюдения показывает его всегда; экранный диктор называет его всегда."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "«24h», «sot» ose «përditësimi i fundit» i vogël pranë ndryshimit në listë dhe në widget-in e një monedhe. Lexuesi i ekranit e thotë gjithmonë."
+            "value" : "«24h», «sot» ose «përditësimi i fundit» i vogël pranë ndryshimit në rreshtin e pulsit dhe në widget-in e një monedhe. Lista e ndjekjes e shfaq gjithmonë; lexuesi i ekranit e thotë gjithmonë."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Litet ”24h”, ”i dag” eller ”senaste uppdatering” bredvid förändringen i bevakningslistan och i widgeten för ett mynt. Skärmläsaren säger den alltid."
+            "value" : "Litet ”24h”, ”i dag” eller ”senaste uppdatering” bredvid förändringen i pulsraden och i widgeten för ett mynt. Bevakningslistan visar den alltid; skärmläsaren säger den alltid."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“24h” “วันนี้” หรือ “อัปเดตล่าสุด” ตัวเล็กข้างการเปลี่ยนแปลงในรายการติดตามและวิดเจ็ตเหรียญเดียว โปรแกรมอ่านหน้าจอจะอ่านเสมอ"
+            "value" : "“24h” “วันนี้” หรือ “อัปเดตล่าสุด” ตัวเล็กข้างการเปลี่ยนแปลงในแถวสรุปและวิดเจ็ตเหรียญเดียว รายการติดตามแสดงเสมอ และโปรแกรมอ่านหน้าจอจะอ่านเสมอ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Listede ve tek coin widget’ında değişimin yanında küçük “24sa”, “bugün” veya “son güncelleme”. Ekran okuyucu her zaman söyler."
+            "value" : "Nabız satırında ve tek coin widget’ında değişimin yanında küçük “24sa”, “bugün” veya “son güncelleme”. İzleme listesi her zaman gösterir; ekran okuyucu her zaman söyler."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Дрібно «24г», «сьогодні» або «ост. оновлення» біля зміни у списку та у віджеті однієї монети. Екранний диктор завжди його називає."
+            "value" : "Дрібно «24г», «сьогодні» або «ост. оновлення» біля зміни в рядку пульсу та у віджеті однієї монети. Список спостереження показує його завжди; екранний диктор завжди його називає."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "“24h”, “hôm nay” hoặc “lần cập nhật cuối” cỡ nhỏ cạnh biến động trong danh sách và tiện ích một coin. Trình đọc màn hình luôn đọc."
+            "value" : "“24h”, “hôm nay” hoặc “lần cập nhật cuối” cỡ nhỏ cạnh biến động trong dòng nhịp và tiện ích một coin. Danh sách theo dõi luôn hiển thị; trình đọc màn hình luôn đọc."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "在自选列表和单币小组件中，于涨跌旁以小字显示“24h”“今日”或“上次更新”。屏幕阅读器始终会读出。"
+            "value" : "在脉搏行和单币小组件中，于涨跌旁以小字显示“24h”“今日”或“上次更新”。自选列表始终显示，屏幕阅读器始终会读出。"
           }
         }
       }
@@ -382494,6 +384977,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "这里没有交易中的交易对"
+          }
+        }
+      }
+    },
+    "watchlist_storage_in_memory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هذا الجهاز لا يوفّر مفتاحًا الآن – لا يتم حفظ قائمة المتابعة، وتضيع التغييرات عند إغلاق التطبيق. سيحاول التطبيق مجددًا عند التشغيل التالي."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zařízení teď neposkytuje klíč – seznam se neukládá a změny se po zavření aplikace ztratí. Aplikace to zkusí znovu při příštím spuštění."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enheden stiller ikke en nøgle til rådighed lige nu – overvågningslisten gemmes ikke, og ændringer går tabt, når appen lukkes. Appen prøver igen ved næste start."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieses Gerät stellt gerade keinen Schlüssel bereit – die Merkliste wird nicht gespeichert, Änderungen gehen beim Schliessen der App verloren. Die App versucht es beim nächsten Start erneut."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η συσκευή δεν παρέχει κλειδί αυτή τη στιγμή – η λίστα δεν αποθηκεύεται και οι αλλαγές χάνονται όταν κλείσει η εφαρμογή. Η εφαρμογή θα δοκιμάσει ξανά στην επόμενη εκκίνηση."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This device isn't providing a key right now – the watchlist is not being saved, changes are lost when the app closes. The app will try again at the next start."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este dispositivo no proporciona una clave ahora: la lista no se guarda y los cambios se pierden al cerrar la app. La app lo intentará de nuevo en el próximo inicio."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "این دستگاه الان کلیدی فراهم نمی‌کند – واچ‌لیست ذخیره نمی‌شود و تغییرات با بستن برنامه از بین می‌روند. برنامه در اجرای بعدی دوباره تلاش می‌کند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laite ei juuri nyt anna avainta – seurantalistaa ei tallenneta, ja muutokset katoavat, kun sovellus suljetaan. Sovellus yrittää uudelleen seuraavalla käynnistyskerralla."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cet appareil ne fournit pas de clé pour l'instant – la liste n'est pas enregistrée, les modifications sont perdues à la fermeture de l'app. L'app réessaiera au prochain démarrage."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "המכשיר לא מספק מפתח כרגע – רשימת המעקב לא נשמרת, ושינויים יאבדו כשהאפליקציה תיסגר. האפליקציה תנסה שוב בהפעלה הבאה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "यह डिवाइस अभी कोई कुंजी उपलब्ध नहीं करा रहा – वॉचलिस्ट सहेजी नहीं जा रही, ऐप बंद होने पर बदलाव खो जाएँगे। ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az eszköz most nem ad kulcsot – a figyelőlista nincs mentve, a változások az app bezárásakor elvesznek. Az app a következő indításkor újra megpróbálja."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perangkat ini belum menyediakan kunci saat ini – daftar pantau tidak disimpan, perubahan hilang saat aplikasi ditutup. Aplikasi akan mencoba lagi saat dibuka berikutnya."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questo dispositivo non fornisce una chiave al momento: la lista non viene salvata e le modifiche vanno perse alla chiusura dell'app. L'app riproverà al prossimo avvio."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この端末は現在キーを提供していません。ウォッチリストは保存されず、変更はアプリを閉じると失われます。次回の起動時にもう一度試します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 기기가 지금 키를 제공하지 않습니다. 관심 목록이 저장되지 않으며 앱을 닫으면 변경 사항이 사라집니다. 다음 실행 시 다시 시도합니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enheten gir ingen nøkkel akkurat nå – overvåkingslisten lagres ikke, og endringer går tapt når appen lukkes. Appen prøver igjen ved neste oppstart."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dit apparaat levert nu geen sleutel – de volglijst wordt niet opgeslagen, wijzigingen gaan verloren als de app sluit. De app probeert het bij de volgende start opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To urządzenie nie udostępnia teraz klucza – lista nie jest zapisywana, a zmiany przepadną po zamknięciu aplikacji. Aplikacja spróbuje ponownie przy następnym uruchomieniu."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este dispositivo não está a fornecer uma chave agora – a lista não está a ser guardada e as alterações perdem-se ao fechar a app. A app tenta novamente no próximo arranque."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este aparelho não está fornecendo uma chave agora – a lista não está sendo salva e as alterações se perdem ao fechar o app. O app tentará de novo na próxima abertura."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acest dispozitiv nu oferă acum o cheie – lista nu se salvează, iar modificările se pierd la închiderea aplicației. Aplicația va încerca din nou la următoarea pornire."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Устройство сейчас не предоставляет ключ – список не сохраняется, изменения пропадут при закрытии приложения. Приложение попробует снова при следующем запуске."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kjo pajisje nuk po jep çelës tani – lista nuk po ruhet dhe ndryshimet humbasin kur mbyllet aplikacioni. Aplikacioni do të provojë sërish në nisjen e ardhshme."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enheten tillhandahåller ingen nyckel just nu – bevakningslistan sparas inte, och ändringar försvinner när appen stängs. Appen försöker igen vid nästa start."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "อุปกรณ์นี้ไม่ได้ให้คีย์ในขณะนี้ – รายการติดตามไม่ได้ถูกบันทึก และการเปลี่ยนแปลงจะหายไปเมื่อปิดแอป แอปจะลองใหม่เมื่อเปิดครั้งถัดไป"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu cihaz şu anda anahtar sağlamıyor – liste kaydedilmiyor, değişiklikler uygulama kapanınca kaybolur. Uygulama bir sonraki açılışta yeniden deneyecek."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пристрій зараз не надає ключ – список не зберігається, зміни зникнуть після закриття застосунку. Застосунок спробує знову під час наступного запуску."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thiết bị này hiện không cung cấp khóa – danh sách không được lưu, các thay đổi sẽ mất khi đóng ứng dụng. Ứng dụng sẽ thử lại ở lần khởi động tới."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此设备暂时无法提供密钥——自选列表不会被保存，关闭应用后更改将丢失。应用会在下次启动时重试。"
           }
         }
       }

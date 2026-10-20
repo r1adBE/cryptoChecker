@@ -181,4 +181,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">In attesa di un prezzo aggiornato</string>
     <string name="alarm_enter_amount">Inserisci un valore</string>
+    <string name="alarm_editor_more">Altro</string>
+    <string name="alarm_editor_more_summary">Allarmi rapidi, altre condizioni, suono e lettura</string>
 </resources>

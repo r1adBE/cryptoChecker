@@ -57,8 +57,13 @@ data class TaxSummaryTexts(
     val wealthAddressUnobserved: String = "",
     /** Zeile «Dollarkurs von USDT fehlt – gerechnet als 1 US-Dollar» ([TaxYearSummary.usdtApproximate]); leer = keine. */
     val usdtAssumed: String = "",
-    /** CH-Vermögen: Zeile «Adressen mit Einstand – Umbuchungen evtl. doppelt/fehlend» ([summaryCsv] `addressLots`). */
+    /**
+     * CH-Vermögen: «Posten nach der letzten Beobachtung einer Adresse – können fehlen» ([summaryCsv] `addressLots`, auf der
+     * Karte an der Summe, [TaxWealth.addressNote]).
+     */
     val addressLots: String = "",
+    /** Vermerk «Wert geschätzt (Tagesschluss)» an einem Posten mit geschätzten Werten ([TaxSummaryLine.estimated]). */
+    val estimated: String = "",
 )
 
 /** Platzhalter für Coin und Menge in [TaxSummaryTexts.wealthCoin] (wie [TAX_NOTE_DATE]). */

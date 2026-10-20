@@ -1,11 +1,12 @@
 import SwiftUI
 
-/// Dauerhinweis unten in der Merkliste, solange die gespeicherte Merkliste nicht lesbar ist (`AppData.watchlistLocked`,
-/// `WatchlistStorageLock`): «Die gespeicherte Merkliste lässt sich gerade nicht entsperren …». Wie Android (Banner ohne
-/// Ablauf): Ein anderes Banner verdrängt ihn nur, danach kommt er wieder; «Schliessen» blendet ihn bis zum nächsten
-/// Banner aus.
+/// Dauerhinweis unten in der Merkliste (`WatchlistStorageLock.notice`): solange die gespeicherte Merkliste nicht lesbar
+/// ist (`AppData.watchlistLocked`: «Die gespeicherte Merkliste lässt sich gerade nicht entsperren …») oder ohne Schlüssel
+/// nicht gespeichert wird (`AppData.watchlistSavePending`: «… die Merkliste wird nicht gespeichert …»). Wie Android (Banner
+/// ohne Ablauf, gleiche Texte): Ein anderes Banner verdrängt ihn nur, danach kommt er wieder; «Schliessen» blendet ihn bis
+/// zum nächsten Banner aus.
 struct WatchlistStorageNotice: View {
-    let locked: Bool
+    let notice: WatchlistStorageLock.Notice?
     /// Ein anderes Banner steht gerade (`WatchlistBanner`).
     let bannerShown: Bool
     @State private var hidden = false
@@ -14,12 +15,12 @@ struct WatchlistStorageNotice: View {
 
     var body: some View {
         Group {
-            if locked && !bannerShown && !hidden {
+            if let notice, !bannerShown && !hidden {
                 HStack(spacing: 12) {
                     Image(systemName: "lock.fill")
                         .foregroundStyle(accent.primary)
                         .accessibilityHidden(true)
-                    Text(L("watchlist_storage_kept_in_memory"))
+                    Text(L(notice == .kept ? "watchlist_storage_kept_in_memory" : "watchlist_storage_in_memory"))
                         .font(.subheadline.weight(.medium))
                         .foregroundStyle(AppColors.onToast)
                         .frame(maxWidth: .infinity, alignment: .leading)

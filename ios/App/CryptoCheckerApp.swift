@@ -283,9 +283,18 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
             .flatMap { URL(string: $0) }
         let alarmId = (response.notification.request.content.userInfo[Notifier.userInfoAlarmId] as? NSNumber)?.int64Value
         if response.actionIdentifier == Notifier.actionSnooze, let alarmId {
-            // «1 h später»: Pause vermerken (der Alarm bleibt scharf), Mitteilung weg — App bleibt im Hintergrund
+            // «1 h später»: Pause vermerken (der Alarm bleibt scharf), Mitteilung weg — App bleibt im Hintergrund.
+            // Zuerst die Pause: Kursmarken stellt das Einschalten danach wieder scharf (`rearmsOnSnooze`), die Pause
+            // hält die sofortige Meldung zurück — wie AlarmActionReceiver auf Android
             AlarmSnooze.snooze(alarmId, now: TimeUtils.nowMillis)
             Notifier.cancelAlarm(alarmId)
+            Task { @MainActor in
+                let data = AppData.shared
+                if let alarm = data.snapshot.alarms.first(where: { $0.id == alarmId }),
+                   AlarmSnooze.rearmsOnSnooze(alarm.condition) {
+                    data.setAlarmEnabled(alarmId, true)
+                }
+            }
         } else if response.actionIdentifier == Notifier.actionEdit, let alarmId, let id = watchId {
             Task { @MainActor in AppRouter.shared.open(AlarmEditTarget.of(watchId: id, alarmId: alarmId)) }
         } else if response.actionIdentifier == Notifier.actionOpenExchange, let url = exchangeUrl, url.scheme == "https" {

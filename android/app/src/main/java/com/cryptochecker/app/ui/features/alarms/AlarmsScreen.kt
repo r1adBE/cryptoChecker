@@ -101,7 +101,6 @@ fun AlarmsScreen(
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val accessibilityManager = LocalAccessibilityManager.current
-    val undoLabel = stringResource(R.string.action_undo)
     val settingsLabel = stringResource(R.string.settings_title)
     val activeText = stringResource(R.string.alarm_saved_active)
     val testLabel = stringResource(R.string.alarm_test_action)
@@ -311,6 +310,8 @@ fun AlarmsScreen(
         draft = null
     }
 
+    PendingUndoSnackbar(viewModel.undo, viewModel.firstAlarm, viewModel.timingHint, snackbar, UNDO_MILLIS, viewModel::delete)
+
     draft?.let { raw ->
         // Aktueller Kurs in der Währung des Schwellwerts: entscheidet bei «60,000» (Tausender oder Komma?)
         val current = raw.copy(priceHint = AlarmDraft.priceHint(watch?.lastPrice, raw.currency, rates))
@@ -336,12 +337,8 @@ fun AlarmsScreen(
                     val createdText = alarmSavedText(
                         context, created, watch?.baseAsset.orEmpty(), watch?.quoteAsset.orEmpty(), notificationsOff = false,
                     )
-                    scope.launch {
-                        // Allererster Alarm: erst nach dem Dialog, sonst liefe «Rückgängig» unerreichbar dahinter ab
-                        awaitAlarmDialogsClosed(viewModel.firstAlarm, viewModel.timingHint)
-                        val result = snackbar.showTimed(createdText, undoLabel, UNDO_MILLIS, accessibilityManager)
-                        if (result == SnackbarResult.ActionPerformed) viewModel.delete(created.id)
-                    }
+                    // Gezeigt von PendingUndoSnackbar: nach dem Dialog bzw. zurück aus «Damit Alarme ankommen»
+                    viewModel.undo.offer(PendingAlarmUndo(created.id, createdText, System.currentTimeMillis()))
                 }
             },
             onDismiss = { draft = null },

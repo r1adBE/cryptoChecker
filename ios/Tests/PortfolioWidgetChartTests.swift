@@ -501,7 +501,7 @@ final class PortfolioWidgetChartTests: XCTestCase {
 
     func testListTotalFooterHasPriorityOverRows() {
         let total = PortfolioWidgetViews.listTotalHeight()
-        let convertedPart: Double = (13 + 11) * 1.2
+        let convertedPart: Double = (12 + 12) * 1.2
         let expectedTotal: Double = convertedPart + 2 + 8 + 1
         XCTAssertEqual(total, expectedTotal, accuracy: d)
         XCTAssertGreaterThan(total, PortfolioWidgetViews.rowHeight(wide: true))

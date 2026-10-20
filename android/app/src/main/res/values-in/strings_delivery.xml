@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus bisa menghentikan aplikasi – lalu tidak ada peringatan yang masuk. Izinkan “Luncurkan otomatis” dan aktivitas latar belakang di Penggunaan baterai.</string>
     <string name="oem_battery_oppo">Oppo/Realme bisa menghentikan aplikasi – lalu tidak ada peringatan yang masuk. Izinkan “Luncurkan otomatis” dan aktivitas latar belakang di Penggunaan baterai.</string>
     <string name="oem_battery_vivo">Vivo bisa menghentikan aplikasi – lalu tidak ada peringatan yang masuk. Izinkan “Mulai otomatis” dan konsumsi daya latar belakang tinggi di Baterai.</string>
+    <string name="alarm_reliability_recent">Pemeriksaan terakhir %1$s</string>
+    <string name="alarm_reliability_stale">Pemeriksaan terakhir %1$s – alarm mungkin terlambat</string>
+    <string name="alarm_reliability_never">Alarm aktif – belum ada pemeriksaan latar belakang</string>
+    <string name="alarm_reliability_notifications_off">Notifikasi nonaktif – alarm tidak akan sampai</string>
+    <string name="alarm_reliability_battery">Penghemat baterai dapat menghentikan pemeriksaan alarm</string>
+    <string name="alarm_reliability_background_refresh">Refresh App di Latar nonaktif – alarm mungkin tidak sampai</string>
 </resources>

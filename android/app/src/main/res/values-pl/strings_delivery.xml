@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus może zatrzymać aplikację – wtedy nie dotrą żadne alerty. Zezwól na „Automatyczne uruchamianie” i w Użyciu baterii na aktywność w tle.</string>
     <string name="oem_battery_oppo">Oppo/Realme może zatrzymać aplikację – wtedy nie dotrą żadne alerty. Zezwól na „Automatyczne uruchamianie” i w Użyciu baterii na aktywność w tle.</string>
     <string name="oem_battery_vivo">Vivo może zatrzymać aplikację – wtedy nie dotrą żadne alerty. Zezwól na „Autostart” i w Baterii na wysokie zużycie energii w tle.</string>
+    <string name="alarm_reliability_recent">Ostatnie sprawdzenie: %1$s</string>
+    <string name="alarm_reliability_stale">Ostatnie sprawdzenie: %1$s – alarmy mogą się spóźniać</string>
+    <string name="alarm_reliability_never">Alarmy włączone – jeszcze bez sprawdzenia w tle</string>
+    <string name="alarm_reliability_notifications_off">Powiadomienia wyłączone – alarmy nie dotrą</string>
+    <string name="alarm_reliability_battery">Oszczędzanie baterii może zatrzymać sprawdzanie alarmów</string>
+    <string name="alarm_reliability_background_refresh">Odświeżanie w tle wyłączone – alarmy mogą nie dotrzeć</string>
 </resources>

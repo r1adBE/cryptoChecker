@@ -175,4 +175,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Friss árfolyamra vár</string>
     <string name="alarm_enter_amount">Adj meg egy értéket</string>
+    <string name="alarm_editor_more">Továbbiak</string>
+    <string name="alarm_editor_more_summary">Gyors riasztások, további feltételek, hang és felolvasás</string>
 </resources>

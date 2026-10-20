@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">백그라운드에서</string>
     <string name="alarm_log_source_exact">정시 확인</string>
     <string name="alarm_log_source_widget">위젯에서</string>
+    <string name="alarm_outcome_fx_stale">확인 안 됨 – 환율이 36시간 이상 지남</string>
+    <string name="alarm_outcome_fx_unsure">확인 안 됨 – USDT 환산 불확실(USDC 경유만)</string>
 </resources>

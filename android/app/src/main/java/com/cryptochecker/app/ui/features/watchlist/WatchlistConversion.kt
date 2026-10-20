@@ -10,12 +10,29 @@ import com.cryptochecker.app.util.PriceFormat
  * «≈ 61’234 CHF» für die Merkliste: nur mit Zielwährung, bekanntem Faktor,
  * gültigem Kurs und wenn die Quote nicht schon die Zielwährung ist.
  */
+/** Quote für Faktor und Schlüssel der Umrechnung ([CurrencyConversion.conversionQuote]: Aster «U» = USD). */
+internal val WatchEntity.conversionQuote: String get() = CurrencyConversion.conversionQuote(marketKey, quoteAsset)
+
 internal fun convertedPrice(watch: WatchEntity, target: String?, rates: Map<String, Double>): String? {
-    if (target == null || CurrencyConversion.sameCurrency(watch.quoteAsset, target)) return null
+    val quote = watch.conversionQuote
+    if (target == null || CurrencyConversion.sameCurrency(quote, target)) return null
     val price = watch.lastPrice?.takeIf { it > 0.0 } ?: return null
-    val rate = rates[CurrencyConversion.normalize(watch.quoteAsset)] ?: return null
+    val rate = rates[quote] ?: return null
     val value = CurrencyConversion.convert(price, rate) ?: return null
     return "≈ " + PriceFormat.priceWithCurrency(value, target)
+}
+
+/**
+ * Vermerk zur USDT-Umrechnung hinter der ≈ Umrechnung von [watch] ([notes] aus [WatchlistLive.convertUsdtNotes]):
+ * USDT = 1 angenommen bzw. unsicher (nur über USDC); null = nichts zu vermerken. Gleiche Regel wie iOS.
+ */
+internal fun convertedUsdtNote(
+    watch: WatchEntity,
+    target: String?,
+    notes: Map<String, com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState>,
+): com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState? {
+    if (target == null || CurrencyConversion.sameCurrency(watch.conversionQuote, target)) return null
+    return notes[watch.conversionQuote]
 }
 
 /**
@@ -23,4 +40,4 @@ internal fun convertedPrice(watch: WatchEntity, target: String?, rates: Map<Stri
  * ([CurrencyConversion.FX_STALE_MILLIS]; [fxTimes] aus [WatchlistLive.convertFxTimes]); sonst null.
  */
 internal fun convertedFxTime(watch: WatchEntity, fxTimes: Map<String, Long>, now: Long): Long? =
-    fxTimes[CurrencyConversion.normalize(watch.quoteAsset)]?.takeIf { now - it > CurrencyConversion.FX_STALE_MILLIS }
+    fxTimes[watch.conversionQuote]?.takeIf { now - it > CurrencyConversion.FX_STALE_MILLIS }

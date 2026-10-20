@@ -25,8 +25,8 @@ enum PulseWidgetPlain {
 
     /// Schriftgrössen im Block (pt): Titel, Sätze, Hinweis; Leitsatz (der erste Satz im mittleren Widget ebenso).
     static let titleSize: CGFloat = 12
-    static let sentenceSize: CGFloat = 13
-    static let footnoteSize: CGFloat = 11
+    static let sentenceSize: CGFloat = 12
+    static let footnoteSize: CGFloat = 12
     static let leadSize: CGFloat = 12
 
     /// Abstand über dem Block, vor jedem Satz und vor dem Hinweis (pt) — wie Android.

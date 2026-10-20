@@ -169,4 +169,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">กำลังรอราคาล่าสุด</string>
     <string name="alarm_enter_amount">ใส่ค่า</string>
+    <string name="alarm_editor_more">เพิ่มเติม</string>
+    <string name="alarm_editor_more_summary">สัญญาณเตือนด่วน เงื่อนไขอื่น เสียงและการอ่านออกเสียง</string>
 </resources>

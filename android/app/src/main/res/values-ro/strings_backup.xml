@@ -79,7 +79,7 @@
     <string name="system_backup_not_imported_message">Copia portofoliului din backupul de sistem Android nu a putut fi citită nici la a doua încercare și a fost ștearsă. Dacă ai un fișier de backup, restaurează-l în Setări, la „%1$s”.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Portofoliul salvat nu poate fi deblocat acum și nu este afișat – va reveni după repornirea aplicației. Modificările făcute acum nu vor fi salvate.</string>
+    <string name="portfolio_storage_kept_in_memory">Portofoliul salvat nu poate fi deblocat acum și nu este afișat – va reveni după repornirea aplicației. Modificările vor fi posibile abia după următoarea pornire.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">Lista salvată nu poate fi deblocată acum și nu este afișată – va reveni după repornirea aplicației. Modificările făcute acum nu vor fi salvate.</string>
     <string name="alarm_save_storage_locked">Alarmele nu pot fi salvate acum – lista salvată este blocată. Repornește aplicația.</string>
@@ -88,4 +88,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Criptarea nu este încă activă – portofoliul nu se salvează, iar modificările se pierd la închiderea aplicației. Aplicația va încerca din nou la următoarea pornire.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Portofoliul salvat este blocat acum – modificările vor fi posibile abia după următoarea pornire.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Acest dispozitiv nu oferă acum o cheie – lista nu se salvează, iar modificările se pierd la închiderea aplicației. Aplicația va încerca din nou la următoarea pornire.</string>
 </resources>

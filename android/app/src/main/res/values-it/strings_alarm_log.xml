@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">in background</string>
     <string name="alarm_log_source_exact">controllo puntuale</string>
     <string name="alarm_log_source_widget">dal widget</string>
+    <string name="alarm_outcome_fx_stale">Non controllato – tasso di cambio più vecchio di 36 ore</string>
+    <string name="alarm_outcome_fx_unsure">Non controllato – conversione USDT incerta (solo tramite USDC)</string>
 </resources>

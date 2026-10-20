@@ -124,7 +124,9 @@ class PortfolioAlarmChecker @Inject constructor(
                         // ihn inzwischen geändert/ausgeschaltet, speichert markTriggered nichts.
                         if (!NotificationBudget.retryBlocked(unconfirmed[alarm.id], now, settings.alarmCooldownMinutes)) {
                             withContext(NonCancellable) {
-                                if (!notifier.showPortfolioAlarm(alarm, decision.measured)) {
+                                // Alarm in anderer Währung ohne Messung USDT/USD: «USDT = 1 angenommen» im Text
+                                val usdtAssumed = PortfolioAlarmLogic.usdtAssumed(alarm.toInput(), reading)
+                                if (!notifier.showPortfolioAlarm(alarm, decision.measured, usdtAssumed)) {
                                     unconfirmed[alarm.id] = now
                                     Timber.w("Portfolio-Alarm %d: Meldung nicht bestätigt, bleibt scharf", alarm.id)
                                     return@withContext

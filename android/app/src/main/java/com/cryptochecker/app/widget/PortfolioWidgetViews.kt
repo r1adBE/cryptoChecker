@@ -189,12 +189,12 @@ object PortfolioWidgetViews {
             .sortedWith(compareByDescending<PortfolioPosition> { it.value }.thenBy { it.symbol })
 
     /**
-     * Höhe einer Listenzeile (dp): einzeilig Logo 20 dp bzw. 13 sp; zweizeilig Logo 24 dp bzw.
-     * 13 sp + 12 sp; je 8 dp Abstand (Innenrand und Trennlinie).
+     * Höhe einer Listenzeile (dp): einzeilig Logo 20 dp bzw. 12 sp; zweizeilig Logo 24 dp bzw.
+     * 12 sp + 12 sp ([WidgetType.LABEL]); je 8 dp Abstand (Innenrand und Trennlinie).
      */
     fun rowHeightDp(wide: Boolean, fontScale: Float): Float =
-        if (wide) maxOf(20f, 13f * 1.3f * fontScale) + 8f
-        else maxOf(24f, (13f + 12f) * 1.2f * fontScale + 2f) + 8f
+        if (wide) maxOf(20f, WidgetType.LABEL * 1.3f * fontScale) + 8f
+        else maxOf(24f, (WidgetType.LABEL + 12f) * 1.2f * fontScale + 2f) + 8f
 
     /**
      * Zeilen und Fusszeile in [available] (dp für Zeilen und Fusszeile; null = unbekannt): so viele
@@ -212,12 +212,12 @@ object PortfolioWidgetViews {
     }
 
     /**
-     * Total-Zeile der Liste, gestaltet wie die Listenzeilen ohne Logo (Build 46: breit einzeilig 13 sp, sonst
-     * zweizeilig 13 sp + 12 sp; je 8 dp Innenrand) und die Trennlinie darüber (1 dp).
+     * Total-Zeile der Liste, gestaltet wie die Listenzeilen ohne Logo (Build 46: breit einzeilig 12 sp, sonst
+     * zweizeilig 12 sp + 12 sp; je 8 dp Innenrand) und die Trennlinie darüber (1 dp).
      */
     fun listTotalHeightDp(fontScale: Float, wide: Boolean = false): Float =
-        if (wide) 13f * 1.3f * fontScale + 8f + 1f
-        else (13f + 12f) * 1.2f * fontScale + 2f + 8f + 1f
+        if (wide) WidgetType.LABEL * 1.3f * fontScale + 8f + 1f
+        else (WidgetType.LABEL + 12f) * 1.2f * fontScale + 2f + 8f + 1f
 
     /**
      * Gewinn/Verlust «Heute» bzw. 24 h des Gesamtwerts ([PortfolioSnapshot.changeAmount], schon um Käufe/

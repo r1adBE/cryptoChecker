@@ -34,4 +34,6 @@
     <string name="alarm_log_source_background">im Hintergrund</string>
     <string name="alarm_log_source_exact">pünktliche Prüfung</string>
     <string name="alarm_log_source_widget">über Widget</string>
+    <string name="alarm_outcome_fx_stale">Nicht geprüft – Devisenkurs älter als 36 Stunden</string>
+    <string name="alarm_outcome_fx_unsure">Nicht geprüft – USDT-Umrechnung unsicher (nur über USDC)</string>
 </resources>

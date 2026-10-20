@@ -218,6 +218,14 @@ final class SheetChartRulesTests: XCTestCase {
         XCTAssertNil(SheetChart.todayRateCaption(.current, sourcePair: "BTC/USDT", quote: " "))
     }
 
+    /// Vermerk «USDT = 1 angenommen» nur bei Umrechnung aus der USDT-Reihe (wie Android).
+    func testUsdtParityNoteOnlyForUsdtSeries() {
+        XCTAssertTrue(SheetChart.usdtParityNote(.daily, sourcePair: "BTC/USDT"))
+        XCTAssertTrue(SheetChart.usdtParityNote(.current, sourcePair: nil))
+        XCTAssertFalse(SheetChart.usdtParityNote(.none, sourcePair: "BTC/CHF"))
+        XCTAssertFalse(SheetChart.usdtParityNote(.daily, sourcePair: "BTC/USDC"))
+    }
+
     func testFxWithoutDailyRatesUsesCurrentFactor() throws {
         let fallback = SheetCandleRequest(base: "BTC", quote: "USDT", convert: true)
         let candles = [candle(1, 0, 100), candle(2, 0, 110)]

@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus poate opri aplicația – atunci nu mai sosesc alerte. Permiteți „Lansare automată” și, la Utilizarea bateriei, activitatea în fundal.</string>
     <string name="oem_battery_oppo">Oppo/Realme poate opri aplicația – atunci nu mai sosesc alerte. Permiteți „Lansare automată” și, la Utilizarea bateriei, activitatea în fundal.</string>
     <string name="oem_battery_vivo">Vivo poate opri aplicația – atunci nu mai sosesc alerte. Permiteți „Pornire automată” și, la Baterie, consumul ridicat în fundal.</string>
+    <string name="alarm_reliability_recent">Ultima verificare %1$s</string>
+    <string name="alarm_reliability_stale">Ultima verificare %1$s – alarmele pot întârzia</string>
+    <string name="alarm_reliability_never">Alarme active – încă nicio verificare în fundal</string>
+    <string name="alarm_reliability_notifications_off">Notificări dezactivate – alarmele nu vor ajunge</string>
+    <string name="alarm_reliability_battery">Economisirea bateriei poate opri verificarea alarmelor</string>
+    <string name="alarm_reliability_background_refresh">Reîmprospătare în fundal dezactivată – alarmele s-ar putea să nu ajungă</string>
 </resources>

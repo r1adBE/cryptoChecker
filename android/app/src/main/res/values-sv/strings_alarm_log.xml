@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">i bakgrunden</string>
     <string name="alarm_log_source_exact">punktlig kontroll</string>
     <string name="alarm_log_source_widget">via widget</string>
+    <string name="alarm_outcome_fx_stale">Inte kontrollerad – växelkurs äldre än 36 timmar</string>
+    <string name="alarm_outcome_fx_unsure">Inte kontrollerad – USDT-omräkning osäker (endast via USDC)</string>
 </resources>

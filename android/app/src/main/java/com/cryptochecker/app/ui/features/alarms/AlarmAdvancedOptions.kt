@@ -2,6 +2,7 @@ package com.cryptochecker.app.ui.features.alarms
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -38,25 +39,39 @@ import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 
-/** Kopf «Mehr Bedingungen» bzw. «Erweitert» zum Auf-/Zuklappen (Screenreader: «aufgeklappt/zugeklappt»). */
+/**
+ * Kopf «Mehr» zum Auf-/Zuklappen (Screenreader: «aufgeklappt/zugeklappt»); [subtitle]: grau darunter, was drin steht
+ * (nur zugeklappt sinnvoll).
+ */
 @Composable
-internal fun AdvancedHeader(title: String, expanded: Boolean, onToggle: () -> Unit) {
+internal fun AdvancedHeader(
+    title: String,
+    expanded: Boolean,
+    onToggle: () -> Unit,
+    subtitle: String? = null,
+    modifier: Modifier = Modifier,
+) {
     val stateText = stringResource(if (expanded) R.string.a11y_expanded else R.string.a11y_collapsed)
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(top = Spacing.md)
             .clip(MaterialTheme.shapes.medium)
             .clickable(role = Role.Button, onClick = onToggle)
-            .semantics { stateDescription = stateText }
+            .semantics(mergeDescendants = true) { stateDescription = stateText }
             .padding(vertical = Spacing.md)
     ) {
-        Text(
-            title,
-            style = MaterialTheme.typography.titleSmall,
-            modifier = Modifier.weight(1f)
-        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(title, style = MaterialTheme.typography.titleSmall)
+            if (subtitle != null) {
+                Text(
+                    subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
         // Auf-/Zuklapp-Pfeil überall in der Themenfarbe (wie ExpandToggleButton)
         ExpandChevronIcon(expanded = expanded)
     }

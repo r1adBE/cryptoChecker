@@ -12,7 +12,7 @@ extension TaxExport {
                             priceAt: ((String, Int64) -> Decimal?)? = nil,
                             walletFrom: LocalDay? = nil, usdtUsd: [Int: Decimal]? = nil,
                             today: LocalDay? = nil, yearEndCloses: CutoffCloses? = nil,
-                            yearEndAddresses: AddressBalancesAt? = nil) -> TaxYearSummary {
+                            yearEndAddresses: AddressCutoffView? = nil) -> TaxYearSummary {
         let period = template.period(startYear)
         let fx = rates != nil || currency.trimmingCharacters(in: .whitespaces).uppercased() == "USD"
         let allRows = gainRows(trades, method: method, period: period, timeZone: timeZone, currency: currency,
@@ -260,7 +260,10 @@ extension TaxExport {
             } else {
                 incomeStatus = incTarget < incomeLimitEur ? .below : .reached
             }
-            lines.append(TaxSummaryLine(line: .DE_INCOME_LIMIT, usdt: nil, target: incomeLimitEur, status: incomeStatus))
+            // Geschätzter Tageskurs in einer gezählten Einkunft: Vermerk an der 256-€-Grenze (wie Android)
+            let incEstimated = income.contains { $0.estimated && $0.valueUsdt != nil }
+            lines.append(TaxSummaryLine(line: .DE_INCOME_LIMIT, usdt: nil, target: incomeLimitEur, status: incomeStatus,
+                                        estimated: incEstimated))
         case .AT:
             // Sondersteuersatz 27,5 % auf Neubestand netto + Zinsen (beide Einkünfte aus Kryptowährungen, § 27b EStG;
             // Gebühren darin nicht abgezogen, § 20 Abs. 2 EStG); Vermerk, wenn Belohnungen vor dem 1.3.2022 mit

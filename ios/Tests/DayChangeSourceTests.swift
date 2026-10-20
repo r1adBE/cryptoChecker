@@ -84,4 +84,14 @@ final class DayChangeSourceTests: XCTestCase {
             XCTAssertEqual(actual, c["expected"] as? String, "rowChangeMarker: \(c["name"] ?? "")")
         }
     }
+
+    /// Gemeinsame Fälle mit Android (`DayChangeSourceTest.rowMarkerLabelIsShortExchangeName`).
+    func testRowMarkerLabel() throws {
+        let cases = TestSupport.list(try TestSupport.fixture("day_change")["rowMarkerLabel"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            XCTAssertEqual(DayChange.rowMarkerLabel(c["provider"] as? String ?? ""), c["expected"] as? String,
+                           "rowMarkerLabel: \(c["name"] ?? "")")
+        }
+    }
 }

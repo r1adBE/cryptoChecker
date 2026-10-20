@@ -13,6 +13,8 @@ import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.alarm.DerivativesAlarmData
 import com.cryptochecker.app.domain.alarm.MoveWindow
 import com.cryptochecker.app.domain.alarm.NearExtreme
+import com.cryptochecker.app.domain.alarm.AlarmTextNote
+import com.cryptochecker.app.domain.convert.FiatAlarmGuard
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.settings.AppSettings
@@ -116,6 +118,8 @@ internal class FakeRefreshNotifier(
 ) : RefreshNotifier {
     /** Gezeigte Alarm-Meldungen: Alarm-Id, gemeldeter Kurs, Währung des Kurses. */
     val alarmPosts: MutableList<Triple<Long, Double, String?>> = Collections.synchronizedList(ArrayList())
+    /** Zusatz am Alarmtext je Meldung (gleiche Reihenfolge wie [alarmPosts]). */
+    val textNotes: MutableList<AlarmTextNote?> = Collections.synchronizedList(ArrayList())
     val cancelledAlarms: MutableList<Long> = Collections.synchronizedList(ArrayList())
     val pricePosts: MutableList<Long> = Collections.synchronizedList(ArrayList())
     val cancelledPrices: MutableList<Long> = Collections.synchronizedList(ArrayList())
@@ -136,8 +140,10 @@ internal class FakeRefreshNotifier(
         derivativesValue: Double?,
         derivativesReference: String?,
         priceCurrency: String?,
+        textNote: AlarmTextNote?,
     ): Boolean {
         alarmPosts += Triple(alarm.id, price, priceCurrency)
+        textNotes += textNote
         return shows
     }
 
@@ -181,8 +187,14 @@ internal class FakeVolumeSource(var spike: VolumeSpike? = null) : AlarmVolumeSou
 
 /** Devisenkurse je Zielwährung (Grossbuchstaben); fehlt einer → null wie «kein Faktor». */
 internal class FakeRateSource(val rates: Map<String, Double> = emptyMap()) : AlarmRateSource {
+    /** Fiat-Alarme auslassen ([FiatAlarmGuard.skip]); null = prüfen. */
+    var skip: FiatAlarmGuard.Skip? = null
+    /** Faktor mit USDT = 1 (keine Messung). */
+    var usdtAssumed: Boolean = false
     override suspend fun rate(quote: String, target: String): Double? =
         if (quote.equals(target, ignoreCase = true)) 1.0 else rates[target.uppercase()]
+    override fun skip(quote: String, target: String, now: Long) = skip
+    override fun usdtAssumed(quote: String, target: String, now: Long) = usdtAssumed
 }
 
 internal class FakeRangeSource(var ranges: WindowRanges? = null, var allowed: Boolean = true) : AlarmRangeSource {

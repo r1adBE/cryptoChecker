@@ -88,6 +88,8 @@ All texts live in the Android string resources
 catalog is generated from them. The workflow **Strings** checks placeholders,
 plural forms and missing translations on every change
 ([`.github/scripts/check_strings.py`](.github/scripts/check_strings.py)).
+The Android build keeps only these 31 languages (`androidResources.localeFilters`, including the `iw`/`he` and
+`in`/`id` spellings); an instrumented test (`LocaleFiltersTest`) checks that none of them falls back to English.
 
 ## Economic calendar
 
@@ -133,6 +135,12 @@ templates (DE, AT, CH, UK, US, CA, AU, FR, JP) are marked **Beta**: simplified r
 orientation, not tax advice — check them before filing. Everything stays on the device unless you
 export it yourself.
 
+A watched address counts once: a booked transfer to or from its wallet (wallet = address label) is already in its
+on-chain balance, so the portfolio card, the cut-off CSV and the CH wealth value add only the part not covered by
+bookings or cost-basis lots (cut-off: balance observed by that day, bookings up to that balance check). Only lots
+dated after the last balance check before the cut-off can be missing — the file and the tax card then say so; in
+the DE summary the €256 limit for other income is marked «estimated» when a reward was valued at the daily close.
+
 > **Deutsch:** Freiwilliges Portfolio auf dem Gerät (aus ab Werk): selbst erfasste Transaktionen,
 > CSV-Import, beobachtete Adressen (nur lesen, nie ein Seed), Verlauf, Alarme, Widgets und
 > CSV-Exporte. Die Länder-Steuervorlagen sind **Beta** – Orientierung, keine Steuerberatung.
@@ -177,6 +185,8 @@ MIT, see [`LICENSE`](LICENSE). Anyone may use, copy, modify and distribute the
 code, provided the copyright notice and the license text are kept.
 Portions derived from BitcoinChecker by mobnetic and Aneonex Software (MIT); their
 original copyright notices are kept in [`LICENSE`](LICENSE).
+The licence file shown in the apps is byte-identical with `LICENSE`; the origin and third-party notes follow
+from a separate `NOTICE-origin.txt`.
 Third-party licenses used by the apps (e.g. the Rubik font, SIL Open
 Font License 1.1) are listed in the apps under *About › Licenses*.
 Names, logos and trademarks of coins, tokens, stocks, exchanges and other third

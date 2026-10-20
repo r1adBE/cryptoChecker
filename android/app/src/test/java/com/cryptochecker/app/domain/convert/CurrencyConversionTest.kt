@@ -164,4 +164,17 @@ class CurrencyConversionTest {
         assertNull(CurrencyConversion.fxWithTime(null, eur, deriveBgn = false))
         assertNull(CurrencyConversion.fxWithTime(null, null, deriveBgn = true))
     }
+
+    @Test
+    fun asterUIsUsdStableOnlyAtAster() {
+        // Aster: «U» = United Stables, 1:1 wie USD
+        assertEquals("USD", CurrencyConversion.conversionQuote("Aster", "U"))
+        assertEquals("USD", CurrencyConversion.conversionQuote("aster", " u "))
+        // Andere Börsen: U ist ein Coin (Krypto über den Marktkurs)
+        assertEquals("U", CurrencyConversion.conversionQuote("CoinDCX", "U"))
+        assertEquals("U", CurrencyConversion.conversionQuote("Binance", "U"))
+        assertEquals(CurrencyConversion.QuoteKind.CRYPTO, CurrencyConversion.classify("U", listOf("CHF")))
+        // Übrige Quotes an Aster unverändert
+        assertEquals("USDT", CurrencyConversion.conversionQuote("Aster", "usdt"))
+    }
 }

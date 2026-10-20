@@ -176,4 +176,17 @@ class PortfolioAlarmLogicTest {
         // Alle frisch: wie bisher
         assertTrue(PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), stale.copy(stalePrices = 0), start, 0) is PortfolioAlarmDecision.Fire)
     }
+
+    @Test
+    fun usdtAssumedOnlyForValueAlarmInOtherCurrencyWithoutMeasurement() {
+        val chfReading = reading(1000.0)
+        // Alarm in EUR, Stand in CHF, keine Messung USDT/USD: USDT = 1 angenommen
+        assertTrue(PortfolioAlarmLogic.usdtAssumed(alarm(PortfolioAlarmKind.VALUE_ABOVE, 900.0, "EUR"), chfReading))
+        // Gemessen: nichts angenommen
+        assertFalse(PortfolioAlarmLogic.usdtAssumed(alarm(PortfolioAlarmKind.VALUE_ABOVE, 900.0, "EUR"), chfReading.copy(usdtUsdLive = 0.999)))
+        // Gleiche Währung wie der Stand, USDT selbst und %-Alarme: kein Vermerk
+        assertFalse(PortfolioAlarmLogic.usdtAssumed(alarm(PortfolioAlarmKind.VALUE_ABOVE, 900.0, "CHF"), chfReading))
+        assertFalse(PortfolioAlarmLogic.usdtAssumed(alarm(PortfolioAlarmKind.VALUE_BELOW, 900.0, "USDT"), chfReading))
+        assertFalse(PortfolioAlarmLogic.usdtAssumed(alarm(PortfolioAlarmKind.CHANGE_UP, 5.0, "EUR"), chfReading))
+    }
 }

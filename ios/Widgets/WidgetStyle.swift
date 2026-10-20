@@ -131,6 +131,15 @@ struct LiveActivityThemed<Content: View>: View {
 
 // MARK: Schrift
 
+/// Schriftstufen der Widgets (pt) = Stufen der App wie Android `WidgetType`: Label 12, Body 14, Title 16 —
+/// Titel der Widgets in Body (eng: Label), Schlagzeile des Puls in Title, Zeilen der Portfolio-Liste in Label.
+/// Beträge bleiben SF Rounded (wie die App).
+enum WidgetFont {
+    static let label: CGFloat = 12
+    static let body: CGFloat = 14
+    static let title: CGFloat = 16
+}
+
 /// J-18: Nebentexte in Widgets (Uhrzeit, Börse, Fusszeilen) — mindestens 12 pt (wie Android 12 sp) und mit Dynamic Type
 /// (`@ScaledMetric` zu `.caption2`), höchstens 1.25 × gross, damit das Widget nicht überläuft.
 enum WidgetTextSize {

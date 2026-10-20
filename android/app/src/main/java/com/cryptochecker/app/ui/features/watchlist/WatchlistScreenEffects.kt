@@ -100,22 +100,26 @@ internal fun rememberAddMoment(
 private const val ALARM_HINT_MILLIS = 6_000L
 
 /**
- * Merkliste in diesem Lauf nur leer im Arbeitsspeicher: Der Keystore gab den Schlüssel der verschlüsselten Datei gerade
- * nicht heraus ([DatabaseEncryptionNotice.storedKept]). Sagen statt still eine leere Merkliste zeigen — der gespeicherte
- * Stand kommt nach einem Neustart zurück, Änderungen dieses Laufs nicht. Als Dauerhinweis ([WatchlistBanner.showResting]):
- * Er steht, solange der Zustand gilt, und kommt nach jedem anderen Banner wieder.
+ * Merkliste in diesem Lauf nur im Arbeitsspeicher ([WatchlistStorageLock.notice]): Der Keystore gab den Schlüssel der
+ * verschlüsselten Datei gerade nicht heraus ([DatabaseEncryptionNotice.storedKept] — der gespeicherte Stand kommt nach
+ * einem Neustart zurück, Änderungen dieses Laufs nicht), oder es gibt gar keinen Schlüssel und keine Datei (nie
+ * unverschlüsselt angelegt — nichts wird gespeichert, gleicher Text wie iOS). Sagen statt still. Als Dauerhinweis
+ * ([WatchlistBanner.showResting]): Er steht, solange der Zustand gilt, und kommt nach jedem anderen Banner wieder.
  */
 @Composable
 private fun WatchlistStorageNotice(banner: WatchlistBanner) {
     val kept by DatabaseEncryptionNotice.storedKept.collectAsStateWithLifecycle()
-    val watchlistKept = WatchlistStorageLock.isLocked(kept)
+    val inMemory by DatabaseEncryptionNotice.inMemory.collectAsStateWithLifecycle()
+    val notice = WatchlistStorageLock.notice(inMemory, kept)
     val resources = LocalResources.current
     val closeLabel = stringResource(R.string.action_close)
-    LaunchedEffect(watchlistKept) {
-        if (watchlistKept) {
-            banner.showResting(resources.getString(R.string.watchlist_storage_kept_in_memory), closeLabel)
-        } else {
-            banner.clearResting()
+    LaunchedEffect(notice) {
+        when (notice) {
+            WatchlistStorageLock.Notice.KEPT ->
+                banner.showResting(resources.getString(R.string.watchlist_storage_kept_in_memory), closeLabel)
+            WatchlistStorageLock.Notice.NOT_SAVED ->
+                banner.showResting(resources.getString(R.string.watchlist_storage_in_memory), closeLabel)
+            null -> banner.clearResting()
         }
     }
 }

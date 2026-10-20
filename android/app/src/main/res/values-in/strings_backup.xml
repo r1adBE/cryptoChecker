@@ -73,7 +73,7 @@
     <string name="system_backup_not_imported_message">Salinan portofolio dari cadangan sistem Android tidak dapat dibaca, bahkan pada percobaan kedua, dan telah dihapus. Jika kamu punya file cadangan, pulihkan di Pengaturan pada “%1$s”.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Portofolio tersimpan belum bisa dibuka saat ini dan tidak ditampilkan – akan kembali setelah aplikasi dimulai ulang. Perubahan yang dibuat sekarang tidak akan disimpan.</string>
+    <string name="portfolio_storage_kept_in_memory">Portofolio tersimpan belum bisa dibuka saat ini dan tidak ditampilkan – akan kembali setelah aplikasi dimulai ulang. Perubahan baru bisa dilakukan setelah aplikasi dibuka berikutnya.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">Daftar pantau tersimpan belum bisa dibuka saat ini dan tidak ditampilkan – akan kembali setelah aplikasi dimulai ulang. Perubahan yang dibuat sekarang tidak akan disimpan.</string>
     <string name="alarm_save_storage_locked">Alarm tidak bisa disimpan saat ini – daftar pantau tersimpan sedang terkunci. Mulai ulang aplikasi.</string>
@@ -82,4 +82,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Enkripsi belum aktif – portofolio tidak disimpan, perubahan hilang saat aplikasi ditutup. Aplikasi akan mencoba lagi saat dibuka berikutnya.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Portofolio tersimpan sedang terkunci – perubahan baru bisa dilakukan setelah aplikasi dibuka berikutnya.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Perangkat ini belum menyediakan kunci saat ini – daftar pantau tidak disimpan, perubahan hilang saat aplikasi ditutup. Aplikasi akan mencoba lagi saat dibuka berikutnya.</string>
 </resources>

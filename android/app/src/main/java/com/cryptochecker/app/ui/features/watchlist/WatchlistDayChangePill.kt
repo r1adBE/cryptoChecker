@@ -44,6 +44,8 @@ internal fun DayChangePill(
      * kleines «*» in onSurfaceVariant dahinter — gesprochen wird die Quelle im Zeilensatz, erklärt im Aktionsblatt.
      */
     marker: Boolean = false,
+    /** Kurzer Name der fremden Börse ([com.cryptochecker.app.domain.watch.DayChange.rowMarkerLabel]): statt «*» klein «· Binance» an der Zahl; null = «*». */
+    markerLabel: String? = null,
     /**
      * Tippen auf das «*» (eigenes Tippziel, Fläche über die Zeile hinaus, ohne sie höher zu machen): kurzer Hinweis
      * zur Quelle, statt das Aktionsblatt der Zeile zu öffnen. null = kein Tippziel. Screenreader: Aktion der Zeile.
@@ -83,7 +85,20 @@ internal fun DayChangePill(
             )
         }
         ChangePill(change = value, dashWhenMissing = true, neutral = neutral, size = size)
-        if (marker) {
+        if (marker && markerLabel != null) {
+            // Kurzer Börsenname direkt an der Zahl («+2.4% · Binance»): einzeilig, ohne
+            // Umbruch; der Tipp-Hinweis bleibt
+            Text(
+                text = "· $markerLabel",
+                style = MaterialTheme.typography.label,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                softWrap = false,
+                modifier = Modifier
+                    .padding(start = 4.dp)
+                    .then(if (onMarkerClick != null) Modifier.markerTouchTarget(onMarkerClick) else Modifier)
+            )
+        } else if (marker) {
             Text(
                 text = CHANGE_SOURCE_MARKER,
                 style = MaterialTheme.typography.label,

@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Rate-Limit ohne HTTP 429/418 (Kraken, Bybit, OKX). Fixture `rate_limit_signal.json`, wie `RateLimitSignalTest.kt`.
+/// Rate-Limit ohne HTTP 429/418 (Kraken, Bybit, OKX, BingX, bitbank). Fixture `rate_limit_signal.json`, wie `RateLimitSignalTest.kt`.
 final class RateLimitSignalTests: XCTestCase {
     private typealias S = TestSupport
 

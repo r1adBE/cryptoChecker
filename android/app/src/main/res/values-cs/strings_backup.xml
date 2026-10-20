@@ -82,7 +82,7 @@
     <string name="system_backup_not_imported_message">Kopii portfolia ze systémové zálohy Androidu se nepodařilo přečíst ani na druhý pokus a byla smazána. Pokud máš soubor zálohy, obnov ho v Nastavení pod „%1$s“.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Uložené portfolio teď nelze odemknout a nezobrazuje se – po restartu aplikace bude zpět. Změny provedené teď se neuloží.</string>
+    <string name="portfolio_storage_kept_in_memory">Uložené portfolio teď nelze odemknout a nezobrazuje se – po restartu aplikace bude zpět. Změny budou možné až po příštím spuštění.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">Uložený seznam teď nelze odemknout a nezobrazuje se – po restartu aplikace bude zpět. Změny provedené teď se neuloží.</string>
     <string name="alarm_save_storage_locked">Alarmy teď nelze uložit – uložený seznam je zamčený. Restartujte aplikaci.</string>
@@ -91,4 +91,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Šifrování ještě není aktivní – portfolio se neukládá a změny se po zavření aplikace ztratí. Aplikace to zkusí znovu při příštím spuštění.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Uložené portfolio je teď uzamčené – změny budou možné až po příštím spuštění.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Zařízení teď neposkytuje klíč – seznam se neukládá a změny se po zavření aplikace ztratí. Aplikace to zkusí znovu při příštím spuštění.</string>
 </resources>

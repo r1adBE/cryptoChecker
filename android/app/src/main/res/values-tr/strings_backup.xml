@@ -76,7 +76,7 @@
     <string name="system_backup_not_imported_message">Android sistem yedeğindeki portföy kopyası ikinci denemede de okunamadı ve silindi. Yedek dosyan varsa Ayarlar\'da “%1$s” altında geri yükle.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Kayıtlı portföyün kilidi şu anda açılamıyor ve gösterilmiyor – uygulama yeniden başlatıldığında geri gelir. Şimdi yapılan değişiklikler kaydedilmez.</string>
+    <string name="portfolio_storage_kept_in_memory">Kayıtlı portföyün kilidi şu anda açılamıyor ve gösterilmiyor – uygulama yeniden başlatıldığında geri gelir. Değişiklikler ancak bir sonraki açılıştan sonra mümkün.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">Kayıtlı listenin kilidi şu anda açılamıyor ve gösterilmiyor – uygulama yeniden başlatıldığında geri gelir. Şimdi yapılan değişiklikler kaydedilmez.</string>
     <string name="alarm_save_storage_locked">Alarmlar şu anda kaydedilemiyor – kayıtlı liste kilitli. Uygulamayı yeniden başlatın.</string>
@@ -85,4 +85,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Şifreleme henüz etkin değil – portföy kaydedilmiyor, değişiklikler uygulama kapanınca kaybolur. Uygulama bir sonraki açılışta yeniden deneyecek.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Kayıtlı portföy şu anda kilitli – değişiklikler ancak bir sonraki açılıştan sonra mümkün.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Bu cihaz şu anda anahtar sağlamıyor – liste kaydedilmiyor, değişiklikler uygulama kapanınca kaybolur. Uygulama bir sonraki açılışta yeniden deneyecek.</string>
 </resources>

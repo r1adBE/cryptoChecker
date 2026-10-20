@@ -65,4 +65,19 @@ class VolumeSpikeTest {
         assertNotNull(spike)
         return spike!!
     }
+
+    @Test
+    fun foreignCandlesNameTheirExchange() {
+        val kraken = com.cryptochecker.app.data.local.model.WatchEntity(
+            marketKey = "Kraken", marketName = "Kraken", baseAsset = "BTC", quoteAsset = "USD",
+        )
+        val spike = VolumeSpike(ratio = 3.0, candleOpenTime = 0L)
+        with(VolumeDataSource) {
+            // Kraken-Paar mit Binance-Stundenkerzen: Börse für den Alarmtext
+            assertEquals("Binance", spike.withSource(kraken, "Binance").source)
+            // Eigene Börse bzw. unbekannter Anbieter: nichts nennen
+            assertNull(spike.withSource(kraken, "Kraken").source)
+            assertNull(spike.withSource(kraken, null).source)
+        }
+    }
 }

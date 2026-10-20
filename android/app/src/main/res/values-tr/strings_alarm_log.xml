@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">arka planda</string>
     <string name="alarm_log_source_exact">dakik kontrol</string>
     <string name="alarm_log_source_widget">widget üzerinden</string>
+    <string name="alarm_outcome_fx_stale">Kontrol edilmedi – döviz kuru 36 saatten eski</string>
+    <string name="alarm_outcome_fx_unsure">Kontrol edilmedi – USDT dönüşümü belirsiz (yalnızca USDC üzerinden)</string>
 </resources>

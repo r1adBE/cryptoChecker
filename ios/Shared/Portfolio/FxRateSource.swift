@@ -21,6 +21,9 @@ enum FxRateSource {
     /// Währung → (Kurs, Abfragezeit).
     nonisolated(unsafe) private static var cache: [String: (rate: Double, at: Int64)] = [:]
     private static let gate = PortfolioSerialGate()
+    /// Währung → Zeitpunkt des Kurses laut Quelle (EZB-Datum bzw. letzte Aktualisierung von open.er-api), für das Alter
+    /// im Fiat-Alarm (`rateTime`); fehlt er, gilt die Abrufzeit.
+    nonisolated(unsafe) private static var rateTimes: [String: Int64] = [:]
 
     /// Dreistelliger Code aus A–Z, z. B. «CHF».
     static func isCurrencyCode(_ code: String) -> Bool {
@@ -89,8 +92,8 @@ enum FxRateSource {
             var fresh = await Self.frankfurter(target)
             if fresh == nil { fresh = await Self.openErApi(target) }
             if let fresh {
-                Self.put(target, fresh, at: now)
-                return fresh
+                Self.put(target, fresh.rate, at: now, rateTime: fresh.time)
+                return fresh.rate
             }
             // Älterer Kurs ist besser als keiner, aber nicht älter als ein Tag
             if let known = Self.entry(target) {
@@ -116,6 +119,20 @@ enum FxRateSource {
         let target = currency.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         if target == "USD" { return nil }
         return cachedWithTime(target)?.at
+    }
+
+    /// Zeitpunkt des Kurses von `currency` laut Quelle (EZB-Tageskurs: Datum um 15:00 UTC, `FiatAlarmGuard.rateTime`);
+    /// ohne Angabe die Abrufzeit (`fetchedAt`). nil für USD oder ohne Kurs. BGN ohne eigenen Kurs: die des EUR-Kurses.
+    /// Für das Alter im Fiat-Alarm (36 h Bankarbeitszeit). Wie Android.
+    static func rateTime(_ currency: String) -> Int64? {
+        let target = currency.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        if target == "USD" { return nil }
+        guard let fetched = fetchedAt(target) else { return nil }
+        let now = TimeUtils.nowMillis
+        let ownFresh = entry(target).map { now - $0.at >= 0 && now - $0.at < staleMillis } ?? false
+        let code = !ownFresh && target == "BGN" ? "EUR" : target
+        lock.lock(); defer { lock.unlock() }
+        return rateTimes[code] ?? fetched
     }
 
     /// Kurs und Abrufzeit aus dem Zwischenspeicher (höchstens 24 h alt); BGN ohne eigenen aus EUR (`fxWithTime`).
@@ -144,19 +161,30 @@ enum FxRateSource {
         return cache[code]
     }
 
-    private static func put(_ code: String, _ rate: Double, at time: Int64) {
+    private static func put(_ code: String, _ rate: Double, at time: Int64, rateTime: Int64? = nil) {
         lock.lock(); defer { lock.unlock() }
         cache[code] = (rate: rate, at: time)
+        rateTimes[code] = rateTime
     }
 
-    private static func frankfurter(_ target: String) async -> Double? {
-        guard let body = await get("https://api.frankfurter.app/latest?from=USD&to=\(target)") else { return nil }
-        return rate(in: body, target)
+    /// Kurs und Zeitpunkt des EZB-Tageskurses («date», `FiatAlarmGuard.rateTime(ofIsoDate:)`).
+    private static func frankfurter(_ target: String) async -> (rate: Double, time: Int64?)? {
+        guard let body = await get("https://api.frankfurter.app/latest?from=USD&to=\(target)"),
+              let value = rate(in: body, target) else { return nil }
+        return (rate: value, time: FiatAlarmGuard.rateTime(ofIsoDate: root(body)?["date"] as? String))
     }
 
-    private static func openErApi(_ target: String) async -> Double? {
-        guard let body = await get("https://open.er-api.com/v6/latest/USD") else { return nil }
-        return rate(in: body, target)
+    /// Kurs und Zeitpunkt der letzten Aktualisierung («time_last_update_unix», Sekunden).
+    private static func openErApi(_ target: String) async -> (rate: Double, time: Int64?)? {
+        guard let body = await get("https://open.er-api.com/v6/latest/USD"),
+              let value = rate(in: body, target) else { return nil }
+        let seconds = (root(body)?["time_last_update_unix"] as? NSNumber)?.int64Value ?? 0
+        return (rate: value, time: seconds > 0 ? seconds * 1000 : nil)
+    }
+
+    private static func root(_ body: String) -> [String: Any]? {
+        guard let data = body.data(using: .utf8) else { return nil }
+        return (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
     }
 
     /// `{"rates":{"CHF":0.79,…}}` → Kurs; nil, wenn fehlend oder ≤ 0.

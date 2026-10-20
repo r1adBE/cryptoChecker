@@ -4,7 +4,8 @@ import XCTest
 /// Einstand für Adressguthaben und Einträge ohne Einstand (`Parity/address_cost_lots.json`) — wie
 /// `AddressCostLotsParityTest.kt`: Abdeckung, Adress-Teil ohne Einstand, Rechner-Einträge, Karte je Methode, Stichtag
 /// (CH-Vermögenswert ohne Posten), FR-Erwerbspreis-Summe samt Vermerk «Adressen ohne Einstand», Steuer-Export (Info-Zeilen,
-/// Jahre), Bestand je Wallet bei erfassten Umbuchungen von/zu der Adress-Wallet.
+/// Jahre), Bestand je Wallet bei erfassten Umbuchungen von/zu der Adress-Wallet, Stichtag/CH-Vermögen wie die Karte
+/// («cutoff», `AddressCutoff`).
 final class AddressCostLotsParityTests: XCTestCase {
 
     private typealias S = TestSupport
@@ -23,6 +24,10 @@ final class AddressCostLotsParityTests: XCTestCase {
         WatchedAddress(id: Int64(S.number(o["id"]) ?? 0), chain: AddressChain(rawValue: o["chain"] as? String ?? "") ?? .BTC,
                        address: o["address"] as? String ?? "", label: o["label"] as? String,
                        lastBalance: o["lastBalance"] as? String,
+                       lastUpdated: Int64(S.number(o["lastUpdated"]) ?? 0),
+                       observations: S.list(o["observations"]).map {
+                           AddressObservation(time: Int64(S.number($0["t"]) ?? 0), balance: dec($0["b"]) ?? 0)
+                       },
                        countInPortfolio: o["countInPortfolio"] as? Bool ?? true,
                        costLots: S.list(o["costLots"]).map(lot))
     }
@@ -49,6 +54,32 @@ final class AddressCostLotsParityTests: XCTestCase {
         guard let actual else { return XCTFail("\(label): nil ≠ \(e)") }
         let diff: Decimal = abs(e - actual)
         XCTAssertTrue(diff < Decimal(string: "1e-20")!, "\(label): \(actual) ≠ \(e)")
+    }
+
+    /// Stichtag/CH-Vermögen (`AddressCutoff`): Posten, Adress-Teil ohne Einstand, Hinweis; Bestand je Methode wie erwartet
+    /// und — Stichtag nach allen Buchungen und Abrufen — je Coin dieselbe Menge wie die Karte. Wie Android `checkCutoff`.
+    private func checkCutoff(_ name: String, _ x: [String: Any], _ addresses: [WatchedAddress], _ real: [PortfolioTx],
+                             _ methods: [String: Any], _ all: [PortfolioTx]) throws {
+        let time = Int64(S.number(x["time"]) ?? 0)
+        let view = AddressCutoff.at(addresses, real: real, cutoffMillis: time)
+        XCTAssertEqual(Int(S.number(x["lots"]) ?? -1), view.lots.count, "\(name) cutoff lots")
+        XCTAssertEqual(x["note"] as? Bool, view.lotsAfterObservation, "\(name) cutoff note")
+        let address = x["address"] as? [String: Any] ?? [:]
+        XCTAssertEqual(Set(address.keys), Set(view.part.balances.keys), "\(name) cutoff address coins")
+        for (coin, v) in address { near("\(name) cutoff address \(coin)", v, view.part.balances[coin]) }
+        let expected = x["holdings"] as? [String: Any] ?? [:]
+        for m in methods.isEmpty ? ["FIFO"] : Array(methods.keys) {
+            let method = try XCTUnwrap(CostMethod(rawValue: m))
+            var held: [String: Decimal] = [:]
+            for h in AddressCutoff.holdingsAt(real, view: view, cutoffMillis: time, method: method) { held[h.coin] = h.amount }
+            XCTAssertEqual(Set(expected.keys), Set(held.keys), "\(name)/\(m) cutoff coins")
+            for (coin, v) in expected { near("\(name)/\(m) cutoff \(coin)", v, held[coin]) }
+            for coin in (methods[m] as? [String: Any] ?? [:]).keys {
+                let card = PortfolioCalculator.position(coin, trades: all, currentPrice: nil, method: method).holdingsExact
+                let file = (held[coin] ?? 0) + (view.part.balances[coin] ?? 0)
+                near("\(name)/\(m) cutoff = card \(coin)", "\(card)", file)
+            }
+        }
     }
 
     func testLotsFeedTheCalculators() throws {
@@ -94,8 +125,8 @@ final class AddressCostLotsParityTests: XCTestCase {
                     let p = PortfolioCalculator.position(coin, trades: all, currentPrice: nil, method: method)
                     near("\(name)/\(m) holdings", x["holdings"], p.holdingsExact)
                     near("\(name)/\(m) address", x["address"], p.addressHoldingsExact)
-                    near("\(name)/\(m) cost", x["cost"], p.costBasisExact)
-                    near("\(name)/\(m) realized", x["realized"], p.realizedExact)
+                    if x["cost"] != nil { near("\(name)/\(m) cost", x["cost"], p.costBasisExact) }
+                    if x["realized"] != nil { near("\(name)/\(m) realized", x["realized"], p.realizedExact) }
                 }
             }
             // FIFO je Wallet: Bestand je Wallet (Adress-Wallet samt erfasster Umbuchungen), kein Fehlbestand
@@ -107,6 +138,9 @@ final class AddressCostLotsParityTests: XCTestCase {
                 let expected = wallets as? [String: Any] ?? [:]
                 XCTAssertEqual(Set(expected.keys), Set(got.keys), "\(name) wallets \(coin)")
                 for (w, v) in expected { near("\(name) wallet \(w)", v, got[w]) }
+            }
+            if let x = c["cutoff"] as? [String: Any] {
+                try checkCutoff(name, x, addresses, real, c["methods"] as? [String: Any] ?? [:], all)
             }
             if let n = S.number(c["shortfalls"]) {
                 XCTAssertEqual(Int(n), PortfolioCalculator.walletShortfalls(all).count, "\(name) shortfalls")

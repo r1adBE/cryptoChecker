@@ -38,9 +38,13 @@ final class Luno: SimpleMarket {
 
     override var bulkTickersNumOfRequests: Int { 1 }
 
+    /// `tickers` führt jeden handelbaren Markt (Aufzeichnung 19.10.2026: 147 von 147 Märkten der Paarliste),
+    /// ein fehlendes Paar ist nicht mehr gelistet.
+    override var bulkTickersComplete: Bool { true }
+
     override func bulkTickersURL(call: Int) -> String? { lunoAPI + "/api/1/tickers" }
 
-    /// Gesperrte Märkte fallen still weg; die Einzelabfrage meldet sie dann als nicht gehandelt.
+    /// Gesperrte Märkte fallen still weg und gelten damit als nicht mehr gehandelt (`bulkTickersComplete`).
     override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array("tickers").allObjects() where Luno.isTrading(row) {

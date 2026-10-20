@@ -2136,7 +2136,7 @@ after the encryption step.
   call actually runs; iOS `RequestGate` (32 / 5 per host before a task is created, 6 connections per host).
   Identical concurrent POSTs share one request (Hyperliquid). DexScreener: pools per chain in one
   `/latest/dex/pairs/{chain}/{a,b,…}` call (≤ 30), never «complete», liquidity rule per pool.
-* Notifications: «1 h later» (repeating alarms only) stores `snoozeUntil` per alarm outside the database (Android
+* Notifications: «1 h later» (repeating percent/movement alarms and, since build 91, price-level alarms – `AlarmSnooze.rearmsOnSnooze`) stores `snoozeUntil` per alarm outside the database (Android
   prefs `alarm_snooze`, iOS App Group `alarm_snooze_until`), honoured at delivery like quiet hours (outcome
   SNOOZED); «Adjust» opens `alarm/<watchId>/<alarmId>`; coin logo only from the local cache (300 ms limit).
   Automatic announcements use the notification stream (Android USAGE_NOTIFICATION, iOS `.ambient`) and stay silent
@@ -2144,6 +2144,22 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 91 (post-launch list done early, 21 October 2026): foreign-candle 24 h change shows the short exchange name
+  at the number; volume-spike texts name the candle source. Fiat alerts skip a cycle when the FX rate is older than
+  36 business hours (`fx_stale`) or USDT/USD is only known via USDC with USDC > 1 % off (`fx_unsure`, row «Conversion
+  uncertain»); USDT/USD is measured whenever a fiat alert or ≈ conversion depends on it. Aster quote «U» = USD 1:1
+  (`CurrencyConversion.conversionQuote`). Lighter rows with 0 trades leave the change empty; CoinDCX, Luno, ICRYPEX,
+  HashKey bulk lists complete (`RecordedBulkCompletenessTest`); BingX 100410 and bitbank 10009 are rate limits; DEX
+  token address kept per pool (`dex_token_address`); Binance price without known name only for non-colliding
+  symbols (`PortfolioPriceIdentity.binanceCheck`). «1 h later» for price levels; `AlarmReliability` line above the
+  watchlist; alert editor with «More»; Android undo survives «Check» (`AlarmUndoOffer`). Row price one step larger
+  (`DenseRowText.largePrice`), change basis always shown; `TabLabelFit`; widget type scale (`WidgetType`) and
+  ar/fa amount font; portfolio sheet/confirmations saveable; single widget opens the pair. Android watchlist never
+  created unencrypted (in memory + notice without key); address writes refused while the portfolio is locked;
+  iOS foreground reload off the main thread (`AppData+DiskReload`); lease in the future = orphaned. Stichtag and
+  Swiss wealth count addresses like the card (`AddressCutoff`), including addresses without lots; the card counts a
+  transfer to the address once (1.4, not 1.7). DE 256 € line marked estimated. `localeFilters` with
+  `LocaleFiltersTest`; app licence file = LICENSE plus `NOTICE-origin.txt`.
 * Build 90 (third audit of 20 October 2026): `BulkDelisted` state is persisted (`BulkDelistedStore`, SharedPreferences
   `bulk_delisted`; iOS App Group key `bulk_delisted`); the iOS widget never rechecks (`plan(…, lowMemory: true)`).
   `wealthCoinNoteBelowValue` shows the incomplete note under a partial CH value. iOS `PortfolioEdits` only reports

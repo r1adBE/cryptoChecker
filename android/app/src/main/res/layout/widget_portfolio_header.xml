@@ -24,6 +24,6 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:text="@string/widget_portfolio_name"
-        android:textSize="13sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
 </LinearLayout>

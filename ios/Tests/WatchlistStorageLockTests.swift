@@ -84,5 +84,15 @@ final class WatchlistStorageLockTests: XCTestCase {
                                                 includePortfolioInBackup: true, keys: keys(nil, locked: true)))
         XCTAssertTrue(SharedStorage.watchlistPending)
         XCTAssertFalse(readLocked(keys(nil, locked: true)))
+        // Dauerhinweis «wird nicht gespeichert» (wie Android Notice.NOT_SAVED), Alarme bleiben erlaubt
+        XCTAssertEqual(WatchlistStorageLock.notice(locked: false, savePending: SharedStorage.watchlistPending), .notSaved)
+    }
+
+    /// Hinweis wie Android `WatchlistStorageLock.notice`: gesperrt vor «nicht gespeichert», sonst keiner.
+    func testNoticeMatchesAndroid() {
+        XCTAssertEqual(WatchlistStorageLock.notice(locked: true, savePending: true), .kept)
+        XCTAssertEqual(WatchlistStorageLock.notice(locked: true, savePending: false), .kept)
+        XCTAssertEqual(WatchlistStorageLock.notice(locked: false, savePending: true), .notSaved)
+        XCTAssertNil(WatchlistStorageLock.notice(locked: false, savePending: false))
     }
 }

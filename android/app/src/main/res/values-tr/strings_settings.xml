@@ -141,7 +141,7 @@
     <string name="settings_change_basis_hint_since_last">“%1$s” önceki güncellemedeki fiyatla karşılaştırır. Canlı fiyatlarda değer %%0 civarında kalır.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
     <string name="settings_change_period">Değişimin yanında süreyi göster</string>
-    <string name="settings_change_period_hint">Listede ve tek coin widget’ında değişimin yanında küçük “24sa”, “bugün” veya “son güncelleme”. Ekran okuyucu her zaman söyler.</string>
+    <string name="settings_change_period_hint">Nabız satırında ve tek coin widget’ında değişimin yanında küçük “24sa”, “bugün” veya “son güncelleme”. İzleme listesi her zaman gösterir; ekran okuyucu her zaman söyler.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Çevrim para birimi</string>

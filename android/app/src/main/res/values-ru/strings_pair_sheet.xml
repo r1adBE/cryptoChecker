@@ -98,4 +98,5 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Динамика в %1$s, пересчитано в %2$s по сегодняшнему курсу</string>
+    <string name="converted_unsure">Пересчёт ненадёжен</string>
 </resources>

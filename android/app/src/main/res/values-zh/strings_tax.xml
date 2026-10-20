@@ -240,8 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">无法读取关注的地址 – 此文件中缺少其余额</string>
-    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">注意：已录入成本价的地址 – 转入或转出被关注地址的划转在此可能重复出现或缺失；投资组合卡片会正确计算。</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">注意：某个被关注地址有成本价条目，其日期晚于该地址在此日期之前最后一次查询余额的时间——这些条目在此可能缺失。</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">观察地址计入总价值，但没有购入成本——因此收益可能偏高。请将成本记录为买入。</string>

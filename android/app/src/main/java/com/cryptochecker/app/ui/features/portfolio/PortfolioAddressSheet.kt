@@ -39,7 +39,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
+import com.cryptochecker.app.data.portfolio.PortfolioStorageLock
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressValidation
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
@@ -121,7 +123,12 @@ internal fun PortfolioAddressSheet(
                 is PortfolioRepository.AddWatchedResult.Invalid -> saveError = problemRes(result.problem)
                 PortfolioRepository.AddWatchedResult.Duplicate -> saveError = R.string.address_duplicate
                 PortfolioRepository.AddWatchedResult.LimitReached -> saveError = R.string.address_limit
-                null -> saveError = R.string.address_invalid
+                // Nicht geschrieben: gesperrt (PortfolioStorageLock) bzw. Fehler — den Grund nennen
+                null -> saveError = if (PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value)) {
+                    R.string.portfolio_storage_locked
+                } else {
+                    R.string.address_invalid
+                }
             }
         }
     }

@@ -68,18 +68,11 @@ class PortfolioRepository @Inject constructor(
         }
     }
 
-    /**
-     * Portfolio nur leer im Arbeitsspeicher, gespeicherter Stand bleibt in der Datei ([PortfolioStorageLock]): nicht
-     * schreiben — es ginge mit dem Lauf verloren. Erst nach dem Öffnen der Datenbank verlässlich. Gilt für alle Schreibwege
-     * des Nutzers (Speichern, Import, Löschen, «Rückgängig», Wiederherstellen); Abrufe der Adress-Guthaben laufen weiter.
-     */
-    private fun ensureWritable() {
-        if (PortfolioStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value)) throw PortfolioStorageLockedException()
-    }
+    /** Gesperrt ([PortfolioStorageLock]): alle Schreibwege des Nutzers samt Adressen ablehnen; Guthaben-Abrufe nicht. */
+    private fun ensureWritable() = ensurePortfolioWritable()
 
     /** Schreiben gerade gesperrt ([PortfolioStorageLock])? Öffnet dazu die Datenbank (erst dann ist der Merker verlässlich). */
-    suspend fun writesBlocked(): Boolean =
-        database.withTransaction { PortfolioStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value) }
+    suspend fun writesBlocked(): Boolean = database.withTransaction { PortfolioStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value) }
 
     /** @throws PortfolioStorageLockedException wie alle Schreibwege des Nutzers ([ensureWritable]) */
     suspend fun delete(id: Long) = database.withTransaction { ensureWritable(); portfolioDao.delete(id) }
@@ -213,6 +206,7 @@ class PortfolioRepository @Inject constructor(
         overlapChecked: Boolean = false,
     ): AddWatchedResult =
         database.withTransaction {
+            ensureWritable()
             val check = AddressValidation.check(address, chain)
             val normalized = check.normalized
             if (check.problem != null || normalized == null) {
@@ -238,10 +232,10 @@ class PortfolioRepository @Inject constructor(
             if (id > 0) AddWatchedResult.Added(id) else AddWatchedResult.Duplicate
         }
 
-    suspend fun removeWatchedAddress(id: Long) = watchedAddressDao.delete(id)
+    suspend fun removeWatchedAddress(id: Long) = database.withTransaction { ensureWritable(); watchedAddressDao.delete(id) }
 
     suspend fun setWatchedAddressLabel(id: Long, label: String?) =
-        watchedAddressDao.setLabel(id, WatchedAddressRules.cleanLabel(label))
+        database.withTransaction { ensureWritable(); watchedAddressDao.setLabel(id, WatchedAddressRules.cleanLabel(label)) }
 
     /**
      * Ergebnis eines Abrufs speichern: mit [balanceText] (exakt, «0.00012345») Guthaben, Zeit und Anbieter,
@@ -284,19 +278,23 @@ class PortfolioRepository @Inject constructor(
 
     /** Einmal automatisch «Nur anzeigen» bei später aufgetauchter Überschneidung ([WatchedAddressRules.withOverlapShowOnly]). */
     suspend fun setWatchedAddressOverlapShowOnly(id: Long) =
-        changeWatched(id) { WatchedAddressRules.withOverlapShowOnly(it) }
+        changeWatched(id, userEdit = false) { WatchedAddressRules.withOverlapShowOnly(it) }
 
     /** Alten Überschneidungs-Entscheid einmal übernehmen bzw. zurück auf «zählen» ([WatchedAddressRules.withOverlapMigrated]). */
     suspend fun migrateWatchedAddressOverlap(id: Long, revert: Boolean) =
-        changeWatched(id) { WatchedAddressRules.withOverlapMigrated(it, revert) }
+        changeWatched(id, userEdit = false) { WatchedAddressRules.withOverlapMigrated(it, revert) }
 
     /** Eröffnungsposten einer Adresse ersetzen (geprüft, [com.cryptochecker.app.domain.portfolio.AddressCostLots.clean]). */
     suspend fun setWatchedAddressCostLots(id: Long, lots: List<com.cryptochecker.app.domain.portfolio.AddressCostLot>) =
-        watchedAddressDao.setCostLots(id, com.cryptochecker.app.domain.portfolio.AddressCostLots.run { encode(clean(lots)) })
-
-    /** Zusatzdaten und letzten Versuch einer Adresse ändern (eine Transaktion). */
-    private suspend fun changeWatched(id: Long, change: (com.cryptochecker.app.domain.portfolio.WatchedAddress) -> com.cryptochecker.app.domain.portfolio.WatchedAddress) =
         database.withTransaction {
+            ensureWritable()
+            watchedAddressDao.setCostLots(id, com.cryptochecker.app.domain.portfolio.AddressCostLots.run { encode(clean(lots)) })
+        }
+
+    /** Zusatzdaten einer Adresse ändern (eine Transaktion); [userEdit] = Schreibweg des Nutzers, gesperrt abgelehnt. */
+    private suspend fun changeWatched(id: Long, userEdit: Boolean = true, change: (com.cryptochecker.app.domain.portfolio.WatchedAddress) -> com.cryptochecker.app.domain.portfolio.WatchedAddress) =
+        database.withTransaction {
+            if (userEdit) ensureWritable()
             val current = watchedAddressDao.getById(id)?.toDomain() ?: return@withTransaction
             val updated = change(current)
             if (updated != current) watchedAddressDao.setExtras(id, WatchedAddressExtras.encode(updated), updated.lastAttempt)
@@ -305,6 +303,7 @@ class PortfolioRepository @Inject constructor(
     /** Wiederherstellen (eigene Sicherung): ersetzen — alle bisherigen Adressen weg, dann die geprüften neuen. */
     suspend fun replaceWatchedAddresses(entries: List<com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry>): Int =
         database.withTransaction {
+            ensureWritable()
             watchedAddressDao.deleteAll()
             insertWatched(WatchedAddressRules.merge(emptyList(), entries))
         }
@@ -312,6 +311,7 @@ class PortfolioRepository @Inject constructor(
     /** Wiederherstellen (eigene Sicherung): ergänzen — vorhandene bleiben, neue ohne Doppelte bis zur Höchstzahl. */
     suspend fun mergeWatchedAddresses(entries: List<com.cryptochecker.app.domain.portfolio.WatchedAddressBackupEntry>): Int =
         database.withTransaction {
+            ensureWritable()
             insertWatched(WatchedAddressRules.merge(getWatchedAddresses(), entries))
         }
 

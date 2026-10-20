@@ -148,7 +148,7 @@ class PulseWidgetRenderer @Inject constructor(
             val (widgetWidthDp, heightDp) = toolkit.sizeDp(manager, appWidgetId)
             val titleSp = PulseWidgetMath.titleSizeSp(widgetWidthDp) { toolkit.textWidthDp(title, it) }
             views.setViewVisibility(R.id.pulse_title, if (titleSp != null) View.VISIBLE else View.INVISIBLE)
-            views.setTextViewTextSize(R.id.pulse_title, TypedValue.COMPLEX_UNIT_SP, titleSp ?: 13f)
+            views.setTextViewTextSize(R.id.pulse_title, TypedValue.COMPLEX_UNIT_SP, titleSp ?: WidgetType.BODY)
 
             if (report == null) {
                 val message = context.getString(R.string.pulse_unavailable)

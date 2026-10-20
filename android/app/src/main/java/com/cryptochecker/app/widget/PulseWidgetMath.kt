@@ -36,14 +36,14 @@ object PulseWidgetMath {
     /** Logo und Abstand vor dem Titel (dp). */
     const val LOGO_DP = 16f + 4f
 
-    /** Zeichen ↗/↘ vor der Schlagzeile samt Abstand (dp, ungefähr; 13 sp ≈ 10 dp + 4 dp Abstand). */
+    /** Zeichen ↗/↘ vor der Schlagzeile samt Abstand (dp, ungefähr; 12 sp ≈ 10 dp + 4 dp Abstand). */
     const val GLYPH_DP = 14f
 
     /** Schriftgrössen des Titels: normal, eng; passt keine, nur das Logo. */
-    val TITLE_SIZES_SP = listOf(13f, 11f)
+    val TITLE_SIZES_SP = listOf(WidgetType.BODY, WidgetType.LABEL)
 
     /** Schlagzeile einzeilig in diesen Grössen; passt keine, zweizeilig in der kleinsten. */
-    val HEADLINE_SIZES_SP = listOf(18f, 16f, 14f)
+    val HEADLINE_SIZES_SP = listOf(WidgetType.TITLE, WidgetType.BODY)
 
     /** Praktisch unverändert («0.0%», grau, ohne Pfeil) — wie die Karte. */
     const val FLAT_PERCENT = 0.05

@@ -22,6 +22,8 @@ extension WatchActionsSheet {
                 Text(isPreview ? "\(watch.marketName) · \(L("watch_preview_not_watched"))" : watch.marketName)
                     .font(.subheadline)
                     .foregroundStyle(AppColors.onSurfaceVariant)
+                // DEX-Pool: Token-Adresse gekürzt, Tippen kopiert (wie Android)
+                DexTokenAddressLine(watch: watch)
             }
             Spacer(minLength: 0)
             // «Paar bearbeiten»: 48 pt Tippfläche; Vorschau: nichts zu bearbeiten

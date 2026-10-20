@@ -4,6 +4,8 @@ import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressCostLot
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
+import com.cryptochecker.app.domain.portfolio.AddressCutoff
+import com.cryptochecker.app.domain.portfolio.AddressObservation
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioCostGaps
@@ -26,7 +28,7 @@ import java.time.ZoneOffset
  * Einstand für Adressguthaben und Einträge ohne Einstand (`testdata/parity/address_cost_lots.json`): Abdeckung der Posten,
  * Adress-Teil ohne Einstand, Rechner-Einträge, Karte je Einstandsmethode, Stichtag-Bestand (CH-Vermögenswert ohne
  * Posten), FR-Erwerbspreis-Summe samt Vermerk «Adressen ohne Einstand», Steuer-Export (Info-Zeilen, Jahre), Bestand je
- * Wallet bei erfassten Umbuchungen von/zu der Adress-Wallet. Gegenstück: `Tests/AddressCostLotsParityTests.swift`.
+ * Wallet bei erfassten Umbuchungen von/zu der Adress-Wallet, Stichtag/CH-Vermögen wie die Karte («cutoff», [AddressCutoff]). Gegenstück: `Tests/AddressCostLotsParityTests.swift`.
  */
 class AddressCostLotsParityTest {
 
@@ -47,6 +49,8 @@ class AddressCostLotsParityTest {
         return WatchedAddress(
             id = o["id"].num()!!.toLong(), chain = AddressChain.valueOf(o["chain"] as String), address = o["address"] as String,
             label = o["label"] as String?, lastBalance = o["lastBalance"] as String?,
+            lastUpdated = o["lastUpdated"].num()?.toLong() ?: 0L,
+            observations = o["observations"]?.list()?.map { it.obj() }?.map { AddressObservation(it["t"].num()!!.toLong(), dec(it["b"])!!) }.orEmpty(),
             countInPortfolio = o["countInPortfolio"] as Boolean? ?: true,
             costLots = o["costLots"]?.list()?.map(::lot).orEmpty(),
         )
@@ -116,8 +120,8 @@ class AddressCostLotsParityTest {
                     val p = PortfolioCalculator.position(coin, all, null, method)
                     near("$name/$m holdings", x["holdings"], p.holdingsExact)
                     near("$name/$m address", x["address"], p.addressHoldingsExact)
-                    near("$name/$m cost", x["cost"], p.costBasisExact)
-                    near("$name/$m realized", x["realized"], p.realizedExact)
+                    if ("cost" in x) near("$name/$m cost", x["cost"], p.costBasisExact)
+                    if ("realized" in x) near("$name/$m realized", x["realized"], p.realizedExact)
                 }
             }
             // FIFO je Wallet: Bestand je Wallet (Adress-Wallet samt erfasster Umbuchungen), kein Fehlbestand
@@ -128,6 +132,7 @@ class AddressCostLotsParityTest {
                 assertEquals("$name wallets $coin", expected.keys, got.keys)
                 expected.forEach { (w, v) -> near("$name wallet $w", v, got[w]) }
             }
+            c["cutoff"]?.obj()?.let { x -> checkCutoff(name, x, addresses, real, c["methods"].obj(), all) }
             c["shortfalls"]?.let { assertEquals("$name shortfalls", it.num()!!.toInt(), PortfolioCalculator.walletShortfalls(all).size) }
             c["fr"]?.obj()?.let { fr ->
                 val price = BigDecimal(fr["price"] as String)
@@ -135,6 +140,39 @@ class AddressCostLotsParityTest {
                 val d = rows.single()
                 near("$name fr cost", fr["cost"], d.costUsdt)
                 assertEquals("$name fr address note", fr["addressValueIncluded"] as Boolean, d.addressValueIncluded)
+            }
+        }
+    }
+
+    /**
+     * Stichtag/CH-Vermögen ([AddressCutoff]): Posten, Adress-Teil ohne Einstand, Hinweis; Bestand je Methode wie erwartet
+     * und — Stichtag nach allen Buchungen und Abrufen — je Coin dieselbe Menge wie die Karte (Bestand + Adress-Teil).
+     */
+    private fun checkCutoff(
+        name: String,
+        x: Map<String, Any?>,
+        addresses: List<WatchedAddress>,
+        real: List<PortfolioTrade>,
+        methods: Map<String, Any?>,
+        all: List<PortfolioTrade>,
+    ) {
+        val time = x["time"].num()!!.toLong()
+        val view = AddressCutoff.at(addresses, real, time)
+        assertEquals("$name cutoff lots", x["lots"].num()!!.toInt(), view.lots.size)
+        assertEquals("$name cutoff note", x["note"], view.lotsAfterObservation)
+        val address = x["address"].obj()
+        assertEquals("$name cutoff address coins", address.keys, view.part.balances.keys)
+        address.forEach { (coin, v) -> near("$name cutoff address $coin", v, view.part.balances[coin]) }
+        val expected = x["holdings"].obj()
+        for (m in methods.keys.ifEmpty { setOf("FIFO") }) {
+            val method = CostMethod.valueOf(m)
+            val held = AddressCutoff.holdingsAt(real, view, time, method).associate { it.coin to it.amount }
+            assertEquals("$name/$m cutoff coins", expected.keys, held.keys)
+            expected.forEach { (coin, v) -> near("$name/$m cutoff $coin", v, held[coin]) }
+            methods[m]?.obj()?.keys?.forEach { coin ->
+                val card = PortfolioCalculator.position(coin, all, null, method).holdingsExact
+                val file = (held[coin] ?: BigDecimal.ZERO) + (view.part.balances[coin] ?: BigDecimal.ZERO)
+                near("$name/$m cutoff = card $coin", card.toPlainString(), file)
             }
         }
     }

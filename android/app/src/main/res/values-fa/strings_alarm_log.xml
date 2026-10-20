@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">در پس‌زمینه</string>
     <string name="alarm_log_source_exact">بررسی سر وقت</string>
     <string name="alarm_log_source_widget">از طریق ویجت</string>
+    <string name="alarm_outcome_fx_stale">بررسی نشد – نرخ ارز قدیمی‌تر از 36 ساعت</string>
+    <string name="alarm_outcome_fx_unsure">بررسی نشد – تبدیل USDT نامطمئن (فقط از طریق USDC)</string>
 </resources>

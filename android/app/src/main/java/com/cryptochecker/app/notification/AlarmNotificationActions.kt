@@ -22,13 +22,14 @@ import kotlinx.coroutines.withTimeoutOrNull
 private const val LOGO_WAIT_MILLIS = 300L
 
 /**
- * «1 h später» (nur wo die Pause wirkt: wiederholende Prozent- und Bewegungsalarme, [AlarmSnooze.offeredFor]) und
+ * «1 h später» (nur wo die Pause wirkt: wiederholende Prozent- und Bewegungsalarme sowie Kursmarken,
+ * [AlarmSnooze.offeredFor]) und
  * «Anpassen» (öffnet den Editor dieses Alarms). Zusammen mit «Was bewegt sich mit?» höchstens drei Knöpfe, wie
  * Android sie zeigt.
  */
 internal fun AppNotifier.addAlarmActions(builder: NotificationCompat.Builder, watch: WatchEntity, alarm: AlarmEntity) {
     if (AlarmSnooze.offeredFor(alarm.condition, alarm.repeating)) {
-        builder.addAction(0, context.getString(R.string.notification_alarm_action_snooze), snoozeIntent(alarm.id))
+        builder.addAction(0, context.getString(R.string.notification_alarm_action_snooze), snoozeIntent(alarm))
     }
     builder.addAction(
         0,
@@ -39,16 +40,17 @@ internal fun AppNotifier.addAlarmActions(builder: NotificationCompat.Builder, wa
 
 /**
  * Broadcast an den eigenen, nicht exportierten [AlarmActionReceiver] (expliziter Empfänger, darum IMMUTABLE):
- * vermerkt die Pause, ohne die App zu öffnen.
+ * vermerkt die Pause (Kursmarken: stellt sie wieder scharf), ohne die App zu öffnen.
  */
-private fun AppNotifier.snoozeIntent(alarmId: Long): PendingIntent {
+private fun AppNotifier.snoozeIntent(alarm: AlarmEntity): PendingIntent {
     val intent = Intent(context, AlarmActionReceiver::class.java).apply {
         action = AlarmActionReceiver.ACTION_SNOOZE
-        putExtra(AlarmActionReceiver.EXTRA_ALARM_ID, alarmId)
+        putExtra(AlarmActionReceiver.EXTRA_ALARM_ID, alarm.id)
+        putExtra(AlarmActionReceiver.EXTRA_REARM, AlarmSnooze.rearmsOnSnooze(alarm.condition))
     }
     return PendingIntent.getBroadcast(
         context,
-        (SNOOZE_REQUEST_BASE + alarmId).toInt(),
+        (SNOOZE_REQUEST_BASE + alarm.id).toInt(),
         intent,
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     )

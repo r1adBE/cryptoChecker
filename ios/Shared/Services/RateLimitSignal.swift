@@ -2,9 +2,13 @@ import Foundation
 
 /// «Zu viele Anfragen» auch ohne HTTP 429/418 erkennen — für Kurse und Kerzen gleich: Kraken meldet es mit
 /// HTTP 200 («EGeneral:Too many requests», «EAPI:Rate limit exceeded»), Bybit mit HTTP 403 («access too
-/// frequent») oder retCode 10006 («Too many visits!»), OKX mit code 50011. Die HTTP-Schicht reicht so eine
-/// Antwort als `httpCodeForRateLimit` weiter; dann greifen Pause je Börse (`ExchangeBackoff`), `SingleRateGate`,
-/// Bericht und «keine ungefilterte Sammelabfrage» wie bei einem echten 429. Wie `RateLimitSignal.kt`.
+/// frequent») oder retCode 10006 («Too many visits!»), OKX mit code 50011, BingX mit code 100410
+/// («FREQUENCY_LIMIT», Fehlercodes in https://github.com/BingX-API/BingX-Standard-Contract-doc, REST API.md) und
+/// bitbank mit HTTP 200 und {"success":0,"data":{"code":10009}} (10009 = zu viele Anfragen laut
+/// https://github.com/bitbankinc/bitbank-api-docs, errors.md; bitbank schickt nur den Code, keinen Text).
+/// Die HTTP-Schicht reicht so eine Antwort als `httpCodeForRateLimit` weiter; dann greifen Pause je Börse
+/// (`ExchangeBackoff`), `SingleRateGate`, Bericht und «keine ungefilterte Sammelabfrage» wie bei einem echten 429.
+/// Wie `RateLimitSignal.kt`.
 enum RateLimitSignal {
     /// Status, als den ein so erkanntes Rate-Limit weitergereicht wird.
     static let httpCodeForRateLimit = 429
@@ -16,8 +20,12 @@ enum RateLimitSignal {
         "too many requests", "rate limit exceeded", "rate limit reached", "too many visits", "access too frequent",
     ]
 
-    /// Fehlercodes im JSON (ohne Leerzeichen verglichen): Bybit retCode 10006, OKX code 50011.
-    private static let codes = ["\"retcode\":10006", "\"code\":\"50011\""]
+    /// Fehlercodes im JSON (ohne Leerzeichen verglichen): Bybit retCode 10006, OKX code 50011, BingX code 100410,
+    /// bitbank data.code 10009.
+    private static let codes = [
+        "\"retcode\":10006", "\"code\":\"50011\"", "\"code\":100410,", "\"code\":100410}", "\"code\":\"100410\"",
+        "\"success\":0,\"data\":{\"code\":10009}",
+    ]
 
     /// Meldet `text` (Fehlertext oder Antwort) «zu viele Anfragen»?
     static func inText(_ text: String?) -> Bool {
@@ -48,7 +56,8 @@ enum RateLimitSignal {
     ]
 
     /// 2xx-Antwort meldet «zu viele Anfragen»? Lesbares JSON: nur die bekannten Fehlerfelder (`errorFields`, Text oder
-    /// Liste von Texten) und Codes (Bybit retCode 10006, OKX code 50011); eine JSON-Liste nie (das sind Kurse).
+    /// Liste von Texten) und Codes (Bybit retCode 10006, OKX code 50011, BingX code 100410, bitbank data.code 10009
+    /// bei success 0); eine JSON-Liste nie (das sind Kurse).
     /// Unlesbare Antwort (kein JSON, abgeschnitten, HTML): der ganze Text wie bisher. Wie Android.
     static func okBodyRateLimited(_ body: String) -> Bool {
         let trimmed = body.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -56,12 +65,18 @@ enum RateLimitSignal {
         if trimmed.hasPrefix("{") {
             guard let json = parsed as? [String: Any] else { return inText(body) }
             if codeIs(json["retCode"], 10006) || codeIs(json["code"], 50011) { return true }
+            if codeIs(json["code"], 100410) || bitbankTooMany(json) { return true }
             return errorFields.contains { key in fieldTexts(json[key]).contains { inText($0) } }
         }
         if trimmed.hasPrefix("[") {
             return parsed is [Any] ? false : inText(body)
         }
         return inText(body)
+    }
+
+    /// bitbank: {"success":0,"data":{"code":10009}} — Fehler ohne Text, nur der Code.
+    private static func bitbankTooMany(_ json: [String: Any]) -> Bool {
+        codeIs(json["success"], 0) && codeIs((json["data"] as? [String: Any])?["code"], 10009)
     }
 
     /// Code als Zahl oder Text gleich `expected`?

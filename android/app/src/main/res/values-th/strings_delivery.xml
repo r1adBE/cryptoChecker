@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus อาจหยุดแอป – แล้วจะไม่มีการแจ้งเตือนมาถึง อนุญาต “เปิดอัตโนมัติ” และกิจกรรมพื้นหลังใน การใช้แบตเตอรี่</string>
     <string name="oem_battery_oppo">Oppo/Realme อาจหยุดแอป – แล้วจะไม่มีการแจ้งเตือนมาถึง อนุญาต “เปิดอัตโนมัติ” และกิจกรรมพื้นหลังใน การใช้แบตเตอรี่</string>
     <string name="oem_battery_vivo">Vivo อาจหยุดแอป – แล้วจะไม่มีการแจ้งเตือนมาถึง อนุญาต “เริ่มอัตโนมัติ” และการใช้พลังงานพื้นหลังสูงใน แบตเตอรี่</string>
+    <string name="alarm_reliability_recent">ตรวจสอบล่าสุด %1$s</string>
+    <string name="alarm_reliability_stale">ตรวจสอบล่าสุด %1$s – สัญญาณเตือนอาจมาช้า</string>
+    <string name="alarm_reliability_never">เปิดสัญญาณเตือนแล้ว – ยังไม่มีการตรวจสอบเบื้องหลัง</string>
+    <string name="alarm_reliability_notifications_off">ปิดการแจ้งเตือนอยู่ – สัญญาณเตือนจะไม่มาถึง</string>
+    <string name="alarm_reliability_battery">การประหยัดแบตเตอรี่อาจหยุดการตรวจสอบสัญญาณเตือน</string>
+    <string name="alarm_reliability_background_refresh">ปิดรีเฟรชแอปเบื้องหลังอยู่ – สัญญาณเตือนอาจไม่มาถึง</string>
 </resources>

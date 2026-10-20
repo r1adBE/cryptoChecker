@@ -34,4 +34,8 @@
     <string name="alarm_log_source_background">in the background</string>
     <string name="alarm_log_source_exact">on-time check</string>
     <string name="alarm_log_source_widget">via widget</string>
+    <!-- Fiat-Alarm: Devisenkurs älter als 36 h Bankarbeitszeit -->
+    <string name="alarm_outcome_fx_stale">Not checked – exchange rate older than 36 hours</string>
+    <!-- Fiat-Alarm: USDT/USD nur unsicher über USDC -->
+    <string name="alarm_outcome_fx_unsure">Not checked – USDT conversion uncertain (only via USDC)</string>
 </resources>

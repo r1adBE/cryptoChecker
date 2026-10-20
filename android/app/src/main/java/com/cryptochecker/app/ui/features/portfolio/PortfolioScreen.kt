@@ -97,16 +97,17 @@ fun PortfolioScreen(
         onPauseOrDispose { }
     }
 
-    var sheet by remember { mutableStateOf<TxDraft?>(null) }
+    // Saveable: Drehen, Dunkelmodus und Sprachwechsel schliessen das offene Blatt nicht ([TxDraftSaver])
+    var sheet by rememberSaveable(stateSaver = TxDraftSaver) { mutableStateOf<TxDraft?>(null) }
     var menuOpen by remember { mutableStateOf(false) }
-    var pickCurrency by remember { mutableStateOf(false) }
+    var pickCurrency by rememberSaveable { mutableStateOf(false) }
     var showClosed by rememberSaveable { mutableStateOf(false) }
     // Saveable: Der Dialog muss die Dateiauswahl (eigene Activity) überstehen
     var exportOpen by rememberSaveable { mutableStateOf(false) }
     // Neuer Alarm «Portfolio-Wert»
     var alarmOpen by rememberSaveable { mutableStateOf(false) }
-    // «Portfolio leeren» — Rückfrage
-    var askClear by remember { mutableStateOf(false) }
+    // «Portfolio leeren» — Rückfrage (saveable: übersteht Drehen und Sprachwechsel)
+    var askClear by rememberSaveable { mutableStateOf(false) }
     // ⋯ › «Adressen» (beobachtete öffentliche Adressen)
     var addressesOpen by rememberSaveable { mutableStateOf(false) }
     // ⋯ › «CSV importieren» (Relai, Swissquote)

@@ -175,4 +175,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Αναμονή για τρέχουσα τιμή</string>
     <string name="alarm_enter_amount">Εισήγαγε μια τιμή</string>
+    <string name="alarm_editor_more">Περισσότερα</string>
+    <string name="alarm_editor_more_summary">Γρήγοροι συναγερμοί, άλλες συνθήκες, ήχος και εκφώνηση</string>
 </resources>

@@ -45,6 +45,18 @@ final class AlarmSnoozeTests: XCTestCase {
         }
     }
 
+    func testRearmsOnlyPriceLevels() throws {
+        let cases = S.list(try S.fixture("alarm_snooze")["rearmsOnSnooze"])
+        XCTAssertEqual(Set(AlarmCondition.allCases.map(\.rawValue)), Set(cases.compactMap { $0["condition"] as? String }))
+        for c in cases {
+            let condition = try XCTUnwrap(AlarmCondition(rawValue: c["condition"] as? String ?? ""))
+            let rearms = try XCTUnwrap(c["rearms"] as? Bool)
+            XCTAssertEqual(AlarmSnooze.rearmsOnSnooze(condition), rearms, condition.rawValue)
+            // Wer wieder scharf gestellt wird, bekommt den Knopf auch bei «einmal»
+            if rearms { XCTAssertTrue(AlarmSnooze.offeredFor(condition, repeating: false), condition.rawValue) }
+        }
+    }
+
     /// Speichern im App-Group-Speicher: Pause gilt sofort, abgelaufene fallen beim nächsten Tippen weg.
     func testStoreKeepsOnlyRunningPauses() throws {
         let store = try XCTUnwrap(UserDefaults(suiteName: "AlarmSnoozeTests"))

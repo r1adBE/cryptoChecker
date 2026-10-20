@@ -35,6 +35,19 @@ object CurrencyConversion {
 
     fun normalize(code: String?): String = code?.trim()?.uppercase().orEmpty()
 
+    /** Börse, deren Gegenwährung «U» ein USD-Stablecoin ist (United Stables: BTCU, ETHU). */
+    const val ASTER_KEY = "Aster"
+
+    /**
+     * Quote eines Paars für die Umrechnung: «U» an Aster ist United Stables (USD-Stablecoin) und zählt 1:1 als USD;
+     * an anderen Börsen (CoinDCX, BingX, Binance) ist U ein Coin und bleibt Krypto — darum nicht global in
+     * [USD_STABLES]. Sonst [normalize]. Wie iOS `CurrencyConversion.conversionQuote`.
+     */
+    fun conversionQuote(marketKey: String?, quote: String?): String {
+        val code = normalize(quote)
+        return if (code == "U" && marketKey?.trim().equals(ASTER_KEY, ignoreCase = true)) "USD" else code
+    }
+
     /** Gleiche Währung (Gross-/Kleinschreibung egal) — dann gibt es nichts umzurechnen. */
     fun sameCurrency(a: String?, b: String?): Boolean {
         val x = normalize(a)

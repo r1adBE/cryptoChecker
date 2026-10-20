@@ -240,8 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Beobachtete Adressen konnten nicht gelesen werden – ihre Guthaben fehlen in dieser Datei</string>
-    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">Hinweis: Adressen mit Einstand – Umbuchungen zur oder von einer beobachteten Adresse können hier doppelt oder fehlend erscheinen; die Portfolio-Karte rechnet sie richtig.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">Hinweis: Eine beobachtete Adresse hat Einstandsposten nach ihrer letzten Guthabenabfrage vor diesem Datum – sie können hier fehlen.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Beobachtete Adressen zählen zum Gesamtwert, haben aber keinen Einstand – der Gewinn ist dadurch eher zu hoch. Einstand als Kauf erfassen.</string>

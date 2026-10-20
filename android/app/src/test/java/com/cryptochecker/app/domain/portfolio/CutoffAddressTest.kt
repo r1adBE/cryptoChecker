@@ -89,21 +89,12 @@ class CutoffAddressTest {
     }
 
     /**
-     * Zählende Adresse mit Einstand: Hinweiszeile «Umbuchungen evtl. doppelt/fehlend» nach dem Kommentar — nur dann
-     * (ohne Posten, «Nur anzeigen» oder ohne Text keine Zeile); Zeilen und Total unverändert (wie iOS).
+     * Hinweiszeile [CutoffCsvTexts.addressLots] nach dem Kommentar — nur wenn verlangt und mit Text; Zeilen und Total
+     * unverändert (wie iOS).
      */
     @Test
     fun addressLotsNoteOnlyWhenNeeded() {
-        val lot = AddressCostLot(1, "BTC", t(day - 20), BigDecimal("0.4"), priceUsdt = BigDecimal("100"))
-        val plainAddress = WatchedAddress(id = 1, chain = AddressChain.BTC, address = "bc1qexampleaddress", lastBalance = "0.5")
-        // Eigene Adresse (gleiche Adresse zählt nur einmal, AddressCostLots.counted)
-        val withLots = plainAddress.copy(id = 2, address = "bc1qsecondexampleaddress", costLots = listOf(lot))
-        assertTrue(AddressCostLots.hasCountedLots(listOf(plainAddress, withLots)))
-        assertTrue(!AddressCostLots.hasCountedLots(listOf(plainAddress)))
-        assertTrue(!AddressCostLots.hasCountedLots(listOf(withLots.copy(countInPortfolio = false))))
-        assertTrue(!AddressCostLots.hasCountedLots(emptyList()))
-
-        val note = "Hinweis: Adressen mit Einstand"
+        val note = "Hinweis: Posten nach der letzten Beobachtung"
         val withText = texts.copy(addressLots = note)
         val rows = CutoffExport.rows(listOf(CutoffHolding("BTC", BigDecimal("1"))), mapOf("BTC" to BigDecimal("100")), BigDecimal("0.9"))
         fun lines(t: CutoffCsvTexts, lots: Boolean) = CutoffExport.csv(LocalDate.ofEpochDay(day), "CHF", "2024-10-04", rows, t, addressLots = lots)
@@ -130,27 +121,29 @@ class CutoffAddressTest {
     }
 
     /**
-     * Hinweis «Adressen mit Einstand» nach dem Stand des Stichtags: nur Posten mit Zeit ≤ Stichtag und nur eine Adresse,
-     * die an dem Tag schon beobachtet war (wie iOS). Ohne Stichtag der heutige Stand.
+     * Hinweis nur, wo die Rechnung wie die Karte nicht greift ([AddressCutoffView.lotsAfterObservation]): ein Posten mit
+     * Zeit ≤ Stichtag liegt NACH der benutzten Beobachtung der Adresse. Sonst (Posten vor der Beobachtung, erst nach dem
+     * Stichtag, Adresse am Stichtag nicht beobachtet, «Nur anzeigen», keine Posten) kein Hinweis (wie iOS).
      */
     @Test
-    fun addressLotsNoteFollowsTheCutoff() {
+    fun addressLotsNoteOnlyForLotsAfterTheObservation() {
         val early = AddressCostLot(1, "BTC", t(day - 20), BigDecimal("0.4"), priceUsdt = BigDecimal("100"))
         val late = early.copy(id = 2, time = t(day + 5))
-        val observed = WatchedAddress(
-            id = 2, chain = AddressChain.BTC, address = "bc1qsecondexampleaddress", lastBalance = "0.5",
-            observations = listOf(AddressObservation(t(day - 30), BigDecimal("0.5"))),
+        fun address(lots: List<AddressCostLot>, observedAt: Long?, fetchedAt: Long = 0) = WatchedAddress(
+            id = 2, chain = AddressChain.BTC, address = "bc1qsecondexampleaddress", lastBalance = "0.5", lastUpdated = fetchedAt,
+            observations = observedAt?.let { listOf(AddressObservation(it, BigDecimal("0.5"))) }.orEmpty(), costLots = lots,
         )
-        assertTrue(AddressCostLots.hasCountedLots(listOf(observed.copy(costLots = listOf(early))), cutoff))
-        // Posten erst nach dem Stichtag erfasst: am Stichtag kein Hinweis, heute schon
-        assertTrue(!AddressCostLots.hasCountedLots(listOf(observed.copy(costLots = listOf(late))), cutoff))
-        assertTrue(AddressCostLots.hasCountedLots(listOf(observed.copy(costLots = listOf(late)))))
-        // Adresse erst nach dem Stichtag beobachtet: ihr Guthaben fehlt in der Datei, also kein Hinweis
-        val laterObserved = observed.copy(costLots = listOf(early), observations = listOf(AddressObservation(t(day + 3), BigDecimal("0.5"))))
-        assertTrue(!AddressCostLots.hasCountedLots(listOf(laterObserved), cutoff))
+        fun note(vararg a: WatchedAddress) = AddressCutoff.at(a.toList(), emptyList(), cutoff).lotsAfterObservation
+        assertTrue(note(address(listOf(early), t(day - 30))))
+        assertTrue(!note(address(listOf(early), t(day - 10))))
+        // Posten erst nach dem Stichtag: zählt am Stichtag nicht, kein Hinweis
+        assertTrue(!note(address(listOf(late), t(day - 30))))
+        // Adresse erst nach dem Stichtag beobachtet: «nicht beobachtet» in der Datei, kein Hinweis
+        assertTrue(!note(address(listOf(early), t(day + 3))))
         // Ohne gespeicherte Beobachtung zählt der Abruf des Guthabens (AddressBalanceHistory.of)
-        val fetched = observed.copy(costLots = listOf(early), observations = emptyList(), lastUpdated = t(day - 1))
-        assertTrue(AddressCostLots.hasCountedLots(listOf(fetched), cutoff))
-        assertTrue(!AddressCostLots.hasCountedLots(listOf(fetched.copy(lastUpdated = t(day + 1))), cutoff))
+        assertTrue(!note(address(listOf(early), null, fetchedAt = t(day - 1))))
+        assertTrue(note(address(listOf(early), null, fetchedAt = t(day - 25))))
+        assertTrue(!note(address(listOf(early), t(day - 30)).copy(countInPortfolio = false)))
+        assertTrue(!note(address(emptyList(), t(day - 30))))
     }
 }

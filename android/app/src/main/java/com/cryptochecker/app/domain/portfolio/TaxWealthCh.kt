@@ -49,6 +49,11 @@ data class TaxWealth(
     val totalUsdt: BigDecimal,
     /** Summe der bekannten, je Coin gerundeten Werte in der Steuerwährung; null = ohne Devisenkurs. */
     val totalTarget: BigDecimal?,
+    /**
+     * Ein Eröffnungsposten liegt zwischen der benutzten Beobachtung einer Adresse und dem 31.12.
+     * ([AddressCutoffView.lotsAfterObservation]) — nur dort kann der Wert von der Karte abweichen (Vermerk an der Summe).
+     */
+    val addressNote: Boolean = false,
 ) {
     /** Mindestens ein Coin nicht oder nur teilweise gerechnet — die Summe ist «unvollständig». */
     val incomplete: Boolean get() = rows.any { it.missing || it.incomplete }
@@ -62,8 +67,10 @@ data class TaxWealth(
  * Arbeitsunterlage ([CutoffExport]), damit beide Dateien dieselben Werte zeigen:
  *  - Bestand am Ende des Tags in der Zeitzone der Vorlage ([CutoffExport.endOfDayMillis]: 31.12. 23:59:59.999 Zürich zählt,
  *    1.1. 00:00 nicht) nach der Einstandsmethode [method] ([CutoffExport.holdingsAt]: Gebühren im Coin mindern den
- *    Bestand, Umbuchungen zwischen eigenen Wallets ändern die Summe nicht); dazu beobachtete Adressen ([addresses],
- *    [CutoffExport.addressRows]), je Coin zusammengezählt.
+ *    Bestand, Umbuchungen zwischen eigenen Wallets ändern die Summe nicht); beobachtete Adressen wie auf der Karte
+ *    ([addresses] = [AddressCutoff.at]: Eröffnungsposten im Bestand, [CutoffExport.addressRows] nur für den Rest ohne
+ *    Einstand — eine erfasste Umbuchung zur oder von der Adresse zählt einmal), je Coin zusammengezählt. Eröffnungsposten
+ *    in [trades] (Adress-Einträge des Steuer-Exports, heutiger Stand) fallen weg.
  *  - Kurs = Tagesschluss (UTC-Tageskerze) des 31.12. aus [closes] ([CutoffCloses], gleiche Quelle und Identitätsprüfung wie
  *    der Stichtag-Export); Stablecoins nach [PortfolioStables] (USDT = 1, die übrigen ihr Tagesschluss).
  *  - [rate] = USD → Steuerwährung samt USDT/USD des Tags ([TaxExport.rateOn] am 31.12.: letzter Kurs höchstens
@@ -79,12 +86,12 @@ fun TaxExport.chWealth(
     zone: ZoneId,
     closes: CutoffCloses,
     rate: BigDecimal?,
-    addresses: AddressBalancesAt? = null,
+    addresses: AddressCutoffView? = null,
 ): TaxWealth {
     val cutoff = CutoffExport.endOfDayMillis(date, zone)
-    val holdings = CutoffExport.holdingsAt(trades.filter { it.amount.signum() > 0 }, cutoff, method)
+    val holdings = AddressCutoff.holdingsAt(trades.filter { it.amount.signum() > 0 }, addresses, cutoff, method)
     val parts = CutoffExport.rows(holdings, closes.prices, rate, closes.unchecked) +
-        (addresses?.let { CutoffExport.addressRows(it, closes.prices, rate, closes.unchecked) } ?: emptyList())
+        (addresses?.let { CutoffExport.addressRows(it.part, closes.prices, rate, closes.unchecked) } ?: emptyList())
     val rows = parts.groupBy { it.coin }.toSortedMap().map { (coin, list) ->
         val noPrice = list.any { it.noPrice }
         val unchecked = list.any { it.unchecked }
@@ -116,7 +123,7 @@ fun TaxExport.chWealth(
     val totalTarget = if (fx == null && rows.isNotEmpty()) null else {
         rows.fold(BigDecimal.ZERO) { a, r -> r.valueTarget?.let { a + CutoffExport.roundedMoney(it) } ?: a }
     }
-    return TaxWealth(date, rows, totalUsdt, totalTarget)
+    return TaxWealth(date, rows, totalUsdt, totalTarget, addressNote = addresses?.lotsAfterObservation == true)
 }
 
 /**

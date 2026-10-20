@@ -26,7 +26,8 @@ final class AlarmLogParityTests: XCTestCase {
             let t = c["trace"] as? [String: Any] ?? [:]
             let trace = AlarmLogTrace(
                 noPrice: flag(t, "noPrice"), lowLiquidity: flag(t, "lowLiquidity"), markPrice: flag(t, "markPrice"),
-                stale: flag(t, "stale"), noRate: flag(t, "noRate"), due: flag(t, "due"),
+                stale: flag(t, "stale"), noRate: flag(t, "noRate"), fxStale: flag(t, "fxStale"),
+                fxUnsure: flag(t, "fxUnsure"), due: flag(t, "due"),
                 coolingDown: flag(t, "coolingDown"), waitingRearm: flag(t, "waitingRearm"),
                 quietHours: flag(t, "quietHours"), snoozed: flag(t, "snoozed"),
                 notificationsOff: flag(t, "notificationsOff"),

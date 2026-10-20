@@ -9,6 +9,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,6 +35,7 @@ import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,8 +47,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -125,85 +129,90 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: ScreenRoute?, onSele
     val labelColor = if (LocalDarkTheme.current) Color.White else MaterialTheme.colorScheme.onSurface
     val reduceMotion = rememberReduceMotion()
     Surface(color = MaterialTheme.colorScheme.surfaceContainer) {
-        Row(
-            // Oben ausgerichtet: bricht eine Beschriftung auf zwei Zeilen um, bleiben alle Symbole auf einer Höhe
-            verticalAlignment = Alignment.Top,
-            modifier = Modifier
-                .fillMaxWidth()
-                .windowInsetsPadding(NavigationBarDefaults.windowInsets)
-                // Mindesthöhe statt fester Höhe: nichts wird abgeschnitten, falls die Zeile doch höher wird
-                .heightIn(min = TAB_BAR_HEIGHT)
-                .selectableGroup()
-        ) {
-            tabs.forEach { tab ->
-                val selected = currentRoute == tab.route
-                val iconScale by animateFloatAsState(
-                    targetValue = if (selected) TAB_ICON_SELECTED_SCALE else 1f,
-                    animationSpec = tween(if (reduceMotion) 0 else TAB_ICON_SCALE_MILLIS),
-                    label = "tabIconScale"
-                )
-                val label = stringResource(tab.labelRes)
-                // Eigene Box je Tab trägt die gleiche Breite (weight): TooltipBox gibt einen Gewichts-Modifier nicht an die
-                // Zeile weiter – sonst nimmt der erste Tab die ganze Breite und die übrigen werden 0 breit (Build 58)
-                Box(modifier = Modifier.weight(1f)) {
-                    // Langes Drücken zeigt den Namen gross (Gegenstück zum Large Content Viewer in iOS)
-                    TooltipBox(
-                        // Bewusst noch die ältere Positionierung: der Nachfolger rememberTooltipPositionProvider ändert
-                        // je nach Material3-Version seine Parameter; ein Wechsel erst mit Gerätetest der Tableiste
-                        positionProvider = @Suppress("DEPRECATION") TooltipDefaults.rememberPlainTooltipPositionProvider(),
-                        tooltip = { PlainTooltip { Text(label) } },
-                        state = rememberTooltipState(),
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Top,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .heightIn(min = TAB_BAR_HEIGHT)
-                                .testTag(tab.testTag)
-                                .selectable(selected = selected, role = Role.Tab, onClick = { onSelect(tab.route) })
-                                .padding(horizontal = TAB_HORIZONTAL_PADDING, vertical = TAB_VERTICAL_PADDING)
+        // Breite der Leiste (ohne Systemränder): daraus die Breite je Beschriftung für [TabLabel]
+        BoxWithConstraints(Modifier.fillMaxWidth().windowInsetsPadding(NavigationBarDefaults.windowInsets)) {
+            val labelWidthPx = with(LocalDensity.current) {
+                (maxWidth / tabs.size.coerceAtLeast(1) - TAB_HORIZONTAL_PADDING * 2).roundToPx().coerceAtLeast(0)
+            }
+            Row(
+                // Oben ausgerichtet: bricht eine Beschriftung auf zwei Zeilen um, bleiben alle Symbole auf einer Höhe
+                verticalAlignment = Alignment.Top,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    // Mindesthöhe statt fester Höhe: nichts wird abgeschnitten, falls die Zeile doch höher wird
+                    .heightIn(min = TAB_BAR_HEIGHT)
+                    .selectableGroup()
+            ) {
+                tabs.forEach { tab ->
+                    val selected = currentRoute == tab.route
+                    val iconScale by animateFloatAsState(
+                        targetValue = if (selected) TAB_ICON_SELECTED_SCALE else 1f,
+                        animationSpec = tween(if (reduceMotion) 0 else TAB_ICON_SCALE_MILLIS),
+                        label = "tabIconScale"
+                    )
+                    val label = stringResource(tab.labelRes)
+                    // Eigene Box je Tab trägt die gleiche Breite (weight): TooltipBox gibt einen Gewichts-Modifier nicht an die
+                    // Zeile weiter – sonst nimmt der erste Tab die ganze Breite und die übrigen werden 0 breit (Build 58)
+                    Box(modifier = Modifier.weight(1f)) {
+                        // Langes Drücken zeigt den Namen gross (Gegenstück zum Large Content Viewer in iOS)
+                        TooltipBox(
+                            // Bewusst noch die ältere Positionierung: der Nachfolger rememberTooltipPositionProvider ändert
+                            // je nach Material3-Version seine Parameter; ein Wechsel erst mit Gerätetest der Tableiste
+                            positionProvider = @Suppress("DEPRECATION") TooltipDefaults.rememberPlainTooltipPositionProvider(),
+                            tooltip = { PlainTooltip { Text(label) } },
+                            state = rememberTooltipState(),
+                            modifier = Modifier.fillMaxWidth(),
                         ) {
-                            // Anzeiger: blendet beim Wechsel ein und wächst aus der Mitte (wie NavigationBarItem)
-                            val indicator by animateFloatAsState(
-                                targetValue = if (selected) 1f else 0f,
-                                animationSpec = tween(if (reduceMotion) 0 else TAB_ICON_SCALE_MILLIS),
-                                label = "tabIndicator"
-                            )
-                            // Pille in der vollen Akzentfarbe, damit sie sich mit ≥ 3:1 von der Leiste abhebt
-                            // (vorher Akzent 30 % bzw. #404040: nur 1.5–1.6:1). Hell primary auf surfaceContainer
-                            // #F1EEE9 → 5.04–5.09:1, Symbol Weiss darauf 5.84–5.89:1; dunkel primary auf #1F1F1F →
-                            // 6.17–7.05:1, Symbol onPrimary darauf 6.15–6.70:1 (TabIndicatorContrastTest). Gewählt
-                            // zudem an fetter Beschriftung erkennbar. Gleiche Werte wie iOS.
-                            val indicatorColor = MaterialTheme.colorScheme.primary
-                            Box(
-                                contentAlignment = Alignment.Center,
-                                // Schmale Tabs (viele Tabs, grosse Schrift): Pille höchstens so breit wie der Tab
-                                modifier = Modifier.widthIn(max = TAB_INDICATOR_WIDTH).fillMaxWidth().height(TAB_INDICATOR_HEIGHT)
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Top,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .heightIn(min = TAB_BAR_HEIGHT)
+                                    .testTag(tab.testTag)
+                                    .selectable(selected = selected, role = Role.Tab, onClick = { onSelect(tab.route) })
+                                    .padding(horizontal = TAB_HORIZONTAL_PADDING, vertical = TAB_VERTICAL_PADDING)
                             ) {
+                                // Anzeiger: blendet beim Wechsel ein und wächst aus der Mitte (wie NavigationBarItem)
+                                val indicator by animateFloatAsState(
+                                    targetValue = if (selected) 1f else 0f,
+                                    animationSpec = tween(if (reduceMotion) 0 else TAB_ICON_SCALE_MILLIS),
+                                    label = "tabIndicator"
+                                )
+                                // Pille in der vollen Akzentfarbe, damit sie sich mit ≥ 3:1 von der Leiste abhebt
+                                // (vorher Akzent 30 % bzw. #404040: nur 1.5–1.6:1). Hell primary auf surfaceContainer
+                                // #F1EEE9 → 5.04–5.09:1, Symbol Weiss darauf 5.84–5.89:1; dunkel primary auf #1F1F1F →
+                                // 6.17–7.05:1, Symbol onPrimary darauf 6.15–6.70:1 (TabIndicatorContrastTest). Gewählt
+                                // zudem an fetter Beschriftung erkennbar. Gleiche Werte wie iOS.
+                                val indicatorColor = MaterialTheme.colorScheme.primary
                                 Box(
-                                    modifier = Modifier
-                                        .matchParentSize()
-                                        .graphicsLayer {
-                                            alpha = indicator
-                                            scaleX = 0.5f + 0.5f * indicator
-                                        }
-                                        .background(indicatorColor, CircleShape)
-                                )
-                                Icon(
-                                    painterResource(tab.iconRes),
-                                    contentDescription = null,
-                                    tint = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier
-                                        .size(TAB_ICON_SIZE)
-                                        .graphicsLayer {
-                                            scaleX = iconScale
-                                            scaleY = iconScale
-                                        }
-                                )
+                                    contentAlignment = Alignment.Center,
+                                    // Schmale Tabs (viele Tabs, grosse Schrift): Pille höchstens so breit wie der Tab
+                                    modifier = Modifier.widthIn(max = TAB_INDICATOR_WIDTH).fillMaxWidth().height(TAB_INDICATOR_HEIGHT)
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .matchParentSize()
+                                            .graphicsLayer {
+                                                alpha = indicator
+                                                scaleX = 0.5f + 0.5f * indicator
+                                            }
+                                            .background(indicatorColor, CircleShape)
+                                    )
+                                    Icon(
+                                        painterResource(tab.iconRes),
+                                        contentDescription = null,
+                                        tint = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier
+                                            .size(TAB_ICON_SIZE)
+                                            .graphicsLayer {
+                                                scaleX = iconScale
+                                                scaleY = iconScale
+                                            }
+                                    )
+                                }
+                                TabLabel(label, labelColor, selected, labelWidthPx)
                             }
-                            TabLabel(label, labelColor, selected)
                         }
                     }
                 }
@@ -217,19 +226,43 @@ internal fun AppTabBar(tabs: List<BottomTab>, currentRoute: ScreenRoute?, onSele
  * auf zwei Zeilen um statt kleiner zu werden oder «…» zu zeigen (nie unter 12 sp); «…» nur, wenn
  * selbst zwei Zeilen nicht reichen. Schrift und Zeilenhöhe wachsen bis [TAB_LABEL_MAX_SCALE] mit
  * der Schriftgrösse mit. Gewählt fett, damit der Tab nicht nur am Farbton erkennbar ist.
+ * Bei grosser Schrift wird ein zu langer Name zusätzlich bis 80 % verkleinert ([TabLabelFit], wie iOS).
  */
 @Composable
-private fun TabLabel(text: String, color: Color, selected: Boolean) {
+private fun TabLabel(text: String, color: Color, selected: Boolean, maxWidthPx: Int) {
     val style = MaterialTheme.typography.labelMedium
     val baseSize = if (style.fontSize.isSp && style.fontSize.value >= TAB_LABEL_MIN_SP) style.fontSize else TAB_LABEL_MIN_SP.sp
     val baseLine = if (style.lineHeight.isSp) style.lineHeight else 16.sp
+    val density = LocalDensity.current
+    val measurer = rememberTextMeasurer()
+    val weight = if (selected) FontWeight.Bold else FontWeight.Medium
+    val targetSize = cappedTabSize(baseSize)
+    val targetLine = cappedTabSize(baseLine)
+    // Grosse Schrift: nur verkleinern, bis jedes Wort in die Tab-Breite passt und zwei Zeilen reichen
+    // ([TabLabelFit]); gemessen hier in der Komposition, ohne TextAutoSize und ohne Silbentrennung
+    val factor = remember(text, weight, targetSize, maxWidthPx, density) {
+        with(density) {
+            val targetPx = targetSize.toPx()
+            if (maxWidthPx <= 0 || targetPx <= 0f) return@remember 1f
+            val words = text.split(WHITESPACE).filter { it.isNotEmpty() }
+            val picked = TabLabelFit.pick(TabLabelFit.candidates(targetPx, baseSize.value.dp.toPx())) { px ->
+                val probe = style.copy(fontWeight = weight, fontSize = px.toSp(), lineHeight = targetLine * (px / targetPx))
+                words.all { measurer.measure(it, probe, softWrap = false, maxLines = 1).size.width <= maxWidthPx } &&
+                    !measurer.measure(
+                        text, probe.copy(textAlign = TextAlign.Center), maxLines = TAB_LABEL_MAX_LINES,
+                        constraints = Constraints(maxWidth = maxWidthPx),
+                    ).hasVisualOverflow
+            }
+            picked / targetPx
+        }
+    }
     BasicText(
         text = text,
         style = style.copy(
             color = color,
-            fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
-            fontSize = cappedTabSize(baseSize),
-            lineHeight = cappedTabSize(baseLine),
+            fontWeight = weight,
+            fontSize = targetSize * factor,
+            lineHeight = targetLine * factor,
             textAlign = TextAlign.Center,
         ),
         maxLines = TAB_LABEL_MAX_LINES,
@@ -237,6 +270,8 @@ private fun TabLabel(text: String, color: Color, selected: Boolean) {
         modifier = Modifier.padding(top = 2.dp)
     )
 }
+
+private val WHITESPACE = Regex("\\s+")
 
 /**
  * [size] (sp), aber nie grösser gezeichnet als [size] bei 1,5-facher Schrift ([TAB_LABEL_MAX_SCALE]).

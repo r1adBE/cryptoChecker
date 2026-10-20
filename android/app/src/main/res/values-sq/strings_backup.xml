@@ -76,7 +76,7 @@
     <string name="system_backup_not_imported_message">Kopja e portofolit nga kopja rezervë e sistemit Android nuk u lexua as në provën e dytë dhe u fshi. Nëse ke një skedar kopjeje rezervë, rikthe atë te Cilësimet, nën “%1$s”.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Portofoli i ruajtur nuk mund të shkyçet tani dhe nuk shfaqet – do të rikthehet pas rinisjes së aplikacionit. Ndryshimet e bëra tani nuk do të ruhen.</string>
+    <string name="portfolio_storage_kept_in_memory">Portofoli i ruajtur nuk mund të shkyçet tani dhe nuk shfaqet – do të rikthehet pas rinisjes së aplikacionit. Ndryshimet do të jenë të mundshme vetëm pas nisjes së ardhshme.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">Lista e ruajtur nuk mund të shkyçet tani dhe nuk shfaqet – do të rikthehet pas rinisjes së aplikacionit. Ndryshimet e bëra tani nuk do të ruhen.</string>
     <string name="alarm_save_storage_locked">Alarmet nuk mund të ruhen tani – lista e ruajtur është e kyçur. Rinis aplikacionin.</string>
@@ -85,4 +85,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Enkriptimi ende nuk është aktiv – portofoli nuk po ruhet dhe ndryshimet humbasin kur mbyllet aplikacioni. Aplikacioni do të provojë sërish në nisjen e ardhshme.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Portofoli i ruajtur është i kyçur tani – ndryshimet do të jenë të mundshme vetëm pas nisjes së ardhshme.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Kjo pajisje nuk po jep çelës tani – lista nuk po ruhet dhe ndryshimet humbasin kur mbyllet aplikacioni. Aplikacioni do të provojë sërish në nisjen e ardhshme.</string>
 </resources>

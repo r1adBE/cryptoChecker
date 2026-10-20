@@ -31,8 +31,8 @@ object PulseWidgetPlain {
 
     /** Schriftgrössen im Block (sp): Titel, Sätze, Hinweis «keine Prognose, keine Anlageberatung». */
     const val TITLE_SP = 12f
-    const val SENTENCE_SP = 13f
-    const val FOOTNOTE_SP = 11f
+    const val SENTENCE_SP = WidgetType.LABEL
+    const val FOOTNOTE_SP = WidgetType.LABEL
 
     /** Leitsatz in dieser Grösse (sp, widget_pulse.xml) — der erste Satz im mittleren Widget ebenso. */
     const val LEAD_SP = 12f

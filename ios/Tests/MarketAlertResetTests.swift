@@ -94,6 +94,18 @@ final class MarketAlertResetTests: XCTestCase {
         XCTAssertFalse(draft.showsEnterAmountHint)
     }
 
+    /// Satzkarte und Hinweis «Wert eingeben» nie beide (wie Android `AlarmDraftEnterAmountTest`).
+    func testSentenceCardAndHintNeverBoth() {
+        var draft = AlarmDraft.blankFor()
+        XCTAssertFalse(draft.showsSentence, "leeres Feld: nur der Hinweis")
+        draft.thresholdText = "70000"
+        draft.blankStart = false
+        XCTAssertTrue(draft.showsSentence)
+        draft.thresholdText = ""
+        XCTAssertTrue(draft.showsSentence)
+        XCTAssertNotEqual(draft.showsSentence, draft.showsEnterAmountHint)
+    }
+
     /// Stand vor der gemerkten Grenze (nur «jenseits»): übernehmen, ohne doppelt zu melden, aber den Zustand schreiben —
     /// samt Grenze. Danach meldet eine neue Grenze, obwohl der Wert jenseits bleibt. Wie Android `IndicatorAlertRulesTest`.
     func testLegacyCrossedStateWithoutBoundPicksUpBound() {

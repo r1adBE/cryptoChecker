@@ -181,4 +181,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">ממתין לשער עדכני</string>
     <string name="alarm_enter_amount">הזן ערך</string>
+    <string name="alarm_editor_more">עוד</string>
+    <string name="alarm_editor_more_summary">התראות מהירות, תנאים נוספים, צליל והקראה</string>
 </resources>

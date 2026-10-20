@@ -79,7 +79,7 @@
     <string name="system_backup_not_imported_message">A cópia do portefólio da cópia de segurança do sistema Android não pôde ser lida, nem numa segunda tentativa, e foi eliminada. Se tiver um ficheiro de cópia, restaure-o nas Definições, em «%1$s».</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">O portefólio guardado não pode ser desbloqueado agora e não é mostrado – voltará depois de reiniciar a app. As alterações feitas agora não serão guardadas.</string>
+    <string name="portfolio_storage_kept_in_memory">O portefólio guardado não pode ser desbloqueado agora e não é mostrado – voltará depois de reiniciar a app. Só será possível fazer alterações depois do próximo arranque.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">A lista guardada não pode ser desbloqueada agora e não é mostrada – voltará depois de reiniciar a app. As alterações feitas agora não serão guardadas.</string>
     <string name="alarm_save_storage_locked">Não é possível guardar alarmes agora – a lista guardada está bloqueada. Reinicie a app.</string>
@@ -88,4 +88,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Encriptação ainda não ativa – a carteira não está a ser guardada e as alterações perdem-se ao fechar a app. A app tenta novamente no próximo arranque.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">O portefólio guardado está bloqueado agora – só será possível fazer alterações depois do próximo arranque.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Este dispositivo não está a fornecer uma chave agora – a lista não está a ser guardada e as alterações perdem-se ao fechar a app. A app tenta novamente no próximo arranque.</string>
 </resources>

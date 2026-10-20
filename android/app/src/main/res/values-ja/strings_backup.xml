@@ -73,7 +73,7 @@
     <string name="system_backup_not_imported_message">Android のシステムバックアップにあるポートフォリオのコピーは 2 回目の試行でも読み込めなかったため削除されました。バックアップファイルがある場合は、設定の「%1$s」から復元してください。</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">保存済みのポートフォリオを今はロック解除できないため表示していません。アプリを再起動すると戻ります。今行った変更は保存されません。</string>
+    <string name="portfolio_storage_kept_in_memory">保存済みのポートフォリオを今はロック解除できないため表示していません。アプリを再起動すると戻ります。変更できるのは次回の起動後です。</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">保存済みのウォッチリストを今はロック解除できないため表示していません。アプリを再起動すると戻ります。今行った変更は保存されません。</string>
     <string name="alarm_save_storage_locked">現在アラームを保存できません。保存済みのウォッチリストがロックされています。アプリを再起動してください。</string>
@@ -82,4 +82,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">暗号化はまだ有効になっていません。ポートフォリオは保存されず、変更はアプリを閉じると失われます。次回の起動時にもう一度試します。</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">保存済みのポートフォリオは現在ロックされています。変更できるのは次回の起動後です。</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">この端末は現在キーを提供していません。ウォッチリストは保存されず、変更はアプリを閉じると失われます。次回の起動時にもう一度試します。</string>
 </resources>

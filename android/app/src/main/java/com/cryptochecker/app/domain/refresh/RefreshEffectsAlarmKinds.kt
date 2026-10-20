@@ -3,6 +3,7 @@
 // denselben Weg wie die Kursalarme ([AlarmCheckRun.report]).
 package com.cryptochecker.app.domain.refresh
 
+import com.cryptochecker.app.domain.alarm.AlarmTextNote
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
@@ -55,8 +56,10 @@ internal fun RefreshEffects.startAlarmPrefetch(watches: List<WatchEntity>, alarm
                 alarm.condition == AlarmCondition.VOLUME_SPIKE ->
                     launch("V|${watch.id}") { volumeDataSource.hourlySpike(watch) }
                 else -> alarm.convertCurrency?.let { target ->
-                    launch("F|${watch.quoteAsset.uppercase()}|${target.uppercase()}") {
-                        currencyConverter.rate(watch.quoteAsset, target)
+                    // Aster «U» zählt als USD (CurrencyConversion.conversionQuote)
+                    val quote = com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(watch.marketKey, watch.quoteAsset)
+                    launch("F|$quote|${target.uppercase()}") {
+                        currencyConverter.rate(quote, target)
                     }
                 }
             }
@@ -241,6 +244,7 @@ internal suspend fun RefreshEffects.checkVolumeAlarm(
     run.report(
         alarm,
         mark = { watchRepository.markAlarmTriggered(alarm, price, now, candleOpenTime = spike.candleOpenTime) },
-        show = { notifier.showAlarm(watch, alarm, price, volumeRatio = spike.ratio) },
+        // Kerzen einer anderen Börse: im Text genannt («… · Binance (Kerzen)»)
+        show = { notifier.showAlarm(watch, alarm, price, volumeRatio = spike.ratio, textNote = AlarmTextNote.of(candleSource = spike.source)) },
     )
 }

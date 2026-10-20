@@ -74,7 +74,8 @@ enum PortfolioPriceSource {
                 Self.isSymbol(coin) && coin != Self.stable && (force || !Self.isFresh(coin, now: now))
             }
             guard !toFetch.isEmpty else { return }
-            // Binance-Ticker nur für denselben Token (Namen der Merkliste, K-8); sonst Merklisten-Paar/Kerzen
+            // Binance-Ticker nur für denselben Token (Namen der Merkliste, K-8); ohne Namen nur bei eindeutigem
+            // Kürzel, sonst Merklisten-Paar/Kerzen und ohne anderen Kurs «ungeprüft»
             let identity = TokenIdentityStore.shared
             let watchNames = PortfolioPriceIdentity.watchNames(
                 toFetch,
@@ -83,9 +84,9 @@ enum PortfolioPriceSource {
                                                      name: identity.pairName(marketKey: $0.marketKey, base: $0.baseAsset),
                                                      disabled: $0.disabled)
                 })
-            let binanceCoins = PortfolioPriceIdentity.binanceTickerCoins(toFetch, watchNames: watchNames,
-                                                                         binanceName: { identity.binanceName($0) })
-            let batch = await Self.binanceBatch(binanceCoins)
+            let split = PortfolioPriceIdentity.binanceSplit(toFetch, knownNames: watchNames,
+                                                            binanceName: { identity.binanceName($0) })
+            let batch = await Self.binanceBatch(split.use)
             var fetched = batch.prices
             // Nicht bei Binance: zuerst ein Merklisten-Paar an einer anderen Börse, dann die Kerze
             let notListed = toFetch.filter { fetched[$0] == nil }
@@ -136,6 +137,8 @@ enum PortfolioPriceSource {
                     }
                 }
             }
+            // Binance ohne prüfbare Identität ausgelassen und kein anderer Kurs: «ungeprüft» (nicht abgelehnte)
+            unchecked.formUnion(split.unchecked.subtracting(rejected))
             // Eingetragene Börse: deren Kurs gilt, sonst bleibt Binance (PortfolioExchangeRoute)
             fetched = await Self.applyRoutes(toFetch, fetched)
             Self.store(fetched, at: TimeUtils.nowMillis, unchecked: unchecked, rejected: rejected,

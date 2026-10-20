@@ -187,4 +187,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Ожидание актуального курса</string>
     <string name="alarm_enter_amount">Введите значение</string>
+    <string name="alarm_editor_more">Ещё</string>
+    <string name="alarm_editor_more_summary">Быстрые оповещения, другие условия, звук и озвучивание</string>
 </resources>

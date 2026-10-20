@@ -1,8 +1,9 @@
 import SwiftUI
 
 /// Lizenzhinweise unter «Über die App»: die App selbst (MIT, Text unübersetzt in
-/// `App/Resources/Licenses/MIT-cryptochecker.txt`, gleich wie `LICENSE`, samt den ursprünglichen
-/// MIT-Vermerken von BitcoinChecker: mobnetic, Aneonex Software), Schrift und Ersatz-Icons.
+/// `App/Resources/Licenses/MIT-cryptochecker.txt`, byte-gleich mit `LICENSE`, samt den ursprünglichen
+/// MIT-Vermerken von BitcoinChecker: mobnetic, Aneonex Software), dazu `NOTICE-origin.txt` (Herkunft, Namen/Logos/Daten
+/// Dritter, Alarmtöne — eigene Datei, damit die Lizenzdatei gleich `LICENSE` bleibt), Schrift und Ersatz-Icons.
 /// Swift-Pakete von Dritten nutzt die App nicht (wie `LicensesSheet.kt`).
 enum LicenseNotices {
     /// Quellenangabe für den Ersatz-Wechselkurs (open.er-api.com, `FxRateSource`): von ExchangeRate-API
@@ -21,6 +22,7 @@ struct LicensesSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appAccent) private var accent
     @State private var appLicense = ""
+    @State private var originNotice = ""
 
     /// true: als Seite der Einstellungen (im Navigationsstapel, ohne «Schliessen»).
     var asPage = false
@@ -56,6 +58,11 @@ struct LicensesSheet: View {
                         .font(.caption.monospaced())
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
+                if !originNotice.isEmpty {
+                    Text(originNotice)
+                        .font(.caption.monospaced())
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                }
                 // Pflichtangabe der CoinGecko-API-Bedingungen (Markenname, nicht übersetzt)
                 Text(verbatim: DataFreshness.poweredByCoinGecko)
                     .font(.subheadline)
@@ -82,6 +89,9 @@ struct LicensesSheet: View {
         .background(AppColors.background)
         .navigationTitle(L("about_licenses"))
         .navigationBarTitleDisplayMode(.inline)
-        .task { appLicense = LicenseNotices.text("MIT-cryptochecker") }
+        .task {
+            appLicense = LicenseNotices.text("MIT-cryptochecker")
+            originNotice = LicenseNotices.text("NOTICE-origin")
+        }
     }
 }

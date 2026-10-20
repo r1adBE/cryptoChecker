@@ -43,8 +43,9 @@ final class HashKey: SimpleMarket {
 
     override var bulkTickersNumOfRequests: Int { 1 }
 
-    /// Ob die ungefilterte Liste jedes handelbare Paar enthält, ist unbelegt: Fehlende prüft die Einzelabfrage.
-    override var bulkTickersComplete: Bool { false }
+    /// Die ungefilterte Liste führt jedes handelbare Paar (Aufzeichnung 19.10.2026: alle 38 Paare im Status
+    /// TRADING von `exchangeInfo`, «SPICEUSDC» mit Kurs 0 = nie gehandelt), ein fehlendes Paar ist nicht mehr gelistet.
+    override var bulkTickersComplete: Bool { true }
 
     override func bulkTickersURL(call: Int) -> String? { hashKeyDayTicker }
 

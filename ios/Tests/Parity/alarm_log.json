@@ -13,7 +13,9 @@
     "NOTIFICATIONS_OFF": "notifications_off",
     "NOT_SHOWN": "not_shown",
     "NO_RATE": "no_rate",
-    "NO_PRICE": "no_price"
+    "NO_PRICE": "no_price",
+    "FX_STALE": "fx_stale",
+    "FX_UNSURE": "fx_unsure"
   },
   "outcome": [
     {"name": "nichts erfüllt", "trace": {}, "outcome": "NOT_REACHED", "notable": false},
@@ -25,6 +27,11 @@
     {"name": "Kurs veraltet, fällig", "trace": {"stale": true, "due": true}, "outcome": "STALE", "notable": true},
     {"name": "Kurs veraltet, nicht fällig", "trace": {"stale": true}, "outcome": "STALE", "notable": false},
     {"name": "kein Devisenkurs", "trace": {"noRate": true}, "outcome": "NO_RATE", "notable": false},
+    {"name": "Devisenkurs zu alt, fällig", "trace": {"fxStale": true, "due": true}, "outcome": "FX_STALE", "notable": true},
+    {"name": "Devisenkurs zu alt, nicht fällig", "trace": {"fxStale": true}, "outcome": "FX_STALE", "notable": false},
+    {"name": "Umrechnung unsicher, fällig", "trace": {"fxUnsure": true, "due": true}, "outcome": "FX_UNSURE", "notable": true},
+    {"name": "kein Devisenkurs vor zu altem", "trace": {"noRate": true, "fxStale": true, "due": true}, "outcome": "NO_RATE", "notable": false},
+    {"name": "veralteter Kurs vor zu altem Devisenkurs", "trace": {"stale": true, "fxStale": true, "due": true}, "outcome": "STALE", "notable": true},
     {"name": "Nachtruhe vor Mitteilungen aus", "trace": {"due": true, "quietHours": true, "notificationsOff": true}, "outcome": "QUIET_HOURS", "notable": true},
     {"name": "Nachtruhe vor «1 h später»", "trace": {"due": true, "quietHours": true, "snoozed": true}, "outcome": "QUIET_HOURS", "notable": true},
     {"name": "«1 h später» vor Mitteilungen aus", "trace": {"due": true, "snoozed": true, "notificationsOff": true}, "outcome": "SNOOZED", "notable": true},

@@ -59,6 +59,8 @@ class ExplorerViewModel @Inject constructor(
     internal val starterCoinsRepository: StarterCoinsRepository,
     /** Liquidität der DEX-Pools aus der Suche: unter der Mindestmenge kein Alarm ([com.cryptochecker.app.domain.watch.DexLiquidity]). */
     internal val dexLiquidityStore: com.cryptochecker.app.data.DexLiquidityStore,
+    /** Token-Adresse der DEX-Pools aus der Suche, fürs Paar-Blatt. */
+    internal val dexTokenAddressStore: com.cryptochecker.app.data.DexTokenAddressStore,
 ) : ViewModel() {
 
     // =============================================================================================

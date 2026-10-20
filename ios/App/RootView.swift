@@ -219,6 +219,7 @@ private struct AppTabBarButton: View {
     @Environment(\.appAccent) private var accent
     @Environment(\.onAccent) private var onAccent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     /// Beschriftung: im Dunkeln weiss, hell die normale Textfarbe (weiss wäre dort unlesbar).
     private static let labelColor = Color.dynamic(light: ColorTokens.onSurface.light, dark: 0xFFFFFF)
@@ -283,6 +284,9 @@ private struct AppTabBarButton: View {
             .foregroundStyle(Self.labelColor)
             .multilineTextAlignment(.center)
             .lineLimit(2)
+            // Grosse Schrift: ein zu langer Name wird bis 80 % kleiner statt «…» (wie Android `TabLabelFit`);
+            // bei normaler Schrift nicht, dort bleibt 12 pt die Untergrenze
+            .minimumScaleFactor(typeSize > .large ? 0.8 : 1)
             .fixedSize(horizontal: false, vertical: true)
     }
 

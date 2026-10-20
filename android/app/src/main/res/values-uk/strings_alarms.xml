@@ -187,4 +187,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Очікування актуального курсу</string>
     <string name="alarm_enter_amount">Введіть значення</string>
+    <string name="alarm_editor_more">Більше</string>
+    <string name="alarm_editor_more_summary">Швидкі сигнали, інші умови, звук і озвучування</string>
 </resources>

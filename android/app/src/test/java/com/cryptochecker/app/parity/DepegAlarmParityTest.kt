@@ -129,6 +129,8 @@ class DepegAlarmParityTest {
         assertFalse(DepegAlarm.shouldMeasure(depegAlarm = false, portfolioEnabled = true, hasPortfolioData = false))
         assertFalse(DepegAlarm.shouldMeasure(depegAlarm = false, portfolioEnabled = false, hasPortfolioData = true))
         assertFalse(DepegAlarm.shouldMeasure(depegAlarm = false, portfolioEnabled = false, hasPortfolioData = false))
+        // Fiat-Alarm bzw. ≈ Umrechnung über USDT: auch ohne Alarm und Portfolio messen
+        assertTrue(DepegAlarm.shouldMeasure(depegAlarm = false, portfolioEnabled = false, hasPortfolioData = false, fiatConversion = true))
     }
 
     @Test

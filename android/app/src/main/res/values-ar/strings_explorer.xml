@@ -147,4 +147,5 @@
     <string name="dex_low_liquidity_alarm_hint">سيولة هذا المجمّع أقل من 10,000 USD (أو غير متوفرة). المبالغ الصغيرة وحدها تحرّك سعره، لذا لا يمكن ضبط تنبيهات هنا. تبقى التنبيهات الحالية، لكنها لا تنطلق إلا بعد ارتفاع السيولة من جديد.</string>
 
     <string name="explorer_bulk_show_all">عرض الكل (%1$d)</string>
+    <string name="dex_token_address_copy">نسخ عنوان الرمز</string>
 </resources>

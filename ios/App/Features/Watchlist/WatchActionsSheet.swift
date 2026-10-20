@@ -182,10 +182,10 @@ struct WatchActionsSheet: View {
             let target = data.settings.portfolioCurrency
             // Andere Währung gewählt: nie kurz den alten Faktor mit der neuen Währung zeigen
             satsRate = nil
-            if let cached = CurrencyConverter.cachedRate(quote: watch.quoteAsset, target: target) {
+            if let cached = CurrencyConverter.cachedRate(quote: WatchlistConversion.quote(watch), target: target) {
                 satsRate = cached
             } else {
-                satsRate = await CurrencyConverter.rate(quote: watch.quoteAsset, target: target)
+                satsRate = await CurrencyConverter.rate(quote: WatchlistConversion.quote(watch), target: target)
             }
         }
         // Woher die Änderung kommt (neu nach jeder Aktualisierung des Paars)

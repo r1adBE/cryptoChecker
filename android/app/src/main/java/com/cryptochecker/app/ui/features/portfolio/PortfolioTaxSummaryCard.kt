@@ -91,7 +91,12 @@ internal fun TaxSummaryCard(summary: TaxYearSummary?, texts: TaxSummaryTexts, me
                     texts.incomplete.takeIf { l.incomplete },
                     texts.noFx.takeIf { l.noFx },
                     texts.notCalculated.takeIf { l.notCalculated && it.isNotEmpty() },
+                    texts.estimated.takeIf { l.estimated && it.isNotEmpty() },
                     l.noteText(texts),
+                    // CH-Vermögen: nur wo Datei und Karte abweichen können (Posten nach der benutzten Beobachtung)
+                    texts.addressLots.takeIf {
+                        l.line == TaxLine.CH_WEALTH_VALUE && summary.wealth?.addressNote == true && it.isNotEmpty()
+                    },
                 ).joinToString(", ")
                 val status = l.status
                 if (status != null) {

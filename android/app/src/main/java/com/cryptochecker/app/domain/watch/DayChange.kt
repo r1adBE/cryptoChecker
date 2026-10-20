@@ -131,6 +131,20 @@ object DayChange {
     fun rowChangeMarker(foreignSource: String?, shownChange: Double?, sinceLast: Boolean): String? =
         foreignSource?.takeIf { shownChange != null && shownChange.isFinite() && !sinceLast }
 
+    /** Längster Börsenname an der %-Änderung der Merklisten-Zeile ([rowMarkerLabel]); länger wird mit «…» gekürzt. */
+    const val ROW_LABEL_MAX = 10
+
+    /**
+     * Kurzer Börsenname direkt an der %-Änderung der Merklisten-Zeile («+2.4% · Binance» statt nur «*»): das erste Wort
+     * des Anbieters aus [rowChangeMarker] («Binance USDT» → «Binance», «Binance Spot» → «Binance»), höchstens
+     * [ROW_LABEL_MAX] Zeichen — so bricht die Zeile nicht um. Den vollen Namen nennen Tipp-Hinweis, Zeilensatz und
+     * Aktionsblatt. Leer bei leerem Anbieter.
+     */
+    fun rowMarkerLabel(provider: String): String {
+        val first = provider.trim().split(' ').firstOrNull { it.isNotEmpty() } ?: return ""
+        return if (first.length <= ROW_LABEL_MAX) first else first.take(ROW_LABEL_MAX - 1) + "…"
+    }
+
     /** Welche Kerzenreihe [select] nimmt (für den Quellen-Hinweis im Aktionsblatt). */
     enum class CandleSeries {
         /** Kerzen des Paars selbst (bzw. USDT-Reihe bei USD-artigen Quotes). */

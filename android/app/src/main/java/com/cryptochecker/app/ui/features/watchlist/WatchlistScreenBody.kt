@@ -46,6 +46,7 @@ import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.domain.watch.WatchPulse
 import com.cryptochecker.app.domain.watch.WatchlistOnboarding
 import com.cryptochecker.app.ui.components.ReadableInset
+import com.cryptochecker.app.ui.features.alarms.AlarmReliabilityLine
 
 /**
  * Fester Kopf und Liste der Merkliste ([WatchlistScreen] setzt Zustand und Ableitungen; die Werte hier sind dieselben
@@ -185,6 +186,8 @@ internal fun WatchlistBody(
                     onToggleDisabled = { ui.toggleQuickView(QuickView.DISABLED) },
                     addLabelled = watches.size <= ADD_PAIR_LABEL_MAX_PAIRS,
                 )
+                // Kommen die Alarme an? Eine ruhige Zeile, nur mit Alarmen (eigene Komponente)
+                if (!ui.sortMode && !ui.selecting && !ui.searching) AlarmReliabilityLine(now = now)
             }
             // Feine Linie unter dem festen Kopf, sobald die Liste darunter gescrollt ist
             val listScrolled by remember { derivedStateOf { listState.canScrollBackward } }
@@ -260,6 +263,7 @@ internal fun WatchlistBody(
                         convertTarget = display.convertTarget,
                         convertRates = live.convertRates,
                         convertFxTimes = live.convertFxTimes,
+                        convertUsdtNotes = live.convertUsdtNotes,
                         hasActivity = watch.id in activeSignals,
                         onOpenWhy = { ui.whyFor = watch.id },
                         onOpenActions = { ui.actionsFor = watch.id },

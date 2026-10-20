@@ -141,7 +141,7 @@
     <string name="settings_change_basis_hint_since_last">„%1$s” porównuje z ceną z poprzedniej aktualizacji. Przy cenach na żywo pozostaje blisko 0%%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
     <string name="settings_change_period">Pokaż okres obok zmiany</string>
-    <string name="settings_change_period_hint">Małe „24h”, „dziś” lub „ost. aktualizacja” obok zmiany na liście i w widżecie jednej monety. Czytnik ekranu zawsze go odczytuje.</string>
+    <string name="settings_change_period_hint">Małe „24h”, „dziś” lub „ost. aktualizacja” obok zmiany w linii pulsu i w widżecie jednej monety. Lista obserwowanych pokazuje go zawsze; czytnik ekranu zawsze go odczytuje.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Waluta przeliczenia</string>

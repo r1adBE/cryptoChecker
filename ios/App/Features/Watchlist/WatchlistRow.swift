@@ -101,7 +101,7 @@ struct WatchlistRow: View {
     @State private var sparkDraw: CGFloat = 1
     /// Breite der ganzen Zeile (für die Breite des Mini-Charts, `DenseRowText.sparklineWidth`);
     /// bis zur ersten Messung die normale Breite.
-    @State private var rowWidth: CGFloat = DenseRowText.narrowRow
+    @State var rowWidth: CGFloat = DenseRowText.narrowRow
     @State var showCheck = false
     /// Hinweis zur Quelle der %-Änderung («*», `changeSourceHint`) als Popover am Zeichen.
     @State var showSourceHint = false
@@ -258,7 +258,7 @@ struct WatchlistRow: View {
                 return
             }
             let base = watch.baseAsset
-            let quote = watch.quoteAsset
+            let quote = WatchlistConversion.quote(watch)
             // Eigene Börse zuerst; TradFi und DEX nie mit der USDT-Reihe eines Krypto-Tokens
             let pair = CandlePair.of(watch)
             let fallback = OwnCandlePolicy.allowsFallback(pair)

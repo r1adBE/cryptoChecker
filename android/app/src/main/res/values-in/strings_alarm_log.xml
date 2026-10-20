@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">di latar belakang</string>
     <string name="alarm_log_source_exact">pemeriksaan tepat waktu</string>
     <string name="alarm_log_source_widget">lewat widget</string>
+    <string name="alarm_outcome_fx_stale">Tidak diperiksa – kurs lebih lama dari 36 jam</string>
+    <string name="alarm_outcome_fx_unsure">Tidak diperiksa – konversi USDT tidak pasti (hanya melalui USDC)</string>
 </resources>

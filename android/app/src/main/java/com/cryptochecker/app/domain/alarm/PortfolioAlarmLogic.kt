@@ -127,6 +127,18 @@ object PortfolioAlarmLogic {
         return usdt * factor
     }
 
+    /**
+     * Rechnet [totalIn] für einen Betrags-Alarm ([input]) mit USDT = 1, weil USDT/USD nicht gemessen ist
+     * ([PortfolioReading.usdtUsdLive] fehlt)? Nur in einer anderen Währung als der Stand und nicht in USDT selbst —
+     * dann steht «USDT = 1 angenommen» im Alarmtext. Wie iOS.
+     */
+    fun usdtAssumed(input: PortfolioAlarmInput, reading: PortfolioReading): Boolean {
+        if (!input.kind.isValue) return false
+        val wanted = input.currency?.trim()?.uppercase()?.takeIf { it.isNotEmpty() } ?: return false
+        if (wanted == reading.currency.uppercase() || wanted == "USDT") return false
+        return PortfolioStables.usdtUsdLive(reading.usdtUsdLive).approximate
+    }
+
     /** Alarmwährungen, für die ein Devisenkurs nötig ist (nicht die des Stands, kein USD-Stablecoin). */
     fun currenciesNeedingRate(currencies: Collection<String?>, readingCurrency: String): Set<String> =
         currencies.mapNotNull { it?.trim()?.uppercase()?.takeIf { c -> c.isNotEmpty() } }

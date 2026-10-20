@@ -177,6 +177,40 @@ class RefreshEffectsAlarmTest {
         assertEquals(1, f.notifier.alarmPosts.size)
     }
 
+    /** «1 h später» auf einer Kursmarke: wie AlarmActionReceiver — Pause vermerken, dann einschalten und scharf stellen. */
+    private fun RefreshFixture.snoozeLevel(id: Long, at: Long) {
+        notifier.snoozedUntil[id] = com.cryptochecker.app.domain.alarm.AlarmSnooze.snoozeUntil(at)
+        store.alarms[id] = store.alarm(id).copy(enabled = true, referenceAt = 0L)
+    }
+
+    @Test
+    fun snoozedOnceLevelReportsAgainAfterHourIfStillBeyond() {
+        val f = RefreshFixture(listOf(watch()), listOf(above(100.0)))
+        assertEquals(1, f.check(101.0, 99.0, NOW))
+        assertFalse("einmalig: nach dem Melden aus", f.store.alarm(7).enabled)
+
+        f.snoozeLevel(7, NOW + minute)
+        // Während der Pause: nichts, Alarm bleibt eingeschaltet und scharf
+        assertEquals(0, f.check(102.0, 101.0, NOW + 20 * minute))
+        assertTrue(f.store.alarm(7).enabled)
+        // Nach der Stunde, Kurs noch über der Marke: meldet erneut — und ist danach wieder aus
+        assertEquals(1, f.check(102.0, 102.0, NOW + 62 * minute))
+        assertEquals(2, f.notifier.alarmPosts.size)
+        assertFalse(f.store.alarm(7).enabled)
+    }
+
+    @Test
+    fun snoozedLevelBackBelowWaitsForNextCrossing() {
+        val f = RefreshFixture(listOf(watch()), listOf(above(100.0, repeating = true)))
+        assertEquals(1, f.check(101.0, 99.0, NOW))
+        f.snoozeLevel(7, NOW + minute)
+        // Nach der Stunde wieder unter der Marke: keine Meldung, aber scharf für das nächste Überqueren
+        assertEquals(0, f.check(98.0, 99.0, NOW + 62 * minute))
+        assertTrue(f.store.alarm(7).enabled && f.store.alarm(7).referenceAt == 0L)
+        assertEquals(1, f.check(101.0, 98.0, NOW + 70 * minute))
+        assertEquals(2, f.notifier.alarmPosts.size)
+    }
+
     @Test
     fun alarmInOtherCurrencyComparesConvertedPrice() {
         // Schwelle 90 CHF, Paar in USDT, 1 USDT = 0.9 CHF: 101 USDT = 90.9 CHF

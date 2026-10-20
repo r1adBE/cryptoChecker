@@ -50,29 +50,29 @@ class PulseWidgetMathTest {
 
     @Test
     fun titleShrinksOrHidesNeverEllipsizes() {
-        // «Was gerade auffällt»: 13 sp = 130 dp, 11 sp = 110 dp (Text wächst mit der Grösse)
+        // «Was gerade auffällt»: 14 sp = 140 dp, 12 sp = 120 dp (Text wächst mit der Grösse; App-Stufen body/label)
         val measure: (Float) -> Float = { it * 10f }
         // Platz = Breite − 24 − 20 − 2
-        assertEquals(13f, PulseWidgetMath.titleSizeSp(176, measure))
-        assertEquals(11f, PulseWidgetMath.titleSizeSp(175, measure))
-        assertEquals(11f, PulseWidgetMath.titleSizeSp(158, measure))
-        assertNull(PulseWidgetMath.titleSizeSp(152, measure))
-        assertEquals(13f, PulseWidgetMath.titleSizeSp(0, measure))
+        assertEquals(14f, PulseWidgetMath.titleSizeSp(186, measure))
+        assertEquals(12f, PulseWidgetMath.titleSizeSp(185, measure))
+        assertEquals(12f, PulseWidgetMath.titleSizeSp(166, measure))
+        assertNull(PulseWidgetMath.titleSizeSp(165, measure))
+        assertEquals(14f, PulseWidgetMath.titleSizeSp(0, measure))
     }
 
     @Test
     fun headlineShrinksThenWraps() {
-        // «Breite Stärke»: 18 sp = 126 dp, 16 sp = 112, 14 sp = 98 (7 dp je sp)
+        // «Breite Stärke»: 16 sp = 112 dp, 14 sp = 98 (7 dp je sp; App-Stufen title/body)
         val measure: (Float) -> Float = { it * 7f }
         // Mit ↗: Platz = Breite − 24 − 14 − 2
-        assertEquals(PulseWidgetMath.HeadlineStyle(18f, 1), PulseWidgetMath.headlineStyle(166, true, measure))
         assertEquals(PulseWidgetMath.HeadlineStyle(16f, 1), PulseWidgetMath.headlineStyle(152, true, measure))
+        assertEquals(PulseWidgetMath.HeadlineStyle(14f, 1), PulseWidgetMath.headlineStyle(151, true, measure))
         assertEquals(PulseWidgetMath.HeadlineStyle(14f, 1), PulseWidgetMath.headlineStyle(138, true, measure))
         // 2 × 2 eng: zweizeilig in 14 sp statt «Breite Stä…»
         assertEquals(PulseWidgetMath.HeadlineStyle(14f, 2), PulseWidgetMath.headlineStyle(137, true, measure))
         // Ohne Zeichen mehr Platz
         assertEquals(PulseWidgetMath.HeadlineStyle(14f, 1), PulseWidgetMath.headlineStyle(124, false, measure))
-        assertEquals(PulseWidgetMath.HeadlineStyle(18f, 1), PulseWidgetMath.headlineStyle(0, true, measure))
+        assertEquals(PulseWidgetMath.HeadlineStyle(16f, 1), PulseWidgetMath.headlineStyle(0, true, measure))
     }
 
     @Test

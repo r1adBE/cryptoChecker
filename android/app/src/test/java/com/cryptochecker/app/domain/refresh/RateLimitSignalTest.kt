@@ -10,7 +10,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Rate-Limit ohne HTTP 429/418 (Kraken, Bybit, OKX). Fixture `rate_limit_signal.json`, wie `RateLimitSignalTests.swift`. */
+/** Rate-Limit ohne HTTP 429/418 (Kraken, Bybit, OKX, BingX, bitbank). Fixture `rate_limit_signal.json`, wie `RateLimitSignalTests.swift`. */
 class RateLimitSignalTest {
 
     @Test

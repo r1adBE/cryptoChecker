@@ -1,5 +1,5 @@
 {
-  "_comment": "[B80] CH-Vermögenswert per 31.12. (TaxExport.chWealth, Android + iOS) — Orientierung, keine Steuerwerte der ESTV-Kursliste, Vermögenssteuer nicht gerechnet. Bestand am Ende des 31.12. in der Zeitzone der Vorlage (Europe/Zurich: 23:59 zählt, 1.1. 00:00 nicht, auch wenn es in UTC noch der 31.12. ist), nach der Einstandsmethode (methods: jede muss dasselbe ergeben); Kurs = Tagesschluss 31.12. in USDT (closes; unchecked = nicht als derselbe Token bestätigt); rate = USD→CHF des 31.12. (null = kein Devisenkurs); addresses = Guthaben beobachteter Adressen (balances, unobserved). Wert je Coin = Menge × Schluss × Kurs (je Teilzeile auf 2 Stellen gerundet, [B88]); fehlt ein Schluss: Wert leer (missing), Summe unvollständig — nie ein anderer Kurs. Werte je Coin exakt; Summen aus den je Coin auf 2 Stellen GERUNDETEN Werten (CutoffExport.roundedMoney, wie die Zeilen in der Datei; seit Build 87, wie der Stichtag-Export). [B88] Wert je Coin = Summe der GERUNDETEN Teilzeilen (eigener Bestand, je Adresse), genau wie die Zeilen der Bestandsdatei (Stichtag-Export) — beide Dateien weichen je Coin nicht um 0.01 ab, moneyTotal = CutoffExport.money(totalTarget). rows: [Coin, Menge, Wert USDT, Wert CHF, nicht gerechnet]. summaries: TaxExport.yearSummary CH mit yearEndCloses — Posten CH_WEALTH_VALUE [usdt, target, unvollständig, kein Devisenkurs, nicht gerechnet] und die CSV-Zeilen ab dem Posten (Texte: Bezeichnung = Name des Postens, wealthCoin «{coin} – {amount}», incomplete, nofx, chwealth, nc, noprice, unchecked, unobserved). [B89] Fehlt nur ein Teil eines Coins (Adresse am 31.12. nicht beobachtet), zählt der bekannte Teil wie in der Bestandsdatei und der Coin ist «unvollständig» (6. Wert einer Zeile in rows, fehlt = false); «nicht gerechnet» (5. Wert) nur ohne jeden bekannten Teil.",
+  "_comment": "[B80] CH-Vermögenswert per 31.12. (TaxExport.chWealth, Android + iOS) — Orientierung, keine Steuerwerte der ESTV-Kursliste, Vermögenssteuer nicht gerechnet. Bestand am Ende des 31.12. in der Zeitzone der Vorlage (Europe/Zurich: 23:59 zählt, 1.1. 00:00 nicht, auch wenn es in UTC noch der 31.12. ist), nach der Einstandsmethode (methods: jede muss dasselbe ergeben); Kurs = Tagesschluss 31.12. in USDT (closes; unchecked = nicht als derselbe Token bestätigt); rate = USD→CHF des 31.12. (null = kein Devisenkurs); addresses = Guthaben beobachteter Adressen (balances, unobserved). Wert je Coin = Menge × Schluss × Kurs (je Teilzeile auf 2 Stellen gerundet, [B88]); fehlt ein Schluss: Wert leer (missing), Summe unvollständig — nie ein anderer Kurs. Werte je Coin exakt; Summen aus den je Coin auf 2 Stellen GERUNDETEN Werten (CutoffExport.roundedMoney, wie die Zeilen in der Datei; seit Build 87, wie der Stichtag-Export). [B88] Wert je Coin = Summe der GERUNDETEN Teilzeilen (eigener Bestand, je Adresse), genau wie die Zeilen der Bestandsdatei (Stichtag-Export) — beide Dateien weichen je Coin nicht um 0.01 ab, moneyTotal = CutoffExport.money(totalTarget). rows: [Coin, Menge, Wert USDT, Wert CHF, nicht gerechnet]. summaries: TaxExport.yearSummary CH mit yearEndCloses — Posten CH_WEALTH_VALUE [usdt, target, unvollständig, kein Devisenkurs, nicht gerechnet] und die CSV-Zeilen ab dem Posten (Texte: Bezeichnung = Name des Postens, wealthCoin «{coin} – {amount}», incomplete, nofx, chwealth, nc, noprice, unchecked, unobserved). [B89] Fehlt nur ein Teil eines Coins (Adresse am 31.12. nicht beobachtet), zählt der bekannte Teil wie in der Bestandsdatei und der Coin ist «unvollständig» (6. Wert einer Zeile in rows, fehlt = false); «nicht gerechnet» (5. Wert) nur ohne jeden bekannten Teil. [B91] watchedCases: beobachtete Adressen (watched, wie address_cost_lots.json) am 31.12. in der Sicht der Karte (AddressCutoff.at): Posten im Bestand, nur der Rest ohne Einstand als Adress-Teil — eine erfasste Umbuchung zur Adresse zählt einmal (mit und ohne Posten); addressNote = Posten nach der benutzten Beobachtung (Hinweis an der Summe und in der Datei).",
   "zone": "Europe/Zurich",
   "date": "2025-12-31",
   "cases": [
@@ -694,6 +694,202 @@
       "csv": [
         "CH_WEALTH_VALUE;;;chwealth"
       ]
+    }
+  ],
+  "watchedCases": [
+    {
+      "name": "recorded transfer to an address with lot: counted once (1.4, not 1.7)",
+      "methods": [
+        "FIFO",
+        "FIFO_WALLET",
+        "AVERAGE"
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "price": "60000",
+          "time": 1738368000000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.3",
+          "time": 1740787200000,
+          "transferFrom": "Binance",
+          "transferTo": "Ledger"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.1",
+          "price": "80000",
+          "time": 1743465600000,
+          "exchange": "Binance"
+        }
+      ],
+      "watched": [
+        {
+          "id": 7,
+          "chain": "BTC",
+          "address": "bc1qtestledgerin",
+          "label": "Ledger",
+          "lastBalance": "1.3",
+          "lastUpdated": 1764547200000,
+          "costLots": [
+            {
+              "id": 1,
+              "coin": "BTC",
+              "t": 1735689600000,
+              "amount": "1",
+              "price": "40000"
+            }
+          ]
+        }
+      ],
+      "closes": {
+        "BTC": "90000"
+      },
+      "rate": "0.8",
+      "expected": {
+        "rows": [
+          [
+            "BTC",
+            "1.4",
+            "126000",
+            "100800",
+            false
+          ]
+        ],
+        "totalUsdt": "126000",
+        "totalTarget": "100800",
+        "incomplete": false,
+        "noFx": false,
+        "moneyTotal": "100800.00",
+        "addressNote": false
+      }
+    },
+    {
+      "name": "recorded transfer to an address without lot: counted once",
+      "methods": [
+        "FIFO",
+        "FIFO_WALLET",
+        "AVERAGE"
+      ],
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "price": "60000",
+          "time": 1738368000000,
+          "exchange": "Binance"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.3",
+          "time": 1740787200000,
+          "transferFrom": "Binance",
+          "transferTo": "Ledger"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.1",
+          "price": "80000",
+          "time": 1743465600000,
+          "exchange": "Binance"
+        }
+      ],
+      "watched": [
+        {
+          "id": 9,
+          "chain": "BTC",
+          "address": "bc1qtestnolotin",
+          "label": "Ledger",
+          "lastBalance": "1.3",
+          "lastUpdated": 1764547200000
+        }
+      ],
+      "closes": {
+        "BTC": "90000"
+      },
+      "rate": "0.8",
+      "expected": {
+        "rows": [
+          [
+            "BTC",
+            "1.4",
+            "126000",
+            "100800",
+            false
+          ]
+        ],
+        "totalUsdt": "126000",
+        "totalTarget": "100800",
+        "incomplete": false,
+        "noFx": false,
+        "moneyTotal": "100800.00",
+        "addressNote": false
+      }
+    },
+    {
+      "name": "lot after the balance check: note at the sum",
+      "methods": [
+        "FIFO",
+        "FIFO_WALLET",
+        "AVERAGE"
+      ],
+      "trades": [],
+      "watched": [
+        {
+          "id": 14,
+          "chain": "BTC",
+          "address": "bc1qtestlatelot",
+          "label": "Ledger",
+          "lastBalance": "0.5",
+          "lastUpdated": 1748736000000,
+          "costLots": [
+            {
+              "id": 1,
+              "coin": "BTC",
+              "t": 1754006400000,
+              "amount": "0.4",
+              "price": "50000"
+            }
+          ]
+        }
+      ],
+      "closes": {
+        "BTC": "90000"
+      },
+      "rate": "0.8",
+      "expected": {
+        "rows": [
+          [
+            "BTC",
+            "0.5",
+            "45000",
+            "36000",
+            false
+          ]
+        ],
+        "totalUsdt": "45000",
+        "totalTarget": "36000",
+        "incomplete": false,
+        "noFx": false,
+        "moneyTotal": "36000.00",
+        "addressNote": true
+      }
     }
   ]
 }

@@ -82,7 +82,7 @@
     <string name="system_backup_not_imported_message">Копию портфеля из системной резервной копии Android не удалось прочитать даже со второй попытки, и она удалена. Если у вас есть файл резервной копии, восстановите его в настройках в разделе «%1$s».</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Сохранённый портфель сейчас не удаётся разблокировать, поэтому он не показан – он вернётся после перезапуска приложения. Изменения, сделанные сейчас, не сохранятся.</string>
+    <string name="portfolio_storage_kept_in_memory">Сохранённый портфель сейчас не удаётся разблокировать, поэтому он не показан – он вернётся после перезапуска приложения. Изменения станут возможны только после следующего запуска.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">Сохранённый список сейчас не удаётся разблокировать, поэтому он не показан – он вернётся после перезапуска приложения. Изменения, сделанные сейчас, не сохранятся.</string>
     <string name="alarm_save_storage_locked">Сейчас не удаётся сохранить оповещения – сохранённый список заблокирован. Перезапустите приложение.</string>
@@ -91,4 +91,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Шифрование ещё не активно – портфель не сохраняется, изменения пропадут при закрытии приложения. Приложение попробует снова при следующем запуске.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Сохранённый портфель сейчас заблокирован – изменения станут возможны только после следующего запуска.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Устройство сейчас не предоставляет ключ – список не сохраняется, изменения пропадут при закрытии приложения. Приложение попробует снова при следующем запуске.</string>
 </resources>

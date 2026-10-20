@@ -79,6 +79,8 @@ internal fun LazyItemScope.WatchlistItem(
     convertRates: Map<String, Double>,
     /** Abrufzeit alter Devisenkurse (älter als 3 h) je Quote-Währung, siehe [WatchlistLive.convertFxTimes]. */
     convertFxTimes: Map<String, Long> = emptyMap(),
+    /** USDT = 1 angenommen bzw. unsichere Umrechnung je Quote-Währung, siehe [WatchlistLive.convertUsdtNotes]. */
+    convertUsdtNotes: Map<String, com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState> = emptyMap(),
     hasActivity: Boolean,
     onOpenWhy: () -> Unit,
     onOpenActions: () -> Unit,
@@ -182,9 +184,17 @@ internal fun LazyItemScope.WatchlistItem(
                 outdatedAfter = outdatedAfter,
                 converted = convertedPrice(shown, convertTarget, convertRates)?.let { text ->
                     // Devisenkurs älter als 3 h: dessen Uhrzeit dahinter («≈ 66’120 CHF · Kurs 08:15»)
-                    convertedFxTime(shown, convertFxTimes, now)?.let {
+                    val dated = convertedFxTime(shown, convertFxTimes, now)?.let {
                         stringResource(R.string.converted_fx_stale, text, com.cryptochecker.app.util.PriceFormat.shortTime(it))
                     } ?: text
+                    // USDT/USD nicht gemessen («USDT = 1 angenommen») bzw. nur unsicher über USDC: Vermerk dahinter
+                    when (convertedUsdtNote(shown, convertTarget, convertUsdtNotes)) {
+                        com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState.ASSUMED ->
+                            "$dated · " + stringResource(R.string.portfolio_usdt_assumed)
+                        com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState.UNSURE ->
+                            "$dated · " + stringResource(R.string.converted_unsure)
+                        else -> dated
+                    }
                 },
                 // Im Sortiermodus ausgeblendet (Platz für Griff und Menü)
                 sparkline = sparkline.takeIf { rowSparklines && !sortMode },

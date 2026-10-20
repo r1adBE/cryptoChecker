@@ -50,4 +50,16 @@ class AlarmSnoozeParityTest {
             )
         }
     }
+
+    @Test
+    fun rearmsOnlyPriceLevels() {
+        val cases = data["rearmsOnSnooze"].list().map { it.obj() }
+        assertEquals(AlarmCondition.entries.map { it.name }.toSet(), cases.map { it["condition"] as String }.toSet())
+        cases.forEach { c ->
+            val condition = AlarmCondition.valueOf(c["condition"] as String)
+            assertEquals(c["condition"] as String, c["rearms"], AlarmSnooze.rearmsOnSnooze(condition))
+            // Wer wieder scharf gestellt wird, bekommt den Knopf auch bei «einmal»
+            if (c["rearms"] == true) assertEquals(true, AlarmSnooze.offeredFor(condition, repeating = false))
+        }
+    }
 }

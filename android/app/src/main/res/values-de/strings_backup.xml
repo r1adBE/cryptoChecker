@@ -76,7 +76,7 @@
     <string name="system_backup_not_imported_message">Die Portfolio-Kopie aus der Android-Systemsicherung liess sich auch beim zweiten Versuch nicht lesen und wurde gelöscht. Hast du eine Sicherungsdatei, spiele sie in den Einstellungen unter «%1$s» ein.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Das gespeicherte Portfolio lässt sich gerade nicht entsperren und wird nicht angezeigt – nach einem Neustart der App ist es wieder da. Änderungen von jetzt werden nicht gespeichert.</string>
+    <string name="portfolio_storage_kept_in_memory">Das gespeicherte Portfolio lässt sich gerade nicht entsperren und wird nicht angezeigt – nach einem Neustart der App ist es wieder da. Änderungen sind erst nach dem nächsten Start möglich.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">Die gespeicherte Merkliste lässt sich gerade nicht entsperren und wird nicht angezeigt – nach einem Neustart der App ist sie wieder da. Änderungen von jetzt werden nicht gespeichert.</string>
     <string name="alarm_save_storage_locked">Alarme lassen sich gerade nicht speichern – die gespeicherte Merkliste ist gesperrt. Starte die App neu.</string>
@@ -85,4 +85,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Verschlüsselung noch nicht aktiv – das Portfolio wird nicht gespeichert, Änderungen gehen beim Schliessen der App verloren. Die App versucht es beim nächsten Start erneut.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Gespeichertes Portfolio gerade gesperrt – Änderungen sind erst nach dem nächsten Start möglich.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Dieses Gerät stellt gerade keinen Schlüssel bereit – die Merkliste wird nicht gespeichert, Änderungen gehen beim Schliessen der App verloren. Die App versucht es beim nächsten Start erneut.</string>
 </resources>

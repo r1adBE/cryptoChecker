@@ -88,7 +88,7 @@
     <string name="system_backup_not_imported_message">تعذّرت قراءة نسخة المحفظة من نسخة Android الاحتياطية للنظام حتى في المحاولة الثانية، وقد حُذفت. إذا كان لديك ملف نسخ احتياطي، فاستعده من «%1$s» في الإعدادات.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">تعذّر فتح قفل المحفظة المحفوظة الآن ولذلك لا تُعرض – ستعود بعد إعادة تشغيل التطبيق. لن تُحفظ التغييرات التي تجريها الآن.</string>
+    <string name="portfolio_storage_kept_in_memory">تعذّر فتح قفل المحفظة المحفوظة الآن ولذلك لا تُعرض – ستعود بعد إعادة تشغيل التطبيق. لا يمكن إجراء تغييرات إلا بعد التشغيل التالي.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">تعذّر فتح قفل قائمة المتابعة المحفوظة الآن ولذلك لا تُعرض – ستعود بعد إعادة تشغيل التطبيق. لن تُحفظ التغييرات التي تجريها الآن.</string>
     <string name="alarm_save_storage_locked">لا يمكن حفظ التنبيهات الآن – قائمة المتابعة المحفوظة مقفلة. أعد تشغيل التطبيق.</string>
@@ -97,4 +97,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">التشفير غير مفعّل بعد – لا يتم حفظ المحفظة، وتضيع التغييرات عند إغلاق التطبيق. سيحاول التطبيق مجددًا عند التشغيل التالي.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">المحفظة المحفوظة مقفلة الآن – لا يمكن إجراء تغييرات إلا بعد التشغيل التالي.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">هذا الجهاز لا يوفّر مفتاحًا الآن – لا يتم حفظ قائمة المتابعة، وتضيع التغييرات عند إغلاق التطبيق. سيحاول التطبيق مجددًا عند التشغيل التالي.</string>
 </resources>

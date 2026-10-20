@@ -1,10 +1,10 @@
 import SwiftUI
 
-/// Alarm anlegen/bearbeiten als Blatt von unten — wie `AlarmEditorSheet` in Android. Oben nur die einfachen
-/// Bedingungen (Kurs über/unter, Steigt/Fällt um) — die Kursmarke als Satz «Wenn BTC über [Betrag] geht»,
-/// darunter die Schnell-Alarme (nur beim Anlegen). Alle übrigen Bedingungen unter «Mehr Bedingungen»,
-/// Währung, Ton und Vorlesen unter «Erweitert» (beide zugeklappt, ausser beim Bearbeiten eines Alarms,
-/// der sie braucht), dazwischen «Einmal / Jedes Mal». Volle Höhe: Aufklappen scrollt im Inhalt.
+/// Alarm anlegen/bearbeiten als Blatt von unten — wie `AlarmEditorSheet` in Android. Oben nur das Nötige (Build 91):
+/// Paar und Kurs, die einfachen Bedingungen (Kurs über/unter zuerst, Steigt/Fällt um), der Betrag — die Kursmarke
+/// als Satz «Wenn BTC über [Betrag] geht» — und «Einmal / Jedes Mal». Schnell-Alarme (nur beim Anlegen), alle übrigen
+/// Bedingungen, Währung, Ton und Vorlesen unter «Mehr» (zugeklappt; offen, wenn in dieser Sitzung schon aufgeklappt
+/// oder der Alarm etwas darin braucht: `AlarmTemplates.opensMore`). Volle Höhe: Aufklappen scrollt im Inhalt.
 @MainActor
 struct AlarmEditorSheet: View {
     let initial: AlarmDraft
@@ -23,10 +23,8 @@ struct AlarmEditorSheet: View {
     /// Faktor Quote → Währung, soweit bekannt (zum Umrechnen des getippten Schwellwerts).
     @State var rates: [String: Double] = [:]
     @FocusState var fieldFocused: Bool
-    /// «Mehr Bedingungen» aufgeklappt.
-    @State var moreConditions: Bool
-    /// «Erweitert» aufgeklappt.
-    @State var advanced: Bool
+    /// «Mehr» aufgeklappt (Schnell-Alarme, weitere Bedingungen, Währung, Ton, Vorlesen).
+    @State var more: Bool
     /// Hat das Paar Tageskerzen (30-Tage-Hoch/-Tief) bzw. Stundenvolumen? Für die Schnell-Alarme.
     @State var hasDailyRange = false
     @State var hasHourlyVolume = false
@@ -46,10 +44,10 @@ struct AlarmEditorSheet: View {
         self.onSave = onSave
         self.onTemplate = onTemplate
         _draft = State(initialValue: initial)
-        // «Mehr Bedingungen» offen beim Bearbeiten eines Alarms mit einer davon (z. B. Volumen-Spike),
-        // «Erweitert» bei einer Kursmarke in eigener Währung
-        _moreConditions = State(initialValue: AlarmTemplates.opensMoreConditions(condition: initial.condition))
-        _advanced = State(initialValue: AlarmTemplates.opensAdvanced(condition: initial.condition, currency: initial.currency))
+        // «Mehr» offen, wenn in dieser Sitzung schon aufgeklappt oder der Alarm etwas darin braucht (z. B. Volumen-Spike,
+        // Kursmarke in eigener Währung)
+        _more = State(initialValue: AlarmTemplates.opensMore(condition: initial.condition, currency: initial.currency,
+                                                             sessionExpanded: AlarmEditorSession.moreExpanded))
     }
 
     /// Sichtbare Schnell-Alarme (nur beim Anlegen); ohne Kurs bzw. Kerzen (z. B. DEX) ausgeblendet.
@@ -126,20 +124,6 @@ struct AlarmEditorSheet: View {
                         thresholdField
                     }
 
-                    // Schnell-Alarme erst nach Bedingung und Kurssatz: zuerst sieht man, was man selbst einstellt;
-                    // ein Antippen legt den Alarm sofort an
-                    if !templates.isEmpty {
-                        templateChips
-                    }
-
-                    // Alle übrigen Bedingungen (Zeitfenster, Volumen, Hoch/Tief, Funding, Open Interest)
-                    sectionHeader(L("alarm_more_conditions"), expanded: $moreConditions)
-
-                    if moreConditions {
-                        moreConditionsContent
-                            .transition(.opacity)
-                    }
-
                     // «Melden: Einmal / Jedes Mal» — sichtbare Beschriftung (die des Pickers zeigt .segmented nicht), wie Android
                     VStack(alignment: .leading, spacing: Spacing.xs) {
                         Text(L("alarm_option_repeating"))
@@ -153,17 +137,21 @@ struct AlarmEditorSheet: View {
                         .pickerStyle(.segmented)
                     }
 
-                    sectionHeader(L("alarm_advanced"), expanded: $advanced)
+                    // «Mehr»: Schnell-Alarme, weitere Bedingungen, Währung, Ton, Vorlesen
+                    sectionHeader(L("alarm_editor_more"), subtitle: more ? nil : L("alarm_editor_more_summary"),
+                                  expanded: $more)
+                        .accessibilityIdentifier(UiTestTags.alarmMore)
 
-                    if advanced {
-                        advancedContent
+                    if more {
+                        moreContent
                             .transition(.opacity)
                     }
 
                     // Vorschau: der Alarm als Satz (zeigt auch, wie der Betrag gelesen wurde),
                     // direkt darunter ehrlich, wann bei geschlossener App gemeldet wird
                     VStack(alignment: .leading, spacing: Spacing.sm) {
-                        sentencePreview
+                        // Leeres Feld: nur der Hinweis «Wert eingeben» unter dem Knopf, nicht zusätzlich die Karte
+                        if draft.showsSentence { sentencePreview }
                         Self.closedAppHint
                     }
 
@@ -188,8 +176,7 @@ struct AlarmEditorSheet: View {
                 .padding(.top, 8)
                 .padding(.bottom, 24)
                 .animation(.spring(duration: 0.3), value: draft.condition)
-                .animation(.easeInOut(duration: 0.2), value: advanced)
-                .animation(.easeInOut(duration: 0.2), value: moreConditions)
+                .animation(.easeInOut(duration: 0.2), value: more)
             }
             .scrollDismissesKeyboard(.interactively)
             .background(AppColors.background.ignoresSafeArea())
@@ -228,6 +215,8 @@ struct AlarmEditorSheet: View {
                 // Verschlüsselte Datei: abseits des Hauptfadens lesen
                 lastCheck = await Task.detached(priority: .utility) { AlarmLogStore.load().lastChecks[id] }.value
             }
+            // Auf-/Zuklappen gilt für die Sitzung: der nächste Alarm öffnet «Mehr» wieder so
+            .onChange(of: more) { _, open in AlarmEditorSession.moreExpanded = open }
             .onAppear {
                 draft.priceHint = priceHint
                 // Neuer Alarm ohne Vorschlag: gleich tippen können
@@ -330,4 +319,12 @@ struct AlarmEditorSheet: View {
         let amount = PriceFormat.thresholdWithCurrency(draft.threshold, sentenceCurrency)
         return L(draft.condition == .PRICE_BELOW ? "alarm_fires_now_below" : "alarm_fires_now_above", amount)
     }
+}
+
+/// «Mehr» im Alarm-Editor aufgeklappt? Gilt für die laufende Sitzung (Prozess), nicht gespeichert: Wer es einmal
+/// aufklappt, findet es beim nächsten Alarm offen; nach dem Neustart ist der Editor wieder kurz. Wie Android
+/// `AlarmEditorSession`.
+@MainActor
+enum AlarmEditorSession {
+    static var moreExpanded = false
 }

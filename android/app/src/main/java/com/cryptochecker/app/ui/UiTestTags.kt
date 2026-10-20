@@ -37,6 +37,7 @@ object UiTestTags {
     // ── Alarme ──
     const val ALARM_THRESHOLD = "alarm_threshold"
     const val ALARM_SAVE = "alarm_save"
+    const val ALARM_MORE = "alarm_more"
     const val ALARM_CARD = "alarm_card"
 
     // ── Portfolio und CSV-Import ──

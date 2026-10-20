@@ -134,7 +134,7 @@ struct CutoffCsvTexts: Sendable {
     var usdtAssumed: String = ""
     /// Zeile «Adressen nicht lesbar – Guthaben fehlen» (`CutoffExport.csv` `addressesUnreadable`); leer = keine.
     var addressesUnreadable: String = ""
-    /// Zeile «Adressen mit Einstand – Umbuchungen evtl. doppelt/fehlend» (`CutoffExport.csv` `addressLots`); leer = keine.
+    /// Zeile «Posten nach der letzten Beobachtung einer Adresse – können fehlen» (`CutoffExport.csv` `addressLots`); leer = keine.
     var addressLots: String = ""
 
     /// Aus den App-Texten, Spaltentitel mit der Zielwährung.
@@ -206,20 +206,23 @@ struct CutoffCsvFormat: Equatable, Sendable {
 enum PortfolioCutoffExporter {
     /// Bestand am Ende des Tags (Zeitzone des Geräts), Kurse und Devisenkurs holen, CSV bauen.
     /// Bestand nach derselben Einstandsmethode `method` wie Karte, Verlauf und Steuer-Export.
-    /// `addresses`: Reihen der beobachteten Adressen, die im Portfolio zählen (`AddressBalanceHistory.of`).
+    /// `addresses`: beobachtete Adressen (zählen nur «zum Portfolio zählen»), gerechnet wie die Karte (`AddressCutoff`).
+    /// Hinweiszeile nur, wo die Rechnung nicht greift (`AddressCutoffView.lotsAfterObservation`).
     /// `addressesUnreadable`: Speicher der Adressen nicht lesbar (`WatchedAddressStore.loadChecked`, `intact` false) —
     /// in der Datei vermerkt, Total «unvollständig» (wie Android).
     /// `header`: Kopfzeilen davor (Bestand der Arbeitsunterlage), leer = keine. `zone`: Ende des Tags in dieser Zeitzone —
     /// für den Bestand der Arbeitsunterlage die der Vorlage, sonst die des Geräts (wie Android).
     static func build(transactions: [PortfolioTx], day: CutoffDay, currency: String, texts: CutoffCsvTexts,
-                      method: CostMethod = .defaultMethod, addresses: [AddressBalanceHistory] = [],
-                      addressesUnreadable: Bool = false, addressLots: Bool = false,
+                      method: CostMethod = .defaultMethod, addresses: [WatchedAddress] = [],
+                      addressesUnreadable: Bool = false,
                       header: [String] = [], zone: TimeZone = .current) async -> String {
         let cutoff = day.endOfDayMillis(in: zone)
-        let holdings = CutoffExport.holdingsAt(transactions, cutoffMillis: cutoff, method: method)
-        // Beobachtete Adressen, die im Portfolio zählen: heute das aktuelle, früher das an dem Tag beobachtete Guthaben
-        // (eigene Zeilen «aus Adresse – ohne Kaufpreis») — wie Android
-        let addressAt = AddressBalanceHistory.balancesAt(addresses, time: cutoff)
+        // Beobachtete Adressen wie auf der Karte: Posten als Käufe, Rest ohne Einstand als eigene Zeilen «aus Adresse –
+        // ohne Kaufpreis» (heute das aktuelle, früher das an dem Tag beobachtete Guthaben; erfasste Bewegungen der
+        // Adress-Wallet nur einmal) — wie Android
+        let view = AddressCutoff.at(addresses, real: transactions, cutoffMillis: cutoff)
+        let holdings = AddressCutoff.holdingsAt(transactions, view: view, cutoffMillis: cutoff, method: method)
+        let addressAt = view.part
         // USDT = 1 ohne Abfrage; andere Stablecoins wie jeder Coin (fehlt der Kurs: «ohne Kurs»)
         var seenCoins: Set<String> = []
         let coins = (holdings.map(\.coin) + addressAt.balances.keys.sorted())
@@ -246,7 +249,7 @@ enum PortfolioCutoffExporter {
         let usdtApproximate = rate != nil && usdt == nil && CutoffExport.convertsUsdt(currency)
         return CutoffExport.csv(day: day, currency: currency, fxDate: fx?.date, rows: rows, texts: texts,
                                 format: .current, header: header, usdtApproximate: usdtApproximate,
-                                addressesUnreadable: addressesUnreadable, addressLots: addressLots)
+                                addressesUnreadable: addressesUnreadable, addressLots: view.lotsAfterObservation)
     }
 
     /// USDT/USD am Stichtag `day`: heute der Live-Kurs, sonst der Tagesschluss DES Tags (plausibel, `TaxExport.usdtUsdOn`);

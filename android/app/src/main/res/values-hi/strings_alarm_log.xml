@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">बैकग्राउंड में</string>
     <string name="alarm_log_source_exact">समय पर जाँच</string>
     <string name="alarm_log_source_widget">विजेट से</string>
+    <string name="alarm_outcome_fx_stale">जाँच नहीं हुई – विनिमय दर 36 घंटे से पुरानी</string>
+    <string name="alarm_outcome_fx_unsure">जाँच नहीं हुई – USDT रूपांतरण अनिश्चित (केवल USDC के ज़रिए)</string>
 </resources>

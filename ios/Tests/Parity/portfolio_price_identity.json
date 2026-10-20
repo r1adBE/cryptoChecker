@@ -1,0 +1,25 @@
+{
+  "description": "Binance ticker in the portfolio only for the same token (Android PortfolioPriceIdentity.kt / iOS PortfolioPriceIdentity.swift). binanceCheck(coin, knownName, binanceName): with a known name (watchlist) USE unless the names clearly differ (SKIP); without a known name USE only when Binance names the symbol and it is not a known collision (TokenIdentity.KNOWN with more than one group: LUNA, LUNC, TON, GMT, HOT, CAT, NVDA), otherwise UNCHECKED (no Binance price; without another price the coin shows as unchecked). binanceName maps symbol -> Binance fullName (missing = unknown).",
+  "binanceName": {"BTC": "Bitcoin", "TON": "Toncoin", "LUNA": "Terra", "GMT": "STEPN", "HOT": "Holo", "PEPE": "Pepe", "FET": "Artificial Superintelligence Alliance", "U": "United Stables"},
+  "checks": [
+    {"coin": "BTC", "knownName": null, "check": "USE"},
+    {"coin": "PEPE", "knownName": "Pepe", "check": "USE"},
+    {"coin": "FET", "knownName": null, "check": "USE"},
+    {"coin": "U", "knownName": null, "check": "USE"},
+    {"coin": "TON", "knownName": null, "check": "UNCHECKED"},
+    {"coin": "LUNA", "knownName": null, "check": "UNCHECKED"},
+    {"coin": "GMT", "knownName": null, "check": "UNCHECKED"},
+    {"coin": "HOT", "knownName": null, "check": "UNCHECKED"},
+    {"coin": "NEWCOIN", "knownName": null, "check": "UNCHECKED"},
+    {"coin": "TON", "knownName": "Toncoin", "check": "USE"},
+    {"coin": "TON", "knownName": "Tokamak Network", "check": "SKIP"},
+    {"coin": "LUNA", "knownName": "Terra Classic", "check": "SKIP"},
+    {"coin": "NEWCOIN", "knownName": "New Coin", "check": "USE"}
+  ],
+  "split": {
+    "coins": ["BTC", "TON", "LUNA", "HOT", "NEWCOIN", "GMT"],
+    "knownNames": {"BTC": null, "TON": "Tokamak Network", "LUNA": "Terra 2.0", "HOT": null, "NEWCOIN": null},
+    "use": ["BTC", "LUNA"],
+    "unchecked": ["HOT", "NEWCOIN", "GMT"]
+  }
+}

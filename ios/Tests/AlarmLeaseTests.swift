@@ -77,4 +77,24 @@ final class AlarmLeaseTests: XCTestCase {
         XCTAssertNil(blocked)
         XCTAssertEqual(try String(contentsOf: url, encoding: .utf8), "fremder-token")
     }
+
+    /// Uhr zurückgestellt: Das Änderungsdatum liegt in der Zukunft (negatives Alter) — die liegengebliebene Lease gilt als
+    /// verwaist, statt so lange zu sperren, wie zurückgestellt wurde. Wenige Millisekunden Vorlauf sperren weiter.
+    func testLeaseFromTheFutureIsOrphaned() throws {
+        try writeForeignLease(age: -3600)
+        let lease = try XCTUnwrap(AlarmLease.tryAcquire(url: url))
+        XCTAssertTrue(lease.takenOver)
+        withExtendedLifetime(lease) {}
+    }
+
+    func testStaleRule() {
+        XCTAssertFalse(AlarmLease.isStale(age: 0))
+        XCTAssertFalse(AlarmLease.isStale(age: AlarmLease.staleAfterSeconds))
+        XCTAssertTrue(AlarmLease.isStale(age: AlarmLease.staleAfterSeconds + 1))
+        // Gleichzeitig angelegt (Datum knapp nach `now`): weiter gesperrt
+        XCTAssertFalse(AlarmLease.isStale(age: -0.05))
+        XCTAssertFalse(AlarmLease.isStale(age: -AlarmLease.futureToleranceSeconds))
+        XCTAssertTrue(AlarmLease.isStale(age: -AlarmLease.futureToleranceSeconds - 1))
+        XCTAssertTrue(AlarmLease.isStale(age: -86_400))
+    }
 }

@@ -15,6 +15,17 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 91)
+
+* Watchlist: price one step larger, the change basis («24h») always shown, and «+2.4 % · Binance» when the change comes from another exchange's candles; a quiet line shows the last background check and turns amber when alerts are at risk.
+* Alerts: «1 h later» also for price levels; the editor shows pair, condition, amount and once/every time, the rest under «More»; volume-spike texts name the candle source; Android keeps «Undo» after «Check».
+* Franc/euro alerts skip a check (and stay armed) when the FX rate is older than 36 business hours or when USDT/USD is only known via a USDC that is off by more than 1 %; USDT/USD is measured whenever such an alert or conversion needs it.
+* Exchanges: Lighter markets without trades show no «0.00 %»; delisted pairs are confirmed on CoinDCX, Luno, ICRYPEX and HashKey; BingX and bitbank rate limits are recognised; DexScreener pairs show the contract address in the pair sheet; Aster «U» counts as USD.
+* Portfolio: watched addresses count like the card in the cut-off file and the Swiss wealth file, also without cost lots; the card itself now counts a recorded transfer to an address once (and no longer drops a transfer away from it). Binance prices without a known coin name are only used for unambiguous symbols. DE 256 € line marked when values are estimated.
+* Storage: Android never creates the watchlist unencrypted (without a device key it stays in memory with a notice); addresses cannot be changed while the stored portfolio is locked; iOS reads the watchlist off the main thread when coming to the foreground.
+* Tab labels shrink at large font sizes; widgets follow the app's type scale and use the system font for Arabic and Persian amounts; the portfolio sheet survives rotation; the single-coin widget opens its pair.
+* APK keeps only the 31 app languages (checked by a device test); the app's licence file matches LICENSE, the origin note is separate; Play texts say «at most once per 15 minutes».
+
 ## 16.2.2 (build 90)
 
 * Exchanges: the «no longer traded» recheck state is stored, so a fresh background process no longer downloads Binance's full list (~2 MB) each time; the iOS widget never starts a recheck.

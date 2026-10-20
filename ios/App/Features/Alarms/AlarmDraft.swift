@@ -166,6 +166,10 @@ struct AlarmDraft: Identifiable, Equatable {
     /// ist). Wie Android `showsEnterAmountHint`.
     var showsEnterAmountHint: Bool { thresholdProblem == .EMPTY && visibleProblem == nil }
 
+    /// Satzkarte («Sag mir Bescheid, wenn …») zeigen? Nicht, solange der Hinweis «Wert eingeben» unter dem Knopf steht
+    /// (`showsEnterAmountHint`) — sonst sagten Karte und Hinweis bei leerem Feld zweimal dasselbe. Wie Android.
+    var showsSentence: Bool { !showsEnterAmountHint }
+
     /// Währung des Schwellwerts wechseln (nil = Quote). Ist der Faktor Quote → `other`
     /// bekannt, wird ein bereits getippter Wert mit umgerechnet — wie `withCurrency` in Android.
     func withCurrency(_ newCurrency: String?, other: String, rate: Double?) -> AlarmDraft {

@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">في الخلفية</string>
     <string name="alarm_log_source_exact">فحص في الموعد</string>
     <string name="alarm_log_source_widget">عبر الأداة</string>
+    <string name="alarm_outcome_fx_stale">لم يُفحص – سعر الصرف أقدم من 36 ساعة</string>
+    <string name="alarm_outcome_fx_unsure">لم يُفحص – تحويل USDT غير مؤكد (عبر USDC فقط)</string>
 </resources>

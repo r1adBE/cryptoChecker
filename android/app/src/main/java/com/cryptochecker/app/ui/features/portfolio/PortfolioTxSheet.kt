@@ -106,7 +106,7 @@ fun PortfolioTxSheet(
     val saveErrorHost = remember { SnackbarHostState() }
     val saveFailedText = stringResource(R.string.portfolio_tx_save_failed)
     // Gespeicherter Stand gerade nicht lesbar: nichts geschrieben (PortfolioStorageLock) — diesen Grund nennen
-    val storageLockedText = stringResource(R.string.portfolio_storage_kept_in_memory)
+    val storageLockedText = stringResource(R.string.portfolio_storage_locked)
     val scope = rememberCoroutineScope()
 
     // Kurs vorbelegen, sobald ein (anderer) Coin feststeht; ein getippter Preis bleibt,

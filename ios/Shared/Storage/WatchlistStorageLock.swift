@@ -31,6 +31,28 @@ enum WatchlistStorageLock {
         }
     }
 
+    /// Noch keine Datei und kein Schlüssel zum Versiegeln: Was jetzt angelegt wird, kann nicht gespeichert werden
+    /// (`ProtectedFile.write(requireSealed:)` schreibt nie Klartext) — wie Android ohne Schlüssel und ohne Datei.
+    static func waitsForKey(_ read: SharedStorage.SnapshotRead, keyAvailable: Bool) -> Bool {
+        if case .missing = read { return !keyAvailable }
+        return false
+    }
+
     /// Alarm speichern bzw. Schnell-Alarm anlegen sperren?
     static func blocksAlarmSave(locked: Bool) -> Bool { locked }
+
+    /// Dauerhinweis der Merkliste — gleich wie Android `WatchlistStorageLock.Notice`.
+    enum Notice: Equatable {
+        /// Gespeicherte Datei da, aber gerade nicht lesbar: leer und gesperrt («watchlist_storage_kept_in_memory»).
+        case kept
+        /// Kein Schlüssel zum Versiegeln: Die Merkliste wartet im Speicher, nie im Klartext geschrieben — sie wird nicht
+        /// gespeichert, bis ein Schlüssel da ist («watchlist_storage_in_memory»). Nicht gesperrt.
+        case notSaved
+    }
+
+    /// Welcher Hinweis gilt? `locked` = `AppData.watchlistLocked`, `savePending` = `AppData.watchlistSavePending`.
+    static func notice(locked: Bool, savePending: Bool) -> Notice? {
+        if locked { return .kept }
+        return savePending ? .notSaved : nil
+    }
 }

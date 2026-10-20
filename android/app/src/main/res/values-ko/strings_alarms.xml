@@ -169,4 +169,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">최신 시세를 기다리는 중</string>
     <string name="alarm_enter_amount">값을 입력하세요</string>
+    <string name="alarm_editor_more">더보기</string>
+    <string name="alarm_editor_more_summary">빠른 경보, 추가 조건, 소리와 읽어주기</string>
 </resources>

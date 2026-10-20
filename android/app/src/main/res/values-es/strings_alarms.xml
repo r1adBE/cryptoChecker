@@ -181,4 +181,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Esperando un precio actual</string>
     <string name="alarm_enter_amount">Introduce un valor</string>
+    <string name="alarm_editor_more">Más</string>
+    <string name="alarm_editor_more_summary">Alarmas rápidas, otras condiciones, sonido y voz</string>
 </resources>

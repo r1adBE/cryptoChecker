@@ -169,4 +169,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Menunggu harga terkini</string>
     <string name="alarm_enter_amount">Masukkan nilai</string>
+    <string name="alarm_editor_more">Lainnya</string>
+    <string name="alarm_editor_more_summary">Alarm cepat, kondisi lainnya, suara dan ucapan</string>
 </resources>

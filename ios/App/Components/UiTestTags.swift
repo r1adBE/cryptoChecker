@@ -43,6 +43,7 @@ enum UiTestTags {
     // MARK: Alarme
     static let alarmThreshold = "alarm_threshold"
     static let alarmSave = "alarm_save"
+    static let alarmMore = "alarm_more"
     static let alarmCard = "alarm_card"
 
     // MARK: Portfolio und CSV-Import

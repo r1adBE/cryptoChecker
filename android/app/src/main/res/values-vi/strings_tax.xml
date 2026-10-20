@@ -240,8 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Không thể đọc các địa chỉ đang theo dõi – số dư của chúng bị thiếu trong tệp này</string>
-    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">Lưu ý: địa chỉ có giá vốn – các khoản chuyển đến hoặc từ một địa chỉ đang theo dõi có thể xuất hiện hai lần hoặc bị thiếu ở đây; thẻ danh mục tính đúng các khoản này.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">Lưu ý: một địa chỉ đang theo dõi có các lô giá vốn ghi ngày sau lần kiểm tra số dư cuối cùng của nó trước ngày này – chúng có thể bị thiếu ở đây.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Các địa chỉ theo dõi được tính vào tổng giá trị nhưng không có giá vốn – vì vậy lãi có thể bị cao hơn thực tế. Hãy ghi giá vốn dưới dạng giao dịch mua.</string>

@@ -36,7 +36,7 @@ internal fun PortfolioWidgetRenderer.bindValues(
     val colors = style.colors
     val currency = snapshot.currency
     val total = PortfolioInsights.mask(PriceFormat.valueWithCurrency(snapshot.total, currency), style.hideAmounts)
-    views.setTextViewText(R.id.portfolio_total, toolkit.quoteText(total, currency, TOTAL_MAX_SP, colors.secondaryTextColor))
+    views.setAmountText(R.id.portfolio_total, toolkit.quoteText(total, currency, TOTAL_MAX_SP, colors.secondaryTextColor))
     views.setTextColor(R.id.portfolio_total, colors.textColor)
 
     val amount = plan.changeAmount
@@ -63,7 +63,7 @@ internal fun PortfolioWidgetRenderer.bindValues(
         ) { candidate, size -> toolkit.quoteTextWidthDp(candidate, currency, size, tabular = true) }
         views.setViewVisibility(R.id.portfolio_change, View.VISIBLE)
         views.setTextViewTextSize(R.id.portfolio_change, android.util.TypedValue.COMPLEX_UNIT_SP, sp)
-        views.setTextViewText(
+        views.setAmountText(
             R.id.portfolio_change,
             toolkit.periodGrey(
                 toolkit.quoteText(text, currency, sp, colors.secondaryTextColor),

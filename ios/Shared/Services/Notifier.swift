@@ -264,10 +264,12 @@ enum Notifier {
     /// den Text nicht je nach Sperrzustand verbergen, darum nur Titel und ein neutraler Text — weder Beträge
     /// noch Prozent; Einzelheiten erst in der App (`PortfolioAlarmNotice.body`).
     /// - Returns: true erst, wenn die Mitteilung zugestellt ist (`postConfirmed`) — sonst bleibt der Alarm scharf.
-    static func showPortfolioAlarm(_ alarm: PortfolioAlarm, measured: Double, settings: AppSettings) async -> Bool {
+    /// `usdtAssumed`: Alarm in anderer Währung mit USDT = 1 umgerechnet (`PortfolioAlarmLogic.usdtAssumed`) — Vermerk.
+    static func showPortfolioAlarm(_ alarm: PortfolioAlarm, measured: Double, settings: AppSettings,
+                                   usdtAssumed: Bool = false) async -> Bool {
         let content = UNMutableNotificationContent()
         content.title = L("notification_portfolio_alarm_title")
-        content.body = PortfolioAlarmNotice.body(alarm, measured: measured, settings: settings)
+        content.body = PortfolioAlarmNotice.body(alarm, measured: measured, settings: settings, usdtAssumed: usdtAssumed)
         content.sound = settings.alarmSignal.notificationSound(tone: settings.alarmSound)
         content.categoryIdentifier = settings.appLock ? categoryPortfolioLocked : categoryAlarm
         content.threadIdentifier = "alarms"
@@ -310,11 +312,13 @@ enum Notifier {
 /// Text eines Portfolio-Alarms (rein, testbar): mit Portfolio-Sperre neutral (wie Android öffentlich: nichts
 /// ausser dem Titel), sonst Satz und Messwert — mit «Beträge verbergen» ohne Beträge.
 enum PortfolioAlarmNotice {
-    static func body(_ alarm: PortfolioAlarm, measured: Double, settings: AppSettings) -> String {
+    static func body(_ alarm: PortfolioAlarm, measured: Double, settings: AppSettings, usdtAssumed: Bool = false) -> String {
         if settings.appLock { return L("notification_portfolio_alarm_locked") }
         let hidden = settings.hidePortfolioAmounts
-        return L("notification_portfolio_alarm_text",
-                 PortfolioAlarmTexts.sentence(alarm, basis: settings.changeBasis.storage, hidden: hidden),
-                 PortfolioAlarmTexts.measured(alarm, measured: measured, hidden: hidden))
+        let text = L("notification_portfolio_alarm_text",
+                     PortfolioAlarmTexts.sentence(alarm, basis: settings.changeBasis.storage, hidden: hidden),
+                     PortfolioAlarmTexts.measured(alarm, measured: measured, hidden: hidden))
+        // Alarm in anderer Währung, umgerechnet mit USDT = 1: Vermerk dahinter (wie Android)
+        return AlarmTexts.join(text, [usdtAssumed ? L("portfolio_usdt_assumed") : nil])
     }
 }

@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Lejoni «Nisja automatike» dhe aktivitetin në sfond te Përdorimi i baterisë.</string>
     <string name="oem_battery_oppo">Oppo/Realme mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Lejoni «Nisja automatike» dhe aktivitetin në sfond te Përdorimi i baterisë.</string>
     <string name="oem_battery_vivo">Vivo mund ta ndalë aplikacionin – atëherë nuk vjen asnjë alarm. Lejoni «Nisja automatike» dhe konsumin e lartë në sfond te Bateria.</string>
+    <string name="alarm_reliability_recent">Kontrolli i fundit %1$s</string>
+    <string name="alarm_reliability_stale">Kontrolli i fundit %1$s – alarmet mund të vonohen</string>
+    <string name="alarm_reliability_never">Alarmet aktive – ende asnjë kontroll në sfond</string>
+    <string name="alarm_reliability_notifications_off">Njoftimet joaktive – alarmet nuk do të mbërrijnë</string>
+    <string name="alarm_reliability_battery">Kursimi i baterisë mund të ndalojë kontrollin e alarmeve</string>
+    <string name="alarm_reliability_background_refresh">Rifreskimi në sfond joaktiv – alarmet mund të mos mbërrijnë</string>
 </resources>

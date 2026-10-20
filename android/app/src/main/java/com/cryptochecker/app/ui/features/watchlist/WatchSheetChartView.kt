@@ -298,7 +298,9 @@ private fun SheetChartCaption(
     val provider = com.cryptochecker.app.domain.watch.DayChange.foreignCandleSource(markets, result.provider)
         ?.let { stringResource(R.string.watch_row_source_chart, BidiText.isolate(it)) }
         ?: result.provider
-    val text = listOfNotNull(provider, fx, stringResource(R.string.pulse_updated, BidiText.isolate(time)))
+    // Aus der USDT-Reihe umgerechnet: USDT = 1 USD angenommen (Vermerk wie im Portfolio)
+    val usdtNote = if (SheetChart.usdtParityNote(result.fx, result.sourcePair)) stringResource(R.string.portfolio_usdt_assumed) else null
+    val text = listOfNotNull(provider, fx, usdtNote, stringResource(R.string.pulse_updated, BidiText.isolate(time)))
         .joinToString(" · ")
     Text(
         text = text,

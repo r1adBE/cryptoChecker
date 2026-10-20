@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">na pozadí</string>
     <string name="alarm_log_source_exact">přesná kontrola</string>
     <string name="alarm_log_source_widget">přes widget</string>
+    <string name="alarm_outcome_fx_stale">Nezkontrolováno – směnný kurz starší než 36 hodin</string>
+    <string name="alarm_outcome_fx_unsure">Nezkontrolováno – přepočet USDT nejistý (jen přes USDC)</string>
 </resources>

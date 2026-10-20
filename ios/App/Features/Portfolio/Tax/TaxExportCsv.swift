@@ -235,9 +235,11 @@ extension TaxExport {
         if !zoneLine.isEmpty { out += textLine([zoneLine], format) }
         // USDT = 1 an einem nötigen Tag: eigene Zeile (die Posten der Übersicht tragen keinen Vermerk je Transaktion)
         if s.usdtApproximate && !texts.usdtAssumed.isEmpty { out += textLine([texts.usdtAssumed], format) }
-        // CH-Vermögen mit Adressen mit Einstand (`AddressCostLots.hasCountedLots`): Umbuchungen zur/von der Adresse evtl.
-        // doppelt/fehlend (keine Rechenänderung) — wie Android
-        if addressLots && s.wealth != nil && !texts.addressLots.isEmpty { out += textLine([texts.addressLots], format) }
+        // CH-Vermögen: Posten nach der benutzten Beobachtung einer Adresse (`TaxWealth.addressNote`) — dort greift die
+        // Rechnung wie die Karte nicht (keine Rechenänderung); wie Android
+        if (addressLots || s.wealth?.addressNote == true) && s.wealth != nil && !texts.addressLots.isEmpty {
+            out += textLine([texts.addressLots], format)
+        }
         out += textLine([texts.item, texts.usdt, texts.target, texts.note], format)
         func row(_ l: TaxSummaryLine, _ label: String) -> String {
             var notes: [String] = []
@@ -251,6 +253,7 @@ extension TaxExport {
             if l.incomplete { notes.append(texts.incomplete) }
             if l.noFx { notes.append(texts.noFx) }
             if l.notCalculated && !texts.notCalculated.isEmpty { notes.append(texts.notCalculated) }
+            if l.estimated && !texts.estimated.isEmpty { notes.append(texts.estimated) }
             if let text = l.noteText(texts) { notes.append(text) }
             return textLine([label, money(l.usdt), money(l.target), notes.joined(separator: ", ")], format, numeric: [1, 2])
         }

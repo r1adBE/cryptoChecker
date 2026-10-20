@@ -240,8 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Bevakade adresser kunde inte läsas – deras saldon saknas i den här filen</string>
-    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">Obs: adresser med anskaffningsvärde – överföringar till eller från en bevakad adress kan här visas dubbelt eller saknas; portföljkortet beräknar dem korrekt.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">Obs: en bevakad adress har anskaffningsposter daterade efter dess senaste saldokontroll före detta datum – de kan saknas här.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Bevakade adresser räknas in i det totala värdet men saknar anskaffningsvärde – vinsten blir därför sannolikt för hög. Registrera anskaffningsvärdet som ett köp.</string>

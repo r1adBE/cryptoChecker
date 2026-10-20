@@ -76,7 +76,7 @@
     <string name="system_backup_not_imported_message">The portfolio copy from the Android system backup could not be read, even on a second attempt, and has been deleted. If you have a backup file, restore it under “%1$s” in Settings.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">The saved portfolio can\'t be unlocked right now and isn\'t shown – it will be back after restarting the app. Changes made now won\'t be saved.</string>
+    <string name="portfolio_storage_kept_in_memory">The saved portfolio can\'t be unlocked right now and isn\'t shown – it will be back after restarting the app. Changes are only possible after the next start.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">The saved watchlist can\'t be unlocked right now and isn\'t shown – it will be back after restarting the app. Changes made now won\'t be saved.</string>
     <!-- Alarm speichern/Schnell-Alarm gesperrt, solange die Merkliste nur leer im Arbeitsspeicher steht (storedKept) -->
@@ -86,4 +86,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Encryption not active yet – the portfolio is not being saved, changes are lost when the app closes. The app will try again at the next start.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">The saved portfolio is locked right now – changes are only possible after the next start.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">This device isn\'t providing a key right now – the watchlist is not being saved, changes are lost when the app closes. The app will try again at the next start.</string>
 </resources>

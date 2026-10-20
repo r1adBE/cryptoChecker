@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus uygulamayı durdurabilir – o zaman hiç uyarı gelmez. “Otomatik başlatma”ya ve Pil kullanımında arka plan etkinliğine izin verin.</string>
     <string name="oem_battery_oppo">Oppo/Realme uygulamayı durdurabilir – o zaman hiç uyarı gelmez. “Otomatik başlatma”ya ve Pil kullanımında arka plan etkinliğine izin verin.</string>
     <string name="oem_battery_vivo">Vivo uygulamayı durdurabilir – o zaman hiç uyarı gelmez. “Otomatik başlatma”ya ve Pil altında yüksek arka plan güç kullanımına izin verin.</string>
+    <string name="alarm_reliability_recent">Son kontrol: %1$s</string>
+    <string name="alarm_reliability_stale">Son kontrol: %1$s – alarmlar gecikebilir</string>
+    <string name="alarm_reliability_never">Alarmlar açık – henüz arka plan kontrolü yok</string>
+    <string name="alarm_reliability_notifications_off">Bildirimler kapalı – alarmlar ulaşmaz</string>
+    <string name="alarm_reliability_battery">Pil tasarrufu alarm kontrollerini durdurabilir</string>
+    <string name="alarm_reliability_background_refresh">Arka Planda Yenile kapalı – alarmlar ulaşmayabilir</string>
 </resources>

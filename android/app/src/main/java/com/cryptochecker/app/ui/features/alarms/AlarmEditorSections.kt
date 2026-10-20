@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -35,6 +38,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -54,6 +58,40 @@ import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.data.local.model.WatchEntity
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.foundation.layout.Row
+
+/** «Einmal / Jedes Mal» als zwei Segmente (Beschriftung darüber setzt der Aufrufer). */
+@OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+@Composable
+internal fun RepeatingChoice(draft: AlarmDraft, onDraftChange: (AlarmDraft) -> Unit) {
+    SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth().padding(top = Spacing.xs)) {
+        listOf(false, true).forEachIndexed { index, repeating ->
+            SegmentedButton(
+                selected = draft.repeating == repeating,
+                onClick = { onDraftChange(draft.copy(repeating = repeating)) },
+                shape = SegmentedButtonDefaults.itemShape(index = index, count = 2),
+                icon = {}
+            ) {
+                Text(
+                    stringResource(if (repeating) R.string.alarm_repeat_each else R.string.alarm_repeat_once),
+                    // Grosse Schrift: zweite Zeile statt abgeschnitten
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        }
+    }
+}
+
+/** Zwischentitel im aufgeklappten «Mehr» («Mehr Bedingungen», «Erweitert»). */
+@Composable
+internal fun MoreSubtitle(title: String) {
+    Text(
+        title,
+        style = MaterialTheme.typography.titleSmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.padding(top = Spacing.lg).semantics { heading() }
+    )
+}
 
 /** «Schnell-Alarme»: Chips «+1 %», «−5 %», «Neues 30-Tage-Hoch», «Volumen ×3» … */
 @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)

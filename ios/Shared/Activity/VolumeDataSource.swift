@@ -6,6 +6,15 @@ struct VolumeSpike: Equatable, Sendable {
     let ratio: Double
     /// Startzeit der bewerteten Stundenkerze (ms, UTC)
     let candleOpenTime: Int64
+    /// Börse der Kerzen, wenn nicht die des Paars (Ausweich-Kette, z. B. «Binance»): im Alarmtext genannt; nil = eigene.
+    var source: String? = nil
+
+    /// Mit der Börse der Kerzen `provider`, wenn sie nicht die des Paars ist (`DayChange.foreignCandleSource`) — wie Android.
+    func withSource(_ watch: Watch, provider: String?) -> VolumeSpike {
+        var copy = self
+        copy.source = DayChange.foreignCandleSource(markets: [watch.marketKey, watch.marketName], provider: provider)
+        return copy
+    }
 }
 
 /// Stundenkerzen für den Volumen-Spike-Alarm, «Ungewöhnliche Aktivität» und «Warum?». Für ein Paar
@@ -36,9 +45,10 @@ enum VolumeDataSource {
     /// Volumen-Spike eines Paars der Merkliste (Volumen-Alarm, Schnell-Alarme); `price` für die
     /// Prüfung auf gleichen Token.
     static func hourlySpike(watch: Watch, price: Double?) async -> VolumeSpike? {
-        guard let candles = await pairCandles(CandlePair.of(watch), price: price, interval: .h1, limit: limit)?.value
+        guard let sourced = await pairCandles(CandlePair.of(watch), price: price, interval: .h1, limit: limit)
         else { return nil }
-        return spikeOf(candles)
+        // Kerzen einer anderen Börse: im Alarmtext genannt
+        return spikeOf(sourced.value)?.withSource(watch, provider: sourced.provider)
     }
 
     /// Kerzen eines Paars der Merkliste (`pair`, Kurs `price`) wie der Chart, siehe `pairCandlesOf`;

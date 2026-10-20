@@ -16,7 +16,7 @@ package com.cryptochecker.app.data.local
  * 4. Ein neuer Schlüssel entsteht nur, solange keine verschlüsselte Datei von ihm abhängt. Ist der Schlüssel einer
  *    verschlüsselten Datei endgültig verloren, wird die Datei beiseitegelegt (nicht gelöscht) und neu begonnen;
  *    die App nennt das, bis der Nutzer es bestätigt ([Decision.Encrypted.setAside]).
- * 5. Eine Datei mit Verschlüsselungspflicht ([encryptionRequired], das Portfolio) entsteht nie unverschlüsselt: Ohne
+ * 5. Eine Datei mit Verschlüsselungspflicht ([encryptionRequired]; App: Portfolio und Merkliste) entsteht nie unverschlüsselt: Ohne
  *    Schlüssel wird sie gar nicht angelegt ([Decision.Refused]); eine schon unverschlüsselt vorhandene (früherer
  *    Fehlschlag) öffnet weiter wie bisher und wird beim nächsten Start mit Schlüssel überführt ([planOpen]).
  *    Gibt der Keystore den Schlüssel einer schon verschlüsselten Datei gerade nicht heraus ([Decision.KeyUnavailable]),

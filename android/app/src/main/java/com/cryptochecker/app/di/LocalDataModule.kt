@@ -36,7 +36,8 @@ object LocalDataModule {
      * Beide Datenbanken verschlüsselt (SQLCipher, Build 59): Schlüssel im Android Keystore, einmalige Überführung
      * alter unverschlüsselter Dateien beim ersten Öffnen ([EncryptingOpenHelperFactory]). Gibt der Keystore den
      * Schlüssel einer vorhandenen Datei gerade nicht heraus, öffnen Portfolio und Merkliste im Vordergrund für diesen
-     * Lauf leer im Arbeitsspeicher, statt die Oberfläche abstürzen zu lassen; die Dateien bleiben unberührt.
+     * Lauf leer im Arbeitsspeicher, statt die Oberfläche abstürzen zu lassen; die Dateien bleiben unberührt. Ohne
+     * Schlüssel und ohne Datei legt keine der beiden eine unverschlüsselte Datei an (Standard von `encryptionRequired`).
      */
     @Provides
     @Singleton
