@@ -96,7 +96,8 @@ class CutoffAddressTest {
     fun addressLotsNoteOnlyWhenNeeded() {
         val lot = AddressCostLot(1, "BTC", t(day - 20), BigDecimal("0.4"), priceUsdt = BigDecimal("100"))
         val plainAddress = WatchedAddress(id = 1, chain = AddressChain.BTC, address = "bc1qexampleaddress", lastBalance = "0.5")
-        val withLots = plainAddress.copy(costLots = listOf(lot))
+        // Eigene Adresse (gleiche Adresse zählt nur einmal, AddressCostLots.counted)
+        val withLots = plainAddress.copy(id = 2, address = "bc1qsecondexampleaddress", costLots = listOf(lot))
         assertTrue(AddressCostLots.hasCountedLots(listOf(plainAddress, withLots)))
         assertTrue(!AddressCostLots.hasCountedLots(listOf(plainAddress)))
         assertTrue(!AddressCostLots.hasCountedLots(listOf(withLots.copy(countInPortfolio = false))))

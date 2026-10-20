@@ -72,7 +72,8 @@ final class CutoffAddressTests: XCTestCase {
     func testAddressLotsNoteOnlyWhenNeeded() {
         let lot = AddressCostLot(id: 1, coin: "BTC", time: t(day - 20), amount: Decimal(string: "0.4")!, priceUsdt: 100)
         let plainAddress = WatchedAddress(id: 1, chain: .BTC, address: "bc1qexampleaddress", lastBalance: "0.5")
-        var withLots = plainAddress
+        // Eigene Adresse (gleiche Adresse zählt nur einmal, AddressCostLots.counted)
+        var withLots = WatchedAddress(id: 2, chain: .BTC, address: "bc1qsecondexampleaddress", lastBalance: "0.5")
         withLots.costLots = [lot]
         XCTAssertTrue(AddressCostLots.hasCountedLots([plainAddress, withLots]))
         XCTAssertFalse(AddressCostLots.hasCountedLots([plainAddress]))
