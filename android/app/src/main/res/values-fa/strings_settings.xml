@@ -141,7 +141,7 @@
     <string name="settings_change_basis_hint_since_last">«%1$s» با قیمت به‌روزرسانی قبلی مقایسه می‌کند. با قیمت‌های زنده نزدیک به 0%% می‌ماند.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
     <string name="settings_change_period">نمایش بازه کنار تغییر</string>
-    <string name="settings_change_period_hint">«24h»، «امروز» یا «آخرین به‌روزرسانی» به‌صورت کوچک کنار تغییر در واچ‌لیست و ویجت تک‌کوین. صفحه‌خوان همیشه آن را می‌گوید.</string>
+    <string name="settings_change_period_hint">«24h»، «امروز» یا «آخرین به‌روزرسانی» به‌صورت کوچک کنار تغییر در خط نبض و ویجت تک‌کوین. واچ‌لیست همیشه آن را نشان می‌دهد و صفحه‌خوان همیشه آن را می‌گوید.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">ارز تبدیل</string>

@@ -161,6 +161,8 @@ internal fun WatchActionsHeader(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+            // DEX-Pool: Token-Adresse gekürzt, Tippen kopiert
+            DexTokenAddressLine(watch)
         }
         // IconButton: 48 dp Tippfläche; Vorschau: nichts zu bearbeiten
         if (!preview) {
@@ -258,7 +260,7 @@ internal fun WatchActionsHeader(
     // Bitcoin: «1 CHF = 1’234 Sats» in der Umrechnungswährung (Kurs mit dem bestehenden Faktor)
     val bitcoin = Sats.isBitcoin(watch.baseAsset) && !watch.isNotTraded
     val satsFactor by produceState<Pair<String, Double>?>(null, watch.quoteAsset, bitcoin) {
-        value = if (bitcoin) satsRate(watch.quoteAsset) else null
+        value = if (bitcoin) satsRate(watch.conversionQuote) else null
     }
     satsFactor?.let { (currency, rate) ->
         Sats.perUnit(watch.lastPrice, rate)?.let { sats ->

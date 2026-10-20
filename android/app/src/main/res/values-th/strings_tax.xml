@@ -240,8 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">ไม่สามารถอ่านที่อยู่ที่ติดตามได้ – ยอดคงเหลือของที่อยู่เหล่านั้นไม่มีในไฟล์นี้</string>
-    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">หมายเหตุ: ที่อยู่ที่มีต้นทุน – การโอนไปยังหรือจากที่อยู่ที่ติดตามอาจแสดงซ้ำสองครั้งหรือหายไปในที่นี้ การ์ดพอร์ตโฟลิโอคำนวณได้ถูกต้อง</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">หมายเหตุ: ที่อยู่ที่ติดตามมีรายการต้นทุนที่ลงวันที่หลังการตรวจยอดคงเหลือครั้งล่าสุดก่อนวันที่นี้ – รายการเหล่านั้นอาจไม่ปรากฏที่นี่</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">ที่อยู่ที่ติดตามนับรวมในมูลค่ารวม แต่ไม่มีต้นทุนการได้มา – กำไรจึงน่าจะสูงเกินจริง โปรดบันทึกต้นทุนเป็นการซื้อ</string>

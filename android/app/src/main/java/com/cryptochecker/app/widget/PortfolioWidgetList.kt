@@ -130,7 +130,7 @@ internal fun PortfolioWidgetRenderer.bindListTotal(
     row.setTextViewText(R.id.pl_share, share)
     row.setTextColor(R.id.pl_share, colors.secondaryTextColor)
     val value = PortfolioInsights.mask(PriceFormat.valueWithCurrency(snapshot.total, currency), style.hideAmounts)
-    row.setTextViewText(R.id.pl_value, toolkit.quoteText(value, currency, ROW_VALUE_SP, colors.secondaryTextColor))
+    row.setAmountText(R.id.pl_value, toolkit.quoteText(value, currency, ROW_VALUE_SP, colors.secondaryTextColor))
     row.setTextColor(R.id.pl_value, colors.textColor)
     if (change != null) {
         // Wie die Zeilen: Betrag vor Prozent; Farbe nach dem Vorzeichen des Betrags (0 grau)
@@ -138,12 +138,12 @@ internal fun PortfolioWidgetRenderer.bindListTotal(
         // Platz wie in den Zeilen ([listRow]): schmal neben dem Anteil, breit neben «Gesamt», Anteil und Wert
         val shareDp = toolkit.textWidthDp(share, 12f, bold = false, tabular = true)
         val budget = textWidth?.let {
-            if (wide) it - toolkit.textWidthDp(totalLabel, 13f) - 4f - shareDp - 4f -
+            if (wide) it - toolkit.textWidthDp(totalLabel, WidgetType.LABEL) - 4f - shareDp - 4f -
                 toolkit.textWidthDp(value, ROW_VALUE_SP, tabular = true) - 4f
             else it - shareDp - 4f
         }
         row.setViewVisibility(R.id.pl_change, View.VISIBLE)
-        row.setTextViewText(R.id.pl_change, periodPrefixed(label, fitPnl(change, currency, style, label, budget), colors))
+        row.setAmountText(R.id.pl_change, periodPrefixed(label, fitPnl(change, currency, style, label, budget), colors))
         row.setTextColor(R.id.pl_change, directionColor(change.direction, colors))
     } else {
         row.setViewVisibility(R.id.pl_change, View.GONE)
@@ -194,7 +194,7 @@ internal fun PortfolioWidgetRenderer.listRow(
     row.setTextViewText(R.id.pl_share, share)
     row.setTextColor(R.id.pl_share, colors.secondaryTextColor)
     val value = PortfolioInsights.mask(PriceFormat.valueWithCurrency(position.value, currency), style.hideAmounts)
-    row.setTextViewText(R.id.pl_value, toolkit.quoteText(value, currency, ROW_VALUE_SP, colors.secondaryTextColor))
+    row.setAmountText(R.id.pl_value, toolkit.quoteText(value, currency, ROW_VALUE_SP, colors.secondaryTextColor))
     row.setTextColor(R.id.pl_value, colors.textColor)
 
     // Gewinn/Verlust: Farbe nach dem Vorzeichen des Betrags (nie dem Farbtausch), 0 grau; unbekannt «—»
@@ -207,15 +207,15 @@ internal fun PortfolioWidgetRenderer.listRow(
         // Breit: Menge steht in derselben Zeile (12 sp, 3 dp Abstand zum Kürzel)
         val quantityDp = if (wide && quantity != null) toolkit.textWidthDp(quantity, 12f, bold = false, tabular = true) + 3f else 0f
         val budget = textWidth?.let {
-            if (wide) it - logoDp - quantityDp - toolkit.textWidthDp(position.symbol, 13f) - 4f - shareDp - 4f -
+            if (wide) it - logoDp - quantityDp - toolkit.textWidthDp(position.symbol, WidgetType.LABEL) - 4f - shareDp - 4f -
                 toolkit.textWidthDp(value, ROW_VALUE_SP, tabular = true) - 4f
             else it - logoDp - shareDp - 4f
         }
         // Zeitraum klein und grau davor: «24h +1’250.00 CHF · +1.50%»
-        row.setTextViewText(R.id.pl_change, periodPrefixed(label, fitPnl(pnl, currency, style, label, budget), colors))
+        row.setAmountText(R.id.pl_change, periodPrefixed(label, fitPnl(pnl, currency, style, label, budget), colors))
         row.setTextColor(R.id.pl_change, directionColor(pnl.direction, colors))
     } else {
-        row.setTextViewText(R.id.pl_change, NO_VALUE)
+        row.setAmountText(R.id.pl_change, NO_VALUE)
         row.setTextColor(R.id.pl_change, colors.secondaryTextColor)
     }
     row.setInt(R.id.pl_divider, "setBackgroundColor", colors.dividerColor)
@@ -261,7 +261,7 @@ internal fun PortfolioWidgetRenderer.periodPrefixed(period: String, value: Strin
     }
 }
 
-private const val ROW_VALUE_SP = 13f
+private const val ROW_VALUE_SP = WidgetType.LABEL
 
 /** Zeitraum vor der Veränderung einer Listenzeile: 80 % der Schrift (wie iOS `WidgetChangeLabel.prefix`). */
 private const val PERIOD_SCALE = 0.8f

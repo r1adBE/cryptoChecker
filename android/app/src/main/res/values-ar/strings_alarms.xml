@@ -199,4 +199,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">بانتظار سعر حالي</string>
     <string name="alarm_enter_amount">أدخل قيمة</string>
+    <string name="alarm_editor_more">المزيد</string>
+    <string name="alarm_editor_more_summary">تنبيهات سريعة، شروط إضافية، الصوت والنطق</string>
 </resources>

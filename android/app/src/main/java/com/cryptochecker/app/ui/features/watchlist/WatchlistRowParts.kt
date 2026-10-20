@@ -151,12 +151,19 @@ internal fun RowPrice(
     flash: PriceFlash,
     /** %-Änderung aus den Kerzen einer anderen Börse: kleiner Marker «*» daneben ([DayChangePill] marker). */
     changeMarker: Boolean = false,
+    /** Kurzer Name der fremden Börse an der Änderung («· Binance», [DayChangePill] markerLabel); null = «*». */
+    changeMarkerLabel: String? = null,
     /** Tippen auf den Marker «*»: Hinweis zur Quelle ([DayChangePill] onMarkerClick); null = kein Tippziel. */
     onChangeMarkerClick: (() -> Unit)? = null,
     /** Kurs ist der Mark-Preis (kein Mittelkurs, [LocalMarkFallback]): klein «Mark» hinter der Gegenwährung. */
     markPrice: Boolean = false,
     /** Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot): klein «Stundenkurs» wie im Aktionsblatt. */
     hourlyPrice: Boolean = false,
+    /**
+     * Kurs eine Stufe grösser (`titleLarge` statt `titleMedium`, [com.cryptochecker.app.util.DenseRowText.largePrice]);
+     * bei grosser Schrift neben dem Paar oder in schmalen Zeilen die alte Stufe.
+     */
+    largePrice: Boolean = false,
     /** Neben dem Paar Abstand links; unter dem Paar (grösste Schrift) rechtsbündig. */
     modifier: Modifier = Modifier.padding(start = 8.dp),
 ) {
@@ -183,7 +190,8 @@ internal fun RowPrice(
                 RollingNumberText(
                     text = PriceFormat.price(watch.lastPrice),
                     value = watch.lastPrice,
-                    style = MaterialTheme.typography.titleMedium.amountNumbers(),
+                    style = (if (largePrice) MaterialTheme.typography.titleLarge else MaterialTheme.typography.titleMedium)
+                        .amountNumbers(),
                     color = if (stale || off) MaterialTheme.colorScheme.onSurfaceVariant else Color.Unspecified,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.alignByBaseline()
@@ -214,7 +222,9 @@ internal fun RowPrice(
             // Deaktiviert: letzter Wert in neutralem Grau, ohne Kursfarbe
             if (watch.lastPrice != null) {
                 val view = LocalChangeView.current
-                DayChangePill(
+                // Zeitraum («24h», «letzter Stand», «heute») in der Zeile immer klein an der Änderung, damit die
+                // Basis der Prozentzahl nie verborgen ist; der Schalter gilt weiter für Puls und Einzel-Widget
+                CompositionLocalProvider(LocalChangeView provides view.copy(showPeriod = true)) { DayChangePill(
                     change = watch.shownChange(view),
                     neutral = watch.disabled,
                     // Änderung gegen den Mark-Preis (Market.changeIsMark): als «Mark» benennen
@@ -223,8 +233,9 @@ internal fun RowPrice(
                         view.basis,
                     ),
                     marker = changeMarker,
+                    markerLabel = changeMarkerLabel,
                     onMarkerClick = onChangeMarkerClick,
-                )
+                ) }
             }
         }
         if (converted != null) {

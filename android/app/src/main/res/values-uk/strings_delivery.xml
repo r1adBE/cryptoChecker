@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus може зупинити застосунок – тоді сповіщення не надходять. Дозвольте «Автозапуск» і фонову активність у розділі Використання батареї.</string>
     <string name="oem_battery_oppo">Oppo/Realme може зупинити застосунок – тоді сповіщення не надходять. Дозвольте «Автозапуск» і фонову активність у розділі Використання батареї.</string>
     <string name="oem_battery_vivo">Vivo може зупинити застосунок – тоді сповіщення не надходять. Дозвольте «Автозапуск» і високе фонове енергоспоживання в розділі Батарея.</string>
+    <string name="alarm_reliability_recent">Остання перевірка %1$s</string>
+    <string name="alarm_reliability_stale">Остання перевірка %1$s – сигнали можуть запізнюватися</string>
+    <string name="alarm_reliability_never">Сигнали ввімкнено – фонової перевірки ще не було</string>
+    <string name="alarm_reliability_notifications_off">Сповіщення вимкнено – сигнали не надійдуть</string>
+    <string name="alarm_reliability_battery">Економія заряду може зупиняти перевірку сигналів</string>
+    <string name="alarm_reliability_background_refresh">Оновлення у фоні вимкнено – сигнали можуть не надійти</string>
 </resources>

@@ -56,8 +56,8 @@ fun TaxExport.yearSummary(
     today: LocalDate? = null,
     /** CH: Tagesschlüsse des 31.12. ([chWealth]); null = nicht geladen → Vermögenswert «nicht gerechnet». */
     yearEndCloses: CutoffCloses? = null,
-    /** CH: Guthaben beobachteter Adressen am 31.12. ([AddressBalanceHistory.balancesAt]); null = keine. */
-    yearEndAddresses: AddressBalancesAt? = null,
+    /** CH: beobachtete Adressen am 31.12. in der Sicht der Karte ([AddressCutoff.at]); null = keine. */
+    yearEndAddresses: AddressCutoffView? = null,
 ): TaxYearSummary {
     val zero = BigDecimal.ZERO
     val period = template.period(startYear)
@@ -269,7 +269,9 @@ fun TaxExport.yearSummary(
                 incTarget < INCOME_LIMIT_EUR -> TaxLimitStatus.BELOW
                 else -> TaxLimitStatus.REACHED
             }
-            lines += TaxSummaryLine(TaxLine.DE_INCOME_LIMIT, null, INCOME_LIMIT_EUR, incomeStatus)
+            // Geschätzter Tageskurs in einer gezählten Einkunft: Vermerk an der 256-€-Grenze
+            val incEstimated = income.any { it.estimated && it.valueUsdt != null }
+            lines += TaxSummaryLine(TaxLine.DE_INCOME_LIMIT, null, INCOME_LIMIT_EUR, incomeStatus, estimated = incEstimated)
         }
         TaxTemplate.AT -> {
             // Sondersteuersatz 27,5 % auf Neubestand netto + Zinsen (beide Einkünfte aus Kryptowährungen, § 27b EStG;

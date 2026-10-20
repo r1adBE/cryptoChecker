@@ -141,7 +141,7 @@
     <string name="settings_change_basis_hint_since_last">«%1$s» krahason me çmimin e përditësimit të mëparshëm. Me çmime të drejtpërdrejta mbetet afër 0%%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
     <string name="settings_change_period">Shfaq periudhën pranë ndryshimit</string>
-    <string name="settings_change_period_hint">«24h», «sot» ose «përditësimi i fundit» i vogël pranë ndryshimit në listë dhe në widget-in e një monedhe. Lexuesi i ekranit e thotë gjithmonë.</string>
+    <string name="settings_change_period_hint">«24h», «sot» ose «përditësimi i fundit» i vogël pranë ndryshimit në rreshtin e pulsit dhe në widget-in e një monedhe. Lista e ndjekjes e shfaq gjithmonë; lexuesi i ekranit e thotë gjithmonë.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Monedha e konvertimit</string>

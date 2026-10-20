@@ -68,6 +68,8 @@ struct SheetChartCaption: View {
             if todayRate == nil { parts.append(L("sheet_chart_converted_current", pair)) }
         case .none: break
         }
+        // Aus der USDT-Reihe umgerechnet: USDT = 1 USD angenommen (Vermerk wie im Portfolio)
+        if SheetChart.usdtParityNote(info.fx, sourcePair: info.sourcePair) { parts.append(L("portfolio_usdt_assumed")) }
         if let last = candles.last {
             let stamp = SheetChart.stampMillis(lastOpenTime: last.openTime, intervalMillis: range.candleMillis,
                                                fetchedAt: info.fetchedAt)

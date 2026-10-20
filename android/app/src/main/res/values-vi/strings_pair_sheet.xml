@@ -98,4 +98,5 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Diễn biến theo %1$s, quy đổi sang %2$s theo tỷ giá hôm nay</string>
+    <string name="converted_unsure">Quy đổi không chắc chắn</string>
 </resources>

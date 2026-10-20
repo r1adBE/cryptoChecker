@@ -3,15 +3,24 @@ import SwiftUI
 /// «Mehr Bedingungen» und «Erweitert» im Alarm-Blatt — wie `AlarmAdvancedOptions.kt`.
 extension AlarmEditorSheet {
     /// Kopf «Mehr Bedingungen» bzw. «Erweitert» zum Auf-/Zuklappen.
-    func sectionHeader(_ title: String, expanded: Binding<Bool>) -> some View {
+    func sectionHeader(_ title: String, subtitle: String? = nil, expanded: Binding<Bool>) -> some View {
         Button {
             WatchlistHaptics.selection()
             expanded.wrappedValue.toggle()
         } label: {
             HStack {
-                Text(title)
-                    .font(.headline)
-                    .foregroundStyle(AppColors.onSurface)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.headline)
+                        .foregroundStyle(AppColors.onSurface)
+                    // Zugeklappt: grau, was drin steht
+                    if let subtitle {
+                        Text(subtitle)
+                            .font(.footnote)
+                            .foregroundStyle(AppColors.onSurfaceVariant)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
                 Spacer()
                 // Auf-/Zuklapp-Pfeil überall in der Themenfarbe (wie `ExpandToggleLabel`)
                 Image(systemName: "chevron.down")
@@ -33,6 +42,25 @@ extension AlarmEditorSheet {
                 conditionTile(condition)
             }
         }
+    }
+
+    /// Inhalt von «Mehr»: Schnell-Alarme (nur beim Anlegen), weitere Bedingungen, «Erweitert» — wie Android.
+    var moreContent: some View {
+        VStack(alignment: .leading, spacing: Spacing.lg) {
+            // Ein Antippen legt den Alarm sofort an
+            if !templates.isEmpty { templateChips }
+            moreSubtitle(L("alarm_more_conditions"))
+            moreConditionsContent
+            moreSubtitle(L("alarm_advanced"))
+            advancedContent
+        }
+    }
+
+    private func moreSubtitle(_ title: String) -> some View {
+        Text(title)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(AppColors.onSurfaceVariant)
+            .accessibilityAddTraits(.isHeader)
     }
 
     /// «Mehr Bedingungen»: alle übrigen Bedingungen als Kacheln, dazu die Felder der gewählten
@@ -274,7 +302,8 @@ extension AlarmEditorSheet {
 
     /// Faktor Quote → Umrechnungswährung holen (zuerst aus dem Zwischenspeicher).
     func loadRate() async {
-        guard offerCurrency, let quote = watch?.quoteAsset else { return }
+        // Aster «U» zählt als USD (`CurrencyConversion.conversionQuote`)
+        guard offerCurrency, let quote = watch.map(WatchlistConversion.quote) else { return }
         let other = otherCurrency
         guard rates[other] == nil else { return }
         var rate = CurrencyConverter.cachedRate(quote: quote, target: other)

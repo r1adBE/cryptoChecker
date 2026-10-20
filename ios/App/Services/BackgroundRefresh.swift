@@ -340,11 +340,13 @@ enum BackgroundRefresh {
             // Portfolio (Live-Kurs USDT/USD der Bewertung), höchstens alle 5 Minuten, höchstens bis zur Endzeit —
             // gleiche Restzeit-Regel wie Gas
             let hasPortfolio = await MainActor.run { AppData.shared.hasPortfolioData }
+            // Fiat-Alarm bzw. ≈ Umrechnung über USDT: Live-Kurs USDT/USD statt still USDT = 1
+            let fiat = await MainActor.run { AppData.shared.fiatConversionNeedsUsdt }
             if DepegAlarm.shouldMeasure(depegAlarm: settings.depegAlarm, portfolioEnabled: settings.portfolioEnabled,
-                                        hasPortfolioData: hasPortfolio)
+                                        hasPortfolioData: hasPortfolio, fiatConversion: fiat)
                 && !Task.isCancelled && RefreshBudget.shouldRun(.gas, remaining: deadline.remaining()) {
                 _ = await RefreshDeadline.run(within: deadline.allowance(wanted: Int64.max)) {
-                    await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio)
+                    await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio, fiatConversion: fiat)
                 }
             }
             // Fear & Greed und Kennzahlen (bis Build 46 eigene Aufgabe): nur wenn fällig, höchstens bis zur Endzeit

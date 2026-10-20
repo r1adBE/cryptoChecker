@@ -171,6 +171,12 @@ final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zus
         return lookupLocked()
     }
 
+    /// Gibt es einen lesbaren Schlüssel (zum Versiegeln)? Wie `ProtectedFile.write`: nur dann wird geschrieben.
+    var isAvailable: Bool {
+        if case .key = lookup() { return true }
+        return false
+    }
+
     /// Gespeicherter Schlüssel, sonst ein neuer. nil = keiner möglich (Schlüsselbund gerade nicht verfügbar).
     func createIfAbsent() -> SymmetricKey? {
         lock.lock()

@@ -153,7 +153,7 @@ class ListWidgetRows @Inject constructor(
         views.setTextColor(R.id.item_market, background.secondaryTextColor)
 
         // Währung klein und grau wie der Börsenname darunter (14 sp, widget_list_item.xml)
-        views.setTextViewText(
+        views.setAmountText(
             R.id.item_price,
             toolkit.quoteText(PriceFormat.priceWithCurrency(watch.lastPrice, watch.quoteAsset), watch.quoteAsset, 14f, background.secondaryTextColor)
         )
@@ -168,13 +168,13 @@ class ListWidgetRows @Inject constructor(
         // zeigen die Richtung (Pfeil folgt dem Vorzeichen, nie dem Farbtausch), die Farbe
         // zusätzlich; ohne Bewegung grau «0.00%» ohne Pfeil, ohne 24-h-Bezug grau «—».
         if (change == null) {
-            views.setTextViewText(R.id.item_change, NO_CHANGE)
+            views.setAmountText(R.id.item_change, NO_CHANGE)
             views.setTextColor(R.id.item_change, background.neutralColor)
         } else if (changeText == null) {
-            views.setTextViewText(R.id.item_change, ZERO_CHANGE)
+            views.setAmountText(R.id.item_change, ZERO_CHANGE)
             views.setTextColor(R.id.item_change, background.neutralColor)
         } else {
-            views.setTextViewText(R.id.item_change, "${PriceFormat.changeArrow(change)} $changeText")
+            views.setAmountText(R.id.item_change, "${PriceFormat.changeArrow(change)} $changeText")
             // Deaktiviert: letzter Wert grau, ohne Kursfarbe
             views.setTextColor(
                 R.id.item_change,

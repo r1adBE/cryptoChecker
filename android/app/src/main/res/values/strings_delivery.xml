@@ -60,4 +60,11 @@
     <string name="oem_battery_oneplus">OnePlus may stop the app – then no alarms arrive. Allow “Auto-launch” and, under Battery usage, background activity.</string>
     <string name="oem_battery_oppo">Oppo/Realme may stop the app – then no alarms arrive. Allow “Auto launch” and, under Battery usage, background activity.</string>
     <string name="oem_battery_vivo">Vivo may stop the app – then no alarms arrive. Allow “Autostart” and, under Battery, high background power use.</string>
+    <!-- Zeile über der Merkliste (Build 91, nur mit Alarmen): ruhig mit der letzten Prüfung im Hintergrund, sonst der wichtigste Grund; Tipp öffnet «Damit Alarme ankommen». %1$s = relative Zeit wie «vor 12 Min.» / «gerade eben» -->
+    <string name="alarm_reliability_recent">Last check %1$s</string>
+    <string name="alarm_reliability_stale">Last check %1$s – alerts may be late</string>
+    <string name="alarm_reliability_never">Alerts on – no background check yet</string>
+    <string name="alarm_reliability_notifications_off">Notifications off – alerts won\'t arrive</string>
+    <string name="alarm_reliability_battery">Battery saving may stop alert checks</string>
+    <string name="alarm_reliability_background_refresh">Background App Refresh off – alerts may not arrive</string>
 </resources>

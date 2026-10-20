@@ -16,9 +16,11 @@ import timber.log.Timber
  * ([DatabaseEncryptionMigration]) läuft darum nie dort. Je nach Entscheidung öffnet der Helfer:
  * - verschlüsselt über SQLCipher (`SupportOpenHelperFactory`, roher Schlüssel aus [DatabaseKeyStore]);
  * - unverschlüsselt über das Android-SQLite wie bis Build 58 (Rückfall, der nächste Start versucht es erneut);
- * - nur im Arbeitsspeicher, wenn eine Datenbank mit Verschlüsselungspflicht ([encryptionRequired], das Portfolio) ohne
- *   Schlüssel neu entstehen müsste: nie unverschlüsselt auf dem Speicher, wie iOS (Änderungen bleiben im Speicher, das
- *   Portfolio nennt es); der nächste Start versucht es erneut ([DatabaseEncryptionNotice.inMemory]);
+ * - nur im Arbeitsspeicher, wenn eine Datenbank mit Verschlüsselungspflicht ([encryptionRequired]: Portfolio und seit
+ *   Build 91 die Merkliste) ohne Schlüssel neu entstehen müsste: nie unverschlüsselt auf dem Speicher, wie iOS (Änderungen
+ *   bleiben im Speicher, Portfolio und Merkliste nennen es); der nächste Start versucht es erneut
+ *   ([DatabaseEncryptionNotice.inMemory]). Eine schon unverschlüsselt vorhandene Datei mit Pflicht bleibt seit Build 91
+ *   unberührt: ihr Inhalt kommt in den Arbeitsspeicher ([PlaintextMemoryCopy]), Änderungen werden nicht gespeichert;
  * - gibt der Keystore den Schlüssel einer verschlüsselten Datei gerade nicht heraus: im Vordergrund und für Datenbanken
  *   aus [inMemoryWhenKeyUnavailable] (App: Portfolio und Merkliste) leer im Arbeitsspeicher für diesen Lauf — die
  *   Oberfläche stürzte sonst beim ersten Zugriff ab; die Datei bleibt unberührt, der gespeicherte Stand kommt nach einem
@@ -32,8 +34,12 @@ class EncryptingOpenHelperFactory(
     private val context: Context,
     private val keys: DatabaseEncryptionMigration.Keys = DatabaseKeyStore(context),
     private val files: DatabaseEncryptionMigration.Files = SqlCipherDatabaseFiles(context),
-    /** Datenbanken, die ohne Schlüssel nie unverschlüsselt angelegt werden (Portfolio: Beträge, Adressen, xpub). */
-    private val encryptionRequired: Set<String> = setOf(PortfolioDatabase.DB_NAME),
+    /**
+     * Datenbanken, die ohne Schlüssel nie unverschlüsselt angelegt werden: Portfolio (Beträge, Adressen, xpub) und Merkliste
+     * (Paare, Alarme, Notizen; bis Build 90 ohne Schlüssel unverschlüsselt angelegt). Ohne Schlüssel und ohne Datei nur im
+     * Arbeitsspeicher; den Inhalt dieses Laufs übernimmt ein späterer Schlüssel nicht (der Hinweis sagt das).
+     */
+    private val encryptionRequired: Set<String> = ENCRYPTION_REQUIRED,
     /**
      * Darf [database] bei gerade nicht lesbarem Schlüssel für diesen Lauf im Arbeitsspeicher öffnen? Standard nein:
      * Die eigene Instanz der Systemsicherung
@@ -95,6 +101,11 @@ class EncryptingOpenHelperFactory(
                     SupportOpenHelperFactory(decision.passphrase).create(configuration)
                 }
                 Decision.Plaintext -> FrameworkSQLiteOpenHelperFactory().create(configuration)
+                Decision.PlaintextKept -> {
+                    // Datei mit gespeichertem Stand, aber nie im Klartext weiterschreiben (wie iOS): Hinweis «nicht gespeichert»
+                    DatabaseEncryptionNotice.markInMemory(name)
+                    inMemoryHelper(copyFrom = configuration.context.getDatabasePath(name))
+                }
                 Decision.Refused -> {
                     // Vor dem Öffnen gesetzt: Room-Callbacks (Übernahme aus Kopien, die danach gelöscht würden) sehen es schon
                     DatabaseEncryptionNotice.markInMemory(name)
@@ -124,11 +135,20 @@ class EncryptingOpenHelperFactory(
             return helper
         }
 
-        /** Gleiche Callbacks (Schema, Migrationen), aber ohne Namen: SQLite im Arbeitsspeicher, keine Datei. */
-        private fun inMemoryHelper(): SupportSQLiteOpenHelper {
-            val inMemory = SupportSQLiteOpenHelper.Configuration(configuration.context, null, configuration.callback)
+        /**
+         * Gleiche Callbacks (Schema, Migrationen), aber ohne Namen: SQLite im Arbeitsspeicher, keine Datei. [copyFrom]: Inhalt
+         * dieser unverschlüsselten Datei beim Öffnen übernehmen ([PlaintextMemoryCopy]), die Datei bleibt unberührt.
+         */
+        private fun inMemoryHelper(copyFrom: java.io.File? = null): SupportSQLiteOpenHelper {
+            val callback = copyFrom?.let { PlaintextMemoryCopy(it, configuration.callback) } ?: configuration.callback
+            val inMemory = SupportSQLiteOpenHelper.Configuration(configuration.context, null, callback)
             return FrameworkSQLiteOpenHelperFactory().create(inMemory)
         }
+    }
+
+    companion object {
+        /** Standard von `encryptionRequired`: Portfolio und Merkliste (Unit-Test `EncryptingOpenHelperFactoryDefaultsTest`). */
+        val ENCRYPTION_REQUIRED: Set<String> = setOf(PortfolioDatabase.DB_NAME, AppDatabase.DB_NAME)
     }
 }
 

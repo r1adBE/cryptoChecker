@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus puede detener la app y entonces no llega ninguna alerta. Permite «Inicio automático» y, en Uso de batería, la actividad en segundo plano.</string>
     <string name="oem_battery_oppo">Oppo/Realme puede detener la app y entonces no llega ninguna alerta. Permite «Inicio automático» y, en Uso de batería, la actividad en segundo plano.</string>
     <string name="oem_battery_vivo">Vivo puede detener la app y entonces no llega ninguna alerta. Permite «Inicio automático» y, en Batería, el consumo alto en segundo plano.</string>
+    <string name="alarm_reliability_recent">Última comprobación %1$s</string>
+    <string name="alarm_reliability_stale">Última comprobación %1$s – las alarmas pueden llegar tarde</string>
+    <string name="alarm_reliability_never">Alarmas activas – aún sin comprobación en segundo plano</string>
+    <string name="alarm_reliability_notifications_off">Notificaciones desactivadas – las alarmas no llegarán</string>
+    <string name="alarm_reliability_battery">El ahorro de batería puede detener la comprobación de alarmas</string>
+    <string name="alarm_reliability_background_refresh">Actualización en segundo plano desactivada – puede que las alarmas no lleguen</string>
 </resources>

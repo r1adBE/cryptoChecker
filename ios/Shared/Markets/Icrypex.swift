@@ -42,6 +42,10 @@ final class Icrypex: SimpleMarket {
 
     override var bulkTickersNumOfRequests: Int { 1 }
 
+    /// `tickers` führt jedes Spot-Paar (Aufzeichnung 19.10.2026: alle 211 Paare von `exchange/info`, auch
+    /// `CancelOnly`), ein fehlendes Paar ist nicht mehr gelistet.
+    override var bulkTickersComplete: Bool { true }
+
     override func bulkTickersURL(call: Int) -> String? { icrypexTickers }
 
     override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {

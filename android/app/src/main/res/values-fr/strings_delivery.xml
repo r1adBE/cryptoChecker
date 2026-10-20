@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus peut arrêter l’app – aucune alerte n’arrive alors. Autorisez « Lancement automatique » et, dans Utilisation de la batterie, l’activité en arrière-plan.</string>
     <string name="oem_battery_oppo">Oppo/Realme peut arrêter l’app – aucune alerte n’arrive alors. Autorisez « Lancement automatique » et, dans Utilisation de la batterie, l’activité en arrière-plan.</string>
     <string name="oem_battery_vivo">Vivo peut arrêter l’app – aucune alerte n’arrive alors. Autorisez « Démarrage automatique » et, dans Batterie, la forte consommation en arrière-plan.</string>
+    <string name="alarm_reliability_recent">Dernière vérification %1$s</string>
+    <string name="alarm_reliability_stale">Dernière vérification %1$s – les alertes peuvent arriver en retard</string>
+    <string name="alarm_reliability_never">Alertes actives – aucune vérification en arrière-plan pour l\'instant</string>
+    <string name="alarm_reliability_notifications_off">Notifications désactivées – les alertes n\'arriveront pas</string>
+    <string name="alarm_reliability_battery">L\'économie de batterie peut arrêter la vérification des alertes</string>
+    <string name="alarm_reliability_background_refresh">Actualisation en arrière-plan désactivée – les alertes risquent de ne pas arriver</string>
 </resources>

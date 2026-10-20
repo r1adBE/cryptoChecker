@@ -1,0 +1,334 @@
+{
+  "_comment": "Zeile über der Merkliste (Build 91): gelesener Zustand (wie alarm_delivery.json) → ein Satz (kind) und Farbe (warn = Bernstein). oem = Hersteller mit eigenem Akkusparen bekannt (nur Android). Gemeinsam für AlarmReliabilityParityTest.kt und AlarmReliabilityTests.swift.",
+  "staleMillis": 7200000,
+  "cases": [
+    {
+      "name": "keine Alarme: keine Zeile",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": false,
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "hidden",
+      "warn": false
+    },
+    {
+      "name": "keine Alarme, Mitteilungen aus: trotzdem keine Zeile",
+      "input": {
+        "platform": "android",
+        "notifications": "denied",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": false
+      },
+      "kind": "hidden",
+      "warn": false
+    },
+    {
+      "name": "Android eben geprüft",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "recent",
+      "warn": false
+    },
+    {
+      "name": "Android Mitteilungen aus",
+      "input": {
+        "platform": "android",
+        "notifications": "denied",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "notifications_off",
+      "warn": true
+    },
+    {
+      "name": "Android noch nicht gefragt",
+      "input": {
+        "platform": "android",
+        "notifications": "not_determined",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "notifications_off",
+      "warn": true
+    },
+    {
+      "name": "Android Alarm-Kanal aus",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "channel": "off",
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "notifications_off",
+      "warn": true
+    },
+    {
+      "name": "Android Alarm-Kanal leise: nur auf der Seite",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "channel": "low",
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "recent",
+      "warn": false
+    },
+    {
+      "name": "Android Hintergrund eingeschränkt",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "backgroundRestricted": true,
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "battery",
+      "warn": true
+    },
+    {
+      "name": "Android Akku-Optimierung allein: ruhig",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "batteryUnrestricted": false,
+        "lastBackgroundCheck": 1759998200000
+      },
+      "kind": "recent",
+      "warn": false
+    },
+    {
+      "name": "Android Prüfung 3 h alt, Akku optimiert",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "batteryUnrestricted": false,
+        "lastBackgroundCheck": 1759989200000
+      },
+      "kind": "battery",
+      "warn": true
+    },
+    {
+      "name": "Android Prüfung 3 h alt, Akku frei",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "batteryUnrestricted": true,
+        "lastBackgroundCheck": 1759989200000
+      },
+      "kind": "stale",
+      "warn": true
+    },
+    {
+      "name": "Android Prüfung 3 h alt, Akku frei, Hersteller spart",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "batteryUnrestricted": true,
+        "oem": true,
+        "lastBackgroundCheck": 1759989200000
+      },
+      "kind": "battery",
+      "warn": true
+    },
+    {
+      "name": "Android Hersteller allein: ruhig",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "batteryUnrestricted": true,
+        "oem": true,
+        "lastBackgroundCheck": 1759999700000
+      },
+      "kind": "recent",
+      "warn": false
+    },
+    {
+      "name": "Android genau 2 h: noch ruhig",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "batteryUnrestricted": true,
+        "lastBackgroundCheck": 1759992800000
+      },
+      "kind": "recent",
+      "warn": false
+    },
+    {
+      "name": "Android 2 h und 1 Minute",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "batteryUnrestricted": true,
+        "lastBackgroundCheck": 1759992740000
+      },
+      "kind": "stale",
+      "warn": true
+    },
+    {
+      "name": "Android noch nie geprüft: ruhig",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true
+      },
+      "kind": "never",
+      "warn": false
+    },
+    {
+      "name": "Android Uhr: 3 Min. in der Zukunft gilt als eben",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "batteryUnrestricted": true,
+        "lastBackgroundCheck": 1760000180000
+      },
+      "kind": "recent",
+      "warn": false
+    },
+    {
+      "name": "Android Uhr: 10 Min. in der Zukunft gilt als alt",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "batteryUnrestricted": true,
+        "lastBackgroundCheck": 1760000600000
+      },
+      "kind": "stale",
+      "warn": true
+    },
+    {
+      "name": "iOS eben geprüft",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "recent",
+      "warn": false
+    },
+    {
+      "name": "iOS Mitteilungen aus",
+      "input": {
+        "platform": "ios",
+        "notifications": "denied",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "notifications_off",
+      "warn": true
+    },
+    {
+      "name": "iOS Hintergrundaktualisierung aus",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "backgroundRefresh": false,
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "background_refresh",
+      "warn": true
+    },
+    {
+      "name": "iOS Prüfung 3 h alt: kein Akku-Grund",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "batteryUnrestricted": false,
+        "lastBackgroundCheck": 1759989200000
+      },
+      "kind": "stale",
+      "warn": true
+    },
+    {
+      "name": "iOS Android-Felder zählen nicht",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "channel": "off",
+        "backgroundRestricted": true,
+        "oem": true,
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "recent",
+      "warn": false
+    },
+    {
+      "name": "iOS noch nie geprüft",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true
+      },
+      "kind": "never",
+      "warn": false
+    }
+  ]
+}

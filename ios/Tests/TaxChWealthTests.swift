@@ -42,11 +42,12 @@ final class TaxChWealthTests: XCTestCase {
         return out
     }
 
-    private func addresses(_ c: [String: Any]) -> AddressBalancesAt? {
+    /// Adress-Teil ohne Einstand am 31.12. (ohne Posten) — `AddressCutoffView.part`.
+    private func addresses(_ c: [String: Any]) -> AddressCutoffView? {
         guard let a = c["addresses"] as? [String: Any] else { return nil }
         var balances: [String: Decimal] = [:]
         for (k, v) in (a["balances"] as? [String: Any]) ?? [:] { balances[k] = dec(v) }
-        return AddressBalancesAt(balances: balances, unobserved: Set((a["unobserved"] as? [String]) ?? []))
+        return AddressCutoffView(part: AddressBalancesAt(balances: balances, unobserved: Set((a["unobserved"] as? [String]) ?? [])))
     }
 
     func testWealth() throws {

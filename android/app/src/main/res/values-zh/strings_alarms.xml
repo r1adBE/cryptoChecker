@@ -169,4 +169,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">正在等待最新价格</string>
     <string name="alarm_enter_amount">请输入数值</string>
+    <string name="alarm_editor_more">更多</string>
+    <string name="alarm_editor_more_summary">快捷提醒、更多条件、声音和语音播报</string>
 </resources>

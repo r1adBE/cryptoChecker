@@ -70,8 +70,11 @@ struct AddressCostLot: Codable, Equatable, Hashable, Sendable {
 /// Regeln der Eröffnungsposten — wie `AddressCostLots` (Kotlin): Wallet = die Adresse; nie mehr als der Bestand vor den
 /// in der App erfassten Bewegungen dieser Wallet (`recorded`: Guthaben + erfasste Abgänge − erfasste Zugänge; das Guthaben
 /// enthält sie schon, gegen das nackte Guthaben gekürzt zählten sie doppelt). Darüber verbraucht FIFO die ältesten Posten
-/// zuerst, Preis je Coin der übrigen bleibt; nur der nicht belegte Rest dieses Bestands bleibt Adress-Teil «ohne Einstand»; «Nur anzeigen» und Adressen in einem xpub zählen nicht. Zeiträume, Verlauf,
-/// Stichtag und CH-Vermögenswert lassen die Posten weg (Adress-Einträge, `AddressBalance.isAddressTrade`).
+/// zuerst, Preis je Coin der übrigen bleibt; nur der nicht belegte Rest dieses Bestands bleibt Adress-Teil «ohne Einstand»;
+/// «Nur anzeigen» und Adressen in einem xpub zählen nicht. Auch eine Adresse OHNE Posten verrechnet die erfassten
+/// Bewegungen ihrer Wallet (eine Umbuchung zur Adresse steckt schon im Guthaben, zählt nur einmal). Zeiträume und Verlauf
+/// lassen die Posten weg (Adress-Einträge, `AddressBalance.isAddressTrade`); Stichtag und CH-Vermögenswert rechnen wie die
+/// Karte mit dem Guthaben am Stichtag (`AddressCutoff`).
 enum AddressCostLots {
 
     /// Höchstens so viele Posten je Adresse.
@@ -118,24 +121,6 @@ enum AddressCostLots {
     }
 
     /// Adressen, deren Guthaben zählt, mit ihren Guthaben je Coin — gleiche Auswahl wie `AddressBalance.holdings`.
-    /// Mindestens eine zählende Adresse (`counted`) mit Eröffnungsposten: dann können Stichtag-CSV und CH-Vermögen (volles
-    /// Adress-Guthaben + Buchungen) eine Umbuchung zur/von der Adresse doppelt oder fehlend zeigen — Hinweiszeile. Mit
-    /// `cutoffMillis` (Stichtag, Ende des Tags) nach dem Stand DES Tags: nur Posten mit Zeit ≤ Stichtag, und nur wenn die
-    /// Adresse an dem Tag schon beobachtet war (sonst fehlt ihr Guthaben in der Datei); nil = heutiger Stand. Wie Android.
-    static func hasCountedLots(_ addresses: [WatchedAddress], cutoffMillis: Int64? = nil) -> Bool {
-        counted(addresses).contains { item in
-            guard let cutoffMillis else { return !item.address.costLots.isEmpty }
-            return item.address.costLots.contains { $0.time <= cutoffMillis } && observed(item.address, by: cutoffMillis)
-        }
-    }
-
-    /// Hat eine Reihe der Adresse (`AddressBalanceHistory.of`) eine Beobachtung ≤ `cutoffMillis`? Wie Android `observedBy`.
-    private static func observed(_ address: WatchedAddress, by cutoffMillis: Int64) -> Bool {
-        AddressBalanceHistory.of([address]).contains { h in
-            (AddressBalanceHistory.clean(h.observations).first?.time).map { $0 <= cutoffMillis } ?? false
-        }
-    }
-
     static func counted(_ addresses: [WatchedAddress]) -> [(address: WatchedAddress, balances: [String: Decimal])] {
         let list = addresses.filter(\.countInPortfolio)
         let covered = WatchedAddressRules.coveredByXpub(list)
@@ -211,8 +196,9 @@ enum AddressCostLots {
     }
 
     /// In der App erfasste Bewegungen von `coin` in der Wallet `wallet` (Vergleich `PortfolioWallets.key`): Zugänge −
-    /// Abgänge, so wie FIFO je Wallet sie bucht. Alle Daten, nicht erst ab dem Posten: das Guthaben ist der heutige Stand
-    /// und enthält jede Bewegung. Adress-Einträge zählen nicht; Wallet ohne Namen = keine Bewegungen. Wie Android.
+    /// Abgänge, so wie FIFO je Wallet sie bucht. Alle Daten, nicht erst ab dem Posten: das Guthaben enthält jede Bewegung
+    /// bis zu seinem Abruf (`fetched` wählt sie aus). Adress-Einträge zählen nicht; Wallet ohne Namen = keine Bewegungen.
+    /// Wie Android.
     static func recorded(_ coin: String, wallet: String?, trades: [PortfolioTx]) -> Decimal {
         let key = PortfolioWallets.key(wallet)
         var net: Decimal = 0
@@ -233,24 +219,42 @@ enum AddressCostLots {
         return net
     }
 
-    /// Wallet → Id der ersten zählenden Adresse mit Posten: nur sie verrechnet die erfassten Bewegungen (gleiche
-    /// Bezeichnung = in FIFO je Wallet eine Wallet; bei beiden gerechnet zählten sie doppelt). Wie Android.
-    private static func movesOwners(_ addresses: [WatchedAddress]) -> [String: Int64] {
+    /// Wallet → Id der zählenden Adresse, die die erfassten Bewegungen verrechnet: die erste mit Posten, sonst die erste
+    /// ohne (gleiche Bezeichnung = in FIFO je Wallet eine Wallet; bei beiden gerechnet zählten sie doppelt). Wie Android.
+    static func movesOwners(_ addresses: [WatchedAddress]) -> [String: Int64] {
         var out: [String: Int64] = [:]
-        for (a, _) in counted(addresses) where !clean(a.costLots).isEmpty {
+        let list = counted(addresses)
+        for (a, _) in list where !clean(a.costLots).isEmpty {
+            let key = PortfolioWallets.key(walletName(a))
+            if out[key] == nil { out[key] = a.id }
+        }
+        for (a, _) in list {
             let key = PortfolioWallets.key(walletName(a))
             if out[key] == nil { out[key] = a.id }
         }
         return out
     }
 
-    /// Abdeckung je Coin mit Posten; `trades` = erfasste Bewegungen, die diese Adresse verrechnet.
-    private static func covers(_ a: WatchedAddress, _ b: [String: Decimal], _ trades: [PortfolioTx]) -> [Coverage] {
+    /// Abdeckung je Coin (Reihenfolge der Posten); `trades` = erfasste Bewegungen, die diese Adresse verrechnet. Mit
+    /// `allCoins` und Bewegungen auch jeder Coin des Guthabens ohne Posten — eine erfasste Umbuchung zur Adresse steckt
+    /// schon im Guthaben und zählt so nur einmal. Wie Android.
+    private static func covers(_ a: WatchedAddress, _ b: [String: Decimal], _ trades: [PortfolioTx],
+                               allCoins: Bool = false) -> [Coverage] {
         let lots = clean(a.costLots)
-        return coins(lots).map { coin in
+        var list = coins(lots)
+        if allCoins && !trades.isEmpty {
+            for coin in b.keys.sorted() where !list.contains(coin) { list.append(coin) }
+        }
+        return list.map { coin in
             cover(coin, lots.filter { $0.coin == coin }, balance: b[coin] ?? 0,
                   recorded: recorded(coin, wallet: walletName(a), trades: trades))
         }
+    }
+
+    /// Bewegungen bis zum Abruf des Guthabens (`lastUpdated`; unbekannt = alle): nur sie stecken schon im Guthaben, eine
+    /// spätere Buchung zählt allein als Buchung — wie der Stichtag (`AddressCutoff`) mit seiner Beobachtung. Wie Android.
+    private static func fetched(_ a: WatchedAddress, _ trades: [PortfolioTx]) -> [PortfolioTx] {
+        a.lastUpdated <= 0 ? trades : trades.filter { $0.time <= a.lastUpdated }
     }
 
     /// Zählende Adressen mit ihrer Abdeckung; erfasste Bewegungen je Wallet nur einmal (`movesOwners`).
@@ -259,7 +263,8 @@ enum AddressCostLots {
         let owners = trades.isEmpty ? [:] : movesOwners(addresses)
         return counted(addresses).map { entry in
             let a = entry.address
-            return (a, covers(a, entry.balances, owners[PortfolioWallets.key(walletName(a))] == a.id ? trades : []))
+            let own = owners[PortfolioWallets.key(walletName(a))] == a.id
+            return (a, covers(a, entry.balances, own ? fetched(a, trades) : [], allCoins: true))
         }
     }
 
@@ -274,7 +279,7 @@ enum AddressCostLots {
     /// allen Adressen `all` wie im Rechner.
     static func coverage(_ a: WatchedAddress, trades: [PortfolioTx] = [], all: [WatchedAddress]? = nil) -> [Coverage] {
         let owner = trades.isEmpty ? nil : movesOwners(all ?? [a])[PortfolioWallets.key(walletName(a))]
-        return covers(a, balances(a), owner == nil || owner == a.id ? trades : [])
+        return covers(a, balances(a), owner == nil || owner == a.id ? fetched(a, trades) : [])
     }
 
     /// Rechner-Einträge der Posten aller zählenden Adressen: je wirksamem Posten ein Kauf mit negativer Id, Preis je Coin,
@@ -298,7 +303,8 @@ enum AddressCostLots {
     }
 
     /// Je Coin über alle zählenden Adressen der Teil des Guthabens, den Posten und erfasste Bewegungen schon abbilden
-    /// (`Coverage.accounted`; ohne Bewegungen = belegte Menge) — der Rest ist «ohne Einstand» in `AddressBalance.trades`.
+    /// (`Coverage.accounted`; ohne Bewegungen = belegte Menge, auch für Adressen ohne Posten) — der Rest ist «ohne
+    /// Einstand» in `AddressBalance.trades`.
     /// Kann negativ sein. Wie Android.
     static func accounted(_ addresses: [WatchedAddress], real: [PortfolioTx] = []) -> [String: Decimal] {
         var out: [String: Decimal] = [:]

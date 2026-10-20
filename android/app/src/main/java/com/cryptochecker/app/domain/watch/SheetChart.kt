@@ -187,6 +187,16 @@ object SheetChart {
         return source to target
     }
 
+    /**
+     * Vermerk «USDT = 1 angenommen» unter einem Fiat-Paar-Chart: die USDT-Reihe ist mit Devisenkursen USD → Fiat
+     * umgerechnet ([SheetChartFx.DAILY] bzw. [SheetChartFx.CURRENT]), also mit USDT = 1 USD. Nur bei Umrechnung aus USDT.
+     */
+    fun usdtParityNote(fx: SheetChartFx, sourcePair: String?): Boolean {
+        if (fx == SheetChartFx.NONE) return false
+        val source = sourcePair?.substringAfterLast('/', "")?.trim()?.uppercase()?.takeIf { it.isNotEmpty() } ?: USDT
+        return source == USDT
+    }
+
     /** Gültige Tageskurse aufsteigend nach Tag. */
     private fun sortedRates(dailyRates: Map<Long, Double>?): List<Pair<Long, Double>> =
         dailyRates.orEmpty().entries

@@ -5,6 +5,8 @@
 // Die Signaturen entsprechen denen der App-Klassen, damit die Klassen selbst unverändert bleiben.
 package com.cryptochecker.app.domain.refresh
 
+import com.cryptochecker.app.domain.alarm.AlarmTextNote
+import com.cryptochecker.app.domain.convert.FiatAlarmGuard
 import com.cryptochecker.app.data.ErrorWrite
 import com.cryptochecker.app.data.DexLiquidityStore
 import com.cryptochecker.app.data.MarkFallbackStore
@@ -71,6 +73,8 @@ internal interface RefreshNotifier {
         derivativesValue: Double? = null,
         derivativesReference: String? = null,
         priceCurrency: String? = null,
+        /** Zusatz am Alarmtext: Börse fremder Kerzen bzw. «USDT = 1 angenommen» ([AlarmTextNote]). */
+        textNote: AlarmTextNote? = null,
     ): Boolean
     fun cancelAlarms(alarmIds: Collection<Long>)
     fun activeNotificationIds(): Set<Int>?
@@ -99,6 +103,12 @@ internal interface AlarmVolumeSource {
 /** Devisenkurs für Alarme in anderer Währung ([CurrencyConverter]). */
 internal interface AlarmRateSource {
     suspend fun rate(quote: String, target: String): Double?
+
+    /** Fiat-Alarm diesmal auslassen? Devisenkurs zu alt bzw. USDT/USD unsicher ([FiatAlarmGuard.skip]); null = prüfen. */
+    fun skip(quote: String, target: String, now: Long): FiatAlarmGuard.Skip? = null
+
+    /** Rechnet der Faktor mit USDT = 1, weil USDT/USD nicht gemessen ist ([FiatAlarmGuard.UsdtState.ASSUMED])? */
+    fun usdtAssumed(quote: String, target: String, now: Long): Boolean = false
 }
 
 /** Hoch/Tief der Zeiträume für «Nahe am Hoch/Tief» ([NearExtremeDataSource]). */
@@ -218,7 +228,8 @@ private class AppNotifierPort(private val notifier: AppNotifier) : RefreshNotifi
         derivativesValue: Double?,
         derivativesReference: String?,
         priceCurrency: String?,
-    ) = notifier.showAlarm(watch, alarm, price, volumeRatio, nearFire, derivativesValue, derivativesReference, priceCurrency)
+        textNote: AlarmTextNote?,
+    ) = notifier.showAlarm(watch, alarm, price, volumeRatio, nearFire, derivativesValue, derivativesReference, priceCurrency, textNote)
     override fun cancelAlarms(alarmIds: Collection<Long>) = notifier.cancelAlarms(alarmIds)
     override fun activeNotificationIds() = notifier.activeNotificationIds()
     override fun cancelPrices(watchIds: Collection<Long>, shown: Set<Int>?) = notifier.cancelPrices(watchIds, shown)
@@ -243,6 +254,10 @@ private class VolumePort(private val source: VolumeDataSource) : AlarmVolumeSour
 
 private class RatePort(private val converter: CurrencyConverter) : AlarmRateSource {
     override suspend fun rate(quote: String, target: String) = converter.rate(quote, target)
+    override fun skip(quote: String, target: String, now: Long) =
+        FiatAlarmGuard.skip(converter.fxRateTime(quote, target), converter.usdtState(quote, target, now), now)
+    override fun usdtAssumed(quote: String, target: String, now: Long) =
+        converter.usdtState(quote, target, now) == FiatAlarmGuard.UsdtState.ASSUMED
 }
 
 private class RangePort(private val source: NearExtremeDataSource) : AlarmRangeSource {

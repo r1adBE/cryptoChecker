@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">en segundo plano</string>
     <string name="alarm_log_source_exact">comprobación puntual</string>
     <string name="alarm_log_source_widget">desde el widget</string>
+    <string name="alarm_outcome_fx_stale">Sin comprobar – tipo de cambio de hace más de 36 horas</string>
+    <string name="alarm_outcome_fx_unsure">Sin comprobar – conversión de USDT incierta (solo vía USDC)</string>
 </resources>

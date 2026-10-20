@@ -115,17 +115,17 @@ internal fun PortfolioWidgetRenderer.bindFigures(
             // Ein Coin fehlt (kein Devisenkurs am Kauftag, seither gekauft/verkauft): «*» wie «unvollständig» der Karte
             val text = PortfolioWidgetViews.figureText(direction, PortfolioSnapshotMath.signedPercent(percent)) +
                 if (figure.incomplete) "*" else ""
-            item.setTextViewText(R.id.fig_value, text)
+            item.setAmountText(R.id.fig_value, text)
             item.setTextColor(R.id.fig_value, directionColor(direction, colors))
         } else {
-            item.setTextViewText(R.id.fig_value, NO_VALUE)
+            item.setAmountText(R.id.fig_value, NO_VALUE)
             item.setTextColor(R.id.fig_value, colors.secondaryTextColor)
         }
         val amount = figure.amount
         if (layout.wide && layout.figureAmounts) {
             val text = amount?.let { PortfolioInsights.mask(PortfolioSnapshotMath.signedAmount(it, unit), style.hideAmounts) } ?: NO_VALUE
             item.setViewVisibility(R.id.fig_amount, View.VISIBLE)
-            item.setTextViewText(R.id.fig_amount, toolkit.quoteText(text, unit, FIGURE_AMOUNT_SP, colors.secondaryTextColor))
+            item.setAmountText(R.id.fig_amount, toolkit.quoteText(text, unit, FIGURE_AMOUNT_SP, colors.secondaryTextColor))
             item.setTextColor(R.id.fig_amount, colors.textColor)
         } else {
             item.setViewVisibility(R.id.fig_amount, View.GONE)

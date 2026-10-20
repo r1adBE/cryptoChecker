@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus voi pysäyttää sovelluksen – silloin hälytyksiä ei tule. Salli ”Automaattinen käynnistys” ja Akun käytössä taustatoiminta.</string>
     <string name="oem_battery_oppo">Oppo/Realme voi pysäyttää sovelluksen – silloin hälytyksiä ei tule. Salli ”Automaattinen käynnistys” ja Akun käytössä taustatoiminta.</string>
     <string name="oem_battery_vivo">Vivo voi pysäyttää sovelluksen – silloin hälytyksiä ei tule. Salli ”Automaattinen käynnistys” ja Akku-kohdassa suuri taustavirrankulutus.</string>
+    <string name="alarm_reliability_recent">Viimeisin tarkistus %1$s</string>
+    <string name="alarm_reliability_stale">Viimeisin tarkistus %1$s – hälytykset voivat myöhästyä</string>
+    <string name="alarm_reliability_never">Hälytykset päällä – ei vielä tarkistusta taustalla</string>
+    <string name="alarm_reliability_notifications_off">Ilmoitukset pois – hälytykset eivät tule perille</string>
+    <string name="alarm_reliability_battery">Virransäästö voi pysäyttää hälytysten tarkistuksen</string>
+    <string name="alarm_reliability_background_refresh">Appien päivitys taustalla pois – hälytykset eivät ehkä tule perille</string>
 </resources>

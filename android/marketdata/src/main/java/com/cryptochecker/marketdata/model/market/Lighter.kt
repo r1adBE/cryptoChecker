@@ -163,12 +163,17 @@ class Lighter : Market("Lighter", "Lighter") {
 
     // ── Lesen ──
 
-    /** Eine Zeile von `exchangeStats`; `daily_price_change` ist bereits Prozent über gleitende 24 h. */
+    /**
+     * Eine Zeile von `exchangeStats`; `daily_price_change` ist bereits Prozent über gleitende 24 h. Ohne Handel in
+     * 24 h (`daily_trades_count` 0) meldet Lighter die Veränderung als 0 — das ist keine gemessene Veränderung,
+     * darum bleibt sie leer statt «0,00 %». Fehlt das Zählfeld, gilt die Veränderung wie bisher.
+     */
     private fun copyRow(row: JSONObject, ticker: Ticker) {
         ticker.last = row.getDouble("last_trade_price")
         ticker.vol = row.optDoubleOrMissing("daily_base_token_volume")
         ticker.volQuote = row.optDoubleOrMissing("daily_quote_token_volume")
-        ticker.change24hPercent = Change24h.percent(row.optDouble("daily_price_change"))
+        val noTrades = row.optLong("daily_trades_count", -1L) == 0L
+        ticker.change24hPercent = if (noTrades) null else Change24h.percent(row.optDouble("daily_price_change"))
     }
 
     /** `asset_type` je Symbol aus `tokenlist`; leer, wenn die Antwort fehlt oder unlesbar ist. */

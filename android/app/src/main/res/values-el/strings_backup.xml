@@ -76,7 +76,7 @@
     <string name="system_backup_not_imported_message">Το αντίγραφο του χαρτοφυλακίου από το αντίγραφο ασφαλείας συστήματος του Android δεν διαβάστηκε ούτε στη δεύτερη προσπάθεια και διαγράφηκε. Αν έχεις αρχείο αντιγράφου ασφαλείας, επανάφερέ το στις Ρυθμίσεις, στο «%1$s».</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Το αποθηκευμένο χαρτοφυλάκιο δεν μπορεί να ξεκλειδωθεί αυτή τη στιγμή και δεν εμφανίζεται – θα επιστρέψει μετά την επανεκκίνηση της εφαρμογής. Οι αλλαγές που κάνετε τώρα δεν θα αποθηκευτούν.</string>
+    <string name="portfolio_storage_kept_in_memory">Το αποθηκευμένο χαρτοφυλάκιο δεν μπορεί να ξεκλειδωθεί αυτή τη στιγμή και δεν εμφανίζεται – θα επιστρέψει μετά την επανεκκίνηση της εφαρμογής. Αλλαγές θα είναι δυνατές μόνο μετά την επόμενη εκκίνηση.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">Η αποθηκευμένη λίστα δεν μπορεί να ξεκλειδωθεί αυτή τη στιγμή και δεν εμφανίζεται – θα επιστρέψει μετά την επανεκκίνηση της εφαρμογής. Οι αλλαγές που κάνετε τώρα δεν θα αποθηκευτούν.</string>
     <string name="alarm_save_storage_locked">Οι συναγερμοί δεν μπορούν να αποθηκευτούν αυτή τη στιγμή – η αποθηκευμένη λίστα είναι κλειδωμένη. Επανεκκινήστε την εφαρμογή.</string>
@@ -85,4 +85,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Η κρυπτογράφηση δεν είναι ακόμη ενεργή – το χαρτοφυλάκιο δεν αποθηκεύεται και οι αλλαγές χάνονται όταν κλείσει η εφαρμογή. Η εφαρμογή θα δοκιμάσει ξανά στην επόμενη εκκίνηση.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Το αποθηκευμένο χαρτοφυλάκιο είναι κλειδωμένο αυτή τη στιγμή – αλλαγές θα είναι δυνατές μόνο μετά την επόμενη εκκίνηση.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Η συσκευή δεν παρέχει κλειδί αυτή τη στιγμή – η λίστα δεν αποθηκεύεται και οι αλλαγές χάνονται όταν κλείσει η εφαρμογή. Η εφαρμογή θα δοκιμάσει ξανά στην επόμενη εκκίνηση.</string>
 </resources>

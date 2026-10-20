@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">în fundal</string>
     <string name="alarm_log_source_exact">verificare punctuală</string>
     <string name="alarm_log_source_widget">prin widget</string>
+    <string name="alarm_outcome_fx_stale">Neverificată – curs de schimb mai vechi de 36 de ore</string>
+    <string name="alarm_outcome_fx_unsure">Neverificată – conversie USDT nesigură (doar prin USDC)</string>
 </resources>

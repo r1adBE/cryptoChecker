@@ -12,6 +12,7 @@ import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
+import com.cryptochecker.app.domain.alarm.AlarmTextNote
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.util.PriceFormat
@@ -46,13 +47,15 @@ suspend fun AppNotifier.showAlarm(
      * damit «jetzt …» in derselben Währung steht wie die Schwelle.
      */
     priceCurrency: String? = null,
+    /** Zusatz am Text: Börse fremder Kerzen («Binance (Kerzen)») bzw. «USDT = 1 angenommen». */
+    textNote: AlarmTextNote? = null,
 ): Boolean {
     val title = context.getString(
         R.string.notification_alarm_title,
         watch.displayName,
         watch.marketName
     )
-    val body = if (derivativesValue != null) {
+    val baseBody = if (derivativesValue != null) {
         // «Funding über 0,05 % — jetzt 0,061 %», «Open Interest steigt 10 % in 4 Std. — jetzt +12,3 %»
         val text = context.getString(
             R.string.notification_alarm_text,
@@ -78,6 +81,14 @@ suspend fun AppNotifier.showAlarm(
             PriceFormat.priceWithCurrency(price, priceCurrency ?: watch.quoteAsset)
         )
     }
+
+    val body = AlarmTextNote.join(
+        baseBody,
+        listOf(
+            textNote?.candleSource?.let { context.getString(R.string.why_src_candles, it) },
+            if (textNote?.usdtAssumed == true) context.getString(R.string.portfolio_usdt_assumed) else null,
+        ),
+    )
 
     // Nachtruhe: Alarme lösen dann nicht aus (QuietHours.holdsAlarms, RefreshEffects); der
     // lautlose Kanal bleibt nur als Rückfall, falls die Nachtruhe genau zwischen Prüfen und
@@ -159,15 +170,19 @@ fun AppNotifier.canShowPortfolioAlarm(): Boolean {
  * @return true erst, wenn die Meldung unter den offenen Mitteilungen steht ([awaitActive]) —
  *   sonst bleibt der Alarm scharf (PortfolioAlarmChecker), wie bei [showAlarm].
  */
-suspend fun AppNotifier.showPortfolioAlarm(alarm: PortfolioAlarmEntity, measured: Double): Boolean {
+suspend fun AppNotifier.showPortfolioAlarm(alarm: PortfolioAlarmEntity, measured: Double, usdtAssumed: Boolean = false): Boolean {
     val settings = settingsRepository.cached
     // Mit Portfolio-Sperre auch ohne «Beträge verbergen» keine Beträge (Sperrbildschirm) — wie iOS
     val hidden = settings.hidePortfolioAmounts || settings.appLock
     val title = context.getString(R.string.notification_portfolio_alarm_title)
-    val body = context.getString(
-        R.string.notification_portfolio_alarm_text,
-        PortfolioAlarmTexts.sentence(context, alarm, settings.changeBasis.storage, hidden),
-        PortfolioAlarmTexts.measured(alarm, measured, hidden)
+    // Alarm in anderer Währung, umgerechnet mit USDT = 1: Vermerk dahinter ([PortfolioAlarmLogic.usdtAssumed])
+    val body = AlarmTextNote.join(
+        context.getString(
+            R.string.notification_portfolio_alarm_text,
+            PortfolioAlarmTexts.sentence(context, alarm, settings.changeBasis.storage, hidden),
+            PortfolioAlarmTexts.measured(alarm, measured, hidden)
+        ),
+        listOf(if (usdtAssumed) context.getString(R.string.portfolio_usdt_assumed) else null),
     )
     val quiet = isQuietNow()
     val channelId = if (quiet) NotificationChannels.ensureQuietAlarmChannel(context)

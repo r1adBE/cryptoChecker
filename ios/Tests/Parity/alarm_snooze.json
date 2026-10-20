@@ -1,5 +1,5 @@
 {
-  "_comment": "«1 h später» aus der Alarm-Mitteilung (Build 82): Ende der Pause (AlarmSnooze.snoozeUntil), hält sie die Meldung jetzt zurück (isSnoozed; Uhr zurückgestellt = vorbei) und Aufräumen (prune); Knopf nur, wo die Pause wirkt (offeredFor: wiederholende Prozent- und Bewegungsalarme). Gemeinsam für AlarmSnoozeTest.kt und AlarmSnoozeTests.swift.",
+  "_comment": "«1 h später» aus der Alarm-Mitteilung (Build 82): Ende der Pause (AlarmSnooze.snoozeUntil), hält sie die Meldung jetzt zurück (isSnoozed; Uhr zurückgestellt = vorbei) und Aufräumen (prune); Knopf nur, wo die Pause wirkt (offeredFor: wiederholende Prozent- und Bewegungsalarme; ab Build 91 auch Kursmarken, die die Pause wieder scharf stellt: rearmsOnSnooze). Gemeinsam für AlarmSnoozeTest.kt und AlarmSnoozeTests.swift.",
   "snoozeMillis": 3600000,
   "until": [
     {"now": 1000, "until": 3601000},
@@ -20,8 +20,8 @@
     "kept": [1]
   },
   "offeredFor": [
-    {"name": "Kursmarke: erst nach Rückkehr wieder scharf", "condition": "PRICE_ABOVE", "repeating": true, "offered": false},
-    {"name": "Kursmarke: erst nach Rückkehr wieder scharf", "condition": "PRICE_BELOW", "repeating": true, "offered": false},
+    {"name": "Kursmarke: Pause stellt wieder scharf", "condition": "PRICE_ABOVE", "repeating": true, "offered": true},
+    {"name": "Kursmarke: Pause stellt wieder scharf", "condition": "PRICE_BELOW", "repeating": true, "offered": true},
     {"name": "Prozent: neuer Bezug, bleibt scharf", "condition": "CHANGE_PERCENT_UP", "repeating": true, "offered": true},
     {"name": "Prozent: neuer Bezug, bleibt scharf", "condition": "CHANGE_PERCENT_DOWN", "repeating": true, "offered": true},
     {"name": "Bewegung: neues Fenster, bleibt scharf", "condition": "MOVE_PERCENT_WINDOW", "repeating": true, "offered": true},
@@ -34,6 +34,22 @@
     {"name": "Open Interest: erst nach Rückkehr wieder scharf", "condition": "OI_DOWN", "repeating": true, "offered": false},
     {"name": "einmalig: nach dem Melden aus", "condition": "CHANGE_PERCENT_UP", "repeating": false, "offered": false},
     {"name": "einmalig: nach dem Melden aus", "condition": "MOVE_PERCENT_WINDOW", "repeating": false, "offered": false},
-    {"name": "einmalig: nach dem Melden aus", "condition": "PRICE_ABOVE", "repeating": false, "offered": false}
+    {"name": "Kursmarke einmalig: Pause schaltet wieder ein", "condition": "PRICE_ABOVE", "repeating": false, "offered": true},
+    {"name": "Kursmarke einmalig: Pause schaltet wieder ein", "condition": "PRICE_BELOW", "repeating": false, "offered": true},
+    {"name": "Funding einmalig: nach dem Melden aus", "condition": "FUNDING_ABOVE", "repeating": false, "offered": false}
+  ],
+  "rearmsOnSnooze": [
+    {"condition": "PRICE_ABOVE", "rearms": true},
+    {"condition": "PRICE_BELOW", "rearms": true},
+    {"condition": "CHANGE_PERCENT_UP", "rearms": false},
+    {"condition": "CHANGE_PERCENT_DOWN", "rearms": false},
+    {"condition": "MOVE_PERCENT_WINDOW", "rearms": false},
+    {"condition": "VOLUME_SPIKE", "rearms": false},
+    {"condition": "NEAR_HIGH", "rearms": false},
+    {"condition": "NEAR_LOW", "rearms": false},
+    {"condition": "FUNDING_ABOVE", "rearms": false},
+    {"condition": "FUNDING_BELOW", "rearms": false},
+    {"condition": "OI_UP", "rearms": false},
+    {"condition": "OI_DOWN", "rearms": false}
   ]
 }

@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">a háttérben</string>
     <string name="alarm_log_source_exact">pontos ellenőrzés</string>
     <string name="alarm_log_source_widget">widgeten át</string>
+    <string name="alarm_outcome_fx_stale">Nincs ellenőrizve – 36 óránál régebbi devizaárfolyam</string>
+    <string name="alarm_outcome_fx_unsure">Nincs ellenőrizve – bizonytalan USDT-átváltás (csak USDC-n keresztül)</string>
 </resources>

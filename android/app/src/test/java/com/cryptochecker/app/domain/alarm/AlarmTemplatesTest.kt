@@ -143,6 +143,19 @@ class AlarmTemplatesTest {
     }
 
     @Test
+    fun moreOpensOnlyWhenRememberedOrNeeded() {
+        // Neue Kursmarke: zugeklappt, ausser in dieser Sitzung schon einmal aufgeklappt
+        assertFalse(AlarmTemplates.opensMore(AlarmCondition.PRICE_ABOVE, null, sessionExpanded = false))
+        assertFalse(AlarmTemplates.opensMore(AlarmCondition.CHANGE_PERCENT_UP, null, sessionExpanded = false))
+        assertTrue(AlarmTemplates.opensMore(AlarmCondition.PRICE_ABOVE, null, sessionExpanded = true))
+        // Der Alarm braucht etwas darin: eigene Währung bzw. eine weitere Bedingung
+        assertTrue(AlarmTemplates.opensMore(AlarmCondition.PRICE_BELOW, "CHF", sessionExpanded = false))
+        AlarmCondition.entries.filter { it !in AlarmTemplates.SIMPLE_CONDITIONS }.forEach {
+            assertTrue(it.name, AlarmTemplates.opensMore(it, null, sessionExpanded = false))
+        }
+    }
+
+    @Test
     fun moreConditionsOpenForEverythingButTheSimpleOnes() {
         // Gleich sichtbar: Kursmarke über/unter, Steigt/Fällt um
         assertEquals(4, AlarmTemplates.SIMPLE_CONDITIONS.size)

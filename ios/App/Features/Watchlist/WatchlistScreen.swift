@@ -68,6 +68,8 @@ struct WatchlistScreen: View {
     @State var convertRates: [String: Double] = [:]
     /// Abrufzeit alter Devisenkurse (älter als 3 h) je Quote-Währung — die Zeile zeigt dann «· Kurs 08:15».
     @State var convertFxTimes: [String: Int64] = [:]
+    /// Quote-Währungen mit USDT = 1 angenommen bzw. unsicherer Umrechnung (`CurrencyConverter.usdtNotes`).
+    @State var convertUsdtNotes: [String: FiatAlarmGuard.UsdtState] = [:]
     /// Start-Tipp: frisch geladene Liste (Top 5); nil = Zwischenspeicher bzw. Ersatzliste.
     @State var starterCoins: [StarterCoin]?
     /// «Erst-Hinzufügen»: Zeilen mit laufendem Moment (Watch-Id → Position für den Versatz).
@@ -175,8 +177,8 @@ struct WatchlistScreen: View {
         .onChange(of: router.tab) { _, _ in takeCelebration() }
         .onChange(of: router.showExplorer) { _, _ in takeCelebration() }
         .overlay(alignment: .bottom) {
-            // Merkliste gerade nicht lesbar: Dauerhinweis, solange kein anderes Banner steht
-            WatchlistStorageNotice(locked: data.watchlistLocked, bannerShown: banner != nil)
+            // Merkliste gerade nicht lesbar bzw. ohne Schlüssel nicht gespeichert: Dauerhinweis, solange kein anderes Banner steht
+            WatchlistStorageNotice(notice: data.watchlistStorageNotice, bannerShown: banner != nil)
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner == nil)
         }
         .overlay(alignment: .bottom) {

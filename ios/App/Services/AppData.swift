@@ -52,7 +52,13 @@ final class AppData: ObservableObject {
     /// Einstellungen bauen nicht alle 10 s neu. Gelesen wird trotzdem immer der aktuelle Stand.
     private(set) var snapshot: SharedStorage.Snapshot {
         willSet { if !quietPriceSave { objectWillChange.send() } }
+        // Jede Übernahme (Ändern, Lesen) zählt: Ein im Hintergrund gelesener Stand gilt nur ohne Übernahme seither
+        didSet { snapshotGeneration &+= 1 }
     }
+    /// Zähler der Übernahmen in `snapshot` (`reloadFromDiskInBackground`, `DiskReloadTicket`).
+    private(set) var snapshotGeneration = 0
+    /// Zuletzt begonnenes Lesen im Hintergrund: nur dieses darf übernehmen.
+    var diskReloadSequence = 0
     /// Nur während `mutate(…, quiet: true)`: Änderung nicht veröffentlichen.
     private var quietPriceSave = false
     @Published var settings: AppSettings {
@@ -131,6 +137,13 @@ final class AppData: ObservableObject {
     /// `watchlist.json` ist da, aber gerade nicht lesbar (`WatchlistStorageLock`): Die Merkliste steht leer im Speicher und
     /// wird nicht gespeichert. Die Merkliste nennt es dauerhaft; Alarme werden dann nicht angelegt. Neu bei jedem Lesen.
     @Published private(set) var watchlistLocked = false
+    /// Noch keine `watchlist.json` und kein Schlüssel zum Versiegeln (`WatchlistStorageLock.waitsForKey`): Was jetzt
+    /// angelegt wird, kann nicht gespeichert werden — die Merkliste sagt es gleich, nicht erst nach dem ersten Speichern.
+    @Published private(set) var watchlistWaitsForKey = false
+    /// Dauerhinweis der Merkliste (gleich wie Android): gesperrt bzw. «wird nicht gespeichert».
+    var watchlistStorageNotice: WatchlistStorageLock.Notice? {
+        WatchlistStorageLock.notice(locked: watchlistLocked, savePending: watchlistSavePending || watchlistWaitsForKey)
+    }
     /// Merkliste in diesem Lauf schon einmal gelesen (`WatchlistStorageLock.holdsStoredState`): Dann hält der Speicher
     /// den echten Stand, und ein später unlesbarer Zugriff setzt `watchlistLocked` nicht mehr.
     private var watchlistReadOnce = false
@@ -158,6 +171,7 @@ final class AppData: ObservableObject {
         snapshot = read.snapshot ?? SharedStorage.Snapshot()
         watchlistLocked = WatchlistStorageLock.isLocked(read)
         watchlistReadOnce = WatchlistStorageLock.holdsStoredState(read)
+        watchlistWaitsForKey = WatchlistStorageLock.waitsForKey(read, keyAvailable: StorageKey.shared.isAvailable)
         let loadedSettings = AppData.readSettings()
         settings = loadedSettings.settings
         settingsAccessible = loadedSettings.state != .inaccessible
@@ -300,24 +314,39 @@ final class AppData: ObservableObject {
         })
     }
 
-    /// Stand von der Platte neu laden (z. B. nachdem das Widget aktualisiert hat).
+    /// Stand von der Platte neu laden (z. B. nachdem das Widget aktualisiert hat) — blockiert den Haupt-Thread; beim
+    /// Wechsel nach vorne liest `reloadFromDiskInBackground`.
     func reloadFromDisk() {
+        guard prepareDiskReload() else { return }
+        applyDiskRead(SharedStorage.readSnapshot(), keyAvailable: StorageKey.shared.isAvailable)
+    }
+
+    /// Vor dem Lesen (Haupt-Thread). false = nicht lesen: Der Speicher bleibt massgebend.
+    func prepareDiskReload() -> Bool {
         // Wartet noch ein nicht versiegelt gespeicherter Stand: erst schreiben — sonst ersetzte der ältere Stand der Datei
         // die Änderungen im Speicher. Geht es noch nicht, bleibt der Speicher massgebend
-        guard retryPendingPortfolioSaves() else { return }
+        guard retryPendingPortfolioSaves() else { return false }
         // Wartet die Merkliste auf den Schlüssel: erneut speichern, auf demselben Weg wie `mutate` (neuere Kurse und
         // Auslösungen des Widgets bleiben); `readSnapshot` wartet dieses Schreiben ab
         if watchlistSavePending { SharedStorage.saveSnapshotInBackground(snapshot) }
-        let read = SharedStorage.readSnapshot()
+        return true
+    }
+
+    /// Gelesenen Stand übernehmen (Haupt-Thread); `read` nil = verworfen (seither geändert), nur die übrigen Werte neu.
+    func applyDiskRead(_ read: SharedStorage.SnapshotRead?, keyAvailable: Bool) {
         let waiting = SharedStorage.watchlistPending
         if watchlistSavePending != waiting { watchlistSavePending = waiting }
-        let locked = WatchlistStorageLock.isLocked(read, readBefore: watchlistReadOnce)
-        if watchlistLocked != locked { watchlistLocked = locked }
-        if WatchlistStorageLock.holdsStoredState(read) { watchlistReadOnce = true }
-        // Nur einen gelesenen Stand übernehmen: Ist die Datei gerade unlesbar oder nicht zugreifbar,
-        // bleibt der Stand im Speicher (sonst stünde eine leere Merkliste da) — ebenso, solange die Merkliste
-        // noch nicht versiegelt gespeichert ist (die Datei hat dann einen älteren Stand)
-        if !waiting, let fresh = read.snapshot { snapshot = fresh }
+        if let read {
+            let locked = WatchlistStorageLock.isLocked(read, readBefore: watchlistReadOnce)
+            if watchlistLocked != locked { watchlistLocked = locked }
+            if WatchlistStorageLock.holdsStoredState(read) { watchlistReadOnce = true }
+            let waitsForKey = WatchlistStorageLock.waitsForKey(read, keyAvailable: keyAvailable)
+            if watchlistWaitsForKey != waitsForKey { watchlistWaitsForKey = waitsForKey }
+            // Nur einen gelesenen Stand übernehmen: Ist die Datei gerade unlesbar oder nicht zugreifbar,
+            // bleibt der Stand im Speicher (sonst stünde eine leere Merkliste da) — ebenso, solange die Merkliste
+            // noch nicht versiegelt gespeichert ist (die Datei hat dann einen älteren Stand)
+            if !waiting, let fresh = read.snapshot { snapshot = fresh }
+        }
         reloadSettingsIfInaccessible()
         lastRefreshMillis = SharedStorage.lastRefreshDuration
         lastRefreshReport = SharedStorage.lastRefreshReport

@@ -32,7 +32,7 @@
             android:ellipsize="end"
             android:text="@string/pulse_now_title"
             android:textColor="@color/widget_preview_text"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -50,7 +50,7 @@
             android:layout_marginEnd="4dp"
             android:text="@string/widget_preview_pulse_glyph"
             android:textColor="@color/widget_preview_up"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -60,7 +60,7 @@
             android:ellipsize="end"
             android:text="@string/pulse_headline_up"
             android:textColor="@color/widget_preview_text"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 

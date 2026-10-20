@@ -12,9 +12,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.SegmentedButton
-import androidx.compose.material3.SegmentedButtonDefaults
-import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -39,11 +36,11 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import androidx.compose.ui.semantics.heading
 
 /**
- * Alarm anlegen/bearbeiten als Blatt von unten. Oben nur die einfachen Bedingungen (Kurs über/unter,
- * Steigt/Fällt um) — die Kursmarke als Satz «Wenn BTC über [Betrag] geht», darunter die Schnell-Alarme
- * (nur beim Anlegen). Alle übrigen Bedingungen unter «Mehr Bedingungen», Währung, Ton
- * und Vorlesen unter «Erweitert» (beide zugeklappt, ausser beim Bearbeiten eines Alarms, der sie
- * braucht), dazwischen «Einmal / Jedes Mal». Volle Höhe: Aufklappen scrollt im Inhalt; «Speichern» und
+ * Alarm anlegen/bearbeiten als Blatt von unten. Oben nur das Nötige (Build 91): Paar und Kurs, die einfachen
+ * Bedingungen (Kurs über/unter zuerst, Steigt/Fällt um), der Betrag — die Kursmarke als Satz «Wenn BTC über [Betrag]
+ * geht» — und «Einmal / Jedes Mal». Schnell-Alarme (nur beim Anlegen), alle übrigen Bedingungen, Währung, Ton,
+ * Vibration und Vorlesen stehen unter «Mehr» (zugeklappt; offen, wenn in dieser Sitzung schon aufgeklappt oder der
+ * Alarm etwas darin braucht: [AlarmTemplates.opensMore]). Volle Höhe: Aufklappen scrollt im Inhalt; «Speichern» und
  * «Abbrechen» stehen fest am unteren Rand über der Tastatur (bei grosser Schrift sonst unerreichbar).
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,10 +66,11 @@ internal fun AlarmEditorSheet(
 ) {
     val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    // «Mehr Bedingungen»: offen beim Bearbeiten eines Alarms mit einer davon (z. B. Volumen-Spike)
-    var moreConditions by rememberSaveable { mutableStateOf(AlarmTemplates.opensMoreConditions(draft.condition)) }
-    // «Erweitert»: offen bei einer Kursmarke in eigener Währung
-    var advanced by rememberSaveable { mutableStateOf(AlarmTemplates.opensAdvanced(draft.condition, draft.currency)) }
+    // «Mehr»: offen, wenn in dieser Sitzung schon aufgeklappt oder der Alarm etwas darin braucht (z. B. Volumen-Spike,
+    // Kursmarke in eigener Währung)
+    var more by rememberSaveable {
+        mutableStateOf(AlarmTemplates.opensMore(draft.condition, draft.currency, AlarmEditorSession.moreExpanded))
+    }
 
     // Zweite Währung neben der Quote: die des Alarms (falls gesetzt), sonst die Umrechnungswährung
     val otherCurrency = (draft.currency ?: targetCurrency).uppercase()
@@ -139,22 +137,6 @@ internal fun AlarmEditorSheet(
                     ThresholdField(draft = draft, onDraftChange = onDraftChange)
                 }
 
-                // Schnell-Alarme erst nach Bedingung und Kurssatz: zuerst sieht man, was man selbst einstellt;
-                // ein Antippen legt den Alarm sofort an (nur beim Anlegen)
-                if (draft.id == 0L && templates.isNotEmpty()) {
-                    TemplateChips(templates = templates, onTemplate = onTemplate)
-                }
-
-                // Alle übrigen Bedingungen (Zeitfenster, Volumen, Hoch/Tief, Funding, Open Interest)
-                AdvancedHeader(
-                    title = stringResource(R.string.alarm_more_conditions),
-                    expanded = moreConditions,
-                    onToggle = { moreConditions = !moreConditions },
-                )
-                if (moreConditions) {
-                    MoreConditionOptions(draft = draft, derivatives = derivatives, onDraftChange = onDraftChange)
-                }
-
                 // «Melden: Einmal / Jedes Mal» — sichtbare Beschriftung wie iOS
                 Text(
                     stringResource(R.string.alarm_option_repeating),
@@ -162,31 +144,28 @@ internal fun AlarmEditorSheet(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = Spacing.lg)
                 )
-                SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth().padding(top = Spacing.xs)) {
-                    listOf(false, true).forEachIndexed { index, repeating ->
-                        SegmentedButton(
-                            selected = draft.repeating == repeating,
-                            onClick = { onDraftChange(draft.copy(repeating = repeating)) },
-                            shape = SegmentedButtonDefaults.itemShape(index = index, count = 2),
-                            icon = {}
-                        ) {
-                            Text(
-                                stringResource(if (repeating) R.string.alarm_repeat_each else R.string.alarm_repeat_once),
-                                // Grosse Schrift: zweite Zeile statt abgeschnitten
-                                maxLines = 2,
-                                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
-                            )
-                        }
-                    }
-                }
+                RepeatingChoice(draft = draft, onDraftChange = onDraftChange)
 
+                // «Mehr»: Schnell-Alarme, weitere Bedingungen, Währung, Ton, Vibration, Vorlesen
                 AdvancedHeader(
-                    title = stringResource(R.string.alarm_advanced),
-                    expanded = advanced,
-                    onToggle = { advanced = !advanced },
+                    title = stringResource(R.string.alarm_editor_more),
+                    subtitle = stringResource(R.string.alarm_editor_more_summary).takeIf { !more },
+                    expanded = more,
+                    onToggle = {
+                        more = !more
+                        AlarmEditorSession.moreExpanded = more
+                    },
+                    modifier = Modifier.testTag(UiTestTags.ALARM_MORE),
                 )
-
-                if (advanced) {
+                if (more) {
+                    // Ein Antippen legt den Alarm sofort an (nur beim Anlegen)
+                    if (draft.id == 0L && templates.isNotEmpty()) {
+                        TemplateChips(templates = templates, onTemplate = onTemplate)
+                    }
+                    // Alle übrigen Bedingungen (Zeitfenster, Volumen, Hoch/Tief, Funding, Open Interest)
+                    MoreSubtitle(stringResource(R.string.alarm_more_conditions))
+                    MoreConditionOptions(draft = draft, derivatives = derivatives, onDraftChange = onDraftChange)
+                    MoreSubtitle(stringResource(R.string.alarm_advanced))
                     AdvancedOptions(
                         draft = draft,
                         quoteAsset = quoteAsset,
@@ -199,8 +178,9 @@ internal fun AlarmEditorSheet(
 
                 // Vorschau: der Alarm als Satz, live mit der Eingabe (zeigt auch, wie der Betrag gelesen wurde). Keine
                 // Live-Region: der Screenreader läse sonst nach jeder getippten Ziffer den ganzen Satz vor
+                // Leeres Feld: nur der Hinweis «Wert eingeben» unter dem Knopf, nicht zusätzlich die Karte ([AlarmDraft.showsSentence])
                 val sentenceCurrency = if (offerCurrency && draft.currency != null) otherCurrency else quoteAsset.uppercase()
-                Text(
+                if (draft.showsSentence) Text(
                     text = alarmSentence(
                         context = context,
                         condition = draft.condition,
@@ -255,3 +235,12 @@ internal fun AlarmEditorSheet(
  * Alarm. Gesetzt von AppNavHost; null (Vorschau, Widget-Einrichtung) = kein Knopf.
  */
 val LocalOpenUpdateSettings = androidx.compose.runtime.staticCompositionLocalOf<(() -> Unit)?> { null }
+
+/**
+ * «Mehr» im Alarm-Editor aufgeklappt? Gilt für die laufende Sitzung (Prozess), nicht gespeichert: Wer es einmal
+ * aufklappt, findet es beim nächsten Alarm offen; nach dem Neustart ist der Editor wieder kurz. Nur auf dem Main-Thread
+ * gelesen und geschrieben (Compose). Wie iOS `AlarmEditorSession`.
+ */
+internal object AlarmEditorSession {
+    var moreExpanded = false
+}

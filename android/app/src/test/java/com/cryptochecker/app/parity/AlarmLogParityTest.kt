@@ -44,6 +44,8 @@ class AlarmLogParityTest {
                 markPrice = t.flag("markPrice"),
                 stale = t.flag("stale"),
                 noRate = t.flag("noRate"),
+                fxStale = t.flag("fxStale"),
+                fxUnsure = t.flag("fxUnsure"),
                 due = t.flag("due"),
                 coolingDown = t.flag("coolingDown"),
                 waitingRearm = t.flag("waitingRearm"),

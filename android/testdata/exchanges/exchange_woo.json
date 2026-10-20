@@ -2,7 +2,7 @@
   "exchange": "WOO X / WOO X Futures",
   "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
   "endpoints": {
-    "single": "GET https://api.woox.io/v3/public/kline?symbol=SPOT_BTC_USDT&type=1h&limit=25 | /v3/public/futures?symbol=PERP_BTC_USDT",
+    "single": "GET https://api.woox.io/v3/public/kline?symbol=SPOT_BTC_USDT&type=1h&limit=25 (+ /v1/public/market_trades?symbol=SPOT_BTC_USDT&limit=1, since build 91) | /v3/public/futures?symbol=PERP_BTC_USDT",
     "bulk": "GET https://api.woox.io/v3/public/futures"
   },
   "cases": [
@@ -76,6 +76,41 @@
       },
       "requestId": 0,
       "body": "{\"success\":true,\"data\":{\"rows\":[]},\"timestamp\":1728540000123}",
+      "expect": {
+        "error": true,
+        "message": null
+      }
+    },
+    {
+      "kind": "single",
+      "name": "spot, request 1: last trade (live capture 20 Oct 2026) -> real last price and its time",
+      "market": "Woo",
+      "pair": {
+        "base": "BTC",
+        "quote": "USDT",
+        "id": "SPOT_BTC_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 1,
+      "body": "{\"success\":true,\"rows\":[{\"symbol\":\"SPOT_BTC_USDT\",\"side\":\"SELL\",\"executed_price\":83081.96,\"executed_quantity\":0.174010,\"executed_timestamp\":\"1792534030.272\",\"source\":0,\"rpi\":false}]}",
+      "expect": {
+        "last": 83081.96,
+        "change24hPercent": null,
+        "exchangeTime": 1792534030272
+      }
+    },
+    {
+      "kind": "single",
+      "name": "spot, request 1: no trades -> error, candle price stays",
+      "market": "Woo",
+      "pair": {
+        "base": "FOO",
+        "quote": "USDT",
+        "id": "SPOT_FOO_USDT",
+        "contract": "NONE"
+      },
+      "requestId": 1,
+      "body": "{\"success\":true,\"rows\":[]}",
       "expect": {
         "error": true,
         "message": null

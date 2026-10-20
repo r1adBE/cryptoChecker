@@ -13,6 +13,8 @@ import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogTrace
 import com.cryptochecker.app.domain.alarm.AlarmSnooze
+import com.cryptochecker.app.domain.alarm.AlarmTextNote
+import com.cryptochecker.app.domain.convert.FiatAlarmGuard
 import com.cryptochecker.app.domain.alarm.DerivativesAlarmData
 import com.cryptochecker.app.domain.alarm.MoveWindow
 import com.cryptochecker.app.domain.alarm.QuietHours
@@ -122,11 +124,13 @@ class RefreshEffects internal constructor(
 
         // Umrechnungsfaktoren für Kursalarme in einer anderen Währung: je Währung einmal pro Durchlauf.
         val rates = HashMap<String, Double?>()
+        // Aster «U» zählt als USD ([CurrencyConversion.conversionQuote])
+        val conversionQuote = com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(watch.marketKey, watch.quoteAsset)
         suspend fun rateFor(currency: String): Double? {
             val key = currency.uppercase()
             if (rates.containsKey(key)) return rates[key]
             val rate = try {
-                currencyConverter.rate(watch.quoteAsset, key)
+                currencyConverter.rate(conversionQuote, key)
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
@@ -233,6 +237,19 @@ class RefreshEffects internal constructor(
                 }
                 val comparePrice = if (convertTo == null) price else price * rate
                 val comparePrevious = if (convertTo == null) previousPrice else previousPrice?.let { it * rate }
+                // Devisenkurs zu alt bzw. USDT/USD nur unsicher über USDC: diesmal nicht prüfen, Alarm bleibt scharf
+                val skip = convertTo?.let { currencyConverter.skip(conversionQuote, it, now) }
+                if (skip != null) {
+                    unchecked(alarm, AlarmCheckStatus.Reason.NO_RATE)
+                    if (trace != null) observe {
+                        val due = alarmEvaluator.shouldTrigger(
+                            alarm, comparePrice, comparePrevious, now, settings.alarmCooldownMinutes, moveHistory,
+                        )
+                        val fxStale = skip == FiatAlarmGuard.Skip.FX_STALE
+                        trace.note(alarm, AlarmLogTrace(fxStale = fxStale, fxUnsure = !fxStale, due = due), comparePrice)
+                    }
+                    continue
+                }
                 alarmCheckStatus.markChecked(alarm.id)
                 // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
                 if (alarmEvaluator.shouldRearmLevel(alarm, comparePrice, now)) {
@@ -270,7 +287,11 @@ class RefreshEffects internal constructor(
                 report(
                     alarm,
                     mark = { watchRepository.markAlarmTriggered(alarm, price, now) },
-                    show = { notifier.showAlarm(watch, alarm, comparePrice, priceCurrency = convertTo) },
+                    show = {
+                        // Umgerechnet mit USDT = 1 (USDT/USD nicht gemessen): im Text vermerkt
+                        val usdtAssumed = convertTo != null && currencyConverter.usdtAssumed(conversionQuote, convertTo, now)
+                        notifier.showAlarm(watch, alarm, comparePrice, priceCurrency = convertTo, textNote = AlarmTextNote.of(usdtAssumed = usdtAssumed))
+                    },
                     spokenPrice = comparePrice,
                     currency = convertTo,
                     logPrice = comparePrice,

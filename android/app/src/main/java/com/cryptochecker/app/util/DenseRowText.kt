@@ -30,4 +30,12 @@ object DenseRowText {
      * schmalen Zeilen, damit das Paar dort mehr Platz behält (Kurs-Spalte bleibt unberührt).
      */
     fun sparklineWidth(rowWidth: Float): Float = if (rowWidth < NARROW_ROW) SPARKLINE_WIDTH_NARROW else SPARKLINE_WIDTH_REGULAR
+
+    /**
+     * Kurs der Merkliste eine Stufe grösser (Android `titleLarge`, iOS `.title3`)? Unter dem Paar
+     * (gestapelt) immer, daneben nur bei normaler Schrift in Zeilen ab [NARROW_ROW] — sonst bliebe
+     * dem Paar neben Logo, Mini-Chart und Kurs kaum Breite (Kurs wird nie abgeschnitten).
+     */
+    fun largePrice(scale: Float, rowWidth: Float): Boolean =
+        stacksTrailing(scale) || (scale < WRAP_FROM && rowWidth >= NARROW_ROW)
 }

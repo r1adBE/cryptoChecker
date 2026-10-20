@@ -14,6 +14,8 @@ struct WatchlistDayChangePill: View {
     /// Wert aus den Kerzen einer anderen Börse (`DayChange.rowChangeMarker`): kleines «*» in `onSurfaceVariant`
     /// dahinter — gesprochen wird die Quelle im Zeilensatz, erklärt im Aktionsblatt (wie Android).
     var marker = false
+    /// Kurzer Name der fremden Börse (`DayChange.rowMarkerLabel`): statt «*» klein «· Binance» an der Zahl; nil = «*».
+    var markerLabel: String? = nil
     /// Kurzer Hinweis zur Quelle beim Tippen auf das «*» (als Popover am Zeichen, ohne das Aktionsblatt der Zeile
     /// zu öffnen); nil = kein Tippziel. VoiceOver: Aktion der Zeile, die `showMarkerHint` setzt (wie Android).
     var markerHint: String? = nil
@@ -45,7 +47,19 @@ struct WatchlistDayChangePill: View {
             }
             // Deaktiviertes Paar: letzter Wert in neutralem Grau, ohne Kursfarbe
             ChangePill(change: value, size: size, dashWhenMissing: true, neutral: watch.disabled)
-            if marker {
+            if marker, let markerLabel {
+                // Kurzer Börsenname direkt an der Zahl («+2.4% · Binance»): einzeilig, ohne Umbruch; Tipp-Hinweis bleibt
+                let name = Text(verbatim: "· \(markerLabel)")
+                    .font(.system(.caption, design: .rounded))
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .lineLimit(1)
+                    .fixedSize()
+                if let markerHint {
+                    name.markerTapTarget(hint: markerHint, isPresented: showMarkerHint)
+                } else {
+                    name
+                }
+            } else if marker {
                 // Hochgestellt wie eine Fussnote, dicht an der Zahl
                 let star = Text(Self.sourceMarker)
                     .font(.system(.caption, design: .rounded))

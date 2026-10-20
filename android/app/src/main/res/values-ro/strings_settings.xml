@@ -141,7 +141,7 @@
     <string name="settings_change_basis_hint_since_last">„%1$s” compară cu prețul de la actualizarea anterioară. Cu prețuri live, rămâne aproape de 0%%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
     <string name="settings_change_period">Afișează perioada lângă variație</string>
-    <string name="settings_change_period_hint">„24h”, „azi” sau „ultima actualizare” mic lângă variație în listă și în widgetul cu o monedă. Cititorul de ecran o spune mereu.</string>
+    <string name="settings_change_period_hint">„24h”, „azi” sau „ultima actualizare” mic lângă variație în linia de puls și în widgetul cu o monedă. Lista de urmărire o arată mereu; cititorul de ecran o spune mereu.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Moneda de conversie</string>

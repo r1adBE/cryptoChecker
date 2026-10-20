@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">ברקע</string>
     <string name="alarm_log_source_exact">בדיקה בזמן</string>
     <string name="alarm_log_source_widget">דרך הווידג׳ט</string>
+    <string name="alarm_outcome_fx_stale">לא נבדקה – שער החליפין ישן מ־36 שעות</string>
+    <string name="alarm_outcome_fx_unsure">לא נבדקה – המרת USDT לא ודאית (רק דרך USDC)</string>
 </resources>

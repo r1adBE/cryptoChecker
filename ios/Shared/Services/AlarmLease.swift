@@ -9,7 +9,8 @@ import os
 /// gelöscht. Bewusst kein gehaltenes Datei-Lock (`flock`): Hält ein angehaltener Prozess
 /// ein Lock auf eine Datei im geteilten Container, beendet iOS ihn (0xdead10cc).
 /// Bleibt eine Lease liegen (Prozess beendet), gilt sie nach `staleAfterSeconds` ohne Auffrischen
-/// (`refresh`, vor jedem gemeldeten Alarm) als verwaist. Übernehmen: nur löschen, wenn die Datei noch dieselbe
+/// (`refresh`, vor jedem gemeldeten Alarm) als verwaist, ebenso mit Änderungsdatum in der Zukunft (Uhr zurückgestellt,
+/// `isStale`). Übernehmen: nur löschen, wenn die Datei noch dieselbe
 /// verwaiste ist, dann exklusiv neu anlegen und nach kurzer Pause nachlesen, ob der eigene Token noch drinsteht —
 /// haben zwei Prozesse gleichzeitig übernommen, gibt der unterlegene auf. Ist die Lease beim Auffrischen nicht
 /// mehr die eigene (`refresh` = false), meldet der Durchlauf keine weiteren Alarme.
@@ -20,6 +21,16 @@ import os
 final class AlarmLease: @unchecked Sendable { // @unchecked: `held` nur unter `lock` (NSLock); `takenOver` nur vor der Herausgabe in `tryAcquire` gesetzt
     /// Älter als das → verwaist (Auswertung in Millisekunden, Melden je Alarm höchstens rund 1 s).
     static let staleAfterSeconds: TimeInterval = 30
+
+    /// Änderungsdatum mehr als so weit in der Zukunft → Uhr zurückgestellt: verwaist (die paar Millisekunden zwischen
+    /// `now` und dem Anlegen durch einen anderen Prozess zählen nicht).
+    static let futureToleranceSeconds: TimeInterval = 2
+
+    /// Verwaist nach diesem Alter (jetzt minus Änderungsdatum)? Negativ heisst: Uhr zurückgestellt — sonst bliebe die
+    /// Lease so lange liegen, wie zurückgestellt wurde, und keine Auswertung käme durch.
+    static func isStale(age: TimeInterval) -> Bool {
+        age > staleAfterSeconds || age < -futureToleranceSeconds
+    }
 
     /// So lange nach dem Übernehmen einer verwaisten Lease warten, bevor nachgelesen wird.
     static let takeoverVerifyNanos: UInt64 = 50_000_000
@@ -53,7 +64,7 @@ final class AlarmLease: @unchecked Sendable { // @unchecked: `held` nur unter `l
         let staleToken = try? String(contentsOf: url, encoding: .utf8)
         guard let attributes = try? FileManager.default.attributesOfItem(atPath: url.path),
               let modified = attributes[.modificationDate] as? Date,
-              now.timeIntervalSince(modified) > staleAfterSeconds else { return nil }
+              isStale(age: now.timeIntervalSince(modified)) else { return nil }
         // Inzwischen von einem anderen Prozess übernommen (anderer Inhalt)? Dann nicht dessen Lease löschen
         guard (try? String(contentsOf: url, encoding: .utf8)) == staleToken else { return nil }
         _ = Darwin.unlink(url.path)

@@ -240,8 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Nie udało się odczytać obserwowanych adresów – ich salda nie ma w tym pliku</string>
-    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">Uwaga: adresy z kosztem nabycia – przelewy na obserwowany adres lub z niego mogą tu występować podwójnie lub ich brakować; karta portfela liczy je poprawnie.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">Uwaga: obserwowany adres ma pozycje kosztu nabycia z datą po ostatnim sprawdzeniu salda przed tą datą – może ich tu brakować.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Obserwowane adresy wliczają się do wartości całkowitej, ale nie mają kosztu nabycia – zysk jest przez to raczej zawyżony. Zapisz koszt jako zakup.</string>

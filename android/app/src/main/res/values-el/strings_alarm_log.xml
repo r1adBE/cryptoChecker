@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">στο παρασκήνιο</string>
     <string name="alarm_log_source_exact">ακριβής έλεγχος</string>
     <string name="alarm_log_source_widget">μέσω widget</string>
+    <string name="alarm_outcome_fx_stale">Δεν ελέγχθηκε – ισοτιμία παλαιότερη από 36 ώρες</string>
+    <string name="alarm_outcome_fx_unsure">Δεν ελέγχθηκε – αβέβαιη μετατροπή USDT (μόνο μέσω USDC)</string>
 </resources>

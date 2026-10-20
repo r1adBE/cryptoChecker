@@ -191,6 +191,11 @@ data class TaxSummaryLine(
     val noteDate: LocalDate? = null,
     /** An einem Tag ohne USDT/USD-Schluss mit USDT = 1 umgerechnet ([TaxExport.usdtApproximateOn]); zählt in [TaxYearSummary.usdtApproximate]. */
     val usdtApproximate: Boolean = false,
+    /**
+     * Ein Wert darin ist zum Tagesschluss geschätzt (DE § 22 Nr. 3: Einkünfte mit [TaxIncomeRow.estimated]) — Vermerk
+     * [TaxSummaryTexts.estimated] an der Grenzzeile, damit «unter der Grenze» nicht wie ein belegter Betrag aussieht.
+     */
+    val estimated: Boolean = false,
 )
 
 /** Jahresübersicht einer Vorlage — ORIENTIERUNG, keine Steuerberatung. */

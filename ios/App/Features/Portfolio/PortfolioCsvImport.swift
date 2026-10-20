@@ -79,6 +79,11 @@ struct PortfolioCsvImportSheet: View {
                     if !preview.missingFx.isEmpty {
                         hint(L("portfolio_csv_import_missing_fx", preview.missingFx.map(String.init).joined(separator: ", ")))
                     }
+                    // Fiat-Preise ohne USDT/USD-Tagesschluss: mit USDT = 1 umgerechnet (Vermerk wie im Portfolio)
+                    if !preview.usdtApproximate.isEmpty {
+                        hint(L("portfolio_usdt_assumed") + " ("
+                             + preview.usdtApproximate.map(String.init).joined(separator: ", ") + ")")
+                    }
                     if !preview.missingPrice.isEmpty {
                         hint(L("portfolio_csv_import_missing_price", preview.missingPrice.map(String.init).joined(separator: ", ")))
                     }

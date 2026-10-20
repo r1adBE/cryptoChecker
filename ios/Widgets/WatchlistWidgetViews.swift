@@ -36,7 +36,7 @@ struct WatchlistListView: View {
             // L-19: Logo 18 wie Android (`widget_list.xml`), Titel 13 fett, Uhrzeit 12
             WidgetLogo(accent: entry.accent, dark: palette.dark, size: 18)
             WatchlistHeaderTitle(entry: entry, palette: palette,
-                                 titleSizes: (normal: 13, small: 11), metaSize: 12)
+                                 titleSizes: (normal: WidgetFont.body, small: WidgetFont.label), metaSize: 12)
             WidgetRefreshButton(palette: palette, size: 26, blockedUntil: entry.refreshBlockedUntil, date: entry.date)
         }
         .frame(height: 26)

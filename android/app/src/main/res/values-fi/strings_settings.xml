@@ -141,7 +141,7 @@
     <string name="settings_change_basis_hint_since_last">”%1$s” vertaa edellisen päivityksen hintaan. Live-hinnoilla arvo pysyy lähellä 0 %%:a.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
     <string name="settings_change_period">Näytä jakso muutoksen vieressä</string>
-    <string name="settings_change_period_hint">Pieni ”24h”, ”tänään” tai ”ed. päivitys” muutoksen vieressä seurantalistassa ja yhden kolikon widgetissä. Ruudunlukija kertoo sen aina.</string>
+    <string name="settings_change_period_hint">Pieni ”24h”, ”tänään” tai ”ed. päivitys” muutoksen vieressä pulssirivillä ja yhden kolikon widgetissä. Seurantalista näyttää sen aina; ruudunlukija kertoo sen aina.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Muunnosvaluutta</string>

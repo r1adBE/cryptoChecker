@@ -76,7 +76,7 @@
     <string name="system_backup_not_imported_message">نسخهٔ سبد از پشتیبان سیستم Android حتی در تلاش دوم خوانده نشد و حذف شد. اگر فایل پشتیبان داری، آن را در تنظیمات از «%1$s» بازیابی کن.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">قفل سبد ذخیره‌شده الان باز نمی‌شود و نمایش داده نمی‌شود – پس از راه‌اندازی دوبارهٔ برنامه برمی‌گردد. تغییراتی که الان می‌دهید ذخیره نمی‌شوند.</string>
+    <string name="portfolio_storage_kept_in_memory">قفل سبد ذخیره‌شده الان باز نمی‌شود و نمایش داده نمی‌شود – پس از راه‌اندازی دوبارهٔ برنامه برمی‌گردد. تغییرات فقط پس از اجرای بعدی ممکن است.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">قفل واچ‌لیست ذخیره‌شده الان باز نمی‌شود و نمایش داده نمی‌شود – پس از راه‌اندازی دوبارهٔ برنامه برمی‌گردد. تغییراتی که الان می‌دهید ذخیره نمی‌شوند.</string>
     <string name="alarm_save_storage_locked">هشدارها الان ذخیره نمی‌شوند – واچ‌لیست ذخیره‌شده قفل است. برنامه را دوباره راه‌اندازی کنید.</string>
@@ -85,4 +85,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">رمزگذاری هنوز فعال نیست – سبد ذخیره نمی‌شود و تغییرات با بستن برنامه از بین می‌روند. برنامه در اجرای بعدی دوباره تلاش می‌کند.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">سبد ذخیره‌شده الان قفل است – تغییرات فقط پس از اجرای بعدی ممکن است.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">این دستگاه الان کلیدی فراهم نمی‌کند – واچ‌لیست ذخیره نمی‌شود و تغییرات با بستن برنامه از بین می‌روند. برنامه در اجرای بعدی دوباره تلاش می‌کند.</string>
 </resources>

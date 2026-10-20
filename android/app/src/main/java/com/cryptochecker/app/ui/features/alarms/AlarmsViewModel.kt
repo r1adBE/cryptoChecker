@@ -83,6 +83,8 @@ class AlarmsViewModel @Inject constructor(
     val firstAlarm: StateFlow<Boolean> = notices.firstAlarm
 
     fun dismissFirstAlarm() = notices.dismissFirstAlarm()
+    /** «Rückgängig» nach einem Schnell-Alarm, auch nach «Prüfen» noch zu zeigen ([PendingUndoSnackbar]). */
+    internal val undo = AlarmUndoOffer()
 
     /** Akku-Einstellungen aus der Bestätigung geöffnet: der eigene Akku-Dialog kommt nicht mehr. */
     fun batteryHintUsed() {
@@ -182,7 +184,7 @@ class AlarmsViewModel @Inject constructor(
         val code = CurrencyConversion.normalize(currency)
         if (code.isEmpty() || code in _rates.value) return
         viewModelScope.launch {
-            val quote = watch.value?.quoteAsset ?: watchRepository.getWatch(watchId)?.quoteAsset ?: return@launch
+            val quote = (watch.value ?: watchRepository.getWatch(watchId))?.let { CurrencyConversion.conversionQuote(it.marketKey, it.quoteAsset) } ?: return@launch
             val rate = currencyConverter.cachedRate(quote, code) ?: currencyConverter.rate(quote, code)
             if (rate != null) _rates.update { it + (code to rate) }
         }

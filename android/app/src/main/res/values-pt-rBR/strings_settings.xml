@@ -141,7 +141,7 @@
     <string name="settings_change_basis_hint_since_last">“%1$s” compara com o preço da atualização anterior. Com preços ao vivo, fica perto de 0%%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
     <string name="settings_change_period">Mostrar período ao lado da variação</string>
-    <string name="settings_change_period_hint">“24h”, “hoje” ou “última atualização” pequeno ao lado da variação na lista e no widget de uma moeda. O leitor de tela sempre fala.</string>
+    <string name="settings_change_period_hint">“24h”, “hoje” ou “última atualização” pequeno ao lado da variação na linha de pulso e no widget de uma moeda. A lista de acompanhamento sempre mostra; o leitor de tela sempre fala.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Moeda de conversão</string>

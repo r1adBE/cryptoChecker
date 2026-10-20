@@ -141,7 +141,7 @@
     <string name="settings_change_basis_hint_since_last">« %1$s » compare avec le cours de la mise à jour précédente. Avec les cours en direct, la valeur reste proche de 0 %%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
     <string name="settings_change_period">Afficher la période à côté de la variation</string>
-    <string name="settings_change_period_hint">« 24 h », « aujourd’hui » ou « dern. mise à jour » en petit à côté de la variation dans la liste et le widget d’une crypto. Le lecteur d’écran l’annonce toujours.</string>
+    <string name="settings_change_period_hint">« 24 h », « aujourd’hui » ou « dern. mise à jour » en petit à côté de la variation dans la ligne de pouls et le widget d’une crypto. La liste de suivi l’affiche toujours ; le lecteur d’écran l’annonce toujours.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Devise de conversion</string>

@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">قد يوقف OnePlus التطبيق – فلا تصل أي تنبيهات. اسمح بـ«التشغيل التلقائي» واسمح بالنشاط في الخلفية من استخدام البطارية.</string>
     <string name="oem_battery_oppo">قد يوقف Oppo/Realme التطبيق – فلا تصل أي تنبيهات. اسمح بـ«التشغيل التلقائي» واسمح بالنشاط في الخلفية من استخدام البطارية.</string>
     <string name="oem_battery_vivo">قد يوقف Vivo التطبيق – فلا تصل أي تنبيهات. اسمح بـ«التشغيل التلقائي» واسمح باستهلاك عالٍ في الخلفية من البطارية.</string>
+    <string name="alarm_reliability_recent">آخر فحص %1$s</string>
+    <string name="alarm_reliability_stale">آخر فحص %1$s – قد تتأخر التنبيهات</string>
+    <string name="alarm_reliability_never">التنبيهات مفعّلة – لا يوجد فحص في الخلفية بعد</string>
+    <string name="alarm_reliability_notifications_off">الإشعارات متوقفة – لن تصل التنبيهات</string>
+    <string name="alarm_reliability_battery">توفير البطارية قد يوقف فحص التنبيهات</string>
+    <string name="alarm_reliability_background_refresh">تحديث التطبيقات في الخلفية متوقف – قد لا تصل التنبيهات</string>
 </resources>

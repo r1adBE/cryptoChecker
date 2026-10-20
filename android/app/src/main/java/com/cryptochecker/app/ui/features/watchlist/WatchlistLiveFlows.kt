@@ -40,7 +40,7 @@ internal class WatchlistLiveFlows(
 ) {
     /** Quote-Währungen der Merkliste (Grossbuchstaben), für die Umrechnungsfaktoren unten. */
     private val quoteCurrencies = watchList
-        .map { list -> list.map { CurrencyConversion.normalize(it.quoteAsset) }.filter { it.isNotEmpty() }.toSet() }
+        .map { list -> list.map { CurrencyConversion.conversionQuote(it.marketKey, it.quoteAsset) }.filter { it.isNotEmpty() }.toSet() }
         .distinctUntilChanged()
 
     /**
@@ -80,6 +80,10 @@ internal class WatchlistLiveFlows(
 
     private val convertFxTimesState = MutableStateFlow<Map<String, Long>>(emptyMap())
 
+    /** Quote-Währungen mit USDT = 1 angenommen bzw. unsicherer Umrechnung ([CurrencyConverter.usdtNotes]); mit [convertRates]. */
+    private val convertUsdtNotesState =
+        MutableStateFlow<Map<String, com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState>>(emptyMap())
+
     /**
      * Je Quote-Währung (Grossbuchstaben) die Abrufzeit des Devisenkurses im Faktor von [convertRates],
      * nur wenn älter als 3 h ([CurrencyConversion.FX_STALE_MILLIS]) — die Zeile zeigt dann «· Kurs 08:15».
@@ -102,11 +106,13 @@ internal class WatchlistLiveFlows(
             val wanted = quotes.filterNot { CurrencyConversion.sameCurrency(it, target) }
             if (!show || wanted.isEmpty()) {
                 convertFxTimesState.value = emptyMap()
+                convertUsdtNotesState.value = emptyMap()
                 emit(emptyMap())
                 return@transformLatest
             }
             var known = currencyConverter.cachedRates(wanted, target)
             convertFxTimesState.value = currencyConverter.staleFxTimes(wanted, target)
+            convertUsdtNotesState.value = currencyConverter.usdtNotes(wanted, target)
             emit(known)
             while (true) {
                 val fresh = runCatching { currencyConverter.rates(wanted, target) }
@@ -116,6 +122,8 @@ internal class WatchlistLiveFlows(
                 known = known + fresh
                 // Alter der Devisenkurse nach dem Auffrischen (älter als 3 h: Uhrzeit in der Zeile)
                 convertFxTimesState.value = currencyConverter.staleFxTimes(wanted, target)
+                // USDT/USD: angenommen (keine Messung) bzw. unsicher (nur über USDC) — Vermerk an der Zeile
+                convertUsdtNotesState.value = currencyConverter.usdtNotes(wanted, target)
                 emit(known)
                 delay(CONVERT_REFRESH_MILLIS)
             }
@@ -138,11 +146,11 @@ internal class WatchlistLiveFlows(
             )
         },
         convertRates,
-        convertFxTimes,
+        combine(convertFxTimes, convertUsdtNotesState) { fxTimes, notes -> fxTimes to notes },
         sortRates,
         refresh.changeStamp,
-    ) { base, rates, fxTimes, sorting, stamp ->
-        base.copy(convertRates = rates, convertFxTimes = fxTimes, sortRates = sorting, changeStamp = stamp)
+    ) { base, rates, fx, sorting, stamp ->
+        base.copy(convertRates = rates, convertFxTimes = fx.first, convertUsdtNotes = fx.second, sortRates = sorting, changeStamp = stamp)
     }.stateIn(scope, SharingStarted.WhileSubscribed(5_000), currentLive())
 
     private fun currentLive() = WatchlistLive(
@@ -152,6 +160,7 @@ internal class WatchlistLiveFlows(
         liveWatchIds = liveWatchIds.value,
         convertRates = convertRates.value,
         convertFxTimes = convertFxTimes.value,
+        convertUsdtNotes = convertUsdtNotesState.value,
         sortRates = sortRates.value,
         changeStamp = refresh.changeStamp.value,
     )

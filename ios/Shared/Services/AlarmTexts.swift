@@ -190,6 +190,18 @@ enum AlarmTexts {
 
     /// Faktor ohne überflüssige Nachkommastellen: 3 → "3", 4.25 → "4.3" — in den Ziffern der
     /// App-Sprache (wie Android `AlarmTexts.factor`).
+    /// Teile mit « · » an `body` hängen; leere fallen weg — wie Android `AlarmTextNote.join`.
+    static func join(_ body: String, _ parts: [String?]) -> String {
+        ([body] + parts.compactMap { $0 }.filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty })
+            .joined(separator: " · ")
+    }
+
+    /// Zusatz am Alarmtext («… · Binance (Kerzen)», «… · USDT = 1 angenommen»): `candleSource` = Börse fremder
+    /// Stundenkerzen beim Volumen-Spike, `usdtAssumed` = Schwelle in anderer Währung mit USDT = 1 umgerechnet. Wie Android.
+    static func withNote(_ body: String, candleSource: String? = nil, usdtAssumed: Bool = false) -> String {
+        join(body, [candleSource.map { L("why_src_candles", $0) }, usdtAssumed ? L("portfolio_usdt_assumed") : nil])
+    }
+
     static func factor(_ value: Double) -> String {
         guard value.isFinite else { return LocaleNumbers.integer(0) }
         return LocaleNumbers.decimal(value, maxDecimals: 1, minDecimals: 0)

@@ -141,6 +141,9 @@ struct TaxSummaryLine: Sendable, Equatable {
     var noteDate: LocalDay? = nil
     /// An einem Tag ohne USDT/USD-Schluss mit USDT = 1 umgerechnet; zählt in `TaxYearSummary.usdtApproximate`.
     var usdtApproximate = false
+    /// Ein Wert darin ist zum Tagesschluss geschätzt (DE § 22 Nr. 3) — Vermerk `TaxSummaryTexts.estimated` an der
+    /// Grenzzeile. Wie Android.
+    var estimated = false
 
     /// Text des Vermerks aus `texts` samt Datum (ISO) — wie `noteText` (Android); nil = keiner.
     func noteText(_ texts: TaxSummaryTexts) -> String? {

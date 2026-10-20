@@ -359,7 +359,7 @@ struct PortfolioTxSheet: View {
         } message: {
             Text(L("portfolio_tx_delete_confirm"))
         }
-        .alert(L("portfolio_storage_kept_in_memory"), isPresented: $deleteFailed) {
+        .alert(L("portfolio_storage_locked"), isPresented: $deleteFailed) {
             Button(L("action_close"), role: .cancel) {}
         }
     }

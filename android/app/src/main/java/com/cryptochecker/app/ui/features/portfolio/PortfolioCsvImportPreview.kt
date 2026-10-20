@@ -130,6 +130,10 @@ internal fun CsvImportPreviewSheet(
             if (preview.missingFx.isNotEmpty()) {
                 PreviewHint(stringResource(R.string.portfolio_csv_import_missing_fx, preview.missingFx.joinToString(", ")))
             }
+            // Fiat-Preise ohne USDT/USD-Tagesschluss: mit USDT = 1 umgerechnet (Vermerk wie im Portfolio)
+            if (preview.usdtApproximate.isNotEmpty()) {
+                PreviewHint(stringResource(R.string.portfolio_usdt_assumed) + " (" + preview.usdtApproximate.joinToString(", ") + ")")
+            }
             if (preview.missingPrice.isNotEmpty()) {
                 PreviewHint(stringResource(R.string.portfolio_csv_import_missing_price, preview.missingPrice.joinToString(", ")))
             }

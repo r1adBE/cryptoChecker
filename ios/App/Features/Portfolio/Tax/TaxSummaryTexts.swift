@@ -40,8 +40,11 @@ struct TaxSummaryTexts: Sendable {
     var wealthAddressUnobserved: String = ""
     /// Zeile «Dollarkurs von USDT fehlt – gerechnet als 1 US-Dollar» (`TaxYearSummary.usdtApproximate`); leer = keine.
     var usdtAssumed: String = ""
-    /// CH-Vermögen: Zeile «Adressen mit Einstand – Umbuchungen evtl. doppelt/fehlend» (`summaryCsv` `addressLots`).
+    /// CH-Vermögen: «Posten nach der letzten Beobachtung einer Adresse – können fehlen» (`summaryCsv` `addressLots`, auf der
+    /// Karte an der Summe, `TaxWealth.addressNote`).
     var addressLots: String = ""
+    /// Vermerk «Wert geschätzt (Tagesschluss)» an einem Posten mit geschätzten Werten (`TaxSummaryLine.estimated`).
+    var estimated: String = ""
 }
 
 /// Posten im Orientierungs-Block — wie `taxOrientationLabel` (Android): `item` mit «%s» für `label`; ohne `item`

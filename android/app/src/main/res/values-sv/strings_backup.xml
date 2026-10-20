@@ -76,7 +76,7 @@
     <string name="system_backup_not_imported_message">Portföljkopian från Androids systemsäkerhetskopia kunde inte läsas, inte ens vid andra försöket, och har raderats. Har du en säkerhetskopiefil återställer du den under ”%1$s” i Inställningar.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Den sparade portföljen kan inte låsas upp just nu och visas inte – den är tillbaka när appen startas om. Ändringar du gör nu sparas inte.</string>
+    <string name="portfolio_storage_kept_in_memory">Den sparade portföljen kan inte låsas upp just nu och visas inte – den är tillbaka när appen startas om. Ändringar går att göra först efter nästa start.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">Den sparade bevakningslistan kan inte låsas upp just nu och visas inte – den är tillbaka när appen startas om. Ändringar du gör nu sparas inte.</string>
     <string name="alarm_save_storage_locked">Larm kan inte sparas just nu – den sparade bevakningslistan är låst. Starta om appen.</string>
@@ -85,4 +85,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Krypteringen är inte aktiv än – portföljen sparas inte, och ändringar försvinner när appen stängs. Appen försöker igen vid nästa start.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Den sparade portföljen är låst just nu – ändringar går att göra först efter nästa start.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Enheten tillhandahåller ingen nyckel just nu – bevakningslistan sparas inte, och ändringar försvinner när appen stängs. Appen försöker igen vid nästa start.</string>
 </resources>

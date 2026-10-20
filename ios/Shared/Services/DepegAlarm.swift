@@ -17,8 +17,11 @@ enum DepegAlarm {
     /// Messen? Mit eingeschaltetem Alarm immer; sonst, sobald ein Portfolio da ist (eingeschaltet und mit Transaktionen
     /// oder beobachteten Adressen): Die Messung ist der Live-Kurs USDT/USD der Bewertung (`liveUsdtUsd`, Owner-Entscheid
     /// Okt. 2026). Gemeldet wird weiterhin nur mit eingeschaltetem Alarm. Wie `DepegAlarm.shouldMeasure` (Android).
-    static func shouldMeasure(depegAlarm: Bool, portfolioEnabled: Bool, hasPortfolioData: Bool) -> Bool {
-        depegAlarm || (portfolioEnabled && hasPortfolioData)
+    /// Ebenso mit `fiatConversion`: Fiat-Alarm oder ≈ Umrechnung auf einem Paar, dessen Faktor an USDT hängt
+    /// (`FiatAlarmGuard.needsUsdtMeasurement`) — sonst rechnete sie still USDT = 1. Wie Android.
+    static func shouldMeasure(depegAlarm: Bool, portfolioEnabled: Bool, hasPortfolioData: Bool,
+                              fiatConversion: Bool = false) -> Bool {
+        depegAlarm || (portfolioEnabled && hasPortfolioData) || fiatConversion
     }
 
     /// Schwelle in Zehntel-Prozent: 0.3 / 0.5 / 1 / 2 %.

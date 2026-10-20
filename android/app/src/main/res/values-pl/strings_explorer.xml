@@ -131,4 +131,5 @@
     <string name="dex_low_liquidity_alarm_hint">Ta pula ma mniej niż 10 000 USD płynności (lub brak danych). Już niewielkie kwoty poruszają jej kursem, dlatego nie można tu ustawić alarmów. Istniejące alarmy pozostają, ale zadziałają dopiero, gdy płynność znów wzrośnie.</string>
 
     <string name="explorer_bulk_show_all">Pokaż wszystkie (%1$d)</string>
+    <string name="dex_token_address_copy">Kopiuj adres tokena</string>
 </resources>

@@ -141,7 +141,7 @@
     <string name="settings_change_basis_hint_since_last">״%1$s״ משווה למחיר של העדכון הקודם. במחירים חיים הערך נשאר קרוב ל-0%%.</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
     <string name="settings_change_period">הצגת התקופה ליד השינוי</string>
-    <string name="settings_change_period_hint">״24h״, ״היום״ או ״עדכון אחרון״ בקטן ליד השינוי ברשימת המעקב ובווידג׳ט של מטבע יחיד. קורא המסך תמיד מקריא אותו.</string>
+    <string name="settings_change_period_hint">״24h״, ״היום״ או ״עדכון אחרון״ בקטן ליד השינוי בשורת הדופק ובווידג׳ט של מטבע יחיד. רשימת המעקב תמיד מציגה אותו; קורא המסך תמיד מקריא אותו.</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">מטבע להמרה</string>

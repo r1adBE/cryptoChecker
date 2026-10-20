@@ -124,6 +124,13 @@ data class AlarmDraft(
         get() = thresholdProblem == ThresholdProblem.EMPTY && visibleProblem == null
 
     /**
+     * Satzkarte («Sag mir Bescheid, wenn …») zeigen? Nicht, solange der Hinweis «Wert eingeben» unter dem Knopf steht
+     * ([showsEnterAmountHint]) — sonst sagten Karte und Hinweis bei leerem Feld zweimal dasselbe. Wie iOS.
+     */
+    val showsSentence: Boolean
+        get() = !showsEnterAmountHint
+
+    /**
      * Platzhalter im leeren Betragsfeld eines neuen Alarms: der aktuelle Kurs in der Währung des
      * Schwellwerts ([priceHint]), sechs gültige Stellen, Format wie die Eingabe. null = keiner.
      */

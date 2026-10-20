@@ -48,6 +48,13 @@ class CoinDcx : SimpleMarket(
     override val bulkTickersNumOfRequests: Int
         get() = 1
 
+    /**
+     * Der ungefilterte Ticker führt jeden aktiven Markt (Aufzeichnung 19.10.2026: 991 von 991 aktiven Paaren
+     * der Paarliste), ein fehlendes Paar ist nicht mehr gelistet.
+     */
+    override val bulkTickersComplete: Boolean
+        get() = true
+
     override fun getBulkTickersUrl(call: Int): String = COINDCX_TICKER
 
     override fun parseBulkTickers(

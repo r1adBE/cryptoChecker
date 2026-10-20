@@ -98,4 +98,5 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">מהלך ב-%1$s, מומר ל-%2$s לפי השער של היום</string>
+    <string name="converted_unsure">המרה לא ודאית</string>
 </resources>

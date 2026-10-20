@@ -61,7 +61,7 @@
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textStyle="bold"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <TextView
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:fontFeatureSettings="tnum" />
 
             <TextView

@@ -98,4 +98,5 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Průběh v %1$s, přepočtený na %2$s dnešním kurzem</string>
+    <string name="converted_unsure">Přepočet nejistý</string>
 </resources>

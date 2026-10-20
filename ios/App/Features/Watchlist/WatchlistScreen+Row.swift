@@ -23,6 +23,7 @@ extension WatchlistScreen {
         let target = convertTarget
         let rates = convertRates
         let fxTimes = convertFxTimes
+        let usdtNotes = convertUsdtNotes
         return WatchlistLiveRow(watch: watch, rollingBasis: !data.settings.changeBasis.isDay) { shown in
             WatchlistRow(
                 watch: shown,
@@ -40,7 +41,8 @@ extension WatchlistScreen {
                 selecting: selecting,
                 selected: selectedIds.contains(watch.id),
                 hasActivity: signals[watch.id] != nil,
-                converted: WatchlistConversion.text(shown, target: target, rates: rates, fxTimes: fxTimes, now: now),
+                converted: WatchlistConversion.text(shown, target: target, rates: rates, fxTimes: fxTimes,
+                                                    usdtNotes: usdtNotes, now: now),
                 // Nicht mehr gehandelt: kein Mini-Chart
                 sparklineEnabled: sparklines,
                 celebrationIndex: celebrating[watch.id],

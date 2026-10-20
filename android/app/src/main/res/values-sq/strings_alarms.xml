@@ -175,4 +175,6 @@
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Në pritje të një kursi aktual</string>
     <string name="alarm_enter_amount">Fut një vlerë</string>
+    <string name="alarm_editor_more">Më shumë</string>
+    <string name="alarm_editor_more_summary">Alarme të shpejta, kushte të tjera, tingull dhe lexim me zë</string>
 </resources>

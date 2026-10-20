@@ -107,4 +107,5 @@
     <string name="dex_low_liquidity_alarm_hint">此池流动性低于 10,000 USD（或无数据）。小额交易也能推动其价格，因此无法在此设置提醒。已有提醒会保留，但在流动性回升前不会触发。</string>
 
     <string name="explorer_bulk_show_all">显示全部（%1$d）</string>
+    <string name="dex_token_address_copy">复制代币地址</string>
 </resources>

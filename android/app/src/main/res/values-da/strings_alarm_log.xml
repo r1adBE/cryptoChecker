@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">i baggrunden</string>
     <string name="alarm_log_source_exact">præcis kontrol</string>
     <string name="alarm_log_source_widget">via widget</string>
+    <string name="alarm_outcome_fx_stale">Ikke tjekket – valutakurs ældre end 36 timer</string>
+    <string name="alarm_outcome_fx_unsure">Ikke tjekket – USDT-omregning usikker (kun via USDC)</string>
 </resources>

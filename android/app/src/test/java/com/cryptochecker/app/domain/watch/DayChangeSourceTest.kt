@@ -92,4 +92,15 @@ class DayChangeSourceTest {
             assertEquals("rowChangeMarker: ${c["name"]}", c["expected"] as String?, actual)
         }
     }
+
+    @Test
+    fun rowMarkerLabelIsShortExchangeName() {
+        // Gemeinsame Fälle mit iOS (DayChangeSourceTests.testRowMarkerLabel)
+        val cases = ParityJson.load("day_change.json")["rowMarkerLabel"].list()
+        check(cases.isNotEmpty())
+        cases.forEach { raw ->
+            val c = raw.obj()
+            assertEquals("rowMarkerLabel: ${c["name"]}", c["expected"] as String, DayChange.rowMarkerLabel(c["provider"] as String))
+        }
+    }
 }

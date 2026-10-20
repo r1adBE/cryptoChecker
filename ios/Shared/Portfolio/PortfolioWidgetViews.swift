@@ -96,16 +96,16 @@ enum PortfolioWidgetViews {
             .sorted { $0.value != $1.value ? $0.value > $1.value : $0.symbol < $1.symbol }
     }
 
-    /// Höhe einer Listenzeile (pt): einzeilig (breit) Logo 20 bzw. 13 pt; zweizeilig Logo 24 bzw.
-    /// 13 + 11 pt; je 8 pt Abstand — wie Android (`rowHeightDp`, Schriftgrösse 1).
+    /// Höhe einer Listenzeile (pt): einzeilig (breit) Logo 20 bzw. 12 pt; zweizeilig Logo 24 bzw.
+    /// 12 + 12 pt (`WidgetFont.label`); je 8 pt Abstand — wie Android (`rowHeightDp`, Schriftgrösse 1).
     static func rowHeight(wide: Bool, fontScale: Double = 1) -> Double {
         // In Schritten mit festen Typen (Literale, `max` und `?:` in einem Ausdruck sind für den Type-Checker teuer)
         if wide {
-            let text: Double = 13 * 1.3 * fontScale
+            let text: Double = 12 * 1.3 * fontScale
             let content: Double = Swift.max(20, text)
             return content + 8
         }
-        let lines: Double = 13 + 11
+        let lines: Double = 12 + 12
         let text: Double = lines * 1.2 * fontScale + 2
         let content: Double = Swift.max(24, text)
         return content + 8
@@ -126,14 +126,14 @@ enum PortfolioWidgetViews {
     /// Anteil der Total-Zeile: das ganze Portfolio — wie Android `LIST_TOTAL_SHARE`.
     static let listTotalShare: Double = 100
 
-    /// Total-Zeile der Liste, gestaltet wie die Listenzeilen ohne Logo (Build 46: breit einzeilig 13 pt, sonst
-    /// zweizeilig 13 + 11 pt; je 8 pt Innenrand) und die Trennlinie darüber (1 pt) — wie Android `listTotalHeightDp`.
+    /// Total-Zeile der Liste, gestaltet wie die Listenzeilen ohne Logo (Build 46: breit einzeilig 12 pt, sonst
+    /// zweizeilig 12 + 12 pt; je 8 pt Innenrand) und die Trennlinie darüber (1 pt) — wie Android `listTotalHeightDp`.
     static func listTotalHeight(fontScale: Double = 1, wide: Bool = false) -> Double {
         if wide {
-            let line: Double = 13 * 1.3 * fontScale
+            let line: Double = 12 * 1.3 * fontScale
             return line + 8 + 1
         }
-        let lines: Double = 13 + 11
+        let lines: Double = 12 + 12
         let text: Double = lines * 1.2 * fontScale
         return text + 2 + 8 + 1
     }

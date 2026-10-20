@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">op de achtergrond</string>
     <string name="alarm_log_source_exact">stipte controle</string>
     <string name="alarm_log_source_widget">via widget</string>
+    <string name="alarm_outcome_fx_stale">Niet gecontroleerd – wisselkoers ouder dan 36 uur</string>
+    <string name="alarm_outcome_fx_unsure">Niet gecontroleerd – USDT-omrekening onzeker (alleen via USDC)</string>
 </resources>

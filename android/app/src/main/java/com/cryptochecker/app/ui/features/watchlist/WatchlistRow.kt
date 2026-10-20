@@ -285,6 +285,7 @@ internal fun WatchRow(
         // Schmale Zeile (< 360 dp): Mini-Chart 48 statt 56 dp, das Paar behält mehr Platz ([DenseRowText])
         BoxWithConstraints {
             val sparkWidth = DenseRowText.sparklineWidth(maxWidth.value).dp
+            val largePrice = DenseRowText.largePrice(LocalDensity.current.fontScale, maxWidth.value)
             Column(modifier = Modifier.padding(start = 4.dp, end = Spacing.md, top = Spacing.md, bottom = Spacing.md)) {
                 Row(verticalAlignment = if (namesOn) Alignment.Top else Alignment.CenterVertically) {
                     Box(Modifier.align(Alignment.CenterVertically)) {
@@ -362,9 +363,11 @@ internal fun WatchRow(
                             reveal = motion.priceReveal,
                             flash = flash,
                             changeMarker = changeMarker != null,
+                            changeMarkerLabel = changeMarker?.let(DayChange::rowMarkerLabel),
                             onChangeMarkerClick = showSourceHint,
                             markPrice = markPrice,
                             hourlyPrice = hourlyPrice,
+                            largePrice = largePrice,
                         )
                     }
 
@@ -380,9 +383,11 @@ internal fun WatchRow(
                         reveal = motion.priceReveal,
                         flash = flash,
                         changeMarker = changeMarker != null,
+                        changeMarkerLabel = changeMarker?.let(DayChange::rowMarkerLabel),
                         onChangeMarkerClick = showSourceHint,
                         markPrice = markPrice,
                         hourlyPrice = hourlyPrice,
+                        largePrice = largePrice,
                         modifier = Modifier.align(Alignment.End).padding(top = 4.dp),
                     )
                 }

@@ -40,6 +40,9 @@ struct TaxWealth: Sendable, Equatable {
     let totalUsdt: Decimal
     /// Summe der bekannten, je Coin gerundeten Werte in der Steuerwährung; nil = ohne Devisenkurs.
     let totalTarget: Decimal?
+    /// Ein Eröffnungsposten liegt zwischen der benutzten Beobachtung einer Adresse und dem 31.12.
+    /// (`AddressCutoffView.lotsAfterObservation`) — nur dort kann der Wert von der Karte abweichen (Vermerk an der Summe).
+    var addressNote = false
 
     /// Mindestens ein Coin nicht oder nur teilweise gerechnet — die Summe ist «unvollständig».
     var incomplete: Bool { rows.contains { $0.missing || $0.incomplete } }
@@ -53,18 +56,21 @@ extension TaxExport {
     /// CH: Vermögenswert per 31.12. (`date`) — dieselbe Rechnung wie der Stichtag-Export der Arbeitsunterlage
     /// (`CutoffExport`): Bestand am Ende des Tags in der Zeitzone der Vorlage (31.12. 23:59:59.999 zählt, 1.1. 00:00 nicht)
     /// nach `method` (Gebühren im Coin mindern den Bestand, Umbuchungen zwischen eigenen Wallets ändern die Summe nicht),
-    /// dazu beobachtete Adressen (`addresses`), je Coin zusammengezählt; Kurs = Tagesschluss (UTC-Tageskerze) des 31.12. aus
+    /// dazu beobachtete Adressen wie auf der Karte (`addresses` = `AddressCutoff.at`: Eröffnungsposten im Bestand,
+    /// `addressRows` nur für den Rest ohne Einstand — eine erfasste Umbuchung zur oder von der Adresse zählt einmal;
+    /// Posten in `trades` fallen weg), je Coin zusammengezählt; Kurs = Tagesschluss (UTC-Tageskerze) des 31.12. aus
     /// `closes` (Stablecoins nach `PortfolioStables`); `rate` = USD → Steuerwährung samt USDT/USD (`rateOn` am 31.12.).
     /// Fehlt der Schluss eines Coins oder ist er ungeprüft, bleibt SEIN Wert leer («nicht gerechnet», nie der heutige Kurs);
     /// fehlt nur ein Teil seines Guthabens (Adresse nicht beobachtet), zählt der bekannte Teil und der Coin ist unvollständig
     /// — wie die Bestandsdatei. Die Summe ist dann unvollständig. Alphabetisch nach Coin. Wie Android `chWealth`.
     static func chWealth(_ trades: [PortfolioTx], method: CostMethod, date: LocalDay, timeZone: TimeZone,
-                         closes: CutoffCloses, rate: Decimal?, addresses: AddressBalancesAt? = nil) -> TaxWealth {
+                         closes: CutoffCloses, rate: Decimal?, addresses: AddressCutoffView? = nil) -> TaxWealth {
         let cutoff = CutoffDay(year: date.year, month: date.month, day: date.day).endOfDayMillis(in: timeZone)
-        let holdings = CutoffExport.holdingsAt(trades.filter { $0.amountExact > 0 }, cutoffMillis: cutoff, method: method)
+        let holdings = AddressCutoff.holdingsAt(trades.filter { $0.amountExact > 0 }, view: addresses, cutoffMillis: cutoff,
+                                                method: method)
         var parts = CutoffExport.rows(holdings, prices: closes.prices, fxRate: rate, unchecked: closes.unchecked)
         if let addresses {
-            parts += CutoffExport.addressRows(addresses, prices: closes.prices, fxRate: rate, unchecked: closes.unchecked)
+            parts += CutoffExport.addressRows(addresses.part, prices: closes.prices, fxRate: rate, unchecked: closes.unchecked)
         }
         let byCoin = Dictionary(grouping: parts, by: \.coin)
         let rows: [TaxWealthRow] = byCoin.keys.sorted().map { coin in
@@ -90,7 +96,8 @@ extension TaxExport {
         let fx = rate.flatMap { $0 > 0 && $0.isFinite ? $0 : nil }
         let totalTarget: Decimal? = (fx == nil && !rows.isEmpty) ? nil
             : rows.reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1.valueTarget ?? 0) }
-        return TaxWealth(date: date, rows: rows, totalUsdt: totalUsdt, totalTarget: totalTarget)
+        return TaxWealth(date: date, rows: rows, totalUsdt: totalUsdt, totalTarget: totalTarget,
+                         addressNote: addresses?.lotsAfterObservation == true)
     }
 
     /// Posten «Vermögenswert 31.12.<Jahr> (Orientierung)» (`.CH_WEALTH_VALUE`): Summe in USDT und Steuerwährung,

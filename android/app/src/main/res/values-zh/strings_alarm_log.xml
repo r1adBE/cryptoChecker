@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">在后台</string>
     <string name="alarm_log_source_exact">准时检查</string>
     <string name="alarm_log_source_widget">通过小组件</string>
+    <string name="alarm_outcome_fx_stale">未检查——汇率已超过 36 小时</string>
+    <string name="alarm_outcome_fx_unsure">未检查——USDT 换算不确定（仅经由 USDC）</string>
 </resources>

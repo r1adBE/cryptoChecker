@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus может остановить приложение – тогда оповещения не приходят. Разрешите «Автозапуск» и фоновую активность в разделе Использование батареи.</string>
     <string name="oem_battery_oppo">Oppo/Realme может остановить приложение – тогда оповещения не приходят. Разрешите «Автозапуск» и фоновую активность в разделе Использование батареи.</string>
     <string name="oem_battery_vivo">Vivo может остановить приложение – тогда оповещения не приходят. Разрешите «Автозапуск» и высокое фоновое энергопотребление в разделе Батарея.</string>
+    <string name="alarm_reliability_recent">Последняя проверка %1$s</string>
+    <string name="alarm_reliability_stale">Последняя проверка %1$s – оповещения могут опаздывать</string>
+    <string name="alarm_reliability_never">Оповещения включены – фоновой проверки ещё не было</string>
+    <string name="alarm_reliability_notifications_off">Уведомления выключены – оповещения не придут</string>
+    <string name="alarm_reliability_battery">Экономия заряда может останавливать проверку оповещений</string>
+    <string name="alarm_reliability_background_refresh">Обновление контента выключено – оповещения могут не прийти</string>
 </resources>

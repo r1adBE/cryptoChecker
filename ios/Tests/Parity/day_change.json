@@ -84,5 +84,14 @@
     {"name": "no value shown (dash): no marker", "foreignSource": "Binance", "shownChange": null, "sinceLast": false, "expected": null},
     {"name": "non-finite value: no marker", "foreignSource": "Binance", "shownChange": "NaN", "sinceLast": false, "expected": null},
     {"name": "since last update: two prices, no candles", "foreignSource": "Binance", "shownChange": 1.2, "sinceLast": true, "expected": null}
+  ],
+  "rowMarkerLabel": [
+    {"name": "plain exchange name", "provider": "Binance", "expected": "Binance"},
+    {"name": "USDT series of a fiat pair: first word", "provider": "Binance USDT", "expected": "Binance"},
+    {"name": "spot candles at a futures market: first word", "provider": "Binance Spot", "expected": "Binance"},
+    {"name": "dotted name kept (10 chars)", "provider": "Binance.US", "expected": "Binance.US"},
+    {"name": "long name shortened", "provider": "Hyperliquid", "expected": "Hyperliqu\u2026"},
+    {"name": "surrounding spaces", "provider": "  Coinbase  ", "expected": "Coinbase"},
+    {"name": "empty provider", "provider": "", "expected": ""}
   ]
 }

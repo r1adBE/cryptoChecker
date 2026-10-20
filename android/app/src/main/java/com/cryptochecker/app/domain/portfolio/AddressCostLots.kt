@@ -42,8 +42,11 @@ data class AddressCostLot(
  *  - Nur der nicht belegte Rest dieses Bestands bleibt Adress-Teil «ohne Einstand» ([AddressBalance.trades], [accounted]).
  *  - Zählt die Adresse nicht («Nur anzeigen») oder steckt sie schon in einem xpub, zählen auch ihre Posten nicht — gleiche
  *    Regeln wie [AddressBalance.holdings].
- *  - Heute / 7 T / 1 J, Wertverlauf, Stichtag und CH-Vermögenswert lassen die Posten weg (Adress-Einträge,
- *    [AddressBalance.isAddressTrade]): dort zählt das beobachtete Guthaben zum Wert, nie rückwirkend.
+ *  - Auch eine Adresse OHNE Posten verrechnet die erfassten Bewegungen ihrer Wallet ([covers]): eine Umbuchung zur
+ *    Adresse steckt schon im Guthaben und zählt nur einmal (nur die erste zählende Adresse je Wallet, [movesOwners]).
+ *  - Heute / 7 T / 1 J und Wertverlauf lassen die Posten weg (Adress-Einträge, [AddressBalance.isAddressTrade]): dort
+ *    zählt das beobachtete Guthaben zum Wert, nie rückwirkend. Stichtag und CH-Vermögenswert rechnen wie die Karte mit
+ *    dem Guthaben am Stichtag ([AddressCutoff]).
  * Gespeichert mit der Adresse (Android Spalte `costLots`, iOS `watched_addresses.json`), in der App-Sicherung unter
  * «costLots» je Adresse: `[{"id":1,"coin":"BTC","t":…,"amount":"0.5","price":"30000"}]` («cost» statt «price», wenn
  * gesamt eingegeben). Ältere Versionen kennen das Feld nicht und lesen den Rest unverändert.
@@ -111,25 +114,6 @@ object AddressCostLots {
         return out
     }
 
-    /**
-     * Mindestens eine zählende Adresse ([counted]) mit Eröffnungsposten: dann können Stichtag-CSV und CH-Vermögen
-     * (volles Adress-Guthaben + Buchungen) eine Umbuchung zur/von der Adresse doppelt oder fehlend zeigen — Hinweiszeile.
-     * Mit [cutoffMillis] (Stichtag, Ende des Tags) nach dem Stand DES Tags: nur Posten mit Zeit ≤ Stichtag, und nur wenn
-     * die Adresse an dem Tag schon beobachtet war (sonst fehlt ihr Guthaben in der Datei, [AddressBalanceHistory.balancesAt]).
-     * null = heutiger Stand.
-     */
-    fun hasCountedLots(addresses: List<WatchedAddress>, cutoffMillis: Long? = null): Boolean =
-        counted(addresses).any { (a, _) ->
-            if (cutoffMillis == null) a.costLots.isNotEmpty()
-            else a.costLots.any { it.time <= cutoffMillis } && observedBy(a, cutoffMillis)
-        }
-
-    /** Hat eine Reihe der Adresse ([AddressBalanceHistory.of]) eine Beobachtung ≤ [cutoffMillis]? */
-    private fun observedBy(a: WatchedAddress, cutoffMillis: Long): Boolean =
-        AddressBalanceHistory.of(listOf(a)).any { h ->
-            AddressBalanceHistory.clean(h.observations).firstOrNull()?.let { it.time <= cutoffMillis } == true
-        }
-
     /** Ergebnis von [cover] für einen Coin einer Adresse. */
     data class Coverage(
         val coin: String,
@@ -187,8 +171,8 @@ object AddressCostLots {
      * Zugänge − Abgänge, so wie FIFO je Wallet sie bucht — Umbuchung: Ziel + Menge, Quelle − (Menge + Gebühr im Coin);
      * Kauf/Belohnung/Einzahlung + erhaltene Menge; Verkauf/Auszahlung/Verschenkt/bezahlt/Tausch − (Menge + Gebühr im Coin);
      * erhaltener Coin eines Tauschs +, Gebühr im dritten Coin −. Alle Daten, nicht erst ab dem Posten: das beobachtete
-     * Guthaben ist der heutige Stand und enthält jede Bewegung, auch frühere. Adress-Einträge zählen nicht; Wallet ohne
-     * Namen = keine Bewegungen (sonst fielen alle Transaktionen ohne Börse hinein).
+     * Guthaben enthält jede Bewegung bis zu seinem Abruf, auch frühere ([fetched] wählt sie aus). Adress-Einträge zählen
+     * nicht; Wallet ohne Namen = keine Bewegungen (sonst fielen alle Transaktionen ohne Börse hinein).
      */
     fun recorded(coin: String, wallet: String?, trades: List<PortfolioTrade>): BigDecimal {
         val key = PortfolioWallets.key(wallet)
@@ -213,31 +197,51 @@ object AddressCostLots {
     }
 
     /**
-     * Wallets ([PortfolioWallets.key] von [walletName]) → Id der ersten zählenden Adresse mit Posten: nur sie verrechnet
-     * die erfassten Bewegungen. Zwei Adressen mit derselben Bezeichnung sind in FIFO je Wallet eine Wallet — bei beiden
-     * gerechnet, zählten die Bewegungen doppelt.
+     * Wallets ([PortfolioWallets.key] von [walletName]) → Id der zählenden Adresse, die die erfassten Bewegungen verrechnet:
+     * die erste mit Posten, sonst die erste ohne. Zwei Adressen mit derselben Bezeichnung sind in FIFO je Wallet eine
+     * Wallet — bei beiden gerechnet, zählten die Bewegungen doppelt.
      */
-    private fun movesOwners(addresses: List<WatchedAddress>): Map<String, Long> {
+    internal fun movesOwners(addresses: List<WatchedAddress>): Map<String, Long> {
         val out = HashMap<String, Long>()
-        for ((a, _) in counted(addresses)) {
+        val list = counted(addresses)
+        for ((a, _) in list) {
             if (clean(a.costLots).isNotEmpty()) out.putIfAbsent(PortfolioWallets.key(walletName(a)), a.id)
         }
+        for ((a, _) in list) out.putIfAbsent(PortfolioWallets.key(walletName(a)), a.id)
         return out
     }
 
-    /** Abdeckung je Coin mit Posten (Reihenfolge der Posten); [trades] = erfasste Bewegungen, die diese Adresse verrechnet. */
-    private fun covers(a: WatchedAddress, balances: Map<String, BigDecimal>, trades: List<PortfolioTrade>): List<Coverage> {
+    /**
+     * Abdeckung je Coin (Reihenfolge der Posten); [trades] = erfasste Bewegungen, die diese Adresse verrechnet. Mit
+     * [allCoins] und Bewegungen auch jeder Coin des Guthabens ohne Posten — eine erfasste Umbuchung zur Adresse steckt
+     * schon im Guthaben und zählt so nur einmal.
+     */
+    private fun covers(
+        a: WatchedAddress,
+        balances: Map<String, BigDecimal>,
+        trades: List<PortfolioTrade>,
+        allCoins: Boolean = false,
+    ): List<Coverage> {
         val lots = clean(a.costLots)
-        return lots.map { it.coin }.distinct().map { coin ->
+        val coins = lots.map { it.coin } + if (allCoins && trades.isNotEmpty()) balances.keys else emptySet()
+        return coins.distinct().map { coin ->
             cover(coin, lots.filter { it.coin == coin }, balances[coin] ?: BigDecimal.ZERO, recorded(coin, walletName(a), trades))
         }
     }
+
+    /**
+     * Bewegungen bis zum Abruf des Guthabens ([WatchedAddress.lastUpdated]; unbekannt = alle): nur sie stecken schon im
+     * Guthaben, eine spätere Buchung zählt allein als Buchung — wie der Stichtag ([AddressCutoff]) mit seiner Beobachtung.
+     */
+    private fun fetched(a: WatchedAddress, trades: List<PortfolioTrade>): List<PortfolioTrade> =
+        if (a.lastUpdated <= 0) trades else trades.filter { it.time <= a.lastUpdated }
 
     /** Zählende Adressen ([counted]) mit ihrer Abdeckung; die erfassten Bewegungen [trades] je Wallet nur einmal ([movesOwners]). */
     private fun countedCoverage(addresses: List<WatchedAddress>, trades: List<PortfolioTrade>): List<Pair<WatchedAddress, List<Coverage>>> {
         val owners = if (trades.isEmpty()) emptyMap() else movesOwners(addresses)
         return counted(addresses).map { (a, balances) ->
-            a to covers(a, balances, if (owners[PortfolioWallets.key(walletName(a))] == a.id) trades else emptyList())
+            val own = owners[PortfolioWallets.key(walletName(a))] == a.id
+            a to covers(a, balances, if (own) fetched(a, trades) else emptyList(), allCoins = true)
         }
     }
 
@@ -247,7 +251,7 @@ object AddressCostLots {
      */
     fun coverage(a: WatchedAddress, trades: List<PortfolioTrade> = emptyList(), all: List<WatchedAddress> = listOf(a)): List<Coverage> {
         val owner = if (trades.isEmpty()) null else movesOwners(all)[PortfolioWallets.key(walletName(a))]
-        return covers(a, balances(a), if (owner == null || owner == a.id) trades else emptyList())
+        return covers(a, balances(a), if (owner == null || owner == a.id) fetched(a, trades) else emptyList())
     }
 
     /**
@@ -274,8 +278,9 @@ object AddressCostLots {
 
     /**
      * Je Coin über alle zählenden Adressen der Teil des beobachteten Guthabens, den Posten und erfasste Bewegungen schon
-     * abbilden ([Coverage.accounted]; ohne Bewegungen = belegte Menge) — Guthaben minus diesen Teil ist der Rest «ohne
-     * Einstand» in [AddressBalance.trades]. Kann negativ sein (Rest dann grösser als das Guthaben).
+     * abbilden ([Coverage.accounted]; ohne Bewegungen = belegte Menge, auch für Adressen ohne Posten) — Guthaben minus
+     * diesen Teil ist der Rest «ohne Einstand» in [AddressBalance.trades]. Kann negativ sein (Rest dann grösser als das
+     * Guthaben).
      */
     fun accounted(addresses: List<WatchedAddress>, real: List<PortfolioTrade> = emptyList()): Map<String, BigDecimal> {
         val out = LinkedHashMap<String, BigDecimal>()
@@ -290,7 +295,8 @@ object AddressCostLots {
     /**
      * Steuer-Export: eigene Transaktionen + Eröffnungsposten als Käufe ([trades]); FR dazu die beobachteten Guthaben-Reihen
      * ([AddressBalanceHistory.trades]) für den Gesamtwert — ohne den belegten Teil ([withoutLotted]), der schon als Posten
-     * zählt ([accounted]). CH-Vermögenswert und Stichtag lassen beides weg (Adress-Einträge).
+     * zählt ([accounted]). CH-Vermögenswert und Stichtag rechnen mit dem Stand am Stichtag ([AddressCutoff]) und lassen
+     * diese Einträge weg.
      */
     fun exportTrades(real: List<PortfolioTrade>, addresses: List<WatchedAddress>, frTotalValue: Boolean): List<PortfolioTrade> {
         val lots = trades(addresses, real)

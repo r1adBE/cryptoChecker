@@ -174,6 +174,17 @@ enum DayChange {
         return foreignSource
     }
 
+    /// Längster Börsenname an der %-Änderung der Merklisten-Zeile (`rowMarkerLabel`); länger wird mit «…» gekürzt.
+    static let rowLabelMax = 10
+
+    /// Kurzer Börsenname direkt an der %-Änderung der Merklisten-Zeile («+2.4% · Binance» statt nur «*»): das erste
+    /// Wort des Anbieters aus `rowChangeMarker` («Binance USDT» → «Binance»), höchstens `rowLabelMax` Zeichen — so
+    /// bricht die Zeile nicht um. Den vollen Namen nennen Tipp-Hinweis, Zeilensatz und Aktionsblatt — wie Android.
+    static func rowMarkerLabel(_ provider: String) -> String {
+        guard let first = provider.split(separator: " ", omittingEmptySubsequences: true).first else { return "" }
+        return first.count <= rowLabelMax ? String(first) : String(first.prefix(rowLabelMax - 1)) + "…"
+    }
+
     /// Anbieter der Kerzen, wenn er NICHT die Börse des Paars ist — z. B. Kraken-Paar ohne 24-h-Wert
     /// im Ticker, Änderung aus Binance-Kerzen; dann sagt das Aktionsblatt «Veränderung aus
     /// Binance-Kerzen». Gleich gilt die Börse selbst oder ihr Futures-Markt; Vergleich ohne

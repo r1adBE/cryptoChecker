@@ -1,0 +1,22 @@
+Origin
+
+Parts of the code were originally derived from BitcoinChecker by mobnetic and
+Aneonex Software (MIT). Their copyright notices are kept in the MIT License
+(LICENSE).
+
+Third-party names, logos and data
+
+Names, logos and trademarks of coins, tokens, stocks, exchanges and other third
+parties shown by the apps belong to their respective owners. They are not part
+of the Software and are not covered by the MIT License.
+
+Market data shown by the apps is fetched at runtime from third-party APIs (for
+example CoinGecko, Binance, alternative.me, Coin Metrics) and is subject to the
+terms of those providers. It is not part of the Software and is not covered by
+the MIT License.
+
+Alarm sounds
+
+The four iOS alarm sounds (cc_chime, cc_crystal, cc_dingdong, cc_pulse) are
+synthesised by ios/tools/gen_alarm_sounds.py (no third-party audio) and are
+dedicated to the public domain (CC0 1.0).

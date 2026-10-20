@@ -29,6 +29,13 @@ enum DenseRowText {
         rowWidth < narrowRow ? sparklineWidthNarrow : sparklineWidthRegular
     }
 
+    /// Kurs der Merkliste eine Stufe grösser (iOS `.title3`, Android `titleLarge`)? Unter dem Paar
+    /// (gestapelt) immer, daneben nur bei normaler Schrift in Zeilen ab `narrowRow` — sonst bliebe dem
+    /// Paar neben Logo, Mini-Chart und Kurs kaum Breite. Wie Android.
+    static func largePrice(scale: Double, rowWidth: Double) -> Bool {
+        stacksTrailing(scale) || (scale < wrapFrom && rowWidth >= narrowRow)
+    }
+
     /// Schriftfaktor einer Textgrösse: Punktgrösse von «body» geteilt durch 17 pt (Standard «large»).
     static func scale(_ size: DynamicTypeSize) -> Double {
         let body: Double

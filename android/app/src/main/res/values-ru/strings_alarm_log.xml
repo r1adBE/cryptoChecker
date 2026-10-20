@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">в фоне</string>
     <string name="alarm_log_source_exact">точная проверка</string>
     <string name="alarm_log_source_widget">через виджет</string>
+    <string name="alarm_outcome_fx_stale">Не проверено – курс валют старше 36 часов</string>
+    <string name="alarm_outcome_fx_unsure">Не проверено – пересчёт USDT ненадёжен (только через USDC)</string>
 </resources>

@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">w tle</string>
     <string name="alarm_log_source_exact">dokładne sprawdzenie</string>
     <string name="alarm_log_source_widget">przez widżet</string>
+    <string name="alarm_outcome_fx_stale">Nie sprawdzono – kurs wymiany starszy niż 36 godzin</string>
+    <string name="alarm_outcome_fx_unsure">Nie sprawdzono – przeliczenie USDT niepewne (tylko przez USDC)</string>
 </resources>

@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">เบื้องหลัง</string>
     <string name="alarm_log_source_exact">ตรวจตรงเวลา</string>
     <string name="alarm_log_source_widget">ผ่านวิดเจ็ต</string>
+    <string name="alarm_outcome_fx_stale">ไม่ได้ตรวจสอบ – อัตราแลกเปลี่ยนเก่ากว่า 36 ชั่วโมง</string>
+    <string name="alarm_outcome_fx_unsure">ไม่ได้ตรวจสอบ – การแปลง USDT ไม่แน่นอน (ผ่าน USDC เท่านั้น)</string>
 </resources>

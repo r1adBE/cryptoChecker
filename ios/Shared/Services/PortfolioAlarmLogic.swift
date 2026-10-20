@@ -122,6 +122,16 @@ enum PortfolioAlarmLogic {
         return usdt * factor
     }
 
+    /// Rechnet `total(in:)` für einen Betrags-Alarm mit USDT = 1, weil USDT/USD nicht gemessen ist (`usdtUsdLive`
+    /// fehlt)? Nur in einer anderen Währung als der Stand und nicht in USDT selbst — dann steht «USDT = 1 angenommen» im
+    /// Alarmtext. Wie Android `usdtAssumed`.
+    static func usdtAssumed(_ alarm: PortfolioAlarm, _ reading: PortfolioReading) -> Bool {
+        guard alarm.kind.isValue else { return false }
+        let wanted = CurrencyConversion.normalize(alarm.currency)
+        guard !wanted.isEmpty, wanted != reading.currency.uppercased(), wanted != "USDT" else { return false }
+        return PortfolioStables.usdtUsdLive(reading.usdtUsdLive).approximate
+    }
+
     /// Alarmwährungen, für die ein Devisenkurs nötig ist (nicht die des Stands, kein USD-Stablecoin).
     static func currenciesNeedingRate(_ currencies: [String?], readingCurrency: String) -> Set<String> {
         Set(currencies.compactMap { c -> String? in

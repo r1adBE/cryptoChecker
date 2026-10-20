@@ -98,4 +98,5 @@
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">Kehitys valuutassa %1$s, muunnettu valuuttaan %2$s tämän päivän kurssilla</string>
+    <string name="converted_unsure">Muunnos epävarma</string>
 </resources>

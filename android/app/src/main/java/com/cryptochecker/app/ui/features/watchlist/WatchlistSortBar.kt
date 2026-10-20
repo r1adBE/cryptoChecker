@@ -132,7 +132,7 @@ internal fun rememberColumnSorted(
                 when {
                     price == null -> null
                     CurrencyConversion.sameCurrency(w.quoteAsset, SORT_CURRENCY) -> price
-                    else -> CurrencyConversion.convert(price, sortRates[CurrencyConversion.normalize(w.quoteAsset)])
+                    else -> CurrencyConversion.convert(price, sortRates[CurrencyConversion.conversionQuote(w.marketKey, w.quoteAsset)])
                 }
             },
             change = { it.shownChange(changeView) },

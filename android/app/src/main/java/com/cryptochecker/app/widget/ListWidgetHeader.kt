@@ -17,7 +17,7 @@ object ListWidgetHeader {
     const val FIXED_DP = 2 * 8f + 4f + 0f + 18f + 4f + 4f + 4f + 48f
 
     /** Schriftgrössen des Titels: normal, eng. */
-    val TITLE_SIZES_SP = listOf(13f, 11f)
+    val TITLE_SIZES_SP = listOf(WidgetType.BODY, WidgetType.LABEL)
 
     /** Gewählte Darstellung: Schriftgrösse des Titels (sp) und Text rechts (leer = keiner). */
     data class Layout(val titleSp: Float, val status: String)
@@ -27,8 +27,8 @@ object ListWidgetHeader {
         listOfNotNull(time, duration).filter { it.isNotEmpty() }.joinToString(" · ")
 
     /**
-     * Erste Stufe, die ganz passt: (13 sp, Uhrzeit · Dauer), (11 sp, Uhrzeit · Dauer),
-     * (13 sp, Uhrzeit), (11 sp, Uhrzeit), [(11 sp, Ersatz)], (11 sp, nur Titel). Passt keine, die letzte.
+     * Erste Stufe, die ganz passt: (14 sp, Uhrzeit · Dauer), (12 sp, Uhrzeit · Dauer),
+     * (14 sp, Uhrzeit), (12 sp, Uhrzeit), [(12 sp, Ersatz)], (12 sp, nur Titel). Passt keine, die letzte.
      * Unbekannte Breite (0): alles in normaler Grösse.
      * @param titleWidthDp Breite des Titels in der gegebenen Grösse (sp)
      * @param statusWidthDp Breite des Textes rechts

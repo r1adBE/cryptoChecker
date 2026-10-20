@@ -8,6 +8,8 @@ enum AddWatchedResult: Equatable {
     case duplicate
     /// Schon `WatchedAddressRules.maxAddresses` Adressen.
     case limitReached
+    /// Gespeichertes Portfolio gerade gesperrt (`PortfolioStorageLock`): nichts geschrieben.
+    case locked
 }
 
 /// Beobachtete Adressen (nur lesen; Guthaben = Bestand) — wie die Adress-Funktionen in
@@ -21,11 +23,20 @@ extension AppData {
         list.sorted { ($0.addedAt, $0.id) < ($1.addedAt, $1.id) }
     }
 
+    /// Gespeichertes Portfolio gerade gesperrt (`PortfolioStorageLock`): Adressen hinzufügen, ändern, entfernen und
+    /// Einstandsposten ablehnen — wie Android `PortfolioRepository.ensureWritable`. Guthaben-Abrufe nicht.
+    var portfolioStorageLocked: Bool {
+        let files = FileManager.default
+        let stored = files.fileExists(atPath: PortfolioStore.url.path) || files.fileExists(atPath: WatchedAddressStore.url.path)
+        return PortfolioStorageLock.isLocked(keyAvailable: StorageKey.shared.isAvailable, storedFileExists: stored)
+    }
+
     /// Prüft und normalisiert `address` (`AddressValidation.check` mit `chain`), dann höchstens
     /// `WatchedAddressRules.maxAddresses` und keine doppelte Adresse. Bezeichnung zugeschnitten.
     @discardableResult
     func addWatchedAddress(chain: AddressChain, address: String, label: String?,
                            countInPortfolio: Bool = true, overlapChecked: Bool = false) -> AddWatchedResult {
+        guard !portfolioStorageLocked else { return .locked }
         let check = AddressValidation.check(address, expected: chain)
         guard check.problem == nil, let normalized = check.normalized else {
             return .invalid(check.problem ?? .UNKNOWN_FORMAT)
@@ -43,6 +54,7 @@ extension AppData {
     }
 
     func removeWatchedAddress(_ id: Int64) {
+        guard !portfolioStorageLocked else { return }
         var file = currentWatchedAddressFile()
         WatchedAddressStore.remove(id: id, from: &file)
         setWatchedAddressFile(file)
@@ -103,13 +115,16 @@ extension AppData {
         }
     }
 
+    /// Nur Änderungen des Nutzers (gesperrt abgelehnt); automatische Umstellungen schreiben selbst.
     private func changeWatchedAddress(_ id: Int64, _ transform: (WatchedAddress) -> WatchedAddress) {
+        guard !portfolioStorageLocked else { return }
         var file = currentWatchedAddressFile()
         WatchedAddressStore.change(id: id, in: &file, transform)
         setWatchedAddressFile(file)
     }
 
     func setWatchedAddressLabel(_ id: Int64, label: String?) {
+        guard !portfolioStorageLocked else { return }
         var file = currentWatchedAddressFile()
         WatchedAddressStore.setLabel(id: id, label: label, in: &file)
         setWatchedAddressFile(file)
@@ -137,6 +152,7 @@ extension AppData {
     /// - Returns: Anzahl übernommener Adressen; nil, wenn nicht geschrieben.
     @discardableResult
     func replaceWatchedAddresses(_ entries: [WatchedAddressBackupEntry]) -> Int? {
+        guard !portfolioStorageLocked else { return nil }
         let current = currentWatchedAddressFile()
         var file = WatchedAddressFile(addresses: [], nextId: current.nextId)
         let added = insertWatched(WatchedAddressRules.merge([], entries), into: &file)
@@ -176,6 +192,7 @@ extension AppData {
     /// Wiederherstellen (eigene Sicherung): ergänzen — vorhandene bleiben, neue ohne Doppelte bis zur Höchstzahl.
     @discardableResult
     func mergeWatchedAddresses(_ entries: [WatchedAddressBackupEntry]) -> Int? {
+        guard !portfolioStorageLocked else { return nil }
         var file = currentWatchedAddressFile()
         let added = insertWatched(WatchedAddressRules.merge(file.addresses, entries), into: &file)
         guard added > 0 else { return 0 }

@@ -123,6 +123,18 @@ final class AlarmTemplatesTests: XCTestCase {
         }
     }
 
+    func testMoreOpensOnlyWhenRememberedOrNeeded() {
+        // Neue Kursmarke: zugeklappt, ausser in dieser Sitzung schon einmal aufgeklappt
+        XCTAssertFalse(AlarmTemplates.opensMore(condition: .PRICE_ABOVE, currency: nil, sessionExpanded: false))
+        XCTAssertFalse(AlarmTemplates.opensMore(condition: .CHANGE_PERCENT_UP, currency: nil, sessionExpanded: false))
+        XCTAssertTrue(AlarmTemplates.opensMore(condition: .PRICE_ABOVE, currency: nil, sessionExpanded: true))
+        // Der Alarm braucht etwas darin: eigene Währung bzw. eine weitere Bedingung
+        XCTAssertTrue(AlarmTemplates.opensMore(condition: .PRICE_BELOW, currency: "CHF", sessionExpanded: false))
+        for c in AlarmCondition.allCases where !AlarmTemplates.simpleConditions.contains(c) {
+            XCTAssertTrue(AlarmTemplates.opensMore(condition: c, currency: nil, sessionExpanded: false), c.rawValue)
+        }
+    }
+
     func testMoreConditionsOpenForEverythingButTheSimpleOnes() {
         // Gleich sichtbar: Kursmarke über/unter, Steigt/Fällt um
         XCTAssertEqual(AlarmTemplates.simpleConditions.count, 4)

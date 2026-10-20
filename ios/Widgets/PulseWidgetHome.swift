@@ -43,8 +43,8 @@ struct PulseHomeView: View {
             WidgetLogo(accent: entry.accent, dark: palette.dark, size: 16)
             // Titel ganz (notfalls kleiner) oder nur das Logo — nie «Was gerade a…»
             ViewThatFits(in: .horizontal) {
-                titleText(size: 12.5)
-                titleText(size: 11)
+                titleText(size: WidgetFont.body)
+                titleText(size: WidgetFont.label)
                 Color.clear.frame(width: 0, height: 0)
             }
             Spacer(minLength: 0)
@@ -140,12 +140,12 @@ struct PulseHomeView: View {
                        breadth: Text?, twoLines: Bool, lead leadText: String, plain: [String]) -> some View {
         let glyph = PulseWidgetText.glyph(report.summary)
         let direction = PulseWidgetText.direction(report.summary)
-        let headlineSize: CGFloat = wide ? 19 : 17
+        let headlineSize: CGFloat = WidgetFont.title
         return VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .firstTextBaseline, spacing: 4) {
                 if let glyph {
                     Text(glyph)
-                        .font(.system(size: 13, weight: .bold))
+                        .font(.system(size: WidgetFont.label, weight: .bold))
                         .foregroundStyle(direction > 0 ? palette.up : palette.down)
                 }
                 // Erst kleiner (bis 14 pt), dann zweizeilig — nie «Breite Stä…»
@@ -153,7 +153,7 @@ struct PulseHomeView: View {
                     .font(.system(size: headlineSize, weight: .bold))
                     .foregroundStyle(palette.text)
                     .lineLimit(2)
-                    .minimumScaleFactor(14 / headlineSize)
+                    .minimumScaleFactor(WidgetFont.body / headlineSize)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(.top, 4)

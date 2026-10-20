@@ -210,7 +210,10 @@ extension AppData {
             _ = await AlarmDelivery.portfolio.deliver(
                 alarmId: alarm.id, now: now, cooldownMinutes: current.alarmCooldownMinutes, holdAlarms: holdAlarms,
                 canShow: { deliverable },
-                show: { await Notifier.showPortfolioAlarm(alarm, measured: value, settings: current) },
+                show: {
+                    await Notifier.showPortfolioAlarm(alarm, measured: value, settings: current,
+                                                      usdtAssumed: PortfolioAlarmLogic.usdtAssumed(alarm, reading))
+                },
                 mark: { await self.markPortfolioAlarmTriggered(alarm, value: value, at: now) })
         }
     }

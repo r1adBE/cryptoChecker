@@ -54,9 +54,12 @@ class HashKey : SimpleMarket(
     override val bulkTickersNumOfRequests: Int
         get() = 1
 
-    /** Ob die ungefilterte Liste jedes handelbare Paar enthält, ist unbelegt: Fehlende prüft die Einzelabfrage. */
+    /**
+     * Die ungefilterte Liste führt jedes handelbare Paar (Aufzeichnung 19.10.2026: alle 38 Paare im Status
+     * TRADING von `exchangeInfo`, «SPICEUSDC» mit Kurs 0 = nie gehandelt), ein fehlendes Paar ist nicht mehr gelistet.
+     */
     override val bulkTickersComplete: Boolean
-        get() = false
+        get() = true
 
     override fun getBulkTickersUrl(call: Int): String = HASHKEY_DAY_TICKER
 

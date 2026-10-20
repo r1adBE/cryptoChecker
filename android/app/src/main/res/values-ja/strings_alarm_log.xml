@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">バックグラウンド</string>
     <string name="alarm_log_source_exact">定時チェック</string>
     <string name="alarm_log_source_widget">ウィジェット経由</string>
+    <string name="alarm_outcome_fx_stale">未確認――為替レートが36時間以上前のものです</string>
+    <string name="alarm_outcome_fx_unsure">未確認――USDT換算が不確か（USDC経由のみ）</string>
 </resources>

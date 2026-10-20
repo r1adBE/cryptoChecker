@@ -76,7 +76,7 @@
     <string name="system_backup_not_imported_message">Salkun kopiota Androidin järjestelmävarmuuskopiosta ei voitu lukea toisellakaan yrityksellä, ja se poistettiin. Jos sinulla on varmuuskopiotiedosto, palauta se Asetuksissa kohdassa ”%1$s”.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Tallennetun salkun lukitusta ei voi juuri nyt avata, eikä sitä näytetä – se palaa, kun sovellus käynnistetään uudelleen. Nyt tehtyjä muutoksia ei tallenneta.</string>
+    <string name="portfolio_storage_kept_in_memory">Tallennetun salkun lukitusta ei voi juuri nyt avata, eikä sitä näytetä – se palaa, kun sovellus käynnistetään uudelleen. Muutokset ovat mahdollisia vasta seuraavan käynnistyksen jälkeen.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">Tallennetun seurantalistan lukitusta ei voi juuri nyt avata, eikä sitä näytetä – se palaa, kun sovellus käynnistetään uudelleen. Nyt tehtyjä muutoksia ei tallenneta.</string>
     <string name="alarm_save_storage_locked">Hälytyksiä ei voi juuri nyt tallentaa – tallennettu seurantalista on lukittu. Käynnistä sovellus uudelleen.</string>
@@ -85,4 +85,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Salaus ei ole vielä käytössä – salkkua ei tallenneta, ja muutokset katoavat, kun sovellus suljetaan. Sovellus yrittää uudelleen seuraavalla käynnistyskerralla.</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">Tallennettu salkku on juuri nyt lukittu – muutokset ovat mahdollisia vasta seuraavan käynnistyksen jälkeen.</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">Laite ei juuri nyt anna avainta – seurantalistaa ei tallenneta, ja muutokset katoavat, kun sovellus suljetaan. Sovellus yrittää uudelleen seuraavalla käynnistyskerralla.</string>
 </resources>

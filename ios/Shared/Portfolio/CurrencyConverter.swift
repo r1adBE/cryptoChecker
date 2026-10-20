@@ -27,6 +27,18 @@ enum CurrencyConversion {
         (code ?? "").trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
     }
 
+    /// Börse, deren Gegenwährung «U» ein USD-Stablecoin ist (United Stables: BTCU, ETHU).
+    static let asterKey = "Aster"
+
+    /// Quote eines Paars für die Umrechnung: «U» an Aster ist United Stables (USD-Stablecoin) und zählt 1:1 als USD;
+    /// an anderen Börsen (CoinDCX, BingX, Binance) ist U ein Coin und bleibt Krypto — darum nicht global in
+    /// `usdStables`. Sonst `normalize`. Wie Android.
+    static func conversionQuote(marketKey: String?, quote: String?) -> String {
+        let code = normalize(quote)
+        let market = (marketKey ?? "").trimmingCharacters(in: .whitespaces).lowercased()
+        return code == "U" && market == asterKey.lowercased() ? "USD" : code
+    }
+
     /// Gleiche Währung (Gross-/Kleinschreibung egal) — dann gibt es nichts umzurechnen.
     static func sameCurrency(_ a: String?, _ b: String?) -> Bool {
         let x = normalize(a)
@@ -240,6 +252,37 @@ enum CurrencyConverter {
             let code = CurrencyConversion.normalize(quote)
             guard !code.isEmpty, result[code] == nil else { continue }
             if let at = staleFxTime(quote: code, target: target, now: now) { result[code] = at }
+        }
+        return result
+    }
+
+    /// Ältester Zeitpunkt (laut Quelle, `FxRateSource.rateTime`) der Devisenkurse im Faktor `quote` → `target` — für das
+    /// Alter im Fiat-Alarm (`FiatAlarmGuard.fxTooOld`); nil = kein Devisenkurs beteiligt. Wie Android.
+    static func fxRateTime(quote: String, target: String) -> Int64? {
+        if CurrencyConversion.sameCurrency(quote, target) { return nil }
+        let from = CurrencyConversion.normalize(quote)
+        let to = CurrencyConversion.normalize(target)
+        let quoteAt = CurrencyConversion.classify(from) == .fiat ? FxRateSource.rateTime(from) : nil
+        let targetAt = CurrencyConversion.classify(to) == .fiat ? FxRateSource.rateTime(to) : nil
+        return [quoteAt, targetAt].compactMap { $0 }.min()
+    }
+
+    /// Stand von USDT/USD im Faktor `quote` → `target` (`FiatAlarmGuard.usdtState`): nicht beteiligt, gemessen,
+    /// angenommen (USDT = 1) oder unsicher (nur über USDC, USDC/USDT mehr als 1 % neben 1). Wie Android.
+    static func usdtState(quote: String, target: String, now: Int64 = TimeUtils.nowMillis) -> FiatAlarmGuard.UsdtState {
+        FiatAlarmGuard.usdtState(involved: FiatAlarmGuard.involvesUsdt(from: quote, to: target),
+                                 reading: DepegAlarmCheck.lastReading, now: now)
+    }
+
+    /// Wie `usdtState` für mehrere Quote-Währungen; nur angenommene bzw. unsichere. Schlüssel in Grossbuchstaben.
+    static func usdtNotes(quotes: [String], target: String,
+                          now: Int64 = TimeUtils.nowMillis) -> [String: FiatAlarmGuard.UsdtState] {
+        var result: [String: FiatAlarmGuard.UsdtState] = [:]
+        for quote in quotes {
+            let code = CurrencyConversion.normalize(quote)
+            guard !code.isEmpty, result[code] == nil else { continue }
+            let state = usdtState(quote: code, target: target, now: now)
+            if state == .ASSUMED || state == .UNSURE { result[code] = state }
         }
         return result
     }

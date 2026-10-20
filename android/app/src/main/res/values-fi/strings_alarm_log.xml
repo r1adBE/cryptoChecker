@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">taustalla</string>
     <string name="alarm_log_source_exact">täsmällinen tarkistus</string>
     <string name="alarm_log_source_widget">widgetin kautta</string>
+    <string name="alarm_outcome_fx_stale">Ei tarkistettu – valuuttakurssi yli 36 tuntia vanha</string>
+    <string name="alarm_outcome_fx_unsure">Ei tarkistettu – USDT-muunnos epävarma (vain USDC:n kautta)</string>
 </resources>

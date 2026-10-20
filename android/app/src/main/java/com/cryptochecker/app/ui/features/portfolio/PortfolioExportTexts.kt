@@ -319,4 +319,5 @@ internal fun taxSummaryTexts(t: TaxTemplate, yearLabel: String, currency: String
     // USDT = 1 an einem Tag ohne USDT/USD-Schluss (z. B. vor dem Fenster der Quellen): eigene Zeile, nie still
     usdtAssumed = stringResource(R.string.portfolio_usdt_assumed),
     addressLots = stringResource(R.string.portfolio_export_address_lots_note),
+    estimated = stringResource(R.string.tax_export_value_estimated),
 )

@@ -1,0 +1,94 @@
+import SwiftUI
+import UIKit
+
+/// Eine Zeile über der Merkliste (Build 91): Kommen die Alarme an (`AlarmReliability`)? Ruhig eine graue Zeile
+/// «Letzte Prüfung vor 12 Min.», sonst Bernstein mit dem wichtigsten Grund; Tipp öffnet «Damit Alarme ankommen» als
+/// Blatt. Liest denselben Zustand wie die Seite (`AlarmReadinessProbe`), beim Zurückkehren in die App neu. Ohne Alarme
+/// nichts. Wie `AlarmReliabilityLine.kt`.
+@MainActor
+struct AlarmReliabilityLine: View {
+    @EnvironmentObject private var data: AppData
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var input: AlarmReadiness.Input?
+    @State private var showDelivery = false
+
+    var body: some View {
+        TimelineView(.everyMinute) { context in
+            if let line = line(now: Int64(context.date.timeIntervalSince1970 * 1000)) {
+                Button { showDelivery = true } label: { label(line) }
+                    .buttonStyle(.plain)
+                    .accessibilityHint(L("delivery_title"))
+                    .accessibilityIdentifier("alarm_reliability_line")
+            }
+        }
+        .task { await refresh() }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active { Task { await refresh() } }
+        }
+        .onChange(of: data.settings) { _, _ in Task { await refresh() } }
+        .onChange(of: data.alarmsWithWatch.filter { $0.alarm.enabled }.count) { _, _ in Task { await refresh() } }
+        .sheet(isPresented: $showDelivery, onDismiss: { Task { await refresh() } }) {
+            NavigationStack {
+                AlarmDeliveryScreen()
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button(L("ios_action_ok")) { showDelivery = false }
+                        }
+                    }
+            }
+        }
+    }
+
+    private struct Line {
+        let text: String
+        let warn: Bool
+    }
+
+    /// Satz und Farbe zur Uhr `now`; nil = keine Zeile (keine Alarme oder noch nicht gelesen).
+    private func line(now: Int64) -> Line? {
+        guard var current = input else { return nil }
+        current.now = now
+        let status = AlarmReliability.status(current)
+        let ago = current.lastBackgroundCheck.map { WatchlistTime.ago($0, now: now) } ?? ""
+        let text: String
+        switch status.kind {
+        case .hidden: return nil
+        case .recent: text = L("alarm_reliability_recent", ago)
+        case .stale: text = L("alarm_reliability_stale", ago)
+        case .never: text = L("alarm_reliability_never")
+        case .notificationsOff: text = L("alarm_reliability_notifications_off")
+        case .battery: text = L("alarm_reliability_battery")
+        case .backgroundRefresh: text = L("alarm_reliability_background_refresh")
+        }
+        return Line(text: text, warn: status.warn)
+    }
+
+    private func label(_ line: Line) -> some View {
+        HStack(spacing: Spacing.sm) {
+            Image(systemName: line.warn ? "exclamationmark.triangle.fill" : "bell")
+                .font(.caption)
+                .foregroundStyle(line.warn ? AppColors.warning : AppColors.onSurfaceVariant)
+                .accessibilityHidden(true)
+            Text(line.text)
+                .font(.footnote)
+                .foregroundStyle(line.warn ? AppColors.warningText : AppColors.onSurfaceVariant)
+                .lineLimit(2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .accessibilityHidden(true)
+        }
+        .frame(minHeight: 44)
+        .contentShape(Rectangle())
+    }
+
+    private func refresh() async {
+        // Wie «Damit Alarme ankommen»: alles, was nur eine Prüfung im Hintergrund meldet
+        let hasAlarms = AlarmReadiness.hasBackgroundAlarms(
+            AlarmDeliveryScreen.alarmKinds(data.settings, pairAlarm: data.alarmsWithWatch.contains { $0.alarm.enabled },
+                                           portfolioAlarm: data.portfolioAlarms.contains(where: \.enabled)),
+            platform: .ios)
+        input = await AlarmReadinessProbe.read(settings: data.settings, hasAlarms: hasAlarms)
+    }
+}

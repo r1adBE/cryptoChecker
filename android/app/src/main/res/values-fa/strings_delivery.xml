@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در مصرف باتری فعالیت پس‌زمینه را مجاز کنید.</string>
     <string name="oem_battery_oppo">Oppo/Realme ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در مصرف باتری فعالیت پس‌زمینه را مجاز کنید.</string>
     <string name="oem_battery_vivo">Vivo ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در باتری مصرف بالای پس‌زمینه را مجاز کنید.</string>
+    <string name="alarm_reliability_recent">آخرین بررسی %1$s</string>
+    <string name="alarm_reliability_stale">آخرین بررسی %1$s – ممکن است هشدارها دیر برسند</string>
+    <string name="alarm_reliability_never">هشدارها فعال – هنوز بررسی‌ای در پس‌زمینه انجام نشده</string>
+    <string name="alarm_reliability_notifications_off">اعلان‌ها خاموش – هشدارها نمی‌رسند</string>
+    <string name="alarm_reliability_battery">صرفه‌جویی باتری ممکن است بررسی هشدارها را متوقف کند</string>
+    <string name="alarm_reliability_background_refresh">بازخوانی در پس‌زمینه خاموش – ممکن است هشدارها نرسند</string>
 </resources>

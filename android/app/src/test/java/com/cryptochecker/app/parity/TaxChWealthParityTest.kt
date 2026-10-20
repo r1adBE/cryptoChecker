@@ -1,6 +1,7 @@
 package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.portfolio.AddressBalancesAt
+import com.cryptochecker.app.domain.portfolio.AddressCutoffView
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffCloses
 import com.cryptochecker.app.domain.portfolio.CutoffExport
@@ -61,10 +62,13 @@ class TaxChWealthParityTest {
         )
     }
 
-    private fun addresses(c: Map<String, Any?>): AddressBalancesAt? = (c["addresses"] as Map<*, *>?)?.let { a ->
-        AddressBalancesAt(
-            (a["balances"] as Map<*, *>).entries.associate { it.key as String to BigDecimal(it.value as String) },
-            (a["unobserved"] as List<*>).map { it as String }.toSet(),
+    /** Adress-Teil ohne Einstand am 31.12. (ohne Posten) — [AddressCutoffView.part]. */
+    private fun addresses(c: Map<String, Any?>): AddressCutoffView? = (c["addresses"] as Map<*, *>?)?.let { a ->
+        AddressCutoffView(
+            part = AddressBalancesAt(
+                (a["balances"] as Map<*, *>).entries.associate { it.key as String to BigDecimal(it.value as String) },
+                (a["unobserved"] as List<*>).map { it as String }.toSet(),
+            ),
         )
     }
 

@@ -155,7 +155,7 @@ private struct SingleHeader: View {
 
     private func pairText(_ text: String) -> some View {
         Text(text)
-            .font(.system(size: 13.5, weight: .bold))
+            .font(.system(size: WidgetFont.body, weight: .bold))
             .foregroundStyle(watch.disabled ? palette.secondary : palette.text)
             .lineLimit(1)
     }

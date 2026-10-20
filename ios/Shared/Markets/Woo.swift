@@ -8,6 +8,9 @@ private let wooHours = 25
 /// Grund, wenn die Kerzenliste leer ist.
 private let wooNoCandles = "Keine Kerzen"
 
+/// Grund, wenn die Liste der letzten Abschlüsse leer oder unbrauchbar ist (zweite Anfrage, darf scheitern).
+private let wooNoTrades = "Keine Abschlüsse"
+
 /// WOO X Spot (API v3, developer.woox.io).
 ///
 /// Spot hat keinen 24-h-Ticker; Grundlage sind die letzten `wooHours` Stundenkerzen. Letzter Kurs = Schluss der
@@ -18,19 +21,33 @@ private let wooNoCandles = "Keine Kerzen"
 /// Hoch, Tief und Volumen über dieses Fenster; Veränderung gegen die Eröffnung seiner ältesten Kerze, aber nur bei
 /// lückenlosem Fenster. Liegt die jüngste Kerze mehr als eine Stunde zurück, endet kein Fenster jetzt: keine
 /// Veränderung (dann rechnet die App mit eigenen Kerzen). Zeit der Börse = Ende der Information der jüngsten Kerze
-/// (laufend: Antwortzeit, sonst höchstens jetzt; abgeschlossen: Stundenende). Gegenstück: `Woo.kt`.
+/// (laufend: Antwortzeit, sonst höchstens jetzt; abgeschlossen: Stundenende).
+///
+/// Seit Build 91 eine zweite Anfrage (`/v1/public/market_trades`, letzter Abschluss): Sie setzt den letzten Kurs auf
+/// den echten letzten Abschluss und die Zeit der Börse auf dessen Zeit; die Veränderung wird gegen dieselbe
+/// Eröffnung neu gerechnet. Scheitert sie, bleibt der Schluss der Stundenkerze (der laufenden Kerze = letzter
+/// Abschluss bis zur Antwortzeit). Darum kein «Stundenkurs» mehr. Gegenstück: `Woo.kt`.
 final class Woo: WooBase {
     init() {
         super.init(key: "Woo", name: "WOO X", symbolPrefix: "SPOT", contractType: .none,
                    tickerURL: wooAPI + "/v3/public/kline?symbol=%1$s&type=1h&limit=\(wooHours)")
     }
 
-    /// Kurs = Schluss der jüngsten Stundenkerze: im Aktionsblatt «Stundenkurs».
-    override var priceIsHourlyClose: Bool { true }
-
     // MARK: Einzelkurs
 
+    /// Anfrage 0: Stundenkerzen (muss gelingen); Anfrage 1: letzter Abschluss (ergänzt, darf scheitern).
+    override func tickerCallCount(_ info: PairQuery) -> Int { 2 }
+
+    override func tickerAddress(call: Int, info: PairQuery) -> String {
+        guard call == 1 else { return super.tickerAddress(call: call, info: info) }
+        return wooAPI + "/v1/public/market_trades?symbol=\(pairId(info) ?? "")&limit=1"
+    }
+
     override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+        if call == 1 {
+            try Woo.fillLastTrade(json, into: &ticker)
+            return
+        }
         let candles = try json.object("data").array("rows").allObjects()
         // Neueste zuerst, je Stundenbeginn nur eine Kerze
         var seenStarts = Set<Int64>()
@@ -69,6 +86,27 @@ final class Woo: WooBase {
         let firstHour = endsNow ? Change24h.hourlyWindowStart(window.map(Woo.start), hours: span) : nil
         let opening = firstHour.flatMap { hour in window.first(where: { Woo.start($0) == hour }) }
         ticker.change24hPercent = opening.flatMap { Change24h.fromOpen(last: last, open: $0.optDouble("open")) }
+    }
+
+    /// Letzter Abschluss: Kurs und Zeit (Sekunden mit Bruchteil als Text). Erst alles lesen, dann schreiben — so
+    /// bleibt der Kurs aus den Kerzen unverändert, wenn die Antwort unbrauchbar ist. Die Veränderung behält ihre
+    /// Eröffnung (aus Kurs und Prozent der Kerzen zurückgerechnet).
+    private static func fillLastTrade(_ json: JObject, into ticker: inout Ticker) throws {
+        guard let rows = json.optArray("rows"), let row = try? rows.object(0) else {
+            throw JSONError(message: wooNoTrades)
+        }
+        let price = row.optDouble("executed_price")
+        guard price.isFinite, price > 0 else { throw JSONError(message: wooNoTrades) }
+        let seconds = Double(row.optString("executed_timestamp"))
+        let opening = ticker.change24hPercent.map { pct in ticker.last / (1 + pct / 100) }
+        ticker.last = price
+        // Ohne lesbare Zeit bleibt die der Kerzen (sonst gälte die Abrufzeit als Zeit der Börse)
+        if let seconds, seconds > 0 {
+            ticker.timestamp = Int64((seconds * 1000).rounded())
+        } else {
+            ticker.timestamp = ticker.exchangeTime ?? 0
+        }
+        if let opening { ticker.change24hPercent = Change24h.fromOpen(last: price, open: opening) }
     }
 
     // MARK: Lesen

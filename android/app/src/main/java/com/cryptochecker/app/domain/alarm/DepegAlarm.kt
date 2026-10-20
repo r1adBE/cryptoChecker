@@ -23,10 +23,12 @@ object DepegAlarm {
     /**
      * Messen? Mit eingeschaltetem Alarm immer; sonst, sobald ein Portfolio da ist (eingeschaltet und mit Transaktionen
      * oder beobachteten Adressen): Die Messung ist der Live-Kurs USDT/USD der Bewertung ([liveUsdtUsd], Owner-Entscheid
-     * Okt. 2026). Gemeldet wird weiterhin nur mit eingeschaltetem Alarm ([depegAlarm]).
+     * Okt. 2026). Gemeldet wird weiterhin nur mit eingeschaltetem Alarm ([depegAlarm]). Ebenso mit [fiatConversion]:
+     * Fiat-Alarm oder ≈ Umrechnung auf einem Paar, dessen Faktor an USDT hängt
+     * ([com.cryptochecker.app.domain.convert.FiatAlarmGuard.needsUsdtMeasurement]) — sonst rechnete sie still USDT = 1.
      */
-    fun shouldMeasure(depegAlarm: Boolean, portfolioEnabled: Boolean, hasPortfolioData: Boolean): Boolean =
-        depegAlarm || (portfolioEnabled && hasPortfolioData)
+    fun shouldMeasure(depegAlarm: Boolean, portfolioEnabled: Boolean, hasPortfolioData: Boolean, fiatConversion: Boolean = false): Boolean =
+        depegAlarm || (portfolioEnabled && hasPortfolioData) || fiatConversion
 
     /** Schwelle in Zehntel-Prozent: 0.3 / 0.5 / 1 / 2 %. */
     val THRESHOLD_CHOICES = listOf(3, 5, 10, 20)

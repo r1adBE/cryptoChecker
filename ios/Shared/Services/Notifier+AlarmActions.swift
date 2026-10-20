@@ -20,7 +20,7 @@ extension Notifier {
 
     /// Kategorie einer Paar-Alarm-Mitteilung (rein, testbar): «Was bewegt sich mit?» nur für gehandelte Paare,
     /// «1 h später» nur, wo die Pause wirkt (`snooze` = `AlarmSnooze.offeredFor`: wiederholende Prozent- und
-    /// Bewegungsalarme). Wie Android.
+    /// Bewegungsalarme sowie Kursmarken). Wie Android.
     static func pairAlarmCategory(traded: Bool, snooze: Bool) -> String {
         switch (traded, snooze) {
         case (true, true): return categoryAlarmWhySnooze

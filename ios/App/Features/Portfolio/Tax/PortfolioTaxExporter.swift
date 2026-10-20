@@ -153,7 +153,7 @@ enum PortfolioTaxExporter {
         let fx = await rates(currency, from: from, to: period.end)
         let usdtUsd = await usdtUsdCloses(currency, from: from)
         // CH: Vermögenswert per 31.12. (Orientierung) — Tagesschlüsse und Adress-Guthaben wie der Stichtag-Export
-        var yearEnd: (closes: CutoffCloses, addresses: AddressBalancesAt)? = nil
+        var yearEnd: (closes: CutoffCloses, addresses: AddressCutoffView)? = nil
         if template == .CH { yearEnd = await chYearEnd(transactions, method: method, end: period.end, zone: zone) }
         return TaxExport.yearSummary(transactions, template: template, method: method, startYear: year, timeZone: zone,
                                      currency: currency, rates: fx, priceAt: priceAt, walletFrom: walletFrom,
@@ -161,23 +161,24 @@ enum PortfolioTaxExporter {
     }
 
     /// CH: Tagesschlüsse des 31.12. (`end`) für den Bestand an dessen Ende (Zeitzone der Vorlage) samt beobachteter
-    /// Adressen — dieselben Quellen wie der Stichtag-Export (`PortfolioCutoffExporter.build`:
+    /// Adressen in der Sicht der Karte (`AddressCutoff.at`: Posten, Adress-Teil ohne Einstand) — dieselben Quellen wie der Stichtag-Export (`PortfolioCutoffExporter.build`:
     /// `HistoricPriceSource.dailyClosesUsdt` mit Identitätsprüfung gegen die aktuellen Kurse). Erst wenn die UTC-Tageskerze
     /// des 31.12. geschlossen ist (UTC-Datum danach), sonst nil: kein laufender oder heutiger Kurs, der Posten bleibt
     /// «nicht gerechnet». Ebenso nil, wenn die beobachteten Adressen nicht lesbar sind (`intact` false) — sonst stünde
     /// still eine zu tiefe Summe da. Wie Android `chYearEnd`.
     private static func chYearEnd(_ transactions: [PortfolioTx], method: TaxMethod, end: LocalDay,
-                                  zone: TimeZone) async -> (closes: CutoffCloses, addresses: AddressBalancesAt)? {
+                                  zone: TimeZone) async -> (closes: CutoffCloses, addresses: AddressCutoffView)? {
         let utc = TimeZone(identifier: "UTC") ?? .gmt
         guard end < TaxExport.localDay(Int64(Date().timeIntervalSince1970 * 1000), timeZone: utc) else { return nil }
         let day = CutoffDay(year: end.year, month: end.month, day: end.day)
         let cutoff = day.endOfDayMillis(in: zone)
-        let holdings = CutoffExport.holdingsAt(transactions, cutoffMillis: cutoff, method: method.costMethod ?? .defaultMethod)
         let watched = WatchedAddressStore.loadChecked()
         guard watched.intact else { return nil }
-        let addressAt = AddressBalanceHistory.balancesAt(AddressBalanceHistory.of(watched.file.addresses), time: cutoff)
+        let view = AddressCutoff.at(watched.file.addresses, real: transactions, cutoffMillis: cutoff)
+        let holdings = AddressCutoff.holdingsAt(transactions, view: view, cutoffMillis: cutoff,
+                                                method: method.costMethod ?? .defaultMethod)
         var seen: Set<String> = []
-        let coins = (holdings.map(\.coin) + addressAt.balances.keys.sorted())
+        let coins = (holdings.map(\.coin) + view.part.balances.keys.sorted())
             .filter { seen.insert($0).inserted && PortfolioStables.needsQuote($0) }
         var current: [String: Double] = [:]
         if !coins.isEmpty {
@@ -185,7 +186,7 @@ enum PortfolioTaxExporter {
             current = CutoffExport.referencePrices(live.prices, uncheckedCurrent: live.unchecked)
         }
         let closes = await HistoricPriceSource.dailyClosesUsdt(coins, day: day, current: current)
-        return (closes, addressAt)
+        return (closes, view)
     }
 
     /// CSV «Jahresübersicht» (Orientierung, keine Steuerberatung).

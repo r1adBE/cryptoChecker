@@ -80,7 +80,7 @@ data class CutoffCsvTexts(
     val usdtAssumed: String = "",
     /** Zeile «Adressen nicht lesbar – Guthaben fehlen» ([CutoffExport.csv] `addressesUnreadable`); leer = keine. */
     val addressesUnreadable: String = "",
-    /** Zeile «Adressen mit Einstand – Umbuchungen evtl. doppelt/fehlend» ([CutoffExport.csv] `addressLots`); leer = keine. */
+    /** Zeile «Posten nach der letzten Beobachtung einer Adresse – können fehlen» ([CutoffExport.csv] `addressLots`); leer = keine. */
     val addressLots: String = "",
 )
 

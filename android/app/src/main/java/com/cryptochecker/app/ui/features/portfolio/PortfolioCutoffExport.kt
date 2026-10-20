@@ -6,9 +6,8 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.data.portfolio.HistoricFx
 import com.cryptochecker.app.data.portfolio.HistoricPriceSource
-import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
-import com.cryptochecker.app.domain.portfolio.AddressCostLots
-import com.cryptochecker.app.domain.portfolio.AddressBalancesAt
+import com.cryptochecker.app.domain.portfolio.AddressCutoff
+import com.cryptochecker.app.domain.portfolio.AddressCutoffView
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffCloses
 import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
@@ -28,29 +27,30 @@ import java.time.ZoneId
 
 /**
  * CH: Tagesschlüsse des 31.12. ([end]) für den Bestand an dessen Ende (Zeitzone der Vorlage) samt beobachteter
- * Adressen — dieselben Quellen wie der Stichtag-Export ([build]: [HistoricPriceSource.dailyClosesUsdt] mit
- * Identitätsprüfung gegen die aktuellen Kurse). Erst wenn die UTC-Tageskerze des 31.12. geschlossen ist (UTC-Datum
- * danach), sonst null: kein laufender oder heutiger Kurs, der Posten bleibt «nicht gerechnet». Ebenso null, wenn die
- * beobachteten Adressen nicht gelesen werden können — sonst stünde still eine zu tiefe Summe da.
+ * Adressen in der Sicht der Karte ([AddressCutoff.at]: Posten, Adress-Teil ohne Einstand) — dieselben Quellen wie der
+ * Stichtag-Export ([build]: [HistoricPriceSource.dailyClosesUsdt] mit Identitätsprüfung gegen die aktuellen Kurse).
+ * Erst wenn die UTC-Tageskerze des 31.12. geschlossen ist (UTC-Datum danach), sonst null: kein laufender oder heutiger
+ * Kurs, der Posten bleibt «nicht gerechnet». Ebenso null, wenn die beobachteten Adressen nicht gelesen werden können —
+ * sonst stünde still eine zu tiefe Summe da.
  */
 internal suspend fun PortfolioExportViewModel.chYearEnd(
     trades: List<PortfolioTrade>,
     method: TaxMethod,
     end: LocalDate,
     zone: ZoneId,
-): Pair<CutoffCloses, AddressBalancesAt>? {
+): Pair<CutoffCloses, AddressCutoffView>? {
     if (!end.isBefore(LocalDate.now(java.time.ZoneOffset.UTC))) return null
     val cutoff = CutoffExport.endOfDayMillis(end, zone)
-    val holdings = CutoffExport.holdingsAt(trades, cutoff, method.costMethod ?: CostMethod.DEFAULT)
-    val addressAt = try {
-        AddressBalanceHistory.balancesAt(AddressBalanceHistory.of(repository.getWatchedAddresses()), cutoff)
+    val view = try {
+        AddressCutoff.at(repository.getWatchedAddresses(), trades, cutoff)
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {
         Timber.w(e, "CH-Vermögenswert: Adressen nicht geladen, nicht gerechnet")
         return null
     }
-    val coins = (holdings.map { it.coin } + addressAt.balances.keys).distinct().filter { PortfolioStables.needsQuote(it) }
+    val holdings = AddressCutoff.holdingsAt(trades, view, cutoff, method.costMethod ?: CostMethod.DEFAULT)
+    val coins = (holdings.map { it.coin } + view.part.balances.keys).distinct().filter { PortfolioStables.needsQuote(it) }
     val current = try {
         if (coins.isEmpty()) emptyMap() else priceSource.prices(coins).let { p ->
             CutoffExport.referencePrices(p.prices, p.unchecked)
@@ -70,7 +70,7 @@ internal suspend fun PortfolioExportViewModel.chYearEnd(
         Timber.w(e, "CH-Vermögenswert: Tagesschlüsse fehlen")
         CutoffCloses()
     }
-    return closes to addressAt
+    return closes to view
 }
 
 /**
@@ -87,25 +87,23 @@ internal suspend fun PortfolioExportViewModel.build(
 ): String {
     val trades = repository.getTransactions().map { it.toTrade() }
     val cutoff = CutoffExport.endOfDayMillis(date, zone)
-    // Bestand nach derselben Einstandsmethode wie Karte, Verlauf und Steuer-Export (FIFO je Wallet je Wallet gekappt)
-    val holdings = CutoffExport.holdingsAt(trades, cutoff, method ?: settingsRepository.current().costMethod)
-    // Beobachtete Adressen, die im Portfolio zählen: heute das aktuelle, früher das an dem Tag beobachtete Guthaben
-    // (eigene Zeilen «aus Adresse – ohne Kaufpreis»). Nicht lesbar: ohne Adressen, aber in der Datei vermerkt und
-    // das Total «unvollständig» — nie still eine zu tiefe Summe (wie iOS `intact`)
+    // Beobachtete Adressen, die im Portfolio zählen, wie auf der Karte: Posten als Käufe, Rest ohne Einstand als eigene
+    // Zeilen «aus Adresse – ohne Kaufpreis» (heute das aktuelle, früher das an dem Tag beobachtete Guthaben; erfasste
+    // Bewegungen der Adress-Wallet nur einmal). Nicht lesbar: ohne Adressen, aber in der Datei vermerkt und das Total
+    // «unvollständig» — nie still eine zu tiefe Summe (wie iOS `intact`)
     var addressesUnreadable = false
-    // Zählende Adresse mit Einstand am Stichtag: Hinweiszeile (Umbuchungen zur/von der Adresse evtl. doppelt/fehlend)
-    var addressLots = false
-    val addressAt = try {
-        val watched = repository.getWatchedAddresses()
-        addressLots = AddressCostLots.hasCountedLots(watched, cutoff)
-        AddressBalanceHistory.balancesAt(AddressBalanceHistory.of(watched), cutoff)
+    val view = try {
+        AddressCutoff.at(repository.getWatchedAddresses(), trades, cutoff)
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {
         Timber.w(e, "Stichtag: Adressen nicht geladen, Export als unvollständig vermerkt")
         addressesUnreadable = true
-        AddressBalancesAt(emptyMap(), emptySet())
+        AddressCutoffView()
     }
+    val addressAt = view.part
+    // Bestand nach derselben Einstandsmethode wie Karte, Verlauf und Steuer-Export (FIFO je Wallet je Wallet gekappt)
+    val holdings = AddressCutoff.holdingsAt(trades, view, cutoff, method ?: settingsRepository.current().costMethod)
     // USDT = 1 ohne Abfrage; andere Stablecoins wie jeder Coin (fehlt der Kurs: «ohne Kurs»)
     val coins = (holdings.map { it.coin } + addressAt.balances.keys).distinct().filter { PortfolioStables.needsQuote(it) }
     // Aktuelle Kurse als Bezug der Identitätsprüfung (jede Quelle); ohne passenden Bezug wird kein
@@ -132,5 +130,8 @@ internal suspend fun PortfolioExportViewModel.build(
     // Trenn-/Dezimalzeichen wie Excel der Region (de-CH «;» + «.», de-DE «;» + «,», en «,» + «.»)
     val format = CutoffCsvFormat.forLocale(deviceRegionLocale().country, inputDecimalSeparator())
     val usdtApproximate = rate != null && usdt == null && CutoffExport.convertsUsdt(currency)
-    return CutoffExport.csv(date, currency, fx?.date, rows, texts, format, header, usdtApproximate, addressesUnreadable, addressLots)
+    // Hinweiszeile nur, wo die Rechnung nicht greift: Posten nach der benutzten Beobachtung ([AddressCutoffView.lotsAfterObservation])
+    return CutoffExport.csv(
+        date, currency, fx?.date, rows, texts, format, header, usdtApproximate, addressesUnreadable, view.lotsAfterObservation,
+    )
 }

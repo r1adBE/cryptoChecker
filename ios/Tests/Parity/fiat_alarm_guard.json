@@ -1,0 +1,380 @@
+{
+  "_comment": "Fiat-Alarme (Build 91): Alter des Devisenkurses in Bankarbeitszeit (ohne Wochenende/TARGET-Feiertage, 36 h), USDT/USD-Stand (angenommen/gemessen/unsicher über USDC) und Auslassen. Gemeinsam für FiatAlarmGuardTest.kt und FiatAlarmGuardTests.swift.",
+  "rateTimeOf": [
+    {
+      "name": "ECB date at 15:00 UTC",
+      "date": "2026-10-16",
+      "expected": 1792162800000
+    },
+    {
+      "name": "spaces trimmed",
+      "date": " 2026-10-16 ",
+      "expected": 1792162800000
+    },
+    {
+      "name": "invalid",
+      "date": "16.10.2026",
+      "expected": null
+    },
+    {
+      "name": "impossible day",
+      "date": "2026-02-30",
+      "expected": null
+    },
+    {
+      "name": "missing",
+      "date": null,
+      "expected": null
+    }
+  ],
+  "businessDay": [
+    {
+      "name": "friday",
+      "epochDay": 20742,
+      "expected": true
+    },
+    {
+      "name": "saturday",
+      "epochDay": 20743,
+      "expected": false
+    },
+    {
+      "name": "sunday",
+      "epochDay": 20744,
+      "expected": false
+    },
+    {
+      "name": "new year",
+      "epochDay": 20819,
+      "expected": false
+    },
+    {
+      "name": "good friday 2026",
+      "epochDay": 20546,
+      "expected": false
+    },
+    {
+      "name": "easter monday 2026",
+      "epochDay": 20549,
+      "expected": false
+    },
+    {
+      "name": "thursday before easter",
+      "epochDay": 20545,
+      "expected": true
+    },
+    {
+      "name": "labour day",
+      "epochDay": 20574,
+      "expected": false
+    },
+    {
+      "name": "christmas",
+      "epochDay": 20812,
+      "expected": false
+    },
+    {
+      "name": "boxing day 2025 (friday)",
+      "epochDay": 20448,
+      "expected": false
+    },
+    {
+      "name": "ordinary tuesday",
+      "epochDay": 20746,
+      "expected": true
+    }
+  ],
+  "fxTooOld": [
+    {
+      "name": "no FX involved",
+      "rateTime": null,
+      "now": 1792162800000,
+      "expected": false
+    },
+    {
+      "name": "same day",
+      "rateTime": 1792162800000,
+      "now": 1792180800000,
+      "expected": false
+    },
+    {
+      "name": "friday rate on sunday evening (weekend not counted)",
+      "rateTime": 1792162800000,
+      "now": 1792360800000,
+      "expected": false
+    },
+    {
+      "name": "friday rate monday noon",
+      "rateTime": 1792162800000,
+      "now": 1792411200000,
+      "expected": false
+    },
+    {
+      "name": "friday rate tuesday 03:00 exactly 36 h",
+      "rateTime": 1792162800000,
+      "now": 1792465200000,
+      "expected": false
+    },
+    {
+      "name": "friday rate tuesday 04:00 (37 h)",
+      "rateTime": 1792162800000,
+      "now": 1792468800000,
+      "expected": true
+    },
+    {
+      "name": "tuesday rate thursday 04:00 (37 h)",
+      "rateTime": 1792508400000,
+      "now": 1792641600000,
+      "expected": true
+    },
+    {
+      "name": "thursday before easter, easter monday noon (holidays not counted)",
+      "rateTime": 1775142000000,
+      "now": 1775476800000,
+      "expected": false
+    },
+    {
+      "name": "thursday before easter, tuesday 04:00 (13 h)",
+      "rateTime": 1775142000000,
+      "now": 1775534400000,
+      "expected": false
+    },
+    {
+      "name": "thursday before easter, wednesday 04:00 (37 h)",
+      "rateTime": 1775142000000,
+      "now": 1775620800000,
+      "expected": true
+    },
+    {
+      "name": "rate time in the future",
+      "rateTime": 1792170000000,
+      "now": 1792162800000,
+      "expected": false
+    },
+    {
+      "name": "very old",
+      "rateTime": 1767625200000,
+      "now": 1792162800000,
+      "expected": true
+    }
+  ],
+  "involvesUsdt": [
+    {
+      "name": "USDT to CHF",
+      "from": "USDT",
+      "to": "CHF",
+      "expected": true
+    },
+    {
+      "name": "BTC to EUR (via USDT)",
+      "from": "btc",
+      "to": "EUR",
+      "expected": true
+    },
+    {
+      "name": "USDC to CHF (market in USDT)",
+      "from": "USDC",
+      "to": "CHF",
+      "expected": true
+    },
+    {
+      "name": "USD to CHF",
+      "from": "USD",
+      "to": "CHF",
+      "expected": false
+    },
+    {
+      "name": "EUR to CHF",
+      "from": "EUR",
+      "to": "CHF",
+      "expected": false
+    },
+    {
+      "name": "EUR to USDT",
+      "from": "EUR",
+      "to": "USDT",
+      "expected": true
+    },
+    {
+      "name": "same currency",
+      "from": "USDT",
+      "to": "usdt",
+      "expected": false
+    }
+  ],
+  "usdtState": [
+    {
+      "name": "not involved",
+      "involved": false,
+      "reading": null,
+      "now": 1792162800000,
+      "expected": "NOT_INVOLVED"
+    },
+    {
+      "name": "no reading: USDT = 1 assumed",
+      "involved": true,
+      "reading": null,
+      "now": 1792162800000,
+      "expected": "ASSUMED"
+    },
+    {
+      "name": "reading older than 6 h: assumed",
+      "involved": true,
+      "reading": {
+        "price": 0.999,
+        "at": 1792137600000,
+        "viaUsdc": false
+      },
+      "now": 1792162800000,
+      "expected": "ASSUMED"
+    },
+    {
+      "name": "direct reading",
+      "involved": true,
+      "reading": {
+        "price": 0.98,
+        "at": 1792159200000,
+        "viaUsdc": false
+      },
+      "now": 1792162800000,
+      "expected": "MEASURED"
+    },
+    {
+      "name": "via USDC within 1 %",
+      "involved": true,
+      "reading": {
+        "price": 1.005,
+        "at": 1792159200000,
+        "viaUsdc": true
+      },
+      "now": 1792162800000,
+      "expected": "MEASURED"
+    },
+    {
+      "name": "via USDC, USDC/USDT 1.02",
+      "involved": true,
+      "reading": {
+        "price": 0.98039,
+        "at": 1792159200000,
+        "viaUsdc": true
+      },
+      "now": 1792162800000,
+      "expected": "UNSURE"
+    },
+    {
+      "name": "via USDC, USDC/USDT 0.985",
+      "involved": true,
+      "reading": {
+        "price": 1.01523,
+        "at": 1792159200000,
+        "viaUsdc": true
+      },
+      "now": 1792162800000,
+      "expected": "UNSURE"
+    }
+  ],
+  "needsMeasurement": [
+    {
+      "name": "nothing converted",
+      "showConverted": false,
+      "displayCurrency": "CHF",
+      "watchQuotes": [
+        "USDT"
+      ],
+      "alarms": [],
+      "expected": false
+    },
+    {
+      "name": "display in CHF on a USDT pair",
+      "showConverted": true,
+      "displayCurrency": "CHF",
+      "watchQuotes": [
+        "EUR",
+        "USDT"
+      ],
+      "alarms": [],
+      "expected": true
+    },
+    {
+      "name": "display in CHF, only fiat and USD quotes",
+      "showConverted": true,
+      "displayCurrency": "CHF",
+      "watchQuotes": [
+        "EUR",
+        "USD"
+      ],
+      "alarms": [],
+      "expected": false
+    },
+    {
+      "name": "display in USDT, EUR pair",
+      "showConverted": true,
+      "displayCurrency": "USDT",
+      "watchQuotes": [
+        "EUR"
+      ],
+      "alarms": [],
+      "expected": true
+    },
+    {
+      "name": "CHF alarm on BTC/USDT",
+      "showConverted": false,
+      "displayCurrency": "CHF",
+      "watchQuotes": [
+        "USDT"
+      ],
+      "alarms": [
+        [
+          "USDT",
+          "CHF"
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "name": "CHF alarm on BTC/EUR",
+      "showConverted": false,
+      "displayCurrency": "CHF",
+      "watchQuotes": [
+        "EUR"
+      ],
+      "alarms": [
+        [
+          "EUR",
+          "CHF"
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "skip": [
+    {
+      "name": "fresh, measured",
+      "rateTime": 1792162800000,
+      "usdt": "MEASURED",
+      "now": 1792166400000,
+      "expected": null
+    },
+    {
+      "name": "assumed alone does not skip",
+      "rateTime": null,
+      "usdt": "ASSUMED",
+      "now": 1792162800000,
+      "expected": null
+    },
+    {
+      "name": "unsure",
+      "rateTime": null,
+      "usdt": "UNSURE",
+      "now": 1792162800000,
+      "expected": "UNSURE"
+    },
+    {
+      "name": "old FX before unsure",
+      "rateTime": 1792162800000,
+      "usdt": "UNSURE",
+      "now": 1792468800000,
+      "expected": "FX_STALE"
+    }
+  ]
+}

@@ -156,5 +156,8 @@ final class DepegAlarmParityTests: XCTestCase {
         XCTAssertFalse(DepegAlarm.shouldMeasure(depegAlarm: false, portfolioEnabled: true, hasPortfolioData: false))
         XCTAssertFalse(DepegAlarm.shouldMeasure(depegAlarm: false, portfolioEnabled: false, hasPortfolioData: true))
         XCTAssertFalse(DepegAlarm.shouldMeasure(depegAlarm: false, portfolioEnabled: false, hasPortfolioData: false))
+        // Fiat-Alarm bzw. ≈ Umrechnung über USDT: auch ohne Alarm und Portfolio messen
+        XCTAssertTrue(DepegAlarm.shouldMeasure(depegAlarm: false, portfolioEnabled: false, hasPortfolioData: false,
+                                               fiatConversion: true))
     }
 }

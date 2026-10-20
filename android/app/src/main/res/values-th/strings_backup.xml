@@ -73,7 +73,7 @@
     <string name="system_backup_not_imported_message">อ่านสำเนาพอร์ตโฟลิโอจากข้อมูลสำรองของระบบ Android ไม่ได้แม้ในครั้งที่สอง จึงลบทิ้งแล้ว หากคุณมีไฟล์สำรอง ให้กู้คืนได้ที่ “%1$s” ในการตั้งค่า</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">ไม่สามารถปลดล็อกพอร์ตโฟลิโอที่บันทึกไว้ได้ในขณะนี้ จึงไม่แสดง – จะกลับมาหลังจากเริ่มแอปใหม่ การเปลี่ยนแปลงที่ทำตอนนี้จะไม่ถูกบันทึก</string>
+    <string name="portfolio_storage_kept_in_memory">ไม่สามารถปลดล็อกพอร์ตโฟลิโอที่บันทึกไว้ได้ในขณะนี้ จึงไม่แสดง – จะกลับมาหลังจากเริ่มแอปใหม่ จะแก้ไขได้หลังจากเปิดแอปครั้งถัดไปเท่านั้น</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
     <string name="watchlist_storage_kept_in_memory">ไม่สามารถปลดล็อกรายการติดตามที่บันทึกไว้ได้ในขณะนี้ จึงไม่แสดง – จะกลับมาหลังจากเริ่มแอปใหม่ การเปลี่ยนแปลงที่ทำตอนนี้จะไม่ถูกบันทึก</string>
     <string name="alarm_save_storage_locked">ไม่สามารถบันทึกสัญญาณเตือนได้ในขณะนี้ – รายการติดตามที่บันทึกไว้ถูกล็อกอยู่ โปรดเริ่มแอปใหม่</string>
@@ -82,4 +82,9 @@
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">การเข้ารหัสยังไม่ทำงาน – พอร์ตโฟลิโอไม่ได้ถูกบันทึก และการเปลี่ยนแปลงจะหายไปเมื่อปิดแอป แอปจะลองใหม่เมื่อเปิดครั้งถัดไป</string>
+
+    <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
+    <string name="portfolio_storage_locked">พอร์ตโฟลิโอที่บันทึกไว้ถูกล็อกอยู่ในขณะนี้ – จะแก้ไขได้หลังจากเปิดแอปครั้งถัดไปเท่านั้น</string>
+    <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
+    <string name="watchlist_storage_in_memory">อุปกรณ์นี้ไม่ได้ให้คีย์ในขณะนี้ – รายการติดตามไม่ได้ถูกบันทึก และการเปลี่ยนแปลงจะหายไปเมื่อปิดแอป แอปจะลองใหม่เมื่อเปิดครั้งถัดไป</string>
 </resources>

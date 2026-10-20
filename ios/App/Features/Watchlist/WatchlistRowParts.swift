@@ -185,7 +185,11 @@ extension WatchlistRow {
                     // %-Änderung aus fremden Kerzen: kleines «*» daneben (Quelle im VoiceOver-Satz und im Blatt);
                     // Tippen darauf erklärt die Quelle kurz
                     WatchlistDayChangePill(watch: watch, marker: changeMarker != nil,
+                                           markerLabel: changeMarker.map(DayChange.rowMarkerLabel),
                                            markerHint: changeSourceHint, showMarkerHint: $showSourceHint)
+                        // Zeitraum («24h», «letzter Stand», «heute») in der Zeile immer klein an der Änderung, damit die
+                        // Basis der Prozentzahl nie verborgen ist; der Schalter gilt weiter für Puls und Einzel-Widget
+                        .environment(\.changeView, rowChangeView)
                         .frame(minHeight: namesEnabled ? line2 : nil, alignment: .trailing)
                 }
                 if let converted {
@@ -209,8 +213,10 @@ extension WatchlistRow {
     /// links — immer «Kurs Währung» von links nach rechts, wie Android `RowPrice`.
     private var priceText: some View {
         HStack(alignment: .firstTextBaseline, spacing: 4) {
+            // Eine Stufe grösser (`.title3`), wenn Platz ist (`DenseRowText.largePrice`, wie Android `titleLarge`)
             Text(PriceFormat.price(watch.lastPrice))
-                .font(AppFont.amount(.body, weight: .semibold))
+                .font(AppFont.amount(DenseRowText.largePrice(scale: typeScale, rowWidth: Double(rowWidth)) ? .title3 : .body,
+                                     weight: .semibold))
                 // Veraltet bzw. deaktiviert: gedämpft, aber lesbar (statt halber Deckkraft)
                 .foregroundStyle(stale || off ? AppColors.onSurfaceVariant : AppColors.onSurface)
                 .contentTransition(.numericText(value: watch.lastPrice ?? 0))
@@ -231,6 +237,13 @@ extension WatchlistRow {
         .lineLimit(1)
         .minimumScaleFactor(0.75)
         .environment(\.layoutDirection, .leftToRight)
+    }
+
+    /// %-Basis der Zeile: Zeitraum immer sichtbar (wie Android `RowPrice`).
+    private var rowChangeView: ChangeView {
+        var view = changeView
+        view.showPeriod = true
+        return view
     }
 
     /// Kurz aufblitzende Fläche hinter dem Kurs: Steigend- bzw. Fallend-Farbe.

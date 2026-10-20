@@ -1,5 +1,5 @@
 {
-  "description": "Rate limit without HTTP 429/418 (Android RateLimitSignal.kt / iOS RateLimitSignal.swift). httpCode: status + response body -> status passed on (429/418 stay, a rate-limit text becomes 429, null = no rate limit); 2xx bodies longer than 4096 characters are not scanned; a readable 2xx JSON body only counts in its error fields (error, errors, msg, message, retMsg, err_msg, errmsg, errorMessage, error_message: text or list of texts) or codes (retCode 10006, code 50011, number or text), a readable JSON list never; unreadable 2xx bodies (no JSON, cut off, HTML) are scanned as text. classify: stored error text -> RefreshReportLogic.classify.",
+  "description": "Rate limit without HTTP 429/418 (Android RateLimitSignal.kt / iOS RateLimitSignal.swift). httpCode: status + response body -> status passed on (429/418 stay, a rate-limit text becomes 429, null = no rate limit); 2xx bodies longer than 4096 characters are not scanned; a readable 2xx JSON body only counts in its error fields (error, errors, msg, message, retMsg, err_msg, errmsg, errorMessage, error_message: text or list of texts) or codes (retCode 10006, code 50011, BingX code 100410, number or text; bitbank data.code 10009 with success 0), a readable JSON list never; unreadable 2xx bodies (no JSON, cut off, HTML) are scanned as text. classify: stored error text -> RefreshReportLogic.classify.",
   "httpCode": [
     {"status": 429, "body": "", "code": 429},
     {"status": 418, "body": null, "code": 418},
@@ -19,7 +19,17 @@
     {"status": 200, "body": "<html><body>Rate limit exceeded</body></html>", "code": 429},
     {"status": 200, "body": "{\"code\":50011,\"msg\":\"x\"}", "code": 429},
     {"status": 200, "body": "{\"error\":\"Too many requests\"", "code": 429},
-    {"status": 200, "body": "{\"message\":\"Too many requests, slow down\"}", "code": 429}
+    {"status": 200, "body": "{\"message\":\"Too many requests, slow down\"}", "code": 429},
+    {"status": 200, "body": "{\"code\":100410,\"msg\":\"FREQUENCY_LIMIT\",\"timestamp\":1792443730000}", "code": 429},
+    {"status": 200, "body": "{\"code\":\"100410\",\"msg\":\"\"}", "code": 429},
+    {"status": 400, "body": "{\"code\": 100410, \"msg\": \"FREQUENCY_LIMIT\"}", "code": 429},
+    {"status": 200, "body": "{\"code\":0,\"msg\":\"\",\"data\":{\"symbols\":[]}}", "code": null},
+    {"status": 200, "body": "{\"code\":1004101,\"msg\":\"\"}", "code": null},
+    {"status": 200, "body": "[{\"code\":100410,\"symbol\":\"BTC-USDT\"}]", "code": null},
+    {"status": 200, "body": "{\"success\":0,\"data\":{\"code\":10009}}", "code": 429},
+    {"status": 200, "body": "{\"success\":0,\"data\":{\"code\":10000}}", "code": null},
+    {"status": 200, "body": "{\"success\":1,\"data\":{\"code\":10009}}", "code": null},
+    {"status": 503, "body": "{\"success\": 0, \"data\": {\"code\": 10009}}", "code": 429}
   ],
   "classify": [
     {"error": "EGeneral:Too many requests", "failure": "RATE_LIMIT"},

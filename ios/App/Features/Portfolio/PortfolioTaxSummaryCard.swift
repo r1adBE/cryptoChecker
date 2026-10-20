@@ -145,7 +145,12 @@ struct PortfolioTaxSummaryCard: View {
         if l.incomplete { out.append(texts.incomplete) }
         if l.noFx { out.append(texts.noFx) }
         if l.notCalculated && !texts.notCalculated.isEmpty { out.append(texts.notCalculated) }
+        if l.estimated && !texts.estimated.isEmpty { out.append(texts.estimated) }
         if let text = l.noteText(texts) { out.append(text) }
+        // CH-Vermögen: nur wo Datei und Karte abweichen können (Posten nach der benutzten Beobachtung) — wie Android
+        if l.line == .CH_WEALTH_VALUE && summary?.wealth?.addressNote == true && !texts.addressLots.isEmpty {
+            out.append(texts.addressLots)
+        }
         return out
     }
 

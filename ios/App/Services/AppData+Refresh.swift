@@ -77,12 +77,29 @@ extension AppData {
         }
         // USDT/USD messen und Depeg-Alarm prüfen: eigener Task, nur mit Alarm oder Portfolio, höchstens alle 5 Minuten
         let hasPortfolio = hasPortfolioData
+        // Fiat-Alarm bzw. ≈ Umrechnung über USDT: Live-Kurs USDT/USD statt still USDT = 1
+        let fiat = fiatConversionNeedsUsdt
         if DepegAlarm.shouldMeasure(depegAlarm: settings.depegAlarm, portfolioEnabled: settings.portfolioEnabled,
-                                    hasPortfolioData: hasPortfolio) {
+                                    hasPortfolioData: hasPortfolio, fiatConversion: fiat) {
             Task.detached(priority: .utility) {
-                await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio)
+                await DepegAlarmCheck.runIfDue(settings: settings, hasPortfolioData: hasPortfolio, fiatConversion: fiat)
             }
         }
+    }
+
+    /// Hängt eine Fiat-Umrechnung an USDT (`FiatAlarmGuard.needsUsdtMeasurement`): ≈ Umrechnung der Merkliste oder ein
+    /// aktiver Alarm in anderer Währung? Dann misst `DepegAlarmCheck` USDT/USD auch ohne Alarm und Portfolio.
+    var fiatConversionNeedsUsdt: Bool {
+        let active = snapshot.watches.filter { !$0.disabled }
+        let quotes = Dictionary(active.map { ($0.id, WatchlistConversion.quote($0)) }, uniquingKeysWith: { first, _ in first })
+        let conversions: [(quote: String, currency: String)] = snapshot.alarms.compactMap { alarm in
+            guard alarm.enabled, let currency = alarm.convertCurrency, let quote = quotes[alarm.watchId] else { return nil }
+            return (quote: quote, currency: currency)
+        }
+        return FiatAlarmGuard.needsUsdtMeasurement(showConverted: settings.showConverted,
+                                                   displayCurrency: settings.portfolioCurrency,
+                                                   watchQuotes: active.map(WatchlistConversion.quote),
+                                                   alarmConversions: conversions)
     }
 
     /// Gespeicherte Ergebnisse neu übernehmen (z. B. nach der Hintergrund-Aktualisierung).

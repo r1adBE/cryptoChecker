@@ -25,6 +25,8 @@ extension WatchlistScreen {
                 }
             }
             .frame(minHeight: WatchlistSearch.rowHeight)
+            // Kommen die Alarme an? Eine ruhige Zeile, nur mit Alarmen (eigene Komponente)
+            if !searching && !selecting && !editMode.isEditing { AlarmReliabilityLine() }
         }
         .padding(.horizontal, 16)
         .padding(.bottom, Spacing.xs)

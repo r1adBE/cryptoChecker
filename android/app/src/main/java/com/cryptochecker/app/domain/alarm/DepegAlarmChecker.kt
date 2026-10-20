@@ -6,6 +6,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.MarketRepository
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.local.model.convertCurrency
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.model.MarketInfo
@@ -58,7 +59,9 @@ class DepegAlarmChecker @Inject constructor(
         val settings = settingsRepository.current()
         // Datenbank nur fragen, wenn das Portfolio eingeschaltet ist und der Alarm allein nicht genügt
         val hasPortfolio = !settings.depegAlarm && settings.portfolioEnabled && hasPortfolioData()
-        if (!DepegAlarm.shouldMeasure(settings.depegAlarm, settings.portfolioEnabled, hasPortfolio)) return@withLock
+        // Fiat-Alarm bzw. ≈ Umrechnung über USDT: Live-Kurs USDT/USD statt still USDT = 1 (nur fragen, wenn sonst nicht gemessen)
+        val fiat = !settings.depegAlarm && !hasPortfolio && fiatConversionInUse(settings)
+        if (!DepegAlarm.shouldMeasure(settings.depegAlarm, settings.portfolioEnabled, hasPortfolio, fiat)) return@withLock
         val now = System.currentTimeMillis()
         if (!isDue(now, prefs.getLong(KEY_LAST_CHECK, 0))) return@withLock
         prefs.edit { putLong(KEY_LAST_CHECK, now) }
@@ -84,6 +87,29 @@ class DepegAlarmChecker @Inject constructor(
         val decision = DepegAlarm.evaluate(deviation, DepegAlarm.thresholdPercent(settings.depegThresholdTenths), armedBefore, mayFire)
         val posted = decision.fire && notify(price, deviation)
         prefs.edit { putBoolean(KEY_ARMED, DepegAlarm.armedAfter(decision.fire, posted, armedBefore, decision.armed)) }
+    }
+
+    /**
+     * Hängt eine Fiat-Umrechnung an USDT ([com.cryptochecker.app.domain.convert.FiatAlarmGuard.needsUsdtMeasurement]):
+     * ≈ Umrechnung der Merkliste oder ein aktiver Alarm in anderer Währung? Fehler still (false).
+     */
+    private suspend fun fiatConversionInUse(settings: com.cryptochecker.app.settings.AppSettings): Boolean = try {
+        val watches = watchRepository.getWatches().filterNot { it.disabled }
+        val byId = watches.associateBy { it.id }
+        val conversions = watchRepository.getAllEnabledAlarms().mapNotNull { alarm ->
+            val currency = alarm.convertCurrency ?: return@mapNotNull null
+            byId[alarm.watchId]?.let { com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(it.marketKey, it.quoteAsset) to currency }
+        }
+        com.cryptochecker.app.domain.convert.FiatAlarmGuard.needsUsdtMeasurement(
+            settings.showConverted, settings.portfolioCurrency,
+            watches.map { com.cryptochecker.app.domain.convert.CurrencyConversion.conversionQuote(it.marketKey, it.quoteAsset) }, conversions,
+            com.cryptochecker.app.data.portfolio.FxRateSource.CURRENCIES,
+        )
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Timber.d(e, "Depeg: Merkliste nicht lesbar")
+        false
     }
 
     /** Transaktionen oder beobachtete Adressen vorhanden? Fehler still (false). */

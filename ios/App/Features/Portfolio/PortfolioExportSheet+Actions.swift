@@ -26,11 +26,6 @@ extension PortfolioExportSheet {
             template, header: base + atNote + [L("tax_export_usdt_usd_note"), L("tax_export_day_close_rule"),
                                                L("tax_export_workpaper_disclaimer")],
             chWealthNote: Self.chWealthNote(year: year))
-        // CH-Vermögen mit Adressen mit Einstand am 31.12.: Hinweiszeile (wie Android)
-        let yearEnd = template.period(year).end
-        let addressLots = AddressCostLots.hasCountedLots(
-            WatchedAddressStore.loadChecked().file.addresses,
-            cutoffMillis: CutoffDay(year: yearEnd.year, month: yearEnd.month, day: yearEnd.day).endOfDayMillis(in: template.zone()))
         Task {
             let s: TaxYearSummary
             if let known {
@@ -39,7 +34,8 @@ extension PortfolioExportSheet {
                 s = await PortfolioTaxExporter.summary(transactions: txs, template: template, method: m, year: year,
                                                        currency: code, walletFrom: walletFrom)
             }
-            let csv = PortfolioTaxExporter.summaryCsv(s, texts: texts, header: header, addressLots: addressLots)
+            // Hinweiszeile zum CH-Vermögen kommt aus der Übersicht selbst (`TaxWealth.addressNote`), wie Android
+            let csv = PortfolioTaxExporter.summaryCsv(s, texts: texts, header: header)
             running = false
             guard let data = csv.data(using: .utf8) else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
@@ -132,14 +128,12 @@ extension PortfolioExportSheet {
         // Beobachtete Adressen (zählen im Portfolio) als eigene Zeilen — wie Android. Nicht lesbar: ohne Adressen, aber
         // in der Datei vermerkt und das Total «unvollständig» — nie still eine zu tiefe Summe
         let watched = WatchedAddressStore.loadChecked()
-        let addresses = AddressBalanceHistory.of(watched.file.addresses)
+        let addresses = watched.file.addresses
         let addressesUnreadable: Bool = !watched.intact
-        // Zählende Adresse mit Einstand am Stichtag: Hinweiszeile (Umbuchungen zur/von der Adresse evtl. doppelt/fehlend)
-        let addressLots = AddressCostLots.hasCountedLots(watched.file.addresses, cutoffMillis: day.endOfDayMillis(in: zone))
         Task {
             let csv = await PortfolioCutoffExporter.build(transactions: txs, day: day, currency: code, texts: texts,
                                                           method: method, addresses: addresses,
-                                                          addressesUnreadable: addressesUnreadable, addressLots: addressLots,
+                                                          addressesUnreadable: addressesUnreadable,
                                                           header: header, zone: zone)
             running = false
             guard let data = csv.data(using: .utf8) else {

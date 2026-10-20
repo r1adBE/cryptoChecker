@@ -152,8 +152,11 @@ extension PriceRefresher {
                                                               candleOpenTime: spike.candleOpenTime, now: now,
                                                               cooldownMinutes: settings.alarmCooldownMinutes)
                 else { continue }
-                // Dieselbe Kerze nicht nochmals melden (referenceAt)
-                report(alarm, volumeRatio: spike.ratio, candleOpenTime: spike.candleOpenTime)
+                // Dieselbe Kerze nicht nochmals melden (referenceAt); Kerzen einer anderen Börse: im Text genannt
+                let text = spike.source.map {
+                    AlarmTexts.withNote(L("notification_volume_spike_text", AlarmTexts.factor(spike.ratio)), candleSource: $0)
+                }
+                report(alarm, text: text, volumeRatio: spike.ratio, candleOpenTime: spike.candleOpenTime)
                 continue
             }
             // Bewegungs- bzw. Prozentalarm ohne Bezug: aktuellen Kurs als Bezug setzen, ohne auszulösen
@@ -180,6 +183,19 @@ extension PriceRefresher {
                     continue
                 }
                 comparePrice = price * rate
+                // Devisenkurs zu alt bzw. USDT/USD nur unsicher über USDC: diesmal nicht prüfen, Alarm bleibt scharf
+                if let skip = inputs.convertSkips["\(watch.id)|\(currency)"] {
+                    checkStatus.markUnchecked(alarm.id, reason: .noRate, now: now)
+                    let due = AlarmEvaluator.shouldTrigger(alarm: alarm, price: comparePrice,
+                                                           previousPrice: watch.lastPrice.map { $0 * rate }, now: now,
+                                                           cooldownMinutes: settings.alarmCooldownMinutes,
+                                                           moveHistory: moveHistory)
+                    let trace = AlarmLogTrace(fxStale: skip == .FX_STALE, fxUnsure: skip == .UNSURE, due: due)
+                    if let entry = alarmLogEntry(alarm, watch: updated, trace: trace, now: now, comparePrice: comparePrice) {
+                        outcome.alarmLog.append(entry)
+                    }
+                    continue
+                }
             }
             checkStatus.markChecked(alarm.id)
             // Gemeldeter Kursalarm: erst wieder scharf, wenn der Kurs auf die andere Seite zurück ist
@@ -211,7 +227,12 @@ extension PriceRefresher {
             }
             // Umgerechnet: «jetzt» in der Währung der Schwelle (sonst stünde ein USDT-Kurs neben einer EUR-Marke)
             if let currency = alarm.convertCurrency {
-                report(alarm, shownPrice: comparePrice, shownCurrency: currency, logPrice: comparePrice)
+                // Umgerechnet mit USDT = 1 (USDT/USD nicht gemessen): im Text vermerkt
+                let text = inputs.convertUsdtAssumed.contains("\(watch.id)|\(currency)")
+                    ? AlarmTexts.withNote(L("notification_alarm_text", AlarmTexts.describe(alarm),
+                                            PriceFormat.priceWithCurrency(comparePrice, currency)), usdtAssumed: true)
+                    : nil
+                report(alarm, text: text, shownPrice: comparePrice, shownCurrency: currency, logPrice: comparePrice)
             } else {
                 report(alarm, logPrice: comparePrice)
             }

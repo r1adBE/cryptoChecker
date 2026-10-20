@@ -1,6 +1,8 @@
 package com.cryptochecker.app.data.local
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -26,5 +28,27 @@ class WatchlistStorageLockTest {
         val kept = setOf("cryptochecker_portfolio.db")
         assertFalse(WatchlistStorageLock.isLocked(kept))
         assertFalse(WatchlistStorageLock.blocksAlarmSave(kept))
+    }
+
+    @Test
+    fun noticeKeptWinsOverNotSaved() {
+        // storedKept ist Teilmenge von inMemory: gespeicherter Stand da → «gesperrt», nicht «wird nicht gespeichert»
+        val db = setOf("cryptochecker.db")
+        assertEquals(WatchlistStorageLock.Notice.KEPT, WatchlistStorageLock.notice(db, db))
+    }
+
+    @Test
+    fun noticeNotSavedWithoutKeyAndWithoutFile() {
+        // Kein Schlüssel, keine Datei (Decision.Refused): nur im Arbeitsspeicher, Hinweis, aber Alarme nicht gesperrt
+        val inMemory = setOf("cryptochecker.db")
+        assertEquals(WatchlistStorageLock.Notice.NOT_SAVED, WatchlistStorageLock.notice(inMemory, emptySet()))
+        assertFalse(WatchlistStorageLock.blocksAlarmSave(emptySet()))
+    }
+
+    @Test
+    fun noNoticeForPortfolioOnlyOrNothing() {
+        assertNull(WatchlistStorageLock.notice(emptySet(), emptySet()))
+        val portfolio = setOf("cryptochecker_portfolio.db")
+        assertNull(WatchlistStorageLock.notice(portfolio, portfolio))
     }
 }

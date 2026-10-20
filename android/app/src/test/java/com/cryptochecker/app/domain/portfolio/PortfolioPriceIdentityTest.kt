@@ -1,6 +1,9 @@
 package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity.WatchName
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.obj
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -46,5 +49,23 @@ class PortfolioPriceIdentityTest {
         assertNull(names["BTC"])
         val allowed = PortfolioPriceIdentity.binanceTickerCoins(listOf("LUNA", "TON", "HOT", "BTC"), names) { binance[it] }
         assertEquals(listOf("HOT", "BTC"), allowed)
+    }
+
+    /** Ohne bekannten Namen: Binance nur bei eindeutigem Kürzel, sonst «ungeprüft» — Fixture `portfolio_price_identity.json`. */
+    @Test
+    fun parityBinanceCheckAndSplit() {
+        val data = ParityJson.load("portfolio_price_identity.json")
+        val names = data["binanceName"].obj().mapValues { it.value as String }
+        data["checks"].list().forEach { raw ->
+            val c = raw.obj()
+            val coin = c["coin"] as String
+            val got = PortfolioPriceIdentity.binanceCheck(coin, c["knownName"] as String?, names[coin])
+            assertEquals("$coin / ${c["knownName"]}", c["check"], got.name)
+        }
+        val split = data["split"].obj()
+        val known = split["knownNames"].obj().mapValues { it.value as String? }
+        val got = PortfolioPriceIdentity.binanceSplit(split["coins"].list().map { it as String }, known) { names[it] }
+        assertEquals(split["use"].list(), got.use)
+        assertEquals(split["unchecked"].list().toSet(), got.unchecked)
     }
 }

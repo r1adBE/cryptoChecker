@@ -21,6 +21,8 @@ enum AlarmLogTexts {
         case .NOT_SHOWN: return L("alarm_outcome_not_shown")
         case .NO_RATE: return L("alarm_outcome_no_rate")
         case .NO_PRICE: return L("alarm_outcome_no_price")
+        case .FX_STALE: return L("alarm_outcome_fx_stale")
+        case .FX_UNSURE: return L("alarm_outcome_fx_unsure")
         }
     }
 

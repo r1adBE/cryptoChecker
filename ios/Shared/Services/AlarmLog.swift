@@ -29,6 +29,10 @@ enum AlarmLogOutcome: String, CaseIterable, Sendable {
     case NO_RATE = "no_rate"
     /// Kein Kurs: Abfrage bei der Börse fehlgeschlagen.
     case NO_PRICE = "no_price"
+    /// Schwelle in anderer Währung, Devisenkurs älter als 36 h Bankarbeitszeit: diesmal nicht geprüft (bleibt scharf).
+    case FX_STALE = "fx_stale"
+    /// Schwelle in anderer Währung, USDT/USD nur über USDC und USDC/USDT mehr als 1 % neben 1: diesmal nicht geprüft.
+    case FX_UNSURE = "fx_unsure"
 }
 
 /// Was die Prüfung eines Alarms an den bestehenden Entscheidungsstellen gesehen hat (nur beobachtet — die Entscheidung
@@ -40,6 +44,10 @@ struct AlarmLogTrace: Equatable, Sendable {
     var markPrice = false
     var stale = false
     var noRate = false
+    /// Devisenkurs zu alt (`FiatAlarmGuard.Skip.FX_STALE`).
+    var fxStale = false
+    /// USDT/USD unsicher (`FiatAlarmGuard.Skip.UNSURE`).
+    var fxUnsure = false
     /// Bedingung erfüllt, der Alarm wäre fällig (bei einer Sperre: Vorschau mit denselben reinen Regeln).
     var due = false
     /// Nicht fällig nur wegen der Ruhezeit nach der letzten Meldung (Bedingung selbst erfüllt).
@@ -120,6 +128,8 @@ enum AlarmLog {
         if t.markPrice { return .MARK_PRICE }
         if t.stale { return .STALE }
         if t.noRate { return .NO_RATE }
+        if t.fxStale { return .FX_STALE }
+        if t.fxUnsure { return .FX_UNSURE }
         if t.due {
             if t.quietHours { return .QUIET_HOURS }
             if t.snoozed { return .SNOOZED }
@@ -137,7 +147,7 @@ enum AlarmLog {
     static func notable(_ outcome: AlarmLogOutcome, _ trace: AlarmLogTrace) -> Bool {
         switch outcome {
         case .FIRED: return true
-        case .LOW_LIQUIDITY, .MARK_PRICE, .STALE: return trace.due
+        case .LOW_LIQUIDITY, .MARK_PRICE, .STALE, .FX_STALE, .FX_UNSURE: return trace.due
         case .QUIET_HOURS, .SNOOZED, .NOTIFICATIONS_OFF, .NOT_SHOWN, .COOLDOWN: return true
         case .NOT_REACHED, .ALREADY_TRIGGERED, .NO_RATE, .NO_PRICE: return false
         }

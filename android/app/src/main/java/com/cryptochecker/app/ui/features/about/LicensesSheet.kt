@@ -37,10 +37,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
- * Lizenz der App selbst — gleicher Text wie die Datei `LICENSE` des Projekts, samt den ursprünglichen
+ * Lizenz der App selbst — byte-gleich mit der Datei `LICENSE` des Projekts (public/LICENSE), samt den ursprünglichen
  * MIT-Vermerken von BitcoinChecker (mobnetic, Aneonex Software), die beim Weitergeben erhalten bleiben müssen.
  */
 private const val ASSET_APP = "licenses/MIT-cryptochecker.txt"
+
+/** Herkunft, Namen/Logos/Daten Dritter und Alarmtöne — eigene Datei, damit die Lizenzdatei gleich `LICENSE` bleibt. */
+private const val ASSET_ORIGIN = "licenses/NOTICE-origin.txt"
 private const val ASSET_FONT = "licenses/Rubik-OFL.txt"
 private const val ASSET_APACHE = "licenses/Apache-2.0.txt"
 private const val APACHE_NAME = "Apache License 2.0"
@@ -112,6 +115,7 @@ fun LicensesSheet(onDismiss: () -> Unit) {
 fun LicensesContent() {
     val context = LocalContext.current
     val app by produceState("") { value = readAsset(context, ASSET_APP) }
+    val origin by produceState("") { value = readAsset(context, ASSET_ORIGIN) }
     val font by produceState("") { value = readAsset(context, ASSET_FONT) }
     val apache by produceState("") { value = readAsset(context, ASSET_APACHE) }
     val sqlcipher by produceState("") { value = readAsset(context, ASSET_SQLCIPHER) }
@@ -120,6 +124,7 @@ fun LicensesContent() {
             // Die App selbst ist quelloffen (MIT); der ganze Lizenztext wie in `LICENSE`
             BodyText(stringResource(R.string.licenses_app_intro))
             LicenseText(app)
+            LicenseText(origin)
             // Pflichtangabe der CoinGecko-API-Bedingungen (Markenname, nicht übersetzt)
             BodyText(DataFreshness.POWERED_BY_COINGECKO)
             // Ersatz-Wechselkurse von open.er-api.com: verlangte Quellenangabe (nicht übersetzt)

@@ -14,7 +14,7 @@
         android:layout_marginTop="2dp"
         android:maxLines="1"
         android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="13sp"
+        android:autoSizeMinTextSize="12sp"
         android:autoSizeMaxTextSize="26sp"
         android:textSize="24sp"
         android:fontFeatureSettings="tnum" />

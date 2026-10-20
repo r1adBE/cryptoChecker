@@ -124,7 +124,7 @@ extension PortfolioHomeView {
 
     private func listTotalLabel() -> some View {
         Text(L("portfolio_card_total"))
-            .font(.system(size: 13, weight: .semibold))
+            .font(.system(size: WidgetFont.label, weight: .semibold))
             .foregroundStyle(palette.text)
             .lineLimit(1)
             .minimumScaleFactor(0.7)
@@ -141,7 +141,7 @@ extension PortfolioHomeView {
     private func listTotalValue(_ s: PortfolioWidgetSnapshot) -> some View {
         let value: String = entry.hideAmounts ? PortfolioInsights.hidden
             : PriceFormat.valueWithCurrency(s.total, s.currency)
-        return Text.quoted(value, quote: s.currency, size: 13, quoteColor: palette.secondary)
+        return Text.quoted(value, quote: s.currency, size: WidgetFont.label, quoteColor: palette.secondary)
             .monospacedDigit()
             .foregroundStyle(palette.text)
             .lineLimit(1)
@@ -221,7 +221,7 @@ extension PortfolioHomeView {
 
     private func listSymbol(_ p: PortfolioWidgetPosition) -> some View {
         Text(p.symbol)
-            .font(.system(size: 13, weight: .semibold))
+            .font(.system(size: WidgetFont.label, weight: .semibold))
             .foregroundStyle(palette.text)
             .lineLimit(1)
             .minimumScaleFactor(0.7)
@@ -257,7 +257,7 @@ extension PortfolioHomeView {
     /// Wert «7’420.10 CHF», die Währung klein und grau; verborgen «•••».
     private func listValue(_ p: PortfolioWidgetPosition, currency: String) -> some View {
         let text = entry.hideAmounts ? PortfolioInsights.hidden : PriceFormat.valueWithCurrency(p.value, currency)
-        return Text.quoted(text, quote: currency, size: 13, quoteColor: palette.secondary)
+        return Text.quoted(text, quote: currency, size: WidgetFont.label, quoteColor: palette.secondary)
             .monospacedDigit()
             .foregroundStyle(palette.text)
             .lineLimit(1)

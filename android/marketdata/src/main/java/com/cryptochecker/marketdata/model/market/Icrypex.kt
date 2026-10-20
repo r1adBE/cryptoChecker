@@ -54,6 +54,13 @@ class Icrypex : SimpleMarket(
     override val bulkTickersNumOfRequests: Int
         get() = 1
 
+    /**
+     * `tickers` führt jedes Spot-Paar (Aufzeichnung 19.10.2026: alle 211 Paare von `exchange/info`, auch
+     * `CancelOnly`), ein fehlendes Paar ist nicht mehr gelistet.
+     */
+    override val bulkTickersComplete: Boolean
+        get() = true
+
     override fun getBulkTickersUrl(call: Int): String = ICRYPEX_TICKERS
 
     override fun parseBulkTickers(

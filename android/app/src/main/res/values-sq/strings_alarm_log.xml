@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">në sfond</string>
     <string name="alarm_log_source_exact">kontroll i përpiktë</string>
     <string name="alarm_log_source_widget">nga widget-i</string>
+    <string name="alarm_outcome_fx_stale">Nuk u kontrollua – kursi i këmbimit më i vjetër se 36 orë</string>
+    <string name="alarm_outcome_fx_unsure">Nuk u kontrollua – konvertim i pasigurt i USDT (vetëm përmes USDC)</string>
 </resources>

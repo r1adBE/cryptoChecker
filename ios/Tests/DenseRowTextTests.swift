@@ -41,4 +41,14 @@ final class DenseRowTextTests: XCTestCase {
         XCTAssertEqual(DenseRowText.sparklineWidth(rowWidth: 360), 56)
         XCTAssertEqual(DenseRowText.sparklineWidth(rowWidth: 412), 56)
     }
+
+    /// Kurs eine Stufe grösser nur mit Platz (gestapelt immer) — wie Android.
+    func testLargePriceOnlyWithRoom() {
+        XCTAssertTrue(DenseRowText.largePrice(scale: 1, rowWidth: 360))
+        XCTAssertTrue(DenseRowText.largePrice(scale: 1.15, rowWidth: 412))
+        XCTAssertFalse(DenseRowText.largePrice(scale: 1, rowWidth: 320))
+        XCTAssertFalse(DenseRowText.largePrice(scale: 1.3, rowWidth: 412))
+        XCTAssertTrue(DenseRowText.largePrice(scale: 1.5, rowWidth: 320))
+        XCTAssertTrue(DenseRowText.largePrice(scale: 2, rowWidth: 412))
+    }
 }

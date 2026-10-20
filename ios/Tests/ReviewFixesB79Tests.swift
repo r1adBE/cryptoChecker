@@ -84,7 +84,7 @@ final class ReviewFixesB79Tests: XCTestCase {
         XCTAssertEqual(PriceKindLabel.of(priceIsMid: true, markFallback: false, hourlyClose: false), .mid)
         XCTAssertEqual(PriceKindLabel.of(priceIsMid: false, markFallback: false, hourlyClose: true), .hourly)
         XCTAssertNil(PriceKindLabel.of(priceIsMid: false, markFallback: false, hourlyClose: false))
-        XCTAssertTrue(Woo().priceIsHourlyClose)
+        XCTAssertFalse(Woo().priceIsHourlyClose) // seit Build 91 letzter Abschluss statt Stundenkurs
         XCTAssertFalse(WooFutures().priceIsHourlyClose)
     }
 

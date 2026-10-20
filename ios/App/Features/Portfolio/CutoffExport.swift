@@ -18,7 +18,8 @@ enum CutoffExport {
 
     /// Eigener Bestand je Coin aus allen Transaktionen mit Zeit ≤ `cutoffMillis` nach der Einstandsmethode `method`
     /// (`PortfolioCalculator.holdingsAt` — dieselben Mengen wie Karte und Wertverlauf, auch FIFO je Wallet); ohne Bestand
-    /// fällt weg. Alphabetisch. Adress-Guthaben: `addressRows`. Wie Android.
+    /// fällt weg. Alphabetisch. Adress-Guthaben: `addressRows`; mit Eröffnungsposten wie die Karte:
+    /// `AddressCutoff.holdingsAt`. Wie Android.
     static func holdingsAt(_ trades: [PortfolioTx], cutoffMillis: Int64,
                            method: CostMethod = .defaultMethod) -> [CutoffHolding] {
         PortfolioCalculator.holdingsAt(trades, time: cutoffMillis, method: method)
@@ -113,8 +114,8 @@ enum CutoffExport {
         if usdtApproximate && !texts.usdtAssumed.isEmpty { out += line([texts.usdtAssumed]) }
         // Adressen nicht lesbar: fehlende Guthaben nie still
         if addressesUnreadable && !texts.addressesUnreadable.isEmpty { out += line([texts.addressesUnreadable]) }
-        // Adressen mit Einstand (`addressLots`, `AddressCostLots.hasCountedLots`): volles Adress-Guthaben + Buchungen,
-        // Umbuchungen zur/von der Adresse evtl. doppelt/fehlend — nur bei Bedarf, keine Rechenänderung. Wie Android
+        // Posten nach der benutzten Beobachtung einer Adresse (`addressLots`, `AddressCutoffView.lotsAfterObservation`):
+        // können fehlen — nur bei Bedarf, sonst rechnet die Datei wie die Karte (`AddressCutoff`). Wie Android
         if addressLots && !texts.addressLots.isEmpty { out += line([texts.addressLots]) }
         // In CHF per 31.12.: Hinweis auf die massgebende ESTV-Kursliste des Jahrs
         if let estv = EstvKursliste.noteLine(format: texts.estvNoteFormat, day: day, currency: currency,

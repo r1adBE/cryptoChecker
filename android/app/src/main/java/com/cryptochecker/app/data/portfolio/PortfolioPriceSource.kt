@@ -149,11 +149,12 @@ class PortfolioPriceSource @Inject constructor(
                         (force || cache[coin]?.let { now - it.second in 0 until PRICE_TTL_MILLIS } != true)
                 }
                 if (toFetch.isNotEmpty()) {
-                    // Binance-Ticker nur für denselben Token (Namen der Merkliste, K-8); sonst Merklisten-Paar/Kerzen
-                    val binanceCoins = PortfolioPriceIdentity.binanceTickerCoins(
+                    // Binance-Ticker nur für denselben Token (Namen der Merkliste, K-8); ohne Namen nur bei eindeutigem
+                    // Kürzel, sonst Merklisten-Paar/Kerzen und ohne anderen Kurs «ungeprüft»
+                    val split = PortfolioPriceIdentity.binanceSplit(
                         toFetch, watchNamesFor(toFetch), tokenIdentityStore::binanceName,
                     )
-                    val fetched = binanceBatch(binanceCoins).toMutableMap()
+                    val fetched = binanceBatch(split.use).toMutableMap()
                     // Nicht bei Binance: zuerst ein Merklisten-Paar an einer anderen Börse, dann die Kerze
                     if (toFetch.any { it !in fetched }) fetched += watchPairPrices(toFetch.filter { it !in fetched })
                     val missing = toFetch.filter { it !in fetched }
@@ -190,6 +191,8 @@ class PortfolioPriceSource @Inject constructor(
                             }
                         }
                     }
+                    // Binance ohne prüfbare Identität ausgelassen und kein anderer Kurs: «ungeprüft» (nicht abgelehnte)
+                    split.unchecked.filterTo(unchecked) { it !in rejected }
                     // Eingetragene Börse: deren Kurs gilt, sonst bleibt Binance (siehe PortfolioExchangeRoute)
                     applyExchangeRoutes(toFetch, fetched)
                     val time = System.currentTimeMillis()

@@ -28,4 +28,6 @@
     <string name="alarm_log_source_background">chạy nền</string>
     <string name="alarm_log_source_exact">kiểm tra đúng giờ</string>
     <string name="alarm_log_source_widget">qua widget</string>
+    <string name="alarm_outcome_fx_stale">Chưa kiểm tra – tỷ giá cũ hơn 36 giờ</string>
+    <string name="alarm_outcome_fx_unsure">Chưa kiểm tra – quy đổi USDT không chắc chắn (chỉ qua USDC)</string>
 </resources>

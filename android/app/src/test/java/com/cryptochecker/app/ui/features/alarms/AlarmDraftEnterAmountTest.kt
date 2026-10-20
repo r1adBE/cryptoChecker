@@ -35,4 +35,15 @@ class AlarmDraftEnterAmountTest {
         val existing = AlarmDraft(id = 7, condition = AlarmCondition.PRICE_ABOVE, thresholdText = "70000", decimalSeparator = '.')
         assertFalse(existing.showsEnterAmountHint)
     }
+
+    @Test
+    fun `sentence card and hint never both`() {
+        val blank = AlarmDraft.blankFor('.')
+        assertFalse("leeres Feld: nur der Hinweis", blank.showsSentence)
+        assertTrue(blank.copy(thresholdText = "70000", blankStart = false).showsSentence)
+        // Fehler sichtbar: Karte bleibt (der Hinweis fehlt dann)
+        assertTrue(blank.copy(thresholdText = "", blankStart = false).showsSentence)
+        listOf(blank, blank.copy(thresholdText = "1", blankStart = false), blank.copy(thresholdText = "x", blankStart = false))
+            .forEach { assertTrue(it.showsSentence != it.showsEnterAmountHint) }
+    }
 }

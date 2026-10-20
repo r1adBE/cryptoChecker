@@ -240,8 +240,8 @@
 
     <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
     <string name="portfolio_export_addresses_unreadable">Overvågede adresser kunne ikke læses – deres saldi mangler i denne fil</string>
-    <!-- Stichtag-CSV / CH-Vermögen: Adressen mit Einstand – Umbuchungen evtl. doppelt oder fehlend (nur bei Bedarf) -->
-    <string name="portfolio_export_address_lots_note">Bemærk: adresser med anskaffelsespris – overførsler til eller fra en overvåget adresse kan her optræde to gange eller mangle; porteføljekortet beregner dem korrekt.</string>
+    <!-- Stichtag-CSV / CH-Vermögen (Datei und Karte): Einstandsposten nach der letzten Guthabenabfrage vor dem Stichtag – können fehlen (nur bei Bedarf) -->
+    <string name="portfolio_export_address_lots_note">Bemærk: en overvåget adresse har anskaffelsesposter dateret efter dens seneste saldotjek før denne dato – de kan mangle her.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
     <string name="tax_summary_fr_address_no_cost">Overvågede adresser tæller med i den samlede værdi, men har ingen anskaffelsessum – gevinsten er derfor snarere for høj. Registrér anskaffelsessummen som et køb.</string>

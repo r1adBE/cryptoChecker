@@ -58,4 +58,10 @@
     <string name="oem_battery_oneplus">OnePlus עלולה לעצור את האפליקציה – ואז לא מגיעות התראות. אפשרו «הפעלה אוטומטית» ופעילות ברקע בשימוש בסוללה.</string>
     <string name="oem_battery_oppo">Oppo/Realme עלולה לעצור את האפליקציה – ואז לא מגיעות התראות. אפשרו «הפעלה אוטומטית» ופעילות ברקע בשימוש בסוללה.</string>
     <string name="oem_battery_vivo">Vivo עלולה לעצור את האפליקציה – ואז לא מגיעות התראות. אפשרו «הפעלה אוטומטית» וצריכת חשמל גבוהה ברקע בסוללה.</string>
+    <string name="alarm_reliability_recent">בדיקה אחרונה %1$s</string>
+    <string name="alarm_reliability_stale">בדיקה אחרונה %1$s – התראות עלולות להתעכב</string>
+    <string name="alarm_reliability_never">התראות פעילות – עדיין אין בדיקה ברקע</string>
+    <string name="alarm_reliability_notifications_off">התראות מערכת כבויות – ההתראות לא יגיעו</string>
+    <string name="alarm_reliability_battery">חיסכון בסוללה עלול לעצור את בדיקת ההתראות</string>
+    <string name="alarm_reliability_background_refresh">רענון אפליקציות ברקע כבוי – ייתכן שההתראות לא יגיעו</string>
 </resources>

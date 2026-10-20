@@ -36,7 +36,7 @@
             android:ellipsize="end"
             android:text="@string/widget_portfolio_name"
             android:textColor="@color/widget_preview_text"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
 

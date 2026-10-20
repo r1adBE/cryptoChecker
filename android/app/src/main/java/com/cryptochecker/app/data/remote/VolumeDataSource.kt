@@ -9,6 +9,7 @@ import com.cryptochecker.app.data.remote.candles.OwnCandlePolicy
 import com.cryptochecker.app.domain.activity.CandleSeries
 import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.market.Sourced
+import com.cryptochecker.app.domain.watch.DayChange
 import org.json.JSONArray
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
@@ -20,8 +21,10 @@ import javax.inject.Singleton
  *
  * @property ratio z. B. 4.2 = «4,2-mal so viel wie üblich»
  * @property candleOpenTime Startzeit der bewerteten Stundenkerze (ms, UTC)
+ * @property source Börse der Kerzen, wenn nicht die des Paars (Ausweich-Kette, z. B. «Binance»): im Alarmtext genannt;
+ *   null = eigene Börse
  */
-data class VolumeSpike(val ratio: Double, val candleOpenTime: Long)
+data class VolumeSpike(val ratio: Double, val candleOpenTime: Long, val source: String? = null)
 
 /**
  * Holt Stundenkerzen für den Volumen-Spike-Alarm und die Auswertung «Ungewöhnliche
@@ -43,8 +46,10 @@ class VolumeDataSource @Inject constructor(
     private val cache = ConcurrentHashMap<String, Pair<Long, Sourced<List<HourCandle>>?>>()
 
     /** Volumen-Spike eines Paars der Merkliste (Volumen-Alarm, Schnell-Alarme); [price] für die Prüfung auf gleichen Token. */
-    suspend fun hourlySpike(watch: WatchEntity, price: Double? = watch.lastPrice): VolumeSpike? =
-        pairCandles(candlePairs.of(watch), price, CandleInterval.H1, LIMIT)?.value?.let { spikeOf(it) }
+    suspend fun hourlySpike(watch: WatchEntity, price: Double? = watch.lastPrice): VolumeSpike? {
+        val sourced = pairCandles(candlePairs.of(watch), price, CandleInterval.H1, LIMIT) ?: return null
+        return spikeOf(sourced.value)?.withSource(watch, sourced.provider)
+    }
 
     /**
      * Kerzen eines Paars der Merkliste ([pair], Kurs [price]) wie der Chart, siehe [pairCandlesOf];
@@ -187,6 +192,10 @@ class VolumeDataSource @Inject constructor(
         }
 
         private const val HOUR_MILLIS = 3_600_000L
+
+        /** Börse der Kerzen [provider] am Spike, wenn sie nicht die des Paars ist ([DayChange.foreignCandleSource]). */
+        internal fun VolumeSpike.withSource(watch: WatchEntity, provider: String?): VolumeSpike =
+            copy(source = DayChange.foreignCandleSource(listOf(watch.marketKey, watch.marketName), provider))
 
         /** Vergleichsstunden vor der bewerteten. */
         private const val COMPARE_HOURS = 24

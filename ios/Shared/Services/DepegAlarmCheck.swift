@@ -25,9 +25,10 @@ enum DepegAlarmCheck {
 
     /// Nach einer Kursaktualisierung aufrufen; tut nichts ohne Alarm und ohne Portfolio.
     /// - Parameter hasPortfolioData: Transaktionen oder beobachtete Adressen vorhanden (`AppData.hasPortfolioData`).
-    static func runIfDue(settings: AppSettings, hasPortfolioData: Bool) async {
+    /// - Parameter fiatConversion: Fiat-Alarm bzw. ≈ Umrechnung über USDT (`FiatAlarmGuard.needsUsdtMeasurement`).
+    static func runIfDue(settings: AppSettings, hasPortfolioData: Bool, fiatConversion: Bool = false) async {
         guard DepegAlarm.shouldMeasure(depegAlarm: settings.depegAlarm, portfolioEnabled: settings.portfolioEnabled,
-                                       hasPortfolioData: hasPortfolioData) else { return }
+                                       hasPortfolioData: hasPortfolioData, fiatConversion: fiatConversion) else { return }
         let defaults = SharedStorage.defaults
         let now = TimeUtils.nowMillis
         let last = Int64(defaults.double(forKey: keyLastCheck))
