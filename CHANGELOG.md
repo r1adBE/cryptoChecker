@@ -15,6 +15,22 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 89)
+
+* Android: all 31 app languages are kept in the Play download (no language splits), so the in-app language choice works for installs from Play.
+* iOS: a pending background refresh that lies implausibly far ahead (after a clock or time-zone change) is replaced; the alert readiness page no longer counts a last check in the future as recent (Android too).
+* Exchanges: if every watched pair of an exchange is marked «no longer traded», a restart rechecks them once, so relisted markets come back. Lighter and Hyperliquid confirm «no longer traded» also with one or two pairs; a Hyperliquid mid price of 0 falls back to mark; Hyperliquid's 24 h change uses the displayed price.
+* DexScreener results show the token's shortened contract address; searching by address lists pools with that token as base first. WOO X spot rows are labelled «hourly price».
+* Alerts: the Undo after a first quick alert waits until the first-alert dialog is closed; the amount field is focused and «Enter an amount» explains the disabled button; percentages are formatted like the rest of the app; deleting an alert or all pairs also removes their notifications.
+* Fear & Greed, gas and the Bitcoin indicator alerts (Mayer, MVRV, distance to all-time high): switching off resets the remembered state; a changed indicator limit is evaluated afresh.
+* Locked watchlist: alert screens say «locked» instead of «not in watchlist» and do not open the editor; iOS keeps the selected group and blocks portfolio alerts with an explanation.
+* Portfolio: CSV import on a locked portfolio shows the notice instead of «0 imported» and a real error when saving fails; delete, undo, clear and replace are also refused while locked (Android); iOS no longer reports success when it cannot write an existing portfolio.
+* Backups keep the «count anyway» decision for watched addresses; iOS backups now include address cost lots.
+* Legacy data keeps the old Austrian interest rule; the Swiss wealth overview counts known parts and marks a coin incomplete like the holdings file; CSV formula protection also after leading spaces; cancelling the import clears a stale preview.
+* Pulse widget: background checks wait briefly for its data. Accessibility: no duplicate Explorer label, «Loading…» while «What is moving with it?» loads, ellipsis on long chips, grammatical Russian, Ukrainian and Czech announcements.
+* xpub scans keep the BIP44 gap of 20 unused addresses; the add-address sheet says so.
+* Store and privacy: Finnish, Romanian, Polish and Czech check-frequency sentences corrected; iOS text says amounts leave the device only by export or in the encrypted device backup; privacy page uses the current feature names, mentions the iOS device backup and names more countries.
+
 ## 16.2.2 (build 88)
 
 * Gas and Fear & Greed alerts: changing a threshold (or switching the alert off and on) re-arms it, so a value already beyond the new threshold is reported; unchanged thresholds do not repeat.

@@ -10,8 +10,8 @@ OTEVŘENĚ O DATECH
 • „Úsporný“ je výchozí: ceny se obnovují při otevření aplikace a v intervalech na pozadí. „Živě, dokud je otevřená“ přidá živé ceny pro Binance, Bybit, OKX, Coinbase a Kraken, dokud je seznam otevřený.
 • Změna v % a grafy pocházejí nejprve z burzy daného páru; když nemá svíčky, aplikace použije Binance nebo Coinbase a řekne vám to.
 • Fear & Greed, dominance a on-chain hodnoty z alternative.me, CoinGecko a Coin Metrics.
-• Při zavřené aplikaci kontroluje iOS zřídka – často až po hodinách, po zavření aplikace přejetím prstem vůbec. Nejspolehlivější je otevřená aplikace. Krátké výkyvy mezi tím mohou uniknout; aplikace vám to řekne.
-• Částky zůstávají v zařízení, pokud je sami nevyexportujete (CSV, záloha). Kvůli kurzům jdou jen zkratky páru na burzu daného páru; k tomu směnné kurzy (Frankfurter), tržní data a loga (CoinGecko, Binance), zrcadla dat (GitHub). Sledujete-li adresy nebo xpub, veřejné uzly blockchainu vidí adresy (u xpub odvozené) a vaši IP.
+• Při zavřené aplikaci kontroluje iOS zřídka – často až po hodinách, po zavření aplikace přejetím prstem vůbec. Nejspolehlivější je otevřená aplikace. Krátké výkyvy mezitím mohou uniknout; aplikace vám to řekne.
+• Částky opouštějí zařízení jen exportem (CSV, záloha) nebo zašifrované v záloze iCloudu/zařízení. Kvůli kurzům jdou jen zkratky páru na burzu daného páru; k tomu směnné kurzy (Frankfurter), tržní data a loga (CoinGecko, Binance), zrcadla dat (GitHub). Sledujete-li adresy nebo xpub, veřejné uzly blockchainu vidí adresy (u xpub odvozené) a vaši IP.
 
 SEZNAM SLEDOVANÝCH
 • 54 trhů na 44 burzách: spot a futures, DEX tokeny přes DexScreener, volitelně akcie, zlato a měny (TradFi)

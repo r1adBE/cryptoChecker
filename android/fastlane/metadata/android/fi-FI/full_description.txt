@@ -10,7 +10,7 @@ REHELLISESTI DATASTA
 • ”Säästävä” on oletus: hinnat päivittyvät, kun avaat sovelluksen, ja välein taustalla. ”Live, kun auki” tuo live-hinnat Binancelle, Bybitille, OKX:lle, Coinbaselle ja Krakenille, kun seurantalista on auki.
 • %-muutos ja kaaviot tulevat ensin parin omasta pörssistä; jos siltä puuttuvat kynttilät, sovellus käyttää Binancea tai Coinbasea ja kertoo sen.
 • Fear & Greed, dominanssi ja on-chain-arvot alternative.me:ltä, CoinGeckolta ja Coin Metricsiltä.
-• Kun sovellus on suljettu, Android päättää, milloin hälytykset tarkistetaan – enintään 15 minuutin välein, usein vasta tuntien päästä. Lyhyet piikit välissä voivat jäädä huomaamatta; sovellus kertoo sen.
+• Kun sovellus on suljettu, Android päättää, milloin hälytykset tarkistetaan – korkeintaan kerran 15 minuutissa, usein vasta tuntien päästä. Lyhyet piikit välissä voivat jäädä huomaamatta; sovellus kertoo sen.
 • Vain vienti tai Androidin varmuuskopio vie summat laitteelta. Hintoja varten vain parin tunnus lähtee kyseisen parin pörssiin; lisäksi valuuttakurssit (Frankfurter), markkinatiedot ja logot (CoinGecko, Binance) sekä datapeilit (GitHub). Jos seuraat osoitteita tai xpubia, julkiset lohkoketjusolmut näkevät osoitteet (xpubissa johdetut) ja IP-osoitteesi.
 
 SEURANTALISTA

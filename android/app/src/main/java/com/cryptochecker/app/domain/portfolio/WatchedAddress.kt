@@ -131,6 +131,13 @@ data class WatchedAddressBackupEntry(
     val countInPortfolio: Boolean = true,
     /** Eröffnungsposten ([WatchedAddress.costLots]); in der Sicherung nur, wenn vorhanden («costLots»). */
     val costLots: List<AddressCostLot> = emptyList(),
+    /**
+     * Überschneidung entschieden ([WatchedAddress.overlapChecked], z. B. «trotzdem zählen»); in der Sicherung nur, wenn
+     * entschieden («overlapChecked»), sonst fragte bzw. schaltete die App nach dem Einspielen erneut.
+     */
+    val overlapChecked: Boolean = false,
+    /** Entscheid nach der alten Regel ([WatchedAddress.overlapLegacy], «overlapLegacy»); nur mit [overlapChecked]. */
+    val overlapLegacy: Boolean = false,
 )
 
 /**

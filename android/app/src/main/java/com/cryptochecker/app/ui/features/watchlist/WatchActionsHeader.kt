@@ -226,7 +226,7 @@ internal fun WatchActionsHeader(
                     note = candleNote,
                     neutral = off,
                     size = ChangePillSize.MEDIUM,
-                    // Hyperliquid: % Mark gegen Mark, Kurs = Mittelkurs — als «Mark» benennen
+                    // Änderung gegen den Mark-Preis (Market.changeIsMark): als «Mark» benennen
                     mark = com.cryptochecker.app.domain.watch.ChangeBasisMath.showsMark(
                         com.cryptochecker.marketdata.util.MarketsConfigUtils.getMarketByKey(watch.marketKey).changeIsMark,
                         headerChangeView.basis,

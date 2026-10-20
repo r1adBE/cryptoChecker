@@ -48,6 +48,7 @@
     <string name="portfolio_csv_import_transfers_hint">Um levantamento e o depósito correspondente da mesma moeda tornam-se uma só transferência: o preço de compra e o período de detenção mantêm-se, a diferença conta como comissão de rede.</string>
     <string name="portfolio_csv_import_transfers_title">Transferências entre as suas contas</string>
     <string name="portfolio_csv_import_unreadable">Nenhuma transação suportada encontrada. Suportados: exportações CSV da Relai, da Swissquote, da Kraken, da Binance, da Coinbase e da Bitpanda.</string>
+    <string name="portfolio_csv_import_failed">A importação falhou – nada foi guardado. Tente novamente.</string>
     <string name="portfolio_csv_import_withdrawals_title">Levantamentos – para onde foram as moedas?</string>
     <string name="portfolio_csv_import_zone">Horas sem fuso horário lidas como: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Dispositivo (%1$s)</string>

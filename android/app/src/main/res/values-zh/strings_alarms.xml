@@ -168,4 +168,5 @@
     <string name="alarm_status_low_liquidity">无提醒——流动性低</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">正在等待最新价格</string>
+    <string name="alarm_enter_amount">请输入金额</string>
 </resources>

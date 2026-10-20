@@ -43,9 +43,9 @@ extension AppData {
     /// Herkunftsschlüssel (`importKey` oder `linkedImportKey`) schon da ist, werden übersprungen — wie
     /// `PortfolioRepository.insertImported`.
     /// `batch` = Kennung des Importlaufs (`PortfolioImportBatch.newId`) für alle angelegten Transaktionen (nil = keine).
-    /// - Returns: Anzahl angelegter Transaktionen (0 auch, wenn nicht geschrieben werden konnte).
+    /// - Returns: Anzahl angelegter Transaktionen; nil = nicht geschrieben (der Import meldet den Fehler statt «0 importiert»).
     @discardableResult
-    func insertImportedPortfolioTxs(_ list: [PortfolioTx], batch: String? = nil) -> Int {
+    func insertImportedPortfolioTxs(_ list: [PortfolioTx], batch: String? = nil) -> Int? {
         var file = currentPortfolioFile()
         var known = Self.importKeys(file.transactions)
         var count = 0
@@ -60,7 +60,8 @@ extension AppData {
             PortfolioStore.insert(clean, into: &file)
             count += 1
         }
-        guard count > 0, setPortfolioFile(file) else { return 0 }
+        guard count > 0 else { return 0 }
+        guard setPortfolioFile(file) else { return nil }
         return count
     }
 
@@ -340,10 +341,14 @@ extension AppData {
             portfolioIntact = true
         }
         // Erst schreiben, dann anzeigen: Scheitert das Schreiben, zeigt die Liste nichts, was nicht gespeichert ist.
-        // Ohne Schlüssel (nie Klartext): Stand im Speicher behalten und das nennen — das nächste Speichern schreibt ihn
+        // Ohne Schlüssel (nie Klartext): ohne Datei Stand im Speicher behalten und das nennen — das nächste Speichern
+        // schreibt ihn; mit gespeichertem Stand in der Datei Fehler statt Erfolg (`PortfolioStore.keepsUnsealed`)
         switch PortfolioStore.save(file, includeInBackup: settings.portfolioSystemBackup) {
         case .saved: portfolioSavePending = SharedStorage.portfolioAlarmsPending || watchedAddressSavePending
-        case .needsKey: portfolioSavePending = true
+        case .needsKey:
+            let stored = FileManager.default.fileExists(atPath: PortfolioStore.url.path)
+            guard PortfolioStore.keepsUnsealed(storedFileExists: stored) else { return false }
+            portfolioSavePending = true
         case .failed: return false
         }
         portfolioFile = file

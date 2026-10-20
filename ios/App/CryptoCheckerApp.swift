@@ -212,6 +212,8 @@ struct CryptoCheckerApp: App {
                 MacroNotifications.refresh(settings: data.settings)
                 // Marktphase / Fear & Greed: nachholen, wenn die letzte Prüfung ≥ 12 h her ist
                 BackgroundRefresh.runZoneCheckIfDue(settings: data.settings)
+                // Vorgemerkte Hintergrund-Aufgabe prüfen (bleibt stehen; nach verstellter Uhr ersetzt)
+                BackgroundRefresh.schedule(settings: data.settings)
             case .background:
                 data.setAppActive(false)
                 // Letzten Stand sicher auf die Platte, bevor iOS die App anhält — ohne den Haupt-Thread zu blockieren
@@ -239,6 +241,12 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         // Aktionen der Kursalarme («Was bewegt sich mit?», «1 h später», «Anpassen») und der Depeg-Mitteilung
         Notifier.registerCategories()
         BackgroundRefresh.schedule(settings: SharedStorage.loadSettings())
+        // Uhr oder Zeitzone verstellt: der vorgemerkte Beginn kann Stunden weg liegen (`isImplausiblyFar`)
+        for name in [UIApplication.significantTimeChangeNotification, .NSSystemClockDidChange, .NSSystemTimeZoneDidChange] {
+            NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { _ in
+                BackgroundRefresh.clockChanged()
+            }
+        }
         // Alarmtöne auch nach `Library/Sounds` der App Group: dort findet iOS sie sicher, wenn die Widget-Erweiterung
         // einen Kursalarm meldet (`AlarmSounds.installSharedSounds`, wiederholbar, kopiert nur Fehlendes/Geändertes)
         DispatchQueue.global(qos: .utility).async { AlarmSounds.installSharedSounds() }

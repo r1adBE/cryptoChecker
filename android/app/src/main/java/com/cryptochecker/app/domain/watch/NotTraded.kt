@@ -45,7 +45,7 @@ object NotTraded {
      * Meldet der Leser in einer sonst gültigen Antwort «kein Eintrag für das Paar» ([isMissingEntry]), bestätigt das
      * ebenfalls — gleichwertig zu «Antwort ohne Kurs». Sicher, weil diese Prüfung nur nach einer vollständigen
      * Kursliste ohne das Paar läuft (PriceFetcher.confirmMissing): Zwei unabhängige Aussagen statt einer kurz
-     * leeren Antwort.
+     * leeren Antwort — oder ohne Sammelabfrage, wenn die Einzelabfrage selbst diese Liste liest ([confirmWithoutBulk]).
      */
     fun confirmedBySingle(gotPrice: Boolean, error: String?, failure: MarketFailure? = null): Boolean {
         if (gotPrice) return false
@@ -64,6 +64,14 @@ object NotTraded {
             else -> false
         }
     }
+
+    /**
+     * Einzelabfrage ohne Sammelabfrage (zu wenige Paare der Börse): wie nach dem Fehlen in der vollständigen Liste mit
+     * [confirmedBySingle] werten? Nur, wenn die Einzelabfrage selbst die vollständige Liste liest
+     * (`Market.singleTickerReadsFullList`, z. B. Lighter) — dann ist ihr «kein Eintrag» dieselbe Aussage wie das
+     * Fehlen in der Liste. Sonst fehlte die zweite, unabhängige Aussage: gewöhnlicher Fehler wie bisher.
+     */
+    fun confirmWithoutBulk(bulkTried: Boolean, singleReadsFullList: Boolean): Boolean = !bulkTried && singleReadsFullList
 
     /** Sagt der Fehlertext der Börse ausdrücklich, dass sie das Paar nicht kennt? */
     fun isUnknownInstrument(error: String?): Boolean {

@@ -11,7 +11,7 @@ TRANSPARÊNCIA COM OS DADOS
 • Variação em % e gráficos vêm primeiro da exchange do par; se ela não tiver candles, o app usa Binance ou Coinbase e avisa você.
 • Fear & Greed, dominância e dados on-chain da alternative.me, CoinGecko e Coin Metrics.
 • Com o app fechado, o iOS verifica raramente – muitas vezes só depois de horas, e nunca depois que você fecha o app deslizando. Mais confiável com o app aberto. Picos curtos no meio podem passar; o app avisa você.
-• Os valores ficam no aparelho, a menos que você mesmo os exporte (CSV, backup). Para os preços, só os símbolos do par vão para a sua exchange; além disso, câmbio (Frankfurter), dados de mercado e logos (CoinGecko, Binance) e espelhos de dados (GitHub). Se você observa endereços ou uma xpub, nós públicos de blockchain veem os endereços (na xpub, os derivados) e o seu IP.
+• Os valores só saem do aparelho por exportação (CSV, backup) ou criptografados no backup do iCloud/aparelho. Para os preços, só os símbolos do par vão para a sua exchange; além disso, câmbio (Frankfurter), dados de mercado e logos (CoinGecko, Binance) e espelhos de dados (GitHub). Se você observa endereços ou uma xpub, nós públicos de blockchain veem os endereços (na xpub, os derivados) e o seu IP.
 
 LISTA
 • 54 mercados em 44 exchanges: spot e futuros, tokens DEX via DexScreener e, se quiser, ações, ouro e câmbio (TradFi)

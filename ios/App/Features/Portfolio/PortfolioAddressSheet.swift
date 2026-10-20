@@ -346,7 +346,9 @@ struct PortfolioAddressSheet: View {
     /// Taproot-Konto: welcher Adresstyp abgeleitet wird; einfacher xpub: Hinweis auf den Deskriptor — wie Android.
     static func privacy(_ check: AddressValidation.Check) -> String {
         let base = L("portfolio_address_privacy", hosts(check.chain))
+        // Gap-Regel offen nennen: Eine benutzte Adresse hinter `XpubScan.gap` unbenutzten in Folge fehlt im Guthaben
         let keyNote = "\n\n" + L("portfolio_address_xpub_privacy", hosts(.BTC))
+            + "\n\n" + L("portfolio_address_xpub_gap", XpubScan.gap)
         switch check.kind {
         case .XPUB: return base + keyNote + "\n\n" + L("portfolio_address_taproot_hint")
         case .YPUB, .ZPUB: return base + keyNote

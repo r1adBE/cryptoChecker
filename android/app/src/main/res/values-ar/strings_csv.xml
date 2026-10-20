@@ -60,6 +60,7 @@
     <string name="portfolio_csv_import_transfers_hint">يصبح السحب والإيداع المطابق له من العملة نفسها تحويلًا واحدًا: يبقى سعر الشراء ومدة الاحتفاظ، ويُحتسب الفرق رسوم شبكة.</string>
     <string name="portfolio_csv_import_transfers_title">تحويلات بين حساباتك</string>
     <string name="portfolio_csv_import_unreadable">لم يُعثر على معاملات مدعومة. المدعوم: ملفات CSV المصدَّرة من Relai وSwissquote وKraken وBinance وCoinbase وBitpanda.</string>
+    <string name="portfolio_csv_import_failed">تعذّر الاستيراد – لم يُحفظ أي شيء. يُرجى المحاولة مرة أخرى.</string>
     <string name="portfolio_csv_import_withdrawals_title">السحوبات – إلى أين ذهبت العملات؟</string>
     <string name="portfolio_csv_import_zone">الأوقات بلا منطقة زمنية تُقرأ كـ: %1$s</string>
     <string name="portfolio_csv_import_zone_device">الجهاز (%1$s)</string>

@@ -174,4 +174,6 @@
     <string name="alarm_status_low_liquidity">No alert – low liquidity</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Waiting for a current price</string>
+    <!-- Unter dem gesperrten Knopf «Erstellen», solange das Betragsfeld eines neuen Alarms leer ist -->
+    <string name="alarm_enter_amount">Enter an amount</string>
 </resources>

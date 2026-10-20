@@ -39,8 +39,8 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
     /// «hourly price». Android: `priceIsHourlyClose`.
     var priceIsHourlyClose: Bool { false }
 
-    /// true: the 24 h change refers to the mark price (Hyperliquid `markPx` vs. `prevDayPx`), not to the displayed
-    /// price. Row and action sheet then add «Mark» (`ChangeBasisMath.showsMark`). Android: `changeIsMark`.
+    /// true: the 24 h change refers to the mark price (e.g. `markPx` vs. `prevDayPx`), not to the displayed
+    /// price; no adapter sets it at the moment (Hyperliquid uses the displayed price). Row and action sheet then add «Mark» (`ChangeBasisMath.showsMark`). Android: `changeIsMark`.
     var changeIsMark: Bool { false }
 
     // MARK: Einzelkurs
@@ -117,6 +117,11 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
     /// true: the unfiltered bulk response lists every tradable pair. A missing pair is no longer traded; a single
     /// request would fail as well and only cost time.
     var bulkTickersComplete: Bool { false }
+
+    /// true: the single ticker reads the same complete list as the bulk query and picks the pair from it (Lighter,
+    /// Hyperliquid). Its «no entry for this pair» is then as reliable as the pair missing from the bulk list, so a
+    /// single-only refresh (too few pairs for the bulk query) may confirm «no longer traded» on its own (`NotTraded`).
+    var singleTickerReadsFullList: Bool { false }
 
     /// Unfiltered URL of bulk request `call`; nil = this request has no unfiltered form.
     func bulkTickersURL(call: Int) -> String? { nil }

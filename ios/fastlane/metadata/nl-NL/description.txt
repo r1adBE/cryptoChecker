@@ -11,7 +11,7 @@ EERLIJK OVER DE DATA
 • %-wijziging en grafieken komen eerst van de beurs van het paar; heeft die geen candles, dan gebruikt de app Binance of Coinbase en meldt dat.
 • Fear & Greed, dominantie en on-chainwaarden van alternative.me, CoinGecko en Coin Metrics.
 • Met de app gesloten controleert iOS zelden – vaak pas na uren, en helemaal niet nadat je de app hebt weggeveegd. Het betrouwbaarst met de app open. Korte pieken daartussen kunnen worden gemist; de app zegt je dat.
-• Bedragen blijven op het apparaat, tenzij je ze zelf exporteert (CSV, back-up). Voor koersen gaan alleen paarsymbolen naar de beurs van het betreffende paar; daarnaast wisselkoersen (Frankfurter), marktdata en logo’s (CoinGecko, Binance) en dataspiegels (GitHub). Volg je adressen of een xpub, dan zien openbare blockchain-nodes de adressen (bij een xpub de afgeleide) en je IP.
+• Bedragen verlaten het apparaat alleen via export (CSV, back-up) of versleuteld in een iCloud-/apparaatback-up. Voor koersen gaan alleen paarsymbolen naar de beurs van het betreffende paar; daarnaast wisselkoersen (Frankfurter), marktdata en logo’s (CoinGecko, Binance) en dataspiegels (GitHub). Volg je adressen of een xpub, dan zien openbare blockchain-nodes de adressen (bij een xpub de afgeleide) en je IP.
 
 VOLGLIJST
 • 54 markten op 44 beurzen: spot en futures, DEX-tokens via DexScreener, desgewenst aandelen, goud en valuta (TradFi)

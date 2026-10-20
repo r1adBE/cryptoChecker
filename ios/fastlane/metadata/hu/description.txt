@@ -11,7 +11,7 @@ AMITŐL MÁS
 • A %-os változás és a diagramok elsőként a pár saját tőzsdéjéről jönnek; ha annak nincsenek gyertyái, az app a Binance-t vagy a Coinbase-t használja, és ezt jelzi.
 • Fear & Greed, dominancia és on-chain értékek az alternative.me-től, a CoinGeckótól és a Coin Metricstől.
 • Bezárt alkalmazásnál az iOS ritkán ellenőriz – gyakran csak órák múlva, elhúzással bezárt appnál egyáltalán nem. A legmegbízhatóbb nyitott alkalmazással. A közben lévő rövid kiugrások kimaradhatnak; az app ezt meg is mondja.
-• Az összegek az eszközön maradnak, hacsak te magad nem exportálod őket (CSV, mentés). Az árakhoz csak a pár jelölése megy a pár tőzsdéjéhez; ezen felül devizaárfolyamok (Frankfurter), piaci adatok és logók (CoinGecko, Binance), adattükrök (GitHub). Ha címeket vagy egy xpubot figyelsz, a nyilvános blokklánc-csomópontok látják a címeket (xpubnál a származtatottakat) és az IP-címedet.
+• Az összegek csak exporttal (CSV, mentés) vagy titkosítva, iCloud-/eszközmentésben hagyják el az eszközt. Az árakhoz csak a pár jelölése megy a pár tőzsdéjéhez; ezen felül devizaárfolyamok (Frankfurter), piaci adatok és logók (CoinGecko, Binance), adattükrök (GitHub). Ha címeket vagy egy xpubot figyelsz, a nyilvános blokklánc-csomópontok látják a címeket (xpubnál a származtatottakat) és az IP-címedet.
 
 FIGYELŐLISTA
 • 54 piac 44 tőzsdén: spot és határidős, DEX tokenek a DexScreeneren át, igény szerint részvények, arany és devizák (TradFi)

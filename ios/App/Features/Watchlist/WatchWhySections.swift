@@ -166,7 +166,9 @@ struct WatchlistWhyDetails: View {
 /// springt. Pulsiert ruhig, bei reduzierter Bewegung stehend.
 struct WatchlistWhySkeleton: View {
     var body: some View {
-        SkeletonPulse { shape }
+        // VoiceOver: «Lädt …» statt Stille — als Zeile und einmal angesagt (wie Android `liveRegion`)
+        SkeletonPulse(label: L("loading_hint")) { shape }
+            .onAppear { AccessibilityNotification.Announcement(L("loading_hint")).post() }
     }
 
     private var shape: some View {

@@ -210,7 +210,8 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
 /// Verlauf ab der ersten Beobachtung); das aktuelle Guthaben wird neu geladen. Ältere Sicherungen ohne: leer.
 /// JSON: `{"chain":"BTC","address":"…","label":"…","addedAt":…,"observations":[{"t":…,"b":"…"}]}` — gleich wie Android;
 /// dazu `"countTokens":false` / `"countInPortfolio":false` (nur wenn aus), `"tokenObservations":{"USDT":[…]}` (nur wenn
-/// vorhanden), `"networks":[…]` (nur ETH nach der ersten Suche), `"costLots":[…]` (nur mit Eröffnungsposten).
+/// vorhanden), `"networks":[…]` (nur ETH nach der ersten Suche), `"costLots":[…]` (nur mit Eröffnungsposten),
+/// `"overlapChecked":true` (nur entschieden) samt `"overlapLegacy":true` (Entscheid nach der alten Regel).
 struct WatchedAddressBackupEntry: Codable, Equatable, Sendable {
     var chain: AddressChain
     var address: String
@@ -227,11 +228,16 @@ struct WatchedAddressBackupEntry: Codable, Equatable, Sendable {
     var countInPortfolio = true
     /// Eröffnungsposten (`WatchedAddress.costLots`); in der Sicherung nur, wenn vorhanden («costLots»).
     var costLots: [AddressCostLot] = []
+    /// Überschneidung entschieden (`WatchedAddress.overlapChecked`, z. B. «trotzdem zählen»); in der Sicherung nur, wenn
+    /// entschieden — sonst fragte bzw. schaltete die App nach dem Einspielen erneut. Wie Android.
+    var overlapChecked = false
+    /// Entscheid nach der alten Regel (`WatchedAddress.overlapLegacy`); nur mit `overlapChecked`.
+    var overlapLegacy = false
 
     init(chain: AddressChain, address: String, label: String? = nil, addedAt: Int64 = 0,
          observations: [AddressObservation] = [], countTokens: Bool = true,
          tokenObservations: [String: [AddressObservation]] = [:], networks: [String]? = nil, countInPortfolio: Bool = true,
-         costLots: [AddressCostLot] = []) {
+         costLots: [AddressCostLot] = [], overlapChecked: Bool = false, overlapLegacy: Bool = false) {
         self.chain = chain
         self.address = address
         self.label = label
@@ -242,11 +248,13 @@ struct WatchedAddressBackupEntry: Codable, Equatable, Sendable {
         self.networks = networks
         self.countInPortfolio = countInPortfolio
         self.costLots = costLots
+        self.overlapChecked = overlapChecked
+        self.overlapLegacy = overlapChecked && overlapLegacy
     }
 
     private enum CodingKeys: String, CodingKey {
         case chain, address, label, addedAt, observations, countTokens, tokenObservations, networks, countInPortfolio
-        case costLots
+        case costLots, overlapChecked, overlapLegacy
     }
 
     init(from decoder: Decoder) throws {
@@ -263,6 +271,8 @@ struct WatchedAddressBackupEntry: Codable, Equatable, Sendable {
         networks = WatchedAddressRules.cleanNetworks((try? c.decodeIfPresent([String].self, forKey: .networks)) ?? nil)
         countInPortfolio = (try? c.decodeIfPresent(Bool.self, forKey: .countInPortfolio)) ?? true
         costLots = AddressCostLots.clean((try? c.decodeIfPresent([AddressCostLot].self, forKey: .costLots)) ?? [])
+        overlapChecked = (try? c.decodeIfPresent(Bool.self, forKey: .overlapChecked)) ?? false
+        overlapLegacy = overlapChecked && ((try? c.decodeIfPresent(Bool.self, forKey: .overlapLegacy)) ?? false)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -277,5 +287,7 @@ struct WatchedAddressBackupEntry: Codable, Equatable, Sendable {
         try c.encodeIfPresent(networks, forKey: .networks)
         if !countInPortfolio { try c.encode(false, forKey: .countInPortfolio) }
         if !costLots.isEmpty { try c.encode(costLots, forKey: .costLots) }
+        if overlapChecked { try c.encode(true, forKey: .overlapChecked) }
+        if overlapChecked && overlapLegacy { try c.encode(true, forKey: .overlapLegacy) }
     }
 }

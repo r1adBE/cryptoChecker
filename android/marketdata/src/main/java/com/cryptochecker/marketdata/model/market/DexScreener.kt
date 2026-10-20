@@ -23,6 +23,8 @@ data class DexPool(
     val quoteSymbol: String,
     val priceUsd: Double?,
     val liquidityUsd: Double?,
+    /** Vertragsadresse des Basis-Tokens («baseToken.address»); leer, wenn die Antwort keine nennt. */
+    val baseAddress: String = "",
 ) {
     /** Kennung der Kursabfrage: «chain/pairAddress». */
     val pairId: String get() = "$chainId/$pairAddress"
@@ -32,6 +34,12 @@ data class DexPool(
      * verschiedener Chains auseinanderzuhalten sind.
      */
     val watchQuote: String get() = "USD ($chainId)"
+
+    /**
+     * Gekürzte Vertragsadresse des Tokens («0x1234…abcd») für die Trefferzeile: Gleichnamige Token (zweimal «PEPE»)
+     * sind sonst nur über Liquidität und Preis zu unterscheiden. Leer ohne Adresse.
+     */
+    val shortBaseAddress: String get() = DexScreener.shortAddress(baseAddress)
 
     /** Genug Liquidität für Alarme ([DexScreener.alarmCapable])? Sonst Hinweis «Geringe Liquidität – kein Alarm». */
     val alarmCapable: Boolean get() = DexScreener.alarmCapable(liquidityUsd)
@@ -177,8 +185,21 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
             return "$DEXSCREENER_API/latest/dex/search?q=$encoded"
         }
 
-        /** Treffer der Suche, nach Liquidität absteigend (meist steht der relevante Pool vorn). */
-        fun parseSearch(body: String): List<DexPool> {
+        /**
+         * Gekürzte Adresse: die ersten 6 und die letzten 4 Zeichen («0x1234…abcd»); kurze Adressen bleiben ganz. Wie
+         * `DexScreener.shortAddress` (iOS).
+         */
+        fun shortAddress(address: String): String {
+            val trimmed = address.trim()
+            return if (trimmed.length <= 12) trimmed else trimmed.take(6) + "…" + trimmed.takeLast(4)
+        }
+
+        /**
+         * Treffer der Suche, nach Liquidität absteigend (meist steht der relevante Pool vorn). Ist [query] die
+         * Vertragsadresse eines Tokens, stehen dessen Pools (als Basis) vor allen anderen — sonst stünde ein
+         * liquiderer Pool mit dem Token nur als Gegenwährung (z. B. WETH/PEPE) oben.
+         */
+        fun parseSearch(body: String, query: String = ""): List<DexPool> {
             val list = JSONObject(body).optJSONArray("pairs") ?: return emptyList()
             val pools = ArrayList<DexPool>()
             list.forEachJSONObject { entry ->
@@ -192,13 +213,19 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
                     quoteSymbol = quote.optString("symbol"),
                     priceUsd = entry.optString("priceUsd").toDoubleOrNull(),
                     liquidityUsd = liquidityOf(entry),
+                    baseAddress = base.optString("address"),
                 )
             }
             val usable = pools.filter { pool ->
                 pool.chainId.isNotEmpty() && pool.pairAddress.isNotEmpty() &&
                     pool.baseSymbol.isNotEmpty() && pool.priceUsd != null
             }
-            return usable.sortedByDescending { it.liquidityUsd ?: 0.0 }
+            // sortedByDescending ist stabil: gleiche Liquidität behält die Reihenfolge der Antwort
+            val ranked = usable.sortedByDescending { it.liquidityUsd ?: 0.0 }
+            val wanted = query.trim()
+            if (wanted.isEmpty()) return ranked
+            val (exact, rest) = ranked.partition { it.baseAddress.equals(wanted, ignoreCase = true) }
+            return exact + rest
         }
     }
 }

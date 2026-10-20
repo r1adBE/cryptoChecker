@@ -21,6 +21,7 @@
     <string name="portfolio_address_tokens">Wliczaj tokeny</string>
     <string name="portfolio_address_unknown_tokens">+%1$d nieznanych tokenów (niewliczone)</string>
     <string name="portfolio_address_xpub_privacy">Xpub ujawnia wszystkie adresy tego walleta. Są wyprowadzane na twoim urządzeniu; do %1$s trafiają tylko pojedyncze adresy – przy pierwszym wyszukiwaniu co najmniej 40 zapytań, później mniej. Klucze prywatne (xprv) nigdy nie są akceptowane.</string>
+    <string name="portfolio_address_xpub_gap">Wyszukiwanie kończy się po %1$d nieużywanych adresach z rzędu (standard BIP44 stosowany przez większość portfeli). Używany adres za tą luką nie jest liczony – dodaj go osobno.</string>
     <string name="portfolio_address_xpub_used">Używane adresy: %1$d</string>
     <string name="portfolio_addresses_title">Adresy</string>
 

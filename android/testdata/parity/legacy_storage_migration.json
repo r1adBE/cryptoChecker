@@ -472,107 +472,132 @@
    }
   }
  ],
- "_interestRewardComment": "Zins-Erkennung (TaxEngines.interestReward, AT: Anschaffungskosten = Wert beim Zufluss; auch legacyInterest und CSV-Import): nur ganze Wörter, Trenner = alles ausser Buchstaben/Ziffern und der Wechsel klein → gross. «Verzinsung», «Zinseszins», «keine Verzinsung» sind kein Zins (Build 88).",
+ "_interestRewardComment": "Zins-Erkennung: «interest» = neue Regel (TaxEngines.interestReward, Build 88, für neue Eingaben und den CSV-Import; AT: Anschaffungskosten = Wert beim Zufluss): nur ganze Wörter, Trenner = alles ausser Buchstaben/Ziffern und der Wechsel klein → gross — «Verzinsung», «Zinseszins», «keine Verzinsung» sind kein Zins. «legacyInterest» = alte Teilstring-Regel bis Build 87 (LegacyStorageMigration.interestRewardLegacy, Build 89 eingefroren), gilt nur für Altbestand: legacyInterest bei der Migration der Portfolio-Datenbank v4 → v5, alten iOS-Dateien und Sicherungen ohne Feld «interest» — dort bleibt «Verzinsung» ein Zins wie damals gerechnet.",
  "interestReward": [
   {
    "text": "Lending interest",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "Interest",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "Interests",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "Intérêts",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "intérêt",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "Interet",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "Zinsen",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "Zins",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "Zinsertrag",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "Zinserträge Mai",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "LENDING",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "interest_payment",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "LendingInterest",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "Simple Earn Flexible Interest",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "Zinsgutschrift",
-   "interest": true
+   "interest": true,
+   "legacyInterest": true
   },
   {
    "text": "Verzinsung",
-   "interest": false
+   "interest": false,
+   "legacyInterest": true
   },
   {
    "text": "Zinseszins",
-   "interest": false
+   "interest": false,
+   "legacyInterest": true
   },
   {
    "text": "keine Verzinsung",
-   "interest": false
+   "interest": false,
+   "legacyInterest": true
   },
   {
    "text": "Staking Reward",
-   "interest": false
+   "interest": false,
+   "legacyInterest": false
   },
   {
    "text": "Earn reward",
-   "interest": false
+   "interest": false,
+   "legacyInterest": false
   },
   {
    "text": "Airdrop",
-   "interest": false
+   "interest": false,
+   "legacyInterest": false
   },
   {
    "text": "Open interestless",
-   "interest": false
+   "interest": false,
+   "legacyInterest": true
   },
   {
    "text": "disinterest",
-   "interest": false
+   "interest": false,
+   "legacyInterest": true
   },
   {
    "text": "",
-   "interest": false
+   "interest": false,
+   "legacyInterest": false
   },
   {
    "text": null,
-   "interest": false
+   "interest": false,
+   "legacyInterest": false
   }
  ]
 }

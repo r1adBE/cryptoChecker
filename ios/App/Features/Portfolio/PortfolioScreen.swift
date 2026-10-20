@@ -173,8 +173,14 @@ struct PortfolioScreen: View {
         }
         .sheet(isPresented: $alarmOpen) {
             PortfolioAlarmSheet(currency: data.settings.portfolioCurrency, basis: data.settings.changeBasis.storage) { kind, threshold, repeating in
-                data.addPortfolioAlarm(kind: kind, threshold: threshold, currency: data.settings.portfolioCurrency,
-                                       repeating: repeating)
+                // Merkliste gesperrt: nichts angelegt — sagen warum statt «gespeichert»
+                guard data.addPortfolioAlarm(kind: kind, threshold: threshold, currency: data.settings.portfolioCurrency,
+                                             repeating: repeating) else {
+                    if data.alarmSaveBlocked {
+                        banner = WatchlistBannerMessage(text: L("alarm_save_storage_locked"), icon: "lock.fill", long: true)
+                    }
+                    return
+                }
                 showSavedAlarm(PortfolioAlarm(id: 0, kind: kind, threshold: threshold,
                                               currency: kind.isValue ? data.settings.portfolioCurrency : nil,
                                               repeating: repeating))

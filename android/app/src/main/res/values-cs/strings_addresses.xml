@@ -21,6 +21,7 @@
     <string name="portfolio_address_tokens">Započítat tokeny</string>
     <string name="portfolio_address_unknown_tokens">+%1$d neznámých tokenů (nezapočteno)</string>
     <string name="portfolio_address_xpub_privacy">Xpub prozrazí všechny adresy této peněženky. Odvozují se v tvém zařízení; na %1$s jdou jen jednotlivé adresy – při prvním hledání nejméně 40 dotazů, potom méně. Soukromé klíče (xprv) se nikdy nepřijímají.</string>
+    <string name="portfolio_address_xpub_gap">Hledání skončí po %1$d nepoužitých adresách za sebou (standard BIP44, který používá většina peněženek). Použitá adresa za touto mezerou se nezapočítá – přidejte ji samostatně.</string>
     <string name="portfolio_address_xpub_used">Použité adresy: %1$d</string>
     <string name="portfolio_addresses_title">Adresy</string>
 

@@ -164,17 +164,34 @@ class SettingsRepository @Inject constructor(
         next.lastDay?.let { day -> it[SettingsKeys.usageLastDay] = day }
     }
 
-    suspend fun setFearGreedBelow(value: Int) = edit { it[SettingsKeys.fearGreedBelow] = value.coerceIn(0, 100) }
+    // Markt-Meldungen: ausgeschaltet → gemerkten Stand vergessen (MarketAlertReset), sonst bliebe das Wiedereinschalten
+    // mit derselben Grenze stumm, wenn während «Aus» keine Prüfung lief
+    suspend fun setFearGreedBelow(value: Int) {
+        edit { it[SettingsKeys.fearGreedBelow] = value.coerceIn(0, 100) }
+        if (value <= 0) MarketAlertReset.fearGreedOff(context, below = true)
+    }
 
-    suspend fun setFearGreedAbove(value: Int) = edit { it[SettingsKeys.fearGreedAbove] = value.coerceIn(0, 100) }
+    suspend fun setFearGreedAbove(value: Int) {
+        edit { it[SettingsKeys.fearGreedAbove] = value.coerceIn(0, 100) }
+        if (value <= 0) MarketAlertReset.fearGreedOff(context, below = false)
+    }
 
     /** Eigene Grenze einer Bitcoin-Kennzahl; nur Werte aus [IndicatorAlertKind.choices], sonst aus. */
-    suspend fun setIndicatorAlert(kind: IndicatorAlertKind, value: Int) =
-        edit { it[SettingsKeys.indicatorAlert(kind)] = value.takeIf { v -> v in kind.choices } ?: 0 }
+    suspend fun setIndicatorAlert(kind: IndicatorAlertKind, value: Int) {
+        val stored = value.takeIf { v -> v in kind.choices } ?: 0
+        edit { it[SettingsKeys.indicatorAlert(kind)] = stored }
+        if (stored <= 0) MarketAlertReset.indicatorOff(context, kind)
+    }
 
-    suspend fun setGasAlertEth(tenths: Int) = edit { it[SettingsKeys.gasAlertEth] = tenths.coerceIn(0, 10_000) }
+    suspend fun setGasAlertEth(tenths: Int) {
+        edit { it[SettingsKeys.gasAlertEth] = tenths.coerceIn(0, 10_000) }
+        if (tenths <= 0) MarketAlertReset.gasOff(context, eth = true)
+    }
 
-    suspend fun setGasAlertBtc(satPerVb: Int) = edit { it[SettingsKeys.gasAlertBtc] = satPerVb.coerceIn(0, 10_000) }
+    suspend fun setGasAlertBtc(satPerVb: Int) {
+        edit { it[SettingsKeys.gasAlertBtc] = satPerVb.coerceIn(0, 10_000) }
+        if (satPerVb <= 0) MarketAlertReset.gasOff(context, eth = false)
+    }
 
     suspend fun setDepegAlarm(enabled: Boolean) = edit { it[SettingsKeys.depegAlarm] = enabled }
 

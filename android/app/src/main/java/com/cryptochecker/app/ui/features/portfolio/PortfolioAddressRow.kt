@@ -40,6 +40,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.domain.portfolio.XpubScan
 import com.cryptochecker.app.ui.features.watchlist.ago
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
@@ -252,7 +253,9 @@ private fun hostsText(chain: AddressChain?): String =
 @Composable
 internal fun privacyText(check: AddressValidation.Check): String {
     val base = stringResource(R.string.portfolio_address_privacy, hostsText(check.chain))
-    val keyNote = "\n\n" + stringResource(R.string.portfolio_address_xpub_privacy, hostsText(AddressChain.BTC))
+    // Gap-Regel offen nennen: Eine benutzte Adresse hinter GAP unbenutzten in Folge fehlt im Guthaben
+    val keyNote = "\n\n" + stringResource(R.string.portfolio_address_xpub_privacy, hostsText(AddressChain.BTC)) +
+        "\n\n" + stringResource(R.string.portfolio_address_xpub_gap, XpubScan.GAP)
     return when (check.kind) {
         AddressValidation.Kind.XPUB -> base + keyNote + "\n\n" + stringResource(R.string.portfolio_address_taproot_hint)
         AddressValidation.Kind.YPUB, AddressValidation.Kind.ZPUB -> base + keyNote

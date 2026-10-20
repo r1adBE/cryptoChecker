@@ -27,17 +27,14 @@ private const val HYPERLIQUID_ERROR_CHARS = 200
  * beide Teile über den Index verbunden.
  *
  * Kurs = `midPx` (Mitte Geld/Brief, ersatzweise `markPx`): kein letzter Handel, keine Zeit der Börse — daher
- * [priceIsMid] («Mittelkurs»), Frische ab Abruf. Die 24-h-Veränderung ist Mark gegen Mark ([markChange]).
- * Letzte Handel gäbe es nur je Coin (`recentTrades`) — für alle Perps zu teuer.
+ * [priceIsMid] («Mittelkurs»), Frische ab Abruf. Die 24-h-Veränderung rechnet mit demselben Kurs gegen
+ * `prevDayPx` ([shownChange]), damit Kurs, Änderung und Alarme auf einer Basis stehen. Letzte Handel gäbe es nur
+ * je Coin (`recentTrades`) — für alle Perps zu teuer.
  */
 class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
     override val key = "Hyperliquid"
 
     override val priceIsMid: Boolean
-        get() = true
-
-    /** Veränderung Mark gegen Mark ([markChange]) — als «Mark» benannt. */
-    override val changeIsMark: Boolean
         get() = true
 
     // ── Einzelkurs: dieselbe Antwort, daraus der gesuchte Coin ──
@@ -74,6 +71,10 @@ class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
     override val bulkTickersComplete: Boolean
         get() = true
 
+    /** Der Einzelkurs liest dieselbe vollständige Liste ([tickerPostBody]). */
+    override val singleTickerReadsFullList: Boolean
+        get() = true
+
     override fun getBulkTickersUrl(call: Int): String = HYPERLIQUID_INFO
 
     override fun getBulkTickersPostRequestInfo(call: Int): PostRequestInfo = metaRequest()
@@ -103,14 +104,17 @@ class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
 
     // ── Lesen ──
 
-    /** Ein Kontext; bei dünnem Orderbuch fehlt `midPx` → Mark-Preis, als solcher markiert ([Ticker.markFallback]). */
+    /**
+     * Ein Kontext; bei dünnem Orderbuch fehlt `midPx` oder ist «0» → Mark-Preis, als solcher markiert
+     * ([Ticker.markFallback]). «0» ist kein Mittelkurs (optDouble liest ihn aber als 0.0, nicht als fehlend).
+     */
     private fun copyRow(context: JSONObject, ticker: Ticker) {
-        val mid = context.optDouble("midPx", Double.NaN)
+        val mid = context.optDouble("midPx", Double.NaN).takeIf { it > 0.0 && it.isFinite() } ?: Double.NaN
         ticker.markFallback = mid.isNaN()
         ticker.last = if (mid.isNaN()) context.optDouble("markPx", Double.NaN) else mid
         ticker.vol = context.optDoubleOrMissing("dayBaseVlm")
         ticker.volQuote = context.optDoubleOrMissing("dayNtlVlm")
-        ticker.change24hPercent = markChange(context)
+        ticker.change24hPercent = shownChange(ticker.last, context)
     }
 
     /** Die eine Abfrage für Paare, Einzel- und Sammelkurse. */
@@ -154,10 +158,11 @@ class Hyperliquid : Market("Hyperliquid", "Hyperliquid") {
     }
 
     /**
-     * 24-h-Veränderung Mark gegen Mark: `prevDayPx` ist ein Mark-Preis von vor 24 h, einen damaligen
-     * Mittelkurs gibt es nicht. Mittelkurs gegen Mark vermischte den Abstand Mid/Mark mit der Bewegung.
-     * Ohne `markPx` keine Angabe (dann Kerzen).
+     * 24-h-Veränderung des gezeigten Kurses [last] (Mittelkurs, ersatzweise Mark) gegen `prevDayPx`. Mark gegen
+     * Mark wich vom gezeigten Kurs ab: Der Mittelkurs bewegt sich auch ohne Handel, und Alarme auf Kurs und
+     * Prozent stünden auf zwei Basen. Der Abstand Mid/Mark ist klein gegen die Tagesbewegung. Ohne Kurs oder
+     * `prevDayPx` keine Angabe (dann Kerzen).
      */
-    private fun markChange(context: JSONObject): Double? =
-        Change24h.fromOpen(context.optDouble("markPx", Double.NaN), context.optDouble("prevDayPx"))
+    private fun shownChange(last: Double, context: JSONObject): Double? =
+        Change24h.fromOpen(last, context.optDouble("prevDayPx"))
 }

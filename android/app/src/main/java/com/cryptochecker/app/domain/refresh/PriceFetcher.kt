@@ -7,6 +7,7 @@ import com.cryptochecker.app.domain.exceptions.toMarketFailure
 import com.cryptochecker.app.domain.model.BulkTickers
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.watch.NotTraded
+import com.cryptochecker.marketdata.config.MarketsConfig
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Ticker
 import com.cryptochecker.marketdata.util.BulkTickerRows
@@ -60,6 +61,11 @@ class PriceFetcher @Inject constructor(
         // Antwort mehrheitlich unlesbar (Format der Börse geändert): Einzelabfragen mit demselben Leser brächten
         // nichts — alle Paare dieses Durchlaufs als Fehler, kein Nachhaken (BulkTickerRows)
         val bulkFormatError = BulkTickerRows.isFormatError(bulk.error)
+        // Ohne Sammelabfrage: liest die Einzelabfrage selbst die vollständige Liste (Lighter), bestätigt ihr «kein
+        // Eintrag» «nicht mehr gehandelt» wie im Sammelpfad (NotTraded.confirmWithoutBulk)
+        val singleConfirms = NotTraded.confirmWithoutBulk(
+            bulkTried, MarketsConfig.MARKETS[group.first().marketKey]?.singleTickerReadsFullList == true,
+        )
 
         // Eigene Grenze je Börse, damit niemand ins Rate-Limit läuft.
         val limit = Semaphore(MAX_PARALLEL_REQUESTS_PER_MARKET)
@@ -91,6 +97,9 @@ class PriceFetcher @Inject constructor(
                             }
 
                         bulkRateLimited || bulkFormatError -> Fetched(null, bulk.error, failure = bulk.failure)
+
+                        singleConfirms ->
+                            withinBudget(groupDeadline) { limit.withPermit { gate.send { confirmMissing(watch) } } }
 
                         else -> withinBudget(groupDeadline) { limit.withPermit { gate.send { fetchSingle(watch) } } }
                     }
@@ -156,7 +165,8 @@ class PriceFetcher @Inject constructor(
         // Abbruch des Durchlaufs weiterreichen (nicht als gescheiterte Massenabfrage werten)
         val tickers = runCatchingCancellable {
             if (!marketRepository.isMarketSupportsBulkTickers(market)) return BulkResult(BulkTickers())
-            // Alle beobachteten Paare nicht mehr gehandelt: keine Abfrage, die Liste gilt als vollständig ohne sie
+            // Alle beobachteten Paare nicht mehr gehandelt (mit Stand, Neuprüfung nicht fällig): keine Abfrage,
+            // die Liste gilt als vollständig ohne sie
             if (plan.request.isEmpty()) return BulkResult(BulkTickers(complete = true))
             withinBudget(deadline, onTimeout = { cut = true; BulkTickers(error = CheckBudget.TIMEOUT_ERROR) }) {
                 marketRepository.getBulkTickers(market, plan.request)
@@ -193,7 +203,7 @@ class PriceFetcher @Inject constructor(
         withinBudget(deadline, { Fetched(null, CheckBudget.TIMEOUT_ERROR, fromSingle = true, budgetCut = true) }, block)
 
     /**
-     * Paar fehlt in der vollständigen Liste: Einzelabfrage. Kurs → normal übernehmen; antwortet die
+     * Paar fehlt in der vollständigen Liste (oder ohne Sammelabfrage: [NotTraded.confirmWithoutBulk]): Einzelabfrage. Kurs → normal übernehmen; antwortet die
      * Börse ohne Kurs → nicht mehr gehandelt; Netz-/Serverproblem → gewöhnlicher Fehler.
      */
     private suspend fun confirmMissing(watch: WatchEntity): Fetched {
@@ -269,8 +279,13 @@ object BulkDelisted {
     data class Plan(val all: List<String>, val request: List<String>, val recheck: Boolean)
 
     fun plan(state: State?, pairIds: List<String>, notTraded: Set<String>, now: Long): Plan {
-        // Ohne Stand (z. B. nach Prozess-Start) nicht gleich alles laden: die Frist läuft ab jetzt
-        val recheck = state != null && now - state.recheckedAt !in 0 until RECHECK_MILLIS
+        // Ohne Stand (z. B. nach Prozess-Start) nicht gleich alles laden: die Frist läuft ab jetzt. Ausnahme: alle
+        // Paare schon «nicht mehr gehandelt» — ohne Abfrage entstünde nie ein Stand, die Neuprüfung käme nie.
+        val recheck = if (state == null) {
+            pairIds.isNotEmpty() && pairIds.all { it in notTraded }
+        } else {
+            now - state.recheckedAt !in 0 until RECHECK_MILLIS
+        }
         if (recheck) return Plan(pairIds, pairIds, true)
         val skip = state?.delisted.orEmpty() + notTraded
         return Plan(pairIds, pairIds.filter { it !in skip }, false)

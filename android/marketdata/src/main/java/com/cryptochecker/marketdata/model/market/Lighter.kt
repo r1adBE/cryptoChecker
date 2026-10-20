@@ -93,6 +93,10 @@ class Lighter : Market("Lighter", "Lighter") {
     override val bulkTickersComplete: Boolean
         get() = true
 
+    /** Der Einzelkurs liest dieselbe vollständige Liste ([tickerAddress]). */
+    override val singleTickerReadsFullList: Boolean
+        get() = true
+
     override fun getBulkTickersUrl(call: Int): String = LIGHTER_STATS
 
     /**

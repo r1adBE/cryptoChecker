@@ -69,13 +69,18 @@ class LegacyStorageMigrationParityTest {
         assertNull(CsvRestoreState.decode(" ".repeat(CsvRestoreState.MAX_TEXT + 1)))
     }
 
-    /** Zins nur bei ganzen Wörtern («Verzinsung», «Zinseszins» nicht); wirkt auch auf legacyInterest. */
+    /**
+     * Neue Eingaben: Zins nur bei ganzen Wörtern («Verzinsung», «Zinseszins» nicht). Altbestand (Migration, Sicherungen
+     * ohne Feld): eingefrorene Teilstring-Regel, damit sich alte Daten nicht nachträglich ändern.
+     */
     @Test
     fun interestRewardMatchesWholeWords() {
         data["interestReward"].list().map { it.obj() }.forEach { c ->
             val text = c["text"] as String?
             assertEquals("interestReward: $text", c["interest"], TaxEngines.interestReward(text))
-            assertEquals("legacyInterest: $text", c["interest"], LegacyStorageMigration.legacyInterest(PortfolioTxType.REWARD, text))
+            assertEquals("interestRewardLegacy: $text", c["legacyInterest"], LegacyStorageMigration.interestRewardLegacy(text))
+            assertEquals("legacyInterest: $text", c["legacyInterest"], LegacyStorageMigration.legacyInterest(PortfolioTxType.REWARD, text))
+            assertEquals("legacyInterest BUY: $text", false, LegacyStorageMigration.legacyInterest(PortfolioTxType.BUY, text))
         }
     }
 }

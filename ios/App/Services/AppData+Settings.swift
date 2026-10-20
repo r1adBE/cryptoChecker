@@ -23,6 +23,9 @@ extension AppData {
             || old.indicatorAlerts != settings.indicatorAlerts {
             BackgroundRefresh.scheduleZone(settings: settings)
         }
+        // Markt-Meldung ausgeschaltet: gemerkten Stand vergessen, sonst bliebe das Wiedereinschalten mit derselben
+        // Grenze stumm, wenn während «Aus» keine Prüfung lief
+        MarketAlertReset.settingsChanged(from: old, to: settings, defaults: SharedStorage.defaults)
         if old.accentColor != settings.accentColor {
             // Nur auf ausdrückliche Wahl der Akzentfarbe (App Review 4.6); Hell/Dunkel
             // übernimmt das Icon selbst über die Varianten im Asset-Katalog.

@@ -37,7 +37,7 @@ internal fun DayChangePill(
     /** Grau ohne Kursfarbe (deaktiviertes Paar). */
     neutral: Boolean = false,
     size: ChangePillSize = ChangePillSize.SMALL,
-    /** Änderung Mark gegen Mark ([com.cryptochecker.app.domain.watch.ChangeBasisMath.showsMark], Hyperliquid): «Mark» davor. */
+    /** Änderung Mark gegen Mark ([com.cryptochecker.app.domain.watch.ChangeBasisMath.showsMark]): «Mark» davor. */
     mark: Boolean = false,
     /**
      * Wert aus den Kerzen einer anderen Börse ([com.cryptochecker.app.domain.watch.DayChange.rowChangeMarker]):

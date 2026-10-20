@@ -15,7 +15,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * applicationId: `com.cryptochecker.app`
 * Module: `marketdata` (Börsen-Bibliothek), `app` (die App)
 * Pakete: `com.cryptochecker.marketdata`, `com.cryptochecker.app`
-* Version: **16.2.2** (versionCode 88 – wird mit jedem Stand um eins erhöht)
+* Version: **16.2.2** (versionCode 89 – wird mit jedem Stand um eins erhöht)
 * Quellcode: <https://github.com/r1adBE/cryptoChecker> (öffentlich, MIT; dieser Ordner = `android/`)
 
 ## Neu in 16.2.2
@@ -49,7 +49,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   (`domain/portfolio/PortfolioWatchPair.kt`). Wertverlauf, 7 T, 1 J und Portfolio-Widget aus den Tageskerzen der
   eingetragenen Börse (`data/portfolio/PortfolioHistorySource.kt`); hochgerechnetes Binance nur als Ersatz mit
   aktuellem Bezug, sonst «ohne …», genannt unter Chart und Karte (`portfolio_history_scaled`,
-  `portfolio_period_scaled`). Volumen-Alarme und «Warum?» mit derselben Kerzen-Prüfung wie der Chart
+  `portfolio_period_scaled`). Volumen-Alarme und «Was bewegt sich mit?» mit derselben Kerzen-Prüfung wie der Chart
   (`VolumeDataSource.pairCandles`), Laufzeit-Futures nur mit den Kerzen ihres Kontrakts, nie des Perpetuals.
   «≈» zeigt die Uhrzeit des Devisenkurses, wenn er älter als 3 h ist; Devisenkurse alle 3 h neu (vorher 6 h).
   «≈» nur für USD/USDT = 1, andere Stablecoins ohne Marktkurs ohne ≈-Wert; Verkaufswarnung zählt die Coin-Gebühr
@@ -65,7 +65,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
 * **Build 44 – ehrliche Frische, eigene Kerzen** — «Live» in der Status-Pille nur, wenn alle sichtbaren gehandelten
   Paare am Live-Strom und frisch sind; «veraltet» je Paar (am Strom 2 Min., abgefragt 3 × Hintergrund-Intervall,
   mind. 15 Min.; `domain/watch/LiveStatus.kt`, der tote `liveService`-Zweig fällt aus der Veraltet-Logik). Chart,
-  Mini-Chart, Einzel-Widget, 24-h-Ersatzbezug und «Warum?» nehmen zuerst die Kerzen der eigenen Börse des Paars
+  Mini-Chart, Einzel-Widget, 24-h-Ersatzbezug und «Was bewegt sich mit?» nehmen zuerst die Kerzen der eigenen Börse des Paars
   (`data/remote/candles/`, `ExchangeCandleRegistry`, Quellen in `ExchangeCandleSources*.kt`), die Binance-Kette nur
   als gekennzeichneter Ersatz mit Token-Prüfung (passt eine Quelle nicht, ist die nächste dran; Perpetuals zuerst
   Futures; TradFi nie über die Kette; DexScreener nur der gemerkte Pool). «Gewinn heute» lässt Coins ohne
@@ -84,7 +84,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   `MarketScalePalette`, Widget-Schrift ≥ 11 sp; Namen und Umrechnung ab Werk an, Alpha aus; feste Wortliste DE/EN.
 * **Build 42 – CoinGecko direkt, ehrliche Alarme, ruhiger Start** — CoinGecko-Daten nicht mehr gespiegelt
   (API-Bedingungen): Release «data» nur noch mit `fng.txt`, `onchain.txt`, `btcprice.txt`, `altseason.txt`; `/global`
-  (30 Min.), Top 30/40 (24 h) und Top 40 für Spot-Tab und «Warum?»-Marktbreite (eine gemeinsame Abfrage, 10 Min.)
+  (30 Min.), Top 30/40 (24 h) und Top 40 für Spot-Tab und «Was bewegt sich mit?»-Marktbreite (eine gemeinsame Abfrage, 10 Min.)
   direkt bei CoinGecko, kein `COINGECKO_API_KEY`; kein eigenes Logo-Paket mehr (`build_logos.py`, `coin-logos.yml`,
   `docs/logos`, `logos.pack`, `stocks.txt` entfernt) — Rangliste (Seiten 1–10), Binance-/Alpha-Liste und Bilder direkt
   von CoinGecko/Binance, Aktiennamen von Nasdaq; «Powered by CoinGecko» (`DataFreshness.POWERED_BY_COINGECKO`,
@@ -161,7 +161,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   Minus U+2212) in der Kursfarbe, grau bei 0/unbekannt/deaktiviert, Durchschnitt «Ø» in der gelben Warn-Schriftfarbe
   (`AppColors.warningText`), Zeitfenster klein und grau. Merklisten-Zeilen, Puls-Zeile («↗ 233 steigen ↘ 295 fallen
   Ø +0.32%»), Aktionsblatt («↗ +41.71% · 24h · Aktualisiert …»), Marktdaten (Funding als farbige Schrift ohne
-  Pfeil), «Warum?» (Faktoren unter «Kurz gesagt» als eine graue Textzeile), Markt-Karten (Fear-&-Greed-Zahl in der
+  Pfeil), «Was bewegt sich mit?» (Faktoren unter «Kurz gesagt» als eine graue Textzeile), Markt-Karten (Fear-&-Greed-Zahl in der
   Stufenfarbe, «Krypto-Markt 2.82 Bio. USD ↘ −2.77% · 24h», «Auffällig» mit grauem «24h») und Portfolio
   (Heute · 7 T · Gesamt als farbige Schrift, Beträge mit Pfeil «↗ +12.40 USDT»; neue Zeile unter dem Gesamtwert mit
   der Veränderung über ein Jahr «↘ −38'412.95 USDT −27.85% · 1J», bei weniger als einem Jahr Verlauf ausgeblendet).
@@ -206,7 +206,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   (Hell/Dunkel, Akzentfarbe), Alarme (Alarme, Markt-Meldungen), Daten (Sicherung), Zeile «Erweitert»
   (`AdvancedSettingsPage` in `ui/features/settings/SettingsScreen.kt`: Aktualisierung, Kursfarben, %-Änderung, Coin-Logos, Widgets, Sprachausgabe), Über, «App zurücksetzen» als eigene Karte ganz unten; die
   Suche findet alles, Punkte der Seite «Erweitert» mit dem Pfad «Erweitert › …» (`SettingsSearchUi.kt`).
-* **«Warum?» kurz zuerst** — oben «Kurz gesagt · Stand HH:MM» mit einem Satz, bis zu 3 auffälligen Faktoren als
+* **«Was bewegt sich mit?» kurz zuerst** — oben «Kurz gesagt · Stand HH:MM» mit einem Satz, bis zu 3 auffälligen Faktoren als
   eine graue Textzeile und «Sicherheit»; zugeklappt «Alle Werte und Quellen» (Beobachtung, Mögliche Einordnung, Quellen,
   langer Hinweis); kurze Fusszeile «Zeitgleich heisst nicht Ursache · Keine Anlageberatung»
   (`ui/features/watchlist/WatchWhySheet.kt`).
@@ -219,7 +219,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   15 Min.), und beim Wechsel in den Vordergrund; nie zwei Abgleiche gleichzeitig (`domain/logos/CoinLogoRetry.kt`,
   `data/CoinLogoSync.kt` mit `ConnectivityMonitor`, `CoinLogoRetryTest`).
 
-* **«Warum?» relativ zur eigenen Schwankung** — eine 24-h-Bewegung gilt erst ab k · σ der Stunden-Renditen
+* **«Was bewegt sich mit?» relativ zur eigenen Schwankung** — eine 24-h-Bewegung gilt erst ab k · σ der Stunden-Renditen
   (bis 72 h vor dem 24-h-Fenster; Coin k = 2, Untergrenze 2 %, Markt k = 1,5, Untergrenze 1 %; zu wenig Verlauf
   → feste Schwellen; `RelativeMove` in `domain/activity/WhyContext.kt`). Neben BTC und ETH der breite Markt:
   Median der 24-h-Veränderung der Top 40 (direkt bei CoinGecko, dieselbe Abfrage wie der Spot-Tab, 10 Min. im
@@ -232,8 +232,8 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   (`Position3d`); Funding-Trend «seit 24 Std. steigend» (`FundingTrend.kt`, letzte 4 Abrechnungen, höchstens
   alle 10 Min. je Paar); Stablecoins nach Abweichung von 1:1 (`StablePeg`) ohne Markt- und Schwankungsfaktoren;
   Volumen «geschätzt» ohne Quote-Volumen, entfällt bei mehr als 6 von 24 Std. ohne Handel; Schwankung 1 h erst
-  ab 0,5 % Bewegung. Kerzen für «Warum?» mit `limit=100` (vorher 30), dazu ETHUSDT-Stundenkerzen über die
-  bestehende Kerzen-Kette. Seit Build 44 kommen die Coin-Kerzen für «Warum?» zuerst von der eigenen Börse des Paars
+  ab 0,5 % Bewegung. Kerzen für «Was bewegt sich mit?» mit `limit=100` (vorher 30), dazu ETHUSDT-Stundenkerzen über die
+  bestehende Kerzen-Kette. Seit Build 44 kommen die Coin-Kerzen für «Was bewegt sich mit?» zuerst von der eigenen Börse des Paars
   («Kerzen: Kraken · 14:00»); die Binance-Kette nur als gekennzeichneter Ersatz mit Token-Prüfung. Gemeinsame
   Testfälle `why_analysis.json` (`WhyAnalysisParityTest`, `WhyAnalysisTest`).
 * **Chart im Aktionsblatt** — zuerst die Kerzen der eigenen Börse (seit Build 44, `OwnCandleDataSource`), sonst die
@@ -448,7 +448,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   (Einstellungen › Darstellung › %-Änderung; `domain/watch/ChangeBasis.kt`).
 * **Suche in den Einstellungen** — ohne Akzente und Gross-/Kleinschreibung, springt
   zum Punkt und hebt ihn kurz hervor (`settings/SettingsSearch.kt`).
-* **«Warum?» als Faktorliste** mit Satz zum Gleichlauf mit Bitcoin; BTC-Paare zeigen
+* **«Was bewegt sich mit?» als Faktorliste** mit Satz zum Gleichlauf mit Bitcoin; BTC-Paare zeigen
   «1 CHF = n Sats»; Markt-Tab mit Quelle und Alter je Zeile.
 
 ### Frühere Runden
@@ -476,7 +476,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   mit Schrift in der Themenfarbe (`withCleanContainers` in `AppColorSchemes.kt`), schwache
   Akzent-Füllungen dunkel grau statt orange (`AppColors.accentTint`), Aufteilungs-Balken zur hellen
   Schrift hin gemischt; hell unverändert.
-* **Zurück** aus «Alarme» oder «Warum?» öffnet wieder das Aktionsblatt des Paars.
+* **Zurück** aus «Alarme» oder «Was bewegt sich mit?» öffnet wieder das Aktionsblatt des Paars.
 * **Namen in der Merkliste** («Namen anzeigen»): Paar/Kurs, Name/%-Änderung und Börse/≈ Umrechnung
   je auf einer Linie, ohne Namen «–». Aktien ohne bStock bekommen ihren Namen aus der
   offiziellen Nasdaq-Symbolliste (`CoinLogos.parseSymbolDirectory`, höchstens wöchentlich).
@@ -584,7 +584,7 @@ r1AD — riad.work@outlook.com (Verantwortlicher mit Name und Zustelladresse: Da
   Funding aller Perpetuals (Binance Futures), Marktkapitalisierung aus der CoinGecko-Rangliste
   (24 h, wie die Start-Coins). «Üblich» = eigener Median der Vortage (Tageswert auf dem Gerät),
   anfangs der Median aller Coins — keine Kerzen je Coin. Zwischenspeicher 10 Min.; Tippen öffnet
-  «Warum?» (Coin in der Merkliste) oder die Suche auf der Seite «Paar hinzufügen»
+  «Was bewegt sich mit?» (Coin in der Merkliste) oder die Suche auf der Seite «Paar hinzufügen»
   (`domain/market/MarketUnusual.kt`, `data/remote/UnusualDataSource.kt`, `ui/features/info/MarketUnusualCard.kt`).
 * **Hinweis «Wirtschaftsdaten»** — kompakte Zeile über dem Pulse, wenn heute (oder in den
   nächsten 18 h) wichtige US-Daten anstehen: «Heute 14:30: US-Inflationsdaten (CPI) – an solchen

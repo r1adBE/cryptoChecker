@@ -47,6 +47,18 @@ final class WatchlistStorageLockTests: XCTestCase {
         XCTAssertFalse(WatchlistStorageLock.isLocked(.unreadable))
     }
 
+    /// Schon einmal gelesen (Speicher hält den echten Stand): ein später unlesbarer Zugriff, z. B. im Hintergrund bei
+    /// gesperrtem Gerät, sperrt nicht mehr — nur ohne erfolgreiches Lesen in diesem Lauf.
+    func testLockedOnlyWhenNeverReadInThisRun() {
+        XCTAssertTrue(WatchlistStorageLock.isLocked(.inaccessible, readBefore: false))
+        XCTAssertFalse(WatchlistStorageLock.isLocked(.inaccessible, readBefore: true))
+        XCTAssertFalse(WatchlistStorageLock.isLocked(.ok(SharedStorage.Snapshot()), readBefore: false))
+        XCTAssertTrue(WatchlistStorageLock.holdsStoredState(.ok(SharedStorage.Snapshot())))
+        XCTAssertTrue(WatchlistStorageLock.holdsStoredState(.missing))
+        XCTAssertFalse(WatchlistStorageLock.holdsStoredState(.inaccessible))
+        XCTAssertFalse(WatchlistStorageLock.holdsStoredState(.unreadable))
+    }
+
     func testAlarmSaveBlockedOnlyWhenLocked() {
         XCTAssertTrue(WatchlistStorageLock.blocksAlarmSave(locked: true))
         XCTAssertFalse(WatchlistStorageLock.blocksAlarmSave(locked: false))

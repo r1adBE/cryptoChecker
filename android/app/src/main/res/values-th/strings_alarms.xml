@@ -168,4 +168,5 @@
     <string name="alarm_status_low_liquidity">ไม่มีสัญญาณเตือน – สภาพคล่องต่ำ</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">กำลังรอราคาล่าสุด</string>
+    <string name="alarm_enter_amount">ใส่จำนวน</string>
 </resources>

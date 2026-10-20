@@ -11,6 +11,8 @@ struct DexPool: Hashable, Sendable, Identifiable {
     let quoteSymbol: String
     let priceUsd: Double?
     let liquidityUsd: Double?
+    /// Vertragsadresse des Basis-Tokens («baseToken.address»); leer, wenn die Antwort keine nennt.
+    var baseAddress: String = ""
 
     /// Kennung der Kursabfrage: «chain/pairAddress».
     var pairId: String { chainId + "/" + pairAddress }
@@ -20,6 +22,10 @@ struct DexPool: Hashable, Sendable, Identifiable {
     /// Gegenwährung in der Merkliste: Kurse sind USD, die Chain steht dabei, damit gleichnamige Token verschiedener
     /// Chains auseinanderzuhalten sind.
     var watchQuote: String { "USD (" + chainId + ")" }
+
+    /// Gekürzte Vertragsadresse des Tokens («0x1234…abcd») für die Trefferzeile: Gleichnamige Token (zweimal «PEPE»)
+    /// sind sonst nur über Liquidität und Preis zu unterscheiden. Leer ohne Adresse.
+    var shortBaseAddress: String { DexScreener.shortAddress(baseAddress) }
 
     /// Genug Liquidität für Alarme (`DexScreener.alarmCapable`)? Sonst Hinweis «Geringe Liquidität – kein Alarm».
     var alarmCapable: Bool { DexScreener.alarmCapable(liquidityUsd) }
@@ -171,9 +177,18 @@ final class DexScreener: Market {
         dexScreenerAPI + "/latest/dex/search?q=" + query.trimmingCharacters(in: .whitespacesAndNewlines).urlQueryEncoded
     }
 
+    /// Gekürzte Adresse: die ersten 6 und die letzten 4 Zeichen («0x1234…abcd»); kurze Adressen bleiben ganz. Wie
+    /// `DexScreener.shortAddress` (Android).
+    static func shortAddress(_ address: String) -> String {
+        let trimmed = address.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.count <= 12 ? trimmed : String(trimmed.prefix(6)) + "…" + String(trimmed.suffix(4))
+    }
+
     /// Treffer der Suche, nach Liquidität absteigend (meist steht der relevante Pool vorn); gleich viel Liquidität
-    /// behält die Reihenfolge der Antwort.
-    static func parseSearch(_ body: String) throws -> [DexPool] {
+    /// behält die Reihenfolge der Antwort. Ist `query` die Vertragsadresse eines Tokens, stehen dessen Pools (als
+    /// Basis) vor allen anderen — sonst stünde ein liquiderer Pool mit dem Token nur als Gegenwährung (z. B.
+    /// WETH/PEPE) oben. Wie Android.
+    static func parseSearch(_ body: String, query: String = "") throws -> [DexPool] {
         var pools: [DexPool] = []
         for entry in try JObject(string: body).optArray("pairs")?.allObjects() ?? [] {
             guard let base = entry.optObject("baseToken"), let quote = entry.optObject("quoteToken") else { continue }
@@ -184,7 +199,8 @@ final class DexScreener: Market {
                 baseSymbol: base.optString("symbol"),
                 quoteSymbol: quote.optString("symbol"),
                 priceUsd: Double(entry.optString("priceUsd")),
-                liquidityUsd: DexScreener.liquidity(of: entry)
+                liquidityUsd: DexScreener.liquidity(of: entry),
+                baseAddress: base.optString("address")
             ))
         }
         let usable = pools.filter { pool in
@@ -196,6 +212,10 @@ final class DexScreener: Market {
             let rightLiquidity = usable[right].liquidityUsd ?? 0
             return leftLiquidity != rightLiquidity ? leftLiquidity > rightLiquidity : left < right
         }
-        return ranked.map { usable[$0] }
+        let sorted = ranked.map { usable[$0] }
+        let wanted = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        if wanted.isEmpty { return sorted }
+        let isWanted: (DexPool) -> Bool = { $0.baseAddress.caseInsensitiveCompare(wanted) == .orderedSame }
+        return sorted.filter(isWanted) + sorted.filter { !isWanted($0) }
     }
 }

@@ -61,7 +61,9 @@ class ZoneCheckWorker @AssistedInject constructor(
     private suspend fun checkIndicators(stored: Map<IndicatorAlertKind, Int>, prefs: android.content.SharedPreferences): Boolean {
         val active = IndicatorAlertRules.active(stored)
         // Ausgeschaltete Grenzen vergessen (beim Wiedereinschalten neu bewerten)
-        IndicatorAlertKind.entries.filter { it !in active }.forEach { kind -> prefs.edit { remove(crossedKey(kind)) } }
+        IndicatorAlertKind.entries.filter { it !in active }.forEach { kind ->
+            prefs.edit { remove(crossedKey(kind)); remove(thresholdKey(kind)) }
+        }
         if (active.isEmpty()) return true
         val report = runCatching { BitcoinIndicatorModel.evaluate(cycleDataSource.fetch()) }
             .onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
@@ -69,7 +71,12 @@ class ZoneCheckWorker @AssistedInject constructor(
             .getOrNull() ?: return false
         for ((kind, threshold) in active) {
             val value = report.indicators.firstOrNull { it.id == kind.indicator }?.value
-            val decision = IndicatorAlertRules.decide(kind, value, threshold, prefs.getBoolean(crossedKey(kind), false))
+            // Gemerkter Zustand gilt nur für die Grenze, zu der er gehört: eine neue Grenze bewertet neu
+            val storedThreshold = stored[kind] ?: 0
+            val wasCrossed = IndicatorAlertRules.wasCrossed(
+                prefs.getBoolean(crossedKey(kind), false), storedInt(prefs, thresholdKey(kind)), storedThreshold,
+            )
+            val decision = IndicatorAlertRules.decide(kind, value, threshold, wasCrossed)
             var crossed = decision.crossed
             if (decision.notify) {
                 val posted = notifier.canShowMarketNotice() && value != null && notifier.showIndicatorAlert(
@@ -81,12 +88,11 @@ class ZoneCheckWorker @AssistedInject constructor(
                 // Nicht angekommen: später erneut versuchen
                 if (!posted) crossed = null
             }
-            crossed?.let { c -> prefs.edit { putBoolean(crossedKey(kind), c) } }
+            crossed?.let { c -> prefs.edit { putBoolean(crossedKey(kind), c); putInt(thresholdKey(kind), storedThreshold) } }
         }
         return true
     }
 
-    private fun crossedKey(kind: IndicatorAlertKind) = "indicator_crossed_" + kind.key.lowercase()
 
     /**
      * Fear & Greed: einmal melden, wenn der Index die eingestellte Grenze
@@ -130,12 +136,18 @@ class ZoneCheckWorker @AssistedInject constructor(
 
     companion object {
         const val WORK_NAME = "zone-check"
-        private const val PREFS = "market_zone"
+        /** Gemerkter Stand; beim Ausschalten in den Einstellungen zurückgesetzt (MarketAlertReset). */
+        internal const val PREFS = "market_zone"
         private const val LEGACY_KEY_ZONE = "last_zone"
-        private const val KEY_FNG = "last_fear_greed"
+        internal const val KEY_FNG = "last_fear_greed"
         /** Grenzen, zu denen der gemerkte Stand gehört. */
-        private const val KEY_FNG_BELOW = "last_fear_greed_below"
-        private const val KEY_FNG_ABOVE = "last_fear_greed_above"
+        internal const val KEY_FNG_BELOW = "last_fear_greed_below"
+        internal const val KEY_FNG_ABOVE = "last_fear_greed_above"
+
+        internal fun crossedKey(kind: IndicatorAlertKind) = "indicator_crossed_" + kind.key.lowercase()
+
+        /** Grenze (gespeicherte Ganzzahl), zu der der gemerkte Zustand «jenseits» gehört. */
+        internal fun thresholdKey(kind: IndicatorAlertKind) = "indicator_threshold_" + kind.key.lowercase()
 
         /** Höchstens so viele erneute Versuche je 12-h-Lauf (30 s, 1 Min., 2 Min. …). */
         private const val MAX_RETRIES = 3

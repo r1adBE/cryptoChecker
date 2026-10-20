@@ -25,7 +25,7 @@ struct WatchlistDayChangePill: View {
 
     var body: some View {
         let value = changeView.shown(watch)
-        // Hyperliquid: % Mark gegen Mark, Kurs = Mittelkurs — als «Mark» benennen (wie Android `mark`)
+        // Änderung gegen den Mark-Preis (`Market.changeIsMark`): als «Mark» benennen (wie Android `mark`)
         let mark: String? = ChangeBasisMath.showsMark(
             changeIsMark: MarketsConfig.market(watch.marketKey)?.changeIsMark == true, basis: changeView.basis
         ) ? L("watch_change_mark") : nil

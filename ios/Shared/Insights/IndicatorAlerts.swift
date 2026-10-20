@@ -71,6 +71,13 @@ enum IndicatorAlertRules {
         return Decision(notify: false, crossed: false)
     }
 
+    /// Gemerkter Zustand «jenseits der Grenze» für die eingestellte Grenze `current` (gespeicherte Ganzzahl): Wurde er bei
+    /// einer anderen Grenze gemerkt, zählt er nicht — eine neue Grenze bewertet neu (wie Fear & Greed,
+    /// `MarketNoticeGate.boundChanged`); `storedThreshold` nil = Stand vor dieser Regel: übernehmen. Wie Android.
+    static func wasCrossed(storedCrossed: Bool, storedThreshold: Int?, current: Int) -> Bool {
+        storedCrossed && !MarketNoticeGate.boundChanged(stored: storedThreshold, current: current)
+    }
+
     /// Eingeschaltete Grenzen aus den Einstellungen (Schlüssel = Name der Art).
     static func active(_ stored: [String: Int]) -> [IndicatorAlertKind: Double] {
         var out: [IndicatorAlertKind: Double] = [:]

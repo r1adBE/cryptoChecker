@@ -59,6 +59,8 @@ enum WatchedAddressRules {
                                    countTokens: entry.countTokens,
                                    networks: entry.chain == .ETH ? cleanNetworks(entry.networks) : nil,
                                    countInPortfolio: entry.countInPortfolio,
+                                   overlapChecked: entry.overlapChecked,
+                                   overlapLegacy: entry.overlapChecked && entry.overlapLegacy,
                                    costLots: AddressCostLots.clean(entry.costLots))
             // Reihen nur, wo sie heute zählen würden (Token aus, Netz abgewählt: weg)
             let snapshot = a
@@ -96,12 +98,13 @@ enum WatchedAddressRules {
             WatchedAddressBackupEntry(chain: $0.chain, address: $0.address, label: $0.label, addedAt: $0.addedAt,
                                       observations: $0.observations, countTokens: $0.countTokens,
                                       tokenObservations: $0.tokenObservations, networks: $0.networks,
-                                      countInPortfolio: $0.countInPortfolio, costLots: $0.costLots)
+                                      countInPortfolio: $0.countInPortfolio, costLots: $0.costLots,
+                                      overlapChecked: $0.overlapChecked, overlapLegacy: $0.overlapChecked && $0.overlapLegacy)
         }
     }
 
     /// Wie `toJson` (Android) für die App-Sicherung: `[{"chain","address","label"?,"addedAt","observations"?,
-    /// "countTokens"?,"tokenObservations"?,"networks"?,"countInPortfolio"?}]`.
+    /// "countTokens"?,"tokenObservations"?,"networks"?,"countInPortfolio"?,"costLots"?,"overlapChecked"?,"overlapLegacy"?}]`.
     static func json(_ entries: [WatchedAddressBackupEntry]) -> [[String: Any]] {
         entries.map { e in
             var o: [String: Any] = ["chain": e.chain.rawValue, "address": e.address, "addedAt": NSNumber(value: e.addedAt)]
@@ -113,6 +116,13 @@ enum WatchedAddressRules {
             }
             if let networks = e.networks { o["networks"] = networks }
             if !e.countInPortfolio { o["countInPortfolio"] = false }
+            // Eröffnungsposten wie Android «costLots» (gleiche Felder wie die Codable-Form von `AddressCostLot`)
+            if !e.costLots.isEmpty, let data = try? JSONEncoder().encode(e.costLots),
+               let lots = try? JSONSerialization.jsonObject(with: data) {
+                o["costLots"] = lots
+            }
+            if e.overlapChecked { o["overlapChecked"] = true }
+            if e.overlapChecked && e.overlapLegacy { o["overlapLegacy"] = true }
             return o
         }
     }
@@ -378,7 +388,9 @@ enum WatchedAddressRules {
                                              tokenObservations: cleanTokens(chain, tokens),
                                              networks: cleanNetworks(networks),
                                              countInPortfolio: o["countInPortfolio"] as? Bool ?? true,
-                                             costLots: AddressCostLots.lots(fromJSON: o["costLots"]))
+                                             costLots: AddressCostLots.lots(fromJSON: o["costLots"]),
+                                             overlapChecked: o["overlapChecked"] as? Bool ?? false,
+                                             overlapLegacy: o["overlapLegacy"] as? Bool ?? false)
         }
     }
 }

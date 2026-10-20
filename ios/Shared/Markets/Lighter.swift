@@ -72,6 +72,9 @@ final class Lighter: Market {
     /// `exchangeStats` führt alle Märkte (auch inaktive und Binärmärkte), ein fehlendes Paar ist nicht mehr gelistet.
     override var bulkTickersComplete: Bool { true }
 
+    /// Der Einzelkurs liest dieselbe vollständige Liste (`tickerAddress`).
+    override var singleTickerReadsFullList: Bool { true }
+
     override func bulkTickersURL(call: Int) -> String? { lighterStats }
 
     /// Kurs 0 (Binärmärkte «BTC-UPDOWN-15M-…», nie gehandelte Perps) wird übersprungen, nicht als Fehler gezählt;

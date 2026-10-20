@@ -47,7 +47,6 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.BidiText
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeoutOrNull
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,7 +80,8 @@ fun AlarmsScreen(
         // Erst wenn feststeht, ob der DEX-Pool genug Liquidität hat (sonst kein Editor) und ob es das Paar noch gibt
         val low = lowLiquidityState ?: return@LaunchedEffect
         val missing = watchMissing ?: return@LaunchedEffect
-        if (!autoOpenDone && empty && !low && !missing) draft = newDraft()
+        // Merkliste gesperrt (nur im Arbeitsspeicher): kein Editor von selbst, ein Alarm liesse sich nicht speichern
+        if (!autoOpenDone && empty && !low && !missing && !viewModel.alarmSaveBlocked()) draft = newDraft()
         autoOpenDone = true
     }
     // «Anpassen» aus der Alarm-Mitteilung: Editor dieses Alarms einmal öffnen, sobald er geladen ist (nicht bei zu
@@ -107,12 +107,18 @@ fun AlarmsScreen(
     val testLabel = stringResource(R.string.alarm_test_action)
     val context = LocalContext.current
     // Paar gibt es nicht mehr (z. B. «Anpassen» aus der Mitteilung eines gelöschten Paars): kein Editor ohne Paar —
-    // kurzer Hinweis (überdauert das Zurück, darum kein Snackbar) und zurück
+    // kurzer Hinweis (überdauert das Zurück, darum kein Snackbar) und zurück. Merkliste nur gesperrt: das sagen statt
+    // «Nicht in der Merkliste»
     val missingText = stringResource(R.string.watch_preview_not_watched)
+    val lockedText = stringResource(R.string.alarm_save_storage_locked)
     LaunchedEffect(watchMissing) {
         if (watchMissing != true) return@LaunchedEffect
         draft = null
-        android.widget.Toast.makeText(context, missingText, android.widget.Toast.LENGTH_SHORT).show()
+        val locked = viewModel.alarmSaveBlocked()
+        android.widget.Toast.makeText(
+            context, if (locked) lockedText else missingText,
+            if (locked) android.widget.Toast.LENGTH_LONG else android.widget.Toast.LENGTH_SHORT,
+        ).show()
         onBack()
     }
     // Alarm angelegt: nach «Später» die Erklärung noch einmal (NotificationPrePrompt)
@@ -257,7 +263,6 @@ fun AlarmsScreen(
     }
 
     // Merkliste nur leer im Arbeitsspeicher: Alarm nicht anlegen, Editor zu und sagen warum (sonst still verloren)
-    val lockedText = stringResource(R.string.alarm_save_storage_locked)
     fun showSaveLocked(): Boolean {
         if (!viewModel.alarmSaveBlocked()) return false
         draft = null
@@ -283,13 +288,7 @@ fun AlarmsScreen(
             if (isNew && !off) {
                 if (firstEver) return@save
                 scope.launch {
-                    snackbar.currentSnackbarData?.dismiss()
-                    val timeout = accessibilityManager?.calculateRecommendedTimeoutMillis(
-                        ACTIVE_MILLIS, containsIcons = false, containsText = true, containsControls = true
-                    ) ?: ACTIVE_MILLIS
-                    val result = withTimeoutOrNull(timeout) {
-                        snackbar.showSnackbar(activeText, actionLabel = testLabel, duration = SnackbarDuration.Indefinite)
-                    }
+                    val result = snackbar.showTimed(activeText, testLabel, ACTIVE_MILLIS, accessibilityManager)
                     if (result == SnackbarResult.ActionPerformed) testAlarm()
                 }
                 return@save
@@ -299,14 +298,8 @@ fun AlarmsScreen(
             scope.launch {
                 snackbar.currentSnackbarData?.dismiss()
                 if (off) {
-                    // Mit Aktion «Einstellungen» (Mitteilungs-Einstellungen der App); mit
-                    // Screenreader ggf. länger (Systemeinstellung «Zeit für Aktionen»)
-                    val timeout = accessibilityManager?.calculateRecommendedTimeoutMillis(
-                        SAVED_MILLIS, containsIcons = false, containsText = true, containsControls = true
-                    ) ?: SAVED_MILLIS
-                    val result = withTimeoutOrNull(timeout) {
-                        snackbar.showSnackbar(text, actionLabel = settingsLabel, duration = SnackbarDuration.Indefinite)
-                    }
+                    // Mit Aktion «Einstellungen» (Mitteilungs-Einstellungen der App)
+                    val result = snackbar.showTimed(text, settingsLabel, SAVED_MILLIS, accessibilityManager)
                     if (result == SnackbarResult.ActionPerformed) {
                         com.cryptochecker.app.ui.components.openAppNotificationSettings(context)
                     }
@@ -344,14 +337,9 @@ fun AlarmsScreen(
                         context, created, watch?.baseAsset.orEmpty(), watch?.quoteAsset.orEmpty(), notificationsOff = false,
                     )
                     scope.launch {
-                        snackbar.currentSnackbarData?.dismiss()
-                        // Mit Screenreader ggf. länger (Systemeinstellung «Zeit für Aktionen»)
-                        val timeout = accessibilityManager?.calculateRecommendedTimeoutMillis(
-                            UNDO_MILLIS, containsIcons = false, containsText = true, containsControls = true
-                        ) ?: UNDO_MILLIS
-                        val result = withTimeoutOrNull(timeout) {
-                            snackbar.showSnackbar(createdText, actionLabel = undoLabel, duration = SnackbarDuration.Indefinite)
-                        }
+                        // Allererster Alarm: erst nach dem Dialog, sonst liefe «Rückgängig» unerreichbar dahinter ab
+                        awaitAlarmDialogsClosed(viewModel.firstAlarm, viewModel.timingHint)
+                        val result = snackbar.showTimed(createdText, undoLabel, UNDO_MILLIS, accessibilityManager)
                         if (result == SnackbarResult.ActionPerformed) viewModel.delete(created.id)
                     }
                 }

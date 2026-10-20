@@ -25,10 +25,6 @@ import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -48,7 +44,10 @@ class PulseWidgetRenderer @Inject constructor(
     private val toolkit: WidgetToolkit,
 ) {
     /** Abruf im Hintergrund, damit [WidgetUpdater.updateAll] (Kurs-Aktualisierung) nicht auf das Netz wartet. */
-    private val pulseScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val backgroundFetch = PulseBackgroundFetch()
+
+    /** Hintergrundlauf: den losgelösten Abruf aus [updateWithOthers] höchstens [timeoutMillis] abwarten. */
+    suspend fun awaitBackgroundFetch(timeoutMillis: Long): Boolean = backgroundFetch.await(timeoutMillis)
 
     private fun pulseWidgetIds(): IntArray = toolkit.ids(PulseWidgetProvider::class.java)
 
@@ -78,7 +77,7 @@ class PulseWidgetRenderer @Inject constructor(
         val cached = pulseData.readPulse()
         if (cached != null) drawPulse(ids, cached)
         if (pulseData.isPulseFresh(cached)) return
-        pulseScope.launch {
+        backgroundFetch.launch {
             val loaded = pulseData.loadPulse()
             if (loaded != null || cached == null) drawPulse(pulseWidgetIds(), loaded)
         }

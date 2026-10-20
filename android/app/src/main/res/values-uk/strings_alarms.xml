@@ -64,8 +64,8 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Коли %1$s</string>
     <string name="alarm_template_a11y">Створити сигнал: %1$s</string>
-    <string name="alarm_template_a11y_down">Створити сигнал при мінус %1$s відсотках від поточної ціни</string>
-    <string name="alarm_template_a11y_up">Створити сигнал при плюс %1$s відсотках від поточної ціни</string>
+    <string name="alarm_template_a11y_down">Створити сигнал: мінус %1$s %% від поточної ціни</string>
+    <string name="alarm_template_a11y_up">Створити сигнал: плюс %1$s %% від поточної ціни</string>
     <string name="alarm_template_from_now">з цього моменту</string>
     <string name="alarm_template_volume">Обсяг ×%1$s</string>
     <string name="alarm_templates_title">Швидкі сигнали</string>
@@ -186,4 +186,5 @@
     <string name="alarm_status_low_liquidity">Немає сигналу – низька ліквідність</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Очікування актуального курсу</string>
+    <string name="alarm_enter_amount">Введіть суму</string>
 </resources>

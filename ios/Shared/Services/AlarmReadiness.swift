@@ -7,6 +7,8 @@ import Foundation
 enum AlarmReadiness {
     /// Letzte Prüfung im Hintergrund älter als das: «länger her».
     static let staleCheckMillis: Int64 = 6 * 60 * 60_000
+    /// Letzte Prüfung so weit in der Zukunft gilt noch als eben geprüft (kleine Gangabweichung der Uhr).
+    static let futureToleranceMillis: Int64 = 5 * 60_000
 
     enum Platform: Sendable { case android, ios }
 
@@ -224,8 +226,10 @@ enum AlarmReadiness {
         guard let at = input.lastBackgroundCheck, at > 0 else {
             return Item(row: .lastCheck, state: missing, detail: .checkNever, action: .checkRuns)
         }
-        // Uhr zurückgestellt (Zeit in der Zukunft): als eben geprüft werten
-        if input.now - at <= staleCheckMillis { return Item(row: .lastCheck, state: .ok, detail: .checkRecent) }
+        // Weit in der Zukunft (Uhr vor- und zurückgestellt): nicht frisch — ob der Hintergrund wirklich läuft, ist offen
+        if at - input.now <= futureToleranceMillis && input.now - at <= staleCheckMillis {
+            return Item(row: .lastCheck, state: .ok, detail: .checkRecent)
+        }
         return Item(row: .lastCheck, state: missing, detail: .checkOld, action: .checkRuns)
     }
 

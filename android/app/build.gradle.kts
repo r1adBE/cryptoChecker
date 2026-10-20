@@ -33,7 +33,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 88
+        versionCode = 89
         versionName = "16.2.2"
 
         // Instrumentierte Tests mit Hilt (HiltTestApplication); betrifft nur androidTest
@@ -92,6 +92,15 @@ android {
     lint {
         abortOnError = true
         enable += "LogNotTimber"
+    }
+
+    // Die App hat eine eigene Sprachwahl (AppCompatDelegate.setApplicationLocales). Mit
+    // Sprach-Splits liefert Play aus dem AAB nur die Gerätesprachen aus; eine andere in der App
+    // gewählte Sprache fiele dann auf Englisch zurück. Darum alle Sprachen ins Basis-APK.
+    bundle {
+        language {
+            enableSplit = false
+        }
     }
 }
 

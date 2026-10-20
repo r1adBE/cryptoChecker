@@ -18,6 +18,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import kotlinx.coroutines.delay
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -130,8 +139,21 @@ internal fun SimpleSentence(
     symbol: String,
     unit: String?,
     onDraftChange: (AlarmDraft) -> Unit,
+    /** Feld beim ersten Erscheinen fokussieren (neuer Alarm): Tastatur gleich offen. */
+    autoFocus: Boolean = false,
 ) {
     val end = stringResource(R.string.alarm_simple_end)
+    val focusRequester = remember { FocusRequester() }
+    // Einmal je Öffnen des Editors (nicht nach dem Drehen erneut); nach dem Hochfahren des Blatts
+    var focusDone by rememberSaveable { mutableStateOf(false) }
+    if (autoFocus && !focusDone) {
+        LaunchedEffect(Unit) {
+            delay(AUTO_FOCUS_DELAY_MILLIS)
+            // Feld noch nicht im Layout (Blatt schon zu): kein Fokus, kein Absturz
+            runCatching { focusRequester.requestFocus() }
+            focusDone = true
+        }
+    }
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
         verticalArrangement = Arrangement.spacedBy(Spacing.sm),
@@ -163,13 +185,17 @@ internal fun SimpleSentence(
             // Fehlertext sagt, warum «Speichern» gesperrt ist
             isError = draft.visibleProblem != null,
             supportingText = thresholdErrorText(draft.visibleProblem),
-            modifier = Modifier.widthIn(min = 160.dp, max = 280.dp).align(Alignment.Top).testTag(UiTestTags.ALARM_THRESHOLD)
+            modifier = Modifier.widthIn(min = 160.dp, max = 280.dp).align(Alignment.Top).focusRequester(focusRequester)
+                .testTag(UiTestTags.ALARM_THRESHOLD)
         )
         if (end.isNotBlank()) {
             Text(end, style = MaterialTheme.typography.titleMedium, modifier = Modifier.align(Alignment.Top).alignToInputLine())
         }
     }
 }
+
+/** Wartezeit bis zum Fokus ins Betragsfeld: das Blatt fährt erst hoch (sonst erscheint die Tastatur nicht immer). */
+private const val AUTO_FOCUS_DELAY_MILLIS = 300L
 
 /**
  * Höhe und Lage der Eingabezeile eines OutlinedTextField mit Beschriftung: 8 dp Platz für die Beschriftung

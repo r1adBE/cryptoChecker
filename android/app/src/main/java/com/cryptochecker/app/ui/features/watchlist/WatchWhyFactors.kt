@@ -20,8 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -251,7 +253,12 @@ private val FACTOR_ICON = 32.dp
  */
 @Composable
 internal fun WhyBriefSkeleton() {
-    SkeletonPulse(modifier = Modifier.fillMaxWidth().clearAndSetSemantics { }) {
+    // Screenreader: «Lädt …» statt Stille (höflich angesagt, die Form selbst bleibt stumm)
+    val loading = stringResource(R.string.loading_hint)
+    SkeletonPulse(modifier = Modifier.fillMaxWidth().clearAndSetSemantics {
+        contentDescription = loading
+        liveRegion = LiveRegionMode.Polite
+    }) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()

@@ -223,6 +223,11 @@ extension WatchlistRow {
                     Text(L("watch_change_mark"))
                         .font(.caption2)
                         .foregroundStyle(AppColors.onSurfaceVariant)
+                } else if MarketsConfig.market(watch.marketKey)?.priceIsHourlyClose == true {
+                    // Kurs ist der Schluss der laufenden Stundenkerze (WOO X Spot): wie im Aktionsblatt — wie Android
+                    Text(L("watch_price_hourly"))
+                        .font(.caption2)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
                 }
             }
         }

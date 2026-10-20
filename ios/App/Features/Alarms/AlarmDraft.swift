@@ -161,6 +161,11 @@ struct AlarmDraft: Identifiable, Equatable {
         return problem
     }
 
+    /// Hinweis «Betrag eingeben» unter dem gesperrten Knopf: nur solange das Feld eines neuen Alarms noch leer ist
+    /// (der graue Platzhalter wirkt sonst wie ein Wert, und ohne Fehlertext bliebe offen, warum der Knopf gesperrt
+    /// ist). Wie Android `showsEnterAmountHint`.
+    var showsEnterAmountHint: Bool { thresholdProblem == .EMPTY && visibleProblem == nil }
+
     /// Währung des Schwellwerts wechseln (nil = Quote). Ist der Faktor Quote → `other`
     /// bekannt, wird ein bereits getippter Wert mit umgerechnet — wie `withCurrency` in Android.
     func withCurrency(_ newCurrency: String?, other: String, rate: Double?) -> AlarmDraft {

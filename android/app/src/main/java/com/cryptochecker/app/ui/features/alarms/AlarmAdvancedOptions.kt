@@ -26,6 +26,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextOverflow
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
@@ -78,7 +79,7 @@ internal fun ConditionChips(
                 FilterChip(
                     selected = draft.condition == condition,
                     onClick = { onDraftChange(draft.withCondition(condition)) },
-                    label = { Text(AlarmTexts.conditionName(context, condition), maxLines = 2) },
+                    label = { Text(AlarmTexts.conditionName(context, condition), maxLines = 2, overflow = TextOverflow.Ellipsis) },
                     modifier = Modifier.weight(1f)
                 )
             }

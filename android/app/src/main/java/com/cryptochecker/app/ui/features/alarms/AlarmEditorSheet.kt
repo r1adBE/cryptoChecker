@@ -132,6 +132,8 @@ internal fun AlarmEditorSheet(
                         symbol = baseAsset,
                         unit = priceUnit,
                         onDraftChange = onDraftChange,
+                        // Neuer Alarm: gleich ins leere Betragsfeld (Tastatur offen)
+                        autoFocus = draft.id == 0L && draft.blankStart,
                     )
                 } else if (draft.condition.isPercent && !AlarmTemplates.opensMoreConditions(draft.condition)) {
                     ThresholdField(draft = draft, onDraftChange = onDraftChange)
@@ -229,6 +231,16 @@ internal fun AlarmEditorSheet(
                     modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm).testTag(UiTestTags.ALARM_SAVE)
                 ) {
                     Text(stringResource(if (draft.id == 0L) R.string.alarm_create else R.string.action_save))
+                }
+                // Gesperrt, weil das Feld noch leer ist: sagen, was fehlt
+                if (draft.showsEnterAmountHint) {
+                    Text(
+                        stringResource(R.string.alarm_enter_amount),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth().padding(top = Spacing.xs)
+                    )
                 }
                 TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
                     Text(stringResource(R.string.action_cancel))

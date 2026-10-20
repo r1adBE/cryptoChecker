@@ -175,6 +175,14 @@ struct AlarmEditorSheet: View {
                     }
                     .buttonStyle(AccentButtonStyle())
                     .disabled(!draft.isValid)
+                    // Gesperrt, weil das Feld noch leer ist: sagen, was fehlt (wie Android)
+                    if draft.showsEnterAmountHint {
+                        Text(L("alarm_enter_amount"))
+                            .font(.footnote)
+                            .foregroundStyle(AppColors.onSurfaceVariant)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity)
+                    }
                 }
                 .padding(.horizontal, Spacing.lg)
                 .padding(.top, 8)

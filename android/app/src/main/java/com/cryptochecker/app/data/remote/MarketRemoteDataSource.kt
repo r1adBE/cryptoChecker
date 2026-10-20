@@ -319,7 +319,7 @@ class MarketRemoteDataSource @Inject constructor(
 
     /** Pools über DexScreener suchen. */
     suspend fun searchDexPools(query: String): List<DexPool> =
-        DexScreener.parseSearch(httpClient.callMarket(DexScreener.searchUrl(query), null))
+        DexScreener.parseSearch(httpClient.callMarket(DexScreener.searchUrl(query), null), query)
 
     /**
      * Kurs eines Paars. Die erste Anfrage muss gelingen; weitere (z. B. Volumen aus einer zweiten

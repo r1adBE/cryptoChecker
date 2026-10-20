@@ -20,9 +20,17 @@ enum LegacyStorageMigration {
     }
 
     /// Zins (Lending) nach der Regel bis Build 75: Belohnung, deren Notiz «interest», «lending», «Zins» … nennt
-    /// (`TaxEngines.interestReward`). Seit Build 76 eigenes Feld `interest`. Wie Android `legacyInterest`.
+    /// (`interestRewardLegacy`). Seit Build 76 eigenes Feld `interest`. Wie Android `legacyInterest`.
     static func legacyInterest(_ type: PortfolioTxType?, note: String?) -> Bool {
-        type == .REWARD && TaxEngines.interestReward(note)
+        type == .REWARD && interestRewardLegacy(note)
+    }
+
+    /// Zins-Erkennung, wie sie bis Build 87 galt (Teilstring, auch «Verzinsung»): eingefroren für Altbestand — alte Dateien
+    /// und Sicherungen ohne Feld `interest` werden so abgeleitet, wie die App sie damals rechnete. Die Wort-Regel
+    /// (`TaxEngines.interestReward`) gilt nur für neue Eingaben und Importe. Wie Android.
+    static func interestRewardLegacy(_ text: String?) -> Bool {
+        guard let t = text?.lowercased() else { return false }
+        return ["interest", "lending", "zins", "interet", "intérêt"].contains { t.contains($0) }
     }
 
 

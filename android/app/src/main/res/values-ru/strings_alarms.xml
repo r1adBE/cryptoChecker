@@ -64,8 +64,8 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Когда %1$s</string>
     <string name="alarm_template_a11y">Создать оповещение: %1$s</string>
-    <string name="alarm_template_a11y_down">Создать оповещение при минус %1$s процентах от текущей цены</string>
-    <string name="alarm_template_a11y_up">Создать оповещение при плюс %1$s процентах от текущей цены</string>
+    <string name="alarm_template_a11y_down">Создать оповещение: минус %1$s %% от текущей цены</string>
+    <string name="alarm_template_a11y_up">Создать оповещение: плюс %1$s %% от текущей цены</string>
     <string name="alarm_template_from_now">с этого момента</string>
     <string name="alarm_template_volume">Объём ×%1$s</string>
     <string name="alarm_templates_title">Быстрые оповещения</string>
@@ -186,4 +186,5 @@
     <string name="alarm_status_low_liquidity">Нет оповещения – низкая ликвидность</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Ожидание актуального курса</string>
+    <string name="alarm_enter_amount">Введите сумму</string>
 </resources>

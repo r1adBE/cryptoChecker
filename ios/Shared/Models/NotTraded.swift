@@ -36,7 +36,8 @@ enum NotTraded {
     /// Meldet der Leser in einer sonst gültigen Antwort «kein Eintrag für das Paar» (`isMissingEntry`), bestätigt das
     /// ebenfalls — gleichwertig zu «Antwort ohne Kurs». Sicher, weil diese Prüfung nur nach einer vollständigen
     /// Kursliste ohne das Paar läuft (`PriceFetcher.fetchSingle(_:confirmMissing:)`): Zwei unabhängige Aussagen statt
-    /// einer kurz leeren Antwort.
+    /// einer kurz leeren Antwort — oder ohne Sammelabfrage, wenn die Einzelabfrage selbst diese Liste liest
+    /// (`confirmWithoutBulk`).
     static func confirmedBySingle(gotPrice: Bool, error: String?, failure: MarketFailure? = nil) -> Bool {
         if gotPrice { return false }
         switch failure {
@@ -58,6 +59,12 @@ enum NotTraded {
             return false
         }
     }
+
+    /// Einzelabfrage ohne Sammelabfrage (zu wenige Paare der Börse): wie nach dem Fehlen in der vollständigen Liste mit
+    /// `confirmedBySingle` werten? Nur, wenn die Einzelabfrage selbst die vollständige Liste liest
+    /// (`Market.singleTickerReadsFullList`, z. B. Lighter) — dann ist ihr «kein Eintrag» dieselbe Aussage wie das
+    /// Fehlen in der Liste. Sonst fehlte die zweite, unabhängige Aussage: gewöhnlicher Fehler wie bisher. Wie Android.
+    static func confirmWithoutBulk(bulkTried: Bool, singleReadsFullList: Bool) -> Bool { !bulkTried && singleReadsFullList }
 
     /// Sagt der Fehlertext der Börse ausdrücklich, dass sie das Paar nicht kennt?
     static func isUnknownInstrument(_ error: String?) -> Bool {

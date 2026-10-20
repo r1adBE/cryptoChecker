@@ -52,13 +52,13 @@ object AlarmTexts {
         if (alarm.condition.isNearExtreme && NearExtreme.isNewOnly(alarm.threshold)) {
             return newExtremeLabel(context, alarm.condition == AlarmCondition.NEAR_HIGH, alarm.windowHours)
         }
-        // «Nahe am Hoch 2.00% · 30 Tage»
+        // «Nahe am Hoch 2 % · 30 Tage» — Prozent im Format der App-Sprache wie Chip und Editor
         if (alarm.condition.isNearExtreme) {
-            return "$name " + "%.2f%%".format(alarm.threshold) + " · " +
+            return "$name " + AlarmSentence.percent(alarm.threshold, locale(context)) + " · " +
                 windowLabel(context, NearExtreme.windowDays(alarm.windowHours))
         }
         val value = if (alarm.condition.isPercent) {
-            "%.2f%%".format(alarm.threshold)
+            AlarmSentence.percent(alarm.threshold, locale(context))
         } else {
             // Schwellwert in eigener Währung: «Über 60’000 CHF» — genau wie gespeichert (1.0005 bleibt 1.0005)
             alarm.convertCurrency?.let { PriceFormat.thresholdWithCurrency(alarm.threshold, it) }

@@ -153,8 +153,9 @@ fun PortfolioViewModel.enablePortfolio(onEnabled: () -> Unit = {}) {
     }
 }
 
+/** Löschen; gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]) bleibt alles, der Dauerhinweis nennt es. */
 fun PortfolioViewModel.delete(id: Long) {
-    viewModelScope.launch { repository.delete(id) }
+    viewModelScope.launch { safe { repository.delete(id) } }
 }
 
 /**

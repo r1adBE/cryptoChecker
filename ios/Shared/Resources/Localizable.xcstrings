@@ -31992,6 +31992,197 @@
         }
       }
     },
+    "alarm_enter_amount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل مبلغًا"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadej částku"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indtast et beløb"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Betrag eingeben"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Εισήγαγε ποσό"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter an amount"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduce un importe"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مبلغ را وارد کن"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Syötä summa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisissez un montant"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הזן סכום"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "राशि डालें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adj meg egy összeget"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masukkan jumlah"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserisci un importo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "金額を入力してください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "금액을 입력하세요"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Angi et beløp"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voer een bedrag in"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wpisz kwotę"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introduza um valor"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informe um valor"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Introdu o sumă"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите сумму"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fut një shumë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ange ett belopp"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ใส่จำนวน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir tutar gir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введіть суму"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhập số tiền"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请输入金额"
+          }
+        }
+      }
+    },
     "alarm_field_percent" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -53643,7 +53834,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vytvořit alarm při minus %1$@ procentech od aktuální ceny"
+            "value" : "Vytvořit alarm: minus %1$@ %% od aktuální ceny"
           }
         },
         "da" : {
@@ -53775,7 +53966,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Создать оповещение при минус %1$@ процентах от текущей цены"
+            "value" : "Создать оповещение: минус %1$@ %% от текущей цены"
           }
         },
         "sq" : {
@@ -53805,7 +53996,7 @@
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Створити сигнал при мінус %1$@ відсотках від поточної ціни"
+            "value" : "Створити сигнал: мінус %1$@ %% від поточної ціни"
           }
         },
         "vi" : {
@@ -53834,7 +54025,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vytvořit alarm při plus %1$@ procentech od aktuální ceny"
+            "value" : "Vytvořit alarm: plus %1$@ %% od aktuální ceny"
           }
         },
         "da" : {
@@ -53966,7 +54157,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Создать оповещение при плюс %1$@ процентах от текущей цены"
+            "value" : "Создать оповещение: плюс %1$@ %% от текущей цены"
           }
         },
         "sq" : {
@@ -53996,7 +54187,7 @@
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Створити сигнал при плюс %1$@ відсотках від поточної ціни"
+            "value" : "Створити сигнал: плюс %1$@ %% від поточної ціни"
           }
         },
         "vi" : {
@@ -183625,6 +183816,197 @@
         }
       }
     },
+    "portfolio_address_xpub_gap" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يتوقف البحث بعد %1$ld عناوين غير مستخدمة متتالية (معيار BIP44 الذي تستخدمه معظم المحافظ). لا يُحتسب عنوان مستخدم يقع بعد هذه الفجوة – أضفه بشكل منفصل."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hledání skončí po %1$ld nepoužitých adresách za sebou (standard BIP44, který používá většina peněženek). Použitá adresa za touto mezerou se nezapočítá – přidejte ji samostatně."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Søgningen stopper efter %1$ld ubrugte adresser i træk (BIP44-standarden, som de fleste wallets bruger). En brugt adresse efter dette hul tælles ikke med – tilføj den separat."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Suche endet nach %1$ld unbenutzten Adressen in Folge (BIP44-Standard, den die meisten Wallets nutzen). Eine benutzte Adresse hinter dieser Lücke wird nicht mitgezählt – füge sie einzeln hinzu."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η αναζήτηση σταματά μετά από %1$ld αχρησιμοποίητες διευθύνσεις στη σειρά (το πρότυπο BIP44 που χρησιμοποιούν τα περισσότερα πορτοφόλια). Μια χρησιμοποιημένη διεύθυνση πέρα από αυτό το κενό δεν μετράται – πρόσθεσέ την ξεχωριστά."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The search stops after %1$ld unused addresses in a row (the BIP44 standard most wallets use). A used address beyond that gap is not counted – add it separately."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La búsqueda se detiene tras %1$ld direcciones sin usar seguidas (el estándar BIP44 que usan la mayoría de los monederos). Una dirección usada más allá de ese hueco no se cuenta: añádela por separado."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جستجو پس از %1$ld نشانی استفاده‌نشده پشت سر هم متوقف می‌شود (استاندارد BIP44 که بیشتر کیف‌پول‌ها به کار می‌برند). نشانی استفاده‌شده‌ای که پس از این فاصله باشد شمرده نمی‌شود – آن را جداگانه اضافه کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haku päättyy %1$ld peräkkäisen käyttämättömän osoitteen jälkeen (useimpien lompakoiden käyttämä BIP44-standardi). Tämän aukon jälkeistä käytettyä osoitetta ei lasketa – lisää se erikseen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La recherche s'arrête après %1$ld adresses inutilisées consécutives (norme BIP44 utilisée par la plupart des portefeuilles). Une adresse utilisée au-delà de cet écart n'est pas comptée – ajoutez-la séparément."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "החיפוש נעצר אחרי %1$ld כתובות לא בשימוש ברצף (תקן BIP44 שבו משתמשים רוב הארנקים). כתובת בשימוש שנמצאת מעבר לפער הזה לא נספרת – הוסף אותה בנפרד."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "लगातार %1$ld अप्रयुक्त पतों के बाद खोज रुक जाती है (BIP44 मानक, जिसका उपयोग अधिकांश वॉलेट करते हैं)। इस अंतराल के बाद का कोई उपयोग किया गया पता नहीं गिना जाता – उसे अलग से जोड़ें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A keresés %1$ld egymást követő használatlan cím után leáll (a legtöbb tárca által használt BIP44-szabvány). Az ezen a résen túli használt címet nem számolja – add hozzá külön."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pencarian berhenti setelah %1$ld alamat tidak terpakai berturut-turut (standar BIP44 yang dipakai sebagian besar dompet). Alamat terpakai di luar celah itu tidak dihitung – tambahkan secara terpisah."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La ricerca si ferma dopo %1$ld indirizzi inutilizzati consecutivi (lo standard BIP44 usato dalla maggior parte dei wallet). Un indirizzo usato oltre questo intervallo non viene contato – aggiungilo separatamente."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未使用のアドレスが連続 %1$ld 件続くと検索を終了します（多くのウォレットが採用する BIP44 標準）。その先にある使用済みアドレスは集計されません。個別に追加してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "사용하지 않은 주소가 연속으로 %1$ld개 나오면 검색을 멈춥니다(대부분의 지갑이 쓰는 BIP44 표준). 그 간격 뒤에 있는 사용된 주소는 계산되지 않으니 따로 추가하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Søket stopper etter %1$ld ubrukte adresser på rad (BIP44-standarden de fleste lommebøker bruker). En brukt adresse etter dette gapet telles ikke med – legg den til separat."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Het zoeken stopt na %1$ld ongebruikte adressen op rij (de BIP44-standaard die de meeste wallets gebruiken). Een gebruikt adres voorbij dat gat wordt niet meegeteld – voeg het apart toe."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyszukiwanie kończy się po %1$ld nieużywanych adresach z rzędu (standard BIP44 stosowany przez większość portfeli). Używany adres za tą luką nie jest liczony – dodaj go osobno."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A pesquisa termina após %1$ld endereços não utilizados seguidos (a norma BIP44 usada pela maioria das carteiras). Um endereço utilizado para além desse intervalo não é contado – adicione-o em separado."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A busca para depois de %1$ld endereços não usados em sequência (o padrão BIP44 usado pela maioria das carteiras). Um endereço usado além desse intervalo não é contado – adicione-o separadamente."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Căutarea se oprește după %1$ld adrese nefolosite consecutive (standardul BIP44 folosit de majoritatea portofelelor). O adresă folosită dincolo de acest gol nu este numărată – adaug-o separat."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поиск останавливается после %1$ld неиспользованных адресов подряд (стандарт BIP44, который используют большинство кошельков). Использованный адрес за этим промежутком не учитывается – добавьте его отдельно."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kërkimi ndalon pas %1$ld adresash të papërdorura radhazi (standardi BIP44 që përdorin shumica e portofolave). Një adresë e përdorur përtej këtij boshllëku nuk numërohet – shtoje veçmas."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sökningen avbryts efter %1$ld oanvända adresser i rad (BIP44-standarden som de flesta plånböcker använder). En använd adress efter det glappet räknas inte – lägg till den separat."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การค้นหาจะหยุดหลังพบที่อยู่ที่ไม่ได้ใช้ติดต่อกัน %1$ld รายการ (มาตรฐาน BIP44 ที่วอลเล็ตส่วนใหญ่ใช้) ที่อยู่ที่ใช้แล้วซึ่งอยู่ถัดจากช่วงนี้จะไม่ถูกนับ – ให้เพิ่มแยกต่างหาก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arama, art arda %1$ld kullanılmamış adresten sonra durur (çoğu cüzdanın kullandığı BIP44 standardı). Bu boşluğun ötesindeki kullanılmış bir adres sayılmaz – onu ayrıca ekleyin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пошук зупиняється після %1$ld невикористаних адрес поспіль (стандарт BIP44, який використовує більшість гаманців). Використана адреса за цим проміжком не враховується – додайте її окремо."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Việc tìm kiếm dừng sau %1$ld địa chỉ chưa dùng liên tiếp (chuẩn BIP44 mà hầu hết ví sử dụng). Địa chỉ đã dùng nằm sau khoảng trống đó sẽ không được tính – hãy thêm riêng địa chỉ đó."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "连续出现 %1$ld 个未使用的地址后停止搜索（大多数钱包采用的 BIP44 标准）。此间隔之后的已使用地址不会被计入，请单独添加。"
+          }
+        }
+      }
+    },
     "portfolio_address_xpub_privacy" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -198091,6 +198473,197 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "portfolio_csv_import_failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّر الاستيراد – لم يُحفظ أي شيء. يُرجى المحاولة مرة أخرى."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import se nezdařil – nic nebylo uloženo. Zkuste to prosím znovu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importen mislykkedes – intet blev gemt. Prøv igen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Import hat nicht geklappt – es wurde nichts gespeichert. Versuch es nochmals."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η εισαγωγή απέτυχε – δεν αποθηκεύτηκε τίποτα. Δοκιμάστε ξανά."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The import didn't work – nothing was saved. Please try again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La importación no se ha podido completar: no se ha guardado nada. Inténtalo de nuevo."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وارد کردن انجام نشد – چیزی ذخیره نشد. لطفاً دوباره تلاش کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuonti epäonnistui – mitään ei tallennettu. Yritä uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’importation a échoué – rien n’a été enregistré. Veuillez réessayer."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הייבוא נכשל – שום דבר לא נשמר. נא לנסות שוב."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "इम्पोर्ट नहीं हो सका – कुछ भी सेव नहीं हुआ। कृपया फिर से कोशिश करें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az importálás nem sikerült – semmi sem lett mentve. Próbáld újra."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impor gagal – tidak ada yang disimpan. Silakan coba lagi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importazione non riuscita: non è stato salvato nulla. Riprova."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "インポートできませんでした。何も保存されていません。もう一度お試しください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가져오기에 실패했습니다. 아무것도 저장되지 않았습니다. 다시 시도해 주세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importen mislyktes – ingenting ble lagret. Prøv igjen."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importeren is mislukt – er is niets opgeslagen. Probeer het opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import się nie powiódł – nic nie zostało zapisane. Spróbuj ponownie."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A importação falhou – nada foi guardado. Tente novamente."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A importação falhou – nada foi salvo. Tente novamente."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importul nu a reușit – nu s-a salvat nimic. Încearcă din nou."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось импортировать – ничего не сохранено. Попробуйте ещё раз."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importimi dështoi – nuk u ruajt asgjë. Provo përsëri."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importen misslyckades – inget sparades. Försök igen."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "นำเข้าไม่สำเร็จ – ไม่มีการบันทึกข้อมูลใดๆ โปรดลองอีกครั้ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İçe aktarma başarısız oldu – hiçbir şey kaydedilmedi. Lütfen tekrar deneyin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося імпортувати – нічого не збережено. Спробуйте ще раз."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhập không thành công – chưa có gì được lưu. Vui lòng thử lại."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "导入失败，未保存任何内容。请重试。"
           }
         }
       }

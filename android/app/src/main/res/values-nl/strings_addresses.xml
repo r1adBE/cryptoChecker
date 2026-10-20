@@ -21,6 +21,7 @@
     <string name="portfolio_address_tokens">Tokens meetellen</string>
     <string name="portfolio_address_unknown_tokens">+%1$d onbekende tokens (niet meegeteld)</string>
     <string name="portfolio_address_xpub_privacy">Een xpub onthult alle adressen van deze wallet. Ze worden op je apparaat afgeleid; naar %1$s gaan alleen losse adressen – bij de eerste zoektocht minstens 40 verzoeken, daarna minder. Privésleutels (xprv) worden nooit geaccepteerd.</string>
+    <string name="portfolio_address_xpub_gap">Het zoeken stopt na %1$d ongebruikte adressen op rij (de BIP44-standaard die de meeste wallets gebruiken). Een gebruikt adres voorbij dat gat wordt niet meegeteld – voeg het apart toe.</string>
     <string name="portfolio_address_xpub_used">Gebruikte adressen: %1$d</string>
     <string name="portfolio_addresses_title">Adressen</string>
 

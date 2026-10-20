@@ -16,7 +16,7 @@ data class TaxWealthRow(
     val amount: BigDecimal,
     /** Tagesschluss 31.12. in USDT; null = keiner. */
     val priceUsdt: BigDecimal?,
-    /** Summe der gerundeten Teilwerte (Menge × [priceUsdt]); null = nicht gerechnet. */
+    /** Summe der gerundeten bekannten Teilwerte (Menge × [priceUsdt]); null = kein Teil gerechnet. */
     val valueUsdt: BigDecimal?,
     /** Summe der gerundeten Teilwerte in der Steuerwährung; null = nicht gerechnet bzw. ohne Devisenkurs. */
     val valueTarget: BigDecimal?,
@@ -28,8 +28,10 @@ data class TaxWealthRow(
     val addressUnobserved: Boolean = false,
     /** Kein Devisenkurs für den 31.12. */
     val noFx: Boolean = false,
+    /** Wert nur aus den bekannten Teilen ([addressUnobserved]: ein Guthaben fehlt) — «unvollständig», wie die Bestandsdatei. */
+    val incomplete: Boolean = false,
 ) {
-    /** Wert des Coins nicht gerechnet (Kurs fehlt, ungeprüft oder Guthaben unbekannt) — nie ein anderer Kurs. */
+    /** Wert des Coins nicht gerechnet (Kurs fehlt, ungeprüft oder kein Teil bekannt) — nie ein anderer Kurs. */
     val missing: Boolean get() = valueUsdt == null
 }
 
@@ -48,8 +50,8 @@ data class TaxWealth(
     /** Summe der bekannten, je Coin gerundeten Werte in der Steuerwährung; null = ohne Devisenkurs. */
     val totalTarget: BigDecimal?,
 ) {
-    /** Mindestens ein Coin nicht gerechnet — die Summe ist «unvollständig». */
-    val incomplete: Boolean get() = rows.any { it.missing }
+    /** Mindestens ein Coin nicht oder nur teilweise gerechnet — die Summe ist «unvollständig». */
+    val incomplete: Boolean get() = rows.any { it.missing || it.incomplete }
 
     /** Kein Devisenkurs für den Stichtag (bei Bestand). */
     val noFx: Boolean get() = totalTarget == null && rows.isNotEmpty()
@@ -66,8 +68,9 @@ data class TaxWealth(
  *    der Stichtag-Export); Stablecoins nach [PortfolioStables] (USDT = 1, die übrigen ihr Tagesschluss).
  *  - [rate] = USD → Steuerwährung samt USDT/USD des Tags ([TaxExport.rateOn] am 31.12.: letzter Kurs höchstens
  *    [TaxExport.FX_MAX_GAP_DAYS] Tage davor, wie jede Zeile der Arbeitsunterlage); null = ohne Devisenkurs.
- * Fehlt der Schluss eines Coins, ist er ungeprüft oder fehlt ein Teil seines Guthabens, bleibt SEIN Wert leer («nicht
- * gerechnet», nie der heutige Kurs) und die Summe ist unvollständig. Alphabetisch nach Coin.
+ * Fehlt der Schluss eines Coins oder ist er ungeprüft, bleibt SEIN Wert leer («nicht gerechnet», nie der heutige Kurs);
+ * fehlt nur ein Teil seines Guthabens (Adresse nicht beobachtet), zählt der bekannte Teil und der Coin ist unvollständig —
+ * wie die Bestandsdatei, die die bekannten Zeilen summiert. Die Summe ist dann unvollständig. Alphabetisch nach Coin.
  */
 fun TaxExport.chWealth(
     trades: List<PortfolioTrade>,
@@ -86,12 +89,13 @@ fun TaxExport.chWealth(
         val noPrice = list.any { it.noPrice }
         val unchecked = list.any { it.unchecked }
         val unobserved = list.any { it.addressUnobserved }
-        // Ein Teil ohne Wert (oder ein unbeobachtetes Guthaben) → der ganze Coin ist nicht gerechnet
-        val missing = noPrice || unchecked || unobserved || list.any { it.valueUsdt == null }
+        // Bekannte Teile zählen wie in der Bestandsdatei (deren Total summiert sie); ohne jeden: nicht gerechnet
+        val known = if (noPrice || unchecked) emptyList() else list.filter { it.valueUsdt != null }
+        val partial = known.isNotEmpty() && (unobserved || known.size < list.size)
         // Jeder Teil gerundet wie seine Zeile in der Bestandsdatei, erst dann zusammengezählt
-        val valueUsdt = if (missing) null else list.fold(BigDecimal.ZERO) { a, r -> a + CutoffExport.roundedMoney(r.valueUsdt!!) }
-        val valueTarget = if (missing || list.any { it.valueTarget == null }) null else {
-            list.fold(BigDecimal.ZERO) { a, r -> a + CutoffExport.roundedMoney(r.valueTarget!!) }
+        val valueUsdt = if (known.isEmpty()) null else known.fold(BigDecimal.ZERO) { a, r -> a + CutoffExport.roundedMoney(r.valueUsdt!!) }
+        val valueTarget = if (known.isEmpty() || known.any { it.valueTarget == null }) null else {
+            known.fold(BigDecimal.ZERO) { a, r -> a + CutoffExport.roundedMoney(r.valueTarget!!) }
         }
         TaxWealthRow(
             coin = coin,
@@ -103,6 +107,7 @@ fun TaxExport.chWealth(
             unchecked = unchecked,
             addressUnobserved = unobserved,
             noFx = list.any { it.noFx },
+            incomplete = partial,
         )
     }
     // Summen aus den gerundeten Zeilenwerten (wie sie in der Datei stehen), wie CutoffExport.csv

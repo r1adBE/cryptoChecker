@@ -176,6 +176,9 @@ internal fun WatchRow(
     }
     // Kurs ist der Mark-Preis (dünnes Orderbuch ohne Mittelkurs): so benennen, auch im Zeilensatz
     val markPrice = watch.id in LocalMarkFallback.current && watch.lastPrice != null
+    // Kurs ist der Schluss der laufenden Stundenkerze (WOO X Spot): wie im Aktionsblatt «Stundenkurs»
+    val hourlyPrice = !markPrice && watch.lastPrice != null &&
+        com.cryptochecker.marketdata.util.MarketsConfigUtils.getMarketByKey(watch.marketKey).priceIsHourlyClose
     // Frische ausgeschrieben statt der Zeitzeile mit «·» und «Min.»: «Kurs veraltet, zuletzt
     // aktualisiert vor 45 Minuten» bzw. «Deaktiviert» / «Wird … nicht mehr gehandelt»
     val notTraded = isNotTraded(watch.lastError)
@@ -203,6 +206,7 @@ internal fun WatchRow(
         extras = listOf(
             changeMarker?.let { stringResource(R.string.change_candle_source, it) },
             if (markPrice) stringResource(R.string.watch_price_mark_fallback) else null,
+            if (hourlyPrice) stringResource(R.string.watch_price_hourly) else null,
             converted?.let { stringResource(R.string.a11y_converted, it.removePrefix("≈ ")) },
             sparkline?.takeIf { it.size >= 2 }?.let { A11yText.chart(context, chartPeriod, it) },
             chartSource?.takeIf { sparkline != null && sparkline.size >= 2 }?.let { stringResource(R.string.watch_row_source_chart, it) },
@@ -360,6 +364,7 @@ internal fun WatchRow(
                             changeMarker = changeMarker != null,
                             onChangeMarkerClick = showSourceHint,
                             markPrice = markPrice,
+                            hourlyPrice = hourlyPrice,
                         )
                     }
 
@@ -377,6 +382,7 @@ internal fun WatchRow(
                         changeMarker = changeMarker != null,
                         onChangeMarkerClick = showSourceHint,
                         markPrice = markPrice,
+                        hourlyPrice = hourlyPrice,
                         modifier = Modifier.align(Alignment.End).padding(top = 4.dp),
                     )
                 }

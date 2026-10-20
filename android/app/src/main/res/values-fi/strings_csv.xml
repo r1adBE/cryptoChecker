@@ -44,6 +44,7 @@
     <string name="portfolio_csv_import_transfers_hint">Nosto ja saman coinin vastaava talletus yhdistetään yhdeksi siirroksi: ostohinta ja omistusaika säilyvät, erotus lasketaan verkkomaksuksi.</string>
     <string name="portfolio_csv_import_transfers_title">Siirrot tiliesi välillä</string>
     <string name="portfolio_csv_import_unreadable">Tuettuja tapahtumia ei löytynyt. Tuetut: Relain, Swissquoten, Krakenin, Binancen, Coinbasen ja Bitpandan CSV-viennit.</string>
+    <string name="portfolio_csv_import_failed">Tuonti epäonnistui – mitään ei tallennettu. Yritä uudelleen.</string>
     <string name="portfolio_csv_import_withdrawals_title">Nostot – minne kolikot menivät?</string>
     <string name="portfolio_csv_import_zone">Ajat ilman aikavyöhykettä luetaan muodossa: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Laite (%1$s)</string>

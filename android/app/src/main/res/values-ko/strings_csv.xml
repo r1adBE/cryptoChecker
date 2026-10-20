@@ -40,6 +40,7 @@
     <string name="portfolio_csv_import_transfers_hint">같은 코인의 출금과 그에 맞는 입금이 하나의 이체가 됩니다: 매수가와 보유 기간은 유지되고, 차액은 네트워크 수수료로 처리됩니다.</string>
     <string name="portfolio_csv_import_transfers_title">내 계정 간 이체</string>
     <string name="portfolio_csv_import_unreadable">지원되는 거래를 찾지 못했습니다. 지원: Relai, Swissquote, Kraken, Binance, Coinbase 및 Bitpanda CSV 내보내기.</string>
+    <string name="portfolio_csv_import_failed">가져오기에 실패했습니다. 아무것도 저장되지 않았습니다. 다시 시도해 주세요.</string>
     <string name="portfolio_csv_import_withdrawals_title">출금 – 코인은 어디로 갔나요?</string>
     <string name="portfolio_csv_import_zone">시간대 없는 시각은 다음으로 읽음: %1$s</string>
     <string name="portfolio_csv_import_zone_device">기기(%1$s)</string>

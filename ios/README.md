@@ -4,7 +4,7 @@
 Börse, Marktüberblick und «Was bewegt sich mit?» – ohne Prognosen, keine
 Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 88 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 89 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit).
 
 Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, Ordner `ios/`
@@ -45,7 +45,7 @@ Zuletzt dazugekommen:
   Merklisten-Paars desselben Coins an einer anderen Spot-Börse (`Shared/Portfolio/PortfolioWatchPair.swift`).
   Wertverlauf, 7 T, 1 J und Portfolio-Widget aus den Tageskerzen der eingetragenen Börse
   (`App/Features/Portfolio/PortfolioHistorySource.swift`); hochgerechnetes Binance nur als Ersatz mit aktuellem
-  Bezug, sonst «ohne …», genannt unter Chart und Karte. Volumen-Alarme und «Warum?» mit derselben Kerzen-Prüfung
+  Bezug, sonst «ohne …», genannt unter Chart und Karte. Volumen-Alarme und «Was bewegt sich mit?» mit derselben Kerzen-Prüfung
   wie der Chart, Laufzeit-Futures nur mit den Kerzen ihres Kontrakts, nie des Perpetuals. «≈» zeigt die Uhrzeit des
   Devisenkurses, wenn er älter als 3 h ist; Devisenkurse alle 3 h neu (vorher 6 h); «≈» nur für USD/USDT = 1.
   Import mit denselben Zahlengrenzen wie Android; Verkaufswarnung zählt die Coin-Gebühr mit; COIN-M-Kontraktwert
@@ -60,7 +60,7 @@ Zuletzt dazugekommen:
   Geräte-Backup werden einmal gemeldet (`App/Services/PortfolioRestoreNotice.swift`).
 - **Build 44 – ehrliche Frische, eigene Kerzen** — «Live» in der Status-Pille nur, wenn alle sichtbaren gehandelten
   Paare am Live-Strom und frisch sind; «veraltet» je Paar (am Strom 2 Min., abgefragt 3 × Hintergrund-Intervall,
-  mind. 15 Min.; `Shared/Util/LiveStatus.swift`). Chart, Mini-Chart, Einzel-Widget, 24-h-Ersatzbezug und «Warum?»
+  mind. 15 Min.; `Shared/Util/LiveStatus.swift`). Chart, Mini-Chart, Einzel-Widget, 24-h-Ersatzbezug und «Was bewegt sich mit?»
   nehmen zuerst die Kerzen der eigenen Börse des Paars (`Shared/Services/Candles/`, `ExchangeCandleRegistry`), die
   Binance-Kette nur als gekennzeichneter Ersatz mit Token-Prüfung (passt eine Quelle nicht, ist die nächste dran;
   Perpetuals zuerst Futures; TradFi nie über die Kette; DexScreener nur der gemerkte Pool). «Gewinn heute» lässt
@@ -79,7 +79,7 @@ Zuletzt dazugekommen:
   `MarketScalePalette`, Widget-Schrift mit Dynamic Type; Namen und Umrechnung ab Werk an, Alpha aus.
 - **Build 42 – CoinGecko direkt, ehrliche Alarme, ruhiger Start** — CoinGecko-Daten nicht mehr gespiegelt
   (API-Bedingungen): Release «data» nur noch mit `fng.txt`, `onchain.txt`, `btcprice.txt`, `altseason.txt`; `/global`
-  (30 Min.), Top 30/40 (24 h) und Top 40 für Spot-Tab und «Warum?»-Marktbreite (eine gemeinsame Abfrage, 10 Min.)
+  (30 Min.), Top 30/40 (24 h) und Top 40 für Spot-Tab und «Was bewegt sich mit?»-Marktbreite (eine gemeinsame Abfrage, 10 Min.)
   direkt bei CoinGecko (`DataMirror.swift`), kein `COINGECKO_API_KEY`; kein eigenes Logo-Paket mehr — Rangliste
   (Seiten 1–10), Binance-/Alpha-Liste und Bilder direkt von CoinGecko/Binance (`CoinLogos.swift`, `CoinLogoStore`),
   Aktiennamen von Nasdaq; «Powered by CoinGecko» (`DataFreshness.poweredByCoinGecko`, ≥ 10 pt) unter CoinGecko-Karten,
@@ -146,7 +146,7 @@ Zuletzt dazugekommen:
   (echtes Minus U+2212) in der Kursfarbe, grau bei 0/unbekannt/deaktiviert, Durchschnitt «Ø» in der gelben
   Warn-Schriftfarbe, Zeitfenster klein und grau. Merklisten-Zeilen, Puls-Zeile («↗ 233 steigen ↘ 295 fallen
   Ø +0.32%»), Aktionsblatt («↗ +41.71% · 24h · Aktualisiert …»), Marktdaten (Funding als farbige Schrift ohne Pfeil),
-  «Warum?» (Faktoren unter «Kurz gesagt» als eine graue Textzeile), Markt-Karten (Fear-&-Greed-Zahl in der
+  «Was bewegt sich mit?» (Faktoren unter «Kurz gesagt» als eine graue Textzeile), Markt-Karten (Fear-&-Greed-Zahl in der
   Stufenfarbe, «Krypto-Markt 2.82 Bio. USD ↘ −2.77% · 24h», «Auffällig» mit grauem «24h») und Portfolio
   (Heute · 7 T · Gesamt als farbige Schrift, Beträge mit Pfeil «↗ +12.40 USDT»; neue Zeile unter dem Gesamtwert mit
   der Veränderung über ein Jahr «↘ −38'412.95 USDT −27.85% · 1J», bei weniger als einem Jahr Verlauf ausgeblendet,
@@ -198,7 +198,7 @@ Zuletzt dazugekommen:
   %-Änderung, Coin-Logos, Widgets, Sprachausgabe), Über, «App zurücksetzen» als eigene
   Karte ganz unten (`resetCard`); die Suche findet alles, Punkte der Seite «Erweitert» mit dem Pfad «Erweitert › …»
   (`SettingsSearchUi.swift`).
-- **«Warum?» kurz zuerst**: Karte «Kurz gesagt · Stand HH:MM» mit einem Satz, bis zu 3 auffälligen Faktoren als eine
+- **«Was bewegt sich mit?» kurz zuerst**: Karte «Kurz gesagt · Stand HH:MM» mit einem Satz, bis zu 3 auffälligen Faktoren als eine
   graue Textzeile und «Sicherheit»; zugeklappt «Alle Werte und Quellen» (Beobachtung, Mögliche Einordnung, Quellen, langer
   Hinweis); kurze Fusszeile «Zeitgleich heisst nicht Ursache · Keine Anlageberatung»
   (`App/Features/Watchlist/WatchWhySheet.swift`).
@@ -213,7 +213,7 @@ Zuletzt dazugekommen:
 
 Davor:
 
-- **«Warum?» relativ zur eigenen Schwankung** (wie Android, gemeinsame Testfälle `Tests/Parity/why_analysis.json`,
+- **«Was bewegt sich mit?» relativ zur eigenen Schwankung** (wie Android, gemeinsame Testfälle `Tests/Parity/why_analysis.json`,
   `WhyAnalysisParityTests`): eine 24-h-Bewegung gilt erst ab k · σ der Stunden-Renditen (bis 72 h vor dem
   24-h-Fenster; Coin k = 2 mit Untergrenze 2 %, Markt k = 1,5 mit 1 %; zu wenig Verlauf → feste Schwellen;
   `RelativeMove` in `Shared/Activity/WhyContext.swift`). Breiter Markt neben BTC/ETH: Median der 24-h-Veränderung
@@ -403,9 +403,9 @@ Davor:
 - **App zurücksetzen** (eigene Karte ganz unten in den Einstellungen, mit Rückfrage): `AppData.resetApp()` leert Einstellungen, Dateien, Mitteilungen, Kennzeichen, Live-Aktivitäten und Hintergrund-Aufgaben; danach Startauswahl wie nach der Installation.
 - **Überschriften einheitlich** klein, fett, in Textfarbe mit kurzem Strich in der Themenfarbe davor (`sectionTitleStyle()` in `App/Components/Components.swift`).
 - **Keine bräunlichen Flächen im Dunkelmodus**: `AccentColor.container` dunkel neutral grau mit Schrift in der Themenfarbe, schwache Akzent-Füllungen über `accent.tint(_:)` (dunkel grau), Aufteilungs-Balken zur hellen Schrift hin gemischt; hell unverändert.
-- **Zurück** aus «Alarme» oder «Warum?» öffnet wieder das Aktionsblatt des Paars; Merkliste mit «Namen anzeigen»: drei Zeilen links/rechts auf einer Linie, ohne Namen «–»; Aktien ohne bStock mit Namen aus der Nasdaq-Symbolliste (`CoinLogoStore.refreshStockNames`).
+- **Zurück** aus «Alarme» oder «Was bewegt sich mit?» öffnet wieder das Aktionsblatt des Paars; Merkliste mit «Namen anzeigen»: drei Zeilen links/rechts auf einer Linie, ohne Namen «–»; Aktien ohne bStock mit Namen aus der Nasdaq-Symbolliste (`CoinLogoStore.refreshStockNames`).
 - **Zahl am App-Symbol** (Einstellungen › Alarme, ab Werk an): neue Alarme und Marktmeldungen zählen am Kennzeichen, beim Öffnen der App wieder 0 (`Notifier.badge`).
-- **«Warum?» als Faktorliste** mit Satz zum Gleichlauf mit Bitcoin, «1 CHF = n Sats» bei BTC-Paaren,
+- **«Was bewegt sich mit?» als Faktorliste** mit Satz zum Gleichlauf mit Bitcoin, «1 CHF = n Sats» bei BTC-Paaren,
   Quelle und Alter je Zeile im Markt-Tab.
 
 Frühere Runden:
@@ -470,7 +470,7 @@ Frühere Runden:
   30 grössten Coins (ohne Stablecoins, mit …USDT auf Binance), die heute deutlich stärker/schwächer als BTC
   laufen, gegen den Markt, mit ungewöhnlichem Volumen (≥ 2× üblich) oder extremem Funding; sonst «Heute
   nichts Auffälliges». Je ein Abruf: 24-h-Ticker (Binance-Spiegel), Funding aller Perpetuals (Binance Futures),
-  Marktkapitalisierung aus der CoinGecko-Rangliste (24 h). Zwischenspeicher 10 Min.; Tippen öffnet «Warum?»
+  Marktkapitalisierung aus der CoinGecko-Rangliste (24 h). Zwischenspeicher 10 Min.; Tippen öffnet «Was bewegt sich mit?»
   (Coin in der Merkliste) oder die Suche auf der Seite «Paar hinzufügen» (`Shared/Insights/MarketUnusual.swift`,
   `App/Features/Cycle/MarketUnusualSource.swift`, `App/Features/Cycle/MarketUnusualCard.swift`).
 - **Hinweis «Wirtschaftsdaten»** (kompakte Zeile über dem Pulse): wichtige US-Daten heute oder in den nächsten

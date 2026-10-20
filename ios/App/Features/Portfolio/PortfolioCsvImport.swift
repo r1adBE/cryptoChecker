@@ -30,6 +30,8 @@ struct PortfolioCsvImportSheet: View {
     /// Tag/Monat bzw. Dezimalzeichen geändert, die Tageskurse dazu aber noch nicht übernommen: die nächste Neuzuordnung
     /// lädt sie (auch wenn inzwischen nur die Zeitzone gewechselt hat und die frühere Neuzuordnung verworfen wird).
     @State var ratesStale = false
+    /// Schreiben gescheitert: nichts importiert — Meldung statt «0 importiert» (wie Android `CsvImportState.SaveFailed`).
+    @State private var saveFailed = false
 
     init(loaded: CsvImportLoaded, onImported: @escaping (_ count: Int, _ enabled: Bool) -> Void) {
         self.loaded = loaded
@@ -130,6 +132,11 @@ struct PortfolioCsvImportSheet: View {
         }
         .tint(accent.primary)
         .onAppear { propose() }
+        .alert(L("portfolio_csv_import_action"), isPresented: $saveFailed) {
+            Button(L("action_close"), role: .cancel) { dismiss() }
+        } message: {
+            Text(L("portfolio_csv_import_failed"))
+        }
     }
 
     /// Vorschläge je Auszahlung (zählende beobachtete Adresse mit passender Änderung → Umbuchung, sonst keine
@@ -209,16 +216,29 @@ struct PortfolioCsvImportSheet: View {
         let batch = PortfolioImportBatch.newId(format: preview.format.rawValue,
                                                time: Int64(Date().timeIntervalSince1970 * 1000),
                                                keys: txs.map(\.importKey))
-        let inserted = data.insertImportedPortfolioTxs(txs.map(PortfolioCsvImporter.tx), batch: batch)
+        // Nicht geschrieben (nil): Grund nennen statt «0 importiert» — wie Android
+        guard let inserted = data.insertImportedPortfolioTxs(txs.map(PortfolioCsvImporter.tx), batch: batch) else {
+            saveFailed = true
+            return
+        }
         // Gespeicherte Seiten verknüpfter Umbuchungen: neu gelesen, inzwischen gelöscht oder verknüpft → ausgelassen;
         // die Transaktion wechselt in diesen Importlauf («Import rückgängig» setzt sie zurück) — wie Android `linkStored`
         var linkedStored = 0
+        var linkFailed = false
         for u in plan.storedUpdates {
-            guard let current = data.portfolio.first(where: { $0.id == u.id }), current.linkedImportKey == nil,
-                  data.savePortfolioTx(PortfolioCsvImporter.linked(current, u, batch: batch)) != nil else { continue }
+            guard let current = data.portfolio.first(where: { $0.id == u.id }), current.linkedImportKey == nil else { continue }
+            guard data.savePortfolioTx(PortfolioCsvImporter.linked(current, u, batch: batch)) != nil else {
+                linkFailed = true
+                continue
+            }
             linkedStored += 1
         }
         let count = inserted + linkedStored
+        // Nur Verknüpfungen und keine davon geschrieben: ebenfalls ein Fehler, nicht «0 importiert»
+        if count == 0 && linkFailed {
+            saveFailed = true
+            return
+        }
         // Erste Transaktion mit ausgeschaltetem Portfolio: einschalten (Tab erscheint), wie von Hand — nur neu angelegte
         var enabled = false
         if inserted > 0, PortfolioOff.enableOnSave(isNew: true, portfolioEnabled: data.settings.portfolioEnabled) {

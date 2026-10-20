@@ -16,6 +16,21 @@ enum WatchlistStorageLock {
         return false
     }
 
+    /// Gesperrt nach diesem Lesen, mit Blick auf den Stand im Speicher: Wurde die Merkliste in diesem Lauf schon einmal
+    /// gelesen (`readBefore`), hält der Speicher den echten Stand — dann sperrt ein vorübergehend unlesbarer Zugriff
+    /// (z. B. Hintergrund bei gesperrtem Gerät) nichts.
+    static func isLocked(_ read: SharedStorage.SnapshotRead, readBefore: Bool) -> Bool {
+        !readBefore && isLocked(read)
+    }
+
+    /// Hält der Speicher nach diesem Lesen den echten Stand (gelesen oder noch keine Datei)?
+    static func holdsStoredState(_ read: SharedStorage.SnapshotRead) -> Bool {
+        switch read {
+        case .ok, .missing: return true
+        case .unreadable, .inaccessible: return false
+        }
+    }
+
     /// Alarm speichern bzw. Schnell-Alarm anlegen sperren?
     static func blocksAlarmSave(locked: Bool) -> Bool { locked }
 }

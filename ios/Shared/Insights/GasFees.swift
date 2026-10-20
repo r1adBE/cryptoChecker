@@ -291,11 +291,12 @@ actor GasDataSource {
 enum GasAlertCheck {
     static let rearmFactor = 1.25
     private static let keyLastCheck = "gas_last_check"
-    private static let keyEthArmed = "gas_eth_armed"
-    private static let keyBtcArmed = "gas_btc_armed"
-    /// Grenze, zu der der gemerkte Zustand gehört (wie Android `eth_threshold`/`btc_threshold`).
-    private static let keyEthThreshold = "gas_eth_threshold"
-    private static let keyBtcThreshold = "gas_btc_threshold"
+    static let keyEthArmed = "gas_eth_armed"
+    static let keyBtcArmed = "gas_btc_armed"
+    /// Grenze, zu der der gemerkte Zustand gehört (wie Android `eth_threshold`/`btc_threshold`); beim Ausschalten
+    /// in den Einstellungen auf «aus» (0) gesetzt (`MarketAlertReset`).
+    static let keyEthThreshold = "gas_eth_threshold"
+    static let keyBtcThreshold = "gas_btc_threshold"
     /// Höchstens alle 10 Minuten.
     private static let minInterval: Int64 = 10 * 60_000
     /// Nach einem fehlgeschlagenen Abruf: so lange bis zum nächsten Versuch (wie Android).

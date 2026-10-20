@@ -22,6 +22,8 @@ struct AlarmsScreen: View {
     @State private var autoOpenDone = false
     /// «Alarm erstellt · Rückgängig» nach einem Schnell-Alarm.
     @State private var banner: WatchlistBannerMessage?
+    /// «Rückgängig», das auf das Schliessen der Dialoge wartet (sonst liefe es unerreichbar dahinter ab) — wie Android.
+    @State private var bannerAfterDialogs: WatchlistBannerMessage?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     /// «Konnte nicht geprüft werden (…)» je Alarm (nur im Speicher).
     @ObservedObject private var checkStatus = AlarmCheckStatus.shared
@@ -142,15 +144,20 @@ struct AlarmsScreen: View {
             Task { notificationsAllowed = await Notifier.isAuthorized() }
         }
         .onAppear {
-            // Paar ohne Alarm: gleich den Editor öffnen statt der leeren Liste — wie Android
+            // Paar ohne Alarm: gleich den Editor öffnen statt der leeren Liste — nicht bei gesperrter Merkliste (wie Android)
             guard !autoOpenDone else { return }
             autoOpenDone = true
-            if watch != nil && alarms.isEmpty && !Self.lowLiquidity(watch) { draft = AlarmDraft.blankFor() }
+            if watch != nil && alarms.isEmpty && !Self.lowLiquidity(watch) && !data.alarmSaveBlocked { draft = AlarmDraft.blankFor() }
         }
         // «Anpassen» aus der Alarm-Mitteilung: Editor dieses Alarms öffnen — nur der Bildschirm seines Paars;
         // bei zu wenig DEX-Liquidität bleibt die Liste mit dem Hinweis (wie Android)
         .onChange(of: router.pendingEditAlarmId, initial: true) { _, id in
-            guard let id, let alarm = alarms.first(where: { $0.id == id }) else { return }
+            guard let id else { return }
+            guard let alarm = alarms.first(where: { $0.id == id }) else {
+                // Alarm gelöscht (alte Mitteilung): Wunsch verwerfen, sonst öffnete ihn ein späterer Bildschirm
+                if !data.alarms.contains(where: { $0.id == id }) { router.pendingEditAlarmId = nil }
+                return
+            }
             router.pendingEditAlarmId = nil
             if !lowLiquidity { draft = AlarmDraft.from(alarm) }
         }
@@ -199,7 +206,8 @@ struct AlarmsScreen: View {
                 existing: current.id == 0 ? nil : data.alarms(for: watchId).first(where: { $0.id == current.id }),
                 onSave: { saved in
                     if data.alarmSaveBlocked { return showSaveLocked() }
-                    guard let threshold = saved.threshold else { return }
+                    // Paar inzwischen gelöscht: nichts gespeichert, der Hinweis «Wann geprüft wird» bleibt unverbraucht
+                    guard let threshold = saved.threshold, data.watch(watchId) != nil else { return }
                     WatchlistHaptics.impact(.light)
                     withAnimation {
                         firstAlarmPending = data.saveAlarm(
@@ -222,13 +230,15 @@ struct AlarmsScreen: View {
                     if created.firstAlarm { firstAlarmPending = true }
                     noteTimingHint(firstAlarm: created.firstAlarm)
                     let id = created.id
-                    banner = WatchlistBannerMessage(
+                    let message = WatchlistBannerMessage(
                         // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig») — wie Android
                         text: templateCreatedText(id), icon: "bell.and.waves.left.and.right.fill",
                         action: WatchlistBannerAction(title: L("action_undo")) {
                             withAnimation { data.deleteAlarm(id) }
                         }
                     )
+                    // Kommt nach dem Editor ein Dialog: «Rückgängig» erst danach zeigen
+                    if firstAlarmPending || timingHintPending { bannerAfterDialogs = message } else { banner = message }
                 }
             )
             .environmentObject(data)
@@ -272,6 +282,11 @@ struct AlarmsScreen: View {
             .environmentObject(data)
             .environment(\.appAccent, accent)
         }
+        .onChange(of: dialogsOpen) { _, open in
+            guard !open, let message = bannerAfterDialogs else { return }
+            bannerAfterDialogs = nil
+            banner = message
+        }
         .alarmTestRunner(trigger: alarmTestTrigger)
         // Einmal nach dem Speichern: ehrlich, wann geprüft wird
         .alarmTimingAlert(isPresented: $showTimingHint)
@@ -280,6 +295,11 @@ struct AlarmsScreen: View {
             WatchlistBanner(message: $banner) { _ in }
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
         }
+    }
+
+    /// Editor oder ein Dialog danach offen (bzw. vorgemerkt): Die Bestätigung mit «Rückgängig» wartet (`bannerAfterDialogs`).
+    private var dialogsOpen: Bool {
+        draft != nil || firstAlarmPending || timingHintPending || showFirstAlarm || showTimingHint || showDelivery
     }
 
     /// Merkliste gerade nicht lesbar (`AppData.alarmSaveBlocked`): nichts angelegt, sagen warum (der Editor schliesst sich)

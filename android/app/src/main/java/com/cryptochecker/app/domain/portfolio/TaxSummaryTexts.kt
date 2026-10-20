@@ -71,8 +71,8 @@ fun TaxSummaryTexts.wealthCoinLabel(coin: String, amount: String): String =
     else wealthCoin.replace(TAX_WEALTH_COIN, coin).replace(TAX_WEALTH_AMOUNT, amount)
 
 /**
- * Hinweis eines Coins im Vermögenswert: «nicht gerechnet – kein Kurs» usw.; ohne Devisenkurs [TaxSummaryTexts.noFx]; leer =
- * gerechnet.
+ * Hinweis eines Coins im Vermögenswert: «nicht gerechnet – kein Kurs» usw., nur teilweise gerechnet «unvollständig – Adresse
+ * nicht beobachtet» ([TaxWealthRow.incomplete]); ohne Devisenkurs [TaxSummaryTexts.noFx]; leer = gerechnet.
  */
 fun TaxSummaryTexts.wealthCoinNote(r: TaxWealthRow): String {
     val reasons = listOfNotNull(
@@ -80,7 +80,12 @@ fun TaxSummaryTexts.wealthCoinNote(r: TaxWealthRow): String {
         wealthUnchecked.takeIf { r.unchecked && it.isNotEmpty() },
         wealthAddressUnobserved.takeIf { r.addressUnobserved && it.isNotEmpty() },
     )
-    val missing = if (r.missing) (listOfNotNull(wealthMissing.takeIf { it.isNotEmpty() }) + reasons).joinToString(" – ") else ""
+    val head = when {
+        r.missing -> wealthMissing
+        r.incomplete -> incomplete
+        else -> null
+    }
+    val missing = if (head != null) (listOfNotNull(head.takeIf { it.isNotEmpty() }) + reasons).joinToString(" – ") else ""
     return listOf(missing, noFx.takeIf { r.noFx && !r.missing }.orEmpty()).filter { it.isNotEmpty() }.joinToString(", ")
 }
 

@@ -48,6 +48,7 @@
     <string name="portfolio_csv_import_transfers_hint">Un retrait et le dépôt correspondant du même coin deviennent un seul transfert : le prix d’achat et la durée de détention sont conservés, la différence compte comme frais de réseau.</string>
     <string name="portfolio_csv_import_transfers_title">Transferts entre vos comptes</string>
     <string name="portfolio_csv_import_unreadable">Aucune transaction prise en charge trouvée. Pris en charge : exports CSV de Relai, Swissquote, Kraken, Binance, Coinbase et Bitpanda.</string>
+    <string name="portfolio_csv_import_failed">L’importation a échoué – rien n’a été enregistré. Veuillez réessayer.</string>
     <string name="portfolio_csv_import_withdrawals_title">Retraits – où sont allés les coins ?</string>
     <string name="portfolio_csv_import_zone">Heures sans fuseau horaire lues comme : %1$s</string>
     <string name="portfolio_csv_import_zone_device">Appareil (%1$s)</string>

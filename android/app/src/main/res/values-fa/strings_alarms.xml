@@ -174,4 +174,5 @@
     <string name="alarm_status_low_liquidity">بدون هشدار – نقدشوندگی پایین</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">در انتظار قیمت به‌روز</string>
+    <string name="alarm_enter_amount">مبلغ را وارد کن</string>
 </resources>
