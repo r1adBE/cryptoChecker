@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="alarm_first_check">Kiểm tra cảnh báo có đến nơi</string>
-    <string name="change_candle_source_hint">Tính từ nến %1$s – bản thân sàn không cung cấp giá trị này.</string>
-    <string name="change_candle_source_action">Hiện nguồn của biến động</string>
-</resources>

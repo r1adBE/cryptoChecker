@@ -38,4 +38,8 @@
     <string name="address_unsupported">Denne adressetype understøttes ikke</string>
     <string name="address_wrong_chain">Adressen hører til et andet netværk</string>
     <string name="address_xpub_multisig">Multisig-nøgler (Ypub/Zpub) understøttes ikke</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Taproot-konto (BIP86): Der udledes bc1p…-adresser fra denne nøgle, til modtagelse og byttepenge.</string>
+    <string name="portfolio_address_taproot_hint">Taproot-wallet? Indsæt i stedet deskriptoren tr(…) fra din wallet – en almindelig xpub gennemsøges kun som Legacy- og SegWit-adresser.</string>
 </resources>

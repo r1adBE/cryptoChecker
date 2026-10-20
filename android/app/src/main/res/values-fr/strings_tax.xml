@@ -80,7 +80,6 @@
     <string name="tax_export_summary">Récapitulatif annuel %1$s (CSV)</string>
     <string name="tax_export_swap">échange</string>
     <string name="tax_export_tax_year">Année fiscale</string>
-    <string name="tax_export_time_zone">Fuseau horaire : %1$s</string>
     <string name="tax_export_transfer_fee_info">Frais de transfert en USDT/espèces – pas une perte, hors coût de revient, à titre d’information</string>
     <string name="tax_export_unassigned_fee">frais non attribués – coût de revient inconnu</string>
     <string name="tax_export_usdt_usd_note">USDT converti au cours de clôture quotidien USDT/USD ; sans clôture 1 USD (indiqué par ligne)</string>
@@ -134,15 +133,12 @@
     <string name="tax_de_explain_loss">Perte nette : aucun impôt sur ces ventes. Les pertes au sens du § 23 EStG ne s’imputent que sur les gains de ventes privées – la même année ou par report sur l’année précédente et sur les années suivantes (§ 23 Abs. 3 / § 10d EStG). Déclarez la perte dans votre déclaration d’impôt afin qu’elle soit constatée.</string>
     <string name="tax_de_explain_reached">À partir de %1$s tout le montant compte (seuil d’exonération – pas un abattement).</string>
     <string name="tax_de_explain_unknown">Non vérifiable : il manque des taux de change / des prix d’achat ou des durées de détention.</string>
-    <string name="tax_de_income">Revenus de prestations (§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_income_limit">Seuil d’exonération prestations (§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_limit_scope">Les seuils s’appliquent à l’ensemble des ventes privées ou des prestations de l’année – y compris hors de l’app.</string>
     <string name="tax_de_loading">Calcul en cours…</string>
     <string name="tax_de_long_gains">Gains – détenu &gt; 1 an</string>
     <string name="tax_de_long_losses">Pertes – détenu &gt; 1 an</string>
     <string name="tax_de_loss">perte nette – imputable uniquement sur les gains de ventes privées (§ 23 EStG)</string>
-    <string name="tax_de_needs_eur">nécessite des valeurs en EUR (taux de change manquants)</string>
-    <string name="tax_de_needs_holding">durée de détention manquante (méthode moyenne) – choisissez FIFO pour la vérification</string>
     <string name="tax_de_private_limit">Seuil d’exonération ventes privées (§ 23 EStG)</string>
     <string name="tax_de_reached">seuil atteint – en règle générale tout le montant compte – à vérifier</string>
     <string name="tax_de_short_gains">Gains – détenu ≤ 1 an</string>
@@ -203,4 +199,51 @@
     <string name="tax_summary_title">Récapitulatif annuel %1$s %2$s</string>
     <string name="tax_summary_transfer_fee_info">Frais de transfert en USDT/espèces – ni perte ni coût de revient, à titre d’information</string>
     <string name="tax_summary_withdrawal_fee_info">Frais de retrait en USDT/espèces – non comptés comme perte, à titre d’information</string>
+
+    <string name="tax_line_at_old_speculation_limit">Opérations spéculatives (ancien régime, détenu ≤ 1 an) : seuil d’exonération (§ 31 al. 3 EStG, ancienne version)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Intérêts de prêt avant le 1.3.2022 (valeur à la réception)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Intérêts avant le 1.3.2022 : ancien régime (barème), pas 27,5 pour cent</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">avant le 1.3.2022 – à vérifier avec un professionnel</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Intérêts – imposables à l’encaissement</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – pour information uniquement (coût d’acquisition 0, imposé à la vente)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Total intérêts (imposables)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Total staking (information)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Perte en capital nette (report)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">sans option : ventes du 1.1. au 28.2.2022 incluses</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking avant le 1.3.2022 : coût d’acquisition fixé à 0 – à vérifier avec un professionnel</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">La règle des 30 jours peut encore modifier ces chiffres (achats jusqu’au %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Produits de cession avant frais supérieurs au seuil de déclaration (50 000 £ ; 2020/21–2022/23 : 49 200 £) : déclaration à HMRC si tu es inscrit au Self Assessment, même sans plus-value imposable</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Valeur de la fortune au 31.12.%1$s (à titre indicatif)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">La liste des cours de l’AFC (ictax.admin.ch) fait foi. Pour les coins sans cours dans la liste, le cours de clôture de la plateforme s’applique en règle générale. Impôt sur la fortune non calculé.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – avoir %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">non calculé</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Impossible de lire les adresses suivies – leurs soldes manquent dans ce fichier</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Les adresses surveillées comptent dans la valeur globale mais n\'ont pas de prix d\'acquisition – la plus-value est donc plutôt surestimée. Saisissez le prix d\'acquisition comme achat.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Valeurs de marché sans prix saisi (frais, donné/payé, échange, récompenses, frais de réseau, valeur du portefeuille) à la clôture journalière (UTC) du jour de la transaction</string>
 </resources>

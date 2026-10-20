@@ -68,4 +68,7 @@
     </plurals>
     <string name="portfolio_imports_empty">无导入</string>
     <string name="portfolio_imports_title">导入记录</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">相同交易 ID 但数量不同 – 请手动核对</string>
+    <string name="portfolio_csv_skip_staking_unpaired">质押记录缺少对应记录 – 请核对余额</string>
 </resources>

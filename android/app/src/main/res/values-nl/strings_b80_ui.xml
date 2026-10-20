@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="starter_source_text">Koersen van %1$s in %2$s. Vink uit wat je niet wilt en voeg de rest in één keer toe. Beurs en paar kun je per coin wijzigen.</string>
-    <string name="watchlist_row_exchange_paused">%1$s · gepauzeerd tot %2$s</string>
-</resources>

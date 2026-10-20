@@ -75,4 +75,7 @@
     </plurals>
     <string name="portfolio_imports_empty">Inga importer</string>
     <string name="portfolio_imports_title">Importer</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">samma transaktions-ID med annat belopp – kontrollera manuellt</string>
+    <string name="portfolio_csv_skip_staking_unpaired">stakingpost utan motpost – kontrollera innehavet</string>
 </resources>

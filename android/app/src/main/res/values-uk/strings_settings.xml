@@ -269,4 +269,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Вібрація залежить від налаштувань iPhone (Звуки й тактильні сигнали).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Рахує нові сигнали й ринкові сповіщення; скидається, коли відкриваєте застосунок.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Ваші дані</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">На пристрої</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Список, сигнали й портфель зберігаються зашифрованими на цьому пристрої; без облікового запису, без власного сервера.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">З’єднання</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Курси надходять безпосередньо з бірж ваших пар, а також курси валют, списки й логотипи монет і дзеркало даних на GitHub; вони бачать вашу IP-адресу, але ніколи ваші активи (відстежувані адреси передаються постачальнику відповідної мережі).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Резервна копія</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Лише якщо ви її створюєте; з паролем зашифрована (Argon2id + AES-256-GCM), без пароля читабельна.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Зміна пристрою</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Ключ залишається на старому пристрої – спершу створіть файл резервної копії.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Поділитися діагностикою</string>
+    <string name="diagnostics_share_hint">Текстовий файл для підтримки: версія, пристрій, налаштування сигналів, останні перевірки та журнал сигналів – без портфеля, сум, адрес і нотаток. Спершу ви його побачите; нічого не надсилається автоматично.</string>
+    <string name="diagnostics_preview_title">Діагностика – перегляд</string>
+    <string name="diagnostics_action_share">Поділитися</string>
 </resources>

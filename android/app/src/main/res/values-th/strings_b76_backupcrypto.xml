@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
-    <string name="backup_not_enough_memory">หน่วยความจำว่างไม่พอสำหรับป้องกันหรือเปิดข้อมูลสำรองด้วยรหัสผ่าน ปิดแอปอื่นแล้วลองอีกครั้ง</string>
-</resources>

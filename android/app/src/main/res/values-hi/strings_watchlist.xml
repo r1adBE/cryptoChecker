@@ -9,7 +9,6 @@
     </plurals>
     <string name="watchlist_last_run">पिछला रन %1$s</string>
     <string name="watchlist_live_a11y">लाइव भाव चालू</string>
-    <string name="watchlist_live_badge">लाइव</string>
     <string name="watchlist_offline_since">कनेक्शन नहीं · अंतिम अपडेट %1$s</string>
     <string name="watchlist_pull_to_refresh">रीफ़्रेश के लिए नीचे खींचें</string>
     <string name="watchlist_refresh_report">पिछला रीफ़्रेश</string>
@@ -190,4 +189,30 @@
     <string name="sort_move_down">नीचे</string>
     <string name="sort_move_top">सबसे ऊपर</string>
     <string name="sort_move_up">ऊपर</string>
+
+    <string name="watchlist_first_alarm_title">अपना पहला अलार्म सेट करें</string>
+    <string name="watchlist_first_alarm_text">जब कोई भाव आपकी तय सीमा तक पहुँचे, सूचना पाएँ – ऐप बंद होने पर Android अनियमित रूप से जाँचता है।</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">मार्क भाव (मध्य भाव नहीं)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">घंटे का भाव</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">अपना पहला अलार्म सेट करें – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">रीफ़्रेश (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s तक रोका गया</string>
+
+    <string name="watchlist_refresh_just_done">अभी अपडेट हुआ · %1$d से. पहले</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">अंतिम ट्रेड %1$s</string>
+
+    <string name="change_candle_source_hint">%1$s कैंडल से गणना की गई – एक्सचेंज ख़ुद यह मान नहीं देता।</string>
+    <string name="change_candle_source_action">बदलाव का स्रोत दिखाएँ</string>
+
+    <string name="watchlist_sort_by_coin">कॉइन के अनुसार क्रमबद्ध करें</string>
+    <string name="watchlist_sort_by_exchange">एक्सचेंज के अनुसार क्रमबद्ध करें</string>
 </resources>

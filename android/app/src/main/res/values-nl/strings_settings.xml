@@ -265,4 +265,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Trillen volgt de iPhone-instellingen (Geluiden en haptiek).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Telt nieuwe alarmen en marktmeldingen; terug naar 0 als je de app opent.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Je gegevens</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Op het apparaat</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Lijst, alarmen en portfolio staan versleuteld op dit apparaat; geen account, geen eigen server.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Verbindingen</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Koersen komen rechtstreeks van de beurzen van je paren, plus wisselkoersen, coinlijsten en logo’s en de dataspiegel op GitHub; zij zien je IP-adres, nooit je bezit (gevolgde adressen gaan naar de aanbieder van het betreffende netwerk).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Back-up</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Alleen als je er zelf een maakt; met wachtwoord versleuteld (Argon2id + AES-256-GCM), zonder wachtwoord leesbaar.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Ander apparaat</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">De sleutel blijft op het oude apparaat – maak eerst een back-upbestand.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Diagnose delen</string>
+    <string name="diagnostics_share_hint">Tekstbestand voor support: versie, apparaat, alarminstellingen, laatste controles en alarmlogboek – zonder portfolio, bedragen, adressen of notities. Je ziet het eerst; er wordt niets automatisch verzonden.</string>
+    <string name="diagnostics_preview_title">Diagnose – voorbeeld</string>
+    <string name="diagnostics_action_share">Delen</string>
 </resources>

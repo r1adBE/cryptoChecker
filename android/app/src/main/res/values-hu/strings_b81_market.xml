@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">A figyelt címek beleszámítanak a teljes értékbe, de nincs beszerzési áruk – ezért a nyereség inkább túl magas. Rögzítsd a beszerzési árat vételként.</string>
-</resources>

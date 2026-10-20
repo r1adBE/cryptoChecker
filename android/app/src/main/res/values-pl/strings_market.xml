@@ -33,8 +33,6 @@
     <string name="market_plain_standout_quiet">Obecnie żadna moneta szczególnie się nie wyróżnia.</string>
     <string name="market_plain_standout_volume">Wyróżnia się %1$s: około %2$s razy większy obrót niż zwykle.</string>
     <string name="market_plain_title">W skrócie</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · wczoraj %2$s</string>
     <string name="market_section_collapse">Ukryj: %1$s</string>
     <string name="market_section_context">Nastroje i cykl</string>
     <string name="market_section_data">Dane rynkowe</string>
@@ -256,4 +254,22 @@
         <item quantity="other">Tylko %1$d dni historii – brakuje niektórych wskaźników.</item>
     </plurals>
     <string name="coin_title">Analiza monety</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Dane: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Zwycięzcy i przegrani 24 h</string>
+    <string name="movers_gainers">Zwycięzcy</string>
+    <string name="movers_losers">Przegrani</string>
+    <string name="movers_no_gainers">Żadna moneta nie wzrosła w 24 h</string>
+    <string name="movers_no_losers">Żadna moneta nie spadła w 24 h</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 bez stablecoinów</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Pokaż wszystkie</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Pokaż mniej</string>
 </resources>

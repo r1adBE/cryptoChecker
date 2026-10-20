@@ -8,7 +8,6 @@
     </plurals>
     <string name="watchlist_last_run">Lần chạy gần nhất %1$s</string>
     <string name="watchlist_live_a11y">Giá trực tiếp đang bật</string>
-    <string name="watchlist_live_badge">TRỰC TIẾP</string>
     <string name="watchlist_offline_since">Không có kết nối · cập nhật %1$s</string>
     <string name="watchlist_pull_to_refresh">Kéo xuống để làm mới</string>
     <string name="watchlist_refresh_report">Lần làm mới gần nhất</string>
@@ -178,4 +177,30 @@
     <string name="sort_move_down">Xuống</string>
     <string name="sort_move_top">Lên trên cùng</string>
     <string name="sort_move_up">Lên</string>
+
+    <string name="watchlist_first_alarm_title">Đặt cảnh báo đầu tiên</string>
+    <string name="watchlist_first_alarm_text">Nhận thông báo khi giá chạm mức bạn đặt – khi ứng dụng đóng, Android kiểm tra không đều đặn.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">giá mark (không có giá giữa)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">giá theo giờ</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Đặt cảnh báo đầu tiên – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Làm mới (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · tạm dừng đến %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Vừa cập nhật · %1$d giây trước</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">giao dịch gần nhất %1$s</string>
+
+    <string name="change_candle_source_hint">Tính từ nến %1$s – bản thân sàn không cung cấp giá trị này.</string>
+    <string name="change_candle_source_action">Hiện nguồn của biến động</string>
+
+    <string name="watchlist_sort_by_coin">Sắp xếp theo coin</string>
+    <string name="watchlist_sort_by_exchange">Sắp xếp theo sàn</string>
 </resources>

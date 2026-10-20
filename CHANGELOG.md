@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 86)
+
+* Internal clean-up: string files grouped by topic, unused strings removed, translation check enabled in lint, no change in behaviour.
+
 ## 16.2.2 (build 85)
 
 * Twelve more exchanges (now 53 markets on 44 exchanges plus DexScreener): bitbank and Coincheck (Japan), BTC Markets

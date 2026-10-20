@@ -43,4 +43,6 @@
     <string name="shortcut_add">पेयर जोड़ें</string>
     <string name="shortcut_alarms">सभी अलार्म</string>
     <string name="shortcut_cycle">बाज़ार</string>
+
+    <string name="log_box_title">लॉग</string>
 </resources>

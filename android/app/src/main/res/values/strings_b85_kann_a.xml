@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Hauptknopf im Dialog nach dem allerersten Alarm: öffnet «Damit Alarme ankommen» (delivery_title) -->
-    <string name="alarm_first_check">Check that alerts arrive</string>
-    <!-- Hinweis beim Tippen auf das «*» an der %-Änderung der Merklisten-Zeile (Wert aus den Kerzen einer anderen Börse); %1$s = Anbieter («Binance», «Binance.US», «Coinbase»), wie change_candle_source -->
-    <string name="change_candle_source_hint">Calculated from %1$s candles – the exchange itself doesn’t provide this value.</string>
-    <!-- Screenreader-Aktion der Merklisten-Zeile, die denselben Hinweis zeigt -->
-    <string name="change_candle_source_action">Show source of change</string>
-</resources>

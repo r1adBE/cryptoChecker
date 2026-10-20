@@ -261,4 +261,44 @@
         <item quantity="one">بدون %1$d سکه بدون قیمت خرید (%2$s) – قیمت را وارد کنید تا حساب شود.</item>
         <item quantity="other">بدون %1$d سکه بدون قیمت خرید (%2$s) – قیمت‌ها را وارد کنید تا حساب شوند.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">سقوط USDT – بازار در %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">نرخ دلاری USDT از طریق USDC/USDT – اگر USDC افت کند، این مقدار درست نیست</string>
+    <string name="portfolio_amount_bridged_stable">≈ شامل %1$s (پل‌شده)</string>
+
+    <string name="portfolio_tx_interest">سود (وام‌دهی)</string>
+    <string name="portfolio_tx_interest_hint">هنگام دریافت درآمد حساب می‌شود (اتریش). برای پاداش‌های استیکینگ و ایردراپ خاموش بگذار.</string>
+    <string name="app_lock_no_screen_lock">برای باز کردن سبد، قفل صفحه را تنظیم کن.</string>
+    <string name="app_lock_turn_off_action">خاموش کردن قفل سبد</string>
+    <string name="app_lock_turn_off_confirm_title">قفل سبد خاموش شود؟</string>
+    <string name="app_lock_turn_off_confirm_message">بدون قفل صفحه، سبد باز نمی‌شود. با خاموش کردن، برنامه سبد را دوباره بدون پرسش نشان می‌دهد. پس از تنظیم قفل صفحه می‌توانی قفل را در تنظیمات دوباره روشن کنی.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«از زمان خرید» و بهای تمام‌شده به %1$s: بهای تمام‌شده با نرخ ارز روز خرید، ارزش با نرخ امروز.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">نرخ ارزی برای روز خرید وجود ندارد (در «از زمان خرید» و بهای تمام‌شده لحاظ نشده): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">بهای تمام‌شده در روزهای خرید بدون نرخ دلاری USDT با ۱ دلار آمریکا برای هر USDT محاسبه شد.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">تا %1$s – صرافی در دسترس نیست</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">قیمت‌های روزانه: %1$s (به جای Binance)</string>
+
+    <string name="portfolio_footer_short">ابزار کمکی کار، نه مشاوره مالیاتی یا سرمایه‌گذاری. حریم خصوصی: تنظیمات › درباره برنامه › سیاست حفظ حریم خصوصی.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">همهٔ تراکنش‌های %1$s حذف شود؟</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d تراکنش حذف می‌شود. می‌توانید بلافاصله پس از آن، این کار را واگرد کنید.</item>
+        <item quantity="other">%d تراکنش حذف می‌شود. می‌توانید بلافاصله پس از آن، این کار را واگرد کنید.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s از پرتفوی حذف شد (%2$d تراکنش)</item>
+        <item quantity="other">%1$s از پرتفوی حذف شد (%2$d تراکنش)</item>
+    </plurals>
 </resources>

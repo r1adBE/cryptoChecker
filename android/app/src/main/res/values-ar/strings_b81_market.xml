@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">تُحتسب العناوين المراقَبة ضمن القيمة الإجمالية لكن ليست لها تكلفة اقتناء – لذلك يكون الربح على الأرجح أعلى من اللازم. سجّل التكلفة كعملية شراء.</string>
-</resources>

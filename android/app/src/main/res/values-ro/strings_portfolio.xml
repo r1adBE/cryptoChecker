@@ -265,4 +265,46 @@
         <item quantity="few">Fără %1$d monede fără preț de cumpărare (%2$s) – adaugă prețurile ca să conteze.</item>
         <item quantity="other">Fără %1$d de monede fără preț de cumpărare (%2$s) – adaugă prețurile ca să conteze.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Prăbușire USDT – piață la %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Cursul în dolari al USDT prin USDC/USDT – dacă USDC scade, această valoare nu este corectă</string>
+    <string name="portfolio_amount_bridged_stable">≈ incl. %1$s (punte)</string>
+
+    <string name="portfolio_tx_interest">Dobândă (împrumut)</string>
+    <string name="portfolio_tx_interest_hint">Se socotește venit la încasare (Austria). Lasă dezactivat pentru recompense de staking și airdropuri.</string>
+    <string name="app_lock_no_screen_lock">Configurează o blocare a ecranului pentru a deschide portofoliul.</string>
+    <string name="app_lock_turn_off_action">Dezactivează blocarea portofoliului</string>
+    <string name="app_lock_turn_off_confirm_title">Dezactivezi blocarea portofoliului?</string>
+    <string name="app_lock_turn_off_confirm_message">Fără blocarea ecranului, portofoliul nu poate fi deblocat. Dezactivată, aplicația îți arată din nou portofoliul fără să întrebe. După ce configurezi blocarea ecranului, poți reactiva blocarea din Setări.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">„De la cumpărare” și cost de achiziție în %1$s: cost la cursul de schimb din ziua cumpărării, valoare la cursul de azi.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Fără curs de schimb pentru ziua cumpărării (lipsește din „De la cumpărare” și din cost): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Costul din zilele de cumpărare fără curs în dolari al USDT calculat ca 1 dolar american per USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Situație la %1$s – bursa nu poate fi accesată</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Prețuri zilnice: %1$s (în loc de Binance)</string>
+
+    <string name="portfolio_footer_short">Instrument de lucru, nu consultanță fiscală sau de investiții. Confidențialitate: Setări › Despre aplicație › Politica de confidențialitate.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Ștergi toate tranzacțiile pentru %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">Va fi eliminată %d tranzacție. Poți anula imediat după aceea.</item>
+        <item quantity="few">Vor fi eliminate %d tranzacții. Poți anula imediat după aceea.</item>
+        <item quantity="other">Vor fi eliminate %d de tranzacții. Poți anula imediat după aceea.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s a fost eliminat din portofoliu (%2$d tranzacție)</item>
+        <item quantity="few">%1$s a fost eliminat din portofoliu (%2$d tranzacții)</item>
+        <item quantity="other">%1$s a fost eliminat din portofoliu (%2$d de tranzacții)</item>
+    </plurals>
 </resources>

@@ -80,7 +80,6 @@
     <string name="tax_export_summary">年間サマリー %1$s（CSV）</string>
     <string name="tax_export_swap">スワップ</string>
     <string name="tax_export_tax_year">課税年度</string>
-    <string name="tax_export_time_zone">タイムゾーン：%1$s</string>
     <string name="tax_export_transfer_fee_info">USDT・法定通貨の振替手数料 – 損失ではなく取得原価にも含めない参考情報</string>
     <string name="tax_export_unassigned_fee">手数料は未配分 – 取得原価不明</string>
     <string name="tax_export_usdt_usd_note">USDT は USDT/USD の日次終値で換算。終値がない日は 1 USD（行ごとに注記）</string>
@@ -134,15 +133,12 @@
     <string name="tax_de_explain_loss">純損失：これらの売却に税金はかかりません。§ 23 EStG の損失は私的譲渡の利益とのみ相殺できます – 同じ年に、または前年への繰戻しと翌年以降への繰越しで（§ 23 Abs. 3 / § 10d EStG）。損失が確定されるよう確定申告に記載してください。</string>
     <string name="tax_de_explain_reached">%1$s 以上は全額が対象です（非課税限度 – 控除額ではありません）。</string>
     <string name="tax_de_explain_unknown">確認できません：為替レート・購入価格・保有期間のいずれかがありません。</string>
-    <string name="tax_de_income">役務による所得（§ 22 Nr. 3 EStG）</string>
     <string name="tax_de_income_limit">役務の非課税限度（§ 22 Nr. 3 EStG）</string>
     <string name="tax_de_limit_scope">限度は年内のすべての私的譲渡または役務の合計に適用されます – アプリ外の分も含みます。</string>
     <string name="tax_de_loading">計算中…</string>
     <string name="tax_de_long_gains">利益、保有1年超</string>
     <string name="tax_de_long_losses">損失、保有1年超</string>
     <string name="tax_de_loss">純損失 – 私的譲渡の利益とのみ相殺可能（§ 23 EStG）</string>
-    <string name="tax_de_needs_eur">EUR 建ての値が必要（為替レートなし）</string>
-    <string name="tax_de_needs_holding">保有期間なし（平均法）– 確認には FIFO を選択</string>
     <string name="tax_de_private_limit">私的譲渡の非課税限度（§ 23 EStG）</string>
     <string name="tax_de_reached">限度到達 – 通常は全額が対象 – 要確認</string>
     <string name="tax_de_short_gains">利益、保有1年以内</string>
@@ -203,4 +199,51 @@
     <string name="tax_summary_title">年間サマリー %1$s %2$s</string>
     <string name="tax_summary_transfer_fee_info">USDT・法定通貨の振替手数料 – 損失でも取得原価でもなく、参考情報のみ</string>
     <string name="tax_summary_withdrawal_fee_info">USDT・法定通貨の出庫手数料 – 損失に含めず、参考情報のみ</string>
+
+    <string name="tax_line_at_old_speculation_limit">投機取引（旧法、保有1年以内）：非課税限度額（旧EStG第31条第3項）</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">2022年3月1日より前のレンディング利息（受取時の価値）</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">2022年3月1日より前の利息：旧制度（累進税率）、27.5 パーセントではありません</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">2022年3月1日より前 – 専門家にご確認ください</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">利息 – 受取時に課税</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">ステーキング – 参考情報のみ（取得価額0、売却時に課税）</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">利息合計（課税対象）</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">ステーキング合計（参考）</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">純キャピタルロス（繰越）</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">選択なし：2022年1月1日～2月28日の売却を含む</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">2022年3月1日より前のステーキング：取得価額を 0 として計上 – 専門家にご確認ください</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30日ルールによりこれらの数値はまだ変わる可能性があります（%1$s までの購入）</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">手数料控除前の譲渡収入が報告基準額を超過（£50,000、2020/21–2022/23 は £49,200）：Self Assessment に登録している場合、課税対象の利益がなくても HMRC への申告が必要</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">%1$s年12月31日の財産評価額（目安）</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">基準は ESTV 価格リスト（ictax.admin.ch）です。リストにないコインには通常、取引所の終値が適用されます。財産税は計算していません。</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – 保有量 %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">未計算</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">監視中のアドレスを読み込めませんでした – その残高はこのファイルに含まれていません</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">監視中のアドレスは総額に含まれますが、取得原価がありません。そのため利益は高めに出ている可能性があります。取得原価を購入として記録してください。</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">価格の記録がない時価（手数料、贈与/支払い、交換、報酬、ネットワーク手数料、ポートフォリオ総額）は取引日の終値（UTC）</string>
 </resources>

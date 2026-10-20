@@ -10,7 +10,6 @@
     </plurals>
     <string name="watchlist_last_run">ריצה אחרונה %1$s</string>
     <string name="watchlist_live_a11y">מחירים חיים פעילים</string>
-    <string name="watchlist_live_badge">חי</string>
     <string name="watchlist_offline_since">אין חיבור · עדכון אחרון %1$s</string>
     <string name="watchlist_pull_to_refresh">משכו למטה לרענון</string>
     <string name="watchlist_refresh_report">רענון אחרון</string>
@@ -202,4 +201,30 @@
     <string name="sort_move_down">למטה</string>
     <string name="sort_move_top">לראש הרשימה</string>
     <string name="sort_move_up">למעלה</string>
+
+    <string name="watchlist_first_alarm_title">הגדר את ההתראה הראשונה</string>
+    <string name="watchlist_first_alarm_text">קבל הודעה כשמחיר מגיע לרף שלך – כשהאפליקציה סגורה, Android בודק באופן לא סדיר.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">מחיר mark (אין מחיר אמצע)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">מחיר שעתי</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">הגדר את ההתראה הראשונה – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">רענון (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · מושהה עד %2$s</string>
+
+    <string name="watchlist_refresh_just_done">עודכן הרגע · לפני %1$d שנ׳</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">עסקה אחרונה %1$s</string>
+
+    <string name="change_candle_source_hint">חושב לפי נרות %1$s – הבורסה עצמה לא מספקת ערך זה.</string>
+    <string name="change_candle_source_action">הצגת מקור השינוי</string>
+
+    <string name="watchlist_sort_by_coin">מיון לפי מטבע</string>
+    <string name="watchlist_sort_by_exchange">מיון לפי בורסה</string>
 </resources>

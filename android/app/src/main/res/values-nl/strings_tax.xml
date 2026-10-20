@@ -80,7 +80,6 @@
     <string name="tax_export_summary">Jaaroverzicht %1$s (CSV)</string>
     <string name="tax_export_swap">ruil</string>
     <string name="tax_export_tax_year">Belastingjaar</string>
-    <string name="tax_export_time_zone">Tijdzone: %1$s</string>
     <string name="tax_export_transfer_fee_info">Overboekingskosten in USDT/contant – geen verlies, niet in de kostprijs, alleen ter informatie</string>
     <string name="tax_export_unassigned_fee">kosten niet toegewezen – kostprijs onbekend</string>
     <string name="tax_export_usdt_usd_note">USDT omgerekend tegen de dagslotkoers USDT/USD; zonder slotkoers 1 USD (per regel vermeld)</string>
@@ -134,15 +133,12 @@
     <string name="tax_de_explain_loss">Nettoverlies: geen belasting op deze verkopen. Verliezen volgens § 23 EStG zijn alleen verrekenbaar met winsten uit privéverkopen – in hetzelfde jaar of door terugwenteling naar het vorige jaar en voorwaartse verrekening naar latere jaren (§ 23 Abs. 3 / § 10d EStG). Geef het verlies op in je belastingaangifte zodat het wordt vastgesteld.</string>
     <string name="tax_de_explain_reached">Vanaf %1$s telt het hele bedrag (vrijstellingsgrens – geen vrijgesteld bedrag).</string>
     <string name="tax_de_explain_unknown">Niet controleerbaar: wisselkoersen / aankoopprijzen of aanhoudduren ontbreken.</string>
-    <string name="tax_de_income">Inkomsten uit diensten (§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_income_limit">Vrijstellingsgrens diensten (§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_limit_scope">De grenzen gelden voor alle particuliere verkopen of diensten van het jaar samen – ook buiten de app.</string>
     <string name="tax_de_loading">Berekenen…</string>
     <string name="tax_de_long_gains">Winsten – aangehouden &gt; 1 jaar</string>
     <string name="tax_de_long_losses">Verliezen – aangehouden &gt; 1 jaar</string>
     <string name="tax_de_loss">nettoverlies – alleen verrekenbaar met winsten uit privéverkopen (§ 23 EStG)</string>
-    <string name="tax_de_needs_eur">vereist EUR-waarden (wisselkoersen ontbreken)</string>
-    <string name="tax_de_needs_holding">aanhoudduur ontbreekt (gemiddelde methode) – kies FIFO voor de controle</string>
     <string name="tax_de_private_limit">Vrijstellingsgrens particuliere verkopen (§ 23 EStG)</string>
     <string name="tax_de_reached">grens bereikt – doorgaans telt het hele bedrag – controleer</string>
     <string name="tax_de_short_gains">Winsten – aangehouden ≤ 1 jaar</string>
@@ -203,4 +199,51 @@
     <string name="tax_summary_title">Jaaroverzicht %1$s %2$s</string>
     <string name="tax_summary_transfer_fee_info">Overboekingskosten in USDT/contant – geen verlies en niet in de kostprijs, alleen ter informatie</string>
     <string name="tax_summary_withdrawal_fee_info">Opnamekosten in USDT/contant – niet als verlies geteld, alleen ter informatie</string>
+
+    <string name="tax_line_at_old_speculation_limit">Speculatieve transacties (oude regeling, ≤ 1 jaar aangehouden): vrijstellingsgrens (§ 31 lid 3 EStG, oude versie)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Rente uit lending vóór 1-3-2022 (waarde bij ontvangst)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Rente vóór 1-3-2022: oude regeling (tarief), niet 27,5 procent</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">vóór 1-3-2022 – met een deskundige nagaan</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Rente – belast bij ontvangst</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – alleen ter informatie (aanschaffingskosten 0, belast bij verkoop)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Totaal rente (belastbaar)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Totaal staking (informatie)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Netto vermogensverlies (voorwaartse verrekening)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">zonder optie: inclusief verkopen 1-1–28-2-2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking vóór 1-3-2022: aanschafkosten op 0 gezet – met een deskundige nagaan</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">De 30-dagenregel kan deze cijfers nog wijzigen (aankopen tot en met %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Opbrengsten vóór kosten boven de meldgrens (£50.000; 2020/21–2022/23: £49.200): melding aan HMRC als je voor Self Assessment geregistreerd bent, ook zonder belastbare winst</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Vermogenswaarde 31-12-%1$s (indicatief)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Bepalend is de koerslijst van de ESTV (ictax.admin.ch). Voor coins zonder vermelding op de lijst geldt doorgaans de slotkoers van de beurs. Vermogensbelasting niet berekend.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – bezit %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">niet berekend</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Gevolgde adressen konden niet worden gelezen – hun saldi ontbreken in dit bestand</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Gevolgde adressen tellen mee in de totale waarde, maar hebben geen aanschafwaarde – de winst is daardoor eerder te hoog. Leg de aanschafwaarde vast als aankoop.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Marktwaarden zonder ingevoerde prijs (kosten, weggegeven/betaald, ruil, beloningen, netwerkkosten, portefeuillewaarde) tegen de dagslotkoers (UTC) van de transactiedag</string>
 </resources>

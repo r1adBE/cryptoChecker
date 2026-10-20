@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="explorer_bulk_show_all">Показати всі (%1$d)</string>
-    <string name="log_box_title">Журнал</string>
-    <string name="watchlist_first_alarm_title">Створіть перший сигнал</string>
-    <string name="watchlist_first_alarm_text">Отримуйте сповіщення, коли ціна досягне вашого рівня – коли застосунок закрито, Android перевіряє нерегулярно.</string>
-</resources>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">Alamat yang dipantau dihitung dalam nilai total tetapi tidak memiliki biaya perolehan – karena itu keuntungan cenderung terlalu tinggi. Catat biaya sebagai pembelian.</string>
-</resources>

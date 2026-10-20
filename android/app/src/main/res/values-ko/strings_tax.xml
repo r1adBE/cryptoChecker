@@ -80,7 +80,6 @@
     <string name="tax_export_summary">연간 요약 %1$s(CSV)</string>
     <string name="tax_export_swap">스왑</string>
     <string name="tax_export_tax_year">과세 연도</string>
-    <string name="tax_export_time_zone">시간대: %1$s</string>
     <string name="tax_export_transfer_fee_info">USDT/현금 이체 수수료 – 손실 아님, 매입 원가 미포함, 참고용</string>
     <string name="tax_export_unassigned_fee">수수료 미배분 – 원가 알 수 없음</string>
     <string name="tax_export_usdt_usd_note">USDT는 USDT/USD 일별 종가로 환산, 종가가 없으면 1 USD(행마다 표시)</string>
@@ -134,15 +133,12 @@
     <string name="tax_de_explain_loss">순손실: 이 매도에는 세금이 없습니다. § 23 EStG에 따른 손실은 사적 양도 이익과만 상계됩니다 – 같은 해에 또는 전년도로 소급하고 이후 연도로 이월하여(§ 23 Abs. 3 / § 10d EStG). 손실이 확정되도록 세금 신고서에 기재하세요.</string>
     <string name="tax_de_explain_reached">%1$s부터는 전액이 계산됩니다(비과세 한도 – 공제액 아님).</string>
     <string name="tax_de_explain_unknown">확인 불가: 환율 / 매수가 또는 보유 기간이 없습니다.</string>
-    <string name="tax_de_income">용역 소득(§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_income_limit">용역 비과세 한도(§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_limit_scope">한도는 연간 모든 개인 매각 또는 용역을 합산해 적용됩니다 – 앱 밖의 것도 포함합니다.</string>
     <string name="tax_de_loading">계산 중…</string>
     <string name="tax_de_long_gains">이익 – 보유 1년 초과</string>
     <string name="tax_de_long_losses">손실 – 보유 1년 초과</string>
     <string name="tax_de_loss">순손실 – 사적 양도 이익과만 상계 가능(§ 23 EStG)</string>
-    <string name="tax_de_needs_eur">EUR 값 필요(환율 없음)</string>
-    <string name="tax_de_needs_holding">보유 기간 없음(평균법) – 확인하려면 FIFO 선택</string>
     <string name="tax_de_private_limit">개인 매각 비과세 한도(§ 23 EStG)</string>
     <string name="tax_de_reached">한도 도달 – 일반적으로 전액이 대상 – 확인 필요</string>
     <string name="tax_de_short_gains">이익 – 보유 1년 이하</string>
@@ -203,4 +199,51 @@
     <string name="tax_summary_title">연간 요약 %1$s %2$s</string>
     <string name="tax_summary_transfer_fee_info">USDT/현금 이체 수수료 – 손실도 매입 원가도 아님, 참고용</string>
     <string name="tax_summary_withdrawal_fee_info">USDT/현금 출금 수수료 – 손실로 계산하지 않음, 참고용</string>
+
+    <string name="tax_line_at_old_speculation_limit">투기 거래(구법, 보유 1년 이하): 면세 한도(구 EStG 제31조 제3항)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">2022년 3월 1일 이전 렌딩 이자(받은 시점의 가치)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">2022년 3월 1일 이전 이자: 구법(누진세율) 적용, 27.5퍼센트 아님</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">2022년 3월 1일 이전 – 전문가와 확인하세요</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">이자 – 수령 시 과세</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">스테이킹 – 참고용(취득가액 0, 매도 시 과세)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">이자 합계(과세)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">스테이킹 합계(참고)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">순자본손실(이월)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">선택 안 함: 2022년 1월 1일~2월 28일 매도 포함</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">2022년 3월 1일 이전 스테이킹: 취득가액 0으로 계상 – 전문가와 확인하세요</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30일 규칙에 따라 이 수치가 아직 바뀔 수 있습니다(%1$s까지의 매수)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">수수료 차감 전 양도 대금이 신고 기준 초과(£50,000, 2020/21–2022/23: £49,200): Self Assessment에 등록된 경우 과세 이익이 없어도 HMRC 신고 필요</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">%1$s년 12월 31일 재산 가치(참고용)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">기준은 ESTV 시세표(ictax.admin.ch)입니다. 시세표에 없는 코인은 일반적으로 거래소 종가가 적용됩니다. 재산세는 계산하지 않습니다.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – 보유량 %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">계산 안 함</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">관찰 중인 주소를 읽을 수 없습니다 – 해당 잔액이 이 파일에 없습니다</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">관찰 중인 주소는 총 가치에 포함되지만 취득원가가 없습니다. 따라서 이익이 과대 계산되었을 수 있습니다. 취득원가를 매수로 기록하세요.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">기록된 가격이 없는 시장 가치(수수료, 증여/결제, 교환, 보상, 네트워크 수수료, 포트폴리오 가치)는 거래일의 일일 종가(UTC) 기준</string>
 </resources>

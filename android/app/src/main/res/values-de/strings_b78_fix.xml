@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
-    <string name="tax_line_at_interest_old">Zinsen aus Lending vor 1.3.2022 (Wert beim Zufluss)</string>
-    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
-    <string name="tax_summary_at_interest_old_law">Zins vor 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent</string>
-    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
-    <string name="tax_export_at_income_before_new_law">vor 1.3.2022 – mit Fachperson prüfen</string>
-</resources>

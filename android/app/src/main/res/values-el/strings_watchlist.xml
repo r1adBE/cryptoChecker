@@ -9,7 +9,6 @@
     </plurals>
     <string name="watchlist_last_run">Τελευταία εκτέλεση %1$s</string>
     <string name="watchlist_live_a11y">Τιμές live ενεργές</string>
-    <string name="watchlist_live_badge">ΖΩΝΤΑΝΑ</string>
     <string name="watchlist_offline_since">Χωρίς σύνδεση · κατάσταση %1$s</string>
     <string name="watchlist_pull_to_refresh">Σύρετε προς τα κάτω για ανανέωση</string>
     <string name="watchlist_refresh_report">Τελευταία ανανέωση</string>
@@ -190,4 +189,30 @@
     <string name="sort_move_down">Κάτω</string>
     <string name="sort_move_top">Στην κορυφή</string>
     <string name="sort_move_up">Πάνω</string>
+
+    <string name="watchlist_first_alarm_title">Όρισε τον πρώτο συναγερμό</string>
+    <string name="watchlist_first_alarm_text">Λάβε ειδοποίηση όταν μια τιμή φτάσει το όριό σου – με την εφαρμογή κλειστή, το Android ελέγχει ακανόνιστα.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">τιμή mark (χωρίς μέση τιμή)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">ωριαία τιμή</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Όρισε τον πρώτο συναγερμό – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Ανανέωση (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · σε παύση έως %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Μόλις ενημερώθηκε · πριν από %1$d δ</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">τελευταία συναλλαγή %1$s</string>
+
+    <string name="change_candle_source_hint">Υπολογίστηκε από κεριά %1$s – το ίδιο το ανταλλακτήριο δεν δίνει αυτή την τιμή.</string>
+    <string name="change_candle_source_action">Εμφάνιση πηγής μεταβολής</string>
+
+    <string name="watchlist_sort_by_coin">Ταξινόμηση ανά νόμισμα</string>
+    <string name="watchlist_sort_by_exchange">Ταξινόμηση ανά ανταλλακτήριο</string>
 </resources>

@@ -32,8 +32,6 @@
     <string name="market_plain_standout_quiet">Neste momento nenhuma moeda se destaca em particular.</string>
     <string name="market_plain_standout_volume">Destaca-se %1$s: cerca de %2$s vezes mais negociação do que o habitual.</string>
     <string name="market_plain_title">Em resumo</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · ontem %2$s</string>
     <string name="market_section_collapse">Ocultar %1$s</string>
     <string name="market_section_context">Sentimento e ciclo</string>
     <string name="market_section_data">Dados de mercado</string>
@@ -253,4 +251,22 @@
         <item quantity="other">Apenas %1$d dias de histórico – faltam alguns indicadores.</item>
     </plurals>
     <string name="coin_title">Análise de moeda</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Dados: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Ganhadores e perdedores 24 h</string>
+    <string name="movers_gainers">Ganhadores</string>
+    <string name="movers_losers">Perdedores</string>
+    <string name="movers_no_gainers">Nenhuma moeda subiu em 24 h</string>
+    <string name="movers_no_losers">Nenhuma moeda desceu em 24 h</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 sem stablecoins</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Mostrar todos</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Mostrar menos</string>
 </resources>

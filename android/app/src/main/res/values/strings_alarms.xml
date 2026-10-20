@@ -167,4 +167,11 @@
     <string name="alarm_a11y_speak_on">Speech on</string>
     <string name="alarm_unchecked_no_candles">Could not be checked (no candle data)</string>
     <string name="alarm_unchecked_no_rate">Could not be checked (no exchange rate)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Notifications off – this alert won’t reach you</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">No alert – low liquidity</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Waiting for a current price</string>
 </resources>

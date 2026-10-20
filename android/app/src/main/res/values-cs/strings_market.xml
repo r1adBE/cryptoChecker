@@ -33,8 +33,6 @@
     <string name="market_plain_standout_quiet">Právě teď žádná mince zvlášť nevyčnívá.</string>
     <string name="market_plain_standout_volume">Vyčnívá %1$s: zhruba %2$s krát větší obchodování než obvykle.</string>
     <string name="market_plain_title">Stručně</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · včera %2$s</string>
     <string name="market_section_collapse">Skrýt: %1$s</string>
     <string name="market_section_context">Nálada a cyklus</string>
     <string name="market_section_data">Tržní data</string>
@@ -256,4 +254,22 @@
         <item quantity="other">Jen %1$d dní historie – některé ukazatele chybí.</item>
     </plurals>
     <string name="coin_title">Analýza mince</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Data: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Vítězové a poražení 24 h</string>
+    <string name="movers_gainers">Vítězové</string>
+    <string name="movers_losers">Poražení</string>
+    <string name="movers_no_gainers">Žádná mince za 24 h nestoupla</string>
+    <string name="movers_no_losers">Žádná mince za 24 h neklesla</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 bez stablecoinů</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Zobrazit vše</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Zobrazit méně</string>
 </resources>

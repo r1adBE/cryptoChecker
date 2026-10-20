@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="explorer_bulk_show_all">عرض الكل (%1$d)</string>
-    <string name="log_box_title">السجل</string>
-    <string name="watchlist_first_alarm_title">اضبط أول تنبيه</string>
-    <string name="watchlist_first_alarm_text">احصل على إشعار عند وصول السعر إلى الحد الذي تختاره – عند إغلاق التطبيق يتحقق Android على فترات غير منتظمة.</string>
-</resources>

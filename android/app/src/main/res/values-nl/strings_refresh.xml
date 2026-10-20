@@ -107,4 +107,7 @@
     <string name="battery_title">Koersen actueel houden</string>
     <string name="ios_background_refresh_off">Ververs op achtergrond staat uit voor de app. Zonder dit worden alarmen alleen gecontroleerd als de app open is.</string>
     <string name="ios_low_power_mode">Energiebesparingsmodus staat aan. iOS controleert zelden op de achtergrond, dus alarmen kunnen te laat komen.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Melding van de beurs: %1$s</string>
 </resources>

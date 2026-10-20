@@ -17,4 +17,6 @@
     <string name="starter_select_none">Hiq zgjedhjen</string>
     <string name="starter_title">Fillo me këto monedha</string>
     <string name="starter_watch_alarm_hint">Ndiq çmimin, vendos një alarm</string>
+
+    <string name="starter_source_text">Çmimet nga %1$s në %2$s. Hiq zgjedhjen nga ato që nuk i do dhe shto të tjerat njëherësh. Bursën dhe çiftin mund t\'i ndryshosh për çdo monedhë.</string>
 </resources>

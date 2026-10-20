@@ -107,4 +107,7 @@
     <string name="battery_title">Mbaji çmimet të përditësuara</string>
     <string name="ios_background_refresh_off">Rifreskimi në sfond është i çaktivizuar për aplikacionin. Pa të, alarmet kontrollohen vetëm kur aplikacioni është i hapur.</string>
     <string name="ios_low_power_mode">Modaliteti i kursimit të energjisë është aktiv. iOS kontrollon rrallë në sfond, ndaj alarmet mund të vonohen.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Mesazhi i bursës: %1$s</string>
 </resources>

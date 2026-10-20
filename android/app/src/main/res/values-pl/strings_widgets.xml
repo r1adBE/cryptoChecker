@@ -97,4 +97,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Przytrzymaj puste miejsce na ekranie początkowym, aż aplikacje zaczną drgać.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Stuknij u góry „Edycja” › „Dodaj widżet” (lub „+” w starszych wersjach iOS).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">Wyszukaj „Crypto Checker”, wybierz widżet i stuknij „Dodaj widżet”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Odśwież – ponownie możliwe za %1$d s</string>
 </resources>

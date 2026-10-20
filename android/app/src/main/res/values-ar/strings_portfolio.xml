@@ -277,4 +277,52 @@
         <item quantity="many">دون %1$d عملات بلا سعر شراء (%2$s) – أضف الأسعار لتُحتسب.</item>
         <item quantity="other">دون %1$d عملات بلا سعر شراء (%2$s) – أضف الأسعار لتُحتسب.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">انهيار USDT – السوق عند %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">سعر USDT بالدولار عبر USDC/USDT – إذا هبط USDC فهذه القيمة غير صحيحة</string>
+    <string name="portfolio_amount_bridged_stable">≈ يشمل %1$s (عبر جسر)</string>
+
+    <string name="portfolio_tx_interest">فائدة (إقراض)</string>
+    <string name="portfolio_tx_interest_hint">تُحتسب دخلًا عند الاستلام (النمسا). اتركه متوقفًا لمكافآت التخزين والتوزيعات المجانية.</string>
+    <string name="app_lock_no_screen_lock">اضبط قفل الشاشة لفتح المحفظة.</string>
+    <string name="app_lock_turn_off_action">إيقاف قفل المحفظة</string>
+    <string name="app_lock_turn_off_confirm_title">إيقاف قفل المحفظة؟</string>
+    <string name="app_lock_turn_off_confirm_message">بدون قفل الشاشة لا يمكن فتح المحفظة. عند إيقافه يعرض التطبيق محفظتك مجددًا دون سؤال. بعد ضبط قفل الشاشة يمكنك إعادة تشغيل القفل من الإعدادات.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«منذ الشراء» وتكلفة الشراء بـ %1$s: التكلفة بسعر صرف يوم الشراء، والقيمة بسعر اليوم.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">لا يوجد سعر صرف ليوم الشراء (غير مُدرج في «منذ الشراء» وتكلفة الشراء): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">تكلفة أيام الشراء دون سعر USDT بالدولار محسوبة بدولار أمريكي واحد لكل USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">حتى %1$s – المنصة غير متاحة</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">الأسعار اليومية: %1$s (بدلاً من Binance)</string>
+
+    <string name="portfolio_footer_short">أداة عمل مساعدة، وليست استشارة ضريبية أو استثمارية. الخصوصية: الإعدادات › حول التطبيق › سياسة الخصوصية.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">حذف كل معاملات %1$s؟</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="zero">المعاملات التي ستُحذف: %d. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
+        <item quantity="one">المعاملات التي ستُحذف: %d. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
+        <item quantity="two">المعاملات التي ستُحذف: %d. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
+        <item quantity="few">المعاملات التي ستُحذف: %d. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
+        <item quantity="many">المعاملات التي ستُحذف: %d. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
+        <item quantity="other">المعاملات التي ستُحذف: %d. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="zero">تمت إزالة %1$s من المحفظة (المعاملات: %2$d)</item>
+        <item quantity="one">تمت إزالة %1$s من المحفظة (المعاملات: %2$d)</item>
+        <item quantity="two">تمت إزالة %1$s من المحفظة (المعاملات: %2$d)</item>
+        <item quantity="few">تمت إزالة %1$s من المحفظة (المعاملات: %2$d)</item>
+        <item quantity="many">تمت إزالة %1$s من المحفظة (المعاملات: %2$d)</item>
+        <item quantity="other">تمت إزالة %1$s من المحفظة (المعاملات: %2$d)</item>
+    </plurals>
 </resources>

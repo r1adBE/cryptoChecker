@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
-    <string name="backup_not_enough_memory">Недостатньо вільної пам’яті, щоб захистити або відкрити резервну копію паролем. Закрийте інші застосунки й спробуйте ще раз.</string>
-</resources>

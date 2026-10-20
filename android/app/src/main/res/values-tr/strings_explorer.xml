@@ -110,4 +110,9 @@
     <string name="asset_kind_alpha">Alpha tokeni</string>
     <string name="asset_kind_token">Token</string>
     <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Düşük likidite – alarm yok</string>
+    <string name="dex_low_liquidity_alarm_hint">Bu havuzun likiditesi 10.000 USD\'nin altında (veya bilgi yok). Küçük tutarlar bile fiyatı oynatabildiği için burada alarm kurulamaz. Mevcut alarmlar korunur ancak likidite yeniden artana kadar tetiklenmez.</string>
+
+    <string name="explorer_bulk_show_all">Tümünü göster (%1$d)</string>
 </resources>

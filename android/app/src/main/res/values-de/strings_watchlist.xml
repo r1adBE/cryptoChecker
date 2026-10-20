@@ -9,7 +9,6 @@
     </plurals>
     <string name="watchlist_last_run">Letzter Durchlauf %1$s</string>
     <string name="watchlist_live_a11y">Live-Kurse aktiv</string>
-    <string name="watchlist_live_badge">LIVE</string>
     <string name="watchlist_offline_since">Keine Verbindung · Stand %1$s</string>
     <string name="watchlist_pull_to_refresh">Zum Aktualisieren nach unten ziehen</string>
     <string name="watchlist_refresh_report">Letzte Aktualisierung</string>
@@ -190,4 +189,31 @@
     <string name="sort_move_down">Nach unten</string>
     <string name="sort_move_top">Ganz nach oben</string>
     <string name="sort_move_up">Nach oben</string>
+
+    <string name="watchlist_first_alarm_title">Ersten Alarm setzen</string>
+    <string name="watchlist_first_alarm_text">Lass dich benachrichtigen, wenn ein Kurs deine Marke erreicht – bei geschlossener App prüft Android unregelmässig.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">Mark-Preis (kein Mittelkurs)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">Stundenkurs</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Ersten Alarm setzen – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Aktualisieren (%1$d)</string>
+
+    <!-- Zeile der Merkliste: Börse pausiert (zu viele Anfragen / Zeitüberschreitungen) bis zu einer Uhrzeit, ersetzt die Zeitzeile, z. B. «Binance · pausiert bis 19:45» -->
+    <string name="watchlist_row_exchange_paused">%1$s · pausiert bis %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Gerade aktualisiert · vor %1$d s</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">letzter Handel %1$s</string>
+
+    <string name="change_candle_source_hint">Aus %1$s-Kerzen berechnet – die Börse liefert diesen Wert nicht selbst.</string>
+    <string name="change_candle_source_action">Quelle der Veränderung zeigen</string>
+
+    <string name="watchlist_sort_by_coin">Nach Coin ordnen</string>
+    <string name="watchlist_sort_by_exchange">Nach Börse ordnen</string>
 </resources>

@@ -91,4 +91,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">长按主屏幕上的空白处，直到应用开始晃动。</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">轻点顶部的“编辑”›“添加小组件”（旧版 iOS 中为“+”）。</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">搜索“Crypto Checker”，选择一个小部件，然后轻点“添加小组件”。</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">刷新 – %1$d 秒后可再次刷新</string>
 </resources>

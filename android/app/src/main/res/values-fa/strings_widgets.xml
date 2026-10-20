@@ -93,4 +93,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">انگشت خود را روی یک جای خالی صفحه اصلی نگه دارید تا برنامه‌ها شروع به لرزیدن کنند.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">در بالا روی «ویرایش» › «افزودن ابزارک» بزنید (یا در نسخه‌های قدیمی‌تر iOS روی «+»).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">«Crypto Checker» را جستجو کنید، یک ابزارک انتخاب کنید و روی «افزودن ابزارک» بزنید.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">تازه‌سازی – دوباره ممکن در %1$d ثانیه</string>
 </resources>

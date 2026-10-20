@@ -173,4 +173,11 @@
     <string name="alarm_a11y_speak_on">Voz activada</string>
     <string name="alarm_unchecked_no_candles">No se pudo comprobar (sin velas)</string>
     <string name="alarm_unchecked_no_rate">No se pudo comprobar (sin tipo de cambio)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Notificaciones desactivadas: esta alarma no te llegará</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Sin alarma: liquidez baja</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Esperando un precio actual</string>
 </resources>

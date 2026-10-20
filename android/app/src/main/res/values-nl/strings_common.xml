@@ -43,4 +43,6 @@
     <string name="shortcut_add">Paar toevoegen</string>
     <string name="shortcut_alarms">Alle alarmen</string>
     <string name="shortcut_cycle">Markt</string>
+
+    <string name="log_box_title">Logboek</string>
 </resources>

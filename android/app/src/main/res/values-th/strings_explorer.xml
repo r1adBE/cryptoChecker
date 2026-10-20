@@ -102,4 +102,9 @@
     <string name="asset_kind_alpha">โทเคน Alpha</string>
     <string name="asset_kind_token">โทเคน</string>
     <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">สภาพคล่องต่ำ – ไม่มีการแจ้งเตือน</string>
+    <string name="dex_low_liquidity_alarm_hint">พูลนี้มีสภาพคล่องต่ำกว่า 10,000 USD (หรือไม่มีข้อมูล) แม้จำนวนเล็กน้อยก็ขยับราคาได้ จึงตั้งการแจ้งเตือนที่นี่ไม่ได้ การแจ้งเตือนที่มีอยู่ยังคงอยู่ แต่จะทำงานเมื่อสภาพคล่องเพิ่มขึ้นอีกครั้งเท่านั้น</string>
+
+    <string name="explorer_bulk_show_all">แสดงทั้งหมด (%1$d)</string>
 </resources>

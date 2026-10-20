@@ -56,4 +56,32 @@
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">Tältä laitteelta puuttuu sovelluksen salattujen tietojen avain, joten sovellus käynnistyi tyhjänä. Mitään ei poistettu. Saat listan ja salkun takaisin tuomalla varmuuskopiotiedoston asetuksista kohdasta ”%1$s”.</string>
     <string name="storage_recovery_title">Tallennettuja tietoja ei voitu avata</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">Vapaata muistia ei ole tarpeeksi varmuuskopion suojaamiseen tai avaamiseen salasanalla. Sulje muita sovelluksia ja yritä uudelleen.</string>
+
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Palauta varmuuskopio</string>
+    <string name="storage_recovery_acknowledge">Selvä</string>
+    <string name="storage_recovery_restored_title">Tallennetut tiedot avattiin uudelleen</string>
+    <string name="storage_recovery_restored_message">Laitteen aiempi avain avasi syrjään siirretyt tiedot uudelleen, joten ne ovat palanneet. Välillä tallennetut tiedot säilyivät muuttumattomina niiden vieressä.</string>
+    <string name="backup_restore_interrupted_title">Palautus keskeytyi</string>
+    <string name="backup_restore_interrupted_rolled_back">Sovellus suljettiin kesken varmuuskopion palautuksen. Aiemmat tietosi palautettiin; varmuuskopiosta ei säilytetty mitään.</string>
+    <string name="backup_restore_interrupted_incomplete">Sovellus suljettiin kesken varmuuskopion palautuksen, eikä aiempia tietoja voitu palauttaa kokonaan. Tarkista seurantalista ja salkku tai palauta varmuuskopio uudelleen asetuksissa kohdassa ”%1$s”.</string>
+    <string name="backup_not_verified">Varmuuskopiotiedostoa ei voitu vahvistaa tallennuksen jälkeen – se luetaan takaisin erilaisena. Tallenna varmuuskopio uuteen tiedostoon.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">Salkkua ei palautettu järjestelmän varmuuskopiosta</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Salkun kopiota Androidin järjestelmävarmuuskopiosta ei voitu lukea toisellakaan yrityksellä, ja se poistettiin. Jos sinulla on varmuuskopiotiedosto, palauta se Asetuksissa kohdassa ”%1$s”.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">Tallennetun salkun lukitusta ei voi juuri nyt avata, eikä sitä näytetä – se palaa, kun sovellus käynnistetään uudelleen. Nyt tehtyjä muutoksia ei tallenneta.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">Tallennetun seurantalistan lukitusta ei voi juuri nyt avata, eikä sitä näytetä – se palaa, kun sovellus käynnistetään uudelleen. Nyt tehtyjä muutoksia ei tallenneta.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">Varmuuskopiointi ei ole nyt mahdollista: tallennettuja tietoja ei voi juuri nyt avata. Käynnistä sovellus uudelleen ja yritä uudestaan.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">Salaus ei ole vielä käytössä – salkkua ei tallenneta, ja muutokset katoavat, kun sovellus suljetaan. Sovellus yrittää uudelleen seuraavalla käynnistyskerralla.</string>
 </resources>

@@ -269,4 +269,48 @@
         <item quantity="many">Без %1$d монет без цены покупки (%2$s) — добавьте цены, чтобы они учитывались.</item>
         <item quantity="other">Без %1$d монеты без цены покупки (%2$s) — добавьте цены, чтобы они учитывались.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Обвал USDT – рынок %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Курс USDT к доллару через USDC/USDT – если USDC упадёт, это значение неверно</string>
+    <string name="portfolio_amount_bridged_stable">≈ вкл. %1$s (через мост)</string>
+
+    <string name="portfolio_tx_interest">Проценты (лендинг)</string>
+    <string name="portfolio_tx_interest_hint">Учитывается как доход при поступлении (Австрия). Для наград за стейкинг и аирдропов оставьте выключенным.</string>
+    <string name="app_lock_no_screen_lock">Настройте блокировку экрана, чтобы открыть портфель.</string>
+    <string name="app_lock_turn_off_action">Отключить блокировку портфеля</string>
+    <string name="app_lock_turn_off_confirm_title">Отключить блокировку портфеля?</string>
+    <string name="app_lock_turn_off_confirm_message">Без блокировки экрана портфель нельзя разблокировать. После отключения приложение снова показывает портфель без запроса. Когда блокировка экрана будет настроена, блокировку можно снова включить в настройках.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«С покупки» и стоимость покупки в %1$s: стоимость покупки по курсу дня покупки, текущая стоимость по сегодняшнему курсу.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Нет курса валют на день покупки (не учтено в «С покупки» и стоимости покупки): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Стоимость покупки в дни без курса USDT к доллару посчитана как 1 доллар США за USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">По состоянию на %1$s – биржа недоступна</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Дневные цены: %1$s (вместо Binance)</string>
+
+    <string name="portfolio_footer_short">Рабочий инструмент, не налоговая и не инвестиционная консультация. Конфиденциальность: Настройки › О приложении › Политика конфиденциальности.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Удалить все операции по %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">Будет удалена %d операция. Сразу после этого удаление можно отменить.</item>
+        <item quantity="few">Будут удалены %d операции. Сразу после этого удаление можно отменить.</item>
+        <item quantity="many">Будут удалены %d операций. Сразу после этого удаление можно отменить.</item>
+        <item quantity="other">Будут удалены %d операции. Сразу после этого удаление можно отменить.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s удалён из портфеля (%2$d операция)</item>
+        <item quantity="few">%1$s удалён из портфеля (%2$d операции)</item>
+        <item quantity="many">%1$s удалён из портфеля (%2$d операций)</item>
+        <item quantity="other">%1$s удалён из портфеля (%2$d операции)</item>
+    </plurals>
 </resources>

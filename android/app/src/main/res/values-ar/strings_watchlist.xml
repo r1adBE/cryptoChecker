@@ -13,7 +13,6 @@
     </plurals>
     <string name="watchlist_last_run">آخر تشغيل %1$s</string>
     <string name="watchlist_live_a11y">الأسعار المباشرة مفعّلة</string>
-    <string name="watchlist_live_badge">مباشر</string>
     <string name="watchlist_offline_since">لا يوجد اتصال · آخر تحديث %1$s</string>
     <string name="watchlist_pull_to_refresh">اسحب للأسفل للتحديث</string>
     <string name="watchlist_refresh_report">آخر تحديث</string>
@@ -238,4 +237,30 @@
     <string name="sort_move_down">لأسفل</string>
     <string name="sort_move_top">إلى الأعلى تمامًا</string>
     <string name="sort_move_up">لأعلى</string>
+
+    <string name="watchlist_first_alarm_title">اضبط أول تنبيه</string>
+    <string name="watchlist_first_alarm_text">احصل على إشعار عند وصول السعر إلى الحد الذي تختاره – عند إغلاق التطبيق يتحقق Android على فترات غير منتظمة.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">سعر mark (لا يوجد سعر متوسط)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">سعر الساعة</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">اضبط أول تنبيه – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">تحديث (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · متوقفة مؤقتًا حتى %2$s</string>
+
+    <string name="watchlist_refresh_just_done">تم التحديث للتو · قبل %1$d ث</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">آخر صفقة %1$s</string>
+
+    <string name="change_candle_source_hint">محسوب من شموع %1$s – المنصة نفسها لا توفّر هذه القيمة.</string>
+    <string name="change_candle_source_action">عرض مصدر التغيّر</string>
+
+    <string name="watchlist_sort_by_coin">ترتيب حسب العملة</string>
+    <string name="watchlist_sort_by_exchange">ترتيب حسب المنصة</string>
 </resources>

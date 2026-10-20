@@ -267,4 +267,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibrația urmează setările iPhone-ului (Sunete și haptică).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Numără alarmele și alertele de piață noi; revine la 0 când deschizi aplicația.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Datele tale</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Pe dispozitiv</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Lista, alarmele și portofoliul rămân criptate pe acest dispozitiv; fără cont, fără server propriu.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Conexiuni</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Cursurile vin direct de la bursele perechilor tale, plus cursuri valutare, liste și logo-uri de monede și oglinda de date de pe GitHub; acestea îți văd adresa IP, niciodată deținerile (adresele urmărite ajung la furnizorul rețelei respective).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Copie de rezervă</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Doar dacă o creezi tu; criptată cu parolă (Argon2id + AES-256-GCM), lizibilă fără parolă.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Schimbarea dispozitivului</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Cheia rămâne pe dispozitivul vechi – creează mai întâi un fișier de rezervă.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Partajează diagnosticul</string>
+    <string name="diagnostics_share_hint">Fișier text pentru suport: versiune, dispozitiv, setări de alerte, ultimele verificări și jurnalul alarmelor – fără portofoliu, sume, adrese sau notițe. Îl vezi mai întâi; nimic nu se trimite automat.</string>
+    <string name="diagnostics_preview_title">Diagnostic – previzualizare</string>
+    <string name="diagnostics_action_share">Partajează</string>
 </resources>

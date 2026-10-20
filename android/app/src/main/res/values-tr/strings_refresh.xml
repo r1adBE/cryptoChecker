@@ -107,4 +107,7 @@
     <string name="battery_title">Fiyatları güncel tut</string>
     <string name="ios_background_refresh_off">Bu uygulama için Arka Planda Yenileme kapalı. Kapalıyken alarmlar yalnızca uygulama açıkken kontrol edilir.</string>
     <string name="ios_low_power_mode">Düşük Güç Modu açık. iOS arka planda nadiren kontrol eder, alarmlar gecikebilir.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Borsanın mesajı: %1$s</string>
 </resources>

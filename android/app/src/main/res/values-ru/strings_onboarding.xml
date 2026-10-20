@@ -17,4 +17,6 @@
     <string name="starter_select_none">Снять выбор</string>
     <string name="starter_title">Начните с этих монет</string>
     <string name="starter_watch_alarm_hint">Следите за курсом, задайте оповещение</string>
+
+    <string name="starter_source_text">Цены с биржи %1$s в %2$s. Снимите отметку с ненужных и добавьте остальные за один раз. Биржу и пару можно изменить для каждой монеты.</string>
 </resources>

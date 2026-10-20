@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="alarm_first_check">ตรวจสอบว่าการแจ้งเตือนส่งถึง</string>
-    <string name="change_candle_source_hint">คำนวณจากแท่งเทียน %1$s – ตัวกระดานเทรดเองไม่ได้ให้ค่านี้</string>
-    <string name="change_candle_source_action">แสดงแหล่งที่มาของการเปลี่ยนแปลง</string>
-</resources>

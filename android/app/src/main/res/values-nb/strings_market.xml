@@ -31,8 +31,6 @@
     <string name="market_plain_standout_quiet">Akkurat nå skiller ingen enkeltmynt seg ut.</string>
     <string name="market_plain_standout_volume">%1$s skiller seg ut: omtrent %2$s ganger så mye handel som vanlig.</string>
     <string name="market_plain_title">Kort sagt</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · i går %2$s</string>
     <string name="market_section_collapse">Skjul %1$s</string>
     <string name="market_section_context">Stemning og syklus</string>
     <string name="market_section_data">Markedsdata</string>
@@ -250,4 +248,22 @@
         <item quantity="other">Bare %1$d dagers kurshistorikk – noen indikatorer mangler.</item>
     </plurals>
     <string name="coin_title">Mynt-analyse</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Data: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Vinnere og tapere 24 t</string>
+    <string name="movers_gainers">Vinnere</string>
+    <string name="movers_losers">Tapere</string>
+    <string name="movers_no_gainers">Ingen coin steg på 24 t</string>
+    <string name="movers_no_losers">Ingen coin falt på 24 t</string>
+    <string name="movers_source">CoinGecko, 24 t, topp 100 uten stablecoins</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Vis alle</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Vis færre</string>
 </resources>

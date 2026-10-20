@@ -265,4 +265,46 @@
         <item quantity="many">Sans %1$d coins sans prix d\'achat (%2$s) – ajoutez les prix pour qu\'ils comptent.</item>
         <item quantity="other">Sans %1$d coins sans prix d\'achat (%2$s) – ajoutez les prix pour qu\'ils comptent.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Effondrement de l\'USDT – marché à %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Cours en dollars de l’USDT via USDC/USDT – si l’USDC chute, cette valeur est fausse</string>
+    <string name="portfolio_amount_bridged_stable">≈ y c. %1$s (bridgé)</string>
+
+    <string name="portfolio_tx_interest">Intérêts (prêt)</string>
+    <string name="portfolio_tx_interest_hint">Compte comme revenu à la réception (Autriche). Laisse désactivé pour les récompenses de staking et les airdrops.</string>
+    <string name="app_lock_no_screen_lock">Configure un verrouillage d\'écran pour ouvrir le portefeuille.</string>
+    <string name="app_lock_turn_off_action">Désactiver le verrouillage du portefeuille</string>
+    <string name="app_lock_turn_off_confirm_title">Désactiver le verrouillage du portefeuille ?</string>
+    <string name="app_lock_turn_off_confirm_message">Sans verrouillage d\'écran, le portefeuille ne peut pas être déverrouillé. Désactivé, l\'app affiche de nouveau ton portefeuille sans demander. Une fois un verrouillage d\'écran configuré, tu pourras réactiver le verrouillage dans les Réglages.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">« Depuis l’achat » et coût de revient en %1$s : coût au taux de change du jour d’achat, valeur au taux du jour.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Pas de taux de change pour le jour d’achat (absent de « Depuis l’achat » et du coût de revient) : %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Coût des jours d’achat sans cours en dollars de l’USDT compté comme 1 dollar américain par USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Au %1$s – plateforme injoignable</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Cours journaliers : %1$s (au lieu de Binance)</string>
+
+    <string name="portfolio_footer_short">Outil de travail, pas un conseil fiscal ni en investissement. Confidentialité : Paramètres › À propos de l’app › Politique de confidentialité.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Supprimer toutes les transactions de %1$s ?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d transaction sera supprimée. Vous pourrez l\'annuler juste après.</item>
+        <item quantity="many">%d transactions seront supprimées. Vous pourrez l\'annuler juste après.</item>
+        <item quantity="other">%d transactions seront supprimées. Vous pourrez l\'annuler juste après.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s retiré du portefeuille (%2$d transaction)</item>
+        <item quantity="many">%1$s retiré du portefeuille (%2$d transactions)</item>
+        <item quantity="other">%1$s retiré du portefeuille (%2$d transactions)</item>
+    </plurals>
 </resources>

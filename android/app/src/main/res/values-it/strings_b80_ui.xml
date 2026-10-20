@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="starter_source_text">Prezzi da %1$s in %2$s. Deseleziona ciò che non vuoi e aggiungi il resto in un colpo solo. Puoi cambiare exchange e coppia per ogni coin.</string>
-    <string name="watchlist_row_exchange_paused">%1$s · in pausa fino alle %2$s</string>
-</resources>

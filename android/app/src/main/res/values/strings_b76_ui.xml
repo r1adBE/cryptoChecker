@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="explorer_bulk_show_all">Show all (%1$d)</string>
-    <string name="log_box_title">Log</string>
-    <string name="watchlist_first_alarm_title">Set your first alert</string>
-    <string name="watchlist_first_alarm_text">Get notified when a price reaches your mark – with the app closed, Android checks irregularly.</string>
-</resources>

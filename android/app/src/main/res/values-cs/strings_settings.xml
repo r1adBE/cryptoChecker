@@ -269,4 +269,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibrace se řídí nastavením iPhonu (Zvuky a haptika).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Počítá nové alarmy a tržní upozornění; po otevření aplikace zpět na 0.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Vaše data</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">V zařízení</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Seznam, alarmy a portfolio jsou uloženy šifrovaně v tomto zařízení; žádný účet, žádný vlastní server.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Připojení</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Kurzy přicházejí přímo z burz vašich párů, k tomu směnné kurzy, seznamy a loga mincí a zrcadlo dat na GitHubu; vidí vaši IP adresu, nikdy vaše držby (sledované adresy jdou k poskytovateli příslušné sítě).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Záloha</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Jen pokud ji vytvoříte; šifrovaná heslem (Argon2id + AES-256-GCM), bez hesla čitelná.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Změna zařízení</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Klíč zůstává ve starém zařízení – nejprve vytvořte soubor zálohy.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Sdílet diagnostiku</string>
+    <string name="diagnostics_share_hint">Textový soubor pro podporu: verze, zařízení, nastavení upozornění, poslední kontroly a protokol alarmů – bez portfolia, částek, adres a poznámek. Nejdřív ho uvidíš; nic se neodesílá automaticky.</string>
+    <string name="diagnostics_preview_title">Diagnostika – náhled</string>
+    <string name="diagnostics_action_share">Sdílet</string>
 </resources>

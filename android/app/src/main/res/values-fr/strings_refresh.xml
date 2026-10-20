@@ -116,4 +116,7 @@
     <string name="battery_title">Garder les prix à jour</string>
     <string name="ios_background_refresh_off">L’actualisation en arrière-plan est désactivée pour l’app. Sans elle, les alertes ne sont vérifiées que l’app ouverte.</string>
     <string name="ios_low_power_mode">Le mode Économie d’énergie est activé. iOS vérifie rarement en arrière-plan, les alertes peuvent arriver en retard.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Message de la plateforme : %1$s</string>
 </resources>

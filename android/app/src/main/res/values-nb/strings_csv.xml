@@ -75,4 +75,7 @@
     </plurals>
     <string name="portfolio_imports_empty">Ingen importer</string>
     <string name="portfolio_imports_title">Importer</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">samme transaksjons-ID med annet beløp – sjekk manuelt</string>
+    <string name="portfolio_csv_skip_staking_unpaired">staking-postering uten motpost – sjekk beholdningen</string>
 </resources>

@@ -38,4 +38,8 @@
     <string name="address_unsupported">Ten typ adresu nie jest obsługiwany</string>
     <string name="address_wrong_chain">Adres należy do innej sieci</string>
     <string name="address_xpub_multisig">Klucze multisig (Ypub/Zpub) nie są obsługiwane</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">Konto Taproot (BIP86): z tego klucza wyprowadzane są adresy bc1p…, do odbioru i reszty.</string>
+    <string name="portfolio_address_taproot_hint">Portfel Taproot? Wklej zamiast tego deskryptor tr(…) ze swojego portfela – zwykły xpub jest przeszukiwany tylko jako adresy Legacy i SegWit.</string>
 </resources>

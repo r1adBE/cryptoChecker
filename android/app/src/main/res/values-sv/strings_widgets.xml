@@ -93,4 +93,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Håll fingret på en tom plats på hemskärmen tills apparna börjar vicka.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Tryck på ”Redigera” › ”Lägg till widget” högst upp (eller ”+” i äldre iOS-versioner).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">Sök efter ”Crypto Checker”, välj en widget och tryck på ”Lägg till widget”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Uppdatera – möjligt igen om %1$d s</string>
 </resources>

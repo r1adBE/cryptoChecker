@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="alarm_first_check">לבדוק שההתראות מגיעות</string>
-    <string name="change_candle_source_hint">חושב לפי נרות %1$s – הבורסה עצמה לא מספקת ערך זה.</string>
-    <string name="change_candle_source_action">הצגת מקור השינוי</string>
-</resources>

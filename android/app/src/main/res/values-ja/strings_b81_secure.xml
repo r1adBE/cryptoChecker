@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
-    <string name="portfolio_storage_in_memory">暗号化はまだ有効になっていません。ポートフォリオは保存されず、変更はアプリを閉じると失われます。次回の起動時にもう一度試します。</string>
-</resources>

@@ -261,4 +261,44 @@
         <item quantity="one">Alış fiyatı olmayan %1$d coin hariç (%2$s) – sayılması için fiyatı ekleyin.</item>
         <item quantity="other">Alış fiyatı olmayan %1$d coin hariç (%2$s) – sayılmaları için fiyatları ekleyin.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT çöküşü – piyasa %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">USDC/USDT üzerinden USDT dolar kuru – USDC düşerse bu değer doğru olmaz</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s dahil (köprülü)</string>
+
+    <string name="portfolio_tx_interest">Faiz (borç verme)</string>
+    <string name="portfolio_tx_interest_hint">Alındığında gelir sayılır (Avusturya). Staking ödülleri ve airdrop\'lar için kapalı bırak.</string>
+    <string name="app_lock_no_screen_lock">Portföyü açmak için bir ekran kilidi ayarla.</string>
+    <string name="app_lock_turn_off_action">Portföy kilidini kapat</string>
+    <string name="app_lock_turn_off_confirm_title">Portföy kilidi kapatılsın mı?</string>
+    <string name="app_lock_turn_off_confirm_message">Ekran kilidi olmadan portföyün kilidi açılamaz. Kapatıldığında uygulama portföyünü yeniden sormadan gösterir. Ekran kilidi ayarlandıktan sonra kilidi Ayarlar\'dan yeniden açabilirsin.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">“Alıştan beri” ve maliyet %1$s cinsinden: maliyet alış günündeki döviz kuruyla, değer bugünkü kurla.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Alış günü için döviz kuru yok (“Alıştan beri” ve maliyete dahil değil): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT dolar kuru olmayan alış günlerindeki maliyet USDT başına 1 ABD doları olarak hesaplandı.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s itibarıyla – borsaya ulaşılamıyor</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Günlük fiyatlar: %1$s (Binance yerine)</string>
+
+    <string name="portfolio_footer_short">Çalışma aracıdır, vergi veya yatırım tavsiyesi değildir. Gizlilik: Ayarlar › Uygulama hakkında › Gizlilik politikası.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s için tüm işlemler silinsin mi?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d işlem silinecek. Hemen ardından geri alabilirsiniz.</item>
+        <item quantity="other">%d işlem silinecek. Hemen ardından geri alabilirsiniz.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s portföyden kaldırıldı (%2$d işlem)</item>
+        <item quantity="other">%1$s portföyden kaldırıldı (%2$d işlem)</item>
+    </plurals>
 </resources>

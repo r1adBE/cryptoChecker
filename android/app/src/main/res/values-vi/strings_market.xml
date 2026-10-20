@@ -30,8 +30,6 @@
     <string name="market_plain_standout_quiet">Hiện không có đồng coin nào đặc biệt nổi bật.</string>
     <string name="market_plain_standout_volume">Nổi bật là %1$s: giao dịch khoảng %2$s lần so với bình thường.</string>
     <string name="market_plain_title">Tóm tắt</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · hôm qua %2$s</string>
     <string name="market_section_collapse">Ẩn %1$s</string>
     <string name="market_section_context">Tâm lý &amp; chu kỳ</string>
     <string name="market_section_data">Dữ liệu thị trường</string>
@@ -247,4 +245,22 @@
         <item quantity="other">Chỉ có %1$d ngày lịch sử – thiếu một số chỉ báo.</item>
     </plurals>
     <string name="coin_title">Phân tích coin</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Dữ liệu: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Tăng và giảm mạnh nhất 24 giờ</string>
+    <string name="movers_gainers">Tăng mạnh nhất</string>
+    <string name="movers_losers">Giảm mạnh nhất</string>
+    <string name="movers_no_gainers">Không có coin nào tăng trong 24 giờ</string>
+    <string name="movers_no_losers">Không có coin nào giảm trong 24 giờ</string>
+    <string name="movers_source">CoinGecko, 24 giờ, top 100 không gồm stablecoin</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Hiện tất cả</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Hiện ít hơn</string>
 </resources>

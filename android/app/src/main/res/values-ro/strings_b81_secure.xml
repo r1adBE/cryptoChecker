@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
-    <string name="portfolio_storage_in_memory">Criptarea nu este încă activă – portofoliul nu se salvează, iar modificările se pierd la închiderea aplicației. Aplicația va încerca din nou la următoarea pornire.</string>
-</resources>

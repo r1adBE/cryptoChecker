@@ -80,7 +80,6 @@
     <string name="tax_export_summary">Vuosikooste %1$s (CSV)</string>
     <string name="tax_export_swap">vaihto</string>
     <string name="tax_export_tax_year">Verovuosi</string>
-    <string name="tax_export_time_zone">Aikavyöhyke: %1$s</string>
     <string name="tax_export_transfer_fee_info">Siirtokulu USDT:nä/käteisenä – ei tappio, ei hankintahinnassa, vain tiedoksi</string>
     <string name="tax_export_unassigned_fee">kulua ei kohdistettu – hankintahinta tuntematon</string>
     <string name="tax_export_usdt_usd_note">USDT muunnettu USDT/USD-päivän päätöskurssilla; ilman päätöskurssia 1 USD (merkitty riville)</string>
@@ -134,15 +133,12 @@
     <string name="tax_de_explain_loss">Nettotappio: näistä myynneistä ei veroa. § 23 EStG:n mukaiset tappiot vähennetään vain yksityisten luovutusten voitoista – samana vuonna tai siirtämällä edelliseen vuoteen ja myöhempiin vuosiin (§ 23 Abs. 3 / § 10d EStG). Ilmoita tappio veroilmoituksessa jotta se vahvistetaan.</string>
     <string name="tax_de_explain_reached">Summasta %1$s alkaen koko summa lasketaan (verovapausraja – ei vähennys).</string>
     <string name="tax_de_explain_unknown">Ei tarkistettavissa: valuuttakurssit / ostohinnat tai omistusajat puuttuvat.</string>
-    <string name="tax_de_income">Tulot palveluista (§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_income_limit">Verovapausraja palvelut (§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_limit_scope">Rajat koskevat kaikkia vuoden yksityisiä myyntejä tai palveluja yhteensä – myös sovelluksen ulkopuolella.</string>
     <string name="tax_de_loading">Lasketaan…</string>
     <string name="tax_de_long_gains">Voitot – omistettu &gt; 1 vuosi</string>
     <string name="tax_de_long_losses">Tappiot – omistettu &gt; 1 vuosi</string>
     <string name="tax_de_loss">nettotappio – vähennettävissä vain yksityisten luovutusten voitoista (§ 23 EStG)</string>
-    <string name="tax_de_needs_eur">vaatii EUR-arvot (valuuttakurssit puuttuvat)</string>
-    <string name="tax_de_needs_holding">omistusaika puuttuu (keskiarvomenetelmä) – valitse FIFO tarkistusta varten</string>
     <string name="tax_de_private_limit">Verovapausraja yksityiset myynnit (§ 23 EStG)</string>
     <string name="tax_de_reached">raja ylittyi – yleensä koko summa lasketaan – tarkista</string>
     <string name="tax_de_short_gains">Voitot – omistettu ≤ 1 vuosi</string>
@@ -203,4 +199,51 @@
     <string name="tax_summary_title">Vuosikooste %1$s %2$s</string>
     <string name="tax_summary_transfer_fee_info">Siirtokulut USDT:nä/käteisenä – ei tappio eikä osa hankintahintaa, vain tiedoksi</string>
     <string name="tax_summary_withdrawal_fee_info">Nostokulut USDT:nä/käteisenä – ei lasketa tappioksi, vain tiedoksi</string>
+
+    <string name="tax_line_at_old_speculation_limit">Keinottelukaupat (aiempi sääntely, pidetty ≤ 1 vuosi): verovapausraja (§ 31 (3) EStG, vanha versio)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Lainauksen korot ennen 1.3.2022 (arvo vastaanotettaessa)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Korot ennen 1.3.2022: vanha sääntely (veroasteikko), ei 27,5 prosenttia</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">ennen 1.3.2022 – tarkista asiantuntijan kanssa</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Korko – veronalainen saatuna</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – vain tiedoksi (hankintameno 0, verotetaan myytäessä)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Korot yhteensä (veronalaiset)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Staking yhteensä (tiedoksi)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Nettomääräinen luovutustappio (siirtyy)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">ilman valintaa: sisältää myynnit 1.1.–28.2.2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking ennen 1.3.2022: hankintameno asetettu 0:ksi – tarkista asiantuntijan kanssa</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30 päivän sääntö voi vielä muuttaa näitä lukuja (ostot %1$s asti)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Luovutushinnat ennen kuluja yli ilmoitusrajan (50 000 £; 2020/21–2022/23: 49 200 £): ilmoitus HMRC:lle, jos olet rekisteröitynyt Self Assessmentiin, myös ilman veronalaista voittoa</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Varallisuusarvo 31.12.%1$s (suuntaa antava)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">Ratkaiseva on ESTV:n kurssiluettelo (ictax.admin.ch). Coineille, joita luettelossa ei ole, käytetään yleensä pörssin päätöskurssia. Varallisuusveroa ei laskettu.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – omistus %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">ei laskettu</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Seurattuja osoitteita ei voitu lukea – niiden saldot puuttuvat tästä tiedostosta</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Seuratut osoitteet lasketaan kokonaisarvoon, mutta niillä ei ole hankintahintaa – voitto on siksi todennäköisesti liian suuri. Kirjaa hankintahinta ostona.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Markkina-arvot ilman kirjattua hintaa (kulut, lahjoitettu/maksettu, vaihto, palkkiot, verkkomaksut, salkun arvo) tapahtumapäivän päätöskurssiin (UTC)</string>
 </resources>

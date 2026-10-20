@@ -30,8 +30,6 @@
     <string name="market_plain_standout_quiet">Saat ini tidak ada koin yang menonjol secara khusus.</string>
     <string name="market_plain_standout_volume">Yang menonjol: %1$s – perdagangan sekitar %2$s kali dari biasanya.</string>
     <string name="market_plain_title">Singkatnya</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · kemarin %2$s</string>
     <string name="market_section_collapse">Sembunyikan %1$s</string>
     <string name="market_section_context">Sentimen &amp; siklus</string>
     <string name="market_section_data">Data pasar</string>
@@ -247,4 +245,22 @@
         <item quantity="other">Hanya %1$d hari riwayat – beberapa indikator tidak ada.</item>
     </plurals>
     <string name="coin_title">Analisis koin</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Data: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Pemenang dan pecundang 24 j</string>
+    <string name="movers_gainers">Pemenang</string>
+    <string name="movers_losers">Pecundang</string>
+    <string name="movers_no_gainers">Tidak ada koin yang naik dalam 24 j</string>
+    <string name="movers_no_losers">Tidak ada koin yang turun dalam 24 j</string>
+    <string name="movers_source">CoinGecko, 24 j, top 100 tanpa stablecoin</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Tampilkan semua</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Tampilkan lebih sedikit</string>
 </resources>

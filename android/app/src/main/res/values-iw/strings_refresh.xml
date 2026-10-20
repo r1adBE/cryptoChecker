@@ -116,4 +116,7 @@
     <string name="battery_title">שמירה על מחירים עדכניים</string>
     <string name="ios_background_refresh_off">רענון ברקע כבוי עבור האפליקציה. בלעדיו ההתראות נבדקות רק כשהאפליקציה פתוחה.</string>
     <string name="ios_low_power_mode">מצב חיסכון בסוללה פעיל. iOS כמעט לא בודק ברקע, ולכן התראות עלולות להתעכב.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">הודעת הבורסה: %1$s</string>
 </resources>

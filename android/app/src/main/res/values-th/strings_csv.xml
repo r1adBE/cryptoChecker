@@ -68,4 +68,7 @@
     </plurals>
     <string name="portfolio_imports_empty">ไม่มีการนำเข้า</string>
     <string name="portfolio_imports_title">การนำเข้า</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">รหัสธุรกรรมเดียวกันแต่จำนวนต่างกัน – ตรวจสอบด้วยตนเอง</string>
+    <string name="portfolio_csv_skip_staking_unpaired">รายการ staking ที่ไม่มีรายการคู่ – ตรวจสอบยอดคงเหลือ</string>
 </resources>

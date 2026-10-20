@@ -116,4 +116,7 @@
     <string name="battery_title">Păstrează prețurile actualizate</string>
     <string name="ios_background_refresh_off">Reîmprospătarea în fundal este oprită pentru aplicație. Fără ea, alarmele sunt verificate doar cu aplicația deschisă.</string>
     <string name="ios_low_power_mode">Modul consum redus este activ. iOS verifică rar în fundal, așa că alarmele pot întârzia.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Mesajul bursei: %1$s</string>
 </resources>

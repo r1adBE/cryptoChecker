@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="explorer_bulk_show_all">Mostrar todos (%1$d)</string>
-    <string name="log_box_title">Registro</string>
-    <string name="watchlist_first_alarm_title">Crea tu primera alarma</string>
-    <string name="watchlist_first_alarm_text">Recibe un aviso cuando un precio alcance tu nivel: con la app cerrada, Android comprueba de forma irregular.</string>
-</resources>

@@ -69,8 +69,8 @@ struct CandleHTTP: Sendable {
 }
 
 /// Kerzen einer Börse über ihren öffentlichen Endpunkt ohne Schlüssel. Erweiterung: neue Quelle als
-/// `struct` in ExchangeCandleSources.swift schreiben und in `ExchangeCandleRegistry.sources` eintragen
-/// (Gegenstück in ExchangeCandleSources.kt), dazu ein Fall in testdata/parity/own_candles.json.
+/// `struct` in ExchangeCandleSourcesMajor.swift schreiben und in `ExchangeCandleRegistry.sources` eintragen
+/// (Gegenstück in ExchangeCandleSourcesMajor.kt), dazu ein Fall in testdata/parity/own_candles.json.
 protocol ExchangeCandleSource: Sendable {
     /// Börsen-Schlüssel (`Market.key`), für die die Quelle gilt.
     var marketKeys: Set<String> { get }
@@ -103,7 +103,7 @@ enum ExchangeCandleRegistry {
         BitvavoCandles(),
         BybitCandles(),
         OkxCandles(),
-        // Zweite Runde (ExchangeCandleSourcesMore.swift, ab Upbit ExchangeCandleSourcesMore2.swift)
+        // Zweite Runde (ExchangeCandleSourcesGlobal.swift, ab Upbit ExchangeCandleSourcesSpecial.swift)
         BitfinexCandles(),
         BitgetCandles(),
         GateIoCandles(),

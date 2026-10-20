@@ -265,4 +265,46 @@
         <item quantity="two">בלי %1$d מטבעות ללא מחיר קנייה (%2$s) – הוסיפו את המחירים כדי שייספרו.</item>
         <item quantity="other">בלי %1$d מטבעות ללא מחיר קנייה (%2$s) – הוסיפו את המחירים כדי שייספרו.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">קריסת USDT – השוק ב-%1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">שער הדולר של USDT דרך USDC/USDT – אם USDC יורד, הערך הזה שגוי</string>
+    <string name="portfolio_amount_bridged_stable">≈ כולל %1$s (דרך גשר)</string>
+
+    <string name="portfolio_tx_interest">ריבית (הלוואה)</string>
+    <string name="portfolio_tx_interest_hint">נחשב כהכנסה בעת הקבלה (אוסטריה). להשאיר כבוי עבור תגמולי סטייקינג ואיירדרופים.</string>
+    <string name="app_lock_no_screen_lock">יש להגדיר נעילת מסך כדי לפתוח את התיק.</string>
+    <string name="app_lock_turn_off_action">כיבוי נעילת התיק</string>
+    <string name="app_lock_turn_off_confirm_title">לכבות את נעילת התיק?</string>
+    <string name="app_lock_turn_off_confirm_message">ללא נעילת מסך לא ניתן לפתוח את התיק. כשהנעילה כבויה, האפליקציה מציגה שוב את התיק בלי לשאול. לאחר הגדרת נעילת מסך אפשר להפעיל שוב את הנעילה בהגדרות.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">„מאז הקנייה” ועלות הרכישה ב־%1$s: העלות לפי שער החליפין של יום הקנייה, השווי לפי השער של היום.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">אין שער חליפין ליום הקנייה (חסר ב„מאז הקנייה” ובעלות הרכישה): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">עלות בימי קנייה ללא שער דולר של USDT חושבה כדולר אמריקאי אחד לכל USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">נכון ל־%1$s – הבורסה אינה זמינה</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">מחירים יומיים: %1$s (במקום Binance)</string>
+
+    <string name="portfolio_footer_short">כלי עזר לעבודה, אין זה ייעוץ מס או השקעות. פרטיות: הגדרות › אודות האפליקציה › מדיניות פרטיות.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">למחוק את כל העסקאות של %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">עסקאות שיימחקו: %d. אפשר לבטל את זה מיד אחר כך.</item>
+        <item quantity="two">עסקאות שיימחקו: %d. אפשר לבטל את זה מיד אחר כך.</item>
+        <item quantity="other">עסקאות שיימחקו: %d. אפשר לבטל את זה מיד אחר כך.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s הוסר מתיק ההשקעות (עסקאות: %2$d)</item>
+        <item quantity="two">%1$s הוסר מתיק ההשקעות (עסקאות: %2$d)</item>
+        <item quantity="other">%1$s הוסר מתיק ההשקעות (עסקאות: %2$d)</item>
+    </plurals>
 </resources>

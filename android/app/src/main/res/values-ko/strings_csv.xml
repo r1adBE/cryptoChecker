@@ -68,4 +68,7 @@
     </plurals>
     <string name="portfolio_imports_empty">가져오기 없음</string>
     <string name="portfolio_imports_title">가져오기</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">같은 거래 ID, 다른 수량 – 직접 확인</string>
+    <string name="portfolio_csv_skip_staking_unpaired">상대 기록 없는 스테이킹 기록 – 잔액 확인</string>
 </resources>

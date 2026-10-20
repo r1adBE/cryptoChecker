@@ -1,4 +1,4 @@
-// OKX-Kerzen (Teil der eigenen Kerzen je Börse, `ExchangeCandleSources.kt`; in iOS in `ExchangeCandleSources.swift`).
+// OKX-Kerzen (Teil der eigenen Kerzen je Börse, `ExchangeCandleSourcesMajor.kt`; in iOS in `ExchangeCandleSourcesMajor.swift`).
 package com.cryptochecker.app.data.remote.candles
 
 import com.cryptochecker.app.data.remote.CandleInterval

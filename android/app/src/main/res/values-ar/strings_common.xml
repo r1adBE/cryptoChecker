@@ -43,4 +43,6 @@
     <string name="shortcut_add">إضافة زوج</string>
     <string name="shortcut_alarms">كل التنبيهات</string>
     <string name="shortcut_cycle">السوق</string>
+
+    <string name="log_box_title">السجل</string>
 </resources>

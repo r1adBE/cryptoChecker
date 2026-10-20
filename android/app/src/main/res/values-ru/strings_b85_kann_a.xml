@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="alarm_first_check">Проверить, доходят ли оповещения</string>
-    <string name="change_candle_source_hint">Рассчитано по свечам %1$s – сама биржа это значение не даёт.</string>
-    <string name="change_candle_source_action">Показать источник изменения</string>
-</resources>

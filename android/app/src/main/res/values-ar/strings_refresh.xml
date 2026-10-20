@@ -143,4 +143,7 @@
     <string name="battery_title">إبقاء الأسعار محدّثة</string>
     <string name="ios_background_refresh_off">تحديث التطبيقات في الخلفية متوقف لهذا التطبيق. بدونه لا تُفحص التنبيهات إلا والتطبيق مفتوح.</string>
     <string name="ios_low_power_mode">وضع الطاقة المنخفضة مفعّل. نادرًا ما يتحقق iOS في الخلفية، لذا قد تتأخر التنبيهات.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">رسالة المنصة: %1$s</string>
 </resources>

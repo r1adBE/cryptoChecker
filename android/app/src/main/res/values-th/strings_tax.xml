@@ -80,7 +80,6 @@
     <string name="tax_export_summary">สรุปรายปี %1$s (CSV)</string>
     <string name="tax_export_swap">สลับเหรียญ</string>
     <string name="tax_export_tax_year">ปีภาษี</string>
-    <string name="tax_export_time_zone">เขตเวลา: %1$s</string>
     <string name="tax_export_transfer_fee_info">ค่าธรรมเนียมโอนย้ายเป็น USDT/เงินสด – ไม่ใช่ขาดทุน ไม่รวมในต้นทุน แสดงเพื่อทราบเท่านั้น</string>
     <string name="tax_export_unassigned_fee">ค่าธรรมเนียมยังไม่ได้ปันส่วน – ไม่ทราบต้นทุน</string>
     <string name="tax_export_usdt_usd_note">แปลง USDT ด้วยราคาปิดรายวัน USDT/USD; หากไม่มีราคาปิดใช้ 1 USD (ระบุในแต่ละแถว)</string>
@@ -134,15 +133,12 @@
     <string name="tax_de_explain_loss">ขาดทุนสุทธิ: ไม่มีภาษีสำหรับการขายเหล่านี้ ผลขาดทุนตาม § 23 EStG หักได้เฉพาะกับกำไรจากการขายส่วนบุคคล – ในปีเดียวกันหรือโดยยกย้อนไปปีก่อนและยกไปปีถัดไป (§ 23 Abs. 3 / § 10d EStG) แจ้งผลขาดทุนในแบบแสดงรายการภาษีเพื่อให้มีการรับรอง</string>
     <string name="tax_de_explain_reached">ตั้งแต่ %1$s นับทั้งจำนวน (เกณฑ์ยกเว้น – ไม่ใช่ค่าลดหย่อน)</string>
     <string name="tax_de_explain_unknown">ตรวจสอบไม่ได้: ไม่มีอัตราแลกเปลี่ยน ราคาซื้อ หรือระยะเวลาถือ</string>
-    <string name="tax_de_income">รายได้จากบริการ (§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_income_limit">เกณฑ์ยกเว้นภาษีบริการ (§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_limit_scope">เกณฑ์ใช้กับการขายส่วนบุคคลหรือบริการทั้งหมดของปีรวมกัน – รวมถึงนอกแอปด้วย</string>
     <string name="tax_de_loading">กำลังคำนวณ…</string>
     <string name="tax_de_long_gains">กำไร ถือ &gt; 1 ปี</string>
     <string name="tax_de_long_losses">ขาดทุน ถือ &gt; 1 ปี</string>
     <string name="tax_de_loss">ขาดทุนสุทธิ – หักได้เฉพาะกับกำไรจากการขายส่วนบุคคล (§ 23 EStG)</string>
-    <string name="tax_de_needs_eur">ต้องใช้มูลค่าเป็น EUR (ไม่มีอัตราแลกเปลี่ยน)</string>
-    <string name="tax_de_needs_holding">ไม่มีระยะเวลาถือ (วิธีเฉลี่ย) – เลือก FIFO เพื่อตรวจสอบ</string>
     <string name="tax_de_private_limit">เกณฑ์ยกเว้นภาษีการขายส่วนบุคคล (§ 23 EStG)</string>
     <string name="tax_de_reached">ถึงเกณฑ์แล้ว – โดยทั่วไปนับทั้งจำนวน – โปรดตรวจสอบ</string>
     <string name="tax_de_short_gains">กำไร ถือ ≤ 1 ปี</string>
@@ -203,4 +199,51 @@
     <string name="tax_summary_title">สรุปรายปี %1$s %2$s</string>
     <string name="tax_summary_transfer_fee_info">ค่าธรรมเนียมโอนย้ายเป็น USDT/เงินสด – ไม่ใช่ขาดทุนและไม่รวมในต้นทุน แสดงเพื่อทราบเท่านั้น</string>
     <string name="tax_summary_withdrawal_fee_info">ค่าธรรมเนียมการถอนเป็น USDT/เงินสด – ไม่นับเป็นขาดทุน แสดงเพื่อทราบเท่านั้น</string>
+
+    <string name="tax_line_at_old_speculation_limit">ธุรกรรมเก็งกำไร (กฎหมายเดิม ถือ ≤ 1 ปี): วงเงินยกเว้นภาษี (§ 31 (3) EStG ฉบับเดิม)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">ดอกเบี้ยจากการให้ยืมก่อน 1.3.2022 (มูลค่าตอนที่ได้รับ)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">ดอกเบี้ยก่อน 1.3.2022: กฎหมายเดิม (อัตราก้าวหน้า) ไม่ใช่ 27.5 เปอร์เซ็นต์</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">ก่อน 1.3.2022 – ควรตรวจสอบกับผู้เชี่ยวชาญ</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">ดอกเบี้ย – ต้องเสียภาษีเมื่อได้รับ</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">สเตกกิ้ง – เพื่อทราบเท่านั้น (ต้นทุนการได้มา 0 เสียภาษีเมื่อขาย)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">รวมดอกเบี้ย (ต้องเสียภาษี)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">รวมสเตกกิ้ง (เพื่อทราบ)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">ขาดทุนจากทุนสุทธิ (ยกไป)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">ไม่เลือกอัตราพิเศษ: รวมการขาย 1.1.–28.2.2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking ก่อน 1.3.2022: ตั้งต้นทุนการได้มาเป็น 0 – ควรตรวจสอบกับผู้เชี่ยวชาญ</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">กฎ 30 วันอาจยังเปลี่ยนตัวเลขเหล่านี้ได้ (การซื้อจนถึง %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">รายรับจากการขายก่อนหักค่าธรรมเนียมเกินเกณฑ์การแจ้ง (£50,000; 2020/21–2022/23: £49,200): ต้องแจ้ง HMRC หากคุณลงทะเบียน Self Assessment แม้ไม่มีกำไรที่ต้องเสียภาษี</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">มูลค่าทรัพย์สิน ณ 31 ธ.ค. %1$s (เพื่อเป็นแนวทาง)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ยึดตามรายการราคา ESTV (ictax.admin.ch) สำหรับเหรียญที่ไม่มีในรายการ โดยทั่วไปใช้ราคาปิดของกระดานเทรด ไม่ได้คำนวณภาษีทรัพย์สิน</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – ยอดถือครอง %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">ไม่ได้คำนวณ</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">ไม่สามารถอ่านที่อยู่ที่ติดตามได้ – ยอดคงเหลือของที่อยู่เหล่านั้นไม่มีในไฟล์นี้</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">ที่อยู่ที่ติดตามนับรวมในมูลค่ารวม แต่ไม่มีต้นทุนการได้มา – กำไรจึงน่าจะสูงเกินจริง โปรดบันทึกต้นทุนเป็นการซื้อ</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">มูลค่าตลาดที่ไม่มีราคาบันทึก (ค่าธรรมเนียม, ให้/ชำระ, แลกเปลี่ยน, รางวัล, ค่าธรรมเนียมเครือข่าย, มูลค่าพอร์ต) ใช้ราคาปิดรายวัน (UTC) ของวันที่ทำรายการ</string>
 </resources>

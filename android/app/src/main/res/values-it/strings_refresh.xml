@@ -116,4 +116,7 @@
     <string name="battery_title">Mantieni i prezzi aggiornati</string>
     <string name="ios_background_refresh_off">L’aggiornamento in background è disattivato per l’app. Senza, gli allarmi vengono controllati solo con l’app aperta.</string>
     <string name="ios_low_power_mode">La modalità Risparmio energetico è attiva. iOS controlla raramente in background, gli allarmi possono arrivare in ritardo.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Messaggio dell\'exchange: %1$s</string>
 </resources>

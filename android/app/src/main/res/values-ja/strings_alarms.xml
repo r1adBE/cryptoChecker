@@ -161,4 +161,11 @@
     <string name="alarm_a11y_speak_on">読み上げオン</string>
     <string name="alarm_unchecked_no_candles">確認できませんでした（ローソク足データなし）</string>
     <string name="alarm_unchecked_no_rate">確認できませんでした（為替レートなし）</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">通知オフ – このアラームは届きません</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">アラームなし – 流動性が低い</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">最新の価格を待っています</string>
 </resources>

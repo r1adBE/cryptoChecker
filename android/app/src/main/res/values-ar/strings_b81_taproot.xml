@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
-    <string name="portfolio_address_taproot_account">حساب Taproot ‏(BIP86): تُشتق من هذا المفتاح عناوين bc1p…، للاستلام والفكّة.</string>
-    <string name="portfolio_address_taproot_hint">محفظة Taproot؟ الصق بدلًا من ذلك الواصف tr(…) من محفظتك – إذ يُبحث في xpub العادي عن عناوين Legacy وSegWit فقط.</string>
-</resources>

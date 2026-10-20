@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="alarm_first_check">Verificar se os alertas chegam</string>
-    <string name="change_candle_source_hint">Calculado com base nas velas da %1$s – a própria corretora não fornece este valor.</string>
-    <string name="change_candle_source_action">Mostrar origem da variação</string>
-</resources>

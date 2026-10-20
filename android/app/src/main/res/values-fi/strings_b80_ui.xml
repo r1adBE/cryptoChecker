@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="starter_source_text">Kurssit pörssistä %1$s valuutassa %2$s. Poista valinta niistä, joita et halua, ja lisää loput kerralla. Voit vaihtaa pörssin ja parin kolikkokohtaisesti.</string>
-    <string name="watchlist_row_exchange_paused">%1$s · tauolla klo %2$s asti</string>
-</resources>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="watchlist_sort_by_coin">按币种排序</string>
-    <string name="watchlist_sort_by_exchange">按交易所排序</string>
-</resources>

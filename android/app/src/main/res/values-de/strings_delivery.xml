@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Damit Alarme ankommen</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">In Ordnung</string>
+    <string name="delivery_state_warn">Achtung</string>
+    <string name="delivery_state_info">Hinweis</string>
+    <string name="delivery_allowed">Erlaubt</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Benachrichtigungen</string>
+    <string name="delivery_notifications_off">Aus – Alarme kommen nicht an</string>
+    <string name="delivery_notifications_not_asked">Noch nicht erlaubt</string>
+    <string name="delivery_channel">Alarm-Kanal</string>
+    <string name="delivery_channel_high">Wichtigkeit hoch – erscheint oben auf dem Bildschirm</string>
+    <string name="delivery_channel_low">Wichtigkeit niedrig – Alarme erscheinen nur still in der Liste</string>
+    <string name="delivery_channel_off">Ausgeschaltet – Alarme kommen nicht an</string>
+    <string name="delivery_exact_on">An – etwa alle 15 Minuten</string>
+    <string name="delivery_exact_off">Aus – Android prüft unregelmässig</string>
+    <string name="delivery_battery">Akku-Optimierung</string>
+    <string name="delivery_battery_unrestricted">Nicht eingeschränkt</string>
+    <string name="delivery_battery_optimized">Optimiert – Android kann Prüfungen verzögern. Die App bittet nicht um eine Ausnahme; ändern kannst du das in den Akku-Einstellungen der App.</string>
+    <string name="delivery_background">Hintergrundnutzung</string>
+    <string name="delivery_background_restricted">Eingeschränkt – Android stoppt Prüfungen im Hintergrund</string>
+    <string name="delivery_dnd">Nicht stören</string>
+    <string name="delivery_dnd_on">An – Alarme kommen womöglich ohne Ton</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Gerade aktiv bis %1$s – fällige Alarme warten bis dahin</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – fällige Alarme warten in dieser Zeit</string>
+    <string name="delivery_last_check">Letzte Prüfung im Hintergrund</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – mehr als 6 Stunden her</string>
+    <string name="delivery_last_check_never">Noch keine</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Erlauben</string>
+    <string name="delivery_action_change">Ändern</string>
+    <string name="delivery_action_show">Anzeigen</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Banner und Ton</string>
+    <string name="delivery_alert_off">Banner aus – Alarme erscheinen nur in der Benachrichtigungszentrale</string>
+    <string name="delivery_sound_off">Ton aus – Alarme kommen lautlos</string>
+    <string name="delivery_time_sensitive">Dringliche Benachrichtigungen</string>
+    <string name="delivery_time_sensitive_off">Aus – ein Fokus kann Alarme zurückhalten</string>
+    <string name="delivery_background_refresh">Hintergrundaktualisierung</string>
+    <string name="delivery_low_power">Stromsparmodus</string>
+    <string name="delivery_swipe_away">App weggewischt?</string>
+    <string name="delivery_swipe_away_note">Wischst du die App im App-Umschalter weg, prüft iOS im Hintergrund nicht mehr, bis du sie wieder öffnest.</string>
+    <string name="delivery_live_activity">Live-Aktivität</string>
+    <string name="delivery_live_activity_note">Zeigt den Kurs auf dem Sperrbildschirm, wird aber nur bei einer Prüfung der App aktualisiert – Alarme werden dadurch nicht öfter geprüft.</string>
+
+    <string name="alarm_first_check">Prüfen, ob Alarme ankommen</string>
+
+    <string name="oem_battery_title">Akkusparen des Herstellers</string>
+    <string name="oem_battery_xiaomi">Xiaomi kann die App ganz beenden – dann kommen keine Alarme an. «Autostart» einschalten und Akkusparen auf «Keine Einschränkungen» stellen.</string>
+    <string name="oem_battery_samsung">Samsung kann die App in Tiefschlaf versetzen – dann kommen keine Alarme an. Unter Akku › Hintergrundnutzungslimits zu «Nie schlafende Apps» hinzufügen.</string>
+    <string name="oem_battery_huawei">Huawei/Honor kann die App beenden – dann kommen keine Alarme an. Unter Akku › App-Start «Manuell verwalten» wählen und alles erlauben.</string>
+    <string name="oem_battery_oneplus">OnePlus kann die App beenden – dann kommen keine Alarme an. «Automatischer Start» erlauben und unter Akkunutzung Hintergrundaktivität zulassen.</string>
+    <string name="oem_battery_oppo">Oppo/Realme kann die App beenden – dann kommen keine Alarme an. «Automatischer Start» erlauben und unter Akkunutzung Hintergrundaktivität zulassen.</string>
+    <string name="oem_battery_vivo">Vivo kann die App beenden – dann kommen keine Alarme an. «Autostart» erlauben und unter Akku hohen Hintergrundverbrauch zulassen.</string>
+</resources>

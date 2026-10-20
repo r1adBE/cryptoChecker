@@ -98,4 +98,7 @@
     <string name="battery_title">保持价格最新</string>
     <string name="ios_background_refresh_off">此应用的“后台App刷新”已关闭。关闭时，只有在应用打开时才会检查提醒。</string>
     <string name="ios_low_power_mode">低电量模式已开启。iOS 很少在后台检查，提醒可能会延迟。</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">交易所消息：%1$s</string>
 </resources>

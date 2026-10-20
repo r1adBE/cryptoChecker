@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
-    <string name="tax_export_day_close_rule">기록된 가격이 없는 시장 가치(수수료, 증여/결제, 교환, 보상, 네트워크 수수료, 포트폴리오 가치)는 거래일의 일일 종가(UTC) 기준</string>
-</resources>

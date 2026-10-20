@@ -43,4 +43,6 @@
     <string name="shortcut_add">Çift ekle</string>
     <string name="shortcut_alarms">Tüm alarmlar</string>
     <string name="shortcut_cycle">Piyasa</string>
+
+    <string name="log_box_title">Günlük</string>
 </resources>

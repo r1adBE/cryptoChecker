@@ -68,4 +68,7 @@
     </plurals>
     <string name="portfolio_imports_empty">Tidak ada impor</string>
     <string name="portfolio_imports_title">Impor</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">ID transaksi sama dengan jumlah berbeda – periksa manual</string>
+    <string name="portfolio_csv_skip_staking_unpaired">entri staking tanpa entri lawan – periksa saldo</string>
 </resources>

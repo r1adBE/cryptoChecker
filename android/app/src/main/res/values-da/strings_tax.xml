@@ -80,7 +80,6 @@
     <string name="tax_export_summary">Årsoversigt %1$s (CSV)</string>
     <string name="tax_export_swap">bytte</string>
     <string name="tax_export_tax_year">Skatteår</string>
-    <string name="tax_export_time_zone">Tidszone: %1$s</string>
     <string name="tax_export_transfer_fee_info">Overførselsgebyr i USDT/kontanter – intet tab, ikke i anskaffelsesprisen, kun til information</string>
     <string name="tax_export_unassigned_fee">gebyr ikke fordelt – anskaffelsespris ukendt</string>
     <string name="tax_export_usdt_usd_note">USDT omregnet til dagslukkekursen for USDT/USD; uden lukkekurs 1 USD (markeret pr. række)</string>
@@ -134,15 +133,12 @@
     <string name="tax_de_explain_loss">Nettotab: ingen skat af disse salg. Tab efter § 23 EStG kan kun modregnes i gevinster fra private salg – i samme år eller ved tilbageførsel til året før og fremførsel til senere år (§ 23 Abs. 3 / § 10d EStG). Angiv tabet i din selvangivelse så det bliver fastsat.</string>
     <string name="tax_de_explain_reached">Fra %1$s tæller hele beløbet (fritagelsesgrænse – ikke et bundfradrag).</string>
     <string name="tax_de_explain_unknown">Kan ikke kontrolleres: valutakurser / købspriser eller ejertider mangler.</string>
-    <string name="tax_de_income">Indkomst fra ydelser (§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_income_limit">Fritagelsesgrænse ydelser (§ 22 Nr. 3 EStG)</string>
     <string name="tax_de_limit_scope">Grænserne gælder for alle private salg eller ydelser i året samlet – også uden for appen.</string>
     <string name="tax_de_loading">Beregner…</string>
     <string name="tax_de_long_gains">Gevinster – ejet &gt; 1 år</string>
     <string name="tax_de_long_losses">Tab – ejet &gt; 1 år</string>
     <string name="tax_de_loss">nettotab – kan kun modregnes i gevinster fra private salg (§ 23 EStG)</string>
-    <string name="tax_de_needs_eur">kræver EUR-værdier (valutakurser mangler)</string>
-    <string name="tax_de_needs_holding">ejertid mangler (gennemsnitsmetode) – vælg FIFO til kontrollen</string>
     <string name="tax_de_private_limit">Fritagelsesgrænse private salg (§ 23 EStG)</string>
     <string name="tax_de_reached">grænsen nået – normalt tæller hele beløbet – kontrollér</string>
     <string name="tax_de_short_gains">Gevinster – ejet ≤ 1 år</string>
@@ -203,4 +199,51 @@
     <string name="tax_summary_title">Årsoversigt %1$s %2$s</string>
     <string name="tax_summary_transfer_fee_info">Overførselsgebyrer i USDT/kontanter – intet tab og ikke i anskaffelsesprisen, kun til information</string>
     <string name="tax_summary_withdrawal_fee_info">Udbetalingsgebyrer i USDT/kontanter – tælles ikke som tab, kun til information</string>
+
+    <string name="tax_line_at_old_speculation_limit">Spekulationshandler (tidligere regler, holdt ≤ 1 år): fritagelsesgrænse (§ 31, stk. 3 EStG, gammel affattelse)</string>
+
+    <!-- Jahresübersicht AT: Zinsen aus Lending mit Zufluss vor dem 1.3.2022 (alte Rechtslage, nicht im Sondersteuersatz) -->
+    <string name="tax_line_at_interest_old">Renter fra lending før 1.3.2022 (værdi ved modtagelse)</string>
+    <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
+    <string name="tax_summary_at_interest_old_law">Renter før 1.3.2022: gammel retstilstand (skattesats), ikke 27,5 procent</string>
+    <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
+    <string name="tax_export_at_income_before_new_law">før 1.3.2022 – afklar med en fagperson</string>
+
+    <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
+    <string name="tax_export_at_income_interest">Renter – skattepligtige ved modtagelse</string>
+    <!-- Einkünfte-CSV AT: Vermerk einer übrigen Belohnung (Neubestand) -->
+    <string name="tax_export_at_income_staking">Staking – kun til orientering (anskaffelsessum 0, beskattes ved salg)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der Zinsen -->
+    <string name="tax_export_at_total_interest">Renter i alt (skattepligtige)</string>
+    <!-- Einkünfte-CSV AT: Summenzeile der übrigen Belohnungen -->
+    <string name="tax_export_at_total_staking">Staking i alt (orientering)</string>
+
+    <!-- Jahresübersicht CA/AU: netto ein Kapitalverlust, vorzutragen (CA abziehbarer Teil × 1/2, AU ganzer Verlust) -->
+    <string name="tax_line_net_capital_loss">Nettokapitaltab (fremføres)</string>
+    <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
+    <string name="tax_summary_at_without_option">uden option: inkl. salg 1.1.–28.2.2022</string>
+    <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
+    <string name="tax_summary_at_staking_zero_cost">Staking før 1.3.2022: anskaffelsessum sat til 0 – afklar med en fagperson</string>
+    <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
+    <string name="tax_summary_window_open">30-dages-reglen kan stadig ændre disse tal (køb til og med %1$s)</string>
+    <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
+    <string name="tax_summary_uk_hmrc_report">Salgssummer før gebyrer over indberetningsgrænsen (£50.000; 2020/21–2022/23: £49.200): indberetning til HMRC, hvis du er registreret til Self Assessment, også uden skattepligtig gevinst</string>
+
+    <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
+    <string name="tax_line_ch_wealth_value">Formueværdi 31.12.%1$s (vejledende)</string>
+    <!-- Jahresübersicht CH: Vermerk zum Vermögenswert (TaxSummaryNote.CH_WEALTH_ORIENTATION) -->
+    <string name="tax_summary_ch_wealth_orientation">ESTV-kurslisten (ictax.admin.ch) er afgørende. For coins uden notering på listen gælder som regel børsens lukkekurs. Formueskat beregnes ikke.</string>
+    <!-- Jahresübersicht CH: Zeile je Coin im Vermögenswert, %1$s = Coin, %2$s = Bestand -->
+    <string name="tax_ch_wealth_coin">%1$s – beholdning %2$s</string>
+    <!-- Jahresübersicht CH: Coin ohne Wert (kein Schlusskurs 31.12., ungeprüft, Guthaben unbekannt) -->
+    <string name="tax_ch_wealth_not_calculated">ikke beregnet</string>
+
+    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
+    <string name="portfolio_export_addresses_unreadable">Overvågede adresser kunne ikke læses – deres saldi mangler i denne fil</string>
+
+    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
+    <string name="tax_summary_fr_address_no_cost">Overvågede adresser tæller med i den samlede værdi, men har ingen anskaffelsessum – gevinsten er derfor snarere for høj. Registrér anskaffelsessummen som et køb.</string>
+
+    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
+    <string name="tax_export_day_close_rule">Markedsværdier uden registreret pris (gebyrer, givet væk/betalt, bytte, belønninger, netværksgebyrer, porteføljeværdi) til dagens lukkekurs (UTC) på transaktionsdagen</string>
 </resources>

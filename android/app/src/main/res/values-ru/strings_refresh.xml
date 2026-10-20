@@ -125,4 +125,7 @@
     <string name="battery_title">Актуальные цены</string>
     <string name="ios_background_refresh_off">Фоновое обновление для приложения выключено. Без него оповещения проверяются, только пока приложение открыто.</string>
     <string name="ios_low_power_mode">Включён режим энергосбережения. iOS редко проверяет в фоне, оповещения могут опаздывать.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Сообщение биржи: %1$s</string>
 </resources>

@@ -32,8 +32,6 @@
     <string name="market_plain_standout_quiet">Aucune crypto ne se distingue particulièrement en ce moment.</string>
     <string name="market_plain_standout_volume">%1$s se distingue : environ %2$s fois plus d’échanges que d’habitude.</string>
     <string name="market_plain_title">En bref</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · hier %2$s</string>
     <string name="market_section_collapse">Masquer %1$s</string>
     <string name="market_section_context">Sentiment et cycle</string>
     <string name="market_section_data">Données de marché</string>
@@ -253,4 +251,22 @@
         <item quantity="other">Seulement %1$d jours d\'historique – certains indicateurs manquent.</item>
     </plurals>
     <string name="coin_title">Analyse d\'une crypto</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Données : %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Gagnants et perdants 24 h</string>
+    <string name="movers_gainers">Gagnants</string>
+    <string name="movers_losers">Perdants</string>
+    <string name="movers_no_gainers">Aucune crypto n\'a monté en 24 h</string>
+    <string name="movers_no_losers">Aucune crypto n\'a baissé en 24 h</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 sans stablecoins</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Tout afficher</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Afficher moins</string>
 </resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_log_title">Alarmlog</string>
+    <string name="alarm_log_open">Vis alarmlog</string>
+    <string name="alarm_log_intro">Hvornår en alarm blev udløst – og hvornår den ville være udløst, men blev holdt tilbage. Gemmes kun på denne enhed i 14 dage.</string>
+    <string name="alarm_log_empty_title">Ingen poster endnu</string>
+    <string name="alarm_log_empty_message">Her vises poster, så snart en alarm udløses eller holdes tilbage – fx på grund af en forældet kurs eller nattero.</string>
+    <string name="alarm_log_clear">Ryd log</string>
+    <string name="alarm_log_clear_title">Ryd alarmloggen?</string>
+    <string name="alarm_log_clear_message">Alle poster fjernes. Dine alarmer forbliver uændrede.</string>
+    <string name="alarm_log_threshold">Grænse %1$s</string>
+    <string name="alarm_last_check">Sidst tjekket: %1$s</string>
+    <string name="alarm_outcome_fired">Udløst</string>
+    <string name="alarm_outcome_not_reached">Grænsen ikke nået</string>
+    <string name="alarm_outcome_already_triggered">Allerede meldt – venter, til kursen er tilbage på den anden side</string>
+    <string name="alarm_outcome_cooldown">Ikke udløst – pause efter sidste melding</string>
+    <string name="alarm_outcome_stale">Ikke udløst – forældet kurs (status %1$s)</string>
+    <string name="alarm_outcome_mark_price">Ikke udløst – markpris, ikke en handelskurs</string>
+    <string name="alarm_outcome_low_liquidity">Ikke udløst – likviditet under 10.000 USD eller ukendt</string>
+    <string name="alarm_outcome_quiet_hours">Ikke udløst – nattero (melder sig bagefter, hvis betingelsen stadig er opfyldt)</string>
+    <string name="alarm_outcome_notifications_off">Ikke udløst – notifikationer slået fra</string>
+    <string name="alarm_outcome_not_shown">Ikke udløst – notifikationen kom ikke frem, prøver igen senere</string>
+    <string name="alarm_outcome_no_rate">Ikke tjekket – ingen valutakurs</string>
+    <string name="alarm_outcome_no_price">Ingen kurs – forespørgsel til børsen mislykkedes</string>
+
+    <string name="alarm_outcome_snoozed">Holdt tilbage – «Om 1 t» kører stadig</string>
+    <string name="alarm_log_source_app">i appen</string>
+    <string name="alarm_log_source_background">i baggrunden</string>
+    <string name="alarm_log_source_exact">præcis kontrol</string>
+    <string name="alarm_log_source_widget">via widget</string>
+</resources>

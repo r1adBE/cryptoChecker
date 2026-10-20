@@ -43,4 +43,6 @@
     <string name="shortcut_add">Tilføj par</string>
     <string name="shortcut_alarms">Alle alarmer</string>
     <string name="shortcut_cycle">Marked</string>
+
+    <string name="log_box_title">Log</string>
 </resources>

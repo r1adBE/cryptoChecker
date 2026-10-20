@@ -17,4 +17,6 @@
     <string name="starter_select_none">Καμία επιλογή</string>
     <string name="starter_title">Ξεκινήστε με αυτά τα νομίσματα</string>
     <string name="starter_watch_alarm_hint">Παρακολούθησε την τιμή, όρισε συναγερμό</string>
+
+    <string name="starter_source_text">Τιμές από %1$s σε %2$s. Αποεπιλέξτε ό,τι δεν θέλετε και προσθέστε τα υπόλοιπα με μία κίνηση. Μπορείτε να αλλάξετε ανταλλακτήριο και ζεύγος για κάθε νόμισμα.</string>
 </resources>

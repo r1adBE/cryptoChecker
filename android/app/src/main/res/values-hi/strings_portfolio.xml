@@ -261,4 +261,44 @@
         <item quantity="one">बिना खरीद मूल्य वाले %1$d कॉइन के बिना (%2$s) – गिनती में लाने के लिए मूल्य जोड़ें।</item>
         <item quantity="other">बिना खरीद मूल्य वाले %1$d कॉइनों के बिना (%2$s) – गिनती में लाने के लिए मूल्य जोड़ें।</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT में गिरावट – बाज़ार %1$s USD पर</string>
+    <string name="portfolio_usdt_via_usdc">USDC/USDT के ज़रिए USDT की डॉलर दर – USDC गिरे तो यह मान सही नहीं</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s सहित (ब्रिज किया)</string>
+
+    <string name="portfolio_tx_interest">ब्याज (लेंडिंग)</string>
+    <string name="portfolio_tx_interest_hint">प्राप्ति पर आय के रूप में गिना जाता है (ऑस्ट्रिया)। स्टेकिंग पुरस्कारों और एयरड्रॉप के लिए बंद रखें।</string>
+    <string name="app_lock_no_screen_lock">पोर्टफ़ोलियो खोलने के लिए स्क्रीन लॉक सेट करें।</string>
+    <string name="app_lock_turn_off_action">पोर्टफ़ोलियो लॉक बंद करें</string>
+    <string name="app_lock_turn_off_confirm_title">पोर्टफ़ोलियो लॉक बंद करें?</string>
+    <string name="app_lock_turn_off_confirm_message">स्क्रीन लॉक के बिना पोर्टफ़ोलियो अनलॉक नहीं हो सकता। बंद करने पर ऐप बिना पूछे फिर से पोर्टफ़ोलियो दिखाएगा। स्क्रीन लॉक सेट होने के बाद आप सेटिंग्स में लॉक फिर से चालू कर सकते हैं।</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">«खरीद से» और लागत %1$s में: लागत खरीद के दिन की विनिमय दर पर, मूल्य आज की दर पर।</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">खरीद के दिन की विनिमय दर नहीं है («खरीद से» और लागत में शामिल नहीं): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">USDT की डॉलर दर के बिना खरीद के दिनों की लागत 1 अमेरिकी डॉलर प्रति USDT के रूप में गिनी गई।</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">%1$s तक – एक्सचेंज उपलब्ध नहीं</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">दैनिक भाव: %1$s (Binance के बजाय)</string>
+
+    <string name="portfolio_footer_short">काम में मदद का साधन, कर या निवेश सलाह नहीं। गोपनीयता: सेटिंग्स › ऐप के बारे में › गोपनीयता नीति।</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">%1$s के सभी लेन-देन हटाएँ?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d लेन-देन हटाए जाएँगे। हटाने के तुरंत बाद आप इसे पूर्ववत कर सकते हैं।</item>
+        <item quantity="other">%d लेन-देन हटाए जाएँगे। हटाने के तुरंत बाद आप इसे पूर्ववत कर सकते हैं।</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s पोर्टफ़ोलियो से हटाया गया (%2$d लेन-देन)</item>
+        <item quantity="other">%1$s पोर्टफ़ोलियो से हटाया गया (%2$d लेन-देन)</item>
+    </plurals>
 </resources>

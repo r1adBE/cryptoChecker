@@ -269,4 +269,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Wibracje zależą od ustawień iPhone’a (Dźwięki i haptyka).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Liczy nowe alarmy i komunikaty rynkowe; po otwarciu aplikacji wraca do 0.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Twoje dane</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Na urządzeniu</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Lista, alarmy i portfel są przechowywane w postaci zaszyfrowanej na tym urządzeniu; bez konta, bez własnego serwera.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Połączenia</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Kursy pochodzą bezpośrednio z giełd Twoich par, do tego kursy walut, listy i logo monet oraz kopia danych na GitHubie; widzą one Twój adres IP, nigdy Twoje zasoby (obserwowane adresy trafiają do dostawcy danej sieci).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Kopia zapasowa</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Tylko jeśli ją utworzysz; zaszyfrowana hasłem (Argon2id + AES-256-GCM), bez hasła czytelna.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Zmiana urządzenia</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Klucz zostaje na starym urządzeniu – najpierw utwórz plik kopii zapasowej.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Udostępnij diagnostykę</string>
+    <string name="diagnostics_share_hint">Plik tekstowy dla wsparcia: wersja, urządzenie, ustawienia alertów, ostatnie sprawdzenia i dziennik alarmów – bez portfela, kwot, adresów i notatek. Najpierw go zobaczysz; nic nie jest wysyłane automatycznie.</string>
+    <string name="diagnostics_preview_title">Diagnostyka – podgląd</string>
+    <string name="diagnostics_action_share">Udostępnij</string>
 </resources>

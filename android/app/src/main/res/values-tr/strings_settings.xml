@@ -265,4 +265,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Titreşim iPhone ayarlarına bağlıdır (Sesler ve Dokunuş).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Yeni alarmları ve piyasa uyarılarını sayar; uygulamayı açınca 0’a döner.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Verilerin</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Cihazda</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Liste, alarmlar ve portföy bu cihazda şifreli olarak durur; hesap yok, kendi sunucumuz yok.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Bağlantılar</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Fiyatlar doğrudan çiftlerinin borsalarından gelir, ayrıca döviz kurları, coin listeleri ve logolar ile GitHub’daki veri yansısı; bunlar IP adresini görür, varlıklarını asla (izlenen adresler ilgili ağın sağlayıcısına gider).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Yedek</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Yalnızca sen oluşturursan; parolayla şifreli (Argon2id + AES-256-GCM), parolasız okunabilir.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Cihaz değişikliği</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Anahtar eski cihazda kalır – önce bir yedek dosyası oluştur.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Tanılamayı paylaş</string>
+    <string name="diagnostics_share_hint">Destek için metin dosyası: sürüm, cihaz, alarm ayarları, son kontroller ve alarm günlüğü – portföy, tutar, adres veya not olmadan. Önce sen görürsün; hiçbir şey otomatik gönderilmez.</string>
+    <string name="diagnostics_preview_title">Tanılama – önizleme</string>
+    <string name="diagnostics_action_share">Paylaş</string>
 </resources>

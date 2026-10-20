@@ -265,4 +265,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibration follows the iPhone settings (Sounds &amp; Haptics).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Counts new alerts and market alerts; back to 0 when you open the app.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Your data</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">On this device</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Your watchlist, alerts and portfolio are stored encrypted on this device; no account, no server of our own.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Connections</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Prices come directly from the exchanges of your pairs, plus exchange rates, coin lists and logos and the data mirror on GitHub; they see your IP address, never your holdings (watched addresses go to the provider of the respective network).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Backup</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Only if you create one; encrypted with a password (Argon2id + AES-256-GCM), readable without one.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Changing devices</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">The key stays on the old device – create a backup file first.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Share diagnostics</string>
+    <string name="diagnostics_share_hint">Text file for support: version, device, alert settings, recent checks and alarm log – without portfolio, amounts, addresses or notes. You see it first; nothing is sent automatically.</string>
+    <string name="diagnostics_preview_title">Diagnostics preview</string>
+    <string name="diagnostics_action_share">Share</string>
 </resources>

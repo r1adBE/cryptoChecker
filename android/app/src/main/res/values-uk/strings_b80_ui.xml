@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="starter_source_text">Ціни з біржі %1$s у %2$s. Зніміть позначку з непотрібних і додайте решту за один раз. Біржу й пару можна змінити для кожної монети.</string>
-    <string name="watchlist_row_exchange_paused">%1$s · пауза до %2$s</string>
-</resources>

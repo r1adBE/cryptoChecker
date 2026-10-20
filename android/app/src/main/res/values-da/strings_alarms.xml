@@ -167,4 +167,11 @@
     <string name="alarm_a11y_speak_on">Oplæsning til</string>
     <string name="alarm_unchecked_no_candles">Kunne ikke tjekkes (ingen candles)</string>
     <string name="alarm_unchecked_no_rate">Kunne ikke tjekkes (ingen valutakurs)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Notifikationer slået fra – alarmen når ikke frem</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Ingen alarm – lav likviditet</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Venter på en aktuel kurs</string>
 </resources>

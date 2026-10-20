@@ -8,7 +8,6 @@
     </plurals>
     <string name="watchlist_last_run">Proses terakhir %1$s</string>
     <string name="watchlist_live_a11y">Harga live aktif</string>
-    <string name="watchlist_live_badge">LANGSUNG</string>
     <string name="watchlist_offline_since">Tidak ada koneksi · per %1$s</string>
     <string name="watchlist_pull_to_refresh">Tarik ke bawah untuk memperbarui</string>
     <string name="watchlist_refresh_report">Pembaruan terakhir</string>
@@ -178,4 +177,30 @@
     <string name="sort_move_down">Turun</string>
     <string name="sort_move_top">Ke paling atas</string>
     <string name="sort_move_up">Naik</string>
+
+    <string name="watchlist_first_alarm_title">Pasang alarm pertamamu</string>
+    <string name="watchlist_first_alarm_text">Dapatkan notifikasi saat harga mencapai batasmu – saat aplikasi ditutup, Android memeriksa secara tidak teratur.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">harga mark (tanpa harga tengah)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">harga per jam</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Pasang alarm pertamamu – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Muat ulang (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · dijeda hingga %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Baru diperbarui · %1$d dtk lalu</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">perdagangan terakhir %1$s</string>
+
+    <string name="change_candle_source_hint">Dihitung dari candle %1$s – bursa sendiri tidak menyediakan nilai ini.</string>
+    <string name="change_candle_source_action">Tampilkan sumber perubahan</string>
+
+    <string name="watchlist_sort_by_coin">Urutkan menurut koin</string>
+    <string name="watchlist_sort_by_exchange">Urutkan menurut bursa</string>
 </resources>

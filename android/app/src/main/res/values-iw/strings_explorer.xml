@@ -118,4 +118,9 @@
     <string name="asset_kind_alpha">טוקן Alpha</string>
     <string name="asset_kind_token">טוקן</string>
     <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">נזילות נמוכה – ללא התראה</string>
+    <string name="dex_low_liquidity_alarm_hint">בפול הזה יש פחות מ-10,000 USD נזילות (או שאין נתון). גם סכומים קטנים מזיזים את המחיר, ולכן אי אפשר להגדיר כאן התראות. התראות קיימות נשמרות, אך יופעלו רק כשהנזילות תעלה שוב.</string>
+
+    <string name="explorer_bulk_show_all">הצג הכול (%1$d)</string>
 </resources>

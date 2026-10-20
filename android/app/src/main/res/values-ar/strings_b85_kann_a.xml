@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="alarm_first_check">تحقّق من وصول التنبيهات</string>
-    <string name="change_candle_source_hint">محسوب من شموع %1$s – المنصة نفسها لا توفّر هذه القيمة.</string>
-    <string name="change_candle_source_action">عرض مصدر التغيّر</string>
-</resources>

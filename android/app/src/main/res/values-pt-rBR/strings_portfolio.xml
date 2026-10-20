@@ -265,4 +265,46 @@
         <item quantity="many">Sem %1$d moedas sem preço de compra (%2$s) – adicione os preços para elas contarem.</item>
         <item quantity="other">Sem %1$d moedas sem preço de compra (%2$s) – adicione os preços para elas contarem.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">Colapso do USDT – mercado a %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Cotação em dólar do USDT via USDC/USDT – se o USDC cair, este valor está errado</string>
+    <string name="portfolio_amount_bridged_stable">≈ incl. %1$s (em ponte)</string>
+
+    <string name="portfolio_tx_interest">Juros (empréstimo)</string>
+    <string name="portfolio_tx_interest_hint">Conta como renda ao ser recebido (Áustria). Deixe desligado para recompensas de staking e airdrops.</string>
+    <string name="app_lock_no_screen_lock">Configure um bloqueio de tela para abrir a carteira.</string>
+    <string name="app_lock_turn_off_action">Desativar bloqueio da carteira</string>
+    <string name="app_lock_turn_off_confirm_title">Desativar o bloqueio da carteira?</string>
+    <string name="app_lock_turn_off_confirm_message">Sem bloqueio de tela não é possível desbloquear a carteira. Desativado, o app volta a mostrar sua carteira sem perguntar. Depois de configurar um bloqueio de tela, você pode reativar o bloqueio nas Configurações.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">“Desde a compra” e custo de aquisição em %1$s: custo pelo câmbio do dia da compra, valor pelo câmbio de hoje.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Sem câmbio para o dia da compra (fora de “Desde a compra” e do custo): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Custo em dias de compra sem cotação em dólar do USDT contado como 1 dólar americano por USDT.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Dados de %1$s – corretora indisponível</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Preços diários: %1$s (em vez da Binance)</string>
+
+    <string name="portfolio_footer_short">Ferramenta de trabalho, não é recomendação fiscal nem de investimento. Privacidade: Configurações › Sobre o app › Política de privacidade.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Excluir todas as transações de %1$s?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d transação será removida. Você pode desfazer logo em seguida.</item>
+        <item quantity="many">%d transações serão removidas. Você pode desfazer logo em seguida.</item>
+        <item quantity="other">%d transações serão removidas. Você pode desfazer logo em seguida.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s removido do portfólio (%2$d transação)</item>
+        <item quantity="many">%1$s removido do portfólio (%2$d transações)</item>
+        <item quantity="other">%1$s removido do portfólio (%2$d transações)</item>
+    </plurals>
 </resources>

@@ -93,4 +93,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Touch and hold an empty spot on the Home Screen until the apps jiggle.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Tap “Edit” › “Add Widget” at the top (or “+” on older iOS versions).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">Search for “Crypto Checker”, choose a widget and tap “Add Widget”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Refresh – possible again in %1$d s</string>
 </resources>

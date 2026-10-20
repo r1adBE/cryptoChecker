@@ -17,4 +17,6 @@
     <string name="starter_select_none">Poista valinnat</string>
     <string name="starter_title">Aloita näillä kolikoilla</string>
     <string name="starter_watch_alarm_hint">Seuraa hintaa, aseta hälytys</string>
+
+    <string name="starter_source_text">Kurssit pörssistä %1$s valuutassa %2$s. Poista valinta niistä, joita et halua, ja lisää loput kerralla. Voit vaihtaa pörssin ja parin kolikkokohtaisesti.</string>
 </resources>

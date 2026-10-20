@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="explorer_bulk_show_all">显示全部（%1$d）</string>
-    <string name="log_box_title">日志</string>
-    <string name="watchlist_first_alarm_title">设置第一个提醒</string>
-    <string name="watchlist_first_alarm_text">价格到达你设定的位置时通知你——应用关闭时，Android 的检查时间不固定。</string>
-</resources>

@@ -98,4 +98,7 @@
     <string name="battery_title">Giữ giá luôn cập nhật</string>
     <string name="ios_background_refresh_off">Làm mới ứng dụng trong nền đang tắt cho ứng dụng này. Khi tắt, cảnh báo chỉ được kiểm tra lúc ứng dụng mở.</string>
     <string name="ios_low_power_mode">Chế độ nguồn điện thấp đang bật. iOS hiếm khi kiểm tra trong nền nên cảnh báo có thể đến muộn.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Thông báo của sàn: %1$s</string>
 </resources>

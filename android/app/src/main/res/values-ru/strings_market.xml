@@ -33,8 +33,6 @@
     <string name="market_plain_standout_quiet">Сейчас ни одна монета особо не выделяется.</string>
     <string name="market_plain_standout_volume">Выделяется %1$s: торгов примерно в %2$s раза больше обычного.</string>
     <string name="market_plain_title">Коротко</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · вчера %2$s</string>
     <string name="market_section_collapse">Скрыть: %1$s</string>
     <string name="market_section_context">Настроения и цикл</string>
     <string name="market_section_data">Рыночные данные</string>
@@ -256,4 +254,22 @@
         <item quantity="other">Только %1$d дня истории — некоторых индикаторов нет.</item>
     </plurals>
     <string name="coin_title">Анализ монеты</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Данные: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Лидеры роста и падения 24 ч</string>
+    <string name="movers_gainers">Рост</string>
+    <string name="movers_losers">Падение</string>
+    <string name="movers_no_gainers">За 24 ч ни одна монета не выросла</string>
+    <string name="movers_no_losers">За 24 ч ни одна монета не упала</string>
+    <string name="movers_source">CoinGecko, 24 ч, топ-100 без стейблкоинов</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Показать все</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Показать меньше</string>
 </resources>

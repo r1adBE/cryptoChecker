@@ -167,4 +167,11 @@
     <string name="alarm_a11y_speak_on">Ansage an</string>
     <string name="alarm_unchecked_no_candles">Konnte nicht geprüft werden (keine Verlaufsdaten)</string>
     <string name="alarm_unchecked_no_rate">Konnte nicht geprüft werden (kein Devisenkurs)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Benachrichtigungen aus – Alarm meldet sich nicht</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Kein Alarm – geringe Liquidität</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Wartet auf aktuellen Kurs</string>
 </resources>

@@ -43,4 +43,6 @@
     <string name="shortcut_add">הוספת צמד</string>
     <string name="shortcut_alarms">כל ההתראות</string>
     <string name="shortcut_cycle">שוק</string>
+
+    <string name="log_box_title">יומן</string>
 </resources>

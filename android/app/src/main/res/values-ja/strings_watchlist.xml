@@ -8,7 +8,6 @@
     </plurals>
     <string name="watchlist_last_run">前回の更新 %1$s</string>
     <string name="watchlist_live_a11y">ライブ価格がオン</string>
-    <string name="watchlist_live_badge">ライブ</string>
     <string name="watchlist_offline_since">接続なし · %1$s時点</string>
     <string name="watchlist_pull_to_refresh">下に引いて更新</string>
     <string name="watchlist_refresh_report">前回の更新</string>
@@ -178,4 +177,30 @@
     <string name="sort_move_down">下へ</string>
     <string name="sort_move_top">一番上へ</string>
     <string name="sort_move_up">上へ</string>
+
+    <string name="watchlist_first_alarm_title">最初のアラームを設定</string>
+    <string name="watchlist_first_alarm_text">価格が設定した水準に達したら通知します。アプリを閉じている間、Android の確認は不定期です。</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">マーク価格（仲値なし）</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">1時間足の価格</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">最初のアラームを設定 – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">更新（%1$d）</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · %2$s まで一時停止</string>
+
+    <string name="watchlist_refresh_just_done">更新したばかり · %1$d 秒前</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">最終取引 %1$s</string>
+
+    <string name="change_candle_source_hint">%1$sのローソク足から算出 – 取引所自体はこの値を提供していません。</string>
+    <string name="change_candle_source_action">変動の出所を表示</string>
+
+    <string name="watchlist_sort_by_coin">コイン別に並べ替え</string>
+    <string name="watchlist_sort_by_exchange">取引所別に並べ替え</string>
 </resources>

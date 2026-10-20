@@ -267,4 +267,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">La vibrazione segue le impostazioni dell\'iPhone (Suoni e feedback aptico).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Conta i nuovi allarmi e avvisi di mercato; torna a 0 quando apri l’app.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">I tuoi dati</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Sul dispositivo</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Lista, allarmi e portafoglio restano cifrati su questo dispositivo; nessun account, nessun server proprio.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Connessioni</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">I prezzi arrivano direttamente dagli exchange delle tue coppie, più tassi di cambio, elenchi e loghi delle coin e il mirror dei dati su GitHub; vedono il tuo indirizzo IP, mai i tuoi saldi (gli indirizzi osservati vanno al fornitore della rispettiva rete).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Backup</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Solo se lo crei tu; cifrato con password (Argon2id + AES-256-GCM), leggibile senza password.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Cambio di dispositivo</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">La chiave resta sul vecchio dispositivo – crea prima un file di backup.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Condividi diagnostica</string>
+    <string name="diagnostics_share_hint">File di testo per il supporto: versione, dispositivo, impostazioni degli avvisi, ultimi controlli e registro allarmi – senza portafoglio, importi, indirizzi o note. Lo vedi prima tu; nulla viene inviato automaticamente.</string>
+    <string name="diagnostics_preview_title">Diagnostica – anteprima</string>
+    <string name="diagnostics_action_share">Condividi</string>
 </resources>

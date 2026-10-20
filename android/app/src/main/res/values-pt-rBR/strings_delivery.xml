@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Para os alertas chegarem</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">Tudo certo</string>
+    <string name="delivery_state_warn">Atenção</string>
+    <string name="delivery_state_info">Observação</string>
+    <string name="delivery_allowed">Permitidas</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Notificações</string>
+    <string name="delivery_notifications_off">Desativadas – os alertas não chegam</string>
+    <string name="delivery_notifications_not_asked">Ainda não permitidas</string>
+    <string name="delivery_channel">Canal de alertas</string>
+    <string name="delivery_channel_high">Importância alta – aparece no topo da tela</string>
+    <string name="delivery_channel_low">Importância baixa – os alertas só aparecem em silêncio na lista</string>
+    <string name="delivery_channel_off">Desativado – os alertas não chegam</string>
+    <string name="delivery_exact_on">Ativado – a cada 15 minutos, aprox.</string>
+    <string name="delivery_exact_off">Desativado – o Android verifica de forma irregular</string>
+    <string name="delivery_battery">Otimização de bateria</string>
+    <string name="delivery_battery_unrestricted">Sem restrições</string>
+    <string name="delivery_battery_optimized">Otimizada – o Android pode atrasar as verificações. O app não pede uma exceção; você pode mudar isso nas configurações de bateria do app.</string>
+    <string name="delivery_background">Uso em segundo plano</string>
+    <string name="delivery_background_restricted">Restrito – o Android interrompe as verificações em segundo plano</string>
+    <string name="delivery_dnd">Não perturbe</string>
+    <string name="delivery_dnd_on">Ativado – os alertas podem chegar sem som</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Ativo até %1$s – alertas pendentes esperam até lá</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – alertas pendentes esperam nesse período</string>
+    <string name="delivery_last_check">Última verificação em segundo plano</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – há mais de 6 horas</string>
+    <string name="delivery_last_check_never">Nenhuma ainda</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Permitir</string>
+    <string name="delivery_action_change">Alterar</string>
+    <string name="delivery_action_show">Mostrar</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Banners e som</string>
+    <string name="delivery_alert_off">Banners desativados – os alertas só aparecem na Central de Notificações</string>
+    <string name="delivery_sound_off">Som desativado – os alertas chegam em silêncio</string>
+    <string name="delivery_time_sensitive">Notificações urgentes</string>
+    <string name="delivery_time_sensitive_off">Desativadas – um Foco pode segurar os alertas</string>
+    <string name="delivery_background_refresh">Atualização em segundo plano</string>
+    <string name="delivery_low_power">Modo de Pouca Energia</string>
+    <string name="delivery_swipe_away">Fechou o app deslizando?</string>
+    <string name="delivery_swipe_away_note">Se você fechar o app deslizando no seletor de apps, o iOS para de verificar em segundo plano até você abri-lo de novo.</string>
+    <string name="delivery_live_activity">Atividade ao Vivo</string>
+    <string name="delivery_live_activity_note">Mostra a cotação na Tela Bloqueada, mas só é atualizada quando o app verifica – não faz os alertas serem verificados com mais frequência.</string>
+
+    <string name="alarm_first_check">Verificar se os alertas chegam</string>
+
+    <string name="oem_battery_title">Economia de bateria do fabricante</string>
+    <string name="oem_battery_xiaomi">A Xiaomi pode parar o app por completo – e aí nenhum alerta chega. Ative “Início automático” e defina a economia de bateria como “Sem restrições”.</string>
+    <string name="oem_battery_samsung">A Samsung pode colocar o app em suspensão profunda – e aí nenhum alerta chega. Em Bateria › Limites de uso em segundo plano, adicione-o a “Apps que nunca suspendem”.</string>
+    <string name="oem_battery_huawei">A Huawei/Honor pode parar o app – e aí nenhum alerta chega. Em Bateria › Inicialização de apps, escolha “Gerenciar manualmente” e permita tudo.</string>
+    <string name="oem_battery_oneplus">A OnePlus pode parar o app – e aí nenhum alerta chega. Permita “Início automático” e, em Uso da bateria, a atividade em segundo plano.</string>
+    <string name="oem_battery_oppo">A Oppo/Realme pode parar o app – e aí nenhum alerta chega. Permita “Início automático” e, em Uso da bateria, a atividade em segundo plano.</string>
+    <string name="oem_battery_vivo">A Vivo pode parar o app – e aí nenhum alerta chega. Permita “Início automático” e, em Bateria, o alto consumo em segundo plano.</string>
+</resources>

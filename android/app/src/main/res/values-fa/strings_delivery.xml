@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">تا هشدارها برسند</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">درست است</string>
+    <string name="delivery_state_warn">توجه</string>
+    <string name="delivery_state_info">نکته</string>
+    <string name="delivery_allowed">مجاز</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">اعلان‌ها</string>
+    <string name="delivery_notifications_off">خاموش – هشدارها نمی‌رسند</string>
+    <string name="delivery_notifications_not_asked">هنوز مجاز نیست</string>
+    <string name="delivery_channel">کانال هشدار</string>
+    <string name="delivery_channel_high">اهمیت بالا – بالای صفحه نمایش داده می‌شود</string>
+    <string name="delivery_channel_low">اهمیت پایین – هشدارها فقط بی‌صدا در فهرست ظاهر می‌شوند</string>
+    <string name="delivery_channel_off">خاموش – هشدارها نمی‌رسند</string>
+    <string name="delivery_exact_on">روشن – تقریبا هر ۱۵ دقیقه</string>
+    <string name="delivery_exact_off">خاموش – Android نامنظم بررسی می‌کند</string>
+    <string name="delivery_battery">بهینه‌سازی باتری</string>
+    <string name="delivery_battery_unrestricted">بدون محدودیت</string>
+    <string name="delivery_battery_optimized">بهینه‌شده – Android ممکن است بررسی‌ها را به تأخیر بیندازد. برنامه درخواست استثنا نمی‌کند؛ می‌توانید این را در تنظیمات باتری برنامه تغییر دهید.</string>
+    <string name="delivery_background">استفاده در پس‌زمینه</string>
+    <string name="delivery_background_restricted">محدود – Android بررسی‌های پس‌زمینه را متوقف می‌کند</string>
+    <string name="delivery_dnd">مزاحم نشوید</string>
+    <string name="delivery_dnd_on">روشن – هشدارها ممکن است بی‌صدا برسند</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">فعال تا %1$s – هشدارهای سررسیده تا آن زمان منتظر می‌مانند</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – هشدارهای سررسیده در این بازه منتظر می‌مانند</string>
+    <string name="delivery_last_check">آخرین بررسی در پس‌زمینه</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – بیش از ۶ ساعت پیش</string>
+    <string name="delivery_last_check_never">هنوز هیچ</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">اجازه دادن</string>
+    <string name="delivery_action_change">تغییر</string>
+    <string name="delivery_action_show">نمایش</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">بنرها و صدا</string>
+    <string name="delivery_alert_off">بنرها خاموش – هشدارها فقط در مرکز اعلان‌ها ظاهر می‌شوند</string>
+    <string name="delivery_sound_off">صدا خاموش – هشدارها بی‌صدا می‌رسند</string>
+    <string name="delivery_time_sensitive">اعلان‌های حساس به زمان</string>
+    <string name="delivery_time_sensitive_off">خاموش – یک حالت تمرکز ممکن است هشدارها را نگه دارد</string>
+    <string name="delivery_background_refresh">بازخوانی در پس‌زمینه</string>
+    <string name="delivery_low_power">حالت کم‌مصرف</string>
+    <string name="delivery_swipe_away">برنامه را با کشیدن بستید؟</string>
+    <string name="delivery_swipe_away_note">اگر برنامه را در تعویض‌گر برنامه‌ها با کشیدن ببندید، iOS تا باز کردن دوباره آن در پس‌زمینه بررسی نمی‌کند.</string>
+    <string name="delivery_live_activity">فعالیت زنده</string>
+    <string name="delivery_live_activity_note">قیمت را روی صفحه قفل نشان می‌دهد، اما فقط هنگام بررسی برنامه به‌روز می‌شود – با این کار هشدارها بیشتر بررسی نمی‌شوند.</string>
+
+    <string name="alarm_first_check">بررسی رسیدن هشدارها</string>
+
+    <string name="oem_battery_title">صرفه‌جویی باتری سازنده</string>
+    <string name="oem_battery_xiaomi">Xiaomi ممکن است برنامه را کاملاً متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» را روشن و صرفه‌جویی باتری را روی «بدون محدودیت» بگذارید.</string>
+    <string name="oem_battery_samsung">Samsung ممکن است برنامه را به خواب عمیق ببرد – آن‌وقت هیچ هشداری نمی‌رسد. در باتری › محدودیت‌های استفاده در پس‌زمینه آن را به «برنامه‌هایی که هرگز نمی‌خوابند» اضافه کنید.</string>
+    <string name="oem_battery_huawei">Huawei/Honor ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. در باتری › راه‌اندازی برنامه «مدیریت دستی» را انتخاب و همه را مجاز کنید.</string>
+    <string name="oem_battery_oneplus">OnePlus ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در مصرف باتری فعالیت پس‌زمینه را مجاز کنید.</string>
+    <string name="oem_battery_oppo">Oppo/Realme ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در مصرف باتری فعالیت پس‌زمینه را مجاز کنید.</string>
+    <string name="oem_battery_vivo">Vivo ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در باتری مصرف بالای پس‌زمینه را مجاز کنید.</string>
+</resources>

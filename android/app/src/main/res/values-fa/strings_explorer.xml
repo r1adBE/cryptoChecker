@@ -110,4 +110,9 @@
     <string name="asset_kind_alpha">توکن Alpha</string>
     <string name="asset_kind_token">توکن</string>
     <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">نقدینگی کم – بدون هشدار</string>
+    <string name="dex_low_liquidity_alarm_hint">نقدینگی این استخر کمتر از ۱۰٬۰۰۰ USD است (یا اعلام نشده). مبالغ کم هم قیمت آن را جابه‌جا می‌کنند، پس اینجا نمی‌توان هشدار گذاشت. هشدارهای موجود می‌مانند، اما تا افزایش دوباره نقدینگی فعال نمی‌شوند.</string>
+
+    <string name="explorer_bulk_show_all">نمایش همه (%1$d)</string>
 </resources>

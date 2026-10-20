@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="starter_source_text">قیمت‌ها از %1$s به %2$s. آنچه را نمی‌خواهید از انتخاب خارج کنید و بقیه را یک‌جا اضافه کنید. صرافی و جفت را برای هر کوین می‌توانید تغییر دهید.</string>
-    <string name="watchlist_row_exchange_paused">%1$s · متوقف تا %2$s</string>
-</resources>

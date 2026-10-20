@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
-    <string name="widget_refresh_blocked_a11y">تازه‌سازی – دوباره ممکن در %1$d ثانیه</string>
-</resources>

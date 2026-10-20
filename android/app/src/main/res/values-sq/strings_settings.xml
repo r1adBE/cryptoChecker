@@ -265,4 +265,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Dridhja ndjek cilësimet e iPhone (Tingujt dhe prekja).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Numëron alarmet dhe njoftimet e reja të tregut; kthehet në 0 kur hap aplikacionin.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Të dhënat e tua</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">Në pajisje</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Lista, alarmet dhe portofoli ruhen të enkriptuara në këtë pajisje; pa llogari, pa server të vetin.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Lidhjet</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Kurset vijnë drejtpërdrejt nga bursat e çifteve të tua, si dhe kurset e këmbimit, listat dhe logot e monedhave dhe pasqyra e të dhënave në GitHub; ata shohin adresën tënde IP, kurrë zotërimet e tua (adresat e ndjekura shkojnë te ofruesi i rrjetit përkatës).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Kopja rezervë</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Vetëm nëse e krijon vetë; e enkriptuar me fjalëkalim (Argon2id + AES-256-GCM), e lexueshme pa fjalëkalim.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Ndërrimi i pajisjes</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Çelësi mbetet në pajisjen e vjetër – krijo më parë një skedar rezervë.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Ndaj diagnostikimin</string>
+    <string name="diagnostics_share_hint">Skedar teksti për mbështetjen: versioni, pajisja, cilësimet e alarmeve, kontrollet e fundit dhe regjistri i alarmeve – pa portofol, shuma, adresa apo shënime. E sheh fillimisht ti; asgjë nuk dërgohet automatikisht.</string>
+    <string name="diagnostics_preview_title">Diagnostikimi – pamje paraprake</string>
+    <string name="diagnostics_action_share">Ndaj</string>
 </resources>

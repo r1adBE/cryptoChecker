@@ -43,4 +43,6 @@
     <string name="shortcut_add">ペアを追加</string>
     <string name="shortcut_alarms">すべてのアラーム</string>
     <string name="shortcut_cycle">マーケット</string>
+
+    <string name="log_box_title">ログ</string>
 </resources>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
-    <string name="tax_export_day_close_rule">Ринкова вартість без указаної ціни (комісії, подаровано/сплачено, обмін, винагороди, мережеві комісії, вартість портфеля) за денною ціною закриття (UTC) дня операції</string>
-</resources>

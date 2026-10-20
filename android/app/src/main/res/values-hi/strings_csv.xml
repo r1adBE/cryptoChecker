@@ -75,4 +75,7 @@
     </plurals>
     <string name="portfolio_imports_empty">कोई आयात नहीं</string>
     <string name="portfolio_imports_title">आयात</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">वही लेन-देन ID अलग राशि के साथ – हाथ से जाँचें</string>
+    <string name="portfolio_csv_skip_staking_unpaired">बिना प्रति-प्रविष्टि की स्टेकिंग प्रविष्टि – शेष जाँचें</string>
 </resources>

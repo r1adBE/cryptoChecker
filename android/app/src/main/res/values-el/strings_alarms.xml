@@ -167,4 +167,11 @@
     <string name="alarm_a11y_speak_on">Εκφώνηση ενεργή</string>
     <string name="alarm_unchecked_no_candles">Δεν ήταν δυνατός ο έλεγχος (χωρίς κεριά)</string>
     <string name="alarm_unchecked_no_rate">Δεν ήταν δυνατός ο έλεγχος (χωρίς ισοτιμία)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Ειδοποιήσεις απενεργοποιημένες – αυτός ο συναγερμός δεν θα σας φτάσει</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Χωρίς συναγερμό – χαμηλή ρευστότητα</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">Αναμονή για τρέχουσα τιμή</string>
 </resources>

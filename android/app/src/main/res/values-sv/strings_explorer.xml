@@ -110,4 +110,9 @@
     <string name="asset_kind_alpha">Alpha-token</string>
     <string name="asset_kind_token">Token</string>
     <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Låg likviditet – inget larm</string>
+    <string name="dex_low_liquidity_alarm_hint">Den här poolen har under 10 000 USD i likviditet (eller ingen uppgift). Små belopp räcker för att flytta kursen, därför går det inte att lägga larm här. Befintliga larm finns kvar men utlöses först när likviditeten stiger igen.</string>
+
+    <string name="explorer_bulk_show_all">Visa alla (%1$d)</string>
 </resources>

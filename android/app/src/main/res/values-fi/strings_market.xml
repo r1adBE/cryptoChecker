@@ -31,8 +31,6 @@
     <string name="market_plain_standout_quiet">Juuri nyt mikään yksittäinen kolikko ei erotu.</string>
     <string name="market_plain_standout_volume">%1$s erottuu: noin %2$s kertaa tavallista enemmän kaupankäyntiä.</string>
     <string name="market_plain_title">Lyhyesti</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · eilen %2$s</string>
     <string name="market_section_collapse">Piilota %1$s</string>
     <string name="market_section_context">Tunnelma ja sykli</string>
     <string name="market_section_data">Markkinatiedot</string>
@@ -250,4 +248,22 @@
         <item quantity="other">Vain %1$d päivän hintahistoria – osa indikaattoreista puuttuu.</item>
     </plurals>
     <string name="coin_title">Kolikkoanalyysi</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">Data: %1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">Nousijat ja laskijat 24 h</string>
+    <string name="movers_gainers">Nousijat</string>
+    <string name="movers_losers">Laskijat</string>
+    <string name="movers_no_gainers">Mikään kolikko ei noussut 24 h:ssa</string>
+    <string name="movers_no_losers">Mikään kolikko ei laskenut 24 h:ssa</string>
+    <string name="movers_source">CoinGecko, 24 h, top 100 ilman vakaakolikoita</string>
+    <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">Näytä kaikki</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">Näytä vähemmän</string>
 </resources>

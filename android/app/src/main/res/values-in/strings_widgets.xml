@@ -91,4 +91,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Sentuh lama area kosong di Layar Utama hingga aplikasi bergoyang.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Ketuk “Edit” › “Tambah Widget” di bagian atas (atau “+” di versi iOS lama).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">Cari “Crypto Checker”, pilih widget, lalu ketuk “Tambah Widget”.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Muat ulang – bisa lagi dalam %1$d dtk</string>
 </resources>

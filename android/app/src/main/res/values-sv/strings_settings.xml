@@ -265,4 +265,29 @@
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Vibration följer iPhones inställningar (Ljud och haptik).</string>
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Räknar nya larm och marknadsaviseringar; tillbaka till 0 när du öppnar appen.</string>
+
+    <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
+    <string name="about_your_data_title">Dina data</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_label">På enheten</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device">Lista, larm och portfölj ligger krypterade på den här enheten; inget konto, ingen egen server.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_connections_label">Anslutningar</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_connections">Kurser kommer direkt från börserna för dina par, plus växelkurser, coinlistor och logotyper och dataspegeln på GitHub; de ser din IP-adress, aldrig dina innehav (bevakade adresser går till leverantören av respektive nätverk).</string>
+    <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
+    <string name="about_data_backup_label">Säkerhetskopia</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_backup">Bara om du skapar en; krypterad med lösenord (Argon2id + AES-256-GCM), läsbar utan lösenord.</string>
+    <!-- Über › Deine Daten: Stichwort -->
+    <string name="about_data_device_change_label">Byte av enhet</string>
+    <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
+    <string name="about_data_device_change">Nyckeln stannar på den gamla enheten – skapa först en säkerhetskopia.</string>
+
+    <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
+    <string name="diagnostics_share">Dela diagnostik</string>
+    <string name="diagnostics_share_hint">Textfil för support: version, enhet, larminställningar, senaste kontroller och larmlogg – utan portfölj, belopp, adresser eller anteckningar. Du ser den först; inget skickas automatiskt.</string>
+    <string name="diagnostics_preview_title">Diagnostik – förhandsvisning</string>
+    <string name="diagnostics_action_share">Dela</string>
 </resources>

@@ -68,4 +68,32 @@
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">لم يعد هذا الجهاز يملك مفتاح البيانات المشفّرة للتطبيق، لذلك بدأ فارغًا. لم يُحذف شيء. لاستعادة قائمتك ومحفظتك، استورد ملف نسخة احتياطية من الإعدادات ضمن «%1$s».</string>
     <string name="storage_recovery_title">تعذّر فتح البيانات المحفوظة</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">لا توجد ذاكرة متاحة كافية لحماية النسخة الاحتياطية أو فتحها بكلمة مرور. أغلق التطبيقات الأخرى وحاول مرة أخرى.</string>
+
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">استعادة نسخة احتياطية</string>
+    <string name="storage_recovery_acknowledge">فهمت</string>
+    <string name="storage_recovery_restored_title">تم فتح البيانات المحفوظة مجددًا</string>
+    <string name="storage_recovery_restored_message">فتح مفتاح سابق على هذا الجهاز البيانات المُنحّاة مجددًا، فعادت. أما ما حُفظ في هذه الأثناء فبقي دون تغيير إلى جانبها.</string>
+    <string name="backup_restore_interrupted_title">تمت مقاطعة الاستعادة</string>
+    <string name="backup_restore_interrupted_rolled_back">أُغلق التطبيق أثناء استعادة نسخة احتياطية. أُعيدت بياناتك السابقة، ولم يُحتفظ بأي شيء من النسخة الاحتياطية.</string>
+    <string name="backup_restore_interrupted_incomplete">أُغلق التطبيق أثناء استعادة نسخة احتياطية، وتعذّرت إعادة البيانات السابقة بالكامل. يُرجى التحقق من قائمة المتابعة والمحفظة، أو استعادة النسخة مجددًا من «%1$s» في الإعدادات.</string>
+    <string name="backup_not_verified">تعذّر التحقق من ملف النسخة الاحتياطية بعد حفظه، إذ يُقرأ بشكل مختلف. يُرجى حفظ النسخة في ملف جديد.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">لم تتم استعادة المحفظة من نسخة النظام الاحتياطية</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">تعذّرت قراءة نسخة المحفظة من نسخة Android الاحتياطية للنظام حتى في المحاولة الثانية، وقد حُذفت. إذا كان لديك ملف نسخ احتياطي، فاستعده من «%1$s» في الإعدادات.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">تعذّر فتح قفل المحفظة المحفوظة الآن ولذلك لا تُعرض – ستعود بعد إعادة تشغيل التطبيق. لن تُحفظ التغييرات التي تجريها الآن.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">تعذّر فتح قفل قائمة المتابعة المحفوظة الآن ولذلك لا تُعرض – ستعود بعد إعادة تشغيل التطبيق. لن تُحفظ التغييرات التي تجريها الآن.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">النسخ الاحتياطي غير ممكن الآن: لا يمكن فتح البيانات المحفوظة في الوقت الحالي. أعد تشغيل التطبيق وحاول مرة أخرى.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">التشفير غير مفعّل بعد – لا يتم حفظ المحفظة، وتضيع التغييرات عند إغلاق التطبيق. سيحاول التطبيق مجددًا عند التشغيل التالي.</string>
 </resources>

@@ -125,4 +125,7 @@
     <string name="battery_title">Aktualne ceny</string>
     <string name="ios_background_refresh_off">Odświeżanie w tle jest wyłączone dla aplikacji. Bez niego alarmy są sprawdzane tylko przy otwartej aplikacji.</string>
     <string name="ios_low_power_mode">Tryb niskiego zużycia energii jest włączony. iOS rzadko sprawdza w tle, więc alarmy mogą się spóźniać.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Komunikat giełdy: %1$s</string>
 </resources>

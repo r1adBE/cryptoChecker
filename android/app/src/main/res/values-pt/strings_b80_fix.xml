@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Stichtag-Export: Speicher der beobachteten Adressen nicht lesbar (CutoffCsvTexts.addressesUnreadable), Zeile in der CSV -->
-    <string name="portfolio_export_addresses_unreadable">Não foi possível ler os endereços observados – os respetivos saldos faltam neste ficheiro</string>
-</resources>

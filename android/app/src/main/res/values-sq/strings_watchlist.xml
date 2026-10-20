@@ -9,7 +9,6 @@
     </plurals>
     <string name="watchlist_last_run">Kalimi i fundit %1$s</string>
     <string name="watchlist_live_a11y">Çmimet live janë aktive</string>
-    <string name="watchlist_live_badge">DIREKT</string>
     <string name="watchlist_offline_since">Pa lidhje · gjendja %1$s</string>
     <string name="watchlist_pull_to_refresh">Tërhiq poshtë për ta rifreskuar</string>
     <string name="watchlist_refresh_report">Rifreskimi i fundit</string>
@@ -190,4 +189,30 @@
     <string name="sort_move_down">Poshtë</string>
     <string name="sort_move_top">Në krye</string>
     <string name="sort_move_up">Lart</string>
+
+    <string name="watchlist_first_alarm_title">Vendos alarmin e parë</string>
+    <string name="watchlist_first_alarm_text">Merr njoftim kur një çmim të arrijë kufirin tënd – kur aplikacioni është i mbyllur, Android kontrollon në mënyrë të parregullt.</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">çmim mark (pa çmim mesatar)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">çmim për orë</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">Vendos alarmin e parë – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">Rifresko (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · në pauzë deri në %2$s</string>
+
+    <string name="watchlist_refresh_just_done">Sapo u përditësua · para %1$d s</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">tregtimi i fundit %1$s</string>
+
+    <string name="change_candle_source_hint">Llogaritur nga qirinjtë e %1$s – vetë bursa nuk e jep këtë vlerë.</string>
+    <string name="change_candle_source_action">Shfaq burimin e ndryshimit</string>
+
+    <string name="watchlist_sort_by_coin">Rendit sipas monedhës</string>
+    <string name="watchlist_sort_by_exchange">Rendit sipas bursës</string>
 </resources>

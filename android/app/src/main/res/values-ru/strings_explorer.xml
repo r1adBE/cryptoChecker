@@ -126,4 +126,9 @@
     <string name="asset_kind_alpha">Alpha-токен</string>
     <string name="asset_kind_token">Токен</string>
     <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Низкая ликвидность – без оповещения</string>
+    <string name="dex_low_liquidity_alarm_hint">У этого пула ликвидность меньше 10 000 USD (или не указана). Даже небольшие суммы двигают цену, поэтому оповещения здесь задать нельзя. Существующие оповещения сохраняются, но сработают только после роста ликвидности.</string>
+
+    <string name="explorer_bulk_show_all">Показать все (%1$d)</string>
 </resources>

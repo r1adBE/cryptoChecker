@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="explorer_bulk_show_all">Pokaż wszystkie (%1$d)</string>
-    <string name="log_box_title">Dziennik</string>
-    <string name="watchlist_first_alarm_title">Ustaw pierwszy alarm</string>
-    <string name="watchlist_first_alarm_text">Otrzymaj powiadomienie, gdy kurs osiągnie twój próg – przy zamkniętej aplikacji Android sprawdza nieregularnie.</string>
-</resources>

@@ -38,4 +38,8 @@
     <string name="address_unsupported">ไม่รองรับที่อยู่ประเภทนี้</string>
     <string name="address_wrong_chain">ที่อยู่นี้เป็นของเครือข่ายอื่น</string>
     <string name="address_xpub_multisig">ไม่รองรับคีย์ multisig (Ypub/Zpub)</string>
+
+    <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
+    <string name="portfolio_address_taproot_account">บัญชี Taproot (BIP86): ที่อยู่ bc1p… สำหรับรับและเงินทอนจะสร้างจากคีย์นี้</string>
+    <string name="portfolio_address_taproot_hint">ใช้วอลเล็ต Taproot ใช่ไหม? ให้วางดีสคริปเตอร์ tr(…) จากวอลเล็ตของคุณแทน – xpub ธรรมดาจะค้นหาเฉพาะที่อยู่ Legacy และ SegWit</string>
 </resources>

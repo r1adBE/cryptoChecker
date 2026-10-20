@@ -107,4 +107,7 @@
     <string name="battery_title">Pidä hinnat ajan tasalla</string>
     <string name="ios_background_refresh_off">Taustapäivitys on pois päältä tältä sovellukselta. Ilman sitä hälytykset tarkistetaan vain sovelluksen ollessa auki.</string>
     <string name="ios_low_power_mode">Virransäästötila on päällä. iOS tarkistaa taustalla harvoin, joten hälytykset voivat viivästyä.</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">Pörssin viesti: %1$s</string>
 </resources>

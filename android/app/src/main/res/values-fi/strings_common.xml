@@ -43,4 +43,6 @@
     <string name="shortcut_add">Lisää pari</string>
     <string name="shortcut_alarms">Kaikki hälytykset</string>
     <string name="shortcut_cycle">Markkinat</string>
+
+    <string name="log_box_title">Loki</string>
 </resources>

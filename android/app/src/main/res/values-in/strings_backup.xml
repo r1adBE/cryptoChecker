@@ -53,4 +53,32 @@
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">Perangkat ini tidak lagi memiliki kunci data terenkripsi aplikasi, jadi aplikasi dimulai kosong. Tidak ada yang dihapus. Untuk mendapatkan kembali daftar dan portofolio Anda, impor file cadangan di Pengaturan, bagian “%1$s”.</string>
     <string name="storage_recovery_title">Data tersimpan tidak dapat dibuka</string>
+
+    <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
+    <string name="backup_not_enough_memory">Memori kosong tidak cukup untuk melindungi atau membuka cadangan dengan kata sandi. Tutup aplikasi lain dan coba lagi.</string>
+
+    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <string name="storage_recovery_restore_action">Pulihkan cadangan</string>
+    <string name="storage_recovery_acknowledge">Mengerti</string>
+    <string name="storage_recovery_restored_title">Data tersimpan terbuka lagi</string>
+    <string name="storage_recovery_restored_message">Kunci sebelumnya di perangkat ini membuka lagi data yang disisihkan, jadi data itu kembali. Data yang disimpan sementara itu tetap utuh di sampingnya.</string>
+    <string name="backup_restore_interrupted_title">Pemulihan terhenti</string>
+    <string name="backup_restore_interrupted_rolled_back">Aplikasi ditutup saat memulihkan cadangan. Data sebelumnya telah dikembalikan; tidak ada yang diambil dari cadangan.</string>
+    <string name="backup_restore_interrupted_incomplete">Aplikasi ditutup saat memulihkan cadangan, dan data sebelumnya tidak dapat dikembalikan sepenuhnya. Periksa daftar pantau dan portofolio, atau pulihkan cadangan lagi di “%1$s” di Pengaturan.</string>
+    <string name="backup_not_verified">File cadangan tidak dapat diverifikasi setelah disimpan – saat dibaca ulang isinya berbeda. Simpan cadangan ke file baru.</string>
+
+    <!-- Hinweis (nur Android): Portfolio-Kopie aus der Systemsicherung auch beim zweiten Versuch unlesbar und gelöscht -->
+    <string name="system_backup_not_imported_title">Portofolio tidak dipulihkan dari cadangan sistem</string>
+    <!-- %1$s = Name des Bereichs «Sichern &amp; Wiederherstellen» in den Einstellungen -->
+    <string name="system_backup_not_imported_message">Salinan portofolio dari cadangan sistem Android tidak dapat dibaca, bahkan pada percobaan kedua, dan telah dihapus. Jika kamu punya file cadangan, pulihkan di Pengaturan pada “%1$s”.</string>
+
+    <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
+    <string name="portfolio_storage_kept_in_memory">Portofolio tersimpan belum bisa dibuka saat ini dan tidak ditampilkan – akan kembali setelah aplikasi dimulai ulang. Perubahan yang dibuat sekarang tidak akan disimpan.</string>
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
+    <string name="watchlist_storage_kept_in_memory">Daftar pantau tersimpan belum bisa dibuka saat ini dan tidak ditampilkan – akan kembali setelah aplikasi dimulai ulang. Perubahan yang dibuat sekarang tidak akan disimpan.</string>
+    <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
+    <string name="backup_storage_kept">Pencadangan tidak bisa dilakukan sekarang: data tersimpan belum bisa dibuka saat ini. Mulai ulang aplikasi lalu coba lagi.</string>
+
+    <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
+    <string name="portfolio_storage_in_memory">Enkripsi belum aktif – portofolio tidak disimpan, perubahan hilang saat aplikasi ditutup. Aplikasi akan mencoba lagi saat dibuka berikutnya.</string>
 </resources>

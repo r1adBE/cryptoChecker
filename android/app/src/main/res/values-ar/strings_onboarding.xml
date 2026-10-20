@@ -17,4 +17,6 @@
     <string name="starter_select_none">إلغاء تحديد الكل</string>
     <string name="starter_title">ابدأ بهذه العملات</string>
     <string name="starter_watch_alarm_hint">تابع السعر واضبط تنبيهًا</string>
+
+    <string name="starter_source_text">الأسعار من %1$s بعملة %2$s. ألغِ تحديد ما لا تريده وأضف الباقي دفعة واحدة. يمكنك تغيير المنصة والزوج لكل عملة.</string>
 </resources>

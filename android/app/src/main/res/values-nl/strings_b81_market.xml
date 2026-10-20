@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">Gevolgde adressen tellen mee in de totale waarde, maar hebben geen aanschafwaarde – de winst is daardoor eerder te hoog. Leg de aanschafwaarde vast als aankoop.</string>
-</resources>

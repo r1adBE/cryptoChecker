@@ -1,4 +1,4 @@
-// Gemeinsames der eigenen Kerzen je Börse (Teil von `ExchangeCandleSources.kt`, gespiegelt in `CandleParse.swift`).
+// Gemeinsames der eigenen Kerzen je Börse (Teil von `ExchangeCandleSourcesMajor.kt`, gespiegelt in `CandleParse.swift`).
 package com.cryptochecker.app.data.remote.candles
 
 import com.cryptochecker.app.data.remote.CandleInterval

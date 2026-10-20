@@ -43,4 +43,6 @@
     <string name="shortcut_add">Adaugă pereche</string>
     <string name="shortcut_alarms">Toate alarmele</string>
     <string name="shortcut_cycle">Piață</string>
+
+    <string name="log_box_title">Jurnal</string>
 </resources>

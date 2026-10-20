@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <string name="delivery_title">Så att larmen kommer fram</string>
+    <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
+    <string name="delivery_state_ok">OK</string>
+    <string name="delivery_state_warn">Obs</string>
+    <string name="delivery_state_info">Info</string>
+    <string name="delivery_allowed">Tillåtna</string>
+    <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
+    <string name="delivery_notifications">Aviseringar</string>
+    <string name="delivery_notifications_off">Av – larm kommer inte fram</string>
+    <string name="delivery_notifications_not_asked">Inte tillåtna än</string>
+    <string name="delivery_channel">Larmkanal</string>
+    <string name="delivery_channel_high">Hög prioritet – visas överst på skärmen</string>
+    <string name="delivery_channel_low">Låg prioritet – larm visas bara tyst i listan</string>
+    <string name="delivery_channel_off">Avstängd – larm kommer inte fram</string>
+    <string name="delivery_exact_on">På – ungefär var 15:e minut</string>
+    <string name="delivery_exact_off">Av – Android kontrollerar oregelbundet</string>
+    <string name="delivery_battery">Batterioptimering</string>
+    <string name="delivery_battery_unrestricted">Obegränsad</string>
+    <string name="delivery_battery_optimized">Optimerad – Android kan fördröja kontroller. Appen ber inte om ett undantag; du kan ändra det i appens batteriinställningar.</string>
+    <string name="delivery_background">Bakgrundsanvändning</string>
+    <string name="delivery_background_restricted">Begränsad – Android stoppar kontroller i bakgrunden</string>
+    <string name="delivery_dnd">Stör ej</string>
+    <string name="delivery_dnd_on">På – larm kan komma utan ljud</string>
+    <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
+    <string name="delivery_quiet_now">Aktiv till %1$s – utlösta larm väntar tills dess</string>
+    <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
+    <string name="delivery_quiet_set">%1$s–%2$s – utlösta larm väntar under den tiden</string>
+    <string name="delivery_last_check">Senaste kontroll i bakgrunden</string>
+    <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
+    <string name="delivery_last_check_old">%1$s – mer än 6 timmar sedan</string>
+    <string name="delivery_last_check_never">Ingen än</string>
+    <!-- Knöpfe in den Zeilen -->
+    <string name="delivery_action_allow">Tillåt</string>
+    <string name="delivery_action_change">Ändra</string>
+    <string name="delivery_action_show">Visa</string>
+    <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
+    <string name="delivery_alert_sound">Banners och ljud</string>
+    <string name="delivery_alert_off">Banners av – larm visas bara i notiscenter</string>
+    <string name="delivery_sound_off">Ljud av – larm kommer tyst</string>
+    <string name="delivery_time_sensitive">Tidskänsliga notiser</string>
+    <string name="delivery_time_sensitive_off">Av – ett fokus kan hålla tillbaka larm</string>
+    <string name="delivery_background_refresh">Uppdatera appar i bakgrunden</string>
+    <string name="delivery_low_power">Strömsparläge</string>
+    <string name="delivery_swipe_away">Svepte du bort appen?</string>
+    <string name="delivery_swipe_away_note">Om du sveper bort appen i appväxlaren slutar iOS kontrollera i bakgrunden tills du öppnar den igen.</string>
+    <string name="delivery_live_activity">Live-aktivitet</string>
+    <string name="delivery_live_activity_note">Visar kursen på låsskärmen men uppdateras bara när appen kontrollerar – larmen kontrolleras inte oftare för det.</string>
+
+    <string name="alarm_first_check">Kontrollera att larmen kommer fram</string>
+
+    <string name="oem_battery_title">Tillverkarens batterisparläge</string>
+    <string name="oem_battery_xiaomi">Xiaomi kan stoppa appen helt – då kommer inga larm. Slå på ”Autostart” och ställ batterisparläget på ”Inga begränsningar”.</string>
+    <string name="oem_battery_samsung">Samsung kan försätta appen i djup viloläge – då kommer inga larm. Under Batteri › Gränser för bakgrundsanvändning: lägg till den i ”Appar som aldrig sover”.</string>
+    <string name="oem_battery_huawei">Huawei/Honor kan stoppa appen – då kommer inga larm. Under Batteri › Appstart: välj ”Hantera manuellt” och tillåt allt.</string>
+    <string name="oem_battery_oneplus">OnePlus kan stoppa appen – då kommer inga larm. Tillåt ”Automatisk start” och bakgrundsaktivitet under Batterianvändning.</string>
+    <string name="oem_battery_oppo">Oppo/Realme kan stoppa appen – då kommer inga larm. Tillåt ”Automatisk start” och bakgrundsaktivitet under Batterianvändning.</string>
+    <string name="oem_battery_vivo">Vivo kan stoppa appen – då kommer inga larm. Tillåt ”Autostart” och hög strömförbrukning i bakgrunden under Batteri.</string>
+</resources>

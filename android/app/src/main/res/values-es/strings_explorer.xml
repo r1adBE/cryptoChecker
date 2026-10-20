@@ -118,4 +118,9 @@
     <string name="asset_kind_alpha">Token Alpha</string>
     <string name="asset_kind_token">Token</string>
     <string name="asset_kind_tradfi">TradFi</string>
+
+    <string name="dex_low_liquidity_no_alarm">Liquidez baja – sin alarma</string>
+    <string name="dex_low_liquidity_alarm_hint">Este pool tiene menos de 10.000 USD de liquidez (o no se indica). Pequeñas cantidades bastan para mover su precio, así que aquí no se pueden crear alarmas. Las alarmas existentes se conservan, pero no saltan hasta que la liquidez vuelva a subir.</string>
+
+    <string name="explorer_bulk_show_all">Mostrar todos (%1$d)</string>
 </resources>

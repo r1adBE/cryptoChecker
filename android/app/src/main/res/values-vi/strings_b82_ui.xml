@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
-    <string name="portfolio_history_as_of">Dữ liệu lúc %1$s – không kết nối được sàn</string>
-    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
-    <string name="watchlist_row_last_trade_age">giao dịch gần nhất %1$s</string>
-</resources>

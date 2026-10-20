@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
-    <string name="a11y_alarm_count">提醒：%1$d 个</string>
     <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
     <string name="a11y_alarm_fired">警报已触发</string>
     <string name="a11y_collapsed">已收起</string>

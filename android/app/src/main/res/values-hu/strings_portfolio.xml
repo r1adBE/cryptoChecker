@@ -261,4 +261,44 @@
         <item quantity="one">%1$d vételár nélküli coin nélkül (%2$s) – add meg az árat, hogy beszámítson.</item>
         <item quantity="other">%1$d vételár nélküli coin nélkül (%2$s) – add meg az árakat, hogy beszámítsanak.</item>
     </plurals>
+
+    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <string name="portfolio_usdt_break">USDT-összeomlás – piac %1$s USD</string>
+    <string name="portfolio_usdt_via_usdc">Az USDT dolláros árfolyama USDC/USDT alapján – ha az USDC esik, ez az érték nem helyes</string>
+    <string name="portfolio_amount_bridged_stable">≈ %1$s-vel együtt (áthidalt)</string>
+
+    <string name="portfolio_tx_interest">Kamat (kölcsönzés)</string>
+    <string name="portfolio_tx_interest_hint">Jóváíráskor jövedelemnek számít (Ausztria). Staking-jutalmaknál és airdropoknál hagyd kikapcsolva.</string>
+    <string name="app_lock_no_screen_lock">A portfólió megnyitásához állíts be képernyőzárat.</string>
+    <string name="app_lock_turn_off_action">Portfóliózár kikapcsolása</string>
+    <string name="app_lock_turn_off_confirm_title">Kikapcsolod a portfóliózárat?</string>
+    <string name="app_lock_turn_off_confirm_message">Képernyőzár nélkül a portfólió nem oldható fel. Kikapcsolva az alkalmazás ismét kérdés nélkül mutatja a portfóliót. Képernyőzár beállítása után a zárat a Beállításokban újra bekapcsolhatod.</string>
+
+    <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->
+    <string name="ledger_cost_fx_note">„Vétel óta” és bekerülési érték %1$s pénznemben: bekerülési érték a vétel napi árfolyamán, érték a mai árfolyamon.</string>
+    <!-- Hinweis: Coins ohne Devisenkurs am Kauftag fehlen in «Seit Kauf» und Einstand; %1$s = Coins -->
+    <string name="ledger_cost_fx_missing">Nincs árfolyam a vétel napjára (hiányzik a „Vétel óta” és a bekerülési érték számításából): %1$s</string>
+    <!-- Hinweis: Kauftage ohne USDT/USD-Tagesschluss mit USDT = 1 umgerechnet -->
+    <string name="ledger_cost_fx_usdt_assumed">Az USDT dolláros árfolyama nélküli vételi napok bekerülési értéke USDT-nként 1 amerikai dollárral számolva.</string>
+
+    <!-- Wertverlauf: eigene Börse nicht erreichbar, Chart aus einem älteren Stand; %1$s = Zeit dieses Stands -->
+    <string name="portfolio_history_as_of">Állapot: %1$s – a tőzsde nem érhető el</string>
+
+    <!-- Wertverlauf, Hinweis unter dem Chart: Coins, die Binance nicht führt (oder Binance nicht erreichbar), mit Tageskursen einer anderen Börse der App, geprüft auf denselben Token; %1$s = «Kraken (PEPE); Bybit (XYZ)» -->
+    <string name="portfolio_history_chain_sources">Napi árfolyamok: %1$s (a Binance helyett)</string>
+
+    <string name="portfolio_footer_short">Munkasegédlet, nem adó- vagy befektetési tanácsadás. Adatvédelem: Beállítások › Az alkalmazásról › Adatvédelmi irányelvek.</string>
+
+    <!-- Portfolio: ganzen Coin löschen (Wischen bzw. Screenreader «Löschen»). Titel der Rückfrage, %1$s = Coin-Kürzel -->
+    <string name="portfolio_coin_delete_title">Törlöd a(z) %1$s összes tranzakcióját?</string>
+    <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
+    <plurals name="portfolio_coin_delete_confirm">
+        <item quantity="one">%d tranzakció törlődik. Közvetlenül utána visszavonhatod.</item>
+        <item quantity="other">%d tranzakció törlődik. Közvetlenül utána visszavonhatod.</item>
+    </plurals>
+    <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_coin_removed">
+        <item quantity="one">%1$s eltávolítva a portfólióból (%2$d tranzakció)</item>
+        <item quantity="other">%1$s eltávolítva a portfólióból (%2$d tranzakció)</item>
+    </plurals>
 </resources>

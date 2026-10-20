@@ -82,4 +82,7 @@
     </plurals>
     <string name="portfolio_imports_empty">Nenhuma importação</string>
     <string name="portfolio_imports_title">Importações</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">mesmo ID de transação com valor diferente – conferir manualmente</string>
+    <string name="portfolio_csv_skip_staking_unpaired">lançamento de staking sem contrapartida – conferir saldo</string>
 </resources>

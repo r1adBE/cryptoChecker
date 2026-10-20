@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="alarm_first_check">Alarmların ulaştığını kontrol et</string>
-    <string name="change_candle_source_hint">%1$s mumlarından hesaplandı – borsanın kendisi bu değeri vermiyor.</string>
-    <string name="change_candle_source_action">Değişimin kaynağını göster</string>
-</resources>

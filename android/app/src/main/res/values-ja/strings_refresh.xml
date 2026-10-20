@@ -98,4 +98,7 @@
     <string name="battery_title">価格を最新に保つ</string>
     <string name="ios_background_refresh_off">このアプリのAppのバックグラウンド更新がオフです。オフのままだと、アラームはアプリを開いている間しか確認されません。</string>
     <string name="ios_low_power_mode">低電力モードがオンです。iOS はバックグラウンドでほとんど確認しないため、アラームが遅れることがあります。</string>
+
+    <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
+    <string name="refresh_sheet_exchange_detail">取引所のメッセージ：%1$s</string>
 </resources>

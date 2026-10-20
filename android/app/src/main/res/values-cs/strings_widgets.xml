@@ -97,4 +97,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Podržte prst na volném místě plochy, dokud se aplikace nezačnou třást.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Nahoře klepněte na „Upravit“ › „Přidat widget“ (ve starších verzích iOS na „+“).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">Vyhledejte „Crypto Checker“, vyberte widget a klepněte na „Přidat widget“.</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Obnovit – znovu možné za %1$d s</string>
 </resources>

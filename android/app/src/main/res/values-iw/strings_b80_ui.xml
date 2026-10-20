@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="starter_source_text">מחירים מ-%1$s ב-%2$s. בטלו את הבחירה במה שלא תרצו והוסיפו את השאר בבת אחת. אפשר לשנות בורסה וצמד לכל מטבע.</string>
-    <string name="watchlist_row_exchange_paused">%1$s · מושהה עד %2$s</string>
-</resources>

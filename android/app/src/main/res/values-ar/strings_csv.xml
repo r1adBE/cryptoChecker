@@ -103,4 +103,7 @@
     </plurals>
     <string name="portfolio_imports_empty">لا توجد عمليات استيراد</string>
     <string name="portfolio_imports_title">عمليات الاستيراد</string>
+
+    <string name="portfolio_csv_skip_duplicate_txid_different">معرّف المعاملة نفسه بمبلغ مختلف – تحقّق يدويًا</string>
+    <string name="portfolio_csv_skip_staking_unpaired">قيد staking بلا قيد مقابل – تحقّق من الرصيد</string>
 </resources>

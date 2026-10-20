@@ -30,8 +30,6 @@
     <string name="market_plain_standout_quiet">目前没有哪个币特别突出。</string>
     <string name="market_plain_standout_volume">值得注意的是 %1$s：交易量约为平时的 %2$s 倍。</string>
     <string name="market_plain_title">简而言之</string>
-    <!-- Nebenzeile der Fear-&-Greed-Zeile («Gier · gestern 65») -->
-    <string name="market_row_fng_yesterday">%1$s · 昨天 %2$s</string>
     <string name="market_section_collapse">收起%1$s</string>
     <string name="market_section_context">情绪与周期</string>
     <string name="market_section_data">市场数据</string>
@@ -247,4 +245,22 @@
         <item quantity="other">仅有 %1$d 天历史，部分指标缺失。</item>
     </plurals>
     <string name="coin_title">币种分析</string>
+
+    <!-- Widget «Was gerade auffällt», gross: Quellen der gezeigten Daten vor dem Hinweis von «Kurz gesagt»
+         (%1$s = Anbieternamen, z. B. «CoinGecko, alternative.me»; Markennamen nicht übersetzt) -->
+    <string name="pulse_plain_sources">数据：%1$s</string>
+
+    <!-- Markt-Tab: «Gewinner und Verlierer 24 h» unter dem Pulse (Zeile für den Screenreader: Name, Kürzel, Änderung) -->
+    <string name="movers_title">24 小时涨跌榜</string>
+    <string name="movers_gainers">涨幅榜</string>
+    <string name="movers_losers">跌幅榜</string>
+    <string name="movers_no_gainers">24 小时内没有币上涨</string>
+    <string name="movers_no_losers">24 小时内没有币下跌</string>
+    <string name="movers_source">CoinGecko，24 小时，前 100 名（不含稳定币）</string>
+    <string name="movers_a11y_row">%1$s（%2$s），%3$s</string>
+
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
+    <string name="market_movers_show_all">显示全部</string>
+    <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
+    <string name="market_movers_show_less">收起</string>
 </resources>

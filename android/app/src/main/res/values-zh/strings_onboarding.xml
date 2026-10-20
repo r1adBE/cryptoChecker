@@ -17,4 +17,6 @@
     <string name="starter_select_none">全不选</string>
     <string name="starter_title">从这些币种开始</string>
     <string name="starter_watch_alarm_hint">关注价格，设置提醒</string>
+
+    <string name="starter_source_text">价格来自 %1$s，以 %2$s 计价。取消不需要的，其余一次性全部添加。交易所和交易对可以按币种更改。</string>
 </resources>

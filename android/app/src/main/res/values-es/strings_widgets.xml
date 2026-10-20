@@ -95,4 +95,7 @@
     <string name="widgets_ios_step1" tools:ignore="UnusedResources">Mantén pulsado un espacio vacío de la pantalla de inicio hasta que las apps se muevan.</string>
     <string name="widgets_ios_step2" tools:ignore="UnusedResources">Toca «Editar» › «Añadir widget» arriba (o «+» en versiones anteriores de iOS).</string>
     <string name="widgets_ios_step3" tools:ignore="UnusedResources">Busca «Crypto Checker», elige un widget y toca «Añadir widget».</string>
+
+    <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
+    <string name="widget_refresh_blocked_a11y">Actualizar – disponible de nuevo en %1$d s</string>
 </resources>

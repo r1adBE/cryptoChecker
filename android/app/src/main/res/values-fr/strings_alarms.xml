@@ -173,4 +173,11 @@
     <string name="alarm_a11y_speak_on">Annonce vocale activée</string>
     <string name="alarm_unchecked_no_candles">Vérification impossible (pas de bougies)</string>
     <string name="alarm_unchecked_no_rate">Vérification impossible (pas de taux de change)</string>
+
+    <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
+    <string name="alarm_status_notifications_off">Notifications désactivées – cette alerte ne vous parviendra pas</string>
+    <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
+    <string name="alarm_status_low_liquidity">Pas d’alerte – liquidité faible</string>
+    <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
+    <string name="alarm_status_waiting_price">En attente d’un cours actuel</string>
 </resources>

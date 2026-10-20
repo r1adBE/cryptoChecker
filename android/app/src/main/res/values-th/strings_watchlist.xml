@@ -8,7 +8,6 @@
     </plurals>
     <string name="watchlist_last_run">รอบล่าสุด %1$s</string>
     <string name="watchlist_live_a11y">ราคาสดเปิดอยู่</string>
-    <string name="watchlist_live_badge">สด</string>
     <string name="watchlist_offline_since">ไม่มีการเชื่อมต่อ · ข้อมูลเมื่อ %1$s</string>
     <string name="watchlist_pull_to_refresh">ดึงลงเพื่อรีเฟรช</string>
     <string name="watchlist_refresh_report">รีเฟรชล่าสุด</string>
@@ -178,4 +177,30 @@
     <string name="sort_move_down">ลง</string>
     <string name="sort_move_top">ไปบนสุด</string>
     <string name="sort_move_up">ขึ้น</string>
+
+    <string name="watchlist_first_alarm_title">ตั้งสัญญาณเตือนแรก</string>
+    <string name="watchlist_first_alarm_text">รับการแจ้งเตือนเมื่อราคาถึงระดับที่คุณกำหนด – เมื่อปิดแอป Android จะตรวจสอบไม่สม่ำเสมอ</string>
+
+    <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
+    <string name="watch_price_mark_fallback">ราคา mark (ไม่มีราคากลาง)</string>
+    <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
+    <string name="watch_price_hourly">ราคารายชั่วโมง</string>
+    <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
+    <string name="watchlist_first_alarm_title_pair">ตั้งสัญญาณเตือนแรก – %1$s</string>
+
+    <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
+    <string name="watchlist_refresh_countdown">รีเฟรช (%1$d)</string>
+
+    <string name="watchlist_row_exchange_paused">%1$s · หยุดชั่วคราวถึง %2$s</string>
+
+    <string name="watchlist_refresh_just_done">เพิ่งอัปเดต · %1$d วิที่แล้ว</string>
+
+    <!-- Merklisten-Zeile: Abruf frisch, letzter Handel laut Börse älter als 2 h (Regel der Alarmsperre); %1$s = Alter, z. B. «vor 3 Std.» -->
+    <string name="watchlist_row_last_trade_age">ซื้อขายล่าสุด %1$s</string>
+
+    <string name="change_candle_source_hint">คำนวณจากแท่งเทียน %1$s – ตัวกระดานเทรดเองไม่ได้ให้ค่านี้</string>
+    <string name="change_candle_source_action">แสดงแหล่งที่มาของการเปลี่ยนแปลง</string>
+
+    <string name="watchlist_sort_by_coin">เรียงตามเหรียญ</string>
+    <string name="watchlist_sort_by_exchange">เรียงตามกระดานเทรด</string>
 </resources>

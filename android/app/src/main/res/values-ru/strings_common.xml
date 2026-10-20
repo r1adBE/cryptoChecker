@@ -43,4 +43,6 @@
     <string name="shortcut_add">Добавить пару</string>
     <string name="shortcut_alarms">Все оповещения</string>
     <string name="shortcut_cycle">Рынок</string>
+
+    <string name="log_box_title">Журнал</string>
 </resources>
