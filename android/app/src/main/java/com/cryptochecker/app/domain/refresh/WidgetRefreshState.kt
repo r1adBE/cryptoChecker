@@ -75,4 +75,14 @@ object WidgetRefreshState {
      * Sekunden bis zur Basis; 999 ms dazu runden auf wie [remainingSeconds] — «15» … «1», «0» erst am Ende.
      */
     fun chronometerBase(elapsedNow: Long, remainingMillis: Long): Long = elapsedNow + remainingMillis + 999
+
+    /**
+     * Countdown nur bei eingeschaltetem Bildschirm (Android): Gezeichnet bei ausgeschaltetem Bildschirm
+     * (Hintergrund-Aktualisierung) zeigt das Widget gleich das Symbol – ein Tipp in der Sperre tut trotzdem
+     * nichts ([onTap]). @return Restzeit für den Countdown; 0 = Symbol
+     */
+    fun countdownMillis(remainingMillis: Long, screenOn: Boolean): Long = if (screenOn) remainingMillis else 0
+
+    /** Neuzeichnen am Ende der Sperre etwas danach, damit sicher das Symbol kommt (nicht «0»). */
+    const val UNLOCK_SLACK_MILLIS = 300L
 }

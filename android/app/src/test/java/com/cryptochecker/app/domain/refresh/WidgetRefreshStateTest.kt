@@ -106,4 +106,19 @@ class WidgetRefreshStateTest {
             assertEquals(WidgetRefreshState.remainingSeconds(now + rest, now + t).toLong(), shown(elapsed + t))
         }
     }
+
+    @Test
+    fun countdownOnlyWithScreenOn() {
+        assertEquals(12_000L, WidgetRefreshState.countdownMillis(12_000L, screenOn = true))
+        // Bildschirm aus: gleich das Symbol, kein Countdown, der nach dem Entsperren bei 0 stehen bliebe
+        assertEquals(0L, WidgetRefreshState.countdownMillis(12_000L, screenOn = false))
+        assertEquals(0L, WidgetRefreshState.countdownMillis(0L, screenOn = true))
+    }
+
+    @Test
+    fun redrawAfterTheLockShowsTheButton() {
+        val until = now + 15_000
+        // Neuzeichnen mit Nachlauf: die Sperre ist dann vorbei (Restzeit 0 = Symbol)
+        assertEquals(0L, WidgetRefreshState.remainingMillis(until, until + WidgetRefreshState.UNLOCK_SLACK_MILLIS))
+    }
 }
