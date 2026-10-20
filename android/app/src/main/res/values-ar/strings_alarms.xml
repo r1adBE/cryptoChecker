@@ -68,9 +68,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">عندما %1$s</string>
     <string name="alarm_template_a11y">إنشاء تنبيه: %1$s</string>
-    <string name="alarm_template_a11y_down">إنشاء تنبيه عند ناقص %1$s بالمئة</string>
-    <string name="alarm_template_a11y_up">إنشاء تنبيه عند زائد %1$s بالمئة</string>
-    <string name="alarm_template_created">تم إنشاء التنبيه</string>
+    <string name="alarm_template_a11y_down">إنشاء تنبيه عند ناقص %1$s بالمئة من السعر الحالي</string>
+    <string name="alarm_template_a11y_up">إنشاء تنبيه عند زائد %1$s بالمئة من السعر الحالي</string>
+    <string name="alarm_template_from_now">من الآن</string>
     <string name="alarm_template_volume">الحجم ×%1$s</string>
     <string name="alarm_templates_title">تنبيهات سريعة</string>
 

@@ -1,10 +1,1 @@
-Të reja në 16.2.2
-• Crypto Pulse: çfarë po ndodh tani
-• «Bie në sy», «Çfarë lëviz bashkë?» me përmbledhje
-• Fillo me një prekje: top 5 monedha, çmime aktuale
-• Rrëshqit për të fshirë (me Zhbëj) ose për të preferuar
-• Çmime dhe alarme në monedhën tënde, eksport në datë (CSV)
-• Aksesueshmëri: blu/portokalli, kontrast, TalkBack
-• Orët e heshtjes, test alarmi, alarm si fjali, kyçje, widget
-• Bursa të reja, alarm gas, qirinj në widget
-• Aksione, ar, valuta (TradFi); % sipas zonës kohore
+Versioni i parë i Crypto Checker: çmime drejtpërdrejt nga bursa, alarme në pajisje, widget-e – pa llogari, pa reklama.

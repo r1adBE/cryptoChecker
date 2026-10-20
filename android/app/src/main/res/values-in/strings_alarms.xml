@@ -58,9 +58,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Saat %1$s</string>
     <string name="alarm_template_a11y">Buat alarm: %1$s</string>
-    <string name="alarm_template_a11y_down">Buat alarm di minus %1$s persen</string>
-    <string name="alarm_template_a11y_up">Buat alarm di plus %1$s persen</string>
-    <string name="alarm_template_created">Alarm dibuat</string>
+    <string name="alarm_template_a11y_down">Buat alarm di minus %1$s persen dari harga saat ini</string>
+    <string name="alarm_template_a11y_up">Buat alarm di plus %1$s persen dari harga saat ini</string>
+    <string name="alarm_template_from_now">mulai sekarang</string>
     <string name="alarm_template_volume">Volume ×%1$s</string>
     <string name="alarm_templates_title">Alarm cepat</string>
 

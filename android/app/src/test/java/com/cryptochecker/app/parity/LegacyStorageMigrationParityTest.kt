@@ -2,6 +2,7 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.domain.portfolio.LegacyStorageMigration
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
+import com.cryptochecker.app.domain.portfolio.TaxEngines
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
 import org.json.JSONObject
 import org.junit.Assert.assertEquals
@@ -66,5 +67,15 @@ class LegacyStorageMigrationParityTest {
         }
         // Unsinnig langer Text (Sicherung von aussen) wird nicht gelesen
         assertNull(CsvRestoreState.decode(" ".repeat(CsvRestoreState.MAX_TEXT + 1)))
+    }
+
+    /** Zins nur bei ganzen Wörtern («Verzinsung», «Zinseszins» nicht); wirkt auch auf legacyInterest. */
+    @Test
+    fun interestRewardMatchesWholeWords() {
+        data["interestReward"].list().map { it.obj() }.forEach { c ->
+            val text = c["text"] as String?
+            assertEquals("interestReward: $text", c["interest"], TaxEngines.interestReward(text))
+            assertEquals("legacyInterest: $text", c["interest"], LegacyStorageMigration.legacyInterest(PortfolioTxType.REWARD, text))
+        }
     }
 }

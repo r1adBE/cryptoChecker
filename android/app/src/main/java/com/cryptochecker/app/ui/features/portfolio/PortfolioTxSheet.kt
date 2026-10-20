@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.SecureFlagPolicy
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.portfolio.PortfolioStorageLock
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import kotlinx.coroutines.launch
@@ -102,6 +104,8 @@ fun PortfolioTxSheet(
     var saving by remember { mutableStateOf(false) }
     val saveErrorHost = remember { SnackbarHostState() }
     val saveFailedText = stringResource(R.string.portfolio_tx_save_failed)
+    // Gespeicherter Stand gerade nicht lesbar: nichts geschrieben (PortfolioStorageLock) — diesen Grund nennen
+    val storageLockedText = stringResource(R.string.portfolio_storage_kept_in_memory)
     val scope = rememberCoroutineScope()
 
     // Kurs vorbelegen, sobald ein (anderer) Coin feststeht; ein getippter Preis bleibt,
@@ -247,7 +251,8 @@ fun PortfolioTxSheet(
                                 // Schreiben fehlgeschlagen: Blatt bleibt offen mit den Eingaben, Meldung im Blatt
                                 onFailed = {
                                     saving = false
-                                    scope.launch { saveErrorHost.showSnackbar(saveFailedText) }
+                                    val locked = PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value)
+                                    scope.launch { saveErrorHost.showSnackbar(if (locked) storageLockedText else saveFailedText) }
                                 },
                             )
                         }

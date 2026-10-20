@@ -8,16 +8,17 @@ import java.time.ZoneId
 
 /**
  * Ein Coin im Vermögenswert per 31.12. ([TaxWealth]): eigener Bestand und Guthaben beobachteter Adressen zusammen (das
- * Vermögen zählt je Person, nicht je Wallet). Zahlen exakt, gerundet wird erst im Text.
+ * Vermögen zählt je Person, nicht je Wallet). Menge und Kurs exakt; die Werte sind die Summe der auf 2 Stellen gerundeten
+ * Zeilen der Bestandsdatei ([CutoffExport.rows] + [CutoffExport.addressRows]) — so stimmen beide Dateien je Coin überein.
  */
 data class TaxWealthRow(
     val coin: String,
     val amount: BigDecimal,
     /** Tagesschluss 31.12. in USDT; null = keiner. */
     val priceUsdt: BigDecimal?,
-    /** [amount] × [priceUsdt]; null = nicht gerechnet. */
+    /** Summe der gerundeten Teilwerte (Menge × [priceUsdt]); null = nicht gerechnet. */
     val valueUsdt: BigDecimal?,
-    /** [valueUsdt] × Devisenkurs; null = nicht gerechnet bzw. ohne Devisenkurs. */
+    /** Summe der gerundeten Teilwerte in der Steuerwährung; null = nicht gerechnet bzw. ohne Devisenkurs. */
     val valueTarget: BigDecimal?,
     /** Kein Tagesschluss 31.12. ([CutoffRow.noPrice]). */
     val noPrice: Boolean = false,
@@ -35,9 +36,9 @@ data class TaxWealthRow(
 /**
  * CH: Vermögenswert per [date] (31.12. des Steuerjahrs) — ORIENTIERUNG: Bestand × Börsen-Tagesschluss × Devisenkurs,
  * nicht die Steuerwerte der ESTV-Kursliste; die Vermögenssteuer selbst rechnet die App nicht (kantonale Tarife).
- * Werte je Coin exakt (gerundet auf 2 Stellen erst in Anzeige bzw. CSV, [CutoffExport.money]); die Summen aber aus den
- * GERUNDETEN Werten je Coin ([CutoffExport.roundedMoney]), wie sie in den Zeilen darunter stehen — wie der Stichtag-Export
- * ([CutoffExport.csv]): wer nachrechnet, kommt auf das Total (3 × 0.335 → 1.02, nicht 1.01).
+ * Werte je Coin = Summe der GERUNDETEN Teilzeilen (eigener Bestand, je Adresse; [CutoffExport.roundedMoney]), genau wie
+ * in der Bestandsdatei ([CutoffExport.csv]); die Summen aus diesen Werten: wer nachrechnet, kommt auf das Total
+ * (3 × 0.335 → 1.02, nicht 1.01), und beide Dateien weichen je Coin nicht um 0.01 ab.
  */
 data class TaxWealth(
     val date: LocalDate,
@@ -87,9 +88,10 @@ fun TaxExport.chWealth(
         val unobserved = list.any { it.addressUnobserved }
         // Ein Teil ohne Wert (oder ein unbeobachtetes Guthaben) → der ganze Coin ist nicht gerechnet
         val missing = noPrice || unchecked || unobserved || list.any { it.valueUsdt == null }
-        val valueUsdt = if (missing) null else list.fold(BigDecimal.ZERO) { a, r -> a + r.valueUsdt!! }
+        // Jeder Teil gerundet wie seine Zeile in der Bestandsdatei, erst dann zusammengezählt
+        val valueUsdt = if (missing) null else list.fold(BigDecimal.ZERO) { a, r -> a + CutoffExport.roundedMoney(r.valueUsdt!!) }
         val valueTarget = if (missing || list.any { it.valueTarget == null }) null else {
-            list.fold(BigDecimal.ZERO) { a, r -> a + r.valueTarget!! }
+            list.fold(BigDecimal.ZERO) { a, r -> a + CutoffExport.roundedMoney(r.valueTarget!!) }
         }
         TaxWealthRow(
             coin = coin,

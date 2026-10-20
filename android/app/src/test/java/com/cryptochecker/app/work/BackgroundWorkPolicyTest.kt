@@ -117,6 +117,14 @@ class BackgroundWorkPolicyTest {
     }
 
     @Test
+    fun exactAlarmResyncsAfterClockChange() {
+        assertTrue(BackgroundWorkPolicy.resyncsExactOn("android.intent.action.TIME_SET"))
+        assertTrue(BackgroundWorkPolicy.resyncsExactOn("android.intent.action.TIMEZONE_CHANGED"))
+        assertFalse(BackgroundWorkPolicy.resyncsExactOn("android.intent.action.BOOT_COMPLETED"))
+        assertFalse(BackgroundWorkPolicy.resyncsExactOn(null))
+    }
+
+    @Test
     fun macroAfterClockChangeRunsNowInWindowIfNotYetShown() {
         val zone = ZoneId.of("America/New_York")
         // 09:30 New York (nach Flug aus Zürich, wo 08:00 noch nicht dran war)
@@ -234,6 +242,12 @@ class BackgroundWorkPolicyTest {
         // Portfolio-Widget/-Alarm, Gas, Depeg: auch ohne Paare
         assertTrue(BackgroundWorkPolicy.periodicNeeded(demand(portfolioWork = true)))
         assertTrue(BackgroundWorkPolicy.periodicNeeded(demand(marketAlarms = true)))
+    }
+
+    @Test
+    fun `pulse widget needs the periodic work even without pairs`() {
+        assertTrue(BackgroundWorkPolicy.periodicNeeded(demand().copy(pulseWidget = true)))
+        assertFalse(BackgroundWorkPolicy.periodicNeeded(demand().copy(pulseWidget = false)))
     }
 
     @Test

@@ -64,9 +64,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Когда %1$s</string>
     <string name="alarm_template_a11y">Создать оповещение: %1$s</string>
-    <string name="alarm_template_a11y_down">Создать оповещение при минус %1$s процентах</string>
-    <string name="alarm_template_a11y_up">Создать оповещение при плюс %1$s процентах</string>
-    <string name="alarm_template_created">Оповещение создано</string>
+    <string name="alarm_template_a11y_down">Создать оповещение при минус %1$s процентах от текущей цены</string>
+    <string name="alarm_template_a11y_up">Создать оповещение при плюс %1$s процентах от текущей цены</string>
+    <string name="alarm_template_from_now">с этого момента</string>
     <string name="alarm_template_volume">Объём ×%1$s</string>
     <string name="alarm_templates_title">Быстрые оповещения</string>
 

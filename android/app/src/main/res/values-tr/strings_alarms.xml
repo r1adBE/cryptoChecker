@@ -60,9 +60,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">%1$s fiyatı</string>
     <string name="alarm_template_a11y">Alarm oluştur: %1$s</string>
-    <string name="alarm_template_a11y_down">Eksi yüzde %1$s için alarm oluştur</string>
-    <string name="alarm_template_a11y_up">Artı yüzde %1$s için alarm oluştur</string>
-    <string name="alarm_template_created">Alarm oluşturuldu</string>
+    <string name="alarm_template_a11y_down">Güncel fiyata göre eksi yüzde %1$s için alarm oluştur</string>
+    <string name="alarm_template_a11y_up">Güncel fiyata göre artı yüzde %1$s için alarm oluştur</string>
+    <string name="alarm_template_from_now">şu andan itibaren</string>
     <string name="alarm_template_volume">Hacim ×%1$s</string>
     <string name="alarm_templates_title">Hızlı alarmlar</string>
 

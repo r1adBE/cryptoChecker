@@ -1,10 +1,1 @@
-Mới trong 16.2.2
-• Crypto Pulse: điều gì đang diễn ra
-• “Đáng chú ý”, “Cái gì biến động cùng?” có tóm tắt
-• Bắt đầu chỉ một chạm: top 5 coin, giá hiện tại
-• Vuốt để xóa (có Hoàn tác) hoặc yêu thích
-• Giá, cảnh báo theo tiền của bạn, xuất theo ngày chốt (CSV)
-• Trợ năng: xanh dương/cam, tương phản cao, đổi màu, TalkBack
-• Giờ yên lặng, thử cảnh báo, cảnh báo dạng câu, khóa, tiện ích danh mục
-• Sàn mới, cảnh báo gas, nến ở tiện ích
-• Cổ phiếu, vàng, ngoại hối (TradFi); % theo múi giờ
+Phiên bản đầu tiên của Crypto Checker: giá trực tiếp từ sàn, cảnh báo ngay trên thiết bị, tiện ích – không cần tài khoản, không quảng cáo.

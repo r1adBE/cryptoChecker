@@ -55,14 +55,16 @@ fun SettingsViewModel.restorePicked(uri: android.net.Uri) = update {
 
 /** Passwort prüfen; falsch → nochmals fragen (mit Hinweis), richtig → Rückfrage. */
 fun SettingsViewModel.submitRestorePassword(uri: android.net.Uri, password: String) = update {
-    _restoreStep.value = RestoreStep.Password(uri, wrong = false, checking = true)
+    // Fehlversuche zählen: jeder leert das Feld neu (nicht nur der erste); der Hinweis bleibt während der Prüfung stehen
+    val failed = (_restoreStep.value as? RestoreStep.Password)?.failedAttempts ?: 0
+    _restoreStep.value = RestoreStep.Password(uri, wrong = failed > 0, checking = true, failedAttempts = failed)
     val next: RestoreStep? = try {
         // Prüft das Passwort und zählt zugleich ungültige Portfolio-Einträge (nur eine Schlüsselableitung)
         RestoreStep.Confirm(uri, password, backupManager.invalidEntries(uri, password))
     } catch (e: kotlinx.coroutines.CancellationException) {
         throw e
     } catch (e: com.cryptochecker.app.data.BackupCrypto.WrongPasswordException) {
-        RestoreStep.Password(uri, wrong = true)
+        RestoreStep.Password(uri, wrong = true, failedAttempts = failed + 1)
     } catch (e: Exception) {
         _backupMessage.value = BackupMessage.failure(e)
         null
@@ -138,11 +140,15 @@ fun SettingsViewModel.startRestore(activity: androidx.fragment.app.FragmentActiv
 sealed interface RestoreStep {
     val uri: android.net.Uri
 
-    /** Passwort der verschlüsselten Sicherung; [wrong] nach einem Fehlversuch, [checking] während der Prüfung. */
+    /**
+     * Passwort der verschlüsselten Sicherung; [wrong] nach einem Fehlversuch, [checking] während der Prüfung,
+     * [failedAttempts] Zahl der Fehlversuche (leert das Feld bei jedem neuen).
+     */
     data class Password(
         override val uri: android.net.Uri,
         val wrong: Boolean = false,
         val checking: Boolean = false,
+        val failedAttempts: Int = 0,
     ) : RestoreStep
 
     /**

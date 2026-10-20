@@ -60,9 +60,9 @@
     <string name="alarm_simple_end">komt</string>
     <string name="alarm_simple_when">Als %1$s</string>
     <string name="alarm_template_a11y">Alarm aanmaken: %1$s</string>
-    <string name="alarm_template_a11y_down">Alarm bij min %1$s procent aanmaken</string>
-    <string name="alarm_template_a11y_up">Alarm bij plus %1$s procent aanmaken</string>
-    <string name="alarm_template_created">Alarm aangemaakt</string>
+    <string name="alarm_template_a11y_down">Alarm bij min %1$s procent vanaf de huidige koers aanmaken</string>
+    <string name="alarm_template_a11y_up">Alarm bij plus %1$s procent vanaf de huidige koers aanmaken</string>
+    <string name="alarm_template_from_now">vanaf nu</string>
     <string name="alarm_template_volume">Volume ×%1$s</string>
     <string name="alarm_templates_title">Snelle alarmen</string>
 

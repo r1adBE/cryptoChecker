@@ -10,7 +10,7 @@ EHRLICH BEI DEN DATEN
 • «Sparsam» ist voreingestellt: Kurse kommen beim Öffnen und in Abständen im Hintergrund. «Live, solange offen» bringt Live-Kurse für Binance, Bybit, OKX, Coinbase und Kraken, solange die Merkliste offen ist.
 • %-Änderung und Charts kommen zuerst von der Börse des Paars; hat sie keine Kerzen, nimmt die App Binance oder Coinbase und sagt dir das.
 • Fear & Greed, Dominanz und On-Chain-Werte von alternative.me, CoinGecko und Coin Metrics.
-• Bei geschlossener App prüft iOS selten – oft erst nach Stunden, nach dem Wegwischen der App gar nicht. Am zuverlässigsten mit offener App oder Live-Aktivität. Kurze Spitzen dazwischen können fehlen; die App sagt dir das.
+• Bei geschlossener App prüft iOS selten – oft erst nach Stunden, nach dem Wegwischen der App gar nicht. Am zuverlässigsten mit offener App. Kurze Spitzen dazwischen können fehlen; die App sagt dir das.
 • Beträge bleiben auf dem Gerät, ausser du exportierst sie selbst (CSV, Sicherung). Für Kurse gehen nur Paar-Kürzel an die Börse des jeweiligen Paars; dazu Devisenkurse (Frankfurter), Marktdaten und Logos (CoinGecko, Binance), Daten-Spiegel (GitHub). Beobachtest du Adressen oder einen xpub, sehen öffentliche Blockchain-Knoten die Adressen (beim xpub die abgeleiteten) und deine IP.
 
 MERKLISTE

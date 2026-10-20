@@ -153,4 +153,16 @@ class AlarmTemplatesTest {
         assertTrue(AlarmTemplates.opensMoreConditions(AlarmCondition.MOVE_PERCENT_WINDOW))
         assertTrue(AlarmTemplates.opensMoreConditions(AlarmCondition.VOLUME_SPIKE))
     }
+
+    @Test
+    fun chipReferenceComesFromTheTemplate() {
+        // ±1 %/±5 % messen ab dem Kurs beim Anlegen (kein Zeitfenster) → Chip «+5 % · ab jetzt»
+        listOf(Template.UP_1, Template.UP_5, Template.DOWN_1, Template.DOWN_5).forEach {
+            assertNull(AlarmTemplates.windowHours(it))
+            assertTrue(AlarmTemplates.definition(it, 1.0)!!.condition != AlarmCondition.MOVE_PERCENT_WINDOW)
+        }
+        // Vorlagen ohne Prozentwert haben keinen Bezug im Chip
+        assertNull(AlarmTemplates.windowHours(Template.NEW_HIGH_30))
+        assertNull(AlarmTemplates.windowHours(Template.VOLUME_X3))
+    }
 }

@@ -198,24 +198,6 @@ internal fun StarterPicker(
                     modifier = Modifier.padding(start = Spacing.xs)
                 )
             }
-            // Und was man danach bekommt: Tipp auf einen Coin öffnet Alarm und «Was bewegt sich mit?» (Symbol wie der ⚡ der Zeile)
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(top = Spacing.xs, start = 16.dp, end = 16.dp)
-            ) {
-                Icon(
-                    painterResource(R.drawable.ic_bolt),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.size(18.dp)
-                )
-                Text(
-                    text = stringResource(R.string.watch_hint_tap_why),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(start = Spacing.xs)
-                )
-            }
 
             Button(
                 onClick = onAdd,

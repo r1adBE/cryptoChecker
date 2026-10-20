@@ -81,18 +81,6 @@ struct WatchlistStarterPicker: View {
             .multilineTextAlignment(.center)
             .padding(.top, 4)
 
-            // Und was man danach bekommt: Tipp auf einen Coin öffnet Alarm und «Was bewegt sich mit?» (Symbol wie
-            // der ⚡ der Zeile) — wie Android
-            Label {
-                Text(L("watch_hint_tap_why"))
-            } icon: {
-                Image(systemName: "bolt")
-                    .accessibilityHidden(true)
-            }
-            .font(.subheadline)
-            .foregroundStyle(AppColors.onSurfaceVariant)
-            .multilineTextAlignment(.center)
-
             Button {
                 add()
             } label: {

@@ -1,10 +1,1 @@
-Nouveautés 16.2.2
-• Crypto Pulse : ce qui se passe
-• « À noter », « Qu’est-ce qui bouge avec ? », résumé
-• En un geste : top 5, cours actuels
-• Balayer : supprimer (avec Annuler) ou favori
-• Prix, alertes dans votre devise, export CSV à date
-• Accessible : bleu/orange, contraste, couleurs inversées, TalkBack
-• Heures calmes, test et phrase d'alerte, verrou/widget Portefeuille
-• Nouvelles plateformes, alerte gas, bougies en widget
-• Actions, or, devises (TradFi) ; % selon le fuseau
+Première version de Crypto Checker : cours directement de la plateforme d’échange, alertes sur l’appareil, widgets – sans compte, sans publicité.

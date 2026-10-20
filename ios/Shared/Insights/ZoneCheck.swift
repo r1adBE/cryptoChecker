@@ -8,6 +8,9 @@ enum ZoneCheck {
     /// Zuletzt gemerkte Marktzone früherer Versionen (wird nur noch aufgeräumt).
     static let legacyKeyZone = "last_zone"
     static let keyFearGreed = "last_fear_greed"
+    /// Grenzen, zu denen der gemerkte Stand gehört (wie Android).
+    static let keyFearGreedBelow = "last_fear_greed_below"
+    static let keyFearGreedAbove = "last_fear_greed_above"
 
     /// - Returns: immer true (Fear & Greed ohne Netz wird beim nächsten Lauf nachgeholt).
     @discardableResult
@@ -51,15 +54,24 @@ enum ZoneCheck {
     private static func checkFearGreed(below: Int, above: Int, defaults: UserDefaults) async {
         if below <= 0 && above <= 0 {
             defaults.removeObject(forKey: keyFearGreed)
+            defaults.removeObject(forKey: keyFearGreedBelow)
+            defaults.removeObject(forKey: keyFearGreedAbove)
             return
         }
         guard let value = try? await InsightsDataSource.fearGreed().value else { return }
         let last: Int? = defaults.object(forKey: keyFearGreed) != nil ? defaults.integer(forKey: keyFearGreed) : nil
+        // Grenze seit dem gemerkten Stand geändert: für sie zählt der alte Stand nicht
+        let belowChanged = MarketNoticeGate.boundChanged(stored: defaults.object(forKey: keyFearGreedBelow) as? Int, current: below)
+        let aboveChanged = MarketNoticeGate.boundChanged(stored: defaults.object(forKey: keyFearGreedAbove) as? Int, current: above)
+        func decide(_ canNotify: Bool) -> MarketNoticeGate.FearGreedStep {
+            MarketNoticeGate.fearGreed(value: value, last: last, below: below, above: above, canNotify: canNotify,
+                                       belowChanged: belowChanged, aboveChanged: aboveChanged)
+        }
         // Erlaubnis nur prüfen, wenn es etwas zu melden gibt
-        var decision = MarketNoticeGate.fearGreed(value: value, last: last, below: below, above: above, canNotify: true)
+        var decision = decide(true)
         if decision.step == .notify {
             let allowed = await Notifier.isAuthorized()
-            decision = MarketNoticeGate.fearGreed(value: value, last: last, below: below, above: above, canNotify: allowed)
+            decision = decide(allowed)
         }
         var posted = false
         if decision.step == .notify {
@@ -72,6 +84,8 @@ enum ZoneCheck {
         // Nicht angekommen: alten Wert behalten, damit die Grenze später noch gemeldet wird
         if MarketNoticeGate.storeAfterNotify(decision.step, posted: posted) {
             defaults.set(value, forKey: keyFearGreed)
+            defaults.set(below, forKey: keyFearGreedBelow)
+            defaults.set(above, forKey: keyFearGreedAbove)
         }
     }
 }
@@ -122,17 +136,27 @@ enum MarketNoticeGate {
 
     /// Fear & Greed: einmal melden, wenn der Index die Grenze `below` unter- bzw. `above`
     /// überschreitet (Grenze ≤ 0 = aus); `last` nil = noch kein Stand gemerkt.
-    static func fearGreed(value: Int, last: Int?, below: Int, above: Int, canNotify: Bool) -> FearGreedStep {
+    /// `belowChanged`/`aboveChanged`: Diese Grenze ist seit dem gemerkten Stand eine andere — dann zählt `last`
+    /// für sie nicht; die unveränderte andere Grenze bewertet weiter mit `last`. Wie Android.
+    static func fearGreed(value: Int, last: Int?, below: Int, above: Int, canNotify: Bool,
+                          belowChanged: Bool = false, aboveChanged: Bool = false) -> FearGreedStep {
         let kind: FearGreedKind?
-        if below > 0 && value <= below && (last.map { $0 > below } ?? true) {
+        if below > 0 && value <= below && (belowChanged || (last.map { $0 > below } ?? true)) {
             kind = .below
-        } else if above > 0 && value >= above && (last.map { $0 < above } ?? true) {
+        } else if above > 0 && value >= above && (aboveChanged || (last.map { $0 < above } ?? true)) {
             kind = .above
         } else {
             kind = nil
         }
         guard let kind else { return FearGreedStep(step: .store) }
         return FearGreedStep(step: canNotify ? .notify : .hold, kind: kind)
+    }
+
+    /// Gilt die Grenze `current` nicht mehr für den gemerkten Stand? `stored` nil = Stand vor dieser Regel:
+    /// als unverändert werten (nach dem Update nichts doppelt). Wie `MarketNoticeGate.boundChanged` (Android).
+    static func boundChanged(stored: Int?, current: Int) -> Bool {
+        guard let stored else { return false }
+        return stored != current
     }
 
     /// Neuen Stand speichern? `posted` = die Mitteilung wurde angenommen (nur bei `.notify` von Belang).

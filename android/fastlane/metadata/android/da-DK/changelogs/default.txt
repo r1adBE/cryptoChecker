@@ -1,10 +1,1 @@
-Nyt i 16.2.2
-• Crypto Pulse: hvad der sker lige nu
-• »Påfaldende«, »Hvad bevæger sig med?« med opsummering
-• Kom i gang med ét tryk: top 5 coins, aktuelle kurser
-• Stryg: slet (med Fortryd) eller favorit
-• Kurser og alarmer i din valuta, skæringsdato-eksport (CSV)
-• Tilgængelig: blå/orange, kontrast, byt farver, TalkBack
-• Nattero, test alarm, alarm som sætning, porteføljelås og -widget
-• Nye børser, gas-alarm, candlesticks i widget
-• Aktier, guld, valuta (TradFi); % efter tidszone
+Første version af Crypto Checker: kurser direkte fra børsen, alarmer på enheden, widgets – uden konto, uden reklamer.

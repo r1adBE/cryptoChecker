@@ -217,11 +217,14 @@ struct AlarmsScreen: View {
                     guard let def = AlarmTemplates.definition(template, currentPrice: watch?.lastPrice) else { return }
                     WatchlistHaptics.impact(.light)
                     let created = withAnimation { data.createAlarm(watchId: watchId, from: def) }
+                    // Nichts angelegt (Paar inzwischen gelöscht): keine Bestätigung — wie Android
+                    guard created.id != 0 else { return }
                     if created.firstAlarm { firstAlarmPending = true }
                     noteTimingHint(firstAlarm: created.firstAlarm)
                     let id = created.id
                     banner = WatchlistBannerMessage(
-                        text: L("alarm_template_created"), icon: "bell.and.waves.left.and.right.fill",
+                        // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig») — wie Android
+                        text: templateCreatedText(id), icon: "bell.and.waves.left.and.right.fill",
                         action: WatchlistBannerAction(title: L("action_undo")) {
                             withAnimation { data.deleteAlarm(id) }
                         }
@@ -282,6 +285,15 @@ struct AlarmsScreen: View {
     /// Merkliste gerade nicht lesbar (`AppData.alarmSaveBlocked`): nichts angelegt, sagen warum (der Editor schliesst sich)
     private func showSaveLocked() {
         banner = WatchlistBannerMessage(text: L("alarm_save_storage_locked"), icon: "lock.fill", long: true)
+    }
+
+    /// Bestätigung eines Schnell-Alarms: Bedingung wie nach dem Speichern (`AlarmSavedText`), ohne Mitteilungs-Hinweis.
+    private func templateCreatedText(_ id: Int64) -> String {
+        guard let alarm = data.alarms(for: watchId).first(where: { $0.id == id }) else { return L("alarm_saved_active") }
+        let watch = data.watch(watchId)
+        let title = AlarmStyle.title(alarm, quote: watch?.quoteAsset ?? "")
+        let condition = AlarmSavedText.pairCondition(symbol: watch?.baseAsset ?? "", title: title)
+        return AlarmSavedText.text(condition: condition, repeating: alarm.repeating, notificationsOff: false)
     }
 
     /// Hinweis «Wann Alarme geprüft werden» prüfen und merken (`AlarmTimingHint`): einmal, nicht

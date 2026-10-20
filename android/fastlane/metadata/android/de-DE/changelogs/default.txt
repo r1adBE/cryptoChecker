@@ -1,10 +1,1 @@
-Neu in 16.2.2
-• Crypto Pulse: Was passiert gerade?
-• «Auffällig», «Was bewegt sich mit?» mit Fazit
-• Mit einem Tipp starten: Top 5 Coins
-• Wischen: löschen (mit «Rückgängig») oder Favorit
-• Kurse und Alarme in deiner Währung, Stichtag-Export (CSV)
-• Barrierefrei: Blau/Orange, Kontrast, TalkBack
-• Nachtruhe, Alarm testen, Alarm als Satz, Portfolio-Sperre und -Widget
-• Neue Börsen, Gas-Alarm, Kerzen im Widget
-• Aktien, Gold, Devisen (TradFi); %-Änderung nach Zeitzone
+Erste Version von Crypto Checker: Kurse direkt von der Börse, Alarme auf dem Gerät, Widgets – ohne Konto, ohne Werbung.

@@ -144,6 +144,8 @@ internal class WatchlistEditController(
                 undo.put(watch.id, listOf(snapshot))
                 notifier.cancelPrice(watch.id)
                 notifier.cancelActivity(watch.id)
+                // Alte Alarm-Mitteilungen weg: ihr «Anpassen» zeigte sonst auf ein Paar, das es nicht mehr gibt
+                notifier.cancelAlarms(snapshot.alarms.map { it.id })
                 watchRepository.deleteWatch(watch.id)
                 widgetUpdater.updateAll()
             }
@@ -184,6 +186,7 @@ internal class WatchlistEditController(
                 // Kurs-Meldungen in einem Schritt (Sammelmeldung nur einmal neu)
                 notifier.cancelAllPrices(snapshots.map { it.watch.id })
                 snapshots.forEach { notifier.cancelActivity(it.watch.id) }
+                notifier.cancelAlarms(snapshots.flatMap { it.alarms }.map { it.id })
                 watchRepository.deleteWatches(snapshots.map { it.watch.id })
                 widgetUpdater.updateAll()
                 snapshots.size
@@ -206,6 +209,7 @@ internal class WatchlistEditController(
                 // Kurs-Meldungen in einem Schritt (Sammelmeldung nur einmal neu)
                 notifier.cancelAllPrices(snapshots.map { it.watch.id })
                 snapshots.forEach { notifier.cancelActivity(it.watch.id) }
+                notifier.cancelAlarms(snapshots.flatMap { it.alarms }.map { it.id })
                 watchRepository.deleteWatches(snapshots.map { it.watch.id })
                 widgetUpdater.updateAll()
                 snapshots.size
@@ -259,6 +263,7 @@ internal class WatchlistEditController(
             // Erst die Benachrichtigungen wegräumen, danach die Einträge —
             // sonst fehlen hinterher die Ids, um sie zu schliessen.
             notifier.cancelAllPrices(watchRepository.getWatches().map { it.id })
+            notifier.cancelAlarms(watchRepository.getAllAlarmIds())
             watchRepository.deleteAllWatches()
             widgetUpdater.updateAll()
         }

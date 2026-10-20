@@ -43,6 +43,15 @@ object GasAlertLogic {
     /** Zu speichernder Zustand: Ging die fällige Meldung nicht ans System, bleibt der alte Zustand. */
     fun armedAfter(fire: Boolean, posted: Boolean, armedBefore: Boolean, next: Boolean): Boolean =
         if (fire && !posted) armedBefore else next
+
+    /**
+     * Gespeicherter Zustand für die aktuelle Grenze: Wurde er bei einer anderen Grenze gemerkt
+     * (geändert oder zwischendurch aus = 0), ist der Alarm wieder scharf — sonst bliebe er nach
+     * einer neuen Grenze stumm, bis die Gebühr einmal deutlich über der alten lag.
+     * [storedThreshold] null = Stand vor dieser Regel: Zustand übernehmen (kein Doppelalarm nach dem Update).
+     */
+    fun armedFor(storedArmed: Boolean, storedThreshold: Double?, threshold: Double): Boolean =
+        if (storedThreshold != null && storedThreshold != threshold) true else storedArmed
 }
 
 /**
@@ -62,7 +71,14 @@ class GasAlertChecker @Inject constructor(
         val settings = settingsRepository.current()
         val ethThreshold = settings.gasAlertEthTenths / 10.0
         val btcThreshold = settings.gasAlertBtc.toDouble()
-        if (ethThreshold <= 0 && btcThreshold <= 0) return@withLock
+        if (ethThreshold <= 0 && btcThreshold <= 0) {
+            // «Aus» merken, damit beim Wiedereinschalten (auch mit gleicher Grenze) der Alarm scharf ist
+            val off = 0.0.toRawBits()
+            if (prefs.getLong(KEY_ETH_THRESHOLD, -1) != off || prefs.getLong(KEY_BTC_THRESHOLD, -1) != off) {
+                prefs.edit { putThreshold(KEY_ETH_THRESHOLD, 0.0); putThreshold(KEY_BTC_THRESHOLD, 0.0) }
+            }
+            return@withLock
+        }
         val now = System.currentTimeMillis()
         if (!isDue(now, prefs.getLong(KEY_LAST_CHECK, 0))) return@withLock
         prefs.edit { putLong(KEY_LAST_CHECK, now) }
@@ -80,7 +96,7 @@ class GasAlertChecker @Inject constructor(
         val deliverable = notifier.canShowMarketNotice()
 
         report.evm.firstOrNull { it.network == GasNetwork.ETHEREUM }?.let { eth ->
-            check(KEY_ETH_ARMED, eth.normalGwei, ethThreshold, deliverable) {
+            check(KEY_ETH_ARMED, KEY_ETH_THRESHOLD, eth.normalGwei, ethThreshold, deliverable) {
                 notifier.showGas(
                     AppNotifier.GAS_ETH_NOTIFICATION_ID,
                     context.getString(R.string.notification_gas_eth_title, GasFees.formatGwei(eth.normalGwei)),
@@ -91,7 +107,7 @@ class GasAlertChecker @Inject constructor(
             }
         }
         report.btc?.let { btc ->
-            check(KEY_BTC_ARMED, btc.normal, btcThreshold, deliverable) {
+            check(KEY_BTC_ARMED, KEY_BTC_THRESHOLD, btc.normal, btcThreshold, deliverable) {
                 notifier.showGas(
                     AppNotifier.GAS_BTC_NOTIFICATION_ID,
                     context.getString(R.string.notification_gas_btc_title, GasFees.formatGwei(btc.normal)),
@@ -103,11 +119,21 @@ class GasAlertChecker @Inject constructor(
         }
     }
 
-    private inline fun check(key: String, value: Double, threshold: Double, deliverable: Boolean, notify: () -> Boolean) {
-        val before = prefs.getBoolean(key, true)
+    private inline fun check(
+        key: String, thresholdKey: String, value: Double, threshold: Double, deliverable: Boolean, notify: () -> Boolean,
+    ) {
+        val stored = if (prefs.contains(thresholdKey)) Double.fromBits(prefs.getLong(thresholdKey, 0)) else null
+        val before = GasAlertLogic.armedFor(prefs.getBoolean(key, true), stored, threshold)
         val (fire, next) = GasAlertLogic.evaluate(value, threshold, before, deliverable)
         val posted = fire && notify()
-        prefs.edit { putBoolean(key, GasAlertLogic.armedAfter(fire, posted, before, next)) }
+        prefs.edit {
+            putBoolean(key, GasAlertLogic.armedAfter(fire, posted, before, next))
+            putThreshold(thresholdKey, threshold)
+        }
+    }
+
+    private fun android.content.SharedPreferences.Editor.putThreshold(key: String, value: Double) {
+        putLong(key, value.toRawBits())
     }
 
     internal companion object {
@@ -122,6 +148,9 @@ class GasAlertChecker @Inject constructor(
         const val KEY_LAST_CHECK = "last_check"
         const val KEY_ETH_ARMED = "eth_armed"
         const val KEY_BTC_ARMED = "btc_armed"
+        /** Grenze, zu der der gemerkte Zustand gehört (Double als Bits). */
+        const val KEY_ETH_THRESHOLD = "eth_threshold"
+        const val KEY_BTC_THRESHOLD = "btc_threshold"
         const val MIN_INTERVAL_MILLIS = 10 * 60_000L
         /** Nach einem fehlgeschlagenen Abruf: so lange bis zum nächsten Versuch (statt der vollen Pause). */
         const val RETRY_AFTER_FAILURE_MILLIS = 2 * 60_000L

@@ -82,6 +82,13 @@ enum AlarmTemplates {
         }
     }
 
+    /// Bezug einer Prozent-Vorlage für die Beschriftung des Chips: Stunden des Zeitfensters (Bewegungsalarm) oder
+    /// nil = gemessen ab dem Kurs beim Anlegen («+5 % · ab jetzt») — aus der Vorlage gelesen, wie Android.
+    static func windowHours(_ template: Template) -> Int? {
+        guard let def = definition(template, currentPrice: 1), def.condition == .MOVE_PERCENT_WINDOW else { return nil }
+        return def.windowHours
+    }
+
     private static let suggestedDigits = 3
 
     /// Abstand des Vorschlags zum Kurs (5 %).

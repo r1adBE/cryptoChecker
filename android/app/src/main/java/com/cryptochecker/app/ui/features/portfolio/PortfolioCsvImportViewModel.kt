@@ -119,9 +119,13 @@ class PortfolioCsvImportViewModel @Inject constructor(
     )
     private var input: Input? = null
 
+    /** Lesen und Kurse laden ([load]); [cancelLoad] bricht ab — bis dahin ist nichts gespeichert. */
+    private var loadJob: kotlinx.coroutines.Job? = null
+
     fun load(uri: Uri) {
         _state.value = CsvImportState.Loading
-        viewModelScope.launch {
+        loadJob?.cancel()
+        loadJob = viewModelScope.launch {
             _state.value = runCatchingCancellable { buildPreview(uri) }
                 .onFailure { Timber.w(it, "CSV-Import: Datei nicht lesbar") }
                 .getOrNull()
@@ -362,6 +366,17 @@ class PortfolioCsvImportViewModel @Inject constructor(
             count++
         }
         return count
+    }
+
+    /**
+     * «Abbrechen» bzw. Zurück im Ladedialog: Lesen und Kursabfragen stoppen. Geschrieben wird erst mit «Importieren»
+     * ([confirm]), darum bleibt nichts halb importiert. Während des Speicherns ([CsvImportState.Saving]) nicht möglich.
+     */
+    fun cancelLoad() {
+        if (_state.value != CsvImportState.Loading) return
+        loadJob?.cancel()
+        loadJob = null
+        reset()
     }
 
     fun reset() {

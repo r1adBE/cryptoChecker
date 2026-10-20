@@ -57,6 +57,19 @@ final class MissingEntryNotTradedTests: XCTestCase {
         }
     }
 
+    /// Lighter Kurs 0 (nie gehandelt): «No data» bestätigt «nicht mehr gehandelt» statt eines Dauer-Lesefehlers. Wie Android.
+    func testLighterPriceZeroIsNoData() {
+        let body = #"{"code":200,"order_book_stats":[{"symbol":"ARM","last_trade_price":0,"daily_price_change":0}]}"#
+        var ticker = Ticker()
+        XCTAssertThrowsError(try Lighter().readTicker(call: 0, body: body, ticker: &ticker,
+                                                      info: PairQuery("ARM", "USDC", "ARM", .perpetual))) { error in
+            XCTAssertEqual((error as? JSONError)?.message, JSONError.noData)
+            XCTAssertEqual(MarketFailure.of(error), .unknownInstrument)
+            XCTAssertTrue(NotTraded.confirmedBySingle(gotPrice: false, error: ConnectionErrors.describe(error),
+                                                      failure: MarketFailure.of(error)))
+        }
+    }
+
     func testHyperliquidValidAnswerHasNoErrorText() throws {
         let info = PairQuery("FOO", "USDC", "FOO", .perpetual)
         // Gültige Antwort (Liste): kein Fehlertext, damit «Unknown coin» bleibt

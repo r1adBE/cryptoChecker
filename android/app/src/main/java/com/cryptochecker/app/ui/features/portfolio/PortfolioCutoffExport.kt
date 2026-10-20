@@ -93,11 +93,11 @@ internal suspend fun PortfolioExportViewModel.build(
     // (eigene Zeilen «aus Adresse – ohne Kaufpreis»). Nicht lesbar: ohne Adressen, aber in der Datei vermerkt und
     // das Total «unvollständig» — nie still eine zu tiefe Summe (wie iOS `intact`)
     var addressesUnreadable = false
-    // Zählende Adresse mit Einstand: Hinweiszeile (Umbuchungen zur/von der Adresse evtl. doppelt/fehlend)
+    // Zählende Adresse mit Einstand am Stichtag: Hinweiszeile (Umbuchungen zur/von der Adresse evtl. doppelt/fehlend)
     var addressLots = false
     val addressAt = try {
         val watched = repository.getWatchedAddresses()
-        addressLots = AddressCostLots.hasCountedLots(watched)
+        addressLots = AddressCostLots.hasCountedLots(watched, cutoff)
         AddressBalanceHistory.balancesAt(AddressBalanceHistory.of(watched), cutoff)
     } catch (e: CancellationException) {
         throw e

@@ -58,9 +58,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Khi %1$s</string>
     <string name="alarm_template_a11y">Tạo cảnh báo: %1$s</string>
-    <string name="alarm_template_a11y_down">Tạo cảnh báo ở mức trừ %1$s phần trăm</string>
-    <string name="alarm_template_a11y_up">Tạo cảnh báo ở mức cộng %1$s phần trăm</string>
-    <string name="alarm_template_created">Đã tạo cảnh báo</string>
+    <string name="alarm_template_a11y_down">Tạo cảnh báo ở mức trừ %1$s phần trăm so với giá hiện tại</string>
+    <string name="alarm_template_a11y_up">Tạo cảnh báo ở mức cộng %1$s phần trăm so với giá hiện tại</string>
+    <string name="alarm_template_from_now">từ bây giờ</string>
     <string name="alarm_template_volume">Khối lượng ×%1$s</string>
     <string name="alarm_templates_title">Cảnh báo nhanh</string>
 

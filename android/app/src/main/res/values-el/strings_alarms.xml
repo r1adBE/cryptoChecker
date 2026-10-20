@@ -60,9 +60,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Όταν το %1$s</string>
     <string name="alarm_template_a11y">Δημιουργία συναγερμού: %1$s</string>
-    <string name="alarm_template_a11y_down">Δημιουργία συναγερμού στο μείον %1$s τοις εκατό</string>
-    <string name="alarm_template_a11y_up">Δημιουργία συναγερμού στο συν %1$s τοις εκατό</string>
-    <string name="alarm_template_created">Ο συναγερμός δημιουργήθηκε</string>
+    <string name="alarm_template_a11y_down">Δημιουργία συναγερμού στο μείον %1$s τοις εκατό από την τρέχουσα τιμή</string>
+    <string name="alarm_template_a11y_up">Δημιουργία συναγερμού στο συν %1$s τοις εκατό από την τρέχουσα τιμή</string>
+    <string name="alarm_template_from_now">από τώρα</string>
     <string name="alarm_template_volume">Όγκος ×%1$s</string>
     <string name="alarm_templates_title">Γρήγοροι συναγερμοί</string>
 

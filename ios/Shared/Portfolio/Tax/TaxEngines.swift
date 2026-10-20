@@ -140,11 +140,36 @@ enum TaxEngines {
     }
 
     /// Art einer Belohnung ist ein Zins (Lending, Zinsen) — aus der Notiz bzw. der Art im CSV; AT rechnet ihn mit
-    /// Anschaffungskosten = Wert beim Zufluss statt 0. Wie Android `interestReward` (von Hand: keine Unterart → 0).
+    /// Anschaffungskosten = Wert beim Zufluss statt 0. Wie Android `interestReward` (von Hand: keine Unterart → 0). Nur ganze
+    /// Wörter (auch «LendingInterest», «interest_payment»): «Verzinsung», «Zinseszins» oder «keine Verzinsung» sind kein Zins.
     static func interestReward(_ text: String?) -> Bool {
-        guard let t = text?.lowercased() else { return false }
-        return ["interest", "lending", "zins", "interet", "intérêt"].contains { t.contains($0) }
+        guard let text, !text.isEmpty else { return false }
+        return words(text.precomposedStringWithCanonicalMapping).contains { interestWords.contains($0) }
     }
+
+    /// Wörter in Kleinbuchstaben: Trenner ist alles ausser Buchstaben/Ziffern und der Wechsel klein → gross (wie Android).
+    private static func words(_ text: String) -> [String] {
+        var out: [String] = []
+        var word = ""
+        var prevLower = false
+        for c in text {
+            if !(c.isLetter || c.isNumber) {
+                if !word.isEmpty { out.append(word.lowercased()); word = "" }
+                prevLower = false
+                continue
+            }
+            if prevLower && c.isUppercase, !word.isEmpty { out.append(word.lowercased()); word = "" }
+            word.append(c)
+            prevLower = c.isLowercase
+        }
+        if !word.isEmpty { out.append(word.lowercased()) }
+        return out
+    }
+
+    private static let interestWords: Set<String> = [
+        "interest", "interests", "lending", "zins", "zinsen", "zinsertrag", "zinserträge", "zinsgutschrift",
+        "interet", "interets", "intérêt", "intérêts",
+    ]
 
     /// Vorgänge ohne Verkauf nach den Regeln der Vorlage umschreiben (vor jeder Rechnung) — wie Android `applyRules`:
     ///  - Verschenkt an Ehe-/Lebenspartner mit `spouseGiftNeutral` (UK, CA): bleibt eine Schenkung mit Merker

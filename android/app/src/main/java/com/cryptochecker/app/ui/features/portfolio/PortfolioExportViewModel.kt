@@ -12,6 +12,7 @@ import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.CutoffCsvFormat
 import com.cryptochecker.app.domain.portfolio.CutoffCsvTexts
+import com.cryptochecker.app.domain.portfolio.CutoffExport
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.TaxCsvTexts
 import com.cryptochecker.app.domain.portfolio.TaxExport
@@ -214,9 +215,10 @@ class PortfolioExportViewModel @Inject constructor(
                         it.walletFrom == tpl.walletFrom(costMethod.value, year)
                 } ?: buildSummary(year, tpl, method, currency)
                 val format = CutoffCsvFormat.forLocale(deviceRegionLocale().country, inputDecimalSeparator())
-                // CH-Vermögen mit Adressen mit Einstand: Hinweiszeile (nicht lesbar: ohne, die Adressen fehlen dann ohnehin)
+                // CH-Vermögen mit Adressen mit Einstand am 31.12.: Hinweiszeile (nicht lesbar: ohne, die Adressen fehlen dann ohnehin)
                 val addressLots = try {
-                    AddressCostLots.hasCountedLots(repository.getWatchedAddresses())
+                    val yearEnd = CutoffExport.endOfDayMillis(summary.period.end, tpl.zone())
+                    AddressCostLots.hasCountedLots(repository.getWatchedAddresses(), yearEnd)
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {

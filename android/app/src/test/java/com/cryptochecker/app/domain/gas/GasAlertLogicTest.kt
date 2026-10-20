@@ -38,6 +38,20 @@ class GasAlertLogicTest {
     }
 
     @Test
+    fun changedOrReenabledThresholdRearms() {
+        // Verbraucht bei Grenze 2.0, jetzt 3.0: wieder scharf und meldet sofort, wenn schon darunter
+        assertEquals(true, GasAlertLogic.armedFor(storedArmed = false, storedThreshold = 2.0, threshold = 3.0))
+        assertEquals(true to false, GasAlertLogic.evaluate(2.5, 3.0, GasAlertLogic.armedFor(false, 2.0, 3.0)))
+        // Zwischendurch aus (0 gemerkt), wieder mit gleicher Grenze an: scharf
+        assertEquals(true, GasAlertLogic.armedFor(storedArmed = false, storedThreshold = 0.0, threshold = 2.0))
+        // Unveränderte Grenze: Zustand bleibt, kein Doppelalarm
+        assertEquals(false, GasAlertLogic.armedFor(storedArmed = false, storedThreshold = 2.0, threshold = 2.0))
+        assertEquals(false to false, GasAlertLogic.evaluate(1.5, 2.0, GasAlertLogic.armedFor(false, 2.0, 2.0)))
+        // Stand vor dem Update (keine Grenze gemerkt): Zustand übernehmen
+        assertEquals(false, GasAlertLogic.armedFor(storedArmed = false, storedThreshold = null, threshold = 2.0))
+    }
+
+    @Test
     fun offNeverFires() {
         assertEquals(false to true, GasAlertLogic.evaluate(0.1, 0.0, true))
     }

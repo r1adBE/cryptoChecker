@@ -90,6 +90,14 @@ object AlarmTemplates {
     }
 
     /**
+     * Bezug einer Prozent-Vorlage für die Beschriftung des Chips: Stunden des Zeitfensters (Bewegungsalarm) oder
+     * null = gemessen ab dem Kurs beim Anlegen («+5 % · ab jetzt»). Aus der Vorlage gelesen, damit Chip und
+     * gespeicherter Alarm nie auseinanderlaufen; null auch bei Vorlagen ohne Prozentwert.
+     */
+    fun windowHours(template: Template): Int? =
+        definition(template, 1.0)?.takeIf { it.condition == AlarmCondition.MOVE_PERCENT_WINDOW }?.windowHours
+
+    /**
      * Vorschlag fürs Betragsfeld im einfachen Modus, je Richtung: «über» 5 % über dem Kurs,
      * «unter» 5 % darunter — sonst wäre der Vorschlag oft schon erreicht und der neue Alarm
      * meldete sofort. Gerundet wie [suggestedThresholdText] (63’412.57 über → 66600, unter → 60200).

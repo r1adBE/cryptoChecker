@@ -1,9 +1,8 @@
 {
  "version": 1,
- "generated": "2026-10-06T07:00:00Z",
+ "generated": "2026-10-17T11:44:24Z",
  "source": "BLS release schedule (CPI, PPI, Employment Situation); Federal Reserve FOMC calendar (statement 14:00 ET, 2nd meeting day); BEA release schedule (Personal Income and Outlays)",
  "events": [
-  {"type":"NFP","time":"2026-10-02T12:30:00Z"},
   {"type":"CPI","time":"2026-10-14T12:30:00Z"},
   {"type":"PPI","time":"2026-10-15T12:30:00Z"},
   {"type":"FOMC","time":"2026-10-28T18:00:00Z"},

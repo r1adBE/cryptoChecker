@@ -60,9 +60,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Når %1$s</string>
     <string name="alarm_template_a11y">Opprett alarm: %1$s</string>
-    <string name="alarm_template_a11y_down">Opprett alarm ved minus %1$s prosent</string>
-    <string name="alarm_template_a11y_up">Opprett alarm ved pluss %1$s prosent</string>
-    <string name="alarm_template_created">Alarm opprettet</string>
+    <string name="alarm_template_a11y_down">Opprett alarm ved minus %1$s prosent fra nåværende kurs</string>
+    <string name="alarm_template_a11y_up">Opprett alarm ved pluss %1$s prosent fra nåværende kurs</string>
+    <string name="alarm_template_from_now">fra nå</string>
     <string name="alarm_template_volume">Volum ×%1$s</string>
     <string name="alarm_templates_title">Hurtigalarmer</string>
 

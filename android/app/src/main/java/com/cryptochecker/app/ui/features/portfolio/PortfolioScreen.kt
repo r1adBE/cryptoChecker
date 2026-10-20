@@ -155,10 +155,15 @@ fun PortfolioScreen(
     val storageKept by DatabaseEncryptionNotice.storedKept.collectAsStateWithLifecycle()
     val portfolioKept = PortfolioDatabase.DB_NAME in storageKept
     val closeLabel = stringResource(R.string.action_close)
+    // Dauerhinweis (wie die Merkliste): steht, solange der Zustand gilt, und kommt nach jedem anderen Banner wieder; bei
+    // offenem Adressen-Blatt erst danach (das Banner läge dahinter). Gesperrtes Schreiben: PortfolioStorageLock
     LaunchedEffect(portfolioInMemory, portfolioKept, addressesOpen) {
-        if (!portfolioInMemory || addressesOpen) return@LaunchedEffect
+        if (!portfolioInMemory || addressesOpen) {
+            banner.clearResting()
+            return@LaunchedEffect
+        }
         val text = if (portfolioKept) R.string.portfolio_storage_kept_in_memory else R.string.portfolio_storage_in_memory
-        banner.showAction(resources.getString(text), closeLabel, IN_MEMORY_NOTICE_MILLIS) {}
+        banner.showResting(resources.getString(text), closeLabel)
     }
 
     PortfolioScreenDialogs(
@@ -326,6 +331,3 @@ fun PortfolioScreen(
         )
     }
 }
-
-/** Hinweis «Portfolio nur im Arbeitsspeicher»: lang genug zum Lesen, mit «Schliessen». */
-private const val IN_MEMORY_NOTICE_MILLIS = 12_000L

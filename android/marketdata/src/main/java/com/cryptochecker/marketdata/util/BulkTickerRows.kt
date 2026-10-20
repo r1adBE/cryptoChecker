@@ -25,10 +25,13 @@ object BulkTickerRows {
     /** Fehlertext für ein Paar mit unlesbarer Zeile in einer sonst lesbaren Antwort. */
     const val ROW_ERROR = "Bulk row unreadable"
 
-    /** Der letzte Kurs ist brauchbar: endlich und grösser als «kein Wert» — dieselbe Hürde wie bei Einzelabfragen. */
+    /**
+     * Der letzte Kurs ist brauchbar: endlich und grösser als 0 — dieselbe Hürde wie bei Einzelabfragen
+     * (MarketRemoteDataSource.loadTickerCall). Ein Kurs 0 hielte sonst ein ruhendes Paar für gehandelt.
+     */
     fun usable(ticker: Ticker): Boolean {
         val price = ticker.last
-        return price.isFinite() && price > Ticker.MISSING
+        return price.isFinite() && price > 0.0
     }
 
     /**

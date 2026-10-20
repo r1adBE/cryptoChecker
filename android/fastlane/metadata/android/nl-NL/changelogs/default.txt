@@ -1,10 +1,1 @@
-Nieuw in 16.2.2
-• Crypto Pulse: wat er nu gebeurt
-• ‘Opvallend’, ‘Wat beweegt mee?’ met samenvatting
-• Begin met één tik: top 5 coins, actuele koersen
-• Vegen: verwijderen (met ongedaan maken) of favoriet
-• Koersen en alarmen in je valuta, peildatum-export (CSV)
-• Toegankelijk: blauw/oranje, contrast, TalkBack
-• Stille uren, testalarm, alarm als zin, portfolio-vergrendeling en -widget
-• Nieuwe beurzen, gasalarm, candles in widget
-• Aandelen, goud, valuta (TradFi); % per tijdzone
+Eerste versie van Crypto Checker: koersen rechtstreeks van de beurs, alarmen op het apparaat, widgets – zonder account, zonder reclame.

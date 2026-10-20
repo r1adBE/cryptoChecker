@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
 import java.math.BigDecimal
+import java.text.Normalizer
 import java.time.LocalDate
 import java.time.ZoneId
 
@@ -193,14 +194,41 @@ object TaxEngines {
 
     /**
      * Art einer Belohnung ist ein Zins (Lending, Zinsen) — aus der Notiz bzw. der Art im CSV: AT (BMF) rechnet ihn mit
-     * Anschaffungskosten = Wert beim Zufluss statt 0. Staking, Earn-Reward, Airdrop: nein.
+     * Anschaffungskosten = Wert beim Zufluss statt 0. Staking, Earn-Reward, Airdrop: nein. Nur ganze Wörter (auch
+     * «LendingInterest», «interest_payment»): «Verzinsung», «Zinseszins» oder «keine Verzinsung» sind kein Zins.
      */
     fun interestReward(text: String?): Boolean {
-        val t = text?.lowercase() ?: return false
-        return INTEREST_WORDS.any { it in t }
+        if (text.isNullOrEmpty()) return false
+        return words(Normalizer.normalize(text, Normalizer.Form.NFC)).any { it in INTEREST_WORDS }
     }
 
-    private val INTEREST_WORDS = listOf("interest", "lending", "zins", "interet", "intérêt")
+    /** Wörter in Kleinbuchstaben: Trenner ist alles ausser Buchstaben/Ziffern und der Wechsel klein → gross. */
+    private fun words(text: String): List<String> {
+        val out = ArrayList<String>()
+        val word = StringBuilder()
+        fun flush() {
+            if (word.isNotEmpty()) out += word.toString().lowercase()
+            word.clear()
+        }
+        var prevLower = false
+        for (c in text) {
+            if (!c.isLetterOrDigit()) {
+                flush()
+                prevLower = false
+                continue
+            }
+            if (prevLower && c.isUpperCase()) flush()
+            word.append(c)
+            prevLower = c.isLowerCase()
+        }
+        flush()
+        return out
+    }
+
+    private val INTEREST_WORDS = setOf(
+        "interest", "interests", "lending", "zins", "zinsen", "zinsertrag", "zinserträge", "zinsgutschrift",
+        "interet", "interets", "intérêt", "intérêts",
+    )
 
     /**
      * Vorgänge ohne Verkauf nach den Regeln der Vorlage umschreiben (vor jeder Rechnung; ohne Treffer dieselben Werte):

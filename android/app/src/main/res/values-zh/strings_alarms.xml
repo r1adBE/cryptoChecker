@@ -58,9 +58,9 @@
     <string name="alarm_simple_end">时</string>
     <string name="alarm_simple_when">当 %1$s</string>
     <string name="alarm_template_a11y">创建提醒：%1$s</string>
-    <string name="alarm_template_a11y_down">在下跌百分之 %1$s 时创建提醒</string>
-    <string name="alarm_template_a11y_up">在上涨百分之 %1$s 时创建提醒</string>
-    <string name="alarm_template_created">提醒已创建</string>
+    <string name="alarm_template_a11y_down">在较当前价格下跌百分之 %1$s 时创建提醒</string>
+    <string name="alarm_template_a11y_up">在较当前价格上涨百分之 %1$s 时创建提醒</string>
+    <string name="alarm_template_from_now">从现在起</string>
     <string name="alarm_template_volume">成交量 ×%1$s</string>
     <string name="alarm_templates_title">快捷提醒</string>
 

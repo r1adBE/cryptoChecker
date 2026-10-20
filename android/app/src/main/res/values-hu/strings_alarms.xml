@@ -60,9 +60,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Ha %1$s ára</string>
     <string name="alarm_template_a11y">Riasztás létrehozása: %1$s</string>
-    <string name="alarm_template_a11y_down">Riasztás létrehozása mínusz %1$s százaléknál</string>
-    <string name="alarm_template_a11y_up">Riasztás létrehozása plusz %1$s százaléknál</string>
-    <string name="alarm_template_created">Riasztás létrehozva</string>
+    <string name="alarm_template_a11y_down">Riasztás létrehozása mínusz %1$s százaléknál a jelenlegi árfolyamhoz képest</string>
+    <string name="alarm_template_a11y_up">Riasztás létrehozása plusz %1$s százaléknál a jelenlegi árfolyamhoz képest</string>
+    <string name="alarm_template_from_now">mostantól</string>
     <string name="alarm_template_volume">Forgalom ×%1$s</string>
     <string name="alarm_templates_title">Gyors riasztások</string>
 

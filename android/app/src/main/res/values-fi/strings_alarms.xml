@@ -60,9 +60,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">Kun %1$s</string>
     <string name="alarm_template_a11y">Luo hälytys: %1$s</string>
-    <string name="alarm_template_a11y_down">Luo hälytys miinus %1$s prosentin kohdalle</string>
-    <string name="alarm_template_a11y_up">Luo hälytys plus %1$s prosentin kohdalle</string>
-    <string name="alarm_template_created">Hälytys luotu</string>
+    <string name="alarm_template_a11y_down">Luo hälytys miinus %1$s prosentin kohdalle nykyhinnasta</string>
+    <string name="alarm_template_a11y_up">Luo hälytys plus %1$s prosentin kohdalle nykyhinnasta</string>
+    <string name="alarm_template_from_now">tästä hetkestä</string>
     <string name="alarm_template_volume">Volyymi ×%1$s</string>
     <string name="alarm_templates_title">Pikahälytykset</string>
 

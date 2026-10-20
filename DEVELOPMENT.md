@@ -2144,6 +2144,18 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 88 (audit of 20 October 2026): gas alerts store the threshold with the armed state and re-arm on change;
+  Fear & Greed stores its thresholds with the last value and re-evaluates only the changed bound. iOS
+  `TimeUtils.isIntervalDue` treats a last check in the future as due (gas, depeg). Android re-syncs the exact
+  alarm on TIME_SET / TIMEZONE_CHANGED (`resyncsExactOn`) and counts the pulse widget in the background demand.
+  `AlarmsViewModel.watchMissing` returns from the alerts screen when the pair is gone, saving skips a missing pair,
+  and deleting pairs cancels their alert notifications (both platforms). Quick-alert chips show «· from now»
+  (`alarm_template_from_now`, they have no window) and the banner uses `alarm_saved_banner`. `PortfolioStorageLock`
+  refuses portfolio writes while the stored portfolio is kept (key briefly unavailable). Pair lists are parsed on
+  `Dispatchers.Default` in `MarketRemoteDataSource`. Lighter price 0 → «No data»; `BulkTickerRows` needs price > 0.
+  `TaxEngines.interestReward` matches whole words. Swiss wealth rounds each part before summing per coin;
+  `AddressCostLots.hasCountedLots(addresses, cutoff)` follows the cutoff. iOS release notes wait in
+  `ios/fastlane/release_notes_later/` until the first update (APP_STORE.md 7.2).
 * Build 87 (review of 20 October 2026): quick-alarm chips come after the condition and the price sentence in the
   alarm editor (tap still creates the alarm with a 6 s undo). While the saved watchlist cannot be unlocked
   (`DatabaseEncryptionNotice.isStoredKept` on Android, `SnapshotRead.inaccessible` / `WatchlistStorageLock` on iOS)

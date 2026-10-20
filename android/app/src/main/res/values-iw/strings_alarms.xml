@@ -62,9 +62,9 @@
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">כאשר %1$s</string>
     <string name="alarm_template_a11y">יצירת התראה: %1$s</string>
-    <string name="alarm_template_a11y_down">יצירת התראה במינוס %1$s אחוז</string>
-    <string name="alarm_template_a11y_up">יצירת התראה בפלוס %1$s אחוז</string>
-    <string name="alarm_template_created">ההתראה נוצרה</string>
+    <string name="alarm_template_a11y_down">יצירת התראה במינוס %1$s אחוז מהמחיר הנוכחי</string>
+    <string name="alarm_template_a11y_up">יצירת התראה בפלוס %1$s אחוז מהמחיר הנוכחי</string>
+    <string name="alarm_template_from_now">מעכשיו</string>
     <string name="alarm_template_volume">נפח ×%1$s</string>
     <string name="alarm_templates_title">התראות מהירות</string>
 

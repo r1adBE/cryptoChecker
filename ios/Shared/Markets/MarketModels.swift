@@ -275,6 +275,14 @@ enum TimeUtils {
 
     static var nowMillis: Int64 { Int64(Date().timeIntervalSince1970 * 1000) }
 
+    /// Fällig, wenn seit `last` mindestens `minInterval` vergangen ist. Liegt `last` in der Zukunft
+    /// (Uhr war vorgestellt und wurde zurückgestellt), gilt die Prüfung ebenfalls als fällig — sonst
+    /// bliebe sie bis zu jenem Zeitpunkt stumm. Wie `isDue` in `GasAlertChecker`/`DepegAlarmChecker` (Android).
+    static func isIntervalDue(now: Int64, last: Int64, minInterval: Int64) -> Bool {
+        let elapsed = now - last
+        return elapsed < 0 || elapsed >= minInterval
+    }
+
     /// Zeitangabe unbekannter Einheit → ms, geschätzt an der Grösse: Sekunden, ms, µs oder ns. Wie Android.
     static func parseTimeToMillis(_ time: Int64) -> Int64 {
         // Kleiner als ein Jahr in ms: das waren Sekunden

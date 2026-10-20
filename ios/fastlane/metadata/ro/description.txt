@@ -10,7 +10,7 @@ SINCER DESPRE DATE
 • „Economic” este implicit: prețurile se actualizează la deschidere și la intervale în fundal. „Live cât e deschisă” adaugă prețuri live pentru Binance, Bybit, OKX, Coinbase și Kraken cât timp lista e deschisă.
 • Variația în % și graficele vin întâi de la bursa perechii; dacă aceasta nu are lumânări, aplicația folosește Binance sau Coinbase și îți spune.
 • Fear & Greed, dominanță și valori on-chain de la alternative.me, CoinGecko și Coin Metrics.
-• Cu aplicația închisă, iOS verifică rar – adesea abia după ore, iar după ce o închizi glisând-o, deloc. Cel mai fiabil cu aplicația deschisă sau cu o Activitate live. Vârfuri scurte între timp pot fi ratate; aplicația îți spune asta.
+• Cu aplicația închisă, iOS verifică rar – adesea abia după ore, iar după ce o închizi glisând-o, deloc. Cel mai fiabil cu aplicația deschisă. Vârfuri scurte între timp pot fi ratate; aplicația îți spune asta.
 • Sumele rămân pe dispozitiv, dacă nu le exporți chiar tu (CSV, copie de rezervă). Pentru prețuri, doar simbolurile perechii ajung la bursa perechii; în plus cursuri valutare (Frankfurter), date de piață și logo-uri (CoinGecko, Binance), oglinzi de date (GitHub). Dacă urmărești adrese sau un xpub, nodurile blockchain publice văd adresele (la xpub, cele derivate) și IP-ul tău.
 
 LISTA DE URMĂRIRE

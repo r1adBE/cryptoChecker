@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.cryptochecker.app.util.ReceiverAsync
 import com.cryptochecker.app.util.launchAsync
+import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
@@ -22,6 +23,8 @@ class PulseWidgetProvider : AppWidgetProvider() {
     @Inject lateinit var widgetUpdater: WidgetUpdater
 
     @Inject lateinit var widgetPrefs: WidgetPrefs
+
+    @Inject lateinit var scheduler: PriceUpdateScheduler
 
     override fun onReceive(context: Context, intent: Intent) {
         // Ruft die Injektion auf und verteilt an onUpdate/onDeleted.
@@ -54,6 +57,17 @@ class PulseWidgetProvider : AppWidgetProvider() {
         launchAsync("Pulse-Widget neu zeichnen") {
             widgetUpdater.updatePulse(intArrayOf(appWidgetId), fetch = false)
         }
+    }
+
+    /** Erstes Widget dieser Art platziert bzw. letztes entfernt: Bedarf der Hintergrund-Aktualisierung neu prüfen. */
+    override fun onEnabled(context: Context) {
+        super.onEnabled(context)
+        scheduler.onWidgetsChanged()
+    }
+
+    override fun onDisabled(context: Context) {
+        super.onDisabled(context)
+        scheduler.onWidgetsChanged()
     }
 
     override fun onDeleted(context: Context, appWidgetIds: IntArray) {

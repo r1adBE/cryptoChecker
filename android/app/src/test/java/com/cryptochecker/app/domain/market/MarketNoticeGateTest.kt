@@ -52,4 +52,23 @@ class MarketNoticeGateTest {
     fun `Grenzen aus melden nie`() {
         assertEquals(Step.STORE, MarketNoticeGate.fearGreed(5, last = 50, below = 0, above = 0, canNotify = true).step)
     }
+
+    @Test
+    fun `geaenderte Grenze meldet schon ueberschrittenen Wert, unveraenderte nicht doppelt`() {
+        // Gemerkt: 15 bei Grenze «unter 10» (nicht gemeldet). Neue Grenze 20: jetzt melden
+        assertTrue(MarketNoticeGate.boundChanged(stored = 10, current = 20))
+        val step = MarketNoticeGate.fearGreed(15, last = 15, below = 20, above = 0, canNotify = true, belowChanged = true)
+        assertEquals(Step.NOTIFY, step.step)
+        assertEquals(FearGreedKind.BELOW, step.kind)
+        // Ohne Änderung: gemerkter Stand 15 schon darunter, keine Doppelmeldung
+        assertFalse(MarketNoticeGate.boundChanged(stored = 20, current = 20))
+        assertEquals(Step.STORE, MarketNoticeGate.fearGreed(14, last = 15, below = 20, above = 0, canNotify = true).step)
+        // Nur «über» geändert: die schon gemeldete «unter»-Grenze kommt nicht erneut
+        assertEquals(
+            Step.STORE,
+            MarketNoticeGate.fearGreed(15, last = 15, below = 20, above = 90, canNotify = true, aboveChanged = true).step,
+        )
+        // Stand vor dem Update (keine Grenze gemerkt): als unverändert werten
+        assertFalse(MarketNoticeGate.boundChanged(stored = null, current = 20))
+    }
 }
