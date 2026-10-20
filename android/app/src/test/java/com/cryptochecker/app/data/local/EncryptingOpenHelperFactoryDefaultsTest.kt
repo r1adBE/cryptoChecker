@@ -59,8 +59,9 @@ class EncryptingOpenHelperFactoryDefaultsTest {
 
     @Test
     fun existingPlaintextWatchlistWithoutKeyKeepsWorking() {
-        // Alte unverschlüsselte Datei: weiter lesen und schreiben, keine leere Liste
-        assertEquals(Decision.Plaintext, prepare(FileKind.PLAINTEXT, AppDatabase.DB_NAME))
+        // Alte unverschlüsselte Datei: seit Build 91 nur gelesen (Inhalt im Arbeitsspeicher, keine leere Liste), nie
+        // weitergeschrieben — wie iOS (Entscheid 21.10.)
+        assertEquals(Decision.PlaintextKept, prepare(FileKind.PLAINTEXT, AppDatabase.DB_NAME))
     }
 
     @Test
