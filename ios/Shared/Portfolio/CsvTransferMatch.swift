@@ -300,6 +300,8 @@ enum CsvTransferMatch {
     /// Gewählte Umbuchungen anwenden — wie Android `apply`: zwei neue Zeilen → eine neue Umbuchung an der Stelle der
     /// Auszahlung (die Einzahlung entfällt; Herkunft beider in `importKey`/`linkedImportKey`); neue Zeile + gespeicherte
     /// Seite → die neue Zeile entfällt, die gespeicherte wird die Umbuchung (`storedUpdates`). Andere Zeilen unverändert.
+    /// Menge der Umbuchung = was ankommt (`received`); die Gebühr im Coin geht zusätzlich von der Quelle ab (Konvention von
+    /// `.TRANSFER` in FIFO und Wallet-Aufteilung). Ohne Differenz im Coin gleich `sent`.
     static func apply(_ txs: [CsvImportTx], links: [CsvTransferLink], chosen: Set<String>) -> CsvTransferPlan {
         let active = links.filter { chosen.contains($0.key) }
         var byWithdrawal: [String: CsvTransferLink] = [:]
@@ -308,7 +310,7 @@ enum CsvTransferMatch {
         let out: [CsvImportTx] = txs.compactMap { tx in
             if let l = byWithdrawal[tx.importKey] {
                 guard l.depositId == nil else { return nil }
-                return CsvImportTx(line: tx.line, coin: tx.coin, type: .TRANSFER, amount: l.sent, priceUsdt: nil,
+                return CsvImportTx(line: tx.line, coin: tx.coin, type: .TRANSFER, amount: l.received, priceUsdt: nil,
                                    time: l.withdrawalTime, fee: l.fee, feeUnit: l.feeUnit, feeCoin: l.feeCoin,
                                    feeCoinAmount: l.feeCoinAmount, note: nil, importKey: l.withdrawalKey,
                                    transferTo: l.to, transferFrom: l.from, linkedImportKey: l.depositKey)
@@ -317,7 +319,7 @@ enum CsvTransferMatch {
         }
         let updates: [CsvStoredTransfer] = active.compactMap { l in
             guard let id = l.withdrawalId ?? l.depositId, let state = restoreState(l) else { return nil }
-            return CsvStoredTransfer(id: id, amount: l.sent, fee: l.fee, feeUnit: l.feeUnit, feeCoin: l.feeCoin,
+            return CsvStoredTransfer(id: id, amount: l.received, fee: l.fee, feeUnit: l.feeUnit, feeCoin: l.feeCoin,
                                      feeCoinAmount: l.feeCoinAmount, time: l.withdrawalTime, transferFrom: l.from,
                                      transferTo: l.to, importKey: l.withdrawalKey, linkedImportKey: l.depositKey,
                                      restoreState: state)

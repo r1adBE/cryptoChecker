@@ -69,7 +69,7 @@
      {
       "key": "GENERIC|W1",
       "type": "TRANSFER",
-      "amount": "1",
+      "amount": "0.9995",
       "fee": "0.0005",
       "feeUnit": "COIN",
       "transferFrom": null,
@@ -531,7 +531,7 @@
      {
       "key": "GENERIC|W2",
       "type": "TRANSFER",
-      "amount": "1",
+      "amount": "0.999",
       "fee": "0.001",
       "feeUnit": "COIN",
       "transferFrom": null,
@@ -606,7 +606,7 @@
     "storedUpdates": [
      {
       "id": 7,
-      "amount": "0.005",
+      "amount": "0.0049",
       "fee": "0.0001",
       "feeUnit": "COIN",
       "feeCoin": null,
@@ -699,7 +699,7 @@
     "storedUpdates": [
      {
       "id": 9,
-      "amount": "0.0051",
+      "amount": "0.005",
       "fee": "0.0001",
       "feeUnit": "COIN",
       "feeCoin": null,
@@ -1279,6 +1279,117 @@
       }
      }
     ]
+   }
+  },
+  {
+   "name": "withdrawal 1 / arrived 0.9995: the transfer moves what arrived, FIFO per wallet keeps the rest at the source",
+   "place": "Binance",
+   "txs": [
+    {
+     "key": "BINANCE|W90",
+     "type": "WITHDRAWAL",
+     "coin": "BTC",
+     "amount": "1",
+     "time": "2024-03-01T10:00:00Z",
+     "line": 2,
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null
+    }
+   ],
+   "stored": [
+    {
+     "id": 21,
+     "importKey": "KRAKEN|QD90",
+     "type": "DEPOSIT",
+     "coin": "BTC",
+     "amount": "0.9995",
+     "time": "2024-03-01T10:30:00Z",
+     "fee": null,
+     "feeUnit": null,
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "transferFrom": null,
+     "transferTo": null,
+     "importBatch": null,
+     "priceUsdt": null,
+     "exchange": "Kraken",
+     "acquiredTime": null
+    }
+   ],
+   "links": [
+    {
+     "key": "BINANCE|W90 → KRAKEN|QD90",
+     "withdrawalKey": "BINANCE|W90",
+     "depositKey": "KRAKEN|QD90",
+     "withdrawalId": null,
+     "depositId": 21,
+     "sent": "1",
+     "received": "0.9995",
+     "fee": "0.0005",
+     "feeUnit": "COIN",
+     "feeCoin": null,
+     "feeCoinAmount": null,
+     "from": "Binance",
+     "to": "Kraken",
+     "unambiguous": true
+    }
+   ],
+   "default": [
+    "BINANCE|W90 → KRAKEN|QD90"
+   ],
+   "apply": {
+    "transactions": [],
+    "storedUpdates": [
+     {
+      "id": 21,
+      "amount": "0.9995",
+      "fee": "0.0005",
+      "feeUnit": "COIN",
+      "feeCoin": null,
+      "feeCoinAmount": null,
+      "time": "2024-03-01T10:00:00Z",
+      "transferFrom": "Binance",
+      "transferTo": "Kraken",
+      "importKey": "BINANCE|W90",
+      "linkedImportKey": "KRAKEN|QD90",
+      "restoreState": {
+       "v": 1,
+       "stored": {
+        "type": "DEPOSIT",
+        "amount": "0.9995",
+        "time": 1709289000000,
+        "exchange": "Kraken",
+        "importKey": "KRAKEN|QD90"
+       },
+       "absorbed": {
+        "type": "WITHDRAWAL",
+        "amount": "1",
+        "time": 1709287200000,
+        "importKey": "BINANCE|W90"
+       }
+      }
+     }
+    ]
+   },
+   "fifoWallet": {
+    "_comment": "Kauf in Binance, dann die verknüpfte Umbuchung (storedUpdates) durch FIFO je Wallet: Quelle verliert 1 (angekommen + Gebühr), Ziel bekommt 0.9995.",
+    "trades": [
+     {
+      "id": 1,
+      "type": "BUY",
+      "coin": "BTC",
+      "amount": "1.5",
+      "priceUsdt": "50000",
+      "time": "2024-02-01T09:00:00Z",
+      "exchange": "Binance"
+     }
+    ],
+    "wallets": {
+     "Binance": "0.5",
+     "Kraken": "0.9995"
+    }
    }
   }
  ],

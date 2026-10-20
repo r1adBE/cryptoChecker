@@ -22,6 +22,7 @@ Detailed build history below.
 * iOS: deleting, undoing and clearing the portfolio only report success when the file was written; otherwise the «changes won't be saved» notice appears and cached prices stay.
 * Android CSV import links stored transfers in one database transaction and says plainly when the locked portfolio prevents an import.
 * Indicator alerts on older installs store their limit, so a later limit change notifies; switching a gas alert off can no longer be undone by a check that is running; background checks no longer hold their lock while waiting for the pulse widget.
+* CSV transfer matching: when withdrawal and deposit differ by a network fee in the coin, the transfer now records the amount that arrived (fee on top at the source), so per-wallet FIFO (DE, AT, UK …) and wallet balances are correct. Transfers imported before build 90 keep their old amount.
 * Alert editor hint reads «Enter a value»; Czech prompts use one form of address; Arabic xpub hint grammar; Greek and Ukrainian App Store texts shortened below the limit.
 
 ## 16.2.2 (build 89)
