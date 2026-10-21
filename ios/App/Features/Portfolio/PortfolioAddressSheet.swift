@@ -155,7 +155,12 @@ struct PortfolioAddressSheet: View {
                 text: L("watchlist_removed", name),
                 icon: "trash",
                 action: WatchlistBannerAction(title: L("action_undo")) {
-                    if data.restoreWatchedAddress(removed) == .locked { showLocked() }
+                    switch data.restoreWatchedAddress(removed) {
+                    case .locked: showLocked()
+                    // Nicht zurückgeholt: Grund nennen statt still nichts zu tun (seit Build 95, wie Android)
+                    case .failed: showRestoreFailed(WatchedAddressUndo.failure(data.watchedAddresses, removed))
+                    case .removed: break
+                    }
                 }
             )
         case .locked:
@@ -167,6 +172,17 @@ struct PortfolioAddressSheet: View {
 
     private func showLocked() {
         banner = WatchlistBannerMessage(text: L("portfolio_storage_locked"), icon: "lock.fill", long: true)
+    }
+
+    /// Text zum gescheiterten «Rückgängig» (`WatchedAddressUndo.failure`) — wie Android `restoreFailedText`.
+    private func showRestoreFailed(_ failure: WatchedAddressUndo.RestoreFailure) {
+        let text: String
+        switch failure {
+        case .duplicate: text = L("address_duplicate")
+        case .limit: text = L("address_limit")
+        case .notSaved: text = L("portfolio_address_restore_failed")
+        }
+        banner = WatchlistBannerMessage(text: text, icon: "exclamationmark.triangle", long: true)
     }
 
     /// Angefangene Eingabe (Adresse oder Bezeichnung).
@@ -186,7 +202,10 @@ struct PortfolioAddressSheet: View {
                 return L("portfolio_address_error") + (a.lastUpdated > 0 ? " · " + WatchlistTime.ago(a.lastUpdated, now: now) : "")
             }
             if a.lastUpdated > 0 {
+                // Token-Guthaben, die der letzte Abruf nicht bestätigt hat (TON: volle Jetton-Seite): «teilweise veraltet»
+                let partlyStale = a.tokenHoldings().contains { a.staleTokens.contains($0.key) }
                 return WatchlistTime.ago(a.lastUpdated, now: now) + (a.lastProvider.map { " · \($0)" } ?? "")
+                    + (partlyStale ? " · " + L("portfolio_address_tokens_partly_stale") : "")
             }
             return nil
         }()

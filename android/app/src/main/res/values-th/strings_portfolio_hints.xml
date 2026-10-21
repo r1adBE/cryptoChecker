@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">หยุดการแจ้งเตือนพอร์ตชั่วคราว: ไม่มีราคาปัจจุบันของ %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">หยุดการแจ้งเตือนพอร์ตชั่วคราว: เหรียญบางตัวไม่มีราคาปัจจุบัน</string>
     <string name="portfolio_alarms_paused_addresses">หยุดการแจ้งเตือนพอร์ตชั่วคราว: ยังไม่ได้โหลดยอดคงเหลือของที่อยู่ที่ติดตาม</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">หยุดการแจ้งเตือนพอร์ตชั่วคราว: ยอดคงเหลือโทเค็นของ %1$s ล้าสมัยบางส่วน</string>
+    <string name="portfolio_alarms_paused_tokens_generic">หยุดการแจ้งเตือนพอร์ตชั่วคราว: ยอดคงเหลือโทเค็นของที่อยู่ที่ติดตามล้าสมัยบางส่วน</string>
+    <string name="portfolio_alarms_address_failing">การแจ้งเตือนพอร์ตตรวจสอบโดยไม่รวม %1$s: ไม่ได้โหลดยอดคงเหลือมานานกว่า 24 ชั่วโมง</string>
+    <string name="portfolio_alarms_address_failing_generic">การแจ้งเตือนพอร์ตตรวจสอบโดยไม่รวมที่อยู่ที่โหลดยอดคงเหลือไม่ได้มานานกว่า 24 ชั่วโมง</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">โทเค็นล้าสมัยบางส่วน</string>
+    <string name="portfolio_address_restore_failed">กู้คืนที่อยู่ไม่ได้ – เพิ่มใหม่อีกครั้งหากจำเป็น</string>
 </resources>

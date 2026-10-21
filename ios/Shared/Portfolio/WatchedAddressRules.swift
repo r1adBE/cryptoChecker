@@ -43,8 +43,9 @@ enum WatchedAddressRules {
     static func canAdd(_ existing: [WatchedAddress]) -> Bool { existing.count < maxAddresses }
 
     /// Wiederherstellen: neue Adressen aus der Sicherung (geprüft und normalisiert), ohne Doppelte,
-    /// höchstens bis `maxAddresses`. Vorhandene bleiben unverändert. Ungültige Einträge fallen weg.
-    static func merge(_ existing: [WatchedAddress], _ incoming: [WatchedAddressBackupEntry]) -> [WatchedAddress] {
+    /// höchstens bis `maxAddresses`. Vorhandene bleiben unverändert. Ungültige Einträge fallen weg. `now` = `pendingSince`.
+    static func merge(_ existing: [WatchedAddress], _ incoming: [WatchedAddressBackupEntry],
+                      now: Int64 = TimeUtils.nowMillis) -> [WatchedAddress] {
         var result: [WatchedAddress] = []
         for entry in incoming {
             if existing.count + result.count >= maxAddresses { break }
@@ -61,7 +62,7 @@ enum WatchedAddressRules {
                                    countInPortfolio: entry.countInPortfolio,
                                    overlapChecked: entry.overlapChecked,
                                    overlapLegacy: entry.overlapChecked && entry.overlapLegacy,
-                                   costLots: AddressCostLots.clean(entry.costLots))
+                                   costLots: AddressCostLots.clean(entry.costLots), pendingSince: now)
             // Reihen nur, wo sie heute zählen würden (Token aus, Netz abgewählt: weg)
             let snapshot = a
             a.tokenObservations = a.tokenObservations.filter { counts(snapshot, $0.key) }
@@ -142,10 +143,11 @@ enum WatchedAddressRules {
     /// Erfolgreicher Abruf — wie Android (`applyFetched`): Guthaben, Zeit, Anbieter, Fehler gelöscht; Beobachtung nur bei
     /// geändertem Guthaben; `tokens` (nil = nicht gelesen): gelesene Schlüssel ersetzen ihren Wert, Token nur mit «Tokens
     /// mitzählen», Netze nur, wenn gewählt; Guthaben 0 ohne frühere Beobachtung wird nicht beobachtet. `networks`: Wahl
-    /// nach der ersten Suche; `unknownTokens`: Solana.
+    /// nach der ersten Suche; `unknownTokens`: Solana; `keptTokens`: nicht bestätigte Token (`withKeptTokens`).
     static func applyFetched(_ a: WatchedAddress, time: Int64, balance: String, provider: String?,
                              tokens: [String: String]? = nil, xpub: XpubCache? = nil,
-                             networks: [String]? = nil, unknownTokens: Int? = nil) -> WatchedAddress {
+                             networks: [String]? = nil, unknownTokens: Int? = nil,
+                             keptTokens: [String]? = nil) -> WatchedAddress {
         var out = a
         out.lastBalance = balance
         out.lastUpdated = time
@@ -170,7 +172,7 @@ enum WatchedAddressRules {
         }
         if let xpub { out.xpub = xpub }
         if let unknownTokens, a.chain == .SOL { out.unknownTokens = max(0, unknownTokens) }
-        return out
+        return withKeptTokens(out, keptTokens)
     }
 
     /// Fehlgeschlagener Abruf: letzter Stand bleibt.
@@ -194,6 +196,7 @@ enum WatchedAddressRules {
             out.tokenBalances = a.tokenBalances.filter { counts(snapshot, $0.key) }
             out.tokenObservations = a.tokenObservations.filter { counts(snapshot, $0.key) }
             out.unknownTokens = 0
+            out.staleTokens = a.staleTokens.filter { counts(snapshot, $0) }
         }
         return out
     }

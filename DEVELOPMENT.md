@@ -2149,6 +2149,18 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 95 (final audit round, 21 October 2026): iOS `VolumeDataSource.spikeOf(_:now:)` mirrors Android (hour grid,
+  `isLive`, missing hours = 0, 24 comparison hours covered; fixture `volume_spike.json`). `AddressAlarmState`: an
+  address without loaded balance pauses portfolio alerts only while it has no error or was added < 24 h ago; failing
+  addresses are named (`AddressesFailing`). `ChainBalance.parseTonJettonPage` → `WatchedAddress.staleTokens` (Android
+  extra column key `stk`) counted like stale prices against the 1 % rule (`TokensStale`). `WatchedAddressUndo.failure`
+  banners. `PortfolioDataCheck.keepMarker` while the portfolio is in memory; iOS `portfolioRecoveryDeferred`.
+  `PercentText.isSpaced(language, region)` (es-MX no space; en-AT/DE/DK/FI/SE space); fixed «%» strings take `%1$s`
+  from `PercentText`; `changePercentDetailed` via `PercentText.signed`; `ClockText` (Android 12/24 h from
+  `is24HourFormat`). Undo restores price notifications only for ≤ 3 pairs. CI: smoke test seeds starter pairs
+  (`starter_add`), reinstalls, forces jobs and fails on worker creation errors; `manifest_policy.py` allow-list of 11
+  permissions; release smoke on PRs touching release rules; `release_readiness.py` checks the store guides' build;
+  APK budget warning 22 MB.
 * Build 94 (third audit of 21 October 2026): CI tests production readiness – `android.yml` builds R8 release APK +
   AAB + `lintRelease` and runs `.github/scripts/android_release_audit.sh` (`manifest_policy.py`, `apk_contents.py`,
   annotations via `annotate.py`); `android-device-tests.yml` job `release-smoke` (API 26/34, throwaway-signed R8 APK,

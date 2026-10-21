@@ -37,4 +37,16 @@ class WatchedAddressUndoTest {
         assertFalse(WatchedAddressUndo.canRestore(full, removed))
         assertFalse(WatchedAddressUndo.canRestore(emptyList(), removed.copy(id = 0)))
     }
+
+    @Test
+    fun gescheitertesZurueckNenntDenGrund() {
+        // Seit Build 95: Banner statt still nichts
+        val removed = address(5)
+        assertEquals(WatchedAddressUndo.RestoreFailure.DUPLICATE, WatchedAddressUndo.failure(listOf(address(9, removed.address)), removed))
+        val full = (100L until 100L + WatchedAddressRules.MAX_ADDRESSES).map { address(it) }
+        assertEquals(WatchedAddressUndo.RestoreFailure.LIMIT, WatchedAddressUndo.failure(full, removed))
+        // Id belegt oder nicht gespeichert
+        assertEquals(WatchedAddressUndo.RestoreFailure.NOT_SAVED, WatchedAddressUndo.failure(listOf(address(5, "bc1qother")), removed))
+        assertEquals(WatchedAddressUndo.RestoreFailure.NOT_SAVED, WatchedAddressUndo.failure(emptyList(), removed))
+    }
 }

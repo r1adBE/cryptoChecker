@@ -30,7 +30,7 @@ struct TickerView: View {
                     .padding(.bottom, Spacing.sm)
                 // Grosser Abstand Kauf/Verkauf (über 2 % der Mitte): dünner Markt, Hinweis nur hier im Blatt
                 if let percent = BidAskSpread.widePercent(bid: ticker.bid, ask: ticker.ask) {
-                    Text(L("ticker_wide_spread", LocaleNumbers.decimal(percent, maxDecimals: 1, minDecimals: 1)))
+                    Text(L("ticker_wide_spread", PercentText.unsigned(percent, decimals: 1)))
                         .font(.footnote)
                         .foregroundStyle(AppColors.error)
                         .fixedSize(horizontal: false, vertical: true)

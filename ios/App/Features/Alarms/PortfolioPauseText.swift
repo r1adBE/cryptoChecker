@@ -1,8 +1,8 @@
 import Foundation
 
 /// Satz «Portfolio-Alarme pausiert: …» der Alarm-Übersicht (`PortfolioAlarmPause`) — wie Android `PortfolioPauseText`.
-/// Höchstens `maxCoins` Coin-Namen, dann «…»; `hideCoins` (Portfolio gesperrt oder «Beträge verbergen») ohne Namen, die
-/// Zusammensetzung des Bestands bleibt verborgen.
+/// Höchstens `maxCoins` Coin- bzw. Adressnamen, dann «…»; `hideCoins` (Portfolio gesperrt oder «Beträge verbergen») ohne
+/// Namen, die Zusammensetzung des Bestands bleibt verborgen.
 enum PortfolioPauseText {
     static let maxCoins = 3
 
@@ -13,6 +13,13 @@ enum PortfolioPauseText {
         case .noPrice(let list):
             guard let names = coins(list, hideCoins: hideCoins) else { return L("portfolio_alarms_paused_price_generic") }
             return L("portfolio_alarms_paused_price", names)
+        // Adressnamen wie Coins: verborgen ohne Namen
+        case .tokensStale(let list):
+            guard let names = coins(list, hideCoins: hideCoins) else { return L("portfolio_alarms_paused_tokens_generic") }
+            return L("portfolio_alarms_paused_tokens", names)
+        case .addressesFailing(let list):
+            guard let names = coins(list, hideCoins: hideCoins) else { return L("portfolio_alarms_address_failing_generic") }
+            return L("portfolio_alarms_address_failing", names)
         }
     }
 

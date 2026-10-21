@@ -102,6 +102,13 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     /// Zählende Adressen ohne je geladenes Guthaben (`AddressBalance.pendingCount`) — fehlen in `total`; Portfolio-Alarme
     /// prüfen dann nicht. nil = 0 (älterer Stand). Wie Android `addressesPending`.
     var addressesPending: Int?
+    /// Zählende Adressen, die seit über 24 Stunden nicht laden (`AddressAlarmState.failing`) — Alarme rechnen ohne sie;
+    /// nil = keine (älterer Stand). Wie Android `addressesFailing`.
+    var addressesFailing: [String]?
+    /// Adressen mit nicht bestätigten Token-Guthaben (`AddressAlarmState.staleTokenAddresses`) — wie ein alter Kurs; nil = keine.
+    var staleTokenAddresses: [String]?
+    /// Wert dieser Token in USDT (`AddressAlarmState.staleTokenValue`); nil = 0. Wie Android `staleTokenValueUsdt`.
+    var staleTokenValueUsdt: Double?
 
     init(total: Double, changeAmount: Double?, changePercent: Double?, currency: String, updatedAt: Int64, empty: Bool,
          totalUsdt: Double? = nil, positions: [PortfolioWidgetPosition]? = nil, otherPositions: Int? = nil,
@@ -183,7 +190,9 @@ extension PortfolioWidgetSnapshot {
         PortfolioReading(total: total, currency: currency, totalUsdt: totalUsdt, changePercent: changePercent, empty: empty,
                          usdTo: usdTo, missingPrices: missingCount, todaySkipped: todaySkipped?.count ?? 0,
                          stalePrices: staleCount, usdtUsdLive: usdtUsdLive, staleValueUsdt: staleValueUsdt,
-                         addressesPending: pendingAddressCount)
+                         addressesPending: pendingAddressCount, addressesFailing: addressesFailing ?? [],
+                         staleTokenAddresses: staleTokenAddresses ?? [],
+                         staleTokenValueUsdt: Swift.max(0, staleTokenValueUsdt ?? 0))
     }
 
     /// Hinweis «Portfolio-Alarme pausiert» für die eingeschalteten Alarme `kinds`; nil = keiner.

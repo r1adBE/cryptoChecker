@@ -4,7 +4,9 @@
 # with password — fake exchange answers, no network; the document picker is answered by
 # DocumentPickerStub).
 # Too slow for every pull request (android.yml only compiles them): runs on pushes to main and by
-# hand (Actions › Android device tests › Run workflow).
+# hand (Actions › Android device tests › Run workflow). On a pull request only release-smoke runs,
+# and only when a file changes that decides about the R8 release build (keep rules, build script,
+# dependency versions, the smoke test itself).
 # Job release-smoke: the R8 release build (signed with a throwaway key) on API 26 (minSdk) and 34:
 # start, monkey, WorkManager jobs, crash buffer -> annotations (android_smoke_test.sh).
 name: Android device tests
@@ -20,6 +22,15 @@ on:
       - '.github/workflows/android-device-tests.yml'
       - '.github/scripts/android_smoke_test.sh'
       - '.github/scripts/annotate.py'
+  pull_request:
+    paths:
+      - 'android/app/proguard-rules.pro'
+      - 'android/app/build.gradle.kts'
+      - 'android/gradle/libs.versions.toml'
+      - 'android/marketdata/consumer-rules.pro'
+      - 'android/marketdata/proguard-rules.pro'
+      - '.github/scripts/android_smoke_test.sh'
+      - '.github/workflows/android-device-tests.yml'
   # Optional weekly run (Monday 04:17 UTC); uncomment to enable.
   # schedule:
   #   - cron: '17 4 * * 1'
@@ -33,6 +44,8 @@ concurrency:
 
 jobs:
   connected-tests:
+    # Pull requests: only release-smoke (see header)
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     defaults:

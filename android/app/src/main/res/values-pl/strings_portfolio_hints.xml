@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Alarmy portfela wstrzymane: brak aktualnego kursu dla %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Alarmy portfela wstrzymane: nie wszystkie monety mają aktualny kurs</string>
     <string name="portfolio_alarms_paused_addresses">Alarmy portfela wstrzymane: salda obserwowanych adresów nie zostały jeszcze wczytane</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Alarmy portfela wstrzymane: salda tokenów %1$s są częściowo nieaktualne</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alarmy portfela wstrzymane: salda tokenów obserwowanych adresów są częściowo nieaktualne</string>
+    <string name="portfolio_alarms_address_failing">Alarmy portfela sprawdzają bez %1$s: saldo nie wczytało się od ponad 24 godzin</string>
+    <string name="portfolio_alarms_address_failing_generic">Alarmy portfela sprawdzają bez adresów, których saldo nie wczytuje się od ponad 24 godzin</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokeny częściowo nieaktualne</string>
+    <string name="portfolio_address_restore_failed">Nie udało się przywrócić adresu – w razie potrzeby dodaj go ponownie</string>
 </resources>

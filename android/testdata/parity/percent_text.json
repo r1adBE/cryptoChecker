@@ -1,5 +1,5 @@
 {
-  "description": "PercentText (Android PercentText.kt / iOS PercentText.swift): value with exactly 'decimals' decimal places (half up), digits and percent sign of 'locale' (CLDR pattern: space before % in de/fr/cs/da/es/fi/nb/ro/ru/sv except de_CH, de_LI, fr_CH; tr prefix; ar/fa U+066A). 'signed' = sign before everything (U+2212 minus, none when rounded to 0); 'unsigned' = absolute value. Without bidi isolation.",
+  "description": "PercentText (Android PercentText.kt / iOS PercentText.swift): value with exactly 'decimals' decimal places (half up), digits and percent sign of 'locale' (CLDR pattern: space before % in de/fr/cs/da/es/fi/nb/ro/ru/sv except de_CH, de_LI, fr_CH, es_MX; also en_AT/en_DE/en_DK/en_FI/en_SE (full locale per CLDR, not only the language); tr prefix; ar/fa U+066A). 'signed' = sign before everything (U+2212 minus, none when rounded to 0); 'unsigned' = absolute value. Without bidi isolation.",
   "cases": [
     {
       "locale": "en_US",
@@ -126,6 +126,55 @@
       "value": 2.4,
       "decimals": 1,
       "expected": "+2.4%"
+    },
+    {
+      "locale": "es_MX",
+      "kind": "signed",
+      "value": -2.4,
+      "decimals": 0,
+      "expected": "\u22122%"
+    },
+    {
+      "locale": "es_US",
+      "kind": "unsigned",
+      "value": 2.4,
+      "decimals": 0,
+      "expected": "2\u00a0%"
+    },
+    {
+      "locale": "en_DE",
+      "kind": "unsigned",
+      "value": 2.4,
+      "decimals": 0,
+      "expected": "2\u00a0%"
+    },
+    {
+      "locale": "en_AT",
+      "kind": "signed",
+      "value": -2.4,
+      "decimals": 0,
+      "expected": "\u22122\u00a0%"
+    },
+    {
+      "locale": "en_CH",
+      "kind": "signed",
+      "value": 2.4,
+      "decimals": 0,
+      "expected": "+2%"
+    },
+    {
+      "locale": "en_US",
+      "kind": "unsigned",
+      "value": 2.4,
+      "decimals": 1,
+      "expected": "2.4%"
+    },
+    {
+      "locale": "de_CH",
+      "kind": "unsigned",
+      "value": 58.44,
+      "decimals": 1,
+      "expected": "58.4%"
     }
   ]
 }

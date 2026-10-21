@@ -35,4 +35,16 @@ class MomentTextTest {
         assertFalse(earlier, earlier.contains("14:02:11"))
         assertEquals("—", MomentText.moment(0, now, zone, Locale.GERMANY))
     }
+
+    @Test
+    fun zwoelfOderVierundzwanzigStundenNachSystem() {
+        val now = at(2026, 10, 12, 18, 0)
+        // Englisch, Gerät auf 24 h: «14:02:11» statt «2:02:11 PM»
+        assertEquals("14:02:11", MomentText.moment(at(2026, 10, 12, 14, 2, 11), now, zone, Locale.US, is24 = true))
+        val earlier = MomentText.moment(at(2026, 10, 9, 14, 2, 11), now, zone, Locale.US, is24 = true)
+        assertTrue(earlier, earlier.endsWith("14:02"))
+        // Deutsch, Gerät auf 12 h
+        val twelve = MomentText.moment(at(2026, 10, 12, 14, 2, 11), now, zone, Locale.GERMANY, is24 = false)
+        assertTrue(twelve, twelve.startsWith("2:02:11 "))
+    }
 }

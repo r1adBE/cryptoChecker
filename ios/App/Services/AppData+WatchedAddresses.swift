@@ -75,12 +75,15 @@ extension AppData {
     }
 
     /// «Rückgängig» nach `removeWatchedAddress`: dieselbe Adresse mit alter Id samt Eröffnungsposten, Verlauf und
-    /// Token-Reihen (`WatchedAddressUndo.restore`) — wie Android `restoreWatchedAddress`. Gesperrt: `.locked`.
+    /// Token-Reihen (`WatchedAddressUndo.restore`) — wie Android `restoreWatchedAddress`. Gesperrt: `.locked`. Seit Build 95
+    /// mit `pendingSince` = jetzt: wieder volle 24 h zum Laden, bevor sie als fehlgeschlagen gilt.
     @discardableResult
     func restoreWatchedAddress(_ removed: WatchedAddress) -> RemoveWatchedResult {
         guard !portfolioStorageLocked else { return .locked }
         var file = currentWatchedAddressFile()
-        guard WatchedAddressUndo.restore(removed, into: &file), setWatchedAddressFile(file) else { return .failed }
+        var again = removed
+        again.pendingSince = TimeUtils.nowMillis
+        guard WatchedAddressUndo.restore(again, into: &file), setWatchedAddressFile(file) else { return .failed }
         return .removed(removed)
     }
 
@@ -235,6 +238,8 @@ extension AppData {
                 watchedAddressFile = loaded.file
                 watchedAddressIntact = true
                 watchedAddresses = Self.sortedWatched(loaded.file.addresses)
+                // Datei wieder lesbar: «Portfolio wieder an» nachholen, falls aufgeschoben
+                recoverPortfolioIfDeferred()
             }
         }
         return watchedAddressFile

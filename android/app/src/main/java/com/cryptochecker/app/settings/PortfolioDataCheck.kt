@@ -20,9 +20,14 @@ object PortfolioDataCheck {
 
     /**
      * Merker gesetzt: [hasPortfolioData] fragen, Portfolio bei Bedarf einschalten, Merker entfernen. Portfolio
-     * nicht lesbar (Fehler): Merker bleibt, der nächste Start versucht es erneut.
+     * nicht lesbar (Fehler) oder nur leer im Arbeitsspeicher ([portfolioInMemory], [keepMarker]): Merker bleibt, der
+     * nächste Start versucht es erneut.
      */
-    suspend fun resolve(context: Context, hasPortfolioData: suspend () -> Boolean) {
+    suspend fun resolve(
+        context: Context,
+        portfolioInMemory: () -> Boolean = { false },
+        hasPortfolioData: suspend () -> Boolean,
+    ) {
         val store = context.settingsDataStore
         // Einstellungen nicht lesbar (I/O): nichts tun, der Merker bleibt
         if (runCatchingCancellable { store.data.first()[checkKey] }.getOrNull() != true) return
@@ -30,10 +35,23 @@ object PortfolioDataCheck {
             Timber.w(it, "Portfolio-Daten nicht prüfbar – später erneut")
             return
         }
+        // Erst nach dem Lesen fragen: die Datenbank ist dann geöffnet und weiss, ob sie nur im Arbeitsspeicher liegt
+        if (keepMarker(hasData, portfolioInMemory())) {
+            Timber.w("Portfolio nur im Arbeitsspeicher (Schlüssel nicht lesbar) – Prüfung später erneut")
+            return
+        }
         runCatchingCancellable {
             store.edit { prefs -> applyCheck(prefs, hasData) }
         }.onFailure { Timber.w(it, "Portfolio-Prüfung nicht gespeichert") }
     }
+
+    /**
+     * Merker behalten statt «keine Daten» zu entscheiden? Ja, wenn das Portfolio leer ist, aber nur im Arbeitsspeicher
+     * liegt (Schlüssel gerade nicht verfügbar, [com.cryptochecker.app.data.portfolio.PortfolioDatabase.inMemory]): Der
+     * gespeicherte Stand ist dann nicht zu sehen — der Merker darf nicht weg, sonst bliebe das Portfolio nach dem
+     * nächsten Start mit lesbarem Schlüssel aus (seit Build 95). Daten gefunden: entscheiden (einschalten).
+     */
+    internal fun keepMarker(hasData: Boolean, portfolioInMemory: Boolean): Boolean = !hasData && portfolioInMemory
 
     private fun applyCheck(prefs: MutablePreferences, hasData: Boolean) {
         val enable = AppSettings.enablePortfolioForData(

@@ -167,14 +167,15 @@ enum PriceFormat {
         BidiText.ltr(PercentText.unsigned(0, decimals: 2))
     }
 
-    /// Mit Vorzeichen (echtes Minus U+2212) und drei Nachkommastellen (Mitteilungen).
-    static func changePercentDetailed(_ value: Double) -> String {
-        let sign = value >= 0 ? "+" : "−"
-        return BidiText.ltr(sign + PercentText.unsigned(value, decimals: 3))
+    /// Mit Vorzeichen (echtes Minus U+2212) und drei Nachkommastellen (Mitteilungen); gerundet 0 ohne Vorzeichen
+    /// («0.000%» statt «+0.000%»/«−0.000%», seit Build 95) wie `PercentText.signed`.
+    static func changePercentDetailed(_ value: Double, locale: Locale = LocaleNumbers.appLocale) -> String {
+        BidiText.ltr(PercentText.signed(value, decimals: 3, locale: locale))
     }
 
     private static let timeFormatter: DateFormatter = {
         let f = DateFormatter()
+        f.locale = .autoupdatingCurrent // folgt der 12/24-h-Einstellung auch nach einem Wechsel bei laufender App
         f.dateStyle = .none
         f.timeStyle = .medium
         return f

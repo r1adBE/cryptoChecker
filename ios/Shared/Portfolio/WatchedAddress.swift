@@ -81,13 +81,23 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
     /// Eröffnungsposten («Einstand für Adressguthaben», `AddressCostLots`): Einstand für einen Teil des Guthabens. Ältere
     /// Dateien ohne: leer; ältere Versionen übergehen das Feld.
     var costLots: [AddressCostLot] = []
+    /// Schlüssel von `tokenBalances`, deren Wert der letzte Abruf NICHT bestätigt hat (seit Build 95; TON: bekannter Jetton
+    /// fehlt auf einer vollen Seite) — der alte Wert bleibt, gilt aber als veraltet: «teilweise veraltet», Portfolio-Alarme
+    /// wie bei einem alten Kurs (`AddressAlarmState`). Leer = alles bestätigt. Wie Android.
+    var staleTokens: [String] = []
+    /// Seit Build 95: wann die Adresse auf DIESEM Gerät angelegt wurde (aus einer Sicherung eingespielt oder per
+    /// «Rückgängig» zurückgeholt); 0 = unbekannt. Eingespielte Adressen behalten ihr altes `addedAt` (auch 0) — ohne diesen
+    /// Zeitpunkt gälte eine frisch eingespielte Adresse beim ersten Fehler sofort als fehlgeschlagen
+    /// (`AddressAlarmState.isPending`). Nur gerätelokal: nicht in der Sicherung (`WatchedAddressRules.backupEntries`).
+    var pendingSince: Int64 = 0
 
     init(id: Int64 = 0, chain: AddressChain, address: String, label: String? = nil, lastBalance: String? = nil,
          lastUpdated: Int64 = 0, lastAttempt: Int64 = 0, lastError: String? = nil, lastProvider: String? = nil,
          addedAt: Int64 = 0, observations: [AddressObservation] = [], tokenBalances: [String: String] = [:],
          tokenObservations: [String: [AddressObservation]] = [:], countTokens: Bool = true, xpub: XpubCache? = nil,
          networks: [String]? = nil, countInPortfolio: Bool = true, unknownTokens: Int = 0,
-         overlapChecked: Bool = false, overlapLegacy: Bool = false, costLots: [AddressCostLot] = []) {
+         overlapChecked: Bool = false, overlapLegacy: Bool = false, costLots: [AddressCostLot] = [],
+         staleTokens: [String] = [], pendingSince: Int64 = 0) {
         self.id = id
         self.chain = chain
         self.address = address
@@ -109,6 +119,8 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
         self.overlapChecked = overlapChecked
         self.overlapLegacy = overlapLegacy
         self.costLots = costLots
+        self.staleTokens = staleTokens
+        self.pendingSince = pendingSince
     }
 
     /// Erweiterter öffentlicher Schlüssel statt einzelner Adresse.
@@ -137,7 +149,7 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
     private enum CodingKeys: String, CodingKey {
         case id, chain, address, label, lastBalance, lastUpdated, lastAttempt, lastError, lastProvider, addedAt, observations
         case tokenBalances, tokenObservations, countTokens, xpub, networks, countInPortfolio, unknownTokens, overlapChecked
-        case overlapV2, costLots
+        case overlapV2, costLots, staleTokens, pendingSince
     }
 
     /// Fehlende Felder (ältere/neuere Dateien) bekommen Standardwerte; Netz und Adresse sind Pflicht.
@@ -178,6 +190,14 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
         overlapLegacy = overlapChecked && !v2
         // Eröffnungsposten (Build 84); unlesbare machen die Datei nicht unlesbar
         costLots = AddressCostLots.clean((try? c.decodeIfPresent([AddressCostLot].self, forKey: .costLots)) ?? [])
+        // Nicht bestätigte Token (Build 95): nur Schlüssel mit gespeichertem Guthaben
+        var stale: [String] = []
+        for key in (try? c.decodeIfPresent([String].self, forKey: .staleTokens)) ?? [] where tokenBalances[key] != nil {
+            if !stale.contains(key) { stale.append(key) }
+        }
+        staleTokens = stale
+        // Angelegt auf diesem Gerät (Build 95); ältere Dateien ohne: 0
+        pendingSince = max(0, (try? c.decodeIfPresent(Int64.self, forKey: .pendingSince)) ?? 0)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -203,6 +223,8 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
         if overlapChecked { try c.encode(true, forKey: .overlapChecked) }
         if overlapChecked && !overlapLegacy { try c.encode(true, forKey: .overlapV2) }
         if !costLots.isEmpty { try c.encode(costLots, forKey: .costLots) }
+        if !staleTokens.isEmpty { try c.encode(staleTokens, forKey: .staleTokens) }
+        if pendingSince > 0 { try c.encode(pendingSince, forKey: .pendingSince) }
     }
 }
 

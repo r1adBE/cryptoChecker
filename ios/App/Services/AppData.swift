@@ -207,8 +207,9 @@ final class AppData: ObservableObject {
         watchedAddresses = Self.sortedWatched(watched.file.addresses)
         // Einmalig: alter Bestand aus der Merkliste wird zu Käufen im Portfolio
         migrateHoldingsOnce()
-        // Einstellungen fehlten oder waren unlesbar (Standardwerte), Portfolio-Daten sind aber da: Portfolio an
-        if settingsAccessible && loadedSettings.state == .missing {
+        // Einstellungen fehlten oder waren unlesbar (Standardwerte), Portfolio-Daten sind aber da: Portfolio an — auch
+        // mit offenem Merker aus einem früheren Start (`portfolioRecoveryDeferred`, gespeichert)
+        if settingsAccessible && (loadedSettings.state == .missing || portfolioRecoveryDeferred) {
             let recovered = portfolioRecovered(settings, state: loadedSettings.state)
             if recovered.portfolioEnabled != settings.portfolioEnabled {
                 settings = recovered
@@ -241,19 +242,6 @@ final class AppData: ObservableObject {
         SharedStorage.loadSettingsChecked(protectedDataAvailable: UIApplication.shared.isProtectedDataAvailable)
     }
 
-    /// Einstellungen ohne gelesenen Stand (fehlend oder unlesbar → Standardwerte, Portfolio aus), aber Portfolio-Daten
-    /// vorhanden: bestehende Installation, Portfolio an (`AppSettings.enablePortfolioForData`, wie Android).
-    private func portfolioRecovered(_ loaded: AppSettings, state: SharedStorage.SettingsReadState) -> AppSettings {
-        let hasData = !portfolioFile.transactions.isEmpty || !watchedAddressFile.addresses.isEmpty
-            || !(snapshot.portfolioAlarms ?? []).isEmpty
-        guard AppSettings.enablePortfolioForData(resetDefaults: state == .missing,
-                                                 portfolioEnabled: loaded.portfolioEnabled,
-                                                 hasPortfolioData: hasData) else { return loaded }
-        var recovered = loaded
-        recovered.portfolioEnabled = true
-        return recovered
-    }
-
     /// Portfolio-Sperre wirksam: eingeschaltet — oder unbekannt, solange die Einstellungen nicht zugänglich sind.
     var appLockEffective: Bool { !settingsAccessible || settings.appLock }
 
@@ -278,6 +266,8 @@ final class AppData: ObservableObject {
     /// leer, und die Verschlüsselung (`prepareAtLaunch`) stand aus. Sobald die geschützten Daten zugänglich sind
     /// (Entsperren, App aktiv, `reloadFromDisk`), hier nachholen — sonst bliebe das Portfolio die ganze Sitzung leer.
     func reloadProtectedFilesIfNeeded() {
+        // Dateien schon lesbar (z. B. inzwischen über `current…File()` gelesen): aufgeschobene Prüfung nicht verpassen
+        recoverPortfolioIfDeferred()
         guard UIApplication.shared.isProtectedDataAvailable else { return }
         guard encryptionPending || !portfolioIntact || !watchedAddressIntact else { return }
         // Zuerst verschlüsseln (wie beim Start vor dem ersten Lesen), dann neu lesen
@@ -289,6 +279,7 @@ final class AppData: ObservableObject {
         // `current…File()` liest nur neu, solange der Stand als nicht lesbar gilt, und übernimmt ihn dann
         if !portfolioIntact { _ = currentPortfolioFile() }
         if !watchedAddressIntact { _ = currentWatchedAddressFile() }
+        recoverPortfolioIfDeferred()
     }
 
     private func networkChanged(_ isOnline: Bool) {

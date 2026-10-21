@@ -1139,6 +1139,37 @@ final class InstallDefaultsTests: XCTestCase {
         XCTAssertFalse(AppSettings.enablePortfolioForData(resetDefaults: true, portfolioEnabled: true, hasPortfolioData: true))
     }
 
+    /// Seit Build 95: Portfolio- oder Adressdatei gesperrt und nichts gefunden — nicht als «keine Daten» entscheiden
+    /// (wie Android `PortfolioDataCheckTest`).
+    func testPortfolioRecoveryWaitsForReadableFiles() {
+        XCTAssertTrue(AppData.deferPortfolioRecovery(hasData: false, filesIntact: false))
+        XCTAssertFalse(AppData.deferPortfolioRecovery(hasData: false, filesIntact: true))
+        XCTAssertFalse(AppData.deferPortfolioRecovery(hasData: true, filesIntact: true))
+        // Daten trotz teilweise lesbarer Datei: sofort einschalten
+        XCTAssertFalse(AppData.deferPortfolioRecovery(hasData: true, filesIntact: false))
+    }
+
+    /// Seit Build 95: Der Merker ist gespeichert — ein späterer Start mit gelesenen Einstellungen entscheidet trotzdem,
+    /// sobald die Dateien lesbar sind; vorher bleibt er (wie Android `PortfolioDataCheck.resolve`).
+    func testPortfolioRecoveryDecisionMitGespeichertemMerker() {
+        typealias D = PortfolioRecoveryDecision
+        func decide(_ missing: Bool, _ marker: Bool, _ data: Bool, _ intact: Bool) -> D {
+            AppData.portfolioRecoveryDecision(settingsMissing: missing, markerPending: marker, hasData: data,
+                                              filesIntact: intact)
+        }
+        // Gelesene Einstellungen ohne Merker: nichts zu tun, auch mit Daten oder gesperrter Datei
+        XCTAssertEqual(decide(false, false, true, true), D.skip)
+        XCTAssertEqual(decide(false, false, false, false), D.skip)
+        // Neu angelegt: gesperrt und leer → warten; lesbar oder Daten gefunden → entscheiden
+        XCTAssertEqual(decide(true, false, false, false), D.wait)
+        XCTAssertEqual(decide(true, false, false, true), D.decide)
+        XCTAssertEqual(decide(true, false, true, false), D.decide)
+        // Merker aus einem früheren Start (Einstellungen inzwischen gespeichert): gleiche Regeln
+        XCTAssertEqual(decide(false, true, false, false), D.wait)
+        XCTAssertEqual(decide(false, true, false, true), D.decide)
+        XCTAssertEqual(decide(false, true, true, true), D.decide)
+    }
+
     /// Ältere gespeicherte Einstellungen ohne die Schlüssel: bisherige Standards.
     func testStoredSettingsWithoutKeysKeepOldDefaults() throws {
         let old = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"darkMode":true}"#.utf8))

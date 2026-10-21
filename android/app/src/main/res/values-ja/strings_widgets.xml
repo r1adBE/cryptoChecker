@@ -8,7 +8,7 @@
     <string name="widget_empty">ウォッチリストにまだペアがありません。</string>
     <string name="widget_group_hint">このグループのペアだけを表示します。</string>
     <string name="widget_kind_single">1 コイン</string>
-    <string name="widget_opacity">背景の不透明度: %1$d%%</string>
+    <string name="widget_opacity">背景の不透明度: %1$s</string>
     <string name="widget_pulse_description">今の市場で目立つこと：見出し、短い要約、Bitcoin・Ethereum・Solana。</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

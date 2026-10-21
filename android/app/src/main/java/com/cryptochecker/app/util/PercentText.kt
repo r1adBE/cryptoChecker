@@ -10,6 +10,9 @@ import kotlin.math.abs
  * `getPercentInstance`, damit Android, die JVM-Tests und iOS (`PercentText.swift`) Zeichen für Zeichen dasselbe
  * liefern (die ICU-Stände der Systeme unterscheiden sich, z. B. beim Abstand vor «%»).
  *
+ * Seit Build 95 zählt für den Abstand die ganze Locale (Sprache + Region) wie CLDR, nicht nur die Sprache:
+ * Spanisch (Mexiko) «2.4%», Englisch in Deutschland, Österreich, Schweden, Finnland, Dänemark «2,4 %».
+ *
  * Seit Build 94 die eine Stelle für «+2.40%» (Kurs), «+2.9 %» (Aktivität), «58.4 %» (Dominanz) und das
  * Pulse-Widget — vorher schrieb jede Stelle das Zeichen selbst und anders.
  */
@@ -21,11 +24,30 @@ object PercentText {
     /** Sprachen mit Abstand vor «%» («2,4 %»). */
     private val SPACED = setOf("de", "fr", "cs", "da", "es", "fi", "nb", "no", "ro", "ru", "sv")
 
-    /** Deutsch bzw. Französisch ([UNSPACED_LANGUAGES]) in diesen Regionen ohne Abstand (CLDR de_CH, de_LI, fr_CH: «2.4%»). */
-    private val UNSPACED_REGIONS = setOf("CH", "LI")
+    /**
+     * Ausnahmen nach Region zu [SPACED]: diese Sprach-Regionen ohne Abstand (CLDR de_CH, de_LI, fr_CH: «2.4%»,
+     * es_MX: «2.4%»; die übrigen spanischen Regionen inkl. es_US und es_419 behalten den Abstand).
+     */
+    private val UNSPACED_REGIONS = mapOf(
+        "de" to setOf("CH", "LI"),
+        "fr" to setOf("CH", "LI"),
+        "es" to setOf("MX"),
+    )
 
-    /** Sprachen, für die [UNSPACED_REGIONS] gilt. */
-    private val UNSPACED_LANGUAGES = setOf("de", "fr")
+    /** Umgekehrte Ausnahmen: Sprachen ohne Abstand, in diesen Regionen mit (CLDR en_AT, en_DE, en_DK, en_FI, en_SE). */
+    private val SPACED_REGIONS = mapOf(
+        "en" to setOf("AT", "DE", "DK", "FI", "SE"),
+    )
+
+    /** Abstand vor «%» für [language] in [region] nach CLDR (ohne Türkisch und arabische Ziffern). */
+    internal fun isSpaced(language: String, region: String): Boolean {
+        val r = region.uppercase()
+        return if (language in SPACED) {
+            r !in UNSPACED_REGIONS[language].orEmpty()
+        } else {
+            r in SPACED_REGIONS[language].orEmpty()
+        }
+    }
 
     /** Arabisches Prozentzeichen «٪» (U+066A) zu arabischen/persischen Ziffern. */
     private const val ARABIC_PERCENT = "\u066A"
@@ -36,8 +58,7 @@ object PercentText {
         return when {
             language == "tr" -> "%$number"
             (language == "ar" || language == "fa") && !LocaleNumbers.hasLatinDigits(locale) -> number + ARABIC_PERCENT
-            language in SPACED && !(language in UNSPACED_LANGUAGES && locale.country in UNSPACED_REGIONS) ->
-                number + NBSP + "%"
+            isSpaced(language, locale.country) -> number + NBSP + "%"
             else -> "$number%"
         }
     }

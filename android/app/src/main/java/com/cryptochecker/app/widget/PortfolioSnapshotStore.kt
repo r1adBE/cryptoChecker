@@ -79,6 +79,10 @@ class PortfolioSnapshotStore @Inject constructor(
             staleCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_STALE_COINS_V9)),
             staleValueUsdt = p.number(KEY_STALE_VALUE_V9),
             addressesPending = p.optInt(KEY_ADDRESSES_PENDING_V9, 0).coerceAtLeast(0),
+            // fehlen bei älteren Aufnahmen → leer/0
+            addressesFailing = PortfolioSnapshotCodec.readCoins(p.text(KEY_ADDRESSES_FAILING_V10)),
+            staleTokenAddresses = PortfolioSnapshotCodec.readCoins(p.text(KEY_STALE_TOKEN_ADDRESSES_V10)),
+            staleTokenValueUsdt = p.number(KEY_STALE_TOKEN_VALUE_V10)?.coerceAtLeast(0.0) ?: 0.0,
         )
     }
 
@@ -255,12 +259,16 @@ class PortfolioSnapshotStore @Inject constructor(
         snapshot.displayFx?.let { payload.put(KEY_DISPLAY_FX_V8, PortfolioSnapshotCodec.displayFxJson(it)) }
         PortfolioSnapshotCodec.displayChangeJson(snapshot.unrealizedDisplay)?.let { payload.put(KEY_UNREALIZED_DISPLAY_V8, it) }
         PortfolioSnapshotCodec.displayChangeJson(snapshot.weekDisplay)?.let { payload.put(KEY_WEEK_DISPLAY_V8, it) }
-        for ((key, coins) in listOf(KEY_MISSING_COINS_V9 to snapshot.missingCoins, KEY_STALE_COINS_V9 to snapshot.staleCoins)) {
+        for ((key, coins) in listOf(
+            KEY_MISSING_COINS_V9 to snapshot.missingCoins, KEY_STALE_COINS_V9 to snapshot.staleCoins,
+            KEY_ADDRESSES_FAILING_V10 to snapshot.addressesFailing, KEY_STALE_TOKEN_ADDRESSES_V10 to snapshot.staleTokenAddresses,
+        )) {
             val list = coins.filter { it.isNotBlank() }
             if (list.isNotEmpty()) payload.put(key, JSONArray().apply { list.forEach { put(it) } }.toString())
         }
         payload.putNumber(KEY_STALE_VALUE_V9, snapshot.staleValueUsdt)
         if (snapshot.addressesPending > 0) payload.put(KEY_ADDRESSES_PENDING_V9, snapshot.addressesPending)
+        if (snapshot.staleTokenValueUsdt > 0.0) payload.putNumber(KEY_STALE_TOKEN_VALUE_V10, snapshot.staleTokenValueUsdt)
         writeSealed(payload)
     }
 
@@ -325,6 +333,10 @@ class PortfolioSnapshotStore @Inject constructor(
         const val KEY_STALE_COINS_V9 = "stale_coins_v9"
         const val KEY_STALE_VALUE_V9 = "stale_value_v9"
         const val KEY_ADDRESSES_PENDING_V9 = "addresses_pending_v9"
+        // Version 10: seit über 24 h scheiternde Adressen, nicht bestätigte Token-Guthaben (Namen, Wert)
+        const val KEY_ADDRESSES_FAILING_V10 = "addresses_failing_v10"
+        const val KEY_STALE_TOKEN_ADDRESSES_V10 = "stale_token_addresses_v10"
+        const val KEY_STALE_TOKEN_VALUE_V10 = "stale_token_value_v10"
         // Zuletzt bekannter Devisenkurs USD → Umrechnungswährung (Hintergrund und Widget ohne Netz)
         const val KEY_FX_CURRENCY = "fx_currency"
         const val KEY_FX_RATE = "fx_rate"

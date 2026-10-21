@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Portföy alarmları duraklatıldı: %1$s için güncel fiyat yok</string>
     <string name="portfolio_alarms_paused_price_generic">Portföy alarmları duraklatıldı: her coinin güncel fiyatı yok</string>
     <string name="portfolio_alarms_paused_addresses">Portföy alarmları duraklatıldı: izlenen adreslerin bakiyeleri henüz yüklenmedi</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Portföy alarmları duraklatıldı: %1$s token bakiyeleri kısmen güncel değil</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Portföy alarmları duraklatıldı: izlenen adreslerin token bakiyeleri kısmen güncel değil</string>
+    <string name="portfolio_alarms_address_failing">Portföy alarmları %1$s olmadan kontrol ediyor: bakiye 24 saatten uzun süredir yüklenmedi</string>
+    <string name="portfolio_alarms_address_failing_generic">Portföy alarmları, bakiyesi 24 saatten uzun süredir yüklenmeyen adresler olmadan kontrol ediyor</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokenler kısmen güncel değil</string>
+    <string name="portfolio_address_restore_failed">Adres geri alınamadı – gerekirse yeniden ekleyin</string>
 </resources>

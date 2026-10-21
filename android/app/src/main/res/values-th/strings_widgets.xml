@@ -8,7 +8,7 @@
     <string name="widget_empty">ยังไม่มีคู่ในรายการติดตาม</string>
     <string name="widget_group_hint">แสดงเฉพาะคู่ในกลุ่มนี้</string>
     <string name="widget_kind_single">เหรียญเดียว</string>
-    <string name="widget_opacity">ความทึบพื้นหลัง: %1$d%%</string>
+    <string name="widget_opacity">ความทึบพื้นหลัง: %1$s</string>
     <string name="widget_pulse_description">สิ่งที่โดดเด่นในตลาดตอนนี้: พาดหัว สรุปสั้น รวมถึง Bitcoin, Ethereum และ Solana</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

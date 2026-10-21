@@ -187390,6 +187390,197 @@
         }
       }
     },
+    "portfolio_address_restore_failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّرت استعادة العنوان – أضفه من جديد عند الحاجة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresu se nepodařilo obnovit – v případě potřeby ji přidejte znovu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adressen kunne ikke gendannes – tilføj den igen om nødvendigt"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresse konnte nicht zurückgeholt werden – bei Bedarf neu hinzufügen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ήταν δυνατή η επαναφορά της διεύθυνσης – προσθέστε την ξανά αν χρειάζεται"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Address could not be restored – add it again if needed"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo restaurar la dirección: vuelve a añadirla si la necesitas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بازگرداندن آدرس ممکن نشد – در صورت نیاز دوباره اضافه‌اش کنید"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Osoitetta ei voitu palauttaa – lisää se tarvittaessa uudelleen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de rétablir l’adresse – ajoutez-la à nouveau si nécessaire"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא ניתן היה לשחזר את הכתובת – הוסיפו אותה שוב לפי הצורך"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पता वापस नहीं लाया जा सका – ज़रूरत हो तो इसे फिर से जोड़ें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A cím nem állítható vissza – szükség esetén add hozzá újra"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alamat tidak dapat dipulihkan – tambahkan lagi jika perlu"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossibile ripristinare l’indirizzo – aggiungilo di nuovo se serve"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アドレスを元に戻せませんでした。必要なら再度追加してください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "주소를 되돌리지 못했습니다 – 필요하면 다시 추가하세요"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adressen kunne ikke gjenopprettes – legg den til på nytt ved behov"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adres kon niet worden hersteld – voeg het indien nodig opnieuw toe"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się przywrócić adresu – w razie potrzeby dodaj go ponownie"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível repor o endereço – adicione-o de novo se necessário"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível restaurar o endereço – adicione-o de novo se precisar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa nu a putut fi restabilită – adaug-o din nou dacă e nevoie"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось вернуть адрес – при необходимости добавьте его снова"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa nuk mund të rikthehej – shtoje sërish nëse duhet"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adressen kunde inte återställas – lägg till den igen vid behov"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กู้คืนที่อยู่ไม่ได้ – เพิ่มใหม่อีกครั้งหากจำเป็น"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adres geri alınamadı – gerekirse yeniden ekleyin"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося повернути адресу – за потреби додайте її знову"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể khôi phục địa chỉ – hãy thêm lại nếu cần"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法恢复该地址——如有需要请重新添加"
+          }
+        }
+      }
+    },
     "portfolio_address_show_only" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -188341,6 +188532,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "计入代币"
+          }
+        }
+      }
+    },
+    "portfolio_address_tokens_partly_stale" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الرموز قديمة جزئيًا"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokeny částečně zastaralé"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokens delvist forældede"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token teilweise veraltet"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "token εν μέρει παλιά"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokens partly outdated"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokens parcialmente desactualizados"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "توکن‌ها تا حدی قدیمی"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokenit osin vanhentuneita"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "jetons en partie obsolètes"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "טוקנים לא עדכניים בחלקם"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "टोकन आंशिक रूप से पुराने"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokenek részben elavultak"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "token sebagian usang"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "token in parte non aggiornati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "トークンが一部古い"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "토큰 일부 오래됨"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokens delvis utdaterte"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokens deels verouderd"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokeny częściowo nieaktualne"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokens parcialmente desatualizados"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokens parcialmente desatualizados"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokenuri parțial învechite"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "токены частично устарели"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokenët pjesërisht të vjetruar"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokens delvis inaktuella"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "โทเค็นล้าสมัยบางส่วน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tokenler kısmen güncel değil"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "токени частково застаріли"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "token đã cũ một phần"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "代币部分已过时"
           }
         }
       }
@@ -191592,6 +191974,388 @@
         }
       }
     },
+    "portfolio_alarms_address_failing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنبيهات المحفظة تعمل بدون %1$@: لم يتم تحميل الرصيد منذ أكثر من 24 ساعة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfolia počítají bez %1$@: zůstatek se nenačetl déle než 24 hodin"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljealarmer tjekker uden %1$@: saldoen er ikke indlæst i over 24 timer"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio-Alarme prüfen ohne %1$@: Guthaben seit über 24 Stunden nicht geladen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι ειδοποιήσεις χαρτοφυλακίου ελέγχουν χωρίς %1$@: το υπόλοιπο δεν φορτώθηκε για πάνω από 24 ώρες"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio alerts check without %1$@: balance not loaded for over 24 hours"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las alertas de cartera comprueban sin %1$@: el saldo no se ha cargado en más de 24 horas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارهای سبد بدون %1$@ بررسی می‌کنند: موجودی بیش از ۲۴ ساعت است بارگیری نشده"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkkuhälytykset tarkistavat ilman kohdetta %1$@: saldoa ei ole ladattu yli 24 tuntiin"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les alertes du portefeuille vérifient sans %1$@ : solde non chargé depuis plus de 24 heures"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות התיק בודקות בלי %1$@: היתרה לא נטענה יותר מ-24 שעות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफ़ोलियो अलर्ट %1$@ के बिना जाँचते हैं: बैलेंस 24 घंटे से अधिक समय से लोड नहीं हुआ"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A portfólió-riasztások %1$@ nélkül ellenőriznek: az egyenleg több mint 24 órája nem töltődött be"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peringatan portofolio memeriksa tanpa %1$@: saldo tidak dimuat lebih dari 24 jam"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gli avvisi del portafoglio controllano senza %1$@: saldo non caricato da oltre 24 ore"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポートフォリオアラートは%1$@を除いて確認中：残高が24時間以上読み込まれていません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "포트폴리오 알림이 %1$@ 없이 확인 중: 잔액을 24시간 넘게 불러오지 못함"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljevarsler sjekker uten %1$@: saldoen er ikke lastet på over 24 timer"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuillealarmen controleren zonder %1$@: saldo al meer dan 24 uur niet geladen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfela sprawdzają bez %1$@: saldo nie wczytało się od ponad 24 godzin"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os alertas da carteira verificam sem %1$@: saldo não carregado há mais de 24 horas"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os alertas da carteira verificam sem %1$@: saldo não carregado há mais de 24 horas"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertele portofoliului verifică fără %1$@: soldul nu s-a încărcat de peste 24 de ore"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оповещения портфеля проверяют без %1$@: баланс не загружается больше 24 часов"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet e portofolit kontrollojnë pa %1$@: balanca nuk është ngarkuar për më shumë se 24 orë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföljlarm kontrollerar utan %1$@: saldot har inte lästs in på över 24 timmar"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การแจ้งเตือนพอร์ตตรวจสอบโดยไม่รวม %1$@: ไม่ได้โหลดยอดคงเหลือมานานกว่า 24 ชั่วโมง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföy alarmları %1$@ olmadan kontrol ediyor: bakiye 24 saatten uzun süredir yüklenmedi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сповіщення портфеля перевіряють без %1$@: баланс не завантажується понад 24 години"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo danh mục kiểm tra mà không có %1$@: số dư chưa tải được hơn 24 giờ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投资组合提醒不含 %1$@ 进行检查：余额已超过 24 小时未能加载"
+          }
+        }
+      }
+    },
+    "portfolio_alarms_address_failing_generic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنبيهات المحفظة تعمل بدون العناوين التي لم يتم تحميل رصيدها منذ أكثر من 24 ساعة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfolia počítají bez adres, jejichž zůstatek se nenačítá déle než 24 hodin"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljealarmer tjekker uden adresser, hvis saldo ikke er indlæst i over 24 timer"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio-Alarme prüfen ohne Adressen, deren Guthaben seit über 24 Stunden nicht lädt"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι ειδοποιήσεις χαρτοφυλακίου ελέγχουν χωρίς διευθύνσεις των οποίων το υπόλοιπο δεν φορτώνεται για πάνω από 24 ώρες"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio alerts check without addresses whose balance has not loaded for over 24 hours"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las alertas de cartera comprueban sin las direcciones cuyo saldo no se carga desde hace más de 24 horas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارهای سبد بدون آدرس‌هایی بررسی می‌کنند که موجودی‌شان بیش از ۲۴ ساعت است بارگیری نمی‌شود"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkkuhälytykset tarkistavat ilman osoitteita, joiden saldo ei ole latautunut yli 24 tuntiin"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les alertes du portefeuille vérifient sans les adresses dont le solde ne se charge plus depuis plus de 24 heures"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות התיק בודקות בלי כתובות שהיתרה שלהן לא נטענת יותר מ-24 שעות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफ़ोलियो अलर्ट उन पतों के बिना जाँचते हैं जिनका बैलेंस 24 घंटे से अधिक समय से लोड नहीं हो रहा"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A portfólió-riasztások azon címek nélkül ellenőriznek, amelyek egyenlege több mint 24 órája nem töltődik be"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peringatan portofolio memeriksa tanpa alamat yang saldonya tidak dimuat lebih dari 24 jam"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gli avvisi del portafoglio controllano senza gli indirizzi il cui saldo non si carica da oltre 24 ore"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポートフォリオアラートは、残高が24時間以上読み込まれないアドレスを除いて確認中"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "포트폴리오 알림이 잔액을 24시간 넘게 불러오지 못한 주소 없이 확인 중"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljevarsler sjekker uten adresser der saldoen ikke er lastet på over 24 timer"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuillealarmen controleren zonder adressen waarvan het saldo al meer dan 24 uur niet laadt"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfela sprawdzają bez adresów, których saldo nie wczytuje się od ponad 24 godzin"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os alertas da carteira verificam sem os endereços cujo saldo não carrega há mais de 24 horas"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os alertas da carteira verificam sem os endereços cujo saldo não carrega há mais de 24 horas"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertele portofoliului verifică fără adresele al căror sold nu se încarcă de peste 24 de ore"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оповещения портфеля проверяют без адресов, баланс которых не загружается больше 24 часов"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet e portofolit kontrollojnë pa adresat, balanca e të cilave nuk ngarkohet për më shumë se 24 orë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföljlarm kontrollerar utan adresser vars saldo inte har lästs in på över 24 timmar"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การแจ้งเตือนพอร์ตตรวจสอบโดยไม่รวมที่อยู่ที่โหลดยอดคงเหลือไม่ได้มานานกว่า 24 ชั่วโมง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföy alarmları, bakiyesi 24 saatten uzun süredir yüklenmeyen adresler olmadan kontrol ediyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сповіщення портфеля перевіряють без адрес, баланс яких не завантажується понад 24 години"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo danh mục kiểm tra mà không có các địa chỉ có số dư chưa tải được hơn 24 giờ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投资组合提醒不含余额超过 24 小时未能加载的地址进行检查"
+          }
+        }
+      }
+    },
     "portfolio_alarms_paused_addresses" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -192161,6 +192925,388 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "投资组合提醒已暂停：并非所有币种都有当前价格"
+          }
+        }
+      }
+    },
+    "portfolio_alarms_paused_tokens" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنبيهات المحفظة متوقفة مؤقتًا: أرصدة الرموز في %1$@ قديمة جزئيًا"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfolia pozastaveny: zůstatky tokenů u %1$@ jsou částečně zastaralé"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljealarmer sat på pause: tokensaldi for %1$@ er delvist forældede"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio-Alarme pausiert: Token-Guthaben von %1$@ teilweise veraltet"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι ειδοποιήσεις χαρτοφυλακίου σε παύση: τα υπόλοιπα token της %1$@ είναι εν μέρει παλιά"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio alerts paused: token balances of %1$@ partly outdated"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas de cartera en pausa: saldos de tokens de %1$@ parcialmente desactualizados"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارهای سبد متوقف شده‌اند: موجودی توکن‌های %1$@ تا حدی قدیمی است"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkkuhälytykset keskeytetty: kohteen %1$@ token-saldot osin vanhentuneita"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertes du portefeuille en pause : soldes de jetons de %1$@ en partie obsolètes"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות התיק מושהות: יתרות הטוקנים של %1$@ לא עדכניות בחלקן"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफ़ोलियो अलर्ट रुके हुए हैं: %1$@ के टोकन बैलेंस आंशिक रूप से पुराने हैं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólió-riasztások szüneteltetve: %1$@ tokenegyenlegei részben elavultak"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peringatan portofolio dijeda: saldo token %1$@ sebagian usang"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avvisi del portafoglio in pausa: saldi token di %1$@ in parte non aggiornati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポートフォリオアラートは一時停止中：%1$@のトークン残高が一部古くなっています"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "포트폴리오 알림 일시 중지: %1$@의 토큰 잔액이 일부 오래됨"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljevarsler satt på pause: tokensaldoene til %1$@ er delvis utdaterte"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuillealarmen gepauzeerd: tokensaldi van %1$@ deels verouderd"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfela wstrzymane: salda tokenów %1$@ są częściowo nieaktualne"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas da carteira em pausa: saldos de tokens de %1$@ parcialmente desatualizados"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas da carteira pausados: saldos de tokens de %1$@ parcialmente desatualizados"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertele portofoliului sunt în pauză: soldurile de tokenuri ale %1$@ sunt parțial învechite"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оповещения портфеля приостановлены: балансы токенов %1$@ частично устарели"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet e portofolit janë pezulluar: balancat e tokenëve të %1$@ janë pjesërisht të vjetruara"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföljlarm pausade: tokensaldon för %1$@ är delvis inaktuella"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หยุดการแจ้งเตือนพอร์ตชั่วคราว: ยอดคงเหลือโทเค็นของ %1$@ ล้าสมัยบางส่วน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföy alarmları duraklatıldı: %1$@ token bakiyeleri kısmen güncel değil"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сповіщення портфеля призупинено: баланси токенів %1$@ частково застаріли"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo danh mục tạm dừng: số dư token của %1$@ đã cũ một phần"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投资组合提醒已暂停：%1$@ 的代币余额部分已过时"
+          }
+        }
+      }
+    },
+    "portfolio_alarms_paused_tokens_generic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنبيهات المحفظة متوقفة مؤقتًا: أرصدة الرموز في العناوين المراقبة قديمة جزئيًا"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfolia pozastaveny: zůstatky tokenů sledovaných adres jsou částečně zastaralé"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljealarmer sat på pause: tokensaldi for overvågede adresser er delvist forældede"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio-Alarme pausiert: Token-Guthaben beobachteter Adressen teilweise veraltet"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι ειδοποιήσεις χαρτοφυλακίου σε παύση: τα υπόλοιπα token των παρακολουθούμενων διευθύνσεων είναι εν μέρει παλιά"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio alerts paused: token balances of watched addresses partly outdated"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas de cartera en pausa: saldos de tokens de las direcciones vigiladas parcialmente desactualizados"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارهای سبد متوقف شده‌اند: موجودی توکن‌های آدرس‌های تحت نظر تا حدی قدیمی است"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkkuhälytykset keskeytetty: seurattujen osoitteiden token-saldot osin vanhentuneita"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertes du portefeuille en pause : soldes de jetons des adresses suivies en partie obsolètes"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות התיק מושהות: יתרות הטוקנים של הכתובות במעקב לא עדכניות בחלקן"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफ़ोलियो अलर्ट रुके हुए हैं: देखे जा रहे पतों के टोकन बैलेंस आंशिक रूप से पुराने हैं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólió-riasztások szüneteltetve: a figyelt címek tokenegyenlegei részben elavultak"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peringatan portofolio dijeda: saldo token alamat yang dipantau sebagian usang"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avvisi del portafoglio in pausa: saldi token degli indirizzi osservati in parte non aggiornati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポートフォリオアラートは一時停止中：監視アドレスのトークン残高が一部古くなっています"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "포트폴리오 알림 일시 중지: 감시 중인 주소의 토큰 잔액이 일부 오래됨"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljevarsler satt på pause: tokensaldoene til overvåkede adresser er delvis utdaterte"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuillealarmen gepauzeerd: tokensaldi van gevolgde adressen deels verouderd"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfela wstrzymane: salda tokenów obserwowanych adresów są częściowo nieaktualne"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas da carteira em pausa: saldos de tokens dos endereços vigiados parcialmente desatualizados"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas da carteira pausados: saldos de tokens dos endereços monitorados parcialmente desatualizados"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertele portofoliului sunt în pauză: soldurile de tokenuri ale adreselor urmărite sunt parțial învechite"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оповещения портфеля приостановлены: балансы токенов отслеживаемых адресов частично устарели"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet e portofolit janë pezulluar: balancat e tokenëve të adresave të ndjekura janë pjesërisht të vjetruara"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföljlarm pausade: tokensaldon för bevakade adresser är delvis inaktuella"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หยุดการแจ้งเตือนพอร์ตชั่วคราว: ยอดคงเหลือโทเค็นของที่อยู่ที่ติดตามล้าสมัยบางส่วน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföy alarmları duraklatıldı: izlenen adreslerin token bakiyeleri kısmen güncel değil"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сповіщення портфеля призупинено: баланси токенів відстежуваних адрес частково застаріли"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo danh mục tạm dừng: số dư token của các địa chỉ theo dõi đã cũ một phần"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投资组合提醒已暂停：所关注地址的代币余额部分已过时"
           }
         }
       }
@@ -256777,187 +257923,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أعلى من المعتاد بنسبة %1$ld%%."
+            "value" : "الحجم أعلى من المعتاد بنسبة %1$@."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$ld %% nad normálem."
+            "value" : "Objem o %1$@ nad normálem."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% over normalt."
+            "value" : "Volumen %1$@ over normalt."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% über normal."
+            "value" : "Volumen %1$@ über normal."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$ld%% πάνω από το κανονικό."
+            "value" : "Όγκος %1$@ πάνω από το κανονικό."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% above normal."
+            "value" : "Volume %1$@ above normal."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%% por encima de lo normal."
+            "value" : "Volumen %1$@ por encima de lo normal."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$ld%% بالاتر از حالت عادی."
+            "value" : "حجم %1$@ بالاتر از حالت عادی."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$ld %% tavallista suurempi."
+            "value" : "Volyymi %1$@ tavallista suurempi."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld %% au-dessus de la normale."
+            "value" : "Volume %1$@ au-dessus de la normale."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח גבוה ב-%1$ld%% מהרגיל."
+            "value" : "נפח גבוה ב-%1$@ מהרגיל."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$ld%% ज़्यादा।"
+            "value" : "वॉल्यूम सामान्य से %1$@ ज़्यादा।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%%-kal a szokásos felett."
+            "value" : "Volumen %1$@-kal a szokásos felett."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% di atas normal."
+            "value" : "Volume %1$@ di atas normal."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% sopra il normale."
+            "value" : "Volume %1$@ sopra il normale."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$ld%% 多い。"
+            "value" : "出来高は通常より %1$@ 多い。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$ld%% 많음."
+            "value" : "거래량 평소보다 %1$@ 많음."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$ld %% over normalt."
+            "value" : "Volum %1$@ over normalt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% boven normaal."
+            "value" : "Volume %1$@ boven normaal."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$ld%% powyżej normy."
+            "value" : "Wolumen %1$@ powyżej normy."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% acima do normal."
+            "value" : "Volume %1$@ acima do normal."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% acima do normal."
+            "value" : "Volume %1$@ acima do normal."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$ld%% peste normal."
+            "value" : "Volum cu %1$@ peste normal."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$ld%% выше нормы."
+            "value" : "Объём на %1$@ выше нормы."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$ld%% mbi normalen."
+            "value" : "Vëllimi %1$@ mbi normalen."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$ld %% över det normala."
+            "value" : "Volym %1$@ över det normala."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณสูงกว่าปกติ %1$ld%%"
+            "value" : "ปริมาณสูงกว่าปกติ %1$@"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %%%1$ld üzerinde."
+            "value" : "Hacim normalin %1$@ üzerinde."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$ld%% вищий за норму."
+            "value" : "Обсяг на %1$@ вищий за норму."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng cao hơn bình thường %1$ld%%."
+            "value" : "Khối lượng cao hơn bình thường %1$@."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量高于平常 %1$ld%%。"
+            "value" : "成交量高于平常 %1$@。"
           }
         }
       }
@@ -256968,187 +258114,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أعلى من المعتاد بنسبة %1$ld%%، التمويل مرتفع."
+            "value" : "الحجم أعلى من المعتاد بنسبة %1$@، التمويل مرتفع."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$ld %% nad normálem, funding zvýšený."
+            "value" : "Objem o %1$@ nad normálem, funding zvýšený."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% over normalt, funding forhøjet."
+            "value" : "Volumen %1$@ over normalt, funding forhøjet."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% über normal, Funding erhöht."
+            "value" : "Volumen %1$@ über normal, Funding erhöht."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$ld%% πάνω από το κανονικό, funding αυξημένο."
+            "value" : "Όγκος %1$@ πάνω από το κανονικό, funding αυξημένο."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% above normal, funding elevated."
+            "value" : "Volume %1$@ above normal, funding elevated."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%% por encima de lo normal, funding elevado."
+            "value" : "Volumen %1$@ por encima de lo normal, funding elevado."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$ld%% بالاتر از حالت عادی، فاندینگ بالا."
+            "value" : "حجم %1$@ بالاتر از حالت عادی، فاندینگ بالا."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$ld %% tavallista suurempi, funding koholla."
+            "value" : "Volyymi %1$@ tavallista suurempi, funding koholla."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld %% au-dessus de la normale, funding élevé."
+            "value" : "Volume %1$@ au-dessus de la normale, funding élevé."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח גבוה ב-%1$ld%% מהרגיל, מימון גבוה."
+            "value" : "נפח גבוה ב-%1$@ מהרגיל, מימון גבוה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$ld%% ज़्यादा, फ़ंडिंग ऊँचा।"
+            "value" : "वॉल्यूम सामान्य से %1$@ ज़्यादा, फ़ंडिंग ऊँचा।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%%-kal a szokásos felett, funding emelkedett."
+            "value" : "Volumen %1$@-kal a szokásos felett, funding emelkedett."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% di atas normal, funding tinggi."
+            "value" : "Volume %1$@ di atas normal, funding tinggi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% sopra il normale, funding elevato."
+            "value" : "Volume %1$@ sopra il normale, funding elevato."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$ld%% 多い、資金調達率は高め。"
+            "value" : "出来高は通常より %1$@ 多い、資金調達率は高め。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$ld%% 많음, 펀딩비 높음."
+            "value" : "거래량 평소보다 %1$@ 많음, 펀딩비 높음."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$ld %% over normalt, funding forhøyet."
+            "value" : "Volum %1$@ over normalt, funding forhøyet."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% boven normaal, funding verhoogd."
+            "value" : "Volume %1$@ boven normaal, funding verhoogd."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$ld%% powyżej normy, funding podwyższony."
+            "value" : "Wolumen %1$@ powyżej normy, funding podwyższony."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% acima do normal, funding elevado."
+            "value" : "Volume %1$@ acima do normal, funding elevado."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% acima do normal, funding elevado."
+            "value" : "Volume %1$@ acima do normal, funding elevado."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$ld%% peste normal, funding ridicat."
+            "value" : "Volum cu %1$@ peste normal, funding ridicat."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$ld%% выше нормы, фандинг повышен."
+            "value" : "Объём на %1$@ выше нормы, фандинг повышен."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$ld%% mbi normalen, funding i lartë."
+            "value" : "Vëllimi %1$@ mbi normalen, funding i lartë."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$ld %% över det normala, funding förhöjd."
+            "value" : "Volym %1$@ över det normala, funding förhöjd."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณสูงกว่าปกติ %1$ld%% Funding สูง"
+            "value" : "ปริมาณสูงกว่าปกติ %1$@ Funding สูง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %%%1$ld üzerinde, fonlama yüksek."
+            "value" : "Hacim normalin %1$@ üzerinde, fonlama yüksek."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$ld%% вищий за норму, фандинг підвищений."
+            "value" : "Обсяг на %1$@ вищий за норму, фандинг підвищений."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng cao hơn bình thường %1$ld%%, funding cao."
+            "value" : "Khối lượng cao hơn bình thường %1$@, funding cao."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量高于平常 %1$ld%%，资金费率偏高。"
+            "value" : "成交量高于平常 %1$@，资金费率偏高。"
           }
         }
       }
@@ -257159,187 +258305,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أعلى من المعتاد بنسبة %1$ld%%، التمويل سلبي."
+            "value" : "الحجم أعلى من المعتاد بنسبة %1$@، التمويل سلبي."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$ld %% nad normálem, funding záporný."
+            "value" : "Objem o %1$@ nad normálem, funding záporný."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% over normalt, funding negativ."
+            "value" : "Volumen %1$@ over normalt, funding negativ."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% über normal, Funding negativ."
+            "value" : "Volumen %1$@ über normal, Funding negativ."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$ld%% πάνω από το κανονικό, funding αρνητικό."
+            "value" : "Όγκος %1$@ πάνω από το κανονικό, funding αρνητικό."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% above normal, funding negative."
+            "value" : "Volume %1$@ above normal, funding negative."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%% por encima de lo normal, funding negativo."
+            "value" : "Volumen %1$@ por encima de lo normal, funding negativo."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$ld%% بالاتر از حالت عادی، فاندینگ منفی."
+            "value" : "حجم %1$@ بالاتر از حالت عادی، فاندینگ منفی."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$ld %% tavallista suurempi, funding negatiivinen."
+            "value" : "Volyymi %1$@ tavallista suurempi, funding negatiivinen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld %% au-dessus de la normale, funding négatif."
+            "value" : "Volume %1$@ au-dessus de la normale, funding négatif."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח גבוה ב-%1$ld%% מהרגיל, מימון שלילי."
+            "value" : "נפח גבוה ב-%1$@ מהרגיל, מימון שלילי."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$ld%% ज़्यादा, फ़ंडिंग नेगेटिव।"
+            "value" : "वॉल्यूम सामान्य से %1$@ ज़्यादा, फ़ंडिंग नेगेटिव।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%%-kal a szokásos felett, funding negatív."
+            "value" : "Volumen %1$@-kal a szokásos felett, funding negatív."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% di atas normal, funding negatif."
+            "value" : "Volume %1$@ di atas normal, funding negatif."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% sopra il normale, funding negativo."
+            "value" : "Volume %1$@ sopra il normale, funding negativo."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$ld%% 多い、資金調達率はマイナス。"
+            "value" : "出来高は通常より %1$@ 多い、資金調達率はマイナス。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$ld%% 많음, 펀딩비 마이너스."
+            "value" : "거래량 평소보다 %1$@ 많음, 펀딩비 마이너스."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$ld %% over normalt, funding negativ."
+            "value" : "Volum %1$@ over normalt, funding negativ."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% boven normaal, funding negatief."
+            "value" : "Volume %1$@ boven normaal, funding negatief."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$ld%% powyżej normy, funding ujemny."
+            "value" : "Wolumen %1$@ powyżej normy, funding ujemny."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% acima do normal, funding negativo."
+            "value" : "Volume %1$@ acima do normal, funding negativo."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% acima do normal, funding negativo."
+            "value" : "Volume %1$@ acima do normal, funding negativo."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$ld%% peste normal, funding negativ."
+            "value" : "Volum cu %1$@ peste normal, funding negativ."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$ld%% выше нормы, фандинг отрицательный."
+            "value" : "Объём на %1$@ выше нормы, фандинг отрицательный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$ld%% mbi normalen, funding negativ."
+            "value" : "Vëllimi %1$@ mbi normalen, funding negativ."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$ld %% över det normala, funding negativ."
+            "value" : "Volym %1$@ över det normala, funding negativ."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณสูงกว่าปกติ %1$ld%% Funding ติดลบ"
+            "value" : "ปริมาณสูงกว่าปกติ %1$@ Funding ติดลบ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %%%1$ld üzerinde, fonlama negatif."
+            "value" : "Hacim normalin %1$@ üzerinde, fonlama negatif."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$ld%% вищий за норму, фандинг від’ємний."
+            "value" : "Обсяг на %1$@ вищий за норму, фандинг від’ємний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng cao hơn bình thường %1$ld%%, funding âm."
+            "value" : "Khối lượng cao hơn bình thường %1$@, funding âm."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量高于平常 %1$ld%%，资金费率为负。"
+            "value" : "成交量高于平常 %1$@，资金费率为负。"
           }
         }
       }
@@ -257350,187 +258496,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أعلى من المعتاد بنسبة %1$ld%%، التمويل محايد."
+            "value" : "الحجم أعلى من المعتاد بنسبة %1$@، التمويل محايد."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$ld %% nad normálem, funding neutrální."
+            "value" : "Objem o %1$@ nad normálem, funding neutrální."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% over normalt, funding neutral."
+            "value" : "Volumen %1$@ over normalt, funding neutral."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% über normal, Funding neutral."
+            "value" : "Volumen %1$@ über normal, Funding neutral."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$ld%% πάνω από το κανονικό, funding ουδέτερο."
+            "value" : "Όγκος %1$@ πάνω από το κανονικό, funding ουδέτερο."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% above normal, funding neutral."
+            "value" : "Volume %1$@ above normal, funding neutral."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%% por encima de lo normal, funding neutral."
+            "value" : "Volumen %1$@ por encima de lo normal, funding neutral."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$ld%% بالاتر از حالت عادی، فاندینگ خنثی."
+            "value" : "حجم %1$@ بالاتر از حالت عادی، فاندینگ خنثی."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$ld %% tavallista suurempi, funding neutraali."
+            "value" : "Volyymi %1$@ tavallista suurempi, funding neutraali."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld %% au-dessus de la normale, funding neutre."
+            "value" : "Volume %1$@ au-dessus de la normale, funding neutre."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח גבוה ב-%1$ld%% מהרגיל, מימון ניטרלי."
+            "value" : "נפח גבוה ב-%1$@ מהרגיל, מימון ניטרלי."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$ld%% ज़्यादा, फ़ंडिंग न्यूट्रल।"
+            "value" : "वॉल्यूम सामान्य से %1$@ ज़्यादा, फ़ंडिंग न्यूट्रल।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%%-kal a szokásos felett, funding semleges."
+            "value" : "Volumen %1$@-kal a szokásos felett, funding semleges."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% di atas normal, funding netral."
+            "value" : "Volume %1$@ di atas normal, funding netral."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% sopra il normale, funding neutro."
+            "value" : "Volume %1$@ sopra il normale, funding neutro."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$ld%% 多い、資金調達率は中立。"
+            "value" : "出来高は通常より %1$@ 多い、資金調達率は中立。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$ld%% 많음, 펀딩비 중립."
+            "value" : "거래량 평소보다 %1$@ 많음, 펀딩비 중립."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$ld %% over normalt, funding nøytral."
+            "value" : "Volum %1$@ over normalt, funding nøytral."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% boven normaal, funding neutraal."
+            "value" : "Volume %1$@ boven normaal, funding neutraal."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$ld%% powyżej normy, funding neutralny."
+            "value" : "Wolumen %1$@ powyżej normy, funding neutralny."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% acima do normal, funding neutro."
+            "value" : "Volume %1$@ acima do normal, funding neutro."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% acima do normal, funding neutro."
+            "value" : "Volume %1$@ acima do normal, funding neutro."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$ld%% peste normal, funding neutru."
+            "value" : "Volum cu %1$@ peste normal, funding neutru."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$ld%% выше нормы, фандинг нейтральный."
+            "value" : "Объём на %1$@ выше нормы, фандинг нейтральный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$ld%% mbi normalen, funding neutral."
+            "value" : "Vëllimi %1$@ mbi normalen, funding neutral."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$ld %% över det normala, funding neutral."
+            "value" : "Volym %1$@ över det normala, funding neutral."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณสูงกว่าปกติ %1$ld%% Funding เป็นกลาง"
+            "value" : "ปริมาณสูงกว่าปกติ %1$@ Funding เป็นกลาง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %%%1$ld üzerinde, fonlama nötr."
+            "value" : "Hacim normalin %1$@ üzerinde, fonlama nötr."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$ld%% вищий за норму, фандинг нейтральний."
+            "value" : "Обсяг на %1$@ вищий за норму, фандинг нейтральний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng cao hơn bình thường %1$ld%%, funding trung tính."
+            "value" : "Khối lượng cao hơn bình thường %1$@, funding trung tính."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量高于平常 %1$ld%%，资金费率中性。"
+            "value" : "成交量高于平常 %1$@，资金费率中性。"
           }
         }
       }
@@ -257541,187 +258687,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أقل من المعتاد بنسبة %1$ld%%."
+            "value" : "الحجم أقل من المعتاد بنسبة %1$@."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$ld %% pod normálem."
+            "value" : "Objem o %1$@ pod normálem."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% under normalt."
+            "value" : "Volumen %1$@ under normalt."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% unter normal."
+            "value" : "Volumen %1$@ unter normal."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$ld%% κάτω από το κανονικό."
+            "value" : "Όγκος %1$@ κάτω από το κανονικό."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% below normal."
+            "value" : "Volume %1$@ below normal."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%% por debajo de lo normal."
+            "value" : "Volumen %1$@ por debajo de lo normal."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$ld%% پایین‌تر از حالت عادی."
+            "value" : "حجم %1$@ پایین‌تر از حالت عادی."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$ld %% tavallista pienempi."
+            "value" : "Volyymi %1$@ tavallista pienempi."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld %% en dessous de la normale."
+            "value" : "Volume %1$@ en dessous de la normale."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח נמוך ב-%1$ld%% מהרגיל."
+            "value" : "נפח נמוך ב-%1$@ מהרגיל."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$ld%% कम।"
+            "value" : "वॉल्यूम सामान्य से %1$@ कम।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%%-kal a szokásos alatt."
+            "value" : "Volumen %1$@-kal a szokásos alatt."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% di bawah normal."
+            "value" : "Volume %1$@ di bawah normal."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% sotto il normale."
+            "value" : "Volume %1$@ sotto il normale."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$ld%% 少ない。"
+            "value" : "出来高は通常より %1$@ 少ない。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$ld%% 적음."
+            "value" : "거래량 평소보다 %1$@ 적음."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$ld %% under normalt."
+            "value" : "Volum %1$@ under normalt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% onder normaal."
+            "value" : "Volume %1$@ onder normaal."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$ld%% poniżej normy."
+            "value" : "Wolumen %1$@ poniżej normy."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% abaixo do normal."
+            "value" : "Volume %1$@ abaixo do normal."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% abaixo do normal."
+            "value" : "Volume %1$@ abaixo do normal."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$ld%% sub normal."
+            "value" : "Volum cu %1$@ sub normal."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$ld%% ниже нормы."
+            "value" : "Объём на %1$@ ниже нормы."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$ld%% nën normalen."
+            "value" : "Vëllimi %1$@ nën normalen."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$ld %% under det normala."
+            "value" : "Volym %1$@ under det normala."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณต่ำกว่าปกติ %1$ld%%"
+            "value" : "ปริมาณต่ำกว่าปกติ %1$@"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %%%1$ld altında."
+            "value" : "Hacim normalin %1$@ altında."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$ld%% нижчий за норму."
+            "value" : "Обсяг на %1$@ нижчий за норму."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng thấp hơn bình thường %1$ld%%."
+            "value" : "Khối lượng thấp hơn bình thường %1$@."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量低于平常 %1$ld%%。"
+            "value" : "成交量低于平常 %1$@。"
           }
         }
       }
@@ -257732,187 +258878,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أقل من المعتاد بنسبة %1$ld%%، التمويل مرتفع."
+            "value" : "الحجم أقل من المعتاد بنسبة %1$@، التمويل مرتفع."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$ld %% pod normálem, funding zvýšený."
+            "value" : "Objem o %1$@ pod normálem, funding zvýšený."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% under normalt, funding forhøjet."
+            "value" : "Volumen %1$@ under normalt, funding forhøjet."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% unter normal, Funding erhöht."
+            "value" : "Volumen %1$@ unter normal, Funding erhöht."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$ld%% κάτω από το κανονικό, funding αυξημένο."
+            "value" : "Όγκος %1$@ κάτω από το κανονικό, funding αυξημένο."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% below normal, funding elevated."
+            "value" : "Volume %1$@ below normal, funding elevated."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%% por debajo de lo normal, funding elevado."
+            "value" : "Volumen %1$@ por debajo de lo normal, funding elevado."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$ld%% پایین‌تر از حالت عادی، فاندینگ بالا."
+            "value" : "حجم %1$@ پایین‌تر از حالت عادی، فاندینگ بالا."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$ld %% tavallista pienempi, funding koholla."
+            "value" : "Volyymi %1$@ tavallista pienempi, funding koholla."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld %% en dessous de la normale, funding élevé."
+            "value" : "Volume %1$@ en dessous de la normale, funding élevé."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח נמוך ב-%1$ld%% מהרגיל, מימון גבוה."
+            "value" : "נפח נמוך ב-%1$@ מהרגיל, מימון גבוה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$ld%% कम, फ़ंडिंग ऊँचा।"
+            "value" : "वॉल्यूम सामान्य से %1$@ कम, फ़ंडिंग ऊँचा।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%%-kal a szokásos alatt, funding emelkedett."
+            "value" : "Volumen %1$@-kal a szokásos alatt, funding emelkedett."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% di bawah normal, funding tinggi."
+            "value" : "Volume %1$@ di bawah normal, funding tinggi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% sotto il normale, funding elevato."
+            "value" : "Volume %1$@ sotto il normale, funding elevato."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$ld%% 少ない、資金調達率は高め。"
+            "value" : "出来高は通常より %1$@ 少ない、資金調達率は高め。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$ld%% 적음, 펀딩비 높음."
+            "value" : "거래량 평소보다 %1$@ 적음, 펀딩비 높음."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$ld %% under normalt, funding forhøyet."
+            "value" : "Volum %1$@ under normalt, funding forhøyet."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% onder normaal, funding verhoogd."
+            "value" : "Volume %1$@ onder normaal, funding verhoogd."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$ld%% poniżej normy, funding podwyższony."
+            "value" : "Wolumen %1$@ poniżej normy, funding podwyższony."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% abaixo do normal, funding elevado."
+            "value" : "Volume %1$@ abaixo do normal, funding elevado."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% abaixo do normal, funding elevado."
+            "value" : "Volume %1$@ abaixo do normal, funding elevado."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$ld%% sub normal, funding ridicat."
+            "value" : "Volum cu %1$@ sub normal, funding ridicat."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$ld%% ниже нормы, фандинг повышен."
+            "value" : "Объём на %1$@ ниже нормы, фандинг повышен."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$ld%% nën normalen, funding i lartë."
+            "value" : "Vëllimi %1$@ nën normalen, funding i lartë."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$ld %% under det normala, funding förhöjd."
+            "value" : "Volym %1$@ under det normala, funding förhöjd."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณต่ำกว่าปกติ %1$ld%% Funding สูง"
+            "value" : "ปริมาณต่ำกว่าปกติ %1$@ Funding สูง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %%%1$ld altında, fonlama yüksek."
+            "value" : "Hacim normalin %1$@ altında, fonlama yüksek."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$ld%% нижчий за норму, фандинг підвищений."
+            "value" : "Обсяг на %1$@ нижчий за норму, фандинг підвищений."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng thấp hơn bình thường %1$ld%%, funding cao."
+            "value" : "Khối lượng thấp hơn bình thường %1$@, funding cao."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量低于平常 %1$ld%%，资金费率偏高。"
+            "value" : "成交量低于平常 %1$@，资金费率偏高。"
           }
         }
       }
@@ -257923,187 +259069,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أقل من المعتاد بنسبة %1$ld%%، التمويل سلبي."
+            "value" : "الحجم أقل من المعتاد بنسبة %1$@، التمويل سلبي."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$ld %% pod normálem, funding záporný."
+            "value" : "Objem o %1$@ pod normálem, funding záporný."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% under normalt, funding negativ."
+            "value" : "Volumen %1$@ under normalt, funding negativ."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% unter normal, Funding negativ."
+            "value" : "Volumen %1$@ unter normal, Funding negativ."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$ld%% κάτω από το κανονικό, funding αρνητικό."
+            "value" : "Όγκος %1$@ κάτω από το κανονικό, funding αρνητικό."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% below normal, funding negative."
+            "value" : "Volume %1$@ below normal, funding negative."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%% por debajo de lo normal, funding negativo."
+            "value" : "Volumen %1$@ por debajo de lo normal, funding negativo."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$ld%% پایین‌تر از حالت عادی، فاندینگ منفی."
+            "value" : "حجم %1$@ پایین‌تر از حالت عادی، فاندینگ منفی."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$ld %% tavallista pienempi, funding negatiivinen."
+            "value" : "Volyymi %1$@ tavallista pienempi, funding negatiivinen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld %% en dessous de la normale, funding négatif."
+            "value" : "Volume %1$@ en dessous de la normale, funding négatif."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח נמוך ב-%1$ld%% מהרגיל, מימון שלילי."
+            "value" : "נפח נמוך ב-%1$@ מהרגיל, מימון שלילי."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$ld%% कम, फ़ंडिंग नेगेटिव।"
+            "value" : "वॉल्यूम सामान्य से %1$@ कम, फ़ंडिंग नेगेटिव।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%%-kal a szokásos alatt, funding negatív."
+            "value" : "Volumen %1$@-kal a szokásos alatt, funding negatív."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% di bawah normal, funding negatif."
+            "value" : "Volume %1$@ di bawah normal, funding negatif."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% sotto il normale, funding negativo."
+            "value" : "Volume %1$@ sotto il normale, funding negativo."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$ld%% 少ない、資金調達率はマイナス。"
+            "value" : "出来高は通常より %1$@ 少ない、資金調達率はマイナス。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$ld%% 적음, 펀딩비 마이너스."
+            "value" : "거래량 평소보다 %1$@ 적음, 펀딩비 마이너스."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$ld %% under normalt, funding negativ."
+            "value" : "Volum %1$@ under normalt, funding negativ."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% onder normaal, funding negatief."
+            "value" : "Volume %1$@ onder normaal, funding negatief."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$ld%% poniżej normy, funding ujemny."
+            "value" : "Wolumen %1$@ poniżej normy, funding ujemny."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% abaixo do normal, funding negativo."
+            "value" : "Volume %1$@ abaixo do normal, funding negativo."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% abaixo do normal, funding negativo."
+            "value" : "Volume %1$@ abaixo do normal, funding negativo."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$ld%% sub normal, funding negativ."
+            "value" : "Volum cu %1$@ sub normal, funding negativ."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$ld%% ниже нормы, фандинг отрицательный."
+            "value" : "Объём на %1$@ ниже нормы, фандинг отрицательный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$ld%% nën normalen, funding negativ."
+            "value" : "Vëllimi %1$@ nën normalen, funding negativ."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$ld %% under det normala, funding negativ."
+            "value" : "Volym %1$@ under det normala, funding negativ."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณต่ำกว่าปกติ %1$ld%% Funding ติดลบ"
+            "value" : "ปริมาณต่ำกว่าปกติ %1$@ Funding ติดลบ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %%%1$ld altında, fonlama negatif."
+            "value" : "Hacim normalin %1$@ altında, fonlama negatif."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$ld%% нижчий за норму, фандинг від’ємний."
+            "value" : "Обсяг на %1$@ нижчий за норму, фандинг від’ємний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng thấp hơn bình thường %1$ld%%, funding âm."
+            "value" : "Khối lượng thấp hơn bình thường %1$@, funding âm."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量低于平常 %1$ld%%，资金费率为负。"
+            "value" : "成交量低于平常 %1$@，资金费率为负。"
           }
         }
       }
@@ -258114,187 +259260,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أقل من المعتاد بنسبة %1$ld%%، التمويل محايد."
+            "value" : "الحجم أقل من المعتاد بنسبة %1$@، التمويل محايد."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$ld %% pod normálem, funding neutrální."
+            "value" : "Objem o %1$@ pod normálem, funding neutrální."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% under normalt, funding neutral."
+            "value" : "Volumen %1$@ under normalt, funding neutral."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld %% unter normal, Funding neutral."
+            "value" : "Volumen %1$@ unter normal, Funding neutral."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$ld%% κάτω από το κανονικό, funding ουδέτερο."
+            "value" : "Όγκος %1$@ κάτω από το κανονικό, funding ουδέτερο."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% below normal, funding neutral."
+            "value" : "Volume %1$@ below normal, funding neutral."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%% por debajo de lo normal, funding neutral."
+            "value" : "Volumen %1$@ por debajo de lo normal, funding neutral."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$ld%% پایین‌تر از حالت عادی، فاندینگ خنثی."
+            "value" : "حجم %1$@ پایین‌تر از حالت عادی، فاندینگ خنثی."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$ld %% tavallista pienempi, funding neutraali."
+            "value" : "Volyymi %1$@ tavallista pienempi, funding neutraali."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld %% en dessous de la normale, funding neutre."
+            "value" : "Volume %1$@ en dessous de la normale, funding neutre."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח נמוך ב-%1$ld%% מהרגיל, מימון ניטרלי."
+            "value" : "נפח נמוך ב-%1$@ מהרגיל, מימון ניטרלי."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$ld%% कम, फ़ंडिंग न्यूट्रल।"
+            "value" : "वॉल्यूम सामान्य से %1$@ कम, फ़ंडिंग न्यूट्रल।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$ld%%-kal a szokásos alatt, funding semleges."
+            "value" : "Volumen %1$@-kal a szokásos alatt, funding semleges."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% di bawah normal, funding netral."
+            "value" : "Volume %1$@ di bawah normal, funding netral."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% sotto il normale, funding neutro."
+            "value" : "Volume %1$@ sotto il normale, funding neutro."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$ld%% 少ない、資金調達率は中立。"
+            "value" : "出来高は通常より %1$@ 少ない、資金調達率は中立。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$ld%% 적음, 펀딩비 중립."
+            "value" : "거래량 평소보다 %1$@ 적음, 펀딩비 중립."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$ld %% under normalt, funding nøytral."
+            "value" : "Volum %1$@ under normalt, funding nøytral."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% onder normaal, funding neutraal."
+            "value" : "Volume %1$@ onder normaal, funding neutraal."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$ld%% poniżej normy, funding neutralny."
+            "value" : "Wolumen %1$@ poniżej normy, funding neutralny."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% abaixo do normal, funding neutro."
+            "value" : "Volume %1$@ abaixo do normal, funding neutro."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$ld%% abaixo do normal, funding neutro."
+            "value" : "Volume %1$@ abaixo do normal, funding neutro."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$ld%% sub normal, funding neutru."
+            "value" : "Volum cu %1$@ sub normal, funding neutru."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$ld%% ниже нормы, фандинг нейтральный."
+            "value" : "Объём на %1$@ ниже нормы, фандинг нейтральный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$ld%% nën normalen, funding neutral."
+            "value" : "Vëllimi %1$@ nën normalen, funding neutral."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$ld %% under det normala, funding neutral."
+            "value" : "Volym %1$@ under det normala, funding neutral."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณต่ำกว่าปกติ %1$ld%% Funding เป็นกลาง"
+            "value" : "ปริมาณต่ำกว่าปกติ %1$@ Funding เป็นกลาง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %%%1$ld altında, fonlama nötr."
+            "value" : "Hacim normalin %1$@ altında, fonlama nötr."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$ld%% нижчий за норму, фандинг нейтральний."
+            "value" : "Обсяг на %1$@ нижчий за норму, фандинг нейтральний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng thấp hơn bình thường %1$ld%%, funding trung tính."
+            "value" : "Khối lượng thấp hơn bình thường %1$@, funding trung tính."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量低于平常 %1$ld%%，资金费率中性。"
+            "value" : "成交量低于平常 %1$@，资金费率中性。"
           }
         }
       }
@@ -357779,187 +358925,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فارق كبير بين سعر الشراء وسعر البيع (%1$@%%)"
+            "value" : "فارق كبير بين سعر الشراء وسعر البيع (%1$@)"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Velký rozdíl mezi nákupní a prodejní cenou (%1$@ %%)"
+            "value" : "Velký rozdíl mezi nákupní a prodejní cenou (%1$@)"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Stor forskel mellem købs- og salgspris (%1$@ %%)"
+            "value" : "Stor forskel mellem købs- og salgspris (%1$@)"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Grosser Abstand Kauf/Verkauf (%1$@ %%)"
+            "value" : "Grosser Abstand Kauf/Verkauf (%1$@)"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Μεγάλη διαφορά τιμής αγοράς και πώλησης (%1$@%%)"
+            "value" : "Μεγάλη διαφορά τιμής αγοράς και πώλησης (%1$@)"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wide gap between buy and sell price (%1$@%%)"
+            "value" : "Wide gap between buy and sell price (%1$@)"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gran diferencia entre compra y venta (%1$@ %%)"
+            "value" : "Gran diferencia entre compra y venta (%1$@)"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فاصله زیاد بین قیمت خرید و فروش (%1$@%%)"
+            "value" : "فاصله زیاد بین قیمت خرید و فروش (%1$@)"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Suuri ero osto- ja myyntihinnan välillä (%1$@ %%)"
+            "value" : "Suuri ero osto- ja myyntihinnan välillä (%1$@)"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Écart important entre achat et vente (%1$@ %%)"
+            "value" : "Écart important entre achat et vente (%1$@)"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "פער גדול בין מחיר הקנייה למחיר המכירה (%1$@%%)"
+            "value" : "פער גדול בין מחיר הקנייה למחיר המכירה (%1$@)"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ख़रीद और बिक्री मूल्य में बड़ा अंतर (%1$@%%)"
+            "value" : "ख़रीद और बिक्री मूल्य में बड़ा अंतर (%1$@)"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nagy különbség a vételi és az eladási ár között (%1$@%%)"
+            "value" : "Nagy különbség a vételi és az eladási ár között (%1$@)"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Selisih besar antara harga beli dan jual (%1$@%%)"
+            "value" : "Selisih besar antara harga beli dan jual (%1$@)"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ampio divario tra denaro e lettera (%1$@%%)"
+            "value" : "Ampio divario tra denaro e lettera (%1$@)"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "買気配と売気配の差が大きい（%1$@%%）"
+            "value" : "買気配と売気配の差が大きい（%1$@）"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "매수·매도 호가 차이가 큼 (%1$@%%)"
+            "value" : "매수·매도 호가 차이가 큼 (%1$@)"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Stor forskjell mellom kjøps- og salgspris (%1$@ %%)"
+            "value" : "Stor forskjell mellom kjøps- og salgspris (%1$@)"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Groot verschil tussen koop- en verkoopprijs (%1$@%%)"
+            "value" : "Groot verschil tussen koop- en verkoopprijs (%1$@)"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Duża różnica między ceną kupna a sprzedaży (%1$@%%)"
+            "value" : "Duża różnica między ceną kupna a sprzedaży (%1$@)"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Grande diferença entre compra e venda (%1$@%%)"
+            "value" : "Grande diferença entre compra e venda (%1$@)"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Grande diferença entre compra e venda (%1$@%%)"
+            "value" : "Grande diferença entre compra e venda (%1$@)"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diferență mare între prețul de cumpărare și cel de vânzare (%1$@%%)"
+            "value" : "Diferență mare între prețul de cumpărare și cel de vânzare (%1$@)"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Большой разрыв между ценой покупки и продажи (%1$@ %%)"
+            "value" : "Большой разрыв между ценой покупки и продажи (%1$@)"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diferencë e madhe mes çmimit të blerjes dhe të shitjes (%1$@%%)"
+            "value" : "Diferencë e madhe mes çmimit të blerjes dhe të shitjes (%1$@)"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Stor skillnad mellan köp- och säljpris (%1$@ %%)"
+            "value" : "Stor skillnad mellan köp- och säljpris (%1$@)"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ส่วนต่างราคาซื้อ-ขายสูง (%1$@%%)"
+            "value" : "ส่วนต่างราคาซื้อ-ขายสูง (%1$@)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alış ve satış fiyatı arasında büyük fark (%%%1$@)"
+            "value" : "Alış ve satış fiyatı arasında büyük fark (%1$@)"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Великий розрив між ціною купівлі та продажу (%1$@%%)"
+            "value" : "Великий розрив між ціною купівлі та продажу (%1$@)"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chênh lệch lớn giữa giá mua và giá bán (%1$@%%)"
+            "value" : "Chênh lệch lớn giữa giá mua và giá bán (%1$@)"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "买卖价差较大（%1$@%%）"
+            "value" : "买卖价差较大（%1$@）"
           }
         }
       }
@@ -419338,187 +420484,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عتامة الخلفية: %1$ld%%"
+            "value" : "عتامة الخلفية: %1$@"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Neprůhlednost pozadí: %1$ld%%"
+            "value" : "Neprůhlednost pozadí: %1$@"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Baggrundens uigennemsigtighed: %1$ld %%"
+            "value" : "Baggrundens uigennemsigtighed: %1$@"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deckkraft des Hintergrunds: %1$ld %%"
+            "value" : "Deckkraft des Hintergrunds: %1$@"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Αδιαφάνεια φόντου: %1$ld%%"
+            "value" : "Αδιαφάνεια φόντου: %1$@"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Background opacity: %1$ld%%"
+            "value" : "Background opacity: %1$@"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opacidad del fondo: %1$ld%%"
+            "value" : "Opacidad del fondo: %1$@"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "شفافیت پس‌زمینه: %1$ld%%"
+            "value" : "شفافیت پس‌زمینه: %1$@"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Taustan peittävyys: %1$ld%%"
+            "value" : "Taustan peittävyys: %1$@"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opacité du fond : %1$ld%%"
+            "value" : "Opacité du fond : %1$@"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "אטימות הרקע: %1$ld%%"
+            "value" : "אטימות הרקע: %1$@"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "बैकग्राउंड अपारदर्शिता: %1$ld%%"
+            "value" : "बैकग्राउंड अपारदर्शिता: %1$@"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Háttér átlátszatlansága: %1$ld%%"
+            "value" : "Háttér átlátszatlansága: %1$@"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opasitas latar: %1$ld%%"
+            "value" : "Opasitas latar: %1$@"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opacità sfondo: %1$ld%%"
+            "value" : "Opacità sfondo: %1$@"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "背景の不透明度: %1$ld%%"
+            "value" : "背景の不透明度: %1$@"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "배경 불투명도: %1$ld%%"
+            "value" : "배경 불투명도: %1$@"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bakgrunnens ugjennomsiktighet: %1$ld %%"
+            "value" : "Bakgrunnens ugjennomsiktighet: %1$@"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Achtergronddekking: %1$ld%%"
+            "value" : "Achtergronddekking: %1$@"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Krycie tła: %1$ld%%"
+            "value" : "Krycie tła: %1$@"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opacidade do fundo: %1$ld%%"
+            "value" : "Opacidade do fundo: %1$@"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opacidade do fundo: %1$ld%%"
+            "value" : "Opacidade do fundo: %1$@"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opacitatea fundalului: %1$ld%%"
+            "value" : "Opacitatea fundalului: %1$@"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Непрозрачность фона: %1$ld%%"
+            "value" : "Непрозрачность фона: %1$@"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Patejdukshmëria e sfondit: %1$ld%%"
+            "value" : "Patejdukshmëria e sfondit: %1$@"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bakgrundens opacitet: %1$ld %%"
+            "value" : "Bakgrundens opacitet: %1$@"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ความทึบพื้นหลัง: %1$ld%%"
+            "value" : "ความทึบพื้นหลัง: %1$@"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Arka plan opaklığı: %%%1$ld"
+            "value" : "Arka plan opaklığı: %1$@"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Непрозорість фону: %1$ld%%"
+            "value" : "Непрозорість фону: %1$@"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Độ mờ nền: %1$ld%%"
+            "value" : "Độ mờ nền: %1$@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "背景不透明度：%1$ld%%"
+            "value" : "背景不透明度：%1$@"
           }
         }
       }

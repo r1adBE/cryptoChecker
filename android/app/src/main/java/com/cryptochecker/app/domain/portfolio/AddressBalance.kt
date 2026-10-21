@@ -167,21 +167,12 @@ object AddressBalance {
 
     /**
      * Zählende Adressen ([WatchedAddress.countInPortfolio]), deren Guthaben noch nie geladen wurde (z. B. frisch
-     * wiederhergestellt, xpub ohne Zwischenspeicher im Hintergrund): sie fehlen in [holdings], der Gesamtwert ist dann zu
-     * tief — Portfolio-Alarme prüfen nicht ([com.cryptochecker.app.domain.alarm.PortfolioReading.addressesPending]).
-     * Einzelne Bitcoin-Adressen in einem beobachteten xpub zählen über den xpub, gleiche Adressen einmal.
+     * wiederhergestellt, xpub ohne Zwischenspeicher im Hintergrund) und die noch «laden» ([AddressAlarmState.isPending]):
+     * sie fehlen in [holdings], der Gesamtwert ist dann zu tief — Portfolio-Alarme prüfen nicht
+     * ([com.cryptochecker.app.domain.alarm.PortfolioReading.addressesPending]). Seit Build 95 zählt eine Adresse, die seit
+     * über 24 Stunden scheitert, nicht mehr ([AddressAlarmState.failing]). Regeln wie [AddressAlarmState.of].
      */
-    fun pendingCount(addresses: List<WatchedAddress>): Int {
-        val counted = addresses.filter { it.countInPortfolio }
-        val covered = WatchedAddressRules.coveredByXpub(counted)
-        val loaded = counted.filter { PortfolioDecimal.parse(it.lastBalance)?.let { v -> v.signum() >= 0 } == true }
-        return counted.filterIndexed { i, a ->
-            if (a.chain == AddressChain.BTC && !a.isXpub && a.address in covered) return@filterIndexed false
-            if (loaded.any { it.chain == a.chain && WatchedAddressRules.sameAddress(a.chain, it.address, a.address) }) return@filterIndexed false
-            // Gleiche Adresse doppelt ohne Guthaben: einmal
-            counted.subList(0, i).none { it.chain == a.chain && WatchedAddressRules.sameAddress(a.chain, it.address, a.address) }
-        }.size
-    }
+    fun pendingCount(addresses: List<WatchedAddress>, now: Long): Int = AddressAlarmState.of(addresses, now).pending
 
     /** Anbieter für die Herkunftsangabe: «mempool.space», «publicnode.com», «llamarpc.com». */
     fun providerName(hostOrUrl: String): String {

@@ -8,6 +8,7 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
+import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.notification.NotificationChannels
@@ -91,6 +92,8 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
         AppLanguages.restoreForActivities(this)
         AppLanguages.applyNumberLocale()
+        // Uhrzeiten (PriceFormat.time, MomentText) nach der 12/24-h-Einstellung des Systems
+        com.cryptochecker.app.util.ClockText.install(this)
 
         if (BuildConfig.DEBUG) Timber.plant(DebugTree())
 
@@ -120,7 +123,8 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
         // Einstellungen neu angelegt (z. B. Datei beschädigt), Portfolio-Daten aber da: Portfolio wieder an
         scope.launch {
-            PortfolioDataCheck.resolve(this@CryptoCheckerApp) {
+            // Nur leer im Arbeitsspeicher (Schlüssel nicht lesbar): nicht als «keine Daten» entscheiden
+            PortfolioDataCheck.resolve(this@CryptoCheckerApp, portfolioInMemory = { PortfolioDatabase.inMemory() }) {
                 portfolioRepository.hasData() || portfolioAlarmRepository.get().getAll().isNotEmpty()
             }
         }

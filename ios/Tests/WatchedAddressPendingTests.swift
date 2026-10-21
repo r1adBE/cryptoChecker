@@ -19,8 +19,9 @@ final class WatchedAddressPendingTests: XCTestCase {
                            address: $0["address"] as? String ?? "", lastBalance: $0["lastBalance"] as? String,
                            countInPortfolio: $0["countInPortfolio"] as? Bool ?? true)
         }
-        XCTAssertEqual(AddressBalance.pendingCount(list), Int(int64(p["expected"])))
-        XCTAssertEqual(AddressBalance.pendingCount([]), 0)
+        let now = int64(p["now"])
+        XCTAssertEqual(AddressBalance.pendingCount(list, now: now), Int(int64(p["expected"])))
+        XCTAssertEqual(AddressBalance.pendingCount([], now: now), 0)
     }
 
     func testDueOrder() throws {
@@ -42,7 +43,7 @@ final class WatchedAddressPendingTests: XCTestCase {
             WatchedAddress(chain: .ETH, address: "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed", lastBalance: nil,
                            countInPortfolio: false),
         ]
-        let pending = AddressBalance.pendingCount(addresses)
+        let pending = AddressBalance.pendingCount(addresses, now: 1_700_000_000_000)
         XCTAssertEqual(pending, 1)
         var reading = PortfolioReading(total: 50, currency: "CHF", totalUsdt: 55, changePercent: 12, empty: false)
         reading.addressesPending = pending

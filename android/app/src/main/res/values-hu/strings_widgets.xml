@@ -8,7 +8,7 @@
     <string name="widget_empty">Még nincsenek párok a figyelőlistán.</string>
     <string name="widget_group_hint">Csak ennek a csoportnak a párjait mutassa.</string>
     <string name="widget_kind_single">Egy érme</string>
-    <string name="widget_opacity">Háttér átlátszatlansága: %1$d%%</string>
+    <string name="widget_opacity">Háttér átlátszatlansága: %1$s</string>
     <string name="widget_pulse_description">Ami most kiemelkedik a piacon: címsor, rövid összefoglaló, valamint Bitcoin, Ethereum és Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

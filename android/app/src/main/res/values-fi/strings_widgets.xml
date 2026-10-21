@@ -8,7 +8,7 @@
     <string name="widget_empty">Seurantalistalla ei ole vielä pareja.</string>
     <string name="widget_group_hint">Näytä vain tämän ryhmän parit.</string>
     <string name="widget_kind_single">Yksi kolikko</string>
-    <string name="widget_opacity">Taustan peittävyys: %1$d%%</string>
+    <string name="widget_opacity">Taustan peittävyys: %1$s</string>
     <string name="widget_pulse_description">Mikä markkinoilla erottuu juuri nyt: otsikko, lyhyt yhteenveto sekä Bitcoin, Ethereum ja Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

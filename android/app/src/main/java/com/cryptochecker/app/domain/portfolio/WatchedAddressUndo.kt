@@ -25,4 +25,17 @@ object WatchedAddressUndo {
             existing.none { it.id == removed.id } &&
             !WatchedAddressRules.contains(existing, removed.chain, removed.address) &&
             WatchedAddressRules.canAdd(existing)
+
+    /** Warum «Rückgängig» nicht ging (seit Build 95: Banner statt still nichts). */
+    enum class RestoreFailure { DUPLICATE, LIMIT, NOT_SAVED }
+
+    /**
+     * Grund nach einem gescheiterten Zurückholen: dieselbe Adresse inzwischen neu hinzugefügt, Liste voll — sonst nicht
+     * gespeichert (Id belegt, Datei bzw. Datenbank gerade nicht beschreibbar).
+     */
+    fun failure(existing: List<WatchedAddress>, removed: WatchedAddress): RestoreFailure = when {
+        WatchedAddressRules.contains(existing, removed.chain, removed.address) -> RestoreFailure.DUPLICATE
+        !WatchedAddressRules.canAdd(existing) -> RestoreFailure.LIMIT
+        else -> RestoreFailure.NOT_SAVED
+    }
 }

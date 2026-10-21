@@ -36,8 +36,7 @@ import com.cryptochecker.app.ui.theme.LocalHighContrast
 import com.cryptochecker.app.ui.theme.PriceColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.label
-import java.text.DateFormat
-import java.util.Date
+import com.cryptochecker.app.util.PriceFormat
 
 /**
  * «Was gerade auffällt», die eine Heldenkarte oben im Markt-Tab (Entscheid Build 83: nur diese Karte
@@ -138,7 +137,7 @@ private fun PulseContent(report: PulseReport, plain: PlainSummary?, expanded: Bo
         Text(
             stringResource(
                 R.string.pulse_updated,
-                DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(report.time))
+                PriceFormat.shortTime(report.time)
             ),
             style = MaterialTheme.typography.label,
             color = MaterialTheme.colorScheme.onSurfaceVariant,

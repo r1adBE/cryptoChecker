@@ -18,18 +18,22 @@ object MomentText {
     fun isSameDay(millis: Long, now: Long, zone: ZoneId = ZoneId.systemDefault()): Boolean =
         Instant.ofEpochMilli(millis).atZone(zone).toLocalDate() == Instant.ofEpochMilli(now).atZone(zone).toLocalDate()
 
-    /** Heute: Uhrzeit mit Sekunden; sonst Datum und Uhrzeit kurz; nicht gesetzt (≤ 0): «—». */
+    /**
+     * Heute: Uhrzeit mit Sekunden; sonst Datum und Uhrzeit kurz; nicht gesetzt (≤ 0): «—». 12/24 h nach der
+     * Systemeinstellung ([ClockText], seit Build 95); [is24] = null: wie die Sprache.
+     */
     fun moment(
         millis: Long,
         now: Long = System.currentTimeMillis(),
         zone: ZoneId = ZoneId.systemDefault(),
         locale: Locale = LocaleNumbers.appLocale,
+        is24: Boolean? = ClockText.systemIs24Hour(),
     ): String {
         if (millis <= 0) return "—"
         val format = if (isSameDay(millis, now, zone)) {
-            DateFormat.getTimeInstance(DateFormat.MEDIUM, locale)
+            ClockText.format(locale, withSeconds = true, is24 = is24)
         } else {
-            DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale)
+            ClockText.format(locale, withSeconds = false, is24 = is24, dateStyle = DateFormat.SHORT)
         }
         format.timeZone = TimeZone.getTimeZone(zone)
         return format.format(Date(millis))

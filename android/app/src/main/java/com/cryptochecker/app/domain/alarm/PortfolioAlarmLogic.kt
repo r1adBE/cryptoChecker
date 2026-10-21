@@ -80,9 +80,21 @@ data class PortfolioReading(
     /**
      * Zählende Adressen, deren Guthaben noch nie geladen wurde
      * ([com.cryptochecker.app.domain.portfolio.AddressBalance.pendingCount]): sie fehlen im Gesamtwert — dann prüft
-     * KEIN Portfolio-Alarm (seit Build 94).
+     * KEIN Portfolio-Alarm (seit Build 94). Seit über 24 Stunden scheiternde zählen nicht ([addressesFailing]).
      */
     val addressesPending: Int = 0,
+    /**
+     * Zählende Adressen, deren Guthaben nie geladen hat und seit über 24 Stunden scheitert
+     * ([com.cryptochecker.app.domain.portfolio.AddressAlarmState.failing]): die Alarme rechnen ohne sie (keine endlose
+     * Pause), der Hinweis nennt sie ([PortfolioAlarmPause.AddressesFailing]).
+     */
+    val addressesFailing: List<String> = emptyList(),
+    /**
+     * Adressen mit nicht bestätigten Token-Guthaben ([com.cryptochecker.app.domain.portfolio.WatchedAddress.staleTokens]):
+     * zählen wie ein alter Kurs mit Wert [staleTokenValueUsdt] ([PortfolioAlarmLogic.staleMaterial]).
+     */
+    val staleTokenAddresses: List<String> = emptyList(),
+    val staleTokenValueUsdt: Double = 0.0,
     /**
      * Live-Kurs USDT/USD ([DepegAlarm.liveUsdtUsd]) für Alarme in einer anderen Währung als der Stand: USDT gilt in
      * Fiat (auch USD) seinen Marktkurs wie im Portfolio-Kopf ([PortfolioStables.usdtUsd]); null = keiner (× 1, Näherung).
@@ -97,6 +109,12 @@ sealed interface PortfolioAlarmPause {
 
     /** Kein aktueller Kurs für diese Coins (leer = Namen unbekannt, ältere Aufnahme). */
     data class NoPrice(val coins: List<String>) : PortfolioAlarmPause
+
+    /** Token-Guthaben dieser Adressen nicht bestätigt (wesentlich, wie ein alter Kurs). */
+    data class TokensStale(val addresses: List<String>) : PortfolioAlarmPause
+
+    /** Keine Pause, nur Hinweis: die Alarme rechnen ohne diese seit über 24 Stunden scheiternden Adressen. */
+    data class AddressesFailing(val addresses: List<String>) : PortfolioAlarmPause
 }
 
 /** Ergebnis der Prüfung eines Portfolio-Alarms. */
@@ -205,8 +223,13 @@ object PortfolioAlarmLogic {
      * ([PortfolioReading.missingPrices]) haben keinen schätzbaren Wert und sperren Wert-Alarme weiter.
      */
     fun staleMaterial(reading: PortfolioReading): Boolean {
-        if (reading.stalePrices <= 0) return false
-        val stale = reading.staleValueUsdt?.takeIf { it.isFinite() && it >= 0.0 } ?: return true
+        val prices = reading.stalePrices > 0
+        // Nicht bestätigte Token-Guthaben (seit Build 95) zählen wie Coins mit altem Kurs, Wert zusammen
+        val tokens = reading.staleTokenAddresses.isNotEmpty()
+        if (!prices && !tokens) return false
+        var stale = 0.0
+        if (prices) stale += reading.staleValueUsdt?.takeIf { it.isFinite() && it >= 0.0 } ?: return true
+        if (tokens) stale += reading.staleTokenValueUsdt.takeIf { it.isFinite() && it >= 0.0 } ?: return true
         val total = reading.totalUsdt?.takeIf { it.isFinite() && it > 0.0 } ?: return true
         return stale >= total * IMMATERIAL_SHARE
     }
@@ -221,7 +244,9 @@ object PortfolioAlarmLogic {
     /**
      * Warum die eingeschalteten Portfolio-Alarme ([kinds]) gerade nicht prüfen (Hinweis in der Alarm-Übersicht); null =
      * mindestens nicht wegen Adressen oder Kursen. Adressen zuerst (betrifft jede Art); sonst Coins ohne aktuellen
-     * Kurs: die wesentlichen alten ([staleCoins]) und — bei Wert-Alarmen — die ganz ohne Kurs ([missingCoins]).
+     * Kurs: die wesentlichen alten ([staleCoins]) und — bei Wert-Alarmen — die ganz ohne Kurs ([missingCoins]); sind es
+     * nur nicht bestätigte Token-Guthaben, deren Adressen ([PortfolioAlarmPause.TokensStale]). Ohne Pause der Hinweis auf
+     * seit über 24 Stunden scheiternde Adressen ([PortfolioAlarmPause.AddressesFailing]).
      */
     fun pause(
         kinds: Collection<PortfolioAlarmKind>,
@@ -233,7 +258,10 @@ object PortfolioAlarmLogic {
         if (reading.addressesPending > 0) return PortfolioAlarmPause.AddressesPending(reading.addressesPending)
         val staleBlocks = staleMaterial(reading)
         val missingBlocks = kinds.any { it.isValue } && reading.missingPrices > 0
-        if (!staleBlocks && !missingBlocks) return null
+        if (!staleBlocks && !missingBlocks) {
+            return reading.addressesFailing.takeIf { it.isNotEmpty() }?.let { PortfolioAlarmPause.AddressesFailing(it) }
+        }
+        if (staleBlocks && reading.stalePrices <= 0 && !missingBlocks) return PortfolioAlarmPause.TokensStale(reading.staleTokenAddresses)
         val coins = LinkedHashSet<String>()
         if (staleBlocks) coins += staleCoins
         if (missingBlocks) coins += missingCoins

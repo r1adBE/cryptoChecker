@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Alarmet e portofolit janë pezulluar: nuk ka çmim aktual për %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Alarmet e portofolit janë pezulluar: jo të gjitha monedhat kanë çmim aktual</string>
     <string name="portfolio_alarms_paused_addresses">Alarmet e portofolit janë pezulluar: balancat e adresave të ndjekura nuk janë ngarkuar ende</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Alarmet e portofolit janë pezulluar: balancat e tokenëve të %1$s janë pjesërisht të vjetruara</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alarmet e portofolit janë pezulluar: balancat e tokenëve të adresave të ndjekura janë pjesërisht të vjetruara</string>
+    <string name="portfolio_alarms_address_failing">Alarmet e portofolit kontrollojnë pa %1$s: balanca nuk është ngarkuar për më shumë se 24 orë</string>
+    <string name="portfolio_alarms_address_failing_generic">Alarmet e portofolit kontrollojnë pa adresat, balanca e të cilave nuk ngarkohet për më shumë se 24 orë</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokenët pjesërisht të vjetruar</string>
+    <string name="portfolio_address_restore_failed">Adresa nuk mund të rikthehej – shtoje sërish nëse duhet</string>
 </resources>

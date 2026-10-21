@@ -8,7 +8,7 @@
     <string name="widget_empty">В списке пока нет пар.</string>
     <string name="widget_group_hint">Показывать только пары этой группы.</string>
     <string name="widget_kind_single">Одна монета</string>
-    <string name="widget_opacity">Непрозрачность фона: %1$d%%</string>
+    <string name="widget_opacity">Непрозрачность фона: %1$s</string>
     <string name="widget_pulse_description">Что сейчас выделяется на рынке: заголовок, краткая сводка, а также Bitcoin, Ethereum и Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

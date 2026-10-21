@@ -8,7 +8,7 @@
     <string name="widget_empty">Ancora nessuna coppia nella lista di osservazione.</string>
     <string name="widget_group_hint">Mostra solo le coppie di questo gruppo.</string>
     <string name="widget_kind_single">Una moneta</string>
-    <string name="widget_opacity">Opacità sfondo: %1$d%%</string>
+    <string name="widget_opacity">Opacità sfondo: %1$s</string>
     <string name="widget_pulse_description">Cosa spicca ora sul mercato: titolo, breve riassunto e Bitcoin, Ethereum e Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

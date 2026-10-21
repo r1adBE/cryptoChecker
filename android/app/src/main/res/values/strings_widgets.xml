@@ -8,7 +8,7 @@
     <string name="widget_empty">No pairs in the watchlist yet.</string>
     <string name="widget_group_hint">Show only the pairs of this group.</string>
     <string name="widget_kind_single">Single coin</string>
-    <string name="widget_opacity">Background opacity: %1$d%%</string>
+    <string name="widget_opacity">Background opacity: %1$s</string>
     <string name="widget_pulse_description">What stands out in the market right now: headline, short summary and Bitcoin, Ethereum and Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

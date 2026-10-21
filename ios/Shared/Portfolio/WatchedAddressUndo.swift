@@ -34,4 +34,15 @@ enum WatchedAddressUndo {
         file.nextId = max(file.nextId, removed.id + 1)
         return true
     }
+
+    /// Warum «Rückgängig» nicht ging (seit Build 95: Banner statt still nichts). Wie Android.
+    enum RestoreFailure: Equatable, Sendable { case duplicate, limit, notSaved }
+
+    /// Grund nach einem gescheiterten Zurückholen: dieselbe Adresse inzwischen neu hinzugefügt, Liste voll — sonst nicht
+    /// gespeichert (Id belegt, Datei gerade nicht beschreibbar). Wie Android `failure`.
+    static func failure(_ existing: [WatchedAddress], _ removed: WatchedAddress) -> RestoreFailure {
+        if WatchedAddressRules.contains(existing, chain: removed.chain, address: removed.address) { return .duplicate }
+        if !WatchedAddressRules.canAdd(existing) { return .limit }
+        return .notSaved
+    }
 }

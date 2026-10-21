@@ -34,7 +34,7 @@ class WatchedAddressRefresher @Inject constructor(
             for (u in updates) {
                 repository.updateWatchedAddressBalance(
                     u.id, u.fetched?.balance, u.time, u.error, u.fetched?.provider, u.fetched?.tokens, u.fetched?.xpub,
-                    u.fetched?.networks, u.fetched?.unknownTokens,
+                    u.fetched?.networks, u.fetched?.unknownTokens, u.fetched?.keptTokens,
                 )
             }
             updates.isNotEmpty()

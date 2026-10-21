@@ -297,8 +297,18 @@ enum ChainBalance {
 
     /// `{"jetton_wallets":[{"balance":"…","jetton":"0:…"}]}` → bekannte Jettons (Symbol → Text), Summe je Jetton. Volle
     /// Seite (`tonJettonLimit` Einträge): ein bekannter Jetton, der fehlt, kann auf der nächsten Seite stehen — er fehlt dann
-    /// im Ergebnis (unbekannt, der letzte Wert bleibt) statt als 0 zu gelten. Wie Android.
-    static func parseTonJettons(_ body: String) throws -> [String: String] {
+    /// im Ergebnis (unbekannt, der letzte Wert bleibt) statt als 0 zu gelten; siehe `parseTonJettonPage`. Wie Android.
+    static func parseTonJettons(_ body: String) throws -> [String: String] { try parseTonJettonPage(body).tokens }
+
+    /// Gelesene Jetton-Seite: `tokens` wie `parseTonJettons`, `kept` = bekannte Jettons, die auf der vollen Seite fehlen
+    /// (Reihenfolge der Liste). Ihr alter Wert bleibt, gilt aber seit Build 95 als nicht bestätigt (`WatchedAddress.staleTokens`)
+    /// — sonst bliebe er bei dauerhaft voller Seite für immer stehen. Wie Android.
+    struct TonJettonPage: Equatable, Sendable {
+        let tokens: [String: String]
+        let kept: [String]
+    }
+
+    static func parseTonJettonPage(_ body: String) throws -> TonJettonPage {
         guard let wallets = try object(body)["jetton_wallets"] as? [Any] else {
             throw AddressBalance.ParseError(message: "jetton_wallets fehlt")
         }
@@ -311,11 +321,15 @@ enum ChainBalance {
         }
         let full = wallets.count >= tonJettonLimit
         var out: [String: String] = [:]
+        var kept: [String] = []
         for j in ChainAssets.tonJettons {
-            guard let sum = sums[j.symbol] ?? (full ? nil : "0") else { continue }
+            guard let sum = sums[j.symbol] ?? (full ? nil : "0") else {
+                kept.append(j.symbol)
+                continue
+            }
             out[j.symbol] = AddressBalance.unitsText(sum, decimals: j.decimals)
         }
-        return out
+        return TonJettonPage(tokens: out, kept: kept)
     }
 
     // MARK: Cardano

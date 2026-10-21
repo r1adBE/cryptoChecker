@@ -8,7 +8,7 @@
     <string name="widget_empty">Încă nicio pereche în lista de urmărire.</string>
     <string name="widget_group_hint">Afișează doar perechile din acest grup.</string>
     <string name="widget_kind_single">O monedă</string>
-    <string name="widget_opacity">Opacitatea fundalului: %1$d%%</string>
+    <string name="widget_opacity">Opacitatea fundalului: %1$s</string>
     <string name="widget_pulse_description">Ce iese în evidență acum pe piață: titlu, scurt rezumat, plus Bitcoin, Ethereum și Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

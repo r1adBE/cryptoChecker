@@ -8,7 +8,7 @@
     <string name="widget_empty">Brak par na liście obserwowanych.</string>
     <string name="widget_group_hint">Pokazuj tylko pary z tej grupy.</string>
     <string name="widget_kind_single">Jedna moneta</string>
-    <string name="widget_opacity">Krycie tła: %1$d%%</string>
+    <string name="widget_opacity">Krycie tła: %1$s</string>
     <string name="widget_pulse_description">Co teraz wyróżnia się na rynku: nagłówek, krótkie podsumowanie oraz Bitcoin, Ethereum i Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

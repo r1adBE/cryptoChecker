@@ -25,6 +25,8 @@ actor WatchedAddressSource {
         var networks: [String]? = nil
         /// Solana: Token mit Guthaben ausserhalb der Liste.
         var unknownTokens: Int? = nil
+        /// Token, deren alter Wert mangels Antwort bleibt (TON: volle Jetton-Seite); nil = unverändert.
+        var keptTokens: [String]? = nil
     }
 
     /// Ergebnis je Adresse: entweder `fetched` oder `error` (technischer Text).

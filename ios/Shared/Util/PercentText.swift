@@ -5,6 +5,9 @@ import Foundation
 /// Spiegel von `PercentText.kt` (gleiche Tabelle, gleiche Testfälle `Parity/percent_text.json`). Eine eigene kleine
 /// Tabelle statt `NumberFormatter.percent`, damit beide Systeme Zeichen für Zeichen dasselbe liefern.
 ///
+/// Seit Build 95 zählt für den Abstand die ganze Locale (Sprache + Region) wie CLDR, nicht nur die Sprache:
+/// Spanisch (Mexiko) «2.4%», Englisch in Deutschland, Österreich, Schweden, Finnland, Dänemark «2,4 %».
+///
 /// Seit Build 94 die eine Stelle für Kursänderungen, Aktivität («+2.9 %» vorher), Dominanz und das Pulse-Widget.
 enum PercentText {
 
@@ -14,11 +17,27 @@ enum PercentText {
     /// Sprachen mit Abstand vor «%» («2,4 %»).
     private static let spaced: Set<String> = ["de", "fr", "cs", "da", "es", "fi", "nb", "no", "ro", "ru", "sv"]
 
-    /// Deutsch bzw. Französisch (`unspacedLanguages`) in diesen Regionen ohne Abstand (CLDR de_CH, de_LI, fr_CH).
-    private static let unspacedRegions: Set<String> = ["CH", "LI"]
+    /// Ausnahmen nach Region zu `spaced`: diese Sprach-Regionen ohne Abstand (CLDR de_CH, de_LI, fr_CH: «2.4%»,
+    /// es_MX: «2.4%»; die übrigen spanischen Regionen inkl. es_US und es_419 behalten den Abstand).
+    private static let unspacedRegions: [String: Set<String>] = [
+        "de": ["CH", "LI"],
+        "fr": ["CH", "LI"],
+        "es": ["MX"],
+    ]
 
-    /// Sprachen, für die `unspacedRegions` gilt.
-    private static let unspacedLanguages: Set<String> = ["de", "fr"]
+    /// Umgekehrte Ausnahmen: Sprachen ohne Abstand, in diesen Regionen mit (CLDR en_AT, en_DE, en_DK, en_FI, en_SE).
+    private static let spacedRegions: [String: Set<String>] = [
+        "en": ["AT", "DE", "DK", "FI", "SE"],
+    ]
+
+    /// Abstand vor «%» für `language` in `region` nach CLDR (ohne Türkisch und arabische Ziffern).
+    static func isSpaced(language: String, region: String) -> Bool {
+        let r = region.uppercased()
+        if spaced.contains(language) {
+            return !(unspacedRegions[language]?.contains(r) ?? false)
+        }
+        return spacedRegions[language]?.contains(r) ?? false
+    }
 
     /// Arabisches Prozentzeichen «٪» (U+066A) zu arabischen/persischen Ziffern.
     private static let arabicPercent = "\u{066A}"
@@ -31,7 +50,7 @@ enum PercentText {
         if language == "ar" || language == "fa", LocaleNumbers.integer(0, locale: locale) != "0" {
             return number + arabicPercent
         }
-        if spaced.contains(language), !(unspacedLanguages.contains(language) && unspacedRegions.contains(region)) {
+        if isSpaced(language: language, region: region) {
             return number + nbsp + "%"
         }
         return number + "%"

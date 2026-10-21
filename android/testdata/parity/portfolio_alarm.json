@@ -167,7 +167,7 @@
     }
   ],
   "incomplete": {
-    "_comment": "PortfolioAlarmLogic.incomplete / pause (seit Build 94): nie geladene Adressen sperren jede Art; alte Kurse nur, wenn ihr Wert (staleValueUsdt, null = unbekannt) mindestens 1 % (immaterialShare) von totalUsdt ist; Coins ohne Kurs sperren Wert-Alarme, fehlende Vergleichskurse %-Alarme. pause: null = nicht pausiert, sonst addresses bzw. coins (stale nur wenn wesentlich, missing nur mit Wert-Alarm).",
+    "_comment": "PortfolioAlarmLogic.incomplete / pause (seit Build 94): nie geladene Adressen sperren jede Art; alte Kurse nur, wenn ihr Wert (staleValueUsdt, null = unbekannt) mindestens 1 % (immaterialShare) von totalUsdt ist; Coins ohne Kurs sperren Wert-Alarme, fehlende Vergleichskurse %-Alarme. pause: null = nicht pausiert, sonst addresses bzw. coins (stale nur wenn wesentlich, missing nur mit Wert-Alarm). Seit Build 95: addressesFailing (seit ueber 24 h scheiternde Adressen) sperren nicht, Hinweis {failing:[...]} nur ohne andere Pause; staleTokenAddresses/staleTokenValueUsdt (nicht bestaetigte Token-Guthaben) zaehlen wie alte Kurse (Wert zusammen), Pause {tokens:[...]} wenn nur sie sperren.",
     "immaterialShare": 0.01,
     "cases": [
       {
@@ -314,6 +314,166 @@
           "CHANGE_UP"
         ],
         "pause": null
+      },
+      {
+        "name": "Adresse scheitert seit ueber 24 h: Alarme pruefen ohne sie, Hinweis",
+        "reading": {
+          "totalUsdt": 10000,
+          "addressesFailing": [
+            "Cold"
+          ]
+        },
+        "value": false,
+        "change": false,
+        "kinds": [
+          "VALUE_BELOW"
+        ],
+        "pause": {
+          "failing": [
+            "Cold"
+          ]
+        }
+      },
+      {
+        "name": "Adresse laedt noch + andere scheitert: Pause",
+        "reading": {
+          "totalUsdt": 10000,
+          "addressesPending": 1,
+          "addressesFailing": [
+            "Cold"
+          ]
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "VALUE_BELOW"
+        ],
+        "pause": "addresses"
+      },
+      {
+        "name": "Token nicht bestaetigt, genau 1 %",
+        "reading": {
+          "totalUsdt": 10000,
+          "staleTokenAddresses": [
+            "TON"
+          ],
+          "staleTokenValueUsdt": 100
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "CHANGE_UP"
+        ],
+        "pause": {
+          "tokens": [
+            "TON"
+          ]
+        }
+      },
+      {
+        "name": "Token nicht bestaetigt, unter 1 %",
+        "reading": {
+          "totalUsdt": 10000,
+          "staleTokenAddresses": [
+            "TON"
+          ],
+          "staleTokenValueUsdt": 99.99
+        },
+        "value": false,
+        "change": false,
+        "kinds": [
+          "VALUE_BELOW"
+        ],
+        "pause": null
+      },
+      {
+        "name": "alter Kurs + Token zusammen wesentlich",
+        "reading": {
+          "totalUsdt": 10000,
+          "stalePrices": 1,
+          "staleValueUsdt": 60,
+          "staleTokenAddresses": [
+            "TON"
+          ],
+          "staleTokenValueUsdt": 40
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "VALUE_BELOW"
+        ],
+        "staleCoins": [
+          "PEPE"
+        ],
+        "pause": [
+          "PEPE"
+        ]
+      },
+      {
+        "name": "Token nicht bestaetigt + Coin ohne Kurs",
+        "reading": {
+          "totalUsdt": 10000,
+          "staleTokenAddresses": [
+            "TON"
+          ],
+          "staleTokenValueUsdt": 100,
+          "missingPrices": 1
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "VALUE_BELOW"
+        ],
+        "missingCoins": [
+          "WIF"
+        ],
+        "pause": [
+          "WIF"
+        ]
+      },
+      {
+        "name": "Token unwesentlich + Adresse scheitert",
+        "reading": {
+          "totalUsdt": 10000,
+          "staleTokenAddresses": [
+            "TON"
+          ],
+          "staleTokenValueUsdt": 5,
+          "addressesFailing": [
+            "Cold",
+            "3J98t1…WNLy"
+          ]
+        },
+        "value": false,
+        "change": false,
+        "kinds": [
+          "CHANGE_DOWN"
+        ],
+        "pause": {
+          "failing": [
+            "Cold",
+            "3J98t1…WNLy"
+          ]
+        }
+      },
+      {
+        "name": "Token ohne bekannten Gesamtwert: wesentlich",
+        "reading": {
+          "staleTokenAddresses": [
+            "TON"
+          ],
+          "staleTokenValueUsdt": 1
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "CHANGE_UP"
+        ],
+        "pause": {
+          "tokens": [
+            "TON"
+          ]
+        }
       }
     ]
   }

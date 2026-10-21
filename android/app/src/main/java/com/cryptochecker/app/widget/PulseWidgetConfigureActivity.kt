@@ -41,6 +41,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.theme.CryptoCheckerTheme
 import com.cryptochecker.app.ui.theme.rememberHighContrast
+import com.cryptochecker.app.util.PercentText
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -144,7 +145,7 @@ private fun PulseWidgetConfigureContent(
             }
 
             Text(
-                stringResource(R.string.widget_opacity, opacity),
+                stringResource(R.string.widget_opacity, PercentText.unsigned(opacity.toDouble(), 0)),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 16.dp)
             )

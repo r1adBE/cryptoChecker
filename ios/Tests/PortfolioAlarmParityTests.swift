@@ -41,6 +41,9 @@ final class PortfolioAlarmParityTests: XCTestCase {
             reading.stalePrices = int(r["stalePrices"])
             reading.staleValueUsdt = TestSupport.number(r["staleValueUsdt"])
             reading.addressesPending = int(r["addressesPending"])
+            reading.addressesFailing = r["addressesFailing"] as? [String] ?? []
+            reading.staleTokenAddresses = r["staleTokenAddresses"] as? [String] ?? []
+            reading.staleTokenValueUsdt = TestSupport.number(r["staleTokenValueUsdt"]) ?? 0
             let name = c["name"] as? String ?? ""
             XCTAssertEqual(PortfolioAlarmLogic.incomplete(.VALUE_BELOW, reading), c["value"] as? Bool, "Wert: \(name)")
             XCTAssertEqual(PortfolioAlarmLogic.incomplete(.VALUE_ABOVE, reading), c["value"] as? Bool, "Wert darüber: \(name)")
@@ -53,6 +56,10 @@ final class PortfolioAlarmParityTests: XCTestCase {
                 expected = .addressesPending(int(r["addressesPending"]))
             } else if let coins = c["pause"] as? [String] {
                 expected = .noPrice(coins)
+            } else if let p = c["pause"] as? [String: Any] {
+                // Seit Build 95: {"tokens":[…]} bzw. {"failing":[…]}
+                if let tokens = p["tokens"] as? [String] { expected = .tokensStale(tokens) }
+                else { expected = .addressesFailing(p["failing"] as? [String] ?? []) }
             } else {
                 expected = nil
             }

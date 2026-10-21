@@ -203,7 +203,10 @@ internal fun PortfolioAddressSheet(
         viewModel.removeWatchedAddress(target.id, onLocked = { banner.show(lockedText) }) { row ->
             val name = target.label ?: WatchedAddressRules.shortAddress(target.address)
             banner.show(resources.getString(R.string.watchlist_removed, name)) {
-                viewModel.restoreWatchedAddress(row, onLocked = { banner.show(lockedText) })
+                // Nicht zurückgeholt: Grund nennen statt still nichts zu tun
+                viewModel.restoreWatchedAddress(row, onLocked = { banner.show(lockedText) }) { failure ->
+                    banner.show(resources.getString(restoreFailedText(failure)))
+                }
             }
         }
     }
@@ -329,4 +332,11 @@ internal fun PortfolioAddressSheet(
             SnackbarHost(banner.host, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
         }
     }
+}
+
+/** Text zum gescheiterten «Rückgängig» ([WatchedAddressUndo.failure]) — gleich wie iOS `PortfolioAddressSheet`. */
+internal fun restoreFailedText(failure: WatchedAddressUndo.RestoreFailure): Int = when (failure) {
+    WatchedAddressUndo.RestoreFailure.DUPLICATE -> R.string.address_duplicate
+    WatchedAddressUndo.RestoreFailure.LIMIT -> R.string.address_limit
+    WatchedAddressUndo.RestoreFailure.NOT_SAVED -> R.string.portfolio_address_restore_failed
 }

@@ -104,6 +104,12 @@ data class PortfolioSnapshot(
      * prüfen dann nicht. 0 bei älterer Aufnahme.
      */
     val addressesPending: Int = 0,
+    /** Zählende Adressen, die seit über 24 Stunden nicht laden ([AddressAlarmState.failing]) — Alarme rechnen ohne sie. */
+    val addressesFailing: List<String> = emptyList(),
+    /** Adressen mit nicht bestätigten Token-Guthaben ([AddressAlarmState.staleTokenAddresses]) — wie ein alter Kurs. */
+    val staleTokenAddresses: List<String> = emptyList(),
+    /** Wert dieser Token in USDT ([AddressAlarmState.staleTokenValue]); 0 = keine bzw. ältere Aufnahme. */
+    val staleTokenValueUsdt: Double = 0.0,
 )
 
 /** USDT-Kurse aller Coins zu einem Zeitpunkt. */

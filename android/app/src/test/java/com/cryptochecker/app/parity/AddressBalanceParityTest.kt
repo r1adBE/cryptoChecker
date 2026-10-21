@@ -99,8 +99,9 @@ class AddressBalanceParityTest {
                 lastBalance = it["lastBalance"] as String?, countInPortfolio = it["countInPortfolio"] == true,
             )
         }
-        assertEquals(p["expected"].num()!!.toInt(), AddressBalance.pendingCount(list))
-        assertEquals(0, AddressBalance.pendingCount(emptyList()))
+        val now = p["now"].num()!!.toLong()
+        assertEquals(p["expected"].num()!!.toInt(), AddressBalance.pendingCount(list, now))
+        assertEquals(0, AddressBalance.pendingCount(emptyList(), now))
     }
 
     /** Hintergrund: die am längsten nicht versuchten Adressen zuerst, seit Build 94. */

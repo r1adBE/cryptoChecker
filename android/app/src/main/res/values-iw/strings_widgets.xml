@@ -8,7 +8,7 @@
     <string name="widget_empty">אין עדיין צמדים ברשימת המעקב.</string>
     <string name="widget_group_hint">הצג רק את הצמדים של קבוצה זו.</string>
     <string name="widget_kind_single">מטבע אחד</string>
-    <string name="widget_opacity">אטימות הרקע: %1$d%%</string>
+    <string name="widget_opacity">אטימות הרקע: %1$s</string>
     <string name="widget_pulse_description">מה בולט כרגע בשוק: כותרת, סיכום קצר וגם Bitcoin, Ethereum ו־Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

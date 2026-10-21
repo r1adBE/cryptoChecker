@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">تنبيهات المحفظة متوقفة مؤقتًا: لا يوجد سعر حالي لـ %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">تنبيهات المحفظة متوقفة مؤقتًا: ليس لكل العملات سعر حالي</string>
     <string name="portfolio_alarms_paused_addresses">تنبيهات المحفظة متوقفة مؤقتًا: لم يتم تحميل أرصدة العناوين المراقبة بعد</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">تنبيهات المحفظة متوقفة مؤقتًا: أرصدة الرموز في %1$s قديمة جزئيًا</string>
+    <string name="portfolio_alarms_paused_tokens_generic">تنبيهات المحفظة متوقفة مؤقتًا: أرصدة الرموز في العناوين المراقبة قديمة جزئيًا</string>
+    <string name="portfolio_alarms_address_failing">تنبيهات المحفظة تعمل بدون %1$s: لم يتم تحميل الرصيد منذ أكثر من 24 ساعة</string>
+    <string name="portfolio_alarms_address_failing_generic">تنبيهات المحفظة تعمل بدون العناوين التي لم يتم تحميل رصيدها منذ أكثر من 24 ساعة</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">الرموز قديمة جزئيًا</string>
+    <string name="portfolio_address_restore_failed">تعذّرت استعادة العنوان – أضفه من جديد عند الحاجة</string>
 </resources>

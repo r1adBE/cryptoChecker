@@ -8,7 +8,7 @@
     <string name="widget_empty">Nog geen paren in de volglijst.</string>
     <string name="widget_group_hint">Alleen de paren van deze groep tonen.</string>
     <string name="widget_kind_single">Eén munt</string>
-    <string name="widget_opacity">Achtergronddekking: %1$d%%</string>
+    <string name="widget_opacity">Achtergronddekking: %1$s</string>
     <string name="widget_pulse_description">Wat er nu opvalt in de markt: kop, korte samenvatting en Bitcoin, Ethereum en Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

@@ -8,10 +8,13 @@ import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
 import com.cryptochecker.app.data.portfolio.WatchedAddressEntity
 import com.cryptochecker.app.data.portfolio.restoreWatchedAddress
+import com.cryptochecker.app.data.portfolio.toDomain
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
+import com.cryptochecker.app.domain.portfolio.WatchedAddressUndo
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 fun PortfolioViewModel.consumeAddressOverlapNotice() {
     _addressOverlapNotice.value = null
@@ -83,18 +86,32 @@ fun PortfolioViewModel.removeWatchedAddress(id: Long, onLocked: () -> Unit = {},
     }
 }
 
-/** «Rückgängig» nach [removeWatchedAddress]: dieselbe Adresse mit alter Id samt allem, was dazugehört; gesperrt: [onLocked]. */
-fun PortfolioViewModel.restoreWatchedAddress(row: WatchedAddressEntity, onLocked: () -> Unit = {}) {
+/**
+ * «Rückgängig» nach [removeWatchedAddress]: dieselbe Adresse mit alter Id samt allem, was dazugehört; gesperrt: [onLocked].
+ * Nicht zurückgeholt (Adresse inzwischen neu hinzugefügt, Liste voll, nicht gespeichert): [onFailed] mit dem Grund
+ * ([WatchedAddressUndo.failure]) — seit Build 95 nie mehr still.
+ */
+fun PortfolioViewModel.restoreWatchedAddress(
+    row: WatchedAddressEntity,
+    onLocked: () -> Unit = {},
+    onFailed: (WatchedAddressUndo.RestoreFailure) -> Unit = {},
+) {
     viewModelScope.launch {
-        try {
+        val restored = try {
             repository.restoreWatchedAddress(row)
         } catch (e: PortfolioStorageLockedException) {
             onLocked()
+            return@launch
         } catch (e: kotlinx.coroutines.CancellationException) {
             throw e
         } catch (e: Exception) {
-            // Nicht zurückgeholt (z. B. Datei gerade nicht beschreibbar): die Liste zeigt den echten Stand
+            Timber.w(e, "Adresse nicht zurückgeholt")
+            false
         }
+        if (restored) return@launch
+        val existing = safe { repository.getWatchedAddresses() }.orEmpty()
+        val removed = row.toDomain()
+        onFailed(removed?.let { WatchedAddressUndo.failure(existing, it) } ?: WatchedAddressUndo.RestoreFailure.NOT_SAVED)
     }
 }
 

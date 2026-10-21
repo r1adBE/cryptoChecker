@@ -1,5 +1,6 @@
 package com.cryptochecker.app.util
 
+import java.util.Locale
 import kotlin.math.abs
 
 /** Richtung einer Änderung für Screenreader-Texte (a11y_change_up/down/flat). */
@@ -40,9 +41,10 @@ data class ChartSummary(
 
         /**
          * Prozent ohne Vorzeichen für Screenreader («2.35%»): Die Richtung steht als
-         * Wort davor, das Zeichen «−» lesen Screenreader uneinheitlich.
+         * Wort davor, das Zeichen «−» lesen Screenreader uneinheitlich. Seit Build 95 in der Schreibweise der
+         * App-Sprache ([PercentText]: «2,35 %», «%2,35»), wie iOS `A11y.change`.
          */
-        fun unsignedPercent(percent: Double, decimals: Int = 2): String =
-            "%.${decimals}f%%".format(abs(percent))
+        fun unsignedPercent(percent: Double, decimals: Int = 2, locale: Locale = LocaleNumbers.appLocale): String =
+            PercentText.unsigned(percent, decimals, locale)
     }
 }

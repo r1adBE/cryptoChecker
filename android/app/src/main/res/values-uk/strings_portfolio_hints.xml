@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Сповіщення портфеля призупинено: немає поточного курсу для %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Сповіщення портфеля призупинено: не всі монети мають поточний курс</string>
     <string name="portfolio_alarms_paused_addresses">Сповіщення портфеля призупинено: баланси відстежуваних адрес ще не завантажено</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Сповіщення портфеля призупинено: баланси токенів %1$s частково застаріли</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Сповіщення портфеля призупинено: баланси токенів відстежуваних адрес частково застаріли</string>
+    <string name="portfolio_alarms_address_failing">Сповіщення портфеля перевіряють без %1$s: баланс не завантажується понад 24 години</string>
+    <string name="portfolio_alarms_address_failing_generic">Сповіщення портфеля перевіряють без адрес, баланс яких не завантажується понад 24 години</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">токени частково застаріли</string>
+    <string name="portfolio_address_restore_failed">Не вдалося повернути адресу – за потреби додайте її знову</string>
 </resources>

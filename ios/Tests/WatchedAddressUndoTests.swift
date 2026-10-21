@@ -55,4 +55,15 @@ final class WatchedAddressUndoTests: XCTestCase {
         XCTAssertEqual(file.nextId, 6)
         XCTAssertFalse(WatchedAddressUndo.restore(removed, into: &file))
     }
+
+    /// Seit Build 95: Banner statt still nichts — wie `WatchedAddressUndoTest.kt`.
+    func testGescheitertesZurueckNenntDenGrund() {
+        let removed = address(5)
+        XCTAssertEqual(WatchedAddressUndo.failure([address(9, removed.address)], removed), .duplicate)
+        let full = (100..<(100 + Int64(WatchedAddressRules.maxAddresses))).map { address($0) }
+        XCTAssertEqual(WatchedAddressUndo.failure(full, removed), .limit)
+        // Id belegt oder nicht gespeichert
+        XCTAssertEqual(WatchedAddressUndo.failure([address(5, "bc1qother")], removed), .notSaved)
+        XCTAssertEqual(WatchedAddressUndo.failure([], removed), .notSaved)
+    }
 }

@@ -11,7 +11,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.portfolio.WatchedAddressRefresher
 import com.cryptochecker.app.data.portfolio.withAddresses
-import com.cryptochecker.app.domain.portfolio.AddressBalance
+import com.cryptochecker.app.domain.portfolio.AddressAlarmState
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -183,8 +183,9 @@ class PortfolioSnapshotUpdater @Inject constructor(
             emptyList()
         }
         val addresses = AddressBalanceHistory.of(watched)
-        // Zählende Adressen ohne je geladenes Guthaben: fehlen im Gesamtwert — Portfolio-Alarme prüfen dann nicht
-        val addressesPending = AddressBalance.pendingCount(watched)
+        // Zählende Adressen ohne je geladenes Guthaben: fehlen im Gesamtwert — Portfolio-Alarme prüfen dann nicht (seit über
+        // 24 h scheiternde rechnen sie ohne); nicht bestätigte Token-Guthaben gelten wie ein alter Kurs
+        val addressState = AddressAlarmState.of(watched, System.currentTimeMillis())
         val recorded = mutex.withLock {
             val summary = PortfolioCalculator.summarize(transactions.map { it.toTrade() }, prices, settings.costMethod)
             // Noch kein einziger Kurs bekannt: lieber die letzte Aufnahme stehen lassen als 0 zeigen
@@ -259,7 +260,10 @@ class PortfolioSnapshotUpdater @Inject constructor(
                     stalePrices = staleCoins.size,
                     staleCoins = staleList,
                     staleValueUsdt = staleList.sumOf { pricedValues[it] ?: 0.0 },
-                    addressesPending = addressesPending,
+                    addressesPending = addressState.pending,
+                    addressesFailing = addressState.failing,
+                    staleTokenAddresses = addressState.staleTokenAddresses,
+                    staleTokenValueUsdt = addressState.staleTokenValue(current),
                 )
             store.save(snapshot, PortfolioSnapshotMath.addSample(history, PriceSample(now, freshCurrent)), hourlyPrices)
             snapshot

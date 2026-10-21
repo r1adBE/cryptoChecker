@@ -17,27 +17,11 @@ extension AddressBalance {
     }
 
     /// Zählende Adressen (`countInPortfolio`), deren Guthaben noch nie geladen wurde (z. B. frisch wiederhergestellt, xpub
-    /// ohne Zwischenspeicher im Hintergrund): sie fehlen in `holdings`, der Gesamtwert ist dann zu tief — Portfolio-Alarme
-    /// prüfen nicht (`PortfolioReading.addressesPending`). Einzelne Bitcoin-Adressen in einem beobachteten xpub zählen
-    /// über den xpub, gleiche Adressen einmal.
-    static func pendingCount(_ addresses: [WatchedAddress]) -> Int {
-        let counted = addresses.filter(\.countInPortfolio)
-        let covered = WatchedAddressRules.coveredByXpub(counted)
-        let loaded = counted.filter { a in
-            guard let value = PortfolioDecimal.parse(a.lastBalance) else { return false }
-            return value >= 0
-        }
-        func same(_ x: WatchedAddress, _ y: WatchedAddress) -> Bool {
-            x.chain == y.chain && WatchedAddressRules.sameAddress(x.chain, x.address, y.address)
-        }
-        var count = 0
-        for (i, a) in counted.enumerated() {
-            if a.chain == .BTC && !a.isXpub && covered.contains(a.address) { continue }
-            if loaded.contains(where: { same($0, a) }) { continue }
-            // Gleiche Adresse doppelt ohne Guthaben: einmal
-            if counted[..<i].contains(where: { same($0, a) }) { continue }
-            count += 1
-        }
-        return count
+    /// ohne Zwischenspeicher im Hintergrund) und die noch «laden» (`AddressAlarmState.isPending`): sie fehlen in `holdings`,
+    /// der Gesamtwert ist dann zu tief — Portfolio-Alarme prüfen nicht (`PortfolioReading.addressesPending`). Seit Build 95
+    /// zählt eine Adresse, die seit über 24 Stunden scheitert, nicht mehr (`AddressAlarmState.failing`). Regeln wie
+    /// `AddressAlarmState.of`.
+    static func pendingCount(_ addresses: [WatchedAddress], now: Int64) -> Int {
+        AddressAlarmState.of(addresses, now: now).pending
     }
 }

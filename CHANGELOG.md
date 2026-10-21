@@ -15,6 +15,15 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 95)
+
+* iOS volume spikes are computed on the hour grid like Android (missing hours count as empty, a series that stopped gives nothing), shared test cases on both platforms.
+* Portfolio alerts: an address that never loaded pauses them only for its first 24 hours on this device (counted again after a restore or «Undo»); afterwards it is treated as failing (named in the alerts overview) and alerts evaluate without it. TON tokens missing from a full jetton page are marked «partly stale» and count like stale prices instead of keeping an old value silently.
+* Undo of «Remove address» reports when it cannot restore (address added again, list full, not saved). An unreadable or locked portfolio no longer decides whether the portfolio is switched back on after a settings reset; iOS keeps that decision pending across restarts until the files are readable (like Android).
+* Percentages: the space before «%» follows the region too (e.g. es-MX without, en-DE with); all remaining fixed «%» in texts use the same formatter (Arabic/Persian «٪»); tiny changes show «0.000%» without a sign; chart summaries and the portfolio widget use the same format. Android times follow the system 12/24-hour setting.
+* Undo after clearing a long watchlist no longer posts a burst of price notifications (like iOS).
+* CI: the release smoke test adds starter pairs so background workers run in the R8 build and fails on worker creation errors; permissions are checked against an allow-list; release smoke also runs on pull requests touching release rules; store guides are checked for the current build; size budget warning at 22 MB. Store explanations state that watched addresses are watch-only (no keys, no wallet).
+
 ## 16.2.2 (build 94)
 
 * Watched addresses: an xpub checked in the background also looks at the next unused addresses, so change after a spend is no longer missing; an incomplete, lower background result is not stored. Addresses whose balance was never loaded (e.g. after a restore) pause portfolio alerts instead of counting as 0; an EVM network that did not answer stays selected; a full TON jetton page without a known token keeps the last value; background updates take the oldest addresses first; Litecoin uses its own supply limit; iOS keeps reading the address list when one entry is unreadable.

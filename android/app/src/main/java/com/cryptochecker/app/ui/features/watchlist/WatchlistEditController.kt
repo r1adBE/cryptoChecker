@@ -157,13 +157,17 @@ internal class WatchlistEditController(
         scope.launch {
             undoMutex.withLock {
                 val snapshots = undo.take(watchId) ?: return@withLock
+                // Nach «Merkliste leeren» bzw. vielen Paaren keine Kurs-Meldung je Paar: Android drosselt rund
+                // 5 Meldungen pro Sekunde und verwirft den Rest still; wie unter iOS meldet dann erst die
+                // nächste Aktualisierung (seit Build 95)
+                val showPrices = restoresPriceNotifications(snapshots.size)
                 var any = false
                 for (snapshot in snapshots) {
                     if (!watchRepository.restore(snapshot)) continue
                     any = true
                     // Kurs-Meldung wie vorher wieder zeigen (letzter bekannter Kurs) — nur nach den
                     // Einstellungen (Kurs-Mitteilungen an, dauerhaft nur wenn eingestellt)
-                    notifier.showPriceNow(snapshot.watch)
+                    if (showPrices) notifier.showPriceNow(snapshot.watch)
                 }
                 if (any) widgetUpdater.updateAll()
             }
@@ -353,3 +357,9 @@ internal const val CLEAR_ALL_UNDO_KEY = -3L
 
 /** Bis zu so vielen wieder aktivierten Paaren einzeln abfragen, darüber ein ganzer Durchlauf. */
 private const val ENABLE_SINGLE_REFRESH_MAX = 3
+
+/** Bis zu so vielen zurückgeholten Paaren zeigt «Rückgängig» die Kurs-Meldung gleich wieder, darüber keine. */
+internal const val UNDO_PRICE_POST_MAX = 3
+
+/** Kurs-Meldungen beim «Rückgängig» von [restored] Paaren gleich wieder zeigen ([UNDO_PRICE_POST_MAX])? */
+internal fun restoresPriceNotifications(restored: Int): Boolean = restored in 1..UNDO_PRICE_POST_MAX

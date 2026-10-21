@@ -246,7 +246,10 @@ enum PulseWidgetText {
         let lead = CryptoPulse.leadSentence(report)
         let first = L(lead.kind.key)
         guard let detail = lead.detail else { return first }
-        let second = detail.hasPercent ? L(detail.key, lead.volumePercent) : L(detail.key)
+        // Fertig formatiert (Ziffern, Abstand und Zeichen der Sprache) statt eines festen «%» in der Übersetzung
+        let second = detail.hasPercent
+            ? L(detail.key, PercentText.unsigned(Double(lead.volumePercent), decimals: 0))
+            : L(detail.key)
         return first + " " + second
     }
 

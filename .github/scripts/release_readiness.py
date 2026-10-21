@@ -10,6 +10,8 @@
           privacy_url / support_url / marketing_url not https (when filled in)
           version differs: android/app/build.gradle.kts vs ios/tools/gen_xcodeproj.py vs ios/project.yml
   warning required store text empty or missing (title / name / description), no screenshots
+          android/docs/PLAY_STORE.md / ios/APP_STORE.md (private guides, only if present): version or
+            versionCode / build number named there differs from android/app/build.gradle.kts
 
 The folder review_information (contact data for the App Review) is never read or listed.
 Usage: python3 -I release_readiness.py <repository root> <findings file>
@@ -166,12 +168,56 @@ def check_versions(repo):
         add("notice", f"Version {name} (build {code}) identical in " + ", ".join(sources))
 
 
+# Version mentions in the private store guides (not in the public repository). Only the current
+# version is named like this; history lines read «Build 91: …» and are not matched.
+DOC_PATTERNS = {
+    "android/docs/PLAY_STORE.md": (
+        r"versionCode\W{0,4}(\d+)",
+        r"Version \**(\d+\.\d+\.\d+)\b",
+        r"versionName\W{0,4}(\d+\.\d+\.\d+)",
+    ),
+    "ios/APP_STORE.md": (
+        r"Version \**\d+\.\d+\.\d+\**\s*(?:\(|,|/)\s*Build\s+(\d+)",
+        r"Identity › Build\*\s*=\s*`(\d+)`",
+        r"geprüften Build (\d+)",
+        r"Version \**(\d+\.\d+\.\d+)\b",
+    ),
+}
+
+
+def check_store_docs(repo):
+    gradle = os.path.join(repo, "android", "app", "build.gradle.kts")
+    name = first(r'^\s*versionName\s*=\s*"([^"]+)"', gradle)
+    code = first(r"^\s*versionCode\s*=\s*(\d+)", gradle)
+    if not name or not code:
+        return
+    for rel, patterns in DOC_PATTERNS.items():
+        path = os.path.join(repo, *rel.split("/"))
+        if not os.path.isfile(path):
+            continue
+        wrong = []
+        with open(path, encoding="utf-8") as f:
+            for no, line in enumerate(f, 1):
+                for pattern in patterns:
+                    for m in re.finditer(pattern, line):
+                        value = m.group(1)
+                        expected = name if "." in value else code
+                        if value != expected:
+                            wrong.append(f"line {no}: {value} (project: {expected})")
+        if wrong:
+            add("warning", f"{rel} names another version or build than the project ({name}, build {code}); "
+                           "update the guide before the upload:\n- " + "\n- ".join(wrong[:12]), rel)
+        else:
+            add("notice", f"{rel}: version {name} / build {code} consistent with the project")
+
+
 def main():
     if len(sys.argv) != 3:
         print(__doc__)
         return 2
     repo, out = sys.argv[1:3]
     check_versions(repo)
+    check_store_docs(repo)
     check_play(repo)
     check_apple(repo)
     with open(out, "a", encoding="utf-8") as f:

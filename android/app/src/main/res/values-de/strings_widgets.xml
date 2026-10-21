@@ -8,7 +8,7 @@
     <string name="widget_empty">Noch keine Paare in der Merkliste.</string>
     <string name="widget_group_hint">Nur die Paare dieser Gruppe anzeigen.</string>
     <string name="widget_kind_single">Einzel-Coin</string>
-    <string name="widget_opacity">Deckkraft des Hintergrunds: %1$d %%</string>
+    <string name="widget_opacity">Deckkraft des Hintergrunds: %1$s</string>
     <string name="widget_pulse_description">Was im Markt gerade auffällt: Schlagzeile, kurze Zusammenfassung sowie Bitcoin, Ethereum und Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
