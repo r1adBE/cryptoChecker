@@ -79,7 +79,8 @@ internal suspend fun PortfolioExportViewModel.cutoffUsdtUsd(currency: String, da
 /**
  * Tageskurse der Vorlage: FR [frPrices], Netzwerkgebühren als Veräusserung ([TaxTemplate.networkFeeIsDisposal]: UK,
  * US, CA, AU, JP) [networkFeePrices]; dazu für alle Vorlagen die Gebühr-Zeilen, Verschenkt/bezahlt ohne Marktwert und
- * Tausch ohne Wert zum Tageskurs ([feeDisposalPrices]).
+ * Tausch ohne Wert zum Tageskurs ([feeDisposalPrices]). [until]: letzter Tag mit Bedarf ([TaxExport.priceUntil]; UK/CA
+ * 30 Tage nach dem Steuerjahr — ein Zugang dort kann eine Veräusserung des Jahres decken).
  */
 internal suspend fun PortfolioExportViewModel.taxPrices(
     tpl: TaxTemplate,
@@ -87,19 +88,20 @@ internal suspend fun PortfolioExportViewModel.taxPrices(
     trades: List<PortfolioTrade>,
     period: TaxPeriod,
     zone: ZoneId = tpl.zone(),
+    until: LocalDate = period.end,
 ): ((String, Long) -> BigDecimal?)? {
     val base = when {
-        method == TaxMethod.FR_PTA -> frPrices(trades, period, zone)
-        tpl.networkFeeIsDisposal -> networkFeePrices(trades, period, zone)
+        method == TaxMethod.FR_PTA -> frPrices(trades, period, zone, until)
+        tpl.networkFeeIsDisposal -> networkFeePrices(trades, period, zone, until)
         else -> null
     }
-    val fees = feeDisposalPrices(trades, period, zone) ?: return base
+    val fees = feeDisposalPrices(trades, period, zone, until) ?: return base
     return { coin, time -> fees(coin, time) ?: base?.invoke(coin, time) }
 }
 
 /**
  * Gebühr-Zeilen ([PortfolioLedger.isFeeDisposal], CSV «Fee»), Verschenkt/bezahlt ohne Marktwert und Tausch ohne Wert
- * ([PortfolioLedger.dayCloseNeeds]) bis Ende [period]: zum Tageskurs — der Coin zum Tagesschluss SEINES UTC-Tags
+ * ([PortfolioLedger.dayCloseNeeds]) bis Ende [until] (Standard: Ende [period]): zum Tageskurs — der Coin zum Tagesschluss SEINES UTC-Tags
  * ([TaxDayClose], gleicher Kurs wie Karte und Wertverlauf); nur für genau diese (Coin, Zeit), sonst null. Ohne solche
  * Transaktionen null.
  */
@@ -107,8 +109,9 @@ internal suspend fun PortfolioExportViewModel.feeDisposalPrices(
     trades: List<PortfolioTrade>,
     period: TaxPeriod,
     zone: ZoneId = ZoneId.systemDefault(),
+    until: LocalDate = period.end,
 ): ((String, Long) -> BigDecimal?)? {
-    val end = CutoffExport.endOfDayMillis(period.end, zone)
+    val end = CutoffExport.endOfDayMillis(maxOf(until, period.end), zone)
     val keys = PortfolioLedger.dayCloseNeeds(trades.filter { it.time <= end && !AddressBalance.isAddressTrade(it.id) })
     if (keys.isEmpty()) return null
     val wanted = keys.filter { PortfolioStables.needsQuote(it.first) }.map { it.first to TaxDayClose.day(it.second) }.distinct()
@@ -126,14 +129,15 @@ internal suspend fun PortfolioExportViewModel.feeDisposalPrices(
  * Marktwert der Netzwerkgebühren in Krypto (eigene Veräusserung, [TaxEngines.applyRules]) bis Ende [period]: Gebühr
  * im Coin bzw. im dritten Coin ohne erfassten Gebühr-Preis einer Umbuchung, Auszahlung oder Schenkung
  * ([TaxDayClose.networkFeeNeeds]) — der Coin zum Tagesschluss seines UTC-Tags wie jede Gebühr-Zeile derselben Unterlage
- * ([TaxDayClose]). Fehlt ein Kurs, bleibt der Erlös dieser Zeile leer.
+ * ([TaxDayClose]). Fehlt ein Kurs, bleibt der Erlös dieser Zeile leer. Bis Ende [until] wie [feeDisposalPrices].
  */
 internal suspend fun PortfolioExportViewModel.networkFeePrices(
     trades: List<PortfolioTrade>,
     period: TaxPeriod,
     zone: ZoneId = ZoneId.systemDefault(),
+    until: LocalDate = period.end,
 ): (String, Long) -> BigDecimal? {
-    return dailyCloses(TaxDayClose.networkFeeNeeds(trades, CutoffExport.endOfDayMillis(period.end, zone)))
+    return dailyCloses(TaxDayClose.networkFeeNeeds(trades, CutoffExport.endOfDayMillis(maxOf(until, period.end), zone)))
 }
 
 /**
@@ -148,8 +152,9 @@ internal suspend fun PortfolioExportViewModel.frPrices(
     trades: List<PortfolioTrade>,
     period: TaxPeriod,
     zone: ZoneId = ZoneId.systemDefault(),
+    until: LocalDate = period.end,
 ): (String, Long) -> BigDecimal? {
-    val end = CutoffExport.endOfDayMillis(period.end, zone)
+    val end = CutoffExport.endOfDayMillis(maxOf(until, period.end), zone)
     // Verkäufe, Auszahlungen (Abgang ohne Verkauf kürzt die PTA anteilig, [TaxEngines.outflows]) und Gebühren in Krypto
     val own = trades.filter { !AddressBalance.isAddressTrade(it.id) }
     val sells = own.filter {

@@ -102,8 +102,8 @@ class Latoken : Market("LATOKEN", "La token") {
         ticker.ask = row.optDoubleOrMissing("bestAsk")
         ticker.vol = row.optDoubleOrMissing("amount24h")
         ticker.volQuote = row.optDoubleOrMissing("volume24h")
-        // Zeit des letzten Updates laut Börse (nur Anzeige)
-        ticker.timestamp = row.optLong("updateTimestamp")
+        // «updateTimestamp» ist die Aktualisierung der Übersicht, kein Handel: Zeit der Börse unbekannt (sonst sähe ein
+        // stehender Kurs frisch aus)
         // change24h: Prozent über 24 h
         ticker.change24hPercent = Change24h.percent(row.optDouble("change24h"))
     }

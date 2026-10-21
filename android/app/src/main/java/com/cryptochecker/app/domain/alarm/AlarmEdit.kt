@@ -2,6 +2,7 @@ package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.domain.convert.CurrencyConversion
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -101,6 +102,20 @@ object AlarmEdit {
 
     private fun normalizedCurrency(code: String?): String? =
         code?.trim()?.uppercase()?.takeIf { it.isNotEmpty() }
+
+    /**
+     * Eigene Alarmwährung im Editor anbieten? Nur bei Kursmarken ([priceThreshold]), wenn die Quote [quote] nicht schon
+     * die Währung [other] ist — und nur, wenn sich die Quote überhaupt umrechnen lässt: Eine Fiat-Quote ohne Devisenkurs
+     * (NGN, ARS: [CurrencyConversion.QuoteKind.FIAT_UNSUPPORTED]) oder ein ungültiges Kürzel nie, sonst wartete der Alarm
+     * für immer auf einen Kurs (seit Build 93). [fiat] = Währungen mit Devisenkurs. Spiegel: AlarmEdit.swift.
+     */
+    fun offersCurrency(priceThreshold: Boolean, quote: String, other: String, fiat: Collection<String>): Boolean {
+        if (!priceThreshold || quote.isBlank() || CurrencyConversion.sameCurrency(quote, other)) return false
+        return when (CurrencyConversion.classify(quote, fiat)) {
+            CurrencyConversion.QuoteKind.FIAT_UNSUPPORTED, CurrencyConversion.QuoteKind.INVALID -> false
+            else -> true
+        }
+    }
 
     /** Gleicher Schwellwert — mit kleiner Toleranz, falls das Eingabefeld ihn minimal anders zurückliest. */
     private fun sameThreshold(a: Double, b: Double): Boolean =

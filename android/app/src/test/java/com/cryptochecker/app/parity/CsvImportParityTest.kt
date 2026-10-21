@@ -368,4 +368,44 @@ class CsvImportParityTest {
         assertEquals(listOf("x", "a \"b\", c", "y"), cells)
         assertNull(CsvImportParser.parseTime("2024-02-29T25:00:00Z"))
     }
+
+    /**
+     * Build 93: Fiat-Gebühr in einer anderen Währung als die Preiswährung zum Tageskurs ihrer Währung, ohne Kurs
+     * missingFx (nie still weg); Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso; Belohnung mit Fiat-Betrag
+     * bekommt Preis = Betrag / Menge, der Schlüssel bis Build 92 (ohne Preis) erkennt den früheren Import weiter.
+     */
+    @Test
+    fun fiatFeeReward() {
+        val c = data["fiatFeeReward"].obj()
+        val rates = c["rates"].obj().mapValues { (_, byDay) ->
+            byDay.obj().entries.associate { LocalDate.parse(it.key).toEpochDay() to BigDecimal(it.value as String) }
+        }
+        val result = parse(c["file"] as String)
+        val fx: (String, Long) -> BigDecimal? = { cur, day -> rates[cur]?.get(day) }
+        val priced = CsvImport.priceInUsdt(result.rows, fx = fx)
+        val expected = c["priced"].list().map { it.obj() }
+        assertEquals(expected.map { it["line"].num()!!.toInt() }, priced.map { it.row.line })
+        expected.zip(priced).forEach { (e, p) ->
+            val m = "fiatFeeReward line ${p.row.line}"
+            assertEquals("$m priceUsdt", e["priceUsdt"], text(p.priceUsdt))
+            assertEquals("$m feeUsdt", e["feeUsdt"], text(p.feeUsdt))
+            assertEquals("$m needsFx", e["needsFx"], p.needsFx)
+        }
+        val preview = CsvImportMapping.preview(result, emptySet(), fx = fx)
+        assertEquals(c["missingFx"].list().map { it.num()!!.toInt() }, preview.missingFx)
+        c["txs"].list().map { it.obj() }.forEach { e ->
+            val line = e["line"].num()!!.toInt()
+            val tx = preview.transactions.single { it.line == line }
+            assertEquals("tx $line fee", e["fee"], text(tx.fee))
+            assertEquals("tx $line feeUnit", e["feeUnit"], tx.feeUnit?.name)
+            assertEquals("tx $line feeCoin", e["feeCoin"], tx.feeCoin)
+        }
+        // Tageskurse: Gebühr in jeder Fiat-Währung (GBP neben der Preiswährung USD)
+        assertEquals(c["fxNeeds"].list(), CsvImportMapping.fxNeeds(result.rows).keys.sorted())
+        // Belohnung mit Preis: früherer Schlüssel ohne Preis bleibt erkannt
+        val reward = result.rows.single { it.line == c["legacyLine"].num()!!.toInt() }
+        assertEquals(c["key"], reward.key)
+        assertEquals(true, c["legacyKey"] in reward.legacyKeys)
+        assertEquals(listOf(reward), CsvImport.splitDuplicates(result.rows, setOf(c["legacyKey"] as String)).duplicates)
+    }
 }

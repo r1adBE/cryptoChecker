@@ -9,12 +9,15 @@ final class Upbit: UpbitStyleMarket {
             ttsName: "Up bit",
             apiRoot: "https://api.upbit.com/v1",
             detailsFlag: "is_details=false",
-            unfilteredURL: "https://api.upbit.com/v1/ticker/all?quote_currencies=KRW,BTC,USDT"
+            unfilteredURL: "https://api.upbit.com/v1/ticker/all?quote_currencies=KRW,BTC,USDT",
+            tradeTimeFromUTCFields: false
         )
     }
 }
 
-/// Bithumb (Südkorea), API v1 mit Upbits Aufbau. Doku: apidocs.bithumb.com
+/// Bithumb (Südkorea), API v1 mit Upbits Aufbau. Doku: apidocs.bithumb.com. Anders als bei Upbit ist
+/// «trade_timestamp» die koreanische Uhrzeit als Epoche geschrieben (9 h zu spät); die Zeit kommt darum aus
+/// «trade_date» + «trade_time» (UTC).
 final class Bithumb: UpbitStyleMarket {
     init() {
         super.init(
@@ -23,20 +26,25 @@ final class Bithumb: UpbitStyleMarket {
             ttsName: "Bithumb",
             apiRoot: "https://api.bithumb.com/v1",
             detailsFlag: "isDetails=false",
-            unfilteredURL: nil
+            unfilteredURL: nil,
+            tradeTimeFromUTCFields: true
         )
     }
 }
 
 /// Gemeinsamer Aufbau von Upbit und Bithumb: Paarliste `market/all`, Ticker `ticker?markets=…`, Kennung «QUOTE-BASE».
 /// `unfilteredURL`: Sammelabfrage ohne Auswahl, falls die Börse eine hat (Upbit), sonst nil (Bithumb).
+/// `tradeTimeFromUTCFields`: Handelszeit aus «trade_date»/«trade_time» (UTC) statt aus «trade_timestamp» (Bithumb).
 class UpbitStyleMarket: SimpleMarket {
     private let unfilteredURL: String?
+    private let tradeTimeFromUTCFields: Bool
     /// Gefilterte Sammelabfrage: dahinter die Kennungen mit Komma.
     private let selectionPrefix: String
 
-    init(key: String, name: String, ttsName: String, apiRoot: String, detailsFlag: String, unfilteredURL: String?) {
+    init(key: String, name: String, ttsName: String, apiRoot: String, detailsFlag: String, unfilteredURL: String?,
+         tradeTimeFromUTCFields: Bool) {
         self.unfilteredURL = unfilteredURL
+        self.tradeTimeFromUTCFields = tradeTimeFromUTCFields
         selectionPrefix = apiRoot + "/ticker?markets="
         super.init(
             key: key,
@@ -52,7 +60,7 @@ class UpbitStyleMarket: SimpleMarket {
     override func pairId(_ info: PairQuery) -> String? { info.pairId ?? info.quote + "-" + info.base }
 
     override func fillTicker(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
-        try UpbitStyleMarket.copyRow(JArray(string: body).object(0), into: &ticker)
+        try UpbitStyleMarket.copyRow(JArray(string: body).object(0), into: &ticker, utcFields: tradeTimeFromUTCFields)
     }
 
     /// Fehlerform {"error": {"message": …}} oder {"message": …}.
@@ -94,9 +102,10 @@ class UpbitStyleMarket: SimpleMarket {
 
     override func parseBulkTickers(call: Int, body: String, failed: inout Set<String>) throws -> [String: Ticker] {
         var tickers: [String: Ticker] = [:]
+        let utcFields = tradeTimeFromUTCFields
         for row in try JArray(string: body).allObjects() {
             bulkRowIfActive(row.optString("market"), row: row, priceField: "trade_price", tickers: &tickers,
-                            failed: &failed) { try UpbitStyleMarket.copyRow(row, into: &$0) }
+                            failed: &failed) { try UpbitStyleMarket.copyRow(row, into: &$0, utcFields: utcFields) }
         }
         return tickers
     }
@@ -130,15 +139,40 @@ class UpbitStyleMarket: SimpleMarket {
 
     // MARK: Lesen
 
-    private static func copyRow(_ row: JObject, into ticker: inout Ticker) throws {
+    private static func copyRow(_ row: JObject, into ticker: inout Ticker, utcFields: Bool) throws {
         ticker.last = try row.double("trade_price")
         // high_price/low_price gelten seit Tagesbeginn der Börse, nicht über 24 h — darum nicht übernommen
         ticker.vol = row.optDoubleOrMissing("acc_trade_volume_24h")
         ticker.volQuote = row.optDoubleOrMissing("acc_trade_price_24h")
         // Zeit des letzten Handels (nur Anzeige); «timestamp» wäre bloss die Antwortzeit. «Veraltet» misst am Abruf
         // (`Market.readTicker`) — ein ruhiges Paar mit altem Handel ist nicht veraltet
-        ticker.timestamp = row.optLong("trade_timestamp")
+        ticker.timestamp = utcFields
+            ? utcTradeMillis(date: row.optString("trade_date"), time: row.optString("trade_time"))
+            : row.optLong("trade_timestamp")
         // signed_change_rate bezieht sich auf den Vortagesschluss (KST): keine 24-h-Veränderung
+    }
+
+    /// «20261016» + «232853» (UTC) → ms; 0 (= keine Börsenzeit), wenn ein Teil fehlt, anders aufgebaut oder kein
+    /// gültiger Zeitpunkt ist. Wie Android `UpbitStyleMarket.utcTradeMillis`.
+    static func utcTradeMillis(date: String, time: String) -> Int64 {
+        let digits = Array(date + time)
+        guard date.count == 8, time.count == 6, digits.allSatisfy({ $0.isASCII && $0.isNumber }) else { return 0 }
+        let n = digits.map { Int64(String($0))! }
+        func number(_ from: Int, _ count: Int) -> Int64 { n[from..<from + count].reduce(0) { $0 * 10 + $1 } }
+        let (year, month, day) = (number(0, 4), number(4, 2), number(6, 2))
+        let (hours, minutes, seconds) = (number(8, 2), number(10, 2), number(12, 2))
+        let leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
+        let monthDays: [Int64] = [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        guard year >= 1, (1...12).contains(month), day >= 1, day <= monthDays[Int(month) - 1],
+              hours <= 23, minutes <= 59, seconds <= 59 else { return 0 }
+        // Tage seit 1970-01-01 im gregorianischen Kalender (Verfahren «days from civil», H. Hinnant)
+        let y = month <= 2 ? year - 1 : year
+        let era = (y >= 0 ? y : y - 399) / 400
+        let yearOfEra = y - era * 400
+        let dayOfYear = (153 * (month + (month > 2 ? -3 : 9)) + 2) / 5 + day - 1
+        let dayOfEra = yearOfEra * 365 + yearOfEra / 4 - yearOfEra / 100 + dayOfYear
+        let epochDay = era * 146_097 + dayOfEra - 719_468
+        return (epochDay * 86_400 + hours * 3_600 + minutes * 60 + seconds) * 1_000
     }
 
     /// Gruppen der gefilterten Abfrage — nur mit ungefiltertem Ersatz; sonst oder nicht filterbar: nil.

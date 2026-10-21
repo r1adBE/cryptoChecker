@@ -46,6 +46,35 @@ class TaxCsvRoundingTest {
         assertEquals("Total;;;1.02;1.02;", lines[4])
     }
 
+    /**
+     * Gewinne-CSV (Build 93): Gewinn je Zeile = gerundeter Erlös − gerundeter Einstand — Erlös 2.004 (2.00), Einstand 1.005
+     * (1.01), Gewinn exakt 0.999 steht als 0.99, nicht 1.00; die Summe des Gewinns geht so mit den Spalten auf den Cent auf.
+     */
+    @Test
+    fun gainsRowAndTotalAddUp() {
+        val texts = TaxCsvTexts(
+            coin = "Coin", acquired = "Acq", sold = "Sold", holdingDays = "Days", longTerm = "> 1y", amount = "Amount",
+            costUsdt = "Cost", proceedsUsdt = "Proceeds", gainUsdt = "Gain", costTarget = "CostT", proceedsTarget = "ProcT",
+            gainTarget = "GainT", date = "Date", valueUsdt = "V", valueTarget = "VT", note = "Note", total = "Total",
+            yes = "yes", no = "no", costMissing = "cm", proceedsMissing = "pm", feeLeg = "fl", feeValueMissing = "fv",
+            avgCostRates = "avg", valueMissing = "vm", noFx = "nofx", incomplete = "inc",
+        )
+        val cost = BigDecimal("1.005")
+        val proceeds = BigDecimal("2.004")
+        val rows = (1..3).map {
+            TaxGainRow(
+                coin = "SOL", acquiredDate = LocalDate.of(2025, 1, it), soldDate = LocalDate.of(2025, 3, it), holdingDays = 59,
+                longTerm = false, amount = BigDecimal.ONE, costUsdt = cost, proceedsUsdt = proceeds, gainUsdt = proceeds - cost,
+                costTarget = cost, proceedsTarget = proceeds, gainTarget = proceeds - cost, fxMissing = false, feeLeg = false,
+                feeValueMissing = false, method = CostMethod.FIFO,
+            )
+        }
+        val lines = TaxExport.gainsCsv(rows, texts, emptyList()).removePrefix("\uFEFF").split("\r\n")
+        assertEquals("SOL;2025-01-01;2025-03-01;59;no;1;1.01;2.00;0.99;1.01;2.00;0.99;", lines[1])
+        // 6.00 − 3.03 = 2.97 (exakt summiert und gerundet wären es 3.00)
+        assertEquals("Total;;;;;;3.03;6.00;2.97;3.03;6.00;2.97;", lines[4])
+    }
+
     @Test
     fun roundedMoneyMatchesText() {
         assertEquals(BigDecimal("0.34"), CutoffExport.roundedMoney(third))

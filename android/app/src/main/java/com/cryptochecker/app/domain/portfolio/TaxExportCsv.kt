@@ -20,10 +20,26 @@ private fun <T> sum(rows: List<T>, pick: (T) -> BigDecimal?): BigDecimal? {
 }
 
 /**
+ * Gewinn einer Zeile, wie er in der Datei steht: gerundeter Erlös − gerundeter Einstand (alle drei bekannt), sonst der
+ * Gewinn selbst (dann leer). Jede Spalte für sich gerundet ergäbe sonst Abweichungen um einen Cent (Erlös 4.98, Einstand
+ * 2.72, Gewinn exakt 2.265 → 2.27) — so geht jede Zeile auf und mit [sum] auch die Summe: Summe Erlös − Summe Einstand =
+ * Summe Gewinn.
+ */
+private fun shownGain(cost: BigDecimal?, proceeds: BigDecimal?, gain: BigDecimal?): BigDecimal? =
+    if (gain != null && cost != null && proceeds != null) {
+        CutoffExport.roundedMoney(proceeds) - CutoffExport.roundedMoney(cost)
+    } else gain
+
+private val TaxGainRow.shownGainUsdt: BigDecimal? get() = shownGain(costUsdt, proceedsUsdt, gainUsdt)
+private val TaxGainRow.shownGainTarget: BigDecimal? get() = shownGain(costTarget, proceedsTarget, gainTarget)
+
+/**
  * CSV «Realisierte Gewinne» mit BOM; [header] = Kopfzeilen (je ein Feld), danach die Zeitzone
  * ([TaxCsvTexts.timeZone]). Summe nur über vollständige Zeilen (Einstand, Erlös und Gewinn bekannt — je für
- * USDT und Anzeigewährung), so geht Erlös − Einstand = Gewinn auf; Zeilen mit unbekanntem Einstand summiert
- * die Zeile «Erlös ohne Kaufpreis». Zusatzspalten vor «Hinweis» nur, wenn eine Zeile sie hat: nicht abziehbarer
+ * USDT und Anzeigewährung); Gewinn je Zeile = gerundeter Erlös − gerundeter Einstand ([shownGain]), so geht
+ * Erlös − Einstand = Gewinn je Zeile und in der Summe auf den Cent auf; Zeilen mit unbekanntem Einstand summiert
+ * die Zeile «Erlös ohne Kaufpreis». DE/AT ([TaxCsvTexts.withdrawalFeesTotal]): Auszahlungsgebühren nicht in der Summe,
+ * sondern in einer eigenen Summenzeile danach (wie der eigene Posten der Jahresübersicht). Zusatzspalten vor «Hinweis» nur, wenn eine Zeile sie hat: nicht abziehbarer
  * Verlust (CA), Abtretungspreis vor Gebühren und Gesamtwert des Portfolios (FR). Textfelder sind gegen
  * Formel-Injektion geschützt ([CutoffExport.escape]), Zahlen kommen unverändert vom Zahlenformat.
  */
@@ -112,8 +128,8 @@ fun TaxExport.gainsCsv(
                     CsvCell(r.holdingDays?.toString().orEmpty(), numeric = true),
                     t(when (r.longTerm) { true -> texts.yes; false -> texts.no; null -> "" }),
                     CsvCell(n(CutoffExport.amount(r.amount)), numeric = true),
-                    money(r.costUsdt), money(r.proceedsUsdt), money(r.gainUsdt),
-                    money(r.costTarget), money(r.proceedsTarget), money(r.gainTarget),
+                    money(r.costUsdt), money(r.proceedsUsdt), money(r.shownGainUsdt),
+                    money(r.costTarget), money(r.proceedsTarget), money(r.shownGainTarget),
                 ) + extra(r.adjustmentUsdt, r.adjustmentTarget, r.grossProceedsUsdt, r.grossProceedsTarget, r.portfolioValueUsdt, r.portfolioValueTarget) +
                     t(notes),
                 format,
@@ -121,26 +137,32 @@ fun TaxExport.gainsCsv(
         )
     }
     // Summe nur vollständiger Zeilen; fehlt irgendwo etwas, «unvollständig». Gebühren nur zur Information
-    // ([TaxGainRow.feeInfoOnly]) zählen nicht mit
-    val counted = rows.filter { !it.feeInfoOnly }
-    val incomplete = counted.any { it.costMissing || it.proceedsMissing || it.feeValueMissing || it.fxMissing || it.costIncomplete }
-    val usdt = counted.filter { it.completeUsdt }
-    val target = counted.filter { it.completeTarget }
-    fun total(list: List<TaxGainRow>, pick: (TaxGainRow) -> BigDecimal?): BigDecimal? =
-        if (list.isEmpty() && counted.isNotEmpty()) null else sum(list, pick)
-    sb.append(
-        line(
-            listOf(
-                t(texts.total), t(""), t(""), blank, t(""), blank,
-                money(total(usdt) { it.costUsdt }), money(total(usdt) { it.proceedsUsdt }), money(total(usdt) { it.gainUsdt }),
-                money(total(target) { it.costTarget }), money(total(target) { it.proceedsTarget }), money(total(target) { it.gainTarget }),
-            ) + extra(
-                sum(counted) { it.adjustmentUsdt }, sum(counted) { it.adjustmentTarget },
-                sum(counted) { it.grossProceedsUsdt }, sum(counted) { it.grossProceedsTarget }, null, null,
-            ) + t(if (incomplete) texts.incomplete else ""),
-            format,
+    // ([TaxGainRow.feeInfoOnly]) zählen nicht mit, DE/AT auch die Auszahlungsgebühren nicht (eigene Summenzeile unten)
+    val feesApart = texts.withdrawalFeesTotal.isNotEmpty()
+    val (apart, counted) = rows.filter { !it.feeInfoOnly }
+        .partition { feesApart && it.feeExpense == PortfolioFeeExpense.WITHDRAWAL }
+    /** Summenzeile [label] über [list] (Einstand, Erlös, Gewinn je nur vollständiger Zeilen). */
+    fun totalLine(label: String, list: List<TaxGainRow>) {
+        val incomplete = list.any { it.costMissing || it.proceedsMissing || it.feeValueMissing || it.fxMissing || it.costIncomplete }
+        val usdt = list.filter { it.completeUsdt }
+        val target = list.filter { it.completeTarget }
+        fun total(part: List<TaxGainRow>, pick: (TaxGainRow) -> BigDecimal?): BigDecimal? =
+            if (part.isEmpty() && list.isNotEmpty()) null else sum(part, pick)
+        sb.append(
+            line(
+                listOf(
+                    t(label), t(""), t(""), blank, t(""), blank,
+                    money(total(usdt) { it.costUsdt }), money(total(usdt) { it.proceedsUsdt }), money(total(usdt) { it.shownGainUsdt }),
+                    money(total(target) { it.costTarget }), money(total(target) { it.proceedsTarget }), money(total(target) { it.shownGainTarget }),
+                ) + extra(
+                    sum(list) { it.adjustmentUsdt }, sum(list) { it.adjustmentTarget },
+                    sum(list) { it.grossProceedsUsdt }, sum(list) { it.grossProceedsTarget }, null, null,
+                ) + t(if (incomplete) texts.incomplete else ""),
+                format,
+            )
         )
-    )
+    }
+    totalLine(texts.total, counted)
     // Erlös der Zeilen ohne Kaufpreis (nicht in der Summe oben)
     val noCost = counted.filter { it.costMissing && it.proceedsUsdt != null }
     if (noCost.isNotEmpty()) {
@@ -155,6 +177,8 @@ fun TaxExport.gainsCsv(
             )
         )
     }
+    // DE/AT: Auszahlungsgebühren — keine Veräusserung, darum eigene Summe (wie der Posten der Jahresübersicht)
+    if (apart.isNotEmpty()) totalLine(texts.withdrawalFeesTotal, apart)
     // Netzwerkgebühr-Einstand ohne bezahlten Posten: kein Gewinn/Verlust, aber nicht still verloren
     if (texts.lostFeeCost.isNotEmpty()) {
         for (l in lostFeeCosts) {

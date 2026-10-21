@@ -29,7 +29,10 @@ enum class CheckResult(val code: String) {
     PARTIAL("partial"),
     FAILED("failed"),
 
-    /** Nicht gelaufen: eben erst geprüft, offline oder nichts zu tun. */
+    /**
+     * Nicht gelaufen: eben erst geprüft bzw. läuft gerade (zählt als Prüfung), nichts zu tun oder offline (nur die
+     * App; ein geplanter Lauf offline wird seit Build 93 nicht vermerkt).
+     */
     SKIPPED("skipped"),
     ;
 
@@ -73,6 +76,14 @@ object CheckRunLog {
      */
     fun lastBackgroundCheck(runs: List<CheckRun>): Long? =
         runs.firstOrNull { it.trigger.scheduled && it.result != CheckResult.FAILED }?.at
+
+    /**
+     * Ende des neuesten geplanten Laufs, wenn unter den gespeicherten ([MAX]) keiner gelang — sonst null. Scheitert
+     * jede Prüfung, fiele die letzte gelungene sonst aus dem Ringpuffer, und «Letzte Prüfung» sähe aus wie «noch nie
+     * geprüft» (grau) statt wie eine Warnung (seit Build 93). Wie iOS.
+     */
+    fun lastFailedBackgroundCheck(runs: List<CheckRun>): Long? =
+        if (lastBackgroundCheck(runs) != null) null else runs.firstOrNull { it.trigger.scheduled }?.at
 
     fun encode(runs: List<CheckRun>): String =
         runs.joinToString("\n") { "${it.at};${it.trigger.code};${it.result.code};${it.durationMillis}" }

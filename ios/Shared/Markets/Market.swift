@@ -60,8 +60,8 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
     /// and `exchangeTime` the time reported by the exchange (or nil).
     ///
     /// Why the fetch time counts: «outdated» (OutdatedRule, lastUpdate) asks whether the exchange still lists the
-    /// pair — and the answer just arrived. A quiet pair with an old last trade (Upbit `trade_timestamp`, LATOKEN
-    /// `updateTimestamp`) is therefore not outdated within the alarm limit; a last trade older than that limit
+    /// pair — and the answer just arrived. A quiet pair with an old last trade (Upbit `trade_timestamp`, Bithumb
+    /// `trade_date`/`trade_time`) is therefore not outdated within the alarm limit; a last trade older than that limit
     /// (2 h, AlarmFreshness) marks the row «outdated – last trade …» too (PriceFreshness.staleReason, build 82). If the fetch fails, lastUpdate stays and the pair ages as
     /// usual; a delisted pair is missing from the list (NotTraded). The exchange time is only shown
     /// (PriceFreshness) so that a standing price does not look fresh. Same as `Market.kt`.
@@ -102,11 +102,18 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
     }
 
     /// Die Leser schreiben eine allfällige Börsenzeit (s, ms, µs oder ns) nach `timestamp`. Hier wandert sie in ms
-    /// nach `exchangeTime` (≤ 0 = keine), und `timestamp` wird auf jetzt gesetzt.
+    /// nach `exchangeTime` (≤ 0 = keine), und `timestamp` wird auf jetzt gesetzt. Eine Zeit mehr als
+    /// `exchangeTimeFutureToleranceMillis` in der Zukunft ist falsch gelesen (Ortszeit als Epoche wie Bithumbs KST,
+    /// falsche Einheit) und fällt weg: Sie liesse einen stehenden Kurs stundenlang frisch aussehen. Wie Android.
     private static func markFetched(_ ticker: inout Ticker) {
-        let reported = ticker.timestamp
-        ticker.exchangeTime = reported > 0 ? TimeUtils.parseTimeToMillis(reported) : nil
-        ticker.timestamp = TimeUtils.nowMillis
+        let now = TimeUtils.nowMillis
+        let reported = ticker.timestamp > 0 ? TimeUtils.parseTimeToMillis(ticker.timestamp) : nil
+        if let reported, reported <= now + exchangeTimeFutureToleranceMillis {
+            ticker.exchangeTime = reported
+        } else {
+            ticker.exchangeTime = nil
+        }
+        ticker.timestamp = now
     }
 
     // MARK: Sammelabfrage
@@ -285,6 +292,9 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
 
     /// Message of `noErrorText()`; never reaches the UI (the parse error is shown instead).
     static let noErrorTextMessage = "No error text"
+
+    /// Uhren gehen nie ganz gleich: so weit darf eine Börsenzeit vor der Uhr des Geräts liegen (5 min). Wie Android.
+    static let exchangeTimeFutureToleranceMillis: Int64 = 5 * 60 * 1000
 }
 
 extension JSONError {

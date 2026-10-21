@@ -207,9 +207,9 @@ enum TaxEngines {
 
     /// Netzwerkgebühr in Krypto einer Umbuchung (eigene Wallets), Auszahlung oder Schenkung als eigene Veräusserung — wie
     /// Android `networkFeeSales`: je Gebühr-Coin ein Verkauf der Gebühr-Menge zum Marktwert (erfasster Preis bzw.
-    /// Gebühr-Preis, Stablecoin 1, sonst `priceAt` = Tagesschluss des Vortags; ohne Kurs Erlös unbekannt) mit Id und Zeit
-    /// der Transaktion und ihrer Quell-Wallet (Umbuchung: «von», sonst die Börse) — VOR ihr in die Liste, damit die
-    /// Gebühr-Coins (stabil sortiert) die Quelle zuerst verlassen. Die Transaktion verliert diese Gebühr: keine Mengen-
+    /// Gebühr-Preis, Stablecoin 1, sonst `priceAt` = Tagesschluss des UTC-Tags der Transaktion, `TaxDayClose`; ohne Kurs
+    /// Erlös unbekannt) mit Id und Zeit der Transaktion und ihrer Quell-Wallet (Umbuchung: «von», sonst die Börse) — VOR
+    /// ihr in die Liste, damit die Gebühr-Coins (stabil sortiert) die Quelle zuerst verlassen. Die Transaktion verliert diese Gebühr: keine Mengen-
     /// oder Einstandsänderung der Umbuchung, kein Einstand-Zuschlag und kein Aufwand der Gebühr im dritten Coin (sonst
     /// zählte ihr Wert doppelt). Die Gebühr USDT bleibt.
     private static func networkFeeSales(_ t: PortfolioTx, _ priceAt: ((String, Int64) -> Decimal?)?,

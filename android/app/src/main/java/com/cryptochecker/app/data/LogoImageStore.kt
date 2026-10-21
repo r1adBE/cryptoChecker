@@ -5,6 +5,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.LruCache
 import androidx.core.content.edit
+import com.cryptochecker.app.BuildConfig
+import com.cryptochecker.app.data.remote.HttpUserAgent
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.data.remote.util.await
 import com.cryptochecker.app.domain.logos.CoinLogoRetry
@@ -308,7 +310,7 @@ class LogoImageStore @Inject constructor(
      * zu blockieren ([await]): wird die Coroutine abgebrochen (Abgleich beendet), bricht auch die Anfrage ab.
      */
     private suspend fun download(url: String): ByteArray? {
-        val request = Request.Builder().url(url).header("User-Agent", USER_AGENT).build()
+        val request = Request.Builder().url(url).header(HttpUserAgent.HEADER, USER_AGENT).build()
         client.newCall(request).await().use { response ->
             if (CoinLogoRetry.pausesImages(response.code)) {
                 throw ImagePause(
@@ -334,8 +336,11 @@ class LogoImageStore @Inject constructor(
         const val OLD_FALLBACK_DIR = "coin_logos_fallback"
         const val OLD_FALLBACK_MANIFEST_FILE = "coin_logos/fallback_manifest_0_18_1.json"
         const val OLD_KEY_FALLBACK_ATTEMPT = "fallback_attempt_v1"
-        /** Wie iOS («cryptoChecker-iOS/16»); ohne Angabe lehnen manche Bild-Server Abrufe ab. */
-        const val USER_AGENT = "cryptoChecker-Android/16"
+        /**
+         * Wie die Börsen-Abfragen und iOS («cryptoChecker-iOS/16.2.2»): mit der vollen App-Version (seit Build 93, vorher
+         * fest «/16»); ohne Angabe lehnen manche Bild-Server Abrufe ab.
+         */
+        val USER_AGENT = HttpUserAgent.android(BuildConfig.VERSION_NAME)
         const val MEMORY_BYTES = 4 * 1024 * 1024
         /** Bild-Abrufe gleichzeitig: insgesamt und je Server (CoinGecko, Binance). */
         const val MAX_PARALLEL_DOWNLOADS = 12

@@ -88,5 +88,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">已保存的投资组合暂时被锁定——下次启动后才能进行更改。</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">此设备暂时无法提供密钥——自选列表不会被保存，关闭应用后更改将丢失。应用会在下次启动时重试。</string>
+    <string name="watchlist_storage_in_memory">此设备暂时无法提供密钥——自选列表不会被保存，关闭应用后更改将丢失。后台提醒已暂停。应用会在下次启动时重试。</string>
 </resources>

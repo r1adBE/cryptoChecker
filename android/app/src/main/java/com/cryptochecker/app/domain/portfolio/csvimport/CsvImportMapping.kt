@@ -114,9 +114,6 @@ data class CsvWithdrawalProposal(val importKey: String, val choice: CsvWithdrawa
  */
 object CsvImportMapping {
 
-    /** Währungen, die als Geld gelten (nie als «dritter Coin»). */
-    private val FIAT: Set<String> get() = CsvImport.FIAT
-
     /** Höchstlänge der Notiz (wie [com.cryptochecker.app.data.local.model.NOTE_MAX]). */
     private const val NOTE_MAX = 120
 
@@ -151,8 +148,9 @@ object CsvImportMapping {
                 unit == coin -> { fee = rowFee; feeUnit = PortfolioFeeUnit.COIN }
                 unit == swapTo -> { feeCoin = unit; feeCoinAmount = rowFee }
                 p.feeUsdt != null -> { fee = p.feeUsdt.takeIf { it.signum() > 0 }; feeUnit = fee?.let { PortfolioFeeUnit.QUOTE } }
-                unit !in FIAT && unit != row.quote && unit != "USDT" -> { feeCoin = unit; feeCoinAmount = rowFee }
-                else -> Unit // Fiat-Gebühr ohne Tageskurs: weggelassen (missingFx)
+                // Jede Fiat-Währung mit Tageskurs ([CsvImport.isFiat]) ist Geld, nie ein «dritter Coin»
+                !CsvImport.isFiat(unit) && unit != row.quote && unit != "USDT" -> { feeCoin = unit; feeCoinAmount = rowFee }
+                else -> Unit // Fiat-Gebühr ohne Tageskurs: weggelassen, die Zeile steht unter missingFx ([CsvImport.priceInUsdt])
             }
         }
         return CsvImportTx(
@@ -309,7 +307,8 @@ object CsvImportMapping {
             val day = CsvImport.epochDay(row.timeMillis, zone)
             val currencies = listOfNotNull(
                 row.quote.takeIf { row.price != null || row.swapValue != null },
-                row.feeUnit.takeIf { row.fee != null && (it == row.quote || it in FIAT) },
+                // Gebühr in jeder Fiat-Währung mit Tageskurs, auch einer anderen als der Preiswährung ([CsvImport.priceInUsdt])
+                row.feeUnit.takeIf { row.fee != null && (it == row.quote || CsvImport.isFiat(it)) },
             )
             for (c in currencies) {
                 if (c == "USD" || c == "USDT") continue

@@ -171,4 +171,5 @@
     <string name="alarm_enter_amount">값을 입력하세요</string>
     <string name="alarm_editor_more">더보기</string>
     <string name="alarm_editor_more_summary">빠른 경보, 추가 조건, 소리와 읽어주기</string>
+    <string name="alarm_reliability_storage_no_key">백그라운드 경보 일시 중지됨 – 관심 목록이 저장되지 않음</string>
 </resources>

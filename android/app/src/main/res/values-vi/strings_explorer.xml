@@ -108,4 +108,6 @@
 
     <string name="explorer_bulk_show_all">Hiện tất cả (%1$d)</string>
     <string name="dex_token_address_copy">Sao chép địa chỉ token</string>
+    <string name="dex_token_address_copied">Đã sao chép địa chỉ token</string>
+    <string name="dex_token_address_label">Địa chỉ token kết thúc bằng %1$s</string>
 </resources>

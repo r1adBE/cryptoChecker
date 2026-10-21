@@ -51,6 +51,20 @@ class CheckRunLogTest {
         assertEquals(7L, CheckRunLog.lastBackgroundCheck(listOf(run(7, CheckTrigger.WORKER, CheckResult.PARTIAL))))
     }
 
+    /** Nur gescheiterte geplante Läufe gespeichert: Zeit des neuesten (Warnung statt «noch nie»). Wie iOS. */
+    @Test
+    fun lastFailedBackgroundCheckOnlyWhenNoScheduledRunSucceeded() {
+        val failing = List(CheckRunLog.MAX) { run(100L - it, CheckTrigger.WORKER, CheckResult.FAILED) }
+        assertEquals(100L, CheckRunLog.lastFailedBackgroundCheck(failing))
+        // Widget und App zählen weder als gelungen noch als gescheitert
+        val withWidget = listOf(run(95, CheckTrigger.WIDGET), run(90, CheckTrigger.EXACT, CheckResult.FAILED))
+        assertEquals(90L, CheckRunLog.lastFailedBackgroundCheck(withWidget))
+        // Eine gelungene oder übersprungene (eben geprüft) genügt: dann gilt lastBackgroundCheck
+        assertEquals(null, CheckRunLog.lastFailedBackgroundCheck(failing.take(5) + run(3, CheckTrigger.EXACT, CheckResult.SKIPPED)))
+        assertEquals(null, CheckRunLog.lastFailedBackgroundCheck(listOf(run(5, CheckTrigger.FOREGROUND, CheckResult.FAILED))))
+        assertEquals(null, CheckRunLog.lastFailedBackgroundCheck(emptyList()))
+    }
+
     @Test
     fun encodeDecodeRoundTrip() {
         val runs = listOf(

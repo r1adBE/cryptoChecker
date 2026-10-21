@@ -118,6 +118,12 @@ enum AlarmReadiness {
         var timeSensitive: Bool? = nil
         var backgroundRefresh = true
         var lowPower = false
+        // ---- Zuverlässigkeitszeile (`AlarmReliability`, seit Build 93)
+        /// Ende des neuesten geplanten Laufs, wenn keiner der gespeicherten gelang (alle gescheitert); sonst nil
+        /// (`CheckRunLog.lastFailedBackgroundCheck`).
+        var lastFailedBackgroundCheck: Int64? = nil
+        /// Nur Android (Merkliste ohne Schlüssel nur im Arbeitsspeicher); auf iOS immer false — für den gemeinsamen Testfall.
+        var storageNoKey = false
     }
 
     /// Zeilen in fester Reihenfolge je Plattform.

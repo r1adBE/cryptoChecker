@@ -8,7 +8,7 @@
   "cases": [
     {
       "kind": "single",
-      "name": "ticker (amount24h = coin volume, volume24h = quote volume)",
+      "name": "ticker (amount24h = coin volume, volume24h = quote volume); updateTimestamp is the summary refresh, not a trade time (exchange time unknown)",
       "market": "Latoken",
       "pair": {
         "base": "BTC",
@@ -27,7 +27,7 @@
         "high": -1.0,
         "low": -1.0,
         "change24hPercent": 2.48,
-        "exchangeTime": 1728540000123
+        "exchangeTime": null
       }
     },
     {

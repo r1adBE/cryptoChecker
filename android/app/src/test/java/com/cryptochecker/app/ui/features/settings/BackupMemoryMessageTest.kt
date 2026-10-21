@@ -15,6 +15,8 @@ class BackupMemoryMessageTest {
     @Test
     fun notEnoughMemoryHasOwnMessage() {
         assertEquals(BackupMessage.NotEnoughMemory, BackupMessage.failure(BackupCrypto.NotEnoughMemoryException()))
+        // Sicherung bis 64 MB: zu wenig Speicher beim Lesen ist kein Absturz und kein «fehlgeschlagen» (seit Build 93)
+        assertEquals(BackupMessage.NotEnoughMemory, BackupMessage.failure(OutOfMemoryError("Java heap space")))
         // Andere Fehler bleiben «fehlgeschlagen»
         assertEquals(BackupMessage.Failed, BackupMessage.failure(IllegalStateException("x")))
     }

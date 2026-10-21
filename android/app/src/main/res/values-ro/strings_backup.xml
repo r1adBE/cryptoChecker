@@ -94,5 +94,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">Portofoliul salvat este blocat acum – modificările vor fi posibile abia după următoarea pornire.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">Acest dispozitiv nu oferă acum o cheie – lista nu se salvează, iar modificările se pierd la închiderea aplicației. Aplicația va încerca din nou la următoarea pornire.</string>
+    <string name="watchlist_storage_in_memory">Acest dispozitiv nu oferă acum o cheie – lista nu se salvează, iar modificările se pierd la închiderea aplicației. Alarmele din fundal sunt întrerupte. Aplicația va încerca din nou la următoarea pornire.</string>
 </resources>

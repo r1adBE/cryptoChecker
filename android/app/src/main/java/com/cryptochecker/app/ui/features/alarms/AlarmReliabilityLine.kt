@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -29,6 +30,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.domain.alarm.AlarmReliability
 import com.cryptochecker.app.ui.components.NotificationPrePrompt
 import com.cryptochecker.app.ui.features.watchlist.ago
@@ -38,6 +41,9 @@ import com.cryptochecker.app.util.AlarmReadinessProbe
 
 /** Test-Tag der Zeile (UI-Tests). */
 const val ALARM_RELIABILITY_TAG = "alarm_reliability_line"
+
+/** Ab dieser Schriftgrösse (Systemeinstellung) zeigt die Zeile den ganzen Satz statt höchstens zwei Zeilen. */
+private const val LARGE_FONT_SCALE = 1.3f
 
 /**
  * Eine Zeile über der Merkliste (Build 91): Kommen die Alarme an ([AlarmReliability])? Ruhig eine graue Zeile
@@ -65,6 +71,12 @@ private fun AlarmReliabilityContent(
     val context = LocalContext.current
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     val lastCheck by viewModel.lastBackgroundCheck.collectAsStateWithLifecycle()
+    val lastFailedCheck by viewModel.lastFailedBackgroundCheck.collectAsStateWithLifecycle()
+    // Merkliste ohne gespeicherten Stand nur im Arbeitsspeicher (kein Schlüssel bzw. nur Kopie der alten Datei): Ein
+    // Hintergrund-Prozess sieht diese Paare nicht bzw. prüft nicht — nicht bei «gespeicherter Stand kommt zurück»
+    val inMemory by DatabaseEncryptionNotice.inMemory.collectAsStateWithLifecycle()
+    val storedKept by DatabaseEncryptionNotice.storedKept.collectAsStateWithLifecycle()
+    val storageNoKey = AppDatabase.DB_NAME in inMemory && AppDatabase.DB_NAME !in storedKept
     val hasAlarms by viewModel.hasAlarms.collectAsStateWithLifecycle()
     var readAt by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LifecycleResumeEffect(Unit) {
@@ -78,20 +90,27 @@ private fun AlarmReliabilityContent(
             notificationsNotDetermined = NotificationPrePrompt.notDetermined(context),
         )
     }
-    val status = AlarmReliability.status(input.copy(now = now))
+    val status = AlarmReliability.status(
+        input.copy(now = now, lastFailedBackgroundCheck = lastFailedCheck, storageNoKey = storageNoKey),
+    )
+    // Alle gespeicherten Läufe gescheitert: Zeit des letzten Versuchs
+    val checkedAt = lastCheck ?: lastFailedCheck
     if (status.kind == AlarmReliability.Kind.HIDDEN) return
     val text = when (status.kind) {
         AlarmReliability.Kind.RECENT ->
-            stringResource(R.string.alarm_reliability_recent, lastCheck?.let { ago(it, now) }.orEmpty())
+            stringResource(R.string.alarm_reliability_recent, checkedAt?.let { ago(it, now) }.orEmpty())
         AlarmReliability.Kind.STALE ->
-            stringResource(R.string.alarm_reliability_stale, lastCheck?.let { ago(it, now) }.orEmpty())
+            stringResource(R.string.alarm_reliability_stale, checkedAt?.let { ago(it, now) }.orEmpty())
         AlarmReliability.Kind.NEVER -> stringResource(R.string.alarm_reliability_never)
         AlarmReliability.Kind.NOTIFICATIONS_OFF -> stringResource(R.string.alarm_reliability_notifications_off)
+        AlarmReliability.Kind.STORAGE_NO_KEY -> stringResource(R.string.alarm_reliability_storage_no_key)
         AlarmReliability.Kind.BATTERY -> stringResource(R.string.alarm_reliability_battery)
         AlarmReliability.Kind.BACKGROUND_REFRESH -> stringResource(R.string.alarm_reliability_background_refresh)
         AlarmReliability.Kind.HIDDEN -> return
     }
     val color = if (status.warn) AppColors.warningText else MaterialTheme.colorScheme.onSurfaceVariant
+    // Grosse Schrift (ab 130 %): ganzer Satz statt abgeschnitten — wie iOS bei Bedienungshilfen-Grössen
+    val maxLines = if (LocalDensity.current.fontScale >= LARGE_FONT_SCALE) Int.MAX_VALUE else 2
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
@@ -117,7 +136,7 @@ private fun AlarmReliabilityContent(
             text,
             style = MaterialTheme.typography.bodySmall,
             color = color,
-            maxLines = 2,
+            maxLines = maxLines,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f),
         )

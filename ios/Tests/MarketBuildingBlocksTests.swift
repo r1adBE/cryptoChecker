@@ -15,6 +15,7 @@ final class MarketBuildingBlocksTests: XCTestCase {
 
         override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
             ticker.last = try json.double("price")
+            ticker.timestamp = json.optLong("time")
         }
     }
 
@@ -81,6 +82,31 @@ final class MarketBuildingBlocksTests: XCTestCase {
         try Probe().readTicker(call: 0, body: #"{"price":"1.5"}"#, ticker: &ticker, info: info("X"))
         XCTAssertEqual(ticker.last, 1.5)
         XCTAssertNil(ticker.exchangeTime)
+    }
+
+    func testExchangeTimeFarInTheFutureIsDiscarded() throws {
+        let now = TimeUtils.nowMillis
+        // Eine Minute voraus: Uhren gehen nie ganz gleich, die Zeit bleibt
+        var soon = Ticker()
+        try Probe().readTicker(call: 0, body: #"{"price":1,"time":\#(now + 60_000)}"#, ticker: &soon, info: info("X"))
+        XCTAssertEqual(soon.exchangeTime, now + 60_000)
+        // 9 h voraus (Ortszeit als Epoche wie Bithumbs KST): verworfen statt «eben gehandelt», der Kurs bleibt
+        var kst = Ticker()
+        try Probe().readTicker(call: 0, body: #"{"price":1,"time":\#(now + 9 * 3_600_000)}"#, ticker: &kst, info: info("X"))
+        XCTAssertNil(kst.exchangeTime)
+        XCTAssertEqual(kst.last, 1)
+        XCTAssertGreaterThanOrEqual(kst.timestamp, now)
+    }
+
+    func testBithumbTradeTimeComesFromTheUtcFields() {
+        XCTAssertEqual(UpbitStyleMarket.utcTradeMillis(date: "20261016", time: "232853"), 1_792_193_333_000)
+        XCTAssertEqual(UpbitStyleMarket.utcTradeMillis(date: "20240229", time: "000000"), 1_709_164_800_000)
+        // Kein Schalttag, unmögliche Uhrzeit, falscher Aufbau, fehlend: keine Börsenzeit
+        XCTAssertEqual(UpbitStyleMarket.utcTradeMillis(date: "20230229", time: "000000"), 0)
+        XCTAssertEqual(UpbitStyleMarket.utcTradeMillis(date: "20261016", time: "246000"), 0)
+        XCTAssertEqual(UpbitStyleMarket.utcTradeMillis(date: "2026-10-", time: "232853"), 0)
+        XCTAssertEqual(UpbitStyleMarket.utcTradeMillis(date: "2026101", time: "232853"), 0)
+        XCTAssertEqual(UpbitStyleMarket.utcTradeMillis(date: "", time: ""), 0)
     }
 
     func testBulkRowIfActiveSkipsIdleRowsAndReportsUnreadableOnes() throws {

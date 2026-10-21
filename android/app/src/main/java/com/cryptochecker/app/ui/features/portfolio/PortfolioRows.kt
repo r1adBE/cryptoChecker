@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.contentDescription
@@ -97,6 +98,10 @@ internal fun CoinRow(
     // Screenreader: Löschen (sonst nur per Wischen) als eigene Aktion der Zeile
     val deleteLabel = stringResource(R.string.action_delete)
     val locale = LocalConfiguration.current.locales[0] ?: Locale.ROOT
+    // Screenreader: die Zeile als ein Satz ([coinRowSpoken]); die Teile darunter sind ausgeblendet
+    val spoken = coinRowSpoken(
+        position, pnl, basis, sharePercent, txCount, stale, unchecked, unavailable, unit, exchange, viaBase, bridgedStable, locale,
+    )
     Card(
         shape = shape,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
@@ -106,11 +111,10 @@ internal fun CoinRow(
             .fillMaxWidth()
             .testTag(UiTestTags.portfolioCoin(position.coin))
             .clickable(onClick = onClick)
-            .then(
-                if (onDelete != null) Modifier.semantics {
-                    customActions = listOf(CustomAccessibilityAction(deleteLabel) { onDelete(); true })
-                } else Modifier
-            )
+            .semantics {
+                contentDescription = spoken
+                if (onDelete != null) customActions = listOf(CustomAccessibilityAction(deleteLabel) { onDelete(); true })
+            }
     ) {
         // Grösste Schrift (ab 1.5): Wert und Gewinn/Verlust unter Coin und Anteil statt daneben ([DenseRowText])
         val fontScale = LocalDensity.current.fontScale
@@ -182,8 +186,8 @@ internal fun CoinRow(
                 }
             }
         }
-        // Gleicher Innenabstand und gleich grosses Logo wie in der Merkliste
-        Column(modifier = Modifier.padding(horizontal = Spacing.md, vertical = Spacing.md)) {
+        // Gleicher Innenabstand und gleich grosses Logo wie in der Merkliste; Teile für TalkBack ausgeblendet (ein Satz oben)
+        Column(modifier = Modifier.padding(horizontal = Spacing.md, vertical = Spacing.md).clearAndSetSemantics { }) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 // Abstand an der Plakette: Logos aus → keine Plakette, kein Einzug
                 CoinBadge(position.coin, size = ListSegment.Logo, portfolio = true, modifier = Modifier.padding(end = 8.dp))

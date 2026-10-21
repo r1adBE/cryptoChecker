@@ -177,4 +177,5 @@
     <string name="alarm_enter_amount">یک مقدار وارد کن</string>
     <string name="alarm_editor_more">بیشتر</string>
     <string name="alarm_editor_more_summary">هشدارهای سریع، شرط‌های دیگر، صدا و خواندن صوتی</string>
+    <string name="alarm_reliability_storage_no_key">هشدارها در پس‌زمینه متوقف شده‌اند – واچ‌لیست ذخیره نشده است</string>
 </resources>

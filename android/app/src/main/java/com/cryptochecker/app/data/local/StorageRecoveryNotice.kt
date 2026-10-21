@@ -30,6 +30,7 @@ object StorageRecoveryNotice {
     private const val KEY_RESTORED = "restored_databases"
     private const val KEY_RESTORE_INTERRUPTED = "restore_interrupted"
     private const val KEY_SYSTEM_BACKUP_NOT_IMPORTED = "system_backup_not_imported"
+    private const val KEY_ROLLBACK_ATTEMPTED_FOR = "restore_rollback_attempted_for"
     private const val ROLLED_BACK = "rolled_back"
     private const val INCOMPLETE = "incomplete"
 
@@ -73,6 +74,19 @@ object StorageRecoveryNotice {
         prefs(context).edit(commit = true) { putString(KEY_RESTORE_INTERRUPTED, if (rolledBack) ROLLED_BACK else INCOMPLETE) }
         recorded.update { it + 1 }
     }
+
+    /**
+     * Seit Build 93: Für das Journal mit Zeitpunkt [journalCreatedAt] wollte ein Start schon zurückrollen (gescheitert)
+     * oder gab auf — der nächste Start rollt es nicht mehr zurück ([com.cryptochecker.app.data.RestoreRecoveryPolicy]).
+     * Ein neues Journal hat einen anderen Zeitpunkt, darum muss der Wert nie gelöscht werden.
+     */
+    fun recordRollBackAttempt(context: Context, journalCreatedAt: Long) {
+        prefs(context).edit(commit = true) { putLong(KEY_ROLLBACK_ATTEMPTED_FOR, journalCreatedAt) }
+    }
+
+    /** Gegenstück zu [recordRollBackAttempt]; null = noch kein Versuch vermerkt. */
+    fun rollBackAttemptedFor(context: Context): Long? =
+        prefs(context).let { if (it.contains(KEY_ROLLBACK_ATTEMPTED_FOR)) it.getLong(KEY_ROLLBACK_ATTEMPTED_FOR, 0L) else null }
 
     /** Portfolio-Kopie der Systemsicherung endgültig nicht übernommen (und gelöscht) vormerken. */
     fun recordSystemBackupNotImported(context: Context) {

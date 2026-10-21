@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Inhalt einer alten unverschlüsselten Datei nur im Arbeitsspeicher (Decision.PlaintextKept), auch wenn ein Schlüssel da ist, die Überführung aber scheiterte — neutral statt «kein Schlüssel» (watchlist_storage_in_memory) -->
+    <string name="watchlist_storage_copy_in_memory">暗号化はまだ有効になっていません。ウォッチリストは保存されず、変更はアプリを閉じると失われます。バックグラウンドのアラームは一時停止中です。次回の起動時にもう一度試します。</string>
+</resources>

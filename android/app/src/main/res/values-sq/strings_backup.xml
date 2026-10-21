@@ -91,5 +91,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">Portofoli i ruajtur është i kyçur tani – ndryshimet do të jenë të mundshme vetëm pas nisjes së ardhshme.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">Kjo pajisje nuk po jep çelës tani – lista nuk po ruhet dhe ndryshimet humbasin kur mbyllet aplikacioni. Aplikacioni do të provojë sërish në nisjen e ardhshme.</string>
+    <string name="watchlist_storage_in_memory">Kjo pajisje nuk po jep çelës tani – lista nuk po ruhet dhe ndryshimet humbasin kur mbyllet aplikacioni. Alarmet në sfond janë pezulluar. Aplikacioni do të provojë sërish në nisjen e ardhshme.</string>
 </resources>

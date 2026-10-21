@@ -15,6 +15,17 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 93)
+
+* UK tax export: rebuys within 30 days after 5 April now get the exchange rate and day close of their own date (rates were only loaded up to the end of the tax year). CSV totals add up to the cent (gain per row = rounded proceeds − rounded cost); DE/AT withdrawal fees have their own total line, as in the summary. The «orientation, not a tax return» note also stands under the totals in the app.
+* CSV import: fees in another fiat currency are converted (or flagged as missing rate) instead of being dropped; rewards with a fiat amount get their price from it.
+* Exchanges: Bithumb's trade time is read in UTC (it was 9 h in the future), and any exchange time more than 5 minutes ahead is ignored; Lighter markets without trades in 24 h hold price alerts like a stale price; bitFlyer gives no price while trading is halted; LATOKEN no longer treats a snapshot time as trade time; HTX shows no day-start high/low as 24 h values; Independent Reserve volume is the pair's own. Recorded exchange answers are now checked for plausible times and high/low.
+* Alert reliability line: keeps warning when only failed background runs remain, offline wake-ups no longer count as a check, and Android shows «alerts paused in the background» when the watchlist is only a copy in memory (the exact wake-up is then stopped).
+* Android: when encryption fails although a key exists, the watchlist and portfolio are only read, never written unencrypted. An interrupted restore is retried once on the next start and otherwise given up (no automatic rollback over later changes). Large backups are read once and run out of memory with a message instead of a crash.
+* iOS: an unsealed older watchlist is excluded from the device backup until it is sealed; «1 h later» also updates the app's in-memory state.
+* No alert currency is offered for fiat quotes without an exchange rate; Android confirms copying the contract address below Android 13 and reads it out for TalkBack; the reliability line wraps at large font sizes; portfolio rows are read as one sentence by screen readers, and the iOS portfolio total no longer shrinks below 70 %; portfolio widget chart uses the same time zone as the single-pair widget; logo requests send the full app version.
+* Store guides point to build 93.
+
 ## 16.2.2 (build 92)
 
 * Portfolio: with «FIFO per wallet» the cut-off file, the German holdings sheet and the Swiss wealth file no longer keep counting an address opening lot that was sold or transferred away (they now match the card).

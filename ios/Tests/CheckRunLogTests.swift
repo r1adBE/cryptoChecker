@@ -40,6 +40,18 @@ final class CheckRunLogTests: XCTestCase {
         XCTAssertEqual(CheckRunLog.lastBackgroundCheck([run(7, .worker, .partial)]), 7)
     }
 
+    /// Nur gescheiterte geplante Läufe gespeichert: Zeit des neuesten (Warnung statt «noch nie»). Wie Android.
+    func testLastFailedBackgroundCheckOnlyWhenNoScheduledRunSucceeded() {
+        let failing = (0..<CheckRunLog.max).map { run(100 - Int64($0), .bgTask, .failed) }
+        XCTAssertEqual(CheckRunLog.lastFailedBackgroundCheck(failing), 100)
+        // Widget und App zählen weder als gelungen noch als gescheitert
+        XCTAssertEqual(CheckRunLog.lastFailedBackgroundCheck([run(95, .widget), run(90, .bgTask, .failed)]), 90)
+        // Eine gelungene oder übersprungene (eben geprüft) genügt: dann gilt lastBackgroundCheck
+        XCTAssertNil(CheckRunLog.lastFailedBackgroundCheck(Array(failing.prefix(5)) + [run(3, .bgTask, .skipped)]))
+        XCTAssertNil(CheckRunLog.lastFailedBackgroundCheck([run(5, .foreground, .failed)]))
+        XCTAssertNil(CheckRunLog.lastFailedBackgroundCheck([]))
+    }
+
     func testEncodeDecodeRoundTrip() {
         let runs = [
             CheckRun(at: 1_700_000_000_000, trigger: .exact, result: .partial, durationMillis: 2_345),

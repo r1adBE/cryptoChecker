@@ -13,9 +13,11 @@ import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.pairListPaging
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
+import java.time.Instant
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -107,6 +109,14 @@ class ExchangeContractTest {
                 // null = die Börse liefert keine Zeit (timestamp ist dann die Abrufzeit)
                 "exchangeTime" -> if (value.num()?.toLong() != t.exchangeTime) {
                     throw CaseFailure("$prefix exchangeTime: expected ${value.num()?.toLong()}, got ${t.exchangeTime}")
+                }
+                // Börsenzeit als Abstand vor dem Abruf (Lighter ohne Handel in 24 h: spätestens 24 h zuvor)
+                "exchangeTimeAgeMillis" -> {
+                    val want = value.num()!!.toLong()
+                    val age = t.exchangeTime?.let { t.timestamp - it }
+                    if (age == null || age < want || age > want + 60_000) {
+                        throw CaseFailure("$prefix exchangeTimeAgeMillis: expected $want, got $age")
+                    }
                 }
                 else -> throw CaseFailure("$prefix: unknown expectation '$key'")
             }
@@ -245,9 +255,10 @@ class ExchangeContractTest {
     /**
      * Ein aufgezeichneter Fall. Echte Kurse ändern sich, darum keine Sollwerte, nur Plausibilität:
      * Einzelkurs liest ohne Fehler mit `last` > 0, Sammelabfrage liefert Kurse, Paarliste enthält
-     * das Paar des Einzelkurses (`contains`, gleiche Kennung wie in der App).
+     * das Paar des Einzelkurses (`contains`, gleiche Kennung wie in der App). Beim Einzelkurs dazu die
+     * Werte selbst ([checkRecordedValues]), gemessen am Aufnahmezeitpunkt [recordedAt] (ms, null = unbekannt).
      */
-    private fun runRecorded(c: Map<String, Any?>) {
+    private fun runRecorded(c: Map<String, Any?>, recordedAt: Long?) {
         val market = market(c["market"] as String)
         val requestId = c["requestId"].num()?.toInt() ?: 0
         val body = c["body"] as String
@@ -260,6 +271,7 @@ class ExchangeContractTest {
                     throw CaseFailure("parser failed: $e")
                 }
                 if (ticker.last <= 0.0) throw CaseFailure("no positive last price (${ticker.last})")
+                checkRecordedValues(ticker, recordedAt)
             }
             "bulk" -> {
                 val parsed = try {
@@ -282,6 +294,34 @@ class ExchangeContractTest {
                 }
             }
             else -> throw CaseFailure("unknown kind $kind")
+        }
+    }
+
+    /**
+     * Werte eines aufgezeichneten Einzelkurses, seit Build 93: Eine Börsenzeit liegt höchstens 30 Tage vor und
+     * kurz nach der Aufnahme ([RECORDED_FUTURE_SLACK_MS]; eine Zeitzone als Epoche geschrieben, wie Bithumbs
+     * KST-Zeit, fiele sonst erst beim Nutzer auf). Liefert die Börse Hoch und Tief, liegt der Kurs dazwischen (kleine Toleranz für Rundung) —
+     * sonst gehörten Hoch/Tief zu einem anderen Zeitraum als der Kurs. Nicht gelieferte Felder zählen nicht.
+     * Gleich wie iOS `checkRecordedValues`.
+     */
+    private fun checkRecordedValues(ticker: Ticker, recordedAt: Long?) {
+        val time = ticker.exchangeTime
+        if (time != null && recordedAt != null) {
+            if (time > recordedAt + RECORDED_FUTURE_SLACK_MS) {
+                throw CaseFailure("exchangeTime $time lies after recordedAt $recordedAt")
+            }
+            if (time < recordedAt - RECORDED_MAX_AGE_MS) {
+                throw CaseFailure("exchangeTime $time lies more than 30 days before recordedAt $recordedAt")
+            }
+        }
+        val high = ticker.high
+        val low = ticker.low
+        if (high.isFinite() && high > 0.0 && low.isFinite() && low > 0.0) {
+            val slack = high * 1e-9
+            if (low > high + slack) throw CaseFailure("low $low above high $high")
+            if (ticker.last < low - slack || ticker.last > high + slack) {
+                throw CaseFailure("last ${ticker.last} outside low $low … high $high")
+            }
         }
     }
 
@@ -353,11 +393,12 @@ class ExchangeContractTest {
         for ((file, data) in files) {
             val recordedAt = data["recordedAt"] as? String
             if (recordedAt.isNullOrBlank()) failures += "$file: missing recordedAt"
+            val recordedAtMillis = recordedAt?.let { runCatching { Instant.parse(it).toEpochMilli() }.getOrNull() }
             for (raw in data["cases"].list()) {
                 val c = raw.obj()
                 cases++
                 val error = try {
-                    runRecorded(c)
+                    runRecorded(c, recordedAtMillis)
                     null
                 } catch (e: CaseFailure) {
                     e.message
@@ -369,6 +410,35 @@ class ExchangeContractTest {
         }
         println("ExchangeContractTest: ${files.size} recorded file(s), $cases case(s)")
         assertTrue("${failures.size} recorded response(s) no longer parse:\n" + failures.joinToString("\n"), failures.isEmpty())
+    }
+
+    /**
+     * Bithumb schreibt in «trade_timestamp» die koreanische Uhrzeit als Epoche (9 h zu spät). Die gelesene
+     * Börsenzeit der echten Antwort liegt darum höchstens 60 s nach der Aufnahme (Bithumb wird früh im Lauf
+     * abgefragt) und nicht weiter als eine Stunde davor.
+     */
+    @Test
+    fun recordedBithumbTradeTimeIsUtc() {
+        val data = recordedFixtures().firstOrNull { it.first == "recorded_bithumb.json" }?.second ?: return
+        val recordedAt = Instant.parse(data["recordedAt"] as String).toEpochMilli()
+        val single = data["cases"].list().map { it.obj() }.first { it["kind"] == "single" }
+        val ticker = SimpleTicker()
+        market("Bithumb").readTicker(0, single["body"] as String, ticker, checkerInfo(single["pair"].obj()))
+        val time = ticker.exchangeTime
+        assertNotNull("Bithumb: keine Börsenzeit gelesen", time)
+        assertTrue("Bithumb: Börsenzeit $time nach Aufnahme $recordedAt + 60 s", time!! <= recordedAt + 60_000)
+        assertTrue("Bithumb: Börsenzeit $time über 1 h vor Aufnahme $recordedAt", time >= recordedAt - 3_600_000)
+    }
+
+    private companion object {
+        /**
+         * Spielraum nach der Aufnahme: `recordedAt` ist der Beginn des ganzen Laufs, die Börsen werden danach der
+         * Reihe nach abgefragt (Upbit am 2026-10-16 65 s später). 5 min fangen jede Zeitzonen-Verschiebung (≥ 1 h).
+         */
+        const val RECORDED_FUTURE_SLACK_MS = 5L * 60 * 1000
+
+        /** Älter als 30 Tage ist für einen gehandelten Kurs keine plausible letzte Handelszeit mehr. */
+        const val RECORDED_MAX_AGE_MS = 30L * 24 * 60 * 60 * 1000
     }
 
     /** Jede registrierte Börse braucht mindestens einen Einzelabruf-Fall — neue Adapter fallen sonst auf. */

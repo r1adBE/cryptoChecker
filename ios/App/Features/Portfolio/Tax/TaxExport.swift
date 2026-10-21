@@ -236,9 +236,21 @@ enum TaxExport {
     static func fxFrom(_ trades: [PortfolioTx], method: TaxMethod, period: TaxPeriod, timeZone: TimeZone,
                        priceAt: ((String, Int64) -> Decimal?)? = nil, rules: TaxEventRules? = nil,
                        walletFrom: LocalDay? = nil) -> LocalDay {
+        fxSpan(trades, method: method, period: period, timeZone: timeZone, priceAt: priceAt, rules: rules,
+               walletFrom: walletFrom).from
+    }
+
+    /// Erster und letzter Tag mit Devisenbedarf in einem Durchgang (die Veräusserungen nur einmal gerechnet). Erster wie
+    /// `fxFrom`. Letzter: `until` (`priceUntil`) oder das späteste Datum eines Zugangs, den eine Veräusserung des Jahres
+    /// nutzt (Kaufdatum, Zuordnung, Herkunftsteil), höchstens heute (`today`, nie vor dem Ende des Steuerjahrs) — UK: ein
+    /// Kauf am 20. April deckt einen Verkauf vom 2. April und braucht den Kurs SEINES Datums. Wie Android.
+    static func fxSpan(_ trades: [PortfolioTx], method: TaxMethod, period: TaxPeriod, timeZone: TimeZone,
+                       priceAt: ((String, Int64) -> Decimal?)? = nil, rules: TaxEventRules? = nil,
+                       walletFrom: LocalDay? = nil, until: LocalDay? = nil,
+                       today: LocalDay? = nil) -> (from: LocalDay, until: LocalDay) {
         // FIFO: Kaufdatum der Posten; Durchschnitt/Pool: Datum jedes Herkunftsteils des Einstands
         let upTo = method == .CA_ACB ? TaxPeriod(startYear: period.startYear, start: LocalDay(1, 1, 1), end: period.end) : period
-        let first = disposals(in: trades, method: method, period: upTo, timeZone: timeZone, priceAt: priceAt,
+        let times = disposals(in: trades, method: method, period: upTo, timeZone: timeZone, priceAt: priceAt,
                               rules: rules, walletFrom: walletFrom)
             .flatMap { d -> [Int64] in
                 var times: [Int64] = []
@@ -246,9 +258,26 @@ enum TaxExport {
                 if let m = d.matchedTime { times.append(m) }
                 return times + d.costParts.map(\.time)
             }
-            .min()
-            .map { localDay($0, timeZone: timeZone) }
-        if let first, first < period.start { return first }
-        return period.start
+        var from = period.start
+        if let first = times.min().map({ localDay($0, timeZone: timeZone) }), first < period.start { from = first }
+        var wanted = until ?? period.end
+        if let last = times.max().map({ localDay($0, timeZone: timeZone) }), wanted < last { wanted = last }
+        let now = today ?? localDay(Int64(Date().timeIntervalSince1970 * 1000), timeZone: timeZone)
+        return (from, min(wanted, max(now, period.end)))
+    }
+
+    /// Letzter Tag, bis zu dem Tagesschlüsse (Gebühr-Zeilen, Belohnungen und Tausch ohne Wert, Netzwerkgebühren) und
+    /// Devisenkurse mindestens geladen werden: das Ende des Steuerjahrs; UK und CA 30 Tage danach — UK ordnet einem Verkauf
+    /// Zugänge der 30 Tage DANACH zu (Bed-and-Breakfast, CRYPTO22200), CA prüft den Superficial Loss bis 30 Tage danach;
+    /// diese Zugänge liegen beim Verkauf kurz vor dem Jahresende im nächsten Steuerjahr. Höchstens `today`, nie vor dem
+    /// Ende des Steuerjahrs. Wie Android.
+    static func priceUntil(_ template: TaxTemplate, period: TaxPeriod, today: LocalDay) -> LocalDay {
+        let window: Int
+        switch template {
+        case .UK: window = TaxTemplate.ukBbDays
+        case .CA: window = TaxTemplate.caWindowDays
+        default: return period.end
+        }
+        return min(period.end.plusDays(window), max(today, period.end))
     }
 }

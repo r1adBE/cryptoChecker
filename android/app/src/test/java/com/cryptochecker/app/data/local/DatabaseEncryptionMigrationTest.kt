@@ -162,9 +162,35 @@ class DatabaseEncryptionMigrationTest {
     }
 
     @Test
-    fun requiredExistingPlaintextWithFailedMigrationStaysPlaintext() {
+    fun requiredExistingPlaintextWithFailedMigrationIsOnlyRead() {
+        // Seit Build 93: Schlüssel da, Überführung scheitert → wie ohne Schlüssel nur gelesen (Inhalt im Arbeitsspeicher),
+        // nie im Klartext weitergeschrieben; Datei unberührt, Kopie weg, nächster Start versucht es erneut
+        for (step in listOf("checkpoint", "fingerprintOriginal", "export", "fingerprintCopy", "deleteSidecars", "replace")) {
+            val files = FakeFiles(FileKind.PLAINTEXT, content).apply { failAt = step }
+            assertEquals(step, Decision.PlaintextKept, prepareRequired(files, FakeKeys(found)))
+            assertEquals(step, FileKind.PLAINTEXT, files.kind)
+            assertEquals(step, content, files.original)
+            assertEquals(step, null, files.copy)
+        }
+    }
+
+    @Test
+    fun requiredExistingPlaintextWithDifferentCopyOrWalIsOnlyRead() {
+        val differs = FakeFiles(FileKind.PLAINTEXT, content).apply {
+            exportMutation = { it.copy(tables = it.tables + ("watches" to TableFingerprint(1, 40))) }
+        }
+        assertEquals(Decision.PlaintextKept, prepareRequired(differs, FakeKeys(found)))
+        assertEquals(FileKind.PLAINTEXT, differs.kind)
+        val wal = FakeFiles(FileKind.PLAINTEXT, content).apply { walBytes = 4096; walAfterCheckpoint = 4096 }
+        assertEquals(Decision.PlaintextKept, prepareRequired(wal, FakeKeys(found)))
+        assertTrue(wal.sidecars)
+    }
+
+    @Test
+    fun notRequiredExistingPlaintextWithFailedMigrationStaysPlaintext() {
+        // Ohne Pflicht unverändert (Regel 3): unverschlüsselt weiter
         val files = FakeFiles(FileKind.PLAINTEXT, content).apply { failAt = "export" }
-        assertEquals(Decision.Plaintext, prepareRequired(files, FakeKeys(found)))
+        assertEquals(Decision.Plaintext, prepare(files, FakeKeys(found)))
         assertEquals(FileKind.PLAINTEXT, files.kind)
         assertEquals(content, files.original)
     }

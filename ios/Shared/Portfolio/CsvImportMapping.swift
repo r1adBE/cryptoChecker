@@ -81,13 +81,10 @@ struct CsvWithdrawalProposal: Equatable, Sendable {
 /// Menge × Tagesschluss ihres Tags, ohne Kurs unbekannt — nie 0; mit der Art als Notiz); Gebühr im
 /// Coin → Gebühr in Coin, Tausch mit Gebühr im erhaltenen Coin (auch USDT) → Gebühr im erhaltenen Coin (feeCoin = toCoin),
 /// in Fiat/USD → USDT, in anderem Coin → Gebühr im dritten Coin; Fiat-Gebühr ohne Tageskurs
-/// fällt weg. Option `withdrawalsAsTransfer`: Auszahlungen werden Umbuchungen (Ziel aus der Datei, die Formate liefern
+/// fällt weg (die Zeile steht dann unter `missingFx`). Option `withdrawalsAsTransfer`: Auszahlungen werden Umbuchungen (Ziel aus der Datei, die Formate liefern
 /// keins → nil); Gebühr-Zeilen bleiben Veräusserungen zum Tageskurs.
 /// Tausch-Zeile → Tausch mit erhaltenem Coin/Menge, Wert aus dem Fiat-Betrag der Datei (sonst unbekannt).
 enum CsvImportMapping {
-
-    /// Währungen, die als Geld gelten (nie als «dritter Coin»).
-    private static var fiat: Set<String> { CsvImport.fiat }
 
     private static let noteMax = 120
 
@@ -131,11 +128,12 @@ enum CsvImportMapping {
                     fee = usdt
                     feeUnit = .QUOTE
                 }
-            } else if !fiat.contains(unit) && unit != row.quote && unit != "USDT" {
+            } else if !CsvImport.isFiat(unit) && unit != row.quote && unit != "USDT" {
+                // Jede Fiat-Währung mit Tageskurs (`CsvImport.isFiat`) ist Geld, nie ein «dritter Coin»
                 feeCoin = unit
                 feeCoinAmount = rowFee
             }
-            // sonst: Fiat-Gebühr ohne Tageskurs — weggelassen (missingFx)
+            // sonst: Fiat-Gebühr ohne Tageskurs — weggelassen, die Zeile steht unter missingFx (`CsvImport.priceInUsdt`)
         }
         var note: String?
         // Gebühr/Umbuchung: Art als Notiz; Belohnung nur als Zins (AT: Anschaffungskosten = Wert, wie Android)
@@ -277,7 +275,8 @@ enum CsvImportMapping {
             let day = CsvImport.epochDay(row.timeMillis, zone: zone)
             var currencies: [String] = []
             if row.price != nil || row.swapValue != nil, let q = row.quote { currencies.append(q) }
-            if row.fee != nil, let u = row.feeUnit, u == row.quote || fiat.contains(u) { currencies.append(u) }
+            // Gebühr in jeder Fiat-Währung mit Tageskurs, auch einer anderen als der Preiswährung (`CsvImport.priceInUsdt`)
+            if row.fee != nil, let u = row.feeUnit, u == row.quote || CsvImport.isFiat(u) { currencies.append(u) }
             for c in currencies where c != "USD" && c != "USDT" {
                 if let r = out[c] {
                     out[c] = min(r.lowerBound, day)...max(r.upperBound, day)

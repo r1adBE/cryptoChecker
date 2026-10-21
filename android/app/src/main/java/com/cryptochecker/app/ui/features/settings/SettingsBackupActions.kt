@@ -50,7 +50,12 @@ fun SettingsViewModel.restorePicked(uri: android.net.Uri) = update {
     } catch (e: Exception) {
         _backupMessage.value = BackupMessage.failure(e)
         null
+    } catch (e: OutOfMemoryError) {
+        // Sicherung bis 64 MB: lieber eine Meldung als ein Absturz (seit Build 93)
+        _backupMessage.value = BackupMessage.failure(e)
+        null
     }
+    if (_restoreStep.value == null) backupManager.forgetPickedBackup()
 }
 
 /** Passwort prüfen; falsch → nochmals fragen (mit Hinweis), richtig → Rückfrage. */
@@ -68,13 +73,19 @@ fun SettingsViewModel.submitRestorePassword(uri: android.net.Uri, password: Stri
     } catch (e: Exception) {
         _backupMessage.value = BackupMessage.failure(e)
         null
+    } catch (e: OutOfMemoryError) {
+        _backupMessage.value = BackupMessage.failure(e)
+        null
     }
     // Während der Prüfung wieder gesperrt: keine Rückfrage mehr zeigen
     _restoreStep.value = if (lockedNow()) null else next
+    if (_restoreStep.value == null) backupManager.forgetPickedBackup()
 }
 
 fun SettingsViewModel.cancelRestore() {
     _restoreStep.value = null
+    // Gemerkte Datei samt Klartext freigeben (bis 64 MB)
+    backupManager.forgetPickedBackup()
 }
 
 fun SettingsViewModel.restoreBackup(uri: android.net.Uri, password: String?, acceptInvalid: Int = 0) = update {
@@ -107,6 +118,8 @@ fun SettingsViewModel.restoreBackup(uri: android.net.Uri, password: String?, acc
             },
             onFailure = { BackupMessage.failure(it) }
         )
+    // Auch wenn das Wiederherstellen vor dem Lesen abbrach: nichts mehr gemerkt
+    backupManager.forgetPickedBackup()
 }
 
 /**
@@ -175,7 +188,10 @@ sealed interface BackupMessage {
     data object NewerVersion : BackupMessage
     /** Geschriebene Datei liest sich nicht gleich zurück ([com.cryptochecker.app.data.BackupNotVerifiedException]): neue Datei wählen. */
     data object NotVerified : BackupMessage
-    /** Zu wenig Arbeitsspeicher für Argon2id ([com.cryptochecker.app.data.BackupCrypto.NotEnoughMemoryException]). */
+    /**
+     * Zu wenig Arbeitsspeicher für Argon2id ([com.cryptochecker.app.data.BackupCrypto.NotEnoughMemoryException]) oder
+     * zum Lesen bzw. Schreiben einer grossen Sicherung ([OutOfMemoryError]).
+     */
     data object NotEnoughMemory : BackupMessage
     /** Gespeicherter Stand gerade nicht lesbar ([com.cryptochecker.app.data.BackupStorageKeptException]): nach Neustart. */
     data object StorageKept : BackupMessage
@@ -191,6 +207,8 @@ sealed interface BackupMessage {
             is com.cryptochecker.app.data.BackupStorageKeptException -> StorageKept
             is com.cryptochecker.app.data.BackupStorageInMemoryException -> StorageInMemory
             is com.cryptochecker.app.data.BackupLimits.ExportTooLargeException -> ExportTooLarge
+            // Sicherung bis 64 MB als Text und JSON im Speicher (seit Build 93 kein Absturz mehr)
+            is OutOfMemoryError -> NotEnoughMemory
             else -> Failed
         }
     }

@@ -177,4 +177,5 @@
     <string name="alarm_enter_amount">Voer een waarde in</string>
     <string name="alarm_editor_more">Meer</string>
     <string name="alarm_editor_more_summary">Snelle alarmen, meer voorwaarden, geluid en voorlezen</string>
+    <string name="alarm_reliability_storage_no_key">Alarmen op de achtergrond gepauzeerd – volglijst niet opgeslagen</string>
 </resources>

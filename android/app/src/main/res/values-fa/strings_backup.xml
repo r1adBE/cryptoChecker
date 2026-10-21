@@ -91,5 +91,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">سبد ذخیره‌شده الان قفل است – تغییرات فقط پس از اجرای بعدی ممکن است.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">این دستگاه الان کلیدی فراهم نمی‌کند – واچ‌لیست ذخیره نمی‌شود و تغییرات با بستن برنامه از بین می‌روند. برنامه در اجرای بعدی دوباره تلاش می‌کند.</string>
+    <string name="watchlist_storage_in_memory">این دستگاه الان کلیدی فراهم نمی‌کند – واچ‌لیست ذخیره نمی‌شود و تغییرات با بستن برنامه از بین می‌روند. هشدارها در پس‌زمینه متوقف شده‌اند. برنامه در اجرای بعدی دوباره تلاش می‌کند.</string>
 </resources>

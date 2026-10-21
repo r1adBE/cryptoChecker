@@ -50,17 +50,21 @@ enum ProtectedStorage {
     /// - Ohne lesbaren Schlüsselbund: nichts anfassen (nächster Start).
     /// - Kein Schlüssel, aber verschlüsselte Dateien (Schlüssel verloren, z. B. Backup ohne Schlüsselbund eingespielt):
     ///   diese beiseitelegen statt löschen, erst dann einen neuen Schlüssel anlegen.
+    /// - Unverschlüsselt bleibende Dateien kommen so lange nicht ins Geräte-Backup (`PlainBackupExclusion`, seit Build 93).
     @discardableResult
     static func prepareAtLaunch(files: [(url: URL, coordination: URL)] = ProtectedStorage.files,
-                                keys: StorageKey = .shared) -> LaunchOutcome {
+                                keys: StorageKey = .shared, defaults: UserDefaults = .standard) -> LaunchOutcome {
         var outcome = LaunchOutcome()
         let fm = FileManager.default
         let present = files.filter { fm.fileExists(atPath: $0.url.path) }
+        // Schon versiegelt (normal geschrieben, das Merkmal setzte der Schreiber): kein Merkmal von früher mehr nötig
+        for file in present where isSealedFile(file.url) { PlainBackupExclusion.forget(file.url, defaults: defaults) }
         /// Ohne Schlüssel bleibt jede Klartext-Datei, wie sie ist — vermerkt für den Hinweis (`encryptionPending`).
         func keepingPlain() -> LaunchOutcome {
             var kept = outcome
             for file in present where fm.fileExists(atPath: file.url.path) && !ProtectedStorage.isSealedFile(file.url) {
                 kept.keptPlain.append(file.url.lastPathComponent)
+                PlainBackupExclusion.excludeWhilePlain(file.url, defaults: defaults)
             }
             return kept
         }
@@ -81,10 +85,11 @@ enum ProtectedStorage {
             key = created
         }
         for file in present where fm.fileExists(atPath: file.url.path) && !isSealedFile(file.url) {
-            if encrypt(file.url, key: key, coordination: file.coordination) {
+            if encrypt(file.url, key: key, coordination: file.coordination, defaults: defaults) {
                 outcome.encrypted.append(file.url.lastPathComponent)
             } else {
                 outcome.keptPlain.append(file.url.lastPathComponent)
+                PlainBackupExclusion.excludeWhilePlain(file.url, defaults: defaults)
             }
         }
         // Beiseitegelegte Dateien, die mit diesem Schlüssel doch öffnen («kein Schlüssel» war nur vorübergehend, z. B.
@@ -149,31 +154,34 @@ enum ProtectedStorage {
     }
 
     /// Klartext lesen → verschlüsselt in eine Nachbardatei → lesen, öffnen, vergleichen → atomar ersetzen (der Klartext
-    /// verschwindet mit dem Umbenennen) → Backup-Merkmal wie vorher. Abgestimmt mit den Schreibern der anderen Prozesse;
-    /// hat jemand die Datei inzwischen geändert, bleibt sie für den nächsten Start.
-    static func encrypt(_ url: URL, key: SymmetricKey, coordination: URL) -> Bool {
+    /// verschwindet mit dem Umbenennen) → Backup-Merkmal wie vorher (wie vor dem Ausnehmen als Klartext,
+    /// `PlainBackupExclusion`). Abgestimmt mit den Schreibern der anderen Prozesse; hat jemand die Datei inzwischen
+    /// geändert, bleibt sie für den nächsten Start.
+    static func encrypt(_ url: URL, key: SymmetricKey, coordination: URL, defaults: UserDefaults = .standard) -> Bool {
         var done = false
         var coordinated = false
         var error: NSError?
         NSFileCoordinator(filePresenter: nil).coordinate(writingItemAt: coordination, options: .forMerging, error: &error) { _ in
             coordinated = true
-            done = encryptNow(url, key: key)
+            done = encryptNow(url, key: key, defaults: defaults)
         }
         // Wie `SharedStorage.coordinated`: ohne Abstimmung trotzdem (die Prüfung `unchangedFrom` bleibt)
-        if !coordinated { done = encryptNow(url, key: key) }
+        if !coordinated { done = encryptNow(url, key: key, defaults: defaults) }
         return done
     }
 
-    private static func encryptNow(_ url: URL, key: SymmetricKey) -> Bool {
+    private static func encryptNow(_ url: URL, key: SymmetricKey, defaults: UserDefaults) -> Bool {
         guard let raw = try? Data(contentsOf: url) else { return false }
         if ProtectedContainer.isSealed(raw) { return true }
-        let excluded = BackupExclusion.isExcluded(url) ?? false
+        let excluded = PlainBackupExclusion.afterSealing(current: BackupExclusion.isExcluded(url) ?? false,
+                                                         remembered: PlainBackupExclusion.remembered(url, defaults: defaults))
         do {
             try ProtectedFile.writeSealed(raw, to: url, key: key, unchangedFrom: raw)
         } catch {
             return false
         }
         BackupExclusion.set(excluded: excluded, for: url)
+        PlainBackupExclusion.forget(url, defaults: defaults)
         return true
     }
 

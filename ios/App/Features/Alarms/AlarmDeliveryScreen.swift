@@ -248,6 +248,8 @@ enum AlarmReadinessProbe {
         input.quietEnd = settings.quietHoursEnd
         // Nur vom System geplante Prüfungen (BGAppRefreshTask) — App, Widget und gescheiterte Läufe zählen nicht
         input.lastBackgroundCheck = CheckRunLog.lastBackgroundCheck(runs)
+        // Alle gespeicherten geplanten Läufe gescheitert: Zuverlässigkeitszeile warnt (seit Build 93)
+        input.lastFailedBackgroundCheck = CheckRunLog.lastFailedBackgroundCheck(runs)
         input.hasAlarms = hasAlarms
         input.alertEnabled = center.alertSetting != .disabled
         input.soundEnabled = center.soundSetting != .disabled

@@ -33,6 +33,9 @@ struct PortfolioEntry: TimelineEntry {
     var logos: [String: UIImage] = [:]
     /// Schalter «Coin-Logos in Widgets»; aus = keine Plakette.
     var showLogos = false
+    /// Zone für die Tage der Balken und das Zeitgitter — dieselbe wie im Einzel-Widget (Chart-Zeitzone der %-Basis,
+    /// `ChangeBasisMath.chartTimeZone`; seit Build 93, vorher Balken immer in der Gerätezone). Wie Android.
+    var chartTimeZone: TimeZone = .current
 
     /// Wirksame Anzeige (bei einem USD-Stablecoin «Nur USDT», ohne USDT-Wert nur Umrechnung).
     var effectiveDisplay: PortfolioWidgetDisplay {
@@ -59,6 +62,7 @@ struct PortfolioEntry: TimelineEntry {
         PortfolioWidgetChart.plan(s, requested: range.range, type: chartType.chartType,
                                   // UTC-Tag wie der Tagesverlauf der Aufnahme (`PortfolioWidgetChart.dailyData`)
                                   todayEpochDay: PortfolioHistory.epochDay(utcMillis: Int64(date.timeIntervalSince1970 * 1000)),
+                                  timeZone: chartTimeZone,
                                   dayAxis: PortfolioWidgetText.dayAxis(s))
     }
 
@@ -92,6 +96,7 @@ struct PortfolioEntry: TimelineEntry {
                                    priceColors: settings.priceColorScheme, highContrast: settings.highContrast,
                                    priceColorsInverted: settings.priceColorsInverted,
                                    hideAmounts: settings.hidePortfolioAmounts)
+        entry.chartTimeZone = ChangeBasisMath.chartTimeZone(settings.changeBasis.storage)
         entry.apply(config)
         return entry
     }

@@ -7,7 +7,7 @@
   "cases": [
     {
       "kind": "single",
-      "name": "market summary Xbt/Aud: CreatedTimestampUtc is the summary time, not a trade time (exchange time unknown)",
+      "name": "market summary Xbt/Aud: CreatedTimestampUtc is the summary time, not a trade time (exchange time unknown); vol = DayVolumeXbtInSecondaryCurrrency (coins traded on this pair; DayVolumeXbt sums all counter currencies)",
       "market": "IndependentReserve",
       "pair": {
         "base": "BTC",
@@ -16,18 +16,19 @@
         "contract": "NONE"
       },
       "requestId": 0,
-      "body": "{\"CreatedTimestampUtc\":\"2024-10-10T06:00:00.1234567Z\",\"CurrentHighestBidPrice\":95000.12,\"CurrentLowestOfferPrice\":95010.5, \"DayAvgPrice\":94500.0,\"DayHighestPrice\":95500.0,\"DayLowestPrice\":93000.0,\"DayVolumeXbt\":123.456, \"DayVolumeXbtInSecondaryCurrrency\":11665432.1,\"LastPrice\":95005.0,\"PrimaryCurrencyCode\":\"Xbt\",\"SecondaryCurrencyCode\":\"Aud\"}",
+      "body": "{\"CreatedTimestampUtc\":\"2024-10-10T06:00:00.1234567Z\",\"CurrentHighestBidPrice\":95000.12,\"CurrentLowestOfferPrice\":95010.5, \"DayAvgPrice\":94500.0,\"DayHighestPrice\":95500.0,\"DayLowestPrice\":93000.0,\"DayVolumeXbt\":123.456, \"DayVolumeXbtInSecondaryCurrrency\":98.765,\"LastPrice\":95005.0,\"PrimaryCurrencyCode\":\"Xbt\",\"SecondaryCurrencyCode\":\"Aud\"}",
       "expect": {
         "last": 95005.0,
         "bid": 95000.12,
         "ask": 95010.5,
         "high": 95500.0,
         "low": 93000.0,
-        "vol": 123.456,
+        "vol": 98.765,
         "volQuote": -1.0,
         "change24hPercent": null,
         "exchangeTime": null
-      }
+      },
+      "note": "Recorded 2026-10-16 (Xbt/Aud): DayVolumeXbt 21.53, DayVolumeXbtInSecondaryCurrrency 19.786 — both in coins despite the name; the triple r is the real field name."
     },
     {
       "kind": "single",

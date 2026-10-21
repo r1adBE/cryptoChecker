@@ -91,5 +91,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">सहेजा गया पोर्टफ़ोलियो अभी लॉक है – बदलाव अगली बार ऐप शुरू होने के बाद ही हो सकेंगे।</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">यह डिवाइस अभी कोई कुंजी उपलब्ध नहीं करा रहा – वॉचलिस्ट सहेजी नहीं जा रही, ऐप बंद होने पर बदलाव खो जाएँगे। ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।</string>
+    <string name="watchlist_storage_in_memory">यह डिवाइस अभी कोई कुंजी उपलब्ध नहीं करा रहा – वॉचलिस्ट सहेजी नहीं जा रही, ऐप बंद होने पर बदलाव खो जाएँगे। बैकग्राउंड में अलार्म रुके हुए हैं। ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।</string>
 </resources>

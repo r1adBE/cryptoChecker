@@ -97,5 +97,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">Zapisany portfel jest teraz zablokowany – zmiany będą możliwe dopiero po następnym uruchomieniu.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">To urządzenie nie udostępnia teraz klucza – lista nie jest zapisywana, a zmiany przepadną po zamknięciu aplikacji. Aplikacja spróbuje ponownie przy następnym uruchomieniu.</string>
+    <string name="watchlist_storage_in_memory">To urządzenie nie udostępnia teraz klucza – lista nie jest zapisywana, a zmiany przepadną po zamknięciu aplikacji. Alarmy w tle są wstrzymane. Aplikacja spróbuje ponownie przy następnym uruchomieniu.</string>
 </resources>

@@ -97,5 +97,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">Сохранённый портфель сейчас заблокирован – изменения станут возможны только после следующего запуска.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">Устройство сейчас не предоставляет ключ – список не сохраняется, изменения пропадут при закрытии приложения. Приложение попробует снова при следующем запуске.</string>
+    <string name="watchlist_storage_in_memory">Устройство сейчас не предоставляет ключ – список не сохраняется, изменения пропадут при закрытии приложения. Оповещения в фоне приостановлены. Приложение попробует снова при следующем запуске.</string>
 </resources>

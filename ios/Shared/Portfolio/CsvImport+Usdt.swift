@@ -55,8 +55,11 @@ extension CsvImport {
                     needsFx = true
                 }
             }
+            // Gebühr in der Preiswährung, in USD/USDT oder in einer anderen Fiat-Währung (Kauf in USD, Gebühr in EUR;
+            // Tausch ohne Fiat-Wert mit EUR-Gebühr): zum Tageskurs ihrer Währung — ohne Kurs nie still weggelassen,
+            // sondern needsFx wie Preis und Wert. Wie Android
             var feeUsdt: Decimal?
-            if let fee = row.fee, let unit = row.feeUnit, unit == row.quote || usdLike.contains(unit) {
+            if let fee = row.fee, let unit = row.feeUnit, unit == row.quote || usdLike.contains(unit) || isFiat(unit) {
                 if let r = usdtRate(unit, day, fx, usdtUsd: usdtUsd, close: close) {
                     if r.approximate { usdtApproximate = true }
                     feeUsdt = toUsdt(fee, r.rate)

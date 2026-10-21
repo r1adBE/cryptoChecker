@@ -364,3 +364,61 @@ final class ProtectedFileTests: XCTestCase {
         XCTAssertEqual(alarms?.coordination.lastPathComponent, "watchlist.json")
     }
 }
+
+/// Seit Build 93: unverschlüsselt gebliebene Dateien nicht im Geräte-Backup, versiegelt wieder nach eigener Regel
+/// (`PlainBackupExclusion`). Eigene Einstellungs-Suite, nie die der App.
+extension ProtectedFileTests {
+    private func isolatedDefaults() -> UserDefaults {
+        let name = "PlainBackupExclusion-\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: name)!
+        addTeardownBlock { defaults.removePersistentDomain(forName: name) }
+        return defaults
+    }
+
+    func testKeptPlainIsExcludedAndGetsItsFlagBackWhenSealedLater() throws {
+        try json.write(to: watchlist)
+        XCTAssertEqual(BackupExclusion.isExcluded(watchlist), false)
+        let defaults = isolatedDefaults()
+        let locked = FakeKeychain()
+        locked.readStatus = errSecInteractionNotAllowed
+        // Erster Start: Schlüsselbund gesperrt → Klartext bleibt, aber nicht im Backup
+        let first = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(locked), defaults: defaults)
+        XCTAssertEqual(first.keptPlain, ["watchlist.json"])
+        XCTAssertEqual(BackupExclusion.isExcluded(watchlist), true)
+        // Zweiter Start, noch gesperrt: das gemerkte Merkmal von vorher bleibt «nicht ausgenommen»
+        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(locked), defaults: defaults)
+        XCTAssertEqual(PlainBackupExclusion.remembered(watchlist, defaults: defaults), false)
+        // Dritter Start mit Schlüssel: versiegelt, wieder im Backup wie vorher, nichts mehr gemerkt
+        let third = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(keychain(with: fixedKey)), defaults: defaults)
+        XCTAssertEqual(third.encrypted, ["watchlist.json"])
+        XCTAssertEqual(BackupExclusion.isExcluded(watchlist), false)
+        XCTAssertNil(PlainBackupExclusion.remembered(watchlist, defaults: defaults))
+    }
+
+    func testExcludedBeforeStaysExcludedAfterSealing() throws {
+        // `watchlist.json` mit Portfolio-Alarmen bei ausgeschalteter Systemsicherung: war schon ausgenommen
+        try json.write(to: watchlist)
+        BackupExclusion.set(excluded: true, for: watchlist)
+        let defaults = isolatedDefaults()
+        let noKey = keychain(with: nil)
+        noKey.addStatus = errSecMissingEntitlement
+        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(noKey), defaults: defaults)
+        XCTAssertEqual(PlainBackupExclusion.remembered(watchlist, defaults: defaults), true)
+        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(keychain(with: fixedKey)), defaults: defaults)
+        XCTAssertEqual(BackupExclusion.isExcluded(watchlist), true)
+    }
+
+    func testSealedByNormalWriteForgetsTheRememberedFlag() throws {
+        try json.write(to: watchlist)
+        let defaults = isolatedDefaults()
+        let noKey = keychain(with: nil)
+        noKey.addStatus = errSecMissingEntitlement
+        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(noKey), defaults: defaults)
+        XCTAssertNotNil(PlainBackupExclusion.remembered(watchlist, defaults: defaults))
+        // Während des Laufs kommt der Schlüssel: normales Schreiben legt eine neue (versiegelte) Datei ohne Merkmal an
+        try ProtectedFile.write(json, to: watchlist, keys: keys(keychain(with: fixedKey)), requireSealed: true)
+        XCTAssertEqual(BackupExclusion.isExcluded(watchlist), false)
+        _ = ProtectedStorage.prepareAtLaunch(files: files(watchlist), keys: keys(keychain(with: fixedKey)), defaults: defaults)
+        XCTAssertNil(PlainBackupExclusion.remembered(watchlist, defaults: defaults))
+    }
+}

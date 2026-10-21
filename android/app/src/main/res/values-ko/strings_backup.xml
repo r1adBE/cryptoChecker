@@ -88,5 +88,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">저장된 포트폴리오가 지금 잠겨 있습니다. 변경은 다음 실행 후에만 가능합니다.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">이 기기가 지금 키를 제공하지 않습니다. 관심 목록이 저장되지 않으며 앱을 닫으면 변경 사항이 사라집니다. 다음 실행 시 다시 시도합니다.</string>
+    <string name="watchlist_storage_in_memory">이 기기가 지금 키를 제공하지 않습니다. 관심 목록이 저장되지 않으며 앱을 닫으면 변경 사항이 사라집니다. 백그라운드 경보는 일시 중지됩니다. 다음 실행 시 다시 시도합니다.</string>
 </resources>

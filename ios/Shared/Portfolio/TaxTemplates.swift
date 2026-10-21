@@ -224,6 +224,10 @@ enum TaxTemplate: String, Codable, CaseIterable, Sendable {
     /// (§ 27a Abs. 4 Z 2 EStG) und FR (nicht in der Erwerbspreis-Summe) rechnen sie ohnehin nicht zum Einstand. Wie Android.
     var quoteFeeIsInfo: Bool { self == .UK || self == .US || self == .CA || self == .AU || self == .JP }
 
+    /// DE/AT: Auszahlungsgebühren sind keine Veräusserung — eigener Posten neben der Summe der Gewinne (Jahresübersicht
+    /// `.WITHDRAWAL_FEES`, Gewinne-CSV eigene Summenzeile `TaxCsvTexts.withdrawalFeesTotal`). Wie Android.
+    var withdrawalFeeApart: Bool { self == .DE || self == .AT }
+
     /// Regeln der Vorlage für Vorgänge ohne Verkauf (`TaxEngines.applyRules`, `TaxExport.gainRows`).
     var eventRules: TaxEventRules {
         TaxEventRules(giftIsDisposal: giftIsDisposal, spouseGiftNeutral: spouseGiftNeutral,

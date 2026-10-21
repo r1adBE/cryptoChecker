@@ -28,6 +28,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.portfolio.FxRateSource
+import com.cryptochecker.app.domain.alarm.AlarmEdit
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.theme.Spacing
@@ -74,8 +76,10 @@ internal fun AlarmEditorSheet(
 
     // Zweite Währung neben der Quote: die des Alarms (falls gesetzt), sonst die Umrechnungswährung
     val otherCurrency = (draft.currency ?: targetCurrency).uppercase()
-    val offerCurrency = draft.condition.isPriceThreshold && quoteAsset.isNotEmpty() &&
-        !otherCurrency.equals(quoteAsset, ignoreCase = true)
+    // Nie für eine Quote ohne Umrechnung (Fiat ohne Devisenkurs wie NGN): der Alarm wartete sonst für immer
+    val offerCurrency = AlarmEdit.offersCurrency(
+        draft.condition.isPriceThreshold, quoteAsset, otherCurrency, FxRateSource.CURRENCIES,
+    )
     if (offerCurrency) {
         LaunchedEffect(otherCurrency) { onLoadRate(otherCurrency) }
     }

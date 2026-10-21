@@ -395,20 +395,40 @@ final class RestoreRecoveryTests: XCTestCase {
 
     func testJournalIsKeptWhenRollBackFailedWhileWriting() {
         var deleted = false
+        var marked = 0
         var notices: [Bool] = []
-        BackupManager.finishRecovery(.incomplete, deleteJournal: { deleted = true }, notice: { notices.append($0) })
-        // Journal bleibt für den nächsten Start, der Hinweis «nicht vollständig» kommt trotzdem
+        BackupManager.finishRecovery(.incomplete, deleteJournal: { deleted = true }, notice: { notices.append($0) },
+                                     markAttempt: { marked += 1 })
+        // Journal bleibt für genau einen weiteren Versuch (vermerkt), der Hinweis «nicht vollständig» kommt trotzdem
         XCTAssertFalse(deleted)
+        XCTAssertEqual(marked, 1)
         XCTAssertEqual(notices, [false])
     }
 
     func testJournalIsDeletedAfterRollBackOrWhenUnreadable() {
         var deleted = 0
+        var marked = 0
         var notices: [Bool] = []
-        BackupManager.finishRecovery(.rolledBack, deleteJournal: { deleted += 1 }, notice: { notices.append($0) })
-        BackupManager.finishRecovery(.unreadable, deleteJournal: { deleted += 1 }, notice: { notices.append($0) })
+        BackupManager.finishRecovery(.rolledBack, deleteJournal: { deleted += 1 }, notice: { notices.append($0) },
+                                     markAttempt: { marked += 1 })
+        BackupManager.finishRecovery(.unreadable, deleteJournal: { deleted += 1 }, notice: { notices.append($0) },
+                                     markAttempt: { marked += 1 })
         XCTAssertEqual(deleted, 2)
+        XCTAssertEqual(marked, 0)
         XCTAssertEqual(notices, [true, false])
+    }
+
+    func testGiveUpDeletesJournalAndNoticesOnlyOnce() {
+        var steps: [String] = []
+        var notices: [Bool] = []
+        // Zu alt, nie versucht: vermerken, löschen, Hinweis
+        BackupManager.giveUpRecovery(showNotice: true, markAttempt: { steps.append("mark") },
+                                     deleteJournal: { steps.append("delete") }, notice: { notices.append($0) })
+        // Nach gescheitertem Versuch: der Hinweis kam schon
+        BackupManager.giveUpRecovery(showNotice: false, markAttempt: { steps.append("mark") },
+                                     deleteJournal: { steps.append("delete") }, notice: { notices.append($0) })
+        XCTAssertEqual(steps, ["mark", "delete", "mark", "delete"])
+        XCTAssertEqual(notices, [false])
     }
 
     func testFailureWhileWritingIsIncompleteOtherwiseUnreadable() {
@@ -418,5 +438,59 @@ final class RestoreRecoveryTests: XCTestCase {
         XCTAssertEqual(BackupManager.recoveryOutcome(failure: BackupManager.Failure.notABackup), .unreadable)
         XCTAssertEqual(BackupManager.recoveryOutcome(failure: BackupManager.Failure.invalid("watches")), .unreadable)
         XCTAssertEqual(BackupManager.recoveryOutcome(failure: Boom()), .unreadable)
+    }
+}
+
+/// Darf ein Journal noch zurückgerollt werden (`RestoreRecoveryPolicy`)? Wie `RestoreRecoveryPolicyTest.kt`.
+final class RestoreRecoveryPolicyTests: XCTestCase {
+    private let created: Int64 = 1_800_000_000_000
+    private let hour: Int64 = 60 * 60 * 1000
+
+    func testFreshJournalWithoutAttemptIsRolledBack() {
+        XCTAssertEqual(RestoreRecoveryPolicy.decide(createdAt: created, attemptedFor: nil, now: created + hour), .rollBack)
+        // Ein vermerkter Versuch für ein ANDERES (früheres) Journal zählt nicht
+        XCTAssertEqual(RestoreRecoveryPolicy.decide(createdAt: created, attemptedFor: created - hour, now: created + hour), .rollBack)
+        // Genau ein Tag alt: noch zurückrollen
+        XCTAssertEqual(RestoreRecoveryPolicy.decide(createdAt: created, attemptedFor: nil, now: created + 24 * hour), .rollBack)
+    }
+
+    func testSecondAttemptForSameJournalGivesUp() {
+        // Der vorige Start scheiterte mit diesem Journal: kein drittes Zurückrollen über inzwischen geänderte Daten
+        XCTAssertEqual(RestoreRecoveryPolicy.decide(createdAt: created, attemptedFor: created, now: created + hour), .giveUp)
+    }
+
+    func testJournalOlderThanOneDayGivesUp() {
+        XCTAssertEqual(RestoreRecoveryPolicy.decide(createdAt: created, attemptedFor: nil, now: created + 24 * hour + 1), .giveUp)
+        XCTAssertEqual(RestoreRecoveryPolicy.decide(createdAt: created, attemptedFor: nil, now: created + 72 * hour), .giveUp)
+    }
+
+    func testUnknownAgeGivesUp() {
+        XCTAssertEqual(RestoreRecoveryPolicy.decide(createdAt: 0, attemptedFor: nil, now: created), .giveUp)
+        XCTAssertEqual(RestoreRecoveryPolicy.decide(createdAt: -5, attemptedFor: nil, now: created), .giveUp)
+    }
+
+    func testStoredTimeWinsOverFileTime() {
+        XCTAssertEqual(RestoreRecoveryPolicy.createdAt(stored: created, fileModified: created + hour), created)
+        // Ohne «createdAt»: Änderungszeit der Datei
+        XCTAssertEqual(RestoreRecoveryPolicy.createdAt(stored: 0, fileModified: created + hour), created + hour)
+        XCTAssertEqual(RestoreRecoveryPolicy.createdAt(stored: 0, fileModified: 0), 0)
+        XCTAssertEqual(RestoreRecoveryPolicy.storedCreatedAt(Data(#"{"createdAt":1800000000000,"watches":[]}"#.utf8)), created)
+        XCTAssertEqual(RestoreRecoveryPolicy.storedCreatedAt(Data(#"{"watches":[]}"#.utf8)), 0)
+        XCTAssertEqual(RestoreRecoveryPolicy.storedCreatedAt(Data("kein json".utf8)), 0)
+    }
+
+    func testNoticeOnGiveUpOnlyOncePerJournal() {
+        XCTAssertTrue(RestoreRecoveryPolicy.noticeOnGiveUp(createdAt: created, attemptedFor: nil))
+        XCTAssertTrue(RestoreRecoveryPolicy.noticeOnGiveUp(createdAt: created, attemptedFor: created - hour))
+        XCTAssertFalse(RestoreRecoveryPolicy.noticeOnGiveUp(createdAt: created, attemptedFor: created))
+    }
+
+    func testAttemptMarkerRoundTrip() {
+        let defaults = UserDefaults(suiteName: "RestoreRecoveryPolicyTests")!
+        defaults.removePersistentDomain(forName: "RestoreRecoveryPolicyTests")
+        XCTAssertNil(StorageRecoveryNotice.rollBackAttemptedFor(defaults: defaults))
+        StorageRecoveryNotice.recordRollBackAttempt(created, defaults: defaults)
+        XCTAssertEqual(StorageRecoveryNotice.rollBackAttemptedFor(defaults: defaults), created)
+        defaults.removePersistentDomain(forName: "RestoreRecoveryPolicyTests")
     }
 }

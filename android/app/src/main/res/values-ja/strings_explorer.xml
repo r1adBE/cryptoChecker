@@ -108,4 +108,6 @@
 
     <string name="explorer_bulk_show_all">すべて表示（%1$d）</string>
     <string name="dex_token_address_copy">トークンアドレスをコピー</string>
+    <string name="dex_token_address_copied">トークンアドレスをコピーしました</string>
+    <string name="dex_token_address_label">末尾が %1$s のトークンアドレス</string>
 </resources>

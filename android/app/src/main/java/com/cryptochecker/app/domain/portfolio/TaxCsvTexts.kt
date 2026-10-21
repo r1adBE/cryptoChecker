@@ -105,4 +105,10 @@ data class TaxCsvTexts(
      * ausdrücklich geklärt. Leer = kein eigener Vermerk.
      */
     val incomeBeforeNewLaw: String = "",
+    /**
+     * DE/AT (nur diese Vorlagen füllen ihn, [TaxTemplate.withdrawalFeeApart]): Summenzeile «Auszahlungsgebühren» — die
+     * Gebühr-Zeilen einer Auszahlung zählen dann NICHT in der Summe der Gewinne, sondern in dieser eigenen Zeile, wie der
+     * eigene Posten der Jahresübersicht (keine Veräusserung). Leer (alle anderen Vorlagen) = in der Summe wie bisher.
+     */
+    val withdrawalFeesTotal: String = "",
 )

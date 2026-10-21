@@ -38,8 +38,9 @@ class IndependentReserve : Market("Independent Reserve", "Independent Reserve") 
         ticker.ask = json.optDoubleOrMissing("CurrentLowestOfferPrice")
         ticker.high = json.optDoubleOrMissing("DayHighestPrice")
         ticker.low = json.optDoubleOrMissing("DayLowestPrice")
-        // heisst immer «…Xbt», gilt aber für den jeweiligen Coin
-        ticker.vol = json.optDoubleOrMissing("DayVolumeXbt")
+        // Heisst immer «…Xbt», gilt aber für den jeweiligen Coin. «DayVolumeXbt» zählt alle Gegenwährungen zusammen,
+        // «…InSecondaryCurrrency» (so geschrieben, drei r) nur dieses Paar — beides in Coins, nicht in der Gegenwährung
+        ticker.vol = json.optDoubleOrMissing("DayVolumeXbtInSecondaryCurrrency")
     }
 
     /** `getString` wie bisher: JSON null ergibt hier den Text «null». */

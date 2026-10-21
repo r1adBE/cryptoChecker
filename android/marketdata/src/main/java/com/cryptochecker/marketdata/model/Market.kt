@@ -76,8 +76,8 @@ abstract class Market(
      * [Ticker.timestamp] is the fetch time and [Ticker.exchangeTime] the time reported by the exchange (or null).
      *
      * Why the fetch time counts: «outdated» (OutdatedRule, lastUpdate) asks whether the exchange still lists the
-     * pair — and the answer just arrived. A quiet pair with an old last trade (Upbit `trade_timestamp`, LATOKEN
-     * `updateTimestamp`) is therefore not outdated within the alarm limit; a last trade older than that limit
+     * pair — and the answer just arrived. A quiet pair with an old last trade (Upbit `trade_timestamp`, Bithumb
+     * `trade_date`/`trade_time`) is therefore not outdated within the alarm limit; a last trade older than that limit
      * (2 h, AlarmFreshness) marks the row «outdated – last trade …» too (PriceFreshness.staleReason, build 82). If the fetch fails, lastUpdate stays and the pair ages as
      * usual; a delisted pair is missing from the list (NotTraded). The exchange time is only shown
      * (PriceFreshness) so that a standing price does not look fresh. Same as `Market.swift`.
@@ -120,12 +120,15 @@ abstract class Market(
 
     /**
      * Die Leser schreiben eine allfällige Börsenzeit (s, ms, µs oder ns) in [Ticker.timestamp]. Hier wird sie in
-     * ms nach [Ticker.exchangeTime] verschoben (≤ 0 = keine) und [Ticker.timestamp] auf jetzt gesetzt.
+     * ms nach [Ticker.exchangeTime] verschoben (≤ 0 = keine) und [Ticker.timestamp] auf jetzt gesetzt. Eine Zeit
+     * mehr als [EXCHANGE_TIME_FUTURE_TOLERANCE_MS] in der Zukunft ist falsch gelesen (Ortszeit als Epoche wie
+     * Bithumbs KST, falsche Einheit) und fällt weg: Sie liesse einen stehenden Kurs stundenlang frisch aussehen.
      */
     private fun markFetched(ticker: Ticker) {
-        val reported = ticker.timestamp
-        ticker.exchangeTime = reported.takeIf { it > 0 }?.let(TimeUtils::parseTimeToMillis)
-        ticker.timestamp = System.currentTimeMillis()
+        val now = System.currentTimeMillis()
+        val reported = ticker.timestamp.takeIf { it > 0 }?.let(TimeUtils::parseTimeToMillis)
+        ticker.exchangeTime = reported?.takeIf { it <= now + EXCHANGE_TIME_FUTURE_TOLERANCE_MS }
+        ticker.timestamp = now
     }
 
     // ── Sammelabfrage aller Kurse (freiwillig) ───────────────────────────────────
@@ -357,5 +360,8 @@ abstract class Market(
 
         /** Message of [noErrorText]; never reaches the UI (the parse error is shown instead). */
         const val NO_ERROR_TEXT = "No error text"
+
+        /** Uhren gehen nie ganz gleich: so weit darf eine Börsenzeit vor der Uhr des Geräts liegen (5 min). iOS gleich. */
+        const val EXCHANGE_TIME_FUTURE_TOLERANCE_MS = 5L * 60 * 1000
     }
 }

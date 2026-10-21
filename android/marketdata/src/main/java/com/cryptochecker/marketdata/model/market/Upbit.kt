@@ -11,6 +11,7 @@ import com.cryptochecker.marketdata.util.optDoubleOrMissing
 import com.cryptochecker.marketdata.util.optText
 import org.json.JSONArray
 import org.json.JSONObject
+import java.time.LocalDate
 
 /** Upbit (Südkorea). Kennung «QUOTE-BASE», z. B. KRW-BTC. Doku: docs.upbit.com */
 class Upbit : UpbitStyleMarket(
@@ -19,17 +20,23 @@ class Upbit : UpbitStyleMarket(
     apiRoot = "https://api.upbit.com/v1",
     detailsFlag = "is_details=false",
     unfilteredUrl = "https://api.upbit.com/v1/ticker/all?quote_currencies=KRW,BTC,USDT",
+    tradeTimeFromUtcFields = false,
 ) {
     override val key = "Upbit"
 }
 
-/** Bithumb (Südkorea), API v1 mit Upbits Aufbau. Doku: apidocs.bithumb.com */
+/**
+ * Bithumb (Südkorea), API v1 mit Upbits Aufbau. Doku: apidocs.bithumb.com. Anders als bei Upbit ist
+ * «trade_timestamp» die koreanische Uhrzeit als Epoche geschrieben (9 h zu spät); die Zeit kommt darum aus
+ * «trade_date» + «trade_time» (UTC).
+ */
 class Bithumb : UpbitStyleMarket(
     name = "Bithumb",
     ttsName = "Bithumb",
     apiRoot = "https://api.bithumb.com/v1",
     detailsFlag = "isDetails=false",
     unfilteredUrl = null,
+    tradeTimeFromUtcFields = true,
 ) {
     override val key = "Bithumb"
 }
@@ -37,6 +44,7 @@ class Bithumb : UpbitStyleMarket(
 /**
  * Gemeinsamer Aufbau von Upbit und Bithumb: Paarliste `market/all`, Ticker `ticker?markets=…`, Kennung «QUOTE-BASE».
  * [unfilteredUrl]: Sammelabfrage ohne Auswahl, falls die Börse eine hat (Upbit), sonst null (Bithumb).
+ * [tradeTimeFromUtcFields]: Handelszeit aus «trade_date»/«trade_time» (UTC) statt aus «trade_timestamp» (Bithumb).
  */
 abstract class UpbitStyleMarket(
     name: String,
@@ -44,6 +52,7 @@ abstract class UpbitStyleMarket(
     apiRoot: String,
     detailsFlag: String,
     private val unfilteredUrl: String?,
+    private val tradeTimeFromUtcFields: Boolean,
 ) : SimpleMarket(
     name = name,
     pairListUrl = "$apiRoot/market/all?$detailsFlag",
@@ -144,13 +153,35 @@ abstract class UpbitStyleMarket(
         ticker.vol = row.optDoubleOrMissing("acc_trade_volume_24h")
         ticker.volQuote = row.optDoubleOrMissing("acc_trade_price_24h")
         // Zeit des letzten Handels (nur Anzeige); «timestamp» wäre bloss die Antwortzeit. «Veraltet» misst am Abruf
-        ticker.timestamp = row.optLong("trade_timestamp")
+        ticker.timestamp = if (tradeTimeFromUtcFields) {
+            utcTradeMillis(row.optText("trade_date"), row.optText("trade_time"))
+        } else {
+            row.optLong("trade_timestamp")
+        }
         // signed_change_rate bezieht sich auf den Vortagesschluss (KST): keine 24-h-Veränderung
     }
 
     /** Gruppen der gefilterten Abfrage — nur mit ungefiltertem Ersatz; sonst oder nicht filterbar: null. */
     private fun selectionGroups(pairIds: Collection<String>): List<List<String>>? =
         if (unfilteredUrl == null) null else BulkPairChunks.chunks(selectionPrefix, pairIds)
+
+    companion object {
+        /**
+         * «20261016» + «232853» (UTC) → ms; 0 (= keine Börsenzeit), wenn ein Teil fehlt, anders aufgebaut oder
+         * kein gültiger Zeitpunkt ist. Wie iOS `UpbitStyleMarket.utcTradeMillis`.
+         */
+        fun utcTradeMillis(date: String, time: String): Long {
+            if (date.length != 8 || time.length != 6 || !(date + time).all { it in '0'..'9' }) return 0L
+            val day = runCatching {
+                LocalDate.of(date.substring(0, 4).toInt(), date.substring(4, 6).toInt(), date.substring(6, 8).toInt())
+            }.getOrNull() ?: return 0L
+            val hours = time.substring(0, 2).toInt()
+            val minutes = time.substring(2, 4).toInt()
+            val seconds = time.substring(4, 6).toInt()
+            if (hours > 23 || minutes > 59 || seconds > 59) return 0L
+            return (day.toEpochDay() * 86_400L + hours * 3_600L + minutes * 60L + seconds) * 1_000L
+        }
+    }
 
     /** «KRW-BTC» → (KRW, BTC); andere Form → null. */
     private fun splitMarket(market: String): Pair<String, String>? {

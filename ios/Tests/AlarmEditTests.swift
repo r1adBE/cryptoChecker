@@ -252,4 +252,20 @@ final class AlarmEditTests: XCTestCase {
         XCTAssertNil(store.unchecked(5))
         XCTAssertEqual(store.unchecked(6)?.reason, .noCandles)
     }
+
+    /// Eigene Alarmwährung nur, wenn die Quote umrechenbar ist — nie bei Fiat ohne Devisenkurs (NGN). Wie Android.
+    func testAlarmCurrencyOfferedOnlyForConvertibleQuotes() {
+        let fiat = ["CHF", "EUR", "USD", "JPY"]
+        XCTAssertTrue(AlarmEdit.offersCurrency(priceThreshold: true, quote: "USDT", other: "CHF", fiat: fiat))
+        XCTAssertTrue(AlarmEdit.offersCurrency(priceThreshold: true, quote: "EUR", other: "CHF", fiat: fiat))
+        XCTAssertTrue(AlarmEdit.offersCurrency(priceThreshold: true, quote: "BTC", other: "CHF", fiat: fiat))
+        // Fiat ohne Devisenkurs: nie umrechenbar
+        XCTAssertFalse(AlarmEdit.offersCurrency(priceThreshold: true, quote: "NGN", other: "CHF", fiat: fiat))
+        XCTAssertFalse(AlarmEdit.offersCurrency(priceThreshold: true, quote: "ars", other: "USD", fiat: fiat))
+        // Ungültig, leer, gleiche Währung oder keine Kursmarke
+        XCTAssertFalse(AlarmEdit.offersCurrency(priceThreshold: true, quote: "B-T", other: "CHF", fiat: fiat))
+        XCTAssertFalse(AlarmEdit.offersCurrency(priceThreshold: true, quote: "", other: "CHF", fiat: fiat))
+        XCTAssertFalse(AlarmEdit.offersCurrency(priceThreshold: true, quote: "chf", other: "CHF", fiat: fiat))
+        XCTAssertFalse(AlarmEdit.offersCurrency(priceThreshold: false, quote: "USDT", other: "CHF", fiat: fiat))
+    }
 }

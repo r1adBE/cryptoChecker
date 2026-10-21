@@ -125,7 +125,10 @@ struct PortfolioAddressLotEditor: View {
     @State private var tried = false
     @State private var loaded = false
 
-    private var sep: Character { ThresholdParser.localeDecimalSeparator }
+    /// Dezimalzeichen, mit dem die Texte vorbelegt und gelesen werden: einmal beim Öffnen festgehalten (`@State` übersteht
+    /// das Neu-Erzeugen der Ansicht) statt bei jedem Zeichnen neu gelesen — ändert sich die Region bei offenem Blatt,
+    /// bleibt «2,125» 2,125 statt 2125. Wie `PortfolioTxSheet.decimalSeparator` (seit Build 93 auch hier).
+    @State private var sep: Character = ThresholdParser.localeDecimalSeparator
     private var amount: Decimal? { PriceFormat.parseDecimalAmount(amountText, decimalSeparator: sep).flatMap { $0 > 0 ? $0 : nil } }
     private var value: Decimal? { PriceFormat.parseDecimalAmount(valueText, decimalSeparator: sep).flatMap { $0 >= 0 ? $0 : nil } }
     private var lot: AddressCostLot? {

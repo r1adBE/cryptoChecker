@@ -111,6 +111,28 @@ final class AlarmSnoozeTests: XCTestCase {
     }
 
     /// Ausschalten lässt Bezug und Marke stehen; Einschalten stellt nur die Bedingungen mit Marke neu scharf.
+    /// Seit Build 93: «1 h später» auch im Speicher der App. Das Zusammenführen beim Speichern übernimmt die Datei nur bei
+    /// neuerer Auslösung — das Einschalten auf der Datei allein ginge gegen ein Speichern der App («aus») verloren.
+    func testRearmMustAlsoReachTheAppSnapshot() {
+        let fired = Alarm(id: 1, watchId: 9, condition: .PRICE_ABOVE, threshold: 100, enabled: false,
+                          referencePrice: 101, lastTriggeredAt: 5_000, lastTriggeredPrice: 101, referenceAt: 5_000)
+        var disk = SharedStorage.Snapshot()
+        disk.alarms = [fired]
+        XCTAssertTrue(AlarmSnooze.rearm(1, in: &disk))
+        // Nur auf der Datei: der Stand der App («aus», gleiche Auslösung) gewinnt beim nächsten Speichern
+        var stale = SharedStorage.Snapshot()
+        stale.alarms = [fired]
+        SharedStorage.mergeNewerAlarmTriggers(from: disk, into: &stale)
+        XCTAssertFalse(stale.alarms[0].enabled)
+        // Auch im Speicher: bleibt eingeschaltet und scharf
+        var app = SharedStorage.Snapshot()
+        app.alarms = [fired]
+        XCTAssertTrue(AlarmSnooze.rearm(1, in: &app))
+        SharedStorage.mergeNewerAlarmTriggers(from: disk, into: &app)
+        XCTAssertTrue(app.alarms[0].enabled)
+        XCTAssertEqual(app.alarms[0].referenceAt, 0)
+    }
+
     func testSettingEnabledRearmsOnlyOnEnable() {
         let alarm = Alarm(id: 1, watchId: 9, condition: .PRICE_BELOW, threshold: 100, referencePrice: 99, referenceAt: 7)
         let off = AlarmEdit.settingEnabled(alarm, false)

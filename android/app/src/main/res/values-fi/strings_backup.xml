@@ -91,5 +91,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">Tallennettu salkku on juuri nyt lukittu – muutokset ovat mahdollisia vasta seuraavan käynnistyksen jälkeen.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">Laite ei juuri nyt anna avainta – seurantalistaa ei tallenneta, ja muutokset katoavat, kun sovellus suljetaan. Sovellus yrittää uudelleen seuraavalla käynnistyskerralla.</string>
+    <string name="watchlist_storage_in_memory">Laite ei juuri nyt anna avainta – seurantalistaa ei tallenneta, ja muutokset katoavat, kun sovellus suljetaan. Hälytykset taustalla on keskeytetty. Sovellus yrittää uudelleen seuraavalla käynnistyskerralla.</string>
 </resources>

@@ -62,10 +62,11 @@ struct AlarmEditorSheet: View {
         (draft.currency ?? targetCurrency).uppercased()
     }
 
-    /// Währungswahl nur bei Kursalarmen und wenn die Quote nicht schon die Umrechnungswährung ist.
+    /// Währungswahl nur bei Kursalarmen, wenn die Quote nicht schon die Umrechnungswährung ist und sich umrechnen lässt
+    /// (nie bei Fiat ohne Devisenkurs wie NGN: der Alarm wartete sonst für immer; `AlarmEdit.offersCurrency`).
     var offerCurrency: Bool {
-        guard draft.condition.isPriceThreshold, let quote = watch?.quoteAsset, !quote.isEmpty else { return false }
-        return !CurrencyConversion.sameCurrency(quote, otherCurrency)
+        guard let quote = watch?.quoteAsset else { return false }
+        return AlarmEdit.offersCurrency(priceThreshold: draft.condition.isPriceThreshold, quote: quote, other: otherCurrency)
     }
 
     /// Funding- und Open-Interest-Bedingungen anbieten: nur Perpetuals an Börsen mit eigenen Daten.

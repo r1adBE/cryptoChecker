@@ -116,4 +116,6 @@
 
     <string name="explorer_bulk_show_all">सभी दिखाएँ (%1$d)</string>
     <string name="dex_token_address_copy">टोकन का पता कॉपी करें</string>
+    <string name="dex_token_address_copied">टोकन पता कॉपी किया गया</string>
+    <string name="dex_token_address_label">%1$s पर समाप्त होने वाला टोकन पता</string>
 </resources>

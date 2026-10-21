@@ -116,4 +116,6 @@
 
     <string name="explorer_bulk_show_all">Vis alle (%1$d)</string>
     <string name="dex_token_address_copy">Kopiér tokenadresse</string>
+    <string name="dex_token_address_copied">Tokenadresse kopieret</string>
+    <string name="dex_token_address_label">Tokenadresse, der slutter på %1$s</string>
 </resources>

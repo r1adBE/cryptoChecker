@@ -281,12 +281,49 @@ object TaxExport {
         priceAt: ((String, Long) -> BigDecimal?)? = null,
         rules: TaxEventRules = TaxEventRules.of(method),
         walletFrom: LocalDate? = null,
-    ): LocalDate {
+    ): LocalDate = fxSpan(trades, method, period, zone, priceAt, rules, walletFrom).first
+
+    /**
+     * Erster und letzter Tag mit Devisenbedarf in einem Durchgang (die Veräusserungen nur einmal gerechnet). Erster wie
+     * [fxFrom]. Letzter: [until] ([priceUntil]) oder das späteste Datum eines Zugangs, den eine Veräusserung des Jahres
+     * nutzt (Kaufdatum, Zuordnung, Herkunftsteil), höchstens heute ([today], nie vor dem Ende des Steuerjahrs) — UK: ein
+     * Kauf am 20. April deckt einen Verkauf vom 2. April und braucht den Kurs SEINES Datums, nicht den des 5. April.
+     */
+    fun fxSpan(
+        trades: List<PortfolioTrade>,
+        method: TaxMethod,
+        period: TaxPeriod,
+        zone: ZoneId,
+        priceAt: ((String, Long) -> BigDecimal?)? = null,
+        rules: TaxEventRules = TaxEventRules.of(method),
+        walletFrom: LocalDate? = null,
+        until: LocalDate = period.end,
+        today: LocalDate = LocalDate.now(zone),
+    ): Pair<LocalDate, LocalDate> {
         // FIFO: Kaufdatum der Posten; Durchschnitt/Pool: Datum jedes Herkunftsteils des Einstands
         val upTo = if (method == TaxMethod.CA_ACB) TaxPeriod(period.startYear, LocalDate.MIN, period.end) else period
-        val first = disposalsIn(trades, method, upTo, zone, priceAt, rules = rules, walletFrom = walletFrom)
+        val times = disposalsIn(trades, method, upTo, zone, priceAt, rules = rules, walletFrom = walletFrom)
             .flatMap { d -> listOfNotNull(d.acquiredTime, d.matchedTime) + d.costParts.map { it.time } }
-            .minOrNull()?.let { localDate(it, zone) }
-        return if (first != null && first.isBefore(period.start)) first else period.start
+        val first = times.minOrNull()?.let { localDate(it, zone) }
+        val from = if (first != null && first.isBefore(period.start)) first else period.start
+        val last = times.maxOrNull()?.let { localDate(it, zone) }
+        val wanted = if (last != null && last.isAfter(until)) last else until
+        return from to minOf(wanted, maxOf(today, period.end))
+    }
+
+    /**
+     * Letzter Tag, bis zu dem Tagesschlüsse (Gebühr-Zeilen, Belohnungen und Tausch ohne Wert, Netzwerkgebühren) und
+     * Devisenkurse mindestens geladen werden: das Ende des Steuerjahrs; UK und CA 30 Tage danach — UK ordnet einem Verkauf
+     * Zugänge der 30 Tage DANACH zu (Bed-and-Breakfast, CRYPTO22200), CA prüft den Superficial Loss bis 30 Tage danach;
+     * diese Zugänge liegen beim Verkauf kurz vor dem Jahresende im nächsten Steuerjahr. Höchstens [today], nie vor dem
+     * Ende des Steuerjahrs (spätere Transaktionen gibt es noch nicht).
+     */
+    fun priceUntil(template: TaxTemplate, period: TaxPeriod, today: LocalDate): LocalDate {
+        val window = when (template) {
+            TaxTemplate.UK -> TaxTemplate.UK_BB_DAYS
+            TaxTemplate.CA -> TaxTemplate.CA_WINDOW_DAYS
+            else -> return period.end
+        }
+        return minOf(period.end.plusDays(window), maxOf(today, period.end))
     }
 }

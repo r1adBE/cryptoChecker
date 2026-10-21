@@ -154,6 +154,56 @@ struct PortfolioCoinRow: View {
         // Positionen als eine Karte: Trennlinie und Aussenrand statt eines Rands je Zeile
         .segmentLines(shape)
         .contentShape(shape)
+        // VoiceOver (seit Build 93): die Zeile als EIN Satz, die Teile ausgeblendet — wie die Zeile der Merkliste
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(verbatim: accessibilityText))
+    }
+
+    /// VoiceOver: Menge und Coin, Wert und Anteil (`a11y_portfolio_position`, wie das Portfolio-Widget), Hinweis zum
+    /// Kurs, offener Gewinn/Verlust seit Kauf, Gewinn/Verlust über die %-Basis, «Kurs veraltet», Börse und Anzahl
+    /// Transaktionen; Beträge verborgen: «Betrag verborgen», die Menge entfällt — wie `coinRowSpoken` (Android).
+    var accessibilityText: String {
+        // Hinweis zum Kurs in derselben Reihenfolge wie die Anzeige (nur einer)
+        var note: String?
+        if unchecked {
+            note = L("portfolio_price_unchecked")
+        } else if unavailable && position.value == nil {
+            note = L("portfolio_price_unavailable")
+        } else if let viaBase {
+            note = L("portfolio_price_via_base", viaBase)
+        } else if let bridgedStable {
+            note = L("portfolio_amount_bridged_stable", bridgedStable)
+        }
+        // Ohne Wert steht der Hinweis an seiner Stelle (nicht «—» vorlesen)
+        let value: String
+        if hideAmounts {
+            value = L("a11y_amount_hidden")
+        } else if let v = position.value {
+            value = PriceFormat.valueWithCurrency(unit.of(v), unit.code)
+        } else {
+            value = note ?? "—"
+        }
+        let share = sharePercent.flatMap { $0.isFinite
+            ? String(format: "%.1f%%", locale: Locale.current, Swift.min(100, Swift.max(0, $0))) : nil } ?? "—"
+        let name = WidgetQuantityFormat.spokenName(position.coin,
+                                                   quantity: hideAmounts ? nil : PriceFormat.exactAmount(position.holdingsExact))
+        var parts: [String?] = [L("a11y_portfolio_position", name, value, share)]
+        if position.oversold { parts.append(L("portfolio_oversold")) }
+        if note != value { parts.append(note) }
+        // «Seit Kauf» wie die Pille der Zeile; fehlt bei einem Teil der Kaufpreis, «Preis fehlt»
+        if !position.priceMissing || position.unrealizedPartial {
+            parts.append(L("portfolio_unrealized") + ": " + (A11y.change(position.unrealizedPercent) ?? "—"))
+        }
+        if position.priceMissing { parts.append(L("portfolio_price_missing")) }
+        if let basis {
+            let amount = pnl.flatMap { $0.amount.isFinite ? unit.of($0.amount) : nil }
+            let percent = amount == nil ? nil : pnl?.percent.flatMap { $0.isFinite ? $0 : nil }
+            parts.append(Self.pnlAccessibility(amount: amount, percent: percent, basis: basis, unit: unit, hidden: hideAmounts))
+        }
+        if stale { parts.append(L("a11y_price_outdated")) }
+        if let exchange, !exchange.trimmingCharacters(in: .whitespaces).isEmpty { parts.append(exchange) }
+        if txCount > 0 { parts.append(L("portfolio_transactions") + ": " + LocaleNumbers.integer(txCount)) }
+        return A11y.join(parts)
     }
 
     /// Links: Menge und Symbol, Anteil (Transaktionen, Börse, «veraltet»), Ø/aktuell.

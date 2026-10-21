@@ -108,4 +108,6 @@
 
     <string name="explorer_bulk_show_all">显示全部（%1$d）</string>
     <string name="dex_token_address_copy">复制代币地址</string>
+    <string name="dex_token_address_copied">已复制代币地址</string>
+    <string name="dex_token_address_label">以 %1$s 结尾的代币地址</string>
 </resources>

@@ -189,4 +189,5 @@
     <string name="alarm_enter_amount">Введіть значення</string>
     <string name="alarm_editor_more">Більше</string>
     <string name="alarm_editor_more_summary">Швидкі сигнали, інші умови, звук і озвучування</string>
+    <string name="alarm_reliability_storage_no_key">Сигнали у фоні призупинено – список не збережено</string>
 </resources>

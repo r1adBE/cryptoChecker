@@ -94,5 +94,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">התיק השמור נעול כרגע – שינויים יתאפשרו רק אחרי ההפעלה הבאה.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">המכשיר לא מספק מפתח כרגע – רשימת המעקב לא נשמרת, ושינויים יאבדו כשהאפליקציה תיסגר. האפליקציה תנסה שוב בהפעלה הבאה.</string>
+    <string name="watchlist_storage_in_memory">המכשיר לא מספק מפתח כרגע – רשימת המעקב לא נשמרת, ושינויים יאבדו כשהאפליקציה תיסגר. ההתראות ברקע מושהות. האפליקציה תנסה שוב בהפעלה הבאה.</string>
 </resources>

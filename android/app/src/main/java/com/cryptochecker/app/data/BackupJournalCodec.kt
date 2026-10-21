@@ -21,9 +21,11 @@ internal object BackupJournalCodec {
      * Journal-Inhalt: der gemerkte Stand im Format der Sicherung (Merkliste, Alarme, Portfolio, Portfolio-Alarme, Adressen,
      * Favoriten, Einstellungen). Alarm-Zustand und letzte Guthaben gehen dabei nicht mit — wie bei einer Sicherung.
      */
-    fun journalJson(previous: PreviousState): JSONObject = JSONObject()
+    fun journalJson(previous: PreviousState, createdAt: Long = System.currentTimeMillis()): JSONObject = JSONObject()
         .put("format", RestoreJournal.FORMAT)
         .put("version", RestoreJournal.VERSION)
+        // Seit Build 93: Alter des Journals für [RestoreRecoveryPolicy] (ältere Journale: Änderungszeit der Datei)
+        .put("createdAt", createdAt)
         .put("watches", JSONArray().apply { previous.watches.forEach { put(watchToJson(it)) } })
         .put("alarms", JSONArray().apply { previous.alarms.forEach { put(alarmToJson(it)) } })
         .put("portfolio", JSONArray().apply { previous.portfolio.forEach { put(PortfolioJson.txToJson(it)) } })

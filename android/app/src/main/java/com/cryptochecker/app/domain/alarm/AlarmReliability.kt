@@ -33,11 +33,19 @@ object AlarmReliability {
         NEVER("never"),
         /** Mitteilungen nicht erlaubt bzw. Alarm-Kanal aus (Android). */
         NOTIFICATIONS_OFF("notifications_off"),
+        /**
+         * Android: Merkliste nur als Kopie im Arbeitsspeicher (kein Schlüssel) — Prüfungen im Hintergrund ruhen, bis ein
+         * Start mit Schlüssel die Datei überführt (seit Build 93). Geht dem Akku vor: Der wäre hier nicht der Grund.
+         */
+        STORAGE_NO_KEY("storage_no_key"),
         /** Android: Hintergrundnutzung eingeschränkt, oder Prüfung zu alt bei Akku-Optimierung/Akkusparen des Herstellers. */
         BATTERY("battery"),
         /** iOS: Hintergrundaktualisierung aus. */
         BACKGROUND_REFRESH("background_refresh"),
-        /** Letzte Prüfung älter als [staleMillis] (oder weit in der Zukunft — Uhr verstellt). */
+        /**
+         * Letzte Prüfung älter als [staleMillis] (oder weit in der Zukunft — Uhr verstellt), oder alle gespeicherten
+         * geplanten Läufe gescheitert ([AlarmReadiness.Input.lastFailedBackgroundCheck]).
+         */
         STALE("stale"),
     }
 
@@ -53,9 +61,15 @@ object AlarmReliability {
         ) {
             return Status(Kind.NOTIFICATIONS_OFF, warn = true)
         }
+        if (android && input.storageNoKey) return Status(Kind.STORAGE_NO_KEY, warn = true)
         if (android && input.backgroundRestricted) return Status(Kind.BATTERY, warn = true)
         if (!android && !input.backgroundRefresh) return Status(Kind.BACKGROUND_REFRESH, warn = true)
-        val at = input.lastBackgroundCheck?.takeIf { it > 0 } ?: return Status(Kind.NEVER, warn = false)
+        val at = input.lastBackgroundCheck?.takeIf { it > 0 }
+        if (at == null) {
+            // Geplante Läufe gab es, gelungen ist keiner: Warnung statt «noch keine Prüfung» (grau)
+            val failing = input.lastFailedBackgroundCheck != null
+            return Status(if (failing) Kind.STALE else Kind.NEVER, warn = failing)
+        }
         val fresh = at - input.now <= AlarmReadiness.FUTURE_TOLERANCE_MILLIS && input.now - at <= staleMillis(input.platform)
         if (fresh) return Status(Kind.RECENT, warn = false)
         // Zu alt: Unter Android ist Akku-Optimierung bzw. das Akkusparen des Herstellers der wahrscheinliche Grund —

@@ -1,5 +1,5 @@
 {
-  "_comment": "Zeile über der Merkliste (Build 91): gelesener Zustand (wie alarm_delivery.json) → ein Satz (kind) und Farbe (warn = Bernstein). oem = Hersteller mit eigenem Akkusparen bekannt (nur Android). Grenze «zu alt»: staleMillis (Android, 2 h), staleMillisIos (iOS, 6 h wie die Seite — BGAppRefreshTask läuft seltener). Gemeinsam für AlarmReliabilityParityTest.kt und AlarmReliabilityTests.swift.",
+  "_comment": "Zeile über der Merkliste (Build 91): gelesener Zustand (wie alarm_delivery.json) → ein Satz (kind) und Farbe (warn = Bernstein). oem = Hersteller mit eigenem Akkusparen bekannt (nur Android). Grenze «zu alt»: staleMillis (Android, 2 h), staleMillisIos (iOS, 6 h wie die Seite — BGAppRefreshTask läuft seltener). Gemeinsam für AlarmReliabilityParityTest.kt und AlarmReliabilityTests.swift. runs (seit Build 93): gespeicherte Läufe wie check_runs.txt («at;trigger;result;dauer», neueste zuerst) — daraus CheckRunLog.lastBackgroundCheck und lastFailedBackgroundCheck statt lastBackgroundCheck. storageNoKey: Android-Merkliste ohne Schlüssel nur im Arbeitsspeicher.",
   "staleMillis": 7200000,
   "staleMillisIos": 21600000,
   "cases": [
@@ -368,6 +368,168 @@
         "hasAlarms": true
       },
       "kind": "never",
+      "warn": false
+    },
+    {
+      "name": "Android 20 geplante Läufe gescheitert (keine gelungene mehr im Ringpuffer): Warnung statt «noch nie»",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "runs": [
+          "1759999400000;worker;failed;1500",
+          "1759998500000;worker;failed;1500",
+          "1759997600000;worker;failed;1500",
+          "1759996700000;worker;failed;1500",
+          "1759995800000;worker;failed;1500",
+          "1759994900000;worker;failed;1500",
+          "1759994000000;worker;failed;1500",
+          "1759993100000;worker;failed;1500",
+          "1759992200000;worker;failed;1500",
+          "1759991300000;worker;failed;1500",
+          "1759990400000;worker;failed;1500",
+          "1759989500000;worker;failed;1500",
+          "1759988600000;worker;failed;1500",
+          "1759987700000;worker;failed;1500",
+          "1759986800000;worker;failed;1500",
+          "1759985900000;worker;failed;1500",
+          "1759985000000;worker;failed;1500",
+          "1759984100000;worker;failed;1500",
+          "1759983200000;worker;failed;1500",
+          "1759982300000;worker;failed;1500"
+        ]
+      },
+      "kind": "stale",
+      "warn": true
+    },
+    {
+      "name": "iOS 20 BG-Aufgaben gescheitert: Warnung statt «noch nie»",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "runs": [
+          "1759999400000;bgtask;failed;1500",
+          "1759998500000;bgtask;failed;1500",
+          "1759997600000;bgtask;failed;1500",
+          "1759996700000;bgtask;failed;1500",
+          "1759995800000;bgtask;failed;1500",
+          "1759994900000;bgtask;failed;1500",
+          "1759994000000;bgtask;failed;1500",
+          "1759993100000;bgtask;failed;1500",
+          "1759992200000;bgtask;failed;1500",
+          "1759991300000;bgtask;failed;1500",
+          "1759990400000;bgtask;failed;1500",
+          "1759989500000;bgtask;failed;1500",
+          "1759988600000;bgtask;failed;1500",
+          "1759987700000;bgtask;failed;1500",
+          "1759986800000;bgtask;failed;1500",
+          "1759985900000;bgtask;failed;1500",
+          "1759985000000;bgtask;failed;1500",
+          "1759984100000;bgtask;failed;1500",
+          "1759983200000;bgtask;failed;1500",
+          "1759982300000;bgtask;failed;1500"
+        ]
+      },
+      "kind": "stale",
+      "warn": true
+    },
+    {
+      "name": "Android eben übersprungen (eben geprüft) vor gescheiterten Läufen: zählt als Prüfung",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "runs": [
+          "1759999700000;exact;skipped;10",
+          "1759999100000;worker;failed;1500",
+          "1759998200000;worker;failed;1500",
+          "1759997300000;worker;failed;1500",
+          "1759996400000;worker;failed;1500",
+          "1759995500000;worker;failed;1500"
+        ]
+      },
+      "kind": "recent",
+      "warn": false
+    },
+    {
+      "name": "Android nur App und Widget, gescheitert: keine geplante Prüfung, noch nie",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "runs": [
+          "1759999700000;foreground;failed;900",
+          "1759999400000;widget;failed;900"
+        ]
+      },
+      "kind": "never",
+      "warn": false
+    },
+    {
+      "name": "Android offline beim Wecker: kein Eintrag, die letzte echte Prüfung (3 h) zählt",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "batteryUnrestricted": true,
+        "runs": [
+          "1759989200000;exact;ok;4000"
+        ]
+      },
+      "kind": "stale",
+      "warn": true
+    },
+    {
+      "name": "Android Merkliste ohne Schlüssel (nur Kopie im Arbeitsspeicher): eigener Grund statt Akku",
+      "input": {
+        "platform": "android",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "storageNoKey": true,
+        "backgroundRestricted": true,
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "storage_no_key",
+      "warn": true
+    },
+    {
+      "name": "Android ohne Schlüssel, Mitteilungen aus: Mitteilungen zuerst",
+      "input": {
+        "platform": "android",
+        "notifications": "denied",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "storageNoKey": true
+      },
+      "kind": "notifications_off",
+      "warn": true
+    },
+    {
+      "name": "iOS storageNoKey zählt nicht (nur Android)",
+      "input": {
+        "platform": "ios",
+        "notifications": "granted",
+        "now": 1760000000000,
+        "minuteOfDay": 600,
+        "hasAlarms": true,
+        "storageNoKey": true,
+        "lastBackgroundCheck": 1759999280000
+      },
+      "kind": "recent",
       "warn": false
     }
   ]

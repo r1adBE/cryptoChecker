@@ -177,4 +177,5 @@
     <string name="alarm_enter_amount">Indtast en værdi</string>
     <string name="alarm_editor_more">Mere</string>
     <string name="alarm_editor_more_summary">Hurtige alarmer, flere betingelser, lyd og oplæsning</string>
+    <string name="alarm_reliability_storage_no_key">Alarmer sat på pause i baggrunden – overvågningslisten er ikke gemt</string>
 </resources>

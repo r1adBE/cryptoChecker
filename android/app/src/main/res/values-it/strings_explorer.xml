@@ -124,4 +124,6 @@
 
     <string name="explorer_bulk_show_all">Mostra tutti (%1$d)</string>
     <string name="dex_token_address_copy">Copia l\'indirizzo del token</string>
+    <string name="dex_token_address_copied">Indirizzo del token copiato</string>
+    <string name="dex_token_address_label">Indirizzo del token che termina con %1$s</string>
 </resources>

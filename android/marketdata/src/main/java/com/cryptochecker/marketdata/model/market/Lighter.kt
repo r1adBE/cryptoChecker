@@ -26,6 +26,9 @@ private const val LIGHTER_PERP_QUOTE = "USDC"
 /** `code` einer normalen Antwort. */
 private const val LIGHTER_OK = 200
 
+/** Fenster von `daily_trades_count`: ohne Handel darin lag der letzte spätestens so lange zurück (24 h). */
+private const val NO_TRADES_WINDOW_MS = 24L * 60 * 60 * 1000
+
 /**
  * Lighter — dezentrale Perpetual-Börse (zk-Rollup) mit USDC-Abrechnung, dazu einige Spot-Märkte; öffentliche
  * Schnittstelle ohne Schlüssel. Paare aus `orderBooks` + `tokenlist`, Kurse aus `exchangeStats`
@@ -167,6 +170,11 @@ class Lighter : Market("Lighter", "Lighter") {
      * Eine Zeile von `exchangeStats`; `daily_price_change` ist bereits Prozent über gleitende 24 h. Ohne Handel in
      * 24 h (`daily_trades_count` 0) meldet Lighter die Veränderung als 0 — das ist keine gemessene Veränderung,
      * darum bleibt sie leer statt «0,00 %». Fehlt das Zählfeld, gilt die Veränderung wie bisher.
+     *
+     * Eine Handelszeit nennt Lighter nicht. Ohne Handel in 24 h lag der letzte aber spätestens 24 h zurück: Diese
+     * Obergrenze gilt als Börsenzeit (seit Build 93). So sperrt die bestehende Regel ([Ticker.exchangeTime] älter als
+     * 2 h) Alarme auf den stehengebliebenen Kurs, und die Zeile zeigt «veraltet – letzter Handel vor 1 Tag» — wie
+     * Hyperliquid ohne Orderbuch keine Alarme auslöst. Mit Handel bleibt die Zeit unbekannt.
      */
     private fun copyRow(row: JSONObject, ticker: Ticker) {
         ticker.last = row.getDouble("last_trade_price")
@@ -174,6 +182,7 @@ class Lighter : Market("Lighter", "Lighter") {
         ticker.volQuote = row.optDoubleOrMissing("daily_quote_token_volume")
         val noTrades = row.optLong("daily_trades_count", -1L) == 0L
         ticker.change24hPercent = if (noTrades) null else Change24h.percent(row.optDouble("daily_price_change"))
+        if (noTrades) ticker.timestamp = System.currentTimeMillis() - NO_TRADES_WINDOW_MS
     }
 
     /** `asset_type` je Symbol aus `tokenlist`; leer, wenn die Antwort fehlt oder unlesbar ist. */
