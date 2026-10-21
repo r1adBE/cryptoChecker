@@ -5,16 +5,16 @@
     <string name="alarms_add">Novo alarme</string>
     <string name="alarms_edit">Editar alarme</string>
     <string name="alarms_empty">Ainda não há alarmes para este par.</string>
-    <string name="alarms_empty_example">Por exemplo: avise-me quando o BTC subir acima de %1$s.</string>
+    <string name="alarms_empty_example">Por exemplo: avisa-me quando o BTC subir acima de %1$s.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">As notificações estão desativadas – os alarmes não lhe vão chegar.</string>
+    <string name="alarms_notifications_off">As notificações estão desativadas – os alarmes não te vão chegar.</string>
     <string name="alarms_notifications_turn_on">Ativar</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">%1$d ativo</item>
         <item quantity="many">%1$d ativos</item>
         <item quantity="other">%1$d ativos</item>
     </plurals>
-    <string name="alarms_overview_empty">Ainda sem alarmes. Abra um par e adicione um em Alarmes.</string>
+    <string name="alarms_overview_empty">Ainda sem alarmes. Abre um par e adiciona um em Alarmes.</string>
     <string name="alarms_overview_title">Todos os alarmes</string>
     <string name="alarms_title">Alarmes</string>
 
@@ -45,9 +45,9 @@
     <string name="alarm_repeat_each">Todas as vezes</string>
     <string name="alarm_repeat_once">Uma vez</string>
     <string name="alarm_repeating">Todas as vezes</string>
-    <string name="alarm_threshold_error_empty">Introduza um valor para guardar o alarme.</string>
+    <string name="alarm_threshold_error_empty">Introduz um valor para guardar o alarme.</string>
     <string name="alarm_threshold_error_funding">A taxa de financiamento deve ser um número entre −10 e +10 por cento.</string>
-    <string name="alarm_threshold_error_invalid">Introduza um número válido superior a 0.</string>
+    <string name="alarm_threshold_error_invalid">Introduz um número válido superior a 0.</string>
     <string name="alarm_threshold_error_oi">Variação do interesse aberto: no máximo 1000 por cento.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">em %1$d h</item>
@@ -88,7 +88,7 @@
     <string name="alarm_sentence_down_percent">Avisar-me quando %1$s descer %2$s abaixo do preço ao guardar (ou no último alarme).</string>
     <string name="alarm_sentence_funding_above">Avisar-me quando o funding de %1$s subir acima de %2$s.</string>
     <string name="alarm_sentence_funding_below">Avisar-me quando o funding de %1$s descer abaixo de %2$s.</string>
-    <string name="alarm_sentence_incomplete">Introduza um valor para ver o alarme como frase.</string>
+    <string name="alarm_sentence_incomplete">Introduz um valor para ver o alarme como frase.</string>
     <plurals name="alarm_sentence_move_percent">
         <item quantity="one">Avisar-me quando %1$s variar %2$s em %3$d hora.</item>
         <item quantity="many">Avisar-me quando %1$s variar %2$s em %3$d horas.</item>
@@ -149,10 +149,10 @@
 
     <!-- Wann Alarme geprüft werden -->
     <string name="alarm_timing_hint_android">Sem «%1$s», o Android verifica de forma irregular com o dispositivo em repouso, por vezes só após horas. Com ela, cerca de 15 em 15 min.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Com a app fechada, o iOS verifica muitas vezes após mais de 15 minutos, por vezes só quando voltar a abri-la. Picos curtos podem escapar.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Com a app fechada, o iOS verifica muitas vezes após mais de 15 minutos, por vezes só quando a voltares a abrir. Picos curtos podem escapar.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Quando os alarmes são verificados</string>
-    <string name="alarm_timing_where">Defina a frequência de atualização dos preços em %1$s.</string>
+    <string name="alarm_timing_where">Define a frequência de atualização dos preços em %1$s.</string>
 
     <!-- Alarm-Signal und Test-Alarm -->
     <string name="alarm_signal_silent">Silencioso (só notificação)</string>
@@ -163,7 +163,7 @@
     <string name="alarm_test">Testar alarme</string>
     <string name="alarm_test_action">Testar</string>
     <string name="alarm_test_denied">As notificações estão desativadas para o Crypto Checker.</string>
-    <string name="alarm_test_hint">Envia um alarme de exemplo com as suas definições de som, vibração e voz.</string>
+    <string name="alarm_test_hint">Envia um alarme de exemplo com as tuas definições de som, vibração e voz.</string>
     <string name="alarm_test_open_settings">Abrir definições</string>
     <string name="alarm_test_quiet">As horas de silêncio estão ativas agora: os alarmes reais esperariam até ao fim e depois tocariam com som.</string>
     <string name="alarm_test_text">É assim que um alarme aparece e soa.</string>
@@ -176,12 +176,12 @@
     <string name="alarm_unchecked_no_rate">Não foi possível verificar (sem taxa de câmbio)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
-    <string name="alarm_status_notifications_off">Notificações desativadas – este alarme não lhe vai chegar</string>
+    <string name="alarm_status_notifications_off">Notificações desativadas – este alarme não te vai chegar</string>
     <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
     <string name="alarm_status_low_liquidity">Sem alarme – liquidez baixa</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">A aguardar uma cotação atual</string>
-    <string name="alarm_enter_amount">Introduza um valor</string>
+    <string name="alarm_enter_amount">Introduz um valor</string>
     <string name="alarm_editor_more">Mais</string>
     <string name="alarm_editor_more_summary">Alarmes rápidos, outras condições, som e voz</string>
     <string name="alarm_reliability_storage_no_key">Alarmes em pausa em segundo plano – lista não guardada</string>

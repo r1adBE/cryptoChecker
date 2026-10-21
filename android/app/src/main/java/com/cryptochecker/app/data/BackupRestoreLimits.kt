@@ -44,10 +44,32 @@ internal object BackupRestoreLimits {
     }
 
     /**
-     * Höchstens [MAX_PAIRS] Paare (nach der Bereinigung, damit Doppel keine Plätze belegen) und je Paar die ersten
-     * [MAX_ALARMS_PER_PAIR] Alarme; Alarme weggelassener Paare fallen mit weg.
+     * Was nach [accept] bzw. [limit] übernommen wird; [droppedPairs]/[droppedAlarms] = wie viele wegen der Grenzen
+     * wegfallen. Gezählt, damit Rückfrage und Erfolgsmeldung sie nennen — eine eigene ältere Sicherung mit mehr Paaren
+     * oder Alarmen verlöre sonst still Daten (seit Build 99).
      */
-    fun <W, A> limit(watches: List<W>, alarms: List<A>, watchId: (W) -> Long, alarmWatchId: (A) -> Long): Pair<List<W>, List<A>> {
+    data class Limited<W, A>(val watches: List<W>, val alarms: List<A>, val droppedPairs: Int = 0, val droppedAlarms: Int = 0)
+
+    /**
+     * Paare, die [accepts] ablehnt, weglassen und mit ihnen ihre Alarme (vor der Bereinigung, damit ein ungültiges
+     * Paar kein gültiges verdrängt). Alarme ohne Paar in der Datei zählen nicht: die fielen schon immer weg.
+     */
+    fun <W, A> accept(
+        watches: List<W>, alarms: List<A>, accepts: (W) -> Boolean, watchId: (W) -> Long, alarmWatchId: (A) -> Long,
+    ): Limited<W, A> {
+        val (kept, rejected) = watches.partition(accepts)
+        if (rejected.isEmpty()) return Limited(watches, alarms)
+        val rejectedIds = rejected.map(watchId).toSet() - kept.map(watchId).toSet()
+        val (dropped, keptAlarms) = alarms.partition { alarmWatchId(it) in rejectedIds }
+        return Limited(kept, keptAlarms, rejected.size, dropped.size)
+    }
+
+    /**
+     * Höchstens [MAX_PAIRS] Paare (nach der Bereinigung, damit Doppel keine Plätze belegen) und je Paar die ersten
+     * [MAX_ALARMS_PER_PAIR] Alarme; Alarme weggelassener Paare fallen mit weg. Nach der Bereinigung hängt jeder Alarm
+     * an einem Paar: jeder weggelassene zählt.
+     */
+    fun <W, A> limit(watches: List<W>, alarms: List<A>, watchId: (W) -> Long, alarmWatchId: (A) -> Long): Limited<W, A> {
         val kept = watches.take(MAX_PAIRS)
         val keptIds = kept.map(watchId).toSet()
         val perPair = HashMap<Long, Int>()
@@ -58,7 +80,7 @@ internal object BackupRestoreLimits {
             perPair[id] = n + 1
             n < MAX_ALARMS_PER_PAIR
         }
-        return kept to keptAlarms
+        return Limited(kept, keptAlarms, watches.size - kept.size, alarms.size - keptAlarms.size)
     }
 
     private fun codePoints(text: String): Int = text.codePointCount(0, text.length)

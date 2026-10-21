@@ -2,9 +2,9 @@
 <resources>
     <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
     <string name="cost_gaps_card">Εγγραφές χωρίς κόστος κτήσης: %1$d</string>
-    <string name="cost_gaps_card_text">Συμπληρώστε το κόστος ώστε κέρδη και φόροι να είναι πλήρη.</string>
+    <string name="cost_gaps_card_text">Συμπλήρωσε το κόστος ώστε κέρδη και φόροι να είναι πλήρη.</string>
     <string name="cost_gaps_sheet_title">Εγγραφές χωρίς κόστος κτήσης</string>
-    <string name="cost_gaps_sheet_intro">Σε αυτές τις εισροές λείπει το κόστος κτήσης. Η πρόταση είναι η τιμή κλεισίματος της ημέρας – μπορείτε να την αλλάξετε στην εγγραφή.</string>
+    <string name="cost_gaps_sheet_intro">Σε αυτές τις εισροές λείπει το κόστος κτήσης. Η πρόταση είναι η τιμή κλεισίματος της ημέρας – μπορείς να την αλλάξεις στην εγγραφή.</string>
     <string name="cost_gaps_empty">Όλες οι εγγραφές έχουν κόστος κτήσης.</string>
     <string name="cost_gap_enter">Καταχώριση κόστους</string>
     <string name="cost_gap_leave_unknown">Άφησε άγνωστο</string>
@@ -20,7 +20,7 @@
     <string name="cost_gap_apply">Εφαρμογή</string>
     <string name="address_lots_action">Κόστος για το υπόλοιπο διεύθυνσης</string>
     <string name="address_lots_title">Κόστος για το υπόλοιπο διεύθυνσης</string>
-    <string name="address_lots_intro">Καταχωρίστε ημερομηνία αγοράς, ποσότητα και κόστος για το υπόλοιπο αυτής της διεύθυνσης. Οι παρτίδες μετρούν ως αγορές σε αυτή τη διεύθυνση· ό,τι δεν καλύπτεται μένει χωρίς κόστος.</string>
+    <string name="address_lots_intro">Καταχώρισε ημερομηνία αγοράς, ποσότητα και κόστος για το υπόλοιπο αυτής της διεύθυνσης. Οι παρτίδες μετρούν ως αγορές σε αυτή τη διεύθυνση· ό,τι δεν καλύπτεται μένει χωρίς κόστος.</string>
     <string name="address_lots_add">Προσθήκη παρτίδας</string>
     <string name="address_lots_new">Νέα παρτίδα</string>
     <string name="address_lots_edit">Παρτίδα</string>
@@ -36,5 +36,5 @@
     <!-- %1$s = Menge der Posten über dem Guthaben -->
     <string name="address_lots_capped">Οι παρτίδες υπερβαίνουν το υπόλοιπο κατά %1$s – οι παλαιότερες καταναλώνονται πρώτες.</string>
     <string name="address_lots_not_loaded">Το υπόλοιπο δεν έχει φορτωθεί ακόμη – οι παρτίδες μετρούν μόλις φορτωθεί.</string>
-    <string name="address_lots_invalid">Καταχωρίστε ποσότητα και κόστος</string>
+    <string name="address_lots_invalid">Καταχώρισε ποσότητα και κόστος</string>
 </resources>

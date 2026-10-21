@@ -19,7 +19,7 @@
     <string name="delivery_exact_off">Desativado – o Android verifica de forma irregular</string>
     <string name="delivery_battery">Otimização da bateria</string>
     <string name="delivery_battery_unrestricted">Sem restrições</string>
-    <string name="delivery_battery_optimized">Otimizada – o Android pode atrasar as verificações. A app não pede uma exceção; pode alterar isto nas definições de bateria da app.</string>
+    <string name="delivery_battery_optimized">Otimizada – o Android pode atrasar as verificações. A app não pede uma exceção; podes alterar isto nas definições de bateria da app.</string>
     <string name="delivery_background">Utilização em segundo plano</string>
     <string name="delivery_background_restricted">Restrita – o Android para as verificações em segundo plano</string>
     <string name="delivery_dnd">Não incomodar</string>
@@ -45,19 +45,19 @@
     <string name="delivery_background_refresh">Atualização em segundo plano</string>
     <string name="delivery_low_power">Modo de poupança de energia</string>
     <string name="delivery_swipe_away">App fechada a deslizar?</string>
-    <string name="delivery_swipe_away_note">Se fechar a app a deslizá-la no seletor de apps, o iOS deixa de verificar em segundo plano até a voltar a abrir.</string>
+    <string name="delivery_swipe_away_note">Se fechares a app a deslizá-la no seletor de apps, o iOS deixa de verificar em segundo plano até a voltares a abrir.</string>
     <string name="delivery_live_activity">Atividade em direto</string>
     <string name="delivery_live_activity_note">Mostra a cotação no ecrã bloqueado, mas só é atualizada quando a app verifica – não faz com que os alarmes sejam verificados mais vezes.</string>
 
     <string name="alarm_first_check">Verificar se os alarmes chegam</string>
 
     <string name="oem_battery_title">Poupança de bateria do fabricante</string>
-    <string name="oem_battery_xiaomi">A Xiaomi pode parar a app por completo – e então não chega nenhum alarme. Ative «Arranque automático» e defina a poupança de bateria como «Sem restrições».</string>
-    <string name="oem_battery_samsung">A Samsung pode pôr a app em suspensão profunda – e então não chega nenhum alarme. Em Bateria › Limites de utilização em segundo plano, adicione-a às «Apps nunca suspensas».</string>
-    <string name="oem_battery_huawei">A Huawei/Honor pode parar a app – e então não chega nenhum alarme. Em Bateria › Arranque de apps, escolha «Gerir manualmente» e permita tudo.</string>
-    <string name="oem_battery_oneplus">A OnePlus pode parar a app – e então não chega nenhum alarme. Permita «Arranque automático» e, em Utilização da bateria, a atividade em segundo plano.</string>
-    <string name="oem_battery_oppo">A Oppo/Realme pode parar a app – e então não chega nenhum alarme. Permita «Arranque automático» e, em Utilização da bateria, a atividade em segundo plano.</string>
-    <string name="oem_battery_vivo">A Vivo pode parar a app – e então não chega nenhum alarme. Permita «Arranque automático» e, em Bateria, o consumo elevado em segundo plano.</string>
+    <string name="oem_battery_xiaomi">A Xiaomi pode parar a app por completo – e então não chega nenhum alarme. Ativa «Arranque automático» e define a poupança de bateria como «Sem restrições».</string>
+    <string name="oem_battery_samsung">A Samsung pode pôr a app em suspensão profunda – e então não chega nenhum alarme. Em Bateria › Limites de utilização em segundo plano, adiciona-a às «Apps nunca suspensas».</string>
+    <string name="oem_battery_huawei">A Huawei/Honor pode parar a app – e então não chega nenhum alarme. Em Bateria › Arranque de apps, escolhe «Gerir manualmente» e permite tudo.</string>
+    <string name="oem_battery_oneplus">A OnePlus pode parar a app – e então não chega nenhum alarme. Permite «Arranque automático» e, em Utilização da bateria, a atividade em segundo plano.</string>
+    <string name="oem_battery_oppo">A Oppo/Realme pode parar a app – e então não chega nenhum alarme. Permite «Arranque automático» e, em Utilização da bateria, a atividade em segundo plano.</string>
+    <string name="oem_battery_vivo">A Vivo pode parar a app – e então não chega nenhum alarme. Permite «Arranque automático» e, em Bateria, o consumo elevado em segundo plano.</string>
     <string name="alarm_reliability_recent">Última verificação %1$s</string>
     <string name="alarm_reliability_stale">Última verificação %1$s – os alarmes podem chegar atrasados</string>
     <string name="alarm_reliability_never">Alarmes ativos – ainda sem verificação em segundo plano</string>

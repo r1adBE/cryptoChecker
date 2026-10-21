@@ -53,6 +53,9 @@
         <item quantity="one">%1$d pari</item>
         <item quantity="other">%1$d paria</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">Rajojen ylittävät (%3$s paria, %4$s hälytystä/pari) jäävät palauttamatta: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Rajojen ylittävät (%3$s paria, %4$s hälytystä/pari) jäivät palauttamatta: %1$s, %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">Tältä laitteelta puuttuu sovelluksen salattujen tietojen avain, joten sovellus käynnistyi tyhjänä. Mitään ei poistettu. Saat listan ja salkun takaisin tuomalla varmuuskopiotiedoston asetuksista kohdasta ”%1$s”.</string>

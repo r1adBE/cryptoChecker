@@ -53,13 +53,16 @@
         <item quantity="one">%1$d çift</item>
         <item quantity="other">%1$d çifte</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">Mbi kufijtë (%3$s çifte, %4$s alarme për çift), nuk do të rikthehen: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Mbi kufijtë (%3$s çifte, %4$s alarme për çift), nuk u rikthyen: %1$s, %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">Kjo pajisje nuk e ka më çelësin e të dhënave të enkriptuara të aplikacionit, prandaj ai nisi bosh. Nuk u fshi asgjë. Për të rikthyer listën dhe portofolin, importo një skedar kopjeje te cilësimet, nën «%1$s».</string>
     <string name="storage_recovery_title">Të dhënat e ruajtura nuk u zhbllokuan</string>
 
     <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
-    <string name="backup_not_enough_memory">Nuk ka mjaftueshëm memorie të lirë për të mbrojtur ose hapur kopjen rezervë me fjalëkalim. Mbyllni aplikacionet e tjera dhe provoni përsëri.</string>
+    <string name="backup_not_enough_memory">Nuk ka mjaftueshëm memorie të lirë për të mbrojtur ose hapur kopjen rezervë me fjalëkalim. Mbyll aplikacionet e tjera dhe provo përsëri.</string>
 
     <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
     <string name="storage_recovery_restore_action">Rikthe kopjen rezervë</string>

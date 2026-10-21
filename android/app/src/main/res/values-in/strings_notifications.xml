@@ -10,17 +10,17 @@
     <string name="notification_fng_above">Indeks naik di atas %1$d – menurut indeks ini, pasar sedang serakah.</string>
     <string name="notification_fng_below">Indeks turun di bawah %1$d – menurut indeks ini, pasar sedang takut.</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_gas_btc_text">Di bawah batas Anda %1$s sat/vB · Transfer ≈ %2$s</string>
+    <string name="notification_gas_btc_text">Di bawah batasmu %1$s sat/vB · Transfer ≈ %2$s</string>
     <string name="notification_gas_btc_title">Biaya Bitcoin: %1$s sat/vB</string>
-    <string name="notification_gas_eth_text">Di bawah batas Anda %1$s gwei · Transfer ≈ %2$s</string>
+    <string name="notification_gas_eth_text">Di bawah batasmu %1$s gwei · Transfer ≈ %2$s</string>
     <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
-    <string name="notification_indicator_above">Di atas batas Anda %1$s – nilai terukur, bukan rekomendasi.</string>
-    <string name="notification_indicator_below">Di bawah batas Anda %1$s – nilai terukur, bukan rekomendasi.</string>
+    <string name="notification_indicator_above">Di atas batasmu %1$s – nilai terukur, bukan rekomendasi.</string>
+    <string name="notification_indicator_below">Di bawah batasmu %1$s – nilai terukur, bukan rekomendasi.</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">Ada data ekonomi hari ini</string>
     <string name="notification_permission_preprompt_continue">Lanjutkan</string>
     <string name="notification_permission_preprompt_later">Nanti</string>
-    <string name="notification_permission_preprompt_text">Agar alarm dan notifikasi harga sampai kepada Anda, aplikasi memerlukan izin notifikasi. Aplikasi hanya menggunakannya untuk alarm dan notifikasi harga Anda.</string>
+    <string name="notification_permission_preprompt_text">Agar alarm dan notifikasi harga sampai kepadamu, aplikasi memerlukan izin notifikasi. Aplikasi hanya menggunakannya untuk alarm dan notifikasi hargamu.</string>
     <string name="notification_permission_preprompt_title">Izinkan notifikasi?</string>
     <string name="notification_portfolio_alarm_locked">Alarm kamu berbunyi – buka aplikasi untuk detailnya.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->

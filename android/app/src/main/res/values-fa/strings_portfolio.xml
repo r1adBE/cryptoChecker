@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
-    <string name="app_lock_unavailable">روی این دستگاه قفل صفحه تنظیم نشده است. ابتدا یکی را در تنظیمات سیستم تنظیم کنید.</string>
+    <string name="app_lock_unavailable">روی این دستگاه قفل صفحه تنظیم نشده است. ابتدا یکی را در تنظیمات سیستم تنظیم کن.</string>
     <string name="app_lock_unlock">باز کردن قفل</string>
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">خالی کردن پرتفوی</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">%d تراکنش حذف شود؟ آدرس‌های زیر نظر باقی می‌مانند. می‌توانید بلافاصله پس از آن، این کار را واگرد کنید.</item>
-        <item quantity="other">همهٔ %d تراکنش حذف شوند؟ آدرس‌های زیر نظر باقی می‌مانند. می‌توانید بلافاصله پس از آن، این کار را واگرد کنید.</item>
+        <item quantity="one">%d تراکنش حذف شود؟ آدرس‌های زیر نظر باقی می‌مانند. می‌توانی بلافاصله پس از آن، این کار را واگرد کنی.</item>
+        <item quantity="other">همهٔ %d تراکنش حذف شوند؟ آدرس‌های زیر نظر باقی می‌مانند. می‌توانی بلافاصله پس از آن، این کار را واگرد کنی.</item>
     </plurals>
     <string name="portfolio_empty_action">افزودن اولین خرید</string>
     <string name="portfolio_empty_address">فقط دنبال کردن نشانی کیف پول</string>
-    <string name="portfolio_empty_csv">از صرافی خریدید؟ وارد کردن فایل</string>
-    <string name="portfolio_empty_example_plain">مثال: خرید 0.01 BTC در ۱ مارس. برنامه نشان می‌دهد امروز چقدر می‌ارزد و در سود هستید یا زیان – فقط روی همین دستگاه ذخیره می‌شود.</string>
-    <string name="portfolio_empty_text">آنچه خریده‌اید را وارد کنید – برنامه نشان می‌دهد امروز چقدر می‌ارزد و چقدر در سود یا زیان هستید.</string>
+    <string name="portfolio_empty_csv">از صرافی خریدی؟ وارد کردن فایل</string>
+    <string name="portfolio_empty_example_plain">مثال: خرید 0.01 BTC در ۱ مارس. برنامه نشان می‌دهد امروز چقدر می‌ارزد و در سود هستی یا زیان – فقط روی همین دستگاه ذخیره می‌شود.</string>
+    <string name="portfolio_empty_text">آنچه خریده‌ای را وارد کن – برنامه نشان می‌دهد امروز چقدر می‌ارزد و چقدر در سود یا زیان هستی.</string>
     <string name="portfolio_empty_title">هنوز تراکنشی نیست</string>
     <string name="portfolio_enable_ask_text">تراکنشت ذخیره شد. زبانهٔ پرتفوی دارایی‌ها و ارزششان را نشان می‌دهد.</string>
     <string name="portfolio_enable_ask_title">زبانهٔ پرتفوی روشن شود؟</string>
     <string name="portfolio_enable_later_hint">تراکنش ذخیره شد. زبانهٔ پرتفوی را می‌توانی در تنظیمات › پرتفوی روشن کنی.</string>
     <string name="portfolio_enabled_banner">سبد روشن شد – آن را در زبانهٔ سبد پیدا می‌کنی.</string>
     <string name="portfolio_lock_reason">باز کردن قفل پرتفوی</string>
-    <string name="portfolio_locked_text">برای دیدن دارایی‌ها و ارزش‌ها قفل را باز کنید.</string>
+    <string name="portfolio_locked_text">برای دیدن دارایی‌ها و ارزش‌ها قفل را باز کن.</string>
     <string name="portfolio_locked_title">پرتفوی قفل است</string>
-    <string name="portfolio_setting_hint">اختیاری: خرید و فروش‌ها را ثبت کنید و ارزش و سود/زیان را در یک زبانه جداگانه ببینید.</string>
+    <string name="portfolio_setting_hint">اختیاری: خرید و فروش‌ها را ثبت کن و ارزش و سود/زیان را در یک زبانه جداگانه ببین.</string>
     <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
     <string name="portfolio_status_stale">قدیمی · تا %1$s</string>
     <plurals name="portfolio_system_restore_invalid">
@@ -79,7 +79,7 @@
     <string name="portfolio_current_missing">قیمت فعلی برای %1$s موجود نیست</string>
     <string name="portfolio_current_price">قیمت فعلی</string>
     <string name="portfolio_price_missing">قیمت ثبت نشده</string>
-    <string name="portfolio_price_missing_hint">برخی خریدها قیمت ندارند. برای دیدن سود/زیان، قیمت خرید را اضافه کنید.</string>
+    <string name="portfolio_price_missing_hint">برخی خریدها قیمت ندارند. برای دیدن سود/زیان، قیمت خرید را اضافه کن.</string>
     <string name="portfolio_price_source">قیمت‌ها: Binance · ‏USDT به قیمت بازار</string>
     <string name="portfolio_price_source_routes">قیمت‌ها: %1$s، در غیر این صورت Binance · ‏USDT به قیمت بازار</string>
     <string name="portfolio_price_unavailable">قیمت فعلاً در دسترس نیست</string>
@@ -93,16 +93,16 @@
     <string name="portfolio_add_tx">ثبت تراکنش</string>
     <string name="portfolio_buy">خرید</string>
     <string name="portfolio_coin">کوین</string>
-    <string name="portfolio_coin_invalid">یک نماد وارد کنید</string>
+    <string name="portfolio_coin_invalid">یک نماد وارد کن</string>
     <string name="portfolio_coin_search">جستجوی نماد، مثلاً BTC</string>
     <string name="portfolio_discard_confirm">کنار گذاشتن</string>
     <string name="portfolio_discard_keep">ادامهٔ ویرایش</string>
     <string name="portfolio_discard_title">تغییرات کنار گذاشته شود؟</string>
     <string name="portfolio_edit_tx">ویرایش تراکنش</string>
     <string name="portfolio_invalid">یک عدد معتبر بزرگ‌تر از 0 وارد کن.</string>
-    <string name="portfolio_oversold">فروش‌ها از موجودی بیشتر است – تراکنش‌ها را بررسی کنید.</string>
+    <string name="portfolio_oversold">فروش‌ها از موجودی بیشتر است – تراکنش‌ها را بررسی کن.</string>
     <string name="portfolio_sell">فروش</string>
-    <string name="portfolio_sell_exceeds">بیشتر از موجودی شما (%1$s)</string>
+    <string name="portfolio_sell_exceeds">بیشتر از موجودی‌ات (%1$s)</string>
     <string name="portfolio_sell_exceeds_fee">مقدار به‌علاوهٔ کارمزد بیشتر از دارایی توست (%1$s)</string>
     <string name="portfolio_sell_exceeds_wallet">بیشتر از دارایی تو در %2$s (%1$s)</string>
     <string name="portfolio_transactions">تراکنش‌ها</string>
@@ -137,7 +137,7 @@
     <string name="portfolio_tx_note">یادداشت (اختیاری)</string>
     <string name="portfolio_tx_payment">پرداخت با آن</string>
     <string name="portfolio_tx_price">قیمت هر کوین</string>
-    <string name="portfolio_tx_price_hint">به USDT. اگر نمی‌دانید خالی بگذارید.</string>
+    <string name="portfolio_tx_price_hint">به USDT. اگر نمی‌دانی خالی بگذار.</string>
     <string name="portfolio_tx_price_historic">قیمت بسته‌شدن روزانهٔ بررسی‌شده در %1$s – در صورت نیاز تغییرش بده</string>
     <string name="portfolio_tx_price_invalid">یک عدد معتبر (0 یا بیشتر) وارد کن یا فیلد را خالی بگذار.</string>
     <string name="portfolio_tx_price_past_hint">قیمت روز معامله را وارد کن – اگر نمی‌دانی خالی بگذار</string>
@@ -213,7 +213,7 @@
     <string name="portfolio_history_scaled">سابقه برای %1$s: سابقهٔ Binance مقیاس‌شده با قیمت صرافی</string>
     <string name="portfolio_history_title">روند ارزش</string>
     <string name="portfolio_history_today">امروز</string>
-    <string name="portfolio_history_too_short">روند پس از نخستین روز کامل شما آغاز می‌شود.</string>
+    <string name="portfolio_history_too_short">روند پس از نخستین روز کامل تو آغاز می‌شود.</string>
     <string name="portfolio_history_unavailable">اکنون روندی در دسترس نیست.</string>
     <string name="portfolio_history_utc_days">روزها به UTC (کندل‌های روزانه)</string>
     <string name="portfolio_history_without_matching">بدون %1$s (قیمت روزانهٔ منطبق نیست)</string>
@@ -258,8 +258,8 @@
     <string name="ledger_since_purchase_currency">از زمان خرید (%1$s)</string>
     <string name="ledger_since_purchase_spoken">سود/زیان از زمان خرید، هنوز فروخته نشده</string>
     <plurals name="ledger_without_cost">
-        <item quantity="one">بدون %1$d سکه بدون قیمت خرید (%2$s) – قیمت را وارد کنید تا حساب شود.</item>
-        <item quantity="other">بدون %1$d سکه بدون قیمت خرید (%2$s) – قیمت‌ها را وارد کنید تا حساب شوند.</item>
+        <item quantity="one">بدون %1$d سکه بدون قیمت خرید (%2$s) – قیمت را وارد کن تا حساب شود.</item>
+        <item quantity="other">بدون %1$d سکه بدون قیمت خرید (%2$s) – قیمت‌ها را وارد کن تا حساب شوند.</item>
     </plurals>
 
     <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
@@ -293,8 +293,8 @@
     <string name="portfolio_coin_delete_title">همهٔ تراکنش‌های %1$s حذف شود؟</string>
     <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
     <plurals name="portfolio_coin_delete_confirm">
-        <item quantity="one">%d تراکنش حذف می‌شود. می‌توانید بلافاصله پس از آن، این کار را واگرد کنید.</item>
-        <item quantity="other">%d تراکنش حذف می‌شود. می‌توانید بلافاصله پس از آن، این کار را واگرد کنید.</item>
+        <item quantity="one">%d تراکنش حذف می‌شود. می‌توانی بلافاصله پس از آن، این کار را واگرد کنی.</item>
+        <item quantity="other">%d تراکنش حذف می‌شود. می‌توانی بلافاصله پس از آن، این کار را واگرد کنی.</item>
     </plurals>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

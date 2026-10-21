@@ -7,7 +7,7 @@
     <string name="alarms_empty">Для цієї пари ще немає сигналів.</string>
     <string name="alarms_empty_example">Наприклад: повідом, коли BTC підніметься вище %1$s.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">Сповіщення вимкнено – сигнали до вас не дійдуть.</string>
+    <string name="alarms_notifications_off">Сповіщення вимкнено – сигнали до тебе не дійдуть.</string>
     <string name="alarms_notifications_turn_on">Увімкнути</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">Активних: %1$d</item>
@@ -15,7 +15,7 @@
         <item quantity="many">Активних: %1$d</item>
         <item quantity="other">Активних: %1$d</item>
     </plurals>
-    <string name="alarms_overview_empty">Сигналів ще немає. Відкрийте пару й додайте його в розділі «Сигнали».</string>
+    <string name="alarms_overview_empty">Сигналів ще немає. Відкрий пару й додай його в розділі «Сигнали».</string>
     <string name="alarms_overview_title">Усі сигнали</string>
     <string name="alarms_title">Сигнали</string>
 
@@ -46,9 +46,9 @@
     <string name="alarm_repeat_each">Щоразу</string>
     <string name="alarm_repeat_once">Один раз</string>
     <string name="alarm_repeating">Щоразу</string>
-    <string name="alarm_threshold_error_empty">Введіть значення, щоб зберегти сигнал.</string>
+    <string name="alarm_threshold_error_empty">Введи значення, щоб зберегти сигнал.</string>
     <string name="alarm_threshold_error_funding">Ставка фінансування має бути числом від −10 до +10 відсотків.</string>
-    <string name="alarm_threshold_error_invalid">Введіть коректне число, більше за 0.</string>
+    <string name="alarm_threshold_error_invalid">Введи коректне число, більше за 0.</string>
     <string name="alarm_threshold_error_oi">Зміна показника «Відкритий інтерес»: не більше 1000 відсотків.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">за %1$d год</item>
@@ -90,7 +90,7 @@
     <string name="alarm_sentence_down_percent">Повідомити, коли %1$s опуститься на %2$s нижче ціни під час збереження (або останнього сигналу).</string>
     <string name="alarm_sentence_funding_above">Повідомити, коли фандинг %1$s підніметься вище %2$s.</string>
     <string name="alarm_sentence_funding_below">Повідомити, коли фандинг %1$s опуститься нижче %2$s.</string>
-    <string name="alarm_sentence_incomplete">Введіть значення, щоб побачити сигнал у вигляді речення.</string>
+    <string name="alarm_sentence_incomplete">Введи значення, щоб побачити сигнал у вигляді речення.</string>
     <plurals name="alarm_sentence_move_percent">
         <item quantity="one">Повідомити, коли %1$s зміниться на %2$s за %3$d годину.</item>
         <item quantity="few">Повідомити, коли %1$s зміниться на %2$s за %3$d години.</item>
@@ -169,7 +169,7 @@
     <string name="alarm_test">Перевірити сигнал</string>
     <string name="alarm_test_action">Перевірити</string>
     <string name="alarm_test_denied">Сповіщення для Crypto Checker вимкнено.</string>
-    <string name="alarm_test_hint">Надсилає приклад сигналу з вашими налаштуваннями звуку, вібрації та озвучення.</string>
+    <string name="alarm_test_hint">Надсилає приклад сигналу з твоїми налаштуваннями звуку, вібрації та озвучення.</string>
     <string name="alarm_test_open_settings">Відкрити налаштування</string>
     <string name="alarm_test_quiet">Зараз тривають тихі години: справжні сигнали зачекали б до їх кінця, а потім спрацювали б зі звуком.</string>
     <string name="alarm_test_text">Ось так виглядає і звучить сигнал.</string>
@@ -182,12 +182,12 @@
     <string name="alarm_unchecked_no_rate">Не вдалося перевірити (немає курсу валют)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
-    <string name="alarm_status_notifications_off">Сповіщення вимкнено – цей сигнал до вас не дійде</string>
+    <string name="alarm_status_notifications_off">Сповіщення вимкнено – цей сигнал до тебе не дійде</string>
     <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
     <string name="alarm_status_low_liquidity">Немає сигналу – низька ліквідність</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Очікування актуального курсу</string>
-    <string name="alarm_enter_amount">Введіть значення</string>
+    <string name="alarm_enter_amount">Введи значення</string>
     <string name="alarm_editor_more">Більше</string>
     <string name="alarm_editor_more_summary">Швидкі сигнали, інші умови, звук і озвучування</string>
     <string name="alarm_reliability_storage_no_key">Сигнали у фоні призупинено – список не збережено</string>

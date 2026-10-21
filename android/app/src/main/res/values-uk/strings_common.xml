@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">Біржа зараз недоступна – останні курси залишаються видимими.</string>
     <string name="error_market_unreachable_short">Біржа зараз недоступна</string>
     <string name="loading_hint">Завантаження…</string>
-    <string name="no_internet_connection">Немає з\'єднання з інтернетом. Перевірте Wi-Fi або мобільні дані й спробуйте ще раз.</string>
+    <string name="no_internet_connection">Немає з\'єднання з інтернетом. Перевір Wi-Fi або мобільні дані й спробуй ще раз.</string>
     <string name="option_off">Вимк.</string>
     <string name="something_went_wrong">Щось пішло не так</string>
     <string name="time_just_now">щойно</string>
-    <string name="timeout_error_message">Біржа зараз не відповідає. Спробуйте ще раз трохи згодом.</string>
+    <string name="timeout_error_message">Біржа зараз не відповідає. Спробуй ще раз трохи згодом.</string>
     <string name="try_again">Спробувати ще</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->

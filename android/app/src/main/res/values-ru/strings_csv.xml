@@ -7,7 +7,7 @@
     <string name="portfolio_csv_import_choice_proposed">Предложение: совпадает с %1$s</string>
     <string name="portfolio_csv_import_choice_transfer">В свой кошелёк (перевод)</string>
     <string name="portfolio_csv_import_choice_withdrawal">Уходит из портфеля (вывод)</string>
-    <string name="portfolio_csv_import_choose_each">Выберите для каждого вывода, куда он ушёл.</string>
+    <string name="portfolio_csv_import_choose_each">Выбери для каждого вывода, куда он ушёл.</string>
     <string name="portfolio_csv_import_columns">Распознанные столбцы: %1$s</string>
     <string name="portfolio_csv_import_confirm">Импортировать (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">День/Месяц</string>
@@ -44,28 +44,30 @@
         <item quantity="many">%d строк пропущено</item>
         <item quantity="other">%d строк пропущено</item>
     </plurals>
-    <string name="portfolio_csv_import_stable_swaps">Покупки и продажи за стейблкоины (USDT, USDC …) записываются как обмен – стейблкоин появляется в ваших активах.</string>
-    <string name="portfolio_csv_import_transfer_ambiguous">Возможно несколько совпадений – выберите верное или ни одного.</string>
+    <string name="portfolio_csv_import_stable_swaps">Покупки и продажи за стейблкоины (USDT, USDC …) записываются как обмен – стейблкоин появляется в твоих активах.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Возможно несколько совпадений – выбери верное или ни одного.</string>
     <string name="portfolio_csv_import_transfer_fee">Комиссия сети: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Записать как один перевод</string>
     <string name="portfolio_csv_import_transfer_stored">Пара из предыдущего импорта</string>
     <string name="portfolio_csv_import_transfers_hint">Вывод и соответствующий ему депозит той же монеты становятся одним переводом: цена покупки и срок владения сохраняются, разница считается комиссией сети.</string>
-    <string name="portfolio_csv_import_transfers_title">Переводы между вашими счетами</string>
+    <string name="portfolio_csv_import_transfers_title">Переводы между твоими счетами</string>
     <string name="portfolio_csv_import_unreadable">Поддерживаемые транзакции не найдены. Поддерживаются: CSV-выгрузки Relai, Swissquote, Kraken, Binance, Coinbase и Bitpanda.</string>
-    <string name="portfolio_csv_import_failed">Не удалось импортировать – ничего не сохранено. Попробуйте ещё раз.</string>
-    <string name="portfolio_csv_import_locked">Импорт невозможен: сохранённые данные сейчас не удаётся прочитать. Перезапустите приложение.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">Файл слишком большой для импорта (не более 16 МБ и %1$s строк). Экспортируй периоды покороче и импортируй их по очереди.</string>
+    <string name="portfolio_csv_import_failed">Не удалось импортировать – ничего не сохранено. Попробуй ещё раз.</string>
+    <string name="portfolio_csv_import_locked">Импорт невозможен: сохранённые данные сейчас не удаётся прочитать. Перезапусти приложение.</string>
     <string name="portfolio_csv_import_withdrawals_title">Выводы – куда ушли монеты?</string>
     <string name="portfolio_csv_import_zone">Время без часового пояса читается как: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Устройство (%1$s)</string>
     <string name="portfolio_csv_skip_bad_date">нечитаемая дата</string>
     <string name="portfolio_csv_skip_bad_number">нечитаемое число</string>
     <string name="portfolio_csv_skip_fee_exceeds">комиссия ≥ полученного количества</string>
-    <string name="portfolio_csv_skip_internal_move">перемещение между вашими счетами – записывать нечего</string>
+    <string name="portfolio_csv_skip_internal_move">перемещение между твоими счетами – записывать нечего</string>
     <string name="portfolio_csv_skip_missing">нет поля</string>
-    <string name="portfolio_csv_skip_ambiguous">несколько сделок в одну секунду, их нельзя разделить – введите вручную</string>
+    <string name="portfolio_csv_skip_ambiguous">несколько сделок в одну секунду, их нельзя разделить – введи вручную</string>
     <string name="portfolio_csv_skip_not_crypto">не криптовалюта</string>
-    <string name="portfolio_csv_skip_possible_duplicate">возможно, уже импортировано (почти та же сделка) – проверьте вручную</string>
-    <string name="portfolio_csv_skip_two_fees">две комиссии в разных единицах – введите обмен вручную</string>
+    <string name="portfolio_csv_skip_possible_duplicate">возможно, уже импортировано (почти та же сделка) – проверь вручную</string>
+    <string name="portfolio_csv_skip_two_fees">две комиссии в разных единицах – введи обмен вручную</string>
     <string name="portfolio_csv_skip_unsupported">неподдерживаемый тип</string>
 
     <!-- Portfolio: Importe ansehen und rückgängig machen -->
@@ -92,6 +94,6 @@
     <string name="portfolio_imports_empty">Нет импортов</string>
     <string name="portfolio_imports_title">Импорты</string>
 
-    <string name="portfolio_csv_skip_duplicate_txid_different">тот же ID транзакции с другой суммой – проверьте вручную</string>
-    <string name="portfolio_csv_skip_staking_unpaired">запись стейкинга без встречной записи – проверьте остаток</string>
+    <string name="portfolio_csv_skip_duplicate_txid_different">тот же ID транзакции с другой суммой – проверь вручную</string>
+    <string name="portfolio_csv_skip_staking_unpaired">запись стейкинга без встречной записи – проверь остаток</string>
 </resources>

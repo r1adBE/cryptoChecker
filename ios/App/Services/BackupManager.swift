@@ -149,29 +149,49 @@ enum BackupManager {
         return plain
     }
 
-    /// Wie viele Einträge ungültig sind und nicht übernommen würden: Paar-Alarme (z. B. Alarmart einer neueren
-    /// Version), Portfolio-Transaktionen (z. B. Menge fehlt) und Portfolio-Alarme — vor der Rückfrage, damit der
-    /// Nutzer davon erfährt statt sie still zu verlieren (wie Android `invalidEntries`).
-    static func invalidEntries(_ json: Data) throws -> Int {
+    /// Was die Rückfrage vor dem Wiederherstellen nennt (wie Android `RestorePreview`): `invalid` = ungültige Einträge
+    /// (zu bestätigen, `acceptInvalid`), `droppedPairs`/`droppedAlarms` = über den Grenzen (`BackupRestoreLimits`).
+    struct RestorePreview: Equatable {
+        var invalid = 0
+        var droppedPairs = 0
+        var droppedAlarms = 0
+    }
+
+    /// Ungültige Einträge, die nicht übernommen würden — Paar-Alarme (z. B. Alarmart einer neueren Version),
+    /// Portfolio-Transaktionen (z. B. Menge fehlt) und Portfolio-Alarme — sowie Paare und Alarme über den Grenzen:
+    /// vor der Rückfrage, damit der Nutzer davon erfährt, bevor etwas ersetzt wird (wie Android `preview`).
+    static func preview(_ json: Data) throws -> RestorePreview {
         guard let root = try JSONSerialization.jsonObject(with: json) as? [String: Any],
               root["format"] as? String == format
         else { throw Failure.notABackup }
         // Neuere Version: schon vor der Rückfrage ablehnen (klare Meldung, nichts übernommen)
         _ = try BackupVersion.check(root["version"])
-        return parsedAlarms(root).invalid + parsedPortfolio(root).invalid + parsedPortfolioAlarms(root).invalid
+        // Unlesbares Paar: hier nichts über die Grenzen sagen — das Wiederherstellen lehnt die Datei danach ohnehin ab
+        let watchlist = try? restoredWatchlist(root)
+        return RestorePreview(invalid: parsedAlarms(root).invalid + parsedPortfolio(root).invalid + parsedPortfolioAlarms(root).invalid,
+                              droppedPairs: watchlist?.droppedPairs ?? 0, droppedAlarms: watchlist?.droppedAlarms ?? 0)
+    }
+
+    /// Was eine Wiederherstellung übernommen hat (wie Android `RestoreResult`); `appLockKept` = eine Sicherung ohne
+    /// Passwort wollte die Portfolio-Sperre ausschalten, sie blieb an; `droppedPairs`/`droppedAlarms` = über den Grenzen
+    /// nicht übernommen (seit Build 99).
+    struct RestoreResult: Equatable {
+        let watches: Int
+        let alarms: Int
+        let appLockKept: Bool
+        var droppedPairs = 0
+        var droppedAlarms = 0
+    }
+
+    /// Nur die ungültigen Einträge aus `preview`.
+    static func invalidEntries(_ json: Data) throws -> Int {
+        try preview(json).invalid
     }
 
     /// «version» des Klartexts prüfen (`BackupVersion.check`): neuere → `BackupVersion.Failure.newer`, ohne etwas zu lesen.
     static func checkVersion(_ json: Data) throws {
         guard let root = try JSONSerialization.jsonObject(with: json) as? [String: Any] else { throw Failure.notABackup }
         _ = try BackupVersion.check(root["version"])
-    }
-
-    /// Paar-Alarme der Sicherung; ungültige (unbekannte Alarmart, Schwelle nicht endlich) werden gezählt.
-    private static func parsedAlarms(_ root: [String: Any]) -> (items: [Alarm], invalid: Int) {
-        let list = root["alarms"] as? [Any] ?? []
-        let items = list.compactMap { ($0 as? [String: Any]).flatMap(alarmFromJson) }
-        return (items, list.count - items.count)
     }
 
     /// Transaktionen der Sicherung; nil = Sicherung ohne Portfolio. Ungültige werden gezählt.
@@ -193,34 +213,25 @@ enum BackupManager {
     /// zusammengelegt (`WatchlistRestoreCleanup`).
     /// `json` ist der Klartext (`plainJSON`); eine verschlüsselte Hülle hat ein anderes «format» und wird abgelehnt.
     /// Ungültige Portfolio-Einträge fallen nur weg, wenn der Nutzer das bestätigt hat (`acceptInvalid` = gezeigte
-    /// Anzahl aus `invalidEntries`); sind es mehr, bricht der Import ab, bevor etwas ersetzt wird.
+    /// Anzahl aus `preview`); sind es mehr, bricht der Import ab, bevor etwas ersetzt wird.
     /// `encrypted` = Sicherung mit Passwort; ohne schaltet sie die Portfolio-Sperre nicht aus
     /// (`BackupRestorePolicy`, Ergebnis `appLockKept`).
     /// `journal`: vor dem ersten Schreiben den bisherigen Stand versiegelt merken (`RestoreJournal`) — aus beim Zurückrollen
-    /// eines abgebrochenen Laufs selbst.
+    /// eines abgebrochenen Laufs selbst — dann auch ohne `BackupRestoreLimits` (eigener Stand kommt unverändert zurück).
     @MainActor
     static func restore(_ json: Data, into data: AppData, acceptInvalid: Int = 0,
-                        encrypted: Bool = false, journal: Bool = true) throws -> (watches: Int, alarms: Int, appLockKept: Bool) {
+                        encrypted: Bool = false, journal: Bool = true) throws -> RestoreResult {
         guard let root = try JSONSerialization.jsonObject(with: json) as? [String: Any],
               root["format"] as? String == format
         else { throw Failure.notABackup }
         // Sicherung einer neueren App-Version: ganz ablehnen, bevor etwas gelesen oder ersetzt wird
         _ = try BackupVersion.check(root["version"])
 
-        // Merkliste und Alarme erst lesen, dann bereinigen (`WatchlistRestoreCleanup`, wie Android):
-        // gleiche id → letzter gilt; gleiches Paar unter mehreren ids → erstes bleibt, seine Alarme
-        // übernehmen die der weggelassenen; Alarme ohne Paar fallen weg.
-        // Paare mit unzulässigen Kennungen fallen weg, danach höchstens so viele Paare/Alarme wie
-        // `BackupRestoreLimits` erlaubt — wie Android
-        var parsedWatches: [Watch] = []
-        for item in root["watches"] as? [Any] ?? [] {
-            guard let o = item as? [String: Any] else { throw Failure.invalid("watches") }
-            let watch = try jsonToWatch(o)
-            if BackupRestoreLimits.acceptsWatch(watch) { parsedWatches.append(watch) }
-        }
-        let alarmsRead = parsedAlarms(root)
-        let cleaned = WatchlistRestoreCleanup.clean(watches: parsedWatches, alarms: alarmsRead.items)
-        let (watches, alarms) = BackupRestoreLimits.limit(watches: cleaned.watches, alarms: cleaned.alarms)
+        // Merkliste und Alarme lesen, bereinigen und begrenzen (`restoredWatchlist`, wie Android): Paare mit unzulässigen
+        // Kennungen und über den Grenzen fallen weg, gezählt für die Erfolgsmeldung
+        let watchlist = try restoredWatchlist(root, limits: journal)
+        let watches = watchlist.watches
+        let alarms = watchlist.alarms
 
         var favorites: [FavoriteKind: Set<String>] = [:]
         if let fav = root["favorites"] as? [String: Any] {
@@ -244,7 +255,7 @@ enum BackupManager {
         let parsedTx = parsedPortfolio(root)
         // Seit Runde 28; ältere Sicherungen ohne Portfolio-Alarme lassen die bestehenden stehen
         let parsedPfAlarms = parsedPortfolioAlarms(root)
-        let invalid = alarmsRead.invalid + parsedTx.invalid + parsedPfAlarms.invalid
+        let invalid = watchlist.invalidAlarms + parsedTx.invalid + parsedPfAlarms.invalid
         if invalid > acceptInvalid { throw Failure.unconfirmedInvalid(invalid) }
         let portfolio = parsedTx.items
         let portfolioAlarms = parsedPfAlarms.items
@@ -320,7 +331,8 @@ enum BackupManager {
         }
         // Kurs-Mitteilungen der bisherigen Paare erst nach Erfolg entfernen (beim Rückrollen bleiben sie)
         old.watches.forEach { Notifier.cancelPrice($0.id) }
-        return (watches.count, alarms.count, lock.keptOn)
+        return RestoreResult(watches: watches.count, alarms: alarms.count, appLockKept: lock.keptOn,
+                             droppedPairs: watchlist.droppedPairs, droppedAlarms: watchlist.droppedAlarms)
     }
 
     /// Eben geschriebene Sicherungsdatei zurücklesen und mit `expected` vergleichen (Grösse und SHA-256) — wie Android

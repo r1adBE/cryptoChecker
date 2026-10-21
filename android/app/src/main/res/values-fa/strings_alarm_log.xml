@@ -7,7 +7,7 @@
     <string name="alarm_log_empty_message">وقتی هشداری فعال شود یا نگه داشته شود، موارد اینجا نمایش داده می‌شوند – مثلاً به‌خاطر قیمت قدیمی یا در ساعات بی‌صدا.</string>
     <string name="alarm_log_clear">پاک کردن گزارش</string>
     <string name="alarm_log_clear_title">گزارش هشدارها پاک شود؟</string>
-    <string name="alarm_log_clear_message">همه موارد حذف می‌شوند. هشدارهایتان همان‌طور می‌مانند.</string>
+    <string name="alarm_log_clear_message">همه موارد حذف می‌شوند. هشدارهایت همان‌طور می‌مانند.</string>
     <string name="alarm_log_threshold">آستانه %1$s</string>
     <string name="alarm_last_check">آخرین بررسی: %1$s</string>
     <string name="alarm_outcome_fired">فعال شد</string>

@@ -52,12 +52,12 @@
     <string name="alarm_first_check">Verifică dacă alarmele ajung</string>
 
     <string name="oem_battery_title">Economisirea bateriei a producătorului</string>
-    <string name="oem_battery_xiaomi">Xiaomi poate opri complet aplicația – atunci nu mai sosesc alarme. Activați „Pornire automată” și setați economisirea bateriei la „Fără restricții”.</string>
-    <string name="oem_battery_samsung">Samsung poate pune aplicația în somn profund – atunci nu mai sosesc alarme. În Baterie › Limite de utilizare în fundal, adăugați-o la „Aplicații care nu intră niciodată în repaus”.</string>
-    <string name="oem_battery_huawei">Huawei/Honor poate opri aplicația – atunci nu mai sosesc alarme. În Baterie › Lansare aplicații, alegeți „Gestionare manuală” și permiteți tot.</string>
-    <string name="oem_battery_oneplus">OnePlus poate opri aplicația – atunci nu mai sosesc alarme. Permiteți „Lansare automată” și, la Utilizarea bateriei, activitatea în fundal.</string>
-    <string name="oem_battery_oppo">Oppo/Realme poate opri aplicația – atunci nu mai sosesc alarme. Permiteți „Lansare automată” și, la Utilizarea bateriei, activitatea în fundal.</string>
-    <string name="oem_battery_vivo">Vivo poate opri aplicația – atunci nu mai sosesc alarme. Permiteți „Pornire automată” și, la Baterie, consumul ridicat în fundal.</string>
+    <string name="oem_battery_xiaomi">Xiaomi poate opri complet aplicația – atunci nu mai sosesc alarme. Activează „Pornire automată” și setează economisirea bateriei la „Fără restricții”.</string>
+    <string name="oem_battery_samsung">Samsung poate pune aplicația în somn profund – atunci nu mai sosesc alarme. În Baterie › Limite de utilizare în fundal, adaug-o la „Aplicații care nu intră niciodată în repaus”.</string>
+    <string name="oem_battery_huawei">Huawei/Honor poate opri aplicația – atunci nu mai sosesc alarme. În Baterie › Lansare aplicații, alege „Gestionare manuală” și permite tot.</string>
+    <string name="oem_battery_oneplus">OnePlus poate opri aplicația – atunci nu mai sosesc alarme. Permite „Lansare automată” și, la Utilizarea bateriei, activitatea în fundal.</string>
+    <string name="oem_battery_oppo">Oppo/Realme poate opri aplicația – atunci nu mai sosesc alarme. Permite „Lansare automată” și, la Utilizarea bateriei, activitatea în fundal.</string>
+    <string name="oem_battery_vivo">Vivo poate opri aplicația – atunci nu mai sosesc alarme. Permite „Pornire automată” și, la Baterie, consumul ridicat în fundal.</string>
     <string name="alarm_reliability_recent">Ultima verificare %1$s</string>
     <string name="alarm_reliability_stale">Ultima verificare %1$s – alarmele pot întârzia</string>
     <string name="alarm_reliability_never">Alarme active – încă nicio verificare în fundal</string>

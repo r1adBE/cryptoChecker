@@ -3,10 +3,10 @@
     <!-- Begrüssung beim ersten Start -->
     <string name="welcome_alert">Upozornit – cena, procenta, objem a neobvyklé pohyby</string>
     <string name="welcome_alert_q">Kdy upozornit?</string>
-    <string name="welcome_text">Vaše kurzy. Vaše alarmy. Váš přehled.\nBez účtu. Bez reklam. Bez sledování.</string>
+    <string name="welcome_text">Tvoje kurzy. Tvoje alarmy. Tvůj přehled.\nBez účtu. Bez reklam. Bez sledování.</string>
     <string name="welcome_understand">Pochopit – co se právě hýbe spolu s kurzem</string>
     <string name="welcome_understand_q">Co se hýbe s ním?</string>
-    <string name="welcome_watch">Sledovat – vaše mince, kurzy a jejich vývoj</string>
+    <string name="welcome_watch">Sledovat – tvoje mince, kurzy a jejich vývoj</string>
     <string name="welcome_watch_q">Co se děje?</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
@@ -15,8 +15,8 @@
     <string name="starter_search_coin">Hledat jinou minci</string>
     <string name="starter_select_all">Vybrat vše</string>
     <string name="starter_select_none">Zrušit výběr</string>
-    <string name="starter_title">Začněte s těmito mincemi</string>
+    <string name="starter_title">Začni s těmito mincemi</string>
     <string name="starter_watch_alarm_hint">Sleduj cenu, nastav alarm</string>
 
-    <string name="starter_source_text">Ceny z burzy %1$s v %2$s. Odznačte, co nechcete, a zbytek přidejte najednou. Burzu a pár můžete změnit u každé mince.</string>
+    <string name="starter_source_text">Ceny z burzy %1$s v %2$s. Odznač, co nechceš, a zbytek přidej najednou. Burzu a pár můžeš změnit u každé mince.</string>
 </resources>

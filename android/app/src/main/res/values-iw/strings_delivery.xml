@@ -4,7 +4,7 @@
     <string name="delivery_title">כדי שההתראות יגיעו</string>
     <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
     <string name="delivery_state_ok">תקין</string>
-    <string name="delivery_state_warn">שים לב</string>
+    <string name="delivery_state_warn">שימו לב</string>
     <string name="delivery_state_info">הערה</string>
     <string name="delivery_allowed">מותר</string>
     <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->

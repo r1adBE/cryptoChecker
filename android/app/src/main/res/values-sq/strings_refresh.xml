@@ -7,7 +7,7 @@
     <string name="update_mode_live_hint_ios">Kur bursa jep çmim live: menjëherë, sa kohë lista është e hapur. Përndryshe në marrjen e radhës. E mbyllur: kur e lejon iOS, ndonjëherë pas orësh. Nëse e mbyll aplikacionin me rrëshqitje, iOS i ndalon këto kontrolle derisa ta hapësh përsëri.</string>
     <string name="update_mode_recommended">e rekomanduar</string>
     <string name="update_mode_sparsam">Kursyes</string>
-    <string name="update_mode_sparsam_hint">Me aplikacionin të mbyllur jo më shpesh se çdo %1$s, shpesh më vonë (alarme, widget). Hapur: sa herë e hapni.</string>
+    <string name="update_mode_sparsam_hint">Me aplikacionin të mbyllur jo më shpesh se çdo %1$s, shpesh më vonë (alarme, widget). Hapur: sa herë e hap.</string>
     <string name="update_mode_sparsam_hint_ios">Me aplikacionin të mbyllur, iOS vendos kur të kontrollojë (alarmet, widget-et), ndonjëherë pas orësh. Hapur: sa herë e hap.</string>
     <string name="update_mode_title">Sa i përditësuar?</string>
 

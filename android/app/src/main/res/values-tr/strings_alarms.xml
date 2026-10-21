@@ -13,7 +13,7 @@
         <item quantity="one">%1$d etkin</item>
         <item quantity="other">%1$d etkin</item>
     </plurals>
-    <string name="alarms_overview_empty">Henüz alarm yok. Bir çift açın ve Alarmlar bölümünden ekleyin.</string>
+    <string name="alarms_overview_empty">Henüz alarm yok. Bir çift aç ve Alarmlar bölümünden ekle.</string>
     <string name="alarms_overview_title">Tüm alarmlar</string>
     <string name="alarms_title">Alarmlar</string>
 
@@ -86,7 +86,7 @@
     <string name="alarm_sentence_down_percent">%1$s fiyatı kaydetme anındaki (veya son alarmdaki) fiyatın %2$s altına indiğinde bana haber ver.</string>
     <string name="alarm_sentence_funding_above">%1$s fonlaması %2$s üstüne çıktığında bana haber ver.</string>
     <string name="alarm_sentence_funding_below">%1$s fonlaması %2$s altına düştüğünde bana haber ver.</string>
-    <string name="alarm_sentence_incomplete">Alarmı cümle olarak görmek için bir değer girin.</string>
+    <string name="alarm_sentence_incomplete">Alarmı cümle olarak görmek için bir değer gir.</string>
     <plurals name="alarm_sentence_move_percent">
         <item quantity="one">%1$s fiyatı %3$d saat içinde %2$s hareket ettiğinde bana haber ver.</item>
         <item quantity="other">%1$s fiyatı %3$d saat içinde %2$s hareket ettiğinde bana haber ver.</item>
@@ -143,7 +143,7 @@
 
     <!-- Wann Alarme geprüft werden -->
     <string name="alarm_timing_hint_android">“%1$s” kapalıyken Android, cihaz dinlenirken düzensiz kontrol eder – bazen ancak saatler sonra. Açıkken yaklaşık 15 dakikada bir.</string>
-    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Uygulama kapalıyken iOS çoğu zaman 15 dakikadan geç kontrol eder, bazen ancak uygulamayı yeniden açtığınızda. Kısa sıçramalar kaçabilir.</string>
+    <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">Uygulama kapalıyken iOS çoğu zaman 15 dakikadan geç kontrol eder, bazen ancak uygulamayı yeniden açtığında. Kısa sıçramalar kaçabilir.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Alarmlar ne zaman kontrol edilir</string>
     <string name="alarm_timing_where">Fiyatların ne sıklıkla güncelleneceğini %1$s bölümünden ayarlayabilirsin.</string>
@@ -157,7 +157,7 @@
     <string name="alarm_test">Alarmı test et</string>
     <string name="alarm_test_action">Test et</string>
     <string name="alarm_test_denied">Crypto Checker için bildirimler kapalı.</string>
-    <string name="alarm_test_hint">Ses, titreşim ve sesli okuma ayarlarınızla örnek bir alarm gönderir.</string>
+    <string name="alarm_test_hint">Ses, titreşim ve sesli okuma ayarlarınla örnek bir alarm gönderir.</string>
     <string name="alarm_test_open_settings">Ayarları aç</string>
     <string name="alarm_test_quiet">Şu anda sessiz saatler etkin: gerçek alarmlar bitmesini bekler, sonra sesli çalardı.</string>
     <string name="alarm_test_text">Bir alarm böyle görünür ve böyle ses çıkarır.</string>

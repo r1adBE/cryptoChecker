@@ -1,5 +1,5 @@
 {
-  "description": "Grenzen beim Wiederherstellen von Merkliste und Paar-Alarmen aus einer Sicherung: Android BackupRestoreLimits.kt + BackupWatchlistCodec.jsonToWatch, iOS BackupRestoreLimits.swift + BackupManager.jsonToWatch. «kept» = Paar wird übernommen; «group»/«note» = gespeicherter Wert (null = keiner). Längen in Unicode-Codepunkten (Kennungen) bzw. sichtbaren Zeichen (Gruppe, Notiz). Seit Build 99.",
+  "description": "Grenzen beim Wiederherstellen von Merkliste und Paar-Alarmen aus einer Sicherung: Android BackupRestoreLimits.kt + BackupWatchlistCodec.jsonToWatch, iOS BackupRestoreLimits.swift + BackupManager.jsonToWatch. «kept» = Paar wird übernommen; «group»/«note» = gespeicherter Wert (null = keiner). Längen in Unicode-Codepunkten (Kennungen) bzw. sichtbaren Zeichen (Gruppe, Notiz). Seit Build 99. «limitCases» (seit Build 99): ganze Merkliste der Sicherung lesen, bereinigen und begrenzen (Android BackupWatchlistCodec.readWatchlist, iOS BackupManager.restoredWatchlist); Paare mit Ids 1…«pairs» (Basis «B<id>», Kennung «B<id>USDT»), «invalidPairIds» = Kennung mit Leerzeichen, «duplicates» = [id, gleiches Paar wie id], «alarms» = [Paar-Id, Anzahl] mit fortlaufenden Alarm-Ids; erwartet behaltene und wegen der Grenzen weggelassene Paare und Alarme.",
   "limits": {
     "maxMarketKey": 64,
     "maxMarketName": 60,
@@ -486,6 +486,162 @@
       "kept": true,
       "group": null,
       "note": "merken"
+    }
+  ],
+  "limitCases": [
+    {
+      "description": "unter den Grenzen: nichts weggelassen",
+      "pairs": 3,
+      "invalidPairIds": [],
+      "duplicates": [],
+      "alarms": [
+        [
+          1,
+          10
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "keptPairs": 3,
+      "keptAlarms": 11,
+      "droppedPairs": 0,
+      "droppedAlarms": 0
+    },
+    {
+      "description": "mehr als 10 Alarme je Paar",
+      "pairs": 2,
+      "invalidPairIds": [],
+      "duplicates": [],
+      "alarms": [
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          11
+        ]
+      ],
+      "keptPairs": 2,
+      "keptAlarms": 20,
+      "droppedPairs": 0,
+      "droppedAlarms": 4
+    },
+    {
+      "description": "mehr als 2000 Paare: die letzten samt ihren Alarmen weg",
+      "pairs": 2003,
+      "invalidPairIds": [],
+      "duplicates": [],
+      "alarms": [
+        [
+          1,
+          2
+        ],
+        [
+          2001,
+          3
+        ],
+        [
+          2003,
+          1
+        ]
+      ],
+      "keptPairs": 2000,
+      "keptAlarms": 2,
+      "droppedPairs": 3,
+      "droppedAlarms": 4
+    },
+    {
+      "description": "unzulässige Kennung: Paar samt Alarmen weg",
+      "pairs": 3,
+      "invalidPairIds": [
+        2
+      ],
+      "duplicates": [],
+      "alarms": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          1
+        ]
+      ],
+      "keptPairs": 2,
+      "keptAlarms": 1,
+      "droppedPairs": 1,
+      "droppedAlarms": 4
+    },
+    {
+      "description": "unzulässige Paare belegen keinen der 2000 Plätze",
+      "pairs": 2002,
+      "invalidPairIds": [
+        1,
+        2
+      ],
+      "duplicates": [],
+      "alarms": [
+        [
+          1,
+          1
+        ],
+        [
+          2002,
+          12
+        ]
+      ],
+      "keptPairs": 2000,
+      "keptAlarms": 10,
+      "droppedPairs": 2,
+      "droppedAlarms": 3
+    },
+    {
+      "description": "Alarme ohne Paar in der Datei zählen nicht als weggelassen",
+      "pairs": 1,
+      "invalidPairIds": [],
+      "duplicates": [],
+      "alarms": [
+        [
+          1,
+          1
+        ],
+        [
+          99,
+          2
+        ]
+      ],
+      "keptPairs": 1,
+      "keptAlarms": 1,
+      "droppedPairs": 0,
+      "droppedAlarms": 0
+    },
+    {
+      "description": "doppeltes Paar: zusammengelegt (nicht gezählt), Alarm-Grenze danach",
+      "pairs": 3,
+      "invalidPairIds": [],
+      "duplicates": [
+        [
+          3,
+          1
+        ]
+      ],
+      "alarms": [
+        [
+          1,
+          6
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "keptPairs": 2,
+      "keptAlarms": 10,
+      "droppedPairs": 0,
+      "droppedAlarms": 2
     }
   ]
 }

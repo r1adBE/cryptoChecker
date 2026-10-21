@@ -13,8 +13,8 @@ struct BackupSettingsPage: View {
     @State private var exporting = false
     @State private var importing = false
     @State private var pendingRestore: Data?
-    /// Ungültige Portfolio-Einträge der gewählten Sicherung (die Rückfrage nennt sie).
-    @State private var pendingInvalid = 0
+    /// Ungültige Einträge und solche über den Grenzen in der gewählten Sicherung (die Rückfrage nennt sie).
+    @State private var pendingPreview = BackupManager.RestorePreview()
     /// Gewählte Sicherung war verschlüsselt; ohne Passwort warnt die Rückfrage (keine Echtheitsprüfung).
     @State private var pendingEncrypted = false
     @State private var confirmRestore = false
@@ -147,7 +147,7 @@ struct BackupSettingsPage: View {
                     let plain = try result.get()
                     // Sicherung einer neueren App-Version: vor der Rückfrage ablehnen (wie Android)
                     try BackupManager.checkVersion(plain)
-                    pendingInvalid = (try? BackupManager.invalidEntries(plain)) ?? 0
+                    pendingPreview = (try? BackupManager.preview(plain)) ?? BackupManager.RestorePreview()
                     pendingEncrypted = true
                     pendingRestore = plain
                     return true
@@ -176,17 +176,19 @@ struct BackupSettingsPage: View {
         }
         .alert(L("backup_import"), isPresented: $confirmRestore, presenting: pendingRestore) { json in
             Button(L("backup_import"), role: .destructive) {
-                restore(json, acceptInvalid: pendingInvalid, encrypted: pendingEncrypted)
+                restore(json, acceptInvalid: pendingPreview.invalid, encrypted: pendingEncrypted)
             }
             .accessibilityIdentifier(UiTestTags.backupRestoreConfirm)
             Button(L("action_cancel"), role: .cancel) { pendingRestore = nil }
         } message: { _ in
-            // Ohne Passwort keine Echtheitsprüfung: Herkunft prüfen lassen; ungültige Portfolio-Einträge
-            // nennen, statt sie still wegzulassen (wie Android)
+            // Ohne Passwort keine Echtheitsprüfung: Herkunft prüfen lassen; ungültige Einträge und solche über den
+            // Grenzen nennen, bevor etwas ersetzt wird, statt sie still wegzulassen (wie Android)
             let parts: [String] = [
                 L("backup_restore_confirm"),
                 pendingEncrypted ? nil : L("backup_restore_unencrypted_warning"),
-                pendingInvalid > 0 ? L("backup_restore_invalid", count: pendingInvalid) : nil,
+                pendingPreview.invalid > 0 ? L("backup_restore_invalid", count: pendingPreview.invalid) : nil,
+                Self.overLimitsText("backup_restore_over_limits", pairs: pendingPreview.droppedPairs,
+                                    alarms: pendingPreview.droppedAlarms),
             ].compactMap { $0 }
             Text(parts.joined(separator: "\n\n"))
         }
@@ -290,7 +292,7 @@ struct BackupSettingsPage: View {
                 pendingRestore = nil
                 encryptedFile = EncryptedFile(data: file)
             } else {
-                pendingInvalid = try BackupManager.invalidEntries(file)
+                pendingPreview = try BackupManager.preview(file)
                 pendingEncrypted = false
                 pendingRestore = file
                 confirmRestore = true
@@ -313,9 +315,18 @@ struct BackupSettingsPage: View {
         }
     }
 
+    /// «3 Paare und 12 Alarme überschreiten die Grenzen …» mit `key` vor (`backup_restore_over_limits`) bzw. nach dem
+    /// Wiederherstellen (`backup_restored_over_limits`); nil, wenn nichts wegfällt — wie Android `overLimitsText`.
+    static func overLimitsText(_ key: String, pairs: Int, alarms: Int) -> String? {
+        guard pairs > 0 || alarms > 0 else { return nil }
+        return L(key, L("backup_restored_pairs", count: pairs), L("backup_restored_alarms", count: alarms),
+                 LocaleNumbers.integer(WatchlistLimits.maxPairs, grouping: true),
+                 LocaleNumbers.integer(WatchlistLimits.maxAlarmsPerPair))
+    }
+
     private func restore(_ json: Data, acceptInvalid: Int, encrypted: Bool) {
         pendingRestore = nil
-        pendingInvalid = 0
+        pendingPreview = BackupManager.RestorePreview()
         pendingEncrypted = false
         // Wiederhergestellten Stand ganz auf die Platte bringen, auch wenn die App gleich in den Hintergrund geht
         // (`mutate` schreibt im Hintergrund); abgemeldet erst nach dem Schreiben
@@ -331,8 +342,12 @@ struct BackupSettingsPage: View {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             let restored = L("backup_restored", L("backup_restored_pairs", count: result.watches),
                              L("backup_restored_alarms", count: result.alarms))
-            // Sperre blieb an (Sicherung ohne Passwort wollte sie ausschalten)
-            toast = result.appLockKept ? restored + "\n" + L("backup_restore_app_lock_kept") : restored
+            // Über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort wollte sie ausschalten)
+            toast = [
+                restored,
+                Self.overLimitsText("backup_restored_over_limits", pairs: result.droppedPairs, alarms: result.droppedAlarms),
+                result.appLockKept ? L("backup_restore_app_lock_kept") : nil,
+            ].compactMap { $0 }.joined(separator: "\n")
             // Wie Android: Erlaubnis für Mitteilungen erfragen (eine Neuinstallation hat nie gefragt — sonst
             // kommen Alarme der eingespielten Paare nie an) und gleich Kurse holen (Widgets, Alarme)
             // (wie neue Paare: erst die kurze Erklärung, `NotificationPrePrompt`)

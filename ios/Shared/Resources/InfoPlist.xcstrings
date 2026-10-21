@@ -24,7 +24,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Odemkněte své portfolio pomocí Face ID."
+            "value" : "Odemkni své portfolio pomocí Face ID."
           }
         },
         "da" : {
@@ -42,7 +42,7 @@
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ξεκλείδωμα του χαρτοφυλακίου σας με Face ID."
+            "value" : "Ξεκλείδωμα του χαρτοφυλακίου σου με Face ID."
           }
         },
         "en" : {
@@ -60,7 +60,7 @@
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "باز کردن قفل سبد دارایی شما با Face ID."
+            "value" : "باز کردن قفل سبد دارایی‌ات با Face ID."
           }
         },
         "fi" : {
@@ -72,7 +72,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Déverrouillez votre portefeuille avec Face ID."
+            "value" : "Déverrouille ton portefeuille avec Face ID."
           }
         },
         "he" : {
@@ -84,7 +84,7 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Face ID से अपना पोर्टफ़ोलियो अनलॉक करें।"
+            "value" : "Face ID से अपना पोर्टफ़ोलियो अनलॉक करो।"
           }
         },
         "hu" : {
@@ -96,7 +96,7 @@
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Buka kunci portofolio Anda dengan Face ID."
+            "value" : "Buka kunci portofoliomu dengan Face ID."
           }
         },
         "it" : {
@@ -138,7 +138,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Desbloquear a sua carteira com Face ID."
+            "value" : "Desbloquear a tua carteira com Face ID."
           }
         },
         "pt-BR" : {
@@ -150,7 +150,7 @@
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deblocați portofoliul cu Face ID."
+            "value" : "Deblochează portofoliul cu Face ID."
           }
         },
         "ru" : {

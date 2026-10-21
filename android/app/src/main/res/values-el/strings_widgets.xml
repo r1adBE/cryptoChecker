@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Φόντο</string>
-    <string name="widget_configure_hint">Επιλέξτε φόντο και αδιαφάνεια. Το χρώμα ακολουθεί την εφαρμογή. Το widget δείχνει όλη τη λίστα· πατήστε μια γραμμή για να ανοίξει η εφαρμογή.</string>
+    <string name="widget_configure_hint">Επίλεξε φόντο και αδιαφάνεια. Το χρώμα ακολουθεί την εφαρμογή. Το widget δείχνει όλη τη λίστα· πάτα μια γραμμή για να ανοίξει η εφαρμογή.</string>
     <string name="widget_configure_title">Ρύθμιση widget</string>
     <string name="widget_description">Εμφανίζει την τιμή ενός ζεύγους από τη λίστα παρακολούθησης.</string>
     <string name="widget_empty">Δεν υπάρχουν ζεύγη στη λίστα παρακολούθησης ακόμα.</string>
@@ -37,15 +37,15 @@
     <string name="widget_portfolio_as_of">Στις %1$s</string>
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Η εξέλιξη έρχεται σύντομα</string>
-    <string name="widget_portfolio_description">Συνολική αξία του χαρτοφυλακίου σας και σημερινή μεταβολή</string>
+    <string name="widget_portfolio_description">Συνολική αξία του χαρτοφυλακίου σου και σημερινή μεταβολή</string>
     <string name="widget_portfolio_display">Εμφάνιση</string>
     <string name="widget_portfolio_display_conversion">Μόνο μετατροπή</string>
     <string name="widget_portfolio_display_conversion_usdt">Μετατροπή + USDT</string>
     <string name="widget_portfolio_display_hint">Η γραμμή USDT δεν εμφανίζεται όταν το νόμισμα μετατροπής είναι USD.</string>
     <string name="widget_portfolio_display_usdt">Μόνο USDT</string>
-    <string name="widget_portfolio_empty">Προσθέστε αγορές στην καρτέλα Χαρτοφυλάκιο</string>
-    <string name="widget_portfolio_list_hint">Ανοίξτε την εφαρμογή για να εμφανιστούν εδώ οι θέσεις σας.</string>
-    <string name="widget_portfolio_locked_hint">Κλειδωμένο – ξεκλειδώστε στην εφαρμογή</string>
+    <string name="widget_portfolio_empty">Πρόσθεσε αγορές στην καρτέλα Χαρτοφυλάκιο</string>
+    <string name="widget_portfolio_list_hint">Άνοιξε την εφαρμογή για να εμφανιστούν εδώ οι θέσεις σου.</string>
+    <string name="widget_portfolio_locked_hint">Κλειδωμένο – ξεκλείδωσε στην εφαρμογή</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
         <item quantity="one">χωρίς %1$d νόμισμα</item>
@@ -64,7 +64,7 @@
     <string name="widget_portfolio_period_without">%1$s χωρίς %2$s</string>
     <string name="widget_portfolio_range_48h">48h</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: ανοίξτε το Χαρτοφυλάκιο</string>
+    <string name="widget_portfolio_range_fallback">%1$s: άνοιξε το Χαρτοφυλάκιο</string>
     <string name="widget_portfolio_range_short_48h">48h</string>
     <string name="widget_portfolio_today_without">Σήμερα χωρίς %1$s</string>
     <string name="widget_portfolio_view">Προβολή</string>
@@ -82,17 +82,17 @@
     <string name="widgets_add">Προσθήκη</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
     <string name="widgets_add_named">Προσθήκη widget %1$s</string>
-    <string name="widgets_manual_text">Η αρχική σας οθόνη δεν μπορεί να προσθέσει widget από την εφαρμογή. Πατήστε παρατεταμένα ένα κενό σημείο στην αρχική οθόνη, επιλέξτε «Widget» και αναζητήστε το «Crypto Checker».</string>
+    <string name="widgets_manual_text">Η αρχική σου οθόνη δεν μπορεί να προσθέσει widget από την εφαρμογή. Πάτα παρατεταμένα ένα κενό σημείο στην αρχική οθόνη, επίλεξε «Widget» και αναζήτησε το «Crypto Checker».</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
-    <string name="widgets_manual_title">Προσθέστε το widget μόνοι σας</string>
+    <string name="widgets_manual_title">Πρόσθεσε το widget χειροκίνητα</string>
     <string name="widgets_sheet_title">Προσθήκη widget</string>
 
     <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
     <string name="widgets_ios_intro" tools:ignore="UnusedResources">Το iOS δεν επιτρέπει στις εφαρμογές να προσθέτουν widget μόνες τους. Χρειάζεται μόνο μια στιγμή:</string>
     <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Διαθέσιμα widget</string>
-    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Πατήστε παρατεταμένα ένα κενό σημείο στην οθόνη Αφετηρίας μέχρι να αρχίσουν να κουνιούνται οι εφαρμογές.</string>
-    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Πατήστε επάνω «Επεξεργασία» › «Προσθήκη widget» (ή «+» σε παλαιότερες εκδόσεις iOS).</string>
-    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Αναζητήστε «Crypto Checker», επιλέξτε ένα widget και πατήστε «Προσθήκη widget».</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Πάτα παρατεταμένα ένα κενό σημείο στην οθόνη Αφετηρίας μέχρι να αρχίσουν να κουνιούνται οι εφαρμογές.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Πάτα επάνω «Επεξεργασία» › «Προσθήκη widget» (ή «+» σε παλαιότερες εκδόσεις iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Αναζήτησε «Crypto Checker», επίλεξε ένα widget και πάτα «Προσθήκη widget».</string>
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Ανανέωση – ξανά δυνατό σε %1$d δ</string>

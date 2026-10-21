@@ -31,6 +31,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.collectAsState
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.domain.watch.WatchlistLimits
+import com.cryptochecker.app.util.LocaleNumbers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.cryptochecker.app.lock.findFragmentActivity
@@ -153,6 +155,9 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                             modifier = Modifier.padding(top = 8.dp)
                         )
                     }
+                    // Paare und Alarme über den Grenzen nennen, bevor etwas ersetzt wird (nicht still weglassen)
+                    overLimitsText(resources, R.string.backup_restore_over_limits, step.preview.droppedPairs, step.preview.droppedAlarms)
+                        ?.let { Text(it, color = AppColors.warningText, modifier = Modifier.padding(top = 8.dp)) }
                 }
             },
             confirmButton = {
@@ -198,12 +203,36 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                     resources.getQuantityString(R.plurals.backup_restored_pairs, m.watches, m.watches),
                     resources.getQuantityString(R.plurals.backup_restored_alarms, m.alarms, m.alarms)
                 )
-                // Sperre blieb an (Sicherung ohne Passwort wollte sie ausschalten)
-                if (m.appLockKept) restored + "\n" + appLockKeptText else restored
+                // Über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort wollte sie ausschalten)
+                listOfNotNull(
+                    restored,
+                    overLimitsText(resources, R.string.backup_restored_over_limits, m.droppedPairs, m.droppedAlarms),
+                    appLockKeptText.takeIf { m.appLockKept },
+                ).joinToString("\n")
             }
             null -> return@LaunchedEffect
         }
         Toast.makeText(context, text, Toast.LENGTH_LONG).show()
         viewModel.clearBackupMessage()
     }
+}
+
+/**
+ * «3 Paare und 12 Alarme überschreiten die Grenzen …» mit [format] vor ([R.string.backup_restore_over_limits]) bzw. nach
+ * dem Wiederherstellen ([R.string.backup_restored_over_limits]); null, wenn nichts wegfällt. Seit Build 99.
+ */
+internal fun overLimitsText(
+    resources: android.content.res.Resources,
+    @androidx.annotation.StringRes format: Int,
+    pairs: Int,
+    alarms: Int,
+): String? {
+    if (pairs <= 0 && alarms <= 0) return null
+    return resources.getString(
+        format,
+        resources.getQuantityString(R.plurals.backup_restored_pairs, pairs, pairs),
+        resources.getQuantityString(R.plurals.backup_restored_alarms, alarms, alarms),
+        LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true),
+        LocaleNumbers.integer(WatchlistLimits.MAX_ALARMS_PER_PAIR),
+    )
 }

@@ -83,7 +83,7 @@
     <string name="settings_activity_sensitivity">Ndjeshmëria</string>
     <string name="settings_activity_sensitivity_hint">Sa lehtë një monedhë quhet e pazakontë – njësoj për kartën e listës dhe njoftimet. Me «Më pak», karta tregon vetëm 3 më të fortat.</string>
     <string name="settings_watchlist_activity_card">Bie në sy: shfaq në listë</string>
-    <string name="settings_watchlist_activity_card_hint">Shfaq çipin ⚡ pranë grupeve: prekeni për të parë vetëm çiftet ku po ndodh diçka tani. Njoftimet caktohen te Njoftime tregu.</string>
+    <string name="settings_watchlist_activity_card_hint">Shfaq çipin ⚡ pranë grupeve: preke për të parë vetëm çiftet ku po ndodh diçka tani. Njoftimet caktohen te Njoftime tregu.</string>
     <string name="settings_watchlist_names">Shfaq emrat</string>
     <string name="settings_watchlist_names_hint">Emri nën çiftin, p.sh. Bitcoin ose NVIDIA. Vjen me listat e logove, ngarkohet një herë për të gjitha monedhat.</string>
     <string name="settings_watchlist_sparkline">Grafik i vogël në listën e ndjekjes</string>

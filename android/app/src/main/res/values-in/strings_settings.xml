@@ -118,7 +118,7 @@
     <string name="settings_coin_logos">Logo koin</string>
     <string name="settings_coin_logos_app">Di aplikasi</string>
     <string name="settings_coin_logos_app_hint">Daftar pantau, halaman pasangan, dan kartu pasar</string>
-    <string name="settings_coin_logos_footer">Logo berasal dari CoinGecko, dan dari Binance untuk aset yang tidak ada di CoinGecko (mis. emas, perak, saham). Aplikasi mengunduh semua logo sekaligus dan menyimpannya di perangkat ini, sehingga keduanya tidak tahu koin mana yang Anda ikuti. Koin tanpa logo menampilkan inisialnya. Favorit mendapat bintang kecil di logonya. Jika sakelar dimatikan, logo maupun inisial tidak ditampilkan; jika semua dimatikan, tidak ada yang dimuat.</string>
+    <string name="settings_coin_logos_footer">Logo berasal dari CoinGecko, dan dari Binance untuk aset yang tidak ada di CoinGecko (mis. emas, perak, saham). Aplikasi mengunduh semua logo sekaligus dan menyimpannya di perangkat ini, sehingga keduanya tidak tahu koin mana yang kamu ikuti. Koin tanpa logo menampilkan inisialnya. Favorit mendapat bintang kecil di logonya. Jika sakelar dimatikan, logo maupun inisial tidak ditampilkan; jika semua dimatikan, tidak ada yang dimuat.</string>
     <string name="settings_coin_logos_portfolio">Di portofolio</string>
     <string name="settings_coin_logos_portfolio_hint">Posisi, detail koin, dan wawasan</string>
     <string name="settings_coin_logos_value_app">Aplikasi</string>
@@ -146,7 +146,7 @@
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Mata uang konversi</string>
-    <string name="settings_conversion_currency_hint">Juga digunakan untuk portofolio, alarm dalam mata uang Anda, kartu Pasar kripto, dan widget Portofolio.</string>
+    <string name="settings_conversion_currency_hint">Juga digunakan untuk portofolio, alarm dalam mata uangmu, kartu Pasar kripto, dan widget Portofolio.</string>
     <string name="settings_cost_method">Metode biaya perolehan</string>
     <string name="settings_cost_method_average">Rata-rata (Ø)</string>
     <string name="settings_cost_method_average_hint">Penjualan dinilai dengan harga beli rata-rata bergerak.</string>
@@ -155,12 +155,12 @@
     <string name="settings_cost_method_fifo_wallet">FIFO per dompet/bursa</string>
     <string name="settings_cost_method_fifo_wallet_hint">Koin tertua lebih dulu di tiap bursa atau dompet; transfer memindahkan lot beserta tanggal belinya.</string>
     <string name="settings_portfolio_lock">Kunci portofolio</string>
-    <string name="settings_portfolio_lock_footer">Kunci menyembunyikan tampilan. Data disimpan di perangkat ini dan dilindungi oleh enkripsi perangkat. Anda bisa melindungi cadangan dengan kata sandi.</string>
+    <string name="settings_portfolio_lock_footer">Kunci menyembunyikan tampilan. Data disimpan di perangkat ini dan dilindungi oleh enkripsi perangkat. Kamu bisa melindungi cadangan dengan kata sandi.</string>
     <string name="settings_portfolio_lock_hint">Hanya menyembunyikan portofolio: buka dengan sidik jari, wajah, atau PIN perangkat. Terkunci lagi setelah lebih dari satu menit di latar belakang. Daftar pantau, alarm, dan widget lain tetap terbuka.</string>
     <string name="settings_portfolio_lock_no_device_lock">Tanpa PIN atau kode sandi perangkat, kunci tidak menyembunyikan apa pun – atur kunci layar.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">Portofolio di cadangan sistem</string>
-    <string name="settings_portfolio_system_backup_hint">Nonaktif: transaksi Anda tidak disertakan dalam cadangan sistem perangkat maupun transfer ke ponsel baru. Untuk memindahkannya, gunakan cadangan aplikasi dengan kata sandi.</string>
+    <string name="settings_portfolio_system_backup_hint">Nonaktif: transaksimu tidak disertakan dalam cadangan sistem perangkat maupun transfer ke ponsel baru. Untuk memindahkannya, gunakan cadangan aplikasi dengan kata sandi.</string>
     <string name="settings_portfolio_system_backup_unavailable">Memerlukan Android 9 atau lebih baru – versi lama akan menyimpan portofolio tanpa enkripsi di cadangan Google.</string>
     <string name="settings_portfolio_tab">Tampilkan tab Portofolio</string>
     <string name="settings_portfolio_value_locked">Aktif, dengan kunci</string>
@@ -181,7 +181,7 @@
     <string name="settings_ind_mayer_below">Mayer Multiple di bawah</string>
     <string name="settings_ind_mvrv_above">MVRV di atas</string>
     <string name="settings_ind_mvrv_below">MVRV di bawah</string>
-    <string name="settings_indicator_alerts_hint">Indikator Bitcoin, diperiksa dua kali sehari. Anda yang memilih batasnya – aplikasi tidak menilai nilainya.</string>
+    <string name="settings_indicator_alerts_hint">Indikator Bitcoin, diperiksa dua kali sehari. Kamu yang memilih batasnya – aplikasi tidak menilai nilainya.</string>
     <string name="settings_macro_notifications">Kalender ekonomi</string>
     <string name="settings_macro_notifications_hint">Pukul 08:00 pada hari dengan data ekonomi AS yang penting (inflasi, tenaga kerja, keputusan The Fed). Kalender diambil dari situs web aplikasi sekali sehari.</string>
     <string name="settings_market_alerts">Peringatan pasar</string>
@@ -266,7 +266,7 @@
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Menghitung alarm dan peringatan pasar baru; kembali ke 0 saat aplikasi dibuka.</string>
 
     <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
-    <string name="about_your_data_title">Data Anda</string>
+    <string name="about_your_data_title">Datamu</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_label">Di perangkat</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
@@ -274,11 +274,11 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">Koneksi</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_connections">Harga datang langsung dari bursa pasangan Anda, ditambah kurs mata uang, daftar dan logo koin, serta cermin data di GitHub; mereka melihat alamat IP Anda, tidak pernah aset Anda (alamat yang dipantau dikirim ke penyedia jaringan terkait).</string>
+    <string name="about_data_connections">Harga datang langsung dari bursa pasanganmu, ditambah kurs mata uang, daftar dan logo koin, serta cermin data di GitHub; mereka melihat alamat IP-mu, tidak pernah asetmu (alamat yang dipantau dikirim ke penyedia jaringan terkait).</string>
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Cadangan</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Hanya jika Anda membuatnya; terenkripsi dengan kata sandi (Argon2id + AES-256-GCM), dapat dibaca tanpa kata sandi.</string>
+    <string name="about_data_backup">Hanya jika kamu membuatnya; terenkripsi dengan kata sandi (Argon2id + AES-256-GCM), dapat dibaca tanpa kata sandi.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Ganti perangkat</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

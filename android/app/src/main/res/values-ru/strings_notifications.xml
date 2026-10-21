@@ -10,9 +10,9 @@
     <string name="notification_fng_above">Индекс поднялся выше %1$d — по этому индексу на рынке жадность.</string>
     <string name="notification_fng_below">Индекс упал ниже %1$d — по этому индексу на рынке страх.</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_gas_btc_text">Ниже вашего порога %1$s sat/vB · Перевод ≈ %2$s</string>
+    <string name="notification_gas_btc_text">Ниже твоего порога %1$s sat/vB · Перевод ≈ %2$s</string>
     <string name="notification_gas_btc_title">Комиссия Bitcoin: %1$s sat/vB</string>
-    <string name="notification_gas_eth_text">Ниже вашего порога %1$s gwei · Перевод ≈ %2$s</string>
+    <string name="notification_gas_eth_text">Ниже твоего порога %1$s gwei · Перевод ≈ %2$s</string>
     <string name="notification_gas_eth_title">Газ Ethereum: %1$s gwei</string>
     <string name="notification_indicator_above">Выше твоей границы %1$s – измеренное значение, не рекомендация.</string>
     <string name="notification_indicator_below">Ниже твоей границы %1$s – измеренное значение, не рекомендация.</string>
@@ -20,9 +20,9 @@
     <string name="notification_macro_title">Сегодня экономические данные</string>
     <string name="notification_permission_preprompt_continue">Продолжить</string>
     <string name="notification_permission_preprompt_later">Позже</string>
-    <string name="notification_permission_preprompt_text">Чтобы оповещения и уведомления о цене доходили до вас, приложению нужно разрешение на уведомления. Приложение использует их только для ваших оповещений и уведомлений о цене.</string>
+    <string name="notification_permission_preprompt_text">Чтобы оповещения и уведомления о цене доходили до тебя, приложению нужно разрешение на уведомления. Приложение использует их только для твоих оповещений и уведомлений о цене.</string>
     <string name="notification_permission_preprompt_title">Разрешить уведомления?</string>
-    <string name="notification_portfolio_alarm_locked">Ваше оповещение сработало – откройте приложение, чтобы узнать подробности.</string>
+    <string name="notification_portfolio_alarm_locked">Твоё оповещение сработало – открой приложение, чтобы узнать подробности.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – сейчас %2$s</string>
     <string name="notification_portfolio_alarm_title">Стоимость портфеля</string>

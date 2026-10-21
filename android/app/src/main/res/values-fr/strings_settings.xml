@@ -45,7 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Autorisation manquante – appareil en veille, Android vérifie irrégulièrement, parfois après des heures.</string>
     <string name="settings_notification_change">Notifier seulement si le prix varie</string>
     <string name="settings_notification_change_always">Toujours</string>
-    <string name="settings_percent_invalid">Saisissez une valeur de 0 à 100.</string>
+    <string name="settings_percent_invalid">Saisis une valeur de 0 à 100.</string>
     <string name="settings_notification_change_hint">Une notification n\'apparaît que si le prix a varié d\'au moins cette valeur depuis la dernière. Rien n\'est affiché tant que des données manquent. Les alertes ne sont pas concernées.</string>
     <string name="settings_ongoing_notifications">Non balayables</string>
     <string name="settings_ongoing_notifications_hint">Garde les notifications de prix épinglées.</string>
@@ -69,8 +69,8 @@
     <string name="settings_battery_ok">Batterie : non restreinte</string>
     <string name="settings_battery_restricted">Batterie : restreinte</string>
     <string name="settings_check_runs_empty">Aucune vérification enregistrée pour l’instant.</string>
-    <string name="settings_check_runs_honest_android">Android décide quand vérifier – ici, vous voyez quand cela a vraiment eu lieu.</string>
-    <string name="settings_check_runs_honest_ios">iOS décide quand vérifier – ici, vous voyez quand cela a vraiment eu lieu.</string>
+    <string name="settings_check_runs_honest_android">Android décide quand vérifier – ici, tu vois quand cela a vraiment eu lieu.</string>
+    <string name="settings_check_runs_honest_ios">iOS décide quand vérifier – ici, tu vois quand cela a vraiment eu lieu.</string>
     <string name="settings_check_runs_title">Dernières vérifications</string>
     <string name="settings_http_log">Afficher le journal HTTP</string>
     <string name="settings_http_log_hint">Affiche en bas de la page « Ajouter une paire » les requêtes envoyées aux plateformes – pour le dépannage.</string>
@@ -83,7 +83,7 @@
     <string name="settings_activity_sensitivity">Sensibilité</string>
     <string name="settings_activity_sensitivity_hint">Facilité avec laquelle une crypto est jugée inhabituelle – identique pour la carte de la liste et les notifications. Avec « Moins », la carte n’affiche que les 3 plus forts.</string>
     <string name="settings_watchlist_activity_card">À noter : afficher dans la liste</string>
-    <string name="settings_watchlist_activity_card_hint">Affiche la puce ⚡ à côté des groupes : touchez-la pour ne voir que les paires où il se passe quelque chose en ce moment. Les alertes se règlent sous Notifications de marché.</string>
+    <string name="settings_watchlist_activity_card_hint">Affiche la puce ⚡ à côté des groupes : touche-la pour ne voir que les paires où il se passe quelque chose en ce moment. Les alertes se règlent sous Notifications de marché.</string>
     <string name="settings_watchlist_names">Afficher les noms</string>
     <string name="settings_watchlist_names_hint">Nom sous la paire, p. ex. Bitcoin ou NVIDIA. Fourni avec les listes de logos, chargé une fois pour toutes les cryptos.</string>
     <string name="settings_watchlist_sparkline">Mini-graphique dans la liste</string>
@@ -113,12 +113,12 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Couleur d\'accent</string>
-    <string name="settings_accent_hint">Couleur de l’app, des widgets et de l’icône de l’app. Certains écrans d’accueil retirent l’icône lors du changement : ajoutez-la à nouveau.</string>
+    <string name="settings_accent_hint">Couleur de l’app, des widgets et de l’icône de l’app. Certains écrans d’accueil retirent l’icône lors du changement : ajoute-la à nouveau.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logos des cryptos</string>
     <string name="settings_coin_logos_app">Dans l\'app</string>
     <string name="settings_coin_logos_app_hint">Liste, paire ouverte et cartes du marché</string>
-    <string name="settings_coin_logos_footer">Les logos proviennent de CoinGecko et, pour les actifs que CoinGecko ne répertorie pas (or, argent, actions…), de Binance. L\'app charge tous les logos en une fois et les conserve sur cet appareil : aucun des deux ne sait quelles cryptos vous suivez. Sans logo, les initiales s\'affichent. Les favoris reçoivent une petite étoile sur le logo. Là où un interrupteur est désactivé, ni logo ni initiales ne s\'affichent ; si tout est désactivé, rien n\'est chargé.</string>
+    <string name="settings_coin_logos_footer">Les logos proviennent de CoinGecko et, pour les actifs que CoinGecko ne répertorie pas (or, argent, actions…), de Binance. L\'app charge tous les logos en une fois et les conserve sur cet appareil : aucun des deux ne sait quelles cryptos tu suis. Sans logo, les initiales s\'affichent. Les favoris reçoivent une petite étoile sur le logo. Là où un interrupteur est désactivé, ni logo ni initiales ne s\'affichent ; si tout est désactivé, rien n\'est chargé.</string>
     <string name="settings_coin_logos_portfolio">Dans le portefeuille</string>
     <string name="settings_coin_logos_portfolio_hint">Positions, détails et analyses</string>
     <string name="settings_coin_logos_value_app">App</string>
@@ -146,7 +146,7 @@
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Devise de conversion</string>
-    <string name="settings_conversion_currency_hint">Également utilisée pour le portefeuille, les alertes dans votre devise, la carte Marché crypto et le widget Portefeuille.</string>
+    <string name="settings_conversion_currency_hint">Également utilisée pour le portefeuille, les alertes dans ta devise, la carte Marché crypto et le widget Portefeuille.</string>
     <string name="settings_cost_method">Méthode du coût de revient</string>
     <string name="settings_cost_method_average">Moyenne (Ø)</string>
     <string name="settings_cost_method_average_hint">Les ventes sont évaluées au prix d’achat moyen pondéré.</string>
@@ -155,12 +155,12 @@
     <string name="settings_cost_method_fifo_wallet">FIFO par wallet/plateforme</string>
     <string name="settings_cost_method_fifo_wallet_hint">Les coins les plus anciens d’abord, sur chaque plateforme ou wallet ; les transferts déplacent les lots avec leur date d’achat.</string>
     <string name="settings_portfolio_lock">Verrouillage du portefeuille</string>
-    <string name="settings_portfolio_lock_footer">Le verrouillage masque l’affichage. Les données sont stockées sur cet appareil et sont protégées par le chiffrement de l’appareil. Vous pouvez protéger les sauvegardes par un mot de passe.</string>
+    <string name="settings_portfolio_lock_footer">Le verrouillage masque l’affichage. Les données sont stockées sur cet appareil et sont protégées par le chiffrement de l’appareil. Tu peux protéger les sauvegardes par un mot de passe.</string>
     <string name="settings_portfolio_lock_hint">Masque uniquement le portefeuille : déverrouillage par empreinte, visage ou code PIN de l\'appareil. Se reverrouille après plus d\'une minute en arrière-plan. La liste de suivi, les alertes et les autres widgets restent accessibles.</string>
-    <string name="settings_portfolio_lock_no_device_lock">Sans code PIN ou code de l’appareil, le verrouillage ne masque rien – configurez un verrouillage d’écran.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Sans code PIN ou code de l’appareil, le verrouillage ne masque rien – configure un verrouillage d’écran.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">Portefeuille dans la sauvegarde système</string>
-    <string name="settings_portfolio_system_backup_hint">Désactivé : vos transactions ne figurent ni dans la sauvegarde système de l’appareil ni dans le transfert vers un nouveau téléphone. Pour les déplacer, utilisez la sauvegarde de l’app protégée par mot de passe.</string>
+    <string name="settings_portfolio_system_backup_hint">Désactivé : tes transactions ne figurent ni dans la sauvegarde système de l’appareil ni dans le transfert vers un nouveau téléphone. Pour les déplacer, utilise la sauvegarde de l’app protégée par mot de passe.</string>
     <string name="settings_portfolio_system_backup_unavailable">Nécessite Android 9 ou plus – les versions antérieures enregistreraient le portefeuille sans chiffrement dans la sauvegarde Google.</string>
     <string name="settings_portfolio_tab">Afficher l\'onglet Portefeuille</string>
     <string name="settings_portfolio_value_locked">Oui, avec verrou</string>
@@ -169,7 +169,7 @@
 
     <!-- Einstellungen › Markt-Meldungen -->
     <string name="settings_depeg_alarm">Signaler un depeg de l’USDT</string>
-    <string name="settings_depeg_alarm_hint">Vous avertit une fois lorsque l’USDT s’écarte de 1 USD du seuil défini (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
+    <string name="settings_depeg_alarm_hint">T’avertit une fois lorsque l’USDT s’écarte de 1 USD du seuil défini (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">Seuil de depeg</string>
     <string name="settings_fng_above">Fear &amp; Greed : prévenir au-dessus</string>
     <string name="settings_fng_below">Fear &amp; Greed : prévenir sous</string>
@@ -181,7 +181,7 @@
     <string name="settings_ind_mayer_below">Mayer Multiple en dessous de</string>
     <string name="settings_ind_mvrv_above">MVRV au-dessus de</string>
     <string name="settings_ind_mvrv_below">MVRV en dessous de</string>
-    <string name="settings_indicator_alerts_hint">Indicateurs Bitcoin, vérifiés deux fois par jour. Vous choisissez les seuils – l’app n’évalue pas les valeurs.</string>
+    <string name="settings_indicator_alerts_hint">Indicateurs Bitcoin, vérifiés deux fois par jour. Tu choisis les seuils – l’app n’évalue pas les valeurs.</string>
     <string name="settings_macro_notifications">Calendrier économique</string>
     <string name="settings_macro_notifications_hint">À 08:00 les jours de données économiques américaines importantes (inflation, emploi, décision de la Fed). Le calendrier provient du site web de l\'app et est chargé une fois par jour.</string>
     <string name="settings_market_alerts">Notifications de marché</string>
@@ -270,27 +270,27 @@
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Compte les nouvelles alertes et alertes de marché ; revient à 0 à l’ouverture de l’app.</string>
 
     <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
-    <string name="about_your_data_title">Vos données</string>
+    <string name="about_your_data_title">Tes données</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_label">Sur l’appareil</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device">Votre liste, vos alertes et votre portefeuille sont stockés chiffrés sur cet appareil ; aucun compte, aucun serveur propre.</string>
+    <string name="about_data_device">Ta liste, tes alertes et ton portefeuille sont stockés chiffrés sur cet appareil ; aucun compte, aucun serveur propre.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">Connexions</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_connections">Les cours viennent directement des plateformes de vos paires, avec les taux de change, les listes et logos de coins et le miroir de données sur GitHub ; ils voient votre adresse IP, jamais vos avoirs (les adresses suivies sont envoyées au fournisseur du réseau concerné).</string>
+    <string name="about_data_connections">Les cours viennent directement des plateformes de tes paires, avec les taux de change, les listes et logos de coins et le miroir de données sur GitHub ; ils voient ton adresse IP, jamais tes avoirs (les adresses suivies sont envoyées au fournisseur du réseau concerné).</string>
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Sauvegarde</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Seulement si vous en créez une ; chiffrée avec un mot de passe (Argon2id + AES-256-GCM), lisible sans mot de passe.</string>
+    <string name="about_data_backup">Seulement si tu en crées une ; chiffrée avec un mot de passe (Argon2id + AES-256-GCM), lisible sans mot de passe.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Changement d’appareil</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">La clé reste sur l’ancien appareil – créez d’abord un fichier de sauvegarde.</string>
+    <string name="about_data_device_change">La clé reste sur l’ancien appareil – crée d’abord un fichier de sauvegarde.</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">Partager le diagnostic</string>
-    <string name="diagnostics_share_hint">Fichier texte pour le support : version, appareil, réglages des alertes, dernières vérifications et journal des alertes – sans portefeuille, montants, adresses ni notes. Vous le voyez d\'abord ; rien n\'est envoyé automatiquement.</string>
+    <string name="diagnostics_share_hint">Fichier texte pour le support : version, appareil, réglages des alertes, dernières vérifications et journal des alertes – sans portefeuille, montants, adresses ni notes. Tu le vois d\'abord ; rien n\'est envoyé automatiquement.</string>
     <string name="diagnostics_preview_title">Diagnostic – aperçu</string>
     <string name="diagnostics_action_share">Partager</string>
 </resources>

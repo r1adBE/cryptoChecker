@@ -19,7 +19,7 @@
     <string name="portfolio_export_estv_note">A vagyonadónál az ESTV %1$s árfolyamlistájának hivatalos év végi árfolyamai érvényesek (ha szerepelnek): %2$s</string>
     <string name="portfolio_export_failed">Sikertelen export</string>
     <string name="portfolio_export_from_address">címről – vételi ár nélkül</string>
-    <string name="portfolio_export_hint">Állomány a választott nap végén, a napi záróárfolyamon (UTC) USDT-ben értékelve, és az EKB aznapi referencia-árfolyamával átváltva. A pénznemet az „Átváltás erre” menüben módosíthatja.</string>
+    <string name="portfolio_export_hint">Állomány a választott nap végén, a napi záróárfolyamon (UTC) USDT-ben értékelve, és az EKB aznapi referencia-árfolyamával átváltva. A pénznemet az „Átváltás erre” menüben módosíthatod.</string>
     <string name="portfolio_export_incomplete">hiányos</string>
     <string name="portfolio_export_no_fx">nincs árfolyam</string>
     <string name="portfolio_export_no_price">nincs ár</string>

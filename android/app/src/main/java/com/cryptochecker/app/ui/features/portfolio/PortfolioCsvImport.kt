@@ -26,6 +26,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
+import com.cryptochecker.app.util.LocaleNumbers
 import kotlinx.coroutines.launch
 
 /**
@@ -95,8 +97,8 @@ fun PortfolioCsvImportFlow(
                 }
             },
         )
-        // Nicht lesbar, Portfolio gesperrt (PortfolioStorageLock) oder Schreiben gescheitert: Grund statt «0 importiert»
-        CsvImportState.Unreadable, CsvImportState.Locked, CsvImportState.SaveFailed -> AlertDialog(
+        // Nicht lesbar, zu gross, Portfolio gesperrt (PortfolioStorageLock) oder Schreiben gescheitert: Grund statt «0 importiert»
+        CsvImportState.Unreadable, CsvImportState.TooLarge, CsvImportState.Locked, CsvImportState.SaveFailed -> AlertDialog(
             onDismissRequest = close,
             title = { Text(stringResource(R.string.portfolio_csv_import_action)) },
             text = {
@@ -106,7 +108,14 @@ fun PortfolioCsvImportFlow(
                     CsvImportState.SaveFailed -> R.string.portfolio_csv_import_failed
                     else -> R.string.portfolio_csv_import_unreadable
                 }
-                Text(stringResource(message))
+                // Zu gross: eigener Text mit der Zeilengrenze (16 MB steht im Text), nicht «kein unterstütztes Format»
+                Text(
+                    if (s == CsvImportState.TooLarge) {
+                        stringResource(R.string.portfolio_csv_import_too_large, LocaleNumbers.integer(CsvImportParser.MAX_ROWS, grouping = true))
+                    } else {
+                        stringResource(message)
+                    }
+                )
             },
             confirmButton = { TextButton(onClick = close) { Text(stringResource(R.string.action_close)) } },
         )

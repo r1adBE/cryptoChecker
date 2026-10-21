@@ -6,13 +6,13 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Kosongkan portofolio</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="other">Hapus semua %d transaksi? Alamat yang dipantau tetap ada. Anda dapat membatalkannya segera setelahnya.</item>
+        <item quantity="other">Hapus semua %d transaksi? Alamat yang dipantau tetap ada. Kamu dapat membatalkannya segera setelahnya.</item>
     </plurals>
     <string name="portfolio_empty_action">Tambahkan pembelian pertama</string>
     <string name="portfolio_empty_address">Cukup pantau alamat dompet</string>
     <string name="portfolio_empty_csv">Beli di bursa? Impor filenya</string>
-    <string name="portfolio_empty_example_plain">Contoh: 0,01 BTC dibeli pada 1 Maret. Aplikasi lalu menunjukkan nilainya hari ini dan apakah Anda untung atau rugi – hanya disimpan di perangkat ini.</string>
-    <string name="portfolio_empty_text">Masukkan apa yang Anda beli – aplikasi menunjukkan nilainya hari ini dan berapa untung atau rugi Anda.</string>
+    <string name="portfolio_empty_example_plain">Contoh: 0,01 BTC dibeli pada 1 Maret. Aplikasi lalu menunjukkan nilainya hari ini dan apakah kamu untung atau rugi – hanya disimpan di perangkat ini.</string>
+    <string name="portfolio_empty_text">Masukkan apa yang kamu beli – aplikasi menunjukkan nilainya hari ini dan berapa untung atau rugimu.</string>
     <string name="portfolio_empty_title">Belum ada transaksi</string>
     <string name="portfolio_enable_ask_text">Transaksimu sudah disimpan. Tab Portofolio menampilkan kepemilikan dan nilainya.</string>
     <string name="portfolio_enable_ask_title">Aktifkan tab Portofolio?</string>
@@ -99,7 +99,7 @@
     <string name="portfolio_invalid">Masukkan angka valid yang lebih dari 0.</string>
     <string name="portfolio_oversold">Penjualan melebihi kepemilikan – periksa transaksi.</string>
     <string name="portfolio_sell">Jual</string>
-    <string name="portfolio_sell_exceeds">Lebih dari kepemilikan Anda (%1$s)</string>
+    <string name="portfolio_sell_exceeds">Lebih dari kepemilikanmu (%1$s)</string>
     <string name="portfolio_sell_exceeds_fee">Jumlah plus biaya melebihi kepemilikanmu (%1$s)</string>
     <string name="portfolio_sell_exceeds_wallet">Melebihi kepemilikanmu di %2$s (%1$s)</string>
     <string name="portfolio_transactions">Transaksi</string>
@@ -210,7 +210,7 @@
     <string name="portfolio_history_scaled">Riwayat %1$s: riwayat Binance diskalakan ke harga bursa</string>
     <string name="portfolio_history_title">Riwayat nilai</string>
     <string name="portfolio_history_today">Hari ini</string>
-    <string name="portfolio_history_too_short">Riwayat dimulai setelah hari penuh pertama Anda.</string>
+    <string name="portfolio_history_too_short">Riwayat dimulai setelah hari penuh pertamamu.</string>
     <string name="portfolio_history_unavailable">Riwayat tidak tersedia saat ini.</string>
     <string name="portfolio_history_utc_days">Hari dalam UTC (candle harian)</string>
     <string name="portfolio_history_without_matching">Tanpa %1$s (tidak ada harga harian yang cocok)</string>
@@ -245,9 +245,9 @@
     <string name="ledger_fee_hint">Dalam USDT menaikkan biaya perolehan (jual: mengurangi hasil); dalam koin mengurangi jumlah.</string>
     <string name="ledger_fee_line">Biaya %1$s</string>
     <string name="ledger_fifo_cost_note">Sejak beli: biaya FIFO termasuk biaya (koin tertua dijual lebih dulu).</string>
-    <string name="ledger_gain_info">Hari ini, 7 H, 1 T: perubahan nilai dalam periode – pembelian dan penjualan tidak dihitung sebagai untung. Sejak beli: nilai saat ini dikurangi biaya perolehan (biaya rata-rata termasuk biaya) koin yang masih Anda pegang.</string>
+    <string name="ledger_gain_info">Hari ini, 7 H, 1 T: perubahan nilai dalam periode – pembelian dan penjualan tidak dihitung sebagai untung. Sejak beli: nilai saat ini dikurangi biaya perolehan (biaya rata-rata termasuk biaya) koin yang masih kamu pegang.</string>
     <string name="ledger_gain_info_a11y">Cara menghitung untung dan rugi</string>
-    <string name="ledger_gain_info_fifo">Hari ini, 7 H, 1 T: perubahan nilai dalam periode – pembelian dan penjualan tidak dihitung sebagai untung. Sejak beli: nilai saat ini dikurangi biaya perolehan (FIFO termasuk biaya) koin yang masih Anda pegang.</string>
+    <string name="ledger_gain_info_fifo">Hari ini, 7 H, 1 T: perubahan nilai dalam periode – pembelian dan penjualan tidak dihitung sebagai untung. Sejak beli: nilai saat ini dikurangi biaya perolehan (FIFO termasuk biaya) koin yang masih kamu pegang.</string>
     <string name="ledger_gain_title">Untung/rugi</string>
     <string name="ledger_more_toggle">Biaya dan bursa</string>
     <string name="ledger_partial_cost">“Sejak beli” hanya menghitung bagian yang punya harga beli – tanpa %1$s yang tidak punya harga beli.</string>
@@ -289,7 +289,7 @@
     <string name="portfolio_coin_delete_title">Hapus semua transaksi %1$s?</string>
     <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
     <plurals name="portfolio_coin_delete_confirm">
-        <item quantity="other">%d transaksi akan dihapus. Anda dapat membatalkannya segera setelahnya.</item>
+        <item quantity="other">%d transaksi akan dihapus. Kamu dapat membatalkannya segera setelahnya.</item>
     </plurals>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

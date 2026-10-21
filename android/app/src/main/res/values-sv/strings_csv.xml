@@ -44,6 +44,8 @@
     <string name="portfolio_csv_import_transfers_hint">Ett uttag och motsvarande insättning av samma coin blir en enda överföring: köppris och innehavstid behålls, skillnaden räknas som nätverksavgift.</string>
     <string name="portfolio_csv_import_transfers_title">Överföringar mellan dina konton</string>
     <string name="portfolio_csv_import_unreadable">Inga transaktioner som stöds hittades. Stöds: CSV-exporter från Relai, Swissquote, Kraken, Binance, Coinbase och Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">Filen är för stor för att importeras (högst 16 MB och %1$s rader). Exportera kortare perioder och importera dem en i taget.</string>
     <string name="portfolio_csv_import_failed">Importen misslyckades – inget sparades. Försök igen.</string>
     <string name="portfolio_csv_import_locked">Import är inte möjlig: Sparade data kan inte läsas just nu. Starta om appen.</string>
     <string name="portfolio_csv_import_withdrawals_title">Uttag – vart tog mynten vägen?</string>

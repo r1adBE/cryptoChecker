@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="alarm_log_title">अलार्म लॉग</string>
-    <string name="alarm_log_open">अलार्म लॉग देखें</string>
+    <string name="alarm_log_open">अलार्म लॉग देखो</string>
     <string name="alarm_log_intro">कोई अलार्म कब बजा – और कब बजता, लेकिन रोका गया। केवल इसी डिवाइस पर 14 दिनों तक सहेजा जाता है।</string>
     <string name="alarm_log_empty_title">अभी कोई प्रविष्टि नहीं</string>
     <string name="alarm_log_empty_message">जब कोई अलार्म बजता है या रोका जाता है, तब प्रविष्टियाँ यहाँ दिखती हैं – जैसे पुरानी कीमत के कारण या मौन घंटों में।</string>
-    <string name="alarm_log_clear">लॉग साफ़ करें</string>
-    <string name="alarm_log_clear_title">अलार्म लॉग साफ़ करें?</string>
-    <string name="alarm_log_clear_message">सभी प्रविष्टियाँ हटा दी जाएँगी। आपके अलार्म जैसे हैं वैसे ही रहेंगे।</string>
+    <string name="alarm_log_clear">लॉग साफ़ करो</string>
+    <string name="alarm_log_clear_title">अलार्म लॉग साफ़ करो?</string>
+    <string name="alarm_log_clear_message">सभी प्रविष्टियाँ हटा दी जाएँगी। तुम्हारे अलार्म जैसे हैं वैसे ही रहेंगे।</string>
     <string name="alarm_log_threshold">सीमा %1$s</string>
     <string name="alarm_last_check">पिछली जाँच: %1$s</string>
     <string name="alarm_outcome_fired">बजा</string>

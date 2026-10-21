@@ -10,9 +10,9 @@
     <string name="notification_fng_above">Endeks %1$d üstüne çıktı – bu endekse göre piyasada açgözlülük hâkim.</string>
     <string name="notification_fng_below">Endeks %1$d altına düştü – bu endekse göre piyasada korku hâkim.</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_gas_btc_text">%1$s sat/vB sınırınızın altında · Transfer ≈ %2$s</string>
+    <string name="notification_gas_btc_text">%1$s sat/vB sınırının altında · Transfer ≈ %2$s</string>
     <string name="notification_gas_btc_title">Bitcoin ücreti: %1$s sat/vB</string>
-    <string name="notification_gas_eth_text">%1$s gwei sınırınızın altında · Transfer ≈ %2$s</string>
+    <string name="notification_gas_eth_text">%1$s gwei sınırının altında · Transfer ≈ %2$s</string>
     <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
     <string name="notification_indicator_above">Sınırının üstünde: %1$s – ölçüm değeri, tavsiye değildir.</string>
     <string name="notification_indicator_below">Sınırının altında: %1$s – ölçüm değeri, tavsiye değildir.</string>

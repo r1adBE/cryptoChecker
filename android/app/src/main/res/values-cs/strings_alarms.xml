@@ -7,7 +7,7 @@
     <string name="alarms_empty">Pro tento pár zatím nejsou žádné alarmy.</string>
     <string name="alarms_empty_example">Například: Dej mi vědět, až BTC vystoupá nad %1$s.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">Oznámení jsou vypnutá – alarmy k vám nedorazí.</string>
+    <string name="alarms_notifications_off">Oznámení jsou vypnutá – alarmy k tobě nedorazí.</string>
     <string name="alarms_notifications_turn_on">Zapnout</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">Aktivní: %1$d</item>
@@ -15,7 +15,7 @@
         <item quantity="many">Aktivní: %1$d</item>
         <item quantity="other">Aktivní: %1$d</item>
     </plurals>
-    <string name="alarms_overview_empty">Zatím žádné alarmy. Otevřete pár a přidejte alarm v sekci Alarmy.</string>
+    <string name="alarms_overview_empty">Zatím žádné alarmy. Otevři pár a přidej alarm v sekci Alarmy.</string>
     <string name="alarms_overview_title">Všechny alarmy</string>
     <string name="alarms_title">Alarmy</string>
 
@@ -46,9 +46,9 @@
     <string name="alarm_repeat_each">Pokaždé</string>
     <string name="alarm_repeat_once">Jednou</string>
     <string name="alarm_repeating">Pokaždé</string>
-    <string name="alarm_threshold_error_empty">Zadejte hodnotu, aby se alarm uložil.</string>
+    <string name="alarm_threshold_error_empty">Zadej hodnotu, aby se alarm uložil.</string>
     <string name="alarm_threshold_error_funding">Funding rate musí být číslo mezi −10 a +10 procenty.</string>
-    <string name="alarm_threshold_error_invalid">Zadejte platné číslo větší než 0.</string>
+    <string name="alarm_threshold_error_invalid">Zadej platné číslo větší než 0.</string>
     <string name="alarm_threshold_error_oi">Změna open interest: nejvýše 1000 procent.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">za %1$d h</item>
@@ -90,7 +90,7 @@
     <string name="alarm_sentence_down_percent">Upozornit, až %1$s klesne o %2$s pod cenu při uložení (nebo při posledním alarmu).</string>
     <string name="alarm_sentence_funding_above">Upozornit, až funding %1$s stoupne nad %2$s.</string>
     <string name="alarm_sentence_funding_below">Upozornit, až funding %1$s klesne pod %2$s.</string>
-    <string name="alarm_sentence_incomplete">Zadejte hodnotu a alarm se tu zobrazí jako věta.</string>
+    <string name="alarm_sentence_incomplete">Zadej hodnotu a alarm se tu zobrazí jako věta.</string>
     <plurals name="alarm_sentence_move_percent">
         <item quantity="one">Upozornit, až se %1$s během %3$d h pohne o %2$s.</item>
         <item quantity="few">Upozornit, až se %1$s během %3$d h pohne o %2$s.</item>
@@ -169,7 +169,7 @@
     <string name="alarm_test">Otestovat alarm</string>
     <string name="alarm_test_action">Otestovat</string>
     <string name="alarm_test_denied">Oznámení jsou pro Crypto Checker vypnutá.</string>
-    <string name="alarm_test_hint">Odešle ukázkový alarm s vaším nastavením zvuku, vibrací a hlasového výstupu.</string>
+    <string name="alarm_test_hint">Odešle ukázkový alarm s tvým nastavením zvuku, vibrací a hlasového výstupu.</string>
     <string name="alarm_test_open_settings">Otevřít nastavení</string>
     <string name="alarm_test_quiet">Právě je noční klid: skutečné alarmy by počkaly do jeho konce a pak se ozvaly se zvukem.</string>
     <string name="alarm_test_text">Takto alarm vypadá a takto zní.</string>
@@ -182,12 +182,12 @@
     <string name="alarm_unchecked_no_rate">Nelze zkontrolovat (chybí směnný kurz)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
-    <string name="alarm_status_notifications_off">Oznámení vypnutá – tento alarm vám nedorazí</string>
+    <string name="alarm_status_notifications_off">Oznámení vypnutá – tento alarm ti nedorazí</string>
     <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
     <string name="alarm_status_low_liquidity">Žádný alarm – nízká likvidita</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Čeká na aktuální kurz</string>
-    <string name="alarm_enter_amount">Zadejte hodnotu</string>
+    <string name="alarm_enter_amount">Zadej hodnotu</string>
     <string name="alarm_editor_more">Více</string>
     <string name="alarm_editor_more_summary">Rychlé alarmy, další podmínky, zvuk a hlas</string>
     <string name="alarm_reliability_storage_no_key">Alarmy na pozadí pozastaveny – seznam není uložen</string>

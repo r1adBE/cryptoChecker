@@ -3,7 +3,7 @@
     <!-- Begrüssung beim ersten Start -->
     <string name="welcome_alert">Peringatkan – harga, persen, volume, dan pergerakan tak biasa</string>
     <string name="welcome_alert_q">Kapan diberi tahu?</string>
-    <string name="welcome_text">Harga Anda. Alarm Anda. Ringkasan Anda.\nTanpa akun. Tanpa iklan. Tanpa pelacakan.</string>
+    <string name="welcome_text">Hargamu. Alarmmu. Ringkasanmu.\nTanpa akun. Tanpa iklan. Tanpa pelacakan.</string>
     <string name="welcome_understand">Pahami – apa yang ikut bergerak bersama sebuah harga saat ini</string>
     <string name="welcome_understand_q">Apa yang ikut bergerak?</string>
     <string name="welcome_watch">Pantau – koin, harga, dan pergerakannya</string>
@@ -18,5 +18,5 @@
     <string name="starter_title">Mulai dengan koin-koin ini</string>
     <string name="starter_watch_alarm_hint">Pantau harga, pasang alarm</string>
 
-    <string name="starter_source_text">Harga dari %1$s dalam %2$s. Batalkan pilihan yang tidak Anda inginkan, lalu tambahkan sisanya sekaligus. Bursa dan pasangan bisa Anda ubah untuk tiap koin.</string>
+    <string name="starter_source_text">Harga dari %1$s dalam %2$s. Batalkan pilihan yang tidak kamu inginkan, lalu tambahkan sisanya sekaligus. Bursa dan pasangan bisa kamu ubah untuk tiap koin.</string>
 </resources>

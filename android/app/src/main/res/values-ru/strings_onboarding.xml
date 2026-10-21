@@ -3,10 +3,10 @@
     <!-- Begrüssung beim ersten Start -->
     <string name="welcome_alert">Оповещать – цена, процент, объём и необычные движения</string>
     <string name="welcome_alert_q">Когда сообщить?</string>
-    <string name="welcome_text">Ваши курсы. Ваши оповещения. Ваш обзор.\nБез аккаунта. Без рекламы. Без отслеживания.</string>
+    <string name="welcome_text">Твои курсы. Твои оповещения. Твой обзор.\nБез аккаунта. Без рекламы. Без отслеживания.</string>
     <string name="welcome_understand">Понимать – что движется вместе с курсом прямо сейчас</string>
     <string name="welcome_understand_q">Что движется вместе?</string>
-    <string name="welcome_watch">Следить – ваши монеты, курсы и их динамика</string>
+    <string name="welcome_watch">Следить – твои монеты, курсы и их динамика</string>
     <string name="welcome_watch_q">Что происходит?</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
@@ -15,8 +15,8 @@
     <string name="starter_search_coin">Найти другую монету</string>
     <string name="starter_select_all">Выбрать все</string>
     <string name="starter_select_none">Снять выбор</string>
-    <string name="starter_title">Начните с этих монет</string>
-    <string name="starter_watch_alarm_hint">Следите за курсом, задайте оповещение</string>
+    <string name="starter_title">Начни с этих монет</string>
+    <string name="starter_watch_alarm_hint">Следи за курсом, задай оповещение</string>
 
-    <string name="starter_source_text">Цены с биржи %1$s в %2$s. Снимите отметку с ненужных и добавьте остальные за один раз. Биржу и пару можно изменить для каждой монеты.</string>
+    <string name="starter_source_text">Цены с биржи %1$s в %2$s. Сними отметку с ненужных и добавь остальные за один раз. Биржу и пару можно изменить для каждой монеты.</string>
 </resources>

@@ -57,6 +57,8 @@ struct CsvImportPreview {
     /// Zeilen, deren USD-/Fiat-Betrag mit USDT = 1 USD umgerechnet ist (kein USDT/USD-Tagesschluss DES Tags,
     /// `CsvImportPriced.usdtApproximate`) — die Vorschau nennt sie wie `missingFx`. Wie Android.
     var usdtApproximate: [Int] = []
+    /// Datei über den Grenzen des Zerlegens (`CsvImportResult.tooLarge`): keine Zeilen, Meldung «zu gross». Seit Build 99.
+    var tooLarge = false
 }
 
 /// Wahl je Auszahlung der Vorschau (`CsvImportMapping.proposeWithdrawals`) — wie Kotlin.
@@ -182,7 +184,8 @@ enum CsvImportMapping {
                                 stableSwaps: fresh.contains { $0.stableSwap },
                                 decimalSample: result.decimalSample, decimalMark: result.decimalMark,
                                 columns: result.columns,
-                                usdtApproximate: priced.filter(\.usdtApproximate).map(\.row.line))
+                                usdtApproximate: priced.filter(\.usdtApproximate).map(\.row.line),
+                                tooLarge: result.tooLarge)
     }
 
     /// Reihenfolge beim Speichern (die Id folgt ihr und entscheidet bei gleicher Zeit) — wie Android `insertOrder`: Datei

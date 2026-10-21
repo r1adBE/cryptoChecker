@@ -408,6 +408,7 @@
 		463228C8FC8A5357E4B908BA /* TaxEngineFr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2CD2FF0B6C33EBD39FEE55 /* TaxEngineFr.swift */; };
 		46C0BE0F14350D06EEF233C6 /* WidgetRefreshStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E826CD6D747124E83392CD0F /* WidgetRefreshStateTests.swift */; };
 		46E46BDDBB482E26A54EDFC4 /* AddressValidation+Bitcoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE413B77C7BD185845F7AD5C /* AddressValidation+Bitcoin.swift */; };
+		46F558A092CD3A6BD9FDC1EF /* CsvImportRefusal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A283D77099AFA1ABC83CB1DD /* CsvImportRefusal.swift */; };
 		470B76BDA5BF465382CE6EFD /* ExchangeCandleSourcesMajor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9950456A203D8C74BAAD2666 /* ExchangeCandleSourcesMajor.swift */; };
 		4713141A489AEE4C06D8CA03 /* PortfolioWatchPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC98667CB746465BC2D790C5 /* PortfolioWatchPair.swift */; };
 		4729744120CABECB275DAA09 /* PortfolioTxLedgerFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797DD75B47BD03B51C93D813 /* PortfolioTxLedgerFields.swift */; };
@@ -761,6 +762,7 @@
 		807419EC7433B14793161C14 /* ExplorerSearchUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7144091375F5591A87176AA8 /* ExplorerSearchUi.swift */; };
 		80C3265CC03964A60311EF6C /* BinanceAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4BB09EE6D287BDE8273FD4 /* BinanceAlpha.swift */; };
 		80C9CD3950C7AB20F77CD3C9 /* WatchlistRow+Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9C18FEC37366E6C8C591C1 /* WatchlistRow+Texts.swift */; };
+		80DB14B45C22DEF014A45540 /* CsvImportRefusal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A283D77099AFA1ABC83CB1DD /* CsvImportRefusal.swift */; };
 		80E0B00162E36FEC3D104881 /* spot_market.json in Resources */ = {isa = PBXBuildFile; fileRef = 08F8264D75F0BBE75B4954B4 /* spot_market.json */; };
 		8100E7CD3257F42893865614 /* ActivityAnalysisGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E03D73B710B5A9EFD4EC4F /* ActivityAnalysisGate.swift */; };
 		81482EF2FA0A832E5677B84D /* PriceFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41AC51D4F12830E390B3B3E /* PriceFormat.swift */; };
@@ -2218,6 +2220,7 @@
 		A1BDEEA0580F4C805627EEC2 /* BackupManager+Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BackupManager+Watchlist.swift"; sourceTree = "<group>"; };
 		A1F1EB60F562518F6AFE2A3F /* data_mirror.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = data_mirror.json; sourceTree = "<group>"; };
 		A1FB573399F73F08D529A1BE /* AddressCostLots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCostLots.swift; sourceTree = "<group>"; };
+		A283D77099AFA1ABC83CB1DD /* CsvImportRefusal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvImportRefusal.swift; sourceTree = "<group>"; };
 		A2AA401D2002531786DCA907 /* AppData+Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+Watchlist.swift"; sourceTree = "<group>"; };
 		A2D93717813F83CD9F0E269B /* recorded_hyperliquid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recorded_hyperliquid.json; sourceTree = "<group>"; };
 		A45CA5F3AC337753B893A728 /* AlarmTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTexts.swift; sourceTree = "<group>"; };
@@ -2904,6 +2907,7 @@
 				5068466063143717C2089BD7 /* CsvImportParser+Rows.swift */,
 				F467D32F7C1452F79036FB98 /* CsvImportParser+Text.swift */,
 				400960D6FBA69442AA3AE7C7 /* CsvImportParser.swift */,
+				A283D77099AFA1ABC83CB1DD /* CsvImportRefusal.swift */,
 				DC754D523C0C033205BAE91A /* CsvImportRow.swift */,
 				768F0BD5E836F27CA58BB1E2 /* CsvImportTime.swift */,
 				9AF903A808E2E3AC2388753E /* CsvRestoreState.swift */,
@@ -4570,6 +4574,7 @@
 				7CA4C3E2774394F257D9372A /* CsvImportParser+Rows.swift in Sources */,
 				CFC3D524601DE5C541EA58F1 /* CsvImportParser+Text.swift in Sources */,
 				2E04CEDA2E0B9B97E6820278 /* CsvImportParser.swift in Sources */,
+				80DB14B45C22DEF014A45540 /* CsvImportRefusal.swift in Sources */,
 				EBD4791B1FD7A268A9118109 /* CsvImportRow.swift in Sources */,
 				1849740065D9DCE5F25EFECE /* CsvImportTime.swift in Sources */,
 				EEBEE76F5CD0EF49BA5BC201 /* CsvRestoreState.swift in Sources */,
@@ -5196,6 +5201,7 @@
 				81672629CB2C401A32232A2B /* CsvImportParser+Rows.swift in Sources */,
 				B9678919FB9D5CC887772A08 /* CsvImportParser+Text.swift in Sources */,
 				ED086B07AEB17B1BB9D38B3C /* CsvImportParser.swift in Sources */,
+				46F558A092CD3A6BD9FDC1EF /* CsvImportRefusal.swift in Sources */,
 				BAC77A68BD0E123BBB1BC184 /* CsvImportRow.swift in Sources */,
 				BF6FA728EC6CF0D5A64C3A4B /* CsvImportTime.swift in Sources */,
 				CD5DE4752E9C14D4DD1F8194 /* CsvRestoreState.swift in Sources */,

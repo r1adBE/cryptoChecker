@@ -44,6 +44,8 @@
     <string name="portfolio_csv_import_transfers_hint">En udbetaling og den matchende indbetaling af samme coin bliver én overførsel: købspris og ejertid bevares, forskellen tæller som netværksgebyr.</string>
     <string name="portfolio_csv_import_transfers_title">Overførsler mellem dine konti</string>
     <string name="portfolio_csv_import_unreadable">Ingen understøttede transaktioner fundet. Understøttet: CSV-eksporter fra Relai, Swissquote, Kraken, Binance, Coinbase og Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">Filen er for stor til import (maks. 16 MB og %1$s rækker). Eksportér kortere perioder, og importér dem én ad gangen.</string>
     <string name="portfolio_csv_import_failed">Importen mislykkedes – intet blev gemt. Prøv igen.</string>
     <string name="portfolio_csv_import_locked">Import er ikke muligt: Gemte data kan ikke læses lige nu. Genstart appen.</string>
     <string name="portfolio_csv_import_withdrawals_title">Udbetalinger – hvor blev coinsene af?</string>

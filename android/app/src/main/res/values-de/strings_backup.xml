@@ -53,6 +53,9 @@
         <item quantity="one">%1$d Paar</item>
         <item quantity="other">%1$d Paare</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">Nicht übernommen werden wegen der Grenzen (%3$s Paare, %4$s Alarme pro Paar): %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Wegen der Grenzen (%3$s Paare, %4$s Alarme pro Paar) nicht übernommen: %1$s, %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">Auf diesem Gerät fehlt der Schlüssel zu den verschlüsselten Daten der App, darum ist sie leer gestartet. Gelöscht wurde nichts. Deine Merkliste und dein Portfolio holst du zurück, indem du in den Einstellungen unter «%1$s» eine Sicherungsdatei importierst.</string>

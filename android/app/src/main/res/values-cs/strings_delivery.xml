@@ -52,12 +52,12 @@
     <string name="alarm_first_check">Zkontrolovat, zda alarmy dorazí</string>
 
     <string name="oem_battery_title">Úspora baterie výrobce</string>
-    <string name="oem_battery_xiaomi">Xiaomi může aplikaci úplně ukončit – pak nepřijdou žádné alarmy. Zapněte „Automatické spuštění“ a spořič baterie nastavte na „Bez omezení“.</string>
-    <string name="oem_battery_samsung">Samsung může aplikaci uspat do hlubokého spánku – pak nepřijdou žádné alarmy. V Baterie › Omezení využití na pozadí ji přidejte k „Nikdy neuspávané aplikace“.</string>
-    <string name="oem_battery_huawei">Huawei/Honor může aplikaci ukončit – pak nepřijdou žádné alarmy. V Baterie › Spouštění aplikací zvolte „Spravovat ručně“ a povolte vše.</string>
-    <string name="oem_battery_oneplus">OnePlus může aplikaci ukončit – pak nepřijdou žádné alarmy. Povolte „Automatické spuštění“ a v Využití baterie činnost na pozadí.</string>
-    <string name="oem_battery_oppo">Oppo/Realme může aplikaci ukončit – pak nepřijdou žádné alarmy. Povolte „Automatické spuštění“ a v Využití baterie činnost na pozadí.</string>
-    <string name="oem_battery_vivo">Vivo může aplikaci ukončit – pak nepřijdou žádné alarmy. Povolte „Automatické spuštění“ a v Baterie vysokou spotřebu na pozadí.</string>
+    <string name="oem_battery_xiaomi">Xiaomi může aplikaci úplně ukončit – pak nepřijdou žádné alarmy. Zapni „Automatické spuštění“ a spořič baterie nastav na „Bez omezení“.</string>
+    <string name="oem_battery_samsung">Samsung může aplikaci uspat do hlubokého spánku – pak nepřijdou žádné alarmy. V Baterie › Omezení využití na pozadí ji přidej k „Nikdy neuspávané aplikace“.</string>
+    <string name="oem_battery_huawei">Huawei/Honor může aplikaci ukončit – pak nepřijdou žádné alarmy. V Baterie › Spouštění aplikací zvol „Spravovat ručně“ a povol vše.</string>
+    <string name="oem_battery_oneplus">OnePlus může aplikaci ukončit – pak nepřijdou žádné alarmy. Povol „Automatické spuštění“ a v Využití baterie činnost na pozadí.</string>
+    <string name="oem_battery_oppo">Oppo/Realme může aplikaci ukončit – pak nepřijdou žádné alarmy. Povol „Automatické spuštění“ a v Využití baterie činnost na pozadí.</string>
+    <string name="oem_battery_vivo">Vivo může aplikaci ukončit – pak nepřijdou žádné alarmy. Povol „Automatické spuštění“ a v Baterie vysokou spotřebu na pozadí.</string>
     <string name="alarm_reliability_recent">Poslední kontrola %1$s</string>
     <string name="alarm_reliability_stale">Poslední kontrola %1$s – alarmy mohou přijít pozdě</string>
     <string name="alarm_reliability_never">Alarmy zapnuté – zatím žádná kontrola na pozadí</string>

@@ -10,15 +10,15 @@
     <string name="watchlist_last_run">पिछला रन %1$s</string>
     <string name="watchlist_live_a11y">लाइव भाव चालू</string>
     <string name="watchlist_offline_since">कनेक्शन नहीं · अंतिम अपडेट %1$s</string>
-    <string name="watchlist_pull_to_refresh">रीफ़्रेश के लिए नीचे खींचें</string>
+    <string name="watchlist_pull_to_refresh">रीफ़्रेश के लिए नीचे खींचो</string>
     <string name="watchlist_refresh_report">पिछला रीफ़्रेश</string>
-    <string name="watchlist_refresh_report_empty">अभी कोई विवरण नहीं: अभी तक कोई पूरा रीफ़्रेश नहीं हुआ है। रीफ़्रेश पर टैप करें और स्पिनर रुकने तक इंतज़ार करें।</string>
+    <string name="watchlist_refresh_report_empty">अभी कोई विवरण नहीं: अभी तक कोई पूरा रीफ़्रेश नहीं हुआ है। रीफ़्रेश पर टैप करो और स्पिनर रुकने तक इंतज़ार करो।</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d में से %1$d पुराने</item>
         <item quantity="other">%2$d में से %1$d पुराने</item>
     </plurals>
     <string name="watchlist_status_all_disabled">यहाँ सभी पेयर बंद हैं</string>
-    <string name="watchlist_status_exchange_prices">आपके एक्सचेंजों के भाव · %1$s</string>
+    <string name="watchlist_status_exchange_prices">तुम्हारे एक्सचेंजों के भाव · %1$s</string>
     <string name="watchlist_status_exchange_prices_short">एक्सचेंज भाव · %1$s</string>
     <string name="watchlist_status_group_empty">इस समूह में कोई पेयर नहीं</string>
     <string name="watchlist_status_none_traded">यहाँ कोई ट्रेड होने वाला पेयर नहीं</string>
@@ -52,33 +52,33 @@
     <string name="watchlist_row_unreachable">%1$s · %2$s से संपर्क नहीं हो पा रहा</string>
 
     <!-- Merkliste: Suche, Sprungknopf, Sortieren nach Spalte -->
-    <string name="watchlist_jump_end">अंत पर जाएँ</string>
-    <string name="watchlist_jump_start">शुरुआत पर जाएँ</string>
-    <string name="watchlist_search_close">खोज बंद करें</string>
+    <string name="watchlist_jump_end">अंत पर जाओ</string>
+    <string name="watchlist_jump_start">शुरुआत पर जाओ</string>
+    <string name="watchlist_search_close">खोज बंद करो</string>
     <string name="watchlist_search_empty">“%1$s” के लिए कोई परिणाम नहीं</string>
-    <string name="watchlist_search_hint">पेयर, नाम या एक्सचेंज खोजें</string>
-    <string name="watchlist_search_open">खोजें</string>
+    <string name="watchlist_search_hint">पेयर, नाम या एक्सचेंज खोजो</string>
+    <string name="watchlist_search_open">खोजो</string>
     <string name="watchlist_sort_ascending">बढ़ते क्रम में</string>
     <string name="watchlist_sort_descending">घटते क्रम में</string>
-    <string name="watchlist_sort_hint">पेयर को दबाकर खींचें या हैंडल का उपयोग करें। पसंदीदा ऊपर रहते हैं।</string>
+    <string name="watchlist_sort_hint">पेयर को दबाकर खींचो या हैंडल का उपयोग करो। पसंदीदा ऊपर रहते हैं।</string>
     <string name="watchlist_sort_name">नाम</string>
     <string name="watchlist_sort_own">अपना क्रम</string>
     <string name="watchlist_sort_price">कीमत</string>
 
     <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
-    <string name="watchlist_clear">वॉचलिस्ट खाली करें</string>
-    <string name="watchlist_clear_confirm">वॉचलिस्ट से सभी पेयर हटाएँ? उनके अलार्म भी हट जाएँगे।</string>
+    <string name="watchlist_clear">वॉचलिस्ट खाली करो</string>
+    <string name="watchlist_clear_confirm">वॉचलिस्ट से सभी पेयर हटाओ? उनके अलार्म भी हट जाएँगे।</string>
     <plurals name="watchlist_disabled_count">
         <item quantity="one">%1$d बंद</item>
         <item quantity="other">%1$d बंद</item>
     </plurals>
-    <string name="watchlist_remove_not_traded_action">हटाएँ</string>
+    <string name="watchlist_remove_not_traded_action">हटाओ</string>
     <plurals name="watchlist_remove_not_traded_confirm">
-        <item quantity="one">%1$d पेयर हटाएँ जो अपने एक्सचेंज पर अब ट्रेड नहीं होते? उनके अलार्म भी हट जाएँगे।</item>
-        <item quantity="other">%1$d पेयर हटाएँ जो अपने एक्सचेंज पर अब ट्रेड नहीं होते? उनके अलार्म भी हट जाएँगे।</item>
+        <item quantity="one">%1$d पेयर हटाओ जो अपने एक्सचेंज पर अब ट्रेड नहीं होते? उनके अलार्म भी हट जाएँगे।</item>
+        <item quantity="other">%1$d पेयर हटाओ जो अपने एक्सचेंज पर अब ट्रेड नहीं होते? उनके अलार्म भी हट जाएँगे।</item>
     </plurals>
-    <string name="watchlist_remove_not_traded_menu">बिना ट्रेडिंग वाले पेयर हटाएँ (%1$d)</string>
-    <string name="watchlist_remove_not_traded_title">बिना ट्रेडिंग वाले पेयर हटाएँ</string>
+    <string name="watchlist_remove_not_traded_menu">बिना ट्रेडिंग वाले पेयर हटाओ (%1$d)</string>
+    <string name="watchlist_remove_not_traded_title">बिना ट्रेडिंग वाले पेयर हटाओ</string>
     <string name="watchlist_removed">%1$s हटाया गया</string>
     <plurals name="watchlist_removed_count">
         <item quantity="one">%1$d पेयर हटाए गए</item>
@@ -88,50 +88,50 @@
         <item quantity="one">बिना ट्रेडिंग वाले %1$d पेयर हटाए गए</item>
         <item quantity="other">बिना ट्रेडिंग वाले %1$d पेयर हटाए गए</item>
     </plurals>
-    <string name="watchlist_select">चुनें</string>
-    <string name="watchlist_select_all">सभी चुनें</string>
+    <string name="watchlist_select">चुनो</string>
+    <string name="watchlist_select_all">सभी चुनो</string>
     <plurals name="watchlist_selected_count">
         <item quantity="one">%1$d चुने गए</item>
         <item quantity="other">%1$d चुने गए</item>
     </plurals>
-    <string name="watchlist_show_all">सभी दिखाएँ</string>
-    <string name="watchlist_show_only_disabled">केवल बंद दिखाएँ</string>
-    <string name="watchlist_show_only_stale">केवल पुराने दिखाएँ</string>
+    <string name="watchlist_show_all">सभी दिखाओ</string>
+    <string name="watchlist_show_only_disabled">केवल बंद दिखाओ</string>
+    <string name="watchlist_show_only_stale">केवल पुराने दिखाओ</string>
 
     <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
     <plurals name="watchlist_alarms_count">
         <item quantity="one">अलार्म (%1$d)</item>
         <item quantity="other">अलार्म (%1$d)</item>
     </plurals>
-    <string name="watchlist_favorites_empty_hint">अभी कोई पसंदीदा नहीं। किसी जोड़ी को दाईं ओर स्वाइप करें या उसे खोलकर “पसंदीदा” टैप करें।</string>
-    <string name="watchlist_group_empty_hint">किसी समूह के पेयर चुनने के लिए उसे देर तक दबाएँ।</string>
+    <string name="watchlist_favorites_empty_hint">अभी कोई पसंदीदा नहीं। किसी जोड़ी को दाईं ओर स्वाइप करो या उसे खोलकर “पसंदीदा” टैप करो।</string>
+    <string name="watchlist_group_empty_hint">किसी समूह के पेयर चुनने के लिए उसे देर तक दबाओ।</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
-    <string name="watchlist_groups_empty_hint">आपके समूह यहाँ दिखेंगे</string>
+    <string name="watchlist_groups_empty_hint">तुम्हारे समूह यहाँ दिखेंगे</string>
     <string name="watchlist_notification">प्राइस नोटिफ़िकेशन</string>
-    <string name="watchlist_tts">कीमत बोलें</string>
+    <string name="watchlist_tts">कीमत बोलो</string>
     <string name="watchlist_tts_speech_on">बोलकर सुनाना चालू है। इसे यहाँ बदल सकते हैं: सेटिंग्स › उन्नत › बोलकर आउटपुट।</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
-    <string name="watch_action_add_widget">विजेट के रूप में जोड़ें</string>
+    <string name="watch_action_add_widget">विजेट के रूप में जोड़ो</string>
     <string name="watch_action_alarm">अलार्म</string>
     <string name="watch_action_favorite">पसंदीदा</string>
     <string name="watch_action_why">साथ में किसमें हलचल है?</string>
     <string name="watch_action_why_short">साथ में क्या चल रहा है?</string>
     <string name="watch_change_mark">मार्क</string>
-    <string name="watch_disable">बंद करें</string>
+    <string name="watch_disable">बंद करो</string>
     <string name="watch_disable_hint">कोई अनुरोध नहीं, कोई सूचना नहीं</string>
     <string name="watch_disabled">बंद</string>
     <string name="watch_disabled_banner">%1$s बंद किया गया</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
-    <string name="watch_edit_alarms_warning">अलार्म बने रहेंगे – सीमाएँ जाँचें</string>
+    <string name="watch_edit_alarms_warning">अलार्म बने रहेंगे – सीमाएँ जाँचो</string>
     <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
-    <string name="watch_edit_title">पेयर संपादित करें</string>
-    <string name="watch_enable">चालू करें</string>
+    <string name="watch_edit_title">पेयर संपादित करो</string>
+    <string name="watch_enable">चालू करो</string>
     <string name="watch_enable_hint">कीमतें और सूचनाएँ फिर से चालू</string>
     <string name="watch_enabled_banner">%1$s चालू किया गया</string>
     <string name="watch_error_offline">कनेक्शन नहीं</string>
-    <string name="watch_gesture_hint_short">टैप करें: अलार्म और “साथ में किसमें हलचल है?” · चुनने के लिए देर तक दबाएँ · हटाने के लिए बाईं ओर स्वाइप करें · पसंदीदा के लिए दाईं ओर</string>
-    <string name="watch_hint_tap_why">अलार्म और “साथ में किसमें हलचल है?” के लिए किसी कॉइन पर टैप करें</string>
+    <string name="watch_gesture_hint_short">टैप करो: अलार्म और “साथ में किसमें हलचल है?” · चुनने के लिए देर तक दबाओ · हटाने के लिए बाईं ओर स्वाइप करो · पसंदीदा के लिए दाईं ओर</string>
+    <string name="watch_hint_tap_why">अलार्म और “साथ में किसमें हलचल है?” के लिए किसी कॉइन पर टैप करो</string>
     <string name="watch_not_traded">इस एक्सचेंज पर अब ट्रेड नहीं होता</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">वॉचलिस्ट में नहीं</string>
@@ -141,26 +141,26 @@
     <string name="watch_row_source_chart">चार्ट: %1$s</string>
 
     <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
-    <string name="pair_added_watching">%1$s अब आपकी वॉचलिस्ट में है</string>
+    <string name="pair_added_watching">%1$s अब तुम्हारी वॉचलिस्ट में है</string>
     <!-- Ein Paar: pair_added_watching -->
-    <string name="pairs_added_watching">%1$s अब आपकी वॉचलिस्ट में हैं</string>
+    <string name="pairs_added_watching">%1$s अब तुम्हारी वॉचलिस्ट में हैं</string>
 
     <!-- Favoriten -->
-    <string name="favorite_add">पसंदीदा में जोड़ें</string>
+    <string name="favorite_add">पसंदीदा में जोड़ो</string>
     <string name="favorite_added">%1$s पसंदीदा में जोड़ा गया</string>
-    <string name="favorite_remove">पसंदीदा से हटाएँ</string>
+    <string name="favorite_remove">पसंदीदा से हटाओ</string>
     <string name="favorite_removed">%1$s पसंदीदा से हटाया गया</string>
-    <string name="hint_favorites_list">सुझाव: किसी पंक्ति को दाईं ओर स्वाइप करें ताकि वह पसंदीदा बने – पसंदीदा ऊपर रहते हैं।</string>
+    <string name="hint_favorites_list">सुझाव: किसी पंक्ति को दाईं ओर स्वाइप करो ताकि वह पसंदीदा बने – पसंदीदा ऊपर रहते हैं।</string>
 
     <!-- Gruppen und Chips der Merkliste -->
     <string name="group_add">नया समूह</string>
     <string name="group_all">सभी</string>
     <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
     <string name="group_alpha">Alpha टोकन</string>
-    <string name="group_delete">समूह हटाएँ</string>
-    <string name="group_delete_confirm">पेयर आपकी वॉचलिस्ट में बने रहेंगे।</string>
+    <string name="group_delete">समूह हटाओ</string>
+    <string name="group_delete_confirm">पेयर तुम्हारी वॉचलिस्ट में बने रहेंगे।</string>
     <string name="group_done">हो गया</string>
-    <string name="group_edit_title">समूह संपादित करें</string>
+    <string name="group_edit_title">समूह संपादित करो</string>
     <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
     <string name="group_favorites">पसंदीदा</string>
     <string name="group_in_other">%1$s में</string>
@@ -168,8 +168,8 @@
     <string name="group_new">नया समूह…</string>
     <string name="group_next">आगे</string>
     <string name="group_none">कोई समूह नहीं</string>
-    <string name="group_rename">नाम बदलें</string>
-    <string name="group_search_hint">पेयर, नाम या एक्सचेंज खोजें</string>
+    <string name="group_rename">नाम बदलो</string>
+    <string name="group_search_hint">पेयर, नाम या एक्सचेंज खोजो</string>
     <string name="group_target">समूह में</string>
     <string name="group_title">समूह</string>
     <!-- Gruppen-Chip «Token» (alle Paare ausser der Gruppe «TradFi»), Screenreader und Widget-Einrichtung -->
@@ -177,28 +177,28 @@
     <string name="group_value">समूह: %1$s</string>
 
     <!-- Notiz zum Paar -->
-    <string name="note_add">नोट जोड़ें</string>
-    <string name="note_edit">नोट बदलें</string>
+    <string name="note_add">नोट जोड़ो</string>
+    <string name="note_edit">नोट बदलो</string>
     <string name="note_hint">जैसे 0.42 पर एंट्री, लक्ष्य 0.60</string>
-    <string name="note_remove">हटाएँ</string>
+    <string name="note_remove">हटाओ</string>
     <string name="note_title">नोट</string>
 
     <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
-    <string name="sort_drag_handle">खिसकाने के लिए खींचें</string>
+    <string name="sort_drag_handle">खिसकाने के लिए खींचो</string>
     <string name="sort_move_bottom">सबसे नीचे</string>
     <string name="sort_move_down">नीचे</string>
     <string name="sort_move_top">सबसे ऊपर</string>
     <string name="sort_move_up">ऊपर</string>
 
-    <string name="watchlist_first_alarm_title">अपना पहला अलार्म सेट करें</string>
-    <string name="watchlist_first_alarm_text">जब कोई भाव आपकी तय सीमा तक पहुँचे, सूचना पाएँ – ऐप बंद होने पर Android अनियमित रूप से जाँचता है।</string>
+    <string name="watchlist_first_alarm_title">अपना पहला अलार्म सेट करो</string>
+    <string name="watchlist_first_alarm_text">जब कोई भाव तुम्हारी तय सीमा तक पहुँचे, सूचना पाओ – ऐप बंद होने पर Android अनियमित रूप से जाँचता है।</string>
 
     <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
     <string name="watch_price_mark_fallback">मार्क भाव (मध्य भाव नहीं)</string>
     <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
     <string name="watch_price_hourly">घंटे का भाव</string>
     <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
-    <string name="watchlist_first_alarm_title_pair">अपना पहला अलार्म सेट करें – %1$s</string>
+    <string name="watchlist_first_alarm_title_pair">अपना पहला अलार्म सेट करो – %1$s</string>
 
     <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
     <string name="watchlist_refresh_countdown">रीफ़्रेश (%1$d)</string>
@@ -211,9 +211,9 @@
     <string name="watchlist_row_last_trade_age">अंतिम ट्रेड %1$s</string>
 
     <string name="change_candle_source_hint">%1$s कैंडल से गणना की गई – एक्सचेंज ख़ुद यह मान नहीं देता।</string>
-    <string name="change_candle_source_action">बदलाव का स्रोत दिखाएँ</string>
+    <string name="change_candle_source_action">बदलाव का स्रोत दिखाओ</string>
 
-    <string name="watchlist_sort_by_coin">कॉइन के अनुसार क्रमबद्ध करें</string>
-    <string name="watchlist_sort_by_exchange">एक्सचेंज के अनुसार क्रमबद्ध करें</string>
-    <string name="watchlist_limit_reached">आपकी वॉचलिस्ट में अधिकतम %1$s पेयर हो सकते हैं।</string>
+    <string name="watchlist_sort_by_coin">कॉइन के अनुसार क्रमबद्ध करो</string>
+    <string name="watchlist_sort_by_exchange">एक्सचेंज के अनुसार क्रमबद्ध करो</string>
+    <string name="watchlist_limit_reached">तुम्हारी वॉचलिस्ट में अधिकतम %1$s पेयर हो सकते हैं।</string>
 </resources>

@@ -19,7 +19,7 @@
     <string name="portfolio_export_estv_note">Servet vergisi için ESTV %1$s kur listesinin resmî yıl sonu değerleri geçerlidir (listede varsa): %2$s</string>
     <string name="portfolio_export_failed">Dışa aktarım başarısız</string>
     <string name="portfolio_export_from_address">adresten – alış fiyatı yok</string>
-    <string name="portfolio_export_hint">Seçilen günün sonundaki varlıklar; USDT cinsinden günlük kapanış fiyatıyla (UTC) değerlenir ve o günün ECB referans kuruyla çevrilir. Para birimini “Şuna çevir” ile değiştirin.</string>
+    <string name="portfolio_export_hint">Seçilen günün sonundaki varlıklar; USDT cinsinden günlük kapanış fiyatıyla (UTC) değerlenir ve o günün ECB referans kuruyla çevrilir. Para birimini “Şuna çevir” ile değiştir.</string>
     <string name="portfolio_export_incomplete">eksik</string>
     <string name="portfolio_export_no_fx">döviz kuru yok</string>
     <string name="portfolio_export_no_price">fiyat yok</string>
@@ -96,18 +96,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Lending faizi (alındığı andaki değer)</string>
-    <string name="tax_line_at_old_long">1.3.2021’den önce edinildi – elde tutma &gt; 1 yıl: genellikle vergiye tabi değil – kontrol edin</string>
+    <string name="tax_line_at_old_long">1.3.2021’den önce edinildi – elde tutma &gt; 1 yıl: genellikle vergiye tabi değil – kontrol et</string>
     <string name="tax_line_at_rate">Özel oran yüzde 27,5: 1.3.2021’den itibaren edinilip 1.3.2022’den itibaren satılanların neti + faiz</string>
     <string name="tax_line_au_discounted">Zararlar ve yüzde 50 indirim sonrası net sermaye kazancı</string>
     <string name="tax_line_ca_taxable">Vergiye tabi sermaye kazancı (dahil etme oranı 1/2)</string>
     <string name="tax_line_ch_income">Ödüller listelendi – işlem için bkz. ESTV çalışma belgesi</string>
     <string name="tax_line_ch_private">Özel varlıklarda sermaye kazançları: hesaplanmadı – sınıflandırma için bkz. ESTV</string>
     <string name="tax_line_ch_wealth">Servet vergisi: hesaplanmaz – varlık CSV’si 31.12 tarihli borsa fiyatı × USD/CHF kullanır – vergi değerleri: ESTV kur listesi</string>
-    <string name="tax_line_de_long">Elde tutma &gt; 1 yıl: § 23 EStG\'ye göre genellikle vergiye tabi değil – kontrol edin</string>
+    <string name="tax_line_de_long">Elde tutma &gt; 1 yıl: § 23 EStG\'ye göre genellikle vergiye tabi değil – kontrol et</string>
     <string name="tax_line_denied_loss">İndirilemeyen zararlar (görünürde zarar / superficial loss)</string>
     <string name="tax_line_fr_outflow">Satışsız çıkışlar (çekimler) – toplam edinim maliyeti orantılı olarak düşürüldü</string>
     <string name="tax_line_fr_rate">Sabit oran yüzde 12,8 artı sosyal katkılar (veya tercihe bağlı tarife)</string>
-    <string name="tax_line_fr_threshold">Yılda 305 €’ya kadar elden çıkarmalar: genellikle muaf (satış fiyatları toplamı) – kontrol edin</string>
+    <string name="tax_line_fr_threshold">Yılda 305 €’ya kadar elden çıkarmalar: genellikle muaf (satış fiyatları toplamı) – kontrol et</string>
     <string name="tax_line_gains">Kârlar</string>
     <string name="tax_line_income">Gelir (ödüller alındığı andaki değerle)</string>
     <string name="tax_line_jp_misc">Diğer gelirler (雑所得): net kâr + gelir</string>
@@ -140,7 +140,7 @@
     <string name="tax_de_long_losses">Zararlar – elde tutma &gt; 1 yıl</string>
     <string name="tax_de_loss">net zarar – yalnızca özel satış kazançlarıyla mahsup edilebilir (§ 23 EStG)</string>
     <string name="tax_de_private_limit">Muafiyet sınırı özel satışlar (§ 23 EStG)</string>
-    <string name="tax_de_reached">sınıra ulaşıldı – genellikle tutarın tamamı sayılır – kontrol edin</string>
+    <string name="tax_de_reached">sınıra ulaşıldı – genellikle tutarın tamamı sayılır – kontrol et</string>
     <string name="tax_de_short_gains">Kârlar – elde tutma ≤ 1 yıl</string>
     <string name="tax_de_short_losses">Zararlar – elde tutma ≤ 1 yıl</string>
     <string name="tax_de_unclassified">Elde tutma süresi olmadan</string>
@@ -174,7 +174,7 @@
     <string name="tax_method_jp_total">Toplam ortalama (総平均法)</string>
     <string name="tax_method_uk_pool">Section 104 uyarınca ortak havuz (Section 104 pool – aynı gün / 30 gün)</string>
     <string name="tax_note_at">Coin ve cüzdan bazında hareketli ortalama – tüm cüzdanlar genelinde değil (KryptowährungsVO § 2). Ödüller yeni varlığa 0 edinim maliyetiyle girer (BMF: staking / airdrop) – gelir dosyası onları alındığı andaki değerle listeler. 1.3.2021’den itibaren edinilen varlıkta ücretler indirilemez (§ 27a f. 4 no. 2, § 20 f. 2 EStG): maliyet ve gelir ücretsiz hesaplanır. Lending faizi (CSV içe aktarmadaki tür veya not) alındığı anda yüzde 27,5 ile gelirdir ve bu değeri edinim maliyeti olarak korur.</string>
-    <string name="tax_note_at_staking">Kendi coinlerinizle staking ve airdrop’lar: alındığı andaki değer vergi açısından önemsizdir – yasaya göre edinim maliyeti 0’dır (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”). Vergi yalnızca satışta doğar.</string>
+    <string name="tax_note_at_staking">Kendi coinlerinle staking ve airdrop’lar: alındığı andaki değer vergi açısından önemsizdir – yasaya göre edinim maliyeti 0’dır (§ 27b Abs. 2 EStG; BMF “Kryptowährungen”). Vergi yalnızca satışta doğar.</string>
     <string name="tax_note_fr">Satışlar ve kripto ile ödenen ücretler elden çıkarmadır – takaslar ertelenir. Satışta kripto ile ödenen ücret ücret öncesi fiyata dahil edilir – aksi halde kendi değeriyle ayrı bir elden çıkarmadır. Portföy değeri günlük kapanışlardan – biri eksikse maliyet boş kalır.</string>
     <string name="tax_note_network_fee">Kripto olarak ödenen ağ ücreti (kendi cüzdanına transfer, çekim), ücret coinlerinin piyasa değeriyle elden çıkarılmasıdır – kâr veya zarar yalnızca bu coinler üzerindedir, ücretin tamamı zarar değildir (%1$s). Girilmiş fiyat yoksa: aynı günün kapanışı (UTC); kapanış yoksa satış tutarı boş kalır.</string>
     <string name="tax_note_specific_id">Özel tanımlama (Specific Identification) desteklenmiyor – FIFO geçerli (ilk alınan – ilk satılan).</string>
@@ -182,7 +182,7 @@
     <string name="tax_note_stable_swap">Elinde tuttuğun bir stablecoin (USDT/USDC/DAI …) karşılığında satış burada kriptodan kriptoya sayılır ve vergilendirilmez – bunu stablecoin’e takas olarak kaydet. Yalnızca euro karşılığı satış vergilendirilir – “Satım” euro karşılığı satış sayılır.</string>
     <string name="tax_note_transfer_fee">Kendi cüzdanların arasındaki bir transferde USDT veya nakit ücret için de aynısı geçerlidir: maliyete eklenmez, yalnızca bilgi olarak gösterilir.</string>
     <string name="tax_note_uk">HMRC’ye göre eşleştirme: aynı gün → sonra sonraki 30 gün → sonra Section 104 uyarınca ortak havuz (Section 104 pool).</string>
-    <string name="tax_note_us_transition">1.1.2025 geçişi (Rev. Proc. 2024-28, safe harbor): önceki yıllarda tüm cüzdanlarda FIFO kullanıldıysa, 31.12.2024 itibarıyla kalan partiler coin’leri tutan cüzdanlara gider – en eski coin’leri tutan cüzdan en eski maliyeti alır. Bu dağıtım uygulamanın kuralıdır – kendi kayıtlarınızla karşılaştırın.</string>
+    <string name="tax_note_us_transition">1.1.2025 geçişi (Rev. Proc. 2024-28, safe harbor): önceki yıllarda tüm cüzdanlarda FIFO kullanıldıysa, 31.12.2024 itibarıyla kalan partiler coin’leri tutan cüzdanlara gider – en eski coin’leri tutan cüzdan en eski maliyeti alır. Bu dağıtım uygulamanın kuralıdır – kendi kayıtlarınla karşılaştır.</string>
     <string name="tax_note_us_wallet">2025 vergi yılından itibaren IRS cüzdan/borsa bazında maliyet istiyor (Rev. Proc. 2024-28) – dışa aktarma 2025’ten itibaren cüzdan bazında FIFO kullanır – 2025 öncesinde senin maliyet yöntemin geçerlidir.</string>
     <string name="tax_note_withdrawal_fee">USDT veya nakit çekim ücreti zarar değildir: nakit ücret indirilemez, USDT ücreti kârsız bir nominal değerden elden çıkarmadır – yalnızca bilgi olarak gösterilir (%1$s).</string>
     <string name="tax_summary_at_interest_income">sayılır: alındığı anda yüzde 27,5 özel oranla gelir (§ 27b f. 2 no. 1 EStG / BMF) – coinler bu değeri edinim maliyeti olarak korur</string>
@@ -244,7 +244,7 @@
     <string name="portfolio_export_address_lots_note">Not: izlenen bir adresin, bu tarihten önceki son bakiye sorgusundan sonra tarihli maliyet kalemleri var – bunlar burada eksik olabilir.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">İzlenen adresler toplam değere dahildir ancak edinme maliyetleri yoktur – bu nedenle kazanç büyük olasılıkla fazla yüksektir. Maliyeti alım olarak kaydedin.</string>
+    <string name="tax_summary_fr_address_no_cost">İzlenen adresler toplam değere dahildir ancak edinme maliyetleri yoktur – bu nedenle kazanç büyük olasılıkla fazla yüksektir. Maliyeti alım olarak kaydet.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Fiyatı girilmemiş piyasa değerleri (ücretler, hediye/ödeme, takas, ödüller, ağ ücretleri, portföy değeri) işlem gününün günlük kapanışından (UTC)</string>

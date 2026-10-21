@@ -7,7 +7,7 @@
     <string name="alarm_log_empty_message">Записи появятся здесь, когда оповещение сработает или будет задержано – например, из-за устаревшей цены или в тихие часы.</string>
     <string name="alarm_log_clear">Очистить журнал</string>
     <string name="alarm_log_clear_title">Очистить журнал оповещений?</string>
-    <string name="alarm_log_clear_message">Все записи будут удалены. Ваши оповещения останутся без изменений.</string>
+    <string name="alarm_log_clear_message">Все записи будут удалены. Твои оповещения останутся без изменений.</string>
     <string name="alarm_log_threshold">Порог %1$s</string>
     <string name="alarm_last_check">Последняя проверка: %1$s</string>
     <string name="alarm_outcome_fired">Сработало</string>

@@ -258,8 +258,8 @@
     <string name="ledger_since_purchase_currency">Që nga blerja (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Fitim/humbje që nga blerja, ende pa shitur</string>
     <plurals name="ledger_without_cost">
-        <item quantity="one">Pa %1$d monedhë pa çmim blerjeje (%2$s) – shtoni çmimin që të llogaritet.</item>
-        <item quantity="other">Pa %1$d monedha pa çmim blerjeje (%2$s) – shtoni çmimet që të llogariten.</item>
+        <item quantity="one">Pa %1$d monedhë pa çmim blerjeje (%2$s) – shto çmimin që të llogaritet.</item>
+        <item quantity="other">Pa %1$d monedha pa çmim blerjeje (%2$s) – shto çmimet që të llogariten.</item>
     </plurals>
 
     <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->

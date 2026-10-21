@@ -12,6 +12,6 @@
     <string name="portfolio_alarms_address_failing_generic">Сигнали портфеля перевіряють без адрес, баланс яких не завантажується понад 24 години</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">токени частково застаріли</string>
-    <string name="portfolio_address_restore_failed">Не вдалося повернути адресу – за потреби додайте її знову</string>
-    <string name="portfolio_address_remove_failed">Не вдалося видалити адресу – спробуйте ще раз</string>
+    <string name="portfolio_address_restore_failed">Не вдалося повернути адресу – за потреби додай її знову</string>
+    <string name="portfolio_address_remove_failed">Не вдалося видалити адресу – спробуй ще раз</string>
 </resources>

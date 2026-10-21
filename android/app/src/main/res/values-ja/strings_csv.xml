@@ -40,6 +40,8 @@
     <string name="portfolio_csv_import_transfers_hint">同じコインの出庫とそれに合う入庫を1件の振替にまとめます：取得価格と保有期間は引き継がれ、差額はネットワーク手数料になります。</string>
     <string name="portfolio_csv_import_transfers_title">アカウント間の振替</string>
     <string name="portfolio_csv_import_unreadable">対応している取引が見つかりません。対応形式：Relai、Swissquote、Kraken、Binance、Coinbase、Bitpanda の CSV エクスポート。</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">ファイルが大きすぎてインポートできません（上限 16 MB・%1$s 行）。期間を短く分けてエクスポートし、順番にインポートしてください。</string>
     <string name="portfolio_csv_import_failed">インポートできませんでした。何も保存されていません。もう一度お試しください。</string>
     <string name="portfolio_csv_import_locked">インポートできません：保存済みのデータを今は読み取れません。アプリを再起動してください。</string>
     <string name="portfolio_csv_import_withdrawals_title">出庫 – コインはどこへ？</string>

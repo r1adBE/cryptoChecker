@@ -21,7 +21,7 @@
         <item quantity="many">Seznamy párů %1$d burzy zatím nejsou v zařízení.</item>
         <item quantity="other">Seznamy párů %1$d burz zatím nejsou v zařízení.</item>
     </plurals>
-    <string name="explorer_lists_privacy">Načte úplný veřejný seznam každé burzy – stejný pro všechny. Vaše hledání zůstává v zařízení.</string>
+    <string name="explorer_lists_privacy">Načte úplný veřejný seznam každé burzy – stejný pro všechny. Tvoje hledání zůstává v zařízení.</string>
     <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
     <string name="explorer_recent_a11y">Nedávno hledáno: %1$s</string>
     <string name="explorer_recent_clear">Vymazat</string>
@@ -31,7 +31,7 @@
     <string name="explorer_search_empty">Žádné výsledky.</string>
     <string name="explorer_search_hint">Hledat minci, pár nebo burzu</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Zadejte název nebo symbol mince, např. Bitcoin nebo BTC, a pak vyberte pár. Pár je mince na burze v jedné měně, např. BTC/USDT na Binance.</string>
+    <string name="explorer_search_intro">Zadej název nebo symbol mince, např. Bitcoin nebo BTC, a pak vyber pár. Pár je mince na burze v jedné měně, např. BTC/USDT na Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Přidat do sledovaných</string>
@@ -39,7 +39,7 @@
     <string name="explorer_already_in_watchlist">Tento pár už je ve sledovaných.</string>
     <string name="explorer_exchange_missing">Chybí burza?</string>
     <string name="explorer_loading_pairs">Načítání párů…</string>
-    <string name="explorer_no_pair_selected">Nejprve vyberte pár.</string>
+    <string name="explorer_no_pair_selected">Nejprve vyber pár.</string>
     <string name="explorer_no_pairs_yet">Pro tuto burzu zatím nejsou načtené žádné páry.</string>
     <plurals name="explorer_pairs_status">
         <item quantity="one">%1$d pár · aktualizováno %2$s</item>
@@ -50,8 +50,8 @@
     <string name="explorer_pairs_title">Páry</string>
     <string name="explorer_precise_title">Pokročilé / podle burzy</string>
     <string name="explorer_price_loading">Načítání kurzu…</string>
-    <string name="explorer_select_market_hint">Vyberte burzu – její páry se načtou automaticky.</string>
-    <string name="explorer_select_placeholder">Vyberte</string>
+    <string name="explorer_select_market_hint">Vyber burzu – její páry se načtou automaticky.</string>
+    <string name="explorer_select_placeholder">Vyber</string>
     <string name="explorer_step_pair">Vybrat pár</string>
 
     <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
@@ -67,7 +67,7 @@
         <item quantity="many">Nalezeno %1$d párů %2$s</item>
         <item quantity="other">Nalezeno %1$d párů %2$s</item>
     </plurals>
-    <string name="bulk_all_pairs_empty">Tato burza nemá pro vybraný typ kontraktu žádné %1$s páry. Nejprve burzu synchronizujte, nebo zkuste jiný typ kontraktu.</string>
+    <string name="bulk_all_pairs_empty">Tato burza nemá pro vybraný typ kontraktu žádné %1$s páry. Nejprve burzu synchronizuj, nebo zkus jiný typ kontraktu.</string>
     <plurals name="explorer_add_all_pairs">
         <item quantity="one">Přidat %1$d pár do sledovaných</item>
         <item quantity="few">Přidat všechny %1$d páry do sledovaných</item>
@@ -94,7 +94,7 @@
     </plurals>
     <string name="explorer_bulk_hide_list">Skrýt seznam</string>
     <string name="explorer_bulk_show_list">Zobrazit seznam</string>
-    <string name="explorer_bulk_tap_hint">Klepnutím na pár ho vyberete nahoře.</string>
+    <string name="explorer_bulk_tap_hint">Klepnutím na pár ho vybereš nahoře.</string>
     <string name="explorer_bulk_title">Více párů najednou</string>
 
     <!-- Handelspaare einer Börse laden und wählen -->
@@ -116,7 +116,7 @@
     <string name="dex_add">Přidat</string>
     <string name="dex_added">%1$s přidáno do sledovaných.</string>
     <string name="dex_already">%1$s už je ve sledovaných.</string>
-    <string name="dex_intro">Tokeny mimo velké burzy, z decentralizovaných burz (Uniswap, PancakeSwap, Raydium …) přes DexScreener. Vyhledejte token a přidejte jeden z jeho obchodních poolů – ceny v amerických dolarech.</string>
+    <string name="dex_intro">Tokeny mimo velké burzy, z decentralizovaných burz (Uniswap, PancakeSwap, Raydium …) přes DexScreener. Vyhledej token a přidej jeden z jeho obchodních poolů – ceny v amerických dolarech.</string>
     <string name="dex_liquidity">Likvidita %1$s</string>
     <string name="dex_no_results">Nebyly nalezeny žádné pooly.</string>
     <string name="dex_search">Hledat</string>
@@ -135,9 +135,9 @@
     <string name="dex_token_address_copied">Adresa tokenu zkopírována</string>
     <string name="dex_token_address_label">Adresa tokenu končící na %1$s</string>
     <plurals name="explorer_bulk_not_added_limit">
-        <item quantity="one">Nepřidáno: %1$d. Váš seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
-        <item quantity="few">Nepřidáno: %1$d. Váš seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
-        <item quantity="many">Nepřidáno: %1$d. Váš seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
-        <item quantity="other">Nepřidáno: %1$d. Váš seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
+        <item quantity="one">Nepřidáno: %1$d. Tvůj seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
+        <item quantity="few">Nepřidáno: %1$d. Tvůj seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
+        <item quantity="many">Nepřidáno: %1$d. Tvůj seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
+        <item quantity="other">Nepřidáno: %1$d. Tvůj seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
     </plurals>
 </resources>

@@ -7,7 +7,7 @@
     <string name="alarm_log_empty_message">Записи з’являться тут, коли сигнал спрацює або буде затриманий – наприклад, через застарілу ціну чи в тихі години.</string>
     <string name="alarm_log_clear">Очистити журнал</string>
     <string name="alarm_log_clear_title">Очистити журнал сигналів?</string>
-    <string name="alarm_log_clear_message">Усі записи буде видалено. Ваші сигнали залишаться без змін.</string>
+    <string name="alarm_log_clear_message">Усі записи буде видалено. Твої сигнали залишаться без змін.</string>
     <string name="alarm_log_threshold">Поріг %1$s</string>
     <string name="alarm_last_check">Остання перевірка: %1$s</string>
     <string name="alarm_outcome_fired">Спрацював</string>

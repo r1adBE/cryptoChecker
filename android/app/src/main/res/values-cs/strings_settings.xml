@@ -45,7 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Chybí oprávnění – v klidu zařízení kontroluje Android nepravidelně, někdy až po hodinách.</string>
     <string name="settings_notification_change">Oznamovat jen při změně ceny</string>
     <string name="settings_notification_change_always">Vždy</string>
-    <string name="settings_percent_invalid">Zadejte hodnotu od 0 do 100.</string>
+    <string name="settings_percent_invalid">Zadej hodnotu od 0 do 100.</string>
     <string name="settings_notification_change_hint">Oznámení se zobrazí, až když se cena od posledního oznámení změní alespoň o tuto hodnotu. Pokud chybí data, nezobrazí se nic. Alarmů se to netýká.</string>
     <string name="settings_ongoing_notifications">Nelze zavřít přejetím</string>
     <string name="settings_ongoing_notifications_hint">Cenová oznámení zůstanou připnutá.</string>
@@ -56,7 +56,7 @@
     <string name="settings_price_pairs_all_on">Vše zapnout</string>
     <string name="settings_price_pairs_count">%1$d z %2$d</string>
     <string name="settings_price_pairs_empty">Ve sledovaném seznamu zatím nejsou žádné páry.</string>
-    <string name="settings_price_pairs_hint">Vyberte, u kterých párů se kurz zobrazí v liště oznámení.</string>
+    <string name="settings_price_pairs_hint">Vyber, u kterých párů se kurz zobrazí v liště oznámení.</string>
     <string name="settings_quiet_hours">Noční klid</string>
     <string name="settings_quiet_hours_from">Od</string>
     <string name="settings_quiet_hours_hint">Mezi %1$s a %2$s alarmy počkají do konce nočního klidu a pak se ozvou se zvukem. Ostatní upozornění přicházejí potichu, bez hlasového hlášení.</string>
@@ -83,7 +83,7 @@
     <string name="settings_activity_sensitivity">Citlivost</string>
     <string name="settings_activity_sensitivity_hint">Jak snadno se mince považuje za neobvyklou – stejně pro kartu ve sledovaných i pro oznámení. Při „Méně“ karta ukazuje jen 3 nejsilnější.</string>
     <string name="settings_watchlist_activity_card">Nápadné: zobrazit v seznamu</string>
-    <string name="settings_watchlist_activity_card_hint">Zobrazí čip ⚡ u skupin: klepnutím uvidíte jen páry, u kterých se právě něco děje. Upozornění nastavíte v sekci „Tržní upozornění“.</string>
+    <string name="settings_watchlist_activity_card_hint">Zobrazí čip ⚡ u skupin: klepnutím uvidíš jen páry, u kterých se právě něco děje. Upozornění nastavíš v sekci „Tržní upozornění“.</string>
     <string name="settings_watchlist_names">Zobrazit názvy</string>
     <string name="settings_watchlist_names_hint">Název pod párem, např. Bitcoin nebo NVIDIA. Přichází se seznamy log, načte se jednou pro všechny mince.</string>
     <string name="settings_watchlist_sparkline">Minigraf ve sledovaných</string>
@@ -113,12 +113,12 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Barva zvýraznění</string>
-    <string name="settings_accent_hint">Barva aplikace, widgetů a ikony aplikace. Některé domovské obrazovky při změně ikonu odstraní – pak ji přidejte znovu.</string>
+    <string name="settings_accent_hint">Barva aplikace, widgetů a ikony aplikace. Některé domovské obrazovky při změně ikonu odstraní – pak ji přidej znovu.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Loga mincí</string>
     <string name="settings_coin_logos_app">V aplikaci</string>
     <string name="settings_coin_logos_app_hint">Seznam, otevřený pár a karty trhu</string>
-    <string name="settings_coin_logos_footer">Loga pocházejí z CoinGecko a u toho, co CoinGecko nevede (např. zlato, stříbro, akcie), z Binance. Aplikace stáhne všechna loga najednou a uloží je v tomto zařízení, takže žádný z nich neví, které mince sledujete. Mince bez loga zobrazují iniciály. Oblíbené mají na logu malou hvězdičku. Kde je přepínač vypnutý, nezobrazí se loga ani iniciály; když je vypnuté vše, nic se nestahuje.</string>
+    <string name="settings_coin_logos_footer">Loga pocházejí z CoinGecko a u toho, co CoinGecko nevede (např. zlato, stříbro, akcie), z Binance. Aplikace stáhne všechna loga najednou a uloží je v tomto zařízení, takže žádný z nich neví, které mince sleduješ. Mince bez loga zobrazují iniciály. Oblíbené mají na logu malou hvězdičku. Kde je přepínač vypnutý, nezobrazí se loga ani iniciály; když je vypnuté vše, nic se nestahuje.</string>
     <string name="settings_coin_logos_portfolio">V portfoliu</string>
     <string name="settings_coin_logos_portfolio_hint">Pozice, detaily mincí a přehledy</string>
     <string name="settings_coin_logos_value_app">Aplikace</string>
@@ -146,7 +146,7 @@
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Měna přepočtu</string>
-    <string name="settings_conversion_currency_hint">Používá se také pro portfolio, alarmy ve vaší měně, kartu Kryptotrh a widget Portfolio.</string>
+    <string name="settings_conversion_currency_hint">Používá se také pro portfolio, alarmy ve tvé měně, kartu Kryptotrh a widget Portfolio.</string>
     <string name="settings_cost_method">Metoda pořizovací ceny</string>
     <string name="settings_cost_method_average">Průměr (Ø)</string>
     <string name="settings_cost_method_average_hint">Prodeje se oceňují klouzavou průměrnou nákupní cenou.</string>
@@ -155,12 +155,12 @@
     <string name="settings_cost_method_fifo_wallet">FIFO zvlášť pro peněženku/burzu</string>
     <string name="settings_cost_method_fifo_wallet_hint">Nejstarší mince první v každé burze či peněžence; převody přesouvají loty s datem nákupu.</string>
     <string name="settings_portfolio_lock">Zámek portfolia</string>
-    <string name="settings_portfolio_lock_footer">Zámek skrývá zobrazení. Data jsou uložena v tomto zařízení a chrání je šifrování zařízení. Zálohy můžete chránit heslem.</string>
+    <string name="settings_portfolio_lock_footer">Zámek skrývá zobrazení. Data jsou uložena v tomto zařízení a chrání je šifrování zařízení. Zálohy můžeš chránit heslem.</string>
     <string name="settings_portfolio_lock_hint">Skrývá jen portfolio: odemknutí otiskem prstu, obličejem nebo PIN zařízení. Znovu se zamkne po více než minutě na pozadí. Sledované, alarmy a ostatní widgety zůstávají přístupné.</string>
     <string name="settings_portfolio_lock_no_device_lock">Bez PIN nebo kódu zařízení zámek nic neskryje – nastav zámek obrazovky.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">Portfolio v systémové záloze</string>
-    <string name="settings_portfolio_system_backup_hint">Vypnuto: transakce nebudou v systémové záloze zařízení ani při přenosu do nového telefonu. Pro přesun do nového telefonu použijte zálohu aplikace s heslem.</string>
+    <string name="settings_portfolio_system_backup_hint">Vypnuto: transakce nebudou v systémové záloze zařízení ani při přenosu do nového telefonu. Pro přesun do nového telefonu použij zálohu aplikace s heslem.</string>
     <string name="settings_portfolio_system_backup_unavailable">Vyžaduje Android 9 nebo novější – starší verze by uložily portfolio nešifrovaně do zálohy Google.</string>
     <string name="settings_portfolio_tab">Zobrazit kartu Portfolio</string>
     <string name="settings_portfolio_value_locked">Zap., se zámkem</string>
@@ -206,7 +206,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Obnovit aplikaci</string>
     <string name="settings_reset_app_action">Smazat vše</string>
-    <string name="settings_reset_app_confirm">Smaže sledovaný seznam, alarmy, portfolio, nastavení a všechna uložená data jako po instalaci. Nelze vrátit zpět. Tip: nejdříve si vytvořte zálohu. Zálohy zařízení (záloha Google nebo záloha na iCloud či do počítače) uchovávají předchozí data až do příští zálohy.</string>
+    <string name="settings_reset_app_confirm">Smaže sledovaný seznam, alarmy, portfolio, nastavení a všechna uložená data jako po instalaci. Nelze vrátit zpět. Tip: nejdříve si vytvoř zálohu. Zálohy zařízení (záloha Google nebo záloha na iCloud či do počítače) uchovávají předchozí data až do příští zálohy.</string>
     <string name="settings_reset_app_title">Obnovit aplikaci?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
@@ -272,7 +272,7 @@
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Počítá nové alarmy a tržní upozornění; po otevření aplikace zpět na 0.</string>
 
     <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
-    <string name="about_your_data_title">Vaše data</string>
+    <string name="about_your_data_title">Tvoje data</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_label">V zařízení</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
@@ -280,15 +280,15 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">Připojení</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_connections">Kurzy přicházejí přímo z burz vašich párů, k tomu směnné kurzy, seznamy a loga mincí a zrcadlo dat na GitHubu; vidí vaši IP adresu, nikdy vaše držby (sledované adresy jdou k poskytovateli příslušné sítě).</string>
+    <string name="about_data_connections">Kurzy přicházejí přímo z burz tvých párů, k tomu směnné kurzy, seznamy a loga mincí a zrcadlo dat na GitHubu; vidí tvoji IP adresu, nikdy tvoje držby (sledované adresy jdou k poskytovateli příslušné sítě).</string>
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Záloha</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Jen pokud ji vytvoříte; šifrovaná heslem (Argon2id + AES-256-GCM), bez hesla čitelná.</string>
+    <string name="about_data_backup">Jen pokud ji vytvoříš; šifrovaná heslem (Argon2id + AES-256-GCM), bez hesla čitelná.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Změna zařízení</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">Klíč zůstává ve starém zařízení – nejprve vytvořte soubor zálohy.</string>
+    <string name="about_data_device_change">Klíč zůstává ve starém zařízení – nejprve vytvoř soubor zálohy.</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">Sdílet diagnostiku</string>

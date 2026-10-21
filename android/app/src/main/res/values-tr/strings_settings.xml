@@ -45,7 +45,7 @@
     <string name="settings_exact_checks_permission_missing">İzin eksik – cihaz dinlenirken Android düzensiz kontrol eder, bazen ancak saatler sonra.</string>
     <string name="settings_notification_change">Yalnızca fiyat değişince bildir</string>
     <string name="settings_notification_change_always">Her zaman</string>
-    <string name="settings_percent_invalid">0 ile 100 arasında bir değer girin.</string>
+    <string name="settings_percent_invalid">0 ile 100 arasında bir değer gir.</string>
     <string name="settings_notification_change_hint">Bildirim, fiyat bir öncekinden bu yana en az bu kadar değiştiğinde gösterilir. Veri eksikken hiçbir şey gösterilmez. Alarmlar etkilenmez.</string>
     <string name="settings_ongoing_notifications">Kaydırılarak kapatılamaz</string>
     <string name="settings_ongoing_notifications_hint">Fiyat bildirimlerini sabit tutar.</string>
@@ -83,7 +83,7 @@
     <string name="settings_activity_sensitivity">Hassasiyet</string>
     <string name="settings_activity_sensitivity_hint">Bir coinin ne kadar kolay olağandışı sayılacağı – izleme listesi kartı ve bildirimler için aynı. “Daha az” seçiliyken kart yalnızca en güçlü 3 taneyi gösterir.</string>
     <string name="settings_watchlist_activity_card">Dikkat çekici: listede göster</string>
-    <string name="settings_watchlist_activity_card_hint">Grupların yanında ⚡ çipini gösterir: dokunarak yalnızca şu anda bir şeyler olan çiftleri görün. Bildirimler Piyasa bildirimleri bölümünden ayarlanır.</string>
+    <string name="settings_watchlist_activity_card_hint">Grupların yanında ⚡ çipini gösterir: dokunarak yalnızca şu anda bir şeyler olan çiftleri gör. Bildirimler Piyasa bildirimleri bölümünden ayarlanır.</string>
     <string name="settings_watchlist_names">Adları göster</string>
     <string name="settings_watchlist_names_hint">Çiftin altında ad, ör. Bitcoin veya NVIDIA. Logo listeleriyle gelir, tüm coinler için bir kez yüklenir.</string>
     <string name="settings_watchlist_sparkline">İzleme listesinde mini grafik</string>
@@ -113,12 +113,12 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Vurgu rengi</string>
-    <string name="settings_accent_hint">Uygulama, widget\'lar ve uygulama simgesi için renk. Bazı ana ekranlar değişiklikte simgeyi kaldırır – o zaman yeniden ekleyin.</string>
+    <string name="settings_accent_hint">Uygulama, widget\'lar ve uygulama simgesi için renk. Bazı ana ekranlar değişiklikte simgeyi kaldırır – o zaman yeniden ekle.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Coin logoları</string>
     <string name="settings_coin_logos_app">Uygulamada</string>
     <string name="settings_coin_logos_app_hint">Liste, çift sayfası ve piyasa kartları</string>
-    <string name="settings_coin_logos_footer">Logolar CoinGecko\'dan, CoinGecko\'da olmayanlar için (ör. altın, gümüş, hisseler) Binance\'ten gelir. Uygulama tüm logoları tek seferde indirip bu cihazda saklar; böylece hiçbiri hangi coin\'leri takip ettiğinizi bilmez. Logosu olmayan coin\'lerde baş harfler görünür. Favoriler logoda küçük bir yıldız alır. Bir anahtar kapalıysa orada ne logo ne baş harfler görünür; hepsi kapalıyken hiçbir şey yüklenmez.</string>
+    <string name="settings_coin_logos_footer">Logolar CoinGecko\'dan, CoinGecko\'da olmayanlar için (ör. altın, gümüş, hisseler) Binance\'ten gelir. Uygulama tüm logoları tek seferde indirip bu cihazda saklar; böylece hiçbiri hangi coin\'leri takip ettiğini bilmez. Logosu olmayan coin\'lerde baş harfler görünür. Favoriler logoda küçük bir yıldız alır. Bir anahtar kapalıysa orada ne logo ne baş harfler görünür; hepsi kapalıyken hiçbir şey yüklenmez.</string>
     <string name="settings_coin_logos_portfolio">Portföyde</string>
     <string name="settings_coin_logos_portfolio_hint">Pozisyonlar, coin ayrıntıları ve analizler</string>
     <string name="settings_coin_logos_value_app">Uygulama</string>
@@ -146,7 +146,7 @@
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Çevrim para birimi</string>
-    <string name="settings_conversion_currency_hint">Portföy, kendi para biriminizdeki alarmlar, Kripto piyasası kartı ve Portföy widget\'ı için de kullanılır.</string>
+    <string name="settings_conversion_currency_hint">Portföy, kendi para birimindeki alarmlar, Kripto piyasası kartı ve Portföy widget\'ı için de kullanılır.</string>
     <string name="settings_cost_method">Maliyet yöntemi</string>
     <string name="settings_cost_method_average">Ortalama (Ø)</string>
     <string name="settings_cost_method_average_hint">Satışlar hareketli ortalama alış fiyatıyla değerlenir.</string>
@@ -155,12 +155,12 @@
     <string name="settings_cost_method_fifo_wallet">Cüzdan/borsa bazında FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">Her borsa veya cüzdanda önce en eski coin\'ler; transferler lotları alış tarihiyle taşır.</string>
     <string name="settings_portfolio_lock">Portföy kilidi</string>
-    <string name="settings_portfolio_lock_footer">Kilit, görüntülenen bilgileri gizler. Veriler bu cihazda tutulur ve cihaz şifrelemesiyle korunur. Yedekleri bir parolayla koruyabilirsiniz.</string>
-    <string name="settings_portfolio_lock_hint">Yalnızca portföyü gizler: parmak izi, yüz veya cihaz PIN\'i ile kilidi açın. Arka planda bir dakikadan uzun kaldıktan sonra yeniden kilitlenir. İzleme listesi, alarmlar ve diğer widget\'lar açık kalır.</string>
+    <string name="settings_portfolio_lock_footer">Kilit, görüntülenen bilgileri gizler. Veriler bu cihazda tutulur ve cihaz şifrelemesiyle korunur. Yedekleri bir parolayla koruyabilirsin.</string>
+    <string name="settings_portfolio_lock_hint">Yalnızca portföyü gizler: parmak izi, yüz veya cihaz PIN\'i ile kilidi aç. Arka planda bir dakikadan uzun kaldıktan sonra yeniden kilitlenir. İzleme listesi, alarmlar ve diğer widget\'lar açık kalır.</string>
     <string name="settings_portfolio_lock_no_device_lock">Cihaz PIN’i veya şifresi olmadan kilit hiçbir şeyi gizlemez – bir ekran kilidi ayarla.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">Portföy sistem yedeğinde</string>
-    <string name="settings_portfolio_system_backup_hint">Kapalı: işlemleriniz cihazın sistem yedeğine ve yeni telefona aktarıma dahil edilmez. Taşımak için uygulamanın parolalı kendi yedeğini kullanın.</string>
+    <string name="settings_portfolio_system_backup_hint">Kapalı: işlemlerin cihazın sistem yedeğine ve yeni telefona aktarıma dahil edilmez. Taşımak için uygulamanın parolalı kendi yedeğini kullan.</string>
     <string name="settings_portfolio_system_backup_unavailable">Android 9 veya üstü gerekir – eski sürümler portföyü Google yedeğine şifresiz kaydederdi.</string>
     <string name="settings_portfolio_tab">Portföy sekmesini göster</string>
     <string name="settings_portfolio_value_locked">Açık, kilitli</string>
@@ -204,7 +204,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Uygulamayı sıfırla</string>
     <string name="settings_reset_app_action">Tümünü sil</string>
-    <string name="settings_reset_app_confirm">İzleme listesini, alarmları, portföyü, ayarları ve tüm kayıtlı verileri kurulumdan sonraki gibi siler. Geri alınamaz. İpucu: önce yedek alın. Cihaz yedekleri (Google yedeği veya iCloud/bilgisayar yedeği) bir sonraki yedekleme yapılana kadar önceki verileri saklar.</string>
+    <string name="settings_reset_app_confirm">İzleme listesini, alarmları, portföyü, ayarları ve tüm kayıtlı verileri kurulumdan sonraki gibi siler. Geri alınamaz. İpucu: önce yedek al. Cihaz yedekleri (Google yedeği veya iCloud/bilgisayar yedeği) bir sonraki yedekleme yapılana kadar önceki verileri saklar.</string>
     <string name="settings_reset_app_title">Uygulama sıfırlansın mı?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

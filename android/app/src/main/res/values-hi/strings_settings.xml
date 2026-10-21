@@ -12,7 +12,7 @@
     <string name="settings_row_dated_futures">एक्सपायरी वाले फ़्यूचर्स</string>
     <string name="settings_row_updates">कीमत अपडेट</string>
     <string name="settings_row_watchlist">वॉचलिस्ट</string>
-    <string name="settings_search_hint">सेटिंग्स में खोजें</string>
+    <string name="settings_search_hint">सेटिंग्स में खोजो</string>
     <string name="settings_seconds">%1$d सेकंड</string>
     <string name="settings_section_about">ऐप के बारे में</string>
     <string name="settings_section_appearance">रूप</string>
@@ -26,37 +26,37 @@
     <string name="settings_alarm_cooldown">अलार्म दोबारा बजने से पहले शांत समय</string>
     <!-- Ton/Vibration der Kursalarme, je Signal ein Mitteilungskanal -->
     <string name="settings_alarm_signal">अलार्म संकेत</string>
-    <string name="settings_alarm_signal_open_system">सिस्टम सेटिंग में बदलें</string>
+    <string name="settings_alarm_signal_open_system">सिस्टम सेटिंग में बदलो</string>
     <string name="settings_alarm_signal_system_hint">फ़ोन की सूचना सेटिंग के अनुसार।</string>
     <string name="settings_alarm_sound">अलार्म की आवाज़</string>
     <string name="settings_alarm_sound_custom">अपनी आवाज़</string>
     <string name="settings_alarm_sound_default">डिफ़ॉल्ट आवाज़</string>
     <string name="settings_alarm_sound_error">आवाज़ इस्तेमाल नहीं की जा सकी।</string>
     <string name="settings_alarm_sound_file">अपनी ऑडियो फ़ाइल…</string>
-    <string name="settings_alarm_sound_reset">डिफ़ॉल्ट आवाज़ इस्तेमाल करें</string>
-    <string name="settings_alarm_sound_system">सिस्टम आवाज़ चुनें…</string>
+    <string name="settings_alarm_sound_reset">डिफ़ॉल्ट आवाज़ इस्तेमाल करो</string>
+    <string name="settings_alarm_sound_system">सिस्टम आवाज़ चुनो…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">ऐप आइकन पर संख्या</string>
     <string name="settings_app_badge_hint">खुली अलार्म सूचनाएँ गिनता है। संख्या दिखे या बिंदु, यह होम स्क्रीन तय करती है (जैसे Samsung: “संख्या के साथ”)।</string>
     <string name="settings_exact_checks">समय पर जाँच</string>
-    <string name="settings_exact_checks_grant">“अलार्म और रिमाइंडर” की अनुमति दें</string>
+    <string name="settings_exact_checks_grant">“अलार्म और रिमाइंडर” की अनुमति दो</string>
     <string name="settings_exact_checks_hint">Android लगभग हर 15 मिनट में जाँचता है, डिवाइस निष्क्रिय होने पर भी। थोड़ी ज़्यादा बैटरी लगती है।</string>
     <string name="settings_exact_checks_nothing">कोई सक्रिय पेयर नहीं – जाँचने को कुछ नहीं।</string>
     <string name="settings_exact_checks_permission_missing">अनुमति नहीं है – डिवाइस निष्क्रिय होने पर Android अनियमित रूप से जाँचता है, कभी-कभी घंटों बाद।</string>
-    <string name="settings_notification_change">केवल कीमत बदलने पर सूचित करें</string>
+    <string name="settings_notification_change">केवल कीमत बदलने पर सूचित करो</string>
     <string name="settings_notification_change_always">हमेशा</string>
-    <string name="settings_percent_invalid">0 से 100 तक का मान दर्ज करें।</string>
+    <string name="settings_percent_invalid">0 से 100 तक का मान दर्ज करो।</string>
     <string name="settings_notification_change_hint">पिछले नोटिफ़िकेशन के बाद कीमत कम से कम इतनी बदलने पर ही नोटिफ़िकेशन दिखता है। डेटा न होने पर कुछ नहीं दिखाया जाता। अलार्म पर इसका असर नहीं पड़ता।</string>
     <string name="settings_ongoing_notifications">स्वाइप करके हटाया नहीं जा सकता</string>
     <string name="settings_ongoing_notifications_hint">प्राइस नोटिफ़िकेशन को पिन करके रखता है।</string>
     <string name="settings_price_notifications">प्राइस नोटिफ़िकेशन</string>
-    <string name="settings_price_notifications_hint">चालू किए गए पेयर की मौजूदा कीमत स्टेटस बार में दिखाएँ।</string>
+    <string name="settings_price_notifications_hint">चालू किए गए पेयर की मौजूदा कीमत स्टेटस बार में दिखाओ।</string>
     <string name="settings_price_pairs">जोड़े</string>
     <string name="settings_price_pairs_all_off">सभी बंद</string>
     <string name="settings_price_pairs_all_on">सभी चालू</string>
     <string name="settings_price_pairs_count">%2$d में से %1$d</string>
     <string name="settings_price_pairs_empty">वॉचलिस्ट में अभी कोई जोड़ा नहीं है।</string>
-    <string name="settings_price_pairs_hint">चुनें कि किन जोड़ों का भाव सूचना पट्टी में दिखे।</string>
+    <string name="settings_price_pairs_hint">चुनो कि किन जोड़ों का भाव सूचना पट्टी में दिखे।</string>
     <string name="settings_quiet_hours">मौन घंटे</string>
     <string name="settings_quiet_hours_from">से</string>
     <string name="settings_quiet_hours_hint">%1$s से %2$s के बीच अलार्म मौन घंटे खत्म होने तक रुकते हैं और फिर आवाज़ के साथ बजते हैं। बाकी सूचनाएँ चुपचाप आती हैं, बिना बोलकर सूचना के।</string>
@@ -69,22 +69,22 @@
     <string name="settings_battery_ok">बैटरी उपयोग: अप्रतिबंधित</string>
     <string name="settings_battery_restricted">बैटरी उपयोग: प्रतिबंधित</string>
     <string name="settings_check_runs_empty">अभी तक कोई जाँच दर्ज नहीं हुई।</string>
-    <string name="settings_check_runs_honest_android">कब जाँचना है यह Android तय करता है – यहाँ आप देखते हैं कि असल में कब हुआ।</string>
-    <string name="settings_check_runs_honest_ios">कब जाँचना है यह iOS तय करता है – यहाँ आप देखते हैं कि असल में कब हुआ।</string>
+    <string name="settings_check_runs_honest_android">कब जाँचना है यह Android तय करता है – यहाँ तुम देखते हो कि असल में कब हुआ।</string>
+    <string name="settings_check_runs_honest_ios">कब जाँचना है यह iOS तय करता है – यहाँ तुम देखते हो कि असल में कब हुआ।</string>
     <string name="settings_check_runs_title">हाल की जाँचें</string>
-    <string name="settings_http_log">HTTP लॉग दिखाएँ</string>
-    <string name="settings_http_log_hint">“पेयर जोड़ें” पेज के नीचे एक्सचेंजों को भेजे गए अनुरोध दिखाता है – समस्या खोजने के लिए।</string>
-    <string name="settings_live_service">बार-बार अपडेट करें</string>
+    <string name="settings_http_log">HTTP लॉग दिखाओ</string>
+    <string name="settings_http_log_hint">“पेयर जोड़ो” पेज के नीचे एक्सचेंजों को भेजे गए अनुरोध दिखाता है – समस्या खोजने के लिए।</string>
+    <string name="settings_live_service">बार-बार अपडेट करो</string>
     <string name="settings_live_websocket">लाइव भाव</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->
-    <string name="settings_activity_alerts">उल्लेखनीय: सूचित करें</string>
+    <string name="settings_activity_alerts">उल्लेखनीय: सूचित करो</string>
     <string name="settings_activity_alerts_hint">हर पेयर के लिए घंटे में अधिकतम एक बार: असामान्य भाव हलचल, वॉल्यूम स्पाइक और फ़्यूचर्स की चरम स्थितियाँ (डेटा Binance से)।</string>
     <string name="settings_activity_sensitivity">संवेदनशीलता</string>
     <string name="settings_activity_sensitivity_hint">कोई कॉइन कितनी आसानी से असामान्य माना जाए – वॉचलिस्ट कार्ड और सूचनाओं के लिए एक जैसा। “कम” पर कार्ड केवल 3 सबसे मज़बूत दिखाता है।</string>
-    <string name="settings_watchlist_activity_card">उल्लेखनीय: सूची में दिखाएँ</string>
-    <string name="settings_watchlist_activity_card_hint">समूहों के पास ⚡ चिप दिखाता है: टैप करें और केवल वे पेयर देखें जिनमें अभी कुछ हो रहा है। सूचनाएँ बाज़ार सूचनाएँ में सेट होती हैं।</string>
-    <string name="settings_watchlist_names">नाम दिखाएँ</string>
+    <string name="settings_watchlist_activity_card">उल्लेखनीय: सूची में दिखाओ</string>
+    <string name="settings_watchlist_activity_card_hint">समूहों के पास ⚡ चिप दिखाता है: टैप करो और केवल वे पेयर देखो जिनमें अभी कुछ हो रहा है। सूचनाएँ बाज़ार सूचनाएँ में सेट होती हैं।</string>
+    <string name="settings_watchlist_names">नाम दिखाओ</string>
     <string name="settings_watchlist_names_hint">जोड़ी के नीचे नाम, जैसे Bitcoin या NVIDIA। लोगो सूचियों के साथ आता है, सभी कॉइन के लिए एक बार लोड होता है।</string>
     <string name="settings_watchlist_sparkline">वॉचलिस्ट में मिनी चार्ट</string>
     <string name="settings_watchlist_sparkline_hint">कीमत के पास 24 घंटे का रुझान</string>
@@ -113,12 +113,12 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">एक्सेंट रंग</string>
-    <string name="settings_accent_hint">ऐप, विजेट और ऐप आइकन का रंग। कुछ होम स्क्रीन बदलने पर आइकन हटा देती हैं – तब इसे फिर से जोड़ें।</string>
+    <string name="settings_accent_hint">ऐप, विजेट और ऐप आइकन का रंग। कुछ होम स्क्रीन बदलने पर आइकन हटा देती हैं – तब इसे फिर से जोड़ो।</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">कॉइन लोगो</string>
     <string name="settings_coin_logos_app">ऐप में</string>
     <string name="settings_coin_logos_app_hint">वॉचलिस्ट, खुली जोड़ी और मार्केट कार्ड</string>
-    <string name="settings_coin_logos_footer">लोगो CoinGecko से आते हैं, और जो CoinGecko पर नहीं हैं (जैसे सोना, चांदी, शेयर) वे Binance से। ऐप सभी लोगो एक साथ डाउनलोड करके इसी डिवाइस पर रखता है, इसलिए दोनों में से कोई नहीं जान पाता कि आप कौन-से कॉइन फ़ॉलो करते हैं। बिना लोगो वाले कॉइन के शुरुआती अक्षर दिखते हैं। पसंदीदा कॉइन के लोगो पर एक छोटा सितारा दिखता है। जहाँ स्विच बंद है, वहाँ न लोगो दिखता है न शुरुआती अक्षर; सब बंद होने पर कुछ भी लोड नहीं होता।</string>
+    <string name="settings_coin_logos_footer">लोगो CoinGecko से आते हैं, और जो CoinGecko पर नहीं हैं (जैसे सोना, चांदी, शेयर) वे Binance से। ऐप सभी लोगो एक साथ डाउनलोड करके इसी डिवाइस पर रखता है, इसलिए दोनों में से कोई नहीं जान पाता कि तुम कौन-से कॉइन फ़ॉलो करते हो। बिना लोगो वाले कॉइन के शुरुआती अक्षर दिखते हैं। पसंदीदा कॉइन के लोगो पर एक छोटा सितारा दिखता है। जहाँ स्विच बंद है, वहाँ न लोगो दिखता है न शुरुआती अक्षर; सब बंद होने पर कुछ भी लोड नहीं होता।</string>
     <string name="settings_coin_logos_portfolio">पोर्टफ़ोलियो में</string>
     <string name="settings_coin_logos_portfolio_hint">पोज़िशन, कॉइन विवरण और विश्लेषण</string>
     <string name="settings_coin_logos_value_app">ऐप</string>
@@ -126,7 +126,7 @@
     <string name="settings_coin_logos_widgets_hint">वॉचलिस्ट और एक-कॉइन विजेट</string>
     <string name="settings_high_contrast">उच्च कंट्रास्ट</string>
     <string name="settings_high_contrast_hint">भाव के ज़्यादा गहरे रंग और गहरा सहायक टेक्स्ट। सिस्टम के ज़्यादा कंट्रास्ट माँगने पर भी चालू रहता है।</string>
-    <string name="settings_language_choose">भाषा चुनें</string>
+    <string name="settings_language_choose">भाषा चुनो</string>
     <string name="settings_language_system">सिस्टम भाषा</string>
     <string name="settings_price_colors">कीमत के रंग</string>
     <string name="settings_price_colors_hint">नीला / नारंगी हर तरह की रंग-दृष्टि कमी (लाल-हरा और नीला-पीला) में आसानी से पहचाना जाता है। दिशा हमेशा + / − से भी दिखाई जाती है।</string>
@@ -141,12 +141,12 @@
     <string name="settings_change_basis_hint_3">अलार्म पर इसका असर नहीं होता।</string>
     <string name="settings_change_basis_hint_since_last">“%1$s” पिछले अपडेट के भाव से तुलना करता है। लाइव भाव में यह 0%% के करीब रहता है।</string>
     <!-- Zeitraum («24h», «heute», «letzter Stand») neben der Pille zeigen, ab Werk aus -->
-    <string name="settings_change_period">बदलाव के पास अवधि दिखाएँ</string>
+    <string name="settings_change_period">बदलाव के पास अवधि दिखाओ</string>
     <string name="settings_change_period_hint">पल्स लाइन और एक-कॉइन विजेट में बदलाव के पास छोटा “24h”, “आज” या “पिछला अपडेट”। वॉचलिस्ट इसे हमेशा दिखाती है; स्क्रीन रीडर इसे हमेशा बोलता है।</string>
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">रूपांतरण मुद्रा</string>
-    <string name="settings_conversion_currency_hint">पोर्टफ़ोलियो, आपकी मुद्रा में अलार्म, क्रिप्टो बाज़ार कार्ड और पोर्टफ़ोलियो विजेट के लिए भी उपयोग होती है।</string>
+    <string name="settings_conversion_currency_hint">पोर्टफ़ोलियो, तुम्हारी मुद्रा में अलार्म, क्रिप्टो बाज़ार कार्ड और पोर्टफ़ोलियो विजेट के लिए भी उपयोग होती है।</string>
     <string name="settings_cost_method">लागत पद्धति</string>
     <string name="settings_cost_method_average">औसत (Ø)</string>
     <string name="settings_cost_method_average_hint">बिक्री को चलते औसत खरीद भाव पर आँका जाता है।</string>
@@ -155,14 +155,14 @@
     <string name="settings_cost_method_fifo_wallet">हर वॉलेट/एक्सचेंज के लिए FIFO</string>
     <string name="settings_cost_method_fifo_wallet_hint">हर एक्सचेंज या वॉलेट में सबसे पुराने कॉइन पहले; ट्रांसफ़र लॉट को उनकी खरीद तिथि के साथ ले जाते हैं।</string>
     <string name="settings_portfolio_lock">पोर्टफ़ोलियो लॉक</string>
-    <string name="settings_portfolio_lock_footer">यह लॉक स्क्रीन पर दिखने वाली जानकारी को छिपाता है। डेटा इसी डिवाइस पर रहता है और डिवाइस एन्क्रिप्शन से सुरक्षित है। आप बैकअप को पासवर्ड से सुरक्षित कर सकते हैं।</string>
-    <string name="settings_portfolio_lock_hint">केवल पोर्टफ़ोलियो को छिपाता है: फ़िंगरप्रिंट, चेहरे या डिवाइस PIN से अनलॉक करें। बैकग्राउंड में एक मिनट से ज़्यादा रहने पर फिर लॉक हो जाता है। वॉचलिस्ट, अलार्म और बाकी विजेट खुले रहते हैं।</string>
-    <string name="settings_portfolio_lock_no_device_lock">डिवाइस PIN या पासकोड के बिना लॉक कुछ भी नहीं छिपाता – स्क्रीन लॉक सेट करें।</string>
+    <string name="settings_portfolio_lock_footer">यह लॉक स्क्रीन पर दिखने वाली जानकारी को छिपाता है। डेटा इसी डिवाइस पर रहता है और डिवाइस एन्क्रिप्शन से सुरक्षित है। तुम बैकअप को पासवर्ड से सुरक्षित कर सकते हो।</string>
+    <string name="settings_portfolio_lock_hint">केवल पोर्टफ़ोलियो को छिपाता है: फ़िंगरप्रिंट, चेहरे या डिवाइस PIN से अनलॉक करो। बैकग्राउंड में एक मिनट से ज़्यादा रहने पर फिर लॉक हो जाता है। वॉचलिस्ट, अलार्म और बाकी विजेट खुले रहते हैं।</string>
+    <string name="settings_portfolio_lock_no_device_lock">डिवाइस PIN या पासकोड के बिना लॉक कुछ भी नहीं छिपाता – स्क्रीन लॉक सेट करो।</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">सिस्टम बैकअप में पोर्टफ़ोलियो</string>
-    <string name="settings_portfolio_system_backup_hint">बंद: आपके लेन-देन डिवाइस के सिस्टम बैकअप और नए फ़ोन में ट्रांसफ़र में शामिल नहीं होते। उन्हें नए फ़ोन पर ले जाने के लिए ऐप का अपना पासवर्ड वाला बैकअप इस्तेमाल करें।</string>
+    <string name="settings_portfolio_system_backup_hint">बंद: तुम्हारे लेन-देन डिवाइस के सिस्टम बैकअप और नए फ़ोन में ट्रांसफ़र में शामिल नहीं होते। उन्हें नए फ़ोन पर ले जाने के लिए ऐप का अपना पासवर्ड वाला बैकअप इस्तेमाल करो।</string>
     <string name="settings_portfolio_system_backup_unavailable">Android 9 या नया चाहिए – पुराने संस्करण पोर्टफ़ोलियो को Google बैकअप में बिना एन्क्रिप्शन सहेजते।</string>
-    <string name="settings_portfolio_tab">पोर्टफ़ोलियो टैब दिखाएँ</string>
+    <string name="settings_portfolio_tab">पोर्टफ़ोलियो टैब दिखाओ</string>
     <string name="settings_portfolio_value_locked">चालू, लॉक के साथ</string>
     <string name="settings_show_converted">बदली हुई कीमतें</string>
     <string name="settings_show_converted_hint">वॉचलिस्ट में कीमतें %1$s में भी दिखाता है</string>
@@ -171,8 +171,8 @@
     <string name="settings_depeg_alarm">USDT डीपेग की सूचना</string>
     <string name="settings_depeg_alarm_hint">जब USDT सीमा जितना 1 USD से हटता है, तो एक बार सूचना देता है (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT)।</string>
     <string name="settings_depeg_threshold">डीपेग सीमा</string>
-    <string name="settings_fng_above">Fear &amp; Greed: इससे ऊपर सूचित करें</string>
-    <string name="settings_fng_below">Fear &amp; Greed: इससे नीचे सूचित करें</string>
+    <string name="settings_fng_above">Fear &amp; Greed: इससे ऊपर सूचित करो</string>
+    <string name="settings_fng_below">Fear &amp; Greed: इससे नीचे सूचित करो</string>
     <string name="settings_gas_alert_hint">सामान्य शुल्क सीमा से नीचे जाने पर एक बार सूचित करता है। कीमत अपडेट के समय जाँचा जाता है, ज़्यादा से ज़्यादा हर 10 मिनट में।</string>
     <string name="settings_gas_btc_below">Bitcoin शुल्क इससे नीचे (sat/vB)</string>
     <string name="settings_gas_eth_below">Ethereum गैस इससे नीचे (gwei)</string>
@@ -181,7 +181,7 @@
     <string name="settings_ind_mayer_below">Mayer Multiple इससे नीचे</string>
     <string name="settings_ind_mvrv_above">MVRV इससे ऊपर</string>
     <string name="settings_ind_mvrv_below">MVRV इससे नीचे</string>
-    <string name="settings_indicator_alerts_hint">बिटकॉइन संकेतक, दिन में दो बार जाँचे जाते हैं। सीमाएँ आप चुनते हैं – ऐप मानों का मूल्यांकन नहीं करता।</string>
+    <string name="settings_indicator_alerts_hint">बिटकॉइन संकेतक, दिन में दो बार जाँचे जाते हैं। सीमाएँ तुम चुनते हो – ऐप मानों का मूल्यांकन नहीं करता।</string>
     <string name="settings_macro_notifications">आर्थिक कैलेंडर</string>
     <string name="settings_macro_notifications_hint">महत्वपूर्ण अमेरिकी आर्थिक आँकड़ों (महँगाई, जॉब्स रिपोर्ट, फ़ेड फ़ैसला) वाले दिनों में 08:00 बजे। कैलेंडर ऐप की वेबसाइट से दिन में एक बार लोड होता है।</string>
     <string name="settings_market_alerts">बाज़ार सूचनाएँ</string>
@@ -195,22 +195,22 @@
     <string name="settings_speech_rate">बोलने की गति: %1$.1f×</string>
     <string name="settings_tts">बोलकर आउटपुट</string>
     <string name="settings_tts_alarms_only">केवल अलार्म</string>
-    <string name="settings_tts_alarms_only_hint">बंद: “कीमत बोलें” वाले हर पेयर का हर अपडेट बोला जाता है।</string>
+    <string name="settings_tts_alarms_only_hint">बंद: “कीमत बोलो” वाले हर पेयर का हर अपडेट बोला जाता है।</string>
     <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
     <string name="settings_tts_hint_silent">कीमतें और अलार्म बोलकर सुनाता है। जब तक डिवाइस साइलेंट या वाइब्रेट मोड में है, चुप रहता है।</string>
-    <string name="settings_tts_test">आवाज़ जाँचें</string>
+    <string name="settings_tts_test">आवाज़ जाँचो</string>
 
     <!-- Einstellungen › Daten: App zurücksetzen -->
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
-    <string name="settings_reset_app">ऐप रीसेट करें</string>
-    <string name="settings_reset_app_action">सब हटाएँ</string>
-    <string name="settings_reset_app_confirm">वॉचलिस्ट, अलार्म, पोर्टफ़ोलियो, सेटिंग्स और सारा सहेजा डेटा हटाता है, जैसे इंस्टॉल के बाद। इसे पूर्ववत नहीं किया जा सकता। सुझाव: पहले बैकअप बना लें। डिवाइस के बैकअप (Google बैकअप या iCloud/कंप्यूटर बैकअप) अगला बैकअप चलने तक पुराना डेटा रखते हैं।</string>
-    <string name="settings_reset_app_title">ऐप रीसेट करें?</string>
+    <string name="settings_reset_app">ऐप रीसेट करो</string>
+    <string name="settings_reset_app_action">सब हटाओ</string>
+    <string name="settings_reset_app_confirm">वॉचलिस्ट, अलार्म, पोर्टफ़ोलियो, सेटिंग्स और सारा सहेजा डेटा हटाता है, जैसे इंस्टॉल के बाद। इसे पूर्ववत नहीं किया जा सकता। सुझाव: पहले बैकअप बना लो। डिवाइस के बैकअप (Google बैकअप या iCloud/कंप्यूटर बैकअप) अगला बैकअप चलने तक पुराना डेटा रखते हैं।</string>
+    <string name="settings_reset_app_title">ऐप रीसेट करो?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
     <!-- Suchfeld der Währungsseite -->
-    <string name="currency_search">मुद्रा खोजें</string>
-    <string name="language_search">भाषा खोजें</string>
+    <string name="currency_search">मुद्रा खोजो</string>
+    <string name="language_search">भाषा खोजो</string>
 
     <!-- Theme -->
     <string name="theme_dark">डार्क</string>
@@ -227,7 +227,7 @@
 
     <!-- Kursfarben -->
     <string name="price_colors_red_up_hint">चीन, जापान, कोरिया और ताइवान में आम</string>
-    <string name="price_colors_swap">रंग अदला-बदली करें (बढ़त ↔ गिरावट)</string>
+    <string name="price_colors_swap">रंग अदला-बदली करो (बढ़त ↔ गिरावट)</string>
     <string name="price_style_calm">शांत</string>
     <string name="price_style_calm_color_vision">शांत · रंग दृष्टि दोष</string>
     <string name="price_style_color_vision">रंग दृष्टि दोष</string>
@@ -241,7 +241,7 @@
     <string name="about_licenses">लाइसेंस</string>
     <string name="about_privacy_policy">गोपनीयता नीति</string>
     <!-- GitHub-Vorlage exchange_request.md -->
-    <string name="about_request_exchange">एक्सचेंज का अनुरोध करें</string>
+    <string name="about_request_exchange">एक्सचेंज का अनुरोध करो</string>
     <string name="about_source_code">GitHub पर सोर्स कोड</string>
     <string name="about_version">Crypto Checker %1$s</string>
     <string name="about_why">Crypto Checker, r1AD का एक स्वतंत्र प्रोजेक्ट है: बिना खाते, विज्ञापन या ट्रैकिंग के भावों का शांत ओवरव्यू। सवाल और सुझाव: %1$s</string>
@@ -268,7 +268,7 @@
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">नए अलार्म और बाज़ार सूचनाएँ गिनता है; ऐप खोलने पर फिर 0।</string>
 
     <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
-    <string name="about_your_data_title">आपका डेटा</string>
+    <string name="about_your_data_title">तुम्हारा डेटा</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_label">डिवाइस पर</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
@@ -276,19 +276,19 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">कनेक्शन</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_connections">भाव सीधे आपके पेयर के एक्सचेंजों से आते हैं, साथ में विनिमय दरें, कॉइन सूचियाँ व लोगो और GitHub पर डेटा मिरर; ये आपका IP पता देखते हैं, आपकी होल्डिंग कभी नहीं (देखे जा रहे पते संबंधित नेटवर्क के प्रदाता को जाते हैं)।</string>
+    <string name="about_data_connections">भाव सीधे तुम्हारे पेयर के एक्सचेंजों से आते हैं, साथ में विनिमय दरें, कॉइन सूचियाँ व लोगो और GitHub पर डेटा मिरर; ये तुम्हारा IP पता देखते हैं, तुम्हारी होल्डिंग कभी नहीं (देखे जा रहे पते संबंधित नेटवर्क के प्रदाता को जाते हैं)।</string>
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">बैकअप</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">सिर्फ़ तब जब आप इसे बनाएँ; पासवर्ड के साथ एन्क्रिप्टेड (Argon2id + AES-256-GCM), बिना पासवर्ड के पढ़ने योग्य।</string>
+    <string name="about_data_backup">सिर्फ़ तब जब तुम इसे बनाओ; पासवर्ड के साथ एन्क्रिप्टेड (Argon2id + AES-256-GCM), बिना पासवर्ड के पढ़ने योग्य।</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">डिवाइस बदलना</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">कुंजी पुराने डिवाइस पर ही रहती है – पहले एक बैकअप फ़ाइल बनाएँ।</string>
+    <string name="about_data_device_change">कुंजी पुराने डिवाइस पर ही रहती है – पहले एक बैकअप फ़ाइल बनाओ।</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
-    <string name="diagnostics_share">डायग्नोस्टिक शेयर करें</string>
-    <string name="diagnostics_share_hint">सपोर्ट के लिए टेक्स्ट फ़ाइल: वर्ज़न, डिवाइस, अलार्म सेटिंग, हाल की जाँचें और अलार्म लॉग – पोर्टफ़ोलियो, राशि, पते या नोट्स के बिना। पहले आप इसे देखते हैं; कुछ भी अपने-आप नहीं भेजा जाता।</string>
+    <string name="diagnostics_share">डायग्नोस्टिक शेयर करो</string>
+    <string name="diagnostics_share_hint">सपोर्ट के लिए टेक्स्ट फ़ाइल: वर्ज़न, डिवाइस, अलार्म सेटिंग, हाल की जाँचें और अलार्म लॉग – पोर्टफ़ोलियो, राशि, पते या नोट्स के बिना। पहले तुम इसे देखते हो; कुछ भी अपने-आप नहीं भेजा जाता।</string>
     <string name="diagnostics_preview_title">डायग्नोस्टिक – पूर्वावलोकन</string>
-    <string name="diagnostics_action_share">शेयर करें</string>
+    <string name="diagnostics_action_share">शेयर करो</string>
 </resources>

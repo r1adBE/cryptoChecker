@@ -56,6 +56,9 @@
         <item quantity="many">%1$d pares</item>
         <item quantity="other">%1$d pares</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">Por encima de los límites (%3$s pares, %4$s alarmas por par), no se restaurarán: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Por encima de los límites (%3$s pares, %4$s alarmas por par), no restaurados: %1$s, %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">Este dispositivo ya no tiene la clave de los datos cifrados de la app, así que se ha iniciado vacía. No se ha borrado nada. Para recuperar tu lista y tu cartera, importa un archivo de copia en Ajustes, en «%1$s».</string>

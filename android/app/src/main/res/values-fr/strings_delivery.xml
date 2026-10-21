@@ -19,7 +19,7 @@
     <string name="delivery_exact_off">Désactivé – Android vérifie irrégulièrement</string>
     <string name="delivery_battery">Optimisation de la batterie</string>
     <string name="delivery_battery_unrestricted">Non restreinte</string>
-    <string name="delivery_battery_optimized">Optimisée – Android peut retarder les vérifications. L\'app ne demande pas d\'exception ; vous pouvez le modifier dans les réglages de batterie de l\'app.</string>
+    <string name="delivery_battery_optimized">Optimisée – Android peut retarder les vérifications. L\'app ne demande pas d\'exception ; tu peux le modifier dans les réglages de batterie de l\'app.</string>
     <string name="delivery_background">Utilisation en arrière-plan</string>
     <string name="delivery_background_restricted">Restreinte – Android arrête les vérifications en arrière-plan</string>
     <string name="delivery_dnd">Ne pas déranger</string>
@@ -45,19 +45,19 @@
     <string name="delivery_background_refresh">Actualisation en arrière-plan</string>
     <string name="delivery_low_power">Mode économie d\'énergie</string>
     <string name="delivery_swipe_away">App balayée ?</string>
-    <string name="delivery_swipe_away_note">Si vous balayez l\'app dans le sélecteur d\'apps, iOS ne vérifie plus en arrière-plan jusqu\'à ce que vous la rouvriez.</string>
+    <string name="delivery_swipe_away_note">Si tu balaies l\'app dans le sélecteur d\'apps, iOS ne vérifie plus en arrière-plan jusqu\'à ce que tu la rouvres.</string>
     <string name="delivery_live_activity">Activité en direct</string>
     <string name="delivery_live_activity_note">Affiche le cours sur l\'écran verrouillé, mais n\'est mise à jour que lorsque l\'app vérifie – les alertes ne sont pas vérifiées plus souvent pour autant.</string>
 
     <string name="alarm_first_check">Vérifier que les alertes arrivent</string>
 
     <string name="oem_battery_title">Économie de batterie du fabricant</string>
-    <string name="oem_battery_xiaomi">Xiaomi peut arrêter complètement l’app – aucune alerte n’arrive alors. Activez « Démarrage automatique » et réglez l’économiseur sur « Aucune restriction ».</string>
-    <string name="oem_battery_samsung">Samsung peut mettre l’app en veille profonde – aucune alerte n’arrive alors. Dans Batterie › Limites d’utilisation en arrière-plan, ajoutez-la aux « Applis jamais en veille ».</string>
-    <string name="oem_battery_huawei">Huawei/Honor peut arrêter l’app – aucune alerte n’arrive alors. Dans Batterie › Lancement d’applis, choisissez « Gérer manuellement » et autorisez tout.</string>
-    <string name="oem_battery_oneplus">OnePlus peut arrêter l’app – aucune alerte n’arrive alors. Autorisez « Lancement automatique » et, dans Utilisation de la batterie, l’activité en arrière-plan.</string>
-    <string name="oem_battery_oppo">Oppo/Realme peut arrêter l’app – aucune alerte n’arrive alors. Autorisez « Lancement automatique » et, dans Utilisation de la batterie, l’activité en arrière-plan.</string>
-    <string name="oem_battery_vivo">Vivo peut arrêter l’app – aucune alerte n’arrive alors. Autorisez « Démarrage automatique » et, dans Batterie, la forte consommation en arrière-plan.</string>
+    <string name="oem_battery_xiaomi">Xiaomi peut arrêter complètement l’app – aucune alerte n’arrive alors. Active « Démarrage automatique » et règle l’économiseur sur « Aucune restriction ».</string>
+    <string name="oem_battery_samsung">Samsung peut mettre l’app en veille profonde – aucune alerte n’arrive alors. Dans Batterie › Limites d’utilisation en arrière-plan, ajoute-la aux « Applis jamais en veille ».</string>
+    <string name="oem_battery_huawei">Huawei/Honor peut arrêter l’app – aucune alerte n’arrive alors. Dans Batterie › Lancement d’applis, choisis « Gérer manuellement » et autorise tout.</string>
+    <string name="oem_battery_oneplus">OnePlus peut arrêter l’app – aucune alerte n’arrive alors. Autorise « Lancement automatique » et, dans Utilisation de la batterie, l’activité en arrière-plan.</string>
+    <string name="oem_battery_oppo">Oppo/Realme peut arrêter l’app – aucune alerte n’arrive alors. Autorise « Lancement automatique » et, dans Utilisation de la batterie, l’activité en arrière-plan.</string>
+    <string name="oem_battery_vivo">Vivo peut arrêter l’app – aucune alerte n’arrive alors. Autorise « Démarrage automatique » et, dans Batterie, la forte consommation en arrière-plan.</string>
     <string name="alarm_reliability_recent">Dernière vérification %1$s</string>
     <string name="alarm_reliability_stale">Dernière vérification %1$s – les alertes peuvent arriver en retard</string>
     <string name="alarm_reliability_never">Alertes actives – aucune vérification en arrière-plan pour l\'instant</string>

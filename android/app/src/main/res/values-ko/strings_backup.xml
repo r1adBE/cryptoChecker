@@ -50,6 +50,9 @@
     <plurals name="backup_restored_pairs">
         <item quantity="other">거래쌍 %1$d개</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">한도(거래쌍 %3$s개, 거래쌍당 경보 %4$s개)를 넘어 복원되지 않습니다: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">한도(거래쌍 %3$s개, 거래쌍당 경보 %4$s개)를 넘어 복원되지 않았습니다: %1$s, %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">이 기기에 앱의 암호화된 데이터 키가 더 이상 없어 앱이 빈 상태로 시작되었습니다. 삭제된 것은 없습니다. 목록과 포트폴리오를 되찾으려면 설정의 “%1$s”에서 백업 파일을 가져오세요.</string>

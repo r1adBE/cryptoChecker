@@ -40,6 +40,8 @@
     <string name="portfolio_csv_import_transfers_hint">Penarikan dan setoran yang cocok dari koin yang sama menjadi satu transfer: harga beli dan lama kepemilikan tetap, selisihnya dihitung sebagai biaya jaringan.</string>
     <string name="portfolio_csv_import_transfers_title">Transfer antar akunmu</string>
     <string name="portfolio_csv_import_unreadable">Tidak ada transaksi yang didukung. Didukung: ekspor CSV dari Relai, Swissquote, Kraken, Binance, Coinbase dan Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">File terlalu besar untuk diimpor (maks. 16 MB dan %1$s baris). Ekspor periode yang lebih pendek lalu impor satu per satu.</string>
     <string name="portfolio_csv_import_failed">Impor gagal – tidak ada yang disimpan. Silakan coba lagi.</string>
     <string name="portfolio_csv_import_locked">Impor tidak dapat dilakukan: data tersimpan tidak dapat dibaca saat ini. Mulai ulang aplikasi.</string>
     <string name="portfolio_csv_import_withdrawals_title">Penarikan – ke mana koinnya pergi?</string>

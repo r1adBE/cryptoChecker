@@ -54,6 +54,29 @@ final class CsvTokenizeLimitsTests: XCTestCase {
         XCTAssertTrue(long.tooLarge)
     }
 
+    /// Zu gross wird als «zu gross» gemeldet, nicht als fremdes Format (seit Build 99): die Vorschau trägt
+    /// `CsvImportResult.tooLarge` weiter, `CsvImportRefusal` wählt die Meldung. Gleiche Fälle: Android `CsvTokenizeLimitsTest`.
+    func testZuGrosseDateiMeldetZuGross() {
+        func preview(_ text: String) -> CsvImportPreview {
+            CsvImportMapping.preview(CsvImportParser.parse(text), existingKeys: []) { _, _ in nil }
+        }
+        let wideRow = Array(repeating: "x", count: CsvImportParser.maxCellsPerRow + 1).joined(separator: ",")
+        let wide = preview(header + row + wideRow + "\n")
+        XCTAssertTrue(wide.tooLarge)
+        XCTAssertEqual(CsvImportRefusal.of(fileTooLarge: false, preview: wide), .tooLarge)
+        let long = preview(header + String(repeating: "x\n", count: CsvImportParser.maxRows))
+        XCTAssertEqual(CsvImportRefusal.of(fileTooLarge: false, preview: long), .tooLarge)
+        // Über 16 MB: das Lesen bricht ab, keine Vorschau
+        XCTAssertEqual(CsvImportRefusal.of(fileTooLarge: true, preview: nil), .tooLarge)
+        // Fremdes Format oder nicht lesbar: wie bisher
+        XCTAssertEqual(CsvImportRefusal.of(fileTooLarge: false, preview: preview("a,b,c\n1,2,3\n")), .unreadable)
+        XCTAssertEqual(CsvImportRefusal.of(fileTooLarge: false, preview: nil), .unreadable)
+        // Lesbare Datei: Vorschau
+        let ok = preview(header + row)
+        XCTAssertFalse(ok.tooLarge)
+        XCTAssertNil(CsvImportRefusal.of(fileTooLarge: false, preview: ok))
+    }
+
     /// Bestehender Aufruf ohne Grenzen-Ergebnis: über den Grenzen leer.
     func testTokenizeUeberGrenzenLeer() {
         XCTAssertTrue(CsvImportParser.tokenize(scalars("a" + String(repeating: ",", count: 300)), delimiter: ",").isEmpty)

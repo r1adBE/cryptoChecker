@@ -2,7 +2,7 @@
 <resources>
     <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
     <string name="cost_gaps_card">Записи без вартості придбання: %1$d</string>
-    <string name="cost_gaps_card_text">Додайте вартість, щоб прибуток і податки були повними.</string>
+    <string name="cost_gaps_card_text">Додай вартість, щоб прибуток і податки були повними.</string>
     <string name="cost_gaps_sheet_title">Записи без вартості придбання</string>
     <string name="cost_gaps_sheet_intro">Цим надходженням бракує вартості придбання. Пропозиція — ціна закриття дня; її можна змінити в записі.</string>
     <string name="cost_gaps_empty">Усі записи мають вартість придбання.</string>
@@ -20,7 +20,7 @@
     <string name="cost_gap_apply">Застосувати</string>
     <string name="address_lots_action">Вартість для балансу адреси</string>
     <string name="address_lots_title">Вартість для балансу адреси</string>
-    <string name="address_lots_intro">Вкажіть дату купівлі, кількість і вартість для балансу цієї адреси. Партії вважаються купівлями на цій адресі; непокрита частина лишається без вартості.</string>
+    <string name="address_lots_intro">Вкажи дату купівлі, кількість і вартість для балансу цієї адреси. Партії вважаються купівлями на цій адресі; непокрита частина лишається без вартості.</string>
     <string name="address_lots_add">Додати партію</string>
     <string name="address_lots_new">Нова партія</string>
     <string name="address_lots_edit">Партія</string>
@@ -36,5 +36,5 @@
     <!-- %1$s = Menge der Posten über dem Guthaben -->
     <string name="address_lots_capped">Партії перевищують баланс на %1$s — найстаріші витрачаються першими.</string>
     <string name="address_lots_not_loaded">Баланс ще не завантажено — партії врахуються, щойно він з’явиться.</string>
-    <string name="address_lots_invalid">Вкажіть кількість і вартість</string>
+    <string name="address_lots_invalid">Вкажи кількість і вартість</string>
 </resources>

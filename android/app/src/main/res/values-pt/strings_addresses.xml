@@ -7,21 +7,21 @@
     <string name="portfolio_address_hint">Endereço público (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ou xpub</string>
     <string name="portfolio_address_label">Etiqueta (opcional)</string>
     <string name="portfolio_address_not_since_buy">Do endereço · fora de «Desde a compra»: %1$s</string>
-    <string name="portfolio_address_overlap">Também nas suas próprias transações: %1$s – ambos são somados. As mesmas moedas? Escolha «Apenas mostrar».</string>
-    <string name="portfolio_address_overlap_ask">Já regista %1$s com as suas próprias transações. Somar o saldo deste endereço ao portefólio ou apenas mostrá-lo?</string>
-    <string name="portfolio_address_overlap_auto">«%1$s» passa a ser apenas mostrado, não somado – %2$s também constam nas suas transações.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» volta a contar – as quantidades não correspondem às suas transações. Escolha «Apenas mostrar» se forem as mesmas moedas.</string>
-    <string name="portfolio_address_overlap_title">As mesmas moedas das suas transações?</string>
-    <string name="portfolio_address_overlap_tx">A mesma quantidade do seu depósito/transferência (%1$s) – provavelmente contado duas vezes.</string>
+    <string name="portfolio_address_overlap">Também nas tuas próprias transações: %1$s – ambos são somados. As mesmas moedas? Escolhe «Apenas mostrar».</string>
+    <string name="portfolio_address_overlap_ask">Já registas %1$s com as tuas próprias transações. Somar o saldo deste endereço ao portefólio ou apenas mostrá-lo?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» passa a ser apenas mostrado, não somado – %2$s também constam nas tuas transações.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» volta a contar – as quantidades não correspondem às tuas transações. Escolhe «Apenas mostrar» se forem as mesmas moedas.</string>
+    <string name="portfolio_address_overlap_title">As mesmas moedas das tuas transações?</string>
+    <string name="portfolio_address_overlap_tx">A mesma quantidade do teu depósito/transferência (%1$s) – provavelmente contado duas vezes.</string>
     <string name="portfolio_address_period_observed">Os endereços observados contam a partir do primeiro saldo observado; alterações posteriores são entradas/saídas, não ganho.</string>
-    <string name="portfolio_address_privacy">Só o endereço público é enviado para %1$s – nunca chaves nem seed phrases. O fornecedor vê-o juntamente com o seu endereço IP. Consultado no máximo a cada 10 minutos.</string>
+    <string name="portfolio_address_privacy">Só o endereço público é enviado para %1$s – nunca chaves nem seed phrases. O fornecedor vê-o juntamente com o teu endereço IP. Consultado no máximo a cada 10 minutos.</string>
     <string name="portfolio_address_remove">Remover endereço</string>
     <string name="portfolio_address_show_only">Apenas mostrar, sem somar ao portefólio</string>
     <string name="portfolio_address_show_only_short">Apenas mostrar</string>
     <string name="portfolio_address_tokens">Contar tokens</string>
     <string name="portfolio_address_unknown_tokens">+%1$d tokens desconhecidos (não contados)</string>
-    <string name="portfolio_address_xpub_privacy">Uma xpub revela todos os endereços desta carteira. São derivados no seu dispositivo; para %1$s vão apenas endereços individuais – pelo menos 40 pedidos na primeira pesquisa, depois menos. Chaves privadas (xprv) nunca são aceites.</string>
-    <string name="portfolio_address_xpub_gap">A pesquisa termina após %1$d endereços não utilizados seguidos (a norma BIP44 usada pela maioria das carteiras). Um endereço utilizado para além desse intervalo não é contado – adicione-o em separado.</string>
+    <string name="portfolio_address_xpub_privacy">Uma xpub revela todos os endereços desta carteira. São derivados no teu dispositivo; para %1$s vão apenas endereços individuais – pelo menos 40 pedidos na primeira pesquisa, depois menos. Chaves privadas (xprv) nunca são aceites.</string>
+    <string name="portfolio_address_xpub_gap">A pesquisa termina após %1$d endereços não utilizados seguidos (a norma BIP44 usada pela maioria das carteiras). Um endereço utilizado para além desse intervalo não é contado – adiciona-o em separado.</string>
     <string name="portfolio_address_xpub_used">Endereços em uso: %1$d</string>
     <string name="portfolio_addresses_title">Endereços</string>
 
@@ -31,10 +31,10 @@
     <string name="address_checksum">Checksum incorreto – erro de digitação?</string>
     <string name="address_doge_unsupported">Os endereços Dogecoin não podem ser observados: não existe um serviço público gratuito sem chave de API cujos termos o permitam.</string>
     <string name="address_duplicate">Este endereço já foi adicionado</string>
-    <string name="address_ens">Os nomes ENS não são suportados – introduza o endereço 0x</string>
+    <string name="address_ens">Os nomes ENS não são suportados – introduz o endereço 0x</string>
     <string name="address_invalid">Não é um endereço válido de uma rede suportada</string>
     <string name="address_limit">No máximo 20 endereços</string>
-    <string name="address_secret">Parece uma chave privada ou uma seed phrase – nunca a introduza em lado nenhum. Apenas endereços públicos.</string>
+    <string name="address_secret">Parece uma chave privada ou uma seed phrase – nunca a introduzas em lado nenhum. Apenas endereços públicos.</string>
     <string name="address_testnet">Os endereços Testnet não são suportados</string>
     <string name="address_unsupported">Este tipo de endereço não é suportado</string>
     <string name="address_wrong_chain">O endereço pertence a outra rede</string>
@@ -42,5 +42,5 @@
 
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Conta Taproot (BIP86): desta chave são derivados endereços bc1p…, para receção e troco.</string>
-    <string name="portfolio_address_taproot_hint">Carteira Taproot? Cole antes o descritor tr(…) da sua carteira – uma xpub simples só é pesquisada como endereços Legacy e SegWit.</string>
+    <string name="portfolio_address_taproot_hint">Carteira Taproot? Cola antes o descritor tr(…) da tua carteira – uma xpub simples só é pesquisada como endereços Legacy e SegWit.</string>
 </resources>

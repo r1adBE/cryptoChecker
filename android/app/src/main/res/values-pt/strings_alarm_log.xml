@@ -7,7 +7,7 @@
     <string name="alarm_log_empty_message">As entradas aparecem aqui quando um alarme dispara ou é retido – por exemplo, por causa de um preço desatualizado ou durante as horas de silêncio.</string>
     <string name="alarm_log_clear">Limpar registo</string>
     <string name="alarm_log_clear_title">Limpar o registo de alarmes?</string>
-    <string name="alarm_log_clear_message">Todas as entradas serão removidas. Os seus alarmes mantêm-se.</string>
+    <string name="alarm_log_clear_message">Todas as entradas serão removidas. Os teus alarmes mantêm-se.</string>
     <string name="alarm_log_threshold">Limite %1$s</string>
     <string name="alarm_last_check">Última verificação: %1$s</string>
     <string name="alarm_outcome_fired">Disparou</string>

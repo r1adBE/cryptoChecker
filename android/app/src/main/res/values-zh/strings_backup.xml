@@ -50,6 +50,9 @@
     <plurals name="backup_restored_pairs">
         <item quantity="other">%1$d 个交易对</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">超出上限（%3$s 个交易对，每个交易对 %4$s 个提醒），将不会恢复：%1$s，%2$s。</string>
+    <string name="backup_restored_over_limits">超出上限（%3$s 个交易对，每个交易对 %4$s 个提醒），未恢复：%1$s，%2$s。</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">此设备上已没有应用加密数据的密钥，因此应用以空白状态启动。没有删除任何内容。要找回列表和投资组合，请在设置的「%1$s」中导入备份文件。</string>

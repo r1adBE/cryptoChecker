@@ -13,7 +13,7 @@
         <item quantity="one">%1$d aktív</item>
         <item quantity="other">%1$d aktív</item>
     </plurals>
-    <string name="alarms_overview_empty">Még nincs riasztás. Nyisson meg egy párt, és adjon hozzá egyet a Riasztások alatt.</string>
+    <string name="alarms_overview_empty">Még nincs riasztás. Nyiss meg egy párt, és adj hozzá egyet a Riasztások alatt.</string>
     <string name="alarms_overview_title">Összes riasztás</string>
     <string name="alarms_title">Riasztások</string>
 
@@ -23,7 +23,7 @@
     <string name="alarm_create">Riasztás létrehozása</string>
     <string name="alarm_currency_label">Pénznem</string>
     <string name="alarm_delete_confirm">Ez a riasztás törlődik.</string>
-    <string name="alarm_delete_title">Törli a riasztást?</string>
+    <string name="alarm_delete_title">Törlöd a riasztást?</string>
     <string name="alarm_field_percent">Százalék</string>
     <string name="alarm_field_price">Ár</string>
     <string name="alarm_fires_now_above">Az árfolyam már %1$s felett van. Mentés mégis?</string>
@@ -86,7 +86,7 @@
     <string name="alarm_sentence_down_percent">%1$s – értesítés, ha az ár %2$s értékkel a mentéskori (vagy az utolsó riasztáskori) ár alá esik.</string>
     <string name="alarm_sentence_funding_above">%1$s – értesítés, ha a funding %2$s fölé emelkedik.</string>
     <string name="alarm_sentence_funding_below">%1$s – értesítés, ha a funding %2$s alá esik.</string>
-    <string name="alarm_sentence_incomplete">Adjon meg egy értéket, és a riasztás itt mondatként jelenik meg.</string>
+    <string name="alarm_sentence_incomplete">Adj meg egy értéket, és a riasztás itt mondatként jelenik meg.</string>
     <plurals name="alarm_sentence_move_percent">
         <item quantity="one">%1$s – értesítés, ha az ár %3$d órán belül %2$s értékkel elmozdul.</item>
         <item quantity="other">%1$s – értesítés, ha az ár %3$d órán belül %2$s értékkel elmozdul.</item>
@@ -157,7 +157,7 @@
     <string name="alarm_test">Riasztás tesztelése</string>
     <string name="alarm_test_action">Teszt</string>
     <string name="alarm_test_denied">Az értesítések ki vannak kapcsolva a Crypto Checker számára.</string>
-    <string name="alarm_test_hint">Mintariasztást küld az Ön hang-, rezgés- és felolvasási beállításaival.</string>
+    <string name="alarm_test_hint">Mintariasztást küld a hang-, rezgés- és felolvasási beállításaiddal.</string>
     <string name="alarm_test_open_settings">Beállítások megnyitása</string>
     <string name="alarm_test_quiet">Most csendes órák vannak: a valódi riasztások megvárnák a végüket, és utána hanggal szólalnának meg.</string>
     <string name="alarm_test_text">Így néz ki és így szól egy riasztás.</string>

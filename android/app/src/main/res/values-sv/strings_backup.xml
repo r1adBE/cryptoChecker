@@ -53,6 +53,9 @@
         <item quantity="one">%1$d par</item>
         <item quantity="other">%1$d par</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">Över gränserna (%3$s par, %4$s larm per par), återställs inte: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Över gränserna (%3$s par, %4$s larm per par), inte återställt: %1$s, %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">Den här enheten saknar nyckeln till appens krypterade data, så appen startade tom. Inget har raderats. Få tillbaka din lista och portfölj genom att importera en säkerhetskopia under ”%1$s” i inställningarna.</string>

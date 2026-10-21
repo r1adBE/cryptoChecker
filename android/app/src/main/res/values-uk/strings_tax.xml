@@ -63,7 +63,7 @@
     <string name="tax_export_match_pool">спільний пул за Section 104 (Section 104 pool)</string>
     <string name="tax_export_match_same_day">той самий день (HMRC)</string>
     <string name="tax_export_match_thirty_day">правило 30 днів (HMRC)</string>
-    <string name="tax_export_method_change_warning">Змінили метод або шаблон? Попередні роки теж перераховуються – порівняйте з уже поданою декларацією.</string>
+    <string name="tax_export_method_change_warning">Метод або шаблон змінено? Попередні роки теж перераховуються – порівняй з уже поданою декларацією.</string>
     <string name="tax_export_method_overridden">Шаблон рахує %1$s – не %2$s</string>
     <string name="tax_export_new_holding">придбано з 01.03.2021</string>
     <string name="tax_export_no">ні</string>
@@ -96,18 +96,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Відсотки від лендингу (вартість під час отримання)</string>
-    <string name="tax_line_at_old_long">Придбано до 01.03.2021 – володіння &gt; 1 року: як правило, не оподатковується – перевірте</string>
+    <string name="tax_line_at_old_long">Придбано до 01.03.2021 – володіння &gt; 1 року: як правило, не оподатковується – перевір</string>
     <string name="tax_line_at_rate">Спеціальна ставка 27,5 відсотка: нетто з придбаного з 01.03.2021 і проданого з 01.03.2022 + відсотки</string>
     <string name="tax_line_au_discounted">Чистий приріст капіталу після збитків і знижки 50 відсотків</string>
     <string name="tax_line_ca_taxable">Оподатковуваний приріст капіталу (частка включення 1/2)</string>
     <string name="tax_line_ch_income">Винагороди наведено – порядок див. робочий документ ESTV</string>
     <string name="tax_line_ch_private">Приріст капіталу в приватному майні: не розраховано – класифікація див. ESTV</string>
     <string name="tax_line_ch_wealth">Податок на майно: не розраховується – CSV залишків використовує курс біржі × USD/CHF на 31.12 – податкові вартості: курсовий лист ESTV</string>
-    <string name="tax_line_de_long">Володіння &gt; 1 року: за § 23 EStG, як правило, не оподатковується – перевірте</string>
+    <string name="tax_line_de_long">Володіння &gt; 1 року: за § 23 EStG, як правило, не оподатковується – перевір</string>
     <string name="tax_line_denied_loss">Невідраховані збитки (фіктивний збиток / superficial loss)</string>
     <string name="tax_line_fr_outflow">Вибуття без продажу (виведення) – загальна вартість придбання зменшена пропорційно</string>
     <string name="tax_line_fr_rate">Фіксована ставка 12,8 відсотка плюс соціальні внески (або шкала на вибір)</string>
-    <string name="tax_line_fr_threshold">Відчуження до 305 € на рік: як правило, звільнені (сума цін продажу) – перевірте</string>
+    <string name="tax_line_fr_threshold">Відчуження до 305 € на рік: як правило, звільнені (сума цін продажу) – перевір</string>
     <string name="tax_line_gains">Прибуток</string>
     <string name="tax_line_income">Доходи (винагороди за вартістю під час отримання)</string>
     <string name="tax_line_jp_misc">Інші доходи (雑所得): чистий прибуток + доходи</string>
@@ -130,7 +130,7 @@
     <string name="tax_de_col_item">Стаття</string>
     <string name="tax_de_disclaimer">Орієнтир – не податкова декларація і не податкова консультація.</string>
     <string name="tax_de_explain_below">До %1$s: нижче порогу (орієнтир).</string>
-    <string name="tax_de_explain_loss">Чистий збиток: податку на ці продажі немає. Збитки за § 23 EStG зараховуються лише проти прибутку від приватних продажів – у тому самому році або перенесенням на попередній рік і на наступні роки (§ 23 Abs. 3 / § 10d EStG). Зазначте збиток у податковій декларації щоб його зафіксували.</string>
+    <string name="tax_de_explain_loss">Чистий збиток: податку на ці продажі немає. Збитки за § 23 EStG зараховуються лише проти прибутку від приватних продажів – у тому самому році або перенесенням на попередній рік і на наступні роки (§ 23 Abs. 3 / § 10d EStG). Зазнач збиток у податковій декларації щоб його зафіксували.</string>
     <string name="tax_de_explain_reached">Від %1$s враховується вся сума (поріг звільнення – не відрахування).</string>
     <string name="tax_de_explain_unknown">Неможливо перевірити: немає валютних курсів / цін купівлі або строків володіння.</string>
     <string name="tax_de_income_limit">Поріг звільнення послуги (§ 22 Nr. 3 EStG)</string>
@@ -140,7 +140,7 @@
     <string name="tax_de_long_losses">Збитки – володіння &gt; 1 року</string>
     <string name="tax_de_loss">чистий збиток – зараховується лише проти прибутку від приватних продажів (§ 23 EStG)</string>
     <string name="tax_de_private_limit">Поріг звільнення приватні продажі (§ 23 EStG)</string>
-    <string name="tax_de_reached">поріг досягнуто – як правило, враховується вся сума – перевірте</string>
+    <string name="tax_de_reached">поріг досягнуто – як правило, враховується вся сума – перевір</string>
     <string name="tax_de_short_gains">Прибуток – володіння ≤ 1 року</string>
     <string name="tax_de_short_losses">Збитки – володіння ≤ 1 року</string>
     <string name="tax_de_unclassified">Без строку володіння</string>
@@ -150,10 +150,10 @@
     <string name="tax_template_at">Австрія</string>
     <string name="tax_template_au">Австралія</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Бета: правила країни спрощено, перевірте перед поданням податкової декларації</string>
+    <string name="tax_template_beta_note">Бета: правила країни спрощено, перевір перед поданням податкової декларації</string>
     <string name="tax_template_ca">Канада</string>
     <string name="tax_template_ch">Швейцарія</string>
-    <string name="tax_template_confirm_text">Бета, спрощені правила, транзакцій з інших платформ немає – перевірте перед поданням декларації.</string>
+    <string name="tax_template_confirm_text">Бета, спрощені правила, транзакцій з інших платформ немає – перевір перед поданням декларації.</string>
     <string name="tax_template_confirm_title">Податковий шаблон (бета)</string>
     <string name="tax_template_current">Шаблон: %1$s · Метод: %2$s · Валюта: %3$s</string>
     <string name="tax_template_de">Німеччина</string>
@@ -161,7 +161,7 @@
     <string name="tax_template_hint">Лише орієнтир: визначає метод / податковий рік і підсумок робочого документа. Картка «Портфель» лишається нейтральною – подарунки й комісії за перекази можуть відрізнятися від робочого документа.</string>
     <string name="tax_template_jp">Японія</string>
     <string name="tax_template_neutral">Нейтральний (усі країни)</string>
-    <string name="tax_template_suggestion">Пропозиція для вашого регіону: %1$s</string>
+    <string name="tax_template_suggestion">Пропозиція для твого регіону: %1$s</string>
     <string name="tax_template_title">Податковий шаблон</string>
     <string name="tax_template_uk">Велика Британія</string>
     <string name="tax_template_us">США</string>
@@ -179,11 +179,11 @@
     <string name="tax_note_network_fee">Мережева комісія в криптовалюті (переказ на власний гаманець, виведення) – це відчуження монет комісії за ринковою вартістю: прибуток або збиток лише за цими монетами, а не збиток на всю комісію (%1$s). Без указаної ціни – ціна закриття того самого дня (UTC); без ціни закриття виручка лишається порожньою.</string>
     <string name="tax_note_specific_id">Конкретна ідентифікація (Specific Identification) не підтримується – діє FIFO (першим куплено – першим продано).</string>
     <string name="tax_note_spouse_gift">Подарунок із позначкою «чоловіку/дружині / партнеру» – без прибутку й збитку: виручка = твоя вартість придбання, яку переймає партнер (%1$s).</string>
-    <string name="tax_note_stable_swap">Продаж за стейблкоїн (USDT/USDC/DAI …), який ви залишаєте собі, тут вважається обміном криптовалюти на криптовалюту й не оподатковується – запишіть його як обмін на стейблкоїн. Оподатковується лише продаж за євро – «Продаж» вважається продажем за євро.</string>
+    <string name="tax_note_stable_swap">Продаж за стейблкоїн (USDT/USDC/DAI …), який ти залишаєш собі, тут вважається обміном криптовалюти на криптовалюту й не оподатковується – запиши його як обмін на стейблкоїн. Оподатковується лише продаж за євро – «Продаж» вважається продажем за євро.</string>
     <string name="tax_note_transfer_fee">Те саме стосується комісії в USDT або фіаті під час переказу між власними гаманцями: вона не додається до вартості купівлі й показана лише для довідки.</string>
     <string name="tax_note_uk">Зіставлення за HMRC: той самий день → потім наступні 30 днів → потім спільний пул за Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Перехід 1.1.2025 (Rev. Proc. 2024-28, safe harbor): якщо в попередні роки застосовувався FIFO по всіх гаманцях, залишки партій на 31.12.2024 переходять до гаманців, де лежать монети – гаманець із найстарішими монетами отримує найранішу вартість. Цей розподіл — правило застосунку; звірте його з власними записами.</string>
-    <string name="tax_note_us_wallet">З 2025 податкового року IRS вимагає вартість купівлі за кожним гаманцем/біржею (Rev. Proc. 2024-28) – експорт з 2025 року рахує FIFO за гаманцем – до 2025 року діє ваш метод розрахунку вартості купівлі.</string>
+    <string name="tax_note_us_transition">Перехід 1.1.2025 (Rev. Proc. 2024-28, safe harbor): якщо в попередні роки застосовувався FIFO по всіх гаманцях, залишки партій на 31.12.2024 переходять до гаманців, де лежать монети – гаманець із найстарішими монетами отримує найранішу вартість. Цей розподіл — правило застосунку; звір його з власними записами.</string>
+    <string name="tax_note_us_wallet">З 2025 податкового року IRS вимагає вартість купівлі за кожним гаманцем/біржею (Rev. Proc. 2024-28) – експорт з 2025 року рахує FIFO за гаманцем – до 2025 року діє твій метод розрахунку вартості купівлі.</string>
     <string name="tax_note_withdrawal_fee">Комісія за виведення в USDT або фіаті – не збиток: фіатна комісія не віднімається, комісія в USDT – відчуження за номіналом без прибутку; вона показана лише для довідки (%1$s).</string>
     <string name="tax_summary_at_interest_income">враховується: дохід під час отримання за спеціальною ставкою 27,5 відсотка (§ 27b абз. 2 п. 1 EStG / BMF) – монети зберігають цю вартість як вартість придбання</string>
     <string name="tax_summary_at_reward_info">лише для інформації – у жодній сумі: винагороди надходять до нових активів із вартістю придбання 0 й оподатковуються лише під час продажу (уже в прибутку) – § 27b Abs. 2 EStG / BMF</string>
@@ -191,7 +191,7 @@
     <string name="tax_summary_at_withdrawal_fee">Комісія за виведення – не зарахована в нові активи (витрати не вираховуються за спецставкою, § 20 абз. 2 EStG)</string>
     <string name="tax_summary_ch_fifo_info">лише для інформації – розрахунок FIFO застосунку – без класифікації – див. ESTV</string>
     <string name="tax_summary_ch_year_end_value">вартість на 31.12 у CSV залишків = біржовий курс × USD/CHF – не податкові вартості з курсового листа ESTV</string>
-    <string name="tax_summary_de_withdrawal_fee">Комісія за виведення – не зарахована за § 23, перевірте вирахування як витрати (Werbungskosten)</string>
+    <string name="tax_summary_de_withdrawal_fee">Комісія за виведення – не зарахована за § 23, перевір вирахування як витрати (Werbungskosten)</string>
     <string name="tax_summary_not_calculated_estv">не розраховано – курсовий лист ESTV: %1$s</string>
     <string name="tax_summary_orientation">Орієнтир</string>
     <string name="tax_summary_orientation_block">Орієнтир – не податкова консультація – не податкове нарахування</string>
@@ -207,7 +207,7 @@
     <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
     <string name="tax_summary_at_interest_old_law">Відсотки до 01.03.2022: попереднє законодавство (шкала), не 27,5 відсотка</string>
     <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
-    <string name="tax_export_at_income_before_new_law">до 01.03.2022 – уточніть у фахівця</string>
+    <string name="tax_export_at_income_before_new_law">до 01.03.2022 – уточни у фахівця</string>
 
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">Відсотки – оподатковуються при отриманні</string>
@@ -223,11 +223,11 @@
     <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
     <string name="tax_summary_at_without_option">без опції: включно з продажами 01.01–28.02.2022</string>
     <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
-    <string name="tax_summary_at_staking_zero_cost">Стейкінг до 01.03.2022: вартість придбання прийнято за 0 – уточніть у фахівця</string>
+    <string name="tax_summary_at_staking_zero_cost">Стейкінг до 01.03.2022: вартість придбання прийнято за 0 – уточни у фахівця</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">Правило 30 днів ще може змінити ці суми (купівлі до %1$s)</string>
     <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
-    <string name="tax_summary_uk_hmrc_report">Виручка до вирахування комісій понад поріг звітності (50 000 £; 2020/21–2022/23: 49 200 £): повідомте HMRC, якщо ви зареєстровані в Self Assessment, навіть без оподатковуваного прибутку</string>
+    <string name="tax_summary_uk_hmrc_report">Виручка до вирахування комісій понад поріг звітності (50 000 £; 2020/21–2022/23: 49 200 £): повідом HMRC, якщо маєш реєстрацію в Self Assessment, навіть без оподатковуваного прибутку</string>
 
     <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
     <string name="tax_line_ch_wealth_value">Вартість майна на 31.12.%1$s (орієнтир)</string>
@@ -244,7 +244,7 @@
     <string name="portfolio_export_address_lots_note">Примітка: відстежувана адреса має позиції з вартістю придбання, датовані після останньої перевірки балансу до цієї дати, — тут їх може не бути.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">Відстежувані адреси входять до загальної вартості, але не мають вартості придбання – тому прибуток, ймовірно, завищений. Внесіть вартість як купівлю.</string>
+    <string name="tax_summary_fr_address_no_cost">Відстежувані адреси входять до загальної вартості, але не мають вартості придбання – тому прибуток, ймовірно, завищений. Внеси вартість як купівлю.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Ринкова вартість без указаної ціни (комісії, подаровано/сплачено, обмін, винагороди, мережеві комісії, вартість портфеля) за денною ціною закриття (UTC) дня операції</string>

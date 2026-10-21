@@ -12,6 +12,6 @@
     <string name="portfolio_alarms_address_failing_generic">Οι συναγερμοί χαρτοφυλακίου ελέγχουν χωρίς διευθύνσεις των οποίων το υπόλοιπο δεν φορτώνεται για πάνω από 24 ώρες</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">token εν μέρει παλιά</string>
-    <string name="portfolio_address_restore_failed">Δεν ήταν δυνατή η επαναφορά της διεύθυνσης – προσθέστε την ξανά αν χρειάζεται</string>
-    <string name="portfolio_address_remove_failed">Δεν ήταν δυνατή η αφαίρεση της διεύθυνσης – δοκιμάστε ξανά</string>
+    <string name="portfolio_address_restore_failed">Δεν ήταν δυνατή η επαναφορά της διεύθυνσης – πρόσθεσέ την ξανά αν χρειάζεται</string>
+    <string name="portfolio_address_remove_failed">Δεν ήταν δυνατή η αφαίρεση της διεύθυνσης – δοκίμασε ξανά</string>
 </resources>

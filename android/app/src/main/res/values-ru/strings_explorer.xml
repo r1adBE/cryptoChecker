@@ -21,7 +21,7 @@
         <item quantity="many">Списков пар %1$d бирж ещё нет на устройстве.</item>
         <item quantity="other">Списков пар %1$d биржи ещё нет на устройстве.</item>
     </plurals>
-    <string name="explorer_lists_privacy">Загружает полный публичный список каждой биржи – одинаковый для всех. Ваш поиск остаётся на устройстве.</string>
+    <string name="explorer_lists_privacy">Загружает полный публичный список каждой биржи – одинаковый для всех. Твой поиск остаётся на устройстве.</string>
     <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
     <string name="explorer_recent_a11y">Недавний запрос: %1$s</string>
     <string name="explorer_recent_clear">Очистить</string>
@@ -31,7 +31,7 @@
     <string name="explorer_search_empty">Ничего не найдено.</string>
     <string name="explorer_search_hint">Поиск монеты, пары или биржи</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Введите название или тикер монеты, например Bitcoin или BTC, затем выберите пару. Пара — это монета на бирже в определённой валюте, например BTC/USDT на Binance.</string>
+    <string name="explorer_search_intro">Введи название или тикер монеты, например Bitcoin или BTC, затем выбери пару. Пара — это монета на бирже в определённой валюте, например BTC/USDT на Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Добавить в список</string>
@@ -39,7 +39,7 @@
     <string name="explorer_already_in_watchlist">Эта пара уже в списке.</string>
     <string name="explorer_exchange_missing">Нет нужной биржи?</string>
     <string name="explorer_loading_pairs">Загрузка торговых пар…</string>
-    <string name="explorer_no_pair_selected">Сначала выберите пару.</string>
+    <string name="explorer_no_pair_selected">Сначала выбери пару.</string>
     <string name="explorer_no_pairs_yet">Для этой биржи пары ещё не загружены.</string>
     <plurals name="explorer_pairs_status">
         <item quantity="one">%1$d пара · обновлено %2$s</item>
@@ -50,8 +50,8 @@
     <string name="explorer_pairs_title">Пары</string>
     <string name="explorer_precise_title">Расширенно / по бирже</string>
     <string name="explorer_price_loading">Загрузка курса…</string>
-    <string name="explorer_select_market_hint">Выберите биржу – её пары загрузятся автоматически.</string>
-    <string name="explorer_select_placeholder">Выберите</string>
+    <string name="explorer_select_market_hint">Выбери биржу – её пары загрузятся автоматически.</string>
+    <string name="explorer_select_placeholder">Выбери</string>
     <string name="explorer_step_pair">Выбор пары</string>
 
     <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
@@ -67,7 +67,7 @@
         <item quantity="many">Найдено %1$d пар %2$s</item>
         <item quantity="other">Найдено %1$d пары %2$s</item>
     </plurals>
-    <string name="bulk_all_pairs_empty">На этой бирже нет пар %1$s для выбранного типа контракта. Сначала синхронизируйте биржу или выберите другой тип контракта.</string>
+    <string name="bulk_all_pairs_empty">На этой бирже нет пар %1$s для выбранного типа контракта. Сначала синхронизируй биржу или выбери другой тип контракта.</string>
     <plurals name="explorer_add_all_pairs">
         <item quantity="one">Добавить %1$d пару в список</item>
         <item quantity="few">Добавить все %1$d пары в список</item>
@@ -94,7 +94,7 @@
     </plurals>
     <string name="explorer_bulk_hide_list">Скрыть список</string>
     <string name="explorer_bulk_show_list">Показать список</string>
-    <string name="explorer_bulk_tap_hint">Коснитесь пары, чтобы выбрать её выше.</string>
+    <string name="explorer_bulk_tap_hint">Коснись пары, чтобы выбрать её выше.</string>
     <string name="explorer_bulk_title">Несколько пар сразу</string>
 
     <!-- Handelspaare einer Börse laden und wählen -->
@@ -116,7 +116,7 @@
     <string name="dex_add">Добавить</string>
     <string name="dex_added">%1$s добавлен в список.</string>
     <string name="dex_already">%1$s уже в списке.</string>
-    <string name="dex_intro">Токены вне крупных бирж, с децентрализованных бирж (Uniswap, PancakeSwap, Raydium …) через DexScreener. Найдите токен и добавьте один из его торговых пулов – цены в долларах США.</string>
+    <string name="dex_intro">Токены вне крупных бирж, с децентрализованных бирж (Uniswap, PancakeSwap, Raydium …) через DexScreener. Найди токен и добавь один из его торговых пулов – цены в долларах США.</string>
     <string name="dex_liquidity">Ликвидность %1$s</string>
     <string name="dex_no_results">Пулы не найдены.</string>
     <string name="dex_search">Поиск</string>

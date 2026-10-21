@@ -21,7 +21,7 @@
         <item quantity="many">Списків пар %1$d бірж ще немає на пристрої.</item>
         <item quantity="other">Списків пар %1$d біржі ще немає на пристрої.</item>
     </plurals>
-    <string name="explorer_lists_privacy">Завантажує повний публічний список кожної біржі – однаковий для всіх. Ваш пошук лишається на пристрої.</string>
+    <string name="explorer_lists_privacy">Завантажує повний публічний список кожної біржі – однаковий для всіх. Твій пошук лишається на пристрої.</string>
     <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
     <string name="explorer_recent_a11y">Нещодавній запит: %1$s</string>
     <string name="explorer_recent_clear">Очистити</string>
@@ -31,7 +31,7 @@
     <string name="explorer_search_empty">Нічого не знайдено.</string>
     <string name="explorer_search_hint">Пошук монети, пари або біржі</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Введіть назву або тикер монети, наприклад Bitcoin чи BTC, потім виберіть пару. Пара — це монета на біржі в певній валюті, наприклад BTC/USDT на Binance.</string>
+    <string name="explorer_search_intro">Введи назву або тикер монети, наприклад Bitcoin чи BTC, потім вибери пару. Пара — це монета на біржі в певній валюті, наприклад BTC/USDT на Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Додати до списку</string>
@@ -39,7 +39,7 @@
     <string name="explorer_already_in_watchlist">Ця пара вже є у списку.</string>
     <string name="explorer_exchange_missing">Бракує біржі?</string>
     <string name="explorer_loading_pairs">Завантаження торгових пар…</string>
-    <string name="explorer_no_pair_selected">Спершу виберіть пару.</string>
+    <string name="explorer_no_pair_selected">Спершу вибери пару.</string>
     <string name="explorer_no_pairs_yet">Для цієї біржі ще не завантажено пар.</string>
     <plurals name="explorer_pairs_status">
         <item quantity="one">%1$d пара · оновлено %2$s</item>
@@ -50,8 +50,8 @@
     <string name="explorer_pairs_title">Пари</string>
     <string name="explorer_precise_title">Розширено / за біржею</string>
     <string name="explorer_price_loading">Завантаження курсу…</string>
-    <string name="explorer_select_market_hint">Виберіть біржу – її пари завантажаться автоматично.</string>
-    <string name="explorer_select_placeholder">Виберіть</string>
+    <string name="explorer_select_market_hint">Вибери біржу – її пари завантажаться автоматично.</string>
+    <string name="explorer_select_placeholder">Вибери</string>
     <string name="explorer_step_pair">Вибір пари</string>
 
     <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
@@ -67,7 +67,7 @@
         <item quantity="many">Знайдено %1$d пар %2$s</item>
         <item quantity="other">Знайдено %1$d пари %2$s</item>
     </plurals>
-    <string name="bulk_all_pairs_empty">На цій біржі немає %1$s-пар для вибраного типу контракту. Спершу синхронізуйте біржу або виберіть інший тип контракту.</string>
+    <string name="bulk_all_pairs_empty">На цій біржі немає %1$s-пар для вибраного типу контракту. Спершу синхронізуй біржу або вибери інший тип контракту.</string>
     <plurals name="explorer_add_all_pairs">
         <item quantity="one">Додати %1$d пару до списку</item>
         <item quantity="few">Додати всі %1$d пари до списку</item>
@@ -94,7 +94,7 @@
     </plurals>
     <string name="explorer_bulk_hide_list">Сховати список</string>
     <string name="explorer_bulk_show_list">Показати список</string>
-    <string name="explorer_bulk_tap_hint">Торкніться пари, щоб вибрати її вище.</string>
+    <string name="explorer_bulk_tap_hint">Торкнися пари, щоб вибрати її вище.</string>
     <string name="explorer_bulk_title">Кілька пар одразу</string>
 
     <!-- Handelspaare einer Börse laden und wählen -->
@@ -116,7 +116,7 @@
     <string name="dex_add">Додати</string>
     <string name="dex_added">%1$s додано до списку.</string>
     <string name="dex_already">%1$s вже є у списку.</string>
-    <string name="dex_intro">Токени поза великими біржами, з децентралізованих бірж (Uniswap, PancakeSwap, Raydium …) через DexScreener. Знайдіть токен і додайте один із його торгових пулів – ціни в доларах США.</string>
+    <string name="dex_intro">Токени поза великими біржами, з децентралізованих бірж (Uniswap, PancakeSwap, Raydium …) через DexScreener. Знайди токен і додай один із його торгових пулів – ціни в доларах США.</string>
     <string name="dex_liquidity">Ліквідність %1$s</string>
     <string name="dex_no_results">Пули не знайдено.</string>
     <string name="dex_search">Пошук</string>

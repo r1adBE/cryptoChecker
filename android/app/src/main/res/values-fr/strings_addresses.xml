@@ -7,21 +7,21 @@
     <string name="portfolio_address_hint">Adresse publique (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) ou xpub</string>
     <string name="portfolio_address_label">Libellé (facultatif)</string>
     <string name="portfolio_address_not_since_buy">Depuis l’adresse · hors « Depuis l\'achat » : %1$s</string>
-    <string name="portfolio_address_overlap">Aussi dans vos propres transactions : %1$s – les deux sont additionnés. Mêmes coins ? Choisissez « Afficher seulement ».</string>
-    <string name="portfolio_address_overlap_ask">Vous saisissez déjà %1$s avec vos propres transactions. Ajouter le solde de cette adresse au portefeuille ou seulement l’afficher ?</string>
-    <string name="portfolio_address_overlap_auto">« %1$s » est désormais seulement affiché, pas compté – %2$s figurent aussi dans vos transactions.</string>
-    <string name="portfolio_address_overlap_restored">« %1$s » est de nouveau compté – ses quantités ne correspondent pas à vos transactions. Choisissez « Afficher seulement » s’il s’agit des mêmes coins.</string>
-    <string name="portfolio_address_overlap_title">Mêmes coins que dans vos transactions ?</string>
-    <string name="portfolio_address_overlap_tx">Même quantité que votre propre dépôt/transfert (%1$s) – probablement compté deux fois.</string>
+    <string name="portfolio_address_overlap">Aussi dans tes propres transactions : %1$s – les deux sont additionnés. Mêmes coins ? Choisis « Afficher seulement ».</string>
+    <string name="portfolio_address_overlap_ask">Tu saisis déjà %1$s avec tes propres transactions. Ajouter le solde de cette adresse au portefeuille ou seulement l’afficher ?</string>
+    <string name="portfolio_address_overlap_auto">« %1$s » est désormais seulement affiché, pas compté – %2$s figurent aussi dans tes transactions.</string>
+    <string name="portfolio_address_overlap_restored">« %1$s » est de nouveau compté – ses quantités ne correspondent pas à tes transactions. Choisis « Afficher seulement » s’il s’agit des mêmes coins.</string>
+    <string name="portfolio_address_overlap_title">Mêmes coins que dans tes transactions ?</string>
+    <string name="portfolio_address_overlap_tx">Même quantité que ton propre dépôt/transfert (%1$s) – probablement compté deux fois.</string>
     <string name="portfolio_address_period_observed">Les adresses suivies comptent à partir du premier solde observé ; les changements ultérieurs sont des entrées/sorties, pas un gain.</string>
-    <string name="portfolio_address_privacy">Seule l’adresse publique est envoyée à %1$s – jamais de clés ni de seed phrase. Le fournisseur la voit avec votre adresse IP. Interrogée au plus toutes les 10 minutes.</string>
+    <string name="portfolio_address_privacy">Seule l’adresse publique est envoyée à %1$s – jamais de clés ni de seed phrase. Le fournisseur la voit avec ton adresse IP. Interrogée au plus toutes les 10 minutes.</string>
     <string name="portfolio_address_remove">Supprimer l’adresse</string>
     <string name="portfolio_address_show_only">Afficher seulement, sans ajouter au portefeuille</string>
     <string name="portfolio_address_show_only_short">Afficher seulement</string>
     <string name="portfolio_address_tokens">Compter les tokens</string>
     <string name="portfolio_address_unknown_tokens">+%1$d tokens inconnus (non comptés)</string>
-    <string name="portfolio_address_xpub_privacy">Un xpub révèle toutes les adresses de ce wallet. Elles sont dérivées sur votre appareil ; seules des adresses individuelles sont envoyées à %1$s – au moins 40 requêtes lors de la première recherche, moins ensuite. Les clés privées (xprv) ne sont jamais acceptées.</string>
-    <string name="portfolio_address_xpub_gap">La recherche s\'arrête après %1$d adresses inutilisées consécutives (norme BIP44 utilisée par la plupart des portefeuilles). Une adresse utilisée au-delà de cet écart n\'est pas comptée – ajoutez-la séparément.</string>
+    <string name="portfolio_address_xpub_privacy">Un xpub révèle toutes les adresses de ce wallet. Elles sont dérivées sur ton appareil ; seules des adresses individuelles sont envoyées à %1$s – au moins 40 requêtes lors de la première recherche, moins ensuite. Les clés privées (xprv) ne sont jamais acceptées.</string>
+    <string name="portfolio_address_xpub_gap">La recherche s\'arrête après %1$d adresses inutilisées consécutives (norme BIP44 utilisée par la plupart des portefeuilles). Une adresse utilisée au-delà de cet écart n\'est pas comptée – ajoute-la séparément.</string>
     <string name="portfolio_address_xpub_used">Adresses utilisées : %1$d</string>
     <string name="portfolio_addresses_title">Adresses</string>
 
@@ -31,10 +31,10 @@
     <string name="address_checksum">Somme de contrôle incorrecte – faute de frappe ?</string>
     <string name="address_doge_unsupported">Les adresses Dogecoin ne peuvent pas être suivies : aucun service public gratuit sans clé d’API ne l’autorise dans ses conditions.</string>
     <string name="address_duplicate">Cette adresse est déjà ajoutée</string>
-    <string name="address_ens">Les noms ENS ne sont pas pris en charge – saisissez l’adresse 0x</string>
+    <string name="address_ens">Les noms ENS ne sont pas pris en charge – saisis l’adresse 0x</string>
     <string name="address_invalid">Adresse non valide pour un réseau pris en charge</string>
     <string name="address_limit">20 adresses au maximum</string>
-    <string name="address_secret">Cela ressemble à une clé privée ou à une seed phrase – ne la saisissez jamais nulle part. Uniquement des adresses publiques.</string>
+    <string name="address_secret">Cela ressemble à une clé privée ou à une seed phrase – ne la saisis jamais nulle part. Uniquement des adresses publiques.</string>
     <string name="address_testnet">Les adresses Testnet ne sont pas prises en charge</string>
     <string name="address_unsupported">Ce type d’adresse n’est pas pris en charge</string>
     <string name="address_wrong_chain">L’adresse appartient à un autre réseau</string>
@@ -42,5 +42,5 @@
 
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Compte Taproot (BIP86) : des adresses bc1p… sont dérivées de cette clé, pour la réception et la monnaie.</string>
-    <string name="portfolio_address_taproot_hint">Wallet Taproot ? Collez plutôt le descripteur tr(…) de votre wallet – une xpub simple n\'est recherchée que comme adresses Legacy et SegWit.</string>
+    <string name="portfolio_address_taproot_hint">Wallet Taproot ? Colle plutôt le descripteur tr(…) de ton wallet – une xpub simple n\'est recherchée que comme adresses Legacy et SegWit.</string>
 </resources>

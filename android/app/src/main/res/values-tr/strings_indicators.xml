@@ -27,7 +27,7 @@
     <string name="neutral_info_btc_how">Her değerin yanında neyi ölçtüğünü ve 2016’dan beri kendi geçmişinde nerede durduğunu anlatan bir cümle var. Uygulama değerleri yorumlamaz ve piyasa evresi çıkarmaz; bildirim sınırları yalnızca senin belirlediklerindir. Geçmiş örüntüler tekrarlanmak zorunda değildir.</string>
     <string name="neutral_info_btc_what">Yaygın Bitcoin göstergeleri yalnızca ölçüm değeri olarak: Mayer Multiple, 200 haftalık ortalama, zirveden düşüş, 30 günlük değişim, Pi Cycle farkı ve zincir üstü değerler MVRV, Puell Multiple ve hashrate.</string>
     <string name="neutral_info_coin_how">Her değerin yanında neyi ölçtüğünü anlatan bir cümle vardır, yorum yoktur. Fiyat geçmişi kısa coin\'lerde bazı değerler eksiktir. Zincir üstü veriler burada yer almaz.</string>
-    <string name="neutral_info_coin_what">Seçtiğiniz bir coin için aynı yalın göstergeler, yalnızca fiyat verisinden: Mayer Multiple, 200 haftalık ortalama, zirveden düşüş, 30 günlük değişim, 50/200 günlük trend, RSI ve 90 günde Bitcoin\'e göre güç.</string>
+    <string name="neutral_info_coin_what">Seçtiğin bir coin için aynı yalın göstergeler, yalnızca fiyat verisinden: Mayer Multiple, 200 haftalık ortalama, zirveden düşüş, 30 günlük değişim, 50/200 günlük trend, RSI ve 90 günde Bitcoin\'e göre güç.</string>
     <string name="neutral_info_halving_how">Bir sonraki halving, mevcut blok yüksekliği ve sürmekte olan zorluk döneminin ortalama blok süresinden hesaplanır (mempool.space); bu veriler yoksa takvime göre (son halving artı yaklaşık dört yıl). Grafik, geçmiş döngülerin halving’den itibaren fiyat seyrini gösterir – tarih, tahmin değil.</string>
 
     <!-- Indikator-Namen -->

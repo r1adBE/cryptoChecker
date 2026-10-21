@@ -60,6 +60,29 @@ class CsvTokenizeLimitsTest {
         assertTrue(long.tooLarge)
     }
 
+    /**
+     * Zu gross wird als «zu gross» gemeldet, nicht als fremdes Format (seit Build 99): die Vorschau trägt
+     * [CsvImportResult.tooLarge] weiter, [CsvImportRefusal] wählt die Meldung. Gleiche Fälle: iOS `CsvTokenizeLimitsTests`.
+     */
+    @Test
+    fun zuGrosseDateiMeldetZuGross() {
+        fun preview(text: String) = CsvImportMapping.preview(CsvImportParser.parse(text), emptySet()) { _, _ -> null }
+        val wide = preview(header + row + List(CsvImportParser.MAX_CELLS_PER_ROW + 1) { "x" }.joinToString(",") + "\n")
+        assertTrue(wide.tooLarge)
+        assertEquals(CsvImportRefusal.TOO_LARGE, CsvImportRefusal.of(fileTooLarge = false, preview = wide))
+        val long = preview(header + "x\n".repeat(CsvImportParser.MAX_ROWS))
+        assertEquals(CsvImportRefusal.TOO_LARGE, CsvImportRefusal.of(fileTooLarge = false, preview = long))
+        // Über 16 MB: das Lesen bricht ab, keine Vorschau
+        assertEquals(CsvImportRefusal.TOO_LARGE, CsvImportRefusal.of(fileTooLarge = true, preview = null))
+        // Fremdes Format oder nicht lesbar: wie bisher
+        assertEquals(CsvImportRefusal.UNREADABLE, CsvImportRefusal.of(fileTooLarge = false, preview = preview("a,b,c\n1,2,3\n")))
+        assertEquals(CsvImportRefusal.UNREADABLE, CsvImportRefusal.of(fileTooLarge = false, preview = null))
+        // Lesbare Datei: Vorschau
+        val ok = preview(header + row)
+        assertFalse(ok.tooLarge)
+        assertNull(CsvImportRefusal.of(fileTooLarge = false, preview = ok))
+    }
+
     /** Bestehender Aufruf ohne Grenzen-Ergebnis: über den Grenzen leer. */
     @Test
     fun tokenizeUeberGrenzenLeer() {

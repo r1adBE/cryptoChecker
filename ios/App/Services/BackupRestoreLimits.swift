@@ -47,9 +47,32 @@ enum BackupRestoreLimits {
         }
     }
 
+    /// Was nach `accept` bzw. `limit` übernommen wird; `droppedPairs`/`droppedAlarms` = wie viele wegen der Grenzen
+    /// wegfallen. Gezählt, damit Rückfrage und Erfolgsmeldung sie nennen — eine eigene ältere Sicherung mit mehr Paaren
+    /// oder Alarmen verlöre sonst still Daten (seit Build 99, wie Android `Limited`).
+    struct Limited {
+        var watches: [Watch]
+        var alarms: [Alarm]
+        var droppedPairs = 0
+        var droppedAlarms = 0
+    }
+
+    /// Paare, die `acceptsWatch` ablehnt, weglassen und mit ihnen ihre Alarme (vor der Bereinigung, damit ein
+    /// ungültiges Paar kein gültiges verdrängt). Alarme ohne Paar in der Datei zählen nicht: die fielen schon immer weg.
+    static func accept(watches: [Watch], alarms: [Alarm]) -> Limited {
+        let kept = watches.filter(acceptsWatch)
+        let rejectedCount = watches.count - kept.count
+        guard rejectedCount > 0 else { return Limited(watches: watches, alarms: alarms) }
+        let rejectedIds = Set(watches.filter { !acceptsWatch($0) }.map(\.id)).subtracting(kept.map(\.id))
+        let keptAlarms = alarms.filter { !rejectedIds.contains($0.watchId) }
+        return Limited(watches: kept, alarms: keptAlarms,
+                       droppedPairs: rejectedCount, droppedAlarms: alarms.count - keptAlarms.count)
+    }
+
     /// Höchstens `maxPairs` Paare (nach der Bereinigung, damit Doppel keine Plätze belegen) und je Paar die ersten
-    /// `maxAlarmsPerPair` Alarme; Alarme weggelassener Paare fallen mit weg.
-    static func limit(watches: [Watch], alarms: [Alarm]) -> (watches: [Watch], alarms: [Alarm]) {
+    /// `maxAlarmsPerPair` Alarme; Alarme weggelassener Paare fallen mit weg. Nach der Bereinigung hängt jeder Alarm an
+    /// einem Paar: jeder weggelassene zählt.
+    static func limit(watches: [Watch], alarms: [Alarm]) -> Limited {
         let kept = Array(watches.prefix(maxPairs))
         let keptIds = Set(kept.map(\.id))
         var perPair: [Int64: Int] = [:]
@@ -59,6 +82,7 @@ enum BackupRestoreLimits {
             perPair[a.watchId] = n + 1
             return n < maxAlarmsPerPair
         }
-        return (kept, keptAlarms)
+        return Limited(watches: kept, alarms: keptAlarms,
+                       droppedPairs: watches.count - kept.count, droppedAlarms: alarms.count - keptAlarms.count)
     }
 }

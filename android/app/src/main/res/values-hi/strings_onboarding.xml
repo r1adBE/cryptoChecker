@@ -3,20 +3,20 @@
     <!-- Begrüssung beim ersten Start -->
     <string name="welcome_alert">अलार्म – कीमत, प्रतिशत, वॉल्यूम और असामान्य चालें</string>
     <string name="welcome_alert_q">कब सूचना मिले?</string>
-    <string name="welcome_text">आपके भाव। आपके अलार्म। आपका ओवरव्यू।\nकोई खाता नहीं। कोई विज्ञापन नहीं। कोई ट्रैकिंग नहीं।</string>
-    <string name="welcome_understand">समझें – अभी किसी भाव के साथ और क्या चल रहा है</string>
+    <string name="welcome_text">तुम्हारे भाव। तुम्हारे अलार्म। तुम्हारा ओवरव्यू।\nकोई खाता नहीं। कोई विज्ञापन नहीं। कोई ट्रैकिंग नहीं।</string>
+    <string name="welcome_understand">समझो – अभी किसी भाव के साथ और क्या चल रहा है</string>
     <string name="welcome_understand_q">साथ में किसमें हलचल है?</string>
-    <string name="welcome_watch">देखें – आपके कॉइन, भाव और उनका रुझान</string>
+    <string name="welcome_watch">देखो – तुम्हारे कॉइन, भाव और उनका रुझान</string>
     <string name="welcome_watch_q">क्या हो रहा है?</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
-    <string name="starter_add_selected">वॉचलिस्ट में जोड़ें (%1$d)</string>
+    <string name="starter_add_selected">वॉचलिस्ट में जोड़ो (%1$d)</string>
     <string name="starter_loading_prices">कीमतें लोड हो रही हैं…</string>
-    <string name="starter_search_coin">दूसरा कॉइन खोजें</string>
-    <string name="starter_select_all">सभी चुनें</string>
-    <string name="starter_select_none">कोई नहीं चुनें</string>
-    <string name="starter_title">इन कॉइन से शुरू करें</string>
-    <string name="starter_watch_alarm_hint">कीमत देखें, अलार्म सेट करें</string>
+    <string name="starter_search_coin">दूसरा कॉइन खोजो</string>
+    <string name="starter_select_all">सभी चुनो</string>
+    <string name="starter_select_none">कोई नहीं चुनो</string>
+    <string name="starter_title">इन कॉइन से शुरू करो</string>
+    <string name="starter_watch_alarm_hint">कीमत देखो, अलार्म सेट करो</string>
 
-    <string name="starter_source_text">भाव %1$s से, %2$s में। जो नहीं चाहिए उसका चयन हटाएँ और बाकी को एक साथ जोड़ें। एक्सचेंज और पेयर आप हर कॉइन के लिए बदल सकते हैं।</string>
+    <string name="starter_source_text">भाव %1$s से, %2$s में। जो नहीं चाहिए उसका चयन हटाओ और बाकी को एक साथ जोड़ो। एक्सचेंज और पेयर तुम हर कॉइन के लिए बदल सकते हो।</string>
 </resources>

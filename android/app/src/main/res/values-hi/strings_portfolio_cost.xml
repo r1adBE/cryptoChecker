@@ -2,12 +2,12 @@
 <resources>
     <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
     <string name="cost_gaps_card">लागत मूल्य के बिना प्रविष्टियाँ: %1$d</string>
-    <string name="cost_gaps_card_text">लागत मूल्य जोड़ें ताकि लाभ और कर पूरे हों।</string>
+    <string name="cost_gaps_card_text">लागत मूल्य जोड़ो ताकि लाभ और कर पूरे हों।</string>
     <string name="cost_gaps_sheet_title">लागत मूल्य के बिना प्रविष्टियाँ</string>
-    <string name="cost_gaps_sheet_intro">इन प्राप्तियों में लागत मूल्य नहीं है। सुझाव उस तारीख का दैनिक बंद भाव है – आप इसे प्रविष्टि में बदल सकते हैं।</string>
+    <string name="cost_gaps_sheet_intro">इन प्राप्तियों में लागत मूल्य नहीं है। सुझाव उस तारीख का दैनिक बंद भाव है – तुम इसे प्रविष्टि में बदल सकते हो।</string>
     <string name="cost_gaps_empty">सभी प्रविष्टियों में लागत मूल्य है।</string>
-    <string name="cost_gap_enter">लागत मूल्य दर्ज करें</string>
-    <string name="cost_gap_leave_unknown">अज्ञात रहने दें</string>
+    <string name="cost_gap_enter">लागत मूल्य दर्ज करो</string>
+    <string name="cost_gap_leave_unknown">अज्ञात रहने दो</string>
     <string name="cost_gap_left_unknown">अज्ञात छोड़ा गया</string>
     <!-- Vorschlag: Menge × geprüfter Tagesschluss; %1$s = Datum, %2$s = Betrag in USDT -->
     <string name="cost_gap_suggestion">सुझाव: %1$s का बंद भाव – %2$s</string>
@@ -17,11 +17,11 @@
     <string name="cost_gap_income">लागत = प्राप्ति पर मूल्य (आय)</string>
     <!-- Steuer-Vorlage Österreich: Belohnung ohne Zins hat Anschaffungskosten 0 -->
     <string name="cost_gap_income_zero">लागत = 0 (प्रवाह रहित इनाम, ऑस्ट्रिया)</string>
-    <string name="cost_gap_apply">लागू करें</string>
+    <string name="cost_gap_apply">लागू करो</string>
     <string name="address_lots_action">पते की शेष राशि के लिए लागत</string>
     <string name="address_lots_title">पते की शेष राशि के लिए लागत</string>
-    <string name="address_lots_intro">इस पते की शेष राशि के लिए खरीद तिथि, मात्रा और लागत दर्ज करें। लॉट इस पते में खरीद की तरह गिने जाते हैं; जो हिस्सा कवर नहीं है वह बिना लागत रहता है।</string>
-    <string name="address_lots_add">लॉट जोड़ें</string>
+    <string name="address_lots_intro">इस पते की शेष राशि के लिए खरीद तिथि, मात्रा और लागत दर्ज करो। लॉट इस पते में खरीद की तरह गिने जाते हैं; जो हिस्सा कवर नहीं है वह बिना लागत रहता है।</string>
+    <string name="address_lots_add">लॉट जोड़ो</string>
     <string name="address_lots_new">नया लॉट</string>
     <string name="address_lots_edit">लॉट</string>
     <string name="address_lots_date">खरीद तिथि</string>
@@ -36,5 +36,5 @@
     <!-- %1$s = Menge der Posten über dem Guthaben -->
     <string name="address_lots_capped">लॉट शेष राशि से %1$s अधिक हैं – सबसे पुराने पहले खर्च होते हैं।</string>
     <string name="address_lots_not_loaded">शेष राशि अभी लोड नहीं हुई – लोड होते ही लॉट गिने जाएँगे।</string>
-    <string name="address_lots_invalid">मात्रा और लागत दर्ज करें</string>
+    <string name="address_lots_invalid">मात्रा और लागत दर्ज करो</string>
 </resources>

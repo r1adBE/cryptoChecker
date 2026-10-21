@@ -24,10 +24,10 @@
 
     <!-- Neutrale Indikatoren: Info-Blatt (was, wie) -->
     <string name="neutral_info_alt_season_how">Aplikasi hanya menampilkan hitungan dan tidak menyebutnya \"musim\". Nilainya biasanya berubah dalam hitungan hari, bukan jam.</string>
-    <string name="neutral_info_btc_how">Setiap nilai disertai satu kalimat tentang apa yang diukurnya dan posisinya dalam riwayatnya sendiri sejak 2016. Aplikasi tidak menilai nilai dan tidak menyimpulkan fase pasar; batas notifikasi hanya yang Anda tetapkan sendiri. Pola masa lalu tidak harus terulang.</string>
+    <string name="neutral_info_btc_how">Setiap nilai disertai satu kalimat tentang apa yang diukurnya dan posisinya dalam riwayatnya sendiri sejak 2016. Aplikasi tidak menilai nilai dan tidak menyimpulkan fase pasar; batas notifikasi hanya yang kamu tetapkan sendiri. Pola masa lalu tidak harus terulang.</string>
     <string name="neutral_info_btc_what">Indikator Bitcoin umum sebagai nilai terukur saja: Mayer Multiple, rata-rata 200 minggu, penurunan dari puncak, perubahan 30 hari, jarak Pi Cycle, serta nilai on-chain MVRV, Puell Multiple, dan hashrate.</string>
     <string name="neutral_info_coin_how">Setiap nilai disertai satu kalimat tentang apa yang diukurnya, tanpa penilaian. Untuk koin dengan riwayat harga pendek, beberapa nilai tidak ada. Data on-chain tidak disertakan di sini.</string>
-    <string name="neutral_info_coin_what">Indikator sederhana yang sama untuk koin pilihan Anda, hanya dari data harga: Mayer Multiple, rata-rata 200 minggu, penurunan dari puncak, perubahan 30 hari, tren 50/200 hari, RSI dan kekuatan terhadap Bitcoin dalam 90 hari.</string>
+    <string name="neutral_info_coin_what">Indikator sederhana yang sama untuk koin pilihanmu, hanya dari data harga: Mayer Multiple, rata-rata 200 minggu, penurunan dari puncak, perubahan 30 hari, tren 50/200 hari, RSI dan kekuatan terhadap Bitcoin dalam 90 hari.</string>
     <string name="neutral_info_halving_how">Halving berikutnya dihitung dari tinggi blok saat ini dan waktu blok rata-rata periode kesulitan yang berjalan (mempool.space); tanpa data itu, menurut kalender (halving terakhir ditambah sekitar empat tahun). Grafik menampilkan pergerakan harga siklus sebelumnya sejak halving – sejarah, bukan prakiraan.</string>
 
     <!-- Indikator-Namen -->

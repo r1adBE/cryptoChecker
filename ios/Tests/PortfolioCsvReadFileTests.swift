@@ -33,6 +33,14 @@ final class PortfolioCsvReadFileTests: XCTestCase {
         XCTAssertNil(PortfolioCsvImporter.readFile(dir.appendingPathComponent("fehlt.csv"), maxBytes: 64))
     }
 
+    /// Mit Grund (seit Build 99): über der Grenze «zu gross» (eigene Meldung), fehlende Datei «nicht lesbar».
+    func testReadCheckedNamesTheReason() throws {
+        XCTAssertEqual(try PortfolioCsvImporter.readChecked(try file(64), maxBytes: 64).get().count, 64)
+        XCTAssertEqual(PortfolioCsvImporter.readChecked(try file(65), maxBytes: 64), .failure(.tooLarge))
+        XCTAssertEqual(PortfolioCsvImporter.readChecked(dir.appendingPathComponent("fehlt.csv"), maxBytes: 64),
+                       .failure(.unreadable))
+    }
+
     func testDefaultLimitIsSixteenMegabytes() throws {
         XCTAssertEqual(PortfolioCsvImporter.maxBytes, 16 * 1024 * 1024)
         XCTAssertEqual(PortfolioCsvImporter.readFile(try file(10))?.count, 10)

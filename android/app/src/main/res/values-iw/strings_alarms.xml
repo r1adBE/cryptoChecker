@@ -5,7 +5,7 @@
     <string name="alarms_add">התראה חדשה</string>
     <string name="alarms_edit">עריכת התראה</string>
     <string name="alarms_empty">אין עדיין התראות לצמד זה.</string>
-    <string name="alarms_empty_example">לדוגמה: תודיע לי כש-BTC עולה מעל %1$s.</string>
+    <string name="alarms_empty_example">לדוגמה: להודיע לי כש-BTC עולה מעל %1$s.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
     <string name="alarms_notifications_off">התראות המערכת כבויות – ההתראות שהגדרת לא יגיעו אליך.</string>
     <string name="alarms_notifications_turn_on">הפעלה</string>
@@ -40,14 +40,14 @@
     <string name="alarm_once">פעם אחת</string>
     <string name="alarm_option_repeating">להודיע</string>
     <string name="alarm_option_sound">צליל</string>
-    <string name="alarm_option_speak">הקרא התראה</string>
+    <string name="alarm_option_speak">הקראת התראה</string>
     <string name="alarm_option_vibrate">רטט</string>
     <string name="alarm_repeat_each">בכל פעם</string>
     <string name="alarm_repeat_once">פעם אחת</string>
     <string name="alarm_repeating">בכל פעם</string>
-    <string name="alarm_threshold_error_empty">הזן ערך כדי לשמור את ההתראה.</string>
+    <string name="alarm_threshold_error_empty">הזינו ערך כדי לשמור את ההתראה.</string>
     <string name="alarm_threshold_error_funding">שיעור מימון חייב להיות מספר בין −10 ל-+10 אחוז.</string>
-    <string name="alarm_threshold_error_invalid">הזן מספר תקין גדול מ-0.</string>
+    <string name="alarm_threshold_error_invalid">הזינו מספר תקין גדול מ-0.</string>
     <string name="alarm_threshold_error_oi">שינוי ב-Open interest: לכל היותר 1000 אחוז.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">תוך %1$d שעה</item>
@@ -163,7 +163,7 @@
     <string name="alarm_test">בדיקת התראה</string>
     <string name="alarm_test_action">בדיקה</string>
     <string name="alarm_test_denied">ההתראות כבויות עבור Crypto Checker.</string>
-    <string name="alarm_test_hint">שולח התראה לדוגמה עם הגדרות הצליל, הרטט וההקראה שלכם.</string>
+    <string name="alarm_test_hint">שולח התראה לדוגמה עם הגדרות הצליל, הרטט וההקראה שלך.</string>
     <string name="alarm_test_open_settings">פתיחת הגדרות</string>
     <string name="alarm_test_quiet">שעות הדממה פעילות כרגע: התראות אמיתיות היו ממתינות עד סופן ואז מתריעות עם צליל.</string>
     <string name="alarm_test_text">כך נראית התראה, וכך היא נשמעת.</string>
@@ -181,7 +181,7 @@
     <string name="alarm_status_low_liquidity">אין התראה – נזילות נמוכה</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">ממתין לשער עדכני</string>
-    <string name="alarm_enter_amount">הזן ערך</string>
+    <string name="alarm_enter_amount">הזינו ערך</string>
     <string name="alarm_editor_more">עוד</string>
     <string name="alarm_editor_more_summary">התראות מהירות, תנאים נוספים, צליל והקראה</string>
     <string name="alarm_reliability_storage_no_key">ההתראות מושהות ברקע – רשימת המעקב לא נשמרה</string>

@@ -4,7 +4,7 @@
     <string name="widget_background">Latar</string>
     <string name="widget_configure_hint">Pilih latar dan opasitas. Warna mengikuti aplikasi. Widget menampilkan seluruh daftar; ketuk baris untuk membuka aplikasi.</string>
     <string name="widget_configure_title">Atur widget</string>
-    <string name="widget_description">Menampilkan harga sebuah pasangan dari daftar pantau Anda.</string>
+    <string name="widget_description">Menampilkan harga sebuah pasangan dari daftar pantaumu.</string>
     <string name="widget_empty">Belum ada pasangan di daftar pantau.</string>
     <string name="widget_group_hint">Tampilkan hanya pasangan dalam grup ini.</string>
     <string name="widget_kind_single">Satu koin</string>
@@ -37,14 +37,14 @@
     <string name="widget_portfolio_as_of">Per %1$s</string>
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Riwayat segera hadir</string>
-    <string name="widget_portfolio_description">Nilai total portofolio Anda dan perubahan hari ini</string>
+    <string name="widget_portfolio_description">Nilai total portofoliomu dan perubahan hari ini</string>
     <string name="widget_portfolio_display">Tampilan</string>
     <string name="widget_portfolio_display_conversion">Hanya konversi</string>
     <string name="widget_portfolio_display_conversion_usdt">Konversi + USDT</string>
     <string name="widget_portfolio_display_hint">Baris USDT disembunyikan jika mata uang konversi adalah USD.</string>
     <string name="widget_portfolio_display_usdt">Hanya USDT</string>
     <string name="widget_portfolio_empty">Tambahkan pembelian di tab Portofolio</string>
-    <string name="widget_portfolio_list_hint">Buka aplikasi untuk menampilkan posisi Anda di sini.</string>
+    <string name="widget_portfolio_list_hint">Buka aplikasi untuk menampilkan posisimu di sini.</string>
     <string name="widget_portfolio_locked_hint">Terkunci – buka di aplikasi</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
@@ -80,7 +80,7 @@
     <string name="widgets_add">Tambah</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
     <string name="widgets_add_named">Tambah widget %1$s</string>
-    <string name="widgets_manual_text">Layar utama Anda tidak bisa menambahkan widget dari aplikasi. Sentuh lama area kosong di layar utama, pilih “Widget”, lalu cari “Crypto Checker”.</string>
+    <string name="widgets_manual_text">Layar utamamu tidak bisa menambahkan widget dari aplikasi. Sentuh lama area kosong di layar utama, pilih “Widget”, lalu cari “Crypto Checker”.</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
     <string name="widgets_manual_title">Tambahkan widget sendiri</string>
     <string name="widgets_sheet_title">Tambah widget</string>

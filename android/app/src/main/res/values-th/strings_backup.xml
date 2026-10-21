@@ -50,6 +50,9 @@
     <plurals name="backup_restored_pairs">
         <item quantity="other">%1$d คู่</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">เกินขีดจำกัด (%3$s คู่, สัญญาณเตือน %4$s รายการต่อคู่) จะไม่ถูกกู้คืน: %1$s %2$s</string>
+    <string name="backup_restored_over_limits">เกินขีดจำกัด (%3$s คู่, สัญญาณเตือน %4$s รายการต่อคู่) ไม่ได้กู้คืน: %1$s %2$s</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">อุปกรณ์นี้ไม่มีกุญแจของข้อมูลที่เข้ารหัสของแอปแล้ว แอปจึงเริ่มแบบว่างเปล่า ไม่มีสิ่งใดถูกลบ หากต้องการรายการและพอร์ตโฟลิโอคืน ให้นำเข้าไฟล์สำรองในการตั้งค่า ที่ “%1$s”</string>

@@ -15,7 +15,17 @@ data class RestoreResult(
     val replacedAlarmIds: List<Long> = emptyList(),
     /** Ids der ersetzten Portfolio-Alarme (leer, wenn die Sicherung keine enthielt und sie blieben). */
     val replacedPortfolioAlarmIds: List<Long> = emptyList(),
+    /** Paare über den Grenzen bzw. mit unzulässiger Kennung ([BackupRestoreLimits]), nicht übernommen (seit Build 99). */
+    val droppedPairs: Int = 0,
+    /** Alarme über den Grenzen bzw. weggelassener Paare ([BackupRestoreLimits]), nicht übernommen (seit Build 99). */
+    val droppedAlarms: Int = 0,
 )
+
+/**
+ * Was die Rückfrage vor dem Wiederherstellen nennt ([BackupManager.preview]): [invalid] = ungültige Einträge (zu
+ * bestätigen, `acceptInvalid`), [droppedPairs]/[droppedAlarms] = über den Grenzen ([BackupRestoreLimits]).
+ */
+data class RestorePreview(val invalid: Int = 0, val droppedPairs: Int = 0, val droppedAlarms: Int = 0)
 
 /**
  * Die eben geschriebene Sicherungsdatei liest sich nicht so zurück, wie sie geschrieben wurde (Grösse oder Inhalt weichen

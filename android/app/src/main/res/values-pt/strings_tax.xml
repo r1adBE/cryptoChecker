@@ -19,7 +19,7 @@
     <string name="portfolio_export_estv_note">Para o imposto sobre o património aplicam-se os valores oficiais de fim de ano da lista de cotações da ESTV %1$s (quando constem): %2$s</string>
     <string name="portfolio_export_failed">Falha na exportação</string>
     <string name="portfolio_export_from_address">do endereço – sem preço de compra</string>
-    <string name="portfolio_export_hint">Posse no fim do dia escolhido, avaliada ao preço de fecho diário (UTC) em USDT e convertida com a taxa de referência do BCE desse dia. Altere a moeda em «Converter para».</string>
+    <string name="portfolio_export_hint">Posse no fim do dia escolhido, avaliada ao preço de fecho diário (UTC) em USDT e convertida com a taxa de referência do BCE desse dia. Altera a moeda em «Converter para».</string>
     <string name="portfolio_export_incomplete">incompleto</string>
     <string name="portfolio_export_no_fx">sem câmbio</string>
     <string name="portfolio_export_no_price">sem preço</string>
@@ -63,7 +63,7 @@
     <string name="tax_export_match_pool">conjunto comum segundo a Section 104 (Section 104 pool)</string>
     <string name="tax_export_match_same_day">mesmo dia (HMRC)</string>
     <string name="tax_export_match_thirty_day">regra dos 30 dias (HMRC)</string>
-    <string name="tax_export_method_change_warning">Mudou o método ou o modelo? Os anos anteriores também são recalculados – compare com o que já declarou.</string>
+    <string name="tax_export_method_change_warning">Mudaste o método ou o modelo? Os anos anteriores também são recalculados – compara com o que já declaraste.</string>
     <string name="tax_export_method_overridden">O modelo calcula %1$s – não %2$s</string>
     <string name="tax_export_new_holding">adquirido a partir de 1.3.2021</string>
     <string name="tax_export_no">não</string>
@@ -96,18 +96,18 @@
 
     <!-- Steuer-Export: Zeilen und Spalten -->
     <string name="tax_line_at_interest">Juros de lending (valor na receção)</string>
-    <string name="tax_line_at_old_long">Adquirido antes de 1.3.2021 – detido &gt; 1 ano: em regra não tributável – verifique</string>
+    <string name="tax_line_at_old_long">Adquirido antes de 1.3.2021 – detido &gt; 1 ano: em regra não tributável – verifica</string>
     <string name="tax_line_at_rate">Taxa especial 27,5 por cento: líquido adquirido a partir de 1.3.2021 e vendido a partir de 1.3.2022 + juros</string>
     <string name="tax_line_au_discounted">Mais-valia líquida após perdas e desconto de 50 por cento</string>
     <string name="tax_line_ca_taxable">Mais-valia tributável (taxa de inclusão 1/2)</string>
     <string name="tax_line_ch_income">Recompensas listadas – tratamento ver documento de trabalho da ESTV</string>
     <string name="tax_line_ch_private">Mais-valias no património privado: não calculadas – classificação ver ESTV</string>
     <string name="tax_line_ch_wealth">Imposto sobre o património: não calculado – o CSV da posição usa o preço da plataforma × USD/CHF a 31/12 – valores fiscais: lista de cotações da ESTV</string>
-    <string name="tax_line_de_long">Detido &gt; 1 ano: segundo o § 23 EStG, em regra não tributável – verifique</string>
+    <string name="tax_line_de_long">Detido &gt; 1 ano: segundo o § 23 EStG, em regra não tributável – verifica</string>
     <string name="tax_line_denied_loss">Perdas não dedutíveis (perda aparente / superficial loss)</string>
     <string name="tax_line_fr_outflow">Saídas sem venda (levantamentos) – custo total de aquisição reduzido proporcionalmente</string>
     <string name="tax_line_fr_rate">Taxa fixa 12,8 por cento mais contribuições sociais (ou escala por opção)</string>
-    <string name="tax_line_fr_threshold">Cessões até 305 € por ano: em regra isentas (total dos preços de venda) – verifique</string>
+    <string name="tax_line_fr_threshold">Cessões até 305 € por ano: em regra isentas (total dos preços de venda) – verifica</string>
     <string name="tax_line_gains">Ganhos</string>
     <string name="tax_line_income">Rendimentos (recompensas ao valor na receção)</string>
     <string name="tax_line_jp_misc">Rendimentos diversos (雑所得): ganhos líquidos + rendimentos</string>
@@ -130,7 +130,7 @@
     <string name="tax_de_col_item">Rubrica</string>
     <string name="tax_de_disclaimer">Orientativo – não é uma declaração fiscal nem aconselhamento fiscal.</string>
     <string name="tax_de_explain_below">Até %1$s: abaixo do limite (orientativo).</string>
-    <string name="tax_de_explain_loss">Perda líquida: sem imposto sobre estas vendas. As perdas nos termos do § 23 EStG só se compensam com ganhos de vendas privadas – no mesmo ano ou por reporte ao ano anterior e aos anos seguintes (§ 23 Abs. 3 / § 10d EStG). Declare a perda na sua declaração de impostos para que seja apurada.</string>
+    <string name="tax_de_explain_loss">Perda líquida: sem imposto sobre estas vendas. As perdas nos termos do § 23 EStG só se compensam com ganhos de vendas privadas – no mesmo ano ou por reporte ao ano anterior e aos anos seguintes (§ 23 Abs. 3 / § 10d EStG). Declara a perda na tua declaração de impostos para que seja apurada.</string>
     <string name="tax_de_explain_reached">A partir de %1$s conta todo o valor (limite de isenção – não uma dedução).</string>
     <string name="tax_de_explain_unknown">Não verificável: faltam taxas de câmbio / preços de compra ou períodos de detenção.</string>
     <string name="tax_de_income_limit">Limite de isenção prestações (§ 22 Nr. 3 EStG)</string>
@@ -140,7 +140,7 @@
     <string name="tax_de_long_losses">Perdas – detido &gt; 1 ano</string>
     <string name="tax_de_loss">perda líquida – compensável apenas com ganhos de vendas privadas (§ 23 EStG)</string>
     <string name="tax_de_private_limit">Limite de isenção vendas privadas (§ 23 EStG)</string>
-    <string name="tax_de_reached">limite atingido – em regra conta todo o valor – verifique</string>
+    <string name="tax_de_reached">limite atingido – em regra conta todo o valor – verifica</string>
     <string name="tax_de_short_gains">Ganhos – detido ≤ 1 ano</string>
     <string name="tax_de_short_losses">Perdas – detido ≤ 1 ano</string>
     <string name="tax_de_unclassified">Sem período de detenção</string>
@@ -150,10 +150,10 @@
     <string name="tax_template_at">Áustria</string>
     <string name="tax_template_au">Austrália</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">Beta: regras do país simplificadas, verifique antes de entregar a declaração de impostos</string>
+    <string name="tax_template_beta_note">Beta: regras do país simplificadas, verifica antes de entregar a declaração de impostos</string>
     <string name="tax_template_ca">Canadá</string>
     <string name="tax_template_ch">Suíça</string>
-    <string name="tax_template_confirm_text">Beta, regras simplificadas, faltam transações de outras plataformas – verifique antes de entregar a declaração.</string>
+    <string name="tax_template_confirm_text">Beta, regras simplificadas, faltam transações de outras plataformas – verifica antes de entregar a declaração.</string>
     <string name="tax_template_confirm_title">Modelo fiscal (beta)</string>
     <string name="tax_template_current">Modelo: %1$s · Método: %2$s · Moeda: %3$s</string>
     <string name="tax_template_de">Alemanha</string>
@@ -161,7 +161,7 @@
     <string name="tax_template_hint">Apenas orientativo: define o método / o ano fiscal e o resumo do documento de trabalho. O cartão Portfólio mantém-se neutro – doações e taxas de transferência podem diferir do documento de trabalho.</string>
     <string name="tax_template_jp">Japão</string>
     <string name="tax_template_neutral">Neutro (todos os países)</string>
-    <string name="tax_template_suggestion">Sugestão para a sua região: %1$s</string>
+    <string name="tax_template_suggestion">Sugestão para a tua região: %1$s</string>
     <string name="tax_template_title">Modelo fiscal</string>
     <string name="tax_template_uk">Reino Unido</string>
     <string name="tax_template_us">EUA</string>
@@ -179,11 +179,11 @@
     <string name="tax_note_network_fee">Uma comissão de rede paga em cripto (transferência para a tua própria carteira, levantamento) é uma alienação das moedas da comissão ao valor de mercado – ganho ou perda só nessas moedas, não uma perda da comissão inteira (%1$s). Sem preço registado: fecho do mesmo dia (UTC); sem fecho o valor de venda fica vazio.</string>
     <string name="tax_note_specific_id">A identificação específica (Specific Identification) não é suportada – aplica-se FIFO (primeiro comprado – primeiro vendido).</string>
     <string name="tax_note_spouse_gift">Uma doação marcada «ao cônjuge / parceiro» não tem ganho nem perda: valor de venda = o teu custo, que o parceiro assume (%1$s).</string>
-    <string name="tax_note_stable_swap">Uma venda contra uma stablecoin (USDT/USDC/DAI …) que mantém é aqui cripto contra cripto e não é tributada – registe-a como troca para a stablecoin. Só é tributada a venda contra euros – «Venda» conta como venda contra euros.</string>
+    <string name="tax_note_stable_swap">Uma venda contra uma stablecoin (USDT/USDC/DAI …) que manténs é aqui cripto contra cripto e não é tributada – regista-a como troca para a stablecoin. Só é tributada a venda contra euros – «Venda» conta como venda contra euros.</string>
     <string name="tax_note_transfer_fee">O mesmo vale para uma comissão em USDT ou numerário numa transferência entre as tuas carteiras: não se soma ao custo e aparece só como informação.</string>
     <string name="tax_note_uk">Correspondência segundo a HMRC: mesmo dia → depois os 30 dias seguintes → depois o conjunto comum segundo a Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Transição a 1.1.2025 (Rev. Proc. 2024-28, safe harbor): se os anos anteriores usavam FIFO em todas as carteiras, os lotes restantes a 31.12.2024 vão para as carteiras que detêm as moedas – a carteira com as moedas mais antigas recebe o custo mais antigo. Esta atribuição é uma regra da app – compare-a com os seus registos.</string>
-    <string name="tax_note_us_wallet">A partir do ano fiscal de 2025 o IRS exige o custo de aquisição por carteira/corretora (Rev. Proc. 2024-28) – a exportação usa FIFO por carteira a partir de 2025 – antes de 2025 aplica-se o seu método do custo de aquisição.</string>
+    <string name="tax_note_us_transition">Transição a 1.1.2025 (Rev. Proc. 2024-28, safe harbor): se os anos anteriores usavam FIFO em todas as carteiras, os lotes restantes a 31.12.2024 vão para as carteiras que detêm as moedas – a carteira com as moedas mais antigas recebe o custo mais antigo. Esta atribuição é uma regra da app – compara-a com os teus registos.</string>
+    <string name="tax_note_us_wallet">A partir do ano fiscal de 2025 o IRS exige o custo de aquisição por carteira/corretora (Rev. Proc. 2024-28) – a exportação usa FIFO por carteira a partir de 2025 – antes de 2025 aplica-se o teu método do custo de aquisição.</string>
     <string name="tax_note_withdrawal_fee">Uma comissão de levantamento em USDT ou numerário não é perda: em numerário não é dedutível, em USDT é uma alienação ao par sem ganho – aparece só como informação (%1$s).</string>
     <string name="tax_summary_at_interest_income">conta: rendimento na receção à taxa especial de 27,5 por cento (§ 27b n.º 2 al. 1 EStG / BMF) – as moedas mantêm este valor como custo de aquisição</string>
     <string name="tax_summary_at_reward_info">apenas informativo – em nenhum total: as recompensas entram na nova posição com custo de aquisição 0 e só são tributadas na venda (já nos ganhos) – § 27b Abs. 2 EStG / BMF</string>
@@ -244,7 +244,7 @@
     <string name="portfolio_export_address_lots_note">Nota: um endereço observado tem lotes com custo de aquisição datados após a última consulta de saldo antes desta data – podem estar em falta aqui.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">Os endereços observados contam para o valor total, mas não têm custo de aquisição – o ganho tende, por isso, a ser demasiado alto. Registe o custo como compra.</string>
+    <string name="tax_summary_fr_address_no_cost">Os endereços observados contam para o valor total, mas não têm custo de aquisição – o ganho tende, por isso, a ser demasiado alto. Regista o custo como compra.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Valores de mercado sem preço registado (comissões, oferecido/pago, troca, recompensas, comissões de rede, valor da carteira) ao fecho diário (UTC) do dia da transação</string>

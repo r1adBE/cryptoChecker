@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Фон</string>
-    <string name="widget_configure_hint">Выберите фон и прозрачность. Цвет как в приложении. Виджет показывает весь список; коснитесь строки, чтобы открыть приложение.</string>
+    <string name="widget_configure_hint">Выбери фон и прозрачность. Цвет как в приложении. Виджет показывает весь список; коснись строки, чтобы открыть приложение.</string>
     <string name="widget_configure_title">Настройка виджета</string>
     <string name="widget_description">Показывает цену пары из списка.</string>
     <string name="widget_empty">В списке пока нет пар.</string>
@@ -43,9 +43,9 @@
     <string name="widget_portfolio_display_conversion_usdt">Пересчёт + USDT</string>
     <string name="widget_portfolio_display_hint">Строка USDT скрыта, если валюта пересчёта — USD.</string>
     <string name="widget_portfolio_display_usdt">Только USDT</string>
-    <string name="widget_portfolio_empty">Добавьте покупки на вкладке «Портфель»</string>
-    <string name="widget_portfolio_list_hint">Откройте приложение, чтобы здесь появились ваши позиции.</string>
-    <string name="widget_portfolio_locked_hint">Заблокировано – разблокируйте в приложении</string>
+    <string name="widget_portfolio_empty">Добавь покупки на вкладке «Портфель»</string>
+    <string name="widget_portfolio_list_hint">Открой приложение, чтобы здесь появились твои позиции.</string>
+    <string name="widget_portfolio_locked_hint">Заблокировано – разблокируй в приложении</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
         <item quantity="one">без %1$d монеты</item>
@@ -60,7 +60,7 @@
         <item quantity="other">+ ещё %1$d</item>
     </plurals>
     <string name="widget_portfolio_name">Портфель</string>
-    <string name="widget_portfolio_off_hint">Включите в разделе %1$s.</string>
+    <string name="widget_portfolio_off_hint">Включи в разделе %1$s.</string>
     <string name="widget_portfolio_off_short">Портфель выкл.</string>
     <string name="widget_portfolio_off_title">Портфель выключен</string>
     <string name="widget_portfolio_partly_stale">частично старый курс</string>
@@ -68,7 +68,7 @@
     <string name="widget_portfolio_period_without">%1$s без %2$s</string>
     <string name="widget_portfolio_range_48h">48 ч</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: откройте Портфель</string>
+    <string name="widget_portfolio_range_fallback">%1$s: открой Портфель</string>
     <string name="widget_portfolio_range_short_48h">48ч</string>
     <string name="widget_portfolio_today_without">Сегодня без %1$s</string>
     <string name="widget_portfolio_view">Вид</string>
@@ -77,7 +77,7 @@
     <string name="widget_portfolio_view_overview">Обзор</string>
 
     <!-- Einzel-Widget -->
-    <string name="single_widget_choose">Выберите пару</string>
+    <string name="single_widget_choose">Выбери пару</string>
     <string name="single_widget_description">Показывает одну монету крупно: цена, изменение и график за 24 часа.</string>
     <string name="single_widget_label">Crypto Checker — одна монета</string>
     <string name="single_widget_title">Настройка виджета монеты</string>
@@ -86,17 +86,17 @@
     <string name="widgets_add">Добавить</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
     <string name="widgets_add_named">Добавить виджет %1$s</string>
-    <string name="widgets_manual_text">Ваш главный экран не умеет добавлять виджеты из приложения. Нажмите и удерживайте свободное место на главном экране, выберите «Виджеты» и найдите «Crypto Checker».</string>
+    <string name="widgets_manual_text">Твой главный экран не умеет добавлять виджеты из приложения. Нажми и удерживай свободное место на главном экране, выбери «Виджеты» и найди «Crypto Checker».</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
-    <string name="widgets_manual_title">Добавьте виджет вручную</string>
+    <string name="widgets_manual_title">Добавь виджет вручную</string>
     <string name="widgets_sheet_title">Добавить виджет</string>
 
     <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
     <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS не позволяет приложениям самим добавлять виджеты. Это займёт всего минуту:</string>
     <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Доступные виджеты</string>
-    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Нажмите и удерживайте свободное место на экране «Домой», пока приложения не начнут покачиваться.</string>
-    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Нажмите вверху «Править» › «Добавить виджет» (или «+» в старых версиях iOS).</string>
-    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Найдите «Crypto Checker», выберите виджет и нажмите «Добавить виджет».</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Нажми и удерживай свободное место на экране «Домой», пока приложения не начнут покачиваться.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Нажми вверху «Править» › «Добавить виджет» (или «+» в старых версиях iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Найди «Crypto Checker», выбери виджет и нажми «Добавить виджет».</string>
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Обновить – снова можно через %1$d с</string>

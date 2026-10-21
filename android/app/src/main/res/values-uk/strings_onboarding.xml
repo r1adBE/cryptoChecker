@@ -3,10 +3,10 @@
     <!-- Begrüssung beim ersten Start -->
     <string name="welcome_alert">Сигналізувати – ціна, відсоток, обсяг і незвичайні рухи</string>
     <string name="welcome_alert_q">Коли сповістити?</string>
-    <string name="welcome_text">Ваші курси. Ваші сигнали. Ваш огляд.\nБез акаунта. Без реклами. Без стеження.</string>
+    <string name="welcome_text">Твої курси. Твої сигнали. Твій огляд.\nБез акаунта. Без реклами. Без стеження.</string>
     <string name="welcome_understand">Розуміти – що рухається разом із курсом просто зараз</string>
     <string name="welcome_understand_q">Що рухається разом?</string>
-    <string name="welcome_watch">Стежити – ваші монети, курси та їхня динаміка</string>
+    <string name="welcome_watch">Стежити – твої монети, курси та їхня динаміка</string>
     <string name="welcome_watch_q">Що відбувається?</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
@@ -15,8 +15,8 @@
     <string name="starter_search_coin">Знайти іншу монету</string>
     <string name="starter_select_all">Вибрати всі</string>
     <string name="starter_select_none">Зняти вибір</string>
-    <string name="starter_title">Почніть із цих монет</string>
-    <string name="starter_watch_alarm_hint">Стежте за курсом, задайте сигнал</string>
+    <string name="starter_title">Почни із цих монет</string>
+    <string name="starter_watch_alarm_hint">Стеж за курсом, задай сигнал</string>
 
-    <string name="starter_source_text">Ціни з біржі %1$s у %2$s. Зніміть позначку з непотрібних і додайте решту за один раз. Біржу й пару можна змінити для кожної монети.</string>
+    <string name="starter_source_text">Ціни з біржі %1$s у %2$s. Зніми позначку з непотрібних і додай решту за один раз. Біржу й пару можна змінити для кожної монети.</string>
 </resources>

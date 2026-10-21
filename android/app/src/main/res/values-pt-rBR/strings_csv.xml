@@ -48,6 +48,8 @@
     <string name="portfolio_csv_import_transfers_hint">Um saque e o depósito correspondente da mesma moeda viram uma única transferência: o preço de compra e o período de posse são mantidos, a diferença conta como taxa de rede.</string>
     <string name="portfolio_csv_import_transfers_title">Transferências entre suas contas</string>
     <string name="portfolio_csv_import_unreadable">Nenhuma transação compatível encontrada. Compatíveis: exportações CSV da Relai, da Swissquote, da Kraken, da Binance, da Coinbase e da Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">O arquivo é grande demais para importar (máx. 16 MB e %1$s linhas). Exporte períodos mais curtos e importe um de cada vez.</string>
     <string name="portfolio_csv_import_failed">A importação falhou – nada foi salvo. Tente novamente.</string>
     <string name="portfolio_csv_import_locked">Não é possível importar: os dados salvos não podem ser lidos agora. Reinicie o app.</string>
     <string name="portfolio_csv_import_withdrawals_title">Saques – para onde foram as moedas?</string>

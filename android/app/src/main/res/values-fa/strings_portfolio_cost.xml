@@ -2,9 +2,9 @@
 <resources>
     <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
     <string name="cost_gaps_card">ورودی‌های بدون بهای تمام‌شده: %1$d</string>
-    <string name="cost_gaps_card_text">بهای تمام‌شده را اضافه کنید تا سود و مالیات کامل شود.</string>
+    <string name="cost_gaps_card_text">بهای تمام‌شده را اضافه کن تا سود و مالیات کامل شود.</string>
     <string name="cost_gaps_sheet_title">ورودی‌های بدون بهای تمام‌شده</string>
-    <string name="cost_gaps_sheet_intro">این ورودی‌ها بهای تمام‌شده ندارند. پیشنهاد، قیمت بسته‌شدن روز است – می‌توانید آن را در ورودی تغییر دهید.</string>
+    <string name="cost_gaps_sheet_intro">این ورودی‌ها بهای تمام‌شده ندارند. پیشنهاد، قیمت بسته‌شدن روز است – می‌توانی آن را در ورودی تغییر دهی.</string>
     <string name="cost_gaps_empty">همهٔ ورودی‌ها بهای تمام‌شده دارند.</string>
     <string name="cost_gap_enter">ثبت بهای تمام‌شده</string>
     <string name="cost_gap_leave_unknown">نامعلوم بماند</string>
@@ -20,7 +20,7 @@
     <string name="cost_gap_apply">اعمال</string>
     <string name="address_lots_action">بهای تمام‌شده برای موجودی نشانی</string>
     <string name="address_lots_title">بهای تمام‌شده برای موجودی نشانی</string>
-    <string name="address_lots_intro">تاریخ خرید، مقدار و بهای تمام‌شده را برای موجودی این نشانی وارد کنید. دسته‌ها مانند خرید در این نشانی حساب می‌شوند؛ بخش پوشش‌نیافته بدون بهای تمام‌شده می‌ماند.</string>
+    <string name="address_lots_intro">تاریخ خرید، مقدار و بهای تمام‌شده را برای موجودی این نشانی وارد کن. دسته‌ها مانند خرید در این نشانی حساب می‌شوند؛ بخش پوشش‌نیافته بدون بهای تمام‌شده می‌ماند.</string>
     <string name="address_lots_add">افزودن دسته</string>
     <string name="address_lots_new">دستهٔ جدید</string>
     <string name="address_lots_edit">دسته</string>
@@ -36,5 +36,5 @@
     <!-- %1$s = Menge der Posten über dem Guthaben -->
     <string name="address_lots_capped">دسته‌ها به اندازهٔ %1$s از موجودی بیشترند – قدیمی‌ترها اول مصرف می‌شوند.</string>
     <string name="address_lots_not_loaded">موجودی هنوز بارگیری نشده – دسته‌ها به محض آماده‌شدن حساب می‌شوند.</string>
-    <string name="address_lots_invalid">مقدار و بهای تمام‌شده را وارد کنید</string>
+    <string name="address_lots_invalid">مقدار و بهای تمام‌شده را وارد کن</string>
 </resources>

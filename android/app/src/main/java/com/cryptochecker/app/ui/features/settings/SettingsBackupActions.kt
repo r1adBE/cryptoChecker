@@ -44,7 +44,7 @@ fun SettingsViewModel.restorePicked(uri: android.net.Uri) = update {
     }
     _restoreStep.value = try {
         if (backupManager.needsPassword(uri)) RestoreStep.Password(uri)
-        else RestoreStep.Confirm(uri, null, backupManager.invalidEntries(uri, null))
+        else RestoreStep.Confirm(uri, null, backupManager.preview(uri, null))
     } catch (e: kotlinx.coroutines.CancellationException) {
         throw e
     } catch (e: Exception) {
@@ -64,8 +64,8 @@ fun SettingsViewModel.submitRestorePassword(uri: android.net.Uri, password: Stri
     val failed = (_restoreStep.value as? RestoreStep.Password)?.failedAttempts ?: 0
     _restoreStep.value = RestoreStep.Password(uri, wrong = failed > 0, checking = true, failedAttempts = failed)
     val next: RestoreStep? = try {
-        // Prüft das Passwort und zählt zugleich ungültige Portfolio-Einträge (nur eine Schlüsselableitung)
-        RestoreStep.Confirm(uri, password, backupManager.invalidEntries(uri, password))
+        // Prüft das Passwort und zählt zugleich ungültige Einträge und solche über den Grenzen (nur eine Schlüsselableitung)
+        RestoreStep.Confirm(uri, password, backupManager.preview(uri, password))
     } catch (e: kotlinx.coroutines.CancellationException) {
         throw e
     } catch (e: com.cryptochecker.app.data.BackupCrypto.WrongPasswordException) {
@@ -114,7 +114,7 @@ fun SettingsViewModel.restoreBackup(uri: android.net.Uri, password: String?, acc
                 // Gleich Kurse holen: Widgets, Kurs-Mitteilungen und Alarme der neuen Paare
                 // warteten sonst bis zur nächsten Hintergrund-Aktualisierung (bis 15 Min. und mehr)
                 if (result.watches > 0) scheduler.refreshNow()
-                BackupMessage.Restored(result.watches, result.alarms, result.appLockKept)
+                BackupMessage.Restored(result.watches, result.alarms, result.appLockKept, result.droppedPairs, result.droppedAlarms)
             },
             onFailure = { BackupMessage.failure(it) }
         )
@@ -165,11 +165,16 @@ sealed interface RestoreStep {
     ) : RestoreStep
 
     /**
-     * Rückfrage «Ersetzen?»; [password] null bei einer lesbaren Sicherung; [invalid] = ungültige
-     * Portfolio-Einträge, die nicht übernommen würden (die Rückfrage nennt sie). Kein data class: kein
-     * Passwort in toString.
+     * Rückfrage «Ersetzen?»; [password] null bei einer lesbaren Sicherung; [preview] = ungültige Einträge und solche
+     * über den Grenzen, die nicht übernommen würden (die Rückfrage nennt sie). Kein data class: kein Passwort in toString.
      */
-    class Confirm(override val uri: android.net.Uri, val password: String?, val invalid: Int = 0) : RestoreStep {
+    class Confirm(
+        override val uri: android.net.Uri,
+        val password: String?,
+        val preview: com.cryptochecker.app.data.RestorePreview = com.cryptochecker.app.data.RestorePreview(),
+    ) : RestoreStep {
+        /** Ungültige Einträge: Wiederherstellen lässt sie nur mit dieser bestätigten Anzahl weg (`acceptInvalid`). */
+        val invalid: Int get() = preview.invalid
         /** Sicherung ohne Passwort: keine Echtheitsprüfung — die Rückfrage warnt davor. */
         val unencrypted: Boolean get() = password == null
     }
@@ -177,8 +182,17 @@ sealed interface RestoreStep {
 
 sealed interface BackupMessage {
     data object Exported : BackupMessage
-    /** [appLockKept] = Sicherung ohne Passwort wollte die Portfolio-Sperre ausschalten; sie blieb an. */
-    data class Restored(val watches: Int, val alarms: Int, val appLockKept: Boolean = false) : BackupMessage
+    /**
+     * [appLockKept] = Sicherung ohne Passwort wollte die Portfolio-Sperre ausschalten; sie blieb an.
+     * [droppedPairs]/[droppedAlarms] = über den Grenzen nicht übernommen (seit Build 99).
+     */
+    data class Restored(
+        val watches: Int,
+        val alarms: Int,
+        val appLockKept: Boolean = false,
+        val droppedPairs: Int = 0,
+        val droppedAlarms: Int = 0,
+    ) : BackupMessage
     data object Failed : BackupMessage
     /** Datei über 64 MB oder zu tief verschachtelt ([com.cryptochecker.app.data.BackupLimits]). */
     data object TooLarge : BackupMessage

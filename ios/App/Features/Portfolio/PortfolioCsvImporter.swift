@@ -57,18 +57,27 @@ enum PortfolioCsvImporter {
     /// Datei lesen, höchstens `maxBytes` — auch ohne bekannte Grösse (`fileSizeKey` fehlt bei manchen Anbietern) nie
     /// eine beliebig grosse Datei in den Speicher (wie `BackupManager.readFile`). nil = nicht lesbar oder zu gross.
     static func readFile(_ url: URL, maxBytes: Int = maxBytes) -> Data? {
-        if let size = (try? url.resourceValues(forKeys: [.fileSizeKey]))?.fileSize, size > maxBytes { return nil }
-        guard let handle = try? FileHandle(forReadingFrom: url) else { return nil }
-        defer { try? handle.close() }
-        guard let data = try? handle.read(upToCount: maxBytes + 1) ?? Data(), data.count <= maxBytes else { return nil }
-        return data
+        try? readChecked(url, maxBytes: maxBytes).get()
     }
 
-    /// nil = nicht lesbar oder keine unterstützte Zeile.
-    static func load(_ url: URL, existingKeys: Set<String>) async -> CsvImportLoaded? {
+    /// Wie `readFile`, aber mit Grund: `.tooLarge` über `maxBytes` (eigene Meldung, wie Android `TooLargeException`).
+    static func readChecked(_ url: URL, maxBytes: Int = maxBytes) -> Result<Data, CsvImportRefusal> {
+        if let size = (try? url.resourceValues(forKeys: [.fileSizeKey]))?.fileSize, size > maxBytes { return .failure(.tooLarge) }
+        guard let handle = try? FileHandle(forReadingFrom: url) else { return .failure(.unreadable) }
+        defer { try? handle.close() }
+        guard let data = try? handle.read(upToCount: maxBytes + 1) ?? Data() else { return .failure(.unreadable) }
+        return data.count <= maxBytes ? .success(data) : .failure(.tooLarge)
+    }
+
+    /// Vorschau laden; sonst der Grund (`CsvImportRefusal`): zu gross oder nicht lesbar bzw. keine unterstützte Zeile.
+    static func load(_ url: URL, existingKeys: Set<String>) async -> Result<CsvImportLoaded, CsvImportRefusal> {
         let scoped = url.startAccessingSecurityScopedResource()
         defer { if scoped { url.stopAccessingSecurityScopedResource() } }
-        guard let data = readFile(url) else { return nil }
+        let data: Data
+        switch readChecked(url) {
+        case .success(let d): data = d
+        case .failure(let refusal): return .failure(refusal)
+        }
         // UTF-8, sonst Windows-1252 (Excel), BOM weg — wie Android
         let text = CsvImportParser.decode(data)
         let result = CsvImportParser.parse(text, deviceZone: TimeZone.current.identifier)
@@ -76,10 +85,10 @@ enum PortfolioCsvImporter {
         let usdtUsd = await fetchUsdtUsd(result)
         let preview = mapPreview(result, existingKeys: existingKeys, rates: rates, withdrawalsAsTransfer: false,
                                  usdtUsd: usdtUsd)
-        guard preview.format != .UNKNOWN,
-              !preview.transactions.isEmpty || preview.duplicates > 0 || !preview.skipped.isEmpty else { return nil }
-        return CsvImportLoaded(text: text, result: result, existingKeys: existingKeys, rates: rates, preview: preview,
-                               usdtUsd: usdtUsd)
+        // Zu gross (über den Grenzen des Zerlegens) eigens melden, nicht als fremdes Format (seit Build 99, wie Android)
+        if let refusal = CsvImportRefusal.of(fileTooLarge: false, preview: preview) { return .failure(refusal) }
+        return .success(CsvImportLoaded(text: text, result: result, existingKeys: existingKeys, rates: rates,
+                                        preview: preview, usdtUsd: usdtUsd))
     }
 
     /// USDT/USD-Tagesschlüsse (Kraken, `PortfolioHistorySource.usdtUsdDaily`) vom frühesten Tag der Datei bis heute — wie

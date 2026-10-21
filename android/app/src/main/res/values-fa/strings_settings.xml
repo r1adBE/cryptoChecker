@@ -45,7 +45,7 @@
     <string name="settings_exact_checks_permission_missing">مجوز نیست – وقتی دستگاه در حالت استراحت است Android نامنظم بررسی می‌کند، گاهی پس از چند ساعت.</string>
     <string name="settings_notification_change">اعلان فقط هنگام تغییر قیمت</string>
     <string name="settings_notification_change_always">همیشه</string>
-    <string name="settings_percent_invalid">مقداری از 0 تا 100 وارد کنید.</string>
+    <string name="settings_percent_invalid">مقداری از 0 تا 100 وارد کن.</string>
     <string name="settings_notification_change_hint">اعلان فقط زمانی نمایش داده می‌شود که قیمت از اعلان قبلی دست‌کم به این اندازه تغییر کرده باشد. وقتی داده‌ای در دسترس نیست چیزی نمایش داده نمی‌شود. هشدارها تحت تأثیر قرار نمی‌گیرند.</string>
     <string name="settings_ongoing_notifications">قابل کنار زدن نباشد</string>
     <string name="settings_ongoing_notifications_hint">اعلان‌های قیمت را ثابت نگه می‌دارد.</string>
@@ -83,7 +83,7 @@
     <string name="settings_activity_sensitivity">حساسیت</string>
     <string name="settings_activity_sensitivity_hint">چقدر آسان یک کوین غیرعادی به شمار می‌آید – برای کارت واچ‌لیست و اعلان‌ها یکسان. با «کمتر» کارت فقط ۳ مورد قوی‌تر را نشان می‌دهد.</string>
     <string name="settings_watchlist_activity_card">قابل‌توجه: نمایش در فهرست</string>
-    <string name="settings_watchlist_activity_card_hint">تراشه ⚡ را کنار گروه‌ها نشان می‌دهد: با لمس آن فقط جفت‌هایی را می‌بینید که همین حالا در آن‌ها اتفاقی در جریان است. اعلان‌ها در اعلان‌های بازار تنظیم می‌شوند.</string>
+    <string name="settings_watchlist_activity_card_hint">تراشه ⚡ را کنار گروه‌ها نشان می‌دهد: با لمس آن فقط جفت‌هایی را می‌بینی که همین حالا در آن‌ها اتفاقی در جریان است. اعلان‌ها در اعلان‌های بازار تنظیم می‌شوند.</string>
     <string name="settings_watchlist_names">نمایش نام‌ها</string>
     <string name="settings_watchlist_names_hint">نام زیر جفت، مثلاً Bitcoin یا NVIDIA. همراه فهرست‌های لوگو می‌آید و یک بار برای همه کوین‌ها بارگیری می‌شود.</string>
     <string name="settings_watchlist_sparkline">نمودار کوچک در واچ‌لیست</string>
@@ -113,12 +113,12 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">رنگ تأکیدی</string>
-    <string name="settings_accent_hint">رنگ برنامه، ویجت‌ها و نماد برنامه. برخی صفحه‌های اصلی هنگام تغییر، نماد را حذف می‌کنند – در این صورت دوباره اضافه کنید.</string>
+    <string name="settings_accent_hint">رنگ برنامه، ویجت‌ها و نماد برنامه. برخی صفحه‌های اصلی هنگام تغییر، نماد را حذف می‌کنند – در این صورت دوباره اضافه کن.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">لوگوی ارزها</string>
     <string name="settings_coin_logos_app">در برنامه</string>
     <string name="settings_coin_logos_app_hint">واچ‌لیست، جفت بازشده و کارت‌های بازار</string>
-    <string name="settings_coin_logos_footer">لوگوها از CoinGecko می‌آیند و برای آنچه CoinGecko ندارد (مثلاً طلا، نقره، سهام) از Binance. برنامه همه لوگوها را یک‌جا بارگیری و روی همین دستگاه نگه می‌دارد، بنابراین هیچ‌کدام نمی‌دانند کدام ارزها را دنبال می‌کنید. ارزهای بدون لوگو حروف اول خود را نشان می‌دهند. موارد دلخواه یک ستاره کوچک روی لوگو می‌گیرند. جایی که کلیدی خاموش است، نه لوگو نمایش داده می‌شود نه حروف اول؛ اگر همه خاموش باشند، چیزی بارگیری نمی‌شود.</string>
+    <string name="settings_coin_logos_footer">لوگوها از CoinGecko می‌آیند و برای آنچه CoinGecko ندارد (مثلاً طلا، نقره، سهام) از Binance. برنامه همه لوگوها را یک‌جا بارگیری و روی همین دستگاه نگه می‌دارد، بنابراین هیچ‌کدام نمی‌دانند کدام ارزها را دنبال می‌کن. ارزهای بدون لوگو حروف اول خود را نشان می‌دهند. موارد دلخواه یک ستاره کوچک روی لوگو می‌گیرند. جایی که کلیدی خاموش است، نه لوگو نمایش داده می‌شود نه حروف اول؛ اگر همه خاموش باشند، چیزی بارگیری نمی‌شود.</string>
     <string name="settings_coin_logos_portfolio">در پرتفوی</string>
     <string name="settings_coin_logos_portfolio_hint">موقعیت‌ها، جزئیات ارز و تحلیل‌ها</string>
     <string name="settings_coin_logos_value_app">برنامه</string>
@@ -146,7 +146,7 @@
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">ارز تبدیل</string>
-    <string name="settings_conversion_currency_hint">برای پرتفوی، هشدارها به ارز شما، کارت «بازار رمزارز» و ابزارک پرتفوی نیز استفاده می‌شود.</string>
+    <string name="settings_conversion_currency_hint">برای پرتفوی، هشدارها به ارز تو، کارت «بازار رمزارز» و ابزارک پرتفوی نیز استفاده می‌شود.</string>
     <string name="settings_cost_method">روش محاسبهٔ بهای تمام‌شده</string>
     <string name="settings_cost_method_average">میانگین (Ø)</string>
     <string name="settings_cost_method_average_hint">فروش‌ها با میانگین متحرک قیمت خرید ارزش‌گذاری می‌شوند.</string>
@@ -155,12 +155,12 @@
     <string name="settings_cost_method_fifo_wallet">FIFO برای هر کیف پول/صرافی</string>
     <string name="settings_cost_method_fifo_wallet_hint">قدیمی‌ترین سکه‌ها اول در هر صرافی یا کیف پول؛ انتقال‌ها بخش‌ها را با تاریخ خریدشان جابه‌جا می‌کنند.</string>
     <string name="settings_portfolio_lock">قفل پرتفوی</string>
-    <string name="settings_portfolio_lock_footer">قفل آنچه را نمایش داده می‌شود پنهان می‌کند. داده‌ها روی همین دستگاه ذخیره می‌شوند و رمزگذاری دستگاه از آن‌ها محافظت می‌کند. می‌توانید از نسخه‌های پشتیبان با گذرواژه محافظت کنید.</string>
-    <string name="settings_portfolio_lock_hint">فقط پرتفوی را پنهان می‌کند: با اثر انگشت، چهره یا پین دستگاه باز کنید. پس از بیش از یک دقیقه در پس‌زمینه دوباره قفل می‌شود. واچ‌لیست، هشدارها و ابزارک‌های دیگر باز می‌مانند.</string>
+    <string name="settings_portfolio_lock_footer">قفل آنچه را نمایش داده می‌شود پنهان می‌کند. داده‌ها روی همین دستگاه ذخیره می‌شوند و رمزگذاری دستگاه از آن‌ها محافظت می‌کند. می‌توانی از نسخه‌های پشتیبان با گذرواژه محافظت کنی.</string>
+    <string name="settings_portfolio_lock_hint">فقط پرتفوی را پنهان می‌کند: با اثر انگشت، چهره یا پین دستگاه باز کن. پس از بیش از یک دقیقه در پس‌زمینه دوباره قفل می‌شود. واچ‌لیست، هشدارها و ابزارک‌های دیگر باز می‌مانند.</string>
     <string name="settings_portfolio_lock_no_device_lock">بدون PIN یا رمز دستگاه، قفل چیزی را پنهان نمی‌کند – قفل صفحه را تنظیم کن.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">پرتفوی در پشتیبان سیستم</string>
-    <string name="settings_portfolio_system_backup_hint">خاموش: تراکنش‌های شما در پشتیبان سیستم دستگاه و انتقال به گوشی جدید قرار نمی‌گیرند. برای انتقال، از پشتیبان خود برنامه با گذرواژه استفاده کنید.</string>
+    <string name="settings_portfolio_system_backup_hint">خاموش: تراکنش‌هایت در پشتیبان سیستم دستگاه و انتقال به گوشی جدید قرار نمی‌گیرند. برای انتقال، از پشتیبان خود برنامه با گذرواژه استفاده کن.</string>
     <string name="settings_portfolio_system_backup_unavailable">به Android 9 یا جدیدتر نیاز دارد – نسخه‌های قدیمی‌تر سبد را بدون رمزگذاری در پشتیبان Google ذخیره می‌کردند.</string>
     <string name="settings_portfolio_tab">نمایش زبانه پرتفوی</string>
     <string name="settings_portfolio_value_locked">روشن، با قفل</string>
@@ -204,7 +204,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">بازنشانی برنامه</string>
     <string name="settings_reset_app_action">حذف همه</string>
-    <string name="settings_reset_app_confirm">فهرست پیگیری، هشدارها، پرتفوی، تنظیمات و همه داده‌های ذخیره‌شده را مانند پس از نصب پاک می‌کند. قابل بازگشت نیست. نکته: ابتدا پشتیبان بگیرید. پشتیبان‌های دستگاه (پشتیبان Google یا پشتیبان iCloud/رایانه) داده‌های قبلی را تا پشتیبان‌گیری بعدی نگه می‌دارند.</string>
+    <string name="settings_reset_app_confirm">فهرست پیگیری، هشدارها، پرتفوی، تنظیمات و همه داده‌های ذخیره‌شده را مانند پس از نصب پاک می‌کند. قابل بازگشت نیست. نکته: ابتدا پشتیبان بگیر. پشتیبان‌های دستگاه (پشتیبان Google یا پشتیبان iCloud/رایانه) داده‌های قبلی را تا پشتیبان‌گیری بعدی نگه می‌دارند.</string>
     <string name="settings_reset_app_title">برنامه بازنشانی شود؟</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
@@ -268,7 +268,7 @@
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">هشدارها و اعلان‌های بازار جدید را می‌شمارد؛ با باز کردن برنامه به 0 برمی‌گردد.</string>
 
     <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
-    <string name="about_your_data_title">داده‌های شما</string>
+    <string name="about_your_data_title">داده‌های تو</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_label">روی دستگاه</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
@@ -276,19 +276,19 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">اتصال‌ها</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_connections">قیمت‌ها مستقیم از صرافی‌های جفت‌های شما می‌آیند، به‌علاوهٔ نرخ ارز، فهرست‌ها و لوگوهای کوین و آینهٔ داده در GitHub؛ این سرویس‌ها نشانی IP شما را می‌بینند، هرگز دارایی‌هایتان را (نشانی‌های تحت نظر به ارائه‌دهندهٔ شبکهٔ مربوط فرستاده می‌شوند).</string>
+    <string name="about_data_connections">قیمت‌ها مستقیم از صرافی‌های جفت‌هایت می‌آیند، به‌علاوهٔ نرخ ارز، فهرست‌ها و لوگوهای کوین و آینهٔ داده در GitHub؛ این سرویس‌ها نشانی IP تو را می‌بینند، هرگز دارایی‌هایت را (نشانی‌های تحت نظر به ارائه‌دهندهٔ شبکهٔ مربوط فرستاده می‌شوند).</string>
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">پشتیبان</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">فقط اگر خودتان بسازید؛ با گذرواژه رمزگذاری می‌شود (Argon2id + AES-256-GCM) و بدون گذرواژه خواناست.</string>
+    <string name="about_data_backup">فقط اگر خودت بسازی؛ با گذرواژه رمزگذاری می‌شود (Argon2id + AES-256-GCM) و بدون گذرواژه خواناست.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">تعویض دستگاه</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">کلید روی دستگاه قدیمی می‌ماند – پیش از آن یک فایل پشتیبان بسازید.</string>
+    <string name="about_data_device_change">کلید روی دستگاه قدیمی می‌ماند – پیش از آن یک فایل پشتیبان بساز.</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">اشتراک‌گذاری عیب‌یابی</string>
-    <string name="diagnostics_share_hint">فایل متنی برای پشتیبانی: نسخه، دستگاه، تنظیمات هشدار، آخرین بررسی‌ها و گزارش هشدارها – بدون سبد دارایی، مبالغ، آدرس‌ها یا یادداشت‌ها. ابتدا خودتان آن را می‌بینید؛ هیچ چیزی خودکار ارسال نمی‌شود.</string>
+    <string name="diagnostics_share_hint">فایل متنی برای پشتیبانی: نسخه، دستگاه، تنظیمات هشدار، آخرین بررسی‌ها و گزارش هشدارها – بدون سبد دارایی، مبالغ، آدرس‌ها یا یادداشت‌ها. ابتدا خودت آن را می‌بینی؛ هیچ چیزی خودکار ارسال نمی‌شود.</string>
     <string name="diagnostics_preview_title">عیب‌یابی – پیش‌نمایش</string>
     <string name="diagnostics_action_share">اشتراک‌گذاری</string>
 </resources>

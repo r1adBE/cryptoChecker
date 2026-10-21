@@ -117,11 +117,11 @@
     <string name="check_trigger_worker">Фон</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android может откладывать проверки – выберите для батареи «Без ограничений»</string>
+    <string name="battery_delay_hint">Android может откладывать проверки – выбери для батареи «Без ограничений»</string>
     <string name="battery_later">Позже</string>
     <string name="battery_message">Android откладывает фоновую работу ради экономии энергии — тогда цены и виджеты могут отставать на несколько часов. Неограниченный расход батареи сохраняет их актуальными. Это можно изменить в любой момент в настройках Android.</string>
     <string name="battery_open_settings">Открыть настройки батареи</string>
-    <string name="battery_steps">В сведениях о приложении нажмите «Батарея» (или «Расход заряда батареи») и выберите «Без ограничений».</string>
+    <string name="battery_steps">В сведениях о приложении нажми «Батарея» (или «Расход заряда батареи») и выбери «Без ограничений».</string>
     <string name="battery_title">Актуальные цены</string>
     <string name="ios_background_refresh_off">Фоновое обновление для приложения выключено. Без него оповещения проверяются, только пока приложение открыто.</string>
     <string name="ios_low_power_mode">Включён режим энергосбережения. iOS редко проверяет в фоне, оповещения могут опаздывать.</string>

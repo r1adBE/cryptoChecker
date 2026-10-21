@@ -31,11 +31,11 @@
     <string name="market_plain_standout_quiet">अभी कोई एक कॉइन ख़ास तौर पर अलग नहीं दिख रहा।</string>
     <string name="market_plain_standout_volume">%1$s सबसे अलग है: सामान्य से लगभग %2$s गुना ज़्यादा ट्रेडिंग।</string>
     <string name="market_plain_title">संक्षेप में</string>
-    <string name="market_section_collapse">%1$s छिपाएँ</string>
+    <string name="market_section_collapse">%1$s छिपाओ</string>
     <string name="market_section_context">भावना और चक्र</string>
     <string name="market_section_data">बाज़ार डेटा</string>
     <!-- Bedienungshilfen: Aktion auf der Abschnittsüberschrift; %1$s = Name des Abschnitts -->
-    <string name="market_section_expand">%1$s दिखाएँ</string>
+    <string name="market_section_expand">%1$s दिखाओ</string>
     <string name="market_section_now">अभी</string>
     <string name="market_source">डेटा: Binance · Coin Metrics (CC BY-NC 4.0)</string>
     <string name="market_unavailable_error">एक्सचेंज उपलब्ध नहीं</string>
@@ -56,7 +56,7 @@
     <string name="market_info_gas_what">हर नेटवर्क पर अभी एक ट्रांज़ैक्शन की लागत। Ethereum और मिलते-जुलते नेटवर्क पर gwei में (प्रति गैस यूनिट ETH का एक अरबवाँ हिस्सा), Bitcoin पर sat/vB में (ट्रांज़ैक्शन के प्रति वर्चुअल बाइट satoshi)।</string>
     <string name="market_info_halving_source">तारीख़: ब्लॉक ऊँचाई और औसत ब्लॉक समय से (mempool.space), अन्यथा कैलेंडर से · मूल्य इतिहास: Coin Metrics, Binance, हर 12 घंटे में फिर से लोड</string>
     <string name="market_info_halving_what">हॉल्विंग में माइनरों को नए Bitcoin ब्लॉक के लिए मिलने वाला इनाम आधा हो जाता है। यह हर 210,000 ब्लॉक पर, यानी लगभग हर चार साल में होता है। इसके बाद रोज़ पहले से आधे नए bitcoin बनते हैं।</string>
-    <string name="market_info_how">इसे कैसे पढ़ें</string>
+    <string name="market_info_how">इसे कैसे पढ़ना है</string>
     <string name="market_info_macro_how">यह सूचना तभी दिखती है जब ऐसी कोई तारीख आज या कल हो। आँकड़े जारी होने के आसपास कीमतें अक्सर सामान्य से ज़्यादा उतार-चढ़ाव करती हैं। ऐप केवल तारीख दिखाता है, आँकड़े नहीं।</string>
     <string name="market_info_macro_source">ऐप की वेबसाइट से कैलेंडर · दिन में एक बार लोड</string>
     <string name="market_info_macro_what">महत्वपूर्ण अमेरिकी आर्थिक आँकड़ों की तारीखें: महँगाई (CPI, PCE), उत्पादक कीमतें (PPI), जॉब्स रिपोर्ट और अमेरिकी फ़ेडरल रिज़र्व के ब्याज दर फ़ैसले। ऐसे आँकड़े अक्सर क्रिप्टो की कीमतों को भी हिलाते हैं।</string>
@@ -83,7 +83,7 @@
     <!-- Aufklappen der Crypto-Pulse-Karte (pulse_why_action bleibt für «Warum?») -->
     <string name="pulse_details_action">विवरण</string>
     <string name="pulse_disclaimer">कोई पूर्वानुमान नहीं · निवेश सलाह नहीं</string>
-    <string name="pulse_less">कम दिखाएँ</string>
+    <string name="pulse_less">कम दिखाओ</string>
     <string name="pulse_now_title">क्रिप्टो पल्स</string>
     <!-- Screenreader-Satz zur Beschriftung «24h» (why_change_24h) über den Coin-Pillen -->
     <string name="pulse_period_24h_spoken">24 घंटे में बदलाव</string>
@@ -154,7 +154,7 @@
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s। %3$s।</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
-    <string name="unusual_action_open">कीमत और कार्रवाइयाँ दिखाएँ</string>
+    <string name="unusual_action_open">कीमत और कार्रवाइयाँ दिखाओ</string>
     <string name="unusual_fact_against">मार्केट के उलट चल रहा है</string>
     <string name="unusual_fact_funding_high">फ़ंडिंग ऊँचा (%1$s)</string>
     <string name="unusual_fact_funding_negative">फ़ंडिंग नेगेटिव (%1$s)</string>
@@ -263,7 +263,7 @@
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
-    <string name="market_movers_show_all">सभी दिखाएँ</string>
+    <string name="market_movers_show_all">सभी दिखाओ</string>
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
-    <string name="market_movers_show_less">कम दिखाएँ</string>
+    <string name="market_movers_show_less">कम दिखाओ</string>
 </resources>

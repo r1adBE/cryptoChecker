@@ -4,6 +4,7 @@ import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.app.util.TextLimit
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.json.JSONObject
@@ -55,6 +56,48 @@ internal object BackupWatchlistCodec {
         // Ältere Sicherungen kennen «deaktiviert» nicht: Paar aktiv
         disabled = o.optBoolean("disabled", false),
     )
+
+    /**
+     * Merkliste und Paar-Alarme einer Sicherung, so wie sie übernommen würden; [invalidAlarms] = ungültige Alarme
+     * ([AlarmJson]), [droppedPairs]/[droppedAlarms] = wegen [BackupRestoreLimits] weggelassen.
+     */
+    class Watchlist(
+        val watches: List<WatchEntity>,
+        val alarms: List<AlarmEntity>,
+        val invalidAlarms: Int,
+        val droppedPairs: Int,
+        val droppedAlarms: Int,
+    )
+
+    /**
+     * Lesen, bereinigen und begrenzen — für Rückfrage ([BackupManager.preview]) und Wiederherstellen gleich, damit die
+     * Rückfrage genau die Zahlen nennt, die danach wegfallen. Paare mit unzulässigen Kennungen fallen weg, ihre Alarme
+     * mit ihnen ([BackupRestoreLimits.accept]); dann [WatchlistRestoreCleanup], dann [BackupRestoreLimits.limit].
+     */
+    fun readWatchlist(root: JSONObject): Watchlist {
+        val parsedWatches = root.optJSONArray("watches")?.let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }
+            .orEmpty()
+        val alarmsRead = root.optJSONArray("alarms")?.let(AlarmJson::parse)
+        val accepted = BackupRestoreLimits.accept(
+            parsedWatches, alarmsRead?.items.orEmpty(), BackupRestoreLimits::acceptsWatch,
+            watchId = { it.id }, alarmWatchId = { it.watchId },
+        )
+        val (cleanWatches, cleanAlarms) = WatchlistRestoreCleanup.clean(
+            watches = accepted.watches,
+            alarms = accepted.alarms,
+            watchId = { it.id },
+            pairKey = { WatchIdentity.key(it.marketKey, it.baseAsset, it.quoteAsset, it.contractType.name, it.pairId) },
+            alarmId = { it.id },
+            alarmWatchId = { it.watchId },
+            withWatchId = { a, id -> a.copy(watchId = id) },
+        )
+        val limited = BackupRestoreLimits.limit(cleanWatches, cleanAlarms, watchId = { it.id }, alarmWatchId = { it.watchId })
+        return Watchlist(
+            limited.watches, limited.alarms, invalidAlarms = alarmsRead?.invalid ?: 0,
+            droppedPairs = accepted.droppedPairs + limited.droppedPairs,
+            droppedAlarms = accepted.droppedAlarms + limited.droppedAlarms,
+        )
+    }
 
     // Portfolio: Format in PortfolioJson (auch für die Kopie der Systemsicherung)
 

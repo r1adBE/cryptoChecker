@@ -62,7 +62,7 @@
     <string name="watchlist_sort_descending">zbritës</string>
     <string name="watchlist_sort_hint">Mbaj dhe tërhiq një çift, ose përdor dorezën. Të preferuarat mbeten lart.</string>
     <string name="watchlist_sort_name">Emri</string>
-    <string name="watchlist_sort_own">Renditja juaj</string>
+    <string name="watchlist_sort_own">Renditja jote</string>
     <string name="watchlist_sort_price">Çmimi</string>
 
     <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->

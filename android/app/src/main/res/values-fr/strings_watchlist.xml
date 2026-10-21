@@ -13,14 +13,14 @@
     <string name="watchlist_offline_since">Pas de connexion · état à %1$s</string>
     <string name="watchlist_pull_to_refresh">Tirer vers le bas pour actualiser</string>
     <string name="watchlist_refresh_report">Dernière actualisation</string>
-    <string name="watchlist_refresh_report_empty">Pas encore de détail : aucune actualisation complète pour l\'instant. Touchez Actualiser et attendez que l\'indicateur s\'arrête.</string>
+    <string name="watchlist_refresh_report_empty">Pas encore de détail : aucune actualisation complète pour l\'instant. Touche Actualiser et attends que l\'indicateur s\'arrête.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d sur %2$d obsolète</item>
         <item quantity="many">%1$d sur %2$d obsolètes</item>
         <item quantity="other">%1$d sur %2$d obsolètes</item>
     </plurals>
     <string name="watchlist_status_all_disabled">Toutes les paires ici sont désactivées</string>
-    <string name="watchlist_status_exchange_prices">Cours de vos plateformes · %1$s</string>
+    <string name="watchlist_status_exchange_prices">Cours de tes plateformes · %1$s</string>
     <string name="watchlist_status_exchange_prices_short">Cours des plateformes · %1$s</string>
     <string name="watchlist_status_group_empty">Aucune paire dans ce groupe</string>
     <string name="watchlist_status_none_traded">Aucune paire négociée ici</string>
@@ -66,7 +66,7 @@
     <string name="watchlist_search_open">Rechercher</string>
     <string name="watchlist_sort_ascending">croissant</string>
     <string name="watchlist_sort_descending">décroissant</string>
-    <string name="watchlist_sort_hint">Maintenez et faites glisser une paire, ou utilisez la poignée. Les favoris restent en haut.</string>
+    <string name="watchlist_sort_hint">Maintiens et fais glisser une paire, ou utilise la poignée. Les favoris restent en haut.</string>
     <string name="watchlist_sort_name">Nom</string>
     <string name="watchlist_sort_own">Ordre personnel</string>
     <string name="watchlist_sort_price">Cours</string>
@@ -115,13 +115,13 @@
         <item quantity="many">Alertes (%1$d)</item>
         <item quantity="other">Alertes (%1$d)</item>
     </plurals>
-    <string name="watchlist_favorites_empty_hint">Pas encore de favoris. Balayez une paire vers la droite, ou ouvrez-la et touchez « Favori ».</string>
-    <string name="watchlist_group_empty_hint">Appuyez longuement sur un groupe pour choisir ses paires.</string>
+    <string name="watchlist_favorites_empty_hint">Pas encore de favoris. Balaie une paire vers la droite, ou ouvre-la et touche « Favori ».</string>
+    <string name="watchlist_group_empty_hint">Appuie longuement sur un groupe pour choisir ses paires.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
-    <string name="watchlist_groups_empty_hint">Vos groupes s\'afficheront ici</string>
+    <string name="watchlist_groups_empty_hint">Tes groupes s\'afficheront ici</string>
     <string name="watchlist_notification">Notification de prix</string>
     <string name="watchlist_tts">Annoncer le prix</string>
-    <string name="watchlist_tts_speech_on">L’annonce vocale est activée. Vous pouvez la modifier dans Paramètres › Avancé › Annonce vocale.</string>
+    <string name="watchlist_tts_speech_on">L’annonce vocale est activée. Tu peux la modifier dans Paramètres › Avancé › Annonce vocale.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
     <string name="watch_action_add_widget">Ajouter en widget</string>
@@ -135,15 +135,15 @@
     <string name="watch_disabled">Désactivée</string>
     <string name="watch_disabled_banner">%1$s désactivée</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
-    <string name="watch_edit_alarms_warning">Les alertes sont conservées – vérifiez les seuils</string>
+    <string name="watch_edit_alarms_warning">Les alertes sont conservées – vérifie les seuils</string>
     <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
     <string name="watch_edit_title">Modifier la paire</string>
     <string name="watch_enable">Activer</string>
     <string name="watch_enable_hint">Cours et notifications reprennent</string>
     <string name="watch_enabled_banner">%1$s activée</string>
     <string name="watch_error_offline">Pas de connexion</string>
-    <string name="watch_gesture_hint_short">Touchez : alerte et « Qu’est-ce qui bouge avec ? » · appui long pour sélectionner · balayez à gauche pour supprimer · à droite pour favori</string>
-    <string name="watch_hint_tap_why">Touchez une crypto pour l’alerte et « Qu’est-ce qui bouge avec ? »</string>
+    <string name="watch_gesture_hint_short">Touche : alerte et « Qu’est-ce qui bouge avec ? » · appui long pour sélectionner · balaie à gauche pour supprimer · à droite pour favori</string>
+    <string name="watch_hint_tap_why">Touche une crypto pour l’alerte et « Qu’est-ce qui bouge avec ? »</string>
     <string name="watch_not_traded">N\'est plus négocié sur cette plateforme</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Pas dans la liste de suivi</string>
@@ -153,16 +153,16 @@
     <string name="watch_row_source_chart">Graphique : %1$s</string>
 
     <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
-    <string name="pair_added_watching">%1$s est maintenant dans votre liste de suivi</string>
+    <string name="pair_added_watching">%1$s est maintenant dans ta liste de suivi</string>
     <!-- Ein Paar: pair_added_watching -->
-    <string name="pairs_added_watching">%1$s sont maintenant dans votre liste de suivi</string>
+    <string name="pairs_added_watching">%1$s sont maintenant dans ta liste de suivi</string>
 
     <!-- Favoriten -->
     <string name="favorite_add">Ajouter aux favoris</string>
     <string name="favorite_added">%1$s ajouté aux favoris</string>
     <string name="favorite_remove">Retirer des favoris</string>
     <string name="favorite_removed">%1$s retiré des favoris</string>
-    <string name="hint_favorites_list">Astuce : balayez une ligne vers la droite pour la mettre en favori – les favoris restent en haut.</string>
+    <string name="hint_favorites_list">Astuce : balaie une ligne vers la droite pour la mettre en favori – les favoris restent en haut.</string>
 
     <!-- Gruppen und Chips der Merkliste -->
     <string name="group_add">Nouveau groupe</string>
@@ -170,7 +170,7 @@
     <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
     <string name="group_alpha">Jetons Alpha</string>
     <string name="group_delete">Supprimer le groupe</string>
-    <string name="group_delete_confirm">Les paires restent dans votre liste de suivi.</string>
+    <string name="group_delete_confirm">Les paires restent dans ta liste de suivi.</string>
     <string name="group_done">Terminé</string>
     <string name="group_edit_title">Modifier le groupe</string>
     <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
@@ -202,15 +202,15 @@
     <string name="sort_move_top">Tout en haut</string>
     <string name="sort_move_up">Monter</string>
 
-    <string name="watchlist_first_alarm_title">Créez votre première alerte</string>
-    <string name="watchlist_first_alarm_text">Soyez averti quand un cours atteint votre seuil – app fermée, Android vérifie de façon irrégulière.</string>
+    <string name="watchlist_first_alarm_title">Crée ta première alerte</string>
+    <string name="watchlist_first_alarm_text">Reçois une alerte quand un cours atteint ton seuil – app fermée, Android vérifie de façon irrégulière.</string>
 
     <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
     <string name="watch_price_mark_fallback">prix mark (pas de cours moyen)</string>
     <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
     <string name="watch_price_hourly">cours horaire</string>
     <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
-    <string name="watchlist_first_alarm_title_pair">Créez votre première alerte – %1$s</string>
+    <string name="watchlist_first_alarm_title_pair">Crée ta première alerte – %1$s</string>
 
     <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
     <string name="watchlist_refresh_countdown">Actualiser (%1$d)</string>
@@ -227,5 +227,5 @@
 
     <string name="watchlist_sort_by_coin">Trier par crypto</string>
     <string name="watchlist_sort_by_exchange">Trier par plateforme</string>
-    <string name="watchlist_limit_reached">Votre liste de suivi peut contenir au maximum %1$s paires.</string>
+    <string name="watchlist_limit_reached">Ta liste de suivi peut contenir au maximum %1$s paires.</string>
 </resources>

@@ -19,7 +19,7 @@
         <item quantity="two">רשימות הצמדים של %1$d בורסות עוד לא נמצאות במכשיר.</item>
         <item quantity="other">רשימות הצמדים של %1$d בורסות עוד לא נמצאות במכשיר.</item>
     </plurals>
-    <string name="explorer_lists_privacy">טוען את הרשימה הציבורית המלאה של כל בורסה – זהה לכולם. החיפוש שלכם נשאר במכשיר.</string>
+    <string name="explorer_lists_privacy">טוען את הרשימה הציבורית המלאה של כל בורסה – זהה לכולם. החיפוש שלך נשאר במכשיר.</string>
     <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
     <string name="explorer_recent_a11y">חיפוש אחרון: %1$s</string>
     <string name="explorer_recent_clear">ניקוי</string>
@@ -32,7 +32,7 @@
     <string name="explorer_search_intro">הקלידו שם או סימול של מטבע, למשל Bitcoin או BTC – ואז בחרו צמד. צמד הוא מטבע בבורסה מסוימת מול מטבע מסוים, למשל BTC/USDT ב-Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
-    <string name="explorer_add_to_watchlist">הוסף לרשימת המעקב</string>
+    <string name="explorer_add_to_watchlist">הוספה לרשימת המעקב</string>
     <string name="explorer_added_to_watchlist">נוסף לרשימת המעקב.</string>
     <string name="explorer_already_in_watchlist">הצמד הזה כבר ברשימת המעקב.</string>
     <string name="explorer_exchange_missing">חסרה בורסה?</string>
@@ -65,9 +65,9 @@
     </plurals>
     <string name="bulk_all_pairs_empty">אין צמדי %1$s בבורסה זו עבור סוג החוזה שנבחר. סנכרנו קודם את הבורסה או נסו סוג חוזה אחר.</string>
     <plurals name="explorer_add_all_pairs">
-        <item quantity="one">הוסף את הצמד (%1$d) לרשימת המעקב</item>
-        <item quantity="two">הוסף את שני הצמדים (%1$d) לרשימת המעקב</item>
-        <item quantity="other">הוסף את כל %1$d הצמדים לרשימת המעקב</item>
+        <item quantity="one">הוספת הצמד (%1$d) לרשימת המעקב</item>
+        <item quantity="two">הוספת שני הצמדים (%1$d) לרשימת המעקב</item>
+        <item quantity="other">הוספת כל %1$d הצמדים לרשימת המעקב</item>
     </plurals>
     <plurals name="explorer_bulk_added">
         <item quantity="one">נוסף %1$d, %2$d כבר ברשימת המעקב.</item>
@@ -94,7 +94,7 @@
     <string name="explorer_no_pair_list">אין צמדי מטבעות</string>
     <string name="explorer_sync_sheet_last">סנכרון אחרון: %1$s</string>
     <string name="explorer_sync_never">אף פעם</string>
-    <string name="explorer_sync_sheet_action">סנכרן עכשיו!</string>
+    <string name="explorer_sync_sheet_action">סנכרון עכשיו</string>
     <string name="explorer_sync_sheet_title">עדכון צמדי מטבעות</string>
     <string name="explorer_field_coin">בסיס</string>
     <string name="explorer_field_contract">סוג חוזה</string>
@@ -105,7 +105,7 @@
     <string name="sync_pairs_count">צמדי מסחר: %1$d</string>
 
     <!-- Token von dezentralen Börsen (DEX) -->
-    <string name="dex_add">הוסף</string>
+    <string name="dex_add">הוספה</string>
     <string name="dex_added">%1$s נוסף לרשימת המעקב.</string>
     <string name="dex_already">%1$s כבר ברשימת המעקב.</string>
     <string name="dex_intro">טוקנים מחוץ לבורסות הגדולות, מבורסות מבוזרות (Uniswap, PancakeSwap, Raydium …) דרך DexScreener. חפשו טוקן והוסיפו אחד ממאגרי המסחר שלו – מחירים בדולר אמריקאי.</string>
@@ -122,7 +122,7 @@
     <string name="dex_low_liquidity_no_alarm">נזילות נמוכה – ללא התראה</string>
     <string name="dex_low_liquidity_alarm_hint">בפול הזה יש פחות מ-10,000 USD נזילות (או שאין נתון). גם סכומים קטנים מזיזים את המחיר, ולכן אי אפשר להגדיר כאן התראות. התראות קיימות נשמרות, אך יופעלו רק כשהנזילות תעלה שוב.</string>
 
-    <string name="explorer_bulk_show_all">הצג הכול (%1$d)</string>
+    <string name="explorer_bulk_show_all">הצגת הכול (%1$d)</string>
     <string name="dex_token_address_copy">העתקת כתובת הטוקן</string>
     <string name="dex_token_address_copied">כתובת הטוקן הועתקה</string>
     <string name="dex_token_address_label">כתובת טוקן המסתיימת ב־%1$s</string>

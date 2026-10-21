@@ -32,7 +32,7 @@
     <string name="settings_alarm_sound_custom">Προσαρμοσμένος ήχος</string>
     <string name="settings_alarm_sound_default">Προεπιλεγμένος ήχος</string>
     <string name="settings_alarm_sound_error">Δεν ήταν δυνατή η χρήση του ήχου.</string>
-    <string name="settings_alarm_sound_file">Δικό σας αρχείο ήχου…</string>
+    <string name="settings_alarm_sound_file">Δικό σου αρχείο ήχου…</string>
     <string name="settings_alarm_sound_reset">Χρήση προεπιλεγμένου ήχου</string>
     <string name="settings_alarm_sound_system">Επιλογή ήχου συστήματος…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
@@ -45,7 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Λείπει η άδεια – όταν η συσκευή ηρεμεί, το Android ελέγχει ακανόνιστα, μερικές φορές μετά από ώρες.</string>
     <string name="settings_notification_change">Ειδοποίηση μόνο σε αλλαγή τιμής</string>
     <string name="settings_notification_change_always">Πάντα</string>
-    <string name="settings_percent_invalid">Εισαγάγετε μια τιμή από 0 έως 100.</string>
+    <string name="settings_percent_invalid">Βάλε μια τιμή από 0 έως 100.</string>
     <string name="settings_notification_change_hint">Η ειδοποίηση τιμής εμφανίζεται μόνο όταν η τιμή έχει κινηθεί τουλάχιστον τόσο από την προηγούμενη. Όσο λείπουν δεδομένα, δεν εμφανίζεται τίποτα. Οι συναγερμοί δεν επηρεάζονται.</string>
     <string name="settings_ongoing_notifications">Χωρίς απόρριψη με σύρσιμο</string>
     <string name="settings_ongoing_notifications_hint">Οι ειδοποιήσεις τιμής παραμένουν καρφιτσωμένες.</string>
@@ -83,7 +83,7 @@
     <string name="settings_activity_sensitivity">Ευαισθησία</string>
     <string name="settings_activity_sensitivity_hint">Πόσο εύκολα ένα νόμισμα θεωρείται ασυνήθιστο – ίδια για την κάρτα της λίστας παρακολούθησης και τις ειδοποιήσεις αγοράς. Με «Λιγότερα» η κάρτα δείχνει μόνο τα 3 ισχυρότερα.</string>
     <string name="settings_watchlist_activity_card">Αξιοσημείωτα: εμφάνιση στη λίστα</string>
-    <string name="settings_watchlist_activity_card_hint">Εμφανίζει το ⚡ δίπλα στις ομάδες: πατήστε το για να δείτε μόνο τα ζεύγη όπου κάτι συμβαίνει τώρα. Οι ειδοποιήσεις ρυθμίζονται στις «Ειδοποιήσεις αγοράς».</string>
+    <string name="settings_watchlist_activity_card_hint">Εμφανίζει το ⚡ δίπλα στις ομάδες: πάτα το για να δεις μόνο τα ζεύγη όπου κάτι συμβαίνει τώρα. Οι ειδοποιήσεις ρυθμίζονται στις «Ειδοποιήσεις αγοράς».</string>
     <string name="settings_watchlist_names">Εμφάνιση ονομάτων</string>
     <string name="settings_watchlist_names_hint">Όνομα κάτω από το ζεύγος, π.χ. Bitcoin ή NVIDIA. Έρχεται με τις λίστες λογότυπων και φορτώνεται μία φορά για όλα τα νομίσματα.</string>
     <string name="settings_watchlist_sparkline">Μίνι γράφημα στη λίστα</string>
@@ -113,12 +113,12 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Χρώμα έμφασης</string>
-    <string name="settings_accent_hint">Χρώμα για την εφαρμογή, τα widget και το εικονίδιο της εφαρμογής. Ορισμένες αρχικές οθόνες αφαιρούν το εικονίδιο κατά την αλλαγή – τότε προσθέστε το ξανά.</string>
+    <string name="settings_accent_hint">Χρώμα για την εφαρμογή, τα widget και το εικονίδιο της εφαρμογής. Ορισμένες αρχικές οθόνες αφαιρούν το εικονίδιο κατά την αλλαγή – τότε πρόσθεσέ το ξανά.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Λογότυπα νομισμάτων</string>
     <string name="settings_coin_logos_app">Στην εφαρμογή</string>
     <string name="settings_coin_logos_app_hint">Λίστα, ανοιχτό ζεύγος και κάρτες αγοράς</string>
-    <string name="settings_coin_logos_footer">Τα λογότυπα προέρχονται από το CoinGecko και, για ό,τι δεν έχει το CoinGecko (π.χ. χρυσός, ασήμι, μετοχές), από το Binance. Η εφαρμογή κατεβάζει μονομιάς όλα τα λογότυπα και τα φυλάσσει σε αυτή τη συσκευή, έτσι κανείς από τους δύο δεν ξέρει ποια νομίσματα παρακολουθείτε. Τα νομίσματα χωρίς λογότυπο δείχνουν τα αρχικά τους. Τα αγαπημένα παίρνουν ένα μικρό αστέρι στο λογότυπο. Όπου ένας διακόπτης είναι κλειστός, δεν εμφανίζονται ούτε λογότυπα ούτε αρχικά· όταν όλα είναι κλειστά, δεν φορτώνεται τίποτα.</string>
+    <string name="settings_coin_logos_footer">Τα λογότυπα προέρχονται από το CoinGecko και, για ό,τι δεν έχει το CoinGecko (π.χ. χρυσός, ασήμι, μετοχές), από το Binance. Η εφαρμογή κατεβάζει μονομιάς όλα τα λογότυπα και τα φυλάσσει σε αυτή τη συσκευή, έτσι κανείς από τους δύο δεν ξέρει ποια νομίσματα παρακολουθείς. Τα νομίσματα χωρίς λογότυπο δείχνουν τα αρχικά τους. Τα αγαπημένα παίρνουν ένα μικρό αστέρι στο λογότυπο. Όπου ένας διακόπτης είναι κλειστός, δεν εμφανίζονται ούτε λογότυπα ούτε αρχικά· όταν όλα είναι κλειστά, δεν φορτώνεται τίποτα.</string>
     <string name="settings_coin_logos_portfolio">Στο χαρτοφυλάκιο</string>
     <string name="settings_coin_logos_portfolio_hint">Θέσεις, λεπτομέρειες νομισμάτων και αναλύσεις</string>
     <string name="settings_coin_logos_value_app">Εφαρμογή</string>
@@ -136,7 +136,7 @@
     <!-- Einstellungen › %-Änderung -->
     <!-- Einstellungszeile und Seitentitel «%-Änderung»; %1$s ist das Prozentzeichen «%» -->
     <string name="settings_change_basis">Μεταβολή %1$s και ζώνη ώρας γραφήματος</string>
-    <string name="settings_change_basis_hint_1">Η ζώνη ώρας που επιλέγετε ορίζει από πότε μετρά η ποσοστιαία μεταβολή (λίστα παρακολούθησης, γραμμή παλμού, ανοιχτό ζεύγος, widget) και τις ώρες στα γραφήματα.</string>
+    <string name="settings_change_basis_hint_1">Η ζώνη ώρας που επιλέγεις ορίζει από πότε μετρά η ποσοστιαία μεταβολή (λίστα παρακολούθησης, γραμμή παλμού, ανοιχτό ζεύγος, widget) και τις ώρες στα γραφήματα.</string>
     <string name="settings_change_basis_hint_2">Το «%1$s» συγκρίνει με την τιμή ακριβώς πριν από 24 ώρες. Το «00:00» συγκρίνει με την τιμή ανοίγματος τα μεσάνυχτα σε αυτή τη ζώνη ώρας.</string>
     <string name="settings_change_basis_hint_3">Οι συναγερμοί δεν επηρεάζονται.</string>
     <string name="settings_change_basis_hint_since_last">Το «%1$s» συγκρίνει με την τιμή της προηγούμενης ενημέρωσης. Με ζωντανές τιμές παραμένει κοντά στο 0%%.</string>
@@ -146,7 +146,7 @@
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Νόμισμα μετατροπής</string>
-    <string name="settings_conversion_currency_hint">Χρησιμοποιείται επίσης για το χαρτοφυλάκιο, τους συναγερμούς στο νόμισμά σας, την κάρτα «Αγορά κρυπτονομισμάτων» και το widget Χαρτοφυλάκιο.</string>
+    <string name="settings_conversion_currency_hint">Χρησιμοποιείται επίσης για το χαρτοφυλάκιο, τους συναγερμούς στο νόμισμά σου, την κάρτα «Αγορά κρυπτονομισμάτων» και το widget Χαρτοφυλάκιο.</string>
     <string name="settings_cost_method">Μέθοδος κόστους κτήσης</string>
     <string name="settings_cost_method_average">Μέσος όρος (Ø)</string>
     <string name="settings_cost_method_average_hint">Οι πωλήσεις αποτιμώνται στην κυλιόμενη μέση τιμή αγοράς.</string>
@@ -155,12 +155,12 @@
     <string name="settings_cost_method_fifo_wallet">FIFO ανά πορτοφόλι/ανταλλακτήριο</string>
     <string name="settings_cost_method_fifo_wallet_hint">Τα παλαιότερα νομίσματα πρώτα σε κάθε ανταλλακτήριο ή πορτοφόλι· οι μεταφορές μετακινούν τις παρτίδες με την ημερομηνία αγοράς.</string>
     <string name="settings_portfolio_lock">Κλείδωμα χαρτοφυλακίου</string>
-    <string name="settings_portfolio_lock_footer">Το κλείδωμα κρύβει την προβολή. Τα δεδομένα βρίσκονται σε αυτή τη συσκευή και προστατεύονται από την κρυπτογράφηση της συσκευής. Μπορείτε να προστατεύσετε τα αντίγραφα ασφαλείας με κωδικό.</string>
+    <string name="settings_portfolio_lock_footer">Το κλείδωμα κρύβει την προβολή. Τα δεδομένα βρίσκονται σε αυτή τη συσκευή και προστατεύονται από την κρυπτογράφηση της συσκευής. Μπορείς να προστατέψεις τα αντίγραφα ασφαλείας με κωδικό.</string>
     <string name="settings_portfolio_lock_hint">Κρύβει μόνο το χαρτοφυλάκιο: ξεκλείδωμα με δακτυλικό αποτύπωμα, πρόσωπο ή PIN συσκευής. Κλειδώνει ξανά μετά από περισσότερο από ένα λεπτό στο παρασκήνιο. Η λίστα παρακολούθησης, οι συναγερμοί και τα άλλα widget μένουν ανοιχτά.</string>
     <string name="settings_portfolio_lock_no_device_lock">Χωρίς PIN ή κωδικό συσκευής το κλείδωμα δεν κρύβει τίποτα – ρύθμισε κλείδωμα οθόνης.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">Χαρτοφυλάκιο στο αντίγραφο συστήματος</string>
-    <string name="settings_portfolio_system_backup_hint">Ανενεργό: οι συναλλαγές σας δεν περιλαμβάνονται στο αντίγραφο ασφαλείας συστήματος της συσκευής ούτε στη μεταφορά σε νέο τηλέφωνο. Για μεταφορά, χρησιμοποιήστε το αντίγραφο ασφαλείας της εφαρμογής με κωδικό.</string>
+    <string name="settings_portfolio_system_backup_hint">Ανενεργό: οι συναλλαγές σου δεν περιλαμβάνονται στο αντίγραφο ασφαλείας συστήματος της συσκευής ούτε στη μεταφορά σε νέο τηλέφωνο. Για μεταφορά, χρησιμοποίησε το αντίγραφο ασφαλείας της εφαρμογής με κωδικό.</string>
     <string name="settings_portfolio_system_backup_unavailable">Απαιτεί Android 9 ή νεότερο – παλαιότερες εκδόσεις θα αποθήκευαν το χαρτοφυλάκιο μη κρυπτογραφημένο στο αντίγραφο Google.</string>
     <string name="settings_portfolio_tab">Εμφάνιση καρτέλας Χαρτοφυλάκιο</string>
     <string name="settings_portfolio_value_locked">Ενεργό, με κλείδωμα</string>
@@ -204,7 +204,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Επαναφορά εφαρμογής</string>
     <string name="settings_reset_app_action">Διαγραφή όλων</string>
-    <string name="settings_reset_app_confirm">Διαγράφει λίστα, συναγερμούς, χαρτοφυλάκιο, ρυθμίσεις και όλα τα αποθηκευμένα δεδομένα, όπως μετά την εγκατάσταση. Δεν αναιρείται. Συμβουλή: κάντε πρώτα αντίγραφο ασφαλείας. Τα αντίγραφα ασφαλείας της συσκευής (Google ή iCloud/υπολογιστή) διατηρούν τα προηγούμενα δεδομένα μέχρι το επόμενο αντίγραφο ασφαλείας.</string>
+    <string name="settings_reset_app_confirm">Διαγράφει λίστα, συναγερμούς, χαρτοφυλάκιο, ρυθμίσεις και όλα τα αποθηκευμένα δεδομένα, όπως μετά την εγκατάσταση. Δεν αναιρείται. Συμβουλή: κάνε πρώτα αντίγραφο ασφαλείας. Τα αντίγραφα ασφαλείας της συσκευής (Google ή iCloud/υπολογιστή) διατηρούν τα προηγούμενα δεδομένα μέχρι το επόμενο αντίγραφο ασφαλείας.</string>
     <string name="settings_reset_app_title">Επαναφορά της εφαρμογής;</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
@@ -265,10 +265,10 @@
     <!-- Nur iOS: Einstellungen -->
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Η δόνηση ακολουθεί τις ρυθμίσεις του iPhone (Ήχοι και απτική απόκριση).</string>
-    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Μετρά νέους συναγερμούς και ειδοποιήσεις αγοράς· μηδενίζεται όταν ανοίγετε την εφαρμογή.</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Μετρά νέους συναγερμούς και ειδοποιήσεις αγοράς· μηδενίζεται όταν ανοίγεις την εφαρμογή.</string>
 
     <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
-    <string name="about_your_data_title">Τα δεδομένα σας</string>
+    <string name="about_your_data_title">Τα δεδομένα σου</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_label">Στη συσκευή</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
@@ -276,15 +276,15 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">Συνδέσεις</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_connections">Οι τιμές έρχονται απευθείας από τα ανταλλακτήρια των ζευγών σας, μαζί με συναλλαγματικές ισοτιμίες, λίστες και λογότυπα νομισμάτων και τον καθρέφτη δεδομένων στο GitHub· βλέπουν τη διεύθυνση IP σας, ποτέ τα διαθέσιμά σας (οι παρακολουθούμενες διευθύνσεις πηγαίνουν στον πάροχο του αντίστοιχου δικτύου).</string>
+    <string name="about_data_connections">Οι τιμές έρχονται απευθείας από τα ανταλλακτήρια των ζευγών σου, μαζί με συναλλαγματικές ισοτιμίες, λίστες και λογότυπα νομισμάτων και τον καθρέφτη δεδομένων στο GitHub· βλέπουν τη διεύθυνση IP σου, ποτέ τα διαθέσιμά σου (οι παρακολουθούμενες διευθύνσεις πηγαίνουν στον πάροχο του αντίστοιχου δικτύου).</string>
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Αντίγραφο ασφαλείας</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Μόνο αν το δημιουργήσετε· κρυπτογραφημένο με κωδικό (Argon2id + AES-256-GCM), αναγνώσιμο χωρίς κωδικό.</string>
+    <string name="about_data_backup">Μόνο αν το δημιουργήσεις· κρυπτογραφημένο με κωδικό (Argon2id + AES-256-GCM), αναγνώσιμο χωρίς κωδικό.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Αλλαγή συσκευής</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">Το κλειδί μένει στην παλιά συσκευή – δημιουργήστε πρώτα ένα αρχείο αντιγράφου ασφαλείας.</string>
+    <string name="about_data_device_change">Το κλειδί μένει στην παλιά συσκευή – δημιούργησε πρώτα ένα αρχείο αντιγράφου ασφαλείας.</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">Κοινοποίηση διάγνωσης</string>

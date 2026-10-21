@@ -1,42 +1,42 @@
-Alarm, když Bitcoin dosáhne vaší ceny – z burzy, kterou opravdu používáte. Cena vaší burzy, žádný průměr – zdarma, bez účtu.
+Alarm, když Bitcoin dosáhne tvé ceny – z burzy, kterou opravdu používáš. Cena tvé burzy, žádný průměr – zdarma, bez účtu.
 
 ČÍM JE JINÁ
-• Vaše burza, ne průměr: každý řádek ukazuje poslední cenu páru na burze, kterou jste vybrali – Binance, Coinbase, Kraken, OKX, Bybit a mnoho dalších.
+• Tvoje burza, ne průměr: každý řádek ukazuje poslední cenu páru na tebou vybrané burze – Binance, Coinbase, Kraken, OKX, Bybit a mnoho dalších.
 • Alarm, který upozorní jednou: „Upozornit, až BTC stoupne nad 100 000 USDT.“ Ozve se při překročení hranice, ne při každé aktualizaci – „Jednou“ ho pak vypne, „Pokaždé“ ho znovu nastaví, jakmile se cena vrátí.
 • „Co se hýbe s ním?“: seznam faktorů pro minci – celý trh, objem, volatilita, funding a open interest, vzdálenost od maxima či minima, Fear & Greed. Ukazuje, co se hýbe ve stejnou dobu – není to příčina, zpráva ani investiční poradenství.
-• Bez účtu, bez reklam, bez sledování. Vývojář nedostane žádná vaše data.
+• Bez účtu, bez reklam, bez sledování. Vývojář nedostane žádná tvoje data.
 
 OTEVŘENĚ O DATECH
 • „Úsporný“ je výchozí: ceny se obnovují při otevření aplikace a v intervalech na pozadí. „Živě, dokud je otevřená“ přidá živé ceny pro Binance, Bybit, OKX, Coinbase a Kraken, dokud je seznam otevřený.
-• Změna v % a grafy pocházejí nejprve z burzy daného páru; když nemá svíčky, aplikace použije Binance nebo Coinbase a řekne vám to.
+• Změna v % a grafy pocházejí nejprve z burzy daného páru; když nemá svíčky, aplikace použije Binance nebo Coinbase a řekne ti to.
 • Fear & Greed, dominance a on-chain hodnoty z alternative.me, CoinGecko a Coin Metrics.
-• Při zavřené aplikaci kontroluje iOS zřídka – často až po hodinách, po zavření aplikace přejetím prstem vůbec. Nejspolehlivější je otevřená aplikace. Krátké výkyvy mezitím mohou uniknout; aplikace vám to řekne.
-• Částky opouštějí zařízení jen exportem (CSV, záloha) nebo zašifrované v záloze iCloudu/zařízení. Kvůli kurzům jdou jen zkratky páru na burzu daného páru; k tomu směnné kurzy (Frankfurter), tržní data a loga (CoinGecko, Binance), zrcadla dat (GitHub). Sledujete-li adresy nebo xpub, veřejné uzly blockchainu vidí adresy (u xpub odvozené) a vaši IP.
+• Při zavřené aplikaci kontroluje iOS zřídka – často až po hodinách, po zavření aplikace přejetím prstem vůbec. Nejspolehlivější je otevřená aplikace. Krátké výkyvy mezitím mohou uniknout; aplikace ti to řekne.
+• Částky opouštějí zařízení jen exportem (CSV, záloha) nebo zašifrované v záloze iCloudu/zařízení. Kvůli kurzům jdou jen zkratky páru na burzu daného páru; k tomu směnné kurzy (Frankfurter), tržní data a loga (CoinGecko, Binance), zrcadla dat (GitHub). Sleduješ-li adresy nebo xpub, veřejné uzly blockchainu vidí adresy (u xpub odvozené) a tvoji IP.
 
 SEZNAM SLEDOVANÝCH
 • 54 trhů na 44 burzách: spot a futures, DEX tokeny přes DexScreener, volitelně akcie, zlato a měny (TradFi)
 • Druhý řádek „≈ hodnota“ v jedné z 31 měn (EUR, CHF, USD …), přepočtený devizovým kurzem
-• Minigraf a změna v % za 24 h nebo od 00:00 ve vašem časovém pásmu
+• Minigraf a změna v % za 24 h nebo od 00:00 ve tvém časovém pásmu
 • Skupiny, oblíbené, řazení přetažením a poznámka ke každé minci
 • Řádky hlásí „zastaralé“ nebo „burza nedostupná“
 
 ALARMY
-• Cena nad nebo pod hranicí, nebo růst či pokles o procento – i ve vaší měně, např. 60 000 EUR na páru USDT
+• Cena nad nebo pod hranicí, nebo růst či pokles o procento – i ve tvé měně, např. 60 000 EUR na páru USDT
 • Pohyb o x % v časovém okně, skok objemu
 • Časově citlivé oznámení, volitelný zvuk alarmu, volitelné předčítání
-• Noční klid a „Otestovat alarm“: předem uslyšíte, jak alarm přijde; protokol alarmů: kdy proběhla kontrola, jaká byla cena, proč se alarm nespustil
+• Noční klid a „Otestovat alarm“: předem uslyšíš, jak alarm přijde; protokol alarmů: kdy proběhla kontrola, jaká byla cena, proč se alarm nespustil
 
 TRH
-• Nápadné: neobvyklé pohyby ceny a objemu ve vašem seznamu, volitelně s oznámením
+• Nápadné: neobvyklé pohyby ceny a objemu ve tvém seznamu, volitelně s oznámením
 • Crypto Pulse, Fear & Greed, ukazatele bitcoinu, funding a open interest – jako čisté naměřené hodnoty
 • Síťové poplatky pro Ethereum, Bitcoin a další, s alarmem na gas
 
 DÁLE
 • Widgety na plochu a zamčenou obrazovku, Live Activity pro jednu minci
-• Portfolio volitelně (zapíná se v Nastavení): nákupy, prodeje, směny, převody, odměny, vklady a výběry; FIFO (výchozí) nebo průměr (Ø); adresy jen pro čtení, bez seedu, pro BTC (i xpub), ETH a sítě EVM, SOL, TRX, XRP, LTC, ADA a TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance a Coinbase; roční přehled jako CSV; vlastní zámek. Bitpanda a Swissquote nemají veřejný cenový feed, a proto ani vlastní cenu – jejich obchody přidáte importem CSV.
+• Portfolio volitelně (zapíná se v Nastavení): nákupy, prodeje, směny, převody, odměny, vklady a výběry; FIFO (výchozí) nebo průměr (Ø); adresy jen pro čtení, bez seedu, pro BTC (i xpub), ETH a sítě EVM, SOL, TRX, XRP, LTC, ADA a TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance a Coinbase; roční přehled jako CSV; vlastní zámek. Bitpanda a Swissquote nemají veřejný cenový feed, a proto ani vlastní cenu – jejich obchody přidáš importem CSV.
 • Čitelné pro všechny: zelená/červená nebo modrá/oranžová, znaménko a šipka místo pouhé barvy, Dynamic Type; VoiceOver čte každý řádek jako jednu větu
 • Záloha a obnovení přes aplikaci Soubory
 • Světlý a tmavý režim, pět barev zvýraznění, 31 jazyků
 • Open source (MIT) – kód je veřejně na GitHubu
 
-Upozornění: Crypto Checker zobrazuje ceny a portfolio, které si sami zadáte. Není burzou ani peněženkou, neobchoduje a neposkytuje investiční poradenství.
+Upozornění: Crypto Checker zobrazuje ceny a portfolio, které si zadáš ručně. Není burzou ani peněženkou, neobchoduje a neposkytuje investiční poradenství.

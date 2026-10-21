@@ -4,11 +4,11 @@
     <string name="update_mode_for_pros">gasta mais dados e bateria</string>
     <string name="update_mode_live">Em direto enquanto aberta</string>
     <string name="update_mode_live_hint">Onde a exchange fornece preço em direto: de imediato enquanto a lista está aberta. Caso contrário, na próxima atualização. Fechada: no máximo a cada %1$s, muitas vezes mais tarde.</string>
-    <string name="update_mode_live_hint_ios">Onde a exchange fornece preço em direto: de imediato enquanto a lista está aberta. Caso contrário, na próxima atualização. Fechada: quando o iOS permite, por vezes com horas de intervalo. Se fechar a app deslizando-a, o iOS suspende estas verificações até a voltar a abrir.</string>
+    <string name="update_mode_live_hint_ios">Onde a exchange fornece preço em direto: de imediato enquanto a lista está aberta. Caso contrário, na próxima atualização. Fechada: quando o iOS permite, por vezes com horas de intervalo. Se fechares a app deslizando-a, o iOS suspende estas verificações até a voltares a abrir.</string>
     <string name="update_mode_recommended">recomendado</string>
     <string name="update_mode_sparsam">Poupança</string>
-    <string name="update_mode_sparsam_hint">Com a app fechada, no máximo a cada %1$s, muitas vezes mais tarde (alarmes, widgets). Aberta: sempre que a abre.</string>
-    <string name="update_mode_sparsam_hint_ios">Com a app fechada, o iOS decide quando verificar (alarmes, widgets), por vezes com horas de intervalo. Aberta: sempre que a abre.</string>
+    <string name="update_mode_sparsam_hint">Com a app fechada, no máximo a cada %1$s, muitas vezes mais tarde (alarmes, widgets). Aberta: sempre que a abres.</string>
+    <string name="update_mode_sparsam_hint_ios">Com a app fechada, o iOS decide quando verificar (alarmes, widgets), por vezes com horas de intervalo. Aberta: sempre que a abres.</string>
     <string name="update_mode_title">Quão atualizado?</string>
 
     <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
@@ -108,11 +108,11 @@
     <string name="check_trigger_worker">Segundo plano</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">O Android pode atrasar as verificações – defina a bateria como «Sem restrições»</string>
+    <string name="battery_delay_hint">O Android pode atrasar as verificações – define a bateria como «Sem restrições»</string>
     <string name="battery_later">Mais tarde</string>
-    <string name="battery_message">O Android adia tarefas em segundo plano para poupar energia — preços e widgets podem então ter horas de atraso. Definir o uso da bateria como sem restrições mantém-nos atualizados. Pode alterar isto a qualquer momento nas definições do Android.</string>
+    <string name="battery_message">O Android adia tarefas em segundo plano para poupar energia — preços e widgets podem então ter horas de atraso. Definir o uso da bateria como sem restrições mantém-nos atualizados. Podes alterar isto a qualquer momento nas definições do Android.</string>
     <string name="battery_open_settings">Abrir definições de bateria</string>
-    <string name="battery_steps">Nas informações da app, toque em Bateria (ou Utilização da bateria) e escolha Sem restrições.</string>
+    <string name="battery_steps">Nas informações da app, toca em Bateria (ou Utilização da bateria) e escolhe Sem restrições.</string>
     <string name="battery_title">Manter os preços atualizados</string>
     <string name="ios_background_refresh_off">A atualização em segundo plano está desativada para a app. Sem ela, os alarmes só são verificados com a app aberta.</string>
     <string name="ios_low_power_mode">O modo de baixo consumo está ativo. O iOS raramente verifica em segundo plano e os alarmes podem chegar tarde.</string>

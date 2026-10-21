@@ -10,9 +10,9 @@
     <string name="notification_fng_above">O índice subiu acima de %1$d – segundo este índice, predomina a ganância no mercado.</string>
     <string name="notification_fng_below">O índice caiu abaixo de %1$d – segundo este índice, predomina o medo no mercado.</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_gas_btc_text">Abaixo do seu limite de %1$s sat/vB · Transferência ≈ %2$s</string>
+    <string name="notification_gas_btc_text">Abaixo do teu limite de %1$s sat/vB · Transferência ≈ %2$s</string>
     <string name="notification_gas_btc_title">Taxa Bitcoin: %1$s sat/vB</string>
-    <string name="notification_gas_eth_text">Abaixo do seu limite de %1$s gwei · Transferência ≈ %2$s</string>
+    <string name="notification_gas_eth_text">Abaixo do teu limite de %1$s gwei · Transferência ≈ %2$s</string>
     <string name="notification_gas_eth_title">Gas Ethereum: %1$s gwei</string>
     <string name="notification_indicator_above">Acima do teu limite %1$s – valor medido, não uma recomendação.</string>
     <string name="notification_indicator_below">Abaixo do teu limite %1$s – valor medido, não uma recomendação.</string>
@@ -20,9 +20,9 @@
     <string name="notification_macro_title">Dados económicos hoje</string>
     <string name="notification_permission_preprompt_continue">Continuar</string>
     <string name="notification_permission_preprompt_later">Mais tarde</string>
-    <string name="notification_permission_preprompt_text">Para que os alarmes e as notificações de preço lhe cheguem, a app precisa de autorização para enviar notificações. A app usa-as apenas para os seus alarmes e notificações de preço.</string>
+    <string name="notification_permission_preprompt_text">Para que os alarmes e as notificações de preço te cheguem, a app precisa de autorização para enviar notificações. A app usa-as apenas para os teus alarmes e notificações de preço.</string>
     <string name="notification_permission_preprompt_title">Permitir notificações?</string>
-    <string name="notification_portfolio_alarm_locked">O seu alarme disparou – abra a app para ver os detalhes.</string>
+    <string name="notification_portfolio_alarm_locked">O teu alarme disparou – abre a app para ver os detalhes.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – agora %2$s</string>
     <string name="notification_portfolio_alarm_title">Valor do portfólio</string>

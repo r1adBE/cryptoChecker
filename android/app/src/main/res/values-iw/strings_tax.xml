@@ -63,7 +63,7 @@
     <string name="tax_export_match_pool">מאגר משותף לפי Section 104 (Section 104 pool)</string>
     <string name="tax_export_match_same_day">אותו יום (HMRC)</string>
     <string name="tax_export_match_thirty_day">כלל 30 הימים (HMRC)</string>
-    <string name="tax_export_method_change_warning">שינית שיטה או תבנית? גם שנים קודמות מחושבות מחדש – השווה למה שכבר הגשת.</string>
+    <string name="tax_export_method_change_warning">שינית שיטה או תבנית? גם שנים קודמות מחושבות מחדש – השוו למה שכבר הגשת.</string>
     <string name="tax_export_method_overridden">התבנית מחשבת %1$s – לא %2$s</string>
     <string name="tax_export_new_holding">נרכש מ-1.3.2021</string>
     <string name="tax_export_no">לא</string>
@@ -100,8 +100,8 @@
     <string name="tax_line_at_rate">שיעור מיוחד 27.5 אחוז: נטו של הנרכש מ-1.3.2021 והנמכר מ-1.3.2022 + ריבית</string>
     <string name="tax_line_au_discounted">רווח הון נטו אחרי הפסדים והנחה של 50 אחוז</string>
     <string name="tax_line_ca_taxable">רווח הון חייב במס (שיעור הכללה 1/2)</string>
-    <string name="tax_line_ch_income">תגמולים רשומים – לטיפול ראה מסמך העבודה של ESTV</string>
-    <string name="tax_line_ch_private">רווחי הון בנכסים פרטיים: לא חושבו – לסיווג ראה ESTV</string>
+    <string name="tax_line_ch_income">תגמולים רשומים – לטיפול ראו מסמך העבודה של ESTV</string>
+    <string name="tax_line_ch_private">רווחי הון בנכסים פרטיים: לא חושבו – לסיווג ראו ESTV</string>
     <string name="tax_line_ch_wealth">מס עושר: לא מחושב – CSV היתרות לפי שער הבורסה × USD/CHF ב-31.12 – ערכי מס: רשימת השערים של ESTV</string>
     <string name="tax_line_de_long">החזקה &gt; שנה: לפי § 23 EStG בדרך כלל לא חייב במס – יש לבדוק</string>
     <string name="tax_line_denied_loss">הפסדים שאינם מותרים בניכוי (הפסד מדומה / superficial loss)</string>
@@ -130,7 +130,7 @@
     <string name="tax_de_col_item">סעיף</string>
     <string name="tax_de_disclaimer">להתמצאות – לא דוח מס ולא ייעוץ מס.</string>
     <string name="tax_de_explain_below">עד %1$s: מתחת לתקרה (להתמצאות).</string>
-    <string name="tax_de_explain_loss">הפסד נטו: אין מס על מכירות אלה. הפסדים לפי § 23 EStG מתקזזים רק מול רווחים ממכירות פרטיות – באותה שנה או בהעברה לשנה הקודמת ולשנים הבאות (§ 23 Abs. 3 / § 10d EStG). דווח על ההפסד בדוח המס כדי שייקבע.</string>
+    <string name="tax_de_explain_loss">הפסד נטו: אין מס על מכירות אלה. הפסדים לפי § 23 EStG מתקזזים רק מול רווחים ממכירות פרטיות – באותה שנה או בהעברה לשנה הקודמת ולשנים הבאות (§ 23 Abs. 3 / § 10d EStG). דווחו על ההפסד בדוח המס כדי שייקבע.</string>
     <string name="tax_de_explain_reached">מ-%1$s נספר כל הסכום (תקרת פטור – לא סכום פטור).</string>
     <string name="tax_de_explain_unknown">לא ניתן לבדיקה: חסרים שערי חליפין / מחירי קנייה או תקופות החזקה.</string>
     <string name="tax_de_income_limit">תקרת פטור שירותים (§ 22 Nr. 3 EStG)</string>
@@ -150,10 +150,10 @@
     <string name="tax_template_at">אוסטריה</string>
     <string name="tax_template_au">אוסטרליה</string>
     <string name="tax_template_beta">Beta</string>
-    <string name="tax_template_beta_note">בטא: כללי המדינה מפושטים, בדוק לפני הגשת הדוח למס</string>
+    <string name="tax_template_beta_note">בטא: כללי המדינה מפושטים, בדקו לפני הגשת הדוח למס</string>
     <string name="tax_template_ca">קנדה</string>
     <string name="tax_template_ch">שווייץ</string>
-    <string name="tax_template_confirm_text">בטא, כללים מפושטים, חסרות עסקאות מפלטפורמות אחרות – בדוק לפני הגשת הדוח.</string>
+    <string name="tax_template_confirm_text">בטא, כללים מפושטים, חסרות עסקאות מפלטפורמות אחרות – בדקו לפני הגשת הדוח.</string>
     <string name="tax_template_confirm_title">תבנית מס (בטא)</string>
     <string name="tax_template_current">תבנית: %1$s · שיטה: %2$s · מטבע: %3$s</string>
     <string name="tax_template_de">גרמניה</string>
@@ -179,19 +179,19 @@
     <string name="tax_note_network_fee">עמלת רשת ששולמה בקריפטו (העברה לארנק שלך, משיכה) היא מימוש של מטבעות העמלה לפי שווי שוק – רווח או הפסד רק על המטבעות האלה, לא הפסד של כל העמלה (%1$s). ללא מחיר רשום: מחיר הסגירה של אותו יום (UTC); ללא מחיר סגירה התמורה נשארת ריקה.</string>
     <string name="tax_note_specific_id">זיהוי ספציפי (Specific Identification) אינו נתמך – חל FIFO (נקנה ראשון – נמכר ראשון).</string>
     <string name="tax_note_spouse_gift">מתנה שמסומנת „לבן/בת הזוג” היא ללא רווח וללא הפסד: התמורה = עלות הרכישה שלך, שבן/בת הזוג מקבלים (%1$s).</string>
-    <string name="tax_note_stable_swap">מכירה תמורת מטבע יציב (USDT/USDC/DAI …) שאתה שומר נחשבת כאן קריפטו מול קריפטו ואינה חייבת במס – רשום אותה כהחלפה למטבע היציב. רק מכירה תמורת יורו חייבת במס – «מכירה» נחשבת מכירה תמורת יורו.</string>
+    <string name="tax_note_stable_swap">מכירה תמורת מטבע יציב (USDT/USDC/DAI …) שנשאר אצלך נחשבת כאן קריפטו מול קריפטו ואינה חייבת במס – רשמו אותה כהחלפה למטבע היציב. רק מכירה תמורת יורו חייבת במס – «מכירה» נחשבת מכירה תמורת יורו.</string>
     <string name="tax_note_transfer_fee">אותו דבר חל על עמלה ב-USDT או במזומן בהעברה בין הארנקים שלך: היא לא מתווספת לעלות ומוצגת לידיעה בלבד.</string>
     <string name="tax_note_uk">התאמה לפי HMRC: אותו יום, אחר כך 30 הימים הבאים, אחר כך מאגר משותף לפי Section 104 (Section 104 pool).</string>
-    <string name="tax_note_us_transition">מעבר ב-1.1.2025 (Rev. Proc. 2024-28, safe harbor): אם בשנים קודמות חושב FIFO על פני כל הארנקים, היתרות ב-31.12.2024 עוברות לארנקים שבהם המטבעות – הארנק עם המטבעות הוותיקים ביותר מקבל את העלות המוקדמת ביותר. הקצאה זו היא כלל של האפליקציה – השווה לרישומים שלך.</string>
+    <string name="tax_note_us_transition">מעבר ב-1.1.2025 (Rev. Proc. 2024-28, safe harbor): אם בשנים קודמות חושב FIFO על פני כל הארנקים, היתרות ב-31.12.2024 עוברות לארנקים שבהם המטבעות – הארנק עם המטבעות הוותיקים ביותר מקבל את העלות המוקדמת ביותר. הקצאה זו היא כלל של האפליקציה – השוו לרישומים שלך.</string>
     <string name="tax_note_us_wallet">החל משנת המס 2025 ה-IRS דורש עלות רכישה לפי ארנק/בורסה (Rev. Proc. 2024-28) – הייצוא מחשב FIFO לפי ארנק מ-2025 – לפני 2025 חלה שיטת חישוב עלות הרכישה שלך.</string>
     <string name="tax_note_withdrawal_fee">עמלת משיכה ב-USDT או במזומן אינה הפסד: עמלה במזומן אינה ניתנת לניכוי, עמלה ב-USDT היא מימוש לפי הערך הנקוב ללא רווח – היא מוצגת לידיעה בלבד (%1$s).</string>
     <string name="tax_summary_at_interest_income">נספר: הכנסה בעת הקבלה בשיעור המיוחד של 27.5 אחוז (§ 27b ס׳ 2 מס׳ 1 EStG / BMF) – המטבעות שומרים על שווי זה כעלות רכישה</string>
     <string name="tax_summary_at_reward_info">לידיעה בלבד – לא נכלל באף סכום: תגמולים נכנסים ליתרה החדשה בעלות רכישה 0 וממוסים רק במכירה (כבר ברווחים) – § 27b Abs. 2 EStG / BMF</string>
     <string name="tax_summary_at_transition_2021">1.1.–28.2.2022: אפשרות לשיעור של 27.5 אחוז</string>
     <string name="tax_summary_at_withdrawal_fee">עמלת משיכה – לא מקוזזת מול האחזקה החדשה (הוצאות אינן מותרות בניכוי בשיעור המיוחד, § 20(2) EStG)</string>
-    <string name="tax_summary_ch_fifo_info">לידיעה בלבד – חישוב FIFO של האפליקציה – ללא סיווג – ראה ESTV</string>
+    <string name="tax_summary_ch_fifo_info">לידיעה בלבד – חישוב FIFO של האפליקציה – ללא סיווג – ראו ESTV</string>
     <string name="tax_summary_ch_year_end_value">שווי ל-31.12 ב-CSV היתרות = שער הבורסה × USD/CHF – לא ערכי המס מרשימת השערים של ESTV</string>
-    <string name="tax_summary_de_withdrawal_fee">עמלת משיכה – לא מקוזזת לפי § 23, בדוק ניכוי כהוצאה (Werbungskosten)</string>
+    <string name="tax_summary_de_withdrawal_fee">עמלת משיכה – לא מקוזזת לפי § 23, בדקו ניכוי כהוצאה (Werbungskosten)</string>
     <string name="tax_summary_not_calculated_estv">לא חושב – רשימת השערים של ESTV: %1$s</string>
     <string name="tax_summary_orientation">להתמצאות</string>
     <string name="tax_summary_orientation_block">להתמצאות – לא ייעוץ מס – לא שומה</string>

@@ -6,7 +6,7 @@
     <string name="backup_export">Exportálás</string>
     <string name="backup_exported">Mentés elkészült.</string>
     <string name="backup_failed">Nem sikerült. Ez Crypto Checker mentés?</string>
-    <string name="backup_hint">A listát jegyzetekkel és csoportokkal, a riasztásokat, kedvenceket, a portfóliót és a beállításokat egy fájlba menti, amelyet Ön őriz – pl. új telefonhoz.</string>
+    <string name="backup_hint">A listát jegyzetekkel és csoportokkal, a riasztásokat, kedvenceket, a portfóliót és a beállításokat egy fájlba menti, amelyet te őrzöl – pl. új telefonhoz.</string>
     <string name="backup_import">Importálás</string>
     <string name="backup_title">Mentés és visszaállítás</string>
     <string name="backup_too_large">A fájl túl nagy, vagy nem érvényes mentés (legfeljebb 64 MB).</string>
@@ -19,13 +19,13 @@
     <!-- %1$d = Mindestlänge des Passworts (8) -->
     <string name="backup_password_min">Legalább %1$d karakter</string>
     <string name="backup_password_mismatch">A jelszavak nem egyeznek</string>
-    <string name="backup_password_prompt">Adja meg ennek a biztonsági mentésnek a jelszavát.</string>
+    <string name="backup_password_prompt">Add meg ennek a biztonsági mentésnek a jelszavát.</string>
     <string name="backup_password_repeat">Jelszó ismét</string>
     <string name="backup_password_show">Jelszó megjelenítése</string>
     <string name="backup_password_title">Jelszóval védett mentés</string>
     <string name="backup_password_too_weak">Túl könnyű kitalálni – ne csak számjegy, ne egy ismételt karakter, ne gyakori sor, mint „12345678” vagy „jelszo”.</string>
     <string name="backup_password_warning">Jelszó nélkül a biztonsági mentés nem állítható vissza.</string>
-    <string name="backup_password_wrong">Hibás jelszó, vagy a fájl sérült. Próbálja újra.</string>
+    <string name="backup_password_wrong">Hibás jelszó, vagy a fájl sérült. Próbáld újra.</string>
     <string name="backup_protect">Védelem jelszóval</string>
     <string name="backup_protect_hint">Titkosítja a fájlt (AES-256). Ajánlott, ha portfólióadatokat tartalmaz.</string>
 
@@ -53,13 +53,16 @@
         <item quantity="one">%1$d pár</item>
         <item quantity="other">%1$d pár</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">A korlátok miatt (%3$s pár, páronként %4$s riasztás) nem lesz visszaállítva: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">A korlátok miatt (%3$s pár, páronként %4$s riasztás) nem lett visszaállítva: %1$s, %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">Ezen az eszközön már nincs meg az alkalmazás titkosított adatainak kulcsa, ezért az alkalmazás üresen indult. Semmi sem törlődött. A listát és a portfóliót egy mentésfájl importálásával kaphatod vissza a beállítások „%1$s” részében.</string>
     <string name="storage_recovery_title">A mentett adatok nem oldhatók fel</string>
 
     <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
-    <string name="backup_not_enough_memory">Nincs elég szabad memória a biztonsági mentés jelszavas védelméhez vagy megnyitásához. Zárjon be más alkalmazásokat, és próbálja újra.</string>
+    <string name="backup_not_enough_memory">Nincs elég szabad memória a biztonsági mentés jelszavas védelméhez vagy megnyitásához. Zárj be más alkalmazásokat, és próbáld újra.</string>
 
     <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
     <string name="storage_recovery_restore_action">Biztonsági mentés visszaállítása</string>
@@ -67,7 +70,7 @@
     <string name="storage_recovery_restored_title">A mentett adatok ismét feloldva</string>
     <string name="storage_recovery_restored_message">Az eszköz egy korábbi kulcsa ismét megnyitotta a félretett adatokat, így visszakerültek. A közben mentett adatok változatlanul mellettük maradtak.</string>
     <string name="settings_reset_notice_title">Beállítások visszaállítva</string>
-    <string name="settings_reset_notice">A beállításokat nem sikerült beolvasni, ezért visszaálltak az alapértékekre. Ellenőrizze a portfóliózárat, a riasztások időközét és a pénznemet.</string>
+    <string name="settings_reset_notice">A beállításokat nem sikerült beolvasni, ezért visszaálltak az alapértékekre. Ellenőrizd a portfóliózárat, a riasztások időközét és a pénznemet.</string>
     <string name="backup_restore_interrupted_title">A visszaállítás megszakadt</string>
     <string name="backup_restore_interrupted_rolled_back">Az alkalmazás bezárult egy biztonsági mentés visszaállítása közben. A korábbi adataidat visszaállítottuk; a mentésből semmi sem maradt meg.</string>
     <string name="backup_restore_interrupted_incomplete">Az alkalmazás bezárult egy mentés visszaállítása közben, és a korábbi adatokat nem sikerült teljesen visszaállítani. Ellenőrizd a figyelőlistát és a portfóliót, vagy állítsd vissza újra a mentést a Beállítások „%1$s” pontjában.</string>

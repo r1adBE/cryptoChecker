@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Begrüssung beim ersten Start -->
-    <string name="welcome_alert">هشدار بگیرید – قیمت، درصد، حجم و حرکت‌های غیرعادی</string>
+    <string name="welcome_alert">هشدار بگیر – قیمت، درصد، حجم و حرکت‌های غیرعادی</string>
     <string name="welcome_alert_q">کی خبرم کند؟</string>
-    <string name="welcome_text">قیمت‌های شما. هشدارهای شما. نمای کلی شما.\nبدون حساب. بدون تبلیغات. بدون ردیابی.</string>
-    <string name="welcome_understand">بفهمید – همین حالا چه چیزی همراه با یک قیمت حرکت می‌کند</string>
+    <string name="welcome_text">قیمت‌های تو. هشدارهای تو. نمای کلی تو.\nبدون حساب. بدون تبلیغات. بدون ردیابی.</string>
+    <string name="welcome_understand">بفهم – همین حالا چه چیزی همراه با یک قیمت حرکت می‌کند</string>
     <string name="welcome_understand_q">چه چیزی همراه آن حرکت می‌کند؟</string>
-    <string name="welcome_watch">دنبال کنید – کوین‌ها، قیمت‌ها و روند آن‌ها</string>
+    <string name="welcome_watch">دنبال کن – کوین‌ها، قیمت‌ها و روند آن‌ها</string>
     <string name="welcome_watch_q">چه خبر است؟</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
@@ -15,8 +15,8 @@
     <string name="starter_search_coin">جستجوی کوینی دیگر</string>
     <string name="starter_select_all">انتخاب همه</string>
     <string name="starter_select_none">لغو انتخاب همه</string>
-    <string name="starter_title">با این کوین‌ها شروع کنید</string>
+    <string name="starter_title">با این کوین‌ها شروع کن</string>
     <string name="starter_watch_alarm_hint">قیمت را دنبال کن، هشدار بگذار</string>
 
-    <string name="starter_source_text">قیمت‌ها از %1$s به %2$s. آنچه را نمی‌خواهید از انتخاب خارج کنید و بقیه را یک‌جا اضافه کنید. صرافی و جفت را برای هر کوین می‌توانید تغییر دهید.</string>
+    <string name="starter_source_text">قیمت‌ها از %1$s به %2$s. آنچه را نمی‌خواهی از انتخاب خارج کن و بقیه را یک‌جا اضافه کن. صرافی و جفت را برای هر کوین می‌توانی تغییر دهی.</string>
 </resources>

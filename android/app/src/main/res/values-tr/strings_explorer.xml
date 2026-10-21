@@ -17,7 +17,7 @@
         <item quantity="one">%1$d borsanın çift listesi henüz cihazda değil.</item>
         <item quantity="other">%1$d borsanın çift listesi henüz cihazda değil.</item>
     </plurals>
-    <string name="explorer_lists_privacy">Her borsanın tam herkese açık listesini yükler – herkes için aynı. Aramanız cihazda kalır.</string>
+    <string name="explorer_lists_privacy">Her borsanın tam herkese açık listesini yükler – herkes için aynı. Araman cihazda kalır.</string>
     <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
     <string name="explorer_recent_a11y">Son arama: %1$s</string>
     <string name="explorer_recent_clear">Temizle</string>
@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">Sonuç yok.</string>
     <string name="explorer_search_hint">Coin, çift veya borsa ara</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Bir coinin adını veya sembolünü yazın, ör. Bitcoin veya BTC – ardından çifti seçin. Çift, bir borsada belirli bir para birimiyle işlem gören bir coindir, ör. Binance\'te BTC/USDT.</string>
+    <string name="explorer_search_intro">Bir coinin adını veya sembolünü yaz, ör. Bitcoin veya BTC – ardından çifti seç. Çift, bir borsada belirli bir para birimiyle işlem gören bir coindir, ör. Binance\'te BTC/USDT.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">İzleme listesine ekle</string>
@@ -35,7 +35,7 @@
     <string name="explorer_already_in_watchlist">Bu çift zaten izleme listesinde.</string>
     <string name="explorer_exchange_missing">Borsa eksik mi?</string>
     <string name="explorer_loading_pairs">İşlem çiftleri yükleniyor…</string>
-    <string name="explorer_no_pair_selected">Önce bir çift seçin.</string>
+    <string name="explorer_no_pair_selected">Önce bir çift seç.</string>
     <string name="explorer_no_pairs_yet">Bu piyasa için henüz çift yüklenmedi.</string>
     <plurals name="explorer_pairs_status">
         <item quantity="one">%1$d çift · güncellendi %2$s</item>
@@ -44,8 +44,8 @@
     <string name="explorer_pairs_title">Çiftler</string>
     <string name="explorer_precise_title">Gelişmiş / borsaya göre</string>
     <string name="explorer_price_loading">Fiyat yükleniyor…</string>
-    <string name="explorer_select_market_hint">Bir borsa seçin – işlem çiftleri otomatik yüklenir.</string>
-    <string name="explorer_select_placeholder">Lütfen seçin</string>
+    <string name="explorer_select_market_hint">Bir borsa seç – işlem çiftleri otomatik yüklenir.</string>
+    <string name="explorer_select_placeholder">Lütfen seç</string>
     <string name="explorer_step_pair">Çift seç</string>
 
     <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
@@ -59,7 +59,7 @@
         <item quantity="one">%1$d %2$s çifti bulundu</item>
         <item quantity="other">%1$d %2$s çifti bulundu</item>
     </plurals>
-    <string name="bulk_all_pairs_empty">Bu borsada seçili sözleşme türü için %1$s çifti yok. Önce borsayı eşitleyin veya başka bir sözleşme türü deneyin.</string>
+    <string name="bulk_all_pairs_empty">Bu borsada seçili sözleşme türü için %1$s çifti yok. Önce borsayı eşitle veya başka bir sözleşme türü dene.</string>
     <plurals name="explorer_add_all_pairs">
         <item quantity="one">%1$d çifti izleme listesine ekle</item>
         <item quantity="other">%1$d çiftin tümünü izleme listesine ekle</item>
@@ -78,7 +78,7 @@
     </plurals>
     <string name="explorer_bulk_hide_list">Listeyi gizle</string>
     <string name="explorer_bulk_show_list">Listeyi göster</string>
-    <string name="explorer_bulk_tap_hint">Yukarıda seçmek için bir çifte dokunun.</string>
+    <string name="explorer_bulk_tap_hint">Yukarıda seçmek için bir çifte dokun.</string>
     <string name="explorer_bulk_title">Birden fazla çift</string>
 
     <!-- Handelspaare einer Börse laden und wählen -->
@@ -100,7 +100,7 @@
     <string name="dex_add">Ekle</string>
     <string name="dex_added">%1$s izleme listesine eklendi.</string>
     <string name="dex_already">%1$s zaten izleme listesinde.</string>
-    <string name="dex_intro">Büyük borsaların dışındaki tokenler, merkeziyetsiz borsalardan (Uniswap, PancakeSwap, Raydium …) DexScreener üzerinden. Bir token arayın ve işlem havuzlarından birini ekleyin – fiyatlar ABD doları cinsinden.</string>
+    <string name="dex_intro">Büyük borsaların dışındaki tokenler, merkeziyetsiz borsalardan (Uniswap, PancakeSwap, Raydium …) DexScreener üzerinden. Bir token ara ve işlem havuzlarından birini ekle – fiyatlar ABD doları cinsinden.</string>
     <string name="dex_liquidity">Likidite %1$s</string>
     <string name="dex_no_results">Havuz bulunamadı.</string>
     <string name="dex_search">Ara</string>
@@ -119,7 +119,7 @@
     <string name="dex_token_address_copied">Token adresi kopyalandı</string>
     <string name="dex_token_address_label">%1$s ile biten token adresi</string>
     <plurals name="explorer_bulk_not_added_limit">
-        <item quantity="one">%1$d çift eklenmedi – izleme listenizde en fazla %2$s çift olabilir.</item>
-        <item quantity="other">%1$d çift eklenmedi – izleme listenizde en fazla %2$s çift olabilir.</item>
+        <item quantity="one">%1$d çift eklenmedi – izleme listende en fazla %2$s çift olabilir.</item>
+        <item quantity="other">%1$d çift eklenmedi – izleme listende en fazla %2$s çift olabilir.</item>
     </plurals>
 </resources>

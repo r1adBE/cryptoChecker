@@ -12,6 +12,6 @@
     <string name="portfolio_alarms_address_failing_generic">Alarmy portfolia počítají bez adres, jejichž zůstatek se nenačítá déle než 24 hodin</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokeny částečně zastaralé</string>
-    <string name="portfolio_address_restore_failed">Adresu se nepodařilo obnovit – v případě potřeby ji přidejte znovu</string>
-    <string name="portfolio_address_remove_failed">Adresu se nepodařilo odebrat – zkuste to prosím znovu</string>
+    <string name="portfolio_address_restore_failed">Adresu se nepodařilo obnovit – v případě potřeby ji přidej znovu</string>
+    <string name="portfolio_address_remove_failed">Adresu se nepodařilo odebrat – zkus to prosím znovu</string>
 </resources>

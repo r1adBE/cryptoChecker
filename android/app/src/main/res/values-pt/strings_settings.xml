@@ -45,7 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Falta a permissão – com o dispositivo em repouso, o Android verifica de forma irregular, por vezes só após horas.</string>
     <string name="settings_notification_change">Notificar só se o preço mudar</string>
     <string name="settings_notification_change_always">Sempre</string>
-    <string name="settings_percent_invalid">Introduza um valor de 0 a 100.</string>
+    <string name="settings_percent_invalid">Introduz um valor de 0 a 100.</string>
     <string name="settings_notification_change_hint">Só aparece uma notificação quando o preço variou pelo menos este valor desde a última. Nada é mostrado enquanto faltarem dados. Os alarmes não são afetados.</string>
     <string name="settings_ongoing_notifications">Não podem ser dispensadas</string>
     <string name="settings_ongoing_notifications_hint">Mantém as notificações de preço fixas.</string>
@@ -69,8 +69,8 @@
     <string name="settings_battery_ok">Uso da bateria: sem restrições</string>
     <string name="settings_battery_restricted">Uso da bateria: restrito</string>
     <string name="settings_check_runs_empty">Ainda não há verificações registadas.</string>
-    <string name="settings_check_runs_honest_android">O Android decide quando verificar – aqui vê quando aconteceu realmente.</string>
-    <string name="settings_check_runs_honest_ios">O iOS decide quando verificar – aqui vê quando aconteceu realmente.</string>
+    <string name="settings_check_runs_honest_android">O Android decide quando verificar – aqui vês quando aconteceu realmente.</string>
+    <string name="settings_check_runs_honest_ios">O iOS decide quando verificar – aqui vês quando aconteceu realmente.</string>
     <string name="settings_check_runs_title">Verificações recentes</string>
     <string name="settings_http_log">Mostrar registo HTTP</string>
     <string name="settings_http_log_hint">Mostra no fundo da página «Adicionar par» os pedidos às exchanges – para diagnóstico.</string>
@@ -83,7 +83,7 @@
     <string name="settings_activity_sensitivity">Sensibilidade</string>
     <string name="settings_activity_sensitivity_hint">Com que facilidade uma moeda é considerada invulgar – igual para o cartão da lista e as notificações. Com «Menos», o cartão mostra apenas as 3 mais fortes.</string>
     <string name="settings_watchlist_activity_card">Em destaque: mostrar na lista</string>
-    <string name="settings_watchlist_activity_card_hint">Mostra o chip ⚡ junto aos grupos: toque para ver só os pares em que algo está a acontecer agora. Os alertas definem-se em Avisos de mercado.</string>
+    <string name="settings_watchlist_activity_card_hint">Mostra o chip ⚡ junto aos grupos: toca para ver só os pares em que algo está a acontecer agora. Os alertas definem-se em Avisos de mercado.</string>
     <string name="settings_watchlist_names">Mostrar nomes</string>
     <string name="settings_watchlist_names_hint">Nome por baixo do par, p. ex. Bitcoin ou NVIDIA. Vem com as listas de logótipos, carregado uma vez para todas as moedas.</string>
     <string name="settings_watchlist_sparkline">Minigráfico na lista</string>
@@ -113,12 +113,12 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Cor de destaque</string>
-    <string name="settings_accent_hint">Cor da app, dos widgets e do ícone da app. Alguns ecrãs principais removem o ícone na troca – adicione-o de novo.</string>
+    <string name="settings_accent_hint">Cor da app, dos widgets e do ícone da app. Alguns ecrãs principais removem o ícone na troca – adiciona-o de novo.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Logótipos das moedas</string>
     <string name="settings_coin_logos_app">Na app</string>
     <string name="settings_coin_logos_app_hint">Lista, par aberto e cartões do mercado</string>
-    <string name="settings_coin_logos_footer">Os logótipos vêm do CoinGecko e, para o que o CoinGecko não inclui (p. ex. ouro, prata, ações), da Binance. A app transfere todos os logótipos de uma só vez e guarda-os neste dispositivo, por isso nenhum dos dois sabe que moedas segue. Moedas sem logótipo mostram as iniciais. Os favoritos têm uma pequena estrela no logótipo. Onde um interruptor está desativado, não aparecem logótipos nem iniciais; com tudo desativado, nada é carregado.</string>
+    <string name="settings_coin_logos_footer">Os logótipos vêm do CoinGecko e, para o que o CoinGecko não inclui (p. ex. ouro, prata, ações), da Binance. A app transfere todos os logótipos de uma só vez e guarda-os neste dispositivo, por isso nenhum dos dois sabe que moedas segues. Moedas sem logótipo mostram as iniciais. Os favoritos têm uma pequena estrela no logótipo. Onde um interruptor está desativado, não aparecem logótipos nem iniciais; com tudo desativado, nada é carregado.</string>
     <string name="settings_coin_logos_portfolio">No portfólio</string>
     <string name="settings_coin_logos_portfolio_hint">Posições, detalhes e análises</string>
     <string name="settings_coin_logos_value_app">App</string>
@@ -146,7 +146,7 @@
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Moeda de conversão</string>
-    <string name="settings_conversion_currency_hint">Também usada para o portfólio, alarmes na sua moeda, o cartão Mercado cripto e o widget Portfólio.</string>
+    <string name="settings_conversion_currency_hint">Também usada para o portfólio, alarmes na tua moeda, o cartão Mercado cripto e o widget Portfólio.</string>
     <string name="settings_cost_method">Método do custo de aquisição</string>
     <string name="settings_cost_method_average">Média (Ø)</string>
     <string name="settings_cost_method_average_hint">As vendas são avaliadas ao preço médio ponderado de compra.</string>
@@ -155,12 +155,12 @@
     <string name="settings_cost_method_fifo_wallet">FIFO por carteira/corretora</string>
     <string name="settings_cost_method_fifo_wallet_hint">Primeiro as moedas mais antigas em cada corretora ou carteira; as transferências movem os lotes com a data de compra.</string>
     <string name="settings_portfolio_lock">Bloqueio do portfólio</string>
-    <string name="settings_portfolio_lock_footer">O bloqueio oculta o que é mostrado. Os dados ficam neste dispositivo e estão protegidos pela encriptação do dispositivo. Pode proteger as cópias de segurança com uma palavra-passe.</string>
-    <string name="settings_portfolio_lock_hint">Oculta apenas o portfólio: desbloqueie com impressão digital, rosto ou PIN do dispositivo. Volta a bloquear após mais de um minuto em segundo plano. A lista de acompanhamento, os alarmes e os outros widgets continuam acessíveis.</string>
-    <string name="settings_portfolio_lock_no_device_lock">Sem PIN ou código do dispositivo, o bloqueio não oculta nada – configure um bloqueio de ecrã.</string>
+    <string name="settings_portfolio_lock_footer">O bloqueio oculta o que é mostrado. Os dados ficam neste dispositivo e estão protegidos pela encriptação do dispositivo. Podes proteger as cópias de segurança com uma palavra-passe.</string>
+    <string name="settings_portfolio_lock_hint">Oculta apenas o portfólio: desbloqueia com impressão digital, rosto ou PIN do dispositivo. Volta a bloquear após mais de um minuto em segundo plano. A lista de acompanhamento, os alarmes e os outros widgets continuam acessíveis.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Sem PIN ou código do dispositivo, o bloqueio não oculta nada – configura um bloqueio de ecrã.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">Portfólio na cópia do sistema</string>
-    <string name="settings_portfolio_system_backup_hint">Desligado: as suas transações não são incluídas na cópia do sistema do dispositivo nem na transferência para um novo telemóvel. Para as mudar, use a cópia de segurança da app com palavra-passe.</string>
+    <string name="settings_portfolio_system_backup_hint">Desligado: as tuas transações não são incluídas na cópia do sistema do dispositivo nem na transferência para um novo telemóvel. Para as mudar, usa a cópia de segurança da app com palavra-passe.</string>
     <string name="settings_portfolio_system_backup_unavailable">Requer Android 9 ou posterior – versões anteriores guardariam o portefólio sem encriptação na cópia da Google.</string>
     <string name="settings_portfolio_tab">Mostrar separador Portfólio</string>
     <string name="settings_portfolio_value_locked">Sim, com bloqueio</string>
@@ -205,7 +205,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Repor app</string>
     <string name="settings_reset_app_action">Eliminar tudo</string>
-    <string name="settings_reset_app_confirm">Elimina lista, alarmes, portfólio, definições e todos os dados guardados, como após a instalação. Não pode ser anulado. Dica: faça antes uma cópia de segurança. As cópias de segurança do dispositivo (cópia Google ou cópia iCloud/computador) mantêm os dados anteriores até à próxima cópia.</string>
+    <string name="settings_reset_app_confirm">Elimina lista, alarmes, portfólio, definições e todos os dados guardados, como após a instalação. Não pode ser anulado. Dica: faz antes uma cópia de segurança. As cópias de segurança do dispositivo (cópia Google ou cópia iCloud/computador) mantêm os dados anteriores até à próxima cópia.</string>
     <string name="settings_reset_app_title">Repor a app?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
@@ -270,7 +270,7 @@
     <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Conta novos alarmes e avisos de mercado; volta a 0 ao abrir a app.</string>
 
     <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
-    <string name="about_your_data_title">Os seus dados</string>
+    <string name="about_your_data_title">Os teus dados</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_label">No dispositivo</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
@@ -278,15 +278,15 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">Ligações</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_connections">As cotações vêm diretamente das corretoras dos seus pares, além de taxas de câmbio, listas e logótipos de moedas e o espelho de dados no GitHub; estes veem o seu endereço IP, nunca os seus ativos (os endereços observados vão para o fornecedor da respetiva rede).</string>
+    <string name="about_data_connections">As cotações vêm diretamente das corretoras dos teus pares, além de taxas de câmbio, listas e logótipos de moedas e o espelho de dados no GitHub; estes veem o teu endereço IP, nunca os teus ativos (os endereços observados vão para o fornecedor da respetiva rede).</string>
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Cópia de segurança</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Só se a criar; encriptada com palavra-passe (Argon2id + AES-256-GCM), legível sem palavra-passe.</string>
+    <string name="about_data_backup">Só se a criares; encriptada com palavra-passe (Argon2id + AES-256-GCM), legível sem palavra-passe.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Mudança de dispositivo</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">A chave fica no dispositivo antigo – crie antes um ficheiro de cópia de segurança.</string>
+    <string name="about_data_device_change">A chave fica no dispositivo antigo – cria antes um ficheiro de cópia de segurança.</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">Partilhar diagnóstico</string>

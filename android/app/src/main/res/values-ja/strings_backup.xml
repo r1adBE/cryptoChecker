@@ -50,6 +50,9 @@
     <plurals name="backup_restored_pairs">
         <item quantity="other">ペア %1$d 件</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">上限（ペア%3$s件、1ペアにつきアラーム%4$s件）を超えるため復元されません: %1$s、%2$s。</string>
+    <string name="backup_restored_over_limits">上限（ペア%3$s件、1ペアにつきアラーム%4$s件）を超えたため復元されませんでした: %1$s、%2$s。</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">この端末にはアプリの暗号化データの鍵がもうないため、アプリは空の状態で起動しました。削除されたものはありません。リストとポートフォリオを戻すには、設定の「%1$s」でバックアップファイルをインポートしてください。</string>

@@ -17,17 +17,17 @@
         <item quantity="one">Η λίστα ζευγών %1$d ανταλλακτηρίου δεν υπάρχει ακόμη στη συσκευή.</item>
         <item quantity="other">Οι λίστες ζευγών %1$d ανταλλακτηρίων δεν υπάρχουν ακόμη στη συσκευή.</item>
     </plurals>
-    <string name="explorer_lists_privacy">Φορτώνει την πλήρη δημόσια λίστα κάθε ανταλλακτηρίου – ίδια για όλους. Η αναζήτησή σας μένει στη συσκευή.</string>
+    <string name="explorer_lists_privacy">Φορτώνει την πλήρη δημόσια λίστα κάθε ανταλλακτηρίου – ίδια για όλους. Η αναζήτησή σου μένει στη συσκευή.</string>
     <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
     <string name="explorer_recent_a11y">Πρόσφατη αναζήτηση: %1$s</string>
     <string name="explorer_recent_clear">Διαγραφή</string>
     <string name="explorer_recent_clear_a11y">Διαγραφή πρόσφατων αναζητήσεων</string>
     <string name="explorer_recent_title">Πρόσφατες αναζητήσεις</string>
-    <string name="explorer_search_choose_manually">Επιλέξτε μόνοι σας ανταλλακτήριο και ζεύγος</string>
+    <string name="explorer_search_choose_manually">Επίλεξε εσύ ανταλλακτήριο και ζεύγος</string>
     <string name="explorer_search_empty">Κανένα αποτέλεσμα.</string>
     <string name="explorer_search_hint">Αναζήτηση νομίσματος, ζεύγους ή ανταλλακτηρίου</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Πληκτρολογήστε όνομα ή σύμβολο νομίσματος, π.χ. Bitcoin ή BTC, και μετά επιλέξτε ζεύγος. Ζεύγος είναι ένα κρυπτονόμισμα σε ένα ανταλλακτήριο έναντι ενός νομίσματος, π.χ. BTC/USDT στο Binance.</string>
+    <string name="explorer_search_intro">Πληκτρολόγησε όνομα ή σύμβολο νομίσματος, π.χ. Bitcoin ή BTC, και μετά επίλεξε ζεύγος. Ζεύγος είναι ένα κρυπτονόμισμα σε ένα ανταλλακτήριο έναντι ενός νομίσματος, π.χ. BTC/USDT στο Binance.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Προσθήκη στη λίστα</string>
@@ -35,7 +35,7 @@
     <string name="explorer_already_in_watchlist">Αυτό το ζεύγος υπάρχει ήδη στη λίστα παρακολούθησης.</string>
     <string name="explorer_exchange_missing">Λείπει ανταλλακτήριο;</string>
     <string name="explorer_loading_pairs">Φόρτωση ζευγών…</string>
-    <string name="explorer_no_pair_selected">Επιλέξτε πρώτα ένα ζεύγος.</string>
+    <string name="explorer_no_pair_selected">Επίλεξε πρώτα ένα ζεύγος.</string>
     <string name="explorer_no_pairs_yet">Δεν έχουν φορτωθεί ακόμη ζεύγη για αυτό το ανταλλακτήριο.</string>
     <plurals name="explorer_pairs_status">
         <item quantity="one">%1$d ζεύγος · ενημέρωση %2$s</item>
@@ -44,8 +44,8 @@
     <string name="explorer_pairs_title">Ζεύγη</string>
     <string name="explorer_precise_title">Για προχωρημένους / ανά ανταλλακτήριο</string>
     <string name="explorer_price_loading">Φόρτωση τιμής…</string>
-    <string name="explorer_select_market_hint">Επιλέξτε ανταλλακτήριο – τα ζεύγη φορτώνονται αυτόματα.</string>
-    <string name="explorer_select_placeholder">Επιλέξτε</string>
+    <string name="explorer_select_market_hint">Επίλεξε ανταλλακτήριο – τα ζεύγη φορτώνονται αυτόματα.</string>
+    <string name="explorer_select_placeholder">Επίλεξε</string>
     <string name="explorer_step_pair">Επιλογή ζεύγους</string>
 
     <!-- Paar hinzufügen: Schnellfilter der Liste «Alle …-Paare» -->
@@ -59,7 +59,7 @@
         <item quantity="one">Βρέθηκε %1$d ζεύγος %2$s</item>
         <item quantity="other">Βρέθηκαν %1$d ζεύγη %2$s</item>
     </plurals>
-    <string name="bulk_all_pairs_empty">Δεν υπάρχουν ζεύγη %1$s σε αυτό το ανταλλακτήριο για τον επιλεγμένο τύπο συμβολαίου. Συγχρονίστε πρώτα το ανταλλακτήριο ή δοκιμάστε άλλο τύπο συμβολαίου.</string>
+    <string name="bulk_all_pairs_empty">Δεν υπάρχουν ζεύγη %1$s σε αυτό το ανταλλακτήριο για τον επιλεγμένο τύπο συμβολαίου. Συγχρόνισε πρώτα το ανταλλακτήριο ή δοκίμασε άλλο τύπο συμβολαίου.</string>
     <plurals name="explorer_add_all_pairs">
         <item quantity="one">Προσθήκη του %1$d ζεύγους στη λίστα</item>
         <item quantity="other">Προσθήκη και των %1$d ζευγών στη λίστα</item>
@@ -78,7 +78,7 @@
     </plurals>
     <string name="explorer_bulk_hide_list">Απόκρυψη λίστας</string>
     <string name="explorer_bulk_show_list">Εμφάνιση λίστας</string>
-    <string name="explorer_bulk_tap_hint">Πατήστε ένα ζεύγος για να το επιλέξετε παραπάνω.</string>
+    <string name="explorer_bulk_tap_hint">Πάτα ένα ζεύγος για να το επιλέξεις παραπάνω.</string>
     <string name="explorer_bulk_title">Πολλά ζεύγη μαζί</string>
 
     <!-- Handelspaare einer Börse laden und wählen -->
@@ -100,7 +100,7 @@
     <string name="dex_add">Προσθήκη</string>
     <string name="dex_added">Το %1$s προστέθηκε στη λίστα.</string>
     <string name="dex_already">Το %1$s είναι ήδη στη λίστα.</string>
-    <string name="dex_intro">Tokens εκτός των μεγάλων ανταλλακτηρίων, από αποκεντρωμένα ανταλλακτήρια (Uniswap, PancakeSwap, Raydium …) μέσω DexScreener. Αναζητήστε ένα token και προσθέστε ένα από τα pools συναλλαγών του – τιμές σε δολάρια ΗΠΑ.</string>
+    <string name="dex_intro">Tokens εκτός των μεγάλων ανταλλακτηρίων, από αποκεντρωμένα ανταλλακτήρια (Uniswap, PancakeSwap, Raydium …) μέσω DexScreener. Αναζήτησε ένα token και πρόσθεσε ένα από τα pools συναλλαγών του – τιμές σε δολάρια ΗΠΑ.</string>
     <string name="dex_liquidity">Ρευστότητα %1$s</string>
     <string name="dex_no_results">Δεν βρέθηκαν pools.</string>
     <string name="dex_search">Αναζήτηση</string>
