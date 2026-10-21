@@ -67,7 +67,6 @@ object AddressBalance {
         ) {
             throw IllegalStateException("Antwort für andere Adresse")
         }
-        val chain = json.optJSONObject("chain_stats") ?: throw IllegalStateException("chain_stats fehlt")
         val max = maxSats(chain)
         val stats = json.optJSONObject("chain_stats") ?: throw IllegalStateException("chain_stats fehlt")
         val confirmed = sats(stats, "funded_txo_sum") - sats(stats, "spent_txo_sum")
