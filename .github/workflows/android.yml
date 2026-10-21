@@ -31,11 +31,12 @@ permissions:
 
 concurrency:
   group: android-${{ github.ref }}
-  cancel-in-progress: true
+  # Pull requests: a newer push replaces the run; main keeps every run so each commit gets a result
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
     defaults:
       run:
@@ -76,6 +77,12 @@ jobs:
       # in CI: workflow «Android device tests», started by hand).
       - name: Compile instrumented tests
         run: ./gradlew :app:assembleDebugAndroidTest --stacktrace
+
+      # Room exports its schemas while compiling (app/schemas). A changed entity without a new database
+      # version shows up as a different identity hash or a new, uncommitted schema file: fail before it
+      # crashes an update (formatting differences alone do not count).
+      - name: Room schema drift
+        run: python3 -I "$GITHUB_WORKSPACE/.github/scripts/room_schema_drift.py" app/schemas
 
       # Lint as a gate (abortOnError = true in app/build.gradle.kts): report uploaded on failure.
       # Release too: the store build has its own source set (src/withoutHttpLog) and R8-only checks.
@@ -146,7 +153,7 @@ jobs:
   # otherwise GitHub rejects the upload with «The Dependency graph is disabled».
   dependency-submission:
     if: github.event_name == 'push' && vars.DEPENDENCY_GRAPH == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     continue-on-error: true
     permissions:
       contents: write
@@ -166,7 +173,7 @@ jobs:
   # Pull requests: fail on newly added dependencies with known vulnerabilities (high and above).
   dependency-review:
     if: github.event_name == 'pull_request' && vars.DEPENDENCY_GRAPH == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

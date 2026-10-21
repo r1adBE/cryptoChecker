@@ -264,7 +264,7 @@ extension CryptoPulseCard {
         if let cap = report.marketCapUsd {
             parts.append(A11y.join([L("market_cap_title"), CycleFormat.compactMoney(cap, "USD"),
                                     report.marketCap24h.flatMap { change in
-                                        A11y.change(change).map { L("pulse_period_24h_spoken") + ": " + $0 }
+                                        A11y.change(change).map { L("label_value", L("pulse_period_24h_spoken"), $0) }
                                     }]))
         }
         let text = A11y.join(parts)

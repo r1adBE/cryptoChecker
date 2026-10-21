@@ -300,10 +300,7 @@ enum MarketStampText {
         case .today(let at):
             return L("market_age_today", PriceFormat.shortTime(at))
         case .date(let at):
-            let f = DateFormatter()
-            f.dateStyle = .medium
-            f.timeStyle = .none
-            return f.string(from: Date(millis: at))
+            return CycleFormat.mediumDate(Date(millis: at))
         }
     }
 

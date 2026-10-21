@@ -22,6 +22,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.settings.inputDecimalSeparator
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.app.util.TextLimit
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.ZoneId
@@ -60,7 +61,7 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
     // Einzahlung: ursprüngliches Kaufdatum (optional, ≤ Datum der Einzahlung) für die Haltedauer im Steuer-Export
     var acquiredTime by mutableStateOf(initial.acquiredTime)
     // Höchstens 120 Zeichen wie die Notiz in der Merkliste (eine längere alte Notiz wird beim Speichern gekürzt)
-    var note by mutableStateOf(initial.note.orEmpty().take(NOTE_MAX))
+    var note by mutableStateOf(TextLimit.takeGraphemes(initial.note.orEmpty(), NOTE_MAX))
     // Gebühr und Börse (D1): zugeklappt, ausser beim Bearbeiten mit Angaben
     var feeText by mutableStateOf(PriceFormat.amountForInput(initial.fee, decimalSeparator))
     var feeUnit by mutableStateOf(initial.feeUnit)
@@ -175,7 +176,8 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
         return type != initial.type || coinQuery != initial.coin ||
             amountText != PriceFormat.amountForInput(initial.amount, sep) ||
             (!priceAuto && priceHistoricDay == null && priceText != PriceFormat.amountForInput(initial.priceUsdt, sep)) ||
-            time != initial.time || acquiredTime != initial.acquiredTime || note != initial.note.orEmpty().take(NOTE_MAX) ||
+            time != initial.time || acquiredTime != initial.acquiredTime ||
+            note != TextLimit.takeGraphemes(initial.note.orEmpty(), NOTE_MAX) ||
             feeText != PriceFormat.amountForInput(initial.fee, sep) || feeUnit != initial.feeUnit ||
             exchange != initial.exchange.orEmpty() || transferFrom != initial.transferFrom.orEmpty() ||
             transferTo != initial.transferTo.orEmpty() || giftToSpouse != initialSpouse || interest != initialInterest ||

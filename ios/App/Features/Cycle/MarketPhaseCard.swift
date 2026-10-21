@@ -205,7 +205,7 @@ private struct IndicatorRowView: View {
                 .multilineTextAlignment(.trailing)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text(verbatim: "\(name): \(value). \(explain)"))
+        .accessibilityLabel(Text(verbatim: L("label_value", name, value) + ". " + explain))
     }
 }
 

@@ -220,7 +220,7 @@ internal fun factorTexts(f: WhyFactor): FactorTexts {
             note = fearGreedLabel(points)
         }
     }
-    val spoken = "$title: $note" + (if (spokenValue.isNotBlank()) ", $spokenValue" else "") + "."
+    val spoken = stringResource(R.string.label_value, title, note) + (if (spokenValue.isNotBlank()) ", $spokenValue" else "") + "."
     return FactorTexts(title, value, note, spoken)
 }
 

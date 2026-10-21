@@ -11,6 +11,7 @@ import com.cryptochecker.app.data.remote.util.RequestKey
 import com.cryptochecker.app.data.remote.util.await
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.exceptions.MarketError
+import com.cryptochecker.app.domain.exceptions.ParseError
 import com.cryptochecker.app.domain.exceptions.ResponseTooLargeError
 import com.cryptochecker.app.domain.exceptions.TimeoutError
 import com.cryptochecker.app.domain.exceptions.parseMarketError
@@ -25,6 +26,7 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import timber.log.Timber
+import java.io.IOException
 import java.io.InterruptedIOException
 import java.util.concurrent.TimeUnit
 
@@ -120,6 +122,12 @@ private fun Response.bodyText(maxBytes: Long): String {
     val text = body.use { content ->
         HttpBodyLimit.read(content.byteStream(), content.contentLength(), maxBytes)?.let(HttpBodyLimit::decode)
     } ?: throw ResponseTooLargeError()
+    // Zu tief verschachtelt: vor jedem JSON-Parser abweisen (auch der Bremsen-Erkennung unten), sonst Stacküberlauf.
+    // Fehlercode bleibt erhalten, nur ohne den Text.
+    if (HttpBodyLimit.tooDeep(text)) {
+        if (isSuccessful) throw ParseError(IOException("JSON zu tief verschachtelt"))
+        throw HttpMarketError(code, "", ExchangeBackoff.parseRetryAfterSeconds(header("Retry-After"), System.currentTimeMillis()))
+    }
     // «Zu viele Anfragen» ohne 429/418 (Kraken 200, Bybit 403/10006, OKX 50011) als 429 melden
     val throttleCode = RateLimitSignal.httpCode(code, text)
     if (isSuccessful && throttleCode == null) return text

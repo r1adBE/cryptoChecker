@@ -60,9 +60,7 @@ enum BlockedSources {
     static func pauseGroup(_ hostOrMarketKey: String, until: Int64) {
         guard let group = ExchangeBackoff.sharedGroup(hostOrMarketKey) else { return }
         lock.lock(); defer { lock.unlock() }
-        let old = groupPauses[group]
-        if let old, old.pausedUntil >= until { return }
-        groupPauses[group] = ExchangeBackoff.State(strikes: old?.strikes ?? 1, pausedUntil: until,
-                                                   reason: .RATE_LIMIT, timeoutRuns: 0)
+        // Eine unmögliche alte Pause (`ExchangeBackoff.isPaused`: zu weit in der Zukunft) blockiert die neue nicht
+        groupPauses[group] = ExchangeBackoff.adoptedPause(groupPauses[group], until: until, now: TimeUtils.nowMillis)
     }
 }

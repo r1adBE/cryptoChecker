@@ -178,7 +178,8 @@ internal fun totalHintItems(
     // FIFO je Wallet: je Coin und Wallet der erste Abgang über den Bestand — antippen öffnet die Transaktion
     walletShortfalls.distinctBy { it.coin to it.wallet.trim().lowercase() }.forEach { s ->
         val wallet = s.wallet.ifBlank { stringResource(R.string.tax_export_wallet_unspecified) }
-        add(TotalHintItem(s.coin + ": " + stringResource(R.string.portfolio_wallet_shortfall, wallet), error = true, txId = s.txId))
+        val text = stringResource(R.string.label_value, s.coin, stringResource(R.string.portfolio_wallet_shortfall, wallet))
+        add(TotalHintItem(text, error = true, txId = s.txId))
     }
     // Umbuchungsgebühren auf Bestand ohne Kaufpreis: offener Posten (je Coin auf der Detailseite)
     if (summary.unassignedFeeUsdt.signum() != 0) {

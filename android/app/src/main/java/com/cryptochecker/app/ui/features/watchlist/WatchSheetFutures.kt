@@ -155,8 +155,12 @@ internal fun MarketDataSection(
 @Composable
 private fun FuturesBody(watch: WatchEntity, info: FuturesInfo?, loaded: Boolean, showExplain: Boolean) {
     if (showExplain) {
-        MarketDataExplanation(stringResource(R.string.futures_funding) + ": " + stringResource(R.string.explain_funding))
-        MarketDataExplanation(stringResource(R.string.futures_open_interest) + ": " + stringResource(R.string.explain_open_interest))
+        MarketDataExplanation(
+            stringResource(R.string.label_value, stringResource(R.string.futures_funding), stringResource(R.string.explain_funding))
+        )
+        MarketDataExplanation(
+            stringResource(R.string.label_value, stringResource(R.string.futures_open_interest), stringResource(R.string.explain_open_interest))
+        )
     }
     when {
         info != null -> FuturesSection(info, watch)

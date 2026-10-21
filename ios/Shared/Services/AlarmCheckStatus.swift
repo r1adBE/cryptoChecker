@@ -13,6 +13,8 @@ final class AlarmCheckStatus: ObservableObject, @unchecked Sendable { // @unchec
         case noRate
         /// Keine Tages- bzw. Stundenkerzen.
         case noCandles
+        /// Keine Funding- bzw. Open-Interest-Werte der Quelle (Fehlschlag, gesperrt, nicht geliefert).
+        case noData
     }
 
     /// `since` = erste ausgelassene Prüfung in Folge; `reason` = Grund der letzten.

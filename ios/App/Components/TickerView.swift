@@ -69,8 +69,10 @@ struct TickerView: View {
 
     static func sameDayTimeOrDate(_ millis: Int64) -> String {
         let d = Date(millis: millis)
-        let f = DateFormatter()
-        if Calendar.current.isDateInToday(d) { f.timeStyle = .short; f.dateStyle = .none } else { f.dateStyle = .short; f.timeStyle = .none }
-        return f.string(from: d)
+        // Formatter zwischengespeichert (`DateFormatterCache`), nicht bei jedem Neuzeichnen neu
+        if Calendar.current.isDateInToday(d) {
+            return DateFormatterCache.string(d, purpose: "shortTime") { f in f.timeStyle = .short; f.dateStyle = .none }
+        }
+        return DateFormatterCache.string(d, purpose: "shortDate") { f in f.dateStyle = .short; f.timeStyle = .none }
     }
 }

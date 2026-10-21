@@ -45,4 +45,5 @@
     <string name="shortcut_cycle">Marché</string>
 
     <string name="log_box_title">Journal</string>
+    <string name="label_value">%1$s\u00A0: %2$s</string>
 </resources>

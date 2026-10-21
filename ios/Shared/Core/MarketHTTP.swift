@@ -139,10 +139,12 @@ enum MarketHTTP {
 
     /// Antwort gestreamt lesen und abbrechen, sobald sie die Grenze überschreitet — eine angekündigte zu grosse
     /// Antwort (`expectedContentLength`) gar nicht erst lesen. So landet nie mehr als die Grenze (plus ein
-    /// Block) im Speicher.
-    private static func readLimited(_ request: URLRequest, session: URLSession) async throws -> (Data, URLResponse) {
+    /// Block) im Speicher. `limit` nil = Grenze der Session (`bodyLimit`); eigene Sessions (beobachtete Adressen)
+    /// geben ihre Grenze mit.
+    static func readLimited(_ request: URLRequest, session: URLSession,
+                            limit: Int? = nil) async throws -> (Data, URLResponse) {
         let (bytes, response) = try await session.bytes(for: request)
-        let limit = bodyLimit(session: session)
+        let limit = limit ?? bodyLimit(session: session)
         do {
             let data = try await collectLimited(bytes, limit: limit, expected: response.expectedContentLength)
             return (data, response)

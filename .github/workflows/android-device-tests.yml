@@ -40,13 +40,14 @@ permissions:
 
 concurrency:
   group: android-device-tests-${{ github.ref }}
-  cancel-in-progress: true
+  # Pull requests: a newer push replaces the run; main keeps every run so each commit gets a result
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   connected-tests:
     # Pull requests: only release-smoke (see header)
     if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
     defaults:
       run:
@@ -128,7 +129,7 @@ jobs:
   # The instrumented tests above use the debug build; R8 (shrinking, obfuscation, missing keep
   # rules) only shows in the release build. This job installs exactly that build on an emulator.
   release-smoke:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     strategy:
       fail-fast: false
@@ -211,6 +212,11 @@ jobs:
         run: |
           F="$RUNNER_TEMP/smoke-findings.tsv"
           if [ ! -s "$F" ]; then
+            # On main (release state) a smoke test without results fails the job; on branches a warning
+            if [ "$GITHUB_REF" = "refs/heads/main" ]; then
+              echo "::error title=Release smoke test API ${{ matrix.api-level }}::No smoke test results (emulator did not start or the script did not run)"
+              exit 1
+            fi
             echo "::warning title=Release smoke test API ${{ matrix.api-level }}::No smoke test results (emulator did not start or the script did not run)"
             exit 0
           fi

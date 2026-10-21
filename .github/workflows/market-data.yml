@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   mirror:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write   # gh release create/edit/upload
     timeout-minutes: 15

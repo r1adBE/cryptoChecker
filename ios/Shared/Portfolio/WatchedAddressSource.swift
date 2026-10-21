@@ -242,6 +242,12 @@ actor WatchedAddressSource {
 
     /// GET oder POST (JSON) über die eigene Sitzung; HTTP ≠ 2xx → `HttpMarketError` (mit «Retry-After»).
     static func load(_ url: String, post: String?) async throws -> String {
+        try await load(url, post: post, session: session)
+    }
+
+    /// Wie oben mit wählbarer Sitzung (Tests: URLProtocol-Attrappe). Antwort höchstens `MarketHTTP.maxBodyBytes`
+    /// (2 MB wie Android `callMarket` ohne Angabe), sonst `ResponseTooLargeError` — nie ungebremst in den Speicher.
+    static func load(_ url: String, post: String?, session: URLSession) async throws -> String {
         guard let u = URL(string: url) else { throw AddressBalance.ParseError(message: "URL ungültig") }
         var request = URLRequest(url: u)
         if let post {
@@ -249,7 +255,7 @@ actor WatchedAddressSource {
             request.httpBody = Data(post.utf8)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
-        let (data, response) = try await session.data(for: request)
+        let (data, response) = try await MarketHTTP.readLimited(request, session: session, limit: MarketHTTP.maxBodyBytes)
         let text = String(decoding: data, as: UTF8.self)
         if let http = response as? HTTPURLResponse, !(200..<300).contains(http.statusCode) {
             let retryAfter = ExchangeBackoff.parseRetryAfterSeconds(http.value(forHTTPHeaderField: "Retry-After"),

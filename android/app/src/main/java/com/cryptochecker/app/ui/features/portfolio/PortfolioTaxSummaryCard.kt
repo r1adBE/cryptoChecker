@@ -177,7 +177,7 @@ private fun TaxStatusLine(label: String, status: TaxLimitStatus, limit: BigDecim
         TaxLimitStatus.LOSS -> texts.loss.ifEmpty { texts.below } to stringResource(R.string.tax_de_explain_loss)
     }
     Text(
-        "$label: $statusText",
+        stringResource(R.string.label_value, label, statusText),
         style = MaterialTheme.typography.bodySmall,
         fontWeight = FontWeight.Medium,
         color = if (status == TaxLimitStatus.REACHED) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,

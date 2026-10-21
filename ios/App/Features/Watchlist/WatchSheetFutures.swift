@@ -113,8 +113,8 @@ struct WatchlistMarketDataSection: View {
     @ViewBuilder
     private var futuresBody: some View {
         if showExplain {
-            MarketDataExplanation(text: L("futures_funding") + ": " + L("explain_funding"))
-            MarketDataExplanation(text: L("futures_open_interest") + ": " + L("explain_open_interest"))
+            MarketDataExplanation(text: L("label_value", L("futures_funding"), L("explain_funding")))
+            MarketDataExplanation(text: L("label_value", L("futures_open_interest"), L("explain_open_interest")))
         }
         if let futures {
             WatchlistFuturesSection(info: futures, watch: watch)

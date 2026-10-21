@@ -48,4 +48,6 @@
     <string name="shortcut_cycle">Market</string>
 
     <string name="log_box_title">Log</string>
+    <!-- «Bezeichnung: Wert» mit der Typografie der Sprache (fr « : » mit geschütztem Leerzeichen, zh/ja «：») -->
+    <string name="label_value">%1$s: %2$s</string>
 </resources>

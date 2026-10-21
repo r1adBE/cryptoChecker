@@ -81,14 +81,13 @@ enum AlarmEdit {
     }
 
     /// Alarm ein- oder ausgeschaltet (Schalter in der Liste, «1 h später»): Eingeschaltet melden «Nahe am Hoch/Tief»,
-    /// Kursmarken, Funding und Open Interest wieder — Bezug und Marke gelöscht (wie WatchDao.rearmAlarm).
+    /// Kursmarken, Funding und Open Interest wieder (`referenceAt` = 0). `referencePrice` bleibt: Bei «Nahe am
+    /// Hoch/Tief» ist das die gemeldete Marke (`NearExtreme.reportedMark`) — ohne sie meldete ein Aus/Ein dasselbe
+    /// «neue Hoch» am selben Tag nochmals; die übrigen haben ohnehin keinen Bezugskurs. Wie WatchDao.rearmAlarm.
     static func settingEnabled(_ alarm: Alarm, _ enabled: Bool) -> Alarm {
         var result = alarm
         result.enabled = enabled
-        if enabled && rearmsOnEnable(alarm.condition) {
-            result.referencePrice = nil
-            result.referenceAt = 0
-        }
+        if enabled && rearmsOnEnable(alarm.condition) { result.referenceAt = 0 }
         return result
     }
 

@@ -8,7 +8,6 @@ import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
-import com.cryptochecker.app.domain.refresh.RefreshFailure
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -95,11 +94,8 @@ internal object BlockedSources {
     /** Pause aus der Kursabfrage übernehmen (429/418 beim Ticker); verkürzt nie eine laufende. */
     fun pauseGroup(hostOrMarketKey: String, until: Long) {
         val group = ExchangeBackoff.sharedGroup(hostOrMarketKey) ?: return
-        groupPauses.compute(group) { _, old ->
-            // Eine unmögliche alte Pause (ExchangeBackoff.isPaused: zu weit in der Zukunft) blockiert die neue nicht
-            if (old != null && old.pausedUntil >= until && ExchangeBackoff.isPaused(old, System.currentTimeMillis())) old
-            else ExchangeBackoff.State(old?.strikes ?: 1, until, RefreshFailure.RATE_LIMIT, 0)
-        }
+        // Eine unmögliche alte Pause (ExchangeBackoff.isPaused: zu weit in der Zukunft) blockiert die neue nicht
+        groupPauses.compute(group) { _, old -> ExchangeBackoff.adoptedPause(old, until, System.currentTimeMillis()) }
     }
 }
 

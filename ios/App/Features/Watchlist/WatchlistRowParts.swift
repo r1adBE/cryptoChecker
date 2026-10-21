@@ -148,7 +148,7 @@ extension WatchlistRow {
                         .lineLimit(2)
                 }
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel("\(L("note_title")): \(note)")
+                .accessibilityLabel(Text(verbatim: L("label_value", L("note_title"), note)))
             }
         }
     }

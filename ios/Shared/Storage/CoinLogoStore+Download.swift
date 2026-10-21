@@ -6,7 +6,8 @@ import UIKit
 // Fehlschläge einen Tag sperren, Verkleinern auf `CoinLogos.storedPixels`; dazu die Erkennung von teurem Netz.
 
 extension CoinLogoStore {
-    private static let maxImageBytes = 512 * 1024
+    /// Höchstgrösse eines Bildes (wie Android `MAX_IMAGE_BYTES`); grössere werden gar nicht erst ganz gelesen.
+    static let maxImageBytes = 512 * 1024
     /// Bild-Abrufe gleichzeitig je Server (CoinGecko, Binance).
     private static let perHostParallel = 6
     /// Bremst ein Server höchstens so kurz, werden seine Bilder nach der Pause gleich nachgeholt.
@@ -150,24 +151,43 @@ extension CoinLogoStore {
         if candidates[0] != url { candidates.append(url) }
         for candidate in candidates {
             guard let u = URL(string: candidate),
-                  let loaded = try? await session.data(from: u),
-                  let http = loaded.1 as? HTTPURLResponse
+                  let loaded = try? await loadImage(u, session: session)
             else { continue }
+            let http = loaded.response
             if CoinLogoRetry.pausesImages(httpCode: http.statusCode) {
                 let retry = ExchangeBackoff.parseRetryAfterSeconds(http.value(forHTTPHeaderField: "Retry-After"),
                                                                    now: TimeUtils.nowMillis)
                 pauses.pause(CoinLogoRetry.hostOf(candidate) ?? "", retryAfterSeconds: retry)
                 return .paused
             }
-            guard (200..<300).contains(http.statusCode),
-                  loaded.0.count <= maxImageBytes,
-                  let png = pngData(loaded.0)
-            else { continue }
+            guard let body = loaded.body, let png = pngData(body) else { continue }
             if (try? png.write(to: directory.appendingPathComponent(name), options: [.atomic])) != nil {
                 return .ok
             }
         }
         return .failed
+    }
+
+    /// Ein Bild laden: erst der Status (Bremse auch bei grossem Körper erkennen), dann höchstens `maxImageBytes`
+    /// lesen — mehr → `ResponseTooLargeError`, ohne das ganze Bild in den Speicher zu holen (wie Android `download`).
+    /// `body` nil = kein Erfolg (HTTP ≠ 2xx), dann wird nichts gelesen.
+    static func loadImage(_ url: URL, session: URLSession) async throws -> (response: HTTPURLResponse, body: Data?) {
+        let (bytes, response) = try await session.bytes(from: url)
+        guard let http = response as? HTTPURLResponse else {
+            bytes.task.cancel()
+            throw URLError(.badServerResponse)
+        }
+        guard (200..<300).contains(http.statusCode) else {
+            bytes.task.cancel()
+            return (http, nil)
+        }
+        do {
+            let data = try await MarketHTTP.collectLimited(bytes, limit: maxImageBytes, expected: http.expectedContentLength)
+            return (http, data)
+        } catch {
+            bytes.task.cancel()
+            throw error
+        }
     }
 
     /// Zu speichernde PNG-Daten: schon ein PNG in passender Grösse (CoinGecko «small», viele

@@ -20,9 +20,9 @@ struct WatchlistSpotSection: View {
 
     private var explanations: some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
-            MarketDataExplanation(text: L("spot_market_cap") + ": " + L("explain_spot_market_cap"))
-            MarketDataExplanation(text: L("spot_volume_24h") + ": " + L("explain_spot_volume"))
-            MarketDataExplanation(text: L("spot_fdv") + ": " + L("explain_spot_fdv"))
+            MarketDataExplanation(text: L("label_value", L("spot_market_cap"), L("explain_spot_market_cap")))
+            MarketDataExplanation(text: L("label_value", L("spot_volume_24h"), L("explain_spot_volume")))
+            MarketDataExplanation(text: L("label_value", L("spot_fdv"), L("explain_spot_fdv")))
             MarketDataExplanation(text: L("explain_spot_supply"))
             MarketDataExplanation(text: L("explain_spot_source"))
         }

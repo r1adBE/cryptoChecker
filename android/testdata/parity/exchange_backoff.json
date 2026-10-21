@@ -1,0 +1,147 @@
+{
+  "description": "Rate-limit pauses per exchange and for the shared Binance group (Android ExchangeBackoff.next / groupPause / adoptedPause, iOS ExchangeBackoff.next / groupPause / adoptedPause / merge). A stored pause ending more than groupMaxMillis (6 h) after 'now' is impossible (clock set back or corrupt value) and counts as no pause: it never extends a new pause, never blocks a new one and never wins a merge. A running plausible pause is never shortened. 'next' = outcome RATE_LIMITED; 'groupPause' = 429/418 outside the price refresh; 'adoptedPause' = BlockedSources.pauseGroup (pause taken over from the price refresh); 'merge' = iOS only (several processes share UserDefaults; Android writes from one process and has no merge). A state of null = none. All times in epoch millis.",
+  "now": 100000000,
+  "next": [
+    {
+      "name": "impossible stored pause (now + 7 h) is ignored",
+      "state": {"strikes": 2, "pausedUntil": 125200000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+      "retryAfterMillis": null, "banned": false, "shared": false,
+      "expected": {"strikes": 3, "pausedUntil": 100120000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "stored pause exactly 6 h ahead is still possible and kept",
+      "state": {"strikes": 1, "pausedUntil": 121600000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+      "retryAfterMillis": null, "banned": false, "shared": true,
+      "expected": {"strikes": 2, "pausedUntil": 121600000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "running pause is never shortened",
+      "state": {"strikes": 1, "pausedUntil": 100600000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+      "retryAfterMillis": null, "banned": false, "shared": false,
+      "expected": {"strikes": 2, "pausedUntil": 100600000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "expired pause: next step from now",
+      "state": {"strikes": 1, "pausedUntil": 99999000, "reason": "RATE_LIMIT", "timeoutRuns": 1},
+      "retryAfterMillis": null, "banned": false, "shared": false,
+      "expected": {"strikes": 2, "pausedUntil": 100060000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "418 without Retry-After: at least 2 min",
+      "state": null,
+      "retryAfterMillis": null, "banned": true, "shared": true,
+      "expected": {"strikes": 1, "pausedUntil": 100120000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "longer Retry-After of a shared exchange applies up to 6 h",
+      "state": null,
+      "retryAfterMillis": 3600000, "banned": false, "shared": true,
+      "expected": {"strikes": 1, "pausedUntil": 103600000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "Retry-After of another exchange is capped at 15 min",
+      "state": null,
+      "retryAfterMillis": 3600000, "banned": false, "shared": false,
+      "expected": {"strikes": 1, "pausedUntil": 100900000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    }
+  ],
+  "groupPause": [
+    {
+      "name": "impossible stored pause (now + 7 h) counts as none: count starts anew",
+      "state": {"strikes": 5, "pausedUntil": 125200000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+      "httpCode": 429, "retryAfterSeconds": null,
+      "expected": {"strikes": 1, "pausedUntil": 100030000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "running pause: same step, never shortened",
+      "state": {"strikes": 2, "pausedUntil": 100100000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+      "httpCode": 429, "retryAfterSeconds": null,
+      "expected": {"strikes": 2, "pausedUntil": 100100000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "recently expired pause: next step",
+      "state": {"strikes": 2, "pausedUntil": 99940000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+      "httpCode": 429, "retryAfterSeconds": null,
+      "expected": {"strikes": 3, "pausedUntil": 100120000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "pause expired more than 15 min ago: count starts anew",
+      "state": {"strikes": 4, "pausedUntil": 99000000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+      "httpCode": 429, "retryAfterSeconds": null,
+      "expected": {"strikes": 1, "pausedUntil": 100030000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "418 without Retry-After: at least 2 min",
+      "state": null,
+      "httpCode": 418, "retryAfterSeconds": null,
+      "expected": {"strikes": 1, "pausedUntil": 100120000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "Retry-After of 2 h applies",
+      "state": null,
+      "httpCode": 429, "retryAfterSeconds": 7200,
+      "expected": {"strikes": 1, "pausedUntil": 107200000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "Retry-After longer than 6 h is capped",
+      "state": null,
+      "httpCode": 429, "retryAfterSeconds": 30000,
+      "expected": {"strikes": 1, "pausedUntil": 121600000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    }
+  ],
+  "adoptedPause": [
+    {
+      "name": "impossible old pause (now + 7 h) does not block the new one",
+      "old": {"strikes": 3, "pausedUntil": 125200000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+      "until": 100060000,
+      "expected": {"strikes": 3, "pausedUntil": 100060000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "longer running pause stays",
+      "old": {"strikes": 2, "pausedUntil": 100600000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+      "until": 100060000,
+      "expected": {"strikes": 2, "pausedUntil": 100600000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "shorter running pause is extended, strikes kept",
+      "old": {"strikes": 2, "pausedUntil": 100030000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+      "until": 100060000,
+      "expected": {"strikes": 2, "pausedUntil": 100060000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "expired old pause is replaced",
+      "old": {"strikes": 4, "pausedUntil": 99999000, "reason": "RATE_LIMIT", "timeoutRuns": 0},
+      "until": 100060000,
+      "expected": {"strikes": 4, "pausedUntil": 100060000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    },
+    {
+      "name": "no old pause: strikes 1",
+      "old": null,
+      "until": 100060000,
+      "expected": {"strikes": 1, "pausedUntil": 100060000, "reason": "RATE_LIMIT", "timeoutRuns": 0}
+    }
+  ],
+  "merge": [
+    {
+      "name": "impossible pause stored by another process (now + 7 h) does not win",
+      "ours": {"Kraken": {"strikes": 1, "pausedUntil": 100030000, "reason": "RATE_LIMIT", "timeoutRuns": 0}},
+      "initial": {},
+      "stored": {"Kraken": {"strikes": 1, "pausedUntil": 125200000, "reason": "RATE_LIMIT", "timeoutRuns": 0}},
+      "expected": {"Kraken": {"strikes": 1, "pausedUntil": 100030000, "reason": "RATE_LIMIT", "timeoutRuns": 0}}
+    },
+    {
+      "name": "later possible pause stored by another process wins",
+      "ours": {"Kraken": {"strikes": 1, "pausedUntil": 100030000, "reason": "RATE_LIMIT", "timeoutRuns": 0}},
+      "initial": {},
+      "stored": {"Kraken": {"strikes": 2, "pausedUntil": 100060000, "reason": "RATE_LIMIT", "timeoutRuns": 0}},
+      "expected": {"Kraken": {"strikes": 2, "pausedUntil": 100060000, "reason": "RATE_LIMIT", "timeoutRuns": 0}}
+    },
+    {
+      "name": "earlier pause stored by another process loses",
+      "ours": {"Kraken": {"strikes": 2, "pausedUntil": 100060000, "reason": "RATE_LIMIT", "timeoutRuns": 0}},
+      "initial": {},
+      "stored": {"Kraken": {"strikes": 1, "pausedUntil": 100030000, "reason": "RATE_LIMIT", "timeoutRuns": 0}},
+      "expected": {"Kraken": {"strikes": 2, "pausedUntil": 100060000, "reason": "RATE_LIMIT", "timeoutRuns": 0}}
+    }
+  ]
+}

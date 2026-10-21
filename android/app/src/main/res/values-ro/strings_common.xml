@@ -45,4 +45,5 @@
     <string name="shortcut_cycle">Piață</string>
 
     <string name="log_box_title">Jurnal</string>
+    <string name="label_value">%1$s: %2$s</string>
 </resources>

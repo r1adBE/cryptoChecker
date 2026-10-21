@@ -32,6 +32,7 @@ import com.cryptochecker.app.ui.components.ExpandToggleButton
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.app.util.TextLimit
 import java.math.BigDecimal
 import java.time.ZoneId
 
@@ -177,7 +178,7 @@ internal fun TxRouteSection(state: TxFormState, usedWallets: List<String>, excha
 internal fun TxNoteField(state: TxFormState, top: Dp) {
     OutlinedTextField(
         value = state.note,
-        onValueChange = { state.note = it.take(NOTE_MAX) },
+        onValueChange = { state.note = TextLimit.takeGraphemes(it, NOTE_MAX) },
         label = { Text(stringResource(R.string.portfolio_tx_note)) },
         singleLine = true,
         modifier = Modifier.fillMaxWidth().padding(top = top)

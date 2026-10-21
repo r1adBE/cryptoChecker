@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   update:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write   # commit and push docs/macro
       pages: write      # request a Pages build

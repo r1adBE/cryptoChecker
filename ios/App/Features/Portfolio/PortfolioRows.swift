@@ -192,7 +192,7 @@ struct PortfolioCoinRow: View {
         if note != value { parts.append(note) }
         // «Seit Kauf» wie die Pille der Zeile; fehlt bei einem Teil der Kaufpreis, «Preis fehlt»
         if !position.priceMissing || position.unrealizedPartial {
-            parts.append(L("portfolio_unrealized") + ": " + (A11y.change(position.unrealizedPercent) ?? "—"))
+            parts.append(L("label_value", L("portfolio_unrealized"), A11y.change(position.unrealizedPercent) ?? "—"))
         }
         if position.priceMissing { parts.append(L("portfolio_price_missing")) }
         if let basis {
@@ -202,7 +202,7 @@ struct PortfolioCoinRow: View {
         }
         if stale { parts.append(L("a11y_price_outdated")) }
         if let exchange, !exchange.trimmingCharacters(in: .whitespaces).isEmpty { parts.append(exchange) }
-        if txCount > 0 { parts.append(L("portfolio_transactions") + ": " + LocaleNumbers.integer(txCount)) }
+        if txCount > 0 { parts.append(L("label_value", L("portfolio_transactions"), LocaleNumbers.integer(txCount))) }
         return A11y.join(parts)
     }
 
@@ -210,12 +210,13 @@ struct PortfolioCoinRow: View {
     private func leading(lines: Int) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             HStack(alignment: .firstTextBaseline, spacing: Spacing.xs) {
-                // Menge klein und grau vor dem Symbol; eng: Menge wird gekürzt, das Symbol bleibt
+                // Menge klein und grau vor dem Symbol; eng: Menge wird verkleinert statt gekürzt (eine abgeschnittene
+                // Zahl wäre eine falsche Zahl), das Symbol bleibt
                 Text(PortfolioInsights.mask(PriceFormat.exactAmount(position.holdingsExact), hidden: hideAmounts))
                     .font(AppFont.amount(.caption))
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .lineLimit(1)
-                    .truncationMode(.tail)
+                    .minimumScaleFactor(0.6)
                 Text(position.coin)
                     .font(.headline)
                     .foregroundStyle(AppColors.onSurface)
@@ -245,7 +246,7 @@ struct PortfolioCoinRow: View {
                         .background(AppColors.containerHighest, in: Capsule())
                         .fixedSize()
                         .layoutPriority(2)
-                        .accessibilityLabel(Text(verbatim: L("portfolio_transactions") + ": " + LocaleNumbers.integer(txCount)))
+                        .accessibilityLabel(Text(verbatim: L("label_value", L("portfolio_transactions"), LocaleNumbers.integer(txCount))))
                 }
                 // Build 46: Börse des Kurses («· Kraken», nur mit eigener Börse) und nur bei veraltetem Kurs
                 // «veraltet» in Fehlerfarbe (wie die Merkliste). Fehlt Platz, kürzt zuerst die Börse,

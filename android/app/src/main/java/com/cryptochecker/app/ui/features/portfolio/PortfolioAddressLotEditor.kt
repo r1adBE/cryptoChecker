@@ -90,7 +90,7 @@ internal fun AddressLotEditor(
                     }
                 }
                 OutlinedButton(onClick = { pickDate = true }, modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(R.string.address_lots_date) + ": " + PortfolioFormat.date(time))
+                    Text(stringResource(R.string.label_value, stringResource(R.string.address_lots_date), PortfolioFormat.date(time)))
                 }
                 OutlinedTextField(
                     value = amountText,
@@ -134,7 +134,7 @@ internal fun AddressLotEditor(
                 if (!perCoin && amount != null && value != null) {
                     PortfolioCostGaps.priceFromTotal(value, amount)?.let {
                         Text(
-                            stringResource(R.string.address_lots_price) + ": " + PortfolioFormat.price(it.toDouble()),
+                            stringResource(R.string.label_value, stringResource(R.string.address_lots_price), PortfolioFormat.price(it.toDouble())),
                             style = MaterialTheme.typography.body,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(top = Spacing.xs)

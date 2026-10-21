@@ -40,4 +40,15 @@ class HttpBodyLimitTest {
         assertEquals(text, HttpBodyLimit.decode(bom))
         assertEquals(text, HttpBodyLimit.decode(text.toByteArray()))
     }
+
+    /** Tiefe Verschachtelung erkennen, Klammern in Texten nicht mitzählen. */
+    @Test
+    fun detectsTooDeepJson() {
+        assertFalse(HttpBodyLimit.tooDeep("""{"a":[{"b":[1,2]}]}"""))
+        assertFalse(HttpBodyLimit.tooDeep("[".repeat(HttpBodyLimit.MAX_JSON_DEPTH)))
+        assertTrue(HttpBodyLimit.tooDeep("[".repeat(HttpBodyLimit.MAX_JSON_DEPTH + 1)))
+        assertFalse(HttpBodyLimit.tooDeep("""{"t":"${"[".repeat(1_000)}"}"""))
+        // 16 MB «[[[[…»: wird geprüft, ohne dass ein Parser rekursiv absteigt
+        assertTrue(HttpBodyLimit.tooDeep("[".repeat(HttpBodyLimit.BULK_MAX_BYTES.toInt())))
+    }
 }

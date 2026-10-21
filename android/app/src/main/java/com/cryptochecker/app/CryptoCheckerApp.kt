@@ -118,6 +118,9 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
             scope.launch { backupManager.get().recoverInterruptedRestore() }
         }
 
+        // Diagnosebericht vom letzten Teilen (unverschlüsselt im Cache) wegräumen; die Ziel-App hat ihn längst gelesen
+        scope.launch(Dispatchers.IO) { com.cryptochecker.app.data.DiagnosticsFiles.clear(cacheDir) }
+
         // Einmalig: alter Bestand aus der Merkliste wird zu Käufen im Portfolio
         scope.launch { portfolioRepository.migrateHoldingsOnce() }
 

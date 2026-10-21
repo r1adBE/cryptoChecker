@@ -184,7 +184,7 @@ final class ExchangeBackoffTests: XCTestCase {
         let a = ExchangeBackoff.State(strikes: 1, pausedUntil: 1_000, reason: .RATE_LIMIT)
         let b = ExchangeBackoff.State(strikes: 2, pausedUntil: 5_000, reason: .TIMEOUT)
         // Dieser Lauf ändert nichts an «b»; ein anderer Prozess hat «b» inzwischen gemerkt → bleibt
-        let merged = ExchangeBackoff.merge(ours: ["a": a], initial: ["a": a], stored: ["a": a, "b": b])
+        let merged = ExchangeBackoff.merge(ours: ["a": a], initial: ["a": a], stored: ["a": a, "b": b], now: 0)
         XCTAssertEqual(merged["b"], b)
         XCTAssertEqual(merged["a"], a)
     }
@@ -192,17 +192,17 @@ final class ExchangeBackoffTests: XCTestCase {
     func testMergeKeepsLaterPauseWhenBothChanged() {
         let mine = ExchangeBackoff.State(strikes: 1, pausedUntil: 2_000, reason: .RATE_LIMIT)
         let theirs = ExchangeBackoff.State(strikes: 3, pausedUntil: 9_000, reason: .RATE_LIMIT)
-        XCTAssertEqual(ExchangeBackoff.merge(ours: ["x": mine], initial: [:], stored: ["x": theirs])["x"], theirs)
+        XCTAssertEqual(ExchangeBackoff.merge(ours: ["x": mine], initial: [:], stored: ["x": theirs], now: 0)["x"], theirs)
         let earlier = ExchangeBackoff.State(strikes: 1, pausedUntil: 1_000, reason: .TIMEOUT)
-        XCTAssertEqual(ExchangeBackoff.merge(ours: ["x": mine], initial: [:], stored: ["x": earlier])["x"], mine)
+        XCTAssertEqual(ExchangeBackoff.merge(ours: ["x": mine], initial: [:], stored: ["x": earlier], now: 0)["x"], mine)
     }
 
     func testMergeClearsOnlyUnchangedPause() {
         let old = ExchangeBackoff.State(strikes: 1, pausedUntil: 1_000, reason: .RATE_LIMIT)
         // Erfolg bei uns, gespeichert noch der Stand vom Start → aufheben
-        XCTAssertNil(ExchangeBackoff.merge(ours: [:], initial: ["x": old], stored: ["x": old])["x"])
+        XCTAssertNil(ExchangeBackoff.merge(ours: [:], initial: ["x": old], stored: ["x": old], now: 0)["x"])
         // Inzwischen neu pausiert (anderer Prozess) → bleibt
         let fresh = ExchangeBackoff.State(strikes: 2, pausedUntil: 8_000, reason: .RATE_LIMIT)
-        XCTAssertEqual(ExchangeBackoff.merge(ours: [:], initial: ["x": old], stored: ["x": fresh])["x"], fresh)
+        XCTAssertEqual(ExchangeBackoff.merge(ours: [:], initial: ["x": old], stored: ["x": fresh], now: 0)["x"], fresh)
     }
 }

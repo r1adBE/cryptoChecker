@@ -38,6 +38,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.ui.platform.testTag
 import java.util.Locale
 import com.cryptochecker.app.R
@@ -193,13 +196,19 @@ internal fun CoinRow(
                 CoinBadge(position.coin, size = ListSegment.Logo, portfolio = true, modifier = Modifier.padding(end = 8.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        // Menge klein und grau vor dem Symbol («1.3 BTC»); grosse Schrift: Menge wird gekürzt, das Symbol bleibt
-                        Text(
+                        // Menge klein und grau vor dem Symbol («1.3 BTC»); grosse Schrift: Menge wird schrittweise kleiner
+                        // statt gekürzt (eine abgeschnittene Zahl wäre eine falsche Zahl, wie iOS), das Symbol bleibt
+                        val amountStyle = MaterialTheme.typography.bodySmall.amountNumbers()
+                        BasicText(
                             maskAmount(PriceFormat.amount(position.holdingsExact)),
-                            style = MaterialTheme.typography.bodySmall.amountNumbers(),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = amountStyle.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
                             maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
+                            overflow = TextOverflow.Clip,
+                            autoSize = TextAutoSize.StepBased(
+                                minFontSize = amountStyle.fontSize * 0.6f,
+                                maxFontSize = amountStyle.fontSize,
+                                stepSize = 0.5.sp,
+                            ),
                             modifier = Modifier.weight(1f, fill = false).padding(end = 4.dp)
                         )
                         Text(

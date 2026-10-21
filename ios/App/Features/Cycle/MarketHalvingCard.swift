@@ -16,10 +16,11 @@ struct CycleHalvingRow: View {
 
     /// «~Apr. 2028» (Monat und Jahr in der App-Sprache).
     private var nextMonth: String {
-        let f = DateFormatter()
-        f.locale = LocaleNumbers.appLocale
-        f.setLocalizedDateFormatFromTemplate("MMMyyyy")
-        return "~" + f.string(from: (estimate?.date ?? halving.nextHalvingEstimate).date)
+        // Formatter zwischengespeichert (`DateFormatterCache`), nicht bei jedem Neuzeichnen neu
+        let date = (estimate?.date ?? halving.nextHalvingEstimate).date
+        return "~" + DateFormatterCache.string(date, purpose: "monthYear", locale: LocaleNumbers.appLocale) { f in
+            f.setLocalizedDateFormatFromTemplate("MMMyyyy")
+        }
     }
 
     private func nextText(_ next: String) -> String {

@@ -33,7 +33,8 @@ on:
 
 concurrency:
   group: ios-${{ github.ref }}
-  cancel-in-progress: true
+  # Pull requests: a newer push replaces the run; main keeps every run so each commit gets a result
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read

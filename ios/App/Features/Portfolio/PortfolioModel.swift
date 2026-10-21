@@ -73,9 +73,15 @@ final class PortfolioModel: ObservableObject {
 
     var activeRefreshes = 0
     private var loadingCoins = false
+    /// Gesamtrechnung abseits des Hauptthreads (`summary`, `shownSummary`).
+    private let summaryCache: PortfolioSummaryCache
+    /// «7 T»/«1 J», solange die Gesamtrechnung dafür noch läuft.
+    private var weekTask: Task<Void, Never>?
 
     private init() {
+        summaryCache = PortfolioSummaryCache()
         historyRange = AppData.shared.settings.portfolioHistoryRange
+        summaryCache.onPublish = { [weak self] in self?.objectWillChange.send() }
     }
 
     var data: AppData { AppData.shared }
@@ -91,32 +97,45 @@ final class PortfolioModel: ObservableObject {
         let day = Int64(PortfolioHistory.epochDay(utcMillis: TimeUtils.nowMillis))
         if let c = calcCache, c.day == day, c.addresses == addresses, c.portfolio == portfolio { return c.result }
         let result = AddressBalance.withAddresses(portfolio, addresses: addresses, todayUtcDay: day)
-        calcCache = (portfolio, addresses, day, result)
+        calcCache = (portfolio, addresses, day, result, Set(result.flatMap(\.coins)))
         return result
     }
-    private var calcCache: (portfolio: [PortfolioTx], addresses: [WatchedAddress], day: Int64, result: [PortfolioTx])?
+    private var calcCache: (portfolio: [PortfolioTx], addresses: [WatchedAddress], day: Int64, result: [PortfolioTx],
+                            coins: Set<String>)?
 
-    /// Gesamtrechnung für den Portfolio-Tab (`PortfolioCalculator.summarize`) — zwischengespeichert, neu nur bei
-    /// geänderten Transaktionen/Adressen, Kursen oder Einstandsmethode (nicht bei jedem `body`), wie Android
-    /// `PortfolioViewModel.summary`.
-    var summary: PortfolioSummary {
-        let trades = calcPortfolio
-        let current = prices.prices
-        let method = data.settings.costMethod
-        let stamp = historyClosesStamp
-        if let c = summaryCache, c.method == method, c.closes == stamp, c.prices == current, c.trades == trades {
-            return c.result
-        }
-        // «Ausgebucht»: Auszahlung ohne Preis zum Tagesschluss ihres Tags (danach aktueller Kurs); ohne geladene
-        // Schlusskurse unbekannt → «unvollständig» (`PortfolioSummary.withdrawnGainIncomplete`); Gebühr-Zeilen ebenso
-        // — wie Android
-        let result = PortfolioCalculator.summarize(trades, prices: current, method: method,
-                                                   withdrawalPrice: feePrice)
-        summaryCache = (trades, current, method, stamp, result)
-        return result
+    /// Coins von `calcPortfolio` (Schlüssel der Kursabfrage in `body`) — mit ihm zwischengespeichert statt in jedem
+    /// `body` neu als Menge gebildet.
+    var calcCoins: Set<String> {
+        _ = calcPortfolio
+        return calcCache?.coins ?? []
     }
-    private var summaryCache: (trades: [PortfolioTx], prices: [String: Double], method: CostMethod, closes: Int,
-                               result: PortfolioSummary)?
+
+    /// Gesamtrechnung (`PortfolioCalculator.summarize`) genau zu den aktuellen Eingaben, zwischengespeichert wie Android
+    /// `PortfolioViewModel.summary`; fehlt sie, wird sie hier sofort gerechnet. `body` nimmt `shownSummary`.
+    var summary: PortfolioSummary {
+        summaryCache.now(summaryKey(), input: self.summaryInput)
+    }
+
+    /// Für `body`: bis die Rechnung zu neuen Kursen/Transaktionen im Hintergrund fertig ist, das letzte Ergebnis
+    /// (kein leeres Portfolio dazwischen); fertig → `objectWillChange`. Seit Build 98 nicht mehr auf dem Hauptthread.
+    var shownSummary: PortfolioSummary {
+        summaryCache.shown(summaryKey(), input: self.summaryInput)
+    }
+
+    /// `summary`, im Hintergrund gerechnet (für asynchrone Abläufe; gleiche Eingaben rechnen nur einmal).
+    func currentSummary() async -> PortfolioSummary {
+        await summaryCache.fresh(summaryKey(), input: self.summaryInput)
+    }
+
+    private func summaryKey() -> PortfolioSummaryKey {
+        PortfolioSummaryKey(trades: calcPortfolio, prices: prices.prices, method: data.settings.costMethod,
+                            closesStamp: historyClosesStamp)
+    }
+
+    /// Nur bei einem Fehltreffer gebildet (die Reihen umzurechnen kostet).
+    private func summaryInput() -> PortfolioSummaryInput {
+        PortfolioSummaryInput(key: summaryKey(), closes: historyCloses.map { routed($0.prices).closes } ?? [:])
+    }
 
     /// Marktkurs eines Coins zu einem Zeitpunkt (Tagesschluss seines Tags, danach aktueller Kurs) wie in `summary` —
     /// auch für die Gebühr-Zeilen der Coin-Ansicht (`PortfolioCalculator.ledger` `feePrice`), damit sie dieselbe Zahl
@@ -169,9 +188,24 @@ final class PortfolioModel: ObservableObject {
     /// `PortfolioHistory.maxDays` Tage zurück, egal welcher Zeitraum gewählt ist. Ladung ohne alle
     /// heutigen Coins → nil («—»). Wie `PortfolioViewModel.weekChange`/`yearChange` (Android).
     private func recomputeWeekChange() {
+        weekTask?.cancel()
+        // Gesamtrechnung schon da (Normalfall): sofort; sonst im Hintergrund — die Bestände kommen aus derselben
+        // Rechnung wie die Karte, nicht aus einer zweiten
+        if let summary = summaryCache.hit(summaryKey()) {
+            applyWeekChange(summary)
+            return
+        }
+        weekTask = Task { [weak self] in
+            guard let summary = await self?.currentSummary(), !Task.isCancelled else { return }
+            self?.applyWeekChange(summary)
+        }
+    }
+
+    /// «7 T»/«1 J» mit den Beständen aus `summary` (Bestände hängen nur an den Mengen, nicht an den Preisen der
+    /// Gebühr-Zeilen — dieselben wie ohne `withdrawalPrice`).
+    private func applyWeekChange(_ summary: PortfolioSummary) {
         // Bestände nach derselben Einstandsmethode wie die Karte (FIFO je Wallet: je Wallet gekappt)
         let method = data.settings.costMethod
-        let summary = PortfolioCalculator.summarize(calcPortfolio, prices: prices.prices, method: method)
         var holdings: [String: Double] = [:]
         var current: [String: Double] = [:]
         for p in summary.open {

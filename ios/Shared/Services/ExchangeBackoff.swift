@@ -57,8 +57,8 @@ enum ExchangeBackoff {
             let strikes = s.strikes + 1
             let own = banned ? max(delayMillis(strikes), banDefaultMillis) : delayMillis(strikes)
             let asked = min(max(retryAfterMillis ?? 0, 0), shared ? groupMaxMillis : maxMillis)
-            // Eine laufende Pause (z. B. gemeinsame von Kerzen) nie verkürzen
-            return State(strikes: strikes, pausedUntil: max(now + max(own, asked), s.pausedUntil),
+            // Eine laufende Pause (z. B. gemeinsame von Kerzen) nie verkürzen — eine unmögliche (`isPaused`) zählt nicht
+            return State(strikes: strikes, pausedUntil: max(now + max(own, asked), plausibleUntil(s.pausedUntil, now: now)),
                          reason: .RATE_LIMIT, timeoutRuns: 0)
         case .timeout:
             let runs = s.timeoutRuns + 1
@@ -80,8 +80,11 @@ enum ExchangeBackoff {
     /// Eigenen Stand (`ours`, ausgehend von `initial`) mit dem inzwischen gespeicherten (`stored`) zusammenführen:
     /// Schlüssel, die dieser Durchlauf nicht geändert hat, bleiben wie gespeichert; hat ein anderer Prozess einen
     /// geänderten Schlüssel inzwischen ebenfalls neu gemerkt, gilt die spätere Pause. Eine bei uns aufgehobene
-    /// Pause (Erfolg) fällt nur weg, wenn niemand sie seither neu gemerkt hat.
-    static func merge(ours: [String: State], initial: [String: State], stored: [String: State]) -> [String: State] {
+    /// Pause (Erfolg) fällt nur weg, wenn niemand sie seither neu gemerkt hat. Eine unmögliche gespeicherte Pause
+    /// (`isPaused`: weiter als `groupMaxMillis` in der Zukunft) gewinnt nie — sonst bliebe die Börse stumm.
+    /// Nur iOS: Android schreibt aus einem Prozess und überschreibt einfach.
+    static func merge(ours: [String: State], initial: [String: State], stored: [String: State],
+                      now: Int64) -> [String: State] {
         var result = stored
         for key in Set(ours.keys).union(initial.keys) where ours[key] != initial[key] {
             let theirs = stored[key]
@@ -90,7 +93,7 @@ enum ExchangeBackoff {
                 if !theirsChanged { result[key] = nil }
                 continue
             }
-            if let theirs, theirsChanged, theirs.pausedUntil > mine.pausedUntil { continue }
+            if let theirs, theirsChanged, plausibleUntil(theirs.pausedUntil, now: now) > mine.pausedUntil { continue }
             result[key] = mine
         }
         return result
@@ -208,7 +211,10 @@ enum ExchangeBackoff {
     /// (parallel gestartete Anfragen), erhöhen die Stufe nicht. Kein Erfolgssignal: Liegt das Ende
     /// der letzten Pause länger als `maxMillis` zurück, beginnt die Zählung neu.
     static func groupPause(_ state: State?, now: Int64, httpCode: Int, retryAfterSeconds: Int64?) -> State {
-        let recent: State? = state.flatMap { now - $0.pausedUntil <= maxMillis ? $0 : nil }
+        // Unmögliche Pause (weiter als `groupMaxMillis` in der Zukunft, `isPaused`): wie keine — wie Android
+        let recent: State? = state.flatMap {
+            now - $0.pausedUntil <= maxMillis && $0.pausedUntil - now <= groupMaxMillis ? $0 : nil
+        }
         let strikes: Int
         if let recent {
             strikes = recent.pausedUntil > now ? max(recent.strikes, 1) : recent.strikes + 1
@@ -220,6 +226,19 @@ enum ExchangeBackoff {
         let asked: Int64 = retryAfterSeconds.map { min(max($0, 0), groupMaxMillis / 1000) * 1000 } ?? 0
         let until = max(now + max(own, asked), recent?.pausedUntil ?? 0)
         return State(strikes: strikes, pausedUntil: until, reason: .RATE_LIMIT, timeoutRuns: 0)
+    }
+
+    /// Gemeinsame Pause, nachdem die Kursabfrage eine bis `until` gemeldet hat (`BlockedSources.pauseGroup`): Eine
+    /// laufende längere bleibt, eine kürzere wird verlängert (Stufe bleibt). Eine unmögliche alte Pause (`isPaused`:
+    /// zu weit in der Zukunft) blockiert die neue nicht — sonst bliebe die alte, kaputte stehen. Wie Android.
+    static func adoptedPause(_ old: State?, until: Int64, now: Int64) -> State {
+        if let old, old.pausedUntil >= until, isPaused(old, now: now) { return old }
+        return State(strikes: old?.strikes ?? 1, pausedUntil: until, reason: .RATE_LIMIT, timeoutRuns: 0)
+    }
+
+    /// Ende einer bestehenden Pause, sofern möglich (`isPaused`); sonst 0 (keine). Wie Android.
+    private static func plausibleUntil(_ until: Int64, now: Int64) -> Int64 {
+        until - now > groupMaxMillis ? 0 : until
     }
 
     // MARK: - Gemeinsame Pause von Spot und Futures auf demselben Host

@@ -74,6 +74,8 @@ class AlarmsViewModel @Inject constructor(
 
     /** Bestätigung nach dem ersten Alarm, «Pünktlich prüfen» und «Wann Alarme geprüft werden» ([AlarmSaveNotices]). */
     private val notices = AlarmSaveNotices(viewModelScope, watchRepository, settingsRepository, exactScheduler)
+    /** Doppeltipp beim Anlegen: ein zweites «Speichern»/eine Vorlage, solange das erste läuft, bleibt ohne Wirkung. */
+    private val createGuard = AlarmCreateGuard()
 
     /**
      * Bestätigung nach dem allerersten Alarm zeigen. Ihr Text ist der Hinweis «Wann Alarme geprüft
@@ -244,7 +246,7 @@ class AlarmsViewModel @Inject constructor(
      */
     fun createFromTemplate(template: AlarmTemplates.Template, onCreated: (AlarmEntity) -> Unit) {
         if (alarmSaveBlocked()) return
-        viewModelScope.launch {
+        createGuard.launch(viewModelScope, guarded = true) {
             val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
             val def = AlarmTemplates.definition(template, w.lastPrice) ?: return@launch
             val firstEver = notices.isFirstAlarm(existing = false)
@@ -312,7 +314,7 @@ class AlarmsViewModel @Inject constructor(
      */
     fun save(draft: AlarmDraft, onSaved: (AlarmEntity, Boolean, Boolean) -> Unit = { _, _, _ -> }) {
         if (alarmSaveBlocked()) return
-        viewModelScope.launch {
+        createGuard.launch(viewModelScope, guarded = draft.id == 0L) {
             val threshold = draft.threshold ?: return@launch
 
             val existing = alarms.value.firstOrNull { it.id == draft.id }

@@ -2,7 +2,6 @@ package com.cryptochecker.app.ui.features.info
 
 import androidx.compose.ui.platform.LocalConfiguration
 import java.util.Locale
-import java.time.format.DateTimeFormatter
 import java.time.LocalDate
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,6 +30,7 @@ import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.MonthYearFormat
 import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 
@@ -124,12 +124,13 @@ internal fun IndicatorList(indicators: List<Indicator>, currency: String, histor
         val context = indicatorContext(indicator, historySince, currency)
         val explain = stringResource(indicatorExplain(indicator.id)) + "\n" + stringResource(indicatorReading(indicator.id)) +
             context?.let { "\n$it" }.orEmpty()
+        val spoken = stringResource(R.string.label_value, name, value) + ". " + explain
         Row(
             verticalAlignment = Alignment.Top,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = Spacing.sm)
-                .clearAndSetSemantics { contentDescription = "$name: $value. $explain" }
+                .clearAndSetSemantics { contentDescription = spoken }
         ) {
             Column(modifier = Modifier.weight(1f).padding(end = Spacing.sm)) {
                 Text(name, style = MaterialTheme.typography.bodyMedium)
@@ -161,7 +162,7 @@ private fun indicatorContext(indicator: Indicator, since: LocalDate?, currency: 
     val locale = LocalConfiguration.current.locales[0] ?: Locale.ROOT
     if (since != null) {
         stat.percentileBelow?.let { p ->
-            val month = since.format(DateTimeFormatter.ofPattern("MMM yyyy", locale))
+            val month = since.format(MonthYearFormat.formatter(locale))
             parts += stringResource(R.string.ind_context_percentile, month, PercentText.unsigned(p, 0))
         }
     }

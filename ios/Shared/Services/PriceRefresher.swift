@@ -62,7 +62,8 @@ enum PriceRefresher {
             for key in Set(all.map(\.marketKey)) {
                 guard let until = BlockedSources.groupPausedUntil(key) else { continue }
                 let state = backoff[key]
-                if (state?.pausedUntil ?? Int64.min) < until {
+                // Eine unmögliche eigene Pause (`ExchangeBackoff.isPaused`) wird ersetzt — wie Android
+                if (state?.pausedUntil ?? Int64.min) < until || !ExchangeBackoff.isPaused(state, now: started) {
                     var merged = state ?? ExchangeBackoff.State(strikes: 1)
                     merged.pausedUntil = until
                     merged.reason = .RATE_LIMIT
@@ -81,7 +82,8 @@ enum PriceRefresher {
             if onlyWatchId == nil && !paused.isEmpty {
                 // Übernommene gemeinsame Binance-Pause mit speichern (wie Android)
                 SharedStorage.exchangeBackoff = ExchangeBackoff.merge(ours: backoff, initial: initialBackoff,
-                                                                      stored: SharedStorage.exchangeBackoff)
+                                                                      stored: SharedStorage.exchangeBackoff,
+                                                                      now: TimeUtils.nowMillis)
                 outcome.report = RefreshReport(at: TimeUtils.nowMillis, totalMillis: outcome.durationMillis,
                                                pairs: all.count, networkMillis: 0,
                                                markets: pausedMarkets(paused, backoff: backoff))
@@ -186,7 +188,7 @@ enum PriceRefresher {
                 // 429 bei Spot pausiert auch Futures auf demselben Host (und umgekehrt) — wie Android
                 SharedStorage.exchangeBackoff = ExchangeBackoff.merge(
                     ours: ExchangeBackoff.withHostGroupPauses(backoff, now: finished), initial: initialBackoff,
-                    stored: SharedStorage.exchangeBackoff)
+                    stored: SharedStorage.exchangeBackoff, now: finished)
             }
             let needingCandles = watchesNeedingCandles(watches, fetched: fetched, basis: basis, remember: onlyWatchId == nil)
             let startedKeys = Set(earlyKeys.map { "\($0.base)|\($0.quote)" })

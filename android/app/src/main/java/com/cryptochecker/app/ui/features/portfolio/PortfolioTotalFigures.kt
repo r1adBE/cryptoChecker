@@ -168,7 +168,8 @@ internal fun TotalChangeLine(
     val tone = plTone(amount ?: validPercent)
     val arrow = pillArrow(tone)
     val amountSpoken = amount?.let { spokenAmount(unit.signed(it)) }
-    val spoken = "$spokenLabel: " + listOfNotNull(validPercent?.let { A11yText.change(context, it) }, amountSpoken).joinToString(", ")
+    val spokenValues = listOfNotNull(validPercent?.let { A11yText.change(context, it) }, amountSpoken).joinToString(", ")
+    val spoken = stringResource(R.string.label_value, spokenLabel, spokenValues)
     val style = MaterialTheme.typography.labelLarge.amountNumbers()
     val color = pillContent(tone)
     val text = buildAnnotatedString {
@@ -224,9 +225,9 @@ internal fun InsightFigure(
     val spokenValue = validAmount?.let { spokenAmount(unit.signed(it)) }
     val figureSpoken = when {
         validPercent == null && spokenValue == null -> stringResource(R.string.portfolio_card_figure_none_a11y, spokenLabel)
-        validPercent == null -> "$spokenLabel: $spokenValue"
-        spokenValue == null -> "$spokenLabel: " + A11yText.change(context, validPercent)
-        else -> "$spokenLabel: " + A11yText.change(context, validPercent) + ", " + spokenValue
+        validPercent == null -> stringResource(R.string.label_value, spokenLabel, spokenValue)
+        spokenValue == null -> stringResource(R.string.label_value, spokenLabel, A11yText.change(context, validPercent))
+        else -> stringResource(R.string.label_value, spokenLabel, A11yText.change(context, validPercent) + ", " + spokenValue)
     }
     // Belohnungen nur zu einer bekannten Zahl
     val shownRewards = rewardsUsd.takeIf { validAmount != null } ?: 0.0

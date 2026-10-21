@@ -61,7 +61,7 @@ struct PortfolioTotalChangeLine: View {
 
     private var spoken: String {
         let amountSpoken: String? = shownAmount.map { portfolioSpokenAmount(unit.signed($0), hidden: hideAmounts) }
-        return spokenLabel + ": " + A11y.join([A11y.change(validPercent), amountSpoken])
+        return L("label_value", spokenLabel, A11y.join([A11y.change(validPercent), amountSpoken]))
     }
 
     var body: some View {
@@ -130,7 +130,7 @@ struct PortfolioInsightFigure: View {
         let value = validAmount.map { portfolioSpokenAmount(unit.signed($0), hidden: hideAmounts) }
         let change = A11y.change(validPercent)
         if value == nil && change == nil { return L("portfolio_card_figure_none_a11y", spokenLabel) }
-        let figure = spokenLabel + ": " + A11y.join([change, value])
+        let figure = L("label_value", spokenLabel, A11y.join([change, value]))
         guard let rewardsSpoken = PortfolioRewardsNote.text(shownRewards, unit: unit, hidden: hideAmounts, spoken: true) else { return figure }
         return figure + ". " + rewardsSpoken
     }
