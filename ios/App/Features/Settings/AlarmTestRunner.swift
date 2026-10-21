@@ -31,11 +31,11 @@ struct AlarmTestRunner: ViewModifier {
     private func run() async {
         switch await data.sendTestAlarm() {
         case .sent:
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            Haptics.play(.success)
         case .sentDuringQuietHours:
             toast = L("alarm_test_quiet")
         case .denied:
-            UINotificationFeedbackGenerator().notificationOccurred(.warning)
+            Haptics.play(.warning)
             denied = true
         }
     }

@@ -133,7 +133,7 @@ struct WatchlistWhyDetails: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.sm) {
             Button {
-                WatchlistHaptics.selection()
+                Haptics.play(.selection)
                 // Wächst weich im ScrollView; das Blatt (feste Höhe) bleibt stehen
                 withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.22)) {
                     showDetails.toggle()

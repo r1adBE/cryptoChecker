@@ -8,6 +8,7 @@ package com.cryptochecker.app.ui.features.settings
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.lock.PortfolioLockPolicy
+import com.cryptochecker.app.ui.components.HapticEvent
 import kotlinx.coroutines.launch
 
 /** Vor dem Öffnen der Dateiauswahl: [password] null = ohne Passwortschutz. */
@@ -224,6 +225,12 @@ sealed interface BackupMessage {
             // Sicherung bis 64 MB als Text und JSON im Speicher (seit Build 93 kein Absturz mehr)
             is OutOfMemoryError -> NotEnoughMemory
             else -> Failed
+        }
+
+        /** Haptik zur Meldung: Sicherung bzw. Wiederherstellung fertig = Erfolg, alles andere fehlgeschlagen. */
+        fun haptic(message: BackupMessage): HapticEvent = when (message) {
+            Exported, is Restored -> HapticEvent.SUCCESS
+            else -> HapticEvent.ERROR
         }
     }
 }

@@ -19,6 +19,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.HapticPlayer
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Banner unten in der Merkliste («BTC/USDT entfernt» mit «Rückgängig», «… wird jetzt
@@ -35,6 +38,8 @@ internal class WatchlistBanner(
     /** Jede Komposition neu gesetzt (Sprache, Screenreader können wechseln). */
     internal var accessibilityManager: androidx.compose.ui.platform.AccessibilityManager? = null
     internal var undoLabel: String = ""
+    /** «Rückgängig» getippt: Erfolgs-Haptik (wie iOS); null in Tests ohne Bildschirm. */
+    internal var haptics: HapticPlayer? = null
 
     private var job: Job? = null
 
@@ -117,7 +122,10 @@ internal class WatchlistBanner(
                 restoreRestingAfter(coroutineContext[Job])
             }
         } else {
-            showAction(text, undoLabel, UNDO_MILLIS, onClosed = onClosed, onAction = onUndo)
+            showAction(text, undoLabel, UNDO_MILLIS, onClosed = onClosed) {
+                haptics?.play(HapticEvent.SUCCESS)
+                onUndo()
+            }
         }
     }
 }
@@ -128,6 +136,7 @@ internal fun rememberWatchlistBanner(scope: CoroutineScope): WatchlistBanner {
     val banner = remember { WatchlistBanner(SnackbarHostState(), scope) }
     banner.accessibilityManager = LocalAccessibilityManager.current
     banner.undoLabel = stringResource(R.string.action_undo)
+    banner.haptics = rememberHaptics()
     return banner
 }
 

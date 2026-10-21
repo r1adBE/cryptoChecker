@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.domain.portfolio.PortfolioCompare
@@ -29,6 +28,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioCompareSeries
 import com.cryptochecker.app.domain.watch.SheetChart
 import com.cryptochecker.app.ui.theme.ChipShape
 import com.cryptochecker.app.ui.theme.amountNumbers
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Vergleich in Prozent seit dem Ausgangspunkt mit demselben Gitter wie [HistoryChart]: Stufen in
@@ -47,7 +47,7 @@ internal fun HistoryCompareChart(
     onScrub: (Int?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val haptics = LocalHapticFeedback.current
+    val haptics = rememberHaptics()
     val measurer = rememberTextMeasurer()
     val paint = rememberChartPaint()
     val zeroLine = MaterialTheme.colorScheme.outline

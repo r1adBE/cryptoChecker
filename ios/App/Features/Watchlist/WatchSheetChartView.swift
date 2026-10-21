@@ -243,7 +243,7 @@ struct WatchSheetChartView: View {
                  spoken: optionToday ? A11y.changeLongLabel(changeView.basis) : L(option.labelKey),
                  selected: option == range) {
                 guard option != range else { return }
-                WatchlistHaptics.selection()
+                Haptics.play(.selection)
                 result = SheetChartStore.shared.cached(watch, range: option)
                 range = option
             }
@@ -256,7 +256,7 @@ struct WatchSheetChartView: View {
         HStack(spacing: 0) {
             typeSegment(nil, label: L("widget_chart_candles"), selected: chartType == .candles) {
                 guard data.settings.sheetChartLine else { return }
-                WatchlistHaptics.selection()
+                Haptics.play(.selection)
                 data.settings.sheetChartLine = false
             }
             Rectangle()
@@ -264,7 +264,7 @@ struct WatchSheetChartView: View {
                 .frame(width: 1, height: 44)
             typeSegment("chart.xyaxis.line", label: L("widget_chart_line"), selected: chartType == .line) {
                 guard !data.settings.sheetChartLine else { return }
-                WatchlistHaptics.selection()
+                Haptics.play(.selection)
                 data.settings.sheetChartLine = true
             }
         }

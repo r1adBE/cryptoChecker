@@ -30,6 +30,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.collectAsState
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.util.LocaleNumbers
@@ -186,6 +187,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
     val exportTooLargeText = stringResource(R.string.backup_export_too_large)
     val restoredFormat = stringResource(R.string.backup_restored)
     val appLockKeptText = stringResource(R.string.backup_restore_app_lock_kept)
+    val haptics = rememberHaptics()
     LaunchedEffect(backupMessage) {
         val text = when (val m = backupMessage) {
             BackupMessage.Exported -> exportedText
@@ -212,6 +214,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
             }
             null -> return@LaunchedEffect
         }
+        haptics.play(BackupMessage.haptic(backupMessage ?: return@LaunchedEffect))
         Toast.makeText(context, text, Toast.LENGTH_LONG).show()
         viewModel.clearBackupMessage()
     }

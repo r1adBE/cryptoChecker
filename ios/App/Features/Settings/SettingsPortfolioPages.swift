@@ -125,7 +125,7 @@ struct PortfolioSettingsPage: View {
             return
         }
         guard AppLock.canAuthenticate() else {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
+            Haptics.play(.error)
             toast = L("app_lock_unavailable")
             return
         }

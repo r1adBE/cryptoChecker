@@ -41,6 +41,8 @@ import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.lock.findFragmentActivity
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 // ── Portfolio ────────────────────────────────────────────────────────────────
 
@@ -62,6 +64,7 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
             // Nur mit eingeschaltetem Portfolio; der Wert bleibt beim Ausblenden erhalten
             if (PortfolioLockPolicy.showSetting(settings.portfolioEnabled)) {
                 val unavailableText = stringResource(R.string.app_lock_unavailable)
+                val haptics = rememberHaptics()
                 val reason = stringResource(R.string.portfolio_lock_reason)
                 // Build 46: ohne Displaysperre (PIN/Muster/Passwort) hebt sich die Sperre selbst auf
                 // (AppLock.requireUnlock) — das hier ehrlich sagen; beim Zurückkehren neu prüfen
@@ -83,6 +86,7 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                                     // Solange gesperrt, erst entsperren — sonst wäre die Sperre hier zu umgehen
                                     viewModel.disableAppLock(activity, reason)
                                 } else if (activity == null || !AppLockAuth.canAuthenticate(context)) {
+                                    haptics.play(HapticEvent.ERROR)
                                     Toast.makeText(context, unavailableText, Toast.LENGTH_LONG).show()
                                 } else {
                                     // Einschalten erst nach einer erfolgreichen Entsperrung

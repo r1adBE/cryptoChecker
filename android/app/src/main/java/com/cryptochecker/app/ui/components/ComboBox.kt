@@ -38,11 +38,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
@@ -278,7 +276,7 @@ private fun ComboRow(
     onChoose: (Int) -> Unit,
     onToggleFavorite: ((String) -> Unit)?,
 ) {
-    val haptics = LocalHapticFeedback.current
+    val haptics = rememberHaptics()
     val toggleLabel = stringResource(if (favorite) R.string.favorite_remove else R.string.favorite_add)
 
     var rowModifier = Modifier
@@ -300,7 +298,7 @@ private fun ComboRow(
             onClick = { onChoose(entry.index) },
             onLongClick = onToggleFavorite?.let { toggle ->
                 {
-                    haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                    haptics.play(HapticEvent.LONG_PRESS)
                     toggle(entry.text)
                 }
             },

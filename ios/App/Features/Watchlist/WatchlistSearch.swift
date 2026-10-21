@@ -49,7 +49,7 @@ extension WatchlistScreen {
     }
 
     func openSearch() {
-        WatchlistHaptics.impact(.light)
+        Haptics.play(.lightImpact)
         editMode = .inactive
         withAnimation(.easeInOut(duration: 0.25)) { searching = true }
     }

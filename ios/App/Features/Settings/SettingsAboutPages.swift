@@ -102,10 +102,10 @@ struct AboutSettingsPage: View {
         let left = Self.unlockTaps - versionTaps
         if left == 0 {
             data.settings.developerUnlocked = true
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            Haptics.play(.success)
             toast = L("developer_unlocked")
         } else if (1...Self.countdownFrom).contains(left) {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            Haptics.play(.lightImpact)
             toast = L("developer_taps_left", count: left)
         }
     }

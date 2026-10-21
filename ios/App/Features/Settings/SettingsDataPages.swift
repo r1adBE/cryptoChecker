@@ -72,14 +72,13 @@ struct BackupSettingsPage: View {
                         // Zurücklesen und vergleichen (wie Android): ein Speicher-Anbieter, der die Datei kürzt, zeigte
                         // sich sonst erst beim Wiederherstellen
                         if let written, BackupManager.verifyWritten(url, expected: written) != nil {
-                            UINotificationFeedbackGenerator().notificationOccurred(.error)
-                            toast = L("backup_not_verified")
+                            fail("backup_not_verified")
                             return
                         }
-                        UINotificationFeedbackGenerator().notificationOccurred(.success)
+                        Haptics.play(.success)
                         toast = L("backup_exported")
                     case .failure(let error):
-                        if !Self.isCancel(error) { toast = L("backup_failed") }
+                        if !Self.isCancel(error) { fail("backup_failed") }
                     }
                 }
 
@@ -102,12 +101,12 @@ struct BackupSettingsPage: View {
                             // Höchstens 64 MB (`BackupLimits`)
                             picked(try BackupManager.readFile(url))
                         } catch BackupLimits.Failure.tooLarge {
-                            toast = L("backup_too_large")
+                            fail("backup_too_large")
                         } catch {
-                            toast = L("backup_failed")
+                            fail("backup_failed")
                         }
                     case .failure(let error):
-                        if !Self.isCancel(error) { toast = L("backup_failed") }
+                        if !Self.isCancel(error) { fail("backup_failed") }
                     }
                 }
             }
@@ -141,7 +140,7 @@ struct BackupSettingsPage: View {
                 // Während der Prüfung wieder gesperrt: Blatt ist schon zu, keine Rückfrage
                 if lock.locked {
                     encryptedFile = nil
-                    return false
+                    return .handled
                 }
                 do {
                     let plain = try result.get()
@@ -150,27 +149,27 @@ struct BackupSettingsPage: View {
                     pendingPreview = (try? BackupManager.preview(plain)) ?? BackupManager.RestorePreview()
                     pendingEncrypted = true
                     pendingRestore = plain
-                    return true
+                    return .accepted
                 } catch BackupCrypto.Failure.wrongPassword {
-                    return false
+                    return .wrongPassword
                 } catch BackupCrypto.Failure.notEnoughMemory {
                     // Kein erneuter Versuch mit demselben Passwort: erst Speicher freigeben
                     encryptedFile = nil
-                    toast = L("backup_not_enough_memory")
-                    return false
+                    fail("backup_not_enough_memory")
+                    return .handled
                 } catch BackupLimits.Failure.tooLarge {
                     encryptedFile = nil
-                    toast = L("backup_too_large")
-                    return false
+                    fail("backup_too_large")
+                    return .handled
                 } catch BackupVersion.Failure.newer {
                     encryptedFile = nil
-                    toast = L("backup_restore_newer_version")
-                    return false
+                    fail("backup_restore_newer_version")
+                    return .handled
                 } catch {
                     // Unbekannte Version oder kaputte Datei: kein erneuter Versuch
                     encryptedFile = nil
-                    toast = L("backup_failed")
-                    return false
+                    fail("backup_failed")
+                    return .handled
                 }
             }
         }
@@ -240,10 +239,10 @@ struct BackupSettingsPage: View {
             // Nie eine Datei schreiben, die sich danach nicht mehr einlesen lässt (wie Android)
             try BackupLimits.checkWritable(plain)
         } catch BackupLimits.Failure.exportTooLarge {
-            toast = L("backup_export_too_large")
+            fail("backup_export_too_large")
             return
         } catch {
-            toast = L("backup_failed")
+            fail("backup_failed")
             return
         }
         guard let password else {
@@ -261,11 +260,11 @@ struct BackupSettingsPage: View {
             case .success(let file):
                 presentExport(file)
             case .failure(BackupCrypto.Failure.notEnoughMemory):
-                toast = L("backup_not_enough_memory")
+                fail("backup_not_enough_memory")
             case .failure(BackupLimits.Failure.exportTooLarge):
-                toast = L("backup_export_too_large")
+                fail("backup_export_too_large")
             case .failure:
-                toast = L("backup_failed")
+                fail("backup_failed")
             }
         }
     }
@@ -298,12 +297,12 @@ struct BackupSettingsPage: View {
                 confirmRestore = true
             }
         } catch BackupLimits.Failure.tooLarge {
-            toast = L("backup_too_large")
+            fail("backup_too_large")
         } catch BackupVersion.Failure.newer {
             // Sicherung einer neueren App-Version: nichts übernommen
-            toast = L("backup_restore_newer_version")
+            fail("backup_restore_newer_version")
         } catch {
-            toast = L("backup_failed")
+            fail("backup_failed")
         }
     }
 
@@ -339,7 +338,7 @@ struct BackupSettingsPage: View {
         }
         do {
             let result = try BackupManager.restore(json, into: data, acceptInvalid: acceptInvalid, encrypted: encrypted)
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            Haptics.play(.success)
             let restored = L("backup_restored", L("backup_restored_pairs", count: result.watches),
                              L("backup_restored_alarms", count: result.alarms))
             // Über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort wollte sie ausschalten)
@@ -356,12 +355,16 @@ struct BackupSettingsPage: View {
                 Task { await data.refreshAll() }
             }
         } catch BackupVersion.Failure.newer {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            toast = L("backup_restore_newer_version")
+            fail("backup_restore_newer_version")
         } catch {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            toast = L("backup_failed")
+            fail("backup_failed")
         }
+    }
+
+    /// Fehlgeschlagen: Hinweis mit Fehler-Haptik (wie Android `BackupMessage.haptic`).
+    private func fail(_ key: String) {
+        Haptics.play(.error)
+        toast = L(key)
     }
 
     private static func isCancel(_ error: Error) -> Bool {

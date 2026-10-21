@@ -112,7 +112,7 @@ struct WatchGroupEditSheet: View {
             }
             .alert(L("group_delete"), isPresented: $askDelete) {
                 Button(L("group_delete"), role: .destructive) {
-                    WatchlistHaptics.impact()
+                    Haptics.play(.destructive)
                     data.deleteGroup(groupName)
                     dismiss()
                 }
@@ -122,7 +122,7 @@ struct WatchGroupEditSheet: View {
             }
         }
         .tint(accent.primary)
-        .sensoryFeedback(.selection, trigger: checked)
+        .haptic(.selection, trigger: checked)
     }
 
     // MARK: Teile
@@ -235,7 +235,7 @@ struct WatchGroupEditSheet: View {
     }
 
     private func done() {
-        WatchlistHaptics.selection()
+        Haptics.play(.success)
         data.applyGroupEdit(oldName: isNew ? nil : groupName, newName: name, memberIds: checked)
         dismiss()
     }

@@ -24,7 +24,7 @@ extension PortfolioScreen {
         .buttonStyle(.plain)
         // Chevron ohne eigene Beschreibung: der Zustand steht als Wert (wie Android stateDescription)
         .accessibilityValue(L(showClosed ? "a11y_expanded" : "a11y_collapsed"))
-        .sensoryFeedback(.selection, trigger: showClosed)
+        .haptic(.selection, trigger: showClosed)
 
         if showClosed {
             VStack(spacing: 0) {

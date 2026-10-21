@@ -131,6 +131,7 @@ struct AlarmsOverviewScreen: View {
             set: { if !$0 { deletePortfolio = nil } }
         ), titleVisibility: .visible, presenting: deletePortfolio) { alarm in
             Button(L("action_delete"), role: .destructive) {
+                Haptics.play(.destructive)
                 withAnimation(.snappy) { data.deletePortfolioAlarm(alarm.id) }
                 deletePortfolio = nil
             }
@@ -216,7 +217,7 @@ struct AlarmsOverviewScreen: View {
                     SwitchRow(isOn: Binding(
                         get: { alarm.enabled },
                         set: { enabled in
-                            WatchlistHaptics.selection()
+                            Haptics.play(.selection)
                             withAnimation(.snappy) { data.setAlarmEnabled(alarm.id, enabled) }
                         }
                     ), verticalPadding: 8) {
@@ -292,7 +293,7 @@ struct AlarmsOverviewScreen: View {
                     SwitchRow(isOn: Binding(
                         get: { alarm.enabled },
                         set: { enabled in
-                            WatchlistHaptics.selection()
+                            Haptics.play(.selection)
                             withAnimation(.snappy) { data.setPortfolioAlarmEnabled(alarm.id, enabled) }
                         }
                     ), verticalPadding: 8) {

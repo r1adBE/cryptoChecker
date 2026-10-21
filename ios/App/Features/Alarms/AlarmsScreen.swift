@@ -112,7 +112,7 @@ struct AlarmsScreen: View {
                                 markFallback: watch.map { MarkFallbackStore.contains($0.id) } ?? false
                             ),
                             onToggle: { enabled in
-                                WatchlistHaptics.selection()
+                                Haptics.play(.selection)
                                 data.setAlarmEnabled(alarm.id, enabled)
                             },
                             onEdit: { if !lowLiquidity { draft = AlarmDraft.from(alarm) } },
@@ -218,7 +218,7 @@ struct AlarmsScreen: View {
                     guard let threshold = saved.threshold, data.watch(watchId) != nil else { return }
                     // Sicherheitsnetz: Paar inzwischen voll — nichts angelegt, sagen warum
                     if saved.id == 0 && !WatchlistLimits.canAddAlarm(data.alarms(for: watchId).count) { return showAlarmLimit() }
-                    WatchlistHaptics.impact(.light)
+                    Haptics.play(.success)
                     withAnimation {
                         firstAlarmPending = data.saveAlarm(
                             watchId: watchId, id: saved.id, condition: saved.condition, threshold: threshold,
@@ -234,17 +234,17 @@ struct AlarmsScreen: View {
                     if data.alarmSaveBlocked { return showSaveLocked() }
                     guard let def = AlarmTemplates.definition(template, currentPrice: watch?.lastPrice) else { return }
                     if !WatchlistLimits.canAddAlarm(data.alarms(for: watchId).count) { return showAlarmLimit() }
-                    WatchlistHaptics.impact(.light)
                     let created = withAnimation { data.createAlarm(watchId: watchId, from: def) }
                     // Nichts angelegt (Paar inzwischen gelöscht): keine Bestätigung — wie Android
                     guard created.id != 0 else { return }
+                    Haptics.play(.success)
                     if created.firstAlarm { firstAlarmPending = true }
                     noteTimingHint(firstAlarm: created.firstAlarm)
                     let id = created.id
                     let message = WatchlistBannerMessage(
                         // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig») — wie Android
                         text: templateCreatedText(id), icon: "bell.and.waves.left.and.right.fill",
-                        action: WatchlistBannerAction(title: L("action_undo")) {
+                        action: WatchlistBannerAction.undo {
                             withAnimation { data.deleteAlarm(id) }
                         }
                     )
@@ -264,6 +264,7 @@ struct AlarmsScreen: View {
             presenting: askDelete
         ) { alarm in
             Button(L("action_delete"), role: .destructive) {
+                Haptics.play(.destructive)
                 withAnimation { data.deleteAlarm(alarm.id) }
                 askDelete = nil
             }
@@ -315,11 +316,13 @@ struct AlarmsScreen: View {
 
     /// Merkliste gerade nicht lesbar (`AppData.alarmSaveBlocked`): nichts angelegt, sagen warum (der Editor schliesst sich)
     private func showSaveLocked() {
+        Haptics.play(.error)
         banner = WatchlistBannerMessage(text: L("alarm_save_storage_locked"), icon: "lock.fill", long: true)
     }
 
     /// Paar hat schon die Höchstzahl Alarme (`WatchlistLimits`): nichts angelegt, sagen warum (der Editor schliesst sich)
     private func showAlarmLimit() {
+        Haptics.play(.warning)
         banner = WatchlistBannerMessage(text: AlarmLimitText.text, icon: "bell.badge", long: true)
     }
 

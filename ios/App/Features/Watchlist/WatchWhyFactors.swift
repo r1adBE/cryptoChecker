@@ -152,7 +152,7 @@ struct WatchlistWhyAllValuesCard<Content: View>: View {
 
     private var toggle: some View {
         Button {
-            WatchlistHaptics.selection()
+            Haptics.play(.selection)
             withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.22)) {
                 expanded.toggle()
             }

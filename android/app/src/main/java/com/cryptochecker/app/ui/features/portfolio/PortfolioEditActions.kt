@@ -153,9 +153,12 @@ fun PortfolioViewModel.enablePortfolio(onEnabled: () -> Unit = {}) {
     }
 }
 
-/** Löschen; gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]) bleibt alles, der Dauerhinweis nennt es. */
-fun PortfolioViewModel.delete(id: Long) {
-    viewModelScope.launch { safe { repository.delete(id) } }
+/**
+ * Löschen; gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]) bleibt alles, der Dauerhinweis nennt es.
+ * [onResult] erfährt, ob gelöscht wurde (Haptik nach dem Ergebnis, wie iOS).
+ */
+fun PortfolioViewModel.delete(id: Long, onResult: (Boolean) -> Unit = {}) {
+    viewModelScope.launch { onResult(safe { repository.delete(id); true } == true) }
 }
 
 /**

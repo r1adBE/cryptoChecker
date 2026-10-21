@@ -55,6 +55,8 @@ import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.WatchedAddressUndo
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Portfolio ⋯ › «Adressen»: beobachtete öffentliche Adressen (nur lesen) — Liste mit Guthaben, Stand bzw.
@@ -100,6 +102,7 @@ internal fun PortfolioAddressSheet(
     )
     // Fehler aus dem Speichern (doppelt, voll, ungültig)
     var saveError by remember { mutableStateOf<Int?>(null) }
+    val haptics = rememberHaptics()
     var askPrivacy by remember { mutableStateOf(false) }
     var askRemove by remember { mutableStateOf<WatchedAddress?>(null) }
     var busy by remember { mutableStateOf(false) }
@@ -125,6 +128,7 @@ internal fun PortfolioAddressSheet(
             chain, input, label, countInPortfolio, onPortfolioEnabled = onPortfolioEnabled, overlapChecked = overlapChecked,
         ) { result ->
             busy = false
+            haptics.play(addWatchedHaptic(result))
             when (result) {
                 is PortfolioRepository.AddWatchedResult.Added -> {
                     input = ""
@@ -207,6 +211,7 @@ internal fun PortfolioAddressSheet(
             // Nicht geschrieben: nennen statt still nichts zu tun (seit Build 97)
             onFailed = { banner.show(failedText) },
         ) { row ->
+            haptics.play(HapticEvent.DESTRUCTIVE)
             val name = target.label ?: WatchedAddressRules.shortAddress(target.address)
             banner.show(resources.getString(R.string.watchlist_removed, name)) {
                 // Nicht zurückgeholt: Grund nennen statt still nichts zu tun
@@ -345,4 +350,16 @@ internal fun restoreFailedText(failure: WatchedAddressUndo.RestoreFailure): Int 
     WatchedAddressUndo.RestoreFailure.DUPLICATE -> R.string.address_duplicate
     WatchedAddressUndo.RestoreFailure.LIMIT -> R.string.address_limit
     WatchedAddressUndo.RestoreFailure.NOT_SAVED -> R.string.portfolio_address_restore_failed
+}
+
+/**
+ * Haptik zum Ergebnis von «Adresse hinzufügen»: angelegt = Erfolg, Eingabe- bzw. Grenzfehler = Warnung, nicht
+ * geschrieben (null) = Fehler — wie iOS `AddWatchedResult.haptic`.
+ */
+internal fun addWatchedHaptic(result: PortfolioRepository.AddWatchedResult?): HapticEvent = when (result) {
+    is PortfolioRepository.AddWatchedResult.Added -> HapticEvent.SUCCESS
+    is PortfolioRepository.AddWatchedResult.Invalid,
+    PortfolioRepository.AddWatchedResult.Duplicate,
+    PortfolioRepository.AddWatchedResult.LimitReached -> HapticEvent.WARNING
+    null -> HapticEvent.ERROR
 }

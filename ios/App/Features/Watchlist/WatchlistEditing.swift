@@ -46,7 +46,7 @@ extension WatchlistScreen {
         banner = WatchlistBannerMessage(
             text: text,
             icon: "trash",
-            action: WatchlistBannerAction(title: L("action_undo")) {
+            action: WatchlistBannerAction.undo {
                 withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(removed) }
             }
         )
@@ -69,7 +69,7 @@ extension WatchlistScreen {
         banner = WatchlistBannerMessage(
             text: text,
             icon: "trash",
-            action: WatchlistBannerAction(title: L("action_undo")) {
+            action: WatchlistBannerAction.undo {
                 withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(removed) }
             }
         )
@@ -106,7 +106,7 @@ extension WatchlistScreen {
     }
 
     func toggleFavorite(_ watch: Watch) {
-        WatchlistHaptics.impact()
+        Haptics.play(.lightImpact)
         withAnimation(.spring(duration: 0.4)) { data.toggleFavorite(watch) }
     }
 
@@ -138,7 +138,7 @@ extension WatchlistScreen {
     }
 
     func toggleSelected(_ id: Int64) {
-        WatchlistHaptics.selection()
+        Haptics.play(.selection)
         if selectedIds.contains(id) { selectedIds.remove(id) } else { selectedIds.insert(id) }
     }
 
@@ -148,7 +148,7 @@ extension WatchlistScreen {
         guard !chosen.isEmpty else { return }
         let makeFavorite = !chosen.allSatisfy(\.favorite)
         withAnimation(reduceMotion ? nil : .spring(duration: 0.4)) { data.setFavorite(ids: selectedIds, makeFavorite) }
-        WatchlistHaptics.impact(.light)
+        Haptics.play(.lightImpact)
         endSelection()
     }
 
@@ -166,7 +166,7 @@ extension WatchlistScreen {
         let ids = selectedIds
         guard !ids.isEmpty else { return }
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { data.setDisabled(ids: ids, disabled) }
-        WatchlistHaptics.impact(.light)
+        Haptics.play(.lightImpact)
         endSelection()
     }
 
@@ -189,7 +189,7 @@ extension WatchlistScreen {
         banner = WatchlistBannerMessage(
             text: text,
             icon: "trash",
-            action: WatchlistBannerAction(title: L("action_undo")) {
+            action: WatchlistBannerAction.undo {
                 withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(removed) }
             }
         )

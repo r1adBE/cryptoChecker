@@ -150,11 +150,12 @@ struct PortfolioAddressSheet: View {
     private func remove(_ target: WatchedAddress) {
         switch data.removeWatchedAddress(target.id) {
         case .removed(let removed):
+            Haptics.play(.destructive)
             let name = target.label ?? WatchedAddressRules.shortAddress(target.address)
             banner = WatchlistBannerMessage(
                 text: L("watchlist_removed", name),
                 icon: "trash",
-                action: WatchlistBannerAction(title: L("action_undo")) {
+                action: WatchlistBannerAction.undo {
                     switch data.restoreWatchedAddress(removed) {
                     case .locked: showLocked()
                     // Nicht zurückgeholt: Grund nennen statt still nichts zu tun (seit Build 95, wie Android)
@@ -366,8 +367,10 @@ struct PortfolioAddressSheet: View {
 
     private func add(_ check: AddressValidation.Check, countInPortfolio: Bool = true, overlapChecked: Bool = false) {
         guard let chain = check.chain else { return }
-        switch data.addWatchedAddress(chain: chain, address: input, label: label, countInPortfolio: countInPortfolio,
-                                      overlapChecked: overlapChecked) {
+        let outcome = data.addWatchedAddress(chain: chain, address: input, label: label, countInPortfolio: countInPortfolio,
+                                             overlapChecked: overlapChecked)
+        Haptics.play(outcome.haptic)
+        switch outcome {
         case .added:
             input = ""
             label = ""

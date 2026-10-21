@@ -34,6 +34,10 @@ import com.cryptochecker.app.data.BackupCrypto
 import com.cryptochecker.app.data.BackupPasswordStrength
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.SwitchRow
+import androidx.compose.runtime.LaunchedEffect
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.components.rememberOneShotGate
 
 /*
  * Runde 25: Passwortschutz der Sicherungsdatei (BackupCrypto). Passwörter nur in `remember`
@@ -209,6 +213,12 @@ internal fun BackupPasswordDialog(
     var password by remember(failedAttempts) { mutableStateOf("") }
     var visible by remember { mutableStateOf(false) }
     val submit: () -> Unit = { if (password.isNotEmpty() && !checking) onSubmit(password) }
+    // Fehlversuch: Fehler-Haptik wie iOS (einmal je Versuch, nicht nochmals nach Drehen/Dunkelmodus)
+    val haptics = rememberHaptics()
+    val attemptGate = rememberOneShotGate()
+    LaunchedEffect(failedAttempts) {
+        if (attemptGate.claim(failedAttempts.takeIf { it > 0 })) haptics.play(HapticEvent.ERROR)
+    }
 
     AlertDialog(
         onDismissRequest = onDismiss,

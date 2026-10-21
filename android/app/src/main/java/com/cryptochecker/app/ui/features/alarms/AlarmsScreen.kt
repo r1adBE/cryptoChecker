@@ -48,6 +48,8 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.BidiText
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -268,24 +270,17 @@ fun AlarmsScreen(
         }
     }
 
+    val haptics = rememberHaptics()
     // Merkliste nur leer im Arbeitsspeicher: Alarm nicht anlegen, Editor zu und sagen warum (sonst still verloren)
     fun showSaveLocked(): Boolean {
         if (!viewModel.alarmSaveBlocked()) return false
         draft = null
-        scope.launch {
-            snackbar.currentSnackbarData?.dismiss()
-            snackbar.showSnackbar(lockedText, duration = SnackbarDuration.Long)
-        }
+        snackbar.showNotice(scope, lockedText, haptics, HapticEvent.ERROR)
         return true
     }
 
     // Sicherheitsnetz: Paar inzwischen voll (z. B. Editor offen, Alarm anderswo angelegt) — nichts angelegt, sagen warum
-    val showLimit: () -> Unit = {
-        scope.launch {
-            snackbar.currentSnackbarData?.dismiss()
-            snackbar.showSnackbar(limitText, duration = SnackbarDuration.Long)
-        }
-    }
+    val showLimit: () -> Unit = { snackbar.showNotice(scope, limitText, haptics, HapticEvent.WARNING) }
 
     /** Speichern und bestätigen («Alarm gespeichert …»), Editor schliessen. */
     fun saveDraft(toSave: AlarmDraft) {
@@ -296,6 +291,7 @@ fun AlarmsScreen(
         requestNotifications()
         val isNew = toSave.id == 0L
         viewModel.save(toSave, showLimit) { alarm, allowed, firstEver ->
+            haptics.play(HapticEvent.SUCCESS)
             val off = !allowed && !asking
             // Neuer Alarm: eine Zeile «Alarm aktiv · Testen»; beim allerersten Alarm
             // bietet der Bestätigungsdialog das Testen schon an
@@ -348,6 +344,7 @@ fun AlarmsScreen(
                 requestNotifications()
                 draft = null
                 viewModel.createFromTemplate(template, showLimit) { created ->
+                    haptics.play(HapticEvent.SUCCESS)
                     // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig»), nicht nur «erstellt»
                     val createdText = alarmSavedText(
                         context, created, watch?.baseAsset.orEmpty(), watch?.quoteAsset.orEmpty(), notificationsOff = false,

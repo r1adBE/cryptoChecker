@@ -204,8 +204,8 @@ final class ExplorerViewModel: ObservableObject {
         withAnimation(.spring(duration: 0.35)) { message = note }
     }
 
-    func haptic(_ kind: UINotificationFeedbackGenerator.FeedbackType) {
-        UINotificationFeedbackGenerator().notificationOccurred(kind)
+    func haptic(_ event: HapticEvent) {
+        Haptics.play(event)
     }
 
     /// Erst wenn neue Paare (mit Meldungen) dazukommen, um Erlaubnis für Mitteilungen bitten — vorher die kurze

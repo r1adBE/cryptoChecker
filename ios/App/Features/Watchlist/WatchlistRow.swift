@@ -1,19 +1,6 @@
 import SwiftUI
 import UIKit
 
-// MARK: Hilfen
-
-/// Kleine Haptik-Helfer für die Merkliste.
-enum WatchlistHaptics {
-    @MainActor static func impact(_ style: UIImpactFeedbackGenerator.FeedbackStyle = .medium) {
-        UIImpactFeedbackGenerator(style: style).impactOccurred()
-    }
-
-    @MainActor static func selection() {
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
-}
-
 // MARK: Zeile
 
 /// Kompakte Zeile: Coin-Logo (Stern bei Favoriten, nur mit Coin-Logos), Paar, Börse, Kurs und Prozent-Änderung.
@@ -217,7 +204,7 @@ struct WatchlistRow: View {
         // Tippen öffnet weiter das Blatt, Wischen bleibt unberührt.
         .onLongPressGesture(minimumDuration: 0.45) {
             guard !sorting, let onLongPress else { return }
-            WatchlistHaptics.impact()
+            Haptics.play(.longPress)
             onLongPress()
         }
         .animation(.spring(duration: 0.35), value: highlighted)

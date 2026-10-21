@@ -29,7 +29,7 @@ extension WatchActionsSheet {
             // «Paar bearbeiten»: 48 pt Tippfläche; Vorschau: nichts zu bearbeiten
             if !isPreview {
                 Button {
-                    WatchlistHaptics.selection()
+                    Haptics.play(.selection)
                     editPair = true
                 } label: {
                     Image(systemName: "pencil")

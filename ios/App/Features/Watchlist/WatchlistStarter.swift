@@ -109,7 +109,7 @@ struct WatchlistStarterPicker: View {
             }
             .buttonStyle(.plain)
         }
-        .sensoryFeedback(.selection, trigger: selectionTick)
+        .haptic(.selection, trigger: selectionTick)
         // Kurse: einmal für alle fünf, neu bei einer anderen Liste
         // Auch bei gewechselter Startbörse (Standort-Sperre → Binance.US) neu laden
         // «Erneut versuchen» zählt `retryTick` hoch und lädt damit ebenfalls neu

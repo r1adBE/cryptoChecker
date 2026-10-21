@@ -32,6 +32,8 @@ import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.notification.PortfolioAlarmTexts
 import com.cryptochecker.app.ui.features.watchlist.WatchlistBanner
 import kotlinx.coroutines.flow.map
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Blätter und Dialoge des Portfolio-Tabs: Erfassen, Adressen, CSV-Import, Importe, Umrechnungswährung, Export,
@@ -65,6 +67,7 @@ internal fun PortfolioScreenDialogs(
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
     val context = LocalContext.current
+    val haptics = rememberHaptics()
     // Ungültige Einträge aus der Systemsicherung einmal nennen
     SystemRestoreNoticeDialog()
     sheet?.let { draft ->
@@ -93,6 +96,7 @@ internal fun PortfolioScreenDialogs(
             batches = PortfolioImportBatch.summarize(transactions.orEmpty().map { it.importBatch }),
             onUndo = { batch ->
                 viewModel.undoImport(batch.id) { removed ->
+                    haptics.play(HapticEvent.DESTRUCTIVE)
                     banner.show(resources.getQuantityString(R.plurals.portfolio_import_undone, removed.size, removed.size)) {
                         viewModel.restore(removed)
                     }
@@ -122,6 +126,7 @@ internal fun PortfolioScreenDialogs(
             basis = changeBasis,
             onSave = { kind, threshold, repeating ->
                 viewModel.addAlarm(kind, threshold, repeating) { alarm, allowed ->
+                    haptics.play(HapticEvent.SUCCESS)
                     // «Alarm gespeichert: Portfolio über 50’000.00 CHF · einmalig» (· Mitteilungen aus)
                     val off = !allowed
                     val condition = PortfolioAlarmTexts.sentence(context, alarm, changeBasis, hideAmounts)
@@ -153,7 +158,9 @@ internal fun PortfolioScreenDialogs(
                 // Danach «Rückgängig» im Banner (alle Transaktionen mit ihren ids zurück), wie beim Löschen eines Coins
                 TextButton(onClick = {
                     onAskClearChange(false)
+                    // Haptik erst nach dem Löschen und nur, wenn etwas weg ist (wie iOS); gesperrt nennt es der Dauerhinweis
                     viewModel.clearAll { removed ->
+                        haptics.play(HapticEvent.DESTRUCTIVE)
                         banner.show(resources.getQuantityString(R.plurals.portfolio_cleared, removed.size, removed.size)) {
                             viewModel.restore(removed)
                         }
@@ -175,6 +182,7 @@ internal fun PortfolioScreenDialogs(
  */
 @Composable
 internal fun DeleteCoinDialog(coin: String, count: Int, onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    // Haptik erst nach dem Löschen ([PortfolioScreen] deleteCoin), wie iOS
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.portfolio_coin_delete_title, coin)) },

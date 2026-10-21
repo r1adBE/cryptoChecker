@@ -27,7 +27,7 @@ extension PortfolioTxSheet {
             } label: {
                 ExpandToggleLabel(title: L("portfolio_tx_type_select", PortfolioFormat.typeLabel(type)), expanded: false)
             }
-            .sensoryFeedback(.selection, trigger: type)
+            .haptic(.selection, trigger: type)
             if let key = Self.explainKey(type) {
                 Text(L(key))
                     .font(.caption)

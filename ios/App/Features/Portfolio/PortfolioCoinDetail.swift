@@ -117,7 +117,7 @@ struct PortfolioCoinDetail: View {
             WatchlistBanner(message: $banner) { _ in }
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
         }
-        .sensoryFeedback(.impact(weight: .medium), trigger: deleteTick)
+        .haptic(.destructive, trigger: deleteTick)
         .sheet(isPresented: $costGapsOpen) {
             PortfolioCostGapsSheet(coin: coin) { tx in
                 costGapsOpen = false
@@ -162,7 +162,7 @@ struct PortfolioCoinDetail: View {
         banner = WatchlistBannerMessage(
             text: text,
             icon: "trash",
-            action: WatchlistBannerAction(title: L("action_undo")) {
+            action: WatchlistBannerAction.undo {
                 var saved = true
                 withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { saved = data.restorePortfolioTxs([tx]) }
                 if !saved { banner = .portfolioNotSaved }

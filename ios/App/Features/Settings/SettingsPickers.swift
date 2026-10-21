@@ -116,7 +116,7 @@ struct SettingsThemePicker: View {
             }
         }
         .padding(.vertical, 4)
-        .sensoryFeedback(.selection, trigger: selection)
+        .haptic(.selection, trigger: selection)
     }
 }
 
@@ -139,7 +139,7 @@ struct SettingsAccentPicker: View {
             }
         }
         .padding(.vertical, 4)
-        .sensoryFeedback(.selection, trigger: selection)
+        .haptic(.selection, trigger: selection)
     }
 }
 

@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.features.watchlist
 
-import android.view.HapticFeedbackConstants
 import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -31,7 +30,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -43,6 +41,8 @@ import com.cryptochecker.app.ui.theme.Spacing
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.abs
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /** Ab diesem Anteil der Breite löst das Wischen aus. */
 private const val SWIPE_THRESHOLD = 0.38f
@@ -78,7 +78,7 @@ internal fun SwipeActionsRow(
     confirmsDelete: Boolean = false,
     content: @Composable () -> Unit,
 ) {
-    val view = LocalView.current
+    val haptics = rememberHaptics()
     val scope = rememberCoroutineScope()
     val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
     // Physische Verschiebung in px (rechts positiv); «zum Ende hin» ist in LTR negativ
@@ -100,7 +100,7 @@ internal fun SwipeActionsRow(
         offset = if (currentFavorite == null && next * endSign < 0f) 0f else next
         // Schwelle überschritten (in beide Richtungen): ein leichtes Signal
         if (beyond(before) != beyond(offset)) {
-            view.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
+            haptics.play(HapticEvent.SELECTION)
         }
     }
 

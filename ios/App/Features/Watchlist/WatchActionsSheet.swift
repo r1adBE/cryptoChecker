@@ -118,11 +118,11 @@ struct WatchActionsSheet: View {
         if outcome == .full {
             // Merkliste voll (`WatchlistLimits`): nichts angelegt, sagen warum — wie Android
             toast = WatchlistLimitText.full
-            UINotificationFeedbackGenerator().notificationOccurred(.warning)
+            Haptics.play(.warning)
         } else if case .added(let id) = outcome {
             adding = true
             addedId = id
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            Haptics.play(.success)
             if firstEver { _ = data.celebrateFirstAdd(id, announceInWatchlist: true) }
             // Neues Paar mit Kurs-Mitteilungen: erst kurz erklären, dann die System-Abfrage
             NotificationPrePrompt.request(.pairsAdded)
@@ -209,7 +209,7 @@ struct WatchActionsSheet: View {
     /// Kopfzeile «Mehr» mit Pfeil; VoiceOver: Knopf «Mehr» mit Zustand auf-/zugeklappt.
     private var moreToggle: some View {
         Button {
-            WatchlistHaptics.selection()
+            Haptics.play(.selection)
             moreExpanded.toggle()
         } label: {
             HStack(spacing: 8) {

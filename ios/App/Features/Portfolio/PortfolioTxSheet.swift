@@ -361,7 +361,14 @@ struct PortfolioTxSheet: View {
         }
         .alert(L("portfolio_tx_delete_title"), isPresented: $askDelete) {
             Button(L("action_delete"), role: .destructive) {
-                if data.deletePortfolioTx(initial.txId) { dismiss() } else { deleteFailed = true }
+                // Haptik nach dem Ergebnis: gelöscht = destruktiv, nicht geschrieben (gesperrt) = Fehler (wie Android)
+                if data.deletePortfolioTx(initial.txId) {
+                    Haptics.play(.destructive)
+                    dismiss()
+                } else {
+                    Haptics.play(.error)
+                    deleteFailed = true
+                }
             }
             Button(L("action_cancel"), role: .cancel) {}
         } message: {

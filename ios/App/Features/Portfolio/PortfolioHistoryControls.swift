@@ -66,7 +66,7 @@ extension PortfolioHistoryCard {
         HStack(spacing: 0) {
             typeSegment(nil, label: L("widget_chart_candles"), selected: candles) {
                 guard !candles else { return }
-                WatchlistHaptics.selection()
+                Haptics.play(.selection)
                 candles = true
             }
             Rectangle()
@@ -74,7 +74,7 @@ extension PortfolioHistoryCard {
                 .frame(width: 1, height: 44)
             typeSegment("chart.xyaxis.line", label: L("widget_chart_line"), selected: !candles) {
                 guard candles else { return }
-                WatchlistHaptics.selection()
+                Haptics.play(.selection)
                 candles = false
             }
         }

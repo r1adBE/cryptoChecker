@@ -110,7 +110,7 @@ struct WatchGroupSheet: View {
     }
 
     private func pick(_ group: String?) {
-        WatchlistHaptics.selection()
+        Haptics.play(.selection)
         onSelect(group)
         dismiss()
     }

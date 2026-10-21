@@ -180,7 +180,7 @@ struct SpeechSettingsPage: View {
                     }
                 }
                 .padding(.top, 12)
-                .sensoryFeedback(.selection, trigger: settings.ttsSpeechRate)
+                .haptic(.selection, trigger: settings.ttsSpeechRate)
 
                 Button(action: testSpeech) {
                     Label(L("settings_tts_test"), systemImage: "play.fill")

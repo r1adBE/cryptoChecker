@@ -22,13 +22,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.hapticfeedback.HapticFeedback
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -55,6 +52,9 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.components.HapticPlayer
 
 /** Höhe der Chart-Fläche im Wertverlauf (wie im Aktionsblatt eines Paars). */
 internal val HISTORY_CHART_HEIGHT = 180.dp
@@ -81,7 +81,7 @@ internal fun HistoryChart(
     pnl: Boolean = false,
 ) {
     val context = LocalContext.current
-    val haptics = LocalHapticFeedback.current
+    val haptics = rememberHaptics()
     val measurer = rememberTextMeasurer()
     val paint = rememberChartPaint()
     val hidden = LocalHidePortfolioAmounts.current
@@ -244,7 +244,7 @@ internal fun Modifier.scrubLabelPlacement(centerX: () -> Float): Modifier = layo
 internal fun Modifier.historyScrub(
     key: Any?,
     count: Int,
-    haptics: HapticFeedback,
+    haptics: HapticPlayer,
     indexAt: (Float) -> Int?,
     onIndex: (Int?) -> Unit,
 ): Modifier = pointerInput(key, count) {
@@ -280,7 +280,7 @@ internal fun Modifier.historyScrub(
             val index = indexAt(atX)
             if (index == last) return
             // Leichtes Ticken je neuem Slot (folgt den System-Einstellungen)
-            if (index != null && count <= MAX_TICK_POINTS) haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+            if (index != null && count <= MAX_TICK_POINTS) haptics.play(HapticEvent.SELECTION)
             last = index
             onIndex(index)
         }

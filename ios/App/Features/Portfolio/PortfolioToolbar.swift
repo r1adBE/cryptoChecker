@@ -20,7 +20,7 @@ extension PortfolioScreen {
                     Image(systemName: hidden ? "eye.slash" : "eye")
                 }
                 .accessibilityLabel(L(hidden ? "a11y_portfolio_show_amounts" : "portfolio_hide_amounts"))
-                .sensoryFeedback(.selection, trigger: hidden)
+                .haptic(.selection, trigger: hidden)
             }
             Menu {
                 // Gleicher Anfang wie Merkliste und Markt: App (→ «Über»), Aktualisieren

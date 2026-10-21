@@ -25,6 +25,8 @@ import com.cryptochecker.app.ui.components.canonicalGroupName
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import com.cryptochecker.app.ui.features.portfolio.PortfolioQuickAddSheet
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Alles, was sich über die Merkliste legt: Bericht, Rückfragen, das Aktionsblatt eines Paars,
@@ -54,6 +56,7 @@ internal fun WatchlistSheets(
     val context = LocalContext.current
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
+    val haptics = rememberHaptics()
     val lastReport by viewModel.lastRefreshReport.collectAsStateWithLifecycle()
     val appStartMillis by viewModel.appStartMillis.collectAsStateWithLifecycle()
     // Eine Frische-Schwelle wie Zeile und Status-Pille
@@ -90,6 +93,7 @@ internal fun WatchlistSheets(
                 ui.askRemoveNotTraded = false
                 viewModel.deleteNotTradedWithUndo { count ->
                     if (count > 0) {
+                        haptics.play(HapticEvent.DESTRUCTIVE)
                         banner.show(
                             resources.getQuantityString(R.plurals.watchlist_removed_not_traded, count, count)
                         ) { viewModel.undoDelete(NOT_TRADED_UNDO_KEY) }
@@ -110,6 +114,7 @@ internal fun WatchlistSheets(
                 ui.askClearAll = false
                 viewModel.deleteAllWithUndo { count ->
                     if (count > 0) {
+                        haptics.play(HapticEvent.DESTRUCTIVE)
                         banner.show(resources.getQuantityString(R.plurals.watchlist_removed_count, count, count)) {
                             viewModel.undoDelete(CLEAR_ALL_UNDO_KEY)
                         }
@@ -137,7 +142,7 @@ internal fun WatchlistSheets(
                     viewModel.setNotificationEnabled(watch, it)
                 },
                 onTtsChange = { viewModel.setTtsEnabled(watch, it) },
-                onToggleFavorite = { viewModel.toggleFavorite(watch) },
+                onToggleFavorite = { haptics.play(HapticEvent.LIGHT_IMPACT); viewModel.toggleFavorite(watch) },
                 // Zurück aus «Alarme» öffnet dieses Blatt wieder
                 onOpenAlarms = { ui.returnToActions = watch.id; ui.actionsFor = null; onOpenAlarms(watch.id) },
                 onRefresh = { viewModel.refreshOneByUser(watch) },
@@ -210,10 +215,12 @@ internal fun WatchlistSheets(
             watches = watches,
             groups = groups,
             onDone = { newName, ids ->
+                haptics.play(HapticEvent.SUCCESS)
                 viewModel.saveGroup(if (ui.editGroupIsNew) null else name, newName, ids)
                 ui.editGroup = null
             },
             onDelete = {
+                haptics.play(HapticEvent.DESTRUCTIVE)
                 viewModel.deleteGroup(name)
                 ui.editGroup = null
             },

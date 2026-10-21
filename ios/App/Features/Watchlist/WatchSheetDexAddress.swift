@@ -19,7 +19,7 @@ struct DexTokenAddressLine: View {
                 // Android markiert die Adresse als vertraulich)
                 UIPasteboard.general.setItems([[UTType.plainText.identifier: address]],
                                               options: [.localOnly: true, .expirationDate: Date().addingTimeInterval(60)])
-                WatchlistHaptics.selection()
+                Haptics.play(.success)
                 confirmCopy()
             } label: {
                 Text(copied ? L("dex_token_address_copied") : BidiText.isolate(DexTokenAddress.shown(address)))
