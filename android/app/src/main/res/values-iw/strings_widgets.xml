@@ -6,7 +6,7 @@
     <string name="widget_configure_title">הגדרת ווידג׳ט</string>
     <string name="widget_description">מציג את המחיר של צמד מרשימת המעקב שלך.</string>
     <string name="widget_empty">אין עדיין צמדים ברשימת המעקב.</string>
-    <string name="widget_group_hint">הצג רק את הצמדים של קבוצה זו.</string>
+    <string name="widget_group_hint">הצגת הצמדים של קבוצה זו בלבד.</string>
     <string name="widget_kind_single">מטבע אחד</string>
     <string name="widget_opacity">אטימות הרקע: %1$s</string>
     <string name="widget_pulse_description">מה בולט כרגע בשוק: כותרת, סיכום קצר וגם Bitcoin, Ethereum ו־Solana.</string>
@@ -37,7 +37,7 @@
     <string name="widget_portfolio_as_of">נכון ל-%1$s</string>
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">ההיסטוריה תגיע בקרוב</string>
-    <string name="widget_portfolio_description">השווי הכולל של תיק ההשקעות שלכם והשינוי היום</string>
+    <string name="widget_portfolio_description">השווי הכולל של תיק ההשקעות שלך והשינוי היום</string>
     <string name="widget_portfolio_display">תצוגה</string>
     <string name="widget_portfolio_display_conversion">המרה בלבד</string>
     <string name="widget_portfolio_display_conversion_usdt">המרה + USDT</string>
@@ -81,12 +81,12 @@
     <string name="single_widget_title">הגדרת ווידג׳ט מטבע יחיד</string>
 
     <!-- Widgets aus der App hinzufügen -->
-    <string name="widgets_add">הוסף</string>
+    <string name="widgets_add">הוספה</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
-    <string name="widgets_add_named">הוסף ווידג׳ט %1$s</string>
-    <string name="widgets_manual_text">מסך הבית שלכם לא יכול להוסיף ווידג׳טים מתוך האפליקציה. לחצו לחיצה ארוכה על מקום ריק במסך הבית, בחרו ״ווידג׳טים״ וחפשו ״Crypto Checker״.</string>
+    <string name="widgets_add_named">הוספת ווידג׳ט %1$s</string>
+    <string name="widgets_manual_text">מסך הבית שלך לא יכול להוסיף ווידג׳טים מתוך האפליקציה. לחצו לחיצה ארוכה על מקום ריק במסך הבית, בחרו ״ווידג׳טים״ וחפשו ״Crypto Checker״.</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
-    <string name="widgets_manual_title">הוסיפו את הווידג׳ט בעצמכם</string>
+    <string name="widgets_manual_title">הוספת הווידג׳ט באופן ידני</string>
     <string name="widgets_sheet_title">הוספת ווידג׳ט</string>
 
     <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->

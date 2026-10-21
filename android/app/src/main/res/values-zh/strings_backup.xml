@@ -50,6 +50,9 @@
     <plurals name="backup_restored_pairs">
         <item quantity="other">%1$d 个交易对</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">超出上限（%3$s 个交易对，每个交易对 %4$s 个提醒），将不会恢复：%1$s，%2$s。</string>
+    <string name="backup_restored_over_limits">超出上限（%3$s 个交易对，每个交易对 %4$s 个提醒），未恢复：%1$s，%2$s。</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">此设备上已没有应用加密数据的密钥，因此应用以空白状态启动。没有删除任何内容。要找回列表和投资组合，请在设置的「%1$s」中导入备份文件。</string>
@@ -64,7 +67,7 @@
     <string name="storage_recovery_restored_title">已保存的数据重新解锁</string>
     <string name="storage_recovery_restored_message">本设备之前的一个密钥重新打开了被搁置的数据，数据已恢复。在此期间保存的数据原样保留在旁边。</string>
     <string name="settings_reset_notice_title">设置已重置</string>
-    <string name="settings_reset_notice">无法读取设置，已恢复为默认值。请检查投资组合锁、警报间隔和货币。</string>
+    <string name="settings_reset_notice">无法读取设置，已恢复为默认值。请检查投资组合锁、提醒间隔和货币。</string>
     <string name="backup_restore_interrupted_title">恢复被中断</string>
     <string name="backup_restore_interrupted_rolled_back">恢复备份时应用被关闭。之前的数据已写回；未保留备份中的任何内容。</string>
     <string name="backup_restore_interrupted_incomplete">恢复备份时应用被关闭，之前的数据未能完全写回。请检查自选列表和投资组合，或在设置的“%1$s”中重新恢复备份。</string>

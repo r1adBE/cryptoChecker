@@ -2,7 +2,7 @@
 <resources>
     <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
     <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
-    <string name="a11y_alarm_fired">Сработал сигнал</string>
+    <string name="a11y_alarm_fired">Сработало оповещение</string>
     <string name="a11y_collapsed">Свёрнуто</string>
     <string name="a11y_converted">примерно %1$s</string>
     <string name="a11y_expanded">Развёрнуто</string>

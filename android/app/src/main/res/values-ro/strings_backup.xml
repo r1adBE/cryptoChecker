@@ -56,6 +56,9 @@
         <item quantity="few">%1$d perechi</item>
         <item quantity="other">%1$d de perechi</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">Peste limite (%3$s de perechi, %4$s alarme per pereche), nu vor fi restaurate: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Peste limite (%3$s de perechi, %4$s alarme per pereche), nerestaurate: %1$s, %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">Acest dispozitiv nu mai are cheia datelor criptate ale aplicației, așa că aceasta a pornit goală. Nu s-a șters nimic. Pentru a recupera lista și portofoliul, importă un fișier de backup în setări, la „%1$s”.</string>

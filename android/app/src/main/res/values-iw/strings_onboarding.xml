@@ -3,20 +3,20 @@
     <!-- Begrüssung beim ersten Start -->
     <string name="welcome_alert">התראה – מחיר, אחוז, נפח ותנועות חריגות</string>
     <string name="welcome_alert_q">מתי לקבל התראה?</string>
-    <string name="welcome_text">המחירים שלכם. ההתראות שלכם. הסקירה שלכם.\nבלי חשבון. בלי פרסומות. בלי מעקב.</string>
+    <string name="welcome_text">המחירים שלך. ההתראות שלך. הסקירה שלך.\nבלי חשבון. בלי פרסומות. בלי מעקב.</string>
     <string name="welcome_understand">הבנה – מה זז יחד עם מחיר עכשיו</string>
     <string name="welcome_understand_q">מה זז יחד איתו?</string>
-    <string name="welcome_watch">מעקב – המטבעות, המחירים והמגמות שלכם</string>
+    <string name="welcome_watch">מעקב – המטבעות, המחירים והמגמות שלך</string>
     <string name="welcome_watch_q">מה קורה?</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
-    <string name="starter_add_selected">הוסף לרשימת המעקב (%1$d)</string>
+    <string name="starter_add_selected">הוספה לרשימת המעקב (%1$d)</string>
     <string name="starter_loading_prices">טוען מחירים…</string>
     <string name="starter_search_coin">חיפוש מטבע אחר</string>
-    <string name="starter_select_all">בחר הכול</string>
-    <string name="starter_select_none">בטל בחירה</string>
+    <string name="starter_select_all">בחירת הכול</string>
+    <string name="starter_select_none">ביטול הבחירה</string>
     <string name="starter_title">התחילו עם המטבעות האלה</string>
-    <string name="starter_watch_alarm_hint">עקוב אחרי המחיר והגדר התראה</string>
+    <string name="starter_watch_alarm_hint">עקבו אחרי המחיר והגדירו התראה</string>
 
     <string name="starter_source_text">מחירים מ-%1$s ב-%2$s. בטלו את הבחירה במה שלא תרצו והוסיפו את השאר בבת אחת. אפשר לשנות בורסה וצמד לכל מטבע.</string>
 </resources>

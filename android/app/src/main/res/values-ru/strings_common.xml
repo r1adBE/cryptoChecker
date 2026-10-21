@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">Биржа сейчас недоступна – последние курсы остаются на экране.</string>
     <string name="error_market_unreachable_short">Биржа сейчас недоступна</string>
     <string name="loading_hint">Загрузка…</string>
-    <string name="no_internet_connection">Нет подключения к интернету. Проверьте Wi-Fi или мобильные данные и повторите попытку.</string>
+    <string name="no_internet_connection">Нет подключения к интернету. Проверь Wi-Fi или мобильные данные и повтори попытку.</string>
     <string name="option_off">Выкл.</string>
     <string name="something_went_wrong">Что-то пошло не так</string>
     <string name="time_just_now">только что</string>
-    <string name="timeout_error_message">Биржа сейчас не отвечает. Повторите попытку чуть позже.</string>
+    <string name="timeout_error_message">Биржа сейчас не отвечает. Повтори попытку чуть позже.</string>
     <string name="try_again">Повторить</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->
@@ -43,6 +43,10 @@
     <string name="shortcut_add">Добавить пару</string>
     <string name="shortcut_alarms">Все оповещения</string>
     <string name="shortcut_cycle">Рынок</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Добавить новую пару</string>
+    <string name="shortcut_alarms_long">Показать все оповещения</string>
+    <string name="shortcut_cycle_long">Обзор рынка</string>
 
     <string name="log_box_title">Журнал</string>
     <string name="label_value">%1$s: %2$s</string>

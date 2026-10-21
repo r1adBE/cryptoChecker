@@ -203,4 +203,5 @@
 
     <string name="watchlist_sort_by_coin">コイン別に並べ替え</string>
     <string name="watchlist_sort_by_exchange">取引所別に並べ替え</string>
+    <string name="watchlist_limit_reached">ウォッチリストに登録できるペアは最大%1$s件です。</string>
 </resources>

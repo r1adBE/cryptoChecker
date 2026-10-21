@@ -38,7 +38,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Cảnh báo</string>
-    <string name="channel_alarms_description">Thông báo khi cảnh báo giá được kích hoạt.</string>
+    <string name="channel_alarms_description">Thông báo khi cảnh báo được kích hoạt.</string>
     <string name="channel_alarms_quiet">Cảnh báo (giờ yên lặng)</string>
     <string name="channel_alarms_quiet_description">Cảnh báo im lặng trong giờ yên lặng.</string>
     <string name="channel_alarms_silent">Cảnh báo (im lặng)</string>

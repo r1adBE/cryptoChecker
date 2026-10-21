@@ -53,9 +53,8 @@ object LocalDataModule {
         @ApplicationContext context: Context,
         openHelperFactory: EncryptingOpenHelperFactory,
     ): AppDatabase {
-        // Überbleibsel des Vorgängerprojekts (anderer Name, andere Pakete) entfernen — wird nicht übernommen,
-        // darum auch nicht verschlüsselt
-        runCatching { context.deleteDatabase(AppDatabase.LEGACY_DB_NAME) }
+        // Überbleibsel des Vorgängerprojekts: seit Build 99 einmal im Hintergrund (LegacyDatabaseCleanup, beim Start
+        // der App) statt hier bei jedem Anlegen im Hauptthread
         return Room.databaseBuilder(context, AppDatabase::class.java, AppDatabase.DB_NAME)
             .openHelperFactory(openHelperFactory)
             .addMigrations(*AppDatabase.ALL_MIGRATIONS)

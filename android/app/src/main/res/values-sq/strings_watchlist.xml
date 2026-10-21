@@ -62,7 +62,7 @@
     <string name="watchlist_sort_descending">zbritës</string>
     <string name="watchlist_sort_hint">Mbaj dhe tërhiq një çift, ose përdor dorezën. Të preferuarat mbeten lart.</string>
     <string name="watchlist_sort_name">Emri</string>
-    <string name="watchlist_sort_own">Renditja juaj</string>
+    <string name="watchlist_sort_own">Renditja jote</string>
     <string name="watchlist_sort_price">Çmimi</string>
 
     <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
@@ -215,4 +215,5 @@
 
     <string name="watchlist_sort_by_coin">Rendit sipas monedhës</string>
     <string name="watchlist_sort_by_exchange">Rendit sipas bursës</string>
+    <string name="watchlist_limit_reached">Lista jote e ndjekjes mund të ketë më së shumti %1$s çifte.</string>
 </resources>

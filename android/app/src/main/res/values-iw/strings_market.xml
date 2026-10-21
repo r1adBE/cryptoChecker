@@ -155,7 +155,7 @@
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>
     <!-- Screenreader-Aktion einer Zeile (öffnet das Aktionsblatt bzw. die Vorschau) -->
-    <string name="unusual_action_open">הצג מחיר ופעולות</string>
+    <string name="unusual_action_open">הצגת מחיר ופעולות</string>
     <string name="unusual_fact_against">נע נגד השוק</string>
     <string name="unusual_fact_funding_high">מימון גבוה (%1$s)</string>
     <string name="unusual_fact_funding_negative">מימון שלילי (%1$s)</string>
@@ -266,7 +266,7 @@
     <string name="movers_a11y_row">%1$s (%2$s), %3$s</string>
 
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: kompakt je drei Zeilen; klappt auf alle (bis fünf) auf -->
-    <string name="market_movers_show_all">הצג הכול</string>
+    <string name="market_movers_show_all">הצגת הכול</string>
     <!-- Markt › Jetzt › «Gewinner und Verlierer 24 h»: klappt wieder auf je drei Zeilen zu -->
-    <string name="market_movers_show_less">הצג פחות</string>
+    <string name="market_movers_show_less">הצגת פחות</string>
 </resources>

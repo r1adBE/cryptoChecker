@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.AlarmCondition
+import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
 
@@ -175,4 +176,19 @@ internal fun DexLowLiquidityNote() {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
+}
+
+/** «Ein Paar kann höchstens 10 Alarme haben.» (Zahl im Format der App-Sprache, [WatchlistLimits]). */
+@Composable
+internal fun alarmLimitText(): String =
+    stringResource(R.string.alarms_limit_reached, LocaleNumbers.integer(WatchlistLimits.MAX_ALARMS_PER_PAIR))
+
+/** Paar hat schon die Höchstzahl Alarme: statt «Neuer Alarm» dieser Hinweis über der Liste. */
+@Composable
+internal fun AlarmLimitNote() {
+    Text(
+        alarmLimitText(),
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
 }

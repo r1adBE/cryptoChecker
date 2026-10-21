@@ -39,7 +39,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alarmen</string>
-    <string name="channel_alarms_description">Melding wanneer een koersalarm afgaat.</string>
+    <string name="channel_alarms_description">Melding wanneer een alarm afgaat.</string>
     <string name="channel_alarms_quiet">Alarmen (stille uren)</string>
     <string name="channel_alarms_quiet_description">Geluidloze alarmen tijdens stille uren.</string>
     <string name="channel_alarms_silent">Alarmen (stil)</string>

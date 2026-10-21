@@ -126,4 +126,9 @@
     <string name="dex_token_address_copy">Copia l\'indirizzo del token</string>
     <string name="dex_token_address_copied">Indirizzo del token copiato</string>
     <string name="dex_token_address_label">Indirizzo del token che termina con %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d coppia non aggiunta: la tua lista di osservazione può contenere al massimo %2$s coppie.</item>
+        <item quantity="many">%1$d coppie non aggiunte: la tua lista di osservazione può contenere al massimo %2$s coppie.</item>
+        <item quantity="other">%1$d coppie non aggiunte: la tua lista di osservazione può contenere al massimo %2$s coppie.</item>
+    </plurals>
 </resources>

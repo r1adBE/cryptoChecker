@@ -18,6 +18,7 @@ import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
+import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.refresh.ManualRefresh
 import com.cryptochecker.app.domain.refresh.PriceRefresher

@@ -15,7 +15,7 @@
     <plurals name="explorer_lists_missing">
         <item quantity="other">Daftar pasangan dari %1$d bursa belum ada di perangkat.</item>
     </plurals>
-    <string name="explorer_lists_privacy">Memuat daftar publik lengkap tiap bursa – sama untuk semua orang. Pencarian Anda tetap di perangkat.</string>
+    <string name="explorer_lists_privacy">Memuat daftar publik lengkap tiap bursa – sama untuk semua orang. Pencarianmu tetap di perangkat.</string>
     <!-- Paar hinzufügen: Suche über alle Börsen, zuletzt gesucht -->
     <string name="explorer_recent_a11y">Pencarian terakhir: %1$s</string>
     <string name="explorer_recent_clear">Hapus</string>
@@ -110,4 +110,7 @@
     <string name="dex_token_address_copy">Salin alamat token</string>
     <string name="dex_token_address_copied">Alamat token disalin</string>
     <string name="dex_token_address_label">Alamat token berakhiran %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="other">%1$d pasangan tidak ditambahkan – daftar pantaumu dapat berisi paling banyak %2$s pasangan.</item>
+    </plurals>
 </resources>

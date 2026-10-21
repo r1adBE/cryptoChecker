@@ -13,10 +13,9 @@ enum DateFormatterCache {
     private static let state = LockedBox(State())
 
     /// `date` formatiert mit dem Formatter für `purpose` (eindeutiger Name des Zwecks); `configure` stellt ihn beim
-    /// ersten Mal ein (Stil bzw. Vorlage) — `locale` und die aktuelle Zeitzone sind schon gesetzt.
-    static func string(_ date: Date, purpose: String, locale: Locale = .current,
+    /// ersten Mal ein (Stil bzw. Vorlage) — `locale` und die Zeitzone (Vorgabe: die aktuelle) sind schon gesetzt.
+    static func string(_ date: Date, purpose: String, locale: Locale = .current, timeZone: TimeZone = .current,
                        configure: (DateFormatter) -> Void) -> String {
-        let timeZone = TimeZone.current
         let key = "\(purpose)|\(locale.identifier)|\(timeZone.identifier)"
         var text = ""
         var startObserving = false

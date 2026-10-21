@@ -227,4 +227,5 @@
 
     <string name="watchlist_sort_by_coin">Ordina per moneta</string>
     <string name="watchlist_sort_by_exchange">Ordina per exchange</string>
+    <string name="watchlist_limit_reached">La tua lista di osservazione può contenere al massimo %1$s coppie.</string>
 </resources>

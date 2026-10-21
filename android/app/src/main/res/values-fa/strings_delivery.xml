@@ -19,7 +19,7 @@
     <string name="delivery_exact_off">خاموش – Android نامنظم بررسی می‌کند</string>
     <string name="delivery_battery">بهینه‌سازی باتری</string>
     <string name="delivery_battery_unrestricted">بدون محدودیت</string>
-    <string name="delivery_battery_optimized">بهینه‌شده – Android ممکن است بررسی‌ها را به تأخیر بیندازد. برنامه درخواست استثنا نمی‌کند؛ می‌توانید این را در تنظیمات باتری برنامه تغییر دهید.</string>
+    <string name="delivery_battery_optimized">بهینه‌شده – Android ممکن است بررسی‌ها را به تأخیر بیندازد. برنامه درخواست استثنا نمی‌کند؛ می‌توانی این را در تنظیمات باتری برنامه تغییر دهی.</string>
     <string name="delivery_background">استفاده در پس‌زمینه</string>
     <string name="delivery_background_restricted">محدود – Android بررسی‌های پس‌زمینه را متوقف می‌کند</string>
     <string name="delivery_dnd">مزاحم نشوید</string>
@@ -44,20 +44,20 @@
     <string name="delivery_time_sensitive_off">خاموش – یک حالت تمرکز ممکن است هشدارها را نگه دارد</string>
     <string name="delivery_background_refresh">بازخوانی در پس‌زمینه</string>
     <string name="delivery_low_power">حالت کم‌مصرف</string>
-    <string name="delivery_swipe_away">برنامه را با کشیدن بستید؟</string>
-    <string name="delivery_swipe_away_note">اگر برنامه را در تعویض‌گر برنامه‌ها با کشیدن ببندید، iOS تا باز کردن دوباره آن در پس‌زمینه بررسی نمی‌کند.</string>
+    <string name="delivery_swipe_away">برنامه را با کشیدن بستی؟</string>
+    <string name="delivery_swipe_away_note">اگر برنامه را در تعویض‌گر برنامه‌ها با کشیدن ببند، iOS تا باز کردن دوباره آن در پس‌زمینه بررسی نمی‌کند.</string>
     <string name="delivery_live_activity">فعالیت زنده</string>
     <string name="delivery_live_activity_note">قیمت را روی صفحه قفل نشان می‌دهد، اما فقط هنگام بررسی برنامه به‌روز می‌شود – با این کار هشدارها بیشتر بررسی نمی‌شوند.</string>
 
     <string name="alarm_first_check">بررسی رسیدن هشدارها</string>
 
     <string name="oem_battery_title">صرفه‌جویی باتری سازنده</string>
-    <string name="oem_battery_xiaomi">Xiaomi ممکن است برنامه را کاملاً متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» را روشن و صرفه‌جویی باتری را روی «بدون محدودیت» بگذارید.</string>
-    <string name="oem_battery_samsung">Samsung ممکن است برنامه را به خواب عمیق ببرد – آن‌وقت هیچ هشداری نمی‌رسد. در باتری › محدودیت‌های استفاده در پس‌زمینه آن را به «برنامه‌هایی که هرگز نمی‌خوابند» اضافه کنید.</string>
-    <string name="oem_battery_huawei">Huawei/Honor ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. در باتری › راه‌اندازی برنامه «مدیریت دستی» را انتخاب و همه را مجاز کنید.</string>
-    <string name="oem_battery_oneplus">OnePlus ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در مصرف باتری فعالیت پس‌زمینه را مجاز کنید.</string>
-    <string name="oem_battery_oppo">Oppo/Realme ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در مصرف باتری فعالیت پس‌زمینه را مجاز کنید.</string>
-    <string name="oem_battery_vivo">Vivo ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در باتری مصرف بالای پس‌زمینه را مجاز کنید.</string>
+    <string name="oem_battery_xiaomi">Xiaomi ممکن است برنامه را کاملاً متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» را روشن و صرفه‌جویی باتری را روی «بدون محدودیت» بگذار.</string>
+    <string name="oem_battery_samsung">Samsung ممکن است برنامه را به خواب عمیق ببرد – آن‌وقت هیچ هشداری نمی‌رسد. در باتری › محدودیت‌های استفاده در پس‌زمینه آن را به «برنامه‌هایی که هرگز نمی‌خوابند» اضافه کن.</string>
+    <string name="oem_battery_huawei">Huawei/Honor ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. در باتری › راه‌اندازی برنامه «مدیریت دستی» را انتخاب و همه را مجاز کن.</string>
+    <string name="oem_battery_oneplus">OnePlus ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در مصرف باتری فعالیت پس‌زمینه را مجاز کن.</string>
+    <string name="oem_battery_oppo">Oppo/Realme ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در مصرف باتری فعالیت پس‌زمینه را مجاز کن.</string>
+    <string name="oem_battery_vivo">Vivo ممکن است برنامه را متوقف کند – آن‌وقت هیچ هشداری نمی‌رسد. «شروع خودکار» و در باتری مصرف بالای پس‌زمینه را مجاز کن.</string>
     <string name="alarm_reliability_recent">آخرین بررسی %1$s</string>
     <string name="alarm_reliability_stale">آخرین بررسی %1$s – ممکن است هشدارها دیر برسند</string>
     <string name="alarm_reliability_never">هشدارها فعال – هنوز بررسی‌ای در پس‌زمینه انجام نشده</string>

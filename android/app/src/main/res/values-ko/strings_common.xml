@@ -43,6 +43,10 @@
     <string name="shortcut_add">거래쌍 추가</string>
     <string name="shortcut_alarms">모든 경보</string>
     <string name="shortcut_cycle">시장</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">새 거래쌍 추가</string>
+    <string name="shortcut_alarms_long">모든 경보 보기</string>
+    <string name="shortcut_cycle_long">시장 개요 열기</string>
 
     <string name="log_box_title">로그</string>
     <string name="label_value">%1$s: %2$s</string>

@@ -10,9 +10,9 @@
     <string name="notification_fng_above">Index stoupl nad %1$d – podle tohoto indexu na trhu převládá chamtivost.</string>
     <string name="notification_fng_below">Index klesl pod %1$d – podle tohoto indexu na trhu převládá strach.</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_gas_btc_text">Pod vaším limitem %1$s sat/vB · Převod ≈ %2$s</string>
+    <string name="notification_gas_btc_text">Pod tvým limitem %1$s sat/vB · Převod ≈ %2$s</string>
     <string name="notification_gas_btc_title">Poplatek Bitcoin: %1$s sat/vB</string>
-    <string name="notification_gas_eth_text">Pod vaším limitem %1$s gwei · Převod ≈ %2$s</string>
+    <string name="notification_gas_eth_text">Pod tvým limitem %1$s gwei · Převod ≈ %2$s</string>
     <string name="notification_gas_eth_title">Ethereum gas: %1$s gwei</string>
     <string name="notification_indicator_above">Nad tvou hranicí %1$s – naměřená hodnota, ne doporučení.</string>
     <string name="notification_indicator_below">Pod tvou hranicí %1$s – naměřená hodnota, ne doporučení.</string>
@@ -20,7 +20,7 @@
     <string name="notification_macro_title">Dnes ekonomická data</string>
     <string name="notification_permission_preprompt_continue">Pokračovat</string>
     <string name="notification_permission_preprompt_later">Později</string>
-    <string name="notification_permission_preprompt_text">Aby k vám upozornění a cenová oznámení dorazila, aplikace potřebuje povolení k oznámením. Aplikace je používá jen pro vaše upozornění a cenová oznámení.</string>
+    <string name="notification_permission_preprompt_text">Aby k tobě alarmy a cenová oznámení dorazily, aplikace potřebuje povolení k oznámením. Aplikace je používá jen pro tvoje alarmy a cenová oznámení.</string>
     <string name="notification_permission_preprompt_title">Povolit oznámení?</string>
     <string name="notification_portfolio_alarm_locked">Tvůj alarm se spustil – otevři aplikaci pro podrobnosti.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
@@ -41,7 +41,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alarmy</string>
-    <string name="channel_alarms_description">Oznámení při spuštění cenového alarmu.</string>
+    <string name="channel_alarms_description">Oznámení při spuštění alarmu.</string>
     <string name="channel_alarms_quiet">Alarmy (noční klid)</string>
     <string name="channel_alarms_quiet_description">Tiché alarmy během nočního klidu.</string>
     <string name="channel_alarms_silent">Alarmy (tiše)</string>

@@ -10,9 +10,9 @@
     <string name="watchlist_last_run">Τελευταία εκτέλεση %1$s</string>
     <string name="watchlist_live_a11y">Τιμές live ενεργές</string>
     <string name="watchlist_offline_since">Χωρίς σύνδεση · κατάσταση %1$s</string>
-    <string name="watchlist_pull_to_refresh">Σύρετε προς τα κάτω για ανανέωση</string>
+    <string name="watchlist_pull_to_refresh">Σύρε προς τα κάτω για ανανέωση</string>
     <string name="watchlist_refresh_report">Τελευταία ανανέωση</string>
-    <string name="watchlist_refresh_report_empty">Δεν υπάρχει ανάλυση ακόμα: δεν έχει γίνει ακόμη πλήρης ανανέωση. Πατήστε ανανέωση και περιμένετε να σταματήσει η ένδειξη φόρτωσης.</string>
+    <string name="watchlist_refresh_report_empty">Δεν υπάρχει ανάλυση ακόμα: δεν έχει γίνει ακόμη πλήρης ανανέωση. Πάτα ανανέωση και περίμενε να σταματήσει η ένδειξη φόρτωσης.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d από %2$d παρωχημένο</item>
         <item quantity="other">%1$d από %2$d παρωχημένα</item>
@@ -60,9 +60,9 @@
     <string name="watchlist_search_open">Αναζήτηση</string>
     <string name="watchlist_sort_ascending">αύξουσα</string>
     <string name="watchlist_sort_descending">φθίνουσα</string>
-    <string name="watchlist_sort_hint">Κρατήστε και σύρετε ένα ζεύγος ή χρησιμοποιήστε τη λαβή. Τα αγαπημένα μένουν πάνω.</string>
+    <string name="watchlist_sort_hint">Κράτα και σύρε ένα ζεύγος ή χρησιμοποίησε τη λαβή. Τα αγαπημένα μένουν πάνω.</string>
     <string name="watchlist_sort_name">Όνομα</string>
-    <string name="watchlist_sort_own">Δική σας σειρά</string>
+    <string name="watchlist_sort_own">Δική σου σειρά</string>
     <string name="watchlist_sort_price">Τιμή</string>
 
     <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
@@ -103,10 +103,10 @@
         <item quantity="one">Συναγερμός (%1$d)</item>
         <item quantity="other">Συναγερμοί (%1$d)</item>
     </plurals>
-    <string name="watchlist_favorites_empty_hint">Δεν υπάρχουν ακόμη αγαπημένα. Σύρετε ένα ζεύγος προς τα δεξιά ή ανοίξτε το και πατήστε «Αγαπημένο».</string>
-    <string name="watchlist_group_empty_hint">Πατήστε παρατεταμένα μια ομάδα για να επιλέξετε τα ζεύγη της.</string>
+    <string name="watchlist_favorites_empty_hint">Δεν υπάρχουν ακόμη αγαπημένα. Σύρε ένα ζεύγος προς τα δεξιά ή άνοιξέ το και πάτα «Αγαπημένο».</string>
+    <string name="watchlist_group_empty_hint">Πάτα παρατεταμένα μια ομάδα για να επιλέξεις τα ζεύγη της.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
-    <string name="watchlist_groups_empty_hint">Εδώ θα εμφανίζονται οι ομάδες σας</string>
+    <string name="watchlist_groups_empty_hint">Εδώ θα εμφανίζονται οι ομάδες σου</string>
     <string name="watchlist_notification">Ειδοποίηση τιμής</string>
     <string name="watchlist_tts">Εκφώνηση τιμής</string>
     <string name="watchlist_tts_speech_on">Η φωνητική έξοδος είναι ενεργή. Μπορείς να την αλλάξεις στο Ρυθμίσεις › Για προχωρημένους › Φωνητική έξοδος.</string>
@@ -123,15 +123,15 @@
     <string name="watch_disabled">Απενεργοποιημένο</string>
     <string name="watch_disabled_banner">Το %1$s απενεργοποιήθηκε</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
-    <string name="watch_edit_alarms_warning">Οι συναγερμοί παραμένουν – ελέγξτε τα όρια</string>
+    <string name="watch_edit_alarms_warning">Οι συναγερμοί παραμένουν – έλεγξε τα όρια</string>
     <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
     <string name="watch_edit_title">Επεξεργασία ζεύγους</string>
     <string name="watch_enable">Ενεργοποίηση</string>
     <string name="watch_enable_hint">Οι τιμές και οι ειδοποιήσεις επανέρχονται</string>
     <string name="watch_enabled_banner">Το %1$s ενεργοποιήθηκε</string>
     <string name="watch_error_offline">Χωρίς σύνδεση</string>
-    <string name="watch_gesture_hint_short">Πατήστε: συναγερμός και «Τι κινείται μαζί;» · παρατεταμένο πάτημα για επιλογή · σύρετε αριστερά για διαγραφή · δεξιά για αγαπημένο</string>
-    <string name="watch_hint_tap_why">Πατήστε ένα νόμισμα για συναγερμό και «Τι κινείται μαζί;»</string>
+    <string name="watch_gesture_hint_short">Πάτα: συναγερμός και «Τι κινείται μαζί;» · παρατεταμένο πάτημα για επιλογή · σύρε αριστερά για διαγραφή · δεξιά για αγαπημένο</string>
+    <string name="watch_hint_tap_why">Πάτα ένα νόμισμα για συναγερμό και «Τι κινείται μαζί;»</string>
     <string name="watch_not_traded">Δεν διαπραγματεύεται πλέον σε αυτό το ανταλλακτήριο</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Δεν είναι στη λίστα</string>
@@ -150,7 +150,7 @@
     <string name="favorite_added">Το %1$s προστέθηκε στα αγαπημένα</string>
     <string name="favorite_remove">Αφαίρεση από τα αγαπημένα</string>
     <string name="favorite_removed">Το %1$s αφαιρέθηκε από τα αγαπημένα</string>
-    <string name="hint_favorites_list">Συμβουλή: σύρετε μια γραμμή προς τα δεξιά για αγαπημένο – τα αγαπημένα μένουν πάνω.</string>
+    <string name="hint_favorites_list">Συμβουλή: σύρε μια γραμμή προς τα δεξιά για αγαπημένο – τα αγαπημένα μένουν πάνω.</string>
 
     <!-- Gruppen und Chips der Merkliste -->
     <string name="group_add">Νέα ομάδα</string>
@@ -184,7 +184,7 @@
     <string name="note_title">Σημείωση</string>
 
     <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
-    <string name="sort_drag_handle">Σύρετε για μετακίνηση</string>
+    <string name="sort_drag_handle">Σύρε για μετακίνηση</string>
     <string name="sort_move_bottom">Στο τέλος</string>
     <string name="sort_move_down">Κάτω</string>
     <string name="sort_move_top">Στην κορυφή</string>
@@ -215,4 +215,5 @@
 
     <string name="watchlist_sort_by_coin">Ταξινόμηση ανά νόμισμα</string>
     <string name="watchlist_sort_by_exchange">Ταξινόμηση ανά ανταλλακτήριο</string>
+    <string name="watchlist_limit_reached">Η λίστα παρακολούθησης μπορεί να έχει έως %1$s ζεύγη.</string>
 </resources>

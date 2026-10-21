@@ -206,7 +206,8 @@ fun PortfolioViewModel.addAlarm(
     repeating: Boolean,
     onSaved: (PortfolioAlarmEntity, Boolean) -> Unit = { _, _ -> },
 ) {
-    viewModelScope.launch {
+    // Doppeltipp: ein zweites «Speichern», solange das erste Anlegen läuft, bleibt ohne Wirkung (seit Build 99)
+    alarmCreateGuard.launch(viewModelScope, guarded = true) {
         val code = currency.value
         val id = safe { alarmRepository.add(kind, threshold, code, repeating) }
         if (id != null) {

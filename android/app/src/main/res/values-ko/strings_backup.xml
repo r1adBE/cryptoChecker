@@ -39,7 +39,7 @@
     <string name="backup_restore_app_lock_kept">포트폴리오 잠금은 켜진 채로 유지됩니다. 암호화되지 않은 백업으로는 끌 수 없습니다.</string>
     <string name="backup_restore_confirm">가져오면 목록(메모와 그룹 포함), 경보, 즐겨찾기, 포트폴리오, 설정이 백업 내용으로 바뀝니다.</string>
     <plurals name="backup_restore_invalid">
-        <item quantity="other">백업의 항목 %d개(포트폴리오 또는 알람)가 유효하지 않아 가져오지 않습니다.</item>
+        <item quantity="other">백업의 항목 %d개(포트폴리오 또는 경보)가 유효하지 않아 가져오지 않습니다.</item>
     </plurals>
     <string name="backup_restore_newer_version">이 백업은 더 새로운 앱 버전에서 만들어졌습니다. 먼저 앱을 업데이트하세요. 아무것도 가져오지 않았습니다.</string>
     <string name="backup_restore_unencrypted_warning">이 백업은 암호화되지 않았습니다. 본인의 것인지 확인하세요. 설정은 적용되며, 켜져 있는 포트폴리오 잠금은 그대로 유지됩니다.</string>
@@ -50,6 +50,9 @@
     <plurals name="backup_restored_pairs">
         <item quantity="other">거래쌍 %1$d개</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">한도(거래쌍 %3$s개, 거래쌍당 경보 %4$s개)를 넘어 복원되지 않습니다: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">한도(거래쌍 %3$s개, 거래쌍당 경보 %4$s개)를 넘어 복원되지 않았습니다: %1$s, %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">이 기기에 앱의 암호화된 데이터 키가 더 이상 없어 앱이 빈 상태로 시작되었습니다. 삭제된 것은 없습니다. 목록과 포트폴리오를 되찾으려면 설정의 “%1$s”에서 백업 파일을 가져오세요.</string>
@@ -64,7 +67,7 @@
     <string name="storage_recovery_restored_title">저장된 데이터가 다시 잠금 해제됨</string>
     <string name="storage_recovery_restored_message">이 기기의 이전 키로 따로 보관했던 데이터를 다시 열 수 있어 데이터가 돌아왔습니다. 그사이 저장된 데이터는 그대로 옆에 보관됩니다.</string>
     <string name="settings_reset_notice_title">설정이 초기화됨</string>
-    <string name="settings_reset_notice">설정을 읽을 수 없어 기본값으로 초기화했습니다. 포트폴리오 잠금, 알림 간격, 통화를 확인하세요.</string>
+    <string name="settings_reset_notice">설정을 읽을 수 없어 기본값으로 초기화했습니다. 포트폴리오 잠금, 경보 간격, 통화를 확인하세요.</string>
     <string name="backup_restore_interrupted_title">복원이 중단되었습니다</string>
     <string name="backup_restore_interrupted_rolled_back">백업을 복원하는 중에 앱이 종료되었습니다. 이전 데이터를 되돌렸으며 백업의 내용은 반영되지 않았습니다.</string>
     <string name="backup_restore_interrupted_incomplete">백업을 복원하는 중에 앱이 종료되어 이전 데이터를 완전히 되돌리지 못했습니다. 관심 목록과 포트폴리오를 확인하거나 설정의 \'%1$s\'에서 백업을 다시 복원하세요.</string>

@@ -2,9 +2,9 @@
 <resources>
     <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
     <string name="cost_gaps_card">Záznamy bez pořizovací ceny: %1$d</string>
-    <string name="cost_gaps_card_text">Doplňte pořizovací cenu, aby zisk a daně byly úplné.</string>
+    <string name="cost_gaps_card_text">Doplň pořizovací cenu, aby zisk a daně byly úplné.</string>
     <string name="cost_gaps_sheet_title">Záznamy bez pořizovací ceny</string>
-    <string name="cost_gaps_sheet_intro">Těmto příjmům chybí pořizovací cena. Návrh je denní závěrečný kurz data – můžete jej upravit v záznamu.</string>
+    <string name="cost_gaps_sheet_intro">Těmto příjmům chybí pořizovací cena. Návrh je denní závěrečný kurz data – můžeš jej upravit v záznamu.</string>
     <string name="cost_gaps_empty">Všechny záznamy mají pořizovací cenu.</string>
     <string name="cost_gap_enter">Zadat pořizovací cenu</string>
     <string name="cost_gap_leave_unknown">Ponechat neznámé</string>
@@ -20,7 +20,7 @@
     <string name="cost_gap_apply">Použít</string>
     <string name="address_lots_action">Pořizovací cena zůstatku adresy</string>
     <string name="address_lots_title">Pořizovací cena zůstatku adresy</string>
-    <string name="address_lots_intro">Zadejte datum nákupu, množství a pořizovací cenu pro zůstatek této adresy. Položky se počítají jako nákupy na této adrese; nepokrytá část zůstává bez pořizovací ceny.</string>
+    <string name="address_lots_intro">Zadej datum nákupu, množství a pořizovací cenu pro zůstatek této adresy. Položky se počítají jako nákupy na této adrese; nepokrytá část zůstává bez pořizovací ceny.</string>
     <string name="address_lots_add">Přidat položku</string>
     <string name="address_lots_new">Nová položka</string>
     <string name="address_lots_edit">Položka</string>
@@ -36,5 +36,5 @@
     <!-- %1$s = Menge der Posten über dem Guthaben -->
     <string name="address_lots_capped">Položky převyšují zůstatek o %1$s – nejstarší se spotřebují jako první.</string>
     <string name="address_lots_not_loaded">Zůstatek ještě není načten – položky se započtou, jakmile bude.</string>
-    <string name="address_lots_invalid">Zadejte množství a pořizovací cenu</string>
+    <string name="address_lots_invalid">Zadej množství a pořizovací cenu</string>
 </resources>

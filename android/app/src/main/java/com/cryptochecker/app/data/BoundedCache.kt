@@ -4,6 +4,12 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 /**
+ * Übliche Grenze für Zwischenspeicher je Paar bzw. Coin im Arbeitsspeicher (seit Build 99): weit über einer
+ * gewöhnlichen Merkliste bzw. einem Portfolio, aber nicht unbegrenzt über die Lebensdauer des Prozesses.
+ */
+const val MEMORY_CACHE_ENTRIES = 512
+
+/**
  * Thread-sicherer Zwischenspeicher mit höchstens [maxEntries] Einträgen: der am längsten nicht benutzte fällt
  * heraus (LRU über `LinkedHashMap` in Zugriffsreihenfolge). Seit Build 98 statt einer unbegrenzten
  * `ConcurrentHashMap` — Paare, die einmal in der Merkliste standen, blieben sonst bis zum Prozessende im Speicher.
@@ -25,6 +31,21 @@ class BoundedCache<K : Any, V : Any>(private val maxEntries: Int) {
             val current = map[key]
             map[key] = if (current == null) value else remap(current, value)
         }
+    }
+
+    /** Wie `ConcurrentHashMap.putIfAbsent`: nur ohne vorhandenen Eintrag setzen; gibt den vorhandenen zurück. */
+    fun putIfAbsent(key: K, value: V): V? = synchronized(map) {
+        map[key] ?: run {
+            map[key] = value
+            null
+        }
+    }
+
+    fun remove(key: K): V? = synchronized(map) { map.remove(key) }
+
+    /** Alle Einträge entfernen, deren Schlüssel [predicate] erfüllt (z. B. alle eines Paars). */
+    fun removeKeysIf(predicate: (K) -> Boolean) {
+        synchronized(map) { map.keys.removeAll(predicate) }
     }
 
     /** Abzug aller Einträge (zum Speichern), ohne die Zugriffsreihenfolge zu ändern. */

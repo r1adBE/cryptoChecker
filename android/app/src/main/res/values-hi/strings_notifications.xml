@@ -4,25 +4,25 @@
     <string name="notification_activity_title">उल्लेखनीय: %1$s · %2$s</string>
     <string name="notification_alarm_text">%1$s — अभी %2$s</string>
     <string name="notification_alarm_title">अलार्म: %1$s · %2$s</string>
-    <string name="notification_depeg_action_exchange">एक्सचेंज खोलें</string>
+    <string name="notification_depeg_action_exchange">एक्सचेंज खोलो</string>
     <string name="notification_depeg_text">ऐप में मान इसी बाज़ार भाव से गिने जाते हैं।</string>
     <string name="notification_depeg_title">USDT %1$s USD पर (%2$s)</string>
     <string name="notification_fng_above">सूचकांक %1$d से ऊपर गया – इस सूचकांक के अनुसार बाज़ार में लालच है।</string>
     <string name="notification_fng_below">सूचकांक %1$d से नीचे गया – इस सूचकांक के अनुसार बाज़ार में डर है।</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_gas_btc_text">आपकी %1$s sat/vB की सीमा से नीचे · ट्रांसफ़र ≈ %2$s</string>
+    <string name="notification_gas_btc_text">तुम्हारी %1$s sat/vB की सीमा से नीचे · ट्रांसफ़र ≈ %2$s</string>
     <string name="notification_gas_btc_title">Bitcoin शुल्क: %1$s sat/vB</string>
-    <string name="notification_gas_eth_text">आपकी %1$s gwei की सीमा से नीचे · ट्रांसफ़र ≈ %2$s</string>
+    <string name="notification_gas_eth_text">तुम्हारी %1$s gwei की सीमा से नीचे · ट्रांसफ़र ≈ %2$s</string>
     <string name="notification_gas_eth_title">Ethereum गैस: %1$s gwei</string>
-    <string name="notification_indicator_above">आपकी सीमा %1$s से ऊपर – मापा गया मान, सिफ़ारिश नहीं।</string>
-    <string name="notification_indicator_below">आपकी सीमा %1$s से नीचे – मापा गया मान, सिफ़ारिश नहीं।</string>
+    <string name="notification_indicator_above">तुम्हारी सीमा %1$s से ऊपर – मापा गया मान, सिफ़ारिश नहीं।</string>
+    <string name="notification_indicator_below">तुम्हारी सीमा %1$s से नीचे – मापा गया मान, सिफ़ारिश नहीं।</string>
     <string name="notification_indicator_title">%1$s: %2$s</string>
     <string name="notification_macro_title">आज आर्थिक आँकड़े</string>
-    <string name="notification_permission_preprompt_continue">जारी रखें</string>
+    <string name="notification_permission_preprompt_continue">जारी रखो</string>
     <string name="notification_permission_preprompt_later">बाद में</string>
-    <string name="notification_permission_preprompt_text">अलार्म और प्राइस नोटिफ़िकेशन आप तक पहुँचें, इसके लिए ऐप को नोटिफ़िकेशन की अनुमति चाहिए। ऐप इनका उपयोग केवल आपके अलार्म और प्राइस नोटिफ़िकेशन के लिए करता है।</string>
-    <string name="notification_permission_preprompt_title">नोटिफ़िकेशन की अनुमति दें?</string>
-    <string name="notification_portfolio_alarm_locked">आपका अलार्म बजा – विवरण के लिए ऐप खोलें।</string>
+    <string name="notification_permission_preprompt_text">अलार्म और प्राइस नोटिफ़िकेशन तुम तक पहुँचें, इसके लिए ऐप को नोटिफ़िकेशन की अनुमति चाहिए। ऐप इनका उपयोग केवल तुम्हारे अलार्म और प्राइस नोटिफ़िकेशन के लिए करता है।</string>
+    <string name="notification_permission_preprompt_title">नोटिफ़िकेशन की अनुमति दो?</string>
+    <string name="notification_portfolio_alarm_locked">तुम्हारा अलार्म बजा – विवरण के लिए ऐप खोलो।</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – अभी %2$s</string>
     <string name="notification_portfolio_alarm_title">पोर्टफ़ोलियो मूल्य</string>
@@ -39,7 +39,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">अलार्म</string>
-    <string name="channel_alarms_description">प्राइस अलार्म बजने पर नोटिफ़िकेशन।</string>
+    <string name="channel_alarms_description">अलार्म बजने पर नोटिफ़िकेशन।</string>
     <string name="channel_alarms_quiet">अलार्म (मौन घंटे)</string>
     <string name="channel_alarms_quiet_description">मौन घंटों के दौरान बिना आवाज़ वाले अलार्म।</string>
     <string name="channel_alarms_silent">अलार्म (साइलेंट)</string>
@@ -69,5 +69,5 @@
 
     <!-- Build 82: Alarm-Mitteilung («1 h später», «Anpassen»), Alarm-Protokoll (Herkunft, Pause), Ziehen im 15-s-Fenster -->
     <string name="notification_alarm_action_snooze">1 घंटे बाद</string>
-    <string name="notification_alarm_action_edit">बदलें</string>
+    <string name="notification_alarm_action_edit">बदलो</string>
 </resources>

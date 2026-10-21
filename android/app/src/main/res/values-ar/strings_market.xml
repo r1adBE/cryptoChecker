@@ -177,8 +177,8 @@
     <string name="activity_sensitivity_normal">عادي</string>
     <string name="activity_signal_funding_long">التمويل %1$s — كثير من مراكز الشراء بالرافعة</string>
     <string name="activity_signal_funding_short">التمويل %1$s — كثير من مراكز البيع</string>
-    <string name="activity_signal_open_interest">الفائدة المفتوحة %1$s خلال %2$d د</string>
-    <string name="activity_signal_open_interest_no_time">الفائدة المفتوحة %1$s</string>
+    <string name="activity_signal_open_interest">العقود المفتوحة %1$s خلال %2$d د</string>
+    <string name="activity_signal_open_interest_no_time">العقود المفتوحة %1$s</string>
     <string name="activity_signal_price_move">حركة غير عادية: %1$s خلال ساعة (%2$s× المعتاد)</string>
     <string name="activity_signal_volume">الحجم %1$s× المعتاد في الساعة الأخيرة</string>
 

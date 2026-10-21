@@ -28,7 +28,9 @@ extension ExplorerViewModel {
                 guard let self, !Task.isCancelled else { return }
                 self.dexResults = []
                 self.dexSearching = false
-                self.show(ExplorerMessage(text: L("something_went_wrong"), showView: false))
+                // Wie die Merkliste einordnen (kein Netz / Dienst nicht erreichbar), mit «Erneut versuchen»
+                let cause = RefreshReportLogic.classify(MarketFailure.of(error), ConnectionErrors.describe(error))
+                self.show(ExplorerMessage(text: L(DexFailure.of(cause).messageKey), showView: false, retryDexQuery: term))
             }
         }
     }
@@ -53,5 +55,28 @@ extension ExplorerViewModel {
         insert(market: market, pair: MarketPair(pool.baseSymbol, pool.watchQuote, pool.pairId),
                addedText: L("dex_added", pool.baseSymbol),
                duplicateText: L("dex_already", pool.baseSymbol))
+    }
+}
+
+/// Art einer gescheiterten DEX-Suche — gleiche Texte wie die Merkliste: kein Netz (auch Zeitüberschreitung, wie
+/// `ConnectionErrors.describe`), Dienst gerade nicht erreichbar (HTTP-Fehler, Bremse), sonst «Etwas ist
+/// schiefgelaufen». Gleich wie `DexFailure` (Android).
+enum DexFailure: Equatable {
+    case offline, unreachable, other
+
+    static func of(_ cause: RefreshFailure) -> DexFailure {
+        switch cause {
+        case .OFFLINE, .TIMEOUT: return .offline
+        case .RATE_LIMIT, .SERVER: return .unreachable
+        case .NO_DATA, .UNAVAILABLE, .OTHER: return .other
+        }
+    }
+
+    var messageKey: String {
+        switch self {
+        case .offline: return "watch_error_offline"
+        case .unreachable: return "error_market_unreachable_short"
+        case .other: return "something_went_wrong"
+        }
     }
 }

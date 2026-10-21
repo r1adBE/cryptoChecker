@@ -2,11 +2,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">पृष्ठभूमि</string>
-    <string name="widget_configure_hint">पृष्ठभूमि और अपारदर्शिता चुनें। रंग ऐप के अनुसार रहता है। विजेट पूरी सूची दिखाता है; ऐप खोलने के लिए किसी पंक्ति पर टैप करें।</string>
-    <string name="widget_configure_title">विजेट सेट करें</string>
-    <string name="widget_description">आपकी वॉचलिस्ट के किसी पेयर की कीमत दिखाता है।</string>
+    <string name="widget_configure_hint">पृष्ठभूमि और अपारदर्शिता चुनो। रंग ऐप के अनुसार रहता है। विजेट पूरी सूची दिखाता है; ऐप खोलने के लिए किसी पंक्ति पर टैप करो।</string>
+    <string name="widget_configure_title">विजेट सेट करो</string>
+    <string name="widget_description">तुम्हारी वॉचलिस्ट के किसी पेयर की कीमत दिखाता है।</string>
     <string name="widget_empty">वॉचलिस्ट में अभी कोई पेयर नहीं।</string>
-    <string name="widget_group_hint">केवल इस समूह के पेयर दिखाएँ।</string>
+    <string name="widget_group_hint">केवल इस समूह के पेयर दिखाओ।</string>
     <string name="widget_kind_single">एक कॉइन</string>
     <string name="widget_opacity">बैकग्राउंड अपारदर्शिता: %1$s</string>
     <string name="widget_pulse_description">बाज़ार में अभी क्या ख़ास है: हेडलाइन, छोटा सारांश और साथ में Bitcoin, Ethereum और Solana।</string>
@@ -37,15 +37,15 @@
     <string name="widget_portfolio_as_of">%1$s तक</string>
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">इतिहास जल्द आएगा</string>
-    <string name="widget_portfolio_description">आपके पोर्टफ़ोलियो का कुल मूल्य और आज का बदलाव</string>
-    <string name="widget_portfolio_display">दिखाएँ</string>
+    <string name="widget_portfolio_description">तुम्हारे पोर्टफ़ोलियो का कुल मूल्य और आज का बदलाव</string>
+    <string name="widget_portfolio_display">दिखाओ</string>
     <string name="widget_portfolio_display_conversion">केवल रूपांतरण</string>
     <string name="widget_portfolio_display_conversion_usdt">रूपांतरण + USDT</string>
     <string name="widget_portfolio_display_hint">रूपांतरण मुद्रा USD होने पर USDT पंक्ति नहीं दिखती।</string>
     <string name="widget_portfolio_display_usdt">केवल USDT</string>
-    <string name="widget_portfolio_empty">पोर्टफ़ोलियो टैब में खरीदारी जोड़ें</string>
-    <string name="widget_portfolio_list_hint">अपनी पोज़िशन यहाँ दिखाने के लिए ऐप खोलें।</string>
-    <string name="widget_portfolio_locked_hint">लॉक – ऐप में अनलॉक करें</string>
+    <string name="widget_portfolio_empty">पोर्टफ़ोलियो टैब में खरीदारी जोड़ो</string>
+    <string name="widget_portfolio_list_hint">अपनी पोज़िशन यहाँ दिखाने के लिए ऐप खोलो।</string>
+    <string name="widget_portfolio_locked_hint">लॉक – ऐप में अनलॉक करो</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
         <item quantity="one">%1$d कॉइन के बिना</item>
@@ -56,7 +56,7 @@
         <item quantity="other">+ %1$d और</item>
     </plurals>
     <string name="widget_portfolio_name">पोर्टफ़ोलियो</string>
-    <string name="widget_portfolio_off_hint">चालू करें: %1$s।</string>
+    <string name="widget_portfolio_off_hint">चालू करो: %1$s।</string>
     <string name="widget_portfolio_off_short">पोर्टफ़ोलियो बंद</string>
     <string name="widget_portfolio_off_title">पोर्टफ़ोलियो बंद है</string>
     <string name="widget_portfolio_partly_stale">आंशिक रूप से पुराना भाव</string>
@@ -64,7 +64,7 @@
     <string name="widget_portfolio_period_without">%2$s के बिना %1$s</string>
     <string name="widget_portfolio_range_48h">48h</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: पोर्टफ़ोलियो खोलें</string>
+    <string name="widget_portfolio_range_fallback">%1$s: पोर्टफ़ोलियो खोलो</string>
     <string name="widget_portfolio_range_short_48h">48h</string>
     <string name="widget_portfolio_today_without">आज %1$s के बिना</string>
     <string name="widget_portfolio_view">दृश्य</string>
@@ -73,26 +73,26 @@
     <string name="widget_portfolio_view_overview">सारांश</string>
 
     <!-- Einzel-Widget -->
-    <string name="single_widget_choose">पेयर चुनें</string>
+    <string name="single_widget_choose">पेयर चुनो</string>
     <string name="single_widget_description">एक कॉइन को बड़ा दिखाता है: भाव, बदलाव और 24 घंटे का चार्ट।</string>
     <string name="single_widget_label">Crypto Checker – एक कॉइन</string>
-    <string name="single_widget_title">एकल विजेट सेट करें</string>
+    <string name="single_widget_title">एकल विजेट सेट करो</string>
 
     <!-- Widgets aus der App hinzufügen -->
-    <string name="widgets_add">जोड़ें</string>
+    <string name="widgets_add">जोड़ो</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
-    <string name="widgets_add_named">विजेट %1$s जोड़ें</string>
-    <string name="widgets_manual_text">आपकी होम स्क्रीन ऐप से विजेट नहीं जोड़ सकती। होम स्क्रीन पर किसी खाली जगह को दबाकर रखें, “विजेट” चुनें और “Crypto Checker” खोजें।</string>
+    <string name="widgets_add_named">विजेट %1$s जोड़ो</string>
+    <string name="widgets_manual_text">तुम्हारी होम स्क्रीन ऐप से विजेट नहीं जोड़ सकती। होम स्क्रीन पर किसी खाली जगह को दबाकर रखो, “विजेट” चुनो और “Crypto Checker” खोजो।</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
-    <string name="widgets_manual_title">विजेट खुद जोड़ें</string>
-    <string name="widgets_sheet_title">विजेट जोड़ें</string>
+    <string name="widgets_manual_title">विजेट खुद जोड़ो</string>
+    <string name="widgets_sheet_title">विजेट जोड़ो</string>
 
     <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
     <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS ऐप्स को खुद विजेट जोड़ने नहीं देता। इसमें बस एक पल लगता है:</string>
     <string name="widgets_ios_kinds" tools:ignore="UnusedResources">उपलब्ध विजेट</string>
-    <string name="widgets_ios_step1" tools:ignore="UnusedResources">होम स्क्रीन पर किसी खाली जगह को तब तक दबाकर रखें जब तक ऐप्स हिलने न लगें।</string>
-    <string name="widgets_ios_step2" tools:ignore="UnusedResources">ऊपर “संपादित करें” › “विजेट जोड़ें” पर टैप करें (पुराने iOS वर्शन में “+” पर)।</string>
-    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” खोजें, कोई विजेट चुनें और “विजेट जोड़ें” पर टैप करें।</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">होम स्क्रीन पर किसी खाली जगह को तब तक दबाकर रखो जब तक ऐप्स हिलने न लगें।</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">ऊपर “संपादित करो” › “विजेट जोड़ो” पर टैप करो (पुराने iOS वर्शन में “+” पर)।</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” खोजो, कोई विजेट चुनो और “विजेट जोड़ो” पर टैप करो।</string>
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">रीफ़्रेश – %1$d से. में फिर संभव</string>

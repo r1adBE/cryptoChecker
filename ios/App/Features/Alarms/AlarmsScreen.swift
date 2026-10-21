@@ -51,6 +51,8 @@ struct AlarmsScreen: View {
         let alarms = data.alarms(for: watchId)
         // DEX-Pool mit zu wenig Liquidität: kein neuer Alarm, kein Bearbeiten (Hinweis statt Editor) — wie Android
         let lowLiquidity = Self.lowLiquidity(watch)
+        // Höchstzahl Alarme am Paar erreicht (`WatchlistLimits`): kein «Neuer Alarm», Hinweis über der Liste — wie Android
+        let alarmsFull = !WatchlistLimits.canAddAlarm(alarms.count)
         Group {
             if alarms.isEmpty && lowLiquidity {
                 ScrollView {
@@ -82,6 +84,12 @@ struct AlarmsScreen: View {
                         .listRowBackground(Color.clear)
                     if lowLiquidity {
                         DexLowLiquidityNote()
+                            .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                    }
+                    if alarmsFull {
+                        AlarmLimitNote()
                             .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
@@ -177,7 +185,7 @@ struct AlarmsScreen: View {
                 .accessibilityElement(children: .combine)
             }
             ToolbarItem(placement: .topBarTrailing) {
-                if watch != nil && !lowLiquidity {
+                if watch != nil && !lowLiquidity && !alarmsFull {
                     Button {
                         draft = AlarmDraft.blankFor()
                     } label: {
@@ -208,6 +216,8 @@ struct AlarmsScreen: View {
                     if data.alarmSaveBlocked { return showSaveLocked() }
                     // Paar inzwischen gelöscht: nichts gespeichert, der Hinweis «Wann geprüft wird» bleibt unverbraucht
                     guard let threshold = saved.threshold, data.watch(watchId) != nil else { return }
+                    // Sicherheitsnetz: Paar inzwischen voll — nichts angelegt, sagen warum
+                    if saved.id == 0 && !WatchlistLimits.canAddAlarm(data.alarms(for: watchId).count) { return showAlarmLimit() }
                     WatchlistHaptics.impact(.light)
                     withAnimation {
                         firstAlarmPending = data.saveAlarm(
@@ -223,6 +233,7 @@ struct AlarmsScreen: View {
                 onTemplate: { template in
                     if data.alarmSaveBlocked { return showSaveLocked() }
                     guard let def = AlarmTemplates.definition(template, currentPrice: watch?.lastPrice) else { return }
+                    if !WatchlistLimits.canAddAlarm(data.alarms(for: watchId).count) { return showAlarmLimit() }
                     WatchlistHaptics.impact(.light)
                     let created = withAnimation { data.createAlarm(watchId: watchId, from: def) }
                     // Nichts angelegt (Paar inzwischen gelöscht): keine Bestätigung — wie Android
@@ -307,6 +318,11 @@ struct AlarmsScreen: View {
         banner = WatchlistBannerMessage(text: L("alarm_save_storage_locked"), icon: "lock.fill", long: true)
     }
 
+    /// Paar hat schon die Höchstzahl Alarme (`WatchlistLimits`): nichts angelegt, sagen warum (der Editor schliesst sich)
+    private func showAlarmLimit() {
+        banner = WatchlistBannerMessage(text: AlarmLimitText.text, icon: "bell.badge", long: true)
+    }
+
     /// Bestätigung eines Schnell-Alarms: Bedingung wie nach dem Speichern (`AlarmSavedText`), ohne Mitteilungs-Hinweis.
     private func templateCreatedText(_ id: Int64) -> String {
         guard let alarm = data.alarms(for: watchId).first(where: { $0.id == id }) else { return L("alarm_saved_active") }
@@ -355,45 +371,5 @@ struct AlarmsScreen: View {
                 action: off ? WatchlistBannerAction(title: L("settings_title"), perform: { NotificationsOffBanner.openSettings() }) : nil
             )
         }
-    }
-}
-
-/// Satz, «Einmalig»/«Wiederholend», zuletzt ausgelöst, «Ton an», «Ansage an».
-enum AlarmA11y {
-    static func description(_ alarm: Alarm, title: String, sentence: String?) -> String {
-        var parts = [title]
-        if let sentence, !sentence.isEmpty { parts.append(sentence) }
-        parts.append(L(alarm.repeating ? "alarm_repeating" : "alarm_once"))
-        if alarm.lastTriggeredAt > 0 {
-            parts.append(L("alarm_last_triggered", MomentText.moment(alarm.lastTriggeredAt)))
-        }
-        if alarm.sound { parts.append(L("alarm_a11y_sound_on")) }
-        if alarm.speak { parts.append(L("alarm_a11y_speak_on")) }
-        return parts.joined(separator: ". ")
-    }
-}
-
-// MARK: Bearbeiten
-
-/// Beispielzeile unter dem leeren Alarm-Text (Übersicht und je Paar, L-18) im Stil der Alarm-Sätze:
-/// «Zum Beispiel: Sag mir Bescheid, wenn BTC über 90’000 steigt.» — Zahl im Format der Sprache.
-enum AlarmsEmptyExample {
-    static var text: String { L("alarms_empty_example", LocaleNumbers.integer(90_000, grouping: true)) }
-}
-
-/// Hinweis für DEX-Pools mit zu wenig Liquidität: kein Alarm, bestehende Alarme ruhen (`DexLiquidity`). Wie Android.
-private struct DexLowLiquidityNote: View {
-    var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(L("dex_low_liquidity_no_alarm"))
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(AppColors.error)
-            Text(L("dex_low_liquidity_alarm_hint"))
-                .font(.footnote)
-                .foregroundStyle(AppColors.onSurfaceVariant)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .accessibilityElement(children: .combine)
     }
 }

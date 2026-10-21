@@ -110,4 +110,7 @@
     <string name="dex_token_address_copy">Sao chép địa chỉ token</string>
     <string name="dex_token_address_copied">Đã sao chép địa chỉ token</string>
     <string name="dex_token_address_label">Địa chỉ token kết thúc bằng %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="other">%1$d cặp chưa được thêm – danh sách theo dõi của bạn chỉ có thể có tối đa %2$s cặp.</item>
+    </plurals>
 </resources>

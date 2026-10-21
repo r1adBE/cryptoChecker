@@ -51,7 +51,7 @@
     <string name="alarm_threshold_error_empty">أدخل قيمة لحفظ التنبيه.</string>
     <string name="alarm_threshold_error_funding">يجب أن يكون معدل التمويل رقمًا بين −10 و+10 بالمئة.</string>
     <string name="alarm_threshold_error_invalid">أدخل رقمًا صالحًا أكبر من 0.</string>
-    <string name="alarm_threshold_error_oi">تغيّر الفائدة المفتوحة: 1000 بالمئة كحد أقصى.</string>
+    <string name="alarm_threshold_error_oi">تغيّر العقود المفتوحة: 1000 بالمئة كحد أقصى.</string>
     <plurals name="alarm_window_hours">
         <item quantity="zero">خلال %1$d ساعة</item>
         <item quantity="one">خلال %1$d ساعة</item>
@@ -83,8 +83,8 @@
     <string name="alarm_condition_move_percent">يتحرك بنسبة</string>
     <string name="alarm_condition_near_high">قرب أعلى مستوى</string>
     <string name="alarm_condition_near_low">قرب أدنى مستوى</string>
-    <string name="alarm_condition_oi_down">الفائدة المفتوحة تنخفض</string>
-    <string name="alarm_condition_oi_up">الفائدة المفتوحة ترتفع</string>
+    <string name="alarm_condition_oi_down">العقود المفتوحة تنخفض</string>
+    <string name="alarm_condition_oi_up">العقود المفتوحة ترتفع</string>
     <string name="alarm_condition_up_percent">يرتفع بنسبة</string>
     <string name="alarm_condition_volume_spike">قفزة في الحجم</string>
 
@@ -107,20 +107,20 @@
     <string name="alarm_sentence_near_low">أبلغني عندما يكون %1$s فوق %3$s بنسبة %2$s على الأكثر.</string>
     <string name="alarm_sentence_new_extreme">أبلغني عندما يسجّل %1$s %2$s جديدًا.</string>
     <plurals name="alarm_sentence_oi_down">
-        <item quantity="zero">أبلغني عندما تنخفض الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
-        <item quantity="one">أبلغني عندما تنخفض الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
-        <item quantity="two">أبلغني عندما تنخفض الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
-        <item quantity="few">أبلغني عندما تنخفض الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعات.</item>
-        <item quantity="many">أبلغني عندما تنخفض الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
-        <item quantity="other">أبلغني عندما تنخفض الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="zero">أبلغني عندما تنخفض العقود المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="one">أبلغني عندما تنخفض العقود المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="two">أبلغني عندما تنخفض العقود المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="few">أبلغني عندما تنخفض العقود المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعات.</item>
+        <item quantity="many">أبلغني عندما تنخفض العقود المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="other">أبلغني عندما تنخفض العقود المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
     </plurals>
     <plurals name="alarm_sentence_oi_up">
-        <item quantity="zero">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
-        <item quantity="one">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
-        <item quantity="two">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
-        <item quantity="few">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعات.</item>
-        <item quantity="many">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
-        <item quantity="other">أبلغني عندما ترتفع الفائدة المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="zero">أبلغني عندما ترتفع العقود المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="one">أبلغني عندما ترتفع العقود المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="two">أبلغني عندما ترتفع العقود المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="few">أبلغني عندما ترتفع العقود المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعات.</item>
+        <item quantity="many">أبلغني عندما ترتفع العقود المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
+        <item quantity="other">أبلغني عندما ترتفع العقود المفتوحة لـ %1$s بنسبة %2$s خلال %3$d ساعة.</item>
     </plurals>
     <string name="alarm_sentence_up_percent">أبلغني عندما يرتفع %1$s بنسبة %2$s فوق السعر عند الحفظ (أو عند آخر تنبيه).</string>
     <string name="alarm_sentence_volume">أبلغني عندما يصل حجم تداول %1$s إلى %2$s× المعتاد.</string>
@@ -153,7 +153,7 @@
     <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
     <string name="alarm_funding_hint_8h">معدل التمويل لكل 8 ساعات. تُحوَّل العقود ذات الفترة المختلفة (ساعة × 8، 4 ساعات × 2)؛ وتعرض بطاقة العقود الآجلة القيمة المحوَّلة. إذا كانت الفترة غير معروفة فلا يفحص التنبيه. السالب يعني أن البائعين على المكشوف يدفعون للمشترين. ± يغيّر الإشارة.</string>
     <string name="alarm_funding_sign_a11y">تبديل الإشارة</string>
-    <string name="alarm_oi_hint">يقارن الفائدة المفتوحة بالقيمة المحفوظة قبل هذا العدد من الساعات. لا ينبّه التنبيه الجديد إلا بعد أن يجمع التطبيق بيانات طوال هذه المدة؛ ويتم الفحص مرة كل 5 دقائق على الأكثر.</string>
+    <string name="alarm_oi_hint">يقارن العقود المفتوحة بالقيمة المحفوظة قبل هذا العدد من الساعات. لا ينبّه التنبيه الجديد إلا بعد أن يجمع التطبيق بيانات طوال هذه المدة؛ ويتم الفحص مرة كل 5 دقائق على الأكثر.</string>
     <string name="alarm_volume_factor_label">حجم الساعة الأخيرة مقارنةً بالمعتاد</string>
     <string name="alarm_volume_hint">بيانات الحجم مصدرها Binance — الأزواج غير المدرجة هناك لا تُطلق التنبيه أبدًا.</string>
     <string name="alarm_volume_zero_hours_hint">تُحتسب الساعات التي لا تشهد صفقات بحجم تداول صفر، لذلك قد تبدو ساعة عادية غير مألوفة في الأزواج ضعيفة التداول.</string>
@@ -203,4 +203,5 @@
     <string name="alarm_editor_more">المزيد</string>
     <string name="alarm_editor_more_summary">تنبيهات سريعة، شروط إضافية، الصوت والنطق</string>
     <string name="alarm_reliability_storage_no_key">التنبيهات متوقفة مؤقتًا في الخلفية – قائمة المتابعة غير محفوظة</string>
+    <string name="alarms_limit_reached">يمكن أن يحتوي الزوج على %1$s تنبيهات كحد أقصى.</string>
 </resources>

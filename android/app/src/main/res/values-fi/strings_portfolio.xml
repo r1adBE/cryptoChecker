@@ -99,7 +99,7 @@
     <string name="portfolio_discard_keep">Jatka muokkausta</string>
     <string name="portfolio_discard_title">Hylätäänkö muutokset?</string>
     <string name="portfolio_edit_tx">Muokkaa tapahtumaa</string>
-    <string name="portfolio_invalid">Virheellinen määrä</string>
+    <string name="portfolio_invalid">Syötä kelvollinen luku, joka on suurempi kuin 0.</string>
     <string name="portfolio_oversold">Myynnit ylittävät omistuksen – tarkista tapahtumat.</string>
     <string name="portfolio_sell">Myynti</string>
     <string name="portfolio_sell_exceeds">Enemmän kuin omistuksesi (%1$s)</string>
@@ -139,7 +139,7 @@
     <string name="portfolio_tx_price">Hinta per kolikko</string>
     <string name="portfolio_tx_price_hint">USDT:nä. Jätä tyhjäksi, jos et tiedä.</string>
     <string name="portfolio_tx_price_historic">Tarkistettu päätöskurssi %1$s – muuta tarvittaessa</string>
-    <string name="portfolio_tx_price_invalid">Virheellinen hinta</string>
+    <string name="portfolio_tx_price_invalid">Syötä kelvollinen luku (0 tai suurempi) tai jätä kenttä tyhjäksi.</string>
     <string name="portfolio_tx_price_past_hint">Syötä kaupantekopäivän hinta – jätä tyhjäksi, jos et tiedä</string>
     <string name="portfolio_tx_price_receipt_hint">USDT:nä. Tyhjä = omistus ilman hankintahintaa.</string>
     <string name="portfolio_tx_price_zero">Hinta 0 ei ole mahdollinen tuoduissa tapahtumissa – jätä tyhjäksi markkinahintaa varten</string>

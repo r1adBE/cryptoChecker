@@ -44,8 +44,10 @@
     <string name="portfolio_csv_import_transfers_hint">یک برداشت و واریز متناظر همان کوین یک انتقال می‌شوند: قیمت خرید و مدت نگهداری حفظ می‌شود و تفاوت، کارمزد شبکه حساب می‌شود.</string>
     <string name="portfolio_csv_import_transfers_title">انتقال بین حساب‌های تو</string>
     <string name="portfolio_csv_import_unreadable">تراکنش پشتیبانی‌شده‌ای پیدا نشد. پشتیبانی‌شده: خروجی‌های CSV از Relai، Swissquote، Kraken، Binance، Coinbase و Bitpanda.</string>
-    <string name="portfolio_csv_import_failed">وارد کردن انجام نشد – چیزی ذخیره نشد. لطفاً دوباره تلاش کنید.</string>
-    <string name="portfolio_csv_import_locked">واردکردن ممکن نیست: داده‌های ذخیره‌شده الان خوانده نمی‌شوند. برنامه را دوباره راه‌اندازی کنید.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">فایل برای وارد کردن خیلی بزرگ است (حداکثر ۱۶ مگابایت و %1$s ردیف). بازه‌های کوتاه‌تری خروجی بگیر و یکی‌یکی واردشان کن.</string>
+    <string name="portfolio_csv_import_failed">وارد کردن انجام نشد – چیزی ذخیره نشد. لطفاً دوباره تلاش کن.</string>
+    <string name="portfolio_csv_import_locked">واردکردن ممکن نیست: داده‌های ذخیره‌شده الان خوانده نمی‌شوند. برنامه را دوباره راه‌اندازی کن.</string>
     <string name="portfolio_csv_import_withdrawals_title">برداشت‌ها – سکه‌ها کجا رفتند؟</string>
     <string name="portfolio_csv_import_zone">زمان‌های بدون منطقهٔ زمانی خوانده می‌شوند به‌صورت: %1$s</string>
     <string name="portfolio_csv_import_zone_device">دستگاه (%1$s)</string>
@@ -78,6 +80,6 @@
     <string name="portfolio_imports_empty">وارد کردنی نیست</string>
     <string name="portfolio_imports_title">وارد کردن‌ها</string>
 
-    <string name="portfolio_csv_skip_duplicate_txid_different">همان شناسه تراکنش با مبلغ متفاوت – دستی بررسی کنید</string>
-    <string name="portfolio_csv_skip_staking_unpaired">ثبت استیکینگ بدون ثبت مقابل – موجودی را بررسی کنید</string>
+    <string name="portfolio_csv_skip_duplicate_txid_different">همان شناسه تراکنش با مبلغ متفاوت – دستی بررسی کن</string>
+    <string name="portfolio_csv_skip_staking_unpaired">ثبت استیکینگ بدون ثبت مقابل – موجودی را بررسی کن</string>
 </resources>

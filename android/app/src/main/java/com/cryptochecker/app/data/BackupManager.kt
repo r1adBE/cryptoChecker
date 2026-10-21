@@ -9,10 +9,8 @@ import com.cryptochecker.app.data.BackupFormat.withPasswordChars
 import com.cryptochecker.app.data.BackupJournalCodec.PreviousState
 import com.cryptochecker.app.data.BackupJournalCodec.journalJson
 import com.cryptochecker.app.data.BackupWatchlistCodec.alarmToJson
-import com.cryptochecker.app.data.BackupWatchlistCodec.jsonToWatch
 import com.cryptochecker.app.data.BackupWatchlistCodec.watchToJson
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.watch.WatchIdentity
 import android.content.Context
 import android.net.Uri
 import androidx.room.withTransaction
@@ -192,18 +190,29 @@ class BackupManager @Inject constructor(
     }
 
     /**
-     * Wie viele Einträge der Sicherung ungültig sind und nicht übernommen würden: Paar-Alarme (z. B. Alarmart
-     * einer neueren Version), Portfolio-Transaktionen (z. B. Menge fehlt) und Portfolio-Alarme — vor der
-     * Rückfrage, damit der Nutzer davon erfährt statt sie still zu verlieren.
+     * Was vor der Rückfrage zu nennen ist ([RestorePreview]): ungültige Einträge, die nicht übernommen würden —
+     * Paar-Alarme (z. B. Alarmart einer neueren Version), Portfolio-Transaktionen (z. B. Menge fehlt) und
+     * Portfolio-Alarme — sowie Paare und Alarme über den Grenzen ([BackupRestoreLimits]), damit der Nutzer davon
+     * erfährt, bevor etwas ersetzt wird, statt sie still zu verlieren.
      */
-    suspend fun invalidEntries(uri: Uri, password: String?): Int = withContext(Dispatchers.IO) {
+    suspend fun preview(uri: Uri, password: String?): RestorePreview = withContext(Dispatchers.IO) {
         val root = JSONObject(readCache.plain(uri, password) { BackupFormat.read(context, uri) })
         require(root.optString("format") == FORMAT) { "Keine Crypto-Checker-Sicherung" }
         // Neuere Version: schon vor der Rückfrage ablehnen (klare Meldung, nichts übernommen)
         checkVersion(root)
-        (root.optJSONArray("alarms")?.let { AlarmJson.parse(it).invalid } ?: 0) +
-            (root.optJSONArray("portfolio")?.let { PortfolioJson.parseTxs(it).invalid } ?: 0) +
-            (root.optJSONArray("portfolioAlarms")?.let { PortfolioJson.parseAlarms(it).invalid } ?: 0)
+        // Unlesbares Paar: hier nichts über die Grenzen sagen — das Wiederherstellen lehnt die Datei danach ohnehin ab
+        val watchlist = try {
+            BackupWatchlistCodec.readWatchlist(root)
+        } catch (e: org.json.JSONException) {
+            null
+        }
+        RestorePreview(
+            invalid = (root.optJSONArray("alarms")?.let { AlarmJson.parse(it).invalid } ?: 0) +
+                (root.optJSONArray("portfolio")?.let { PortfolioJson.parseTxs(it).invalid } ?: 0) +
+                (root.optJSONArray("portfolioAlarms")?.let { PortfolioJson.parseAlarms(it).invalid } ?: 0),
+            droppedPairs = watchlist?.droppedPairs ?: 0,
+            droppedAlarms = watchlist?.droppedAlarms ?: 0,
+        )
     }
 
     /**
@@ -217,7 +226,7 @@ class BackupManager @Inject constructor(
      * gemerkte Stand von Merkliste, Portfolio, Favoriten und Einstellungen zurückgeschrieben.
      *
      * Ungültige Portfolio-Einträge werden nur weggelassen, wenn der Nutzer das bestätigt hat
-     * ([acceptInvalid] = gezeigte Anzahl aus [invalidEntries]); sind es mehr, bricht der Import ab,
+     * ([acceptInvalid] = gezeigte Anzahl aus [preview]); sind es mehr, bricht der Import ab,
      * bevor etwas ersetzt wird ([UnconfirmedInvalidEntriesException]).
      */
     suspend fun restore(uri: Uri, password: String?, acceptInvalid: Int = 0): RestoreResult = withContext(Dispatchers.IO) {
@@ -234,23 +243,15 @@ class BackupManager @Inject constructor(
         checkVersion(root)
 
         // ── 1. Alles lesen und prüfen, bevor etwas geschrieben wird ──
-        val parsedWatches = root.optJSONArray("watches")?.let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }.orEmpty()
-        val alarmsRead = root.optJSONArray("alarms")?.let(AlarmJson::parse)
-        val parsedAlarms = alarmsRead?.items.orEmpty()
-        val (watches, alarms) = WatchlistRestoreCleanup.clean(
-            watches = parsedWatches,
-            alarms = parsedAlarms,
-            watchId = { it.id },
-            pairKey = { WatchIdentity.key(it.marketKey, it.baseAsset, it.quoteAsset, it.contractType.name, it.pairId) },
-            alarmId = { it.id },
-            alarmWatchId = { it.watchId },
-            withWatchId = { a, id -> a.copy(watchId = id) },
-        )
+        // Paare mit unzulässigen Kennungen und über den Grenzen fallen weg, gezählt ([BackupWatchlistCodec.readWatchlist])
+        val watchlist = BackupWatchlistCodec.readWatchlist(root)
+        val watches = watchlist.watches
+        val alarms = watchlist.alarms
         // Ältere Sicherungen haben noch kein Portfolio: dann bleibt das bestehende stehen.
         val parsedPortfolio = root.optJSONArray("portfolio")?.let(PortfolioJson::parseTxs)
         // Seit Runde 28; ältere Sicherungen ohne Portfolio-Alarme lassen die bestehenden stehen
         val parsedPortfolioAlarms = root.optJSONArray("portfolioAlarms")?.let(PortfolioJson::parseAlarms)
-        val invalid = (alarmsRead?.invalid ?: 0) + (parsedPortfolio?.invalid ?: 0) + (parsedPortfolioAlarms?.invalid ?: 0)
+        val invalid = watchlist.invalidAlarms + (parsedPortfolio?.invalid ?: 0) + (parsedPortfolioAlarms?.invalid ?: 0)
         if (invalid > acceptInvalid) throw UnconfirmedInvalidEntriesException(invalid)
         val portfolio = parsedPortfolio?.items
         val portfolioAlarms = parsedPortfolioAlarms?.items
@@ -321,6 +322,8 @@ class BackupManager @Inject constructor(
             replacedWatchIds = previous.watches.map { it.id },
             replacedAlarmIds = previous.alarms.map { it.id },
             replacedPortfolioAlarmIds = if (portfolioAlarms != null) previous.portfolioAlarms.map { it.id } else emptyList(),
+            droppedPairs = watchlist.droppedPairs,
+            droppedAlarms = watchlist.droppedAlarms,
         )
     }
 

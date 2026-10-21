@@ -4,7 +4,9 @@ package com.cryptochecker.app.data
  * Regeln beim Wiederherstellen (reines Kotlin, testbar; gespiegelt in `BackupRestorePolicy.swift`).
  *
  * Eine Sicherung ohne Passwort hat keine Echtheitsprüfung: Eine bearbeitete Datei im gleichen Format
- * wird angenommen. Darum schaltet sie die Portfolio-Sperre nie aus, wenn sie gerade an ist.
+ * wird angenommen. Darum schaltet sie die Portfolio-Sperre nie aus, wenn sie gerade an ist — und seit Build 99
+ * auch sonst nichts in Richtung «weniger Schutz»: «Portfolio in Systemsicherung» nie ein ([systemBackup]),
+ * «Beträge verbergen» nie aus ([hideAmounts]).
  */
 object BackupRestorePolicy {
 
@@ -26,6 +28,20 @@ object BackupRestorePolicy {
                 if (current && !encrypted) AppLockDecision(apply = null, keptOn = true)
                 else AppLockDecision(apply = false, keptOn = false)
         }
+
+    /**
+     * «Portfolio in Systemsicherung» aus der Sicherung: neuer Wert oder null (unverändert). Ohne Echtheitsprüfung
+     * ([trusted] false) nur ausschalten — einschalten gäbe die Portfolio-Daten in die Systemsicherung.
+     */
+    fun systemBackup(wanted: Boolean?, current: Boolean, trusted: Boolean): Boolean? =
+        if (wanted == true && !current && !trusted) null else wanted
+
+    /**
+     * «Beträge verbergen» aus der Sicherung: neuer Wert oder null (unverändert). Ohne Echtheitsprüfung
+     * ([trusted] false) nur einschalten — ausschalten zeigte die Beträge offen.
+     */
+    fun hideAmounts(wanted: Boolean?, current: Boolean, trusted: Boolean): Boolean? =
+        if (wanted == false && current && !trusted) null else wanted
 
     /**
      * Nur Android: Gemerkten Stand (Journal) in eine Datenbank zurückschreiben? Nicht, solange sie nur leer im

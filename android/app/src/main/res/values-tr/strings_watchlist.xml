@@ -10,9 +10,9 @@
     <string name="watchlist_last_run">Son çalışma %1$s</string>
     <string name="watchlist_live_a11y">Canlı fiyatlar açık</string>
     <string name="watchlist_offline_since">Bağlantı yok · %1$s itibarıyla</string>
-    <string name="watchlist_pull_to_refresh">Yenilemek için aşağı çekin</string>
+    <string name="watchlist_pull_to_refresh">Yenilemek için aşağı çek</string>
     <string name="watchlist_refresh_report">Son yenileme</string>
-    <string name="watchlist_refresh_report_empty">Henüz döküm yok: henüz tam bir yenileme yapılmadı. Yenile\'ye dokunun ve yükleme göstergesi durana kadar bekleyin.</string>
+    <string name="watchlist_refresh_report_empty">Henüz döküm yok: henüz tam bir yenileme yapılmadı. Yenile\'ye dokun ve yükleme göstergesi durana kadar bekle.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%2$d çiftten %1$d tanesi güncel değil</item>
         <item quantity="other">%2$d çiftten %1$d tanesi güncel değil</item>
@@ -60,7 +60,7 @@
     <string name="watchlist_search_open">Ara</string>
     <string name="watchlist_sort_ascending">artan</string>
     <string name="watchlist_sort_descending">azalan</string>
-    <string name="watchlist_sort_hint">Bir çifti basılı tutup sürükleyin veya tutamacı kullanın. Favoriler üstte kalır.</string>
+    <string name="watchlist_sort_hint">Bir çifti basılı tutup sürükle veya tutamacı kullan. Favoriler üstte kalır.</string>
     <string name="watchlist_sort_name">Ad</string>
     <string name="watchlist_sort_own">Kendi sıranız</string>
     <string name="watchlist_sort_price">Fiyat</string>
@@ -103,10 +103,10 @@
         <item quantity="one">Alarm (%1$d)</item>
         <item quantity="other">Alarmlar (%1$d)</item>
     </plurals>
-    <string name="watchlist_favorites_empty_hint">Henüz favori yok. Bir çifti sağa kaydırın veya çift sayfasında “Favori”ye dokunun.</string>
-    <string name="watchlist_group_empty_hint">Çiftlerini seçmek için bir gruba uzun basın.</string>
+    <string name="watchlist_favorites_empty_hint">Henüz favori yok. Bir çifti sağa kaydır veya çift sayfasında “Favori”ye dokun.</string>
+    <string name="watchlist_group_empty_hint">Çiftlerini seçmek için bir gruba uzun bas.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
-    <string name="watchlist_groups_empty_hint">Gruplarınız burada görünecek</string>
+    <string name="watchlist_groups_empty_hint">Grupların burada görünecek</string>
     <string name="watchlist_notification">Fiyat bildirimi</string>
     <string name="watchlist_tts">Fiyatı sesli oku</string>
     <string name="watchlist_tts_speech_on">Sesli okuma açık. Değiştirmek için: Ayarlar › Gelişmiş › Sesli çıkış.</string>
@@ -123,7 +123,7 @@
     <string name="watch_disabled">Devre dışı</string>
     <string name="watch_disabled_banner">%1$s devre dışı bırakıldı</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
-    <string name="watch_edit_alarms_warning">Alarmlar korunur – eşikleri kontrol edin</string>
+    <string name="watch_edit_alarms_warning">Alarmlar korunur – eşikleri kontrol et</string>
     <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
     <string name="watch_edit_title">Çifti düzenle</string>
     <string name="watch_enable">Etkinleştir</string>
@@ -141,9 +141,9 @@
     <string name="watch_row_source_chart">Grafik: %1$s</string>
 
     <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
-    <string name="pair_added_watching">%1$s artık izleme listenizde</string>
+    <string name="pair_added_watching">%1$s artık izleme listende</string>
     <!-- Ein Paar: pair_added_watching -->
-    <string name="pairs_added_watching">%1$s artık izleme listenizde</string>
+    <string name="pairs_added_watching">%1$s artık izleme listende</string>
 
     <!-- Favoriten -->
     <string name="favorite_add">Favorilere ekle</string>
@@ -158,7 +158,7 @@
     <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
     <string name="group_alpha">Alpha tokenleri</string>
     <string name="group_delete">Grubu sil</string>
-    <string name="group_delete_confirm">Çiftler izleme listenizde kalır.</string>
+    <string name="group_delete_confirm">Çiftler izleme listende kalır.</string>
     <string name="group_done">Bitti</string>
     <string name="group_edit_title">Grubu düzenle</string>
     <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
@@ -184,7 +184,7 @@
     <string name="note_title">Not</string>
 
     <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
-    <string name="sort_drag_handle">Taşımak için sürükleyin</string>
+    <string name="sort_drag_handle">Taşımak için sürükle</string>
     <string name="sort_move_bottom">En alta</string>
     <string name="sort_move_down">Aşağı</string>
     <string name="sort_move_top">En üste</string>
@@ -215,4 +215,5 @@
 
     <string name="watchlist_sort_by_coin">Coine göre sırala</string>
     <string name="watchlist_sort_by_exchange">Borsaya göre sırala</string>
+    <string name="watchlist_limit_reached">İzleme listende en fazla %1$s çift olabilir.</string>
 </resources>

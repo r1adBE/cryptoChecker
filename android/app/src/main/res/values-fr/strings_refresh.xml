@@ -4,7 +4,7 @@
     <string name="update_mode_for_pros">consomme plus de données et de batterie</string>
     <string name="update_mode_live">En direct quand ouverte</string>
     <string name="update_mode_live_hint">Si la plateforme fournit un prix en direct : immédiatement, tant que la liste est ouverte. Sinon à la prochaine récupération. Fermée : pas plus souvent que toutes les %1$s, souvent plus tard.</string>
-    <string name="update_mode_live_hint_ios">Si la plateforme fournit un prix en direct : immédiatement, tant que la liste est ouverte. Sinon à la prochaine récupération. Fermée : quand iOS le permet, parfois à des heures d’intervalle. Si vous fermez l’app d’un balayage, iOS suspend ces vérifications jusqu’à sa prochaine ouverture.</string>
+    <string name="update_mode_live_hint_ios">Si la plateforme fournit un prix en direct : immédiatement, tant que la liste est ouverte. Sinon à la prochaine récupération. Fermée : quand iOS le permet, parfois à des heures d’intervalle. Si tu fermes l’app d’un balayage, iOS suspend ces vérifications jusqu’à sa prochaine ouverture.</string>
     <string name="update_mode_recommended">recommandé</string>
     <string name="update_mode_sparsam">Économe</string>
     <string name="update_mode_sparsam_hint">App fermée : pas plus souvent que toutes les %1$s, souvent plus tard (alertes, widgets). Ouverte : à chaque ouverture.</string>
@@ -108,11 +108,11 @@
     <string name="check_trigger_worker">Arrière-plan</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android peut retarder les vérifications – réglez la batterie sur « Non restreinte »</string>
+    <string name="battery_delay_hint">Android peut retarder les vérifications – règle la batterie sur « Non restreinte »</string>
     <string name="battery_later">Plus tard</string>
-    <string name="battery_message">Android retarde les tâches en arrière-plan pour économiser l\'énergie — les prix et widgets peuvent alors dater de plusieurs heures. Une utilisation de la batterie non restreinte les garde à jour. Vous pouvez modifier cela à tout moment dans les paramètres Android.</string>
+    <string name="battery_message">Android retarde les tâches en arrière-plan pour économiser l\'énergie — les prix et widgets peuvent alors dater de plusieurs heures. Une utilisation de la batterie non restreinte les garde à jour. Tu peux modifier cela à tout moment dans les paramètres Android.</string>
     <string name="battery_open_settings">Ouvrir les réglages de batterie</string>
-    <string name="battery_steps">Dans les infos de l\'app, touchez Batterie (ou Utilisation de la batterie) et choisissez Non restreinte.</string>
+    <string name="battery_steps">Dans les infos de l\'app, touche Batterie (ou Utilisation de la batterie) et choisis Non restreinte.</string>
     <string name="battery_title">Garder les prix à jour</string>
     <string name="ios_background_refresh_off">L’actualisation en arrière-plan est désactivée pour l’app. Sans elle, les alertes ne sont vérifiées que l’app ouverte.</string>
     <string name="ios_low_power_mode">Le mode Économie d’énergie est activé. iOS vérifie rarement en arrière-plan, les alertes peuvent arriver en retard.</string>

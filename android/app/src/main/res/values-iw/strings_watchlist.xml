@@ -105,9 +105,9 @@
         <item quantity="two">נבחרו: %1$d</item>
         <item quantity="other">נבחרו: %1$d</item>
     </plurals>
-    <string name="watchlist_show_all">הצג הכול</string>
-    <string name="watchlist_show_only_disabled">הצג רק מושבתים</string>
-    <string name="watchlist_show_only_stale">הצג רק לא עדכניים</string>
+    <string name="watchlist_show_all">הצגת הכול</string>
+    <string name="watchlist_show_only_disabled">הצגת מושבתים בלבד</string>
+    <string name="watchlist_show_only_stale">הצגת לא עדכניים בלבד</string>
 
     <!-- Merkliste: weitere Texte (Gruppen, Alarme, Mitteilung, Sprachausgabe) -->
     <plurals name="watchlist_alarms_count">
@@ -118,19 +118,19 @@
     <string name="watchlist_favorites_empty_hint">עדיין אין מועדפים. החליקו צמד ימינה, או פתחו אותו והקישו ״מועדף״.</string>
     <string name="watchlist_group_empty_hint">לחיצה ארוכה על קבוצה כדי לבחור את הצמדים שלה.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
-    <string name="watchlist_groups_empty_hint">הקבוצות שלכם יופיעו כאן</string>
+    <string name="watchlist_groups_empty_hint">הקבוצות שלך יופיעו כאן</string>
     <string name="watchlist_notification">עדכון מחיר</string>
-    <string name="watchlist_tts">הקרא מחיר</string>
+    <string name="watchlist_tts">הקראת מחיר</string>
     <string name="watchlist_tts_speech_on">ההקראה פעילה. אפשר לשנות זאת כאן: הגדרות › מתקדם › הקראה קולית.</string>
 
     <!-- Paar in der Merkliste: Aktionen, Bearbeiten, Deaktivieren, Vorschau -->
-    <string name="watch_action_add_widget">הוסף כווידג׳ט</string>
+    <string name="watch_action_add_widget">הוספה כווידג׳ט</string>
     <string name="watch_action_alarm">התראה</string>
     <string name="watch_action_favorite">מועדף</string>
     <string name="watch_action_why">מה זז יחד איתו?</string>
     <string name="watch_action_why_short">מה זז יחד איתו?</string>
     <string name="watch_change_mark">Mark</string>
-    <string name="watch_disable">השבת</string>
+    <string name="watch_disable">השבתה</string>
     <string name="watch_disable_hint">בלי בקשות, בלי התראות</string>
     <string name="watch_disabled">מושבת</string>
     <string name="watch_disabled_banner">%1$s הושבת</string>
@@ -138,12 +138,12 @@
     <string name="watch_edit_alarms_warning">ההתראות נשמרות – בדקו את הספים</string>
     <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
     <string name="watch_edit_title">עריכת צמד</string>
-    <string name="watch_enable">הפעל</string>
+    <string name="watch_enable">הפעלה</string>
     <string name="watch_enable_hint">שערים והתראות חוזרים</string>
     <string name="watch_enabled_banner">%1$s הופעל</string>
     <string name="watch_error_offline">אין חיבור</string>
     <string name="watch_gesture_hint_short">הקשה: התראה ו\"מה זז יחד איתו?\" · לחיצה ארוכה לבחירה · החלקה שמאלה למחיקה · ימינה למועדף</string>
-    <string name="watch_hint_tap_why">הקש על מטבע להתראה ו\"מה זז יחד איתו?\"</string>
+    <string name="watch_hint_tap_why">הקישו על מטבע להתראה ו\"מה זז יחד איתו?\"</string>
     <string name="watch_not_traded">כבר לא נסחר בבורסה הזו</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">לא ברשימת המעקב</string>
@@ -202,15 +202,15 @@
     <string name="sort_move_top">לראש הרשימה</string>
     <string name="sort_move_up">למעלה</string>
 
-    <string name="watchlist_first_alarm_title">הגדר את ההתראה הראשונה</string>
-    <string name="watchlist_first_alarm_text">קבל הודעה כשמחיר מגיע לרף שלך – כשהאפליקציה סגורה, Android בודק באופן לא סדיר.</string>
+    <string name="watchlist_first_alarm_title">הגדירו את ההתראה הראשונה</string>
+    <string name="watchlist_first_alarm_text">קבלו הודעה כשמחיר מגיע לרף שלך – כשהאפליקציה סגורה, Android בודק באופן לא סדיר.</string>
 
     <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
     <string name="watch_price_mark_fallback">מחיר mark (אין מחיר אמצע)</string>
     <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
     <string name="watch_price_hourly">מחיר שעתי</string>
     <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
-    <string name="watchlist_first_alarm_title_pair">הגדר את ההתראה הראשונה – %1$s</string>
+    <string name="watchlist_first_alarm_title_pair">הגדירו את ההתראה הראשונה – %1$s</string>
 
     <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
     <string name="watchlist_refresh_countdown">רענון (%1$d)</string>
@@ -227,4 +227,5 @@
 
     <string name="watchlist_sort_by_coin">מיון לפי מטבע</string>
     <string name="watchlist_sort_by_exchange">מיון לפי בורסה</string>
+    <string name="watchlist_limit_reached">רשימת המעקב יכולה להכיל עד %1$s צמדים.</string>
 </resources>

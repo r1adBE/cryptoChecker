@@ -40,7 +40,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alarmas</string>
-    <string name="channel_alarms_description">Notificación cuando salta una alarma de precio.</string>
+    <string name="channel_alarms_description">Notificación cuando salta una alarma.</string>
     <string name="channel_alarms_quiet">Alarmas (horas de silencio)</string>
     <string name="channel_alarms_quiet_description">Alarmas silenciosas durante las horas de silencio.</string>
     <string name="channel_alarms_silent">Alarmas (silencio)</string>

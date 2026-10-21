@@ -130,7 +130,7 @@
     <string name="tax_de_col_item">Poste</string>
     <string name="tax_de_disclaimer">À titre indicatif – ni déclaration fiscale ni conseil fiscal.</string>
     <string name="tax_de_explain_below">Jusqu’à %1$s : sous le seuil (indicatif).</string>
-    <string name="tax_de_explain_loss">Perte nette : aucun impôt sur ces ventes. Les pertes au sens du § 23 EStG ne s’imputent que sur les gains de ventes privées – la même année ou par report sur l’année précédente et sur les années suivantes (§ 23 Abs. 3 / § 10d EStG). Déclarez la perte dans votre déclaration d’impôt afin qu’elle soit constatée.</string>
+    <string name="tax_de_explain_loss">Perte nette : aucun impôt sur ces ventes. Les pertes au sens du § 23 EStG ne s’imputent que sur les gains de ventes privées – la même année ou par report sur l’année précédente et sur les années suivantes (§ 23 Abs. 3 / § 10d EStG). Déclare la perte dans ta déclaration d’impôt afin qu’elle soit constatée.</string>
     <string name="tax_de_explain_reached">À partir de %1$s tout le montant compte (seuil d’exonération – pas un abattement).</string>
     <string name="tax_de_explain_unknown">Non vérifiable : il manque des taux de change / des prix d’achat ou des durées de détention.</string>
     <string name="tax_de_income_limit">Seuil d’exonération prestations (§ 22 Nr. 3 EStG)</string>
@@ -161,7 +161,7 @@
     <string name="tax_template_hint">À titre indicatif uniquement : définit la méthode / l’année fiscale et le récapitulatif du document de travail. La carte Portefeuille reste neutre – dons et frais de transfert peuvent différer du document de travail.</string>
     <string name="tax_template_jp">Japon</string>
     <string name="tax_template_neutral">Neutre (tous les pays)</string>
-    <string name="tax_template_suggestion">Suggestion pour votre région : %1$s</string>
+    <string name="tax_template_suggestion">Suggestion pour ta région : %1$s</string>
     <string name="tax_template_title">Modèle fiscal</string>
     <string name="tax_template_uk">Royaume-Uni</string>
     <string name="tax_template_us">États-Unis</string>
@@ -179,11 +179,11 @@
     <string name="tax_note_network_fee">Des frais de réseau payés en crypto (transfert vers ton propre wallet, retrait) sont une cession des coins de frais à leur valeur de marché – plus- ou moins-value seulement sur ces coins, pas une perte de la totalité des frais (%1$s). Sans prix saisi : clôture du jour même (UTC) ; sans clôture le produit reste vide.</string>
     <string name="tax_note_specific_id">L’identification spécifique (Specific Identification) n’est pas prise en charge – FIFO s’applique (premier acheté – premier vendu).</string>
     <string name="tax_note_spouse_gift">Un don marqué « au conjoint / partenaire » est sans plus- ni moins-value : produit = ton prix de revient, que ton partenaire reprend (%1$s).</string>
-    <string name="tax_note_stable_swap">Une vente contre un stablecoin (USDT/USDC/DAI …) que vous conservez est ici un échange crypto contre crypto et n’est pas imposable – saisissez-la comme échange vers le stablecoin. Seule une vente contre des euros est imposable – « Vente » compte comme vente contre des euros.</string>
+    <string name="tax_note_stable_swap">Une vente contre un stablecoin (USDT/USDC/DAI …) que tu conserves est ici un échange crypto contre crypto et n’est pas imposable – saisis-la comme échange vers le stablecoin. Seule une vente contre des euros est imposable – « Vente » compte comme vente contre des euros.</string>
     <string name="tax_note_transfer_fee">Il en va de même pour des frais en USDT ou en espèces lors d’un transfert entre tes propres wallets : ils ne s’ajoutent pas au coût de revient et figurent à titre d’information.</string>
     <string name="tax_note_uk">Rapprochement selon HMRC : même jour → puis les 30 jours suivants → puis le pool commun (Section 104 pool).</string>
-    <string name="tax_note_us_transition">Transition au 1.1.2025 (Rev. Proc. 2024-28, safe harbor) : si les années précédentes utilisaient le FIFO sur tous les portefeuilles, les lots restants au 31.12.2024 vont aux portefeuilles qui détiennent les coins – le portefeuille aux coins les plus anciens reçoit le coût le plus ancien. Cette répartition est une règle de l’app – à comparer avec vos propres relevés.</string>
-    <string name="tax_note_us_wallet">À partir de l’année fiscale 2025 l’IRS exige le coût de revient par wallet/plateforme (Rev. Proc. 2024-28) – l’export applique FIFO par wallet dès 2025 – avant 2025 votre méthode du coût de revient s’applique.</string>
+    <string name="tax_note_us_transition">Transition au 1.1.2025 (Rev. Proc. 2024-28, safe harbor) : si les années précédentes utilisaient le FIFO sur tous les portefeuilles, les lots restants au 31.12.2024 vont aux portefeuilles qui détiennent les coins – le portefeuille aux coins les plus anciens reçoit le coût le plus ancien. Cette répartition est une règle de l’app – à comparer avec tes propres relevés.</string>
+    <string name="tax_note_us_wallet">À partir de l’année fiscale 2025 l’IRS exige le coût de revient par wallet/plateforme (Rev. Proc. 2024-28) – l’export applique FIFO par wallet dès 2025 – avant 2025 ta méthode du coût de revient s’applique.</string>
     <string name="tax_note_withdrawal_fee">Des frais de retrait en USDT ou en espèces ne sont pas une perte : des frais en espèces ne sont pas déductibles, des frais en USDT sont une cession au pair sans plus-value – ils figurent à titre d’information (%1$s).</string>
     <string name="tax_summary_at_interest_income">compte : revenu à la réception au taux spécial de 27,5 pour cent (§ 27b al. 2 n° 1 EStG / BMF) – les coins gardent cette valeur comme coût d’acquisition</string>
     <string name="tax_summary_at_reward_info">pour information uniquement – dans aucun total : les récompenses entrent dans le nouveau stock au coût d’acquisition 0 et ne sont imposées qu’à la vente (déjà dans les gains) – § 27b Abs. 2 EStG / BMF</string>
@@ -244,7 +244,7 @@
     <string name="portfolio_export_address_lots_note">Remarque : une adresse surveillée a des lots avec prix de revient datés après sa dernière consultation du solde avant cette date – ils peuvent manquer ici.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">Les adresses surveillées comptent dans la valeur globale mais n\'ont pas de prix d\'acquisition – la plus-value est donc plutôt surestimée. Saisissez le prix d\'acquisition comme achat.</string>
+    <string name="tax_summary_fr_address_no_cost">Les adresses surveillées comptent dans la valeur globale mais n\'ont pas de prix d\'acquisition – la plus-value est donc plutôt surestimée. Saisis le prix d\'acquisition comme achat.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Valeurs de marché sans prix saisi (frais, donné/payé, échange, récompenses, frais de réseau, valeur du portefeuille) à la clôture journalière (UTC) du jour de la transaction</string>

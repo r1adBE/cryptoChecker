@@ -1,5 +1,7 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
+import com.cryptochecker.app.data.BoundedCache
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -49,7 +51,8 @@ class SingleWidgetRenderer @Inject constructor(
     internal val tokenIdentityStore: com.cryptochecker.app.data.TokenIdentityStore,
 ) {
     /** Mini-Chart-Kerzen je Symbol und Zeitraum, 10 Minuten zwischengespeichert (für Kerzen und Linie). */
-    internal val sparkCache = java.util.concurrent.ConcurrentHashMap<String, Pair<Long, List<WidgetCandle>>>()
+    /** Begrenzt seit Build 99 (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
+    internal val sparkCache = BoundedCache<String, Pair<Long, List<WidgetCandle>>>(MEMORY_CACHE_ENTRIES)
 
     /**
      * Gesetzt, wenn ein Zeichnen ohne Netz (`fetch = false`) Kerzen brauchte, die im Zwischenspeicher
@@ -61,7 +64,7 @@ class SingleWidgetRenderer @Inject constructor(
     fun takeStaleCharts(): Boolean = staleCharts.getAndSet(false)
 
     /** Börse der Kerzen aus der Ausweich-Kette je Schlüssel von [sparkCache] (für «Chart: Binance»). */
-    internal val sparkProvider = java.util.concurrent.ConcurrentHashMap<String, String>()
+    internal val sparkProvider = BoundedCache<String, String>(MEMORY_CACHE_ENTRIES)
 
     /**
      * Zuletzt gezeichneter Chart je Einzel-Widget: Gleiche Kerzen, Darstellung, Farben, Grösse

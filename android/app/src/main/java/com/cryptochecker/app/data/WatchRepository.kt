@@ -7,12 +7,13 @@ import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
+import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.model.MarketInfo
-import com.cryptochecker.app.domain.watch.AutoGroup
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.domain.watch.WatchIdentity
+import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.util.TextLimit
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -66,67 +67,7 @@ class WatchRepository @Inject constructor(
         if (ids.isNotEmpty()) watchDao.updateContractType(ids, FuturesContractType.INVERSE_PERPETUAL.name)
     }
 
-    /**
-     * Legt ein Paar in der Watchlist an.
-     * @param notificationEnabled Kurs-Benachrichtigung des Paares (Standard ab Build 42: aus, auch für
-     *   die Start-Merkliste — keine Flut beim ersten Start; einschalten im Paar-Menü)
-     * @return die Id des Eintrags, oder null, wenn er bereits vorhanden war.
-     */
-    suspend fun addWatch(
-        market: MarketInfo,
-        pair: MarketPair,
-        group: String? = null,
-        notificationEnabled: Boolean = DEFAULT_NOTIFICATION_ENABLED,
-    ): Long? = database.withTransaction {
-        // Suchen und Einfügen in EINEM Vorgang: Zwei gleichzeitige Aufnahmen (Doppeltipp, Sammelaufnahme)
-        // legen sonst dasselbe Paar zweimal an (bei Börsen ist die Kennung null, der Index greift dort nicht)
-        // Paar aus einer älteren, noch nicht neu geladenen Paarliste: inverse Perpetuals wie heute gespeichert
-        val contractType = FuturesContractType.normalized(market.key, pair.pairId, pair.contractType)
-        val existing = watchDao.findWatchId(
-            market.key,
-            pair.base,
-            pair.quote,
-            contractType.name,
-            WatchIdentity.pool(market.key, pair.pairId),
-        )
-        if (existing != null) return@withTransaction null
-
-        val id = watchDao.insertWatch(
-            WatchEntity(
-                marketKey = market.key,
-                marketName = market.name,
-                baseAsset = pair.base,
-                quoteAsset = pair.quote,
-                contractType = contractType,
-                pairId = pair.pairId,
-                sortOrder = watchDao.nextSortOrder(),
-                // Nur neue Paare erhalten die gewählte Gruppe; bestehende bleiben unverändert.
-                // Ohne Wahl: TradFi-Futures nach «TradFi», Laufzeit-Futures nach «QTLY».
-                groupName = AutoGroup.resolve(group, pair),
-                notificationEnabled = notificationEnabled,
-            )
-        )
-        if (id > 0) id else null
-    }
-
-    /**
-     * Legt mehrere Paare auf einmal an. Bereits vorhandene werden übersprungen,
-     * nicht doppelt eingetragen.
-     */
-    suspend fun addWatches(
-        market: MarketInfo,
-        pairs: List<MarketPair>,
-        group: String? = null,
-    ): BulkAddResult {
-        var added = 0
-        var skipped = 0
-
-        for (pair in pairs) {
-            if (addWatch(market, pair, group) != null) added++ else skipped++
-        }
-
-        return BulkAddResult(added = added, skipped = skipped)
-    }
+    // Paare anlegen (einzeln, gesammelt, mit Obergrenze): `WatchRepositoryAdd.kt`
 
     /**
      * «Paar bearbeiten»: Börse, Paar und Kontrakt eines Eintrags ändern — derselbe Eintrag
@@ -297,11 +238,11 @@ class WatchRepository @Inject constructor(
 
     /** Notiz setzen; null oder leer = keine Notiz. */
     suspend fun setNote(id: Long, note: String?) =
-        watchDao.setNote(id, note?.trim()?.let { TextLimit.takeGraphemes(it, NOTE_MAX) }?.takeIf { it.isNotEmpty() })
+        watchDao.setNote(id, TextLimit.clean(note, NOTE_MAX))
 
-    /** Gruppe setzen; null oder leer = keine Gruppe. */
+    /** Gruppe setzen (höchstens [GROUP_NAME_MAX] Zeichen); null oder leer = keine Gruppe. */
     suspend fun setGroup(id: Long, groupName: String?) =
-        watchDao.setGroup(id, groupName?.trim()?.takeIf { it.isNotEmpty() })
+        watchDao.setGroup(id, TextLimit.clean(groupName, GROUP_NAME_MAX))
 
     /**
      * «Gruppe bearbeiten» in einem Vorgang: Die bisherige Gruppe [oldName]
@@ -311,7 +252,7 @@ class WatchRepository @Inject constructor(
      * bestehenden Gruppe, werden beide zusammengeführt.
      */
     suspend fun applyGroupEdit(oldName: String?, newName: String, memberIds: Set<Long>) {
-        val name = newName.trim().takeIf { it.isNotEmpty() } ?: return
+        val name = TextLimit.clean(newName, GROUP_NAME_MAX) ?: return
         database.withTransaction {
             if (oldName != null) watchDao.clearGroup(oldName)
             memberIds.forEach { watchDao.setGroup(it, name) }
@@ -359,9 +300,14 @@ class WatchRepository @Inject constructor(
     /** Paare mit mindestens einem aktiven Alarm (für die Planung der Hintergrund-Aktualisierung). */
     fun observeWatchIdsWithEnabledAlarms(): Flow<List<Long>> = watchDao.observeWatchIdsWithEnabledAlarms()
 
-    suspend fun saveAlarm(alarm: AlarmEntity): Long =
-        if (alarm.id == 0L) watchDao.insertAlarm(alarm)
-        else {
+    /**
+     * Neuer Alarm (id 0) nur unter der Obergrenze je Paar ([WatchlistLimits.MAX_ALARMS_PER_PAIR], Zählen und Einfügen
+     * in einem Vorgang); null = Paar hat schon so viele. Bearbeiten (feste id) zählt nicht.
+     */
+    suspend fun saveAlarm(alarm: AlarmEntity): Long? =
+        if (alarm.id == 0L) database.withTransaction {
+            if (WatchlistLimits.canAddAlarm(watchDao.getAlarms(alarm.watchId).size)) watchDao.insertAlarm(alarm) else null
+        } else {
             watchDao.updateAlarm(alarm)
             alarm.id
         }

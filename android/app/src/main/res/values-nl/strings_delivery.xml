@@ -52,12 +52,12 @@
     <string name="alarm_first_check">Controleren of alarmen aankomen</string>
 
     <string name="oem_battery_title">Batterijbesparing van de fabrikant</string>
-    <string name="oem_battery_xiaomi">Xiaomi kan de app volledig stoppen – dan komen er geen meldingen. Zet «Automatisch starten» aan en stel batterijbesparing in op «Geen beperkingen».</string>
-    <string name="oem_battery_samsung">Samsung kan de app in diepe slaap zetten – dan komen er geen meldingen. Voeg hem onder Batterij › Limieten voor achtergrondgebruik toe aan «Apps die nooit slapen».</string>
-    <string name="oem_battery_huawei">Huawei/Honor kan de app stoppen – dan komen er geen meldingen. Kies onder Batterij › App starten «Handmatig beheren» en sta alles toe.</string>
-    <string name="oem_battery_oneplus">OnePlus kan de app stoppen – dan komen er geen meldingen. Sta «Automatisch starten» toe en onder Batterijgebruik achtergrondactiviteit.</string>
-    <string name="oem_battery_oppo">Oppo/Realme kan de app stoppen – dan komen er geen meldingen. Sta «Automatisch starten» toe en onder Batterijgebruik achtergrondactiviteit.</string>
-    <string name="oem_battery_vivo">Vivo kan de app stoppen – dan komen er geen meldingen. Sta «Automatisch starten» toe en onder Batterij hoog stroomverbruik op de achtergrond.</string>
+    <string name="oem_battery_xiaomi">Xiaomi kan de app volledig stoppen – dan komen er geen alarmen. Zet «Automatisch starten» aan en stel batterijbesparing in op «Geen beperkingen».</string>
+    <string name="oem_battery_samsung">Samsung kan de app in diepe slaap zetten – dan komen er geen alarmen. Voeg hem onder Batterij › Limieten voor achtergrondgebruik toe aan «Apps die nooit slapen».</string>
+    <string name="oem_battery_huawei">Huawei/Honor kan de app stoppen – dan komen er geen alarmen. Kies onder Batterij › App starten «Handmatig beheren» en sta alles toe.</string>
+    <string name="oem_battery_oneplus">OnePlus kan de app stoppen – dan komen er geen alarmen. Sta «Automatisch starten» toe en onder Batterijgebruik achtergrondactiviteit.</string>
+    <string name="oem_battery_oppo">Oppo/Realme kan de app stoppen – dan komen er geen alarmen. Sta «Automatisch starten» toe en onder Batterijgebruik achtergrondactiviteit.</string>
+    <string name="oem_battery_vivo">Vivo kan de app stoppen – dan komen er geen alarmen. Sta «Automatisch starten» toe en onder Batterij hoog stroomverbruik op de achtergrond.</string>
     <string name="alarm_reliability_recent">Laatste controle %1$s</string>
     <string name="alarm_reliability_stale">Laatste controle %1$s – alarmen kunnen te laat komen</string>
     <string name="alarm_reliability_never">Alarmen aan – nog geen controle op de achtergrond</string>

@@ -34,7 +34,7 @@
     <string name="alarm_fires_now_save">Zapisz mimo to</string>
     <string name="alarm_fires_now_title">Alarm uruchomi się od razu</string>
     <string name="alarm_first_battery_hint">Optymalizacja baterii ogranicza aplikację – alarmy mogą przychodzić z opóźnieniem.</string>
-    <string name="alarm_first_title">Alert zapisany</string>
+    <string name="alarm_first_title">Alarm zapisany</string>
     <string name="alarm_last_triggered">ostatnio o %1$s</string>
     <string name="alarm_more_conditions">Więcej warunków</string>
     <string name="alarm_new_extreme">Nowe %1$s</string>
@@ -191,4 +191,5 @@
     <string name="alarm_editor_more">Więcej</string>
     <string name="alarm_editor_more_summary">Szybkie alarmy, inne warunki, dźwięk i czytanie</string>
     <string name="alarm_reliability_storage_no_key">Alarmy w tle wstrzymane – lista nie jest zapisana</string>
+    <string name="alarms_limit_reached">Para może mieć maksymalnie %1$s alarmów.</string>
 </resources>

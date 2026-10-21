@@ -99,7 +99,7 @@
     <string name="portfolio_discard_keep">Fortsæt redigering</string>
     <string name="portfolio_discard_title">Kassér ændringer?</string>
     <string name="portfolio_edit_tx">Rediger transaktion</string>
-    <string name="portfolio_invalid">Ugyldig mængde</string>
+    <string name="portfolio_invalid">Indtast et gyldigt tal større end 0.</string>
     <string name="portfolio_oversold">Salg overstiger beholdningen – kontrollér transaktionerne.</string>
     <string name="portfolio_sell">Salg</string>
     <string name="portfolio_sell_exceeds">Mere end din beholdning (%1$s)</string>
@@ -139,7 +139,7 @@
     <string name="portfolio_tx_price">Pris pr. coin</string>
     <string name="portfolio_tx_price_hint">I USDT. Lad stå tomt, hvis ukendt.</string>
     <string name="portfolio_tx_price_historic">Kontrolleret lukkekurs for %1$s – justér om nødvendigt</string>
-    <string name="portfolio_tx_price_invalid">Ugyldig pris</string>
+    <string name="portfolio_tx_price_invalid">Indtast et gyldigt tal (0 eller mere), eller lad feltet stå tomt.</string>
     <string name="portfolio_tx_price_past_hint">Angiv kursen på handelsdagen – lad stå tomt, hvis ukendt</string>
     <string name="portfolio_tx_price_receipt_hint">I USDT. Tom = beholdning uden anskaffelsespris.</string>
     <string name="portfolio_tx_price_zero">Pris 0 er ikke mulig for importerede transaktioner – lad feltet stå tomt for markedskurs</string>

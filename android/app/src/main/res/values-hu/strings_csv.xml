@@ -44,6 +44,8 @@
     <string name="portfolio_csv_import_transfers_hint">Egy kifizetés és ugyanazon coin hozzá illő befizetése egyetlen átvezetés lesz: a beszerzési ár és a tartási idő megmarad, a különbözet hálózati díjnak számít.</string>
     <string name="portfolio_csv_import_transfers_title">Átvezetések a számláid között</string>
     <string name="portfolio_csv_import_unreadable">Nem található támogatott tranzakció. Támogatott: Relai, Swissquote, Kraken, Binance, Coinbase és Bitpanda CSV-exportok.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">A fájl túl nagy az importáláshoz (legfeljebb 16 MB és %1$s sor). Exportálj rövidebb időszakokat, és importáld őket egymás után.</string>
     <string name="portfolio_csv_import_failed">Az importálás nem sikerült – semmi sem lett mentve. Próbáld újra.</string>
     <string name="portfolio_csv_import_locked">Az importálás nem lehetséges: a mentett adatok most nem olvashatók. Indítsd újra az alkalmazást.</string>
     <string name="portfolio_csv_import_withdrawals_title">Kifizetések – hová kerültek a coinok?</string>

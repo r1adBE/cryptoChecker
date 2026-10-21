@@ -9,6 +9,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
+import com.cryptochecker.app.domain.watch.WatchlistLimits
+import com.cryptochecker.app.util.LocaleNumbers
 
 /**
  * Rückmeldungen als Snackbar statt Text, der das Layout verschiebt: Paar übernommen bzw. schon
@@ -35,6 +37,7 @@ internal fun ExplorerFeedback(
     val addedText = stringResource(R.string.explorer_added_to_watchlist)
     val alreadyText = stringResource(R.string.explorer_already_in_watchlist)
     val noPairText = stringResource(R.string.explorer_no_pair_selected)
+    val fullText = watchlistFullText()
     LaunchedEffect(addResult) {
         val state = addResult ?: return@LaunchedEffect
         if (state == AddResult.ADDED) requestNotifications()
@@ -46,9 +49,11 @@ internal fun ExplorerFeedback(
                     AddResult.ADDED -> addedText
                     AddResult.ALREADY_IN_LIST -> alreadyText
                     AddResult.NO_PAIR_SELECTED -> noPairText
+                    AddResult.WATCHLIST_FULL -> fullText
                 },
                 actionLabel = if (state == AddResult.NO_PAIR_SELECTED) null else viewLabel,
-                duration = SnackbarDuration.Short
+                // Volle Merkliste: Zeit zum Lesen (auch mit Screenreader), «Ansehen» führt zum Aufräumen
+                duration = if (state == AddResult.WATCHLIST_FULL) SnackbarDuration.Long else SnackbarDuration.Short
             )
             if (result == SnackbarResult.ActionPerformed) onOpenWatchlist()
         } finally {
@@ -59,22 +64,35 @@ internal fun ExplorerFeedback(
     val dexMessage = dex.message
     val dexAddedText = (dexMessage as? DexMessage.Added)?.let { stringResource(R.string.dex_added, it.symbol) }
     val dexAlreadyText = (dexMessage as? DexMessage.AlreadyInList)?.let { stringResource(R.string.dex_already, it.symbol) }
-    val dexFailedText = stringResource(R.string.something_went_wrong)
+    val dexFailedText = (dexMessage as? DexMessage.Failed)?.let {
+        stringResource(
+            when (it.kind) {
+                DexFailure.OFFLINE -> R.string.watch_error_offline
+                DexFailure.UNREACHABLE -> R.string.error_market_unreachable_short
+                DexFailure.OTHER -> R.string.something_went_wrong
+            }
+        )
+    }
+    val retryLabel = stringResource(R.string.action_retry)
     LaunchedEffect(dexMessage) {
         val text = when (dexMessage) {
             is DexMessage.Added -> dexAddedText
             is DexMessage.AlreadyInList -> dexAlreadyText
-            DexMessage.Failed -> dexFailedText
+            is DexMessage.Failed -> dexFailedText
             else -> null
         } ?: return@LaunchedEffect
         if (dexMessage is DexMessage.Added) requestNotifications()
         try {
             val result = snackbar.showSnackbar(
                 message = text,
-                actionLabel = if (dexMessage is DexMessage.Failed) null else viewLabel,
-                duration = SnackbarDuration.Short
+                actionLabel = if (dexMessage is DexMessage.Failed) retryLabel else viewLabel,
+                // Mit «Erneut versuchen» länger stehen lassen (Zeit zum Antippen, auch mit Screenreader)
+                duration = if (dexMessage is DexMessage.Failed) SnackbarDuration.Long else SnackbarDuration.Short
             )
-            if (result == SnackbarResult.ActionPerformed) onOpenWatchlist()
+            if (result == SnackbarResult.ActionPerformed) {
+                // «Erneut versuchen»: denselben Begriff noch einmal suchen
+                if (dexMessage is DexMessage.Failed) dex.onSearch(dexMessage.query) else onOpenWatchlist()
+            }
         } finally {
             dex.onMessageShown()
         }
@@ -85,7 +103,7 @@ internal fun ExplorerFeedback(
         if (state.added > 0) requestNotifications()
         try {
             val result = snackbar.showSnackbar(
-                message = resources.getQuantityString(R.plurals.explorer_bulk_added, state.added, state.added, state.skipped),
+                message = bulkAddedText(resources, state),
                 actionLabel = viewLabel,
                 duration = SnackbarDuration.Long
             )
@@ -95,3 +113,19 @@ internal fun ExplorerFeedback(
         }
     }
 }
+
+/** «3 hinzugefügt, 2 bereits vorhanden.» — bei voller Merkliste dazu, wie viele nicht dazukamen und warum. */
+private fun bulkAddedText(resources: android.content.res.Resources, state: BulkAddResult): String {
+    val added = resources.getQuantityString(R.plurals.explorer_bulk_added, state.added, state.added, state.skipped)
+    if (state.refused <= 0) return added
+    val refused = resources.getQuantityString(
+        R.plurals.explorer_bulk_not_added_limit, state.refused,
+        state.refused, LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true),
+    )
+    return "$added $refused"
+}
+
+/** «Deine Merkliste kann höchstens 2’000 Paare enthalten.» (Zahl im Format der App-Sprache). */
+@Composable
+internal fun watchlistFullText(): String =
+    stringResource(R.string.watchlist_limit_reached, LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true))

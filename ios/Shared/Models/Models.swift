@@ -273,11 +273,8 @@ extension Watch {
     /// Höchstlänge einer Notiz (wie `NOTE_MAX` in Android).
     static let noteMax = 120
 
-    /// Notiz getrimmt und gekürzt; leer = keine Notiz.
-    static func validNote(_ text: String?) -> String? {
-        guard let trimmed = text?.trimmingCharacters(in: .whitespacesAndNewlines), !trimmed.isEmpty else { return nil }
-        return String(trimmed.prefix(noteMax))
-    }
+    /// Notiz getrimmt, gekürzt und nochmals getrimmt; leer = keine Notiz (wie Android `TextLimit.clean`).
+    static func validNote(_ text: String?) -> String? { TextLimit.clean(text, max: noteMax) }
 
     /// Bestand nur, wenn endlich und grösser als 0 — sonst nil (wie `setHoldings` in Android).
     static func validHoldings(_ value: Double?) -> Double? {
@@ -285,11 +282,12 @@ extension Watch {
         return value
     }
 
-    /// Gruppenname getrimmt; leer = keine Gruppe (wie `setGroup` in Android).
-    static func validGroupName(_ name: String?) -> String? {
-        guard let trimmed = name?.trimmingCharacters(in: .whitespacesAndNewlines), !trimmed.isEmpty else { return nil }
-        return trimmed
-    }
+    /// Höchstlänge eines Gruppennamens in sichtbaren Zeichen (wie `GROUP_NAME_MAX` in Android).
+    static let groupNameMax = 24
+
+    /// Gruppenname getrimmt und auf `groupNameMax` gekürzt; leer = keine Gruppe (wie `setGroup` in Android).
+    /// Gilt auch für Sicherungen — vorher kam ein beliebig langer Name aus der Datei durch.
+    static func validGroupName(_ name: String?) -> String? { TextLimit.clean(name, max: groupNameMax) }
 }
 
 /// Gruppe für ein neues Paar, wenn beim Hinzufügen keine gewählt ist: Futures auf Aktien, Rohstoffe,

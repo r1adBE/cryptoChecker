@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">ไม่มีสิทธิ์ – ขณะเครื่องพัก Android จะตรวจไม่สม่ำเสมอ บางครั้งหลายชั่วโมงต่อครั้ง</string>
     <string name="settings_notification_change">แจ้งเตือนเฉพาะเมื่อราคาเปลี่ยน</string>
     <string name="settings_notification_change_always">ทุกครั้ง</string>
+    <string name="settings_percent_invalid">ป้อนค่าตั้งแต่ 0 ถึง 100</string>
     <string name="settings_notification_change_hint">การแจ้งเตือนจะแสดงเมื่อราคาเปลี่ยนอย่างน้อยเท่านี้นับจากครั้งก่อนเท่านั้น จะไม่แสดงอะไรขณะไม่มีข้อมูล สัญญาณเตือนไม่ได้รับผลกระทบ</string>
     <string name="settings_ongoing_notifications">ปัดทิ้งไม่ได้</string>
     <string name="settings_ongoing_notifications_hint">ปักหมุดการแจ้งเตือนราคาไว้</string>

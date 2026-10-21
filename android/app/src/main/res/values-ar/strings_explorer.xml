@@ -150,4 +150,12 @@
     <string name="dex_token_address_copy">نسخ عنوان الرمز</string>
     <string name="dex_token_address_copied">تم نسخ عنوان الرمز</string>
     <string name="dex_token_address_label">عنوان الرمز المنتهي بـ %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="zero">لم تُضف: %1$d. يمكن أن تحتوي قائمة المتابعة على %2$s زوج كحد أقصى.</item>
+        <item quantity="one">لم تُضف: %1$d. يمكن أن تحتوي قائمة المتابعة على %2$s زوج كحد أقصى.</item>
+        <item quantity="two">لم تُضف: %1$d. يمكن أن تحتوي قائمة المتابعة على %2$s زوج كحد أقصى.</item>
+        <item quantity="few">لم تُضف: %1$d. يمكن أن تحتوي قائمة المتابعة على %2$s زوج كحد أقصى.</item>
+        <item quantity="many">لم تُضف: %1$d. يمكن أن تحتوي قائمة المتابعة على %2$s زوج كحد أقصى.</item>
+        <item quantity="other">لم تُضف: %1$d. يمكن أن تحتوي قائمة المتابعة على %2$s زوج كحد أقصى.</item>
+    </plurals>
 </resources>

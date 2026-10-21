@@ -13,13 +13,13 @@
     <string name="portfolio_empty_action">הוספת הקנייה הראשונה</string>
     <string name="portfolio_empty_address">רק לעקוב אחר כתובת ארנק</string>
     <string name="portfolio_empty_csv">קנית בבורסה? ייבוא הקובץ</string>
-    <string name="portfolio_empty_example_plain">דוגמה: 0.01 BTC נקנה ב-1 במרץ. האפליקציה תראה כמה זה שווה היום ואם אתה ברווח או בהפסד – נשמר רק במכשיר הזה.</string>
-    <string name="portfolio_empty_text">הזן מה קנית – האפליקציה תראה כמה זה שווה היום וכמה אתה ברווח או בהפסד.</string>
+    <string name="portfolio_empty_example_plain">דוגמה: 0.01 BTC נקנה ב-1 במרץ. האפליקציה תראה כמה זה שווה היום ואם יש רווח או הפסד – נשמר רק במכשיר הזה.</string>
+    <string name="portfolio_empty_text">הזינו מה קנית – האפליקציה תראה כמה זה שווה היום ומה הרווח או ההפסד שלך.</string>
     <string name="portfolio_empty_title">אין עדיין עסקאות</string>
     <string name="portfolio_enable_ask_text">העסקה שלך נשמרה. לשונית תיק השקעות מציגה את היתרות שלך ואת שוויין.</string>
     <string name="portfolio_enable_ask_title">להפעיל את לשונית תיק השקעות?</string>
     <string name="portfolio_enable_later_hint">העסקה נשמרה. אפשר להפעיל את לשונית תיק השקעות בהגדרות › תיק השקעות.</string>
-    <string name="portfolio_enabled_banner">התיק הופעל – תמצא אותו בכרטיסייה תיק.</string>
+    <string name="portfolio_enabled_banner">התיק הופעל – אפשר למצוא אותו בכרטיסייה תיק.</string>
     <string name="portfolio_lock_reason">ביטול נעילת תיק ההשקעות</string>
     <string name="portfolio_locked_text">יש לבטל את הנעילה כדי לראות אחזקות ושווי.</string>
     <string name="portfolio_locked_title">תיק ההשקעות נעול</string>
@@ -102,7 +102,7 @@
     <string name="portfolio_discard_keep">המשך עריכה</string>
     <string name="portfolio_discard_title">לבטל את השינויים?</string>
     <string name="portfolio_edit_tx">עריכת עסקה</string>
-    <string name="portfolio_invalid">כמות לא תקינה</string>
+    <string name="portfolio_invalid">הזינו מספר תקין גדול מ-0.</string>
     <string name="portfolio_oversold">המכירות עולות על האחזקה – כדאי לבדוק את העסקאות.</string>
     <string name="portfolio_sell">מכירה</string>
     <string name="portfolio_sell_exceeds">יותר מהאחזקה שלך (%1$s)</string>
@@ -129,7 +129,7 @@
     <string name="portfolio_tx_fees_toggle">עמלות</string>
     <string name="portfolio_tx_fiat_converted">≈ %1$s לפי השער של %2$s</string>
     <string name="portfolio_tx_fiat_loading">טוען שער חליפין…</string>
-    <string name="portfolio_tx_fiat_no_fx">אין שער חליפין ליום הזה – הזן את הסכום ב-USDT.</string>
+    <string name="portfolio_tx_fiat_no_fx">אין שער חליפין ליום הזה – הזינו את הסכום ב-USDT.</string>
     <string name="portfolio_tx_gift">מתנה</string>
     <string name="portfolio_tx_gift_price_hint">ב-USDT. ריק = שער הסגירה של אותו יום (הערכה).</string>
     <string name="portfolio_tx_gift_spouse">לבן/בת הזוג</string>
@@ -142,13 +142,13 @@
     <string name="portfolio_tx_price">מחיר למטבע</string>
     <string name="portfolio_tx_price_hint">ב-USDT. אפשר להשאיר ריק אם לא ידוע.</string>
     <string name="portfolio_tx_price_historic">מחיר סגירה יומי שנבדק מ-%1$s – אפשר לשנות לפי הצורך</string>
-    <string name="portfolio_tx_price_invalid">מחיר לא תקין</string>
-    <string name="portfolio_tx_price_past_hint">הזן את המחיר ביום העסקה – השאר ריק אם לא ידוע</string>
+    <string name="portfolio_tx_price_invalid">הזינו מספר תקין (0 ומעלה) או השאירו את השדה ריק.</string>
+    <string name="portfolio_tx_price_past_hint">הזינו את המחיר ביום העסקה – השאירו ריק אם לא ידוע</string>
     <string name="portfolio_tx_price_receipt_hint">ב-USDT. ריק = יתרה ללא עלות רכישה.</string>
-    <string name="portfolio_tx_price_zero">מחיר 0 אינו אפשרי בעסקאות מיובאות – השאר ריק למחיר השוק</string>
+    <string name="portfolio_tx_price_zero">מחיר 0 אינו אפשרי בעסקאות מיובאות – השאירו ריק למחיר השוק</string>
     <string name="portfolio_tx_removed">העסקה נמחקה</string>
     <string name="portfolio_tx_reward">תגמול</string>
-    <string name="portfolio_tx_save_failed">לא ניתן היה לשמור את העסקה. מה שהזנת עדיין כאן – נסה שוב.</string>
+    <string name="portfolio_tx_save_failed">לא ניתן היה לשמור את העסקה. מה שהזנת עדיין כאן – נסו שוב.</string>
     <string name="portfolio_tx_swap">החלפה</string>
     <string name="portfolio_tx_swap_fee_received">עמלה ב-%1$s: מקטינה את הכמות שהתקבלה, אין צורך במחיר.</string>
     <string name="portfolio_tx_swap_from">החלפה מ-%1$s</string>
@@ -156,7 +156,7 @@
     <string name="portfolio_tx_swap_given_coin">המטבע שנמסר</string>
     <string name="portfolio_tx_swap_received_amount">הכמות שהתקבלה</string>
     <string name="portfolio_tx_swap_received_coin">המטבע שהתקבל</string>
-    <string name="portfolio_tx_swap_same_coin">בחר מטבע אחר מזה שנמסר</string>
+    <string name="portfolio_tx_swap_same_coin">בחרו מטבע אחר מזה שנמסר</string>
     <string name="portfolio_tx_swap_to">החלפה ל-%1$s</string>
     <string name="portfolio_tx_swap_value">שווי ההחלפה (רשות)</string>
     <string name="portfolio_tx_swap_value_hint">שווי כולל. ריק = לא ידוע – הרווח נשאר חלקי (אוטומטי עם USDT בהחלפה).</string>
@@ -173,7 +173,7 @@
     <string name="portfolio_tx_type_select">סוג: %1$s</string>
     <string name="portfolio_tx_value_received">שווי למטבע בעת הקבלה (רשות)</string>
     <string name="portfolio_tx_withdrawal">משיכה</string>
-    <string name="portfolio_tx_withdrawal_gift_hint">נתת במתנה או שילמת בזה? רשום כ‹מתנה› או ‹שולם בזה› – בהתאם למדינה, לצורכי מס זו מכירה.</string>
+    <string name="portfolio_tx_withdrawal_gift_hint">נתת במתנה או שילמת בזה? רשמו כ‹מתנה› או ‹שולם בזה› – בהתאם למדינה, לצורכי מס זו מכירה.</string>
     <string name="portfolio_tx_withdrawal_price_hint">רשות: שווי שוק ב-USDT, רק להיסטוריה (ריק = מחיר אותו יום). המטבעות תמיד יוצאים לפי עלות הרכישה.</string>
     <string name="portfolio_wallet_did_you_mean">האם התכוונת ל-%1$s? כתיב שונה נחשב לארנק נפרד.</string>
     <string name="portfolio_wallet_shortfall">היתרה ב-%1$s לא מספיקה – חסרה העברה?</string>
@@ -206,7 +206,7 @@
     <string name="portfolio_history_period_30d">30 יום</string>
     <string name="portfolio_history_period_7d">7 ימים</string>
     <string name="portfolio_history_period_since_first">מאז הקנייה הראשונה</string>
-    <string name="portfolio_history_pnl_needs_prices">חסרים מחירי קנייה לחישוב רווח/הפסד – הוסף אותם בעסקאות.</string>
+    <string name="portfolio_history_pnl_needs_prices">חסרים מחירי קנייה לחישוב רווח/הפסד – הוסיפו אותם בעסקאות.</string>
     <string name="portfolio_history_pnl_without">רווח/הפסד ללא %1$s (חסר מחיר)</string>
     <string name="portfolio_history_range_1y">שנה</string>
     <string name="portfolio_history_range_30d">30 יום</string>
@@ -216,7 +216,7 @@
     <string name="portfolio_history_scaled">היסטוריה עבור %1$s: היסטוריית Binance מותאמת למחיר הבורסה</string>
     <string name="portfolio_history_title">התפתחות השווי</string>
     <string name="portfolio_history_today">היום</string>
-    <string name="portfolio_history_too_short">ההתפתחות מתחילה אחרי היום המלא הראשון שלכם.</string>
+    <string name="portfolio_history_too_short">ההתפתחות מתחילה אחרי היום המלא הראשון שלך.</string>
     <string name="portfolio_history_unavailable">אין כרגע התפתחות זמינה.</string>
     <string name="portfolio_history_utc_days">ימים ב-UTC (נרות יומיים)</string>
     <string name="portfolio_history_without_matching">ללא %1$s (אין מחירים יומיים תואמים)</string>
@@ -244,7 +244,7 @@
     <string name="ledger_exchange">בורסה (רשות)</string>
     <string name="ledger_exchange_failed">%1$s: כרגע אין מחיר מ-%2$s – הוערך לפי Binance.</string>
     <string name="ledger_exchange_hint">המטבע מוערך לפי מחיר הבורסה הזו (אחרת Binance). היסטוריה, 7 י׳ ושנה: מחירים יומיים של Binance, מותאמים.</string>
-    <string name="ledger_exchange_mixed">%1$s: הוזנו כמה בורסות – הוערך לפי Binance. העברת מטבעות? רשום זאת כ«העברה».</string>
+    <string name="ledger_exchange_mixed">%1$s: הוזנו כמה בורסות – הוערך לפי Binance. העברת מטבעות? רשמו זאת כ«העברה».</string>
     <string name="ledger_exchange_none">ללא (Binance)</string>
     <string name="ledger_fee">עמלה (רשות)</string>
     <string name="ledger_fee_coin">מטבע</string>

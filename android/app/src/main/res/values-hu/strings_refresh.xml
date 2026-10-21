@@ -101,9 +101,9 @@
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
     <string name="battery_delay_hint">Az Android késleltetheti az ellenőrzést – állítsd az akkut erre: „Korlátlan”</string>
     <string name="battery_later">Később</string>
-    <string name="battery_message">Az Android energiatakarékosság miatt késlelteti a háttérfolyamatokat — az árak és widgetek így órákkal elavultak lehetnek. Korlátlan akkumulátorhasználattal naprakészek maradnak. Ezt bármikor módosíthatja az Android beállításaiban.</string>
+    <string name="battery_message">Az Android energiatakarékosság miatt késlelteti a háttérfolyamatokat — az árak és widgetek így órákkal elavultak lehetnek. Korlátlan akkumulátorhasználattal naprakészek maradnak. Ezt bármikor módosíthatod az Android beállításaiban.</string>
     <string name="battery_open_settings">Akkubeállítások megnyitása</string>
-    <string name="battery_steps">Az alkalmazásinformációban koppintson az Akkumulátor (vagy Alkalmazás akkuhasználata) elemre, és válassza a Korlátlan lehetőséget.</string>
+    <string name="battery_steps">Az alkalmazásinformációban koppints az Akkumulátor (vagy Alkalmazás akkuhasználata) elemre, és válaszd a Korlátlan lehetőséget.</string>
     <string name="battery_title">Naprakész árak</string>
     <string name="ios_background_refresh_off">A háttérben frissítés ki van kapcsolva az appnál. Nélküle a riasztások csak nyitott appnál ellenőrződnek.</string>
     <string name="ios_low_power_mode">Az alacsony fogyasztású mód be van kapcsolva. Az iOS ritkán ellenőriz a háttérben, a riasztások késhetnek.</string>

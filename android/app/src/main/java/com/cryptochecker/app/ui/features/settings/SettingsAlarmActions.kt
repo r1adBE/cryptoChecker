@@ -44,7 +44,9 @@ internal suspend fun SettingsViewModel.applyPairNotification(watchId: Long, enab
 /** Alarmton aus der System-Auswahl; null = Standardton. */
 fun SettingsViewModel.setAlarmSound(uri: android.net.Uri?) = update {
     val name = uri?.let { AlarmSoundStore.title(context, it) }
+    val previous = settingsRepository.current().alarmSoundUri
     applyAlarmSound(uri?.toString(), name)
+    deletePreviousOwnTone(previous, uri?.toString())
 }
 
 /** Eigene Audiodatei übernehmen (ab Android 10). Meldet Fehler über [soundError]. */
@@ -56,7 +58,20 @@ fun SettingsViewModel.importAlarmSound(source: android.net.Uri) = update {
     if (imported == null) {
         _soundError.value = true
     } else {
+        val previous = settingsRepository.current().alarmSoundUri
         applyAlarmSound(imported.first.toString(), imported.second)
+        deletePreviousOwnTone(previous, imported.first.toString())
+    }
+}
+
+/**
+ * Vorigen eigenen Ton aus der Mediathek löschen, sobald ein anderer gilt (seit Build 99; sonst sammeln sich die
+ * Kopien in «Notifications/CryptoChecker»). Erst nach dem Umstellen: der Kanal zeigt dann schon auf den neuen Ton.
+ */
+private suspend fun SettingsViewModel.deletePreviousOwnTone(previous: String?, next: String?) {
+    if (!AlarmSoundStore.supportsCustomFile) return
+    kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+        AlarmSoundStore.deletePreviousIfOwn(context, previous, next)
     }
 }
 

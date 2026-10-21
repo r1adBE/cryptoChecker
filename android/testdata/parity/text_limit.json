@@ -1,5 +1,5 @@
 {
-  "description": "Längengrenze von Notizen in sichtbaren Zeichen (Graphem-Cluster): Android TextLimit.kt (BreakIterator), iOS String.count/prefix. «count» = Anzahl Zeichen von «text», «expected» = höchstens «max» Zeichen von vorn. Seit Build 98.",
+  "description": "Längengrenze von Notizen in sichtbaren Zeichen (Graphem-Cluster): Android TextLimit.kt (BreakIterator), iOS String.count/prefix. «count» = Anzahl Zeichen von «text», «expected» = höchstens «max» Zeichen von vorn. Seit Build 98. «fields» (seit Build 99): Gruppenname (24), Börse/Wallet (40) und Notiz (120) gesäubert wie Eingabe und Sicherung — trimmen, kürzen, nochmals trimmen; «expected» null = leer.",
   "cases": [
     {
       "description": "119 × «a» plus Emoji: genau an der Grenze, nichts gekürzt",
@@ -77,6 +77,74 @@
       "max": 120,
       "expected": "Notiz 98’450 CHF",
       "count": 16
+    }
+  ],
+  "fields": [
+    {
+      "description": "Gruppe 23 × «a» plus Emoji: genau 24 Zeichen",
+      "field": "group",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaa😀",
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaa😀"
+    },
+    {
+      "description": "Gruppe 24 × «a» plus Emoji: Emoji fällt ganz weg",
+      "field": "group",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaa😀",
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "description": "Gruppe mit ZWJ-Familie an Stelle 24 bleibt ganz",
+      "field": "group",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaa👨‍👩‍👧‍👦b",
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaa👨‍👩‍👧‍👦"
+    },
+    {
+      "description": "Gruppe getrimmt, Schnitt auf Leerzeichen nochmals getrimmt",
+      "field": "group",
+      "text": "  aaaaaaaaaaaaaaaaaaaaaaa b",
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "description": "Gruppe nur Leerzeichen",
+      "field": "group",
+      "text": "   ",
+      "expected": null
+    },
+    {
+      "description": "Börse 39 × «a» plus Emoji: genau 40 Zeichen",
+      "field": "exchange",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa😀",
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa😀"
+    },
+    {
+      "description": "Börse 40 × «a» plus Flagge: Flagge fällt ganz weg",
+      "field": "exchange",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa🇨🇭",
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "description": "Börse mit Akzent an Stelle 40 bleibt ganz",
+      "field": "exchange",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaé̂x",
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaé̂"
+    },
+    {
+      "description": "Börse getrimmt",
+      "field": "exchange",
+      "text": "  Ledger Nano  ",
+      "expected": "Ledger Nano"
+    },
+    {
+      "description": "Notiz 119 × «a» plus « b»: nochmals getrimmt",
+      "field": "note",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b",
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "description": "Notiz leer",
+      "field": "note",
+      "text": "",
+      "expected": null
     }
   ]
 }

@@ -32,6 +32,10 @@ interface WatchDao {
     @Query("SELECT COALESCE(MAX(sortOrder), -1) + 1 FROM watches")
     suspend fun nextSortOrder(): Int
 
+    /** Anzahl Paare der Merkliste (Obergrenze [com.cryptochecker.app.domain.watch.WatchlistLimits]). */
+    @Query("SELECT COUNT(*) FROM watches")
+    suspend fun countWatches(): Int
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertWatch(watch: WatchEntity): Long
 

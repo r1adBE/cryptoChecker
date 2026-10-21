@@ -8,6 +8,7 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.settings.SettingsRepository

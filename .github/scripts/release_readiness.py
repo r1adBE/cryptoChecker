@@ -26,7 +26,8 @@ PLAY_REQUIRED = ("title.txt", "short_description.txt", "full_description.txt")
 APPLE_LIMITS = {"name.txt": 30, "subtitle.txt": 30, "promotional_text.txt": 170, "description.txt": 4000,
                 "release_notes.txt": 4000}
 APPLE_BYTE_LIMITS = {"keywords.txt": 100}
-APPLE_REQUIRED = ("name.txt", "description.txt", "keywords.txt")
+# Privacy and support URL are mandatory per language in App Store Connect (the upload fails without them)
+APPLE_REQUIRED = ("name.txt", "description.txt", "keywords.txt", "privacy_url.txt", "support_url.txt")
 URL_FILES = ("privacy_url.txt", "support_url.txt", "marketing_url.txt")
 IMAGE_EXT = (".png", ".jpg", ".jpeg")
 

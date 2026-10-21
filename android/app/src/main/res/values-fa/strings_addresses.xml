@@ -21,7 +21,7 @@
     <string name="portfolio_address_tokens">احتساب توکن‌ها</string>
     <string name="portfolio_address_unknown_tokens">+%1$d توکن ناشناخته (حساب نشده)</string>
     <string name="portfolio_address_xpub_privacy">یک xpub همهٔ آدرس‌های این کیف پول را آشکار می‌کند. آن‌ها روی دستگاه تو ساخته می‌شوند؛ به %1$s فقط آدرس‌های جداگانه فرستاده می‌شود – در اولین جست‌وجو دست‌کم 40 درخواست و بعد کمتر. کلیدهای خصوصی (xprv) هرگز پذیرفته نمی‌شوند.</string>
-    <string name="portfolio_address_xpub_gap">جستجو پس از %1$d نشانی استفاده‌نشده پشت سر هم متوقف می‌شود (استاندارد BIP44 که بیشتر کیف‌پول‌ها به کار می‌برند). نشانی استفاده‌شده‌ای که پس از این فاصله باشد شمرده نمی‌شود – آن را جداگانه اضافه کنید.</string>
+    <string name="portfolio_address_xpub_gap">جستجو پس از %1$d نشانی استفاده‌نشده پشت سر هم متوقف می‌شود (استاندارد BIP44 که بیشتر کیف‌پول‌ها به کار می‌برند). نشانی استفاده‌شده‌ای که پس از این فاصله باشد شمرده نمی‌شود – آن را جداگانه اضافه کن.</string>
     <string name="portfolio_address_xpub_used">آدرس‌های استفاده‌شده: %1$d</string>
     <string name="portfolio_addresses_title">آدرس‌ها</string>
 
@@ -42,5 +42,5 @@
 
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">حساب Taproot ‏(BIP86): از این کلید آدرس‌های bc1p… برای دریافت و باقی‌مانده مشتق می‌شوند.</string>
-    <string name="portfolio_address_taproot_hint">کیف پول Taproot دارید؟ به‌جای آن توصیفگر tr(…) را از کیف پول خود بچسبانید – xpub ساده فقط به‌صورت آدرس‌های Legacy و SegWit جست‌وجو می‌شود.</string>
+    <string name="portfolio_address_taproot_hint">کیف پول Taproot داری؟ به‌جای آن توصیفگر tr(…) را از کیف پول خود بچسبان – xpub ساده فقط به‌صورت آدرس‌های Legacy و SegWit جست‌وجو می‌شود.</string>
 </resources>

@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Lupa puuttuu – laitteen levätessä Android tarkistaa epäsäännöllisesti, joskus vasta tuntien päästä.</string>
     <string name="settings_notification_change">Ilmoita vain hinnan muuttuessa</string>
     <string name="settings_notification_change_always">Aina</string>
+    <string name="settings_percent_invalid">Anna arvo väliltä 0–100.</string>
     <string name="settings_notification_change_hint">Ilmoitus näytetään vasta, kun hinta on muuttunut vähintään tämän verran edellisestä ilmoituksesta. Kun tietoja puuttuu, mitään ei näytetä. Ei vaikuta hälytyksiin.</string>
     <string name="settings_ongoing_notifications">Ei voi pyyhkäistä pois</string>
     <string name="settings_ongoing_notifications_hint">Pitää hintailmoitukset kiinnitettyinä.</string>

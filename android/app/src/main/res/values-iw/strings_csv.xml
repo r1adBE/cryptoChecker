@@ -7,7 +7,7 @@
     <string name="portfolio_csv_import_choice_proposed">הצעה: תואם ל-%1$s</string>
     <string name="portfolio_csv_import_choice_transfer">לארנק שלי (העברה)</string>
     <string name="portfolio_csv_import_choice_withdrawal">יוצא מהתיק (משיכה)</string>
-    <string name="portfolio_csv_import_choose_each">בחר לכל משיכה לאן היא הלכה.</string>
+    <string name="portfolio_csv_import_choose_each">בחרו לכל משיכה לאן היא הלכה.</string>
     <string name="portfolio_csv_import_columns">עמודות שזוהו: %1$s</string>
     <string name="portfolio_csv_import_confirm">ייבוא (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">יום/חודש</string>
@@ -41,15 +41,17 @@
         <item quantity="other">שורות שדולגו: %d</item>
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">קניות ומכירות תמורת מטבעות יציבים (USDT, USDC …) נרשמות כהחלפות – המטבע היציב מופיע באחזקות שלך.</string>
-    <string name="portfolio_csv_import_transfer_ambiguous">כמה התאמות אפשריות – בחר את הנכונה או אף אחת.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">כמה התאמות אפשריות – בחרו את הנכונה או אף אחת.</string>
     <string name="portfolio_csv_import_transfer_fee">עמלת רשת: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">לרשום כהעברה אחת</string>
     <string name="portfolio_csv_import_transfer_stored">צד נגדי מייבוא קודם</string>
     <string name="portfolio_csv_import_transfers_hint">משיכה וההפקדה התואמת של אותו מטבע הופכות להעברה אחת: מחיר הקנייה ותקופת ההחזקה נשמרים, וההפרש נחשב לעמלת רשת.</string>
     <string name="portfolio_csv_import_transfers_title">העברות בין החשבונות שלך</string>
     <string name="portfolio_csv_import_unreadable">לא נמצאו עסקאות נתמכות. נתמכים: קובצי CSV מיוצאים מ-Relai, מ-Swissquote, מ-Kraken, מ-Binance, מ-Coinbase ומ-Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">הקובץ גדול מדי לייבוא (עד 16 MB ו-%1$s שורות). ייצאו תקופות קצרות יותר וייבאו אותן אחת אחרי השנייה.</string>
     <string name="portfolio_csv_import_failed">הייבוא נכשל – שום דבר לא נשמר. נא לנסות שוב.</string>
-    <string name="portfolio_csv_import_locked">הייבוא אינו אפשרי: לא ניתן לקרוא כרגע את הנתונים השמורים. הפעל מחדש את האפליקציה.</string>
+    <string name="portfolio_csv_import_locked">הייבוא אינו אפשרי: לא ניתן לקרוא כרגע את הנתונים השמורים. הפעילו מחדש את האפליקציה.</string>
     <string name="portfolio_csv_import_withdrawals_title">משיכות – לאן הלכו המטבעות?</string>
     <string name="portfolio_csv_import_zone">זמנים ללא אזור זמן נקראים כ: %1$s</string>
     <string name="portfolio_csv_import_zone_device">מכשיר (%1$s)</string>
@@ -58,10 +60,10 @@
     <string name="portfolio_csv_skip_fee_exceeds">עמלה ≥ הכמות שהתקבלה</string>
     <string name="portfolio_csv_skip_internal_move">העברה בין החשבונות שלך – אין מה לרשום</string>
     <string name="portfolio_csv_skip_missing">שדה חסר</string>
-    <string name="portfolio_csv_skip_ambiguous">כמה עסקאות באותה שנייה שאי אפשר להפריד – הזן ידנית</string>
+    <string name="portfolio_csv_skip_ambiguous">כמה עסקאות באותה שנייה שאי אפשר להפריד – הזינו ידנית</string>
     <string name="portfolio_csv_skip_not_crypto">לא קריפטו</string>
-    <string name="portfolio_csv_skip_possible_duplicate">ייתכן שכבר יובא (עסקה כמעט זהה) – בדוק ידנית</string>
-    <string name="portfolio_csv_skip_two_fees">שתי עמלות ביחידות שונות – הזן את ההחלפה ידנית</string>
+    <string name="portfolio_csv_skip_possible_duplicate">ייתכן שכבר יובא (עסקה כמעט זהה) – לבדוק ידנית</string>
+    <string name="portfolio_csv_skip_two_fees">שתי עמלות ביחידות שונות – הזינו את ההחלפה ידנית</string>
     <string name="portfolio_csv_skip_unsupported">סוג לא נתמך</string>
 
     <!-- Portfolio: Importe ansehen und rückgängig machen -->

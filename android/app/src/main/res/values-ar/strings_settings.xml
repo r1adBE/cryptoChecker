@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">الإذن مفقود – عندما يكون الجهاز في وضع السكون يفحص Android بشكل غير منتظم، أحيانًا بعد ساعات.</string>
     <string name="settings_notification_change">الإشعار عند تغيّر السعر فقط</string>
     <string name="settings_notification_change_always">دائمًا</string>
+    <string name="settings_percent_invalid">أدخل قيمة من 0 إلى 100.</string>
     <string name="settings_notification_change_hint">لا يظهر الإشعار إلا بعد أن يتحرك السعر بهذا القدر على الأقل منذ الإشعار السابق. لا يُعرض شيء أثناء غياب البيانات. لا تتأثر التنبيهات.</string>
     <string name="settings_ongoing_notifications">غير قابلة للإزالة بالسحب</string>
     <string name="settings_ongoing_notifications_hint">يُبقي إشعارات الأسعار مثبّتة.</string>

@@ -15,6 +15,20 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 99)
+
+* Limits: at most 2,000 pairs in the watchlist and 10 alerts per pair – adding more shows a notice (bulk add takes pairs up to the limit and says how many were left out); the same limits apply when restoring a backup.
+* Percent input in Arabic/Persian accepts «٫» (2.5 % no longer becomes 25 %); an invalid percent shows an error on both platforms and iOS no longer discards it silently.
+* iOS privacy: network requests no longer accept or send cookies (like Android), old cookies and the HTTP cache are cleared; «Reset app» also renews the storage key and clears temporary files.
+* iOS: the portfolio widget is computed in the background after each price update; CSV import reads files with a size limit even when the size is unknown.
+* Backups: restored pair fields are length-checked, invalid pair ids are dropped; an unencrypted backup can no longer switch on «portfolio in system backup» or switch off «hide amounts». Group, exchange and note names are cut by visible characters on both platforms. CSV import limits cells per row and rows.
+* Accessibility: selected chips and bulk-add rows are announced as selected and have 44 pt / 48 dp targets; saving a transaction with errors jumps to the first invalid field and announces the error; fee fields explain that 0 or empty is allowed.
+* DEX search tells offline from server errors and offers «Retry»; app shortcuts have long labels; a double tap no longer creates two portfolio alerts; own alert sounds are removed when replaced or on reset (Android).
+* Android starts faster (database library loaded on first use, legacy database removed once in the background); in-memory caches are bounded.
+* Consistent term for «alert» within each language; notification channel description no longer says «price alert» only; Arabic «open interest» corrected. All languages now address the user informally (French tu, Russian ты, Hindi तुम, Indonesian kamu …; Hebrew gender-neutral), app and store texts.
+* Restoring a backup tells before replacing anything how many pairs and alerts exceed the limits and are left out; CSV files that are too large say so instead of «format not supported».
+* CI: fixed locale and time zone for unit tests, deterministic timing tests, device tests also on API 26, smoke test forces jobs on API 34, iOS warning ceiling, retried UI tests reported.
+
 ## 16.2.2 (build 98)
 
 * iOS like Android: an exchange pause with an implausible end time (clock set back) no longer lifts the pause on the next rate limit (also for the shared Binance pause); re-enabling a «near high/low» alert keeps the reported mark (no second notification for the same high); funding/open-interest alerts without data show «not checked».

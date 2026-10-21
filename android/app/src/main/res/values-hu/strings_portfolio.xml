@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
-    <string name="app_lock_unavailable">Ezen az eszközön nincs beállítva képernyőzár. Először állítson be egyet a rendszerbeállításokban.</string>
+    <string name="app_lock_unavailable">Ezen az eszközön nincs beállítva képernyőzár. Először állíts be egyet a rendszerbeállításokban.</string>
     <string name="app_lock_unlock">Feloldás</string>
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Portfólió ürítése</string>
@@ -20,9 +20,9 @@
     <string name="portfolio_enable_later_hint">Tranzakció mentve. A Portfólió lapot itt kapcsolhatod be: Beállítások › Portfólió.</string>
     <string name="portfolio_enabled_banner">Portfólió bekapcsolva – a Portfólió lapon találod.</string>
     <string name="portfolio_lock_reason">Portfólió feloldása</string>
-    <string name="portfolio_locked_text">Oldja fel a pozíciók és értékek megtekintéséhez.</string>
+    <string name="portfolio_locked_text">Oldd fel a pozíciók és értékek megtekintéséhez.</string>
     <string name="portfolio_locked_title">A portfólió zárolva van</string>
-    <string name="portfolio_setting_hint">Opcionális: rögzítse a vételeket és eladásokat, és kövesse az értéket és a nyereséget/veszteséget külön lapon.</string>
+    <string name="portfolio_setting_hint">Opcionális: rögzítsd a vételeket és eladásokat, és kövesd az értéket és a nyereséget/veszteséget külön lapon.</string>
     <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
     <string name="portfolio_status_stale">Elavult · állapot: %1$s</string>
     <plurals name="portfolio_system_restore_invalid">
@@ -79,7 +79,7 @@
     <string name="portfolio_current_missing">Nincs aktuális árfolyam: %1$s</string>
     <string name="portfolio_current_price">Aktuális árfolyam</string>
     <string name="portfolio_price_missing">Hiányzó ár</string>
-    <string name="portfolio_price_missing_hint">Néhány vételnél hiányzik az ár. Adja meg a vételárat a nyereség/veszteség megjelenítéséhez.</string>
+    <string name="portfolio_price_missing_hint">Néhány vételnél hiányzik az ár. Add meg a vételárat a nyereség/veszteség megjelenítéséhez.</string>
     <string name="portfolio_price_source">Árfolyamok: Binance · USDT piaci árfolyamon</string>
     <string name="portfolio_price_source_routes">Árfolyamok: %1$s, egyébként Binance · USDT piaci árfolyamon</string>
     <string name="portfolio_price_unavailable">Az árfolyam most nem érhető el</string>
@@ -93,16 +93,16 @@
     <string name="portfolio_add_tx">Tranzakció rögzítése</string>
     <string name="portfolio_buy">Vétel</string>
     <string name="portfolio_coin">Érme</string>
-    <string name="portfolio_coin_invalid">Adjon meg egy szimbólumot</string>
+    <string name="portfolio_coin_invalid">Adj meg egy szimbólumot</string>
     <string name="portfolio_coin_search">Szimbólum keresése, pl. BTC</string>
     <string name="portfolio_discard_confirm">Elvetés</string>
     <string name="portfolio_discard_keep">Szerkesztés folytatása</string>
     <string name="portfolio_discard_title">Elveted a módosításokat?</string>
     <string name="portfolio_edit_tx">Tranzakció szerkesztése</string>
-    <string name="portfolio_invalid">Érvénytelen mennyiség</string>
-    <string name="portfolio_oversold">Az eladások meghaladják az állományt – ellenőrizze a tranzakciókat.</string>
+    <string name="portfolio_invalid">Adj meg egy 0-nál nagyobb érvényes számot.</string>
+    <string name="portfolio_oversold">Az eladások meghaladják az állományt – ellenőrizd a tranzakciókat.</string>
     <string name="portfolio_sell">Eladás</string>
-    <string name="portfolio_sell_exceeds">Több, mint az állománya (%1$s)</string>
+    <string name="portfolio_sell_exceeds">Több, mint az állományod (%1$s)</string>
     <string name="portfolio_sell_exceeds_fee">A mennyiség a díjjal több, mint az állományod (%1$s)</string>
     <string name="portfolio_sell_exceeds_wallet">Több, mint az állományod itt: %2$s (%1$s)</string>
     <string name="portfolio_transactions">Tranzakciók</string>
@@ -112,7 +112,7 @@
     <string name="portfolio_tx_coin_fee">Díj a coinban (nem kötelező)</string>
     <string name="portfolio_tx_date">Dátum</string>
     <string name="portfolio_tx_delete_confirm">Ez a tranzakció törlődik a portfólióból.</string>
-    <string name="portfolio_tx_delete_title">Törli a tranzakciót?</string>
+    <string name="portfolio_tx_delete_title">Törlöd a tranzakciót?</string>
     <string name="portfolio_tx_deposit">Befizetés</string>
     <string name="portfolio_tx_entry_currency">Megadás ebben</string>
     <string name="portfolio_tx_explain_deposit">Állomány kereskedés nélkül, pl. korábbi coinok</string>
@@ -137,9 +137,9 @@
     <string name="portfolio_tx_note">Megjegyzés (nem kötelező)</string>
     <string name="portfolio_tx_payment">Fizetés vele</string>
     <string name="portfolio_tx_price">Ár érménként</string>
-    <string name="portfolio_tx_price_hint">USDT-ben. Hagyja üresen, ha nem ismert.</string>
+    <string name="portfolio_tx_price_hint">USDT-ben. Hagyd üresen, ha nem ismert.</string>
     <string name="portfolio_tx_price_historic">Ellenőrzött napi záróár (%1$s) – szükség esetén módosítsd</string>
-    <string name="portfolio_tx_price_invalid">Érvénytelen ár</string>
+    <string name="portfolio_tx_price_invalid">Adj meg egy érvényes számot (0 vagy több), vagy hagyd üresen a mezőt.</string>
     <string name="portfolio_tx_price_past_hint">Add meg az ügylet napi árfolyamát – hagyd üresen, ha nem tudod</string>
     <string name="portfolio_tx_price_receipt_hint">USDT-ben. Üres = állomány bekerülési érték nélkül.</string>
     <string name="portfolio_tx_price_zero">Importált tranzakcióknál 0-s ár nem lehetséges – hagyd üresen a piaci árhoz</string>

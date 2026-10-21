@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Háttér</string>
-    <string name="widget_configure_hint">Válasszon hátteret és átlátszóságot. A szín az alkalmazást követi. A widget a teljes listát mutatja; egy sorra koppintva megnyílik az alkalmazás.</string>
+    <string name="widget_configure_hint">Válassz hátteret és átlátszóságot. A szín az alkalmazást követi. A widget a teljes listát mutatja; egy sorra koppintva megnyílik az alkalmazás.</string>
     <string name="widget_configure_title">Widget beállítása</string>
     <string name="widget_description">Egy pár árát mutatja a figyelőlistáról.</string>
     <string name="widget_empty">Még nincsenek párok a figyelőlistán.</string>
@@ -37,15 +37,15 @@
     <string name="widget_portfolio_as_of">Állapot: %1$s</string>
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Értékalakulás hamarosan</string>
-    <string name="widget_portfolio_description">Portfóliója teljes értéke és mai változása</string>
+    <string name="widget_portfolio_description">A portfóliód teljes értéke és mai változása</string>
     <string name="widget_portfolio_display">Megjelenítés</string>
     <string name="widget_portfolio_display_conversion">Csak átváltás</string>
     <string name="widget_portfolio_display_conversion_usdt">Átváltás + USDT</string>
     <string name="widget_portfolio_display_hint">Az USDT-sor nem jelenik meg, ha az átváltási pénznem USD.</string>
     <string name="widget_portfolio_display_usdt">Csak USDT</string>
     <string name="widget_portfolio_empty">Vásárlások rögzítése a Portfólió lapon</string>
-    <string name="widget_portfolio_list_hint">Nyissa meg az alkalmazást, hogy itt megjelenjenek a pozíciói.</string>
-    <string name="widget_portfolio_locked_hint">Zárolva – oldja fel az alkalmazásban</string>
+    <string name="widget_portfolio_list_hint">Nyisd meg az alkalmazást, hogy itt megjelenjenek a pozícióid.</string>
+    <string name="widget_portfolio_locked_hint">Zárolva – oldd fel az alkalmazásban</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
         <item quantity="one">%1$d érme nélkül</item>
@@ -64,7 +64,7 @@
     <string name="widget_portfolio_period_without">%1$s %2$s nélkül</string>
     <string name="widget_portfolio_range_48h">48h</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: nyissa meg a Portfóliót</string>
+    <string name="widget_portfolio_range_fallback">%1$s: nyisd meg a Portfóliót</string>
     <string name="widget_portfolio_range_short_48h">48h</string>
     <string name="widget_portfolio_today_without">Ma %1$s nélkül</string>
     <string name="widget_portfolio_view">Nézet</string>
@@ -82,17 +82,17 @@
     <string name="widgets_add">Hozzáadás</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
     <string name="widgets_add_named">%1$s widget hozzáadása</string>
-    <string name="widgets_manual_text">A kezdőképernyője nem tud widgetet hozzáadni az alkalmazásból. Tartsa lenyomva a kezdőképernyő egy üres részét, válassza a „Widgetek” lehetőséget, és keresse meg a „Crypto Checker” elemet.</string>
+    <string name="widgets_manual_text">A kezdőképernyőd nem tud widgetet hozzáadni az alkalmazásból. Tartsd lenyomva a kezdőképernyő egy üres részét, válaszd a „Widgetek” lehetőséget, és keresd meg a „Crypto Checker” elemet.</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
-    <string name="widgets_manual_title">Adja hozzá saját maga a widgetet</string>
+    <string name="widgets_manual_title">Add hozzá magad a widgetet</string>
     <string name="widgets_sheet_title">Widget hozzáadása</string>
 
     <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
     <string name="widgets_ios_intro" tools:ignore="UnusedResources">Az iOS nem engedi, hogy az alkalmazások maguk adjanak hozzá widgetet. Csak egy pillanat:</string>
     <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Elérhető widgetek</string>
-    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Tartsa lenyomva a Főképernyő egy üres részét, amíg az appok remegni nem kezdenek.</string>
-    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Koppintson fent a „Szerkesztés” › „Widget hozzáadása” elemre (régebbi iOS-verziókban a „+” gombra).</string>
-    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Keresse meg a „Crypto Checker” elemet, válasszon widgetet, és koppintson a „Widget hozzáadása” gombra.</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Tartsd lenyomva a Főképernyő egy üres részét, amíg az appok remegni nem kezdenek.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Koppints fent a „Szerkesztés” › „Widget hozzáadása” elemre (régebbi iOS-verziókban a „+” gombra).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Keresd meg a „Crypto Checker” elemet, válassz widgetet, és koppints a „Widget hozzáadása” gombra.</string>
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Frissítés – újra lehetséges %1$d mp múlva</string>

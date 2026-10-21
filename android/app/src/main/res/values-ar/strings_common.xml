@@ -43,6 +43,10 @@
     <string name="shortcut_add">إضافة زوج</string>
     <string name="shortcut_alarms">كل التنبيهات</string>
     <string name="shortcut_cycle">السوق</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">إضافة زوج للمراقبة</string>
+    <string name="shortcut_alarms_long">عرض كل التنبيهات</string>
+    <string name="shortcut_cycle_long">فتح نظرة السوق</string>
 
     <string name="log_box_title">السجل</string>
     <string name="label_value">%1$s: %2$s</string>

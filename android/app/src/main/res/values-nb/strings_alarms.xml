@@ -32,7 +32,7 @@
     <string name="alarm_fires_now_save">Lagre likevel</string>
     <string name="alarm_fires_now_title">Alarmen utløses med en gang</string>
     <string name="alarm_first_battery_hint">Batterioptimalisering begrenser appen – alarmer kan komme sent.</string>
-    <string name="alarm_first_title">Varsel lagret</string>
+    <string name="alarm_first_title">Alarm lagret</string>
     <string name="alarm_last_triggered">sist %1$s</string>
     <string name="alarm_more_conditions">Flere betingelser</string>
     <string name="alarm_new_extreme">Ny %1$s</string>
@@ -179,4 +179,5 @@
     <string name="alarm_editor_more">Mer</string>
     <string name="alarm_editor_more_summary">Hurtigalarmer, flere betingelser, lyd og opplesning</string>
     <string name="alarm_reliability_storage_no_key">Alarmer satt på pause i bakgrunnen – overvåkingslisten er ikke lagret</string>
+    <string name="alarms_limit_reached">Et par kan ha maks %1$s alarmer.</string>
 </resources>

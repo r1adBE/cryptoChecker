@@ -1,5 +1,7 @@
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
+import com.cryptochecker.app.data.BoundedCache
 import com.cryptochecker.app.data.MarketRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.remote.BlockedSources
@@ -72,8 +74,11 @@ class HistoricPriceSource @Inject constructor(
     internal val portfolioDao: PortfolioDao,
     internal val marketRepository: MarketRepository,
 ) {
-    /** Coin → (eigene Börse oder null, Lesezeit): die Steuer-Vorlage fragt je (Coin, Tag) einzeln ([ownRoutes]). */
-    internal val routeMemo = ConcurrentHashMap<String, Pair<CandlePair?, Long>>()
+    /**
+     * Coin → (eigene Börse oder null, Lesezeit): die Steuer-Vorlage fragt je (Coin, Tag) einzeln ([ownRoutes]).
+     * Begrenzt seit Build 99 (sonst blieb jeder je abgefragte Coin bis zum Prozessende).
+     */
+    internal val routeMemo = BoundedCache<String, Pair<CandlePair?, Long>>(MEMORY_CACHE_ENTRIES)
 
     /**
      * Schlusskurse der Coins am Tag [date]; Coins ohne bestätigten Kurs fehlen in den Preisen.

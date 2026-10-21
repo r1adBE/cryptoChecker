@@ -211,6 +211,9 @@ extension PortfolioTxSheet {
         if thirdFee == .invalid || feeConsumes {
             showLedger = true
         }
+        if let first = PortfolioTxFirstInvalid.of(check, amountValid: amount != nil, isSwap: isSwap) {
+            requestFocusJump(first)
+        }
         guard valid, let value = amount else {
             WatchlistHaptics.impact(.light)
             return

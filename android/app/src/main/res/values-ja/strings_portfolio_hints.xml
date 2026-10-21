@@ -2,14 +2,14 @@
 <resources>
     <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
-    <string name="portfolio_alarms_paused_price">ポートフォリオアラートは一時停止中：%1$s の現在価格がありません</string>
-    <string name="portfolio_alarms_paused_price_generic">ポートフォリオアラートは一時停止中：一部のコインに現在価格がありません</string>
-    <string name="portfolio_alarms_paused_addresses">ポートフォリオアラートは一時停止中：監視アドレスの残高がまだ読み込まれていません</string>
+    <string name="portfolio_alarms_paused_price">ポートフォリオアラームは一時停止中：%1$s の現在価格がありません</string>
+    <string name="portfolio_alarms_paused_price_generic">ポートフォリオアラームは一時停止中：一部のコインに現在価格がありません</string>
+    <string name="portfolio_alarms_paused_addresses">ポートフォリオアラームは一時停止中：監視アドレスの残高がまだ読み込まれていません</string>
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
-    <string name="portfolio_alarms_paused_tokens">ポートフォリオアラートは一時停止中：%1$sのトークン残高が一部古くなっています</string>
-    <string name="portfolio_alarms_paused_tokens_generic">ポートフォリオアラートは一時停止中：監視アドレスのトークン残高が一部古くなっています</string>
-    <string name="portfolio_alarms_address_failing">ポートフォリオアラートは%1$sを除いて確認中：残高が24時間以上読み込まれていません</string>
-    <string name="portfolio_alarms_address_failing_generic">ポートフォリオアラートは、残高が24時間以上読み込まれないアドレスを除いて確認中</string>
+    <string name="portfolio_alarms_paused_tokens">ポートフォリオアラームは一時停止中：%1$sのトークン残高が一部古くなっています</string>
+    <string name="portfolio_alarms_paused_tokens_generic">ポートフォリオアラームは一時停止中：監視アドレスのトークン残高が一部古くなっています</string>
+    <string name="portfolio_alarms_address_failing">ポートフォリオアラームは%1$sを除いて確認中：残高が24時間以上読み込まれていません</string>
+    <string name="portfolio_alarms_address_failing_generic">ポートフォリオアラームは、残高が24時間以上読み込まれないアドレスを除いて確認中</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">トークンが一部古い</string>
     <string name="portfolio_address_restore_failed">アドレスを元に戻せませんでした。必要なら再度追加してください</string>

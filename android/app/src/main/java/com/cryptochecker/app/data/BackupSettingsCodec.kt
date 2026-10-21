@@ -85,7 +85,7 @@ internal class BackupSettingsCodec(
 
     /**
      * Einstellungen übernehmen. [trusted] = verschlüsselte Sicherung oder eigener vorheriger Stand; sonst
-     * schaltet die Datei die Portfolio-Sperre nicht aus.
+     * schaltet die Datei die Portfolio-Sperre und «Beträge verbergen» nicht aus und «Portfolio in Systemsicherung» nicht ein.
      * @return true, wenn die Sicherung die Sperre ausschalten wollte, sie aber an blieb.
      */
     suspend fun restoreSettings(o: JSONObject, trusted: Boolean): Boolean = with(settingsRepository) {
@@ -182,9 +182,12 @@ internal class BackupSettingsCodec(
         o.bool("quietHoursEnabled")?.let { setQuietHoursEnabled(it) }
         o.optMinute("quietHoursStart")?.let { setQuietHoursStart(it) }
         o.optMinute("quietHoursEnd")?.let { setQuietHoursEnd(it) }
-        o.bool("hidePortfolioAmounts")?.let { setHidePortfolioAmounts(it) }
+        // Ohne Passwort (nicht [trusted]) nur in Richtung «mehr Schutz» ([BackupRestorePolicy])
+        BackupRestorePolicy.hideAmounts(o.bool("hidePortfolioAmounts"), current().hidePortfolioAmounts, trusted)
+            ?.let { setHidePortfolioAmounts(it) }
         // «Portfolio in Systemsicherung»: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen
-        o.bool("portfolioSystemBackup")?.let { setPortfolioSystemBackup(it) }
+        BackupRestorePolicy.systemBackup(o.bool("portfolioSystemBackup"), current().portfolioSystemBackup, trusted)
+            ?.let { setPortfolioSystemBackup(it) }
         // Einstandsmethode: ältere Sicherungen ohne den Schlüssel (oder unbekannter Wert) → FIFO (Standard)
         setCostMethod(com.cryptochecker.app.domain.portfolio.CostMethod.fromName(o.string("costMethod")))
         // Steuer-Vorlage: ältere Sicherungen ohne den Schlüssel lassen sie stehen; unbekannt → Neutral

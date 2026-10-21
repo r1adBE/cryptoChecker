@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Lipsește permisiunea – în repaus, Android verifică neregulat, uneori abia după ore.</string>
     <string name="settings_notification_change">Notifică doar la schimbarea prețului</string>
     <string name="settings_notification_change_always">Întotdeauna</string>
+    <string name="settings_percent_invalid">Introdu o valoare între 0 și 100.</string>
     <string name="settings_notification_change_hint">O notificare apare doar după ce prețul s-a modificat cu cel puțin această valoare față de ultima. Cât timp lipsesc date, nu se afișează nimic. Alarmele nu sunt afectate.</string>
     <string name="settings_ongoing_notifications">Nu pot fi glisate</string>
     <string name="settings_ongoing_notifications_hint">Păstrează notificările de preț fixate.</string>
@@ -289,7 +290,7 @@
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">Partajează diagnosticul</string>
-    <string name="diagnostics_share_hint">Fișier text pentru suport: versiune, dispozitiv, setări de alerte, ultimele verificări și jurnalul alarmelor – fără portofoliu, sume, adrese sau notițe. Îl vezi mai întâi; nimic nu se trimite automat.</string>
+    <string name="diagnostics_share_hint">Fișier text pentru suport: versiune, dispozitiv, setări de alarme, ultimele verificări și jurnalul alarmelor – fără portofoliu, sume, adrese sau notițe. Îl vezi mai întâi; nimic nu se trimite automat.</string>
     <string name="diagnostics_preview_title">Diagnostic – previzualizare</string>
     <string name="diagnostics_action_share">Partajează</string>
 </resources>

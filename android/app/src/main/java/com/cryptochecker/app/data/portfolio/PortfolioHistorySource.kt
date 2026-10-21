@@ -1,5 +1,7 @@
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
+import com.cryptochecker.app.data.BoundedCache
 import com.cryptochecker.app.data.CycleCacheStore
 import com.cryptochecker.app.data.MarketRepository
 import com.cryptochecker.app.data.TokenIdentityStore
@@ -32,7 +34,6 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import timber.log.Timber
-import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 import com.cryptochecker.app.domain.portfolio.candleChunks
@@ -130,17 +131,17 @@ class PortfolioHistorySource @Inject constructor(
     internal val tokenIdentityStore: TokenIdentityStore,
     internal val priceSource: PortfolioPriceSource,
 ) {
-    /** Coin → (Reihe der Ausweich-Kette samt Weg, Abfragezeit). */
-    internal val chainMemory = ConcurrentHashMap<String, Pair<OwnCloses, Long>>()
+    /** Coin → (Reihe der Ausweich-Kette samt Weg, Abfragezeit). Begrenzt seit Build 99 (sonst blieb jeder je abgefragte Coin bis zum Prozessende). */
+    internal val chainMemory = BoundedCache<String, Pair<OwnCloses, Long>>(MEMORY_CACHE_ENTRIES)
 
     /** Coin → Zeit der letzten Ausweich-Abfrage ohne Treffer (nicht bei jedem Öffnen alle Börsen erneut). */
-    internal val chainMisses = ConcurrentHashMap<String, Long>()
+    internal val chainMisses = BoundedCache<String, Long>(MEMORY_CACHE_ENTRIES)
 
     /** Coin → (Schlüsse samt Spanne, Abfragezeit); leere Karte = kein Binance-Paar. */
-    private val memory = ConcurrentHashMap<String, Pair<CoinCloses, Long>>()
+    private val memory = BoundedCache<String, Pair<CoinCloses, Long>>(MEMORY_CACHE_ENTRIES)
 
     /** Coin → (eigene Tageskerzen in USDT, Abfragezeit). */
-    internal val ownMemory = ConcurrentHashMap<String, Pair<OwnCloses, Long>>()
+    internal val ownMemory = BoundedCache<String, Pair<OwnCloses, Long>>(MEMORY_CACHE_ENTRIES)
 
     /** Schützt [usdtUsdDaily] vor parallelen Abfragen desselben Paars. */
     private val usdtUsdMutex = Mutex()

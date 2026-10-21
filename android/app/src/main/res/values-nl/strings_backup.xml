@@ -53,6 +53,9 @@
         <item quantity="one">%1$d paar</item>
         <item quantity="other">%1$d paren</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">Boven de limieten (%3$s paren, %4$s alarmen per paar), worden niet hersteld: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Boven de limieten (%3$s paren, %4$s alarmen per paar), niet hersteld: %1$s, %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">Dit apparaat heeft de sleutel van de versleutelde app-gegevens niet meer, dus de app is leeg gestart. Er is niets verwijderd. Haal je lijst en portfolio terug door in de instellingen onder «%1$s» een back-upbestand te importeren.</string>

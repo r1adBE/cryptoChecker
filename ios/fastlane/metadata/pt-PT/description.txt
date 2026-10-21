@@ -1,41 +1,41 @@
-Um alarme quando a Bitcoin atingir o seu preço – da exchange que realmente usa. Grátis, sem conta.
+Um alarme quando a Bitcoin atingir o teu preço – da exchange que realmente usas. Grátis, sem conta.
 
 O QUE A TORNA DIFERENTE
-• A sua exchange, não uma média: cada linha mostra o último preço do par na exchange que escolheu – Binance, Coinbase, Kraken, OKX, Bybit e muitas mais.
+• A tua exchange, não uma média: cada linha mostra o último preço do par na exchange que escolheste – Binance, Coinbase, Kraken, OKX, Bybit e muitas mais.
 • Um alarme que avisa uma vez: «Avisar-me quando BTC subir acima de 100 000 USDT.» Toca quando o nível é ultrapassado, não a cada atualização – «Uma vez» desativa-o, «Todas as vezes» volta a armá-lo quando o preço regressa.
 • «O que se mexe com ele?»: uma lista de fatores para uma moeda – mercado global, volume, volatilidade, funding e open interest, distância ao máximo/mínimo, Fear & Greed. Mostra o que se mexe ao mesmo tempo – nem causa, nem notícia, nem aconselhamento de investimento.
-• Sem conta, sem anúncios, sem rastreio. O programador não recebe nenhum dado seu.
+• Sem conta, sem anúncios, sem rastreio. O programador não recebe nenhum dado teu.
 
 TRANSPARÊNCIA NOS DADOS
 • «Poupança» é a predefinição: os preços são atualizados ao abrir a app e em intervalos em segundo plano. «Em direto enquanto aberta» acrescenta preços em direto da Binance, Bybit, OKX, Coinbase e Kraken enquanto a lista está aberta.
 • A variação em % e os gráficos vêm primeiro da exchange do par; se esta não tiver velas, a app usa a Binance ou a Coinbase e indica-o.
 • Fear & Greed, dominância e valores on-chain da alternative.me, CoinGecko e Coin Metrics.
-• Com a app fechada, o iOS verifica raramente – muitas vezes só após horas, e nunca depois de fechar a app deslizando-a. Mais fiável com a app aberta. Picos curtos pelo meio podem escapar; a app avisa-o disso.
-• Os montantes só saem do dispositivo por exportação (CSV, cópia de segurança) ou cifrados na cópia iCloud/do dispositivo. Para os preços, só os símbolos do par vão para a sua exchange; além disso, câmbios (Frankfurter), dados de mercado e logótipos (CoinGecko, Binance) e espelhos de dados (GitHub). Se observar endereços ou uma xpub, nós públicos de blockchain veem os endereços (na xpub, os derivados) e o seu IP.
+• Com a app fechada, o iOS verifica raramente – muitas vezes só após horas, e nunca depois de fechar a app deslizando-a. Mais fiável com a app aberta. Picos curtos pelo meio podem escapar; a app avisa-te disso.
+• Os montantes só saem do dispositivo por exportação (CSV, cópia de segurança) ou cifrados na cópia iCloud/do dispositivo. Para os preços, só os símbolos do par vão para a sua exchange; além disso, câmbios (Frankfurter), dados de mercado e logótipos (CoinGecko, Binance) e espelhos de dados (GitHub). Se observares endereços ou uma xpub, nós públicos de blockchain veem os endereços (na xpub, os derivados) e o teu IP.
 
 LISTA
-• 54 mercados em 44 exchanges: spot e futuros, tokens DEX via DexScreener e, se quiser, ações, ouro e divisas (TradFi)
+• 54 mercados em 44 exchanges: spot e futuros, tokens DEX via DexScreener e, se quiseres, ações, ouro e divisas (TradFi)
 • Segunda linha «≈ valor» numa de 31 moedas (EUR, CHF, USD …), convertida à taxa de câmbio
-• Minigráfico e variação em % em 24 h ou desde as 00:00 no seu fuso horário
+• Minigráfico e variação em % em 24 h ou desde as 00:00 no teu fuso horário
 • Grupos, favoritos, ordenação por arrastar e uma nota por moeda
 
 ALARMES
-• Preço acima ou abaixo de um nível, ou subida ou descida numa percentagem – também na sua moeda, p. ex. 60 000 EUR num par USDT
+• Preço acima ou abaixo de um nível, ou subida ou descida numa percentagem – também na tua moeda, p. ex. 60 000 EUR num par USDT
 • Movimento de x % num período, pico de volume
 • Notificação urgente, som do alarme à escolha, leitura em voz alta opcional
 • Horas de silêncio, «Testar alarme» e registo de alarmes
 
 MERCADO
-• Em destaque: movimentos de preço e volume invulgares na sua lista, com notificação opcional
+• Em destaque: movimentos de preço e volume invulgares na tua lista, com notificação opcional
 • Crypto Pulse, Fear & Greed, indicadores de Bitcoin, funding e open interest – como valores medidos
 • Taxas de rede para Ethereum, Bitcoin e outras, com alarme de gas
 
 E AINDA
 • Widgets para o ecrã principal e o ecrã bloqueado, Atividade em direto para uma moeda
-• Portefólio opcional (ative nas definições): compras, vendas, swaps, transferências, recompensas, depósitos e levantamentos; FIFO (predefinido) ou média (Ø); endereços só de leitura, sem seed, para BTC (incl. xpub), ETH e redes EVM, SOL, TRX, XRP, LTC, ADA e TON; importação CSV da Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual em CSV; bloqueio próprio. A Bitpanda e a Swissquote não têm feed público de preços, por isso não têm preço próprio – as operações entram por importação CSV.
+• Portefólio opcional (ativa nas definições): compras, vendas, swaps, transferências, recompensas, depósitos e levantamentos; FIFO (predefinido) ou média (Ø); endereços só de leitura, sem seed, para BTC (incl. xpub), ETH e redes EVM, SOL, TRX, XRP, LTC, ADA e TON; importação CSV da Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual em CSV; bloqueio próprio. A Bitpanda e a Swissquote não têm feed público de preços, logo não têm preço próprio – as operações entram por importação CSV.
 • Legível para todos: verde/vermelho ou azul/laranja, sinal e seta em vez de só cor, Dynamic Type; o VoiceOver lê cada linha como uma frase
 • Cópia de segurança e restauro pela app Ficheiros
 • Modo claro e escuro, cinco cores de destaque, 31 idiomas
 • Código aberto (MIT) – o código é público no GitHub
 
-Nota: o Crypto Checker mostra preços e um portefólio introduzido por si. Não é uma exchange nem uma carteira, não negoceia e não presta aconselhamento de investimento.
+Nota: o Crypto Checker mostra preços e um portefólio introduzido por ti. Não é uma exchange nem uma carteira, não negoceia e não presta aconselhamento de investimento.

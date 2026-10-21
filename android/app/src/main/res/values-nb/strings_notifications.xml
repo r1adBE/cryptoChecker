@@ -39,7 +39,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alarmer</string>
-    <string name="channel_alarms_description">Varsel når en kursalarm utløses.</string>
+    <string name="channel_alarms_description">Varsel når en alarm utløses.</string>
     <string name="channel_alarms_quiet">Alarmer (nattro)</string>
     <string name="channel_alarms_quiet_description">Lydløse alarmer under nattro.</string>
     <string name="channel_alarms_silent">Alarmer (lydløs)</string>

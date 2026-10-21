@@ -5,13 +5,10 @@ import SwiftUI
 /// Gruppennamen: Höchstlänge, Säubern und Schreibweise.
 enum WatchGroupNames {
     /// Höchstlänge eines Gruppennamens (wie `GROUP_NAME_MAX`).
-    static let maxLength = 24
+    static let maxLength = Watch.groupNameMax
 
     /// Getrimmt und gekürzt; nil, wenn leer.
-    static func clean(_ name: String) -> String? {
-        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        return Watch.validGroupName(String(trimmed.prefix(maxLength)))
-    }
+    static func clean(_ name: String) -> String? { Watch.validGroupName(name) }
 
     /// Gibt es die Gruppe schon (Gross-/Kleinschreibung egal), gilt deren
     /// Schreibweise — so entstehen keine Fast-Doppel wie «Defi» und «DeFi».

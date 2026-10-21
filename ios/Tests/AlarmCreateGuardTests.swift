@@ -17,3 +17,13 @@ final class AlarmCreateGuardTests: XCTestCase {
         XCTAssertFalse(guardState.used)
     }
 }
+
+/// Portfolio-Alarm (`PortfolioAlarmSheet`): legt immer neu an — ein zweiter Tipp auf «Speichern» bleibt ohne Wirkung.
+final class PortfolioAlarmCreateGuardTests: XCTestCase {
+    func testZweimalSpeichernGibtEinenAlarm() {
+        var guardState = AlarmCreateGuard()
+        var saved = 0
+        for _ in 0..<2 where guardState.begin(creating: true) { saved += 1 }
+        XCTAssertEqual(saved, 1)
+    }
+}

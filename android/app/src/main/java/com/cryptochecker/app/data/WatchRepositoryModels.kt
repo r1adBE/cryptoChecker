@@ -7,10 +7,11 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.marketdata.model.FuturesContractType
 
-/** Ergebnis einer Sammelaufnahme in die Watchlist. */
+/** Ergebnis einer Sammelaufnahme in die Watchlist; [refused] = wegen der vollen Merkliste nicht angelegt. */
 data class BulkAddResult(
     val added: Int,
     val skipped: Int,
+    val refused: Int = 0,
 )
 
 /** Richtung beim manuellen Sortieren. */

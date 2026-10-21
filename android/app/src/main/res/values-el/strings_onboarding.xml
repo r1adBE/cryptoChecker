@@ -3,10 +3,10 @@
     <!-- Begrüssung beim ersten Start -->
     <string name="welcome_alert">Συναγερμοί – τιμή, ποσοστό, όγκος και ασυνήθιστες κινήσεις</string>
     <string name="welcome_alert_q">Πότε να ειδοποιηθώ;</string>
-    <string name="welcome_text">Οι τιμές σας. Οι συναγερμοί σας. Η επισκόπησή σας.\nΧωρίς λογαριασμό. Χωρίς διαφημίσεις. Χωρίς παρακολούθηση.</string>
+    <string name="welcome_text">Οι τιμές σου. Οι συναγερμοί σου. Η επισκόπησή σου.\nΧωρίς λογαριασμό. Χωρίς διαφημίσεις. Χωρίς παρακολούθηση.</string>
     <string name="welcome_understand">Κατανόηση – τι κινείται μαζί με μια τιμή αυτή τη στιγμή</string>
     <string name="welcome_understand_q">Τι κινείται μαζί;</string>
-    <string name="welcome_watch">Παρακολούθηση – τα νομίσματά σας, τιμές και πορεία τους</string>
+    <string name="welcome_watch">Παρακολούθηση – τα νομίσματά σου, τιμές και πορεία τους</string>
     <string name="welcome_watch_q">Τι συμβαίνει;</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
@@ -15,8 +15,8 @@
     <string name="starter_search_coin">Αναζήτηση άλλου νομίσματος</string>
     <string name="starter_select_all">Επιλογή όλων</string>
     <string name="starter_select_none">Καμία επιλογή</string>
-    <string name="starter_title">Ξεκινήστε με αυτά τα νομίσματα</string>
+    <string name="starter_title">Ξεκίνα με αυτά τα νομίσματα</string>
     <string name="starter_watch_alarm_hint">Παρακολούθησε την τιμή, όρισε συναγερμό</string>
 
-    <string name="starter_source_text">Τιμές από %1$s σε %2$s. Αποεπιλέξτε ό,τι δεν θέλετε και προσθέστε τα υπόλοιπα με μία κίνηση. Μπορείτε να αλλάξετε ανταλλακτήριο και ζεύγος για κάθε νόμισμα.</string>
+    <string name="starter_source_text">Τιμές από %1$s σε %2$s. Αποεπίλεξε ό,τι δεν θέλεις και πρόσθεσε τα υπόλοιπα με μία κίνηση. Μπορείς να αλλάξεις ανταλλακτήριο και ζεύγος για κάθε νόμισμα.</string>
 </resources>

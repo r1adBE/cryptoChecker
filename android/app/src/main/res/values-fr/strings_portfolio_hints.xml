@@ -12,6 +12,6 @@
     <string name="portfolio_alarms_address_failing_generic">Les alertes du portefeuille vérifient sans les adresses dont le solde ne se charge plus depuis plus de 24 heures</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">jetons en partie obsolètes</string>
-    <string name="portfolio_address_restore_failed">Impossible de rétablir l’adresse – ajoutez-la à nouveau si nécessaire</string>
-    <string name="portfolio_address_remove_failed">Impossible de supprimer l’adresse – veuillez réessayer</string>
+    <string name="portfolio_address_restore_failed">Impossible de rétablir l’adresse – ajoute-la à nouveau si nécessaire</string>
+    <string name="portfolio_address_remove_failed">Impossible de supprimer l’adresse – réessaie</string>
 </resources>

@@ -48,6 +48,8 @@ struct PortfolioScreen: View {
     @AppStorage(PortfolioCostGapUi.unknownKey) var costGapsUnknown = ""
     @State private var csvPreview: CsvImportLoaded?
     @State private var csvUnreadable = false
+    /// Grund der Meldung «nicht lesbar»: zu gross oder kein unterstütztes Format (seit Build 99).
+    @State private var csvRefusal = CsvImportRefusal.unreadable
     @Environment(\.accessibilityReduceMotion) var reduceMotion
     @Environment(\.accessibilityVoiceOverEnabled) var voiceOver
     /// Uhr für «vor 2 Min.» und den Wechsel nach «veraltet» (alle 30 s, wie der Markt-Tab).
@@ -220,9 +222,11 @@ struct PortfolioScreen: View {
                 // Lesen und Zuordnen zu Ende führen, auch wenn die App währenddessen in den Hintergrund geht
                 let backgroundTask = BackgroundTaskGuard.begin("csvImport")
                 defer { backgroundTask.end() }
-                if let loaded = await PortfolioCsvImporter.load(url, existingKeys: keys) {
+                switch await PortfolioCsvImporter.load(url, existingKeys: keys) {
+                case .success(let loaded):
                     csvPreview = loaded
-                } else {
+                case .failure(let refusal):
+                    csvRefusal = refusal
                     csvUnreadable = true
                 }
             }
@@ -250,7 +254,10 @@ struct PortfolioScreen: View {
         .alert(L("portfolio_csv_import_action"), isPresented: $csvUnreadable) {
             Button(L("action_close"), role: .cancel) {}
         } message: {
-            Text(L("portfolio_csv_import_unreadable"))
+            // Zu gross: eigener Text mit der Zeilengrenze (16 MB steht im Text), wie Android
+            Text(csvRefusal == .tooLarge
+                 ? L("portfolio_csv_import_too_large", LocaleNumbers.integer(CsvImportParser.maxRows, grouping: true))
+                 : L("portfolio_csv_import_unreadable"))
         }
         .toast($toast)
         // Ungültige Einträge aus der Systemsicherung einmal nennen

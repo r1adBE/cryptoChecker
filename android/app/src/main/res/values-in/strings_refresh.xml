@@ -92,7 +92,7 @@
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
     <string name="battery_delay_hint">Android dapat menunda pemeriksaan – atur baterai ke “Tidak dibatasi”</string>
     <string name="battery_later">Nanti</string>
-    <string name="battery_message">Android menunda pekerjaan latar belakang untuk menghemat daya — harga dan widget bisa tertinggal berjam-jam. Mengatur penggunaan baterai ke tidak dibatasi menjaganya tetap terkini. Anda bisa mengubahnya kapan saja di pengaturan Android.</string>
+    <string name="battery_message">Android menunda pekerjaan latar belakang untuk menghemat daya — harga dan widget bisa tertinggal berjam-jam. Mengatur penggunaan baterai ke tidak dibatasi menjaganya tetap terkini. Kamu bisa mengubahnya kapan saja di pengaturan Android.</string>
     <string name="battery_open_settings">Buka pengaturan baterai</string>
     <string name="battery_steps">Di info aplikasi, ketuk Baterai (atau Penggunaan baterai aplikasi) lalu pilih Tidak dibatasi.</string>
     <string name="battery_title">Jaga harga tetap terkini</string>

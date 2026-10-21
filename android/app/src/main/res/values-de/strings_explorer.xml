@@ -118,4 +118,8 @@
     <string name="dex_token_address_copy">Token-Adresse kopieren</string>
     <string name="dex_token_address_copied">Token-Adresse kopiert</string>
     <string name="dex_token_address_label">Token-Adresse, endet auf %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d Paar nicht hinzugefügt – deine Merkliste kann höchstens %2$s Paare enthalten.</item>
+        <item quantity="other">%1$d Paare nicht hinzugefügt – deine Merkliste kann höchstens %2$s Paare enthalten.</item>
+    </plurals>
 </resources>

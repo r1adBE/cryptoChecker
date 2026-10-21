@@ -39,7 +39,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alarmet</string>
-    <string name="channel_alarms_description">Njoftim kur aktivizohet një alarm çmimi.</string>
+    <string name="channel_alarms_description">Njoftim kur aktivizohet një alarm.</string>
     <string name="channel_alarms_quiet">Alarmet (orët e heshtjes)</string>
     <string name="channel_alarms_quiet_description">Alarme të heshtura gjatë orëve të heshtjes.</string>
     <string name="channel_alarms_silent">Alarmet (pa zë)</string>

@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
-    <string name="app_lock_unavailable">V tomto zařízení není nastaven zámek obrazovky. Nejprve ho nastavte v nastavení systému.</string>
+    <string name="app_lock_unavailable">V tomto zařízení není nastaven zámek obrazovky. Nejprve ho nastav v nastavení systému.</string>
     <string name="app_lock_unlock">Odemknout</string>
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Vyprázdnit portfolio</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Smazat %d transakci? Sledované adresy zůstanou. Hned poté to můžete vrátit zpět.</item>
-        <item quantity="few">Smazat všechny %d transakce? Sledované adresy zůstanou. Hned poté to můžete vrátit zpět.</item>
-        <item quantity="many">Smazat všechny transakce (%d)? Sledované adresy zůstanou. Hned poté to můžete vrátit zpět.</item>
-        <item quantity="other">Smazat všech %d transakcí? Sledované adresy zůstanou. Hned poté to můžete vrátit zpět.</item>
+        <item quantity="one">Smazat %d transakci? Sledované adresy zůstanou. Hned poté to můžeš vrátit zpět.</item>
+        <item quantity="few">Smazat všechny %d transakce? Sledované adresy zůstanou. Hned poté to můžeš vrátit zpět.</item>
+        <item quantity="many">Smazat všechny transakce (%d)? Sledované adresy zůstanou. Hned poté to můžeš vrátit zpět.</item>
+        <item quantity="other">Smazat všech %d transakcí? Sledované adresy zůstanou. Hned poté to můžeš vrátit zpět.</item>
     </plurals>
     <string name="portfolio_empty_action">Zadat první nákup</string>
     <string name="portfolio_empty_address">Jen sledovat adresu peněženky</string>
     <string name="portfolio_empty_csv">Koupeno na burze? Importovat soubor</string>
-    <string name="portfolio_empty_example_plain">Příklad: 0,01 BTC koupeno 1. března. Aplikace pak ukáže, kolik má dnes hodnotu a zda jste v plusu, nebo v minusu – uloženo jen v tomto zařízení.</string>
-    <string name="portfolio_empty_text">Zadejte, co jste koupili – aplikace ukáže, kolik to má dnes hodnotu a kolik jste v plusu nebo v minusu.</string>
+    <string name="portfolio_empty_example_plain">Příklad: 0,01 BTC koupeno 1. března. Aplikace pak ukáže, kolik má dnes hodnotu a zda jsi v plusu, nebo v minusu – uloženo jen v tomto zařízení.</string>
+    <string name="portfolio_empty_text">Zadej svoje nákupy – aplikace ukáže, kolik mají dnes hodnotu a kolik jsi v plusu nebo v minusu.</string>
     <string name="portfolio_empty_title">Zatím žádné transakce</string>
     <string name="portfolio_enable_ask_text">Transakce je uložená. Karta Portfolio ukazuje tvůj stav a jeho hodnotu.</string>
     <string name="portfolio_enable_ask_title">Zapnout kartu Portfolio?</string>
     <string name="portfolio_enable_later_hint">Transakce uložena. Kartu Portfolio zapneš v Nastavení › Portfolio.</string>
     <string name="portfolio_enabled_banner">Portfolio zapnuto – najdeš ho na kartě Portfolio.</string>
     <string name="portfolio_lock_reason">Odemknout portfolio</string>
-    <string name="portfolio_locked_text">Odemkněte ho, abyste viděli své pozice a hodnoty.</string>
+    <string name="portfolio_locked_text">Odemkni ho a uvidíš své pozice a hodnoty.</string>
     <string name="portfolio_locked_title">Portfolio je zamčené</string>
-    <string name="portfolio_setting_hint">Volitelné: zaznamenávejte nákupy a prodeje a sledujte hodnotu a zisk/ztrátu na samostatné kartě.</string>
+    <string name="portfolio_setting_hint">Volitelné: zaznamenávej nákupy a prodeje a sleduj hodnotu a zisk/ztrátu na samostatné kartě.</string>
     <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
     <string name="portfolio_status_stale">Zastaralé · stav %1$s</string>
     <plurals name="portfolio_system_restore_invalid">
@@ -85,7 +85,7 @@
     <string name="portfolio_current_missing">Žádný aktuální kurz pro %1$s</string>
     <string name="portfolio_current_price">Aktuální kurz</string>
     <string name="portfolio_price_missing">Chybí cena</string>
-    <string name="portfolio_price_missing_hint">U některých nákupů chybí cena. Doplňte nákupní cenu, abyste viděli zisk/ztrátu.</string>
+    <string name="portfolio_price_missing_hint">U některých nákupů chybí cena. Doplň nákupní cenu a uvidíš zisk/ztrátu.</string>
     <string name="portfolio_price_source">Kurzy: Binance · USDT za tržní kurz</string>
     <string name="portfolio_price_source_routes">Kurzy: %1$s, jinak Binance · USDT za tržní kurz</string>
     <string name="portfolio_price_unavailable">Kurz teď není k dispozici</string>
@@ -99,16 +99,16 @@
     <string name="portfolio_add_tx">Zaznamenat transakci</string>
     <string name="portfolio_buy">Nákup</string>
     <string name="portfolio_coin">Mince</string>
-    <string name="portfolio_coin_invalid">Zadejte symbol</string>
+    <string name="portfolio_coin_invalid">Zadej symbol</string>
     <string name="portfolio_coin_search">Hledat symbol, např. BTC</string>
     <string name="portfolio_discard_confirm">Zahodit</string>
     <string name="portfolio_discard_keep">Pokračovat v úpravách</string>
     <string name="portfolio_discard_title">Zahodit změny?</string>
     <string name="portfolio_edit_tx">Upravit transakci</string>
-    <string name="portfolio_invalid">Neplatné množství</string>
-    <string name="portfolio_oversold">Prodeje převyšují držené množství – zkontrolujte transakce.</string>
+    <string name="portfolio_invalid">Zadej platné číslo větší než 0.</string>
+    <string name="portfolio_oversold">Prodeje převyšují držené množství – zkontroluj transakce.</string>
     <string name="portfolio_sell">Prodej</string>
-    <string name="portfolio_sell_exceeds">Více, než držíte (%1$s)</string>
+    <string name="portfolio_sell_exceeds">Více, než držíš (%1$s)</string>
     <string name="portfolio_sell_exceeds_fee">Množství s poplatkem je víc než tvůj stav (%1$s)</string>
     <string name="portfolio_sell_exceeds_wallet">Víc než tvůj stav v %2$s (%1$s)</string>
     <string name="portfolio_transactions">Transakce</string>
@@ -143,9 +143,9 @@
     <string name="portfolio_tx_note">Poznámka (volitelné)</string>
     <string name="portfolio_tx_payment">Zaplaceno</string>
     <string name="portfolio_tx_price">Cena za minci</string>
-    <string name="portfolio_tx_price_hint">V USDT. Nechte prázdné, pokud nevíte.</string>
+    <string name="portfolio_tx_price_hint">V USDT. Nech prázdné, pokud nevíš.</string>
     <string name="portfolio_tx_price_historic">Ověřená denní uzavírací cena z %1$s – v případě potřeby uprav</string>
-    <string name="portfolio_tx_price_invalid">Neplatná cena</string>
+    <string name="portfolio_tx_price_invalid">Zadej platné číslo (0 nebo více), nebo pole nech prázdné.</string>
     <string name="portfolio_tx_price_past_hint">Zadej cenu ze dne obchodu – nech prázdné, pokud ji neznáš</string>
     <string name="portfolio_tx_price_receipt_hint">V USDT. Prázdné = stav bez pořizovací ceny.</string>
     <string name="portfolio_tx_price_zero">Cena 0 není u importovaných transakcí možná – nech prázdné pro tržní cenu</string>
@@ -219,7 +219,7 @@
     <string name="portfolio_history_scaled">Historie %1$s: historie Binance přepočtená na cenu burzy</string>
     <string name="portfolio_history_title">Vývoj hodnoty</string>
     <string name="portfolio_history_today">Dnes</string>
-    <string name="portfolio_history_too_short">Vývoj začíná po vašem prvním celém dni.</string>
+    <string name="portfolio_history_too_short">Vývoj začíná po tvém prvním celém dni.</string>
     <string name="portfolio_history_unavailable">Vývoj teď není k dispozici.</string>
     <string name="portfolio_history_utc_days">Dny v UTC (denní svíčky)</string>
     <string name="portfolio_history_without_matching">Bez %1$s (žádné odpovídající denní ceny)</string>
@@ -254,9 +254,9 @@
     <string name="ledger_fee_hint">V USDT zvyšuje pořizovací cenu (prodej: snižuje výnos), v minci snižuje množství.</string>
     <string name="ledger_fee_line">Poplatek %1$s</string>
     <string name="ledger_fifo_cost_note">Od nákupu: cena podle FIFO vč. poplatků (nejstarší mince se prodávají první).</string>
-    <string name="ledger_gain_info">Dnes, 7 D, 1 R: změna hodnoty za období – nákupy a prodeje se nepočítají jako zisk. Od nákupu: aktuální hodnota minus pořizovací cena (průměrná cena vč. poplatků) mincí, které stále držíte.</string>
+    <string name="ledger_gain_info">Dnes, 7 D, 1 R: změna hodnoty za období – nákupy a prodeje se nepočítají jako zisk. Od nákupu: aktuální hodnota minus pořizovací cena (průměrná cena vč. poplatků) mincí, které stále držíš.</string>
     <string name="ledger_gain_info_a11y">Jak se počítá zisk a ztráta</string>
-    <string name="ledger_gain_info_fifo">Dnes, 7 D, 1 R: změna hodnoty za období – nákupy a prodeje se nepočítají jako zisk. Od nákupu: aktuální hodnota minus pořizovací cena (FIFO vč. poplatků) mincí, které stále držíte.</string>
+    <string name="ledger_gain_info_fifo">Dnes, 7 D, 1 R: změna hodnoty za období – nákupy a prodeje se nepočítají jako zisk. Od nákupu: aktuální hodnota minus pořizovací cena (FIFO vč. poplatků) mincí, které stále držíš.</string>
     <string name="ledger_gain_title">Zisk/ztráta</string>
     <string name="ledger_more_toggle">Poplatek a burza</string>
     <string name="ledger_partial_cost">„Od nákupu“ počítá jen část s nákupní cenou – bez %1$s bez nákupní ceny.</string>
@@ -264,10 +264,10 @@
     <string name="ledger_since_purchase_currency">Od nákupu (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Zisk/ztráta od nákupu, zatím neprodáno</string>
     <plurals name="ledger_without_cost">
-        <item quantity="one">Bez %1$d mince bez nákupní ceny (%2$s) – doplňte cenu, aby se započítala.</item>
-        <item quantity="few">Bez %1$d mincí bez nákupní ceny (%2$s) – doplňte ceny, aby se započítaly.</item>
-        <item quantity="many">Bez %1$d mince bez nákupní ceny (%2$s) – doplňte ceny, aby se započítaly.</item>
-        <item quantity="other">Bez %1$d mincí bez nákupní ceny (%2$s) – doplňte ceny, aby se započítaly.</item>
+        <item quantity="one">Bez %1$d mince bez nákupní ceny (%2$s) – doplň cenu, aby se započítala.</item>
+        <item quantity="few">Bez %1$d mincí bez nákupní ceny (%2$s) – doplň ceny, aby se započítaly.</item>
+        <item quantity="many">Bez %1$d mince bez nákupní ceny (%2$s) – doplň ceny, aby se započítaly.</item>
+        <item quantity="other">Bez %1$d mincí bez nákupní ceny (%2$s) – doplň ceny, aby se započítaly.</item>
     </plurals>
 
     <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
@@ -301,10 +301,10 @@
     <string name="portfolio_coin_delete_title">Smazat všechny transakce %1$s?</string>
     <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
     <plurals name="portfolio_coin_delete_confirm">
-        <item quantity="one">Odstraní se %d transakce. Hned poté to můžete vrátit zpět.</item>
-        <item quantity="few">Odstraní se %d transakce. Hned poté to můžete vrátit zpět.</item>
-        <item quantity="many">Odstraní se %d transakce. Hned poté to můžete vrátit zpět.</item>
-        <item quantity="other">Odstraní se %d transakcí. Hned poté to můžete vrátit zpět.</item>
+        <item quantity="one">Odstraní se %d transakce. Hned poté to můžeš vrátit zpět.</item>
+        <item quantity="few">Odstraní se %d transakce. Hned poté to můžeš vrátit zpět.</item>
+        <item quantity="many">Odstraní se %d transakce. Hned poté to můžeš vrátit zpět.</item>
+        <item quantity="other">Odstraní se %d transakcí. Hned poté to můžeš vrátit zpět.</item>
     </plurals>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

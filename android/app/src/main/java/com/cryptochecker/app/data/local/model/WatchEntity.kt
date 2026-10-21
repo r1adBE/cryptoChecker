@@ -10,6 +10,9 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 /** Höchstlänge einer Notiz je Paar. */
 const val NOTE_MAX = 120
 
+/** Höchstlänge eines Gruppennamens in sichtbaren Zeichen — Eingabe und Sicherung (wie iOS `WatchGroupNames.maxLength`). */
+const val GROUP_NAME_MAX = 24
+
 /**
  * Ein beobachtetes Handelspaar ("Checker" in der Original-App).
  * Aus diesen Einträgen speisen sich Watchlist, Benachrichtigungen, Widgets,

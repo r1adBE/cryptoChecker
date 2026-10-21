@@ -21,10 +21,10 @@ import com.cryptochecker.app.domain.portfolio.PortfolioHistoryFx
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
-import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportFormat
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportMapping
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRefusal
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportResult
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
@@ -53,6 +53,8 @@ sealed interface CsvImportState {
     data class Preview(val preview: CsvImportPreview) : CsvImportState
     /** Keine unterstützte Zeile (fremdes Format, leere Datei, nicht lesbar). */
     data object Unreadable : CsvImportState
+    /** Datei zu gross ([CsvImportRefusal.TOO_LARGE]): über 16 MB oder zu viele Zeilen bzw. Spalten. Seit Build 99. */
+    data object TooLarge : CsvImportState
     data object Saving : CsvImportState
     /** Portfolio gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]): nichts gelesen bzw. geschrieben. */
     data object Locked : CsvImportState
@@ -126,12 +128,14 @@ class PortfolioCsvImportViewModel @Inject constructor(
                 _state.value = CsvImportState.Locked
                 return@launch
             }
-            _state.value = runCatchingCancellable { buildPreview(uri) }
-                .onFailure { Timber.w(it, "CSV-Import: Datei nicht lesbar") }
-                .getOrNull()
-                ?.takeIf { it.format != CsvImportFormat.UNKNOWN && (it.transactions.isNotEmpty() || it.duplicates > 0 || it.skipped.isNotEmpty()) }
-                ?.let { propose(it); CsvImportState.Preview(it) }
-                ?: CsvImportState.Unreadable
+            val built = runCatchingCancellable { buildPreview(uri) }.onFailure { Timber.w(it, "CSV-Import: Datei nicht lesbar") }
+            val preview = built.getOrNull()
+            // Zu gross (über 16 MB oder über den Grenzen des Zerlegens) eigens melden, nicht als fremdes Format
+            _state.value = when (CsvImportRefusal.of(built.exceptionOrNull() is BackupLimits.TooLargeException, preview)) {
+                CsvImportRefusal.TOO_LARGE -> CsvImportState.TooLarge
+                CsvImportRefusal.UNREADABLE -> CsvImportState.Unreadable
+                null -> preview?.let { propose(it); CsvImportState.Preview(it) } ?: CsvImportState.Unreadable
+            }
         }
     }
 

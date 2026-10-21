@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Немає дозволу – коли пристрій у спокої, Android перевіряє нерегулярно, іноді лише через кілька годин.</string>
     <string name="settings_notification_change">Сповіщати лише при зміні ціни</string>
     <string name="settings_notification_change_always">Завжди</string>
+    <string name="settings_percent_invalid">Введи значення від 0 до 100.</string>
     <string name="settings_notification_change_hint">Сповіщення з\'являється лише тоді, коли ціна змінилася щонайменше на цю величину від попереднього. Поки даних немає, нічого не показується. На сигнали це не впливає.</string>
     <string name="settings_ongoing_notifications">Не можна змахнути</string>
     <string name="settings_ongoing_notifications_hint">Цінові сповіщення залишаються закріпленими.</string>
@@ -55,7 +56,7 @@
     <string name="settings_price_pairs_all_on">Усі увімк.</string>
     <string name="settings_price_pairs_count">%1$d з %2$d</string>
     <string name="settings_price_pairs_empty">У списку стеження ще немає пар.</string>
-    <string name="settings_price_pairs_hint">Виберіть, для яких пар курс показується на панелі сповіщень.</string>
+    <string name="settings_price_pairs_hint">Вибери, для яких пар курс показується на панелі сповіщень.</string>
     <string name="settings_quiet_hours">Тихі години</string>
     <string name="settings_quiet_hours_from">З</string>
     <string name="settings_quiet_hours_hint">З %1$s до %2$s сигнали чекають до кінця тихих годин, а потім спрацьовують зі звуком. Інші сповіщення надходять беззвучно, без озвучення.</string>
@@ -82,7 +83,7 @@
     <string name="settings_activity_sensitivity">Чутливість</string>
     <string name="settings_activity_sensitivity_hint">Наскільки легко монета вважається незвичайною – однаково для картки в списку та для сповіщень. За «Менше» картка показує лише 3 найсильніші.</string>
     <string name="settings_watchlist_activity_card">Помітне: показувати в списку</string>
-    <string name="settings_watchlist_activity_card_hint">Показує чип ⚡ поруч із групами: торкніться, щоб побачити лише пари, де просто зараз щось відбувається. Сповіщення налаштовуються в розділі «Ринкові сповіщення».</string>
+    <string name="settings_watchlist_activity_card_hint">Показує чип ⚡ поруч із групами: торкнися, щоб побачити лише пари, де просто зараз щось відбувається. Сповіщення налаштовуються в розділі «Ринкові сповіщення».</string>
     <string name="settings_watchlist_names">Показувати назви</string>
     <string name="settings_watchlist_names_hint">Назва під парою, наприклад Bitcoin або NVIDIA. Надходить зі списками логотипів, завантажується один раз для всіх монет.</string>
     <string name="settings_watchlist_sparkline">Міні-графік у списку</string>
@@ -112,12 +113,12 @@
 
     <!-- Einstellungen › Darstellung (Theme, Akzent, Kontrast, Kursfarben, Coin-Logos, Sprache) -->
     <string name="settings_accent">Колір акценту</string>
-    <string name="settings_accent_hint">Колір застосунку, віджетів і значка застосунку. Деякі головні екрани прибирають значок під час зміни – тоді додайте його знову.</string>
+    <string name="settings_accent_hint">Колір застосунку, віджетів і значка застосунку. Деякі головні екрани прибирають значок під час зміни – тоді додай його знову.</string>
     <!-- Schalter für App, Portfolio und Widgets. Kurzwert «Portfolio»/«Widgets» = portfolio_title/settings_widgets, «Aus» = option_off -->
     <string name="settings_coin_logos">Логотипи монет</string>
     <string name="settings_coin_logos_app">У застосунку</string>
     <string name="settings_coin_logos_app_hint">Список, картка пари й картки ринку</string>
-    <string name="settings_coin_logos_footer">Логотипи надходять із CoinGecko, а те, чого немає в CoinGecko (наприклад, золото, срібло, акції), — із Binance. Застосунок завантажує всі логотипи одразу й зберігає їх на цьому пристрої, тож жоден із сервісів не знає, які монети ви відстежуєте. Монети без логотипа показують ініціали. Обране отримує маленьку зірочку на логотипі. Де перемикач вимкнено, не показуються ні логотипи, ні ініціали; якщо все вимкнено, нічого не завантажується.</string>
+    <string name="settings_coin_logos_footer">Логотипи надходять із CoinGecko, а те, чого немає в CoinGecko (наприклад, золото, срібло, акції), — із Binance. Застосунок завантажує всі логотипи одразу й зберігає їх на цьому пристрої, тож жоден із сервісів не знає, які монети ти відстежуєш. Монети без логотипа показують ініціали. Обране отримує маленьку зірочку на логотипі. Де перемикач вимкнено, не показуються ні логотипи, ні ініціали; якщо все вимкнено, нічого не завантажується.</string>
     <string name="settings_coin_logos_portfolio">У портфелі</string>
     <string name="settings_coin_logos_portfolio_hint">Позиції, відомості про монети й огляд</string>
     <string name="settings_coin_logos_value_app">Застосунок</string>
@@ -145,7 +146,7 @@
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Валюта перерахунку</string>
-    <string name="settings_conversion_currency_hint">Також використовується для портфеля, сигналів у вашій валюті, картки «Криптовалютний ринок» і віджета «Портфель».</string>
+    <string name="settings_conversion_currency_hint">Також використовується для портфеля, сигналів у твоїй валюті, картки «Криптовалютний ринок» і віджета «Портфель».</string>
     <string name="settings_cost_method">Метод розрахунку вартості купівлі</string>
     <string name="settings_cost_method_average">Середня (Ø)</string>
     <string name="settings_cost_method_average_hint">Продажі оцінюються за ковзною середньою ціною купівлі.</string>
@@ -156,10 +157,10 @@
     <string name="settings_portfolio_lock">Блокування портфеля</string>
     <string name="settings_portfolio_lock_footer">Блокування приховує те, що видно на екрані. Дані зберігаються на цьому пристрої й захищені шифруванням пристрою. Резервні копії можна захистити паролем.</string>
     <string name="settings_portfolio_lock_hint">Приховує лише портфель: розблокування відбитком пальця, обличчям або PIN-кодом пристрою. Знову блокується після понад хвилини у фоні. Список спостереження, сигнали та інші віджети залишаються доступними.</string>
-    <string name="settings_portfolio_lock_no_device_lock">Без PIN-коду чи пароля пристрою блокування нічого не приховує – налаштуйте блокування екрана.</string>
+    <string name="settings_portfolio_lock_no_device_lock">Без PIN-коду чи пароля пристрою блокування нічого не приховує – налаштуй блокування екрана.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">Портфель у системній копії</string>
-    <string name="settings_portfolio_system_backup_hint">Вимк.: ваші угоди не потрапляють до системної резервної копії пристрою та під час перенесення на новий телефон. Щоб перенести їх, використовуйте резервну копію застосунку з паролем.</string>
+    <string name="settings_portfolio_system_backup_hint">Вимк.: твої угоди не потрапляють до системної резервної копії пристрою та під час перенесення на новий телефон. Щоб перенести їх, використовуй резервну копію застосунку з паролем.</string>
     <string name="settings_portfolio_system_backup_unavailable">Потрібен Android 9 або новіший – старіші версії зберегли б портфель без шифрування в резервній копії Google.</string>
     <string name="settings_portfolio_tab">Показувати вкладку «Портфель»</string>
     <string name="settings_portfolio_value_locked">Увімк., з блокуванням</string>
@@ -205,7 +206,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Скинути застосунок</string>
     <string name="settings_reset_app_action">Видалити все</string>
-    <string name="settings_reset_app_confirm">Видаляє список спостереження, сигнали, портфель, налаштування й усі збережені дані, як після встановлення. Скасувати не можна. Порада: спершу створіть резервну копію. Резервні копії пристрою (Google або iCloud/комп’ютер) зберігають попередні дані до наступного резервного копіювання.</string>
+    <string name="settings_reset_app_confirm">Видаляє список спостереження, сигнали, портфель, налаштування й усі збережені дані, як після встановлення. Скасувати не можна. Порада: спершу створи резервну копію. Резервні копії пристрою (Google або iCloud/комп’ютер) зберігають попередні дані до наступного резервного копіювання.</string>
     <string name="settings_reset_app_title">Скинути застосунок?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
@@ -268,10 +269,10 @@
     <!-- Nur iOS: Einstellungen -->
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Вібрація залежить від налаштувань iPhone (Звуки й тактильні сигнали).</string>
-    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Рахує нові сигнали й ринкові сповіщення; скидається, коли відкриваєте застосунок.</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Рахує нові сигнали й ринкові сповіщення; скидається, коли відкриваєш застосунок.</string>
 
     <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
-    <string name="about_your_data_title">Ваші дані</string>
+    <string name="about_your_data_title">Твої дані</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_label">На пристрої</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
@@ -279,19 +280,19 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">З’єднання</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_connections">Курси надходять безпосередньо з бірж ваших пар, а також курси валют, списки й логотипи монет і дзеркало даних на GitHub; вони бачать вашу IP-адресу, але ніколи ваші активи (відстежувані адреси передаються постачальнику відповідної мережі).</string>
+    <string name="about_data_connections">Курси надходять безпосередньо з бірж твоїх пар, а також курси валют, списки й логотипи монет і дзеркало даних на GitHub; вони бачать твою IP-адресу, але ніколи твої активи (відстежувані адреси передаються постачальнику відповідної мережі).</string>
     <!-- Über › Deine Daten: Stichwort (Sicherungsdatei der App) -->
     <string name="about_data_backup_label">Резервна копія</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_backup">Лише якщо ви її створюєте; з паролем зашифрована (Argon2id + AES-256-GCM), без пароля читабельна.</string>
+    <string name="about_data_backup">Лише якщо ти її створюєш; з паролем зашифрована (Argon2id + AES-256-GCM), без пароля читабельна.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">Зміна пристрою</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">Ключ залишається на старому пристрої – спершу створіть файл резервної копії.</string>
+    <string name="about_data_device_change">Ключ залишається на старому пристрої – спершу створи файл резервної копії.</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">Поділитися діагностикою</string>
-    <string name="diagnostics_share_hint">Текстовий файл для підтримки: версія, пристрій, налаштування сигналів, останні перевірки та журнал сигналів – без портфеля, сум, адрес і нотаток. Спершу ви його побачите; нічого не надсилається автоматично.</string>
+    <string name="diagnostics_share_hint">Текстовий файл для підтримки: версія, пристрій, налаштування сигналів, останні перевірки та журнал сигналів – без портфеля, сум, адрес і нотаток. Спершу ти його побачиш; нічого не надсилається автоматично.</string>
     <string name="diagnostics_preview_title">Діагностика – перегляд</string>
     <string name="diagnostics_action_share">Поділитися</string>
 </resources>

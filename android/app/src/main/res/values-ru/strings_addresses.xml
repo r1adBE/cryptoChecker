@@ -7,21 +7,21 @@
     <string name="portfolio_address_hint">Публичный адрес (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) или xpub</string>
     <string name="portfolio_address_label">Метка (необязательно)</string>
     <string name="portfolio_address_not_since_buy">С адреса · не входит в «С покупки»: %1$s</string>
-    <string name="portfolio_address_overlap">Также в ваших собственных транзакциях: %1$s – учитывается и то и другое. Те же монеты? Выберите «Только показывать».</string>
-    <string name="portfolio_address_overlap_ask">Вы уже учитываете %1$s в собственных транзакциях. Добавить баланс этого адреса в портфель или только показывать?</string>
-    <string name="portfolio_address_overlap_auto">«%1$s» теперь только показывается и не учитывается – %2$s есть и в ваших транзакциях.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» снова учитывается – количества не совпадают с вашими транзакциями. Выберите «Только показывать», если это те же монеты.</string>
-    <string name="portfolio_address_overlap_title">Те же монеты, что в ваших транзакциях?</string>
-    <string name="portfolio_address_overlap_tx">То же количество, что и ваше пополнение/перевод (%1$s) – вероятно учтено дважды.</string>
+    <string name="portfolio_address_overlap">Также в твоих собственных транзакциях: %1$s – учитывается и то и другое. Те же монеты? Выбери «Только показывать».</string>
+    <string name="portfolio_address_overlap_ask">Ты уже учитываешь %1$s в собственных транзакциях. Добавить баланс этого адреса в портфель или только показывать?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» теперь только показывается и не учитывается – %2$s есть и в твоих транзакциях.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» снова учитывается – количества не совпадают с твоими транзакциями. Выбери «Только показывать», если это те же монеты.</string>
+    <string name="portfolio_address_overlap_title">Те же монеты, что в твоих транзакциях?</string>
+    <string name="portfolio_address_overlap_tx">То же количество, что и твоё пополнение/перевод (%1$s) – вероятно учтено дважды.</string>
     <string name="portfolio_address_period_observed">Отслеживаемые адреса учитываются с первого замеченного баланса; дальнейшие изменения – это поступления/списания, а не прибыль.</string>
-    <string name="portfolio_address_privacy">В %1$s отправляется только публичный адрес – никогда ключи или seed-фразы. Провайдер видит его вместе с вашим IP-адресом. Проверка не чаще чем раз в 10 минут.</string>
+    <string name="portfolio_address_privacy">В %1$s отправляется только публичный адрес – никогда ключи или seed-фразы. Провайдер видит его вместе с твоим IP-адресом. Проверка не чаще чем раз в 10 минут.</string>
     <string name="portfolio_address_remove">Удалить адрес</string>
     <string name="portfolio_address_show_only">Только показывать, не добавлять в портфель</string>
     <string name="portfolio_address_show_only_short">Только показывать</string>
     <string name="portfolio_address_tokens">Учитывать токены</string>
     <string name="portfolio_address_unknown_tokens">+%1$d неизвестных токенов (не учтены)</string>
-    <string name="portfolio_address_xpub_privacy">Xpub раскрывает все адреса этого кошелька. Они вычисляются на вашем устройстве; в %1$s отправляются только отдельные адреса – при первом поиске не менее 40 запросов, потом меньше. Закрытые ключи (xprv) никогда не принимаются.</string>
-    <string name="portfolio_address_xpub_gap">Поиск останавливается после %1$d неиспользованных адресов подряд (стандарт BIP44, который используют большинство кошельков). Использованный адрес за этим промежутком не учитывается – добавьте его отдельно.</string>
+    <string name="portfolio_address_xpub_privacy">Xpub раскрывает все адреса этого кошелька. Они вычисляются на твоём устройстве; в %1$s отправляются только отдельные адреса – при первом поиске не менее 40 запросов, потом меньше. Закрытые ключи (xprv) никогда не принимаются.</string>
+    <string name="portfolio_address_xpub_gap">Поиск останавливается после %1$d неиспользованных адресов подряд (стандарт BIP44, который используют большинство кошельков). Использованный адрес за этим промежутком не учитывается – добавь его отдельно.</string>
     <string name="portfolio_address_xpub_used">Используемые адреса: %1$d</string>
     <string name="portfolio_addresses_title">Адреса</string>
 
@@ -31,10 +31,10 @@
     <string name="address_checksum">Неверная контрольная сумма – опечатка?</string>
     <string name="address_doge_unsupported">Адреса Dogecoin нельзя отслеживать: нет бесплатного публичного сервиса без API-ключа, условия которого это разрешают.</string>
     <string name="address_duplicate">Этот адрес уже добавлен</string>
-    <string name="address_ens">Имена ENS не поддерживаются – введите адрес 0x</string>
+    <string name="address_ens">Имена ENS не поддерживаются – введи адрес 0x</string>
     <string name="address_invalid">Недействительный адрес поддерживаемой сети</string>
     <string name="address_limit">Не более 20 адресов</string>
-    <string name="address_secret">Похоже на закрытый ключ или seed-фразу – никогда нигде их не вводите. Только публичные адреса.</string>
+    <string name="address_secret">Похоже на закрытый ключ или seed-фразу – никогда нигде их не вводи. Только публичные адреса.</string>
     <string name="address_testnet">Адреса Testnet не поддерживаются</string>
     <string name="address_unsupported">Этот тип адреса не поддерживается</string>
     <string name="address_wrong_chain">Адрес относится к другой сети</string>
@@ -42,5 +42,5 @@
 
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Аккаунт Taproot (BIP86): из этого ключа выводятся адреса bc1p… для получения и сдачи.</string>
-    <string name="portfolio_address_taproot_hint">Кошелёк Taproot? Вставьте вместо этого дескриптор tr(…) из вашего кошелька – по обычному xpub ищутся только адреса Legacy и SegWit.</string>
+    <string name="portfolio_address_taproot_hint">Кошелёк Taproot? Вставь вместо этого дескриптор tr(…) из твоего кошелька – по обычному xpub ищутся только адреса Legacy и SegWit.</string>
 </resources>

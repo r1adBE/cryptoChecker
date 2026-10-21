@@ -9,7 +9,9 @@ import java.io.File
 /**
  * Warten auf Pulse-Widget und Ansagen gehört nicht unter die Prüf-Sperre von [BackgroundCheck]: sonst hielte jeder Lauf
  * sie bis zu 20 s länger, und ein geplanter Lauf in dieser Zeit fiele als «läuft bereits» weg. Grobe Quelltext-Prüfung
- * (die Klasse hängt an echten Diensten): der Rumpf von `runLocked` darf nicht warten.
+ * (die Klasse hängt an echten Diensten ohne Schnittstellen — ein Verhaltenstest bräuchte Ports für Abruf, Ansagen und
+ * Widget): der Rumpf von `runLocked` darf nicht warten, gewartet wird erst nach `running.withLock`. Die Restzeit-Rechnung
+ * fürs Warten prüft `CheckBudgetTest` als Verhalten.
  */
 class BackgroundCheckLockTest {
 
@@ -22,8 +24,13 @@ class BackgroundCheckLockTest {
         assertNotNull("runLocked nicht gefunden", locked)
         assertFalse("Pulse-Warten unter der Sperre", "awaitBackgroundFetch" in locked!!)
         assertFalse("Ansagen-Warten unter der Sperre", "awaitQueued" in locked)
-        // Gewartet wird weiterhin — nur danach
+        // Gewartet wird weiterhin — nur danach: in run() nach dem Block unter der Sperre
         assertTrue("awaitBackgroundFetch" in text && "awaitQueued" in text)
+        val lockAt = text.indexOf("running.withLock { runLocked(")
+        assertTrue("runLocked läuft nicht unter running.withLock", lockAt >= 0)
+        val waitAt = text.indexOf("awaitSideEffects(", lockAt)
+        assertTrue("awaitSideEffects nicht nach der Sperre aufgerufen", waitAt > lockAt)
+        assertFalse("awaitSideEffects unter der Sperre", "awaitSideEffects" in locked)
     }
 
     /** Text der Funktion ab [signature] bis zur schliessenden Klammer ihres Rumpfs. */

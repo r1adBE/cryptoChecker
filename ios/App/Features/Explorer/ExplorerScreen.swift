@@ -241,7 +241,8 @@ struct ExplorerScreen: View {
             onAlarm: { watchId in
                 router.closeExplorerToWatchlist()
                 router.openAlarmsWatchId = watchId
-            }
+            },
+            onRetryDex: { vm.searchDex($0) }
         )
     }
 

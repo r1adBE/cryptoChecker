@@ -2,14 +2,14 @@
 <resources>
     <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
-    <string name="portfolio_alarms_paused_price">포트폴리오 알림 일시 중지: %1$s의 현재 시세 없음</string>
-    <string name="portfolio_alarms_paused_price_generic">포트폴리오 알림 일시 중지: 일부 코인에 현재 시세가 없음</string>
-    <string name="portfolio_alarms_paused_addresses">포트폴리오 알림 일시 중지: 감시 중인 주소의 잔액을 아직 불러오지 못함</string>
+    <string name="portfolio_alarms_paused_price">포트폴리오 경보 일시 중지: %1$s의 현재 시세 없음</string>
+    <string name="portfolio_alarms_paused_price_generic">포트폴리오 경보 일시 중지: 일부 코인에 현재 시세가 없음</string>
+    <string name="portfolio_alarms_paused_addresses">포트폴리오 경보 일시 중지: 감시 중인 주소의 잔액을 아직 불러오지 못함</string>
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
-    <string name="portfolio_alarms_paused_tokens">포트폴리오 알림 일시 중지: %1$s의 토큰 잔액이 일부 오래됨</string>
-    <string name="portfolio_alarms_paused_tokens_generic">포트폴리오 알림 일시 중지: 감시 중인 주소의 토큰 잔액이 일부 오래됨</string>
-    <string name="portfolio_alarms_address_failing">포트폴리오 알림이 %1$s 없이 확인 중: 잔액을 24시간 넘게 불러오지 못함</string>
-    <string name="portfolio_alarms_address_failing_generic">포트폴리오 알림이 잔액을 24시간 넘게 불러오지 못한 주소 없이 확인 중</string>
+    <string name="portfolio_alarms_paused_tokens">포트폴리오 경보 일시 중지: %1$s의 토큰 잔액이 일부 오래됨</string>
+    <string name="portfolio_alarms_paused_tokens_generic">포트폴리오 경보 일시 중지: 감시 중인 주소의 토큰 잔액이 일부 오래됨</string>
+    <string name="portfolio_alarms_address_failing">포트폴리오 경보가 %1$s 없이 확인 중: 잔액을 24시간 넘게 불러오지 못함</string>
+    <string name="portfolio_alarms_address_failing_generic">포트폴리오 경보가 잔액을 24시간 넘게 불러오지 못한 주소 없이 확인 중</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">토큰 일부 오래됨</string>
     <string name="portfolio_address_restore_failed">주소를 되돌리지 못했습니다 – 필요하면 다시 추가하세요</string>

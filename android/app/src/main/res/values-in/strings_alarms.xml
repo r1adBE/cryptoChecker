@@ -7,7 +7,7 @@
     <string name="alarms_empty">Belum ada alarm untuk pasangan ini.</string>
     <string name="alarms_empty_example">Contoh: Beri tahu saya saat BTC naik di atas %1$s.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">Notifikasi nonaktif – alarm tidak akan sampai kepada Anda.</string>
+    <string name="alarms_notifications_off">Notifikasi nonaktif – alarm tidak akan sampai kepadamu.</string>
     <string name="alarms_notifications_turn_on">Aktifkan</string>
     <plurals name="alarms_overview_active">
         <item quantity="other">%1$d aktif</item>
@@ -31,7 +31,7 @@
     <string name="alarm_fires_now_save">Tetap simpan</string>
     <string name="alarm_fires_now_title">Alarm akan langsung berbunyi</string>
     <string name="alarm_first_battery_hint">Optimasi baterai membatasi aplikasi – alarm bisa datang terlambat.</string>
-    <string name="alarm_first_title">Peringatan disimpan</string>
+    <string name="alarm_first_title">Alarm disimpan</string>
     <string name="alarm_last_triggered">terakhir %1$s</string>
     <string name="alarm_more_conditions">Kondisi lainnya</string>
     <string name="alarm_new_extreme">%1$s baru</string>
@@ -151,7 +151,7 @@
     <string name="alarm_test">Uji alarm</string>
     <string name="alarm_test_action">Uji</string>
     <string name="alarm_test_denied">Notifikasi dimatikan untuk Crypto Checker.</string>
-    <string name="alarm_test_hint">Mengirim alarm contoh dengan pengaturan suara, getar, dan ucapan Anda.</string>
+    <string name="alarm_test_hint">Mengirim alarm contoh dengan pengaturan suara, getar, dan ucapanmu.</string>
     <string name="alarm_test_open_settings">Buka pengaturan</string>
     <string name="alarm_test_quiet">Jam tenang sedang aktif: alarm sungguhan akan menunggu sampai berakhir lalu berbunyi dengan suara.</string>
     <string name="alarm_test_text">Beginilah tampilan dan bunyi sebuah alarm.</string>
@@ -164,7 +164,7 @@
     <string name="alarm_unchecked_no_rate">Tidak dapat diperiksa (tidak ada kurs)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
-    <string name="alarm_status_notifications_off">Notifikasi nonaktif – alarm ini tidak akan sampai kepada Anda</string>
+    <string name="alarm_status_notifications_off">Notifikasi nonaktif – alarm ini tidak akan sampai kepadamu</string>
     <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
     <string name="alarm_status_low_liquidity">Tanpa alarm – likuiditas rendah</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
@@ -173,4 +173,5 @@
     <string name="alarm_editor_more">Lainnya</string>
     <string name="alarm_editor_more_summary">Alarm cepat, kondisi lainnya, suara dan ucapan</string>
     <string name="alarm_reliability_storage_no_key">Alarm dijeda di latar belakang – daftar pantau tidak disimpan</string>
+    <string name="alarms_limit_reached">Satu pasangan dapat memiliki paling banyak %1$s alarm.</string>
 </resources>

@@ -7,7 +7,7 @@
     <string name="alarms_empty">Ancora nessun allarme per questa coppia.</string>
     <string name="alarms_empty_example">Per esempio: avvisami quando BTC supera %1$s.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">Le notifiche sono disattivate: gli avvisi non ti raggiungeranno.</string>
+    <string name="alarms_notifications_off">Le notifiche sono disattivate: gli allarmi non ti raggiungeranno.</string>
     <string name="alarms_notifications_turn_on">Attiva</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">%1$d attivo</item>
@@ -33,7 +33,7 @@
     <string name="alarm_fires_now_save">Salva comunque</string>
     <string name="alarm_fires_now_title">L’allarme scatterebbe subito</string>
     <string name="alarm_first_battery_hint">L’ottimizzazione della batteria limita l’app – gli allarmi possono arrivare in ritardo.</string>
-    <string name="alarm_first_title">Avviso salvato</string>
+    <string name="alarm_first_title">Allarme salvato</string>
     <string name="alarm_last_triggered">ultimo: %1$s</string>
     <string name="alarm_more_conditions">Altre condizioni</string>
     <string name="alarm_new_extreme">Nuovo %1$s</string>
@@ -141,7 +141,7 @@
     <string name="alarm_volume_zero_hours_hint">Le ore senza scambi contano come volume zero, quindi sulle coppie poco scambiate un\'ora normale può sembrare insolita.</string>
 
     <!-- Bestätigung nach dem Speichern -->
-    <string name="alarm_saved_active">Allerta attiva</string>
+    <string name="alarm_saved_active">Allarme attivo</string>
     <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
     <string name="alarm_saved_banner">Allarme salvato: %1$s</string>
     <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
@@ -185,4 +185,5 @@
     <string name="alarm_editor_more">Altro</string>
     <string name="alarm_editor_more_summary">Allarmi rapidi, altre condizioni, suono e lettura</string>
     <string name="alarm_reliability_storage_no_key">Allarmi in pausa in background – lista non salvata</string>
+    <string name="alarms_limit_reached">Una coppia può avere al massimo %1$s allarmi.</string>
 </resources>

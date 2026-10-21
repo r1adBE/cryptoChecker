@@ -19,7 +19,7 @@
     <string name="portfolio_export_estv_note">Για τον φόρο περιουσίας ισχύουν οι επίσημες τιμές τέλους έτους του καταλόγου τιμών ESTV %1$s (όπου αναφέρονται): %2$s</string>
     <string name="portfolio_export_failed">Η εξαγωγή απέτυχε</string>
     <string name="portfolio_export_from_address">από διεύθυνση – χωρίς τιμή αγοράς</string>
-    <string name="portfolio_export_hint">Κατοχή στο τέλος της επιλεγμένης ημέρας, αποτιμημένη στην τιμή κλεισίματος της ημέρας (UTC) σε USDT και μετατρεπόμενη με την ισοτιμία αναφοράς της ΕΚΤ εκείνης της ημέρας. Αλλάξτε το νόμισμα από το «Μετατροπή σε».</string>
+    <string name="portfolio_export_hint">Κατοχή στο τέλος της επιλεγμένης ημέρας, αποτιμημένη στην τιμή κλεισίματος της ημέρας (UTC) σε USDT και μετατρεπόμενη με την ισοτιμία αναφοράς της ΕΚΤ εκείνης της ημέρας. Άλλαξε το νόμισμα από το «Μετατροπή σε».</string>
     <string name="portfolio_export_incomplete">ελλιπές</string>
     <string name="portfolio_export_no_fx">χωρίς ισοτιμία</string>
     <string name="portfolio_export_no_price">χωρίς τιμή</string>
@@ -174,7 +174,7 @@
     <string name="tax_method_jp_total">Συνολικός μέσος όρος (総平均法)</string>
     <string name="tax_method_uk_pool">Κοινό απόθεμα κατά τη Section 104 (Section 104 pool – ίδια ημέρα / 30 ημέρες)</string>
     <string name="tax_note_at">Κινητός μέσος όρος ανά νόμισμα και πορτοφόλι – όχι σε όλα τα πορτοφόλια (KryptowährungsVO § 2). Οι ανταμοιβές μπαίνουν στο νέο απόθεμα με κόστος κτήσης 0 (BMF: staking / airdrops) – το αρχείο εσόδων τις αναφέρει στην αξία κατά την παραλαβή. Οι χρεώσεις δεν εκπίπτουν για απόθεμα που αποκτήθηκε από 1.3.2021 (§ 27a παρ. 4 αρ. 2, § 20 παρ. 2 EStG): κόστος και έσοδο χωρίς χρεώσεις. Οι τόκοι από lending (τύπος από την εισαγωγή CSV ή σημείωση) είναι εισόδημα κατά την παραλαβή με 27,5 τοις εκατό και κρατούν αυτή την αξία ως κόστος κτήσης.</string>
-    <string name="tax_note_at_staking">Staking με δικά σας νομίσματα και airdrops: η αξία κατά την παραλαβή δεν μετράει φορολογικά – βάσει νόμου το κόστος κτήσης είναι 0 (§ 27b Abs. 2 EStG· BMF «Kryptowährungen»). Φόρος προκύπτει μόνο στην πώληση.</string>
+    <string name="tax_note_at_staking">Staking με δικά σου νομίσματα και airdrops: η αξία κατά την παραλαβή δεν μετράει φορολογικά – βάσει νόμου το κόστος κτήσης είναι 0 (§ 27b Abs. 2 EStG· BMF «Kryptowährungen»). Φόρος προκύπτει μόνο στην πώληση.</string>
     <string name="tax_note_fr">Οι πωλήσεις και οι χρεώσεις σε κρύπτο είναι εκχωρήσεις – οι ανταλλαγές αναβάλλονται. Μια χρέωση σε κρύπτο σε πώληση μετρά στην τιμή πριν από χρεώσεις – αλλιώς είναι ξεχωριστή εκχώρηση στην αξία της. Αξία χαρτοφυλακίου από ημερήσια κλεισίματα – αν λείπει ένα το κόστος μένει κενό.</string>
     <string name="tax_note_network_fee">Μια χρέωση δικτύου σε κρύπτο (μεταφορά στο δικό σου πορτοφόλι, ανάληψη) είναι διάθεση των νομισμάτων της χρέωσης στην αγοραία αξία – κέρδος ή ζημία μόνο σε αυτά τα νομίσματα, όχι ζημία ολόκληρης της χρέωσης (%1$s). Χωρίς καταχωρημένη τιμή: κλείσιμο της ίδιας ημέρας (UTC)· χωρίς κλείσιμο το έσοδο μένει κενό.</string>
     <string name="tax_note_specific_id">Η ειδική αναγνώριση (Specific Identification) δεν υποστηρίζεται – ισχύει FIFO (πρώτο αγορασμένο – πρώτο πωλημένο).</string>
@@ -207,7 +207,7 @@
     <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
     <string name="tax_summary_at_interest_old_law">Τόκοι πριν από 1.3.2022: παλαιό νομικό καθεστώς (κλίμακα), όχι 27,5 τοις εκατό</string>
     <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
-    <string name="tax_export_at_income_before_new_law">πριν από 1.3.2022 – ελέγξτε το με ειδικό</string>
+    <string name="tax_export_at_income_before_new_law">πριν από 1.3.2022 – έλεγξέ το με ειδικό</string>
 
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">Τόκοι – φορολογούνται κατά την είσπραξη</string>
@@ -223,11 +223,11 @@
     <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
     <string name="tax_summary_at_without_option">χωρίς επιλογή: περιλαμβάνει πωλήσεις 1.1.–28.2.2022</string>
     <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
-    <string name="tax_summary_at_staking_zero_cost">Staking πριν από 1.3.2022: κόστος κτήσης ορίστηκε 0 – ελέγξτε το με ειδικό</string>
+    <string name="tax_summary_at_staking_zero_cost">Staking πριν από 1.3.2022: κόστος κτήσης ορίστηκε 0 – έλεγξέ το με ειδικό</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">Ο κανόνας των 30 ημερών μπορεί ακόμη να αλλάξει αυτά τα ποσά (αγορές έως %1$s)</string>
     <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
-    <string name="tax_summary_uk_hmrc_report">Έσοδα πώλησης πριν από τέλη άνω του ορίου δήλωσης (50.000 £· 2020/21–2022/23: 49.200 £): δήλωση στην HMRC αν είστε εγγεγραμμένοι στο Self Assessment, ακόμη και χωρίς φορολογητέο κέρδος</string>
+    <string name="tax_summary_uk_hmrc_report">Έσοδα πώλησης πριν από τέλη άνω του ορίου δήλωσης (50.000 £· 2020/21–2022/23: 49.200 £): δήλωση στην HMRC αν έχεις εγγραφεί στο Self Assessment, ακόμη και χωρίς φορολογητέο κέρδος</string>
 
     <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
     <string name="tax_line_ch_wealth_value">Αξία περιουσίας 31/12/%1$s (ενδεικτικά)</string>
@@ -244,7 +244,7 @@
     <string name="portfolio_export_address_lots_note">Σημείωση: μια παρακολουθούμενη διεύθυνση έχει θέσεις κόστους κτήσης με ημερομηνία μετά τον τελευταίο έλεγχο υπολοίπου της πριν από αυτή την ημερομηνία – μπορεί να λείπουν εδώ.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">Οι παρακολουθούμενες διευθύνσεις μετρούν στη συνολική αξία, αλλά δεν έχουν κόστος κτήσης – το κέρδος είναι επομένως μάλλον υψηλότερο. Καταχωρίστε το κόστος ως αγορά.</string>
+    <string name="tax_summary_fr_address_no_cost">Οι παρακολουθούμενες διευθύνσεις μετρούν στη συνολική αξία, αλλά δεν έχουν κόστος κτήσης – το κέρδος είναι επομένως μάλλον υψηλότερο. Καταχώρισε το κόστος ως αγορά.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">Αγοραίες αξίες χωρίς καταχωρημένη τιμή (χρεώσεις, δωρεά/πληρωμή, ανταλλαγή, ανταμοιβές, χρεώσεις δικτύου, αξία χαρτοφυλακίου) στο ημερήσιο κλείσιμο (UTC) της ημέρας της συναλλαγής</string>

@@ -216,4 +216,5 @@
 
     <string name="watchlist_sort_by_coin">Nach Coin ordnen</string>
     <string name="watchlist_sort_by_exchange">Nach Börse ordnen</string>
+    <string name="watchlist_limit_reached">Deine Merkliste kann höchstens %1$s Paare enthalten.</string>
 </resources>

@@ -99,7 +99,7 @@
     <string name="portfolio_discard_keep">Keep editing</string>
     <string name="portfolio_discard_title">Discard changes?</string>
     <string name="portfolio_edit_tx">Edit transaction</string>
-    <string name="portfolio_invalid">Invalid amount</string>
+    <string name="portfolio_invalid">Enter a valid number greater than 0.</string>
     <string name="portfolio_oversold">Sells exceed the holdings – please check the transactions.</string>
     <string name="portfolio_sell">Sell</string>
     <string name="portfolio_sell_exceeds">More than your holdings (%1$s)</string>
@@ -139,7 +139,7 @@
     <string name="portfolio_tx_price">Price per coin</string>
     <string name="portfolio_tx_price_hint">In USDT. Leave empty if unknown.</string>
     <string name="portfolio_tx_price_historic">Checked daily close of %1$s – adjust if needed</string>
-    <string name="portfolio_tx_price_invalid">Invalid price</string>
+    <string name="portfolio_tx_price_invalid">Enter a valid number (0 or more) or leave the field empty.</string>
     <string name="portfolio_tx_price_past_hint">Enter the price on the purchase day – leave empty if unknown</string>
     <string name="portfolio_tx_price_receipt_hint">In USDT. Empty = holdings without cost basis.</string>
     <string name="portfolio_tx_price_zero">Price 0 not possible for imported transactions – leave empty for market price</string>

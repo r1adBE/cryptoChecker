@@ -43,6 +43,10 @@
     <string name="shortcut_add">Adaugă pereche</string>
     <string name="shortcut_alarms">Toate alarmele</string>
     <string name="shortcut_cycle">Piață</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Adaugă pereche nouă</string>
+    <string name="shortcut_alarms_long">Vezi toate alarmele</string>
+    <string name="shortcut_cycle_long">Prezentarea pieței</string>
 
     <string name="log_box_title">Jurnal</string>
     <string name="label_value">%1$s: %2$s</string>

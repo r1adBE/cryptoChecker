@@ -44,8 +44,10 @@
     <string name="portfolio_csv_import_transfers_hint">Aynı coin’in bir çekimi ve ona uyan yatırımı tek bir transfer olur: alış fiyatı ve elde tutma süresi korunur, aradaki fark ağ ücreti sayılır.</string>
     <string name="portfolio_csv_import_transfers_title">Hesapların arasındaki transferler</string>
     <string name="portfolio_csv_import_unreadable">Desteklenen işlem bulunamadı. Desteklenenler: Relai, Swissquote, Kraken, Binance, Coinbase ve Bitpanda CSV dışa aktarımları.</string>
-    <string name="portfolio_csv_import_failed">İçe aktarma başarısız oldu – hiçbir şey kaydedilmedi. Lütfen tekrar deneyin.</string>
-    <string name="portfolio_csv_import_locked">İçe aktarma mümkün değil: kayıtlı veriler şu anda okunamıyor. Uygulamayı yeniden başlatın.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">Dosya içe aktarmak için çok büyük (en fazla 16 MB ve %1$s satır). Daha kısa dönemleri dışa aktar ve sırayla içe aktar.</string>
+    <string name="portfolio_csv_import_failed">İçe aktarma başarısız oldu – hiçbir şey kaydedilmedi. Lütfen tekrar dene.</string>
+    <string name="portfolio_csv_import_locked">İçe aktarma mümkün değil: kayıtlı veriler şu anda okunamıyor. Uygulamayı yeniden başlat.</string>
     <string name="portfolio_csv_import_withdrawals_title">Çekimler – coin\'ler nereye gitti?</string>
     <string name="portfolio_csv_import_zone">Saat dilimi olmayan zamanlar şöyle okunur: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Cihaz (%1$s)</string>
@@ -54,10 +56,10 @@
     <string name="portfolio_csv_skip_fee_exceeds">ücret ≥ alınan miktar</string>
     <string name="portfolio_csv_skip_internal_move">kendi hesapların arasında taşıma – kaydedilecek bir şey yok</string>
     <string name="portfolio_csv_skip_missing">alan eksik</string>
-    <string name="portfolio_csv_skip_ambiguous">aynı saniyede ayırt edilemeyen birden çok işlem – elle girin</string>
+    <string name="portfolio_csv_skip_ambiguous">aynı saniyede ayırt edilemeyen birden çok işlem – elle gir</string>
     <string name="portfolio_csv_skip_not_crypto">kripto değil</string>
     <string name="portfolio_csv_skip_possible_duplicate">muhtemelen zaten içe aktarıldı (neredeyse aynı işlem) – elle kontrol et</string>
-    <string name="portfolio_csv_skip_two_fees">farklı birimlerde iki ücret – takası elle girin</string>
+    <string name="portfolio_csv_skip_two_fees">farklı birimlerde iki ücret – takası elle gir</string>
     <string name="portfolio_csv_skip_unsupported">desteklenmeyen tür</string>
 
     <!-- Portfolio: Importe ansehen und rückgängig machen -->

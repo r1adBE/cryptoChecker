@@ -46,6 +46,10 @@
     <string name="shortcut_add">Add pair</string>
     <string name="shortcut_alarms">All alerts</string>
     <string name="shortcut_cycle">Market</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Add pair to watchlist</string>
+    <string name="shortcut_alarms_long">Show all alerts</string>
+    <string name="shortcut_cycle_long">Open market overview</string>
 
     <string name="log_box_title">Log</string>
     <!-- «Bezeichnung: Wert» mit der Typografie der Sprache (fr « : » mit geschütztem Leerzeichen, zh/ja «：») -->

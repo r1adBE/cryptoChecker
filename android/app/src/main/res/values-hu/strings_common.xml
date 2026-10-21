@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">A tőzsde most nem érhető el – az utolsó árfolyamok láthatók maradnak.</string>
     <string name="error_market_unreachable_short">A tőzsde most nem érhető el</string>
     <string name="loading_hint">Betöltés…</string>
-    <string name="no_internet_connection">Nincs internetkapcsolat. Ellenőrizze a Wi-Fi-t vagy a mobiladatot, majd próbálja újra.</string>
+    <string name="no_internet_connection">Nincs internetkapcsolat. Ellenőrizd a Wi-Fi-t vagy a mobiladatot, majd próbáld újra.</string>
     <string name="option_off">Ki</string>
     <string name="something_went_wrong">Hiba történt</string>
     <string name="time_just_now">az imént</string>
-    <string name="timeout_error_message">A tőzsde most nem válaszol. Próbálja újra egy kis idő múlva.</string>
+    <string name="timeout_error_message">A tőzsde most nem válaszol. Próbáld újra egy kis idő múlva.</string>
     <string name="try_again">Újra</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->
@@ -43,6 +43,10 @@
     <string name="shortcut_add">Pár hozzáadása</string>
     <string name="shortcut_alarms">Összes riasztás</string>
     <string name="shortcut_cycle">Piac</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Új pár hozzáadása</string>
+    <string name="shortcut_alarms_long">Összes riasztás mutatása</string>
+    <string name="shortcut_cycle_long">Piaci áttekintés</string>
 
     <string name="log_box_title">Napló</string>
     <string name="label_value">%1$s: %2$s</string>

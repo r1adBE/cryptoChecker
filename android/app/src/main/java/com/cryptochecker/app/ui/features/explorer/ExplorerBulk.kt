@@ -5,12 +5,14 @@ import com.cryptochecker.app.ui.components.ExpandToggleButton
 import com.cryptochecker.app.ui.theme.AppColors
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -19,10 +21,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.saveable.rememberSaveable
 import com.cryptochecker.app.util.CompactAmount
@@ -226,12 +231,16 @@ private fun BulkPairRow(
                 if (selected) AppColors.accentTint(0.12f)
                 else Color.Transparent
             )
-            .clickable(onClick = onClick)
+            // Einzelauswahl: TalkBack sagt «ausgewählt» an (nicht nur die Hinterlegung zeigt es),
+            // Trefferfläche mind. 48 dp
+            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick)
+            .heightIn(min = 48.dp)
             .padding(horizontal = Spacing.sm, vertical = 8.dp)
     ) {
         Text(
             text = "${pair.base}/${pair.quote}",
             style = MaterialTheme.typography.bodyMedium,
+            fontWeight = if (selected) FontWeight.SemiBold else null,
             modifier = Modifier.weight(1f)
         )
         if (pair.contractType != FuturesContractType.NONE) {
@@ -250,6 +259,15 @@ private fun BulkPairRow(
                 style = MaterialTheme.typography.labelMedium.amountNumbers(),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(start = Spacing.sm)
+            )
+        }
+        // Sichtbares Zeichen neben der Farbe (Farbsehschwäche); Ansage kommt aus selectable
+        if (selected) {
+            Icon(
+                painterResource(R.drawable.ic_check),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(start = Spacing.sm).size(18.dp)
             )
         }
     }

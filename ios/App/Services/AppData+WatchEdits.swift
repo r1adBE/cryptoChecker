@@ -6,31 +6,42 @@ import SwiftUI
 extension AppData {
     // MARK: Merkliste
 
-    /// nil, wenn das Paar schon beobachtet wird.
-    @discardableResult
+    /// nil, wenn das Paar schon beobachtet wird oder die Merkliste voll ist (Grund: `tryAddWatch`).
     /// `group`: Gruppe für das NEUE Paar; ein bereits vorhandenes behält seine.
+    @discardableResult
     func addWatch(market: Market, pair: MarketPair, group: String? = nil) -> Int64? {
-        var newId: Int64?
+        if case .added(let id) = tryAddWatch(market: market, pair: pair, group: group) { return id }
+        return nil
+    }
+
+    /// Paar anlegen: angelegt (mit Id), schon vorhanden oder Merkliste voll (`WatchlistLimits.maxPairs`).
+    func tryAddWatch(market: Market, pair: MarketPair, group: String? = nil) -> AddWatchOutcome {
+        var outcome = AddWatchOutcome.duplicate
         mutate { s in
-            newId = Self.insert(&s, market: market, pair: pair, group: group)
+            outcome = Self.insertOutcome(&s, market: market, pair: pair, group: group)
         }
-        if newId != nil {
+        if case .added = outcome {
             markFirstPairAdded()
             noteTradFi(market: market, pair: pair)
         }
-        return newId
+        return outcome
     }
 
+    /// Mehrere Paare: vorhandene übersprungen; ist die Merkliste voll, kommen die übrigen nicht mehr dazu (`refused`).
     func addWatches(market: Market, pairs: [MarketPair], group: String? = nil) -> BulkAddResult {
-        var added = 0, skipped = 0
+        var added = 0, skipped = 0, refused = 0
         mutate { s in
             for p in pairs {
-                if Self.insert(&s, market: market, pair: p, group: group) != nil { added += 1 } else { skipped += 1 }
+                switch Self.insertOutcome(&s, market: market, pair: p, group: group) {
+                case .added: added += 1
+                case .duplicate: skipped += 1
+                case .full: refused += 1
+                }
             }
         }
         if added > 0 { markFirstPairAdded() }
         pairs.forEach { noteTradFi(market: market, pair: $0) }
-        return BulkAddResult(added: added, skipped: skipped)
+        return BulkAddResult(added: added, skipped: skipped, refused: refused)
     }
 
     // MARK: Bearbeiten

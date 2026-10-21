@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Tillatelse mangler – når enheten hviler, sjekker Android uregelmessig, noen ganger først etter timer.</string>
     <string name="settings_notification_change">Varsle bare ved kursendring</string>
     <string name="settings_notification_change_always">Alltid</string>
+    <string name="settings_percent_invalid">Skriv inn en verdi fra 0 til 100.</string>
     <string name="settings_notification_change_hint">Et varsel vises først når kursen har beveget seg minst så mye siden forrige varsel. Ingenting vises mens data mangler. Alarmer påvirkes ikke.</string>
     <string name="settings_ongoing_notifications">Kan ikke sveipes bort</string>
     <string name="settings_ongoing_notifications_hint">Holder kursvarslene festet.</string>

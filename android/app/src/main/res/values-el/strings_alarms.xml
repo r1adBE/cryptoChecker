@@ -7,13 +7,13 @@
     <string name="alarms_empty">Δεν υπάρχουν ακόμα συναγερμοί για αυτό το ζεύγος.</string>
     <string name="alarms_empty_example">Για παράδειγμα: Ενημέρωσέ με όταν το BTC ανέβει πάνω από %1$s.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">Οι ειδοποιήσεις είναι απενεργοποιημένες – οι συναγερμοί δεν θα σας φτάσουν.</string>
+    <string name="alarms_notifications_off">Οι ειδοποιήσεις είναι απενεργοποιημένες – οι συναγερμοί δεν θα σε φτάσουν.</string>
     <string name="alarms_notifications_turn_on">Ενεργοποίηση</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">%1$d ενεργή</item>
         <item quantity="other">%1$d ενεργές</item>
     </plurals>
-    <string name="alarms_overview_empty">Δεν υπάρχουν συναγερμοί. Ανοίξτε ένα ζεύγος και προσθέστε έναν στους «Συναγερμούς».</string>
+    <string name="alarms_overview_empty">Δεν υπάρχουν συναγερμοί. Άνοιξε ένα ζεύγος και πρόσθεσε έναν στους «Συναγερμούς».</string>
     <string name="alarms_overview_title">Όλοι οι συναγερμοί</string>
     <string name="alarms_title">Συναγερμοί</string>
 
@@ -31,8 +31,8 @@
     <string name="alarm_fires_now_change">Αλλαγή</string>
     <string name="alarm_fires_now_save">Αποθήκευση</string>
     <string name="alarm_fires_now_title">Ο συναγερμός θα ενεργοποιηθεί αμέσως</string>
-    <string name="alarm_first_battery_hint">Η βελτιστοποίηση μπαταρίας περιορίζει την εφαρμογή – οι ειδοποιήσεις μπορεί να έρθουν αργότερα.</string>
-    <string name="alarm_first_title">Η ειδοποίηση αποθηκεύτηκε</string>
+    <string name="alarm_first_battery_hint">Η βελτιστοποίηση μπαταρίας περιορίζει την εφαρμογή – οι συναγερμοί μπορεί να έρθουν αργότερα.</string>
+    <string name="alarm_first_title">Ο συναγερμός αποθηκεύτηκε</string>
     <string name="alarm_last_triggered">τελευταία: %1$s</string>
     <string name="alarm_more_conditions">Περισσότερες συνθήκες</string>
     <string name="alarm_new_extreme">Νέο %1$s</string>
@@ -86,7 +86,7 @@
     <string name="alarm_sentence_down_percent">Ειδοποίηση όταν το %1$s πέσει κατά %2$s κάτω από την τιμή κατά την αποθήκευση (ή στον τελευταίο συναγερμό).</string>
     <string name="alarm_sentence_funding_above">Ειδοποίηση όταν το funding του %1$s ανέβει πάνω από %2$s.</string>
     <string name="alarm_sentence_funding_below">Ειδοποίηση όταν το funding του %1$s πέσει κάτω από %2$s.</string>
-    <string name="alarm_sentence_incomplete">Εισαγάγετε μια τιμή για να δείτε τον συναγερμό ως πρόταση.</string>
+    <string name="alarm_sentence_incomplete">Βάλε μια τιμή για να δεις τον συναγερμό ως πρόταση.</string>
     <plurals name="alarm_sentence_move_percent">
         <item quantity="one">Ειδοποίηση όταν το %1$s κινηθεί κατά %2$s μέσα σε %3$d ώρα.</item>
         <item quantity="other">Ειδοποίηση όταν το %1$s κινηθεί κατά %2$s μέσα σε %3$d ώρες.</item>
@@ -135,7 +135,7 @@
     <string name="alarm_volume_zero_hours_hint">Οι ώρες χωρίς συναλλαγές μετρούν ως μηδενικός όγκος, οπότε σε ζεύγη με χαμηλή εμπορευσιμότητα μια κανονική ώρα μπορεί να φαίνεται ασυνήθιστη.</string>
 
     <!-- Bestätigung nach dem Speichern -->
-    <string name="alarm_saved_active">Ειδοποίηση ενεργή</string>
+    <string name="alarm_saved_active">Συναγερμός ενεργός</string>
     <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
     <string name="alarm_saved_banner">Ο συναγερμός αποθηκεύτηκε: %1$s</string>
     <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
@@ -157,7 +157,7 @@
     <string name="alarm_test">Δοκιμή συναγερμού</string>
     <string name="alarm_test_action">Δοκιμή</string>
     <string name="alarm_test_denied">Οι ειδοποιήσεις είναι απενεργοποιημένες για το Crypto Checker.</string>
-    <string name="alarm_test_hint">Στέλνει έναν δοκιμαστικό συναγερμό με τις ρυθμίσεις ήχου, δόνησης και εκφώνησης που έχετε.</string>
+    <string name="alarm_test_hint">Στέλνει έναν δοκιμαστικό συναγερμό με τις ρυθμίσεις ήχου, δόνησης και εκφώνησης που έχεις.</string>
     <string name="alarm_test_open_settings">Άνοιγμα ρυθμίσεων</string>
     <string name="alarm_test_quiet">Οι ώρες ησυχίας είναι ενεργές τώρα: οι πραγματικοί συναγερμοί θα περίμεναν μέχρι το τέλος τους και μετά θα ηχούσαν κανονικά.</string>
     <string name="alarm_test_text">Έτσι φαίνεται και έτσι ακούγεται ένας συναγερμός.</string>
@@ -170,7 +170,7 @@
     <string name="alarm_unchecked_no_rate">Δεν ήταν δυνατός ο έλεγχος (χωρίς ισοτιμία)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
-    <string name="alarm_status_notifications_off">Ειδοποιήσεις απενεργοποιημένες – αυτός ο συναγερμός δεν θα σας φτάσει</string>
+    <string name="alarm_status_notifications_off">Ειδοποιήσεις απενεργοποιημένες – αυτός ο συναγερμός δεν θα σε φτάσει</string>
     <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
     <string name="alarm_status_low_liquidity">Χωρίς συναγερμό – χαμηλή ρευστότητα</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
@@ -179,4 +179,5 @@
     <string name="alarm_editor_more">Περισσότερα</string>
     <string name="alarm_editor_more_summary">Γρήγοροι συναγερμοί, άλλες συνθήκες, ήχος και εκφώνηση</string>
     <string name="alarm_reliability_storage_no_key">Οι συναγερμοί στο παρασκήνιο σε παύση – η λίστα δεν έχει αποθηκευτεί</string>
+    <string name="alarms_limit_reached">Ένα ζεύγος μπορεί να έχει έως %1$s συναγερμούς.</string>
 </resources>

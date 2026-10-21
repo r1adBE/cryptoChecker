@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Portfolio: Tab, leere Ansicht, Einschalten, Sperre -->
-    <string name="app_lock_unavailable">Δεν έχει ρυθμιστεί κλείδωμα οθόνης σε αυτή τη συσκευή. Ρυθμίστε πρώτα ένα στις ρυθμίσεις συστήματος.</string>
+    <string name="app_lock_unavailable">Δεν έχει ρυθμιστεί κλείδωμα οθόνης σε αυτή τη συσκευή. Ρύθμισε πρώτα ένα στις ρυθμίσεις συστήματος.</string>
     <string name="app_lock_unlock">Ξεκλείδωμα</string>
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Άδειασμα χαρτοφυλακίου</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Διαγραφή %d συναλλαγής; Οι παρακολουθούμενες διευθύνσεις παραμένουν. Μπορείτε να το αναιρέσετε αμέσως μετά.</item>
-        <item quantity="other">Διαγραφή όλων των %d συναλλαγών; Οι παρακολουθούμενες διευθύνσεις παραμένουν. Μπορείτε να το αναιρέσετε αμέσως μετά.</item>
+        <item quantity="one">Διαγραφή %d συναλλαγής; Οι παρακολουθούμενες διευθύνσεις παραμένουν. Μπορείς να το αναιρέσεις αμέσως μετά.</item>
+        <item quantity="other">Διαγραφή όλων των %d συναλλαγών; Οι παρακολουθούμενες διευθύνσεις παραμένουν. Μπορείς να το αναιρέσεις αμέσως μετά.</item>
     </plurals>
     <string name="portfolio_empty_action">Προσθήκη πρώτης αγοράς</string>
     <string name="portfolio_empty_address">Απλώς παρακολούθηση διεύθυνσης πορτοφολιού</string>
     <string name="portfolio_empty_csv">Αγορά σε ανταλλακτήριο; Εισαγωγή αρχείου</string>
-    <string name="portfolio_empty_example_plain">Παράδειγμα: 0,01 BTC αγορασμένο την 1η Μαρτίου. Η εφαρμογή δείχνει πόσο αξίζει σήμερα και αν είστε σε κέρδος ή ζημία – αποθηκεύεται μόνο σε αυτή τη συσκευή.</string>
-    <string name="portfolio_empty_text">Καταχωρίστε τι αγοράσατε – η εφαρμογή δείχνει πόσο αξίζει σήμερα και πόσο είστε σε κέρδος ή ζημία.</string>
+    <string name="portfolio_empty_example_plain">Παράδειγμα: 0,01 BTC αγορασμένο την 1η Μαρτίου. Η εφαρμογή δείχνει πόσο αξίζει σήμερα και αν είσαι σε κέρδος ή ζημία – αποθηκεύεται μόνο σε αυτή τη συσκευή.</string>
+    <string name="portfolio_empty_text">Καταχώρισε τι αγόρασες – η εφαρμογή δείχνει πόσο αξίζει σήμερα και πόσο είσαι σε κέρδος ή ζημία.</string>
     <string name="portfolio_empty_title">Δεν υπάρχουν ακόμη συναλλαγές</string>
     <string name="portfolio_enable_ask_text">Η συναλλαγή σου αποθηκεύτηκε. Η καρτέλα Χαρτοφυλάκιο δείχνει τα υπόλοιπά σου και την αξία τους.</string>
     <string name="portfolio_enable_ask_title">Ενεργοποίηση της καρτέλας Χαρτοφυλάκιο;</string>
     <string name="portfolio_enable_later_hint">Η συναλλαγή αποθηκεύτηκε. Μπορείς να ενεργοποιήσεις την καρτέλα Χαρτοφυλάκιο στο Ρυθμίσεις › Χαρτοφυλάκιο.</string>
     <string name="portfolio_enabled_banner">Το χαρτοφυλάκιο ενεργοποιήθηκε – θα το βρεις στην καρτέλα Χαρτοφυλάκιο.</string>
     <string name="portfolio_lock_reason">Ξεκλείδωμα χαρτοφυλακίου</string>
-    <string name="portfolio_locked_text">Ξεκλειδώστε για να δείτε τις θέσεις και τις αξίες σας.</string>
+    <string name="portfolio_locked_text">Ξεκλείδωσε για να δεις τις θέσεις και τις αξίες σου.</string>
     <string name="portfolio_locked_title">Το χαρτοφυλάκιο είναι κλειδωμένο</string>
-    <string name="portfolio_setting_hint">Προαιρετικά: καταγράψτε αγορές και πωλήσεις και δείτε αξία και κέρδος/ζημία σε ξεχωριστή καρτέλα.</string>
+    <string name="portfolio_setting_hint">Προαιρετικά: κατάγραψε αγορές και πωλήσεις και δες αξία και κέρδος/ζημία σε ξεχωριστή καρτέλα.</string>
     <!-- Status-Pille wie in der Merkliste: Kurse älter als die Frische-Schwelle, Gerät online. Offline: offline_status_since, alles aktuell: watchlist_all_fresh -->
     <string name="portfolio_status_stale">Παλιό · έως %1$s</string>
     <plurals name="portfolio_system_restore_invalid">
@@ -79,7 +79,7 @@
     <string name="portfolio_current_missing">Δεν υπάρχει τρέχουσα τιμή για %1$s</string>
     <string name="portfolio_current_price">Τρέχουσα τιμή</string>
     <string name="portfolio_price_missing">Λείπει τιμή</string>
-    <string name="portfolio_price_missing_hint">Σε ορισμένες αγορές λείπει η τιμή. Προσθέστε την τιμή αγοράς για να δείτε κέρδος/ζημία.</string>
+    <string name="portfolio_price_missing_hint">Σε ορισμένες αγορές λείπει η τιμή. Πρόσθεσε την τιμή αγοράς για να δεις κέρδος/ζημία.</string>
     <string name="portfolio_price_source">Τιμές: Binance · USDT σε τιμή αγοράς</string>
     <string name="portfolio_price_source_routes">Τιμές: %1$s, αλλιώς Binance · USDT σε τιμή αγοράς</string>
     <string name="portfolio_price_unavailable">Η τιμή δεν είναι διαθέσιμη τώρα</string>
@@ -93,16 +93,16 @@
     <string name="portfolio_add_tx">Καταγραφή συναλλαγής</string>
     <string name="portfolio_buy">Αγορά</string>
     <string name="portfolio_coin">Νόμισμα</string>
-    <string name="portfolio_coin_invalid">Εισαγάγετε σύμβολο</string>
+    <string name="portfolio_coin_invalid">Βάλε σύμβολο</string>
     <string name="portfolio_coin_search">Αναζήτηση συμβόλου, π.χ. BTC</string>
     <string name="portfolio_discard_confirm">Απόρριψη</string>
     <string name="portfolio_discard_keep">Συνέχεια επεξεργασίας</string>
     <string name="portfolio_discard_title">Απόρριψη αλλαγών;</string>
     <string name="portfolio_edit_tx">Επεξεργασία συναλλαγής</string>
-    <string name="portfolio_invalid">Μη έγκυρη ποσότητα</string>
-    <string name="portfolio_oversold">Οι πωλήσεις υπερβαίνουν τα διαθέσιμα – ελέγξτε τις συναλλαγές.</string>
+    <string name="portfolio_invalid">Εισήγαγε έναν έγκυρο αριθμό μεγαλύτερο από 0.</string>
+    <string name="portfolio_oversold">Οι πωλήσεις υπερβαίνουν τα διαθέσιμα – έλεγξε τις συναλλαγές.</string>
     <string name="portfolio_sell">Πώληση</string>
-    <string name="portfolio_sell_exceeds">Περισσότερα από όσα έχετε (%1$s)</string>
+    <string name="portfolio_sell_exceeds">Περισσότερα από όσα έχεις (%1$s)</string>
     <string name="portfolio_sell_exceeds_fee">Ποσότητα και χρέωση ξεπερνούν το υπόλοιπό σου (%1$s)</string>
     <string name="portfolio_sell_exceeds_wallet">Περισσότερα από το υπόλοιπό σου στο %2$s (%1$s)</string>
     <string name="portfolio_transactions">Συναλλαγές</string>
@@ -137,9 +137,9 @@
     <string name="portfolio_tx_note">Σημείωση (προαιρετικά)</string>
     <string name="portfolio_tx_payment">Πληρωμή με αυτό</string>
     <string name="portfolio_tx_price">Τιμή ανά νόμισμα</string>
-    <string name="portfolio_tx_price_hint">Σε USDT. Αφήστε κενό αν είναι άγνωστη.</string>
+    <string name="portfolio_tx_price_hint">Σε USDT. Άφησε κενό αν είναι άγνωστη.</string>
     <string name="portfolio_tx_price_historic">Ελεγμένη ημερήσια τιμή κλεισίματος %1$s – προσάρμοσέ την αν χρειάζεται</string>
-    <string name="portfolio_tx_price_invalid">Μη έγκυρη τιμή</string>
+    <string name="portfolio_tx_price_invalid">Εισήγαγε έναν έγκυρο αριθμό (0 ή μεγαλύτερο) ή άφησε το πεδίο κενό.</string>
     <string name="portfolio_tx_price_past_hint">Συμπλήρωσε την τιμή της ημέρας της συναλλαγής – άφησέ το κενό αν δεν την ξέρεις</string>
     <string name="portfolio_tx_price_receipt_hint">Σε USDT. Κενό = υπόλοιπο χωρίς κόστος κτήσης.</string>
     <string name="portfolio_tx_price_zero">Τιμή 0 δεν επιτρέπεται σε εισαγόμενες συναλλαγές – άφησέ το κενό για την τιμή αγοράς</string>
@@ -213,7 +213,7 @@
     <string name="portfolio_history_scaled">Ιστορικό για %1$s: ιστορικό Binance κλιμακωμένο στην τιμή του ανταλλακτηρίου</string>
     <string name="portfolio_history_title">Εξέλιξη αξίας</string>
     <string name="portfolio_history_today">Σήμερα</string>
-    <string name="portfolio_history_too_short">Η εξέλιξη ξεκινά μετά την πρώτη ολόκληρη ημέρα σας.</string>
+    <string name="portfolio_history_too_short">Η εξέλιξη ξεκινά μετά την πρώτη ολόκληρη ημέρα σου.</string>
     <string name="portfolio_history_unavailable">Δεν υπάρχει διαθέσιμη εξέλιξη αυτή τη στιγμή.</string>
     <string name="portfolio_history_utc_days">Ημέρες σε UTC (ημερήσια κεριά)</string>
     <string name="portfolio_history_without_matching">Χωρίς %1$s (χωρίς αντίστοιχες ημερήσιες τιμές)</string>
@@ -248,9 +248,9 @@
     <string name="ledger_fee_hint">Σε USDT αυξάνει το κόστος κτήσης (πώληση: μειώνει το έσοδο)· στο νόμισμα μειώνει την ποσότητα.</string>
     <string name="ledger_fee_line">Χρέωση %1$s</string>
     <string name="ledger_fifo_cost_note">Από την αγορά: κόστος FIFO με χρεώσεις (τα παλαιότερα νομίσματα πωλούνται πρώτα).</string>
-    <string name="ledger_gain_info">Σήμερα, 7 Η, 1 Ε: μεταβολή αξίας στην περίοδο – αγορές και πωλήσεις δεν μετρούν ως κέρδος. Από την αγορά: τρέχουσα αξία μείον κόστος κτήσης (μέσο κόστος με χρεώσεις) των νομισμάτων που έχετε ακόμη.</string>
+    <string name="ledger_gain_info">Σήμερα, 7 Η, 1 Ε: μεταβολή αξίας στην περίοδο – αγορές και πωλήσεις δεν μετρούν ως κέρδος. Από την αγορά: τρέχουσα αξία μείον κόστος κτήσης (μέσο κόστος με χρεώσεις) των νομισμάτων που έχεις ακόμη.</string>
     <string name="ledger_gain_info_a11y">Πώς υπολογίζεται το κέρδος και η ζημία</string>
-    <string name="ledger_gain_info_fifo">Σήμερα, 7 Η, 1 Ε: μεταβολή αξίας στην περίοδο – αγορές και πωλήσεις δεν μετρούν ως κέρδος. Από την αγορά: τρέχουσα αξία μείον κόστος κτήσης (FIFO με χρεώσεις) των νομισμάτων που έχετε ακόμη.</string>
+    <string name="ledger_gain_info_fifo">Σήμερα, 7 Η, 1 Ε: μεταβολή αξίας στην περίοδο – αγορές και πωλήσεις δεν μετρούν ως κέρδος. Από την αγορά: τρέχουσα αξία μείον κόστος κτήσης (FIFO με χρεώσεις) των νομισμάτων που έχεις ακόμη.</string>
     <string name="ledger_gain_title">Κέρδος/ζημία</string>
     <string name="ledger_more_toggle">Χρέωση και ανταλλακτήριο</string>
     <string name="ledger_partial_cost">Το «Από την αγορά» μετρά μόνο το μέρος με τιμή αγοράς – χωρίς %1$s χωρίς τιμή αγοράς.</string>
@@ -258,8 +258,8 @@
     <string name="ledger_since_purchase_currency">Από την αγορά (%1$s)</string>
     <string name="ledger_since_purchase_spoken">Κέρδος/ζημία από την αγορά, δεν έχει πωληθεί ακόμα</string>
     <plurals name="ledger_without_cost">
-        <item quantity="one">Χωρίς %1$d νόμισμα χωρίς τιμή αγοράς (%2$s) – προσθέστε την τιμή για να μετρήσει.</item>
-        <item quantity="other">Χωρίς %1$d νομίσματα χωρίς τιμή αγοράς (%2$s) – προσθέστε τις τιμές για να μετρήσουν.</item>
+        <item quantity="one">Χωρίς %1$d νόμισμα χωρίς τιμή αγοράς (%2$s) – πρόσθεσε την τιμή για να μετρήσει.</item>
+        <item quantity="other">Χωρίς %1$d νομίσματα χωρίς τιμή αγοράς (%2$s) – πρόσθεσε τις τιμές για να μετρήσουν.</item>
     </plurals>
 
     <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
@@ -293,8 +293,8 @@
     <string name="portfolio_coin_delete_title">Διαγραφή όλων των συναλλαγών του %1$s;</string>
     <!-- Text der Rückfrage, %d = Zahl der Transaktionen, die mit dem Coin gelöscht werden (Tausch zählt bei beiden Coins) -->
     <plurals name="portfolio_coin_delete_confirm">
-        <item quantity="one">Θα αφαιρεθεί %d συναλλαγή. Μπορείτε να το αναιρέσετε αμέσως μετά.</item>
-        <item quantity="other">Θα αφαιρεθούν %d συναλλαγές. Μπορείτε να το αναιρέσετε αμέσως μετά.</item>
+        <item quantity="one">Θα αφαιρεθεί %d συναλλαγή. Μπορείς να το αναιρέσεις αμέσως μετά.</item>
+        <item quantity="other">Θα αφαιρεθούν %d συναλλαγές. Μπορείς να το αναιρέσεις αμέσως μετά.</item>
     </plurals>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

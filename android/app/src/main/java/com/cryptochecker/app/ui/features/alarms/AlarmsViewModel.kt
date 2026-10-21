@@ -19,6 +19,7 @@ import com.cryptochecker.app.domain.alarm.AlarmTemplates
 import com.cryptochecker.app.domain.alarm.AlarmTimingHint
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.watch.SheetChart
+import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -242,9 +243,9 @@ class AlarmsViewModel @Inject constructor(
 
     /**
      * Schnell-Alarm sofort anlegen (einmalig, Ton/Vibration wie neue Alarme).
-     * [onCreated] bekommt den gespeicherten Alarm (Id für «Rückgängig», Bedingung für die Bestätigung).
+     * [onCreated] bekommt den gespeicherten Alarm (Id für «Rückgängig», Bedingung für die Bestätigung); [onLimit]: Paar voll.
      */
-    fun createFromTemplate(template: AlarmTemplates.Template, onCreated: (AlarmEntity) -> Unit) {
+    fun createFromTemplate(template: AlarmTemplates.Template, onLimit: () -> Unit, onCreated: (AlarmEntity) -> Unit) {
         if (alarmSaveBlocked()) return
         createGuard.launch(viewModelScope, guarded = true) {
             val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
@@ -259,7 +260,7 @@ class AlarmsViewModel @Inject constructor(
                 referencePrice = def.referencePrice,
                 windowHours = def.windowHours,
             )
-            val id = saveIfWatchExists(alarm) ?: return@launch
+            val id = saveIfWatchExists(alarm, onLimit) ?: return@launch
             val timingHint = notices.markSaved(firstEver)
             // Dialoge zuerst: Die Bestätigung mit «Rückgängig» wartet, bis sie geschlossen sind (sonst liefe sie dahinter ab)
             if (firstEver) notices.showFirstAlarm()
@@ -270,12 +271,12 @@ class AlarmsViewModel @Inject constructor(
 
     /**
      * Alarm speichern, solange das Paar noch besteht; sonst nichts (null). Der Fremdschlüssel würde das Einfügen
-     * sonst mit einem Fehler abbrechen — etwa wenn das Paar gelöscht wurde, während der Editor offen war.
+     * sonst mit einem Fehler abbrechen. Neuer Alarm an einem vollen Paar ([WatchlistLimits]): nichts, [onLimit] (Hinweis).
      */
-    private suspend fun saveIfWatchExists(alarm: AlarmEntity): Long? {
+    private suspend fun saveIfWatchExists(alarm: AlarmEntity, onLimit: () -> Unit): Long? {
         if (watchRepository.getWatch(watchId) == null) return null
         return try {
-            watchRepository.saveAlarm(alarm)
+            watchRepository.saveAlarm(alarm).also { if (it == null) onLimit() }
         } catch (e: android.database.sqlite.SQLiteConstraintException) {
             Timber.w(e, "Alarm nicht gespeichert: Paar fehlt")
             null
@@ -310,9 +311,9 @@ class AlarmsViewModel @Inject constructor(
     /**
      * Alarm speichern. [onSaved] bekommt den gespeicherten Alarm, ob er als Mitteilung erscheinen
      * darf ([com.cryptochecker.app.notification.canShowAlarm]) und ob gleich die
-     * Bestätigung des allerersten Alarms kommt (dann keine eigene Zeile) — für die Bestätigung.
+     * Bestätigung des allerersten Alarms kommt (dann keine eigene Zeile) — für die Bestätigung. [onLimit]: Paar voll.
      */
-    fun save(draft: AlarmDraft, onSaved: (AlarmEntity, Boolean, Boolean) -> Unit = { _, _, _ -> }) {
+    fun save(draft: AlarmDraft, onLimit: () -> Unit = {}, onSaved: (AlarmEntity, Boolean, Boolean) -> Unit = { _, _, _ -> }) {
         if (alarmSaveBlocked()) return
         createGuard.launch(viewModelScope, guarded = draft.id == 0L) {
             val threshold = draft.threshold ?: return@launch
@@ -370,7 +371,7 @@ class AlarmsViewModel @Inject constructor(
             val alarm = AlarmEdit.merged(existing, edited)
             // Bearbeitet: alte Mitteilung vor dem Speichern weg (eine neue, die gleich danach meldet, bleibt) — [AlarmUserChange]
             if (existing != null && AlarmUserChange.cancelsNotification(enabled = null)) appNotifier.retractAlarm(existing.id)
-            if (saveIfWatchExists(alarm) == null) return@launch
+            if (saveIfWatchExists(alarm, onLimit) == null) return@launch
             val timingHint = notices.markSaved(firstEver)
             onSaved(alarm, runCatchingCancellable { appNotifier.canShowAlarm(alarm) }.getOrDefault(true), firstEver)
             if (firstEver) notices.showFirstAlarm()

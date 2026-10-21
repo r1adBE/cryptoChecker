@@ -7,7 +7,7 @@
     <string name="update_mode_live_hint_ios">Dove l\'exchange fornisce un prezzo live: subito, finché la lista è aperta. Altrimenti al prossimo aggiornamento. Chiusa: quando iOS lo consente, a volte a ore di distanza. Se chiudi l’app con uno swipe, iOS sospende questi controlli finché non la riapri.</string>
     <string name="update_mode_recommended">consigliato</string>
     <string name="update_mode_sparsam">Leggero</string>
-    <string name="update_mode_sparsam_hint">Con l\'app chiusa non più spesso di ogni %1$s, spesso più tardi (avvisi, widget). Aperta: a ogni apertura.</string>
+    <string name="update_mode_sparsam_hint">Con l\'app chiusa non più spesso di ogni %1$s, spesso più tardi (allarmi, widget). Aperta: a ogni apertura.</string>
     <string name="update_mode_sparsam_hint_ios">Con l’app chiusa iOS decide quando controllare (allarmi, widget), a volte a ore di distanza. Aperta: a ogni apertura.</string>
     <string name="update_mode_title">Quanto sono aggiornati?</string>
 

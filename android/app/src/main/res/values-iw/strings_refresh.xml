@@ -108,7 +108,7 @@
     <string name="check_trigger_worker">רקע</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android עלול לעכב בדיקות – הגדר את הסוללה ל«ללא הגבלה»</string>
+    <string name="battery_delay_hint">Android עלול לעכב בדיקות – הגדירו את הסוללה ל«ללא הגבלה»</string>
     <string name="battery_later">אחר כך</string>
     <string name="battery_message">Android מעכב עבודה ברקע כדי לחסוך בחשמל — מחירים ווידג׳טים עלולים להיות ישנים בשעות. הגדרת שימוש בסוללה ללא הגבלה שומרת אותם עדכניים. אפשר לשנות זאת בכל עת בהגדרות Android.</string>
     <string name="battery_open_settings">פתיחת הגדרות סוללה</string>

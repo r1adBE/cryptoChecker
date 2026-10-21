@@ -43,6 +43,10 @@
     <string name="shortcut_add">Paar hinzufügen</string>
     <string name="shortcut_alarms">Alle Alarme</string>
     <string name="shortcut_cycle">Markt</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Neues Paar hinzufügen</string>
+    <string name="shortcut_alarms_long">Alle Alarme anzeigen</string>
+    <string name="shortcut_cycle_long">Marktübersicht öffnen</string>
 
     <string name="log_box_title">Protokoll</string>
     <string name="label_value">%1$s: %2$s</string>

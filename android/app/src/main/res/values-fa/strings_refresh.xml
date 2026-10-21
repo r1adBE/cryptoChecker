@@ -4,11 +4,11 @@
     <string name="update_mode_for_pros">داده و باتری بیشتری مصرف می‌کند</string>
     <string name="update_mode_live">زنده تا وقتی باز است</string>
     <string name="update_mode_live_hint">جایی که صرافی قیمت زنده می‌دهد: فوری، تا وقتی فهرست باز است. در غیر این صورت در دریافت بعدی. بسته: حداکثر هر %1$s یک بار، اغلب دیرتر.</string>
-    <string name="update_mode_live_hint_ios">جایی که صرافی قیمت زنده می‌دهد: فوری، تا وقتی فهرست باز است. در غیر این صورت در دریافت بعدی. بسته: هر وقت iOS اجازه دهد، گاهی با فاصلهٔ چند ساعت. اگر برنامه را با کشیدن ببندید، iOS این بررسی‌ها را تا باز کردن دوبارهٔ آن متوقف می‌کند.</string>
+    <string name="update_mode_live_hint_ios">جایی که صرافی قیمت زنده می‌دهد: فوری، تا وقتی فهرست باز است. در غیر این صورت در دریافت بعدی. بسته: هر وقت iOS اجازه دهد، گاهی با فاصلهٔ چند ساعت. اگر برنامه را با کشیدن ببند، iOS این بررسی‌ها را تا باز کردن دوبارهٔ آن متوقف می‌کند.</string>
     <string name="update_mode_recommended">پیشنهادی</string>
     <string name="update_mode_sparsam">کم‌مصرف</string>
     <string name="update_mode_sparsam_hint">وقتی برنامه بسته است حداکثر هر %1$s یک بار، اغلب دیرتر (هشدارها، ابزارک‌ها). باز: هر بار که باز می‌شود.</string>
-    <string name="update_mode_sparsam_hint_ios">وقتی برنامه بسته است، iOS تصمیم می‌گیرد کی بررسی شود (هشدارها، ویجت‌ها)، گاهی با فاصلهٔ چند ساعت. باز: هر بار که باز می‌کنید.</string>
+    <string name="update_mode_sparsam_hint_ios">وقتی برنامه بسته است، iOS تصمیم می‌گیرد کی بررسی شود (هشدارها، ویجت‌ها)، گاهی با فاصلهٔ چند ساعت. باز: هر بار که باز می‌کن.</string>
     <string name="update_mode_title">چقدر به‌روز؟</string>
 
     <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
@@ -101,10 +101,10 @@
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
     <string name="battery_delay_hint">Android ممکن است بررسی‌ها را عقب بیندازد – باتری را روی «نامحدود» بگذار</string>
     <string name="battery_later">بعداً</string>
-    <string name="battery_message">Android برای صرفه‌جویی در انرژی کارهای پس‌زمینه را به تأخیر می‌اندازد — در این صورت قیمت‌ها و ابزارک‌ها ممکن است ساعت‌ها قدیمی باشند. تنظیم مصرف باتری روی «نامحدود» آن‌ها را به‌روز نگه می‌دارد. هر زمان می‌توانید این را در تنظیمات Android تغییر دهید.</string>
+    <string name="battery_message">Android برای صرفه‌جویی در انرژی کارهای پس‌زمینه را به تأخیر می‌اندازد — در این صورت قیمت‌ها و ابزارک‌ها ممکن است ساعت‌ها قدیمی باشند. تنظیم مصرف باتری روی «نامحدود» آن‌ها را به‌روز نگه می‌دارد. هر زمان می‌توانی این را در تنظیمات Android تغییر دهی.</string>
     <string name="battery_open_settings">باز کردن تنظیمات باتری</string>
-    <string name="battery_steps">در اطلاعات برنامه روی باتری (یا مصرف باتری برنامه) بزنید و نامحدود را انتخاب کنید.</string>
-    <string name="battery_title">قیمت‌ها را به‌روز نگه دارید</string>
+    <string name="battery_steps">در اطلاعات برنامه روی باتری (یا مصرف باتری برنامه) بزن و نامحدود را انتخاب کن.</string>
+    <string name="battery_title">قیمت‌ها را به‌روز نگه دار</string>
     <string name="ios_background_refresh_off">به‌روزرسانی پس‌زمینه برای این برنامه خاموش است. بدون آن، هشدارها فقط وقتی برنامه باز است بررسی می‌شوند.</string>
     <string name="ios_low_power_mode">حالت کم‌مصرف روشن است. iOS به‌ندرت در پس‌زمینه بررسی می‌کند، پس هشدارها ممکن است دیر برسند.</string>
 

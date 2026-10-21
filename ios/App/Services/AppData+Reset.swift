@@ -34,6 +34,7 @@ extension AppData {
         SharedStorage.flushSnapshotWrites()
 
         Self.clearStoredFiles()
+        Self.clearTemporaryFiles()
 
         // Zustand im Speicher wie nach der Installation
         snapshot.watches.forEach { Notifier.cancelActivity($0.id) }
@@ -54,7 +55,10 @@ extension AppData {
 
     /// Speicher leeren wie nach der Installation: Einstellungen (App und App Group), dann alle Dateien der
     /// App-Ordner. Ohne Zustand im Speicher — auch vor dem ersten Zugriff auf `shared` nutzbar (UI-Tests:
-    /// `UITesting.prepareIfRequested`). Der Ordner `tmp` bleibt.
+    /// `UITesting.prepareIfRequested`). Seit Build 99 auch Cookies und URL-Cache sowie der Schlüssel der verschlüsselten
+    /// Dateien: Er wird gelöscht und gleich neu angelegt (`StorageKey.renew`) — die App läuft weiter und schreibt ab
+    /// hier mit dem neuen, nichts vom alten Stand bleibt entschlüsselbar zurück. Den Ordner `tmp` leert nur
+    /// `resetApp` (`clearTemporaryFiles`): UI-Tests behalten dort eine Sicherung über den Neustart.
     nonisolated static func clearStoredFiles() {
         if let bundleId = Bundle.main.bundleIdentifier {
             UserDefaults.standard.removePersistentDomain(forName: bundleId)
@@ -71,6 +75,17 @@ extension AppData {
             for item in items where item.lastPathComponent != "Library" {
                 try? fm.removeItem(at: item)
             }
+        }
+        // Erst nach dem Löschen der Dateien: mit dem neuen Schlüssel ist nichts Altes mehr zu öffnen
+        StorageKey.shared.renew()
+        PrivateSessionConfig.clearSharedStores()
+    }
+
+    /// Ordner `tmp` leeren — z. B. ein liegen gebliebener Diagnosebericht (`DiagnosticsShareFile`) oder Export-Dateien.
+    nonisolated static func clearTemporaryFiles(in folder: URL = FileManager.default.temporaryDirectory) {
+        let fm = FileManager.default
+        for item in (try? fm.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil)) ?? [] {
+            try? fm.removeItem(at: item)
         }
     }
 

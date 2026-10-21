@@ -43,6 +43,10 @@
     <string name="shortcut_add">Legg til par</string>
     <string name="shortcut_alarms">Alle alarmer</string>
     <string name="shortcut_cycle">Marked</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Legg til nytt par</string>
+    <string name="shortcut_alarms_long">Vis alle alarmer</string>
+    <string name="shortcut_cycle_long">Åpne markedsoversikt</string>
 
     <string name="log_box_title">Logg</string>
     <string name="label_value">%1$s: %2$s</string>

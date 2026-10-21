@@ -215,4 +215,5 @@
 
     <string name="watchlist_sort_by_coin">Sorteren op munt</string>
     <string name="watchlist_sort_by_exchange">Sorteren op beurs</string>
+    <string name="watchlist_limit_reached">Je volglijst kan maximaal %1$s paren bevatten.</string>
 </resources>

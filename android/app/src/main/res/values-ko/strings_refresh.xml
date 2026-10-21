@@ -7,8 +7,8 @@
     <string name="update_mode_live_hint_ios">거래소가 실시간 가격을 제공하면: 관심 목록이 열려 있는 동안 즉시. 그 외에는 다음 조회 때. 닫힘: iOS가 허용할 때, 몇 시간 간격일 때도 있습니다. 앱을 스와이프해 종료하면 다시 열 때까지 iOS가 이 확인을 멈춥니다.</string>
     <string name="update_mode_recommended">권장</string>
     <string name="update_mode_sparsam">절약</string>
-    <string name="update_mode_sparsam_hint">앱을 닫았을 때 최대 %1$s마다, 더 늦을 때가 많음(알람, 위젯). 열었을 때: 열 때마다.</string>
-    <string name="update_mode_sparsam_hint_ios">앱이 닫혀 있으면 확인 시점은 iOS가 정합니다(알람, 위젯). 몇 시간 간격일 때도 있습니다. 열려 있을 때: 열 때마다.</string>
+    <string name="update_mode_sparsam_hint">앱을 닫았을 때 최대 %1$s마다, 더 늦을 때가 많음(경보, 위젯). 열었을 때: 열 때마다.</string>
+    <string name="update_mode_sparsam_hint_ios">앱이 닫혀 있으면 확인 시점은 iOS가 정합니다(경보, 위젯). 몇 시간 간격일 때도 있습니다. 열려 있을 때: 열 때마다.</string>
     <string name="update_mode_title">얼마나 최신으로?</string>
 
     <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
@@ -96,8 +96,8 @@
     <string name="battery_open_settings">배터리 설정 열기</string>
     <string name="battery_steps">앱 정보에서 배터리(또는 앱 배터리 사용량)를 누르고 제한 없음을 선택하세요.</string>
     <string name="battery_title">가격을 최신 상태로 유지</string>
-    <string name="ios_background_refresh_off">이 앱의 백그라운드 앱 새로 고침이 꺼져 있습니다. 꺼져 있으면 알람은 앱이 열려 있을 때만 확인됩니다.</string>
-    <string name="ios_low_power_mode">저전력 모드가 켜져 있습니다. iOS가 백그라운드에서 거의 확인하지 않아 알람이 늦을 수 있습니다.</string>
+    <string name="ios_background_refresh_off">이 앱의 백그라운드 앱 새로 고침이 꺼져 있습니다. 꺼져 있으면 경보는 앱이 열려 있을 때만 확인됩니다.</string>
+    <string name="ios_low_power_mode">저전력 모드가 켜져 있습니다. iOS가 백그라운드에서 거의 확인하지 않아 경보가 늦을 수 있습니다.</string>
 
     <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
     <string name="refresh_sheet_exchange_detail">거래소 메시지: %1$s</string>

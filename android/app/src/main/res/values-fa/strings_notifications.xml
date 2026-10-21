@@ -10,9 +10,9 @@
     <string name="notification_fng_above">شاخص به بالای %1$d رسید – طبق این شاخص، طمع بر بازار حاکم است.</string>
     <string name="notification_fng_below">شاخص به زیر %1$d رسید – طبق این شاخص، ترس بر بازار حاکم است.</string>
     <string name="notification_fng_title">Fear &amp; Greed: %1$d</string>
-    <string name="notification_gas_btc_text">زیر حد شما (%1$s sat/vB) · انتقال ≈ %2$s</string>
+    <string name="notification_gas_btc_text">زیر حدت (%1$s sat/vB) · انتقال ≈ %2$s</string>
     <string name="notification_gas_btc_title">کارمزد Bitcoin: %1$s sat/vB</string>
-    <string name="notification_gas_eth_text">زیر حد شما (%1$s gwei) · انتقال ≈ %2$s</string>
+    <string name="notification_gas_eth_text">زیر حدت (%1$s gwei) · انتقال ≈ %2$s</string>
     <string name="notification_gas_eth_title">گس Ethereum: %1$s gwei</string>
     <string name="notification_indicator_above">بالاتر از مرز تو %1$s – مقدار اندازه‌گیری‌شده، نه توصیه.</string>
     <string name="notification_indicator_below">پایین‌تر از مرز تو %1$s – مقدار اندازه‌گیری‌شده، نه توصیه.</string>
@@ -20,9 +20,9 @@
     <string name="notification_macro_title">امروز داده‌های اقتصادی</string>
     <string name="notification_permission_preprompt_continue">ادامه</string>
     <string name="notification_permission_preprompt_later">بعداً</string>
-    <string name="notification_permission_preprompt_text">برای اینکه هشدارها و اعلان‌های قیمت به شما برسند، برنامه به اجازهٔ اعلان‌ها نیاز دارد. برنامه فقط برای هشدارها و اعلان‌های قیمت شما از آن‌ها استفاده می‌کند.</string>
+    <string name="notification_permission_preprompt_text">برای اینکه هشدارها و اعلان‌های قیمت به تو برسند، برنامه به اجازهٔ اعلان‌ها نیاز دارد. برنامه فقط برای هشدارها و اعلان‌های قیمت تو از آن‌ها استفاده می‌کند.</string>
     <string name="notification_permission_preprompt_title">اجازهٔ اعلان‌ها داده شود؟</string>
-    <string name="notification_portfolio_alarm_locked">هشدار شما فعال شد – برای جزئیات برنامه را باز کنید.</string>
+    <string name="notification_portfolio_alarm_locked">هشدارت فعال شد – برای جزئیات برنامه را باز کن.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – اکنون %2$s</string>
     <string name="notification_portfolio_alarm_title">ارزش پرتفوی</string>
@@ -39,7 +39,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">هشدارها</string>
-    <string name="channel_alarms_description">اعلان هنگام فعال شدن هشدار قیمت.</string>
+    <string name="channel_alarms_description">اعلان هنگام فعال شدن هشدار.</string>
     <string name="channel_alarms_quiet">هشدارها (ساعات بی‌صدا)</string>
     <string name="channel_alarms_quiet_description">هشدارهای بی‌صدا در ساعات بی‌صدا.</string>
     <string name="channel_alarms_silent">هشدارها (بی‌صدا)</string>

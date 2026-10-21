@@ -2,14 +2,14 @@
 <resources>
     <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
-    <string name="portfolio_alarms_paused_price">Peringatan portofolio dijeda: tidak ada harga terkini untuk %1$s</string>
-    <string name="portfolio_alarms_paused_price_generic">Peringatan portofolio dijeda: tidak semua koin memiliki harga terkini</string>
-    <string name="portfolio_alarms_paused_addresses">Peringatan portofolio dijeda: saldo alamat yang dipantau belum dimuat</string>
+    <string name="portfolio_alarms_paused_price">Alarm portofolio dijeda: tidak ada harga terkini untuk %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Alarm portofolio dijeda: tidak semua koin memiliki harga terkini</string>
+    <string name="portfolio_alarms_paused_addresses">Alarm portofolio dijeda: saldo alamat yang dipantau belum dimuat</string>
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
-    <string name="portfolio_alarms_paused_tokens">Peringatan portofolio dijeda: saldo token %1$s sebagian usang</string>
-    <string name="portfolio_alarms_paused_tokens_generic">Peringatan portofolio dijeda: saldo token alamat yang dipantau sebagian usang</string>
-    <string name="portfolio_alarms_address_failing">Peringatan portofolio memeriksa tanpa %1$s: saldo tidak dimuat lebih dari 24 jam</string>
-    <string name="portfolio_alarms_address_failing_generic">Peringatan portofolio memeriksa tanpa alamat yang saldonya tidak dimuat lebih dari 24 jam</string>
+    <string name="portfolio_alarms_paused_tokens">Alarm portofolio dijeda: saldo token %1$s sebagian usang</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alarm portofolio dijeda: saldo token alamat yang dipantau sebagian usang</string>
+    <string name="portfolio_alarms_address_failing">Alarm portofolio memeriksa tanpa %1$s: saldo tidak dimuat lebih dari 24 jam</string>
+    <string name="portfolio_alarms_address_failing_generic">Alarm portofolio memeriksa tanpa alamat yang saldonya tidak dimuat lebih dari 24 jam</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">token sebagian usang</string>
     <string name="portfolio_address_restore_failed">Alamat tidak dapat dipulihkan – tambahkan lagi jika perlu</string>

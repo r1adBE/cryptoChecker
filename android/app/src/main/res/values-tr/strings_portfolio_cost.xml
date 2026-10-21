@@ -2,9 +2,9 @@
 <resources>
     <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
     <string name="cost_gaps_card">Maliyeti olmayan kayıtlar: %1$d</string>
-    <string name="cost_gaps_card_text">Kâr ve vergi eksiksiz olsun diye maliyeti ekleyin.</string>
+    <string name="cost_gaps_card_text">Kâr ve vergi eksiksiz olsun diye maliyeti ekle.</string>
     <string name="cost_gaps_sheet_title">Maliyeti olmayan kayıtlar</string>
-    <string name="cost_gaps_sheet_intro">Bu girişlerin maliyeti eksik. Öneri, tarihin günlük kapanış fiyatıdır – kayıtta değiştirebilirsiniz.</string>
+    <string name="cost_gaps_sheet_intro">Bu girişlerin maliyeti eksik. Öneri, tarihin günlük kapanış fiyatıdır – kayıtta değiştirebilirsin.</string>
     <string name="cost_gaps_empty">Tüm kayıtların maliyeti var.</string>
     <string name="cost_gap_enter">Maliyet gir</string>
     <string name="cost_gap_leave_unknown">Bilinmiyor bırak</string>
@@ -20,7 +20,7 @@
     <string name="cost_gap_apply">Uygula</string>
     <string name="address_lots_action">Adres bakiyesi için maliyet</string>
     <string name="address_lots_title">Adres bakiyesi için maliyet</string>
-    <string name="address_lots_intro">Bu adresin bakiyesi için alış tarihi, miktar ve maliyet girin. Partiler bu adreste alım gibi sayılır; karşılanmayan kısım maliyetsiz kalır.</string>
+    <string name="address_lots_intro">Bu adresin bakiyesi için alış tarihi, miktar ve maliyet gir. Partiler bu adreste alım gibi sayılır; karşılanmayan kısım maliyetsiz kalır.</string>
     <string name="address_lots_add">Parti ekle</string>
     <string name="address_lots_new">Yeni parti</string>
     <string name="address_lots_edit">Parti</string>
@@ -36,5 +36,5 @@
     <!-- %1$s = Menge der Posten über dem Guthaben -->
     <string name="address_lots_capped">Partiler bakiyeyi %1$s aşıyor – en eskiler önce kullanılır.</string>
     <string name="address_lots_not_loaded">Bakiye henüz yüklenmedi – partiler yüklenir yüklenmez sayılır.</string>
-    <string name="address_lots_invalid">Miktar ve maliyet girin</string>
+    <string name="address_lots_invalid">Miktar ve maliyet gir</string>
 </resources>

@@ -39,7 +39,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Riasztások</string>
-    <string name="channel_alarms_description">Értesítés, ha egy árriasztás kiold.</string>
+    <string name="channel_alarms_description">Értesítés, ha egy riasztás kiold.</string>
     <string name="channel_alarms_quiet">Riasztások (csendes órák)</string>
     <string name="channel_alarms_quiet_description">Néma riasztások a csendes órákban.</string>
     <string name="channel_alarms_silent">Riasztások (néma)</string>

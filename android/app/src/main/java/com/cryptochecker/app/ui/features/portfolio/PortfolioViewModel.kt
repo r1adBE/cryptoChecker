@@ -338,6 +338,9 @@ class PortfolioViewModel @Inject constructor(
      */
     val history: StateFlow<PortfolioHistoryUi?> = historyFlow()
 
+    /** Neuer Portfolio-Alarm: ein Anlegen zur Zeit ([addAlarm], Doppeltipp). */
+    internal val alarmCreateGuard = com.cryptochecker.app.ui.features.alarms.AlarmCreateGuard()
+
     internal val _coins = MutableStateFlow<List<String>>(emptyList())
 
     /** Wählbare Coins für die Suche (leer, solange nicht geladen). */

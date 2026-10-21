@@ -76,6 +76,8 @@ data class CsvImportPreview(
      * [CsvImportPriced.usdtApproximate]) — die Vorschau nennt sie wie [missingFx].
      */
     val usdtApproximate: List<Int> = emptyList(),
+    /** Datei über den Grenzen des Zerlegens ([CsvImportResult.tooLarge]): keine Zeilen, Meldung «zu gross». Seit Build 99. */
+    val tooLarge: Boolean = false,
 )
 
 /** Wahl je Auszahlung der Vorschau ([CsvImportMapping.proposeWithdrawals]). */
@@ -217,6 +219,7 @@ object CsvImportMapping {
             decimalMark = result.decimalMark,
             columns = result.columns,
             usdtApproximate = priced.filter { it.usdtApproximate }.map { it.row.line },
+            tooLarge = result.tooLarge,
         )
     }
 

@@ -101,9 +101,9 @@
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
     <string name="battery_delay_hint">Android kontrolleri geciktirebilir – pili “Kısıtlanmamış” olarak ayarla</string>
     <string name="battery_later">Sonra</string>
-    <string name="battery_message">Android enerji tasarrufu için arka plan işlerini geciktirir — fiyatlar ve widget\'lar bu durumda saatlerce eski kalabilir. Pil kullanımını kısıtlamasız yapmak onları güncel tutar. Bunu Android ayarlarından istediğiniz zaman değiştirebilirsiniz.</string>
+    <string name="battery_message">Android enerji tasarrufu için arka plan işlerini geciktirir — fiyatlar ve widget\'lar bu durumda saatlerce eski kalabilir. Pil kullanımını kısıtlamasız yapmak onları güncel tutar. Bunu Android ayarlarından istediğin zaman değiştirebilirsin.</string>
     <string name="battery_open_settings">Pil ayarlarını aç</string>
-    <string name="battery_steps">Uygulama bilgisinde Pil (veya Uygulama pil kullanımı) öğesine dokunun ve Kısıtlanmamış seçin.</string>
+    <string name="battery_steps">Uygulama bilgisinde Pil (veya Uygulama pil kullanımı) öğesine dokun ve Kısıtlanmamış seç.</string>
     <string name="battery_title">Fiyatları güncel tut</string>
     <string name="ios_background_refresh_off">Bu uygulama için Arka Planda Yenileme kapalı. Kapalıyken alarmlar yalnızca uygulama açıkken kontrol edilir.</string>
     <string name="ios_low_power_mode">Düşük Güç Modu açık. iOS arka planda nadiren kontrol eder, alarmlar gecikebilir.</string>

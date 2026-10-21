@@ -170,17 +170,11 @@ struct AlarmSettingsPage: View {
             SettingsHint(text: L("alarm_test_hint"), top: Spacing.xs)
         }
         .alarmTestRunner(trigger: alarmTestTrigger)
-        .alert(L("settings_notification_change"), isPresented: $editingPercent) {
-            TextField("0", text: $percentText)
-                .keyboardType(.decimalPad)
-            Button(L("action_save")) {
-                if let v = SettingsPercentOption.parse(percentText) {
-                    data.settings.notificationChangePercent = v
-                }
+        .sheet(isPresented: $editingPercent) {
+            // Ungültig («150») sperrt «Sichern» und zeigt den Hinweis — wie Android
+            SettingsPercentSheet(title: L("settings_notification_change"), initial: percentText) { v in
+                data.settings.notificationChangePercent = v
             }
-            Button(L("action_cancel"), role: .cancel) {}
-        } message: {
-            Text("% · 0 = " + L("settings_notification_change_always"))
         }
     }
 

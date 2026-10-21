@@ -31,8 +31,8 @@ enum VolumeDataSource {
 
     // Kerzen je Symbol (und Anzahl), kurz zwischengespeichert (auch «nicht gefunden»), mit Anbieter
     private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock)
-    nonisolated(unsafe) private static var cache: [String: (time: Int64, candles: Sourced<[MarketCandle]>?)] = [:]
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock). Begrenzt seit Build 99 (`BoundedCache`).
+    nonisolated(unsafe) private static var cache = BoundedCache<String, (time: Int64, candles: Sourced<[MarketCandle]>?)>()
 
     /// Markt-Referenz (z. B. BTC/USDT für den Puls) direkt aus der Ausweich-Kette.
     static func hourlySpike(base: String, quote: String) async -> VolumeSpike? {
@@ -116,14 +116,14 @@ enum VolumeDataSource {
 
     private static func cached(_ key: String, now: Int64) -> (time: Int64, candles: Sourced<[MarketCandle]>?)? {
         lock.lock(); defer { lock.unlock() }
-        guard let entry = cache[key] else { return nil }
+        guard let entry = cache.get(key) else { return nil }
         let age = now - entry.time
         return age >= 0 && age < cacheMillis ? entry : nil
     }
 
     private static func store(_ key: String, _ candles: Sourced<[MarketCandle]>?) {
         lock.lock(); defer { lock.unlock() }
-        cache[key] = (time: TimeUtils.nowMillis, candles: candles)
+        cache.set(key, (time: TimeUtils.nowMillis, candles: candles))
     }
 
     /// Binance-Symbol, z. B. BTC + USD → BTCUSDT.

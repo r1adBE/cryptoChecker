@@ -44,6 +44,8 @@
     <string name="portfolio_csv_import_transfers_hint">Një tërheqje dhe depozita përkatëse e të njëjtit coin bëhen një transferim i vetëm: çmimi i blerjes dhe periudha e mbajtjes ruhen, diferenca llogaritet si tarifë rrjeti.</string>
     <string name="portfolio_csv_import_transfers_title">Transferime ndërmjet llogarive të tua</string>
     <string name="portfolio_csv_import_unreadable">Nuk u gjetën transaksione të mbështetura. Mbështeten: eksportet CSV nga Relai, Swissquote, Kraken, Binance, Coinbase dhe Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">Skedari është shumë i madh për import (maks. 16 MB dhe %1$s rreshta). Eksporto periudha më të shkurtra dhe importoji një nga një.</string>
     <string name="portfolio_csv_import_failed">Importimi dështoi – nuk u ruajt asgjë. Provo përsëri.</string>
     <string name="portfolio_csv_import_locked">Importimi nuk është i mundur: të dhënat e ruajtura nuk mund të lexohen tani. Rinis aplikacionin.</string>
     <string name="portfolio_csv_import_withdrawals_title">Tërheqjet – ku shkuan monedhat?</string>

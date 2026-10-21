@@ -218,8 +218,13 @@ struct ChoiceChips<T: Hashable>: View {
                         .foregroundStyle(selected ? accent.onContainer : AppColors.onSurface)
                         .background(selected ? accent.container : AppColors.containerHigh, in: Capsule())
                         .overlay(Capsule().strokeBorder(selected ? accent.primary.opacity(0.6) : .clear, lineWidth: 1))
+                        // Trefferfläche mind. 44 pt (Apple HIG), der Chip selbst bleibt optisch gleich gross
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
+                // VoiceOver sagt «ausgewählt» an, nicht nur die Farbe zeigt die Wahl
+                .accessibilityAddTraits(selected ? .isSelected : [])
             }
         }
     }

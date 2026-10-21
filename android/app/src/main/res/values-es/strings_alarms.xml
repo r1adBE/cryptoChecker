@@ -33,7 +33,7 @@
     <string name="alarm_fires_now_save">Guardar igualmente</string>
     <string name="alarm_fires_now_title">La alarma saltaría ya</string>
     <string name="alarm_first_battery_hint">La optimización de batería limita la app; las alarmas pueden llegar tarde.</string>
-    <string name="alarm_first_title">Alerta guardada</string>
+    <string name="alarm_first_title">Alarma guardada</string>
     <string name="alarm_last_triggered">última: %1$s</string>
     <string name="alarm_more_conditions">Más condiciones</string>
     <string name="alarm_new_extreme">Nuevo %1$s</string>
@@ -141,7 +141,7 @@
     <string name="alarm_volume_zero_hours_hint">Las horas sin operaciones cuentan como volumen cero, así que en pares con poca negociación una hora normal puede parecer inusual.</string>
 
     <!-- Bestätigung nach dem Speichern -->
-    <string name="alarm_saved_active">Alerta activa</string>
+    <string name="alarm_saved_active">Alarma activa</string>
     <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
     <string name="alarm_saved_banner">Alarma guardada: %1$s</string>
     <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
@@ -185,4 +185,5 @@
     <string name="alarm_editor_more">Más</string>
     <string name="alarm_editor_more_summary">Alarmas rápidas, otras condiciones, sonido y voz</string>
     <string name="alarm_reliability_storage_no_key">Alarmas en pausa en segundo plano – la lista no está guardada</string>
+    <string name="alarms_limit_reached">Un par puede tener como máximo %1$s alarmas.</string>
 </resources>

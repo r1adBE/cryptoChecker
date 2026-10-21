@@ -5,7 +5,9 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.AddWatchOutcome
 import com.cryptochecker.app.data.TickerImpl
+import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.MarketError
 import com.cryptochecker.app.domain.model.MarketInfo
@@ -121,12 +123,21 @@ fun ExplorerViewModel.addSelectedPair() {
 // Hilfen
 // =============================================================================================
 
-/** Paar in die Merkliste (Ziel-Gruppe der Sitzung); erst melden, dann der Erst-Moment. */
+/**
+ * Paar in die Merkliste (Ziel-Gruppe der Sitzung); erst melden, dann der Erst-Moment. Merkliste voll
+ * ([com.cryptochecker.app.domain.watch.WatchlistLimits]): nichts angelegt, Hinweis statt [report] — für Suche, Auswahl
+ * und DEX gleich.
+ */
 internal fun ExplorerViewModel.launchAdd(target: MarketInfo, pair: MarketPair, report: (added: Boolean) -> Unit) {
     viewModelScope.launch {
-        val id = watchRepository.addWatch(target, pair, sessionTargetGroup.value)
-        report(id != null)
-        if (id != null) addMoments.afterExplorerAdd(id)
+        when (val outcome = watchRepository.tryAddWatch(target, pair, sessionTargetGroup.value)) {
+            is AddWatchOutcome.Added -> {
+                report(true)
+                addMoments.afterExplorerAdd(outcome.id)
+            }
+            AddWatchOutcome.Duplicate -> report(false)
+            AddWatchOutcome.Full -> addResult.value = AddResult.WATCHLIST_FULL
+        }
     }
 }
 

@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Alarmliste und Übersicht aller Alarme -->
-    <string name="add_alarm_action">अलार्म सेट करें</string>
+    <string name="add_alarm_action">अलार्म सेट करो</string>
     <string name="alarms_add">नया अलार्म</string>
-    <string name="alarms_edit">अलार्म बदलें</string>
+    <string name="alarms_edit">अलार्म बदलो</string>
     <string name="alarms_empty">इस पेयर के लिए अभी कोई अलार्म नहीं है।</string>
     <string name="alarms_empty_example">उदाहरण: जब BTC %1$s से ऊपर जाए, मुझे बताओ।</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">नोटिफ़िकेशन बंद हैं – अलार्म आप तक नहीं पहुँचेंगे।</string>
-    <string name="alarms_notifications_turn_on">चालू करें</string>
+    <string name="alarms_notifications_off">नोटिफ़िकेशन बंद हैं – अलार्म तुम तक नहीं पहुँचेंगे।</string>
+    <string name="alarms_notifications_turn_on">चालू करो</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">%1$d सक्रिय</item>
         <item quantity="other">%1$d सक्रिय</item>
     </plurals>
-    <string name="alarms_overview_empty">अभी कोई अलार्म नहीं। कोई पेयर खोलें और अलार्म में जोड़ें।</string>
+    <string name="alarms_overview_empty">अभी कोई अलार्म नहीं। कोई पेयर खोलो और अलार्म में जोड़ो।</string>
     <string name="alarms_overview_title">सभी अलार्म</string>
     <string name="alarms_title">अलार्म</string>
 
     <!-- Alarm-Editor: allgemein (Felder, Wiederholung, Löschen) -->
     <string name="alarm_advanced">उन्नत</string>
-    <string name="alarm_change_updates">कीमत अपडेट बदलें</string>
-    <string name="alarm_create">अलार्म बनाएँ</string>
+    <string name="alarm_change_updates">कीमत अपडेट बदलो</string>
+    <string name="alarm_create">अलार्म बनाओ</string>
     <string name="alarm_currency_label">मुद्रा</string>
     <string name="alarm_delete_confirm">यह अलार्म हटा दिया जाएगा।</string>
-    <string name="alarm_delete_title">अलार्म हटाएँ?</string>
+    <string name="alarm_delete_title">अलार्म हटाओ?</string>
     <string name="alarm_field_percent">प्रतिशत</string>
     <string name="alarm_field_price">कीमत</string>
-    <string name="alarm_fires_now_above">भाव पहले से %1$s से ऊपर है। फिर भी सहेजें?</string>
-    <string name="alarm_fires_now_below">भाव पहले से %1$s से नीचे है। फिर भी सहेजें?</string>
-    <string name="alarm_fires_now_change">बदलें</string>
-    <string name="alarm_fires_now_save">फिर भी सहेजें</string>
+    <string name="alarm_fires_now_above">भाव पहले से %1$s से ऊपर है। फिर भी सहेजो?</string>
+    <string name="alarm_fires_now_below">भाव पहले से %1$s से नीचे है। फिर भी सहेजो?</string>
+    <string name="alarm_fires_now_change">बदलो</string>
+    <string name="alarm_fires_now_save">फिर भी सहेजो</string>
     <string name="alarm_fires_now_title">अलार्म तुरंत बज जाएगा</string>
     <string name="alarm_first_battery_hint">बैटरी ऑप्टिमाइज़ेशन ऐप को सीमित करता है – अलार्म देर से आ सकते हैं।</string>
-    <string name="alarm_first_title">अलर्ट सहेजा गया</string>
+    <string name="alarm_first_title">अलार्म सहेजा गया</string>
     <string name="alarm_last_triggered">पिछली बार %1$s</string>
     <string name="alarm_more_conditions">और शर्तें</string>
     <string name="alarm_new_extreme">नया %1$s</string>
     <string name="alarm_once">एक बार</string>
-    <string name="alarm_option_repeating">सूचित करें</string>
+    <string name="alarm_option_repeating">सूचित करो</string>
     <string name="alarm_option_sound">आवाज़</string>
-    <string name="alarm_option_speak">अलार्म बोलें</string>
+    <string name="alarm_option_speak">अलार्म बोलो</string>
     <string name="alarm_option_vibrate">वाइब्रेशन</string>
     <string name="alarm_repeat_each">हर बार</string>
     <string name="alarm_repeat_once">एक बार</string>
     <string name="alarm_repeating">हर बार</string>
-    <string name="alarm_threshold_error_empty">अलार्म सहेजने के लिए कोई मान डालें।</string>
+    <string name="alarm_threshold_error_empty">अलार्म सहेजने के लिए कोई मान डालो।</string>
     <string name="alarm_threshold_error_funding">फ़ंडिंग रेट −10 और +10 प्रतिशत के बीच की संख्या होनी चाहिए।</string>
-    <string name="alarm_threshold_error_invalid">0 से बड़ी मान्य संख्या डालें।</string>
+    <string name="alarm_threshold_error_invalid">0 से बड़ी मान्य संख्या डालो।</string>
     <string name="alarm_threshold_error_oi">ओपन इंटरेस्ट में बदलाव: अधिकतम 1000 प्रतिशत।</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d घंटे में</item>
@@ -59,9 +59,9 @@
     <string name="alarm_simple_below">इस स्तर से नीचे जाए:</string>
     <string name="alarm_simple_end"></string>
     <string name="alarm_simple_when">जब %1$s</string>
-    <string name="alarm_template_a11y">अलार्म बनाएँ: %1$s</string>
-    <string name="alarm_template_a11y_down">मौजूदा भाव से माइनस %1$s प्रतिशत पर अलार्म बनाएँ</string>
-    <string name="alarm_template_a11y_up">मौजूदा भाव से प्लस %1$s प्रतिशत पर अलार्म बनाएँ</string>
+    <string name="alarm_template_a11y">अलार्म बनाओ: %1$s</string>
+    <string name="alarm_template_a11y_down">मौजूदा भाव से माइनस %1$s प्रतिशत पर अलार्म बनाओ</string>
+    <string name="alarm_template_a11y_up">मौजूदा भाव से प्लस %1$s प्रतिशत पर अलार्म बनाओ</string>
     <string name="alarm_template_from_now">अभी से</string>
     <string name="alarm_template_volume">वॉल्यूम ×%1$s</string>
     <string name="alarm_templates_title">त्वरित अलार्म</string>
@@ -81,29 +81,29 @@
     <string name="alarm_condition_volume_spike">वॉल्यूम स्पाइक</string>
 
     <!-- Alarm als Satz (Liste, Bestätigung, Mitteilung) -->
-    <string name="alarm_sentence_above">जब %1$s %2$s से ऊपर जाए, तो मुझे बताएँ।</string>
-    <string name="alarm_sentence_below">जब %1$s %2$s से नीचे जाए, तो मुझे बताएँ।</string>
-    <string name="alarm_sentence_down_percent">जब %1$s सेव करते समय के भाव (या पिछले अलार्म) से %2$s नीचे जाए, तो मुझे बताएँ।</string>
-    <string name="alarm_sentence_funding_above">जब %1$s की फ़ंडिंग %2$s से ऊपर जाए, तो मुझे बताएँ।</string>
-    <string name="alarm_sentence_funding_below">जब %1$s की फ़ंडिंग %2$s से नीचे जाए, तो मुझे बताएँ।</string>
-    <string name="alarm_sentence_incomplete">अलार्म को वाक्य के रूप में देखने के लिए कोई मान दर्ज करें।</string>
+    <string name="alarm_sentence_above">जब %1$s %2$s से ऊपर जाए, तो मुझे बताओ।</string>
+    <string name="alarm_sentence_below">जब %1$s %2$s से नीचे जाए, तो मुझे बताओ।</string>
+    <string name="alarm_sentence_down_percent">जब %1$s सेव करते समय के भाव (या पिछले अलार्म) से %2$s नीचे जाए, तो मुझे बताओ।</string>
+    <string name="alarm_sentence_funding_above">जब %1$s की फ़ंडिंग %2$s से ऊपर जाए, तो मुझे बताओ।</string>
+    <string name="alarm_sentence_funding_below">जब %1$s की फ़ंडिंग %2$s से नीचे जाए, तो मुझे बताओ।</string>
+    <string name="alarm_sentence_incomplete">अलार्म को वाक्य के रूप में देखने के लिए कोई मान दर्ज करो।</string>
     <plurals name="alarm_sentence_move_percent">
-        <item quantity="one">जब %1$s %3$d घंटे के भीतर %2$s ऊपर या नीचे जाए, तो मुझे बताएँ।</item>
-        <item quantity="other">जब %1$s %3$d घंटों के भीतर %2$s ऊपर या नीचे जाए, तो मुझे बताएँ।</item>
+        <item quantity="one">जब %1$s %3$d घंटे के भीतर %2$s ऊपर या नीचे जाए, तो मुझे बताओ।</item>
+        <item quantity="other">जब %1$s %3$d घंटों के भीतर %2$s ऊपर या नीचे जाए, तो मुझे बताओ।</item>
     </plurals>
-    <string name="alarm_sentence_near_high">जब %1$s अपने %3$s से अधिकतम %2$s नीचे हो, तो मुझे बताएँ।</string>
-    <string name="alarm_sentence_near_low">जब %1$s अपने %3$s से अधिकतम %2$s ऊपर हो, तो मुझे बताएँ।</string>
-    <string name="alarm_sentence_new_extreme">जब %1$s नया %2$s बनाए, तो मुझे बताएँ।</string>
+    <string name="alarm_sentence_near_high">जब %1$s अपने %3$s से अधिकतम %2$s नीचे हो, तो मुझे बताओ।</string>
+    <string name="alarm_sentence_near_low">जब %1$s अपने %3$s से अधिकतम %2$s ऊपर हो, तो मुझे बताओ।</string>
+    <string name="alarm_sentence_new_extreme">जब %1$s नया %2$s बनाए, तो मुझे बताओ।</string>
     <plurals name="alarm_sentence_oi_down">
-        <item quantity="one">जब %1$s का ओपन इंटरेस्ट %3$d घंटे के भीतर %2$s घटे, तो मुझे बताएँ।</item>
-        <item quantity="other">जब %1$s का ओपन इंटरेस्ट %3$d घंटों के भीतर %2$s घटे, तो मुझे बताएँ।</item>
+        <item quantity="one">जब %1$s का ओपन इंटरेस्ट %3$d घंटे के भीतर %2$s घटे, तो मुझे बताओ।</item>
+        <item quantity="other">जब %1$s का ओपन इंटरेस्ट %3$d घंटों के भीतर %2$s घटे, तो मुझे बताओ।</item>
     </plurals>
     <plurals name="alarm_sentence_oi_up">
-        <item quantity="one">जब %1$s का ओपन इंटरेस्ट %3$d घंटे के भीतर %2$s बढ़े, तो मुझे बताएँ।</item>
-        <item quantity="other">जब %1$s का ओपन इंटरेस्ट %3$d घंटों के भीतर %2$s बढ़े, तो मुझे बताएँ।</item>
+        <item quantity="one">जब %1$s का ओपन इंटरेस्ट %3$d घंटे के भीतर %2$s बढ़े, तो मुझे बताओ।</item>
+        <item quantity="other">जब %1$s का ओपन इंटरेस्ट %3$d घंटों के भीतर %2$s बढ़े, तो मुझे बताओ।</item>
     </plurals>
-    <string name="alarm_sentence_up_percent">जब %1$s सेव करते समय के भाव (या पिछले अलार्म) से %2$s ऊपर जाए, तो मुझे बताएँ।</string>
-    <string name="alarm_sentence_volume">जब %1$s का वॉल्यूम सामान्य का %2$s× हो जाए, तो मुझे बताएँ।</string>
+    <string name="alarm_sentence_up_percent">जब %1$s सेव करते समय के भाव (या पिछले अलार्म) से %2$s ऊपर जाए, तो मुझे बताओ।</string>
+    <string name="alarm_sentence_volume">जब %1$s का वॉल्यूम सामान्य का %2$s× हो जाए, तो मुझे बताओ।</string>
 
     <!-- Alarm «Nahe am Hoch / Tief» -->
     <string name="alarm_near_extreme_high_30">30-दिवसीय उच्च स्तर</string>
@@ -128,14 +128,14 @@
     <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
     <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
     <string name="alarm_funding_hint_8h">फ़ंडिंग प्रति 8 घंटे। दूसरे अंतराल वाले कॉन्ट्रैक्ट बदले जाते हैं (1 घं × 8, 4 घं × 2); फ़्यूचर्स कार्ड बदला हुआ मान दिखाता है। अंतराल अज्ञात हो तो अलार्म जाँच नहीं करता। ऋणात्मक: शॉर्ट लॉन्ग को भुगतान करते हैं। ± चिह्न बदलता है।</string>
-    <string name="alarm_funding_sign_a11y">चिह्न बदलें</string>
+    <string name="alarm_funding_sign_a11y">चिह्न बदलो</string>
     <string name="alarm_oi_hint">ओपन इंटरेस्ट की तुलना उतने ही घंटे पहले सहेजे गए मान से करता है। नया अलार्म तभी सूचना देता है जब ऐप ने इतने समय तक डेटा इकट्ठा कर लिया हो; जाँच अधिकतम हर 5 मिनट में।</string>
     <string name="alarm_volume_factor_label">पिछले घंटे का वॉल्यूम बनाम सामान्य</string>
     <string name="alarm_volume_hint">वॉल्यूम डेटा Binance से आता है — जो पेयर वहाँ लिस्टेड नहीं हैं, वे कभी ट्रिगर नहीं होते।</string>
     <string name="alarm_volume_zero_hours_hint">बिना ट्रेड वाले घंटे शून्य वॉल्यूम माने जाते हैं, इसलिए कम ट्रेड होने वाले पेयर पर एक सामान्य घंटा भी असामान्य लग सकता है।</string>
 
     <!-- Bestätigung nach dem Speichern -->
-    <string name="alarm_saved_active">अलर्ट सक्रिय</string>
+    <string name="alarm_saved_active">अलार्म सक्रिय</string>
     <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
     <string name="alarm_saved_banner">अलार्म सहेजा गया: %1$s</string>
     <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
@@ -146,7 +146,7 @@
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">ऐप बंद होने पर iOS अक्सर 15 मिनट से देर से जाँचता है, कभी-कभी अगली बार ऐप खोलने पर ही। छोटे उछाल छूट सकते हैं।</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">अलार्म कब जाँचे जाते हैं</string>
-    <string name="alarm_timing_where">क़ीमतें कितनी बार अपडेट हों, यह %1$s में सेट करें।</string>
+    <string name="alarm_timing_where">क़ीमतें कितनी बार अपडेट हों, यह %1$s में सेट करो।</string>
 
     <!-- Alarm-Signal und Test-Alarm -->
     <string name="alarm_signal_silent">साइलेंट (सिर्फ़ सूचना)</string>
@@ -154,11 +154,11 @@
     <string name="alarm_signal_sound_vibrate">आवाज़ और वाइब्रेशन</string>
     <string name="alarm_signal_system">सिस्टम</string>
     <string name="alarm_signal_vibrate">सिर्फ़ वाइब्रेशन</string>
-    <string name="alarm_test">अलार्म आज़माएँ</string>
-    <string name="alarm_test_action">टेस्ट करें</string>
+    <string name="alarm_test">अलार्म आज़माओ</string>
+    <string name="alarm_test_action">टेस्ट करो</string>
     <string name="alarm_test_denied">Crypto Checker के लिए नोटिफ़िकेशन बंद हैं।</string>
-    <string name="alarm_test_hint">आपकी ध्वनि, वाइब्रेशन और बोलकर सुनाने की सेटिंग के साथ एक नमूना अलार्म भेजता है।</string>
-    <string name="alarm_test_open_settings">सेटिंग्स खोलें</string>
+    <string name="alarm_test_hint">तुम्हारी ध्वनि, वाइब्रेशन और बोलकर सुनाने की सेटिंग के साथ एक नमूना अलार्म भेजता है।</string>
+    <string name="alarm_test_open_settings">सेटिंग्स खोलो</string>
     <string name="alarm_test_quiet">अभी मौन घंटे चालू हैं: असली अलार्म इनके खत्म होने तक रुकते और फिर आवाज़ के साथ बजते।</string>
     <string name="alarm_test_text">अलार्म ऐसा दिखता है और ऐसा सुनाई देता है।</string>
     <string name="alarm_test_title">टेस्ट: Crypto Checker अलार्म</string>
@@ -170,13 +170,14 @@
     <string name="alarm_unchecked_no_rate">जाँच नहीं हो सकी (विनिमय दर नहीं)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
-    <string name="alarm_status_notifications_off">नोटिफ़िकेशन बंद – यह अलार्म आप तक नहीं पहुँचेगा</string>
+    <string name="alarm_status_notifications_off">नोटिफ़िकेशन बंद – यह अलार्म तुम तक नहीं पहुँचेगा</string>
     <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
     <string name="alarm_status_low_liquidity">कोई अलार्म नहीं – कम लिक्विडिटी</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">मौजूदा भाव का इंतज़ार</string>
-    <string name="alarm_enter_amount">कोई मान डालें</string>
+    <string name="alarm_enter_amount">कोई मान डालो</string>
     <string name="alarm_editor_more">और</string>
     <string name="alarm_editor_more_summary">त्वरित अलार्म, अन्य शर्तें, आवाज़ और बोलकर सुनाना</string>
     <string name="alarm_reliability_storage_no_key">बैकग्राउंड में अलार्म रुके हुए हैं – वॉचलिस्ट सहेजी नहीं गई</string>
+    <string name="alarms_limit_reached">एक पेयर पर अधिकतम %1$s अलार्म हो सकते हैं।</string>
 </resources>

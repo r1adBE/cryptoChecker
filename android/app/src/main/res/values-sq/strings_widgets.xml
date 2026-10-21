@@ -44,7 +44,7 @@
     <string name="widget_portfolio_display_hint">Rreshti USDT fshihet kur monedha e konvertimit është USD.</string>
     <string name="widget_portfolio_display_usdt">Vetëm USDT</string>
     <string name="widget_portfolio_empty">Shto blerje te skeda Portofoli</string>
-    <string name="widget_portfolio_list_hint">Hapni aplikacionin për të shfaqur këtu pozicionet tuaja.</string>
+    <string name="widget_portfolio_list_hint">Hap aplikacionin për të shfaqur këtu pozicionet e tua.</string>
     <string name="widget_portfolio_locked_hint">I kyçur – shkyçe në aplikacion</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
@@ -64,7 +64,7 @@
     <string name="widget_portfolio_period_without">%1$s pa %2$s</string>
     <string name="widget_portfolio_range_48h">48h</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: hapni Portofolin</string>
+    <string name="widget_portfolio_range_fallback">%1$s: hap Portofolin</string>
     <string name="widget_portfolio_range_short_48h">48h</string>
     <string name="widget_portfolio_today_without">Sot pa %1$s</string>
     <string name="widget_portfolio_view">Pamja</string>

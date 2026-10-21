@@ -45,17 +45,18 @@
     <string name="settings_exact_checks_permission_missing">חסרה הרשאה – כשהמכשיר במנוחה, Android בודק באופן לא סדיר, לפעמים רק אחרי שעות.</string>
     <string name="settings_notification_change">עדכון רק בשינוי מחיר</string>
     <string name="settings_notification_change_always">תמיד</string>
+    <string name="settings_percent_invalid">יש להזין ערך בין 0 ל־100.</string>
     <string name="settings_notification_change_hint">עדכון מחיר מופיע רק כשהמחיר זז לפחות בשיעור זה מאז העדכון הקודם. כשחסרים נתונים לא מוצג דבר. ההתראות אינן מושפעות.</string>
     <string name="settings_ongoing_notifications">לא ניתן להחליק לסגירה</string>
     <string name="settings_ongoing_notifications_hint">משאיר את עדכוני המחיר מוצמדים.</string>
     <string name="settings_price_notifications">עדכוני מחיר</string>
-    <string name="settings_price_notifications_hint">הצג את המחיר הנוכחי של צמדים מופעלים בשורת המצב.</string>
+    <string name="settings_price_notifications_hint">מציג את המחיר הנוכחי של צמדים מופעלים בשורת המצב.</string>
     <string name="settings_price_pairs">צמדים</string>
     <string name="settings_price_pairs_all_off">הכול כבוי</string>
     <string name="settings_price_pairs_all_on">הכול מופעל</string>
     <string name="settings_price_pairs_count">%1$d מתוך %2$d</string>
     <string name="settings_price_pairs_empty">אין עדיין צמדים ברשימת המעקב.</string>
-    <string name="settings_price_pairs_hint">בחר לאילו צמדים יוצג השער בשורת ההתראות.</string>
+    <string name="settings_price_pairs_hint">בחרו לאילו צמדים יוצג השער בשורת ההתראות.</string>
     <string name="settings_quiet_hours">שעות דממה</string>
     <string name="settings_quiet_hours_from">התחלה</string>
     <string name="settings_quiet_hours_hint">בין %1$s ל־%2$s התראות ממתינות עד סוף שעות הדממה ואז מתריעות עם צליל. הודעות אחרות מגיעות בשקט, בלי הקראה.</string>
@@ -117,7 +118,7 @@
     <string name="settings_coin_logos">לוגואים של מטבעות</string>
     <string name="settings_coin_logos_app">באפליקציה</string>
     <string name="settings_coin_logos_app_hint">רשימת מעקב, הצמד הפתוח וכרטיסי שוק</string>
-    <string name="settings_coin_logos_footer">הלוגואים מגיעים מ-CoinGecko, ולמה ש-CoinGecko לא מכיר (למשל זהב, כסף, מניות) – מ-Binance. האפליקציה מורידה בבת אחת את כל הלוגואים ושומרת אותם במכשיר הזה, כך שאף אחד מהם לא יודע אחרי אילו מטבעות אתם עוקבים. למטבעות בלי לוגו מוצגים ראשי התיבות. מועדפים מקבלים כוכב קטן על הלוגו. כשמתג כבוי, לא מוצגים לוגואים וגם לא ראשי תיבות; כשכל האפשרויות כבויות, שום דבר לא נטען.</string>
+    <string name="settings_coin_logos_footer">הלוגואים מגיעים מ-CoinGecko, ולמה ש-CoinGecko לא מכיר (למשל זהב, כסף, מניות) – מ-Binance. האפליקציה מורידה בבת אחת את כל הלוגואים ושומרת אותם במכשיר הזה, כך שאף אחד מהם לא יודע אילו מטבעות מעניינים אותך. למטבעות בלי לוגו מוצגים ראשי התיבות. מועדפים מקבלים כוכב קטן על הלוגו. כשמתג כבוי, לא מוצגים לוגואים וגם לא ראשי תיבות; כשכל האפשרויות כבויות, שום דבר לא נטען.</string>
     <string name="settings_coin_logos_portfolio">בתיק ההשקעות</string>
     <string name="settings_coin_logos_portfolio_hint">פוזיציות, פרטי מטבעות ותובנות</string>
     <string name="settings_coin_logos_value_app">אפליקציה</string>
@@ -156,10 +157,10 @@
     <string name="settings_portfolio_lock">נעילת תיק השקעות</string>
     <string name="settings_portfolio_lock_footer">הנעילה מסתירה את מה שמוצג במסך. הנתונים נשמרים במכשיר הזה ומוגנים בהצפנת המכשיר. אפשר להגן על גיבויים באמצעות סיסמה.</string>
     <string name="settings_portfolio_lock_hint">מסתירה רק את תיק ההשקעות: ביטול נעילה בטביעת אצבע, בפנים או בקוד PIN של המכשיר. ננעל שוב אחרי יותר מדקה ברקע. רשימת המעקב, ההתראות ושאר הווידג׳טים נשארים פתוחים.</string>
-    <string name="settings_portfolio_lock_no_device_lock">ללא PIN או קוד גישה במכשיר הנעילה לא מסתירה כלום – הגדר נעילת מסך.</string>
+    <string name="settings_portfolio_lock_no_device_lock">ללא PIN או קוד גישה במכשיר הנעילה לא מסתירה כלום – הגדירו נעילת מסך.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">תיק השקעות בגיבוי המערכת</string>
-    <string name="settings_portfolio_system_backup_hint">כבוי: העסקאות שלך לא נכללות בגיבוי המערכת של המכשיר ולא בהעברה לטלפון חדש. כדי להעביר אותן, השתמש בגיבוי של האפליקציה עם סיסמה.</string>
+    <string name="settings_portfolio_system_backup_hint">כבוי: העסקאות שלך לא נכללות בגיבוי המערכת של המכשיר ולא בהעברה לטלפון חדש. כדי להעביר אותן, השתמשו בגיבוי של האפליקציה עם סיסמה.</string>
     <string name="settings_portfolio_system_backup_unavailable">דורש Android 9 ומעלה – גרסאות ישנות יותר היו שומרות את התיק בלי הצפנה בגיבוי של Google.</string>
     <string name="settings_portfolio_tab">הצגת לשונית תיק השקעות</string>
     <string name="settings_portfolio_value_locked">פועל, עם נעילה</string>
@@ -167,7 +168,7 @@
     <string name="settings_show_converted_hint">מציג את המחירים ברשימת המעקב גם ב-%1$s</string>
 
     <!-- Einstellungen › Markt-Meldungen -->
-    <string name="settings_depeg_alarm">דווח על שבירת הצמדה של USDT</string>
+    <string name="settings_depeg_alarm">דיווח על שבירת הצמדה של USDT</string>
     <string name="settings_depeg_alarm_hint">מתריע פעם אחת כש-USDT סוטה מ-1 USD בגובה הסף (Kraken USDT/USD, Coinbase USDT/USD, Binance USDC/USDT).</string>
     <string name="settings_depeg_threshold">סף שבירת הצמדה</string>
     <string name="settings_fng_above">Fear &amp; Greed: הודעה מעל</string>
@@ -180,7 +181,7 @@
     <string name="settings_ind_mayer_below">Mayer Multiple מתחת</string>
     <string name="settings_ind_mvrv_above">MVRV מעל</string>
     <string name="settings_ind_mvrv_below">MVRV מתחת</string>
-    <string name="settings_indicator_alerts_hint">מדדי ביטקוין, נבדקים פעמיים ביום. את הגבולות אתה בוחר – האפליקציה לא מעריכה את הערכים.</string>
+    <string name="settings_indicator_alerts_hint">מדדי ביטקוין, נבדקים פעמיים ביום. הגבולות נקבעים על ידך – האפליקציה לא מעריכה את הערכים.</string>
     <string name="settings_macro_notifications">לוח אירועים כלכליים</string>
     <string name="settings_macro_notifications_hint">ב־08:00 בימים עם נתונים כלכליים חשובים מארה״ב (אינפלציה, תעסוקה, החלטת הפד). הלוח נטען מאתר האפליקציה פעם ביום.</string>
     <string name="settings_market_alerts">הודעות שוק</string>
@@ -195,7 +196,7 @@
     <string name="settings_speech_rate">קצב דיבור: %1$.1f×</string>
     <string name="settings_tts">הקראה קולית</string>
     <string name="settings_tts_alarms_only">התראות בלבד</string>
-    <string name="settings_tts_alarms_only_hint">כבוי: כל עדכון של צמד שסומן ״הקרא מחיר״ יוקרא בקול.</string>
+    <string name="settings_tts_alarms_only_hint">כבוי: כל עדכון של צמד שסומן ״הקראת מחיר״ יוקרא בקול.</string>
     <!-- Sprachausgabe schweigt im Lautlos-/Vibrationsmodus -->
     <string name="settings_tts_hint_silent">מקריא מחירים והתראות בקול. שותק כל עוד המכשיר במצב שקט או רטט.</string>
     <string name="settings_tts_test">בדיקת קול</string>
@@ -286,7 +287,7 @@
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_change_label">החלפת מכשיר</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device_change">המפתח נשאר במכשיר הישן – צור קודם קובץ גיבוי.</string>
+    <string name="about_data_device_change">המפתח נשאר במכשיר הישן – צרו קודם קובץ גיבוי.</string>
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">שיתוף אבחון</string>

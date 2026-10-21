@@ -18,7 +18,7 @@
     <string name="alarm_outcome_fired">Ausgelöst</string>
     <string name="alarm_outcome_not_reached">Marke nicht erreicht</string>
     <string name="alarm_outcome_already_triggered">Schon gemeldet – wartet, bis der Kurs zurück auf der anderen Seite ist</string>
-    <string name="alarm_outcome_cooldown">Nicht ausgelöst – Ruhezeit nach der letzten Meldung</string>
+    <string name="alarm_outcome_cooldown">Nicht ausgelöst – Ruhezeit nach dem letzten Alarm</string>
     <!-- %1$s = Zeit des Kurses laut Börse -->
     <string name="alarm_outcome_stale">Nicht ausgelöst – Kurs veraltet (Stand %1$s)</string>
     <string name="alarm_outcome_mark_price">Nicht ausgelöst – Mark-Preis, kein Handelskurs</string>

@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Tilladelse mangler – når enheden hviler, tjekker Android uregelmæssigt, nogle gange først efter timer.</string>
     <string name="settings_notification_change">Giv kun besked ved kursændring</string>
     <string name="settings_notification_change_always">Altid</string>
+    <string name="settings_percent_invalid">Indtast en værdi fra 0 til 100.</string>
     <string name="settings_notification_change_hint">En notifikation vises først, når kursen har bevæget sig mindst så meget siden den forrige. Der vises intet, mens der mangler data. Alarmer påvirkes ikke.</string>
     <string name="settings_ongoing_notifications">Kan ikke stryges væk</string>
     <string name="settings_ongoing_notifications_hint">Holder kursnotifikationerne fastgjort.</string>

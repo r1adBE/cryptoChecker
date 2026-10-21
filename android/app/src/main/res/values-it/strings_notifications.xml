@@ -20,7 +20,7 @@
     <string name="notification_macro_title">Dati economici oggi</string>
     <string name="notification_permission_preprompt_continue">Continua</string>
     <string name="notification_permission_preprompt_later">Più tardi</string>
-    <string name="notification_permission_preprompt_text">Perché gli avvisi e le notifiche di prezzo ti arrivino, l’app ha bisogno del permesso per le notifiche. L’app le usa solo per i tuoi avvisi e le notifiche di prezzo.</string>
+    <string name="notification_permission_preprompt_text">Perché gli allarmi e le notifiche di prezzo ti arrivino, l’app ha bisogno del permesso per le notifiche. L’app le usa solo per i tuoi allarmi e le notifiche di prezzo.</string>
     <string name="notification_permission_preprompt_title">Consentire le notifiche?</string>
     <string name="notification_portfolio_alarm_locked">Il tuo allarme è scattato – apri l’app per i dettagli.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
@@ -40,7 +40,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Allarmi</string>
-    <string name="channel_alarms_description">Notifica quando scatta un allarme di prezzo.</string>
+    <string name="channel_alarms_description">Notifica quando scatta un allarme.</string>
     <string name="channel_alarms_quiet">Allarmi (ore di silenzio)</string>
     <string name="channel_alarms_quiet_description">Allarmi silenziosi durante le ore di silenzio.</string>
     <string name="channel_alarms_silent">Allarmi (silenzioso)</string>

@@ -2,9 +2,9 @@
 <resources>
     <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
     <string name="cost_gaps_card">Entrées sans prix de revient : %1$d</string>
-    <string name="cost_gaps_card_text">Complétez le prix de revient pour des gains et impôts complets.</string>
+    <string name="cost_gaps_card_text">Complète le prix de revient pour des gains et impôts complets.</string>
     <string name="cost_gaps_sheet_title">Entrées sans prix de revient</string>
-    <string name="cost_gaps_sheet_intro">Ces entrées n’ont pas de prix de revient. La suggestion est le cours de clôture du jour – vous pouvez l’ajuster dans l’entrée.</string>
+    <string name="cost_gaps_sheet_intro">Ces entrées n’ont pas de prix de revient. La suggestion est le cours de clôture du jour – tu peux l’ajuster dans l’entrée.</string>
     <string name="cost_gaps_empty">Toutes les entrées ont un prix de revient.</string>
     <string name="cost_gap_enter">Saisir le prix de revient</string>
     <string name="cost_gap_leave_unknown">Laisser inconnu</string>
@@ -20,7 +20,7 @@
     <string name="cost_gap_apply">Appliquer</string>
     <string name="address_lots_action">Prix de revient du solde d’adresse</string>
     <string name="address_lots_title">Prix de revient du solde d’adresse</string>
-    <string name="address_lots_intro">Saisissez la date d’achat, la quantité et le prix de revient du solde de cette adresse. Les lots comptent comme des achats dans cette adresse ; la part non couverte reste sans prix de revient.</string>
+    <string name="address_lots_intro">Saisis la date d’achat, la quantité et le prix de revient du solde de cette adresse. Les lots comptent comme des achats dans cette adresse ; la part non couverte reste sans prix de revient.</string>
     <string name="address_lots_add">Ajouter un lot</string>
     <string name="address_lots_new">Nouveau lot</string>
     <string name="address_lots_edit">Lot</string>
@@ -36,5 +36,5 @@
     <!-- %1$s = Menge der Posten über dem Guthaben -->
     <string name="address_lots_capped">Les lots dépassent le solde de %1$s – les plus anciens sont consommés en premier.</string>
     <string name="address_lots_not_loaded">Solde pas encore chargé – les lots comptent dès qu’il l’est.</string>
-    <string name="address_lots_invalid">Saisissez la quantité et le prix de revient</string>
+    <string name="address_lots_invalid">Saisis la quantité et le prix de revient</string>
 </resources>

@@ -43,6 +43,10 @@
     <string name="shortcut_add">Lisää pari</string>
     <string name="shortcut_alarms">Kaikki hälytykset</string>
     <string name="shortcut_cycle">Markkinat</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Lisää uusi pari</string>
+    <string name="shortcut_alarms_long">Näytä kaikki hälytykset</string>
+    <string name="shortcut_cycle_long">Avaa markkinakatsaus</string>
 
     <string name="log_box_title">Loki</string>
     <string name="label_value">%1$s: %2$s</string>

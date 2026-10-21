@@ -2,9 +2,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Arka plan</string>
-    <string name="widget_configure_hint">Arka planı ve opaklığı seçin. Renk uygulamayı izler. Widget tüm listeyi gösterir; uygulamayı açmak için bir satıra dokunun.</string>
+    <string name="widget_configure_hint">Arka planı ve opaklığı seç. Renk uygulamayı izler. Widget tüm listeyi gösterir; uygulamayı açmak için bir satıra dokun.</string>
     <string name="widget_configure_title">Widget\'ı ayarla</string>
-    <string name="widget_description">İzleme listenizdeki bir çiftin fiyatını gösterir.</string>
+    <string name="widget_description">İzleme listendeki bir çiftin fiyatını gösterir.</string>
     <string name="widget_empty">İzleme listesinde henüz çift yok.</string>
     <string name="widget_group_hint">Yalnızca bu grubun çiftlerini göster.</string>
     <string name="widget_kind_single">Tek coin</string>
@@ -37,15 +37,15 @@
     <string name="widget_portfolio_as_of">%1$s itibarıyla</string>
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Geçmiş yakında</string>
-    <string name="widget_portfolio_description">Portföyünüzün toplam değeri ve bugünkü değişim</string>
+    <string name="widget_portfolio_description">Portföyünün toplam değeri ve bugünkü değişim</string>
     <string name="widget_portfolio_display">Görünüm</string>
     <string name="widget_portfolio_display_conversion">Yalnızca çevrim</string>
     <string name="widget_portfolio_display_conversion_usdt">Çevrim + USDT</string>
     <string name="widget_portfolio_display_hint">Çevrim para birimi USD olduğunda USDT satırı gizlenir.</string>
     <string name="widget_portfolio_display_usdt">Yalnızca USDT</string>
-    <string name="widget_portfolio_empty">Alımları Portföy sekmesinde ekleyin</string>
-    <string name="widget_portfolio_list_hint">Pozisyonlarınızı burada göstermek için uygulamayı açın.</string>
-    <string name="widget_portfolio_locked_hint">Kilitli – uygulamada kilidi açın</string>
+    <string name="widget_portfolio_empty">Alımları Portföy sekmesinde ekle</string>
+    <string name="widget_portfolio_list_hint">Pozisyonlarını burada göstermek için uygulamayı aç.</string>
+    <string name="widget_portfolio_locked_hint">Kilitli – uygulamada kilidi aç</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
         <item quantity="one">%1$d coin hariç</item>
@@ -64,7 +64,7 @@
     <string name="widget_portfolio_period_without">%2$s hariç %1$s</string>
     <string name="widget_portfolio_range_48h">48 sa</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: Portföy\'ü açın</string>
+    <string name="widget_portfolio_range_fallback">%1$s: Portföy\'ü aç</string>
     <string name="widget_portfolio_range_short_48h">48sa</string>
     <string name="widget_portfolio_today_without">Bugün %1$s hariç</string>
     <string name="widget_portfolio_view">Görünüm</string>
@@ -82,17 +82,17 @@
     <string name="widgets_add">Ekle</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
     <string name="widgets_add_named">Widget ekle: %1$s</string>
-    <string name="widgets_manual_text">Ana ekranınız uygulamadan widget ekleyemiyor. Ana ekranda boş bir yere dokunup basılı tutun, “Widget\'lar” seçeneğini seçin ve “Crypto Checker” uygulamasını arayın.</string>
+    <string name="widgets_manual_text">Ana ekranın uygulamadan widget ekleyemiyor. Ana ekranda boş bir yere dokunup basılı tut, “Widget\'lar” seçeneğini seç ve “Crypto Checker” uygulamasını ara.</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
-    <string name="widgets_manual_title">Widget\'ı kendiniz ekleyin</string>
+    <string name="widgets_manual_title">Widget\'ı kendin ekle</string>
     <string name="widgets_sheet_title">Widget ekle</string>
 
     <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
-    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS, uygulamaların kendi başına widget eklemesine izin vermiyor. Sadece bir dakikanızı alır:</string>
+    <string name="widgets_ios_intro" tools:ignore="UnusedResources">iOS, uygulamaların kendi başına widget eklemesine izin vermiyor. Sadece bir dakikanı alır:</string>
     <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Kullanılabilir widget\'lar</string>
-    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Uygulamalar kıpırdamaya başlayana kadar Ana Ekran\'da boş bir yere dokunup basılı tutun.</string>
-    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Üstte “Düzenle” › “Widget Ekle” seçeneğine dokunun (eski iOS sürümlerinde “+” düğmesine).</string>
-    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” için arama yapın, bir widget seçin ve “Widget Ekle” düğmesine dokunun.</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Uygulamalar kıpırdamaya başlayana kadar Ana Ekran\'da boş bir yere dokunup basılı tut.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Üstte “Düzenle” › “Widget Ekle” seçeneğine dokun (eski iOS sürümlerinde “+” düğmesine).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">“Crypto Checker” için arama yap, bir widget seç ve “Widget Ekle” düğmesine dokun.</string>
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Yenile – %1$d sn sonra yeniden mümkün</string>

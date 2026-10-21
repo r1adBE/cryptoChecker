@@ -2,9 +2,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Widgets: allgemein (Einrichten, Beschreibung, Hintergrund) -->
     <string name="widget_background">Fundo</string>
-    <string name="widget_configure_hint">Escolha o fundo e a opacidade. A cor segue a app. O widget mostra toda a lista; toque numa linha para abrir a app.</string>
+    <string name="widget_configure_hint">Escolhe o fundo e a opacidade. A cor segue a app. O widget mostra toda a lista; toca numa linha para abrir a app.</string>
     <string name="widget_configure_title">Configurar widget</string>
-    <string name="widget_description">Mostra o preço de um par da sua lista de acompanhamento.</string>
+    <string name="widget_description">Mostra o preço de um par da tua lista de acompanhamento.</string>
     <string name="widget_empty">Ainda sem pares na lista de acompanhamento.</string>
     <string name="widget_group_hint">Mostrar apenas os pares deste grupo.</string>
     <string name="widget_kind_single">Uma moeda</string>
@@ -37,15 +37,15 @@
     <string name="widget_portfolio_as_of">Às %1$s</string>
     <!-- Statt des Wertverlaufs, solange es zu wenige Stundenwerte gibt -->
     <string name="widget_portfolio_chart_pending">Histórico em breve</string>
-    <string name="widget_portfolio_description">Valor total do seu portfólio e variação de hoje</string>
+    <string name="widget_portfolio_description">Valor total do teu portfólio e variação de hoje</string>
     <string name="widget_portfolio_display">Mostrar</string>
     <string name="widget_portfolio_display_conversion">Só conversão</string>
     <string name="widget_portfolio_display_conversion_usdt">Conversão + USDT</string>
     <string name="widget_portfolio_display_hint">A linha USDT é ocultada quando a moeda de conversão é USD.</string>
     <string name="widget_portfolio_display_usdt">Só USDT</string>
-    <string name="widget_portfolio_empty">Adicione compras no separador Portfólio</string>
-    <string name="widget_portfolio_list_hint">Abra a app para mostrar aqui as suas posições.</string>
-    <string name="widget_portfolio_locked_hint">Bloqueado – desbloqueie na app</string>
+    <string name="widget_portfolio_empty">Adiciona compras no separador Portfólio</string>
+    <string name="widget_portfolio_list_hint">Abre a app para mostrar aqui as tuas posições.</string>
+    <string name="widget_portfolio_locked_hint">Bloqueado – desbloqueia na app</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
         <item quantity="one">sem %1$d moeda</item>
@@ -58,7 +58,7 @@
         <item quantity="other">+ %1$d outras</item>
     </plurals>
     <string name="widget_portfolio_name">Portfólio</string>
-    <string name="widget_portfolio_off_hint">Ative-o em %1$s.</string>
+    <string name="widget_portfolio_off_hint">Ativa-o em %1$s.</string>
     <string name="widget_portfolio_off_short">Portefólio desativado</string>
     <string name="widget_portfolio_off_title">Portefólio desativado</string>
     <string name="widget_portfolio_partly_stale">preço em parte antigo</string>
@@ -66,7 +66,7 @@
     <string name="widget_portfolio_period_without">%1$s sem %2$s</string>
     <string name="widget_portfolio_range_48h">48h</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: abra o Portfólio</string>
+    <string name="widget_portfolio_range_fallback">%1$s: abre o Portfólio</string>
     <string name="widget_portfolio_range_short_48h">48h</string>
     <string name="widget_portfolio_today_without">Hoje sem %1$s</string>
     <string name="widget_portfolio_view">Vista</string>
@@ -84,17 +84,17 @@
     <string name="widgets_add">Adicionar</string>
     <!-- Screenreader: Knopf «Add» mit dem Namen des Widgets -->
     <string name="widgets_add_named">Adicionar widget %1$s</string>
-    <string name="widgets_manual_text">O seu ecrã principal não consegue adicionar widgets a partir da app. Toque sem soltar num espaço vazio do ecrã principal, escolha «Widgets» e procure «Crypto Checker».</string>
+    <string name="widgets_manual_text">O teu ecrã principal não consegue adicionar widgets a partir da app. Toca sem soltar num espaço vazio do ecrã principal, escolhe «Widgets» e procura «Crypto Checker».</string>
     <!-- Startbildschirm (Launcher) kann keine Widgets aus der App annehmen -->
-    <string name="widgets_manual_title">Adicione o widget manualmente</string>
+    <string name="widgets_manual_title">Adiciona o widget manualmente</string>
     <string name="widgets_sheet_title">Adicionar um widget</string>
 
     <!-- Nur iOS: Widget selbst hinzufügen (drei Schritte) -->
     <string name="widgets_ios_intro" tools:ignore="UnusedResources">O iOS não permite que as apps adicionem widgets por si próprias. Demora só um momento:</string>
     <string name="widgets_ios_kinds" tools:ignore="UnusedResources">Widgets disponíveis</string>
-    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Mantenha o dedo num espaço vazio do ecrã principal até as apps começarem a abanar.</string>
-    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Toque em «Editar» › «Adicionar widget» na parte superior (ou em «+» em versões mais antigas do iOS).</string>
-    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Procure «Crypto Checker», escolha um widget e toque em «Adicionar widget».</string>
+    <string name="widgets_ios_step1" tools:ignore="UnusedResources">Mantém o dedo num espaço vazio do ecrã principal até as apps começarem a abanar.</string>
+    <string name="widgets_ios_step2" tools:ignore="UnusedResources">Toca em «Editar» › «Adicionar widget» na parte superior (ou em «+» em versões mais antigas do iOS).</string>
+    <string name="widgets_ios_step3" tools:ignore="UnusedResources">Procura «Crypto Checker», escolhe um widget e toca em «Adicionar widget».</string>
 
     <!-- Merkliste-Widget: Screenreader-Text des Countdowns während der 15-s-Sperre (WidgetRefreshState) -->
     <string name="widget_refresh_blocked_a11y">Atualizar – novamente possível dentro de %1$d s</string>

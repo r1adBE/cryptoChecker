@@ -118,4 +118,8 @@
     <string name="dex_token_address_copy">Kopioi tokenin osoite</string>
     <string name="dex_token_address_copied">Tokenin osoite kopioitu</string>
     <string name="dex_token_address_label">Tokenin osoite, joka päättyy %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d pari jäi lisäämättä – seurantalistallasi voi olla enintään %2$s paria.</item>
+        <item quantity="other">%1$d paria jäi lisäämättä – seurantalistallasi voi olla enintään %2$s paria.</item>
+    </plurals>
 </resources>

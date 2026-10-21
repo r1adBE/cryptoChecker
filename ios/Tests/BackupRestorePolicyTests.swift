@@ -63,4 +63,38 @@ final class BackupRestorePolicyTests: XCTestCase {
         XCTAssertFalse(PortfolioRestoreNotice.shouldRecord(dropped: 1, signature: "x", seen: "x"))
         XCTAssertFalse(PortfolioRestoreNotice.shouldRecord(dropped: 0, signature: "x", seen: nil))
     }
+
+    /// Ohne Passwort: «Portfolio in Systemsicherung» nur aus, nie ein (seit Build 99, wie Android).
+    func testUnverschluesseltSchaltetSystemsicherungNieEin() {
+        XCTAssertNil(BackupRestorePolicy.systemBackup(wanted: true, current: false, trusted: false))
+        XCTAssertEqual(BackupRestorePolicy.systemBackup(wanted: false, current: true, trusted: false), false)
+        XCTAssertEqual(BackupRestorePolicy.systemBackup(wanted: true, current: true, trusted: false), true)
+        XCTAssertNil(BackupRestorePolicy.systemBackup(wanted: nil, current: true, trusted: false))
+        XCTAssertEqual(BackupRestorePolicy.systemBackup(wanted: true, current: false, trusted: true), true)
+        XCTAssertEqual(BackupRestorePolicy.systemBackup(wanted: false, current: true, trusted: true), false)
+    }
+
+    /// Ohne Passwort: «Beträge verbergen» nur ein, nie aus (seit Build 99, wie Android).
+    func testUnverschluesseltSchaltetBetraegeVerbergenNieAus() {
+        XCTAssertNil(BackupRestorePolicy.hideAmounts(wanted: false, current: true, trusted: false))
+        XCTAssertEqual(BackupRestorePolicy.hideAmounts(wanted: true, current: false, trusted: false), true)
+        XCTAssertEqual(BackupRestorePolicy.hideAmounts(wanted: false, current: false, trusted: false), false)
+        XCTAssertNil(BackupRestorePolicy.hideAmounts(wanted: nil, current: false, trusted: false))
+        XCTAssertEqual(BackupRestorePolicy.hideAmounts(wanted: false, current: true, trusted: true), false)
+        XCTAssertEqual(BackupRestorePolicy.hideAmounts(wanted: true, current: false, trusted: true), true)
+    }
+
+    /// `applySettings` hält sich daran: ohne Passwort bleiben Systemsicherung aus und Beträge verborgen.
+    func testApplySettingsOhnePasswortNurMehrSchutz() {
+        var current = AppSettings()
+        current.portfolioSystemBackup = false
+        current.hidePortfolioAmounts = true
+        let backup: [String: Any] = ["portfolioSystemBackup": true, "hidePortfolioAmounts": false]
+        let untrusted = BackupManager.applySettings(backup, onto: current, trusted: false)
+        XCTAssertFalse(untrusted.portfolioSystemBackup)
+        XCTAssertTrue(untrusted.hidePortfolioAmounts)
+        let trusted = BackupManager.applySettings(backup, onto: current, trusted: true)
+        XCTAssertTrue(trusted.portfolioSystemBackup)
+        XCTAssertFalse(trusted.hidePortfolioAmounts)
+    }
 }

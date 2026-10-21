@@ -179,4 +179,5 @@
     <string name="alarm_editor_more">Lisää</string>
     <string name="alarm_editor_more_summary">Pikahälytykset, muut ehdot, ääni ja ääneen luku</string>
     <string name="alarm_reliability_storage_no_key">Hälytykset taustalla keskeytetty – seurantalistaa ei ole tallennettu</string>
+    <string name="alarms_limit_reached">Parilla voi olla enintään %1$s hälytystä.</string>
 </resources>

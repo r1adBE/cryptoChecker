@@ -65,6 +65,9 @@
         <item quantity="many">%1$d زوجًا</item>
         <item quantity="other">%1$d زوج</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">لن تتم استعادة ما يتجاوز الحدود (%3$s زوج، %4$s تنبيهات لكل زوج): %1$s، %2$s.</string>
+    <string name="backup_restored_over_limits">لم تتم استعادة ما يتجاوز الحدود (%3$s زوج، %4$s تنبيهات لكل زوج): %1$s، %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">لم يعد هذا الجهاز يملك مفتاح البيانات المشفّرة للتطبيق، لذلك بدأ فارغًا. لم يُحذف شيء. لاستعادة قائمتك ومحفظتك، استورد ملف نسخة احتياطية من الإعدادات ضمن «%1$s».</string>

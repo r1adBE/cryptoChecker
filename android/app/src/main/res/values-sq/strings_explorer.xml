@@ -118,4 +118,8 @@
     <string name="dex_token_address_copy">Kopjo adresën e tokenit</string>
     <string name="dex_token_address_copied">Adresa e tokenit u kopjua</string>
     <string name="dex_token_address_label">Adresa e tokenit që mbaron me %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d çift nuk u shtua – lista jote e ndjekjes mund të ketë më së shumti %2$s çifte.</item>
+        <item quantity="other">%1$d çifte nuk u shtuan – lista jote e ndjekjes mund të ketë më së shumti %2$s çifte.</item>
+    </plurals>
 </resources>

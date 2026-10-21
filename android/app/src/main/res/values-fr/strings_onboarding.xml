@@ -3,10 +3,10 @@
     <!-- Begrüssung beim ersten Start -->
     <string name="welcome_alert">Alerter – prix, pourcentage, volume et mouvements inhabituels</string>
     <string name="welcome_alert_q">Quand alerter ?</string>
-    <string name="welcome_text">Vos cours. Vos alertes. Votre aperçu.\nSans compte. Sans pub. Sans pistage.</string>
+    <string name="welcome_text">Tes cours. Tes alertes. Ton aperçu.\nSans compte. Sans pub. Sans pistage.</string>
     <string name="welcome_understand">Comprendre – ce qui bouge avec un cours en ce moment</string>
     <string name="welcome_understand_q">Qu’est-ce qui bouge avec ?</string>
-    <string name="welcome_watch">Suivre – vos cryptos, cours et historiques</string>
+    <string name="welcome_watch">Suivre – tes cryptos, cours et historiques</string>
     <string name="welcome_watch_q">Que se passe-t-il ?</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
@@ -15,8 +15,8 @@
     <string name="starter_search_coin">Rechercher une autre crypto</string>
     <string name="starter_select_all">Tout sélectionner</string>
     <string name="starter_select_none">Tout désélectionner</string>
-    <string name="starter_title">Commencez avec ces cryptos</string>
+    <string name="starter_title">Commence avec ces cryptos</string>
     <string name="starter_watch_alarm_hint">Suivre le cours, définir une alerte</string>
 
-    <string name="starter_source_text">Cours de %1$s en %2$s. Désélectionnez ce que vous ne voulez pas et ajoutez le reste en une fois. Vous pouvez changer la plateforme et la paire pour chaque crypto.</string>
+    <string name="starter_source_text">Cours de %1$s en %2$s. Désélectionne ce que tu ne veux pas et ajoute le reste en une fois. Tu peux changer la plateforme et la paire pour chaque crypto.</string>
 </resources>

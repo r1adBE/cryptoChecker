@@ -7,7 +7,7 @@
     <string name="portfolio_csv_import_choice_proposed">Sugestão: corresponde a %1$s</string>
     <string name="portfolio_csv_import_choice_transfer">Para carteira própria (transferência)</string>
     <string name="portfolio_csv_import_choice_withdrawal">Sai do portefólio (levantamento)</string>
-    <string name="portfolio_csv_import_choose_each">Escolha para cada levantamento para onde foi.</string>
+    <string name="portfolio_csv_import_choose_each">Escolhe para cada levantamento para onde foi.</string>
     <string name="portfolio_csv_import_columns">Colunas reconhecidas: %1$s</string>
     <string name="portfolio_csv_import_confirm">Importar (%1$d)</string>
     <string name="portfolio_csv_import_date_day_first">Dia/Mês</string>
@@ -40,28 +40,30 @@
         <item quantity="many">%d linhas ignoradas</item>
         <item quantity="other">%d linhas ignoradas</item>
     </plurals>
-    <string name="portfolio_csv_import_stable_swaps">Compras e vendas contra stablecoins (USDT, USDC …) são registadas como trocas – a stablecoin aparece na sua posse.</string>
-    <string name="portfolio_csv_import_transfer_ambiguous">Várias correspondências possíveis – escolha a certa ou nenhuma.</string>
+    <string name="portfolio_csv_import_stable_swaps">Compras e vendas contra stablecoins (USDT, USDC …) são registadas como trocas – a stablecoin aparece na tua posse.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Várias correspondências possíveis – escolhe a certa ou nenhuma.</string>
     <string name="portfolio_csv_import_transfer_fee">Comissão de rede: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Registar como uma só transferência</string>
     <string name="portfolio_csv_import_transfer_stored">Contrapartida de uma importação anterior</string>
     <string name="portfolio_csv_import_transfers_hint">Um levantamento e o depósito correspondente da mesma moeda tornam-se uma só transferência: o preço de compra e o período de detenção mantêm-se, a diferença conta como comissão de rede.</string>
-    <string name="portfolio_csv_import_transfers_title">Transferências entre as suas contas</string>
+    <string name="portfolio_csv_import_transfers_title">Transferências entre as tuas contas</string>
     <string name="portfolio_csv_import_unreadable">Nenhuma transação suportada encontrada. Suportados: exportações CSV da Relai, da Swissquote, da Kraken, da Binance, da Coinbase e da Bitpanda.</string>
-    <string name="portfolio_csv_import_failed">A importação falhou – nada foi guardado. Tente novamente.</string>
-    <string name="portfolio_csv_import_locked">Não é possível importar: os dados guardados não podem ser lidos agora. Reinicie a app.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">O ficheiro é demasiado grande para importar (máx. 16 MB e %1$s linhas). Exporta períodos mais curtos e importa-os um a um.</string>
+    <string name="portfolio_csv_import_failed">A importação falhou – nada foi guardado. Tenta novamente.</string>
+    <string name="portfolio_csv_import_locked">Não é possível importar: os dados guardados não podem ser lidos agora. Reinicia a app.</string>
     <string name="portfolio_csv_import_withdrawals_title">Levantamentos – para onde foram as moedas?</string>
     <string name="portfolio_csv_import_zone">Horas sem fuso horário lidas como: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Dispositivo (%1$s)</string>
     <string name="portfolio_csv_skip_bad_date">data ilegível</string>
     <string name="portfolio_csv_skip_bad_number">número ilegível</string>
     <string name="portfolio_csv_skip_fee_exceeds">comissão ≥ quantidade recebida</string>
-    <string name="portfolio_csv_skip_internal_move">movimento entre as suas próprias contas – nada a registar</string>
+    <string name="portfolio_csv_skip_internal_move">movimento entre as tuas próprias contas – nada a registar</string>
     <string name="portfolio_csv_skip_missing">campo em falta</string>
-    <string name="portfolio_csv_skip_ambiguous">várias operações no mesmo segundo que não se distinguem – registe-as à mão</string>
+    <string name="portfolio_csv_skip_ambiguous">várias operações no mesmo segundo que não se distinguem – regista-as à mão</string>
     <string name="portfolio_csv_skip_not_crypto">não é cripto</string>
-    <string name="portfolio_csv_skip_possible_duplicate">possivelmente já importado (operação quase igual) – verifique manualmente</string>
-    <string name="portfolio_csv_skip_two_fees">duas comissões em unidades diferentes – registe a troca à mão</string>
+    <string name="portfolio_csv_skip_possible_duplicate">possivelmente já importado (operação quase igual) – verifica manualmente</string>
+    <string name="portfolio_csv_skip_two_fees">duas comissões em unidades diferentes – regista a troca à mão</string>
     <string name="portfolio_csv_skip_unsupported">tipo não suportado</string>
 
     <!-- Portfolio: Importe ansehen und rückgängig machen -->

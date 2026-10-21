@@ -7,13 +7,13 @@
     <string name="alarms_empty">هنوز هشداری برای این جفت نیست.</string>
     <string name="alarms_empty_example">مثلاً: وقتی BTC از %1$s بالاتر رفت خبرم کن.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">اعلان‌ها خاموش است – هشدارها به شما نمی‌رسند.</string>
+    <string name="alarms_notifications_off">اعلان‌ها خاموش است – هشدارها به تو نمی‌رسند.</string>
     <string name="alarms_notifications_turn_on">روشن کردن</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">%1$d فعال</item>
         <item quantity="other">%1$d فعال</item>
     </plurals>
-    <string name="alarms_overview_empty">هنوز هشداری نیست. یک جفت را باز کنید و در بخش هشدارها اضافه کنید.</string>
+    <string name="alarms_overview_empty">هنوز هشداری نیست. یک جفت را باز کن و در بخش هشدارها اضافه کن.</string>
     <string name="alarms_overview_title">همه هشدارها</string>
     <string name="alarms_title">هشدارها</string>
 
@@ -86,7 +86,7 @@
     <string name="alarm_sentence_down_percent">وقتی %1$s به اندازه %2$s پایین‌تر از قیمت هنگام ذخیره (یا آخرین هشدار) آمد، به من خبر بده.</string>
     <string name="alarm_sentence_funding_above">وقتی نرخ تأمین مالی %1$s از %2$s بالاتر رفت، به من خبر بده.</string>
     <string name="alarm_sentence_funding_below">وقتی نرخ تأمین مالی %1$s از %2$s پایین‌تر رفت، به من خبر بده.</string>
-    <string name="alarm_sentence_incomplete">یک مقدار وارد کنید تا هشدار به صورت جمله نمایش داده شود.</string>
+    <string name="alarm_sentence_incomplete">یک مقدار وارد کن تا هشدار به صورت جمله نمایش داده شود.</string>
     <plurals name="alarm_sentence_move_percent">
         <item quantity="one">وقتی %1$s ظرف %3$d ساعت به اندازه %2$s تغییر کرد، به من خبر بده.</item>
         <item quantity="other">وقتی %1$s ظرف %3$d ساعت به اندازه %2$s تغییر کرد، به من خبر بده.</item>
@@ -157,7 +157,7 @@
     <string name="alarm_test">آزمایش هشدار</string>
     <string name="alarm_test_action">آزمایش</string>
     <string name="alarm_test_denied">اعلان‌ها برای Crypto Checker خاموش است.</string>
-    <string name="alarm_test_hint">یک هشدار نمونه با تنظیمات صدا، لرزش و گفتار شما می‌فرستد.</string>
+    <string name="alarm_test_hint">یک هشدار نمونه با تنظیمات صدا، لرزش و گفتار خودت می‌فرستد.</string>
     <string name="alarm_test_open_settings">باز کردن تنظیمات</string>
     <string name="alarm_test_quiet">ساعات بی‌صدا الان فعال است: هشدارهای واقعی تا پایان آن صبر می‌کردند و سپس با صدا اعلام می‌شدند.</string>
     <string name="alarm_test_text">یک هشدار این‌طور به نظر می‌رسد و این‌طور صدا می‌دهد.</string>
@@ -170,7 +170,7 @@
     <string name="alarm_unchecked_no_rate">بررسی نشد (نرخ ارز نیست)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
-    <string name="alarm_status_notifications_off">اعلان‌ها خاموش است – این هشدار به شما نمی‌رسد</string>
+    <string name="alarm_status_notifications_off">اعلان‌ها خاموش است – این هشدار به تو نمی‌رسد</string>
     <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
     <string name="alarm_status_low_liquidity">بدون هشدار – نقدشوندگی پایین</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
@@ -179,4 +179,5 @@
     <string name="alarm_editor_more">بیشتر</string>
     <string name="alarm_editor_more_summary">هشدارهای سریع، شرط‌های دیگر، صدا و خواندن صوتی</string>
     <string name="alarm_reliability_storage_no_key">هشدارها در پس‌زمینه متوقف شده‌اند – واچ‌لیست ذخیره نشده است</string>
+    <string name="alarms_limit_reached">هر جفت حداکثر می‌تواند %1$s هشدار داشته باشد.</string>
 </resources>

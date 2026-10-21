@@ -94,7 +94,7 @@
     <string name="watchlist_favorites_empty_hint">Belum ada favorit. Geser pasangan ke kanan atau ketuk “Favorit” di halaman pasangan.</string>
     <string name="watchlist_group_empty_hint">Tekan lama grup untuk memilih pasangannya.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
-    <string name="watchlist_groups_empty_hint">Grup Anda akan muncul di sini</string>
+    <string name="watchlist_groups_empty_hint">Grupmu akan muncul di sini</string>
     <string name="watchlist_notification">Notifikasi harga</string>
     <string name="watchlist_tts">Ucapkan harga</string>
     <string name="watchlist_tts_speech_on">Suara aktif. Kamu bisa mengubahnya di Pengaturan › Lanjutan › Output suara.</string>
@@ -146,7 +146,7 @@
     <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
     <string name="group_alpha">Token Alpha</string>
     <string name="group_delete">Hapus grup</string>
-    <string name="group_delete_confirm">Pasangan tetap ada di daftar pantau Anda.</string>
+    <string name="group_delete_confirm">Pasangan tetap ada di daftar pantaumu.</string>
     <string name="group_done">Selesai</string>
     <string name="group_edit_title">Edit grup</string>
     <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
@@ -203,4 +203,5 @@
 
     <string name="watchlist_sort_by_coin">Urutkan menurut koin</string>
     <string name="watchlist_sort_by_exchange">Urutkan menurut bursa</string>
+    <string name="watchlist_limit_reached">Daftar pantaumu dapat berisi paling banyak %1$s pasangan.</string>
 </resources>

@@ -5,16 +5,16 @@
     <string name="alarms_add">Nouvelle alerte</string>
     <string name="alarms_edit">Modifier l\'alerte</string>
     <string name="alarms_empty">Aucune alerte pour cette paire.</string>
-    <string name="alarms_empty_example">Par exemple : prévenez-moi quand le BTC dépasse %1$s.</string>
+    <string name="alarms_empty_example">Par exemple : préviens-moi quand le BTC dépasse %1$s.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">Les notifications sont désactivées : les alertes ne vous parviendront pas.</string>
+    <string name="alarms_notifications_off">Les notifications sont désactivées : les alertes ne te parviendront pas.</string>
     <string name="alarms_notifications_turn_on">Activer</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">%1$d active</item>
         <item quantity="many">%1$d actives</item>
         <item quantity="other">%1$d actives</item>
     </plurals>
-    <string name="alarms_overview_empty">Aucune alerte. Ouvrez une paire et ajoutez-en une sous Alertes.</string>
+    <string name="alarms_overview_empty">Aucune alerte. Ouvre une paire et ajoutes-en une sous Alertes.</string>
     <string name="alarms_overview_title">Toutes les alertes</string>
     <string name="alarms_title">Alertes</string>
 
@@ -32,7 +32,7 @@
     <string name="alarm_fires_now_change">Modifier</string>
     <string name="alarm_fires_now_save">Enregistrer quand même</string>
     <string name="alarm_fires_now_title">L’alerte se déclencherait tout de suite</string>
-    <string name="alarm_first_battery_hint">L’optimisation de la batterie limite l’app – les alarmes peuvent arriver en retard.</string>
+    <string name="alarm_first_battery_hint">L’optimisation de la batterie limite l’app – les alertes peuvent arriver en retard.</string>
     <string name="alarm_first_title">Alerte enregistrée</string>
     <string name="alarm_last_triggered">dernière : %1$s</string>
     <string name="alarm_more_conditions">Plus de conditions</string>
@@ -45,9 +45,9 @@
     <string name="alarm_repeat_each">À chaque fois</string>
     <string name="alarm_repeat_once">Une fois</string>
     <string name="alarm_repeating">À chaque fois</string>
-    <string name="alarm_threshold_error_empty">Saisissez une valeur pour enregistrer l’alerte.</string>
+    <string name="alarm_threshold_error_empty">Saisis une valeur pour enregistrer l’alerte.</string>
     <string name="alarm_threshold_error_funding">Le taux de financement doit être un nombre entre −10 et +10 pour cent.</string>
-    <string name="alarm_threshold_error_invalid">Saisissez un nombre valide supérieur à 0.</string>
+    <string name="alarm_threshold_error_invalid">Saisis un nombre valide supérieur à 0.</string>
     <string name="alarm_threshold_error_oi">Variation de l’intérêt ouvert : 1000 pour cent au maximum.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">en %1$d h</item>
@@ -88,7 +88,7 @@
     <string name="alarm_sentence_down_percent">Me prévenir quand %1$s baisse de %2$s sous le prix à l’enregistrement (ou à la dernière alerte).</string>
     <string name="alarm_sentence_funding_above">Me prévenir quand le funding de %1$s passe au-dessus de %2$s.</string>
     <string name="alarm_sentence_funding_below">Me prévenir quand le funding de %1$s passe sous %2$s.</string>
-    <string name="alarm_sentence_incomplete">Saisissez une valeur pour voir l\'alerte sous forme de phrase.</string>
+    <string name="alarm_sentence_incomplete">Saisis une valeur pour voir l\'alerte sous forme de phrase.</string>
     <plurals name="alarm_sentence_move_percent">
         <item quantity="one">Me prévenir quand %1$s varie de %2$s en %3$d heure.</item>
         <item quantity="many">Me prévenir quand %1$s varie de %2$s en %3$d heures.</item>
@@ -152,7 +152,7 @@
     <string name="alarm_timing_hint_ios" tools:ignore="UnusedResources">App fermée, iOS vérifie souvent après plus de 15 minutes, parfois seulement à la prochaine ouverture. De brefs pics peuvent passer inaperçus.</string>
     <!-- Titel des Hinweises «Wann Alarme geprüft werden» (AlarmTimingHint) -->
     <string name="alarm_timing_title">Quand les alertes sont vérifiées</string>
-    <string name="alarm_timing_where">Réglez la fréquence de mise à jour des cours dans %1$s.</string>
+    <string name="alarm_timing_where">Règle la fréquence de mise à jour des cours dans %1$s.</string>
 
     <!-- Alarm-Signal und Test-Alarm -->
     <string name="alarm_signal_silent">Silencieux (notification seule)</string>
@@ -163,7 +163,7 @@
     <string name="alarm_test">Tester l\'alerte</string>
     <string name="alarm_test_action">Tester</string>
     <string name="alarm_test_denied">Les notifications sont désactivées pour Crypto Checker.</string>
-    <string name="alarm_test_hint">Envoie une alerte d\'exemple avec vos réglages de son, de vibration et de lecture vocale.</string>
+    <string name="alarm_test_hint">Envoie une alerte d\'exemple avec tes réglages de son, de vibration et de lecture vocale.</string>
     <string name="alarm_test_open_settings">Ouvrir les paramètres</string>
     <string name="alarm_test_quiet">Les heures calmes sont actives : les vraies alertes attendraient leur fin, puis sonneraient normalement.</string>
     <string name="alarm_test_text">Voici à quoi ressemble une alerte et comment elle sonne.</string>
@@ -176,13 +176,14 @@
     <string name="alarm_unchecked_no_rate">Vérification impossible (pas de taux de change)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
-    <string name="alarm_status_notifications_off">Notifications désactivées – cette alerte ne vous parviendra pas</string>
+    <string name="alarm_status_notifications_off">Notifications désactivées – cette alerte ne te parviendra pas</string>
     <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
     <string name="alarm_status_low_liquidity">Pas d’alerte – liquidité faible</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">En attente d’un cours actuel</string>
-    <string name="alarm_enter_amount">Saisissez une valeur</string>
+    <string name="alarm_enter_amount">Saisis une valeur</string>
     <string name="alarm_editor_more">Plus</string>
     <string name="alarm_editor_more_summary">Alertes rapides, autres conditions, son et annonce</string>
     <string name="alarm_reliability_storage_no_key">Alertes en pause en arrière-plan – liste non enregistrée</string>
+    <string name="alarms_limit_reached">Une paire peut avoir au maximum %1$s alertes.</string>
 </resources>

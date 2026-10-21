@@ -39,7 +39,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Larm</string>
-    <string name="channel_alarms_description">Avisering när ett kurslarm utlöses.</string>
+    <string name="channel_alarms_description">Avisering när ett larm utlöses.</string>
     <string name="channel_alarms_quiet">Larm (tysta timmar)</string>
     <string name="channel_alarms_quiet_description">Ljudlösa larm under tysta timmar.</string>
     <string name="channel_alarms_silent">Larm (ljudlös)</string>

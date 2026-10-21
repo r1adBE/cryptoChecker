@@ -43,6 +43,10 @@
     <string name="shortcut_add">ペアを追加</string>
     <string name="shortcut_alarms">すべてのアラーム</string>
     <string name="shortcut_cycle">マーケット</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">新しいペアを追加</string>
+    <string name="shortcut_alarms_long">すべてのアラームを表示</string>
+    <string name="shortcut_cycle_long">マーケット概要を開く</string>
 
     <string name="log_box_title">ログ</string>
     <string name="label_value">%1$s：%2$s</string>

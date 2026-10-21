@@ -10,19 +10,19 @@
     <string name="notification_fng_above">L\'indice est passé au-dessus de %1$d – selon cet indice, le marché est considéré comme avide.</string>
     <string name="notification_fng_below">L\'indice est passé sous %1$d – selon cet indice, le marché est considéré comme craintif.</string>
     <string name="notification_fng_title">Fear &amp; Greed : %1$d</string>
-    <string name="notification_gas_btc_text">Sous votre limite de %1$s sat/vB · Transfert ≈ %2$s</string>
+    <string name="notification_gas_btc_text">Sous ta limite de %1$s sat/vB · Transfert ≈ %2$s</string>
     <string name="notification_gas_btc_title">Frais Bitcoin : %1$s sat/vB</string>
-    <string name="notification_gas_eth_text">Sous votre limite de %1$s gwei · Transfert ≈ %2$s</string>
+    <string name="notification_gas_eth_text">Sous ta limite de %1$s gwei · Transfert ≈ %2$s</string>
     <string name="notification_gas_eth_title">Gas Ethereum : %1$s gwei</string>
-    <string name="notification_indicator_above">Au-dessus de votre seuil %1$s – valeur mesurée, pas une recommandation.</string>
-    <string name="notification_indicator_below">En dessous de votre seuil %1$s – valeur mesurée, pas une recommandation.</string>
+    <string name="notification_indicator_above">Au-dessus de ton seuil %1$s – valeur mesurée, pas une recommandation.</string>
+    <string name="notification_indicator_below">En dessous de ton seuil %1$s – valeur mesurée, pas une recommandation.</string>
     <string name="notification_indicator_title">%1$s : %2$s</string>
     <string name="notification_macro_title">Données économiques aujourd\'hui</string>
     <string name="notification_permission_preprompt_continue">Continuer</string>
     <string name="notification_permission_preprompt_later">Plus tard</string>
-    <string name="notification_permission_preprompt_text">Pour que les alertes et les notifications de prix vous parviennent, l’app a besoin de l’autorisation d’envoyer des notifications. L’app ne les utilise que pour vos alertes et vos notifications de prix.</string>
+    <string name="notification_permission_preprompt_text">Pour que les alertes et les notifications de prix te parviennent, l’app a besoin de l’autorisation d’envoyer des notifications. L’app ne les utilise que pour tes alertes et tes notifications de prix.</string>
     <string name="notification_permission_preprompt_title">Autoriser les notifications ?</string>
-    <string name="notification_portfolio_alarm_locked">Votre alerte s’est déclenchée – ouvrez l’app pour les détails.</string>
+    <string name="notification_portfolio_alarm_locked">Ton alerte s’est déclenchée – ouvre l’app pour les détails.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – actuellement %2$s</string>
     <string name="notification_portfolio_alarm_title">Valeur du portefeuille</string>
@@ -40,7 +40,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alertes</string>
-    <string name="channel_alarms_description">Notification lorsqu\'une alerte de prix se déclenche.</string>
+    <string name="channel_alarms_description">Notification lorsqu\'une alerte se déclenche.</string>
     <string name="channel_alarms_quiet">Alertes (heures calmes)</string>
     <string name="channel_alarms_quiet_description">Alertes silencieuses pendant les heures calmes.</string>
     <string name="channel_alarms_silent">Alertes (silencieux)</string>

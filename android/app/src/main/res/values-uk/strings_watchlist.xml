@@ -12,9 +12,9 @@
     <string name="watchlist_last_run">Останній прохід %1$s</string>
     <string name="watchlist_live_a11y">Курси наживо ввімкнено</string>
     <string name="watchlist_offline_since">Немає з\'єднання · дані станом на %1$s</string>
-    <string name="watchlist_pull_to_refresh">Потягніть униз, щоб оновити</string>
+    <string name="watchlist_pull_to_refresh">Потягни униз, щоб оновити</string>
     <string name="watchlist_refresh_report">Останнє оновлення</string>
-    <string name="watchlist_refresh_report_empty">Деталізації ще немає: повного оновлення ще не було. Натисніть «Оновити» й зачекайте, доки індикатор зупиниться.</string>
+    <string name="watchlist_refresh_report_empty">Деталізації ще немає: повного оновлення ще не було. Натисни «Оновити» й зачекай, доки індикатор зупиниться.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">Застаріло: %1$d з %2$d</item>
         <item quantity="few">Застаріло: %1$d з %2$d</item>
@@ -72,7 +72,7 @@
     <string name="watchlist_search_open">Пошук</string>
     <string name="watchlist_sort_ascending">за зростанням</string>
     <string name="watchlist_sort_descending">за спаданням</string>
-    <string name="watchlist_sort_hint">Утримуйте й перетягніть пару або скористайтеся ручкою. Обране лишається вгорі.</string>
+    <string name="watchlist_sort_hint">Утримуй і перетягни пару або скористайся ручкою. Обране лишається вгорі.</string>
     <string name="watchlist_sort_name">Назва</string>
     <string name="watchlist_sort_own">Власний порядок</string>
     <string name="watchlist_sort_price">Ціна</string>
@@ -127,10 +127,10 @@
         <item quantity="many">Сигнали (%1$d)</item>
         <item quantity="other">Сигнали (%1$d)</item>
     </plurals>
-    <string name="watchlist_favorites_empty_hint">Ще немає обраного. Проведіть пару вправо або торкніться «Обране» в картці пари.</string>
-    <string name="watchlist_group_empty_hint">Утримуйте групу, щоб вибрати її пари.</string>
+    <string name="watchlist_favorites_empty_hint">Ще немає обраного. Проведи пару вправо або торкнися «Обране» в картці пари.</string>
+    <string name="watchlist_group_empty_hint">Утримуй групу, щоб вибрати її пари.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
-    <string name="watchlist_groups_empty_hint">Тут з’являться ваші групи</string>
+    <string name="watchlist_groups_empty_hint">Тут з’являться твої групи</string>
     <string name="watchlist_notification">Цінове сповіщення</string>
     <string name="watchlist_tts">Озвучувати ціну</string>
     <string name="watchlist_tts_speech_on">Озвучення увімкнено. Змінити можна в розділі Налаштування › Додатково › Голосовий вивід.</string>
@@ -147,15 +147,15 @@
     <string name="watch_disabled">Вимкнено</string>
     <string name="watch_disabled_banner">Пару %1$s вимкнено</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
-    <string name="watch_edit_alarms_warning">Сигнали залишаться – перевірте пороги</string>
+    <string name="watch_edit_alarms_warning">Сигнали залишаться – перевір пороги</string>
     <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
     <string name="watch_edit_title">Змінити пару</string>
     <string name="watch_enable">Увімкнути</string>
     <string name="watch_enable_hint">Курси й сповіщення знову ввімкнено</string>
     <string name="watch_enabled_banner">Пару %1$s увімкнено</string>
     <string name="watch_error_offline">Немає з\'єднання</string>
-    <string name="watch_gesture_hint_short">Торкніться: сигнал і «Що рухається разом?» · утримуйте для вибору · вліво – видалити · вправо – в обране</string>
-    <string name="watch_hint_tap_why">Торкніться монети: сигнал і «Що рухається разом?»</string>
+    <string name="watch_gesture_hint_short">Торкнися: сигнал і «Що рухається разом?» · утримуй для вибору · вліво – видалити · вправо – в обране</string>
+    <string name="watch_hint_tap_why">Торкнися монети: сигнал і «Що рухається разом?»</string>
     <string name="watch_not_traded">Більше не торгується на цій біржі</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Немає в списку</string>
@@ -165,16 +165,16 @@
     <string name="watch_row_source_chart">Графік: %1$s</string>
 
     <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
-    <string name="pair_added_watching">%1$s тепер у вашому списку</string>
+    <string name="pair_added_watching">%1$s тепер у твоєму списку</string>
     <!-- Ein Paar: pair_added_watching -->
-    <string name="pairs_added_watching">%1$s тепер у вашому списку</string>
+    <string name="pairs_added_watching">%1$s тепер у твоєму списку</string>
 
     <!-- Favoriten -->
     <string name="favorite_add">Додати в обране</string>
     <string name="favorite_added">%1$s додано в обране</string>
     <string name="favorite_remove">Прибрати з обраного</string>
     <string name="favorite_removed">%1$s прибрано з обраного</string>
-    <string name="hint_favorites_list">Порада: проведіть рядок праворуч, щоб додати до обраного – обране залишається вгорі.</string>
+    <string name="hint_favorites_list">Порада: проведи рядок праворуч, щоб додати до обраного – обране залишається вгорі.</string>
 
     <!-- Gruppen und Chips der Merkliste -->
     <string name="group_add">Нова група</string>
@@ -182,7 +182,7 @@
     <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
     <string name="group_alpha">Alpha-токени</string>
     <string name="group_delete">Видалити групу</string>
-    <string name="group_delete_confirm">Пари залишаться у вашому списку.</string>
+    <string name="group_delete_confirm">Пари залишаться у твоєму списку.</string>
     <string name="group_done">Готово</string>
     <string name="group_edit_title">Редагувати групу</string>
     <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
@@ -208,21 +208,21 @@
     <string name="note_title">Нотатка</string>
 
     <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
-    <string name="sort_drag_handle">Перетягніть, щоб перемістити</string>
+    <string name="sort_drag_handle">Перетягни, щоб перемістити</string>
     <string name="sort_move_bottom">На самий низ</string>
     <string name="sort_move_down">Вниз</string>
     <string name="sort_move_top">На самий верх</string>
     <string name="sort_move_up">Вгору</string>
 
-    <string name="watchlist_first_alarm_title">Створіть перший сигнал</string>
-    <string name="watchlist_first_alarm_text">Отримуйте сповіщення, коли ціна досягне вашого рівня – коли застосунок закрито, Android перевіряє нерегулярно.</string>
+    <string name="watchlist_first_alarm_title">Створи перший сигнал</string>
+    <string name="watchlist_first_alarm_text">Отримуй сповіщення, коли ціна досягне твого рівня – коли застосунок закрито, Android перевіряє нерегулярно.</string>
 
     <!-- Aktionsblatt: Kurs ist der Mark-Preis, weil kein Mittelkurs kam (Hyperliquid bei dünnem Orderbuch); Alarme lösen darauf nicht aus -->
     <string name="watch_price_mark_fallback">ціна mark (немає середнього курсу)</string>
     <!-- Aktionsblatt: Kurs ist der Schluss der jüngsten Stundenkerze (WOO X Spot, kein Ticker) -->
     <string name="watch_price_hourly">погодинний курс</string>
     <!-- Karte über der Merkliste; %1$s = Paar, dessen Alarme sie öffnet, z. B. «BTC/USDT» -->
-    <string name="watchlist_first_alarm_title_pair">Створіть перший сигнал – %1$s</string>
+    <string name="watchlist_first_alarm_title_pair">Створи перший сигнал – %1$s</string>
 
     <!-- Merkliste: «Aktualisieren» während der 15-s-Sperre mit Countdown (RefreshDebounce.remainingSeconds) -->
     <string name="watchlist_refresh_countdown">Оновити (%1$d)</string>
@@ -239,4 +239,5 @@
 
     <string name="watchlist_sort_by_coin">Сортувати за монетою</string>
     <string name="watchlist_sort_by_exchange">Сортувати за біржею</string>
+    <string name="watchlist_limit_reached">У списку може бути не більше %1$s пар.</string>
 </resources>

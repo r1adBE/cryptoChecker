@@ -153,15 +153,48 @@ fi
 echo "Seed: $SEED_RESULT"
 
 # WorkManager jobs once (price update, alarms, widgets): run every job of the app now. «cmd
-# jobscheduler run -f» exists from Android 8.0; the ids come from dumpsys.
+# jobscheduler run -f» exists from Android 8.0; the ids come from dumpsys. Formats differ by
+# release: «JOB #u0a190/12: 1a2b com.cryptochecker.app/…» (up to 13 and without namespace),
+# with a namespace from Android 14 «JOB ns:u0a190/12: …» (printUniqueId) and variants such as
+# «JOB #u0a190/@ns@/12: …». parse_jobs prints «<namespace or -> <id>» per job of $PKG; a job in a
+# namespace needs «run -n <namespace>» (Android 14+).
+parse_jobs() {
+  sed -n -E "s#^.*JOB ([^ ]*)/(-?[0-9]+): [0-9a-f]+ $PKG/.*#\1 \2#p" | while read -r prefix id; do
+    ns="-"
+    case "$prefix" in
+      *@*@*) ns=$(printf '%s' "$prefix" | sed -E 's#^[^@]*@([^@]*)@.*#\1#') ;;
+      \#*) ns="-" ;;
+      *:*) ns=${prefix%%:*} ;;
+    esac
+    printf '%s %s\n' "${ns:--}" "$id"
+  done
+}
 JOBDUMP=$(adb shell dumpsys jobscheduler 2>/dev/null | tr -d '\r' || true)
-printf '%s\n' "$JOBDUMP" | grep -A 25 -E "JOB #[^ ]*: [0-9a-f]+ $PKG/" > "$OUT/jobscheduler-api$API.txt" 2>/dev/null || true
-JOBS=$(printf '%s\n' "$JOBDUMP" \
-  | sed -n "s/.*JOB #[^ ]*[^0-9-]\([0-9-][0-9]*\): [0-9a-f]* $PKG\/.*/\1/p" | sort -u | head -n 8 || true)
+printf '%s\n' "$JOBDUMP" | grep -A 25 -E "JOB [^ ]*: [0-9a-f]+ $PKG/" > "$OUT/jobscheduler-api$API.txt" 2>/dev/null || true
+JOBS=$(printf '%s\n' "$JOBDUMP" | parse_jobs | sort -u | head -n 8 || true)
+if [ -z "$JOBS" ]; then
+  # Fallback 1: dump filtered to the package (shorter, «Registered N jobs» section of the app only)
+  PKGDUMP=$(adb shell dumpsys jobscheduler "$PKG" 2>/dev/null | tr -d '\r' || true)
+  printf '%s\n' "$PKGDUMP" > "$OUT/jobscheduler-pkg-api$API.txt" 2>/dev/null || true
+  JOBS=$(printf '%s\n' "$PKGDUMP" | parse_jobs | sort -u | head -n 8 || true)
+  if [ -z "$JOBS" ]; then
+    # Fallback 2: lenient — any «/<id>:» right after a uid (u0a190) on a line that names the
+    # package's SystemJobService, inside the package-filtered dump only
+    JOBS=$(printf '%s\n' "$PKGDUMP" | grep -E "$PKG/[^ ]*SystemJobService" \
+      | sed -n -E 's#.*u[0-9]+a[0-9]+/(@[^@]*@/)?(-?[0-9]+):.*#- \2#p' | sort -u | head -n 8 || true)
+  fi
+fi
+echo "Jobs found: $(printf '%s' "$JOBS" | tr '\n' ',' )"
 RAN=0
-for id in $JOBS; do
-  adb shell cmd jobscheduler run -f "$PKG" "$id" >/dev/null 2>&1 && RAN=$((RAN + 1))
-done
+# </dev/null: adb shell would otherwise swallow the remaining lines of the loop's input
+while read -r ns id; do
+  [ -n "${id:-}" ] || continue
+  if [ "$ns" = "-" ]; then
+    adb shell cmd jobscheduler run -f "$PKG" "$id" </dev/null >/dev/null 2>&1 && RAN=$((RAN + 1))
+  else
+    adb shell cmd jobscheduler run -f -n "$ns" "$PKG" "$id" </dev/null >/dev/null 2>&1 && RAN=$((RAN + 1))
+  fi
+done <<< "$JOBS"
 [ "$RAN" -gt 0 ] && sleep 20
 adb logcat -d -b main,system > "$OUT/logcat-jobs-api$API.txt" 2>/dev/null || adb logcat -d > "$OUT/logcat-jobs-api$API.txt" 2>/dev/null || true
 WORKER_FAIL=$(grep -h -E "WM-Worker(Wrapper|Factory).*(Could not create Worker|Could not instantiate)" \

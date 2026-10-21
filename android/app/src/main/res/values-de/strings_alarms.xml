@@ -179,4 +179,5 @@
     <string name="alarm_editor_more">Mehr</string>
     <string name="alarm_editor_more_summary">Schnell-Alarme, weitere Bedingungen, Ton und Ansage</string>
     <string name="alarm_reliability_storage_no_key">Alarme im Hintergrund pausiert – Merkliste nicht gespeichert</string>
+    <string name="alarms_limit_reached">Ein Paar kann höchstens %1$s Alarme haben.</string>
 </resources>

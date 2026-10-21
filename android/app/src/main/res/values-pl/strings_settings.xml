@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Brak uprawnienia – gdy urządzenie odpoczywa, Android sprawdza nieregularnie, czasem dopiero po godzinach.</string>
     <string name="settings_notification_change">Powiadamiaj tylko przy zmianie ceny</string>
     <string name="settings_notification_change_always">Zawsze</string>
+    <string name="settings_percent_invalid">Wpisz wartość od 0 do 100.</string>
     <string name="settings_notification_change_hint">Powiadomienie pojawi się dopiero, gdy cena zmieni się co najmniej o tyle od poprzedniego. Gdy brakuje danych, nic nie jest wyświetlane. Nie dotyczy alarmów.</string>
     <string name="settings_ongoing_notifications">Nie można odrzucić</string>
     <string name="settings_ongoing_notifications_hint">Powiadomienia o cenie pozostają przypięte.</string>
@@ -291,7 +292,7 @@
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">Udostępnij diagnostykę</string>
-    <string name="diagnostics_share_hint">Plik tekstowy dla wsparcia: wersja, urządzenie, ustawienia alertów, ostatnie sprawdzenia i dziennik alarmów – bez portfela, kwot, adresów i notatek. Najpierw go zobaczysz; nic nie jest wysyłane automatycznie.</string>
+    <string name="diagnostics_share_hint">Plik tekstowy dla wsparcia: wersja, urządzenie, ustawienia alarmów, ostatnie sprawdzenia i dziennik alarmów – bez portfela, kwot, adresów i notatek. Najpierw go zobaczysz; nic nie jest wysyłane automatycznie.</string>
     <string name="diagnostics_preview_title">Diagnostyka – podgląd</string>
     <string name="diagnostics_action_share">Udostępnij</string>
 </resources>

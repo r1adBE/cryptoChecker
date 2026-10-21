@@ -158,6 +158,20 @@ enum SettingsPercentOption: Hashable {
         return f.string(from: NSNumber(value: value)) ?? String(value)
     }
 
+    /// Tastatureingabe wie Android `filterPercentInput`: Dezimalziffern jeder Schrift, «,» und «.»
+    /// sowie das arabische Dezimalzeichen «٫»; «٬» (Tausendertrennung) bleibt stehen, damit `parse`
+    /// es ablehnt und der Hinweis erscheint; höchstens sechs Zeichen.
+    static func filterInput(_ input: String) -> String {
+        String(input.filter { c in
+            if c == "," || c == "." || c == "\u{066B}" || c == "\u{066C}" { return true }
+            guard c.unicodeScalars.count == 1, let scalar = c.unicodeScalars.first else { return false }
+            return scalar.properties.numericType == .decimal
+        }.prefix(6))
+    }
+
+    /// Fehler erst zeigen, wenn etwas eingegeben ist, das nicht 0 – 100 ergibt — wie Android `percentInputError`.
+    static func inputError(_ text: String) -> Bool { !text.isEmpty && parse(text) == nil }
+
     /// Wie Android (`parsePercent`): Komma oder Punkt, 0 – 100, «%»/«٪» (auch «5 %») erlaubt;
     /// arabische/persische Ziffern gelten (`ThresholdParser.latinDigits`, auch für den
     /// vorbefüllten Wert aus `format`); Exponent oder Suffix («1e2», «nan») ungültig.

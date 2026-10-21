@@ -1,5 +1,7 @@
 package com.cryptochecker.app.domain.alarm
 
+import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
+import com.cryptochecker.app.data.BoundedCache
 import com.cryptochecker.app.data.ActivityRepository
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.FuturesDataSource
@@ -8,7 +10,6 @@ import com.cryptochecker.app.data.remote.FuturesSources
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.withTimeoutOrNull
 import timber.log.Timber
-import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -36,8 +37,11 @@ class DerivativesAlarmData @Inject constructor(
         val referenceSource: String? = null,
     )
 
-    /** Schlüssel mit Börse und Paar: Wird ein Paar bearbeitet (gleiche Id), gilt der alte Wert nicht. */
-    private val cache = ConcurrentHashMap<String, Values>()
+    /**
+     * Schlüssel mit Börse und Paar: Wird ein Paar bearbeitet (gleiche Id), gilt der alte Wert nicht.
+     * Begrenzt seit Build 99 (sonst blieb jedes je geprüfte Paar bis zum Prozessende).
+     */
+    private val cache = BoundedCache<String, Values>(MEMORY_CACHE_ENTRIES)
 
     private fun key(watch: WatchEntity) =
         "${watch.id}|${watch.marketKey}|${watch.baseAsset}|${watch.quoteAsset}|${watch.pairId}"
@@ -46,7 +50,7 @@ class DerivativesAlarmData @Inject constructor(
      * Vorab geholte Rohdaten ([prefetch], parallel zur Kursabfrage): Abrufzeit und Antwort (null = keine).
      * [values] nimmt sie, solange frisch — gerechnet wird dort mit dem neuen Kurs.
      */
-    private val prefetched = ConcurrentHashMap<String, Pair<Long, FuturesInfo?>>()
+    private val prefetched = BoundedCache<String, Pair<Long, FuturesInfo?>>(MEMORY_CACHE_ENTRIES)
 
     /**
      * Funding/Open Interest schon während der Kursabfrage holen: Im Doze-Modus ist das

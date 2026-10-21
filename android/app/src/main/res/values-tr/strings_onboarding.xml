@@ -3,10 +3,10 @@
     <!-- Begrüssung beim ersten Start -->
     <string name="welcome_alert">Alarm – fiyat, yüzde, hacim ve olağandışı hareketler</string>
     <string name="welcome_alert_q">Ne zaman haber verilsin?</string>
-    <string name="welcome_text">Fiyatlarınız. Alarmlarınız. Genel bakışınız.\nHesap yok. Reklam yok. Takip yok.</string>
+    <string name="welcome_text">Fiyatların. Alarmların. Genel bakışın.\nHesap yok. Reklam yok. Takip yok.</string>
     <string name="welcome_understand">Anla – şu anda bir fiyatla birlikte ne hareket ediyor</string>
     <string name="welcome_understand_q">Onunla birlikte ne hareket ediyor?</string>
-    <string name="welcome_watch">İzle – coin\'leriniz, fiyatlar ve seyirleri</string>
+    <string name="welcome_watch">İzle – coin\'lerin, fiyatlar ve seyirleri</string>
     <string name="welcome_watch_q">Neler oluyor?</string>
 
     <!-- Start-Coins (Vorschlagsliste nach der Begrüssung) -->
@@ -15,8 +15,8 @@
     <string name="starter_search_coin">Başka bir coin ara</string>
     <string name="starter_select_all">Tümünü seç</string>
     <string name="starter_select_none">Seçimi kaldır</string>
-    <string name="starter_title">Bu coinlerle başlayın</string>
+    <string name="starter_title">Bu coinlerle başla</string>
     <string name="starter_watch_alarm_hint">Fiyatı izle, alarm kur</string>
 
-    <string name="starter_source_text">Fiyatlar: %1$s, %2$s cinsinden. İstemediklerinizin seçimini kaldırın, kalanları tek seferde ekleyin. Borsayı ve çifti her coin için değiştirebilirsiniz.</string>
+    <string name="starter_source_text">Fiyatlar: %1$s, %2$s cinsinden. İstemediklerinin seçimini kaldır, kalanları tek seferde ekle. Borsayı ve çifti her coin için değiştirebilirsin.</string>
 </resources>

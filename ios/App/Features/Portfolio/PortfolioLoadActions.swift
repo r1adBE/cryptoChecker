@@ -64,19 +64,21 @@ extension PortfolioModel {
         // letzten Portfolio-Stand — zum Stand der Kurse. Wie Android `PortfolioViewModel`.
         // Frische je Coin: ein einzelner alter Coin hält die übrigen nicht an, solange mindestens 80 % des
         // Werts frisch sind (`PortfolioPriceFallback.mayRecordShare`)
-        // Gesamtrechnung im Hintergrund (läuft schon für «7 T»); das Widget unten trifft danach den Zwischenspeicher
-        _ = await currentSummary()
+        // Gesamtrechnung im Hintergrund (läuft schon für «7 T»); der Merkzettel des Widgets nimmt genau diese
+        let summary = await currentSummary()
         let recordable = calcPortfolio.isEmpty
             || PortfolioPriceFallback.mayRecord(transactions: calcPortfolio, prices: prices,
                                                 now: TimeUtils.nowMillis, staleAfterMillis: staleAfterMillis)
         if data.settings.portfolioCurrency == currency && !recordable {
             if today == nil { today = storedToday(rate: self.rate(for: currency)) }
         } else if data.settings.portfolioCurrency == currency {
-            // Mit dem Merkzettel der App: «Seit Kauf»/«7 T» des Widgets in der Anzeigewährung wie die Karte
-            let widget = PortfolioWidgetStore.update(transactions: calcPortfolio, prices: prices, currency: currency,
-                                                     rate: self.rate(for: currency),
-                                                     displayFx: widgetDisplayFx(for: currency))
-            if let widget {
+            // Mit dem Merkzettel der App: «Seit Kauf»/«7 T» des Widgets in der Anzeigewährung wie die Karte. Gerechnet
+            // im Hintergrund (seit Build 99), nacheinander mit den übrigen Aufnahmen — eine neuere gewinnt
+            let widget = await PortfolioWidgetStore.updateInBackground(
+                transactions: calcPortfolio, prices: prices, currency: currency, rate: self.rate(for: currency),
+                displayFx: widgetDisplayFx(for: currency, summary: summary))
+            // Währung inzwischen gewechselt: Zeilen nicht mit Zahlen der alten füllen
+            if let widget, data.settings.portfolioCurrency == currency {
                 coinChanges = widget.coinChanges ?? [:]
                 coinPnl = widget.empty ? [:] : (widget.coinPnl ?? [:])
                 // «Gewinn heute» kommt schon berichtigt aus dem Stand — dieselbe Zahl wie Widget und Alarm

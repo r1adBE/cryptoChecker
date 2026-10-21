@@ -7,8 +7,8 @@
     <string name="update_mode_live_hint_ios">Якщо біржа дає курс у реальному часі: одразу, поки список відкрито. Інакше під час наступного запиту. Закрито: коли дозволить iOS, інколи з перервою в години. Якщо змахнути застосунок, iOS припиняє ці перевірки до наступного відкриття.</string>
     <string name="update_mode_recommended">рекомендовано</string>
     <string name="update_mode_sparsam">Ощадно</string>
-    <string name="update_mode_sparsam_hint">Коли застосунок закрито — не частіше ніж кожні %1$s, часто рідше (сповіщення, віджети). Відкрито: при кожному відкритті.</string>
-    <string name="update_mode_sparsam_hint_ios">Коли застосунок закрито, iOS сама вирішує, коли перевіряти (сповіщення, віджети), інколи з перервою в години. Відкрито: щоразу під час відкриття.</string>
+    <string name="update_mode_sparsam_hint">Коли застосунок закрито — не частіше ніж кожні %1$s, часто рідше (сигнали, віджети). Відкрито: при кожному відкритті.</string>
+    <string name="update_mode_sparsam_hint_ios">Коли застосунок закрито, iOS сама вирішує, коли перевіряти (сигнали, віджети), інколи з перервою в години. Відкрито: щоразу під час відкриття.</string>
     <string name="update_mode_title">Наскільки актуально?</string>
 
     <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
@@ -117,14 +117,14 @@
     <string name="check_trigger_worker">Фон</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
-    <string name="battery_delay_hint">Android може відкладати перевірки – виберіть для батареї «Без обмежень»</string>
+    <string name="battery_delay_hint">Android може відкладати перевірки – вибери для батареї «Без обмежень»</string>
     <string name="battery_later">Пізніше</string>
     <string name="battery_message">Android відкладає фонову роботу, щоб заощадити заряд — тоді ціни й віджети можуть бути застарілими на кілька годин. Необмежене використання батареї зберігає їх актуальними. Це можна будь-коли змінити в налаштуваннях Android.</string>
     <string name="battery_open_settings">Відкрити налаштування батареї</string>
-    <string name="battery_steps">У відомостях про застосунок торкніться «Батарея» (або «Використання батареї») і виберіть «Без обмежень».</string>
-    <string name="battery_title">Тримайте ціни актуальними</string>
-    <string name="ios_background_refresh_off">Фонове оновлення для застосунку вимкнено. Без нього сповіщення перевіряються, лише коли застосунок відкрито.</string>
-    <string name="ios_low_power_mode">Увімкнено режим енергозбереження. iOS рідко перевіряє у фоні, сповіщення можуть запізнюватися.</string>
+    <string name="battery_steps">У відомостях про застосунок торкнися «Батарея» (або «Використання батареї») і вибери «Без обмежень».</string>
+    <string name="battery_title">Тримай ціни актуальними</string>
+    <string name="ios_background_refresh_off">Фонове оновлення для застосунку вимкнено. Без нього сигнали перевіряються, лише коли застосунок відкрито.</string>
+    <string name="ios_low_power_mode">Увімкнено режим енергозбереження. iOS рідко перевіряє у фоні, сигнали можуть запізнюватися.</string>
 
     <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
     <string name="refresh_sheet_exchange_detail">Повідомлення біржі: %1$s</string>

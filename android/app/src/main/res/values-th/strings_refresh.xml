@@ -7,8 +7,8 @@
     <string name="update_mode_live_hint_ios">หากกระดานเทรดมีราคาสด: ทันทีขณะเปิดรายการอยู่ มิฉะนั้นในการดึงข้อมูลครั้งถัดไป ปิดอยู่: เมื่อ iOS อนุญาต บางครั้งห่างกันหลายชั่วโมง หากปัดแอปออก iOS จะหยุดการตรวจสอบเหล่านี้จนกว่าคุณจะเปิดแอปอีกครั้ง</string>
     <string name="update_mode_recommended">แนะนำ</string>
     <string name="update_mode_sparsam">ประหยัด</string>
-    <string name="update_mode_sparsam_hint">เมื่อปิดแอป ไม่บ่อยกว่าทุก %1$s และมักช้ากว่านั้น (การแจ้งเตือน วิดเจ็ต) เมื่อเปิด: ทุกครั้งที่เปิด</string>
-    <string name="update_mode_sparsam_hint_ios">เมื่อปิดแอป iOS จะเป็นผู้กำหนดเวลาตรวจสอบ (การแจ้งเตือน, วิดเจ็ต) บางครั้งห่างกันหลายชั่วโมง เปิดอยู่: ทุกครั้งที่เปิด</string>
+    <string name="update_mode_sparsam_hint">เมื่อปิดแอป ไม่บ่อยกว่าทุก %1$s และมักช้ากว่านั้น (สัญญาณเตือน วิดเจ็ต) เมื่อเปิด: ทุกครั้งที่เปิด</string>
+    <string name="update_mode_sparsam_hint_ios">เมื่อปิดแอป iOS จะเป็นผู้กำหนดเวลาตรวจสอบ (สัญญาณเตือน, วิดเจ็ต) บางครั้งห่างกันหลายชั่วโมง เปิดอยู่: ทุกครั้งที่เปิด</string>
     <string name="update_mode_title">อัปเดตแค่ไหน</string>
 
     <!-- Bericht «Letzte Aktualisierung» (Status je Börse, Ablauf) -->
@@ -96,8 +96,8 @@
     <string name="battery_open_settings">เปิดการตั้งค่าแบตเตอรี่</string>
     <string name="battery_steps">ในข้อมูลแอป แตะแบตเตอรี่ (หรือการใช้แบตเตอรี่ของแอป) แล้วเลือกไม่จำกัด</string>
     <string name="battery_title">ให้ราคาเป็นปัจจุบันเสมอ</string>
-    <string name="ios_background_refresh_off">การรีเฟรชแอปในเบื้องหลังปิดอยู่สำหรับแอปนี้ หากไม่เปิด การแจ้งเตือนจะถูกตรวจเฉพาะตอนเปิดแอป</string>
-    <string name="ios_low_power_mode">โหมดพลังงานต่ำเปิดอยู่ iOS แทบไม่ตรวจในเบื้องหลัง การแจ้งเตือนจึงอาจมาช้า</string>
+    <string name="ios_background_refresh_off">การรีเฟรชแอปในเบื้องหลังปิดอยู่สำหรับแอปนี้ หากไม่เปิด สัญญาณเตือนจะถูกตรวจเฉพาะตอนเปิดแอป</string>
+    <string name="ios_low_power_mode">โหมดพลังงานต่ำเปิดอยู่ iOS แทบไม่ตรวจในเบื้องหลัง สัญญาณเตือนจึงอาจมาช้า</string>
 
     <!-- Letzte Aktualisierung: gekürzte Fehlermeldung der Börse (StoredError.reportDetail) -->
     <string name="refresh_sheet_exchange_detail">ข้อความจากกระดานเทรด: %1$s</string>

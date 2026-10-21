@@ -39,7 +39,7 @@
     <string name="backup_restore_app_lock_kept">ล็อกพอร์ตยังเปิดอยู่ – ข้อมูลสำรองที่ไม่เข้ารหัสปิดไม่ได้</string>
     <string name="backup_restore_confirm">การนำเข้าจะแทนที่รายการ (รวมบันทึกและกลุ่ม) สัญญาณเตือน รายการโปรด พอร์ตโฟลิโอ และการตั้งค่าด้วยข้อมูลสำรอง</string>
     <plurals name="backup_restore_invalid">
-        <item quantity="other">รายการ %d รายการในข้อมูลสำรอง (พอร์ตหรือการแจ้งเตือน) ไม่ถูกต้องและจะไม่ถูกนำเข้า</item>
+        <item quantity="other">รายการ %d รายการในข้อมูลสำรอง (พอร์ตหรือสัญญาณเตือน) ไม่ถูกต้องและจะไม่ถูกนำเข้า</item>
     </plurals>
     <string name="backup_restore_newer_version">ข้อมูลสำรองนี้มาจากแอปเวอร์ชันที่ใหม่กว่า – อัปเดตแอปก่อน ไม่มีการนำเข้าใด ๆ</string>
     <string name="backup_restore_unencrypted_warning">ข้อมูลสำรองนี้ไม่ได้เข้ารหัส – ตรวจสอบว่าเป็นของคุณ การตั้งค่าจะถูกนำไปใช้ ล็อกพอร์ตที่เปิดอยู่จะยังเปิดอยู่</string>
@@ -50,6 +50,9 @@
     <plurals name="backup_restored_pairs">
         <item quantity="other">%1$d คู่</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">เกินขีดจำกัด (%3$s คู่, สัญญาณเตือน %4$s รายการต่อคู่) จะไม่ถูกกู้คืน: %1$s %2$s</string>
+    <string name="backup_restored_over_limits">เกินขีดจำกัด (%3$s คู่, สัญญาณเตือน %4$s รายการต่อคู่) ไม่ได้กู้คืน: %1$s %2$s</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">อุปกรณ์นี้ไม่มีกุญแจของข้อมูลที่เข้ารหัสของแอปแล้ว แอปจึงเริ่มแบบว่างเปล่า ไม่มีสิ่งใดถูกลบ หากต้องการรายการและพอร์ตโฟลิโอคืน ให้นำเข้าไฟล์สำรองในการตั้งค่า ที่ “%1$s”</string>

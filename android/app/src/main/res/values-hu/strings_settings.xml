@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Hiányzó engedély – nyugvó eszközön az Android rendszertelenül ellenőriz, néha csak órák múlva.</string>
     <string name="settings_notification_change">Értesítés csak árváltozáskor</string>
     <string name="settings_notification_change_always">Mindig</string>
+    <string name="settings_percent_invalid">Adj meg egy 0 és 100 közötti értéket.</string>
     <string name="settings_notification_change_hint">Értesítés csak akkor jelenik meg, ha az ár az előző óta legalább ennyivel elmozdult. Hiányzó adatok esetén semmi sem jelenik meg. A riasztásokat ez nem érinti.</string>
     <string name="settings_ongoing_notifications">Nem söpörhető el</string>
     <string name="settings_ongoing_notifications_hint">Az árértesítések rögzítve maradnak.</string>
@@ -82,7 +83,7 @@
     <string name="settings_activity_sensitivity">Érzékenység</string>
     <string name="settings_activity_sensitivity_hint">Milyen könnyen számít egy érme szokatlannak – ugyanúgy a figyelőlista kártyájára és az értesítésekre. „Kevesebb” esetén a kártya csak a 3 legerősebbet mutatja.</string>
     <string name="settings_watchlist_activity_card">Feltűnő: megjelenítés a listában</string>
-    <string name="settings_watchlist_activity_card_hint">Megjeleníti a ⚡ chipet a csoportok mellett: koppintva csak azokat a párokat látja, amelyeknél éppen történik valami. Az értesítéseket a Piaci értesítések alatt állíthatja be.</string>
+    <string name="settings_watchlist_activity_card_hint">Megjeleníti a ⚡ chipet a csoportok mellett: koppintva csak azokat a párokat látod, amelyeknél éppen történik valami. Az értesítéseket a Piaci értesítések alatt állíthatod be.</string>
     <string name="settings_watchlist_names">Nevek megjelenítése</string>
     <string name="settings_watchlist_names_hint">Név a pár alatt, pl. Bitcoin vagy NVIDIA. A logólistákkal érkezik, egyszer töltődik be minden érméhez.</string>
     <string name="settings_watchlist_sparkline">Minidiagram a figyelőlistán</string>
@@ -117,7 +118,7 @@
     <string name="settings_coin_logos">Érmelogók</string>
     <string name="settings_coin_logos_app">Az alkalmazásban</string>
     <string name="settings_coin_logos_app_hint">Figyelőlista, a megnyitott pár és piaci kártyák</string>
-    <string name="settings_coin_logos_footer">A logók a CoinGeckótól származnak, amit a CoinGecko nem tart nyilván (pl. arany, ezüst, részvények), az a Binance-tól. Az alkalmazás egyszerre tölti le az összes logót, és ezen az eszközön tárolja őket, így egyik szolgáltató sem tudja, mely érméket követi. A logó nélküli érméknél a kezdőbetűk látszanak. A kedvencek kis csillagot kapnak a logón. Ahol egy kapcsoló ki van kapcsolva, ott sem logó, sem kezdőbetű nem jelenik meg; ha minden ki van kapcsolva, semmi sem töltődik be.</string>
+    <string name="settings_coin_logos_footer">A logók a CoinGeckótól származnak, amit a CoinGecko nem tart nyilván (pl. arany, ezüst, részvények), az a Binance-tól. Az alkalmazás egyszerre tölti le az összes logót, és ezen az eszközön tárolja őket, így egyik szolgáltató sem tudja, mely érméket követed. A logó nélküli érméknél a kezdőbetűk látszanak. A kedvencek kis csillagot kapnak a logón. Ahol egy kapcsoló ki van kapcsolva, ott sem logó, sem kezdőbetű nem jelenik meg; ha minden ki van kapcsolva, semmi sem töltődik be.</string>
     <string name="settings_coin_logos_portfolio">A portfólióban</string>
     <string name="settings_coin_logos_portfolio_hint">Pozíciók, érmeadatok és elemzések</string>
     <string name="settings_coin_logos_value_app">Alkalmazás</string>
@@ -145,7 +146,7 @@
 
     <!-- Einstellungen › Portfolio (Währung, Kostenmethode, Sperre, Systemsicherung) -->
     <string name="settings_conversion_currency">Átváltási pénznem</string>
-    <string name="settings_conversion_currency_hint">A portfólióhoz, a saját pénznemében megadott riasztásokhoz, a Kriptopiac kártyához és a Portfólió widgethez is ezt használja az alkalmazás.</string>
+    <string name="settings_conversion_currency_hint">A portfólióhoz, a saját pénznemedben megadott riasztásokhoz, a Kriptopiac kártyához és a Portfólió widgethez is ezt használja az alkalmazás.</string>
     <string name="settings_cost_method">Bekerülési érték módszere</string>
     <string name="settings_cost_method_average">Átlag (Ø)</string>
     <string name="settings_cost_method_average_hint">Az eladások a mozgó átlagos vételi áron számítanak.</string>
@@ -154,12 +155,12 @@
     <string name="settings_cost_method_fifo_wallet">FIFO tárcánként/tőzsdénként</string>
     <string name="settings_cost_method_fifo_wallet_hint">A legrégebbi coinok először tőzsdénként vagy tárcánként; az átvezetések a tételeket a vételi dátummal együtt viszik.</string>
     <string name="settings_portfolio_lock">Portfóliózár</string>
-    <string name="settings_portfolio_lock_footer">A zár eltakarja a megjelenítést. Az adatok ezen az eszközön vannak, és az eszköz titkosítása védi őket. A biztonsági mentéseket jelszóval védheti.</string>
+    <string name="settings_portfolio_lock_footer">A zár eltakarja a megjelenítést. Az adatok ezen az eszközön vannak, és az eszköz titkosítása védi őket. A biztonsági mentéseket jelszóval védheted.</string>
     <string name="settings_portfolio_lock_hint">Csak a portfóliót takarja el: feloldás ujjlenyomattal, arccal vagy az eszköz PIN-kódjával. Több mint egy perc háttérben töltött idő után újra zárol. A figyelőlista, a riasztások és a többi widget szabadon elérhető marad.</string>
     <string name="settings_portfolio_lock_no_device_lock">Eszköz-PIN vagy jelkód nélkül a zár semmit sem takar el – állíts be képernyőzárat.</string>
     <!-- «Portfolio in Systemsicherung» (eigene Portfolio-Datenbank, PortfolioBackupMirror) -->
     <string name="settings_portfolio_system_backup">Portfólió a rendszermentésben</string>
-    <string name="settings_portfolio_system_backup_hint">Ki: a tranzakciók nem kerülnek bele az eszköz rendszermentésébe és az új telefonra való átvitelbe. Átköltöztetéshez használja az alkalmazás saját, jelszóval védett mentését.</string>
+    <string name="settings_portfolio_system_backup_hint">Ki: a tranzakciók nem kerülnek bele az eszköz rendszermentésébe és az új telefonra való átvitelbe. Átköltöztetéshez használd az alkalmazás saját, jelszóval védett mentését.</string>
     <string name="settings_portfolio_system_backup_unavailable">Android 9 vagy újabb kell – a régebbi verziók titkosítás nélkül mentenék a portfóliót a Google-mentésbe.</string>
     <string name="settings_portfolio_tab">Portfólió lap megjelenítése</string>
     <string name="settings_portfolio_value_locked">Be, zárral</string>
@@ -203,8 +204,8 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Alkalmazás visszaállítása</string>
     <string name="settings_reset_app_action">Minden törlése</string>
-    <string name="settings_reset_app_confirm">Törli a figyelőlistát, riasztásokat, portfóliót, beállításokat és minden mentett adatot, mint telepítés után. Nem vonható vissza. Tipp: előbb készítsen biztonsági mentést. Az eszköz biztonsági mentései (Google- vagy iCloud-/számítógépes mentés) a következő mentésig megőrzik a korábbi adatokat.</string>
-    <string name="settings_reset_app_title">Visszaállítja az alkalmazást?</string>
+    <string name="settings_reset_app_confirm">Törli a figyelőlistát, riasztásokat, portfóliót, beállításokat és minden mentett adatot, mint telepítés után. Nem vonható vissza. Tipp: előbb készíts biztonsági mentést. Az eszköz biztonsági mentései (Google- vagy iCloud-/számítógépes mentés) a következő mentésig megőrzik a korábbi adatokat.</string>
+    <string name="settings_reset_app_title">Visszaállítod az alkalmazást?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
     <!-- Suchfeld der Währungsseite -->

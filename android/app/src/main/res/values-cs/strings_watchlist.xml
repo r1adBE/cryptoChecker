@@ -12,9 +12,9 @@
     <string name="watchlist_last_run">Poslední běh %1$s</string>
     <string name="watchlist_live_a11y">Živé kurzy zapnuté</string>
     <string name="watchlist_offline_since">Bez připojení · stav k %1$s</string>
-    <string name="watchlist_pull_to_refresh">Potažením dolů obnovíte</string>
+    <string name="watchlist_pull_to_refresh">Potažením dolů obnovíš</string>
     <string name="watchlist_refresh_report">Poslední obnovení</string>
-    <string name="watchlist_refresh_report_empty">Zatím žádný rozpis: ještě neproběhlo úplné obnovení. Klepněte na obnovit a počkejte, až se indikátor zastaví.</string>
+    <string name="watchlist_refresh_report_empty">Zatím žádný rozpis: ještě neproběhlo úplné obnovení. Klepni na obnovit a počkej, až se indikátor zastaví.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">Zastaralé: %1$d z %2$d</item>
         <item quantity="few">Zastaralé: %1$d z %2$d</item>
@@ -72,7 +72,7 @@
     <string name="watchlist_search_open">Hledat</string>
     <string name="watchlist_sort_ascending">vzestupně</string>
     <string name="watchlist_sort_descending">sestupně</string>
-    <string name="watchlist_sort_hint">Podržte a táhněte pár, nebo použijte úchyt. Oblíbené zůstávají nahoře.</string>
+    <string name="watchlist_sort_hint">Podrž a táhni pár, nebo použij úchyt. Oblíbené zůstávají nahoře.</string>
     <string name="watchlist_sort_name">Název</string>
     <string name="watchlist_sort_own">Vlastní pořadí</string>
     <string name="watchlist_sort_price">Cena</string>
@@ -127,10 +127,10 @@
         <item quantity="many">Alarmy (%1$d)</item>
         <item quantity="other">Alarmy (%1$d)</item>
     </plurals>
-    <string name="watchlist_favorites_empty_hint">Zatím žádné oblíbené. Přejeďte pár doprava, nebo ho otevřete a klepněte na „Oblíbené“.</string>
-    <string name="watchlist_group_empty_hint">Dlouhým stiskem skupiny vyberete její páry.</string>
+    <string name="watchlist_favorites_empty_hint">Zatím žádné oblíbené. Přejeď pár doprava, nebo ho otevři a klepni na „Oblíbené“.</string>
+    <string name="watchlist_group_empty_hint">Dlouhým stiskem skupiny vybereš její páry.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
-    <string name="watchlist_groups_empty_hint">Zde se zobrazí vaše skupiny</string>
+    <string name="watchlist_groups_empty_hint">Zde se zobrazí tvoje skupiny</string>
     <string name="watchlist_notification">Cenové oznámení</string>
     <string name="watchlist_tts">Číst cenu nahlas</string>
     <string name="watchlist_tts_speech_on">Hlasový výstup je zapnutý. Změníš ho v Nastavení › Rozšířené › Hlasový výstup.</string>
@@ -147,7 +147,7 @@
     <string name="watch_disabled">Vypnuto</string>
     <string name="watch_disabled_banner">Pár %1$s vypnut</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
-    <string name="watch_edit_alarms_warning">Alarmy zůstanou – zkontrolujte limity</string>
+    <string name="watch_edit_alarms_warning">Alarmy zůstanou – zkontroluj limity</string>
     <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
     <string name="watch_edit_title">Upravit pár</string>
     <string name="watch_enable">Zapnout</string>
@@ -155,7 +155,7 @@
     <string name="watch_enabled_banner">Pár %1$s zapnut</string>
     <string name="watch_error_offline">Bez připojení</string>
     <string name="watch_gesture_hint_short">Klepnutím alarm a „Co se hýbe s ním?“ · podržením výběr · přejetím doleva smazat · doprava oblíbené</string>
-    <string name="watch_hint_tap_why">Klepněte na minci pro alarm a „Co se hýbe s ním?“</string>
+    <string name="watch_hint_tap_why">Klepni na minci pro alarm a „Co se hýbe s ním?“</string>
     <string name="watch_not_traded">Na této burze se již neobchoduje</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">Není ve sledovaných</string>
@@ -174,7 +174,7 @@
     <string name="favorite_added">%1$s přidáno do oblíbených</string>
     <string name="favorite_remove">Odebrat z oblíbených</string>
     <string name="favorite_removed">%1$s odebráno z oblíbených</string>
-    <string name="hint_favorites_list">Tip: přejetím řádku doprava ho přidáte do oblíbených – oblíbené zůstávají nahoře.</string>
+    <string name="hint_favorites_list">Tip: přejetím řádku doprava ho přidáš do oblíbených – oblíbené zůstávají nahoře.</string>
 
     <!-- Gruppen und Chips der Merkliste -->
     <string name="group_add">Nová skupina</string>
@@ -239,4 +239,5 @@
 
     <string name="watchlist_sort_by_coin">Seřadit podle coinu</string>
     <string name="watchlist_sort_by_exchange">Seřadit podle burzy</string>
+    <string name="watchlist_limit_reached">Tvůj seznam sledovaných může obsahovat nejvýše %1$s párů.</string>
 </resources>

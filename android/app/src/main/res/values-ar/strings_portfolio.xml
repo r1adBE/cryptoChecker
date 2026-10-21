@@ -111,7 +111,7 @@
     <string name="portfolio_discard_keep">متابعة التعديل</string>
     <string name="portfolio_discard_title">تجاهل التغييرات؟</string>
     <string name="portfolio_edit_tx">تعديل العملية</string>
-    <string name="portfolio_invalid">كمية غير صالحة</string>
+    <string name="portfolio_invalid">أدخل رقمًا صالحًا أكبر من 0.</string>
     <string name="portfolio_oversold">المبيعات تتجاوز الرصيد – يرجى مراجعة العمليات.</string>
     <string name="portfolio_sell">بيع</string>
     <string name="portfolio_sell_exceeds">أكثر من رصيدك (%1$s)</string>
@@ -151,7 +151,7 @@
     <string name="portfolio_tx_price">السعر لكل عملة</string>
     <string name="portfolio_tx_price_hint">بـ USDT. اتركه فارغًا إن كان غير معروف.</string>
     <string name="portfolio_tx_price_historic">سعر الإغلاق اليومي المُتحقَّق منه بتاريخ %1$s – عدّله عند الحاجة</string>
-    <string name="portfolio_tx_price_invalid">سعر غير صالح</string>
+    <string name="portfolio_tx_price_invalid">أدخل رقمًا صالحًا (0 أو أكثر) أو اترك الحقل فارغًا.</string>
     <string name="portfolio_tx_price_past_hint">أدخل السعر في يوم العملية – اتركه فارغًا إن لم تعرفه</string>
     <string name="portfolio_tx_price_receipt_hint">بالـ USDT. فارغ = رصيد بلا تكلفة شراء.</string>
     <string name="portfolio_tx_price_zero">لا يمكن أن يكون السعر 0 في المعاملات المستوردة – اتركه فارغًا لسعر السوق</string>

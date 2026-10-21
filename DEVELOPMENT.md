@@ -2149,6 +2149,13 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 99 (second full audit): `WatchlistLimits` (Kotlin/Swift, 2000 pairs, 10 alerts per pair; `BackupRestoreLimits`
+  reuses it), `AddWatchOutcome`. iOS `PrivateSessionConfig.make` (no cookies, no URL cache) for every URLSession,
+  `StorageKey.renew()` with an App Group generation counter so the widget re-reads the key, `OrderedSerialRunner` for
+  background widget snapshots. `TextLimit.clean` (trim, cut by graphemes, trim) for notes, groups and exchange names;
+  fixtures `backup_limits.json`, `text_limit.json` («fields»). `BackupRestorePolicy` rules for `systemBackup` and
+  `hideAmounts`. CSV `tokenizeOrNull` caps (200 cells, 200 000 rows). `PortfolioTxFirstInvalid`, `DexFailure`,
+  `LegacyDatabaseCleanup`, `BoundedCache.MEMORY_CACHE_ENTRIES`. JVM unit tests run with en-US/UTC.
 * Build 98 (full audit of build 97): fixtures `exchange_backoff.json` (next/groupPause/adoptedPause/merge with
   implausible pauses) and `text_limit.json` (`TextLimit.takeGraphemes`/`graphemeCount`, java.text.BreakIterator;
   ZWJ/flag/skin-tone cases need JDK 20+ in JVM tests, `TextLimitDeviceTest` covers them on device). `label_value`

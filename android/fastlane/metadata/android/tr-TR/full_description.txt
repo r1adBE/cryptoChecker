@@ -1,13 +1,13 @@
-Bitcoin fiyatınıza ulaştığında alarm – gerçekten kullandığınız borsadan. Ortalama değil, borsanızın fiyatı – ücretsiz, hesap olmadan.
+Bitcoin senin fiyatına ulaştığında alarm – gerçekten kullandığın borsadan. Ortalama değil, senin borsanın fiyatı – ücretsiz, hesap olmadan.
 
 ONU FARKLI KILAN
-• Sizin borsanız, ortalama değil: her satır, çiftin seçtiğiniz borsadaki son fiyatını gösterir – Binance, Coinbase, Kraken, OKX, Bybit ve daha fazlası.
+• Senin borsan, ortalama değil: her satır, çiftin seçtiğin borsadaki son fiyatını gösterir – Binance, Coinbase, Kraken, OKX, Bybit ve daha fazlası.
 • Bir kez haber veren alarm: “BTC 100.000 USDT’nin üstüne çıkınca bana haber ver.” Seviye geçildiğinde çalar, her güncellemede değil – “Bir kez” ardından onu kapatır, “Her seferinde” fiyat geri dönünce yeniden kurar.
 • “Onunla birlikte ne hareket ediyor?”: bir coin için etken listesi – genel piyasa, hacim, oynaklık, funding ve open interest, zirveye veya dibe uzaklık, Fear & Greed. Aynı anda neyin hareket ettiğini gösterir – neden değil, haber değil, yatırım tavsiyesi değil.
 • Hesap yok, reklam yok, takip yok. Geliştirici hiçbir verini almaz.
 
 VERİ KONUSUNDA DÜRÜST
-• Varsayılan “Tasarruflu”: fiyatlar uygulamayı açtığınızda ve arka planda aralıklarla yenilenir. “Açıkken canlı”, liste açıkken Binance, Bybit, OKX, Coinbase ve Kraken için canlı fiyat ekler.
+• Varsayılan “Tasarruflu”: fiyatlar uygulamayı açtığında ve arka planda aralıklarla yenilenir. “Açıkken canlı”, liste açıkken Binance, Bybit, OKX, Coinbase ve Kraken için canlı fiyat ekler.
 • % değişim ve grafikler önce çiftin kendi borsasından gelir; borsanın mumları yoksa uygulama Binance ya da Coinbase kullanır ve bunu belirtir.
 • Fear & Greed, dominans ve zincir üstü değerler alternative.me, CoinGecko ve Coin Metrics’ten.
 • Uygulama kapalıyken alarmların ne zaman kontrol edileceğine Android karar verir – en sık 15 dakikada bir, çoğu zaman ancak saatler sonra. Aradaki kısa sıçramalar kaçabilir; uygulama bunu sana söyler.

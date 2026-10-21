@@ -106,4 +106,45 @@ extension BackupManager {
             currency: isNull(o, "currency") ? nil : Alarm.validCurrency(string(o, "currency"))
         )
     }
+
+    /// Paar-Alarme der Sicherung; ungültige (unbekannte Alarmart, Schwelle nicht endlich) werden gezählt.
+    static func parsedAlarms(_ root: [String: Any]) -> (items: [Alarm], invalid: Int) {
+        let list = root["alarms"] as? [Any] ?? []
+        let items = list.compactMap { ($0 as? [String: Any]).flatMap(alarmFromJson) }
+        return (items, list.count - items.count)
+    }
+
+    /// Merkliste und Paar-Alarme einer Sicherung, so wie sie übernommen würden (wie Android
+    /// `BackupWatchlistCodec.readWatchlist`): `invalidAlarms` = ungültige Alarme, `droppedPairs`/`droppedAlarms` =
+    /// wegen `BackupRestoreLimits` weggelassen.
+    struct RestoredWatchlist {
+        let watches: [Watch]
+        let alarms: [Alarm]
+        let invalidAlarms: Int
+        let droppedPairs: Int
+        let droppedAlarms: Int
+    }
+
+    /// Lesen, bereinigen und begrenzen — für Rückfrage (`preview`) und Wiederherstellen gleich, damit die Rückfrage genau
+    /// die Zahlen nennt, die danach wegfallen. Paare mit unzulässigen Kennungen fallen weg, ihre Alarme mit ihnen
+    /// (`BackupRestoreLimits.accept`); dann `WatchlistRestoreCleanup` (gleiche id → letzter gilt; gleiches Paar unter
+    /// mehreren ids → erstes bleibt, seine Alarme übernehmen die der weggelassenen; Alarme ohne Paar fallen weg), dann
+    /// `BackupRestoreLimits.limit`. `limits: false` beim Zurückrollen des eigenen Stands (Journal): der kommt unverändert
+    /// zurück, auch über den Grenzen — wie Android `previousFromJournal`.
+    static func restoredWatchlist(_ root: [String: Any], limits: Bool = true) throws -> RestoredWatchlist {
+        var parsedWatches: [Watch] = []
+        for item in root["watches"] as? [Any] ?? [] {
+            guard let o = item as? [String: Any] else { throw Failure.invalid("watches") }
+            parsedWatches.append(try jsonToWatch(o))
+        }
+        let alarmsRead = parsedAlarms(root)
+        let accepted = limits ? BackupRestoreLimits.accept(watches: parsedWatches, alarms: alarmsRead.items)
+            : BackupRestoreLimits.Limited(watches: parsedWatches, alarms: alarmsRead.items)
+        let cleaned = WatchlistRestoreCleanup.clean(watches: accepted.watches, alarms: accepted.alarms)
+        let limited = limits ? BackupRestoreLimits.limit(watches: cleaned.watches, alarms: cleaned.alarms)
+            : BackupRestoreLimits.Limited(watches: cleaned.watches, alarms: cleaned.alarms)
+        return RestoredWatchlist(watches: limited.watches, alarms: limited.alarms, invalidAlarms: alarmsRead.invalid,
+                                 droppedPairs: accepted.droppedPairs + limited.droppedPairs,
+                                 droppedAlarms: accepted.droppedAlarms + limited.droppedAlarms)
+    }
 }

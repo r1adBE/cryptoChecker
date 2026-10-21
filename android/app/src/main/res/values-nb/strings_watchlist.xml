@@ -215,4 +215,5 @@
 
     <string name="watchlist_sort_by_coin">Sorter etter mynt</string>
     <string name="watchlist_sort_by_exchange">Sorter etter børs</string>
+    <string name="watchlist_limit_reached">Overvåkingslisten din kan ha maks %1$s par.</string>
 </resources>

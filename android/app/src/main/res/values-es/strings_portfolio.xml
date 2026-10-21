@@ -102,7 +102,7 @@
     <string name="portfolio_discard_keep">Seguir editando</string>
     <string name="portfolio_discard_title">¿Descartar los cambios?</string>
     <string name="portfolio_edit_tx">Editar transacción</string>
-    <string name="portfolio_invalid">Cantidad no válida</string>
+    <string name="portfolio_invalid">Introduce un número válido mayor que 0.</string>
     <string name="portfolio_oversold">Las ventas superan las tenencias: revisa las transacciones.</string>
     <string name="portfolio_sell">Venta</string>
     <string name="portfolio_sell_exceeds">Más que tus tenencias (%1$s)</string>
@@ -142,7 +142,7 @@
     <string name="portfolio_tx_price">Precio por moneda</string>
     <string name="portfolio_tx_price_hint">En USDT. Déjalo vacío si no lo sabes.</string>
     <string name="portfolio_tx_price_historic">Cierre diario verificado del %1$s; ajústalo si hace falta</string>
-    <string name="portfolio_tx_price_invalid">Precio no válido</string>
+    <string name="portfolio_tx_price_invalid">Introduce un número válido (0 o más) o deja el campo vacío.</string>
     <string name="portfolio_tx_price_past_hint">Introduce el precio del día de la operación; déjalo vacío si no lo sabes</string>
     <string name="portfolio_tx_price_receipt_hint">En USDT. Vacío = tenencias sin coste de adquisición.</string>
     <string name="portfolio_tx_price_zero">Precio 0 no posible en transacciones importadas – déjalo vacío para el precio de mercado</string>

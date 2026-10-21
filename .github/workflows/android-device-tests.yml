@@ -7,6 +7,7 @@
 # hand (Actions › Android device tests › Run workflow). On a pull request only release-smoke runs,
 # and only when a file changes that decides about the R8 release build (keep rules, build script,
 # dependency versions, the smoke test itself).
+# Job connected-tests-api26: only the ICU device tests (TextLimit, MonthYearFormat) on API 26 (minSdk).
 # Job release-smoke: the R8 release build (signed with a throwaway key) on API 26 (minSdk) and 34:
 # start, monkey, WorkManager jobs, crash buffer -> annotations (android_smoke_test.sh).
 name: Android device tests
@@ -120,6 +121,83 @@ jobs:
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: device-test-reports
+          path: |
+            android/app/build/reports/androidTests/
+            android/app/build/outputs/androidTest-results/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  # ICU-dependent device tests also on API 26 (minSdk): the system ICU there is much older than on API 34, and both
+  # grapheme counting (TextLimit) and the month/year pattern (MonthYearFormat) come from it. Only these two classes,
+  # so the extra emulator stays cheap.
+  connected-tests-api26:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle (with cache)
+        uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Enable KVM
+        working-directory: .
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Build debug and test APKs
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest --stacktrace
+
+      - name: Run TextLimit and MonthYearFormat device tests (API 26)
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: 26
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          working-directory: android
+          emulator-boot-timeout: 900
+          script: ./gradlew :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.cryptochecker.app.TextLimitDeviceTest,com.cryptochecker.app.MonthYearFormatIcuTest --stacktrace
+
+      - name: Failed tests
+        if: failure()
+        run: |
+          python3 - <<'PY' || true
+          import glob, xml.etree.ElementTree as ET
+          n = 0
+          for f in glob.glob('app/build/outputs/androidTest-results/connected/**/*.xml', recursive=True):
+              for tc in ET.parse(f).getroot().iter('testcase'):
+                  for fail in list(tc.findall('failure')) + list(tc.findall('error')):
+                      body = ' | '.join(l.strip() for l in (fail.text or '').strip().splitlines()[:6])
+                      print(f"::error::API 26 {tc.get('classname')}.{tc.get('name')}: {body[:900]}")
+                      n += 1
+          print(f"failed tests: {n}")
+          PY
+
+      - name: Upload test reports
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: device-test-reports-api26
           path: |
             android/app/build/reports/androidTests/
             android/app/build/outputs/androidTest-results/

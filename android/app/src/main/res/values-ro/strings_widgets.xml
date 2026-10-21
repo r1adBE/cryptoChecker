@@ -44,7 +44,7 @@
     <string name="widget_portfolio_display_hint">Rândul USDT este ascuns când moneda de conversie este USD.</string>
     <string name="widget_portfolio_display_usdt">Doar USDT</string>
     <string name="widget_portfolio_empty">Adaugă achiziții în fila Portofoliu</string>
-    <string name="widget_portfolio_list_hint">Deschideți aplicația pentru a afișa aici pozițiile.</string>
+    <string name="widget_portfolio_list_hint">Deschide aplicația pentru a afișa aici pozițiile.</string>
     <string name="widget_portfolio_locked_hint">Blocat – deblochează în aplicație</string>
     <!-- Offene Coins ohne Kurs zählen im Gesamtwert als 0 -->
     <plurals name="widget_portfolio_missing_coins">
@@ -66,7 +66,7 @@
     <string name="widget_portfolio_period_without">%1$s fără %2$s</string>
     <string name="widget_portfolio_range_48h">48h</string>
     <!-- Gewählter Zeitraum ohne geladene Tageskurse (Widget zeigt 24 h); %1$s Kurzform des Zeitraums (widget_range_short_7d/30d/1y) -->
-    <string name="widget_portfolio_range_fallback">%1$s: deschideți Portofoliu</string>
+    <string name="widget_portfolio_range_fallback">%1$s: deschide Portofoliu</string>
     <string name="widget_portfolio_range_short_48h">48h</string>
     <string name="widget_portfolio_today_without">Azi fără %1$s</string>
     <string name="widget_portfolio_view">Vizualizare</string>

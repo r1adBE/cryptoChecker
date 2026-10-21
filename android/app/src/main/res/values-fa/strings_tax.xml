@@ -19,7 +19,7 @@
     <string name="portfolio_export_estv_note">برای مالیات بر ثروت نرخ‌های رسمی پایان سال فهرست نرخ ESTV %1$s اعمال می‌شود (در صورت وجود): %2$s</string>
     <string name="portfolio_export_failed">خروجی ناموفق بود</string>
     <string name="portfolio_export_from_address">از آدرس – بدون قیمت خرید</string>
-    <string name="portfolio_export_hint">دارایی در پایان روز انتخاب‌شده، ارزش‌گذاری‌شده با قیمت پایانی روز (UTC) به USDT و تبدیل‌شده با نرخ مرجع بانک مرکزی اروپا در همان روز. ارز را از «تبدیل به» تغییر دهید.</string>
+    <string name="portfolio_export_hint">دارایی در پایان روز انتخاب‌شده، ارزش‌گذاری‌شده با قیمت پایانی روز (UTC) به USDT و تبدیل‌شده با نرخ مرجع بانک مرکزی اروپا در همان روز. ارز را از «تبدیل به» تغییر بده.</string>
     <string name="portfolio_export_incomplete">ناقص</string>
     <string name="portfolio_export_no_fx">بدون نرخ ارز</string>
     <string name="portfolio_export_no_price">بدون قیمت</string>
@@ -174,7 +174,7 @@
     <string name="tax_method_jp_total">میانگین کل (総平均法)</string>
     <string name="tax_method_uk_pool">استخر مشترک طبق Section 104 (Section 104 pool – همان روز / 30 روز)</string>
     <string name="tax_note_at">میانگین متحرک برای هر سکه و کیف پول – نه روی همهٔ کیف پول‌ها (KryptowährungsVO § 2). پاداش‌ها با بهای تحصیل 0 وارد دارایی جدید می‌شوند (BMF: استیکینگ / ایردراپ) – فایل درآمد آن‌ها را با ارزش هنگام دریافت فهرست می‌کند. کارمزدها برای دارایی کسب‌شده از 1.3.2021 قابل کسر نیستند (§ 27a بند 4 شمارهٔ 2، § 20 بند 2 EStG): بهای تمام‌شده و عایدی بدون کارمزد. سود وام‌دهی (نوع از ورود CSV یا یادداشت) هنگام دریافت درآمد با نرخ 27.5 درصد است و همین ارزش بهای تحصیل می‌ماند.</string>
-    <string name="tax_note_at_staking">استیکینگ با کوین‌های خودتان و ایردراپ‌ها: ارزش هنگام دریافت از نظر مالیاتی اهمیتی ندارد – طبق قانون بهای خرید ۰ است (§ 27b Abs. 2 EStG؛ BMF «Kryptowährungen»). مالیات فقط هنگام فروش تعلق می‌گیرد.</string>
+    <string name="tax_note_at_staking">استیکینگ با کوین‌های خودت و ایردراپ‌ها: ارزش هنگام دریافت از نظر مالیاتی اهمیتی ندارد – طبق قانون بهای خرید ۰ است (§ 27b Abs. 2 EStG؛ BMF «Kryptowährungen»). مالیات فقط هنگام فروش تعلق می‌گیرد.</string>
     <string name="tax_note_fr">فروش‌ها و کارمزدهای پرداخت‌شده به رمزارز واگذاری‌اند – تبادل‌ها به تعویق می‌افتند. کارمزد رمزارزی در فروش در قیمت پیش از کارمزد حساب می‌شود – وگرنه واگذاری جداگانه به ارزش خودش است. ارزش سبد از قیمت‌های بسته‌شدن روزانه – اگر یکی نباشد بها خالی می‌ماند.</string>
     <string name="tax_note_network_fee">کارمزد شبکه‌ای که به رمزارز پرداخت شود (انتقال به کیف پول خودت، برداشت) واگذاری سکه‌های کارمزد به ارزش بازار است – سود یا زیان فقط روی همین سکه‌ها، نه زیان کل کارمزد (%1$s). بدون قیمت ثبت‌شده: قیمت بسته‌شدن همان روز (UTC)؛ بدون قیمت بسته‌شدن درآمد فروش خالی می‌ماند.</string>
     <string name="tax_note_specific_id">شناسایی خاص (Specific Identification) پشتیبانی نمی‌شود – FIFO اعمال می‌شود (اول خریده‌شده – اول فروخته‌شده).</string>
@@ -207,7 +207,7 @@
     <!-- Vermerk am Posten Zinsen vor dem 1.3.2022: alte Rechtslage (Tarif), nicht 27,5 Prozent -->
     <string name="tax_summary_at_interest_old_law">سود پیش از 1.3.2022: قانون قدیم (نرخ پلکانی)، نه 27.5 درصد</string>
     <!-- Einkünfte-CSV AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 -->
-    <string name="tax_export_at_income_before_new_law">پیش از 1.3.2022 – با متخصص بررسی کنید</string>
+    <string name="tax_export_at_income_before_new_law">پیش از 1.3.2022 – با متخصص بررسی کن</string>
 
     <!-- Einkünfte-CSV AT: Vermerk einer Zins-Zeile -->
     <string name="tax_export_at_income_interest">سود – مشمول مالیات هنگام دریافت</string>
@@ -223,11 +223,11 @@
     <!-- AT Freigrenze Spekulationsgeschäfte: geprüft ohne Option auf 27,5 Prozent, Verkäufe 1.1.–28.2.2022 zählen mit -->
     <string name="tax_summary_at_without_option">بدون انتخاب: شامل فروش‌های 1.1.–28.2.2022</string>
     <!-- AT Sondersteuersatz: Belohnungen 1.3.2021–28.2.2022 mit Anschaffungskosten 0 angesetzt (Rechtslage nicht ausdrücklich geklärt) -->
-    <string name="tax_summary_at_staking_zero_cost">استیکینگ پیش از 1.3.2022: بهای تمام‌شده 0 در نظر گرفته شد – با متخصص بررسی کنید</string>
+    <string name="tax_summary_at_staking_zero_cost">استیکینگ پیش از 1.3.2022: بهای تمام‌شده 0 در نظر گرفته شد – با متخصص بررسی کن</string>
     <!-- UK/CA netto: 30-Tage-Fenster nach dem Steuerjahr noch offen; %1$s = letzter Tag des Fensters (ISO-Datum) -->
     <string name="tax_summary_window_open">قاعدهٔ 30 روزه هنوز ممکن است این ارقام را تغییر دهد (خریدها تا %1$s)</string>
     <!-- UK Erlöse vor Gebühren über der Meldegrenze (50 000 GBP, 2020/21–2022/23 49 200 GBP): Meldung an HMRC, falls für Self Assessment registriert -->
-    <string name="tax_summary_uk_hmrc_report">عواید فروش پیش از کارمزد بیش از سقف گزارش (50,000 پوند؛ 2020/21–2022/23: 49,200 پوند): اگر در Self Assessment ثبت‌نام کرده‌اید، گزارش به HMRC لازم است، حتی بدون سود مشمول مالیات</string>
+    <string name="tax_summary_uk_hmrc_report">عواید فروش پیش از کارمزد بیش از سقف گزارش (50,000 پوند؛ 2020/21–2022/23: 49,200 پوند): اگر در Self Assessment ثبت‌نام کرده‌ای، گزارش به HMRC لازم است، حتی بدون سود مشمول مالیات</string>
 
     <!-- Jahresübersicht CH: Vermögenswert per 31.12. als Orientierung (TaxLine.CH_WEALTH_VALUE), %1$s = Steuerjahr -->
     <string name="tax_line_ch_wealth_value">ارزش دارایی در 31 دسامبر %1$s (برای راهنمایی)</string>
@@ -244,7 +244,7 @@
     <string name="portfolio_export_address_lots_note">توجه: یک آدرس تحت نظر اقلام بهای تمام‌شده‌ای دارد که تاریخشان پس از آخرین بررسی موجودی آن پیش از این تاریخ است – ممکن است اینجا نباشند.</string>
 
     <!-- FR Jahresübersicht netto: Gesamtwert enthielt Guthaben beobachteter Adressen ohne Einstand (Gewinn eher zu hoch) -->
-    <string name="tax_summary_fr_address_no_cost">آدرس‌های زیر نظر در ارزش کل حساب می‌شوند اما بهای تمام‌شده ندارند – بنابراین سود احتمالاً بیش از حد است. بهای تمام‌شده را به‌صورت خرید ثبت کنید.</string>
+    <string name="tax_summary_fr_address_no_cost">آدرس‌های زیر نظر در ارزش کل حساب می‌شوند اما بهای تمام‌شده ندارند – بنابراین سود احتمالاً بیش از حد است. بهای تمام‌شده را به‌صورت خرید ثبت کن.</string>
 
     <!-- Kopfzeile jeder Steuer-CSV: eine Tageskurs-Regel für geschätzte Marktwerte (TaxDayClose) -->
     <string name="tax_export_day_close_rule">ارزش‌های بازار بدون قیمت ثبت‌شده (کارمزدها، هدیه/پرداخت، مبادله، پاداش‌ها، کارمزد شبکه، ارزش سبد) با قیمت بسته‌شدن روزانه (UTC) روز تراکنش</string>

@@ -8,6 +8,7 @@ import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.data.StarterCoinsRepository
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.starter.StarterPairs

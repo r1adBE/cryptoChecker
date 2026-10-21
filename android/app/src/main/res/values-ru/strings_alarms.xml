@@ -7,7 +7,7 @@
     <string name="alarms_empty">Для этой пары пока нет оповещений.</string>
     <string name="alarms_empty_example">Например: сообщи, когда BTC поднимется выше %1$s.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">Уведомления выключены – оповещения до вас не дойдут.</string>
+    <string name="alarms_notifications_off">Уведомления выключены – оповещения до тебя не дойдут.</string>
     <string name="alarms_notifications_turn_on">Включить</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">Активно: %1$d</item>
@@ -15,7 +15,7 @@
         <item quantity="many">Активно: %1$d</item>
         <item quantity="other">Активно: %1$d</item>
     </plurals>
-    <string name="alarms_overview_empty">Оповещений пока нет. Откройте пару и добавьте его в разделе «Оповещения».</string>
+    <string name="alarms_overview_empty">Оповещений пока нет. Открой пару и добавь его в разделе «Оповещения».</string>
     <string name="alarms_overview_title">Все оповещения</string>
     <string name="alarms_title">Оповещения</string>
 
@@ -46,9 +46,9 @@
     <string name="alarm_repeat_each">Каждый раз</string>
     <string name="alarm_repeat_once">Один раз</string>
     <string name="alarm_repeating">Каждый раз</string>
-    <string name="alarm_threshold_error_empty">Введите значение, чтобы сохранить оповещение.</string>
+    <string name="alarm_threshold_error_empty">Введи значение, чтобы сохранить оповещение.</string>
     <string name="alarm_threshold_error_funding">Ставка финансирования должна быть числом от −10 до +10 процентов.</string>
-    <string name="alarm_threshold_error_invalid">Введите корректное число больше 0.</string>
+    <string name="alarm_threshold_error_invalid">Введи корректное число больше 0.</string>
     <string name="alarm_threshold_error_oi">Изменение показателя «Открытый интерес»: не более 1000 процентов.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">за %1$d ч</item>
@@ -90,7 +90,7 @@
     <string name="alarm_sentence_down_percent">Сообщить, когда %1$s опустится на %2$s ниже цены при сохранении (или при последнем оповещении).</string>
     <string name="alarm_sentence_funding_above">Сообщить, когда фандинг %1$s поднимется выше %2$s.</string>
     <string name="alarm_sentence_funding_below">Сообщить, когда фандинг %1$s опустится ниже %2$s.</string>
-    <string name="alarm_sentence_incomplete">Введите значение, чтобы увидеть оповещение в виде фразы.</string>
+    <string name="alarm_sentence_incomplete">Введи значение, чтобы увидеть оповещение в виде фразы.</string>
     <plurals name="alarm_sentence_move_percent">
         <item quantity="one">Сообщить, когда %1$s изменится на %2$s за %3$d час.</item>
         <item quantity="few">Сообщить, когда %1$s изменится на %2$s за %3$d часа.</item>
@@ -169,7 +169,7 @@
     <string name="alarm_test">Проверить оповещение</string>
     <string name="alarm_test_action">Проверить</string>
     <string name="alarm_test_denied">Уведомления для Crypto Checker отключены.</string>
-    <string name="alarm_test_hint">Отправляет пример оповещения с вашими настройками звука, вибрации и озвучивания.</string>
+    <string name="alarm_test_hint">Отправляет пример оповещения с твоими настройками звука, вибрации и озвучивания.</string>
     <string name="alarm_test_open_settings">Открыть настройки</string>
     <string name="alarm_test_quiet">Сейчас действуют тихие часы: настоящие оповещения дождались бы их окончания и затем сработали бы со звуком.</string>
     <string name="alarm_test_text">Так выглядит и звучит оповещение.</string>
@@ -182,13 +182,14 @@
     <string name="alarm_unchecked_no_rate">Не удалось проверить (нет курса валют)</string>
 
     <!-- Statuszeile der Alarm-Karte: Mitteilungen für die App bzw. den Alarm-Kanal aus -->
-    <string name="alarm_status_notifications_off">Уведомления выключены – это оповещение до вас не дойдёт</string>
+    <string name="alarm_status_notifications_off">Уведомления выключены – это оповещение до тебя не дойдёт</string>
     <!-- Statuszeile der Alarm-Karte: DEX-Pool unter der Alarm-Liquidität (10’000 USD) oder unbekannt -->
     <string name="alarm_status_low_liquidity">Нет оповещения – низкая ликвидность</string>
     <!-- Statuszeile der Alarm-Karte: Kurs laut Börse älter als 2 h oder Abruf veraltet -->
     <string name="alarm_status_waiting_price">Ожидание актуального курса</string>
-    <string name="alarm_enter_amount">Введите значение</string>
+    <string name="alarm_enter_amount">Введи значение</string>
     <string name="alarm_editor_more">Ещё</string>
     <string name="alarm_editor_more_summary">Быстрые оповещения, другие условия, звук и озвучивание</string>
     <string name="alarm_reliability_storage_no_key">Оповещения в фоне приостановлены – список не сохранён</string>
+    <string name="alarms_limit_reached">У пары может быть не больше %1$s оповещений.</string>
 </resources>

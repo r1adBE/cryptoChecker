@@ -7,21 +7,21 @@
     <string name="portfolio_address_hint">Публічна адреса (BTC, ETH &amp; EVM, SOL, TRX, XRP, LTC, TON, ADA) або xpub</string>
     <string name="portfolio_address_label">Мітка (необов’язково)</string>
     <string name="portfolio_address_not_since_buy">З адреси · не входить у «З купівлі»: %1$s</string>
-    <string name="portfolio_address_overlap">Також у ваших власних транзакціях: %1$s – враховується і те й інше. Ті самі монети? Виберіть «Лише показувати».</string>
-    <string name="portfolio_address_overlap_ask">Ви вже враховуєте %1$s у власних транзакціях. Додати баланс цієї адреси до портфеля чи лише показувати?</string>
-    <string name="portfolio_address_overlap_auto">«%1$s» тепер лише показується й не враховується – %2$s є і у ваших транзакціях.</string>
-    <string name="portfolio_address_overlap_restored">«%1$s» знову враховується – кількості не збігаються з вашими транзакціями. Виберіть «Лише показувати», якщо це ті самі монети.</string>
-    <string name="portfolio_address_overlap_title">Ті самі монети, що у ваших транзакціях?</string>
-    <string name="portfolio_address_overlap_tx">Та сама кількість, що й ваше поповнення/переказ (%1$s) – імовірно враховано двічі.</string>
+    <string name="portfolio_address_overlap">Також у твоїх власних транзакціях: %1$s – враховується і те й інше. Ті самі монети? Вибери «Лише показувати».</string>
+    <string name="portfolio_address_overlap_ask">Ти вже враховуєш %1$s у власних транзакціях. Додати баланс цієї адреси до портфеля чи лише показувати?</string>
+    <string name="portfolio_address_overlap_auto">«%1$s» тепер лише показується й не враховується – %2$s є і у твоїх транзакціях.</string>
+    <string name="portfolio_address_overlap_restored">«%1$s» знову враховується – кількості не збігаються з твоїми транзакціями. Вибери «Лише показувати», якщо це ті самі монети.</string>
+    <string name="portfolio_address_overlap_title">Ті самі монети, що у твоїх транзакціях?</string>
+    <string name="portfolio_address_overlap_tx">Та сама кількість, що й твоє поповнення/переказ (%1$s) – імовірно враховано двічі.</string>
     <string name="portfolio_address_period_observed">Відстежувані адреси враховуються з першого зафіксованого балансу; подальші зміни – це надходження/списання, а не прибуток.</string>
-    <string name="portfolio_address_privacy">До %1$s надсилається лише публічна адреса – ніколи ключі чи seed-фрази. Провайдер бачить її разом із вашою IP-адресою. Перевірка не частіше ніж раз на 10 хвилин.</string>
+    <string name="portfolio_address_privacy">До %1$s надсилається лише публічна адреса – ніколи ключі чи seed-фрази. Провайдер бачить її разом із твоєю IP-адресою. Перевірка не частіше ніж раз на 10 хвилин.</string>
     <string name="portfolio_address_remove">Видалити адресу</string>
     <string name="portfolio_address_show_only">Лише показувати, не додавати до портфеля</string>
     <string name="portfolio_address_show_only_short">Лише показувати</string>
     <string name="portfolio_address_tokens">Враховувати токени</string>
     <string name="portfolio_address_unknown_tokens">+%1$d невідомих токенів (не враховано)</string>
-    <string name="portfolio_address_xpub_privacy">Xpub розкриває всі адреси цього гаманця. Вони обчислюються на вашому пристрої; до %1$s надсилаються лише окремі адреси – під час першого пошуку щонайменше 40 запитів, потім менше. Приватні ключі (xprv) ніколи не приймаються.</string>
-    <string name="portfolio_address_xpub_gap">Пошук зупиняється після %1$d невикористаних адрес поспіль (стандарт BIP44, який використовує більшість гаманців). Використана адреса за цим проміжком не враховується – додайте її окремо.</string>
+    <string name="portfolio_address_xpub_privacy">Xpub розкриває всі адреси цього гаманця. Вони обчислюються на твоєму пристрої; до %1$s надсилаються лише окремі адреси – під час першого пошуку щонайменше 40 запитів, потім менше. Приватні ключі (xprv) ніколи не приймаються.</string>
+    <string name="portfolio_address_xpub_gap">Пошук зупиняється після %1$d невикористаних адрес поспіль (стандарт BIP44, який використовує більшість гаманців). Використана адреса за цим проміжком не враховується – додай її окремо.</string>
     <string name="portfolio_address_xpub_used">Використані адреси: %1$d</string>
     <string name="portfolio_addresses_title">Адреси</string>
 
@@ -31,10 +31,10 @@
     <string name="address_checksum">Неправильна контрольна сума – помилка в написанні?</string>
     <string name="address_doge_unsupported">Адреси Dogecoin не можна відстежувати: немає безкоштовного публічного сервісу без API-ключа, умови якого це дозволяють.</string>
     <string name="address_duplicate">Цю адресу вже додано</string>
-    <string name="address_ens">Імена ENS не підтримуються – введіть адресу 0x</string>
+    <string name="address_ens">Імена ENS не підтримуються – введи адресу 0x</string>
     <string name="address_invalid">Недійсна адреса підтримуваної мережі</string>
     <string name="address_limit">Не більше 20 адрес</string>
-    <string name="address_secret">Схоже на приватний ключ або seed-фразу – ніколи ніде їх не вводьте. Лише публічні адреси.</string>
+    <string name="address_secret">Схоже на приватний ключ або seed-фразу – ніколи ніде їх не вводь. Лише публічні адреси.</string>
     <string name="address_testnet">Адреси Testnet не підтримуються</string>
     <string name="address_unsupported">Цей тип адреси не підтримується</string>
     <string name="address_wrong_chain">Адреса належить до іншої мережі</string>
@@ -42,5 +42,5 @@
 
     <!-- Adresse beobachten: Taproot-Konto (BIP86) als Deskriptor tr(…) -->
     <string name="portfolio_address_taproot_account">Акаунт Taproot (BIP86): з цього ключа виводяться адреси bc1p… для отримання й решти.</string>
-    <string name="portfolio_address_taproot_hint">Гаманець Taproot? Натомість вставте дескриптор tr(…) зі свого гаманця – за звичайним xpub шукаються лише адреси Legacy і SegWit.</string>
+    <string name="portfolio_address_taproot_hint">Гаманець Taproot? Натомість встав дескриптор tr(…) зі свого гаманця – за звичайним xpub шукаються лише адреси Legacy і SegWit.</string>
 </resources>

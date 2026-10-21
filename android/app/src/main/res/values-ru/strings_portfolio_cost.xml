@@ -2,7 +2,7 @@
 <resources>
     <!-- Karte im Portfolio-Tab: Anzahl Zugänge ohne Einstand (Kauf/Einzahlung ohne Preis); %1$d = Anzahl -->
     <string name="cost_gaps_card">Записи без стоимости приобретения: %1$d</string>
-    <string name="cost_gaps_card_text">Добавьте стоимость, чтобы прибыль и налоги были полными.</string>
+    <string name="cost_gaps_card_text">Добавь стоимость, чтобы прибыль и налоги были полными.</string>
     <string name="cost_gaps_sheet_title">Записи без стоимости приобретения</string>
     <string name="cost_gaps_sheet_intro">У этих поступлений нет стоимости приобретения. Предложение — цена закрытия дня; её можно изменить в записи.</string>
     <string name="cost_gaps_empty">У всех записей есть стоимость приобретения.</string>
@@ -20,7 +20,7 @@
     <string name="cost_gap_apply">Применить</string>
     <string name="address_lots_action">Стоимость для баланса адреса</string>
     <string name="address_lots_title">Стоимость для баланса адреса</string>
-    <string name="address_lots_intro">Укажите дату покупки, количество и стоимость для баланса этого адреса. Партии считаются покупками на этом адресе; непокрытая часть остаётся без стоимости.</string>
+    <string name="address_lots_intro">Укажи дату покупки, количество и стоимость для баланса этого адреса. Партии считаются покупками на этом адресе; непокрытая часть остаётся без стоимости.</string>
     <string name="address_lots_add">Добавить партию</string>
     <string name="address_lots_new">Новая партия</string>
     <string name="address_lots_edit">Партия</string>
@@ -36,5 +36,5 @@
     <!-- %1$s = Menge der Posten über dem Guthaben -->
     <string name="address_lots_capped">Партии превышают баланс на %1$s — самые старые расходуются первыми.</string>
     <string name="address_lots_not_loaded">Баланс ещё не загружен — партии учтутся, как только он появится.</string>
-    <string name="address_lots_invalid">Укажите количество и стоимость</string>
+    <string name="address_lots_invalid">Укажи количество и стоимость</string>
 </resources>

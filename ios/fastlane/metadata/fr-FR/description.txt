@@ -1,41 +1,41 @@
-Une alerte quand le Bitcoin atteint votre cours – sur la plateforme que vous utilisez vraiment. Gratuit, sans compte.
+Une alerte quand le Bitcoin atteint ton cours – sur la plateforme que tu utilises vraiment. Gratuit, sans compte.
 
 CE QUI LA DISTINGUE
-• Votre plateforme, pas une moyenne : chaque ligne affiche le dernier cours de la paire sur la plateforme choisie – Binance, Coinbase, Kraken, OKX, Bybit…
+• Ta plateforme, pas une moyenne : chaque ligne affiche le dernier cours de la paire sur la plateforme choisie – Binance, Coinbase, Kraken, OKX, Bybit…
 • Une alerte qui prévient une fois : « Préviens-moi quand BTC dépasse 100 000 USDT. » Elle sonne au franchissement du seuil, pas à chaque mise à jour – « Une fois » la désactive, « À chaque fois » la réarme au retour du cours.
 • « Qu’est-ce qui bouge avec ? » : une liste de facteurs pour une crypto – marché global, volume, volatilité, funding et open interest, écart au plus haut/bas, Fear & Greed. Juste ce qui bouge en même temps – ni cause, ni actualité, ni conseil en investissement.
-• Sans compte, sans publicité, sans pistage. Le développeur ne reçoit aucune de vos données.
+• Sans compte, sans publicité, sans pistage. Le développeur ne reçoit aucune de tes données.
 
 TRANSPARENT SUR LES DONNÉES
 • « Économe » par défaut : cours actualisés à l’ouverture et à intervalles en arrière-plan. « En direct quand ouverte » ajoute le direct pour Binance, Bybit, OKX, Coinbase et Kraken.
-• Variation en % et graphiques viennent d’abord de la plateforme de la paire ; sinon, l’app utilise Binance ou Coinbase et vous l’indique.
+• Variation en % et graphiques viennent d’abord de la plateforme de la paire ; sinon, l’app utilise Binance ou Coinbase et te l’indique.
 • Fear & Greed, dominance et valeurs on-chain d’alternative.me, CoinGecko et Coin Metrics.
-• App fermée, iOS vérifie rarement – souvent seulement après des heures, et plus du tout si l’app est fermée d’un balayage. Le plus fiable : app ouverte. De brefs pics entre deux peuvent passer inaperçus ; l’app vous le dit.
-• Les montants ne quittent l’appareil que par export (CSV, sauvegarde) ou chiffrés dans la sauvegarde iCloud/appareil. Pour les cours, seuls les symboles de la paire vont à sa plateforme ; plus les taux de change (Frankfurter), données de marché et logos (CoinGecko, Binance), miroirs de données (GitHub). Si vous suivez des adresses ou une xpub, des nœuds blockchain publics voient les adresses (pour une xpub, les dérivées) et votre IP.
+• App fermée, iOS vérifie rarement – souvent seulement après des heures, et plus du tout si l’app est fermée d’un balayage. Le plus fiable : app ouverte. De brefs pics entre deux peuvent passer inaperçus ; l’app te le dit.
+• Les montants ne quittent l’appareil que par export (CSV, sauvegarde) ou chiffrés dans la sauvegarde iCloud/appareil. Pour les cours, seuls les symboles de la paire vont à sa plateforme ; plus les taux de change (Frankfurter), données de marché et logos (CoinGecko, Binance), miroirs de données (GitHub). Si tu suis des adresses ou une xpub, des nœuds blockchain publics voient les adresses (pour une xpub, les dérivées) et ton IP.
 
 LISTE DE SUIVI
 • 54 marchés sur 44 plateformes : spot et futures, tokens DEX via DexScreener, en option actions, or et devises (TradFi)
 • Deuxième ligne « ≈ valeur » en 31 devises (EUR, CHF, USD …), au taux de change
-• Mini-graphique et variation en % sur 24 h ou depuis 00:00 (votre fuseau)
+• Mini-graphique et variation en % sur 24 h ou depuis 00:00 (ton fuseau)
 • Groupes, favoris, glisser-déposer et une note par crypto
 
 ALERTES
-• Cours au-dessus ou en dessous d’un seuil, hausse ou baisse d’un pourcentage – aussi dans votre devise, p. ex. 60 000 EUR sur une paire USDT
+• Cours au-dessus ou en dessous d’un seuil, hausse ou baisse d’un pourcentage – aussi dans ta devise, p. ex. 60 000 EUR sur une paire USDT
 • Mouvement de x % sur une période, pic de volume
 • Notification urgente, son d’alerte au choix, lecture vocale en option
 • Heures calmes, « Tester l’alerte », journal des alarmes
 
 MARCHÉ
-• À noter : mouvements de cours et de volume inhabituels dans votre liste, en option par notification
+• À noter : mouvements de cours et de volume inhabituels dans ta liste, en option par notification
 • Crypto Pulse, Fear & Greed, indicateurs Bitcoin, funding et open interest – en valeurs mesurées
 • Frais de réseau pour Ethereum, Bitcoin et d’autres, avec alerte gas
 
 ET AUSSI
 • Widgets pour l’écran d’accueil et de verrouillage, Activité en direct pour une crypto
-• Portefeuille en option (dans les réglages) : achats, ventes, swaps, transferts, récompenses, dépôts et retraits ; FIFO (par défaut) ou moyenne (Ø) ; adresses en lecture seule, sans seed, pour BTC (xpub inclus), ETH et chaînes EVM, SOL, TRX, XRP, LTC, ADA et TON ; import CSV de Relai, Swissquote, Bitpanda, Kraken, Binance et Coinbase ; bilan annuel en CSV ; verrou dédié. Sans flux de cours public, Bitpanda et Swissquote n’ont pas de cours propre : importez-les en CSV.
+• Portefeuille en option (dans les réglages) : achats, ventes, swaps, transferts, récompenses, dépôts et retraits ; FIFO (par défaut) ou moyenne (Ø) ; adresses en lecture seule, sans seed, pour BTC (xpub inclus), ETH et chaînes EVM, SOL, TRX, XRP, LTC, ADA et TON ; import CSV de Relai, Swissquote, Bitpanda, Kraken, Binance et Coinbase ; bilan annuel en CSV ; verrou dédié. Sans flux de cours public, Bitpanda et Swissquote n’ont pas de cours propre : importe-les en CSV.
 • Lisible pour tous : vert/rouge ou bleu/orange, signe et flèche, pas que la couleur, Dynamic Type ; VoiceOver lit chaque ligne comme une phrase
 • Sauvegarde et restauration via l’app Fichiers
 • Modes clair et sombre, cinq couleurs d’accent, 31 langues
 • Open source (MIT), code public sur GitHub
 
-Remarque : Crypto Checker affiche des cours et un portefeuille saisi par vous. Ni plateforme d’échange ni wallet, l’app ne trade pas et ne donne aucun conseil en investissement.
+Remarque : Crypto Checker affiche des cours et un portefeuille que tu saisis. Ni plateforme d’échange ni wallet, l’app ne trade pas et ne donne aucun conseil en investissement.

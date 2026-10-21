@@ -99,7 +99,7 @@
     <string name="portfolio_discard_keep">Fortsätt redigera</string>
     <string name="portfolio_discard_title">Ignorera ändringarna?</string>
     <string name="portfolio_edit_tx">Redigera transaktion</string>
-    <string name="portfolio_invalid">Ogiltig mängd</string>
+    <string name="portfolio_invalid">Ange ett giltigt tal större än 0.</string>
     <string name="portfolio_oversold">Försäljningar överstiger innehavet – kontrollera transaktionerna.</string>
     <string name="portfolio_sell">Försäljning</string>
     <string name="portfolio_sell_exceeds">Mer än ditt innehav (%1$s)</string>
@@ -139,7 +139,7 @@
     <string name="portfolio_tx_price">Pris per coin</string>
     <string name="portfolio_tx_price_hint">I USDT. Lämna tomt om okänt.</string>
     <string name="portfolio_tx_price_historic">Kontrollerad stängningskurs för %1$s – justera vid behov</string>
-    <string name="portfolio_tx_price_invalid">Ogiltigt pris</string>
+    <string name="portfolio_tx_price_invalid">Ange ett giltigt tal (0 eller mer) eller lämna fältet tomt.</string>
     <string name="portfolio_tx_price_past_hint">Ange kursen på affärsdagen – lämna tomt om okänd</string>
     <string name="portfolio_tx_price_receipt_hint">I USDT. Tomt = innehav utan anskaffningsvärde.</string>
     <string name="portfolio_tx_price_zero">Pris 0 går inte för importerade transaktioner – lämna tomt för marknadskurs</string>

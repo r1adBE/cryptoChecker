@@ -56,6 +56,14 @@ object CsvImportParser {
     /** Kopfzeile wird in so vielen ersten Datensätzen gesucht. */
     private const val HEADER_SEARCH = 10
 
+    /**
+     * Höchstens so viele Zellen je Zeile und Datensätze je Datei ([tokenizeOrNull]); mehr = Datei zu gross, gleich wie
+     * eine Datei über 16 MB «nicht lesbar» (wie iOS). Echte Exporte haben unter 40 Spalten; ohne Grenze baute eine Zeile
+     * aus lauter Trennern Millionen leere Zellen. Seit Build 99.
+     */
+    const val MAX_CELLS_PER_ROW = 200
+    const val MAX_ROWS = 200_000
+
     internal val SATS_PER_BTC = BigDecimal(100_000_000)
 
     /** Spaltenrollen. */
@@ -129,12 +137,13 @@ object CsvImportParser {
         for (d in delimiters) {
             // Für die Erkennung nur die ersten Zeilen zerlegen — eine grosse Datei mit falschem Trenner kostete sonst je
             // Kandidat einen ganzen Durchlauf; zerlegt wird sie erst mit dem passenden Trenner ganz
-            val head = tokenize(clean, d, maxRecords = HEADER_SEARCH)
+            // Über den Grenzen (Zellen je Zeile, Datensätze): wie eine zu grosse Datei nicht lesbar
+            val head = tokenizeOrNull(clean, d, maxRecords = HEADER_SEARCH) ?: return tooLarge()
             for (h in head.indices) {
                 val header = Header(head[h].cells)
                 val format = detect(header)
                 if (format != CsvImportFormat.UNKNOWN) {
-                    val records = tokenize(clean, d)
+                    val records = tokenizeOrNull(clean, d) ?: return tooLarge()
                     val override = zone ?: "UTC".takeIf { header.utcDate }
                     return build(
                         format, header, records.subList(h + 1, records.size), zoneFor(format, deviceZone, override), deviceZone,
@@ -145,6 +154,9 @@ object CsvImportParser {
         }
         return CsvImportResult(CsvImportFormat.UNKNOWN, emptyList(), emptyList())
     }
+
+    /** Datei über [MAX_CELLS_PER_ROW]/[MAX_ROWS]: ohne Zeilen, die Vorschau meldet sie als nicht lesbar. */
+    private fun tooLarge() = CsvImportResult(CsvImportFormat.UNKNOWN, emptyList(), emptyList(), tooLarge = true)
 
     /**
      * Bytes der Datei → Text: gültiges UTF-8, sonst Windows-1252 (Excel unter Windows speichert CSV so: «Gebühr» als

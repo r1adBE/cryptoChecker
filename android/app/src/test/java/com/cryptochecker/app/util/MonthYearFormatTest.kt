@@ -38,8 +38,32 @@ class MonthYearFormatTest {
         assertEquals("Apr 2028", date.format(f))
     }
 
+    /** Die Musterquelle bekommt die gewünschte Locale, und ihr Muster bestimmt Reihenfolge und Monatsnamen. */
+    @Test
+    fun musterQuelleBekommtDieLocaleUndBestimmtDieAusgabe() {
+        val asked = mutableListOf<Locale>()
+        val fr = Locale.FRENCH
+        val f = MonthYearFormat.formatter(fr) { asked += it; "y MMMM" }
+        assertEquals(listOf(fr), asked)
+        assertEquals("2028 avril", date.format(f))
+    }
+
+    /** Gleiche Vorlage wie iOS (`setLocalizedDateFormatFromTemplate`): sonst wichen Monat und Jahr je Plattform ab. */
     @Test
     fun vorlageWieIos() {
-        assertEquals("MMMyyyy", MonthYearFormat.SKELETON)
+        val ios = findUp("ios/App/Features/Cycle/MarketHalvingCard.swift")
+        org.junit.Assume.assumeTrue("iOS-Quelle nicht im Baum", ios != null)
+        val text = ios!!.readText(Charsets.UTF_8)
+        assertEquals(true, text.contains("setLocalizedDateFormatFromTemplate(\"${MonthYearFormat.SKELETON}\")"))
+    }
+
+    private fun findUp(rel: String): java.io.File? {
+        var dir: java.io.File? = java.io.File(System.getProperty("user.dir") ?: ".").absoluteFile
+        while (dir != null) {
+            val f = java.io.File(dir, rel)
+            if (f.isFile) return f
+            dir = dir.parentFile
+        }
+        return null
     }
 }

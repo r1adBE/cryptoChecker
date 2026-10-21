@@ -44,6 +44,8 @@
     <string name="portfolio_csv_import_transfers_hint">Eine Auszahlung und die passende Einzahlung desselben Coins werden eine Umbuchung: Kaufpreis und Haltedauer bleiben, die Differenz gilt als Netzwerkgebühr.</string>
     <string name="portfolio_csv_import_transfers_title">Umbuchungen zwischen deinen Konten</string>
     <string name="portfolio_csv_import_unreadable">Keine unterstützten Transaktionen gefunden. Unterstützt: CSV-Exporte von Relai, Swissquote, Kraken, Binance, Coinbase und Bitpanda.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">Die Datei ist zu gross für den Import (höchstens 16 MB und %1$s Zeilen). Exportiere kürzere Zeiträume und importiere sie nacheinander.</string>
     <string name="portfolio_csv_import_failed">Der Import hat nicht geklappt – es wurde nichts gespeichert. Versuch es nochmals.</string>
     <string name="portfolio_csv_import_locked">Import nicht möglich: Gespeicherte Daten gerade nicht lesbar. Starte die App neu.</string>
     <string name="portfolio_csv_import_withdrawals_title">Auszahlungen – wohin gingen die Coins?</string>

@@ -10,9 +10,9 @@
     <string name="watchlist_last_run">آخرین اجرا %1$s</string>
     <string name="watchlist_live_a11y">قیمت‌های زنده فعال است</string>
     <string name="watchlist_offline_since">اتصال برقرار نیست · آخرین به‌روزرسانی %1$s</string>
-    <string name="watchlist_pull_to_refresh">برای به‌روزرسانی به پایین بکشید</string>
+    <string name="watchlist_pull_to_refresh">برای به‌روزرسانی به پایین بکش</string>
     <string name="watchlist_refresh_report">آخرین تازه‌سازی</string>
-    <string name="watchlist_refresh_report_empty">هنوز جزئیاتی نیست: هنوز هیچ تازه‌سازی کاملی انجام نشده است. روی تازه‌سازی بزنید و صبر کنید تا نشانگر چرخان متوقف شود.</string>
+    <string name="watchlist_refresh_report_empty">هنوز جزئیاتی نیست: هنوز هیچ تازه‌سازی کاملی انجام نشده است. روی تازه‌سازی بزن و صبر کن تا نشانگر چرخان متوقف شود.</string>
     <plurals name="watchlist_stale_count">
         <item quantity="one">%1$d از %2$d قدیمی</item>
         <item quantity="other">%1$d از %2$d قدیمی</item>
@@ -60,9 +60,9 @@
     <string name="watchlist_search_open">جستجو</string>
     <string name="watchlist_sort_ascending">صعودی</string>
     <string name="watchlist_sort_descending">نزولی</string>
-    <string name="watchlist_sort_hint">جفت را نگه دارید و بکشید یا از دستگیره استفاده کنید. علاقه‌مندی‌ها بالا می‌مانند.</string>
+    <string name="watchlist_sort_hint">جفت را نگه دار و بکش یا از دستگیره استفاده کن. علاقه‌مندی‌ها بالا می‌مانند.</string>
     <string name="watchlist_sort_name">نام</string>
-    <string name="watchlist_sort_own">ترتیب خودتان</string>
+    <string name="watchlist_sort_own">ترتیب خودت</string>
     <string name="watchlist_sort_price">قیمت</string>
 
     <!-- Merkliste: Mehrfachauswahl, Ansichten, Entfernen -->
@@ -103,10 +103,10 @@
         <item quantity="one">هشدارها (%1$d)</item>
         <item quantity="other">هشدارها (%1$d)</item>
     </plurals>
-    <string name="watchlist_favorites_empty_hint">هنوز علاقه‌مندی‌ای نیست. یک جفت را به راست بکشید یا آن را باز کنید و «علاقه‌مندی» را بزنید.</string>
-    <string name="watchlist_group_empty_hint">برای انتخاب جفت‌های یک گروه، آن را لمس طولانی کنید.</string>
+    <string name="watchlist_favorites_empty_hint">هنوز علاقه‌مندی‌ای نیست. یک جفت را به راست بکش یا آن را باز کن و «علاقه‌مندی» را بزن.</string>
+    <string name="watchlist_group_empty_hint">برای انتخاب جفت‌های یک گروه، آن را لمس طولانی کن.</string>
     <!-- Hinweis in der leeren Chip-Zeile (noch keine Gruppen, Favoriten o. Ä.) -->
-    <string name="watchlist_groups_empty_hint">گروه‌های شما اینجا نمایش داده می‌شوند</string>
+    <string name="watchlist_groups_empty_hint">گروه‌هایت اینجا نمایش داده می‌شوند</string>
     <string name="watchlist_notification">اعلان قیمت</string>
     <string name="watchlist_tts">خواندن قیمت</string>
     <string name="watchlist_tts_speech_on">خواندن صوتی روشن است. می‌توانی آن را اینجا تغییر دهی: تنظیمات › پیشرفته › خروجی صوتی.</string>
@@ -123,15 +123,15 @@
     <string name="watch_disabled">غیرفعال</string>
     <string name="watch_disabled_banner">%1$s غیرفعال شد</string>
     <!-- Einzeiliger Hinweis, wenn ein anderes Paar gewählt ist und es Alarme gibt -->
-    <string name="watch_edit_alarms_warning">هشدارها باقی می‌مانند – آستانه‌ها را بررسی کنید</string>
+    <string name="watch_edit_alarms_warning">هشدارها باقی می‌مانند – آستانه‌ها را بررسی کن</string>
     <!-- Titel des Formulars und Screenreader-Name des Stifts neben dem Paar -->
     <string name="watch_edit_title">ویرایش جفت</string>
     <string name="watch_enable">فعال کردن</string>
     <string name="watch_enable_hint">قیمت‌ها و اعلان‌ها دوباره فعال</string>
     <string name="watch_enabled_banner">%1$s فعال شد</string>
     <string name="watch_error_offline">اتصال برقرار نیست</string>
-    <string name="watch_gesture_hint_short">ضربه: هشدار و «چه چیزی همراه آن حرکت می‌کند؟» · برای انتخاب نگه دارید · به چپ بکشید برای حذف · به راست برای محبوب</string>
-    <string name="watch_hint_tap_why">برای هشدار و «چه چیزی همراه آن حرکت می‌کند؟» روی یک کوین ضربه بزنید</string>
+    <string name="watch_gesture_hint_short">ضربه: هشدار و «چه چیزی همراه آن حرکت می‌کند؟» · برای انتخاب نگه دار · به چپ بکش برای حذف · به راست برای محبوب</string>
+    <string name="watch_hint_tap_why">برای هشدار و «چه چیزی همراه آن حرکت می‌کند؟» روی یک کوین ضربه بزن</string>
     <string name="watch_not_traded">دیگر در این صرافی معامله نمی‌شود</string>
     <!-- Aktionsblatt als Vorschau (Paar nicht in der Merkliste), neben dem Börsennamen -->
     <string name="watch_preview_not_watched">در واچ‌لیست نیست</string>
@@ -141,16 +141,16 @@
     <string name="watch_row_source_chart">نمودار: %1$s</string>
 
     <!-- Meldung nach dem Hinzufügen (ein Paar / mehrere Paare) -->
-    <string name="pair_added_watching">%1$s اکنون در واچ‌لیست شماست</string>
+    <string name="pair_added_watching">%1$s اکنون در واچ‌لیست توست</string>
     <!-- Ein Paar: pair_added_watching -->
-    <string name="pairs_added_watching">%1$s اکنون در واچ‌لیست شماست</string>
+    <string name="pairs_added_watching">%1$s اکنون در واچ‌لیست توست</string>
 
     <!-- Favoriten -->
     <string name="favorite_add">افزودن به علاقه‌مندی‌ها</string>
     <string name="favorite_added">%1$s به علاقه‌مندی‌ها اضافه شد</string>
     <string name="favorite_remove">حذف از علاقه‌مندی‌ها</string>
     <string name="favorite_removed">%1$s از علاقه‌مندی‌ها حذف شد</string>
-    <string name="hint_favorites_list">نکته: یک ردیف را به راست بکشید تا محبوب شود – محبوب‌ها بالا می‌مانند.</string>
+    <string name="hint_favorites_list">نکته: یک ردیف را به راست بکش تا محبوب شود – محبوب‌ها بالا می‌مانند.</string>
 
     <!-- Gruppen und Chips der Merkliste -->
     <string name="group_add">گروه جدید</string>
@@ -158,7 +158,7 @@
     <!-- Alpha-Tokens: Chip «α», Art vor der Glocke, «inkl. Alpha-Tokens» -->
     <string name="group_alpha">توکن‌های Alpha</string>
     <string name="group_delete">حذف گروه</string>
-    <string name="group_delete_confirm">جفت‌ها در واچ‌لیست شما باقی می‌مانند.</string>
+    <string name="group_delete_confirm">جفت‌ها در واچ‌لیستت باقی می‌مانند.</string>
     <string name="group_done">تمام</string>
     <string name="group_edit_title">ویرایش گروه</string>
     <!-- Chip «FAV» (Beschriftung «FAV» in allen Sprachen gleich; group_favorites wird vorgelesen) -->
@@ -184,7 +184,7 @@
     <string name="note_title">یادداشت</string>
 
     <!-- Reihenfolge ändern (Sortiermodus, Screenreader-Aktionen) -->
-    <string name="sort_drag_handle">برای جابه‌جایی بکشید</string>
+    <string name="sort_drag_handle">برای جابه‌جایی بکش</string>
     <string name="sort_move_bottom">به انتهای فهرست</string>
     <string name="sort_move_down">پایین</string>
     <string name="sort_move_top">به بالای فهرست</string>
@@ -215,4 +215,5 @@
 
     <string name="watchlist_sort_by_coin">مرتب‌سازی بر اساس کوین</string>
     <string name="watchlist_sort_by_exchange">مرتب‌سازی بر اساس صرافی</string>
+    <string name="watchlist_limit_reached">واچ‌لیستت حداکثر می‌تواند %1$s جفت داشته باشد.</string>
 </resources>

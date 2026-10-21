@@ -51,9 +51,8 @@ actor LivePriceStream {
     private static let heartbeatCheckNanos: UInt64 = 5_000_000_000
 
     private let session: URLSession = {
-        let config = URLSessionConfiguration.default
         // Verbindungsaufbau; danach halten Pings die Verbindung offen
-        config.timeoutIntervalForRequest = 120
+        let config = PrivateSessionConfig.make(timeout: 120)
         config.waitsForConnectivity = false
         return URLSession(configuration: config)
     }()

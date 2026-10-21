@@ -45,27 +45,29 @@
         <item quantity="other">%d řádků přeskočeno</item>
     </plurals>
     <string name="portfolio_csv_import_stable_swaps">Nákupy a prodeje za stablecoiny (USDT, USDC …) se účtují jako směna – stablecoin se objeví v tvé držbě.</string>
-    <string name="portfolio_csv_import_transfer_ambiguous">Je možných více shod – vyberte správnou nebo žádnou.</string>
+    <string name="portfolio_csv_import_transfer_ambiguous">Je možných více shod – vyber správnou nebo žádnou.</string>
     <string name="portfolio_csv_import_transfer_fee">Síťový poplatek: %1$s</string>
     <string name="portfolio_csv_import_transfer_link">Zaúčtovat jako jeden převod</string>
     <string name="portfolio_csv_import_transfer_stored">Protějšek z dřívějšího importu</string>
     <string name="portfolio_csv_import_transfers_hint">Výběr a odpovídající vklad stejného coinu se spojí do jednoho převodu: nákupní cena a doba držení zůstávají, rozdíl se počítá jako síťový poplatek.</string>
-    <string name="portfolio_csv_import_transfers_title">Převody mezi vašimi účty</string>
+    <string name="portfolio_csv_import_transfers_title">Převody mezi tvými účty</string>
     <string name="portfolio_csv_import_unreadable">Nenalezeny žádné podporované transakce. Podporováno: exporty CSV z Relai, Swissquote, Kraken, Binance, Coinbase a Bitpanda.</string>
-    <string name="portfolio_csv_import_failed">Import se nezdařil – nic nebylo uloženo. Zkuste to prosím znovu.</string>
-    <string name="portfolio_csv_import_locked">Import není možný: uložená data teď nelze přečíst. Restartujte aplikaci.</string>
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <string name="portfolio_csv_import_too_large">Soubor je pro import příliš velký (max. 16 MB a %1$s řádků). Exportuj kratší období a importuj je postupně.</string>
+    <string name="portfolio_csv_import_failed">Import se nezdařil – nic nebylo uloženo. Zkus to prosím znovu.</string>
+    <string name="portfolio_csv_import_locked">Import není možný: uložená data teď nelze přečíst. Restartuj aplikaci.</string>
     <string name="portfolio_csv_import_withdrawals_title">Výběry – kam šly mince?</string>
     <string name="portfolio_csv_import_zone">Časy bez časového pásma čteny jako: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Zařízení (%1$s)</string>
     <string name="portfolio_csv_skip_bad_date">nečitelné datum</string>
     <string name="portfolio_csv_skip_bad_number">nečitelné číslo</string>
     <string name="portfolio_csv_skip_fee_exceeds">poplatek ≥ přijaté množství</string>
-    <string name="portfolio_csv_skip_internal_move">přesun mezi vašimi vlastními účty – nic k zaúčtování</string>
+    <string name="portfolio_csv_skip_internal_move">přesun mezi tvými vlastními účty – nic k zaúčtování</string>
     <string name="portfolio_csv_skip_missing">chybí pole</string>
-    <string name="portfolio_csv_skip_ambiguous">více obchodů ve stejné sekundě, nelze je rozlišit – zadejte je ručně</string>
+    <string name="portfolio_csv_skip_ambiguous">více obchodů ve stejné sekundě, nelze je rozlišit – zadej je ručně</string>
     <string name="portfolio_csv_skip_not_crypto">není krypto</string>
-    <string name="portfolio_csv_skip_possible_duplicate">možná už importováno (téměř stejný obchod) – zkontrolujte ručně</string>
-    <string name="portfolio_csv_skip_two_fees">dva poplatky v různých jednotkách – zadejte směnu ručně</string>
+    <string name="portfolio_csv_skip_possible_duplicate">možná už importováno (téměř stejný obchod) – zkontroluj ručně</string>
+    <string name="portfolio_csv_skip_two_fees">dva poplatky v různých jednotkách – zadej směnu ručně</string>
     <string name="portfolio_csv_skip_unsupported">nepodporovaný typ</string>
 
     <!-- Portfolio: Importe ansehen und rückgängig machen -->
@@ -92,6 +94,6 @@
     <string name="portfolio_imports_empty">Žádné importy</string>
     <string name="portfolio_imports_title">Importy</string>
 
-    <string name="portfolio_csv_skip_duplicate_txid_different">stejné ID transakce s jinou částkou – zkontrolujte ručně</string>
-    <string name="portfolio_csv_skip_staking_unpaired">stakingový zápis bez protizápisu – zkontrolujte zůstatek</string>
+    <string name="portfolio_csv_skip_duplicate_txid_different">stejné ID transakce s jinou částkou – zkontroluj ručně</string>
+    <string name="portfolio_csv_skip_staking_unpaired">stakingový zápis bez protizápisu – zkontroluj zůstatek</string>
 </resources>

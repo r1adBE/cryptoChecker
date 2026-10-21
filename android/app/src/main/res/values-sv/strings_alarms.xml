@@ -179,4 +179,5 @@
     <string name="alarm_editor_more">Mer</string>
     <string name="alarm_editor_more_summary">Snabblarm, fler villkor, ljud och uppläsning</string>
     <string name="alarm_reliability_storage_no_key">Larm pausade i bakgrunden – bevakningslistan är inte sparad</string>
+    <string name="alarms_limit_reached">Ett par kan ha högst %1$s larm.</string>
 </resources>

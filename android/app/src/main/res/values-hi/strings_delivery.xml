@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
-    <string name="delivery_title">ताकि अलर्ट पहुँचें</string>
+    <string name="delivery_title">ताकि अलार्म पहुँचें</string>
     <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
     <string name="delivery_state_ok">ठीक है</string>
-    <string name="delivery_state_warn">ध्यान दें</string>
+    <string name="delivery_state_warn">ध्यान दो</string>
     <string name="delivery_state_info">सूचना</string>
     <string name="delivery_allowed">अनुमति है</string>
     <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
     <string name="delivery_notifications">नोटिफ़िकेशन</string>
-    <string name="delivery_notifications_off">बंद – अलर्ट नहीं पहुँचेंगे</string>
+    <string name="delivery_notifications_off">बंद – अलार्म नहीं पहुँचेंगे</string>
     <string name="delivery_notifications_not_asked">अभी अनुमति नहीं</string>
-    <string name="delivery_channel">अलर्ट चैनल</string>
+    <string name="delivery_channel">अलार्म चैनल</string>
     <string name="delivery_channel_high">उच्च महत्व – स्क्रीन के ऊपर दिखता है</string>
-    <string name="delivery_channel_low">कम महत्व – अलर्ट सूची में सिर्फ़ चुपचाप दिखते हैं</string>
-    <string name="delivery_channel_off">बंद – अलर्ट नहीं पहुँचेंगे</string>
+    <string name="delivery_channel_low">कम महत्व – अलार्म सूची में सिर्फ़ चुपचाप दिखते हैं</string>
+    <string name="delivery_channel_off">बंद – अलार्म नहीं पहुँचेंगे</string>
     <string name="delivery_exact_on">चालू – लगभग हर 15 मिनट</string>
     <string name="delivery_exact_off">बंद – Android अनियमित रूप से जाँचता है</string>
     <string name="delivery_battery">बैटरी ऑप्टिमाइज़ेशन</string>
     <string name="delivery_battery_unrestricted">प्रतिबंधित नहीं</string>
-    <string name="delivery_battery_optimized">ऑप्टिमाइज़्ड – Android जाँच में देरी कर सकता है। ऐप छूट नहीं माँगता; आप इसे ऐप की बैटरी सेटिंग में बदल सकते हैं।</string>
+    <string name="delivery_battery_optimized">ऑप्टिमाइज़्ड – Android जाँच में देरी कर सकता है। ऐप छूट नहीं माँगता; तुम इसे ऐप की बैटरी सेटिंग में बदल सकते हो।</string>
     <string name="delivery_background">बैकग्राउंड उपयोग</string>
     <string name="delivery_background_restricted">प्रतिबंधित – Android बैकग्राउंड में जाँच रोक देता है</string>
     <string name="delivery_dnd">परेशान न करें</string>
-    <string name="delivery_dnd_on">चालू – अलर्ट बिना आवाज़ के आ सकते हैं</string>
+    <string name="delivery_dnd_on">चालू – अलार्म बिना आवाज़ के आ सकते हैं</string>
     <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
-    <string name="delivery_quiet_now">%1$s तक सक्रिय – देय अलर्ट तब तक इंतज़ार करते हैं</string>
+    <string name="delivery_quiet_now">%1$s तक सक्रिय – देय अलार्म तब तक इंतज़ार करते हैं</string>
     <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
-    <string name="delivery_quiet_set">%1$s–%2$s – देय अलर्ट इस समय इंतज़ार करते हैं</string>
+    <string name="delivery_quiet_set">%1$s–%2$s – देय अलार्म इस समय इंतज़ार करते हैं</string>
     <string name="delivery_last_check">बैकग्राउंड में आख़िरी जाँच</string>
     <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
     <string name="delivery_last_check_old">%1$s – 6 घंटे से ज़्यादा पहले</string>
     <string name="delivery_last_check_never">अभी कोई नहीं</string>
     <!-- Knöpfe in den Zeilen -->
-    <string name="delivery_action_allow">अनुमति दें</string>
-    <string name="delivery_action_change">बदलें</string>
-    <string name="delivery_action_show">दिखाएँ</string>
+    <string name="delivery_action_allow">अनुमति दो</string>
+    <string name="delivery_action_change">बदलो</string>
+    <string name="delivery_action_show">दिखाओ</string>
     <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
     <string name="delivery_alert_sound">बैनर और आवाज़</string>
-    <string name="delivery_alert_off">बैनर बंद – अलर्ट सिर्फ़ नोटिफ़िकेशन सेंटर में दिखते हैं</string>
-    <string name="delivery_sound_off">आवाज़ बंद – अलर्ट चुपचाप आते हैं</string>
+    <string name="delivery_alert_off">बैनर बंद – अलार्म सिर्फ़ नोटिफ़िकेशन सेंटर में दिखते हैं</string>
+    <string name="delivery_sound_off">आवाज़ बंद – अलार्म चुपचाप आते हैं</string>
     <string name="delivery_time_sensitive">समय-संवेदी नोटिफ़िकेशन</string>
-    <string name="delivery_time_sensitive_off">बंद – कोई फ़ोकस अलर्ट रोक सकता है</string>
+    <string name="delivery_time_sensitive_off">बंद – कोई फ़ोकस अलार्म रोक सकता है</string>
     <string name="delivery_background_refresh">बैकग्राउंड ऐप रीफ़्रेश</string>
     <string name="delivery_low_power">लो पावर मोड</string>
     <string name="delivery_swipe_away">ऐप स्वाइप करके बंद किया?</string>
-    <string name="delivery_swipe_away_note">अगर आप ऐप स्विचर में ऐप को स्वाइप करके बंद करते हैं, तो iOS बैकग्राउंड में जाँचना बंद कर देता है जब तक आप उसे दोबारा न खोलें।</string>
+    <string name="delivery_swipe_away_note">अगर तुम ऐप स्विचर में ऐप को स्वाइप करके बंद करते हो, तो iOS बैकग्राउंड में जाँचना बंद कर देता है जब तक तुम उसे दोबारा न खोलो।</string>
     <string name="delivery_live_activity">लाइव ऐक्टिविटी</string>
-    <string name="delivery_live_activity_note">लॉक स्क्रीन पर भाव दिखाती है, लेकिन सिर्फ़ ऐप की जाँच पर अपडेट होती है – इससे अलर्ट ज़्यादा बार नहीं जाँचे जाते।</string>
+    <string name="delivery_live_activity_note">लॉक स्क्रीन पर भाव दिखाती है, लेकिन सिर्फ़ ऐप की जाँच पर अपडेट होती है – इससे अलार्म ज़्यादा बार नहीं जाँचे जाते।</string>
 
-    <string name="alarm_first_check">जाँचें कि अलर्ट पहुँचते हैं</string>
+    <string name="alarm_first_check">जाँचो कि अलार्म पहुँचते हैं</string>
 
     <string name="oem_battery_title">निर्माता की बैटरी बचत</string>
-    <string name="oem_battery_xiaomi">Xiaomi ऐप को पूरी तरह बंद कर सकता है – तब कोई अलर्ट नहीं आता। “ऑटोस्टार्ट” चालू करें और बैटरी सेवर को “कोई प्रतिबंध नहीं” पर रखें।</string>
-    <string name="oem_battery_samsung">Samsung ऐप को गहरी नींद में डाल सकता है – तब कोई अलर्ट नहीं आता। बैटरी › बैकग्राउंड उपयोग सीमाएँ में इसे “कभी न सोने वाले ऐप” में जोड़ें।</string>
-    <string name="oem_battery_huawei">Huawei/Honor ऐप को बंद कर सकता है – तब कोई अलर्ट नहीं आता। बैटरी › ऐप लॉन्च में “मैन्युअल रूप से प्रबंधित करें” चुनें और सब अनुमति दें।</string>
-    <string name="oem_battery_oneplus">OnePlus ऐप को बंद कर सकता है – तब कोई अलर्ट नहीं आता। “ऑटो-लॉन्च” और बैटरी उपयोग में बैकग्राउंड गतिविधि की अनुमति दें।</string>
-    <string name="oem_battery_oppo">Oppo/Realme ऐप को बंद कर सकता है – तब कोई अलर्ट नहीं आता। “ऑटो-लॉन्च” और बैटरी उपयोग में बैकग्राउंड गतिविधि की अनुमति दें।</string>
-    <string name="oem_battery_vivo">Vivo ऐप को बंद कर सकता है – तब कोई अलर्ट नहीं आता। “ऑटोस्टार्ट” और बैटरी में उच्च बैकग्राउंड बिजली उपयोग की अनुमति दें।</string>
+    <string name="oem_battery_xiaomi">Xiaomi ऐप को पूरी तरह बंद कर सकता है – तब कोई अलार्म नहीं आता। “ऑटोस्टार्ट” चालू करो और बैटरी सेवर को “कोई प्रतिबंध नहीं” पर रखो।</string>
+    <string name="oem_battery_samsung">Samsung ऐप को गहरी नींद में डाल सकता है – तब कोई अलार्म नहीं आता। बैटरी › बैकग्राउंड उपयोग सीमाएँ में इसे “कभी न सोने वाले ऐप” में जोड़ो।</string>
+    <string name="oem_battery_huawei">Huawei/Honor ऐप को बंद कर सकता है – तब कोई अलार्म नहीं आता। बैटरी › ऐप लॉन्च में “मैन्युअल रूप से प्रबंधित करो” चुनो और सब अनुमति दो।</string>
+    <string name="oem_battery_oneplus">OnePlus ऐप को बंद कर सकता है – तब कोई अलार्म नहीं आता। “ऑटो-लॉन्च” और बैटरी उपयोग में बैकग्राउंड गतिविधि की अनुमति दो।</string>
+    <string name="oem_battery_oppo">Oppo/Realme ऐप को बंद कर सकता है – तब कोई अलार्म नहीं आता। “ऑटो-लॉन्च” और बैटरी उपयोग में बैकग्राउंड गतिविधि की अनुमति दो।</string>
+    <string name="oem_battery_vivo">Vivo ऐप को बंद कर सकता है – तब कोई अलार्म नहीं आता। “ऑटोस्टार्ट” और बैटरी में उच्च बैकग्राउंड बिजली उपयोग की अनुमति दो।</string>
     <string name="alarm_reliability_recent">आख़िरी जाँच %1$s</string>
     <string name="alarm_reliability_stale">आख़िरी जाँच %1$s – अलार्म देर से आ सकते हैं</string>
     <string name="alarm_reliability_never">अलार्म चालू – अभी तक बैकग्राउंड में कोई जाँच नहीं</string>

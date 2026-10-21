@@ -27,11 +27,11 @@
     <string name="error_market_unreachable">Plateforme injoignable pour le moment – les derniers cours restent affichés.</string>
     <string name="error_market_unreachable_short">Plateforme injoignable pour le moment</string>
     <string name="loading_hint">Chargement…</string>
-    <string name="no_internet_connection">Pas de connexion Internet. Vérifiez le Wi-Fi ou les données mobiles, puis réessayez.</string>
+    <string name="no_internet_connection">Pas de connexion Internet. Vérifie le Wi-Fi ou les données mobiles, puis réessaie.</string>
     <string name="option_off">Non</string>
     <string name="something_went_wrong">Une erreur s\'est produite</string>
     <string name="time_just_now">à l\'instant</string>
-    <string name="timeout_error_message">La plateforme ne répond pas pour le moment. Réessayez dans un instant.</string>
+    <string name="timeout_error_message">La plateforme ne répond pas pour le moment. Réessaie dans un instant.</string>
     <string name="try_again">Réessayer</string>
 
     <!-- Verbindungsstatus (Status-Pille) -->
@@ -43,6 +43,10 @@
     <string name="shortcut_add">Ajouter une paire</string>
     <string name="shortcut_alarms">Toutes les alertes</string>
     <string name="shortcut_cycle">Marché</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Nouvelle paire à suivre</string>
+    <string name="shortcut_alarms_long">Voir toutes les alertes</string>
+    <string name="shortcut_cycle_long">Aperçu du marché</string>
 
     <string name="log_box_title">Journal</string>
     <string name="label_value">%1$s\u00A0: %2$s</string>

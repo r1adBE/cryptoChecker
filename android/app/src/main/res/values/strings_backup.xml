@@ -54,6 +54,9 @@
         <item quantity="one">%1$d pair</item>
         <item quantity="other">%1$d pairs</item>
     </plurals>
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <string name="backup_restore_over_limits">Over the limits (%3$s pairs, %4$s alerts per pair), won\'t be restored: %1$s, %2$s.</string>
+    <string name="backup_restored_over_limits">Over the limits (%3$s pairs, %4$s alerts per pair), not restored: %1$s, %2$s.</string>
 
     <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
     <string name="storage_recovery_message">This device no longer has the key to the app’s encrypted data, so the app started empty. Nothing was deleted. To get your watchlist and portfolio back, import a backup file under “%1$s” in Settings.</string>

@@ -48,6 +48,16 @@ final class ProtectedFileTests: XCTestCase {
             deviceOnly = true
             updates += 1
         }
+
+        /// Fehler beim Löschen (z. B. Schlüsselbund gesperrt).
+        var deleteStatus: OSStatus?
+        private(set) var deletes = 0
+
+        func delete() throws {
+            if let deleteStatus { throw StorageKeychainError(status: deleteStatus) }
+            stored = nil
+            deletes += 1
+        }
     }
 
     private var dir: URL!

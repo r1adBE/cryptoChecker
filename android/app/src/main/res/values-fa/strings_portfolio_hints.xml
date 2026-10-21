@@ -12,6 +12,6 @@
     <string name="portfolio_alarms_address_failing_generic">هشدارهای سبد بدون آدرس‌هایی بررسی می‌کنند که موجودی‌شان بیش از ۲۴ ساعت است بارگیری نمی‌شود</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">توکن‌ها تا حدی قدیمی</string>
-    <string name="portfolio_address_restore_failed">بازگرداندن آدرس ممکن نشد – در صورت نیاز دوباره اضافه‌اش کنید</string>
-    <string name="portfolio_address_remove_failed">حذف آدرس ممکن نشد – لطفاً دوباره امتحان کنید</string>
+    <string name="portfolio_address_restore_failed">بازگرداندن آدرس ممکن نشد – در صورت نیاز دوباره اضافه‌اش کن</string>
+    <string name="portfolio_address_remove_failed">حذف آدرس ممکن نشد – لطفاً دوباره امتحان کن</string>
 </resources>

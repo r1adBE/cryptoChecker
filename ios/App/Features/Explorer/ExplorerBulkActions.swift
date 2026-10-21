@@ -74,7 +74,13 @@ extension ExplorerViewModel {
         }
         let outcome = data.addWatches(market: market, pairs: bulkPairs, group: data.addTargetGroup)
         let anyAdded = outcome.added > 0
-        show(ExplorerMessage(text: L("explorer_bulk_added", count: outcome.added, outcome.added, outcome.skipped), long: true))
+        var text = L("explorer_bulk_added", count: outcome.added, outcome.added, outcome.skipped)
+        // Merkliste voll: nur bis zur Grenze angelegt, die Rückmeldung nennt die übrigen — wie Android
+        if outcome.refused > 0 {
+            text += " " + L("explorer_bulk_not_added_limit", count: outcome.refused, outcome.refused,
+                            LocaleNumbers.integer(WatchlistLimits.maxPairs, grouping: true))
+        }
+        show(ExplorerMessage(text: text, long: true))
         haptic(anyAdded ? .success : .warning)
         if anyAdded { requestNotifications() }
     }

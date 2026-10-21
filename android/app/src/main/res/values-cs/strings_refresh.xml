@@ -4,7 +4,7 @@
     <string name="update_mode_for_pros">spotřebuje víc dat a baterie</string>
     <string name="update_mode_live">Živě, dokud je otevřená</string>
     <string name="update_mode_live_hint">Kde burza poskytuje živý kurz: hned, dokud je seznam otevřený. Jinak při dalším načtení. Zavřený: nejčastěji každých %1$s, často později.</string>
-    <string name="update_mode_live_hint_ios">Kde burza poskytuje živý kurz: hned, dokud je seznam otevřený. Jinak při dalším načtení. Zavřený: když to iOS dovolí, někdy až po hodinách. Když aplikaci zavřete přejetím prstem, iOS tyto kontroly zastaví, dokud ji znovu neotevřete.</string>
+    <string name="update_mode_live_hint_ios">Kde burza poskytuje živý kurz: hned, dokud je seznam otevřený. Jinak při dalším načtení. Zavřený: když to iOS dovolí, někdy až po hodinách. Když aplikaci zavřeš přejetím prstem, iOS tyto kontroly zastaví, dokud ji znovu neotevřeš.</string>
     <string name="update_mode_recommended">doporučeno</string>
     <string name="update_mode_sparsam">Úsporný</string>
     <string name="update_mode_sparsam_hint">Při zavřené aplikaci nejčastěji každých %1$s, často později (alarmy, widgety). Otevřená: při každém otevření.</string>
@@ -119,9 +119,9 @@
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->
     <string name="battery_delay_hint">Android může kontroly zpozdit – nastav baterii na „Neomezeno“</string>
     <string name="battery_later">Později</string>
-    <string name="battery_message">Android kvůli úspoře energie odkládá práci na pozadí — ceny a widgety pak mohou být staré i několik hodin. Nastavením neomezeného využití baterie zůstanou aktuální. Změnit to můžete kdykoli v nastavení Androidu.</string>
+    <string name="battery_message">Android kvůli úspoře energie odkládá práci na pozadí — ceny a widgety pak mohou být staré i několik hodin. Nastavením neomezeného využití baterie zůstanou aktuální. Změnit to můžeš kdykoli v nastavení Androidu.</string>
     <string name="battery_open_settings">Otevřít nastavení baterie</string>
-    <string name="battery_steps">V informacích o aplikaci klepněte na Baterie (nebo Využití baterie aplikací) a zvolte Neomezeno.</string>
+    <string name="battery_steps">V informacích o aplikaci klepni na Baterie (nebo Využití baterie aplikací) a zvol Neomezeno.</string>
     <string name="battery_title">Udržovat ceny aktuální</string>
     <string name="ios_background_refresh_off">Aktualizace na pozadí je pro aplikaci vypnutá. Bez ní se alarmy kontrolují jen při otevřené aplikaci.</string>
     <string name="ios_low_power_mode">Úsporný režim je zapnutý. iOS na pozadí kontroluje jen zřídka, alarmy se mohou zpozdit.</string>

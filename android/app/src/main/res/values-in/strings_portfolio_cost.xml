@@ -4,7 +4,7 @@
     <string name="cost_gaps_card">Entri tanpa harga perolehan: %1$d</string>
     <string name="cost_gaps_card_text">Tambahkan harga perolehan agar laba dan pajak lengkap.</string>
     <string name="cost_gaps_sheet_title">Entri tanpa harga perolehan</string>
-    <string name="cost_gaps_sheet_intro">Pemasukan ini tidak memiliki harga perolehan. Sarannya adalah harga penutupan harian tanggal itu – Anda bisa mengubahnya di entri.</string>
+    <string name="cost_gaps_sheet_intro">Pemasukan ini tidak memiliki harga perolehan. Sarannya adalah harga penutupan harian tanggal itu – kamu bisa mengubahnya di entri.</string>
     <string name="cost_gaps_empty">Semua entri memiliki harga perolehan.</string>
     <string name="cost_gap_enter">Masukkan harga perolehan</string>
     <string name="cost_gap_leave_unknown">Biarkan tidak diketahui</string>

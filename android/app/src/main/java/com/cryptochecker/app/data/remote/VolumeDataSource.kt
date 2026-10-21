@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.remote
 
+import com.cryptochecker.app.data.BoundedCache
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.candles.CandlePair
@@ -11,7 +12,6 @@ import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.market.Sourced
 import com.cryptochecker.app.domain.watch.DayChange
 import org.json.JSONArray
-import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -42,8 +42,11 @@ class VolumeDataSource @Inject constructor(
     private val candlePairs: CandlePairs,
     private val tokenIdentityStore: TokenIdentityStore,
 ) {
-    /** Kerzen je Symbol (und Anzahl), kurz zwischengespeichert (auch «nicht gefunden»), mit Anbieter. */
-    private val cache = ConcurrentHashMap<String, Pair<Long, Sourced<List<HourCandle>>?>>()
+    /**
+     * Kerzen je Symbol (und Anzahl), kurz zwischengespeichert (auch «nicht gefunden»), mit Anbieter. Seit Build 99
+     * begrenzt ([BoundedCache]): abgelaufene Einträge wurden nie entfernt, jedes je geprüfte Paar blieb im Speicher.
+     */
+    private val cache = BoundedCache<String, Pair<Long, Sourced<List<HourCandle>>?>>(MAX_CACHE_ENTRIES)
 
     /** Volumen-Spike eines Paars der Merkliste (Volumen-Alarm, Schnell-Alarme); [price] für die Prüfung auf gleichen Token. */
     suspend fun hourlySpike(watch: WatchEntity, price: Double? = watch.lastPrice): VolumeSpike? {
@@ -113,6 +116,9 @@ class VolumeDataSource @Inject constructor(
         const val LIMIT = 30
 
         private const val CACHE_MILLIS = 5 * 60_000L
+
+        /** Höchstens so viele zwischengespeicherte Reihen (Paare × Intervall × Anzahl); ältere fallen heraus. */
+        const val MAX_CACHE_ENTRIES = 512
 
         /**
          * Kerzen eines Paars wie der Chart: 1. eigene Börse ([ownSupported], [own]); 2. nur wenn die
