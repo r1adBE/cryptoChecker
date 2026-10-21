@@ -68,3 +68,29 @@ final class BackupExclusionTests: XCTestCase {
         XCTAssertEqual(back.nextId, 3)
     }
 }
+
+/// Seit Build 93: Merkmal unverschlüsselt gebliebener Dateien (`PlainBackupExclusion`), reine Regeln.
+final class PlainBackupExclusionTests: XCTestCase {
+    func testRememberedBeforeIsKeptFromFirstTime() {
+        XCTAssertFalse(PlainBackupExclusion.rememberedBefore(current: false, remembered: nil))
+        XCTAssertTrue(PlainBackupExclusion.rememberedBefore(current: true, remembered: nil))
+        // Späterer Start: aktuell schon das eigene «ausgenommen», gemerkt bleibt das von vorher
+        XCTAssertFalse(PlainBackupExclusion.rememberedBefore(current: true, remembered: false))
+        XCTAssertFalse(PlainBackupExclusion.rememberedBefore(current: nil, remembered: nil))
+    }
+
+    func testAfterSealingPrefersRemembered() {
+        XCTAssertFalse(PlainBackupExclusion.afterSealing(current: true, remembered: false))
+        XCTAssertTrue(PlainBackupExclusion.afterSealing(current: false, remembered: true))
+        // Nichts gemerkt: wie bis Build 92 das aktuelle Merkmal
+        XCTAssertTrue(PlainBackupExclusion.afterSealing(current: true, remembered: nil))
+        XCTAssertFalse(PlainBackupExclusion.afterSealing(current: false, remembered: nil))
+    }
+
+    func testPolicyNeverIncludesPlainFiles() {
+        XCTAssertFalse(PlainBackupExclusion.policyExcluded(includeInBackup: true, plain: false))
+        XCTAssertTrue(PlainBackupExclusion.policyExcluded(includeInBackup: true, plain: true))
+        XCTAssertTrue(PlainBackupExclusion.policyExcluded(includeInBackup: false, plain: false))
+        XCTAssertTrue(PlainBackupExclusion.policyExcluded(includeInBackup: false, plain: true))
+    }
+}

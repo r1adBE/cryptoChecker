@@ -22,7 +22,7 @@ extension TaxExport {
         // AT: Aufwendungen beim Sondersteuersatz nicht abzugsfähig, § 20 Abs. 2 EStG) — wie Android
         // UK, US, CA, AU, JP: kein Verlust, nur Information (`TaxTemplate.quoteFeeIsInfo`); FR ebenso nur Information (die
         // Formel des art. 150 VH bis kennt nur Gebühren der Abtretung selbst) — wie Android
-        let feeApart = template == .DE || template == .AT || template == .FR || template.quoteFeeIsInfo
+        let feeApart = template.withdrawalFeeApart || template == .FR || template.quoteFeeIsInfo
         let withdrawalFees = feeApart ? allRows.filter { $0.feeExpense == .WITHDRAWAL } : []
         let sales = feeApart ? allRows.filter { $0.feeExpense != .WITHDRAWAL } : allRows
         // Umbuchungsgebühren nur zur Information (`.TRANSFER`, Build 57): eigener Posten — wie Android

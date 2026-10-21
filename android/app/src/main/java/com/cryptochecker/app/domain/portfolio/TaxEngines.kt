@@ -267,9 +267,9 @@ object TaxEngines {
     /**
      * Netzwerkgebühr in Krypto einer Umbuchung (eigene Wallets), Auszahlung oder Schenkung als eigene Veräusserung: je
      * Gebühr-Coin ein Verkauf der Gebühr-Menge zum Marktwert (erfasster Preis bzw. Gebühr-Preis, Stablecoin 1, sonst
-     * [priceAt] = Tagesschluss des Vortags; ohne Kurs Erlös unbekannt) mit Id und Zeit der Transaktion und ihrer
-     * Quell-Wallet (Umbuchung: «von», sonst die Börse) — VOR ihr in die Liste, damit die Gebühr-Coins (stabil sortiert,
-     * [PortfolioLedger.ORDER]) die Quelle zuerst verlassen. Die Transaktion selbst verliert diese Gebühr: eine Umbuchung
+     * [priceAt] = Tagesschluss des UTC-Tags der Transaktion, [TaxDayClose]; ohne Kurs Erlös unbekannt) mit Id und Zeit
+     * der Transaktion und ihrer Quell-Wallet (Umbuchung: «von», sonst die Börse) — VOR ihr in die Liste, damit die
+     * Gebühr-Coins (stabil sortiert, [PortfolioLedger.ORDER]) die Quelle zuerst verlassen. Die Transaktion selbst verliert diese Gebühr: eine Umbuchung
      * ändert danach weder Menge noch Einstand, die Gebühr im dritten Coin erhöht keinen Einstand und ist bei einer
      * Auszahlung kein Aufwand mehr — sonst zählte ihr Wert ein zweites Mal als Verlust. Die Gebühr USDT bleibt wie sie ist.
      * Der Export erkennt die Zeilen an der Id einer Transaktion ohne Verkauf (Vermerk «Gebühr», [TaxExport.gainRows]).

@@ -254,4 +254,21 @@ class AlarmEditTest {
         assertNull(AlarmDraft.blankFor('.').pricePlaceholder)
         assertEquals("0,0000123457", AlarmDraft.blankFor(',').copy(priceHint = 0.00001234567).pricePlaceholder)
     }
+
+    /** Eigene Alarmwährung nur, wenn die Quote umrechenbar ist — nie bei Fiat ohne Devisenkurs (NGN). Wie iOS. */
+    @Test
+    fun alarmCurrencyOfferedOnlyForConvertibleQuotes() {
+        val fiat = listOf("CHF", "EUR", "USD", "JPY")
+        assertTrue(AlarmEdit.offersCurrency(true, "USDT", "CHF", fiat))
+        assertTrue(AlarmEdit.offersCurrency(true, "EUR", "CHF", fiat))
+        assertTrue(AlarmEdit.offersCurrency(true, "BTC", "CHF", fiat))
+        // Fiat ohne Devisenkurs: nie umrechenbar
+        assertFalse(AlarmEdit.offersCurrency(true, "NGN", "CHF", fiat))
+        assertFalse(AlarmEdit.offersCurrency(true, "ars", "USD", fiat))
+        // Ungültig, leer, gleiche Währung oder keine Kursmarke
+        assertFalse(AlarmEdit.offersCurrency(true, "B-T", "CHF", fiat))
+        assertFalse(AlarmEdit.offersCurrency(true, "", "CHF", fiat))
+        assertFalse(AlarmEdit.offersCurrency(true, "chf", "CHF", fiat))
+        assertFalse(AlarmEdit.offersCurrency(false, "USDT", "CHF", fiat))
+    }
 }

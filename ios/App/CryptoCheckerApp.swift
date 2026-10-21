@@ -303,7 +303,18 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
                     let written = SharedStorage.updateSnapshot { changed = AlarmSnooze.rearm(alarmId, in: &$0) }
                     return written != nil && changed
                 }.value
-                if saved { AppData.shared.reloadFromDisk() }
+                guard saved else { return }
+                // Seit Build 93 auch im Speicher der App: Ein Speichern der App zwischen dem Schreiben oben und dem Neuladen
+                // schrieb sonst ihr «aus» zurück (das Zusammenführen übernimmt die Datei nur bei neuerer Auslösung, das
+                // Einschalten ändert sie nicht) — der Alarm bliebe trotz «1 h später» aus. Gleiche Änderung wie auf der
+                // Datei, gespeichert wie der Schalter in der Liste; nur wenn der Alarm im Speicher steht (sonst nichts zu
+                // ändern, z. B. Merkliste gesperrt und leer)
+                let app = AppData.shared
+                var probe = app.snapshot
+                if AlarmSnooze.rearm(alarmId, in: &probe) {
+                    app.mutate({ _ = AlarmSnooze.rearm(alarmId, in: &$0) }, reloadWidgets: false)
+                }
+                app.reloadFromDisk()
             }
             return
         } else if response.actionIdentifier == Notifier.actionEdit, let alarmId, let id = watchId {

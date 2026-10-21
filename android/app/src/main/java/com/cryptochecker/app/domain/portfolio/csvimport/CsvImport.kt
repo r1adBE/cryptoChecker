@@ -256,8 +256,11 @@ object CsvImport {
             val r = row.quote?.let { rate(it) }
             if (r == null) { needsFx = true; null } else toUsdt(v, r)
         }
+        // Gebühr in der Preiswährung, in USD/USDT oder in einer anderen Fiat-Währung (Kauf in USD, Gebühr in EUR; Tausch
+        // ohne Fiat-Wert mit EUR-Gebühr): zum Tageskurs ihrer Währung — ohne Kurs nie still weggelassen, sondern needsFx
+        // wie Preis und Wert (die Vorschau nennt die Zeile unter «ohne Tageskurs»)
         val feeUnit = row.feeUnit
-        val feeUsdt = if (row.fee != null && feeUnit != null && (feeUnit == row.quote || feeUnit in USD_LIKE)) {
+        val feeUsdt = if (row.fee != null && feeUnit != null && (feeUnit == row.quote || feeUnit in USD_LIKE || isFiat(feeUnit))) {
             val r = rate(feeUnit)
             if (r == null) { needsFx = true; null } else toUsdt(row.fee, r)
         } else null

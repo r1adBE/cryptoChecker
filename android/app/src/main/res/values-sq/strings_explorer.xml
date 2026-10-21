@@ -116,4 +116,6 @@
 
     <string name="explorer_bulk_show_all">Shfaq të gjitha (%1$d)</string>
     <string name="dex_token_address_copy">Kopjo adresën e tokenit</string>
+    <string name="dex_token_address_copied">Adresa e tokenit u kopjua</string>
+    <string name="dex_token_address_label">Adresa e tokenit që mbaron me %1$s</string>
 </resources>

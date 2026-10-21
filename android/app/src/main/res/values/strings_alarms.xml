@@ -179,4 +179,6 @@
     <!-- Alarm-Editor (Build 91): eingeklappter Abschnitt mit Schnell-Alarmen, weiteren Bedingungen, Währung, Ton und Ansage; darunter grau, was er enthält -->
     <string name="alarm_editor_more">More</string>
     <string name="alarm_editor_more_summary">Quick alerts, other conditions, sound and voice</string>
+    <!-- Zuverlässigkeitszeile über der Merkliste (seit Build 93): Merkliste ohne gespeicherten Stand nur im Arbeitsspeicher (kein Schlüssel bzw. nur Kopie der alten Datei) – Prüfungen im Hintergrund ruhen -->
+    <string name="alarm_reliability_storage_no_key">Alerts paused in the background – watchlist not saved</string>
 </resources>

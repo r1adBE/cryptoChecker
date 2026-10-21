@@ -21,8 +21,8 @@ import timber.log.Timber
  *   bleiben im Speicher, Portfolio und Merkliste nennen es); der nächste Start versucht es erneut
  *   ([DatabaseEncryptionNotice.inMemory]). Eine schon unverschlüsselt vorhandene Datei mit Pflicht bleibt ohne Schlüssel
  *   seit Build 91 unberührt: ihr Inhalt kommt in den Arbeitsspeicher ([PlaintextMemoryCopy],
- *   [DatabaseEncryptionNotice.isVolatileCopy]), Änderungen werden nicht gespeichert (mit Schlüssel, aber gescheiterter
- *   Überführung: unverschlüsselt weiter wie oben);
+ *   [DatabaseEncryptionNotice.isVolatileCopy]), Änderungen werden nicht gespeichert — seit Build 93 auch mit Schlüssel,
+ *   aber gescheiterter Überführung (bis Build 92 dann unverschlüsselt weiter wie oben);
  * - gibt der Keystore den Schlüssel einer verschlüsselten Datei gerade nicht heraus: im Vordergrund und für Datenbanken
  *   aus [inMemoryWhenKeyUnavailable] (App: Portfolio und Merkliste) leer im Arbeitsspeicher für diesen Lauf — die
  *   Oberfläche stürzte sonst beim ersten Zugriff ab; die Datei bleibt unberührt, der gespeicherte Stand kommt nach einem

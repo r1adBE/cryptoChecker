@@ -171,4 +171,5 @@
     <string name="alarm_enter_amount">Masukkan nilai</string>
     <string name="alarm_editor_more">Lainnya</string>
     <string name="alarm_editor_more_summary">Alarm cepat, kondisi lainnya, suara dan ucapan</string>
+    <string name="alarm_reliability_storage_no_key">Alarm dijeda di latar belakang – daftar pantau tidak disimpan</string>
 </resources>

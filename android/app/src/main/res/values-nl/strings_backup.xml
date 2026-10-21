@@ -91,5 +91,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">De opgeslagen portefeuille is nu vergrendeld – wijzigen kan pas na de volgende start.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">Dit apparaat levert nu geen sleutel – de volglijst wordt niet opgeslagen, wijzigingen gaan verloren als de app sluit. De app probeert het bij de volgende start opnieuw.</string>
+    <string name="watchlist_storage_in_memory">Dit apparaat levert nu geen sleutel – de volglijst wordt niet opgeslagen, wijzigingen gaan verloren als de app sluit. Alarmen op de achtergrond zijn gepauzeerd. De app probeert het bij de volgende start opnieuw.</string>
 </resources>

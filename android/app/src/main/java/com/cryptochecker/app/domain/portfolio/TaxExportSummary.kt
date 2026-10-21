@@ -70,8 +70,7 @@ fun TaxExport.yearSummary(
     // AT: Aufwendungen beim Sondersteuersatz nicht abzugsfähig, § 20 Abs. 2 EStG); UK, US, CA, AU, JP: kein Verlust, nur
     // Information ([TaxTemplate.quoteFeeIsInfo]); FR ebenso nur Information — die Formel des art. 150 VH bis kennt nur
     // Gebühren der Abtretung selbst, eine Auszahlungsgebühr mindert den Gewinn nicht
-    val feeApart = template == TaxTemplate.DE || template == TaxTemplate.AT || template == TaxTemplate.FR ||
-        template.quoteFeeIsInfo
+    val feeApart = template.withdrawalFeeApart || template == TaxTemplate.FR || template.quoteFeeIsInfo
     val (withdrawalFees, sales) = if (feeApart) allRows.partition { it.feeExpense == PortfolioFeeExpense.WITHDRAWAL }
     else emptyList<TaxGainRow>() to allRows
     // Umbuchungsgebühren nur zur Information ([PortfolioFeeExpense.TRANSFER], Build 57): eigener Posten

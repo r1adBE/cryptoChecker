@@ -53,6 +53,24 @@ final class NetRulesB76Tests: XCTestCase {
         XCTAssertFalse(AlarmFreshness.exchangeTimeTooOld(now + 60_000, now: now))
     }
 
+    /// Lighter ohne Handel in 24 h: der stehengebliebene Kurs bleibt sichtbar, löst aber keinen Alarm aus. Wie Android.
+    func testLighterWithoutTradesIn24hHoldsAlarms() throws {
+        let info = PairQuery("ADI", "USDC", "ADI", .perpetual)
+        func read(_ trades: Int) throws -> Ticker {
+            var ticker = Ticker()
+            let body = #"{"code":200,"order_book_stats":[{"symbol":"ADI","last_trade_price":8.8236,"daily_trades_count":"#
+                + String(trades)
+                + #","daily_base_token_volume":0,"daily_quote_token_volume":0,"daily_price_change":0}]}"#
+            try Lighter().readTicker(call: 0, body: body, ticker: &ticker, info: info)
+            return ticker
+        }
+        let quiet = try read(0)
+        XCTAssertEqual(quiet.last, 8.8236)
+        XCTAssertTrue(AlarmFreshness.blocksAlarms(quiet.exchangeTime, markFallback: false, now: quiet.timestamp))
+        let traded = try read(5)
+        XCTAssertFalse(AlarmFreshness.blocksAlarms(traded.exchangeTime, markFallback: false, now: traded.timestamp))
+    }
+
     // MARK: Abstand Geld/Brief
 
     func testBidAskSpread() throws {

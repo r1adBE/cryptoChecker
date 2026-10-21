@@ -183,11 +183,15 @@ class PortfolioExportViewModel @Inject constructor(
         // Daten in der Zeitzone der Vorlage (Neutral: Gerät), wie in der CSV genannt
         val zone = tpl.zone()
         val period = tpl.period(year)
-        val priceAt = taxPrices(tpl, method, trades, period, zone)
+        // UK/CA: Kurse auch für Zugänge bis 30 Tage nach dem Steuerjahr ([TaxExport.priceUntil])
+        val until = TaxExport.priceUntil(tpl, period, LocalDate.now(zone))
+        val priceAt = taxPrices(tpl, method, trades, period, zone, until)
         // US: Übergang 1.1.2025 (universelles FIFO bis dahin, [TaxTemplate.walletFrom])
         val walletFrom = tpl.walletFrom(costMethod.value, year)
-        val from = withContext(Dispatchers.Default) { TaxExport.fxFrom(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom) }
-        val rates = rates(currency, from, period.end)
+        val (from, fxUntil) = withContext(Dispatchers.Default) {
+            TaxExport.fxSpan(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom, until, LocalDate.now(zone))
+        }
+        val rates = rates(currency, from, fxUntil)
         val usdtUsd = usdtUsdCloses(currency, from)
         // CH: Vermögenswert per 31.12. (Orientierung) — Tagesschlüsse und Adress-Guthaben wie der Stichtag-Export
         val wealth = if (tpl == TaxTemplate.CH) chYearEnd(trades, method, period.end, zone) else null
@@ -262,11 +266,16 @@ class PortfolioExportViewModel @Inject constructor(
         return when (kind) {
             TaxExportKind.GAINS -> {
                 val trades = withAddressTrades(trades, method)
-                val priceAt = taxPrices(tpl, method, trades, period, zone)
-                // Devisen-Tageskurse ab dem frühesten Kauf-/Herkunftsdatum (Einstand zum Kurs seines Datums)
+                // UK/CA: Kurse auch für Zugänge bis 30 Tage nach dem Steuerjahr ([TaxExport.priceUntil])
+                val until = TaxExport.priceUntil(tpl, period, LocalDate.now(zone))
+                val priceAt = taxPrices(tpl, method, trades, period, zone, until)
+                // Devisen-Tageskurse ab dem frühesten Kauf-/Herkunftsdatum (Einstand zum Kurs seines Datums) bis zum
+                // spätesten genutzten Zugang (UK: 30-Tage-Regel über das Ende des Steuerjahrs hinaus)
                 val walletFrom = tpl.walletFrom(costMethod.value, year)
-                val from = withContext(Dispatchers.Default) { TaxExport.fxFrom(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom) }
-                val rates = rates(currency, from, period.end)
+                val (from, fxUntil) = withContext(Dispatchers.Default) {
+                    TaxExport.fxSpan(trades, method, period, zone, priceAt, tpl.eventRules, walletFrom, until, LocalDate.now(zone))
+                }
+                val rates = rates(currency, from, fxUntil)
                 // USDT zum Marktkurs: USDT/USD-Tagesschluss je Datum (ohne Schluss 1, je Zeile vermerkt)
                 val usdtUsd = usdtUsdCloses(currency, from)
                 withContext(Dispatchers.Default) {

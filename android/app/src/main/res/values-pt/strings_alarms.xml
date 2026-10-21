@@ -183,4 +183,5 @@
     <string name="alarm_enter_amount">Introduza um valor</string>
     <string name="alarm_editor_more">Mais</string>
     <string name="alarm_editor_more_summary">Alarmes rápidos, outras condições, som e voz</string>
+    <string name="alarm_reliability_storage_no_key">Alarmes em pausa em segundo plano – lista não guardada</string>
 </resources>

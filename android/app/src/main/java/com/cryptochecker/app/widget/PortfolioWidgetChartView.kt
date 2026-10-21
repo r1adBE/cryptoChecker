@@ -16,6 +16,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetMath
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSize
 import com.cryptochecker.app.domain.watch.ChangeBasis
+import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.ChangeBasisText
 import com.cryptochecker.app.util.PriceFormat
@@ -231,6 +232,8 @@ internal fun PortfolioWidgetRenderer.drawPortfolioChart(
     val heightPx = (h * scale).toInt()
     val colors = style.colors
     val labelBacking = colors.colorWithOpacity(100)
+    // Zeitgitter in derselben Zone wie die Tage der Balken ([PortfolioWidgetChart.plan]) und das Einzel-Widget
+    val zone = ChangeBasisMath.chartZone(style.basis)
     val key = PortfolioChartKey(
         plan = plan,
         lineColor = lineColor,
@@ -241,6 +244,7 @@ internal fun PortfolioWidgetRenderer.drawPortfolioChart(
         heightPx = heightPx,
         density = scale,
         fontScale = fontScale,
+        zone = zone,
     )
     val cacheId = appWidgetId * MAX_PORTFOLIO_SIZES + slot
     portfolioCharts.get(cacheId, key)?.let { return it }
@@ -260,6 +264,7 @@ internal fun PortfolioWidgetRenderer.drawPortfolioChart(
                 PortfolioInsights.mask(PriceFormat.price(value), style.hideAmounts),
             )
         },
+        zone = zone,
     ).also { portfolioCharts.put(cacheId, key, it) }
 }
 

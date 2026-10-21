@@ -17,9 +17,25 @@ extension TaxExport {
         return known.reduce(Decimal(0)) { $0 + CutoffExport.roundedMoney($1) }
     }
 
+    /// Gewinn einer Zeile, wie er in der Datei steht: gerundeter Erlös − gerundeter Einstand (alle drei bekannt), sonst der
+    /// Gewinn selbst (dann leer). Jede Spalte für sich gerundet ergäbe sonst Abweichungen um einen Cent (Erlös 4.98,
+    /// Einstand 2.72, Gewinn exakt 2.265 → 2.27) — so geht jede Zeile auf und mit `sum` auch die Summe: Summe Erlös −
+    /// Summe Einstand = Summe Gewinn. Wie Android.
+    private static func shownGain(_ cost: Decimal?, _ proceeds: Decimal?, _ gain: Decimal?) -> Decimal? {
+        guard gain != nil, let cost, let proceeds else { return gain }
+        return CutoffExport.roundedMoney(proceeds) - CutoffExport.roundedMoney(cost)
+    }
+
+    private static func shownGainUsdt(_ r: TaxGainRow) -> Decimal? { shownGain(r.costUsdt, r.proceedsUsdt, r.gainUsdt) }
+
+    private static func shownGainTarget(_ r: TaxGainRow) -> Decimal? { shownGain(r.costTarget, r.proceedsTarget, r.gainTarget) }
+
     /// CSV «Realisierte Gewinne» mit BOM; `header` = Kopfzeilen (je ein Feld), danach die Zeitzone (`texts.timeZone`).
-    /// Summe nur über vollständige Zeilen (Einstand, Erlös und Gewinn bekannt — je für USDT und Anzeigewährung), so
-    /// geht Erlös − Einstand = Gewinn auf; Zeilen mit unbekanntem Einstand summiert die Zeile «Erlös ohne Kaufpreis».
+    /// Summe nur über vollständige Zeilen (Einstand, Erlös und Gewinn bekannt — je für USDT und Anzeigewährung); Gewinn
+    /// je Zeile = gerundeter Erlös − gerundeter Einstand (`shownGain`), so geht Erlös − Einstand = Gewinn je Zeile und in
+    /// der Summe auf den Cent auf; Zeilen mit unbekanntem Einstand summiert die Zeile «Erlös ohne Kaufpreis». DE/AT
+    /// (`texts.withdrawalFeesTotal`): Auszahlungsgebühren nicht in der Summe, sondern in einer eigenen Summenzeile danach
+    /// (wie der eigene Posten der Jahresübersicht).
     /// Zusatzspalten vor «Hinweis» nur, wenn eine Zeile sie hat (CA nicht abziehbarer Verlust; FR Preis vor Gebühren und
     /// Gesamtwert). Textfelder gegen Formel-Injektion geschützt, Zahlen unverändert — wie Android.
     static func gainsCsv(_ rows: [TaxGainRow], texts: TaxCsvTexts, header: [String],
@@ -106,8 +122,8 @@ extension TaxExport {
                 CsvCell(text: r.holdingDays.map { String($0) } ?? "", numeric: true),
                 t(longTerm),
                 CsvCell(text: n(CutoffExport.amount(r.amount)), numeric: true),
-                money(r.costUsdt), money(r.proceedsUsdt), money(r.gainUsdt),
-                money(r.costTarget), money(r.proceedsTarget), money(r.gainTarget),
+                money(r.costUsdt), money(r.proceedsUsdt), money(shownGainUsdt(r)),
+                money(r.costTarget), money(r.proceedsTarget), money(shownGainTarget(r)),
             ]
             cells += extra(r.adjustmentUsdt, r.adjustmentTarget, r.grossProceedsUsdt, r.grossProceedsTarget,
                            r.portfolioValueUsdt, r.portfolioValueTarget)
@@ -115,26 +131,33 @@ extension TaxExport {
             out += line(cells, format)
         }
         // Summe nur vollständiger Zeilen; fehlt irgendwo etwas, «unvollständig». Gebühren nur zur Information
-        // (`TaxGainRow.feeInfoOnly`) zählen nicht mit
-        let counted = rows.filter { !$0.feeInfoOnly }
-        let incomplete = counted.contains {
-            $0.costMissing || $0.proceedsMissing || $0.feeValueMissing || $0.fxMissing || $0.costIncomplete
+        // (`TaxGainRow.feeInfoOnly`) zählen nicht mit, DE/AT auch die Auszahlungsgebühren nicht (eigene Summenzeile unten)
+        let feesApart = !texts.withdrawalFeesTotal.isEmpty
+        let summed = rows.filter { !$0.feeInfoOnly }
+        let apart = summed.filter { feesApart && $0.feeExpense == .WITHDRAWAL }
+        let counted = summed.filter { !(feesApart && $0.feeExpense == .WITHDRAWAL) }
+        /// Summenzeile `label` über `list` (Einstand, Erlös, Gewinn je nur vollständiger Zeilen).
+        func totalLine(_ label: String, _ list: [TaxGainRow]) -> String {
+            let incomplete = list.contains {
+                $0.costMissing || $0.proceedsMissing || $0.feeValueMissing || $0.fxMissing || $0.costIncomplete
+            }
+            let usdt = list.filter(\.completeUsdt)
+            let target = list.filter(\.completeTarget)
+            func total(_ part: [TaxGainRow], _ pick: (TaxGainRow) -> Decimal?) -> Decimal? {
+                part.isEmpty && !list.isEmpty ? nil : sum(part, pick)
+            }
+            var cells: [CsvCell] = [
+                t(label), t(""), t(""), blank, t(""), blank,
+                money(total(usdt) { $0.costUsdt }), money(total(usdt) { $0.proceedsUsdt }), money(total(usdt, shownGainUsdt)),
+                money(total(target) { $0.costTarget }), money(total(target) { $0.proceedsTarget }),
+                money(total(target, shownGainTarget)),
+            ]
+            cells += extra(sum(list) { $0.adjustmentUsdt }, sum(list) { $0.adjustmentTarget },
+                           sum(list) { $0.grossProceedsUsdt }, sum(list) { $0.grossProceedsTarget }, nil, nil)
+            cells.append(t(incomplete ? texts.incomplete : ""))
+            return line(cells, format)
         }
-        let usdt = counted.filter(\.completeUsdt)
-        let target = counted.filter(\.completeTarget)
-        func total(_ list: [TaxGainRow], _ pick: (TaxGainRow) -> Decimal?) -> Decimal? {
-            list.isEmpty && !counted.isEmpty ? nil : sum(list, pick)
-        }
-        var totalCells: [CsvCell] = [
-            t(texts.total), t(""), t(""), blank, t(""), blank,
-            money(total(usdt) { $0.costUsdt }), money(total(usdt) { $0.proceedsUsdt }), money(total(usdt) { $0.gainUsdt }),
-            money(total(target) { $0.costTarget }), money(total(target) { $0.proceedsTarget }),
-            money(total(target) { $0.gainTarget }),
-        ]
-        totalCells += extra(sum(counted) { $0.adjustmentUsdt }, sum(counted) { $0.adjustmentTarget },
-                            sum(counted) { $0.grossProceedsUsdt }, sum(counted) { $0.grossProceedsTarget }, nil, nil)
-        totalCells.append(t(incomplete ? texts.incomplete : ""))
-        out += line(totalCells, format)
+        out += totalLine(texts.total, counted)
         // Erlös der Zeilen ohne Kaufpreis (nicht in der Summe oben)
         let noCost = counted.filter { $0.costMissing && $0.proceedsUsdt != nil }
         if !noCost.isEmpty {
@@ -147,6 +170,8 @@ extension TaxExport {
             cells.append(t(texts.incomplete))
             out += line(cells, format)
         }
+        // DE/AT: Auszahlungsgebühren — keine Veräusserung, darum eigene Summe (wie der Posten der Jahresübersicht)
+        if !apart.isEmpty { out += totalLine(texts.withdrawalFeesTotal, apart) }
         // Netzwerkgebühr-Einstand ohne bezahlten Posten: kein Gewinn/Verlust, aber nicht still verloren
         if !texts.lostFeeCost.isEmpty {
             for l in lostFeeCosts {

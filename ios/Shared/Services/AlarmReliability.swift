@@ -26,11 +26,15 @@ enum AlarmReliability {
         case never
         /// Mitteilungen nicht erlaubt bzw. Alarm-Kanal aus (Android).
         case notificationsOff = "notifications_off"
+        /// Android: Merkliste nur als Kopie im Arbeitsspeicher (kein Schlüssel) — Prüfungen im Hintergrund ruhen. iOS kennt
+        /// das nicht; für den gemeinsamen Testfall da (seit Build 93).
+        case storageNoKey = "storage_no_key"
         /// Android: Hintergrundnutzung eingeschränkt, oder Prüfung zu alt bei Akku-Optimierung/Akkusparen des Herstellers.
         case battery
         /// iOS: Hintergrundaktualisierung aus.
         case backgroundRefresh = "background_refresh"
-        /// Letzte Prüfung älter als `staleMillis(_:)` (oder weit in der Zukunft — Uhr verstellt).
+        /// Letzte Prüfung älter als `staleMillis(_:)` (oder weit in der Zukunft — Uhr verstellt), oder alle gespeicherten
+        /// geplanten Läufe gescheitert (`AlarmReadiness.Input.lastFailedBackgroundCheck`).
         case stale
     }
 
@@ -48,9 +52,14 @@ enum AlarmReliability {
         if input.notifications != .granted || (android && input.channel == .off) {
             return Status(kind: .notificationsOff, warn: true)
         }
+        if android && input.storageNoKey { return Status(kind: .storageNoKey, warn: true) }
         if android && input.backgroundRestricted { return Status(kind: .battery, warn: true) }
         if !android && !input.backgroundRefresh { return Status(kind: .backgroundRefresh, warn: true) }
-        guard let at = input.lastBackgroundCheck, at > 0 else { return Status(kind: .never, warn: false) }
+        guard let at = input.lastBackgroundCheck, at > 0 else {
+            // Geplante Läufe gab es, gelungen ist keiner: Warnung statt «noch keine Prüfung» (grau)
+            let failing = input.lastFailedBackgroundCheck != nil
+            return Status(kind: failing ? .stale : .never, warn: failing)
+        }
         let fresh = at - input.now <= AlarmReadiness.futureToleranceMillis && input.now - at <= staleMillis(input.platform)
         if fresh { return Status(kind: .recent, warn: false) }
         // Zu alt: Unter Android ist Akku-Optimierung bzw. das Akkusparen des Herstellers der wahrscheinliche Grund —

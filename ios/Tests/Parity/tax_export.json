@@ -1,5 +1,5 @@
 {
- "_comment": "Steuer-Export (TaxExport.kt / TaxExport.swift): Gewinne (FIFO je Posten, Ø je Verkauf) und Einkünfte eines Jahrs in Ortszeit (zone), Devisenkurs des Tags oder bis 7 Tage davor, CSV wie der Stichtag-Export. Erwartete CSV-Texte ohne BOM, Zeilen mit \\r\\n. Build 46: Ø-Einstand je Zugang zum Kurs seines Datums (laufender Ø in der Anzeigewährung); mehr verkauft als erfasst (ADA) = Zeile ohne Kaufpreis; Summe nur über vollständige Zeilen, dazu «Erlös ohne Kaufpreis»; Zeitzone als Kopfzeile; Einzahlung mit ursprünglichem Kaufdatum (acquiredTime) zählt ab diesem.",
+ "_comment": "Steuer-Export (TaxExport.kt / TaxExport.swift): Gewinne (FIFO je Posten, Ø je Verkauf) und Einkünfte eines Jahrs in Ortszeit (zone), Devisenkurs des Tags oder bis 7 Tage davor, CSV wie der Stichtag-Export. Erwartete CSV-Texte ohne BOM, Zeilen mit \\r\\n. Build 46: Ø-Einstand je Zugang zum Kurs seines Datums (laufender Ø in der Anzeigewährung); mehr verkauft als erfasst (ADA) = Zeile ohne Kaufpreis; Summe nur über vollständige Zeilen, dazu «Erlös ohne Kaufpreis»; Zeitzone als Kopfzeile; Einzahlung mit ursprünglichem Kaufdatum (acquiredTime) zählt ab diesem. Build 93: Gewinn je Zeile = gerundeter Erlös − gerundeter Einstand (BNB 4.98 − 2.72 = 2.26), Summe Gewinn = Summe Erlös − Summe Einstand.",
  "zone": "Europe/Zurich",
  "year": 2025,
  "currency": "CHF",
@@ -238,9 +238,9 @@
     "ETH;2023-03-10;2025-01-01;663;yes;1;;2000.00;;;1812.00;;purchase price missing",
     "BTC;2023-03-10;2025-03-15;736;yes;1;10000.00;29990.00;19990.00;9200.00;26391.20;17191.20;",
     "BTC;2024-06-01;2025-03-15;287;no;0.5;10005.00;14995.00;4990.00;9004.50;13195.60;4191.10;",
-    "BNB;2024-12-30;2025-05-05;126;no;0.01;3.00;6.00;3.00;2.72;4.98;2.27;fee in other coin",
+    "BNB;2024-12-30;2025-05-05;126;no;0.01;3.00;6.00;3.00;2.72;4.98;2.26;fee in other coin",
     "ADA;;2025-07-01;;;100;;50.00;;;40.00;;purchase price missing, sold more than recorded",
-    "Total;;;;;;20008.00;44991.00;24983.00;18207.22;39591.78;21384.57;incomplete",
+    "Total;;;;;;20008.00;44991.00;24983.00;18207.22;39591.78;21384.56;incomplete",
     "Proceeds without purchase price;;;;;;;2050.00;;;1852.00;;incomplete"
    ],
    "income": [
@@ -264,9 +264,9 @@
     "Coin;Acquired;Sold;Days held;> 1 year;Amount;Cost USDT;Proceeds USDT;Gain USDT;Cost CHF;Proceeds CHF;Gain CHF;Note",
     "ETH;;2025-01-01;;;1;;2000,00;;;1812,00;;purchase price missing",
     "BTC;;2025-03-15;;;1,5;22507,50;44985,00;22477,50;20406,75;39586,80;19180,05;cost at purchase-date rates (avg)",
-    "BNB;;2025-05-05;;;0,01;3,00;6,00;3,00;2,72;4,98;2,27;fee in other coin, cost at purchase-date rates (avg)",
+    "BNB;;2025-05-05;;;0,01;3,00;6,00;3,00;2,72;4,98;2,26;fee in other coin, cost at purchase-date rates (avg)",
     "ADA;;2025-07-01;;;100;;50,00;;;40,00;;purchase price missing, sold more than recorded",
-    "Total;;;;;;22510,50;44991,00;22480,50;20409,47;39591,78;19182,32;incomplete",
+    "Total;;;;;;22510,50;44991,00;22480,50;20409,47;39591,78;19182,31;incomplete",
     "Proceeds without purchase price;;;;;;;2050,00;;;1852,00;;incomplete"
    ],
    "income": [
@@ -687,7 +687,7 @@
   }
  },
  "withdrawalFeeInfo": {
-  "_comment": "[B56] Auszahlungsgebühr in USDT/Fiat (Entscheid 17.10.2026): UK, US, CA, AU, JP nur Information (Zeile mit Vermerk, nicht in der Summe; UK HMRC CRYPTO22150), DE und Neutral unverändert in der Summe der Gewinne-CSV. Gewinn BTC 1020, Gebühr 25 USDT. Build 57: dazu Umbuchung ETH mit Gebühr 3 USDT — UK/US eine zweite Zeile nur zur Information (nicht im Einstand), DE/Neutral unverändert (Gebühr im Einstand, ETH nicht verkauft).",
+  "_comment": "[B56] Auszahlungsgebühr in USDT/Fiat (Entscheid 17.10.2026): UK, US, CA, AU, JP nur Information (Zeile mit Vermerk, nicht in der Summe; UK HMRC CRYPTO22150), DE und Neutral unverändert in der Summe der Gewinne-CSV. Gewinn BTC 1020, Gebühr 25 USDT. Build 57: dazu Umbuchung ETH mit Gebühr 3 USDT — UK/US eine zweite Zeile nur zur Information (nicht im Einstand), DE/Neutral unverändert (Gebühr im Einstand, ETH nicht verkauft). Build 93: DE (feesTotal) wie die Jahresübersicht — die Auszahlungsgebühr zählt nicht in der Summe (1020.00 = netto ≤ 1 Jahr der Übersicht), sondern in einer eigenen Summenzeile «Auszahlungsgebühren» (feesTotalGain −25.00); ohne diesen Text (Neutral) unverändert in der Summe.",
   "year": 2025,
   "zone": "UTC",
   "trades": [
@@ -753,7 +753,8 @@
     "template": "DE",
     "method": "FIFO",
     "infoRows": 0,
-    "totalGain": "995.00"
+    "totalGain": "1020.00",
+    "feesTotalGain": "-25.00"
    },
    {
     "template": "NEUTRAL",
@@ -1129,5 +1130,132 @@
    "Total interest (taxable);;;250.00;250.00;",
    "Total staking (information);;;220.00;220.00;"
   ]
+ },
+ "ukBbWindow": {
+  "_comment": "Build 93: UK 30-Tage-Regel über das Ende des Steuerjahrs (5. April) hinaus. Steuerjahr 2024/25 (6.4.2024–5.4.2025), GBP. Kauf 1 BTC 1.6.2024 zu 10000 (Pool); Verkauf 1 BTC 2.4.2025 zu 20000; Rückkäufe 9.4. (0.4 zu 15000) und 20.4. (0.3 zu 18000), Belohnung 0.1 BTC ohne Preis 10.4. (Tagesschluss 16000, closes). Zuordnung: 30 Tage 0.4 + 0.1 + 0.3, Rest 0.2 aus dem Pool. Einstand in GBP je zum Kurs des Zugangsdatums (9.4. 0.78, 10.4. 0.76, 20.4. 0.75, Pool 1.6.2024 0.79), Erlös zum Kurs des 2.4. (0.77); kein Vermerk «ohne Devisenkurs». priceUntil: [Vorlage, heute, erwartet] (TaxExport.priceUntil: UK/CA Ende Steuerjahr + 30 Tage, höchstens heute, nie vor dem Ende). fxUntil: TaxExport.fxSpan mit until = priceUntil (heute 'today'); fxUntilWithoutWindow: ohne until (spätester genutzter Zugang). truncatedFxMissing: Zeilen ohne Devisenkurs, wenn die Kurse wie bis Build 92 nur bis zum 5.4. geladen werden (9.4. nimmt dann still den Kurs des 2.4.).",
+  "zone": "Europe/London",
+  "year": 2024,
+  "currency": "GBP",
+  "today": "2025-10-01",
+  "trades": [
+   {
+    "id": 1,
+    "coin": "BTC",
+    "type": "BUY",
+    "amount": "1",
+    "time": 1717243200000,
+    "price": "10000"
+   },
+   {
+    "id": 2,
+    "coin": "BTC",
+    "type": "SELL",
+    "amount": "1",
+    "time": 1743595200000,
+    "price": "20000"
+   },
+   {
+    "id": 3,
+    "coin": "BTC",
+    "type": "BUY",
+    "amount": "0.4",
+    "time": 1744200000000,
+    "price": "15000"
+   },
+   {
+    "id": 4,
+    "coin": "BTC",
+    "type": "REWARD",
+    "amount": "0.1",
+    "time": 1744286400000
+   },
+   {
+    "id": 5,
+    "coin": "BTC",
+    "type": "BUY",
+    "amount": "0.3",
+    "time": 1745150400000,
+    "price": "18000"
+   }
+  ],
+  "closes": [
+   {
+    "coin": "BTC",
+    "day": 20188,
+    "close": "16000"
+   }
+  ],
+  "rates": {
+   "19875": "0.79",
+   "20180": "0.77",
+   "20187": "0.78",
+   "20188": "0.76",
+   "20198": "0.75"
+  },
+  "priceUntil": [
+   [
+    "UK",
+    "2025-10-01",
+    "2025-05-05"
+   ],
+   [
+    "UK",
+    "2025-04-15",
+    "2025-04-15"
+   ],
+   [
+    "UK",
+    "2025-01-10",
+    "2025-04-05"
+   ],
+   [
+    "CA",
+    "2025-10-01",
+    "2025-01-30"
+   ],
+   [
+    "NEUTRAL",
+    "2025-10-01",
+    "2024-12-31"
+   ],
+   [
+    "DE",
+    "2025-10-01",
+    "2024-12-31"
+   ]
+  ],
+  "fxUntil": "2025-05-05",
+  "fxUntilWithoutWindow": "2025-04-20",
+  "rows": [
+   {
+    "acquired": null,
+    "match": "POOL",
+    "amount": "0.2",
+    "costTarget": "1580",
+    "proceedsTarget": "3080"
+   },
+   {
+    "acquired": "2025-04-09",
+    "match": "THIRTY_DAY",
+    "amount": "0.4",
+    "costTarget": "4680",
+    "proceedsTarget": "6160"
+   },
+   {
+    "acquired": "2025-04-10",
+    "match": "THIRTY_DAY",
+    "amount": "0.1",
+    "costTarget": "1216",
+    "proceedsTarget": "1540"
+   },
+   {
+    "acquired": "2025-04-20",
+    "match": "THIRTY_DAY",
+    "amount": "0.3",
+    "costTarget": "4050",
+    "proceedsTarget": "4620"
+   }
+  ],
+  "truncatedFxMissing": 2
  }
 }

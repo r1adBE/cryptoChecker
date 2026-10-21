@@ -96,6 +96,10 @@ struct TaxCsvTexts: Sendable {
     /// AT: Vermerk für Belohnungen (Zins und Staking) mit Zufluss vor dem 1.3.2022 «vor 1.3.2022 – mit Fachperson prüfen»
     /// statt `incomeInterest`/`incomeStaking` — § 27b EStG gilt erst ab dann. Leer = kein eigener Vermerk. Wie Android.
     var incomeBeforeNewLaw: String = ""
+    /// DE/AT (nur diese Vorlagen füllen ihn, `withTemplateTexts`, `TaxTemplate.withdrawalFeeApart`): Summenzeile
+    /// «Auszahlungsgebühren» — die Gebühr-Zeilen einer Auszahlung zählen dann NICHT in der Summe der Gewinne, sondern in
+    /// dieser eigenen Zeile, wie der eigene Posten der Jahresübersicht. Leer = in der Summe wie bisher. Wie Android.
+    var withdrawalFeesTotal: String = ""
 
     /// Aus den App-Texten; Währungsspalten mit `currency`, Zeitzone der Daten `zone` (die der Vorlage, Neutral: Gerät).
     static func localized(currency: String, zone: TimeZone = .current) -> TaxCsvTexts {

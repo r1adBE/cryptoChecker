@@ -88,5 +88,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">พอร์ตโฟลิโอที่บันทึกไว้ถูกล็อกอยู่ในขณะนี้ – จะแก้ไขได้หลังจากเปิดแอปครั้งถัดไปเท่านั้น</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">อุปกรณ์นี้ไม่ได้ให้คีย์ในขณะนี้ – รายการติดตามไม่ได้ถูกบันทึก และการเปลี่ยนแปลงจะหายไปเมื่อปิดแอป แอปจะลองใหม่เมื่อเปิดครั้งถัดไป</string>
+    <string name="watchlist_storage_in_memory">อุปกรณ์นี้ไม่ได้ให้คีย์ในขณะนี้ – รายการติดตามไม่ได้ถูกบันทึก และการเปลี่ยนแปลงจะหายไปเมื่อปิดแอป สัญญาณเตือนเบื้องหลังหยุดชั่วคราว แอปจะลองใหม่เมื่อเปิดครั้งถัดไป</string>
 </resources>

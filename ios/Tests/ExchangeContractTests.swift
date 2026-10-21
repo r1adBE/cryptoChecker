@@ -100,6 +100,12 @@ final class ExchangeContractTests: XCTestCase {
                 let want: Int64? = S.number(value).map { JSONValue.int64($0) }
                 problem = want == t.exchangeTime ? nil
                     : "\(prefix) exchangeTime: expected \(String(describing: want)), got \(String(describing: t.exchangeTime))"
+            case "exchangeTimeAgeMillis":
+                // Börsenzeit als Abstand vor dem Abruf (Lighter ohne Handel in 24 h: spätestens 24 h zuvor)
+                let want = JSONValue.int64(S.number(value) ?? 0)
+                let age = t.exchangeTime.map { t.timestamp - $0 }
+                problem = age.map { $0 >= want && $0 <= want + 60_000 } == true ? nil
+                    : "\(prefix) exchangeTimeAgeMillis: expected \(want), got \(String(describing: age))"
             default: problem = "\(prefix): unknown expectation '\(key)'"
             }
             if let problem { return problem }
@@ -269,8 +275,9 @@ final class ExchangeContractTests: XCTestCase {
 
     /// Ein aufgezeichneter Fall. Echte Kurse ändern sich, darum keine Sollwerte, nur Plausibilität:
     /// Einzelkurs liest ohne Fehler mit `last` > 0, Sammelabfrage liefert Kurse, Paarliste enthält
-    /// das Paar des Einzelkurses (`contains`) — wie Android `runRecorded`.
-    private func runRecorded(_ c: [String: Any]) -> String? {
+    /// das Paar des Einzelkurses (`contains`) — wie Android `runRecorded`. Beim Einzelkurs dazu die Werte selbst
+    /// (`checkRecordedValues`), gemessen am Aufnahmezeitpunkt `recordedAt` (ms, nil = unbekannt).
+    private func runRecorded(_ c: [String: Any], recordedAt: Int64?) -> String? {
         guard let market = market(c) else { return "unknown market \(c["market"] ?? "")" }
         let requestId = Int(S.number(c["requestId"]) ?? 0)
         let body = c["body"] as? String ?? ""
@@ -282,7 +289,8 @@ final class ExchangeContractTests: XCTestCase {
             } catch {
                 return "parser failed: \(error)"
             }
-            return ticker.last > 0 ? nil : "no positive last price (\(ticker.last))"
+            guard ticker.last > 0 else { return "no positive last price (\(ticker.last))" }
+            return checkRecordedValues(ticker, recordedAt: recordedAt)
         case "bulk":
             do {
                 let parsed = try market.parseBulkTickersDetailed(call: requestId, body: body)
@@ -305,6 +313,42 @@ final class ExchangeContractTests: XCTestCase {
         case let kind:
             return "unknown kind \(kind)"
         }
+    }
+
+    /// Spielraum nach der Aufnahme: `recordedAt` ist der Beginn des ganzen Laufs, die Börsen werden danach der
+    /// Reihe nach abgefragt (Upbit am 2026-10-16 65 s später). 5 min fangen jede Zeitzonen-Verschiebung (≥ 1 h).
+    private static let recordedFutureSlackMillis: Int64 = 5 * 60 * 1000
+    /// Älter als 30 Tage ist für einen gehandelten Kurs keine plausible letzte Handelszeit mehr.
+    private static let recordedMaxAgeMillis: Int64 = 30 * 24 * 60 * 60 * 1000
+
+    /// Werte eines aufgezeichneten Einzelkurses, seit Build 93: Eine Börsenzeit liegt höchstens 30 Tage vor und
+    /// kurz nach der Aufnahme (eine Zeitzone als Epoche geschrieben, wie Bithumbs KST-Zeit, fiele sonst erst beim
+    /// Nutzer auf). Liefert die Börse Hoch und Tief, liegt der Kurs dazwischen (kleine Toleranz für Rundung) —
+    /// sonst gehörten Hoch/Tief zu einem anderen Zeitraum als der Kurs. Nicht gelieferte Felder zählen nicht.
+    /// Wie Android `checkRecordedValues`.
+    private func checkRecordedValues(_ ticker: Ticker, recordedAt: Int64?) -> String? {
+        if let time = ticker.exchangeTime, let recordedAt {
+            if time > recordedAt + Self.recordedFutureSlackMillis {
+                return "exchangeTime \(time) lies after recordedAt \(recordedAt)"
+            }
+            if time < recordedAt - Self.recordedMaxAgeMillis {
+                return "exchangeTime \(time) lies more than 30 days before recordedAt \(recordedAt)"
+            }
+        }
+        let (high, low) = (ticker.high, ticker.low)
+        guard high.isFinite, high > 0, low.isFinite, low > 0 else { return nil }
+        let slack = high * 1e-9
+        if low > high + slack { return "low \(low) above high \(high)" }
+        if ticker.last < low - slack || ticker.last > high + slack {
+            return "last \(ticker.last) outside low \(low) … high \(high)"
+        }
+        return nil
+    }
+
+    /// Aufnahmezeitpunkt in ms; nil, wenn er fehlt oder sich nicht lesen lässt.
+    private func recordedMillis(_ recordedAt: String?) -> Int64? {
+        guard let recordedAt, let date = ISO8601DateFormatter().date(from: recordedAt) else { return nil }
+        return Int64(date.timeIntervalSince1970 * 1000)
     }
 
     /// Bekannte Abweichung auf iOS? Dann der Hinweis aus der Datei.
@@ -361,12 +405,29 @@ final class ExchangeContractTests: XCTestCase {
         for file in files {
             let recordedAt = file.recordedAt ?? ""
             if recordedAt.isEmpty { XCTFail("\(file.name): missing recordedAt") }
+            let recordedAtMillis = recordedMillis(file.recordedAt)
             for c in file.cases {
-                if let problem = runRecorded(c) {
+                if let problem = runRecorded(c, recordedAt: recordedAtMillis) {
                     XCTFail("\(file.name) › \(c["kind"] ?? "") (recorded \(recordedAt)): \(problem)")
                 }
             }
         }
+    }
+
+    /// Bithumb schreibt in «trade_timestamp» die koreanische Uhrzeit als Epoche (9 h zu spät). Die gelesene
+    /// Börsenzeit der echten Antwort liegt darum höchstens 60 s nach der Aufnahme (Bithumb wird früh im Lauf
+    /// abgefragt) und nicht weiter als eine Stunde davor. Wie Android `recordedBithumbTradeTimeIsUtc`.
+    func testRecordedBithumbTradeTimeIsUtc() throws {
+        guard let file = try recordedFixtures().first(where: { $0.name == "recorded_bithumb.json" }) else { return }
+        let recordedAt = try XCTUnwrap(recordedMillis(file.recordedAt))
+        let single = try XCTUnwrap(file.cases.first { $0["kind"] as? String == "single" })
+        let market = try XCTUnwrap(MarketsConfig.market("Bithumb"))
+        var ticker = Ticker()
+        try market.readTicker(call: 0, body: single["body"] as? String ?? "", ticker: &ticker,
+                              info: pair(single["pair"] as? [String: Any] ?? [:]))
+        let time = try XCTUnwrap(ticker.exchangeTime, "Bithumb: keine Börsenzeit gelesen")
+        XCTAssertLessThanOrEqual(time, recordedAt + 60_000, "Bithumb: Börsenzeit nach Aufnahme + 60 s")
+        XCTAssertGreaterThanOrEqual(time, recordedAt - 3_600_000, "Bithumb: Börsenzeit über 1 h vor Aufnahme")
     }
 
     /// Jede registrierte Börse braucht mindestens einen Einzelabruf-Fall (und einen Sammelabruf-Fall,

@@ -29,6 +29,8 @@ extension TaxCsvTexts {
             // Zufluss vor dem 1.3.2022 (vor § 27b EStG) — eigener Vermerk statt Zins/Staking
             t.incomeBeforeNewLaw = L("tax_export_at_income_before_new_law")
         }
+        // DE/AT: Auszahlungsgebühren als eigene Summenzeile, nicht in der Summe der Gewinne — wie der Posten der Übersicht
+        if template.withdrawalFeeApart { t.withdrawalFeesTotal = L("tax_line_withdrawal_fees") }
         return t
     }
 }

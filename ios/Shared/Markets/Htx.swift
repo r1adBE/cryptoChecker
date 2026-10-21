@@ -15,7 +15,8 @@ final class Htx: HtxBase {
             allTickersURL: htxSpotAPI + "/market/tickers",
             rowsField: "data",
             idField: "symbol",
-            turnoverField: "vol"
+            turnoverField: "vol",
+            singleHighLowRolling: true
         )
     }
 
@@ -44,7 +45,8 @@ final class HtxFutures: HtxBase {
             allTickersURL: htxSwapAPI + "/linear-swap-ex/market/detail/batch_merged?business_type=swap",
             rowsField: "ticks",
             idField: "contract_code",
-            turnoverField: "trade_turnover"
+            turnoverField: "trade_turnover",
+            singleHighLowRolling: false
         )
     }
 
@@ -75,18 +77,24 @@ final class HtxFutures: HtxBase {
 /// Gemeinsames von Spot und Swap: gleiche Ticker-Felder unter `tick`, Sammelabfrage als Liste `rowsField` mit der
 /// Kennung in `idField`. Den Umsatz in der Quote nennt `turnoverField`: Spot `vol`, Swap `trade_turnover` — beim Swap
 /// ist `vol` die Zahl der Kontrakte, also nie Ersatz. Die Paarliste liest jede Unterklasse selbst.
+/// Hoch/Tief: Die Sammelabfragen (Spot `market/tickers`, Swap `batch_merged`) und der Swap-Einzelkurs zählen sie seit
+/// Tagesbeginn UTC+8, nicht über 24 h — nur der Spot-Einzelkurs (`detail/merged`, rollend) liefert sie
+/// (`singleHighLowRolling`).
 class HtxBase: SimpleMarket {
     private let allTickersURL: String
     private let rowsField: String
     private let idField: String
     private let turnoverField: String
+    private let singleHighLowRolling: Bool
 
     init(key: String, name: String, pairListURL: String, tickerURL: String, errorField: String,
-         allTickersURL: String, rowsField: String, idField: String, turnoverField: String) {
+         allTickersURL: String, rowsField: String, idField: String, turnoverField: String,
+         singleHighLowRolling: Bool) {
         self.allTickersURL = allTickersURL
         self.rowsField = rowsField
         self.idField = idField
         self.turnoverField = turnoverField
+        self.singleHighLowRolling = singleHighLowRolling
         super.init(key: key, name: name, pairListURL: pairListURL, tickerURL: tickerURL, errorField: errorField)
     }
 
@@ -94,7 +102,7 @@ class HtxBase: SimpleMarket {
 
     /// `ts` der Hülle ist die Antwortzeit, kein Handel → Zeit der Börse unbekannt.
     override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
-        try copyRow(json.object("tick"), into: &ticker)
+        try copyRow(json.object("tick"), into: &ticker, withHighLow: singleHighLowRolling)
     }
 
     // MARK: Sammelabfrage
@@ -109,7 +117,7 @@ class HtxBase: SimpleMarket {
         var tickers: [String: Ticker] = [:]
         for row in try JObject(string: body).array(rowsField).allObjects() {
             bulkRowIfActive(row.optString(idField), row: row, priceField: "close", tickers: &tickers,
-                            failed: &failed) { try copyRow(row, into: &$0) }
+                            failed: &failed) { try copyRow(row, into: &$0, withHighLow: false) }
         }
         return tickers
     }
@@ -118,10 +126,13 @@ class HtxBase: SimpleMarket {
 
     /// Keine 24-h-Veränderung: «open» ist laut Doku der Sammelabfrage die Eröffnung des Kalendertags (Singapur) —
     /// Einzel- und Sammelabruf wären sonst uneinheitlich. `ts` ist die Momentaufnahme, nicht der letzte Handel.
-    private func copyRow(_ row: JObject, into ticker: inout Ticker) throws {
+    private func copyRow(_ row: JObject, into ticker: inout Ticker, withHighLow: Bool) throws {
         ticker.last = try row.double("close")
-        ticker.high = row.optDoubleOrMissing("high")
-        ticker.low = row.optDoubleOrMissing("low")
+        // Hoch/Tief seit Tagesbeginn (UTC+8) gehörten zu einem anderen Zeitraum als die 24-h-Werte: nicht übernommen
+        if withHighLow {
+            ticker.high = row.optDoubleOrMissing("high")
+            ticker.low = row.optDoubleOrMissing("low")
+        }
         ticker.vol = row.optDoubleOrMissing("amount")
         ticker.volQuote = row.optDoubleOrMissing(turnoverField)
         ticker.bid = HtxBase.bestPrice(row, "bid")

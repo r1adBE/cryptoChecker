@@ -31,6 +31,41 @@
     },
     {
       "kind": "single",
+      "name": "ticker while trading is halted (state CIRCUIT BREAK): no price, not the last trade before the halt",
+      "market": "BitFlyer",
+      "pair": {
+        "base": "BTC",
+        "quote": "JPY",
+        "id": "BTC_JPY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"product_code\":\"BTC_JPY\",\"state\":\"CIRCUIT BREAK\",\"timestamp\":\"2024-10-10T06:00:00.123\",\"tick_id\":12345678, \"best_bid\":9200000.0,\"best_ask\":9201000.0,\"best_bid_size\":0.1,\"best_ask_size\":0.2,\"total_bid_depth\":1234.5, \"total_ask_depth\":2345.6,\"market_bid_size\":0.0,\"market_ask_size\":0.0,\"ltp\":9200500.0,\"volume\":123456.7, \"volume_by_product\":2345.67}",
+      "expect": {
+        "error": true,
+        "message": null,
+        "thrown": "No data"
+      },
+      "note": "state other than RUNNING (CLOSED, STARTING, PREOPEN, CIRCUIT BREAK, AWAITING SQ, MATURED) = not trading, like Luno's status"
+    },
+    {
+      "kind": "single",
+      "name": "ticker without state field: read as before",
+      "market": "BitFlyer",
+      "pair": {
+        "base": "BTC",
+        "quote": "JPY",
+        "id": "BTC_JPY",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "body": "{\"product_code\":\"BTC_JPY\",\"timestamp\":\"2024-10-10T06:00:00.123\",\"tick_id\":12345678, \"best_bid\":9200000.0,\"best_ask\":9201000.0,\"best_bid_size\":0.1,\"best_ask_size\":0.2,\"total_bid_depth\":1234.5, \"total_ask_depth\":2345.6,\"market_bid_size\":0.0,\"market_ask_size\":0.0,\"ltp\":9200500.0,\"volume\":123456.7, \"volume_by_product\":2345.67}",
+      "expect": {
+        "last": 9200500.0
+      }
+    },
+    {
+      "kind": "single",
       "name": "error payload",
       "market": "BitFlyer",
       "pair": {

@@ -132,4 +132,6 @@
 
     <string name="explorer_bulk_show_all">Zobrazit vše (%1$d)</string>
     <string name="dex_token_address_copy">Kopírovat adresu tokenu</string>
+    <string name="dex_token_address_copied">Adresa tokenu zkopírována</string>
+    <string name="dex_token_address_label">Adresa tokenu končící na %1$s</string>
 </resources>

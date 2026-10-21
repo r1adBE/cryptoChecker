@@ -1,5 +1,6 @@
 package com.cryptochecker.app.domain.watch
 
+import com.cryptochecker.app.ui.features.watchlist.dexSpokenTail
 import com.cryptochecker.marketdata.model.market.DexScreener
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -36,5 +37,12 @@ class DexTokenAddressTest {
         assertEquals(evm, DexTokenAddress.cleaned(pool.baseAddress))
         // Schlüssel wie die Liquidität: Kennung ohne Gross-/Kleinschreibung
         assertEquals("ethereum/0xa43fe16908251ee70ef74718545e4fe6c5ccec9f", DexLiquidity.key(pool.pairId))
+    }
+
+    /** TalkBack: die letzten vier Zeichen der Adresse einzeln (Vorlesetext der Zeile im Aktionsblatt). Wie iOS. */
+    @Test
+    fun spokenTailSpellsLastFourCharacters() {
+        assertEquals("1 9 3 3", dexSpokenTail(evm))
+        assertEquals("a b c", dexSpokenTail(" abc "))
     }
 }

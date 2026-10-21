@@ -11,6 +11,9 @@ private let lighterPerpQuote = "USDC"
 /// `code` einer normalen Antwort.
 private let lighterOK = 200
 
+/// Fenster von `daily_trades_count`: ohne Handel darin lag der letzte spätestens so lange zurück (24 h).
+private let lighterNoTradesWindowMillis: Int64 = 24 * 60 * 60 * 1000
+
 /// Lighter — dezentrale Perpetual-Börse (zk-Rollup) mit USDC-Abrechnung, dazu einige Spot-Märkte; öffentliche
 /// Schnittstelle ohne Schlüssel. Paare aus `orderBooks` + `tokenlist`, Kurse aus `exchangeStats`
 /// ({code, total, order_book_stats: [{symbol, last_trade_price, daily_…}]}).
@@ -140,12 +143,18 @@ final class Lighter: Market {
     /// Eine Zeile von `exchangeStats`; `daily_price_change` ist bereits Prozent über gleitende 24 h. Ohne Handel in
     /// 24 h (`daily_trades_count` 0) meldet Lighter die Veränderung als 0 — das ist keine gemessene Veränderung,
     /// darum bleibt sie leer statt «0,00 %». Fehlt das Zählfeld, gilt die Veränderung wie bisher.
+    ///
+    /// Eine Handelszeit nennt Lighter nicht. Ohne Handel in 24 h lag der letzte aber spätestens 24 h zurück: Diese
+    /// Obergrenze gilt als Börsenzeit (seit Build 93). So sperrt die bestehende Regel (`exchangeTime` älter als 2 h)
+    /// Alarme auf den stehengebliebenen Kurs, und die Zeile zeigt «veraltet – letzter Handel vor 1 Tag» — wie
+    /// Hyperliquid ohne Orderbuch keine Alarme auslöst. Mit Handel bleibt die Zeit unbekannt. Wie Android.
     private static func copyRow(_ row: JObject, into ticker: inout Ticker) throws {
         ticker.last = try row.double("last_trade_price")
         ticker.vol = row.optDoubleOrMissing("daily_base_token_volume")
         ticker.volQuote = row.optDoubleOrMissing("daily_quote_token_volume")
         let noTrades = row.optLong("daily_trades_count", -1) == 0
         ticker.change24hPercent = noTrades ? nil : Change24h.percent(row.optDouble("daily_price_change"))
+        if noTrades { ticker.timestamp = TimeUtils.nowMillis - lighterNoTradesWindowMillis }
     }
 
     /// `asset_type` je Symbol aus `tokenlist`; leer, wenn die Antwort fehlt oder unlesbar ist.

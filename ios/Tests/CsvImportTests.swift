@@ -404,4 +404,47 @@ final class CsvImportTests: XCTestCase {
         XCTAssertEqual(records.first?.cells, ["x", "a \"b\", c", "y"])
         XCTAssertNil(CsvImportParser.parseTime("2024-02-29T25:00:00Z"))
     }
+
+    /// Build 93: Fiat-Gebühr in einer anderen Währung als die Preiswährung zum Tageskurs ihrer Währung, ohne Kurs
+    /// missingFx (nie still weg); Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso; Belohnung mit Fiat-Betrag
+    /// bekommt Preis = Betrag / Menge, der Schlüssel bis Build 92 (ohne Preis) erkennt den früheren Import weiter. Wie
+    /// Android `fiatFeeReward`.
+    func testFiatFeeReward() throws {
+        let c = try XCTUnwrap(try S.fixture("csv_import")["fiatFeeReward"] as? [String: Any])
+        var rates: [String: [Int64: Decimal]] = [:]
+        for (cur, byDay) in (c["rates"] as? [String: Any]) ?? [:] {
+            var m: [Int64: Decimal] = [:]
+            for (d, v) in (byDay as? [String: Any]) ?? [:] {
+                m[day(d)] = Decimal(string: string(v) ?? "", locale: Locale(identifier: "en_US_POSIX"))
+            }
+            rates[cur] = m
+        }
+        let result = try parse(string(c["file"]) ?? "")
+        let priced = CsvImport.priceInUsdt(result.rows) { cur, d in rates[cur]?[d] }
+        let expected = S.list(c["priced"])
+        XCTAssertEqual(priced.map(\.row.line), expected.map { int($0["line"]) })
+        for (e, p) in zip(expected, priced) {
+            let m = "fiatFeeReward line \(p.row.line)"
+            XCTAssertEqual(text(p.priceUsdt), string(e["priceUsdt"]), "\(m) priceUsdt")
+            XCTAssertEqual(text(p.feeUsdt), string(e["feeUsdt"]), "\(m) feeUsdt")
+            XCTAssertEqual(p.needsFx, e["needsFx"] as? Bool, "\(m) needsFx")
+        }
+        let preview = CsvImportMapping.preview(result, existingKeys: []) { cur, d in rates[cur]?[d] }
+        XCTAssertEqual(preview.missingFx, ((c["missingFx"] as? [Any]) ?? []).map { int($0) })
+        for e in S.list(c["txs"]) {
+            let line = int(e["line"])
+            let tx = try XCTUnwrap(preview.transactions.first { $0.line == line })
+            XCTAssertEqual(text(tx.fee), string(e["fee"]), "tx \(line) fee")
+            XCTAssertEqual(tx.feeUnit?.rawValue, string(e["feeUnit"]), "tx \(line) feeUnit")
+            XCTAssertEqual(tx.feeCoin, string(e["feeCoin"]), "tx \(line) feeCoin")
+        }
+        // Tageskurse: Gebühr in jeder Fiat-Währung (GBP neben der Preiswährung USD)
+        XCTAssertEqual(CsvImportMapping.fxNeeds(result.rows).keys.sorted(), ((c["fxNeeds"] as? [Any]) ?? []).compactMap { string($0) })
+        // Belohnung mit Preis: früherer Schlüssel ohne Preis bleibt erkannt
+        let reward = try XCTUnwrap(result.rows.first { $0.line == int(c["legacyLine"]) })
+        let legacyKey = string(c["legacyKey"]) ?? ""
+        XCTAssertEqual(reward.key, string(c["key"]))
+        XCTAssertTrue(reward.legacyKeys.contains(legacyKey))
+        XCTAssertEqual(CsvImport.splitDuplicates(result.rows, existingKeys: [legacyKey]).duplicates.map(\.line), [reward.line])
+    }
 }

@@ -116,4 +116,6 @@
 
     <string name="explorer_bulk_show_all">نمایش همه (%1$d)</string>
     <string name="dex_token_address_copy">کپی آدرس توکن</string>
+    <string name="dex_token_address_copied">نشانی توکن کپی شد</string>
+    <string name="dex_token_address_label">نشانی توکن با پایان %1$s</string>
 </resources>

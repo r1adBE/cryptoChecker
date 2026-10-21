@@ -177,4 +177,5 @@
     <string name="alarm_enter_amount">कोई मान डालें</string>
     <string name="alarm_editor_more">और</string>
     <string name="alarm_editor_more_summary">त्वरित अलार्म, अन्य शर्तें, आवाज़ और बोलकर सुनाना</string>
+    <string name="alarm_reliability_storage_no_key">बैकग्राउंड में अलार्म रुके हुए हैं – वॉचलिस्ट सहेजी नहीं गई</string>
 </resources>

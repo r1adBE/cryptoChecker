@@ -18,7 +18,7 @@ struct DexTokenAddressLine: View {
                 WatchlistHaptics.selection()
                 confirmCopy()
             } label: {
-                Text(copied ? L("ios_dex_token_address_copied") : BidiText.isolate(DexTokenAddress.shown(address)))
+                Text(copied ? L("dex_token_address_copied") : BidiText.isolate(DexTokenAddress.shown(address)))
                     .font(.caption)
                     .foregroundStyle(.tint)
                     .frame(minHeight: 44)
@@ -26,14 +26,14 @@ struct DexTokenAddressLine: View {
             }
             .buttonStyle(.plain)
             // VoiceOver: statt «0 x 1 2 3 4 …» die letzten vier Zeichen einzeln — reicht zum Wiedererkennen
-            .accessibilityLabel(L("ios_dex_token_address_label", Self.spokenTail(address)))
+            .accessibilityLabel(L("dex_token_address_label", Self.spokenTail(address)))
             .accessibilityHint(L("dex_token_address_copy"))
         }
     }
 
     /// Bestätigung sichtbar (kurz) und für VoiceOver angesagt.
     private func confirmCopy() {
-        AccessibilityNotification.Announcement(L("ios_dex_token_address_copied")).post()
+        AccessibilityNotification.Announcement(L("dex_token_address_copied")).post()
         copied = true
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 1_500_000_000)

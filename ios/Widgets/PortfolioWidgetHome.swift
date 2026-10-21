@@ -240,8 +240,10 @@ struct PortfolioHomeView: View {
                 .font(.system(size: size, weight: .bold, design: .rounded))
                 .monospacedDigit()
                 .foregroundStyle(palette.text)
-                .lineLimit(1)
-                .minimumScaleFactor(0.45)
+                // Lesbar bleiben (seit Build 93): höchstens auf 70 % verkleinern, ein sehr langer Betrag bricht
+                // stattdessen in eine zweite Zeile um (Platz geben die Abstände darunter bzw. der Chart) — vorher bis 45 %
+                .lineLimit(2)
+                .minimumScaleFactor(0.7)
             Text(s.currency)
                 .font(.system(size: size >= 26 ? 12 : 11, weight: .semibold))
                 .foregroundStyle(palette.secondary)
@@ -344,7 +346,8 @@ struct PortfolioHomeView: View {
             let direction = PortfolioWidgetText.directionValue(plan)
                 ?? ((plan.bars.last?.close ?? 0) >= first ? 1 : -1)
             PortfolioValueChart(plan: plan, palette: palette, lineColor: direction >= 0 ? palette.up : palette.down,
-                                hidden: entry.hideAmounts || redactionReasons.contains(.privacy))
+                                hidden: entry.hideAmounts || redactionReasons.contains(.privacy),
+                                timeZone: entry.chartTimeZone)
         } else {
             Text(L("widget_portfolio_chart_pending"))
                 .font(.system(size: 12, weight: .medium))

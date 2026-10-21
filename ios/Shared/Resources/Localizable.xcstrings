@@ -46767,6 +46767,197 @@
         }
       }
     },
+    "alarm_reliability_storage_no_key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التنبيهات متوقفة مؤقتًا في الخلفية – قائمة المتابعة غير محفوظة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy na pozadí pozastaveny – seznam není uložen"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmer sat på pause i baggrunden – overvågningslisten er ikke gemt"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarme im Hintergrund pausiert – Merkliste nicht gespeichert"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι συναγερμοί στο παρασκήνιο σε παύση – η λίστα δεν έχει αποθηκευτεί"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alerts paused in the background – watchlist not saved"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmas en pausa en segundo plano – la lista no está guardada"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارها در پس‌زمینه متوقف شده‌اند – واچ‌لیست ذخیره نشده است"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hälytykset taustalla keskeytetty – seurantalistaa ei ole tallennettu"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertes en pause en arrière-plan – liste non enregistrée"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ההתראות מושהות ברקע – רשימת המעקב לא נשמרה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बैकग्राउंड में अलार्म रुके हुए हैं – वॉचलिस्ट सहेजी नहीं गई"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riasztások szüneteltetve a háttérben – a figyelőlista nincs mentve"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm dijeda di latar belakang – daftar pantau tidak disimpan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allarmi in pausa in background – lista non salvata"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックグラウンドのアラームは一時停止中 – ウォッチリストは保存されていません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백그라운드 경보 일시 중지됨 – 관심 목록이 저장되지 않음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmer satt på pause i bakgrunnen – overvåkingslisten er ikke lagret"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmen op de achtergrond gepauzeerd – volglijst niet opgeslagen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy w tle wstrzymane – lista nie jest zapisana"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes em pausa em segundo plano – lista não guardada"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes pausados em segundo plano – lista não salva"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarme întrerupte în fundal – lista nu este salvată"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оповещения в фоне приостановлены – список не сохранён"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet në sfond janë pezulluar – lista nuk është ruajtur"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Larm pausade i bakgrunden – bevakningslistan är inte sparad"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สัญญาณเตือนเบื้องหลังหยุดชั่วคราว – รายการติดตามไม่ได้บันทึก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arka planda alarmlar duraklatıldı – liste kaydedilmedi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сигнали у фоні призупинено – список не збережено"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo nền đang tạm dừng – danh sách chưa được lưu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后台提醒已暂停 – 自选列表未保存"
+          }
+        }
+      }
+    },
     "alarm_repeat_each" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -100916,6 +101107,197 @@
         }
       }
     },
+    "dex_token_address_copied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم نسخ عنوان الرمز"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa tokenu zkopírována"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadresse kopieret"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token-Adresse kopiert"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η διεύθυνση του token αντιγράφηκε"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token address copied"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dirección del token copiada"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نشانی توکن کپی شد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenin osoite kopioitu"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresse du jeton copiée"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כתובת הטוקן הועתקה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "टोकन पता कॉपी किया गया"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokencím másolva"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alamat token disalin"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indirizzo del token copiato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "トークンアドレスをコピーしました"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "토큰 주소를 복사했습니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadresse kopiert"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadres gekopieerd"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skopiowano adres tokena"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endereço do token copiado"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endereço do token copiado"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa tokenului a fost copiată"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адрес токена скопирован"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa e tokenit u kopjua"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadress kopierad"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คัดลอกที่อยู่โทเค็นแล้ว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token adresi kopyalandı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адресу токена скопійовано"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã sao chép địa chỉ token"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已复制代币地址"
+          }
+        }
+      }
+    },
     "dex_token_address_copy" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -101103,6 +101485,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "复制代币地址"
+          }
+        }
+      }
+    },
+    "dex_token_address_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عنوان الرمز المنتهي بـ %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa tokenu končící na %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadresse, der slutter på %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token-Adresse, endet auf %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Διεύθυνση token που λήγει σε %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token address ending in %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dirección del token que termina en %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نشانی توکن با پایان %1$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenin osoite, joka päättyy %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresse du jeton se terminant par %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כתובת טוקן המסתיימת ב־%1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ पर समाप्त होने वाला टोकन पता"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ végű tokencím"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alamat token berakhiran %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indirizzo del token che termina con %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "末尾が %1$@ のトークンアドレス"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@(으)로 끝나는 토큰 주소"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadresse som slutter på %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadres eindigend op %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adres tokena kończący się na %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endereço do token terminado em %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endereço do token terminado em %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa tokenului care se termină în %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адрес токена, оканчивающийся на %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa e tokenit që mbaron me %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadress som slutar på %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ที่อยู่โทเค็นที่ลงท้ายด้วย %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ile biten token adresi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адреса токена, що закінчується на %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Địa chỉ token kết thúc bằng %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以 %1$@ 结尾的代币地址"
           }
         }
       }
@@ -137649,388 +138222,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "此应用的“后台App刷新”已关闭。关闭时，只有在应用打开时才会检查提醒。"
-          }
-        }
-      }
-    },
-    "ios_dex_token_address_copied" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تم نسخ عنوان الرمز"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adresa tokenu zkopírována"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tokenadresse kopieret"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Token-Adresse kopiert"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Η διεύθυνση του token αντιγράφηκε"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Token address copied"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dirección del token copiada"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "نشانی توکن کپی شد"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tokenin osoite kopioitu"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adresse du jeton copiée"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "כתובת הטוקן הועתקה"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "टोकन पता कॉपी किया गया"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tokencím másolva"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alamat token disalin"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Indirizzo del token copiato"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "トークンアドレスをコピーしました"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "토큰 주소를 복사했습니다"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tokenadresse kopiert"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tokenadres gekopieerd"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Skopiowano adres tokena"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Endereço do token copiado"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Endereço do token copiado"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adresa tokenului a fost copiată"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Адрес токена скопирован"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adresa e tokenit u kopjua"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tokenadress kopierad"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "คัดลอกที่อยู่โทเค็นแล้ว"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Token adresi kopyalandı"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Адресу токена скопійовано"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Đã sao chép địa chỉ token"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已复制代币地址"
-          }
-        }
-      }
-    },
-    "ios_dex_token_address_label" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "عنوان الرمز المنتهي بـ %1$@"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adresa tokenu končící na %1$@"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tokenadresse, der slutter på %1$@"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Token-Adresse, endet auf %1$@"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Διεύθυνση token που λήγει σε %1$@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Token address ending in %1$@"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dirección del token que termina en %1$@"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "نشانی توکن با پایان %1$@"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tokenin osoite, joka päättyy %1$@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adresse du jeton se terminant par %1$@"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "כתובת טוקן המסתיימת ב־%1$@"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ पर समाप्त होने वाला टोकन पता"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ végű tokencím"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alamat token berakhiran %1$@"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Indirizzo del token che termina con %1$@"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "末尾が %1$@ のトークンアドレス"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@(으)로 끝나는 토큰 주소"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tokenadresse som slutter på %1$@"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tokenadres eindigend op %1$@"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adres tokena kończący się na %1$@"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Endereço do token terminado em %1$@"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Endereço do token terminado em %1$@"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adresa tokenului care se termină în %1$@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Адрес токена, оканчивающийся на %1$@"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Adresa e tokenit që mbaron me %1$@"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tokenadress som slutar på %1$@"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ที่อยู่โทเค็นที่ลงท้ายด้วย %1$@"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%1$@ ile biten token adresi"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Адреса токена, що закінчується на %1$@"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Địa chỉ token kết thúc bằng %1$@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "以 %1$@ 结尾的代币地址"
           }
         }
       }
@@ -385745,193 +385936,384 @@
         }
       }
     },
+    "watchlist_storage_copy_in_memory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التشفير غير مفعّل بعد – لا يتم حفظ قائمة المتابعة، وتضيع التغييرات عند إغلاق التطبيق. التنبيهات متوقفة مؤقتًا في الخلفية. سيحاول التطبيق مجددًا عند التشغيل التالي."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Šifrování ještě není aktivní – seznam se neukládá a změny se po zavření aplikace ztratí. Alarmy na pozadí jsou pozastaveny. Aplikace to zkusí znovu při příštím spuštění."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kryptering er endnu ikke aktiv – overvågningslisten gemmes ikke, og ændringer går tabt, når appen lukkes. Alarmer i baggrunden er sat på pause. Appen prøver igen ved næste start."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verschlüsselung noch nicht aktiv – die Merkliste wird nicht gespeichert, Änderungen gehen beim Schliessen der App verloren. Alarme im Hintergrund sind pausiert. Die App versucht es beim nächsten Start erneut."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η κρυπτογράφηση δεν είναι ακόμη ενεργή – η λίστα δεν αποθηκεύεται και οι αλλαγές χάνονται όταν κλείσει η εφαρμογή. Οι συναγερμοί στο παρασκήνιο είναι σε παύση. Η εφαρμογή θα δοκιμάσει ξανά στην επόμενη εκκίνηση."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encryption not active yet – the watchlist is not being saved, changes are lost when the app closes. Alerts are paused in the background. The app will try again at the next start."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El cifrado aún no está activo: la lista no se guarda y los cambios se pierden al cerrar la app. Las alarmas en segundo plano están en pausa. La app lo intentará de nuevo en el próximo inicio."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزگذاری هنوز فعال نیست – واچ‌لیست ذخیره نمی‌شود و تغییرات با بستن برنامه از بین می‌روند. هشدارها در پس‌زمینه متوقف شده‌اند. برنامه در اجرای بعدی دوباره تلاش می‌کند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salaus ei ole vielä käytössä – seurantalistaa ei tallenneta, ja muutokset katoavat, kun sovellus suljetaan. Hälytykset taustalla on keskeytetty. Sovellus yrittää uudelleen seuraavalla käynnistyskerralla."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiffrement pas encore actif – la liste n'est pas enregistrée, les modifications sont perdues à la fermeture de l'app. Les alertes en arrière-plan sont en pause. L'app réessaiera au prochain démarrage."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ההצפנה עדיין לא פעילה – רשימת המעקב לא נשמרת, ושינויים יאבדו כשהאפליקציה תיסגר. ההתראות ברקע מושהות. האפליקציה תנסה שוב בהפעלה הבאה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "एन्क्रिप्शन अभी सक्रिय नहीं है – वॉचलिस्ट सहेजी नहीं जा रही, ऐप बंद होने पर बदलाव खो जाएँगे। बैकग्राउंड में अलार्म रुके हुए हैं। ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A titkosítás még nem aktív – a figyelőlista nincs mentve, a változások az app bezárásakor elvesznek. A háttérben a riasztások szünetelnek. Az app a következő indításkor újra megpróbálja."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enkripsi belum aktif – daftar pantau tidak disimpan, perubahan hilang saat aplikasi ditutup. Alarm di latar belakang dijeda. Aplikasi akan mencoba lagi saat dibuka berikutnya."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crittografia non ancora attiva: la lista non viene salvata e le modifiche vanno perse alla chiusura dell'app. Gli allarmi in background sono in pausa. L'app riproverà al prossimo avvio."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗号化はまだ有効になっていません。ウォッチリストは保存されず、変更はアプリを閉じると失われます。バックグラウンドのアラームは一時停止中です。次回の起動時にもう一度試します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아직 암호화가 적용되지 않았습니다. 관심 목록이 저장되지 않으며 앱을 닫으면 변경 사항이 사라집니다. 백그라운드 경보는 일시 중지됩니다. 다음 실행 시 다시 시도합니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kryptering er ikke aktiv ennå – overvåkingslisten lagres ikke, og endringer går tapt når appen lukkes. Alarmer i bakgrunnen er satt på pause. Appen prøver igjen ved neste oppstart."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versleuteling nog niet actief – de volglijst wordt niet opgeslagen, wijzigingen gaan verloren als de app sluit. Alarmen op de achtergrond zijn gepauzeerd. De app probeert het bij de volgende start opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Szyfrowanie nie jest jeszcze aktywne – lista nie jest zapisywana, a zmiany przepadną po zamknięciu aplikacji. Alarmy w tle są wstrzymane. Aplikacja spróbuje ponownie przy następnym uruchomieniu."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encriptação ainda não ativa – a lista não está a ser guardada e as alterações perdem-se ao fechar a app. Os alarmes em segundo plano estão em pausa. A app tenta novamente no próximo arranque."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criptografia ainda não ativa – a lista não está sendo salva e as alterações se perdem ao fechar o app. Os alarmes em segundo plano estão pausados. O app tentará de novo na próxima abertura."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criptarea nu este încă activă – lista nu se salvează, iar modificările se pierd la închiderea aplicației. Alarmele din fundal sunt întrerupte. Aplicația va încerca din nou la următoarea pornire."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Шифрование ещё не активно – список не сохраняется, изменения пропадут при закрытии приложения. Оповещения в фоне приостановлены. Приложение попробует снова при следующем запуске."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enkriptimi ende nuk është aktiv – lista nuk po ruhet dhe ndryshimet humbasin kur mbyllet aplikacioni. Alarmet në sfond janë pezulluar. Aplikacioni do të provojë sërish në nisjen e ardhshme."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krypteringen är inte aktiv än – bevakningslistan sparas inte, och ändringar försvinner när appen stängs. Larm i bakgrunden är pausade. Appen försöker igen vid nästa start."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การเข้ารหัสยังไม่ทำงาน – รายการติดตามไม่ได้ถูกบันทึก และการเปลี่ยนแปลงจะหายไปเมื่อปิดแอป สัญญาณเตือนเบื้องหลังหยุดชั่วคราว แอปจะลองใหม่เมื่อเปิดครั้งถัดไป"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifreleme henüz etkin değil – liste kaydedilmiyor, değişiklikler uygulama kapanınca kaybolur. Arka plandaki alarmlar duraklatıldı. Uygulama bir sonraki açılışta yeniden deneyecek."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Шифрування ще не активне – список не зберігається, зміни зникнуть після закриття застосунку. Сигнали у фоні призупинено. Застосунок спробує знову під час наступного запуску."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mã hóa chưa được bật – danh sách không được lưu, các thay đổi sẽ mất khi đóng ứng dụng. Cảnh báo nền đang tạm dừng. Ứng dụng sẽ thử lại ở lần khởi động tới."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加密尚未启用——自选列表不会被保存，关闭应用后更改将丢失。后台提醒已暂停。应用会在下次启动时重试。"
+          }
+        }
+      }
+    },
     "watchlist_storage_in_memory" : {
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "هذا الجهاز لا يوفّر مفتاحًا الآن – لا يتم حفظ قائمة المتابعة، وتضيع التغييرات عند إغلاق التطبيق. سيحاول التطبيق مجددًا عند التشغيل التالي."
+            "value" : "هذا الجهاز لا يوفّر مفتاحًا الآن – لا يتم حفظ قائمة المتابعة، وتضيع التغييرات عند إغلاق التطبيق. التنبيهات متوقفة مؤقتًا في الخلفية. سيحاول التطبيق مجددًا عند التشغيل التالي."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zařízení teď neposkytuje klíč – seznam se neukládá a změny se po zavření aplikace ztratí. Aplikace to zkusí znovu při příštím spuštění."
+            "value" : "Zařízení teď neposkytuje klíč – seznam se neukládá a změny se po zavření aplikace ztratí. Alarmy na pozadí jsou pozastaveny. Aplikace to zkusí znovu při příštím spuštění."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enheden stiller ikke en nøgle til rådighed lige nu – overvågningslisten gemmes ikke, og ændringer går tabt, når appen lukkes. Appen prøver igen ved næste start."
+            "value" : "Enheden stiller ikke en nøgle til rådighed lige nu – overvågningslisten gemmes ikke, og ændringer går tabt, når appen lukkes. Alarmer i baggrunden er sat på pause. Appen prøver igen ved næste start."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dieses Gerät stellt gerade keinen Schlüssel bereit – die Merkliste wird nicht gespeichert, Änderungen gehen beim Schliessen der App verloren. Die App versucht es beim nächsten Start erneut."
+            "value" : "Dieses Gerät stellt gerade keinen Schlüssel bereit – die Merkliste wird nicht gespeichert, Änderungen gehen beim Schliessen der App verloren. Alarme im Hintergrund sind pausiert. Die App versucht es beim nächsten Start erneut."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Η συσκευή δεν παρέχει κλειδί αυτή τη στιγμή – η λίστα δεν αποθηκεύεται και οι αλλαγές χάνονται όταν κλείσει η εφαρμογή. Η εφαρμογή θα δοκιμάσει ξανά στην επόμενη εκκίνηση."
+            "value" : "Η συσκευή δεν παρέχει κλειδί αυτή τη στιγμή – η λίστα δεν αποθηκεύεται και οι αλλαγές χάνονται όταν κλείσει η εφαρμογή. Οι συναγερμοί στο παρασκήνιο είναι σε παύση. Η εφαρμογή θα δοκιμάσει ξανά στην επόμενη εκκίνηση."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This device isn't providing a key right now – the watchlist is not being saved, changes are lost when the app closes. The app will try again at the next start."
+            "value" : "This device isn't providing a key right now – the watchlist is not being saved, changes are lost when the app closes. Alerts are paused in the background. The app will try again at the next start."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Este dispositivo no proporciona una clave ahora: la lista no se guarda y los cambios se pierden al cerrar la app. La app lo intentará de nuevo en el próximo inicio."
+            "value" : "Este dispositivo no proporciona una clave ahora: la lista no se guarda y los cambios se pierden al cerrar la app. Las alarmas en segundo plano están en pausa. La app lo intentará de nuevo en el próximo inicio."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "این دستگاه الان کلیدی فراهم نمی‌کند – واچ‌لیست ذخیره نمی‌شود و تغییرات با بستن برنامه از بین می‌روند. برنامه در اجرای بعدی دوباره تلاش می‌کند."
+            "value" : "این دستگاه الان کلیدی فراهم نمی‌کند – واچ‌لیست ذخیره نمی‌شود و تغییرات با بستن برنامه از بین می‌روند. هشدارها در پس‌زمینه متوقف شده‌اند. برنامه در اجرای بعدی دوباره تلاش می‌کند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Laite ei juuri nyt anna avainta – seurantalistaa ei tallenneta, ja muutokset katoavat, kun sovellus suljetaan. Sovellus yrittää uudelleen seuraavalla käynnistyskerralla."
+            "value" : "Laite ei juuri nyt anna avainta – seurantalistaa ei tallenneta, ja muutokset katoavat, kun sovellus suljetaan. Hälytykset taustalla on keskeytetty. Sovellus yrittää uudelleen seuraavalla käynnistyskerralla."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cet appareil ne fournit pas de clé pour l'instant – la liste n'est pas enregistrée, les modifications sont perdues à la fermeture de l'app. L'app réessaiera au prochain démarrage."
+            "value" : "Cet appareil ne fournit pas de clé pour l'instant – la liste n'est pas enregistrée, les modifications sont perdues à la fermeture de l'app. Les alertes en arrière-plan sont en pause. L'app réessaiera au prochain démarrage."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "המכשיר לא מספק מפתח כרגע – רשימת המעקב לא נשמרת, ושינויים יאבדו כשהאפליקציה תיסגר. האפליקציה תנסה שוב בהפעלה הבאה."
+            "value" : "המכשיר לא מספק מפתח כרגע – רשימת המעקב לא נשמרת, ושינויים יאבדו כשהאפליקציה תיסגר. ההתראות ברקע מושהות. האפליקציה תנסה שוב בהפעלה הבאה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "यह डिवाइस अभी कोई कुंजी उपलब्ध नहीं करा रहा – वॉचलिस्ट सहेजी नहीं जा रही, ऐप बंद होने पर बदलाव खो जाएँगे। ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।"
+            "value" : "यह डिवाइस अभी कोई कुंजी उपलब्ध नहीं करा रहा – वॉचलिस्ट सहेजी नहीं जा रही, ऐप बंद होने पर बदलाव खो जाएँगे। बैकग्राउंड में अलार्म रुके हुए हैं। ऐप अगली बार शुरू होने पर फिर कोशिश करेगा।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Az eszköz most nem ad kulcsot – a figyelőlista nincs mentve, a változások az app bezárásakor elvesznek. Az app a következő indításkor újra megpróbálja."
+            "value" : "Az eszköz most nem ad kulcsot – a figyelőlista nincs mentve, a változások az app bezárásakor elvesznek. A háttérben a riasztások szünetelnek. Az app a következő indításkor újra megpróbálja."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Perangkat ini belum menyediakan kunci saat ini – daftar pantau tidak disimpan, perubahan hilang saat aplikasi ditutup. Aplikasi akan mencoba lagi saat dibuka berikutnya."
+            "value" : "Perangkat ini belum menyediakan kunci saat ini – daftar pantau tidak disimpan, perubahan hilang saat aplikasi ditutup. Alarm di latar belakang dijeda. Aplikasi akan mencoba lagi saat dibuka berikutnya."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Questo dispositivo non fornisce una chiave al momento: la lista non viene salvata e le modifiche vanno perse alla chiusura dell'app. L'app riproverà al prossimo avvio."
+            "value" : "Questo dispositivo non fornisce una chiave al momento: la lista non viene salvata e le modifiche vanno perse alla chiusura dell'app. Gli allarmi in background sono in pausa. L'app riproverà al prossimo avvio."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "この端末は現在キーを提供していません。ウォッチリストは保存されず、変更はアプリを閉じると失われます。次回の起動時にもう一度試します。"
+            "value" : "この端末は現在キーを提供していません。ウォッチリストは保存されず、変更はアプリを閉じると失われます。バックグラウンドのアラームは一時停止中です。次回の起動時にもう一度試します。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이 기기가 지금 키를 제공하지 않습니다. 관심 목록이 저장되지 않으며 앱을 닫으면 변경 사항이 사라집니다. 다음 실행 시 다시 시도합니다."
+            "value" : "이 기기가 지금 키를 제공하지 않습니다. 관심 목록이 저장되지 않으며 앱을 닫으면 변경 사항이 사라집니다. 백그라운드 경보는 일시 중지됩니다. 다음 실행 시 다시 시도합니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enheten gir ingen nøkkel akkurat nå – overvåkingslisten lagres ikke, og endringer går tapt når appen lukkes. Appen prøver igjen ved neste oppstart."
+            "value" : "Enheten gir ingen nøkkel akkurat nå – overvåkingslisten lagres ikke, og endringer går tapt når appen lukkes. Alarmer i bakgrunnen er satt på pause. Appen prøver igjen ved neste oppstart."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dit apparaat levert nu geen sleutel – de volglijst wordt niet opgeslagen, wijzigingen gaan verloren als de app sluit. De app probeert het bij de volgende start opnieuw."
+            "value" : "Dit apparaat levert nu geen sleutel – de volglijst wordt niet opgeslagen, wijzigingen gaan verloren als de app sluit. Alarmen op de achtergrond zijn gepauzeerd. De app probeert het bij de volgende start opnieuw."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "To urządzenie nie udostępnia teraz klucza – lista nie jest zapisywana, a zmiany przepadną po zamknięciu aplikacji. Aplikacja spróbuje ponownie przy następnym uruchomieniu."
+            "value" : "To urządzenie nie udostępnia teraz klucza – lista nie jest zapisywana, a zmiany przepadną po zamknięciu aplikacji. Alarmy w tle są wstrzymane. Aplikacja spróbuje ponownie przy następnym uruchomieniu."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Este dispositivo não está a fornecer uma chave agora – a lista não está a ser guardada e as alterações perdem-se ao fechar a app. A app tenta novamente no próximo arranque."
+            "value" : "Este dispositivo não está a fornecer uma chave agora – a lista não está a ser guardada e as alterações perdem-se ao fechar a app. Os alarmes em segundo plano estão em pausa. A app tenta novamente no próximo arranque."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Este aparelho não está fornecendo uma chave agora – a lista não está sendo salva e as alterações se perdem ao fechar o app. O app tentará de novo na próxima abertura."
+            "value" : "Este aparelho não está fornecendo uma chave agora – a lista não está sendo salva e as alterações se perdem ao fechar o app. Os alarmes em segundo plano estão pausados. O app tentará de novo na próxima abertura."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Acest dispozitiv nu oferă acum o cheie – lista nu se salvează, iar modificările se pierd la închiderea aplicației. Aplicația va încerca din nou la următoarea pornire."
+            "value" : "Acest dispozitiv nu oferă acum o cheie – lista nu se salvează, iar modificările se pierd la închiderea aplicației. Alarmele din fundal sunt întrerupte. Aplicația va încerca din nou la următoarea pornire."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Устройство сейчас не предоставляет ключ – список не сохраняется, изменения пропадут при закрытии приложения. Приложение попробует снова при следующем запуске."
+            "value" : "Устройство сейчас не предоставляет ключ – список не сохраняется, изменения пропадут при закрытии приложения. Оповещения в фоне приостановлены. Приложение попробует снова при следующем запуске."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kjo pajisje nuk po jep çelës tani – lista nuk po ruhet dhe ndryshimet humbasin kur mbyllet aplikacioni. Aplikacioni do të provojë sërish në nisjen e ardhshme."
+            "value" : "Kjo pajisje nuk po jep çelës tani – lista nuk po ruhet dhe ndryshimet humbasin kur mbyllet aplikacioni. Alarmet në sfond janë pezulluar. Aplikacioni do të provojë sërish në nisjen e ardhshme."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enheten tillhandahåller ingen nyckel just nu – bevakningslistan sparas inte, och ändringar försvinner när appen stängs. Appen försöker igen vid nästa start."
+            "value" : "Enheten tillhandahåller ingen nyckel just nu – bevakningslistan sparas inte, och ändringar försvinner när appen stängs. Larm i bakgrunden är pausade. Appen försöker igen vid nästa start."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "อุปกรณ์นี้ไม่ได้ให้คีย์ในขณะนี้ – รายการติดตามไม่ได้ถูกบันทึก และการเปลี่ยนแปลงจะหายไปเมื่อปิดแอป แอปจะลองใหม่เมื่อเปิดครั้งถัดไป"
+            "value" : "อุปกรณ์นี้ไม่ได้ให้คีย์ในขณะนี้ – รายการติดตามไม่ได้ถูกบันทึก และการเปลี่ยนแปลงจะหายไปเมื่อปิดแอป สัญญาณเตือนเบื้องหลังหยุดชั่วคราว แอปจะลองใหม่เมื่อเปิดครั้งถัดไป"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bu cihaz şu anda anahtar sağlamıyor – liste kaydedilmiyor, değişiklikler uygulama kapanınca kaybolur. Uygulama bir sonraki açılışta yeniden deneyecek."
+            "value" : "Bu cihaz şu anda anahtar sağlamıyor – liste kaydedilmiyor, değişiklikler uygulama kapanınca kaybolur. Arka plandaki alarmlar duraklatıldı. Uygulama bir sonraki açılışta yeniden deneyecek."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Пристрій зараз не надає ключ – список не зберігається, зміни зникнуть після закриття застосунку. Застосунок спробує знову під час наступного запуску."
+            "value" : "Пристрій зараз не надає ключ – список не зберігається, зміни зникнуть після закриття застосунку. Сигнали у фоні призупинено. Застосунок спробує знову під час наступного запуску."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thiết bị này hiện không cung cấp khóa – danh sách không được lưu, các thay đổi sẽ mất khi đóng ứng dụng. Ứng dụng sẽ thử lại ở lần khởi động tới."
+            "value" : "Thiết bị này hiện không cung cấp khóa – danh sách không được lưu, các thay đổi sẽ mất khi đóng ứng dụng. Cảnh báo nền đang tạm dừng. Ứng dụng sẽ thử lại ở lần khởi động tới."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "此设备暂时无法提供密钥——自选列表不会被保存，关闭应用后更改将丢失。应用会在下次启动时重试。"
+            "value" : "此设备暂时无法提供密钥——自选列表不会被保存，关闭应用后更改将丢失。后台提醒已暂停。应用会在下次启动时重试。"
           }
         }
       }

@@ -65,9 +65,9 @@ extension CsvImportParser {
         // stabil nach Zeile (wie Android `sortBy`)
         skipped = skipped.enumerated().sorted { ($0.element.line, $0.offset) < ($1.element.line, $1.offset) }.map(\.element)
         let keys = CsvImport.withOccurrence(drafts.map(\.key))
-        // Frühere Schlüssel: Zeit in UTC je Zeitzone der Auswahl (bis Build 45) und Kauf/Verkauf gegen Stablecoin noch
-        // als Kauf/Verkauf (bis Build 46) — ältere Importe weiter als Duplikat erkennen
-        let old: [CsvImportRow] = drafts.map { r in r.kind == .SWAP ? (origins[r.line] ?? r) : r }
+        // Frühere Schlüssel: Zeit in UTC je Zeitzone der Auswahl (bis Build 45), Kauf/Verkauf gegen Stablecoin noch
+        // als Kauf/Verkauf (bis Build 46) und Belohnung ohne Preis (bis Build 92) — ältere Importe weiter als Duplikat erkennen
+        let old: [CsvImportRow] = drafts.map { r in r.kind == .SWAP || r.kind == .REWARD ? (origins[r.line] ?? r) : r }
         let oldKeys = CsvImport.withOccurrence(old.map(\.key))
         var legacyZones: [String] = []
         for z in [zone, deviceZone, swissZone, "UTC"] where !legacyZones.contains(z) { legacyZones.append(z) }
@@ -278,9 +278,21 @@ extension CsvImportParser {
 
         var price = try number(.price).map { $0 < 0 ? -$0 : $0 }
         if let p = price, p == 0 { price = nil }
-        if price == nil && (kind == .BUY || kind == .SELL), let fiat = try number(.fiatAmount) {
-            let f = fiat < 0 ? -fiat : fiat
-            if f > 0 { price = CsvImport.divide(f, amount) }
+        // Belohnung mit Fiat-Betrag (seit Build 93, wie Coinbase/Bitpanda): Preis = Betrag / Menge — nur mit Geld als
+        // Preiswährung (Fiat oder USDT), sonst bliebe sie ohne Wert bzw. würde mangels Währung übersprungen. Wie Android
+        let rewardValue = kind == .REWARD && (CsvImport.isFiat(quote) || quote == PortfolioStables.valuation)
+        var derivedReward = false
+        if price == nil && (kind == .BUY || kind == .SELL || rewardValue) {
+            // Belohnung mit unlesbarem Betrag: ohne Preis wie bis Build 92, nicht übersprungen
+            let fiatAmount: Decimal?
+            if kind == .REWARD { fiatAmount = try? number(.fiatAmount) } else { fiatAmount = try number(.fiatAmount) }
+            if let fiat = fiatAmount {
+                let f = fiat < 0 ? -fiat : fiat
+                if f > 0 {
+                    price = CsvImport.divide(f, amount)
+                    derivedReward = kind == .REWARD
+                }
+            }
         }
         // Tausch: kein Preis, sondern Wert (Fiat-Betrag, sonst Preis × Menge) — nur in Geld, sonst unbekannt
         var swapValue: Decimal?
@@ -352,6 +364,17 @@ extension CsvImportParser {
         if let swapped = stableSwap(format, draft, stableAmount: stableAmount) {
             origins[rec.line] = draft
             return (swapped, sign)
+        }
+        // Belohnung mit abgeleitetem Preis: bis Build 92 ohne Preis importiert — dieser Schlüssel bleibt als früherer
+        // (`CsvImportRow.legacyKeys`), sonst käme eine schon importierte Belohnung ein zweites Mal. Wie Android
+        if derivedReward {
+            var priceless = CsvImportRow(
+                line: rec.line, kind: kind, rawKind: rawKind, coin: coin, amount: amount, price: nil, quote: quote,
+                fee: fee, feeUnit: feeUnit, timeMillis: time, externalId: externalId,
+                key: CsvImport.key(format: format, kind: kind, coin: coin, amount: amount, price: nil,
+                                   timeMillis: time, externalId: externalId, localTime: local))
+            priceless.localTime = local
+            origins[rec.line] = priceless
         }
         return (draft, sign)
     }

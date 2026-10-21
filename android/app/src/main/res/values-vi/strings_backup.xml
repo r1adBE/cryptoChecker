@@ -88,5 +88,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">Danh mục đã lưu hiện đang bị khóa – chỉ có thể thay đổi sau lần khởi động tới.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">Thiết bị này hiện không cung cấp khóa – danh sách không được lưu, các thay đổi sẽ mất khi đóng ứng dụng. Ứng dụng sẽ thử lại ở lần khởi động tới.</string>
+    <string name="watchlist_storage_in_memory">Thiết bị này hiện không cung cấp khóa – danh sách không được lưu, các thay đổi sẽ mất khi đóng ứng dụng. Cảnh báo nền đang tạm dừng. Ứng dụng sẽ thử lại ở lần khởi động tới.</string>
 </resources>

@@ -122,6 +122,14 @@ object AlarmReadiness {
         val timeSensitive: Boolean? = null,
         val backgroundRefresh: Boolean = true,
         val lowPower: Boolean = false,
+        // ---- Zuverlässigkeitszeile ([AlarmReliability], seit Build 93)
+        /**
+         * Ende des neuesten geplanten Laufs, wenn keiner der gespeicherten gelang (alle gescheitert); sonst null
+         * ([com.cryptochecker.app.domain.refresh.CheckRunLog.lastFailedBackgroundCheck]).
+         */
+        val lastFailedBackgroundCheck: Long? = null,
+        /** Android: Merkliste nur als Kopie im Arbeitsspeicher (kein Schlüssel) — Prüfungen im Hintergrund ruhen. */
+        val storageNoKey: Boolean = false,
     )
 
     /** Zeilen in fester Reihenfolge je Plattform. */

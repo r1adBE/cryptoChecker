@@ -37,6 +37,29 @@ final class TaxCsvRoundingTests: XCTestCase {
         XCTAssertEqual(lines[4], "Total;;;1.02;1.02;")
     }
 
+    /// Gewinne-CSV (Build 93): Gewinn je Zeile = gerundeter Erlös − gerundeter Einstand — Erlös 2.004 (2.00), Einstand 1.005
+    /// (1.01), Gewinn exakt 0.999 steht als 0.99, nicht 1.00; die Summe des Gewinns geht so mit den Spalten auf den Cent auf.
+    func testGainsRowAndTotalAddUp() {
+        let texts = TaxCsvTexts(
+            coin: "Coin", acquired: "Acq", sold: "Sold", holdingDays: "Days", longTerm: "> 1y", amount: "Amount",
+            costUsdt: "Cost", proceedsUsdt: "Proceeds", gainUsdt: "Gain", costTarget: "CostT", proceedsTarget: "ProcT",
+            gainTarget: "GainT", date: "Date", valueUsdt: "V", valueTarget: "VT", note: "Note", total: "Total",
+            yes: "yes", no: "no", costMissing: "cm", proceedsMissing: "pm", feeLeg: "fl", feeValueMissing: "fv",
+            avgCostRates: "avg", valueMissing: "vm", noFx: "nofx", incomplete: "inc")
+        let cost = Decimal(string: "1.005", locale: Locale(identifier: "en_US_POSIX"))!
+        let proceeds = Decimal(string: "2.004", locale: Locale(identifier: "en_US_POSIX"))!
+        let rows = (1...3).map {
+            TaxGainRow(coin: "SOL", acquiredDate: LocalDay(2025, 1, $0), soldDate: LocalDay(2025, 3, $0), holdingDays: 59,
+                       longTerm: false, amount: 1, costUsdt: cost, proceedsUsdt: proceeds, gainUsdt: proceeds - cost,
+                       costTarget: cost, proceedsTarget: proceeds, gainTarget: proceeds - cost, fxMissing: false,
+                       feeLeg: false, feeValueMissing: false, method: .FIFO)
+        }
+        let lines = String(TaxExport.gainsCsv(rows, texts: texts, header: []).dropFirst()).components(separatedBy: "\r\n")
+        XCTAssertEqual(lines[1], "SOL;2025-01-01;2025-03-01;59;no;1;1.01;2.00;0.99;1.01;2.00;0.99;")
+        // 6.00 − 3.03 = 2.97 (exakt summiert und gerundet wären es 3.00)
+        XCTAssertEqual(lines[4], "Total;;;;;;3.03;6.00;2.97;3.03;6.00;2.97;")
+    }
+
     func testRoundedMoneyMatchesText() {
         XCTAssertEqual(CutoffExport.roundedMoney(third), Decimal(string: "0.34", locale: Locale(identifier: "en_US_POSIX")))
         XCTAssertEqual(CutoffExport.roundedMoney(-third), Decimal(string: "-0.34", locale: Locale(identifier: "en_US_POSIX")))

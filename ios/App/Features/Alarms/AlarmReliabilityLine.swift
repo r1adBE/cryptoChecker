@@ -50,7 +50,9 @@ struct AlarmReliabilityLine: View {
         guard var current = input else { return nil }
         current.now = now
         let status = AlarmReliability.status(current)
-        let ago = current.lastBackgroundCheck.map { WatchlistTime.ago($0, now: now) } ?? ""
+        // Alle gespeicherten Läufe gescheitert: Zeit des letzten Versuchs (wie Android)
+        let checkedAt = current.lastBackgroundCheck ?? current.lastFailedBackgroundCheck
+        let ago = checkedAt.map { WatchlistTime.ago($0, now: now) } ?? ""
         let text: String
         switch status.kind {
         case .hidden: return nil
@@ -58,6 +60,8 @@ struct AlarmReliabilityLine: View {
         case .stale: text = L("alarm_reliability_stale", ago)
         case .never: text = L("alarm_reliability_never")
         case .notificationsOff: text = L("alarm_reliability_notifications_off")
+        // Nur Android (Merkliste ohne Schlüssel); iOS setzt `storageNoKey` nie
+        case .storageNoKey: text = L("alarm_reliability_storage_no_key")
         case .battery: text = L("alarm_reliability_battery")
         case .backgroundRefresh: text = L("alarm_reliability_background_refresh")
         }

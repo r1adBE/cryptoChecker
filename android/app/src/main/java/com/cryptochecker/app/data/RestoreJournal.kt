@@ -38,6 +38,9 @@ class RestoreJournal(
 
     fun exists(): Boolean = file.exists()
 
+    /** Änderungszeit der Datei (ms); 0 = unbekannt. Für Journale ohne «createdAt» ([RestoreRecoveryPolicy.createdAt]). */
+    fun lastModified(): Long = file.lastModified()
+
     /** Versiegelt und atomar schreiben (erst Nachbardatei, dann umbenennen); false = kein Schlüssel, kein Journal. */
     fun write(text: String): Boolean {
         val key = (keys.lookup() as? PortfolioSnapshotSeal.KeyLookup.Found)?.key ?: return false

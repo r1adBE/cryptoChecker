@@ -211,6 +211,12 @@ enum class TaxTemplate {
      */
     val quoteFeeIsInfo: Boolean get() = this == UK || this == US || this == CA || this == AU || this == JP
 
+    /**
+     * DE/AT: Auszahlungsgebühren sind keine Veräusserung — eigener Posten neben der Summe der Gewinne (Jahresübersicht
+     * [TaxLine.WITHDRAWAL_FEES], Gewinne-CSV eigene Summenzeile [TaxCsvTexts.withdrawalFeesTotal]), nicht darin verrechnet.
+     */
+    val withdrawalFeeApart: Boolean get() = this == DE || this == AT
+
     /** Regeln der Vorlage für Vorgänge ohne Verkauf ([TaxEngines.applyRules], [TaxExport.gainRows]). */
     val eventRules: TaxEventRules
         get() = TaxEventRules(giftIsDisposal, spouseGiftNeutral, networkFeeIsDisposal, quoteFeeIsInfo)

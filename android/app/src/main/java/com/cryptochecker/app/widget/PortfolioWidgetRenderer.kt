@@ -127,7 +127,9 @@ class PortfolioWidgetRenderer @Inject constructor(
         val outdated = snapshot != null &&
             OutdatedRule.isOutdated(snapshot.time, System.currentTimeMillis(), WidgetOutdated.afterMillis(settings))
         val locked = PortfolioLockPolicy.widgetLocked(settings.appLock)
-        val zone = ZoneId.systemDefault()
+        // Tage der Balken in derselben Zone wie das Zeitgitter und das Einzel-Widget (Chart-Zeitzone der %-Basis,
+        // [ChangeBasisMath.chartZone]; seit Build 93 — vorher immer die Gerätezone). Wie iOS
+        val zone = ChangeBasisMath.chartZone(settings.changeBasis.storage)
 
         for (appWidgetId in appWidgetIds) {
             val dark = widgetPrefs.isDark(appWidgetId)
@@ -302,6 +304,8 @@ internal data class PortfolioChartKey(
     val heightPx: Int,
     val density: Float,
     val fontScale: Float,
+    /** Zeitgitter-Zone ([ChangeBasisMath.chartZone]): Andere %-Basis, anderes Gitter bei gleichen Balken. */
+    val zone: ZoneId,
 )
 
 /** Ohne Wert: Strich statt Zahl. */

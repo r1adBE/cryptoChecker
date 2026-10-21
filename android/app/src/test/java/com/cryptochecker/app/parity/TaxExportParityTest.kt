@@ -227,10 +227,22 @@ class TaxExportParityTest {
             val rows = TaxExport.gainRows(caseTrades, method, TaxTemplate.NEUTRAL.period(y), z, "USD", null, rules = tpl.eventRules)
             val info = c["infoRows"].num()!!.toInt()
             assertEquals("$tpl infoRows", info, rows.count { it.feeInfoOnly })
-            val csv = lines(TaxExport.gainsCsv(rows, wTexts, emptyList()))
+            // DE/AT: Auszahlungsgebühren als eigene Summenzeile (der Text füllt nur diese Vorlage, wie die App)
+            val caseTexts = if (tpl.withdrawalFeeApart) wTexts.copy(withdrawalFeesTotal = "fees") else wTexts
+            val csv = lines(TaxExport.gainsCsv(rows, caseTexts, emptyList()))
             val total = csv.single { it.startsWith(wTexts.total + ";") }.split(";")
             assertEquals("$tpl total", c["totalGain"], total[8])
             assertEquals("$tpl note", info, csv.count { it.endsWith(";feeinfo") })
+            val feesLine = csv.singleOrNull { it.startsWith("fees;") }?.split(";")
+            assertEquals("$tpl fees line", c["feesTotalGain"], feesLine?.get(8))
+            if (tpl.withdrawalFeeApart) {
+                // Summe der CSV = netto der Jahresübersicht (Gebühr dort eigener Posten), Gebühren = Posten «Auszahlungsgebühren»
+                val s = TaxExport.yearSummary(caseTrades, tpl, method, y, z, "USD", null)
+                val net = s.lines.filter { it.line in setOf(TaxLine.SHORT_NET, TaxLine.LONG_NET, TaxLine.UNCLASSIFIED, TaxLine.NET) }
+                    .fold(BigDecimal.ZERO) { a, l -> a + (l.usdt ?: BigDecimal.ZERO) }
+                assertEquals("$tpl net", total[8], CutoffExport.money(net))
+                assertEquals("$tpl fees", feesLine?.get(8), CutoffExport.money(s.lines.single { it.line == TaxLine.WITHDRAWAL_FEES }.usdt!!))
+            }
         }
     }
 

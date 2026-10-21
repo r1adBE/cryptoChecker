@@ -3,7 +3,8 @@ import SwiftUI
 // Karte «Jahresübersicht» der Arbeitsunterlage. Eigene Datei, weil sie eine eigenständige Anzeige ist,
 // die das Export-Blatt nur einbettet (wie `PortfolioTaxSummaryCard.kt`).
 
-/// Karte «Jahresübersicht» der Vorlage: Tatsachen-Posten (Summen in der Währung der Vorlage, ohne Devisenkurse USDT), dann
+/// Karte «Jahresübersicht» der Vorlage: Tatsachen-Posten (Summen in der Währung der Vorlage, ohne Devisenkurse USDT) mit
+/// dem Hinweis «Orientierung – keine Steuererklärung» (`texts.disclaimer`) unter dem Titel und unter den Summen, dann
 /// die Orientierungs-Posten mit Vermerk «Orientierung» und Erklärung der Grenzen — ausdrücklich keine Steuerberatung.
 /// Wie `TaxSummaryCard` (Android).
 struct PortfolioTaxSummaryCard: View {
@@ -31,6 +32,9 @@ struct PortfolioTaxSummaryCard: View {
             }
             if let s = summary {
                 let firstOrientation = s.lines.firstIndex { $0.line.orientation }
+                // Letzter Tatsachen-Posten (Summen): dort steht der Hinweis «keine Steuererklärung» noch einmal (seit
+                // Build 93) — gleich bei den Summen, nicht nur unter dem Titel und in der CSV. Wie Android
+                let lastFact = s.lines.lastIndex { !$0.line.orientation }
                 ForEach(Array(s.lines.enumerated()), id: \.offset) { index, l in
                     if index == firstOrientation {
                         Text(texts.orientationHeading.isEmpty ? texts.orientation : texts.orientationHeading)
@@ -39,6 +43,13 @@ struct PortfolioTaxSummaryCard: View {
                             .padding(.top, Spacing.xs)
                     }
                     row(s, l)
+                    if index == lastFact {
+                        Text(texts.disclaimer)
+                            .font(.caption)
+                            .foregroundStyle(AppColors.onSurfaceVariant)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.top, 4)
+                    }
                 }
                 if s.template == .DE {
                     Text(L("tax_de_limit_scope"))

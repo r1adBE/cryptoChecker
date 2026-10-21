@@ -18,6 +18,7 @@ enum StorageRecoveryNotice {
     private static let pendingKey = "storage_recovery_notice_pending"
     private static let restoredKey = "storage_recovery_notice_restored"
     private static let interruptedKey = "storage_recovery_notice_restore_interrupted"
+    private static let rollBackAttemptKey = "storage_recovery_notice_rollback_attempted_for"
 
     /// Neue Vormerkung in diesem Prozess (z. B. ein eben zurückgerolltes Wiederherstellen): der Hinweis prüft erneut.
     static let changed = Notification.Name("StorageRecoveryNoticeChanged")
@@ -39,6 +40,18 @@ enum StorageRecoveryNotice {
     static func recordInterruptedRestore(rolledBack: Bool, defaults: UserDefaults = .standard) {
         defaults.set(rolledBack ? "rolled_back" : "incomplete", forKey: interruptedKey)
         NotificationCenter.default.post(name: changed, object: nil)
+    }
+
+    /// Seit Build 93: Für das Journal mit Zeitpunkt `journalCreatedAt` wollte ein Start schon zurückrollen (gescheitert)
+    /// oder gab auf — der nächste Start rollt es nicht mehr zurück (`RestoreRecoveryPolicy`). Ein neues Journal hat einen
+    /// anderen Zeitpunkt, darum muss der Wert nie gelöscht werden. Wie Android.
+    static func recordRollBackAttempt(_ journalCreatedAt: Int64, defaults: UserDefaults = .standard) {
+        defaults.set(NSNumber(value: journalCreatedAt), forKey: rollBackAttemptKey)
+    }
+
+    /// Gegenstück zu `recordRollBackAttempt`; nil = noch kein Versuch vermerkt.
+    static func rollBackAttemptedFor(defaults: UserDefaults = .standard) -> Int64? {
+        (defaults.object(forKey: rollBackAttemptKey) as? NSNumber)?.int64Value
     }
 
     /// Nächster zu zeigender Hinweis; nil = keiner. `.setAside` bleibt, bis `acknowledge`; die anderen zeigt die App einmal.

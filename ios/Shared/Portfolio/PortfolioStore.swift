@@ -102,8 +102,11 @@ enum PortfolioStore {
         for file in widgetFiles {
             BackupExclusion.set(excluded: true, for: file)
         }
+        // Noch unverschlüsselt (Versiegeln beim Start gescheitert): auch eingeschaltet nicht ins Backup (seit Build 93)
         for file in backupPolicyURLs {
-            BackupExclusion.set(excluded: !includeInBackup, for: file)
+            let plain = FileManager.default.fileExists(atPath: file.path) && !ProtectedStorage.isSealedFile(file)
+            BackupExclusion.set(excluded: PlainBackupExclusion.policyExcluded(includeInBackup: includeInBackup, plain: plain),
+                                for: file)
         }
     }
 

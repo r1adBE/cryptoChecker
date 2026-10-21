@@ -93,6 +93,14 @@ class AlarmDeliveryViewModel @Inject constructor(
         .map { runs -> lastScheduled(runs) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), lastScheduled(checkRunStore.runs.value))
 
+    /** Neuester geplanter Lauf, wenn keiner der gespeicherten gelang (Zuverlässigkeitszeile warnt dann, seit Build 93). */
+    val lastFailedBackgroundCheck: StateFlow<Long?> = checkRunStore.runs
+        .map { runs -> com.cryptochecker.app.domain.refresh.CheckRunLog.lastFailedBackgroundCheck(runs) }
+        .stateIn(
+            viewModelScope, SharingStarted.WhileSubscribed(5_000),
+            com.cryptochecker.app.domain.refresh.CheckRunLog.lastFailedBackgroundCheck(checkRunStore.runs.value),
+        )
+
     /** Alles, was nur eine Prüfung im Hintergrund meldet ([AlarmReadiness.hasBackgroundAlarms]), nicht nur Paar-Alarme. */
     val hasAlarms: StateFlow<Boolean> = combine(
         watchRepository.observeAllAlarms()

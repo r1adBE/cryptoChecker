@@ -14,14 +14,15 @@ struct PortfolioValueChart: View {
     var hidden = false
     var lineWidth: CGFloat = 1.5
     var dot: CGFloat = 2.5
+    /// Zone des Zeitgitters — dieselbe wie für die Tage der Balken (`PortfolioEntry.chartTimeZone`).
+    var timeZone: TimeZone = .current
     @Environment(\.displayScale) private var displayScale
-    @Environment(\.changeView) private var changeView
 
     private static let labelSize: CGFloat = 8.5
 
     var body: some View {
         let px = 1 / Swift.max(displayScale, 1)
-        let zone = ChangeBasisMath.chartTimeZone(changeView.basis)
+        let zone = timeZone
         Canvas { context, size in
             draw(&context, size: size, px: px, timeZone: zone)
         }

@@ -8,7 +8,6 @@ import com.cryptochecker.app.data.BackupFormat.plainText
 import com.cryptochecker.app.data.BackupFormat.withPasswordChars
 import com.cryptochecker.app.data.BackupJournalCodec.PreviousState
 import com.cryptochecker.app.data.BackupJournalCodec.journalJson
-import com.cryptochecker.app.data.BackupJournalCodec.previousFromJournal
 import com.cryptochecker.app.data.BackupWatchlistCodec.alarmToJson
 import com.cryptochecker.app.data.BackupWatchlistCodec.jsonToWatch
 import com.cryptochecker.app.data.BackupWatchlistCodec.watchToJson
@@ -19,6 +18,7 @@ import android.net.Uri
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmDao
@@ -51,7 +51,7 @@ import javax.inject.Singleton
  */
 @Singleton
 class BackupManager @Inject constructor(
-    @param:ApplicationContext private val context: Context,
+    @param:ApplicationContext internal val context: Context,
     internal val database: AppDatabase,
     internal val portfolioDatabase: PortfolioDatabase,
     internal val watchDao: WatchDao,
@@ -68,10 +68,13 @@ class BackupManager @Inject constructor(
     internal val livePriceStream: LivePriceStream,
 ) {
     /** Stand vor dem Wiederherstellen, versiegelt bis zum Ende des Laufs ([RestoreJournal]). */
-    private val journal = RestoreJournal(
+    internal val journal = RestoreJournal(
         java.io.File(context.noBackupFilesDir, RestoreJournal.FILE_NAME),
         com.cryptochecker.app.widget.PortfolioSnapshotKeyStore(RestoreJournal.KEY_ALIAS),
     )
+
+    /** Gewählte Sicherung einmal je Wiederherstellen lesen und entschlüsseln ([BackupReadCache]). */
+    private val readCache = BackupReadCache<Uri, BackupFile> { f, pw -> plainText(f, pw) }
 
     /** Einstellungen in der Sicherung und im Journal ([BackupSettingsCodec]). */
     internal val settingsCodec = BackupSettingsCodec(context, settingsRepository)
@@ -171,17 +174,21 @@ class BackupManager @Inject constructor(
         BackupVerification.check(expected, back)?.let { throw BackupNotVerifiedException(it) }
     }
 
-    /** Verschlüsselte Sicherung? Dann vor dem Wiederherstellen nach dem Passwort fragen. */
+    /** Verschlüsselte Sicherung? Dann vor dem Wiederherstellen nach dem Passwort fragen. Liest die Datei frisch ein. */
     suspend fun needsPassword(uri: Uri): Boolean = withContext(Dispatchers.IO) {
-        BackupFormat.read(context, uri) is BackupFile.Encrypted
+        readCache.clear()
+        readCache.file(uri) { BackupFormat.read(context, uri) } is BackupFile.Encrypted
     }
+
+    /** Wiederherstellen abgebrochen: gemerkte Datei und Klartext vergessen ([BackupReadCache]). */
+    fun forgetPickedBackup() = readCache.clear()
 
     /**
      * Passwort prüfen, ohne etwas zu ändern.
      * @throws BackupCrypto.WrongPasswordException bei falschem Passwort oder veränderter Datei.
      */
     suspend fun checkPassword(uri: Uri, password: String) {
-        withContext(Dispatchers.IO) { plainText(BackupFormat.read(context, uri), password) }
+        withContext(Dispatchers.IO) { readCache.plain(uri, password) { BackupFormat.read(context, uri) } }
     }
 
     /**
@@ -190,7 +197,7 @@ class BackupManager @Inject constructor(
      * Rückfrage, damit der Nutzer davon erfährt statt sie still zu verlieren.
      */
     suspend fun invalidEntries(uri: Uri, password: String?): Int = withContext(Dispatchers.IO) {
-        val root = JSONObject(plainText(BackupFormat.read(context, uri), password))
+        val root = JSONObject(readCache.plain(uri, password) { BackupFormat.read(context, uri) })
         require(root.optString("format") == FORMAT) { "Keine Crypto-Checker-Sicherung" }
         // Neuere Version: schon vor der Rückfrage ablehnen (klare Meldung, nichts übernommen)
         checkVersion(root)
@@ -215,10 +222,12 @@ class BackupManager @Inject constructor(
      */
     suspend fun restore(uri: Uri, password: String?, acceptInvalid: Int = 0): RestoreResult = withContext(Dispatchers.IO) {
         ensureStoredReadable(restoring = true)
-        val file = BackupFormat.read(context, uri)
-        val root = JSONObject(plainText(file, password))
+        // Was die Rückfrage geprüft hat (ohne erneutes Lesen und Argon2id), danach nicht mehr gemerkt. Von der Datei nur
+        // die Art behalten: die verschlüsselte Hülle (bis 64 MB) nicht bis zum Ende des Laufs im Speicher.
         // Ohne Passwort keine Echtheitsprüfung: die Sperre bleibt an ([BackupRestorePolicy])
-        val encrypted = file is BackupFile.Encrypted
+        val (encrypted, text) = readCache.take(uri, password) { BackupFormat.read(context, uri) }
+            .let { (file, plain) -> (file is BackupFile.Encrypted) to plain }
+        val root = JSONObject(text)
         // Klartext muss die eigentliche Sicherung sein (eine verschachtelte Hülle hat ein anderes «format»)
         require(root.optString("format") == FORMAT) { "Keine Crypto-Checker-Sicherung" }
         // Sicherung einer neueren App-Version: ganz ablehnen, bevor etwas gelesen oder ersetzt wird
@@ -301,7 +310,7 @@ class BackupManager @Inject constructor(
         }
         runCatchingCancellable { journal.delete() }.onFailure { Timber.w(it, "Wiederherstellen: Journal nicht gelöscht") }
         // Gespeicherte Daten liessen sich nicht entsperren (StorageRecoveryNotice): mit dieser Sicherung erledigt
-        runCatchingCancellable { com.cryptochecker.app.data.local.StorageRecoveryNotice.acknowledgeSetAside(context) }
+        runCatchingCancellable { StorageRecoveryNotice.acknowledgeSetAside(context) }
 
         // Alte ⚡-Ergebnisse gehören zu den alten Paaren (Ids können sich decken).
         activityRepository.retain(emptySet())
@@ -318,7 +327,7 @@ class BackupManager @Inject constructor(
     /**
      * Beim App-Start (vor dem ersten Lesen der Daten durch die Oberfläche): Liegt ein Journal ([RestoreJournal]) da, ist ein
      * Wiederherstellen abgebrochen — den Stand davor zurückschreiben und den Nutzer informieren
-     * ([com.cryptochecker.app.data.local.StorageRecoveryNotice.recordInterruptedRestore]). Ohne Journal: nichts.
+     * ([StorageRecoveryNotice.recordInterruptedRestore], [RestoreRecoveryPolicy]). Ohne Journal: nichts.
      */
     suspend fun recoverInterruptedRestore() = withContext(Dispatchers.IO) {
         when (val read = journal.read()) {
@@ -327,31 +336,9 @@ class BackupManager @Inject constructor(
                 // Nicht mehr zu öffnen: der Stand ist womöglich halb — sagen, nicht still weiter
                 Timber.w("Wiederherstellen abgebrochen, Journal unlesbar")
                 runCatchingCancellable { journal.delete() }
-                com.cryptochecker.app.data.local.StorageRecoveryNotice.recordInterruptedRestore(context, rolledBack = false)
+                StorageRecoveryNotice.recordInterruptedRestore(context, rolledBack = false)
             }
-            is RestoreJournal.Read.Found -> {
-                // Eine Datenbank nur leer im Arbeitsspeicher: Zurückgeschriebenes ginge mit dem Lauf verloren, das Journal
-                // wäre dann aber schon weg. Journal behalten, der nächste Start versucht es erneut
-                openBoth()
-                if (!rollBackTarget(AppDatabase.DB_NAME) || !rollBackTarget(PortfolioDatabase.DB_NAME)) {
-                    Timber.w("Wiederherstellen abgebrochen: Datenbank nur im Arbeitsspeicher, Zurückrollen beim nächsten Start")
-                    return@withContext
-                }
-                val previous = try {
-                    previousFromJournal(JSONObject(read.text))
-                } catch (e: Exception) {
-                    Timber.w(e, "Wiederherstellen abgebrochen, Journal nicht lesbar")
-                    runCatchingCancellable { journal.delete() }
-                    com.cryptochecker.app.data.local.StorageRecoveryNotice.recordInterruptedRestore(context, rolledBack = false)
-                    return@withContext
-                }
-                // Welche Schritte schon liefen, ist unbekannt: alle zurückschreiben (gleicher Stand, beliebig oft anwendbar)
-                val complete = withContext(NonCancellable) {
-                    rollBack(previous, Step.entries.toSet(), IllegalStateException("Wiederherstellen abgebrochen"))
-                }
-                if (complete) runCatchingCancellable { journal.delete() }
-                com.cryptochecker.app.data.local.StorageRecoveryNotice.recordInterruptedRestore(context, rolledBack = complete)
-            }
+            is RestoreJournal.Read.Found -> recoverFromJournal(read.text)
         }
     }
 

@@ -91,5 +91,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">Den gemte portefølje er låst lige nu – ændringer er først mulige efter næste start.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">Enheden stiller ikke en nøgle til rådighed lige nu – overvågningslisten gemmes ikke, og ændringer går tabt, når appen lukkes. Appen prøver igen ved næste start.</string>
+    <string name="watchlist_storage_in_memory">Enheden stiller ikke en nøgle til rådighed lige nu – overvågningslisten gemmes ikke, og ændringer går tabt, når appen lukkes. Alarmer i baggrunden er sat på pause. Appen prøver igen ved næste start.</string>
 </resources>

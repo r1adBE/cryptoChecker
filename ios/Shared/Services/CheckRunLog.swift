@@ -27,7 +27,8 @@ enum CheckResult: String, CaseIterable, Sendable {
     case ok
     case partial
     case failed
-    /// Nicht gelaufen: eben erst geprüft, offline oder nichts zu tun.
+    /// Nicht gelaufen: eben erst geprüft bzw. läuft gerade (zählt als Prüfung), nichts zu tun oder offline (nur die
+    /// App; ein geplanter Lauf offline wird seit Build 93 nicht vermerkt).
     case skipped
 }
 
@@ -61,6 +62,13 @@ enum CheckRunLog {
     /// (Dauer 0): Sonst gälte eine Prüfung als eben gelaufen, die gar keine Kurse geholt hat. nil = keine. Wie Android.
     static func lastBackgroundCheck(_ runs: [CheckRun]) -> Int64? {
         runs.first { $0.trigger.scheduled && $0.result != .failed }?.at
+    }
+
+    /// Ende des neuesten geplanten Laufs, wenn unter den gespeicherten (`max`) keiner gelang — sonst nil. Scheitert
+    /// jede Prüfung, fiele die letzte gelungene sonst aus dem Ringpuffer, und «Letzte Prüfung» sähe aus wie «noch nie
+    /// geprüft» (grau) statt wie eine Warnung (seit Build 93). Wie Android.
+    static func lastFailedBackgroundCheck(_ runs: [CheckRun]) -> Int64? {
+        lastBackgroundCheck(runs) != nil ? nil : runs.first { $0.trigger.scheduled }?.at
     }
 
     static func encode(_ runs: [CheckRun]) -> String {

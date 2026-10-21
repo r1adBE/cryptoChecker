@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste: Inhalt einer alten unverschlüsselten Datei nur im Arbeitsspeicher (Decision.PlaintextKept), auch wenn ein Schlüssel da ist, die Überführung aber scheiterte — neutral statt «kein Schlüssel» (watchlist_storage_in_memory) -->
+    <string name="watchlist_storage_copy_in_memory">아직 암호화가 적용되지 않았습니다. 관심 목록이 저장되지 않으며 앱을 닫으면 변경 사항이 사라집니다. 백그라운드 경보는 일시 중지됩니다. 다음 실행 시 다시 시도합니다.</string>
+</resources>

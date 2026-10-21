@@ -351,10 +351,25 @@ final class TaxExportTests: XCTestCase {
                                           currency: "USD", rates: nil, rules: tpl.eventRules)
             let info = Int(int64(c["infoRows"]))
             XCTAssertEqual(rows.filter(\.feeInfoOnly).count, info, "\(tpl) infoRows")
-            let csv = lines(TaxExport.gainsCsv(rows, texts: t, header: []))
+            // DE/AT: Auszahlungsgebühren als eigene Summenzeile (der Text füllt nur diese Vorlage, wie die App)
+            var caseTexts = t
+            if tpl.withdrawalFeeApart { caseTexts.withdrawalFeesTotal = "fees" }
+            let csv = lines(TaxExport.gainsCsv(rows, texts: caseTexts, header: []))
             let total = try XCTUnwrap(csv.first { $0.hasPrefix(t.total + ";") }).components(separatedBy: ";")
             XCTAssertEqual(total[8], c["totalGain"] as? String, "\(tpl) total")
             XCTAssertEqual(csv.filter { $0.hasSuffix(";feeinfo") }.count, info, "\(tpl) note")
+            let feesLine = csv.first { $0.hasPrefix("fees;") }?.components(separatedBy: ";")
+            XCTAssertEqual(feesLine?[8], c["feesTotalGain"] as? String, "\(tpl) fees line")
+            if tpl.withdrawalFeeApart {
+                // Summe der CSV = netto der Jahresübersicht (Gebühr dort eigener Posten), Gebühren = Posten «Auszahlungsgebühren»
+                let s = TaxExport.yearSummary(caseTxs, template: tpl, method: method, startYear: year, timeZone: zone,
+                                              currency: "USD", rates: nil)
+                let netLines: Set<TaxLine> = [.SHORT_NET, .LONG_NET, .UNCLASSIFIED, .NET]
+                let net = s.lines.filter { netLines.contains($0.line) }.reduce(Decimal(0)) { $0 + ($1.usdt ?? 0) }
+                XCTAssertEqual(total[8], CutoffExport.money(net), "\(tpl) net")
+                let fees = try XCTUnwrap(s.lines.first { $0.line == .WITHDRAWAL_FEES }?.usdt)
+                XCTAssertEqual(feesLine?[8], CutoffExport.money(fees), "\(tpl) fees")
+            }
         }
     }
 

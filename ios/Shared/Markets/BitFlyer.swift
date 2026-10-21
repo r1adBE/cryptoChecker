@@ -17,7 +17,12 @@ final class BitFlyer: Market {
         return bitFlyerAPI + "/ticker?product_code=" + code
     }
 
+    /// Ruht der Handel («state» nicht «RUNNING»: CLOSED, STARTING, PREOPEN, CIRCUIT BREAK …), gibt es keinen Kurs —
+    /// sonst stünde der letzte Handel vor dem Halt als aktuell da (wie Luno). Ohne Feld (Fehlerantwort) zählt das nicht.
     override func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {
+        if !json.isNull("state") && json.optString("state") != "RUNNING" {
+            throw JSONError(message: JSONError.noData)
+        }
         ticker.last = try json.double("ltp")
         ticker.bid = json.optDoubleOrMissing("best_bid")
         ticker.ask = json.optDoubleOrMissing("best_ask")

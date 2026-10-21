@@ -6,6 +6,7 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.SimpleTicker
 import com.cryptochecker.marketdata.model.Ticker
+import com.cryptochecker.marketdata.model.market.UpbitStyleMarket
 import com.cryptochecker.marketdata.model.market.generic.SimpleMarket
 import com.cryptochecker.marketdata.util.BulkTickerRows
 import com.cryptochecker.marketdata.util.forEachJSONArray
@@ -43,6 +44,7 @@ class MarketBuildingBlocksTest {
 
         override fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) {
             ticker.last = json.getDouble("price")
+            ticker.timestamp = json.optLong("time")
         }
     }
 
@@ -117,6 +119,32 @@ class MarketBuildingBlocksTest {
         val ticker = Probe().readTicker(0, """{"price":"1.5"}""", SimpleTicker(), info("X"))
         assertEquals(1.5, ticker.last, 0.0)
         assertEquals(null, ticker.exchangeTime)
+    }
+
+    @Test
+    fun exchangeTimeFarInTheFutureIsDiscarded() {
+        val now = System.currentTimeMillis()
+        // Eine Minute voraus: Uhren gehen nie ganz gleich, die Zeit bleibt
+        val soon = Probe().readTicker(0, """{"price":1,"time":${now + 60_000}}""", SimpleTicker(), info("X"))
+        assertEquals(now + 60_000, soon.exchangeTime)
+        // 9 h voraus (Ortszeit als Epoche wie Bithumbs KST): verworfen statt «eben gehandelt», der Kurs bleibt
+        val ahead = now + 9 * 3_600_000L
+        val kst = Probe().readTicker(0, """{"price":1,"time":$ahead}""", SimpleTicker(), info("X"))
+        assertEquals(null, kst.exchangeTime)
+        assertEquals(1.0, kst.last, 0.0)
+        assertTrue(kst.timestamp in now..System.currentTimeMillis())
+    }
+
+    @Test
+    fun bithumbTradeTimeComesFromTheUtcFields() {
+        assertEquals(1_792_193_333_000L, UpbitStyleMarket.utcTradeMillis("20261016", "232853"))
+        assertEquals(1_709_164_800_000L, UpbitStyleMarket.utcTradeMillis("20240229", "000000"))
+        // Kein Schalttag, unmögliche Uhrzeit, falscher Aufbau, fehlend: keine Börsenzeit
+        assertEquals(0L, UpbitStyleMarket.utcTradeMillis("20230229", "000000"))
+        assertEquals(0L, UpbitStyleMarket.utcTradeMillis("20261016", "246000"))
+        assertEquals(0L, UpbitStyleMarket.utcTradeMillis("2026-10-", "232853"))
+        assertEquals(0L, UpbitStyleMarket.utcTradeMillis("2026101", "232853"))
+        assertEquals(0L, UpbitStyleMarket.utcTradeMillis("", ""))
     }
 
     @Test

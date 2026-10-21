@@ -177,4 +177,5 @@
     <string name="alarm_enter_amount">Adj meg egy értéket</string>
     <string name="alarm_editor_more">Továbbiak</string>
     <string name="alarm_editor_more_summary">Gyors riasztások, további feltételek, hang és felolvasás</string>
+    <string name="alarm_reliability_storage_no_key">Riasztások szüneteltetve a háttérben – a figyelőlista nincs mentve</string>
 </resources>

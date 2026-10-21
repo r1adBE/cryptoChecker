@@ -183,4 +183,5 @@
     <string name="alarm_enter_amount">Introdu o valoare</string>
     <string name="alarm_editor_more">Mai mult</string>
     <string name="alarm_editor_more_summary">Alarme rapide, alte condiții, sunet și citire</string>
+    <string name="alarm_reliability_storage_no_key">Alarme întrerupte în fundal – lista nu este salvată</string>
 </resources>

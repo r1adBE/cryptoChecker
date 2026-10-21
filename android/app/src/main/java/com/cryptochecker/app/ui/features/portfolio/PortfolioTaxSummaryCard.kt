@@ -33,7 +33,8 @@ import com.cryptochecker.app.util.PriceFormat
 import java.math.BigDecimal
 
 /**
- * Karte «Jahresübersicht» der Vorlage: Tatsachen-Posten (Summen in der Währung der Vorlage, ohne Devisenkurse USDT), dann
+ * Karte «Jahresübersicht» der Vorlage: Tatsachen-Posten (Summen in der Währung der Vorlage, ohne Devisenkurse USDT) mit
+ * dem Hinweis «Orientierung – keine Steuererklärung» ([TaxSummaryTexts.disclaimer]) unter dem Titel und unter den Summen, dann
  * der Block «Orientierung – keine Steuerberatung, keine Veranlagung» mit jedem Posten als «Orientierung: …» und Erklärung
  * der Grenzen — Sätze, Grenzen und Freibeträge stehen nur dort.
  * [summary] null = wird gerechnet.
@@ -75,7 +76,9 @@ internal fun TaxSummaryCard(summary: TaxYearSummary?, texts: TaxSummaryTexts, me
                 return l.target?.let { PriceFormat.valueWithCurrency(it.toDouble(), summary.currency) }
             }
             var orientationShown = false
-            for (l in summary.lines) {
+            // Letzter Tatsachen-Posten (Summen): dort steht der Hinweis «keine Steuererklärung» noch einmal (seit Build 93)
+            val lastFact = summary.lines.indexOfLast { !it.line.orientation }
+            for ((index, l) in summary.lines.withIndex()) {
                 val plain = texts.labels[l.line].orEmpty()
                 val label = if (l.line.orientation) taxOrientationLabel(texts.orientationItem, texts.orientation, plain) else plain
                 if (l.line.orientation && !orientationShown) {
@@ -126,6 +129,15 @@ internal fun TaxSummaryCard(summary: TaxYearSummary?, texts: TaxSummaryTexts, me
                             )
                         }
                     }
+                }
+                // Gleich bei den Summen, nicht nur unter dem Titel und in der CSV: Orientierung, keine Steuererklärung
+                if (index == lastFact) {
+                    Text(
+                        texts.disclaimer,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
                 }
             }
             if (summary.template == TaxTemplate.DE) {

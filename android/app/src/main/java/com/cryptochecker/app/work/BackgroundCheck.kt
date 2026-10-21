@@ -50,10 +50,16 @@ class BackgroundCheck @Inject constructor(
         // Merkliste nur leer im Arbeitsspeicher (Schlüssel gerade nicht lesbar): unbekannt, also lieber ja — sonst
         // nähme der Abgleich den Wecker «Pünktlich prüfen» weg, obwohl die Datei Paare hat
         if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) return true
-        return runCatchingCancellable { watchRepository.getWatches().any { !it.disabled } }.getOrDefault(true)
+        val active = runCatchingCancellable { watchRepository.getWatches().any { !it.disabled } }.getOrDefault(true)
+        // Merkliste nur als Kopie im Arbeitsspeicher (erst nach dem Öffnen oben verlässlich): [run] prüft dann nicht
+        // (vermerkt «gescheitert»), also soll der Wecker «Pünktlich prüfen» das Gerät dafür nicht weiter wecken (seit
+        // Build 93). Jeder Start stellt ihn wieder (PriceUpdateScheduler.apply: Paare unbekannt = stellen) — ist die Datei
+        // dann überführt, läuft die Kette wie zuvor
+        if (DatabaseEncryptionNotice.isVolatileCopy(AppDatabase.DB_NAME)) return false
+        return active
     }
 
-    /** Lauf ohne Prüfung vermerken (z. B. offline beim Wecker). */
+    /** Lauf vermerken (Ergebnis, übersprungen oder gescheitert). */
     fun log(trigger: CheckTrigger, result: CheckResult, startedAt: Long) {
         val now = System.currentTimeMillis()
         checkRuns.add(CheckRun(now, trigger, result, (now - startedAt).coerceAtLeast(0)))

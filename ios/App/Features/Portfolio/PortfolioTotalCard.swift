@@ -264,8 +264,9 @@ struct PortfolioTotalCard: View {
     }
 
     /// Gesamtwert gross mit rollenden Ziffern (Anzeigewährung, sonst USDT), dahinter die Einheit klein und grau
-    /// (Grundlinie wie die Zahl, immer rechts davon). Passt beides nicht, wird nur die Zahl
-    /// verkleinert (bis auf die Hälfte); verborgen («•••») ohne Währung — wie `FittedTotal` (Android).
+    /// (Grundlinie wie die Zahl, immer rechts davon). Passt beides nicht, wird nur die Zahl verkleinert, höchstens auf
+    /// 70 % (lesbar, seit Build 93; vorher bis auf die Hälfte) — reicht das nicht, bricht sie in eine zweite Zeile um;
+    /// verborgen («•••») ohne Währung. Android `FittedTotal` bleibt einzeilig (rollende Ziffern), verkleinert bis 50 %.
     private var totalValue: some View {
         let unit = self.unit
         let shown = unit.of(summary.totalValue)
@@ -277,8 +278,8 @@ struct PortfolioTotalCard: View {
                 .displayFont()
                 // Veraltet: onSurfaceVariant statt halber Deckkraft (50 % lag unter 4.5:1, L-13)
                 .foregroundStyle(stale ? AppColors.onSurfaceVariant : AppColors.onSurface)
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
+                .lineLimit(2)
+                .minimumScaleFactor(0.7)
                 .contentTransition(.numericText(value: shown))
             if !hideAmounts {
                 Text(verbatim: unit.code)

@@ -132,4 +132,6 @@
 
     <string name="explorer_bulk_show_all">Показати всі (%1$d)</string>
     <string name="dex_token_address_copy">Копіювати адресу токена</string>
+    <string name="dex_token_address_copied">Адресу токена скопійовано</string>
+    <string name="dex_token_address_label">Адреса токена, що закінчується на %1$s</string>
 </resources>

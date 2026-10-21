@@ -103,6 +103,8 @@ internal fun taxCsvTexts(currency: String, zone: ZoneId = ZoneId.systemDefault()
     totalStaking = if (template == TaxTemplate.AT) stringResource(R.string.tax_export_at_total_staking) else "",
     // AT: Zufluss vor dem 1.3.2022 (vor § 27b EStG) — eigener Vermerk statt Zins/Staking
     incomeBeforeNewLaw = if (template == TaxTemplate.AT) stringResource(R.string.tax_export_at_income_before_new_law) else "",
+    // DE/AT: Auszahlungsgebühren als eigene Summenzeile, nicht in der Summe der Gewinne — wie der Posten der Jahresübersicht
+    withdrawalFeesTotal = if (template.withdrawalFeeApart) stringResource(R.string.tax_line_withdrawal_fees) else "",
 )
 
 /** Texte des Stichtag-Exports ([CutoffCsvTexts]) in [currency]. */

@@ -319,55 +319,6 @@ enum BackupManager {
         return (watches.count, alarms.count, lock.keptOn)
     }
 
-    /// Beim Start: Liegt ein Journal (`RestoreJournal`) da, ist ein Wiederherstellen abgebrochen — den Stand davor
-    /// zurückschreiben und das nennen (`StorageRecoveryNotice.recordInterruptedRestore`). Wie Android.
-    @MainActor
-    static func recoverInterruptedRestore(_ data: AppData) {
-        switch RestoreJournal.read() {
-        case .absent, .unavailable:
-            return
-        case .unreadable:
-            RestoreJournal.delete()
-            StorageRecoveryNotice.recordInterruptedRestore(rolledBack: false)
-        case .found(let json):
-            // Eigener Stand dieses Geräts: vertrauenswürdig (Sperre wie gemerkt), ungültige Einträge gibt es darin nicht
-            let outcome: RecoveryOutcome
-            do {
-                _ = try restore(json, into: data, acceptInvalid: .max, encrypted: true, journal: false)
-                outcome = .rolledBack
-            } catch {
-                outcome = recoveryOutcome(failure: error)
-            }
-            finishRecovery(outcome)
-        }
-    }
-
-    /// Ergebnis des Zurückrollens beim Start.
-    enum RecoveryOutcome: Equatable {
-        case rolledBack
-        /// Journal nicht als Sicherung lesbar: nie zurückrollbar, wie Android `previousFromJournal`.
-        case unreadable
-        /// Zurückschreiben scheiterte (Portfolio, Adressen): Journal behalten, der nächste Start versucht es erneut.
-        case incomplete
-    }
-
-    /// Scheiterte das Zurückrollen beim Schreiben (`restore` hat dann selbst zurückgesetzt) oder schon beim Lesen?
-    static func recoveryOutcome(failure: Error) -> RecoveryOutcome {
-        if case Failure.invalid(let step) = failure, step == "portfolio" || step == WatchedAddressRules.backupKey {
-            return .incomplete
-        }
-        return .unreadable
-    }
-
-    /// Nach dem Zurückrollen (Tests): Journal nur löschen, wenn es erledigt oder nie zurückrollbar ist — nach einem
-    /// gescheiterten Schreiben bleibt es, und der nächste Start versucht es erneut (seit Build 92 wie Android; vorher war
-    /// der gemerkte Stand dann weg). Den Hinweis gibt es in jedem Fall.
-    static func finishRecovery(_ outcome: RecoveryOutcome, deleteJournal: () -> Void = { RestoreJournal.delete() },
-                               notice: (Bool) -> Void = { StorageRecoveryNotice.recordInterruptedRestore(rolledBack: $0) }) {
-        if outcome != .incomplete { deleteJournal() }
-        notice(outcome == .rolledBack)
-    }
-
     /// Eben geschriebene Sicherungsdatei zurücklesen und mit `expected` vergleichen (Grösse und SHA-256) — wie Android
     /// `BackupVerification`. nil = stimmt; sonst die Abweichung (fürs Protokoll).
     static func verifyWritten(_ url: URL, expected: Data) -> String? {

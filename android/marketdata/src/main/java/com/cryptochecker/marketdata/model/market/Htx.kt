@@ -25,6 +25,7 @@ class Htx : HtxBase(
     rowsField = "data",
     idField = "symbol",
     turnoverField = "vol",
+    singleHighLowRolling = true,
 ) {
     override val key = "Htx"
 
@@ -48,6 +49,7 @@ class HtxFutures : HtxBase(
     rowsField = "ticks",
     idField = "contract_code",
     turnoverField = "trade_turnover",
+    singleHighLowRolling = false,
 ) {
     override val key = "HtxFutures"
 
@@ -76,6 +78,9 @@ class HtxFutures : HtxBase(
  * Gemeinsames von Spot und Swap: gleiche Ticker-Felder unter `tick`, Sammelabfrage als Liste [rowsField] mit der
  * Kennung in [idField]. Den Umsatz in der Quote nennt [turnoverField]: Spot `vol`, Swap `trade_turnover` — beim
  * Swap ist `vol` die Zahl der Kontrakte, also nie Ersatz. Die Paarliste liest jede Unterklasse selbst.
+ * Hoch/Tief: Die Sammelabfragen (Spot `market/tickers`, Swap `batch_merged`) und der Swap-Einzelkurs zählen sie seit
+ * Tagesbeginn UTC+8, nicht über 24 h — nur der Spot-Einzelkurs (`detail/merged`, rollend) liefert sie
+ * ([singleHighLowRolling]).
  */
 abstract class HtxBase(
     name: String,
@@ -86,13 +91,14 @@ abstract class HtxBase(
     private val rowsField: String,
     private val idField: String,
     private val turnoverField: String,
+    private val singleHighLowRolling: Boolean,
 ) : SimpleMarket(name = name, pairListUrl = pairListUrl, tickerUrl = tickerUrl, errorField = errorField) {
 
     // ── Einzelkurs ──
 
     /** `ts` der Hülle ist die Antwortzeit, kein Handel → Zeit der Börse unbekannt. */
     override fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) {
-        copyRow(json.getJSONObject("tick"), ticker)
+        copyRow(json.getJSONObject("tick"), ticker, withHighLow = singleHighLowRolling)
     }
 
     // ── Sammelabfrage ──
@@ -112,7 +118,7 @@ abstract class HtxBase(
         failed: MutableSet<String>,
     ) {
         JSONObject(body).getJSONArray(rowsField).forEachJSONObject { row ->
-            bulkRowIfActive(row.optString(idField), row, "close", tickers, failed) { copyRow(row, it) }
+            bulkRowIfActive(row.optString(idField), row, "close", tickers, failed) { copyRow(row, it, withHighLow = false) }
         }
     }
 
@@ -122,10 +128,13 @@ abstract class HtxBase(
      * Keine 24-h-Veränderung: «open» ist laut Doku der Sammelabfrage die Eröffnung des Kalendertags (Singapur) —
      * Einzel- und Sammelabruf wären sonst uneinheitlich. `ts` ist die Momentaufnahme, nicht der letzte Handel.
      */
-    private fun copyRow(row: JSONObject, ticker: Ticker) {
+    private fun copyRow(row: JSONObject, ticker: Ticker, withHighLow: Boolean) {
         ticker.last = row.getDouble("close")
-        ticker.high = row.optDoubleOrMissing("high")
-        ticker.low = row.optDoubleOrMissing("low")
+        // Hoch/Tief seit Tagesbeginn (UTC+8) gehörten zu einem anderen Zeitraum als die 24-h-Werte: nicht übernommen
+        if (withHighLow) {
+            ticker.high = row.optDoubleOrMissing("high")
+            ticker.low = row.optDoubleOrMissing("low")
+        }
         ticker.vol = row.optDoubleOrMissing("amount")
         ticker.volQuote = row.optDoubleOrMissing(turnoverField)
         ticker.bid = bestPrice(row, "bid")

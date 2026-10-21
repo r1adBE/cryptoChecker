@@ -20,9 +20,9 @@ package com.cryptochecker.app.data.local
  *    Schlüssel wird sie gar nicht angelegt ([Decision.Refused]); eine schon unverschlüsselt vorhandene (früherer
  *    Fehlschlag) bleibt seit Build 91 ohne Schlüssel unberührt: Ihr Inhalt wird in den Arbeitsspeicher kopiert, Änderungen
  *    landen nie im Klartext ([Decision.PlaintextKept], wie iOS); mit Schlüssel wird sie beim nächsten Start überführt.
- *    Scheitert diese Überführung trotz Schlüssel, gilt Regel 3 auch mit Pflicht ([Decision.Plaintext]): Die Datei ist
- *    schon unverschlüsselt, sie wird wie bis Build 58 weiterbenutzt (auch beschrieben, nicht nur gelesen wie bei
- *    [Decision.PlaintextKept]) und beim nächsten Start erneut überführt.
+ *    Scheitert diese Überführung trotz Schlüssel, seit Build 93 derselbe Weg ([Decision.PlaintextKept]): Datei unberührt,
+ *    Inhalt nur gelesen, nächster Start erneut — bis Build 92 wurde sie dann wie bis Build 58 im Klartext weiterbeschrieben.
+ *    Ohne Pflicht gilt Regel 3 ([Decision.Plaintext]).
  *    Gibt der Keystore den Schlüssel einer schon verschlüsselten Datei gerade nicht heraus ([Decision.KeyUnavailable]),
  *    bleibt die Datei unberührt; die App hält die Datenbank dann für diesen Lauf im Arbeitsspeicher oder wartet
  *    ([OpenPlan.KEEP_FILE_IN_MEMORY], [OpenPlan.WAIT]).
@@ -159,8 +159,8 @@ class DatabaseEncryptionMigration(
         ) : Decision
 
         /**
-         * Unverschlüsselt öffnen wie bis Build 58 (Rückfall; der nächste Start versucht es erneut): ohne Pflicht auch ohne
-         * Schlüssel, mit Pflicht nur, wenn die Überführung einer schon unverschlüsselten Datei trotz Schlüssel scheiterte.
+         * Unverschlüsselt öffnen wie bis Build 58 (Rückfall; der nächste Start versucht es erneut): nur ohne
+         * Verschlüsselungspflicht — ohne Schlüssel oder nach gescheiterter Überführung.
          */
         data object Plaintext : Decision
 
@@ -172,8 +172,9 @@ class DatabaseEncryptionMigration(
 
         /**
          * Unverschlüsselte Datei mit Verschlüsselungspflicht, aber kein Schlüssel (seit Build 91, wie iOS
-         * `ProtectedFile.write(requireSealed:)`): Die Datei bleibt unberührt, ihr Inhalt wird für diesen Lauf in den
-         * Arbeitsspeicher kopiert; Änderungen werden nicht gespeichert. Der nächste Start mit Schlüssel überführt sie.
+         * `ProtectedFile.write(requireSealed:)`) oder Überführung trotz Schlüssel gescheitert (seit Build 93): Die Datei
+         * bleibt unberührt, ihr Inhalt wird für diesen Lauf in den Arbeitsspeicher kopiert; Änderungen werden nicht
+         * gespeichert. Der nächste Start mit Schlüssel überführt sie.
          */
         data object PlaintextKept : Decision
 
@@ -220,11 +221,16 @@ class DatabaseEncryptionMigration(
             log("$database verschlüsselt (${before.tables.size} Tabellen)", null)
             Decision.Encrypted(passphrase, migrated = true)
         } catch (e: Exception) {
-            // Auch mit Verschlüsselungspflicht (Regel 3): Die Datei bleibt unverschlüsselt in Gebrauch, nicht nur gelesen
-            log("$database: Verschlüsselung fehlgeschlagen, unverschlüsselt weiter (nächster Start)", e)
             runCatching { files.deleteExportCopy(database) }
                 .onFailure { log("$database: Exportkopie nicht gelöscht", it) }
-            Decision.Plaintext
+            // Pflicht (Merkliste, Portfolio, seit Build 93): nie im Klartext weiterschreiben, nur gelesen wie ohne Schlüssel
+            if (encryptionRequired(database)) {
+                log("$database: Verschlüsselung fehlgeschlagen, Datei unberührt (Inhalt im Arbeitsspeicher, nächster Start)", e)
+                Decision.PlaintextKept
+            } else {
+                log("$database: Verschlüsselung fehlgeschlagen, unverschlüsselt weiter (nächster Start)", e)
+                Decision.Plaintext
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.Market
@@ -28,7 +29,14 @@ class BitFlyer : Market("bitFlyer", "bit flyer") {
         return "$BITFLYER_API/ticker?product_code=$code"
     }
 
+    /**
+     * Ruht der Handel («state» nicht «RUNNING»: CLOSED, STARTING, PREOPEN, CIRCUIT BREAK …), gibt es keinen Kurs —
+     * sonst stünde der letzte Handel vor dem Halt als aktuell da (wie Luno). Ohne Feld (Fehlerantwort) zählt das nicht.
+     */
     override fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) {
+        if (!json.isNull("state") && json.optString("state") != "RUNNING") {
+            throw MarketParseException(MarketParseException.NO_DATA)
+        }
         ticker.last = json.getDouble("ltp")
         ticker.bid = json.optDoubleOrMissing("best_bid")
         ticker.ask = json.optDoubleOrMissing("best_ask")

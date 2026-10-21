@@ -39,30 +39,30 @@ enum PortfolioTaxExporter {
 
     /// Tageskurse der Vorlage: FR `frPrices`, Netzwerkgebühren als Veräusserung (`TaxTemplate.networkFeeIsDisposal`: UK,
     /// US, CA, AU, JP) `networkFeePrices`; dazu für alle Vorlagen die Gebühr-Zeilen, Verschenkt/bezahlt ohne Marktwert und
-    /// Tausch ohne Wert zum Tageskurs (`feeDisposalPrices`) — wie `taxPrices` (Android).
+    /// Tausch ohne Wert zum Tageskurs (`feeDisposalPrices`) — wie `taxPrices` (Android). `until`: letzter Tag mit Bedarf
+    /// (`TaxExport.priceUntil`; UK/CA 30 Tage nach dem Steuerjahr — ein Zugang dort kann eine Veräusserung des Jahres decken).
     static func taxPrices(_ template: TaxTemplate, _ method: TaxMethod, _ transactions: [PortfolioTx],
-                          period: TaxPeriod) async -> ((String, Int64) -> Decimal?)? {
+                          period: TaxPeriod, until: LocalDay? = nil) async -> ((String, Int64) -> Decimal?)? {
         let zone = template.zone()
         let base: ((String, Int64) -> Decimal?)?
         if method == .FR_PTA {
-            base = await frPrices(transactions, period: period, zone: zone)
+            base = await frPrices(transactions, period: period, zone: zone, until: until)
         } else if template.networkFeeIsDisposal {
-            base = await networkFeePrices(transactions, period: period, zone: zone)
+            base = await networkFeePrices(transactions, period: period, zone: zone, until: until)
         } else {
             base = nil
         }
-        guard let fees = await feeDisposalPrices(transactions, period: period, zone: zone) else { return base }
+        guard let fees = await feeDisposalPrices(transactions, period: period, zone: zone, until: until) else { return base }
         return { coin, time in fees(coin, time) ?? base?(coin, time) }
     }
 
     /// Gebühr-Zeilen (`PortfolioLedger.isFeeDisposal`, CSV «Fee»), Verschenkt/bezahlt ohne Marktwert und Tausch ohne Wert
-    /// (`PortfolioLedger.dayCloseNeeds`) bis Ende `period`: zum Tageskurs — der Coin zum Tagesschluss SEINES UTC-Tags
+    /// (`PortfolioLedger.dayCloseNeeds`) bis Ende `until` (Standard: Ende `period`): zum Tageskurs — der Coin zum Tagesschluss SEINES UTC-Tags
     /// (`TaxDayClose`, gleicher Kurs wie Karte und Wertverlauf); nur für genau diese (Coin, Zeit), sonst nil. Ohne solche
     /// nil. Wie Android.
     static func feeDisposalPrices(_ transactions: [PortfolioTx], period: TaxPeriod,
-                                  zone: TimeZone = .current) async -> ((String, Int64) -> Decimal?)? {
-        let end = CutoffDay(year: period.end.year, month: period.end.month, day: period.end.day)
-            .endOfDayMillis(in: zone)
+                                  zone: TimeZone = .current, until: LocalDay? = nil) async -> ((String, Int64) -> Decimal?)? {
+        let end = endMillis(period, until: until, zone: zone)
         var keys = Set<String>()
         var wanted: [String: Set<Int>] = [:]
         let own = transactions.filter { $0.time <= end && !AddressBalance.isAddressTrade($0.id) }
@@ -85,20 +85,25 @@ enum PortfolioTaxExporter {
     /// Marktwert der Netzwerkgebühren in Krypto (eigene Veräusserung, `TaxEngines.applyRules`) bis Ende `period`: Gebühr
     /// im Coin bzw. im dritten Coin ohne erfassten Gebühr-Preis einer Umbuchung, Auszahlung oder Schenkung
     /// (`TaxDayClose.networkFeeNeeds`) — der Coin zum Tagesschluss seines UTC-Tags wie jede Gebühr-Zeile derselben
-    /// Unterlage. Wie `networkFeePrices` (Android).
+    /// Unterlage. Bis Ende `until` wie `feeDisposalPrices`. Wie `networkFeePrices` (Android).
     static func networkFeePrices(_ transactions: [PortfolioTx], period: TaxPeriod,
-                                 zone: TimeZone = .current) async -> (String, Int64) -> Decimal? {
-        let end = CutoffDay(year: period.end.year, month: period.end.month, day: period.end.day)
-            .endOfDayMillis(in: zone)
+                                 zone: TimeZone = .current, until: LocalDay? = nil) async -> (String, Int64) -> Decimal? {
+        let end = endMillis(period, until: until, zone: zone)
         return await dailyCloses(TaxDayClose.networkFeeNeeds(transactions, end: end))
+    }
+
+    /// Ende (ms) des letzten Tags mit Kursbedarf: `until`, nie vor dem Ende von `period`.
+    private static func endMillis(_ period: TaxPeriod, until: LocalDay?, zone: TimeZone) -> Int64 {
+        let last = max(until ?? period.end, period.end)
+        return CutoffDay(year: last.year, month: last.month, day: last.day).endOfDayMillis(in: zone)
     }
 
     /// FR: Kurse für den Gesamtwert des Portfolios vor jeder Abtretung bis Ende `period` — je Verkauf, Auszahlung und
     /// Gebühr in Krypto die gehaltenen Coins (ohne den verkauften, ohne Stablecoins) zum Tagesschluss des UTC-Tags der
     /// Abtretung (`TaxDayClose`, dieselbe Regel wie die Gebühr-Zeilen; bis Build 85 der Vortag). Wie `frPrices` (Android).
     static func frPrices(_ transactions: [PortfolioTx], period: TaxPeriod,
-                         zone: TimeZone = .current) async -> (String, Int64) -> Decimal? {
-        let end = CutoffDay(year: period.end.year, month: period.end.month, day: period.end.day).endOfDayMillis(in: zone)
+                         zone: TimeZone = .current, until: LocalDay? = nil) async -> (String, Int64) -> Decimal? {
+        let end = endMillis(period, until: until, zone: zone)
         var wanted: [String: Set<Int>] = [:]
         let own = transactions.filter { !AddressBalance.isAddressTrade($0.id) }
         // Beobachtete Adressen zählen im Gesamtwert mit (`TaxEngines` FR): ihre Coins brauchen ebenfalls Kurse
@@ -147,10 +152,15 @@ enum PortfolioTaxExporter {
         let zone = template.zone()
         let period = template.period(year)
         let transactions = withAddressTrades(transactions, method: method)
-        let priceAt: ((String, Int64) -> Decimal?)? = await taxPrices(template, method, transactions, period: period)
-        let from = TaxExport.fxFrom(transactions, method: method, period: period, timeZone: zone, priceAt: priceAt,
-                                    rules: template.eventRules, walletFrom: walletFrom)
-        let fx = await rates(currency, from: from, to: period.end)
+        // UK/CA: Kurse auch für Zugänge bis 30 Tage nach dem Steuerjahr (`TaxExport.priceUntil`)
+        let today = TaxExport.localDay(Int64(Date().timeIntervalSince1970 * 1000), timeZone: zone)
+        let until = TaxExport.priceUntil(template, period: period, today: today)
+        let priceAt: ((String, Int64) -> Decimal?)? = await taxPrices(template, method, transactions, period: period,
+                                                                      until: until)
+        let span = TaxExport.fxSpan(transactions, method: method, period: period, timeZone: zone, priceAt: priceAt,
+                                    rules: template.eventRules, walletFrom: walletFrom, until: until, today: today)
+        let from = span.from
+        let fx = await rates(currency, from: from, to: span.until)
         let usdtUsd = await usdtUsdCloses(currency, from: from)
         // CH: Vermögenswert per 31.12. (Orientierung) — Tagesschlüsse und Adress-Guthaben wie der Stichtag-Export
         var yearEnd: (closes: CutoffCloses, addresses: AddressCutoffView)? = nil
@@ -207,11 +217,17 @@ enum PortfolioTaxExporter {
         switch kind {
         case .gains:
             let transactions = withAddressTrades(transactions, method: method)
-            let priceAt: ((String, Int64) -> Decimal?)? = await taxPrices(template, method, transactions, period: period)
-            // Devisen-Tageskurse ab dem frühesten Kauf-/Herkunftsdatum (Einstand zum Kurs seines Datums)
-            let from = TaxExport.fxFrom(transactions, method: method, period: period, timeZone: zone, priceAt: priceAt,
-                                    rules: template.eventRules, walletFrom: walletFrom)
-            let fx = await rates(currency, from: from, to: period.end)
+            // UK/CA: Kurse auch für Zugänge bis 30 Tage nach dem Steuerjahr (`TaxExport.priceUntil`)
+            let today = TaxExport.localDay(Int64(Date().timeIntervalSince1970 * 1000), timeZone: zone)
+            let until = TaxExport.priceUntil(template, period: period, today: today)
+            let priceAt: ((String, Int64) -> Decimal?)? = await taxPrices(template, method, transactions, period: period,
+                                                                          until: until)
+            // Devisen-Tageskurse ab dem frühesten Kauf-/Herkunftsdatum (Einstand zum Kurs seines Datums) bis zum
+            // spätesten genutzten Zugang (UK: 30-Tage-Regel über das Ende des Steuerjahrs hinaus)
+            let span = TaxExport.fxSpan(transactions, method: method, period: period, timeZone: zone, priceAt: priceAt,
+                                        rules: template.eventRules, walletFrom: walletFrom, until: until, today: today)
+            let from = span.from
+            let fx = await rates(currency, from: from, to: span.until)
             // USDT zum Marktkurs: USDT/USD-Tagesschluss je Datum (ohne Schluss 1, je Zeile vermerkt)
             let usdtUsd = await usdtUsdCloses(currency, from: from)
             let rows = TaxExport.gainRows(transactions, method: method, period: period, timeZone: zone,

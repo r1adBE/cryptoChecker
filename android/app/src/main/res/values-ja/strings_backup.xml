@@ -88,5 +88,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">保存済みのポートフォリオは現在ロックされています。変更できるのは次回の起動後です。</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">この端末は現在キーを提供していません。ウォッチリストは保存されず、変更はアプリを閉じると失われます。次回の起動時にもう一度試します。</string>
+    <string name="watchlist_storage_in_memory">この端末は現在キーを提供していません。ウォッチリストは保存されず、変更はアプリを閉じると失われます。バックグラウンドのアラームは一時停止中です。次回の起動時にもう一度試します。</string>
 </resources>

@@ -88,5 +88,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">Portofolio tersimpan sedang terkunci – perubahan baru bisa dilakukan setelah aplikasi dibuka berikutnya.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">Perangkat ini belum menyediakan kunci saat ini – daftar pantau tidak disimpan, perubahan hilang saat aplikasi ditutup. Aplikasi akan mencoba lagi saat dibuka berikutnya.</string>
+    <string name="watchlist_storage_in_memory">Perangkat ini belum menyediakan kunci saat ini – daftar pantau tidak disimpan, perubahan hilang saat aplikasi ditutup. Alarm di latar belakang dijeda. Aplikasi akan mencoba lagi saat dibuka berikutnya.</string>
 </resources>

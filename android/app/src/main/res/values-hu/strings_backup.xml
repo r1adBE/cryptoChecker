@@ -91,5 +91,5 @@
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
     <string name="portfolio_storage_locked">A mentett portfólió most zárolva van – módosítani csak a következő indítás után lehet.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
-    <string name="watchlist_storage_in_memory">Az eszköz most nem ad kulcsot – a figyelőlista nincs mentve, a változások az app bezárásakor elvesznek. Az app a következő indításkor újra megpróbálja.</string>
+    <string name="watchlist_storage_in_memory">Az eszköz most nem ad kulcsot – a figyelőlista nincs mentve, a változások az app bezárásakor elvesznek. A háttérben a riasztások szünetelnek. Az app a következő indításkor újra megpróbálja.</string>
 </resources>

@@ -1378,6 +1378,114 @@
           "reason": "NOT_CRYPTO"
         }
       ]
+    },
+    {
+      "name": "generic_fiat_fee_reward",
+      "csv": "Timestamp,Type,Asset,Amount,Price,Fiat Amount,Currency,Fee,Fee Currency,ID\n2024-03-01T10:00:00Z,Buy,BTC,0.1,60000,,USD,5,EUR,f-1\n2024-03-02T10:00:00Z,Buy,ETH,1,3000,,USD,4,GBP,f-2\n2024-03-03T10:00:00Z,Staking reward,ETH,0.01,,30,EUR,,,r-1\n2024-03-04T10:00:00Z,Staking reward,SOL,2,,,,,,\n2024-03-05T10:00:00Z,Swap out,ADA,100,,,,1.5,EUR,\n2024-03-05T10:00:00Z,Swap in,DOT,10,,,,,,\n2024-03-06T10:00:00Z,Staking reward,DOT,1,,5,DOT,,,\n2024-03-07T10:00:00Z,Staking reward,ETH,0.02,,60,EUR,,,\n",
+      "format": "GENERIC",
+      "rows": [
+        {
+          "line": 2,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "BTC",
+          "amount": "0.1",
+          "price": "60000",
+          "quote": "USD",
+          "fee": "5",
+          "feeUnit": "EUR",
+          "time": "2024-03-01T10:00:00Z",
+          "externalId": "f-1",
+          "key": "GENERIC|f-1"
+        },
+        {
+          "line": 3,
+          "kind": "BUY",
+          "rawKind": "Buy",
+          "coin": "ETH",
+          "amount": "1",
+          "price": "3000",
+          "quote": "USD",
+          "fee": "4",
+          "feeUnit": "GBP",
+          "time": "2024-03-02T10:00:00Z",
+          "externalId": "f-2",
+          "key": "GENERIC|f-2"
+        },
+        {
+          "line": 4,
+          "kind": "REWARD",
+          "rawKind": "Staking reward",
+          "coin": "ETH",
+          "amount": "0.01",
+          "price": "3000",
+          "quote": "EUR",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-03-03T10:00:00Z",
+          "externalId": "r-1",
+          "key": "GENERIC|r-1"
+        },
+        {
+          "line": 5,
+          "kind": "REWARD",
+          "rawKind": "Staking reward",
+          "coin": "SOL",
+          "amount": "2",
+          "price": null,
+          "quote": null,
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-03-04T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|REWARD|SOL|1709546400000|2|-"
+        },
+        {
+          "line": 6,
+          "kind": "SWAP",
+          "rawKind": "Swap out",
+          "coin": "ADA",
+          "amount": "100",
+          "price": null,
+          "quote": null,
+          "fee": "1.5",
+          "feeUnit": "EUR",
+          "time": "2024-03-05T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|SWAP|ADA|1709632800000|100|-",
+          "toCoin": "DOT",
+          "toAmount": "10"
+        },
+        {
+          "line": 8,
+          "kind": "REWARD",
+          "rawKind": "Staking reward",
+          "coin": "DOT",
+          "amount": "1",
+          "price": null,
+          "quote": "DOT",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-03-06T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|REWARD|DOT|1709719200000|1|-"
+        },
+        {
+          "line": 9,
+          "kind": "REWARD",
+          "rawKind": "Staking reward",
+          "coin": "ETH",
+          "amount": "0.02",
+          "price": "3000",
+          "quote": "EUR",
+          "fee": null,
+          "feeUnit": null,
+          "time": "2024-03-07T10:00:00Z",
+          "externalId": null,
+          "key": "GENERIC|REWARD|ETH|1709805600000|0.02|3000"
+        }
+      ],
+      "skipped": []
     }
   ],
   "numbers": [
@@ -2766,5 +2874,91 @@
         }
       ]
     }
-  ]
+  ],
+  "_fiatFeeRewardComment": "Build 93: Gebühr in einer anderen Fiat-Währung als der Preiswährung (Kauf in USD, Gebühr EUR) zum Tageskurs ihrer Währung, ohne Kurs (GBP) needsFx/missingFx statt still weg; Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso. Belohnung mit Fiat-Betrag (Fiat Amount, Währung Fiat/USDT): Preis = Betrag / Menge (wie Coinbase/Bitpanda); Währung ein Coin (DOT) → ohne Preis wie bisher. legacyKey = Schlüssel bis Build 92 (Belohnung ohne Preis) der Zeile legacyLine — erkennt den früheren Import als Duplikat. fxNeeds: Währungen der Tageskurse (Gebühr in jeder Fiat-Währung).",
+  "fiatFeeReward": {
+    "file": "generic_fiat_fee_reward",
+    "rates": {
+      "EUR": {
+        "2024-03-01": "0.92",
+        "2024-03-03": "0.9",
+        "2024-03-05": "0.9",
+        "2024-03-07": "0.92"
+      }
+    },
+    "priced": [
+      {
+        "line": 2,
+        "priceUsdt": "60000",
+        "feeUsdt": "5.43478260869565217391304347826087",
+        "needsFx": false
+      },
+      {
+        "line": 3,
+        "priceUsdt": "3000",
+        "feeUsdt": null,
+        "needsFx": true
+      },
+      {
+        "line": 4,
+        "priceUsdt": "3333.333333333333333333333333333333",
+        "feeUsdt": null,
+        "needsFx": false
+      },
+      {
+        "line": 5,
+        "priceUsdt": null,
+        "feeUsdt": null,
+        "needsFx": false
+      },
+      {
+        "line": 6,
+        "priceUsdt": null,
+        "feeUsdt": "1.666666666666666666666666666666667",
+        "needsFx": false
+      },
+      {
+        "line": 8,
+        "priceUsdt": null,
+        "feeUsdt": null,
+        "needsFx": false
+      },
+      {
+        "line": 9,
+        "priceUsdt": "3260.869565217391304347826086956522",
+        "feeUsdt": null,
+        "needsFx": false
+      }
+    ],
+    "txs": [
+      {
+        "line": 2,
+        "fee": "5.43478260869565217391304347826087",
+        "feeUnit": "QUOTE",
+        "feeCoin": null
+      },
+      {
+        "line": 3,
+        "fee": null,
+        "feeUnit": null,
+        "feeCoin": null
+      },
+      {
+        "line": 6,
+        "fee": "1.666666666666666666666666666666667",
+        "feeUnit": "QUOTE",
+        "feeCoin": null
+      }
+    ],
+    "missingFx": [
+      3
+    ],
+    "legacyLine": 9,
+    "legacyKey": "GENERIC|REWARD|ETH|1709805600000|0.02|-",
+    "key": "GENERIC|REWARD|ETH|1709805600000|0.02|3000",
+    "fxNeeds": [
+      "EUR",
+      "GBP"
+    ]
+  }
 }
