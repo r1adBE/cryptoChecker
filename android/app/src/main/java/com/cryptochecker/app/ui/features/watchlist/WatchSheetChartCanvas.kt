@@ -25,14 +25,12 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.TextLayoutResult
@@ -63,6 +61,8 @@ import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /** Ein gezeichneter Verlauf: Zustand der Überblendung. */
 internal data class ChartFrame(
@@ -98,7 +98,7 @@ internal fun SheetChartCanvas(
     stable: Boolean = false,
 ) {
     val context = LocalContext.current
-    val haptics = LocalHapticFeedback.current
+    val haptics = rememberHaptics()
     val measurer = rememberTextMeasurer()
     val holder = remember { GeometryHolder() }
     var scrub by remember(candles, type) { mutableStateOf<Int?>(null) }
@@ -228,7 +228,7 @@ internal fun SheetChartCanvas(
                         val index = SheetChart.scrubIndex(atX, geo.plotLeft, geo.slotWidth, geo.candles.size)
                         // Leichtes Ticken je neuer Kerze (folgt den System-Einstellungen)
                         if (candles.size <= MAX_TICK_CANDLES && SheetChart.isNewCandle(scrub, index)) {
-                            haptics.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            haptics.play(HapticEvent.SELECTION)
                         }
                         scrub = index
                     }

@@ -45,7 +45,7 @@ extension PortfolioScreen {
         banner = WatchlistBannerMessage(
             text: text,
             icon: "trash",
-            action: WatchlistBannerAction(title: L("action_undo")) {
+            action: WatchlistBannerAction.undo {
                 restoreOrWarn(restore)
             }
         )
@@ -88,7 +88,7 @@ extension PortfolioScreen {
         banner = WatchlistBannerMessage(
             text: text,
             icon: "eye",
-            action: WatchlistBannerAction(title: L("action_undo")) {
+            action: WatchlistBannerAction.undo {
                 for id in ids { data.setWatchedAddressCountInPortfolio(id, on: true) }
             }
         )
@@ -109,7 +109,7 @@ extension PortfolioScreen {
         banner = WatchlistBannerMessage(
             text: text,
             icon: "eye",
-            action: WatchlistBannerAction(title: L("action_undo")) {
+            action: WatchlistBannerAction.undo {
                 for id in ids { data.setWatchedAddressCountInPortfolio(id, on: false) }
             }
         )
@@ -137,7 +137,7 @@ extension PortfolioScreen {
         banner = WatchlistBannerMessage(
             text: text,
             icon: "trash",
-            action: WatchlistBannerAction(title: L("action_undo")) { restoreOrWarn(before) }
+            action: WatchlistBannerAction.undo { restoreOrWarn(before) }
         )
         Task { @MainActor in
             // Nach dem Fokuswechsel ansagen, sonst geht es unter
@@ -163,7 +163,7 @@ extension PortfolioScreen {
         banner = WatchlistBannerMessage(
             text: text,
             icon: "arrow.uturn.backward",
-            action: WatchlistBannerAction(title: L("action_undo")) {
+            action: WatchlistBannerAction.undo {
                 restoreOrWarn(restore)
             }
         )

@@ -27,6 +27,8 @@ import com.cryptochecker.app.domain.watch.DexLiquidity
 import com.cryptochecker.app.domain.watch.DexTokenAddress
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * «0x1234…abcd» unter der Börse eines DEX-Pools ([DexTokenAddress]); Tippen legt die volle Adresse in die
@@ -41,13 +43,17 @@ internal fun DexTokenAddressLine(watch: WatchEntity) {
     val copyLabel = stringResource(R.string.dex_token_address_copy)
     val copiedText = stringResource(R.string.dex_token_address_copied)
     val spoken = stringResource(R.string.dex_token_address_label, dexSpokenTail(address))
+    val haptics = rememberHaptics()
     Text(
         BidiText.isolate(DexTokenAddress.shown(address)),
         style = MaterialTheme.typography.label,
         color = MaterialTheme.colorScheme.primary,
         modifier = Modifier
             .minimumInteractiveComponentSize()
-            .clickable(onClickLabel = copyLabel, role = Role.Button) { copyAddress(context, copyLabel, address, copiedText) }
+            .clickable(onClickLabel = copyLabel, role = Role.Button) {
+                copyAddress(context, copyLabel, address, copiedText)
+                haptics.play(HapticEvent.SUCCESS)
+            }
             .semantics { contentDescription = spoken }
     )
 }

@@ -79,7 +79,7 @@ extension ExplorerScreen {
 
     private func recentChip(_ query: String) -> some View {
         Button {
-            UISelectionFeedbackGenerator().selectionChanged()
+            Haptics.play(.selection)
             vm.setSearchQuery(query)
         } label: {
             HStack(spacing: 4) {
@@ -275,7 +275,7 @@ extension ExplorerScreen {
     /// Ein Coin: Plakette, Name und Kürzel, darunter an wie vielen Börsen (oder «noch nicht geladen»).
     private func coinRow(_ coin: ExplorerCoinHit) -> some View {
         Button {
-            UISelectionFeedbackGenerator().selectionChanged()
+            Haptics.play(.selection)
             withAnimation(.snappy(duration: 0.25)) { vm.pickCoin(coin) }
         } label: {
             HStack(spacing: 12) {

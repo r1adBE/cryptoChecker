@@ -31,6 +31,8 @@ import com.cryptochecker.app.ui.features.about.AboutFeatures
 import com.cryptochecker.app.ui.features.about.EXCHANGE_REQUEST_URL
 import com.cryptochecker.app.ui.features.about.PRIVACY_POLICY_URL
 import com.cryptochecker.app.ui.features.about.SOURCE_CODE_URL
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 // ── Über ─────────────────────────────────────────────────────────────────────
 
@@ -57,6 +59,7 @@ internal fun AboutPage(
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
     val unlockedText = stringResource(R.string.developer_unlocked)
+    val haptics = rememberHaptics()
     // Letzter Hinweis: wird beim nächsten Tipp ersetzt, damit sich keine Meldungen stauen
     var lastToast by remember { mutableStateOf<Toast?>(null) }
     fun showToast(text: String) {
@@ -74,8 +77,10 @@ internal fun AboutPage(
                             val left = DEVELOPER_UNLOCK_TAPS - versionTaps
                             if (left == 0) {
                                 viewModel.unlockDeveloper()
+                                haptics.play(HapticEvent.SUCCESS)
                                 showToast(unlockedText)
                             } else if (left in 1..DEVELOPER_COUNTDOWN_FROM) {
+                                haptics.play(HapticEvent.LIGHT_IMPACT)
                                 showToast(resources.getQuantityString(R.plurals.developer_taps_left, left, left))
                             }
                         }

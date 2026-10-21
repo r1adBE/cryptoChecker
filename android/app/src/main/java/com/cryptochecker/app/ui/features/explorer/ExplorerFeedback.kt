@@ -11,6 +11,8 @@ import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Rückmeldungen als Snackbar statt Text, der das Layout verschiebt: Paar übernommen bzw. schon
@@ -38,8 +40,11 @@ internal fun ExplorerFeedback(
     val alreadyText = stringResource(R.string.explorer_already_in_watchlist)
     val noPairText = stringResource(R.string.explorer_no_pair_selected)
     val fullText = watchlistFullText()
+    // Haptik wie iOS: übernommen = Erfolg; schon da, kein Paar gewählt oder Merkliste voll = Warnung
+    val haptics = rememberHaptics()
     LaunchedEffect(addResult) {
         val state = addResult ?: return@LaunchedEffect
+        haptics.play(if (state == AddResult.ADDED) HapticEvent.SUCCESS else HapticEvent.WARNING)
         if (state == AddResult.ADDED) requestNotifications()
         // Erst nach dem Schliessen zurücksetzen — sonst bricht der neue
         // Schlüssel die laufende Snackbar sofort ab.
@@ -82,6 +87,10 @@ internal fun ExplorerFeedback(
             else -> null
         } ?: return@LaunchedEffect
         if (dexMessage is DexMessage.Added) requestNotifications()
+        // Gescheiterte Suche ohne Haptik (wie iOS) — nur Aufnehmen gibt Rückmeldung
+        if (dexMessage !is DexMessage.Failed) {
+            haptics.play(if (dexMessage is DexMessage.Added) HapticEvent.SUCCESS else HapticEvent.WARNING)
+        }
         try {
             val result = snackbar.showSnackbar(
                 message = text,
@@ -101,6 +110,7 @@ internal fun ExplorerFeedback(
     LaunchedEffect(bulkAddResult) {
         val state = bulkAddResult?.takeIf { !it.running } ?: return@LaunchedEffect
         if (state.added > 0) requestNotifications()
+        haptics.play(if (state.added > 0) HapticEvent.SUCCESS else HapticEvent.WARNING)
         try {
             val result = snackbar.showSnackbar(
                 message = bulkAddedText(resources, state),

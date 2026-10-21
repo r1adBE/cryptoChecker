@@ -53,6 +53,8 @@ import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.util.StartupClock
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Die Merkliste: fester Kopf (Gruppen, Glocke, Menü, Status mit Lupe und «+» bzw. Suche), darunter Puls,
@@ -222,12 +224,15 @@ fun WatchlistScreen(
     }
     // Nach links wischen, Screenreader-Aktion «Löschen» und «Löschen» im Aktionen-Blatt:
     // ohne Rückfrage, mit «Rückgängig» (derselbe Weg überall)
+    val haptics = rememberHaptics()
     val deleteWithUndo: (WatchEntity) -> Unit = { watch ->
+        haptics.play(HapticEvent.DESTRUCTIVE)
         viewModel.deleteWithUndo(watch)
         banner.show(resources.getString(R.string.watchlist_removed, watch.displayName)) { viewModel.undoDelete(watch.id) }
     }
     // Nach rechts wischen: Favorit an/aus mit kurzem Banner
     val favoriteWithBanner: (WatchEntity) -> Unit = { watch ->
+        haptics.play(HapticEvent.LIGHT_IMPACT)
         viewModel.toggleFavorite(watch)
         val text = resources.getString(
             if (watch.favorite) R.string.favorite_removed else R.string.favorite_added,

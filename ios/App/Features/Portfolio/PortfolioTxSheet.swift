@@ -361,6 +361,7 @@ struct PortfolioTxSheet: View {
         }
         .alert(L("portfolio_tx_delete_title"), isPresented: $askDelete) {
             Button(L("action_delete"), role: .destructive) {
+                Haptics.play(.destructive)
                 if data.deletePortfolioTx(initial.txId) { dismiss() } else { deleteFailed = true }
             }
             Button(L("action_cancel"), role: .cancel) {}

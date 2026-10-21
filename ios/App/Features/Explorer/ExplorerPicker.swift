@@ -226,12 +226,12 @@ struct ExplorerPickerSheet: View {
     }
 
     private func toggle(_ kind: FavoriteKind, _ entry: String) {
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        Haptics.play(.lightImpact)
         withAnimation(.snappy) { data.toggleFavorite(kind, entry) }
     }
 
     private func pick(_ entry: String) {
-        UISelectionFeedbackGenerator().selectionChanged()
+        Haptics.play(.selection)
         onSelect(entry)
         dismiss()
     }

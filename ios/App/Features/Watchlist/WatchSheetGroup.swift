@@ -19,7 +19,7 @@ extension WatchActionsSheet {
             if PortfolioOff.offerAddToPortfolio(preview: preview != nil) {
                 RowDivider()
                 Button {
-                    WatchlistHaptics.selection()
+                    Haptics.play(.selection)
                     onAddToPortfolio(watch.id)
                     dismiss()
                 } label: {
@@ -50,7 +50,7 @@ extension WatchActionsSheet {
             RowDivider()
             // Wie Android «Als Widget hinzufügen»; iOS kann das nicht aus der App → drei Schritte
             Button {
-                WatchlistHaptics.selection()
+                Haptics.play(.selection)
                 showWidgetHelp = true
             } label: {
                 HStack(spacing: 12) {
@@ -80,7 +80,7 @@ extension WatchActionsSheet {
     /// «Aktualisieren»: nur dieses Paar neu abfragen (Kreisel, solange es läuft).
     private func refreshRow(_ watch: Watch, refreshing: Bool) -> some View {
         Button {
-            WatchlistHaptics.impact(.light)
+            Haptics.play(.lightImpact)
             // Chart des Paars (alle Zeiträume) mit dem neuen Kurs neu laden
             SheetChartStore.shared.invalidate(watch)
             Task { await data.refreshOne(watch.id) }
@@ -142,7 +142,7 @@ extension WatchActionsSheet {
     /// Deaktivieren bzw. wieder aktivieren (dann gleich den Kurs holen); Blatt zu, der Aufrufer
     /// zeigt ein kurzes Banner (`onDisabledChange`).
     func toggleDisabled(_ watch: Watch) {
-        WatchlistHaptics.impact(.light)
+        Haptics.play(.lightImpact)
         data.setDisabled(ids: [watch.id], !watch.disabled)
         onDisabledChange(watch)
         dismiss()
@@ -151,7 +151,7 @@ extension WatchActionsSheet {
     /// Eigene Notiz (#233): ganzer Text unter dem Titel, Tippen bearbeitet.
     private func noteRow(_ watch: Watch) -> some View {
         Button {
-            WatchlistHaptics.selection()
+            Haptics.play(.selection)
             editNote = true
         } label: {
             HStack(alignment: .top, spacing: 12) {

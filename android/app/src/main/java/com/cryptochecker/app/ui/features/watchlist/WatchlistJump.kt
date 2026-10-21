@@ -5,7 +5,6 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import android.view.HapticFeedbackConstants
 import android.view.accessibility.AccessibilityManager
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -42,7 +41,6 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.stringResource
@@ -54,6 +52,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /** Sprungknopf: sichtbarer Durchmesser und Abstand des sichtbaren Kreises zum unteren und seitlichen Rand. */
 internal val JumpButtonSize = 40.dp
@@ -151,7 +151,7 @@ internal fun rememberWatchlistJump(
     reduceMotion: Boolean,
     scope: CoroutineScope,
 ): WatchlistJump {
-    val view = LocalView.current
+    val haptics = rememberHaptics()
     val eligible = WatchJump.eligible(count, sortMode)
     val touchExploration = rememberTouchExplorationEnabled()
     var scrolled by remember { mutableStateOf(false) }
@@ -185,7 +185,7 @@ internal fun rememberWatchlistJump(
         val total = listState.layoutInfo.totalItemsCount
         if (total > 0) {
             val target = if (down.value) total - 1 else 0
-            view.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK)
+            haptics.play(HapticEvent.LIGHT_IMPACT)
             scope.launch {
                 // Kurze Strecke sanft, lange sofort (keine lange Animation); «Bewegung reduzieren» sofort
                 if (WatchJump.animate(target - listState.firstVisibleItemIndex, reduceMotion)) {

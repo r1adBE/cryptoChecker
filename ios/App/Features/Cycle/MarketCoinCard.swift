@@ -239,7 +239,7 @@ struct CycleCoinPickerSheet: View {
         .contentShape(Rectangle())
         .onTapGesture { choose(coin) }
         .onLongPressGesture {
-            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            Haptics.play(.longPress)
             viewModel.toggleFavoriteCoin(coin)
         }
         .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)

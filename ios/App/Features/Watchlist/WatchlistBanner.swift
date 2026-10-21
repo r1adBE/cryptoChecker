@@ -25,10 +25,16 @@ struct WatchlistBannerMessage: Identifiable, Equatable {
     static func == (a: Self, b: Self) -> Bool { a.id == b.id }
 }
 
-/// Aktion im Banner: Beschriftung und was beim Tippen passiert.
+/// Aktion im Banner: Beschriftung, Haptik beim Tippen (nil = keine) und was beim Tippen passiert.
 struct WatchlistBannerAction {
     let title: String
+    var haptic: HapticEvent?
     let perform: () -> Void
+
+    /// «Rückgängig» mit Erfolgs-Haptik — wie Android `WatchlistBanner.show(onUndo)`.
+    static func undo(_ perform: @escaping () -> Void) -> WatchlistBannerAction {
+        WatchlistBannerAction(title: L("action_undo"), haptic: .success, perform: perform)
+    }
 }
 
 /// Wie `ExplorerSnackbar`, dazu optional «Rückgängig». Nach unten wischen schliesst;
@@ -54,6 +60,7 @@ struct WatchlistBanner: View {
                 if let undo = message.undo {
                     Button {
                         self.message = nil
+                        Haptics.play(.success)
                         onUndo(undo)
                     } label: {
                         Text(L("action_undo"))
@@ -67,6 +74,7 @@ struct WatchlistBanner: View {
                 } else if let action = message.action {
                     Button {
                         self.message = nil
+                        if let haptic = action.haptic { Haptics.play(haptic) }
                         action.perform()
                     } label: {
                         Text(action.title)

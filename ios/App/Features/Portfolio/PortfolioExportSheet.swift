@@ -116,10 +116,13 @@ struct PortfolioExportSheet: View {
             document = nil
             switch result {
             case .success:
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                Haptics.play(.success)
                 onExported()
             case .failure(let error):
-                if (error as? CocoaError)?.code != .userCancelled { toast = L("portfolio_export_failed") }
+                if (error as? CocoaError)?.code != .userCancelled {
+                    Haptics.play(.error)
+                    toast = L("portfolio_export_failed")
+                }
             }
         }
         .toast($toast)

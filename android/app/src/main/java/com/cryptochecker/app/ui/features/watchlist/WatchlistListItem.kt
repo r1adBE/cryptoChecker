@@ -22,9 +22,7 @@ import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -38,6 +36,8 @@ import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.ui.UiTestTags
 import kotlinx.coroutines.delay
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Ein Paar in der Liste: Ziehen zum Sortieren (lange drücken oder am Griff), Wischen (links
@@ -92,7 +92,7 @@ internal fun LazyItemScope.WatchlistItem(
     /** Lange drücken bzw. Screenreader-Aktion «Auswählen»: Mehrfachauswahl mit dieser Zeile starten. */
     onStartSelection: () -> Unit = {},
 ) {
-    val haptics = LocalHapticFeedback.current
+    val haptics = rememberHaptics()
     val dragging = reorder.draggingId == watch.id
     val lift by animateFloatAsState(if (dragging) 1.03f else 1f, label = "lift")
     val elevation by animateDpAsState(if (dragging) 12.dp else 0.dp, label = "elevation")
@@ -103,7 +103,7 @@ internal fun LazyItemScope.WatchlistItem(
     val dragModifier = if (searching || !sortMode) Modifier else Modifier.pointerInput(watch.id) {
         detectDragGesturesAfterLongPress(
             onDragStart = {
-                haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                haptics.play(HapticEvent.LONG_PRESS)
                 reorder.start(watch.id)
             },
             onDrag = { change, amount ->
@@ -111,7 +111,7 @@ internal fun LazyItemScope.WatchlistItem(
                 reorder.drag(amount.y)
             },
             onDragEnd = {
-                haptics.performHapticFeedback(HapticFeedbackType.GestureEnd)
+                haptics.play(HapticEvent.LIGHT_IMPACT)
                 reorder.end()
             },
             onDragCancel = { reorder.end() }
@@ -232,7 +232,7 @@ internal fun LazyItemScope.WatchlistItem(
                 // Im Sortier- und Auswahlmodus nicht (die Zeile behandelt das selbst).
                 onLongClick = if (sortMode || selecting) null else {
                     {
-                        haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                        haptics.play(HapticEvent.LONG_PRESS)
                         onStartSelection()
                     }
                 },
@@ -245,7 +245,7 @@ internal fun LazyItemScope.WatchlistItem(
                 handleModifier = Modifier.pointerInput(watch.id) {
                     detectDragGestures(
                         onDragStart = {
-                            haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                            haptics.play(HapticEvent.LONG_PRESS)
                             reorder.start(watch.id)
                         },
                         onDrag = { change, amount ->
@@ -253,7 +253,7 @@ internal fun LazyItemScope.WatchlistItem(
                             reorder.drag(amount.y)
                         },
                         onDragEnd = {
-                            haptics.performHapticFeedback(HapticFeedbackType.GestureEnd)
+                            haptics.play(HapticEvent.LIGHT_IMPACT)
                             reorder.end()
                         },
                         onDragCancel = { reorder.end() }

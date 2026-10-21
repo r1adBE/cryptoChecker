@@ -5,7 +5,7 @@ extension AlarmEditorSheet {
     /// Kopf «Mehr Bedingungen» bzw. «Erweitert» zum Auf-/Zuklappen.
     func sectionHeader(_ title: String, subtitle: String? = nil, expanded: Binding<Bool>) -> some View {
         Button {
-            WatchlistHaptics.selection()
+            Haptics.play(.selection)
             expanded.wrappedValue.toggle()
         } label: {
             HStack {
@@ -155,7 +155,7 @@ extension AlarmEditorSheet {
     private func conditionTile(_ condition: AlarmCondition) -> some View {
         let selected = draft.condition == condition
         return Button {
-            WatchlistHaptics.selection()
+            Haptics.play(.selection)
             let wasVolume = draft.condition == .VOLUME_SPIKE
             draft = draft.withCondition(condition)
             // Zurück zu einem Eingabefeld: gleich tippen können
@@ -197,7 +197,7 @@ extension AlarmEditorSheet {
             HStack(spacing: 8) {
                 amountInput
                 Button {
-                    WatchlistHaptics.selection()
+                    Haptics.play(.selection)
                     draft = draft.withToggledSign()
                 } label: {
                     Text(verbatim: "±")
@@ -289,7 +289,7 @@ extension AlarmEditorSheet {
             Picker(L("alarm_currency_label"), selection: Binding<String>(
                 get: { draft.currency == nil ? "" : other },
                 set: { value in
-                    WatchlistHaptics.selection()
+                    Haptics.play(.selection)
                     draft = draft.withCurrency(value.isEmpty ? nil : other, other: other, rate: rates[other])
                 }
             )) {

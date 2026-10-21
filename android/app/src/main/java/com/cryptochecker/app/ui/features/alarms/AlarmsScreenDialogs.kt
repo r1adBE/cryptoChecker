@@ -27,6 +27,8 @@ import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * EIN Dialog nach dem allerersten Alarm statt mehrerer nacheinander: Bestätigung mit «Alarm testen», dazu optional
@@ -114,12 +116,15 @@ internal fun FirstAlarmDialog(
 /** Rückfrage «Alarm löschen?». */
 @Composable
 internal fun DeleteAlarmDialog(onDelete: () -> Unit, onDismiss: () -> Unit) {
+    val haptics = rememberHaptics()
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.alarm_delete_title)) },
         text = { Text(stringResource(R.string.alarm_delete_confirm)) },
         confirmButton = {
-            TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) }
+            TextButton(onClick = { haptics.play(HapticEvent.DESTRUCTIVE); onDelete() }) {
+                Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
+            }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }

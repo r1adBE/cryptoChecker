@@ -214,8 +214,9 @@ extension PortfolioTxSheet {
         if let first = PortfolioTxFirstInvalid.of(check, amountValid: amount != nil, isSwap: isSwap) {
             requestFocusJump(first)
         }
+        // Speichern mit Fehlern: Warnung (wie Android)
         guard valid, let value = amount else {
-            WatchlistHaptics.impact(.light)
+            Haptics.play(.warning)
             return
         }
         let trimmedNote = note.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -276,9 +277,11 @@ extension PortfolioTxSheet {
                                                            hadTransactions: !data.portfolio.isEmpty)
         // Nicht geschrieben: nie still verwerfen — Meldung, Eingaben bleiben
         guard data.savePortfolioTx(tx) != nil else {
+            Haptics.play(.error)
             saveFailed = true
             return
         }
+        Haptics.play(.success)
         if askEnable {
             onAskEnablePortfolio()
         }

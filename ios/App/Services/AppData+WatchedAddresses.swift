@@ -10,6 +10,16 @@ enum AddWatchedResult: Equatable {
     case limitReached
     /// Gespeichertes Portfolio gerade gesperrt (`PortfolioStorageLock`): nichts geschrieben.
     case locked
+
+    /// Haptik zum Ergebnis: angelegt = Erfolg, Eingabe- bzw. Grenzfehler = Warnung, nicht geschrieben = Fehler —
+    /// wie Android `addWatchedHaptic`.
+    var haptic: HapticEvent {
+        switch self {
+        case .added: return .success
+        case .invalid, .duplicate, .limitReached: return .warning
+        case .locked: return .error
+        }
+    }
 }
 
 /// Ergebnis von `AppData.removeWatchedAddress` — wie Android `removeWatchedAddress` (Zeile bzw. Sperre).

@@ -67,7 +67,7 @@ extension WatchSheetChartView {
                 }
         )
         // Leichtes Ticken je neuer Kerze (folgt den System-Einstellungen)
-        .sensoryFeedback(.selection, trigger: scrub) { old, new in
+        .haptic(.selection, trigger: scrub) { old, new in
             candles.count <= Self.maxTickCandles && SheetChart.isNewCandle(previous: old, current: new)
         }
         // VoiceOver: ein Element mit dem Chart-Satz (Start, Ende, Hoch, Tief); Ziehen nicht nötig

@@ -116,7 +116,7 @@ struct PriceColorsSettingsPage: View {
             SettingsHint(text: L("settings_price_colors_hint"), top: 2)
                 .padding(.horizontal, 16)
         }
-        .sensoryFeedback(.selection, trigger: data.settings.priceColorScheme)
+        .haptic(.selection, trigger: data.settings.priceColorScheme)
     }
 
     private func card(_ scheme: PriceColorScheme) -> some View {
@@ -305,7 +305,7 @@ struct ChangeBasisSettingsPage: View {
                 }
             }
         }
-        .sensoryFeedback(.selection, trigger: data.settings.changeBasis)
+        .haptic(.selection, trigger: data.settings.changeBasis)
     }
 
     /// Ein Punkt des Hinweises, Folgezeilen eingerückt («1. …»).

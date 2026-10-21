@@ -156,7 +156,7 @@ extension WatchlistScreen {
     /// Hinweis)? Sonst geht «Zum Anfang» zum ersten Paar.
     func jump(rows: [Watch], proxy: ScrollViewProxy, hasTopAnchor: Bool) {
         guard let firstRow = rows.first else { return }
-        WatchlistHaptics.impact(.light)
+        Haptics.play(.lightImpact)
         let down = jumpDown
         let range = visibleRange(in: rows)
         let distance = down ? rows.count - 1 - (range?.upperBound ?? 0) : (range?.lowerBound ?? rows.count)

@@ -24,6 +24,11 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withTimeoutOrNull
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.HapticPlayer
+import com.cryptochecker.app.ui.components.rememberHaptics
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 /**
  * Snackbar [text] mit Aktion [actionLabel], [millis] lang — mit Screenreader ggf. länger (Systemeinstellung «Zeit
@@ -41,6 +46,18 @@ internal suspend fun SnackbarHostState.showTimed(
     ) ?: millis
     return withTimeoutOrNull(timeout) {
         showSnackbar(text, actionLabel = actionLabel, duration = SnackbarDuration.Indefinite)
+    }
+}
+
+/**
+ * Hinweis lange stehen lassen (eine stehende Snackbar macht Platz), mit Haptik [event] — etwa «Höchstzahl Alarme»
+ * (Warnung) oder «Speicher gesperrt» (Fehler), wie iOS.
+ */
+internal fun SnackbarHostState.showNotice(scope: CoroutineScope, text: String, haptics: HapticPlayer, event: HapticEvent) {
+    haptics.play(event)
+    scope.launch {
+        currentSnackbarData?.dismiss()
+        showSnackbar(text, duration = SnackbarDuration.Long)
     }
 }
 
@@ -104,6 +121,7 @@ internal fun PendingUndoSnackbar(
     }
     val undoLabel = stringResource(R.string.action_undo)
     val accessibilityManager = LocalAccessibilityManager.current
+    val haptics = rememberHaptics()
     LaunchedEffect(pending, resumed) {
         val undo = pending ?: return@LaunchedEffect
         if (!resumed) return@LaunchedEffect
@@ -111,7 +129,10 @@ internal fun PendingUndoSnackbar(
         awaitAlarmDialogsClosed(firstAlarm, timingHint)
         if (undo.isFresh(System.currentTimeMillis())) {
             val result = snackbar.showTimed(undo.text, undoLabel, millis, accessibilityManager)
-            if (result == SnackbarResult.ActionPerformed) onUndo(undo.alarmId)
+            if (result == SnackbarResult.ActionPerformed) {
+                haptics.play(HapticEvent.SUCCESS)
+                onUndo(undo.alarmId)
+            }
         }
         offer.done(undo.alarmId)
     }

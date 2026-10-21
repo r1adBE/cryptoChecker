@@ -183,6 +183,7 @@ struct PortfolioScreen: View {
                     }
                     return
                 }
+                Haptics.play(.success)
                 showSavedAlarm(PortfolioAlarm(id: 0, kind: kind, threshold: threshold,
                                               currency: kind.isValue ? data.settings.portfolioCurrency : nil,
                                               repeating: repeating))
@@ -267,7 +268,7 @@ struct PortfolioScreen: View {
             WatchlistBanner(message: $banner) { _ in }
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
         }
-        .sensoryFeedback(.impact(weight: .medium), trigger: deleteTick)
+        .haptic(.destructive, trigger: deleteTick)
         .confirmationDialog(L("portfolio_clear"), isPresented: $askClear, titleVisibility: .visible) {
             // Danach «Rückgängig» im Banner (alle Transaktionen mit ihren ids zurück) — wie Android
             Button(L("portfolio_clear"), role: .destructive) { clearAll() }

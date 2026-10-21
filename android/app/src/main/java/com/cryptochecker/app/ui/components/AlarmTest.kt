@@ -41,20 +41,30 @@ fun rememberAlarmTest(run: suspend () -> AlarmTestResult, showMessage: ((String)
     val scope = rememberCoroutineScope()
     val currentRun by rememberUpdatedState(run)
     var showDenied by remember { mutableStateOf(false) }
+    val haptics = rememberHaptics()
 
     fun execute() {
         scope.launch {
             when (currentRun()) {
-                AlarmTestResult.SENT -> Unit
+                // Haptik wie iOS: gesendet = Erfolg, nicht erlaubt = Warnung (Nachtruhe nur der Hinweis)
+                AlarmTestResult.SENT -> haptics.play(HapticEvent.SUCCESS)
                 AlarmTestResult.SENT_QUIET -> currentShowMessage?.invoke(quietText)
                     ?: Toast.makeText(context, quietText, Toast.LENGTH_LONG).show()
-                AlarmTestResult.DENIED -> showDenied = true
+                AlarmTestResult.DENIED -> {
+                    haptics.play(HapticEvent.WARNING)
+                    showDenied = true
+                }
             }
         }
     }
 
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-        if (granted) execute() else showDenied = true
+        if (granted) {
+            execute()
+        } else {
+            haptics.play(HapticEvent.WARNING)
+            showDenied = true
+        }
     }
 
     if (showDenied) {

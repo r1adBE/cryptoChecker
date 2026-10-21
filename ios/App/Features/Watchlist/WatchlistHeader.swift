@@ -199,7 +199,7 @@ extension WatchlistScreen {
                         countdown: refreshCountdown,
                         onOpenAbout: { showAbout = true },
                         onRefresh: {
-                            WatchlistHaptics.impact(.light)
+                            Haptics.play(.lightImpact)
                             Task { await refreshByUser() }
                         }
                     )

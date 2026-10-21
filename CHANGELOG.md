@@ -15,6 +15,10 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 100)
+
+* Haptics unified on Android and iOS: one catalog by event (selection, light tap, long press, success, warning, error, delete) and one wrapper per platform. Android now also confirms saving, backups, undo and copying, warns at limits and validation errors and marks failures and deletions like iOS. No vibration while scrolling, on price ticks, in widgets or in the background; the system haptics setting applies.
+
 ## 16.2.2 (build 99)
 
 * Limits: at most 2,000 pairs in the watchlist and 10 alerts per pair – adding more shows a notice (bulk add takes pairs up to the limit and says how many were left out); the same limits apply when restoring a backup.

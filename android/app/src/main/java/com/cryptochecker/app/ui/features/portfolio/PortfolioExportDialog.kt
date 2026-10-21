@@ -52,6 +52,8 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Stichtag-Export: Datum wählen (Standard 31.12. des Vorjahrs), Währung aus der
@@ -77,7 +79,6 @@ fun PortfolioExportDialog(
     var epochDay by rememberSaveable { mutableLongStateOf(CutoffExport.defaultDate(LocalDate.now()).toEpochDay()) }
     val date = LocalDate.ofEpochDay(epochDay)
     var pickDate by remember { mutableStateOf(false) }
-
     val texts = cutoffTexts(currency)
 
     val launcher = rememberLauncherForActivityResult(
@@ -182,6 +183,7 @@ fun PortfolioExportDialog(
 
     val doneText = stringResource(R.string.portfolio_export_done)
     val failedText = stringResource(R.string.portfolio_export_failed)
+    val haptics = rememberHaptics()
     LaunchedEffect(state) {
         val current = state
         val text = when (current) {
@@ -190,6 +192,7 @@ fun PortfolioExportDialog(
             else -> return@LaunchedEffect
         }
         viewModel.consume()
+        haptics.play(if (current == CutoffExportState.Done) HapticEvent.SUCCESS else HapticEvent.ERROR)
         if (current == CutoffExportState.Done) {
             // Dialog zu, Bestätigung in der Snackbar des Portfolio-Tabs
             onDone(text)

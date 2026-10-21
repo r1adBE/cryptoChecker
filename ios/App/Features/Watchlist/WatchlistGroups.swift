@@ -107,8 +107,8 @@ struct WatchlistGroupChips: View {
         }
         .scrollClipDisabled()
         .task(id: hintTap) { await hideHintLater() }
-        .sensoryFeedback(.selection, trigger: selected)
-        .sensoryFeedback(.selection, trigger: quickView)
+        .haptic(.selection, trigger: selected)
+        .haptic(.selection, trigger: quickView)
     }
 
     private func isGroupSelected(_ group: String?) -> Bool { quickView == nil && selected == group }
@@ -222,7 +222,7 @@ struct WatchlistGroupChips: View {
             .onTapGesture(perform: tap)
             .onLongPressGesture(minimumDuration: 0.45) {
                 guard let longPress else { return }
-                WatchlistHaptics.impact()
+                Haptics.play(.longPress)
                 longPress()
             }
             .accessibilityElement(children: .combine)

@@ -55,6 +55,8 @@ import com.cryptochecker.app.ui.components.sectionTitleMarker
 import com.cryptochecker.app.ui.features.watchlist.SwipeActionsRow
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.Spacing
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Ein Coin: Kennzahlen und seine Transaktionen. Tipp = bearbeiten; nach links wischen = löschen,
@@ -117,7 +119,9 @@ fun PortfolioDetailScreen(
 
     var sheet by remember { mutableStateOf<TxDraft?>(null) }
 
+    val haptics = rememberHaptics()
     fun deleteTx(tx: PortfolioTxEntity) {
+        haptics.play(HapticEvent.DESTRUCTIVE)
         banner.show(removedText) { viewModel.restore(listOf(tx)) }
         viewModel.delete(tx.id)
     }

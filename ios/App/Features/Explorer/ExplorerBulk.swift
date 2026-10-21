@@ -79,7 +79,7 @@ extension ExplorerScreen {
                         let selected = quote == vm.bulkQuote
                         let favorite = favs.contains(quote)
                         Button {
-                            UISelectionFeedbackGenerator().selectionChanged()
+                            Haptics.play(.selection)
                             withAnimation(.snappy(duration: 0.25)) { vm.setBulkQuote(quote) }
                         } label: {
                             HStack(spacing: 4) {
@@ -102,7 +102,7 @@ extension ExplorerScreen {
                         .id(quote)
                         .contextMenu {
                             Button {
-                                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                                Haptics.play(.lightImpact)
                                 data.toggleFavorite(.QUOTE, quote)
                             } label: {
                                 Label(L(favorite ? "favorite_remove" : "favorite_add"),
@@ -229,7 +229,7 @@ extension ExplorerScreen {
     private func quickFilterChip(_ filter: ExplorerQuickFilter) -> some View {
         let selected = filter == activeQuickFilter
         return Button {
-            UISelectionFeedbackGenerator().selectionChanged()
+            Haptics.play(.selection)
             withAnimation(.snappy(duration: 0.25)) {
                 bulkFilter = ExplorerQuickFilters.toggle(activeQuickFilter, filter)
             }
@@ -262,7 +262,7 @@ extension ExplorerScreen {
     private func bulkPairRow(_ pair: MarketPair) -> some View {
         let selected = pair.base == vm.coin && pair.quote == vm.quote && pair.contractType == vm.contract
         return Button {
-            UISelectionFeedbackGenerator().selectionChanged()
+            Haptics.play(.selection)
             vm.selectBulkPair(pair)
         } label: {
             HStack(spacing: Spacing.sm) {

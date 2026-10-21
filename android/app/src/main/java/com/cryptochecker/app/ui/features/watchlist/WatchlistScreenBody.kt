@@ -28,8 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
@@ -47,6 +45,8 @@ import com.cryptochecker.app.domain.watch.WatchPulse
 import com.cryptochecker.app.domain.watch.WatchlistOnboarding
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.features.alarms.AlarmReliabilityLine
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Fester Kopf und Liste der Merkliste ([WatchlistScreen] setzt Zustand und Ableitungen; die Werte hier sind dieselben
@@ -105,7 +105,7 @@ internal fun WatchlistBody(
     val liveIds = live.liveWatchIds
     val columnSort = display.columnSort
     val changeBasis = display.changeBasis
-    val haptics = LocalHapticFeedback.current
+    val haptics = rememberHaptics()
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
     ReadableInset { inset ->
@@ -137,7 +137,7 @@ internal fun WatchlistBody(
                             viewModel.selectGroup(group)
                         },
                         onEditGroup = { group ->
-                            haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                            haptics.play(HapticEvent.LONG_PRESS)
                             ui.startEditingGroup(group)
                         },
                         onAddGroup = { ui.askNewGroup = true },
@@ -243,7 +243,7 @@ internal fun WatchlistBody(
                         sortMode = ui.sortMode,
                         selecting = ui.selecting,
                         selected = watch.id in selectedIds,
-                        onToggleSelected = { ui.toggleSelected(watch.id) },
+                        onToggleSelected = { haptics.play(HapticEvent.SELECTION); ui.toggleSelected(watch.id) },
                         sparklines = fetchSparklines,
                         cachedSparkline = viewModel::cachedSparkline,
                         loadSparkline = viewModel::sparkline,
@@ -289,6 +289,7 @@ internal fun WatchlistBody(
                         count = selectedIds.size,
                         allFavorites = chosen.isNotEmpty() && chosen.all { it.favorite },
                         onFavorite = {
+                            haptics.play(HapticEvent.LIGHT_IMPACT)
                             viewModel.setFavorite(selectedIds, !chosen.all { it.favorite })
                             ui.endSelection()
                         },
@@ -296,6 +297,7 @@ internal fun WatchlistBody(
                         // Alle deaktiviert: wieder aktivieren, sonst alle deaktivieren
                         allDisabled = allDisabled,
                         onToggleDisabled = {
+                            haptics.play(HapticEvent.LIGHT_IMPACT)
                             viewModel.setDisabled(selectedIds.toList(), !allDisabled)
                             ui.endSelection()
                         },
@@ -304,6 +306,7 @@ internal fun WatchlistBody(
                             ui.endSelection()
                             viewModel.deleteSelectedWithUndo(ids) { count ->
                                 if (count > 0) {
+                                    haptics.play(HapticEvent.DESTRUCTIVE)
                                     banner.show(
                                         resources.getQuantityString(R.plurals.watchlist_removed_count, count, count)
                                     ) { viewModel.undoDelete(SELECTION_UNDO_KEY) }

@@ -11,7 +11,7 @@ extension WatchActionsSheet {
                 systemImage: alarmCount > 0 ? "bell.and.waves.left.and.right.fill" : "bell.and.waves.left.and.right",
                 title: alarmCount > 0 ? L("watchlist_alarms_count", count: alarmCount) : L("watch_action_alarm")
             ) {
-                WatchlistHaptics.selection()
+                Haptics.play(.selection)
                 onOpenAlarms(watch.id)
                 dismiss()
             }
@@ -24,7 +24,7 @@ extension WatchActionsSheet {
                     title: L("watch_action_why"),
                     badge: hasActivity
                 ) {
-                    WatchlistHaptics.selection()
+                    Haptics.play(.selection)
                     onWhy(watch.id)
                     dismiss()
                 }
@@ -34,7 +34,7 @@ extension WatchActionsSheet {
                 title: L("watch_action_favorite"),
                 selected: watch.favorite
             ) {
-                WatchlistHaptics.impact()
+                Haptics.play(.lightImpact)
                 data.toggleFavorite(watch)
             }
         }
@@ -77,7 +77,7 @@ extension WatchActionsSheet {
             // Nicht mehr gehandelt: kein «Was bewegt sich mit?» (es gäbe nur alte Daten)
             if !watch.isNotTraded {
                 WatchActionTile(systemImage: "lightbulb", title: L("watch_action_why")) {
-                    WatchlistHaptics.selection()
+                    Haptics.play(.selection)
                     onWhyPreview(watch)
                     dismiss()
                 }
@@ -94,7 +94,7 @@ extension WatchActionsSheet {
     func liveActivityCard(_ watch: Watch) -> some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
             Button {
-                WatchlistHaptics.selection()
+                Haptics.play(.selection)
                 toggleLiveActivity(watch)
             } label: {
                 HStack(spacing: 12) {
@@ -177,7 +177,7 @@ extension WatchActionsSheet {
 
     private func moveButton(_ symbol: String, _ key: String, disabled: Bool, action: @escaping () -> Void) -> some View {
         Button {
-            WatchlistHaptics.selection()
+            Haptics.play(.selection)
             withAnimation(.spring(duration: 0.35)) { action() }
         } label: {
             VStack(spacing: Spacing.xs) {

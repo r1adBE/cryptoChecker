@@ -30,7 +30,7 @@ extension AlarmEditorSheet {
     private func factorChip(_ factor: Double) -> some View {
         let selected = draft.threshold == factor
         return Button {
-            WatchlistHaptics.selection()
+            Haptics.play(.selection)
             draft.thresholdText = AlarmDraft.formatFactor(factor)
         } label: {
             Text("×" + AlarmDraft.formatFactor(factor))
@@ -68,7 +68,7 @@ extension AlarmEditorSheet {
         let selected = NearExtreme.windowDays(draft.windowHours) == days
         let weight: Font.Weight = selected ? Font.Weight.semibold : Font.Weight.regular
         return Button {
-            WatchlistHaptics.selection()
+            Haptics.play(.selection)
             draft.windowHours = days
         } label: {
             Text(AlarmTexts.windowLabel(days))
@@ -88,7 +88,7 @@ extension AlarmEditorSheet {
     func windowChip(_ hours: Int) -> some View {
         let selected = draft.windowHours == hours
         return Button {
-            WatchlistHaptics.selection()
+            Haptics.play(.selection)
             draft.windowHours = hours
         } label: {
             Text(L("alarm_window_hours", count: hours))

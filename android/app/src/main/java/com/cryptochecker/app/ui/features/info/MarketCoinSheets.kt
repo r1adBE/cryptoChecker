@@ -41,6 +41,8 @@ import com.cryptochecker.app.ui.features.watchlist.groupsOf
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.util.LocaleNumbers
 import kotlinx.coroutines.delay
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Was der Markt-Tab zu einem Coin aus «Heute auffällig» offen hat — wie in der Merkliste
@@ -150,6 +152,7 @@ internal fun MarketCoinSheets(
     val requestNotifications = rememberNotificationPermissionRequest()
     // Paar aus der Vorschau übernommen: erst kurz erklären, dann die System-Abfrage
     val requestNotificationsAdded = rememberNotificationPermissionRequest(NotificationAsk.PAIRS_ADDED)
+    val haptics = rememberHaptics()
     val alarmCounts by watchlist.alarmCounts.collectAsStateWithLifecycle()
     val sheetChartLine by watchlist.sheetChartLine.collectAsStateWithLifecycle()
     val changeBasis by watchlist.changeBasis.collectAsStateWithLifecycle()
@@ -296,6 +299,7 @@ internal fun MarketCoinSheets(
                     val onFull = {
                         // Merkliste voll: nichts angelegt, sagen warum (Zahl im Format der App-Sprache)
                         state.adding = false
+                        haptics.play(HapticEvent.WARNING)
                         banner.show(
                             resources.getString(
                                 R.string.watchlist_limit_reached,
@@ -310,6 +314,7 @@ internal fun MarketCoinSheets(
                         }
                         // Wie der Hinzufügen-Tab: neue Paare haben Meldungen an — Erlaubnis jetzt fragen
                         if (added) {
+                            haptics.play(HapticEvent.SUCCESS)
                             requestNotificationsAdded()
                         } else {
                             // Stand schon in der Merkliste: gleich dessen Blatt

@@ -32,7 +32,7 @@ struct CycleMoversCard: View {
                 }
                 if more {
                     Button {
-                        WatchlistHaptics.selection()
+                        Haptics.play(.selection)
                         expanded.toggle()
                     } label: {
                         // Klappt nur auf (kein Seitenwechsel): Pfeil nach unten bzw. oben wie bei «Was bewegt sich mit?»

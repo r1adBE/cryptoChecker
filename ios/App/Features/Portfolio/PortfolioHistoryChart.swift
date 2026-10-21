@@ -113,7 +113,7 @@ struct PortfolioHistoryChart: View {
             .contentShape(Rectangle())
             .gesture(portfolioScrubGesture($pressX))
             // Leichtes Ticken je neuem Punkt bzw. neuer Kerze (folgt den System-Einstellungen)
-            .sensoryFeedback(.selection, trigger: scrub) { old, new in
+            .haptic(.selection, trigger: scrub) { old, new in
                 model.count <= PortfolioChartRenderer.maxTickPoints && SheetChart.isNewCandle(previous: old, current: new)
             }
             // Zeitachse immer von links nach rechts (auch bei Rechts-nach-links-Sprachen)

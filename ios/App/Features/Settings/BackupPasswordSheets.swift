@@ -188,7 +188,7 @@ struct BackupImportPasswordSheet: View {
                 dismiss()
             } else {
                 // Falsch oder Datei verändert: Feld leeren, Hinweis zeigen, nochmals versuchen
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                Haptics.play(.error)
                 wrong = true
                 password = ""
             }

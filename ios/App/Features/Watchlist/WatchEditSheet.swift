@@ -101,11 +101,11 @@ struct WatchEditSheet: View {
         guard let market = vm.exchange, let pair = vm.selectedPair else { return }
         switch data.changePair(watch.id, market: market, pair: pair) {
         case .duplicate:
-            WatchlistHaptics.selection()
+            Haptics.play(.warning)
             duplicate = true
             AccessibilityNotification.Announcement(L("explorer_already_in_watchlist")).post()
         case .changed:
-            WatchlistHaptics.impact(.light)
+            Haptics.play(.success)
             dismiss()
         case .unchanged, nil:
             dismiss()

@@ -188,9 +188,9 @@ struct WatchlistScreen: View {
         }
         // Banner «Alarm setzen» weg (abgelaufen, weggewischt, ersetzt): jetzt nach Mitteilungen fragen
         .onChange(of: banner?.id) { _, _ in askNotificationsAfterHint() }
-        .sensoryFeedback(.success, trigger: firstAddHaptic)
-        .sensoryFeedback(.impact(weight: .light), trigger: swipeFavoriteTick)
-        .sensoryFeedback(.impact(weight: .medium), trigger: swipeDeleteTick)
+        .haptic(.success, trigger: firstAddHaptic)
+        .haptic(.lightImpact, trigger: swipeFavoriteTick)
+        .haptic(.destructive, trigger: swipeDeleteTick)
         .background(AppColors.background.ignoresSafeArea())
         // Keine Leiste mit Logo und App-Namen mehr (kostete eine ganze Zeile): ihre Knöpfe
         // stehen rechts in der Gruppen-Zeile im festen Kopf über der Liste (`headerRow`). Der Titel
@@ -325,7 +325,7 @@ struct WatchlistScreen: View {
             .environment(\.changeView, changeView)
             .environment(\.rowHighlight, highlight)
             .environment(\.priceNotificationsOn, data.settings.priceNotifications)
-            .sensoryFeedback(.impact(weight: .medium), trigger: reorderTick)
+            .haptic(.lightImpact, trigger: reorderTick)
             // Live-Kurse (WebSocket) für die Paare der Ansicht, solange die Merkliste zu sehen ist
             // (auch in der ⚡-Ansicht über alle Gruppen)
             .onChange(of: pairs, initial: true) { _, pairs in

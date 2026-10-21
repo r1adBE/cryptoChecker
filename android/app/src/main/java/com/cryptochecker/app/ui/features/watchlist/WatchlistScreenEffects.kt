@@ -9,8 +9,6 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
-import android.os.Build
-import android.view.HapticFeedbackConstants
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
@@ -21,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.platform.LocalResources
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
@@ -33,6 +30,8 @@ import com.cryptochecker.app.domain.starter.AddMoment
 import kotlinx.coroutines.delay
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.mutableLongStateOf
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Erst-Moment (Start-Merkliste, allererstes Paar): einmal abspielen, sobald die neuen Zeilen da
@@ -56,7 +55,7 @@ internal fun rememberAddMoment(
     // Hier statt in `WatchlistScreen`: Dieser Effekt hat das Banner schon und läuft auf jedem Stand der Merkliste
     WatchlistStorageNotice(banner)
     val pendingMoment by viewModel.addMoment.collectAsStateWithLifecycle()
-    val view = LocalView.current
+    val haptics = rememberHaptics()
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
     var shownMoment by remember { mutableStateOf<AddMoment?>(null) }
@@ -72,11 +71,8 @@ internal fun rememberAddMoment(
     LaunchedEffect(readyMoment) {
         val m = readyMoment ?: return@LaunchedEffect
         shownMoment = m
-        // Ein leichtes Signal je Aktion, nicht je Zeile
-        view.performHapticFeedback(
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) HapticFeedbackConstants.CONFIRM
-            else HapticFeedbackConstants.VIRTUAL_KEY
-        )
+        // Ein Erfolgs-Signal je Aktion, nicht je Zeile
+        haptics.play(HapticEvent.SUCCESS)
         // Mehrere Paare: eigene Mehrzahl-Fassung («… sind jetzt in deiner Merkliste»)
         val text = resources.getString(
             if (m.pairs.size > 1) R.string.pairs_added_watching else R.string.pair_added_watching,

@@ -54,7 +54,7 @@ struct PortfolioCompareChart: View {
             .contentShape(Rectangle())
             .gesture(portfolioScrubGesture($pressX))
             // Leichtes Ticken je neuem Tag (folgt den System-Einstellungen)
-            .sensoryFeedback(.selection, trigger: index) { old, new in
+            .haptic(.selection, trigger: index) { old, new in
                 compare.epochDays.count <= PortfolioChartRenderer.maxTickPoints
                     && SheetChart.isNewCandle(previous: old, current: new)
             }

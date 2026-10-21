@@ -48,6 +48,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import kotlinx.coroutines.launch
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Transaktion erfassen bzw. bearbeiten (id ≠ 0): Kauf, Verkauf, Umbuchung, Belohnung, Ein-/Auszahlung —
@@ -111,6 +113,7 @@ fun PortfolioTxSheet(
     // Gespeicherter Stand gerade nicht lesbar: nichts geschrieben (PortfolioStorageLock) — diesen Grund nennen
     val storageLockedText = stringResource(R.string.portfolio_storage_locked)
     val scope = rememberCoroutineScope()
+    val haptics = rememberHaptics()
     // Speichern mit Fehlern: zum ersten ungültigen Feld springen und den Fehler ansagen (PortfolioTxFocus.kt)
     val focusTargets = remember { TxFocusTargets() }
     val resources = LocalResources.current
@@ -185,6 +188,7 @@ fun PortfolioTxSheet(
             confirmButton = {
                 TextButton(onClick = {
                     askDelete = false
+                    haptics.play(HapticEvent.DESTRUCTIVE)
                     viewModel.delete(initial.id)
                     onDismiss()
                 }) { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) }
@@ -259,15 +263,18 @@ fun PortfolioTxSheet(
                                 resources.getString(txFieldLabelRes(field, d)) + ". " + resources.getString(txFieldErrorRes(field, d)),
                             )
                         }
+                        // Haptik wie iOS: mit Fehlern Warnung, gespeichert Erfolg, Schreiben gescheitert Fehler
+                        if (!d.valid) haptics.play(HapticEvent.WARNING)
                         if (d.valid) {
                             saving = true
                             viewModel.save(
                                 state.toDraft(d),
                                 onAskEnablePortfolio,
-                                onSaved = onDismiss,
+                                onSaved = { haptics.play(HapticEvent.SUCCESS); onDismiss() },
                                 // Schreiben fehlgeschlagen: Blatt bleibt offen mit den Eingaben, Meldung im Blatt
                                 onFailed = {
                                     saving = false
+                                    haptics.play(HapticEvent.ERROR)
                                     val locked = PortfolioStorageLock.isLocked(DatabaseEncryptionNotice.storedKept.value)
                                     // Lang: Sperr-Hinweis ist länger, Screenreader brauchen die Zeit (wie AlarmsScreen)
                                     scope.launch {

@@ -38,7 +38,7 @@ extension PortfolioExportSheet {
             let csv = PortfolioTaxExporter.summaryCsv(s, texts: texts, header: header)
             running = false
             guard let data = csv.data(using: .utf8) else {
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                Haptics.play(.error)
                 toast = L("portfolio_export_failed")
                 return
             }
@@ -84,7 +84,7 @@ extension PortfolioExportSheet {
                                                        walletFrom: walletFrom)
             running = false
             guard let data = csv.data(using: .utf8) else {
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                Haptics.play(.error)
                 toast = L("portfolio_export_failed")
                 return
             }
@@ -137,7 +137,7 @@ extension PortfolioExportSheet {
                                                           header: header, zone: zone)
             running = false
             guard let data = csv.data(using: .utf8) else {
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                Haptics.play(.error)
                 toast = L("portfolio_export_failed")
                 return
             }

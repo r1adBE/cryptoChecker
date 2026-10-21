@@ -53,7 +53,7 @@ struct CurrencySettingsPage: View {
             SettingsHint(text: L("settings_conversion_currency_hint"), top: 2)
                 .padding(.horizontal, 16)
         }
-        .sensoryFeedback(.selection, trigger: data.settings.portfolioCurrency)
+        .haptic(.selection, trigger: data.settings.portfolioCurrency)
     }
 }
 
@@ -107,7 +107,7 @@ private struct UpdateModeCard: View {
                     row(mode)
                 }
             }
-            .sensoryFeedback(.selection, trigger: data.settings.updateMode)
+            .haptic(.selection, trigger: data.settings.updateMode)
         }
     }
 
@@ -259,7 +259,7 @@ struct AssetScopePicker: View {
             }
         }
         .padding(.vertical, 4)
-        .sensoryFeedback(.selection, trigger: selection)
+        .haptic(.selection, trigger: selection)
     }
 
     static func titleKey(_ scope: AssetScope) -> String {

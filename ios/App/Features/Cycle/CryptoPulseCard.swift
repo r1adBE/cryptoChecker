@@ -210,7 +210,7 @@ struct CryptoPulseCard: View {
                 }
                 Spacer(minLength: 0)
                 Button {
-                    WatchlistHaptics.selection()
+                    Haptics.play(.selection)
                     expanded.toggle()
                 } label: {
                     // Klappt nur auf (kein Seitenwechsel): Pfeil nach unten bzw. oben wie bei «Einordnung»
