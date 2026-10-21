@@ -211,22 +211,18 @@ enum PriceFormat {
     static func age(since millis: Int64, now: Int64 = TimeUtils.nowMillis, locale: Locale = LocaleNumbers.appLocale) -> String? {
         guard let parts = ageParts(since: millis, now: now) else { return nil }
         let value = parts.value, unit = parts.unit
-        let f = DateComponentsFormatter()
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.locale = locale
-        f.calendar = calendar
-        f.unitsStyle = .abbreviated
-        f.allowedUnits = unit
-        f.maximumUnitCount = 1
-        var components = DateComponents()
-        let suffix: String
+        // Duration.UnitsFormatStyle folgt der übergebenen Sprache (DateComponentsFormatter nähme die Sprache des Bundles);
+        // schmal wie Android MeasureFormat NARROW: en «7d», de «7 T»
+        let seconds: Int64
+        let allowed: Set<Duration.UnitsFormatStyle.Unit>
         switch unit {
-        case .day: components.day = Int(value); suffix = "d"
-        case .hour: components.hour = Int(value); suffix = "h"
-        case .minute: components.minute = Int(value); suffix = "m"
-        default: components.second = Int(value); suffix = "s"
+        case .day: seconds = value * 86_400; allowed = [.days]
+        case .hour: seconds = value * 3_600; allowed = [.hours]
+        case .minute: seconds = value * 60; allowed = [.minutes]
+        default: seconds = value; allowed = [.seconds]
         }
-        return f.string(from: components) ?? (LocaleNumbers.integer(value, locale: locale) + suffix)
+        return Duration.seconds(seconds).formatted(
+            Duration.UnitsFormatStyle(allowedUnits: allowed, width: .narrow, maximumUnitCount: 1).locale(locale))
     }
 
     static func duration(_ millis: Int64) -> String {

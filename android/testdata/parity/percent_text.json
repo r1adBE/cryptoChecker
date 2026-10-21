@@ -75,8 +75,8 @@
       "locale": "fr_CH",
       "kind": "signed",
       "value": 2.4,
-      "decimals": 1,
-      "expected": "+2,4%"
+      "decimals": 0,
+      "expected": "+2%"
     },
     {
       "locale": "es_ES",
