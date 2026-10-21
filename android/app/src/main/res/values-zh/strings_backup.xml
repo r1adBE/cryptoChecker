@@ -63,6 +63,8 @@
     <string name="storage_recovery_acknowledge">知道了</string>
     <string name="storage_recovery_restored_title">已保存的数据重新解锁</string>
     <string name="storage_recovery_restored_message">本设备之前的一个密钥重新打开了被搁置的数据，数据已恢复。在此期间保存的数据原样保留在旁边。</string>
+    <string name="settings_reset_notice_title">设置已重置</string>
+    <string name="settings_reset_notice">无法读取设置，已恢复为默认值。请检查投资组合锁、警报间隔和货币。</string>
     <string name="backup_restore_interrupted_title">恢复被中断</string>
     <string name="backup_restore_interrupted_rolled_back">恢复备份时应用被关闭。之前的数据已写回；未保留备份中的任何内容。</string>
     <string name="backup_restore_interrupted_incomplete">恢复备份时应用被关闭，之前的数据未能完全写回。请检查自选列表和投资组合，或在设置的“%1$s”中重新恢复备份。</string>

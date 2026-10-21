@@ -159,13 +159,16 @@ struct PortfolioAddressSheet: View {
                     case .locked: showLocked()
                     // Nicht zurückgeholt: Grund nennen statt still nichts zu tun (seit Build 95, wie Android)
                     case .failed: showRestoreFailed(WatchedAddressUndo.failure(data.watchedAddresses, removed))
-                    case .removed: break
+                    case .removed, .notFound: break
                     }
                 }
             )
         case .locked:
             showLocked()
+        // Nicht geschrieben: nennen statt still nichts zu tun (seit Build 97, wie Android)
         case .failed:
+            banner = WatchlistBannerMessage(text: L("portfolio_address_remove_failed"), icon: "exclamationmark.triangle", long: true)
+        case .notFound:
             break
         }
     }

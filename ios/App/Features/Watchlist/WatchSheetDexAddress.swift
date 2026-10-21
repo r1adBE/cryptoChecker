@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import UniformTypeIdentifiers
 
 // Vertragsadresse des Tokens im Kopf des Aktionsblatts (nur DEX-Pools), gekürzt, Tippen kopiert sie ganz.
 // Eigene Datei wie `WatchSheetDexAddress.kt`; der Kopf (`WatchActionsHeader.swift`) setzt sie unter die Börse.
@@ -14,7 +15,10 @@ struct DexTokenAddressLine: View {
     var body: some View {
         if DexLiquidity.isDex(watch.marketKey), let address = DexTokenAddressStore.get(watch.pairId) {
             Button {
-                UIPasteboard.general.string = address
+                // Nur auf diesem Gerät (keine universelle Zwischenablage) und nach 60 s wieder weg (seit Build 97,
+                // Android markiert die Adresse als vertraulich)
+                UIPasteboard.general.setItems([[UTType.plainText.identifier: address]],
+                                              options: [.localOnly: true, .expirationDate: Date().addingTimeInterval(60)])
                 WatchlistHaptics.selection()
                 confirmCopy()
             } label: {

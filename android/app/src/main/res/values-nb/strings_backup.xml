@@ -66,6 +66,8 @@
     <string name="storage_recovery_acknowledge">Forstått</string>
     <string name="storage_recovery_restored_title">Lagrede data er låst opp igjen</string>
     <string name="storage_recovery_restored_message">En tidligere nøkkel på denne enheten åpnet de tilsidesatte dataene igjen, så de er tilbake. Det som ble lagret i mellomtiden, ligger uendret ved siden av.</string>
+    <string name="settings_reset_notice_title">Innstillinger tilbakestilt</string>
+    <string name="settings_reset_notice">Innstillingene kunne ikke leses og er tilbakestilt til standardverdiene. Kontroller porteføljelåsen, alarmintervallet og valutaen.</string>
     <string name="backup_restore_interrupted_title">Gjenopprettingen ble avbrutt</string>
     <string name="backup_restore_interrupted_rolled_back">Appen ble lukket mens en sikkerhetskopi ble gjenopprettet. De tidligere dataene dine er lagt tilbake; ingenting fra sikkerhetskopien ble beholdt.</string>
     <string name="backup_restore_interrupted_incomplete">Appen ble lukket mens en sikkerhetskopi ble gjenopprettet, og de tidligere dataene kunne ikke legges helt tilbake. Sjekk overvåkingslisten og porteføljen, eller gjenopprett sikkerhetskopien på nytt under «%1$s» i Innstillinger.</string>

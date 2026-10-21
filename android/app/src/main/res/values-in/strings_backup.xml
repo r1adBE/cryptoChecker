@@ -63,6 +63,8 @@
     <string name="storage_recovery_acknowledge">Mengerti</string>
     <string name="storage_recovery_restored_title">Data tersimpan terbuka lagi</string>
     <string name="storage_recovery_restored_message">Kunci sebelumnya di perangkat ini membuka lagi data yang disisihkan, jadi data itu kembali. Data yang disimpan sementara itu tetap utuh di sampingnya.</string>
+    <string name="settings_reset_notice_title">Pengaturan direset</string>
+    <string name="settings_reset_notice">Pengaturan tidak dapat dibaca dan telah direset ke nilai bawaan. Periksa kunci portofolio, interval alarm, dan mata uang.</string>
     <string name="backup_restore_interrupted_title">Pemulihan terhenti</string>
     <string name="backup_restore_interrupted_rolled_back">Aplikasi ditutup saat memulihkan cadangan. Data sebelumnya telah dikembalikan; tidak ada yang diambil dari cadangan.</string>
     <string name="backup_restore_interrupted_incomplete">Aplikasi ditutup saat memulihkan cadangan, dan data sebelumnya tidak dapat dikembalikan sepenuhnya. Periksa daftar pantau dan portofolio, atau pulihkan cadangan lagi di “%1$s” di Pengaturan.</string>

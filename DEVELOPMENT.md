@@ -2149,6 +2149,12 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 97 (review 21 October 2026, afternoon): `OpenTargetGuard` (Kotlin/Swift) – per-install secret (not backed up)
+  appended to the app's own notification/widget intents and URLs; without it only `add`, `alarms`, `cycle` and
+  `watch/<id>` are opened. `StorageRecoveryNotice.SETTINGS_RESET` (Android: set by the DataStore corruption handler;
+  iOS: `SharedStorage.settingsCorrupt(hasData:decodes:)`), cleared only on dismiss. `PortfolioSnapshotUpdater.shouldRefresh`
+  treats unreadable alarm storage as «alarms may be active». Fixture `gas_fees.json` (feeHistory, gasPrice, mempool,
+  transfer cost); hex parsing accepts ASCII hex digits only on both platforms.
 * Build 96 (review 21 October 2026, noon): `DepegAlarm.usablePrice(last, exchangeTime, now)` (Kotlin/Swift) drops a
   depeg reading whose exchange time is too old by `AlarmFreshness.exchangeTimeTooOld` (fixture `depeg_alarm.json`
   → `usablePrice`). Visible percentages go through `PercentText` only (new `minDecimals` for trimmed trailing zeros);

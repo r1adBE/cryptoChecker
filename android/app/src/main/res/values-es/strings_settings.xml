@@ -204,7 +204,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Restablecer app</string>
     <string name="settings_reset_app_action">Eliminar todo</string>
-    <string name="settings_reset_app_confirm">Elimina la lista, alarmas, cartera, ajustes y todos los datos guardados, como tras instalarla. No se puede deshacer. Consejo: haz antes una copia de seguridad.</string>
+    <string name="settings_reset_app_confirm">Elimina la lista, alarmas, cartera, ajustes y todos los datos guardados, como tras instalarla. No se puede deshacer. Consejo: haz antes una copia de seguridad. Las copias de seguridad del dispositivo (copia de Google o de iCloud/ordenador) conservan los datos anteriores hasta la siguiente copia.</string>
     <string name="settings_reset_app_title">¿Restablecer la app?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

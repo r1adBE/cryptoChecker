@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">トークンが一部古い</string>
     <string name="portfolio_address_restore_failed">アドレスを元に戻せませんでした。必要なら再度追加してください</string>
+    <string name="portfolio_address_remove_failed">アドレスを削除できませんでした – もう一度お試しください</string>
 </resources>

@@ -63,6 +63,8 @@
     <string name="storage_recovery_acknowledge">了解</string>
     <string name="storage_recovery_restored_title">保存データのロックが再び解除されました</string>
     <string name="storage_recovery_restored_message">この端末の以前の鍵で、退避していたデータを再び開けたため、データが戻りました。その間に保存されたデータはそのまま横に残っています。</string>
+    <string name="settings_reset_notice_title">設定をリセットしました</string>
+    <string name="settings_reset_notice">設定を読み込めなかったため、初期値にリセットしました。ポートフォリオのロック、アラームの間隔、通貨を確認してください。</string>
     <string name="backup_restore_interrupted_title">復元が中断されました</string>
     <string name="backup_restore_interrupted_rolled_back">バックアップの復元中にアプリが終了しました。以前のデータを書き戻しました。バックアップの内容は反映されていません。</string>
     <string name="backup_restore_interrupted_incomplete">バックアップの復元中にアプリが終了し、以前のデータを完全には書き戻せませんでした。ウォッチリストとポートフォリオを確認するか、設定の「%1$s」でバックアップをもう一度復元してください。</string>

@@ -203,7 +203,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Nulstil app</string>
     <string name="settings_reset_app_action">Slet alt</string>
-    <string name="settings_reset_app_confirm">Sletter overvågningsliste, alarmer, portefølje, indstillinger og alle gemte data, som efter installation. Kan ikke fortrydes. Tip: lav en sikkerhedskopi først.</string>
+    <string name="settings_reset_app_confirm">Sletter overvågningsliste, alarmer, portefølje, indstillinger og alle gemte data, som efter installation. Kan ikke fortrydes. Tip: lav en sikkerhedskopi først. Sikkerhedskopier af enheden (Google-backup eller iCloud-/computerbackup) beholder de tidligere data, indtil næste sikkerhedskopi kører.</string>
     <string name="settings_reset_app_title">Nulstil appen?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

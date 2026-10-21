@@ -202,7 +202,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">รีเซ็ตแอป</string>
     <string name="settings_reset_app_action">ลบทั้งหมด</string>
-    <string name="settings_reset_app_confirm">ลบรายการติดตาม สัญญาณเตือน พอร์ตโฟลิโอ การตั้งค่า และข้อมูลที่บันทึกทั้งหมด เหมือนหลังติดตั้ง ย้อนกลับไม่ได้ เคล็ดลับ: สำรองข้อมูลก่อน</string>
+    <string name="settings_reset_app_confirm">ลบรายการติดตาม สัญญาณเตือน พอร์ตโฟลิโอ การตั้งค่า และข้อมูลที่บันทึกทั้งหมด เหมือนหลังติดตั้ง ย้อนกลับไม่ได้ เคล็ดลับ: สำรองข้อมูลก่อน ข้อมูลสำรองของอุปกรณ์ (สำรองข้อมูล Google หรือ iCloud/คอมพิวเตอร์) จะเก็บข้อมูลเดิมไว้จนกว่าจะสำรองข้อมูลครั้งถัดไป</string>
     <string name="settings_reset_app_title">รีเซ็ตแอปใช่ไหม</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

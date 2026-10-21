@@ -202,7 +202,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">重置应用</string>
     <string name="settings_reset_app_action">全部删除</string>
-    <string name="settings_reset_app_confirm">删除关注列表、警报、投资组合、设置和所有已保存的数据，恢复到安装后的状态。此操作无法撤销。提示：请先备份。</string>
+    <string name="settings_reset_app_confirm">删除关注列表、警报、投资组合、设置和所有已保存的数据，恢复到安装后的状态。此操作无法撤销。提示：请先备份。设备备份（Google 备份或 iCloud/电脑备份）会保留之前的数据，直到下一次备份运行。</string>
     <string name="settings_reset_app_title">要重置应用吗？</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
 
@@ -19,18 +20,31 @@ import timber.log.Timber
  * Beschädigte Datei (z. B. halb geschrieben oder aus einer Systemsicherung wiederhergestellt):
  * durch leere Einstellungen ersetzen (= Standardwerte) statt bei jedem Start abzustürzen. Die Migrationen
  * sehen dann eine neue Installation (Portfolio aus); sind Portfolio-Daten da, schaltet [PortfolioDataCheck]
- * das Portfolio beim Start wieder ein.
+ * das Portfolio beim Start wieder ein. Seit Build 97 nicht mehr still: Portfolio-Sperre (dann aus), Intervall und
+ * Währung stehen auf dem Standard — einmaliger Hinweis ([StorageRecoveryNotice.recordSettingsReset]). DataStore ruft den
+ * Handler nur bei unlesbarem Inhalt auf, nie bei fehlender Datei (neue Installation) oder einem Lesefehler (IOException).
  */
 internal val Context.settingsDataStore: DataStore<Preferences> by preferencesDataStore(
     name = "settings",
     corruptionHandler = ReplaceFileCorruptionHandler { e ->
         Timber.w(e, "Einstellungen beschädigt – Standardwerte")
+        settingsStoreContext?.let { context ->
+            runCatching { StorageRecoveryNotice.recordSettingsReset(context) }
+                .onFailure { Timber.w(it, "Hinweis «Einstellungen zurückgesetzt» nicht vorgemerkt") }
+        }
         emptyPreferences()
     },
     // Reihenfolge: zuerst «Nicht wegwischbar», solange eine neue Installation noch leer ist; jede
     // spätere Migration zählt die von den vorherigen geschriebenen Schlüssel nicht mit
-    produceMigrations = { listOf(OngoingNotificationsMigration, InstallDefaultsMigration, UpdateModeMigration) },
+    produceMigrations = { context ->
+        // Der Ersatz-Handler bekommt keinen Context: hier merken (läuft beim Anlegen des DataStore, vor jedem Lesen)
+        settingsStoreContext = context.applicationContext
+        listOf(OngoingNotificationsMigration, InstallDefaultsMigration, UpdateModeMigration)
+    },
 )
+
+/** App-Context für den Ersatz-Handler von [settingsDataStore] (gesetzt in `produceMigrations`). */
+@Volatile private var settingsStoreContext: Context? = null
 
 /**
  * «Nicht wegwischbar» einmalig festschreiben (Build 42, Standard neu aus): Fehlt der Schlüssel,

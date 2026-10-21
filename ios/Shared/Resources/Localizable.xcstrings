@@ -186108,6 +186108,197 @@
         }
       }
     },
+    "portfolio_address_remove_failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّرت إزالة العنوان – يُرجى المحاولة مرة أخرى"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresu se nepodařilo odebrat – zkuste to prosím znovu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adressen kunne ikke fjernes – prøv igen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresse konnte nicht entfernt werden – versuch es nochmals"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ήταν δυνατή η αφαίρεση της διεύθυνσης – δοκιμάστε ξανά"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Address could not be removed – please try again"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo eliminar la dirección – inténtalo de nuevo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف آدرس ممکن نشد – لطفاً دوباره امتحان کنید"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Osoitetta ei voitu poistaa – yritä uudelleen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de supprimer l’adresse – veuillez réessayer"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא ניתן היה להסיר את הכתובת – נסו שוב"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पता हटाया नहीं जा सका – कृपया फिर से कोशिश करें"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A címet nem sikerült eltávolítani – próbáld újra"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alamat tidak dapat dihapus – silakan coba lagi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossibile rimuovere l’indirizzo – riprova"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アドレスを削除できませんでした – もう一度お試しください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "주소를 삭제할 수 없습니다 – 다시 시도해 주세요"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adressen kunne ikke fjernes – prøv igjen"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adres kon niet worden verwijderd – probeer het opnieuw"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się usunąć adresu – spróbuj ponownie"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível remover o endereço – tente novamente"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível remover o endereço – tente novamente"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa nu a putut fi eliminată – încearcă din nou"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось удалить адрес – попробуйте ещё раз"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa nuk mund të hiqej – provo përsëri"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adressen kunde inte tas bort – försök igen"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่สามารถลบที่อยู่ได้ – โปรดลองอีกครั้ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adres kaldırılamadı – lütfen tekrar deneyin"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося видалити адресу – спробуйте ще раз"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể xóa địa chỉ – vui lòng thử lại"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法移除地址 – 请重试"
+          }
+        }
+      }
+    },
     "portfolio_address_remove_history" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -304108,187 +304299,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يحذف قائمة المتابعة والتنبيهات والمحفظة والإعدادات وكل البيانات المحفوظة، كما بعد التثبيت. لا يمكن التراجع. نصيحة: أنشئ نسخة احتياطية أولاً."
+            "value" : "يحذف قائمة المتابعة والتنبيهات والمحفظة والإعدادات وكل البيانات المحفوظة، كما بعد التثبيت. لا يمكن التراجع. نصيحة: أنشئ نسخة احتياطية أولاً. تحتفظ النسخ الاحتياطية للجهاز (نسخة Google الاحتياطية أو نسخة iCloud/الكمبيوتر) بالبيانات السابقة حتى تُجرى النسخة الاحتياطية التالية."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Smaže sledovaný seznam, alarmy, portfolio, nastavení a všechna uložená data jako po instalaci. Nelze vrátit zpět. Tip: nejdříve si vytvořte zálohu."
+            "value" : "Smaže sledovaný seznam, alarmy, portfolio, nastavení a všechna uložená data jako po instalaci. Nelze vrátit zpět. Tip: nejdříve si vytvořte zálohu. Zálohy zařízení (záloha Google nebo záloha na iCloud či do počítače) uchovávají předchozí data až do příští zálohy."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sletter overvågningsliste, alarmer, portefølje, indstillinger og alle gemte data, som efter installation. Kan ikke fortrydes. Tip: lav en sikkerhedskopi først."
+            "value" : "Sletter overvågningsliste, alarmer, portefølje, indstillinger og alle gemte data, som efter installation. Kan ikke fortrydes. Tip: lav en sikkerhedskopi først. Sikkerhedskopier af enheden (Google-backup eller iCloud-/computerbackup) beholder de tidligere data, indtil næste sikkerhedskopi kører."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Löscht Merkliste, Alarme, Portfolio, Einstellungen und alle gespeicherten Daten, wie nach der Installation. Das lässt sich nicht rückgängig machen. Tipp: vorher eine Sicherung erstellen."
+            "value" : "Löscht Merkliste, Alarme, Portfolio, Einstellungen und alle gespeicherten Daten, wie nach der Installation. Das lässt sich nicht rückgängig machen. Tipp: vorher eine Sicherung erstellen. Geräte-Sicherungen (Google-Sicherung bzw. iCloud- oder Computer-Backup) behalten die bisherigen Daten, bis die nächste Sicherung läuft."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Διαγράφει λίστα, συναγερμούς, χαρτοφυλάκιο, ρυθμίσεις και όλα τα αποθηκευμένα δεδομένα, όπως μετά την εγκατάσταση. Δεν αναιρείται. Συμβουλή: κάντε πρώτα αντίγραφο ασφαλείας."
+            "value" : "Διαγράφει λίστα, συναγερμούς, χαρτοφυλάκιο, ρυθμίσεις και όλα τα αποθηκευμένα δεδομένα, όπως μετά την εγκατάσταση. Δεν αναιρείται. Συμβουλή: κάντε πρώτα αντίγραφο ασφαλείας. Τα αντίγραφα ασφαλείας της συσκευής (Google ή iCloud/υπολογιστή) διατηρούν τα προηγούμενα δεδομένα μέχρι το επόμενο αντίγραφο ασφαλείας."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deletes watchlist, alerts, portfolio, settings and all stored data, as after installing. This cannot be undone. Tip: make a backup first."
+            "value" : "Deletes watchlist, alerts, portfolio, settings and all stored data, as after installing. This cannot be undone. Tip: make a backup first. Device backups (Google backup or iCloud/computer backup) keep the previous data until the next backup runs."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Elimina la lista, alarmas, cartera, ajustes y todos los datos guardados, como tras instalarla. No se puede deshacer. Consejo: haz antes una copia de seguridad."
+            "value" : "Elimina la lista, alarmas, cartera, ajustes y todos los datos guardados, como tras instalarla. No se puede deshacer. Consejo: haz antes una copia de seguridad. Las copias de seguridad del dispositivo (copia de Google o de iCloud/ordenador) conservan los datos anteriores hasta la siguiente copia."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فهرست پیگیری، هشدارها، پرتفوی، تنظیمات و همه داده‌های ذخیره‌شده را مانند پس از نصب پاک می‌کند. قابل بازگشت نیست. نکته: ابتدا پشتیبان بگیرید."
+            "value" : "فهرست پیگیری، هشدارها، پرتفوی، تنظیمات و همه داده‌های ذخیره‌شده را مانند پس از نصب پاک می‌کند. قابل بازگشت نیست. نکته: ابتدا پشتیبان بگیرید. پشتیبان‌های دستگاه (پشتیبان Google یا پشتیبان iCloud/رایانه) داده‌های قبلی را تا پشتیبان‌گیری بعدی نگه می‌دارند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Poistaa seurantalistan, hälytykset, salkun, asetukset ja kaikki tallennetut tiedot, kuten asennuksen jälkeen. Toimintoa ei voi kumota. Vinkki: tee ensin varmuuskopio."
+            "value" : "Poistaa seurantalistan, hälytykset, salkun, asetukset ja kaikki tallennetut tiedot, kuten asennuksen jälkeen. Toimintoa ei voi kumota. Vinkki: tee ensin varmuuskopio. Laitteen varmuuskopiot (Google-varmuuskopio tai iCloud-/tietokonevarmuuskopio) säilyttävät aiemmat tiedot seuraavaan varmuuskopiointiin asti."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Supprime liste de suivi, alertes, portefeuille, réglages et toutes les données enregistrées, comme après l’installation. Action irréversible. Conseil : faites d’abord une sauvegarde."
+            "value" : "Supprime liste de suivi, alertes, portefeuille, réglages et toutes les données enregistrées, comme après l’installation. Action irréversible. Conseil : faites d’abord une sauvegarde. Les sauvegardes de l’appareil (sauvegarde Google ou sauvegarde iCloud/ordinateur) conservent les anciennes données jusqu’à la prochaine sauvegarde."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מוחק את רשימת המעקב, ההתראות, תיק ההשקעות, ההגדרות וכל הנתונים השמורים, כמו אחרי התקנה. לא ניתן לבטל. טיפ: צרו גיבוי קודם."
+            "value" : "מוחק את רשימת המעקב, ההתראות, תיק ההשקעות, ההגדרות וכל הנתונים השמורים, כמו אחרי התקנה. לא ניתן לבטל. טיפ: צרו גיבוי קודם. גיבויים של המכשיר (גיבוי Google או גיבוי iCloud/מחשב) שומרים את הנתונים הקודמים עד הגיבוי הבא."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉचलिस्ट, अलार्म, पोर्टफ़ोलियो, सेटिंग्स और सारा सहेजा डेटा हटाता है, जैसे इंस्टॉल के बाद। इसे पूर्ववत नहीं किया जा सकता। सुझाव: पहले बैकअप बना लें।"
+            "value" : "वॉचलिस्ट, अलार्म, पोर्टफ़ोलियो, सेटिंग्स और सारा सहेजा डेटा हटाता है, जैसे इंस्टॉल के बाद। इसे पूर्ववत नहीं किया जा सकता। सुझाव: पहले बैकअप बना लें। डिवाइस के बैकअप (Google बैकअप या iCloud/कंप्यूटर बैकअप) अगला बैकअप चलने तक पुराना डेटा रखते हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Törli a figyelőlistát, riasztásokat, portfóliót, beállításokat és minden mentett adatot, mint telepítés után. Nem vonható vissza. Tipp: előbb készítsen biztonsági mentést."
+            "value" : "Törli a figyelőlistát, riasztásokat, portfóliót, beállításokat és minden mentett adatot, mint telepítés után. Nem vonható vissza. Tipp: előbb készítsen biztonsági mentést. Az eszköz biztonsági mentései (Google- vagy iCloud-/számítógépes mentés) a következő mentésig megőrzik a korábbi adatokat."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Menghapus daftar pantau, alarm, portofolio, pengaturan, dan semua data tersimpan, seperti setelah instalasi. Tidak dapat dibatalkan. Tips: buat cadangan terlebih dahulu."
+            "value" : "Menghapus daftar pantau, alarm, portofolio, pengaturan, dan semua data tersimpan, seperti setelah instalasi. Tidak dapat dibatalkan. Tips: buat cadangan terlebih dahulu. Cadangan perangkat (cadangan Google atau cadangan iCloud/komputer) menyimpan data sebelumnya hingga pencadangan berikutnya berjalan."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Elimina lista, allarmi, portafoglio, impostazioni e tutti i dati salvati, come dopo l’installazione. Non si può annullare. Consiglio: crea prima un backup."
+            "value" : "Elimina lista, allarmi, portafoglio, impostazioni e tutti i dati salvati, come dopo l’installazione. Non si può annullare. Consiglio: crea prima un backup. I backup del dispositivo (backup Google o backup iCloud/computer) conservano i dati precedenti fino al backup successivo."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ウォッチリスト、アラーム、ポートフォリオ、設定、保存済みのすべてのデータをインストール直後の状態に削除します。元に戻せません。先にバックアップを作成してください。"
+            "value" : "ウォッチリスト、アラーム、ポートフォリオ、設定、保存済みのすべてのデータをインストール直後の状態に削除します。元に戻せません。先にバックアップを作成してください。端末のバックアップ（GoogleバックアップまたはiCloud/コンピュータのバックアップ）には、次のバックアップが実行されるまで以前のデータが残ります。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "관심 목록, 알림, 포트폴리오, 설정 및 저장된 모든 데이터를 설치 직후처럼 삭제합니다. 되돌릴 수 없습니다. 먼저 백업을 만드세요."
+            "value" : "관심 목록, 알림, 포트폴리오, 설정 및 저장된 모든 데이터를 설치 직후처럼 삭제합니다. 되돌릴 수 없습니다. 먼저 백업을 만드세요. 기기 백업(Google 백업 또는 iCloud/컴퓨터 백업)에는 다음 백업이 실행될 때까지 이전 데이터가 남아 있습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sletter overvåkingsliste, alarmer, portefølje, innstillinger og alle lagrede data, som etter installasjon. Kan ikke angres. Tips: ta en sikkerhetskopi først."
+            "value" : "Sletter overvåkingsliste, alarmer, portefølje, innstillinger og alle lagrede data, som etter installasjon. Kan ikke angres. Tips: ta en sikkerhetskopi først. Sikkerhetskopier av enheten (Google-sikkerhetskopi eller iCloud-/datamaskinkopi) beholder de tidligere dataene til neste sikkerhetskopi kjører."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verwijdert volglijst, alarmen, portfolio, instellingen en alle opgeslagen gegevens, zoals na de installatie. Dit kan niet ongedaan worden gemaakt. Tip: maak eerst een back-up."
+            "value" : "Verwijdert volglijst, alarmen, portfolio, instellingen en alle opgeslagen gegevens, zoals na de installatie. Dit kan niet ongedaan worden gemaakt. Tip: maak eerst een back-up. Back-ups van het apparaat (Google-back-up of iCloud-/computerback-up) bewaren de vorige gegevens tot de volgende back-up is gemaakt."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Usuwa listę obserwowanych, alarmy, portfel, ustawienia i wszystkie zapisane dane, jak po instalacji. Tej operacji nie można cofnąć. Wskazówka: najpierw zrób kopię zapasową."
+            "value" : "Usuwa listę obserwowanych, alarmy, portfel, ustawienia i wszystkie zapisane dane, jak po instalacji. Tej operacji nie można cofnąć. Wskazówka: najpierw zrób kopię zapasową. Kopie zapasowe urządzenia (kopia Google lub kopia iCloud/na komputerze) zachowują poprzednie dane do czasu następnej kopii."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Elimina lista, alarmes, portfólio, definições e todos os dados guardados, como após a instalação. Não pode ser anulado. Dica: faça antes uma cópia de segurança."
+            "value" : "Elimina lista, alarmes, portfólio, definições e todos os dados guardados, como após a instalação. Não pode ser anulado. Dica: faça antes uma cópia de segurança. As cópias de segurança do dispositivo (cópia Google ou cópia iCloud/computador) mantêm os dados anteriores até à próxima cópia."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Exclui lista, alarmes, portfólio, configurações e todos os dados salvos, como após a instalação. Não é possível desfazer. Dica: faça um backup antes."
+            "value" : "Exclui lista, alarmes, portfólio, configurações e todos os dados salvos, como após a instalação. Não é possível desfazer. Dica: faça um backup antes. Os backups do dispositivo (backup do Google ou backup do iCloud/computador) mantêm os dados anteriores até o próximo backup."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Șterge lista, alarmele, portofoliul, setările și toate datele salvate, ca după instalare. Nu poate fi anulat. Sfat: fă mai întâi o copie de rezervă."
+            "value" : "Șterge lista, alarmele, portofoliul, setările și toate datele salvate, ca după instalare. Nu poate fi anulat. Sfat: fă mai întâi o copie de rezervă. Copiile de rezervă ale dispozitivului (copie Google sau copie iCloud/computer) păstrează datele anterioare până la următoarea copie de rezervă."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Удаляет список наблюдения, сигналы, портфель, настройки и все сохранённые данные, как после установки. Отменить нельзя. Совет: сначала создайте резервную копию."
+            "value" : "Удаляет список наблюдения, сигналы, портфель, настройки и все сохранённые данные, как после установки. Отменить нельзя. Совет: сначала создайте резервную копию. Резервные копии устройства (Google или iCloud/компьютер) сохраняют прежние данные до следующего резервного копирования."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fshin listën, alarmet, portofolin, cilësimet dhe të gjitha të dhënat e ruajtura, si pas instalimit. Nuk mund të zhbëhet. Këshillë: bëj fillimisht një kopje rezervë."
+            "value" : "Fshin listën, alarmet, portofolin, cilësimet dhe të gjitha të dhënat e ruajtura, si pas instalimit. Nuk mund të zhbëhet. Këshillë: bëj fillimisht një kopje rezervë. Kopjet rezervë të pajisjes (kopje Google ose kopje iCloud/kompjuteri) ruajnë të dhënat e mëparshme deri në kopjen e radhës."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Raderar bevakningslista, larm, portfölj, inställningar och all sparad data, som efter installationen. Det går inte att ångra. Tips: gör en säkerhetskopia först."
+            "value" : "Raderar bevakningslista, larm, portfölj, inställningar och all sparad data, som efter installationen. Det går inte att ångra. Tips: gör en säkerhetskopia först. Säkerhetskopior av enheten (Google-säkerhetskopia eller iCloud-/datorkopia) behåller tidigare data tills nästa säkerhetskopiering körs."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ลบรายการติดตาม สัญญาณเตือน พอร์ตโฟลิโอ การตั้งค่า และข้อมูลที่บันทึกทั้งหมด เหมือนหลังติดตั้ง ย้อนกลับไม่ได้ เคล็ดลับ: สำรองข้อมูลก่อน"
+            "value" : "ลบรายการติดตาม สัญญาณเตือน พอร์ตโฟลิโอ การตั้งค่า และข้อมูลที่บันทึกทั้งหมด เหมือนหลังติดตั้ง ย้อนกลับไม่ได้ เคล็ดลับ: สำรองข้อมูลก่อน ข้อมูลสำรองของอุปกรณ์ (สำรองข้อมูล Google หรือ iCloud/คอมพิวเตอร์) จะเก็บข้อมูลเดิมไว้จนกว่าจะสำรองข้อมูลครั้งถัดไป"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "İzleme listesini, alarmları, portföyü, ayarları ve tüm kayıtlı verileri kurulumdan sonraki gibi siler. Geri alınamaz. İpucu: önce yedek alın."
+            "value" : "İzleme listesini, alarmları, portföyü, ayarları ve tüm kayıtlı verileri kurulumdan sonraki gibi siler. Geri alınamaz. İpucu: önce yedek alın. Cihaz yedekleri (Google yedeği veya iCloud/bilgisayar yedeği) bir sonraki yedekleme yapılana kadar önceki verileri saklar."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Видаляє список спостереження, сигнали, портфель, налаштування й усі збережені дані, як після встановлення. Скасувати не можна. Порада: спершу створіть резервну копію."
+            "value" : "Видаляє список спостереження, сигнали, портфель, налаштування й усі збережені дані, як після встановлення. Скасувати не можна. Порада: спершу створіть резервну копію. Резервні копії пристрою (Google або iCloud/комп’ютер) зберігають попередні дані до наступного резервного копіювання."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Xóa danh sách theo dõi, cảnh báo, danh mục, cài đặt và mọi dữ liệu đã lưu, như sau khi cài đặt. Không thể hoàn tác. Mẹo: hãy sao lưu trước."
+            "value" : "Xóa danh sách theo dõi, cảnh báo, danh mục, cài đặt và mọi dữ liệu đã lưu, như sau khi cài đặt. Không thể hoàn tác. Mẹo: hãy sao lưu trước. Bản sao lưu của thiết bị (sao lưu Google hoặc sao lưu iCloud/máy tính) vẫn giữ dữ liệu cũ cho đến lần sao lưu tiếp theo."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "删除关注列表、警报、投资组合、设置和所有已保存的数据，恢复到安装后的状态。此操作无法撤销。提示：请先备份。"
+            "value" : "删除关注列表、警报、投资组合、设置和所有已保存的数据，恢复到安装后的状态。此操作无法撤销。提示：请先备份。设备备份（Google 备份或 iCloud/电脑备份）会保留之前的数据，直到下一次备份运行。"
           }
         }
       }
@@ -304480,6 +304671,388 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "要重置应用吗？"
+          }
+        }
+      }
+    },
+    "settings_reset_notice" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّرت قراءة الإعدادات فأُعيد ضبطها على القيم الافتراضية. يُرجى التحقق من قفل المحفظة والفاصل الزمني للتنبيهات والعملة."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavení se nepodařilo načíst a bylo obnoveno na výchozí hodnoty. Zkontrolujte prosím zámek portfolia, interval alarmů a měnu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indstillingerne kunne ikke læses og er nulstillet til standardværdierne. Kontrollér porteføljelåsen, alarmintervallet og valutaen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Einstellungen liessen sich nicht lesen und wurden auf die Standardwerte zurückgesetzt. Bitte Portfolio-Sperre, Intervall der Alarme und Währung prüfen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ήταν δυνατή η ανάγνωση των ρυθμίσεων και έγινε επαναφορά στις προεπιλογές. Ελέγξτε το κλείδωμα χαρτοφυλακίου, το διάστημα των συναγερμών και το νόμισμα."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your settings could not be read and were reset to the defaults. Please check the portfolio lock, the alerts interval and the currency."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudieron leer los ajustes y se restablecieron los valores predeterminados. Revisa el bloqueo de la cartera, el intervalo de las alarmas y la moneda."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنظیمات خوانده نشد و به مقادیر پیش‌فرض بازنشانی شد. لطفاً قفل پرتفوی، فاصله زمانی هشدارها و ارز را بررسی کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asetuksia ei voitu lukea, joten ne palautettiin oletusarvoihin. Tarkista salkun lukitus, hälytysten aikaväli ja valuutta."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les réglages n’ont pas pu être lus et ont été réinitialisés aux valeurs par défaut. Vérifiez le verrouillage du portefeuille, l’intervalle des alertes et la devise."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא ניתן היה לקרוא את ההגדרות והן אופסו לברירות המחדל. בדקו את נעילת תיק ההשקעות, מרווח ההתראות והמטבע."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सेटिंग्स पढ़ी नहीं जा सकीं और डिफ़ॉल्ट पर रीसेट कर दी गईं। कृपया पोर्टफ़ोलियो लॉक, अलार्म का अंतराल और मुद्रा जाँच लें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A beállításokat nem sikerült beolvasni, ezért visszaálltak az alapértékekre. Ellenőrizze a portfóliózárat, a riasztások időközét és a pénznemet."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pengaturan tidak dapat dibaca dan telah direset ke nilai bawaan. Periksa kunci portofolio, interval alarm, dan mata uang."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non è stato possibile leggere le impostazioni, che sono state riportate ai valori predefiniti. Controlla il blocco portafoglio, l’intervallo degli allarmi e la valuta."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定を読み込めなかったため、初期値にリセットしました。ポートフォリオのロック、アラームの間隔、通貨を確認してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설정을 읽을 수 없어 기본값으로 초기화했습니다. 포트폴리오 잠금, 알림 간격, 통화를 확인하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Innstillingene kunne ikke leses og er tilbakestilt til standardverdiene. Kontroller porteføljelåsen, alarmintervallet og valutaen."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De instellingen konden niet worden gelezen en zijn teruggezet naar de standaardwaarden. Controleer de portfolio-vergrendeling, het interval van de alarmen en de valuta."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się odczytać ustawień, więc przywrócono wartości domyślne. Sprawdź blokadę portfela, interwał alarmów i walutę."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível ler as definições, que foram repostas para os valores predefinidos. Verifique o bloqueio do portfólio, o intervalo dos alarmes e a moeda."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível ler as configurações, que foram redefinidas para os valores padrão. Verifique o bloqueio do portfólio, o intervalo dos alarmes e a moeda."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setările nu au putut fi citite și au fost resetate la valorile implicite. Verifică blocarea portofoliului, intervalul alarmelor și moneda."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось прочитать настройки, поэтому они сброшены к значениям по умолчанию. Проверьте блокировку портфеля, интервал сигналов и валюту."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cilësimet nuk u lexuan dot dhe u rivendosën në vlerat e parazgjedhura. Kontrollo kyçjen e portofolit, intervalin e alarmeve dhe monedhën."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inställningarna kunde inte läsas och har återställts till standardvärdena. Kontrollera portföljlåset, larmintervallet och valutan."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "อ่านการตั้งค่าไม่ได้ จึงรีเซ็ตเป็นค่าเริ่มต้น โปรดตรวจสอบล็อกพอร์ตโฟลิโอ ช่วงเวลาของสัญญาณเตือน และสกุลเงิน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayarlar okunamadı ve varsayılan değerlere sıfırlandı. Lütfen portföy kilidini, alarm aralığını ve para birimini kontrol edin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося прочитати налаштування, тому їх скинуто до типових значень. Перевірте блокування портфеля, інтервал сигналів і валюту."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không đọc được cài đặt nên đã đặt lại về mặc định. Vui lòng kiểm tra khóa danh mục, chu kỳ cảnh báo và tiền tệ."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法读取设置，已恢复为默认值。请检查投资组合锁、警报间隔和货币。"
+          }
+        }
+      }
+    },
+    "settings_reset_notice_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تمت إعادة ضبط الإعدادات"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavení bylo obnoveno"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indstillinger nulstillet"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen zurückgesetzt"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Επαναφορά ρυθμίσεων"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings reset"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustes restablecidos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنظیمات بازنشانی شد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asetukset palautettu"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réglages réinitialisés"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ההגדרות אופסו"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सेटिंग्स रीसेट की गईं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beállítások visszaállítva"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pengaturan direset"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impostazioni ripristinate"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定をリセットしました"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설정이 초기화됨"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Innstillinger tilbakestilt"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instellingen teruggezet"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ustawienia zresetowane"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Definições repostas"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurações redefinidas"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setări resetate"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки сброшены"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cilësimet u rivendosën"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inställningar återställda"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "รีเซ็ตการตั้งค่าแล้ว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayarlar sıfırlandı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Налаштування скинуто"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã đặt lại cài đặt"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置已重置"
           }
         }
       }

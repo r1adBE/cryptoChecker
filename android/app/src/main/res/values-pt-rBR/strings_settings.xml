@@ -204,7 +204,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Redefinir app</string>
     <string name="settings_reset_app_action">Excluir tudo</string>
-    <string name="settings_reset_app_confirm">Exclui lista, alarmes, portfólio, configurações e todos os dados salvos, como após a instalação. Não é possível desfazer. Dica: faça um backup antes.</string>
+    <string name="settings_reset_app_confirm">Exclui lista, alarmes, portfólio, configurações e todos os dados salvos, como após a instalação. Não é possível desfazer. Dica: faça um backup antes. Os backups do dispositivo (backup do Google ou backup do iCloud/computador) mantêm os dados anteriores até o próximo backup.</string>
     <string name="settings_reset_app_title">Redefinir o app?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

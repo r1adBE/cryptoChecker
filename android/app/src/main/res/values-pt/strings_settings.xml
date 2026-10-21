@@ -204,7 +204,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Repor app</string>
     <string name="settings_reset_app_action">Eliminar tudo</string>
-    <string name="settings_reset_app_confirm">Elimina lista, alarmes, portfólio, definições e todos os dados guardados, como após a instalação. Não pode ser anulado. Dica: faça antes uma cópia de segurança.</string>
+    <string name="settings_reset_app_confirm">Elimina lista, alarmes, portfólio, definições e todos os dados guardados, como após a instalação. Não pode ser anulado. Dica: faça antes uma cópia de segurança. As cópias de segurança do dispositivo (cópia Google ou cópia iCloud/computador) mantêm os dados anteriores até à próxima cópia.</string>
     <string name="settings_reset_app_title">Repor a app?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

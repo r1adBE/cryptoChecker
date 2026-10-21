@@ -63,6 +63,8 @@
     <string name="storage_recovery_acknowledge">확인</string>
     <string name="storage_recovery_restored_title">저장된 데이터가 다시 잠금 해제됨</string>
     <string name="storage_recovery_restored_message">이 기기의 이전 키로 따로 보관했던 데이터를 다시 열 수 있어 데이터가 돌아왔습니다. 그사이 저장된 데이터는 그대로 옆에 보관됩니다.</string>
+    <string name="settings_reset_notice_title">설정이 초기화됨</string>
+    <string name="settings_reset_notice">설정을 읽을 수 없어 기본값으로 초기화했습니다. 포트폴리오 잠금, 알림 간격, 통화를 확인하세요.</string>
     <string name="backup_restore_interrupted_title">복원이 중단되었습니다</string>
     <string name="backup_restore_interrupted_rolled_back">백업을 복원하는 중에 앱이 종료되었습니다. 이전 데이터를 되돌렸으며 백업의 내용은 반영되지 않았습니다.</string>
     <string name="backup_restore_interrupted_incomplete">백업을 복원하는 중에 앱이 종료되어 이전 데이터를 완전히 되돌리지 못했습니다. 관심 목록과 포트폴리오를 확인하거나 설정의 \'%1$s\'에서 백업을 다시 복원하세요.</string>

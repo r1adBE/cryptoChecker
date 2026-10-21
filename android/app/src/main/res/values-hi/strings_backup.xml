@@ -66,6 +66,8 @@
     <string name="storage_recovery_acknowledge">समझ गया</string>
     <string name="storage_recovery_restored_title">सहेजा गया डेटा फिर से अनलॉक हुआ</string>
     <string name="storage_recovery_restored_message">इस डिवाइस की एक पुरानी कुंजी ने अलग रखा गया डेटा फिर से खोल दिया, इसलिए वह वापस आ गया है। इस बीच सहेजा गया डेटा बिना बदलाव के उसके पास रखा है।</string>
+    <string name="settings_reset_notice_title">सेटिंग्स रीसेट की गईं</string>
+    <string name="settings_reset_notice">सेटिंग्स पढ़ी नहीं जा सकीं और डिफ़ॉल्ट पर रीसेट कर दी गईं। कृपया पोर्टफ़ोलियो लॉक, अलार्म का अंतराल और मुद्रा जाँच लें।</string>
     <string name="backup_restore_interrupted_title">पुनर्स्थापना बीच में रुक गई</string>
     <string name="backup_restore_interrupted_rolled_back">बैकअप पुनर्स्थापित करते समय ऐप बंद हो गया। आपका पिछला डेटा वापस रख दिया गया है; बैकअप से कुछ भी नहीं रखा गया।</string>
     <string name="backup_restore_interrupted_incomplete">बैकअप पुनर्स्थापित करते समय ऐप बंद हो गया और पिछला डेटा पूरी तरह वापस नहीं रखा जा सका। कृपया वॉचलिस्ट और पोर्टफ़ोलियो जाँचें, या सेटिंग्स में “%1$s” में बैकअप फिर से पुनर्स्थापित करें।</string>

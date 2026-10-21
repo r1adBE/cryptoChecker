@@ -203,7 +203,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Επαναφορά εφαρμογής</string>
     <string name="settings_reset_app_action">Διαγραφή όλων</string>
-    <string name="settings_reset_app_confirm">Διαγράφει λίστα, συναγερμούς, χαρτοφυλάκιο, ρυθμίσεις και όλα τα αποθηκευμένα δεδομένα, όπως μετά την εγκατάσταση. Δεν αναιρείται. Συμβουλή: κάντε πρώτα αντίγραφο ασφαλείας.</string>
+    <string name="settings_reset_app_confirm">Διαγράφει λίστα, συναγερμούς, χαρτοφυλάκιο, ρυθμίσεις και όλα τα αποθηκευμένα δεδομένα, όπως μετά την εγκατάσταση. Δεν αναιρείται. Συμβουλή: κάντε πρώτα αντίγραφο ασφαλείας. Τα αντίγραφα ασφαλείας της συσκευής (Google ή iCloud/υπολογιστή) διατηρούν τα προηγούμενα δεδομένα μέχρι το επόμενο αντίγραφο ασφαλείας.</string>
     <string name="settings_reset_app_title">Επαναφορά της εφαρμογής;</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

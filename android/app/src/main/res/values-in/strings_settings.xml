@@ -202,7 +202,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Atur ulang aplikasi</string>
     <string name="settings_reset_app_action">Hapus semua</string>
-    <string name="settings_reset_app_confirm">Menghapus daftar pantau, alarm, portofolio, pengaturan, dan semua data tersimpan, seperti setelah instalasi. Tidak dapat dibatalkan. Tips: buat cadangan terlebih dahulu.</string>
+    <string name="settings_reset_app_confirm">Menghapus daftar pantau, alarm, portofolio, pengaturan, dan semua data tersimpan, seperti setelah instalasi. Tidak dapat dibatalkan. Tips: buat cadangan terlebih dahulu. Cadangan perangkat (cadangan Google atau cadangan iCloud/komputer) menyimpan data sebelumnya hingga pencadangan berikutnya berjalan.</string>
     <string name="settings_reset_app_title">Atur ulang aplikasi?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

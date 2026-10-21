@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokens deels verouderd</string>
     <string name="portfolio_address_restore_failed">Adres kon niet worden hersteld – voeg het indien nodig opnieuw toe</string>
+    <string name="portfolio_address_remove_failed">Adres kon niet worden verwijderd – probeer het opnieuw</string>
 </resources>

@@ -10,7 +10,8 @@
     <string name="portfolio_alarms_paused_tokens_generic">Portfolio alerts paused: token balances of watched addresses partly outdated</string>
     <string name="portfolio_alarms_address_failing">Portfolio alerts check without %1$s: balance not loaded for over 24 hours</string>
     <string name="portfolio_alarms_address_failing_generic">Portfolio alerts check without addresses whose balance has not loaded for over 24 hours</string>
-    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <!-- Statuszeile einer Adresse, gescheitertes «Rückgängig» nach «Adresse entfernen» und (seit Build 97) gescheitertes Entfernen -->
     <string name="portfolio_address_tokens_partly_stale">tokens partly outdated</string>
     <string name="portfolio_address_restore_failed">Address could not be restored – add it again if needed</string>
+    <string name="portfolio_address_remove_failed">Address could not be removed – please try again</string>
 </resources>

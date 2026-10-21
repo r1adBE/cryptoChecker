@@ -1,0 +1,359 @@
+{
+  "description": "Netzwerkgebühren (GasFees.kt / GasFees.swift): eth_feeHistory, eth_gasPrice, mempool.space, Überweisungskosten und Anzeige. Zahlen in gwei bzw. USD, Vergleich mit relativer Toleranz \"tolerance\". Seit Build 97.",
+  "tolerance": 1e-09,
+  "feeHistory": [
+    {
+      "description": "typisch: vier Blöcke, Grundgebühr des nächsten Blocks zählt",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x3b9aca00\",\"0x4a817c800\",\"0x4a817c800\",\"0x4e3b29200\",\"0x4a817c800\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[[\"0x5f5e100\",\"0x77359400\",\"0xb2d05e00\"],[\"0x2faf080\",\"0x3b9aca00\",\"0x12a05f200\"],[\"0x989680\",\"0x59682f00\",\"0x77359400\"],[\"0x1dcd6500\",\"0x9502f900\",\"0x174876e800\"]]}}",
+      "slow": 20.1,
+      "normal": 22.0,
+      "fast": 25.0
+    },
+    {
+      "description": "Grundgebühr null (Testnetz, L2)",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x0\",\"0x0\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[[\"0x3b9aca00\",\"0x77359400\",\"0xb2d05e00\"],[\"0x1dcd6500\",\"0x3b9aca00\",\"0x59682f00\"]]}}",
+      "slow": 1.0,
+      "normal": 2.0,
+      "fast": 3.0
+    },
+    {
+      "description": "leere Trinkgelder: alle Stufen = Grundgebühr",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x2540be400\",\"0x2540be400\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[]}}",
+      "slow": 10.0,
+      "normal": 10.0,
+      "fast": 10.0
+    },
+    {
+      "description": "ohne reward-Feld",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x2540be400\",\"0x2cb417800\"],\"gasUsedRatio\":[0.52,0.41]}}",
+      "slow": 12.0,
+      "normal": 12.0,
+      "fast": 12.0
+    },
+    {
+      "description": "reward null",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x2540be400\",\"0x2cb417800\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":null}}",
+      "slow": 12.0,
+      "normal": 12.0,
+      "fast": 12.0
+    },
+    {
+      "description": "leere Zeilen",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x174876e800\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[[],[]]}}",
+      "slow": 100.0,
+      "normal": 100.0,
+      "fast": 100.0
+    },
+    {
+      "description": "unlesbare Einträge werden übersprungen («0xzz», ohne 0x, Zahl, null, Vorzeichen); «0x» = 0",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x3b9aca00\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[[\"0xzz\",\"abc\",123],[null,\"0x\",\"0x-5\"],[\"0x77359400\",\"0x77359400\",\"0x77359400\"],\"keine Zeile\",[\"0x3b9aca00\"]]}}",
+      "slow": 3.0,
+      "normal": 3.0,
+      "fast": 3.0
+    },
+    {
+      "description": "Trinkgelder fallend: normal nie unter langsam, schnell nie unter normal",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x3b9aca00\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[[\"0xb2d05e00\",\"0x77359400\",\"0x3b9aca00\"]]}}",
+      "slow": 4.0,
+      "normal": 4.0,
+      "fast": 4.0
+    },
+    {
+      "description": "gerade Anzahl: oberer Median",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x0\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[[\"0x1\",\"0x1\",\"0x1\"],[\"0x2\",\"0x2\",\"0x2\"],[\"0x3\",\"0x3\",\"0x3\"],[\"0x4\",\"0x4\",\"0x4\"]]}}",
+      "slow": 3e-09,
+      "normal": 3e-09,
+      "fast": 3e-09
+    },
+    {
+      "description": "Grossbuchstaben in Hex und Präfix 0X",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0X3B9ACA00\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[[\"0x3B9ACA00\",\"0x77359400\",\"0xB2D05E00\"]]}}",
+      "slow": 2.0,
+      "normal": 3.0,
+      "fast": 4.0
+    },
+    {
+      "description": "Grundgebühr über 16 Hex-Stellen",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x56bc75e2d63100000\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[]}}",
+      "slow": 100000000000.0,
+      "normal": 100000000000.0,
+      "fast": 100000000000.0
+    },
+    {
+      "description": "Bruchteile von gwei (L2)",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x989680\",\"0xf4240\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[[\"0x0\",\"0x186a0\",\"0xf4240\"]]}}",
+      "slow": 0.001,
+      "normal": 0.0011,
+      "fast": 0.002
+    },
+    {
+      "description": "Fehlerobjekt des Knotens",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"error\":{\"code\":-32601,\"message\":\"the method eth_feeHistory does not exist\"}}",
+      "error": true
+    },
+    {
+      "description": "ohne result",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1}",
+      "error": true
+    },
+    {
+      "description": "result null",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":null}",
+      "error": true
+    },
+    {
+      "description": "ohne baseFeePerGas",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"reward\":[]}}",
+      "error": true
+    },
+    {
+      "description": "leere Grundgebühren",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[],\"gasUsedRatio\":[0.52,0.41],\"reward\":[]}}",
+      "error": true
+    },
+    {
+      "description": "Grundgebühr unlesbar",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x3b9aca00\",\"0xzz\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[]}}",
+      "error": true
+    },
+    {
+      "description": "Grundgebühr negativ",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x-3b9aca00\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[]}}",
+      "error": true
+    },
+    {
+      "description": "Grundgebühr mit Plus",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"+3b9aca00\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[]}}",
+      "error": true
+    },
+    {
+      "description": "Grundgebühr doppeltes Präfix",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x0x5\"],\"gasUsedRatio\":[0.52,0.41],\"reward\":[]}}",
+      "error": true
+    },
+    {
+      "description": "letzte Grundgebühr null",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"oldestBlock\":\"0x1404c2a\",\"baseFeePerGas\":[\"0x3b9aca00\",null],\"gasUsedRatio\":[0.52,0.41],\"reward\":[]}}",
+      "error": true
+    },
+    {
+      "description": "kein JSON",
+      "response": "<html>502 Bad Gateway</html>",
+      "error": true
+    },
+    {
+      "description": "JSON-Array statt Objekt",
+      "response": "[1,2,3]",
+      "error": true
+    }
+  ],
+  "gasPrice": [
+    {
+      "description": "1 gwei",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0x3b9aca00\"}",
+      "gwei": 1.0
+    },
+    {
+      "description": "Bruchteil",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0x5f5e100\"}",
+      "gwei": 0.1
+    },
+    {
+      "description": "nur Präfix = 0",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0x\"}",
+      "gwei": 0.0
+    },
+    {
+      "description": "Fehlerobjekt",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"error\":{\"code\":-32000,\"message\":\"rate limited\"}}",
+      "error": true
+    },
+    {
+      "description": "ohne result",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1}",
+      "error": true
+    },
+    {
+      "description": "unlesbar",
+      "response": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0xzz\"}",
+      "error": true
+    }
+  ],
+  "mempool": [
+    {
+      "description": "alle Felder",
+      "response": "{\"fastestFee\":12,\"halfHourFee\":8,\"hourFee\":5,\"economyFee\":3,\"minimumFee\":1}",
+      "fast": 12.0,
+      "normal": 8.0,
+      "slow": 5.0
+    },
+    {
+      "description": "ohne halfHourFee: normal = schnell, langsam = normal",
+      "response": "{\"fastestFee\":12,\"hourFee\":5}",
+      "fast": 12.0,
+      "normal": 12.0,
+      "slow": 5.0
+    },
+    {
+      "description": "ohne hourFee: langsam = normal",
+      "response": "{\"fastestFee\":12,\"halfHourFee\":8}",
+      "fast": 12.0,
+      "normal": 8.0,
+      "slow": 8.0
+    },
+    {
+      "description": "null wie fehlend",
+      "response": "{\"fastestFee\":12,\"halfHourFee\":null,\"hourFee\":null}",
+      "fast": 12.0,
+      "normal": 12.0,
+      "slow": 12.0
+    },
+    {
+      "description": "Zahl als Text (wie org.json)",
+      "response": "{\"fastestFee\":\"3.5\",\"halfHourFee\":\"2\",\"hourFee\":1.25}",
+      "fast": 3.5,
+      "normal": 2.0,
+      "slow": 1.25
+    },
+    {
+      "description": "ohne fastestFee",
+      "response": "{\"halfHourFee\":8,\"hourFee\":5}",
+      "error": true
+    },
+    {
+      "description": "kein JSON",
+      "response": "Too Many Requests",
+      "error": true
+    }
+  ],
+  "evmTransferUsd": [
+    {
+      "gwei": 20.0,
+      "coinUsd": 2500.0,
+      "usd": 1.05
+    },
+    {
+      "gwei": 0.012,
+      "coinUsd": 2500.0,
+      "usd": 0.0006300000000000001
+    },
+    {
+      "gwei": 30.0,
+      "coinUsd": 0.25,
+      "usd": 0.00015750000000000003
+    },
+    {
+      "gwei": 0.0,
+      "coinUsd": 2500.0,
+      "usd": 0.0
+    },
+    {
+      "gwei": 3.0,
+      "coinUsd": 600.0,
+      "usd": 0.03780000000000001
+    },
+    {
+      "gwei": 15.5,
+      "coinUsd": null,
+      "usd": null
+    }
+  ],
+  "btcTransferUsd": [
+    {
+      "satPerVb": 8.0,
+      "btcUsd": 65000.0,
+      "usd": 0.728
+    },
+    {
+      "satPerVb": 1.0,
+      "btcUsd": 65000.0,
+      "usd": 0.091
+    },
+    {
+      "satPerVb": 25.5,
+      "btcUsd": 98000.0,
+      "usd": 3.4986
+    },
+    {
+      "satPerVb": 0.0,
+      "btcUsd": 65000.0,
+      "usd": 0.0
+    },
+    {
+      "satPerVb": 8.0,
+      "btcUsd": null,
+      "usd": null
+    }
+  ],
+  "format": {
+    "locale": "en_US",
+    "gwei": [
+      {
+        "gwei": 0.0,
+        "expected": "0"
+      },
+      {
+        "gwei": -1.0,
+        "expected": "0"
+      },
+      {
+        "gwei": 0.0004,
+        "expected": "<0.001"
+      },
+      {
+        "gwei": 0.0123,
+        "expected": "0.012"
+      },
+      {
+        "gwei": 0.5,
+        "expected": "0.5"
+      },
+      {
+        "gwei": 1.44,
+        "expected": "1.4"
+      },
+      {
+        "gwei": 9.96,
+        "expected": "10"
+      },
+      {
+        "gwei": 23.4,
+        "expected": "23"
+      },
+      {
+        "gwei": 1234.6,
+        "expected": "1235"
+      }
+    ],
+    "usd": [
+      {
+        "usd": 0.0,
+        "expected": "<$0.01"
+      },
+      {
+        "usd": 0.004,
+        "expected": "<$0.01"
+      },
+      {
+        "usd": 0.42,
+        "expected": "$0.42"
+      },
+      {
+        "usd": 1.5,
+        "expected": "$1.50"
+      },
+      {
+        "usd": 99.999,
+        "expected": "$100.00"
+      },
+      {
+        "usd": 100.0,
+        "expected": "$100"
+      },
+      {
+        "usd": 1234.4,
+        "expected": "$1234"
+      }
+    ]
+  }
+}

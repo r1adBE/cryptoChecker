@@ -205,7 +205,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Скинути застосунок</string>
     <string name="settings_reset_app_action">Видалити все</string>
-    <string name="settings_reset_app_confirm">Видаляє список спостереження, сигнали, портфель, налаштування й усі збережені дані, як після встановлення. Скасувати не можна. Порада: спершу створіть резервну копію.</string>
+    <string name="settings_reset_app_confirm">Видаляє список спостереження, сигнали, портфель, налаштування й усі збережені дані, як після встановлення. Скасувати не можна. Порада: спершу створіть резервну копію. Резервні копії пристрою (Google або iCloud/комп’ютер) зберігають попередні дані до наступного резервного копіювання.</string>
     <string name="settings_reset_app_title">Скинути застосунок?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

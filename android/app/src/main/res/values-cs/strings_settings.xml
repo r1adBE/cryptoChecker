@@ -205,7 +205,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Obnovit aplikaci</string>
     <string name="settings_reset_app_action">Smazat vše</string>
-    <string name="settings_reset_app_confirm">Smaže sledovaný seznam, alarmy, portfolio, nastavení a všechna uložená data jako po instalaci. Nelze vrátit zpět. Tip: nejdříve si vytvořte zálohu.</string>
+    <string name="settings_reset_app_confirm">Smaže sledovaný seznam, alarmy, portfolio, nastavení a všechna uložená data jako po instalaci. Nelze vrátit zpět. Tip: nejdříve si vytvořte zálohu. Zálohy zařízení (záloha Google nebo záloha na iCloud či do počítače) uchovávají předchozí data až do příští zálohy.</string>
     <string name="settings_reset_app_title">Obnovit aplikaci?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

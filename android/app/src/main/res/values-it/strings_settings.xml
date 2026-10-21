@@ -204,7 +204,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Reimposta app</string>
     <string name="settings_reset_app_action">Elimina tutto</string>
-    <string name="settings_reset_app_confirm">Elimina lista, allarmi, portafoglio, impostazioni e tutti i dati salvati, come dopo l’installazione. Non si può annullare. Consiglio: crea prima un backup.</string>
+    <string name="settings_reset_app_confirm">Elimina lista, allarmi, portafoglio, impostazioni e tutti i dati salvati, come dopo l’installazione. Non si può annullare. Consiglio: crea prima un backup. I backup del dispositivo (backup Google o backup iCloud/computer) conservano i dati precedenti fino al backup successivo.</string>
     <string name="settings_reset_app_title">Reimpostare l’app?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

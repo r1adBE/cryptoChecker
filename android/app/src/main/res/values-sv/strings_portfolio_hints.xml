@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokens delvis inaktuella</string>
     <string name="portfolio_address_restore_failed">Adressen kunde inte återställas – lägg till den igen vid behov</string>
+    <string name="portfolio_address_remove_failed">Adressen kunde inte tas bort – försök igen</string>
 </resources>

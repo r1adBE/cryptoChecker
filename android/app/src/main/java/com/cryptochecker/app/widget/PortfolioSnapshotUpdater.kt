@@ -74,19 +74,31 @@ class PortfolioSnapshotUpdater @Inject constructor(
      * scharfen Portfolio-Alarm (der wird nach jeder Aufnahme geprüft, siehe [record]).
      */
     suspend fun refreshIfWidgets() {
-        if (widgetUpdater.portfolioWidgetIds().isEmpty() && !hasActiveAlarms()) return
+        if (!shouldRefresh(widgetUpdater.portfolioWidgetIds().isNotEmpty(), activeAlarms())) return
         refresh()
     }
 
     /** Portfolio-Widgets ohne neue Aufnahme neu zeichnen (z. B. «Beträge verbergen» umgeschaltet). */
     suspend fun redrawWidgets() = widgetUpdater.updatePortfolio(widgetUpdater.portfolioWidgetIds())
 
-    private suspend fun hasActiveAlarms(): Boolean = try {
+    /** Scharfe Portfolio-Alarme? null = gerade nicht lesbar (z. B. Datenbank kurz gesperrt). */
+    private suspend fun activeAlarms(): Boolean? = try {
         alarmChecker.hasActiveAlarms()
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {
-        false
+        Timber.w(e, "Portfolio-Alarme nicht lesbar – Aktualisierung läuft trotzdem")
+        null
+    }
+
+    companion object {
+        /**
+         * Hintergrund-Aktualisierung nötig? Mit Portfolio-Widget immer; sonst nur mit scharfem Portfolio-Alarm. Nicht
+         * lesbar ([activeAlarms] null) zählt als «vielleicht scharf»: lieber einmal zu viel aktualisieren, als einen
+         * Alarm auszulassen — [refresh] kommt selbst mit gesperrtem Speicher zurecht (seit Build 97, vorher «keine Alarme»).
+         */
+        internal fun shouldRefresh(hasPortfolioWidget: Boolean, activeAlarms: Boolean?): Boolean =
+            hasPortfolioWidget || activeAlarms != false
     }
 
     /**

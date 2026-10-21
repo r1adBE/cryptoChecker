@@ -15,6 +15,16 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 97)
+
+* Removing a watched address that cannot be saved now shows a message instead of doing nothing.
+* Background refresh: if the alert storage cannot be read for a moment, portfolio alerts are still checked instead of being treated as «no alerts» (Android).
+* Corrupted settings: after they had to be reset to defaults, the app says so once and asks to check the portfolio lock, alert interval and currency (Android and iOS; iOS now also replaces the unreadable settings file like Android).
+* «Reset app» mentions that device backups (Google, iCloud or computer) keep the previous data until the next backup runs.
+* Other apps can no longer open the portfolio or other personal screens directly; notifications and widgets of the app carry a per-install token. Copied token addresses are marked sensitive (Android) and expire after 60 seconds, device only (iOS).
+* Network fees: shared test cases for both platforms; a single unreadable fee entry is skipped instead of discarding the whole history, and signed hex values are rejected (Android and iOS alike).
+* Store guides point to build 97; rollback notes explain that only a new build can replace a release.
+
 ## 16.2.2 (build 96)
 
 * USDT depeg check: a price whose exchange time is more than 2 hours old no longer counts as a measurement (same rule as price alerts) – no depeg alert and no USDT rate in the portfolio from a stale last trade; shared test cases on both platforms.

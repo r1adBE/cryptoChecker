@@ -72,6 +72,8 @@
     <string name="storage_recovery_acknowledge">Rozumím</string>
     <string name="storage_recovery_restored_title">Uložená data jsou opět odemčena</string>
     <string name="storage_recovery_restored_message">Dřívější klíč tohoto zařízení odložená data znovu otevřel, takže jsou zpět. Co se mezitím uložilo, zůstalo beze změny vedle nich.</string>
+    <string name="settings_reset_notice_title">Nastavení bylo obnoveno</string>
+    <string name="settings_reset_notice">Nastavení se nepodařilo načíst a bylo obnoveno na výchozí hodnoty. Zkontrolujte prosím zámek portfolia, interval alarmů a měnu.</string>
     <string name="backup_restore_interrupted_title">Obnovení bylo přerušeno</string>
     <string name="backup_restore_interrupted_rolled_back">Aplikace byla ukončena během obnovy zálohy. Předchozí data byla vrácena; ze zálohy se nic nepřevzalo.</string>
     <string name="backup_restore_interrupted_incomplete">Aplikace byla ukončena během obnovy zálohy a předchozí data se nepodařilo vrátit úplně. Zkontroluj prosím sledované a portfolio, nebo zálohu obnov znovu v Nastavení pod „%1$s“.</string>

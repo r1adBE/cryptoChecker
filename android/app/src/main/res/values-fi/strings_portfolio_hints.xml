@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokenit osin vanhentuneita</string>
     <string name="portfolio_address_restore_failed">Osoitetta ei voitu palauttaa – lisää se tarvittaessa uudelleen</string>
+    <string name="portfolio_address_remove_failed">Osoitetta ei voitu poistaa – yritä uudelleen</string>
 </resources>

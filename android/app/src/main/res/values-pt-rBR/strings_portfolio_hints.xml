@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokens parcialmente desatualizados</string>
     <string name="portfolio_address_restore_failed">Não foi possível restaurar o endereço – adicione-o de novo se precisar</string>
+    <string name="portfolio_address_remove_failed">Não foi possível remover o endereço – tente novamente</string>
 </resources>

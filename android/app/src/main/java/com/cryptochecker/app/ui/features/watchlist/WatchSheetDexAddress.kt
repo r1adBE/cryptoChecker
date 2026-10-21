@@ -6,6 +6,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Build
+import android.os.PersistableBundle
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.MaterialTheme
@@ -56,7 +57,15 @@ internal fun dexSpokenTail(address: String): String = address.trim().takeLast(4)
 
 private fun copyAddress(context: Context, label: String, address: String, copiedText: String) {
     val clipboard = context.getSystemService(ClipboardManager::class.java) ?: return
-    clipboard.setPrimaryClip(ClipData.newPlainText(label, address))
+    val clip = ClipData.newPlainText(label, address).apply {
+        // Als vertraulich markiert (seit Build 97): Android 13+ zeigt die Adresse dann nicht in der Vorschau der
+        // Kopier-Bestätigung; ältere Versionen übergehen das Extra
+        description.extras = PersistableBundle().apply { putBoolean(EXTRA_IS_SENSITIVE, true) }
+    }
+    clipboard.setPrimaryClip(clip)
     // Ab Android 13 bestätigt das System das Kopieren selbst (sichtbar und für TalkBack); darunter sonst nichts
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) Toast.makeText(context, copiedText, Toast.LENGTH_SHORT).show()
 }
+
+/** Wie `ClipDescription.EXTRA_IS_SENSITIVE` (API 33) — als Text, damit es auch mit älterem minSdk übersetzt. */
+private const val EXTRA_IS_SENSITIVE = "android.content.extra.IS_SENSITIVE"

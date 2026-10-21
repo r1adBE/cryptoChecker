@@ -178,11 +178,12 @@ class MainActivity : AppCompatActivity() {
     /**
      * Ziel eines Aufrufs: [EXTRA_OPEN] (Verknüpfung, Ziel-Mitteilung) oder das Paar aus
      * [EXTRA_WATCH_ID] (Kurs-/Alarm-Mitteilung, Zeile im Listen-Widget) → [openWatchTarget].
-     * Aus «Zuletzt verwendet» neu gestartet: kein Ziel (der alte Tipp gilt nicht noch einmal).
+     * Aus «Zuletzt verwendet» neu gestartet: kein Ziel (der alte Tipp gilt nicht noch einmal). [EXTRA_OPEN] von einer
+     * fremden App (ohne Geheimnis, [OpenTargetGuard]) gilt nur für die Ziele der App-Verknüpfungen — seit Build 97.
      */
     private fun targetOf(intent: Intent): String? {
         if ((intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0) return null
-        intent.getStringExtra(EXTRA_OPEN)?.let { return it }
+        intent.getStringExtra(EXTRA_OPEN)?.let { return OpenTargetGuard.acceptedTarget(this, intent, it) }
         val watchId = intent.getLongExtra(EXTRA_WATCH_ID, NO_WATCH)
         return if (watchId > 0) openWatchTarget(watchId) else null
     }
@@ -211,7 +212,10 @@ class MainActivity : AppCompatActivity() {
         /** Längstens so lange wartet das erste Bild auf die Einstellungen (K-6). */
         private const val FIRST_FRAME_WAIT_MILLIS = 1_500L
 
-        /** Von den App-Verknüpfungen gesetzt (res/xml/shortcuts.xml). */
+        /**
+         * Von den App-Verknüpfungen (res/xml/shortcuts.xml), Mitteilungen und Widgets gesetzt; eigene Intents tragen dazu
+         * das Geheimnis ([withOpenToken], [OpenTargetGuard]).
+         */
         const val EXTRA_OPEN = "open"
 
         /**

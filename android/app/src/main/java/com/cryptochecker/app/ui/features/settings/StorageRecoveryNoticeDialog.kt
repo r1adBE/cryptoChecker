@@ -28,6 +28,7 @@ import kotlinx.coroutines.withContext
  *    er beim nächsten Start wieder.
  *  - «Wieder entsperrt», «Wiederherstellen abgebrochen» bzw. «Portfolio nicht aus der Systemsicherung übernommen» (nur
  *    Android): einmal, mit «Schliessen».
+ *  - «Einstellungen zurückgesetzt» (seit Build 97): erst mit «Schliessen» erledigt — bis dahin auch nach einem Neustart.
  */
 @Composable
 internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
@@ -41,8 +42,9 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
         if (shown != null) return@LaunchedEffect
         val next = withContext(Dispatchers.IO) {
             StorageRecoveryNotice.pending(context)?.also { kind ->
-                // Einmalige Hinweise gleich als gesehen merken; «nicht entsperrt» erst mit «Verstanden»
-                if (kind != Kind.SET_ASIDE) StorageRecoveryNotice.acknowledge(context, kind)
+                // Einmalige Hinweise gleich als gesehen merken; «nicht entsperrt» erst mit «Verstanden», «Einstellungen
+                // zurückgesetzt» erst beim Schliessen (der Nutzer soll die Sperre sicher prüfen können)
+                if (kind != Kind.SET_ASIDE && kind != Kind.SETTINGS_RESET) StorageRecoveryNotice.acknowledge(context, kind)
             }
         }
         shown = next
@@ -53,7 +55,22 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
         shown = null
         scope.launch { withContext(Dispatchers.IO) { StorageRecoveryNotice.acknowledge(context, kind) } }
     }
+    fun closeSettingsReset() {
+        // Erst nach dem Löschen ausblenden: sonst fände die Prüfung oben den Hinweis gleich wieder
+        scope.launch {
+            withContext(Dispatchers.IO) { StorageRecoveryNotice.acknowledge(context, Kind.SETTINGS_RESET) }
+            shown = null
+        }
+    }
     when (val kind = shown) {
+        Kind.SETTINGS_RESET -> AlertDialog(
+            onDismissRequest = { closeSettingsReset() },
+            title = { Text(stringResource(R.string.settings_reset_notice_title)) },
+            text = { Text(stringResource(R.string.settings_reset_notice)) },
+            confirmButton = {
+                TextButton(onClick = { closeSettingsReset() }) { Text(stringResource(R.string.action_close)) }
+            },
+        )
         Kind.SET_ASIDE -> AlertDialog(
             onDismissRequest = {
                 shown = null

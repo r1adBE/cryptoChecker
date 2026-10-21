@@ -200,7 +200,13 @@ internal fun PortfolioAddressSheet(
     /** Entfernen, dann «Rückgängig» im Banner (holt die ganze Adresse samt Posten und Verlauf zurück); gesperrt: Hinweis. */
     fun remove(target: WatchedAddress) {
         val lockedText = resources.getString(R.string.portfolio_storage_locked)
-        viewModel.removeWatchedAddress(target.id, onLocked = { banner.show(lockedText) }) { row ->
+        val failedText = resources.getString(R.string.portfolio_address_remove_failed)
+        viewModel.removeWatchedAddress(
+            target.id,
+            onLocked = { banner.show(lockedText) },
+            // Nicht geschrieben: nennen statt still nichts zu tun (seit Build 97)
+            onFailed = { banner.show(failedText) },
+        ) { row ->
             val name = target.label ?: WatchedAddressRules.shortAddress(target.address)
             banner.show(resources.getString(R.string.watchlist_removed, name)) {
                 // Nicht zurückgeholt: Grund nennen statt still nichts zu tun

@@ -204,7 +204,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Resetează aplicația</string>
     <string name="settings_reset_app_action">Șterge tot</string>
-    <string name="settings_reset_app_confirm">Șterge lista, alarmele, portofoliul, setările și toate datele salvate, ca după instalare. Nu poate fi anulat. Sfat: fă mai întâi o copie de rezervă.</string>
+    <string name="settings_reset_app_confirm">Șterge lista, alarmele, portofoliul, setările și toate datele salvate, ca după instalare. Nu poate fi anulat. Sfat: fă mai întâi o copie de rezervă. Copiile de rezervă ale dispozitivului (copie Google sau copie iCloud/computer) păstrează datele anterioare până la următoarea copie de rezervă.</string>
     <string name="settings_reset_app_title">Resetezi aplicația?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

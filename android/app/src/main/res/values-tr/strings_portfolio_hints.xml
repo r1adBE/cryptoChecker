@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokenler kısmen güncel değil</string>
     <string name="portfolio_address_restore_failed">Adres geri alınamadı – gerekirse yeniden ekleyin</string>
+    <string name="portfolio_address_remove_failed">Adres kaldırılamadı – lütfen tekrar deneyin</string>
 </resources>

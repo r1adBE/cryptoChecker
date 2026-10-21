@@ -176,6 +176,9 @@ final class AppData: ObservableObject {
         settings = loadedSettings.settings
         settingsAccessible = loadedSettings.state != .inaccessible
         if loadedSettings.state == .missing { SharedStorage.markSettingsReadable() }
+        // Unlesbare Einstellungen (seit Build 97): einmal melden und gleich durch die Standardwerte ersetzen wie Android —
+        // sonst meldete jeder Start dieselben unlesbaren Daten erneut
+        if loadedSettings.corrupt { AppData.settingsWereReset(loadedSettings.settings) }
         let loaded = PortfolioStore.loadChecked()
         portfolioFile = loaded.file
         portfolioIntact = loaded.intact
@@ -242,6 +245,12 @@ final class AppData: ObservableObject {
         SharedStorage.loadSettingsChecked(protectedDataAvailable: UIApplication.shared.isProtectedDataAvailable)
     }
 
+    /// Einstellungen waren unlesbar: Standardwerte speichern und den Hinweis vormerken (`StorageRecoveryNotice.settingsReset`).
+    private static func settingsWereReset(_ standard: AppSettings) {
+        StorageRecoveryNotice.recordSettingsReset()
+        SharedStorage.saveSettings(standard)
+    }
+
     /// Portfolio-Sperre wirksam: eingeschaltet — oder unbekannt, solange die Einstellungen nicht zugänglich sind.
     var appLockEffective: Bool { !settingsAccessible || settings.appLock }
 
@@ -254,6 +263,7 @@ final class AppData: ObservableObject {
         let loaded = AppData.readSettings()
         guard loaded.state != .inaccessible else { return }
         if loaded.state == .missing { SharedStorage.markSettingsReadable() }
+        if loaded.corrupt { AppData.settingsWereReset(loaded.settings) }
         settingsAccessible = true
         // didSet: speichert denselben Stand und wendet die Folgen der Unterschiede an
         settings = portfolioRecovered(loaded.settings, state: loaded.state)

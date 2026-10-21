@@ -18,8 +18,10 @@ enum RemoveWatchedResult: Equatable {
     case removed(WatchedAddress)
     /// Gespeichertes Portfolio gerade nicht lesbar (`PortfolioStorageLock`): nichts entfernt.
     case locked
-    /// Nicht (mehr) da oder nicht geschrieben.
+    /// Nicht geschrieben (Datei nicht beschreibbar) — die Oberfläche nennt es (seit Build 97, wie Android `onFailed`).
     case failed
+    /// Nicht (mehr) da, z. B. schon entfernt: nichts zu melden.
+    case notFound
 }
 
 /// Beobachtete Adressen (nur lesen; Guthaben = Bestand) — wie die Adress-Funktionen in
@@ -69,7 +71,7 @@ extension AppData {
     func removeWatchedAddress(_ id: Int64) -> RemoveWatchedResult {
         guard !portfolioStorageLocked else { return .locked }
         var file = currentWatchedAddressFile()
-        guard let removed = file.addresses.first(where: { $0.id == id }) else { return .failed }
+        guard let removed = file.addresses.first(where: { $0.id == id }) else { return .notFound }
         WatchedAddressStore.remove(id: id, from: &file)
         return setWatchedAddressFile(file) ? .removed(removed) : .failed
     }

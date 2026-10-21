@@ -72,6 +72,8 @@
     <string name="storage_recovery_acknowledge">Зрозуміло</string>
     <string name="storage_recovery_restored_title">Збережені дані знову розблоковано</string>
     <string name="storage_recovery_restored_message">Попередній ключ цього пристрою знову відкрив відкладені дані, тож вони повернулися. Збережене за цей час залишилося без змін поруч.</string>
+    <string name="settings_reset_notice_title">Налаштування скинуто</string>
+    <string name="settings_reset_notice">Не вдалося прочитати налаштування, тому їх скинуто до типових значень. Перевірте блокування портфеля, інтервал сигналів і валюту.</string>
     <string name="backup_restore_interrupted_title">Відновлення перервано</string>
     <string name="backup_restore_interrupted_rolled_back">Застосунок закрився під час відновлення з копії. Попередні дані повернуто; з копії нічого не збережено.</string>
     <string name="backup_restore_interrupted_incomplete">Застосунок закрився під час відновлення з копії, і попередні дані не вдалося повернути повністю. Перевірте список відстеження та портфель або знову відновіть копію в розділі «%1$s» у налаштуваннях.</string>

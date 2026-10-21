@@ -204,7 +204,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Réinitialiser l’app</string>
     <string name="settings_reset_app_action">Tout supprimer</string>
-    <string name="settings_reset_app_confirm">Supprime liste de suivi, alertes, portefeuille, réglages et toutes les données enregistrées, comme après l’installation. Action irréversible. Conseil : faites d’abord une sauvegarde.</string>
+    <string name="settings_reset_app_confirm">Supprime liste de suivi, alertes, portefeuille, réglages et toutes les données enregistrées, comme après l’installation. Action irréversible. Conseil : faites d’abord une sauvegarde. Les sauvegardes de l’appareil (sauvegarde Google ou sauvegarde iCloud/ordinateur) conservent les anciennes données jusqu’à la prochaine sauvegarde.</string>
     <string name="settings_reset_app_title">Réinitialiser l’app ?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

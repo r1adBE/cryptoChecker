@@ -152,14 +152,13 @@ enum GasFees {
         var clean = hex.lowercased()
         if clean.hasPrefix("0x") { clean.removeFirst(2) }
         if clean.isEmpty { return 0 }
+        // Nur ASCII-Hexziffern ohne Vorzeichen: UInt64(radix:) nähme «+», hexDigitValue Vollbreiten-Ziffern (wie Android)
+        guard clean.utf8.allSatisfy({ (48...57).contains($0) || (97...102).contains($0) }) else {
+            throw JSONError(message: "Kein Hex: \(hex)")
+        }
         // Bis 16 Hex-Stellen passen in UInt64; längere Werte über Double.
         if clean.count <= 16, let v = UInt64(clean, radix: 16) { return Double(v) / 1e9 }
-        var value = 0.0
-        for ch in clean {
-            guard let d = ch.hexDigitValue else { throw JSONError(message: "Kein Hex: \(hex)") }
-            value = value * 16 + Double(d)
-        }
-        return value / 1e9
+        return clean.reduce(0.0) { $0 * 16 + Double($1.hexDigitValue ?? 0) } / 1e9
     }
 
     /// «0.012», «1.4», «23» — so kurz wie möglich, aber nie «0». In den Ziffern von `locale`

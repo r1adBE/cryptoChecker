@@ -203,7 +203,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">بازنشانی برنامه</string>
     <string name="settings_reset_app_action">حذف همه</string>
-    <string name="settings_reset_app_confirm">فهرست پیگیری، هشدارها، پرتفوی، تنظیمات و همه داده‌های ذخیره‌شده را مانند پس از نصب پاک می‌کند. قابل بازگشت نیست. نکته: ابتدا پشتیبان بگیرید.</string>
+    <string name="settings_reset_app_confirm">فهرست پیگیری، هشدارها، پرتفوی، تنظیمات و همه داده‌های ذخیره‌شده را مانند پس از نصب پاک می‌کند. قابل بازگشت نیست. نکته: ابتدا پشتیبان بگیرید. پشتیبان‌های دستگاه (پشتیبان Google یا پشتیبان iCloud/رایانه) داده‌های قبلی را تا پشتیبان‌گیری بعدی نگه می‌دارند.</string>
     <string name="settings_reset_app_title">برنامه بازنشانی شود؟</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

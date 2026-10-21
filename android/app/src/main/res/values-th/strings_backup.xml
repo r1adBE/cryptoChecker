@@ -63,6 +63,8 @@
     <string name="storage_recovery_acknowledge">เข้าใจแล้ว</string>
     <string name="storage_recovery_restored_title">ปลดล็อกข้อมูลที่บันทึกไว้ได้อีกครั้ง</string>
     <string name="storage_recovery_restored_message">คีย์เดิมของอุปกรณ์นี้เปิดข้อมูลที่แยกเก็บไว้ได้อีกครั้ง ข้อมูลจึงกลับมาแล้ว ส่วนข้อมูลที่บันทึกระหว่างนั้นยังเก็บไว้ข้าง ๆ โดยไม่เปลี่ยนแปลง</string>
+    <string name="settings_reset_notice_title">รีเซ็ตการตั้งค่าแล้ว</string>
+    <string name="settings_reset_notice">อ่านการตั้งค่าไม่ได้ จึงรีเซ็ตเป็นค่าเริ่มต้น โปรดตรวจสอบล็อกพอร์ตโฟลิโอ ช่วงเวลาของสัญญาณเตือน และสกุลเงิน</string>
     <string name="backup_restore_interrupted_title">การกู้คืนถูกขัดจังหวะ</string>
     <string name="backup_restore_interrupted_rolled_back">แอปถูกปิดระหว่างกู้คืนข้อมูลสำรอง ข้อมูลเดิมของคุณถูกนำกลับมาแล้ว และไม่ได้เก็บสิ่งใดจากข้อมูลสำรองไว้</string>
     <string name="backup_restore_interrupted_incomplete">แอปถูกปิดระหว่างกู้คืนข้อมูลสำรอง และนำข้อมูลเดิมกลับมาได้ไม่ครบ โปรดตรวจสอบรายการเฝ้าดูและพอร์ตโฟลิโอ หรือกู้คืนข้อมูลสำรองอีกครั้งที่ “%1$s” ในการตั้งค่า</string>
