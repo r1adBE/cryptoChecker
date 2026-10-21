@@ -44,7 +44,7 @@
   "priceColorsInverted": true,
   "alarmSignal": "SILENT",
   "quietHoursEnabled": true,
-  "quietHoursStart": 1380,
+  "quietHoursStart": 1320,
   "quietHoursEnd": 360,
   "appLock": true,
   "hidePortfolioAmounts": true,

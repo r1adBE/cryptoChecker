@@ -108,10 +108,13 @@ class NotificationBudgetTest {
         assertTrue(NotificationBudget.confirmedPost(mapOf(7 to start + 40L), 7, start))
     }
 
-    /** Seit Build 102: 48 offene Alarm-Meldungen — der neue Alarm verdrängt die älteste statt endlos still zu scheitern. */
+    /**
+     * Seit Build 102: 48 offene Mitteilungen (47 Alarme + Zusammenfassung) — der neue Alarm verdrängt die älteste statt
+     * endlos still zu scheitern.
+     */
     @Test
     fun `bei 48 offenen Alarmen weicht die aelteste Alarm-Meldung`() {
-        val alarms = (1..48).toList() // älteste zuerst
+        val alarms = (1..47).toList() // älteste zuerst
         val need = NotificationBudget.neededForAlarm(alarms.size + 1, alarmShown = false, summaryShown = true)
         val room = NotificationBudget.roomForAlarm(need, prices = 0, overflowShown = false)
         assertEquals(1, room.remaining)

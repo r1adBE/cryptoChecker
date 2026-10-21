@@ -120,7 +120,7 @@ class LabelValueUsageTest {
             "domain/diagnostics/DiagnosticReport.kt" to listOf("\${it.row.code}: "),
             "Services/DiagnosticReport.swift" to listOf("\\(item.row.rawValue): "),
             // Prüfprotokoll der Datenbank-Umstellung (Diagnose, deutsch)
-            "data/local/DatabaseEncryptionMigration.kt" to listOf("\$table: "),
+            "data/local/DatabaseFingerprintDiff.kt" to listOf("\$table: "),
             // Orientierungsposten auch in der CSV-Ausgabe: Format der Vorlage, nicht der Oberfläche
             "domain/portfolio/TaxSummaryTexts.kt" to listOf("\$fallback: \$label"),
             "Portfolio/Tax/TaxSummaryTexts.swift" to listOf("\\(fallback): \\(label)"),
