@@ -149,22 +149,22 @@ enum AlarmTexts {
 
     /// Prozent nach Sprache: «5%» (en), «5 %» (de), höchstens zwei Nachkommastellen. Seit Build 96 über `PercentText`
     /// statt `NumberFormatter.percent`, damit iOS und Android trotz unterschiedlicher ICU-Stände gleich schreiben
-    /// (wie `AlarmSentence.percent`).
+    /// (wie `AlarmSentence.percent`) — mit Tausendertrennung wie dort («1,000%»; Open-Interest-Schwellen bis 1000 %).
     static func percent(_ value: Double, locale: Locale = LocaleNumbers.appLocale) -> String {
-        PercentText.unsigned(value, decimals: 2, minDecimals: 0, locale: locale)
+        PercentText.unsigned(value, decimals: 2, minDecimals: 0, locale: locale, grouping: true)
     }
 
     /// Funding Rate: «0,05 %», «−0,0125 %» — bis vier Nachkommastellen, echtes Minus (U+2212) vor dem Ganzen; gerundet 0
     /// ohne Vorzeichen, nie «−0 %» (wie `AlarmSentence.fundingPercent`).
     static func fundingPercent(_ value: Double, locale: Locale = LocaleNumbers.appLocale) -> String {
         // positive Funding ohne «+» (wie bisher), nur das Minus
-        let text = PercentText.signed(value, decimals: 4, minDecimals: 0, locale: locale)
+        let text = PercentText.signed(value, decimals: 4, minDecimals: 0, locale: locale, grouping: true)
         return text.hasPrefix("+") ? String(text.dropFirst()) : text
     }
 
     /// Veränderung mit Vorzeichen und einer Nachkommastelle: «+12,3 %», «−4 %» (echtes Minus U+2212).
     static func signedPercent(_ value: Double, locale: Locale = LocaleNumbers.appLocale) -> String {
-        PercentText.signed(value, decimals: 1, minDecimals: 0, locale: locale)
+        PercentText.signed(value, decimals: 1, minDecimals: 0, locale: locale, grouping: true)
     }
 
     /// Gemessener Wert in der Mitteilung eines Funding- bzw. Open-Interest-Alarms:
@@ -173,8 +173,6 @@ enum AlarmTexts {
         condition.isFunding ? fundingPercent(value) : signedPercent(value)
     }
 
-    /// Faktor ohne überflüssige Nachkommastellen: 3 → "3", 4.25 → "4.3" — in den Ziffern der
-    /// App-Sprache (wie Android `AlarmTexts.factor`).
     /// Teile mit « · » an `body` hängen; leere fallen weg — wie Android `AlarmTextNote.join`.
     static func join(_ body: String, _ parts: [String?]) -> String {
         ([body] + parts.compactMap { $0 }.filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty })

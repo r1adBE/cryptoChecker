@@ -67,15 +67,19 @@ object PercentText {
      * Betrag von [value] mit genau [decimals] Nachkommastellen (kaufmännisch gerundet, Ziffern und Dezimalzeichen
      * der Sprache, ohne Tausendertrennung) und Prozentzeichen — ohne Vorzeichen. Mit [minDecimals] unter
      * [decimals] fallen Nullen am Ende weg («5%», «2.5%», «0.0125%»; seit Build 96 für Schwellen und Alarm-Sätze,
-     * die vorher `getPercentInstance` nutzten).
+     * die vorher `getPercentInstance` nutzten). Mit [grouping] mit Tausendertrennung («1,000%», Deutsch «1.000 %») —
+     * für Alarm-Sätze, deren Schwellen bis 1000 % gehen (Open Interest); sonst ohne, wie bisher.
      */
     fun unsigned(
         value: Double,
         decimals: Int,
         locale: Locale = LocaleNumbers.appLocale,
         minDecimals: Int = decimals,
+        grouping: Boolean = false,
     ): String = wrap(
-        LocaleNumbers.decimal(DecimalText.rounded(abs(value), decimals), decimals, minDecimals, locale = locale),
+        LocaleNumbers.decimal(
+            DecimalText.rounded(abs(value), decimals), decimals, minDecimals, locale = locale, grouping = grouping,
+        ),
         locale,
     )
 
@@ -88,6 +92,7 @@ object PercentText {
         decimals: Int,
         locale: Locale = LocaleNumbers.appLocale,
         minDecimals: Int = decimals,
+        grouping: Boolean = false,
     ): String {
         val rounded = DecimalText.rounded(abs(value), decimals)
         val sign = when {
@@ -95,6 +100,6 @@ object PercentText {
             value > 0 -> "+"
             else -> "−"
         }
-        return sign + unsigned(value, decimals, locale, minDecimals)
+        return sign + unsigned(value, decimals, locale, minDecimals, grouping)
     }
 }

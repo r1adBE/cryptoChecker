@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.alarm.AlarmSentence.Kind
+import com.cryptochecker.app.util.PercentText
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
@@ -51,6 +52,19 @@ class AlarmSentenceTest {
         assertEquals("+%12,3", AlarmSentence.signedPercent(12.34, Locale.forLanguageTag("tr-TR")))
         assertEquals("\u22124\u00A0%", AlarmSentence.signedPercent(-4.0, Locale.GERMANY))
         assertEquals("0%", AlarmSentence.signedPercent(0.04, Locale.US))
+    }
+
+    /** Open-Interest-Schwellen bis 1000 %: mit Tausendertrennung wie früher `getPercentInstance` («1,000%»). */
+    @Test
+    fun alarmProzentMitTausendertrennung() {
+        assertEquals("1,000%", AlarmSentence.percent(1000.0, Locale.US))
+        assertEquals("1.000\u00A0%", AlarmSentence.percent(1000.0, Locale.GERMANY))
+        assertEquals("%1.000", AlarmSentence.percent(1000.0, Locale.forLanguageTag("tr-TR")))
+        assertEquals("1,000%", parts(Kind.OI_UP, 1000.0, Locale.US)?.value)
+        assertEquals("+1,234.5%", AlarmSentence.signedPercent(1234.5, Locale.US))
+        assertEquals("\u22121.500\u00A0%", AlarmSentence.fundingPercent(-1500.0, Locale.GERMANY))
+        // ohne grouping (Standard) wie bisher ohne Trennung
+        assertEquals("1000%", PercentText.unsigned(1000.0, 2, Locale.US, minDecimals = 0))
     }
 
     @Test

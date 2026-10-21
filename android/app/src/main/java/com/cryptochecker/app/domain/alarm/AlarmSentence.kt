@@ -77,10 +77,11 @@ object AlarmSentence {
 
     /**
      * «5 %» bzw. «5%» je nach Sprache, höchstens zwei Nachkommastellen. Seit Build 96 über [PercentText] statt
-     * `getPercentInstance`, damit Android und iOS trotz unterschiedlicher ICU-Stände gleich schreiben.
+     * `getPercentInstance`, damit Android und iOS trotz unterschiedlicher ICU-Stände gleich schreiben — mit
+     * Tausendertrennung wie dort («1,000%»; Open-Interest-Schwellen gehen bis 1000 %).
      */
     fun percent(value: Double, locale: Locale = Locale.getDefault()): String =
-        PercentText.unsigned(value, 2, locale, minDecimals = 0)
+        PercentText.unsigned(value, 2, locale, minDecimals = 0, grouping = true)
 
     /**
      * Funding Rate: «0,05 %», «−0,0125 %» — bis vier Nachkommastellen (Funding ist klein), echtes Minus (U+2212)
@@ -88,11 +89,11 @@ object AlarmSentence {
      */
     fun fundingPercent(value: Double, locale: Locale = Locale.getDefault()): String =
         // positive Funding ohne «+» (wie bisher), nur das Minus
-        PercentText.signed(value, 4, locale, minDecimals = 0).removePrefix("+")
+        PercentText.signed(value, 4, locale, minDecimals = 0, grouping = true).removePrefix("+")
 
     /** Veränderung mit Vorzeichen und einer Nachkommastelle: «+12,3 %», «−4 %» (echtes Minus U+2212). */
     fun signedPercent(value: Double, locale: Locale = Locale.getDefault()): String =
-        PercentText.signed(value, 1, locale, minDecimals = 0)
+        PercentText.signed(value, 1, locale, minDecimals = 0, grouping = true)
 
     /**
      * Faktor ohne überflüssige Nachkommastellen: 3 → «3», 4.25 → «4.3» (wie AlarmTexts.factor),
