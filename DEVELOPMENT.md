@@ -2159,7 +2159,8 @@ after the encryption step.
   overflow, `notification_budget.json`), `ActivityDueOrder`, `AlarmSaveBuilder` + `WatchRepository.saveAlarmMerged`,
   per-key `MoveHistoryCore`/`MoveHistoryStore`, `AlarmLog.shouldPersist`. Portfolio: FR fee path, AT old holdings,
   18-digit banker's rounding, `PortfolioCoinDeletion` (fee refs), `PortfolioUnassignedFee`, xpub QUICK fallback when a
-  FULL scan would exceed `XpubScan.MAX_REQUESTS` with a cache (hint `portfolio_address_xpub_limited`),
+  FULL scan would exceed `XpubScan.MAX_REQUESTS` with a cache (hint `portfolio_address_xpub_limited`; a FULL that still
+  fails stamps `fullScan`, so it is retried after a day),
   `OwnCandleDataSource` bounded. iOS widgets: `WidgetRows`, `CoinLogoDecode`, `PerKeyDefaults`, async
   `reloadFromDisk`. UI: `NavigateOnce`, `RemovedBatch` + `UndoSlot.merge`, `LiveDispatcher` (own pool),
   `UserAgentInterceptor`, `LiveRules.tickTime`. Fixtures changed: `live_feed.json`, `exchange_okx.json`,

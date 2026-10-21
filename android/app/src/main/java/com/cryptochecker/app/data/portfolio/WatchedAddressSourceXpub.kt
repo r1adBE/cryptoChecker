@@ -56,6 +56,7 @@ internal suspend fun WatchedAddressSource.fetchXpub(a: WatchedAddress, deadline:
         }
         // Fällige vollständige Suche schon vorab durch die schnelle ersetzt (sicher zu gross)
         var limited = deadline == null && mode == XpubScan.Mode.QUICK && XpubScan.fullDue(cache, now)
+        var retried = false
         val deriver = XpubDeriver(a.address, script)
         val (scan, fetched) = try {
             scanXpub(deriver, cache, mode, deadline)
@@ -63,10 +64,17 @@ internal suspend fun WatchedAddressSource.fetchXpub(a: WatchedAddress, deadline:
             // Vollständige Suche doch zu gross: mit Zwischenspeicher einmal schnell (wirft sie auch TooMany: Fehler)
             if (mode != XpubScan.Mode.FULL || cache == null || cache.fullScan <= 0) throw e
             limited = true
+            retried = true
             scanXpub(deriver, cache, XpubScan.Mode.QUICK, deadline)
         }
         tried += script to scan.usedCount
-        results += if (limited) fetched.copy(xpub = fetched.xpub?.copy(limitedFallback = true)) else fetched
+        // Nach einer gescheiterten vollständigen Suche diese erst wieder nach einem Tag versuchen (fullScan = jetzt),
+        // sonst kostete jede Aktualisierung im Vordergrund erneut über MAX_REQUESTS Anfragen
+        results += if (limited) {
+            fetched.copy(xpub = fetched.xpub?.let { x -> x.copy(limitedFallback = true, fullScan = if (retried) now else x.fullScan) })
+        } else {
+            fetched
+        }
         scans += scan
         if (scan.usedCount > 0) break
     }

@@ -194,6 +194,7 @@ extension WatchedAddressSource {
             }
             // Fällige vollständige Suche schon vorab durch die schnelle ersetzt (sicher zu gross)
             var limited = deadline == nil && mode == .QUICK && XpubScan.fullDue(cache, now: now)
+            var retried = false
             guard let deriver = XpubDeriver(a.address, script: script) else {
                 throw AddressBalance.ParseError(message: "xpub ungültig")
             }
@@ -204,10 +205,13 @@ extension WatchedAddressSource {
                 // Vollständige Suche doch zu gross: mit Zwischenspeicher einmal schnell (wirft sie auch TooMany: Fehler)
                 guard mode == .FULL, let cache, cache.fullScan > 0 else { throw error }
                 limited = true
+                retried = true
                 scan = try await scanXpub(deriver, cache: cache, mode: .QUICK, deadline: deadline)
             }
             var fetched = scan.fetched
             if limited { fetched.xpub?.limitedFallback = true }
+            // Nach einer gescheiterten vollständigen Suche diese erst wieder nach einem Tag versuchen (wie Android)
+            if retried { fetched.xpub?.fullScan = now }
             tried.append((script: script, used: scan.used))
             results.append(fetched)
             keeps.append(XpubScan.keepBackground(complete: scan.complete, sats: scan.sats, lastBalance: a.lastBalance))

@@ -59,8 +59,9 @@ extension AppData {
     /// übernommen auf dem Haupt-Thread. Wird inzwischen im Speicher geändert, gilt der Speicher (einmal neu gelesen),
     /// wie beim Wechsel nach vorne. Das Lesen beim Start (`AppData.init`) bleibt bewusst synchron.
     func reloadFromDisk() async {
-        guard prepareDiskReload() else { return }
         for attempt in 0...1 {
+            // Vor jedem Lesen (auch dem zweiten): ausstehende Speicherungen nachholen, wie `reloadFromDiskInBackground`
+            guard prepareDiskReload() else { return }
             diskReloadSequence &+= 1
             let ticket = DiskReloadTicket(sequence: diskReloadSequence, generation: snapshotGeneration, reset: resetGeneration)
             let (read, keyAvailable) = await Self.readOffMain()
