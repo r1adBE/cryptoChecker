@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Portföljlarm pausade: tokensaldon för %1$s är delvis inaktuella</string>
     <string name="portfolio_alarms_paused_tokens_generic">Portföljlarm pausade: tokensaldon för bevakade adresser är delvis inaktuella</string>
+    <string name="portfolio_alarms_paused_unverified">Portföljlarm pausade: okontrollerad kurs för %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Portföljlarm pausade: kursen för vissa coins är okontrollerad</string>
     <string name="portfolio_alarms_address_failing">Portföljlarm kontrollerar utan %1$s: saldot har inte lästs in på över 24 timmar</string>
     <string name="portfolio_alarms_address_failing_generic">Portföljlarm kontrollerar utan adresser vars saldo inte har lästs in på över 24 timmar</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

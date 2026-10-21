@@ -1,25 +1,40 @@
 {
-  "description": "Binance ticker in the portfolio only for the same token (Android PortfolioPriceIdentity.kt / iOS PortfolioPriceIdentity.swift). binanceCheck(coin, knownName, binanceName): with a known name (watchlist) USE unless the names clearly differ (SKIP); without a known name USE only when Binance names the symbol and it is not a known collision (TokenIdentity.KNOWN with more than one group: LUNA, LUNC, TON, GMT, HOT, CAT, NVDA), otherwise UNCHECKED (no Binance price; without another price the coin shows as unchecked). binanceName maps symbol -> Binance fullName (missing = unknown).",
-  "binanceName": {"BTC": "Bitcoin", "TON": "Toncoin", "LUNA": "Terra", "GMT": "STEPN", "HOT": "Holo", "PEPE": "Pepe", "FET": "Artificial Superintelligence Alliance", "U": "United Stables"},
+  "description": "Binance ticker in the portfolio only for the same token (Android PortfolioPriceIdentity.kt / iOS PortfolioPriceIdentity.swift). binanceCheck(coin, knownName, binanceName, otherNames): with a known name (watchlist) USE unless the names clearly differ (SKIP); without a known name USE only when Binance names the symbol and it is not a known collision (TokenIdentity.KNOWN with more than one group: LUNA, LUNC, TON, GMT, HOT, CAT, NVDA), otherwise UNCHECKED (no Binance price; without another price the coin shows as unchecked). Since Build 101: without a known name, when Binance's name and the names of other stored pair lists (otherNames, one per exchange) clearly conflict (TokenIdentity.conflicting), UNVERIFIED = the Binance price is used but flagged 'price unverified' (row hint, portfolio alarms treat it like a stale price). binanceName maps symbol -> Binance fullName (missing = unknown); otherNames maps symbol -> names in other pair lists (missing = none). In the split, 'use' contains the UNVERIFIED coins as well.",
+  "binanceName": {"BTC": "Bitcoin", "ETH": "Ethereum", "TON": "Toncoin", "LUNA": "Terra", "GMT": "STEPN", "HOT": "Holo", "PEPE": "Pepe", "FET": "Artificial Superintelligence Alliance", "U": "United Stables", "BEAM": "Beam Gaming", "NEIRO": "First Neiro On Ethereum"},
+  "otherNames": {
+    "BTC": ["Bitcoin", "Bitcoin"],
+    "ETH": ["Ethereum", "Ether"],
+    "TON": ["Toncoin", "Tokamak Network"],
+    "BEAM": ["Beam Gaming", "MimbleWimble Coin"],
+    "NEIRO": ["First Neiro On Ethereum", "Neiro Classic"],
+    "NEWCOIN": ["New Coin", "Other Thing"]
+  },
   "checks": [
-    {"coin": "BTC", "knownName": null, "check": "USE"},
-    {"coin": "PEPE", "knownName": "Pepe", "check": "USE"},
-    {"coin": "FET", "knownName": null, "check": "USE"},
-    {"coin": "U", "knownName": null, "check": "USE"},
-    {"coin": "TON", "knownName": null, "check": "UNCHECKED"},
-    {"coin": "LUNA", "knownName": null, "check": "UNCHECKED"},
-    {"coin": "GMT", "knownName": null, "check": "UNCHECKED"},
-    {"coin": "HOT", "knownName": null, "check": "UNCHECKED"},
-    {"coin": "NEWCOIN", "knownName": null, "check": "UNCHECKED"},
-    {"coin": "TON", "knownName": "Toncoin", "check": "USE"},
-    {"coin": "TON", "knownName": "Tokamak Network", "check": "SKIP"},
-    {"coin": "LUNA", "knownName": "Terra Classic", "check": "SKIP"},
-    {"coin": "NEWCOIN", "knownName": "New Coin", "check": "USE"}
+    {"coin": "PEPE", "knownName": "Pepe", "check": "USE", "case": "named match"},
+    {"coin": "TON", "knownName": "Toncoin", "check": "USE", "case": "named match (other lists conflict, name wins)"},
+    {"coin": "BEAM", "knownName": "Beam Gaming", "check": "USE", "case": "named match on an ambiguous symbol"},
+    {"coin": "TON", "knownName": "Tokamak Network", "check": "SKIP", "case": "named mismatch"},
+    {"coin": "LUNA", "knownName": "Terra Classic", "check": "SKIP", "case": "named mismatch"},
+    {"coin": "BEAM", "knownName": "MimbleWimble Coin", "check": "SKIP", "case": "named mismatch on an ambiguous symbol"},
+    {"coin": "NEWCOIN", "knownName": "New Coin", "check": "USE", "case": "named, Binance without name"},
+    {"coin": "TON", "knownName": null, "check": "UNCHECKED", "case": "nameless + KNOWN group"},
+    {"coin": "LUNA", "knownName": null, "check": "UNCHECKED", "case": "nameless + KNOWN group"},
+    {"coin": "GMT", "knownName": null, "check": "UNCHECKED", "case": "nameless + KNOWN group"},
+    {"coin": "HOT", "knownName": null, "check": "UNCHECKED", "case": "nameless + KNOWN group"},
+    {"coin": "BTC", "knownName": null, "check": "USE", "case": "nameless + unambiguous symbol"},
+    {"coin": "ETH", "knownName": null, "check": "USE", "case": "nameless + unambiguous symbol (spelling differs only)"},
+    {"coin": "FET", "knownName": null, "check": "USE", "case": "nameless + unambiguous symbol (no other lists)"},
+    {"coin": "U", "knownName": null, "check": "USE", "case": "nameless + unambiguous symbol (no other lists)"},
+    {"coin": "BEAM", "knownName": null, "check": "UNVERIFIED", "case": "nameless + ambiguous symbol"},
+    {"coin": "NEIRO", "knownName": null, "check": "UNVERIFIED", "case": "nameless + ambiguous symbol (Classic only on one list)"},
+    {"coin": "NEWCOIN", "knownName": null, "check": "UNCHECKED", "case": "nameless + not in Binance's list (other lists conflict too)"},
+    {"coin": "ZZZ", "knownName": null, "check": "UNCHECKED", "case": "nameless + not in any list"}
   ],
   "split": {
-    "coins": ["BTC", "TON", "LUNA", "HOT", "NEWCOIN", "GMT"],
-    "knownNames": {"BTC": null, "TON": "Tokamak Network", "LUNA": "Terra 2.0", "HOT": null, "NEWCOIN": null},
-    "use": ["BTC", "LUNA"],
-    "unchecked": ["HOT", "NEWCOIN", "GMT"]
+    "coins": ["BTC", "TON", "LUNA", "HOT", "NEWCOIN", "GMT", "BEAM", "NEIRO", "ETH"],
+    "knownNames": {"BTC": null, "TON": "Tokamak Network", "LUNA": "Terra 2.0", "HOT": null, "NEWCOIN": null, "NEIRO": "First Neiro On Ethereum"},
+    "use": ["BTC", "LUNA", "BEAM", "NEIRO", "ETH"],
+    "unchecked": ["HOT", "NEWCOIN", "GMT"],
+    "unverified": ["BEAM"]
   }
 }

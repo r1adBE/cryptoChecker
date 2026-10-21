@@ -83,6 +83,9 @@ class PortfolioSnapshotStore @Inject constructor(
             addressesFailing = PortfolioSnapshotCodec.readCoins(p.text(KEY_ADDRESSES_FAILING_V10)),
             staleTokenAddresses = PortfolioSnapshotCodec.readCoins(p.text(KEY_STALE_TOKEN_ADDRESSES_V10)),
             staleTokenValueUsdt = p.number(KEY_STALE_TOKEN_VALUE_V10)?.coerceAtLeast(0.0) ?: 0.0,
+            // fehlen bei älteren Aufnahmen → leer/0
+            unverifiedCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_UNVERIFIED_COINS_V11)),
+            unverifiedValueUsdt = p.number(KEY_UNVERIFIED_VALUE_V11)?.coerceAtLeast(0.0) ?: 0.0,
         )
     }
 
@@ -262,6 +265,7 @@ class PortfolioSnapshotStore @Inject constructor(
         for ((key, coins) in listOf(
             KEY_MISSING_COINS_V9 to snapshot.missingCoins, KEY_STALE_COINS_V9 to snapshot.staleCoins,
             KEY_ADDRESSES_FAILING_V10 to snapshot.addressesFailing, KEY_STALE_TOKEN_ADDRESSES_V10 to snapshot.staleTokenAddresses,
+            KEY_UNVERIFIED_COINS_V11 to snapshot.unverifiedCoins,
         )) {
             val list = coins.filter { it.isNotBlank() }
             if (list.isNotEmpty()) payload.put(key, JSONArray().apply { list.forEach { put(it) } }.toString())
@@ -269,6 +273,7 @@ class PortfolioSnapshotStore @Inject constructor(
         payload.putNumber(KEY_STALE_VALUE_V9, snapshot.staleValueUsdt)
         if (snapshot.addressesPending > 0) payload.put(KEY_ADDRESSES_PENDING_V9, snapshot.addressesPending)
         if (snapshot.staleTokenValueUsdt > 0.0) payload.putNumber(KEY_STALE_TOKEN_VALUE_V10, snapshot.staleTokenValueUsdt)
+        if (snapshot.unverifiedValueUsdt > 0.0) payload.putNumber(KEY_UNVERIFIED_VALUE_V11, snapshot.unverifiedValueUsdt)
         writeSealed(payload)
     }
 
@@ -337,6 +342,8 @@ class PortfolioSnapshotStore @Inject constructor(
         const val KEY_ADDRESSES_FAILING_V10 = "addresses_failing_v10"
         const val KEY_STALE_TOKEN_ADDRESSES_V10 = "stale_token_addresses_v10"
         const val KEY_STALE_TOKEN_VALUE_V10 = "stale_token_value_v10"
+        const val KEY_UNVERIFIED_COINS_V11 = "unverified_coins_v11"
+        const val KEY_UNVERIFIED_VALUE_V11 = "unverified_value_v11"
         // Zuletzt bekannter Devisenkurs USD → Umrechnungswährung (Hintergrund und Widget ohne Netz)
         const val KEY_FX_CURRENCY = "fx_currency"
         const val KEY_FX_RATE = "fx_rate"

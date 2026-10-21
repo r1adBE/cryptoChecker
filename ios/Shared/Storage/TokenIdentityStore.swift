@@ -57,6 +57,15 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
         return currentLocked().binanceName(base)
     }
 
+    /// Namen des Kürzels `base` in allen gespeicherten Paarlisten (je Börse einer) — für «mehrere Token unter dem
+    /// Kürzel?» (`PortfolioPriceIdentity.ambiguous`). Leer = unbekannt. Wie Android.
+    func otherNames(_ base: String) -> [String?] {
+        lock.lock(); defer { lock.unlock() }
+        let key = TokenIdentity.key(base)
+        let names: [String] = currentLocked().markets.values.compactMap { $0[key] }
+        return names
+    }
+
     /// Namen aus einer frisch geladenen Paarliste; ohne Namen bleibt der bisherige Stand.
     func saveMarket(_ marketKey: String, names: [String: String]) {
         let cleaned = TokenIdentity.cleaned(names)

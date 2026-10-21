@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Portfólió-riasztások szüneteltetve: %1$s tokenegyenlegei részben elavultak</string>
     <string name="portfolio_alarms_paused_tokens_generic">Portfólió-riasztások szüneteltetve: a figyelt címek tokenegyenlegei részben elavultak</string>
+    <string name="portfolio_alarms_paused_unverified">Portfólió-riasztások szüneteltetve: ellenőrizetlen árfolyam ehhez: %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Portfólió-riasztások szüneteltetve: egyes coinok árfolyama ellenőrizetlen</string>
     <string name="portfolio_alarms_address_failing">A portfólió-riasztások %1$s nélkül ellenőriznek: az egyenleg több mint 24 órája nem töltődött be</string>
     <string name="portfolio_alarms_address_failing_generic">A portfólió-riasztások azon címek nélkül ellenőriznek, amelyek egyenlege több mint 24 órája nem töltődik be</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

@@ -15,6 +15,12 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 101)
+
+* Portfolio: a holding without a known coin name whose ticker stands for different tokens on other exchanges (e.g. BEAM, NEIRO-like symbols) no longer silently takes the Binance price as confirmed – the value is still shown, but marked «Price unchecked», and portfolio alerts treat it like an outdated price (they pause only if it makes up at least 1 % of the portfolio).
+* Alerts overview: own hint «Portfolio alerts paused: price unverified for …» when only such prices block the portfolio alerts.
+* Cut-off and tax exports and the portfolio value history no longer use an unverified price to confirm day-close prices of that ticker; affected coins are marked «unverified» as before for unchecked prices.
+
 ## 16.2.2 (build 100)
 
 * Haptics unified on Android and iOS: one catalog by event (selection, light tap, long press, success, warning, error, delete) and one wrapper per platform. Android now also confirms saving, backups, undo and copying, warns at limits and validation errors and marks failures and deletions like iOS. No vibration while scrolling, on price ticks, in widgets or in the background; the system haptics setting applies.

@@ -39,6 +39,13 @@ data class PortfolioPrices(
      * Coin → Basis. Die Zeile zeigt dann «≈ BTC-Kurs (gebrückt/verpackt)» — nie als eigener Kurs ausgegeben.
      */
     val viaBase: Map<String, String> = emptyMap(),
+    /**
+     * Coins MIT Binance-Kurs, dessen Token nicht bestätigt ist (seit Build 101): kein Name bekannt und unter dem Kürzel
+     * führen andere Listen klar verschiedene Token ([com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity.BinanceCheck.UNVERIFIED]).
+     * Sie zählen mit dem Kurs (stehen in [prices]); die Zeile nennt sie «Kurs ungeprüft», Portfolio-Alarme behandeln sie
+     * wie einen alten Kurs ([com.cryptochecker.app.domain.portfolio.PortfolioSnapshot.unverifiedCoins]).
+     */
+    val unverified: Set<String> = emptySet(),
 )
 
 /** Warum ein Coin keinen Kurs hat: [NO_PRICE] = keine Quelle führt ihn; [UNAVAILABLE] = Abfrage gerade gescheitert. */

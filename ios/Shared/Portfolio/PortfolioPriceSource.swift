@@ -38,6 +38,8 @@ enum PortfolioPriceSource {
     nonisolated(unsafe) static var cache: [String: (price: Double, at: Int64)] = [:]
     /// Coins ohne Kurs, weil nur ein ungeprüfter Kerzenkurs da war (kein Bezug vorhanden).
     nonisolated(unsafe) static var uncheckedCoins: Set<String> = []
+    /// Coins mit Binance-Kurs, dessen Token nicht bestätigt ist (`PortfolioPrices.unverified`).
+    nonisolated(unsafe) static var unverifiedCoins: Set<String> = []
     /// Coins ohne Kurs, weil die letzte Abfrage scheiterte (`PortfolioPriceIssue.unavailable`).
     nonisolated(unsafe) static var unavailableCoins: Set<String> = []
     /// Quellen der Kerzen-Kette (`CandleDataSource`) — Binance, Binance.US, Coinbase.
@@ -75,7 +77,8 @@ enum PortfolioPriceSource {
             }
             guard !toFetch.isEmpty else { return }
             // Binance-Ticker nur für denselben Token (Namen der Merkliste, K-8); ohne Namen nur bei eindeutigem
-            // Kürzel, sonst Merklisten-Paar/Kerzen und ohne anderen Kurs «ungeprüft»
+            // Kürzel, sonst Merklisten-Paar/Kerzen und ohne anderen Kurs «ungeprüft»; mehrdeutig laut anderen
+            // Paarlisten: Binance-Kurs, aber «Kurs ungeprüft»
             let identity = TokenIdentityStore.shared
             let watchNames = PortfolioPriceIdentity.watchNames(
                 toFetch,
@@ -85,9 +88,11 @@ enum PortfolioPriceSource {
                                                      disabled: $0.disabled)
                 })
             let split = PortfolioPriceIdentity.binanceSplit(toFetch, knownNames: watchNames,
-                                                            binanceName: { identity.binanceName($0) })
+                                                            binanceName: { identity.binanceName($0) },
+                                                            otherNames: { identity.otherNames($0) })
             let batch = await Self.binanceBatch(split.use)
             var fetched = batch.prices
+            let binanceUnverified = split.unverified.intersection(batch.prices.keys)
             // Nicht bei Binance: zuerst ein Merklisten-Paar an einer anderen Börse, dann die Kerze
             let notListed = toFetch.filter { fetched[$0] == nil }
             if !notListed.isEmpty {
@@ -142,7 +147,7 @@ enum PortfolioPriceSource {
             // Eingetragene Börse: deren Kurs gilt, sonst bleibt Binance (PortfolioExchangeRoute)
             fetched = await Self.applyRoutes(toFetch, fetched)
             Self.store(fetched, at: TimeUtils.nowMillis, unchecked: unchecked, rejected: rejected,
-                       requested: toFetch, unavailable: unavailable)
+                       requested: toFetch, unavailable: unavailable, unverified: binanceUnverified)
             // Letzten guten Stand merken (für ohne Netz und nach einem Neustart)
             if !fetched.isEmpty { Self.persist() }
         }
@@ -198,6 +203,7 @@ enum PortfolioPriceSource {
             if let f = failedOf[coin] { p.exchangeFailed[coin] = f }
             if let b = binanceOf[coin] { p.binance[coin] = b }
             if mixedCoins.contains(coin) { p.mixedExchange.insert(coin) }
+            if unverifiedCoins.contains(coin) { p.unverified.insert(coin) }
         }
     }
 
@@ -235,13 +241,20 @@ enum PortfolioPriceSource {
     /// Neue Kurse in den Zwischenspeicher; `unchecked` (nur ungeprüfte Kerze, sonst kein Kurs): kein Wert,
     /// Coin «ungeprüft»; `rejected` (Kerze passt nicht zum Bezug): nicht mehr «ungeprüft».
     /// `unavailable` (Abfrage gescheitert): unter den angefragten Coins ohne Kurs «nicht abrufbar», die übrigen nicht mehr.
+    /// `unverified` (Binance-Kurs mit unbestätigtem Token): «Kurs ungeprüft», solange keine eingetragene Börse gilt.
     private static func store(_ fetched: [String: Double], at time: Int64, unchecked: Set<String>, rejected: Set<String>,
-                              requested: [String] = [], unavailable: Set<String> = []) {
+                              requested: [String] = [], unavailable: Set<String> = [], unverified: Set<String> = []) {
         lock.lock(); defer { lock.unlock() }
         for (coin, price) in fetched {
             cache[coin] = (price: price, at: time)
             uncheckedCoins.remove(coin)
             unavailableCoins.remove(coin)
+            // Ungeprüft nur, solange der Kurs von Binance stammt (eine eingetragene Börse nennt ihren Token)
+            if unverified.contains(coin) && sourceOf[coin] == nil {
+                unverifiedCoins.insert(coin)
+            } else {
+                unverifiedCoins.remove(coin)
+            }
         }
         for coin in requested where fetched[coin] == nil {
             if unavailable.contains(coin) { unavailableCoins.insert(coin) } else { unavailableCoins.remove(coin) }
@@ -261,7 +274,8 @@ enum PortfolioPriceSource {
         let stored = loadStored()
         lock.lock()
         var checked = currentEntriesLocked()
-        for coin in uncheckedCoins { checked[coin] = nil }
+        // Auch kein Binance-Kurs mit ungeprüftem Token als Bezug (`PortfolioPrices.unverified`)
+        for coin in uncheckedCoins.union(unverifiedCoins) { checked[coin] = nil }
         lock.unlock()
         let merged = PortfolioPriceFallback.merge(current: checked, stored: stored)
         let watches = SharedStorage.loadSnapshot().watches

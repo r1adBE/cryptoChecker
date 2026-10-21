@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Alarm portofolio dijeda: saldo token %1$s sebagian usang</string>
     <string name="portfolio_alarms_paused_tokens_generic">Alarm portofolio dijeda: saldo token alamat yang dipantau sebagian usang</string>
+    <string name="portfolio_alarms_paused_unverified">Alarm portofolio dijeda: harga belum diperiksa untuk %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Alarm portofolio dijeda: harga beberapa koin belum diperiksa</string>
     <string name="portfolio_alarms_address_failing">Alarm portofolio memeriksa tanpa %1$s: saldo tidak dimuat lebih dari 24 jam</string>
     <string name="portfolio_alarms_address_failing_generic">Alarm portofolio memeriksa tanpa alamat yang saldonya tidak dimuat lebih dari 24 jam</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

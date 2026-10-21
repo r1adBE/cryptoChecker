@@ -55,6 +55,8 @@ class PortfolioAlarmParityTest {
                 addressesFailing = (r["addressesFailing"] as List<*>?)?.map { it as String }.orEmpty(),
                 staleTokenAddresses = (r["staleTokenAddresses"] as List<*>?)?.map { it as String }.orEmpty(),
                 staleTokenValueUsdt = r["staleTokenValueUsdt"].num() ?: 0.0,
+                unverifiedCoins = (r["unverifiedCoins"] as List<*>?)?.map { it as String }.orEmpty(),
+                unverifiedValueUsdt = r["unverifiedValueUsdt"].num() ?: 0.0,
             )
             val name = c["name"] as String
             assertEquals("Wert: $name", c["value"], PortfolioAlarmLogic.incomplete(PortfolioAlarmKind.VALUE_BELOW, reading))
@@ -68,8 +70,9 @@ class PortfolioAlarmParityTest {
             val expected: PortfolioAlarmPause? = when (val p = c["pause"]) {
                 null -> null
                 "addresses" -> PortfolioAlarmPause.AddressesPending(r["addressesPending"].num()!!.toInt())
-                // Seit Build 95: {"tokens":[…]} bzw. {"failing":[…]}
+                // Seit Build 95: {"tokens":[…]} bzw. {"failing":[…]}; seit Build 101 {"unverified":[…]}
                 is Map<*, *> -> p.obj()["tokens"]?.let { t -> PortfolioAlarmPause.TokensStale(t.list().map { it as String }) }
+                    ?: p.obj()["unverified"]?.let { u -> PortfolioAlarmPause.PriceUnverified(u.list().map { it as String }) }
                     ?: PortfolioAlarmPause.AddressesFailing(p.obj()["failing"].list().map { it as String })
                 else -> PortfolioAlarmPause.NoPrice(p.list().map { it as String })
             }

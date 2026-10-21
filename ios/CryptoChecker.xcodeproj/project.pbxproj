@@ -938,6 +938,7 @@
 		9EEE8770C4ED99C2250D51B4 /* sheet_chart.json in Resources */ = {isa = PBXBuildFile; fileRef = AF03556E497EA707AC0448E3 /* sheet_chart.json */; };
 		9F4EE7CF51FC37315A4127DC /* AppLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D784326BB3A8D4495F64A6CA /* AppLog.swift */; };
 		9F5A26C63D83E63A7BCAA336 /* ExchangeBackoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55CFCB8875B0B1453D8B53B /* ExchangeBackoff.swift */; };
+		9F7C3595E6F9082716AAF479 /* PortfolioUnverifiedAlarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AA3767BAFCD03FE3A4DF9A /* PortfolioUnverifiedAlarmTests.swift */; };
 		9F9AE4B5C31B82B8F1F4A6D7 /* WatchedAddressRules+Networks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1407F29A30DCF8708E2FB2 /* WatchedAddressRules+Networks.swift */; };
 		9FBD5B852674D8717E45E5D0 /* SettingsResetNoticeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2010CA9A937A5D48FCB71425 /* SettingsResetNoticeTests.swift */; };
 		9FCBB6E40A3F7C5A1762E5F0 /* SheetChartStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151E7BC28EA2F458759314C9 /* SheetChartStore.swift */; };
@@ -1865,6 +1866,7 @@
 		55379E4A8ABB6D3B32C0D044 /* PortfolioHistoryControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioHistoryControls.swift; sourceTree = "<group>"; };
 		553DC693378556AA74E81C06 /* AlarmEditorSheet+Templates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlarmEditorSheet+Templates.swift"; sourceTree = "<group>"; };
 		55467570034A1FB14A6F894B /* FuturesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuturesDataSource.swift; sourceTree = "<group>"; };
+		55AA3767BAFCD03FE3A4DF9A /* PortfolioUnverifiedAlarmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioUnverifiedAlarmTests.swift; sourceTree = "<group>"; };
 		55FD5C017A19E0CE34392393 /* GeminiDetailsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiDetailsTests.swift; sourceTree = "<group>"; };
 		56425AB08401162F524C5198 /* WhyAnalysisParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyAnalysisParityTests.swift; sourceTree = "<group>"; };
 		5655FA97801139AE348DD5FA /* exchange_nonkyc.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = exchange_nonkyc.json; sourceTree = "<group>"; };
@@ -3794,6 +3796,7 @@
 				C3858A4933C98F7121305283 /* PortfolioTxFormCheckTests.swift */,
 				8BDA4E7F70DD1B7B074F0BEA /* PortfolioTxFormTests.swift */,
 				3B4C9B222A2931E380F51B46 /* PortfolioTxTypesTests.swift */,
+				55AA3767BAFCD03FE3A4DF9A /* PortfolioUnverifiedAlarmTests.swift */,
 				4BDC8C42F654C6F173E2B9DB /* PortfolioWalletNamesTests.swift */,
 				21584F6819AEB252275ED357 /* PortfolioWidgetBackgroundTests.swift */,
 				BB8A01B51C23236D0BAF9272 /* PortfolioWidgetChartTests.swift */,
@@ -4960,6 +4963,7 @@
 				7A22B391894C394BF7A9DA09 /* PortfolioTxFormCheckTests.swift in Sources */,
 				7E11E80585F71BBD08724EEF /* PortfolioTxFormTests.swift in Sources */,
 				DD50BF48381CEE237A8A637F /* PortfolioTxTypesTests.swift in Sources */,
+				9F7C3595E6F9082716AAF479 /* PortfolioUnverifiedAlarmTests.swift in Sources */,
 				E383F828338FF41AAA43F78C /* PortfolioWalletNamesTests.swift in Sources */,
 				9022DA961E35A35DA7E503D0 /* PortfolioWidgetBackgroundTests.swift in Sources */,
 				60D9DD97D610E05C619E903E /* PortfolioWidgetChartTests.swift in Sources */,
@@ -5802,7 +5806,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 100;
+				CURRENT_PROJECT_VERSION = 101;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -5827,7 +5831,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 100;
+				CURRENT_PROJECT_VERSION = 101;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -5847,7 +5851,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 100;
+				CURRENT_PROJECT_VERSION = 101;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -5866,7 +5870,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 100;
+				CURRENT_PROJECT_VERSION = 101;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -5953,7 +5957,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 100;
+				CURRENT_PROJECT_VERSION = 101;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -5982,7 +5986,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 100;
+				CURRENT_PROJECT_VERSION = 101;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -6008,7 +6012,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 100;
+				CURRENT_PROJECT_VERSION = 101;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -6032,7 +6036,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 100;
+				CURRENT_PROJECT_VERSION = 101;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;

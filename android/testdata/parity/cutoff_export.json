@@ -1,5 +1,5 @@
 {
-  "description": "Stichtag-Export (CutoffExport.kt / CutoffExport.swift) exakt: holdings = exakte Mengen (Text), prices = Tagesschluss in USDT (Text), fxRate = USD→Ziel (Text, null = keiner), unchecked = ungeprüfte Coins. Wert = Menge × Kurs, Zielwert = Wert × Devisenkurs, je 34 gültige Stellen (halbe auf gerade); gerundet wird nur im Text (HALF_UP): Geld 2, Devisenkurs 6, Kurs 10 Nachkommastellen bzw. 10 gültige Stellen, Menge exakt (max. 18). Total = Summe der GERUNDETEN Zeilenwerte (Build 85: Nachsummieren der Spalte geht auf, z. B. 0.44 + 123.46 = 123.90 statt exakt 123.89). expected = CSV-Zeilen ab der ersten Datenzeile bis Total (ohne Kommentar und Kopf), Texte: noPrice «kein Kurs», noFx «kein Devisenkurs», unchecked «ungeprüft», incomplete «unvollständig», total «Total». Mit Double wären u. a. ETH 0.075×3 (0.22 statt 0.23) und XRP+ZZZ falsch. [B91] addressCases: Stichtag mit beobachteten Adressen wie die Karte (AddressCutoff.at + holdingsAt + addressRows): Posten im Bestand, Adress-Zeile nur für den Rest ohne Einstand, eine erfasste Umbuchung zur Adresse zählt einmal; expected = CSV-Zeilen nach dem Kommentar (Texte wie oben, fromAddress «aus Adresse», addressLots «Posten nach Beobachtung»), Währung CHF, Ende des Tags in zone.",
+  "description": "Stichtag-Export (CutoffExport.kt / CutoffExport.swift) exakt: holdings = exakte Mengen (Text), prices = Tagesschluss in USDT (Text), fxRate = USD→Ziel (Text, null = keiner), unchecked = ungeprüfte Coins. Wert = Menge × Kurs, Zielwert = Wert × Devisenkurs, je 34 gültige Stellen (halbe auf gerade); gerundet wird nur im Text (HALF_UP): Geld 2, Devisenkurs 6, Kurs 10 Nachkommastellen bzw. 10 gültige Stellen, Menge exakt (max. 18). Total = Summe der GERUNDETEN Zeilenwerte (Build 85: Nachsummieren der Spalte geht auf, z. B. 0.44 + 123.46 = 123.90 statt exakt 123.89). expected = CSV-Zeilen ab der ersten Datenzeile bis Total (ohne Kommentar und Kopf), Texte: noPrice «kein Kurs», noFx «kein Devisenkurs», unchecked «ungeprüft», incomplete «unvollständig», total «Total». Mit Double wären u. a. ETH 0.075×3 (0.22 statt 0.23) und XRP+ZZZ falsch. [B91] addressCases: Stichtag mit beobachteten Adressen wie die Karte (AddressCutoff.at + holdingsAt + addressRows): Posten im Bestand, Adress-Zeile nur für den Rest ohne Einstand, eine erfasste Umbuchung zur Adresse zählt einmal; expected = CSV-Zeilen nach dem Kommentar (Texte wie oben, fromAddress «aus Adresse», addressLots «Posten nach Beobachtung»), Währung CHF, Ende des Tags in zone. [B101] referenceCases: CutoffExport.referencePrices(current, unchecked, unverified) — Bezugskurse der Identitaetspruefung fuer die Tagesschluesse: nur gueltige (> 0, endlich) aktuelle Kurse, ohne ungepruefte Kerzenkurse (unchecked) und ohne Binance-Kurse mit unbestaetigtem Token (unverified, «Kurs ungeprueft»); fehlt ein Coin, ist sein Tagesschluss «ungeprueft» (Zeile wie unchecked in cases: ohne Kurs, Hinweis «ungeprüft», Total «unvollständig»). NaN steht als Text \"NaN\". chainReferenceCases: CutoffExport.referenceOf(coin, layers) — Bezugskurs des Wertverlaufs (Speicher, dann gemerkter Stand): der erste geprüfte Kurs nach derselben Regel; expected null = keiner (Tagesschlüsse nicht bestätigt).",
   "cases": [
     {
       "name": "exact products and sum",
@@ -271,6 +271,130 @@
         "BTC;0.1;40000;4000.00;0.9;3600.00;aus Adresse",
         "Total;;;20000.00;0.9;18000.00;"
       ]
+    }
+  ],
+  "referenceCases": [
+    {
+      "name": "ungeprueft (Token nicht bestaetigt) ist kein Bezug",
+      "current": {
+        "BTC": 100,
+        "BEAM": 0.02,
+        "FOO": 2,
+        "BAR": 0
+      },
+      "unchecked": [
+        "FOO"
+      ],
+      "unverified": [
+        "BEAM"
+      ],
+      "expected": {
+        "BTC": 100
+      }
+    },
+    {
+      "name": "ohne ungepruefte wie bisher",
+      "current": {
+        "BTC": 100,
+        "ETH": 3,
+        "BAZ": "NaN"
+      },
+      "unchecked": [],
+      "unverified": [],
+      "expected": {
+        "BTC": 100,
+        "ETH": 3
+      }
+    },
+    {
+      "name": "ungeprueft ohne aktuellen Kurs aendert nichts",
+      "current": {
+        "ETH": 3
+      },
+      "unchecked": [],
+      "unverified": [
+        "BEAM"
+      ],
+      "expected": {
+        "ETH": 3
+      }
+    }
+  ],
+  "chainReferenceCases": [
+    {
+      "name": "Speicher geprueft",
+      "coin": "BTC",
+      "layers": [
+        {
+          "prices": {
+            "BTC": 100
+          }
+        },
+        {
+          "prices": {
+            "BTC": 90
+          }
+        }
+      ],
+      "expected": 100
+    },
+    {
+      "name": "Speicher ungeprueft (Token), gemerkter Stand ebenso: kein Bezug",
+      "coin": "BEAM",
+      "layers": [
+        {
+          "prices": {
+            "BEAM": 0.02
+          },
+          "unverified": [
+            "BEAM"
+          ]
+        },
+        {
+          "prices": {
+            "BEAM": 0.02
+          },
+          "unverified": [
+            "BEAM"
+          ]
+        }
+      ],
+      "expected": null
+    },
+    {
+      "name": "Speicher ungeprueft (Kerze), gemerkter Stand geprueft",
+      "coin": "FOO",
+      "layers": [
+        {
+          "prices": {
+            "FOO": 2
+          },
+          "unchecked": [
+            "FOO"
+          ]
+        },
+        {
+          "prices": {
+            "FOO": 1.9
+          }
+        }
+      ],
+      "expected": 1.9
+    },
+    {
+      "name": "kein Kurs",
+      "coin": "ZZZ",
+      "layers": [
+        {
+          "prices": {}
+        },
+        {
+          "prices": {
+            "BTC": 90
+          }
+        }
+      ],
+      "expected": null
     }
   ]
 }

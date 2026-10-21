@@ -17,6 +17,10 @@ enum PortfolioPauseText {
         case .tokensStale(let list):
             guard let names = coins(list, hideCoins: hideCoins) else { return L("portfolio_alarms_paused_tokens_generic") }
             return L("portfolio_alarms_paused_tokens", names)
+        // Seit Build 101: Kurs ungeprüft (Token nicht bestätigt) — wie Android
+        case .priceUnverified(let list):
+            guard let names = coins(list, hideCoins: hideCoins) else { return L("portfolio_alarms_paused_unverified_generic") }
+            return L("portfolio_alarms_paused_unverified", names)
         case .addressesFailing(let list):
             guard let names = coins(list, hideCoins: hideCoins) else { return L("portfolio_alarms_address_failing_generic") }
             return L("portfolio_alarms_address_failing", names)

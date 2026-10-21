@@ -96,6 +96,14 @@ data class PortfolioReading(
     val staleTokenAddresses: List<String> = emptyList(),
     val staleTokenValueUsdt: Double = 0.0,
     /**
+     * Coins mit «Kurs ungeprüft» (Binance-Kurs, Token nicht bestätigt; seit Build 101,
+     * [com.cryptochecker.app.domain.portfolio.PortfolioSnapshot.unverifiedCoins]): zählen wie ein alter Kurs mit Wert
+     * [unverifiedValueUsdt] ([PortfolioAlarmLogic.staleMaterial]); sperren nur sie, eigener Hinweis
+     * ([PortfolioAlarmPause.PriceUnverified]).
+     */
+    val unverifiedCoins: List<String> = emptyList(),
+    val unverifiedValueUsdt: Double = 0.0,
+    /**
      * Live-Kurs USDT/USD ([DepegAlarm.liveUsdtUsd]) für Alarme in einer anderen Währung als der Stand: USDT gilt in
      * Fiat (auch USD) seinen Marktkurs wie im Portfolio-Kopf ([PortfolioStables.usdtUsd]); null = keiner (× 1, Näherung).
      */
@@ -112,6 +120,9 @@ sealed interface PortfolioAlarmPause {
 
     /** Token-Guthaben dieser Adressen nicht bestätigt (wesentlich, wie ein alter Kurs). */
     data class TokensStale(val addresses: List<String>) : PortfolioAlarmPause
+
+    /** Kurs dieser Coins ungeprüft (Token nicht bestätigt, wesentlich wie ein alter Kurs; seit Build 101). */
+    data class PriceUnverified(val coins: List<String>) : PortfolioAlarmPause
 
     /** Keine Pause, nur Hinweis: die Alarme rechnen ohne diese seit über 24 Stunden scheiternden Adressen. */
     data class AddressesFailing(val addresses: List<String>) : PortfolioAlarmPause
@@ -224,12 +235,15 @@ object PortfolioAlarmLogic {
      */
     fun staleMaterial(reading: PortfolioReading): Boolean {
         val prices = reading.stalePrices > 0
-        // Nicht bestätigte Token-Guthaben (seit Build 95) zählen wie Coins mit altem Kurs, Wert zusammen
+        // Nicht bestätigte Token-Guthaben (seit Build 95) und ungeprüfte Kurse (seit Build 101) zählen wie Coins mit
+        // altem Kurs, Wert zusammen
         val tokens = reading.staleTokenAddresses.isNotEmpty()
-        if (!prices && !tokens) return false
+        val unverified = reading.unverifiedCoins.isNotEmpty()
+        if (!prices && !tokens && !unverified) return false
         var stale = 0.0
         if (prices) stale += reading.staleValueUsdt?.takeIf { it.isFinite() && it >= 0.0 } ?: return true
         if (tokens) stale += reading.staleTokenValueUsdt.takeIf { it.isFinite() && it >= 0.0 } ?: return true
+        if (unverified) stale += reading.unverifiedValueUsdt.takeIf { it.isFinite() && it >= 0.0 } ?: return true
         val total = reading.totalUsdt?.takeIf { it.isFinite() && it > 0.0 } ?: return true
         return stale >= total * IMMATERIAL_SHARE
     }
@@ -244,9 +258,11 @@ object PortfolioAlarmLogic {
     /**
      * Warum die eingeschalteten Portfolio-Alarme ([kinds]) gerade nicht prüfen (Hinweis in der Alarm-Übersicht); null =
      * mindestens nicht wegen Adressen oder Kursen. Adressen zuerst (betrifft jede Art); sonst Coins ohne aktuellen
-     * Kurs: die wesentlichen alten ([staleCoins]) und — bei Wert-Alarmen — die ganz ohne Kurs ([missingCoins]); sind es
-     * nur nicht bestätigte Token-Guthaben, deren Adressen ([PortfolioAlarmPause.TokensStale]). Ohne Pause der Hinweis auf
-     * seit über 24 Stunden scheiternde Adressen ([PortfolioAlarmPause.AddressesFailing]).
+     * Kurs: die wesentlichen alten ([staleCoins]) und — bei Wert-Alarmen — die ganz ohne Kurs ([missingCoins]); ohne
+     * solche Coins die mit ungeprüftem Kurs ([PortfolioAlarmPause.PriceUnverified], seit Build 101), sonst die Adressen
+     * nicht bestätigter Token-Guthaben ([PortfolioAlarmPause.TokensStale]). Sperren alte bzw. fehlende Kurse mit, bleibt
+     * es beim Satz «kein aktueller Kurs» mit nur diesen Coins (ungeprüfte zeigen ihren Hinweis in der Zeile). Ohne Pause
+     * der Hinweis auf seit über 24 Stunden scheiternde Adressen ([PortfolioAlarmPause.AddressesFailing]).
      */
     fun pause(
         kinds: Collection<PortfolioAlarmKind>,
@@ -261,7 +277,10 @@ object PortfolioAlarmLogic {
         if (!staleBlocks && !missingBlocks) {
             return reading.addressesFailing.takeIf { it.isNotEmpty() }?.let { PortfolioAlarmPause.AddressesFailing(it) }
         }
-        if (staleBlocks && reading.stalePrices <= 0 && !missingBlocks) return PortfolioAlarmPause.TokensStale(reading.staleTokenAddresses)
+        if (staleBlocks && reading.stalePrices <= 0 && !missingBlocks) {
+            if (reading.unverifiedCoins.isNotEmpty()) return PortfolioAlarmPause.PriceUnverified(reading.unverifiedCoins)
+            return PortfolioAlarmPause.TokensStale(reading.staleTokenAddresses)
+        }
         val coins = LinkedHashSet<String>()
         if (staleBlocks) coins += staleCoins
         if (missingBlocks) coins += missingCoins

@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Porteføljealarmer sat på pause: tokensaldi for %1$s er delvist forældede</string>
     <string name="portfolio_alarms_paused_tokens_generic">Porteføljealarmer sat på pause: tokensaldi for overvågede adresser er delvist forældede</string>
+    <string name="portfolio_alarms_paused_unverified">Porteføljealarmer sat på pause: kurs ikke kontrolleret for %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Porteføljealarmer sat på pause: kursen på nogle coins er ikke kontrolleret</string>
     <string name="portfolio_alarms_address_failing">Porteføljealarmer tjekker uden %1$s: saldoen er ikke indlæst i over 24 timer</string>
     <string name="portfolio_alarms_address_failing_generic">Porteføljealarmer tjekker uden adresser, hvis saldo ikke er indlæst i over 24 timer</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

@@ -39,18 +39,23 @@ final class PortfolioPriceIdentityTests: XCTestCase {
         XCTAssertEqual(allowed, ["HOT", "BTC"])
     }
 
-    /// Ohne bekannten Namen: Binance nur bei eindeutigem Kürzel, sonst «ungeprüft» — Fixture `portfolio_price_identity.json`.
+    /// Ohne bekannten Namen: Binance nur bei eindeutigem Kürzel, sonst «ungeprüft»; mehrdeutig laut anderen Paarlisten:
+    /// Binance-Kurs, aber «Kurs ungeprüft» — Fixture `portfolio_price_identity.json`.
     func testParityBinanceCheckAndSplit() throws {
         let data = try TestSupport.fixture("portfolio_price_identity")
         let names = (data["binanceName"] as? [String: String]) ?? [:]
+        let rawOthers = (data["otherNames"] as? [String: [String]]) ?? [:]
+        let others: [String: [String?]] = rawOthers.mapValues { $0.map { Optional($0) } }
         for c in TestSupport.list(data["checks"]) {
             let coin = c["coin"] as? String ?? ""
             let known = c["knownName"] as? String
-            let got = PortfolioPriceIdentity.binanceCheck(coin, knownName: known, binanceName: names[coin])
+            let got = PortfolioPriceIdentity.binanceCheck(coin, knownName: known, binanceName: names[coin],
+                                                          otherNames: others[coin] ?? [])
             let want: PortfolioPriceIdentity.BinanceCheck
             switch c["check"] as? String {
             case "USE": want = .use
             case "SKIP": want = .skip
+            case "UNVERIFIED": want = .unverified
             default: want = .unchecked
             }
             XCTAssertEqual(got, want, "\(coin) / \(known ?? "nil")")
@@ -59,8 +64,27 @@ final class PortfolioPriceIdentityTests: XCTestCase {
         let rawKnown = split["knownNames"] as? [String: Any] ?? [:]
         let known: [String: String?] = rawKnown.mapValues { $0 as? String }
         let got = PortfolioPriceIdentity.binanceSplit(split["coins"] as? [String] ?? [], knownNames: known,
-                                                      binanceName: { names[$0] })
+                                                      binanceName: { names[$0] }, otherNames: { others[$0] ?? [] })
         XCTAssertEqual(got.use, split["use"] as? [String])
         XCTAssertEqual(got.unchecked, Set(split["unchecked"] as? [String] ?? []))
+        XCTAssertEqual(got.unverified, Set(split["unverified"] as? [String] ?? []))
+    }
+
+    /// Ohne andere Paarlisten bleibt alles wie bis Build 100: kein Coin «Kurs ungeprüft».
+    func testWithoutOtherListsNothingUnverified() {
+        XCTAssertEqual(PortfolioPriceIdentity.binanceCheck("BEAM", knownName: nil, binanceName: "Beam Gaming"), .use)
+        let split = PortfolioPriceIdentity.binanceSplit(["BTC", "BEAM"], knownNames: [:],
+                                                        binanceName: { $0 == "BTC" ? "Bitcoin" : "Beam Gaming" })
+        XCTAssertEqual(split.use, ["BTC", "BEAM"])
+        XCTAssertTrue(split.unverified.isEmpty)
+    }
+
+    /// Widersprechen sich nur die anderen Listen (nicht Binance), ist das Kürzel trotzdem mehrdeutig.
+    func testConflictAmongOtherListsIsAmbiguous() {
+        XCTAssertTrue(PortfolioPriceIdentity.ambiguous("ABC", binanceName: "Alpha Beta", otherNames: ["Alpha Beta", "Zebra Quux"]))
+        XCTAssertFalse(PortfolioPriceIdentity.ambiguous("ABC", binanceName: "Alpha Beta",
+                                                        otherNames: ["Alpha Beta", "Alpha Beta Chain"]))
+        // Name = Kürzel zählt nicht als Name
+        XCTAssertFalse(PortfolioPriceIdentity.ambiguous("BEAM", binanceName: "Beam", otherNames: ["Beam", "Zebra Quux"]))
     }
 }

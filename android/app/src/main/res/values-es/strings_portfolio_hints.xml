@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Alarmas de cartera en pausa: saldos de tokens de %1$s parcialmente desactualizados</string>
     <string name="portfolio_alarms_paused_tokens_generic">Alarmas de cartera en pausa: saldos de tokens de las direcciones vigiladas parcialmente desactualizados</string>
+    <string name="portfolio_alarms_paused_unverified">Alarmas de cartera en pausa: precio sin verificar para %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Alarmas de cartera en pausa: precio de algunas monedas sin verificar</string>
     <string name="portfolio_alarms_address_failing">Las alarmas de cartera comprueban sin %1$s: el saldo no se ha cargado en más de 24 horas</string>
     <string name="portfolio_alarms_address_failing_generic">Las alarmas de cartera comprueban sin las direcciones cuyo saldo no se carga desde hace más de 24 horas</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

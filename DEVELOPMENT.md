@@ -2149,6 +2149,13 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 101: nameless portfolio holdings on an ambiguous ticker — `PortfolioPriceIdentity.binanceCheck(..., otherNames)` returns
+  `UNVERIFIED` when Binance's name and the names of other stored pair lists (`TokenIdentityStore.otherNames`) clearly
+  conflict (`TokenIdentity.conflicting`); the Binance price is used but listed in `PortfolioPrices.unverified` (row «Kurs
+  ungeprüft»), stored in the snapshot (`unverifiedCoins`/`unverifiedValueUsdt`) and counted like stale prices by
+  `PortfolioAlarmLogic.staleMaterial`; own pause reason `PriceUnverified` when no stale/missing prices block. Exports and the
+  value-history chain exclude unverified prices as references (`CutoffExport.referencePrices`/`referenceOf`). Fixtures:
+  `portfolio_price_identity.json`, `portfolio_alarm.json`, `cutoff_export.json` (`referenceCases`, `chainReferenceCases`).
 * Build 100: haptics only through `ui/components/Haptics.kt` (`HapticEvent`, `Haptics.constantFor(event, sdk)`,
   `rememberHaptics()`) and `ios/App/Components/Haptics.swift` (`Haptics.play`, `.haptic(_:trigger:)`); `HapticsUsageTest`
   forbids direct haptic APIs elsewhere and any haptics in notification/widget/work/tts code and iOS Shared/Widgets.

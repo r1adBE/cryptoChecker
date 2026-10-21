@@ -189,7 +189,7 @@ internal suspend fun PortfolioExportViewModel.dailyCloses(
     if (wanted.isEmpty()) return { _, _ -> null }
     val coins = wanted.map { it.first }.distinct()
     val current = try {
-        priceSource.prices(coins).let { p -> CutoffExport.referencePrices(p.prices, p.unchecked) }
+        priceSource.prices(coins).let { p -> CutoffExport.referencePrices(p.prices, p.unchecked, p.unverified) }
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {

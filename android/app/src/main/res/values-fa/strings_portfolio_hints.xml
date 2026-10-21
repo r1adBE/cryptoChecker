@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">هشدارهای سبد متوقف شده‌اند: موجودی توکن‌های %1$s تا حدی قدیمی است</string>
     <string name="portfolio_alarms_paused_tokens_generic">هشدارهای سبد متوقف شده‌اند: موجودی توکن‌های آدرس‌های تحت نظر تا حدی قدیمی است</string>
+    <string name="portfolio_alarms_paused_unverified">هشدارهای سبد متوقف شده‌اند: قیمت %1$s بررسی‌نشده است</string>
+    <string name="portfolio_alarms_paused_unverified_generic">هشدارهای سبد متوقف شده‌اند: قیمت برخی کوین‌ها بررسی‌نشده است</string>
     <string name="portfolio_alarms_address_failing">هشدارهای سبد بدون %1$s بررسی می‌کنند: موجودی بیش از ۲۴ ساعت است بارگیری نشده</string>
     <string name="portfolio_alarms_address_failing_generic">هشدارهای سبد بدون آدرس‌هایی بررسی می‌کنند که موجودی‌شان بیش از ۲۴ ساعت است بارگیری نمی‌شود</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

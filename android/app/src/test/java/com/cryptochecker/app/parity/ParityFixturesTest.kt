@@ -327,6 +327,43 @@ class ParityFixturesTest {
         assertTrue(cases.size >= 3)
     }
 
+    /** Bezugskurse der Tagesschlüsse: ohne ungeprüfte und (seit Build 101) ohne «Kurs ungeprüft». */
+    @Test
+    fun cutoffReferencePrices() {
+        val cases = ParityJson.load("cutoff_export.json")["referenceCases"].list().map { it.obj() }
+        // Zahl oder Text «NaN» (JSON kennt kein NaN)
+        fun number(v: Any?): Double = (v as? Number)?.toDouble() ?: (v as String).toDouble()
+        cases.forEach { c ->
+            val current = c["current"].obj().mapValues { number(it.value) }
+            val got = CutoffExport.referencePrices(
+                current,
+                c["unchecked"].list().map { it as String }.toSet(),
+                c["unverified"].list().map { it as String }.toSet(),
+            )
+            val expected = c["expected"].obj().mapValues { number(it.value) }
+            assertEquals("reference ${c["name"]}", expected, got)
+        }
+        assertTrue(cases.size >= 3)
+    }
+
+    /** Bezugskurs des Wertverlaufs (Speicher, dann gemerkter Stand) nach derselben Regel (seit Build 101). */
+    @Test
+    fun chainReference() {
+        val cases = ParityJson.load("cutoff_export.json")["chainReferenceCases"].list().map { it.obj() }
+        fun names(v: Any?): Set<String> = (v as List<*>?)?.map { it as String }?.toSet().orEmpty()
+        cases.forEach { c ->
+            val layers = c["layers"].list().map { raw ->
+                val l = raw.obj()
+                CutoffExport.ReferenceLayer(
+                    l["prices"].obj().mapValues { (it.value as Number).toDouble() }, names(l["unchecked"]), names(l["unverified"]),
+                )
+            }
+            val expected = (c["expected"] as Number?)?.toDouble()
+            assertEquals("chain ${c["name"]}", expected, CutoffExport.referenceOf(c["coin"] as String, layers))
+        }
+        assertTrue(cases.size >= 3)
+    }
+
     // ---------------- Basis der %-Änderung
 
     @Test

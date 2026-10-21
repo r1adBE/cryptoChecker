@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Alarmy portfela wstrzymane: salda tokenów %1$s są częściowo nieaktualne</string>
     <string name="portfolio_alarms_paused_tokens_generic">Alarmy portfela wstrzymane: salda tokenów obserwowanych adresów są częściowo nieaktualne</string>
+    <string name="portfolio_alarms_paused_unverified">Alarmy portfela wstrzymane: niesprawdzony kurs dla %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Alarmy portfela wstrzymane: kurs niektórych monet niesprawdzony</string>
     <string name="portfolio_alarms_address_failing">Alarmy portfela sprawdzają bez %1$s: saldo nie wczytało się od ponad 24 godzin</string>
     <string name="portfolio_alarms_address_failing_generic">Alarmy portfela sprawdzają bez adresów, których saldo nie wczytuje się od ponad 24 godzin</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

@@ -338,6 +338,11 @@ extension PortfolioWidgetStore {
         snapshot.missingCoins = missing.isEmpty ? nil : missing
         snapshot.staleCoins = staleCoins.isEmpty ? nil : staleCoins.sorted()
         snapshot.staleValueUsdt = staleCoins.isEmpty ? nil : staleCoins.reduce(0) { $0 + (pricedValues[$1] ?? 0) }
+        // «Kurs ungeprüft» (Token nicht bestätigt): zählt mit dem Kurs, für die Alarme aber wie ein alter Kurs — wie Android
+        let unverified = Set(prices.unverified.map(PortfolioCalculator.normalizeCoin))
+            .filter { pricedValues[$0] != nil && !staleCoins.contains($0) }.sorted()
+        snapshot.unverifiedCoins = unverified.isEmpty ? nil : unverified
+        snapshot.unverifiedValueUsdt = unverified.isEmpty ? nil : unverified.reduce(0) { $0 + (pricedValues[$1] ?? 0) }
         snapshot.addressesPending = addressState.pending > 0 ? addressState.pending : nil
         snapshot.addressesFailing = addressState.failing.isEmpty ? nil : addressState.failing
         snapshot.staleTokenAddresses = addressState.staleTokenAddresses.isEmpty ? nil : addressState.staleTokenAddresses

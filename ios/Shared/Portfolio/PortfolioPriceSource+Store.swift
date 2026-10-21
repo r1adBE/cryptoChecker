@@ -57,6 +57,7 @@ extension PortfolioPriceSource {
         lock.lock()
         cache = [:]
         uncheckedCoins = []
+        unverifiedCoins = []
         storedEntries = [:]
         sourceOf = [:]
         failedOf = [:]

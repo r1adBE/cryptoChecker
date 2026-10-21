@@ -51,21 +51,46 @@ class PortfolioPriceIdentityTest {
         assertEquals(listOf("HOT", "BTC"), allowed)
     }
 
-    /** Ohne bekannten Namen: Binance nur bei eindeutigem Kürzel, sonst «ungeprüft» — Fixture `portfolio_price_identity.json`. */
+    /**
+     * Ohne bekannten Namen: Binance nur bei eindeutigem Kürzel, sonst «ungeprüft»; mehrdeutig laut anderen Paarlisten:
+     * Binance-Kurs, aber «Kurs ungeprüft» — Fixture `portfolio_price_identity.json`.
+     */
     @Test
     fun parityBinanceCheckAndSplit() {
         val data = ParityJson.load("portfolio_price_identity.json")
         val names = data["binanceName"].obj().mapValues { it.value as String }
+        val others = data["otherNames"].obj().mapValues { e -> e.value.list().map { it as String? } }
         data["checks"].list().forEach { raw ->
             val c = raw.obj()
             val coin = c["coin"] as String
-            val got = PortfolioPriceIdentity.binanceCheck(coin, c["knownName"] as String?, names[coin])
+            val got = PortfolioPriceIdentity.binanceCheck(coin, c["knownName"] as String?, names[coin], others[coin].orEmpty())
             assertEquals("$coin / ${c["knownName"]}", c["check"], got.name)
         }
         val split = data["split"].obj()
         val known = split["knownNames"].obj().mapValues { it.value as String? }
-        val got = PortfolioPriceIdentity.binanceSplit(split["coins"].list().map { it as String }, known) { names[it] }
+        val got = PortfolioPriceIdentity.binanceSplit(split["coins"].list().map { it as String }, known, { names[it] }) {
+            others[it].orEmpty()
+        }
         assertEquals(split["use"].list(), got.use)
         assertEquals(split["unchecked"].list().toSet(), got.unchecked)
+        assertEquals(split["unverified"].list().toSet(), got.unverified)
+    }
+
+    /** Ohne andere Paarlisten bleibt alles wie bis Build 100: kein Coin «Kurs ungeprüft». */
+    @Test
+    fun withoutOtherListsNothingUnverified() {
+        assertEquals(PortfolioPriceIdentity.BinanceCheck.USE, PortfolioPriceIdentity.binanceCheck("BEAM", null, "Beam Gaming"))
+        val split = PortfolioPriceIdentity.binanceSplit(listOf("BTC", "BEAM"), emptyMap(), { if (it == "BTC") "Bitcoin" else "Beam Gaming" })
+        assertEquals(listOf("BTC", "BEAM"), split.use)
+        assertTrue(split.unverified.isEmpty())
+    }
+
+    /** Widersprechen sich nur die anderen Listen (nicht Binance), ist das Kürzel trotzdem mehrdeutig. */
+    @Test
+    fun conflictAmongOtherListsIsAmbiguous() {
+        assertTrue(PortfolioPriceIdentity.ambiguous("ABC", "Alpha Beta", listOf("Alpha Beta", "Zebra Quux")))
+        assertFalse(PortfolioPriceIdentity.ambiguous("ABC", "Alpha Beta", listOf("Alpha Beta", "Alpha Beta Chain")))
+        // Name = Kürzel zählt nicht als Name
+        assertFalse(PortfolioPriceIdentity.ambiguous("BEAM", "Beam", listOf("Beam", "Zebra Quux")))
     }
 }

@@ -167,7 +167,7 @@
     }
   ],
   "incomplete": {
-    "_comment": "PortfolioAlarmLogic.incomplete / pause (seit Build 94): nie geladene Adressen sperren jede Art; alte Kurse nur, wenn ihr Wert (staleValueUsdt, null = unbekannt) mindestens 1 % (immaterialShare) von totalUsdt ist; Coins ohne Kurs sperren Wert-Alarme, fehlende Vergleichskurse %-Alarme. pause: null = nicht pausiert, sonst addresses bzw. coins (stale nur wenn wesentlich, missing nur mit Wert-Alarm). Seit Build 95: addressesFailing (seit ueber 24 h scheiternde Adressen) sperren nicht, Hinweis {failing:[...]} nur ohne andere Pause; staleTokenAddresses/staleTokenValueUsdt (nicht bestaetigte Token-Guthaben) zaehlen wie alte Kurse (Wert zusammen), Pause {tokens:[...]} wenn nur sie sperren.",
+    "_comment": "PortfolioAlarmLogic.incomplete / pause (seit Build 94): nie geladene Adressen sperren jede Art; alte Kurse nur, wenn ihr Wert (staleValueUsdt, null = unbekannt) mindestens 1 % (immaterialShare) von totalUsdt ist; Coins ohne Kurs sperren Wert-Alarme, fehlende Vergleichskurse %-Alarme. pause: null = nicht pausiert, sonst addresses bzw. coins (stale nur wenn wesentlich, missing nur mit Wert-Alarm). Seit Build 95: addressesFailing (seit ueber 24 h scheiternde Adressen) sperren nicht, Hinweis {failing:[...]} nur ohne andere Pause; staleTokenAddresses/staleTokenValueUsdt (nicht bestaetigte Token-Guthaben) zaehlen wie alte Kurse (Wert zusammen), Pause {tokens:[...]} wenn nur sie sperren. Seit Build 101: unverifiedCoins/unverifiedValueUsdt (Kurs ungeprueft, Token nicht bestaetigt) zaehlen ebenfalls wie alte Kurse (Wert zusammen mit alten Kursen und Token); Pause {unverified:[...]} wenn keine alten bzw. fehlenden Kurse mitsperren (vor {tokens:[...]}); sperren alte/fehlende Kurse mit, bleibt es bei coins mit nur diesen Coins.",
     "immaterialShare": 0.01,
     "cases": [
       {
@@ -472,6 +472,132 @@
         "pause": {
           "tokens": [
             "TON"
+          ]
+        }
+      },
+      {
+        "name": "Kurs ungeprueft, genau 1 %",
+        "reading": {
+          "totalUsdt": 10000,
+          "unverifiedCoins": [
+            "BEAM"
+          ],
+          "unverifiedValueUsdt": 100
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "VALUE_BELOW"
+        ],
+        "pause": {
+          "unverified": [
+            "BEAM"
+          ]
+        }
+      },
+      {
+        "name": "Kurs ungeprueft, unter 1 %",
+        "reading": {
+          "totalUsdt": 10000,
+          "unverifiedCoins": [
+            "BEAM"
+          ],
+          "unverifiedValueUsdt": 99.99
+        },
+        "value": false,
+        "change": false,
+        "kinds": [
+          "CHANGE_UP"
+        ],
+        "pause": null
+      },
+      {
+        "name": "Kurs ungeprueft + alter Kurs zusammen wesentlich: Satz alter Kurs",
+        "reading": {
+          "totalUsdt": 10000,
+          "stalePrices": 1,
+          "staleValueUsdt": 60,
+          "unverifiedCoins": [
+            "BEAM"
+          ],
+          "unverifiedValueUsdt": 40
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "VALUE_BELOW"
+        ],
+        "staleCoins": [
+          "PEPE"
+        ],
+        "pause": [
+          "PEPE"
+        ]
+      },
+      {
+        "name": "Kurs ungeprueft + Token: ungeprueft vor Token",
+        "reading": {
+          "totalUsdt": 10000,
+          "unverifiedCoins": [
+            "BEAM",
+            "NEIRO"
+          ],
+          "unverifiedValueUsdt": 50,
+          "staleTokenAddresses": [
+            "TON"
+          ],
+          "staleTokenValueUsdt": 50
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "CHANGE_DOWN"
+        ],
+        "pause": {
+          "unverified": [
+            "BEAM",
+            "NEIRO"
+          ]
+        }
+      },
+      {
+        "name": "Kurs ungeprueft + Coin ohne Kurs (Wert-Alarm)",
+        "reading": {
+          "totalUsdt": 10000,
+          "unverifiedCoins": [
+            "BEAM"
+          ],
+          "unverifiedValueUsdt": 500,
+          "missingPrices": 1
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "VALUE_ABOVE"
+        ],
+        "missingCoins": [
+          "WIF"
+        ],
+        "pause": [
+          "WIF"
+        ]
+      },
+      {
+        "name": "Kurs ungeprueft ohne bekannten Gesamtwert: wesentlich",
+        "reading": {
+          "unverifiedCoins": [
+            "BEAM"
+          ],
+          "unverifiedValueUsdt": 1
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "CHANGE_UP"
+        ],
+        "pause": {
+          "unverified": [
+            "BEAM"
           ]
         }
       }

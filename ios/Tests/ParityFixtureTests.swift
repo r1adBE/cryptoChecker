@@ -279,6 +279,35 @@ final class ParityFixtureTests: XCTestCase {
         }
     }
 
+    /// Bezugskurse der Tagesschlüsse: ohne ungeprüfte und (seit Build 101) ohne «Kurs ungeprüft» — wie Android.
+    func testCutoffReferencePrices() throws {
+        let cases = S.list(try S.fixture("cutoff_export")["referenceCases"])
+        XCTAssertGreaterThanOrEqual(cases.count, 3)
+        for c in cases {
+            let name = c["name"] as? String ?? ""
+            let current = (c["current"] as? [String: Any] ?? [:]).compactMapValues { S.number($0) }
+            let got = CutoffExport.referencePrices(current, uncheckedCurrent: Set(c["unchecked"] as? [String] ?? []),
+                                                   unverifiedCurrent: Set(c["unverified"] as? [String] ?? []))
+            let expected = (c["expected"] as? [String: Any] ?? [:]).compactMapValues { S.number($0) }
+            XCTAssertEqual(got, expected, "reference \(name)")
+        }
+    }
+
+    /// Bezugskurs des Wertverlaufs (Speicher, dann gemerkter Stand) nach derselben Regel (seit Build 101) — wie Android.
+    func testChainReference() throws {
+        let cases = S.list(try S.fixture("cutoff_export")["chainReferenceCases"])
+        XCTAssertGreaterThanOrEqual(cases.count, 3)
+        for c in cases {
+            let layers = S.list(c["layers"]).map { l in
+                CutoffExport.ReferenceLayer(prices: (l["prices"] as? [String: Any] ?? [:]).compactMapValues { S.number($0) },
+                                            unchecked: Set(l["unchecked"] as? [String] ?? []),
+                                            unverified: Set(l["unverified"] as? [String] ?? []))
+            }
+            let got = CutoffExport.referenceOf(c["coin"] as? String ?? "", layers: layers)
+            XCTAssertEqual(got, S.number(c["expected"]), "chain \(c["name"] as? String ?? "")")
+        }
+    }
+
     // MARK: Basis der %-Änderung
 
     func testChangeBasis() throws {

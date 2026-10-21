@@ -41,6 +41,11 @@ struct PortfolioPrices: Sendable, Equatable {
     /// Gekapselte/gebrückte Coins ohne eigenen Börsenkurs, bewertet mit dem Kurs ihrer Basis (`ChainAssets.priceViaBase`):
     /// Coin → Basis. Die Zeile zeigt dann «≈ BTC-Kurs (gebrückt/verpackt)» — nie als eigener Kurs. Wie Android.
     var viaBase: [String: String] = [:]
+    /// Coins MIT Binance-Kurs, dessen Token nicht bestätigt ist (seit Build 101): kein Name bekannt und unter dem Kürzel
+    /// führen andere Listen klar verschiedene Token (`PortfolioPriceIdentity.BinanceCheck.unverified`). Sie zählen mit
+    /// dem Kurs (stehen in `prices`); die Zeile nennt sie «Kurs ungeprüft», Portfolio-Alarme behandeln sie wie einen
+    /// alten Kurs (`PortfolioWidgetSnapshot.unverifiedCoins`). Wie Android.
+    var unverified: Set<String> = []
 }
 
 /// Warum ein Coin keinen Kurs hat: `noPrice` = keine Quelle führt ihn; `unavailable` = Abfrage gerade gescheitert.

@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Alarmele portofoliului sunt în pauză: soldurile de tokenuri ale %1$s sunt parțial învechite</string>
     <string name="portfolio_alarms_paused_tokens_generic">Alarmele portofoliului sunt în pauză: soldurile de tokenuri ale adreselor urmărite sunt parțial învechite</string>
+    <string name="portfolio_alarms_paused_unverified">Alarmele portofoliului sunt în pauză: preț neverificat pentru %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Alarmele portofoliului sunt în pauză: prețul unor monede este neverificat</string>
     <string name="portfolio_alarms_address_failing">Alarmele portofoliului verifică fără %1$s: soldul nu s-a încărcat de peste 24 de ore</string>
     <string name="portfolio_alarms_address_failing_generic">Alarmele portofoliului verifică fără adresele al căror sold nu se încarcă de peste 24 de ore</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

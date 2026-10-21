@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Οι συναγερμοί χαρτοφυλακίου σε παύση: τα υπόλοιπα token της %1$s είναι εν μέρει παλιά</string>
     <string name="portfolio_alarms_paused_tokens_generic">Οι συναγερμοί χαρτοφυλακίου σε παύση: τα υπόλοιπα token των παρακολουθούμενων διευθύνσεων είναι εν μέρει παλιά</string>
+    <string name="portfolio_alarms_paused_unverified">Οι συναγερμοί χαρτοφυλακίου σε παύση: μη ελεγμένη τιμή για %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Οι συναγερμοί χαρτοφυλακίου σε παύση: η τιμή ορισμένων νομισμάτων δεν είναι ελεγμένη</string>
     <string name="portfolio_alarms_address_failing">Οι συναγερμοί χαρτοφυλακίου ελέγχουν χωρίς %1$s: το υπόλοιπο δεν φορτώθηκε για πάνω από 24 ώρες</string>
     <string name="portfolio_alarms_address_failing_generic">Οι συναγερμοί χαρτοφυλακίου ελέγχουν χωρίς διευθύνσεις των οποίων το υπόλοιπο δεν φορτώνεται για πάνω από 24 ώρες</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Portföy alarmları duraklatıldı: %1$s token bakiyeleri kısmen güncel değil</string>
     <string name="portfolio_alarms_paused_tokens_generic">Portföy alarmları duraklatıldı: izlenen adreslerin token bakiyeleri kısmen güncel değil</string>
+    <string name="portfolio_alarms_paused_unverified">Portföy alarmları duraklatıldı: %1$s için fiyat doğrulanmadı</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Portföy alarmları duraklatıldı: bazı coinlerin fiyatı doğrulanmadı</string>
     <string name="portfolio_alarms_address_failing">Portföy alarmları %1$s olmadan kontrol ediyor: bakiye 24 saatten uzun süredir yüklenmedi</string>
     <string name="portfolio_alarms_address_failing_generic">Portföy alarmları, bakiyesi 24 saatten uzun süredir yüklenmeyen adresler olmadan kontrol ediyor</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

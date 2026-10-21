@@ -28,10 +28,31 @@ enum CutoffExport {
     }
 
     /// Bezugskurse der Identitätsprüfung aus den aktuellen Portfolio-Kursen `current`: nur gültige,
-    /// ohne ungeprüfte Kerzenkurse (`uncheckedCurrent`, kein unabhängiger Bezug). Fehlt ein Coin, wird
-    /// sein Tagesschluss nicht übernommen («ungeprüft»).
-    static func referencePrices(_ current: [String: Double], uncheckedCurrent: Set<String>) -> [String: Double] {
-        current.filter { coin, price in !uncheckedCurrent.contains(coin) && price > 0 && price.isFinite }
+    /// ohne ungeprüfte Kerzenkurse (`uncheckedCurrent`, kein unabhängiger Bezug) und ohne Binance-Kurse mit
+    /// unbestätigtem Token (`unverifiedCurrent`, «Kurs ungeprüft», seit Build 101 — sonst bestätigte ein womöglich
+    /// fremder Token seine eigenen Tagesschlüsse). Fehlt ein Coin, wird sein Tagesschluss nicht übernommen («ungeprüft»).
+    static func referencePrices(_ current: [String: Double], uncheckedCurrent: Set<String>,
+                                unverifiedCurrent: Set<String> = []) -> [String: Double] {
+        current.filter { coin, price in
+            !uncheckedCurrent.contains(coin) && !unverifiedCurrent.contains(coin) && price > 0 && price.isFinite
+        }
+    }
+
+    /// Ein Stand aktueller Kurse für `referenceOf`: Kurse samt ungeprüften und «Kurs ungeprüft» (`referencePrices`).
+    struct ReferenceLayer {
+        var prices: [String: Double]
+        var unchecked: Set<String> = []
+        var unverified: Set<String> = []
+    }
+
+    /// Bezugskurs eines Coins aus mehreren Ständen der Reihe nach (Wertverlauf: Speicher, dann gemerkter Stand): der
+    /// erste geprüfte (`referencePrices`); nil = keiner. Ein ungeprüfter Kurs bestätigt also auch dort keine Tagesschlüsse.
+    static func referenceOf(_ coin: String, layers: [ReferenceLayer]) -> Double? {
+        for layer in layers {
+            let refs = referencePrices(layer.prices, uncheckedCurrent: layer.unchecked, unverifiedCurrent: layer.unverified)
+            if let price = refs[coin] { return price }
+        }
+        return nil
     }
 
     /// Zeilen aus Bestand, Kursen (Coin → Tagesschluss in USDT) und Devisenkurs (nil = unbekannt), alles
