@@ -33,13 +33,18 @@ struct WatchedAddressFile: Codable, Equatable {
 enum WatchedAddressStore {
     static var url: URL { SharedStorage.directory.appendingPathComponent("watched_addresses.json") }
 
-    /// Fehlt die Datei: leer. Unlesbar: leer und `intact` false (dann nicht überschreiben).
+    /// Fehlt die Datei: leer. Unlesbar: leer und `intact` false (dann nicht überschreiben). Einzelne unlesbare Einträge
+    /// (z. B. Netz einer neueren Version): die lesbaren zeigen, aber `intact` false — sonst ginge der übersprungene Eintrag
+    /// beim nächsten Speichern endgültig verloren (Android behält die Zeile in der Datenbank ohnehin).
     static func loadChecked() -> (file: WatchedAddressFile, intact: Bool) {
         guard FileManager.default.fileExists(atPath: url.path) else { return (WatchedAddressFile(), true) }
+        let dropped = SharedStorage.DropCounter()
+        let decoder = JSONDecoder()
+        decoder.userInfo[SharedStorage.DropCounter.key] = dropped
         guard let data = try? ProtectedFile.read(url),
-              let file = try? JSONDecoder().decode(WatchedAddressFile.self, from: data)
+              let file = try? decoder.decode(WatchedAddressFile.self, from: data)
         else { return (WatchedAddressFile(), false) }
-        return (file, true)
+        return (file, dropped.count == 0)
     }
 
     static func load() -> WatchedAddressFile { loadChecked().file }
