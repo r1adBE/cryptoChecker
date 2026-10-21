@@ -23,12 +23,16 @@ class TextLimitParityTest {
             val text = c["text"] as String
             // ZWJ-Folgen, Flaggen und Hauttöne kennt java.text.BreakIterator erst ab JDK 20 (CI baut mit JDK 17);
             // auf dem Gerät zählt ICU sie immer richtig (androidTest TextLimitDeviceTest)
-            if (Runtime.version().feature() < 20 && needsExtendedClusters(text)) continue
+            if (jdkFeature() < 20 && needsExtendedClusters(text)) continue
             val max = c["max"].num()!!.toInt()
             assertEquals(name, c["expected"] as String, TextLimit.takeGraphemes(text, max))
             assertEquals(name, c["count"].num()!!.toInt(), TextLimit.graphemeCount(text))
         }
     }
+
+    /** JDK-Hauptversion der Test-JVM (Runtime.version() fehlt im android.jar, gegen das die Tests kompilieren). */
+    private fun jdkFeature(): Int =
+        System.getProperty("java.specification.version")?.substringAfter("1.")?.substringBefore('.')?.toIntOrNull() ?: 0
 
     private fun needsExtendedClusters(text: String): Boolean = text.codePoints().anyMatch { cp ->
         cp == 0x200D || cp in 0x1F1E6..0x1F1FF || cp in 0x1F3FB..0x1F3FF
