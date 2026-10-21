@@ -84,6 +84,19 @@ data class WatchedAddress(
      * Spalte `costLots` (nicht in den Zusatzdaten — ein Abruf schreibt diese, nie die Posten).
      */
     val costLots: List<AddressCostLot> = emptyList(),
+    /**
+     * Schlüssel von [tokenBalances], deren Wert der letzte Abruf NICHT bestätigt hat (seit Build 95; TON: bekannter Jetton
+     * fehlt auf einer vollen Seite, kann auf der nächsten stehen) — der alte Wert bleibt, gilt aber als veraltet: Anzeige
+     * «teilweise veraltet», Portfolio-Alarme wie bei einem alten Kurs ([AddressAlarmState]). Leer = alles bestätigt.
+     */
+    val staleTokens: List<String> = emptyList(),
+    /**
+     * Seit Build 95: wann die Adresse auf DIESEM Gerät angelegt wurde (hinzugefügt, aus einer Sicherung eingespielt oder
+     * per «Rückgängig» zurückgeholt); 0 = unbekannt. Eingespielte Adressen behalten ihr altes [addedAt] (auch 0) — ohne
+     * diesen Zeitpunkt gälte eine frisch eingespielte Adresse beim ersten Fehler sofort als fehlgeschlagen
+     * ([AddressAlarmState.isPending]). Nur gerätelokal: nicht in der Sicherung ([WatchedAddressRules.backupEntries]).
+     */
+    val pendingSince: Long = 0,
 ) {
     /** Erweiterter öffentlicher Schlüssel statt einzelner Adresse. */
     val isXpub: Boolean get() = chain == AddressChain.BTC && AddressValidation.isExtendedKey(address)
@@ -147,7 +160,8 @@ data class WatchedAddressBackupEntry(
  * `{"o":[…],"tb":{"USDT":"12.5"},"to":{"USDT":[…]},"tokens":false,"x":{…},"n":["BSC"],"show":false,"uk":2}` —
  * «tokens»/«show» nur, wenn aus; «x» = [XpubCache]; «n» = EVM-Netze; «uk» = unbekannte Solana-Token; «ovl»: true =
  * Überschneidung entschieden ([WatchedAddress.overlapChecked]), «ovl2»: true = nach der Mengenregel (sonst
- * [WatchedAddress.overlapLegacy]).
+ * [WatchedAddress.overlapLegacy]); «stk» = nicht bestätigte Token ([WatchedAddress.staleTokens]); «ps» = angelegt auf
+ * diesem Gerät ([WatchedAddress.pendingSince]).
  * Lesen versteht beide Formen; unlesbar = leer. iOS speichert dieselben Felder in `watched_addresses.json`.
  */
 object WatchedAddressExtras {
@@ -163,11 +177,14 @@ object WatchedAddressExtras {
         val unknownTokens: Int = 0,
         val overlapChecked: Boolean = false,
         val overlapLegacy: Boolean = false,
+        val staleTokens: List<String> = emptyList(),
+        val pendingSince: Long = 0,
     )
 
     fun encode(a: WatchedAddress): String? {
         val plain = a.tokenBalances.isEmpty() && a.tokenObservations.isEmpty() && a.countTokens && a.xpub == null &&
-            a.networks == null && a.countInPortfolio && a.unknownTokens == 0 && !a.overlapChecked
+            a.networks == null && a.countInPortfolio && a.unknownTokens == 0 && !a.overlapChecked && a.staleTokens.isEmpty() &&
+            a.pendingSince <= 0
         if (plain) return AddressBalanceHistory.encode(a.observations)
         val o = JSONObject()
         o.put("o", AddressBalanceHistory.toJson(a.observations))
@@ -185,6 +202,8 @@ object WatchedAddressExtras {
         if (a.overlapChecked) o.put("ovl", true)
         // Entscheid nach der Mengenregel (ohne «ovl2» = alter Entscheid, [WatchedAddress.overlapLegacy])
         if (a.overlapChecked && !a.overlapLegacy) o.put("ovl2", true)
+        if (a.staleTokens.isNotEmpty()) o.put("stk", JSONArray(a.staleTokens))
+        if (a.pendingSince > 0) o.put("ps", a.pendingSince)
         return o.toString()
     }
 
@@ -212,6 +231,10 @@ object WatchedAddressExtras {
             unknownTokens = ((o.opt("uk") as? Number)?.toInt() ?: 0).coerceAtLeast(0),
             overlapChecked = o.opt("ovl") as? Boolean ?: false,
             overlapLegacy = (o.opt("ovl") as? Boolean ?: false) && (o.opt("ovl2") as? Boolean) != true,
+            staleTokens = o.optJSONArray("stk")?.let { arr ->
+                (0 until arr.length()).map { arr.optString(it) }.filter { k -> k in balances }.distinct()
+            }.orEmpty(),
+            pendingSince = ((o.opt("ps") as? Number)?.toLong() ?: 0L).coerceAtLeast(0L),
         )
     }
 

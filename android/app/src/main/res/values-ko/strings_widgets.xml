@@ -8,7 +8,7 @@
     <string name="widget_empty">관심 목록에 아직 거래쌍이 없습니다.</string>
     <string name="widget_group_hint">이 그룹의 거래쌍만 표시합니다.</string>
     <string name="widget_kind_single">코인 하나</string>
-    <string name="widget_opacity">배경 불투명도: %1$d%%</string>
+    <string name="widget_opacity">배경 불투명도: %1$s</string>
     <string name="widget_pulse_description">지금 시장에서 눈에 띄는 것: 헤드라인, 짧은 요약, 그리고 Bitcoin, Ethereum, Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

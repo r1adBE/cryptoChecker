@@ -166,7 +166,7 @@ extension PortfolioWidgetStore {
                         addresses: [AddressBalanceHistory] = [],
                         staleAfterMillis: Int64? = nil,
                         displayFx: PortfolioDisplayFx? = nil,
-                        addressesPending: Int = 0) -> PortfolioWidgetSnapshot {
+                        addressState: AddressAlarmState = AddressAlarmState()) -> PortfolioWidgetSnapshot {
         guard !transactions.isEmpty else { return .emptyPortfolio }
         let summary = PortfolioCalculator.summarize(transactions, prices: prices.prices, method: method)
         var holdings: [String: Double] = [:]
@@ -338,7 +338,11 @@ extension PortfolioWidgetStore {
         snapshot.missingCoins = missing.isEmpty ? nil : missing
         snapshot.staleCoins = staleCoins.isEmpty ? nil : staleCoins.sorted()
         snapshot.staleValueUsdt = staleCoins.isEmpty ? nil : staleCoins.reduce(0) { $0 + (pricedValues[$1] ?? 0) }
-        snapshot.addressesPending = addressesPending > 0 ? addressesPending : nil
+        snapshot.addressesPending = addressState.pending > 0 ? addressState.pending : nil
+        snapshot.addressesFailing = addressState.failing.isEmpty ? nil : addressState.failing
+        snapshot.staleTokenAddresses = addressState.staleTokenAddresses.isEmpty ? nil : addressState.staleTokenAddresses
+        let staleTokenValue = addressState.staleTokenValue(prices: current)
+        snapshot.staleTokenValueUsdt = staleTokenValue > 0 ? staleTokenValue : nil
         snapshot.positions = snapshot.positions?.map { p in
             var p = p
             let pnl = coinPnl[PortfolioCalculator.normalizeCoin(p.symbol)]

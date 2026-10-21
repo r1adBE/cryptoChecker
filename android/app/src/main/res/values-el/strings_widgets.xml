@@ -8,7 +8,7 @@
     <string name="widget_empty">Δεν υπάρχουν ζεύγη στη λίστα παρακολούθησης ακόμα.</string>
     <string name="widget_group_hint">Εμφάνιση μόνο των ζευγών αυτής της ομάδας.</string>
     <string name="widget_kind_single">Ένα νόμισμα</string>
-    <string name="widget_opacity">Αδιαφάνεια φόντου: %1$d%%</string>
+    <string name="widget_opacity">Αδιαφάνεια φόντου: %1$s</string>
     <string name="widget_pulse_description">Τι ξεχωρίζει τώρα στην αγορά: τίτλος, σύντομη περίληψη καθώς και Bitcoin, Ethereum και Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

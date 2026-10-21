@@ -25,6 +25,30 @@ final class PercentTextParityTests: XCTestCase {
         XCTAssertTrue(languages.isSuperset(of: ["de", "fr", "tr", "ar", "fa"]))
     }
 
+    func testAbstandNachSpracheUndRegion() {
+        // Spanisch (Mexiko) ohne Abstand (CLDR es_MX), die übrigen spanischen Regionen mit
+        XCTAssertEqual(PercentText.wrap("2.4", locale: Locale(identifier: "es_MX")), "2.4%")
+        XCTAssertEqual(PercentText.wrap("2.4", locale: Locale(identifier: "es_US")), "2.4\u{00A0}%")
+        XCTAssertEqual(PercentText.wrap("2.4", locale: Locale(identifier: "es_419")), "2.4\u{00A0}%")
+        // Englisch in Deutschland, Österreich, Schweden, Finnland, Dänemark mit Abstand; in der Schweiz und den USA ohne
+        XCTAssertEqual(PercentText.wrap("2,4", locale: Locale(identifier: "en_DE")), "2,4\u{00A0}%")
+        XCTAssertEqual(PercentText.wrap("2,4", locale: Locale(identifier: "en_SE")), "2,4\u{00A0}%")
+        XCTAssertEqual(PercentText.wrap("2.4", locale: Locale(identifier: "en_CH")), "2.4%")
+        XCTAssertEqual(PercentText.wrap("2.4", locale: Locale(identifier: "en_US")), "2.4%")
+        XCTAssertEqual(PercentText.wrap("2.4", locale: Locale(identifier: "de_LI")), "2.4%")
+        XCTAssertEqual(PercentText.wrap("2,4", locale: Locale(identifier: "fr_CH")), "2,4%")
+    }
+
+    func testMitteilungsprozentOhneVorzeichenBeiGerundetNull() {
+        let us = Locale(identifier: "en_US")
+        XCTAssertEqual(PriceFormat.changePercentDetailed(1.2346, locale: us), BidiText.ltr("+1.235%"))
+        XCTAssertEqual(PriceFormat.changePercentDetailed(-0.5, locale: us), BidiText.ltr("\u{2212}0.500%"))
+        // Gerundet 0: weder «+0.000%» noch «−0.000%»
+        XCTAssertEqual(PriceFormat.changePercentDetailed(0.0004, locale: us), BidiText.ltr("0.000%"))
+        XCTAssertEqual(PriceFormat.changePercentDetailed(-0.0004, locale: us), BidiText.ltr("0.000%"))
+        XCTAssertEqual(PriceFormat.changePercentDetailed(0, locale: us), BidiText.ltr("0.000%"))
+    }
+
     func testAbstandGroessteEinheit() {
         let now: Int64 = 10_000_000_000
         XCTAssertEqual(PriceFormat.ageParts(since: now - 7 * 86_400_000 - 5_000, now: now)?.value, 7)

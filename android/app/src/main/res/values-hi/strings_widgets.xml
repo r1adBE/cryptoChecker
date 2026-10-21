@@ -8,7 +8,7 @@
     <string name="widget_empty">वॉचलिस्ट में अभी कोई पेयर नहीं।</string>
     <string name="widget_group_hint">केवल इस समूह के पेयर दिखाएँ।</string>
     <string name="widget_kind_single">एक कॉइन</string>
-    <string name="widget_opacity">बैकग्राउंड अपारदर्शिता: %1$d%%</string>
+    <string name="widget_opacity">बैकग्राउंड अपारदर्शिता: %1$s</string>
     <string name="widget_pulse_description">बाज़ार में अभी क्या ख़ास है: हेडलाइन, छोटा सारांश और साथ में Bitcoin, Ethereum और Solana।</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

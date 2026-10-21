@@ -27,8 +27,6 @@ struct VolumeSpike: Equatable, Sendable {
 enum VolumeDataSource {
     /// Genug für 24 Vergleichsrenditen + letzte abgeschlossene + laufende Stunde, mit Reserve.
     static let limit = 30
-    /// 24 Vergleichsstunden + letzte abgeschlossene + laufende Stunde.
-    private static let minSpikeCandles = 26
     private static let cacheMillis: Int64 = 5 * 60_000
 
     // Kerzen je Symbol (und Anzahl), kurz zwischengespeichert (auch «nicht gefunden»), mit Anbieter
@@ -39,7 +37,8 @@ enum VolumeDataSource {
     /// Markt-Referenz (z. B. BTC/USDT für den Puls) direkt aus der Ausweich-Kette.
     static func hourlySpike(base: String, quote: String) async -> VolumeSpike? {
         guard let candles = await hourlyCandles(base: base, quote: quote) else { return nil }
-        return spikeOf(candles)
+        // Uhrzeit NACH dem Laden: die Reihe wird gegen die aktuelle Stunde geprüft
+        return spikeOf(candles, now: TimeUtils.nowMillis)
     }
 
     /// Volumen-Spike eines Paars der Merkliste (Volumen-Alarm, Schnell-Alarme); `price` für die
@@ -47,8 +46,8 @@ enum VolumeDataSource {
     static func hourlySpike(watch: Watch, price: Double?) async -> VolumeSpike? {
         guard let sourced = await pairCandles(CandlePair.of(watch), price: price, interval: .h1, limit: limit)
         else { return nil }
-        // Kerzen einer anderen Börse: im Alarmtext genannt
-        return spikeOf(sourced.value)?.withSource(watch, provider: sourced.provider)
+        // Kerzen einer anderen Börse: im Alarmtext genannt; Uhrzeit nach dem Laden (laufende Stunde)
+        return spikeOf(sourced.value, now: TimeUtils.nowMillis)?.withSource(watch, provider: sourced.provider)
     }
 
     /// Kerzen eines Paars der Merkliste (`pair`, Kurs `price`) wie der Chart, siehe `pairCandlesOf`;
@@ -137,13 +136,41 @@ enum VolumeDataSource {
         return s
     }
 
-    /// Die letzte Kerze läuft noch; bewertet wird die vorletzte gegen die 24 davor.
-    static func spikeOf(_ candles: [MarketCandle]) -> VolumeSpike? {
-        let n = candles.count
-        guard n >= minSpikeCandles else { return nil }
-        let lastIndex = n - 2
-        let average = (lastIndex - 24..<lastIndex).reduce(0.0) { $0 + candles[$1].volume } / 24
+    /// Bewertet wird die letzte ABGESCHLOSSENE Stunde gegen die 24 davor — nach Uhrzeit, nicht nach
+    /// Position: Kerzen werden je Stunde (`openTime / 1 h`, abgerundet) zusammengefasst, fehlende Stunden
+    /// (Börsen lassen Stunden ohne Handel aus) zählen mit Volumen 0. Vorher war bei Lücken «die vorletzte
+    /// Kerze» womöglich Stunden alt und der Schnitt über mehr als 24 Stunden gerechnet (seit Build 95 wie Android).
+    ///
+    /// Laufende Stunde = die spätere aus Uhr (`now`) und neuester Kerze (Uhr des Geräts etwas nach).
+    /// nil, wenn die Reihe nicht mehr läuft (`CandleSeries.isLive`) oder nicht alle 24 Vergleichsstunden
+    /// abdeckt (sonst zählten unbekannte Stunden als 0 und blähten den Spike auf). Wie `VolumeDataSource.spikeOf` (Kotlin).
+    static func spikeOf(_ candles: [MarketCandle], now: Int64) -> VolumeSpike? {
+        guard candles.count >= 2, CandleSeries.isLive(candles, intervalMillis: hourMillis, now: now) else { return nil }
+        var volumes: [Int64: Double] = [:]
+        for candle in candles where candle.volume.isFinite && candle.volume >= 0 {
+            let hour = floorDiv(candle.openTime, hourMillis)
+            volumes[hour, default: 0] += candle.volume
+        }
+        guard let newest = volumes.keys.max(), let oldest = volumes.keys.min() else { return nil }
+        let running = max(floorDiv(now, hourMillis), newest)
+        let evaluated = running - 1
+        // Die Reihe muss bis an den Anfang der 24 Vergleichsstunden zurückreichen
+        guard oldest <= evaluated - compareHours else { return nil }
+        var sum = 0.0
+        for hour in (evaluated - compareHours)..<evaluated { sum += volumes[hour] ?? 0 }
+        let average = sum / Double(compareHours)
         guard average > 0 else { return nil }
-        return VolumeSpike(ratio: candles[lastIndex].volume / average, candleOpenTime: candles[lastIndex].openTime)
+        return VolumeSpike(ratio: (volumes[evaluated] ?? 0) / average, candleOpenTime: evaluated * hourMillis)
+    }
+
+    private static let hourMillis: Int64 = 3_600_000
+
+    /// Vergleichsstunden vor der bewerteten.
+    private static let compareHours: Int64 = 24
+
+    /// Ganzzahlige Division, zur kleineren Zahl gerundet (wie `Math.floorDiv`; Swift `/` rundet gegen 0).
+    private static func floorDiv(_ a: Int64, _ b: Int64) -> Int64 {
+        let q = a / b
+        return (a % b != 0 && (a < 0) != (b < 0)) ? q - 1 : q
     }
 }

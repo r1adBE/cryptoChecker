@@ -250,9 +250,18 @@ object ChainBalance {
     /**
      * `{"jetton_wallets":[{"balance":"…","jetton":"0:…"}]}` → bekannte Jettons (Symbol → Text), Summe je Jetton. Volle
      * Seite ([TON_JETTON_LIMIT] Einträge): ein bekannter Jetton, der fehlt, kann auf der nächsten Seite stehen — er fehlt
-     * dann im Ergebnis (unbekannt, der letzte Wert bleibt) statt als 0 zu gelten.
+     * dann im Ergebnis (unbekannt, der letzte Wert bleibt) statt als 0 zu gelten; siehe [parseTonJettonPage].
      */
-    fun parseTonJettons(body: String): Map<String, String> {
+    fun parseTonJettons(body: String): Map<String, String> = parseTonJettonPage(body).tokens
+
+    /**
+     * Gelesene Jetton-Seite: [tokens] wie [parseTonJettons], [kept] = bekannte Jettons, die auf der vollen Seite fehlen
+     * (Reihenfolge der Liste). Ihr alter Wert bleibt, gilt aber seit Build 95 als nicht bestätigt
+     * ([WatchedAddress.staleTokens]) — sonst bliebe er bei dauerhaft voller Seite für immer stehen.
+     */
+    data class TonJettonPage(val tokens: Map<String, String>, val kept: List<String>)
+
+    fun parseTonJettonPage(body: String): TonJettonPage {
         val wallets = JSONObject(body).optJSONArray("jetton_wallets") ?: throw IllegalStateException("jetton_wallets fehlt")
         val sums = LinkedHashMap<String, BigInteger>()
         for (i in 0 until wallets.length()) {
@@ -264,11 +273,16 @@ object ChainBalance {
         }
         val full = wallets.length() >= TON_JETTON_LIMIT
         val out = LinkedHashMap<String, String>()
+        val kept = ArrayList<String>()
         for (j in ChainAssets.TON_JETTONS) {
-            val sum = sums[j.symbol] ?: if (full) continue else BigInteger.ZERO
+            val sum = sums[j.symbol] ?: if (full) null else BigInteger.ZERO
+            if (sum == null) {
+                kept += j.symbol
+                continue
+            }
             out[j.symbol] = AddressBalance.unitsText(sum.toString(), j.decimals)
         }
-        return out
+        return TonJettonPage(out, kept)
     }
 
     // ---------------- Cardano ----------------

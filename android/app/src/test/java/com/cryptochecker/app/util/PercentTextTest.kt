@@ -23,6 +23,32 @@ class PercentTextTest {
     }
 
     @Test
+    fun abstandNachSpracheUndRegion() {
+        // Spanisch (Mexiko) ohne Abstand (CLDR es_MX), die übrigen spanischen Regionen mit
+        assertEquals("2.4%", PercentText.wrap("2.4", Locale.forLanguageTag("es-MX")))
+        assertEquals("2.4\u00A0%", PercentText.wrap("2.4", Locale.forLanguageTag("es-US")))
+        assertEquals("2.4\u00A0%", PercentText.wrap("2.4", Locale.forLanguageTag("es-419")))
+        // Englisch in Deutschland, Österreich, Schweden, Finnland, Dänemark mit Abstand; in der Schweiz und den USA ohne
+        assertEquals("2,4\u00A0%", PercentText.wrap("2,4", Locale.forLanguageTag("en-DE")))
+        assertEquals("2,4\u00A0%", PercentText.wrap("2,4", Locale.forLanguageTag("en-SE")))
+        assertEquals("2.4%", PercentText.wrap("2.4", Locale.forLanguageTag("en-CH")))
+        assertEquals("2.4%", PercentText.wrap("2.4", Locale.US))
+        // Liechtenstein und Westschweiz wie bisher ohne Abstand
+        assertEquals("2.4%", PercentText.wrap("2.4", Locale.forLanguageTag("de-LI")))
+        assertEquals("2,4%", PercentText.wrap("2,4", Locale.forLanguageTag("fr-CH")))
+    }
+
+    @Test
+    fun mitteilungsprozentOhneVorzeichenBeiGerundetNull() {
+        assertEquals("+1.235%", PriceFormat.changePercentDetailed(1.2346, Locale.US))
+        assertEquals("\u22120.500%", PriceFormat.changePercentDetailed(-0.5, Locale.US))
+        // Gerundet 0: weder «+0.000%» noch «−0.000%»
+        assertEquals("0.000%", PriceFormat.changePercentDetailed(0.0004, Locale.US))
+        assertEquals("0.000%", PriceFormat.changePercentDetailed(-0.0004, Locale.US))
+        assertEquals("0.000%", PriceFormat.changePercentDetailed(0.0, Locale.US))
+    }
+
+    @Test
     fun vorzeichenVorDemGanzen() {
         assertEquals("+2.40%", PercentText.signed(2.4, 2, Locale.US))
         assertEquals("\u22121.4%", PercentText.signed(-1.36, 1, Locale.US))

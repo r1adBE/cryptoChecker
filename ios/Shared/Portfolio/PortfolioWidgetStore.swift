@@ -261,8 +261,9 @@ enum PortfolioWidgetStore {
                                staleAfterMillis: PortfolioPriceFallback.staleAfterMillis(
                                    backgroundIntervalMinutes: settings.backgroundIntervalMinutes),
                                displayFx: displayFx,
-                               // Zählende Adressen ohne je geladenes Guthaben: Portfolio-Alarme prüfen dann nicht
-                               addressesPending: AddressBalance.pendingCount(watched))
+                               // Zählende Adressen ohne je geladenes Guthaben: Portfolio-Alarme prüfen dann nicht (seit
+                               // über 24 h scheiternde rechnen sie ohne); nicht bestätigte Token wie ein alter Kurs
+                               addressState: AddressAlarmState.of(watched, now: now))
         if save(snapshot) && reload {
             WidgetCenter.shared.reloadTimelines(ofKind: kind)
         }

@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Cảnh báo danh mục tạm dừng: không có giá hiện tại cho %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Cảnh báo danh mục tạm dừng: không phải coin nào cũng có giá hiện tại</string>
     <string name="portfolio_alarms_paused_addresses">Cảnh báo danh mục tạm dừng: số dư của các địa chỉ theo dõi chưa được tải</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Cảnh báo danh mục tạm dừng: số dư token của %1$s đã cũ một phần</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Cảnh báo danh mục tạm dừng: số dư token của các địa chỉ theo dõi đã cũ một phần</string>
+    <string name="portfolio_alarms_address_failing">Cảnh báo danh mục kiểm tra mà không có %1$s: số dư chưa tải được hơn 24 giờ</string>
+    <string name="portfolio_alarms_address_failing_generic">Cảnh báo danh mục kiểm tra mà không có các địa chỉ có số dư chưa tải được hơn 24 giờ</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">token đã cũ một phần</string>
+    <string name="portfolio_address_restore_failed">Không thể khôi phục địa chỉ – hãy thêm lại nếu cần</string>
 </resources>

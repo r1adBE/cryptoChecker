@@ -5499,40 +5499,48 @@
           "body": "{\"jetton_wallets\": [{\"address\": \"0:1111111111111111111111111111111111111111111111111111111111111111\", \"balance\": \"1500000\", \"owner\": \"0:D537BC9C04D322DF18388944BB0F7DA74969857D482B4BB6955B95CC10478489\", \"jetton\": \"0:B113A994B5024A16719F69139328EB759596C38A25F59028B146FECDC3621DFE\", \"last_transaction_lt\": \"1\"}, {\"address\": \"0:2222222222222222222222222222222222222222222222222222222222222222\", \"balance\": \"999\", \"owner\": \"0:D537BC9C04D322DF18388944BB0F7DA74969857D482B4BB6955B95CC10478489\", \"jetton\": \"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\", \"last_transaction_lt\": \"1\"}], \"address_book\": {}, \"metadata\": {}}",
           "tokens": {
             "USDT": "1.5"
-          }
+          },
+          "kept": []
         },
         {
           "name": "benutzerfreundlich",
           "body": "{\"jetton_wallets\": [{\"balance\": \"2000000\", \"jetton\": \"EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs\"}]}",
           "tokens": {
             "USDT": "2"
-          }
+          },
+          "kept": []
         },
         {
           "name": "keine Wallets",
           "body": "{\"jetton_wallets\":[],\"address_book\":{},\"metadata\":{}}",
           "tokens": {
             "USDT": "0"
-          }
+          },
+          "kept": []
         },
         {
           "name": "volle Seite (50) ohne USDT: unbekannt statt 0",
           "body": "{\"jetton_wallets\":[{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"}]}",
-          "tokens": {}
+          "tokens": {},
+          "kept": [
+            "USDT"
+          ]
         },
         {
           "name": "volle Seite (50) mit USDT",
           "body": "{\"jetton_wallets\":[{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"3000000\",\"jetton\":\"0:B113A994B5024A16719F69139328EB759596C38A25F59028B146FECDC3621DFE\"}]}",
           "tokens": {
             "USDT": "3"
-          }
+          },
+          "kept": []
         },
         {
           "name": "fast volle Seite (49) ohne USDT: 0",
           "body": "{\"jetton_wallets\":[{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"}]}",
           "tokens": {
             "USDT": "0"
-          }
+          },
+          "kept": []
         },
         {
           "name": "Fehler",
@@ -5540,7 +5548,8 @@
           "error": true
         }
       ],
-      "jettonLimit": 50
+      "jettonLimit": 50,
+      "_keptComment": "kept (seit Build 95): bekannte Jettons, die auf einer vollen Seite fehlen (ChainBalance.parseTonJettonPage) - ihr alter Wert bleibt, gilt aber als nicht bestaetigt (WatchedAddress.staleTokens)."
     },
     "ada": {
       "_comment": "Koios POST /api/v1/address_info; Format laut github.com/cardano-community/koios-artifacts specs/results/koiosapi-mainnet.yaml (2e2eb57): Array mit address, balance (Lovelace als Text), stake_address, script_address, utxo_set.",
@@ -6152,7 +6161,8 @@
         "countInPortfolio": true
       }
     ],
-    "expected": 2
+    "expected": 2,
+    "now": 1700000000000
   },
   "dueOrder": {
     "_comment": "AddressBalance.dueOrder: faellige Adressen (10 min); Hintergrund die am laengsten nicht versuchten zuerst.",
@@ -6190,6 +6200,181 @@
       3,
       5,
       1
+    ]
+  },
+  "addressAlarmState": {
+    "_comment": "Seit Build 95 (AddressAlarmState.of): nie geladene zaehlende Adresse = pending, solange kein Fehler oder vor weniger als 24 h hinzugefuegt (Uhr zurueckgestellt = frisch); die 24 h zaehlen ab max(addedAt, pendingSince) - wiederhergestellt (Sicherung, Rueckgaengig) mit altem addedAt (auch 0) und Fehler, aber pendingSince vor 1 h = pending; pendingSince vor ueber 24 h = failing; sonst failing (Name: Bezeichnung oder gekuerzte Adresse) - Portfolio-Alarme rechnen ohne sie. Gleiche Adresse einmal, Nur anzeigen zaehlt nicht. staleTokens mit gespeichertem Guthaben > 0: staleTokenAddresses und Menge je Coin; Wert zu prices (Coin ohne Kurs = 0).",
+    "now": 1700000000000,
+    "addresses": [
+      {
+        "chain": "BTC",
+        "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+        "lastBalance": "0.1"
+      },
+      {
+        "chain": "LTC",
+        "address": "ltc1qha8gzjptcmta7lyuna8fs8y7m492ag2pempv4a",
+        "lastError": "timeout",
+        "addedAt": 1699992800000
+      },
+      {
+        "chain": "ETH",
+        "address": "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed",
+        "label": "Cold",
+        "lastError": "HttpCode: 500",
+        "addedAt": 1699910000000
+      },
+      {
+        "chain": "ETH",
+        "address": "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359",
+        "addedAt": 1699827200000
+      },
+      {
+        "chain": "BTC",
+        "address": "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy",
+        "lastError": "timeout",
+        "addedAt": 1699892000000
+      },
+      {
+        "chain": "BTC",
+        "address": "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy",
+        "lastError": "timeout",
+        "addedAt": 1699892000000
+      },
+      {
+        "chain": "BTC",
+        "address": "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2",
+        "lastError": "timeout",
+        "addedAt": 1699892000000,
+        "countInPortfolio": false
+      },
+      {
+        "chain": "BTC",
+        "address": "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq",
+        "lastError": "timeout",
+        "addedAt": 1700003600000
+      },
+      {
+        "chain": "TON",
+        "address": "UQDVN7ycBNMi3xg4iUS7D32nSWmFfUgrS7aVW5XMEEeEiaD/",
+        "label": "TON",
+        "lastBalance": "1",
+        "tokenBalances": {
+          "USDT": "12.5"
+        },
+        "staleTokens": [
+          "USDT"
+        ]
+      },
+      {
+        "chain": "TRX",
+        "address": "TLa2f6VPqDgRE67v1736s7bJ8Ray5wYjU7",
+        "lastError": "timeout",
+        "addedAt": 0,
+        "pendingSince": 1699996400000
+      },
+      {
+        "chain": "SOL",
+        "address": "So11111111111111111111111111111111111111112",
+        "label": "Alt",
+        "lastError": "timeout",
+        "addedAt": 1600000000000,
+        "pendingSince": 1699900000000
+      }
+    ],
+    "prices": {
+      "USDT": 1.0,
+      "BTC": 60000.0
+    },
+    "expected": {
+      "pending": 4,
+      "failing": [
+        "Cold",
+        "3J98t1…WNLy",
+        "Alt"
+      ],
+      "staleTokenAddresses": [
+        "TON"
+      ],
+      "staleTokenAmounts": {
+        "USDT": "12.5"
+      },
+      "staleTokenValue": 12.5
+    }
+  },
+  "keptTokens": {
+    "_comment": "Seit Build 95 (WatchedAddressRules.applyFetched keptTokens): null = staleTokens unveraendert; sonst nur Schluessel mit gespeichertem Guthaben > 0. Tokens mitzaehlen aus loescht sie. Speicherform (Android Spalte, Schluessel stk) hin und zurueck.",
+    "start": {
+      "chain": "TON",
+      "address": "UQDVN7ycBNMi3xg4iUS7D32nSWmFfUgrS7aVW5XMEEeEiaD/",
+      "tokenBalances": {
+        "USDT": "5"
+      }
+    },
+    "steps": [
+      {
+        "time": 100,
+        "balance": "1",
+        "tokens": {},
+        "kept": [
+          "USDT"
+        ],
+        "tokenBalances": {
+          "USDT": "5"
+        },
+        "staleTokens": [
+          "USDT"
+        ]
+      },
+      {
+        "time": 200,
+        "balance": "1",
+        "tokens": null,
+        "kept": null,
+        "tokenBalances": {
+          "USDT": "5"
+        },
+        "staleTokens": [
+          "USDT"
+        ]
+      },
+      {
+        "time": 300,
+        "balance": "1",
+        "tokens": {
+          "USDT": "6"
+        },
+        "kept": [],
+        "tokenBalances": {
+          "USDT": "6"
+        },
+        "staleTokens": []
+      },
+      {
+        "time": 400,
+        "balance": "1",
+        "tokens": {
+          "USDT": "0"
+        },
+        "kept": [],
+        "tokenBalances": {
+          "USDT": "0"
+        },
+        "staleTokens": []
+      },
+      {
+        "time": 500,
+        "balance": "1",
+        "tokens": {},
+        "kept": [
+          "USDT",
+          "USDT"
+        ],
+        "tokenBalances": {
+          "USDT": "0"
+        },
+        "staleTokens": []
+      }
     ]
   }
 }

@@ -94,7 +94,7 @@
     <string name="sats_per_unit">%1$s %2$s = %3$s sats</string>
 
     <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
-    <string name="ticker_wide_spread">ส่วนต่างราคาซื้อ-ขายสูง (%1$s%%)</string>
+    <string name="ticker_wide_spread">ส่วนต่างราคาซื้อ-ขายสูง (%1$s)</string>
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">แนวโน้มใน %1$s แปลงเป็น %2$s ด้วยอัตราวันนี้</string>

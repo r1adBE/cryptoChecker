@@ -187,7 +187,7 @@ class PortfolioAlarmLogicTest {
             WatchedAddress(chain = AddressChain.BTC, address = "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh", lastBalance = null),
             WatchedAddress(chain = AddressChain.ETH, address = "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed", lastBalance = null, countInPortfolio = false),
         )
-        val pending = AddressBalance.pendingCount(addresses)
+        val pending = AddressBalance.pendingCount(addresses, start)
         assertEquals(1, pending)
         val r = reading(50.0, change = 12.0).copy(addressesPending = pending)
         for (kind in PortfolioAlarmKind.entries) {
@@ -197,7 +197,7 @@ class PortfolioAlarmLogicTest {
         }
         // Guthaben geladen: wie bisher
         val loaded = addresses.map { it.copy(lastBalance = "0.1") }
-        assertEquals(0, AddressBalance.pendingCount(loaded))
+        assertEquals(0, AddressBalance.pendingCount(loaded, start))
         assertTrue(PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), r.copy(addressesPending = 0), start, 0) is PortfolioAlarmDecision.Fire)
     }
 

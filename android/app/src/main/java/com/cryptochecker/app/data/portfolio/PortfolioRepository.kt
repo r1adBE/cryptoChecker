@@ -251,16 +251,16 @@ class PortfolioRepository @Inject constructor(
         xpub: com.cryptochecker.app.domain.portfolio.XpubCache? = null,
         networks: List<String>? = null,
         unknownTokens: Int? = null,
+        keptTokens: List<String>? = null,
     ) {
         if (balanceText == null) {
             watchedAddressDao.saveError(id, time, error ?: "unknown")
             return
         }
-        // Guthaben, Beobachtungen (nur bei geändertem Guthaben), Token und xpub-Zwischenspeicher zusammen
-        // ([WatchedAddressRules.applyFetched], gleich wie iOS)
+        // Guthaben, Beobachtungen (nur bei geändertem Guthaben), Token, xpub zusammen ([WatchedAddressRules.applyFetched], wie iOS)
         database.withTransaction {
             val current = watchedAddressDao.getById(id)?.toDomain() ?: return@withTransaction
-            val updated = WatchedAddressRules.applyFetched(current, time, balanceText, provider, tokens, xpub, networks, unknownTokens)
+            val updated = WatchedAddressRules.applyFetched(current, time, balanceText, provider, tokens, xpub, networks, unknownTokens, keptTokens)
             watchedAddressDao.saveFetched(id, balanceText, time, provider, WatchedAddressExtras.encode(updated))
         }
     }

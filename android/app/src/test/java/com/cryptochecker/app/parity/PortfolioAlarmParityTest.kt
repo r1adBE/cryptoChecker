@@ -34,7 +34,7 @@ class PortfolioAlarmParityTest {
         }
     }
 
-    /** Unvollständiger Stand (seit Build 94): Adressen, Wesentlichkeit alter Kurse, Hinweis «pausiert». */
+    /** Unvollständiger Stand (seit Build 94): Adressen, Wesentlichkeit alter Kurse und Token (seit Build 95), Hinweis «pausiert». */
     @Test
     fun incomplete() {
         val block = data["incomplete"].obj()
@@ -52,6 +52,9 @@ class PortfolioAlarmParityTest {
                 stalePrices = r["stalePrices"].num()?.toInt() ?: 0,
                 staleValueUsdt = r["staleValueUsdt"].num(),
                 addressesPending = r["addressesPending"].num()?.toInt() ?: 0,
+                addressesFailing = (r["addressesFailing"] as List<*>?)?.map { it as String }.orEmpty(),
+                staleTokenAddresses = (r["staleTokenAddresses"] as List<*>?)?.map { it as String }.orEmpty(),
+                staleTokenValueUsdt = r["staleTokenValueUsdt"].num() ?: 0.0,
             )
             val name = c["name"] as String
             assertEquals("Wert: $name", c["value"], PortfolioAlarmLogic.incomplete(PortfolioAlarmKind.VALUE_BELOW, reading))
@@ -65,6 +68,9 @@ class PortfolioAlarmParityTest {
             val expected: PortfolioAlarmPause? = when (val p = c["pause"]) {
                 null -> null
                 "addresses" -> PortfolioAlarmPause.AddressesPending(r["addressesPending"].num()!!.toInt())
+                // Seit Build 95: {"tokens":[…]} bzw. {"failing":[…]}
+                is Map<*, *> -> p.obj()["tokens"]?.let { t -> PortfolioAlarmPause.TokensStale(t.list().map { it as String }) }
+                    ?: PortfolioAlarmPause.AddressesFailing(p.obj()["failing"].list().map { it as String })
                 else -> PortfolioAlarmPause.NoPrice(p.list().map { it as String })
             }
             assertEquals("pause: $name", expected, pause)

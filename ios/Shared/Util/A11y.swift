@@ -13,7 +13,8 @@ enum A11y {
     static func change(_ percent: Double?) -> String? {
         guard let percent, percent.isFinite else { return nil }
         guard abs(percent) >= 0.005 else { return L("a11y_change_flat") }
-        let value = String(format: "%.2f%%", locale: Locale.current, abs(percent))
+        // Schreibweise der App-Sprache («1,24 %», «%1,24») wie Android `ChartSummary.unsignedPercent`
+        let value = PercentText.unsigned(percent, decimals: 2)
         return L(percent > 0 ? "a11y_change_up" : "a11y_change_down", value)
     }
 

@@ -167,5 +167,8 @@ fun PortfolioSnapshot.toAlarmReading(usdTo: Map<String, Double> = emptyMap(), us
         stalePrices = stalePrices,
         staleValueUsdt = staleValueUsdt,
         addressesPending = addressesPending,
+        addressesFailing = addressesFailing,
+        staleTokenAddresses = staleTokenAddresses,
+        staleTokenValueUsdt = staleTokenValueUsdt,
         usdtUsdLive = usdtUsdLive,
     )

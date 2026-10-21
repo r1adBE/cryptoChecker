@@ -8,7 +8,10 @@ Appends findings for annotate.py:
     support for targetSdk 35+)                                           -> warning
   - native libraries stored uncompressed in the APK (needed for 16 KB zip alignment)
                                                                          -> notice if compressed
-  - native debug symbols in the AAB (ndk.debugSymbolLevel)              -> warning if missing
+  - native debug symbols in the AAB (ndk.debugSymbolLevel)              -> notice if missing
+    (expected: SQLCipher ships prebuilt, stripped libraries and AGP needs an installed NDK to
+    extract symbols; no NDK is installed on purpose, a mismatching NDK version could break the build)
+  - release APK larger than APK_WARN_MB (build 94: 17.6 MB)              -> warning
   - size of APK and AAB, list of native libraries                        -> notice
 
 Usage: python3 -I apk_contents.py <apk> <aab or -> <findings file>
@@ -19,6 +22,9 @@ import sys
 import zipfile
 
 PAGE_16K = 16384
+# Warning threshold for the release APK: build 94 had 17.6 MB, a jump beyond this means a new
+# dependency or resources that were not shrunk
+APK_WARN_MB = 22
 
 
 def elf_min_load_align(data):
@@ -69,7 +75,12 @@ def main():
     try:
         with zipfile.ZipFile(apk) as z:
             names = z.namelist()
-            sizes.append(f"APK {os.path.basename(apk)} {mb(os.path.getsize(apk))}")
+            apk_size = os.path.getsize(apk)
+            sizes.append(f"APK {os.path.basename(apk)} {mb(apk_size)}")
+            if apk_size > APK_WARN_MB * 1024 * 1024:
+                add("warning", f"Release APK is {mb(apk_size)}, more than {APK_WARN_MB} MB (build 94: 17.6 MB): "
+                               "check new dependencies, native libraries and resource shrinking "
+                               "(apkanalyzer / Android Studio «Analyze APK»)")
             if "assets/dexopt/baseline.prof" not in names:
                 add("warning", "Release APK contains no baseline profile (assets/dexopt/baseline.prof): "
                                "app/src/main/baseline-prof.txt or the :baselineprofile output was not packaged")
@@ -112,9 +123,11 @@ def main():
                 has_symbols = any(n.startswith("BUNDLE-METADATA/com.android.tools.build.debugsymbols/")
                                   for n in names)
                 if has_libs and not has_symbols:
-                    add("warning", "Release AAB has native libraries but no native debug symbols "
-                                   "(ndk.debugSymbolLevel; NDK missing on the runner?): Play Console will "
-                                   "show native crashes without function names")
+                    add("notice", "Release AAB has native libraries but no native debug symbols: expected. "
+                                  "SQLCipher ships prebuilt, stripped libraries and AGP needs an installed NDK "
+                                  "to extract symbols (ndk.debugSymbolLevel); the runner installs none on "
+                                  "purpose. The Play Console hint about missing native debug symbols can be "
+                                  "ignored (see PLAY_STORE.md)")
                 if not any(n.startswith("BUNDLE-METADATA/com.android.tools.build.obfuscation/") for n in names):
                     add("warning", "Release AAB contains no R8 mapping (BUNDLE-METADATA/"
                                    "com.android.tools.build.obfuscation/proguard.map)")

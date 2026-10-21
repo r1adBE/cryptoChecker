@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Alertele portofoliului sunt în pauză: niciun preț actual pentru %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Alertele portofoliului sunt în pauză: nu toate monedele au un preț actual</string>
     <string name="portfolio_alarms_paused_addresses">Alertele portofoliului sunt în pauză: soldurile adreselor urmărite nu sunt încă încărcate</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Alertele portofoliului sunt în pauză: soldurile de tokenuri ale %1$s sunt parțial învechite</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alertele portofoliului sunt în pauză: soldurile de tokenuri ale adreselor urmărite sunt parțial învechite</string>
+    <string name="portfolio_alarms_address_failing">Alertele portofoliului verifică fără %1$s: soldul nu s-a încărcat de peste 24 de ore</string>
+    <string name="portfolio_alarms_address_failing_generic">Alertele portofoliului verifică fără adresele al căror sold nu se încarcă de peste 24 de ore</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokenuri parțial învechite</string>
+    <string name="portfolio_address_restore_failed">Adresa nu a putut fi restabilită – adaug-o din nou dacă e nevoie</string>
 </resources>

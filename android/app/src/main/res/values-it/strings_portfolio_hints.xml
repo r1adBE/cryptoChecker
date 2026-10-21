@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Avvisi del portafoglio in pausa: nessun prezzo attuale per %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Avvisi del portafoglio in pausa: non tutte le monete hanno un prezzo attuale</string>
     <string name="portfolio_alarms_paused_addresses">Avvisi del portafoglio in pausa: saldi degli indirizzi osservati non ancora caricati</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Avvisi del portafoglio in pausa: saldi token di %1$s in parte non aggiornati</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Avvisi del portafoglio in pausa: saldi token degli indirizzi osservati in parte non aggiornati</string>
+    <string name="portfolio_alarms_address_failing">Gli avvisi del portafoglio controllano senza %1$s: saldo non caricato da oltre 24 ore</string>
+    <string name="portfolio_alarms_address_failing_generic">Gli avvisi del portafoglio controllano senza gli indirizzi il cui saldo non si carica da oltre 24 ore</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">token in parte non aggiornati</string>
+    <string name="portfolio_address_restore_failed">Impossibile ripristinare l’indirizzo – aggiungilo di nuovo se serve</string>
 </resources>

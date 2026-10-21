@@ -8,7 +8,7 @@
     <string name="widget_empty">Chưa có cặp nào trong danh sách theo dõi.</string>
     <string name="widget_group_hint">Chỉ hiển thị các cặp của nhóm này.</string>
     <string name="widget_kind_single">Một coin</string>
-    <string name="widget_opacity">Độ mờ nền: %1$d%%</string>
+    <string name="widget_opacity">Độ mờ nền: %1$s</string>
     <string name="widget_pulse_description">Điều nổi bật trên thị trường lúc này: tiêu đề, tóm tắt ngắn cùng Bitcoin, Ethereum và Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

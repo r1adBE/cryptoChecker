@@ -8,6 +8,9 @@ Errors (each one blocks a store release):
   - forbidden permissions: USE_EXACT_ALARM, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, QUERY_ALL_PACKAGES,
     AD_ID, MANAGE_EXTERNAL_STORAGE, SYSTEM_ALERT_WINDOW and every typed FOREGROUND_SERVICE_*
     (the app declares no foreground service type; Play would demand a declaration per type)
+  - any permission outside the allow-list EXPECTED (the 11 permissions of build 94, each justified in
+    android/docs/PLAY_STORE.md §6): a new permission must be a conscious decision (Data safety,
+    store text), not a side effect of a library update
   - a service with android:foregroundServiceType
   - application debuggable, testOnly or usesCleartextTraffic="true"
   - an exported component without a permission, except MainActivity, BootReceiver and the
@@ -27,6 +30,21 @@ FORBIDDEN = {
     "com.google.android.gms.permission.AD_ID": "app has no ads; Data safety says no advertising ID",
     "android.permission.MANAGE_EXTERNAL_STORAGE": "Play policy: All files access",
     "android.permission.SYSTEM_ALERT_WINDOW": "not used by the app",
+}
+# Allow-list: every permission of the release manifest, with the reason (also in PLAY_STORE.md §6).
+# "{package}" is replaced by the package (the AndroidX core library declares that permission itself).
+EXPECTED = {
+    "android.permission.ACCESS_NETWORK_STATE": "online check before fetching prices",
+    "android.permission.FOREGROUND_SERVICE": "expedited price update runs briefly as untyped foreground service up to Android 11",
+    "android.permission.INTERNET": "fetching prices from the exchanges",
+    "android.permission.POST_NOTIFICATIONS": "price alarms and price notifications (Android 13+)",
+    "android.permission.RECEIVE_BOOT_COMPLETED": "re-plan alarms and background updates after a reboot",
+    "android.permission.SCHEDULE_EXACT_ALARM": "opt-in «check punctually» exact alarm (user-granted, revocable)",
+    "android.permission.USE_BIOMETRIC": "app lock with biometrics (androidx.biometric)",
+    "android.permission.USE_FINGERPRINT": "app lock on Android 8/9 (androidx.biometric)",
+    "android.permission.VIBRATE": "vibration of alarm notifications",
+    "android.permission.WAKE_LOCK": "WorkManager keeps the CPU awake while a job runs",
+    "{package}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION": "AndroidX core: non-exported dynamic receivers",
 }
 # Exported on purpose: the start activity (target of the launcher aliases, also opened by
 # notifications and widgets) and the boot receiver (protected system broadcasts only).
@@ -93,6 +111,15 @@ def main():
                 bad.append(f"{p} ({FORBIDDEN[p]})")
             elif p.startswith("android.permission.FOREGROUND_SERVICE_"):
                 bad.append(f"{p} (typed foreground service permission: needs a Play Console declaration)")
+        expected = {k.replace("{package}", package) for k in EXPECTED}
+        unexpected = [p for p in perms if p not in expected and p not in FORBIDDEN
+                      and not p.startswith("android.permission.FOREGROUND_SERVICE_")]
+        if unexpected:
+            add("error", "Unexpected permission(s) in the merged release manifest (not in the allow-list of "
+                         "manifest_policy.py). Find the source in app/build/outputs/logs/"
+                         "manifest-merger-release-report.txt; remove it (tools:node=\"remove\") or, if it is "
+                         "really needed, add it to EXPECTED with a reason, to PLAY_STORE.md §6 and check the "
+                         "Data safety form:\n- " + "\n- ".join(unexpected))
         if bad:
             add("error", "Forbidden permission(s) in the merged release manifest (check which library adds "
                          "them: app/build/outputs/logs/manifest-merger-release-report.txt):\n- " + "\n- ".join(bad))

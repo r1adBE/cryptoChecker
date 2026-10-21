@@ -8,7 +8,7 @@
     <string name="widget_empty">Inga par i bevakningslistan ännu.</string>
     <string name="widget_group_hint">Visa bara paren i den här gruppen.</string>
     <string name="widget_kind_single">Ett mynt</string>
-    <string name="widget_opacity">Bakgrundens opacitet: %1$d %%</string>
+    <string name="widget_opacity">Bakgrundens opacitet: %1$s</string>
     <string name="widget_pulse_description">Det som sticker ut på marknaden just nu: rubrik, kort sammanfattning samt Bitcoin, Ethereum och Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

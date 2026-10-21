@@ -55,10 +55,12 @@ extension WatchedAddressSource {
         let address = a.address
         do {
             try await Task.sleep(nanoseconds: UInt64(ChainBalance.tonPauseMillis) * 1_000_000)
-            let (tokens, _) = try await firstWorking(ChainBalance.tonHosts, deadline: deadline) { (host: String) -> [String: String] in
-                try ChainBalance.parseTonJettons(try await Self.load(ChainBalance.tonJettonsUrl(host: host, address: address), post: nil))
+            let (page, _) = try await firstWorking(ChainBalance.tonHosts, deadline: deadline) { (host: String) -> ChainBalance.TonJettonPage in
+                try ChainBalance.parseTonJettonPage(try await Self.load(ChainBalance.tonJettonsUrl(host: host, address: address), post: nil))
             }
-            ton.tokens = tokens
+            // Auf voller Seite fehlende bekannte Jettons: alter Wert bleibt, gilt aber als nicht bestätigt
+            ton.tokens = page.tokens
+            ton.keptTokens = page.kept
         } catch is CancellationError {
             throw CancellationError()
         } catch {

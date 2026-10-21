@@ -42,5 +42,8 @@ class ChartSummaryTest {
         } finally {
             java.util.Locale.setDefault(previous)
         }
+        // Schreibweise der Sprache (PercentText) statt fest «2.50%»
+        assertEquals("2,50\u00A0%", ChartSummary.unsignedPercent(-2.5, locale = java.util.Locale.GERMANY))
+        assertEquals("%2,50", ChartSummary.unsignedPercent(2.5, locale = java.util.Locale.forLanguageTag("tr-TR")))
     }
 }

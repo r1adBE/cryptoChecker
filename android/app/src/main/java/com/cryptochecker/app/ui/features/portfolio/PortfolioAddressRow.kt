@@ -88,10 +88,13 @@ internal fun AddressRow(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
+            // Token-Guthaben, die der letzte Abruf nicht bestätigt hat (TON: volle Jetton-Seite): «teilweise veraltet»
+            val partlyStale = a.staleTokens.isNotEmpty() && a.tokenHoldings().any { it.key in a.staleTokens }
             val status = when {
                 a.lastError != null -> stringResource(R.string.portfolio_address_error) +
                     (if (a.lastUpdated > 0) " · " + ago(a.lastUpdated, now) else "")
-                a.lastUpdated > 0 -> ago(a.lastUpdated, now) + (a.lastProvider?.let { " · $it" } ?: "")
+                a.lastUpdated > 0 -> ago(a.lastUpdated, now) + (a.lastProvider?.let { " · $it" } ?: "") +
+                    (if (partlyStale) " · " + stringResource(R.string.portfolio_address_tokens_partly_stale) else "")
                 else -> null
             }
             if (a.isXpub) {

@@ -8,7 +8,7 @@
     <string name="widget_empty">Aucune paire dans la liste de suivi.</string>
     <string name="widget_group_hint">Afficher uniquement les paires de ce groupe.</string>
     <string name="widget_kind_single">Une crypto</string>
-    <string name="widget_opacity">Opacité du fond : %1$d%%</string>
+    <string name="widget_opacity">Opacité du fond : %1$s</string>
     <string name="widget_pulse_description">Ce qui ressort du marché en ce moment : titre, bref résumé ainsi que Bitcoin, Ethereum et Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

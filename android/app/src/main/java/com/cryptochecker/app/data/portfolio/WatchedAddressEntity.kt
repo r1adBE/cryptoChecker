@@ -109,6 +109,8 @@ fun WatchedAddressEntity.toDomain(): WatchedAddress? {
         overlapChecked = extras.overlapChecked,
         overlapLegacy = extras.overlapLegacy,
         costLots = AddressCostLots.decode(costLots),
+        staleTokens = extras.staleTokens,
+        pendingSince = extras.pendingSince,
     )
 }
 

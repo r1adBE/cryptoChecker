@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Salkkuhälytykset keskeytetty: ei ajantasaista hintaa kohteelle %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Salkkuhälytykset keskeytetty: kaikilla kolikoilla ei ole ajantasaista hintaa</string>
     <string name="portfolio_alarms_paused_addresses">Salkkuhälytykset keskeytetty: seurattujen osoitteiden saldoja ei ole vielä ladattu</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Salkkuhälytykset keskeytetty: kohteen %1$s token-saldot osin vanhentuneita</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Salkkuhälytykset keskeytetty: seurattujen osoitteiden token-saldot osin vanhentuneita</string>
+    <string name="portfolio_alarms_address_failing">Salkkuhälytykset tarkistavat ilman kohdetta %1$s: saldoa ei ole ladattu yli 24 tuntiin</string>
+    <string name="portfolio_alarms_address_failing_generic">Salkkuhälytykset tarkistavat ilman osoitteita, joiden saldo ei ole latautunut yli 24 tuntiin</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokenit osin vanhentuneita</string>
+    <string name="portfolio_address_restore_failed">Osoitetta ei voitu palauttaa – lisää se tarvittaessa uudelleen</string>
 </resources>

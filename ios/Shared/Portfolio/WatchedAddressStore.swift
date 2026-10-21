@@ -121,7 +121,8 @@ enum WatchedAddressStore {
             file.addresses[i] = WatchedAddressRules.applyFetched(file.addresses[i], time: update.time,
                                                                  balance: fetched.balance, provider: fetched.provider,
                                                                  tokens: fetched.tokens, xpub: fetched.xpub,
-                                                                 networks: fetched.networks, unknownTokens: fetched.unknownTokens)
+                                                                 networks: fetched.networks, unknownTokens: fetched.unknownTokens,
+                                                                 keptTokens: fetched.keptTokens)
         } else {
             file.addresses[i] = WatchedAddressRules.applyError(file.addresses[i], time: update.time,
                                                                error: update.error ?? "unknown")

@@ -8,7 +8,7 @@
     <string name="widget_empty">هنوز جفتی در واچ‌لیست نیست.</string>
     <string name="widget_group_hint">فقط جفت‌های این گروه نمایش داده شوند.</string>
     <string name="widget_kind_single">یک ارز</string>
-    <string name="widget_opacity">شفافیت پس‌زمینه: %1$d%%</string>
+    <string name="widget_opacity">شفافیت پس‌زمینه: %1$s</string>
     <string name="widget_pulse_description">آنچه اکنون در بازار به چشم می‌آید: تیتر، خلاصه کوتاه و همچنین Bitcoin، Ethereum و Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

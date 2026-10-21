@@ -8,7 +8,7 @@
     <string name="widget_empty">Ingen par i overvåkingslisten ennå.</string>
     <string name="widget_group_hint">Vis bare parene i denne gruppen.</string>
     <string name="widget_kind_single">Én mynt</string>
-    <string name="widget_opacity">Bakgrunnens ugjennomsiktighet: %1$d %%</string>
+    <string name="widget_opacity">Bakgrunnens ugjennomsiktighet: %1$s</string>
     <string name="widget_pulse_description">Det som skiller seg ut i markedet akkurat nå: overskrift, kort sammendrag og Bitcoin, Ethereum og Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

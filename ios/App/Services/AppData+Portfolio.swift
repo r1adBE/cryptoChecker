@@ -311,6 +311,7 @@ extension AppData {
                 portfolioFile = loaded.file
                 portfolioIntact = true
                 portfolio = PortfolioStore.newestFirst(loaded.file.transactions)
+                recoverPortfolioIfDeferred()
             } else if loaded.file.dropped > 0 {
                 // Teilweise lesbar: mit dem Lesbaren weiterarbeiten (die Datei wird vor dem Schreiben gesichert)
                 portfolioFile = loaded.file

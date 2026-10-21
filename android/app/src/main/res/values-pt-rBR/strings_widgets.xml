@@ -8,7 +8,7 @@
     <string name="widget_empty">Ainda sem pares na lista de acompanhamento.</string>
     <string name="widget_group_hint">Mostrar apenas os pares deste grupo.</string>
     <string name="widget_kind_single">Uma moeda</string>
-    <string name="widget_opacity">Opacidade do fundo: %1$d%%</string>
+    <string name="widget_opacity">Opacidade do fundo: %1$s</string>
     <string name="widget_pulse_description">O que se destaca agora no mercado: manchete, resumo curto e também Bitcoin, Ethereum e Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

@@ -8,7 +8,7 @@
     <string name="widget_empty">Ve sledovaných zatím nejsou žádné páry.</string>
     <string name="widget_group_hint">Zobrazit jen páry této skupiny.</string>
     <string name="widget_kind_single">Jedna mince</string>
-    <string name="widget_opacity">Neprůhlednost pozadí: %1$d%%</string>
+    <string name="widget_opacity">Neprůhlednost pozadí: %1$s</string>
     <string name="widget_pulse_description">Co je teď na trhu nápadné: titulek, krátké shrnutí a také Bitcoin, Ethereum a Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

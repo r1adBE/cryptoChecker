@@ -17,6 +17,7 @@ import com.cryptochecker.app.domain.market.PulseLeadKind
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.PulseSummary
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 
 /**
@@ -50,7 +51,8 @@ internal object PulseWidgetTexts {
                 PulseLeadKind.CALM -> R.string.pulse_lead_calm
             }
         )
-        val pct = lead.volumePercent
+        // Fertig formatiert (Ziffern, Abstand und Zeichen der Sprache) statt eines festen «%» in der Übersetzung
+        val pct = PercentText.unsigned(lead.volumePercent.toDouble(), 0)
         val second = when (lead.detail) {
             PulseDetail.VOL_ABOVE -> context.getString(R.string.pulse_detail_vol_above, pct)
             PulseDetail.VOL_ABOVE_FUND_NEUTRAL -> context.getString(R.string.pulse_detail_vol_above_fund_neutral, pct)

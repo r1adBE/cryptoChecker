@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Portföljlarm pausade: ingen aktuell kurs för %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Portföljlarm pausade: alla mynt har inte en aktuell kurs</string>
     <string name="portfolio_alarms_paused_addresses">Portföljlarm pausade: saldon för bevakade adresser är inte inlästa än</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Portföljlarm pausade: tokensaldon för %1$s är delvis inaktuella</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Portföljlarm pausade: tokensaldon för bevakade adresser är delvis inaktuella</string>
+    <string name="portfolio_alarms_address_failing">Portföljlarm kontrollerar utan %1$s: saldot har inte lästs in på över 24 timmar</string>
+    <string name="portfolio_alarms_address_failing_generic">Portföljlarm kontrollerar utan adresser vars saldo inte har lästs in på över 24 timmar</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokens delvis inaktuella</string>
+    <string name="portfolio_address_restore_failed">Adressen kunde inte återställas – lägg till den igen vid behov</string>
 </resources>

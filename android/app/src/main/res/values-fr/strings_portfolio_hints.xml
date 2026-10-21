@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Alertes du portefeuille en pause : aucun cours actuel pour %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Alertes du portefeuille en pause : tous les coins n\'ont pas de cours actuel</string>
     <string name="portfolio_alarms_paused_addresses">Alertes du portefeuille en pause : soldes des adresses suivies pas encore chargés</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Alertes du portefeuille en pause : soldes de jetons de %1$s en partie obsolètes</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alertes du portefeuille en pause : soldes de jetons des adresses suivies en partie obsolètes</string>
+    <string name="portfolio_alarms_address_failing">Les alertes du portefeuille vérifient sans %1$s : solde non chargé depuis plus de 24 heures</string>
+    <string name="portfolio_alarms_address_failing_generic">Les alertes du portefeuille vérifient sans les adresses dont le solde ne se charge plus depuis plus de 24 heures</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">jetons en partie obsolètes</string>
+    <string name="portfolio_address_restore_failed">Impossible de rétablir l’adresse – ajoutez-la à nouveau si nécessaire</string>
 </resources>

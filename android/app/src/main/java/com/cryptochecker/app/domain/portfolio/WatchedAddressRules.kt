@@ -44,9 +44,9 @@ object WatchedAddressRules {
     /**
      * Wiederherstellen: neue Adressen aus der Sicherung (geprüft und normalisiert), ohne Doppelte,
      * höchstens bis [MAX_ADDRESSES]. Vorhandene bleiben unverändert (auch ihre Bezeichnung).
-     * Ungültige Einträge fallen weg.
+     * Ungültige Einträge fallen weg. [now] = [WatchedAddress.pendingSince] (auf diesem Gerät eingespielt).
      */
-    fun merge(existing: List<WatchedAddress>, incoming: List<WatchedAddressBackupEntry>): List<WatchedAddress> {
+    fun merge(existing: List<WatchedAddress>, incoming: List<WatchedAddressBackupEntry>, now: Long = System.currentTimeMillis()): List<WatchedAddress> {
         val result = ArrayList<WatchedAddress>()
         for (entry in incoming) {
             if (existing.size + result.size >= MAX_ADDRESSES) break
@@ -67,6 +67,7 @@ object WatchedAddressRules {
                 costLots = AddressCostLots.clean(entry.costLots),
                 overlapChecked = entry.overlapChecked,
                 overlapLegacy = entry.overlapChecked && entry.overlapLegacy,
+                pendingSince = now,
             )
             // Reihen nur, wo sie heute zählen würden (Token aus, Netz abgewählt: weg)
             a = a.copy(tokenObservations = a.tokenObservations.filterKeys { counts(a, it) })
@@ -129,6 +130,8 @@ object WatchedAddressRules {
      * gelesene behalten ihn; Token nur mit «Tokens mitzählen», Netze nur, wenn gewählt; Beobachtung je Schlüssel (ein
      * Guthaben 0 ohne frühere Beobachtung wird nicht gespeichert). [xpub]: neuer Zwischenspeicher (null = unverändert).
      * [networks]: Wahl nach der ersten Suche (null = unverändert). [unknownTokens]: Solana, null = unverändert.
+     * [keptTokens]: Token, deren alter Wert mangels Antwort bleibt (TON: volle Jetton-Seite) → [WatchedAddress.staleTokens],
+     * nur mit gespeichertem Guthaben > 0; null = unverändert (z. B. Token-Abfrage gescheitert).
      */
     fun applyFetched(
         a: WatchedAddress,
@@ -139,6 +142,7 @@ object WatchedAddressRules {
         xpub: XpubCache? = null,
         networks: List<String>? = null,
         unknownTokens: Int? = null,
+        keptTokens: List<String>? = null,
     ): WatchedAddress {
         var out = a.copy(lastBalance = balance, lastUpdated = time, lastAttempt = time, lastError = null, lastProvider = provider)
         PortfolioDecimal.parse(balance)?.let { out = out.copy(observations = AddressBalanceHistory.record(a.observations, time, it)) }
@@ -160,6 +164,10 @@ object WatchedAddressRules {
         }
         if (xpub != null) out = out.copy(xpub = xpub)
         if (unknownTokens != null && a.chain == AddressChain.SOL) out = out.copy(unknownTokens = unknownTokens.coerceAtLeast(0))
+        if (keptTokens != null && ChainAssets.hasTokens(a.chain)) {
+            val kept = keptTokens.distinct().filter { (PortfolioDecimal.parse(out.tokenBalances[it])?.signum() ?: 0) > 0 }
+            out = out.copy(staleTokens = kept)
+        }
         return out
     }
 
@@ -179,6 +187,7 @@ object WatchedAddressRules {
                 tokenBalances = a.tokenBalances.filterKeys { counts(off, it) },
                 tokenObservations = a.tokenObservations.filterKeys { counts(off, it) },
                 unknownTokens = 0,
+                staleTokens = a.staleTokens.filter { counts(off, it) },
             )
         }
     }

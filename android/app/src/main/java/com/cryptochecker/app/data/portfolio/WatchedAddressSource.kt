@@ -70,6 +70,8 @@ class WatchedAddressSource @Inject constructor(
         val networks: List<String>? = null,
         /** Solana: Token mit Guthaben ausserhalb der Liste. */
         val unknownTokens: Int? = null,
+        /** Token, deren alter Wert mangels Antwort bleibt (TON: volle Jetton-Seite); null = unverändert. */
+        val keptTokens: List<String>? = null,
     )
 
     /** Ergebnis je Adresse: entweder [fetched] oder [error] (technischer Text). */
@@ -215,10 +217,11 @@ class WatchedAddressSource @Inject constructor(
         if (!a.countTokens) return ton
         return try {
             delay(ChainBalance.TON_PAUSE_MILLIS)
-            val (tokens, _) = firstWorking(ChainBalance.TON_HOSTS, deadline) { host ->
-                ChainBalance.parseTonJettons(client.callMarket(ChainBalance.tonJettonsUrl(host, a.address), null))
+            val (page, _) = firstWorking(ChainBalance.TON_HOSTS, deadline) { host ->
+                ChainBalance.parseTonJettonPage(client.callMarket(ChainBalance.tonJettonsUrl(host, a.address), null))
             }
-            ton.copy(tokens = tokens)
+            // Auf voller Seite fehlende bekannte Jettons: alter Wert bleibt, gilt aber als nicht bestätigt
+            ton.copy(tokens = page.tokens, keptTokens = page.kept)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {

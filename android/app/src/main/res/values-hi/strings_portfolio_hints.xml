@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">पोर्टफ़ोलियो अलर्ट रुके हुए हैं: %1$s का कोई मौजूदा भाव नहीं</string>
     <string name="portfolio_alarms_paused_price_generic">पोर्टफ़ोलियो अलर्ट रुके हुए हैं: हर कॉइन का मौजूदा भाव नहीं है</string>
     <string name="portfolio_alarms_paused_addresses">पोर्टफ़ोलियो अलर्ट रुके हुए हैं: देखे जा रहे पतों के बैलेंस अभी लोड नहीं हुए</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">पोर्टफ़ोलियो अलर्ट रुके हुए हैं: %1$s के टोकन बैलेंस आंशिक रूप से पुराने हैं</string>
+    <string name="portfolio_alarms_paused_tokens_generic">पोर्टफ़ोलियो अलर्ट रुके हुए हैं: देखे जा रहे पतों के टोकन बैलेंस आंशिक रूप से पुराने हैं</string>
+    <string name="portfolio_alarms_address_failing">पोर्टफ़ोलियो अलर्ट %1$s के बिना जाँचते हैं: बैलेंस 24 घंटे से अधिक समय से लोड नहीं हुआ</string>
+    <string name="portfolio_alarms_address_failing_generic">पोर्टफ़ोलियो अलर्ट उन पतों के बिना जाँचते हैं जिनका बैलेंस 24 घंटे से अधिक समय से लोड नहीं हो रहा</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">टोकन आंशिक रूप से पुराने</string>
+    <string name="portfolio_address_restore_failed">पता वापस नहीं लाया जा सका – ज़रूरत हो तो इसे फिर से जोड़ें</string>
 </resources>

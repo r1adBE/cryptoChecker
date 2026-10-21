@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Portefeuillealarmen gepauzeerd: geen actuele koers voor %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Portefeuillealarmen gepauzeerd: niet alle coins hebben een actuele koers</string>
     <string name="portfolio_alarms_paused_addresses">Portefeuillealarmen gepauzeerd: saldi van gevolgde adressen nog niet geladen</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Portefeuillealarmen gepauzeerd: tokensaldi van %1$s deels verouderd</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Portefeuillealarmen gepauzeerd: tokensaldi van gevolgde adressen deels verouderd</string>
+    <string name="portfolio_alarms_address_failing">Portefeuillealarmen controleren zonder %1$s: saldo al meer dan 24 uur niet geladen</string>
+    <string name="portfolio_alarms_address_failing_generic">Portefeuillealarmen controleren zonder adressen waarvan het saldo al meer dan 24 uur niet laadt</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokens deels verouderd</string>
+    <string name="portfolio_address_restore_failed">Adres kon niet worden hersteld – voeg het indien nodig opnieuw toe</string>
 </resources>

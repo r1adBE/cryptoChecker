@@ -8,7 +8,7 @@
     <string name="widget_empty">İzleme listesinde henüz çift yok.</string>
     <string name="widget_group_hint">Yalnızca bu grubun çiftlerini göster.</string>
     <string name="widget_kind_single">Tek coin</string>
-    <string name="widget_opacity">Arka plan opaklığı: %%%1$d</string>
+    <string name="widget_opacity">Arka plan opaklığı: %1$s</string>
     <string name="widget_pulse_description">Piyasada şu anda öne çıkanlar: başlık, kısa özet ve ayrıca Bitcoin, Ethereum ve Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

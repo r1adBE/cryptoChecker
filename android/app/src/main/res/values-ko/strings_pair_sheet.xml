@@ -94,7 +94,7 @@
     <string name="sats_per_unit">%1$s %2$s = %3$s 사토시</string>
 
     <!-- Kursblatt: Abstand Geld/Brief über 2 % der Mitte (BidAskSpread) -->
-    <string name="ticker_wide_spread">매수·매도 호가 차이가 큼 (%1$s%%)</string>
+    <string name="ticker_wide_spread">매수·매도 호가 차이가 큼 (%1$s)</string>
 
     <!-- Zeile unter dem Chart im Aktionsblatt, wenn die USDT-Reihe mit EINEM heutigen Kurs umgerechnet ist: %1$s = Währung der Reihe (USDT), %2$s = Währung des Paars (z. B. CHF) -->
     <string name="sheet_chart_usdt_today_rate">%1$s 기준 추이, 오늘 환율로 %2$s 환산</string>

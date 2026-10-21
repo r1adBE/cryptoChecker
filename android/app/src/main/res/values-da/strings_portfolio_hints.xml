@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Porteføljealarmer sat på pause: ingen aktuel kurs for %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Porteføljealarmer sat på pause: ikke alle coins har en aktuel kurs</string>
     <string name="portfolio_alarms_paused_addresses">Porteføljealarmer sat på pause: saldi for overvågede adresser er ikke indlæst endnu</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Porteføljealarmer sat på pause: tokensaldi for %1$s er delvist forældede</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Porteføljealarmer sat på pause: tokensaldi for overvågede adresser er delvist forældede</string>
+    <string name="portfolio_alarms_address_failing">Porteføljealarmer tjekker uden %1$s: saldoen er ikke indlæst i over 24 timer</string>
+    <string name="portfolio_alarms_address_failing_generic">Porteføljealarmer tjekker uden adresser, hvis saldo ikke er indlæst i over 24 timer</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokens delvist forældede</string>
+    <string name="portfolio_address_restore_failed">Adressen kunne ikke gendannes – tilføj den igen om nødvendigt</string>
 </resources>

@@ -67,6 +67,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.rememberHighContrast
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -261,7 +262,7 @@ private fun WidgetConfigureContent(
             }
 
             Text(
-                text = stringResource(R.string.widget_opacity, opacity),
+                text = stringResource(R.string.widget_opacity, PercentText.unsigned(opacity.toDouble(), 0)),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 16.dp)
             )

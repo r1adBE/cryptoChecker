@@ -8,7 +8,7 @@
     <string name="widget_empty">自选列表中还没有交易对。</string>
     <string name="widget_group_hint">仅显示此分组的交易对。</string>
     <string name="widget_kind_single">单币</string>
-    <string name="widget_opacity">背景不透明度：%1$d%%</string>
+    <string name="widget_opacity">背景不透明度：%1$s</string>
     <string name="widget_pulse_description">市场当前亮点：标题、简短摘要，以及 Bitcoin、Ethereum 和 Solana。</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->

@@ -11,10 +11,12 @@ import com.cryptochecker.app.domain.portfolio.PortfolioHistoryPoint
 import com.cryptochecker.app.domain.portfolio.PortfolioHistoryRange
 import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.PortfolioSnapshot
-import com.cryptochecker.app.domain.portfolio.PortfolioSnapshotMath
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioValuePoint
 import com.cryptochecker.app.domain.portfolio.PortfolioWidgetSeries
+import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PercentText
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Locale
@@ -355,11 +357,12 @@ object PortfolioWidgetChart {
 
     /**
      * Prozent der Betragszeile: «+2.31%» / «−0.50%» / «0.00%» — Text in der Kursfarbe hinter dem Betrag
-     * (keine Pille; der Pfeil steht vor dem Betrag); null ohne Prozent.
+     * (keine Pille; der Pfeil steht vor dem Betrag); null ohne Prozent. Seit Build 95 in der Prozent-Schreibweise der
+     * App-Sprache ([PercentText]: «+2,31 %», «+%2,31»), wie iOS `PortfolioWidgetChart.percentText`.
      */
-    fun percentText(plan: PortfolioChartPlan, locale: Locale = Locale.getDefault()): String? {
+    fun percentText(plan: PortfolioChartPlan, locale: Locale = LocaleNumbers.appLocale): String? {
         val percent = plan.changePercent ?: return null
         if (plan.changeAmount == null) return null
-        return PortfolioSnapshotMath.signedPercent(percent, locale)
+        return BidiText.ltr(PercentText.signed(percent, 2, locale), locale)
     }
 }

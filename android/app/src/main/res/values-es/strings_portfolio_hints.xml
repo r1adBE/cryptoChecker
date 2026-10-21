@@ -5,4 +5,12 @@
     <string name="portfolio_alarms_paused_price">Alertas de cartera en pausa: sin precio actual para %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Alertas de cartera en pausa: no todas las monedas tienen precio actual</string>
     <string name="portfolio_alarms_paused_addresses">Alertas de cartera en pausa: los saldos de las direcciones vigiladas aún no se han cargado</string>
+    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <string name="portfolio_alarms_paused_tokens">Alertas de cartera en pausa: saldos de tokens de %1$s parcialmente desactualizados</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alertas de cartera en pausa: saldos de tokens de las direcciones vigiladas parcialmente desactualizados</string>
+    <string name="portfolio_alarms_address_failing">Las alertas de cartera comprueban sin %1$s: el saldo no se ha cargado en más de 24 horas</string>
+    <string name="portfolio_alarms_address_failing_generic">Las alertas de cartera comprueban sin las direcciones cuyo saldo no se carga desde hace más de 24 horas</string>
+    <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
+    <string name="portfolio_address_tokens_partly_stale">tokens parcialmente desactualizados</string>
+    <string name="portfolio_address_restore_failed">No se pudo restaurar la dirección: vuelve a añadirla si la necesitas</string>
 </resources>

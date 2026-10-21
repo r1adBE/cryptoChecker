@@ -341,6 +341,8 @@ class PortfolioWidgetChartTest {
         assertEquals(1, PortfolioWidgetChart.direction(up))
         val down = PortfolioWidgetChart.plan(snapshot(change = -9.0, percent = -0.5), PortfolioChartRange.DAY, WidgetChartType.LINE, today, zone)
         assertEquals("−0.50%", PortfolioWidgetChart.percentText(down, Locale.US))
+        // Schreibweise der Sprache (PercentText) wie überall: Deutsch mit geschütztem Abstand
+        assertEquals("+2,31\u00A0%", PortfolioWidgetChart.percentText(up, Locale.GERMANY))
         val none = PortfolioWidgetChart.plan(snapshot(change = null, percent = null), PortfolioChartRange.DAY, WidgetChartType.LINE, today, zone)
         assertNull(PortfolioWidgetChart.percentText(none))
     }

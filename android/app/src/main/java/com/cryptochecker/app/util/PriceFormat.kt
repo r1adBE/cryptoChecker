@@ -4,7 +4,6 @@ import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.marketdata.util.FormatUtilsBase
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.text.DateFormat
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Date
@@ -129,21 +128,25 @@ object PriceFormat {
      */
     fun zeroPercent(): String = BidiText.ltr(PercentText.unsigned(0.0, 2))
 
-    /** Uhrzeit mit Sekunden — bei Kursen zählt die Sekunde. */
-    fun time(millis: Long): String =
+    /**
+     * Uhrzeit mit Sekunden — bei Kursen zählt die Sekunde. 12/24 h nach der Systemeinstellung ([ClockText], seit
+     * Build 95); [is24] = null: wie die Sprache.
+     */
+    fun time(millis: Long, is24: Boolean? = ClockText.systemIs24Hour(), locale: Locale = LocaleNumbers.appLocale): String =
         if (millis <= 0) "—"
-        else DateFormat.getTimeInstance(DateFormat.MEDIUM).format(Date(millis))
+        else ClockText.format(locale, withSeconds = true, is24 = is24).format(Date(millis))
 
-    /** Uhrzeit ohne Sekunden in der Sprache des Geräts, z. B. «19:41» («Offline · Stand 19:41»). */
-    fun shortTime(millis: Long): String =
+    /** Uhrzeit ohne Sekunden in der Sprache des Geräts, z. B. «19:41» («Offline · Stand 19:41»); 12/24 h wie [time]. */
+    fun shortTime(millis: Long, is24: Boolean? = ClockText.systemIs24Hour(), locale: Locale = LocaleNumbers.appLocale): String =
         if (millis <= 0) "—"
-        else DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(millis))
+        else ClockText.format(locale, withSeconds = false, is24 = is24).format(Date(millis))
 
-    /** Prozentwert für Benachrichtigungen: mit Vorzeichen (echtes Minus U+2212), drei Nachkommastellen. */
-    fun changePercentDetailed(value: Double): String {
-        val sign = if (value >= 0) "+" else "−"
-        return BidiText.ltr(sign + PercentText.unsigned(value, 3))
-    }
+    /**
+     * Prozentwert für Benachrichtigungen: mit Vorzeichen (echtes Minus U+2212), drei Nachkommastellen; gerundet 0
+     * ohne Vorzeichen («0.000%» statt «+0.000%»/«−0.000%», seit Build 95) wie [PercentText.signed].
+     */
+    fun changePercentDetailed(value: Double, locale: Locale = LocaleNumbers.appLocale): String =
+        BidiText.ltr(PercentText.signed(value, 3, locale))
 
     /** Einheit von [ageParts]: grösste ganze Einheit des Abstands. */
     enum class AgeUnit { DAYS, HOURS, MINUTES, SECONDS }

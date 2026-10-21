@@ -44,6 +44,7 @@ import com.cryptochecker.app.ui.theme.headline
 import com.cryptochecker.app.ui.theme.label
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.CompactAmount
+import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 
 /** Leitsatz aus [CryptoPulse.leadSentence]: ein oder zwei ganze Sätze. */
@@ -64,7 +65,8 @@ private fun pulseLeadText(report: PulseReport): String {
         }
     )
     val second = lead.detail?.let { detail ->
-        val pct = lead.volumePercent
+        // Fertig formatiert (Ziffern, Abstand und Zeichen der Sprache) statt eines festen «%» in der Übersetzung
+        val pct = PercentText.unsigned(lead.volumePercent.toDouble(), 0)
         when (detail) {
             PulseDetail.VOL_ABOVE -> stringResource(R.string.pulse_detail_vol_above, pct)
             PulseDetail.VOL_ABOVE_FUND_NEUTRAL -> stringResource(R.string.pulse_detail_vol_above_fund_neutral, pct)

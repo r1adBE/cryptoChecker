@@ -297,6 +297,8 @@ final class PortfolioWidgetChartTests: XCTestCase {
         let down = PortfolioWidgetChart.plan(snapshot(change: -9, percent: -0.5), requested: .day, type: .line,
                                              todayEpochDay: today)
         XCTAssertEqual(PortfolioWidgetChart.percentText(down, locale: us), BidiText.ltr("\u{2212}0.50%"))
+        // Schreibweise der Sprache (PercentText) wie überall: Deutsch mit geschütztem Abstand
+        XCTAssertEqual(PortfolioWidgetChart.percentText(up, locale: Locale(identifier: "de_DE")), BidiText.ltr("+2,31\u{00A0}%"))
         let none = PortfolioWidgetChart.plan(snapshot(change: nil, percent: nil), requested: .day, type: .line,
                                              todayEpochDay: today)
         XCTAssertNil(PortfolioWidgetChart.percentText(none))

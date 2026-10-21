@@ -8,7 +8,7 @@
     <string name="widget_empty">Ende nuk ka çifte në listën e ndjekjes.</string>
     <string name="widget_group_hint">Shfaq vetëm çiftet e këtij grupi.</string>
     <string name="widget_kind_single">Një monedhë</string>
-    <string name="widget_opacity">Patejdukshmëria e sfondit: %1$d%%</string>
+    <string name="widget_opacity">Patejdukshmëria e sfondit: %1$s</string>
     <string name="widget_pulse_description">Çfarë bie në sy tani në treg: titulli, përmbledhje e shkurtër, si dhe Bitcoin, Ethereum dhe Solana.</string>
 
     <!-- Widgets: veraltete Kurse (Regel wie in der Merkliste) -->
