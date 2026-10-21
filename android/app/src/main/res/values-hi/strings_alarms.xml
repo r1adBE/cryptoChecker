@@ -132,6 +132,7 @@
     <string name="alarm_oi_hint">ओपन इंटरेस्ट की तुलना उतने ही घंटे पहले सहेजे गए मान से करता है। नया अलार्म तभी सूचना देता है जब ऐप ने इतने समय तक डेटा इकट्ठा कर लिया हो; जाँच अधिकतम हर 5 मिनट में।</string>
     <string name="alarm_volume_factor_label">पिछले घंटे का वॉल्यूम बनाम सामान्य</string>
     <string name="alarm_volume_hint">वॉल्यूम डेटा Binance से आता है — जो पेयर वहाँ लिस्टेड नहीं हैं, वे कभी ट्रिगर नहीं होते।</string>
+    <string name="alarm_volume_zero_hours_hint">बिना ट्रेड वाले घंटे शून्य वॉल्यूम माने जाते हैं, इसलिए कम ट्रेड होने वाले पेयर पर एक सामान्य घंटा भी असामान्य लग सकता है।</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">अलर्ट सक्रिय</string>

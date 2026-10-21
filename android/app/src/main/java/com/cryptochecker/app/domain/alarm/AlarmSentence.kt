@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.alarm
 
-import java.text.NumberFormat
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PercentText
 import java.util.Locale
 
 /**
@@ -75,34 +75,24 @@ object AlarmSentence {
         return Parts(kind, symbol.trim(), text, window)
     }
 
-    /** «5 %» bzw. «5%» je nach Sprache, höchstens zwei Nachkommastellen. */
-    fun percent(value: Double, locale: Locale = Locale.getDefault()): String {
-        val format = NumberFormat.getPercentInstance(locale)
-        format.minimumFractionDigits = 0
-        format.maximumFractionDigits = 2
-        return format.format(value / 100.0)
-    }
+    /**
+     * «5 %» bzw. «5%» je nach Sprache, höchstens zwei Nachkommastellen. Seit Build 96 über [PercentText] statt
+     * `getPercentInstance`, damit Android und iOS trotz unterschiedlicher ICU-Stände gleich schreiben.
+     */
+    fun percent(value: Double, locale: Locale = Locale.getDefault()): String =
+        PercentText.unsigned(value, 2, locale, minDecimals = 0)
 
     /**
-     * Funding Rate: «0,05 %», «−0,0125 %» — bis vier Nachkommastellen (Funding ist klein),
-     * Vorzeichen wie die Sprache es schreibt.
+     * Funding Rate: «0,05 %», «−0,0125 %» — bis vier Nachkommastellen (Funding ist klein), echtes Minus (U+2212)
+     * vor dem Ganzen; gerundet 0 ohne Vorzeichen (nie «−0 %»).
      */
-    fun fundingPercent(value: Double, locale: Locale = Locale.getDefault()): String {
-        val format = NumberFormat.getPercentInstance(locale)
-        format.minimumFractionDigits = 0
-        format.maximumFractionDigits = 4
-        // −0 nicht als «-0 %» zeigen; Minus als echtes Minuszeichen (U+2212) wie überall
-        return format.format(if (value == 0.0) 0.0 else value / 100.0).replace('-', '−')
-    }
+    fun fundingPercent(value: Double, locale: Locale = Locale.getDefault()): String =
+        // positive Funding ohne «+» (wie bisher), nur das Minus
+        PercentText.signed(value, 4, locale, minDecimals = 0).removePrefix("+")
 
     /** Veränderung mit Vorzeichen und einer Nachkommastelle: «+12,3 %», «−4 %» (echtes Minus U+2212). */
-    fun signedPercent(value: Double, locale: Locale = Locale.getDefault()): String {
-        val format = NumberFormat.getPercentInstance(locale)
-        format.minimumFractionDigits = 0
-        format.maximumFractionDigits = 1
-        val text = format.format(value / 100.0).replace('-', '−')
-        return if (value > 0.0 && !text.startsWith("+")) "+$text" else text
-    }
+    fun signedPercent(value: Double, locale: Locale = Locale.getDefault()): String =
+        PercentText.signed(value, 1, locale, minDecimals = 0)
 
     /**
      * Faktor ohne überflüssige Nachkommastellen: 3 → «3», 4.25 → «4.3» (wie AlarmTexts.factor),

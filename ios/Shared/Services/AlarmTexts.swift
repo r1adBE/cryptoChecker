@@ -147,39 +147,24 @@ enum AlarmTexts {
                  currency: alarm.convertCurrency ?? quote, windowHours: alarm.windowHours)
     }
 
-    /// Prozent nach Region: «5%» (en), «5 %» (de).
-    static func percent(_ value: Double) -> String {
-        let f = NumberFormatter()
-        f.numberStyle = .percent
-        f.locale = Locale.current
-        f.minimumFractionDigits = 0
-        f.maximumFractionDigits = 2
-        return f.string(from: NSNumber(value: value / 100)) ?? String(format: "%.2f%%", value)
+    /// Prozent nach Sprache: «5%» (en), «5 %» (de), höchstens zwei Nachkommastellen. Seit Build 96 über `PercentText`
+    /// statt `NumberFormatter.percent`, damit iOS und Android trotz unterschiedlicher ICU-Stände gleich schreiben
+    /// (wie `AlarmSentence.percent`).
+    static func percent(_ value: Double, locale: Locale = LocaleNumbers.appLocale) -> String {
+        PercentText.unsigned(value, decimals: 2, minDecimals: 0, locale: locale)
     }
 
-    /// Funding Rate: «0,05 %», «−0,0125 %» — bis vier Nachkommastellen (wie `AlarmSentence.fundingPercent`).
-    static func fundingPercent(_ value: Double) -> String {
-        let f = NumberFormatter()
-        f.numberStyle = .percent
-        f.locale = Locale.current
-        f.minimumFractionDigits = 0
-        f.maximumFractionDigits = 4
-        // −0 nicht als «-0 %» zeigen; Minus als echtes Minuszeichen (U+2212) wie überall
-        let shown = value == 0 ? 0 : value / 100
-        let text = f.string(from: NSNumber(value: shown)) ?? String(format: "%.4f%%", value)
-        return text.replacingOccurrences(of: "-", with: "−")
+    /// Funding Rate: «0,05 %», «−0,0125 %» — bis vier Nachkommastellen, echtes Minus (U+2212) vor dem Ganzen; gerundet 0
+    /// ohne Vorzeichen, nie «−0 %» (wie `AlarmSentence.fundingPercent`).
+    static func fundingPercent(_ value: Double, locale: Locale = LocaleNumbers.appLocale) -> String {
+        // positive Funding ohne «+» (wie bisher), nur das Minus
+        let text = PercentText.signed(value, decimals: 4, minDecimals: 0, locale: locale)
+        return text.hasPrefix("+") ? String(text.dropFirst()) : text
     }
 
     /// Veränderung mit Vorzeichen und einer Nachkommastelle: «+12,3 %», «−4 %» (echtes Minus U+2212).
-    static func signedPercent(_ value: Double) -> String {
-        let f = NumberFormatter()
-        f.numberStyle = .percent
-        f.locale = Locale.current
-        f.minimumFractionDigits = 0
-        f.maximumFractionDigits = 1
-        let text = (f.string(from: NSNumber(value: value / 100)) ?? String(format: "%.1f%%", value))
-            .replacingOccurrences(of: "-", with: "−")
-        return value > 0 && !text.hasPrefix("+") ? "+" + text : text
+    static func signedPercent(_ value: Double, locale: Locale = LocaleNumbers.appLocale) -> String {
+        PercentText.signed(value, decimals: 1, minDecimals: 0, locale: locale)
     }
 
     /// Gemessener Wert in der Mitteilung eines Funding- bzw. Open-Interest-Alarms:

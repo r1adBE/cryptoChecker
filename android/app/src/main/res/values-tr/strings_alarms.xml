@@ -132,6 +132,7 @@
     <string name="alarm_oi_hint">Açık pozisyonu o kadar saat önce kaydedilen değerle karşılaştırır. Yeni alarm ancak uygulama o süre boyunca veri topladıktan sonra bildirir; en fazla 5 dakikada bir kontrol edilir.</string>
     <string name="alarm_volume_factor_label">Son saatin hacmi normale göre</string>
     <string name="alarm_volume_hint">Hacim verileri Binance\'ten gelir — orada listelenmeyen çiftlerde bu alarm tetiklenmez.</string>
+    <string name="alarm_volume_zero_hours_hint">İşlem olmayan saatler sıfır hacim olarak sayılır; bu nedenle az işlem gören paritelerde normal bir saat olağandışı görünebilir.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Alarm etkin</string>

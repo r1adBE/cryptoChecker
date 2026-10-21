@@ -226,7 +226,7 @@ class ListWidgetRows @Inject constructor(
 }
 
 /** Keine Bewegung über 24 Stunden: grau, im selben Format wie die übrigen Werte. */
-private val ZERO_CHANGE: String get() = "%.2f%%".format(0.0)
+private val ZERO_CHANGE: String get() = PriceFormat.zeroPercent()
 
 /** Deckkraft des Coin-Logos bei deaktivierten Paaren (0–255, etwa wie die Zeile in der App). */
 private const val DISABLED_LOGO_ALPHA = 115

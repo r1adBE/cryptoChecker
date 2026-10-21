@@ -138,6 +138,7 @@
     <string name="alarm_oi_hint">Confronta l’open interest con il valore salvato altrettante ore fa. Un nuovo allarme avvisa solo dopo che l’app ha raccolto dati per quel tempo; controllo al massimo ogni 5 minuti.</string>
     <string name="alarm_volume_factor_label">Volume dell\'ultima ora rispetto al normale</string>
     <string name="alarm_volume_hint">I dati sul volume provengono da Binance — le coppie non quotate lì non fanno mai scattare l\'allarme.</string>
+    <string name="alarm_volume_zero_hours_hint">Le ore senza scambi contano come volume zero, quindi sulle coppie poco scambiate un\'ora normale può sembrare insolita.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Allerta attiva</string>

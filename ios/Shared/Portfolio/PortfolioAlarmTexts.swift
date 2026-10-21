@@ -4,9 +4,10 @@ import Foundation
 /// Beträge werden mit «Beträge verbergen» (`hidden`) zu «•••»; Prozente bleiben sichtbar.
 enum PortfolioAlarmTexts {
 
-    /// «5.00%» ohne Vorzeichen.
+    /// «5.00%» bzw. «5,00 %» ohne Vorzeichen (Schreibweise je Sprache, `PercentText`) — wie Android
+    /// `PortfolioSnapshotMath.unsignedPercent`.
     static func percent(_ value: Double) -> String {
-        String(format: "%.2f%%", locale: Locale.current, abs(value))
+        PercentText.unsigned(value, decimals: 2)
     }
 
     /// «+5.20%» / «−5.20%»; ±0 ohne Vorzeichen.

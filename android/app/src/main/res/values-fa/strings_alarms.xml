@@ -132,6 +132,7 @@
     <string name="alarm_oi_hint">موقعیت‌های باز را با مقداری که همین تعداد ساعت پیش ذخیره شده مقایسه می‌کند. هشدار جدید فقط وقتی خبر می‌دهد که برنامه به همین مدت داده جمع کرده باشد؛ بررسی حداکثر هر ۵ دقیقه.</string>
     <string name="alarm_volume_factor_label">حجم ساعت گذشته نسبت به حالت عادی</string>
     <string name="alarm_volume_hint">داده‌های حجم از Binance می‌آیند — جفت‌هایی که آنجا فهرست نشده‌اند هرگز فعال نمی‌شوند.</string>
+    <string name="alarm_volume_zero_hours_hint">ساعت‌های بدون معامله با حجم صفر حساب می‌شوند؛ بنابراین در جفت‌های کم‌معامله یک ساعت عادی ممکن است غیرعادی به نظر برسد.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">هشدار فعال است</string>

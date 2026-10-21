@@ -126,6 +126,7 @@
     <string name="alarm_oi_hint">미결제약정을 해당 시간 전에 저장한 값과 비교합니다. 새 경보는 앱이 그 기간 동안 데이터를 모은 뒤에야 알립니다. 확인은 최소 5분 간격으로 합니다.</string>
     <string name="alarm_volume_factor_label">최근 1시간 거래량 (평소 대비)</string>
     <string name="alarm_volume_hint">거래량 데이터는 Binance에서 가져옵니다. Binance에 상장되지 않은 거래쌍은 경보가 울리지 않습니다.</string>
+    <string name="alarm_volume_zero_hours_hint">거래가 없는 시간은 거래량 0으로 계산되므로, 거래가 적은 페어에서는 평범한 한 시간도 이례적으로 보일 수 있습니다.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">알람 활성</string>

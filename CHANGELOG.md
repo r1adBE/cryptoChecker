@@ -15,6 +15,13 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 96)
+
+* USDT depeg check: a price whose exchange time is more than 2 hours old no longer counts as a measurement (same rule as price alerts) – no depeg alert and no USDT rate in the portfolio from a stale last trade; shared test cases on both platforms.
+* Percentages everywhere through the same formatter: depeg notification and threshold, indicator alerts and texts, alert sentences (no longer the platform percent format, which differs between Android and iOS), «Why» texts, market phase and cycle chart, portfolio shares and widgets, spot markets. Turkish «%0,5», Arabic/Persian «٪» and the regional spacing now apply there too.
+* Volume alerts: the editor explains that hours without trades count as zero volume (thin pairs). New test for a series whose newest candle is 20 hours old.
+* Privacy policy: states that an unencrypted system-backup copy left behind when the app is stopped during a backup is deleted at the next start.
+
 ## 16.2.2 (build 95)
 
 * iOS volume spikes are computed on the hour grid like Android (missing hours count as empty, a series that stopped gives nothing), shared test cases on both platforms.

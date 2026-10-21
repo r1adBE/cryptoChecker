@@ -132,6 +132,7 @@
     <string name="alarm_oi_hint">Sammenligner open interest med værdien fra så mange timer siden. En ny alarm giver først besked, når appen har indsamlet data så længe; der tjekkes højst hvert 5. minut.</string>
     <string name="alarm_volume_factor_label">Sidste times volumen i forhold til normalt</string>
     <string name="alarm_volume_hint">Volumendata kommer fra Binance – par, der ikke er noteret der, udløser aldrig en alarm.</string>
+    <string name="alarm_volume_zero_hours_hint">Timer uden handler tæller som nul volumen, så på tyndt handlede par kan en normal time se usædvanlig ud.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Alarm aktiv</string>

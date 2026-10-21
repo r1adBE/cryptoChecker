@@ -132,6 +132,7 @@
     <string name="alarm_oi_hint">Vergelijkt de open interest met de waarde van zoveel uur geleden. Een nieuw alarm meldt pas iets als de app zo lang gegevens heeft verzameld; controle hoogstens elke 5 minuten.</string>
     <string name="alarm_volume_factor_label">Volume van het afgelopen uur t.o.v. normaal</string>
     <string name="alarm_volume_hint">Volumegegevens komen van Binance – paren die daar niet genoteerd zijn, geven nooit een alarm.</string>
+    <string name="alarm_volume_zero_hours_hint">Uren zonder transacties tellen als nul volume, dus bij weinig verhandelde paren kan een normaal uur ongewoon lijken.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Alarm actief</string>

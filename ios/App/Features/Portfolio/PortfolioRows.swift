@@ -184,7 +184,7 @@ struct PortfolioCoinRow: View {
             value = note ?? "—"
         }
         let share = sharePercent.flatMap { $0.isFinite
-            ? String(format: "%.1f%%", locale: Locale.current, Swift.min(100, Swift.max(0, $0))) : nil } ?? "—"
+            ? PercentText.unsigned(Swift.min(100, Swift.max(0, $0)), decimals: 1) : nil } ?? "—"
         let name = WidgetQuantityFormat.spokenName(position.coin,
                                                    quantity: hideAmounts ? nil : PriceFormat.exactAmount(position.holdingsExact))
         var parts: [String?] = [L("a11y_portfolio_position", name, value, share)]
@@ -231,7 +231,7 @@ struct PortfolioCoinRow: View {
             HStack(spacing: Spacing.xs) {
                 // Anteil am Gesamtwert, daneben die Anzahl Transaktionen
                 Text(sharePercent.flatMap { $0.isFinite
-                    ? String(format: "%.1f%%", locale: Locale.current, Swift.min(100, Swift.max(0, $0))) : nil } ?? "—")
+                    ? PercentText.unsigned(Swift.min(100, Swift.max(0, $0)), decimals: 1) : nil } ?? "—")
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(AppColors.onSurfaceVariant)
                     .lineLimit(1)

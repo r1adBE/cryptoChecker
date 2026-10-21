@@ -119,8 +119,8 @@ enum IndicatorAlertText {
     static func value(_ id: IndicatorId, _ v: Double) -> String {
         switch id {
         case .MAYER, .MVRV, .PUELL: LocaleNumbers.decimal(v, maxDecimals: 2, minDecimals: 2) + "×"
-        // Abstand als positive Zahl («3.2 %»), damit «unter deiner Grenze 5 %» stimmt
-        case .ATH_DISTANCE: LocaleNumbers.decimal(v, maxDecimals: 1, minDecimals: 1) + " %"
+        // Abstand als positive Zahl («3.2%», «3,2 %»), damit «unter deiner Grenze 5 %» stimmt
+        case .ATH_DISTANCE: PercentText.unsigned(v, decimals: 1)
         default: PriceFormat.signedPercent(v, decimals: 1)
         }
     }

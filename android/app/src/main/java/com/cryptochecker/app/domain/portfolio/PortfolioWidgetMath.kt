@@ -2,8 +2,7 @@ package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.util.DecimalText
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
+import com.cryptochecker.app.util.PercentText
 import java.util.Locale
 import kotlin.math.max
 
@@ -220,9 +219,9 @@ object PortfolioWidgetMath {
     fun sharePercent(value: Double, total: Double): Double =
         if (total > 0.0 && value.isFinite()) (value / total * 100.0).coerceIn(0.0, 100.0) else 0.0
 
-    /** Anteil mit einer Nachkommastelle, z. B. «62.3%» (Dezimalzeichen je Sprache). */
+    /** Anteil mit einer Nachkommastelle, z. B. «62.3%», «62,3 %», «%62,3» (Schreibweise je Sprache, [PercentText]). */
     fun shareText(percent: Double, locale: Locale = Locale.getDefault()): String =
-        DecimalFormat("0.0", DecimalFormatSymbols.getInstance(locale)).format(percent.coerceIn(0.0, 100.0)) + "%"
+        PercentText.unsigned(percent.coerceIn(0.0, 100.0), 1, locale)
 
     /**
      * Kursveränderung je Coin seit [baseline] in Prozent (nur Coins mit beiden Kursen).

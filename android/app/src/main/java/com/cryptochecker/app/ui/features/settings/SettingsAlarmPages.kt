@@ -24,7 +24,7 @@ import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.components.rememberAlarmTest
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
-import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PercentText
 
 // ── Alarme ───────────────────────────────────────────────────────────────────
 
@@ -191,7 +191,7 @@ internal fun AlarmsPage(
                     label = stringResource(R.string.settings_depeg_threshold),
                     options = DepegAlarm.THRESHOLD_CHOICES,
                     selected = settings.depegThresholdTenths,
-                    optionLabel = { LocaleNumbers.decimal(it / 10.0, 1, 0) + " %" },
+                    optionLabel = { PercentText.unsigned(it / 10.0, 1, minDecimals = 0) },
                     onSelected = viewModel::setDepegThreshold
                 )
             }

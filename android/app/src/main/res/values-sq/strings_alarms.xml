@@ -132,6 +132,7 @@
     <string name="alarm_oi_hint">Krahason open interest me vlerën e ruajtur para po aq orësh. Një alarm i ri njofton vetëm pasi aplikacioni të ketë mbledhur të dhëna për aq kohë; kontrollohet jo më shpesh se çdo 5 minuta.</string>
     <string name="alarm_volume_factor_label">Vëllimi i orës së fundit kundrejt normales</string>
     <string name="alarm_volume_hint">Të dhënat e vëllimit vijnë nga Binance — çiftet që nuk janë të listuara atje nuk aktivizohen kurrë.</string>
+    <string name="alarm_volume_zero_hours_hint">Orët pa tregti llogariten me vëllim zero, prandaj te çiftet me pak tregti një orë e zakonshme mund të duket e pazakontë.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Alarmi aktiv</string>

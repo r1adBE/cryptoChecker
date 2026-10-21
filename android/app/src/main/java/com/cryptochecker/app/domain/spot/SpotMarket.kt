@@ -3,6 +3,7 @@ package com.cryptochecker.app.domain.spot
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.macro.MiniJson
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PercentText
 import java.time.Instant
 import java.time.format.DateTimeParseException
 import java.util.Locale
@@ -163,7 +164,7 @@ object SpotMarket {
     fun supply(value: Double?, symbol: String, locale: Locale = Locale.getDefault()): String =
         value?.takeIf { it.isFinite() }?.let { compact(it, locale) + " " + symbol } ?: "—"
 
-    /** Prozent mit zwei Nachkommastellen ohne Vorzeichen: «2.73%». */
+    /** Prozent mit zwei Nachkommastellen ohne Vorzeichen: «2.73%», «2,73 %» (Schreibweise je Sprache, [PercentText]). */
     fun percent(value: Double?, locale: Locale = Locale.getDefault()): String =
-        value?.takeIf { it.isFinite() }?.let { LocaleNumbers.decimal(it, maxDecimals = 2, locale = locale) + "%" } ?: "—"
+        value?.takeIf { it.isFinite() }?.let { PercentText.unsigned(it, 2, locale) } ?: "—"
 }

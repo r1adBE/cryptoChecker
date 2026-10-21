@@ -179,6 +179,13 @@ internal fun MoreConditionOptions(
             stringResource(R.string.alarm_volume_hint),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = Spacing.xs)
+        )
+        // Stunden ohne Handel zählen als 0 (VolumeDataSource.spikeOf): bei dünnem Handel wirkt eine normale Stunde auffällig
+        Text(
+            stringResource(R.string.alarm_volume_zero_hours_hint),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = Spacing.xs, bottom = Spacing.sm)
         )
     } else if (draft.condition.isFunding) {

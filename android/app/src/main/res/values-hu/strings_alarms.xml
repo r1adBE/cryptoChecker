@@ -132,6 +132,7 @@
     <string name="alarm_oi_hint">A nyitott pozíciókat az ennyi órával korábban mentett értékkel veti össze. Új riasztás csak akkor jelez, ha az alkalmazás ennyi ideig gyűjtött adatot; ellenőrzés legfeljebb 5 percenként.</string>
     <string name="alarm_volume_factor_label">Az utolsó óra forgalma a megszokotthoz képest</string>
     <string name="alarm_volume_hint">A forgalmi adatok a Binance-tól származnak – az ott nem jegyzett párok soha nem riasztanak.</string>
+    <string name="alarm_volume_zero_hours_hint">A kereskedés nélküli órák nulla forgalomnak számítanak, ezért gyengén forgó pároknál egy átlagos óra is szokatlannak tűnhet.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Riasztás aktív</string>

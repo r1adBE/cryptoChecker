@@ -138,6 +138,7 @@
     <string name="alarm_oi_hint">Compara o interesse aberto com o valor salvo há essa quantidade de horas. Um alarme novo só avisa depois que o app coletar dados por esse tempo; verificação no máximo a cada 5 minutos.</string>
     <string name="alarm_volume_factor_label">Volume da última hora em relação ao normal</string>
     <string name="alarm_volume_hint">Os dados de volume vêm da Binance — os pares que não estão listados lá nunca disparam.</string>
+    <string name="alarm_volume_zero_hours_hint">Horas sem negociações contam como volume zero, então em pares pouco negociados uma hora normal pode parecer incomum.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Alerta ativo</string>

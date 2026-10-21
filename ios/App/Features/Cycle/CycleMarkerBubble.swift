@@ -52,17 +52,13 @@ struct CycleMarkerBubble: View {
         return marker.isTop ? L("cycle_since_halving", pct) : L("cycle_from_top", pct)
     }
 
-    /// Prozent mit Vorzeichen und Tausendertrennung, ohne Nachkommastellen: „+1’130 %“.
+    /// Prozent mit Vorzeichen und Tausendertrennung, ohne Nachkommastellen: „+1’130%“, deutsch „+1.130 %“ — Zeichen
+    /// und Abstand über `PercentText.wrap` wie Android `cyclePercent`.
     static func percent(_ change: Double) -> String {
         let pct = change * 100
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        f.locale = Locale.current
-        f.usesGroupingSeparator = true
-        f.maximumFractionDigits = 0
-        let number = f.string(from: NSNumber(value: abs(pct))) ?? String(Int(abs(pct).rounded()))
+        let number = LocaleNumbers.decimal(abs(pct), maxDecimals: 0, grouping: true)
         // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl
-        return BidiText.ltr((pct >= 0 ? "+" : "−") + number + " %")
+        return BidiText.ltr((pct >= 0 ? "+" : "−") + PercentText.wrap(number))
     }
 
     /// Kurzes Datum im Format des Geräts (`FormatStyle.SHORT`).

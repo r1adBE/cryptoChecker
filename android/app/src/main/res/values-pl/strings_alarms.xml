@@ -144,6 +144,7 @@
     <string name="alarm_oi_hint">Porównuje otwarte pozycje z wartością zapisaną tyle godzin temu. Nowy alarm zadziała dopiero, gdy aplikacja zbierze dane z tego okresu; sprawdzanie najwyżej co 5 minut.</string>
     <string name="alarm_volume_factor_label">Wolumen z ostatniej godziny względem normy</string>
     <string name="alarm_volume_hint">Dane o wolumenie pochodzą z Binance — alarmy dla par, których tam nie ma, nigdy nie zadziałają.</string>
+    <string name="alarm_volume_zero_hours_hint">Godziny bez transakcji liczą się jako zerowy wolumen, więc przy słabo handlowanych parach zwykła godzina może wyglądać nietypowo.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Alarm aktywny</string>

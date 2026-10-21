@@ -4,7 +4,7 @@ import SwiftUI
 // Eigene Datei neben `AlarmAdvancedOptions.swift` («Mehr Bedingungen» und «Erweitert»).
 
 extension AlarmEditorSheet {
-    /// Volumen-Spike: Faktor als Chips statt Eingabefeld, darunter der Hinweis zur Quelle.
+    /// Volumen-Spike: Faktor als Chips statt Eingabefeld, darunter die Hinweise zur Quelle und zu Stunden ohne Handel.
     var volumeFactorPicker: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(L("alarm_volume_factor_label"))
@@ -16,6 +16,11 @@ extension AlarmEditorSheet {
                 }
             }
             Text(L("alarm_volume_hint"))
+                .font(.footnote)
+                .foregroundStyle(AppColors.onSurfaceVariant)
+                .fixedSize(horizontal: false, vertical: true)
+            // Stunden ohne Handel zählen als 0 (`VolumeDataSource.spikeOf`): bei dünnem Handel wirkt eine normale Stunde auffällig
+            Text(L("alarm_volume_zero_hours_hint"))
                 .font(.footnote)
                 .foregroundStyle(AppColors.onSurfaceVariant)
                 .fixedSize(horizontal: false, vertical: true)

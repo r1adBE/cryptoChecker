@@ -174,9 +174,9 @@ enum SpotMarket {
         return compact(value, locale: locale) + " " + symbol
     }
 
-    /// Prozent mit zwei Nachkommastellen ohne Vorzeichen: «2.73%».
+    /// Prozent mit zwei Nachkommastellen ohne Vorzeichen: «2.73%», «2,73 %» (Schreibweise je Sprache, `PercentText`).
     static func percent(_ value: Double?, locale: Locale = LocaleNumbers.appLocale) -> String {
         guard let value, value.isFinite else { return "—" }
-        return LocaleNumbers.decimal(value, maxDecimals: 2, locale: locale) + "%"
+        return PercentText.unsigned(value, decimals: 2, locale: locale)
     }
 }

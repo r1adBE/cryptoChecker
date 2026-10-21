@@ -144,6 +144,7 @@
     <string name="alarm_oi_hint">Porovnává open interest s hodnotou uloženou před tolika hodinami. Nový alarm se ozve, až aplikace nasbírá data za celé toto období; kontrola nejvýše každých 5 minut.</string>
     <string name="alarm_volume_factor_label">Objem poslední hodiny oproti normálu</string>
     <string name="alarm_volume_hint">Data o objemu pocházejí z Binance – alarmy pro páry, které tam nejsou, se nikdy nespustí.</string>
+    <string name="alarm_volume_zero_hours_hint">Hodiny bez obchodů se počítají s nulovým objemem, takže u málo obchodovaných párů může běžná hodina vypadat neobvykle.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Upozornění aktivní</string>

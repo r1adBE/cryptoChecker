@@ -41,6 +41,7 @@ import com.cryptochecker.app.ui.components.SwitchRow
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PercentText
 
 /*
  * Runde 13b: Unterseiten der Einstellungen. «Alarme & Benachrichtigungen» hatte 17
@@ -77,9 +78,9 @@ internal fun indicatorAlertLabel(kind: IndicatorAlertKind): Int = when (kind) {
     IndicatorAlertKind.ATH_WITHIN -> R.string.settings_ind_ath_within
 }
 
-/** Grenze als Text: Faktor «2.40×», Prozent «5 %». */
+/** Grenze als Text: Faktor «2.40×», Prozent «5%» bzw. «5 %» je Sprache ([PercentText]). */
 internal fun indicatorAlertValue(kind: IndicatorAlertKind, stored: Int): String =
-    if (kind.scale == 1.0) LocaleNumbers.integer(stored) + " %" else LocaleNumbers.decimal(stored / kind.scale, 2) + "×"
+    if (kind.scale == 1.0) PercentText.unsigned(stored.toDouble(), 0) else LocaleNumbers.decimal(stored / kind.scale, 2) + "×"
 
 /** Beschriftung der Stufe «Weniger» / «Normal» / «Mehr». */
 @androidx.annotation.StringRes

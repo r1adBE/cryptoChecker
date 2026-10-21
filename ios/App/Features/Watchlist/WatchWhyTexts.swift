@@ -296,9 +296,10 @@ enum WatchlistWhyTexts {
         return L("why_sources_list", parts.joined(separator: ", "))
     }
 
-    /// Betrag ohne Vorzeichen, z. B. «0.12 %» (die Richtung sagt «unter»/«über»), als Insel für RTL.
+    /// Betrag ohne Vorzeichen, z. B. «0.12%» bzw. «0,12 %» (die Richtung sagt «unter»/«über»), als Insel für RTL;
+    /// Schreibweise der App-Sprache über `PercentText` wie Android.
     static func unsignedPercent(_ value: Double, _ decimals: Int) -> String {
-        BidiText.ltr(String(format: "%.\(decimals)f", locale: Locale.current, abs(value)) + " %")
+        BidiText.ltr(PercentText.unsigned(value, decimals: decimals))
     }
 
     private static func signedInt(_ value: Int) -> String {

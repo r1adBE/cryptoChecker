@@ -317,16 +317,12 @@ extension CycleHistoryChart {
         return sentences.isEmpty ? L("a11y_chart_empty") : sentences.joined(separator: " ")
     }
 
-    /// Anteil als «gestiegen um 1’130 %» / «gefallen um 40 %» / «unverändert».
+    /// Anteil als «gestiegen um 1’130%» / «gefallen um 40 %» / «unverändert».
     private static func spokenPercent(_ change: Double) -> String {
         let pct = change * 100
         guard pct.isFinite, abs(pct) >= 0.5 else { return L("a11y_change_flat") }
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        f.locale = Locale.current
-        f.usesGroupingSeparator = true
-        f.maximumFractionDigits = 0
-        let number = (f.string(from: NSNumber(value: abs(pct))) ?? String(Int(abs(pct).rounded()))) + " %"
+        // Schreibweise der App-Sprache («1’130%», «1.130 %», «%1.130») wie die Blase (`CycleMarkerBubble.percent`)
+        let number = PercentText.wrap(LocaleNumbers.decimal(abs(pct), maxDecimals: 0, grouping: true))
         return L(pct > 0 ? "a11y_change_up" : "a11y_change_down", number)
     }
 }

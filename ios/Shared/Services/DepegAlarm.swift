@@ -120,6 +120,15 @@ enum DepegAlarm {
         return best
     }
 
+    /// Taugt der letzte Kurs `last` einer Quelle für die Messung? Seit Build 96 dieselbe Regel wie bei Kursalarmen
+    /// (`AlarmFreshness.exchangeTimeTooOld`): Meldet die Börse eine Zeit des Kurses (`exchangeTime`) älter als 2 Std.,
+    /// steht der Wert (Handel ruht) — er zählt wie keine Antwort (nil), damit weder eine alte Zahl als frische Messung
+    /// gespeichert wird noch der Alarm auf ihr auslöst. Ohne Zeit der Börse zählt der Kurs wie bisher. Wie Android.
+    static func usablePrice(last: Double?, exchangeTime: Int64?, now: Int64) -> Double? {
+        guard let last, !AlarmFreshness.exchangeTimeTooOld(exchangeTime, now: now) else { return nil }
+        return last
+    }
+
     /// Darf diese Messung den Alarm auslösen? Nicht, wenn sie allein aus USDC/USDT stammt.
     static func mayAlarm(_ measurement: Measurement) -> Bool { !measurement.viaUsdc }
 

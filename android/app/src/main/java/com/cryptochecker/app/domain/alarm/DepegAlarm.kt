@@ -107,6 +107,15 @@ object DepegAlarm {
 
     private fun closestToOne(values: List<Double>): Double = values.minBy { abs(it - 1.0) }
 
+    /**
+     * Taugt der letzte Kurs [last] einer Quelle für die Messung? Seit Build 96 dieselbe Regel wie bei Kursalarmen
+     * ([AlarmFreshness.exchangeTimeTooOld]): Meldet die Börse eine Zeit des Kurses ([exchangeTime]) älter als 2 Std.,
+     * steht der Wert (Handel ruht) — er zählt wie keine Antwort (null), damit weder eine alte Zahl als frische Messung
+     * gespeichert wird noch der Alarm auf ihr auslöst. Ohne Zeit der Börse zählt der Kurs wie bisher.
+     */
+    fun usablePrice(last: Double?, exchangeTime: Long?, now: Long): Double? =
+        last?.takeUnless { AlarmFreshness.exchangeTimeTooOld(exchangeTime, now) }
+
     /** Darf diese Messung den Alarm auslösen? Nicht, wenn sie allein aus USDC/USDT stammt. */
     fun mayAlarm(measurement: Measurement): Boolean = !measurement.viaUsdc
 

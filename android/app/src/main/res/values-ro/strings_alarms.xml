@@ -138,6 +138,7 @@
     <string name="alarm_oi_hint">Compară interesul deschis cu valoarea salvată acum tot atâtea ore. O alarmă nouă anunță doar după ce aplicația a strâns date atât timp; verificare cel mult la fiecare 5 minute.</string>
     <string name="alarm_volume_factor_label">Volumul ultimei ore față de normal</string>
     <string name="alarm_volume_hint">Datele de volum provin de la Binance — perechile care nu sunt listate acolo nu se declanșează niciodată.</string>
+    <string name="alarm_volume_zero_hours_hint">Orele fără tranzacții contează ca volum zero, așa că la perechile tranzacționate rar o oră obișnuită poate părea neobișnuită.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Alertă activă</string>

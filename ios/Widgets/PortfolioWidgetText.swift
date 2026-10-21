@@ -155,9 +155,10 @@ enum PortfolioWidgetText {
                           format: { hidden ? L("a11y_amount_hidden") : PriceFormat.valueWithCurrency($0, currency) })
     }
 
-    /// Anteil mit einer Nachkommastelle, z. B. «62.3%».
+    /// Anteil mit einer Nachkommastelle, z. B. «62.3%», «62,3 %», «%62,3» (Schreibweise je Sprache, `PercentText`) —
+    /// wie Android `PortfolioWidgetMath.shareText`.
     static func share(_ percent: Double) -> String {
-        String(format: "%.1f%%", locale: Locale.current, Swift.min(100, Swift.max(0, percent)))
+        PercentText.unsigned(Swift.min(100, Swift.max(0, percent)), decimals: 1)
     }
 
     /// «Stand 15:19» bzw. «veraltet · 06:42» (ohne Sekunden).

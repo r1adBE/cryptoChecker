@@ -28,6 +28,31 @@ class AlarmSentenceTest {
         assertEquals("1.25%", parts(Kind.MOVE_PERCENT, 1.25, Locale.US)?.value)
     }
 
+    /** Seit Build 96 über PercentText statt getPercentInstance: gleiche Zeichen wie iOS (`PercentCallersTests`). */
+    @Test
+    fun prozentInDerSchreibweiseDerSprache() {
+        assertEquals("%0,5", AlarmSentence.percent(0.5, Locale.forLanguageTag("tr-TR")))
+        assertEquals("0,5\u00A0%", AlarmSentence.percent(0.5, Locale.GERMANY))
+        assertEquals("0.5%", AlarmSentence.percent(0.5, Locale.US))
+        assertEquals("0.5%", AlarmSentence.percent(0.5, Locale.forLanguageTag("de-CH")))
+        // höchstens zwei Nachkommastellen, Nullen am Ende fallen weg, kaufmännisch gerundet
+        assertEquals("5%", AlarmSentence.percent(5.0, Locale.US))
+        assertEquals("1.26%", AlarmSentence.percent(1.255, Locale.US))
+        assertEquals("%2,5", parts(Kind.UP_PERCENT, 2.5, Locale.forLanguageTag("tr-TR"))?.value)
+    }
+
+    @Test
+    fun fundingUndVeraenderungMitEchtemMinus() {
+        assertEquals("0.0125%", AlarmSentence.fundingPercent(0.0125, Locale.US))
+        assertEquals("\u22120,0125\u00A0%", AlarmSentence.fundingPercent(-0.0125, Locale.GERMANY))
+        assertEquals("\u2212%0,05", AlarmSentence.fundingPercent(-0.05, Locale.forLanguageTag("tr-TR")))
+        // gerundet 0: nie «−0%»
+        assertEquals("0%", AlarmSentence.fundingPercent(-0.00001, Locale.US))
+        assertEquals("+%12,3", AlarmSentence.signedPercent(12.34, Locale.forLanguageTag("tr-TR")))
+        assertEquals("\u22124\u00A0%", AlarmSentence.signedPercent(-4.0, Locale.GERMANY))
+        assertEquals("0%", AlarmSentence.signedPercent(0.04, Locale.US))
+    }
+
     @Test
     fun moveKeepsWindowHours() {
         assertEquals(12, parts(Kind.MOVE_PERCENT, 3.0, hours = 12)?.windowHours)

@@ -59,6 +59,16 @@ class PercentTextTest {
     }
 
     @Test
+    fun ohneNullenAmEndeMitMinDecimals() {
+        assertEquals("5%", PercentText.unsigned(5.0, 2, Locale.US, minDecimals = 0))
+        assertEquals("2,5\u00A0%", PercentText.unsigned(2.5, 4, Locale.GERMANY, minDecimals = 0))
+        assertEquals("%0,0125", PercentText.unsigned(0.0125, 4, Locale.forLanguageTag("tr-TR"), minDecimals = 0))
+        assertEquals("+12.3%", PercentText.signed(12.34, 1, Locale.US, minDecimals = 0))
+        // ohne minDecimals wie bisher genau [decimals] Stellen
+        assertEquals("5.00%", PercentText.unsigned(5.0, 2, Locale.US))
+    }
+
+    @Test
     fun abstandGroessteEinheit() {
         val now = 10_000_000_000L
         assertEquals(7L to PriceFormat.AgeUnit.DAYS, PriceFormat.ageParts(now - 7 * 86_400_000L - 5_000, now))
