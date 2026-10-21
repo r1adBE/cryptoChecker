@@ -63,6 +63,12 @@ class TokenIdentityStore @Inject constructor(
     /** `fullName` von Binance für [base]; null = unbekannt. */
     fun binanceName(base: String): String? = current().binanceName(base)
 
+    /**
+     * Namen des Kürzels [base] in allen gespeicherten Paarlisten (je Börse einer) — für «mehrere Token unter dem
+     * Kürzel?» ([com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity.ambiguous]). Leer = unbekannt.
+     */
+    fun otherNames(base: String): List<String?> = current().markets.values.mapNotNull { it[TokenIdentity.key(base)] }
+
     /** Namen aus einer frisch geladenen Paarliste; ohne Namen bleibt der bisherige Stand. */
     fun saveMarket(marketKey: String, names: Map<String, String>) {
         val cleaned = TokenIdentity.cleaned(names)

@@ -53,7 +53,7 @@ internal suspend fun PortfolioExportViewModel.chYearEnd(
     val coins = (holdings.map { it.coin } + view.part.balances.keys).distinct().filter { PortfolioStables.needsQuote(it) }
     val current = try {
         if (coins.isEmpty()) emptyMap() else priceSource.prices(coins).let { p ->
-            CutoffExport.referencePrices(p.prices, p.unchecked)
+            CutoffExport.referencePrices(p.prices, p.unchecked, p.unverified)
         }
     } catch (e: CancellationException) {
         throw e
@@ -110,7 +110,7 @@ internal suspend fun PortfolioExportViewModel.build(
     // Tagesschluss übernommen («ungeprüft») — auch nicht, wenn das Laden ganz scheitert
     val current = try {
         if (coins.isEmpty()) emptyMap() else priceSource.prices(coins).let { p ->
-            CutoffExport.referencePrices(p.prices, p.unchecked)
+            CutoffExport.referencePrices(p.prices, p.unchecked, p.unverified)
         }
     } catch (e: CancellationException) {
         throw e

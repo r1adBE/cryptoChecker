@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Alarmy portfolia pozastaveny: zůstatky tokenů u %1$s jsou částečně zastaralé</string>
     <string name="portfolio_alarms_paused_tokens_generic">Alarmy portfolia pozastaveny: zůstatky tokenů sledovaných adres jsou částečně zastaralé</string>
+    <string name="portfolio_alarms_paused_unverified">Alarmy portfolia pozastaveny: cena neověřena pro %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Alarmy portfolia pozastaveny: cena některých coinů neověřena</string>
     <string name="portfolio_alarms_address_failing">Alarmy portfolia počítají bez %1$s: zůstatek se nenačetl déle než 24 hodin</string>
     <string name="portfolio_alarms_address_failing_generic">Alarmy portfolia počítají bez adres, jejichž zůstatek se nenačítá déle než 24 hodin</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

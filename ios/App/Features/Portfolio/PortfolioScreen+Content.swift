@@ -124,7 +124,9 @@ extension PortfolioScreen {
                         txCount: txCounts[position.coin] ?? 0,
                         shape: ListSegment.shape(openIndex[position.coin] ?? 0, summary.open.count),
                         stale: stale,
-                        unchecked: model.prices.unchecked.contains(position.coin),
+                        // Ohne Kurs ungeprüft oder Binance-Kurs mit unbestätigtem Token: «Kurs ungeprüft»
+                        unchecked: model.prices.unchecked.contains(position.coin)
+                            || model.prices.unverified.contains(position.coin),
                         unavailable: model.prices.unavailable.contains(position.coin),
                         // Wert und 24h wie im Widget in der Anzeigewährung (Detail bleibt USDT)
                         unit: PortfolioCardUnit(currency: currency, fxRate: model.displayRate(for: currency)),

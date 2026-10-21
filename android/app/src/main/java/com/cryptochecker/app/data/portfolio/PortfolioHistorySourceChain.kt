@@ -53,9 +53,10 @@ internal suspend fun PortfolioHistorySource.cachedChain(coin: String): OwnCloses
  * geprüfte Kurse ([CutoffExport.referencePrices]). Keine eigene Kursabfrage.
  */
 internal suspend fun PortfolioHistorySource.chainReference(coin: String): Double? = try {
-    val cached = priceSource.cached(listOf(coin))
-    CutoffExport.referencePrices(cached.prices, cached.unchecked)[coin]
-        ?: priceSource.stored(listOf(coin)).let { CutoffExport.referencePrices(it.prices, it.unchecked)[coin] }
+    // Ohne ungeprüfte und (seit Build 101) ohne «Kurs ungeprüft» — gleiche Regel wie die Exporte
+    fun layer(p: PortfolioPrices) = CutoffExport.ReferenceLayer(p.prices, p.unchecked, p.unverified)
+    CutoffExport.referenceOf(coin, listOf(layer(priceSource.cached(listOf(coin)))))
+        ?: CutoffExport.referenceOf(coin, listOf(layer(priceSource.stored(listOf(coin)))))
 } catch (e: CancellationException) {
     throw e
 } catch (e: Exception) {

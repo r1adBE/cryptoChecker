@@ -50,11 +50,32 @@ object CutoffExport {
 
     /**
      * Bezugskurse der Identitätsprüfung aus den aktuellen Portfolio-Kursen [current]: nur gültige,
-     * ohne ungeprüfte Kerzenkurse ([uncheckedCurrent], kein unabhängiger Bezug). Fehlt ein Coin, wird
-     * sein Tagesschluss nicht übernommen («ungeprüft»).
+     * ohne ungeprüfte Kerzenkurse ([uncheckedCurrent], kein unabhängiger Bezug) und ohne Binance-Kurse mit
+     * unbestätigtem Token ([unverifiedCurrent], «Kurs ungeprüft», seit Build 101 — sonst bestätigte ein womöglich
+     * fremder Token seine eigenen Tagesschlüsse). Fehlt ein Coin, wird sein Tagesschluss nicht übernommen («ungeprüft»).
      */
-    fun referencePrices(current: Map<String, Double>, uncheckedCurrent: Set<String>): Map<String, Double> =
-        current.filter { (coin, price) -> coin !in uncheckedCurrent && price > 0.0 && price.isFinite() }
+    fun referencePrices(
+        current: Map<String, Double>,
+        uncheckedCurrent: Set<String>,
+        unverifiedCurrent: Set<String> = emptySet(),
+    ): Map<String, Double> =
+        current.filter { (coin, price) ->
+            coin !in uncheckedCurrent && coin !in unverifiedCurrent && price > 0.0 && price.isFinite()
+        }
+
+    /** Ein Stand aktueller Kurse für [referenceOf]: Kurse samt ungeprüften und «Kurs ungeprüft» ([referencePrices]). */
+    data class ReferenceLayer(
+        val prices: Map<String, Double>,
+        val unchecked: Set<String> = emptySet(),
+        val unverified: Set<String> = emptySet(),
+    )
+
+    /**
+     * Bezugskurs eines Coins aus mehreren Ständen der Reihe nach (Wertverlauf: Speicher, dann gemerkter Stand): der
+     * erste geprüfte ([referencePrices]); null = keiner. Ein ungeprüfter Kurs bestätigt also auch dort keine Tagesschlüsse.
+     */
+    fun referenceOf(coin: String, layers: List<ReferenceLayer>): Double? =
+        layers.firstNotNullOfOrNull { referencePrices(it.prices, it.unchecked, it.unverified)[coin] }
 
     /**
      * Zeilen aus Bestand, Kursen ([prices]: Coin → Tagesschluss in USDT) und dem Devisenkurs

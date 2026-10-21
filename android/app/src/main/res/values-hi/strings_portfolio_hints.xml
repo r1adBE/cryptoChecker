@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">पोर्टफ़ोलियो अलार्म रुके हुए हैं: %1$s के टोकन बैलेंस आंशिक रूप से पुराने हैं</string>
     <string name="portfolio_alarms_paused_tokens_generic">पोर्टफ़ोलियो अलार्म रुके हुए हैं: देखे जा रहे पतों के टोकन बैलेंस आंशिक रूप से पुराने हैं</string>
+    <string name="portfolio_alarms_paused_unverified">पोर्टफ़ोलियो अलार्म रुके हुए हैं: %1$s का भाव अपुष्ट है</string>
+    <string name="portfolio_alarms_paused_unverified_generic">पोर्टफ़ोलियो अलार्म रुके हुए हैं: कुछ कॉइन का भाव अपुष्ट है</string>
     <string name="portfolio_alarms_address_failing">पोर्टफ़ोलियो अलार्म %1$s के बिना जाँचते हैं: बैलेंस 24 घंटे से अधिक समय से लोड नहीं हुआ</string>
     <string name="portfolio_alarms_address_failing_generic">पोर्टफ़ोलियो अलार्म उन पतों के बिना जाँचते हैं जिनका बैलेंस 24 घंटे से अधिक समय से लोड नहीं हो रहा</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

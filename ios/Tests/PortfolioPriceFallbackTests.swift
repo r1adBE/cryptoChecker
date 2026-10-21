@@ -59,6 +59,46 @@ final class PortfolioPriceFallbackTests: XCTestCase {
         XCTAssertEqual(PortfolioPriceFallback.decode(text), ["ETH": StoredPrice(price: 3000, at: now)])
     }
 
+    /// «Kurs ungeprüft» wird mit dem Kurs gemerkt (seit Build 101); ältere Dateien ohne Feld gelten als geprüft. Wie Android.
+    func testUnverifiedFlagRoundTrip() {
+        let entries: [String: StoredPrice] = [
+            "BTC": StoredPrice(price: 65_432.1, at: now),
+            "BEAM": StoredPrice(price: 0.02, at: now, unverified: true),
+        ]
+        let text = PortfolioPriceFallback.encode(entries)
+        XCTAssertTrue(text.contains("\nBEAM;0.02;\(now);u"))
+        XCTAssertEqual(PortfolioPriceFallback.decode(text), entries)
+        // Älterer Stand ohne 4. Feld: geprüft; unbekanntes 4. Feld: Zeile verworfen
+        let old = PortfolioPriceFallback.formatHeader + "\nBEAM;0.02;\(now)\nETH;3000.0;\(now);x"
+        XCTAssertEqual(PortfolioPriceFallback.decode(old), ["BEAM": StoredPrice(price: 0.02, at: now)])
+    }
+
+    /// Neuerer Kurs gewinnt samt Stand: ein später geprüfter Kurs hebt «ungeprüft» auf.
+    func testMergeKeepsFlagOfNewerEntry() {
+        let stored = ["BEAM": StoredPrice(price: 0.02, at: now - minute, unverified: true)]
+        XCTAssertEqual(PortfolioPriceFallback.merge(current: ["BEAM": StoredPrice(price: 0.021, at: now)], stored: stored)["BEAM"]?.unverified, false)
+        XCTAssertEqual(PortfolioPriceFallback.merge(current: [:], stored: stored)["BEAM"]?.unverified, true)
+    }
+
+    /// Binance fällt später aus: der gemerkte ungeprüfte Binance-Kurs ist kein Bezug — der Kerzenkurs bleibt ungeprüft.
+    func testStoredUnverifiedPriceIsNoCandleReference() {
+        let merged = PortfolioPriceFallback.merge(current: [:], stored: ["BEAM": StoredPrice(price: 0.02, at: now, unverified: true)])
+        let reference = PricePlausibility.candleReference(watchPrices: [], stored: PortfolioPriceFallback.confirmed(merged)["BEAM"]?.price)
+        XCTAssertNil(reference)
+        XCTAssertFalse(PricePlausibility.acceptCandle(0.021, reference: reference))
+        XCTAssertTrue(PricePlausibility.candleUnchecked(0.021, reference: reference))
+        let ok = PortfolioPriceFallback.merge(current: [:], stored: ["BTC": StoredPrice(price: 65_000, at: now)])
+        XCTAssertEqual(PortfolioPriceFallback.confirmed(ok)["BTC"]?.price, 65_000)
+    }
+
+    /// Gekapselter Coin über die Basis erbt «Kurs ungeprüft»; mit eigenem Kurs zählt sein eigener Stand.
+    func testUnverifiedInheritedViaBase() {
+        let entries = ["BEAM": StoredPrice(price: 0.02, at: now, unverified: true), "BTC": StoredPrice(price: 65_000, at: now)]
+        let got = PortfolioPriceFallback.unverified(["BEAM", "BTC", "BEAM.E", "BTC.B", "X"], entries: entries,
+                                                    via: ["BEAM.E": "BEAM", "BTC.B": "BTC"])
+        XCTAssertEqual(got, ["BEAM", "BEAM.E"])
+    }
+
     func testStateFollowsWatchlistRules() {
         let after = 45 * minute
         func state(_ updatedAt: Int64, online: Bool = true, open: Bool = true) -> PortfolioPriceState {

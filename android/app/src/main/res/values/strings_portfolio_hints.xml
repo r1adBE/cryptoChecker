@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Portfolio alerts paused: token balances of %1$s partly outdated</string>
     <string name="portfolio_alarms_paused_tokens_generic">Portfolio alerts paused: token balances of watched addresses partly outdated</string>
+    <string name="portfolio_alarms_paused_unverified">Portfolio alerts paused: price unverified for %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Portfolio alerts paused: price of some coins unverified</string>
     <string name="portfolio_alarms_address_failing">Portfolio alerts check without %1$s: balance not loaded for over 24 hours</string>
     <string name="portfolio_alarms_address_failing_generic">Portfolio alerts check without addresses whose balance has not loaded for over 24 hours</string>
     <!-- Statuszeile einer Adresse, gescheitertes «Rückgängig» nach «Adresse entfernen» und (seit Build 97) gescheitertes Entfernen -->

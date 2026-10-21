@@ -44,6 +44,8 @@ final class PortfolioAlarmParityTests: XCTestCase {
             reading.addressesFailing = r["addressesFailing"] as? [String] ?? []
             reading.staleTokenAddresses = r["staleTokenAddresses"] as? [String] ?? []
             reading.staleTokenValueUsdt = TestSupport.number(r["staleTokenValueUsdt"]) ?? 0
+            reading.unverifiedCoins = r["unverifiedCoins"] as? [String] ?? []
+            reading.unverifiedValueUsdt = TestSupport.number(r["unverifiedValueUsdt"]) ?? 0
             let name = c["name"] as? String ?? ""
             XCTAssertEqual(PortfolioAlarmLogic.incomplete(.VALUE_BELOW, reading), c["value"] as? Bool, "Wert: \(name)")
             XCTAssertEqual(PortfolioAlarmLogic.incomplete(.VALUE_ABOVE, reading), c["value"] as? Bool, "Wert darüber: \(name)")
@@ -57,8 +59,9 @@ final class PortfolioAlarmParityTests: XCTestCase {
             } else if let coins = c["pause"] as? [String] {
                 expected = .noPrice(coins)
             } else if let p = c["pause"] as? [String: Any] {
-                // Seit Build 95: {"tokens":[…]} bzw. {"failing":[…]}
+                // Seit Build 95: {"tokens":[…]} bzw. {"failing":[…]}; seit Build 101 {"unverified":[…]}
                 if let tokens = p["tokens"] as? [String] { expected = .tokensStale(tokens) }
+                else if let coins = p["unverified"] as? [String] { expected = .priceUnverified(coins) }
                 else { expected = .addressesFailing(p["failing"] as? [String] ?? []) }
             } else {
                 expected = nil

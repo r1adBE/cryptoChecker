@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">投资组合提醒已暂停：%1$s 的代币余额部分已过时</string>
     <string name="portfolio_alarms_paused_tokens_generic">投资组合提醒已暂停：所关注地址的代币余额部分已过时</string>
+    <string name="portfolio_alarms_paused_unverified">投资组合提醒已暂停：%1$s 的价格未核实</string>
+    <string name="portfolio_alarms_paused_unverified_generic">投资组合提醒已暂停：部分币种的价格未核实</string>
     <string name="portfolio_alarms_address_failing">投资组合提醒不含 %1$s 进行检查：余额已超过 24 小时未能加载</string>
     <string name="portfolio_alarms_address_failing_generic">投资组合提醒不含余额超过 24 小时未能加载的地址进行检查</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

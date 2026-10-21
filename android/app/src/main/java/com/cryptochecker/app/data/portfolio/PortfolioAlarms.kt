@@ -170,5 +170,8 @@ fun PortfolioSnapshot.toAlarmReading(usdTo: Map<String, Double> = emptyMap(), us
         addressesFailing = addressesFailing,
         staleTokenAddresses = staleTokenAddresses,
         staleTokenValueUsdt = staleTokenValueUsdt,
+        // «Kurs ungeprüft» zählt wie ein alter Kurs (wesentlich → Pause, unwesentlich nicht)
+        unverifiedCoins = unverifiedCoins,
+        unverifiedValueUsdt = unverifiedValueUsdt,
         usdtUsdLive = usdtUsdLive,
     )

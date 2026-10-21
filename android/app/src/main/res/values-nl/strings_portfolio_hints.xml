@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Portefeuillealarmen gepauzeerd: tokensaldi van %1$s deels verouderd</string>
     <string name="portfolio_alarms_paused_tokens_generic">Portefeuillealarmen gepauzeerd: tokensaldi van gevolgde adressen deels verouderd</string>
+    <string name="portfolio_alarms_paused_unverified">Portefeuillealarmen gepauzeerd: koers niet gecontroleerd voor %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Portefeuillealarmen gepauzeerd: koers van sommige coins niet gecontroleerd</string>
     <string name="portfolio_alarms_address_failing">Portefeuillealarmen controleren zonder %1$s: saldo al meer dan 24 uur niet geladen</string>
     <string name="portfolio_alarms_address_failing_generic">Portefeuillealarmen controleren zonder adressen waarvan het saldo al meer dan 24 uur niet laadt</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

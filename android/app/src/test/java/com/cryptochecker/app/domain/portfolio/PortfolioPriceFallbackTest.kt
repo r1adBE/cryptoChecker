@@ -2,6 +2,7 @@ package com.cryptochecker.app.domain.portfolio
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -64,6 +65,55 @@ class PortfolioPriceFallbackTest {
         assertTrue(PortfolioPriceFallback.decode("other-v9\nBTC;1.0;1").isEmpty())
         val text = PortfolioPriceFallback.FORMAT_HEADER + "\nBTC;abc;1\nETH;3000.0;$now\nSOL;-1;$now\nXRP;0.5\n"
         assertEquals(mapOf("ETH" to StoredPrice(3000.0, now)), PortfolioPriceFallback.decode(text))
+    }
+
+    /** «Kurs ungeprüft» wird mit dem Kurs gemerkt (seit Build 101); ältere Dateien ohne Feld gelten als geprüft. */
+    @Test
+    fun unverifiedFlagRoundTrip() {
+        val entries = mapOf(
+            "BTC" to StoredPrice(65_432.1, now),
+            "BEAM" to StoredPrice(0.02, now, unverified = true),
+        )
+        val text = PortfolioPriceFallback.encode(entries)
+        assertTrue(text.contains("\nBEAM;0.02;$now;u"))
+        assertEquals(entries, PortfolioPriceFallback.decode(text))
+        // Älterer Stand ohne 4. Feld: geprüft; unbekanntes 4. Feld: Zeile verworfen
+        val old = PortfolioPriceFallback.FORMAT_HEADER + "\nBEAM;0.02;$now\nETH;3000.0;$now;x"
+        assertEquals(mapOf("BEAM" to StoredPrice(0.02, now)), PortfolioPriceFallback.decode(old))
+    }
+
+    /** Neuerer Kurs gewinnt samt Stand: ein später geprüfter Kurs hebt «ungeprüft» auf. */
+    @Test
+    fun mergeKeepsFlagOfNewerEntry() {
+        val stored = mapOf("BEAM" to StoredPrice(0.02, now - minute, unverified = true))
+        val current = mapOf("BEAM" to StoredPrice(0.021, now))
+        assertFalse(PortfolioPriceFallback.merge(current, stored).getValue("BEAM").unverified)
+        assertTrue(PortfolioPriceFallback.merge(emptyMap(), stored).getValue("BEAM").unverified)
+    }
+
+    /**
+     * Binance fällt später aus: der gemerkte ungeprüfte Binance-Kurs ist kein Bezug — der Kerzenkurs bleibt ungeprüft
+     * statt bestätigt zu werden (und der Coin fiele sonst still aus «Kurs ungeprüft»).
+     */
+    @Test
+    fun storedUnverifiedPriceIsNoCandleReference() {
+        // Zwischenspeicher ohne den Coin (ungeprüft ausgefiltert), Datei mit dem ungeprüften Kurs (z. B. nach Neustart)
+        val merged = PortfolioPriceFallback.merge(emptyMap(), mapOf("BEAM" to StoredPrice(0.02, now, unverified = true)))
+        val reference = PricePlausibility.candleReference(emptyList(), PortfolioPriceFallback.confirmed(merged)["BEAM"]?.price)
+        assertNull(reference)
+        assertFalse(PricePlausibility.acceptCandle(0.021, reference))
+        assertTrue(PricePlausibility.candleUnchecked(0.021, reference))
+        // Geprüft gemerkter Kurs bleibt Bezug
+        val ok = PortfolioPriceFallback.merge(emptyMap(), mapOf("BTC" to StoredPrice(65_000.0, now)))
+        assertEquals(65_000.0, PortfolioPriceFallback.confirmed(ok)["BTC"]?.price)
+    }
+
+    /** Gekapselter Coin über die Basis erbt «Kurs ungeprüft»; mit eigenem Kurs zählt sein eigener Stand. */
+    @Test
+    fun unverifiedInheritedViaBase() {
+        val entries = mapOf("BEAM" to StoredPrice(0.02, now, unverified = true), "BTC" to StoredPrice(65_000.0, now))
+        val got = PortfolioPriceFallback.unverified(listOf("BEAM", "BTC", "BEAM.E", "BTC.B", "X"), entries, mapOf("BEAM.E" to "BEAM", "BTC.B" to "BTC"))
+        assertEquals(setOf("BEAM", "BEAM.E"), got)
     }
 
     @Test

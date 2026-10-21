@@ -232,7 +232,8 @@ enum PortfolioCutoffExporter {
         var current: [String: Double] = [:]
         if !coins.isEmpty {
             let live = await PortfolioPriceSource.prices(coins)
-            current = CutoffExport.referencePrices(live.prices, uncheckedCurrent: live.unchecked)
+            current = CutoffExport.referencePrices(live.prices, uncheckedCurrent: live.unchecked,
+                                                   unverifiedCurrent: live.unverified)
         }
         let closes = await HistoricPriceSource.dailyClosesUsdt(coins, day: day, current: current)
         var fx: HistoricFx?

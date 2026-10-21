@@ -101,6 +101,11 @@ struct PortfolioReading: Equatable, Sendable {
     /// `staleTokenValueUsdt` (`staleMaterial`). Wie Android.
     var staleTokenAddresses: [String] = []
     var staleTokenValueUsdt = 0.0
+    /// Coins mit «Kurs ungeprüft» (Binance-Kurs, Token nicht bestätigt; seit Build 101,
+    /// `PortfolioWidgetSnapshot.unverifiedCoins`): zählen wie ein alter Kurs mit Wert `unverifiedValueUsdt`
+    /// (`staleMaterial`); sperren nur sie, eigener Hinweis (`.priceUnverified`). Wie Android.
+    var unverifiedCoins: [String] = []
+    var unverifiedValueUsdt = 0.0
 }
 
 /// Grund, weshalb Portfolio-Alarme gerade nicht prüfen (`PortfolioAlarmLogic.pause`) — Hinweis in der Alarm-Übersicht.
@@ -112,6 +117,8 @@ enum PortfolioAlarmPause: Equatable, Sendable {
     case noPrice([String])
     /// Token-Guthaben dieser Adressen nicht bestätigt (wesentlich, wie ein alter Kurs).
     case tokensStale([String])
+    /// Kurs dieser Coins ungeprüft (Token nicht bestätigt, wesentlich wie ein alter Kurs; seit Build 101).
+    case priceUnverified([String])
     /// Keine Pause, nur Hinweis: die Alarme rechnen ohne diese seit über 24 Stunden scheiternden Adressen.
     case addressesFailing([String])
 }
@@ -207,9 +214,11 @@ enum PortfolioAlarmLogic {
     /// Wert-Alarme weiter. Wie Android.
     static func staleMaterial(_ reading: PortfolioReading) -> Bool {
         let prices = reading.stalePrices > 0
-        // Nicht bestätigte Token-Guthaben (seit Build 95) zählen wie Coins mit altem Kurs, Wert zusammen
+        // Nicht bestätigte Token-Guthaben (seit Build 95) und ungeprüfte Kurse (seit Build 101) zählen wie Coins mit
+        // altem Kurs, Wert zusammen
         let tokens = !reading.staleTokenAddresses.isEmpty
-        guard prices || tokens else { return false }
+        let unverified = !reading.unverifiedCoins.isEmpty
+        guard prices || tokens || unverified else { return false }
         var stale = 0.0
         if prices {
             guard let value = reading.staleValueUsdt, value.isFinite, value >= 0 else { return true }
@@ -219,15 +228,20 @@ enum PortfolioAlarmLogic {
             guard reading.staleTokenValueUsdt.isFinite, reading.staleTokenValueUsdt >= 0 else { return true }
             stale += reading.staleTokenValueUsdt
         }
+        if unverified {
+            guard reading.unverifiedValueUsdt.isFinite, reading.unverifiedValueUsdt >= 0 else { return true }
+            stale += reading.unverifiedValueUsdt
+        }
         guard let total = reading.totalUsdt, total.isFinite, total > 0 else { return true }
         return stale >= total * immaterialShare
     }
 
     /// Warum die eingeschalteten Portfolio-Alarme (`kinds`) gerade nicht prüfen (Hinweis in der Alarm-Übersicht); nil =
     /// mindestens nicht wegen Adressen oder Kursen. Adressen zuerst (betrifft jede Art); sonst Coins ohne aktuellen Kurs:
-    /// die wesentlichen alten (`staleCoins`) und — bei Wert-Alarmen — die ganz ohne Kurs (`missingCoins`); sind es nur nicht
-    /// bestätigte Token-Guthaben, deren Adressen (`.tokensStale`). Ohne Pause der Hinweis auf seit über 24 Stunden scheiternde
-    /// Adressen (`.addressesFailing`). Wie Android.
+    /// die wesentlichen alten (`staleCoins`) und — bei Wert-Alarmen — die ganz ohne Kurs (`missingCoins`); ohne solche Coins
+    /// die mit ungeprüftem Kurs (`.priceUnverified`, seit Build 101), sonst die Adressen nicht bestätigter Token-Guthaben
+    /// (`.tokensStale`). Sperren alte bzw. fehlende Kurse mit, bleibt es beim Satz «kein aktueller Kurs» mit nur diesen
+    /// Coins. Ohne Pause der Hinweis auf seit über 24 Stunden scheiternde Adressen (`.addressesFailing`). Wie Android.
     static func pause(_ kinds: [PortfolioAlarmKind], _ reading: PortfolioReading, missingCoins: [String],
                       staleCoins: [String]) -> PortfolioAlarmPause? {
         guard !kinds.isEmpty, !reading.empty else { return nil }
@@ -237,7 +251,11 @@ enum PortfolioAlarmLogic {
         guard staleBlocks || missingBlocks else {
             return reading.addressesFailing.isEmpty ? nil : .addressesFailing(reading.addressesFailing)
         }
-        if staleBlocks && reading.stalePrices <= 0 && !missingBlocks { return .tokensStale(reading.staleTokenAddresses) }
+        if staleBlocks && reading.stalePrices <= 0 && !missingBlocks {
+            // Ohne alte/fehlende Kurse: zuerst ungeprüfte Kurse (Coins vor Token-Guthaben) — wie Android
+            if !reading.unverifiedCoins.isEmpty { return .priceUnverified(reading.unverifiedCoins) }
+            return .tokensStale(reading.staleTokenAddresses)
+        }
         var coins: [String] = []
         for coin in (staleBlocks ? staleCoins : []) + (missingBlocks ? missingCoins : []) where !coins.contains(coin) {
             coins.append(coin)

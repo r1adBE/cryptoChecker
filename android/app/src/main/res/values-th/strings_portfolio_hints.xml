@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">หยุดสัญญาณเตือนพอร์ตชั่วคราว: ยอดคงเหลือโทเค็นของ %1$s ล้าสมัยบางส่วน</string>
     <string name="portfolio_alarms_paused_tokens_generic">หยุดสัญญาณเตือนพอร์ตชั่วคราว: ยอดคงเหลือโทเค็นของที่อยู่ที่ติดตามล้าสมัยบางส่วน</string>
+    <string name="portfolio_alarms_paused_unverified">หยุดสัญญาณเตือนพอร์ตชั่วคราว: ราคาของ %1$s ยังไม่ตรวจสอบ</string>
+    <string name="portfolio_alarms_paused_unverified_generic">หยุดสัญญาณเตือนพอร์ตชั่วคราว: ราคาของบางเหรียญยังไม่ตรวจสอบ</string>
     <string name="portfolio_alarms_address_failing">สัญญาณเตือนพอร์ตตรวจสอบโดยไม่รวม %1$s: ไม่ได้โหลดยอดคงเหลือมานานกว่า 24 ชั่วโมง</string>
     <string name="portfolio_alarms_address_failing_generic">สัญญาณเตือนพอร์ตตรวจสอบโดยไม่รวมที่อยู่ที่โหลดยอดคงเหลือไม่ได้มานานกว่า 24 ชั่วโมง</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

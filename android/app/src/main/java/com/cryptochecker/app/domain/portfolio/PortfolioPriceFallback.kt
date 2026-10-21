@@ -3,7 +3,15 @@ package com.cryptochecker.app.domain.portfolio
 import com.cryptochecker.app.domain.refresh.OutdatedRule
 
 /** Ein gemerkter USDT-Kurs und wann er geholt wurde (Epoch-ms). */
-data class StoredPrice(val price: Double, val at: Long) {
+data class StoredPrice(
+    val price: Double,
+    val at: Long,
+    /**
+     * Binance-Kurs mit unbestätigtem Token («Kurs ungeprüft», seit Build 101): gilt als Wert, aber nie als bestätigter
+     * Bezug (Kerzen, Tagesschlüsse) — auch nach einem Neustart, darum mit dem Kurs gemerkt.
+     */
+    val unverified: Boolean = false,
+) {
     /** Brauchbar: endlicher, positiver Kurs mit Zeitpunkt. */
     val valid: Boolean get() = price.isFinite() && price > 0.0 && at > 0L
 }
@@ -42,6 +50,9 @@ object PortfolioPriceFallback {
     /** Kopfzeile der Datei; eine andere Version gilt als «nichts gespeichert». */
     const val FORMAT_HEADER = "portfolio-prices-v1"
 
+    /** 4. Feld einer Zeile: Kurs ungeprüft ([StoredPrice.unverified]); ältere Dateien ohne Feld = geprüft. */
+    const val UNVERIFIED_MARK = "u"
+
     /**
      * Frische-Schwelle der Portfolio-Kurse: wie die Merkliste ohne Live-Modus ([OutdatedRule]) —
      * dreimal das Hintergrund-Intervall, mindestens 15 Minuten. Der Live-Modus zählt nicht: Das
@@ -73,16 +84,30 @@ object PortfolioPriceFallback {
             .take(MAX_ENTRIES)
             .associate { it.key to it.value }
 
-    /** Zeilenformat: Kopfzeile, dann je Coin «COIN;Kurs;Zeit». */
+    /**
+     * Nur bestätigte Kurse als Bezug (Kerzen-Prüfung): ohne «Kurs ungeprüft» ([StoredPrice.unverified]) — sonst
+     * bestätigte ein gemerkter Binance-Kurs eines womöglich fremden Tokens nach einem Ausfall dessen Kerzenkurs.
+     */
+    fun confirmed(entries: Map<String, StoredPrice>): Map<String, StoredPrice> = entries.filterValues { !it.unverified }
+
+    /**
+     * Coins aus [coins] mit «Kurs ungeprüft» laut [entries]; ein gekapselter Coin ohne eigenen Kurs, bewertet über seine
+     * Basis ([via], [ChainAssets.priceViaBase]), erbt den Stand der Basis.
+     */
+    fun unverified(coins: Collection<String>, entries: Map<String, StoredPrice>, via: Map<String, String>): Set<String> =
+        coins.filterTo(LinkedHashSet()) { coin -> (entries[coin] ?: via[coin]?.let { entries[it] })?.unverified == true }
+
+    /** Zeilenformat: Kopfzeile, dann je Coin «COIN;Kurs;Zeit», bei «Kurs ungeprüft» (seit Build 101) «COIN;Kurs;Zeit;u». */
     fun encode(entries: Map<String, StoredPrice>): String = buildString {
         append(FORMAT_HEADER)
         for ((coin, entry) in entries.entries.sortedBy { it.key }) {
             if (!entry.valid || coin.isBlank() || coin.contains(';') || coin.contains('\n')) continue
             append('\n').append(coin).append(';').append(entry.price.toString()).append(';').append(entry.at)
+            if (entry.unverified) append(';').append(UNVERIFIED_MARK)
         }
     }
 
-    /** Liest [encode]; fremde Version oder kaputte Zeilen ergeben nichts bzw. fallen weg. */
+    /** Liest [encode]; fremde Version oder kaputte Zeilen ergeben nichts bzw. fallen weg (ohne 4. Feld: geprüft). */
     fun decode(text: String?): Map<String, StoredPrice> {
         if (text.isNullOrEmpty()) return emptyMap()
         val lines = text.split('\n')
@@ -90,11 +115,11 @@ object PortfolioPriceFallback {
         val out = HashMap<String, StoredPrice>()
         for (line in lines.drop(1)) {
             val parts = line.trim().split(';')
-            if (parts.size != 3) continue
+            if (parts.size != 3 && !(parts.size == 4 && parts[3].trim() == UNVERIFIED_MARK)) continue
             val coin = parts[0].trim()
             val price = parts[1].toDoubleOrNull() ?: continue
             val at = parts[2].toLongOrNull() ?: continue
-            val entry = StoredPrice(price, at)
+            val entry = StoredPrice(price, at, unverified = parts.size == 4)
             if (coin.isNotEmpty() && entry.valid) out[coin] = entry
         }
         return out

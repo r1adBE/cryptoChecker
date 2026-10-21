@@ -234,7 +234,8 @@ internal fun PortfolioList(
                                 onDelete = { onDeleteCoin(position.coin) },
                                 txCount = txCounts[position.coin] ?: 0,
                                 stale = stale,
-                                unchecked = position.coin in prices.unchecked,
+                                // Ohne Kurs ungeprüft oder Binance-Kurs mit unbestätigtem Token: «Kurs ungeprüft»
+                                unchecked = position.coin in prices.unchecked || position.coin in prices.unverified,
                                 unavailable = position.coin in prices.unavailable,
                                 // Wert und 24h wie im Widget in der Anzeigewährung (Detail bleibt USDT)
                                 unit = cardUnit(currency, fxRate),

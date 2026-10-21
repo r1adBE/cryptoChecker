@@ -28,8 +28,10 @@ import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.REQUE
  * ohne ungeprüfte Kerzenkurse, dazu der gemerkte Stand). Coins ohne Bezug fehlen.
  */
 internal suspend fun PortfolioPriceSource.candleReferences(coins: List<String>): Map<String, Double> {
-    val checked = currentEntries().filterKeys { it !in uncheckedCoins }
-    val stored = PortfolioPriceFallback.merge(checked, loadStored())
+    // Auch kein Binance-Kurs mit ungeprüftem Token als Bezug ([PortfolioPrices.unverified])
+    val checked = currentEntries().filterKeys { it !in uncheckedCoins && it !in unverifiedCoins }
+    // Ein gemerkter Kurs mit «Kurs ungeprüft» ist ebenso kein Bezug ([PortfolioPriceFallback.confirmed])
+    val stored = PortfolioPriceFallback.confirmed(PortfolioPriceFallback.merge(checked, loadStored()))
     val watches = try {
         watchDao.getWatches()
     } catch (e: CancellationException) {

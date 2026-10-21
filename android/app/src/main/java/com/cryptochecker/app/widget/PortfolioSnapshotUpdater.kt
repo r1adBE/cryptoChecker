@@ -229,6 +229,9 @@ class PortfolioSnapshotUpdater @Inject constructor(
                 pricedValues, routing?.times.orEmpty(), now, PortfolioPriceFallback.staleAfterMillis(settings.backgroundIntervalMinutes),
             )
             val staleCoins = staleList.toSet()
+            // «Kurs ungeprüft» (Token nicht bestätigt): zählt mit dem Kurs, für die Alarme aber wie ein alter Kurs
+            val unverifiedList = routing?.unverified.orEmpty().map { PortfolioCalculator.normalizeCoin(it) }
+                .filter { it in pricedValues && it !in staleCoins }.distinct().sorted()
             val freshCurrent = current.filterKeys { PortfolioCalculator.normalizeCoin(it) !in staleCoins }
 
             // Stundenkurse für den 24-h-Wertverlauf: gemerkte, dazu was ohnehin schon geladen
@@ -276,6 +279,8 @@ class PortfolioSnapshotUpdater @Inject constructor(
                     addressesFailing = addressState.failing,
                     staleTokenAddresses = addressState.staleTokenAddresses,
                     staleTokenValueUsdt = addressState.staleTokenValue(current),
+                    unverifiedCoins = unverifiedList,
+                    unverifiedValueUsdt = unverifiedList.sumOf { pricedValues[it] ?: 0.0 },
                 )
             store.save(snapshot, PortfolioSnapshotMath.addSample(history, PriceSample(now, freshCurrent)), hourlyPrices)
             snapshot

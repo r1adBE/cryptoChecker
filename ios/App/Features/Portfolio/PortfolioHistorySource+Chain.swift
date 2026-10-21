@@ -103,10 +103,13 @@ extension PortfolioHistorySource {
     /// Aktueller Kurs als Bezug: aus dem Speicher der Portfolio-Kurse, sonst der gemerkte Stand; nur geprüfte Kurse
     /// (`CutoffExport.referencePrices`). Keine eigene Kursabfrage.
     private static func chainReference(_ coin: String) async -> Double? {
-        let cached = PortfolioPriceSource.cached([coin])
-        if let p = CutoffExport.referencePrices(cached.prices, uncheckedCurrent: cached.unchecked)[coin] { return p }
+        // Ohne ungeprüfte und (seit Build 101) ohne «Kurs ungeprüft» — gleiche Regel wie die Exporte, wie Android
+        func layer(_ p: PortfolioPrices) -> CutoffExport.ReferenceLayer {
+            CutoffExport.ReferenceLayer(prices: p.prices, unchecked: p.unchecked, unverified: p.unverified)
+        }
+        if let p = CutoffExport.referenceOf(coin, layers: [layer(PortfolioPriceSource.cached([coin]))]) { return p }
         let stored = await PortfolioPriceSource.stored([coin])
-        return CutoffExport.referencePrices(stored.prices, uncheckedCurrent: stored.unchecked)[coin]
+        return CutoffExport.referenceOf(coin, layers: [layer(stored)])
     }
 
     /// Quellen der Kette der Reihe nach: erste Reihe mit passendem Namen (`HistoricCloseChain.nameAllowed`) und jüngstem

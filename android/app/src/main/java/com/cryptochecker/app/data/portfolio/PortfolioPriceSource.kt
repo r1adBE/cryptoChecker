@@ -12,6 +12,7 @@ import com.cryptochecker.app.data.remote.callMarket
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
+import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWatchPair
@@ -97,6 +98,9 @@ class PortfolioPriceSource @Inject constructor(
     /** Coins ohne Kurs, weil nur ein ungeprüfter Kerzenkurs da war (kein Bezug vorhanden). */
     internal val uncheckedCoins: MutableSet<String> = ConcurrentHashMap.newKeySet()
 
+    /** Coins mit Binance-Kurs, dessen Token nicht bestätigt ist ([PortfolioPrices.unverified]). */
+    internal val unverifiedCoins: MutableSet<String> = ConcurrentHashMap.newKeySet()
+
     /** Coins ohne Kurs, weil die letzte Abfrage scheiterte ([PortfolioPriceIssue.UNAVAILABLE]). */
     internal val unavailableCoins: MutableSet<String> = ConcurrentHashMap.newKeySet()
 
@@ -150,11 +154,13 @@ class PortfolioPriceSource @Inject constructor(
                 }
                 if (toFetch.isNotEmpty()) {
                     // Binance-Ticker nur für denselben Token (Namen der Merkliste, K-8); ohne Namen nur bei eindeutigem
-                    // Kürzel, sonst Merklisten-Paar/Kerzen und ohne anderen Kurs «ungeprüft»
+                    // Kürzel, sonst Merklisten-Paar/Kerzen und ohne anderen Kurs «ungeprüft»; mehrdeutig laut anderen
+                    // Paarlisten: Binance-Kurs, aber «Kurs ungeprüft»
                     val split = PortfolioPriceIdentity.binanceSplit(
-                        toFetch, watchNamesFor(toFetch), tokenIdentityStore::binanceName,
+                        toFetch, watchNamesFor(toFetch), tokenIdentityStore::binanceName, tokenIdentityStore::otherNames,
                     )
                     val fetched = binanceBatch(split.use).toMutableMap()
+                    val fromBinance = fetched.keys.toSet()
                     // Nicht bei Binance: zuerst ein Merklisten-Paar an einer anderen Börse, dann die Kerze
                     if (toFetch.any { it !in fetched }) fetched += watchPairPrices(toFetch.filter { it !in fetched })
                     val missing = toFetch.filter { it !in fetched }
@@ -200,6 +206,12 @@ class PortfolioPriceSource @Inject constructor(
                         cache[coin] = price to time
                         uncheckedCoins -= coin
                         unavailableCoins -= coin
+                        // Ungeprüft nur, solange der Kurs von Binance stammt (eine eingetragene Börse nennt ihren Token)
+                        if (coin in split.unverified && coin in fromBinance && sourceOf[coin] == null) {
+                            unverifiedCoins += coin
+                        } else {
+                            unverifiedCoins -= coin
+                        }
                     }
                     // Abfrage gescheitert: nur Coins ohne jeden Kurs heissen «nicht abrufbar»; die übrigen ohne Kurs nicht
                     toFetch.filter { it !in fetched }.forEach { coin ->
@@ -249,6 +261,8 @@ class PortfolioPriceSource @Inject constructor(
             mixedExchange = mixedCoins.filterTo(HashSet()) { coin -> hits.any { it.first == coin } },
             binance = hits.mapNotNull { (coin, _) -> binanceOf[coin]?.let { coin to it } }.toMap(),
             viaBase = via,
+            // Gekapselte Coins über die Basis erben deren «Kurs ungeprüft»
+            unverified = PortfolioPriceFallback.unverified(coins, currentEntries(), via),
         )
     }
 

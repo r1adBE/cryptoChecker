@@ -109,6 +109,12 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     var staleTokenAddresses: [String]?
     /// Wert dieser Token in USDT (`AddressAlarmState.staleTokenValue`); nil = 0. Wie Android `staleTokenValueUsdt`.
     var staleTokenValueUsdt: Double?
+    /// Bewertete Coins mit «Kurs ungeprüft» (Token nicht bestätigt, `PortfolioPrices.unverified`; seit Build 101), ohne
+    /// die schon in `staleCoins` — für Portfolio-Alarme wie ein alter Kurs (Wert `unverifiedValueUsdt`); das Widget zeigt
+    /// deswegen NICHT «teilweise alter Kurs». nil = keine (älterer Stand). Wie Android `unverifiedCoins`.
+    var unverifiedCoins: [String]?
+    /// Wert dieser Coins in USDT; nil = 0. Wie Android `unverifiedValueUsdt`.
+    var unverifiedValueUsdt: Double?
 
     init(total: Double, changeAmount: Double?, changePercent: Double?, currency: String, updatedAt: Int64, empty: Bool,
          totalUsdt: Double? = nil, positions: [PortfolioWidgetPosition]? = nil, otherPositions: Int? = nil,
@@ -187,12 +193,15 @@ extension PortfolioWidgetSnapshot {
     /// Stand für die Portfolio-Alarme — Prüfung (`AppData.evaluatePortfolioAlarms`) und Hinweis «pausiert» der
     /// Alarm-Übersicht (`PortfolioAlarmLogic.pause`) lesen ihn gleich. Wie Android `PortfolioSnapshot.toAlarmReading`.
     func alarmReading(usdTo: [String: Double] = [:], usdtUsdLive: Double? = nil) -> PortfolioReading {
+        // «Kurs ungeprüft» zählt wie ein alter Kurs (wesentlich → Pause, unwesentlich nicht) — wie Android
         PortfolioReading(total: total, currency: currency, totalUsdt: totalUsdt, changePercent: changePercent, empty: empty,
                          usdTo: usdTo, missingPrices: missingCount, todaySkipped: todaySkipped?.count ?? 0,
                          stalePrices: staleCount, usdtUsdLive: usdtUsdLive, staleValueUsdt: staleValueUsdt,
                          addressesPending: pendingAddressCount, addressesFailing: addressesFailing ?? [],
                          staleTokenAddresses: staleTokenAddresses ?? [],
-                         staleTokenValueUsdt: Swift.max(0, staleTokenValueUsdt ?? 0))
+                         staleTokenValueUsdt: Swift.max(0, staleTokenValueUsdt ?? 0),
+                         unverifiedCoins: unverifiedCoins ?? [],
+                         unverifiedValueUsdt: Swift.max(0, unverifiedValueUsdt ?? 0))
     }
 
     /// Hinweis «Portfolio-Alarme pausiert» für die eingeschalteten Alarme `kinds`; nil = keiner.

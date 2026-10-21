@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Salkkuhälytykset keskeytetty: kohteen %1$s token-saldot osin vanhentuneita</string>
     <string name="portfolio_alarms_paused_tokens_generic">Salkkuhälytykset keskeytetty: seurattujen osoitteiden token-saldot osin vanhentuneita</string>
+    <string name="portfolio_alarms_paused_unverified">Salkkuhälytykset keskeytetty: kohteen %1$s hinta tarkistamatta</string>
+    <string name="portfolio_alarms_paused_unverified_generic">Salkkuhälytykset keskeytetty: joidenkin kolikoiden hinta tarkistamatta</string>
     <string name="portfolio_alarms_address_failing">Salkkuhälytykset tarkistavat ilman kohdetta %1$s: saldoa ei ole ladattu yli 24 tuntiin</string>
     <string name="portfolio_alarms_address_failing_generic">Salkkuhälytykset tarkistavat ilman osoitteita, joiden saldo ei ole latautunut yli 24 tuntiin</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

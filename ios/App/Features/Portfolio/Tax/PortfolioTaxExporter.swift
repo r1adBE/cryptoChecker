@@ -132,7 +132,8 @@ enum PortfolioTaxExporter {
         if wanted.isEmpty { return { _, _ in nil } }
         let coins = wanted.keys.sorted()
         let live = await PortfolioPriceSource.prices(coins)
-        let current = CutoffExport.referencePrices(live.prices, uncheckedCurrent: live.unchecked)
+        let current = CutoffExport.referencePrices(live.prices, uncheckedCurrent: live.unchecked,
+                                                   unverifiedCurrent: live.unverified)
         var closes: [String: Decimal] = [:]
         for coin in coins {
             for epochDay in (wanted[coin] ?? []).sorted() {
@@ -193,7 +194,8 @@ enum PortfolioTaxExporter {
         var current: [String: Double] = [:]
         if !coins.isEmpty {
             let live = await PortfolioPriceSource.prices(coins)
-            current = CutoffExport.referencePrices(live.prices, uncheckedCurrent: live.unchecked)
+            current = CutoffExport.referencePrices(live.prices, uncheckedCurrent: live.unchecked,
+                                                   unverifiedCurrent: live.unverified)
         }
         let closes = await HistoricPriceSource.dailyClosesUsdt(coins, day: day, current: current)
         return (closes, view)

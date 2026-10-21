@@ -8,6 +8,8 @@
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">התראות התיק מושהות: יתרות הטוקנים של %1$s לא עדכניות בחלקן</string>
     <string name="portfolio_alarms_paused_tokens_generic">התראות התיק מושהות: יתרות הטוקנים של הכתובות במעקב לא עדכניות בחלקן</string>
+    <string name="portfolio_alarms_paused_unverified">התראות התיק מושהות: מחיר לא נבדק עבור %1$s</string>
+    <string name="portfolio_alarms_paused_unverified_generic">התראות התיק מושהות: המחיר של חלק מהמטבעות לא נבדק</string>
     <string name="portfolio_alarms_address_failing">התראות התיק בודקות בלי %1$s: היתרה לא נטענה יותר מ-24 שעות</string>
     <string name="portfolio_alarms_address_failing_generic">התראות התיק בודקות בלי כתובות שהיתרה שלהן לא נטענת יותר מ-24 שעות</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->

@@ -195408,6 +195408,388 @@
         }
       }
     },
+    "portfolio_alarms_paused_unverified" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنبيهات المحفظة متوقفة مؤقتًا: السعر غير متحقق لـ %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfolia pozastaveny: cena neověřena pro %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljealarmer sat på pause: kurs ikke kontrolleret for %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio-Alarme pausiert: Kurs ungeprüft für %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι συναγερμοί χαρτοφυλακίου σε παύση: μη ελεγμένη τιμή για %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio alerts paused: price unverified for %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmas de cartera en pausa: precio sin verificar para %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارهای سبد متوقف شده‌اند: قیمت %1$@ بررسی‌نشده است"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkkuhälytykset keskeytetty: kohteen %1$@ hinta tarkistamatta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertes du portefeuille en pause : cours non vérifié pour %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות התיק מושהות: מחיר לא נבדק עבור %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफ़ोलियो अलार्म रुके हुए हैं: %1$@ का भाव अपुष्ट है"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólió-riasztások szüneteltetve: ellenőrizetlen árfolyam ehhez: %1$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm portofolio dijeda: harga belum diperiksa untuk %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allarmi del portafoglio in pausa: prezzo non verificato per %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポートフォリオアラームは一時停止中：%1$@ の価格が未確認です"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "포트폴리오 경보 일시 중지: %1$@의 가격 미확인"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljealarmer satt på pause: kurs ikke kontrollert for %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuillealarmen gepauzeerd: koers niet gecontroleerd voor %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfela wstrzymane: niesprawdzony kurs dla %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes da carteira em pausa: preço não verificado para %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes da carteira pausados: preço não verificado para %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmele portofoliului sunt în pauză: preț neverificat pentru %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оповещения портфеля приостановлены: цена не проверена для %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet e portofolit janë pezulluar: çmim i paverifikuar për %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföljlarm pausade: okontrollerad kurs för %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หยุดสัญญาณเตือนพอร์ตชั่วคราว: ราคาของ %1$@ ยังไม่ตรวจสอบ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföy alarmları duraklatıldı: %1$@ için fiyat doğrulanmadı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сигнали портфеля призупинено: ціна не перевірена для %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo danh mục tạm dừng: giá chưa kiểm tra cho %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投资组合提醒已暂停：%1$@ 的价格未核实"
+          }
+        }
+      }
+    },
+    "portfolio_alarms_paused_unverified_generic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنبيهات المحفظة متوقفة مؤقتًا: سعر بعض العملات غير متحقق"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfolia pozastaveny: cena některých coinů neověřena"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljealarmer sat på pause: kursen på nogle coins er ikke kontrolleret"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio-Alarme pausiert: Kurs einzelner Coins ungeprüft"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι συναγερμοί χαρτοφυλακίου σε παύση: η τιμή ορισμένων νομισμάτων δεν είναι ελεγμένη"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio alerts paused: price of some coins unverified"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmas de cartera en pausa: precio de algunas monedas sin verificar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارهای سبد متوقف شده‌اند: قیمت برخی کوین‌ها بررسی‌نشده است"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkkuhälytykset keskeytetty: joidenkin kolikoiden hinta tarkistamatta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertes du portefeuille en pause : cours de certains coins non vérifié"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות התיק מושהות: המחיר של חלק מהמטבעות לא נבדק"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफ़ोलियो अलार्म रुके हुए हैं: कुछ कॉइन का भाव अपुष्ट है"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólió-riasztások szüneteltetve: egyes coinok árfolyama ellenőrizetlen"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm portofolio dijeda: harga beberapa koin belum diperiksa"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allarmi del portafoglio in pausa: prezzo di alcune monete non verificato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポートフォリオアラームは一時停止中：一部のコインの価格が未確認です"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "포트폴리오 경보 일시 중지: 일부 코인의 가격 미확인"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljealarmer satt på pause: kursen på noen coins er ikke kontrollert"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuillealarmen gepauzeerd: koers van sommige coins niet gecontroleerd"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfela wstrzymane: kurs niektórych monet niesprawdzony"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes da carteira em pausa: preço de algumas moedas não verificado"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmes da carteira pausados: preço de algumas moedas não verificado"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmele portofoliului sunt în pauză: prețul unor monede este neverificat"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оповещения портфеля приостановлены: цена некоторых монет не проверена"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet e portofolit janë pezulluar: çmimi i disa monedhave është i paverifikuar"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföljlarm pausade: kursen för vissa coins är okontrollerad"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หยุดสัญญาณเตือนพอร์ตชั่วคราว: ราคาของบางเหรียญยังไม่ตรวจสอบ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföy alarmları duraklatıldı: bazı coinlerin fiyatı doğrulanmadı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сигнали портфеля призупинено: ціна деяких монет не перевірена"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo danh mục tạm dừng: giá của một số coin chưa kiểm tra"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投资组合提醒已暂停：部分币种的价格未核实"
+          }
+        }
+      }
+    },
     "portfolio_allocation_other" : {
       "extractionState" : "manual",
       "localizations" : {
