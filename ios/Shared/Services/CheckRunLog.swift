@@ -56,6 +56,13 @@ enum CheckRunLog {
         return failed >= checked ? .failed : .partial
     }
 
+    /// Ende der letzten vom System geplanten Prüfung für «Letzte Prüfung» (Zeile über der Merkliste, «Damit Alarme
+    /// ankommen»); App und Widget zählen nicht. Gescheiterte Läufe auch nicht — etwa ein misslungenes Vormerken
+    /// (Dauer 0): Sonst gälte eine Prüfung als eben gelaufen, die gar keine Kurse geholt hat. nil = keine. Wie Android.
+    static func lastBackgroundCheck(_ runs: [CheckRun]) -> Int64? {
+        runs.first { $0.trigger.scheduled && $0.result != .failed }?.at
+    }
+
     static func encode(_ runs: [CheckRun]) -> String {
         runs.map { "\($0.at);\($0.trigger.rawValue);\($0.result.rawValue);\($0.durationMillis)" }
             .joined(separator: "\n")

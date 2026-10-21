@@ -9,7 +9,8 @@
     <string name="backup_hint">Menyimpan daftar beserta catatan dan grup, alarm, favorit, portofolio, dan pengaturan ke file yang Anda simpan sendiri – mis. untuk ponsel baru.</string>
     <string name="backup_import">Impor</string>
     <string name="backup_title">Cadangkan &amp; pulihkan</string>
-    <string name="backup_too_large">File terlalu besar atau bukan cadangan yang valid (maks. 16 MB).</string>
+    <string name="backup_too_large">File terlalu besar atau bukan cadangan yang valid (maks. 64 MB).</string>
+    <string name="backup_export_too_large">Cadangan akan lebih besar dari 64 MB dan tidak bisa dipulihkan, jadi tidak disimpan.</string>
 
     <!-- Passwort der Sicherungsdatei -->
     <string name="backup_password">Kata sandi</string>
@@ -32,8 +33,8 @@
     <string name="backup_plain_confirm">Simpan tanpa kata sandi</string>
     <string name="backup_plain_confirm_text">File tidak dienkripsi. Siapa pun yang mendapatkannya dapat membaca:</string>
     <string name="backup_plain_confirm_title">Simpan tanpa kata sandi?</string>
-    <string name="backup_plain_contents_addresses">Alamat dompet dan kunci xpub tersimpan</string>
-    <string name="backup_plain_contents_base">Daftar pantau dengan catatan dan grup, alarm, favorit, dan pengaturan</string>
+    <string name="backup_plain_contents_addresses">Alamat dompet dan kunci xpub tersimpan beserta riwayat saldo dan biaya perolehan</string>
+    <string name="backup_plain_contents_base">Daftar pantau dengan catatan, grup, dan kepemilikan, alarm, favorit, dan pengaturan</string>
     <string name="backup_plain_contents_portfolio">Portofolio: transaksi dengan jumlah dan harga</string>
     <string name="backup_restore_app_lock_kept">Kunci portofolio tetap aktif – cadangan tanpa enkripsi tidak dapat mematikannya.</string>
     <string name="backup_restore_confirm">Impor mengganti daftar (beserta catatan dan grup), alarm, favorit, portofolio, dan pengaturan Anda dengan cadangan.</string>
@@ -79,6 +80,7 @@
     <string name="alarm_save_storage_locked">Alarm tidak bisa disimpan saat ini – daftar pantau tersimpan sedang terkunci. Mulai ulang aplikasi.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">Pencadangan tidak bisa dilakukan sekarang: data tersimpan belum bisa dibuka saat ini. Mulai ulang aplikasi lalu coba lagi.</string>
+    <string name="backup_restore_storage_in_memory">Impor tidak bisa dilakukan sekarang: aplikasi sedang tidak menyimpan data (enkripsi belum aktif), jadi hasil impor akan hilang saat dimulai ulang. Mulai ulang aplikasi lalu coba lagi.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Enkripsi belum aktif – portofolio tidak disimpan, perubahan hilang saat aplikasi ditutup. Aplikasi akan mencoba lagi saat dibuka berikutnya.</string>

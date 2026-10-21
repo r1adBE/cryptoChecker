@@ -34,6 +34,9 @@ class AlarmReliabilityParityTest {
     @Test
     fun staleLimitMatches() {
         assertEquals(data["staleMillis"].num()!!.toLong(), AlarmReliability.STALE_MILLIS)
+        assertEquals(data["staleMillisIos"].num()!!.toLong(), AlarmReliability.STALE_MILLIS_IOS)
+        assertEquals(AlarmReliability.STALE_MILLIS, AlarmReliability.staleMillis(AlarmReadiness.Platform.ANDROID))
+        assertEquals(AlarmReadiness.STALE_CHECK_MILLIS, AlarmReliability.staleMillis(AlarmReadiness.Platform.IOS))
     }
 
     @Test

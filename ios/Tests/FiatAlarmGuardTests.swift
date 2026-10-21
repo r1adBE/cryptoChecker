@@ -36,6 +36,26 @@ final class FiatAlarmGuardTests: XCTestCase {
         }
     }
 
+    /// Seit Build 92: echte Fiat-Währung ohne Devisenkurs (NGN, ARS …) = `.fiatUnsupported`, nie Krypto über USDT — wie
+    /// Android `quoteKindKnowsFiatWithoutFxRate`.
+    func testQuoteKindKnowsFiatWithoutFxRate() throws {
+        func name(_ kind: CurrencyConversion.QuoteKind) -> String {
+            switch kind {
+            case .usd: return "USD"
+            case .fiat: return "FIAT"
+            case .fiatUnsupported: return "FIAT_UNSUPPORTED"
+            case .crypto: return "CRYPTO"
+            case .invalid: return "INVALID"
+            }
+        }
+        for c in try cases("classify") {
+            let actual = CurrencyConversion.classify(c["quote"] as? String ?? "", fiat: FxRateSource.currencies)
+            XCTAssertEqual(name(actual), c["expected"] as? String, "classify: \(c["name"] ?? "")")
+        }
+        // Keine Umrechnung, auch mit Kursen
+        XCTAssertNil(CurrencyConversion.quoteToUsd(.fiatUnsupported, usdToQuote: 1500, cryptoUsdt: 0.0007))
+    }
+
     func testInvolvesUsdtFollowsConversionRule() throws {
         for c in try cases("involvesUsdt") {
             let actual = FiatAlarmGuard.involvesUsdt(from: c["from"] as? String ?? "", to: c["to"] as? String ?? "")

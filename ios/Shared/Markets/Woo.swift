@@ -100,9 +100,10 @@ final class Woo: WooBase {
         let seconds = Double(row.optString("executed_timestamp"))
         let opening = ticker.change24hPercent.map { pct in ticker.last / (1 + pct / 100) }
         ticker.last = price
-        // Ohne lesbare Zeit bleibt die der Kerzen (sonst gälte die Abrufzeit als Zeit der Börse)
-        if let seconds, seconds > 0 {
-            ticker.timestamp = Int64((seconds * 1000).rounded())
+        // Ohne lesbare Zeit bleibt die der Kerzen (sonst gälte die Abrufzeit als Zeit der Börse). «inf» oder riesige
+        // Werte gelten als unlesbar: `Int64(…)` stürzte sonst ab (wie Android `wooTradeMillis`)
+        if let millis = Woo.tradeMillis(seconds) {
+            ticker.timestamp = millis
         } else {
             ticker.timestamp = ticker.exchangeTime ?? 0
         }
@@ -110,6 +111,15 @@ final class Woo: WooBase {
     }
 
     // MARK: Lesen
+
+    /// Zeit des Abschlusses in ms aus Sekunden; nil = keine, nicht endlich, ≤ 0 oder ausserhalb von Int64.
+    static func tradeMillis(_ seconds: Double?) -> Int64? {
+        guard let seconds, seconds.isFinite, seconds > 0 else { return nil }
+        let millis = seconds * 1000
+        // 2^63 ist als Double exakt darstellbar; ab dort passt der Wert nicht mehr in Int64
+        guard millis.isFinite, millis < 9_223_372_036_854_775_808.0 else { return nil }
+        return JSONValue.int64(millis.rounded())
+    }
 
     private static func start(_ candle: JObject) -> Int64 { candle.optLong("startTimestamp") }
 }

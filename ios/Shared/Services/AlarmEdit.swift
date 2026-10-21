@@ -80,6 +80,18 @@ enum AlarmEdit {
         condition == .MOVE_PERCENT_WINDOW || condition.isNearExtreme || condition.isOpenInterest
     }
 
+    /// Alarm ein- oder ausgeschaltet (Schalter in der Liste, «1 h später»): Eingeschaltet melden «Nahe am Hoch/Tief»,
+    /// Kursmarken, Funding und Open Interest wieder — Bezug und Marke gelöscht (wie WatchDao.rearmAlarm).
+    static func settingEnabled(_ alarm: Alarm, _ enabled: Bool) -> Alarm {
+        var result = alarm
+        result.enabled = enabled
+        if enabled && rearmsOnEnable(alarm.condition) {
+            result.referencePrice = nil
+            result.referenceAt = 0
+        }
+        return result
+    }
+
     /// Bedingungen, die beim Einschalten wieder scharf werden (wie WatchDao.rearmAlarm).
     private static func rearmsOnEnable(_ condition: AlarmCondition) -> Bool {
         condition.isPriceThreshold || condition.isNearExtreme || condition.isDerivatives

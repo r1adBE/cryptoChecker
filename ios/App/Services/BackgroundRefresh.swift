@@ -260,9 +260,11 @@ enum BackgroundRefresh {
             if let saved {
                 // Erst jetzt Alarme melden, je bestätigter Mitteilung den Alarm speichern und die Lease freigeben —
                 // nach der Uhrzeit, damit sie zur eben geschriebenen Datei passt (`WidgetDataFreshness`)
-                _ = await outcome.deliverAlarms(settings: settings, current: saved.alarms,
-                                                save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
-                                                recordLog: { AlarmLogStore.record(AlarmLog.withSource($0, .bgTask), live: $1) })
+                // Paar seit der Abfrage geändert (Bearbeiten, Wiederherstellung mit gleicher Id): nicht melden
+                _ = await outcome.keepingCurrentPairs(saved.watches)
+                    .deliverAlarms(settings: settings, current: saved.alarms,
+                                   save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
+                                   recordLog: { AlarmLogStore.record(AlarmLog.withSource($0, .bgTask), live: $1) })
             } else {
                 // Nicht gespeichert (keine Merkliste, unlesbar, nicht zugreifbar) → nichts melden; die
                 // Alarme bleiben scharf. Portfolio-Widget, Portfolio- und Gas-Alarm laufen trotzdem.
@@ -328,9 +330,10 @@ enum BackgroundRefresh {
                     let log = AlarmLog.withSource(extra.alarmLog, .bgTask)
                     await Task.detached(priority: .utility) { AlarmLogStore.record(log, live: false) }.value
                 } else if let stored = SharedStorage.updateSnapshot({ extra.apply(to: &$0) }) {
-                    _ = await extra.deliverAlarms(settings: settings, current: stored.alarms,
-                                                  save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
-                                                  recordLog: { AlarmLogStore.record(AlarmLog.withSource($0, .bgTask), live: $1) })
+                    _ = await extra.keepingCurrentPairs(stored.watches)
+                        .deliverAlarms(settings: settings, current: stored.alarms,
+                                       save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
+                                       recordLog: { AlarmLogStore.record(AlarmLog.withSource($0, .bgTask), live: $1) })
                     AppData.shared.reloadFromDisk()
                 } else {
                     extra.releaseAlarmLease()

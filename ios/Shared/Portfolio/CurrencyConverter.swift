@@ -8,6 +8,9 @@ enum CurrencyConversion {
         case usd
         /// Fiat-Währung mit Devisenkurs (z. B. EUR, JPY).
         case fiat
+        /// Echte Fiat-Währung ohne Devisenkurs in der App (`knownFiat`, z. B. NGN, ARS): keine Umrechnung — nie als Krypto
+        /// über einen USDT-Kurs (NGNUSDT gibt es nicht bzw. wäre ein falscher Kurs). Wie Android `FIAT_UNSUPPORTED`.
+        case fiatUnsupported
         /// Alles andere gilt als Krypto (z. B. BTC, ETH) und wird über USDT bewertet.
         case crypto
         /// Leer oder kein gültiges Kürzel.
@@ -21,6 +24,19 @@ enum CurrencyConversion {
     static let usdStables: Set<String> = [
         "USD", "USDT", "USDC", "FDUSD", "BUSD", "DAI", "TUSD", "USDE", "USD1",
         "RLUSD", "PYUSD", "USDP", "GUSD",
+    ]
+
+    /// Weitere Fiat-Währungen nach ISO 4217, für die die App keinen Devisenkurs hat (`fiatUnsupported`); die mit Kurs
+    /// stehen in `FxRateSource.currencies`. Ohne Kürzel, die zugleich ein bekannter Coin sind (ALL, BOB, ERN, MNT, SCR,
+    /// SOS, TOP). Gleiche Liste wie Android `CurrencyConversion.KNOWN_FIAT`.
+    static let knownFiat: Set<String> = [
+        "AED", "AFN", "AMD", "ANG", "AOA", "ARS", "AWG", "AZN", "BAM", "BBD", "BDT", "BHD", "BIF", "BMD", "BND", "BSD",
+        "BTN", "BWP", "BYN", "BZD", "CDF", "CLP", "COP", "CRC", "CUP", "CVE", "DJF", "DOP", "DZD", "EGP", "ETB", "FJD",
+        "GEL", "GHS", "GMD", "GNF", "GTQ", "GYD", "HNL", "HTG", "IQD", "IRR", "JMD", "JOD", "KES", "KGS", "KHR", "KMF",
+        "KWD", "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LSL", "LYD", "MAD", "MDL", "MGA", "MKD", "MMK", "MOP", "MRU",
+        "MUR", "MVR", "MWK", "MZN", "NAD", "NGN", "NIO", "NPR", "OMR", "PAB", "PEN", "PGK", "PKR", "PYG", "QAR", "RSD",
+        "RUB", "RWF", "SAR", "SBD", "SDG", "SLE", "SRD", "SSP", "SVC", "SYP", "SZL", "TJS", "TMT", "TND", "TTD", "TWD",
+        "TZS", "UAH", "UGX", "UYU", "UZS", "VES", "VND", "VUV", "WST", "XAF", "XCD", "XOF", "XPF", "YER", "ZMW", "ZWL",
     ]
 
     static func normalize(_ code: String?) -> String {
@@ -45,12 +61,14 @@ enum CurrencyConversion {
         return !x.isEmpty && x == normalize(b)
     }
 
-    /// Einordnung von `quote`; `fiat` = Währungen mit Devisenkurs (`FxRateSource.currencies`).
+    /// Einordnung von `quote`; `fiat` = Währungen mit Devisenkurs (`FxRateSource.currencies`), übrige echte
+    /// Fiat-Währungen (`knownFiat`) ohne Umrechnung.
     static func classify(_ quote: String?, fiat: [String] = FxRateSource.currencies) -> QuoteKind {
         let code = normalize(quote)
         guard !code.isEmpty, code.count <= 15, code.allSatisfy({ $0.isLetter || $0.isNumber }) else { return .invalid }
         if usdStables.contains(code) { return .usd }
         if fiat.contains(where: { $0.uppercased() == code }) { return .fiat }
+        if knownFiat.contains(code) { return .fiatUnsupported }
         return .crypto
     }
 
@@ -117,7 +135,7 @@ enum CurrencyConversion {
         case .crypto:
             guard let p = cryptoUsdt, isValidRate(p) else { return nil }
             return p * usdtFactor(usdtUsd)
-        case .invalid: return nil
+        case .fiatUnsupported, .invalid: return nil
         }
     }
 
@@ -142,8 +160,8 @@ enum CurrencyConversion {
 ///
 /// Quote → USD: Stablecoins mit Marktkurs (`CurrencyConversion.stableToUsd`: USD/USDT 1, andere
 /// ihr Marktkurs in USDT von der `PortfolioPriceSource` — ohne Kurs kein Faktor, wie die Portfolio-Regel
-/// `PortfolioStables`), Fiat über `FxRateSource`, alles andere als Krypto über den USDT-Kurs der
-/// `PortfolioPriceSource`. Danach USD → Ziel über `FxRateSource`; Alter der Devisenkurse: `staleFxTime`. Krypto- und
+/// `PortfolioStables`), Fiat über `FxRateSource`, echte Fiat-Währungen ohne Devisenkurs (`CurrencyConversion.knownFiat`)
+/// ohne Faktor, alles andere als Krypto über den USDT-Kurs der `PortfolioPriceSource`. Danach USD → Ziel über `FxRateSource`; Alter der Devisenkurse: `staleFxTime`. Krypto- und
 /// Stablecoin-Kurse älter als `CurrencyConversion.quoteMaxAgeMillis` ergeben keinen Faktor (`freshMarket`). Liegt in Shared/, weil auch die Alarmprüfung (Widget-Erweiterung,
 /// Hintergrund) sie braucht; beide Quellen haben eigene Zwischenspeicher.
 /// USDT zum Marktkurs (Owner-Entscheid Okt. 2026): USDT und alles, was über USDT bewertet wird, × Live-Kurs USDT/USD
@@ -201,7 +219,7 @@ enum CurrencyConverter {
             quoteUsd = CurrencyConversion.quoteToUsd(.crypto, usdToQuote: nil,
                                                      cryptoUsdt: freshMarket(PortfolioPriceSource.cached([from]), from),
                                                      usdtUsd: liveUsdtUsd())
-        case .invalid: quoteUsd = nil
+        case .fiatUnsupported, .invalid: quoteUsd = nil
         }
         let usdToTarget: Double?
         switch CurrencyConversion.classify(to) {
@@ -318,7 +336,7 @@ enum CurrencyConverter {
             // Höchstens 15 min alt: scheitert die Abfrage, bleibt sonst der letzte Kurs beliebig lange stehen
             let price = freshMarket(await PortfolioPriceSource.prices([code]), code)
             return CurrencyConversion.quoteToUsd(kind, usdToQuote: nil, cryptoUsdt: price, usdtUsd: liveUsdtUsd())
-        case .invalid: return nil
+        case .fiatUnsupported, .invalid: return nil
         }
     }
 }

@@ -32,7 +32,7 @@ MARKT
 
 AUSSERDEM
 • Widgets: Merkliste, Portfolio-Gesamtwert, ein Coin mit Chart
-• Portfolio optional, einschaltbar unter Einstellungen: Käufe, Verkäufe, Tausch, Transfers, Rewards, Ein- und Auszahlungen; FIFO (Standard) oder Durchschnitt (Ø); Adressen nur lesend, ohne Seed, für BTC (auch xpub), ETH & EVM-Chains, SOL, TRX, XRP, LTC und TON; CSV-Import von Relai, Swissquote, Bitpanda, Kraken, Binance und Coinbase; Jahresübersicht als CSV; eigene Sperre. Bitpanda und Swissquote haben keinen öffentlichen Kursfeed, darum keinen eigenen Kurs – ihre Käufe kommen per CSV-Import.
+• Portfolio optional, einschaltbar unter Einstellungen: Käufe, Verkäufe, Tausch, Transfers, Rewards, Ein- und Auszahlungen; FIFO (Standard) oder Durchschnitt (Ø); Adressen nur lesend, ohne Seed, für BTC (auch xpub), ETH & EVM-Chains, SOL, TRX, XRP, LTC, ADA und TON; CSV-Import von Relai, Swissquote, Bitpanda, Kraken, Binance und Coinbase; Jahresübersicht als CSV; eigene Sperre. Bitpanda und Swissquote haben keinen öffentlichen Kursfeed, darum keinen eigenen Kurs – ihre Käufe kommen per CSV-Import.
 • Lesbar für alle: Grün/Rot oder Blau/Orange, Vorzeichen und Pfeil statt nur Farbe; TalkBack liest jede Zeile als einen Satz
 • Sichern & Wiederherstellen in eine Datei – auch zwischen Android und iPhone
 • Heller und dunkler Modus, fünf Akzentfarben, 31 Sprachen

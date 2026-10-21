@@ -32,7 +32,7 @@ MERCADO
 
 E AINDA
 • Widgets para o ecrã principal e o ecrã bloqueado, Atividade em direto para uma moeda
-• Portefólio opcional (ative nas definições): compras, vendas, swaps, transferências, recompensas, depósitos e levantamentos; FIFO (predefinido) ou média (Ø); endereços só de leitura, sem seed, para BTC (incl. xpub), ETH e redes EVM, SOL, TRX, XRP, LTC e TON; importação CSV da Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual em CSV; bloqueio próprio. A Bitpanda e a Swissquote não têm feed público de preços, por isso não têm preço próprio – as operações entram por importação CSV.
+• Portefólio opcional (ative nas definições): compras, vendas, swaps, transferências, recompensas, depósitos e levantamentos; FIFO (predefinido) ou média (Ø); endereços só de leitura, sem seed, para BTC (incl. xpub), ETH e redes EVM, SOL, TRX, XRP, LTC, ADA e TON; importação CSV da Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual em CSV; bloqueio próprio. A Bitpanda e a Swissquote não têm feed público de preços, por isso não têm preço próprio – as operações entram por importação CSV.
 • Legível para todos: verde/vermelho ou azul/laranja, sinal e seta em vez de só cor, Dynamic Type; o VoiceOver lê cada linha como uma frase
 • Cópia de segurança e restauro pela app Ficheiros
 • Modo claro e escuro, cinco cores de destaque, 31 idiomas

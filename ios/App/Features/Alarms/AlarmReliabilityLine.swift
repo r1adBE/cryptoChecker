@@ -9,6 +9,7 @@ import UIKit
 struct AlarmReliabilityLine: View {
     @EnvironmentObject private var data: AppData
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var input: AlarmReadiness.Input?
     @State private var showDelivery = false
 
@@ -72,7 +73,8 @@ struct AlarmReliabilityLine: View {
             Text(line.text)
                 .font(.footnote)
                 .foregroundStyle(line.warn ? AppColors.warningText : AppColors.onSurfaceVariant)
-                .lineLimit(2)
+                // Grosse Schrift (Bedienungshilfen): ganzer Satz statt abgeschnitten
+                .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Image(systemName: "chevron.right")
                 .font(.caption.weight(.semibold))

@@ -35,4 +35,10 @@ final class DexTokenAddressTests: XCTestCase {
         // Schlüssel wie die Liquidität: Kennung ohne Gross-/Kleinschreibung
         XCTAssertEqual(DexLiquidity.key(pools.first?.pairId), "ethereum/0xa43fe16908251ee70ef74718545e4fe6c5ccec9f")
     }
+
+    /// VoiceOver: die letzten vier Zeichen der Adresse einzeln (Bezeichnung der Zeile im Aktionsblatt).
+    func testSpokenTailSpellsLastFourCharacters() {
+        XCTAssertEqual(DexTokenAddressLine.spokenTail("0x6982508145454Ce325dDbE47a25d4ec3d2311933"), "1 9 3 3")
+        XCTAssertEqual(DexTokenAddressLine.spokenTail(" abc "), "a b c")
+    }
 }

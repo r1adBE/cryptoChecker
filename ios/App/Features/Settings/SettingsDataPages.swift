@@ -99,7 +99,7 @@ struct BackupSettingsPage: View {
                         let scoped = url.startAccessingSecurityScopedResource()
                         defer { if scoped { url.stopAccessingSecurityScopedResource() } }
                         do {
-                            // Höchstens 16 MB (`BackupLimits`)
+                            // Höchstens 64 MB (`BackupLimits`)
                             picked(try BackupManager.readFile(url))
                         } catch BackupLimits.Failure.tooLarge {
                             toast = L("backup_too_large")
@@ -235,6 +235,11 @@ struct BackupSettingsPage: View {
         let plain: Data
         do {
             plain = try BackupManager.plainExportData(data)
+            // Nie eine Datei schreiben, die sich danach nicht mehr einlesen lässt (wie Android)
+            try BackupLimits.checkWritable(plain)
+        } catch BackupLimits.Failure.exportTooLarge {
+            toast = L("backup_export_too_large")
+            return
         } catch {
             toast = L("backup_failed")
             return
@@ -255,6 +260,8 @@ struct BackupSettingsPage: View {
                 presentExport(file)
             case .failure(BackupCrypto.Failure.notEnoughMemory):
                 toast = L("backup_not_enough_memory")
+            case .failure(BackupLimits.Failure.exportTooLarge):
+                toast = L("backup_export_too_large")
             case .failure:
                 toast = L("backup_failed")
             }

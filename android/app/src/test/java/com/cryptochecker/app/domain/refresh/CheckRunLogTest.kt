@@ -34,6 +34,23 @@ class CheckRunLogTest {
         assertEquals(CheckResult.FAILED, CheckRunLog.result(checked = 5, failed = 5))
     }
 
+    /** «Letzte Prüfung»: nur geplante Läufe, die nicht gescheitert sind; übersprungene zählen. Wie iOS. */
+    @Test
+    fun lastBackgroundCheckSkipsFailedAndUnscheduledRuns() {
+        val runs = listOf(
+            run(50, CheckTrigger.WORKER, CheckResult.FAILED),
+            run(40, CheckTrigger.WIDGET),
+            run(30, CheckTrigger.FOREGROUND),
+            run(20, CheckTrigger.EXACT, CheckResult.SKIPPED),
+            run(10),
+        )
+        assertEquals(20L, CheckRunLog.lastBackgroundCheck(runs))
+        val onlyFailed = listOf(run(5, CheckTrigger.WORKER, CheckResult.FAILED), run(4, CheckTrigger.WIDGET))
+        assertEquals(null, CheckRunLog.lastBackgroundCheck(onlyFailed))
+        assertEquals(null, CheckRunLog.lastBackgroundCheck(emptyList()))
+        assertEquals(7L, CheckRunLog.lastBackgroundCheck(listOf(run(7, CheckTrigger.WORKER, CheckResult.PARTIAL))))
+    }
+
     @Test
     fun encodeDecodeRoundTrip() {
         val runs = listOf(

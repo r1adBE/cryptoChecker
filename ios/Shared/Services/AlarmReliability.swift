@@ -5,9 +5,17 @@ import Foundation
 /// Warnung (Bernstein) mit dem wichtigsten Grund; Tipp öffnet die Seite. Ohne Alarme keine Zeile. Reine Logik — wie
 /// `AlarmReliability.kt`; gemeinsame Fälle in `Parity/alarm_reliability.json`.
 enum AlarmReliability {
-    /// Letzte Prüfung im Hintergrund älter als das: Warnung. Strenger als die Seite (6 h): Die Zeile soll früh zeigen,
-    /// dass Alarme gerade nicht geprüft werden.
-    static let staleMillis: Int64 = 2 * 60 * 60_000
+    /// Android: Letzte Prüfung im Hintergrund älter als das: Warnung. Strenger als die Seite (6 h): Die Zeile soll früh
+    /// zeigen, dass Alarme gerade nicht geprüft werden — bei 15-Min.-Takt sind 2 h klar zu viel.
+    static let androidStaleMillis: Int64 = 2 * 60 * 60_000
+    /// iOS: gleiche Grenze wie die Seite (`AlarmReadiness.staleCheckMillis`, 6 h) — iOS startet `BGAppRefreshTask` nach
+    /// eigenem Ermessen, oft nur alle paar Stunden; 2 h warnten sonst fast ständig ohne echten Fehler (seit Build 92).
+    static let iosStaleMillis: Int64 = AlarmReadiness.staleCheckMillis
+
+    /// Grenze «zu alt» je Plattform.
+    static func staleMillis(_ platform: AlarmReadiness.Platform) -> Int64 {
+        platform == .android ? androidStaleMillis : iosStaleMillis
+    }
 
     enum Kind: String, CaseIterable, Sendable {
         /// Keine Alarme: keine Zeile.
@@ -22,7 +30,7 @@ enum AlarmReliability {
         case battery
         /// iOS: Hintergrundaktualisierung aus.
         case backgroundRefresh = "background_refresh"
-        /// Letzte Prüfung älter als `staleMillis` (oder weit in der Zukunft — Uhr verstellt).
+        /// Letzte Prüfung älter als `staleMillis(_:)` (oder weit in der Zukunft — Uhr verstellt).
         case stale
     }
 
@@ -43,7 +51,7 @@ enum AlarmReliability {
         if android && input.backgroundRestricted { return Status(kind: .battery, warn: true) }
         if !android && !input.backgroundRefresh { return Status(kind: .backgroundRefresh, warn: true) }
         guard let at = input.lastBackgroundCheck, at > 0 else { return Status(kind: .never, warn: false) }
-        let fresh = at - input.now <= AlarmReadiness.futureToleranceMillis && input.now - at <= staleMillis
+        let fresh = at - input.now <= AlarmReadiness.futureToleranceMillis && input.now - at <= staleMillis(input.platform)
         if fresh { return Status(kind: .recent, warn: false) }
         // Zu alt: Unter Android ist Akku-Optimierung bzw. das Akkusparen des Herstellers der wahrscheinliche Grund —
         // für sich allein nur ein Hinweis (fast jedes Gerät optimiert), darum erst zusammen mit der alten Prüfung

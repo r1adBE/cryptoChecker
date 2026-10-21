@@ -19,6 +19,7 @@ import com.cryptochecker.app.domain.refresh.RefreshSummary
 import com.cryptochecker.app.tts.TtsSpeaker
 import com.cryptochecker.app.widget.PulseWidgetRenderer
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -76,10 +77,23 @@ class BackgroundCheck @Inject constructor(
             log(trigger, CheckResult.SKIPPED, startedAt)
             return null
         }
+        // Wie die Merkliste in diesem Prozess liegt, steht erst nach dem Öffnen fest — ein Hintergrund-Prozess öffnet sie
+        // oft erst hier (seit Build 92 vor den beiden Prüfungen darunter)
+        withContext(Dispatchers.IO) { watchRepository.openDatabase() }
         // Merkliste in diesem Prozess nur leer im Arbeitsspeicher (Schlüssel war gerade nicht lesbar): eine Prüfung sähe
         // keine Paare und keine Alarme — wie «Schlüssel nicht verfügbar» behandeln, die Einstiege versuchen es später
         if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) {
             throw DatabaseKeyUnavailableException(AppDatabase.DB_NAME, IllegalStateException("nur im Arbeitsspeicher"))
+        }
+        // Kopie einer alten unverschlüsselten Datei (kein Schlüssel, seit Build 92): «ausgelöst» ginge mit dem Prozess
+        // verloren, jeder neue Hintergrund-Prozess meldete dieselben Alarme erneut. Überspringen statt erneut versuchen —
+        // das bleibt so, bis ein Start mit Schlüssel die Datei überführt; im Vordergrund prüft die App weiter
+        if (DatabaseEncryptionNotice.isVolatileCopy(AppDatabase.DB_NAME)) {
+            Timber.d("Prüfung (%s) übersprungen: Merkliste nur als Kopie im Arbeitsspeicher", trigger.code)
+            // Als gescheitert vermerken, nicht als übersprungen: Die Alarme sind tatsächlich ungeprüft, und
+            // «Letzte Prüfung» bzw. die Zuverlässigkeitszeile sollen das zeigen statt einer frischen Prüfung
+            log(trigger, CheckResult.FAILED, startedAt)
+            return null
         }
         val summary = running.withLock { runLocked(trigger, networkGuaranteed, startedAt, deadlineAt) } ?: return null
         // Warten auf Pulse-Widget und Ansagen erst nach Freigabe der Prüf-Sperre: sonst hielte es die Sperre bis zu

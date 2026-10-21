@@ -66,6 +66,8 @@ extension AppData {
             let alarm = AlarmEdit.merged(existing: stored, edited: edited)
             if let i = s.alarms.firstIndex(where: { $0.id == alarmId }) { s.alarms[i] = alarm } else { s.alarms.append(alarm) }
         }, reloadWidgets: false)
+        // Bearbeitet: alte Mitteilung weg — ihr «1 h später» schaltete den Alarm sonst mit altem Stand wieder ein
+        if id != 0 { Notifier.cancelAlarm(id) }
         // Alarm angelegt: nach «Später» die kurze Erklärung noch einmal (`NotificationPrePrompt`)
         NotificationPrePrompt.request(.alarmCreated)
         return firstAlarm
@@ -271,16 +273,13 @@ extension AppData {
     func setAlarmEnabled(_ id: Int64, _ enabled: Bool) {
         mutate({ s in
             if let i = s.alarms.firstIndex(where: { $0.id == id }) {
-                s.alarms[i].enabled = enabled
                 // Wieder eingeschaltet: «Nahe am Hoch/Tief», Kursmarken, Funding und Open Interest melden
                 // wieder (wie WatchDao.rearmAlarm)
-                let condition = s.alarms[i].condition
-                if enabled && (condition.isNearExtreme || condition.isPriceThreshold || condition.isDerivatives) {
-                    s.alarms[i].referencePrice = nil
-                    s.alarms[i].referenceAt = 0
-                }
+                s.alarms[i] = AlarmEdit.settingEnabled(s.alarms[i], enabled)
             }
         }, reloadWidgets: false)
+        // Ausgeschaltet: seine Mitteilung weg — «1 h später» darauf schaltete ihn sonst wieder ein
+        if !enabled { Notifier.cancelAlarm(id) }
     }
 }
 

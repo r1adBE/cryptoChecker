@@ -7,6 +7,7 @@ import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 import java.time.LocalDate
 
@@ -40,6 +41,17 @@ class FiatAlarmGuardTest {
             val actual = FiatAlarmGuard.fxTooOld(c["rateTime"].num()?.toLong(), c["now"].num()!!.toLong())
             assertEquals("fxTooOld: ${c["name"]}", c["expected"] as Boolean, actual)
         }
+    }
+
+    /** Seit Build 92: echte Fiat-Währung ohne Devisenkurs (NGN, ARS …) = FIAT_UNSUPPORTED, nie Krypto über USDT. */
+    @Test
+    fun quoteKindKnowsFiatWithoutFxRate() {
+        cases("classify").forEach { c ->
+            val actual = CurrencyConversion.classify(c["quote"] as String, FxRateSource.CURRENCIES)
+            assertEquals("classify: ${c["name"]}", c["expected"] as String, actual.name)
+        }
+        // Keine Umrechnung, auch mit Kursen
+        assertNull(CurrencyConversion.quoteToUsd(CurrencyConversion.QuoteKind.FIAT_UNSUPPORTED, 1500.0, 0.0007))
     }
 
     @Test

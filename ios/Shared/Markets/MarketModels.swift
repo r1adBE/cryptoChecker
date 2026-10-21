@@ -96,15 +96,22 @@ enum FuturesContractType: Int, Codable, CaseIterable, Comparable, Sendable {
     }
 
     /// Verfall laut Kalender (UTC) — nur für die Anzeige und als Notlösung, wenn die Kennung kein Datum trägt.
-    var deliveryDate: Date? {
+    var deliveryDate: Date? { delivery(asOf: Date()) }
+
+    /// Verfall laut Kalender zum Zeitpunkt `now` (Tests). Abgerechnet wird freitags um 08:00 UTC: Ab dann gilt schon der
+    /// nächste Kontrakt — seit Build 92 auch für Monat und Quartal, wenn ihr letzter Freitag vorbei ist (vorher z. B. am
+    /// 31. Oktober noch der 30. Oktober). Wie Android `FuturesContractType.getDeliveryDate`.
+    func delivery(asOf now: Date) -> Date? {
         var utc = Calendar(identifier: .gregorian)
         utc.timeZone = TimeZone(identifier: "UTC")!
         let friday = 6 // gregorianisch: Sonntag = 1
-        let start = utc.startOfDay(for: Date())
+        let settlementHour = 8
+        // Erster Tag, an dem ein Kontrakt noch läuft: heute, ab der Abrechnungsstunde erst morgen
+        let today = utc.startOfDay(for: now)
+        let start = utc.component(.hour, from: now) >= settlementHour ? utc.date(byAdding: .day, value: 1, to: today)! : today
 
-        func shifted(_ component: Calendar.Component, by amount: Int) -> Date {
-            utc.date(byAdding: component, value: amount, to: start)!
-        }
+        func monthStart(_ day: Date) -> Date { utc.date(from: utc.dateComponents([.year, .month], from: day))! }
+        func adding(months: Int, to day: Date) -> Date { utc.date(byAdding: .month, value: months, to: day)! }
         // Nächster Freitag ab `day` (der Tag selbst, wenn er schon einer ist)
         func fridayFrom(_ day: Date) -> Date {
             guard utc.component(.weekday, from: day) != friday else { return day }
@@ -112,8 +119,7 @@ enum FuturesContractType: Int, Codable, CaseIterable, Comparable, Sendable {
         }
         // Letzter Freitag des Monats, in dem `day` liegt
         func lastFriday(of day: Date) -> Date {
-            let monthStart = utc.date(from: utc.dateComponents([.year, .month], from: day))!
-            var probe = utc.date(byAdding: .day, value: -1, to: utc.date(byAdding: .month, value: 1, to: monthStart)!)!
+            var probe = utc.date(byAdding: .day, value: -1, to: adding(months: 1, to: monthStart(day)))!
             while utc.component(.weekday, from: probe) != friday {
                 probe = utc.date(byAdding: .day, value: -1, to: probe)!
             }
@@ -127,15 +133,24 @@ enum FuturesContractType: Int, Codable, CaseIterable, Comparable, Sendable {
             parts.day = 1
             return lastFriday(of: utc.date(from: parts)!)
         }
+        // Laufender Monats- bzw. Quartalskontrakt: ist sein letzter Freitag vorbei, der nächste
+        func currentMonthly() -> Date {
+            let end = lastFriday(of: start)
+            return end >= start ? end : lastFriday(of: adding(months: 1, to: monthStart(start)))
+        }
+        func currentQuarterly() -> Date {
+            let end = quarterEnd(start)
+            return end >= start ? end : quarterEnd(adding(months: 3, to: monthStart(start)))
+        }
 
         switch self {
         case .none, .perpetual, .inversePerpetual: return nil
         case .weekly: return fridayFrom(start)
-        case .biweekly: return fridayFrom(shifted(.weekOfYear, by: 1))
-        case .monthly: return lastFriday(of: start)
-        case .bimonthly: return lastFriday(of: shifted(.month, by: 1))
-        case .quarterly: return quarterEnd(start)
-        case .biquarterly: return quarterEnd(shifted(.month, by: 3))
+        case .biweekly: return utc.date(byAdding: .weekOfYear, value: 1, to: fridayFrom(start))
+        case .monthly: return currentMonthly()
+        case .bimonthly: return lastFriday(of: adding(months: 1, to: monthStart(currentMonthly())))
+        case .quarterly: return currentQuarterly()
+        case .biquarterly: return quarterEnd(adding(months: 3, to: monthStart(currentQuarterly())))
         }
     }
 }

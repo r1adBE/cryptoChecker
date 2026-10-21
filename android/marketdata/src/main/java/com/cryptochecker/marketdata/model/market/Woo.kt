@@ -111,14 +111,23 @@ class Woo : WooBase(
         val seconds = row.optString("executed_timestamp").toDoubleOrNull()
         val opening = ticker.change24hPercent?.let { pct -> ticker.last / (1 + pct / 100) }
         ticker.last = price
-        // Ohne lesbare Zeit bleibt die der Kerzen (sonst gälte die Abrufzeit als Zeit der Börse)
-        ticker.timestamp = if (seconds != null && seconds > 0) (seconds * 1000).roundToLong() else ticker.exchangeTime ?: 0L
+        // Ohne lesbare Zeit bleibt die der Kerzen (sonst gälte die Abrufzeit als Zeit der Börse); «Infinity» oder
+        // riesige Werte gelten als unlesbar statt als Long.MAX_VALUE (wie iOS `Woo.tradeMillis`)
+        ticker.timestamp = wooTradeMillis(seconds) ?: ticker.exchangeTime ?: 0L
         if (opening != null) ticker.change24hPercent = Change24h.fromOpen(price, opening)
     }
 
     // ── Lesen ──
 
     private fun JSONObject.start(): Long = optLong("startTimestamp")
+}
+
+/** Zeit des Abschlusses in ms aus Sekunden; null = keine, nicht endlich, ≤ 0 oder ausserhalb von Long. */
+private fun wooTradeMillis(seconds: Double?): Long? {
+    if (seconds == null || !seconds.isFinite() || seconds <= 0.0) return null
+    val millis = seconds * 1000
+    if (!millis.isFinite() || millis >= Long.MAX_VALUE.toDouble()) return null
+    return millis.roundToLong()
 }
 
 /** WOO X USDT-Perpetuals. */

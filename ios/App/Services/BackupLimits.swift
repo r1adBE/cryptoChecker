@@ -3,13 +3,26 @@ import Foundation
 // Grenzen beim Einlesen einer Sicherung (Grösse, Verschachtelungstiefe).
 // Eigene Datei wie `BackupLimits.kt`.
 
-/// Grenzen beim Einlesen einer Sicherung — wie `BackupLimits.kt`: höchstens 16 MB und höchstens 32 Ebenen
+/// Grenzen beim Einlesen einer Sicherung — wie `BackupLimits.kt`: höchstens 64 MB und höchstens 32 Ebenen
 /// verschachtelt (sonst Speicher- bzw. Stacküberlauf beim Parsen einer manipulierten Datei).
+///
+/// Dieselbe Grenze gilt seit Build 92 auch beim Schreiben (`checkWritable`): Bis Build 91 konnte eine Sicherung über
+/// 16 MB entstehen, die sich danach nicht mehr einlesen liess. Seither kompaktes JSON und 64 MB auf beiden Plattformen.
 enum BackupLimits {
-    static let maxBytes = 16 * 1024 * 1024
+    static let maxBytes = 64 * 1024 * 1024
     static let maxDepth = 32
 
-    enum Failure: Error { case tooLarge }
+    enum Failure: Error {
+        /// Datei zu gross oder zu tief verschachtelt (beim Einlesen).
+        case tooLarge
+        /// Zu schreibende Sicherung grösser als `maxBytes`: liesse sich nicht mehr einlesen, darum gar nicht erst schreiben.
+        case exportTooLarge
+    }
+
+    /// Vor dem Schreiben: Datei muss sich mit `BackupManager.readFile` wieder lesen lassen, sonst `Failure.exportTooLarge`.
+    static func checkWritable(_ data: Data, max: Int = maxBytes) throws {
+        if data.count > max { throw Failure.exportTooLarge }
+    }
 
     /// Verschachtelungstiefe von Objekten/Listen ausserhalb von Texten prüfen.
     static func checkDepth(_ data: Data, max: Int = maxDepth) throws {

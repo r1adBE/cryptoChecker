@@ -200,9 +200,7 @@ extension AppData {
     /// dann ansagen (`Outcome.deliverAlarms`, wie Android `AlarmDelivery`); danach ist die Alarm-Lease frei.
     private func deliverAlarms(_ outcome: PriceRefresher.Outcome) {
         // Paar seit der Abfrage geändert (Bearbeiten, Wiederherstellung mit gleicher Id): nicht melden
-        var outcome = outcome
-        let identities = Dictionary(snapshot.watches.map { ($0.id, $0.identity) }, uniquingKeysWith: { first, _ in first })
-        outcome.pendingAlarms.removeAll { identities[$0.watch.id] != $0.watch.identity }
+        let outcome = outcome.keepingCurrentPairs(snapshot.watches)
         guard !outcome.pendingAlarms.isEmpty || outcome.alarmLease != nil else {
             AppData.recordAlarmLog(outcome.alarmLog, live: outcome.alarmLogLive)
             return

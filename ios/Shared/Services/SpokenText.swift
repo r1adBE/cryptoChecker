@@ -12,7 +12,10 @@ enum SpokenText {
 
     static var ttsLocale: Locale { Locale(identifier: ttsLanguage) }
 
-    static func alarm(_ watch: Watch, _ condition: AlarmCondition, _ price: Double) -> String {
+    /// `currency`: Währung von `price`, wenn nicht die Quote des Paars (Kursmarke mit eigener Alarmwährung, `price`
+    /// schon umgerechnet) — wird dann hinter dem Kurs genannt, wie in der Mitteilung; nil = Quote des Paars (steht
+    /// schon im Paarnamen). Wie Android.
+    static func alarm(_ watch: Watch, _ condition: AlarmCondition, _ price: Double, currency: String? = nil) -> String {
         let direction: String
         switch condition {
         case .PRICE_ABOVE, .CHANGE_PERCENT_UP: direction = L("tts_direction_up")
@@ -27,7 +30,16 @@ enum SpokenText {
         case .OI_DOWN: direction = L("tts_direction_oi_down")
         }
         return L("tts_alarm", marketName(watch), watch.baseAsset, watch.quoteAsset, direction,
-                 PriceFormat.spokenPrice(price, locale: ttsLocale))
+                 spokenAlarmPrice(PriceFormat.spokenPrice(price, locale: ttsLocale), quote: watch.quoteAsset,
+                                  currency: currency))
+    }
+
+    /// Gesprochener Kurs, mit Währung nur, wenn sie von der Quote abweicht («60000 CHF») — wie Android
+    /// `SpokenText.spokenAlarmPrice`.
+    static func spokenAlarmPrice(_ spoken: String, quote: String, currency: String?) -> String {
+        guard let currency, !currency.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              currency.caseInsensitiveCompare(quote) != .orderedSame else { return spoken }
+        return "\(spoken) \(currency.uppercased())"
     }
 
     private static func marketName(_ watch: Watch) -> String {

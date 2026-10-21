@@ -87,8 +87,9 @@ enum AddressCutoff {
     }
 
     /// Bestand je Coin am Stichtag wie die Karte: echte Transaktionen ≤ `cutoffMillis` und die Posten von `view` nach
-    /// `method` (`PortfolioHoldingsBook`; Posten im Topf der Adress-Einträge wie auf der Karte). Ohne Adress-Teil
-    /// (`CutoffExport.addressRows`); Staub = 0; alphabetisch. Wie Android.
+    /// `method` (`PortfolioHoldingsBook`; Posten in ihrer Wallet = der Adresse wie in `PortfolioFifo` auf der Karte, damit
+    /// eine Umbuchung weg oder ein Verkauf dort sie verbraucht). Ohne Adress-Teil (`CutoffExport.addressRows`); Staub = 0;
+    /// alphabetisch. Wie Android.
     static func holdingsAt(_ real: [PortfolioTx], view: AddressCutoffView?, cutoffMillis: Int64,
                            method: CostMethod = .defaultMethod) -> [CutoffHolding] {
         let trades = real.filter { !AddressBalance.isAddressTrade($0.id) && $0.time <= cutoffMillis }

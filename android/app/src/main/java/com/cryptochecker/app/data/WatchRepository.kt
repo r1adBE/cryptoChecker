@@ -41,6 +41,15 @@ class WatchRepository @Inject constructor(
     @Volatile
     private var contractTypesNormalized = false
 
+    /**
+     * Datenbank öffnen, falls noch nicht geschehen (blockiert, nicht auf dem Hauptthread): Erst danach sagt
+     * [com.cryptochecker.app.data.local.DatabaseEncryptionNotice], wie die Merkliste in diesem Prozess liegt. Ein Fehler
+     * (z. B. Schlüssel gerade nicht lesbar) zeigt sich beim nächsten Zugriff.
+     */
+    fun openDatabase() {
+        runCatching { database.openHelper.writableDatabase }
+    }
+
     suspend fun getWatch(id: Long): WatchEntity? = watchDao.getWatch(id)
 
     /**

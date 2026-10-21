@@ -273,6 +273,56 @@ final class AlarmChainIntegrationTests: XCTestCase {
         XCTAssertNil(crashed.unconfirmedAt(8))
     }
 
+    /// Eintrag behält die Id, wird aber seit der Abfrage auf ein anderes Paar geändert (Bearbeiten, Wiederherstellung):
+    /// Hintergrund und Widget filtern wie die App (`keepingCurrentPairs` mit dem frisch gespeicherten Stand) — keine
+    /// Meldung, der Alarm bleibt scharf.
+    func testChangedPairSameIdIsNotDeliveredAndAlarmStaysArmed() async {
+        let original = alarmAbove(100)
+        let store = makeStore(previous: 99, alarm: original)
+        let notifier = FakeNotifier()
+        let before = store.snapshot.watches[0]
+        var updated = before
+        updated.lastPrice = 101
+        var outcome = PriceRefresher.Outcome()
+        _ = PriceRefresher.checkAlarms(store.snapshot.alarms, watch: before, updated: updated, price: 101, now: now,
+                                       settings: AppSettings(), speechAllowed: false, inputs: PriceRefresher.AlarmInputs(),
+                                       outcome: &outcome)
+        XCTAssertEqual(outcome.pendingAlarms.count, 1)
+        // Inzwischen gespeichert: gleiche Id, anderes Paar
+        store.snapshot.watches[0].baseAsset = "ETH"
+        outcome.apply(to: &store.snapshot)
+        let delivered = await outcome.keepingCurrentPairs(store.snapshot.watches)
+            .deliverAlarms(settings: AppSettings(), current: store.snapshot.alarms,
+                           save: { store.save($0, $1) }, reloadStored: { store.snapshot.alarms },
+                           notifier: notifier.notifier,
+                           delivery: AlarmDelivery(storeKey: "pairs", store: defaults), now: { self.now })
+        XCTAssertTrue(delivered.isEmpty)
+        XCTAssertTrue(notifier.posts.isEmpty)
+        XCTAssertEqual(store.snapshot.alarms[0], original)
+        XCTAssertTrue(store.snapshot.alarms[0].enabled)
+    }
+
+    /// Speichern nach dem Melden (`saveAlarmOnDisk`, `AlarmUpdate.apply`) verweigert, wenn der Eintrag des Alarms
+    /// inzwischen ein anderes Paar ist — gleiches Paar wird übertragen.
+    func testAlarmUpdateRefusesChangedPair() {
+        let alarm = alarmAbove(100)
+        var after = alarm
+        after.enabled = false
+        after.lastTriggeredAt = now
+        let pair = watch(lastPrice: 101).identity
+        let update = PriceRefresher.AlarmUpdate(evaluated: alarm, result: after, setsEnabled: true, pair: pair)
+
+        let changed = makeStore(previous: 99, alarm: alarm)
+        changed.snapshot.watches[0].quoteAsset = "USDC"
+        XCTAssertFalse(update.apply(toAlarm: alarm.id, in: &changed.snapshot))
+        XCTAssertEqual(changed.snapshot.alarms[0], alarm)
+
+        let same = makeStore(previous: 99, alarm: alarm)
+        XCTAssertTrue(update.apply(toAlarm: alarm.id, in: &same.snapshot))
+        XCTAssertFalse(same.snapshot.alarms[0].enabled)
+        XCTAssertEqual(same.snapshot.alarms[0].lastTriggeredAt, now)
+    }
+
     /// Wie `NotificationBudget.retryBlocked` (Android): mindestens 5 Min., sonst die Abklingzeit; Uhr zurück: frei.
     func testRetryBlockedWindow() {
         XCTAssertFalse(AlarmDelivery.retryBlocked(unconfirmedAt: nil, now: now, cooldownMinutes: 0))

@@ -84,21 +84,31 @@ enum CsvImportKraken {
     /// Höchster Abstand zwischen Spot- und Staking-Buchung derselben Umbuchung ohne gemeinsame refid.
     private static let stakingPairMillis: Int64 = 3_600_000
 
-    /// Ein-/Auszahlungen zwischen Spot und Staking (Indizes in `legs`) — wie Android `stakingMoves`. `unpaired`:
-    /// Staking-Zeilen ohne gefundenes Gegenstück.
+    /// Ein-/Auszahlungen zwischen Spot und Staking (Indizes in `legs`) — wie Android `stakingMoves`: zuerst für ALLE
+    /// Staking-Zeilen das Gegenstück mit derselben refid (irgendwo in der Datei), erst danach für die übrigen eine Zeile
+    /// ≤ 1 h daneben — sonst nähme eine frühere Staking-Zeile über das Zeitfenster die Spot-Zeile einer anderen Umbuchung
+    /// weg (seit Build 92). `unpaired`: Staking-Zeilen ohne gefundenes Gegenstück.
     private static func stakingMoves(_ legs: [Leg]) -> (moved: Set<Int>, unpaired: Set<Int>) {
         var out = Set<Int>()
         var unpaired = Set<Int>()
         func move(_ l: Leg) -> Bool { l.type == "deposit" || l.type == "withdrawal" }
         func abs(_ d: Decimal) -> Decimal { d < 0 ? -d : d }
-        for (i, l) in legs.enumerated() where move(l) && l.staked {
-            out.insert(i)
-            let j = legs.indices.first { k in
-                let c = legs[k]
-                guard !out.contains(k), move(c), !c.staked, c.type != l.type, c.asset == l.asset,
-                      abs(c.signed) == abs(l.signed) else { return false }
-                return (!l.refid.isEmpty && c.refid == l.refid) || Swift.abs(c.time - l.time) <= stakingPairMillis
-            }
+        let staked = legs.indices.filter { move(legs[$0]) && legs[$0].staked }
+        out.formUnion(staked)
+        func counterpart(_ l: Leg, _ k: Int) -> Bool {
+            let c = legs[k]
+            return !out.contains(k) && move(c) && !c.staked && c.type != l.type && c.asset == l.asset
+                && abs(c.signed) == abs(l.signed)
+        }
+        var open: [Int] = []
+        for i in staked {
+            let l = legs[i]
+            let j: Int? = l.refid.isEmpty ? nil : legs.indices.first(where: { counterpart(l, $0) && legs[$0].refid == l.refid })
+            if let j { out.insert(j) } else { open.append(i) }
+        }
+        for i in open {
+            let l = legs[i]
+            let j = legs.indices.first(where: { counterpart(l, $0) && Swift.abs(legs[$0].time - l.time) <= stakingPairMillis })
             if let j { out.insert(j) } else { unpaired.insert(i) }
         }
         return (out, unpaired)

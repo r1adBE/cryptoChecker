@@ -101,7 +101,7 @@ object FiatAlarmGuard {
         return when (CurrencyConversion.classify(source, fiat)) {
             QuoteKind.USD -> source != "USD"
             QuoteKind.CRYPTO -> true
-            QuoteKind.FIAT, QuoteKind.INVALID -> false
+            QuoteKind.FIAT, QuoteKind.FIAT_UNSUPPORTED, QuoteKind.INVALID -> false
         }
     }
 

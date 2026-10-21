@@ -20,9 +20,17 @@ internal object BackupFormat {
     }
 
     fun read(context: Context, uri: Uri): BackupFile {
-        // Höchstens 16 MB und flach verschachtelt ([BackupLimits]) — nie eine beliebig grosse Datei in den Speicher
+        // Höchstens 64 MB und flach verschachtelt ([BackupLimits]) — nie eine beliebig grosse Datei in den Speicher
         val text = context.contentResolver.openInputStream(uri)?.use { BackupLimits.readLimited(it).toString(Charsets.UTF_8) }
             ?: error("Datei kann nicht gelesen werden")
+        return parse(text)
+    }
+
+    /**
+     * Text einer Sicherungsdatei: eingerückt (bis Build 91) oder kompakt (seit Build 92, [encode]) — der Parser nimmt
+     * beides, auch Sicherungen von iOS.
+     */
+    fun parse(text: String): BackupFile {
         BackupLimits.checkDepth(text)
         val root = JSONObject(text)
         // Verschlüsselt: eigenes «format» (cryptochecker-backup-enc), damit ältere App-Versionen
@@ -47,6 +55,13 @@ internal object BackupFormat {
             )
         )
     }
+
+    /**
+     * Klartext der Sicherung als Bytes: kompakt ohne Einrückung (seit Build 92; eingerückt war die Datei gut ein Drittel
+     * grösser). Grösser als lesbar ([BackupLimits.MAX_BYTES]) → [BackupLimits.ExportTooLargeException].
+     */
+    fun encode(root: JSONObject): ByteArray =
+        root.toString().toByteArray(Charsets.UTF_8).also { BackupLimits.checkWritable(it.size) }
 
     /** «version» der Sicherung ([BackupVersion.check]): neuere → [BackupVersion.NewerVersionException]. */
     fun checkVersion(root: JSONObject) {

@@ -177,6 +177,8 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
     val notVerifiedText = stringResource(R.string.backup_not_verified)
     val notEnoughMemoryText = stringResource(R.string.backup_not_enough_memory)
     val storageKeptText = stringResource(R.string.backup_storage_kept)
+    val storageInMemoryText = stringResource(R.string.backup_restore_storage_in_memory)
+    val exportTooLargeText = stringResource(R.string.backup_export_too_large)
     val restoredFormat = stringResource(R.string.backup_restored)
     val appLockKeptText = stringResource(R.string.backup_restore_app_lock_kept)
     LaunchedEffect(backupMessage) {
@@ -188,6 +190,8 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
             BackupMessage.NotVerified -> notVerifiedText
             BackupMessage.NotEnoughMemory -> notEnoughMemoryText
             BackupMessage.StorageKept -> storageKeptText
+            BackupMessage.StorageInMemory -> storageInMemoryText
+            BackupMessage.ExportTooLarge -> exportTooLargeText
             is BackupMessage.Restored -> {
                 if (m.watches > 0) requestNotifications()
                 val restored = restoredFormat.format(

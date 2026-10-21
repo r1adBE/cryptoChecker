@@ -66003,6 +66003,197 @@
         }
       }
     },
+    "backup_export_too_large" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ستتجاوز النسخة الاحتياطية 64 ميغابايت ولن يمكن استعادتها، لذلك لم تُحفظ."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Záloha by byla větší než 64 MB a nešla by obnovit, proto nebyla uložena."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikkerhedskopien ville være større end 64 MB og kunne ikke gendannes, så den blev ikke gemt."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Sicherung wäre grösser als 64 MB und liesse sich nicht mehr einspielen – sie wurde nicht gespeichert."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το αντίγραφο θα ήταν μεγαλύτερο από 64 MB και δεν θα μπορούσε να επαναφερθεί, γι' αυτό δεν αποθηκεύτηκε."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The backup would be larger than 64 MB and could not be restored, so it wasn't saved."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La copia superaría los 64 MB y no se podría restaurar, por eso no se ha guardado."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخهٔ پشتیبان بزرگ‌تر از ۶۴ مگابایت می‌شد و قابل بازیابی نبود، برای همین ذخیره نشد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varmuuskopio olisi yli 64 Mt eikä sitä voisi palauttaa, joten sitä ei tallennettu."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La sauvegarde dépasserait 64 Mo et ne pourrait pas être restaurée ; elle n'a donc pas été enregistrée."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הגיבוי היה גדול מ־64 MB ולא ניתן היה לשחזר אותו, ולכן הוא לא נשמר."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बैकअप 64 MB से बड़ा होता और उसे बहाल नहीं किया जा सकता, इसलिए वह सहेजा नहीं गया।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A mentés nagyobb lenne 64 MB-nál, és nem lehetne visszaállítani, ezért nem lett elmentve."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cadangan akan lebih besar dari 64 MB dan tidak bisa dipulihkan, jadi tidak disimpan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il backup supererebbe i 64 MB e non si potrebbe ripristinare, quindi non è stato salvato."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックアップが 64 MB を超えて復元できなくなるため、保存しませんでした。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백업이 64MB를 넘어 복원할 수 없게 되므로 저장하지 않았습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikkerhetskopien ville blitt større enn 64 MB og kunne ikke gjenopprettes, så den ble ikke lagret."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De back-up zou groter zijn dan 64 MB en niet meer te herstellen zijn, daarom is hij niet opgeslagen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopia przekroczyłaby 64 MB i nie dałoby się jej przywrócić, dlatego nie została zapisana."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A cópia ultrapassaria 64 MB e não poderia ser restaurada, por isso não foi guardada."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O backup passaria de 64 MB e não poderia ser restaurado, por isso não foi salvo."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copia ar depăși 64 MB și nu ar mai putea fi restaurată, de aceea nu a fost salvată."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Копия была бы больше 64 МБ, и её нельзя было бы восстановить, поэтому она не сохранена."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopja do të ishte më e madhe se 64 MB dhe nuk do të mund të rikthehej, prandaj nuk u ruajt."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Säkerhetskopian skulle bli större än 64 MB och kunde inte återställas, så den sparades inte."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ข้อมูลสำรองจะใหญ่เกิน 64 MB และจะกู้คืนไม่ได้ จึงไม่ได้บันทึก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yedek 64 MB'tan büyük olacağı ve geri yüklenemeyeceği için kaydedilmedi."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Копія була б більшою за 64 МБ, і її не вдалося б відновити, тому її не збережено."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bản sao lưu sẽ lớn hơn 64 MB và không thể khôi phục, nên chưa được lưu."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "备份将超过 64 MB，无法再恢复，因此未保存。"
+          }
+        }
+      }
+    },
     "backup_exported" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -70020,187 +70211,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عناوين wallet ومفاتيح xpub المحفوظة"
+            "value" : "عناوين wallet ومفاتيح xpub المحفوظة مع سجل الرصيد وتكلفة الشراء"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uložené adresy peněženek a klíče xpub"
+            "value" : "Uložené adresy peněženek a klíče xpub s historií zůstatku a pořizovací cenou"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gemte wallet-adresser og xpub-nøgler"
+            "value" : "Gemte wallet-adresser og xpub-nøgler med saldohistorik og anskaffelsesværdi"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gespeicherte Wallet-Adressen und xpub-Schlüssel"
+            "value" : "Gespeicherte Wallet-Adressen und xpub-Schlüssel mit Guthaben-Verlauf und Einstandswerten"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Αποθηκευμένες διευθύνσεις πορτοφολιών και κλειδιά xpub"
+            "value" : "Αποθηκευμένες διευθύνσεις πορτοφολιών και κλειδιά xpub με ιστορικό υπολοίπου και κόστος κτήσης"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saved wallet addresses and xpub keys"
+            "value" : "Saved wallet addresses and xpub keys with balance history and cost basis"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Direcciones de wallet y claves xpub guardadas"
+            "value" : "Direcciones de wallet y claves xpub guardadas, con historial de saldo y coste de adquisición"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "آدرس‌ها و کلیدهای xpub ذخیره‌شدهٔ کیف پول"
+            "value" : "آدرس‌ها و کلیدهای xpub ذخیره‌شدهٔ کیف پول با تاریخچهٔ موجودی و بهای تمام‌شده"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tallennetut lompakko-osoitteet ja xpub-avaimet"
+            "value" : "Tallennetut lompakko-osoitteet ja xpub-avaimet saldohistorioineen ja hankintamenoineen"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adresses de wallet et clés xpub enregistrées"
+            "value" : "Adresses de wallet et clés xpub enregistrées, avec historique des soldes et prix de revient"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "כתובות ארנק ומפתחות xpub שמורים"
+            "value" : "כתובות ארנק ומפתחות xpub שמורים, כולל היסטוריית יתרות ועלות רכישה"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सहेजे गए वॉलेट पते और xpub कुंजियाँ"
+            "value" : "सहेजे गए वॉलेट पते और xpub कुंजियाँ, बैलेंस इतिहास और लागत आधार के साथ"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mentett tárcacímek és xpub-kulcsok"
+            "value" : "Mentett tárcacímek és xpub-kulcsok egyenlegelőzménnyel és bekerülési értékkel"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alamat dompet dan kunci xpub tersimpan"
+            "value" : "Alamat dompet dan kunci xpub tersimpan beserta riwayat saldo dan biaya perolehan"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Indirizzi wallet e chiavi xpub salvati"
+            "value" : "Indirizzi wallet e chiavi xpub salvati, con cronologia dei saldi e costo di carico"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "保存したウォレットアドレスと xpub キー"
+            "value" : "保存したウォレットアドレスと xpub キー（残高の履歴と取得原価を含む）"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "저장된 지갑 주소와 xpub 키"
+            "value" : "저장된 지갑 주소와 xpub 키(잔액 기록 및 취득 원가 포함)"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lagrede wallet-adresser og xpub-nøkler"
+            "value" : "Lagrede wallet-adresser og xpub-nøkler med saldohistorikk og inngangsverdi"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opgeslagen walletadressen en xpub-sleutels"
+            "value" : "Opgeslagen walletadressen en xpub-sleutels met saldogeschiedenis en aankoopwaarde"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zapisane adresy walletów i klucze xpub"
+            "value" : "Zapisane adresy walletów i klucze xpub z historią sald i kosztem nabycia"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Endereços de carteira e chaves xpub guardados"
+            "value" : "Endereços de carteira e chaves xpub guardados, com histórico de saldo e custo de aquisição"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Endereços de carteira e chaves xpub salvos"
+            "value" : "Endereços de carteira e chaves xpub salvos, com histórico de saldo e custo de aquisição"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adrese de wallet și chei xpub salvate"
+            "value" : "Adrese de wallet și chei xpub salvate, cu istoricul soldului și costul de achiziție"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сохранённые адреса кошельков и ключи xpub"
+            "value" : "Сохранённые адреса кошельков и ключи xpub с историей балансов и стоимостью покупки"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adresat e ruajtura të wallet-it dhe çelësat xpub"
+            "value" : "Adresat e ruajtura të wallet-it dhe çelësat xpub, me historikun e balancës dhe koston e blerjes"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sparade wallet-adresser och xpub-nycklar"
+            "value" : "Sparade wallet-adresser och xpub-nycklar med saldohistorik och anskaffningsvärde"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ที่อยู่วอลเล็ตและคีย์ xpub ที่บันทึกไว้"
+            "value" : "ที่อยู่วอลเล็ตและคีย์ xpub ที่บันทึกไว้ พร้อมประวัติยอดคงเหลือและต้นทุน"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kayıtlı cüzdan adresleri ve xpub anahtarları"
+            "value" : "Kayıtlı cüzdan adresleri ve xpub anahtarları, bakiye geçmişi ve maliyet esasıyla"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Збережені адреси гаманців і ключі xpub"
+            "value" : "Збережені адреси гаманців і ключі xpub з історією балансів і вартістю придбання"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Địa chỉ ví và khóa xpub đã lưu"
+            "value" : "Địa chỉ ví và khóa xpub đã lưu, kèm lịch sử số dư và giá vốn"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已保存的钱包地址和 xpub 密钥"
+            "value" : "已保存的钱包地址和 xpub 密钥，含余额历史和成本"
           }
         }
       }
@@ -70211,187 +70402,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قائمة المتابعة مع الملاحظات والمجموعات، التنبيهات، المفضلة والإعدادات"
+            "value" : "قائمة المتابعة مع الملاحظات والمجموعات والأرصدة، التنبيهات، المفضلة والإعدادات"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sledovaný seznam s poznámkami a skupinami, alarmy, oblíbené a nastavení"
+            "value" : "Sledovaný seznam s poznámkami, skupinami a držbou, alarmy, oblíbené a nastavení"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Overvågningsliste med noter og grupper, alarmer, favoritter og indstillinger"
+            "value" : "Overvågningsliste med noter, grupper og beholdninger, alarmer, favoritter og indstillinger"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Merkliste mit Notizen und Gruppen, Alarme, Favoriten und Einstellungen"
+            "value" : "Merkliste mit Notizen, Gruppen und Beständen, Alarme, Favoriten und Einstellungen"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Λίστα παρακολούθησης με σημειώσεις και ομάδες, συναγερμοί, αγαπημένα και ρυθμίσεις"
+            "value" : "Λίστα παρακολούθησης με σημειώσεις, ομάδες και κατοχές, συναγερμοί, αγαπημένα και ρυθμίσεις"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Watchlist with notes and groups, alerts, favorites and settings"
+            "value" : "Watchlist with notes, groups and holdings, alerts, favorites and settings"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista de seguimiento con notas y grupos, alarmas, favoritos y ajustes"
+            "value" : "Lista de seguimiento con notas, grupos y tenencias, alarmas, favoritos y ajustes"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فهرست پیگیری با یادداشت‌ها و گروه‌ها، هشدارها، علاقه‌مندی‌ها و تنظیمات"
+            "value" : "فهرست پیگیری با یادداشت‌ها، گروه‌ها و دارایی‌ها، هشدارها، علاقه‌مندی‌ها و تنظیمات"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Seurantalista muistiinpanoineen ja ryhmineen, hälytykset, suosikit ja asetukset"
+            "value" : "Seurantalista muistiinpanoineen, ryhmineen ja omistuksineen, hälytykset, suosikit ja asetukset"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Liste de suivi avec notes et groupes, alertes, favoris et réglages"
+            "value" : "Liste de suivi avec notes, groupes et avoirs, alertes, favoris et réglages"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "רשימת מעקב עם הערות וקבוצות, התראות, מועדפים והגדרות"
+            "value" : "רשימת מעקב עם הערות, קבוצות ואחזקות, התראות, מועדפים והגדרות"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "नोट्स और समूहों के साथ वॉचलिस्ट, अलार्म, पसंदीदा और सेटिंग्स"
+            "value" : "नोट्स, समूहों और होल्डिंग के साथ वॉचलिस्ट, अलार्म, पसंदीदा और सेटिंग्स"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Figyelőlista jegyzetekkel és csoportokkal, riasztások, kedvencek és beállítások"
+            "value" : "Figyelőlista jegyzetekkel, csoportokkal és állományokkal, riasztások, kedvencek és beállítások"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daftar pantau dengan catatan dan grup, alarm, favorit, dan pengaturan"
+            "value" : "Daftar pantau dengan catatan, grup, dan kepemilikan, alarm, favorit, dan pengaturan"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista con note e gruppi, allarmi, preferiti e impostazioni"
+            "value" : "Lista con note, gruppi e saldi, allarmi, preferiti e impostazioni"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "メモとグループ付きのウォッチリスト、アラーム、お気に入り、設定"
+            "value" : "メモ・グループ・保有量付きのウォッチリスト、アラーム、お気に入り、設定"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "메모와 그룹이 포함된 관심 목록, 경보, 즐겨찾기, 설정"
+            "value" : "메모, 그룹, 보유량이 포함된 관심 목록, 경보, 즐겨찾기, 설정"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Overvåkningsliste med notater og grupper, alarmer, favoritter og innstillinger"
+            "value" : "Overvåkningsliste med notater, grupper og beholdninger, alarmer, favoritter og innstillinger"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volglijst met notities en groepen, alarmen, favorieten en instellingen"
+            "value" : "Volglijst met notities, groepen en bezit, alarmen, favorieten en instellingen"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista obserwowanych z notatkami i grupami, alarmy, ulubione i ustawienia"
+            "value" : "Lista obserwowanych z notatkami, grupami i posiadanymi ilościami, alarmy, ulubione i ustawienia"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista de observação com notas e grupos, alarmes, favoritos e definições"
+            "value" : "Lista de observação com notas, grupos e posições, alarmes, favoritos e definições"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista de observação com notas e grupos, alarmes, favoritos e configurações"
+            "value" : "Lista de observação com notas, grupos e quantidades em posse, alarmes, favoritos e configurações"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Listă de urmărire cu note și grupuri, alarme, favorite și setări"
+            "value" : "Listă de urmărire cu note, grupuri și dețineri, alarme, favorite și setări"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Список наблюдения с заметками и группами, оповещения, избранное и настройки"
+            "value" : "Список наблюдения с заметками, группами и активами, оповещения, избранное и настройки"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista e ndjekjes me shënime dhe grupe, alarmet, të preferuarat dhe cilësimet"
+            "value" : "Lista e ndjekjes me shënime, grupe dhe zotërime, alarmet, të preferuarat dhe cilësimet"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bevakningslista med anteckningar och grupper, larm, favoriter och inställningar"
+            "value" : "Bevakningslista med anteckningar, grupper och innehav, larm, favoriter och inställningar"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "รายการเฝ้าดูพร้อมโน้ตและกลุ่ม สัญญาณเตือน รายการโปรด และการตั้งค่า"
+            "value" : "รายการเฝ้าดูพร้อมโน้ต กลุ่ม และยอดถือครอง สัญญาณเตือน รายการโปรด และการตั้งค่า"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Notlar ve gruplarla izleme listesi, alarmlar, favoriler ve ayarlar"
+            "value" : "Notlar, gruplar ve varlıklarla izleme listesi, alarmlar, favoriler ve ayarlar"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Список спостереження з нотатками й групами, сигнали, обране та налаштування"
+            "value" : "Список спостереження з нотатками, групами й активами, сигнали, обране та налаштування"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Danh sách theo dõi kèm ghi chú và nhóm, cảnh báo, mục yêu thích và cài đặt"
+            "value" : "Danh sách theo dõi kèm ghi chú, nhóm và số lượng nắm giữ, cảnh báo, mục yêu thích và cài đặt"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "带备注和分组的自选列表、提醒、收藏和设置"
+            "value" : "带备注、分组和持仓的自选列表、提醒、收藏和设置"
           }
         }
       }
@@ -72756,6 +72947,197 @@
         }
       }
     },
+    "backup_restore_storage_in_memory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الاستيراد غير ممكن الآن: التطبيق لا يحفظ البيانات حاليًا (التشفير غير مفعّل بعد)، فستضيع البيانات المستوردة عند إعادة التشغيل. أعد تشغيل التطبيق وحاول مرة أخرى."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import teď není možný: aplikace nyní nic neukládá (šifrování ještě není aktivní), importovaná data by se po restartu ztratila. Restartujte aplikaci a zkuste to znovu."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import er ikke muligt lige nu: appen gemmer ikke data i øjeblikket (kryptering er endnu ikke aktiv), så importen ville gå tabt ved genstart. Genstart appen, og prøv igen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einspielen geht gerade nicht: Die App speichert im Moment nichts (Verschlüsselung noch nicht aktiv), die Sicherung ginge beim Neustart verloren. App neu starten und erneut versuchen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η εισαγωγή δεν είναι δυνατή τώρα: η εφαρμογή δεν αποθηκεύει δεδομένα αυτή τη στιγμή (η κρυπτογράφηση δεν είναι ακόμη ενεργή), οπότε η εισαγωγή θα χανόταν στην επανεκκίνηση. Επανεκκινήστε την εφαρμογή και δοκιμάστε ξανά."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import isn't possible right now: the app isn't saving data at the moment (encryption not active yet), so the import would be lost on restart. Restart the app and try again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se puede importar ahora: la app no está guardando datos en este momento (el cifrado aún no está activo) y la importación se perdería al reiniciar. Reinicia la app e inténtalo de nuevo."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "درون‌ریزی اکنون ممکن نیست: برنامه فعلاً داده‌ای ذخیره نمی‌کند (رمزگذاری هنوز فعال نیست) و داده‌های درون‌ریزی‌شده با راه‌اندازی دوباره از بین می‌روند. برنامه را دوباره راه‌اندازی کنید و دوباره امتحان کنید."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuonti ei ole nyt mahdollista: sovellus ei tällä hetkellä tallenna tietoja (salaus ei ole vielä käytössä), joten tuotu sisältö katoaisi uudelleenkäynnistyksessä. Käynnistä sovellus uudelleen ja yritä uudestaan."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importation impossible pour le moment : l'app n'enregistre pas les données actuellement (chiffrement pas encore actif), l'import serait perdu au redémarrage. Redémarrez l'app et réessayez."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ייבוא אינו אפשרי כרגע: האפליקציה אינה שומרת נתונים כעת (ההצפנה עדיין לא פעילה), כך שהייבוא יאבד בהפעלה מחדש. הפעל מחדש את האפליקציה ונסה שוב."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "इम्पोर्ट अभी संभव नहीं है: ऐप इस समय डेटा सहेज नहीं रहा है (एन्क्रिप्शन अभी सक्रिय नहीं है), इसलिए ऐप फिर से शुरू होने पर इम्पोर्ट खो जाएगा। ऐप को फिर से शुरू करें और दोबारा कोशिश करें।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az importálás most nem lehetséges: az alkalmazás jelenleg nem ment adatot (a titkosítás még nem aktív), így az importált adatok újraindításkor elvesznének. Indítsd újra az alkalmazást, és próbáld újra."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impor tidak bisa dilakukan sekarang: aplikasi sedang tidak menyimpan data (enkripsi belum aktif), jadi hasil impor akan hilang saat dimulai ulang. Mulai ulang aplikasi lalu coba lagi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importazione non possibile al momento: l'app non sta salvando dati (crittografia non ancora attiva), quindi l'importazione andrebbe persa al riavvio. Riavvia l'app e riprova."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在インポートできません：アプリは今データを保存していません（暗号化がまだ有効ではありません）。再起動するとインポート内容が失われます。アプリを再起動して、もう一度お試しください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금은 가져올 수 없습니다: 앱이 현재 데이터를 저장하지 않고 있어(암호화가 아직 활성화되지 않음) 다시 시작하면 가져온 내용이 사라집니다. 앱을 다시 시작한 후 다시 시도하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import er ikke mulig akkurat nå: appen lagrer ikke data for øyeblikket (kryptering er ikke aktiv ennå), så importen ville gått tapt ved omstart. Start appen på nytt og prøv igjen."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importeren is nu niet mogelijk: de app slaat op dit moment geen gegevens op (versleuteling nog niet actief), dus de import zou bij het herstarten verloren gaan. Start de app opnieuw en probeer het nog eens."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import nie jest teraz możliwy: aplikacja w tej chwili nie zapisuje danych (szyfrowanie nie jest jeszcze aktywne), więc import przepadłby po ponownym uruchomieniu. Uruchom aplikację ponownie i spróbuj jeszcze raz."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A importação não é possível agora: a app não está a guardar dados neste momento (encriptação ainda não ativa), pelo que a importação perder-se-ia ao reiniciar. Reinicie a app e tente novamente."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A importação não é possível agora: o app não está salvando dados no momento (criptografia ainda não ativa), então a importação se perderia ao reiniciar. Reinicie o app e tente novamente."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importul nu este posibil acum: aplicația nu salvează date în acest moment (criptarea nu este încă activă), așa că importul s-ar pierde la repornire. Repornește aplicația și încearcă din nou."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импорт сейчас невозможен: приложение пока не сохраняет данные (шифрование ещё не активно), и импортированное пропадёт после перезапуска. Перезапустите приложение и попробуйте снова."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importi nuk është i mundur tani: aplikacioni nuk po ruan të dhëna për momentin (enkriptimi ende jo aktiv), prandaj importi do të humbiste pas rinisjes. Rinis aplikacionin dhe provo përsëri."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import går inte just nu: appen sparar inga data för tillfället (krypteringen är inte aktiv ännu), så importen skulle försvinna vid omstart. Starta om appen och försök igen."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "นำเข้าไม่ได้ในขณะนี้: แอปยังไม่บันทึกข้อมูล (การเข้ารหัสยังไม่ทำงาน) ข้อมูลที่นำเข้าจะหายไปเมื่อรีสตาร์ท รีสตาร์ทแอปแล้วลองอีกครั้ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İçe aktarma şu anda mümkün değil: uygulama şu an veri kaydetmiyor (şifreleme henüz etkin değil), bu yüzden içe aktarılanlar yeniden başlatınca kaybolur. Uygulamayı yeniden başlatıp tekrar deneyin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Імпорт зараз неможливий: застосунок наразі не зберігає дані (шифрування ще не активне), тож імпортоване зникне після перезапуску. Перезапустіть застосунок і спробуйте знову."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiện không thể nhập: ứng dụng tạm thời không lưu dữ liệu (mã hóa chưa hoạt động), nên dữ liệu nhập sẽ mất khi khởi động lại. Hãy khởi động lại ứng dụng và thử lại."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目前无法导入：应用暂时不保存数据（加密尚未启用），导入的内容会在重启后丢失。请重新启动应用后再试。"
+          }
+        }
+      }
+    },
     "backup_restore_unencrypted_warning" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -74808,187 +75190,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الملف كبير جدًا أو ليس نسخة احتياطية صالحة (الحد 16 ميغابايت)."
+            "value" : "الملف كبير جدًا أو ليس نسخة احتياطية صالحة (الحد 64 ميغابايت)."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Soubor je příliš velký nebo není platnou zálohou (max. 16 MB)."
+            "value" : "Soubor je příliš velký nebo není platnou zálohou (max. 64 MB)."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Filen er for stor eller ikke en gyldig sikkerhedskopi (maks. 16 MB)."
+            "value" : "Filen er for stor eller ikke en gyldig sikkerhedskopi (maks. 64 MB)."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die Datei ist zu gross oder keine gültige Sicherung (höchstens 16 MB)."
+            "value" : "Die Datei ist zu gross oder keine gültige Sicherung (höchstens 64 MB)."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το αρχείο είναι πολύ μεγάλο ή δεν είναι έγκυρο αντίγραφο (έως 16 MB)."
+            "value" : "Το αρχείο είναι πολύ μεγάλο ή δεν είναι έγκυρο αντίγραφο (έως 64 MB)."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The file is too large or not a valid backup (limit 16 MB)."
+            "value" : "The file is too large or not a valid backup (limit 64 MB)."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "El archivo es demasiado grande o no es una copia válida (máx. 16 MB)."
+            "value" : "El archivo es demasiado grande o no es una copia válida (máx. 64 MB)."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فایل خیلی بزرگ است یا پشتیبان معتبری نیست (حداکثر ۱۶ مگابایت)."
+            "value" : "فایل خیلی بزرگ است یا پشتیبان معتبری نیست (حداکثر ۶۴ مگابایت)."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tiedosto on liian suuri tai ei kelvollinen varmuuskopio (enintään 16 Mt)."
+            "value" : "Tiedosto on liian suuri tai ei kelvollinen varmuuskopio (enintään 64 Mt)."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Le fichier est trop volumineux ou n’est pas une sauvegarde valide (16 Mo max.)."
+            "value" : "Le fichier est trop volumineux ou n’est pas une sauvegarde valide (64 Mo max.)."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הקובץ גדול מדי או שאינו גיבוי תקין (עד 16 MB)."
+            "value" : "הקובץ גדול מדי או שאינו גיבוי תקין (עד 64 MB)."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "फ़ाइल बहुत बड़ी है या मान्य बैकअप नहीं है (अधिकतम 16 MB)।"
+            "value" : "फ़ाइल बहुत बड़ी है या मान्य बैकअप नहीं है (अधिकतम 64 MB)।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A fájl túl nagy, vagy nem érvényes mentés (legfeljebb 16 MB)."
+            "value" : "A fájl túl nagy, vagy nem érvényes mentés (legfeljebb 64 MB)."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "File terlalu besar atau bukan cadangan yang valid (maks. 16 MB)."
+            "value" : "File terlalu besar atau bukan cadangan yang valid (maks. 64 MB)."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Il file è troppo grande o non è un backup valido (max 16 MB)."
+            "value" : "Il file è troppo grande o non è un backup valido (max 64 MB)."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ファイルが大きすぎるか、有効なバックアップではありません（上限 16 MB）。"
+            "value" : "ファイルが大きすぎるか、有効なバックアップではありません（上限 64 MB）。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "파일이 너무 크거나 올바른 백업이 아닙니다(최대 16MB)."
+            "value" : "파일이 너무 크거나 올바른 백업이 아닙니다(최대 64MB)."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Filen er for stor eller ikke en gyldig sikkerhetskopi (maks. 16 MB)."
+            "value" : "Filen er for stor eller ikke en gyldig sikkerhetskopi (maks. 64 MB)."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Het bestand is te groot of geen geldige back-up (max. 16 MB)."
+            "value" : "Het bestand is te groot of geen geldige back-up (max. 64 MB)."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Plik jest za duży lub nie jest prawidłową kopią (maks. 16 MB)."
+            "value" : "Plik jest za duży lub nie jest prawidłową kopią (maks. 64 MB)."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O ficheiro é demasiado grande ou não é uma cópia válida (máx. 16 MB)."
+            "value" : "O ficheiro é demasiado grande ou não é uma cópia válida (máx. 64 MB)."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O arquivo é grande demais ou não é um backup válido (máx. 16 MB)."
+            "value" : "O arquivo é grande demais ou não é um backup válido (máx. 64 MB)."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fișierul este prea mare sau nu este o copie validă (max. 16 MB)."
+            "value" : "Fișierul este prea mare sau nu este o copie validă (max. 64 MB)."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Файл слишком большой или не является резервной копией (не более 16 МБ)."
+            "value" : "Файл слишком большой или не является резервной копией (не более 64 МБ)."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skedari është shumë i madh ose nuk është kopje e vlefshme (maks. 16 MB)."
+            "value" : "Skedari është shumë i madh ose nuk është kopje e vlefshme (maks. 64 MB)."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Filen är för stor eller inte en giltig säkerhetskopia (högst 16 MB)."
+            "value" : "Filen är för stor eller inte en giltig säkerhetskopia (högst 64 MB)."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ไฟล์ใหญ่เกินไปหรือไม่ใช่ข้อมูลสำรองที่ถูกต้อง (สูงสุด 16 MB)"
+            "value" : "ไฟล์ใหญ่เกินไปหรือไม่ใช่ข้อมูลสำรองที่ถูกต้อง (สูงสุด 64 MB)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dosya çok büyük veya geçerli bir yedek değil (en fazla 16 MB)."
+            "value" : "Dosya çok büyük veya geçerli bir yedek değil (en fazla 64 MB)."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Файл завеликий або не є резервною копією (не більше 16 МБ)."
+            "value" : "Файл завеликий або не є резервною копією (не більше 64 МБ)."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tệp quá lớn hoặc không phải bản sao lưu hợp lệ (tối đa 16 MB)."
+            "value" : "Tệp quá lớn hoặc không phải bản sao lưu hợp lệ (tối đa 64 MB)."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "文件过大或不是有效的备份（上限 16 MB）。"
+            "value" : "文件过大或不是有效的备份（上限 64 MB）。"
           }
         }
       }
@@ -137267,6 +137649,388 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "此应用的“后台App刷新”已关闭。关闭时，只有在应用打开时才会检查提醒。"
+          }
+        }
+      }
+    },
+    "ios_dex_token_address_copied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم نسخ عنوان الرمز"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa tokenu zkopírována"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadresse kopieret"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token-Adresse kopiert"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η διεύθυνση του token αντιγράφηκε"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token address copied"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dirección del token copiada"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نشانی توکن کپی شد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenin osoite kopioitu"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresse du jeton copiée"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כתובת הטוקן הועתקה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "टोकन पता कॉपी किया गया"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokencím másolva"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alamat token disalin"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indirizzo del token copiato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "トークンアドレスをコピーしました"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "토큰 주소를 복사했습니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadresse kopiert"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadres gekopieerd"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skopiowano adres tokena"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endereço do token copiado"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endereço do token copiado"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa tokenului a fost copiată"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адрес токена скопирован"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa e tokenit u kopjua"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadress kopierad"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คัดลอกที่อยู่โทเค็นแล้ว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token adresi kopyalandı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адресу токена скопійовано"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã sao chép địa chỉ token"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已复制代币地址"
+          }
+        }
+      }
+    },
+    "ios_dex_token_address_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عنوان الرمز المنتهي بـ %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa tokenu končící na %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadresse, der slutter på %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token-Adresse, endet auf %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Διεύθυνση token που λήγει σε %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token address ending in %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dirección del token que termina en %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نشانی توکن با پایان %1$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenin osoite, joka päättyy %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresse du jeton se terminant par %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כתובת טוקן המסתיימת ב־%1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ पर समाप्त होने वाला टोकन पता"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ végű tokencím"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alamat token berakhiran %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indirizzo del token che termina con %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "末尾が %1$@ のトークンアドレス"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@(으)로 끝나는 토큰 주소"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadresse som slutter på %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadres eindigend op %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adres tokena kończący się na %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endereço do token terminado em %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endereço do token terminado em %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa tokenului care se termină în %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адрес токена, оканчивающийся на %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresa e tokenit që mbaron me %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tokenadress som slutar på %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ที่อยู่โทเค็นที่ลงท้ายด้วย %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ile biten token adresi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Адреса токена, що закінчується на %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Địa chỉ token kết thúc bằng %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以 %1$@ 结尾的代币地址"
           }
         }
       }

@@ -32,7 +32,7 @@ MARCHÉ
 
 ET AUSSI
 • Widgets : liste de suivi, valeur totale du portefeuille, une crypto avec graphique
-• Portefeuille en option (dans les réglages) : achats, ventes, swaps, transferts, récompenses, dépôts et retraits ; FIFO (par défaut) ou moyenne (Ø) ; adresses en lecture seule, sans seed, pour BTC (xpub inclus), ETH et chaînes EVM, SOL, TRX, XRP, LTC et TON ; import CSV de Relai, Swissquote, Bitpanda, Kraken, Binance et Coinbase ; bilan annuel en CSV ; verrou dédié. Sans flux de cours public, Bitpanda et Swissquote n’ont pas de cours propre : importez leurs ordres en CSV.
+• Portefeuille en option (dans les réglages) : achats, ventes, swaps, transferts, récompenses, dépôts et retraits ; FIFO (par défaut) ou moyenne (Ø) ; adresses en lecture seule, sans seed, pour BTC (xpub inclus), ETH et chaînes EVM, SOL, TRX, XRP, LTC, ADA et TON ; import CSV de Relai, Swissquote, Bitpanda, Kraken, Binance et Coinbase ; bilan annuel en CSV ; verrou dédié. Sans flux de cours public, Bitpanda et Swissquote n’ont pas de cours propre : importez leurs ordres en CSV.
 • Lisible pour tous : vert/rouge ou bleu/orange, signe et flèche, pas que la couleur ; TalkBack lit chaque ligne comme une phrase
 • Sauvegarde et restauration dans un fichier – aussi entre Android et iPhone
 • Modes clair et sombre, cinq couleurs d’accent, 31 langues

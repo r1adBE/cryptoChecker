@@ -289,12 +289,23 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
             AlarmSnooze.snooze(alarmId, now: TimeUtils.nowMillis)
             Notifier.cancelAlarm(alarmId)
             Task { @MainActor in
-                let data = AppData.shared
-                if let alarm = data.snapshot.alarms.first(where: { $0.id == alarmId }),
-                   AlarmSnooze.rearmsOnSnooze(alarm.condition) {
-                    data.setAlarmEnabled(alarmId, true)
+                // Schreiben zu Ende führen, auch wenn iOS die App gleich wieder anhält; erst danach fertig melden
+                let backgroundTask = BackgroundTaskGuard.begin("snoozeAlarm")
+                defer {
+                    backgroundTask.end()
+                    completionHandler()
                 }
+                // Abgestimmt auf der Datei statt im Speicher der App: Widget oder Hintergrund können den Alarm
+                // inzwischen ausgelöst und gespeichert haben (`AlarmSnooze.rearm`). Abseits des Haupt-Threads — das
+                // Schreiben kann über `NSFileCoordinator` auf das Widget warten
+                let saved = await Task.detached(priority: .userInitiated) {
+                    var changed = false
+                    let written = SharedStorage.updateSnapshot { changed = AlarmSnooze.rearm(alarmId, in: &$0) }
+                    return written != nil && changed
+                }.value
+                if saved { AppData.shared.reloadFromDisk() }
             }
+            return
         } else if response.actionIdentifier == Notifier.actionEdit, let alarmId, let id = watchId {
             Task { @MainActor in AppRouter.shared.open(AlarmEditTarget.of(watchId: id, alarmId: alarmId)) }
         } else if response.actionIdentifier == Notifier.actionOpenExchange, let url = exchangeUrl, url.scheme == "https" {

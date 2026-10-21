@@ -34,6 +34,27 @@ object BackupRestorePolicy {
      */
     fun mayRollBackInto(storedKept: Boolean, inMemory: Boolean): Boolean = !storedKept && !inMemory
 
+    /** Warum Sichern bzw. Einspielen gerade abgelehnt wird ([storageRefusal]). */
+    enum class StorageRefusal {
+        /** Gespeicherter Stand gerade nicht lesbar: Sichern ergäbe eine leere Datei, Einspielen ginge verloren. */
+        KEPT,
+
+        /** Nur im Arbeitsspeicher (kein Schlüssel): Einspielen meldete Erfolg, nach dem Neustart wäre alles weg. */
+        IN_MEMORY,
+    }
+
+    /**
+     * Nur Android: Darf mit diesem Zustand einer Datenbank gesichert ([restoring] false) bzw. eingespielt werden? null = ja.
+     * Sichern bleibt im Arbeitsspeicher erlaubt (es nimmt, was gerade zu sehen ist, auch die Kopie einer alten
+     * unverschlüsselten Datei). Einspielen nicht: Die Einstellungen wären schon ersetzt, Merkliste bzw. Portfolio nach dem
+     * Neustart aber wieder die alten oder leer — gleiche Regel wie fürs Zurückrollen ([mayRollBackInto]).
+     */
+    fun storageRefusal(storedKept: Boolean, inMemory: Boolean, restoring: Boolean): StorageRefusal? = when {
+        storedKept -> StorageRefusal.KEPT
+        restoring && !mayRollBackInto(storedKept, inMemory) -> StorageRefusal.IN_MEMORY
+        else -> null
+    }
+
     /** Ungültige Einträge aus der Systemsicherung, die noch zu melden sind (aufsummiert, ohne Überlauf). */
     fun noticeTotal(pending: Int, added: Int): Int =
         (pending.coerceAtLeast(0).toLong() + added.coerceAtLeast(0)).coerceAtMost(Int.MAX_VALUE.toLong()).toInt()

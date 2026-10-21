@@ -91,8 +91,9 @@ object AddressCutoff {
 
     /**
      * Bestand je Coin am Stichtag wie die Karte: echte Transaktionen ≤ [cutoffMillis] und die Posten von [view] nach
-     * [method] ([PortfolioHoldingsBook], FIFO je Wallet kappt je Wallet; Posten im Topf der Adress-Einträge wie auf der
-     * Karte). Ohne Adress-Teil ([CutoffExport.addressRows]); Staub = 0; alphabetisch.
+     * [method] ([PortfolioHoldingsBook], FIFO je Wallet kappt je Wallet; Posten in ihrer Wallet = der Adresse wie in
+     * [PortfolioFifo] auf der Karte, damit eine Umbuchung weg oder ein Verkauf dort sie verbraucht). Ohne Adress-Teil
+     * ([CutoffExport.addressRows]); Staub = 0; alphabetisch.
      */
     fun holdingsAt(
         real: List<PortfolioTrade>,

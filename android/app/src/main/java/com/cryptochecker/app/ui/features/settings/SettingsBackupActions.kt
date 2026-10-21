@@ -167,8 +167,10 @@ sealed interface BackupMessage {
     /** [appLockKept] = Sicherung ohne Passwort wollte die Portfolio-Sperre ausschalten; sie blieb an. */
     data class Restored(val watches: Int, val alarms: Int, val appLockKept: Boolean = false) : BackupMessage
     data object Failed : BackupMessage
-    /** Datei über 16 MB oder zu tief verschachtelt ([com.cryptochecker.app.data.BackupLimits]). */
+    /** Datei über 64 MB oder zu tief verschachtelt ([com.cryptochecker.app.data.BackupLimits]). */
     data object TooLarge : BackupMessage
+    /** Zu schreibende Sicherung über 64 MB ([com.cryptochecker.app.data.BackupLimits.ExportTooLargeException]): nicht geschrieben. */
+    data object ExportTooLarge : BackupMessage
     /** Sicherung einer neueren App-Version ([com.cryptochecker.app.data.BackupVersion]): nichts übernommen. */
     data object NewerVersion : BackupMessage
     /** Geschriebene Datei liest sich nicht gleich zurück ([com.cryptochecker.app.data.BackupNotVerifiedException]): neue Datei wählen. */
@@ -177,6 +179,8 @@ sealed interface BackupMessage {
     data object NotEnoughMemory : BackupMessage
     /** Gespeicherter Stand gerade nicht lesbar ([com.cryptochecker.app.data.BackupStorageKeptException]): nach Neustart. */
     data object StorageKept : BackupMessage
+    /** Einspielen in eine Datenbank nur im Arbeitsspeicher ([com.cryptochecker.app.data.BackupStorageInMemoryException]). */
+    data object StorageInMemory : BackupMessage
 
     companion object {
         fun failure(e: Throwable): BackupMessage = when (e) {
@@ -185,6 +189,8 @@ sealed interface BackupMessage {
             is com.cryptochecker.app.data.BackupVersion.NewerVersionException -> NewerVersion
             is com.cryptochecker.app.data.BackupNotVerifiedException -> NotVerified
             is com.cryptochecker.app.data.BackupStorageKeptException -> StorageKept
+            is com.cryptochecker.app.data.BackupStorageInMemoryException -> StorageInMemory
+            is com.cryptochecker.app.data.BackupLimits.ExportTooLargeException -> ExportTooLarge
             else -> Failed
         }
     }

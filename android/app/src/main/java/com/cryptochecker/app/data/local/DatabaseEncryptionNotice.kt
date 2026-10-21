@@ -38,7 +38,7 @@ object DatabaseEncryptionNotice {
 
     /**
      * Datenbanken, die in diesem Prozess nur im Arbeitsspeicher liegen ([Decision.Refused]: kein Schlüssel, nie
-     * unverschlüsselt angelegt). Nicht gespeichert: Jeder Start entscheidet neu. Das Portfolio nennt es, und was Daten
+     * unverschlüsselt angelegt; dazu [isVolatileCopy] und [storedKept]). Nicht gespeichert: Jeder Start entscheidet neu. Das Portfolio nennt es, und was Daten
      * aus anderen Dateien übernimmt und dort löscht (Systemsicherungs-Kopie, Altbestand), wartet bis dahin.
      */
     val inMemory: StateFlow<Set<String>> = inMemoryNames.asStateFlow()
@@ -58,12 +58,32 @@ object DatabaseEncryptionNotice {
     /** Liegt [database] nur im Arbeitsspeicher, obwohl die Datei mit gespeichertem Stand da ist ([storedKept])? */
     fun isStoredKept(database: String): Boolean = database in keptNames.value
 
+    private val copiedNames = MutableStateFlow<Set<String>>(emptySet())
+
     /**
-     * Von [EncryptingOpenHelperFactory] bei [Decision.Refused] gesetzt, mit [storedKept] bei [Decision.KeyUnavailable]
-     * im Vordergrund. Erst [storedKept], dann [inMemory]: Wer [inMemory] beobachtet, sieht die Variante schon.
+     * Teilmenge von [inMemory] (seit Build 92 eigens gemerkt): Der Inhalt einer alten unverschlüsselten Datei liegt für diesen
+     * Lauf als Kopie im Arbeitsspeicher ([Decision.PlaintextKept], [PlaintextMemoryCopy]). Paare und Alarme sind die
+     * gespeicherten, aber was dieser Lauf an ihnen ändert — auch «ausgelöst» eines Alarms —, ist im nächsten Prozess wieder
+     * der Stand der Datei.
      */
-    internal fun markInMemory(database: String, storedKept: Boolean = false) {
+    fun isVolatileCopy(database: String): Boolean = database in copiedNames.value
+
+    /**
+     * Kommt mit dem nächsten Prozess der Stand der Datei zurück und verwirft, was dieser Lauf geschrieben hat ([isStoredKept]
+     * oder [isVolatileCopy])? Dann keine Alarme im Hintergrund prüfen (jeder neue Prozess meldete dieselben Alarme erneut)
+     * und gespeicherte Protokolle nicht gegen die Ids dieses Laufs kürzen. Ohne Datei ([Decision.Refused]) nicht: Dort ist
+     * mit dem Lauf auch der Alarm weg.
+     */
+    fun revertsOnRestart(database: String): Boolean = isStoredKept(database) || isVolatileCopy(database)
+
+    /**
+     * Von [EncryptingOpenHelperFactory] bei [Decision.Refused] gesetzt, mit [copied] bei [Decision.PlaintextKept], mit
+     * [storedKept] bei [Decision.KeyUnavailable] im Vordergrund. Erst die Variante, dann [inMemory]: Wer [inMemory]
+     * beobachtet, sieht die Variante schon.
+     */
+    internal fun markInMemory(database: String, storedKept: Boolean = false, copied: Boolean = false) {
         if (storedKept) keptNames.update { it + database }
+        if (copied) copiedNames.update { it + database }
         inMemoryNames.update { it + database }
     }
 

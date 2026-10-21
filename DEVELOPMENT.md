@@ -2149,6 +2149,26 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 92 (audit of 21 October 2026): `PortfolioHoldingsBook.walletKey` parks only `AddressBalance.isAddressPart` in the
+  address pot; address opening lots (`AddressCostLots.isLotTrade`) live in their wallet like in `PortfolioFifo`, so a
+  later sale or transfer from that wallet consumes them (cut-off, DE sheet, CH wealth with FIFO per wallet;
+  `address_cost_lots.json` cases «lot moved away and sold elsewhere» / «sold directly»). Kraken staking pairing: same
+  refid first for all staking legs, then the 1-hour window for the rest (`csv_import.json` `kraken_staking_refid_first`).
+  iOS: `Outcome.keepingCurrentPairs` before every `deliverAlarms` (app, BG task, widget) and `AlarmUpdate.pair` makes
+  `saveAlarmOnDisk` refuse a changed pair; «1 h later» rearms via `SharedStorage.updateSnapshot` + `AlarmSnooze.rearm`
+  under `BackgroundTaskGuard`, then `reloadFromDisk`; switching off / editing / deleting an alert removes its delivered
+  notification on both platforms (Android `AlarmUserChange`). Speech of converted alerts uses the shown price and
+  currency (`SpokenText.spokenAlarmPrice`). Backups: compact JSON (`BackupFormat.encode`, iOS `BackupManager.encode`,
+  sorted keys), `BackupLimits` 64 MiB read and write (`checkWritable`, message `backup_export_too_large`); CSV import stays
+  16 MiB (`CSV_MAX_BYTES`). iOS `finishRecovery` keeps the restore journal when the rollback failed. Android
+  `DatabaseEncryptionNotice.isVolatileCopy` (PlaintextKept): `BackgroundCheck` opens the database first and skips the run,
+  alarm log is not pruned, restore refused (`BackupRestorePolicy.storageRefusal`, `backup_restore_storage_in_memory`).
+  `PortfolioTxFormState` saver keeps the decimal separator (iOS: fixed when the sheet opens). `QuoteKind.FIAT_UNSUPPORTED`
+  (`KNOWN_FIAT`, ISO 4217 without codes that are also coins) never triggers crypto lookups. `CheckRunLog.lastBackgroundCheck`
+  ignores failed runs; `AlarmReliability.staleMillis(platform)` 2 h Android / 6 h iOS (`alarm_reliability.json`
+  `staleMillisIos`). `FuturesContractType.getDeliveryDate(now)` / iOS `delivery(asOf:)` roll to the next contract after
+  expiry 08:00 UTC. WOO trade time must be finite and < 2^63 ms. iOS copy confirmation for the DEX address
+  (`ios_dex_token_address_copied`). iOS CI builds the Release configuration too.
 * Build 91 (post-launch list done early, 21 October 2026): foreign-candle 24 h change shows the short exchange name
   at the number; volume-spike texts name the candle source. Fiat alerts skip a cycle when the FX rate is older than
   36 business hours (`fx_stale`) or USDT/USD is only known via USDC with USDC > 1 % off (`fx_unsure`, row «Conversion

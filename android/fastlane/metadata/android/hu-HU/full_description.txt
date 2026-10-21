@@ -33,7 +33,7 @@ PIAC
 
 EZENKÍVÜL
 • Widgetek: lista, a portfólió teljes értéke, egy coin diagrammal
-• Portfólió opcionálisan (a Beállításokban kapcsolható be): vételek, eladások, cserék, átvezetések, jutalmak, befizetések és kifizetések; FIFO (alapértelmezett) vagy átlag (Ø); csak olvasható címek, seed nélkül: BTC (xpub is), ETH és EVM-láncok, SOL, TRX, XRP, LTC és TON; CSV-import Relai-, Swissquote-, Bitpanda-, Kraken-, Binance- és Coinbase-fájlokból; éves áttekintés CSV-ben; saját zár. A Bitpanda és a Swissquote nem ad nyilvános árfolyamot, így nincs saját áruk – ügyleteik CSV-importtal jönnek.
+• Portfólió opcionálisan (a Beállításokban kapcsolható be): vételek, eladások, cserék, átvezetések, jutalmak, befizetések és kifizetések; FIFO (alapértelmezett) vagy átlag (Ø); csak olvasható címek, seed nélkül: BTC (xpub is), ETH és EVM-láncok, SOL, TRX, XRP, LTC, ADA és TON; CSV-import Relai-, Swissquote-, Bitpanda-, Kraken-, Binance- és Coinbase-fájlokból; éves áttekintés CSV-ben; saját zár. A Bitpanda és a Swissquote nem ad nyilvános árfolyamot, így nincs saját áruk – ügyleteik CSV-importtal jönnek.
 • Mindenkinek olvasható: zöld/piros vagy kék/narancs, előjel és nyíl a szín mellett; a TalkBack minden sort egy mondatként olvas fel
 • Mentés és visszaállítás fájlba – Android és iPhone között is
 • Világos és sötét mód, öt kiemelőszín, 31 nyelv

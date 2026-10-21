@@ -24,7 +24,11 @@ final class AlarmReliabilityTests: XCTestCase {
     }
 
     func testStaleLimitMatches() throws {
-        XCTAssertEqual(AlarmReliability.staleMillis, S.millis(try S.fixture("alarm_reliability")["staleMillis"]))
+        let fixture = try S.fixture("alarm_reliability")
+        XCTAssertEqual(AlarmReliability.staleMillis(.android), S.millis(fixture["staleMillis"]))
+        XCTAssertEqual(AlarmReliability.staleMillis(.ios), S.millis(fixture["staleMillisIos"]))
+        // iOS: dieselbe Grenze wie die Seite «Damit Alarme ankommen»
+        XCTAssertEqual(AlarmReliability.staleMillis(.ios), AlarmReadiness.staleCheckMillis)
     }
 
     func testStatus() throws {

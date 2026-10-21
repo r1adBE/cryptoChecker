@@ -172,7 +172,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
     private suspend fun buildPreview(uri: Uri): CsvImportPreview {
         val text = withContext(Dispatchers.IO) {
             // Nie ungebremst lesen (wie die Sicherung); UTF-8, sonst Windows-1252 (Excel), BOM weg
-            context.contentResolver.openInputStream(uri)?.use { BackupLimits.readLimited(it) }
+            context.contentResolver.openInputStream(uri)?.use { BackupLimits.readLimited(it, max = BackupLimits.CSV_MAX_BYTES) }
                 ?.let { CsvImportParser.decode(it) } ?: error("Datei kann nicht gelesen werden")
         }
         return prepare(text)
