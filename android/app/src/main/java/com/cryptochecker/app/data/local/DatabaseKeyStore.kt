@@ -35,12 +35,14 @@ class DatabaseKeyStore(
     /** Stamm der Keystore-Aliase; je Datenbank ein eigener Schlüssel ([aliasFor]). */
     private val alias: String = ALIAS,
     private val directory: File = File(context.noBackupFilesDir, DIRECTORY),
+    /** Nur Tests: eigene Menge «in diesem Lauf vermerkt» = neuer Prozess ([DatabaseKeyRetry.SuspectMarker]). */
+    runSeen: MutableSet<String>? = null,
 ) : DatabaseEncryptionMigration.Keys {
 
     private fun keyFile(database: String) = File(directory, "$database.key")
 
     /** Verdacht auf verlorenen Keystore-Schlüssel je Datenbank, erst im nächsten Lauf wirksam ([DatabaseKeyRetry]). */
-    private val suspects = DatabaseKeyRetry.SuspectMarker(directory)
+    private val suspects = runSeen?.let { DatabaseKeyRetry.SuspectMarker(directory, it) } ?: DatabaseKeyRetry.SuspectMarker(directory)
 
     /**
      * Von [create] beiseitegelegte frühere Schlüssel ([PREVIOUS_SUFFIX], weitere nummeriert `.previous.1`, `.previous.2` …),

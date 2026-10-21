@@ -172,14 +172,29 @@ class DatabaseEncryptionTest {
         assertEncryptedAndUnreadableWithoutKey(MAIN)
     }
 
-    /** Schlüssel weg (Keystore zurückgesetzt): Datei beiseite, nicht gelöscht; App beginnt leer und nennt es einmal. */
+    /**
+     * Schlüssel weg (Keystore zurückgesetzt): Seit Build 102 im ersten Lauf nur «gerade nicht verfügbar» (Datei
+     * unverändert, [com.cryptochecker.app.data.local.DatabaseKeyRetry]); erst der nächste Lauf legt die Datei beiseite,
+     * nicht gelöscht; App beginnt leer und nennt es einmal.
+     */
     @Test
     fun lostKeySetsDatabaseAsideAndStartsEmpty() {
         withMain { main -> insertWatchAndAlarm(main) }
         assertEncryptedAndUnreadableWithoutKey(MAIN)
         KeyStore.getInstance("AndroidKeyStore").apply { load(null) }.deleteEntry(DatabaseKeyStore.aliasFor(TEST_ALIAS, MAIN))
+        val file = context.getDatabasePath(MAIN)
+        val before = file.readBytes()
 
-        withMain { main -> assertEquals(0, count(main, "watches")) }
+        // Erster Lauf: nicht als verloren werten
+        val firstRun = DatabaseKeyStore(context, alias = TEST_ALIAS, directory = keyDirectory, runSeen = mutableSetOf())
+        val failure = runCatching { withMain(EncryptingOpenHelperFactory(context, firstRun)) { } }.exceptionOrNull()
+        assertTrue(failure?.isDatabaseKeyUnavailable() == true)
+        assertTrue(before.contentEquals(file.readBytes()))
+        assertFalse(File(file.path + SqlCipherDatabaseFiles.ASIDE_SUFFIX).exists())
+
+        // Nächster Lauf (neuer Prozess): jetzt verloren → beiseite
+        val nextRun = DatabaseKeyStore(context, alias = TEST_ALIAS, directory = keyDirectory, runSeen = mutableSetOf())
+        withMain(EncryptingOpenHelperFactory(context, nextRun)) { main -> assertEquals(0, count(main, "watches")) }
         val aside = File(context.getDatabasePath(MAIN).path + SqlCipherDatabaseFiles.ASIDE_SUFFIX)
         assertTrue(aside.exists())
         assertEquals(FileKind.ENCRYPTED, SqlCipherDatabaseFiles.kindOf(aside))
