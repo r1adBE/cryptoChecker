@@ -6,9 +6,9 @@ package com.cryptochecker.app.data
  *
  * Seit Build 93: Scheiterte das Zurückrollen, blieb das Journal liegen und jeder Start versuchte es erneut. Der Nutzer
  * arbeitet aber weiter — ein späteres, gelungenes Zurückrollen hätte Tage an Änderungen mit dem Stand vor dem
- * Wiederherstellen überschrieben, und der Hinweis «nicht vollständig» kam bei jedem Start. Darum genau ein weiterer
- * Versuch beim nächsten Start und nie mit einem Journal, das älter als [MAX_AGE_MS] ist; danach aufgeben (Journal
- * löschen, Hinweis «nicht zurückgeschrieben» einmal).
+ * Wiederherstellen überschrieben, und der Hinweis «nicht vollständig» kam bei jedem Start. Darum je Journal genau ein
+ * Zurückrollen beim Start (nie mit einem Journal, das älter als [MAX_AGE_MS] ist); scheitert es, gibt der nächste Start
+ * auf (Journal löschen, Hinweis «nicht zurückgeschrieben» einmal).
  */
 object RestoreRecoveryPolicy {
     /** Älter: der Nutzer hat inzwischen sehr wahrscheinlich weitergearbeitet. */

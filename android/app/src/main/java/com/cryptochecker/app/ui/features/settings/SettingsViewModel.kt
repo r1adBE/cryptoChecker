@@ -86,9 +86,12 @@ class SettingsViewModel @Inject constructor(
         // Nur die Oberfläche vor dem letzten Bestätigen fällt weg; ein bereits laufendes
         // Wiederherstellen (restoreBackup) hat den Schritt schon geleert und läuft zu Ende.
         viewModelScope.launch {
-            sessionLocked.collect { locked -> if (locked) _restoreStep.value = null }
+            // Gesperrt: auch die gelesene Sicherung (bis 64 MB samt Klartext) aus dem Speicher
+            sessionLocked.collect { locked -> if (locked) { _restoreStep.value = null; backupManager.forgetPickedBackup() } }
         }
     }
+
+    override fun onCleared() { backupManager.forgetPickedBackup(); super.onCleared() }
 
     val settings: StateFlow<AppSettings> = settingsRepository.settings
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AppSettings())

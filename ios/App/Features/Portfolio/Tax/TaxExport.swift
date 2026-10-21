@@ -253,10 +253,10 @@ enum TaxExport {
         let times = disposals(in: trades, method: method, period: upTo, timeZone: timeZone, priceAt: priceAt,
                               rules: rules, walletFrom: walletFrom)
             .flatMap { d -> [Int64] in
-                var times: [Int64] = []
-                if let a = d.acquiredTime { times.append(a) }
-                if let m = d.matchedTime { times.append(m) }
-                return times + d.costParts.map(\.time)
+                var out: [Int64] = []
+                if let a = d.acquiredTime { out.append(a) }
+                if let m = d.matchedTime { out.append(m) }
+                return out + d.costParts.map(\.time)
             }
         var from = period.start
         if let first = times.min().map({ localDay($0, timeZone: timeZone) }), first < period.start { from = first }

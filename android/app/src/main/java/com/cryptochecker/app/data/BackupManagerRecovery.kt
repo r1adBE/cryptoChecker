@@ -14,8 +14,8 @@ import org.json.JSONObject
 import timber.log.Timber
 
 /**
- * Journal gefunden: zurückrollen, wenn [RestoreRecoveryPolicy] es noch erlaubt (genau ein weiterer Versuch nach einem
- * gescheiterten, nie mit einem Journal älter als einen Tag) — sonst aufgeben: Journal weg, Hinweis «nicht
+ * Journal gefunden: zurückrollen, wenn [RestoreRecoveryPolicy] es noch erlaubt (genau ein Zurückrollen je Journal beim Start,
+ * nie mit einem Journal älter als einen Tag) — sonst aufgeben: Journal weg, Hinweis «nicht
  * zurückgeschrieben» einmal. Der Nutzer arbeitet nach einem gescheiterten Zurückrollen weiter; ein späteres
  * Zurückrollen überschriebe seine Änderungen.
  */
@@ -57,7 +57,7 @@ internal suspend fun BackupManager.recoverFromJournal(text: String) {
     val complete = withContext(NonCancellable) {
         rollBack(previous, Step.entries.toSet(), IllegalStateException("Wiederherstellen abgebrochen"))
     }
-    // Gescheitert: Journal bleibt für genau einen weiteren Versuch beim nächsten Start
+    // Gescheitert: Versuch vermerkt — der nächste Start rollt nicht erneut zurück, sondern gibt auf (Journal weg, Hinweis)
     if (complete) runCatchingCancellable { journal.delete() } else StorageRecoveryNotice.recordRollBackAttempt(context, createdAt)
     StorageRecoveryNotice.recordInterruptedRestore(context, rolledBack = complete)
 }
