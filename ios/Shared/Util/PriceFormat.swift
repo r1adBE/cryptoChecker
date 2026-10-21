@@ -210,19 +210,18 @@ enum PriceFormat {
     /// englisch («vor 7d»).
     static func age(since millis: Int64, now: Int64 = TimeUtils.nowMillis, locale: Locale = LocaleNumbers.appLocale) -> String? {
         guard let parts = ageParts(since: millis, now: now) else { return nil }
-        let value = parts.value, unit = parts.unit
-        // Duration.UnitsFormatStyle folgt der übergebenen Sprache (DateComponentsFormatter nähme die Sprache des Bundles);
-        // schmal wie Android MeasureFormat NARROW: en «7d», de «7 T»
-        let seconds: Int64
-        let allowed: Set<Duration.UnitsFormatStyle.Unit>
-        switch unit {
-        case .day: seconds = value * 86_400; allowed = [.days]
-        case .hour: seconds = value * 3_600; allowed = [.hours]
-        case .minute: seconds = value * 60; allowed = [.minutes]
-        default: seconds = value; allowed = [.seconds]
-        }
-        return Duration.seconds(seconds).formatted(
-            Duration.UnitsFormatStyle(allowedUnits: allowed, width: .narrow, maximumUnitCount: 1).locale(locale))
+        // DateComponentsFormatter .abbreviated wie Android MeasureFormat NARROW (en «7d», de «7 T.»). Die Sprache kommt
+        // über den Kalender (calendar.locale), sonst nähme der Formatter die Sprache des Bundles.
+        // Duration.UnitsFormatStyle .narrow lieferte auf iOS 26 für de «7d» (Build 94 CI).
+        let f = DateComponentsFormatter()
+        f.unitsStyle = .abbreviated
+        f.maximumUnitCount = 1
+        f.allowedUnits = parts.unit
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = locale
+        f.calendar = calendar
+        let seconds = Double(parts.value) * (parts.unit == .day ? 86_400 : parts.unit == .hour ? 3_600 : parts.unit == .minute ? 60 : 1)
+        return f.string(from: seconds)
     }
 
     static func duration(_ millis: Int64) -> String {
