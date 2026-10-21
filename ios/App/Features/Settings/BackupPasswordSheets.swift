@@ -121,12 +121,27 @@ struct BackupExportSheet: View {
     }
 }
 
-/// Verschlüsselte Sicherung gewählt: Passwort abfragen. `check` prüft das Passwort (im Hintergrund)
-/// und gibt true zurück, wenn es passt; sonst bleibt das Blatt mit Hinweis offen (erneut versuchen).
+/// Ergebnis der Passwortprüfung beim Wiederherstellen einer verschlüsselten Sicherung.
+enum BackupPasswordCheck: Equatable {
+    /// Passwort passt: Blatt schliessen, Rückfrage folgt.
+    case accepted
+    /// Falsches Passwort (oder Datei verändert): Blatt bleibt mit Hinweis offen, erneut versuchen.
+    case wrongPassword
+    /// Anderer Fehler (zu gross, neuere Version, kaputt, zu wenig Speicher) oder wieder gesperrt: der Aufrufer
+    /// hat das Blatt schon geschlossen und den Fehler selbst gemeldet (samt Fehler-Haptik).
+    case handled
+
+    /// Haptik, die das Blatt selbst spielt: nur beim falschen Passwort — sonst kämen bei `handled` zwei
+    /// Fehler-Vibrationen (Android spielt je Fehlschlag genau eine).
+    var sheetHaptic: HapticEvent? { self == .wrongPassword ? .error : nil }
+}
+
+/// Verschlüsselte Sicherung gewählt: Passwort abfragen. `check` prüft das Passwort (im Hintergrund);
+/// bei `.wrongPassword` bleibt das Blatt mit Hinweis offen (erneut versuchen).
 /// Während der Prüfung ist «Weiter» gesperrt — wie `BackupPasswordDialog` (checking) unter Android.
 @MainActor
 struct BackupImportPasswordSheet: View {
-    let check: @MainActor (String) async -> Bool
+    let check: @MainActor (String) async -> BackupPasswordCheck
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appAccent) private var accent
@@ -135,7 +150,7 @@ struct BackupImportPasswordSheet: View {
     @State private var wrong = false
     @State private var checking = false
 
-    init(check: @escaping @MainActor (String) async -> Bool) {
+    init(check: @escaping @MainActor (String) async -> BackupPasswordCheck) {
         self.check = check
     }
 
@@ -182,15 +197,19 @@ struct BackupImportPasswordSheet: View {
         let entered = password
         checking = true
         Task {
-            let ok = await check(entered)
+            let outcome = await check(entered)
             checking = false
-            if ok {
+            if let haptic = outcome.sheetHaptic { Haptics.play(haptic) }
+            switch outcome {
+            case .accepted:
                 dismiss()
-            } else {
+            case .wrongPassword:
                 // Falsch oder Datei verändert: Feld leeren, Hinweis zeigen, nochmals versuchen
-                Haptics.play(.error)
                 wrong = true
                 password = ""
+            case .handled:
+                // Blatt ist schon zu, Fehler samt Haptik hat der Aufrufer gemeldet
+                break
             }
         }
     }

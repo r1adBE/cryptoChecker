@@ -31,6 +31,20 @@ class HapticsUsageTest {
         assertTrue("Haptik im Hintergrund, in Mitteilungen oder Widgets: $hits", hits.isEmpty())
     }
 
+    /**
+     * Daten-, Domänen- und Hilfscode spielt nie selbst Haptik: er darf ein Ereignis höchstens zuordnen
+     * (Typ `HapticEvent` ist erlaubt), abspielen muss es der Bildschirm, der die Handlung ausgelöst hat.
+     */
+    @Test
+    fun noHapticPlaybackInDataDomainOrUtil() {
+        val root = androidSources() ?: return
+        val hits = NON_UI_DIRS.flatMap { dir ->
+            val pkg = File(root, dir)
+            if (!pkg.isDirectory) emptyList() else findUses(pkg, "kt", ANDROID_PLAYBACK, allowed = emptySet()).map { "$dir/$it" }
+        }
+        assertTrue("Haptik wird in Daten-/Domänen-/Hilfscode abgespielt: $hits", hits.isEmpty())
+    }
+
     @Test
     fun iosHapticsOnlyThroughTheCatalog() {
         val ios = iosRoot() ?: return // reiner Android-Checkout
@@ -50,6 +64,16 @@ class HapticsUsageTest {
             if (!dir.isDirectory) emptyList() else findUses(dir, "swift", IOS_CATALOG, allowed = emptySet()).map { "$top/$it" }
         }
         assertTrue("Haptik in Widgets oder geteiltem Code: $hits", hits.isEmpty())
+    }
+
+    /** iOS-Dienste (App/Services) ordnen Ereignisse höchstens zu (z. B. `AddWatchedResult.haptic`), spielen sie aber nie ab. */
+    @Test
+    fun noHapticPlaybackInIosServices() {
+        val ios = iosRoot() ?: return
+        val dir = File(ios, "App/Services")
+        if (!dir.isDirectory) return
+        val hits = findUses(dir, "swift", IOS_PLAYBACK, allowed = emptySet()).map { "App/Services/$it" }
+        assertTrue("Haptik wird in App/Services abgespielt: $hits", hits.isEmpty())
     }
 
     /** «Datei:Zeile» aller Treffer von [pattern] in Codezeilen (Kommentare zählen nicht) unter [dir], ohne [allowed]. */
@@ -89,7 +113,14 @@ class HapticsUsageTest {
         val IOS_DIRECT = Regex("""UIImpactFeedbackGenerator|UINotificationFeedbackGenerator|UISelectionFeedbackGenerator|\.sensoryFeedback\(""")
         val IOS_CATALOG = Regex("""Haptics\.play\(|\.haptic\(""")
 
+        /** Abspielen (nicht der Typ): in Code ohne Bildschirm verboten, Zuordnungen auf `HapticEvent` bleiben erlaubt. */
+        val ANDROID_PLAYBACK = Regex("""rememberHaptics\(|Haptics\.play\(|\bHapticPlayer\b|performHapticFeedback""")
+        val IOS_PLAYBACK = Regex("""Haptics\.play\(|\.haptic\(|FeedbackGenerator""")
+
         /** Pakete ohne Bildschirm (relativ zu `com/cryptochecker/app`). */
         val BACKGROUND_DIRS = listOf("notification", "widget", "work", "tts")
+
+        /** Daten-, Domänen- und Hilfspakete (relativ zu `com/cryptochecker/app`): kein Abspielen, Zuordnen erlaubt. */
+        val NON_UI_DIRS = listOf("data", "domain", "lock", "util", "settings", "di")
     }
 }

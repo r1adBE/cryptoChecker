@@ -140,7 +140,7 @@ struct BackupSettingsPage: View {
                 // Während der Prüfung wieder gesperrt: Blatt ist schon zu, keine Rückfrage
                 if lock.locked {
                     encryptedFile = nil
-                    return false
+                    return .handled
                 }
                 do {
                     let plain = try result.get()
@@ -149,27 +149,27 @@ struct BackupSettingsPage: View {
                     pendingPreview = (try? BackupManager.preview(plain)) ?? BackupManager.RestorePreview()
                     pendingEncrypted = true
                     pendingRestore = plain
-                    return true
+                    return .accepted
                 } catch BackupCrypto.Failure.wrongPassword {
-                    return false
+                    return .wrongPassword
                 } catch BackupCrypto.Failure.notEnoughMemory {
                     // Kein erneuter Versuch mit demselben Passwort: erst Speicher freigeben
                     encryptedFile = nil
                     fail("backup_not_enough_memory")
-                    return false
+                    return .handled
                 } catch BackupLimits.Failure.tooLarge {
                     encryptedFile = nil
                     fail("backup_too_large")
-                    return false
+                    return .handled
                 } catch BackupVersion.Failure.newer {
                     encryptedFile = nil
                     fail("backup_restore_newer_version")
-                    return false
+                    return .handled
                 } catch {
                     // Unbekannte Version oder kaputte Datei: kein erneuter Versuch
                     encryptedFile = nil
                     fail("backup_failed")
-                    return false
+                    return .handled
                 }
             }
         }

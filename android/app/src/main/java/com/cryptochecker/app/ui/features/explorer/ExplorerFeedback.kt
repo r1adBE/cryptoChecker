@@ -13,6 +13,7 @@ import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.util.LocaleNumbers
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.components.rememberOneShotGate
 
 /**
  * Rückmeldungen als Snackbar statt Text, der das Layout verschiebt: Paar übernommen bzw. schon
@@ -42,7 +43,15 @@ internal fun ExplorerFeedback(
     val fullText = watchlistFullText()
     // Haptik wie iOS: übernommen = Erfolg; schon da, kein Paar gewählt oder Merkliste voll = Warnung
     val haptics = rememberHaptics()
+    // Nach Drehen/Dunkelmodus hält das ViewModel die Meldung evtl. noch: dann nicht nochmals zeigen, nur abräumen
+    val addGate = rememberOneShotGate()
+    val dexGate = rememberOneShotGate()
+    val bulkGate = rememberOneShotGate()
     LaunchedEffect(addResult) {
+        if (!addGate.claim(addResult)) {
+            if (addResult != null) onAddResultShown()
+            return@LaunchedEffect
+        }
         val state = addResult ?: return@LaunchedEffect
         haptics.play(if (state == AddResult.ADDED) HapticEvent.SUCCESS else HapticEvent.WARNING)
         if (state == AddResult.ADDED) requestNotifications()
@@ -85,7 +94,15 @@ internal fun ExplorerFeedback(
             is DexMessage.AlreadyInList -> dexAlreadyText
             is DexMessage.Failed -> dexFailedText
             else -> null
-        } ?: return@LaunchedEffect
+        } ?: run {
+            // Ohne Snackbar (z. B. keine Treffer, steht im Bildschirm): nicht abräumen
+            dexGate.claim(null)
+            return@LaunchedEffect
+        }
+        if (!dexGate.claim(dexMessage)) {
+            dex.onMessageShown()
+            return@LaunchedEffect
+        }
         if (dexMessage is DexMessage.Added) requestNotifications()
         // Gescheiterte Suche ohne Haptik (wie iOS) — nur Aufnehmen gibt Rückmeldung
         if (dexMessage !is DexMessage.Failed) {
@@ -108,7 +125,12 @@ internal fun ExplorerFeedback(
     }
 
     LaunchedEffect(bulkAddResult) {
-        val state = bulkAddResult?.takeIf { !it.running } ?: return@LaunchedEffect
+        val done = bulkAddResult?.takeIf { !it.running }
+        if (!bulkGate.claim(done)) {
+            if (done != null) onBulkAddResultShown()
+            return@LaunchedEffect
+        }
+        val state = done ?: return@LaunchedEffect
         if (state.added > 0) requestNotifications()
         haptics.play(if (state.added > 0) HapticEvent.SUCCESS else HapticEvent.WARNING)
         try {

@@ -54,6 +54,7 @@ import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.ui.components.rememberOneShotGate
 
 /**
  * «Paar bearbeiten» (Stift neben dem Paar im Aktionsblatt), volle Höhe: Börse, Coin,
@@ -93,7 +94,11 @@ internal fun WatchEditSheet(
             onDismiss()
         }
     }
-    LaunchedEffect(state.duplicate) { if (state.duplicate) haptics.play(HapticEvent.WARNING) }
+    // Warnung einmal je Doppel — der Hinweis bleibt stehen, nach Drehen/Dunkelmodus aber keine zweite Vibration
+    val duplicateGate = rememberOneShotGate(watch.id)
+    LaunchedEffect(state.duplicate) {
+        if (duplicateGate.claim(state.duplicate.takeIf { it })) haptics.play(HapticEvent.WARNING)
+    }
 
     val current = WatchEdit.Key.of(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, watch.pairId)
     val target = state.key

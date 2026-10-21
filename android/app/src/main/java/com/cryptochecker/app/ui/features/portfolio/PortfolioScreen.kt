@@ -30,6 +30,8 @@ import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
+import com.cryptochecker.app.ui.components.HapticEvent
+import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.components.AppFab
 import com.cryptochecker.app.ui.components.SkeletonList
 import com.cryptochecker.app.ui.components.TabTitle
@@ -220,8 +222,10 @@ fun PortfolioScreen(
 
     // Wischen auf einem Coin: erst Rückfrage mit der Zahl der Transaktionen, dann alle weg, «Rückgängig» im Banner
     var askDeleteCoin by rememberSaveable { mutableStateOf<String?>(null) }
+    val coinHaptics = rememberHaptics()
     fun deleteCoin(coin: String) {
         viewModel.deleteCoin(coin) { removed ->
+            if (removed.isNotEmpty()) coinHaptics.play(HapticEvent.DESTRUCTIVE)
             val text = resources.getQuantityString(R.plurals.portfolio_coin_removed, removed.size, coin, removed.size)
             banner.show(text) { viewModel.restore(removed) }
         }

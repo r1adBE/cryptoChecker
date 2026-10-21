@@ -37,4 +37,12 @@ final class HapticsTests: XCTestCase {
         XCTAssertEqual(AddWatchedResult.limitReached.haptic, .warning)
         XCTAssertEqual(AddWatchedResult.locked.haptic, .error)
     }
+
+    /// Verschlüsselte Sicherung: genau eine Fehler-Vibration je Fehlschlag (wie Android) — das Blatt spielt nur beim
+    /// falschen Passwort; zu gross, neuere Version, kaputt oder zu wenig Speicher meldet der Aufrufer selbst.
+    func testBackupPasswordSheetPlaysErrorOnlyForWrongPassword() {
+        XCTAssertEqual(BackupPasswordCheck.wrongPassword.sheetHaptic, .error)
+        XCTAssertNil(BackupPasswordCheck.handled.sheetHaptic)
+        XCTAssertNil(BackupPasswordCheck.accepted.sheetHaptic)
+    }
 }

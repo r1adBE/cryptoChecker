@@ -121,9 +121,9 @@ fun PortfolioDetailScreen(
 
     val haptics = rememberHaptics()
     fun deleteTx(tx: PortfolioTxEntity) {
-        haptics.play(HapticEvent.DESTRUCTIVE)
         banner.show(removedText) { viewModel.restore(listOf(tx)) }
-        viewModel.delete(tx.id)
+        // Haptik erst nach dem Ergebnis, wie iOS
+        viewModel.delete(tx.id) { ok -> if (ok) haptics.play(HapticEvent.DESTRUCTIVE) }
     }
 
     sheet?.let { draft ->

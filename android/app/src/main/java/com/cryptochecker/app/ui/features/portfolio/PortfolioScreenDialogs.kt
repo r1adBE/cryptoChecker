@@ -158,8 +158,9 @@ internal fun PortfolioScreenDialogs(
                 // Danach «Rückgängig» im Banner (alle Transaktionen mit ihren ids zurück), wie beim Löschen eines Coins
                 TextButton(onClick = {
                     onAskClearChange(false)
-                    haptics.play(HapticEvent.DESTRUCTIVE)
+                    // Haptik erst nach dem Löschen und nur, wenn etwas weg ist (wie iOS); gesperrt nennt es der Dauerhinweis
                     viewModel.clearAll { removed ->
+                        haptics.play(HapticEvent.DESTRUCTIVE)
                         banner.show(resources.getQuantityString(R.plurals.portfolio_cleared, removed.size, removed.size)) {
                             viewModel.restore(removed)
                         }
@@ -181,13 +182,13 @@ internal fun PortfolioScreenDialogs(
  */
 @Composable
 internal fun DeleteCoinDialog(coin: String, count: Int, onConfirm: () -> Unit, onDismiss: () -> Unit) {
-    val haptics = rememberHaptics()
+    // Haptik erst nach dem Löschen ([PortfolioScreen] deleteCoin), wie iOS
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.portfolio_coin_delete_title, coin)) },
         text = { Text(pluralStringResource(R.plurals.portfolio_coin_delete_confirm, count, count)) },
         confirmButton = {
-            TextButton(onClick = { haptics.play(HapticEvent.DESTRUCTIVE); onConfirm() }) {
+            TextButton(onClick = onConfirm) {
                 Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)
             }
         },

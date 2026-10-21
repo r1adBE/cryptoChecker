@@ -188,8 +188,10 @@ fun PortfolioTxSheet(
             confirmButton = {
                 TextButton(onClick = {
                     askDelete = false
-                    haptics.play(HapticEvent.DESTRUCTIVE)
-                    viewModel.delete(initial.id)
+                    // Haptik nach dem Ergebnis: gelöscht = destruktiv, gesperrt = Fehler (wie iOS)
+                    viewModel.delete(initial.id) { deleted ->
+                        haptics.play(if (deleted) HapticEvent.DESTRUCTIVE else HapticEvent.ERROR)
+                    }
                     onDismiss()
                 }) { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) }
             },
