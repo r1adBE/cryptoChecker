@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.util.PercentText
 import androidx.compose.ui.graphics.lerp
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.withSmallQuote
@@ -210,7 +211,7 @@ internal fun PortfolioAlarmDialog(
                             else stringResource(R.string.alarm_field_percent)
                         )
                     },
-                    suffix = { Text(if (kind.isValue) currency else "%") },
+                    suffix = { Text(if (kind.isValue) currency else PercentText.symbol()) },
                     isError = text.isNotBlank() && !valid,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp)

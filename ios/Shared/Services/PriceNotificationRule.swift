@@ -13,4 +13,8 @@ enum PriceNotificationRule {
     /// Bezug der Melde-Schwelle nach dem Einschalten: gezeigt → der gezeigte Kurs; nicht gezeigt → keiner,
     /// damit die nächste Aktualisierung (mit Kurs-Mitteilungen an) sofort meldet.
     static func referenceAfterEnable(shown: Bool, price: Double?) -> Double? { shown ? price : nil }
+
+    /// Kurs-Mitteilungen eben ausgeschaltet (an → aus)? Nur dann alle entfernen — nicht bei jeder anderen
+    /// Einstellungs-Änderung (iOS: `AppData.settingsChanged`; Android räumt im eigenen Einstellungs-Pfad auf).
+    static func switchedOff(old: Bool, new: Bool) -> Bool { old && !new }
 }

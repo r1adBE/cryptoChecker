@@ -167,8 +167,8 @@ enum SharedStorage {
         /// (`settingsCorrupt`). Seit Build 97 meldet die App das einmal (`StorageRecoveryNotice.settingsReset`).
         var corrupt = false
 
-        /// Portfolio-Sperre: unbekannt (Ablage nicht zugänglich) → an.
-        var appLockAssumed: Bool { state == .inaccessible || settings.appLock }
+        /// Portfolio-Sperre: unbekannt (Ablage nicht zugänglich, seit Build 102 auch unlesbar) → an.
+        var appLockAssumed: Bool { state == .inaccessible || corrupt || settings.appLock }
     }
 
     /// Entscheidung rein (testbar). `protectedDataAvailable`: in der App `UIApplication.isProtectedDataAvailable`,
@@ -189,6 +189,15 @@ enum SharedStorage {
     /// Installation oder gesperrte Ablage). Wie Android, wo DataStore nur unlesbaren Inhalt ersetzt.
     static func settingsCorrupt(hasData: Bool, decodes: Bool) -> Bool { hasData && !decodes }
 
+    /// Rein (testbar): gelesene Einstellungen bzw. Standardwerte. Seit Build 102 nach unlesbarem Stand mit Portfolio-Sperre
+    /// an — unbekannt heisst gesperrt, bis der Nutzer sie selbst ausschaltet (wie Android `SettingsLockFallback`); bis
+    /// Build 101 stand sie dann still auf «aus».
+    static func settingsAfterRead(_ decoded: AppSettings?, corrupt: Bool) -> AppSettings {
+        var settings = decoded ?? AppSettings()
+        if corrupt { settings.appLock = true }
+        return settings
+    }
+
     static func loadSettingsChecked(protectedDataAvailable: Bool? = nil) -> LoadedSettings {
         let store = defaults
         let data = store.data(forKey: settingsKey)
@@ -196,8 +205,8 @@ enum SharedStorage {
         let state = settingsReadState(hasData: data != nil, decodes: decoded != nil,
                                       markerPresent: store.object(forKey: settingsMarkerKey) != nil,
                                       protectedDataAvailable: protectedDataAvailable)
-        return LoadedSettings(settings: decoded ?? AppSettings(), state: state,
-                              corrupt: settingsCorrupt(hasData: data != nil, decodes: decoded != nil))
+        let corrupt = settingsCorrupt(hasData: data != nil, decodes: decoded != nil)
+        return LoadedSettings(settings: settingsAfterRead(decoded, corrupt: corrupt), state: state, corrupt: corrupt)
     }
 
     /// Einstellungen oder Standardwerte (fehlend wie nicht zugänglich). Für die Portfolio-Sperre

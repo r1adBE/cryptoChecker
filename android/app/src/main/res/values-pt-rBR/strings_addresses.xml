@@ -23,6 +23,10 @@
     <string name="portfolio_address_xpub_privacy">Uma xpub revela todos os endereços desta carteira. Eles são derivados no seu dispositivo; para %1$s vão só endereços individuais – pelo menos 40 solicitações na primeira busca, depois menos. Chaves privadas (xprv) nunca são aceitas.</string>
     <string name="portfolio_address_xpub_gap">A busca para depois de %1$d endereços não usados em sequência (o padrão BIP44 usado pela maioria das carteiras). Um endereço usado além desse intervalo não é contado – adicione-o separadamente.</string>
     <string name="portfolio_address_xpub_used">Endereços em uso: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Endereços usados demais para atualizar</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <string name="portfolio_address_xpub_limited">Endereços demais – pagamentos novos para endereços antigos e vazios podem não ser detectados</string>
     <string name="portfolio_addresses_title">Endereços</string>
 
     <!-- Prüfung einer eingegebenen Adresse -->

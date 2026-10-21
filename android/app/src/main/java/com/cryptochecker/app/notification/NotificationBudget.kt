@@ -105,6 +105,13 @@ object NotificationBudget {
     }
 
     /**
+     * Fehlen nach Kurs-, Aktivitäts- und Sammelmeldung noch [remaining] Plätze: so viele der ältesten Alarm-Meldungen
+     * ([alarmsOldestFirst], ohne die neue [newId]) entfernen. Ein neuer Alarm ist wichtiger als ein längst gesehener.
+     */
+    fun alarmsToEvict(remaining: Int, alarmsOldestFirst: List<Int>, newId: Int): List<Int> =
+        if (remaining <= 0) emptyList() else alarmsOldestFirst.filter { it != newId }.take(remaining)
+
+    /**
      * Alarm wurde gemeldet, stand danach aber nicht unter den offenen Mitteilungen: Er bleibt scharf,
      * meldet aber erst nach der Abklingzeit (mindestens [MIN_RETRY_MINUTES]) erneut — kein Dauerfeuer,
      * falls die Prüfung irrt.

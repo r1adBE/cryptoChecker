@@ -83,3 +83,19 @@ internal fun DatabaseEncryptionMigration.usableOrNewKey(database: String): ByteA
         null
     }
 }
+
+/**
+ * Seit Build 102: beiseitegelegte Kopien löschen, die [DatabaseEncryptionMigration.asideExpired] freigibt ([AsideRetention]).
+ * Nur aus dem Weg «gespeicherter Schlüssel öffnet die aktuelle Datei» und nach [restoreFromAside] — die aktuelle Datei
+ * ist nie darunter. Fehler bleiben still (die Kopie bleibt, der nächste Start versucht es erneut).
+ */
+internal fun DatabaseEncryptionMigration.pruneAside(database: String) {
+    val copies = runCatching { files.asideCopies(database) }.getOrDefault(emptyList())
+    if (copies.isEmpty()) return
+    val expired = runCatching { asideExpired(database, copies) }.getOrDefault(emptyList())
+    for (copy in expired.filter { it in copies }) {
+        runCatching { files.deleteAside(database, copy) }
+            .onSuccess { log("$database: beiseitegelegte Kopie nach Frist gelöscht", null) }
+            .onFailure { log("$database: beiseitegelegte Kopie nicht gelöscht", it) }
+    }
+}

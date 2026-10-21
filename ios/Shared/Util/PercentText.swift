@@ -42,6 +42,15 @@ enum PercentText {
     /// Arabisches Prozentzeichen «٪» (U+066A) zu arabischen/persischen Ziffern.
     private static let arabicPercent = "\u{066A}"
 
+    /// Nur das Prozentzeichen der Sprache von `locale` als Einheit hinter einem Eingabefeld: «٪» zu arabischen bzw.
+    /// persischen Ziffern, sonst «%». Im Feld steht es immer hinten wie eine Währung (auch Türkisch, wo die fertige
+    /// Zahl «%5» schreibt): die Eingabe beginnt so immer mit der Zahl. Wie `PercentText.symbol` (Android).
+    static func symbol(locale: Locale = LocaleNumbers.appLocale) -> String {
+        let language = locale.language.languageCode?.identifier ?? ""
+        if language == "ar" || language == "fa", LocaleNumbers.integer(0, locale: locale) != "0" { return arabicPercent }
+        return "%"
+    }
+
     /// Fertige Zahl `number` (ohne Vorzeichen) mit dem Prozentzeichen der Sprache von `locale`.
     static func wrap(_ number: String, locale: Locale = LocaleNumbers.appLocale) -> String {
         let language = locale.language.languageCode?.identifier ?? ""

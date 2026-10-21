@@ -23,6 +23,10 @@
     <string name="portfolio_address_xpub_privacy">En xpub avslører alle adressene i denne walleten. De utledes på enheten din; bare enkeltadresser sendes til %1$s – minst 40 forespørsler ved første søk, senere færre. Private nøkler (xprv) godtas aldri.</string>
     <string name="portfolio_address_xpub_gap">Søket stopper etter %1$d ubrukte adresser på rad (BIP44-standarden de fleste lommebøker bruker). En brukt adresse etter dette gapet telles ikke med – legg den til separat.</string>
     <string name="portfolio_address_xpub_used">Adresser i bruk: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">For mange brukte adresser til en oppdatering</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <string name="portfolio_address_xpub_limited">Svært mange adresser – nye betalinger til gamle, tomme adresser blir kanskje ikke oppdaget</string>
     <string name="portfolio_addresses_title">Adresser</string>
 
     <!-- Prüfung einer eingegebenen Adresse -->

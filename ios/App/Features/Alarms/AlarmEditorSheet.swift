@@ -83,7 +83,7 @@ struct AlarmEditorSheet: View {
 
     /// Einheit hinter dem Eingabefeld.
     var thresholdUnit: String {
-        if draft.condition.isPercent || draft.condition.isNearExtreme || draft.condition.isDerivatives { return "%" }
+        if draft.condition.isPercent || draft.condition.isNearExtreme || draft.condition.isDerivatives { return PercentText.symbol() }
         if offerCurrency && draft.currency != nil { return otherCurrency }
         return watch?.quoteAsset ?? ""
     }

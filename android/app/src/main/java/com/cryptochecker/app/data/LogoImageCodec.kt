@@ -24,6 +24,8 @@ internal object LogoImageCodec {
         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
         BitmapFactory.decodeByteArray(bytes, 0, bytes.size, bounds)
         if (bounds.outWidth <= 0 || bounds.outHeight <= 0) return null
+        // Dekompressions-Bombe (riesige Masse in wenigen Bytes): gar nicht erst dekodieren, wie iOS
+        if (CoinLogos.sourceTooLarge(bounds.outWidth, bounds.outHeight)) return null
         if (isPng(bytes) && max(bounds.outWidth, bounds.outHeight) <= CoinLogos.STORED_PX) return bytes
         val bitmap = decodeScaled(bytes, bounds) ?: return null
         val out = ByteArrayOutputStream()

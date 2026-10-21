@@ -258,6 +258,11 @@ extension PortfolioCalculator {
                 let holdings = book.holdings
                 let requested = amount + t.coinFeeExact
                 if requested > holdings { oversold = true }
+                // Gebühr auf den nicht erfassten Teil (auch bei leerem Bestand): vermerkt statt still verloren
+                let uncoveredFee = PortfolioFeeExpenses.withdrawalUncovered(t, holdings: holdings)
+                if uncoveredFee > 0 {
+                    unassignedFees.append(PortfolioUnassignedFee(coin: symbol, txId: t.id, time: t.time, usdt: uncoveredFee))
+                }
                 if holdings <= 0 { continue }
                 // Gebühr USDT + Wert der Gebühr im dritten Coin: Aufwand (realisiert), wie im Zeitraum
                 expense(e, .WITHDRAWAL, PortfolioFeeExpenses.withdrawal(t, holdings: holdings))

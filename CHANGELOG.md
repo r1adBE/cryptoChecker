@@ -15,6 +15,16 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 102)
+
+* Backups: restoring refuses before replacing anything when the safety journal of the current data cannot be written (e.g. key temporarily unavailable) and says so; the rollback path is tested on its own. Alerts with a threshold of 0 or less (price level, percent, move, volume spike, open interest) are dropped and counted as invalid. Settings round-trip Android ↔ iOS checked against a shared fixture.
+* Android storage: a device key that is briefly unavailable is retried and only treated as lost after a second app start; the portfolio lock is assumed on when the settings file is damaged; the backup password is no longer kept in memory (salted hash) and decrypted backup content expires after 5 minutes; set-aside database copies are deleted after the notice was confirmed and 30 days have passed. iOS: unreadable settings are also stored with the lock on.
+* Alerts: iOS limits notifications per refresh like Android (20 plus a summary); percent-down thresholds are range-checked; editing an alert keeps fields saved meanwhile; re-arming checks the currency; the move history is stored per pair.
+* Portfolio and tax: French fee path for uncovered rows, Austrian old holdings, rounding to 18 digits (banker's rounding) on both platforms; deleting a coin also removes fee references to it (with a notice); fees of withdrawals without a coin are shown as unassigned; an xpub with very many used addresses falls back to the quick search instead of failing daily and shows a hint.
+* iOS widgets: shared row layout, safer logo decoding, per-widget storage, 10 s deadline for the portfolio widget, data written durably; reduce-motion respected.
+* Interface: undo combines several removals into one; snackbars instead of toasts; actions have spoken labels; live prices use their own connection pool; the lock prompt opens only once.
+* CI and docs: iOS paths trigger the Android workflow where shared fixtures change, marketdata lint; repository setup script also scans the history for secrets.
+
 ## 16.2.2 (build 101)
 
 * Portfolio: a holding without a known coin name whose ticker stands for different tokens on other exchanges (e.g. BEAM, NEIRO-like symbols) no longer silently takes the Binance price as confirmed – the value is still shown, but marked «Price unchecked», and portfolio alerts treat it like an outdated price (they pause only if it makes up at least 1 % of the portfolio).

@@ -212,6 +212,14 @@ interface WatchDao {
     @Query("SELECT * FROM alarms WHERE watchId = :watchId AND enabled = 1")
     suspend fun getEnabledAlarms(watchId: Long): List<AlarmEntity>
 
+    /** Ids aller Alarme (auch ausgeschalteter) — für das Aufräumen des Alarm-Protokolls nach dem Löschen von Paaren. */
+    @Query("SELECT id FROM alarms")
+    suspend fun getAlarmIds(): List<Long>
+
+    /** Ein Alarm (gespeicherter Stand beim Speichern aus dem Editor); null = gelöscht. */
+    @Query("SELECT * FROM alarms WHERE id = :id")
+    suspend fun getAlarm(id: Long): AlarmEntity?
+
     @Query("SELECT * FROM alarms WHERE enabled = 1")
     suspend fun getAllEnabledAlarms(): List<AlarmEntity>
 
@@ -285,14 +293,20 @@ interface WatchDao {
     )
     suspend fun rearmAlarm(id: Long)
 
-    /** Wie [rearmAlarm], aber nur bei unverändertem, eingeschaltetem Alarm (Aktualisierung). */
+    /**
+     * Wie [rearmAlarm], aber nur bei unverändertem, eingeschaltetem Alarm (Aktualisierung) — auch gleiche Alarm-Währung
+     * wie [markAlarmTriggered] (seit Build 102; sonst stellte eine Kursmarke in EUR nach dem Wechsel auf USD scharf).
+     */
     @Query(
         "UPDATE alarms SET referenceAt = 0 " +
             "WHERE id = :id AND enabled = 1 AND `condition` = :condition AND threshold = :threshold " +
-            "AND windowHours = :windowHours AND `condition` IN ('NEAR_HIGH', 'NEAR_LOW', 'PRICE_ABOVE', 'PRICE_BELOW', " +
+            "AND windowHours = :windowHours AND currency IS :currency " +
+            "AND `condition` IN ('NEAR_HIGH', 'NEAR_LOW', 'PRICE_ABOVE', 'PRICE_BELOW', " +
             "'FUNDING_ABOVE', 'FUNDING_BELOW', 'OI_UP', 'OI_DOWN')"
     )
-    suspend fun rearmAlarmIfUnchanged(id: Long, condition: String, threshold: Double, windowHours: Int): Int
+    suspend fun rearmAlarmIfUnchanged(
+        id: Long, condition: String, threshold: Double, windowHours: Int, currency: String?,
+    ): Int
 
     @Query("SELECT * FROM alarms ORDER BY id ASC")
     suspend fun getAllAlarms(): List<AlarmEntity>

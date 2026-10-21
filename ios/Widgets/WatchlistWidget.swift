@@ -97,8 +97,8 @@ struct WatchlistProvider: AppIntentTimelineProvider {
         var entry = WatchlistEntry.current(theme: configuration.theme, group: configuration.group?.groupName)
         entry.logos = await WidgetLogos.load(for: entry.watches)
         // Zweiter Eintrag, sobald die Uhrzeit oder ein Kurs veraltet («veraltet · 06:42»)
-        // (deaktivierte Paare werden nie «veraltet»)
-        let times = [entry.lastRefreshAt] + entry.watches.filter { !$0.disabled && !ConnectionErrors.isNotTraded($0.lastError) }.flatMap { WidgetFreshness.outdatedTimes($0, afterMillis: entry.outdatedAfter) }
+        // (deaktivierte Paare werden nie «veraltet»; nur gezeigte Paare, `WidgetRows`)
+        let times = [entry.lastRefreshAt] + WidgetRows.shown(entry.watches).filter { !$0.disabled && !ConnectionErrors.isNotTraded($0.lastError) }.flatMap { WidgetFreshness.outdatedTimes($0, afterMillis: entry.outdatedAfter) }
         var entries = WidgetOutdated.entries(entry, date: entry.date, times: times, afterMillis: entry.outdatedAfter) { date in
             var later = entry
             later.date = date
@@ -149,7 +149,7 @@ struct WatchlistWidgetView: View {
                 case .systemSmall:
                     WatchlistSmallView(entry: entry, palette: palette)
                 default:
-                    WatchlistListView(entry: entry, palette: palette, rows: family == .systemLarge ? 10 : 4)
+                    WatchlistListView(entry: entry, palette: palette, rows: family == .systemLarge ? WidgetRows.maxListRows : WidgetRows.mediumListRows)
                 }
             }
             .environment(\.widgetLogos, entry.logos)

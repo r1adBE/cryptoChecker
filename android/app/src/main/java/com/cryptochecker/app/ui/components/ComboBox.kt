@@ -54,6 +54,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.theme.AppColors
+import com.cryptochecker.app.ui.theme.Spacing
 
 /** Mindesthöhe einer Zeile der Aufklappliste (zugleich Tippfläche des Sterns). */
 private val RowHeight = 48.dp
@@ -328,7 +329,13 @@ private fun ComboRow(
                     modifier = Modifier.size(20.dp),
                 )
             }
-            favorite -> Text("★", color = MaterialTheme.colorScheme.primary)
+            // Symbol statt «★»: TalkBack las das Zeichen als «schwarzer Stern»
+            favorite -> Icon(
+                painterResource(R.drawable.ic_star),
+                contentDescription = stringResource(R.string.a11y_favorite),
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(end = Spacing.sm).size(16.dp),
+            )
         }
     }
 }

@@ -32,6 +32,21 @@ enum ActivityMonitor {
         return true
     }
 
+    /// Letzter Versuch je Paar in diesem Prozess (auch ohne Ergebnis) — für `ActivityDueOrder`; nur unter `lock`.
+    nonisolated(unsafe) private static var attempts: [Int64: Int64] = [:]
+
+    private static func markAttempt(_ id: Int64, _ now: Int64) {
+        lock.lock(); defer { lock.unlock() }
+        attempts[id] = now
+    }
+
+    /// Versuche der Paare `ids` (übrige vergessen).
+    private static func attemptsSnapshot(retaining ids: Set<Int64>) -> [Int64: Int64] {
+        lock.lock(); defer { lock.unlock() }
+        attempts = attempts.filter { ids.contains($0.key) }
+        return attempts
+    }
+
     private static func tryStart() -> Bool {
         lock.lock(); defer { lock.unlock() }
         if running { return false }
@@ -73,7 +88,10 @@ enum ActivityMonitor {
 
         let now = TimeUtils.nowMillis
         let previous = ActivityRepository.reports()
-        let due = watches.filter { ActivityAnalyzer.isDue(previous[$0.id], now: now) }
+        // Am längsten nicht geprüfte zuerst: sonst schnitte das Zeitbudget bei grossen Listen immer dieselben ab
+        let due = ActivityDueOrder.order(watches.filter { ActivityAnalyzer.isDue(previous[$0.id], now: now) },
+                                         id: \.id, computedAt: { previous[$0.id]?.computedAt },
+                                         attemptedAt: attemptsSnapshot(retaining: Set(watches.map(\.id))))
         guard !due.isEmpty else { return }
         let sensitivity = settings.activitySensitivity
 
@@ -85,6 +103,7 @@ enum ActivityMonitor {
                 while index < min(maxParallel, due.count) {
                     let watch = due[index]
                     index += 1
+                    markAttempt(watch.id, now)
                     group.addTask {
                         await analyzeOne(watch, previous: previous[watch.id], now: now,
                                          sensitivity: sensitivity, into: collector)
@@ -94,6 +113,7 @@ enum ActivityMonitor {
                     guard index < due.count, !Task.isCancelled else { continue }
                     let watch = due[index]
                     index += 1
+                    markAttempt(watch.id, now)
                     group.addTask {
                         await analyzeOne(watch, previous: previous[watch.id], now: now,
                                          sensitivity: sensitivity, into: collector)

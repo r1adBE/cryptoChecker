@@ -232,6 +232,9 @@ class XpubTokenParityTest {
             usedReceive = it["usedReceive"].list().map { i -> i.num()!!.toInt() },
             usedChange = it["usedChange"].list().map { i -> i.num()!!.toInt() },
             fullScan = it["fullScan"].num()!!.toLong(),
+            // Seit Build 102 (optional): zuletzt leere benutzte Adressen
+            emptyReceive = it["emptyReceive"]?.list()?.map { i -> i.num()!!.toInt() }.orEmpty(),
+            emptyChange = it["emptyChange"]?.list()?.map { i -> i.num()!!.toInt() }.orEmpty(),
         )
     }
 
@@ -267,6 +270,8 @@ class XpubTokenParityTest {
             val cache = scan.cache((0..maxOf(maxIndex[0], 0)).map { "r$it" }, (0..maxOf(maxIndex[1], 0)).map { "c$it" }, 777)
             assertEquals("usedReceive $name", e["usedReceive"].list().map { it.num()!!.toInt() }, cache.usedReceive)
             assertEquals("usedChange $name", e["usedChange"].list().map { it.num()!!.toInt() }, cache.usedChange)
+            e["emptyReceive"]?.let { assertEquals("emptyReceive $name", it.list().map { i -> i.num()!!.toInt() }, cache.emptyReceive) }
+            e["emptyChange"]?.let { assertEquals("emptyChange $name", it.list().map { i -> i.num()!!.toInt() }, cache.emptyChange) }
             val old = scanCache(c["cache"] as Map<String, Any?>?)
             assertEquals(if (c["mode"] == "FULL") 777L else old!!.fullScan, cache.fullScan)
             assertEquals("complete $name", e["complete"] as Boolean? ?: true, scan.complete)
@@ -279,14 +284,34 @@ class XpubTokenParityTest {
                 XpubScan.keepBackground(c["complete"] == true, c["sats"].num()!!.toLong(), c["lastBalance"] as String?),
             )
         }
+        // Seit Build 102 (F-16): benutzte Indizes optional — vollständige Suche sicher zu gross = schnell
+        fun ints(v: Any?) = v?.list()?.map { it.num()!!.toInt() }.orEmpty()
         g["modeFor"].list().map { it.obj() }.forEach { c ->
-            val cache = (c["cache"] as Map<String, Any?>?)?.let { XpubCache(fullScan = it["fullScan"].num()!!.toLong()) }
+            val cache = (c["cache"] as Map<String, Any?>?)?.let {
+                XpubCache(fullScan = it["fullScan"].num()!!.toLong(), usedReceive = ints(it["usedReceive"]), usedChange = ints(it["usedChange"]))
+            }
             assertEquals("modeFor $c", c["mode"], XpubScan.modeFor(cache, c["now"].num()!!.toLong(), c["background"] == true)?.name)
+        }
+        g["fullEstimate"].list().map { it.obj() }.forEach { c ->
+            val cache = XpubCache(usedReceive = ints(c["usedReceive"]), usedChange = ints(c["usedChange"]))
+            assertEquals("fullEstimate $c", c["estimate"].num()!!.toInt(), XpubScan.fullEstimate(cache))
         }
         // Zwischenspeicher hin und zurück; unpassende Indizes fallen weg
         val cache = XpubCache(listOf("a", "b"), listOf("c"), listOf(1), listOf(0), 42)
         assertEquals(cache, XpubCache.fromJson(XpubCache.toJson(cache)))
         assertEquals(listOf(1), XpubCache.fromJson(org.json.JSONObject("{\"r\":[\"a\",\"b\"],\"ru\":[1,5,-1,1]}"))!!.usedReceive)
+        // Seit Build 102: leere benutzte hin und zurück; nur benutzte Indizes bleiben
+        val withEmpty = XpubCache(listOf("a", "b"), listOf("c"), listOf(0, 1), listOf(0), 42, emptyReceive = listOf(1), emptyChange = listOf(0))
+        assertEquals(withEmpty, XpubCache.fromJson(XpubCache.toJson(withEmpty)))
+        assertEquals(listOf(1), XpubCache.fromJson(org.json.JSONObject("{\"r\":[\"a\",\"b\"],\"ru\":[1],\"re\":[0,1,7]}"))!!.emptyReceive)
+        // Seit Build 102 (F-16): Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
+        val limited = cache.copy(limitedFallback = true)
+        assertEquals(true, XpubCache.toJson(limited).getBoolean("lf"))
+        assertEquals(limited, XpubCache.fromJson(XpubCache.toJson(limited)))
+        assertTrue(!XpubCache.toJson(cache).has("lf"))
+        assertEquals(false, XpubCache.fromJson(org.json.JSONObject("{\"r\":[\"a\"],\"lf\":\"ja\"}"))!!.limitedFallback)
+        assertEquals(true, XpubScan(XpubScan.Mode.QUICK, limited).cache(listOf("a"), listOf("c"), 777).limitedFallback)
+        assertEquals(false, XpubScan(XpubScan.Mode.FULL, limited).cache(listOf("a"), listOf("c"), 777).limitedFallback)
     }
 
     /**

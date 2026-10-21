@@ -128,6 +128,17 @@ final class LiveFeedTests: XCTestCase {
         }
     }
 
+    func testTickTimeMatchesFixtures() throws {
+        let data = try S.fixture("live_feed")
+        let cases = S.list(data["tickTime"])
+        XCTAssertGreaterThanOrEqual(cases.count, 5)
+        for c in cases {
+            let reported = S.number(c["reported"]).map { Int64($0) }
+            XCTAssertEqual(LiveRules.tickTime(reported, now: Int64(S.number(c["now"]) ?? 0)),
+                           S.number(c["expected"]).map { Int64($0) }, "tickTime \(c["name"] ?? "")")
+        }
+    }
+
     func testRulesMatchFixtures() throws {
         let data = try S.fixture("live_feed")
         for c in S.list(data["chooseChange"]) {

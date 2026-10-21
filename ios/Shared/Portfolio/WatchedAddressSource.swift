@@ -103,6 +103,9 @@ actor WatchedAddressSource {
                 throw CancellationError()
             } catch is OutOfTime {
                 break
+            } catch is XpubScan.TooMany {
+                // Eigener Hinweis «Zu viele Adressen» statt «Aktualisierung fehlgeschlagen» (wiederholen hilft nicht)
+                updates.append(Update(id: a.id, time: time, fetched: nil, error: XpubScan.tooManyMarker))
             } catch {
                 HttpLog.add("Adresse \(WatchedAddressRules.shortAddress(a.address)): \(error.localizedDescription)")
                 // Nur kurzer Code speichern (Fehlertexte enthalten Hosts/URLs, teils die Adresse)

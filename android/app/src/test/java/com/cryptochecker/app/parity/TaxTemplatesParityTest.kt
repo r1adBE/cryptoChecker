@@ -186,6 +186,7 @@ class TaxTemplatesParityTest {
                 assertEquals("$label portfolioValue", r8(dec(e["portfolioValue"])), r8(d.portfolioValueUsdt))
                 assertEquals("$label gross", r8(dec(e["gross"])), r8(d.grossProceedsUsdt))
                 (e["costIncomplete"] as Boolean?)?.let { assertEquals("$label costIncomplete", it, d.costIncomplete) }
+                (e["uncovered"] as Boolean?)?.let { assertEquals("$label uncovered", it, d.uncovered) }
                 (e["wallet"] as String?)?.let { assertEquals("$label wallet", it, d.wallet) }
                 // Build 47: Verschenkt/bezahlt und geschätzter Wert (Tagesschluss)
                 (e["gift"] as Boolean?)?.let { assertEquals("$label gift", it, d.gift) }

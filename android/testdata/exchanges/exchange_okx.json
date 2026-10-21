@@ -271,7 +271,7 @@
     },
     {
       "kind": "live",
-      "name": "ws ts \"NaN\" and huge ts: no time / clamped, no crash",
+      "name": "ws ts \"NaN\" and huge ts: no time, no crash",
       "exchange": "OKX",
       "message": "{\"arg\":{\"channel\":\"tickers\",\"instId\":\"BTC-USDT\"},\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"open24h\":\"60500\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"NaN\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"},{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"62000.1\",\"lastSz\":\"0.00123\",\"askPx\":\"62000.2\",\"askSz\":\"1.2\", \"bidPx\":\"62000.1\",\"bidSz\":\"0.5\",\"open24h\":\"60500\",\"high24h\":\"62500\",\"low24h\":\"60000\",\"volCcy24h\":\"750123456.789\", \"vol24h\":\"12100.523\",\"ts\":\"1e30\",\"sodUtc0\":\"61000\",\"sodUtc8\":\"60800\"}]}",
       "ticks": [
@@ -285,10 +285,10 @@
           "symbol": "BTC-USDT",
           "price": 62000.1,
           "change24h": 2.4795041322314026,
-          "time": 9223372036854775807
+          "time": null
         }
       ],
-      "note": "Kotlin toLong() clamps to Long.MAX; iOS Int64(1e30) used to trap"
+      "note": "Neither NaN nor a value beyond Long/Int64 is a time (since build 102; before: clamped to Long.MAX, iOS Int64(1e30) used to trap)"
     },
     {
       "kind": "live",

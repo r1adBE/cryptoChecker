@@ -305,6 +305,8 @@ internal object PortfolioFifo {
                     val q = queue(t.exchange)
                     val requested = amount + t.coinFee
                     check(q, requested, t, feeLeg = false)
+                    // Gebühr auf den nicht erfassten Teil (auch aus leerer Warteschlange): vermerkt statt still verloren
+                    unassign(t, PortfolioFeeExpenses.withdrawalUncovered(t, q.held))
                     if (q.held.signum() <= 0) continue
                     // Gebühr USDT + Wert der Gebühr im dritten Coin: Aufwand (realisiert), wie im Zeitraum
                     expense(e, q, PortfolioFeeExpense.WITHDRAWAL, PortfolioFeeExpenses.withdrawal(t, q.held))

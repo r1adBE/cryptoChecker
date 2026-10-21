@@ -225,10 +225,16 @@ fun WatchlistScreen(
     // Nach links wischen, Screenreader-Aktion «Löschen» und «Löschen» im Aktionen-Blatt:
     // ohne Rückfrage, mit «Rückgängig» (derselbe Weg überall)
     val haptics = rememberHaptics()
+    // Weiteres Löschen, solange der Banner steht: ein Sammel-Banner, «Rückgängig» holt alle zurück
+    val removedBatch = remember { RemovedBatch() }
     val deleteWithUndo: (WatchEntity) -> Unit = { watch ->
         haptics.play(HapticEvent.DESTRUCTIVE)
-        viewModel.deleteWithUndo(watch)
-        banner.show(resources.getString(R.string.watchlist_removed, watch.displayName)) { viewModel.undoDelete(watch.id) }
+        val undoKey = removedBatch.add(watch.id, watch.displayName)
+        viewModel.deleteWithUndo(watch, undoKey)
+        val generation = removedBatch.generation
+        banner.show(removedBatch.bannerText(resources), onClosed = { removedBatch.closed(generation) }) {
+            viewModel.undoDelete(undoKey)
+        }
     }
     // Nach rechts wischen: Favorit an/aus mit kurzem Banner
     val favoriteWithBanner: (WatchEntity) -> Unit = { watch ->

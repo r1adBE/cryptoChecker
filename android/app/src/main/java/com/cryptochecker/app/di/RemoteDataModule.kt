@@ -4,15 +4,15 @@ import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.data.HttpLogger
 import com.cryptochecker.app.data.remote.HttpLoggerImpl
 import com.cryptochecker.app.data.remote.HttpUserAgent
+import com.cryptochecker.app.data.remote.UserAgentInterceptor
 import com.cryptochecker.app.data.remote.util.CallStartInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.ConnectionPool
 import okhttp3.Dispatcher
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -35,6 +35,13 @@ object RemoteDataModule {
     const val MAX_REQUESTS_PER_HOST = 5
 
     /**
+     * Offene Leerlauf-Verbindungen: OkHttp-Standard 5 bei rund 50 Hosts je Durchlauf hiess, dass die meisten beim
+     * nächsten Durchlauf neu verbinden (TLS-Handshake). 2 Minuten decken den kürzesten Takt (1 Min.) ab.
+     */
+    const val IDLE_CONNECTIONS = 16
+    const val IDLE_KEEP_ALIVE_MINUTES = 2L
+
+    /**
      * Kurse kommen zügig oder scheitern rasch. Ohne callTimeout griff nur die Wache in callMarket
      * (35 s je Anfrage). Der User-Agent wird vor dem Mitschnitt gesetzt, damit er dort erscheint.
      */
@@ -47,6 +54,7 @@ object RemoteDataModule {
         }
         val builder = OkHttpClient.Builder()
             .dispatcher(dispatcher)
+            .connectionPool(ConnectionPool(IDLE_CONNECTIONS, IDLE_KEEP_ALIVE_MINUTES, TimeUnit.MINUTES))
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(15, TimeUnit.SECONDS)
             .callTimeout(20, TimeUnit.SECONDS)
@@ -62,13 +70,4 @@ object RemoteDataModule {
     @Singleton
     @Provides
     fun provideHttpLoggerFlow(): HttpLogger = HttpLoggerImpl()
-}
-
-/** Setzt den eigenen User-Agent, ausser die Anfrage bringt schon einen eigenen mit ([HttpUserAgent.shouldSet]). */
-private class UserAgentInterceptor(private val agent: String) : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val original = chain.request()
-        if (!HttpUserAgent.shouldSet(original.header(HttpUserAgent.HEADER))) return chain.proceed(original)
-        return chain.proceed(original.newBuilder().header(HttpUserAgent.HEADER, agent).build())
-    }
 }

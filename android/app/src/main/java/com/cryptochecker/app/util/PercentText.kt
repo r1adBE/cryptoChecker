@@ -52,6 +52,14 @@ object PercentText {
     /** Arabisches Prozentzeichen «٪» (U+066A) zu arabischen/persischen Ziffern. */
     private const val ARABIC_PERCENT = "\u066A"
 
+    /**
+     * Nur das Prozentzeichen der Sprache von [locale] als Einheit hinter einem Eingabefeld: «٪» zu arabischen bzw.
+     * persischen Ziffern, sonst «%». Im Feld steht es immer hinten wie eine Währung (auch Türkisch, wo die fertige
+     * Zahl «%5» schreibt): die Eingabe beginnt so immer mit der Zahl.
+     */
+    fun symbol(locale: Locale = LocaleNumbers.appLocale): String =
+        if ((locale.language == "ar" || locale.language == "fa") && !LocaleNumbers.hasLatinDigits(locale)) ARABIC_PERCENT else "%"
+
     /** Fertige Zahl [number] (ohne Vorzeichen) mit dem Prozentzeichen der Sprache von [locale]. */
     fun wrap(number: String, locale: Locale = LocaleNumbers.appLocale): String {
         val language = locale.language

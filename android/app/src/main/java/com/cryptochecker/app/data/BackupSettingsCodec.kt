@@ -1,24 +1,23 @@
 package com.cryptochecker.app.data
 
-import android.content.Context
 import com.cryptochecker.app.domain.alarm.QuietHours
 import com.cryptochecker.app.domain.watch.ColumnSort
-import com.cryptochecker.app.lock.AppLockAuth
 import com.cryptochecker.app.settings.AccentColor
-import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.settings.SettingsBackupTarget
 import org.json.JSONObject
 
 /**
  * Einstellungen in der Sicherung ([BackupManager]) und im Journal: schreiben ([settingsToJson]) und
- * tolerant übernehmen ([restoreSettings]).
+ * tolerant übernehmen ([restoreSettings]). [settings]: in der App `SettingsRepository`, im Test eine Fälschung;
+ * [canAuthenticate]: kann dieses Gerät die Portfolio-Sperre entsperren (`AppLockAuth.canAuthenticate`)?
  */
 internal class BackupSettingsCodec(
-    private val context: Context,
-    private val settingsRepository: SettingsRepository,
+    private val settings: SettingsBackupTarget,
+    private val canAuthenticate: () -> Boolean,
 ) {
 
     suspend fun settingsToJson(): JSONObject {
-        val s = settingsRepository.current()
+        val s = settings.current()
         return JSONObject()
             // «Wie aktuell?»; dazu die früheren Schalter, abgeleitet, für ältere Versionen
             .put("updateMode", s.updateMode.name)
@@ -88,7 +87,7 @@ internal class BackupSettingsCodec(
      * schaltet die Datei die Portfolio-Sperre und «Beträge verbergen» nicht aus und «Portfolio in Systemsicherung» nicht ein.
      * @return true, wenn die Sicherung die Sperre ausschalten wollte, sie aber an blieb.
      */
-    suspend fun restoreSettings(o: JSONObject, trusted: Boolean): Boolean = with(settingsRepository) {
+    suspend fun restoreSettings(o: JSONObject, trusted: Boolean): Boolean = with(settings) {
         // «Wie aktuell?»; ältere Sicherungen nur mit den früheren Schaltern (UpdateMode.fromBackup)
         com.cryptochecker.app.settings.UpdateMode.fromBackup(
             stored = o.string("updateMode"),
@@ -200,7 +199,7 @@ internal class BackupSettingsCodec(
             wanted = o.bool("appLock"),
             current = current().appLock,
             encrypted = trusted,
-            canAuthenticate = AppLockAuth.canAuthenticate(this@BackupSettingsCodec.context),
+            canAuthenticate = canAuthenticate(),
         )
         lock.apply?.let { setAppLock(it) }
         lock.keptOn

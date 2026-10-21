@@ -79,6 +79,9 @@ class PortfolioLockViewModel @Inject constructor(
         .map { it.appLock }
         .stateIn(viewModelScope, SharingStarted.Eagerly, settingsRepository.cached.appLock)
 
+    /** Selbst-Abfrage des Sperr-Zustands: übersteht mit dem ViewModel ein Drehen des Geräts ([PortfolioLockedState]). */
+    val autoPrompt = LockAutoPrompt()
+
     /** Entsperren verlangt, aber keine Displaysperre eingerichtet ([AppLockState.screenLockMissing]). */
     val screenLockMissing: StateFlow<Boolean> = appLockState.screenLockMissing
 
@@ -120,8 +123,12 @@ fun PortfolioLockedState(
     modifier: Modifier = Modifier,
     screenLockMissing: Boolean = false,
     onTurnOffLock: () -> Unit = {},
+    autoPrompt: LockAutoPrompt? = null,
 ) {
-    LaunchedEffect(Unit) { onUnlock() }
+    // Nach Abbruch und Drehen nicht erneut fragen; nach Tab-Wechsel bzw. erneutem Sperren wieder
+    val activity = LocalContext.current.findFragmentActivity()
+    LaunchedEffect(Unit) { if (autoPrompt?.take() != false) onUnlock() }
+    DisposableEffect(Unit) { onDispose { autoPrompt?.left(changingConfigurations = activity?.isChangingConfigurations == true) } }
     var confirmTurnOff by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -216,4 +223,25 @@ fun SecureWindowEffect(active: Boolean) {
 @Composable
 fun PortfolioPendingState(modifier: Modifier = Modifier) {
     Box(modifier.fillMaxSize().background(MaterialTheme.colorScheme.background))
+}
+
+/**
+ * Fragt der Sperr-Zustand beim Erscheinen von selbst nach? Einmal je Erscheinen: Verschwindet er nur wegen
+ * eines Drehens (Activity neu aufgebaut), bleibt die Abfrage gemerkt – sonst käme sie nach «Abbrechen» und
+ * Drehen gleich wieder (reines Kotlin, testbar).
+ */
+class LockAutoPrompt {
+    private var shown = false
+
+    /** true, wenn jetzt gefragt werden soll; merkt sich das. */
+    fun take(): Boolean {
+        if (shown) return false
+        shown = true
+        return true
+    }
+
+    /** Sperr-Zustand verschwindet: beim Drehen ([changingConfigurations]) gemerkt lassen, sonst vergessen. */
+    fun left(changingConfigurations: Boolean) {
+        if (!changingConfigurations) shown = false
+    }
 }

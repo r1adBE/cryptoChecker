@@ -103,6 +103,39 @@ class AlarmLogStoreTest {
         assertFalse("nach dem Intervall wieder geschrieben", beforeInterval.contentEquals(file.readBytes()))
     }
 
+    /** Seit Build 102: auch ohne Live-Kurse nicht bei jedem Durchlauf alle letzten Prüfungen versiegeln. */
+    @Test
+    fun plainChecksAreThrottledWithoutLiveToo() {
+        val file = File(folder.root, AlarmLogStore.FILE_NAME)
+        val store = store(file, FakeKeys())
+        store.record(listOf(entry(1, AlarmLogOutcome.NOT_REACHED, false)), live = false)
+        val first = file.readBytes()
+
+        clock += 60_000
+        store.record(listOf(entry(1, AlarmLogOutcome.NOT_REACHED, false)), live = false)
+        assertTrue("nichts Bemerkenswertes: gedrosselt", first.contentEquals(file.readBytes()))
+        assertEquals(clock, store.state.value.lastChecks.getValue(1).at)
+
+        clock += 60_000
+        store.record(listOf(entry(1, AlarmLogOutcome.QUIET_HOURS, true)), live = false)
+        val second = file.readBytes()
+        assertFalse("bemerkenswert: sofort", first.contentEquals(second))
+
+        clock += AlarmLog.CHECKS_WRITE_INTERVAL_MILLIS
+        store.record(listOf(entry(2, AlarmLogOutcome.NOT_REACHED, false)), live = false)
+        assertFalse("nach dem Intervall wieder geschrieben", second.contentEquals(file.readBytes()))
+    }
+
+    @Test
+    fun shouldPersistRules() {
+        val now = 1_000_000L
+        assertTrue(AlarmLog.shouldPersist(live = true, startsEvent = true, notable = true, now = now, lastWriteAt = now))
+        assertFalse(AlarmLog.shouldPersist(live = true, startsEvent = false, notable = true, now = now, lastWriteAt = now))
+        assertTrue(AlarmLog.shouldPersist(live = false, startsEvent = false, notable = true, now = now, lastWriteAt = now))
+        assertFalse(AlarmLog.shouldPersist(live = false, startsEvent = false, notable = false, now = now, lastWriteAt = now - 1))
+        assertTrue(AlarmLog.shouldPersist(live = false, startsEvent = false, notable = false, now = now, lastWriteAt = now + 1))
+    }
+
     @Test
     fun liveMergedHoldsAreThrottledButNewEventsWriteAtOnce() {
         val file = File(folder.root, AlarmLogStore.FILE_NAME)

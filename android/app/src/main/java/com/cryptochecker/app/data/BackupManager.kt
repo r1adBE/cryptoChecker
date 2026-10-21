@@ -31,7 +31,6 @@ import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.settings.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
@@ -72,10 +71,12 @@ class BackupManager @Inject constructor(
     )
 
     /** Gewählte Sicherung einmal je Wiederherstellen lesen und entschlüsseln ([BackupReadCache]). */
-    private val readCache = BackupReadCache<Uri, BackupFile> { f, pw -> plainText(f, pw) }
+    private val readCache = BackupReadCache<Uri, BackupFile>(decrypt = { f, pw -> plainText(f, pw) })
 
     /** Einstellungen in der Sicherung und im Journal ([BackupSettingsCodec]). */
-    internal val settingsCodec = BackupSettingsCodec(context, settingsRepository)
+    internal val settingsCodec = BackupSettingsCodec(settingsRepository) {
+        com.cryptochecker.app.lock.AppLockAuth.canAuthenticate(context)
+    }
 
     /**
      * Schreibt die Sicherung; mit [password] verschlüsselt ([BackupCrypto], gleiches Format
@@ -279,37 +280,35 @@ class BackupManager @Inject constructor(
             settings = settingsCodec.settingsToJson(),
         )
 
-        // ── 3. Schreiben ── vorher das Journal: bricht der Prozess mittendrin ab, rollt der nächste Start zurück
-        val journaled = runCatchingCancellable { journal.write(journalJson(previous).toString()) }
-            .onFailure { Timber.w(it, "Wiederherstellen: Journal nicht geschrieben") }
-            .getOrDefault(false)
-        if (!journaled) Timber.w("Wiederherstellen ohne Journal (Schlüssel nicht verfügbar)")
-        val touched = mutableSetOf<Step>()
+        // ── 3. Schreiben ── vorher das Journal: bricht der Prozess mittendrin ab, rollt der nächste Start zurück.
+        // Ohne Journal nichts schreiben ([RestoreRun.execute], [BackupJournalUnavailableException])
         var appLockKept = false
-        try {
-            writeWatchlist(watches, alarms)
-            touched += Step.WATCHLIST
-            portfolioDatabase.withTransaction {
-                if (portfolio != null) portfolioRepository.replaceAll(portfolio)
-                if (portfolioAlarms != null) portfolioAlarmRepository.replaceAll(portfolioAlarms)
-                if (watchedAddresses != null) portfolioRepository.replaceWatchedAddresses(watchedAddresses)
-            }
-            touched += Step.PORTFOLIO
-            // Bestand aus alten Sicherungen ins Portfolio übernehmen (nur Coins ohne Transaktion)
-            portfolioRepository.importHoldings(onlyNewCoins = true)
-            touched += Step.FAVORITES
-            favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
-            touched += Step.SETTINGS
-            settings?.let { appLockKept = settingsCodec.restoreSettings(it, trusted = encrypted) }
-        } catch (e: Throwable) {
-            withContext(NonCancellable) {
-                // Ganz zurückgerollt: Journal weg; sonst bleibt es, und der nächste Start versucht es erneut
-                if (rollBack(previous, touched, e)) runCatchingCancellable { journal.delete() }
-                Unit
-            }
-            throw e
-        }
-        runCatchingCancellable { journal.delete() }.onFailure { Timber.w(it, "Wiederherstellen: Journal nicht gelöscht") }
+        val journalText = journalJson(previous).toString()
+        RestoreRun.execute(
+            journal = object : RestoreRun.Journal {
+                override fun write() = journal.write(journalText)
+                override fun delete() = journal.delete()
+            },
+            writes = listOf(
+                RestoreRun.Write(Step.WATCHLIST, touchedBefore = false) { writeWatchlist(watches, alarms) },
+                RestoreRun.Write(Step.PORTFOLIO, touchedBefore = false) {
+                    portfolioDatabase.withTransaction {
+                        if (portfolio != null) portfolioRepository.replaceAll(portfolio)
+                        if (portfolioAlarms != null) portfolioAlarmRepository.replaceAll(portfolioAlarms)
+                        if (watchedAddresses != null) portfolioRepository.replaceWatchedAddresses(watchedAddresses)
+                    }
+                },
+                // Bestand aus alten Sicherungen ins Portfolio übernehmen (nur Coins ohne Transaktion)
+                RestoreRun.Write(Step.PORTFOLIO, touchedBefore = true) { portfolioRepository.importHoldings(onlyNewCoins = true) },
+                RestoreRun.Write(Step.FAVORITES, touchedBefore = true) {
+                    favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
+                },
+                RestoreRun.Write(Step.SETTINGS, touchedBefore = true) {
+                    settings?.let { appLockKept = settingsCodec.restoreSettings(it, trusted = encrypted) }
+                },
+            ),
+            rollBack = { touched, cause -> rollBack(previous, touched, cause) },
+        )
         // Gespeicherte Daten liessen sich nicht entsperren (StorageRecoveryNotice): mit dieser Sicherung erledigt
         runCatchingCancellable { StorageRecoveryNotice.acknowledgeSetAside(context) }
 

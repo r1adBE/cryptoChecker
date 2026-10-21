@@ -263,7 +263,10 @@ actor LivePriceStream {
 
     private func connectOnce(_ spec: LiveConnectionSpec) async -> Ended {
         guard let url = URL(string: spec.exchange.url) else { return Ended(receivedData: false, rateLimited: false) }
-        let socket = session.webSocketTask(with: url)
+        // User-Agent auch im Handshake, wie bei REST (`MarketHTTP`) und Android (seit Build 102)
+        var request = URLRequest(url: url)
+        request.setValue(HttpUserAgent.value, forHTTPHeaderField: HttpUserAgent.header)
+        let socket = session.webSocketTask(with: request)
         socket.resume()
         let clock = LiveClock()
         var received = false

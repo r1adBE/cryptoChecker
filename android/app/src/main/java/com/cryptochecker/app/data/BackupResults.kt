@@ -47,6 +47,14 @@ class BackupStorageKeptException : IllegalStateException("Gespeicherter Stand ge
  */
 class BackupStorageInMemoryException : IllegalStateException("Datenbank nur im Arbeitsspeicher")
 
+/**
+ * Seit Build 102: Einspielen abgelehnt, bevor etwas ersetzt wird — das Journal des Wiederherstellens ([RestoreJournal])
+ * liess sich nicht schreiben (Keystore-Schlüssel gerade nicht verfügbar oder Speicherfehler). Ohne Journal rollte ein
+ * mittendrin beendeter Lauf nichts zurück; später erneut versuchen.
+ */
+class BackupJournalUnavailableException(cause: Throwable?) :
+    IllegalStateException("Journal des Wiederherstellens nicht geschrieben", cause)
+
 /** Sicherung enthält mehr ungültige Portfolio-Einträge, als der Nutzer bestätigt hat. */
 class UnconfirmedInvalidEntriesException(val invalid: Int) :
     IllegalStateException("$invalid ungültige Portfolio-Einträge nicht bestätigt")

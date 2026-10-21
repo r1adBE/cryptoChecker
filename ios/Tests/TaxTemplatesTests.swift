@@ -236,6 +236,7 @@ final class TaxTemplatesTests: XCTestCase {
                 XCTAssertEqual(r8(g.portfolioValueUsdt), r8(dec(e["portfolioValue"])), "\(label) portfolioValue")
                 XCTAssertEqual(r8(g.grossProceedsUsdt), r8(dec(e["gross"])), "\(label) gross")
                 if let ci = e["costIncomplete"] as? Bool { XCTAssertEqual(g.costIncomplete, ci, "\(label) costIncomplete") }
+                if let u = e["uncovered"] as? Bool { XCTAssertEqual(g.uncovered, u, "\(label) uncovered") }
                 if let w = e["wallet"] as? String { XCTAssertEqual(g.wallet, w, "\(label) wallet") }
                 // Build 47: Verschenkt/bezahlt und geschätzter Wert (Tagesschluss)
                 if let v = e["gift"] as? Bool { XCTAssertEqual(g.gift, v, "\(label) gift") }

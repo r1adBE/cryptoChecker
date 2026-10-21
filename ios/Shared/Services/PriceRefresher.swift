@@ -100,6 +100,10 @@ enum PriceRefresher {
         var markets: [MarketRefresh] = []
         let dayLoads: Task<Void, Never>
         let dayReferences: [String: DayReference]
+        // Mit Endzeit (Hintergrund, Widget): Kerzen-Nachlader am Ende abbrechen — sie liefen sonst über die Endzeit
+        // hinaus weiter (eigene Aufgaben, kein Nachtragen ohne App im Vordergrund). Ohne Endzeit laden sie fertig.
+        var candleLoads: [Task<Void, Never>] = []
+        defer { if deadline != nil { candleLoads.forEach { $0.cancel() } } }
         if let liveQuotes {
             // Live-Kurse: schon da — kein Netz, keine Kerzen
             for w in watches {
@@ -118,6 +122,7 @@ enum PriceRefresher {
             let remembered = candleNeeds.ids
             let earlyKeys = dayReferenceKeys(dayStart != nil ? watches : watches.filter { remembered.contains($0.id) })
             let earlyLoads = startDayReferenceLoads(earlyKeys, dayStart: dayStart)
+            candleLoads.append(earlyLoads)
 
             // 1) Netz: alle Börsen gleichzeitig, je Börse erst die Sammelabfrage.
             let groups = Dictionary(grouping: watches, by: \.marketKey)
@@ -194,6 +199,7 @@ enum PriceRefresher {
             let startedKeys = Set(earlyKeys.map { "\($0.base)|\($0.quote)" })
             let lateKeys = dayReferenceKeys(needingCandles).filter { !startedKeys.contains("\($0.base)|\($0.quote)") }
             let lateLoads = startDayReferenceLoads(lateKeys, dayStart: dayStart)
+            candleLoads.append(lateLoads)
             dayLoads = Task {
                 await earlyLoads.value
                 await lateLoads.value
@@ -244,6 +250,7 @@ enum PriceRefresher {
 
         // Kurs-Mitteilungen entfernen: gesammelt in EINEM Aufruf statt einmal je Paar
         var cancelIds: [Int64] = []
+        var pricePosts: [Watch] = []
         for watch in watches {
             let result = fetched[watch.id]
             // Widget: bewusst nicht abgefragt — gespeicherter Kurs und Zustand bleiben; wie eine pausierte Börse
@@ -331,10 +338,11 @@ enum PriceRefresher {
 
             priceEffects(watch: watch, updated: updated, price: price, now: now, settings: settings,
                          speechAllowed: speechAllowed, spokeAlarm: spokeAlarm, live: liveQuotes != nil,
-                         outcome: &outcome, cancelIds: &cancelIds)
+                         outcome: &outcome, cancelIds: &cancelIds, pricePosts: &pricePosts)
         }
 
         Notifier.cancelPrices(cancelIds)
+        await Notifier.showPrices(pricePosts, cancelled: cancelIds)
 
         outcome.durationMillis = TimeUtils.nowMillis - started
         if onlyWatchId == nil && liveQuotes == nil {

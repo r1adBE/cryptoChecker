@@ -144,12 +144,14 @@ internal class WatchlistEditController(
      * aber vollständig festgehalten ([WatchSnapshot]). [undoDelete] legt es mit
      * derselben Id und denselben Alarm-Ids wieder an. Nur die letzte Löschung lässt
      * sich zurückholen; Löschen und Zurückholen laufen nacheinander ([undoMutex]).
+     * Liegt unter [undoKey] schon etwas (Sammlung, solange der Banner steht – [RemovedBatch]), kommt das Paar
+     * dazu: «Rückgängig» holt dann alle zurück.
      */
-    fun deleteWithUndo(watch: WatchEntity) {
+    fun deleteWithUndo(watch: WatchEntity, undoKey: Long = watch.id) {
         scope.launch {
             undoMutex.withLock {
                 val snapshot = watchRepository.snapshot(watch.id) ?: return@withLock
-                undo.put(watch.id, listOf(snapshot))
+                undo.merge(undoKey, listOf(snapshot)) { held, added -> held + added }
                 notifier.cancelPrice(watch.id)
                 notifier.cancelActivity(watch.id)
                 // Alte Alarm-Mitteilungen weg: ihr «Anpassen» zeigte sonst auf ein Paar, das es nicht mehr gibt

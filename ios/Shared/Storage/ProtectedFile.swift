@@ -359,7 +359,7 @@ enum ProtectedFile {
         let temp = url.deletingLastPathComponent()
             .appendingPathComponent(".\(url.lastPathComponent).\(UUID().uuidString).tmp")
         do {
-            try sealed.write(to: temp)
+            try writeDurably(sealed, to: temp)
             guard try ProtectedContainer.open(Data(contentsOf: temp), key: key) == data else {
                 throw WriteError.verificationFailed
             }
@@ -370,5 +370,26 @@ enum ProtectedFile {
             try? FileManager.default.removeItem(at: temp)
             throw error
         }
+    }
+
+    /// Schreibt `data` in die neue Nachbardatei und erzwingt mit F_FULLFSYNC, dass die Bytes wirklich auf dem
+    /// Speicher liegen, bevor `rename` sie sichtbar macht: Sonst kann nach einem Stromausfall oder Absturz des
+    /// Geräts schon der neue Name auf eine leere oder halbe Datei zeigen (das Umbenennen ist im Journal, der Inhalt
+    /// noch im Cache des Laufwerks). Kennt das Dateisystem F_FULLFSYNC nicht, wenigstens fsync. Seit Build 102.
+    private static func writeDurably(_ data: Data, to temp: URL) throws {
+        guard FileManager.default.createFile(atPath: temp.path, contents: nil) else {
+            throw CocoaError(.fileWriteUnknown, userInfo: [NSFilePathErrorKey: temp.path])
+        }
+        let handle = try FileHandle(forWritingTo: temp)
+        do {
+            try handle.write(contentsOf: data)
+            if fcntl(handle.fileDescriptor, F_FULLFSYNC) == -1, fsync(handle.fileDescriptor) == -1 {
+                throw CocoaError(.fileWriteUnknown, userInfo: [NSFilePathErrorKey: temp.path])
+            }
+        } catch {
+            try? handle.close()
+            throw error
+        }
+        try handle.close()
     }
 }

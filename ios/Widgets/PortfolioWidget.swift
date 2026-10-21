@@ -188,9 +188,17 @@ struct PortfolioProvider: AppIntentTimelineProvider {
         let settings = loaded.settings
         let snapshot = PortfolioWidgetStore.load()
         let age = TimeUtils.nowMillis - (snapshot?.updatedAt ?? 0)
+        var timedOut = false
         if settings.portfolioEnabled && !PortfolioLockPolicy.widgetLocked(lockSetting: loaded.appLockAssumed)
             && age >= WidgetRefresh.staleAfterMillis {
-            await PortfolioWidgetStore.refresh(reload: false)
+            // Kurse (bis 20 s), zwei Devisenquellen und Kerzen nacheinander können bei langsamem Netz über 40 s
+            // brauchen — dann verwirft WidgetKit die Timeline. Höchstens `refreshDeadlineMillis` warten, sonst mit
+            // dem gespeicherten Stand zeichnen und bald neu versuchen (wie Merkliste und Puls).
+            let finished = await RefreshDeadline.run(within: Self.refreshDeadlineMillis) { () async -> Bool in
+                await PortfolioWidgetStore.refresh(reload: false)
+                return true
+            }
+            timedOut = finished == nil
         }
         var entry = PortfolioEntry.current(configuration)
         entry.loadLogos()
@@ -202,8 +210,13 @@ struct PortfolioProvider: AppIntentTimelineProvider {
             later.date = date
             return later
         }
-        return Timeline(entries: entries, policy: .after(WidgetData.nextReload))
+        let reload = timedOut ? WidgetData.reload(kind: PortfolioWidgetStore.kind, wantsQuickRetry: true)
+                              : WidgetData.nextReload
+        return Timeline(entries: entries, policy: .after(reload))
     }
+
+    /// Zeitgrenze für das Nachrechnen beim Zeichnen (ms).
+    static let refreshDeadlineMillis: Int64 = 10_000
 }
 
 // MARK: Widget

@@ -166,6 +166,7 @@ internal fun thresholdErrorText(problem: ThresholdProblem?): (@Composable () -> 
         ThresholdProblem.INVALID -> R.string.alarm_threshold_error_invalid
         ThresholdProblem.FUNDING_RANGE -> R.string.alarm_threshold_error_funding
         ThresholdProblem.OI_RANGE -> R.string.alarm_threshold_error_oi
+        ThresholdProblem.PERCENT_RANGE -> R.string.alarm_threshold_error_percent_down
     }
     return { Text(stringResource(res)) }
 }

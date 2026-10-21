@@ -49,6 +49,7 @@
     <string name="alarm_threshold_error_funding">שיעור מימון חייב להיות מספר בין −10 ל-+10 אחוז.</string>
     <string name="alarm_threshold_error_invalid">הזינו מספר תקין גדול מ-0.</string>
     <string name="alarm_threshold_error_oi">שינוי ב-Open interest: לכל היותר 1000 אחוז.</string>
+    <string name="alarm_threshold_error_percent_down">ירידה יכולה להיות לכל היותר 100 אחוז.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">תוך %1$d שעה</item>
         <item quantity="two">תוך %1$d שעות</item>

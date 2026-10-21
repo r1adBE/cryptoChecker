@@ -1,11 +1,10 @@
 import SwiftUI
 
-/// Portfolio ⋯ › «Adressen»: beobachtete öffentliche Adressen (nur lesen) — wie `PortfolioAddressSheet.kt`.
-/// Liste mit Guthaben, Stand bzw. Fehler, Entfernen mit Rückfrage; darunter Hinzufügen (Netz automatisch
-/// erkannt, Bezeichnung optional). Vor der ersten Adresse ein Datenschutz-Hinweis mit den Anbietern;
-/// Seed-Wörter und private Schlüssel lehnt die Prüfung ab (`AddressValidation.Problem.SECRET`). xpub/ypub/zpub: eigener
-/// Hinweis (alle Adressen der Wallet auf dem Gerät, gesendet werden nur einzelne). ETH-Zeilen: Token-Guthaben und
-/// Schalter «Tokens mitzählen».
+/// Portfolio ⋯ › «Adressen»: beobachtete öffentliche Adressen (nur lesen) — wie `PortfolioAddressSheet.kt`. Liste mit
+/// Guthaben, Stand bzw. Fehler, Entfernen mit Rückfrage; darunter Hinzufügen (Netz automatisch erkannt, Bezeichnung
+/// optional). Vor der ersten Adresse ein Datenschutz-Hinweis mit den Anbietern; Seed-Wörter und private Schlüssel lehnt
+/// die Prüfung ab (`AddressValidation.Problem.SECRET`). xpub/ypub/zpub: eigener Hinweis (alle Adressen der Wallet auf
+/// dem Gerät, gesendet werden nur einzelne). ETH-Zeilen: Token-Guthaben und Schalter «Tokens mitzählen».
 @MainActor
 struct PortfolioAddressSheet: View {
     @EnvironmentObject private var data: AppData
@@ -202,8 +201,10 @@ struct PortfolioAddressSheet: View {
         let amount = balance.map { PortfolioFormat.exactAmount($0, a.chain.coin) } ?? "— \(a.chain.coin)"
         let shown = data.settings.hidePortfolioAmounts && balance != nil ? "•••" : amount
         let status: String? = {
-            if a.lastError != nil {
-                return L("portfolio_address_error") + (a.lastUpdated > 0 ? " · " + WatchlistTime.ago(a.lastUpdated, now: now) : "")
+            if let error = a.lastError {
+                // xpub über der Anfragen-Grenze: eigener Hinweis (wiederholen hilft nicht)
+                let head = error == XpubScan.tooManyMarker ? L("portfolio_address_xpub_too_many") : L("portfolio_address_error")
+                return head + (a.lastUpdated > 0 ? " · " + WatchlistTime.ago(a.lastUpdated, now: now) : "")
             }
             if a.lastUpdated > 0 {
                 // Token-Guthaben, die der letzte Abruf nicht bestätigt hat (TON: volle Jetton-Seite): «teilweise veraltet»
@@ -242,6 +243,10 @@ struct PortfolioAddressSheet: View {
                         .font(.footnote)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .lineLimit(1)
+                    // Vollständige Suche zu gross, nur schnell gesucht (`XpubCache.limitedFallback`): dezenter Hinweis
+                    if a.xpub?.limitedFallback == true {
+                        Text(L("portfolio_address_xpub_limited")).font(.caption).foregroundStyle(AppColors.onSurfaceVariant).fixedSize(horizontal: false, vertical: true)
+                    }
                 }
                 if !tokens.isEmpty {
                     Text(tokenText)

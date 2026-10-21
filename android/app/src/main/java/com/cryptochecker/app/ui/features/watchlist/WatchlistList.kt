@@ -6,6 +6,8 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -202,72 +204,78 @@ internal fun WatchlistList(
     /** Zeile je Paar mit ihrer Form ([ListSegment.shape]: die Paare wirken wie eine Einheit). */
     row: @Composable LazyItemScope.(WatchEntity, Shape) -> Unit,
 ) {
-    LazyColumn(
-        state = listState,
-        modifier = Modifier.fillMaxSize().testTag(UiTestTags.WATCHLIST),
-        contentPadding = PaddingValues(
-            start = 16.dp + inset,
-            top = 8.dp,
-            end = 16.dp + inset,
-            bottom = if (roomForJump) 24.dp + JumpButtonSize + JumpButtonMargin else 24.dp,
-        ),
-        // Paare ohne Fuge als eine Karte ([ListSegment]); alles darüber bringt den Abstand selbst mit
-        verticalArrangement = Arrangement.spacedBy(ListSegment.Gap)
-    ) {
-        // Puls als erste Zeile unter der festen Kopfzeile (scrollt mit), Abstände per spacedBy
-        if (pulse != null) {
-            item(key = "pulse") {
-                WatchPulseLine(pulse = pulse, modifier = Modifier.animateItem().padding(bottom = ListSegment.Spacing))
-            }
-        }
-        if (onSetFirstAlarm != null) {
-            item(key = "first_alarm") {
-                Box(Modifier.animateItem().padding(bottom = ListSegment.Spacing)) {
-                    FirstAlarmCardView(pair = firstAlarmPair, onSetAlarm = onSetFirstAlarm, onDismiss = onDismissFirstAlarm)
+    // Zeilenbreite einmal für alle Zeilen messen (Liste abzüglich des seitlichen Innenabstands)
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+        val rowWidth = maxWidth - (16.dp + inset) * 2
+        CompositionLocalProvider(LocalWatchRowWidth provides rowWidth) {
+            LazyColumn(
+                state = listState,
+                modifier = Modifier.fillMaxSize().testTag(UiTestTags.WATCHLIST),
+                contentPadding = PaddingValues(
+                    start = 16.dp + inset,
+                    top = 8.dp,
+                    end = 16.dp + inset,
+                    bottom = if (roomForJump) 24.dp + JumpButtonSize + JumpButtonMargin else 24.dp,
+                ),
+                // Paare ohne Fuge als eine Karte ([ListSegment]); alles darüber bringt den Abstand selbst mit
+                verticalArrangement = Arrangement.spacedBy(ListSegment.Gap)
+            ) {
+                // Puls als erste Zeile unter der festen Kopfzeile (scrollt mit), Abstände per spacedBy
+                if (pulse != null) {
+                    item(key = "pulse") {
+                        WatchPulseLine(pulse = pulse, modifier = Modifier.animateItem().padding(bottom = ListSegment.Spacing))
+                    }
                 }
-            }
-        }
-        if (sortBar != null) {
-            item(key = "sort_bar") { Box(Modifier.padding(bottom = ListSegment.Spacing)) { sortBar() } }
-        }
-        if (sortMode) {
-            item(key = "sort_hint") {
-                Column(Modifier.padding(bottom = ListSegment.Spacing)) {
-                    HintText(stringResource(R.string.watchlist_sort_hint), highlight = true)
-                    if (onAutoOrder != null) AutoOrderButtons(onAutoOrder)
-                }
-            }
-        } else if (showGestureHint) {
-            // Einmaliger Gesten-Hinweis, bleibt bis er weggeklickt wird.
-            item(key = "gesture_hint") {
-                Box(Modifier.padding(bottom = ListSegment.Spacing)) { GestureHint(onDismiss = onDismissGestureHint) }
-            }
-        }
-        if (noSearchMatch) {
-            item(key = "search_empty") {
-                ListNote(stringResource(R.string.watchlist_search_empty, query))
-            }
-        }
-        if (groupEmpty) {
-            item(key = "group_empty") {
-                val edit = onEditGroup?.takeIf { !favoritesEmpty }
-                if (edit == null) {
-                    ListNote(stringResource(if (favoritesEmpty) R.string.watchlist_favorites_empty_hint else R.string.watchlist_group_empty_hint))
-                } else {
-                    // Langes Drücken ist nicht auffindbar: derselbe Weg als sichtbarer Knopf (wie iOS)
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 16.dp)
-                    ) {
-                        ListNote(stringResource(R.string.watchlist_group_empty_hint), vertical = 0.dp)
-                        TextButton(onClick = edit, modifier = Modifier.padding(top = Spacing.xs)) {
-                            Text(stringResource(R.string.group_edit_title))
+                if (onSetFirstAlarm != null) {
+                    item(key = "first_alarm") {
+                        Box(Modifier.animateItem().padding(bottom = ListSegment.Spacing)) {
+                            FirstAlarmCardView(pair = firstAlarmPair, onSetAlarm = onSetFirstAlarm, onDismiss = onDismissFirstAlarm)
                         }
                     }
                 }
+                if (sortBar != null) {
+                    item(key = "sort_bar") { Box(Modifier.padding(bottom = ListSegment.Spacing)) { sortBar() } }
+                }
+                if (sortMode) {
+                    item(key = "sort_hint") {
+                        Column(Modifier.padding(bottom = ListSegment.Spacing)) {
+                            HintText(stringResource(R.string.watchlist_sort_hint), highlight = true)
+                            if (onAutoOrder != null) AutoOrderButtons(onAutoOrder)
+                        }
+                    }
+                } else if (showGestureHint) {
+                    // Einmaliger Gesten-Hinweis, bleibt bis er weggeklickt wird.
+                    item(key = "gesture_hint") {
+                        Box(Modifier.padding(bottom = ListSegment.Spacing)) { GestureHint(onDismiss = onDismissGestureHint) }
+                    }
+                }
+                if (noSearchMatch) {
+                    item(key = "search_empty") {
+                        ListNote(stringResource(R.string.watchlist_search_empty, query))
+                    }
+                }
+                if (groupEmpty) {
+                    item(key = "group_empty") {
+                        val edit = onEditGroup?.takeIf { !favoritesEmpty }
+                        if (edit == null) {
+                            ListNote(stringResource(if (favoritesEmpty) R.string.watchlist_favorites_empty_hint else R.string.watchlist_group_empty_hint))
+                        } else {
+                            // Langes Drücken ist nicht auffindbar: derselbe Weg als sichtbarer Knopf (wie iOS)
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                modifier = Modifier.fillMaxWidth().padding(top = 24.dp, bottom = 16.dp)
+                            ) {
+                                ListNote(stringResource(R.string.watchlist_group_empty_hint), vertical = 0.dp)
+                                TextButton(onClick = edit, modifier = Modifier.padding(top = Spacing.xs)) {
+                                    Text(stringResource(R.string.group_edit_title))
+                                }
+                            }
+                        }
+                    }
+                }
+                itemsIndexed(shown, key = { _, it -> it.id }) { index, watch -> row(watch, ListSegment.shape(index, shown.size)) }
             }
         }
-        itemsIndexed(shown, key = { _, it -> it.id }) { index, watch -> row(watch, ListSegment.shape(index, shown.size)) }
     }
 }
 

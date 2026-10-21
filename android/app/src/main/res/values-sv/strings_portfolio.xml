@@ -296,6 +296,8 @@
         <item quantity="one">%d transaktion tas bort. Du kan ångra det direkt efteråt.</item>
         <item quantity="other">%d transaktioner tas bort. Du kan ångra det direkt efteråt.</item>
     </plurals>
+    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Avgifter betalda i %1$s tas också bort från andra transaktioner: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">
         <item quantity="one">%1$s borttagen från portföljen (%2$d transaktion)</item>

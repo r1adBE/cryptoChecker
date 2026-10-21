@@ -58,11 +58,12 @@ enum PortfolioDecimal {
         return compact.exponent >= -maxParseScale
     }
 
-    /// Zum Speichern: ohne Exponent und Nullen am Ende, höchstens `maxScale` Stellen («0.00000001»).
+    /// Zum Speichern: ohne Exponent und Nullen am Ende, höchstens `maxScale` Stellen («0.00000001»). Gerundet wie
+    /// `amount` (halbe auf gerade): eine Rundungsregel für Rechnen, Prüfen vor dem Speichern und Speichern. Wie Android.
     static func text(_ value: Decimal) -> String {
         var v = value
         var rounded = Decimal()
-        NSDecimalRound(&rounded, &v, maxScale, .plain)
+        NSDecimalRound(&rounded, &v, maxScale, .bankers)
         if rounded == 0 { return "0" }
         // NSDecimalString schreibt ohne Exponent und ohne Nullen am Ende
         var r = rounded

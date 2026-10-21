@@ -24,7 +24,7 @@ import com.cryptochecker.app.ui.withOpenToken
 /**
  * Alarme haben Vorrang: Nahe an der Grenze von Android (rund 50 offene Mitteilungen je App)
  * wandern zuerst Kurs-Mitteilungen (die ältesten) in die Sammelmeldung, danach weichen
- * Aktivitäts-Meldungen und zuletzt die Sammelmeldung selbst.
+ * Aktivitäts-Meldungen, die Sammelmeldung selbst und zuletzt die ältesten Alarm-Meldungen.
  */
 internal fun AppNotifier.makeRoomForAlarm(id: Int) {
     // Gleiche Sperre wie die @Synchronized-Funktionen der Klasse (@Synchronized auf Datei-Ebene sperrte die Datei-Klasse)
@@ -53,8 +53,16 @@ internal fun AppNotifier.makeRoomForAlarm(id: Int) {
         if (remaining > 0 && active.overflowShown) {
             postOverflow(LinkedHashMap(), ongoing = false)
             overflowGone = true
+            remaining--
         }
-        Timber.d("Platz für Alarm: %d Kurs-Mitteilungen verschoben, Sammelmeldung entfernt: %b", room.demote, overflowGone)
+        // Zuletzt die ältesten Alarm-Meldungen: sonst verwarf Android ab rund 48 offenen Alarmen jeden neuen still,
+        // er blieb unbestätigt und meldete sich endlos alle paar Minuten erneut (seit Build 102)
+        val evicted = NotificationBudget.alarmsToEvict(remaining, active.alarms, id)
+        evicted.forEach { manager.cancel(it) }
+        Timber.d(
+            "Platz für Alarm: %d Kurs-Mitteilungen verschoben, Sammelmeldung entfernt: %b, ältere Alarme entfernt: %d",
+            room.demote, overflowGone, evicted.size,
+        )
     }
 }
 

@@ -36,4 +36,15 @@ final class BoundedCacheTests: XCTestCase {
         cache.removeAll()
         XCTAssertEqual(cache.count, 0)
     }
+
+    /// Seit Build 102 (eigene Kerzen, `OwnCandleDataSource.invalidate`): alle Einträge eines Paars entfernen.
+    func testRemoveKeysWhere() {
+        var cache = BoundedCache<String, Int>(maxEntries: 4)
+        cache.set("A", 1)
+        cache.set("BTC|1", 3)
+        cache.set("BTC|2", 4)
+        cache.removeKeys { $0.hasPrefix("BTC|") }
+        XCTAssertEqual(cache.count, 1)
+        XCTAssertEqual(cache.get("A"), 1)
+    }
 }

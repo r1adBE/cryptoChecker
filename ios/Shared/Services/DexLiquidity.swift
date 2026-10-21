@@ -28,26 +28,28 @@ enum DexLiquidity {
 /// abgeleiteter Marktwert, nicht in der Sicherung; fehlt er, gilt die Liquidität als unbekannt (kein Alarm bis zur
 /// nächsten Abfrage). Wie `DexLiquidityStore.kt`.
 enum DexLiquidityStore {
-    private static let defaultsKey = "dex_liquidity"
+    /// Ein Schlüssel je Pool (`PerKeyDefaults`); bis Build 101 ein Wörterbuch unter «dex_liquidity».
+    static let storage = PerKeyDefaults(prefix: "dex_liquidity.", legacyKey: "dex_liquidity")
+    /// Einmal je Prozess vor dem ersten Zugriff (thread-sicher, `static let`).
+    private static let migration: Void = storage.migrateLegacy(SharedStorage.defaults)
 
-    /// Pool-Schlüssel (`DexLiquidity.key`) → Liquidität in USD.
-    static var all: [String: Double] {
-        SharedStorage.defaults.dictionary(forKey: defaultsKey) as? [String: Double] ?? [:]
-    }
-
-    static func get(_ pairId: String?) -> Double? {
+    static func get(_ pairId: String?, defaults: UserDefaults = SharedStorage.defaults) -> Double? {
+        _ = migration
         guard let key = DexLiquidity.key(pairId) else { return nil }
-        return all[key]
+        return (defaults.object(forKey: storage.key(key)) as? NSNumber)?.doubleValue
     }
 
-    /// Neue Messung; nil = unbekannt (Eintrag entfällt).
-    static func put(_ pairId: String?, _ liquidityUsd: Double?) {
+    /// Neue Messung; nil = unbekannt (Eintrag entfällt). Schreibt nur den eigenen Pool.
+    static func put(_ pairId: String?, _ liquidityUsd: Double?, defaults: UserDefaults = SharedStorage.defaults) {
+        _ = migration
         guard let key = DexLiquidity.key(pairId) else { return }
         let value = liquidityUsd.flatMap { $0.isFinite && $0 >= 0 ? $0 : nil }
-        var current = all
-        if current[key] == value { return }
-        current[key] = value
-        SharedStorage.defaults.set(current, forKey: defaultsKey)
+        if get(pairId, defaults: defaults) == value { return }
+        if let value {
+            defaults.set(value, forKey: storage.key(key))
+        } else {
+            defaults.removeObject(forKey: storage.key(key))
+        }
     }
 
     /// Alarme dieses Paars pausieren (`DexLiquidity.blocksAlarms`)?

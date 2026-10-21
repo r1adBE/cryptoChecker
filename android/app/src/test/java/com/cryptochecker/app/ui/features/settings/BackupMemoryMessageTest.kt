@@ -25,6 +25,10 @@ class BackupMemoryMessageTest {
     fun storageAndSizeRefusalsHaveOwnMessages() {
         assertEquals(BackupMessage.StorageKept, BackupMessage.failure(com.cryptochecker.app.data.BackupStorageKeptException()))
         assertEquals(BackupMessage.StorageInMemory, BackupMessage.failure(com.cryptochecker.app.data.BackupStorageInMemoryException()))
+        // Seit Build 102: ohne Journal nichts eingespielt — eigene Meldung, Fehler-Haptik
+        val journal = BackupMessage.failure(com.cryptochecker.app.data.BackupJournalUnavailableException(null))
+        assertEquals(BackupMessage.JournalUnavailable, journal)
+        assertEquals(com.cryptochecker.app.ui.components.HapticEvent.ERROR, BackupMessage.haptic(journal))
         // Zu gross zum Schreiben ist nicht «Datei zu gross oder keine Sicherung» (das gilt beim Einlesen)
         assertEquals(BackupMessage.ExportTooLarge, BackupMessage.failure(com.cryptochecker.app.data.BackupLimits.ExportTooLargeException(1)))
         assertEquals(BackupMessage.TooLarge, BackupMessage.failure(com.cryptochecker.app.data.BackupLimits.TooLargeException()))

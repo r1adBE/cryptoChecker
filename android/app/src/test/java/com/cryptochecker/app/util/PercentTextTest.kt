@@ -23,6 +23,17 @@ class PercentTextTest {
     }
 
     @Test
+    fun zeichenFuerEingabefelder() {
+        assertEquals("%", PercentText.symbol(Locale.US))
+        assertEquals("%", PercentText.symbol(Locale.GERMANY))
+        // Türkisch: im Feld ebenfalls hinten, nur das Zeichen
+        assertEquals("%", PercentText.symbol(Locale.forLanguageTag("tr-TR")))
+        assertEquals("\u066A", PercentText.symbol(Locale.forLanguageTag("ar-EG")))
+        assertEquals("\u066A", PercentText.symbol(Locale.forLanguageTag("fa-IR")))
+        assertEquals("%", PercentText.symbol(Locale.forLanguageTag("ar-u-nu-latn")))
+    }
+
+    @Test
     fun abstandNachSpracheUndRegion() {
         // Spanisch (Mexiko) ohne Abstand (CLDR es_MX), die übrigen spanischen Regionen mit
         assertEquals("2.4%", PercentText.wrap("2.4", Locale.forLanguageTag("es-MX")))

@@ -21,8 +21,9 @@ import javax.crypto.SecretKey
  * im Speicher. Bereitgestellt von `LocalDataModule`, geschrieben von Hintergrund-Prüfung und Aktualisierung in der App
  * ([RefreshResultProcessor]).
  *
- * Darf die Prüfung nie stören: jeder Fehler bleibt still, ein Schreibvorgang je Durchlauf, Live-Kurse höchstens alle
- * [AlarmLog.LIVE_WRITE_INTERVAL_MILLIS] (ein neuer Protokoll-Eintrag sofort, [AlarmLog.startsEvent]).
+ * Darf die Prüfung nie stören: jeder Fehler bleibt still, höchstens ein Schreibvorgang je Durchlauf — Bemerkenswertes
+ * sofort, die übrigen letzten Prüfungen gedrosselt ([AlarmLog.shouldPersist]; Live-Kurse höchstens alle
+ * [AlarmLog.LIVE_WRITE_INTERVAL_MILLIS], sonst alle [AlarmLog.CHECKS_WRITE_INTERVAL_MILLIS]).
  */
 class AlarmLogStore(
     private val file: File,
@@ -72,9 +73,8 @@ class AlarmLogStore(
                 val startsEvent = AlarmLog.startsEvent(_state.value, entries)
                 _state.value = AlarmLog.record(_state.value, entries, now)
                 dirty = true
-                if (!live || startsEvent || now - lastWriteAt >= AlarmLog.LIVE_WRITE_INTERVAL_MILLIS || now < lastWriteAt) {
-                    persist(now)
-                }
+                // Nur Bemerkenswertes sofort, die übrigen letzten Prüfungen gedrosselt ([AlarmLog.shouldPersist])
+                if (AlarmLog.shouldPersist(live, startsEvent, entries.any { it.notable }, now, lastWriteAt)) persist(now)
             }
         }.onFailure { Timber.d(it, "Alarm-Protokoll: nicht übernommen") }
     }

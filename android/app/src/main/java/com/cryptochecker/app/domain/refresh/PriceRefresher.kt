@@ -336,9 +336,9 @@ class PriceRefresher @Inject constructor(
         if (previousStamp != changeStamp) watchRepository.clearChanges(processed.failedIds + pausedIds)
         // Mit dieser Basis (und diesem Tagesbeginn) gerechnet — die Anzeige prüft das
         refreshStats.setChangeStamp(changeStamp)
-        // Tages-Basen: Bezüge, die nach dem Warten noch kamen, gleich nachtragen statt «—» bis zum nächsten Mal
-        if (dayStart != null) fillLateDayChanges(processed.missingDayChange, dayLoads, changeStamp)
-
+        // Mit Frist: Kerzen-Nachlader nicht über die Frist laufen lassen; sonst Tages-Basen: späte Bezüge nachtragen («—»)
+        if (deadlineAt != null) dayLoads.forEach { it.cancel() }
+        else if (dayStart != null) fillLateDayChanges(processed.missingDayChange, dayLoads, changeStamp)
         // Uhrzeit und Dauer ZUERST speichern, dann die Widgets zeichnen —
         // sonst zeigt die Widget-Kopfzeile neue Kurse mit der alten Uhrzeit.
         val duration = System.currentTimeMillis() - startedAt

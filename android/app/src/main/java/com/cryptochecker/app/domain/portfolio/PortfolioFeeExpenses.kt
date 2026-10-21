@@ -66,6 +66,19 @@ internal object PortfolioFeeExpenses {
         return Expense(usdt, feeValue == null)
     }
 
+    /**
+     * Gebühr einer Auszahlung (Gebühr USDT + Wert der Gebühr im dritten Coin), die auf den nicht erfassten Teil fällt:
+     * ganze Gebühr minus [withdrawal] (gedeckter Anteil), auch bei leerem Bestand die ganze Gebühr. Sie gehört zum
+     * unbekannten Einstand dieser Coins — vermerkt als [PortfolioUnassignedFee] statt still verloren, nicht realisiert.
+     * 0 = nichts zu vermerken (ganz gedeckt, keine Gebühr oder Wert der Gebühr unbekannt).
+     */
+    fun withdrawalUncovered(t: PortfolioTrade, holdings: BigDecimal): BigDecimal {
+        if (!t.type.isWithdrawalLike || t.amount.signum() <= 0) return BigDecimal.ZERO
+        val full = t.quoteFee + (t.thirdFeeValue ?: BigDecimal.ZERO)
+        if (full.signum() <= 0) return BigDecimal.ZERO
+        return (full - (withdrawal(t, holdings)?.usdt ?: BigDecimal.ZERO)).max(BigDecimal.ZERO)
+    }
+
     /** Menge der Zeile: verbrauchter Zugang (Tausch: erhaltene Menge), Auszahlung und Umbuchung 0 (Gebühr in USDT). */
     private fun amountOf(e: PortfolioLedgerEvent, kind: PortfolioFeeExpense): BigDecimal = when {
         kind == PortfolioFeeExpense.WITHDRAWAL || kind == PortfolioFeeExpense.TRANSFER -> BigDecimal.ZERO

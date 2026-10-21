@@ -270,7 +270,7 @@ enum BackgroundRefresh {
                 // Alarme bleiben scharf. Portfolio-Widget, Portfolio- und Gas-Alarm laufen trotzdem.
                 outcome.releaseAlarmLease()
             }
-            AppData.shared.reloadFromDisk()
+            await AppData.shared.reloadFromDisk()
             // Widgets nur neu laden, wenn sich der gespeicherte Stand geändert hat (Kurse, Fehler, %-Basis) — sonst
             // verbraucht jeder Lauf ohne Ergebnis (offline, alles pausiert) Teile des Widget-Budgets
             if saved != nil && (outcome.checked > 0 || outcome.changeStampChanged) {
@@ -334,7 +334,7 @@ enum BackgroundRefresh {
                         .deliverAlarms(settings: settings, current: stored.alarms,
                                        save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
                                        recordLog: { AlarmLogStore.record(AlarmLog.withSource($0, .bgTask), live: $1) })
-                    AppData.shared.reloadFromDisk()
+                    await AppData.shared.reloadFromDisk()
                 } else {
                     extra.releaseAlarmLease()
                 }

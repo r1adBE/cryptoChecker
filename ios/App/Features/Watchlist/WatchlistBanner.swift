@@ -13,6 +13,29 @@ struct WatchlistBannerMessage: Identifiable, Equatable {
     var long = false
     /// Weitere Aktion rechts, z. B. «Alarm setzen» nach dem Hinzufügen (nicht zusammen mit `undo`).
     var action: WatchlistBannerAction?
+    /// Alle Paare, die «Rückgängig» dieses Banners zurückholt (einzeln gelöscht, solange das Banner stand).
+    var removed: [DeletedWatch] = []
+
+    /// Banner nach dem Löschen von `deleted`. Steht noch das Banner eines vorigen Löschens (`previous`), fasst es
+    /// beide zusammen («2 Paare entfernt») und «Rückgängig» holt alle zurück — sonst wäre das vorige ohne Hinweis
+    /// endgültig (seit Build 102, wie Android `RemovedBatch`).
+    static func removed(
+        _ deleted: DeletedWatch,
+        after previous: WatchlistBannerMessage?,
+        restore: @escaping ([DeletedWatch]) -> Void
+    ) -> WatchlistBannerMessage {
+        let all = (previous?.removed ?? []) + [deleted]
+        guard all.count > 1 else {
+            return WatchlistBannerMessage(text: L("watchlist_removed", deleted.watch.displayPair), icon: "trash",
+                                          undo: deleted, removed: all)
+        }
+        return WatchlistBannerMessage(
+            text: L("watchlist_removed_count", count: all.count),
+            icon: "trash",
+            action: WatchlistBannerAction.undo { restore(all) },
+            removed: all
+        )
+    }
 
     /// «Rückgängig» ~5 s, andere Aktion ~6 s (mit VoiceOver je länger, damit der Knopf
     /// erreichbar ist), lange Meldungen 5 s, sonst 3 s.

@@ -9,7 +9,6 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,6 +26,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -41,6 +41,7 @@ import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.isSpecified
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.WatchMove
 import com.cryptochecker.app.data.local.model.WatchEntity
@@ -127,9 +128,10 @@ internal fun WatchRow(
     alarmFiredAt: Long = 0L,
     /** Art des Paars: kleines Symbol vor der Glocke (Token, TradFi, α), im Zeilensatz gesprochen. */
     kind: AssetKind = AssetKind.TOKEN,
-    // L-14: die Herkunft von Änderung/Mini-Chart («Änderung: Binance») steht nicht als Text in der Zeile
-    // (zu dicht), sondern im Aktionsblatt unter dem Kurs ([WatchActionsSheet] rowSource); die Zeile zeigt
-    // nur den Marker «*» an der Änderung ([changeSource])
+    /** Kurzer Hinweis im Banner der Merkliste (Herkunft der Änderung, Tipp auf «*»). */
+    onSourceHint: (String) -> Unit = {},
+    // L-14: Herkunft von Änderung/Mini-Chart steht im Aktionsblatt ([WatchActionsSheet] rowSource), die Zeile
+    // zeigt nur den Marker «*» an der Änderung ([changeSource])
 ) {
     val accent = MaterialTheme.colorScheme.primary
     val hasSparkline = sparkline != null && sparkline.size >= 2
@@ -163,6 +165,8 @@ internal fun WatchRow(
     val deleteLabel = stringResource(R.string.action_delete)
     val favoriteLabel = stringResource(if (watch.favorite) R.string.favorite_remove else R.string.favorite_add)
     val selectLabel = stringResource(R.string.watchlist_select)
+    // Tipp öffnet das Aktionsblatt: TalkBack sagt «zum Kurs und Aktionen zeigen doppeltippen» statt «zum Aktivieren»
+    val openLabel = stringResource(R.string.unusual_action_open)
     val changeView = LocalChangeView.current
     val name = coinName(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name)
     // Gezeigte Änderung aus fremden Kerzen: Anbieter für Marker und Zeilensatz (gleiche Regel wie iOS)
@@ -171,9 +175,8 @@ internal fun WatchRow(
     // Aktionsblatt zu öffnen. Im Sortier- und Auswahlmodus nicht (dort gehört jeder Tipp der Zeile).
     val sourceHintLabel = stringResource(R.string.change_candle_source_action)
     val sourceHintText = changeMarker?.let { stringResource(R.string.change_candle_source_hint, it) }
-    val showSourceHint: (() -> Unit)? = sourceHintText?.takeIf { !sortMode && !selecting }?.let { text ->
-        { android.widget.Toast.makeText(context, text, android.widget.Toast.LENGTH_LONG).show() }
-    }
+    // Im Banner der Merkliste (Snackbar) statt als Toast: gleiche Stelle wie alle anderen Hinweise
+    val showSourceHint: (() -> Unit)? = sourceHintText?.takeIf { !sortMode && !selecting }?.let { text -> { onSourceHint(text) } }
     // Kurs ist der Mark-Preis (dünnes Orderbuch ohne Mittelkurs): so benennen, auch im Zeilensatz
     val markPrice = watch.id in LocalMarkFallback.current && watch.lastPrice != null
     // Kurs ist der Schluss der laufenden Stundenkerze (WOO X Spot): wie im Aktionsblatt «Stundenkurs»
@@ -252,11 +255,12 @@ internal fun WatchRow(
                 if (selecting) Modifier.toggleable(value = selected, role = Role.Checkbox, onValueChange = { onClick() })
                 // Lange drücken startet die Mehrfachauswahl; im Sortiermodus nicht (dort zieht man)
                 else if (!sortMode && onLongClick != null) Modifier.combinedClickable(
+                    onClickLabel = openLabel,
                     onLongClickLabel = selectLabel,
                     onLongClick = onLongClick,
                     onClick = onClick,
                 )
-                else Modifier.clickable(onClick = onClick)
+                else Modifier.clickable(onClickLabel = openLabel.takeIf { !sortMode }, onClick = onClick)
             )
             .semantics {
                 contentDescription = rowDescription
@@ -282,10 +286,31 @@ internal fun WatchRow(
         val namesOn = LocalCoinNameSource.current != null
         // Grösste Schrift (ab 1.5): Kurs unter das Paar statt daneben, links bleibt Breite ([DenseRowText])
         val stacked = DenseRowText.stacksTrailing(LocalDensity.current.fontScale)
-        // Schmale Zeile (< 360 dp): Mini-Chart 48 statt 56 dp, das Paar behält mehr Platz ([DenseRowText])
-        BoxWithConstraints {
-            val sparkWidth = DenseRowText.sparklineWidth(maxWidth.value).dp
-            val largePrice = DenseRowText.largePrice(LocalDensity.current.fontScale, maxWidth.value)
+        // Schmale Zeile (< 360 dp): Mini-Chart 48 statt 56 dp, das Paar behält mehr Platz ([DenseRowText]).
+        // Breite einmal von der Liste ([LocalWatchRowWidth]) statt je Zeile gemessen
+        val rowWidth = LocalWatchRowWidth.current.takeIf { it.isSpecified }?.value
+            ?: LocalConfiguration.current.screenWidthDp.toFloat()
+        Box {
+            val sparkWidth = DenseRowText.sparklineWidth(rowWidth).dp
+            val largePrice = DenseRowText.largePrice(LocalDensity.current.fontScale, rowWidth)
+            // Kurs neben dem Paar bzw. (grösste Schrift) darunter – derselbe Inhalt an zwei möglichen Stellen
+            val price: @Composable (Modifier) -> Unit = { priceModifier ->
+                RowPrice(
+                    watch = watch,
+                    converted = converted,
+                    off = off,
+                    stale = stale,
+                    reveal = motion.priceReveal,
+                    flash = flash,
+                    changeMarker = changeMarker != null,
+                    changeMarkerLabel = changeMarker?.let(DayChange::rowMarkerLabel),
+                    onChangeMarkerClick = showSourceHint,
+                    markPrice = markPrice,
+                    hourlyPrice = hourlyPrice,
+                    largePrice = largePrice,
+                    modifier = priceModifier,
+                )
+            }
             Column(modifier = Modifier.padding(start = 4.dp, end = Spacing.md, top = Spacing.md, bottom = Spacing.md)) {
                 Row(verticalAlignment = if (namesOn) Alignment.Top else Alignment.CenterVertically) {
                     Box(Modifier.align(Alignment.CenterVertically)) {
@@ -354,43 +379,12 @@ internal fun WatchRow(
                         )
                     }
 
-                    if (!stacked) {
-                        RowPrice(
-                            watch = watch,
-                            converted = converted,
-                            off = off,
-                            stale = stale,
-                            reveal = motion.priceReveal,
-                            flash = flash,
-                            changeMarker = changeMarker != null,
-                            changeMarkerLabel = changeMarker?.let(DayChange::rowMarkerLabel),
-                            onChangeMarkerClick = showSourceHint,
-                            markPrice = markPrice,
-                            hourlyPrice = hourlyPrice,
-                            largePrice = largePrice,
-                        )
-                    }
+                    if (!stacked) price(Modifier.padding(start = 8.dp))
 
                     // Sortiermodus: «ganz nach oben/unten» im Zeilenmenü statt als Symbole
                     if (sortMode) Box(Modifier.align(Alignment.CenterVertically)) { RowSortMenu(onMove = onMove) }
                 }
-                if (stacked) {
-                    RowPrice(
-                        watch = watch,
-                        converted = converted,
-                        off = off,
-                        stale = stale,
-                        reveal = motion.priceReveal,
-                        flash = flash,
-                        changeMarker = changeMarker != null,
-                        changeMarkerLabel = changeMarker?.let(DayChange::rowMarkerLabel),
-                        onChangeMarkerClick = showSourceHint,
-                        markPrice = markPrice,
-                        hourlyPrice = hourlyPrice,
-                        largePrice = largePrice,
-                        modifier = Modifier.align(Alignment.End).padding(top = 4.dp),
-                    )
-                }
+                if (stacked) price(Modifier.align(Alignment.End).padding(top = 4.dp))
             }
         }
     }

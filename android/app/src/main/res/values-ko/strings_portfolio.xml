@@ -291,6 +291,8 @@
     <plurals name="portfolio_coin_delete_confirm">
         <item quantity="other">거래 %d건이 삭제됩니다. 삭제 직후에 실행 취소할 수 있습니다.</item>
     </plurals>
+    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">%1$s(으)로 낸 수수료는 다른 거래에서도 삭제됩니다: %2$d건</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">
         <item quantity="other">포트폴리오에서 %1$s 삭제됨(거래 %2$d건)</item>

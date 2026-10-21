@@ -295,6 +295,8 @@ enum PortfolioFifo {
                 let q = queue(t.exchange)
                 let requested = amount + t.coinFeeExact
                 check(q, requested, t, feeLeg: false)
+                // Gebühr auf den nicht erfassten Teil (auch aus leerer Warteschlange): vermerkt statt still verloren
+                unassign(t, PortfolioFeeExpenses.withdrawalUncovered(t, holdings: q.held))
                 if q.held <= 0 { continue }
                 // Gebühr USDT + Wert der Gebühr im dritten Coin: Aufwand (realisiert), wie im Zeitraum
                 expense(e, q, .WITHDRAWAL, PortfolioFeeExpenses.withdrawal(t, holdings: q.held))

@@ -249,7 +249,7 @@ internal fun PercentChoiceRow(label: String, selected: Double, onSelected: (Doub
                     value = text,
                     onValueChange = { input -> text = filterPercentInput(input) },
                     singleLine = true,
-                    suffix = { Text("%") },
+                    suffix = { Text(PercentText.symbol()) },
                     isError = percentInputError(text),
                     supportingText = if (percentInputError(text)) {
                         { Text(stringResource(R.string.settings_percent_invalid)) }

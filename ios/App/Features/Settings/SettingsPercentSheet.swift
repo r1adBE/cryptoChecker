@@ -33,7 +33,7 @@ struct SettingsPercentSheet: View {
                             if filtered != value { text = filtered }
                         }
                         .onSubmit(save)
-                    Text(verbatim: "%")
+                    Text(verbatim: PercentText.symbol())
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
                 .padding(.horizontal, Spacing.md)

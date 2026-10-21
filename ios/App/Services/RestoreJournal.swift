@@ -9,7 +9,7 @@ import Foundation
 ///
 /// Mit Portfolio-Daten: versiegelt mit dem Schlüssel der verschlüsselten Dateien (`ProtectedContainer`, `StorageKey`),
 /// im Container der App (nicht in der App Group, die Widgets brauchen es nicht) und nie im Geräte-Backup. Ohne Schlüssel
-/// kein Journal (Wiederherstellen wie bis Build 75, Rückrollen nur im selben Lauf).
+/// kein Journal — seit Build 102 lehnt das Wiederherstellen dann ab (`BackupManager.Failure.journalUnavailable`).
 enum RestoreJournal {
     enum Read {
         /// Kein Journal: kein Lauf abgebrochen.

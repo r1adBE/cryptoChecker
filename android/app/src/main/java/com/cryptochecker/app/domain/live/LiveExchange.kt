@@ -2,6 +2,7 @@
 package com.cryptochecker.app.domain.live
 
 import com.cryptochecker.marketdata.model.market.BinanceAlpha
+import com.cryptochecker.marketdata.util.TimeUtils
 
 /**
  * Börsen mit öffentlichem WebSocket-Ticker. [marketKey] = Schlüssel des REST-Adapters
@@ -177,7 +178,13 @@ object LiveParser {
 
     private fun positive(value: Any?): Double? = finite(value)?.takeIf { it > 0.0 }
 
-    private fun millis(value: Any?): Long? = finite(value)?.toLong()?.takeIf { it > 0 }
+    /**
+     * Zeit der Börse in ms, egal ob sie in s, ms, µs oder ns kommt ([TimeUtils.parseTimeToMillis], wie REST). Was nicht
+     * in einen Long passt (z. B. «1e30»), ist keine Zeit.
+     */
+    private fun millis(value: Any?): Long? = finite(value)
+        ?.takeIf { it >= 1 && it < Long.MAX_VALUE.toDouble() }
+        ?.let { TimeUtils.parseTimeToMillis(it.toLong()) }
 
     /** Wie `Change24h.fromOpen`: (letzter − Eröffnung) / Eröffnung in %. */
     private fun fromOpen(last: Double?, open: Double?): Double? {

@@ -19,6 +19,20 @@ final class SettingsResetNoticeTests: XCTestCase {
         XCTAssertFalse(SharedStorage.settingsCorrupt(hasData: false, decodes: false))
     }
 
+    /// Seit Build 102: unlesbar → Portfolio-Sperre unbekannt → an (wie Android `SettingsLockFallbackTest`).
+    func testUnlesbareEinstellungenSperrenDasPortfolio() {
+        XCTAssertTrue(SharedStorage.settingsAfterRead(nil, corrupt: true).appLock)
+        // Neue Installation bzw. gesperrte Ablage: Standard (aus); gesperrte Ablage sperrt über `state`
+        XCTAssertFalse(SharedStorage.settingsAfterRead(nil, corrupt: false).appLock)
+        var stored = AppSettings()
+        stored.appLock = false
+        XCTAssertFalse(SharedStorage.settingsAfterRead(stored, corrupt: false).appLock)
+        let loaded = SharedStorage.LoadedSettings(settings: AppSettings(), state: .missing, corrupt: true)
+        XCTAssertTrue(loaded.appLockAssumed)
+        XCTAssertFalse(SharedStorage.LoadedSettings(settings: AppSettings(), state: .missing).appLockAssumed)
+        XCTAssertTrue(SharedStorage.LoadedSettings(settings: AppSettings(), state: .inaccessible).appLockAssumed)
+    }
+
     func testNichtsVorgemerktKeinHinweis() {
         XCTAssertNil(next())
     }

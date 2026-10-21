@@ -25,8 +25,11 @@ Translations:
 python3 .github/scripts/check_strings.py
 ```
 
-GitHub runs the same checks for every pull request (workflows **Android** and
-**Strings**; the iOS build can be started by hand under *Actions › iOS*).
+GitHub runs the same checks for every pull request, each workflow when its
+files change: **Android**, **iOS** (build, unit and UI tests in the
+Simulator), **Strings**, **Parity** and **Release readiness**. The Android
+device tests (emulator) run on every push to `main`; they can also be started
+by hand under *Actions › Android device tests*.
 
 ## Add an exchange
 

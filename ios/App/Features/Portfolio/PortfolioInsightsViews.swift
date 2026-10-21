@@ -151,7 +151,7 @@ struct PortfolioAlarmSheet: View {
                             .keyboardType(.decimalPad)
                             .focused($focused)
                             .font(.body.monospacedDigit())
-                        Text(kind.isValue ? currency : "%")
+                        Text(kind.isValue ? currency : PercentText.symbol())
                             .foregroundStyle(AppColors.onSurfaceVariant)
                     }
                     SwitchRow(title: L("alarm_repeating"), isOn: $repeating, verticalPadding: 0)

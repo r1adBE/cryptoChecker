@@ -52,6 +52,7 @@
     <string name="alarm_threshold_error_funding">يجب أن يكون معدل التمويل رقمًا بين −10 و+10 بالمئة.</string>
     <string name="alarm_threshold_error_invalid">أدخل رقمًا صالحًا أكبر من 0.</string>
     <string name="alarm_threshold_error_oi">تغيّر العقود المفتوحة: 1000 بالمئة كحد أقصى.</string>
+    <string name="alarm_threshold_error_percent_down">لا يمكن أن يتجاوز الانخفاض 100 بالمئة.</string>
     <plurals name="alarm_window_hours">
         <item quantity="zero">خلال %1$d ساعة</item>
         <item quantity="one">خلال %1$d ساعة</item>

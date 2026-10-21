@@ -99,8 +99,10 @@ extension AppData {
         if !old.priceNotifications && settings.priceNotifications {
             Task { _ = await Notifier.requestPermission() }
         }
-        if !settings.priceNotifications {
-            snapshot.watches.forEach { Notifier.cancelPrice($0.id) }
+        // Nur beim Ausschalten und in EINEM Aufruf: vorher lief das bei jeder Einstellungs-Änderung je Paar
+        // (bis 2000 Aufrufe auf dem Haupt-Thread)
+        if PriceNotificationRule.switchedOff(old: old.priceNotifications, new: settings.priceNotifications) {
+            Notifier.cancelAllPrices(snapshot.watches.map(\.id))
         }
     }
 }

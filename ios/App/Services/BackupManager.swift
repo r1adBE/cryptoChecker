@@ -30,6 +30,9 @@ enum BackupManager {
         case invalid(String)
         /// Mehr ungültige Portfolio-Einträge, als der Nutzer bestätigt hat — nichts wird ersetzt.
         case unconfirmedInvalid(Int)
+        /// Seit Build 102: Journal des Wiederherstellens nicht geschrieben (Schlüssel gerade nicht verfügbar oder
+        /// Speicherfehler) — nichts wird ersetzt, wie Android `BackupJournalUnavailableException`.
+        case journalUnavailable
     }
 
     /// Sicherungsdatei lesen, höchstens `BackupLimits.maxBytes` (nie eine beliebig grosse Datei in den Speicher).
@@ -292,8 +295,9 @@ enum BackupManager {
         let oldWatchedIntact = data.watchedAddressIntact
         let watched = watchedEntries(root)
 
-        // Journal vor dem ersten Schreiben: bricht die App mittendrin ab, rollt der nächste Start zurück (wie Android)
-        if journal, let previous = try? plainExportData(data) { RestoreJournal.write(previous) }
+        // Journal vor dem ersten Schreiben: bricht die App mittendrin ab, rollt der nächste Start zurück (wie Android).
+        // Seit Build 102 nie ohne: ein mittendrin beendeter Lauf liesse sonst einen halben Stand ohne Rückweg
+        if journal { try requireJournal(try? plainExportData(data), write: { RestoreJournal.write($0) }) }
         var steps = RestoreSteps()
         do {
             steps.run({
@@ -333,6 +337,12 @@ enum BackupManager {
         old.watches.forEach { Notifier.cancelPrice($0.id) }
         return RestoreResult(watches: watches.count, alarms: alarms.count, appLockKept: lock.keptOn,
                              droppedPairs: watchlist.droppedPairs, droppedAlarms: watchlist.droppedAlarms)
+    }
+
+    /// Journal vor dem ersten Schreiben (seit Build 102 Pflicht, wie Android `RestoreRun`): ohne bisherigen Stand
+    /// (`previous` nil) oder ohne geschriebenes Journal `Failure.journalUnavailable` — dann wird nichts ersetzt.
+    static func requireJournal(_ previous: Data?, write: (Data) -> Bool) throws {
+        guard let previous, write(previous) else { throw Failure.journalUnavailable }
     }
 
     /// Eben geschriebene Sicherungsdatei zurücklesen und mit `expected` vergleichen (Grösse und SHA-256) — wie Android

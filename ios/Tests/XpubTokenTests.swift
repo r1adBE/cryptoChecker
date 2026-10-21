@@ -208,7 +208,10 @@ final class XpubTokenTests: XCTestCase {
         return XpubCache(receive: (0..<int(m["receive"])).map { "r\($0)" }, change: (0..<int(m["change"])).map { "c\($0)" },
                          usedReceive: (m["usedReceive"] as? [Any] ?? []).map { int($0) },
                          usedChange: (m["usedChange"] as? [Any] ?? []).map { int($0) },
-                         fullScan: int64(m["fullScan"]))
+                         fullScan: int64(m["fullScan"]),
+                         // Seit Build 102 (optional): zuletzt leere benutzte Adressen
+                         emptyReceive: (m["emptyReceive"] as? [Any] ?? []).map { int($0) },
+                         emptyChange: (m["emptyChange"] as? [Any] ?? []).map { int($0) })
     }
 
     func testGapScan() throws {
@@ -249,6 +252,8 @@ final class XpubTokenTests: XCTestCase {
                                    change: (0...max(maxIndex[1], 0)).map { "c\($0)" }, now: 777)
             XCTAssertEqual(cache.usedReceive, (e["usedReceive"] as? [Any] ?? []).map { int($0) }, "usedReceive \(name)")
             XCTAssertEqual(cache.usedChange, (e["usedChange"] as? [Any] ?? []).map { int($0) }, "usedChange \(name)")
+            if let er = e["emptyReceive"] as? [Any] { XCTAssertEqual(cache.emptyReceive, er.map { int($0) }, "emptyReceive \(name)") }
+            if let ec = e["emptyChange"] as? [Any] { XCTAssertEqual(cache.emptyChange, ec.map { int($0) }, "emptyChange \(name)") }
             XCTAssertEqual(cache.fullScan, mode == .FULL ? Int64(777) : (oldCache?.fullScan ?? 0))
             XCTAssertEqual(scan.complete, e["complete"] as? Bool ?? true, "complete \(name)")
         }
@@ -259,16 +264,41 @@ final class XpubTokenTests: XCTestCase {
                                                    lastBalance: c["lastBalance"] as? String),
                            c["keep"] as? Bool, "keepBackground \(c)")
         }
+        // Seit Build 102 (F-16): benutzte Indizes optional — vollständige Suche sicher zu gross = schnell
+        func ints(_ v: Any?) -> [Int] { (v as? [Any] ?? []).map { int($0) } }
         for c in S.list(g["modeFor"]) {
-            let cache = (c["cache"] as? [String: Any]).map { XpubCache(fullScan: int64($0["fullScan"])) }
+            let cache = (c["cache"] as? [String: Any]).map {
+                XpubCache(usedReceive: ints($0["usedReceive"]), usedChange: ints($0["usedChange"]), fullScan: int64($0["fullScan"]))
+            }
             let mode = XpubScan.mode(for: cache, now: int64(c["now"]), background: c["background"] as? Bool ?? false)
             XCTAssertEqual(mode?.rawValue, c["mode"] as? String, "modeFor \(c)")
+        }
+        for c in S.list(g["fullEstimate"]) {
+            let cache = XpubCache(usedReceive: ints(c["usedReceive"]), usedChange: ints(c["usedChange"]))
+            XCTAssertEqual(XpubScan.fullEstimate(cache), int(c["estimate"]), "fullEstimate \(c)")
         }
         // Zwischenspeicher hin und zurück (Kurzform wie Android); unpassende Indizes fallen weg
         let cache = XpubCache(receive: ["a", "b"], change: ["c"], usedReceive: [1], usedChange: [0], fullScan: 42)
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: JSONEncoder().encode(cache)), cache)
         let raw = Data(#"{"r":["a","b"],"ru":[1,5,-1,1]}"#.utf8)
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: raw).usedReceive, [1])
+        // Seit Build 102: leere benutzte hin und zurück; nur benutzte Indizes bleiben
+        let withEmpty = XpubCache(receive: ["a", "b"], change: ["c"], usedReceive: [0, 1], usedChange: [0], fullScan: 42,
+                                  emptyReceive: [1], emptyChange: [0])
+        XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: JSONEncoder().encode(withEmpty)), withEmpty)
+        let rawEmpty = Data(#"{"r":["a","b"],"ru":[1],"re":[0,1,7]}"#.utf8)
+        XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: rawEmpty).emptyReceive, [1])
+        // Seit Build 102 (F-16): Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
+        var limited = cache
+        limited.limitedFallback = true
+        let limitedJson = try XCTUnwrap(try JSONSerialization.jsonObject(with: JSONEncoder().encode(limited)) as? [String: Any])
+        XCTAssertEqual(limitedJson["lf"] as? Bool, true)
+        XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: JSONEncoder().encode(limited)), limited)
+        let plainJson = try XCTUnwrap(try JSONSerialization.jsonObject(with: JSONEncoder().encode(cache)) as? [String: Any])
+        XCTAssertNil(plainJson["lf"])
+        XCTAssertFalse(try JSONDecoder().decode(XpubCache.self, from: Data(#"{"r":["a"],"lf":"ja"}"#.utf8)).limitedFallback)
+        XCTAssertTrue(XpubScan(mode: .QUICK, cache: limited).cache(receive: ["a"], change: ["c"], now: 777).limitedFallback)
+        XCTAssertFalse(XpubScan(mode: .FULL, cache: limited).cache(receive: ["a"], change: ["c"], now: 777).limitedFallback)
     }
 
     /// xpub eines Segwit-Kontos (Ledger Live): dieselben Schlüssel wie die BIP84-zpub bzw. BIP49-ypub der Testvektoren, nur

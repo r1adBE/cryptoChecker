@@ -316,6 +316,8 @@
         <item quantity="many">المعاملات التي ستُحذف: %d. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
         <item quantity="other">المعاملات التي ستُحذف: %d. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
     </plurals>
+    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">تُزال أيضًا الرسوم المدفوعة بـ %1$s من معاملات أخرى: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">
         <item quantity="zero">تمت إزالة %1$s من المحفظة (المعاملات: %2$d)</item>

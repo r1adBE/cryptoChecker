@@ -2,9 +2,14 @@ package com.cryptochecker.app.data.local
 
 import android.content.Context
 import androidx.core.content.edit
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
 /**
@@ -25,6 +30,8 @@ import kotlinx.coroutines.flow.update
  *    ([com.cryptochecker.app.settings.settingsDataStore]) — Portfolio-Sperre, Intervall und Währung stehen dann still auf
  *    dem Standard (Sperre aus). Bleibt vorgemerkt, bis der Nutzer den Hinweis schliesst, damit er sicher gesehen wird.
  *    Nicht bei einer neuen Installation und nicht, wenn die Datei bloss nicht lesbar war (dann ersetzt DataStore nichts).
+ *    Seit Build 102 gilt die Sperre danach als an, bis der Nutzer sie selbst setzt ([confirmAppLock]); ein blosser
+ *    Lesefehler wird ebenfalls gemeldet (`SettingsLockFallback`).
  *
  * Eigene SharedPreferences-Datei [PREFS], nicht in den Sicherungsregeln: Die Hinweise gehören zu diesem Gerät.
  */
@@ -35,6 +42,7 @@ object StorageRecoveryNotice {
     private const val KEY_RESTORE_INTERRUPTED = "restore_interrupted"
     private const val KEY_SYSTEM_BACKUP_NOT_IMPORTED = "system_backup_not_imported"
     private const val KEY_SETTINGS_RESET = "settings_reset"
+    private const val KEY_APP_LOCK_UNKNOWN = "app_lock_unknown"
     private const val KEY_ROLLBACK_ATTEMPTED_FOR = "restore_rollback_attempted_for"
     private const val ROLLED_BACK = "rolled_back"
     private const val INCOMPLETE = "incomplete"
@@ -61,6 +69,10 @@ object StorageRecoveryNotice {
         setAsideHidden = false
         recorded.update { it + 1 }
     }
+
+    /** Wartet für [database] noch der Hinweis «nicht entsperrt» auf Bestätigung? Dann bleiben beiseitegelegte Kopien. */
+    fun isSetAsidePending(context: Context, database: String): Boolean =
+        database in prefs(context).getStringSet(KEY_DATABASES, emptySet()).orEmpty()
 
     /** Beiseitegelegte Datei von [database] wieder zurück: nicht mehr «nicht entsperrt», sondern einmal «wieder entsperrt». */
     fun recordRestored(context: Context, database: String) {
@@ -102,9 +114,31 @@ object StorageRecoveryNotice {
     /**
      * Einstellungen beschädigt und durch Standardwerte ersetzt vormerken. Läuft im Ersatz-Handler von DataStore, also
      * vor dem ersten Lesen — darum sofort geschrieben (der Prozess kann gleich danach enden).
+     * [lockUnknown] (seit Build 102): Die Portfolio-Sperre gilt als unbekannt und damit als an, bis der Nutzer sie selbst
+     * setzt ([confirmAppLock]) — nicht bei einem blossen Lesefehler, dort ist die Datei unverändert.
      */
-    fun recordSettingsReset(context: Context) {
-        prefs(context).edit(commit = true) { putBoolean(KEY_SETTINGS_RESET, true) }
+    fun recordSettingsReset(context: Context, lockUnknown: Boolean = true) {
+        prefs(context).edit(commit = true) {
+            putBoolean(KEY_SETTINGS_RESET, true)
+            if (lockUnknown) putBoolean(KEY_APP_LOCK_UNKNOWN, true)
+        }
+        recorded.update { it + 1 }
+    }
+
+    /**
+     * Portfolio-Sperre unbekannt (Einstellungen beschädigt, [recordSettingsReset])? Gibt bei jeder Vormerkung neu aus;
+     * gelesen im Hintergrund. Für `SettingsLockFallback`.
+     */
+    fun appLockUnknown(context: Context): Flow<Boolean> = changes
+        .map { prefs(context).getBoolean(KEY_APP_LOCK_UNKNOWN, false) }
+        .distinctUntilChanged()
+        .flowOn(Dispatchers.IO)
+
+    /** Der Nutzer hat die Portfolio-Sperre selbst gesetzt (oder eine Sicherung sie): nicht mehr unbekannt. */
+    fun confirmAppLock(context: Context) {
+        val p = prefs(context)
+        if (!p.getBoolean(KEY_APP_LOCK_UNKNOWN, false)) return
+        p.edit(commit = true) { remove(KEY_APP_LOCK_UNKNOWN) }
         recorded.update { it + 1 }
     }
 

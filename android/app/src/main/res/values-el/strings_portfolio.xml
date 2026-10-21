@@ -296,6 +296,8 @@
         <item quantity="one">Θα αφαιρεθεί %d συναλλαγή. Μπορείς να το αναιρέσεις αμέσως μετά.</item>
         <item quantity="other">Θα αφαιρεθούν %d συναλλαγές. Μπορείς να το αναιρέσεις αμέσως μετά.</item>
     </plurals>
+    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Οι χρεώσεις σε %1$s αφαιρούνται και από άλλες συναλλαγές: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">
         <item quantity="one">Το %1$s αφαιρέθηκε από το χαρτοφυλάκιο (%2$d συναλλαγή)</item>

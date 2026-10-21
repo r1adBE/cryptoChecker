@@ -18,15 +18,18 @@ extension WatchlistScreen {
     }
 
     /// Nach links gewischt, VoiceOver «Löschen» oder «Löschen» im Aktionsblatt: sofort löschen (samt
-    /// Alarmen), Banner mit «Rückgängig» und Ansage. Ein weiteres Löschen ersetzt den
-    /// Banner — das vorige bleibt dann gelöscht.
+    /// Alarmen), Banner mit «Rückgängig» und Ansage. Ein weiteres Löschen, solange der Banner steht, fasst beide
+    /// zusammen («2 Paare entfernt»); «Rückgängig» holt dann alle zurück.
     func swipeDelete(_ watch: Watch) {
         swipeDeleteTick += 1
         var result: DeletedWatch?
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.deleteForUndo(watch) }
         guard let deleted = result else { return }
-        let text = L("watchlist_removed", deleted.watch.displayPair)
-        banner = WatchlistBannerMessage(text: text, icon: "trash", undo: deleted)
+        let message = WatchlistBannerMessage.removed(deleted, after: banner) { all in
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(all) }
+        }
+        let text = message.text
+        banner = message
         Task { @MainActor in
             // Nach dem Fokuswechsel ansagen, sonst geht es unter
             try? await Task.sleep(nanoseconds: 300_000_000)

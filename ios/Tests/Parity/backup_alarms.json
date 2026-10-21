@@ -1,5 +1,5 @@
 {
- "description": "Pair alarms read from a backup (Android AlarmJson.fromJson / iOS BackupManager.alarmFromJson). An unknown condition (newer app version) or a threshold that is not a finite number makes the alarm invalid: it is counted and named in the restore confirmation, never turned into «price above» with a foreign threshold. Numbers JSON cannot hold are strings (\"NaN\"). An optional \"windowHours\" per case is the expected window after reading: clamped to 1 … 365 (no overflow, no 32-bit wrap).",
+ "description": "Pair alarms read from a backup (Android AlarmJson.fromJson / iOS BackupManager.alarmFromJson). An unknown condition (newer app version) or a threshold that is not a finite number makes the alarm invalid: it is counted and named in the restore confirmation, never turned into «price above» with a foreign threshold. Numbers JSON cannot hold are strings (\"NaN\"). An optional \"windowHours\" per case is the expected window after reading: clamped to 1 … 365 (no overflow, no 32-bit wrap). Since Build 102 a threshold <= 0 is also invalid for price level (PRICE_ABOVE/BELOW), percent change (CHANGE_PERCENT_UP/DOWN) and move (MOVE_PERCENT_WINDOW) alarms — they fired on every check; funding may be negative and «near high/low» may be 0.",
  "cases": [
   {
    "name": "known condition is kept",
@@ -217,6 +217,204 @@
    },
    "valid": true,
    "windowHours": 24
+  },
+  {
+   "name": "price level at 0 is invalid (since Build 102)",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "PRICE_ABOVE",
+    "threshold": 0,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "negative price level is invalid",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "PRICE_BELOW",
+    "threshold": -5,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "percent change of 0 is invalid",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "CHANGE_PERCENT_DOWN",
+    "threshold": 0,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "negative percent change is invalid",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "CHANGE_PERCENT_UP",
+    "threshold": -3,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "move of 0 percent is invalid",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "MOVE_PERCENT_WINDOW",
+    "threshold": 0,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "negative funding threshold is kept",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "FUNDING_BELOW",
+    "threshold": -0.01,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": true
+  },
+  {
+   "name": "near high with 0 percent distance is kept",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "NEAR_HIGH",
+    "threshold": 0,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": true
+  },
+  {
+   "name": "volume spike with factor 0 is invalid",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "VOLUME_SPIKE",
+    "threshold": 0,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "open interest up with negative threshold is invalid",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "OI_UP",
+    "threshold": -5,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "open interest down with 0 percent is invalid",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "OI_DOWN",
+    "threshold": 0,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": false
+  },
+  {
+   "name": "volume spike with factor 3 is kept",
+   "alarm": {
+    "id": 1,
+    "watchId": 10,
+    "condition": "VOLUME_SPIKE",
+    "threshold": 3,
+    "enabled": true,
+    "repeating": false,
+    "sound": true,
+    "vibrate": true,
+    "speak": false,
+    "referencePrice": null,
+    "windowHours": 1,
+    "currency": null
+   },
+   "valid": true
   }
  ]
 }

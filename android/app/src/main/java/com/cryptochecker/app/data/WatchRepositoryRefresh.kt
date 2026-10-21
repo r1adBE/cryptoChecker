@@ -111,5 +111,5 @@ suspend fun WatchRepository.rearmAlarm(id: Long) = watchDao.rearmAlarm(id)
 
 /** Wie [rearmAlarm], aber nur, wenn der Alarm seit dem Lesen unverändert ist (Aktualisierung). */
 suspend fun WatchRepository.rearmAlarmIfUnchanged(alarm: AlarmEntity) {
-    watchDao.rearmAlarmIfUnchanged(alarm.id, alarm.condition.name, alarm.threshold, alarm.windowHours)
+    watchDao.rearmAlarmIfUnchanged(alarm.id, alarm.condition.name, alarm.threshold, alarm.windowHours, alarm.currency)
 }

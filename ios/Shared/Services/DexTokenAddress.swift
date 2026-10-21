@@ -23,24 +23,23 @@ enum DexTokenAddress {
 /// gemeinsamen Einstellungen statt im Stand (wie `DexLiquidityStore`) — nicht in der Sicherung; fehlt sie (Paar vor
 /// Build 91 hinzugefügt), zeigt das Paar-Blatt einfach keine Adresse. Wie `DexTokenAddressStore.kt`.
 enum DexTokenAddressStore {
-    private static let defaultsKey = "dex_token_address"
-
-    private static var all: [String: String] {
-        SharedStorage.defaults.dictionary(forKey: defaultsKey) as? [String: String] ?? [:]
-    }
+    /// Ein Schlüssel je Pool (`PerKeyDefaults`); bis Build 101 ein Wörterbuch unter «dex_token_address».
+    static let storage = PerKeyDefaults(prefix: "dex_token_address.", legacyKey: "dex_token_address")
+    /// Einmal je Prozess vor dem ersten Zugriff (thread-sicher, `static let`).
+    private static let migration: Void = storage.migrateLegacy(SharedStorage.defaults)
 
     /// Gemerkte Adresse des Pools `pairId`; nil = unbekannt.
-    static func get(_ pairId: String?) -> String? {
+    static func get(_ pairId: String?, defaults: UserDefaults = SharedStorage.defaults) -> String? {
+        _ = migration
         guard let key = DexLiquidity.key(pairId) else { return nil }
-        return DexTokenAddress.cleaned(all[key])
+        return DexTokenAddress.cleaned(defaults.string(forKey: storage.key(key)))
     }
 
     /// Adresse aus der Suche merken; leer/ungültig = nichts ändern (eine frühere Adresse bleibt).
-    static func put(_ pairId: String?, _ address: String?) {
+    static func put(_ pairId: String?, _ address: String?, defaults: UserDefaults = SharedStorage.defaults) {
+        _ = migration
         guard let key = DexLiquidity.key(pairId), let value = DexTokenAddress.cleaned(address) else { return }
-        var current = all
-        if current[key] == value { return }
-        current[key] = value
-        SharedStorage.defaults.set(current, forKey: defaultsKey)
+        if defaults.string(forKey: storage.key(key)) == value { return }
+        defaults.set(value, forKey: storage.key(key))
     }
 }

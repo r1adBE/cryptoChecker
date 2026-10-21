@@ -306,6 +306,8 @@
         <item quantity="many">Буде видалено %d операцій. Одразу після цього видалення можна скасувати.</item>
         <item quantity="other">Буде видалено %d операції. Одразу після цього видалення можна скасувати.</item>
     </plurals>
+    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Комісії, сплачені в %1$s, буде вилучено й з інших транзакцій: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">
         <item quantity="one">%1$s видалено з портфеля (%2$d операція)</item>

@@ -121,6 +121,17 @@ object CoinLogos {
     /** Kantenlänge der gespeicherten Bilder in Pixeln (scharf bis etwa 44 dp/pt bei 3×). */
     const val STORED_PX = 128
 
+    /**
+     * Höchstens so viele Pixel (Breite × Höhe laut Bildkopf) hat ein Logo-Quellbild; grössere werden verworfen,
+     * ohne sie zu dekodieren. Die Übertragungsgrenze (512 KB) schützt nicht: Ein stark komprimiertes PNG kann
+     * 20'000 × 20'000 Pixel ankündigen. Wie iOS `CoinLogos.maxSourcePixels`. Seit Build 102.
+     */
+    const val MAX_SOURCE_PIXELS = 4096L * 4096L
+
+    /** Quellbild zu gross (oder ohne gültige Masse)? */
+    fun sourceTooLarge(width: Int, height: Int): Boolean =
+        width <= 0 || height <= 0 || width.toLong() * height.toLong() > MAX_SOURCE_PIXELS
+
     /** Symbolliste der Binance-Website (inoffiziell, ohne Schlüssel), je Eintrag `name` und `logo`. */
     const val BINANCE_LIST_URL = "https://www.binance.com/bapi/composite/v1/public/marketing/symbol/list"
 

@@ -3,14 +3,12 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.BackupJournalCodec.PreviousState
-import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
-import timber.log.Timber
 import com.cryptochecker.app.data.BackupManager.Step
 
 /** Merkliste in einer Transaktion ersetzen; ein übergangenes Paar bricht ab (statt Alarme zu verlieren). */
@@ -30,45 +28,32 @@ internal suspend fun BackupManager.writeWatchlist(watches: List<WatchEntity>, al
 
 /**
  * Schreibt den gemerkten Stand der schon berührten Teile zurück (bestmöglich; Fehler dabei werden
- * an [cause] angehängt). Portfolio-Zeilen und Alarme kommen unverändert zurück (samt Alarm-Zustand).
+ * an [cause] angehängt, Ablauf in [RestoreRollback]). Portfolio-Zeilen und Alarme kommen unverändert zurück (samt Alarm-Zustand).
  * @return true = alles zurückgeschrieben (das Journal darf weg).
  */
 internal suspend fun BackupManager.rollBack(previous: PreviousState, touched: Set<Step>, cause: Throwable): Boolean {
-    var complete = true
-    suspend fun attempt(what: String, block: suspend () -> Unit) {
-        runCatchingCancellable { block() }.onFailure {
-            complete = false
-            Timber.w(it, "Wiederherstellen: %s nicht zurückgesetzt", what)
-            if (it !== cause) cause.addSuppressed(it)
-        }
-    }
     // Nie in eine Datenbank, die nur leer im Arbeitsspeicher liegt: unvollständig, das Journal bleibt
     openBoth()
-    fun target(name: String, what: String): Boolean = rollBackTarget(name).also { ok ->
-        if (!ok) {
-            complete = false
-            Timber.w("Wiederherstellen: %s nur im Arbeitsspeicher, nicht zurückgesetzt", what)
+    return RestoreRollback.run(touched, cause, object : RestoreRollback.Parts {
+        override fun mayWritePortfolio() = rollBackTarget(PortfolioDatabase.DB_NAME)
+        override fun mayWriteWatchlist() = rollBackTarget(AppDatabase.DB_NAME)
+        override suspend fun settings() {
+            settingsCodec.restoreSettings(previous.settings, trusted = true)
         }
-    }
-    if (Step.SETTINGS in touched) attempt("Einstellungen") { settingsCodec.restoreSettings(previous.settings, trusted = true) }
-    if (Step.FAVORITES in touched) attempt("Favoriten") {
-        previous.favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
-    }
-    if (Step.PORTFOLIO in touched && target(PortfolioDatabase.DB_NAME, "Portfolio")) attempt("Portfolio") {
-        portfolioDatabase.withTransaction {
-            portfolioDao.deleteAll()
-            previous.portfolio.forEach { portfolioDao.insert(it) }
-            portfolioAlarmDao.deleteAll()
-            previous.portfolioAlarms.forEach { portfolioAlarmDao.insert(it) }
-            // Samt letztem Guthaben (unverändert zurück)
-            watchedAddressDao.deleteAll()
-            previous.watchedAddresses.forEach { watchedAddressDao.insert(it) }
+        override suspend fun favorites() {
+            previous.favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
         }
-    }
-    // Auch nach dem Portfolio-Schritt: importHoldings leert den Bestand der Merkliste
-    if (Step.WATCHLIST in touched && target(AppDatabase.DB_NAME, "Merkliste")) {
-        attempt("Merkliste") { writeWatchlist(previous.watches, previous.alarms) }
-    }
-    Timber.w(cause, "Wiederherstellen fehlgeschlagen, bisheriger Stand zurückgeschrieben")
-    return complete
+        override suspend fun portfolio() {
+            portfolioDatabase.withTransaction {
+                portfolioDao.deleteAll()
+                previous.portfolio.forEach { portfolioDao.insert(it) }
+                portfolioAlarmDao.deleteAll()
+                previous.portfolioAlarms.forEach { portfolioAlarmDao.insert(it) }
+                // Samt letztem Guthaben (unverändert zurück)
+                watchedAddressDao.deleteAll()
+                previous.watchedAddresses.forEach { watchedAddressDao.insert(it) }
+            }
+        }
+        override suspend fun watchlist() = writeWatchlist(previous.watches, previous.alarms)
+    })
 }

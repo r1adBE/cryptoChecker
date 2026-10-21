@@ -25,6 +25,16 @@ final class PercentTextParityTests: XCTestCase {
         XCTAssertTrue(languages.isSuperset(of: ["de", "fr", "tr", "ar", "fa"]))
     }
 
+    func testZeichenFuerEingabefelder() {
+        XCTAssertEqual(PercentText.symbol(locale: Locale(identifier: "en_US")), "%")
+        XCTAssertEqual(PercentText.symbol(locale: Locale(identifier: "de_DE")), "%")
+        // Türkisch: im Feld ebenfalls hinten, nur das Zeichen (wie Android)
+        XCTAssertEqual(PercentText.symbol(locale: Locale(identifier: "tr_TR")), "%")
+        XCTAssertEqual(PercentText.symbol(locale: Locale(identifier: "ar_EG@numbers=arab")), "\u{066A}")
+        XCTAssertEqual(PercentText.symbol(locale: Locale(identifier: "fa_IR@numbers=arabext")), "\u{066A}")
+        XCTAssertEqual(PercentText.symbol(locale: Locale(identifier: "ar_EG@numbers=latn")), "%")
+    }
+
     func testAbstandNachSpracheUndRegion() {
         // Spanisch (Mexiko) ohne Abstand (CLDR es_MX), die übrigen spanischen Regionen mit
         XCTAssertEqual(PercentText.wrap("2.4", locale: Locale(identifier: "es_MX")), "2.4%")

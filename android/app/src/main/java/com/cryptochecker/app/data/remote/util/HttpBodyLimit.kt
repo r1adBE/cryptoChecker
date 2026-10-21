@@ -38,7 +38,7 @@ object HttpBodyLimit {
      */
     fun read(input: InputStream, contentLength: Long, maxBytes: Long): ByteArray? {
         if (exceeds(contentLength, maxBytes)) return null
-        val out = ByteArrayOutputStream(if (contentLength in 1..maxBytes) contentLength.toInt() else 8192)
+        val out = ByteArrayOutputStream(initialCapacity(contentLength, maxBytes))
         val buffer = ByteArray(8192)
         var total = 0L
         while (true) {
@@ -50,6 +50,17 @@ object HttpBodyLimit {
         }
         return out.toByteArray()
     }
+
+    /**
+     * Startgrösse des Puffers: die angekündigte Länge, höchstens [INITIAL_BUFFER_MAX] (seit Build 102). Bis Build 101 bis
+     * [BULK_MAX_BYTES] auf einmal — ein Server, der 16 MB ankündigt und dann nichts schickt, belegte so je Anfrage 16 MB.
+     * Grössere Antworten wachsen beim Lesen nach (ByteArrayOutputStream verdoppelt).
+     */
+    fun initialCapacity(contentLength: Long, maxBytes: Long): Int =
+        if (contentLength in 1..maxBytes) minOf(contentLength, INITIAL_BUFFER_MAX.toLong()).toInt() else 8192
+
+    /** Obergrenze der Startgrösse ([initialCapacity]): 256 KiB. */
+    const val INITIAL_BUFFER_MAX = 256 * 1024
 
     /** UTF-8 (JSON, RFC 8259), ein vorangestelltes BOM fällt weg. */
     fun decode(bytes: ByteArray): String {

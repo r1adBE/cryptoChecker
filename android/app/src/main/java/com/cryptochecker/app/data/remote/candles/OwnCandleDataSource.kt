@@ -1,5 +1,7 @@
 package com.cryptochecker.app.data.remote.candles
 
+import com.cryptochecker.app.data.BoundedCache
+import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
 import com.cryptochecker.app.data.remote.BlockedSources
 import com.cryptochecker.app.data.remote.CandleInterval
 import com.cryptochecker.app.data.remote.callMarket
@@ -56,7 +58,8 @@ class OwnCandleDataSource @Inject constructor(
 ) {
     private class Entry(val time: Long, val value: Sourced<List<HourCandle>>?)
 
-    private val cache = ConcurrentHashMap<String, Entry>()
+    // Begrenzt (seit Build 102): Schlüssel je Paar, Intervall und Anzahl — sonst wüchse er über die Prozesslebensdauer
+    private val cache = BoundedCache<String, Entry>(MEMORY_CACHE_ENTRIES)
     private val permits = Semaphore(MAX_PARALLEL)
 
     /** Hat die Börse von [pair] eigene Kerzen in diesem Intervall? */
@@ -81,7 +84,7 @@ class OwnCandleDataSource @Inject constructor(
     /** Aktualisieren von Hand: nichts aus dem Speicher. */
     fun invalidate(pair: CandlePair) {
         val prefix = pair.cacheKey + "|"
-        cache.keys.removeAll { it.startsWith(prefix) }
+        cache.removeKeysIf { it.startsWith(prefix) }
     }
 
     /** Nach unten ziehen in der Merkliste: alles neu laden. */

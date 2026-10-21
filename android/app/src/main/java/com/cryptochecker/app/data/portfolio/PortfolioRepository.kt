@@ -77,13 +77,10 @@ class PortfolioRepository @Inject constructor(
     /** @throws PortfolioStorageLockedException wie alle Schreibwege des Nutzers ([ensureWritable]) */
     suspend fun delete(id: Long) = database.withTransaction { ensureWritable(); portfolioDao.delete(id) }
 
-    /** Löscht alle Transaktionen von [coin] (auch Tausche in diesen Coin) und gibt sie zurück (für «Rückgängig»). */
+    /** Löscht alle Transaktionen von [coin] samt Gebühren in [coin] bei anderen ([PortfolioCoinDeletion.apply]; für «Rückgängig»). */
     suspend fun deleteCoin(coin: String): List<PortfolioTxEntity> = database.withTransaction {
         ensureWritable()
-        val key = PortfolioCalculator.normalizeCoin(coin)
-        val removed = portfolioDao.getAll().filter { tx -> tx.coins().any { PortfolioCalculator.normalizeCoin(it) == key } }
-        removed.forEach { portfolioDao.delete(it.id) }
-        removed
+        PortfolioCoinDeletion.apply(portfolioDao, coin)
     }
 
     /** Legt gelöschte Transaktionen mit ihren alten ids wieder an («Rückgängig»). */

@@ -48,6 +48,7 @@
     <string name="alarm_threshold_error_funding">Funding must be a number between −10 and +10 percent.</string>
     <string name="alarm_threshold_error_invalid">Enter a valid number greater than 0.</string>
     <string name="alarm_threshold_error_oi">Open interest change: at most 1000 percent.</string>
+    <string name="alarm_threshold_error_percent_down">A drop can be at most 100 percent.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">in %1$d h</item>
         <item quantity="other">in %1$d h</item>

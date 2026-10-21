@@ -356,6 +356,9 @@ struct BackupSettingsPage: View {
             }
         } catch BackupVersion.Failure.newer {
             fail("backup_restore_newer_version")
+        } catch BackupManager.Failure.journalUnavailable {
+            // Ohne Journal nichts ersetzt (seit Build 102): später erneut
+            fail("backup_restore_journal_unavailable")
         } catch {
             fail("backup_failed")
         }

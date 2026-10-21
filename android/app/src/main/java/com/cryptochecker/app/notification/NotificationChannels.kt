@@ -42,9 +42,11 @@ object NotificationChannels {
     fun ensureAlarmChannel(context: Context, mode: AlarmSignal, version: Int, soundUri: String?): String {
         val id = AlarmSignal.channelId(mode, version)
         val manager = context.getSystemService<NotificationManager>() ?: return id
+        // Häufigster Fall (jeder Alarm): Kanal besteht schon — eine Abfrage statt alle Kanäle zu listen (seit Build 102).
+        // Alte Versionen entstehen nur mit einem neuen Kanal, darum wird nur beim Anlegen aufgeräumt.
+        if (manager.getNotificationChannel(id) != null) return id
         AlarmSignal.staleChannelIds(manager.notificationChannels.map { it.id }, mode, version)
             .forEach { manager.deleteNotificationChannel(it) }
-        if (manager.getNotificationChannel(id) != null) return id
         val channel = NotificationChannel(
             id,
             context.getString(alarmChannelName(mode)),
