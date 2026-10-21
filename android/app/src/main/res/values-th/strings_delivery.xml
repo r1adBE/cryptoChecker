@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
-    <string name="delivery_title">เพื่อให้การแจ้งเตือนส่งถึง</string>
+    <string name="delivery_title">เพื่อให้สัญญาณเตือนส่งถึง</string>
     <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
     <string name="delivery_state_ok">เรียบร้อย</string>
     <string name="delivery_state_warn">โปรดตรวจสอบ</string>
@@ -49,15 +49,15 @@
     <string name="delivery_live_activity">กิจกรรมสด</string>
     <string name="delivery_live_activity_note">แสดงราคาบนหน้าจอล็อก แต่จะอัปเดตเฉพาะเมื่อแอปตรวจสอบ – ไม่ได้ทำให้สัญญาณเตือนถูกตรวจสอบบ่อยขึ้น</string>
 
-    <string name="alarm_first_check">ตรวจสอบว่าการแจ้งเตือนส่งถึง</string>
+    <string name="alarm_first_check">ตรวจสอบว่าสัญญาณเตือนส่งถึง</string>
 
     <string name="oem_battery_title">การประหยัดแบตเตอรี่ของผู้ผลิต</string>
-    <string name="oem_battery_xiaomi">Xiaomi อาจหยุดแอปทั้งหมด – แล้วจะไม่มีการแจ้งเตือนมาถึง เปิด “เริ่มอัตโนมัติ” และตั้งตัวประหยัดแบตเตอรี่เป็น “ไม่มีข้อจำกัด”</string>
-    <string name="oem_battery_samsung">Samsung อาจทำให้แอปหลับลึก – แล้วจะไม่มีการแจ้งเตือนมาถึง ใน แบตเตอรี่ › ขีดจำกัดการใช้งานพื้นหลัง ให้เพิ่มแอปใน “แอปที่ไม่หลับเลย”</string>
-    <string name="oem_battery_huawei">Huawei/Honor อาจหยุดแอป – แล้วจะไม่มีการแจ้งเตือนมาถึง ใน แบตเตอรี่ › การเปิดแอป ให้เลือก “จัดการด้วยตนเอง” และอนุญาตทั้งหมด</string>
-    <string name="oem_battery_oneplus">OnePlus อาจหยุดแอป – แล้วจะไม่มีการแจ้งเตือนมาถึง อนุญาต “เปิดอัตโนมัติ” และกิจกรรมพื้นหลังใน การใช้แบตเตอรี่</string>
-    <string name="oem_battery_oppo">Oppo/Realme อาจหยุดแอป – แล้วจะไม่มีการแจ้งเตือนมาถึง อนุญาต “เปิดอัตโนมัติ” และกิจกรรมพื้นหลังใน การใช้แบตเตอรี่</string>
-    <string name="oem_battery_vivo">Vivo อาจหยุดแอป – แล้วจะไม่มีการแจ้งเตือนมาถึง อนุญาต “เริ่มอัตโนมัติ” และการใช้พลังงานพื้นหลังสูงใน แบตเตอรี่</string>
+    <string name="oem_battery_xiaomi">Xiaomi อาจหยุดแอปทั้งหมด – แล้วจะไม่มีสัญญาณเตือนมาถึง เปิด “เริ่มอัตโนมัติ” และตั้งตัวประหยัดแบตเตอรี่เป็น “ไม่มีข้อจำกัด”</string>
+    <string name="oem_battery_samsung">Samsung อาจทำให้แอปหลับลึก – แล้วจะไม่มีสัญญาณเตือนมาถึง ใน แบตเตอรี่ › ขีดจำกัดการใช้งานพื้นหลัง ให้เพิ่มแอปใน “แอปที่ไม่หลับเลย”</string>
+    <string name="oem_battery_huawei">Huawei/Honor อาจหยุดแอป – แล้วจะไม่มีสัญญาณเตือนมาถึง ใน แบตเตอรี่ › การเปิดแอป ให้เลือก “จัดการด้วยตนเอง” และอนุญาตทั้งหมด</string>
+    <string name="oem_battery_oneplus">OnePlus อาจหยุดแอป – แล้วจะไม่มีสัญญาณเตือนมาถึง อนุญาต “เปิดอัตโนมัติ” และกิจกรรมพื้นหลังใน การใช้แบตเตอรี่</string>
+    <string name="oem_battery_oppo">Oppo/Realme อาจหยุดแอป – แล้วจะไม่มีสัญญาณเตือนมาถึง อนุญาต “เปิดอัตโนมัติ” และกิจกรรมพื้นหลังใน การใช้แบตเตอรี่</string>
+    <string name="oem_battery_vivo">Vivo อาจหยุดแอป – แล้วจะไม่มีสัญญาณเตือนมาถึง อนุญาต “เริ่มอัตโนมัติ” และการใช้พลังงานพื้นหลังสูงใน แบตเตอรี่</string>
     <string name="alarm_reliability_recent">ตรวจสอบล่าสุด %1$s</string>
     <string name="alarm_reliability_stale">ตรวจสอบล่าสุด %1$s – สัญญาณเตือนอาจมาช้า</string>
     <string name="alarm_reliability_never">เปิดสัญญาณเตือนแล้ว – ยังไม่มีการตรวจสอบเบื้องหลัง</string>

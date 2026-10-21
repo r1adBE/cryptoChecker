@@ -72,7 +72,7 @@
     <string name="futures_funding_per_hours">لكل %1$d ساعات</string>
     <string name="futures_next_funding">التالي بعد %1$d س %2$d د</string>
     <string name="futures_no_data">لا توجد بيانات عقود لهذه العملة</string>
-    <string name="futures_open_interest">الفائدة المفتوحة</string>
+    <string name="futures_open_interest">العقود المفتوحة</string>
     <!-- Futures-Kennzahlen von einer anderen Börse als der beobachteten (Richtwert) -->
     <string name="futures_reference_hint">قيمة استرشادية من %1$s – يختلف التمويل والعقود المفتوحة من بورصة لأخرى، وقد تختلف على %2$s.</string>
     <string name="futures_reference_spot">قيمة استرشادية من %1$s (عقد USDT الدائم للعملة)</string>

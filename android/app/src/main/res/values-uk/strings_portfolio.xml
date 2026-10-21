@@ -105,7 +105,7 @@
     <string name="portfolio_discard_keep">Продовжити редагування</string>
     <string name="portfolio_discard_title">Скасувати зміни?</string>
     <string name="portfolio_edit_tx">Редагувати операцію</string>
-    <string name="portfolio_invalid">Неправильна кількість</string>
+    <string name="portfolio_invalid">Введіть коректне число, більше за 0.</string>
     <string name="portfolio_oversold">Продажі перевищують залишок – перевірте операції.</string>
     <string name="portfolio_sell">Продаж</string>
     <string name="portfolio_sell_exceeds">Більше за ваш залишок (%1$s)</string>
@@ -145,7 +145,7 @@
     <string name="portfolio_tx_price">Ціна за монету</string>
     <string name="portfolio_tx_price_hint">У USDT. Залиште порожнім, якщо невідомо.</string>
     <string name="portfolio_tx_price_historic">Перевірена ціна закриття за %1$s – за потреби змініть</string>
-    <string name="portfolio_tx_price_invalid">Неправильна ціна</string>
+    <string name="portfolio_tx_price_invalid">Введіть коректне число (0 або більше) або залиште поле порожнім.</string>
     <string name="portfolio_tx_price_past_hint">Вкажіть ціну на день угоди – залиште порожнім, якщо не знаєте</string>
     <string name="portfolio_tx_price_receipt_hint">У USDT. Порожньо = залишок без вартості купівлі.</string>
     <string name="portfolio_tx_price_zero">Ціна 0 неможлива для імпортованих транзакцій – залиште порожнім для ринкового курсу</string>

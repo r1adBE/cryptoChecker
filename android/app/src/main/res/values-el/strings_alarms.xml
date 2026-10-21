@@ -31,8 +31,8 @@
     <string name="alarm_fires_now_change">Αλλαγή</string>
     <string name="alarm_fires_now_save">Αποθήκευση</string>
     <string name="alarm_fires_now_title">Ο συναγερμός θα ενεργοποιηθεί αμέσως</string>
-    <string name="alarm_first_battery_hint">Η βελτιστοποίηση μπαταρίας περιορίζει την εφαρμογή – οι ειδοποιήσεις μπορεί να έρθουν αργότερα.</string>
-    <string name="alarm_first_title">Η ειδοποίηση αποθηκεύτηκε</string>
+    <string name="alarm_first_battery_hint">Η βελτιστοποίηση μπαταρίας περιορίζει την εφαρμογή – οι συναγερμοί μπορεί να έρθουν αργότερα.</string>
+    <string name="alarm_first_title">Ο συναγερμός αποθηκεύτηκε</string>
     <string name="alarm_last_triggered">τελευταία: %1$s</string>
     <string name="alarm_more_conditions">Περισσότερες συνθήκες</string>
     <string name="alarm_new_extreme">Νέο %1$s</string>
@@ -135,7 +135,7 @@
     <string name="alarm_volume_zero_hours_hint">Οι ώρες χωρίς συναλλαγές μετρούν ως μηδενικός όγκος, οπότε σε ζεύγη με χαμηλή εμπορευσιμότητα μια κανονική ώρα μπορεί να φαίνεται ασυνήθιστη.</string>
 
     <!-- Bestätigung nach dem Speichern -->
-    <string name="alarm_saved_active">Ειδοποίηση ενεργή</string>
+    <string name="alarm_saved_active">Συναγερμός ενεργός</string>
     <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
     <string name="alarm_saved_banner">Ο συναγερμός αποθηκεύτηκε: %1$s</string>
     <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
@@ -179,4 +179,5 @@
     <string name="alarm_editor_more">Περισσότερα</string>
     <string name="alarm_editor_more_summary">Γρήγοροι συναγερμοί, άλλες συνθήκες, ήχος και εκφώνηση</string>
     <string name="alarm_reliability_storage_no_key">Οι συναγερμοί στο παρασκήνιο σε παύση – η λίστα δεν έχει αποθηκευτεί</string>
+    <string name="alarms_limit_reached">Ένα ζεύγος μπορεί να έχει έως %1$s συναγερμούς.</string>
 </resources>

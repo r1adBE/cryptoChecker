@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,7 +48,11 @@ import com.cryptochecker.app.ui.theme.LocalDarkTheme
 import com.cryptochecker.app.ui.components.TabTitle
 import com.cryptochecker.app.ui.components.readableWidth
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.notification.AlarmSoundStore
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /*
  * Runde 23f: Hauptseite der Einstellungen als kurze, gruppierte Liste (wie die Einstellungen
@@ -82,6 +87,7 @@ fun SettingsScreen(
     // «App zurücksetzen» — Rückfrage (saveable: übersteht Drehen, Dunkelmodus und Sprachwechsel)
     var askReset by rememberSaveable { mutableStateOf(false) }
     val resetContext = LocalContext.current
+    val resetScope = rememberCoroutineScope()
     if (askReset) {
         AlertDialog(
             onDismissRequest = { askReset = false },
@@ -90,10 +96,17 @@ fun SettingsScreen(
             confirmButton = {
                 TextButton(onClick = {
                     askReset = false
-                    // Löscht alle Daten der App (Datenbank, Einstellungen, Dateien, geplante Arbeiten)
-                    // wie «Speicher leeren» in den System-Einstellungen; das System beendet die App
-                    // danach, beim nächsten Öffnen startet sie wie neu installiert.
-                    resetContext.getSystemService(ActivityManager::class.java)?.clearApplicationUserData()
+                    resetScope.launch {
+                        // Eigene Alarmtöne liegen in der Mediathek, nicht im App-Speicher: «Speicher leeren» liesse
+                        // sie liegen (seit Build 99 vorher gelöscht, abseits des Hauptthreads)
+                        if (AlarmSoundStore.supportsCustomFile) {
+                            withContext(Dispatchers.IO) { AlarmSoundStore.deleteAllOwn(resetContext) }
+                        }
+                        // Löscht alle Daten der App (Datenbank, Einstellungen, Dateien, geplante Arbeiten)
+                        // wie «Speicher leeren» in den System-Einstellungen; das System beendet die App
+                        // danach, beim nächsten Öffnen startet sie wie neu installiert.
+                        resetContext.getSystemService(ActivityManager::class.java)?.clearApplicationUserData()
+                    }
                 }) {
                     Text(stringResource(R.string.settings_reset_app_action), color = MaterialTheme.colorScheme.error)
                 }

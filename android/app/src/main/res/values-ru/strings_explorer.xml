@@ -134,4 +134,10 @@
     <string name="dex_token_address_copy">Копировать адрес токена</string>
     <string name="dex_token_address_copied">Адрес токена скопирован</string>
     <string name="dex_token_address_label">Адрес токена, оканчивающийся на %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">Не добавлено: %1$d. В списке может быть не больше %2$s пар.</item>
+        <item quantity="few">Не добавлено: %1$d. В списке может быть не больше %2$s пар.</item>
+        <item quantity="many">Не добавлено: %1$d. В списке может быть не больше %2$s пар.</item>
+        <item quantity="other">Не добавлено: %1$d. В списке может быть не больше %2$s пар.</item>
+    </plurals>
 </resources>

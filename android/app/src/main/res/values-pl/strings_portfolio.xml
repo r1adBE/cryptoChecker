@@ -105,7 +105,7 @@
     <string name="portfolio_discard_keep">Edytuj dalej</string>
     <string name="portfolio_discard_title">Odrzucić zmiany?</string>
     <string name="portfolio_edit_tx">Edytuj transakcję</string>
-    <string name="portfolio_invalid">Nieprawidłowa ilość</string>
+    <string name="portfolio_invalid">Wpisz prawidłową liczbę większą od 0.</string>
     <string name="portfolio_oversold">Sprzedaż przekracza stan posiadania – sprawdź transakcje.</string>
     <string name="portfolio_sell">Sprzedaż</string>
     <string name="portfolio_sell_exceeds">Więcej niż posiadasz (%1$s)</string>
@@ -145,7 +145,7 @@
     <string name="portfolio_tx_price">Cena za monetę</string>
     <string name="portfolio_tx_price_hint">W USDT. Zostaw puste, jeśli nieznana.</string>
     <string name="portfolio_tx_price_historic">Sprawdzony kurs zamknięcia z %1$s – w razie potrzeby popraw</string>
-    <string name="portfolio_tx_price_invalid">Nieprawidłowa cena</string>
+    <string name="portfolio_tx_price_invalid">Wpisz prawidłową liczbę (0 lub więcej) albo zostaw pole puste.</string>
     <string name="portfolio_tx_price_past_hint">Wpisz kurs z dnia transakcji – zostaw puste, jeśli nie wiesz</string>
     <string name="portfolio_tx_price_receipt_hint">W USDT. Puste = stan bez kosztu nabycia.</string>
     <string name="portfolio_tx_price_zero">Cena 0 niemożliwa w zaimportowanych transakcjach – zostaw puste dla kursu rynkowego</string>

@@ -93,14 +93,23 @@ extension AppData {
         return snapshot.watches.contains { $0.identity == wanted }
     }
 
-    static func insert(_ s: inout SharedStorage.Snapshot, market: Market, pair rawPair: MarketPair,
-                               group: String? = nil) -> Int64? {
+    /// Paar einfügen; nil, wenn es schon da ist oder die Merkliste voll ist (`insertOutcome`).
+    static func insert(_ s: inout SharedStorage.Snapshot, market: Market, pair: MarketPair, group: String? = nil) -> Int64? {
+        if case .added(let id) = insertOutcome(&s, market: market, pair: pair, group: group) { return id }
+        return nil
+    }
+
+    /// Paar einfügen: angelegt (mit Id), schon vorhanden oder Merkliste voll (`WatchlistLimits.maxPairs`) — wie
+    /// Android `WatchRepository.tryAddWatch`. Schon vorhanden geht vor «voll»: ein bekanntes Paar ist kein Fehler.
+    static func insertOutcome(_ s: inout SharedStorage.Snapshot, market: Market, pair rawPair: MarketPair,
+                              group: String? = nil) -> AddWatchOutcome {
         // Paar aus einer älteren, noch nicht neu geladenen Paarliste: inverse Perpetuals wie heute gespeichert
         var pair = rawPair
         pair.contractType = FuturesContractType.normalized(marketKey: market.key, pairId: pair.pairId, pair.contractType)
         let wanted = WatchIdentity.key(marketKey: market.key, base: pair.base, quote: pair.quote,
                                        contract: String(pair.contractType.rawValue), pairId: pair.pairId)
-        if s.watches.contains(where: { $0.identity == wanted }) { return nil }
+        if s.watches.contains(where: { $0.identity == wanted }) { return .duplicate }
+        guard WatchlistLimits.canAddPair(s.watches.count) else { return .full }
         let id = max(s.nextWatchId, (s.watches.map(\.id).max() ?? 0) + 1)
         s.nextWatchId = id + 1
         let nextOrder = (s.watches.map(\.sortOrder).max() ?? -1) + 1
@@ -112,7 +121,7 @@ extension AppData {
         // Neue Paare ohne Kurs-Mitteilung (einschalten im Paar-Menü)
         watch.notificationEnabled = Watch.newPairNotificationEnabled
         s.watches.append(watch)
-        return id
+        return .added(id)
     }
 
     /// «Paar bearbeiten»: Börse, Paar und Kontrakt eines Eintrags ändern — wie
@@ -333,4 +342,13 @@ extension AppData {
         }
         return deleted
     }
+}
+
+/// Ausgang von `AppData.tryAddWatch` bzw. `AppData.insertOutcome` — wie Android `AddWatchOutcome`.
+enum AddWatchOutcome: Equatable {
+    case added(Int64)
+    /// Paar stand schon in der Merkliste.
+    case duplicate
+    /// Merkliste hat schon `WatchlistLimits.maxPairs` Paare.
+    case full
 }

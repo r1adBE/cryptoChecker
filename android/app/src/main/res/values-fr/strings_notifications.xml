@@ -40,7 +40,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alertes</string>
-    <string name="channel_alarms_description">Notification lorsqu\'une alerte de prix se déclenche.</string>
+    <string name="channel_alarms_description">Notification lorsqu\'une alerte se déclenche.</string>
     <string name="channel_alarms_quiet">Alertes (heures calmes)</string>
     <string name="channel_alarms_quiet_description">Alertes silencieuses pendant les heures calmes.</string>
     <string name="channel_alarms_silent">Alertes (silencieux)</string>

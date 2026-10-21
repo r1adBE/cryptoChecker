@@ -39,7 +39,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">هشدارها</string>
-    <string name="channel_alarms_description">اعلان هنگام فعال شدن هشدار قیمت.</string>
+    <string name="channel_alarms_description">اعلان هنگام فعال شدن هشدار.</string>
     <string name="channel_alarms_quiet">هشدارها (ساعات بی‌صدا)</string>
     <string name="channel_alarms_quiet_description">هشدارهای بی‌صدا در ساعات بی‌صدا.</string>
     <string name="channel_alarms_silent">هشدارها (بی‌صدا)</string>

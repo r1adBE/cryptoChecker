@@ -43,7 +43,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">التنبيهات</string>
-    <string name="channel_alarms_description">إشعار عند انطلاق تنبيه سعري.</string>
+    <string name="channel_alarms_description">إشعار عند انطلاق تنبيه.</string>
     <string name="channel_alarms_quiet">التنبيهات (ساعات الصمت)</string>
     <string name="channel_alarms_quiet_description">تنبيهات صامتة خلال ساعات الصمت.</string>
     <string name="channel_alarms_silent">التنبيهات (صامت)</string>
@@ -65,8 +65,8 @@
     <string name="tts_direction_move">يتحرك بقوة</string>
     <string name="tts_direction_near_high">قريب من أعلى مستوى</string>
     <string name="tts_direction_near_low">قريب من أدنى مستوى</string>
-    <string name="tts_direction_oi_down">مع انخفاض الفائدة المفتوحة</string>
-    <string name="tts_direction_oi_up">مع ارتفاع الفائدة المفتوحة</string>
+    <string name="tts_direction_oi_down">مع انخفاض العقود المفتوحة</string>
+    <string name="tts_direction_oi_up">مع ارتفاع العقود المفتوحة</string>
     <string name="tts_direction_up">ارتفع</string>
     <string name="tts_direction_volume_spike">مع قفزة في الحجم</string>
     <string name="tts_price">%1$s، %2$s %3$s، %4$s</string>

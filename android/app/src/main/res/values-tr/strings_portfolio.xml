@@ -99,7 +99,7 @@
     <string name="portfolio_discard_keep">Düzenlemeye devam et</string>
     <string name="portfolio_discard_title">Değişiklikler atılsın mı?</string>
     <string name="portfolio_edit_tx">İşlemi düzenle</string>
-    <string name="portfolio_invalid">Geçersiz miktar</string>
+    <string name="portfolio_invalid">0’dan büyük geçerli bir sayı gir.</string>
     <string name="portfolio_oversold">Satışlar varlığı aşıyor – işlemleri kontrol edin.</string>
     <string name="portfolio_sell">Satım</string>
     <string name="portfolio_sell_exceeds">Varlığınızdan fazla (%1$s)</string>
@@ -139,7 +139,7 @@
     <string name="portfolio_tx_price">Coin başına fiyat</string>
     <string name="portfolio_tx_price_hint">USDT cinsinden. Bilinmiyorsa boş bırakın.</string>
     <string name="portfolio_tx_price_historic">%1$s tarihli doğrulanmış günlük kapanış – gerekirse düzelt</string>
-    <string name="portfolio_tx_price_invalid">Geçersiz fiyat</string>
+    <string name="portfolio_tx_price_invalid">Geçerli bir sayı (0 veya daha büyük) gir ya da alanı boş bırak.</string>
     <string name="portfolio_tx_price_past_hint">İşlem günündeki fiyatı gir – bilmiyorsan boş bırak</string>
     <string name="portfolio_tx_price_receipt_hint">USDT olarak. Boş = maliyetsiz varlık.</string>
     <string name="portfolio_tx_price_zero">İçe aktarılan işlemlerde fiyat 0 olamaz – piyasa fiyatı için boş bırak</string>

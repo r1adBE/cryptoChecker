@@ -110,4 +110,7 @@
     <string name="dex_token_address_copy">トークンアドレスをコピー</string>
     <string name="dex_token_address_copied">トークンアドレスをコピーしました</string>
     <string name="dex_token_address_label">末尾が %1$s のトークンアドレス</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="other">%1$d 件は追加されませんでした。ウォッチリストに登録できるペアは最大%2$s件です。</item>
+    </plurals>
 </resources>

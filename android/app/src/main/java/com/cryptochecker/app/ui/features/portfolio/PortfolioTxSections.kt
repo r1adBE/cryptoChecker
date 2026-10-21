@@ -41,6 +41,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.ui.components.ExpandToggleButton
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 
 /** Art als eine kompakte Wahl «Art: Kauf ▾» (Build 46; die übrigen Arten im Menü) samt Erklärung. */
 @Composable
@@ -102,7 +103,7 @@ internal fun TxCoinSection(state: TxFormState, d: TxFormDerived, coins: List<Str
             capitalization = KeyboardCapitalization.Characters,
             autoCorrectEnabled = false
         ),
-        modifier = Modifier.fillMaxWidth().padding(top = 12.dp)
+        modifier = Modifier.fillMaxWidth().padding(top = 12.dp).txFocusTarget(LocalTxFocusTargets.current, Field.COIN)
     )
     val coin = d.coin
     val matches = remember(coins, coin) { matchCoins(coins, coin) }
@@ -204,7 +205,7 @@ internal fun TxAmountSection(state: TxFormState, d: TxFormDerived, viewModel: Po
         isError = amountError || exceeds || walletExceeds,
         supportingText = if (amountMessage != null) { { Text(amountMessage) } } else null,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-        modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
+        modifier = Modifier.fillMaxWidth().padding(top = 4.dp).txFocusTarget(LocalTxFocusTargets.current, Field.AMOUNT)
     )
 }
 

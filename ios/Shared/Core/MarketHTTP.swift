@@ -61,12 +61,10 @@ enum MarketHTTP {
     static let maxRequestsPerHost = 5
 
     private static func makeSession(timeout: TimeInterval, resource: TimeInterval? = nil) -> URLSession {
-        let c = URLSessionConfiguration.default
+        let c = PrivateSessionConfig.make(timeout: timeout, resource: resource ?? timeout + 10)
         // Mehr Verbindungen je Host als `RequestGate` je Host durchlässt: Keine Aufgabe wartet in der URLSession auf eine
         // freie Verbindung — dort liefen ihre Fristen schon und endeten als Schein-Zeitüberschreitung (Pause der Börse)
         c.httpMaximumConnectionsPerHost = maxRequestsPerHost + 1
-        c.timeoutIntervalForRequest = timeout
-        c.timeoutIntervalForResource = resource ?? timeout + 10
         c.requestCachePolicy = .reloadIgnoringLocalCacheData
         c.httpAdditionalHeaders = [HttpUserAgent.header: HttpUserAgent.value, "Accept": "application/json"]
         c.waitsForConnectivity = false

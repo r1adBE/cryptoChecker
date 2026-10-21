@@ -5,6 +5,9 @@ package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.exceptions.toMarketFailure
+import com.cryptochecker.app.domain.refresh.RefreshFailure
+import com.cryptochecker.app.domain.refresh.RefreshReportLogic
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.market.DexPool
 import kotlinx.coroutines.*
@@ -27,7 +30,9 @@ fun ExplorerViewModel.searchDex(query: String) {
         val pools = outcome.getOrElse { error ->
             Timber.w(error, "DEX-Suche gescheitert")
             dexPools.value = emptyList()
-            dexNotice.value = DexMessage.Failed
+            // Wie die Merkliste einordnen (kein Netz / Dienst nicht erreichbar), mit «Erneut versuchen»
+            val cause = RefreshReportLogic.classify(error.toMarketFailure(), error.toString())
+            dexNotice.value = DexMessage.Failed(DexFailure.of(cause), query)
             return@launch
         }
         dexPools.value = pools.distinctBy { it.pairId }.take(MAX_DEX_RESULTS)
@@ -56,9 +61,27 @@ private const val MAX_DEX_RESULTS = 25
 /** Rückmeldung der DEX-Suche. */
 sealed interface DexMessage {
     data object NoResults : DexMessage
-    data object Failed : DexMessage
+    /** Suche gescheitert: Art für den Text, [query] für «Erneut versuchen». */
+    data class Failed(val kind: DexFailure, val query: String) : DexMessage
     data class Added(val symbol: String) : DexMessage
     data class AlreadyInList(val symbol: String) : DexMessage
 }
 
 internal const val DEX_KEY = "DexScreener"
+
+/**
+ * Art einer gescheiterten DEX-Suche — gleiche Texte wie die Merkliste: kein Netz (auch Zeitüberschreitung, wie
+ * `friendlyError`), Dienst gerade nicht erreichbar (HTTP-Fehler, Bremse), sonst «Etwas ist schiefgelaufen».
+ * Gleich wie `DexFailure` (iOS).
+ */
+enum class DexFailure {
+    OFFLINE, UNREACHABLE, OTHER;
+
+    companion object {
+        fun of(cause: RefreshFailure): DexFailure = when (cause) {
+            RefreshFailure.OFFLINE, RefreshFailure.TIMEOUT -> OFFLINE
+            RefreshFailure.RATE_LIMIT, RefreshFailure.SERVER -> UNREACHABLE
+            RefreshFailure.NO_DATA, RefreshFailure.UNAVAILABLE, RefreshFailure.OTHER -> OTHER
+        }
+    }
+}

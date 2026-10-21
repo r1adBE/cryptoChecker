@@ -38,7 +38,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">アラーム</string>
-    <string name="channel_alarms_description">価格アラームが作動したときの通知。</string>
+    <string name="channel_alarms_description">アラームが作動したときの通知。</string>
     <string name="channel_alarms_quiet">アラーム（おやすみ時間）</string>
     <string name="channel_alarms_quiet_description">おやすみ時間中の無音アラーム。</string>
     <string name="channel_alarms_silent">アラーム（サイレント）</string>

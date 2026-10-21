@@ -41,7 +41,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alarmy</string>
-    <string name="channel_alarms_description">Powiadomienie, gdy zadziała alarm cenowy.</string>
+    <string name="channel_alarms_description">Powiadomienie, gdy zadziała alarm.</string>
     <string name="channel_alarms_quiet">Alarmy (godziny ciszy)</string>
     <string name="channel_alarms_quiet_description">Wyciszone alarmy w godzinach ciszy.</string>
     <string name="channel_alarms_silent">Alarmy (bez dźwięku)</string>

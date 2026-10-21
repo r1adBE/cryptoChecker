@@ -2,14 +2,14 @@
 <resources>
     <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
-    <string name="portfolio_alarms_paused_price">Porteføljevarsler satt på pause: ingen aktuell kurs for %1$s</string>
-    <string name="portfolio_alarms_paused_price_generic">Porteføljevarsler satt på pause: ikke alle mynter har en aktuell kurs</string>
-    <string name="portfolio_alarms_paused_addresses">Porteføljevarsler satt på pause: saldoene til overvåkede adresser er ikke lastet ennå</string>
+    <string name="portfolio_alarms_paused_price">Porteføljealarmer satt på pause: ingen aktuell kurs for %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Porteføljealarmer satt på pause: ikke alle mynter har en aktuell kurs</string>
+    <string name="portfolio_alarms_paused_addresses">Porteføljealarmer satt på pause: saldoene til overvåkede adresser er ikke lastet ennå</string>
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
-    <string name="portfolio_alarms_paused_tokens">Porteføljevarsler satt på pause: tokensaldoene til %1$s er delvis utdaterte</string>
-    <string name="portfolio_alarms_paused_tokens_generic">Porteføljevarsler satt på pause: tokensaldoene til overvåkede adresser er delvis utdaterte</string>
-    <string name="portfolio_alarms_address_failing">Porteføljevarsler sjekker uten %1$s: saldoen er ikke lastet på over 24 timer</string>
-    <string name="portfolio_alarms_address_failing_generic">Porteføljevarsler sjekker uten adresser der saldoen ikke er lastet på over 24 timer</string>
+    <string name="portfolio_alarms_paused_tokens">Porteføljealarmer satt på pause: tokensaldoene til %1$s er delvis utdaterte</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Porteføljealarmer satt på pause: tokensaldoene til overvåkede adresser er delvis utdaterte</string>
+    <string name="portfolio_alarms_address_failing">Porteføljealarmer sjekker uten %1$s: saldoen er ikke lastet på over 24 timer</string>
+    <string name="portfolio_alarms_address_failing_generic">Porteføljealarmer sjekker uten adresser der saldoen ikke er lastet på over 24 timer</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokens delvis utdaterte</string>
     <string name="portfolio_address_restore_failed">Adressen kunne ikke gjenopprettes – legg den til på nytt ved behov</string>

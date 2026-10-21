@@ -32,7 +32,7 @@
     <string name="alarm_fires_now_save">फिर भी सहेजें</string>
     <string name="alarm_fires_now_title">अलार्म तुरंत बज जाएगा</string>
     <string name="alarm_first_battery_hint">बैटरी ऑप्टिमाइज़ेशन ऐप को सीमित करता है – अलार्म देर से आ सकते हैं।</string>
-    <string name="alarm_first_title">अलर्ट सहेजा गया</string>
+    <string name="alarm_first_title">अलार्म सहेजा गया</string>
     <string name="alarm_last_triggered">पिछली बार %1$s</string>
     <string name="alarm_more_conditions">और शर्तें</string>
     <string name="alarm_new_extreme">नया %1$s</string>
@@ -135,7 +135,7 @@
     <string name="alarm_volume_zero_hours_hint">बिना ट्रेड वाले घंटे शून्य वॉल्यूम माने जाते हैं, इसलिए कम ट्रेड होने वाले पेयर पर एक सामान्य घंटा भी असामान्य लग सकता है।</string>
 
     <!-- Bestätigung nach dem Speichern -->
-    <string name="alarm_saved_active">अलर्ट सक्रिय</string>
+    <string name="alarm_saved_active">अलार्म सक्रिय</string>
     <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
     <string name="alarm_saved_banner">अलार्म सहेजा गया: %1$s</string>
     <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
@@ -179,4 +179,5 @@
     <string name="alarm_editor_more">और</string>
     <string name="alarm_editor_more_summary">त्वरित अलार्म, अन्य शर्तें, आवाज़ और बोलकर सुनाना</string>
     <string name="alarm_reliability_storage_no_key">बैकग्राउंड में अलार्म रुके हुए हैं – वॉचलिस्ट सहेजी नहीं गई</string>
+    <string name="alarms_limit_reached">एक पेयर पर अधिकतम %1$s अलार्म हो सकते हैं।</string>
 </resources>

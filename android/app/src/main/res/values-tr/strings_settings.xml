@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">İzin eksik – cihaz dinlenirken Android düzensiz kontrol eder, bazen ancak saatler sonra.</string>
     <string name="settings_notification_change">Yalnızca fiyat değişince bildir</string>
     <string name="settings_notification_change_always">Her zaman</string>
+    <string name="settings_percent_invalid">0 ile 100 arasında bir değer girin.</string>
     <string name="settings_notification_change_hint">Bildirim, fiyat bir öncekinden bu yana en az bu kadar değiştiğinde gösterilir. Veri eksikken hiçbir şey gösterilmez. Alarmlar etkilenmez.</string>
     <string name="settings_ongoing_notifications">Kaydırılarak kapatılamaz</string>
     <string name="settings_ongoing_notifications_hint">Fiyat bildirimlerini sabit tutar.</string>

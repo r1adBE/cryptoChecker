@@ -122,6 +122,8 @@ data class CsvImportResult(
      * fiele ein Geschäft nahe Mitternacht beim Import auf einen anderen Kurstag als im Export.
      */
     val fxZone: String = CsvImportParser.DEFAULT_ZONE,
+    /** Zu viele Zellen je Zeile oder Datensätze ([CsvImportParser.MAX_CELLS_PER_ROW], [CsvImportParser.MAX_ROWS]). */
+    val tooLarge: Boolean = false,
 ) {
     /** Vorschau fragt nach dem Dezimalzeichen ([decimalSample]). */
     val decimalAmbiguous: Boolean get() = decimalSample != null

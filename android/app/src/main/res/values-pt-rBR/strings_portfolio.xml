@@ -102,7 +102,7 @@
     <string name="portfolio_discard_keep">Continuar editando</string>
     <string name="portfolio_discard_title">Descartar alterações?</string>
     <string name="portfolio_edit_tx">Editar transação</string>
-    <string name="portfolio_invalid">Quantidade inválida</string>
+    <string name="portfolio_invalid">Informe um número válido maior que 0.</string>
     <string name="portfolio_oversold">As vendas excedem a posição – verifique as transações.</string>
     <string name="portfolio_sell">Venda</string>
     <string name="portfolio_sell_exceeds">Mais do que a sua posição (%1$s)</string>
@@ -142,7 +142,7 @@
     <string name="portfolio_tx_price">Preço por moeda</string>
     <string name="portfolio_tx_price_hint">Em USDT. Deixe em branco se não souber.</string>
     <string name="portfolio_tx_price_historic">Fechamento diário verificado de %1$s – ajuste se precisar</string>
-    <string name="portfolio_tx_price_invalid">Preço inválido</string>
+    <string name="portfolio_tx_price_invalid">Informe um número válido (0 ou mais) ou deixe o campo vazio.</string>
     <string name="portfolio_tx_price_past_hint">Informe o preço do dia da operação – deixe vazio se não souber</string>
     <string name="portfolio_tx_price_receipt_hint">Em USDT. Vazio = posição sem custo de aquisição.</string>
     <string name="portfolio_tx_price_zero">Preço 0 não é possível em transações importadas – deixe vazio para a cotação de mercado</string>

@@ -99,7 +99,7 @@
     <string name="portfolio_discard_keep">Szerkesztés folytatása</string>
     <string name="portfolio_discard_title">Elveted a módosításokat?</string>
     <string name="portfolio_edit_tx">Tranzakció szerkesztése</string>
-    <string name="portfolio_invalid">Érvénytelen mennyiség</string>
+    <string name="portfolio_invalid">Adj meg egy 0-nál nagyobb érvényes számot.</string>
     <string name="portfolio_oversold">Az eladások meghaladják az állományt – ellenőrizze a tranzakciókat.</string>
     <string name="portfolio_sell">Eladás</string>
     <string name="portfolio_sell_exceeds">Több, mint az állománya (%1$s)</string>
@@ -139,7 +139,7 @@
     <string name="portfolio_tx_price">Ár érménként</string>
     <string name="portfolio_tx_price_hint">USDT-ben. Hagyja üresen, ha nem ismert.</string>
     <string name="portfolio_tx_price_historic">Ellenőrzött napi záróár (%1$s) – szükség esetén módosítsd</string>
-    <string name="portfolio_tx_price_invalid">Érvénytelen ár</string>
+    <string name="portfolio_tx_price_invalid">Adj meg egy érvényes számot (0 vagy több), vagy hagyd üresen a mezőt.</string>
     <string name="portfolio_tx_price_past_hint">Add meg az ügylet napi árfolyamát – hagyd üresen, ha nem tudod</string>
     <string name="portfolio_tx_price_receipt_hint">USDT-ben. Üres = állomány bekerülési érték nélkül.</string>
     <string name="portfolio_tx_price_zero">Importált tranzakcióknál 0-s ár nem lehetséges – hagyd üresen a piaci árhoz</string>

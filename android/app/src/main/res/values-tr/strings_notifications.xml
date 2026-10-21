@@ -39,7 +39,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alarmlar</string>
-    <string name="channel_alarms_description">Fiyat alarmı tetiklendiğinde bildirim.</string>
+    <string name="channel_alarms_description">Bir alarm tetiklendiğinde bildirim.</string>
     <string name="channel_alarms_quiet">Alarmlar (sessiz saatler)</string>
     <string name="channel_alarms_quiet_description">Sessiz saatlerde sessiz alarmlar.</string>
     <string name="channel_alarms_silent">Alarmlar (sessiz)</string>

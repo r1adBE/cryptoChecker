@@ -102,7 +102,7 @@
     <string name="portfolio_discard_keep">המשך עריכה</string>
     <string name="portfolio_discard_title">לבטל את השינויים?</string>
     <string name="portfolio_edit_tx">עריכת עסקה</string>
-    <string name="portfolio_invalid">כמות לא תקינה</string>
+    <string name="portfolio_invalid">הזן מספר תקין גדול מ-0.</string>
     <string name="portfolio_oversold">המכירות עולות על האחזקה – כדאי לבדוק את העסקאות.</string>
     <string name="portfolio_sell">מכירה</string>
     <string name="portfolio_sell_exceeds">יותר מהאחזקה שלך (%1$s)</string>
@@ -142,7 +142,7 @@
     <string name="portfolio_tx_price">מחיר למטבע</string>
     <string name="portfolio_tx_price_hint">ב-USDT. אפשר להשאיר ריק אם לא ידוע.</string>
     <string name="portfolio_tx_price_historic">מחיר סגירה יומי שנבדק מ-%1$s – אפשר לשנות לפי הצורך</string>
-    <string name="portfolio_tx_price_invalid">מחיר לא תקין</string>
+    <string name="portfolio_tx_price_invalid">הזן מספר תקין (0 ומעלה) או השאר את השדה ריק.</string>
     <string name="portfolio_tx_price_past_hint">הזן את המחיר ביום העסקה – השאר ריק אם לא ידוע</string>
     <string name="portfolio_tx_price_receipt_hint">ב-USDT. ריק = יתרה ללא עלות רכישה.</string>
     <string name="portfolio_tx_price_zero">מחיר 0 אינו אפשרי בעסקאות מיובאות – השאר ריק למחיר השוק</string>

@@ -96,7 +96,7 @@
     <string name="portfolio_discard_keep">Tiếp tục chỉnh sửa</string>
     <string name="portfolio_discard_title">Hủy các thay đổi?</string>
     <string name="portfolio_edit_tx">Sửa giao dịch</string>
-    <string name="portfolio_invalid">Số lượng không hợp lệ</string>
+    <string name="portfolio_invalid">Nhập một số hợp lệ lớn hơn 0.</string>
     <string name="portfolio_oversold">Lượng bán vượt quá số đang nắm giữ – hãy kiểm tra giao dịch.</string>
     <string name="portfolio_sell">Bán</string>
     <string name="portfolio_sell_exceeds">Nhiều hơn số bạn nắm giữ (%1$s)</string>
@@ -136,7 +136,7 @@
     <string name="portfolio_tx_price">Giá mỗi coin</string>
     <string name="portfolio_tx_price_hint">Bằng USDT. Để trống nếu không rõ.</string>
     <string name="portfolio_tx_price_historic">Giá đóng cửa ngày %1$s đã kiểm tra – chỉnh nếu cần</string>
-    <string name="portfolio_tx_price_invalid">Giá không hợp lệ</string>
+    <string name="portfolio_tx_price_invalid">Nhập một số hợp lệ (0 trở lên) hoặc để trống ô này.</string>
     <string name="portfolio_tx_price_past_hint">Nhập giá ngày giao dịch – để trống nếu không biết</string>
     <string name="portfolio_tx_price_receipt_hint">Bằng USDT. Để trống = số nắm giữ không có giá vốn.</string>
     <string name="portfolio_tx_price_zero">Không thể đặt giá 0 cho giao dịch đã nhập – để trống để dùng giá thị trường</string>

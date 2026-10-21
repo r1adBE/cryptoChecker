@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Izin tidak ada – saat perangkat diam, Android memeriksa tidak teratur, terkadang baru setelah berjam-jam.</string>
     <string name="settings_notification_change">Beri tahu hanya saat harga berubah</string>
     <string name="settings_notification_change_always">Selalu</string>
+    <string name="settings_percent_invalid">Masukkan nilai dari 0 hingga 100.</string>
     <string name="settings_notification_change_hint">Notifikasi hanya muncul jika harga sudah bergerak setidaknya sebesar ini sejak notifikasi terakhir. Tidak ada yang ditampilkan selama data belum tersedia. Alarm tidak terpengaruh.</string>
     <string name="settings_ongoing_notifications">Tidak bisa digeser untuk menutup</string>
     <string name="settings_ongoing_notifications_hint">Notifikasi harga tetap disematkan.</string>

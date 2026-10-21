@@ -102,7 +102,7 @@
     <string name="portfolio_discard_keep">Continuer la modification</string>
     <string name="portfolio_discard_title">Abandonner les modifications ?</string>
     <string name="portfolio_edit_tx">Modifier la transaction</string>
-    <string name="portfolio_invalid">Quantité non valide</string>
+    <string name="portfolio_invalid">Saisissez un nombre valide supérieur à 0.</string>
     <string name="portfolio_oversold">Les ventes dépassent les avoirs – vérifiez les transactions.</string>
     <string name="portfolio_sell">Vente</string>
     <string name="portfolio_sell_exceeds">Plus que vos avoirs (%1$s)</string>
@@ -142,7 +142,7 @@
     <string name="portfolio_tx_price">Prix par coin</string>
     <string name="portfolio_tx_price_hint">En USDT. Laisser vide si inconnu.</string>
     <string name="portfolio_tx_price_historic">Clôture journalière vérifiée du %1$s – modifiez-la si besoin</string>
-    <string name="portfolio_tx_price_invalid">Prix non valide</string>
+    <string name="portfolio_tx_price_invalid">Saisissez un nombre valide (0 ou plus) ou laissez le champ vide.</string>
     <string name="portfolio_tx_price_past_hint">Saisissez le cours du jour de l’opération – laissez vide si inconnu</string>
     <string name="portfolio_tx_price_receipt_hint">En USDT. Vide = avoirs sans coût de revient.</string>
     <string name="portfolio_tx_price_zero">Prix 0 impossible pour les transactions importées – laissez vide pour le cours du marché</string>

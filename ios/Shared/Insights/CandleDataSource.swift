@@ -73,9 +73,7 @@ enum CandleDataSource {
 
     /// Eigene Sitzung mit ~8 s Zeitgrenze je Anfrage.
     private static let session: URLSession = {
-        let c = URLSessionConfiguration.default
-        c.timeoutIntervalForRequest = 8
-        c.timeoutIntervalForResource = 10
+        let c = PrivateSessionConfig.make(timeout: 8, resource: 10)
         c.requestCachePolicy = .reloadIgnoringLocalCacheData
         c.httpAdditionalHeaders = [HttpUserAgent.header: HttpUserAgent.value, "Accept": "application/json"]
         c.waitsForConnectivity = false

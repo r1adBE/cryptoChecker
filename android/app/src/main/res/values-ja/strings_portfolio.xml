@@ -96,7 +96,7 @@
     <string name="portfolio_discard_keep">編集を続ける</string>
     <string name="portfolio_discard_title">変更を破棄しますか？</string>
     <string name="portfolio_edit_tx">取引を編集</string>
-    <string name="portfolio_invalid">無効な数量</string>
+    <string name="portfolio_invalid">0 より大きい有効な数値を入力してください。</string>
     <string name="portfolio_oversold">売却が保有量を超えています。取引を確認してください。</string>
     <string name="portfolio_sell">売却</string>
     <string name="portfolio_sell_exceeds">保有量を超えています（%1$s）</string>
@@ -136,7 +136,7 @@
     <string name="portfolio_tx_price">1コインあたりの価格</string>
     <string name="portfolio_tx_price_hint">USDT建て。不明な場合は空欄にしてください。</string>
     <string name="portfolio_tx_price_historic">%1$s の終値を確認済み – 必要なら修正してください</string>
-    <string name="portfolio_tx_price_invalid">無効な価格</string>
+    <string name="portfolio_tx_price_invalid">有効な数値（0 以上）を入力するか、空欄のままにしてください。</string>
     <string name="portfolio_tx_price_past_hint">取引日の価格を入力（不明なら空欄）</string>
     <string name="portfolio_tx_price_receipt_hint">USDT建て。空欄 = 取得原価なしの保有分。</string>
     <string name="portfolio_tx_price_zero">インポートした取引では価格 0 は指定できません – 市場価格にするには空欄のままにしてください</string>

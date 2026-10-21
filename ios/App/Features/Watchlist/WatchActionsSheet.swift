@@ -114,7 +114,12 @@ struct WatchActionsSheet: View {
     func addPreview() {
         guard let preview, !adding, let market = MarketsConfig.market(preview.marketKey) else { return }
         let firstEver = data.isFirstPairAdd
-        if let id = data.addWatch(market: market, pair: preview.pairInfo) {
+        let outcome = data.tryAddWatch(market: market, pair: preview.pairInfo)
+        if outcome == .full {
+            // Merkliste voll (`WatchlistLimits`): nichts angelegt, sagen warum — wie Android
+            toast = WatchlistLimitText.full
+            UINotificationFeedbackGenerator().notificationOccurred(.warning)
+        } else if case .added(let id) = outcome {
             adding = true
             addedId = id
             UINotificationFeedbackGenerator().notificationOccurred(.success)

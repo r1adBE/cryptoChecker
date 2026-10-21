@@ -63,6 +63,8 @@ protocol StorageKeychain: Sendable {
     func isDeviceOnly() throws -> Bool?
     /// Den bestehenden Eintrag auf «nur dieses Gerät» umstellen — dieselben Schlüsselbytes, nie löschen und neu anlegen.
     func makeDeviceOnly() throws
+    /// Eintrag löschen (nur «App zurücksetzen»); fehlt er, ist nichts zu tun.
+    func delete() throws
 }
 
 struct StorageKeychainError: Error, Equatable {
@@ -141,6 +143,11 @@ struct SystemStorageKeychain: StorageKeychain {
         let status = SecItemUpdate(query as CFDictionary, change as CFDictionary)
         guard status == errSecSuccess else { throw StorageKeychainError(status: status) }
     }
+
+    func delete() throws {
+        let status = SecItemDelete(query as CFDictionary)
+        guard status == errSecSuccess || status == errSecItemNotFound else { throw StorageKeychainError(status: status) }
+    }
 }
 
 /// Der Schlüssel der verschlüsselten Dateien (256 Bit), je Prozess einmal gelesen. Anlegen nur durch die App beim Start
@@ -156,13 +163,26 @@ final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zus
         case unavailable
     }
 
+    /// Merker in der App Group: «App zurücksetzen» (`renew`) setzt einen neuen Wert. Ein anderer Prozess (Widget) mit
+    /// gemerktem altem Schlüssel sieht den Wechsel und liest den Schlüsselbund neu — sonst versiegelte er weiter mit
+    /// dem gelöschten Schlüssel, und die App könnte diese Dateien nie mehr öffnen.
+    static let generationKey = "storage_key_generation"
+
     private let keychain: StorageKeychain
+    private let readGeneration: @Sendable () -> String?
+    private let writeGeneration: @Sendable (String) -> Void
     private let lock = NSLock()
     /// Nur ein gefundener Schlüssel wird gemerkt: Legt die App ihn später an, findet ihn das Widget beim nächsten Lesen.
     private var cached: SymmetricKey?
+    /// `generationKey` beim Merken von `cached`.
+    private var cachedGeneration: String?
 
-    init(keychain: StorageKeychain) {
+    init(keychain: StorageKeychain,
+         readGeneration: @escaping @Sendable () -> String? = { SharedStorage.defaults.string(forKey: StorageKey.generationKey) },
+         writeGeneration: @escaping @Sendable (String) -> Void = { SharedStorage.defaults.set($0, forKey: StorageKey.generationKey) }) {
         self.keychain = keychain
+        self.readGeneration = readGeneration
+        self.writeGeneration = writeGeneration
     }
 
     func lookup() -> Lookup {
@@ -190,6 +210,7 @@ final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zus
         do {
             if try keychain.add(fresh.withUnsafeBytes { Data($0) }) {
                 cached = fresh
+                cachedGeneration = readGeneration()
                 return fresh
             }
         } catch {
@@ -217,13 +238,43 @@ final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zus
         }
     }
 
-    private func lookupLocked() -> Lookup {
-        if let cached { return .key(cached) }
+    /// «App zurücksetzen»: alten Schlüssel löschen und gleich einen neuen anlegen — unter derselben Sperre, damit kein
+    /// Schreiber dieses Prozesses dazwischen «kein Schlüssel» sieht (und Klartext schriebe). Die App läuft danach
+    /// weiter und versiegelt ab hier mit dem neuen Schlüssel. Nur nach dem Löschen aller verschlüsselten Dateien
+    /// aufrufen. false = Schlüsselbund nicht verfügbar; dann bleibt der bisherige Schlüssel (nichts geht verloren).
+    @discardableResult
+    func renew() -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
         do {
+            try keychain.delete()
+        } catch {
+            return false
+        }
+        cached = nil
+        writeGeneration(UUID().uuidString)
+        let fresh = SymmetricKey(size: .bits256)
+        // Scheitert das Anlegen, legt `prepareAtLaunch` beim nächsten Start einen an (keine Dateien mehr da)
+        guard (try? keychain.add(fresh.withUnsafeBytes { Data($0) })) == true else { return true }
+        cached = fresh
+        cachedGeneration = readGeneration()
+        return true
+    }
+
+    private func lookupLocked() -> Lookup {
+        if let cached {
+            let generation = readGeneration()
+            if generation == cachedGeneration { return .key(cached) }
+            // Anderswo zurückgesetzt: gemerkten Schlüssel verwerfen und neu lesen
+            self.cached = nil
+        }
+        do {
+            let generation = readGeneration()
             guard let data = try keychain.read() else { return .absent }
             guard data.count == 32 else { return .unavailable }
             let key = SymmetricKey(data: data)
             cached = key
+            cachedGeneration = generation
             return .key(key)
         } catch {
             return .unavailable

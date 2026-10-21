@@ -179,4 +179,5 @@
     <string name="alarm_editor_more">Meer</string>
     <string name="alarm_editor_more_summary">Snelle alarmen, meer voorwaarden, geluid en voorlezen</string>
     <string name="alarm_reliability_storage_no_key">Alarmen op de achtergrond gepauzeerd – volglijst niet opgeslagen</string>
+    <string name="alarms_limit_reached">Een paar kan maximaal %1$s alarmen hebben.</string>
 </resources>

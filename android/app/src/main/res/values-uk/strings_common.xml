@@ -43,6 +43,10 @@
     <string name="shortcut_add">Додати пару</string>
     <string name="shortcut_alarms">Усі сигнали</string>
     <string name="shortcut_cycle">Ринок</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Додати нову пару</string>
+    <string name="shortcut_alarms_long">Показати всі сигнали</string>
+    <string name="shortcut_cycle_long">Огляд ринку</string>
 
     <string name="log_box_title">Журнал</string>
     <string name="label_value">%1$s: %2$s</string>

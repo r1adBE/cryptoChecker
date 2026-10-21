@@ -257,18 +257,27 @@ final class AlarmChainIntegrationTests: XCTestCase {
         XCTAssertNil(delivery.unconfirmedAt(7))
 
         // Gemeldet, Speichern läuft noch (wie «Prozess hier beendet»): Vermerk steht, Neuversuch gesperrt
+        // Speichern wartet, bis der Test es freigibt (nicht eine feste Sekunde): sonst wäre es auf einer langsamen
+        // Maschine schon fertig und der Vermerk wieder weg, bevor der Test nachsieht
         let crashed = AlarmDelivery(storeKey: "pairs-crash", store: defaults)
+        let saveMayFinish = LockedValue(false)
         let blocked = Task {
             await crashed.deliver(alarmId: 8, now: at, cooldownMinutes: 0, holdAlarms: false, canShow: { true },
                                   show: { true },
-                                  mark: { try? await Task.sleep(nanoseconds: 1_000_000_000); return true })
+                                  mark: {
+                                      for _ in 0..<3_000 where !saveMayFinish.get() {
+                                          try? await Task.sleep(nanoseconds: 10_000_000)
+                                      }
+                                      return true
+                                  })
         }
-        // Warten, bis gemeldet ist (Vermerk gesetzt), dann wie ein zweiter Prozess nachsehen
-        for _ in 0..<100 where crashed.unconfirmedAt(8) == nil { try? await Task.sleep(nanoseconds: 10_000_000) }
+        // Warten, bis gemeldet ist (Vermerk gesetzt; höchstens 10 s), dann wie ein zweiter Prozess nachsehen
+        for _ in 0..<1_000 where crashed.unconfirmedAt(8) == nil { try? await Task.sleep(nanoseconds: 10_000_000) }
         XCTAssertEqual(crashed.unconfirmedAt(8), at)
         XCTAssertTrue(AlarmDelivery.retryBlocked(unconfirmedAt: crashed.unconfirmedAt(8), now: at + 60_000,
                                                  cooldownMinutes: 0))
         // Speichern fertig: Vermerk weg
+        saveMayFinish.set(true)
         _ = await blocked.value
         XCTAssertNil(crashed.unconfirmedAt(8))
     }

@@ -35,6 +35,8 @@ struct ExplorerMessage: Equatable, Identifiable {
     var long: Bool = false
     /// Gesetzt: statt «Ansehen» der Knopf «Alarm setzen» für diesen Eintrag (erstes Paar, noch ohne Alarm).
     var alarmWatchId: Int64? = nil
+    /// Gesetzt: DEX-Suche gescheitert — statt «Ansehen» der Knopf «Erneut versuchen» für diesen Begriff.
+    var retryDexQuery: String? = nil
 }
 
 /// Steuerung der Seite «Paar hinzufügen» (Gegenstück zu `ExplorerViewModel.kt`): Coin-Suche (Coin zuerst,

@@ -230,11 +230,10 @@ enum PortfolioWidgetStore {
 
     // MARK: Aktualisieren
 
-    /// Berechnen und speichern; bei Änderung das Widget neu zeichnen (`reload`).
+    /// Berechnen und speichern; bei Änderung das Widget neu zeichnen (`reload`). Nur über `update` bzw.
+    /// `updateInBackground` (nacheinander, `PortfolioWidgetStore+Background.swift`).
     /// Ohne einen einzigen bekannten Kurs bleibt der bisherige Stand stehen (dann nil).
-    /// Gibt den neuen Stand zurück (Portfolio-Tab: «Grösste Bewegungen»; App: Portfolio-Alarme).
-    @discardableResult
-    static func update(transactions: [PortfolioTx], prices: PortfolioPrices, currency: String,
+    static func updateNow(transactions: [PortfolioTx], prices: PortfolioPrices, currency: String,
                        rate: Double?, reload: Bool = true,
                        extraHourly: [String: [PortfolioTimedPrice]] = [:],
                        displayFx: PortfolioDisplayFx? = nil) -> PortfolioWidgetSnapshot? {

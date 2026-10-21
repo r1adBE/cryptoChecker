@@ -86,4 +86,27 @@ class BackupRestorePolicyTest {
         assertEquals(null, BackupRestorePolicy.storageRefusal(storedKept = false, inMemory = true, restoring = false))
         assertEquals(inMemory, BackupRestorePolicy.storageRefusal(storedKept = false, inMemory = true, restoring = true))
     }
+
+    /** Ohne Passwort: «Portfolio in Systemsicherung» nur aus, nie ein (seit Build 99, wie iOS). */
+    @Test
+    fun unverschluesseltSchaltetSystemsicherungNieEin() {
+        assertEquals(null, BackupRestorePolicy.systemBackup(wanted = true, current = false, trusted = false))
+        assertEquals(false, BackupRestorePolicy.systemBackup(wanted = false, current = true, trusted = false))
+        assertEquals(true, BackupRestorePolicy.systemBackup(wanted = true, current = true, trusted = false))
+        assertEquals(null, BackupRestorePolicy.systemBackup(wanted = null, current = true, trusted = false))
+        // Mit Passwort (oder eigener Stand beim Zurückrollen): wie gesichert
+        assertEquals(true, BackupRestorePolicy.systemBackup(wanted = true, current = false, trusted = true))
+        assertEquals(false, BackupRestorePolicy.systemBackup(wanted = false, current = true, trusted = true))
+    }
+
+    /** Ohne Passwort: «Beträge verbergen» nur ein, nie aus (seit Build 99, wie iOS). */
+    @Test
+    fun unverschluesseltSchaltetBetraegeVerbergenNieAus() {
+        assertEquals(null, BackupRestorePolicy.hideAmounts(wanted = false, current = true, trusted = false))
+        assertEquals(true, BackupRestorePolicy.hideAmounts(wanted = true, current = false, trusted = false))
+        assertEquals(false, BackupRestorePolicy.hideAmounts(wanted = false, current = false, trusted = false))
+        assertEquals(null, BackupRestorePolicy.hideAmounts(wanted = null, current = false, trusted = false))
+        assertEquals(false, BackupRestorePolicy.hideAmounts(wanted = false, current = true, trusted = true))
+        assertEquals(true, BackupRestorePolicy.hideAmounts(wanted = true, current = false, trusted = true))
+    }
 }

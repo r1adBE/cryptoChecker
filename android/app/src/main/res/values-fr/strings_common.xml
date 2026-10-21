@@ -43,6 +43,10 @@
     <string name="shortcut_add">Ajouter une paire</string>
     <string name="shortcut_alarms">Toutes les alertes</string>
     <string name="shortcut_cycle">Marché</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Nouvelle paire à suivre</string>
+    <string name="shortcut_alarms_long">Voir toutes les alertes</string>
+    <string name="shortcut_cycle_long">Aperçu du marché</string>
 
     <string name="log_box_title">Journal</string>
     <string name="label_value">%1$s\u00A0: %2$s</string>

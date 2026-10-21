@@ -324,8 +324,8 @@ class WatchlistViewModel @Inject constructor(
     /** Gruppe löschen: Paare bleiben in der Merkliste; die Ansicht springt auf «Alle». */
     fun deleteGroup(name: String) = edits.deleteGroup(name)
 
-    /** Vorschau-Paar aus «Heute auffällig» in die Merkliste ([WatchlistEditController.addPreview]). */
-    fun addPreview(watch: WatchEntity, onDone: (id: Long?, added: Boolean) -> Unit) = edits.addPreview(watch, onDone)
+    /** Vorschau-Paar aus «Heute auffällig» in die Merkliste ([WatchlistEditController.addPreview]); [onFull]: Merkliste voll. */
+    fun addPreview(watch: WatchEntity, onFull: () -> Unit, onDone: (Long?, Boolean) -> Unit) = edits.addPreview(watch, onFull, onDone)
 
     /** Löschen mit «Rückgängig» ([undoDelete] mit der Watch-Id). */
     fun deleteWithUndo(watch: WatchEntity) = edits.deleteWithUndo(watch)

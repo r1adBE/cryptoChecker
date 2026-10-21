@@ -134,4 +134,10 @@
     <string name="dex_token_address_copy">Kopiuj adres tokena</string>
     <string name="dex_token_address_copied">Skopiowano adres tokena</string>
     <string name="dex_token_address_label">Adres tokena kończący się na %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">Nie dodano: %1$d. Twoja lista obserwowanych może zawierać maksymalnie %2$s par.</item>
+        <item quantity="few">Nie dodano: %1$d. Twoja lista obserwowanych może zawierać maksymalnie %2$s par.</item>
+        <item quantity="many">Nie dodano: %1$d. Twoja lista obserwowanych może zawierać maksymalnie %2$s par.</item>
+        <item quantity="other">Nie dodano: %1$d. Twoja lista obserwowanych może zawierać maksymalnie %2$s par.</item>
+    </plurals>
 </resources>

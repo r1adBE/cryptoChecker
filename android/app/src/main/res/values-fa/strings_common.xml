@@ -43,6 +43,10 @@
     <string name="shortcut_add">افزودن جفت</string>
     <string name="shortcut_alarms">همه هشدارها</string>
     <string name="shortcut_cycle">بازار</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">افزودن جفت جدید</string>
+    <string name="shortcut_alarms_long">نمایش همه هشدارها</string>
+    <string name="shortcut_cycle_long">باز کردن نمای بازار</string>
 
     <string name="log_box_title">گزارش</string>
     <string name="label_value">%1$s: %2$s</string>

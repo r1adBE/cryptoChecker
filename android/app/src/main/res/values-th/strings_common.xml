@@ -43,6 +43,10 @@
     <string name="shortcut_add">เพิ่มคู่เทรด</string>
     <string name="shortcut_alarms">สัญญาณเตือนทั้งหมด</string>
     <string name="shortcut_cycle">ตลาด</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">เพิ่มคู่เทรดใหม่</string>
+    <string name="shortcut_alarms_long">ดูสัญญาณเตือนทั้งหมด</string>
+    <string name="shortcut_cycle_long">เปิดภาพรวมตลาด</string>
 
     <string name="log_box_title">บันทึก</string>
     <string name="label_value">%1$s: %2$s</string>

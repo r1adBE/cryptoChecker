@@ -9,7 +9,10 @@ import UserNotifications
 struct BulkAddResult {
     var added: Int
     var skipped: Int
+    /// Wegen der vollen Merkliste nicht angelegt (`WatchlistLimits.maxPairs`).
+    var refused: Int = 0
 }
+
 
 /// Verschieben im Sortiermodus.
 enum WatchMove { case top, up, down, bottom }

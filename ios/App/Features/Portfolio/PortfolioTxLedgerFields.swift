@@ -232,6 +232,7 @@ extension PortfolioTxSheet {
                     .keyboardType(.decimalPad)
                     .font(AppFont.amount(.body, weight: .semibold))
                     .focused($focusedField, equals: .fee)
+                    .id(PortfolioTxField.fee)
                 if fields.coinFeeOnly && coinValid {
                     Text(coin)
                         .font(.headline)
@@ -250,7 +251,7 @@ extension PortfolioTxSheet {
                 .pickerStyle(.segmented)
             }
             if !feeValid {
-                errorText(L("portfolio_invalid"))
+                errorText(L("portfolio_tx_price_invalid"))
             } else if feeConsumes && !isSwap {
                 errorText(L("portfolio_tx_fee_consumes_amount"))
             } else if fields.feeWithUnit {
@@ -278,6 +279,7 @@ extension PortfolioTxSheet {
                     .textInputAutocapitalization(.characters)
                     .autocorrectionDisabled()
                     .focused($focusedField, equals: .feeCoin)
+                    .id(PortfolioTxField.feeCoin)
                     .modifier(PortfolioFieldStyle(error: invalid, focused: focusedField == .feeCoin))
                 }
                 VStack(alignment: .leading, spacing: Spacing.xs) {
@@ -314,7 +316,7 @@ extension PortfolioTxSheet {
                 }
                 .modifier(PortfolioFieldStyle(error: invalid, focused: focusedField == .feeCoinPrice))
                 if invalid {
-                    errorText(L("portfolio_invalid"))
+                    errorText(L("portfolio_tx_price_invalid"))
                 } else if state == .incomplete {
                     Text(L("portfolio_tx_third_fee_incomplete"))
                         .font(.caption)

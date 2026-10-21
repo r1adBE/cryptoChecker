@@ -102,7 +102,7 @@
     <string name="portfolio_discard_keep">Continua a modificare</string>
     <string name="portfolio_discard_title">Annullare le modifiche?</string>
     <string name="portfolio_edit_tx">Modifica transazione</string>
-    <string name="portfolio_invalid">Quantità non valida</string>
+    <string name="portfolio_invalid">Inserisci un numero valido maggiore di 0.</string>
     <string name="portfolio_oversold">Le vendite superano il saldo – controlla le transazioni.</string>
     <string name="portfolio_sell">Vendita</string>
     <string name="portfolio_sell_exceeds">Più del tuo saldo (%1$s)</string>
@@ -142,7 +142,7 @@
     <string name="portfolio_tx_price">Prezzo per coin</string>
     <string name="portfolio_tx_price_hint">In USDT. Lascia vuoto se sconosciuto.</string>
     <string name="portfolio_tx_price_historic">Chiusura giornaliera verificata del %1$s – modificala se serve</string>
-    <string name="portfolio_tx_price_invalid">Prezzo non valido</string>
+    <string name="portfolio_tx_price_invalid">Inserisci un numero valido (0 o più) o lascia vuoto il campo.</string>
     <string name="portfolio_tx_price_past_hint">Inserisci il prezzo del giorno dell’operazione – lascia vuoto se non lo sai</string>
     <string name="portfolio_tx_price_receipt_hint">In USDT. Vuoto = saldo senza costo di carico.</string>
     <string name="portfolio_tx_price_zero">Prezzo 0 non possibile per le transazioni importate – lascia vuoto per il prezzo di mercato</string>

@@ -220,4 +220,5 @@
     <string name="watchlist_sort_by_coin">Sort by coin</string>
     <!-- Wie oben, aber nach Börse gruppiert, innerhalb der Börse A–Z -->
     <string name="watchlist_sort_by_exchange">Sort by exchange</string>
+    <string name="watchlist_limit_reached">Your watchlist can have at most %1$s pairs.</string>
 </resources>

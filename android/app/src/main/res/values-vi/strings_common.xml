@@ -43,6 +43,10 @@
     <string name="shortcut_add">Thêm cặp</string>
     <string name="shortcut_alarms">Tất cả cảnh báo</string>
     <string name="shortcut_cycle">Thị trường</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Thêm cặp mới</string>
+    <string name="shortcut_alarms_long">Xem tất cả cảnh báo</string>
+    <string name="shortcut_cycle_long">Mở tổng quan thị trường</string>
 
     <string name="log_box_title">Nhật ký</string>
     <string name="label_value">%1$s: %2$s</string>

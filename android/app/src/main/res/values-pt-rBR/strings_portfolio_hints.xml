@@ -2,14 +2,14 @@
 <resources>
     <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
-    <string name="portfolio_alarms_paused_price">Alertas da carteira pausados: sem cotação atual para %1$s</string>
-    <string name="portfolio_alarms_paused_price_generic">Alertas da carteira pausados: nem todas as moedas têm cotação atual</string>
-    <string name="portfolio_alarms_paused_addresses">Alertas da carteira pausados: saldos dos endereços monitorados ainda não carregados</string>
+    <string name="portfolio_alarms_paused_price">Alarmes da carteira pausados: sem cotação atual para %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Alarmes da carteira pausados: nem todas as moedas têm cotação atual</string>
+    <string name="portfolio_alarms_paused_addresses">Alarmes da carteira pausados: saldos dos endereços monitorados ainda não carregados</string>
     <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
-    <string name="portfolio_alarms_paused_tokens">Alertas da carteira pausados: saldos de tokens de %1$s parcialmente desatualizados</string>
-    <string name="portfolio_alarms_paused_tokens_generic">Alertas da carteira pausados: saldos de tokens dos endereços monitorados parcialmente desatualizados</string>
-    <string name="portfolio_alarms_address_failing">Os alertas da carteira verificam sem %1$s: saldo não carregado há mais de 24 horas</string>
-    <string name="portfolio_alarms_address_failing_generic">Os alertas da carteira verificam sem os endereços cujo saldo não carrega há mais de 24 horas</string>
+    <string name="portfolio_alarms_paused_tokens">Alarmes da carteira pausados: saldos de tokens de %1$s parcialmente desatualizados</string>
+    <string name="portfolio_alarms_paused_tokens_generic">Alarmes da carteira pausados: saldos de tokens dos endereços monitorados parcialmente desatualizados</string>
+    <string name="portfolio_alarms_address_failing">Os alarmes da carteira verificam sem %1$s: saldo não carregado há mais de 24 horas</string>
+    <string name="portfolio_alarms_address_failing_generic">Os alarmes da carteira verificam sem os endereços cujo saldo não carrega há mais de 24 horas</string>
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokens parcialmente desatualizados</string>
     <string name="portfolio_address_restore_failed">Não foi possível restaurar o endereço – adicione-o de novo se precisar</string>

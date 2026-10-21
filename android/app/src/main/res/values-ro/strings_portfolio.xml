@@ -102,7 +102,7 @@
     <string name="portfolio_discard_keep">Continuă editarea</string>
     <string name="portfolio_discard_title">Renunți la modificări?</string>
     <string name="portfolio_edit_tx">Editează tranzacția</string>
-    <string name="portfolio_invalid">Cantitate nevalidă</string>
+    <string name="portfolio_invalid">Introdu un număr valid mai mare decât 0.</string>
     <string name="portfolio_oversold">Vânzările depășesc deținerea – verifică tranzacțiile.</string>
     <string name="portfolio_sell">Vânzare</string>
     <string name="portfolio_sell_exceeds">Mai mult decât deții (%1$s)</string>
@@ -142,7 +142,7 @@
     <string name="portfolio_tx_price">Preț per monedă</string>
     <string name="portfolio_tx_price_hint">În USDT. Lasă gol dacă nu știi.</string>
     <string name="portfolio_tx_price_historic">Închiderea zilnică verificată din %1$s – ajustează dacă e nevoie</string>
-    <string name="portfolio_tx_price_invalid">Preț invalid</string>
+    <string name="portfolio_tx_price_invalid">Introdu un număr valid (0 sau mai mult) sau lasă câmpul gol.</string>
     <string name="portfolio_tx_price_past_hint">Introdu prețul din ziua tranzacției – lasă gol dacă nu-l știi</string>
     <string name="portfolio_tx_price_receipt_hint">În USDT. Gol = dețineri fără cost de achiziție.</string>
     <string name="portfolio_tx_price_zero">Prețul 0 nu este posibil la tranzacțiile importate – lasă gol pentru prețul pieței</string>

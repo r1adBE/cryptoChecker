@@ -58,11 +58,12 @@ data class PairListSync(
     val error: String? = null,
 )
 
-/** Ausgang von «Alle Paare übernehmen»; [running] solange es läuft. */
+/** Ausgang von «Alle Paare übernehmen»; [running] solange es läuft, [refused] = wegen voller Merkliste nicht angelegt. */
 data class BulkAddResult(
     val added: Int,
     val skipped: Int,
     val running: Boolean = false,
+    val refused: Int = 0,
 )
 
 /** Ausgang des Versuchs, ein Paar in die Merkliste zu übernehmen. */
@@ -70,6 +71,8 @@ enum class AddResult {
     ADDED,
     ALREADY_IN_LIST,
     NO_PAIR_SELECTED,
+    /** Merkliste hat schon die Höchstzahl Paare ([com.cryptochecker.app.domain.watch.WatchlistLimits.MAX_PAIRS]). */
+    WATCHLIST_FULL,
 }
 
 /** Laden der Börsenliste: läuft, bereit (mit der Auswahl) oder gescheitert. */

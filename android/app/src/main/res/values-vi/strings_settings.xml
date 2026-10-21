@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Thiếu quyền – lúc thiết bị nghỉ, Android kiểm tra không đều, đôi khi sau nhiều giờ.</string>
     <string name="settings_notification_change">Chỉ thông báo khi giá thay đổi</string>
     <string name="settings_notification_change_always">Luôn luôn</string>
+    <string name="settings_percent_invalid">Nhập giá trị từ 0 đến 100.</string>
     <string name="settings_notification_change_hint">Thông báo chỉ xuất hiện khi giá đã thay đổi ít nhất mức này so với lần trước. Không hiển thị gì khi thiếu dữ liệu. Cảnh báo không bị ảnh hưởng.</string>
     <string name="settings_ongoing_notifications">Không thể vuốt để xóa</string>
     <string name="settings_ongoing_notifications_hint">Giữ cố định thông báo giá.</string>

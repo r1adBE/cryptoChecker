@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="alarm_log_title">Journal des alarmes</string>
-    <string name="alarm_log_open">Afficher le journal des alarmes</string>
-    <string name="alarm_log_intro">Quand une alarme s\'est déclenchée – et quand elle se serait déclenchée mais a été retenue. Enregistré uniquement sur cet appareil, pendant 14 jours.</string>
+    <string name="alarm_log_title">Journal des alertes</string>
+    <string name="alarm_log_open">Afficher le journal des alertes</string>
+    <string name="alarm_log_intro">Quand une alerte s\'est déclenchée – et quand elle se serait déclenchée mais a été retenue. Enregistré uniquement sur cet appareil, pendant 14 jours.</string>
     <string name="alarm_log_empty_title">Aucune entrée pour l\'instant</string>
-    <string name="alarm_log_empty_message">Les entrées apparaissent ici dès qu\'une alarme se déclenche ou est retenue – par exemple à cause d\'un cours obsolète ou pendant les heures calmes.</string>
+    <string name="alarm_log_empty_message">Les entrées apparaissent ici dès qu\'une alerte se déclenche ou est retenue – par exemple à cause d\'un cours obsolète ou pendant les heures calmes.</string>
     <string name="alarm_log_clear">Effacer le journal</string>
-    <string name="alarm_log_clear_title">Effacer le journal des alarmes ?</string>
-    <string name="alarm_log_clear_message">Toutes les entrées seront supprimées. Vos alarmes restent inchangées.</string>
+    <string name="alarm_log_clear_title">Effacer le journal des alertes ?</string>
+    <string name="alarm_log_clear_message">Toutes les entrées seront supprimées. Vos alertes restent inchangées.</string>
     <string name="alarm_log_threshold">Seuil %1$s</string>
     <string name="alarm_last_check">Dernière vérification : %1$s</string>
     <string name="alarm_outcome_fired">Déclenchée</string>

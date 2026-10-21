@@ -215,4 +215,5 @@
 
     <string name="watchlist_sort_by_coin">Rendezés coin szerint</string>
     <string name="watchlist_sort_by_exchange">Rendezés tőzsde szerint</string>
+    <string name="watchlist_limit_reached">A figyelőlistája legfeljebb %1$s párt tartalmazhat.</string>
 </resources>

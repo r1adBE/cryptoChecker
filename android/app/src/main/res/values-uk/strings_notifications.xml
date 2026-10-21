@@ -20,9 +20,9 @@
     <string name="notification_macro_title">Сьогодні економічні дані</string>
     <string name="notification_permission_preprompt_continue">Продовжити</string>
     <string name="notification_permission_preprompt_later">Пізніше</string>
-    <string name="notification_permission_preprompt_text">Щоб оповіщення і цінові сповіщення доходили до вас, застосунку потрібен дозвіл на сповіщення. Застосунок використовує їх лише для ваших оповіщень і цінових сповіщень.</string>
+    <string name="notification_permission_preprompt_text">Щоб сигнали і цінові сповіщення доходили до вас, застосунку потрібен дозвіл на сповіщення. Застосунок використовує їх лише для ваших сигналів і цінових сповіщень.</string>
     <string name="notification_permission_preprompt_title">Дозволити сповіщення?</string>
-    <string name="notification_portfolio_alarm_locked">Ваше сповіщення спрацювало – відкрийте застосунок, щоб дізнатися подробиці.</string>
+    <string name="notification_portfolio_alarm_locked">Ваш сигнал спрацював – відкрийте застосунок, щоб дізнатися подробиці.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – зараз %2$s</string>
     <string name="notification_portfolio_alarm_title">Вартість портфеля</string>
@@ -41,7 +41,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Сигнали</string>
-    <string name="channel_alarms_description">Сповіщення, коли спрацьовує ціновий сигнал.</string>
+    <string name="channel_alarms_description">Сповіщення, коли спрацьовує сигнал.</string>
     <string name="channel_alarms_quiet">Сигнали (тихі години)</string>
     <string name="channel_alarms_quiet_description">Беззвучні сигнали в тихі години.</string>
     <string name="channel_alarms_silent">Сигнали (без звуку)</string>

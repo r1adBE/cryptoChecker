@@ -21,14 +21,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-
-/** Höchstlänge eines Gruppennamens (wie in der Gruppen-Auswahl der Aktionen). */
-const val GROUP_NAME_MAX = 24
+import com.cryptochecker.app.util.TextLimit
 
 /**
  * Name einer Gruppe eingeben (neue Gruppe oder Umbenennen).
- * Leere Namen sind nicht möglich, die Länge ist auf [GROUP_NAME_MAX] begrenzt.
+ * Leere Namen sind nicht möglich, die Länge ist auf [GROUP_NAME_MAX] sichtbare Zeichen begrenzt.
  */
 @Composable
 fun GroupNameDialog(
@@ -38,7 +37,7 @@ fun GroupNameDialog(
     onConfirm: (String) -> Unit,
     onDismiss: () -> Unit,
 ) {
-    var name by rememberSaveable { mutableStateOf(initial.take(GROUP_NAME_MAX)) }
+    var name by rememberSaveable { mutableStateOf(TextLimit.takeGraphemes(initial, GROUP_NAME_MAX)) }
     val trimmed = name.trim()
     val focusRequester = remember { FocusRequester() }
     AlertDialog(
@@ -47,7 +46,7 @@ fun GroupNameDialog(
         text = {
             OutlinedTextField(
                 value = name,
-                onValueChange = { name = it.take(GROUP_NAME_MAX) },
+                onValueChange = { name = TextLimit.takeGraphemes(it, GROUP_NAME_MAX) },
                 label = { Text(stringResource(R.string.group_name)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(

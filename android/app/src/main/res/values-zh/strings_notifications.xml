@@ -38,7 +38,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">提醒</string>
-    <string name="channel_alarms_description">价格提醒触发时的通知。</string>
+    <string name="channel_alarms_description">提醒触发时的通知。</string>
     <string name="channel_alarms_quiet">提醒（静音时段）</string>
     <string name="channel_alarms_quiet_description">静音时段内的无声提醒。</string>
     <string name="channel_alarms_silent">提醒（静音）</string>

@@ -234,10 +234,12 @@ class BackupManager @Inject constructor(
         checkVersion(root)
 
         // ── 1. Alles lesen und prüfen, bevor etwas geschrieben wird ──
-        val parsedWatches = root.optJSONArray("watches")?.let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }.orEmpty()
+        // Paare mit unzulässigen Kennungen fallen weg ([BackupRestoreLimits]), ihre Alarme mit ihnen
+        val parsedWatches = root.optJSONArray("watches")?.let { a -> (0 until a.length()).map { jsonToWatch(a.getJSONObject(it)) } }
+            .orEmpty().filter(BackupRestoreLimits::acceptsWatch)
         val alarmsRead = root.optJSONArray("alarms")?.let(AlarmJson::parse)
         val parsedAlarms = alarmsRead?.items.orEmpty()
-        val (watches, alarms) = WatchlistRestoreCleanup.clean(
+        val (cleanWatches, cleanAlarms) = WatchlistRestoreCleanup.clean(
             watches = parsedWatches,
             alarms = parsedAlarms,
             watchId = { it.id },
@@ -246,6 +248,7 @@ class BackupManager @Inject constructor(
             alarmWatchId = { it.watchId },
             withWatchId = { a, id -> a.copy(watchId = id) },
         )
+        val (watches, alarms) = BackupRestoreLimits.limit(cleanWatches, cleanAlarms, watchId = { it.id }, alarmWatchId = { it.watchId })
         // Ältere Sicherungen haben noch kein Portfolio: dann bleibt das bestehende stehen.
         val parsedPortfolio = root.optJSONArray("portfolio")?.let(PortfolioJson::parseTxs)
         // Seit Runde 28; ältere Sicherungen ohne Portfolio-Alarme lassen die bestehenden stehen

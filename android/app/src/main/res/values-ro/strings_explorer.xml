@@ -126,4 +126,9 @@
     <string name="dex_token_address_copy">Copiază adresa tokenului</string>
     <string name="dex_token_address_copied">Adresa tokenului a fost copiată</string>
     <string name="dex_token_address_label">Adresa tokenului care se termină în %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">Neadăugate: %1$d. Lista ta de urmărire poate conține cel mult %2$s de perechi.</item>
+        <item quantity="few">Neadăugate: %1$d. Lista ta de urmărire poate conține cel mult %2$s de perechi.</item>
+        <item quantity="other">Neadăugate: %1$d. Lista ta de urmărire poate conține cel mult %2$s de perechi.</item>
+    </plurals>
 </resources>

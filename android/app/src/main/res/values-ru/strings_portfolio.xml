@@ -105,7 +105,7 @@
     <string name="portfolio_discard_keep">Продолжить редактирование</string>
     <string name="portfolio_discard_title">Отменить изменения?</string>
     <string name="portfolio_edit_tx">Изменить операцию</string>
-    <string name="portfolio_invalid">Неверное количество</string>
+    <string name="portfolio_invalid">Введите корректное число больше 0.</string>
     <string name="portfolio_oversold">Продажи превышают остаток – проверьте операции.</string>
     <string name="portfolio_sell">Продажа</string>
     <string name="portfolio_sell_exceeds">Больше вашего остатка (%1$s)</string>
@@ -145,7 +145,7 @@
     <string name="portfolio_tx_price">Цена за монету</string>
     <string name="portfolio_tx_price_hint">В USDT. Оставьте пустым, если неизвестна.</string>
     <string name="portfolio_tx_price_historic">Проверенная цена закрытия за %1$s – при необходимости измените</string>
-    <string name="portfolio_tx_price_invalid">Неверная цена</string>
+    <string name="portfolio_tx_price_invalid">Введите корректное число (0 или больше) или оставьте поле пустым.</string>
     <string name="portfolio_tx_price_past_hint">Укажите цену на день сделки – оставьте пустым, если не знаете</string>
     <string name="portfolio_tx_price_receipt_hint">В USDT. Пусто = остаток без стоимости покупки.</string>
     <string name="portfolio_tx_price_zero">Цена 0 невозможна для импортированных транзакций – оставьте пустым для рыночного курса</string>

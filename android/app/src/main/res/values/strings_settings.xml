@@ -45,6 +45,8 @@
     <string name="settings_exact_checks_permission_missing">Permission missing – while the device rests, Android checks irregularly, sometimes only after hours.</string>
     <string name="settings_notification_change">Notify only on price change</string>
     <string name="settings_notification_change_always">Always</string>
+    <!-- Eigene Melde-Schwelle: Eingabe ausserhalb 0–100 oder keine Zahl -->
+    <string name="settings_percent_invalid">Enter a value from 0 to 100.</string>
     <string name="settings_notification_change_hint">A price notification appears only once the price has moved by at least this much since the last one. Nothing is shown while data is missing. Alerts are unaffected.</string>
     <string name="settings_ongoing_notifications">Cannot be swiped away</string>
     <string name="settings_ongoing_notifications_hint">Keeps price notifications pinned.</string>

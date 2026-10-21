@@ -179,4 +179,5 @@
     <string name="alarm_editor_more">بیشتر</string>
     <string name="alarm_editor_more_summary">هشدارهای سریع، شرط‌های دیگر، صدا و خواندن صوتی</string>
     <string name="alarm_reliability_storage_no_key">هشدارها در پس‌زمینه متوقف شده‌اند – واچ‌لیست ذخیره نشده است</string>
+    <string name="alarms_limit_reached">هر جفت حداکثر می‌تواند %1$s هشدار داشته باشد.</string>
 </resources>

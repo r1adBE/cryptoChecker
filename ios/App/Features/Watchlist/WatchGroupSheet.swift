@@ -6,8 +6,8 @@ import SwiftUI
 /// Eine Auswahl gilt sofort; nur die neue Gruppe braucht «Speichern» — wie `GroupDialog`.
 @MainActor
 struct WatchGroupSheet: View {
-    /// Höchstlänge eines Gruppennamens (wie `MAX_GROUP_NAME`).
-    static let maxNameLength = 24
+    /// Höchstlänge eines Gruppennamens (wie `GROUP_NAME_MAX`).
+    static let maxNameLength = Watch.groupNameMax
 
     let current: String?
     let groups: [String]

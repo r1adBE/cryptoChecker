@@ -43,6 +43,10 @@
     <string name="shortcut_add">Çift ekle</string>
     <string name="shortcut_alarms">Tüm alarmlar</string>
     <string name="shortcut_cycle">Piyasa</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Yeni çift ekle</string>
+    <string name="shortcut_alarms_long">Tüm alarmları göster</string>
+    <string name="shortcut_cycle_long">Piyasa özetini aç</string>
 
     <string name="log_box_title">Günlük</string>
     <string name="label_value">%1$s: %2$s</string>

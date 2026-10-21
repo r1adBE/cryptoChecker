@@ -39,7 +39,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alarmer</string>
-    <string name="channel_alarms_description">Notifikation, når en kursalarm udløses.</string>
+    <string name="channel_alarms_description">Notifikation, når en alarm udløses.</string>
     <string name="channel_alarms_quiet">Alarmer (nattero)</string>
     <string name="channel_alarms_quiet_description">Lydløse alarmer under nattero.</string>
     <string name="channel_alarms_silent">Alarmer (lydløs)</string>

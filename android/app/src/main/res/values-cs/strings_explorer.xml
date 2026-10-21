@@ -134,4 +134,10 @@
     <string name="dex_token_address_copy">Kopírovat adresu tokenu</string>
     <string name="dex_token_address_copied">Adresa tokenu zkopírována</string>
     <string name="dex_token_address_label">Adresa tokenu končící na %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">Nepřidáno: %1$d. Váš seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
+        <item quantity="few">Nepřidáno: %1$d. Váš seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
+        <item quantity="many">Nepřidáno: %1$d. Váš seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
+        <item quantity="other">Nepřidáno: %1$d. Váš seznam sledovaných může obsahovat nejvýše %2$s párů.</item>
+    </plurals>
 </resources>

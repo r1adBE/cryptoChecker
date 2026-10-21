@@ -40,27 +40,38 @@ extension CsvImportParser {
         s.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    /// RFC-4180-Zerlegung («""» = «"», Umbruch in Anführungszeichen erlaubt); Zellen getrimmt, leere Zeilen weg.
+    /// Wie `tokenizeOrNil`; über den Grenzen leer.
     static func tokenize(_ text: [Unicode.Scalar], delimiter: Unicode.Scalar, maxRecords: Int = .max) -> [Record] {
+        tokenizeOrNil(text, delimiter: delimiter, maxRecords: maxRecords) ?? []
+    }
+
+    /// RFC-4180-Zerlegung («""» = «"», Umbruch in Anführungszeichen erlaubt); Zellen getrimmt, leere Zeilen weg.
+    /// nil = eine Zeile mit mehr als `maxCells` Zellen oder mehr als `maxRows` Datensätze (Datei zu gross) — wie Android.
+    static func tokenizeOrNil(_ text: [Unicode.Scalar], delimiter: Unicode.Scalar, maxRecords: Int = .max,
+                              maxCells: Int = CsvImportParser.maxCellsPerRow,
+                              maxRows: Int = CsvImportParser.maxRows) -> [Record]? {
         var out: [Record] = []
         var cells: [String] = []
         var cell = String.UnicodeScalarView()
         var inQuotes = false
         var line = 1
         var startLine = 1
+        var tooLarge = false
         func endCell() {
             cells.append(trim(String(cell)))
             cell = String.UnicodeScalarView()
+            if cells.count > maxCells { tooLarge = true }
         }
         func endRecord() {
             endCell()
             if cells.contains(where: { !$0.isEmpty }) { out.append(Record(line: startLine, cells: cells)) }
+            if out.count > maxRows { tooLarge = true }
             cells = []
         }
         var i = 0
         let n = text.count
-        // Höchstens `maxRecords` Zeilen (Erkennung der Kopfzeile): danach nicht weiterlesen
-        while i < n && out.count < maxRecords {
+        // Höchstens `maxRecords` Zeilen (Erkennung der Kopfzeile): danach nicht weiterlesen; über den Grenzen sofort aufhören
+        while i < n && out.count < maxRecords && !tooLarge {
             let c = text[i]
             if inQuotes && c == "\"" && i + 1 < n && text[i + 1] == "\"" {
                 cell.append("\"")
@@ -84,8 +95,8 @@ extension CsvImportParser {
             }
             i += 1
         }
-        if out.count < maxRecords && (!cell.isEmpty || !cells.isEmpty) { endRecord() }
-        return out
+        if !tooLarge && out.count < maxRecords && (!cell.isEmpty || !cells.isEmpty) { endRecord() }
+        return tooLarge ? nil : out
     }
 
     /// Spaltenname/Art vergleichbar machen: klein, Umlaute ausgeschrieben, nur a–z und 0–9.

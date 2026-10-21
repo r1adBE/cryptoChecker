@@ -1,11 +1,12 @@
 package com.cryptochecker.app.data.remote
 
+import com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES
+import com.cryptochecker.app.data.BoundedCache
 import com.cryptochecker.app.data.CacheCodec
 import com.cryptochecker.app.data.CycleCacheStore
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.domain.alarm.NearExtreme
 import org.json.JSONObject
-import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -43,10 +44,11 @@ class NearExtremeDataSource @Inject constructor(
     /** Namensprüfung der Ausweich-Reihe wie beim Mini-Chart ([seriesAllowed]). */
     private val tokenIdentityStore: TokenIdentityStore,
 ) {
-    private val memory = ConcurrentHashMap<String, WindowRanges>()
+    /** Begrenzt seit Build 99 (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
+    private val memory = BoundedCache<String, WindowRanges>(MEMORY_CACHE_ENTRIES)
 
     /** Paare ohne Kerzen (oder Netzfehler): eine Stunde nicht erneut fragen (nur im Speicher). */
-    private val missing = ConcurrentHashMap<String, Long>()
+    private val missing = BoundedCache<String, Long>(MEMORY_CACHE_ENTRIES)
 
     /** null, wenn keine Quelle das Paar (oder <BASE>USDT) führt. */
     suspend fun ranges(baseAsset: String, quoteAsset: String): WindowRanges? {

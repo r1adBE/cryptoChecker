@@ -22,7 +22,7 @@
     <string name="notification_permission_preprompt_later">ภายหลัง</string>
     <string name="notification_permission_preprompt_text">เพื่อให้สัญญาณเตือนและการแจ้งเตือนราคาถึงคุณ แอปต้องได้รับอนุญาตให้ส่งการแจ้งเตือน แอปจะใช้การแจ้งเตือนเฉพาะกับสัญญาณเตือนและการแจ้งเตือนราคาของคุณเท่านั้น</string>
     <string name="notification_permission_preprompt_title">อนุญาตการแจ้งเตือนไหม</string>
-    <string name="notification_portfolio_alarm_locked">การแจ้งเตือนของคุณทำงานแล้ว – เปิดแอปเพื่อดูรายละเอียด</string>
+    <string name="notification_portfolio_alarm_locked">สัญญาณเตือนของคุณทำงานแล้ว – เปิดแอปเพื่อดูรายละเอียด</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – ตอนนี้ %2$s</string>
     <string name="notification_portfolio_alarm_title">มูลค่าพอร์ตโฟลิโอ</string>
@@ -38,7 +38,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">สัญญาณเตือน</string>
-    <string name="channel_alarms_description">แจ้งเตือนเมื่อสัญญาณเตือนราคาทำงาน</string>
+    <string name="channel_alarms_description">แจ้งเตือนเมื่อสัญญาณเตือนทำงาน</string>
     <string name="channel_alarms_quiet">สัญญาณเตือน (ช่วงเวลาเงียบ)</string>
     <string name="channel_alarms_quiet_description">สัญญาณเตือนแบบเงียบระหว่างช่วงเวลาเงียบ</string>
     <string name="channel_alarms_silent">สัญญาณเตือน (เงียบ)</string>

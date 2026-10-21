@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Autorizzazione mancante – a dispositivo inattivo Android controlla in modo irregolare, a volte solo dopo ore.</string>
     <string name="settings_notification_change">Notifica solo se il prezzo cambia</string>
     <string name="settings_notification_change_always">Sempre</string>
+    <string name="settings_percent_invalid">Inserisci un valore da 0 a 100.</string>
     <string name="settings_notification_change_hint">Una notifica appare solo quando il prezzo si è mosso almeno di questo valore dall\'ultima. Se mancano dati non viene mostrato nulla. Gli allarmi non ne sono influenzati.</string>
     <string name="settings_ongoing_notifications">Non rimovibili</string>
     <string name="settings_ongoing_notifications_hint">Mantiene fisse le notifiche di prezzo.</string>
@@ -289,7 +290,7 @@
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">Condividi diagnostica</string>
-    <string name="diagnostics_share_hint">File di testo per il supporto: versione, dispositivo, impostazioni degli avvisi, ultimi controlli e registro allarmi – senza portafoglio, importi, indirizzi o note. Lo vedi prima tu; nulla viene inviato automaticamente.</string>
+    <string name="diagnostics_share_hint">File di testo per il supporto: versione, dispositivo, impostazioni degli allarmi, ultimi controlli e registro allarmi – senza portafoglio, importi, indirizzi o note. Lo vedi prima tu; nulla viene inviato automaticamente.</string>
     <string name="diagnostics_preview_title">Diagnostica – anteprima</string>
     <string name="diagnostics_action_share">Condividi</string>
 </resources>

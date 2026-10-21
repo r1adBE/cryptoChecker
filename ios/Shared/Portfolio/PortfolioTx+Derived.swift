@@ -115,12 +115,7 @@ extension PortfolioTx {
     static let maxExchange = 40
 
     /// Börse: getrimmt, höchstens `maxExchange` Zeichen; leer = nil.
-    static func cleanExchange(_ raw: String?) -> String? {
-        guard let raw else { return nil }
-        let text = String(raw.trimmingCharacters(in: .whitespacesAndNewlines).prefix(maxExchange))
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-        return text.isEmpty ? nil : text
-    }
+    static func cleanExchange(_ raw: String?) -> String? { TextLimit.clean(raw, max: maxExchange) }
 
     /// Gültige Gebühr (> 0, endlich), sonst nil.
     static func validFee(_ value: Double?) -> Double? { value.flatMap { $0.isFinite && $0 > 0 ? $0 : nil } }

@@ -263,4 +263,5 @@
 
     <string name="watchlist_sort_by_coin">ترتيب حسب العملة</string>
     <string name="watchlist_sort_by_exchange">ترتيب حسب المنصة</string>
+    <string name="watchlist_limit_reached">يمكن أن تحتوي قائمة المتابعة على %1$s زوج كحد أقصى.</string>
 </resources>

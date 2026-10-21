@@ -54,12 +54,21 @@ enum PortfolioCsvImporter {
     /// Unterstützte Quellen (Markennamen, nicht übersetzt) — Untertitel im Menü, wie Android.
     static let sources = "Relai, Swissquote, Kraken, Binance, Coinbase, Bitpanda"
 
+    /// Datei lesen, höchstens `maxBytes` — auch ohne bekannte Grösse (`fileSizeKey` fehlt bei manchen Anbietern) nie
+    /// eine beliebig grosse Datei in den Speicher (wie `BackupManager.readFile`). nil = nicht lesbar oder zu gross.
+    static func readFile(_ url: URL, maxBytes: Int = maxBytes) -> Data? {
+        if let size = (try? url.resourceValues(forKeys: [.fileSizeKey]))?.fileSize, size > maxBytes { return nil }
+        guard let handle = try? FileHandle(forReadingFrom: url) else { return nil }
+        defer { try? handle.close() }
+        guard let data = try? handle.read(upToCount: maxBytes + 1) ?? Data(), data.count <= maxBytes else { return nil }
+        return data
+    }
+
     /// nil = nicht lesbar oder keine unterstützte Zeile.
     static func load(_ url: URL, existingKeys: Set<String>) async -> CsvImportLoaded? {
         let scoped = url.startAccessingSecurityScopedResource()
         defer { if scoped { url.stopAccessingSecurityScopedResource() } }
-        let size = (try? url.resourceValues(forKeys: [.fileSizeKey]))?.fileSize ?? 0
-        guard size <= maxBytes, let data = try? Data(contentsOf: url), data.count <= maxBytes else { return nil }
+        guard let data = readFile(url) else { return nil }
         // UTF-8, sonst Windows-1252 (Excel), BOM weg — wie Android
         let text = CsvImportParser.decode(data)
         let result = CsvImportParser.parse(text, deviceZone: TimeZone.current.identifier)

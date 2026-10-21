@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Hiányzó engedély – nyugvó eszközön az Android rendszertelenül ellenőriz, néha csak órák múlva.</string>
     <string name="settings_notification_change">Értesítés csak árváltozáskor</string>
     <string name="settings_notification_change_always">Mindig</string>
+    <string name="settings_percent_invalid">Adjon meg egy 0 és 100 közötti értéket.</string>
     <string name="settings_notification_change_hint">Értesítés csak akkor jelenik meg, ha az ár az előző óta legalább ennyivel elmozdult. Hiányzó adatok esetén semmi sem jelenik meg. A riasztásokat ez nem érinti.</string>
     <string name="settings_ongoing_notifications">Nem söpörhető el</string>
     <string name="settings_ongoing_notifications_hint">Az árértesítések rögzítve maradnak.</string>

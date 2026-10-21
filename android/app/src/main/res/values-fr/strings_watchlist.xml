@@ -227,4 +227,5 @@
 
     <string name="watchlist_sort_by_coin">Trier par crypto</string>
     <string name="watchlist_sort_by_exchange">Trier par plateforme</string>
+    <string name="watchlist_limit_reached">Votre liste de suivi peut contenir au maximum %1$s paires.</string>
 </resources>

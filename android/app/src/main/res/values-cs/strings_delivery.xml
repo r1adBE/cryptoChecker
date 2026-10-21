@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
-    <string name="delivery_title">Aby upozornění dorazila</string>
+    <string name="delivery_title">Aby alarmy dorazily</string>
     <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
     <string name="delivery_state_ok">V pořádku</string>
     <string name="delivery_state_warn">Pozor</string>
@@ -9,12 +9,12 @@
     <string name="delivery_allowed">Povoleno</string>
     <!-- Zeilen der Seite: Titel und Zustand. Android und iOS -->
     <string name="delivery_notifications">Oznámení</string>
-    <string name="delivery_notifications_off">Vypnuto – upozornění nedorazí</string>
+    <string name="delivery_notifications_off">Vypnuto – alarmy nedorazí</string>
     <string name="delivery_notifications_not_asked">Zatím nepovoleno</string>
-    <string name="delivery_channel">Kanál upozornění</string>
+    <string name="delivery_channel">Kanál alarmů</string>
     <string name="delivery_channel_high">Vysoká důležitost – zobrazí se nahoře na obrazovce</string>
-    <string name="delivery_channel_low">Nízká důležitost – upozornění se zobrazí jen potichu v seznamu</string>
-    <string name="delivery_channel_off">Vypnutý – upozornění nedorazí</string>
+    <string name="delivery_channel_low">Nízká důležitost – alarmy se zobrazí jen potichu v seznamu</string>
+    <string name="delivery_channel_off">Vypnutý – alarmy nedorazí</string>
     <string name="delivery_exact_on">Zapnuto – zhruba každých 15 minut</string>
     <string name="delivery_exact_off">Vypnuto – Android kontroluje nepravidelně</string>
     <string name="delivery_battery">Optimalizace baterie</string>
@@ -23,11 +23,11 @@
     <string name="delivery_background">Využití na pozadí</string>
     <string name="delivery_background_restricted">Omezeno – Android zastavuje kontroly na pozadí</string>
     <string name="delivery_dnd">Nerušit</string>
-    <string name="delivery_dnd_on">Zapnuto – upozornění mohou přijít bez zvuku</string>
+    <string name="delivery_dnd_on">Zapnuto – alarmy mohou přijít bez zvuku</string>
     <!-- %1$s = Ende der Nachtruhe (Uhrzeit) -->
-    <string name="delivery_quiet_now">Aktivní do %1$s – čekající upozornění počkají do té doby</string>
+    <string name="delivery_quiet_now">Aktivní do %1$s – čekající alarmy počkají do té doby</string>
     <!-- %1$s = Beginn, %2$s = Ende der Nachtruhe -->
-    <string name="delivery_quiet_set">%1$s–%2$s – čekající upozornění v této době čekají</string>
+    <string name="delivery_quiet_set">%1$s–%2$s – čekající alarmy v této době čekají</string>
     <string name="delivery_last_check">Poslední kontrola na pozadí</string>
     <!-- %1$s = Zeit der letzten Prüfung im Hintergrund -->
     <string name="delivery_last_check_old">%1$s – před více než 6 hodinami</string>
@@ -38,26 +38,26 @@
     <string name="delivery_action_show">Zobrazit</string>
     <!-- Zeilen nur auf iOS (Namen wie in den iOS-Einstellungen) -->
     <string name="delivery_alert_sound">Bannery a zvuk</string>
-    <string name="delivery_alert_off">Bannery vypnuté – upozornění se zobrazí jen v oznamovacím centru</string>
-    <string name="delivery_sound_off">Zvuk vypnutý – upozornění přijdou potichu</string>
+    <string name="delivery_alert_off">Bannery vypnuté – alarmy se zobrazí jen v oznamovacím centru</string>
+    <string name="delivery_sound_off">Zvuk vypnutý – alarmy přijdou potichu</string>
     <string name="delivery_time_sensitive">Časově citlivá oznámení</string>
-    <string name="delivery_time_sensitive_off">Vypnuto – režim soustředění může upozornění zadržet</string>
+    <string name="delivery_time_sensitive_off">Vypnuto – režim soustředění může alarmy zadržet</string>
     <string name="delivery_background_refresh">Aktualizace na pozadí</string>
     <string name="delivery_low_power">Úsporný režim</string>
     <string name="delivery_swipe_away">Aplikace odsunutá pryč?</string>
     <string name="delivery_swipe_away_note">Když aplikaci v přepínači aplikací odsuneš pryč, iOS přestane kontrolovat na pozadí, dokud ji znovu neotevřeš.</string>
     <string name="delivery_live_activity">Živá aktivita</string>
-    <string name="delivery_live_activity_note">Zobrazuje kurz na zamčené obrazovce, ale aktualizuje se jen při kontrole aplikace – upozornění se tím nekontrolují častěji.</string>
+    <string name="delivery_live_activity_note">Zobrazuje kurz na zamčené obrazovce, ale aktualizuje se jen při kontrole aplikace – alarmy se tím nekontrolují častěji.</string>
 
-    <string name="alarm_first_check">Zkontrolovat, zda upozornění dorazí</string>
+    <string name="alarm_first_check">Zkontrolovat, zda alarmy dorazí</string>
 
     <string name="oem_battery_title">Úspora baterie výrobce</string>
-    <string name="oem_battery_xiaomi">Xiaomi může aplikaci úplně ukončit – pak nepřijdou žádná upozornění. Zapněte „Automatické spuštění“ a spořič baterie nastavte na „Bez omezení“.</string>
-    <string name="oem_battery_samsung">Samsung může aplikaci uspat do hlubokého spánku – pak nepřijdou žádná upozornění. V Baterie › Omezení využití na pozadí ji přidejte k „Nikdy neuspávané aplikace“.</string>
-    <string name="oem_battery_huawei">Huawei/Honor může aplikaci ukončit – pak nepřijdou žádná upozornění. V Baterie › Spouštění aplikací zvolte „Spravovat ručně“ a povolte vše.</string>
-    <string name="oem_battery_oneplus">OnePlus může aplikaci ukončit – pak nepřijdou žádná upozornění. Povolte „Automatické spuštění“ a v Využití baterie činnost na pozadí.</string>
-    <string name="oem_battery_oppo">Oppo/Realme může aplikaci ukončit – pak nepřijdou žádná upozornění. Povolte „Automatické spuštění“ a v Využití baterie činnost na pozadí.</string>
-    <string name="oem_battery_vivo">Vivo může aplikaci ukončit – pak nepřijdou žádná upozornění. Povolte „Automatické spuštění“ a v Baterie vysokou spotřebu na pozadí.</string>
+    <string name="oem_battery_xiaomi">Xiaomi může aplikaci úplně ukončit – pak nepřijdou žádné alarmy. Zapněte „Automatické spuštění“ a spořič baterie nastavte na „Bez omezení“.</string>
+    <string name="oem_battery_samsung">Samsung může aplikaci uspat do hlubokého spánku – pak nepřijdou žádné alarmy. V Baterie › Omezení využití na pozadí ji přidejte k „Nikdy neuspávané aplikace“.</string>
+    <string name="oem_battery_huawei">Huawei/Honor může aplikaci ukončit – pak nepřijdou žádné alarmy. V Baterie › Spouštění aplikací zvolte „Spravovat ručně“ a povolte vše.</string>
+    <string name="oem_battery_oneplus">OnePlus může aplikaci ukončit – pak nepřijdou žádné alarmy. Povolte „Automatické spuštění“ a v Využití baterie činnost na pozadí.</string>
+    <string name="oem_battery_oppo">Oppo/Realme může aplikaci ukončit – pak nepřijdou žádné alarmy. Povolte „Automatické spuštění“ a v Využití baterie činnost na pozadí.</string>
+    <string name="oem_battery_vivo">Vivo může aplikaci ukončit – pak nepřijdou žádné alarmy. Povolte „Automatické spuštění“ a v Baterie vysokou spotřebu na pozadí.</string>
     <string name="alarm_reliability_recent">Poslední kontrola %1$s</string>
     <string name="alarm_reliability_stale">Poslední kontrola %1$s – alarmy mohou přijít pozdě</string>
     <string name="alarm_reliability_never">Alarmy zapnuté – zatím žádná kontrola na pozadí</string>

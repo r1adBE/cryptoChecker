@@ -118,4 +118,8 @@
     <string name="dex_token_address_copy">Kopiér tokenadresse</string>
     <string name="dex_token_address_copied">Tokenadresse kopieret</string>
     <string name="dex_token_address_label">Tokenadresse, der slutter på %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d par blev ikke tilføjet – din overvågningsliste kan højst indeholde %2$s par.</item>
+        <item quantity="other">%1$d par blev ikke tilføjet – din overvågningsliste kan højst indeholde %2$s par.</item>
+    </plurals>
 </resources>

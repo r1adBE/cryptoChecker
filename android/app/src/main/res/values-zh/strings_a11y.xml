@@ -2,7 +2,7 @@
 <resources>
     <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
     <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
-    <string name="a11y_alarm_fired">警报已触发</string>
+    <string name="a11y_alarm_fired">提醒已触发</string>
     <string name="a11y_collapsed">已收起</string>
     <string name="a11y_converted">约 %1$s</string>
     <string name="a11y_expanded">已展开</string>

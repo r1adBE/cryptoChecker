@@ -20,9 +20,9 @@
     <string name="notification_macro_title">오늘 경제 지표 발표</string>
     <string name="notification_permission_preprompt_continue">계속</string>
     <string name="notification_permission_preprompt_later">나중에</string>
-    <string name="notification_permission_preprompt_text">알람과 가격 알림을 받으려면 앱에 알림 권한이 필요합니다. 앱은 알림을 알람과 가격 알림에만 사용합니다.</string>
+    <string name="notification_permission_preprompt_text">경보와 가격 알림을 받으려면 앱에 알림 권한이 필요합니다. 앱은 알림을 경보와 가격 알림에만 사용합니다.</string>
     <string name="notification_permission_preprompt_title">알림을 허용할까요?</string>
-    <string name="notification_portfolio_alarm_locked">알람이 울렸습니다. 자세한 내용은 앱을 여세요.</string>
+    <string name="notification_portfolio_alarm_locked">경보가 울렸습니다. 자세한 내용은 앱을 여세요.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
     <string name="notification_portfolio_alarm_text">%1$s – 현재 %2$s</string>
     <string name="notification_portfolio_alarm_title">포트폴리오 가치</string>
@@ -38,7 +38,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">경보</string>
-    <string name="channel_alarms_description">가격 경보가 울리면 알림을 보냅니다.</string>
+    <string name="channel_alarms_description">경보가 울리면 알림을 보냅니다.</string>
     <string name="channel_alarms_quiet">경보 (조용한 시간)</string>
     <string name="channel_alarms_quiet_description">조용한 시간 동안 울리는 무음 경보.</string>
     <string name="channel_alarms_silent">경보(무음)</string>

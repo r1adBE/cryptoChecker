@@ -114,7 +114,7 @@ object PortfolioJson {
         )
         val linkedImportKey = stored.linkedImportKey?.takeIf { stored.importKey != null }
         val price = decimal(o, "priceText", "priceUsdt")?.takeIf { it.signum() >= 0 }
-        val note = if (o.isNull("note")) null else TextLimit.takeGraphemes(o.optString("note").trim(), NOTE_MAX).trim().takeIf { it.isNotEmpty() }
+        val note = if (o.isNull("note")) null else TextLimit.clean(o.optString("note"), NOTE_MAX)
         return PortfolioTxEntity(
             id = o.optLong("id", 0L).coerceAtLeast(0L),
             coin = coin,
@@ -193,8 +193,8 @@ object PortfolioJson {
         return PortfolioDecimal.of(o.optDouble(numberKey))?.takeIf { PortfolioDecimal.withinLimits(it) }
     }
 
-    /** Börse: getrimmt, höchstens [MAX_EXCHANGE] Zeichen; leer = null. */
-    fun cleanExchange(raw: String?): String? = raw?.trim()?.take(MAX_EXCHANGE)?.trim()?.takeIf { it.isNotEmpty() }
+    /** Börse: getrimmt, höchstens [MAX_EXCHANGE] sichtbare Zeichen (nie mitten im Emoji gekürzt); leer = null. */
+    fun cleanExchange(raw: String?): String? = TextLimit.clean(raw, MAX_EXCHANGE)
 
     const val MAX_EXCHANGE = 40
 

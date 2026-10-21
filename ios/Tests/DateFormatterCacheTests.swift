@@ -34,11 +34,22 @@ final class DateFormatterCacheTests: XCTestCase {
         XCTAssertEqual(cached(de), fresh(de))
     }
 
-    func testUhrzeitHeuteSonstDatum() {
-        let now = Date()
+    func testUhrzeitHeuteSonstDatum() throws {
+        // Heute: fester Zeitpunkt mitten im heutigen Kalendertag (nicht «jetzt») — und falls der Test genau über
+        // Mitternacht läuft, überspringen statt je nach Uhrzeit mal Uhrzeit, mal Datum zu erwarten
+        let calendar = Calendar.current
+        let noon = calendar.date(byAdding: .hour, value: 12, to: calendar.startOfDay(for: Date()))!
+        let todayBefore = calendar.isDateInToday(noon)
+        let result = TickerView.sameDayTimeOrDate(Int64(noon.timeIntervalSince1970 * 1000))
+        guard todayBefore, calendar.isDateInToday(noon) else { throw XCTSkip("Tageswechsel während des Tests") }
         let time = DateFormatter()
         time.timeStyle = .short
         time.dateStyle = .none
-        XCTAssertEqual(TickerView.sameDayTimeOrDate(Int64(now.timeIntervalSince1970 * 1000)), time.string(from: now))
+        XCTAssertEqual(result, time.string(from: noon))
+        // Fester Tag in der Vergangenheit: immer Datum statt Uhrzeit
+        let day = DateFormatter()
+        day.dateStyle = .short
+        day.timeStyle = .none
+        XCTAssertEqual(TickerView.sameDayTimeOrDate(Int64(date.timeIntervalSince1970 * 1000)), day.string(from: date))
     }
 }

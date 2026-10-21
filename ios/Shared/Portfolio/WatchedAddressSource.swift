@@ -38,12 +38,9 @@ actor WatchedAddressSource {
     }
 
     private static let session: URLSession = {
-        let c = URLSessionConfiguration.ephemeral
-        c.timeoutIntervalForRequest = AddressBalance.timeoutSeconds
-        c.timeoutIntervalForResource = AddressBalance.timeoutSeconds + 5
+        let c = PrivateSessionConfig.make(timeout: AddressBalance.timeoutSeconds,
+                                          resource: AddressBalance.timeoutSeconds + 5)
         c.requestCachePolicy = .reloadIgnoringLocalCacheData
-        c.httpCookieAcceptPolicy = .never
-        c.httpShouldSetCookies = false
         c.httpAdditionalHeaders = [HttpUserAgent.header: HttpUserAgent.value, "Accept": "application/json"]
         c.waitsForConnectivity = false
         return URLSession(configuration: c)

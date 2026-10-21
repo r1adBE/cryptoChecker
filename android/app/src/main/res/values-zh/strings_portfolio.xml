@@ -96,7 +96,7 @@
     <string name="portfolio_discard_keep">继续编辑</string>
     <string name="portfolio_discard_title">放弃更改？</string>
     <string name="portfolio_edit_tx">编辑交易</string>
-    <string name="portfolio_invalid">数量无效</string>
+    <string name="portfolio_invalid">请输入大于 0 的有效数字。</string>
     <string name="portfolio_oversold">卖出数量超过持仓，请检查交易记录。</string>
     <string name="portfolio_sell">卖出</string>
     <string name="portfolio_sell_exceeds">超过你的持仓（%1$s）</string>
@@ -136,7 +136,7 @@
     <string name="portfolio_tx_price">每枚价格</string>
     <string name="portfolio_tx_price_hint">以 USDT 计。未知可留空。</string>
     <string name="portfolio_tx_price_historic">已核对 %1$s 的日收盘价——如有需要可修改</string>
-    <string name="portfolio_tx_price_invalid">价格无效</string>
+    <string name="portfolio_tx_price_invalid">请输入有效数字（0 或以上），或留空。</string>
     <string name="portfolio_tx_price_past_hint">请输入交易当天的价格（未知则留空）</string>
     <string name="portfolio_tx_price_receipt_hint">以 USDT 计。留空 = 无成本的持仓。</string>
     <string name="portfolio_tx_price_zero">导入的交易价格不能为 0——留空则使用市场价</string>

@@ -7,7 +7,7 @@
     <string name="update_mode_live_hint_ios">Onde a exchange fornece preço em direto: de imediato enquanto a lista está aberta. Caso contrário, na próxima atualização. Fechada: quando o iOS permite, por vezes com horas de intervalo. Se fechar a app deslizando-a, o iOS suspende estas verificações até a voltar a abrir.</string>
     <string name="update_mode_recommended">recomendado</string>
     <string name="update_mode_sparsam">Poupança</string>
-    <string name="update_mode_sparsam_hint">Com a app fechada, no máximo a cada %1$s, muitas vezes mais tarde (alertas, widgets). Aberta: sempre que a abre.</string>
+    <string name="update_mode_sparsam_hint">Com a app fechada, no máximo a cada %1$s, muitas vezes mais tarde (alarmes, widgets). Aberta: sempre que a abre.</string>
     <string name="update_mode_sparsam_hint_ios">Com a app fechada, o iOS decide quando verificar (alarmes, widgets), por vezes com horas de intervalo. Aberta: sempre que a abre.</string>
     <string name="update_mode_title">Quão atualizado?</string>
 

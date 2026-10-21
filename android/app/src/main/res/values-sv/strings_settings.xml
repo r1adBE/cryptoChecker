@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Behörighet saknas – när enheten vilar kontrollerar Android oregelbundet, ibland först efter timmar.</string>
     <string name="settings_notification_change">Avisera bara vid kursändring</string>
     <string name="settings_notification_change_always">Alltid</string>
+    <string name="settings_percent_invalid">Ange ett värde från 0 till 100.</string>
     <string name="settings_notification_change_hint">En avisering visas först när kursen har rört sig minst så här mycket sedan den förra. Inget visas när data saknas. Larm påverkas inte.</string>
     <string name="settings_ongoing_notifications">Kan inte sveps bort</string>
     <string name="settings_ongoing_notifications_hint">Håller kursaviseringarna fästa.</string>

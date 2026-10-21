@@ -39,7 +39,7 @@
     <string name="backup_restore_app_lock_kept">ล็อกพอร์ตยังเปิดอยู่ – ข้อมูลสำรองที่ไม่เข้ารหัสปิดไม่ได้</string>
     <string name="backup_restore_confirm">การนำเข้าจะแทนที่รายการ (รวมบันทึกและกลุ่ม) สัญญาณเตือน รายการโปรด พอร์ตโฟลิโอ และการตั้งค่าด้วยข้อมูลสำรอง</string>
     <plurals name="backup_restore_invalid">
-        <item quantity="other">รายการ %d รายการในข้อมูลสำรอง (พอร์ตหรือการแจ้งเตือน) ไม่ถูกต้องและจะไม่ถูกนำเข้า</item>
+        <item quantity="other">รายการ %d รายการในข้อมูลสำรอง (พอร์ตหรือสัญญาณเตือน) ไม่ถูกต้องและจะไม่ถูกนำเข้า</item>
     </plurals>
     <string name="backup_restore_newer_version">ข้อมูลสำรองนี้มาจากแอปเวอร์ชันที่ใหม่กว่า – อัปเดตแอปก่อน ไม่มีการนำเข้าใด ๆ</string>
     <string name="backup_restore_unencrypted_warning">ข้อมูลสำรองนี้ไม่ได้เข้ารหัส – ตรวจสอบว่าเป็นของคุณ การตั้งค่าจะถูกนำไปใช้ ล็อกพอร์ตที่เปิดอยู่จะยังเปิดอยู่</string>

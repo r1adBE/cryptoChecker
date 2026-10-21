@@ -118,4 +118,8 @@
     <string name="dex_token_address_copy">Kopiera tokenadress</string>
     <string name="dex_token_address_copied">Tokenadress kopierad</string>
     <string name="dex_token_address_label">Tokenadress som slutar på %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d par lades inte till – din bevakningslista kan innehålla högst %2$s par.</item>
+        <item quantity="other">%1$d par lades inte till – din bevakningslista kan innehålla högst %2$s par.</item>
+    </plurals>
 </resources>

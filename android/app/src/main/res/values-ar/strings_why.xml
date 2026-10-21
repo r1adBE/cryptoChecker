@@ -65,10 +65,10 @@
     <string name="why_fn_market_lags">السوق يتحرك، وهذه العملة بالكاد</string>
     <string name="why_fn_market_moves">السوق يتحرك في الاتجاه نفسه</string>
     <string name="why_fn_market_pulls">السوق يتحرك مع BTC</string>
-    <string name="why_fn_oi_down">انخفاض الفائدة المفتوحة</string>
-    <string name="why_fn_oi_flat">الفائدة المفتوحة شبه ثابتة</string>
-    <string name="why_fn_oi_mixed">الفائدة المفتوحة متباينة</string>
-    <string name="why_fn_oi_up">ارتفاع الفائدة المفتوحة</string>
+    <string name="why_fn_oi_down">انخفاض العقود المفتوحة</string>
+    <string name="why_fn_oi_flat">العقود المفتوحة شبه ثابتة</string>
+    <string name="why_fn_oi_mixed">العقود المفتوحة متباينة</string>
+    <string name="why_fn_oi_up">ارتفاع العقود المفتوحة</string>
     <string name="why_fn_peg_above">%1$s فوق ربط 1:1</string>
     <string name="why_fn_peg_below">%1$s تحت ربط 1:1</string>
     <string name="why_fn_peg_near">قريب من ربط 1:1</string>
@@ -99,7 +99,7 @@
     <string name="why_market_leader_text_no_eth">بصفتها أكبر عملة، تتحرك BTC عادةً بالتوازي مع بقية السوق.</string>
     <string name="why_market_similar_text">هذه العملة: %1$s خلال 24 ساعة — وفي الوقت نفسه يتحرك السوق في الاتجاه نفسه، وإن بوضوح أقل.</string>
     <string name="why_market_wide_text">هذه العملة: %1$s خلال 24 ساعة – وفي الوقت نفسه يتحرك السوق ككل بوضوح.</string>
-    <string name="why_open_interest_change">الفائدة المفتوحة %1$s منذ آخر فحص.</string>
+    <string name="why_open_interest_change">العقود المفتوحة %1$s منذ آخر فحص.</string>
     <string name="why_peg_text">عملة مستقرة: مقارنة بربط 1:1 بعملة التسعير، الانحراف %1$s.</string>
     <string name="why_sentiment_text">مؤشر الخوف والطمع لسوق العملات المشفرة بأكمله، %1$s مقارنةً بالأمس.</string>
     <string name="why_sentiment_text_no_change">مؤشر الخوف والطمع لسوق العملات المشفرة بأكمله.</string>
@@ -147,20 +147,20 @@
     <string name="why_fresh_fng">Fear &amp; Greed: %1$s</string>
     <string name="why_fresh_futures">العقود الآجلة: %1$s</string>
     <plurals name="why_fresh_oi_hours">
-        <item quantity="zero">الفائدة المفتوحة مقارنة بما قبل %1$d ساعة</item>
-        <item quantity="one">الفائدة المفتوحة مقارنة بما قبل ساعة واحدة (%1$d)</item>
-        <item quantity="two">الفائدة المفتوحة مقارنة بما قبل ساعتين (%1$d)</item>
-        <item quantity="few">الفائدة المفتوحة مقارنة بما قبل %1$d ساعات</item>
-        <item quantity="many">الفائدة المفتوحة مقارنة بما قبل %1$d ساعة</item>
-        <item quantity="other">الفائدة المفتوحة مقارنة بما قبل %1$d ساعة</item>
+        <item quantity="zero">العقود المفتوحة مقارنة بما قبل %1$d ساعة</item>
+        <item quantity="one">العقود المفتوحة مقارنة بما قبل ساعة واحدة (%1$d)</item>
+        <item quantity="two">العقود المفتوحة مقارنة بما قبل ساعتين (%1$d)</item>
+        <item quantity="few">العقود المفتوحة مقارنة بما قبل %1$d ساعات</item>
+        <item quantity="many">العقود المفتوحة مقارنة بما قبل %1$d ساعة</item>
+        <item quantity="other">العقود المفتوحة مقارنة بما قبل %1$d ساعة</item>
     </plurals>
     <plurals name="why_fresh_oi_minutes">
-        <item quantity="zero">الفائدة المفتوحة مقارنة بما قبل %1$d دقيقة</item>
-        <item quantity="one">الفائدة المفتوحة مقارنة بما قبل دقيقة واحدة (%1$d)</item>
-        <item quantity="two">الفائدة المفتوحة مقارنة بما قبل دقيقتين (%1$d)</item>
-        <item quantity="few">الفائدة المفتوحة مقارنة بما قبل %1$d دقائق</item>
-        <item quantity="many">الفائدة المفتوحة مقارنة بما قبل %1$d دقيقة</item>
-        <item quantity="other">الفائدة المفتوحة مقارنة بما قبل %1$d دقيقة</item>
+        <item quantity="zero">العقود المفتوحة مقارنة بما قبل %1$d دقيقة</item>
+        <item quantity="one">العقود المفتوحة مقارنة بما قبل دقيقة واحدة (%1$d)</item>
+        <item quantity="two">العقود المفتوحة مقارنة بما قبل دقيقتين (%1$d)</item>
+        <item quantity="few">العقود المفتوحة مقارنة بما قبل %1$d دقائق</item>
+        <item quantity="many">العقود المفتوحة مقارنة بما قبل %1$d دقيقة</item>
+        <item quantity="other">العقود المفتوحة مقارنة بما قبل %1$d دقيقة</item>
     </plurals>
     <string name="why_fresh_today">اليوم</string>
     <string name="why_fresh_yesterday">أمس</string>

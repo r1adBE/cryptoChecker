@@ -99,7 +99,7 @@
     <string name="portfolio_discard_keep">Weiter bearbeiten</string>
     <string name="portfolio_discard_title">Änderungen verwerfen?</string>
     <string name="portfolio_edit_tx">Transaktion bearbeiten</string>
-    <string name="portfolio_invalid">Ungültige Menge</string>
+    <string name="portfolio_invalid">Gib eine gültige Zahl grösser als 0 ein.</string>
     <string name="portfolio_oversold">Verkäufe übersteigen den Bestand – bitte Transaktionen prüfen.</string>
     <string name="portfolio_sell">Verkauf</string>
     <string name="portfolio_sell_exceeds">Mehr als dein Bestand (%1$s)</string>
@@ -139,7 +139,7 @@
     <string name="portfolio_tx_price">Preis pro Coin</string>
     <string name="portfolio_tx_price_hint">In USDT. Leer lassen, wenn unbekannt.</string>
     <string name="portfolio_tx_price_historic">Geprüfter Tagesschluss vom %1$s – bei Bedarf anpassen</string>
-    <string name="portfolio_tx_price_invalid">Ungültiger Preis</string>
+    <string name="portfolio_tx_price_invalid">Gib eine gültige Zahl (0 oder mehr) ein oder lass das Feld leer.</string>
     <string name="portfolio_tx_price_past_hint">Kurs vom Kauftag eintragen – leer lassen, wenn unbekannt</string>
     <string name="portfolio_tx_price_receipt_hint">In USDT. Leer = Bestand ohne Einstand.</string>
     <string name="portfolio_tx_price_zero">Preis 0 bei importierten Transaktionen nicht möglich – leer lassen für Marktkurs</string>

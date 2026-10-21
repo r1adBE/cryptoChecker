@@ -73,6 +73,7 @@ extension PortfolioTxSheet {
                 .autocorrectionDisabled()
                 .font(.body.weight(.semibold))
                 .focused($focusedField, equals: .coin)
+                .id(PortfolioTxField.coin)
                 .submitLabel(.next)
                 .onSubmit { focusedField = .amount }
             }
@@ -139,6 +140,7 @@ extension PortfolioTxSheet {
                     .keyboardType(.decimalPad)
                     .font(AppFont.amount(.title3, weight: .semibold))
                     .focused($focusedField, equals: .amount)
+                    .id(PortfolioTxField.amount)
                 if coinValid {
                     Text(coin)
                         .font(.headline)
@@ -168,6 +170,7 @@ extension PortfolioTxSheet {
                 .keyboardType(.decimalPad)
                 .font(AppFont.amount(.title3, weight: .semibold))
                 .focused($focusedField, equals: .price)
+                .id(PortfolioTxField.price)
                 Text(entryUnit)
                     .font(.headline)
                     .foregroundStyle(AppColors.onSurfaceVariant)
@@ -230,6 +233,7 @@ extension PortfolioTxSheet {
                 .autocorrectionDisabled()
                 .font(.body.weight(.semibold))
                 .focused($focusedField, equals: .toCoin)
+                .id(PortfolioTxField.toCoin)
             }
             .modifier(PortfolioFieldStyle(error: showCoinError, focused: focusedField == .toCoin))
             if showCoinError {
@@ -265,6 +269,7 @@ extension PortfolioTxSheet {
                     .keyboardType(.decimalPad)
                     .font(AppFont.amount(.title3, weight: .semibold))
                     .focused($focusedField, equals: .toAmount)
+                    .id(PortfolioTxField.toAmount)
                 if PortfolioPriceSource.isSymbol(toCoin) {
                     Text(toCoin)
                         .font(.headline)
@@ -323,6 +328,7 @@ extension PortfolioTxSheet {
                     .keyboardType(.decimalPad)
                     .font(AppFont.amount(.title3, weight: .semibold))
                     .focused($focusedField, equals: .swapValue)
+                    .id(PortfolioTxField.swapValue)
                 Text(entryUnit)
                     .font(.headline)
                     .foregroundStyle(AppColors.onSurfaceVariant)
@@ -333,7 +339,7 @@ extension PortfolioTxSheet {
                     .font(.caption)
                     .foregroundStyle(AppColors.onSurfaceVariant)
             } else {
-                errorText(L("portfolio_invalid"))
+                errorText(L("portfolio_tx_price_invalid"))
             }
         }
     }

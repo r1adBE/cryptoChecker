@@ -1,5 +1,8 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
+import com.cryptochecker.app.data.local.model.NOTE_MAX
+import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.util.TextLimit
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -12,7 +15,8 @@ import org.junit.Test
  */
 class TextLimitParityTest {
 
-    private val cases = ParityJson.load("text_limit.json")["cases"].list()
+    private val fixture = ParityJson.load("text_limit.json")
+    private val cases = fixture["cases"].list()
 
     @Test
     fun kuerztUndZaehltWieGemeinsameTestfaelle() {
@@ -27,6 +31,29 @@ class TextLimitParityTest {
             val max = c["max"].num()!!.toInt()
             assertEquals(name, c["expected"] as String, TextLimit.takeGraphemes(text, max))
             assertEquals(name, c["count"].num()!!.toInt(), TextLimit.graphemeCount(text))
+        }
+    }
+
+    /**
+     * Gruppenname, Börse/Wallet und Notiz säubern wie Eingabe und Sicherung (seit Build 99): Android kürzte Gruppen und
+     * Börsen nach UTF-16-Einheiten, iOS nach sichtbaren Zeichen.
+     */
+    @Test
+    fun saeubertFelderWieGemeinsameTestfaelle() {
+        val fields = fixture["fields"].list()
+        assertTrue(fields.size >= 8)
+        for (raw in fields) {
+            val c = raw.obj()
+            val name = c["description"] as String
+            val text = c["text"] as String
+            if (jdkFeature() < 20 && needsExtendedClusters(text)) continue
+            val actual = when (val field = c["field"] as String) {
+                "group" -> TextLimit.clean(text, GROUP_NAME_MAX)
+                "exchange" -> PortfolioJson.cleanExchange(text)
+                "note" -> TextLimit.clean(text, NOTE_MAX)
+                else -> error("unbekanntes Feld $field")
+            }
+            assertEquals(name, c["expected"] as String?, actual)
         }
     }
 

@@ -84,7 +84,9 @@ extension ExplorerScreen {
                         } label: {
                             HStack(spacing: 4) {
                                 if favorite {
+                                    // Sonst liest VoiceOver den Bildnamen «star.fill» vor
                                     Image(systemName: "star.fill").font(.caption2)
+                                        .accessibilityLabel(L("a11y_favorite"))
                                 }
                                 Text(quote)
                                     .font(.subheadline.weight(selected ? .semibold : .regular))
@@ -96,6 +98,7 @@ extension ExplorerScreen {
                                         in: Capsule())
                         }
                         .buttonStyle(.plain)
+                        .accessibilityAddTraits(selected ? .isSelected : [])
                         .id(quote)
                         .contextMenu {
                             Button {
@@ -295,5 +298,6 @@ extension ExplorerScreen {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .accessibilityAddTraits(selected ? .isSelected : [])
     }
 }

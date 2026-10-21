@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -34,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -42,6 +44,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLock
+import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import kotlinx.coroutines.launch
@@ -108,6 +111,9 @@ fun PortfolioTxSheet(
     // Gespeicherter Stand gerade nicht lesbar: nichts geschrieben (PortfolioStorageLock) — diesen Grund nennen
     val storageLockedText = stringResource(R.string.portfolio_storage_locked)
     val scope = rememberCoroutineScope()
+    // Speichern mit Fehlern: zum ersten ungültigen Feld springen und den Fehler ansagen (PortfolioTxFocus.kt)
+    val focusTargets = remember { TxFocusTargets() }
+    val resources = LocalResources.current
 
     // Kurs vorbelegen, sobald ein (anderer) Coin feststeht; ein getippter Preis bleibt,
     // der Kurs dient dann nur als Hinweis für eine mehrdeutige Eingabe. Nicht für einen anderen Tag.
@@ -198,8 +204,10 @@ fun PortfolioTxSheet(
     ) {
         // Zurück mit Änderungen: nachfragen statt still verwerfen
         BackHandler(enabled = d.dirty) { askDiscard = true }
+        // Im Blatt (eigenes Fenster): Fokus und Ansage dort, wo die Felder sind
+        TxFocusFirstInvalidEffect(focusTargets)
         // Box: Meldung «nicht gespeichert» unten über dem Inhalt des Blatts
-        Box {
+        CompositionLocalProvider(LocalTxFocusTargets provides focusTargets) { Box {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -243,6 +251,14 @@ fun PortfolioTxSheet(
                         state.tried = true
                         // Unvollständige Gebühr im dritten Coin: Abschnitt öffnen, damit der Fehler sichtbar ist
                         if (d.thirdFee == PortfolioTxForm.ThirdFee.INVALID || d.feeConsumes) state.showLedger = true
+                        PortfolioTxFirstInvalid.of(d.check, amountValid = d.amount != null, isSwap = d.isSwap)?.let { field ->
+                            // Gebühren liegen im Abschnitt: erst aufklappen, sonst gibt es kein Feld für den Fokus
+                            if (field.inLedger) state.showLedger = true
+                            focusTargets.jumpTo(
+                                field,
+                                resources.getString(txFieldLabelRes(field, d)) + ". " + resources.getString(txFieldErrorRes(field, d)),
+                            )
+                        }
                         if (d.valid) {
                             saving = true
                             viewModel.save(
@@ -266,6 +282,6 @@ fun PortfolioTxSheet(
                 )
             }
             SnackbarHost(saveErrorHost, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
-        }
+        } }
     }
 }

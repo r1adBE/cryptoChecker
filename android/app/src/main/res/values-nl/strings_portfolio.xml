@@ -99,7 +99,7 @@
     <string name="portfolio_discard_keep">Verder bewerken</string>
     <string name="portfolio_discard_title">Wijzigingen verwerpen?</string>
     <string name="portfolio_edit_tx">Transactie bewerken</string>
-    <string name="portfolio_invalid">Ongeldige hoeveelheid</string>
+    <string name="portfolio_invalid">Voer een geldig getal groter dan 0 in.</string>
     <string name="portfolio_oversold">Verkopen overschrijden het bezit – controleer de transacties.</string>
     <string name="portfolio_sell">Verkoop</string>
     <string name="portfolio_sell_exceeds">Meer dan je bezit (%1$s)</string>
@@ -139,7 +139,7 @@
     <string name="portfolio_tx_price">Prijs per coin</string>
     <string name="portfolio_tx_price_hint">In USDT. Leeg laten indien onbekend.</string>
     <string name="portfolio_tx_price_historic">Gecontroleerde slotkoers van %1$s – pas aan indien nodig</string>
-    <string name="portfolio_tx_price_invalid">Ongeldige prijs</string>
+    <string name="portfolio_tx_price_invalid">Voer een geldig getal in (0 of meer) of laat het veld leeg.</string>
     <string name="portfolio_tx_price_past_hint">Vul de koers van de transactiedag in – laat leeg als onbekend</string>
     <string name="portfolio_tx_price_receipt_hint">In USDT. Leeg = bezit zonder kostprijs.</string>
     <string name="portfolio_tx_price_zero">Prijs 0 niet mogelijk bij geïmporteerde transacties – laat leeg voor de marktkoers</string>

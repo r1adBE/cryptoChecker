@@ -1,6 +1,7 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.local.model.AlarmEntity
+import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.util.TextLimit
@@ -47,11 +48,10 @@ internal object BackupWatchlistCodec {
         // Ältere Sicherungen kennen Bestand und Gruppe noch nicht.
         holdings = if (o.isNull("holdings")) null
         else o.optDouble("holdings").takeIf { !it.isNaN() && it > 0.0 },
-        groupName = if (o.isNull("group")) null
-        else o.optString("group").trim().takeIf { it.isNotEmpty() },
+        // Gruppe und Notiz mit denselben Grenzen wie die Eingabe (wie iOS `Watch.validGroupName`/`validNote`)
+        groupName = if (o.isNull("group")) null else TextLimit.clean(o.optString("group"), GROUP_NAME_MAX),
         // Ältere Sicherungen haben keine Notiz
-        note = if (o.isNull("note")) null
-        else TextLimit.takeGraphemes(o.optString("note").trim(), NOTE_MAX).takeIf { it.isNotEmpty() },
+        note = if (o.isNull("note")) null else TextLimit.clean(o.optString("note"), NOTE_MAX),
         // Ältere Sicherungen kennen «deaktiviert» nicht: Paar aktiv
         disabled = o.optBoolean("disabled", false),
     )

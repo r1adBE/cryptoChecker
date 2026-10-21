@@ -41,7 +41,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Оповещения</string>
-    <string name="channel_alarms_description">Уведомление при срабатывании ценового оповещения.</string>
+    <string name="channel_alarms_description">Уведомление при срабатывании оповещения.</string>
     <string name="channel_alarms_quiet">Оповещения (тихие часы)</string>
     <string name="channel_alarms_quiet_description">Беззвучные оповещения в тихие часы.</string>
     <string name="channel_alarms_silent">Оповещения (без звука)</string>

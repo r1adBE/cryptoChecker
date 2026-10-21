@@ -18,6 +18,24 @@ final class TextLimitParityTests: XCTestCase {
         }
     }
 
+    /// Gruppenname, Börse/Wallet und Notiz säubern wie Eingabe und Sicherung (seit Build 99) — wie Android.
+    func testSaeubertFelderWieGemeinsameTestfaelle() throws {
+        let fields = S.list(try S.fixture("text_limit")["fields"])
+        XCTAssertGreaterThanOrEqual(fields.count, 8)
+        for c in fields {
+            let name = c["description"] as? String ?? "?"
+            let text = try XCTUnwrap(c["text"] as? String, name)
+            let actual: String?
+            switch c["field"] as? String {
+            case "group": actual = Watch.validGroupName(text)
+            case "exchange": actual = PortfolioTx.cleanExchange(text)
+            case "note": actual = Watch.validNote(text)
+            default: XCTFail("unbekanntes Feld: \(name)"); continue
+            }
+            XCTAssertEqual(actual, c["expected"] as? String, name)
+        }
+    }
+
     /// Gespeicherte Notiz (`Watch.validNote`) kürzt mit derselben Grenze wie Android `WatchRepository.setNote`.
     func testValidNoteKuerztAufSichtbareZeichen() {
         let family = "👨‍👩‍👧‍👦"

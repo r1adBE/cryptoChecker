@@ -110,4 +110,7 @@
     <string name="dex_token_address_copy">复制代币地址</string>
     <string name="dex_token_address_copied">已复制代币地址</string>
     <string name="dex_token_address_label">以 %1$s 结尾的代币地址</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="other">%1$d 个未添加：自选最多可添加 %2$s 个交易对。</item>
+    </plurals>
 </resources>

@@ -24,6 +24,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.ui.components.ComboBox
+import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 
 /**
  * Gebühr und Börse je Art ([PortfolioTxForm.Fields]):
@@ -69,13 +70,13 @@ internal fun LedgerFields(
                 singleLine = true,
                 isError = !feeValid || feeConsumes,
                 supportingText = when {
-                    !feeValid -> { { Text(stringResource(R.string.portfolio_invalid)) } }
+                    !feeValid -> { { Text(stringResource(R.string.portfolio_tx_price_invalid)) } }
                     feeConsumes -> { { Text(stringResource(R.string.portfolio_tx_fee_consumes_amount)) } }
                     fields.feeWithUnit -> { { Text(stringResource(R.string.ledger_fee_hint)) } }
                     else -> null
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().txFocusTarget(LocalTxFocusTargets.current, Field.FEE)
             )
         }
         if (fields.feeWithUnit) {

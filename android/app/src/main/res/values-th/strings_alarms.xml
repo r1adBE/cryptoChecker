@@ -29,9 +29,9 @@
     <string name="alarm_fires_now_below">ราคาต่ำกว่า %1$s อยู่แล้ว บันทึกต่อไหม</string>
     <string name="alarm_fires_now_change">เปลี่ยน</string>
     <string name="alarm_fires_now_save">บันทึกต่อ</string>
-    <string name="alarm_fires_now_title">การแจ้งเตือนจะทำงานทันที</string>
-    <string name="alarm_first_battery_hint">การเพิ่มประสิทธิภาพแบตเตอรี่จำกัดแอป – การแจ้งเตือนอาจมาช้า</string>
-    <string name="alarm_first_title">บันทึกการแจ้งเตือนแล้ว</string>
+    <string name="alarm_fires_now_title">สัญญาณเตือนจะทำงานทันที</string>
+    <string name="alarm_first_battery_hint">การเพิ่มประสิทธิภาพแบตเตอรี่จำกัดแอป – สัญญาณเตือนอาจมาช้า</string>
+    <string name="alarm_first_title">บันทึกสัญญาณเตือนแล้ว</string>
     <string name="alarm_last_triggered">ล่าสุด %1$s</string>
     <string name="alarm_more_conditions">เงื่อนไขเพิ่มเติม</string>
     <string name="alarm_new_extreme">%1$sใหม่</string>
@@ -121,7 +121,7 @@
 
     <!-- Futures- und Volumen-Alarme (Funding pro 8 Stunden, Open Interest, Volumen-Spike) -->
     <!-- Funding-Schwelle gilt pro 8 Stunden; stündliches Funding wird umgerechnet -->
-    <string name="alarm_funding_hint_8h">ฟันดิงต่อ 8 ชั่วโมง สัญญาที่มีรอบอื่นจะถูกแปลง (1 ชม. × 8, 4 ชม. × 2) การ์ดฟิวเจอร์สแสดงค่าที่แปลงแล้ว หากไม่ทราบรอบ การแจ้งเตือนจะไม่ตรวจ ค่าติดลบ: ฝั่ง Short จ่ายให้ฝั่ง Long ปุ่ม ± สลับเครื่องหมาย</string>
+    <string name="alarm_funding_hint_8h">ฟันดิงต่อ 8 ชั่วโมง สัญญาที่มีรอบอื่นจะถูกแปลง (1 ชม. × 8, 4 ชม. × 2) การ์ดฟิวเจอร์สแสดงค่าที่แปลงแล้ว หากไม่ทราบรอบ สัญญาณเตือนจะไม่ตรวจ ค่าติดลบ: ฝั่ง Short จ่ายให้ฝั่ง Long ปุ่ม ± สลับเครื่องหมาย</string>
     <string name="alarm_funding_sign_a11y">สลับเครื่องหมาย</string>
     <string name="alarm_oi_hint">เปรียบเทียบ Open interest กับค่าที่บันทึกไว้เมื่อจำนวนชั่วโมงเท่านั้นก่อน สัญญาณเตือนใหม่จะทำงานเมื่อแอปเก็บข้อมูลได้นานพอแล้ว ตรวจสอบอย่างมากทุก 5 นาที</string>
     <string name="alarm_volume_factor_label">ปริมาณชั่วโมงล่าสุดเทียบกับปกติ</string>
@@ -129,7 +129,7 @@
     <string name="alarm_volume_zero_hours_hint">ชั่วโมงที่ไม่มีการซื้อขายนับเป็นปริมาณศูนย์ ดังนั้นในคู่ที่มีการซื้อขายน้อย ชั่วโมงปกติอาจดูผิดปกติได้</string>
 
     <!-- Bestätigung nach dem Speichern -->
-    <string name="alarm_saved_active">การแจ้งเตือนเปิดอยู่</string>
+    <string name="alarm_saved_active">สัญญาณเตือนเปิดอยู่</string>
     <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
     <string name="alarm_saved_banner">บันทึกสัญญาณเตือนแล้ว: %1$s</string>
     <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
@@ -173,4 +173,5 @@
     <string name="alarm_editor_more">เพิ่มเติม</string>
     <string name="alarm_editor_more_summary">สัญญาณเตือนด่วน เงื่อนไขอื่น เสียงและการอ่านออกเสียง</string>
     <string name="alarm_reliability_storage_no_key">สัญญาณเตือนเบื้องหลังหยุดชั่วคราว – รายการติดตามไม่ได้บันทึก</string>
+    <string name="alarms_limit_reached">หนึ่งคู่ตั้งสัญญาณเตือนได้สูงสุด %1$s รายการ</string>
 </resources>

@@ -37,7 +37,7 @@
     <string name="settings_alarm_sound_system">시스템 소리 선택…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">앱 아이콘 숫자</string>
-    <string name="settings_app_badge_hint">열려 있는 알림 수를 셉니다. 숫자 또는 점 표시는 홈 화면이 결정합니다(예: Samsung “숫자 표시”).</string>
+    <string name="settings_app_badge_hint">열려 있는 경보 알림 수를 셉니다. 숫자 또는 점 표시는 홈 화면이 결정합니다(예: Samsung “숫자 표시”).</string>
     <string name="settings_exact_checks">제때 확인</string>
     <string name="settings_exact_checks_grant">“알람 및 리마인더” 허용</string>
     <string name="settings_exact_checks_hint">Android는 기기가 대기 중이어도 약 15분마다 확인합니다. 배터리를 조금 더 사용합니다.</string>
@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">권한 없음 – 기기가 쉬는 동안 Android는 불규칙하게 확인하며, 몇 시간 뒤에야 확인하기도 합니다.</string>
     <string name="settings_notification_change">가격 변동 시에만 알림</string>
     <string name="settings_notification_change_always">항상</string>
+    <string name="settings_percent_invalid">0에서 100 사이의 값을 입력하세요.</string>
     <string name="settings_notification_change_hint">마지막 알림 이후 가격이 이만큼 이상 움직였을 때만 알림이 표시됩니다. 데이터가 없으면 아무것도 표시되지 않습니다. 경보에는 영향이 없습니다.</string>
     <string name="settings_ongoing_notifications">밀어서 지우기 불가</string>
     <string name="settings_ongoing_notifications_hint">가격 알림을 고정해 둡니다.</string>
@@ -202,7 +203,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">앱 초기화</string>
     <string name="settings_reset_app_action">모두 삭제</string>
-    <string name="settings_reset_app_confirm">관심 목록, 알림, 포트폴리오, 설정 및 저장된 모든 데이터를 설치 직후처럼 삭제합니다. 되돌릴 수 없습니다. 먼저 백업을 만드세요. 기기 백업(Google 백업 또는 iCloud/컴퓨터 백업)에는 다음 백업이 실행될 때까지 이전 데이터가 남아 있습니다.</string>
+    <string name="settings_reset_app_confirm">관심 목록, 경보, 포트폴리오, 설정 및 저장된 모든 데이터를 설치 직후처럼 삭제합니다. 되돌릴 수 없습니다. 먼저 백업을 만드세요. 기기 백업(Google 백업 또는 iCloud/컴퓨터 백업)에는 다음 백업이 실행될 때까지 이전 데이터가 남아 있습니다.</string>
     <string name="settings_reset_app_title">앱을 초기화할까요?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
@@ -262,14 +263,14 @@
     <!-- Nur iOS: Einstellungen -->
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">진동은 iPhone 설정(사운드 및 햅틱)을 따릅니다.</string>
-    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">새 알림과 시장 알림을 세며, 앱을 열면 0으로 돌아갑니다.</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">새 경보와 시장 알림을 세며, 앱을 열면 0으로 돌아갑니다.</string>
 
     <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
     <string name="about_your_data_title">내 데이터</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_device_label">기기에</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->
-    <string name="about_data_device">목록, 알람, 포트폴리오는 이 기기에 암호화되어 저장됩니다. 계정도 자체 서버도 없습니다.</string>
+    <string name="about_data_device">목록, 경보, 포트폴리오는 이 기기에 암호화되어 저장됩니다. 계정도 자체 서버도 없습니다.</string>
     <!-- Über › Deine Daten: Stichwort -->
     <string name="about_data_connections_label">연결</string>
     <!-- Über › Deine Daten: ein Satz, muss zur Datenschutzerklärung passen -->

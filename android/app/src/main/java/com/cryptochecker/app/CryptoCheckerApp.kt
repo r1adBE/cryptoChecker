@@ -39,11 +39,16 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
     @Inject lateinit var settingsRepository: SettingsRepository
 
-    @Inject lateinit var scheduler: PriceUpdateScheduler
+    /**
+     * Lazy (seit Build 99): Scheduler und Portfolio hängen an den Datenbanken — eager gespritzt luden sie bei jedem
+     * Prozessstart (Widget, WorkManager, Neustart) SQLCipher im Hauptthread. Gebraucht werden sie nur in den
+     * Hintergrund-Jobs unten; dort entsteht der Graph jetzt abseits des Hauptthreads.
+     */
+    @Inject lateinit var scheduler: dagger.Lazy<PriceUpdateScheduler>
 
     @Inject lateinit var appearanceApplier: AppearanceApplier
 
-    @Inject lateinit var portfolioRepository: PortfolioRepository
+    @Inject lateinit var portfolioRepository: dagger.Lazy<PortfolioRepository>
 
     /** Lazy: nur, wenn ein abgebrochenes Wiederherstellen zurückzurollen ist ([RestoreJournal]). */
     @Inject lateinit var backupManager: dagger.Lazy<com.cryptochecker.app.data.BackupManager>
@@ -108,6 +113,7 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         scope.launch {
             val settings = settingsRepository.current()
             NotificationChannels.ensureAlarmChannel(this@CryptoCheckerApp, settings.alarmChannelVersion, settings.alarmSoundUri)
+            val scheduler = scheduler.get()
             scheduler.apply(settings)
             // Danach Bedarf verfolgen: Paare, Alarme, Widgets an/aus → periodische Aktualisierung planen/absagen
             scheduler.followWork()
@@ -122,13 +128,16 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
         scope.launch(Dispatchers.IO) { com.cryptochecker.app.data.DiagnosticsFiles.clear(cacheDir) }
 
         // Einmalig: alter Bestand aus der Merkliste wird zu Käufen im Portfolio
-        scope.launch { portfolioRepository.migrateHoldingsOnce() }
+        scope.launch { portfolioRepository.get().migrateHoldingsOnce() }
+
+        // Überbleibsel des Vorgängerprojekts einmal entfernen (Merker; vorher bei jedem Anlegen der Datenbank)
+        scope.launch(Dispatchers.IO) { com.cryptochecker.app.data.local.LegacyDatabaseCleanup.runOnce(this@CryptoCheckerApp) }
 
         // Einstellungen neu angelegt (z. B. Datei beschädigt), Portfolio-Daten aber da: Portfolio wieder an
         scope.launch {
             // Nur leer im Arbeitsspeicher (Schlüssel nicht lesbar): nicht als «keine Daten» entscheiden
             PortfolioDataCheck.resolve(this@CryptoCheckerApp, portfolioInMemory = { PortfolioDatabase.inMemory() }) {
-                portfolioRepository.hasData() || portfolioAlarmRepository.get().getAll().isNotEmpty()
+                portfolioRepository.get().hasData() || portfolioAlarmRepository.get().getAll().isNotEmpty()
             }
         }
 

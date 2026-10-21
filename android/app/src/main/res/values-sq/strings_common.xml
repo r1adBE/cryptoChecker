@@ -43,6 +43,10 @@
     <string name="shortcut_add">Shto çift</string>
     <string name="shortcut_alarms">Të gjitha alarmet</string>
     <string name="shortcut_cycle">Tregu</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Shto çift të ri</string>
+    <string name="shortcut_alarms_long">Shfaq të gjitha alarmet</string>
+    <string name="shortcut_cycle_long">Hap pasqyrën e tregut</string>
 
     <string name="log_box_title">Regjistri</string>
     <string name="label_value">%1$s: %2$s</string>

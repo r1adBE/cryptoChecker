@@ -203,4 +203,5 @@
 
     <string name="watchlist_sort_by_coin">Urutkan menurut koin</string>
     <string name="watchlist_sort_by_exchange">Urutkan menurut bursa</string>
+    <string name="watchlist_limit_reached">Daftar pantau Anda dapat berisi paling banyak %1$s pasangan.</string>
 </resources>

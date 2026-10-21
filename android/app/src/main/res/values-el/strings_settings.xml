@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Λείπει η άδεια – όταν η συσκευή ηρεμεί, το Android ελέγχει ακανόνιστα, μερικές φορές μετά από ώρες.</string>
     <string name="settings_notification_change">Ειδοποίηση μόνο σε αλλαγή τιμής</string>
     <string name="settings_notification_change_always">Πάντα</string>
+    <string name="settings_percent_invalid">Εισαγάγετε μια τιμή από 0 έως 100.</string>
     <string name="settings_notification_change_hint">Η ειδοποίηση τιμής εμφανίζεται μόνο όταν η τιμή έχει κινηθεί τουλάχιστον τόσο από την προηγούμενη. Όσο λείπουν δεδομένα, δεν εμφανίζεται τίποτα. Οι συναγερμοί δεν επηρεάζονται.</string>
     <string name="settings_ongoing_notifications">Χωρίς απόρριψη με σύρσιμο</string>
     <string name="settings_ongoing_notifications_hint">Οι ειδοποιήσεις τιμής παραμένουν καρφιτσωμένες.</string>

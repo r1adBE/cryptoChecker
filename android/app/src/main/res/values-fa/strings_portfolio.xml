@@ -99,7 +99,7 @@
     <string name="portfolio_discard_keep">ادامهٔ ویرایش</string>
     <string name="portfolio_discard_title">تغییرات کنار گذاشته شود؟</string>
     <string name="portfolio_edit_tx">ویرایش تراکنش</string>
-    <string name="portfolio_invalid">مقدار نامعتبر</string>
+    <string name="portfolio_invalid">یک عدد معتبر بزرگ‌تر از 0 وارد کن.</string>
     <string name="portfolio_oversold">فروش‌ها از موجودی بیشتر است – تراکنش‌ها را بررسی کنید.</string>
     <string name="portfolio_sell">فروش</string>
     <string name="portfolio_sell_exceeds">بیشتر از موجودی شما (%1$s)</string>
@@ -139,7 +139,7 @@
     <string name="portfolio_tx_price">قیمت هر کوین</string>
     <string name="portfolio_tx_price_hint">به USDT. اگر نمی‌دانید خالی بگذارید.</string>
     <string name="portfolio_tx_price_historic">قیمت بسته‌شدن روزانهٔ بررسی‌شده در %1$s – در صورت نیاز تغییرش بده</string>
-    <string name="portfolio_tx_price_invalid">قیمت نامعتبر</string>
+    <string name="portfolio_tx_price_invalid">یک عدد معتبر (0 یا بیشتر) وارد کن یا فیلد را خالی بگذار.</string>
     <string name="portfolio_tx_price_past_hint">قیمت روز معامله را وارد کن – اگر نمی‌دانی خالی بگذار</string>
     <string name="portfolio_tx_price_receipt_hint">به USDT. خالی = دارایی بدون بهای تمام‌شده.</string>
     <string name="portfolio_tx_price_zero">قیمت 0 برای تراکنش‌های واردشده ممکن نیست – برای قیمت بازار خالی بگذار</string>

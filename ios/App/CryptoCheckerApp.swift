@@ -254,6 +254,12 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         // Alarmtöne auch nach `Library/Sounds` der App Group: dort findet iOS sie sicher, wenn die Widget-Erweiterung
         // einen Kursalarm meldet (`AlarmSounds.installSharedSounds`, wiederholbar, kopiert nur Fehlendes/Geändertes)
         DispatchQueue.global(qos: .utility).async { AlarmSounds.installSharedSounds() }
+        // Keine Kennungen: Cookies/Cache-Antworten älterer Versionen weg (eigene Sitzungen speichern keine mehr, seit
+        // Build 99), ebenso ein nach Absturz oder Beenden liegen gebliebener Diagnosebericht im `tmp`-Ordner
+        DispatchQueue.global(qos: .utility).async {
+            PrivateSessionConfig.clearSharedStores()
+            DiagnosticsShareFile.remove()
+        }
         return true
     }
 

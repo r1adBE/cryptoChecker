@@ -119,4 +119,8 @@
     <!-- Aktionsblatt, Token-Adresse eines DEX-Pools: Bestätigung nach dem Kopieren (Android unter 13, iOS) und Vorlesetext; %1$s = letzte vier Zeichen, einzeln mit Leerzeichen -->
     <string name="dex_token_address_copied">Token address copied</string>
     <string name="dex_token_address_label">Token address ending in %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d pair not added: your watchlist can have at most %2$s pairs.</item>
+        <item quantity="other">%1$d pairs not added: your watchlist can have at most %2$s pairs.</item>
+    </plurals>
 </resources>

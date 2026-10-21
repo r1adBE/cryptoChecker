@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Langes Drücken aufs App-Symbol: direkt zu Hinzufügen, Alarmen oder Zyklus -->
+<!-- Langes Drücken aufs App-Symbol: direkt zu Hinzufügen, Alarmen oder Zyklus.
+     targetPackage fest: Statische Verknüpfungen kennen keine Manifest-Platzhalter (${applicationId} wird hier nicht
+     ersetzt). Die Debug-App (.debug) hat darum ihre eigene Kopie in src/debug/res/xml/shortcuts.xml —
+     ShortcutsXmlTest prüft, dass beide bis auf das Paket gleich bleiben. -->
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
         android:shortcutId="add"
         android:enabled="true"
         android:icon="@drawable/ic_shortcut_add"
-        android:shortcutShortLabel="@string/shortcut_add">
+        android:shortcutShortLabel="@string/shortcut_add"
+        android:shortcutLongLabel="@string/shortcut_add_long">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="com.cryptochecker.app"
@@ -17,7 +21,8 @@
         android:shortcutId="alarms"
         android:enabled="true"
         android:icon="@drawable/ic_shortcut_alarms"
-        android:shortcutShortLabel="@string/shortcut_alarms">
+        android:shortcutShortLabel="@string/shortcut_alarms"
+        android:shortcutLongLabel="@string/shortcut_alarms_long">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="com.cryptochecker.app"
@@ -29,7 +34,8 @@
         android:shortcutId="cycle"
         android:enabled="true"
         android:icon="@drawable/ic_shortcut_cycle"
-        android:shortcutShortLabel="@string/shortcut_cycle">
+        android:shortcutShortLabel="@string/shortcut_cycle"
+        android:shortcutLongLabel="@string/shortcut_cycle_long">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="com.cryptochecker.app"

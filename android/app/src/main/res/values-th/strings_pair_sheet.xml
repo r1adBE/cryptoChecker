@@ -66,7 +66,7 @@
     <string name="futures_alarm_reference">ค่าอ้างอิง %1$s</string>
     <string name="futures_funding">Funding rate</string>
     <string name="futures_funding_interval_unknown">ไม่ทราบรอบ</string>
-    <string name="futures_funding_per8h_equiv">= %1$s ต่อ 8 ชั่วโมง (เหมือนในการแจ้งเตือน)</string>
+    <string name="futures_funding_per8h_equiv">= %1$s ต่อ 8 ชั่วโมง (เหมือนในสัญญาณเตือน)</string>
     <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
     <string name="futures_funding_per_hour">ต่อชั่วโมง</string>
     <string name="futures_funding_per_hours">ต่อ %1$d ชั่วโมง</string>

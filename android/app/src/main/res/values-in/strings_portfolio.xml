@@ -96,7 +96,7 @@
     <string name="portfolio_discard_keep">Lanjut mengedit</string>
     <string name="portfolio_discard_title">Buang perubahan?</string>
     <string name="portfolio_edit_tx">Edit transaksi</string>
-    <string name="portfolio_invalid">Jumlah tidak valid</string>
+    <string name="portfolio_invalid">Masukkan angka valid yang lebih dari 0.</string>
     <string name="portfolio_oversold">Penjualan melebihi kepemilikan – periksa transaksi.</string>
     <string name="portfolio_sell">Jual</string>
     <string name="portfolio_sell_exceeds">Lebih dari kepemilikan Anda (%1$s)</string>
@@ -136,7 +136,7 @@
     <string name="portfolio_tx_price">Harga per koin</string>
     <string name="portfolio_tx_price_hint">Dalam USDT. Kosongkan jika tidak tahu.</string>
     <string name="portfolio_tx_price_historic">Harga penutupan harian %1$s yang sudah dicek – ubah jika perlu</string>
-    <string name="portfolio_tx_price_invalid">Harga tidak valid</string>
+    <string name="portfolio_tx_price_invalid">Masukkan angka valid (0 atau lebih) atau biarkan kolom kosong.</string>
     <string name="portfolio_tx_price_past_hint">Masukkan harga pada hari transaksi – kosongkan jika tidak tahu</string>
     <string name="portfolio_tx_price_receipt_hint">Dalam USDT. Kosong = kepemilikan tanpa biaya perolehan.</string>
     <string name="portfolio_tx_price_zero">Harga 0 tidak bisa untuk transaksi impor – kosongkan untuk harga pasar</string>

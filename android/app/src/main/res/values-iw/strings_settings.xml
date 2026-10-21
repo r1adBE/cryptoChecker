@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">חסרה הרשאה – כשהמכשיר במנוחה, Android בודק באופן לא סדיר, לפעמים רק אחרי שעות.</string>
     <string name="settings_notification_change">עדכון רק בשינוי מחיר</string>
     <string name="settings_notification_change_always">תמיד</string>
+    <string name="settings_percent_invalid">יש להזין ערך בין 0 ל־100.</string>
     <string name="settings_notification_change_hint">עדכון מחיר מופיע רק כשהמחיר זז לפחות בשיעור זה מאז העדכון הקודם. כשחסרים נתונים לא מוצג דבר. ההתראות אינן מושפעות.</string>
     <string name="settings_ongoing_notifications">לא ניתן להחליק לסגירה</string>
     <string name="settings_ongoing_notifications_hint">משאיר את עדכוני המחיר מוצמדים.</string>

@@ -228,11 +228,13 @@ extension ExplorerViewModel {
                duplicateText: L("explorer_already_in_watchlist"))
     }
 
-    /// Gemeinsamer Weg für Börsen-Paare und DEX-Pools: aufnehmen, melden, Haptik, Mitteilungen.
+    /// Gemeinsamer Weg für Börsen-Paare und DEX-Pools: aufnehmen, melden, Haptik, Mitteilungen. Merkliste voll
+    /// (`WatchlistLimits`): nichts angelegt, Hinweis — wie Android `launchAdd`.
     func insert(market: Market, pair: MarketPair, addedText: String, duplicateText: String) {
         let firstEver = data.isFirstPairAdd
-        guard let id = data.addWatch(market: market, pair: pair, group: data.addTargetGroup) else {
-            show(ExplorerMessage(text: duplicateText))
+        let outcome = data.tryAddWatch(market: market, pair: pair, group: data.addTargetGroup)
+        guard case .added(let id) = outcome else {
+            show(outcome == .full ? ExplorerMessage(text: WatchlistLimitText.full, long: true) : ExplorerMessage(text: duplicateText))
             haptic(.warning)
             return
         }

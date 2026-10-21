@@ -13,7 +13,7 @@
     <string name="alarm_outcome_fired">作動しました</string>
     <string name="alarm_outcome_not_reached">しきい値に未到達</string>
     <string name="alarm_outcome_already_triggered">通知済み――価格が反対側に戻るまで待機中</string>
-    <string name="alarm_outcome_cooldown">未作動――前回の通知後の待機時間中</string>
+    <string name="alarm_outcome_cooldown">未作動――前回のアラーム後の待機時間中</string>
     <string name="alarm_outcome_stale">未作動――価格が古い（%1$s 時点）</string>
     <string name="alarm_outcome_mark_price">未作動――マーク価格で、取引価格ではありません</string>
     <string name="alarm_outcome_low_liquidity">未作動――流動性が 10,000 USD 未満または不明</string>

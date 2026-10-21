@@ -126,4 +126,9 @@
     <string name="dex_token_address_copy">Copiar endereço do token</string>
     <string name="dex_token_address_copied">Endereço do token copiado</string>
     <string name="dex_token_address_label">Endereço do token terminado em %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d par não adicionado: a sua lista de acompanhamento pode ter no máximo %2$s pares.</item>
+        <item quantity="many">%1$d pares não adicionados: a sua lista de acompanhamento pode ter no máximo %2$s pares.</item>
+        <item quantity="other">%1$d pares não adicionados: a sua lista de acompanhamento pode ter no máximo %2$s pares.</item>
+    </plurals>
 </resources>

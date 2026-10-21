@@ -2,7 +2,7 @@
 <resources>
     <!-- Screenreader: Zeile eines Paars, Frische, Erreichbarkeit -->
     <!-- Alarm des Paars eben ausgelöst (bis 15 Min. danach im Zeilensatz) -->
-    <string name="a11y_alarm_fired">알람이 울렸습니다</string>
+    <string name="a11y_alarm_fired">경보가 울렸습니다</string>
     <string name="a11y_collapsed">접힘</string>
     <string name="a11y_converted">약 %1$s</string>
     <string name="a11y_expanded">펼침</string>

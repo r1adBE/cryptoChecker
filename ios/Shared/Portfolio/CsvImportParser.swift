@@ -34,6 +34,12 @@ enum CsvImportParser {
     /// Kopfzeile wird in so vielen ersten Datensätzen gesucht.
     private static let headerSearch = 10
 
+    /// Höchstens so viele Zellen je Zeile und Datensätze je Datei (`tokenizeOrNil`); mehr = Datei zu gross, gleich wie
+    /// eine Datei über 16 MB «nicht lesbar» (wie Android). Echte Exporte haben unter 40 Spalten; ohne Grenze baute eine
+    /// Zeile aus lauter Trennern Millionen leere Zellen. Seit Build 99.
+    static let maxCellsPerRow = 200
+    static let maxRows = 200_000
+
     static let satsPerBtc = Decimal(100_000_000)
 
     static let posix = Locale(identifier: "en_US_POSIX")
@@ -128,6 +134,8 @@ enum CsvImportParser {
             i += 1
         }
         let empty = CsvImportResult(format: .UNKNOWN, rows: [], skipped: [])
+        var tooLarge = empty
+        tooLarge.tooLarge = true
         let lines = clean.split(separator: "\n", omittingEmptySubsequences: false)
         guard let firstLine = lines.first(where: { line in line.contains { !$0.properties.isWhitespace } }) else {
             return empty
@@ -139,12 +147,13 @@ enum CsvImportParser {
         for di in order {
             // Für die Erkennung nur die ersten Zeilen zerlegen — eine grosse Datei mit falschem Trenner kostete sonst je
             // Kandidat einen ganzen Durchlauf; zerlegt wird sie erst mit dem passenden Trenner ganz (wie Android)
-            let head = tokenize(clean, delimiter: candidates[di], maxRecords: headerSearch)
+            // Über den Grenzen (Zellen je Zeile, Datensätze): wie eine zu grosse Datei nicht lesbar
+            guard let head = tokenizeOrNil(clean, delimiter: candidates[di], maxRecords: headerSearch) else { return tooLarge }
             for h in head.indices {
                 let header = Header(head[h].cells)
                 let format = detect(header)
                 if format != .UNKNOWN {
-                    let records = tokenize(clean, delimiter: candidates[di])
+                    guard let records = tokenizeOrNil(clean, delimiter: candidates[di]) else { return tooLarge }
                     let override = zone ?? (header.utcDate ? "UTC" : nil)
                     var result = build(format, header, Array(records[(h + 1)...]),
                                        zone: zoneFor(format, deviceZone: deviceZone, override: override), deviceZone: deviceZone,

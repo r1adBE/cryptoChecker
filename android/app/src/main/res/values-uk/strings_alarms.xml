@@ -7,7 +7,7 @@
     <string name="alarms_empty">Для цієї пари ще немає сигналів.</string>
     <string name="alarms_empty_example">Наприклад: повідом, коли BTC підніметься вище %1$s.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">Сповіщення вимкнено – оповіщення до вас не дійдуть.</string>
+    <string name="alarms_notifications_off">Сповіщення вимкнено – сигнали до вас не дійдуть.</string>
     <string name="alarms_notifications_turn_on">Увімкнути</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">Активних: %1$d</item>
@@ -32,9 +32,9 @@
     <string name="alarm_fires_now_below">Ціна вже нижча за %1$s. Усе одно зберегти?</string>
     <string name="alarm_fires_now_change">Змінити</string>
     <string name="alarm_fires_now_save">Усе одно зберегти</string>
-    <string name="alarm_fires_now_title">Сповіщення спрацює одразу</string>
-    <string name="alarm_first_battery_hint">Оптимізація батареї обмежує застосунок – сповіщення можуть надходити із запізненням.</string>
-    <string name="alarm_first_title">Сповіщення збережено</string>
+    <string name="alarm_fires_now_title">Сигнал спрацює одразу</string>
+    <string name="alarm_first_battery_hint">Оптимізація батареї обмежує застосунок – сигнали можуть надходити із запізненням.</string>
+    <string name="alarm_first_title">Сигнал збережено</string>
     <string name="alarm_last_triggered">востаннє о %1$s</string>
     <string name="alarm_more_conditions">Інші умови</string>
     <string name="alarm_new_extreme">Оновлення %1$s</string>
@@ -147,7 +147,7 @@
     <string name="alarm_volume_zero_hours_hint">Години без угод рахуються як нульовий обсяг, тому на малоторгованих парах звичайна година може виглядати незвично.</string>
 
     <!-- Bestätigung nach dem Speichern -->
-    <string name="alarm_saved_active">Сповіщення увімкнено</string>
+    <string name="alarm_saved_active">Сигнал увімкнено</string>
     <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
     <string name="alarm_saved_banner">Сигнал збережено: %1$s</string>
     <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
@@ -191,4 +191,5 @@
     <string name="alarm_editor_more">Більше</string>
     <string name="alarm_editor_more_summary">Швидкі сигнали, інші умови, звук і озвучування</string>
     <string name="alarm_reliability_storage_no_key">Сигнали у фоні призупинено – список не збережено</string>
+    <string name="alarms_limit_reached">Пара може мати не більше %1$s сигналів.</string>
 </resources>

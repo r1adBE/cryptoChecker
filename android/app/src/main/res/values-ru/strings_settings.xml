@@ -37,7 +37,7 @@
     <string name="settings_alarm_sound_system">Выбрать системный звук…</string>
     <!-- Zahl am App-Symbol (iOS: Kennzeichen-Zähler, Android: Startbildschirm entscheidet) -->
     <string name="settings_app_badge">Число на значке приложения</string>
-    <string name="settings_app_badge_hint">Считает открытые уведомления о сигналах. Будет ли число или точка, решает главный экран (напр. Samsung: «С числом»).</string>
+    <string name="settings_app_badge_hint">Считает открытые уведомления о сработавших оповещениях. Будет ли число или точка, решает главный экран (напр. Samsung: «С числом»).</string>
     <string name="settings_exact_checks">Проверять вовремя</string>
     <string name="settings_exact_checks_grant">Разрешить «Будильники и напоминания»</string>
     <string name="settings_exact_checks_hint">Android проверяет примерно каждые 15 минут, даже когда устройство в покое. Расходует чуть больше батареи.</string>
@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Нет разрешения – пока устройство в покое, Android проверяет нерегулярно, иногда лишь через несколько часов.</string>
     <string name="settings_notification_change">Уведомлять только при изменении цены</string>
     <string name="settings_notification_change_always">Всегда</string>
+    <string name="settings_percent_invalid">Введите значение от 0 до 100.</string>
     <string name="settings_notification_change_hint">Уведомление появится, только когда цена изменится хотя бы на эту величину с момента предыдущего. Пока данных нет, ничего не показывается. На оповещения не влияет.</string>
     <string name="settings_ongoing_notifications">Нельзя смахнуть</string>
     <string name="settings_ongoing_notifications_hint">Уведомления о цене остаются закреплёнными.</string>
@@ -205,7 +206,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Сбросить приложение</string>
     <string name="settings_reset_app_action">Удалить всё</string>
-    <string name="settings_reset_app_confirm">Удаляет список наблюдения, сигналы, портфель, настройки и все сохранённые данные, как после установки. Отменить нельзя. Совет: сначала создайте резервную копию. Резервные копии устройства (Google или iCloud/компьютер) сохраняют прежние данные до следующего резервного копирования.</string>
+    <string name="settings_reset_app_confirm">Удаляет список наблюдения, оповещения, портфель, настройки и все сохранённые данные, как после установки. Отменить нельзя. Совет: сначала создайте резервную копию. Резервные копии устройства (Google или iCloud/компьютер) сохраняют прежние данные до следующего резервного копирования.</string>
     <string name="settings_reset_app_title">Сбросить приложение?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->
@@ -268,7 +269,7 @@
     <!-- Nur iOS: Einstellungen -->
     <!-- Fusszeile unter «Alarm-Signal» -->
     <string name="ios_settings_alarm_signal_footer" tools:ignore="UnusedResources">Вибрация зависит от настроек iPhone (Звуки, тактильные сигналы).</string>
-    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Считает новые сигналы и рыночные уведомления; сбрасывается при открытии приложения.</string>
+    <string name="ios_settings_app_badge_hint" tools:ignore="UnusedResources">Считает новые оповещения и рыночные уведомления; сбрасывается при открытии приложения.</string>
 
     <!-- Über: Überschrift der Kurzfassung des Datenschutzes -->
     <string name="about_your_data_title">Ваши данные</string>

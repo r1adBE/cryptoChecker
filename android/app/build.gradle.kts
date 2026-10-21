@@ -41,7 +41,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 98
+        versionCode = 99
         versionName = "16.2.2"
 
         // Instrumentierte Tests mit Hilt (HiltTestApplication); betrifft nur androidTest
@@ -106,6 +106,17 @@ android {
     lint {
         abortOnError = true
         enable += "LogNotTimber"
+    }
+
+    // JVM-Unit-Tests mit fester Sprache und Zeitzone: Erwartete Datums- und Zahlentexte sollen auf jedem Rechner gleich
+    // ausfallen (lokal etwa de-CH/Europe/Zurich, im CI en-US/UTC). Tests, die eine andere Locale brauchen, setzen sie
+    // selbst und stellen sie danach zurück.
+    testOptions {
+        unitTests.all {
+            it.systemProperty("user.language", "en")
+            it.systemProperty("user.country", "US")
+            it.systemProperty("user.timezone", "UTC")
+        }
     }
 
     // Nur die 31 App-Sprachen (res/xml/locales_config.xml) ins APK — Übersetzungen der Bibliotheken in weiteren Sprachen

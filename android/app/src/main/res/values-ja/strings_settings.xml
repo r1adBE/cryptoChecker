@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">権限がありません – 端末の休止中は Android の確認が不定期になり、数時間後になることもあります。</string>
     <string name="settings_notification_change">価格変動時のみ通知</string>
     <string name="settings_notification_change_always">常に</string>
+    <string name="settings_percent_invalid">0〜100の値を入力してください。</string>
     <string name="settings_notification_change_hint">前回の通知から価格がこの幅以上動いたときだけ通知します。データがない間は何も表示しません。アラームには影響しません。</string>
     <string name="settings_ongoing_notifications">スワイプで消去不可</string>
     <string name="settings_ongoing_notifications_hint">価格通知を固定表示します。</string>

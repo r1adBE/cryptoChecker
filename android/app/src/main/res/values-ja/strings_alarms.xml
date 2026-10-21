@@ -31,7 +31,7 @@
     <string name="alarm_fires_now_save">保存する</string>
     <string name="alarm_fires_now_title">アラームがすぐに鳴ります</string>
     <string name="alarm_first_battery_hint">バッテリーの最適化でアプリが制限されています – アラームが遅れて届くことがあります。</string>
-    <string name="alarm_first_title">アラートを保存しました</string>
+    <string name="alarm_first_title">アラームを保存しました</string>
     <string name="alarm_last_triggered">前回 %1$s</string>
     <string name="alarm_more_conditions">その他の条件</string>
     <string name="alarm_new_extreme">%1$s更新</string>
@@ -173,4 +173,5 @@
     <string name="alarm_editor_more">その他</string>
     <string name="alarm_editor_more_summary">クイックアラーム、その他の条件、サウンドと読み上げ</string>
     <string name="alarm_reliability_storage_no_key">バックグラウンドのアラームは一時停止中 – ウォッチリストは保存されていません</string>
+    <string name="alarms_limit_reached">1つのペアに設定できるアラームは最大%1$s件です。</string>
 </resources>

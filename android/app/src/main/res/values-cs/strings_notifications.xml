@@ -20,7 +20,7 @@
     <string name="notification_macro_title">Dnes ekonomická data</string>
     <string name="notification_permission_preprompt_continue">Pokračovat</string>
     <string name="notification_permission_preprompt_later">Později</string>
-    <string name="notification_permission_preprompt_text">Aby k vám upozornění a cenová oznámení dorazila, aplikace potřebuje povolení k oznámením. Aplikace je používá jen pro vaše upozornění a cenová oznámení.</string>
+    <string name="notification_permission_preprompt_text">Aby k vám alarmy a cenová oznámení dorazily, aplikace potřebuje povolení k oznámením. Aplikace je používá jen pro vaše alarmy a cenová oznámení.</string>
     <string name="notification_permission_preprompt_title">Povolit oznámení?</string>
     <string name="notification_portfolio_alarm_locked">Tvůj alarm se spustil – otevři aplikaci pro podrobnosti.</string>
     <!-- %1$s = Alarm als Satz, %2$s = aktueller Wert bzw. Veränderung -->
@@ -41,7 +41,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alarmy</string>
-    <string name="channel_alarms_description">Oznámení při spuštění cenového alarmu.</string>
+    <string name="channel_alarms_description">Oznámení při spuštění alarmu.</string>
     <string name="channel_alarms_quiet">Alarmy (noční klid)</string>
     <string name="channel_alarms_quiet_description">Tiché alarmy během nočního klidu.</string>
     <string name="channel_alarms_silent">Alarmy (tiše)</string>

@@ -105,7 +105,7 @@
     <string name="portfolio_discard_keep">Pokračovat v úpravách</string>
     <string name="portfolio_discard_title">Zahodit změny?</string>
     <string name="portfolio_edit_tx">Upravit transakci</string>
-    <string name="portfolio_invalid">Neplatné množství</string>
+    <string name="portfolio_invalid">Zadejte platné číslo větší než 0.</string>
     <string name="portfolio_oversold">Prodeje převyšují držené množství – zkontrolujte transakce.</string>
     <string name="portfolio_sell">Prodej</string>
     <string name="portfolio_sell_exceeds">Více, než držíte (%1$s)</string>
@@ -145,7 +145,7 @@
     <string name="portfolio_tx_price">Cena za minci</string>
     <string name="portfolio_tx_price_hint">V USDT. Nechte prázdné, pokud nevíte.</string>
     <string name="portfolio_tx_price_historic">Ověřená denní uzavírací cena z %1$s – v případě potřeby uprav</string>
-    <string name="portfolio_tx_price_invalid">Neplatná cena</string>
+    <string name="portfolio_tx_price_invalid">Zadejte platné číslo (0 nebo více), nebo pole nechte prázdné.</string>
     <string name="portfolio_tx_price_past_hint">Zadej cenu ze dne obchodu – nech prázdné, pokud ji neznáš</string>
     <string name="portfolio_tx_price_receipt_hint">V USDT. Prázdné = stav bez pořizovací ceny.</string>
     <string name="portfolio_tx_price_zero">Cena 0 není u importovaných transakcí možná – nech prázdné pro tržní cenu</string>

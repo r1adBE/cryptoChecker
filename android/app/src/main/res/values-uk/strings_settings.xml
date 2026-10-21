@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Немає дозволу – коли пристрій у спокої, Android перевіряє нерегулярно, іноді лише через кілька годин.</string>
     <string name="settings_notification_change">Сповіщати лише при зміні ціни</string>
     <string name="settings_notification_change_always">Завжди</string>
+    <string name="settings_percent_invalid">Введіть значення від 0 до 100.</string>
     <string name="settings_notification_change_hint">Сповіщення з\'являється лише тоді, коли ціна змінилася щонайменше на цю величину від попереднього. Поки даних немає, нічого не показується. На сигнали це не впливає.</string>
     <string name="settings_ongoing_notifications">Не можна змахнути</string>
     <string name="settings_ongoing_notifications_hint">Цінові сповіщення залишаються закріпленими.</string>

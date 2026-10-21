@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Falta a permissão – com o dispositivo em repouso, o Android verifica de forma irregular, por vezes só após horas.</string>
     <string name="settings_notification_change">Notificar só se o preço mudar</string>
     <string name="settings_notification_change_always">Sempre</string>
+    <string name="settings_percent_invalid">Introduza um valor de 0 a 100.</string>
     <string name="settings_notification_change_hint">Só aparece uma notificação quando o preço variou pelo menos este valor desde a última. Nada é mostrado enquanto faltarem dados. Os alarmes não são afetados.</string>
     <string name="settings_ongoing_notifications">Não podem ser dispensadas</string>
     <string name="settings_ongoing_notifications_hint">Mantém as notificações de preço fixas.</string>
@@ -289,7 +290,7 @@
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">Partilhar diagnóstico</string>
-    <string name="diagnostics_share_hint">Ficheiro de texto para o suporte: versão, dispositivo, definições de alertas, últimas verificações e registo de alarmes – sem carteira, montantes, endereços nem notas. É mostrado primeiro; nada é enviado automaticamente.</string>
+    <string name="diagnostics_share_hint">Ficheiro de texto para o suporte: versão, dispositivo, definições de alarmes, últimas verificações e registo de alarmes – sem carteira, montantes, endereços nem notas. É mostrado primeiro; nada é enviado automaticamente.</string>
     <string name="diagnostics_preview_title">Diagnóstico – pré-visualização</string>
     <string name="diagnostics_action_share">Partilhar</string>
 </resources>

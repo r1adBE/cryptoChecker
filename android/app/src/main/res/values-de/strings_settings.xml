@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Berechtigung fehlt – bei ruhendem Gerät prüft Android unregelmässig, manchmal erst nach Stunden.</string>
     <string name="settings_notification_change">Nur bei Kursänderung melden</string>
     <string name="settings_notification_change_always">Immer</string>
+    <string name="settings_percent_invalid">Wert von 0 bis 100 eingeben.</string>
     <string name="settings_notification_change_hint">Eine Kursbenachrichtigung erscheint erst, wenn sich der Kurs seit der letzten um mindestens so viel bewegt hat. Fehlen Daten, wird nichts gezeigt. Alarme bleiben davon unberührt.</string>
     <string name="settings_ongoing_notifications">Dauerhaft in den Benachrichtigungen</string>
     <string name="settings_ongoing_notifications_hint">Heftet die Kursbenachrichtigungen an.</string>

@@ -27,6 +27,11 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: strings-${{ github.ref }}
+  # Pull requests: a newer push replaces the run; main keeps every run so each commit gets a result
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   check:
     runs-on: ubuntu-24.04

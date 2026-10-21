@@ -7,7 +7,7 @@
     <string name="alarms_empty">Pro tento pár zatím nejsou žádné alarmy.</string>
     <string name="alarms_empty_example">Například: Dej mi vědět, až BTC vystoupá nad %1$s.</string>
     <!-- Hinweis, wenn Mitteilungen aus sind (Alarme kämen nicht an) -->
-    <string name="alarms_notifications_off">Oznámení jsou vypnutá – upozornění k vám nedorazí.</string>
+    <string name="alarms_notifications_off">Oznámení jsou vypnutá – alarmy k vám nedorazí.</string>
     <string name="alarms_notifications_turn_on">Zapnout</string>
     <plurals name="alarms_overview_active">
         <item quantity="one">Aktivní: %1$d</item>
@@ -33,8 +33,8 @@
     <string name="alarm_fires_now_change">Změnit</string>
     <string name="alarm_fires_now_save">Přesto uložit</string>
     <string name="alarm_fires_now_title">Alarm by se spustil hned</string>
-    <string name="alarm_first_battery_hint">Optimalizace baterie aplikaci omezuje – upozornění mohou přijít později.</string>
-    <string name="alarm_first_title">Upozornění uloženo</string>
+    <string name="alarm_first_battery_hint">Optimalizace baterie aplikaci omezuje – alarmy mohou přijít později.</string>
+    <string name="alarm_first_title">Alarm uložen</string>
     <string name="alarm_last_triggered">naposledy %1$s</string>
     <string name="alarm_more_conditions">Další podmínky</string>
     <string name="alarm_new_extreme">Nová hodnota %1$s</string>
@@ -147,7 +147,7 @@
     <string name="alarm_volume_zero_hours_hint">Hodiny bez obchodů se počítají s nulovým objemem, takže u málo obchodovaných párů může běžná hodina vypadat neobvykle.</string>
 
     <!-- Bestätigung nach dem Speichern -->
-    <string name="alarm_saved_active">Upozornění aktivní</string>
+    <string name="alarm_saved_active">Alarm aktivní</string>
     <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
     <string name="alarm_saved_banner">Alarm uložen: %1$s</string>
     <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
@@ -191,4 +191,5 @@
     <string name="alarm_editor_more">Více</string>
     <string name="alarm_editor_more_summary">Rychlé alarmy, další podmínky, zvuk a hlas</string>
     <string name="alarm_reliability_storage_no_key">Alarmy na pozadí pozastaveny – seznam není uložen</string>
+    <string name="alarms_limit_reached">Pár může mít nejvýše %1$s alarmů.</string>
 </resources>

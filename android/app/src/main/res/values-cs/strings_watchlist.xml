@@ -239,4 +239,5 @@
 
     <string name="watchlist_sort_by_coin">Seřadit podle coinu</string>
     <string name="watchlist_sort_by_exchange">Seřadit podle burzy</string>
+    <string name="watchlist_limit_reached">Váš seznam sledovaných může obsahovat nejvýše %1$s párů.</string>
 </resources>

@@ -215,4 +215,5 @@
 
     <string name="watchlist_sort_by_coin">Coine göre sırala</string>
     <string name="watchlist_sort_by_exchange">Borsaya göre sırala</string>
+    <string name="watchlist_limit_reached">İzleme listenizde en fazla %1$s çift olabilir.</string>
 </resources>

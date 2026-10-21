@@ -35,6 +35,7 @@ import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.TextLimit
 import java.math.BigDecimal
 import java.time.ZoneId
+import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 
 /** Tausch: Wert des Tauschs (optional, gesamt); sonst Preis pro Coin in USDT bzw. in der Anzeigewährung (Umbuchung, Tausch: keiner). */
 @Composable
@@ -64,7 +65,7 @@ internal fun TxPriceValueSection(state: TxFormState, d: TxFormDerived, currency:
             supportingText = {
                 Text(
                     when {
-                        !d.swapValueValid -> stringResource(R.string.portfolio_invalid)
+                        !d.swapValueValid -> stringResource(R.string.portfolio_tx_price_invalid)
                         converted != null -> listOfNotNull(
                             stringResource(R.string.portfolio_tx_fiat_converted, converted.first, converted.second), usdtAssumed,
                         ).joinToString(" · ")
@@ -73,7 +74,7 @@ internal fun TxPriceValueSection(state: TxFormState, d: TxFormDerived, currency:
                 )
             },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-            modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
+            modifier = Modifier.fillMaxWidth().padding(top = 4.dp).txFocusTarget(LocalTxFocusTargets.current, Field.SWAP_VALUE)
         )
     }
 
@@ -124,7 +125,7 @@ internal fun TxPriceValueSection(state: TxFormState, d: TxFormDerived, currency:
                 )
             },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-            modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
+            modifier = Modifier.fillMaxWidth().padding(top = 4.dp).txFocusTarget(LocalTxFocusTargets.current, Field.PRICE)
         )
     }
 }
@@ -157,7 +158,7 @@ internal fun TxSwitchesSection(state: TxFormState) {
 internal fun TxRouteSection(state: TxFormState, usedWallets: List<String>, exchanges: List<String>) {
     RouteField(
         value = state.transferFrom,
-        onValue = { state.transferFrom = it.take(PortfolioTxForm.MAX_ROUTE) },
+        onValue = { state.transferFrom = TextLimit.takeGraphemes(it, PortfolioTxForm.MAX_ROUTE) },
         label = stringResource(R.string.portfolio_tx_transfer_from),
         used = usedWallets,
         suggestions = exchanges,
@@ -165,7 +166,7 @@ internal fun TxRouteSection(state: TxFormState, usedWallets: List<String>, excha
     )
     RouteField(
         value = state.transferTo,
-        onValue = { state.transferTo = it.take(PortfolioTxForm.MAX_ROUTE) },
+        onValue = { state.transferTo = TextLimit.takeGraphemes(it, PortfolioTxForm.MAX_ROUTE) },
         label = stringResource(R.string.portfolio_tx_transfer_to),
         used = usedWallets,
         suggestions = exchanges,
@@ -218,7 +219,7 @@ internal fun TxLedgerSection(state: TxFormState, d: TxFormDerived, exchanges: Li
             coin = if (d.coinValid) d.coin else "",
             exchange = state.exchange,
             exchanges = exchanges,
-            onExchange = { state.exchange = it.take(PortfolioJson.MAX_EXCHANGE) },
+            onExchange = { state.exchange = TextLimit.takeGraphemes(it, PortfolioJson.MAX_EXCHANGE) },
         )
         if (fields.thirdCoinFee) {
             Text(

@@ -43,6 +43,10 @@
     <string name="shortcut_add">Paar toevoegen</string>
     <string name="shortcut_alarms">Alle alarmen</string>
     <string name="shortcut_cycle">Markt</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Nieuw paar toevoegen</string>
+    <string name="shortcut_alarms_long">Alle alarmen tonen</string>
+    <string name="shortcut_cycle_long">Marktoverzicht openen</string>
 
     <string name="log_box_title">Logboek</string>
     <string name="label_value">%1$s: %2$s</string>

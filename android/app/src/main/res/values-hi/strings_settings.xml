@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">अनुमति नहीं है – डिवाइस निष्क्रिय होने पर Android अनियमित रूप से जाँचता है, कभी-कभी घंटों बाद।</string>
     <string name="settings_notification_change">केवल कीमत बदलने पर सूचित करें</string>
     <string name="settings_notification_change_always">हमेशा</string>
+    <string name="settings_percent_invalid">0 से 100 तक का मान दर्ज करें।</string>
     <string name="settings_notification_change_hint">पिछले नोटिफ़िकेशन के बाद कीमत कम से कम इतनी बदलने पर ही नोटिफ़िकेशन दिखता है। डेटा न होने पर कुछ नहीं दिखाया जाता। अलार्म पर इसका असर नहीं पड़ता।</string>
     <string name="settings_ongoing_notifications">स्वाइप करके हटाया नहीं जा सकता</string>
     <string name="settings_ongoing_notifications_hint">प्राइस नोटिफ़िकेशन को पिन करके रखता है।</string>
@@ -287,7 +288,7 @@
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">डायग्नोस्टिक शेयर करें</string>
-    <string name="diagnostics_share_hint">सपोर्ट के लिए टेक्स्ट फ़ाइल: वर्ज़न, डिवाइस, अलर्ट सेटिंग, हाल की जाँचें और अलार्म लॉग – पोर्टफ़ोलियो, राशि, पते या नोट्स के बिना। पहले आप इसे देखते हैं; कुछ भी अपने-आप नहीं भेजा जाता।</string>
+    <string name="diagnostics_share_hint">सपोर्ट के लिए टेक्स्ट फ़ाइल: वर्ज़न, डिवाइस, अलार्म सेटिंग, हाल की जाँचें और अलार्म लॉग – पोर्टफ़ोलियो, राशि, पते या नोट्स के बिना। पहले आप इसे देखते हैं; कुछ भी अपने-आप नहीं भेजा जाता।</string>
     <string name="diagnostics_preview_title">डायग्नोस्टिक – पूर्वावलोकन</string>
     <string name="diagnostics_action_share">शेयर करें</string>
 </resources>

@@ -122,6 +122,8 @@ struct PortfolioAlarmSheet: View {
     @State private var text = ""
     @State private var repeating = true
     @FocusState private var focused: Bool
+    /// Doppeltipp auf «Speichern», während das Blatt zugeht: nur ein neuer Alarm (seit Build 99, wie Android).
+    @State private var createGuard = AlarmCreateGuard()
 
     private var threshold: Double? {
         ThresholdParser.parse(text, decimalSeparator: ThresholdParser.localeDecimalSeparator)
@@ -170,7 +172,7 @@ struct PortfolioAlarmSheet: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button(L("action_save")) {
-                        guard let value = threshold, valid else { return }
+                        guard let value = threshold, valid, createGuard.begin(creating: true) else { return }
                         onSave(kind, value, repeating)
                         dismiss()
                     }

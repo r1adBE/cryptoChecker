@@ -28,9 +28,7 @@ enum HistoricPriceSource {
 
     /// Eigene Sitzung mit ~10 s Zeitgrenze je Anfrage.
     private static let session: URLSession = {
-        let c = URLSessionConfiguration.default
-        c.timeoutIntervalForRequest = 10
-        c.timeoutIntervalForResource = 15
+        let c = PrivateSessionConfig.make(timeout: 10, resource: 15)
         c.requestCachePolicy = .reloadIgnoringLocalCacheData
         c.httpAdditionalHeaders = [HttpUserAgent.header: HttpUserAgent.value, "Accept": "application/json"]
         c.waitsForConnectivity = false

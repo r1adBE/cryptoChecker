@@ -13,7 +13,7 @@
     <string name="alarm_outcome_fired">Zadziałał</string>
     <string name="alarm_outcome_not_reached">Próg nieosiągnięty</string>
     <string name="alarm_outcome_already_triggered">Już zgłoszony – czeka, aż kurs wróci na drugą stronę</string>
-    <string name="alarm_outcome_cooldown">Nie zadziałał – przerwa po ostatnim powiadomieniu</string>
+    <string name="alarm_outcome_cooldown">Nie zadziałał – przerwa po ostatnim alarmie</string>
     <string name="alarm_outcome_stale">Nie zadziałał – nieaktualny kurs (stan %1$s)</string>
     <string name="alarm_outcome_mark_price">Nie zadziałał – cena mark, nie kurs transakcyjny</string>
     <string name="alarm_outcome_low_liquidity">Nie zadziałał – płynność poniżej 10 000 USD lub nieznana</string>

@@ -43,6 +43,10 @@
     <string name="shortcut_add">Tambah pasangan</string>
     <string name="shortcut_alarms">Semua alarm</string>
     <string name="shortcut_cycle">Pasar</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Tambah pasangan baru</string>
+    <string name="shortcut_alarms_long">Lihat semua alarm</string>
+    <string name="shortcut_cycle_long">Buka ringkasan pasar</string>
 
     <string name="log_box_title">Log</string>
     <string name="label_value">%1$s: %2$s</string>

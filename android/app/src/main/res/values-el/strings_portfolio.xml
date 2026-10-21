@@ -99,7 +99,7 @@
     <string name="portfolio_discard_keep">Συνέχεια επεξεργασίας</string>
     <string name="portfolio_discard_title">Απόρριψη αλλαγών;</string>
     <string name="portfolio_edit_tx">Επεξεργασία συναλλαγής</string>
-    <string name="portfolio_invalid">Μη έγκυρη ποσότητα</string>
+    <string name="portfolio_invalid">Εισήγαγε έναν έγκυρο αριθμό μεγαλύτερο από 0.</string>
     <string name="portfolio_oversold">Οι πωλήσεις υπερβαίνουν τα διαθέσιμα – ελέγξτε τις συναλλαγές.</string>
     <string name="portfolio_sell">Πώληση</string>
     <string name="portfolio_sell_exceeds">Περισσότερα από όσα έχετε (%1$s)</string>
@@ -139,7 +139,7 @@
     <string name="portfolio_tx_price">Τιμή ανά νόμισμα</string>
     <string name="portfolio_tx_price_hint">Σε USDT. Αφήστε κενό αν είναι άγνωστη.</string>
     <string name="portfolio_tx_price_historic">Ελεγμένη ημερήσια τιμή κλεισίματος %1$s – προσάρμοσέ την αν χρειάζεται</string>
-    <string name="portfolio_tx_price_invalid">Μη έγκυρη τιμή</string>
+    <string name="portfolio_tx_price_invalid">Εισήγαγε έναν έγκυρο αριθμό (0 ή μεγαλύτερο) ή άφησε το πεδίο κενό.</string>
     <string name="portfolio_tx_price_past_hint">Συμπλήρωσε την τιμή της ημέρας της συναλλαγής – άφησέ το κενό αν δεν την ξέρεις</string>
     <string name="portfolio_tx_price_receipt_hint">Σε USDT. Κενό = υπόλοιπο χωρίς κόστος κτήσης.</string>
     <string name="portfolio_tx_price_zero">Τιμή 0 δεν επιτρέπεται σε εισαγόμενες συναλλαγές – άφησέ το κενό για την τιμή αγοράς</string>

@@ -111,6 +111,8 @@ struct ExplorerSnackbar: View {
     let onView: () -> Void
     /// «Alarm setzen» öffnet die Alarme dieses Eintrags.
     var onAlarm: (Int64) -> Void = { _ in }
+    /// «Erneut versuchen» sucht den DEX-Begriff noch einmal.
+    var onRetryDex: (String) -> Void = { _ in }
     @Environment(\.appAccent) var accent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
@@ -118,14 +120,15 @@ struct ExplorerSnackbar: View {
     /// Anzeigedauer: mit «Alarm setzen» 6 s (mit VoiceOver 12 s), lange Meldungen 5 s, sonst 3 s.
     private func lifetime(_ note: ExplorerMessage) -> UInt64 {
         let second: UInt64 = 1_000_000_000
-        if note.alarmWatchId != nil { return (voiceOver ? 12 : 6) * second }
+        if note.alarmWatchId != nil || note.retryDexQuery != nil { return (voiceOver ? 12 : 6) * second }
         return (note.long ? 5 : 3) * second
     }
 
     var body: some View {
         if let note = message {
             HStack(spacing: 12) {
-                Image(systemName: "checkmark.circle.fill")
+                // Fehler mit «Erneut versuchen»: kein Haken (sähe nach Erfolg aus)
+                Image(systemName: note.retryDexQuery == nil ? "checkmark.circle.fill" : "exclamationmark.circle.fill")
                     .foregroundStyle(accent.primary)
                 Text(note.text)
                     .font(.subheadline.weight(.medium))
@@ -161,6 +164,14 @@ struct ExplorerSnackbar: View {
                 onAlarm(watchId)
             } label: {
                 actionLabel(L("add_alarm_action"))
+            }
+            .buttonStyle(.borderless)
+        } else if let query = note.retryDexQuery {
+            Button {
+                withAnimation { self.message = nil }
+                onRetryDex(query)
+            } label: {
+                actionLabel(L("action_retry"))
             }
             .buttonStyle(.borderless)
         } else if note.showView {

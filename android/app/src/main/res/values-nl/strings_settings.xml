@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Toestemming ontbreekt – als het toestel rust, controleert Android onregelmatig, soms pas na uren.</string>
     <string name="settings_notification_change">Alleen melden bij koerswijziging</string>
     <string name="settings_notification_change_always">Altijd</string>
+    <string name="settings_percent_invalid">Voer een waarde van 0 tot 100 in.</string>
     <string name="settings_notification_change_hint">Een melding verschijnt pas als de koers sinds de vorige minstens zoveel is bewogen. Zolang gegevens ontbreken, wordt niets getoond. Alarmen worden niet beïnvloed.</string>
     <string name="settings_ongoing_notifications">Niet wegvegen</string>
     <string name="settings_ongoing_notifications_hint">Houdt koersmeldingen vastgezet.</string>

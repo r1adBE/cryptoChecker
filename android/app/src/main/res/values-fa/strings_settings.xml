@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">مجوز نیست – وقتی دستگاه در حالت استراحت است Android نامنظم بررسی می‌کند، گاهی پس از چند ساعت.</string>
     <string name="settings_notification_change">اعلان فقط هنگام تغییر قیمت</string>
     <string name="settings_notification_change_always">همیشه</string>
+    <string name="settings_percent_invalid">مقداری از 0 تا 100 وارد کنید.</string>
     <string name="settings_notification_change_hint">اعلان فقط زمانی نمایش داده می‌شود که قیمت از اعلان قبلی دست‌کم به این اندازه تغییر کرده باشد. وقتی داده‌ای در دسترس نیست چیزی نمایش داده نمی‌شود. هشدارها تحت تأثیر قرار نمی‌گیرند.</string>
     <string name="settings_ongoing_notifications">قابل کنار زدن نباشد</string>
     <string name="settings_ongoing_notifications_hint">اعلان‌های قیمت را ثابت نگه می‌دارد.</string>

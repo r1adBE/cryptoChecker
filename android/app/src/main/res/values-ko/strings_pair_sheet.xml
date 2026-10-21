@@ -66,7 +66,7 @@
     <string name="futures_alarm_reference">참고값 %1$s</string>
     <string name="futures_funding">펀딩비</string>
     <string name="futures_funding_interval_unknown">주기 알 수 없음</string>
-    <string name="futures_funding_per8h_equiv">= 8시간당 %1$s (알림과 동일)</string>
+    <string name="futures_funding_per8h_equiv">= 8시간당 %1$s (경보와 동일)</string>
     <!-- Einheit neben der Funding-Pille, wenn die Börse stündlich abrechnet (Hyperliquid) -->
     <string name="futures_funding_per_hour">시간당</string>
     <string name="futures_funding_per_hours">%1$d시간당</string>

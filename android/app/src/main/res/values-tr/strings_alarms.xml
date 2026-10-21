@@ -179,4 +179,5 @@
     <string name="alarm_editor_more">Daha fazla</string>
     <string name="alarm_editor_more_summary">Hızlı alarmlar, diğer koşullar, ses ve sesli okuma</string>
     <string name="alarm_reliability_storage_no_key">Arka planda alarmlar duraklatıldı – liste kaydedilmedi</string>
+    <string name="alarms_limit_reached">Bir çiftin en fazla %1$s alarmı olabilir.</string>
 </resources>

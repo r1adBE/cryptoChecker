@@ -147,11 +147,23 @@ internal fun LanguageRow(selectedTag: String, onClick: () -> Unit) {
  * Ziffern gelten; Exponent oder Suffix («1e2», «5f») ungültig — gleich wie iOS
  * (`SettingsPickers.parse`).
  */
-private fun parsePercent(text: String): Double? {
+internal fun parsePercent(text: String): Double? {
     val cleaned = ThresholdParser.latinDigits(text).replace("%", "").replace("٪", "").trim().replace(',', '.')
     if (!PERCENT_TEXT.matches(cleaned)) return null
     return cleaned.toDoubleOrNull()?.takeIf { it in 0.0..100.0 }
 }
+
+/**
+ * Tastatureingabe fürs Prozentfeld: Ziffern jeder Schrift ([Char.isDigit]), «,» und «.» sowie das
+ * arabische Dezimalzeichen «٫» — sonst würde aus «٢٫٥» still «25». Die arabische Tausendertrennung
+ * «٬» bleibt stehen, damit [parsePercent] sie ablehnt und das Feld den Fehler zeigt (wie iOS
+ * `SettingsPercentOption.filterInput`); höchstens sechs Zeichen.
+ */
+internal fun filterPercentInput(input: String): String =
+    input.filter { it.isDigit() || it == ',' || it == '.' || it == '\u066B' || it == '\u066C' }.take(6)
+
+/** Rote Markierung und Hinweis erst, wenn etwas eingegeben ist, das nicht 0 – 100 ergibt. */
+internal fun percentInputError(text: String): Boolean = text.isNotEmpty() && parsePercent(text) == null
 
 /** Ziffern mit höchstens einem Dezimalpunkt, mindestens eine Ziffer. */
 private val PERCENT_TEXT = Regex("""^(\d+\.?\d*|\.\d+)$""")
@@ -235,10 +247,15 @@ internal fun PercentChoiceRow(label: String, selected: Double, onSelected: (Doub
             text = {
                 OutlinedTextField(
                     value = text,
-                    onValueChange = { input -> text = input.filter { it.isDigit() || it == ',' || it == '.' }.take(6) },
+                    onValueChange = { input -> text = filterPercentInput(input) },
                     singleLine = true,
                     suffix = { Text("%") },
-                    isError = text.isNotEmpty() && parsed == null,
+                    isError = percentInputError(text),
+                    supportingText = if (percentInputError(text)) {
+                        { Text(stringResource(R.string.settings_percent_invalid)) }
+                    } else {
+                        null
+                    },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                     modifier = Modifier.fillMaxWidth()
                 )

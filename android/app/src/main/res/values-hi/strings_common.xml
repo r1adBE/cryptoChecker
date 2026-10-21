@@ -43,6 +43,10 @@
     <string name="shortcut_add">पेयर जोड़ें</string>
     <string name="shortcut_alarms">सभी अलार्म</string>
     <string name="shortcut_cycle">बाज़ार</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">नया पेयर जोड़ें</string>
+    <string name="shortcut_alarms_long">सभी अलार्म देखें</string>
+    <string name="shortcut_cycle_long">बाज़ार अवलोकन खोलें</string>
 
     <string name="log_box_title">लॉग</string>
     <string name="label_value">%1$s: %2$s</string>

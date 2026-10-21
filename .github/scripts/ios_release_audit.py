@@ -21,7 +21,8 @@ Subcommands:
                 PrivacyInfo.xcprivacy missing in app or widget extension, widget extension missing,
                 UI test hooks (UITesting / UITestMarket, Debug only) or XCTest linked into the binary
         warning BGTaskScheduler identifier not found in the Swift sources,
-                ITSAppUsesNonExemptEncryption = true, compiler warnings (first 8, plus count notice)
+                ITSAppUsesNonExemptEncryption = true, compiler warnings (first 8)
+        notice  compiler warning count (error above MAX_COMPILER_WARNINGS)
 
 Usage: python3 -I ios_release_audit.py <subcommand> ...
 """
@@ -38,6 +39,9 @@ SIGNING = re.compile(r"(development team|code ?sign|signing|provisioning profile
                      r"No Accounts|requires a provisioning)", re.IGNORECASE)
 COMPILE_ERROR = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? error: (.*)$")
 WARNING = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? warning: (.*)$")
+# Ceiling for unique compiler warnings of the Release build: the count of Build 99 (94). Above it the build got noisier
+# -> error, so new warnings are fixed instead of piling up; lower the ceiling whenever warnings are removed.
+MAX_COMPILER_WARNINGS = 94
 
 findings = []
 
@@ -257,7 +261,11 @@ def cmd_app(app, widget, gradle, src, log, out):
                 warns = sorted({l.strip() for l in f if WARNING.match(l.strip())})
         except OSError:
             warns = []
-        add("notice", f"Release build: {len(warns)} unique compiler warning(s)")
+        if len(warns) > MAX_COMPILER_WARNINGS:
+            add("error", f"Release build: {len(warns)} unique compiler warning(s), more than the ceiling of "
+                         f"{MAX_COMPILER_WARNINGS} (MAX_COMPILER_WARNINGS in ios_release_audit.py): fix the new ones")
+        else:
+            add("notice", f"Release build: {len(warns)} unique compiler warning(s) (ceiling {MAX_COMPILER_WARNINGS})")
         for w in warns[:8]:
             m = WARNING.match(w)
             add("warning", m.group(3), rel(m.group(1)), m.group(2))

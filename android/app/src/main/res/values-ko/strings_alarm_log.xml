@@ -13,7 +13,7 @@
     <string name="alarm_outcome_fired">울림</string>
     <string name="alarm_outcome_not_reached">기준에 도달하지 않음</string>
     <string name="alarm_outcome_already_triggered">이미 알림 – 가격이 반대쪽으로 돌아올 때까지 대기</string>
-    <string name="alarm_outcome_cooldown">울리지 않음 – 마지막 알림 후 대기 시간</string>
+    <string name="alarm_outcome_cooldown">울리지 않음 – 마지막 경보 후 대기 시간</string>
     <string name="alarm_outcome_stale">울리지 않음 – 오래된 가격(%1$s 기준)</string>
     <string name="alarm_outcome_mark_price">울리지 않음 – 마크 가격이며 거래 가격이 아님</string>
     <string name="alarm_outcome_low_liquidity">울리지 않음 – 유동성이 10,000 USD 미만이거나 알 수 없음</string>

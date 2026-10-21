@@ -36,6 +36,14 @@ object TextLimit {
         return text.substring(0, end)
     }
 
+    /**
+     * Freitext säubern: trimmen, auf [max] sichtbare Zeichen kürzen und nochmals trimmen (ein Schnitt kann
+     * auf ein Leerzeichen fallen); leer = null. Für Notizen, Gruppen- und Börsennamen — aus der Eingabe wie
+     * aus einer Sicherung gleich wie iOS `TextLimit.clean` (seit Build 99).
+     */
+    fun clean(raw: String?, max: Int): String? =
+        raw?.trim()?.let { takeGraphemes(it, max) }?.trim()?.takeIf { it.isNotEmpty() }
+
     private fun iterator(text: String): BreakIterator =
         BreakIterator.getCharacterInstance(Locale.ROOT).apply { setText(text) }
 }

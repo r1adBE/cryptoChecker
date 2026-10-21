@@ -47,6 +47,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxForm
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
+import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 
 /**
  * Von/Nach einer Umbuchung: freier Text (Börse oder Wallet). Build 46: Vorschläge als Chips — im leeren,
@@ -136,7 +137,7 @@ internal fun ThirdFeeFields(
                 singleLine = true,
                 isError = invalid,
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrectEnabled = false),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).txFocusTarget(LocalTxFocusTargets.current, Field.FEE_COIN)
             )
             OutlinedTextField(
                 value = amount,
@@ -169,7 +170,7 @@ internal fun ThirdFeeFields(
             singleLine = true,
             isError = invalid,
             supportingText = when (state) {
-                PortfolioTxForm.ThirdFee.INVALID -> { { Text(stringResource(R.string.portfolio_invalid)) } }
+                PortfolioTxForm.ThirdFee.INVALID -> { { Text(stringResource(R.string.portfolio_tx_price_invalid)) } }
                 PortfolioTxForm.ThirdFee.INCOMPLETE -> { { Text(stringResource(R.string.portfolio_tx_third_fee_incomplete)) } }
                 else -> null
             },
@@ -290,7 +291,7 @@ internal fun SwapReceivedFields(
         isError = toCoinError != null,
         supportingText = toCoinError?.let { { Text(it) } },
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrectEnabled = false),
-        modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
+        modifier = Modifier.fillMaxWidth().padding(top = 4.dp).txFocusTarget(LocalTxFocusTargets.current, Field.TO_COIN)
     )
     val matches = remember(coins, symbol) { matchCoins(coins, symbol) }
     if (matches.isNotEmpty()) {
@@ -310,6 +311,6 @@ internal fun SwapReceivedFields(
         isError = toAmountError,
         supportingText = if (toAmountError) { { Text(stringResource(R.string.portfolio_invalid)) } } else null,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-        modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
+        modifier = Modifier.fillMaxWidth().padding(top = 4.dp).txFocusTarget(LocalTxFocusTargets.current, Field.TO_AMOUNT)
     )
 }

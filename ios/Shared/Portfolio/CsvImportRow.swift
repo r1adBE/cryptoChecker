@@ -107,6 +107,8 @@ struct CsvImportResult {
     var columns: [String] = []
     /// Zeitzone der Tageskurse (Devisen) = Zeitzone des Geräts, wie der Steuer-Export — wie Android `fxZone`.
     var fxZone: String = CsvImportParser.defaultZone
+    /// Zu viele Zellen je Zeile oder Datensätze (`CsvImportParser.maxCellsPerRow`, `maxRows`) — wie Android.
+    var tooLarge = false
 
     /// Vorschau fragt nach dem Dezimalzeichen (`decimalSample`).
     var decimalAmbiguous: Bool { decimalSample != nil }

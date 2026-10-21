@@ -33,7 +33,7 @@
     <string name="alarm_fires_now_save">Salvează oricum</string>
     <string name="alarm_fires_now_title">Alarma s-ar declanșa imediat</string>
     <string name="alarm_first_battery_hint">Optimizarea bateriei limitează aplicația – alarmele pot sosi mai târziu.</string>
-    <string name="alarm_first_title">Alertă salvată</string>
+    <string name="alarm_first_title">Alarmă salvată</string>
     <string name="alarm_last_triggered">ultima: %1$s</string>
     <string name="alarm_more_conditions">Mai multe condiții</string>
     <string name="alarm_new_extreme">Nou %1$s</string>
@@ -141,7 +141,7 @@
     <string name="alarm_volume_zero_hours_hint">Orele fără tranzacții contează ca volum zero, așa că la perechile tranzacționate rar o oră obișnuită poate părea neobișnuită.</string>
 
     <!-- Bestätigung nach dem Speichern -->
-    <string name="alarm_saved_active">Alertă activă</string>
+    <string name="alarm_saved_active">Alarmă activă</string>
     <!-- «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» -->
     <string name="alarm_saved_banner">Alarmă salvată: %1$s</string>
     <!-- Zusatz in der Bestätigung, wenn Mitteilungen aus sind (dazu Aktion «Einstellungen») -->
@@ -185,4 +185,5 @@
     <string name="alarm_editor_more">Mai mult</string>
     <string name="alarm_editor_more_summary">Alarme rapide, alte condiții, sunet și citire</string>
     <string name="alarm_reliability_storage_no_key">Alarme întrerupte în fundal – lista nu este salvată</string>
+    <string name="alarms_limit_reached">O pereche poate avea cel mult %1$s alarme.</string>
 </resources>

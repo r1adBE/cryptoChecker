@@ -40,7 +40,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alarme</string>
-    <string name="channel_alarms_description">Notificare la declanșarea unei alarme de preț.</string>
+    <string name="channel_alarms_description">Notificare la declanșarea unei alarme.</string>
     <string name="channel_alarms_quiet">Alarme (ore de liniște)</string>
     <string name="channel_alarms_quiet_description">Alarme silențioase în orele de liniște.</string>
     <string name="channel_alarms_silent">Alarme (silențios)</string>

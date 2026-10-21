@@ -43,6 +43,10 @@
     <string name="shortcut_add">Προσθήκη ζεύγους</string>
     <string name="shortcut_alarms">Όλοι οι συναγερμοί</string>
     <string name="shortcut_cycle">Αγορά</string>
+    <!-- Lange Beschriftung der App-Verknüpfungen (Launcher mit Platz), höchstens 25 Zeichen -->
+    <string name="shortcut_add_long">Προσθήκη νέου ζεύγους</string>
+    <string name="shortcut_alarms_long">Προβολή συναγερμών</string>
+    <string name="shortcut_cycle_long">Επισκόπηση αγοράς</string>
 
     <string name="log_box_title">Αρχείο καταγραφής</string>
     <string name="label_value">%1$s: %2$s</string>

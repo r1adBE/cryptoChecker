@@ -99,7 +99,7 @@
     <string name="portfolio_discard_keep">Vazhdo redaktimin</string>
     <string name="portfolio_discard_title">Të hidhen poshtë ndryshimet?</string>
     <string name="portfolio_edit_tx">Ndrysho transaksionin</string>
-    <string name="portfolio_invalid">Sasi e pavlefshme</string>
+    <string name="portfolio_invalid">Fut një numër të vlefshëm më të madh se 0.</string>
     <string name="portfolio_oversold">Shitjet tejkalojnë zotërimet – kontrollo transaksionet.</string>
     <string name="portfolio_sell">Shitje</string>
     <string name="portfolio_sell_exceeds">Më shumë se zotërimet e tua (%1$s)</string>
@@ -139,7 +139,7 @@
     <string name="portfolio_tx_price">Çmimi për monedhë</string>
     <string name="portfolio_tx_price_hint">Në USDT. Lëre bosh nëse nuk e di.</string>
     <string name="portfolio_tx_price_historic">Mbyllja ditore e verifikuar e %1$s – ndryshoje nëse duhet</string>
-    <string name="portfolio_tx_price_invalid">Çmim i pavlefshëm</string>
+    <string name="portfolio_tx_price_invalid">Fut një numër të vlefshëm (0 ose më shumë) ose lëre fushën bosh.</string>
     <string name="portfolio_tx_price_past_hint">Fut çmimin e ditës së transaksionit – lëre bosh nëse nuk e di</string>
     <string name="portfolio_tx_price_receipt_hint">Në USDT. Bosh = zotërime pa kosto blerjeje.</string>
     <string name="portfolio_tx_price_zero">Çmimi 0 nuk është i mundur për transaksionet e importuara – lëre bosh për çmimin e tregut</string>

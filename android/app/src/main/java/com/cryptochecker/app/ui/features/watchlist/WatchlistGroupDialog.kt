@@ -33,6 +33,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
+import com.cryptochecker.app.util.TextLimit
 import androidx.compose.ui.semantics.selected
 
 /**
@@ -62,7 +64,7 @@ internal fun GroupDialog(
                 if (creating) {
                     OutlinedTextField(
                         value = name,
-                        onValueChange = { name = it.take(MAX_GROUP_NAME) },
+                        onValueChange = { name = TextLimit.takeGraphemes(it, GROUP_NAME_MAX) },
                         label = { Text(stringResource(R.string.group_name)) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
@@ -82,8 +84,6 @@ internal fun GroupDialog(
         }
     )
 }
-
-private const val MAX_GROUP_NAME = 24
 
 @Composable
 private fun GroupOption(text: String, selected: Boolean, onClick: () -> Unit) {

@@ -43,8 +43,11 @@ extension PortfolioModel {
     /// «Seit Kauf» und «7 T» in der Anzeigewährung wie die Karte zeigt statt USDT × heutiger Kurs. nil in USDT bzw.
     /// solange die Kurse laden. Ohne den Live-Kurs USDT/USD (gilt erst ab heute, kommt aus dem Stand). Wie Android
     /// `PortfolioViewModel.widgetDisplayFx`.
-    func widgetDisplayFx(for currency: String) -> PortfolioDisplayFx? {
-        guard let figures = costFx(for: currency) else { return nil }
+    /// `summary`: die eben im Hintergrund gerechnete (`currentSummary`) — ohne sie rechnete `summary` synchron auf dem
+    /// Hauptthread, falls der Zwischenspeicher inzwischen nicht mehr passt.
+    func widgetDisplayFx(for currency: String, summary shown: PortfolioSummary? = nil) -> PortfolioDisplayFx? {
+        let summary = shown ?? self.summary
+        guard let figures = costFx(for: currency, summary: summary) else { return nil }
         let today = PortfolioHistory.utcToday()
         let from = today - PortfolioDisplayFigures.memoDays
         let fxNow = PortfolioHistoryFx.convertsUsdt(currency, usdtMarket: true)
@@ -69,15 +72,15 @@ extension PortfolioModel {
     /// Merkzettel fürs Widget, sobald seine Kurse da sind: hat er sich gegenüber dem gespeicherten Stand geändert, den
     /// Stand mit denselben Kursen neu rechnen (wie Android: der Merkzettel gehört zur Eingabe der Aufnahme).
     func refreshWidgetDisplayFx() async {
-        // Gesamtrechnung im Hintergrund abwarten; `widgetDisplayFx` trifft danach den Zwischenspeicher
-        _ = await currentSummary()
+        // Gesamtrechnung im Hintergrund abwarten und genau diese übergeben (nichts mehr synchron auf dem Hauptthread)
+        let summary = await currentSummary()
         let currency = data.settings.portfolioCurrency
-        guard let memo = widgetDisplayFx(for: currency), PortfolioWidgetStore.load()?.displayFx != memo,
+        guard let memo = widgetDisplayFx(for: currency, summary: summary), PortfolioWidgetStore.load()?.displayFx != memo,
               !calcPortfolio.isEmpty, prices.updatedAt > 0,
               PortfolioPriceFallback.mayRecord(transactions: calcPortfolio, prices: prices, now: TimeUtils.nowMillis,
                                                staleAfterMillis: staleAfterMillis)
         else { return }
-        PortfolioWidgetStore.update(transactions: calcPortfolio, prices: prices, currency: currency,
-                                    rate: rate(for: currency), displayFx: memo)
+        await PortfolioWidgetStore.updateInBackground(transactions: calcPortfolio, prices: prices, currency: currency,
+                                                      rate: rate(for: currency), displayFx: memo)
     }
 }

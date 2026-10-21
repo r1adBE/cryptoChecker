@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Chybí oprávnění – v klidu zařízení kontroluje Android nepravidelně, někdy až po hodinách.</string>
     <string name="settings_notification_change">Oznamovat jen při změně ceny</string>
     <string name="settings_notification_change_always">Vždy</string>
+    <string name="settings_percent_invalid">Zadejte hodnotu od 0 do 100.</string>
     <string name="settings_notification_change_hint">Oznámení se zobrazí, až když se cena od posledního oznámení změní alespoň o tuto hodnotu. Pokud chybí data, nezobrazí se nic. Alarmů se to netýká.</string>
     <string name="settings_ongoing_notifications">Nelze zavřít přejetím</string>
     <string name="settings_ongoing_notifications_hint">Cenová oznámení zůstanou připnutá.</string>
@@ -291,7 +292,7 @@
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">Sdílet diagnostiku</string>
-    <string name="diagnostics_share_hint">Textový soubor pro podporu: verze, zařízení, nastavení upozornění, poslední kontroly a protokol alarmů – bez portfolia, částek, adres a poznámek. Nejdřív ho uvidíš; nic se neodesílá automaticky.</string>
+    <string name="diagnostics_share_hint">Textový soubor pro podporu: verze, zařízení, nastavení alarmů, poslední kontroly a protokol alarmů – bez portfolia, částek, adres a poznámek. Nejdřív ho uvidíš; nic se neodesílá automaticky.</string>
     <string name="diagnostics_preview_title">Diagnostika – náhled</string>
     <string name="diagnostics_action_share">Sdílet</string>
 </resources>

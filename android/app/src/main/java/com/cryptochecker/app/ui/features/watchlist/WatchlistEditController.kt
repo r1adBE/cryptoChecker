@@ -5,9 +5,11 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.data.AddMoments
+import com.cryptochecker.app.data.AddWatchOutcome
 import com.cryptochecker.app.data.WatchMove
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.WatchSnapshot
+import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.refresh.PriceRefresher
@@ -107,14 +109,20 @@ internal class WatchlistEditController(
      * Erst-Moment beim allerersten Paar ([com.cryptochecker.app.data.AddMoments.afterExplorerAdd]),
      * danach gleich den Kurs holen (nach [onDone]). [onDone]: Id des neuen Eintrags, bzw. des schon vorhandenen
      * (stand das Paar inzwischen schon in der Merkliste); null, wenn nichts zu finden ist.
-     * Die Erlaubnis für Mitteilungen fragt die Oberfläche (wie der Hinzufügen-Tab nach «ADDED»).
+     * Die Erlaubnis für Mitteilungen fragt die Oberfläche (wie der Hinzufügen-Tab nach «ADDED»). Merkliste voll
+     * ([com.cryptochecker.app.domain.watch.WatchlistLimits]): nichts angelegt, nur [onFull] (Hinweis).
      */
-    fun addPreview(watch: WatchEntity, onDone: (id: Long?, added: Boolean) -> Unit) {
+    fun addPreview(watch: WatchEntity, onFull: () -> Unit, onDone: (id: Long?, added: Boolean) -> Unit) {
         scope.launch {
-            val id = watchRepository.addWatch(
+            val outcome = watchRepository.tryAddWatch(
                 MarketInfo(key = watch.marketKey, name = watch.marketName),
                 MarketPair(watch.baseAsset, watch.quoteAsset, watch.pairId, watch.contractType),
             )
+            if (outcome == AddWatchOutcome.Full) {
+                onFull()
+                return@launch
+            }
+            val id = (outcome as? AddWatchOutcome.Added)?.id
             if (id != null) {
                 addMoments.afterExplorerAdd(id)
                 onDone(id, true)

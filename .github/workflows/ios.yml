@@ -225,6 +225,57 @@ jobs:
           bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
           exit $status
 
+      # Tests that only passed on the retry (-retry-tests-on-failure) as a warning: green, but flaky. Read from the result
+      # bundle (xcresulttool, Xcode 16+ format), else from the xcodebuild log (a test case both failed and passed).
+      # Purely informative: an unknown format or a missing tool never fails the job.
+      - name: Retried UI tests
+        if: always()
+        continue-on-error: true
+        run: |
+          python3 -I - "$RUNNER_TEMP/UITests.xcresult" "$RUNNER_TEMP/xcode-uitest.log" <<'PY' || true
+          import json, os, re, subprocess, sys
+          bundle, log = sys.argv[1], sys.argv[2]
+          retried, source = {}, None
+
+          def walk(node):
+              if not isinstance(node, dict):
+                  return
+              kids = node.get("children") or []
+              if node.get("nodeType") == "Test Case":
+                  runs = [k for k in kids if isinstance(k, dict) and k.get("nodeType") in ("Repetition", "Test Case Run")]
+                  if len(runs) > 1:
+                      retried[node.get("nodeIdentifier") or node.get("name") or "?"] = node.get("result") or "?"
+              for k in kids:
+                  walk(k)
+
+          if os.path.isdir(bundle):
+              try:
+                  out = subprocess.run(["xcrun", "xcresulttool", "get", "test-results", "tests", "--path", bundle],
+                                       capture_output=True, text=True, timeout=120)
+                  if out.returncode == 0:
+                      data = json.loads(out.stdout)
+                      for n in data.get("testNodes") or []:
+                          walk(n)
+                      source = "xcresult"
+              except Exception as e:  # format or tool differs: fall back to the log
+                  print(f"xcresulttool not usable: {e}")
+          if source is None and os.path.isfile(log):
+              seen = {}
+              pattern = re.compile(r"Test [Cc]ase '([^']+)' (passed|failed)")
+              with open(log, encoding="utf-8", errors="replace") as f:
+                  for line in f:
+                      m = pattern.search(line)
+                      if m:
+                          seen.setdefault(m.group(1), []).append(m.group(2))
+              for name, results in seen.items():
+                  if "failed" in results and len(results) > 1:
+                      retried[name] = results[-1]
+              source = "log"
+          for name, result in sorted(retried.items()):
+              print(f"::warning title=Retried UI test::{name} needed a retry (final result: {result}; source: {source})")
+          print(f"retried UI tests: {len(retried)} (source: {source or 'none'})")
+          PY
+
       - name: Upload Xcode logs
         if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

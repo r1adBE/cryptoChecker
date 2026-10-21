@@ -5,6 +5,7 @@
 package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.addWatches
 import com.cryptochecker.marketdata.model.MarketPair
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -70,7 +71,8 @@ fun ExplorerViewModel.selectBulkPair(pair: MarketPair) {
 
 /**
  * Alle gefundenen Paare in die Merkliste. Schon vorhandene bleiben unberührt — samt ihren Alarmen,
- * die am bestehenden Eintrag hängen.
+ * die am bestehenden Eintrag hängen. Höchstens bis zur vollen Merkliste
+ * ([com.cryptochecker.app.domain.watch.WatchlistLimits.MAX_PAIRS]).
  */
 fun ExplorerViewModel.addBulkPairs() {
     val selected = exchange.value
@@ -84,7 +86,8 @@ fun ExplorerViewModel.addBulkPairs() {
     viewModelScope.launch {
         bulkAdd.value = BulkAddResult(added = 0, skipped = 0, running = true)
         val outcome = watchRepository.addWatches(selected, pairs, sessionTargetGroup.value)
-        bulkAdd.value = BulkAddResult(added = outcome.added, skipped = outcome.skipped)
+        // Merkliste voll: nur bis zur Grenze angelegt, die Rückmeldung nennt die übrigen
+        bulkAdd.value = BulkAddResult(added = outcome.added, skipped = outcome.skipped, refused = outcome.refused)
         // Viele auf einmal: kein Erst-Moment, das erste Paar gilt aber als erledigt
         if (outcome.added > 0) addMoments.markFirstPairAdded()
     }

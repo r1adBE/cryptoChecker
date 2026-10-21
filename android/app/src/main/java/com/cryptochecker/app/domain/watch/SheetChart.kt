@@ -4,7 +4,6 @@ import com.cryptochecker.app.widget.ChartLevels
 import com.cryptochecker.app.widget.WidgetCandle
 import com.cryptochecker.app.widget.WidgetChartGeometry
 import com.cryptochecker.app.widget.WidgetChartType
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.max
@@ -356,7 +355,8 @@ object SheetChart {
 class SheetChartCache(private val now: () -> Long = System::currentTimeMillis) {
     private class Entry(val time: Long, val value: SheetChartResult.Ready, val price: Double?)
 
-    private val entries = ConcurrentHashMap<String, Entry>()
+    /** Begrenzt seit Build 99 (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
+    private val entries = com.cryptochecker.app.data.BoundedCache<String, Entry>(com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES)
 
     /**
      * [price] = aktueller Kurs des Paars; null = Sprung nicht prüfen. [market] = Börse des Paars
@@ -384,7 +384,7 @@ class SheetChartCache(private val now: () -> Long = System::currentTimeMillis) {
     /** Alle Zeiträume eines Paars verwerfen (Aktualisieren im Blatt). */
     fun invalidate(base: String, quote: String, market: String = "") {
         val prefix = prefix(base, quote, market)
-        entries.keys.removeAll { it.startsWith(prefix) }
+        entries.removeKeysIf { it.startsWith(prefix) }
     }
 
     /** Alles verwerfen (nach unten ziehen in der Merkliste). */

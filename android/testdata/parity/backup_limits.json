@@ -1,0 +1,491 @@
+{
+  "description": "Grenzen beim Wiederherstellen von Merkliste und Paar-Alarmen aus einer Sicherung: Android BackupRestoreLimits.kt + BackupWatchlistCodec.jsonToWatch, iOS BackupRestoreLimits.swift + BackupManager.jsonToWatch. «kept» = Paar wird übernommen; «group»/«note» = gespeicherter Wert (null = keiner). Längen in Unicode-Codepunkten (Kennungen) bzw. sichtbaren Zeichen (Gruppe, Notiz). Seit Build 99.",
+  "limits": {
+    "maxMarketKey": 64,
+    "maxMarketName": 60,
+    "maxAsset": 30,
+    "maxPairId": 128,
+    "maxPairs": 2000,
+    "maxAlarmsPerPair": 10,
+    "groupNameMax": 24,
+    "noteMax": 120
+  },
+  "watches": [
+    {
+      "description": "gewöhnliches Paar",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "ohne Paar-Kennung",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": null,
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "DexScreener «chain/adresse»",
+      "watch": {
+        "id": 1,
+        "marketKey": "DexScreener",
+        "marketName": "DexScreener",
+        "baseAsset": "BONK",
+        "quoteAsset": "SOL",
+        "contractType": "NONE",
+        "pairId": "solana/7qbRF6YsyGuLUVs6Y1q64bdVrfe4ZcUUz1JRdoVNUJnm",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Bitfinex mit Doppelpunkt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Bitfinex",
+        "marketName": "Bitfinex",
+        "baseAsset": "TESTBTC",
+        "quoteAsset": "TESTUSD",
+        "contractType": "NONE",
+        "pairId": "tTESTBTC:TESTUSD",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Coinbase mit Bindestrich",
+      "watch": {
+        "id": 1,
+        "marketKey": "Coinbase",
+        "marketName": "Coinbase",
+        "baseAsset": "BTC",
+        "quoteAsset": "USD",
+        "contractType": "NONE",
+        "pairId": "BTC-USD",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Kraken mit Schrägstrich",
+      "watch": {
+        "id": 1,
+        "marketKey": "Kraken",
+        "marketName": "Kraken",
+        "baseAsset": "BTC",
+        "quoteAsset": "USD",
+        "contractType": "NONE",
+        "pairId": "XBT/USD",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Binance Coin-M mit Punkt und Unterstrich",
+      "watch": {
+        "id": 1,
+        "marketKey": "BinanceFutures",
+        "marketName": "Binance Futures",
+        "baseAsset": "BTC",
+        "quoteAsset": "USD",
+        "contractType": "PERPETUAL",
+        "pairId": "2:BTCUSD_PERP",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Latoken: zwei UUIDs (73 Zeichen)",
+      "watch": {
+        "id": 1,
+        "marketKey": "Latoken",
+        "marketName": "LATOKEN",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "92151d82-df98-4d88-9a4d-284fa9eca49f/0c3a106d-bde3-4c13-a26e-3fd2394529e5",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Coin mit chinesischem Namen",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "币安人生",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "币安人生USDT",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Kennung mit Leerzeichen fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTC USDT",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Kennung mit «@» fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Hyperliquid",
+        "marketName": "Hyperliquid",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDC",
+        "contractType": "NONE",
+        "pairId": "@107",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Kennung mit «&» und «=» fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTC-EUR&x=1",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Kennung mit Zeilenumbruch fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTC\nUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Kennung 128 Zeichen bleibt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Kennung 129 Zeichen fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Basis 30 Zeichen bleibt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Basis 31 Zeichen fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Quote 31 Zeichen fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Börsenname 60 Zeichen bleibt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Börsenname 61 Zeichen fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "unbekannte Börse bleibt (Platzhalter)",
+      "watch": {
+        "id": 1,
+        "marketKey": "RemovedExchange",
+        "marketName": "Removed",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Börsenschlüssel 65 Zeichen fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null
+      },
+      "kept": false,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Gruppe getrimmt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": "  DeFi  ",
+        "note": null
+      },
+      "kept": true,
+      "group": "DeFi",
+      "note": null
+    },
+    {
+      "description": "Gruppe nur Leerzeichen = keine",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": "   ",
+        "note": null
+      },
+      "kept": true,
+      "group": null,
+      "note": null
+    },
+    {
+      "description": "Gruppe auf 24 Zeichen gekürzt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "note": null
+      },
+      "kept": true,
+      "group": "aaaaaaaaaaaaaaaaaaaaaaaa",
+      "note": null
+    },
+    {
+      "description": "Gruppe: Schnitt auf Leerzeichen, nochmals getrimmt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": "aaaaaaaaaaaaaaaaaaaaaaa b",
+        "note": null
+      },
+      "kept": true,
+      "group": "aaaaaaaaaaaaaaaaaaaaaaa",
+      "note": null
+    },
+    {
+      "description": "Notiz: Schnitt auf Leerzeichen, nochmals getrimmt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa b"
+      },
+      "kept": true,
+      "group": null,
+      "note": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "description": "Notiz getrimmt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": "  merken  "
+      },
+      "kept": true,
+      "group": null,
+      "note": "merken"
+    }
+  ]
+}

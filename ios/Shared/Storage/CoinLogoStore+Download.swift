@@ -17,11 +17,8 @@ extension CoinLogoStore {
     fileprivate static let pauses = ImagePauseBox()
 
     private static let session: URLSession = {
-        let c = URLSessionConfiguration.default
-        c.timeoutIntervalForRequest = 15
-        c.timeoutIntervalForResource = 25
+        let c = PrivateSessionConfig.make(timeout: 15, resource: 25)
         c.requestCachePolicy = .reloadIgnoringLocalCacheData
-        c.urlCache = nil
         c.httpAdditionalHeaders = [HttpUserAgent.header: HttpUserAgent.value]
         c.waitsForConnectivity = false
         // Mehrere Bilder gleichzeitig je Server (`perHostParallel`)

@@ -52,12 +52,12 @@
     <string name="alarm_first_check">Periksa apakah alarm sampai</string>
 
     <string name="oem_battery_title">Penghemat baterai produsen</string>
-    <string name="oem_battery_xiaomi">Xiaomi bisa menghentikan aplikasi sepenuhnya – lalu tidak ada peringatan yang masuk. Aktifkan “Mulai otomatis” dan atur penghemat baterai ke “Tanpa batasan”.</string>
-    <string name="oem_battery_samsung">Samsung bisa membuat aplikasi tidur nyenyak – lalu tidak ada peringatan yang masuk. Di Baterai › Batas penggunaan latar belakang, tambahkan ke “Aplikasi yang tidak pernah tidur”.</string>
-    <string name="oem_battery_huawei">Huawei/Honor bisa menghentikan aplikasi – lalu tidak ada peringatan yang masuk. Di Baterai › Peluncuran aplikasi, pilih “Kelola secara manual” dan izinkan semuanya.</string>
-    <string name="oem_battery_oneplus">OnePlus bisa menghentikan aplikasi – lalu tidak ada peringatan yang masuk. Izinkan “Luncurkan otomatis” dan aktivitas latar belakang di Penggunaan baterai.</string>
-    <string name="oem_battery_oppo">Oppo/Realme bisa menghentikan aplikasi – lalu tidak ada peringatan yang masuk. Izinkan “Luncurkan otomatis” dan aktivitas latar belakang di Penggunaan baterai.</string>
-    <string name="oem_battery_vivo">Vivo bisa menghentikan aplikasi – lalu tidak ada peringatan yang masuk. Izinkan “Mulai otomatis” dan konsumsi daya latar belakang tinggi di Baterai.</string>
+    <string name="oem_battery_xiaomi">Xiaomi bisa menghentikan aplikasi sepenuhnya – lalu tidak ada alarm yang masuk. Aktifkan “Mulai otomatis” dan atur penghemat baterai ke “Tanpa batasan”.</string>
+    <string name="oem_battery_samsung">Samsung bisa membuat aplikasi tidur nyenyak – lalu tidak ada alarm yang masuk. Di Baterai › Batas penggunaan latar belakang, tambahkan ke “Aplikasi yang tidak pernah tidur”.</string>
+    <string name="oem_battery_huawei">Huawei/Honor bisa menghentikan aplikasi – lalu tidak ada alarm yang masuk. Di Baterai › Peluncuran aplikasi, pilih “Kelola secara manual” dan izinkan semuanya.</string>
+    <string name="oem_battery_oneplus">OnePlus bisa menghentikan aplikasi – lalu tidak ada alarm yang masuk. Izinkan “Luncurkan otomatis” dan aktivitas latar belakang di Penggunaan baterai.</string>
+    <string name="oem_battery_oppo">Oppo/Realme bisa menghentikan aplikasi – lalu tidak ada alarm yang masuk. Izinkan “Luncurkan otomatis” dan aktivitas latar belakang di Penggunaan baterai.</string>
+    <string name="oem_battery_vivo">Vivo bisa menghentikan aplikasi – lalu tidak ada alarm yang masuk. Izinkan “Mulai otomatis” dan konsumsi daya latar belakang tinggi di Baterai.</string>
     <string name="alarm_reliability_recent">Pemeriksaan terakhir %1$s</string>
     <string name="alarm_reliability_stale">Pemeriksaan terakhir %1$s – alarm mungkin terlambat</string>
     <string name="alarm_reliability_never">Alarm aktif – belum ada pemeriksaan latar belakang</string>

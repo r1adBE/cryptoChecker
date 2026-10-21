@@ -215,4 +215,5 @@
 
     <string name="watchlist_sort_by_coin">कॉइन के अनुसार क्रमबद्ध करें</string>
     <string name="watchlist_sort_by_exchange">एक्सचेंज के अनुसार क्रमबद्ध करें</string>
+    <string name="watchlist_limit_reached">आपकी वॉचलिस्ट में अधिकतम %1$s पेयर हो सकते हैं।</string>
 </resources>

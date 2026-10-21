@@ -39,7 +39,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">अलार्म</string>
-    <string name="channel_alarms_description">प्राइस अलार्म बजने पर नोटिफ़िकेशन।</string>
+    <string name="channel_alarms_description">अलार्म बजने पर नोटिफ़िकेशन।</string>
     <string name="channel_alarms_quiet">अलार्म (मौन घंटे)</string>
     <string name="channel_alarms_quiet_description">मौन घंटों के दौरान बिना आवाज़ वाले अलार्म।</string>
     <string name="channel_alarms_silent">अलार्म (साइलेंट)</string>

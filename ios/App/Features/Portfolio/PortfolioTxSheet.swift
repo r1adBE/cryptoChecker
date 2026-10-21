@@ -76,6 +76,7 @@ struct PortfolioTxSheet: View {
     /// Löschen nicht geschrieben (gesperrte Datei): Blatt bleibt offen, Hinweis statt still geschlossen.
     @State private var deleteFailed = false
     @FocusState var focusedField: PortfolioTxField?
+    @State var focusJump: PortfolioTxFocusJump?
 
     enum PortfolioTxField: Hashable {
         case coin, amount, price, note, fee, exchange, transferFrom, transferTo, feeCoin, feeCoinAmount, feeCoinPrice
@@ -258,7 +259,7 @@ struct PortfolioTxSheet: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
+            ScrollViewReader { proxy in ScrollView {
                 VStack(alignment: .leading, spacing: Spacing.md) {
                     typePicker
                     coinField
@@ -318,6 +319,8 @@ struct PortfolioTxSheet: View {
                 .padding(.bottom, 24)
                 .animation(.easeInOut(duration: 0.2), value: tried)
             }
+            // Speichern mit Fehlern: zum ersten ungültigen Feld (PortfolioTxFocus.swift)
+            .onChange(of: focusJump) { _, jump in performFocusJump(jump, proxy: proxy) } }
             .scrollDismissesKeyboard(.interactively)
             .background(AppColors.background.ignoresSafeArea())
             .navigationTitle(L(isEdit ? "portfolio_edit_tx" : "portfolio_add_tx"))

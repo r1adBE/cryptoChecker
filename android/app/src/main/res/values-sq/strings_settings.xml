@@ -45,6 +45,7 @@
     <string name="settings_exact_checks_permission_missing">Mungon leja – kur pajisja pushon, Android kontrollon parregullisht, ndonjëherë vetëm pas orësh.</string>
     <string name="settings_notification_change">Njofto vetëm kur ndryshon çmimi</string>
     <string name="settings_notification_change_always">Gjithmonë</string>
+    <string name="settings_percent_invalid">Fut një vlerë nga 0 deri në 100.</string>
     <string name="settings_notification_change_hint">Njoftimi shfaqet vetëm kur çmimi ka lëvizur të paktën kaq që nga njoftimi i fundit. Kur mungojnë të dhënat nuk shfaqet asgjë. Alarmet nuk ndikohen.</string>
     <string name="settings_ongoing_notifications">Nuk mund të hiqen me rrëshqitje</string>
     <string name="settings_ongoing_notifications_hint">Mban të fiksuara njoftimet e çmimit.</string>

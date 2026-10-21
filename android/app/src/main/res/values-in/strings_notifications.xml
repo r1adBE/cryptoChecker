@@ -38,7 +38,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Alarm</string>
-    <string name="channel_alarms_description">Notifikasi saat alarm harga berbunyi.</string>
+    <string name="channel_alarms_description">Notifikasi saat alarm berbunyi.</string>
     <string name="channel_alarms_quiet">Alarm (jam tenang)</string>
     <string name="channel_alarms_quiet_description">Alarm senyap selama jam tenang.</string>
     <string name="channel_alarms_silent">Alarm (senyap)</string>

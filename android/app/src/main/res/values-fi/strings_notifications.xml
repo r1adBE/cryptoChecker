@@ -39,7 +39,7 @@
 
     <!-- Mitteilungskanäle (Android-Systemeinstellungen) -->
     <string name="channel_alarms">Hälytykset</string>
-    <string name="channel_alarms_description">Ilmoitus, kun hintahälytys laukeaa.</string>
+    <string name="channel_alarms_description">Ilmoitus, kun hälytys laukeaa.</string>
     <string name="channel_alarms_quiet">Hälytykset (hiljaiset tunnit)</string>
     <string name="channel_alarms_quiet_description">Äänettömät hälytykset hiljaisina tunteina.</string>
     <string name="channel_alarms_silent">Hälytykset (äänetön)</string>

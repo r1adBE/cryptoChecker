@@ -118,4 +118,8 @@
     <string name="dex_token_address_copy">Tokenadres kopiëren</string>
     <string name="dex_token_address_copied">Tokenadres gekopieerd</string>
     <string name="dex_token_address_label">Tokenadres eindigend op %1$s</string>
+    <plurals name="explorer_bulk_not_added_limit">
+        <item quantity="one">%1$d paar niet toegevoegd: je volglijst kan maximaal %2$s paren bevatten.</item>
+        <item quantity="other">%1$d paren niet toegevoegd: je volglijst kan maximaal %2$s paren bevatten.</item>
+    </plurals>
 </resources>

@@ -24,6 +24,7 @@ import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView
+import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.lock.PortfolioAccess
 import com.cryptochecker.app.lock.findFragmentActivity
@@ -38,6 +39,7 @@ import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
 import com.cryptochecker.app.ui.features.watchlist.WhySheet
 import com.cryptochecker.app.ui.features.watchlist.groupsOf
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
+import com.cryptochecker.app.util.LocaleNumbers
 import kotlinx.coroutines.delay
 
 /**
@@ -291,7 +293,17 @@ internal fun MarketCoinSheets(
                     val candidate = state.previewBase ?: return@add
                     if (state.adding) return@add
                     state.adding = true
-                    watchlist.addPreview(candidate) { id, added ->
+                    val onFull = {
+                        // Merkliste voll: nichts angelegt, sagen warum (Zahl im Format der App-Sprache)
+                        state.adding = false
+                        banner.show(
+                            resources.getString(
+                                R.string.watchlist_limit_reached,
+                                LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true),
+                            )
+                        )
+                    }
+                    watchlist.addPreview(candidate, onFull) { id, added ->
                         if (id == null) {
                             state.adding = false
                             return@addPreview

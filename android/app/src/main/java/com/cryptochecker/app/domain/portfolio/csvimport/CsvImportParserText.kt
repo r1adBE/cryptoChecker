@@ -23,27 +23,43 @@ internal fun CsvImportParser.decodeCp1252(bytes: ByteArray): String {
 
 // ---------- Zerlegen ----------
 
-/** RFC-4180-Zerlegung («""» = «"», Umbruch in Anführungszeichen erlaubt); Zellen getrimmt, leere Zeilen weg. */
-internal fun CsvImportParser.tokenize(text: String, delimiter: Char, maxRecords: Int = Int.MAX_VALUE): List<Record> {
+/** Wie [tokenizeOrNull]; über den Grenzen leer. */
+internal fun CsvImportParser.tokenize(text: String, delimiter: Char, maxRecords: Int = Int.MAX_VALUE): List<Record> =
+    tokenizeOrNull(text, delimiter, maxRecords).orEmpty()
+
+/**
+ * RFC-4180-Zerlegung («""» = «"», Umbruch in Anführungszeichen erlaubt); Zellen getrimmt, leere Zeilen weg.
+ * null = eine Zeile mit mehr als [maxCells] Zellen oder mehr als [maxRows] Datensätze (Datei zu gross) — wie iOS.
+ */
+internal fun CsvImportParser.tokenizeOrNull(
+    text: String,
+    delimiter: Char,
+    maxRecords: Int = Int.MAX_VALUE,
+    maxCells: Int = CsvImportParser.MAX_CELLS_PER_ROW,
+    maxRows: Int = CsvImportParser.MAX_ROWS,
+): List<Record>? {
     val out = ArrayList<Record>()
     var cells = ArrayList<String>()
     val cell = StringBuilder()
     var inQuotes = false
     var line = 1
     var startLine = 1
+    var tooLarge = false
     fun endCell() {
         cells.add(cell.toString().trim())
         cell.setLength(0)
+        if (cells.size > maxCells) tooLarge = true
     }
     fun endRecord() {
         endCell()
         if (cells.any { it.isNotEmpty() }) out.add(Record(startLine, cells))
+        if (out.size > maxRows) tooLarge = true
         cells = ArrayList()
     }
     var i = 0
     val n = text.length
-    // Höchstens [maxRecords] Zeilen (Erkennung der Kopfzeile): danach nicht weiterlesen
-    while (i < n && out.size < maxRecords) {
+    // Höchstens [maxRecords] Zeilen (Erkennung der Kopfzeile): danach nicht weiterlesen; über den Grenzen sofort aufhören
+    while (i < n && out.size < maxRecords && !tooLarge) {
         val c = text[i]
         when {
             inQuotes && c == '"' && i + 1 < n && text[i + 1] == '"' -> { cell.append('"'); i++ }
@@ -56,8 +72,8 @@ internal fun CsvImportParser.tokenize(text: String, delimiter: Char, maxRecords:
         }
         i++
     }
-    if (out.size < maxRecords && (cell.isNotEmpty() || cells.isNotEmpty())) endRecord()
-    return out
+    if (!tooLarge && out.size < maxRecords && (cell.isNotEmpty() || cells.isNotEmpty())) endRecord()
+    return if (tooLarge) null else out
 }
 
 /** Spaltenname/Art vergleichbar machen: klein, Umlaute ausgeschrieben, nur a–z und 0–9. */

@@ -99,7 +99,7 @@
     <string name="portfolio_discard_keep">संपादन जारी रखें</string>
     <string name="portfolio_discard_title">बदलाव छोड़ें?</string>
     <string name="portfolio_edit_tx">लेन-देन संपादित करें</string>
-    <string name="portfolio_invalid">अमान्य मात्रा</string>
+    <string name="portfolio_invalid">0 से बड़ी मान्य संख्या डालें।</string>
     <string name="portfolio_oversold">बिक्री होल्डिंग से अधिक है – कृपया लेन-देन जाँचें।</string>
     <string name="portfolio_sell">बिक्री</string>
     <string name="portfolio_sell_exceeds">आपकी होल्डिंग से अधिक (%1$s)</string>
@@ -139,7 +139,7 @@
     <string name="portfolio_tx_price">प्रति कॉइन मूल्य</string>
     <string name="portfolio_tx_price_hint">USDT में। अज्ञात हो तो खाली छोड़ें।</string>
     <string name="portfolio_tx_price_historic">%1$s का जाँचा हुआ दैनिक क्लोज़ – ज़रूरत हो तो बदलें</string>
-    <string name="portfolio_tx_price_invalid">अमान्य मूल्य</string>
+    <string name="portfolio_tx_price_invalid">मान्य संख्या (0 या अधिक) डालें या फ़ील्ड खाली छोड़ें।</string>
     <string name="portfolio_tx_price_past_hint">लेन-देन के दिन का भाव डालें – पता न हो तो खाली छोड़ें</string>
     <string name="portfolio_tx_price_receipt_hint">USDT में। खाली = बिना लागत की होल्डिंग।</string>
     <string name="portfolio_tx_price_zero">आयात किए गए लेनदेन में कीमत 0 संभव नहीं – बाज़ार भाव के लिए खाली छोड़ें</string>

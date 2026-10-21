@@ -210,13 +210,17 @@ enum BackupManager {
         // Merkliste und Alarme erst lesen, dann bereinigen (`WatchlistRestoreCleanup`, wie Android):
         // gleiche id → letzter gilt; gleiches Paar unter mehreren ids → erstes bleibt, seine Alarme
         // übernehmen die der weggelassenen; Alarme ohne Paar fallen weg.
+        // Paare mit unzulässigen Kennungen fallen weg, danach höchstens so viele Paare/Alarme wie
+        // `BackupRestoreLimits` erlaubt — wie Android
         var parsedWatches: [Watch] = []
         for item in root["watches"] as? [Any] ?? [] {
             guard let o = item as? [String: Any] else { throw Failure.invalid("watches") }
-            parsedWatches.append(try jsonToWatch(o))
+            let watch = try jsonToWatch(o)
+            if BackupRestoreLimits.acceptsWatch(watch) { parsedWatches.append(watch) }
         }
         let alarmsRead = parsedAlarms(root)
-        let (watches, alarms) = WatchlistRestoreCleanup.clean(watches: parsedWatches, alarms: alarmsRead.items)
+        let cleaned = WatchlistRestoreCleanup.clean(watches: parsedWatches, alarms: alarmsRead.items)
+        let (watches, alarms) = BackupRestoreLimits.limit(watches: cleaned.watches, alarms: cleaned.alarms)
 
         var favorites: [FavoriteKind: Set<String>] = [:]
         if let fav = root["favorites"] as? [String: Any] {
@@ -228,7 +232,7 @@ enum BackupManager {
         }
 
         let settingsJson = root["settings"] as? [String: Any]
-        var newSettings = settingsJson.map { applySettings($0, onto: data.settings) }
+        var newSettings = settingsJson.map { applySettings($0, onto: data.settings, trusted: encrypted) }
         // Portfolio-Sperre: ohne Passwort keine Echtheitsprüfung — nie ausschalten, solange sie an ist
         let lock = BackupRestorePolicy.appLock(wanted: settingsJson.flatMap { bool($0, "appLock") },
                                                current: data.settings.appLock, encrypted: encrypted,

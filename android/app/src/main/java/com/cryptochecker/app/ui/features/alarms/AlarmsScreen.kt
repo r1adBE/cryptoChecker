@@ -40,6 +40,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.domain.alarm.AlarmCardStatus
 import com.cryptochecker.app.domain.alarm.DerivativesAlarm
+import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.ui.components.AppFab
 import com.cryptochecker.app.ui.components.EmptyState
 import com.cryptochecker.app.ui.components.ReadableInset
@@ -64,6 +65,8 @@ fun AlarmsScreen(
     // DEX-Pool mit zu wenig Liquidität: kein neuer Alarm, kein Bearbeiten (Hinweis statt Editor)
     val lowLiquidityState by viewModel.lowLiquidity.collectAsStateWithLifecycle()
     val lowLiquidity = lowLiquidityState == true
+    // Höchstzahl Alarme am Paar erreicht (WatchlistLimits): kein «Neuer Alarm», Hinweis über der Liste
+    val alarmsFull = !WatchlistLimits.canAddAlarm(alarms.size)
     /** Rückfrage «Alarm löst sofort aus»: der Entwurf, der gespeichert würde. */
     var confirmFiresNow by rememberSaveable(stateSaver = AlarmDraftSaver.saver) { mutableStateOf<AlarmDraft?>(null) }
 
@@ -110,6 +113,7 @@ fun AlarmsScreen(
     // «Nicht in der Merkliste»
     val missingText = stringResource(R.string.watch_preview_not_watched)
     val lockedText = stringResource(R.string.alarm_save_storage_locked)
+    val limitText = alarmLimitText()
     LaunchedEffect(watchMissing) {
         if (watchMissing != true) return@LaunchedEffect
         draft = null
@@ -200,7 +204,7 @@ fun AlarmsScreen(
             )
         },
         floatingActionButton = {
-            if (!lowLiquidity) {
+            if (!lowLiquidity && !alarmsFull) {
                 AppFab(onClick = { draft = newDraft() }, contentDescription = stringResource(R.string.alarms_add))
             }
         },
@@ -233,6 +237,9 @@ fun AlarmsScreen(
                     }
                     if (lowLiquidity) {
                         item(key = "dex_low_liquidity") { DexLowLiquidityNote() }
+                    }
+                    if (alarmsFull) {
+                        item(key = "alarm_limit") { AlarmLimitNote() }
                     }
                     items(alarms, key = { it.id }) { alarm ->
                         AlarmCard(
@@ -272,6 +279,14 @@ fun AlarmsScreen(
         return true
     }
 
+    // Sicherheitsnetz: Paar inzwischen voll (z. B. Editor offen, Alarm anderswo angelegt) — nichts angelegt, sagen warum
+    val showLimit: () -> Unit = {
+        scope.launch {
+            snackbar.currentSnackbarData?.dismiss()
+            snackbar.showSnackbar(limitText, duration = SnackbarDuration.Long)
+        }
+    }
+
     /** Speichern und bestätigen («Alarm gespeichert …»), Editor schliessen. */
     fun saveDraft(toSave: AlarmDraft) {
         if (showSaveLocked()) return
@@ -280,7 +295,7 @@ fun AlarmsScreen(
         // Ein Alarm braucht Benachrichtigungen: jetzt fragen, nicht beim Start.
         requestNotifications()
         val isNew = toSave.id == 0L
-        viewModel.save(toSave) { alarm, allowed, firstEver ->
+        viewModel.save(toSave, showLimit) { alarm, allowed, firstEver ->
             val off = !allowed && !asking
             // Neuer Alarm: eine Zeile «Alarm aktiv · Testen»; beim allerersten Alarm
             // bietet der Bestätigungsdialog das Testen schon an
@@ -332,7 +347,7 @@ fun AlarmsScreen(
                 if (showSaveLocked()) return@onTemplate
                 requestNotifications()
                 draft = null
-                viewModel.createFromTemplate(template) { created ->
+                viewModel.createFromTemplate(template, showLimit) { created ->
                     // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig»), nicht nur «erstellt»
                     val createdText = alarmSavedText(
                         context, created, watch?.baseAsset.orEmpty(), watch?.quoteAsset.orEmpty(), notificationsOff = false,

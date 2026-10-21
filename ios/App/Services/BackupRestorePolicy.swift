@@ -3,7 +3,9 @@ import Foundation
 /// Regeln beim Wiederherstellen — wie `BackupRestorePolicy.kt` (gleiche Fälle in den Tests).
 ///
 /// Eine Sicherung ohne Passwort hat keine Echtheitsprüfung: Eine bearbeitete Datei im gleichen Format
-/// wird angenommen. Darum schaltet sie die Portfolio-Sperre nie aus, wenn sie gerade an ist.
+/// wird angenommen. Darum schaltet sie die Portfolio-Sperre nie aus, wenn sie gerade an ist — und seit Build 99
+/// auch sonst nichts in Richtung «weniger Schutz»: «Portfolio in Systemsicherung» nie ein (`systemBackup`),
+/// «Beträge verbergen» nie aus (`hideAmounts`).
 enum BackupRestorePolicy {
     /// Was mit «appLock» aus der Sicherung geschieht: `apply` = neuer Wert (nil = unverändert lassen);
     /// `keptOn` = die Sicherung wollte die Sperre ausschalten, sie bleibt aber an (Hinweis in der Meldung).
@@ -24,6 +26,20 @@ enum BackupRestorePolicy {
             if current && !encrypted { return AppLockDecision(apply: nil, keptOn: true) }
             return AppLockDecision(apply: false, keptOn: false)
         }
+    }
+
+    /// «Portfolio in Systemsicherung» aus der Sicherung: neuer Wert oder nil (unverändert). Ohne Echtheitsprüfung
+    /// (`trusted` false) nur ausschalten — einschalten gäbe die Portfolio-Daten in die Systemsicherung.
+    static func systemBackup(wanted: Bool?, current: Bool, trusted: Bool) -> Bool? {
+        if wanted == true && !current && !trusted { return nil }
+        return wanted
+    }
+
+    /// «Beträge verbergen» aus der Sicherung: neuer Wert oder nil (unverändert). Ohne Echtheitsprüfung
+    /// (`trusted` false) nur einschalten — ausschalten zeigte die Beträge offen.
+    static func hideAmounts(wanted: Bool?, current: Bool, trusted: Bool) -> Bool? {
+        if wanted == false && current && !trusted { return nil }
+        return wanted
     }
 
     /// Ungültige Einträge aus der Systemsicherung, die noch zu melden sind (aufsummiert, ohne Überlauf).

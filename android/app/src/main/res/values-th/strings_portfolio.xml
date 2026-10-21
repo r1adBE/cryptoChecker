@@ -96,7 +96,7 @@
     <string name="portfolio_discard_keep">แก้ไขต่อ</string>
     <string name="portfolio_discard_title">ยกเลิกการเปลี่ยนแปลงหรือไม่</string>
     <string name="portfolio_edit_tx">แก้ไขรายการ</string>
-    <string name="portfolio_invalid">จำนวนไม่ถูกต้อง</string>
+    <string name="portfolio_invalid">ใส่ตัวเลขที่ถูกต้องซึ่งมากกว่า 0</string>
     <string name="portfolio_oversold">ยอดขายเกินจำนวนที่ถือ – โปรดตรวจสอบรายการ</string>
     <string name="portfolio_sell">ขาย</string>
     <string name="portfolio_sell_exceeds">มากกว่าที่คุณถือ (%1$s)</string>
@@ -136,7 +136,7 @@
     <string name="portfolio_tx_price">ราคาต่อเหรียญ</string>
     <string name="portfolio_tx_price_hint">เป็น USDT เว้นว่างหากไม่ทราบ</string>
     <string name="portfolio_tx_price_historic">ราคาปิดรายวันที่ตรวจแล้วของ %1$s – ปรับได้หากจำเป็น</string>
-    <string name="portfolio_tx_price_invalid">ราคาไม่ถูกต้อง</string>
+    <string name="portfolio_tx_price_invalid">ใส่ตัวเลขที่ถูกต้อง (0 ขึ้นไป) หรือเว้นช่องว่างไว้</string>
     <string name="portfolio_tx_price_past_hint">ใส่ราคาของวันที่ทำรายการ – เว้นว่างถ้าไม่ทราบ</string>
     <string name="portfolio_tx_price_receipt_hint">เป็น USDT เว้นว่าง = ยอดถือครองที่ไม่มีต้นทุน</string>
     <string name="portfolio_tx_price_zero">ราคา 0 ใช้ไม่ได้กับธุรกรรมที่นำเข้า – เว้นว่างไว้เพื่อใช้ราคาตลาด</string>

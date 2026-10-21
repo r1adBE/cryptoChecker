@@ -90,7 +90,8 @@ extension BackupManager {
     }
 
     /// Übernimmt nur vorhandene Schlüssel, mit denselben Grenzen wie die Android-Setter.
-    static func applySettings(_ o: [String: Any], onto current: AppSettings) -> AppSettings {
+    /// `trusted` = Sicherung mit Passwort (bzw. eigener Stand); sonst nur Schutz-Einstellungen in Richtung «mehr Schutz».
+    static func applySettings(_ o: [String: Any], onto current: AppSettings, trusted: Bool = false) -> AppSettings {
         var s = current
         // «Wie aktuell?»; ältere Sicherungen nur mit den früheren Schaltern (Immer kurz → Live, solange offen)
         if let mode = UpdateMode.fromBackup(string(o, "updateMode"), legacyLiveService: bool(o, "liveService"),
@@ -178,9 +179,16 @@ extension BackupManager {
         if let v = bool(o, "quietHoursEnabled") { s.quietHoursEnabled = v }
         if let v = minute(o, "quietHoursStart") { s.quietHoursStart = v }
         if let v = minute(o, "quietHoursEnd") { s.quietHoursEnd = v }
-        if let v = bool(o, "hidePortfolioAmounts") { s.hidePortfolioAmounts = v }
+        // Ohne Passwort (nicht `trusted`) nur in Richtung «mehr Schutz» (`BackupRestorePolicy`, wie Android)
+        if let v = BackupRestorePolicy.hideAmounts(wanted: bool(o, "hidePortfolioAmounts"),
+                                                   current: current.hidePortfolioAmounts, trusted: trusted) {
+            s.hidePortfolioAmounts = v
+        }
         // «Portfolio in Systemsicherung»: ältere Sicherungen ohne den Schlüssel lassen die Einstellung stehen
-        if let v = bool(o, "portfolioSystemBackup") { s.portfolioSystemBackup = v }
+        if let v = BackupRestorePolicy.systemBackup(wanted: bool(o, "portfolioSystemBackup"),
+                                                    current: current.portfolioSystemBackup, trusted: trusted) {
+            s.portfolioSystemBackup = v
+        }
         // Einstandsmethode: ältere Sicherungen ohne den Schlüssel (oder unbekannter Wert) → FIFO (wie Android)
         s.costMethod = CostMethod.fromName(string(o, "costMethod"))
         // Steuer-Vorlage: ältere Sicherungen ohne den Schlüssel lassen sie stehen; unbekannt → Neutral (wie Android)
