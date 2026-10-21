@@ -373,10 +373,12 @@ class SettingsRepository @Inject constructor(
         const val KEY_INCLUDE_ALPHA_TOKENS = "include_alpha_tokens"
         /** Portfolio-Tab (auch für [InstallDefaultsMigration], Build 44). */
         const val KEY_PORTFOLIO_ENABLED = "portfolio_enabled"
+        /** Merker «Portfolio-Daten prüfen» nach Standardwerten einer neuen Installation ([PortfolioDataCheck]). */
+        const val KEY_PORTFOLIO_DATA_CHECK = "portfolio_data_check"
         /** Schlüssel, die die Migrationen vor [UpdateModeMigration] auch bei neuen Installationen schreiben. */
         val MIGRATION_WRITTEN_KEYS = setOf(
             KEY_ONGOING_NOTIFICATIONS, KEY_WATCHLIST_NAMES, KEY_SHOW_CONVERTED, KEY_INCLUDE_ALPHA_TOKENS,
-            KEY_PORTFOLIO_ENABLED,
+            KEY_PORTFOLIO_ENABLED, KEY_PORTFOLIO_DATA_CHECK,
         )
     }
 

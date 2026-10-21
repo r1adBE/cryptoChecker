@@ -6,8 +6,8 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Töm portfölj</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Radera %d transaktion? Bevakade adresser finns kvar. Det går inte att ångra.</item>
-        <item quantity="other">Radera alla %d transaktioner? Bevakade adresser finns kvar. Det går inte att ångra.</item>
+        <item quantity="one">Radera %d transaktion? Bevakade adresser finns kvar. Du kan ångra det direkt efteråt.</item>
+        <item quantity="other">Radera alla %d transaktioner? Bevakade adresser finns kvar. Du kan ångra det direkt efteråt.</item>
     </plurals>
     <string name="portfolio_empty_action">Lägg till ditt första köp</string>
     <string name="portfolio_empty_address">Följ bara en plånboksadress</string>
@@ -301,4 +301,17 @@
         <item quantity="one">%1$s borttagen från portföljen (%2$d transaktion)</item>
         <item quantity="other">%1$s borttagen från portföljen (%2$d transaktioner)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d transaktion borttagen</item>
+        <item quantity="other">%d transaktioner borttagna</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Det tar även bort %d post.</item>
+        <item quantity="other">Det tar även bort %d poster.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Det tar även bort %d post och saldohistoriken.</item>
+        <item quantity="other">Det tar även bort %d poster och saldohistoriken.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Det tar även bort saldohistoriken.</string>
 </resources>

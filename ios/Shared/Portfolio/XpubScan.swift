@@ -82,6 +82,9 @@ final class XpubScan {
     /// QUICK: so viele Adressen nach der letzten benutzten je Kette — das volle Gap-Limit (BIP44). Mit nur 5 blieb eine
     /// Zahlung an eine weiter hinten abgeleitete Adresse bis zur täglichen vollständigen Suche unsichtbar. Wie Android.
     static let lookahead = gap
+    /// BACKGROUND: so viele Adressen nach der letzten benutzten je Kette (Empfang und Wechselgeld) — fängt das
+    /// Wechselgeld einer Ausgabe auf der nächsten neuen Adresse, kostet je xpub nur vier Anfragen mehr. Wie Android.
+    static let backgroundLookahead = 2
     /// Vollständige Suche höchstens einmal täglich.
     static let fullScanMillis: Int64 = 24 * 60 * 60_000
     /// Grenze je Aktualisierung (schont die Anbieter).
@@ -113,6 +116,12 @@ final class XpubScan {
     /// Benutzte Adressen nach der Suche (bekannte und neu gefundene).
     var usedCount: Int { states.reduce(0) { $0 + $1.used.count } }
 
+    /// Nach der Suche: hinter der neusten benutzten Adresse jeder Kette wurde mindestens eine unbenutzte gefragt — also
+    /// keine neue Adresse übersehen. Nur `.BACKGROUND` kann unvollständig sein (Vorausblick ohne Gap-Suche). Wie Android.
+    var complete: Bool {
+        mode != .BACKGROUND || states.allSatisfy { ($0.used.max() ?? -1) < $0.lastUsedBefore + Self.backgroundLookahead }
+    }
+
     init(mode: Mode, cache: XpubCache?) {
         self.mode = mode
         let old = cache ?? XpubCache()
@@ -127,7 +136,9 @@ final class XpubScan {
                 return ChainState(queue: known + Array((last + 1)...(last + XpubScan.lookahead)), used: Set(known),
                                   gap: false, lastUsedBefore: last)
             case .BACKGROUND:
-                return ChainState(queue: known, used: Set(known), gap: false, lastUsedBefore: last)
+                // Mit kurzem Vorausblick: nach einer Ausgabe liegt das Wechselgeld auf einer NEUEN Wechselgeld-Adresse
+                return ChainState(queue: known + Array((last + 1)...(last + XpubScan.backgroundLookahead)), used: Set(known),
+                                  gap: false, lastUsedBefore: last)
             }
         }
     }
@@ -204,6 +215,18 @@ final class XpubScan {
         guard key.detectsScript else { return nil }
         if let hit = tried.first(where: { $0.used > 0 }) { return hit.script }
         return tried.count == 1 ? tried[0].script : nil
+    }
+
+    /// Hintergrund-Ergebnis (`sats`) übernehmen? Vollständig (`complete`): ja. Sonst nur, wenn es nicht unter dem
+    /// gespeicherten Guthaben `lastBalance` (BTC) liegt — eine zu tiefe, unvollständige Summe würde sonst als Abfluss
+    /// beobachtet und könnte Wert-Alarme auslösen; ohne gespeichertes Guthaben nie. Nicht übernommen = bleibt fällig, die
+    /// nächste Suche im Vordergrund klärt es. Wie Android `keepBackground`.
+    static func keepBackground(complete: Bool, sats: Int64, lastBalance: String?) -> Bool {
+        if complete { return true }
+        guard let last = PortfolioDecimal.parse(lastBalance),
+              let now = PortfolioDecimal.parse(AddressBalance.unitsText(String(max(0, sats)), decimals: AddressChain.BTC.decimals))
+        else { return false }
+        return now >= last
     }
 
     /// Art der Suche: Hintergrund nur mit Zwischenspeicher (`.BACKGROUND`, sonst nil = später im Vordergrund);

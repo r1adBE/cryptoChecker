@@ -48,7 +48,7 @@ import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.ui.UiTestTags
 import com.cryptochecker.app.ui.components.openAppNotificationSettings
-import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.app.util.MomentText
 
 @Composable
 internal fun AlarmCard(
@@ -195,7 +195,8 @@ internal fun AlarmCard(
                             append(
                                 stringResource(
                                     R.string.alarm_last_triggered,
-                                    PriceFormat.time(alarm.lastTriggeredAt)
+                                    // Heute nur die Uhrzeit, sonst mit Datum («zuletzt 12.10.26, 14:02»)
+                                    MomentText.moment(alarm.lastTriggeredAt)
                                 )
                             )
                         }

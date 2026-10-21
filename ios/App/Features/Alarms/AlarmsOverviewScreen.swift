@@ -4,6 +4,8 @@ import SwiftUI
 /// auf welchem Paar? Ein Tipp auf ein Paar öffnet dessen Alarme zum Bearbeiten.
 struct AlarmsOverviewScreen: View {
     @EnvironmentObject private var data: AppData
+    /// Leere Merkliste: «Paar hinzufügen» öffnet die Seite «Paar hinzufügen» (wie «+» der Merkliste).
+    @EnvironmentObject private var router: AppRouter
     @Environment(\.appAccent) private var accent
     @ObservedObject private var lock = AppLock.shared
     /// Portfolio-Alarm, der gelöscht werden soll (Rückfrage).
@@ -11,6 +13,8 @@ struct AlarmsOverviewScreen: View {
     /// Leere Übersicht: «Neuer Alarm» → Paar wählen → dessen Alarm-Seite (keine Sackgasse).
     @State private var pickPair = false
     @State private var openWatchId: Int64?
+    /// Warum Portfolio-Alarme gerade nicht prüfen (letzter Portfolio-Stand, `PortfolioAlarmLogic.pause`); nil = keiner.
+    @State private var portfolioPause: PortfolioAlarmPause?
 
     /// Alarme «Portfolio-Wert» — nur mit eingeschaltetem Portfolio (sonst prüft sie niemand).
     private var portfolioAlarms: [PortfolioAlarm] {
@@ -58,9 +62,16 @@ struct AlarmsOverviewScreen: View {
                         title: L("alarms_overview_empty"),
                         // L-18: Beispiel im Stil der Alarm-Sätze (wie Android `AlarmsEmptyExample`)
                         example: AlarmsEmptyExample.text,
-                        actionTitle: watches.isEmpty ? nil : L("alarms_add"),
-                        action: watches.isEmpty ? nil : {
-                            if watches.count == 1 { openWatchId = watches[0].id } else { pickPair = true }
+                        // Leere Merkliste: ohne Paar kein Alarm — direkt «Paar hinzufügen» statt einer Sackgasse (wie Android)
+                        actionTitle: watches.isEmpty ? L("shortcut_add") : L("alarms_add"),
+                        action: {
+                            if watches.isEmpty {
+                                router.openExplorer()
+                            } else if watches.count == 1 {
+                                openWatchId = watches[0].id
+                            } else {
+                                pickPair = true
+                            }
                         }
                     )
                     .containerRelativeFrame(.vertical, alignment: .center)
@@ -89,6 +100,16 @@ struct AlarmsOverviewScreen: View {
                         // Alarme «Portfolio-Wert» zuerst, als eigene Karte
                         if !portfolio.isEmpty {
                             portfolioCard(portfolio)
+                                // Beim Öffnen und bei jeder Änderung der eingeschalteten Arten neu lesen
+                                .task(id: portfolio.filter(\.enabled).map(\.kind)) {
+                                    let kinds = portfolio.filter(\.enabled).map(\.kind)
+                                    guard !kinds.isEmpty else {
+                                        portfolioPause = nil
+                                        return
+                                    }
+                                    let stored = await Task.detached { PortfolioWidgetStore.load() }.value
+                                    portfolioPause = stored?.alarmPause(kinds)
+                                }
                         }
                         ForEach(groups, id: \.first?.watch.id) { group in
                             if let watch = group.first?.watch {
@@ -252,6 +273,17 @@ struct AlarmsOverviewScreen: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
+
+            // Warum die Alarme gerade nicht prüfen (kein aktueller Kurs, Adressen nicht geladen) — sonst schwiegen sie still;
+            // gesperrtes Portfolio bzw. «Beträge verbergen»: ohne Coin-Namen
+            if let portfolioPause {
+                Text(PortfolioPauseText.text(portfolioPause, hideCoins: hidePortfolio))
+                    .font(.caption)
+                    .foregroundStyle(AppColors.onSurfaceVariant)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 12)
+            }
 
             RowDivider().padding(.horizontal, 16)
 

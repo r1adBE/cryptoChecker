@@ -89,20 +89,8 @@ class PortfolioAlarmChecker @Inject constructor(
         // was nicht kommt, gilt aus dem Zwischenspeicher (höchstens 24 h alt) — wie iOS im Hintergrund
         withTimeoutOrNull(FX_TIMEOUT_MILLIS) { needed.forEach { fxSource.usdTo(it) } }
         val usdTo = needed.mapNotNull { code -> fxSource.cached(code)?.let { code to it } }.toMap()
-        val reading = PortfolioReading(
-            total = snapshot.total,
-            currency = snapshot.currency,
-            totalUsdt = snapshot.totalUsdt,
-            changePercent = snapshot.changePercent,
-            empty = snapshot.empty,
-            usdTo = usdTo,
-            missingPrices = snapshot.missingPrices,
-            todaySkipped = snapshot.todaySkipped.size,
-            // Teilweise alter Kurs: diesmal gar nicht prüfen (kein Melden, kein Wieder-scharf-Stellen)
-            stalePrices = snapshot.stalePrices,
-            // USDT zum Marktkurs wie der Portfolio-Kopf (Alarm in einer anderen Währung als der Stand)
-            usdtUsdLive = depegReadings.liveUsdtUsd(),
-        )
+        // USDT zum Marktkurs wie der Portfolio-Kopf (Alarm in einer anderen Währung als der Stand)
+        val reading = snapshot.toAlarmReading(usdTo, depegReadings.liveUsdtUsd())
         val now = System.currentTimeMillis()
         // Nachtruhe: Alarme warten bis zum Ende und melden sich dann mit Ton (wie Paar-Alarme)
         val holdAlarms = QuietHours.holdsAlarms(
@@ -160,3 +148,24 @@ class PortfolioAlarmChecker @Inject constructor(
         const val FX_TIMEOUT_MILLIS = 10_000L
     }
 }
+
+/**
+ * Stand für die Portfolio-Alarme aus einer Momentaufnahme — Prüfung ([PortfolioAlarmChecker]) und Hinweis
+ * «pausiert» der Alarm-Übersicht ([PortfolioAlarmLogic.pause]) lesen ihn gleich. Teilweise alter Kurs (wesentlich),
+ * fehlende Kurse und nie geladene Adressen: diesmal gar nicht prüfen (kein Melden, kein Wieder-scharf-Stellen).
+ */
+fun PortfolioSnapshot.toAlarmReading(usdTo: Map<String, Double> = emptyMap(), usdtUsdLive: Double? = null): PortfolioReading =
+    PortfolioReading(
+        total = total,
+        currency = currency,
+        totalUsdt = totalUsdt,
+        changePercent = changePercent,
+        empty = empty,
+        usdTo = usdTo,
+        missingPrices = missingPrices,
+        todaySkipped = todaySkipped.size,
+        stalePrices = stalePrices,
+        staleValueUsdt = staleValueUsdt,
+        addressesPending = addressesPending,
+        usdtUsdLive = usdtUsdLive,
+    )

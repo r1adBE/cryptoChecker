@@ -6,7 +6,7 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Kosongkan portofolio</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="other">Hapus semua %d transaksi? Alamat yang dipantau tetap ada. Tindakan ini tidak dapat dibatalkan.</item>
+        <item quantity="other">Hapus semua %d transaksi? Alamat yang dipantau tetap ada. Anda dapat membatalkannya segera setelahnya.</item>
     </plurals>
     <string name="portfolio_empty_action">Tambahkan pembelian pertama</string>
     <string name="portfolio_empty_address">Cukup pantau alamat dompet</string>
@@ -295,4 +295,14 @@
     <plurals name="portfolio_coin_removed">
         <item quantity="other">%1$s dihapus dari portofolio (%2$d transaksi)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="other">%d transaksi dihapus</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="other">Ini juga menghapus %d lot.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="other">Ini juga menghapus %d lot dan riwayat saldo.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Ini juga menghapus riwayat saldo.</string>
 </resources>

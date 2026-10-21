@@ -131,6 +131,7 @@ final class ChainTests: XCTestCase {
         }
         XCTAssertEqual(ChainBalance.tonJettonsUrl(host: "https://toncenter.com", address: ton["jettonsAddress"] as? String ?? ""),
                        ton["jettonsUrl"] as? String)
+        XCTAssertEqual(ChainBalance.tonJettonLimit, int(ton["jettonLimit"]))
         for c in S.list(ton["jettons"]) {
             let body = c["body"] as? String ?? ""
             if c["error"] as? Bool == true {
@@ -269,6 +270,13 @@ final class ChainTests: XCTestCase {
                                                      tokens: f["tokens"] as? [String: String],
                                                      networks: f["networks"] as? [String])
         XCTAssertEqual(after.networks, f["expectedNetworks"] as? [String])
+        // Erste Wahl: stumme Netze bleiben gewählt, im Hintergrund keine Wahl (seit Build 94)
+        for c in S.list(r["discovered"]) {
+            XCTAssertEqual(WatchedAddressRules.discoveredNetworks(found: c["found"] as? [String] ?? [],
+                                                                 unanswered: c["unanswered"] as? [String] ?? [],
+                                                                 background: c["background"] as? Bool ?? false),
+                           c["expected"] as? [String], "discovered \(c)")
+        }
         XCTAssertEqual(after.tokenBalances, f["expectedBalances"] as? [String: String])
         // Netze und «Nur anzeigen» überleben Speicherform und Sicherung
         let shown = WatchedAddressRules.withCountInPortfolio(after, false)

@@ -165,7 +165,8 @@ extension PortfolioWidgetStore {
                         method: CostMethod = .defaultMethod,
                         addresses: [AddressBalanceHistory] = [],
                         staleAfterMillis: Int64? = nil,
-                        displayFx: PortfolioDisplayFx? = nil) -> PortfolioWidgetSnapshot {
+                        displayFx: PortfolioDisplayFx? = nil,
+                        addressesPending: Int = 0) -> PortfolioWidgetSnapshot {
         guard !transactions.isEmpty else { return .emptyPortfolio }
         let summary = PortfolioCalculator.summarize(transactions, prices: prices.prices, method: method)
         var holdings: [String: Double] = [:]
@@ -332,6 +333,12 @@ extension PortfolioWidgetStore {
         }
         snapshot.coinPnl = coinPnl
         snapshot.stalePrices = staleCoins.isEmpty ? nil : staleCoins.count
+        // Warum Portfolio-Alarme pausieren: Namen, Wert der alten Kurse (unter 1 %: prüfen trotzdem), nie geladene Adressen
+        let missing = Array(Set(summary.missingCurrentPrices.map(PortfolioCalculator.normalizeCoin))).sorted()
+        snapshot.missingCoins = missing.isEmpty ? nil : missing
+        snapshot.staleCoins = staleCoins.isEmpty ? nil : staleCoins.sorted()
+        snapshot.staleValueUsdt = staleCoins.isEmpty ? nil : staleCoins.reduce(0) { $0 + (pricedValues[$1] ?? 0) }
+        snapshot.addressesPending = addressesPending > 0 ? addressesPending : nil
         snapshot.positions = snapshot.positions?.map { p in
             var p = p
             let pnl = coinPnl[PortfolioCalculator.normalizeCoin(p.symbol)]

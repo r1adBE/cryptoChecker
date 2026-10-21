@@ -41,7 +41,7 @@
     <string name="portfolio_csv_import_transfers_title">你的账户之间的转移</string>
     <string name="portfolio_csv_import_unreadable">未找到支持的交易。支持：Relai、Swissquote、Kraken、Binance、Coinbase 和 Bitpanda 导出的 CSV。</string>
     <string name="portfolio_csv_import_failed">导入失败，未保存任何内容。请重试。</string>
-    <string name="portfolio_csv_import_locked">暂时无法导入：已保存的投资组合已锁定。请稍后重新打开应用。</string>
+    <string name="portfolio_csv_import_locked">无法导入：暂时无法读取已保存的数据。请重启应用。</string>
     <string name="portfolio_csv_import_withdrawals_title">提取——币去了哪里？</string>
     <string name="portfolio_csv_import_zone">无时区的时间按以下方式读取：%1$s</string>
     <string name="portfolio_csv_import_zone_device">设备（%1$s）</string>

@@ -6,10 +6,10 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Wyczyść portfel</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Usunąć %d transakcję? Obserwowane adresy zostaną. Tej operacji nie można cofnąć.</item>
-        <item quantity="few">Usunąć wszystkie %d transakcje? Obserwowane adresy zostaną. Tej operacji nie można cofnąć.</item>
-        <item quantity="many">Usunąć wszystkie %d transakcji? Obserwowane adresy zostaną. Tej operacji nie można cofnąć.</item>
-        <item quantity="other">Usunąć wszystkie %d transakcji? Obserwowane adresy zostaną. Tej operacji nie można cofnąć.</item>
+        <item quantity="one">Usunąć %d transakcję? Obserwowane adresy zostaną. Możesz to cofnąć zaraz potem.</item>
+        <item quantity="few">Usunąć wszystkie %d transakcje? Obserwowane adresy zostaną. Możesz to cofnąć zaraz potem.</item>
+        <item quantity="many">Usunąć wszystkie %d transakcji? Obserwowane adresy zostaną. Możesz to cofnąć zaraz potem.</item>
+        <item quantity="other">Usunąć wszystkie %d transakcji? Obserwowane adresy zostaną. Możesz to cofnąć zaraz potem.</item>
     </plurals>
     <string name="portfolio_empty_action">Dodaj pierwszy zakup</string>
     <string name="portfolio_empty_address">Tylko obserwuj adres portfela</string>
@@ -313,4 +313,23 @@
         <item quantity="many">Usunięto %1$s z portfela (%2$d transakcji)</item>
         <item quantity="other">Usunięto %1$s z portfela (%2$d transakcji)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">Usunięto %d transakcję</item>
+        <item quantity="few">Usunięto %d transakcje</item>
+        <item quantity="many">Usunięto %d transakcji</item>
+        <item quantity="other">Usunięto %d transakcji</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Usunięte zostaną też partie (%d).</item>
+        <item quantity="few">Usunięte zostaną też partie (%d).</item>
+        <item quantity="many">Usunięte zostaną też partie (%d).</item>
+        <item quantity="other">Usunięte zostaną też partie (%d).</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Usunięte zostaną też partie (%d) i historia sald.</item>
+        <item quantity="few">Usunięte zostaną też partie (%d) i historia sald.</item>
+        <item quantity="many">Usunięte zostaną też partie (%d) i historia sald.</item>
+        <item quantity="other">Usunięte zostaną też partie (%d) i historia sald.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Usunięta zostanie też historia sald.</string>
 </resources>

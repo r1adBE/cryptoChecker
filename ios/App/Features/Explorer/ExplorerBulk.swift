@@ -110,7 +110,8 @@ extension ExplorerScreen {
                 }
                 .padding(.vertical, 2)
             }
-            .frame(height: 40)
+            // Mindesthöhe: Chips mit grosser Schrift (AX-Grössen) werden nicht abgeschnitten
+            .frame(minHeight: 40)
             .onAppear {
                 if let q = vm.bulkQuote { proxy.scrollTo(q, anchor: .center) }
             }
@@ -288,7 +289,7 @@ extension ExplorerScreen {
                 }
             }
             .padding(.horizontal, Spacing.sm)
-            .frame(height: 44)
+            .frame(minHeight: 44)
             .background(selected ? accent.container.opacity(0.5) : .clear,
                         in: RoundedRectangle(cornerRadius: Radius.chip, style: .continuous))
             .contentShape(Rectangle())

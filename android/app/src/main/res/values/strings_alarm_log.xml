@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Alarm-Protokoll (Build 80): Titel der Seite und Name des Knopfs in «Alle Alarme» -->
-    <string name="alarm_log_title">Alarm log</string>
+    <string name="alarm_log_title">Alert log</string>
     <!-- Link unter «Letzte Prüfungen» (Einstellungen › Aktualisierung) -->
-    <string name="alarm_log_open">Show alarm log</string>
-    <string name="alarm_log_intro">When an alarm fired – and when it would have fired but was held back. Stored only on this device, for 14 days.</string>
+    <string name="alarm_log_open">Show alert log</string>
+    <string name="alarm_log_intro">When an alert fired – and when it would have fired but was held back. Stored only on this device, for 14 days.</string>
     <string name="alarm_log_empty_title">No entries yet</string>
-    <string name="alarm_log_empty_message">Entries appear here when an alarm fires or is held back – for example because the price is stale or during quiet hours.</string>
+    <string name="alarm_log_empty_message">Entries appear here when an alert fires or is held back – for example because the price is stale or during quiet hours.</string>
     <string name="alarm_log_clear">Clear log</string>
-    <string name="alarm_log_clear_title">Clear alarm log?</string>
-    <string name="alarm_log_clear_message">All entries are removed. Your alarms stay as they are.</string>
+    <string name="alarm_log_clear_title">Clear alert log?</string>
+    <string name="alarm_log_clear_message">All entries are removed. Your alerts stay as they are.</string>
     <!-- Screenreader: Schwelle des Alarms, z. B. «Marke Über 100’000 CHF» -->
     <string name="alarm_log_threshold">Threshold %1$s</string>
     <!-- Alarm-Editor: letzte Prüfung, %1$s = «14:02 · Kraken 99’800 CHF · Marke nicht erreicht» -->

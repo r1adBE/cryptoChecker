@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Portfolio alerts paused: no current price for %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Portfolio alerts paused: not every coin has a current price</string>
+    <string name="portfolio_alarms_paused_addresses">Portfolio alerts paused: balances of watched addresses not loaded yet</string>
+</resources>

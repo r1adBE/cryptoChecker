@@ -82,7 +82,7 @@ class PulseDataSource @Inject constructor(
             btc24h = btc,
             eth24h = eth,
             sol24h = sol,
-            btcVolumeRatio = btcCandles?.let { ActivityAnalyzer.hourStats(it)?.volumeRatio },
+            btcVolumeRatio = btcCandles?.let { ActivityAnalyzer.hourStats(it, now)?.volumeRatio },
             fearGreed = fearGreedJob.await()?.value,
             fundingPercent = fundingJob.await(),
             ethGasGwei = gasJob.await(),

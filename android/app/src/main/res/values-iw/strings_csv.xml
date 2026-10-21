@@ -49,7 +49,7 @@
     <string name="portfolio_csv_import_transfers_title">העברות בין החשבונות שלך</string>
     <string name="portfolio_csv_import_unreadable">לא נמצאו עסקאות נתמכות. נתמכים: קובצי CSV מיוצאים מ-Relai, מ-Swissquote, מ-Kraken, מ-Binance, מ-Coinbase ומ-Bitpanda.</string>
     <string name="portfolio_csv_import_failed">הייבוא נכשל – שום דבר לא נשמר. נא לנסות שוב.</string>
-    <string name="portfolio_csv_import_locked">הייבוא אינו אפשרי כרגע: התיק השמור נעול. פתח שוב את האפליקציה מאוחר יותר.</string>
+    <string name="portfolio_csv_import_locked">הייבוא אינו אפשרי: לא ניתן לקרוא כרגע את הנתונים השמורים. הפעל מחדש את האפליקציה.</string>
     <string name="portfolio_csv_import_withdrawals_title">משיכות – לאן הלכו המטבעות?</string>
     <string name="portfolio_csv_import_zone">זמנים ללא אזור זמן נקראים כ: %1$s</string>
     <string name="portfolio_csv_import_zone_device">מכשיר (%1$s)</string>

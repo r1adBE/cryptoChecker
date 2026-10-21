@@ -1,0 +1,131 @@
+{
+  "description": "PercentText (Android PercentText.kt / iOS PercentText.swift): value with exactly 'decimals' decimal places (half up), digits and percent sign of 'locale' (CLDR pattern: space before % in de/fr/cs/da/es/fi/nb/ro/ru/sv except de_CH, de_LI, fr_CH; tr prefix; ar/fa U+066A). 'signed' = sign before everything (U+2212 minus, none when rounded to 0); 'unsigned' = absolute value. Without bidi isolation.",
+  "cases": [
+    {
+      "locale": "en_US",
+      "kind": "signed",
+      "value": 2.4,
+      "decimals": 1,
+      "expected": "+2.4%"
+    },
+    {
+      "locale": "en_US",
+      "kind": "signed",
+      "value": -1.36,
+      "decimals": 1,
+      "expected": "\u22121.4%"
+    },
+    {
+      "locale": "en_US",
+      "kind": "signed",
+      "value": 0.004,
+      "decimals": 2,
+      "expected": "0.00%"
+    },
+    {
+      "locale": "en_US",
+      "kind": "unsigned",
+      "value": -2.5,
+      "decimals": 2,
+      "expected": "2.50%"
+    },
+    {
+      "locale": "en_US",
+      "kind": "signed",
+      "value": 1.005,
+      "decimals": 2,
+      "expected": "+1.01%"
+    },
+    {
+      "locale": "de_DE",
+      "kind": "signed",
+      "value": 2.4,
+      "decimals": 2,
+      "expected": "+2,40\u00a0%"
+    },
+    {
+      "locale": "de_DE",
+      "kind": "unsigned",
+      "value": 58.44,
+      "decimals": 1,
+      "expected": "58,4\u00a0%"
+    },
+    {
+      "locale": "de_CH",
+      "kind": "signed",
+      "value": 2.4,
+      "decimals": 2,
+      "expected": "+2.40%"
+    },
+    {
+      "locale": "de_AT",
+      "kind": "signed",
+      "value": -0.05,
+      "decimals": 1,
+      "expected": "\u22120,1\u00a0%"
+    },
+    {
+      "locale": "fr_FR",
+      "kind": "signed",
+      "value": -2.4,
+      "decimals": 1,
+      "expected": "\u22122,4\u00a0%"
+    },
+    {
+      "locale": "fr_CH",
+      "kind": "signed",
+      "value": 2.4,
+      "decimals": 0,
+      "expected": "+2%"
+    },
+    {
+      "locale": "es_ES",
+      "kind": "signed",
+      "value": 12.345,
+      "decimals": 2,
+      "expected": "+12,35\u00a0%"
+    },
+    {
+      "locale": "it_IT",
+      "kind": "signed",
+      "value": 2.4,
+      "decimals": 1,
+      "expected": "+2,4%"
+    },
+    {
+      "locale": "tr_TR",
+      "kind": "signed",
+      "value": 2.4,
+      "decimals": 1,
+      "expected": "+%2,4"
+    },
+    {
+      "locale": "tr_TR",
+      "kind": "unsigned",
+      "value": 0.0,
+      "decimals": 2,
+      "expected": "%0,00"
+    },
+    {
+      "locale": "ar_EG",
+      "kind": "signed",
+      "value": 2.4,
+      "decimals": 1,
+      "expected": "+\u0662\u066b\u0664\u066a"
+    },
+    {
+      "locale": "fa_IR",
+      "kind": "signed",
+      "value": -2.4,
+      "decimals": 1,
+      "expected": "\u2212\u06f2\u066b\u06f4\u066a"
+    },
+    {
+      "locale": "ja_JP",
+      "kind": "signed",
+      "value": 2.4,
+      "decimals": 1,
+      "expected": "+2.4%"
+    }
+  ]
+}

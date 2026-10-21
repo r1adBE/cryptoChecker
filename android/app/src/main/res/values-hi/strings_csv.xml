@@ -45,7 +45,7 @@
     <string name="portfolio_csv_import_transfers_title">आपके खातों के बीच ट्रांसफ़र</string>
     <string name="portfolio_csv_import_unreadable">कोई समर्थित लेन-देन नहीं मिला। समर्थित: Relai, Swissquote, Kraken, Binance, Coinbase और Bitpanda के CSV एक्सपोर्ट।</string>
     <string name="portfolio_csv_import_failed">इम्पोर्ट नहीं हो सका – कुछ भी सेव नहीं हुआ। कृपया फिर से कोशिश करें।</string>
-    <string name="portfolio_csv_import_locked">अभी आयात संभव नहीं है: सहेजा गया पोर्टफ़ोलियो लॉक है। ऐप को बाद में फिर से खोलें।</string>
+    <string name="portfolio_csv_import_locked">आयात संभव नहीं है: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करें।</string>
     <string name="portfolio_csv_import_withdrawals_title">निकासी – कॉइन कहाँ गए?</string>
     <string name="portfolio_csv_import_zone">बिना समय क्षेत्र के समय इस रूप में पढ़े गए: %1$s</string>
     <string name="portfolio_csv_import_zone_device">डिवाइस (%1$s)</string>

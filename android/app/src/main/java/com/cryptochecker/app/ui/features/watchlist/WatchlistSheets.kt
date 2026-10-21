@@ -105,7 +105,17 @@ internal fun WatchlistSheets(
             title = stringResource(R.string.watchlist_clear),
             text = stringResource(R.string.watchlist_clear_confirm),
             confirm = stringResource(R.string.watchlist_clear),
-            onConfirm = { viewModel.deleteAll(); ui.askClearAll = false },
+            // Wie «Nicht gehandelte entfernen»: danach Banner mit «Rückgängig» (holt alle samt Alarmen zurück)
+            onConfirm = {
+                ui.askClearAll = false
+                viewModel.deleteAllWithUndo { count ->
+                    if (count > 0) {
+                        banner.show(resources.getQuantityString(R.plurals.watchlist_removed_count, count, count)) {
+                            viewModel.undoDelete(CLEAR_ALL_UNDO_KEY)
+                        }
+                    }
+                }
+            },
             onDismiss = { ui.askClearAll = false }
         )
     }

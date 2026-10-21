@@ -1,6 +1,7 @@
 package com.cryptochecker.app.domain.live
 
 import kotlin.math.min
+import kotlin.math.roundToLong
 
 /*
  * Live-Kurse per WebSocket (Runde 31): reine Logik ohne Android — Börsen, Abo-Nachrichten,
@@ -88,11 +89,42 @@ object LiveBackoff {
     const val MAX_MILLIS = 60_000L
     const val RATE_LIMITED_MILLIS = 300_000L
 
+    /**
+     * Erst eine Verbindung, die so lange hielt und Kurse brachte, setzt die Pause zurück. Sonst
+     * verbände eine Börse, die nach dem ersten Stand trennt, jede Sekunde neu (seit Build 94).
+     */
+    const val STABLE_MILLIS = 60_000L
+
+    /** Streuung der Pause (±20 %), damit nicht alle Verbindungen im selben Takt neu verbinden. */
+    const val JITTER = 0.2
+
+    /** Grundpause ohne Streuung (gemeinsame Testfälle). */
     fun delayMillis(attempt: Int, rateLimited: Boolean): Long {
         if (rateLimited) return RATE_LIMITED_MILLIS
         val step = attempt.coerceIn(0, 6)
         return min(MAX_MILLIS, 1_000L shl step)
     }
+
+    /**
+     * Zähler für den nächsten Versuch: 0 nur, wenn die Verbindung Kurse brachte ([receivedData]) und
+     * mindestens [STABLE_MILLIS] bestand ([connectedMillis] = Dauer seit dem Verbindungsaufbau).
+     */
+    fun nextAttempt(attempt: Int, receivedData: Boolean, connectedMillis: Long): Int =
+        if (receivedData && connectedMillis >= STABLE_MILLIS) 0 else min(attempt, MAX_ATTEMPT) + 1
+
+    /**
+     * Pause vor dem nächsten Versuch: Grundpause ±[JITTER], [random] in 0..1 (0,5 = ohne Streuung).
+     * Abgewiesen (429/418): fest 5 min, nie kürzer als von der Börse verlangt.
+     */
+    fun reconnectDelayMillis(attempt: Int, rateLimited: Boolean, random: Double): Long {
+        val base = delayMillis(attempt, rateLimited)
+        if (rateLimited) return base
+        val r = if (random.isFinite()) random.coerceIn(0.0, 1.0) else 0.5
+        return (base * (1.0 + JITTER * (2.0 * r - 1.0))).roundToLong()
+    }
+
+    /** Obergrenze des Zählers (die Pause wächst ab 6 ohnehin nicht mehr). */
+    private const val MAX_ATTEMPT = 100
 }
 
 /**

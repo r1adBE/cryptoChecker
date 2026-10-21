@@ -110,31 +110,24 @@ object PriceFormat {
     fun changePercent(value: Double?): String? {
         if (value == null || abs(value) < 0.005) return null
         val sign = if (value > 0) "+" else "−"
-        // Vorher kaufmännisch runden ([DecimalText]): 1.005 → «1.01» wie unter iOS
+        // Vorher kaufmännisch runden ([DecimalText]): 1.005 → «1.01» wie unter iOS; Prozentzeichen der Sprache
+        // ([PercentText]: «2,40 %», «%2,40», «٢٫٤٠٪»)
         // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl («1.20%+»)
-        return BidiText.ltr("$sign%.2f%%".format(DecimalText.rounded(abs(value), 2)))
+        return BidiText.ltr(sign + PercentText.unsigned(value, 2))
     }
 
     /**
      * Prozent mit Vorzeichen und genau [decimals] Nachkommastellen (z. B. Funding «+0.0100%»,
-     * «−0.0050%»): echtes Minus U+2212, kaufmännisch gerundet, Schreibweise der App-Sprache;
+     * «−0.0050%»): echtes Minus U+2212, kaufmännisch gerundet, Schreibweise der App-Sprache ([PercentText]);
      * gerundet 0 ohne Vorzeichen. Wie `PriceFormat.signedPercent` (iOS).
      */
-    fun signedPercent(value: Double, decimals: Int): String {
-        val rounded = DecimalText.rounded(abs(value), decimals)
-        val sign = when {
-            rounded == 0.0 -> ""
-            value > 0 -> "+"
-            else -> "−"
-        }
-        return BidiText.ltr("$sign%.${decimals}f%%".format(rounded))
-    }
+    fun signedPercent(value: Double, decimals: Int): String = BidiText.ltr(PercentText.signed(value, decimals))
 
     /**
      * Praktisch keine Änderung: «0.00%» grau, ohne Pfeil — in der Schreibweise der App-Sprache
-     * («0,00%», arabisch «٠٫٠٠%») wie [changePercent].
+     * («0,00 %», arabisch «٠٫٠٠٪») wie [changePercent].
      */
-    fun zeroPercent(): String = BidiText.ltr("%.2f%%".format(0.0))
+    fun zeroPercent(): String = BidiText.ltr(PercentText.unsigned(0.0, 2))
 
     /** Uhrzeit mit Sekunden — bei Kursen zählt die Sekunde. */
     fun time(millis: Long): String =
@@ -149,30 +142,56 @@ object PriceFormat {
     /** Prozentwert für Benachrichtigungen: mit Vorzeichen (echtes Minus U+2212), drei Nachkommastellen. */
     fun changePercentDetailed(value: Double): String {
         val sign = if (value >= 0) "+" else "−"
-        return BidiText.ltr("$sign%.3f%%".format(DecimalText.rounded(abs(value), 3)))
+        return BidiText.ltr(sign + PercentText.unsigned(value, 3))
     }
 
-    /**
-     * Abstand zu einem Zeitpunkt, kompakt: 45s, 12m, 3h, 7d.
-     * Für „seit der letzten Meldung" in der Benachrichtigung.
-     */
-    fun age(sinceMillis: Long, now: Long = System.currentTimeMillis()): String? {
+    /** Einheit von [ageParts]: grösste ganze Einheit des Abstands. */
+    enum class AgeUnit { DAYS, HOURS, MINUTES, SECONDS }
+
+    /** Grösste ganze Einheit des Abstands seit [sinceMillis] (7 Tage → 7 [AgeUnit.DAYS]); null ohne bzw. mit künftigem Zeitpunkt. */
+    fun ageParts(sinceMillis: Long, now: Long = System.currentTimeMillis()): Pair<Long, AgeUnit>? {
         if (sinceMillis <= 0) return null
         val elapsed = now - sinceMillis
         if (elapsed < 0) return null
-
         val seconds = elapsed / 1000
         val minutes = seconds / 60
         val hours = minutes / 60
         val days = hours / 24
-
         return when {
-            days > 0 -> LocaleNumbers.integer(days) + "d"
-            hours > 0 -> LocaleNumbers.integer(hours) + "h"
-            minutes > 0 -> LocaleNumbers.integer(minutes) + "m"
-            else -> LocaleNumbers.integer(seconds) + "s"
+            days > 0 -> days to AgeUnit.DAYS
+            hours > 0 -> hours to AgeUnit.HOURS
+            minutes > 0 -> minutes to AgeUnit.MINUTES
+            else -> seconds to AgeUnit.SECONDS
         }
     }
+
+    /**
+     * Abstand zu einem Zeitpunkt, kompakt und in der App-Sprache: Englisch «45s», «12m», «3h», «7d», Deutsch «7 T.»,
+     * «3 Std.» (ICU MeasureFormat, NARROW — wie iOS `DateComponentsFormatter` .abbreviated). Für «seit der letzten
+     * Meldung» in der Benachrichtigung. Seit Build 94 nicht mehr fest englisch («vor 7d»).
+     */
+    fun age(sinceMillis: Long, now: Long = System.currentTimeMillis(), locale: Locale = LocaleNumbers.appLocale): String? {
+        val (value, unit) = ageParts(sinceMillis, now) ?: return null
+        return runCatching {
+            val icuUnit = when (unit) {
+                AgeUnit.DAYS -> android.icu.util.MeasureUnit.DAY
+                AgeUnit.HOURS -> android.icu.util.MeasureUnit.HOUR
+                AgeUnit.MINUTES -> android.icu.util.MeasureUnit.MINUTE
+                AgeUnit.SECONDS -> android.icu.util.MeasureUnit.SECOND
+            }
+            android.icu.text.MeasureFormat.getInstance(locale, android.icu.text.MeasureFormat.FormatWidth.NARROW)
+                .format(android.icu.util.Measure(value, icuUnit))
+        }.getOrNull()?.takeIf { it.isNotBlank() } ?: ageFallback(value, unit, locale)
+    }
+
+    /** Ersatz ohne ICU (z. B. in JVM-Tests): Ziffern der Sprache, Kürzel wie Englisch NARROW. */
+    internal fun ageFallback(value: Long, unit: AgeUnit, locale: Locale = LocaleNumbers.appLocale): String =
+        LocaleNumbers.integer(value, locale) + when (unit) {
+            AgeUnit.DAYS -> "d"
+            AgeUnit.HOURS -> "h"
+            AgeUnit.MINUTES -> "m"
+            AgeUnit.SECONDS -> "s"
+        }
 
     /** Dauer einer Aktualisierung, kurz gehalten für den Widget-Kopf. */
     fun duration(millis: Long): String = when {

@@ -6,7 +6,7 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">ポートフォリオを空にする</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="other">%d 件の取引をすべて削除しますか？監視中のアドレスは残ります。元に戻せません。</item>
+        <item quantity="other">%d 件の取引をすべて削除しますか？監視中のアドレスは残ります。削除の直後なら元に戻せます。</item>
     </plurals>
     <string name="portfolio_empty_action">最初の購入を追加</string>
     <string name="portfolio_empty_address">ウォレットアドレスだけを見守る</string>
@@ -295,4 +295,14 @@
     <plurals name="portfolio_coin_removed">
         <item quantity="other">%1$s をポートフォリオから削除しました（%2$d 件の取引）</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="other">%d 件の取引を削除しました</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="other">%d 件のロットも削除されます。</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="other">%d 件のロットと残高の履歴も削除されます。</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">残高の履歴も削除されます。</string>
 </resources>

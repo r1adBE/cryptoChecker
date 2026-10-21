@@ -71,20 +71,48 @@ class AddressBalanceParityTest {
         btc["cases"].list().map { it.obj() }.forEach { c ->
             val body = c["body"] as String
             val address = c["address"] as String
+            // Plausibilität je Netz (Litecoin: 84 Mio.)
+            val net = (c["chain"] as String?)?.let { AddressChain.valueOf(it) } ?: AddressChain.BTC
             if (c["error"] == true) {
                 try {
-                    AddressBalance.parseBtc(body, address)
+                    AddressBalance.parseBtc(body, address, net)
                     fail("Fehler erwartet: ${c["name"]}")
                 } catch (e: Exception) {
                     // erwartet
                 }
             } else {
-                val stats = AddressBalance.parseBtc(body, address)
+                val stats = AddressBalance.parseBtc(body, address, net)
                 assertEquals("confirmed: ${c["name"]}", c["confirmedSats"].num()!!.toLong(), stats.confirmedSats)
                 assertEquals("pending: ${c["name"]}", c["pendingSats"].num()!!.toLong(), stats.pendingSats)
                 assertEquals("balance: ${c["name"]}", c["balance"], AddressBalance.btcText(stats))
             }
         }
+    }
+
+    /** Zählende Adressen ohne je geladenes Guthaben (Portfolio-Alarme prüfen dann nicht), seit Build 94. */
+    @Test
+    fun pendingCount() {
+        val p = data["pendingCount"].obj()
+        val list = p["addresses"].list().map { it.obj() }.map {
+            WatchedAddress(
+                chain = AddressChain.valueOf(it["chain"] as String), address = it["address"] as String,
+                lastBalance = it["lastBalance"] as String?, countInPortfolio = it["countInPortfolio"] == true,
+            )
+        }
+        assertEquals(p["expected"].num()!!.toInt(), AddressBalance.pendingCount(list))
+        assertEquals(0, AddressBalance.pendingCount(emptyList()))
+    }
+
+    /** Hintergrund: die am längsten nicht versuchten Adressen zuerst, seit Build 94. */
+    @Test
+    fun dueOrder() {
+        val d = data["dueOrder"].obj()
+        val now = d["now"].num()!!.toLong()
+        val list = d["addresses"].list().map { it.obj() }.map {
+            WatchedAddress(id = it["id"].num()!!.toLong(), chain = AddressChain.BTC, address = "x${it["id"]}", lastAttempt = it["lastAttempt"].num()!!.toLong())
+        }
+        assertEquals(d["foreground"].list().map { it.num()!!.toLong() }, AddressBalance.dueOrder(list, now, force = false, background = false).map { it.id })
+        assertEquals(d["background"].list().map { it.num()!!.toLong() }, AddressBalance.dueOrder(list, now, force = false, background = true).map { it.id })
     }
 
     @Test

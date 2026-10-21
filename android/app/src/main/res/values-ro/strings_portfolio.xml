@@ -6,9 +6,9 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Golește portofoliul</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Ștergi %d tranzacție? Adresele urmărite rămân. Acțiunea nu poate fi anulată.</item>
-        <item quantity="few">Ștergi toate cele %d tranzacții? Adresele urmărite rămân. Acțiunea nu poate fi anulată.</item>
-        <item quantity="other">Ștergi toate cele %d de tranzacții? Adresele urmărite rămân. Acțiunea nu poate fi anulată.</item>
+        <item quantity="one">Ștergi %d tranzacție? Adresele urmărite rămân. Poți anula imediat după aceea.</item>
+        <item quantity="few">Ștergi toate cele %d tranzacții? Adresele urmărite rămân. Poți anula imediat după aceea.</item>
+        <item quantity="other">Ștergi toate cele %d de tranzacții? Adresele urmărite rămân. Poți anula imediat după aceea.</item>
     </plurals>
     <string name="portfolio_empty_action">Adaugă prima cumpărare</string>
     <string name="portfolio_empty_address">Doar urmărește o adresă de portofel</string>
@@ -307,4 +307,20 @@
         <item quantity="few">%1$s a fost eliminat din portofoliu (%2$d tranzacții)</item>
         <item quantity="other">%1$s a fost eliminat din portofoliu (%2$d de tranzacții)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d tranzacție eliminată</item>
+        <item quantity="few">%d tranzacții eliminate</item>
+        <item quantity="other">%d de tranzacții eliminate</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Se va elimina și %d lot.</item>
+        <item quantity="few">Se vor elimina și %d loturi.</item>
+        <item quantity="other">Se vor elimina și %d de loturi.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Se vor elimina și %d lot și istoricul soldului.</item>
+        <item quantity="few">Se vor elimina și %d loturi și istoricul soldului.</item>
+        <item quantity="other">Se vor elimina și %d de loturi și istoricul soldului.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Se va elimina și istoricul soldului.</string>
 </resources>

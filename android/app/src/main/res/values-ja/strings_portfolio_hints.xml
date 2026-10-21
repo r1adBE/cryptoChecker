@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">ポートフォリオアラートは一時停止中：%1$s の現在価格がありません</string>
+    <string name="portfolio_alarms_paused_price_generic">ポートフォリオアラートは一時停止中：一部のコインに現在価格がありません</string>
+    <string name="portfolio_alarms_paused_addresses">ポートフォリオアラートは一時停止中：監視アドレスの残高がまだ読み込まれていません</string>
+</resources>

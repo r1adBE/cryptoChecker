@@ -5,8 +5,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.activity.ActivitySignal
 import com.cryptochecker.app.domain.activity.SignalKind
 import com.cryptochecker.app.util.BidiText
-import java.util.Locale
-import kotlin.math.abs
+import com.cryptochecker.app.util.PercentText
 
 /**
  * Texte und Zahlenformate für «Ungewöhnliche Aktivität». Dieselben Sätze in
@@ -33,19 +32,13 @@ object ActivityTexts {
         )
     }
 
-    /** «+2.9 %» / «−2.9 %» / «0.0 %», Vorzeichen als echtes Minus. */
-    fun percent(value: Double, decimals: Int): String {
-        val rounded = "%.${decimals}f".format(abs(value))
-        // Nullprüfung mit lateinischen Ziffern (die Anzeige kann arabische Ziffern haben)
-        val isZero = "%.${decimals}f".format(Locale.ROOT, abs(value)).all { it == '0' || it == '.' }
-        val sign = when {
-            isZero -> ""
-            value > 0 -> "+"
-            else -> "−"
-        }
+    /**
+     * «+2.9%» / «−2.9%» / «0.0%» (Deutsch «+2,9 %»), Vorzeichen als echtes Minus, gerundet 0 ohne Vorzeichen.
+     * Prozentzeichen der Sprache über [PercentText] — gleich wie die Kursänderungen (vorher immer «2.9 %»).
+     */
+    fun percent(value: Double, decimals: Int): String =
         // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl
-        return BidiText.ltr("$sign$rounded %")
-    }
+        BidiText.ltr(PercentText.signed(value, decimals))
 
     /**
      * Funding-Satz der Börse mit drei Nachkommastellen; nicht alle 8 Stunden abgerechnet mit «pro Std.»

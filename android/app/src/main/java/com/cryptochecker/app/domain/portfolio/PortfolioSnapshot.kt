@@ -69,7 +69,8 @@ data class PortfolioSnapshot(
     val coinPnl: Map<String, PortfolioChange> = emptyMap(),
     /**
      * Bewertete Coins, deren Kurs beim Aufnehmen NICHT frisch war ([PortfolioPriceFallback.staleCoins]) — sie
-     * zählen mit ihrem letzten Kurs; das Widget zeigt dann «teilweise alter Kurs», Portfolio-Alarme prüfen nicht.
+     * zählen mit ihrem letzten Kurs; das Widget zeigt dann «teilweise alter Kurs», Portfolio-Alarme prüfen nicht
+     * (ausser unwesentlich, [staleValueUsdt]).
      * 0 = alle frisch (bzw. ältere Aufnahme).
      */
     val stalePrices: Int = 0,
@@ -89,6 +90,20 @@ data class PortfolioSnapshot(
      * nicht rechenbar: das Widget zeigt dann [periodChanges] in USDT mit Einheit «USDT».
      */
     val weekDisplay: PortfolioChange? = null,
+    /** Coins zu [missingPrices] (Grossschreibung, sortiert) — Hinweis «Portfolio-Alarme pausiert». Leer bei älterer Aufnahme. */
+    val missingCoins: List<String> = emptyList(),
+    /** Coins zu [stalePrices] (sortiert) — Hinweis «Portfolio-Alarme pausiert». Leer bei älterer Aufnahme. */
+    val staleCoins: List<String> = emptyList(),
+    /**
+     * Wert der Coins mit altem Kurs in USDT (zum letzten Kurs) — Portfolio-Alarme prüfen trotzdem, wenn er unwesentlich
+     * ist ([com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic.staleMaterial]). null = unbekannt (ältere Aufnahme).
+     */
+    val staleValueUsdt: Double? = null,
+    /**
+     * Zählende Adressen ohne je geladenes Guthaben ([AddressBalance.pendingCount]) — fehlen in [total]; Portfolio-Alarme
+     * prüfen dann nicht. 0 bei älterer Aufnahme.
+     */
+    val addressesPending: Int = 0,
 )
 
 /** USDT-Kurse aller Coins zu einem Zeitpunkt. */
@@ -249,6 +264,7 @@ object PortfolioSnapshotMath {
             stamp = stamp,
             coinChanges = coinChanges,
             missingPrices = missingPrices(values),
+            missingCoins = missingCoins(values),
         )
     }
 
@@ -300,11 +316,16 @@ object PortfolioSnapshotMath {
             stamp = stamp,
             coinChanges = coinChanges,
             missingPrices = missingPrices(values),
+            missingCoins = missingCoins(values),
         )
     }
 
     /** Offene Coins ohne Wert (kein aktueller Kurs) — zählen im Gesamtwert als 0. */
     fun missingPrices(values: Map<String, Double?>): Int = values.count { it.value == null }
+
+    /** Die Coins zu [missingPrices], Grossschreibung, sortiert. */
+    fun missingCoins(values: Map<String, Double?>): List<String> =
+        values.filterValues { it == null }.keys.map { PortfolioCalculator.normalizeCoin(it) }.distinct().sorted()
 
     /** «+123.45 CHF» / «−12.00 CHF» (echtes Minuszeichen), Tausendertrennung je Sprache. */
     fun signedAmount(value: Double, currency: String, locale: Locale = Locale.getDefault()): String {

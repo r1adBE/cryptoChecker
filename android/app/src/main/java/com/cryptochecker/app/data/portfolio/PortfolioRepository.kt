@@ -92,8 +92,8 @@ class PortfolioRepository @Inject constructor(
         database.withTransaction { ensureWritable(); transactions.forEach { portfolioDao.insert(it) } }
     }
 
-    /** «Portfolio leeren»: alle Transaktionen löschen. */
-    suspend fun clearAll() = database.withTransaction { ensureWritable(); portfolioDao.deleteAll() }
+    /** «Portfolio leeren»: alle Transaktionen löschen und zurückgeben (für «Rückgängig» über [restore]). */
+    suspend fun clearAll(): List<PortfolioTxEntity> = database.withTransaction { ensureWritable(); portfolioDao.getAll().also { portfolioDao.deleteAll() } }
 
     /** Ersetzt alle Transaktionen (Wiederherstellen einer Sicherung). */
     suspend fun replaceAll(transactions: List<PortfolioTxEntity>) {
@@ -232,7 +232,7 @@ class PortfolioRepository @Inject constructor(
             if (id > 0) AddWatchedResult.Added(id) else AddWatchedResult.Duplicate
         }
 
-    suspend fun removeWatchedAddress(id: Long) = database.withTransaction { ensureWritable(); watchedAddressDao.delete(id) }
+    suspend fun removeWatchedAddress(id: Long): WatchedAddressEntity? = database.withTransaction { ensureWritable(); watchedAddressDao.getById(id)?.also { watchedAddressDao.delete(id) } }
 
     suspend fun setWatchedAddressLabel(id: Long, label: String?) =
         database.withTransaction { ensureWritable(); watchedAddressDao.setLabel(id, WatchedAddressRules.cleanLabel(label)) }

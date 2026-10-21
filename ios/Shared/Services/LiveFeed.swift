@@ -98,10 +98,36 @@ enum LiveBackoff {
     static let maxMillis: Int64 = 60_000
     static let rateLimitedMillis: Int64 = 300_000
 
+    /// Erst eine Verbindung, die so lange hielt und Kurse brachte, setzt die Pause zurück. Sonst
+    /// verbände eine Börse, die nach dem ersten Stand trennt, jede Sekunde neu (seit Build 94).
+    static let stableMillis: Int64 = 60_000
+
+    /// Streuung der Pause (±20 %), damit nicht alle Verbindungen im selben Takt neu verbinden.
+    static let jitter = 0.2
+
+    /// Obergrenze des Zählers (die Pause wächst ab 6 ohnehin nicht mehr).
+    private static let maxAttempt = 100
+
+    /// Grundpause ohne Streuung (gemeinsame Testfälle).
     static func delayMillis(attempt: Int, rateLimited: Bool) -> Int64 {
         if rateLimited { return rateLimitedMillis }
         let step = min(max(attempt, 0), 6)
         return min(maxMillis, Int64(1_000) << Int64(step))
+    }
+
+    /// Zähler für den nächsten Versuch: 0 nur, wenn die Verbindung Kurse brachte (`receivedData`) und
+    /// mindestens `stableMillis` bestand (`connectedMillis` = Dauer seit dem Verbindungsaufbau).
+    static func nextAttempt(_ attempt: Int, receivedData: Bool, connectedMillis: Int64) -> Int {
+        receivedData && connectedMillis >= stableMillis ? 0 : min(attempt, maxAttempt) + 1
+    }
+
+    /// Pause vor dem nächsten Versuch: Grundpause ±`jitter`, `random` in 0…1 (0,5 = ohne Streuung).
+    /// Abgewiesen (429/418): fest 5 min, nie kürzer als von der Börse verlangt.
+    static func reconnectDelayMillis(attempt: Int, rateLimited: Bool, random: Double) -> Int64 {
+        let base = delayMillis(attempt: attempt, rateLimited: rateLimited)
+        if rateLimited { return base }
+        let r = random.isFinite ? min(max(random, 0), 1) : 0.5
+        return Int64((Double(base) * (1 + jitter * (2 * r - 1))).rounded())
     }
 }
 

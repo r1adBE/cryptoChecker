@@ -6,8 +6,8 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">पोर्टफ़ोलियो खाली करें</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">%d लेन-देन हटाएँ? देखे जा रहे पते बने रहेंगे। इसे पूर्ववत नहीं किया जा सकता।</item>
-        <item quantity="other">सभी %d लेन-देन हटाएँ? देखे जा रहे पते बने रहेंगे। इसे पूर्ववत नहीं किया जा सकता।</item>
+        <item quantity="one">%d लेन-देन हटाएँ? देखे जा रहे पते बने रहेंगे। हटाने के तुरंत बाद आप इसे पूर्ववत कर सकते हैं।</item>
+        <item quantity="other">सभी %d लेन-देन हटाएँ? देखे जा रहे पते बने रहेंगे। हटाने के तुरंत बाद आप इसे पूर्ववत कर सकते हैं।</item>
     </plurals>
     <string name="portfolio_empty_action">अपनी पहली खरीद जोड़ें</string>
     <string name="portfolio_empty_address">बस एक वॉलेट पता देखें</string>
@@ -301,4 +301,17 @@
         <item quantity="one">%1$s पोर्टफ़ोलियो से हटाया गया (%2$d लेन-देन)</item>
         <item quantity="other">%1$s पोर्टफ़ोलियो से हटाया गया (%2$d लेन-देन)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d लेन-देन हटाया गया</item>
+        <item quantity="other">%d लेन-देन हटाए गए</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">इसके साथ %d लॉट भी हट जाएगा।</item>
+        <item quantity="other">इसके साथ %d लॉट भी हट जाएँगे।</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">इसके साथ %d लॉट और बैलेंस इतिहास भी हट जाएँगे।</item>
+        <item quantity="other">इसके साथ %d लॉट और बैलेंस इतिहास भी हट जाएँगे।</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">इसके साथ बैलेंस इतिहास भी हट जाएगा।</string>
 </resources>

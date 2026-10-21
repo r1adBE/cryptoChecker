@@ -33,6 +33,7 @@ import com.cryptochecker.app.domain.market.Dominance
 import com.cryptochecker.app.ui.theme.AssetColors
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 import kotlinx.coroutines.delay
 
@@ -124,8 +125,8 @@ internal fun DominanceRows(
     }
 }
 
-/** «58.4 %» — eine Nachkommastelle, in den Ziffern der App-Sprache. */
-private fun percentOne(value: Double): String = LocaleNumbers.decimal(value, 1) + " %"
+/** «58.4%» (Deutsch «58,4 %») — eine Nachkommastelle, Ziffern und Prozentzeichen der App-Sprache ([PercentText]). */
+private fun percentOne(value: Double): String = PercentText.unsigned(value, 1)
 
 /**
  * «Stand 14:05» und ein kleines «Aktualisieren» unter der Altcoin-Saison. Der Knopf ist erst

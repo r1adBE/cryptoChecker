@@ -47,6 +47,8 @@ struct CycleHistoryChart: View {
     private static let chartHeight: CGFloat = 160
     private static let chartTopPadding: CGFloat = 10
     private static let labelWidth: CGFloat = 16
+    /// Höhe der Jahresmarken: wächst mit der Schriftgrösse (sonst schneidet AX-Grösse die Ziffern ab) — wie Android `heightIn`.
+    @ScaledMetric(relativeTo: .caption) private var axisHeight: CGFloat = 16
     /// Trefferfläche 32 pt um die kleinen Punkte.
     private static let hitRadius: CGFloat = 16
 
@@ -225,13 +227,13 @@ struct CycleHistoryChart: View {
                             .font(.caption2)
                             .monospacedDigit()
                             .foregroundStyle(AppColors.onSurfaceVariant)
-                            .frame(width: Self.labelWidth, height: 16)
-                            .position(x: min(max(raw, half), max(width - half, half)), y: 8)
+                            .frame(width: Self.labelWidth, height: axisHeight)
+                            .position(x: min(max(raw, half), max(width - half, half)), y: axisHeight / 2)
                     }
                 }
-                .frame(width: width, height: 16, alignment: .topLeading)
+                .frame(width: width, height: axisHeight, alignment: .topLeading)
             }
-            .frame(height: 16)
+            .frame(height: axisHeight)
             .padding(.top, 4)
             // Jahresmarken unter den Hilfslinien: ebenfalls immer von links nach rechts
             .environment(\.layoutDirection, .leftToRight)

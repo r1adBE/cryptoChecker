@@ -6,7 +6,7 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">ล้างพอร์ตโฟลิโอ</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="other">ลบรายการทั้งหมด %d รายการหรือไม่ ที่อยู่ที่ติดตามจะยังอยู่ การดำเนินการนี้ย้อนกลับไม่ได้</item>
+        <item quantity="other">ลบรายการทั้งหมด %d รายการหรือไม่ ที่อยู่ที่ติดตามจะยังอยู่ คุณเลิกทำได้ทันทีหลังจากนั้น</item>
     </plurals>
     <string name="portfolio_empty_action">เพิ่มการซื้อครั้งแรก</string>
     <string name="portfolio_empty_address">ติดตามเฉพาะที่อยู่กระเป๋า</string>
@@ -295,4 +295,14 @@
     <plurals name="portfolio_coin_removed">
         <item quantity="other">นำ %1$s ออกจากพอร์ตโฟลิโอแล้ว (%2$d รายการ)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="other">ลบ %d รายการแล้ว</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="other">จะลบ %d ล็อตด้วย</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="other">จะลบ %d ล็อตและประวัติยอดคงเหลือด้วย</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">จะลบประวัติยอดคงเหลือด้วย</string>
 </resources>

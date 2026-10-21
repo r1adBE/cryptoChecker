@@ -57,6 +57,29 @@ extension WatchlistScreen {
         }
     }
 
+    /// «Merkliste leeren» bestätigt: alles auf einmal löschen, Banner mit «Rückgängig» (holt alle samt Alarmen,
+    /// Gruppen und Notizen zurück) und Ansage — wie `removeNotTraded`, wie Android.
+    func clearAll() {
+        var deleted: [DeletedWatch] = []
+        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { deleted = data.deleteAllForUndo() }
+        guard !deleted.isEmpty else { return }
+        let removed = deleted
+        swipeDeleteTick += 1
+        let text = L("watchlist_removed_count", count: removed.count)
+        banner = WatchlistBannerMessage(
+            text: text,
+            icon: "trash",
+            action: WatchlistBannerAction(title: L("action_undo")) {
+                withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(removed) }
+            }
+        )
+        Task { @MainActor in
+            // Nach dem Fokuswechsel ansagen, sonst geht es unter
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            AccessibilityNotification.Announcement(text).post()
+        }
+    }
+
     /// «Rückgängig»: Paar mit Id, Platz, Gruppe, Notiz, Mitteilung, Favorit und Alarmen zurück.
     func undoDelete(_ deleted: DeletedWatch) {
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(deleted) }

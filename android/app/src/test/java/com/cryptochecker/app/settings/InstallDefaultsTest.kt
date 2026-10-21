@@ -18,6 +18,7 @@ class InstallDefaultsTest {
     private val alpha = "include_alpha_tokens"
     private val portfolio = "portfolio_enabled"
     private val updateMode = "update_mode"
+    private val portfolioCheck = "portfolio_data_check"
 
     /** Wie die drei Migrationen: schreibt nur fehlende Schlüssel; Ergebnis plus «bestehend?» je Migration. */
     private data class Run(val prefs: Map<String, Any>, val installDefaultsExisting: Boolean, val updateModeExisting: Boolean)
@@ -30,7 +31,10 @@ class InstallDefaultsTest {
         p.putIfAbsent(names, AppSettings.defaultForMigration(existing, AppSettings.LEGACY_WATCHLIST_NAMES, d.watchlistNames))
         p.putIfAbsent(converted, AppSettings.defaultForMigration(existing, AppSettings.LEGACY_SHOW_CONVERTED, d.showConverted))
         p.putIfAbsent(alpha, AppSettings.defaultForMigration(existing, AppSettings.LEGACY_INCLUDE_ALPHA_TOKENS, d.includeAlphaTokens))
-        p.putIfAbsent(portfolio, AppSettings.defaultForMigration(existing, AppSettings.LEGACY_PORTFOLIO_ENABLED, d.portfolioEnabled))
+        if (portfolio !in p) {
+            p[portfolio] = AppSettings.defaultForMigration(existing, AppSettings.LEGACY_PORTFOLIO_ENABLED, d.portfolioEnabled)
+            if (!existing) p[portfolioCheck] = true
+        }
         val updateExisting = AppSettings.isExistingInstall(p.keys, ignored = SettingsRepository.MIGRATION_WRITTEN_KEYS)
         if (updateMode !in p) p[updateMode] = if (updateExisting) UpdateMode.SPARSAM.name else UpdateMode.DEFAULT.name
         return Run(p, existing, updateExisting)
@@ -52,8 +56,9 @@ class InstallDefaultsTest {
     /** Die Schlüssel der Migrationen stimmen mit den Namen in SettingsRepository überein. */
     @Test
     fun migrationKeys() {
-        assertEquals(setOf(ongoing, names, converted, alpha, portfolio), SettingsRepository.MIGRATION_WRITTEN_KEYS)
+        assertEquals(setOf(ongoing, names, converted, alpha, portfolio, portfolioCheck), SettingsRepository.MIGRATION_WRITTEN_KEYS)
         assertEquals(portfolio, SettingsRepository.KEY_PORTFOLIO_ENABLED)
+        assertEquals(portfolioCheck, SettingsRepository.KEY_PORTFOLIO_DATA_CHECK)
     }
 
     @Test
@@ -77,6 +82,27 @@ class InstallDefaultsTest {
         assertEquals(true, r.prefs[converted])
         assertEquals(false, r.prefs[alpha])
         assertEquals(false, r.prefs[portfolio])
+        // Standard einer neuen Installation: beim Start auf Portfolio-Daten prüfen
+        assertEquals(true, r.prefs[portfolioCheck])
+    }
+
+    /**
+     * Beschädigte Einstellungen (durch leere ersetzt) bei vorhandenem Portfolio: Migration wie bei einer neuen
+     * Installation (Portfolio aus, Merker), die Prüfung beim Start schaltet das Portfolio wieder ein.
+     */
+    @Test
+    fun corruptedSettingsWithPortfolioData() {
+        val r = migrate(emptyMap())
+        assertEquals(false, r.prefs[portfolio])
+        val pending = r.prefs[portfolioCheck] == true
+        assertTrue(AppSettings.enablePortfolioForData(pending, portfolioEnabled = false, hasPortfolioData = true))
+        // Ohne Daten (echte neue Installation): bleibt aus
+        assertFalse(AppSettings.enablePortfolioForData(pending, portfolioEnabled = false, hasPortfolioData = false))
+        // Bestehende Installation (kein Merker) oder schon an: nichts zu tun
+        val existing = migrate(mapOf("dark_mode" to true))
+        assertFalse(portfolioCheck in existing.prefs)
+        assertFalse(AppSettings.enablePortfolioForData(existing.prefs[portfolioCheck] == true, false, true))
+        assertFalse(AppSettings.enablePortfolioForData(pending, portfolioEnabled = true, hasPortfolioData = true))
     }
 
     /** Update von Build 43 (Migration schon gelaufen, nie umgeschaltet): Portfolio-Tab bleibt sichtbar. */
@@ -90,6 +116,7 @@ class InstallDefaultsTest {
         // Selbst ausgeschaltet: bleibt aus
         val off = migrate(mapOf(ongoing to false, names to true, converted to true, alpha to false, updateMode to "DEFAULT", portfolio to false))
         assertEquals(false, off.prefs[portfolio])
+        assertFalse(portfolioCheck in off.prefs)
     }
 
     /** Neue Installation, die nur den Portfolio-Schalter schreibt, gilt für «Wie aktuell?» weiter als neu. */

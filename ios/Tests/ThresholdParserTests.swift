@@ -96,7 +96,10 @@ final class ThresholdParserTests: XCTestCase {
         XCTAssertEqual(PriceFormat.amountForInput(1.2345e-10), "0.00000000012345")
         XCTAssertEqual(PriceFormat.amountForInput(1234.5, decimalSeparator: ","), "1234,5")
         XCTAssertEqual(DecimalText.rounded(1.005, 2), 1.01)
-        XCTAssertEqual(PriceFormat.changePercent(1.005).map(BidiText.strip)?.hasSuffix("01%"), true)
+        // Prozentzeichen der Sprache (`PercentText`): geschützter Abstand bzw. «٪» vor dem Vergleich weg
+        XCTAssertEqual(PriceFormat.changePercent(1.005).map(BidiText.strip)
+            .map { $0.replacingOccurrences(of: "\u{00A0}", with: "").replacingOccurrences(of: "\u{066A}", with: "%") }?
+            .hasSuffix("01%"), true)
     }
 
     func testBidiTextOnlyForRightToLeftLanguages() {

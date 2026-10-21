@@ -101,6 +101,33 @@ final class LiveFeedTests: XCTestCase {
         }
     }
 
+    func testBackoffAttemptMatchesFixtures() throws {
+        // Pause zurück auf 1 s erst nach stabiler Verbindung (≥ 60 s mit Kursen)
+        let data = try S.fixture("live_feed")
+        for c in S.list(data["backoffAttempt"]) {
+            let next = LiveBackoff.nextAttempt(Int(S.number(c["attempt"]) ?? 0),
+                                               receivedData: c["receivedData"] as? Bool ?? false,
+                                               connectedMillis: Int64(S.number(c["connectedMillis"]) ?? 0))
+            XCTAssertEqual(next, Int(S.number(c["expected"]) ?? -1), "\((c["name"] as? String) ?? "")")
+        }
+    }
+
+    func testBackoffJitterMatchesFixtures() throws {
+        let data = try S.fixture("live_feed")
+        for c in S.list(data["backoffJitter"]) {
+            let millis = LiveBackoff.reconnectDelayMillis(attempt: Int(S.number(c["attempt"]) ?? 0),
+                                                          rateLimited: c["rateLimited"] as? Bool ?? false,
+                                                          random: S.number(c["random"]) ?? 0.5)
+            XCTAssertEqual(millis, Int64(S.number(c["millis"]) ?? -1), "\(c)")
+        }
+        // Streuung bleibt innerhalb ±20 %, auch bei ungültigem Zufallswert
+        XCTAssertEqual(LiveBackoff.reconnectDelayMillis(attempt: 0, rateLimited: false, random: .nan), 1_000)
+        for _ in 0..<200 {
+            let millis = LiveBackoff.reconnectDelayMillis(attempt: 6, rateLimited: false, random: Double.random(in: 0..<1))
+            XCTAssertTrue((48_000...72_000).contains(millis), "\(millis)")
+        }
+    }
+
     func testRulesMatchFixtures() throws {
         let data = try S.fixture("live_feed")
         for c in S.list(data["chooseChange"]) {

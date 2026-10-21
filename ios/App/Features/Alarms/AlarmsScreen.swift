@@ -365,7 +365,7 @@ enum AlarmA11y {
         if let sentence, !sentence.isEmpty { parts.append(sentence) }
         parts.append(L(alarm.repeating ? "alarm_repeating" : "alarm_once"))
         if alarm.lastTriggeredAt > 0 {
-            parts.append(L("alarm_last_triggered", PriceFormat.time(alarm.lastTriggeredAt)))
+            parts.append(L("alarm_last_triggered", MomentText.moment(alarm.lastTriggeredAt)))
         }
         if alarm.sound { parts.append(L("alarm_a11y_sound_on")) }
         if alarm.speak { parts.append(L("alarm_a11y_speak_on")) }

@@ -158,7 +158,7 @@ class ActivityMonitor @Inject constructor(
             if (watch.contractType.isPerpetual) futures { futuresDataSource.fetch(watch) } else null
         }
         // Veraltete oder unplausible Reihen (z. B. Spot nach Delisting) liefern keine Signale
-        val stats = CandleSeries.usable(candlesJob.await(), now, rolling24h(watch))?.let { ActivityAnalyzer.hourStats(it) }
+        val stats = CandleSeries.usable(candlesJob.await(), now, rolling24h(watch))?.let { ActivityAnalyzer.hourStats(it, now) }
         val futures = futuresJob.await()
 
         val oi = openInterest(watch, futures, now, store = true)

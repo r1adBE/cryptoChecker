@@ -14,10 +14,13 @@ struct WatchedAddressFile: Codable, Equatable {
 
     private enum CodingKeys: String, CodingKey { case addresses, nextId }
 
+    /// Ein unlesbarer Eintrag (z. B. unbekanntes Netz einer neueren Version) wird übersprungen, statt die ganze Datei
+    /// unlesbar zu machen — wie Android (`mapNotNull`); die Id läuft nie hinter vergebene Ids zurück.
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
-        addresses = try c.decodeIfPresent([WatchedAddress].self, forKey: .addresses) ?? []
-        nextId = try c.decodeIfPresent(Int64.self, forKey: .nextId) ?? 1
+        addresses = try SharedStorage.lenientArray(c, .addresses, decoder: decoder) ?? []
+        let stored = (try? c.decodeIfPresent(Int64.self, forKey: .nextId)) ?? 1
+        nextId = SharedStorage.nextId(stored: stored, used: addresses.map(\.id))
     }
 }
 
@@ -30,13 +33,18 @@ struct WatchedAddressFile: Codable, Equatable {
 enum WatchedAddressStore {
     static var url: URL { SharedStorage.directory.appendingPathComponent("watched_addresses.json") }
 
-    /// Fehlt die Datei: leer. Unlesbar: leer und `intact` false (dann nicht überschreiben).
+    /// Fehlt die Datei: leer. Unlesbar: leer und `intact` false (dann nicht überschreiben). Einzelne unlesbare Einträge
+    /// (z. B. Netz einer neueren Version): die lesbaren zeigen, aber `intact` false — sonst ginge der übersprungene Eintrag
+    /// beim nächsten Speichern endgültig verloren (Android behält die Zeile in der Datenbank ohnehin).
     static func loadChecked() -> (file: WatchedAddressFile, intact: Bool) {
         guard FileManager.default.fileExists(atPath: url.path) else { return (WatchedAddressFile(), true) }
+        let dropped = SharedStorage.DropCounter()
+        let decoder = JSONDecoder()
+        decoder.userInfo[SharedStorage.DropCounter.key] = dropped
         guard let data = try? ProtectedFile.read(url),
-              let file = try? JSONDecoder().decode(WatchedAddressFile.self, from: data)
+              let file = try? decoder.decode(WatchedAddressFile.self, from: data)
         else { return (WatchedAddressFile(), false) }
-        return (file, true)
+        return (file, dropped.count == 0)
     }
 
     static func load() -> WatchedAddressFile { loadChecked().file }

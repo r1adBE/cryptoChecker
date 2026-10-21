@@ -68,8 +68,9 @@ enum AddressBalance {
     }
 
     /// Esplora-Antwort lesen; wirft bei fehlenden/negativen Feldern oder wenn die Antwort zu einer
-    /// anderen Adresse gehört.
-    static func parseBtc(_ body: String, address: String) throws -> BtcStats {
+    /// anderen Adresse gehört. Plausibilität je Netz (`maxSats`, Litecoin hat 84 Mio. Coins): geprüft wird das Guthaben,
+    /// nicht die Summen über alle Zeit (funded_txo_sum einer Börsen-Adresse übersteigt die Geldmenge leicht). Wie Android.
+    static func parseBtc(_ body: String, address: String, chain net: AddressChain = .BTC) throws -> BtcStats {
         let json = try object(body)
         if let value = json["address"], !(value is NSNull) {
             guard let text = value as? String, text.lowercased() == address.lowercased() else {
@@ -77,15 +78,23 @@ enum AddressBalance {
             }
         }
         guard let chain = json["chain_stats"] as? [String: Any] else { throw ParseError(message: "chain_stats fehlt") }
+        let limit = maxSats(net)
         let confirmed = try sats(chain, "funded_txo_sum") - sats(chain, "spent_txo_sum")
         if confirmed < 0 { throw ParseError(message: "negatives Guthaben") }
+        if confirmed > limit { throw ParseError(message: "Guthaben ungültig") }
         var pending: Int64 = 0
         var txCount = txCountOf(chain)
         if let mempool = json["mempool_stats"] as? [String: Any] {
             pending = try sats(mempool, "funded_txo_sum") - sats(mempool, "spent_txo_sum")
             txCount += txCountOf(mempool)
         }
+        if pending > limit || pending < -limit { throw ParseError(message: "Guthaben ungültig") }
         return BtcStats(confirmedSats: confirmed, pendingSats: pending, txCount: txCount)
+    }
+
+    /// Mehr als alle je möglichen Coins des Netzes in kleinsten Einheiten ist unplausibel (BTC 21 Mio., LTC 84 Mio. × 10⁸).
+    static func maxSats(_ chain: AddressChain) -> Int64 {
+        chain == .LTC ? 8_400_000_000_000_000 : 2_100_000_000_000_000
     }
 
     /// `tx_count` (fehlt oder ungültig = 0: dann zählt nur das Guthaben).
@@ -95,16 +104,18 @@ enum AddressBalance {
         return d.isFinite && d >= 0 && d <= Double(Int32.max) ? Int(d) : 0
     }
 
-    /// Mehr als alle je möglichen Bitcoin (21 Mio. × 10⁸ Sat.) ist unplausibel.
-    private static let maxSats = 2.1e15
+    /// Obergrenze der Summen funded/spent (unter Int64.max, die Differenz läuft nie über).
+    private static let maxCumulativeSats = 9.0e18
 
-    /// Ganze, nicht negative Zahl (kein Text, kein true/false); sonst Fehler.
+    /// Ganze, nicht negative Zahl im Int64-Bereich (Summen über alle Zeit; kein Text, kein true/false); sonst Fehler.
     private static func sats(_ o: [String: Any], _ key: String) throws -> Int64 {
         guard let n = o[key] as? NSNumber, CFGetTypeID(n) != CFBooleanGetTypeID() else {
             throw ParseError(message: "\(key) fehlt")
         }
         let d = n.doubleValue
-        guard d.isFinite, d >= 0, d == d.rounded(.down), d <= maxSats else { throw ParseError(message: "\(key) ungültig") }
+        guard d.isFinite, d >= 0, d == d.rounded(.down), d <= maxCumulativeSats else {
+            throw ParseError(message: "\(key) ungültig")
+        }
         return n.int64Value
     }
 

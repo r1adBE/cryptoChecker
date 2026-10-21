@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -216,7 +217,7 @@ internal fun CycleChart(history: CycleHistory, currentHalving: LocalDate) {
     // Achse: Jahresmarken genau unter den Hilfslinien (für den Screenreader ohne Inhalt).
     // Absolut (nicht gespiegelt) wie die Zeichnung: die Zeitachse läuft immer von links nach rechts
     BoxWithConstraints(
-        modifier = Modifier.fillMaxWidth().padding(top = 4.dp).height(16.dp).clearAndSetSemantics { },
+        modifier = Modifier.fillMaxWidth().padding(top = 4.dp).heightIn(min = 16.dp).clearAndSetSemantics { },
         contentAlignment = AbsoluteAlignment.TopLeft,
     ) {
         val labelWidth = 16.dp
@@ -229,7 +230,9 @@ internal fun CycleChart(history: CycleHistory, currentHalving: LocalDate) {
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                 modifier = Modifier
                     .absoluteOffset(x = x.coerceIn(0.dp, maxWidth - labelWidth))
-                    .size(width = labelWidth, height = 16.dp)
+                    // Mindesthöhe statt fester Höhe: bei 200 % Schrift wächst die Zeile mit, statt die Ziffern abzuschneiden
+                    .width(labelWidth)
+                    .heightIn(min = 16.dp)
             )
         }
     }

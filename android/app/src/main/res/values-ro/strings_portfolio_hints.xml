@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Alertele portofoliului sunt în pauză: niciun preț actual pentru %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Alertele portofoliului sunt în pauză: nu toate monedele au un preț actual</string>
+    <string name="portfolio_alarms_paused_addresses">Alertele portofoliului sunt în pauză: soldurile adreselor urmărite nu sunt încă încărcate</string>
+</resources>

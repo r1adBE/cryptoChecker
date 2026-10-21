@@ -6,12 +6,14 @@ import android.os.Build
 import android.util.Log
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
+import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
 import com.cryptochecker.app.data.portfolio.PortfolioBackupMirror
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.notification.NotificationChannels
 import com.cryptochecker.app.settings.AppLanguages
 import com.cryptochecker.app.settings.AppearanceApplier
+import com.cryptochecker.app.settings.PortfolioDataCheck
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.HiltAndroidApp
@@ -44,6 +46,9 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
     /** Lazy: nur, wenn ein abgebrochenes Wiederherstellen zurückzurollen ist ([RestoreJournal]). */
     @Inject lateinit var backupManager: dagger.Lazy<com.cryptochecker.app.data.BackupManager>
+
+    /** Lazy: nur, wenn nach neu angelegten Einstellungen Portfolio-Daten zu prüfen sind ([PortfolioDataCheck]). */
+    @Inject lateinit var portfolioAlarmRepository: dagger.Lazy<PortfolioAlarmRepository>
 
     /**
      * Hintergrundarbeit des Prozesses. Fehler (Datenbank, Datei, WorkManager) nur protokollieren:
@@ -112,6 +117,13 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
         // Einmalig: alter Bestand aus der Merkliste wird zu Käufen im Portfolio
         scope.launch { portfolioRepository.migrateHoldingsOnce() }
+
+        // Einstellungen neu angelegt (z. B. Datei beschädigt), Portfolio-Daten aber da: Portfolio wieder an
+        scope.launch {
+            PortfolioDataCheck.resolve(this@CryptoCheckerApp) {
+                portfolioRepository.hasData() || portfolioAlarmRepository.get().getAll().isNotEmpty()
+            }
+        }
 
         // «Portfolio in Systemsicherung»: Merker für den Sicherungs-Agenten nachführen (er schreibt die Kopie nur während
         // einer Sicherung); aus → Merker und eine noch liegende Kopie weg (auch bei jedem Start)

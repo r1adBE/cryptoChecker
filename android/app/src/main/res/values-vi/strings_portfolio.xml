@@ -6,7 +6,7 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Xóa sạch danh mục</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="other">Xóa tất cả %d giao dịch? Các địa chỉ theo dõi vẫn được giữ. Không thể hoàn tác.</item>
+        <item quantity="other">Xóa tất cả %d giao dịch? Các địa chỉ theo dõi vẫn được giữ. Bạn có thể hoàn tác ngay sau đó.</item>
     </plurals>
     <string name="portfolio_empty_action">Thêm lần mua đầu tiên</string>
     <string name="portfolio_empty_address">Chỉ theo dõi một địa chỉ ví</string>
@@ -295,4 +295,14 @@
     <plurals name="portfolio_coin_removed">
         <item quantity="other">Đã xóa %1$s khỏi danh mục (%2$d giao dịch)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="other">Đã xóa %d giao dịch</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="other">Thao tác này cũng xóa %d lô.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="other">Thao tác này cũng xóa %d lô và lịch sử số dư.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Thao tác này cũng xóa lịch sử số dư.</string>
 </resources>

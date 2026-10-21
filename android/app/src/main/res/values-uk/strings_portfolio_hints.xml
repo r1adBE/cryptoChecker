@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Сповіщення портфеля призупинено: немає поточного курсу для %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Сповіщення портфеля призупинено: не всі монети мають поточний курс</string>
+    <string name="portfolio_alarms_paused_addresses">Сповіщення портфеля призупинено: баланси відстежуваних адрес ще не завантажено</string>
+</resources>

@@ -12,6 +12,16 @@ enum AddWatchedResult: Equatable {
     case locked
 }
 
+/// Ergebnis von `AppData.removeWatchedAddress` — wie Android `removeWatchedAddress` (Zeile bzw. Sperre).
+enum RemoveWatchedResult: Equatable {
+    /// Entfernt; die ganze Adresse (Eröffnungsposten, Verlauf, Token-Reihen) für «Rückgängig».
+    case removed(WatchedAddress)
+    /// Gespeichertes Portfolio gerade nicht lesbar (`PortfolioStorageLock`): nichts entfernt.
+    case locked
+    /// Nicht (mehr) da oder nicht geschrieben.
+    case failed
+}
+
 /// Beobachtete Adressen (nur lesen; Guthaben = Bestand) — wie die Adress-Funktionen in
 /// `PortfolioRepository` (Android). Gespeichert in `watched_addresses.json` (`WatchedAddressStore`),
 /// Backup-Merkmal nach «Portfolio in Systemsicherung».
@@ -53,11 +63,25 @@ extension AppData {
         return .added(id)
     }
 
-    func removeWatchedAddress(_ id: Int64) {
-        guard !portfolioStorageLocked else { return }
+    /// Entfernen (nach Rückfrage); gibt die ganze Adresse für «Rückgängig» zurück (`restoreWatchedAddress`). Gesperrt:
+    /// `.locked` — die Oberfläche nennt es, statt still nichts zu tun (seit Build 94).
+    @discardableResult
+    func removeWatchedAddress(_ id: Int64) -> RemoveWatchedResult {
+        guard !portfolioStorageLocked else { return .locked }
         var file = currentWatchedAddressFile()
+        guard let removed = file.addresses.first(where: { $0.id == id }) else { return .failed }
         WatchedAddressStore.remove(id: id, from: &file)
-        setWatchedAddressFile(file)
+        return setWatchedAddressFile(file) ? .removed(removed) : .failed
+    }
+
+    /// «Rückgängig» nach `removeWatchedAddress`: dieselbe Adresse mit alter Id samt Eröffnungsposten, Verlauf und
+    /// Token-Reihen (`WatchedAddressUndo.restore`) — wie Android `restoreWatchedAddress`. Gesperrt: `.locked`.
+    @discardableResult
+    func restoreWatchedAddress(_ removed: WatchedAddress) -> RemoveWatchedResult {
+        guard !portfolioStorageLocked else { return .locked }
+        var file = currentWatchedAddressFile()
+        guard WatchedAddressUndo.restore(removed, into: &file), setWatchedAddressFile(file) else { return .failed }
+        return .removed(removed)
     }
 
     /// «Tokens mitzählen» einer Adresse (`WatchedAddressRules.withCountTokens`: aus löscht die Token-Reihen, an macht

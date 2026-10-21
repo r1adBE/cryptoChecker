@@ -149,7 +149,8 @@ object PortfolioPriceFallback {
      * Darf eine neue Momentaufnahme (Widget, «heute», Wertverlauf) entstehen? Ja, wenn mindestens
      * [MIN_FRESH_SHARE] des Werts einen frischen Kurs hat — ein einzelner Coin ohne frischen Kurs hält die
      * übrigen nicht mehr an; er zählt mit seinem letzten Kurs, die Aufnahme trägt dann [staleCoins] als
-     * «teilweise alter Kurs» ([PortfolioSnapshot.stalePrices]). Portfolio-Alarme prüfen nur ohne alte Kurse.
+     * «teilweise alter Kurs» ([PortfolioSnapshot.stalePrices]). Portfolio-Alarme prüfen nur ohne wesentliche alte Kurse
+     * ([com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic.staleMaterial]).
      * Ohne offene Coins mit Wert: nur mit irgendeinem Kurs ([anyPrice]).
      */
     fun mayRecordShare(values: Map<String, Double>, times: Map<String, Long>, now: Long, staleAfterMillis: Long, anyPrice: Boolean): Boolean {
@@ -159,8 +160,8 @@ object PortfolioPriceFallback {
 
     /**
      * Coins mit Wert (Schlüssel wie [values], sortiert), deren Kurs NICHT frisch ist — USDT zählt immer als
-     * frisch. Leer = alle bewerteten Bestände frisch: nur dann prüfen Portfolio-Alarme (sonst weder melden
-     * noch wieder scharf stellen); Widget und Verlauf zeigen den Wert, markiert als «teilweise alter Kurs».
+     * frisch. Leer = alle bewerteten Bestände frisch; sonst prüfen Portfolio-Alarme nur, wenn ihr Wert unter 1 % liegt
+     * (weder melden noch wieder scharf stellen); Widget und Verlauf zeigen den Wert, markiert als «teilweise alter Kurs».
      */
     fun staleCoins(values: Map<String, Double>, times: Map<String, Long>, now: Long, staleAfterMillis: Long): List<String> =
         values.filter { (coin, value) ->

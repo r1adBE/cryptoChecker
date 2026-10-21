@@ -24,6 +24,14 @@ if (keystorePropertiesFile.exists()) {
 val keystore: Map<String, String> =
     keystoreProperties.stringPropertyNames().associateWith { keystoreProperties.getProperty(it) }
 
+// Store-Build: «./gradlew -PrequireReleaseSigning=true :app:bundleRelease» bricht ohne keystore.properties ab,
+// statt still ein unsigniertes Bundle zu bauen. Ohne die Eigenschaft (CI, lokale Builds) bleibt alles wie bisher.
+if (providers.gradleProperty("requireReleaseSigning").orNull == "true" && !keystorePropertiesFile.exists()) {
+    throw GradleException(
+        "requireReleaseSigning=true, aber ${keystorePropertiesFile.path} fehlt (Vorlage: keystore.properties.example)",
+    )
+}
+
 android {
     namespace = "com.cryptochecker.app"
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -33,7 +41,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 93
+        versionCode = 94
         versionName = "16.2.2"
 
         // Instrumentierte Tests mit Hilt (HiltTestApplication); betrifft nur androidTest
@@ -62,6 +70,12 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
+            // Symboltabellen der nativen Bibliotheken (SQLCipher) ins AAB: Play Console zeigt native Abstürze
+            // damit mit Funktionsnamen. Fehlt das NDK lokal, meldet AGP das nur als Warnung.
+            ndk {
+                debugSymbolLevel = "SYMBOL_TABLE"
+            }
 
             // Ohne keystore.properties bleibt der Build unsigniert, statt zu scheitern.
             if (keystorePropertiesFile.exists()) {

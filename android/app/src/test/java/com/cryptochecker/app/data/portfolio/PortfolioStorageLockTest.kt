@@ -53,6 +53,8 @@ class PortfolioStorageLockTest {
         for (name in listOf("setWatchedAddressCountTokens", "setWatchedAddressNetworks", "setWatchedAddressCountInPortfolio")) {
             assertFalse("$name darf die Sperre nicht umgehen", body(source, name).contains("userEdit = false"))
         }
+        // Build 94: «Rückgängig» nach «Adresse entfernen» ist ebenfalls ein Schreibweg des Nutzers
+        assertTrue(source("PortfolioRepositoryUndo.kt").contains("ensurePortfolioWritable()"))
     }
 
     /** Text von `fun name(` bis zur nächsten Funktion. */
@@ -64,10 +66,12 @@ class PortfolioStorageLockTest {
         return source.substring(start, minOf(next, nextPrivate))
     }
 
-    private fun repositorySource(): String {
-        val path = "src/main/java/com/cryptochecker/app/data/portfolio/PortfolioRepository.kt"
+    private fun repositorySource(): String = source("PortfolioRepository.kt")
+
+    private fun source(name: String): String {
+        val path = "src/main/java/com/cryptochecker/app/data/portfolio/$name"
         val file = listOf("", "app/", "android/app/").map { File(it + path) }.firstOrNull { it.isFile }
-        assertNotNull("PortfolioRepository.kt nicht gefunden (Arbeitsverzeichnis?)", file)
+        assertNotNull("$name nicht gefunden (Arbeitsverzeichnis?)", file)
         return file!!.readText()
     }
 }

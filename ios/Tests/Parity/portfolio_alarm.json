@@ -165,5 +165,156 @@
       "currency": "EUR",
       "expected": null
     }
-  ]
+  ],
+  "incomplete": {
+    "_comment": "PortfolioAlarmLogic.incomplete / pause (seit Build 94): nie geladene Adressen sperren jede Art; alte Kurse nur, wenn ihr Wert (staleValueUsdt, null = unbekannt) mindestens 1 % (immaterialShare) von totalUsdt ist; Coins ohne Kurs sperren Wert-Alarme, fehlende Vergleichskurse %-Alarme. pause: null = nicht pausiert, sonst addresses bzw. coins (stale nur wenn wesentlich, missing nur mit Wert-Alarm).",
+    "immaterialShare": 0.01,
+    "cases": [
+      {
+        "name": "alles da",
+        "reading": {
+          "totalUsdt": 10000
+        },
+        "value": false,
+        "change": false,
+        "kinds": [
+          "VALUE_BELOW"
+        ],
+        "pause": null
+      },
+      {
+        "name": "Adresse nie geladen",
+        "reading": {
+          "totalUsdt": 10000,
+          "addressesPending": 1
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "CHANGE_UP"
+        ],
+        "pause": "addresses"
+      },
+      {
+        "name": "alter Kurs unter 1 %",
+        "reading": {
+          "totalUsdt": 10000,
+          "stalePrices": 1,
+          "staleValueUsdt": 99.99
+        },
+        "value": false,
+        "change": false,
+        "kinds": [
+          "VALUE_BELOW"
+        ],
+        "staleCoins": [
+          "PEPE"
+        ],
+        "pause": null
+      },
+      {
+        "name": "alter Kurs genau 1 %",
+        "reading": {
+          "totalUsdt": 10000,
+          "stalePrices": 1,
+          "staleValueUsdt": 100
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "VALUE_BELOW",
+          "CHANGE_DOWN"
+        ],
+        "staleCoins": [
+          "PEPE"
+        ],
+        "pause": [
+          "PEPE"
+        ]
+      },
+      {
+        "name": "alter Kurs ohne Wert (aeltere Aufnahme)",
+        "reading": {
+          "totalUsdt": 10000,
+          "stalePrices": 1
+        },
+        "value": true,
+        "change": true,
+        "kinds": [
+          "CHANGE_UP"
+        ],
+        "pause": []
+      },
+      {
+        "name": "Coin ohne Kurs: Wert-Alarme gesperrt",
+        "reading": {
+          "totalUsdt": 10000,
+          "missingPrices": 1
+        },
+        "value": true,
+        "change": false,
+        "kinds": [
+          "VALUE_ABOVE"
+        ],
+        "missingCoins": [
+          "WIF"
+        ],
+        "pause": [
+          "WIF"
+        ]
+      },
+      {
+        "name": "Coin ohne Kurs, nur %-Alarme: nicht pausiert",
+        "reading": {
+          "totalUsdt": 10000,
+          "missingPrices": 1
+        },
+        "value": true,
+        "change": false,
+        "kinds": [
+          "CHANGE_UP"
+        ],
+        "missingCoins": [
+          "WIF"
+        ],
+        "pause": null
+      },
+      {
+        "name": "alter Kurs klein + Coin ohne Kurs",
+        "reading": {
+          "totalUsdt": 10000,
+          "stalePrices": 1,
+          "staleValueUsdt": 5,
+          "missingPrices": 1
+        },
+        "value": true,
+        "change": false,
+        "kinds": [
+          "VALUE_BELOW"
+        ],
+        "staleCoins": [
+          "PEPE"
+        ],
+        "missingCoins": [
+          "WIF"
+        ],
+        "pause": [
+          "WIF"
+        ]
+      },
+      {
+        "name": "Vergleichskurs fehlt: nur %-Alarme",
+        "reading": {
+          "totalUsdt": 10000,
+          "todaySkipped": 1
+        },
+        "value": false,
+        "change": true,
+        "kinds": [
+          "CHANGE_UP"
+        ],
+        "pause": null
+      }
+    ]
+  }
 }

@@ -32,15 +32,12 @@ enum ActivityTexts {
         return text
     }
 
-    /// «+2.9 %» / «−2.9 %» / «0.0 %», Vorzeichen als echtes Minus.
+    /// «+2.9%» / «−2.9%» / «0.0%» (Deutsch «+2,9 %»), Vorzeichen als echtes Minus, gerundet 0 ohne Vorzeichen.
+    /// Prozentzeichen der Sprache über `PercentText` — gleich wie die Kursänderungen (vorher immer «2.9 %»).
     static func percent(_ value: Double, _ decimals: Int) -> String {
         guard value.isFinite else { return "—" }
-        let rounded = String(format: "%.\(decimals)f", locale: Locale.current, abs(value))
-        // Nullprüfung mit lateinischen Ziffern (die Anzeige kann arabische Ziffern haben)
-        let isZero = String(format: "%.\(decimals)f", abs(value)).allSatisfy { $0 == "0" || $0 == "." }
-        let sign = isZero ? "" : (value > 0 ? "+" : "−")
         // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl
-        return BidiText.ltr("\(sign)\(rounded) %")
+        return BidiText.ltr(PercentText.signed(value, decimals: decimals))
     }
 
     /// «4.2×»-Zahl ohne Zeichen, eine Nachkommastelle.

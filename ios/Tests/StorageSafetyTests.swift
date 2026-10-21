@@ -42,8 +42,8 @@ final class StorageSafetyTests: XCTestCase {
             let nextPrivate = rest.range(of: "\n    private func ")?.lowerBound ?? rest.endIndex
             return String(rest[..<min(end, nextPrivate)])
         }
-        for name in ["addWatchedAddress", "removeWatchedAddress", "changeWatchedAddress", "setWatchedAddressLabel",
-                     "replaceWatchedAddresses", "mergeWatchedAddresses"] {
+        for name in ["addWatchedAddress", "removeWatchedAddress", "restoreWatchedAddress", "changeWatchedAddress",
+                     "setWatchedAddressLabel", "replaceWatchedAddresses", "mergeWatchedAddresses"] {
             XCTAssertTrue(body(name).contains("guard !portfolioStorageLocked"), "\(name) prüft die Sperre nicht")
         }
         for name in ["applyWatchedAddressUpdates", "applyWatchedAddressOverlapShowOnly", "migrateWatchedAddressOverlap",

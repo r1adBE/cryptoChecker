@@ -275,9 +275,13 @@ enum ChainBalance {
         return trimZeros(result)
     }
 
-    /// Jetton-Wallets eines Besitzers (v3); höchstens 50, Guthaben 0 ausgeschlossen.
+    /// Höchstens so viele Jetton-Wallets je Anfrage (eine Seite, ohne Blättern).
+    static let tonJettonLimit = 50
+
+    /// Jetton-Wallets eines Besitzers (v3); höchstens `tonJettonLimit`, Guthaben 0 ausgeschlossen.
     static func tonJettonsUrl(host: String, address: String) -> String {
-        "\(host)/api/v3/jetton/wallets?owner_address=" + percent(address) + "&exclude_zero_balance=true&limit=50&offset=0"
+        "\(host)/api/v3/jetton/wallets?owner_address=" + percent(address)
+            + "&exclude_zero_balance=true&limit=\(tonJettonLimit)&offset=0"
     }
 
     /// TON-Adresse (roh «0:hex» oder benutzerfreundlich) → 64 Hex klein; unlesbar = nil.
@@ -291,7 +295,9 @@ enum ChainBalance {
         return raw[2..<34].map { String(format: "%02x", $0) }.joined()
     }
 
-    /// `{"jetton_wallets":[{"balance":"…","jetton":"0:…"}]}` → bekannte Jettons (Symbol → Text), Summe je Jetton.
+    /// `{"jetton_wallets":[{"balance":"…","jetton":"0:…"}]}` → bekannte Jettons (Symbol → Text), Summe je Jetton. Volle
+    /// Seite (`tonJettonLimit` Einträge): ein bekannter Jetton, der fehlt, kann auf der nächsten Seite stehen — er fehlt dann
+    /// im Ergebnis (unbekannt, der letzte Wert bleibt) statt als 0 zu gelten. Wie Android.
     static func parseTonJettons(_ body: String) throws -> [String: String] {
         guard let wallets = try object(body)["jetton_wallets"] as? [Any] else {
             throw AddressBalance.ParseError(message: "jetton_wallets fehlt")
@@ -303,8 +309,12 @@ enum ChainBalance {
                   let balance = w["balance"] as? String, isDigits(balance) else { continue }
             sums[jetton.symbol] = addDigits(sums[jetton.symbol] ?? "0", balance)
         }
+        let full = wallets.count >= tonJettonLimit
         var out: [String: String] = [:]
-        for j in ChainAssets.tonJettons { out[j.symbol] = AddressBalance.unitsText(sums[j.symbol] ?? "0", decimals: j.decimals) }
+        for j in ChainAssets.tonJettons {
+            guard let sum = sums[j.symbol] ?? (full ? nil : "0") else { continue }
+            out[j.symbol] = AddressBalance.unitsText(sum, decimals: j.decimals)
+        }
         return out
     }
 

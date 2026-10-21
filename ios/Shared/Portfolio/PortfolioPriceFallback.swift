@@ -140,8 +140,8 @@ enum PortfolioPriceFallback {
 
     /// Neue Momentaufnahme (Widget, «heute», Verlauf) erlaubt, wenn mindestens `minFreshShare` des Werts frisch
     /// ist — ein einzelner Coin ohne frischen Kurs hält die übrigen nicht an; die Aufnahme trägt ihn dann als
-    /// «teilweise alter Kurs» (`stalePrices`). Portfolio-Alarme prüfen nur ohne alte Kurse. Ohne Wert: nur mit
-    /// irgendeinem Kurs — wie Android.
+    /// «teilweise alter Kurs» (`stalePrices`). Portfolio-Alarme prüfen nur ohne wesentliche alte Kurse
+    /// (`PortfolioAlarmLogic.staleMaterial`). Ohne Wert: nur mit irgendeinem Kurs — wie Android.
     static func mayRecordShare(values: [String: Double], times: [String: Int64], now: Int64,
                                staleAfterMillis: Int64, anyPrice: Bool) -> Bool {
         guard let share = freshShare(values: values, times: times, now: now, staleAfterMillis: staleAfterMillis) else {
@@ -161,8 +161,8 @@ enum PortfolioPriceFallback {
     }
 
     /// Coins mit Wert (Schlüssel wie `values`, sortiert), deren Kurs NICHT frisch ist — USDT zählt immer als
-    /// frisch. Leer = alle bewerteten Bestände frisch: nur dann prüfen Portfolio-Alarme; Widget und Verlauf
-    /// zeigen den Wert, markiert als «teilweise alter Kurs». Wie Android.
+    /// frisch. Leer = alle bewerteten Bestände frisch; sonst prüfen Portfolio-Alarme nur, wenn ihr Wert unter 1 % liegt;
+    /// Widget und Verlauf zeigen den Wert, markiert als «teilweise alter Kurs». Wie Android.
     static func staleCoins(values: [String: Double], times: [String: Int64], now: Int64,
                            staleAfterMillis: Int64) -> [String] {
         var out: [String] = []

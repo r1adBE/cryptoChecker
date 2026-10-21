@@ -23,7 +23,7 @@ fun ActivityAnalyzer.explain(input: WhyInput): WhyReport {
     val change1h = changeOver(candles, 1, now)
     // 24 h wie Änderung und Merkliste (Ticker des Paars), sonst aus den Kerzen
     val change24h = CandleSeries.change24h(input.tickerChange24h, changeOver(candles, 24, now))
-    val stats = candles?.let { hourStats(it) }
+    val stats = candles?.let { hourStats(it, now) }
     val reference = CandleSeries.usable(input.referenceCandles, now, null)
     val stable = StablePeg.isPegged(input.baseAsset, input.quoteAsset)
     val isBtc = input.baseAsset.trim().equals("BTC", ignoreCase = true)

@@ -28,7 +28,8 @@ extension ExplorerScreen {
                     .submitLabel(.search)
                     .onSubmit { runDexSearch() }
                     .padding(.horizontal, Spacing.md)
-                    .frame(height: 50)
+                    // Mindesthöhe: wächst mit grosser Schrift (AX-Grössen) mit
+                    .frame(minHeight: 50)
                     .background(AppColors.containerHigh, in: RoundedRectangle(cornerRadius: Radius.field, style: .continuous))
                     .overlay(
                         RoundedRectangle(cornerRadius: Radius.field, style: .continuous)
@@ -38,7 +39,7 @@ extension ExplorerScreen {
                     Text(L("dex_search"))
                         .font(.subheadline.weight(.semibold))
                         .padding(.horizontal, 16)
-                        .frame(height: 50)
+                        .frame(minHeight: 50)
                 }
                 .buttonStyle(AccentButtonStyle())
                 .disabled(dexQuery.trimmingCharacters(in: .whitespaces).isEmpty || vm.dexSearching)

@@ -49,8 +49,73 @@ class ActivityAnalyzerTest {
 
     @Test
     fun hourStats_needsEnoughCandles() {
-        assertNull(ActivityAnalyzer.hourStats(candles(fromReturns(window(0.5) + 1.0))))
+        // 22 Kerzen: nur 19 Vergleichsrenditen → keine Kennzahlen; 23 Kerzen: 20 genügen
+        assertNull(ActivityAnalyzer.hourStats(candles(fromReturns(window(0.5).takeLast(19) + 1.0 + 0.0))))
+        assertNotNull(ActivityAnalyzer.hourStats(candles(fromReturns(window(0.5).takeLast(20) + 1.0 + 0.0))))
         assertNotNull(ActivityAnalyzer.hourStats(candles(fromReturns(window(0.5) + 1.0 + 0.0))))
+        assertNull(ActivityAnalyzer.hourStats(emptyList()))
+    }
+
+    /** Wie [candles], aber ohne die Kerzen an den Stellen [missing] (Coinbase: Stunde ohne Handel). */
+    private fun withGaps(closes: List<Double>, missing: Set<Int>, volumes: List<Double> = closes.map { 100.0 }) =
+        candles(closes, volumes).filterIndexed { i, _ -> i !in missing }
+
+    @Test
+    fun hourStats_gapBeforeLastHour_isNotAnHourMove() {
+        // Vier Stunden ohne Handel vor der letzten abgeschlossenen Stunde: der Sprung über fünf
+        // Stunden (+6 %) darf nicht als Stunden-Bewegung zählen (sonst falsches ⚡)
+        val returns = window(0.5) + listOf(1.5, 1.5, 1.5, 1.5) + 0.0 + 0.0
+        val c = withGaps(fromReturns(returns), missing = setOf(25, 26, 27, 28))
+        val inRunningHour = t0 + 30 * h + 30 * 60_000L
+        val stats = ActivityAnalyzer.hourStats(c, inRunningHour)
+        assertNull(stats)
+        assertTrue(ActivityAnalyzer.signals(stats, null, null, null, inRunningHour).isEmpty())
+        // Ohne Lücken wäre es eine gewöhnliche Stunde (0 %) mit Kennzahlen
+        assertEquals(0.0, ActivityAnalyzer.hourStats(candles(fromReturns(returns)), inRunningHour)!!.movePercent, 1e-9)
+    }
+
+    @Test
+    fun hourStats_gapsInWindow_skipOnlyThoseReturns() {
+        // Zwei Lücken im Fenster: nur Renditen über genau 1 h zählen (20 von 24)
+        val closes = fromReturns(window(0.5) + 5.0 + 0.0)
+        val c = withGaps(closes, missing = setOf(5, 12))
+        val stats = ActivityAnalyzer.hourStats(c, now)!!
+        assertEquals(5.0, stats.movePercent, 1e-9)
+        assertEquals(t0 + 25 * h, stats.candleOpenTime)
+        // Drei Lücken: nur noch 18 gültige Renditen → keine Kennzahlen
+        assertNull(ActivityAnalyzer.hourStats(withGaps(closes, missing = setOf(3, 7, 11)), now))
+    }
+
+    @Test
+    fun hourStats_alignsToCurrentHour() {
+        val closes = fromReturns(window(0.5) + 5.0 + 0.0)
+        // Laufende Stunde fehlt (noch kein Handel): die letzte Kerze ist die abgeschlossene Stunde
+        val withoutRunning = candles(closes).dropLast(1)
+        val inNextHour = t0 + 26 * h + 10 * 60_000L
+        val stats = ActivityAnalyzer.hourStats(withoutRunning, inNextHour)!!
+        assertEquals(5.0, stats.movePercent, 1e-9)
+        assertEquals(t0 + 25 * h, stats.candleOpenTime)
+        // Ohne «jetzt» gilt die letzte Kerze als laufend (bisheriges Verhalten)
+        assertEquals(t0 + 24 * h, ActivityAnalyzer.hourStats(withoutRunning)!!.candleOpenTime)
+        // Neueste volle Stunde fehlt ganz: keine Bewegung, kein PRICE_MOVE
+        assertNull(ActivityAnalyzer.hourStats(withoutRunning, inNextHour + h))
+        // Uhr geht nach (vor dem Beginn der laufenden Kerze): wie laufende Stunde
+        assertEquals(t0 + 25 * h, ActivityAnalyzer.hourStats(candles(closes), t0 + 26 * h - 60_000L)!!.candleOpenTime)
+    }
+
+    @Test
+    fun hourStats_missingHoursCountAsEmptyVolume() {
+        val closes = fromReturns(window(0.5) + 1.0 + 0.0)
+        val volumes = List(closes.size) { if (it == closes.size - 2) 500.0 else 100.0 }
+        val missing = setOf(4, 5, 6)
+        // Drei fehlende Stunden: Schnitt trotzdem über 24 Stunden (21 × 100 / 24)
+        val three = ActivityAnalyzer.hourStats(withGaps(closes, missing, volumes), now)!!
+        assertEquals(500.0 / (2100.0 / 24), three.volumeRatio!!, 1e-9)
+        // Drei fehlende plus drei ohne Umsatz = 6 leere Stunden: noch erlaubt
+        fun zeroAt(idx: Set<Int>) = volumes.mapIndexed { i, v -> if (i in idx) 0.0 else v }
+        assertNotNull(ActivityAnalyzer.hourStats(withGaps(closes, missing, zeroAt(setOf(10, 14, 18))), now)!!.volumeRatio)
+        // Drei fehlende plus vier ohne Umsatz = 7 leere Stunden: kein Verhältnis
+        assertNull(ActivityAnalyzer.hourStats(withGaps(closes, missing, zeroAt(setOf(10, 14, 18, 20))), now)!!.volumeRatio)
     }
 
     @Test

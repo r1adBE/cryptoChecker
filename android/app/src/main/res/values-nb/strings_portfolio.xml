@@ -6,8 +6,8 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Tøm portefølje</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Slette %d transaksjon? Overvåkede adresser blir værende. Dette kan ikke angres.</item>
-        <item quantity="other">Slette alle %d transaksjoner? Overvåkede adresser blir værende. Dette kan ikke angres.</item>
+        <item quantity="one">Slette %d transaksjon? Overvåkede adresser blir værende. Du kan angre det rett etterpå.</item>
+        <item quantity="other">Slette alle %d transaksjoner? Overvåkede adresser blir værende. Du kan angre det rett etterpå.</item>
     </plurals>
     <string name="portfolio_empty_action">Legg inn ditt første kjøp</string>
     <string name="portfolio_empty_address">Bare følg en lommebokadresse</string>
@@ -301,4 +301,17 @@
         <item quantity="one">%1$s fjernet fra porteføljen (%2$d transaksjon)</item>
         <item quantity="other">%1$s fjernet fra porteføljen (%2$d transaksjoner)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d transaksjon fjernet</item>
+        <item quantity="other">%d transaksjoner fjernet</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Dette fjerner også %d post.</item>
+        <item quantity="other">Dette fjerner også %d poster.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Dette fjerner også %d post og saldohistorikken.</item>
+        <item quantity="other">Dette fjerner også %d poster og saldohistorikken.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Dette fjerner også saldohistorikken.</string>
 </resources>

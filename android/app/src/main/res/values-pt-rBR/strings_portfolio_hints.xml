@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Alertas da carteira pausados: sem cotação atual para %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Alertas da carteira pausados: nem todas as moedas têm cotação atual</string>
+    <string name="portfolio_alarms_paused_addresses">Alertas da carteira pausados: saldos dos endereços monitorados ainda não carregados</string>
+</resources>

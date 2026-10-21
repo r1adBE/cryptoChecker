@@ -24,6 +24,7 @@ import okhttp3.WebSocketListener
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.random.Random
 
 /** Eine Verbindung mit eigener Schleife: verbinden, abonnieren, bei Abbruch neu verbinden (für [LivePriceStream]). */
 internal class LiveConnection(
@@ -55,9 +56,11 @@ internal class LiveConnection(
                 delay((until - now).coerceIn(1_000L, LiveBackoff.RATE_LIMITED_MILLIS))
                 continue
             }
+            val startedAt = System.currentTimeMillis()
             val ended = connectOnce()
-            attempt = if (ended.receivedData) 0 else attempt + 1
-            delay(LiveBackoff.delayMillis(attempt, ended.rateLimited))
+            // Zurück auf 1 s erst nach stabiler Verbindung; Pause gestreut (wie iOS)
+            attempt = LiveBackoff.nextAttempt(attempt, ended.receivedData, System.currentTimeMillis() - startedAt)
+            delay(LiveBackoff.reconnectDelayMillis(attempt, ended.rateLimited, Random.nextDouble()))
         }
     }
 
@@ -97,6 +100,12 @@ internal class LiveConnection(
             while (isActive) {
                 delay(HEARTBEAT_CHECK_MILLIS)
                 val now = System.currentTimeMillis()
+                // Börse inzwischen pausiert (ExchangeBackoff): Verbindung schliessen, die Schleife
+                // verbindet erst nach der Pause wieder (wie iOS)
+                if (ExchangeBackoff.isPaused(refreshStats.backoffStates()[spec.exchange.marketKey], now)) {
+                    socket.cancel()
+                    break
+                }
                 val ping = spec.exchange.pingText
                 if (ping != null && now - lastPingAt >= spec.exchange.pingIntervalMillis) {
                     socket.send(ping)

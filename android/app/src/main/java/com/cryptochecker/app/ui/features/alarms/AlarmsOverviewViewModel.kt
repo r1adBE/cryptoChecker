@@ -6,6 +6,12 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
+import com.cryptochecker.app.data.portfolio.toAlarmReading
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
+import com.cryptochecker.app.widget.PortfolioSnapshotStore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.settings.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +31,8 @@ class AlarmsOverviewViewModel @Inject constructor(
     settingsRepository: SettingsRepository,
     /** Mitteilung eines ausgeschalteten Alarms entfernen ([AlarmUserChange]). */
     private val appNotifier: com.cryptochecker.app.notification.AppNotifier,
+    /** Letzte Momentaufnahme: warum Portfolio-Alarme gerade nicht prüfen ([portfolioPause]). */
+    private val snapshotStore: PortfolioSnapshotStore,
 ) : ViewModel() {
 
     /** Alarme «Portfolio-Wert» — nur mit eingeschaltetem Portfolio (sonst prüft sie auch niemand). */
@@ -33,6 +41,24 @@ class AlarmsOverviewViewModel @Inject constructor(
         settingsRepository.settings,
     ) { alarms, settings -> if (settings.portfolioEnabled) alarms else emptyList() }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
+    /**
+     * Hinweis «Portfolio-Alarme pausiert» ([PortfolioAlarmLogic.pause]) aus der letzten Momentaufnahme; null = keiner
+     * (keine eingeschalteten Portfolio-Alarme, keine Aufnahme oder nichts blockiert). Gelesen beim Öffnen und bei jeder
+     * Änderung der Alarme.
+     */
+    val portfolioPause: StateFlow<PortfolioAlarmPause?> = portfolioAlarms
+        .map { alarms ->
+            val kinds = alarms.filter { it.enabled }.map { it.kind }
+            if (kinds.isEmpty()) {
+                null
+            } else {
+                withContext(Dispatchers.IO) {
+                    snapshotStore.snapshot()?.let { s -> PortfolioAlarmLogic.pause(kinds, s.toAlarmReading(), s.missingCoins, s.staleCoins) }
+                }
+            }
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     /** Beträge der Portfolio-Alarme verbergen («Beträge verbergen») und %-Basis für die Sätze. */
     val portfolioDisplay: StateFlow<Pair<Boolean, ChangeBasis>> = settingsRepository.settings

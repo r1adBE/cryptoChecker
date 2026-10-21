@@ -6,8 +6,8 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Portfolio leegmaken</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">%d transactie verwijderen? Gevolgde adressen blijven. Dit kan niet ongedaan worden gemaakt.</item>
-        <item quantity="other">Alle %d transacties verwijderen? Gevolgde adressen blijven. Dit kan niet ongedaan worden gemaakt.</item>
+        <item quantity="one">%d transactie verwijderen? Gevolgde adressen blijven. Je kunt dit direct daarna ongedaan maken.</item>
+        <item quantity="other">Alle %d transacties verwijderen? Gevolgde adressen blijven. Je kunt dit direct daarna ongedaan maken.</item>
     </plurals>
     <string name="portfolio_empty_action">Eerste aankoop invoeren</string>
     <string name="portfolio_empty_address">Alleen een walletadres volgen</string>
@@ -301,4 +301,17 @@
         <item quantity="one">%1$s uit het portfolio verwijderd (%2$d transactie)</item>
         <item quantity="other">%1$s uit het portfolio verwijderd (%2$d transacties)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d transactie verwijderd</item>
+        <item quantity="other">%d transacties verwijderd</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Hiermee wordt ook %d post verwijderd.</item>
+        <item quantity="other">Hiermee worden ook %d posten verwijderd.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Hiermee worden ook %d post en de saldogeschiedenis verwijderd.</item>
+        <item quantity="other">Hiermee worden ook %d posten en de saldogeschiedenis verwijderd.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Hiermee wordt ook de saldogeschiedenis verwijderd.</string>
 </resources>

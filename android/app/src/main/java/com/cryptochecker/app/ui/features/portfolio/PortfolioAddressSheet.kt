@@ -4,6 +4,7 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -18,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SheetValue
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -27,10 +29,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -46,6 +52,8 @@ import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressValidation
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.domain.portfolio.WatchedAddressUndo
+import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.Spacing
 
 /**
@@ -95,6 +103,9 @@ internal fun PortfolioAddressSheet(
     var askPrivacy by remember { mutableStateOf(false) }
     var askRemove by remember { mutableStateOf<WatchedAddress?>(null) }
     var busy by remember { mutableStateOf(false) }
+    // Eigenes Banner im Blatt: das des Portfolio-Tabs läge hinter dem Blatt («entfernt» mit «Rückgängig», Sperre)
+    val banner = rememberWatchlistBanner(rememberCoroutineScope())
+    val resources = LocalResources.current
     var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LaunchedEffect(Unit) {
         while (true) {
@@ -186,13 +197,36 @@ internal fun PortfolioAddressSheet(
             }
         )
     }
+    /** Entfernen, dann «Rückgängig» im Banner (holt die ganze Adresse samt Posten und Verlauf zurück); gesperrt: Hinweis. */
+    fun remove(target: WatchedAddress) {
+        val lockedText = resources.getString(R.string.portfolio_storage_locked)
+        viewModel.removeWatchedAddress(target.id, onLocked = { banner.show(lockedText) }) { row ->
+            val name = target.label ?: WatchedAddressRules.shortAddress(target.address)
+            banner.show(resources.getString(R.string.watchlist_removed, name)) {
+                viewModel.restoreWatchedAddress(row, onLocked = { banner.show(lockedText) })
+            }
+        }
+    }
+
     askRemove?.let { target ->
+        // Was mitgeht, nennen: Eröffnungsposten und Guthaben-Verlauf (vorher still mitgelöscht)
+        val removal = remember(target) { WatchedAddressUndo.removal(target) }
+        val alsoRemoved = when {
+            removal.lots > 0 && removal.history ->
+                pluralStringResource(R.plurals.portfolio_address_remove_lots_history, removal.lots, removal.lots)
+            removal.lots > 0 -> pluralStringResource(R.plurals.portfolio_address_remove_lots, removal.lots, removal.lots)
+            removal.history -> stringResource(R.string.portfolio_address_remove_history)
+            else -> null
+        }
         AlertDialog(
             onDismissRequest = { askRemove = null },
             title = { Text(stringResource(R.string.portfolio_address_remove)) },
-            text = { Text(target.label?.let { "$it\n${target.address}" } ?: target.address) },
+            text = {
+                val head = target.label?.let { "$it\n${target.address}" } ?: target.address
+                Text(alsoRemoved?.let { "$head\n\n$it" } ?: head)
+            },
             confirmButton = {
-                TextButton(onClick = { askRemove = null; viewModel.removeWatchedAddress(target.id) }) {
+                TextButton(onClick = { askRemove = null; remove(target) }) {
                     Text(stringResource(R.string.portfolio_address_remove), color = MaterialTheme.colorScheme.error)
                 }
             },
@@ -204,92 +238,95 @@ internal fun PortfolioAddressSheet(
 
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
         BackHandler(enabled = dirty) { askDiscard = true }
-        LazyColumn(
-            modifier = Modifier.fillMaxWidth().navigationBarsPadding(),
-            verticalArrangement = Arrangement.spacedBy(Spacing.sm),
-        ) {
-            item(key = "title") {
-                Text(
-                    stringResource(R.string.portfolio_addresses_title),
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(horizontal = 24.dp)
-                )
-            }
-            items(addresses, key = { "a:${it.id}" }) { a ->
-                val matches = remember(a, trades) { WatchedAddressRules.transferMatches(a, trades) }
-                AddressRow(
-                    a, now, hideAmounts,
-                    overlap = WatchedAddressRules.overlap(a, ownCoins),
-                    matches = if (a.id in countConfirmed) emptyList() else matches,
-                    onCount = { countConfirmed = countConfirmed + a.id },
-                    onRemove = { askRemove = a },
-                    onCountTokens = { on -> viewModel.setWatchedAddressCountTokens(a.id, on) },
-                    onNetworks = { list -> viewModel.setWatchedAddressNetworks(a.id, list) },
-                    onShowOnly = { showOnly -> viewModel.setWatchedAddressCountInPortfolio(a.id, !showOnly) },
-                    onCostLots = { lotsFor = a.id },
-                    trades = trades,
-                    allAddresses = addresses,
-                )
-            }
-            item(key = "form") {
-                Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = Spacing.sm)) {
-                    if (addresses.isNotEmpty()) HorizontalDivider(modifier = Modifier.padding(bottom = Spacing.md))
-                    OutlinedTextField(
-                        value = input,
-                        onValueChange = { input = it; saveError = null },
-                        label = { Text(stringResource(R.string.portfolio_address_hint)) },
-                        singleLine = true,
-                        isError = problemText != null || saveError != null,
-                        supportingText = {
-                            val err = saveError ?: problemText
-                            when {
-                                err != null -> Text(stringResource(err), color = MaterialTheme.colorScheme.error)
-                                check.chain != null -> Text(check.chain.coin)
-                                else -> {}
-                            }
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            capitalization = KeyboardCapitalization.None,
-                            autoCorrectEnabled = false,
-                            // Nur ASCII (Adressen), keine Vorschläge/Wörterbuch-Einträge aus der Adresse
-                            keyboardType = KeyboardType.Ascii,
-                            imeAction = ImeAction.Next,
-                        ),
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                    OutlinedTextField(
-                        value = label,
-                        onValueChange = { if (it.codePointCount(0, it.length) <= WatchedAddressRules.MAX_LABEL) label = it },
-                        label = { Text(stringResource(R.string.portfolio_address_label)) },
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                        modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)
-                    )
-                    if (!WatchedAddressRules.canAdd(addresses)) {
-                        Text(
-                            stringResource(R.string.address_limit),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.error,
-                            modifier = Modifier.padding(top = Spacing.sm)
-                        )
-                    }
-                    // Wer die Adresse sieht (Anbieter des erkannten Netzes); xpub: was er verrät und wie viele Anfragen
+        Box {
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth().navigationBarsPadding(),
+                verticalArrangement = Arrangement.spacedBy(Spacing.sm),
+            ) {
+                item(key = "title") {
                     Text(
-                        privacyText(check),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = Spacing.md)
+                        stringResource(R.string.portfolio_addresses_title),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(horizontal = 24.dp)
                     )
-                    Button(
-                        onClick = { if (addresses.isEmpty()) askPrivacy = true else addChecked() },
-                        enabled = canAdd,
-                        modifier = Modifier.fillMaxWidth().padding(top = Spacing.md, bottom = Spacing.lg)
-                    ) {
-                        Text(stringResource(R.string.portfolio_address_add))
+                }
+                items(addresses, key = { "a:${it.id}" }) { a ->
+                    val matches = remember(a, trades) { WatchedAddressRules.transferMatches(a, trades) }
+                    AddressRow(
+                        a, now, hideAmounts,
+                        overlap = WatchedAddressRules.overlap(a, ownCoins),
+                        matches = if (a.id in countConfirmed) emptyList() else matches,
+                        onCount = { countConfirmed = countConfirmed + a.id },
+                        onRemove = { askRemove = a },
+                        onCountTokens = { on -> viewModel.setWatchedAddressCountTokens(a.id, on) },
+                        onNetworks = { list -> viewModel.setWatchedAddressNetworks(a.id, list) },
+                        onShowOnly = { showOnly -> viewModel.setWatchedAddressCountInPortfolio(a.id, !showOnly) },
+                        onCostLots = { lotsFor = a.id },
+                        trades = trades,
+                        allAddresses = addresses,
+                    )
+                }
+                item(key = "form") {
+                    Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = Spacing.sm)) {
+                        if (addresses.isNotEmpty()) HorizontalDivider(modifier = Modifier.padding(bottom = Spacing.md))
+                        OutlinedTextField(
+                            value = input,
+                            onValueChange = { input = it; saveError = null },
+                            label = { Text(stringResource(R.string.portfolio_address_hint)) },
+                            singleLine = true,
+                            isError = problemText != null || saveError != null,
+                            supportingText = {
+                                val err = saveError ?: problemText
+                                when {
+                                    err != null -> Text(stringResource(err), color = MaterialTheme.colorScheme.error)
+                                    check.chain != null -> Text(check.chain.coin)
+                                    else -> {}
+                                }
+                            },
+                            keyboardOptions = KeyboardOptions(
+                                capitalization = KeyboardCapitalization.None,
+                                autoCorrectEnabled = false,
+                                // Nur ASCII (Adressen), keine Vorschläge/Wörterbuch-Einträge aus der Adresse
+                                keyboardType = KeyboardType.Ascii,
+                                imeAction = ImeAction.Next,
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        OutlinedTextField(
+                            value = label,
+                            onValueChange = { if (it.codePointCount(0, it.length) <= WatchedAddressRules.MAX_LABEL) label = it },
+                            label = { Text(stringResource(R.string.portfolio_address_label)) },
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                            modifier = Modifier.fillMaxWidth().padding(top = Spacing.sm)
+                        )
+                        if (!WatchedAddressRules.canAdd(addresses)) {
+                            Text(
+                                stringResource(R.string.address_limit),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.error,
+                                modifier = Modifier.padding(top = Spacing.sm)
+                            )
+                        }
+                        // Wer die Adresse sieht (Anbieter des erkannten Netzes); xpub: was er verrät und wie viele Anfragen
+                        Text(
+                            privacyText(check),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(top = Spacing.md)
+                        )
+                        Button(
+                            onClick = { if (addresses.isEmpty()) askPrivacy = true else addChecked() },
+                            enabled = canAdd,
+                            modifier = Modifier.fillMaxWidth().padding(top = Spacing.md, bottom = Spacing.lg)
+                        ) {
+                            Text(stringResource(R.string.portfolio_address_add))
+                        }
                     }
                 }
             }
+            SnackbarHost(banner.host, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
         }
     }
 }

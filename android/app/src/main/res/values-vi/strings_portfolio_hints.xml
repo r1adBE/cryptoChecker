@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Cảnh báo danh mục tạm dừng: không có giá hiện tại cho %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Cảnh báo danh mục tạm dừng: không phải coin nào cũng có giá hiện tại</string>
+    <string name="portfolio_alarms_paused_addresses">Cảnh báo danh mục tạm dừng: số dư của các địa chỉ theo dõi chưa được tải</string>
+</resources>

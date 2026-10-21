@@ -54,12 +54,12 @@
 
     <!-- Damit Alarme ankommen: Zeile nur auf Geräten, deren Hersteller die App nach dem Beenden nicht mehr startet (Build.MANUFACTURER) -->
     <string name="oem_battery_title">Manufacturer battery saver</string>
-    <string name="oem_battery_xiaomi">Xiaomi may stop the app completely – then no alarms arrive. Turn on “Autostart” and set Battery saver to “No restrictions”.</string>
-    <string name="oem_battery_samsung">Samsung may put the app to deep sleep – then no alarms arrive. Under Battery › Background usage limits, add it to “Never sleeping apps”.</string>
-    <string name="oem_battery_huawei">Huawei/Honor may stop the app – then no alarms arrive. Under Battery › App launch, choose “Manage manually” and allow all options.</string>
-    <string name="oem_battery_oneplus">OnePlus may stop the app – then no alarms arrive. Allow “Auto-launch” and, under Battery usage, background activity.</string>
-    <string name="oem_battery_oppo">Oppo/Realme may stop the app – then no alarms arrive. Allow “Auto launch” and, under Battery usage, background activity.</string>
-    <string name="oem_battery_vivo">Vivo may stop the app – then no alarms arrive. Allow “Autostart” and, under Battery, high background power use.</string>
+    <string name="oem_battery_xiaomi">Xiaomi may stop the app completely – then no alerts arrive. Turn on “Autostart” and set Battery saver to “No restrictions”.</string>
+    <string name="oem_battery_samsung">Samsung may put the app to deep sleep – then no alerts arrive. Under Battery › Background usage limits, add it to “Never sleeping apps”.</string>
+    <string name="oem_battery_huawei">Huawei/Honor may stop the app – then no alerts arrive. Under Battery › App launch, choose “Manage manually” and allow all options.</string>
+    <string name="oem_battery_oneplus">OnePlus may stop the app – then no alerts arrive. Allow “Auto-launch” and, under Battery usage, background activity.</string>
+    <string name="oem_battery_oppo">Oppo/Realme may stop the app – then no alerts arrive. Allow “Auto launch” and, under Battery usage, background activity.</string>
+    <string name="oem_battery_vivo">Vivo may stop the app – then no alerts arrive. Allow “Autostart” and, under Battery, high background power use.</string>
     <!-- Zeile über der Merkliste (Build 91, nur mit Alarmen): ruhig mit der letzten Prüfung im Hintergrund, sonst der wichtigste Grund; Tipp öffnet «Damit Alarme ankommen». %1$s = relative Zeit wie «vor 12 Min.» / «gerade eben» -->
     <string name="alarm_reliability_recent">Last check %1$s</string>
     <string name="alarm_reliability_stale">Last check %1$s – alerts may be late</string>

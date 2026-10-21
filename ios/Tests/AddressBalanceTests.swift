@@ -54,10 +54,12 @@ final class AddressBalanceTests: XCTestCase {
             let body = c["body"] as? String ?? ""
             let address = c["address"] as? String ?? ""
             let name = c["name"] as? String ?? ""
+            // Plausibilität je Netz (Litecoin: 84 Mio.)
+            let net = chain(c["chain"]) ?? .BTC
             if c["error"] as? Bool == true {
-                XCTAssertThrowsError(try AddressBalance.parseBtc(body, address: address), name)
+                XCTAssertThrowsError(try AddressBalance.parseBtc(body, address: address, chain: net), name)
             } else {
-                let stats = try AddressBalance.parseBtc(body, address: address)
+                let stats = try AddressBalance.parseBtc(body, address: address, chain: net)
                 XCTAssertEqual(stats.confirmedSats, int64(c["confirmedSats"]), "confirmed: \(name)")
                 XCTAssertEqual(stats.pendingSats, int64(c["pendingSats"]), "pending: \(name)")
                 XCTAssertEqual(AddressBalance.btcText(stats), c["balance"] as? String, "balance: \(name)")

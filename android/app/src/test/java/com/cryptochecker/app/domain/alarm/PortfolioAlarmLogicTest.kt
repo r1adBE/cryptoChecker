@@ -1,5 +1,8 @@
 package com.cryptochecker.app.domain.alarm
 
+import com.cryptochecker.app.domain.portfolio.AddressBalance
+import com.cryptochecker.app.domain.portfolio.AddressChain
+import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -175,6 +178,47 @@ class PortfolioAlarmLogicTest {
         }
         // Alle frisch: wie bisher
         assertTrue(PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), stale.copy(stalePrices = 0), start, 0) is PortfolioAlarmDecision.Fire)
+    }
+
+    @Test
+    fun `zaehlende Adresse ohne geladenes Guthaben sperrt jede Art`() {
+        // Frisch wiederhergestellt: Guthaben nie geladen — der Gesamtwert ist zu tief, «unter Betrag» löste sonst aus
+        val addresses = listOf(
+            WatchedAddress(chain = AddressChain.BTC, address = "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh", lastBalance = null),
+            WatchedAddress(chain = AddressChain.ETH, address = "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed", lastBalance = null, countInPortfolio = false),
+        )
+        val pending = AddressBalance.pendingCount(addresses)
+        assertEquals(1, pending)
+        val r = reading(50.0, change = 12.0).copy(addressesPending = pending)
+        for (kind in PortfolioAlarmKind.entries) {
+            val threshold = if (kind.isValue) 100.0 else 10.0
+            assertEquals(PortfolioAlarmDecision.None, PortfolioAlarmLogic.decide(alarm(kind, threshold), r, start, 0))
+            assertEquals(PortfolioAlarmDecision.None, PortfolioAlarmLogic.decide(alarm(kind, threshold).copy(referenceAt = start), r, start, 0))
+        }
+        // Guthaben geladen: wie bisher
+        val loaded = addresses.map { it.copy(lastBalance = "0.1") }
+        assertEquals(0, AddressBalance.pendingCount(loaded))
+        assertTrue(PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), r.copy(addressesPending = 0), start, 0) is PortfolioAlarmDecision.Fire)
+    }
+
+    @Test
+    fun `alter Kurs unter 1 Prozent des Werts prueft trotzdem`() {
+        // totalUsdt 55 (reading × 1.1): 0.5 USDT alter Kurs < 1 % → prüfen; 0.6 USDT > 1 % → nicht
+        val small = reading(50.0, change = 12.0).copy(stalePrices = 1, staleValueUsdt = 0.5)
+        assertFalse(PortfolioAlarmLogic.staleMaterial(small))
+        assertTrue(PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), small, start, 0) is PortfolioAlarmDecision.Fire)
+        assertTrue(PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.CHANGE_UP, 10.0), small, start, 0) is PortfolioAlarmDecision.Fire)
+        val material = small.copy(staleValueUsdt = 0.6)
+        assertTrue(PortfolioAlarmLogic.staleMaterial(material))
+        assertEquals(PortfolioAlarmDecision.None, PortfolioAlarmLogic.decide(alarm(PortfolioAlarmKind.VALUE_BELOW, 100.0), material, start, 0))
+        // Ohne bekannten Gesamtwert: wesentlich
+        assertTrue(PortfolioAlarmLogic.staleMaterial(small.copy(totalUsdt = null)))
+        // Hinweis: nur die wesentlichen alten Kurse und (bei Wert-Alarmen) die Coins ohne Kurs
+        assertNull(PortfolioAlarmLogic.pause(listOf(PortfolioAlarmKind.VALUE_BELOW), small, emptyList(), listOf("PEPE")))
+        assertEquals(
+            PortfolioAlarmPause.NoPrice(listOf("PEPE")),
+            PortfolioAlarmLogic.pause(listOf(PortfolioAlarmKind.CHANGE_UP), material, emptyList(), listOf("PEPE")),
+        )
     }
 
     @Test

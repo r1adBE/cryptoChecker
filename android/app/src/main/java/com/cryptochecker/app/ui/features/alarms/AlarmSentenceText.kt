@@ -8,6 +8,7 @@ import com.cryptochecker.app.data.local.model.convertCurrency
 import com.cryptochecker.app.domain.alarm.AlarmSavedText
 import com.cryptochecker.app.domain.alarm.AlarmSentence
 import com.cryptochecker.app.notification.AlarmTexts
+import com.cryptochecker.app.util.MomentText
 import com.cryptochecker.app.util.PriceFormat
 
 /**
@@ -102,7 +103,8 @@ fun alarmA11yDescription(context: Context, alarm: AlarmEntity, title: String, se
     if (!sentence.isNullOrEmpty()) parts += sentence
     parts += context.getString(if (alarm.repeating) R.string.alarm_repeating else R.string.alarm_once)
     if (alarm.lastTriggeredAt > 0) {
-        parts += context.getString(R.string.alarm_last_triggered, PriceFormat.time(alarm.lastTriggeredAt))
+        // Heute nur die Uhrzeit, sonst mit Datum (wie die Karte)
+        parts += context.getString(R.string.alarm_last_triggered, MomentText.moment(alarm.lastTriggeredAt))
     }
     if (alarm.sound) parts += context.getString(R.string.alarm_a11y_sound_on)
     if (alarm.speak) parts += context.getString(R.string.alarm_a11y_speak_on)

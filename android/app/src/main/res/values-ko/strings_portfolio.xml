@@ -6,7 +6,7 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">포트폴리오 비우기</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="other">거래 %d건을 모두 삭제할까요? 관찰 중인 주소는 유지됩니다. 되돌릴 수 없습니다.</item>
+        <item quantity="other">거래 %d건을 모두 삭제할까요? 관찰 중인 주소는 유지됩니다. 삭제 직후에 실행 취소할 수 있습니다.</item>
     </plurals>
     <string name="portfolio_empty_action">첫 매수 추가</string>
     <string name="portfolio_empty_address">지갑 주소만 지켜보기</string>
@@ -295,4 +295,14 @@
     <plurals name="portfolio_coin_removed">
         <item quantity="other">포트폴리오에서 %1$s 삭제됨(거래 %2$d건)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="other">거래 %d건 삭제됨</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="other">로트 %d개도 삭제됩니다.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="other">로트 %d개와 잔액 기록도 삭제됩니다.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">잔액 기록도 삭제됩니다.</string>
 </resources>

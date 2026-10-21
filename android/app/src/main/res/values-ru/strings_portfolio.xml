@@ -6,10 +6,10 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Очистить портфель</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Удалить %d транзакцию? Отслеживаемые адреса останутся. Это действие нельзя отменить.</item>
-        <item quantity="few">Удалить все %d транзакции? Отслеживаемые адреса останутся. Это действие нельзя отменить.</item>
-        <item quantity="many">Удалить все %d транзакций? Отслеживаемые адреса останутся. Это действие нельзя отменить.</item>
-        <item quantity="other">Удалить все %d транзакций? Отслеживаемые адреса останутся. Это действие нельзя отменить.</item>
+        <item quantity="one">Удалить %d транзакцию? Отслеживаемые адреса останутся. Сразу после этого удаление можно отменить.</item>
+        <item quantity="few">Удалить все %d транзакции? Отслеживаемые адреса останутся. Сразу после этого удаление можно отменить.</item>
+        <item quantity="many">Удалить все %d транзакций? Отслеживаемые адреса останутся. Сразу после этого удаление можно отменить.</item>
+        <item quantity="other">Удалить все %d транзакций? Отслеживаемые адреса останутся. Сразу после этого удаление можно отменить.</item>
     </plurals>
     <string name="portfolio_empty_action">Добавить первую покупку</string>
     <string name="portfolio_empty_address">Только следить за адресом кошелька</string>
@@ -313,4 +313,23 @@
         <item quantity="many">%1$s удалён из портфеля (%2$d операций)</item>
         <item quantity="other">%1$s удалён из портфеля (%2$d операции)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">Удалена %d транзакция</item>
+        <item quantity="few">Удалены %d транзакции</item>
+        <item quantity="many">Удалено %d транзакций</item>
+        <item quantity="other">Удалено %d транзакции</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Также будет удалена %d партия.</item>
+        <item quantity="few">Также будут удалены %d партии.</item>
+        <item quantity="many">Также будут удалены %d партий.</item>
+        <item quantity="other">Также будут удалены %d партии.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Также будут удалены %d партия и история балансов.</item>
+        <item quantity="few">Также будут удалены %d партии и история балансов.</item>
+        <item quantity="many">Также будут удалены %d партий и история балансов.</item>
+        <item quantity="other">Также будут удалены %d партии и история балансов.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Также будет удалена история балансов.</string>
 </resources>

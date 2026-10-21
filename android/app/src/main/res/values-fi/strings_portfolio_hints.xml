@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Salkkuhälytykset keskeytetty: ei ajantasaista hintaa kohteelle %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Salkkuhälytykset keskeytetty: kaikilla kolikoilla ei ole ajantasaista hintaa</string>
+    <string name="portfolio_alarms_paused_addresses">Salkkuhälytykset keskeytetty: seurattujen osoitteiden saldoja ei ole vielä ladattu</string>
+</resources>

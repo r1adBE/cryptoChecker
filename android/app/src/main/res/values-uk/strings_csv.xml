@@ -53,7 +53,7 @@
     <string name="portfolio_csv_import_transfers_title">Перекази між вашими рахунками</string>
     <string name="portfolio_csv_import_unreadable">Підтримуваних транзакцій не знайдено. Підтримуються: CSV-експорти Relai, Swissquote, Kraken, Binance, Coinbase і Bitpanda.</string>
     <string name="portfolio_csv_import_failed">Не вдалося імпортувати – нічого не збережено. Спробуйте ще раз.</string>
-    <string name="portfolio_csv_import_locked">Імпорт зараз неможливий: збережений портфель заблоковано. Відкрийте застосунок пізніше ще раз.</string>
+    <string name="portfolio_csv_import_locked">Імпорт неможливий: збережені дані зараз не вдається прочитати. Перезапустіть застосунок.</string>
     <string name="portfolio_csv_import_withdrawals_title">Виведення – куди пішли монети?</string>
     <string name="portfolio_csv_import_zone">Час без часового поясу читається як: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Пристрій (%1$s)</string>

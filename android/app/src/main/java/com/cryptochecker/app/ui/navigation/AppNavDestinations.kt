@@ -116,6 +116,7 @@ internal fun NavGraphBuilder.alarmDestinations(
             onOpenWatch = { watchId -> navigation.navigate(ScreenRoute.Alarms(watchId)) },
             onOpenLog = openAlarmLog,
             onOpenDelivery = openAlarmDelivery,
+            onAddPair = { navigation.openExplorer() },
         )
     }
 

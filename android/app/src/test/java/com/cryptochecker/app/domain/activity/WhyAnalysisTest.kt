@@ -416,7 +416,8 @@ class WhyAnalysisTest {
     fun volume_unreliableWithManyEmptyHours() {
         // 7 von 24 Vergleichsstunden ohne Handel → kein Verhältnis
         val v = List(7) { 0.0 } + List(17) { 100.0 } + listOf(500.0, 100.0)
-        val c = series(count = 26, volumeTail = v)
+        // Zu kurze Reihe (unter 20 Vergleichsrenditen): keine Kennzahlen
+        val c = series(count = 22)
         assertNull(ActivityAnalyzer.hourStats(series(count = 27, volumeTail = v))?.volumeRatio)
         // 6 sind noch erlaubt
         val ok = List(6) { 0.0 } + List(18) { 100.0 } + listOf(500.0, 100.0)

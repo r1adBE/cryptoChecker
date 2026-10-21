@@ -21,3 +21,17 @@ unless open_items.empty?
   raise "Vor dem Einreichen ausfuellen: fastlane/metadata/review_information/" \
         "#{open_items.keys.join(', ')} (Platzhalter oder leer). Upload abgebrochen."
 end
+
+# Release settings (only after the guard above). Values given on the command line take
+# precedence over this file.
+app_identifier("com.cryptochecker.app")
+# Upload only: submitting for App Review stays a manual click in App Store Connect.
+submit_for_review(false)
+# After approval release by hand, then over 7 days to a growing share of automatic updates
+# (phased release, can be paused in App Store Connect; see APP_STORE.md «Update ausrollen»).
+automatic_release(false)
+phased_release(true)
+# precheck (metadata rules) before a submission; the app has no in-app purchases, and precheck
+# cannot check them with an App Store Connect API key anyway.
+run_precheck_before_submit(true)
+precheck_include_in_app_purchases(false)

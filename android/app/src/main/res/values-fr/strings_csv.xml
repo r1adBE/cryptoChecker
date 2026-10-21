@@ -49,7 +49,7 @@
     <string name="portfolio_csv_import_transfers_title">Transferts entre vos comptes</string>
     <string name="portfolio_csv_import_unreadable">Aucune transaction prise en charge trouvée. Pris en charge : exports CSV de Relai, Swissquote, Kraken, Binance, Coinbase et Bitpanda.</string>
     <string name="portfolio_csv_import_failed">L’importation a échoué – rien n’a été enregistré. Veuillez réessayer.</string>
-    <string name="portfolio_csv_import_locked">Importation impossible pour le moment : le portefeuille enregistré est verrouillé. Rouvrez l’app plus tard.</string>
+    <string name="portfolio_csv_import_locked">Importation impossible : les données enregistrées sont illisibles pour l\'instant. Redémarrez l\'app.</string>
     <string name="portfolio_csv_import_withdrawals_title">Retraits – où sont allés les coins ?</string>
     <string name="portfolio_csv_import_zone">Heures sans fuseau horaire lues comme : %1$s</string>
     <string name="portfolio_csv_import_zone_device">Appareil (%1$s)</string>

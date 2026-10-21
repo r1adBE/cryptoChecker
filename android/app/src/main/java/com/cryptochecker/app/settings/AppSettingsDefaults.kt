@@ -39,6 +39,15 @@ fun AppSettings.Companion.defaultForMigration(existingInstall: Boolean, legacy: 
 fun AppSettings.Companion.isExistingInstall(storedKeys: Collection<String>, ignored: Set<String>): Boolean =
     storedKeys.any { it !in ignored }
 
+/**
+ * Portfolio nach Standardwerten einschalten? Ja, wenn die Einstellungen als neue Installation angelegt wurden
+ * ([resetDefaults], z. B. nach beschädigter Datei), das Portfolio aus ist und trotzdem Portfolio-Daten da sind
+ * (Transaktionen, Adressen, Portfolio-Alarme) — dann ist es eine bestehende Installation, sonst blieben Tab und
+ * Portfolio-Alarme stumm. Wie iOS `AppSettings.enablePortfolioForData`.
+ */
+fun AppSettings.Companion.enablePortfolioForData(resetDefaults: Boolean, portfolioEnabled: Boolean, hasPortfolioData: Boolean): Boolean =
+    resetDefaults && !portfolioEnabled && hasPortfolioData
+
 /** Regionen, in denen Rot für steigende Kurse steht. */
 private val INVERTED_PRICE_COLOR_REGIONS = setOf("CN", "TW", "HK", "MO", "JP", "KR")
 

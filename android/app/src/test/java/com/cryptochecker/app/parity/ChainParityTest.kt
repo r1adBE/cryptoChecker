@@ -146,6 +146,7 @@ class ChainParityTest {
             else assertEquals(c["nano"], ChainBalance.parseTon(c["body"] as String))
         }
         assertEquals(ton["jettonsUrl"], ChainBalance.tonJettonsUrl("https://toncenter.com", ton["jettonsAddress"] as String))
+        assertEquals(ton["jettonLimit"].num()!!.toInt(), ChainBalance.TON_JETTON_LIMIT)
         ton["jettons"].list().map { it.obj() }.forEach { c ->
             if (c["error"] == true) expectError(c["name"] as String) { ChainBalance.parseTonJettons(c["body"] as String) }
             else assertEquals(c["name"] as String, c["tokens"].obj(), ChainBalance.parseTonJettons(c["body"] as String))
@@ -266,6 +267,13 @@ class ChainParityTest {
             networks = f["networks"].list().map { it as String },
         )
         assertEquals(f["expectedNetworks"], after.networks)
+        // Erste Wahl: stumme Netze bleiben gewählt, im Hintergrund keine Wahl (seit Build 94)
+        r["discovered"].list().map { it.obj() }.forEach { c ->
+            assertEquals(
+                "discovered $c", c["expected"],
+                WatchedAddressRules.discoveredNetworks(c["found"].list().map { it as String }, c["unanswered"].list().map { it as String }, c["background"] == true),
+            )
+        }
         assertEquals(f["expectedBalances"].obj(), after.tokenBalances)
         // Netze und «Nur anzeigen» überleben Speicherform und Sicherung
         val shown = WatchedAddressRules.withCountInPortfolio(after, false)

@@ -117,6 +117,37 @@ class LiveFeedTest {
     }
 
     @Test
+    fun backoffAttemptMatchesFixtures() {
+        // Pause zurück auf 1 s erst nach stabiler Verbindung (≥ 60 s mit Kursen)
+        data["backoffAttempt"].list().forEach { raw ->
+            val c = raw.obj()
+            assertEquals(
+                "${c["name"]}", c["expected"].num()!!.toInt(),
+                LiveBackoff.nextAttempt(
+                    c["attempt"].num()!!.toInt(), c["receivedData"] as Boolean, c["connectedMillis"].num()!!.toLong(),
+                ),
+            )
+        }
+    }
+
+    @Test
+    fun backoffJitterMatchesFixtures() {
+        data["backoffJitter"].list().forEach { raw ->
+            val c = raw.obj()
+            assertEquals(
+                "$c", c["millis"].num()!!.toLong(),
+                LiveBackoff.reconnectDelayMillis(c["attempt"].num()!!.toInt(), c["rateLimited"] as Boolean, c["random"].num()!!),
+            )
+        }
+        // Streuung bleibt innerhalb ±20 %, auch bei ungültigem Zufallswert
+        assertEquals(1_000L, LiveBackoff.reconnectDelayMillis(0, false, Double.NaN))
+        repeat(200) {
+            val millis = LiveBackoff.reconnectDelayMillis(6, false, kotlin.random.Random.nextDouble())
+            assertTrue("$millis", millis in 48_000L..72_000L)
+        }
+    }
+
+    @Test
     fun rulesMatchFixtures() {
         data["chooseChange"].list().forEach { raw ->
             val c = raw.obj()
