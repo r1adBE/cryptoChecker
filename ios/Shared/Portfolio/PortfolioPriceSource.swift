@@ -203,7 +203,6 @@ enum PortfolioPriceSource {
             if let f = failedOf[coin] { p.exchangeFailed[coin] = f }
             if let b = binanceOf[coin] { p.binance[coin] = b }
             if mixedCoins.contains(coin) { p.mixedExchange.insert(coin) }
-            if unverifiedCoins.contains(coin) { p.unverified.insert(coin) }
         }
     }
 
@@ -277,7 +276,8 @@ enum PortfolioPriceSource {
         // Auch kein Binance-Kurs mit ungeprüftem Token als Bezug (`PortfolioPrices.unverified`)
         for coin in uncheckedCoins.union(unverifiedCoins) { checked[coin] = nil }
         lock.unlock()
-        let merged = PortfolioPriceFallback.merge(current: checked, stored: stored)
+        // Ein gemerkter Kurs mit «Kurs ungeprüft» ist ebenso kein Bezug (`PortfolioPriceFallback.confirmed`)
+        let merged = PortfolioPriceFallback.confirmed(PortfolioPriceFallback.merge(current: checked, stored: stored))
         let watches = SharedStorage.loadSnapshot().watches
         let now = TimeUtils.nowMillis
         var out: [String: Double] = [:]
@@ -327,6 +327,8 @@ enum PortfolioPriceSource {
         out.unavailable = unavailable
         out.viaBase = via
         decorateLocked(&out, coins: coins)
+        // «Kurs ungeprüft»; gekapselte Coins über die Basis erben ihn (wie Android)
+        out.unverified = PortfolioPriceFallback.unverified(coins, entries: currentEntriesLocked(), via: via)
         return out
     }
 }

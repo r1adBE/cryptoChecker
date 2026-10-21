@@ -12,6 +12,7 @@ import com.cryptochecker.app.data.remote.callMarket
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioExchangeRoute
+import com.cryptochecker.app.domain.portfolio.PortfolioPriceFallback
 import com.cryptochecker.app.domain.portfolio.PortfolioPriceIdentity
 import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import com.cryptochecker.app.domain.portfolio.PortfolioWatchPair
@@ -260,7 +261,8 @@ class PortfolioPriceSource @Inject constructor(
             mixedExchange = mixedCoins.filterTo(HashSet()) { coin -> hits.any { it.first == coin } },
             binance = hits.mapNotNull { (coin, _) -> binanceOf[coin]?.let { coin to it } }.toMap(),
             viaBase = via,
-            unverified = coins.filterTo(HashSet()) { it in unverifiedCoins && cache[it] != null },
+            // Gekapselte Coins über die Basis erben deren «Kurs ungeprüft»
+            unverified = PortfolioPriceFallback.unverified(coins, currentEntries(), via),
         )
     }
 

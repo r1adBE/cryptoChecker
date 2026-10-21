@@ -30,7 +30,8 @@ import com.cryptochecker.app.data.portfolio.PortfolioPriceSource.Companion.REQUE
 internal suspend fun PortfolioPriceSource.candleReferences(coins: List<String>): Map<String, Double> {
     // Auch kein Binance-Kurs mit ungeprüftem Token als Bezug ([PortfolioPrices.unverified])
     val checked = currentEntries().filterKeys { it !in uncheckedCoins && it !in unverifiedCoins }
-    val stored = PortfolioPriceFallback.merge(checked, loadStored())
+    // Ein gemerkter Kurs mit «Kurs ungeprüft» ist ebenso kein Bezug ([PortfolioPriceFallback.confirmed])
+    val stored = PortfolioPriceFallback.confirmed(PortfolioPriceFallback.merge(checked, loadStored()))
     val watches = try {
         watchDao.getWatches()
     } catch (e: CancellationException) {

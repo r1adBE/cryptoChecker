@@ -37,7 +37,8 @@ suspend fun PortfolioPriceSource.stored(coins: Collection<String>): PortfolioPri
         exchangeFailed = hits.mapNotNull { (coin, _) -> failedOf[coin]?.let { coin to it } }.toMap(),
         mixedExchange = mixedCoins.filterTo(HashSet()) { coin -> hits.any { it.first == coin } },
         binance = hits.mapNotNull { (coin, _) -> binanceOf[coin]?.let { coin to it } }.toMap(),
-        unverified = normalized(coins).filterTo(HashSet()) { it in unverifiedCoins && it in merged },
+        // «Kurs ungeprüft» aus dem gemerkten Stand (auch nach einem Neustart); gekapselte Coins erben ihn von der Basis
+        unverified = PortfolioPriceFallback.unverified(normalized(coins), merged, via),
     )
 }
 
@@ -91,5 +92,6 @@ internal suspend fun PortfolioPriceSource.persist() {
     }
 }
 
+/** Zwischenspeicher als gemerkte Kurse; «Kurs ungeprüft» wird mitgemerkt ([StoredPrice.unverified]). */
 internal fun PortfolioPriceSource.currentEntries(): Map<String, StoredPrice> =
-    cache.entries.associate { (coin, entry) -> coin to StoredPrice(entry.first, entry.second) }
+    cache.entries.associate { (coin, entry) -> coin to StoredPrice(entry.first, entry.second, coin in unverifiedCoins) }

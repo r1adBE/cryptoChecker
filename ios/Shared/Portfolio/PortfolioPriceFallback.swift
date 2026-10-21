@@ -4,6 +4,9 @@ import Foundation
 struct StoredPrice: Sendable, Equatable {
     var price: Double
     var at: Int64
+    /// Binance-Kurs mit unbestätigtem Token («Kurs ungeprüft», seit Build 101): gilt als Wert, aber nie als bestätigter
+    /// Bezug (Kerzen, Tagesschlüsse) — auch nach einem Neustart, darum mit dem Kurs gemerkt. Wie Android.
+    var unverified = false
 
     /// Brauchbar: endlicher, positiver Kurs mit Zeitpunkt.
     var valid: Bool { price.isFinite && price > 0 && at > 0 }
@@ -35,6 +38,8 @@ enum PortfolioPriceFallback {
     static let maxEntries = 300
     /// Kopfzeile der Datei; eine andere Version gilt als «nichts gespeichert».
     static let formatHeader = "portfolio-prices-v1"
+    /// 4. Feld einer Zeile: Kurs ungeprüft (`StoredPrice.unverified`); ältere Dateien ohne Feld = geprüft. Wie Android.
+    static let unverifiedMark = "u"
 
     /// Frische-Schwelle der Portfolio-Kurse: wie die Merkliste ohne Live-Modus (`OutdatedRule`) —
     /// dreimal das Hintergrund-Intervall, mindestens 15 Minuten. Der Live-Modus zählt nicht: Das
@@ -68,12 +73,23 @@ enum PortfolioPriceFallback {
         return out
     }
 
-    /// Zeilenformat: Kopfzeile, dann je Coin «COIN;Kurs;Zeit».
+    /// Nur bestätigte Kurse als Bezug (Kerzen-Prüfung): ohne «Kurs ungeprüft» (`StoredPrice.unverified`) — sonst
+    /// bestätigte ein gemerkter Binance-Kurs eines womöglich fremden Tokens nach einem Ausfall dessen Kerzenkurs. Wie Android.
+    static func confirmed(_ entries: [String: StoredPrice]) -> [String: StoredPrice] { entries.filter { !$0.value.unverified } }
+
+    /// Coins aus `coins` mit «Kurs ungeprüft» laut `entries`; ein gekapselter Coin ohne eigenen Kurs, bewertet über seine
+    /// Basis (`via`, `ChainAssets.priceViaBase`), erbt den Stand der Basis. Wie Android.
+    static func unverified(_ coins: [String], entries: [String: StoredPrice], via: [String: String]) -> Set<String> {
+        Set(coins.filter { coin in (entries[coin] ?? via[coin].flatMap { entries[$0] })?.unverified == true })
+    }
+
+    /// Zeilenformat: Kopfzeile, dann je Coin «COIN;Kurs;Zeit», bei «Kurs ungeprüft» (seit Build 101) «COIN;Kurs;Zeit;u».
     static func encode(_ entries: [String: StoredPrice]) -> String {
         var lines = [formatHeader]
         for (coin, entry) in entries.sorted(by: { $0.key < $1.key }) {
             guard entry.valid, !coin.isEmpty, !coin.contains(";"), !coin.contains("\n") else { continue }
-            lines.append("\(coin);\(entry.price);\(entry.at)")
+            // «Kurs ungeprüft» (seit Build 101) als 4. Feld
+            lines.append("\(coin);\(entry.price);\(entry.at)" + (entry.unverified ? ";\(unverifiedMark)" : ""))
         }
         return lines.joined(separator: "\n")
     }
@@ -86,12 +102,13 @@ enum PortfolioPriceFallback {
         var out: [String: StoredPrice] = [:]
         for line in lines.dropFirst() {
             let parts = line.trimmingCharacters(in: .whitespaces).components(separatedBy: ";")
-            guard parts.count == 3,
+            let marked = parts.count == 4 && parts[3].trimmingCharacters(in: .whitespaces) == unverifiedMark
+            guard parts.count == 3 || marked,
                   let price = Double(parts[1]),
                   let at = Int64(parts[2])
             else { continue }
             let coin = parts[0].trimmingCharacters(in: .whitespaces)
-            let entry = StoredPrice(price: price, at: at)
+            let entry = StoredPrice(price: price, at: at, unverified: marked)
             if !coin.isEmpty && entry.valid { out[coin] = entry }
         }
         return out

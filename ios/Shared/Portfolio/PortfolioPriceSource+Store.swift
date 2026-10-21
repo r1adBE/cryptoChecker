@@ -43,6 +43,8 @@ extension PortfolioPriceSource {
         out.viaBase = via
         lock.lock()
         decorateLocked(&out, coins: wanted)
+        // «Kurs ungeprüft» aus dem gemerkten Stand (auch nach einem Neustart); gekapselte Coins erben ihn von der Basis
+        out.unverified = PortfolioPriceFallback.unverified(wanted, entries: merged, via: via)
         // Ungeprüft = ohne Kurs (zählt nicht als Geld)
         out.unchecked = Set(wanted.filter { uncheckedCoins.contains($0) && merged[$0] == nil && via[$0] == nil })
         out.unavailable = Set(wanted.filter {
@@ -106,7 +108,10 @@ extension PortfolioPriceSource {
     /// Zwischenspeicher als gemerkte Kurse; nur mit gehaltenem `lock` aufrufen.
     static func currentEntriesLocked() -> [String: StoredPrice] {
         var out: [String: StoredPrice] = [:]
-        for (coin, entry) in cache { out[coin] = StoredPrice(price: entry.price, at: entry.at) }
+        // «Kurs ungeprüft» wird mitgemerkt (`StoredPrice.unverified`)
+        for (coin, entry) in cache {
+            out[coin] = StoredPrice(price: entry.price, at: entry.at, unverified: unverifiedCoins.contains(coin))
+        }
         return out
     }
 }
