@@ -126,6 +126,7 @@
     <string name="alarm_oi_hint">将持仓量与相应小时数之前保存的数值比较。新提醒要等应用收集了足够长时间的数据后才会通知；最多每 5 分钟检查一次。</string>
     <string name="alarm_volume_factor_label">最近一小时成交量与正常水平之比</string>
     <string name="alarm_volume_hint">成交量数据来自 Binance——未在 Binance 上市的交易对不会触发。</string>
+    <string name="alarm_volume_zero_hours_hint">没有成交的小时按成交量 0 计算，因此在交易清淡的交易对上，普通的一小时也可能显得异常。</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">提醒已启用</string>

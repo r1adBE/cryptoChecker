@@ -132,6 +132,7 @@
     <string name="alarm_oi_hint">Vertaa avoimia positioita arvoon, joka tallennettiin yhtä monta tuntia sitten. Uusi hälytys ilmoittaa vasta, kun sovellus on kerännyt tietoja niin kauan; tarkistus enintään 5 minuutin välein.</string>
     <string name="alarm_volume_factor_label">Viime tunnin volyymi normaaliin verrattuna</string>
     <string name="alarm_volume_hint">Volyymitiedot tulevat Binancesta – siellä listaamattomat parit eivät koskaan laukaise hälytystä.</string>
+    <string name="alarm_volume_zero_hours_hint">Tunnit ilman kauppoja lasketaan nollavolyymiksi, joten vähän vaihdetuilla pareilla tavallinen tunti voi näyttää epätavalliselta.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Hälytys päällä</string>

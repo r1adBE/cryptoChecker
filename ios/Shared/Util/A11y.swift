@@ -9,12 +9,13 @@ enum A11y {
         parts.compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: ", ")
     }
 
-    /// «gestiegen um 1.24%» / «gefallen um 0.82%» / «unverändert»; nil ohne Wert.
-    static func change(_ percent: Double?) -> String? {
+    /// «gestiegen um 1.24%» / «gefallen um 0.82%» / «unverändert»; nil ohne Wert. `decimals` wie Android
+    /// `A11yText.change` (Zyklus-Chart: 0); «unverändert» unabhängig davon erst unter 0.005 % wie dort.
+    static func change(_ percent: Double?, decimals: Int = 2) -> String? {
         guard let percent, percent.isFinite else { return nil }
         guard abs(percent) >= 0.005 else { return L("a11y_change_flat") }
         // Schreibweise der App-Sprache («1,24 %», «%1,24») wie Android `ChartSummary.unsignedPercent`
-        let value = PercentText.unsigned(percent, decimals: 2)
+        let value = PercentText.unsigned(percent, decimals: decimals)
         return L(percent > 0 ? "a11y_change_up" : "a11y_change_down", value)
     }
 

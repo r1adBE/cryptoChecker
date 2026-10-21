@@ -126,6 +126,7 @@
     <string name="alarm_oi_hint">เปรียบเทียบ Open interest กับค่าที่บันทึกไว้เมื่อจำนวนชั่วโมงเท่านั้นก่อน สัญญาณเตือนใหม่จะทำงานเมื่อแอปเก็บข้อมูลได้นานพอแล้ว ตรวจสอบอย่างมากทุก 5 นาที</string>
     <string name="alarm_volume_factor_label">ปริมาณชั่วโมงล่าสุดเทียบกับปกติ</string>
     <string name="alarm_volume_hint">ข้อมูลปริมาณมาจาก Binance — คู่ที่ไม่มีใน Binance จะไม่ทำงาน</string>
+    <string name="alarm_volume_zero_hours_hint">ชั่วโมงที่ไม่มีการซื้อขายนับเป็นปริมาณศูนย์ ดังนั้นในคู่ที่มีการซื้อขายน้อย ชั่วโมงปกติอาจดูผิดปกติได้</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">การแจ้งเตือนเปิดอยู่</string>

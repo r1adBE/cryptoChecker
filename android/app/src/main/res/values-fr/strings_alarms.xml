@@ -138,6 +138,7 @@
     <string name="alarm_oi_hint">Compare l’intérêt ouvert avec la valeur enregistrée il y a autant d’heures. Une nouvelle alerte ne prévient qu’une fois les données collectées sur cette durée ; vérification au plus toutes les 5 minutes.</string>
     <string name="alarm_volume_factor_label">Volume de la dernière heure par rapport à la normale</string>
     <string name="alarm_volume_hint">Les données de volume proviennent de Binance — les paires qui n\'y sont pas cotées ne déclenchent jamais d\'alerte.</string>
+    <string name="alarm_volume_zero_hours_hint">Les heures sans transactions comptent comme un volume nul : sur les paires peu échangées, une heure normale peut donc paraître inhabituelle.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Alerte active</string>

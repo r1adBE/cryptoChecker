@@ -156,6 +156,7 @@
     <string name="alarm_oi_hint">يقارن الفائدة المفتوحة بالقيمة المحفوظة قبل هذا العدد من الساعات. لا ينبّه التنبيه الجديد إلا بعد أن يجمع التطبيق بيانات طوال هذه المدة؛ ويتم الفحص مرة كل 5 دقائق على الأكثر.</string>
     <string name="alarm_volume_factor_label">حجم الساعة الأخيرة مقارنةً بالمعتاد</string>
     <string name="alarm_volume_hint">بيانات الحجم مصدرها Binance — الأزواج غير المدرجة هناك لا تُطلق التنبيه أبدًا.</string>
+    <string name="alarm_volume_zero_hours_hint">تُحتسب الساعات التي لا تشهد صفقات بحجم تداول صفر، لذلك قد تبدو ساعة عادية غير مألوفة في الأزواج ضعيفة التداول.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">التنبيه مفعّل</string>

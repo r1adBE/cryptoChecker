@@ -119,6 +119,25 @@ final class DepegAlarmParityTests: XCTestCase {
         }
     }
 
+    /// Build 96: Kurs laut Börse älter als 2 Std. zählt wie keine Antwort (wie Kursalarme); ohne Zeit der Börse zählt er.
+    func testUsablePrice() throws {
+        let now: Int64 = 1_800_000_000_000
+        let cases = TestSupport.list(try data()["usablePrice"])
+        XCTAssertGreaterThanOrEqual(cases.count, 3)
+        for c in cases {
+            // "exchangeTime" direkt (0 = unbekannt) oder als Alter "exchangeAgeMillis" (null = Börse liefert keine Zeit)
+            let exchangeTime: Int64? = c.keys.contains("exchangeTime")
+                ? TestSupport.number(c["exchangeTime"]).map { Int64($0) }
+                : TestSupport.number(c["exchangeAgeMillis"]).map { now - Int64($0) }
+            let used = DepegAlarm.usablePrice(last: TestSupport.number(c["last"]), exchangeTime: exchangeTime, now: now)
+            if let expected = TestSupport.number(c["expected"]) {
+                XCTAssertEqual(used ?? .nan, expected, accuracy: 1e-12, "\(c)")
+            } else {
+                XCTAssertNil(used, "\(c)")
+            }
+        }
+    }
+
     func testNotPostedKeepsArmed() {
         XCTAssertTrue(DepegAlarm.armedAfter(fire: true, posted: false, armedBefore: true, next: false))
     }

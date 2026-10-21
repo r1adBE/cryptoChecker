@@ -144,6 +144,7 @@
     <string name="alarm_oi_hint">Сравнивает открытый интерес со значением, сохранённым столько часов назад. Новое оповещение сработает, только когда приложение соберёт данные за это время; проверка не чаще раза в 5 минут.</string>
     <string name="alarm_volume_factor_label">Объём за последний час относительно нормы</string>
     <string name="alarm_volume_hint">Данные об объёме берутся с Binance — для пар, которых там нет, оповещение не сработает.</string>
+    <string name="alarm_volume_zero_hours_hint">Часы без сделок считаются нулевым объёмом, поэтому на малоторгуемых парах обычный час может выглядеть необычно.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Оповещение включено</string>

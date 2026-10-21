@@ -132,6 +132,7 @@
     <string name="alarm_oi_hint">Jämför open interest med värdet från så många timmar sedan. Ett nytt larm meddelar först när appen har samlat data så länge; kontroll högst var 5:e minut.</string>
     <string name="alarm_volume_factor_label">Senaste timmens volym jämfört med normalt</string>
     <string name="alarm_volume_hint">Volymdata kommer från Binance – par som inte är noterade där utlöser aldrig larm.</string>
+    <string name="alarm_volume_zero_hours_hint">Timmar utan affärer räknas som noll i volym, så på tunt handlade par kan en vanlig timme se ovanlig ut.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Larm aktivt</string>

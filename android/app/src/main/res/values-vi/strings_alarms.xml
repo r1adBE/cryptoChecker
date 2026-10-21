@@ -126,6 +126,7 @@
     <string name="alarm_oi_hint">So sánh open interest với giá trị đã lưu cách đây đúng số giờ đó. Cảnh báo mới chỉ báo khi ứng dụng đã thu thập dữ liệu đủ lâu; kiểm tra tối đa 5 phút một lần.</string>
     <string name="alarm_volume_factor_label">Khối lượng giờ qua so với bình thường</string>
     <string name="alarm_volume_hint">Dữ liệu khối lượng lấy từ Binance — các cặp không niêm yết ở đó sẽ không bao giờ kích hoạt.</string>
+    <string name="alarm_volume_zero_hours_hint">Những giờ không có giao dịch được tính là khối lượng bằng 0, nên với các cặp ít giao dịch, một giờ bình thường có thể trông bất thường.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Cảnh báo đang bật</string>

@@ -57,17 +57,23 @@ enum PercentText {
     }
 
     /// Betrag von `value` mit genau `decimals` Nachkommastellen (kaufmännisch gerundet, Ziffern und Dezimalzeichen der
-    /// Sprache, ohne Tausendertrennung) und Prozentzeichen — ohne Vorzeichen.
-    static func unsigned(_ value: Double, decimals: Int, locale: Locale = LocaleNumbers.appLocale) -> String {
-        wrap(LocaleNumbers.decimal(DecimalText.rounded(abs(value), decimals), maxDecimals: decimals, locale: locale),
+    /// Sprache, ohne Tausendertrennung) und Prozentzeichen — ohne Vorzeichen. Mit `minDecimals` unter `decimals` fallen
+    /// Nullen am Ende weg («5%», «2.5%», «0.0125%»; seit Build 96 für Schwellen und Alarm-Sätze, die vorher
+    /// `NumberFormatter.percent` nutzten). Mit `grouping` mit Tausendertrennung («1,000%», Deutsch «1.000 %») — für
+    /// Alarm-Sätze, deren Schwellen bis 1000 % gehen (Open Interest); sonst ohne, wie bisher.
+    static func unsigned(_ value: Double, decimals: Int, minDecimals: Int? = nil,
+                         locale: Locale = LocaleNumbers.appLocale, grouping: Bool = false) -> String {
+        wrap(LocaleNumbers.decimal(DecimalText.rounded(abs(value), decimals), maxDecimals: decimals,
+                                   minDecimals: minDecimals ?? decimals, locale: locale, grouping: grouping),
              locale: locale)
     }
 
     /// Mit Vorzeichen vor dem Ganzen («+2.40%», «−1.4 %», türkisch «+%2,4»), echtes Minus U+2212; gerundet 0 ohne
     /// Vorzeichen. Ohne Richtungs-Insel — die setzt der Aufrufer (`BidiText.ltr`), wie bisher.
-    static func signed(_ value: Double, decimals: Int, locale: Locale = LocaleNumbers.appLocale) -> String {
+    static func signed(_ value: Double, decimals: Int, minDecimals: Int? = nil,
+                       locale: Locale = LocaleNumbers.appLocale, grouping: Bool = false) -> String {
         let rounded = DecimalText.rounded(abs(value), decimals)
         let sign = rounded == 0 ? "" : (value > 0 ? "+" : "−")
-        return sign + unsigned(value, decimals: decimals, locale: locale)
+        return sign + unsigned(value, decimals: decimals, minDecimals: minDecimals, locale: locale, grouping: grouping)
     }
 }

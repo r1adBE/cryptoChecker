@@ -28,7 +28,7 @@ struct WidgetChangeLabel: View {
     /// Grau ohne Kursfarbe (deaktiviertes Paar: letzter Wert, keine Abfrage).
     var neutral = false
 
-    static var zeroText: String { String(format: "%.2f%%", locale: Locale.current, 0.0) }
+    static var zeroText: String { PriceFormat.zeroPercent() }
 
     var body: some View {
         if showsText {

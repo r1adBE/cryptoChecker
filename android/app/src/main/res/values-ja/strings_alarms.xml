@@ -126,6 +126,7 @@
     <string name="alarm_oi_hint">建玉を、同じ時間だけ前に保存した値と比べます。新しいアラームは、アプリがその期間のデータを集めてから通知します。確認は最短5分ごとです。</string>
     <string name="alarm_volume_factor_label">直近1時間の出来高（通常比）</string>
     <string name="alarm_volume_hint">出来高データは Binance から取得します。Binance に上場していないペアは作動しません。</string>
+    <string name="alarm_volume_zero_hours_hint">取引のない時間は出来高ゼロとして数えるため、取引の少ないペアでは通常の1時間でも異常に見えることがあります。</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">アラーム有効</string>

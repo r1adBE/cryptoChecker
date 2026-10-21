@@ -126,6 +126,7 @@
     <string name="alarm_oi_hint">Membandingkan open interest dengan nilai yang disimpan sekian jam lalu. Alarm baru hanya memberi tahu setelah aplikasi mengumpulkan data selama itu; diperiksa paling sering tiap 5 menit.</string>
     <string name="alarm_volume_factor_label">Volume satu jam terakhir dibanding normal</string>
     <string name="alarm_volume_hint">Data volume berasal dari Binance — pasangan yang tidak terdaftar di sana tidak akan pernah memicu alarm.</string>
+    <string name="alarm_volume_zero_hours_hint">Jam tanpa transaksi dihitung sebagai volume nol, jadi pada pasangan yang jarang diperdagangkan satu jam yang normal bisa tampak tidak biasa.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Alarm aktif</string>

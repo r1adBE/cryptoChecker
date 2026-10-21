@@ -33,6 +33,7 @@ import com.cryptochecker.app.ui.theme.title
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 import kotlin.math.roundToInt
 
@@ -135,7 +136,7 @@ internal fun factorTexts(f: WhyFactor): FactorTexts {
                 // «absolut gering (unter 0.5 %)»: Mindestbewegung in der Schreibweise der App-Sprache
                 WhyFactorNote.VOLATILITY_TINY -> stringResource(
                     R.string.why_fn_volatility_tiny,
-                    BidiText.ltr("%.1f".format(ActivityAnalyzer.VOLATILITY_MIN_MOVE_PERCENT) + " %"),
+                    BidiText.ltr(PercentText.unsigned(ActivityAnalyzer.VOLATILITY_MIN_MOVE_PERCENT, 1)),
                 )
                 else -> stringResource(R.string.why_fn_volatility_usual)
             }
@@ -180,7 +181,7 @@ internal fun factorTexts(f: WhyFactor): FactorTexts {
             // Abweichung steht in der Nebenzeile («0.12 % unter der 1:1-Bindung»), rechts kein Wert
             title = stringResource(R.string.why_factor_peg)
             // Betrag ohne Vorzeichen (die Richtung sagt «unter»/«über»), als Insel für RTL
-            val amount = BidiText.ltr("%.2f".format(kotlin.math.abs(f.value)) + " %")
+            val amount = BidiText.ltr(PercentText.unsigned(f.value, 2))
             note = when (f.note) {
                 WhyFactorNote.PEG_BELOW -> stringResource(R.string.why_fn_peg_below, amount)
                 WhyFactorNote.PEG_ABOVE -> stringResource(R.string.why_fn_peg_above, amount)

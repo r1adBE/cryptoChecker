@@ -56,6 +56,7 @@ import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.A11yText
 import com.cryptochecker.app.util.BidiText
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -103,11 +104,14 @@ private class CycleChartModel(history: CycleHistory, currentHalving: LocalDate) 
 
 private const val CYCLE_MAX_DAY = 1440f
 
-/** Prozent mit Vorzeichen und Tausendertrennung, ohne Nachkommastellen: „+1’130 %“. */
+/**
+ * Prozent mit Vorzeichen und Tausendertrennung, ohne Nachkommastellen: „+1’130%“, deutsch „+1.130 %“ — Zeichen und
+ * Abstand über [PercentText.wrap] wie iOS `CycleMarkerBubble.percent`.
+ */
 private fun cyclePercent(change: Double): String {
     val pct = change * 100
     val sign = if (pct >= 0) "+" else "−"
-    return BidiText.ltr("$sign${LocaleNumbers.decimal(abs(pct), 0, grouping = true)} %")
+    return BidiText.ltr(sign + PercentText.wrap(LocaleNumbers.decimal(abs(pct), 0, grouping = true)))
 }
 
 /**

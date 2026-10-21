@@ -51,6 +51,7 @@ import com.cryptochecker.app.ui.theme.accentButtonColor
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.domain.alarm.ThresholdParser
 import com.cryptochecker.app.util.DecimalText
+import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.AppLanguages
 import com.cryptochecker.app.settings.PriceColorScheme
@@ -158,6 +159,12 @@ private val PERCENT_TEXT = Regex("""^(\d+\.?\d*|\.\d+)$""")
 /** «5» statt «5.0», nie mit Exponent («1.0E-4» liesse sich nicht zurücklesen). */
 private fun formatPercent(value: Double): String = DecimalText.plain(value)
 
+/**
+ * Beschriftung einer Schwelle: «5%», «2,5 %», «%2,5» je Sprache ([PercentText]), bis vier Nachkommastellen —
+ * gleich wie iOS (`SettingsAlarmPages.percentLabel`). Das Eingabefeld behält [formatPercent].
+ */
+private fun percentLabel(value: Double): String = PercentText.unsigned(value, 4, minDecimals = 0)
+
 /** Akzentfarben als Liste: Farbpunkt und Name, die gewählte hinterlegt mit Häkchen ([RadioRow]). */
 @Composable
 internal fun AccentColorList(selected: AccentColor, onSelected: (AccentColor) -> Unit) {
@@ -201,7 +208,7 @@ internal fun PercentChoiceRow(label: String, selected: Double, onSelected: (Doub
                     shape = SegmentedButtonDefaults.itemShape(index = index, count = count),
                     icon = {}
                 ) {
-                    Text(formatPercent(option) + "%", maxLines = 1)
+                    Text(percentLabel(option), maxLines = 1)
                 }
             }
             // Letztes Segment: eigener Wert
@@ -212,7 +219,7 @@ internal fun PercentChoiceRow(label: String, selected: Double, onSelected: (Doub
                 icon = {}
             ) {
                 Text(
-                    if (isCustom) formatPercent(selected) + "%" else stringResource(R.string.settings_custom_value),
+                    if (isCustom) percentLabel(selected) else stringResource(R.string.settings_custom_value),
                     maxLines = 1
                 )
             }

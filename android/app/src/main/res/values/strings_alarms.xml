@@ -132,6 +132,7 @@
     <string name="alarm_oi_hint">Compares open interest with the value stored that many hours ago. A new alert only reports once the app has collected data for that long; checked at most every 5 minutes.</string>
     <string name="alarm_volume_factor_label">Last hour\'s volume vs. normal</string>
     <string name="alarm_volume_hint">Volume data comes from Binance — pairs not listed there never trigger.</string>
+    <string name="alarm_volume_zero_hours_hint">Hours without trades count as zero volume, so on thinly traded pairs a normal hour can look unusual.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Alert active</string>

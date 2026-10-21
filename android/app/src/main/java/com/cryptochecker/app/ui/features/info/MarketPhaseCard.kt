@@ -31,6 +31,7 @@ import com.cryptochecker.app.ui.components.SkeletonLine
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 
 /*
@@ -161,7 +162,7 @@ private fun indicatorContext(indicator: Indicator, since: LocalDate?, currency: 
     if (since != null) {
         stat.percentileBelow?.let { p ->
             val month = since.format(DateTimeFormatter.ofPattern("MMM yyyy", locale))
-            parts += stringResource(R.string.ind_context_percentile, month, LocaleNumbers.integer(Math.round(p)) + " %")
+            parts += stringResource(R.string.ind_context_percentile, month, PercentText.unsigned(p, 0))
         }
     }
     stat.flat30?.let { f ->

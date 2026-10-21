@@ -301,32 +301,22 @@ extension CycleHistoryChart {
         }
     }
 
-    /// «Zyklus 2020: gestiegen um 1’130 % seit dem Halving, Tag 1440. Hoch 69’000 USD an Tag 547. …»
+    /// «Zyklus 2020: gestiegen um 1130 % seit dem Halving, Tag 1440. Hoch 69’000 USD an Tag 547. …»
     /// Je Zyklus: Stand, Hoch, Doppel-Hoch, Tief, Doppel-Tief — wie Android.
     static func accessibilityText(_ series: [CycleSeries]) -> String {
         func price(_ m: CycleMarker) -> String { PriceFormat.priceWithCurrency(m.priceUsd, "USD") }
         var sentences: [String] = []
         for s in series {
             guard let last = s.points.last(where: { $0.multiple > 0 }) else { continue }
-            sentences.append(L("a11y_cycle", LocaleNumbers.integer(s.halving.year), spokenPercent(last.multiple - 1), last.day))
+            // Seit Build 96 wie Android `A11yText.change(…, decimals = 0)`: ganze Prozent ohne Tausendertrennung,
+            // «unverändert» erst unter 0.005 % (vorher eigene Schreibweise «1’130 %» und Schwelle 0.5 %)
+            let change = A11y.change((last.multiple - 1) * 100, decimals: 0) ?? L("a11y_change_flat")
+            sentences.append(L("a11y_cycle", LocaleNumbers.integer(s.halving.year), change, last.day))
             if let m = s.top { sentences.append(L("a11y_cycle_top", price(m), m.day)) }
             if let m = s.secondTop { sentences.append(L("a11y_cycle_double_top", price(m), m.day)) }
             if let m = s.bottom { sentences.append(L("a11y_cycle_bottom", price(m), m.day)) }
             if let m = s.secondBottom { sentences.append(L("a11y_cycle_double_bottom", price(m), m.day)) }
         }
         return sentences.isEmpty ? L("a11y_chart_empty") : sentences.joined(separator: " ")
-    }
-
-    /// Anteil als «gestiegen um 1’130 %» / «gefallen um 40 %» / «unverändert».
-    private static func spokenPercent(_ change: Double) -> String {
-        let pct = change * 100
-        guard pct.isFinite, abs(pct) >= 0.5 else { return L("a11y_change_flat") }
-        let f = NumberFormatter()
-        f.numberStyle = .decimal
-        f.locale = Locale.current
-        f.usesGroupingSeparator = true
-        f.maximumFractionDigits = 0
-        let number = (f.string(from: NSNumber(value: abs(pct))) ?? String(Int(abs(pct).rounded()))) + " %"
-        return L(pct > 0 ? "a11y_change_up" : "a11y_change_down", number)
     }
 }

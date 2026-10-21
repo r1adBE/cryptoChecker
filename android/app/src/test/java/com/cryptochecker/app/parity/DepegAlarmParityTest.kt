@@ -133,6 +133,22 @@ class DepegAlarmParityTest {
         assertTrue(DepegAlarm.shouldMeasure(depegAlarm = false, portfolioEnabled = false, hasPortfolioData = false, fiatConversion = true))
     }
 
+    /** Build 96: Kurs laut Börse älter als 2 Std. zählt wie keine Antwort (wie Kursalarme); ohne Zeit der Börse zählt er. */
+    @Test
+    fun usablePrice() {
+        val now = 1_800_000_000_000L
+        val cases = data["usablePrice"].list().map { it.obj() }
+        assertTrue(cases.size >= 3)
+        cases.forEach { c ->
+            // "exchangeTime" direkt (0 = unbekannt) oder als Alter "exchangeAgeMillis" (null = Börse liefert keine Zeit)
+            val exchangeTime = if (c.containsKey("exchangeTime")) c["exchangeTime"].num()?.toLong()
+            else c["exchangeAgeMillis"].num()?.let { now - it.toLong() }
+            val used = DepegAlarm.usablePrice(c["last"].num(), exchangeTime, now)
+            val expected = c["expected"].num()
+            if (expected == null) assertNull("usablePrice: $c", used) else assertEquals("usablePrice: $c", expected, used!!, 1e-12)
+        }
+    }
+
     @Test
     fun notPostedKeepsArmed() {
         assertTrue(DepegAlarm.armedAfter(fire = true, posted = false, armedBefore = true, next = false))

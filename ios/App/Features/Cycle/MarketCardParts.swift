@@ -278,6 +278,6 @@ struct CycleProgressBar: View {
         .frame(height: 6)
         .accessibilityElement()
         .accessibilityLabel(label ?? "")
-        .accessibilityValue(Text(verbatim: LocaleNumbers.integer(Int((min(max(fraction, 0), 1) * 100).rounded())) + " %"))
+        .accessibilityValue(Text(verbatim: PercentText.unsigned(min(max(fraction, 0), 1) * 100, decimals: 0)))
     }
 }

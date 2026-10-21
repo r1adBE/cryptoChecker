@@ -60698,6 +60698,197 @@
         }
       }
     },
+    "alarm_volume_zero_hours_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تُحتسب الساعات التي لا تشهد صفقات بحجم تداول صفر، لذلك قد تبدو ساعة عادية غير مألوفة في الأزواج ضعيفة التداول."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hodiny bez obchodů se počítají s nulovým objemem, takže u málo obchodovaných párů může běžná hodina vypadat neobvykle."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer uden handler tæller som nul volumen, så på tyndt handlede par kan en normal time se usædvanlig ud."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stunden ohne Handel zählen mit Volumen 0 – bei wenig gehandelten Paaren kann eine normale Stunde deshalb ungewöhnlich wirken."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι ώρες χωρίς συναλλαγές μετρούν ως μηδενικός όγκος, οπότε σε ζεύγη με χαμηλή εμπορευσιμότητα μια κανονική ώρα μπορεί να φαίνεται ασυνήθιστη."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hours without trades count as zero volume, so on thinly traded pairs a normal hour can look unusual."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las horas sin operaciones cuentan como volumen cero, así que en pares con poca negociación una hora normal puede parecer inusual."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ساعت‌های بدون معامله با حجم صفر حساب می‌شوند؛ بنابراین در جفت‌های کم‌معامله یک ساعت عادی ممکن است غیرعادی به نظر برسد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tunnit ilman kauppoja lasketaan nollavolyymiksi, joten vähän vaihdetuilla pareilla tavallinen tunti voi näyttää epätavalliselta."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les heures sans transactions comptent comme un volume nul : sur les paires peu échangées, une heure normale peut donc paraître inhabituelle."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שעות ללא עסקאות נספרות כנפח אפס, ולכן בצמדים עם מסחר דליל שעה רגילה עשויה להיראות חריגה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बिना ट्रेड वाले घंटे शून्य वॉल्यूम माने जाते हैं, इसलिए कम ट्रेड होने वाले पेयर पर एक सामान्य घंटा भी असामान्य लग सकता है।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A kereskedés nélküli órák nulla forgalomnak számítanak, ezért gyengén forgó pároknál egy átlagos óra is szokatlannak tűnhet."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jam tanpa transaksi dihitung sebagai volume nol, jadi pada pasangan yang jarang diperdagangkan satu jam yang normal bisa tampak tidak biasa."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le ore senza scambi contano come volume zero, quindi sulle coppie poco scambiate un'ora normale può sembrare insolita."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取引のない時間は出来高ゼロとして数えるため、取引の少ないペアでは通常の1時間でも異常に見えることがあります。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "거래가 없는 시간은 거래량 0으로 계산되므로, 거래가 적은 페어에서는 평범한 한 시간도 이례적으로 보일 수 있습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timer uten handler teller som null volum, så på tynt omsatte par kan en vanlig time se uvanlig ut."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uren zonder transacties tellen als nul volume, dus bij weinig verhandelde paren kan een normaal uur ongewoon lijken."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Godziny bez transakcji liczą się jako zerowy wolumen, więc przy słabo handlowanych parach zwykła godzina może wyglądać nietypowo."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As horas sem negociações contam como volume zero, pelo que, em pares pouco negociados, uma hora normal pode parecer invulgar."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horas sem negociações contam como volume zero, então em pares pouco negociados uma hora normal pode parecer incomum."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orele fără tranzacții contează ca volum zero, așa că la perechile tranzacționate rar o oră obișnuită poate părea neobișnuită."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Часы без сделок считаются нулевым объёмом, поэтому на малоторгуемых парах обычный час может выглядеть необычно."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orët pa tregti llogariten me vëllim zero, prandaj te çiftet me pak tregti një orë e zakonshme mund të duket e pazakontë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timmar utan affärer räknas som noll i volym, så på tunt handlade par kan en vanlig timme se ovanlig ut."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ชั่วโมงที่ไม่มีการซื้อขายนับเป็นปริมาณศูนย์ ดังนั้นในคู่ที่มีการซื้อขายน้อย ชั่วโมงปกติอาจดูผิดปกติได้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İşlem olmayan saatler sıfır hacim olarak sayılır; bu nedenle az işlem gören paritelerde normal bir saat olağandışı görünebilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Години без угод рахуються як нульовий обсяг, тому на малоторгованих парах звичайна година може виглядати незвично."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Những giờ không có giao dịch được tính là khối lượng bằng 0, nên với các cặp ít giao dịch, một giờ bình thường có thể trông bất thường."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有成交的小时按成交量 0 计算，因此在交易清淡的交易对上，普通的一小时也可能显得异常。"
+          }
+        }
+      }
+    },
     "alarm_window_hours" : {
       "extractionState" : "manual",
       "localizations" : {

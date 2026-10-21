@@ -37,7 +37,7 @@ struct AlarmSettingsPage: View {
                 options: DepegAlarm.thresholdChoices,
                 selection: settings.depegThresholdTenths,
                 label: { (tenths: Int) -> String in
-                    LocaleNumbers.decimal(Double(tenths) / 10, maxDecimals: 1, minDecimals: 0) + " %"
+                    PercentText.unsigned(Double(tenths) / 10, decimals: 1, minDecimals: 0)
                 },
                 onSelect: { data.settings.depegThresholdTenths = DepegAlarm.threshold($0) }
             )
@@ -207,13 +207,15 @@ struct AlarmSettingsPage: View {
         isCustomPercent ? .custom : .value(settings.notificationChangePercent)
     }
 
+    /// «5%», «2,5 %», «%2,5» je Sprache (`PercentText`), bis vier Nachkommastellen — wie Android `percentLabel`;
+    /// das Eingabefeld behält `SettingsPercentOption.format`.
     private func percentLabel(_ option: SettingsPercentOption) -> String {
         switch option {
         case .value(let v):
-            return SettingsPercentOption.format(v) + "%"
+            return PercentText.unsigned(v, decimals: 4, minDecimals: 0)
         case .custom:
             return isCustomPercent
-                ? SettingsPercentOption.format(settings.notificationChangePercent) + "%"
+                ? PercentText.unsigned(settings.notificationChangePercent, decimals: 4, minDecimals: 0)
                 : L("settings_custom_value")
         }
     }

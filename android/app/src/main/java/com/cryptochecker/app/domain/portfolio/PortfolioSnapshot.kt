@@ -2,6 +2,7 @@ package com.cryptochecker.app.domain.portfolio
 
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.util.PercentText
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
@@ -345,21 +346,13 @@ object PortfolioSnapshotMath {
         return BidiText.ltr("$sign${format.format(abs(value))} $currency", locale)
     }
 
-    /** «+1.23%» / «−0.50%»; ±0 ohne Vorzeichen. */
-    fun signedPercent(value: Double, locale: Locale = Locale.getDefault()): String {
-        val format = DecimalFormat("0.00", DecimalFormatSymbols.getInstance(locale))
-        val rounded = abs(value)
-        val sign = when {
-            rounded < 0.005 -> ""
-            value > 0 -> "+"
-            else -> "−"
-        }
-        return BidiText.ltr("$sign${format.format(rounded)}%", locale)
-    }
+    /** «+1.23%» / «−0.50%» / «+1,23 %» (Schreibweise je Sprache, [PercentText]); gerundet ±0 ohne Vorzeichen. */
+    fun signedPercent(value: Double, locale: Locale = Locale.getDefault()): String =
+        BidiText.ltr(PercentText.signed(value, 2, locale), locale)
 
-    /** «2.31%» ohne Vorzeichen (z. B. Schwelle eines Portfolio-Alarms); Dezimalzeichen je Sprache. */
+    /** «2.31%» ohne Vorzeichen (z. B. Schwelle eines Portfolio-Alarms); Schreibweise je Sprache ([PercentText]). */
     fun unsignedPercent(value: Double, locale: Locale = Locale.getDefault()): String =
-        DecimalFormat("0.00", DecimalFormatSymbols.getInstance(locale)).format(abs(value)) + "%"
+        PercentText.unsigned(value, 2, locale)
 
     /** Betrag unter einem halben Rappen/Cent gilt als null. */
     fun isZero(value: Double): Boolean = abs(value) < 0.005

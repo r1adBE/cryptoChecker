@@ -143,7 +143,7 @@ enum IndicatorText {
         var parts: [String] = []
         if let since, let p = stat.percentileBelow {
             let month = since.date.formatted(.dateTime.month(.abbreviated).year())
-            parts.append(L("ind_context_percentile", month, LocaleNumbers.integer(Int(p.rounded())) + " %"))
+            parts.append(L("ind_context_percentile", month, PercentText.unsigned(p, decimals: 0)))
         }
         if let f = stat.flat30 {
             parts.append(L("ind_context_flat30", value(Indicator(id: indicator.id, value: f), currency: currency)))

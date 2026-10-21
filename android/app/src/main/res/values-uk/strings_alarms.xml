@@ -144,6 +144,7 @@
     <string name="alarm_oi_hint">Порівнює відкритий інтерес зі значенням, збереженим стільки годин тому. Новий сигнал спрацює, лише коли застосунок збере дані за цей час; перевірка не частіше ніж раз на 5 хвилин.</string>
     <string name="alarm_volume_factor_label">Обсяг за останню годину відносно норми</string>
     <string name="alarm_volume_hint">Дані про обсяг беруться з Binance — для пар, яких там немає, сигнал не спрацює.</string>
+    <string name="alarm_volume_zero_hours_hint">Години без угод рахуються як нульовий обсяг, тому на малоторгованих парах звичайна година може виглядати незвично.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">Сповіщення увімкнено</string>

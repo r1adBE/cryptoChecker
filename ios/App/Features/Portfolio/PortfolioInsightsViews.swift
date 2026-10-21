@@ -20,9 +20,9 @@ func portfolioSpokenAmount(_ text: String, hidden: Bool) -> String {
     hidden ? L("a11y_amount_hidden") : text
 }
 
-/// «62.3%» (eine Nachkommastelle, Dezimalzeichen der Sprache).
+/// «62.3%», «62,3 %» (eine Nachkommastelle, Schreibweise der Sprache über `PercentText`).
 private func shareText(_ percent: Double) -> String {
-    String(format: "%.1f%%", locale: Locale.current, min(100, max(0, percent)))
+    PercentText.unsigned(min(100, max(0, percent)), decimals: 1)
 }
 
 // MARK: Aufteilung

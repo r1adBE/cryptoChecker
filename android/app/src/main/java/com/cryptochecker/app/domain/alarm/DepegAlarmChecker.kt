@@ -14,6 +14,7 @@ import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.marketdata.model.MarketPair
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -26,7 +27,6 @@ import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.math.abs
 import com.cryptochecker.app.notification.canShowDepegAlarm
 import com.cryptochecker.app.notification.showDepeg
 
@@ -128,7 +128,7 @@ class DepegAlarmChecker @Inject constructor(
         val title = context.getString(
             R.string.notification_depeg_title,
             LocaleNumbers.decimal(price, 4),
-            sign + LocaleNumbers.decimal(abs(deviation), 2) + " %"
+            sign + PercentText.unsigned(deviation, 2)
         )
         return notifier.showDepeg(title, context.getString(R.string.notification_depeg_text), DepegAlarm.exchangeUrl(keys))
     }
@@ -138,23 +138,26 @@ class DepegAlarmChecker @Inject constructor(
         val backoff = refreshStats.backoffStates()
         fun available(key: String) = !ExchangeBackoff.isPaused(backoff[key], now) && BlockedSources.groupPausedUntil(key) == null
         val kraken = async {
-            if (available(DepegAlarm.KRAKEN_KEY)) last(DepegAlarm.KRAKEN_KEY, "USDT", "USD", DepegAlarm.KRAKEN_PAIR_ID) else null
+            if (available(DepegAlarm.KRAKEN_KEY)) last(DepegAlarm.KRAKEN_KEY, "USDT", "USD", DepegAlarm.KRAKEN_PAIR_ID, now) else null
         }
         val coinbase = async {
-            if (available(DepegAlarm.COINBASE_KEY)) last(DepegAlarm.COINBASE_KEY, "USDT", "USD", DepegAlarm.COINBASE_PAIR_ID) else null
+            if (available(DepegAlarm.COINBASE_KEY)) last(DepegAlarm.COINBASE_KEY, "USDT", "USD", DepegAlarm.COINBASE_PAIR_ID, now) else null
         }
         val binance = async {
-            if (available(DepegAlarm.BINANCE_KEY)) last(DepegAlarm.BINANCE_KEY, "USDC", "USDT", DepegAlarm.BINANCE_PAIR_ID) else null
+            if (available(DepegAlarm.BINANCE_KEY)) last(DepegAlarm.BINANCE_KEY, "USDC", "USDT", DepegAlarm.BINANCE_PAIR_ID, now) else null
         }
         DepegAlarm.measure(kraken.await(), coinbase.await(), binance.await())
     }
 
-    /** Letzter Kurs eines Paars; Fehler still (null). */
-    private suspend fun last(marketKey: String, base: String, quote: String, pairId: String): Double? =
+    /**
+     * Letzter Kurs eines Paars; Fehler still (null). Laut Börse älter als 2 Std.: ebenfalls null
+     * ([DepegAlarm.usablePrice]) — keine Messung, kein Alarm, die Bewertung fällt zurück wie ohne frische Messung.
+     */
+    private suspend fun last(marketKey: String, base: String, quote: String, pairId: String, now: Long): Double? =
         runCatching {
             marketRepository.getMarketTicker(MarketInfo(marketKey, marketKey), MarketPair(base, quote, pairId))
         }.fold(
-            onSuccess = { if (it.error == null) it.ticker.last else null },
+            onSuccess = { if (it.error == null) DepegAlarm.usablePrice(it.ticker.last, it.ticker.exchangeTime, now) else null },
             onFailure = {
                 // Zeitüberschreitung kommt als CancellationException: nur abbrechen, wenn der Lauf selbst abbricht
                 currentCoroutineContext().ensureActive()

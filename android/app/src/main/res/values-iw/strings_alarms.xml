@@ -138,6 +138,7 @@
     <string name="alarm_oi_hint">משווה את ה־Open interest לערך שנשמר לפני אותו מספר שעות. התראה חדשה מודיעה רק אחרי שהאפליקציה אספה נתונים במשך הזמן הזה; הבדיקה לכל היותר כל 5 דקות.</string>
     <string name="alarm_volume_factor_label">מחזור השעה האחרונה לעומת הרגיל</string>
     <string name="alarm_volume_hint">נתוני המחזור מגיעים מ-Binance — צמדים שאינם רשומים שם לעולם לא יופעלו.</string>
+    <string name="alarm_volume_zero_hours_hint">שעות ללא עסקאות נספרות כנפח אפס, ולכן בצמדים עם מסחר דליל שעה רגילה עשויה להיראות חריגה.</string>
 
     <!-- Bestätigung nach dem Speichern -->
     <string name="alarm_saved_active">ההתראה פעילה</string>
