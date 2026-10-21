@@ -72,6 +72,8 @@
     <string name="storage_recovery_acknowledge">Rozumiem</string>
     <string name="storage_recovery_restored_title">Zapisane dane ponownie odblokowane</string>
     <string name="storage_recovery_restored_message">Wcześniejszy klucz tego urządzenia ponownie otworzył odłożone dane, więc wróciły. To, co zapisano w międzyczasie, pozostało bez zmian obok.</string>
+    <string name="settings_reset_notice_title">Ustawienia zresetowane</string>
+    <string name="settings_reset_notice">Nie udało się odczytać ustawień, więc przywrócono wartości domyślne. Sprawdź blokadę portfela, interwał alarmów i walutę.</string>
     <string name="backup_restore_interrupted_title">Przywracanie zostało przerwane</string>
     <string name="backup_restore_interrupted_rolled_back">Aplikacja została zamknięta podczas przywracania kopii. Poprzednie dane zostały przywrócone; z kopii nic nie zachowano.</string>
     <string name="backup_restore_interrupted_incomplete">Aplikacja została zamknięta podczas przywracania kopii i nie udało się w pełni przywrócić poprzednich danych. Sprawdź listę obserwowanych i portfel albo przywróć kopię ponownie w Ustawieniach w „%1$s”.</string>

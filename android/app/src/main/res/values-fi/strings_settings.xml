@@ -203,7 +203,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Nollaa sovellus</string>
     <string name="settings_reset_app_action">Poista kaikki</string>
-    <string name="settings_reset_app_confirm">Poistaa seurantalistan, hälytykset, salkun, asetukset ja kaikki tallennetut tiedot, kuten asennuksen jälkeen. Toimintoa ei voi kumota. Vinkki: tee ensin varmuuskopio.</string>
+    <string name="settings_reset_app_confirm">Poistaa seurantalistan, hälytykset, salkun, asetukset ja kaikki tallennetut tiedot, kuten asennuksen jälkeen. Toimintoa ei voi kumota. Vinkki: tee ensin varmuuskopio. Laitteen varmuuskopiot (Google-varmuuskopio tai iCloud-/tietokonevarmuuskopio) säilyttävät aiemmat tiedot seuraavaan varmuuskopiointiin asti.</string>
     <string name="settings_reset_app_title">Nollataanko sovellus?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

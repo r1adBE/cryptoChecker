@@ -203,7 +203,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">ऐप रीसेट करें</string>
     <string name="settings_reset_app_action">सब हटाएँ</string>
-    <string name="settings_reset_app_confirm">वॉचलिस्ट, अलार्म, पोर्टफ़ोलियो, सेटिंग्स और सारा सहेजा डेटा हटाता है, जैसे इंस्टॉल के बाद। इसे पूर्ववत नहीं किया जा सकता। सुझाव: पहले बैकअप बना लें।</string>
+    <string name="settings_reset_app_confirm">वॉचलिस्ट, अलार्म, पोर्टफ़ोलियो, सेटिंग्स और सारा सहेजा डेटा हटाता है, जैसे इंस्टॉल के बाद। इसे पूर्ववत नहीं किया जा सकता। सुझाव: पहले बैकअप बना लें। डिवाइस के बैकअप (Google बैकअप या iCloud/कंप्यूटर बैकअप) अगला बैकअप चलने तक पुराना डेटा रखते हैं।</string>
     <string name="settings_reset_app_title">ऐप रीसेट करें?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

@@ -207,7 +207,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">إعادة ضبط التطبيق</string>
     <string name="settings_reset_app_action">حذف الكل</string>
-    <string name="settings_reset_app_confirm">يحذف قائمة المتابعة والتنبيهات والمحفظة والإعدادات وكل البيانات المحفوظة، كما بعد التثبيت. لا يمكن التراجع. نصيحة: أنشئ نسخة احتياطية أولاً.</string>
+    <string name="settings_reset_app_confirm">يحذف قائمة المتابعة والتنبيهات والمحفظة والإعدادات وكل البيانات المحفوظة، كما بعد التثبيت. لا يمكن التراجع. نصيحة: أنشئ نسخة احتياطية أولاً. تحتفظ النسخ الاحتياطية للجهاز (نسخة Google الاحتياطية أو نسخة iCloud/الكمبيوتر) بالبيانات السابقة حتى تُجرى النسخة الاحتياطية التالية.</string>
     <string name="settings_reset_app_title">إعادة ضبط التطبيق؟</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

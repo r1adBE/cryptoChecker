@@ -22,6 +22,7 @@ import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
+import com.cryptochecker.app.ui.withOpenToken
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.withTimeoutOrNull
@@ -261,6 +262,8 @@ class PortfolioWidgetRenderer @Inject constructor(
             action = ACTION_OPEN_PORTFOLIO
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             putExtra(MainActivity.EXTRA_OPEN, "portfolio")
+            // Geheimnis dieser Installation: sonst gilt das Ziel nicht (OpenTargetGuard, seit Build 97)
+            withOpenToken(context)
         }
         return PendingIntent.getActivity(
             context,

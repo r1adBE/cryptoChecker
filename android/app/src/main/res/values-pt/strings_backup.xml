@@ -69,6 +69,8 @@
     <string name="storage_recovery_acknowledge">Entendi</string>
     <string name="storage_recovery_restored_title">Dados guardados novamente desbloqueados</string>
     <string name="storage_recovery_restored_message">Uma chave anterior deste dispositivo voltou a abrir os dados postos de parte, por isso estão de volta. O que foi guardado entretanto ficou inalterado ao lado.</string>
+    <string name="settings_reset_notice_title">Definições repostas</string>
+    <string name="settings_reset_notice">Não foi possível ler as definições, que foram repostas para os valores predefinidos. Verifique o bloqueio do portfólio, o intervalo dos alarmes e a moeda.</string>
     <string name="backup_restore_interrupted_title">O restauro foi interrompido</string>
     <string name="backup_restore_interrupted_rolled_back">A app foi fechada durante o restauro de uma cópia de segurança. Os teus dados anteriores foram repostos; nada da cópia foi mantido.</string>
     <string name="backup_restore_interrupted_incomplete">A app foi fechada durante o restauro de uma cópia de segurança e os dados anteriores não puderam ser totalmente repostos. Verifica a lista de observação e a carteira, ou restaura novamente a cópia em «%1$s» nas Definições.</string>

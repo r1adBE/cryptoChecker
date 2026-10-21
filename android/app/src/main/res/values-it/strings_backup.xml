@@ -69,6 +69,8 @@
     <string name="storage_recovery_acknowledge">Ho capito</string>
     <string name="storage_recovery_restored_title">Dati salvati di nuovo sbloccati</string>
     <string name="storage_recovery_restored_message">Una chiave precedente di questo dispositivo ha riaperto i dati messi da parte, che sono tornati. Quanto salvato nel frattempo è stato conservato invariato accanto.</string>
+    <string name="settings_reset_notice_title">Impostazioni ripristinate</string>
+    <string name="settings_reset_notice">Non è stato possibile leggere le impostazioni, che sono state riportate ai valori predefiniti. Controlla il blocco portafoglio, l’intervallo degli allarmi e la valuta.</string>
     <string name="backup_restore_interrupted_title">Il ripristino è stato interrotto</string>
     <string name="backup_restore_interrupted_rolled_back">L\'app è stata chiusa durante il ripristino di un backup. I dati precedenti sono stati ripristinati; dal backup non è stato mantenuto nulla.</string>
     <string name="backup_restore_interrupted_incomplete">L\'app è stata chiusa durante il ripristino di un backup e non è stato possibile ripristinare completamente i dati precedenti. Controlla watchlist e portafoglio oppure ripristina di nuovo il backup in «%1$s» nelle Impostazioni.</string>

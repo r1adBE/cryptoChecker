@@ -203,7 +203,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Rivendos aplikacionin</string>
     <string name="settings_reset_app_action">Fshi gjithçka</string>
-    <string name="settings_reset_app_confirm">Fshin listën, alarmet, portofolin, cilësimet dhe të gjitha të dhënat e ruajtura, si pas instalimit. Nuk mund të zhbëhet. Këshillë: bëj fillimisht një kopje rezervë.</string>
+    <string name="settings_reset_app_confirm">Fshin listën, alarmet, portofolin, cilësimet dhe të gjitha të dhënat e ruajtura, si pas instalimit. Nuk mund të zhbëhet. Këshillë: bëj fillimisht një kopje rezervë. Kopjet rezervë të pajisjes (kopje Google ose kopje iCloud/kompjuteri) ruajnë të dhënat e mëparshme deri në kopjen e radhës.</string>
     <string name="settings_reset_app_title">Të rivendoset aplikacioni?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

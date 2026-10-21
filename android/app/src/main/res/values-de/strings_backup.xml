@@ -66,6 +66,8 @@
     <string name="storage_recovery_acknowledge">Verstanden</string>
     <string name="storage_recovery_restored_title">Gespeicherte Daten wieder entsperrt</string>
     <string name="storage_recovery_restored_message">Ein früherer Schlüssel dieses Geräts hat die beiseitegelegten Daten wieder geöffnet – sie sind zurück. Was inzwischen gespeichert wurde, liegt unverändert daneben.</string>
+    <string name="settings_reset_notice_title">Einstellungen zurückgesetzt</string>
+    <string name="settings_reset_notice">Die Einstellungen liessen sich nicht lesen und wurden auf die Standardwerte zurückgesetzt. Bitte Portfolio-Sperre, Intervall der Alarme und Währung prüfen.</string>
     <string name="backup_restore_interrupted_title">Wiederherstellen wurde unterbrochen</string>
     <string name="backup_restore_interrupted_rolled_back">Die App wurde beim Wiederherstellen einer Sicherung beendet. Der vorherige Stand wurde zurückgeschrieben; aus der Sicherung wurde nichts übernommen.</string>
     <string name="backup_restore_interrupted_incomplete">Die App wurde beim Wiederherstellen einer Sicherung beendet, und der vorherige Stand liess sich nicht vollständig zurückschreiben. Bitte prüfe Merkliste und Portfolio oder spiele die Sicherung unter «%1$s» in den Einstellungen erneut ein.</string>

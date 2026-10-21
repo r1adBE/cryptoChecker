@@ -203,7 +203,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Återställ appen</string>
     <string name="settings_reset_app_action">Radera allt</string>
-    <string name="settings_reset_app_confirm">Raderar bevakningslista, larm, portfölj, inställningar och all sparad data, som efter installationen. Det går inte att ångra. Tips: gör en säkerhetskopia först.</string>
+    <string name="settings_reset_app_confirm">Raderar bevakningslista, larm, portfölj, inställningar och all sparad data, som efter installationen. Det går inte att ångra. Tips: gör en säkerhetskopia först. Säkerhetskopior av enheten (Google-säkerhetskopia eller iCloud-/datorkopia) behåller tidigare data tills nästa säkerhetskopiering körs.</string>
     <string name="settings_reset_app_title">Återställa appen?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

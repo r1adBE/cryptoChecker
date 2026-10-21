@@ -203,7 +203,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Alkalmazás visszaállítása</string>
     <string name="settings_reset_app_action">Minden törlése</string>
-    <string name="settings_reset_app_confirm">Törli a figyelőlistát, riasztásokat, portfóliót, beállításokat és minden mentett adatot, mint telepítés után. Nem vonható vissza. Tipp: előbb készítsen biztonsági mentést.</string>
+    <string name="settings_reset_app_confirm">Törli a figyelőlistát, riasztásokat, portfóliót, beállításokat és minden mentett adatot, mint telepítés után. Nem vonható vissza. Tipp: előbb készítsen biztonsági mentést. Az eszköz biztonsági mentései (Google- vagy iCloud-/számítógépes mentés) a következő mentésig megőrzik a korábbi adatokat.</string>
     <string name="settings_reset_app_title">Visszaállítja az alkalmazást?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

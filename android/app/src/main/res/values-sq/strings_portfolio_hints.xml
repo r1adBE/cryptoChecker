@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokenët pjesërisht të vjetruar</string>
     <string name="portfolio_address_restore_failed">Adresa nuk mund të rikthehej – shtoje sërish nëse duhet</string>
+    <string name="portfolio_address_remove_failed">Adresa nuk mund të hiqej – provo përsëri</string>
 </resources>

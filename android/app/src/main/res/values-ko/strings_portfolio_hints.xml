@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">토큰 일부 오래됨</string>
     <string name="portfolio_address_restore_failed">주소를 되돌리지 못했습니다 – 필요하면 다시 추가하세요</string>
+    <string name="portfolio_address_remove_failed">주소를 삭제할 수 없습니다 – 다시 시도해 주세요</string>
 </resources>

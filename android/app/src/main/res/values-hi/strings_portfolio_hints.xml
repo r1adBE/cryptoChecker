@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">टोकन आंशिक रूप से पुराने</string>
     <string name="portfolio_address_restore_failed">पता वापस नहीं लाया जा सका – ज़रूरत हो तो इसे फिर से जोड़ें</string>
+    <string name="portfolio_address_remove_failed">पता हटाया नहीं जा सका – कृपया फिर से कोशिश करें</string>
 </resources>

@@ -19,6 +19,7 @@ import com.cryptochecker.app.notification.AppNotifier.Companion.ACTION_OPEN_NOTI
 import com.cryptochecker.app.notification.AppNotifier.Companion.WHY_REQUEST_BASE
 import com.cryptochecker.app.notification.AppNotifier.Group
 import com.cryptochecker.app.notification.AppNotifier.GroupState
+import com.cryptochecker.app.ui.withOpenToken
 
 /**
  * Alarme haben Vorrang: Nahe an der Grenze von Android (rund 50 offene Mitteilungen je App)
@@ -186,6 +187,8 @@ internal fun AppNotifier.openTargetIntent(target: String, requestCode: Int): Pen
         action = "$ACTION_OPEN_NOTIFICATION.$target"
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         putExtra(MainActivity.EXTRA_OPEN, target)
+        // Geheimnis dieser Installation: sonst gilt das Ziel nicht (OpenTargetGuard, seit Build 97)
+        withOpenToken(context)
     }
     return PendingIntent.getActivity(
         context,

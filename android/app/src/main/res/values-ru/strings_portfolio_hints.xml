@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">токены частично устарели</string>
     <string name="portfolio_address_restore_failed">Не удалось вернуть адрес – при необходимости добавьте его снова</string>
+    <string name="portfolio_address_remove_failed">Не удалось удалить адрес – попробуйте ещё раз</string>
 </resources>

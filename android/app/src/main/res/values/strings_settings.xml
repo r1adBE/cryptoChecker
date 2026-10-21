@@ -203,7 +203,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Reset app</string>
     <string name="settings_reset_app_action">Delete everything</string>
-    <string name="settings_reset_app_confirm">Deletes watchlist, alerts, portfolio, settings and all stored data, as after installing. This cannot be undone. Tip: make a backup first.</string>
+    <string name="settings_reset_app_confirm">Deletes watchlist, alerts, portfolio, settings and all stored data, as after installing. This cannot be undone. Tip: make a backup first. Device backups (Google backup or iCloud/computer backup) keep the previous data until the next backup runs.</string>
     <string name="settings_reset_app_title">Reset app?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

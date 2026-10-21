@@ -84,8 +84,10 @@ object GasFees {
         val tips = DoubleArray(PERCENTILES.size)
         if (rewards != null && rewards.length() > 0) {
             for (k in PERCENTILES.indices) {
+                // Unlesbare Einträge («0xzz») überspringen wie fehlende, statt die ganze Antwort zu verwerfen — wie iOS
                 val values = (0 until rewards.length()).mapNotNull { i ->
-                    rewards.optJSONArray(i)?.optString(k)?.takeIf { it.startsWith("0x") }?.let(::hexToGwei)
+                    rewards.optJSONArray(i)?.optString(k)?.takeIf { it.startsWith("0x") }
+                        ?.let { hex -> runCatching { hexToGwei(hex) }.getOrNull() }
                 }.sorted()
                 tips[k] = if (values.isEmpty()) 0.0 else values[values.size / 2]
             }
@@ -143,8 +145,16 @@ object GasFees {
     fun btcTransferUsd(satPerVb: Double, btcUsd: Double?): Double? =
         btcUsd?.let { satPerVb * BTC_TRANSFER_VBYTES * 1e-8 * it }
 
+    /**
+     * Wei als Hex-String → gwei. Nur ASCII-Hexziffern ohne Vorzeichen: BigInteger nähme auch «-» (negative Gebühr)
+     * und Unicode-Ziffern an — iOS nicht; seit Build 97 wirft beides wie dort.
+     */
     fun hexToGwei(hex: String): Double {
-        val clean = hex.removePrefix("0x").removePrefix("0X").ifEmpty { "0" }
+        val clean = when {
+            hex.startsWith("0x") || hex.startsWith("0X") -> hex.substring(2)
+            else -> hex
+        }.ifEmpty { "0" }
+        require(clean.all { it in '0'..'9' || it in 'a'..'f' || it in 'A'..'F' }) { "Kein Hex: $hex" }
         return BigInteger(clean, 16).toBigDecimal().movePointLeft(9).toDouble()
     }
 

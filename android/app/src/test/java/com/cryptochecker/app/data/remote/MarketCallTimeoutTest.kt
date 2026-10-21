@@ -8,6 +8,7 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
@@ -64,13 +65,17 @@ class MarketCallTimeoutTest {
 
     @Test
     fun innerTimeoutIsNotCritical() = runBlocking {
+        var handled = false
         try {
             withTimeout(10) { awaitCancellation() }
         } catch (e: Exception) {
             // Eigene Coroutine läuft noch: gewöhnlicher Fehler, kein Weiterwerfen
             e.rethrowIfCritical()
+            handled = true
         }
-        assertTrue(true)
+        // Zeitüberschreitung kam an und wurde als gewöhnlicher Fehler behandelt (nicht weitergeworfen)
+        assertTrue(handled)
+        assertTrue(isActive)
     }
 
     @Test

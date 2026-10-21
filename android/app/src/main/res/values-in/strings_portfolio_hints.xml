@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">token sebagian usang</string>
     <string name="portfolio_address_restore_failed">Alamat tidak dapat dipulihkan – tambahkan lagi jika perlu</string>
+    <string name="portfolio_address_remove_failed">Alamat tidak dapat dihapus – silakan coba lagi</string>
 </resources>

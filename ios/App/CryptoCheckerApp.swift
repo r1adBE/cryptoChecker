@@ -194,6 +194,10 @@ struct CryptoCheckerApp: App {
                     guard url.scheme?.lowercased() == "cryptochecker" else { return }
                     let target = [url.host, url.path.isEmpty ? nil : String(url.path.dropFirst())]
                         .compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: "/")
+                    // Fremde Links (andere Apps, Webseiten) nur zu harmlosen Zielen; Portfolio u. a. nur mit dem
+                    // Geheimnis der eigenen Widgets (`OpenTargetGuard`, seit Build 97, wie Android)
+                    guard OpenTargetGuard.accepts(target, token: OpenTargetGuard.linkToken(of: url),
+                                                  expected: OpenTargetGuard.token) else { return }
                     router.open(target)
                 }
         }

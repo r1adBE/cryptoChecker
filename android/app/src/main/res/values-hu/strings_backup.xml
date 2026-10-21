@@ -66,6 +66,8 @@
     <string name="storage_recovery_acknowledge">Értem</string>
     <string name="storage_recovery_restored_title">A mentett adatok ismét feloldva</string>
     <string name="storage_recovery_restored_message">Az eszköz egy korábbi kulcsa ismét megnyitotta a félretett adatokat, így visszakerültek. A közben mentett adatok változatlanul mellettük maradtak.</string>
+    <string name="settings_reset_notice_title">Beállítások visszaállítva</string>
+    <string name="settings_reset_notice">A beállításokat nem sikerült beolvasni, ezért visszaálltak az alapértékekre. Ellenőrizze a portfóliózárat, a riasztások időközét és a pénznemet.</string>
     <string name="backup_restore_interrupted_title">A visszaállítás megszakadt</string>
     <string name="backup_restore_interrupted_rolled_back">Az alkalmazás bezárult egy biztonsági mentés visszaállítása közben. A korábbi adataidat visszaállítottuk; a mentésből semmi sem maradt meg.</string>
     <string name="backup_restore_interrupted_incomplete">Az alkalmazás bezárult egy mentés visszaállítása közben, és a korábbi adatokat nem sikerült teljesen visszaállítani. Ellenőrizd a figyelőlistát és a portfóliót, vagy állítsd vissza újra a mentést a Beállítások „%1$s” pontjában.</string>

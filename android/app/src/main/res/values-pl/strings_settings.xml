@@ -205,7 +205,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Resetuj aplikację</string>
     <string name="settings_reset_app_action">Usuń wszystko</string>
-    <string name="settings_reset_app_confirm">Usuwa listę obserwowanych, alarmy, portfel, ustawienia i wszystkie zapisane dane, jak po instalacji. Tej operacji nie można cofnąć. Wskazówka: najpierw zrób kopię zapasową.</string>
+    <string name="settings_reset_app_confirm">Usuwa listę obserwowanych, alarmy, portfel, ustawienia i wszystkie zapisane dane, jak po instalacji. Tej operacji nie można cofnąć. Wskazówka: najpierw zrób kopię zapasową. Kopie zapasowe urządzenia (kopia Google lub kopia iCloud/na komputerze) zachowują poprzednie dane do czasu następnej kopii.</string>
     <string name="settings_reset_app_title">Zresetować aplikację?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

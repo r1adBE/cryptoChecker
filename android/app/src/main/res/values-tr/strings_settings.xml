@@ -203,7 +203,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Uygulamayı sıfırla</string>
     <string name="settings_reset_app_action">Tümünü sil</string>
-    <string name="settings_reset_app_confirm">İzleme listesini, alarmları, portföyü, ayarları ve tüm kayıtlı verileri kurulumdan sonraki gibi siler. Geri alınamaz. İpucu: önce yedek alın.</string>
+    <string name="settings_reset_app_confirm">İzleme listesini, alarmları, portföyü, ayarları ve tüm kayıtlı verileri kurulumdan sonraki gibi siler. Geri alınamaz. İpucu: önce yedek alın. Cihaz yedekleri (Google yedeği veya iCloud/bilgisayar yedeği) bir sonraki yedekleme yapılana kadar önceki verileri saklar.</string>
     <string name="settings_reset_app_title">Uygulama sıfırlansın mı?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

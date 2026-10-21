@@ -69,6 +69,8 @@
     <string name="storage_recovery_acknowledge">Entendido</string>
     <string name="storage_recovery_restored_title">Los datos guardados se han desbloqueado de nuevo</string>
     <string name="storage_recovery_restored_message">Una clave anterior de este dispositivo volvió a abrir los datos apartados, así que han vuelto. Lo guardado mientras tanto se conservó sin cambios al lado.</string>
+    <string name="settings_reset_notice_title">Ajustes restablecidos</string>
+    <string name="settings_reset_notice">No se pudieron leer los ajustes y se restablecieron los valores predeterminados. Revisa el bloqueo de la cartera, el intervalo de las alarmas y la moneda.</string>
     <string name="backup_restore_interrupted_title">La restauración se interrumpió</string>
     <string name="backup_restore_interrupted_rolled_back">La app se cerró mientras restauraba una copia. Se han repuesto tus datos anteriores; no se conservó nada de la copia.</string>
     <string name="backup_restore_interrupted_incomplete">La app se cerró mientras restauraba una copia y no se pudieron reponer por completo los datos anteriores. Revisa tu lista de seguimiento y tu cartera, o vuelve a restaurar la copia en «%1$s» en Ajustes.</string>

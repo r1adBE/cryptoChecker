@@ -66,6 +66,8 @@
     <string name="storage_recovery_acknowledge">Kuptova</string>
     <string name="storage_recovery_restored_title">Të dhënat e ruajtura u zhbllokuan sërish</string>
     <string name="storage_recovery_restored_message">Një çelës i mëparshëm i kësaj pajisjeje i hapi sërish të dhënat e lëna mënjanë, ndaj ato u kthyen. Ato që u ruajtën ndërkohë mbetën të pandryshuara pranë tyre.</string>
+    <string name="settings_reset_notice_title">Cilësimet u rivendosën</string>
+    <string name="settings_reset_notice">Cilësimet nuk u lexuan dot dhe u rivendosën në vlerat e parazgjedhura. Kontrollo kyçjen e portofolit, intervalin e alarmeve dhe monedhën.</string>
     <string name="backup_restore_interrupted_title">Rikthimi u ndërpre</string>
     <string name="backup_restore_interrupted_rolled_back">Aplikacioni u mbyll gjatë rikthimit të një kopjeje rezervë. Të dhënat e mëparshme u kthyen; nga kopja nuk u mbajt asgjë.</string>
     <string name="backup_restore_interrupted_incomplete">Aplikacioni u mbyll gjatë rikthimit të një kopjeje rezervë dhe të dhënat e mëparshme nuk u kthyen plotësisht. Kontrollo listën e ndjekjes dhe portofolin, ose rikthe sërish kopjen te «%1$s» në Cilësime.</string>

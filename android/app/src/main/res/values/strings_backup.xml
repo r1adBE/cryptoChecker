@@ -67,6 +67,8 @@
     <string name="storage_recovery_acknowledge">Got it</string>
     <string name="storage_recovery_restored_title">Saved data unlocked again</string>
     <string name="storage_recovery_restored_message">An earlier key on this device opened the set-aside data again, so it is back. Data saved in the meantime was kept unchanged next to it.</string>
+    <string name="settings_reset_notice_title">Settings reset</string>
+    <string name="settings_reset_notice">Your settings could not be read and were reset to the defaults. Please check the portfolio lock, the alerts interval and the currency.</string>
     <string name="backup_restore_interrupted_title">Restore was interrupted</string>
     <string name="backup_restore_interrupted_rolled_back">The app was closed while restoring a backup. Your previous data has been put back; nothing from the backup was kept.</string>
     <string name="backup_restore_interrupted_incomplete">The app was closed while restoring a backup, and the previous data could not be put back completely. Please check your watchlist and portfolio, or restore the backup again under “%1$s” in Settings.</string>

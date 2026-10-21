@@ -203,7 +203,7 @@
     <!-- «App zurücksetzen»: alles löschen wie nach der Installation -->
     <string name="settings_reset_app">Tilbakestill appen</string>
     <string name="settings_reset_app_action">Slett alt</string>
-    <string name="settings_reset_app_confirm">Sletter overvåkingsliste, alarmer, portefølje, innstillinger og alle lagrede data, som etter installasjon. Kan ikke angres. Tips: ta en sikkerhetskopi først.</string>
+    <string name="settings_reset_app_confirm">Sletter overvåkingsliste, alarmer, portefølje, innstillinger og alle lagrede data, som etter installasjon. Kan ikke angres. Tips: ta en sikkerhetskopi først. Sikkerhetskopier av enheten (Google-sikkerhetskopi eller iCloud-/datamaskinkopi) beholder de tidligere dataene til neste sikkerhetskopi kjører.</string>
     <string name="settings_reset_app_title">Tilbakestille appen?</string>
 
     <!-- Suchfelder der Auswahllisten (Währung, Sprache) -->

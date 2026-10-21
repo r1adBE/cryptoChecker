@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">الرموز قديمة جزئيًا</string>
     <string name="portfolio_address_restore_failed">تعذّرت استعادة العنوان – أضفه من جديد عند الحاجة</string>
+    <string name="portfolio_address_remove_failed">تعذّرت إزالة العنوان – يُرجى المحاولة مرة أخرى</string>
 </resources>

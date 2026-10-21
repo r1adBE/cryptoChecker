@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">tokenek részben elavultak</string>
     <string name="portfolio_address_restore_failed">A cím nem állítható vissza – szükség esetén add hozzá újra</string>
+    <string name="portfolio_address_remove_failed">A címet nem sikerült eltávolítani – próbáld újra</string>
 </resources>

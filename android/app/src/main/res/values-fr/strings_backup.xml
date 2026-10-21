@@ -69,6 +69,8 @@
     <string name="storage_recovery_acknowledge">Compris</string>
     <string name="storage_recovery_restored_title">Données enregistrées de nouveau déverrouillées</string>
     <string name="storage_recovery_restored_message">Une clé antérieure de cet appareil a de nouveau ouvert les données mises de côté : elles sont de retour. Ce qui a été enregistré entre-temps est conservé tel quel à côté.</string>
+    <string name="settings_reset_notice_title">Réglages réinitialisés</string>
+    <string name="settings_reset_notice">Les réglages n’ont pas pu être lus et ont été réinitialisés aux valeurs par défaut. Vérifiez le verrouillage du portefeuille, l’intervalle des alertes et la devise.</string>
     <string name="backup_restore_interrupted_title">La restauration a été interrompue</string>
     <string name="backup_restore_interrupted_rolled_back">L\'app a été fermée pendant la restauration d\'une sauvegarde. Tes données précédentes ont été rétablies ; rien de la sauvegarde n\'a été conservé.</string>
     <string name="backup_restore_interrupted_incomplete">L\'app a été fermée pendant la restauration d\'une sauvegarde et les données précédentes n\'ont pas pu être entièrement rétablies. Vérifie ta liste de suivi et ton portefeuille, ou restaure à nouveau la sauvegarde sous « %1$s » dans les Réglages.</string>

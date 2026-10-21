@@ -13,4 +13,5 @@
     <!-- Statuszeile einer Adresse und gescheitertes «Rückgängig» nach «Adresse entfernen» -->
     <string name="portfolio_address_tokens_partly_stale">token đã cũ một phần</string>
     <string name="portfolio_address_restore_failed">Không thể khôi phục địa chỉ – hãy thêm lại nếu cần</string>
+    <string name="portfolio_address_remove_failed">Không thể xóa địa chỉ – vui lòng thử lại</string>
 </resources>

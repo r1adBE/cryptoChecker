@@ -68,9 +68,15 @@ fun PortfolioViewModel.addWatchedAddress(
 /**
  * Adresse entfernen (nach Bestätigung). [onRemoved] bekommt die ganze Zeile (Eröffnungsposten, Verlauf, Token-Reihen)
  * für «Rückgängig» ([restoreWatchedAddress]); gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]):
- * nichts entfernt, [onLocked] — nie still.
+ * nichts entfernt, [onLocked] — nie still. Nicht geschrieben (Datenbank gerade nicht beschreibbar): [onFailed]
+ * (seit Build 97, vorher still). Schon weg (keine Zeile): nichts zu melden.
  */
-fun PortfolioViewModel.removeWatchedAddress(id: Long, onLocked: () -> Unit = {}, onRemoved: (WatchedAddressEntity) -> Unit = {}) {
+fun PortfolioViewModel.removeWatchedAddress(
+    id: Long,
+    onLocked: () -> Unit = {},
+    onFailed: () -> Unit = {},
+    onRemoved: (WatchedAddressEntity) -> Unit = {},
+) {
     viewModelScope.launch {
         val removed = try {
             repository.removeWatchedAddress(id)
@@ -80,7 +86,9 @@ fun PortfolioViewModel.removeWatchedAddress(id: Long, onLocked: () -> Unit = {},
         } catch (e: kotlinx.coroutines.CancellationException) {
             throw e
         } catch (e: Exception) {
-            null
+            Timber.w(e, "Adresse nicht entfernt")
+            onFailed()
+            return@launch
         }
         removed?.let(onRemoved)
     }
