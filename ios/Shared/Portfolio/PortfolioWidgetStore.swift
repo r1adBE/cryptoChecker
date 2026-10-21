@@ -253,13 +253,16 @@ enum PortfolioWidgetStore {
         let resolvedRate = fxRate.map {
             PortfolioWidgetChart.usdtFactor(currency: currency, fx: $0, usdtLive: DepegAlarmCheck.liveUsdtUsd(now: now))
         }
+        let watched = WatchedAddressStore.load().addresses
         let snapshot = compute(transactions: transactions, prices: prices, currency: currency, rate: resolvedRate,
                                extraHourly: extraHourly, basis: settings.changeBasis.storage,
                                method: settings.costMethod,
-                               addresses: AddressBalanceHistory.of(WatchedAddressStore.load().addresses),
+                               addresses: AddressBalanceHistory.of(watched),
                                staleAfterMillis: PortfolioPriceFallback.staleAfterMillis(
                                    backgroundIntervalMinutes: settings.backgroundIntervalMinutes),
-                               displayFx: displayFx)
+                               displayFx: displayFx,
+                               // Zählende Adressen ohne je geladenes Guthaben: Portfolio-Alarme prüfen dann nicht
+                               addressesPending: AddressBalance.pendingCount(watched))
         if save(snapshot) && reload {
             WidgetCenter.shared.reloadTimelines(ofKind: kind)
         }

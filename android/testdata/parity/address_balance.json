@@ -903,6 +903,36 @@
         "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
         "body": "Invalid Bitcoin address",
         "error": true
+      },
+      {
+        "name": "Boersen-Adresse: Summen ueber alle Zeit ueber 21 Mio. BTC, Guthaben klein",
+        "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+        "body": "{\"chain_stats\":{\"funded_txo_sum\":3000000000000000,\"spent_txo_sum\":2999999000000000,\"tx_count\":90000},\"mempool_stats\":{\"funded_txo_sum\":0,\"spent_txo_sum\":0,\"tx_count\":0}}",
+        "confirmedSats": 1000000000,
+        "pendingSats": 0,
+        "balance": "10"
+      },
+      {
+        "name": "Guthaben ueber 21 Mio. BTC",
+        "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+        "body": "{\"chain_stats\":{\"funded_txo_sum\":2200000000000000,\"spent_txo_sum\":0,\"tx_count\":1}}",
+        "error": true
+      },
+      {
+        "name": "Litecoin: 30 Mio. LTC (ueber der BTC-Grenze, unter 84 Mio.)",
+        "chain": "LTC",
+        "address": "ltc1qha8gzjptcmta7lyuna8fs8y7m492ag2pempv4a",
+        "body": "{\"chain_stats\":{\"funded_txo_sum\":3000000000000000,\"spent_txo_sum\":0,\"tx_count\":3}}",
+        "confirmedSats": 3000000000000000,
+        "pendingSats": 0,
+        "balance": "30000000"
+      },
+      {
+        "name": "Litecoin: Guthaben ueber 84 Mio. LTC",
+        "chain": "LTC",
+        "address": "ltc1qha8gzjptcmta7lyuna8fs8y7m492ag2pempv4a",
+        "body": "{\"chain_stats\":{\"funded_txo_sum\":8500000000000000,\"spent_txo_sum\":0,\"tx_count\":3}}",
+        "error": true
       }
     ]
   },
@@ -2584,7 +2614,7 @@
     "_comment": "Schritte nacheinander mit WatchedAddressRules.applyFetched. history = Eintraege fuer USDT und LINK aus AddressBalanceHistory.trades(of([Zustand nach Schritt 2])) (Reihenfolge der Reihen: ETH, dann Token nach Liste)."
   },
   "gapScan": {
-    "_comment": "XpubScan: Gap 20 (BIP44), Vorausblick im Vordergrund (QUICK) = volles Gap-Limit 20 (Build 76, vorher 5), hoechstens 400 Anfragen. used = [[index, sats]] je Kette (benutzt = tx_count > 0), alle anderen Adressen unbenutzt mit 0 Sat. Erwartet: Anzahl Anfragen, Summe, benutzte Indizes, hoechster gefragter Index je Kette.",
+    "_comment": "XpubScan: Gap 20 (BIP44), Vorausblick im Vordergrund (QUICK) = volles Gap-Limit 20 (Build 76, vorher 5), hoechstens 400 Anfragen. used = [[index, sats]] je Kette (benutzt = tx_count > 0), alle anderen Adressen unbenutzt mit 0 Sat. Erwartet: Anzahl Anfragen, Summe, benutzte Indizes, hoechster gefragter Index je Kette. Hintergrund (BACKGROUND, seit Build 94): bekannte benutzte + die naechsten backgroundLookahead (2) je Kette; complete = hinter der neusten benutzten jeder Kette eine unbenutzte gefragt (fehlt = true). keepBackground: unvollstaendiges Hintergrund-Ergebnis nur, wenn nicht unter dem gespeicherten Guthaben (BTC; null = nie).",
     "gap": 20,
     "lookahead": 20,
     "maxRequests": 400,
@@ -2871,7 +2901,7 @@
         }
       },
       {
-        "name": "Hintergrund: nur bekannte",
+        "name": "Hintergrund: bekannte + Vorausblick 2, letzte davon benutzt (unvollstaendig)",
         "mode": "BACKGROUND",
         "cache": {
           "usedReceive": [
@@ -2913,18 +2943,73 @@
           ]
         },
         "expected": {
-          "requests": 4,
-          "totalSats": 11,
+          "requests": 8,
+          "totalSats": 15,
           "usedReceive": [
             0,
             1,
-            5
+            5,
+            7
           ],
           "usedChange": [
             0
           ],
+          "maxReceive": 7,
+          "maxChange": 2,
+          "complete": false
+        }
+      },
+      {
+        "name": "Hintergrund: Ausgabe mit Wechselgeld auf der naechsten Wechselgeld-Adresse (vollstaendig)",
+        "mode": "BACKGROUND",
+        "cache": {
+          "usedReceive": [
+            0,
+            3
+          ],
+          "usedChange": [
+            0
+          ],
+          "receive": 20,
+          "change": 20,
+          "fullScan": 1760000000000
+        },
+        "used": {
+          "0": [
+            [
+              0,
+              100
+            ],
+            [
+              3,
+              0
+            ]
+          ],
+          "1": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              250
+            ]
+          ]
+        },
+        "expected": {
+          "requests": 7,
+          "totalSats": 350,
+          "usedReceive": [
+            0,
+            3
+          ],
+          "usedChange": [
+            0,
+            1
+          ],
           "maxReceive": 5,
-          "maxChange": 0
+          "maxChange": 2,
+          "complete": true
         }
       },
       {
@@ -4554,6 +4639,39 @@
         "background": true,
         "mode": null
       }
+    ],
+    "backgroundLookahead": 2,
+    "keepBackground": [
+      {
+        "complete": true,
+        "sats": 100,
+        "lastBalance": "1",
+        "keep": true
+      },
+      {
+        "complete": false,
+        "sats": 50000000,
+        "lastBalance": "1",
+        "keep": false
+      },
+      {
+        "complete": false,
+        "sats": 100000000,
+        "lastBalance": "1",
+        "keep": true
+      },
+      {
+        "complete": false,
+        "sats": 150000000,
+        "lastBalance": "1.2",
+        "keep": true
+      },
+      {
+        "complete": false,
+        "sats": 150000000,
+        "lastBalance": null,
+        "keep": false
+      }
     ]
   },
   "btcTxCount": [
@@ -5398,11 +5516,31 @@
           }
         },
         {
+          "name": "volle Seite (50) ohne USDT: unbekannt statt 0",
+          "body": "{\"jetton_wallets\":[{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"}]}",
+          "tokens": {}
+        },
+        {
+          "name": "volle Seite (50) mit USDT",
+          "body": "{\"jetton_wallets\":[{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"3000000\",\"jetton\":\"0:B113A994B5024A16719F69139328EB759596C38A25F59028B146FECDC3621DFE\"}]}",
+          "tokens": {
+            "USDT": "3"
+          }
+        },
+        {
+          "name": "fast volle Seite (49) ohne USDT: 0",
+          "body": "{\"jetton_wallets\":[{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"},{\"balance\":\"1\",\"jetton\":\"0:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\"}]}",
+          "tokens": {
+            "USDT": "0"
+          }
+        },
+        {
           "name": "Fehler",
           "body": "{\"error\":\"Ratelimit exceed\",\"code\":429}",
           "error": true
         }
-      ]
+      ],
+      "jettonLimit": 50
     },
     "ada": {
       "_comment": "Koios POST /api/v1/address_info; Format laut github.com/cardano-community/koios-artifacts specs/results/koiosapi-mainnet.yaml (2e2eb57): Array mit address, balance (Lovelace als Text), stake_address, script_address, utxo_set.",
@@ -5881,7 +6019,49 @@
         "BASE"
       ],
       "due": true
-    }
+    },
+    "discovered": [
+      {
+        "found": [
+          "BASE"
+        ],
+        "unanswered": [
+          "BSC",
+          "MOON"
+        ],
+        "background": false,
+        "expected": [
+          "BSC",
+          "BASE"
+        ]
+      },
+      {
+        "found": [
+          "BASE"
+        ],
+        "unanswered": [],
+        "background": false,
+        "expected": [
+          "BASE"
+        ]
+      },
+      {
+        "found": [],
+        "unanswered": [],
+        "background": false,
+        "expected": []
+      },
+      {
+        "found": [
+          "BASE"
+        ],
+        "unanswered": [
+          "BSC"
+        ],
+        "background": true,
+        "expected": null
+      }
+    ]
   },
   "backupOverlap": {
     "_comment": "Sicherung beobachteter Adressen mit dem Ueberschneidungs-Entscheid (Build 89): «overlapChecked»:true nur, wenn entschieden (z. B. «trotzdem zaehlen»), «overlapLegacy»:true nur dazu (Entscheid nach der alten Regel, wie «ovl» ohne «ovl2» in den Zusatzdaten). Ohne Feld (aeltere Sicherung) = nicht entschieden; «overlapLegacy» ohne «overlapChecked» zaehlt nicht. Lesen, Schreiben (nur diese Felder), Einspielen (merge) und zurueck in die Sicherung uebernehmen den Wert.",
@@ -5924,6 +6104,92 @@
         "overlapLegacy": false,
         "written": []
       }
+    ]
+  },
+  "pendingCount": {
+    "_comment": "AddressBalance.pendingCount: zaehlende Adressen ohne je geladenes Guthaben (gleiche Adresse einmal; geladen unter anderer Schreibweise = geladen; Nur anzeigen zaehlt nicht).",
+    "addresses": [
+      {
+        "chain": "BTC",
+        "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+        "lastBalance": "0.1",
+        "countInPortfolio": true
+      },
+      {
+        "chain": "BTC",
+        "address": "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy",
+        "lastBalance": null,
+        "countInPortfolio": true
+      },
+      {
+        "chain": "BTC",
+        "address": "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy",
+        "lastBalance": null,
+        "countInPortfolio": true
+      },
+      {
+        "chain": "ETH",
+        "address": "0xfB6916095ca1df60bB79Ce92cE3Ea74c37c5d359",
+        "lastBalance": null,
+        "countInPortfolio": false
+      },
+      {
+        "chain": "ETH",
+        "address": "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed",
+        "lastBalance": "1",
+        "countInPortfolio": true
+      },
+      {
+        "chain": "ETH",
+        "address": "0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed",
+        "lastBalance": null,
+        "countInPortfolio": true
+      },
+      {
+        "chain": "LTC",
+        "address": "ltc1qha8gzjptcmta7lyuna8fs8y7m492ag2pempv4a",
+        "lastBalance": null,
+        "countInPortfolio": true
+      }
+    ],
+    "expected": 2
+  },
+  "dueOrder": {
+    "_comment": "AddressBalance.dueOrder: faellige Adressen (10 min); Hintergrund die am laengsten nicht versuchten zuerst.",
+    "now": 100000000,
+    "addresses": [
+      {
+        "id": 1,
+        "lastAttempt": 99000000
+      },
+      {
+        "id": 2,
+        "lastAttempt": 99900000
+      },
+      {
+        "id": 3,
+        "lastAttempt": 50000000
+      },
+      {
+        "id": 4,
+        "lastAttempt": 0
+      },
+      {
+        "id": 5,
+        "lastAttempt": 98000000
+      }
+    ],
+    "foreground": [
+      1,
+      3,
+      4,
+      5
+    ],
+    "background": [
+      4,
+      3,
+      5,
+      1
     ]
   }
 }

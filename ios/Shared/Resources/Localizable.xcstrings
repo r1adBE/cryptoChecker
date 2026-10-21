@@ -35657,7 +35657,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "All entries are removed. Your alarms stay as they are."
+            "value" : "All entries are removed. Your alerts stay as they are."
           }
         },
         "es" : {
@@ -35848,7 +35848,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Clear alarm log?"
+            "value" : "Clear alert log?"
           }
         },
         "es" : {
@@ -36039,7 +36039,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Entries appear here when an alarm fires or is held back – for example because the price is stale or during quiet hours."
+            "value" : "Entries appear here when an alert fires or is held back – for example because the price is stale or during quiet hours."
           }
         },
         "es" : {
@@ -36421,7 +36421,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "When an alarm fired – and when it would have fired but was held back. Stored only on this device, for 14 days."
+            "value" : "When an alert fired – and when it would have fired but was held back. Stored only on this device, for 14 days."
           }
         },
         "es" : {
@@ -36612,7 +36612,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show alarm log"
+            "value" : "Show alert log"
           }
         },
         "es" : {
@@ -37758,7 +37758,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarm log"
+            "value" : "Alert log"
           }
         },
         "es" : {
@@ -47537,187 +47537,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لا يمكن حفظ التنبيهات الآن – قائمة المتابعة المحفوظة مقفلة. أعد تشغيل التطبيق."
+            "value" : "لا يمكن حفظ التنبيهات: تعذّرت قراءة البيانات المحفوظة الآن. أعد تشغيل التطبيق."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmy teď nelze uložit – uložený seznam je zamčený. Restartujte aplikaci."
+            "value" : "Alarmy nelze uložit: uložená data teď nelze přečíst. Restartujte aplikaci."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmer kan ikke gemmes lige nu – den gemte overvågningsliste er låst. Genstart appen."
+            "value" : "Alarmer kan ikke gemmes: Gemte data kan ikke læses lige nu. Genstart appen."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarme lassen sich gerade nicht speichern – die gespeicherte Merkliste ist gesperrt. Starte die App neu."
+            "value" : "Alarme lassen sich nicht speichern: Gespeicherte Daten gerade nicht lesbar. Starte die App neu."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Οι συναγερμοί δεν μπορούν να αποθηκευτούν αυτή τη στιγμή – η αποθηκευμένη λίστα είναι κλειδωμένη. Επανεκκινήστε την εφαρμογή."
+            "value" : "Οι συναγερμοί δεν μπορούν να αποθηκευτούν: τα αποθηκευμένα δεδομένα δεν μπορούν να διαβαστούν αυτή τη στιγμή. Επανεκκινήστε την εφαρμογή."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarms can't be saved right now – the saved watchlist is locked. Restart the app."
+            "value" : "Alerts can't be saved: saved data can't be read right now. Restart the app."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ahora no se pueden guardar alarmas: la lista guardada está bloqueada. Reinicia la app."
+            "value" : "No se pueden guardar alarmas: ahora no se pueden leer los datos guardados. Reinicia la app."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "هشدارها الان ذخیره نمی‌شوند – واچ‌لیست ذخیره‌شده قفل است. برنامه را دوباره راه‌اندازی کنید."
+            "value" : "هشدارها ذخیره نمی‌شوند: داده‌های ذخیره‌شده الان خوانده نمی‌شوند. برنامه را دوباره راه‌اندازی کنید."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hälytyksiä ei voi juuri nyt tallentaa – tallennettu seurantalista on lukittu. Käynnistä sovellus uudelleen."
+            "value" : "Hälytyksiä ei voi tallentaa: tallennettuja tietoja ei voi juuri nyt lukea. Käynnistä sovellus uudelleen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Impossible d'enregistrer des alertes pour l'instant – la liste enregistrée est verrouillée. Redémarrez l'app."
+            "value" : "Impossible d'enregistrer des alertes : les données enregistrées sont illisibles pour l'instant. Redémarrez l'app."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "לא ניתן לשמור התראות כרגע – רשימת המעקב השמורה נעולה. הפעל מחדש את האפליקציה."
+            "value" : "לא ניתן לשמור התראות: לא ניתן לקרוא כרגע את הנתונים השמורים. הפעל מחדש את האפליקציה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अलार्म अभी सहेजे नहीं जा सकते – सहेजी गई वॉचलिस्ट लॉक है। ऐप दोबारा शुरू करें।"
+            "value" : "अलार्म सहेजे नहीं जा सकते: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Riasztásokat most nem lehet menteni – a mentett figyelőlista zárolva van. Indítsa újra az alkalmazást."
+            "value" : "Riasztásokat nem lehet menteni: a mentett adatok most nem olvashatók. Indítsd újra az alkalmazást."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarm tidak bisa disimpan saat ini – daftar pantau tersimpan sedang terkunci. Mulai ulang aplikasi."
+            "value" : "Alarm tidak dapat disimpan: data tersimpan tidak dapat dibaca saat ini. Mulai ulang aplikasi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Al momento non è possibile salvare gli allarmi – la lista salvata è bloccata. Riavvia l'app."
+            "value" : "Impossibile salvare gli allarmi: i dati salvati non sono leggibili al momento. Riavvia l'app."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "現在アラームを保存できません。保存済みのウォッチリストがロックされています。アプリを再起動してください。"
+            "value" : "アラームを保存できません：保存済みのデータを今は読み取れません。アプリを再起動してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "지금은 경보를 저장할 수 없습니다. 저장된 관심 목록이 잠겨 있습니다. 앱을 다시 시작하세요."
+            "value" : "경보를 저장할 수 없습니다: 저장된 데이터를 지금 읽을 수 없습니다. 앱을 다시 시작하세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmer kan ikke lagres akkurat nå – den lagrede overvåkingslisten er låst. Start appen på nytt."
+            "value" : "Alarmer kan ikke lagres: Lagrede data kan ikke leses akkurat nå. Start appen på nytt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmen kunnen nu niet worden opgeslagen – de opgeslagen volglijst is vergrendeld. Start de app opnieuw."
+            "value" : "Alarmen kunnen niet worden opgeslagen: opgeslagen gegevens zijn nu niet leesbaar. Start de app opnieuw."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmów nie można teraz zapisać – zapisana lista jest zablokowana. Uruchom aplikację ponownie."
+            "value" : "Nie można zapisać alarmów: zapisanych danych nie można teraz odczytać. Uruchom aplikację ponownie."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Não é possível guardar alarmes agora – a lista guardada está bloqueada. Reinicie a app."
+            "value" : "Não é possível guardar alarmes: os dados guardados não podem ser lidos agora. Reinicie a app."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Não é possível salvar alarmes agora – a lista salva está bloqueada. Reinicie o app."
+            "value" : "Não é possível salvar alarmes: os dados salvos não podem ser lidos agora. Reinicie o app."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmele nu pot fi salvate acum – lista salvată este blocată. Repornește aplicația."
+            "value" : "Alarmele nu pot fi salvate: datele salvate nu pot fi citite acum. Repornește aplicația."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сейчас не удаётся сохранить оповещения – сохранённый список заблокирован. Перезапустите приложение."
+            "value" : "Не удаётся сохранить оповещения: сохранённые данные сейчас не удаётся прочитать. Перезапустите приложение."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmet nuk mund të ruhen tani – lista e ruajtur është e kyçur. Rinis aplikacionin."
+            "value" : "Alarmet nuk mund të ruhen: të dhënat e ruajtura nuk mund të lexohen tani. Rinis aplikacionin."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Larm kan inte sparas just nu – den sparade bevakningslistan är låst. Starta om appen."
+            "value" : "Larm kan inte sparas: Sparade data kan inte läsas just nu. Starta om appen."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ไม่สามารถบันทึกสัญญาณเตือนได้ในขณะนี้ – รายการติดตามที่บันทึกไว้ถูกล็อกอยู่ โปรดเริ่มแอปใหม่"
+            "value" : "บันทึกสัญญาณเตือนไม่ได้: ยังอ่านข้อมูลที่บันทึกไว้ไม่ได้ในขณะนี้ โปรดเริ่มแอปใหม่"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alarmlar şu anda kaydedilemiyor – kayıtlı liste kilitli. Uygulamayı yeniden başlatın."
+            "value" : "Alarmlar kaydedilemiyor: kayıtlı veriler şu anda okunamıyor. Uygulamayı yeniden başlatın."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сигнали зараз не вдається зберегти – збережений список заблоковано. Перезапустіть застосунок."
+            "value" : "Сигнали не вдається зберегти: збережені дані зараз не вдається прочитати. Перезапустіть застосунок."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hiện không thể lưu cảnh báo – danh sách đã lưu đang bị khóa. Hãy khởi động lại ứng dụng."
+            "value" : "Không thể lưu cảnh báo: hiện không đọc được dữ liệu đã lưu. Hãy khởi động lại ứng dụng."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暂时无法保存提醒——已保存的自选列表已锁定。请重启应用。"
+            "value" : "无法保存提醒：暂时无法读取已保存的数据。请重启应用。"
           }
         }
       }
@@ -74999,187 +74999,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "النسخ الاحتياطي غير ممكن الآن: لا يمكن فتح البيانات المحفوظة في الوقت الحالي. أعد تشغيل التطبيق وحاول مرة أخرى."
+            "value" : "النسخ الاحتياطي غير ممكن: تعذّرت قراءة البيانات المحفوظة الآن. أعد تشغيل التطبيق وحاول مرة أخرى."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zálohování teď není možné: uložená data nyní nelze odemknout. Restartujte aplikaci a zkuste to znovu."
+            "value" : "Zálohování není možné: uložená data teď nelze přečíst. Restartujte aplikaci a zkuste to znovu."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sikkerhedskopi er ikke mulig lige nu: de gemte data kan ikke låses op i øjeblikket. Genstart appen, og prøv igen."
+            "value" : "Sikkerhedskopi er ikke mulig: Gemte data kan ikke læses lige nu. Genstart appen, og prøv igen."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sichern und Einspielen gehen gerade nicht: Der gespeicherte Stand lässt sich im Moment nicht entsperren. App neu starten und erneut versuchen."
+            "value" : "Sichern und Einspielen gehen nicht: Gespeicherte Daten gerade nicht lesbar. Starte die App neu und versuche es erneut."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Η αντιγραφή ασφαλείας δεν είναι δυνατή τώρα: τα αποθηκευμένα δεδομένα δεν μπορούν να ξεκλειδωθούν αυτή τη στιγμή. Επανεκκινήστε την εφαρμογή και δοκιμάστε ξανά."
+            "value" : "Η αντιγραφή ασφαλείας δεν είναι δυνατή: τα αποθηκευμένα δεδομένα δεν μπορούν να διαβαστούν αυτή τη στιγμή. Επανεκκινήστε την εφαρμογή και δοκιμάστε ξανά."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Backup isn't possible right now: the saved data can't be unlocked at the moment. Restart the app and try again."
+            "value" : "Backup isn't possible: saved data can't be read right now. Restart the app and try again."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La copia de seguridad no es posible ahora: los datos guardados no se pueden desbloquear en este momento. Reinicia la app e inténtalo de nuevo."
+            "value" : "La copia de seguridad no es posible: ahora no se pueden leer los datos guardados. Reinicia la app e inténtalo de nuevo."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "پشتیبان‌گیری اکنون ممکن نیست: داده‌های ذخیره‌شده فعلاً باز نمی‌شوند. برنامه را دوباره راه‌اندازی کنید و دوباره امتحان کنید."
+            "value" : "پشتیبان‌گیری ممکن نیست: داده‌های ذخیره‌شده الان خوانده نمی‌شوند. برنامه را دوباره راه‌اندازی کنید و دوباره امتحان کنید."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Varmuuskopiointi ei ole nyt mahdollista: tallennettuja tietoja ei voi juuri nyt avata. Käynnistä sovellus uudelleen ja yritä uudestaan."
+            "value" : "Varmuuskopiointi ei ole mahdollista: tallennettuja tietoja ei voi juuri nyt lukea. Käynnistä sovellus uudelleen ja yritä uudestaan."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sauvegarde impossible pour le moment : les données enregistrées ne peuvent pas être déverrouillées. Redémarrez l'app et réessayez."
+            "value" : "Sauvegarde impossible : les données enregistrées sont illisibles pour l'instant. Redémarrez l'app et réessayez."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "גיבוי אינו אפשרי כרגע: לא ניתן לפתוח את הנתונים השמורים כעת. הפעל מחדש את האפליקציה ונסה שוב."
+            "value" : "גיבוי אינו אפשרי: לא ניתן לקרוא כרגע את הנתונים השמורים. הפעל מחדש את האפליקציה ונסה שוב."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "बैकअप अभी संभव नहीं है: सहेजा गया डेटा इस समय अनलॉक नहीं हो सकता। ऐप को फिर से शुरू करें और दोबारा कोशिश करें।"
+            "value" : "बैकअप संभव नहीं है: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करें और फिर से कोशिश करें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A biztonsági mentés most nem lehetséges: a mentett adatokat jelenleg nem lehet feloldani. Indítsd újra az alkalmazást, és próbáld újra."
+            "value" : "A biztonsági mentés nem lehetséges: a mentett adatok most nem olvashatók. Indítsd újra az alkalmazást, és próbáld újra."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pencadangan tidak bisa dilakukan sekarang: data tersimpan belum bisa dibuka saat ini. Mulai ulang aplikasi lalu coba lagi."
+            "value" : "Pencadangan tidak dapat dilakukan: data tersimpan tidak dapat dibaca saat ini. Mulai ulang aplikasi lalu coba lagi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Backup non possibile al momento: i dati salvati non possono essere sbloccati ora. Riavvia l'app e riprova."
+            "value" : "Backup non possibile: i dati salvati non sono leggibili al momento. Riavvia l'app e riprova."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "現在バックアップできません：保存済みのデータを今はロック解除できません。アプリを再起動して、もう一度お試しください。"
+            "value" : "バックアップできません：保存済みのデータを今は読み取れません。アプリを再起動して、もう一度お試しください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "지금은 백업할 수 없습니다: 저장된 데이터를 현재 잠금 해제할 수 없습니다. 앱을 다시 시작한 후 다시 시도하세요."
+            "value" : "백업할 수 없습니다: 저장된 데이터를 지금 읽을 수 없습니다. 앱을 다시 시작한 후 다시 시도하세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sikkerhetskopi er ikke mulig akkurat nå: de lagrede dataene kan ikke låses opp for øyeblikket. Start appen på nytt og prøv igjen."
+            "value" : "Sikkerhetskopi er ikke mulig: Lagrede data kan ikke leses akkurat nå. Start appen på nytt og prøv igjen."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Back-up is nu niet mogelijk: de opgeslagen gegevens kunnen op dit moment niet worden ontgrendeld. Start de app opnieuw en probeer het nog eens."
+            "value" : "Back-up is niet mogelijk: opgeslagen gegevens zijn nu niet leesbaar. Start de app opnieuw en probeer het nog eens."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kopia zapasowa nie jest teraz możliwa: zapisanych danych nie można w tej chwili odblokować. Uruchom aplikację ponownie i spróbuj jeszcze raz."
+            "value" : "Kopia zapasowa nie jest możliwa: zapisanych danych nie można teraz odczytać. Uruchom aplikację ponownie i spróbuj jeszcze raz."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A cópia de segurança não é possível agora: os dados guardados não podem ser desbloqueados neste momento. Reinicie a app e tente novamente."
+            "value" : "A cópia de segurança não é possível: os dados guardados não podem ser lidos agora. Reinicie a app e tente novamente."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O backup não é possível agora: os dados salvos não podem ser desbloqueados no momento. Reinicie o app e tente novamente."
+            "value" : "O backup não é possível: os dados salvos não podem ser lidos agora. Reinicie o app e tente novamente."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Copia de rezervă nu este posibilă acum: datele salvate nu pot fi deblocate în acest moment. Repornește aplicația și încearcă din nou."
+            "value" : "Copia de rezervă nu este posibilă: datele salvate nu pot fi citite acum. Repornește aplicația și încearcă din nou."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Резервное копирование сейчас невозможно: сохранённые данные пока не удаётся разблокировать. Перезапустите приложение и попробуйте снова."
+            "value" : "Резервное копирование невозможно: сохранённые данные сейчас не удаётся прочитать. Перезапустите приложение и попробуйте снова."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kopja rezervë nuk është e mundur tani: të dhënat e ruajtura nuk mund të zhbllokohen për momentin. Rinis aplikacionin dhe provo përsëri."
+            "value" : "Kopja rezervë nuk është e mundur: të dhënat e ruajtura nuk mund të lexohen tani. Rinis aplikacionin dhe provo përsëri."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Säkerhetskopiering går inte just nu: sparade data kan inte låsas upp för tillfället. Starta om appen och försök igen."
+            "value" : "Säkerhetskopiering går inte: Sparade data kan inte läsas just nu. Starta om appen och försök igen."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "สำรองข้อมูลไม่ได้ในขณะนี้: ยังปลดล็อกข้อมูลที่บันทึกไว้ไม่ได้ รีสตาร์ทแอปแล้วลองอีกครั้ง"
+            "value" : "สำรองข้อมูลไม่ได้: ยังอ่านข้อมูลที่บันทึกไว้ไม่ได้ในขณะนี้ โปรดเริ่มแอปใหม่แล้วลองอีกครั้ง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yedekleme şu anda mümkün değil: kayıtlı veriler şu an açılamıyor. Uygulamayı yeniden başlatıp tekrar deneyin."
+            "value" : "Yedekleme mümkün değil: kayıtlı veriler şu anda okunamıyor. Uygulamayı yeniden başlatıp tekrar deneyin."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Резервне копіювання зараз неможливе: збережені дані наразі не вдається розблокувати. Перезапустіть застосунок і спробуйте знову."
+            "value" : "Резервне копіювання неможливе: збережені дані зараз не вдається прочитати. Перезапустіть застосунок і спробуйте знову."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hiện không thể sao lưu: dữ liệu đã lưu tạm thời không mở khóa được. Hãy khởi động lại ứng dụng và thử lại."
+            "value" : "Không thể sao lưu: hiện không đọc được dữ liệu đã lưu. Hãy khởi động lại ứng dụng và thử lại."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "目前无法备份：已保存的数据暂时无法解锁。请重新启动应用后再试。"
+            "value" : "无法备份：暂时无法读取已保存的数据。请重启应用后再试。"
           }
         }
       }
@@ -100188,7 +100188,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This pool has less than 10,000 USD in liquidity (or none reported). Small trades can move its price, so no alarms can be set here. Existing alarms are kept but won't fire until liquidity rises again."
+            "value" : "This pool has less than 10,000 USD in liquidity (or none reported). Small trades can move its price, so no alerts can be set here. Existing alerts are kept but won't fire until liquidity rises again."
           }
         },
         "es" : {
@@ -100379,7 +100379,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Low liquidity – no alarm"
+            "value" : "Low liquidity – no alerts"
           }
         },
         "es" : {
@@ -102289,7 +102289,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Text file for support: version, device, alert settings, recent checks and alarm log – without portfolio, amounts, addresses or notes. You see it first; nothing is sent automatically."
+            "value" : "Text file for support: version, device, alert settings, recent checks and alert log – without portfolio, amounts, addresses or notes. You see it first; nothing is sent automatically."
           }
         },
         "es" : {
@@ -158763,7 +158763,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Each coin shows its most notable observation, with the 24-hour change on the right. A volume of 2× means twice the usual turnover. Unusual means neither good nor bad."
+            "value" : "Each coin shows its most notable observation, with the 24-hour change on the right. A volume of 2× means twice the usual turnover. Notable means neither good nor bad."
           }
         },
         "es" : {
@@ -180414,7 +180414,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Huawei/Honor may stop the app – then no alarms arrive. Under Battery › App launch, choose “Manage manually” and allow all options."
+            "value" : "Huawei/Honor may stop the app – then no alerts arrive. Under Battery › App launch, choose “Manage manually” and allow all options."
           }
         },
         "es" : {
@@ -180605,7 +180605,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "OnePlus may stop the app – then no alarms arrive. Allow “Auto-launch” and, under Battery usage, background activity."
+            "value" : "OnePlus may stop the app – then no alerts arrive. Allow “Auto-launch” and, under Battery usage, background activity."
           }
         },
         "es" : {
@@ -180796,7 +180796,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oppo/Realme may stop the app – then no alarms arrive. Allow “Auto launch” and, under Battery usage, background activity."
+            "value" : "Oppo/Realme may stop the app – then no alerts arrive. Allow “Auto launch” and, under Battery usage, background activity."
           }
         },
         "es" : {
@@ -180987,7 +180987,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Samsung may put the app to deep sleep – then no alarms arrive. Under Battery › Background usage limits, add it to “Never sleeping apps”."
+            "value" : "Samsung may put the app to deep sleep – then no alerts arrive. Under Battery › Background usage limits, add it to “Never sleeping apps”."
           }
         },
         "es" : {
@@ -181369,7 +181369,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vivo may stop the app – then no alarms arrive. Allow “Autostart” and, under Battery, high background power use."
+            "value" : "Vivo may stop the app – then no alerts arrive. Allow “Autostart” and, under Battery, high background power use."
           }
         },
         "es" : {
@@ -181560,7 +181560,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Xiaomi may stop the app completely – then no alarms arrive. Turn on “Autostart” and set Battery saver to “No restrictions”."
+            "value" : "Xiaomi may stop the app completely – then no alerts arrive. Turn on “Autostart” and set Battery saver to “No restrictions”."
           }
         },
         "es" : {
@@ -185917,6 +185917,1479 @@
         }
       }
     },
+    "portfolio_address_remove_history" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سيُحذف أيضًا سجل الرصيد."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstraní se také historie zůstatku."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det fjerner også saldohistorikken."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dabei wird auch der Guthaben-Verlauf entfernt."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αφαιρείται επίσης το ιστορικό υπολοίπου."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This also removes the balance history."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "También se eliminará el historial de saldo."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تاریخچهٔ موجودی نیز حذف می‌شود."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samalla poistetaan saldohistoria."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'historique des soldes sera aussi supprimé."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תימחק גם היסטוריית היתרות."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "इसके साथ बैलेंस इतिहास भी हट जाएगा।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ezzel az egyenlegelőzmény is törlődik."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ini juga menghapus riwayat saldo."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verrà rimossa anche la cronologia dei saldi."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "残高の履歴も削除されます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "잔액 기록도 삭제됩니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dette fjerner også saldohistorikken."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiermee wordt ook de saldogeschiedenis verwijderd."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usunięta zostanie też historia sald."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Também será removido o histórico de saldo."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Também será removido o histórico de saldo."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se va elimina și istoricul soldului."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Также будет удалена история балансов."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiqet edhe historiku i balancës."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det tar även bort saldohistoriken."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จะลบประวัติยอดคงเหลือด้วย"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bakiye geçmişi de silinecek."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Також буде видалено історію балансів."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thao tác này cũng xóa lịch sử số dư."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同时会删除余额历史。"
+          }
+        }
+      }
+    },
+    "portfolio_address_remove_lots" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ستُحذف أيضًا الدفعات المسجّلة (%lld)."
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ستُحذف أيضًا الدفعات المسجّلة (%lld)."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ستُحذف أيضًا الدفعة المسجّلة (%lld)."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ستُحذف أيضًا الدفعات المسجّلة (%lld)."
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ستُحذف أيضًا الدفعات المسجّلة (%lld)."
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ستُحذف أيضًا الدفعات المسجّلة (%lld)."
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odstraní se také %lld položky."
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odstraní se také %lld položky."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odstraní se také %lld položka."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odstraní se také %lld položek."
+                }
+              }
+            }
+          }
+        },
+        "da" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Det fjerner også %lld post."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Det fjerner også %lld poster."
+                }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Dabei wird auch %lld Posten entfernt."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Dabei werden auch %lld Posten entfernt."
+                }
+              }
+            }
+          }
+        },
+        "el" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Αφαιρείται επίσης %lld παρτίδα."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Αφαιρούνται επίσης %lld παρτίδες."
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "This also removes %lld lot."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "This also removes %lld lots."
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "También se eliminarán %lld lotes."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "También se eliminará %lld lote."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "También se eliminarán %lld lotes."
+                }
+              }
+            }
+          }
+        },
+        "fa" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld دسته نیز حذف می‌شود."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld دسته نیز حذف می‌شود."
+                }
+              }
+            }
+          }
+        },
+        "fi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Samalla poistetaan %lld erä."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Samalla poistetaan %lld erää."
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld lots seront aussi supprimés."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld lot sera aussi supprimé."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld lots seront aussi supprimés."
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "תימחק גם %lld מנה."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "יימחקו גם %lld מנות."
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "יימחקו גם %lld מנות."
+                }
+              }
+            }
+          }
+        },
+        "hi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "इसके साथ %lld लॉट भी हट जाएगा।"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "इसके साथ %lld लॉट भी हट जाएँगे।"
+                }
+              }
+            }
+          }
+        },
+        "hu" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ezzel %lld tétel is törlődik."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ezzel %lld tétel is törlődik."
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ini juga menghapus %lld lot."
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Verranno rimossi anche %lld lotti."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Verrà rimosso anche %lld lotto."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Verranno rimossi anche %lld lotti."
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 件のロットも削除されます。"
+                }
+              }
+            }
+          }
+        },
+        "ko" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "로트 %lld개도 삭제됩니다."
+                }
+              }
+            }
+          }
+        },
+        "nb" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Dette fjerner også %lld post."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Dette fjerner også %lld poster."
+                }
+              }
+            }
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hiermee wordt ook %lld post verwijderd."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hiermee worden ook %lld posten verwijderd."
+                }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięte zostaną też partie (%lld)."
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięte zostaną też partie (%lld)."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięte zostaną też partie (%lld)."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięte zostaną też partie (%lld)."
+                }
+              }
+            }
+          }
+        },
+        "pt" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Também serão removidos %lld lotes."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Também será removido %lld lote."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Também serão removidos %lld lotes."
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Também serão removidos %lld lotes."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Também será removido %lld lote."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Também serão removidos %lld lotes."
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Se vor elimina și %lld loturi."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Se va elimina și %lld lot."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Se vor elimina și %lld de loturi."
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Также будут удалены %lld партии."
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Также будут удалены %lld партий."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Также будет удалена %lld партия."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Также будут удалены %lld партии."
+                }
+              }
+            }
+          }
+        },
+        "sq" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hiqet edhe %lld pjesë."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hiqen edhe %lld pjesë."
+                }
+              }
+            }
+          }
+        },
+        "sv" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Det tar även bort %lld post."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Det tar även bort %lld poster."
+                }
+              }
+            }
+          }
+        },
+        "th" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "จะลบ %lld ล็อตด้วย"
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld parti de silinecek."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld parti de silinecek."
+                }
+              }
+            }
+          }
+        },
+        "uk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Також буде видалено %lld партії."
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Також буде видалено %lld партій."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Також буде видалено %lld партію."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Також буде видалено %lld партії."
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Thao tác này cũng xóa %lld lô."
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "同时会删除 %lld 个批次。"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "portfolio_address_remove_lots_history" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ستُحذف أيضًا الدفعات المسجّلة (%lld) وسجل الرصيد."
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ستُحذف أيضًا الدفعات المسجّلة (%lld) وسجل الرصيد."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ستُحذف أيضًا الدفعة المسجّلة (%lld) وسجل الرصيد."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ستُحذف أيضًا الدفعات المسجّلة (%lld) وسجل الرصيد."
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ستُحذف أيضًا الدفعات المسجّلة (%lld) وسجل الرصيد."
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ستُحذف أيضًا الدفعات المسجّلة (%lld) وسجل الرصيد."
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odstraní se také %lld položky a historie zůstatku."
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odstraní se také %lld položky a historie zůstatku."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odstraní se také %lld položka a historie zůstatku."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odstraní se také %lld položek a historie zůstatku."
+                }
+              }
+            }
+          }
+        },
+        "da" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Det fjerner også %lld post og saldohistorikken."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Det fjerner også %lld poster og saldohistorikken."
+                }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Dabei werden auch %lld Posten und der Guthaben-Verlauf entfernt."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Dabei werden auch %lld Posten und der Guthaben-Verlauf entfernt."
+                }
+              }
+            }
+          }
+        },
+        "el" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Αφαιρούνται επίσης %lld παρτίδα και το ιστορικό υπολοίπου."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Αφαιρούνται επίσης %lld παρτίδες και το ιστορικό υπολοίπου."
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "This also removes %lld lot and the balance history."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "This also removes %lld lots and the balance history."
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "También se eliminarán %lld lotes y el historial de saldo."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "También se eliminarán %lld lote y el historial de saldo."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "También se eliminarán %lld lotes y el historial de saldo."
+                }
+              }
+            }
+          }
+        },
+        "fa" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld دسته و تاریخچهٔ موجودی نیز حذف می‌شوند."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld دسته و تاریخچهٔ موجودی نیز حذف می‌شوند."
+                }
+              }
+            }
+          }
+        },
+        "fi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Samalla poistetaan %lld erä ja saldohistoria."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Samalla poistetaan %lld erää ja saldohistoria."
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld lots et l'historique des soldes seront aussi supprimés."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld lot et l'historique des soldes seront aussi supprimés."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld lots et l'historique des soldes seront aussi supprimés."
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "יימחקו גם %lld מנה והיסטוריית היתרות."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "יימחקו גם %lld מנות והיסטוריית היתרות."
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "יימחקו גם %lld מנות והיסטוריית היתרות."
+                }
+              }
+            }
+          }
+        },
+        "hi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "इसके साथ %lld लॉट और बैलेंस इतिहास भी हट जाएँगे।"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "इसके साथ %lld लॉट और बैलेंस इतिहास भी हट जाएँगे।"
+                }
+              }
+            }
+          }
+        },
+        "hu" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ezzel %lld tétel és az egyenlegelőzmény is törlődik."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ezzel %lld tétel és az egyenlegelőzmény is törlődik."
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ini juga menghapus %lld lot dan riwayat saldo."
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Verranno rimossi anche %lld lotti e la cronologia dei saldi."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Verranno rimossi anche %lld lotto e la cronologia dei saldi."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Verranno rimossi anche %lld lotti e la cronologia dei saldi."
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 件のロットと残高の履歴も削除されます。"
+                }
+              }
+            }
+          }
+        },
+        "ko" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "로트 %lld개와 잔액 기록도 삭제됩니다."
+                }
+              }
+            }
+          }
+        },
+        "nb" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Dette fjerner også %lld post og saldohistorikken."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Dette fjerner også %lld poster og saldohistorikken."
+                }
+              }
+            }
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hiermee worden ook %lld post en de saldogeschiedenis verwijderd."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hiermee worden ook %lld posten en de saldogeschiedenis verwijderd."
+                }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięte zostaną też partie (%lld) i historia sald."
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięte zostaną też partie (%lld) i historia sald."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięte zostaną też partie (%lld) i historia sald."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięte zostaną też partie (%lld) i historia sald."
+                }
+              }
+            }
+          }
+        },
+        "pt" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Também serão removidos %lld lotes e o histórico de saldo."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Também serão removidos %lld lote e o histórico de saldo."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Também serão removidos %lld lotes e o histórico de saldo."
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Também serão removidos %lld lotes e o histórico de saldo."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Também serão removidos %lld lote e o histórico de saldo."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Também serão removidos %lld lotes e o histórico de saldo."
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Se vor elimina și %lld loturi și istoricul soldului."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Se vor elimina și %lld lot și istoricul soldului."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Se vor elimina și %lld de loturi și istoricul soldului."
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Также будут удалены %lld партии и история балансов."
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Также будут удалены %lld партий и история балансов."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Также будут удалены %lld партия и история балансов."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Также будут удалены %lld партии и история балансов."
+                }
+              }
+            }
+          }
+        },
+        "sq" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hiqen edhe %lld pjesë dhe historiku i balancës."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Hiqen edhe %lld pjesë dhe historiku i balancës."
+                }
+              }
+            }
+          }
+        },
+        "sv" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Det tar även bort %lld post och saldohistoriken."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Det tar även bort %lld poster och saldohistoriken."
+                }
+              }
+            }
+          }
+        },
+        "th" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "จะลบ %lld ล็อตและประวัติยอดคงเหลือด้วย"
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld parti ve bakiye geçmişi de silinecek."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld parti ve bakiye geçmişi de silinecek."
+                }
+              }
+            }
+          }
+        },
+        "uk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Також буде видалено %lld партії та історію балансів."
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Також буде видалено %lld партій та історію балансів."
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Також буде видалено %lld партію та історію балансів."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Також буде видалено %lld партії та історію балансів."
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Thao tác này cũng xóa %lld lô và lịch sử số dư."
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "同时会删除 %lld 个批次和余额历史。"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "portfolio_address_show_only" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -190119,6 +191592,579 @@
         }
       }
     },
+    "portfolio_alarms_paused_addresses" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنبيهات المحفظة متوقفة مؤقتًا: لم يتم تحميل أرصدة العناوين المراقبة بعد"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfolia pozastaveny: zůstatky sledovaných adres ještě nejsou načteny"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljealarmer sat på pause: saldi for overvågede adresser er ikke indlæst endnu"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio-Alarme pausiert: Guthaben beobachteter Adressen noch nicht geladen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι ειδοποιήσεις χαρτοφυλακίου σε παύση: τα υπόλοιπα των παρακολουθούμενων διευθύνσεων δεν έχουν φορτωθεί ακόμη"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio alerts paused: balances of watched addresses not loaded yet"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas de cartera en pausa: los saldos de las direcciones vigiladas aún no se han cargado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارهای سبد متوقف شده‌اند: موجودی آدرس‌های تحت نظر هنوز بارگیری نشده است"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkkuhälytykset keskeytetty: seurattujen osoitteiden saldoja ei ole vielä ladattu"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertes du portefeuille en pause : soldes des adresses suivies pas encore chargés"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות התיק מושהות: יתרות הכתובות במעקב עדיין לא נטענו"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफ़ोलियो अलर्ट रुके हुए हैं: देखे जा रहे पतों के बैलेंस अभी लोड नहीं हुए"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólió-riasztások szüneteltetve: a figyelt címek egyenlegei még nincsenek betöltve"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peringatan portofolio dijeda: saldo alamat yang dipantau belum dimuat"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avvisi del portafoglio in pausa: saldi degli indirizzi osservati non ancora caricati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポートフォリオアラートは一時停止中：監視アドレスの残高がまだ読み込まれていません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "포트폴리오 알림 일시 중지: 감시 중인 주소의 잔액을 아직 불러오지 못함"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljevarsler satt på pause: saldoene til overvåkede adresser er ikke lastet ennå"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuillealarmen gepauzeerd: saldi van gevolgde adressen nog niet geladen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfela wstrzymane: salda obserwowanych adresów nie zostały jeszcze wczytane"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas da carteira em pausa: saldos dos endereços vigiados ainda não carregados"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas da carteira pausados: saldos dos endereços monitorados ainda não carregados"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertele portofoliului sunt în pauză: soldurile adreselor urmărite nu sunt încă încărcate"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оповещения портфеля приостановлены: балансы отслеживаемых адресов ещё не загружены"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet e portofolit janë pezulluar: balancat e adresave të ndjekura nuk janë ngarkuar ende"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföljlarm pausade: saldon för bevakade adresser är inte inlästa än"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หยุดการแจ้งเตือนพอร์ตชั่วคราว: ยังไม่ได้โหลดยอดคงเหลือของที่อยู่ที่ติดตาม"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföy alarmları duraklatıldı: izlenen adreslerin bakiyeleri henüz yüklenmedi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сповіщення портфеля призупинено: баланси відстежуваних адрес ще не завантажено"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo danh mục tạm dừng: số dư của các địa chỉ theo dõi chưa được tải"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投资组合提醒已暂停：所关注地址的余额尚未加载"
+          }
+        }
+      }
+    },
+    "portfolio_alarms_paused_price" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنبيهات المحفظة متوقفة مؤقتًا: لا يوجد سعر حالي لـ %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfolia pozastaveny: chybí aktuální cena pro %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljealarmer sat på pause: ingen aktuel kurs for %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio-Alarme pausiert: kein aktueller Kurs für %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι ειδοποιήσεις χαρτοφυλακίου σε παύση: καμία τρέχουσα τιμή για %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio alerts paused: no current price for %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas de cartera en pausa: sin precio actual para %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارهای سبد متوقف شده‌اند: قیمت فعلی برای %1$@ وجود ندارد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkkuhälytykset keskeytetty: ei ajantasaista hintaa kohteelle %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertes du portefeuille en pause : aucun cours actuel pour %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות התיק מושהות: אין מחיר עדכני עבור %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफ़ोलियो अलर्ट रुके हुए हैं: %1$@ का कोई मौजूदा भाव नहीं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólió-riasztások szüneteltetve: nincs aktuális árfolyam ehhez: %1$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peringatan portofolio dijeda: tidak ada harga terkini untuk %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avvisi del portafoglio in pausa: nessun prezzo attuale per %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポートフォリオアラートは一時停止中：%1$@ の現在価格がありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "포트폴리오 알림 일시 중지: %1$@의 현재 시세 없음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljevarsler satt på pause: ingen aktuell kurs for %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuillealarmen gepauzeerd: geen actuele koers voor %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfela wstrzymane: brak aktualnego kursu dla %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas da carteira em pausa: sem cotação atual para %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas da carteira pausados: sem cotação atual para %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertele portofoliului sunt în pauză: niciun preț actual pentru %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оповещения портфеля приостановлены: нет текущего курса для %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet e portofolit janë pezulluar: nuk ka çmim aktual për %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföljlarm pausade: ingen aktuell kurs för %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หยุดการแจ้งเตือนพอร์ตชั่วคราว: ไม่มีราคาปัจจุบันของ %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföy alarmları duraklatıldı: %1$@ için güncel fiyat yok"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сповіщення портфеля призупинено: немає поточного курсу для %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo danh mục tạm dừng: không có giá hiện tại cho %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投资组合提醒已暂停：%1$@ 没有当前价格"
+          }
+        }
+      }
+    },
+    "portfolio_alarms_paused_price_generic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنبيهات المحفظة متوقفة مؤقتًا: ليس لكل العملات سعر حالي"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfolia pozastaveny: ne všechny mince mají aktuální cenu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljealarmer sat på pause: ikke alle coins har en aktuel kurs"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio-Alarme pausiert: nicht alle Coins haben einen aktuellen Kurs"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι ειδοποιήσεις χαρτοφυλακίου σε παύση: δεν έχουν όλα τα νομίσματα τρέχουσα τιμή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfolio alerts paused: not every coin has a current price"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas de cartera en pausa: no todas las monedas tienen precio actual"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدارهای سبد متوقف شده‌اند: همه کوین‌ها قیمت فعلی ندارند"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salkkuhälytykset keskeytetty: kaikilla kolikoilla ei ole ajantasaista hintaa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertes du portefeuille en pause : tous les coins n'ont pas de cours actuel"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התראות התיק מושהות: לא לכל המטבעות יש מחיר עדכני"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पोर्टफ़ोलियो अलर्ट रुके हुए हैं: हर कॉइन का मौजूदा भाव नहीं है"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portfólió-riasztások szüneteltetve: nem minden coinnak van aktuális árfolyama"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peringatan portofolio dijeda: tidak semua koin memiliki harga terkini"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avvisi del portafoglio in pausa: non tutte le monete hanno un prezzo attuale"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ポートフォリオアラートは一時停止中：一部のコインに現在価格がありません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "포트폴리오 알림 일시 중지: 일부 코인에 현재 시세가 없음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Porteføljevarsler satt på pause: ikke alle mynter har en aktuell kurs"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portefeuillealarmen gepauzeerd: niet alle coins hebben een actuele koers"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmy portfela wstrzymane: nie wszystkie monety mają aktualny kurs"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas da carteira em pausa: nem todas as moedas têm cotação atual"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertas da carteira pausados: nem todas as moedas têm cotação atual"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alertele portofoliului sunt în pauză: nu toate monedele au un preț actual"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оповещения портфеля приостановлены: не у всех монет есть текущий курс"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarmet e portofolit janë pezulluar: jo të gjitha monedhat kanë çmim aktual"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföljlarm pausade: alla mynt har inte en aktuell kurs"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หยุดการแจ้งเตือนพอร์ตชั่วคราว: เหรียญบางตัวไม่มีราคาปัจจุบัน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Portföy alarmları duraklatıldı: her coinin güncel fiyatı yok"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сповіщення портфеля призупинено: не всі монети мають поточний курс"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảnh báo danh mục tạm dừng: không phải coin nào cũng có giá hiện tại"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "投资组合提醒已暂停：并非所有币种都有当前价格"
+          }
+        }
+      }
+    },
     "portfolio_allocation_other" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -193375,37 +195421,37 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "حذف جميع المعاملات (%lld)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك."
+                  "value" : "حذف جميع المعاملات (%lld)؟ تبقى العناوين المراقَبة. يمكنك التراجع عن ذلك مباشرةً بعد الحذف."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "حذف جميع المعاملات (%lld)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك."
+                  "value" : "حذف جميع المعاملات (%lld)؟ تبقى العناوين المراقَبة. يمكنك التراجع عن ذلك مباشرةً بعد الحذف."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "حذف المعاملة (%lld)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك."
+                  "value" : "حذف المعاملة (%lld)؟ تبقى العناوين المراقَبة. يمكنك التراجع عن ذلك مباشرةً بعد الحذف."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "حذف جميع المعاملات (%lld)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك."
+                  "value" : "حذف جميع المعاملات (%lld)؟ تبقى العناوين المراقَبة. يمكنك التراجع عن ذلك مباشرةً بعد الحذف."
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "حذف جميع المعاملات (%lld)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك."
+                  "value" : "حذف جميع المعاملات (%lld)؟ تبقى العناوين المراقَبة. يمكنك التراجع عن ذلك مباشرةً بعد الحذف."
                 }
               },
               "zero" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "حذف جميع المعاملات (%lld)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك."
+                  "value" : "حذف جميع المعاملات (%lld)؟ تبقى العناوين المراقَبة. يمكنك التراجع عن ذلك مباشرةً بعد الحذف."
                 }
               }
             }
@@ -193417,25 +195463,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Smazat všechny %lld transakce? Sledované adresy zůstanou. Tuto akci nelze vrátit zpět."
+                  "value" : "Smazat všechny %lld transakce? Sledované adresy zůstanou. Hned poté to můžete vrátit zpět."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Smazat všechny transakce (%lld)? Sledované adresy zůstanou. Tuto akci nelze vrátit zpět."
+                  "value" : "Smazat všechny transakce (%lld)? Sledované adresy zůstanou. Hned poté to můžete vrátit zpět."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Smazat %lld transakci? Sledované adresy zůstanou. Tuto akci nelze vrátit zpět."
+                  "value" : "Smazat %lld transakci? Sledované adresy zůstanou. Hned poté to můžete vrátit zpět."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Smazat všech %lld transakcí? Sledované adresy zůstanou. Tuto akci nelze vrátit zpět."
+                  "value" : "Smazat všech %lld transakcí? Sledované adresy zůstanou. Hned poté to můžete vrátit zpět."
                 }
               }
             }
@@ -193447,13 +195493,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Slet %lld transaktion? Overvågede adresser bevares. Det kan ikke fortrydes."
+                  "value" : "Slet %lld transaktion? Overvågede adresser bevares. Du kan fortryde det lige bagefter."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Slet alle %lld transaktioner? Overvågede adresser bevares. Det kan ikke fortrydes."
+                  "value" : "Slet alle %lld transaktioner? Overvågede adresser bevares. Du kan fortryde det lige bagefter."
                 }
               }
             }
@@ -193465,13 +195511,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld Transaktion löschen? Beobachtete Adressen bleiben. Das kann nicht rückgängig gemacht werden."
+                  "value" : "%lld Transaktion löschen? Beobachtete Adressen bleiben. Du kannst es direkt danach rückgängig machen."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Alle %lld Transaktionen löschen? Beobachtete Adressen bleiben. Das kann nicht rückgängig gemacht werden."
+                  "value" : "Alle %lld Transaktionen löschen? Beobachtete Adressen bleiben. Du kannst es direkt danach rückgängig machen."
                 }
               }
             }
@@ -193483,13 +195529,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Διαγραφή %lld συναλλαγής; Οι παρακολουθούμενες διευθύνσεις παραμένουν. Η ενέργεια δεν αναιρείται."
+                  "value" : "Διαγραφή %lld συναλλαγής; Οι παρακολουθούμενες διευθύνσεις παραμένουν. Μπορείτε να το αναιρέσετε αμέσως μετά."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Διαγραφή όλων των %lld συναλλαγών; Οι παρακολουθούμενες διευθύνσεις παραμένουν. Η ενέργεια δεν αναιρείται."
+                  "value" : "Διαγραφή όλων των %lld συναλλαγών; Οι παρακολουθούμενες διευθύνσεις παραμένουν. Μπορείτε να το αναιρέσετε αμέσως μετά."
                 }
               }
             }
@@ -193501,13 +195547,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Delete %lld transaction? Watched addresses stay. This cannot be undone."
+                  "value" : "Delete %lld transaction? Watched addresses stay. You can undo this right afterwards."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Delete all %lld transactions? Watched addresses stay. This cannot be undone."
+                  "value" : "Delete all %lld transactions? Watched addresses stay. You can undo this right afterwards."
                 }
               }
             }
@@ -193519,19 +195565,19 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "¿Eliminar las %lld transacciones? Las direcciones vigiladas se mantienen. No se puede deshacer."
+                  "value" : "¿Eliminar las %lld transacciones? Las direcciones vigiladas se mantienen. Puedes deshacerlo justo después."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "¿Eliminar %lld transacción? Las direcciones vigiladas se mantienen. No se puede deshacer."
+                  "value" : "¿Eliminar %lld transacción? Las direcciones vigiladas se mantienen. Puedes deshacerlo justo después."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "¿Eliminar las %lld transacciones? Las direcciones vigiladas se mantienen. No se puede deshacer."
+                  "value" : "¿Eliminar las %lld transacciones? Las direcciones vigiladas se mantienen. Puedes deshacerlo justo después."
                 }
               }
             }
@@ -193543,13 +195589,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld تراکنش حذف شود؟ آدرس‌های زیر نظر باقی می‌مانند. این کار قابل بازگشت نیست."
+                  "value" : "%lld تراکنش حذف شود؟ آدرس‌های زیر نظر باقی می‌مانند. می‌توانید بلافاصله پس از آن، این کار را واگرد کنید."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "همهٔ %lld تراکنش حذف شوند؟ آدرس‌های زیر نظر باقی می‌مانند. این کار قابل بازگشت نیست."
+                  "value" : "همهٔ %lld تراکنش حذف شوند؟ آدرس‌های زیر نظر باقی می‌مانند. می‌توانید بلافاصله پس از آن، این کار را واگرد کنید."
                 }
               }
             }
@@ -193561,13 +195607,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Poistetaanko %lld tapahtuma? Seuratut osoitteet säilyvät. Toimintoa ei voi kumota."
+                  "value" : "Poistetaanko %lld tapahtuma? Seuratut osoitteet säilyvät. Voit perua sen heti perään."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Poistetaanko kaikki %lld tapahtumaa? Seuratut osoitteet säilyvät. Toimintoa ei voi kumota."
+                  "value" : "Poistetaanko kaikki %lld tapahtumaa? Seuratut osoitteet säilyvät. Voit perua sen heti perään."
                 }
               }
             }
@@ -193579,19 +195625,19 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Supprimer les %lld transactions ? Les adresses suivies restent. Cette action est irréversible."
+                  "value" : "Supprimer les %lld transactions ? Les adresses suivies restent. Vous pourrez l'annuler juste après."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Supprimer %lld transaction ? Les adresses suivies restent. Cette action est irréversible."
+                  "value" : "Supprimer %lld transaction ? Les adresses suivies restent. Vous pourrez l'annuler juste après."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Supprimer les %lld transactions ? Les adresses suivies restent. Cette action est irréversible."
+                  "value" : "Supprimer les %lld transactions ? Les adresses suivies restent. Vous pourrez l'annuler juste après."
                 }
               }
             }
@@ -193603,19 +195649,19 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "למחוק את העסקה (%lld)? כתובות במעקב נשארות. לא ניתן לבטל פעולה זו."
+                  "value" : "למחוק את העסקה (%lld)? כתובות במעקב נשארות. אפשר לבטל את זה מיד אחר כך."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "למחוק את כל העסקאות (%lld)? כתובות במעקב נשארות. לא ניתן לבטל פעולה זו."
+                  "value" : "למחוק את כל העסקאות (%lld)? כתובות במעקב נשארות. אפשר לבטל את זה מיד אחר כך."
                 }
               },
               "two" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "למחוק את כל העסקאות (%lld)? כתובות במעקב נשארות. לא ניתן לבטל פעולה זו."
+                  "value" : "למחוק את כל העסקאות (%lld)? כתובות במעקב נשארות. אפשר לבטל את זה מיד אחר כך."
                 }
               }
             }
@@ -193627,13 +195673,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld लेन-देन हटाएँ? देखे जा रहे पते बने रहेंगे। इसे पूर्ववत नहीं किया जा सकता।"
+                  "value" : "%lld लेन-देन हटाएँ? देखे जा रहे पते बने रहेंगे। हटाने के तुरंत बाद आप इसे पूर्ववत कर सकते हैं।"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "सभी %lld लेन-देन हटाएँ? देखे जा रहे पते बने रहेंगे। इसे पूर्ववत नहीं किया जा सकता।"
+                  "value" : "सभी %lld लेन-देन हटाएँ? देखे जा रहे पते बने रहेंगे। हटाने के तुरंत बाद आप इसे पूर्ववत कर सकते हैं।"
                 }
               }
             }
@@ -193645,13 +195691,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Törlöd a tranzakciót (%lld)? A figyelt címek megmaradnak. Ez nem vonható vissza."
+                  "value" : "Törlöd a tranzakciót (%lld)? A figyelt címek megmaradnak. Közvetlenül utána visszavonhatod."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Törlöd az összes tranzakciót (%lld)? A figyelt címek megmaradnak. Ez nem vonható vissza."
+                  "value" : "Törlöd az összes tranzakciót (%lld)? A figyelt címek megmaradnak. Közvetlenül utána visszavonhatod."
                 }
               }
             }
@@ -193663,7 +195709,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Hapus semua %lld transaksi? Alamat yang dipantau tetap ada. Tindakan ini tidak dapat dibatalkan."
+                  "value" : "Hapus semua %lld transaksi? Alamat yang dipantau tetap ada. Anda dapat membatalkannya segera setelahnya."
                 }
               }
             }
@@ -193675,19 +195721,19 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Eliminare tutte le %lld transazioni? Gli indirizzi osservati restano. L’operazione non si può annullare."
+                  "value" : "Eliminare tutte le %lld transazioni? Gli indirizzi osservati restano. Puoi annullare subito dopo."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Eliminare %lld transazione? Gli indirizzi osservati restano. L’operazione non si può annullare."
+                  "value" : "Eliminare %lld transazione? Gli indirizzi osservati restano. Puoi annullare subito dopo."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Eliminare tutte le %lld transazioni? Gli indirizzi osservati restano. L’operazione non si può annullare."
+                  "value" : "Eliminare tutte le %lld transazioni? Gli indirizzi osservati restano. Puoi annullare subito dopo."
                 }
               }
             }
@@ -193699,7 +195745,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld 件の取引をすべて削除しますか？監視中のアドレスは残ります。元に戻せません。"
+                  "value" : "%lld 件の取引をすべて削除しますか？監視中のアドレスは残ります。削除の直後なら元に戻せます。"
                 }
               }
             }
@@ -193711,7 +195757,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "거래 %lld건을 모두 삭제할까요? 관찰 중인 주소는 유지됩니다. 되돌릴 수 없습니다."
+                  "value" : "거래 %lld건을 모두 삭제할까요? 관찰 중인 주소는 유지됩니다. 삭제 직후에 실행 취소할 수 있습니다."
                 }
               }
             }
@@ -193723,13 +195769,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Slette %lld transaksjon? Overvåkede adresser blir værende. Dette kan ikke angres."
+                  "value" : "Slette %lld transaksjon? Overvåkede adresser blir værende. Du kan angre det rett etterpå."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Slette alle %lld transaksjoner? Overvåkede adresser blir værende. Dette kan ikke angres."
+                  "value" : "Slette alle %lld transaksjoner? Overvåkede adresser blir værende. Du kan angre det rett etterpå."
                 }
               }
             }
@@ -193741,13 +195787,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld transactie verwijderen? Gevolgde adressen blijven. Dit kan niet ongedaan worden gemaakt."
+                  "value" : "%lld transactie verwijderen? Gevolgde adressen blijven. Je kunt dit direct daarna ongedaan maken."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Alle %lld transacties verwijderen? Gevolgde adressen blijven. Dit kan niet ongedaan worden gemaakt."
+                  "value" : "Alle %lld transacties verwijderen? Gevolgde adressen blijven. Je kunt dit direct daarna ongedaan maken."
                 }
               }
             }
@@ -193759,25 +195805,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Usunąć wszystkie %lld transakcje? Obserwowane adresy zostaną. Tej operacji nie można cofnąć."
+                  "value" : "Usunąć wszystkie %lld transakcje? Obserwowane adresy zostaną. Możesz to cofnąć zaraz potem."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Usunąć wszystkie %lld transakcji? Obserwowane adresy zostaną. Tej operacji nie można cofnąć."
+                  "value" : "Usunąć wszystkie %lld transakcji? Obserwowane adresy zostaną. Możesz to cofnąć zaraz potem."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Usunąć %lld transakcję? Obserwowane adresy zostaną. Tej operacji nie można cofnąć."
+                  "value" : "Usunąć %lld transakcję? Obserwowane adresy zostaną. Możesz to cofnąć zaraz potem."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Usunąć wszystkie %lld transakcji? Obserwowane adresy zostaną. Tej operacji nie można cofnąć."
+                  "value" : "Usunąć wszystkie %lld transakcji? Obserwowane adresy zostaną. Możesz to cofnąć zaraz potem."
                 }
               }
             }
@@ -193789,19 +195835,19 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Eliminar todas as %lld transações? Os endereços observados mantêm-se. Esta ação não pode ser anulada."
+                  "value" : "Eliminar todas as %lld transações? Os endereços observados mantêm-se. Pode anular logo a seguir."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Eliminar %lld transação? Os endereços observados mantêm-se. Esta ação não pode ser anulada."
+                  "value" : "Eliminar %lld transação? Os endereços observados mantêm-se. Pode anular logo a seguir."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Eliminar todas as %lld transações? Os endereços observados mantêm-se. Esta ação não pode ser anulada."
+                  "value" : "Eliminar todas as %lld transações? Os endereços observados mantêm-se. Pode anular logo a seguir."
                 }
               }
             }
@@ -193813,19 +195859,19 @@
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Excluir todas as %lld transações? Os endereços monitorados continuam. Não é possível desfazer."
+                  "value" : "Excluir todas as %lld transações? Os endereços monitorados continuam. Você pode desfazer logo em seguida."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Excluir %lld transação? Os endereços monitorados continuam. Não é possível desfazer."
+                  "value" : "Excluir %lld transação? Os endereços monitorados continuam. Você pode desfazer logo em seguida."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Excluir todas as %lld transações? Os endereços monitorados continuam. Não é possível desfazer."
+                  "value" : "Excluir todas as %lld transações? Os endereços monitorados continuam. Você pode desfazer logo em seguida."
                 }
               }
             }
@@ -193837,19 +195883,19 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Ștergi toate cele %lld tranzacții? Adresele urmărite rămân. Acțiunea nu poate fi anulată."
+                  "value" : "Ștergi toate cele %lld tranzacții? Adresele urmărite rămân. Poți anula imediat după aceea."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Ștergi %lld tranzacție? Adresele urmărite rămân. Acțiunea nu poate fi anulată."
+                  "value" : "Ștergi %lld tranzacție? Adresele urmărite rămân. Poți anula imediat după aceea."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Ștergi toate cele %lld de tranzacții? Adresele urmărite rămân. Acțiunea nu poate fi anulată."
+                  "value" : "Ștergi toate cele %lld de tranzacții? Adresele urmărite rămân. Poți anula imediat după aceea."
                 }
               }
             }
@@ -193861,25 +195907,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Удалить все %lld транзакции? Отслеживаемые адреса останутся. Это действие нельзя отменить."
+                  "value" : "Удалить все %lld транзакции? Отслеживаемые адреса останутся. Сразу после этого удаление можно отменить."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Удалить все %lld транзакций? Отслеживаемые адреса останутся. Это действие нельзя отменить."
+                  "value" : "Удалить все %lld транзакций? Отслеживаемые адреса останутся. Сразу после этого удаление можно отменить."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Удалить %lld транзакцию? Отслеживаемые адреса останутся. Это действие нельзя отменить."
+                  "value" : "Удалить %lld транзакцию? Отслеживаемые адреса останутся. Сразу после этого удаление можно отменить."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Удалить все %lld транзакций? Отслеживаемые адреса останутся. Это действие нельзя отменить."
+                  "value" : "Удалить все %lld транзакций? Отслеживаемые адреса останутся. Сразу после этого удаление можно отменить."
                 }
               }
             }
@@ -193891,13 +195937,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Të fshihet %lld transaksion? Adresat e ndjekura mbeten. Kjo nuk mund të zhbëhet."
+                  "value" : "Të fshihet %lld transaksion? Adresat e ndjekura mbeten. Mund ta zhbësh menjëherë pas kësaj."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Të fshihen të gjitha %lld transaksionet? Adresat e ndjekura mbeten. Kjo nuk mund të zhbëhet."
+                  "value" : "Të fshihen të gjitha %lld transaksionet? Adresat e ndjekura mbeten. Mund ta zhbësh menjëherë pas kësaj."
                 }
               }
             }
@@ -193909,13 +195955,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Radera %lld transaktion? Bevakade adresser finns kvar. Det går inte att ångra."
+                  "value" : "Radera %lld transaktion? Bevakade adresser finns kvar. Du kan ångra det direkt efteråt."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Radera alla %lld transaktioner? Bevakade adresser finns kvar. Det går inte att ångra."
+                  "value" : "Radera alla %lld transaktioner? Bevakade adresser finns kvar. Du kan ångra det direkt efteråt."
                 }
               }
             }
@@ -193927,7 +195973,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "ลบรายการทั้งหมด %lld รายการหรือไม่ ที่อยู่ที่ติดตามจะยังอยู่ การดำเนินการนี้ย้อนกลับไม่ได้"
+                  "value" : "ลบรายการทั้งหมด %lld รายการหรือไม่ ที่อยู่ที่ติดตามจะยังอยู่ คุณเลิกทำได้ทันทีหลังจากนั้น"
                 }
               }
             }
@@ -193939,13 +195985,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld işlem silinsin mi? İzlenen adresler kalır. Bu işlem geri alınamaz."
+                  "value" : "%lld işlem silinsin mi? İzlenen adresler kalır. Hemen ardından geri alabilirsiniz."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Tüm %lld işlem silinsin mi? İzlenen adresler kalır. Bu işlem geri alınamaz."
+                  "value" : "Tüm %lld işlem silinsin mi? İzlenen adresler kalır. Hemen ardından geri alabilirsiniz."
                 }
               }
             }
@@ -193957,25 +196003,25 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Видалити всі %lld транзакції? Відстежувані адреси залишаться. Цю дію не можна скасувати."
+                  "value" : "Видалити всі %lld транзакції? Відстежувані адреси залишаться. Одразу після цього видалення можна скасувати."
                 }
               },
               "many" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Видалити всі %lld транзакцій? Відстежувані адреси залишаться. Цю дію не можна скасувати."
+                  "value" : "Видалити всі %lld транзакцій? Відстежувані адреси залишаться. Одразу після цього видалення можна скасувати."
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Видалити %lld транзакцію? Відстежувані адреси залишаться. Цю дію не можна скасувати."
+                  "value" : "Видалити %lld транзакцію? Відстежувані адреси залишаться. Одразу після цього видалення можна скасувати."
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Видалити всі %lld транзакцій? Відстежувані адреси залишаться. Цю дію не можна скасувати."
+                  "value" : "Видалити всі %lld транзакцій? Відстежувані адреси залишаться. Одразу після цього видалення можна скасувати."
                 }
               }
             }
@@ -193987,7 +196033,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "Xóa tất cả %lld giao dịch? Các địa chỉ theo dõi vẫn được giữ. Không thể hoàn tác."
+                  "value" : "Xóa tất cả %lld giao dịch? Các địa chỉ theo dõi vẫn được giữ. Bạn có thể hoàn tác ngay sau đó."
                 }
               }
             }
@@ -193999,7 +196045,648 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "要删除全部 %lld 笔交易吗？观察的地址会保留。此操作无法撤销。"
+                  "value" : "要删除全部 %lld 笔交易吗？观察的地址会保留。删除后可立即撤销。"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "portfolio_cleared" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "المعاملات المحذوفة: %lld"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "المعاملات المحذوفة: %lld"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "المعاملات المحذوفة: %lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "المعاملات المحذوفة: %lld"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "المعاملات المحذوفة: %lld"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "المعاملات المحذوفة: %lld"
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odstraněny %lld transakce"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odstraněno %lld transakce"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odstraněna %lld transakce"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Odstraněno %lld transakcí"
+                }
+              }
+            }
+          }
+        },
+        "da" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transaktion fjernet"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transaktioner fjernet"
+                }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Transaktion entfernt"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Transaktionen entfernt"
+                }
+              }
+            }
+          }
+        },
+        "el" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Αφαιρέθηκε %lld συναλλαγή"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Αφαιρέθηκαν %lld συναλλαγές"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transaction removed"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transactions removed"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transacciones eliminadas"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transacción eliminada"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transacciones eliminadas"
+                }
+              }
+            }
+          }
+        },
+        "fa" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld تراکنش حذف شد"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld تراکنش حذف شد"
+                }
+              }
+            }
+          }
+        },
+        "fi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld tapahtuma poistettu"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld tapahtumaa poistettu"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transactions supprimées"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transaction supprimée"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transactions supprimées"
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "עסקאות שנמחקו: %lld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "עסקאות שנמחקו: %lld"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "עסקאות שנמחקו: %lld"
+                }
+              }
+            }
+          }
+        },
+        "hi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld लेन-देन हटाया गया"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld लेन-देन हटाए गए"
+                }
+              }
+            }
+          }
+        },
+        "hu" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld tranzakció törölve"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld tranzakció törölve"
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transaksi dihapus"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transazioni rimosse"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transazione rimossa"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transazioni rimosse"
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 件の取引を削除しました"
+                }
+              }
+            }
+          }
+        },
+        "ko" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "거래 %lld건 삭제됨"
+                }
+              }
+            }
+          }
+        },
+        "nb" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transaksjon fjernet"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transaksjoner fjernet"
+                }
+              }
+            }
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transactie verwijderd"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transacties verwijderd"
+                }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięto %lld transakcje"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięto %lld transakcji"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięto %lld transakcję"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Usunięto %lld transakcji"
+                }
+              }
+            }
+          }
+        },
+        "pt" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transações removidas"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transação removida"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transações removidas"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transações removidas"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transação removida"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transações removidas"
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld tranzacții eliminate"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld tranzacție eliminată"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de tranzacții eliminate"
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Удалены %lld транзакции"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Удалено %lld транзакций"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Удалена %lld транзакция"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Удалено %lld транзакции"
+                }
+              }
+            }
+          }
+        },
+        "sq" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "U hoq %lld transaksion"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "U hoqën %lld transaksione"
+                }
+              }
+            }
+          }
+        },
+        "sv" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transaktion borttagen"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld transaktioner borttagna"
+                }
+              }
+            }
+          }
+        },
+        "th" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "ลบ %lld รายการแล้ว"
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld işlem silindi"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld işlem silindi"
+                }
+              }
+            }
+          }
+        },
+        "uk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Видалено %lld транзакції"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Видалено %lld транзакцій"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Видалено %lld транзакцію"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Видалено %lld транзакції"
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Đã xóa %lld giao dịch"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "已删除 %lld 笔交易"
                 }
               }
             }
@@ -202494,187 +205181,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الاستيراد غير ممكن حاليًا: المحفظة المحفوظة مقفلة. افتح التطبيق مرة أخرى لاحقًا."
+            "value" : "الاستيراد غير ممكن: تعذّرت قراءة البيانات المحفوظة الآن. أعد تشغيل التطبيق."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Import teď není možný: uložené portfolio je uzamčené. Otevři aplikaci později znovu."
+            "value" : "Import není možný: uložená data teď nelze přečíst. Restartujte aplikaci."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Import er ikke muligt lige nu: den gemte portefølje er låst. Åbn appen igen senere."
+            "value" : "Import er ikke muligt: Gemte data kan ikke læses lige nu. Genstart appen."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Import gerade nicht möglich: Das gespeicherte Portfolio ist gesperrt. Öffne die App später erneut."
+            "value" : "Import nicht möglich: Gespeicherte Daten gerade nicht lesbar. Starte die App neu."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Η εισαγωγή δεν είναι δυνατή αυτή τη στιγμή: το αποθηκευμένο χαρτοφυλάκιο είναι κλειδωμένο. Άνοιξε ξανά την εφαρμογή αργότερα."
+            "value" : "Η εισαγωγή δεν είναι δυνατή: τα αποθηκευμένα δεδομένα δεν μπορούν να διαβαστούν αυτή τη στιγμή. Επανεκκινήστε την εφαρμογή."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Import not possible right now: the saved portfolio is locked. Open the app again later."
+            "value" : "Import isn't possible: saved data can't be read right now. Restart the app."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ahora no se puede importar: la cartera guardada está bloqueada. Vuelve a abrir la app más tarde."
+            "value" : "No se puede importar: ahora no se pueden leer los datos guardados. Reinicia la app."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "واردکردن فعلاً ممکن نیست: سبد ذخیره‌شده قفل است. بعداً دوباره برنامه را باز کنید."
+            "value" : "واردکردن ممکن نیست: داده‌های ذخیره‌شده الان خوانده نمی‌شوند. برنامه را دوباره راه‌اندازی کنید."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tuonti ei ole nyt mahdollista: tallennettu salkku on lukittu. Avaa sovellus myöhemmin uudelleen."
+            "value" : "Tuonti ei ole mahdollista: tallennettuja tietoja ei voi juuri nyt lukea. Käynnistä sovellus uudelleen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Importation impossible pour le moment : le portefeuille enregistré est verrouillé. Rouvrez l’app plus tard."
+            "value" : "Importation impossible : les données enregistrées sont illisibles pour l'instant. Redémarrez l'app."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הייבוא אינו אפשרי כרגע: התיק השמור נעול. פתח שוב את האפליקציה מאוחר יותר."
+            "value" : "הייבוא אינו אפשרי: לא ניתן לקרוא כרגע את הנתונים השמורים. הפעל מחדש את האפליקציה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अभी आयात संभव नहीं है: सहेजा गया पोर्टफ़ोलियो लॉक है। ऐप को बाद में फिर से खोलें।"
+            "value" : "आयात संभव नहीं है: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Az importálás most nem lehetséges: a mentett portfólió zárolva van. Nyisd meg később újra az appot."
+            "value" : "Az importálás nem lehetséges: a mentett adatok most nem olvashatók. Indítsd újra az alkalmazást."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Impor tidak dapat dilakukan saat ini: portofolio yang tersimpan terkunci. Buka aplikasi lagi nanti."
+            "value" : "Impor tidak dapat dilakukan: data tersimpan tidak dapat dibaca saat ini. Mulai ulang aplikasi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Importazione non possibile al momento: il portafoglio salvato è bloccato. Riapri l’app più tardi."
+            "value" : "Importazione non possibile: i dati salvati non sono leggibili al momento. Riavvia l'app."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "現在インポートできません：保存されたポートフォリオがロックされています。後でアプリを開き直してください。"
+            "value" : "インポートできません：保存済みのデータを今は読み取れません。アプリを再起動してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "지금은 가져올 수 없습니다: 저장된 포트폴리오가 잠겨 있습니다. 나중에 앱을 다시 여세요."
+            "value" : "가져올 수 없습니다: 저장된 데이터를 지금 읽을 수 없습니다. 앱을 다시 시작하세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Import er ikke mulig akkurat nå: den lagrede porteføljen er låst. Åpne appen igjen senere."
+            "value" : "Import er ikke mulig: Lagrede data kan ikke leses akkurat nå. Start appen på nytt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Importeren is nu niet mogelijk: de opgeslagen portefeuille is vergrendeld. Open de app later opnieuw."
+            "value" : "Importeren is niet mogelijk: opgeslagen gegevens zijn nu niet leesbaar. Start de app opnieuw."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Import nie jest teraz możliwy: zapisany portfel jest zablokowany. Otwórz aplikację ponownie później."
+            "value" : "Import nie jest możliwy: zapisanych danych nie można teraz odczytać. Uruchom aplikację ponownie."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Não é possível importar agora: o portefólio guardado está bloqueado. Volte a abrir a app mais tarde."
+            "value" : "Não é possível importar: os dados guardados não podem ser lidos agora. Reinicie a app."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Não é possível importar agora: o portfólio salvo está bloqueado. Abra o app novamente mais tarde."
+            "value" : "Não é possível importar: os dados salvos não podem ser lidos agora. Reinicie o app."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Importul nu este posibil acum: portofoliul salvat este blocat. Deschide aplicația din nou mai târziu."
+            "value" : "Importul nu este posibil: datele salvate nu pot fi citite acum. Repornește aplicația."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Импорт сейчас невозможен: сохранённый портфель заблокирован. Откройте приложение позже ещё раз."
+            "value" : "Импорт невозможен: сохранённые данные сейчас не удаётся прочитать. Перезапустите приложение."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Importimi nuk është i mundur tani: portofoli i ruajtur është i kyçur. Hape aplikacionin përsëri më vonë."
+            "value" : "Importimi nuk është i mundur: të dhënat e ruajtura nuk mund të lexohen tani. Rinis aplikacionin."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Import är inte möjlig just nu: den sparade portföljen är låst. Öppna appen igen senare."
+            "value" : "Import är inte möjlig: Sparade data kan inte läsas just nu. Starta om appen."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ยังนำเข้าไม่ได้ในขณะนี้: พอร์ตโฟลิโอที่บันทึกไว้ถูกล็อกอยู่ เปิดแอปอีกครั้งในภายหลัง"
+            "value" : "นำเข้าไม่ได้: ยังอ่านข้อมูลที่บันทึกไว้ไม่ได้ในขณะนี้ โปรดเริ่มแอปใหม่"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "İçe aktarma şu anda mümkün değil: kayıtlı portföy kilitli. Uygulamayı daha sonra yeniden açın."
+            "value" : "İçe aktarma mümkün değil: kayıtlı veriler şu anda okunamıyor. Uygulamayı yeniden başlatın."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Імпорт зараз неможливий: збережений портфель заблоковано. Відкрийте застосунок пізніше ще раз."
+            "value" : "Імпорт неможливий: збережені дані зараз не вдається прочитати. Перезапустіть застосунок."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hiện không thể nhập: danh mục đã lưu đang bị khóa. Hãy mở lại ứng dụng sau."
+            "value" : "Không thể nhập: hiện không đọc được dữ liệu đã lưu. Hãy khởi động lại ứng dụng."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暂时无法导入：已保存的投资组合已锁定。请稍后重新打开应用。"
+            "value" : "无法导入：暂时无法读取已保存的数据。请重启应用。"
           }
         }
       }
@@ -232821,187 +235508,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تعذّر فتح قفل المحفظة المحفوظة الآن ولذلك لا تُعرض – ستعود بعد إعادة تشغيل التطبيق. لا يمكن إجراء تغييرات إلا بعد التشغيل التالي."
+            "value" : "تعذّرت قراءة البيانات المحفوظة الآن، لذلك لا تُعرض المحفظة ولا يمكن تغييرها. أعد تشغيل التطبيق."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uložené portfolio teď nelze odemknout a nezobrazuje se – po restartu aplikace bude zpět. Změny budou možné až po příštím spuštění."
+            "value" : "Uložená data teď nelze přečíst, proto se portfolio nezobrazuje a nelze ho měnit. Restartujte aplikaci."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den gemte portefølje kan ikke låses op lige nu og vises ikke – den er tilbage, når appen genstartes. Ændringer er først mulige efter næste start."
+            "value" : "Gemte data kan ikke læses lige nu, så porteføljen vises ikke og kan ikke ændres. Genstart appen."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Das gespeicherte Portfolio lässt sich gerade nicht entsperren und wird nicht angezeigt – nach einem Neustart der App ist es wieder da. Änderungen sind erst nach dem nächsten Start möglich."
+            "value" : "Gespeicherte Daten gerade nicht lesbar – das Portfolio wird nicht angezeigt und lässt sich nicht ändern. Starte die App neu."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το αποθηκευμένο χαρτοφυλάκιο δεν μπορεί να ξεκλειδωθεί αυτή τη στιγμή και δεν εμφανίζεται – θα επιστρέψει μετά την επανεκκίνηση της εφαρμογής. Αλλαγές θα είναι δυνατές μόνο μετά την επόμενη εκκίνηση."
+            "value" : "Τα αποθηκευμένα δεδομένα δεν μπορούν να διαβαστούν αυτή τη στιγμή, γι' αυτό το χαρτοφυλάκιο δεν εμφανίζεται και δεν αλλάζει. Επανεκκινήστε την εφαρμογή."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The saved portfolio can't be unlocked right now and isn't shown – it will be back after restarting the app. Changes are only possible after the next start."
+            "value" : "Saved data can't be read right now, so the portfolio isn't shown and can't be changed. Restart the app."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La cartera guardada no se puede desbloquear ahora y no se muestra; volverá tras reiniciar la app. Solo podrás hacer cambios tras el próximo inicio."
+            "value" : "Ahora no se pueden leer los datos guardados, así que la cartera no se muestra ni se puede cambiar. Reinicia la app."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قفل سبد ذخیره‌شده الان باز نمی‌شود و نمایش داده نمی‌شود – پس از راه‌اندازی دوبارهٔ برنامه برمی‌گردد. تغییرات فقط پس از اجرای بعدی ممکن است."
+            "value" : "داده‌های ذخیره‌شده الان خوانده نمی‌شوند، بنابراین سبد نمایش داده نمی‌شود و قابل تغییر نیست. برنامه را دوباره راه‌اندازی کنید."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tallennetun salkun lukitusta ei voi juuri nyt avata, eikä sitä näytetä – se palaa, kun sovellus käynnistetään uudelleen. Muutokset ovat mahdollisia vasta seuraavan käynnistyksen jälkeen."
+            "value" : "Tallennettuja tietoja ei voi juuri nyt lukea, joten salkkua ei näytetä eikä sitä voi muuttaa. Käynnistä sovellus uudelleen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Le portefeuille enregistré ne peut pas être déverrouillé pour l'instant et n'est pas affiché – il reviendra après le redémarrage de l'app. Les modifications ne seront possibles qu'après le prochain démarrage."
+            "value" : "Les données enregistrées sont illisibles pour l'instant : le portefeuille n'est pas affiché et ne peut pas être modifié. Redémarrez l'app."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "לא ניתן לבטל כרגע את נעילת התיק השמור ולכן הוא לא מוצג – הוא יחזור אחרי הפעלה מחדש של האפליקציה. שינויים יתאפשרו רק אחרי ההפעלה הבאה."
+            "value" : "לא ניתן לקרוא כרגע את הנתונים השמורים, ולכן התיק לא מוצג ואי אפשר לשנות אותו. הפעל מחדש את האפליקציה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सहेजा गया पोर्टफ़ोलियो अभी अनलॉक नहीं हो पा रहा, इसलिए नहीं दिख रहा – ऐप दोबारा शुरू करने पर यह वापस आ जाएगा। बदलाव अगली बार ऐप शुरू होने के बाद ही हो सकेंगे।"
+            "value" : "सहेजा गया डेटा अभी पढ़ा नहीं जा सकता, इसलिए पोर्टफ़ोलियो नहीं दिख रहा और बदला नहीं जा सकता। ऐप दोबारा शुरू करें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A mentett portfóliót most nem lehet feloldani, ezért nem látható – az alkalmazás újraindítása után visszatér. Módosítani csak a következő indítás után lehet."
+            "value" : "A mentett adatok most nem olvashatók, ezért a portfólió nem látható és nem módosítható. Indítsd újra az alkalmazást."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portofolio tersimpan belum bisa dibuka saat ini dan tidak ditampilkan – akan kembali setelah aplikasi dimulai ulang. Perubahan baru bisa dilakukan setelah aplikasi dibuka berikutnya."
+            "value" : "Data tersimpan tidak dapat dibaca saat ini, jadi portofolio tidak ditampilkan dan tidak dapat diubah. Mulai ulang aplikasi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Il portafoglio salvato non può essere sbloccato al momento e non viene mostrato – tornerà dopo il riavvio dell'app. Le modifiche saranno possibili solo dopo il prossimo avvio."
+            "value" : "I dati salvati non sono leggibili al momento, quindi il portafoglio non viene mostrato e non si può modificare. Riavvia l'app."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "保存済みのポートフォリオを今はロック解除できないため表示していません。アプリを再起動すると戻ります。変更できるのは次回の起動後です。"
+            "value" : "保存済みのデータを今は読み取れないため、ポートフォリオを表示・変更できません。アプリを再起動してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "저장된 포트폴리오를 지금 잠금 해제할 수 없어 표시하지 않습니다. 앱을 다시 시작하면 돌아옵니다. 변경은 다음 실행 후에만 가능합니다."
+            "value" : "저장된 데이터를 지금 읽을 수 없어 포트폴리오를 표시하거나 변경할 수 없습니다. 앱을 다시 시작하세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den lagrede porteføljen kan ikke låses opp akkurat nå og vises ikke – den er tilbake når appen startes på nytt. Endringer er først mulig etter neste oppstart."
+            "value" : "Lagrede data kan ikke leses akkurat nå, så porteføljen vises ikke og kan ikke endres. Start appen på nytt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De opgeslagen portefeuille kan nu niet worden ontgrendeld en wordt niet getoond – na een herstart van de app is hij terug. Wijzigen kan pas na de volgende start."
+            "value" : "Opgeslagen gegevens zijn nu niet leesbaar, dus de portefeuille wordt niet getoond en kan niet worden gewijzigd. Start de app opnieuw."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zapisanego portfela nie można teraz odblokować i nie jest wyświetlany – wróci po ponownym uruchomieniu aplikacji. Zmiany będą możliwe dopiero po następnym uruchomieniu."
+            "value" : "Zapisanych danych nie można teraz odczytać, więc portfel nie jest wyświetlany i nie można go zmienić. Uruchom aplikację ponownie."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O portefólio guardado não pode ser desbloqueado agora e não é mostrado – voltará depois de reiniciar a app. Só será possível fazer alterações depois do próximo arranque."
+            "value" : "Os dados guardados não podem ser lidos agora, por isso o portefólio não é mostrado nem pode ser alterado. Reinicie a app."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O portfólio salvo não pode ser desbloqueado agora e não é exibido – ele volta depois que você reiniciar o app. Só será possível fazer alterações depois da próxima abertura."
+            "value" : "Os dados salvos não podem ser lidos agora, por isso o portfólio não é exibido nem pode ser alterado. Reinicie o app."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portofoliul salvat nu poate fi deblocat acum și nu este afișat – va reveni după repornirea aplicației. Modificările vor fi posibile abia după următoarea pornire."
+            "value" : "Datele salvate nu pot fi citite acum, așa că portofoliul nu este afișat și nu poate fi modificat. Repornește aplicația."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сохранённый портфель сейчас не удаётся разблокировать, поэтому он не показан – он вернётся после перезапуска приложения. Изменения станут возможны только после следующего запуска."
+            "value" : "Сохранённые данные сейчас не удаётся прочитать, поэтому портфель не показан и его нельзя изменить. Перезапустите приложение."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portofoli i ruajtur nuk mund të shkyçet tani dhe nuk shfaqet – do të rikthehet pas rinisjes së aplikacionit. Ndryshimet do të jenë të mundshme vetëm pas nisjes së ardhshme."
+            "value" : "Të dhënat e ruajtura nuk mund të lexohen tani, ndaj portofoli nuk shfaqet dhe nuk mund të ndryshohet. Rinis aplikacionin."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den sparade portföljen kan inte låsas upp just nu och visas inte – den är tillbaka när appen startas om. Ändringar går att göra först efter nästa start."
+            "value" : "Sparade data kan inte läsas just nu, så portföljen visas inte och kan inte ändras. Starta om appen."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ไม่สามารถปลดล็อกพอร์ตโฟลิโอที่บันทึกไว้ได้ในขณะนี้ จึงไม่แสดง – จะกลับมาหลังจากเริ่มแอปใหม่ จะแก้ไขได้หลังจากเปิดแอปครั้งถัดไปเท่านั้น"
+            "value" : "ยังอ่านข้อมูลที่บันทึกไว้ไม่ได้ในขณะนี้ จึงไม่แสดงพอร์ตโฟลิโอและแก้ไขไม่ได้ โปรดเริ่มแอปใหม่"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kayıtlı portföyün kilidi şu anda açılamıyor ve gösterilmiyor – uygulama yeniden başlatıldığında geri gelir. Değişiklikler ancak bir sonraki açılıştan sonra mümkün."
+            "value" : "Kayıtlı veriler şu anda okunamıyor, bu yüzden portföy gösterilmiyor ve değiştirilemiyor. Uygulamayı yeniden başlatın."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Збережений портфель зараз не вдається розблокувати, тому він не показаний – він повернеться після перезапуску застосунку. Зміни стануть можливими лише після наступного запуску."
+            "value" : "Збережені дані зараз не вдається прочитати, тому портфель не показаний і його не можна змінити. Перезапустіть застосунок."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Danh mục đã lưu hiện không thể mở khóa nên không được hiển thị – danh mục sẽ trở lại sau khi khởi động lại ứng dụng. Chỉ có thể thay đổi sau lần khởi động tới."
+            "value" : "Hiện không đọc được dữ liệu đã lưu, nên danh mục không được hiển thị và không thể thay đổi. Hãy khởi động lại ứng dụng."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已保存的投资组合暂时无法解锁，因此未显示——重启应用后会恢复。下次启动后才能进行更改。"
+            "value" : "暂时无法读取已保存的数据，因此投资组合不会显示，也无法更改。请重启应用。"
           }
         }
       }
@@ -233012,187 +235699,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "المحفظة المحفوظة مقفلة الآن – لا يمكن إجراء تغييرات إلا بعد التشغيل التالي."
+            "value" : "تعذّرت قراءة البيانات المحفوظة الآن، لذلك لا يمكن إجراء تغييرات. أعد تشغيل التطبيق."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uložené portfolio je teď uzamčené – změny budou možné až po příštím spuštění."
+            "value" : "Uložená data teď nelze přečíst, proto změny nejsou možné. Restartujte aplikaci."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den gemte portefølje er låst lige nu – ændringer er først mulige efter næste start."
+            "value" : "Gemte data kan ikke læses lige nu, så ændringer er ikke mulige. Genstart appen."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gespeichertes Portfolio gerade gesperrt – Änderungen sind erst nach dem nächsten Start möglich."
+            "value" : "Gespeicherte Daten gerade nicht lesbar – Änderungen sind nicht möglich. Starte die App neu."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Το αποθηκευμένο χαρτοφυλάκιο είναι κλειδωμένο αυτή τη στιγμή – αλλαγές θα είναι δυνατές μόνο μετά την επόμενη εκκίνηση."
+            "value" : "Τα αποθηκευμένα δεδομένα δεν μπορούν να διαβαστούν αυτή τη στιγμή, γι' αυτό δεν είναι δυνατές αλλαγές. Επανεκκινήστε την εφαρμογή."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The saved portfolio is locked right now – changes are only possible after the next start."
+            "value" : "Saved data can't be read right now, so changes aren't possible. Restart the app."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La cartera guardada está bloqueada ahora; solo podrás hacer cambios tras el próximo inicio."
+            "value" : "Ahora no se pueden leer los datos guardados, así que no es posible hacer cambios. Reinicia la app."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "سبد ذخیره‌شده الان قفل است – تغییرات فقط پس از اجرای بعدی ممکن است."
+            "value" : "داده‌های ذخیره‌شده الان خوانده نمی‌شوند، بنابراین تغییرات ممکن نیست. برنامه را دوباره راه‌اندازی کنید."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tallennettu salkku on juuri nyt lukittu – muutokset ovat mahdollisia vasta seuraavan käynnistyksen jälkeen."
+            "value" : "Tallennettuja tietoja ei voi juuri nyt lukea, joten muutokset eivät ole mahdollisia. Käynnistä sovellus uudelleen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portefeuille enregistré verrouillé pour l'instant – les modifications ne seront possibles qu'après le prochain démarrage."
+            "value" : "Les données enregistrées sont illisibles pour l'instant : aucune modification n'est possible. Redémarrez l'app."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "התיק השמור נעול כרגע – שינויים יתאפשרו רק אחרי ההפעלה הבאה."
+            "value" : "לא ניתן לקרוא כרגע את הנתונים השמורים, ולכן אי אפשר לבצע שינויים. הפעל מחדש את האפליקציה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सहेजा गया पोर्टफ़ोलियो अभी लॉक है – बदलाव अगली बार ऐप शुरू होने के बाद ही हो सकेंगे।"
+            "value" : "सहेजा गया डेटा अभी पढ़ा नहीं जा सकता, इसलिए बदलाव संभव नहीं हैं। ऐप दोबारा शुरू करें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A mentett portfólió most zárolva van – módosítani csak a következő indítás után lehet."
+            "value" : "A mentett adatok most nem olvashatók, ezért módosítani nem lehet. Indítsd újra az alkalmazást."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portofolio tersimpan sedang terkunci – perubahan baru bisa dilakukan setelah aplikasi dibuka berikutnya."
+            "value" : "Data tersimpan tidak dapat dibaca saat ini, jadi perubahan tidak dapat dilakukan. Mulai ulang aplikasi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portafoglio salvato bloccato al momento – le modifiche saranno possibili solo dopo il prossimo avvio."
+            "value" : "I dati salvati non sono leggibili al momento, quindi non è possibile apportare modifiche. Riavvia l'app."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "保存済みのポートフォリオは現在ロックされています。変更できるのは次回の起動後です。"
+            "value" : "保存済みのデータを今は読み取れないため、変更できません。アプリを再起動してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "저장된 포트폴리오가 지금 잠겨 있습니다. 변경은 다음 실행 후에만 가능합니다."
+            "value" : "저장된 데이터를 지금 읽을 수 없어 변경할 수 없습니다. 앱을 다시 시작하세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den lagrede porteføljen er låst akkurat nå – endringer er først mulig etter neste oppstart."
+            "value" : "Lagrede data kan ikke leses akkurat nå, så endringer er ikke mulig. Start appen på nytt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De opgeslagen portefeuille is nu vergrendeld – wijzigen kan pas na de volgende start."
+            "value" : "Opgeslagen gegevens zijn nu niet leesbaar, dus wijzigen is niet mogelijk. Start de app opnieuw."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zapisany portfel jest teraz zablokowany – zmiany będą możliwe dopiero po następnym uruchomieniu."
+            "value" : "Zapisanych danych nie można teraz odczytać, więc zmiany nie są możliwe. Uruchom aplikację ponownie."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O portefólio guardado está bloqueado agora – só será possível fazer alterações depois do próximo arranque."
+            "value" : "Os dados guardados não podem ser lidos agora, por isso não é possível fazer alterações. Reinicie a app."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O portfólio salvo está bloqueado agora – só será possível fazer alterações depois da próxima abertura."
+            "value" : "Os dados salvos não podem ser lidos agora, por isso não é possível fazer alterações. Reinicie o app."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portofoliul salvat este blocat acum – modificările vor fi posibile abia după următoarea pornire."
+            "value" : "Datele salvate nu pot fi citite acum, așa că modificările nu sunt posibile. Repornește aplicația."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сохранённый портфель сейчас заблокирован – изменения станут возможны только после следующего запуска."
+            "value" : "Сохранённые данные сейчас не удаётся прочитать, поэтому изменения невозможны. Перезапустите приложение."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portofoli i ruajtur është i kyçur tani – ndryshimet do të jenë të mundshme vetëm pas nisjes së ardhshme."
+            "value" : "Të dhënat e ruajtura nuk mund të lexohen tani, ndaj ndryshimet nuk janë të mundshme. Rinis aplikacionin."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den sparade portföljen är låst just nu – ändringar går att göra först efter nästa start."
+            "value" : "Sparade data kan inte läsas just nu, så ändringar går inte att göra. Starta om appen."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "พอร์ตโฟลิโอที่บันทึกไว้ถูกล็อกอยู่ในขณะนี้ – จะแก้ไขได้หลังจากเปิดแอปครั้งถัดไปเท่านั้น"
+            "value" : "ยังอ่านข้อมูลที่บันทึกไว้ไม่ได้ในขณะนี้ จึงแก้ไขไม่ได้ โปรดเริ่มแอปใหม่"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kayıtlı portföy şu anda kilitli – değişiklikler ancak bir sonraki açılıştan sonra mümkün."
+            "value" : "Kayıtlı veriler şu anda okunamıyor, bu yüzden değişiklik yapılamıyor. Uygulamayı yeniden başlatın."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Збережений портфель зараз заблоковано – зміни стануть можливими лише після наступного запуску."
+            "value" : "Збережені дані зараз не вдається прочитати, тому зміни неможливі. Перезапустіть застосунок."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Danh mục đã lưu hiện đang bị khóa – chỉ có thể thay đổi sau lần khởi động tới."
+            "value" : "Hiện không đọc được dữ liệu đã lưu, nên không thể thay đổi. Hãy khởi động lại ứng dụng."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已保存的投资组合暂时被锁定——下次启动后才能进行更改。"
+            "value" : "暂时无法读取已保存的数据，因此无法进行更改。请重启应用。"
           }
         }
       }
@@ -344838,7 +347525,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "התאמה לפי HMRC: אותו יום → אחר כך 30 הימים הבאים → אחר כך מאגר משותף לפי Section 104 (Section 104 pool)."
+            "value" : "התאמה לפי HMRC: אותו יום, אחר כך 30 הימים הבאים, אחר כך מאגר משותף לפי Section 104 (Section 104 pool)."
           }
         },
         "hi" : {
@@ -359706,7 +362393,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nothing unusual today"
+            "value" : "Nothing notable today"
           }
         },
         "es" : {
@@ -386324,187 +389011,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تعذّر فتح قفل قائمة المتابعة المحفوظة الآن ولذلك لا تُعرض – ستعود بعد إعادة تشغيل التطبيق. لن تُحفظ التغييرات التي تجريها الآن."
+            "value" : "تعذّرت قراءة البيانات المحفوظة الآن، لذلك لا تُعرض قائمة المتابعة ولن تُحفظ التغييرات التي تجريها الآن. أعد تشغيل التطبيق."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uložený seznam teď nelze odemknout a nezobrazuje se – po restartu aplikace bude zpět. Změny provedené teď se neuloží."
+            "value" : "Uložená data teď nelze přečíst, proto se seznam nezobrazuje a změny provedené teď se neuloží. Restartujte aplikaci."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den gemte overvågningsliste kan ikke låses op lige nu og vises ikke – den er tilbage, når appen genstartes. Ændringer foretaget nu bliver ikke gemt."
+            "value" : "Gemte data kan ikke læses lige nu, så overvågningslisten vises ikke, og ændringer foretaget nu bliver ikke gemt. Genstart appen."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die gespeicherte Merkliste lässt sich gerade nicht entsperren und wird nicht angezeigt – nach einem Neustart der App ist sie wieder da. Änderungen von jetzt werden nicht gespeichert."
+            "value" : "Gespeicherte Daten gerade nicht lesbar – die Merkliste wird nicht angezeigt, Änderungen von jetzt werden nicht gespeichert. Starte die App neu."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Η αποθηκευμένη λίστα δεν μπορεί να ξεκλειδωθεί αυτή τη στιγμή και δεν εμφανίζεται – θα επιστρέψει μετά την επανεκκίνηση της εφαρμογής. Οι αλλαγές που κάνετε τώρα δεν θα αποθηκευτούν."
+            "value" : "Τα αποθηκευμένα δεδομένα δεν μπορούν να διαβαστούν αυτή τη στιγμή, γι' αυτό η λίστα δεν εμφανίζεται και οι αλλαγές που κάνετε τώρα δεν θα αποθηκευτούν. Επανεκκινήστε την εφαρμογή."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The saved watchlist can't be unlocked right now and isn't shown – it will be back after restarting the app. Changes made now won't be saved."
+            "value" : "Saved data can't be read right now, so the watchlist isn't shown and changes made now won't be saved. Restart the app."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La lista guardada no se puede desbloquear ahora y no se muestra; volverá tras reiniciar la app. Los cambios hechos ahora no se guardarán."
+            "value" : "Ahora no se pueden leer los datos guardados, así que la lista no se muestra y los cambios hechos ahora no se guardarán. Reinicia la app."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قفل واچ‌لیست ذخیره‌شده الان باز نمی‌شود و نمایش داده نمی‌شود – پس از راه‌اندازی دوبارهٔ برنامه برمی‌گردد. تغییراتی که الان می‌دهید ذخیره نمی‌شوند."
+            "value" : "داده‌های ذخیره‌شده الان خوانده نمی‌شوند، بنابراین واچ‌لیست نمایش داده نمی‌شود و تغییراتی که الان می‌دهید ذخیره نمی‌شوند. برنامه را دوباره راه‌اندازی کنید."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tallennetun seurantalistan lukitusta ei voi juuri nyt avata, eikä sitä näytetä – se palaa, kun sovellus käynnistetään uudelleen. Nyt tehtyjä muutoksia ei tallenneta."
+            "value" : "Tallennettuja tietoja ei voi juuri nyt lukea, joten seurantalistaa ei näytetä eikä nyt tehtyjä muutoksia tallenneta. Käynnistä sovellus uudelleen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La liste enregistrée ne peut pas être déverrouillée pour l'instant et n'est pas affichée – elle reviendra après le redémarrage de l'app. Les modifications faites maintenant ne seront pas enregistrées."
+            "value" : "Les données enregistrées sont illisibles pour l'instant : la liste n'est pas affichée et les modifications faites maintenant ne seront pas enregistrées. Redémarrez l'app."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "לא ניתן לבטל כרגע את נעילת רשימת המעקב השמורה ולכן היא לא מוצגת – היא תחזור אחרי הפעלה מחדש של האפליקציה. שינויים שתבצע עכשיו לא יישמרו."
+            "value" : "לא ניתן לקרוא כרגע את הנתונים השמורים, ולכן רשימת המעקב לא מוצגת ושינויים שתבצע עכשיו לא יישמרו. הפעל מחדש את האפליקציה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सहेजी गई वॉचलिस्ट अभी अनलॉक नहीं हो पा रही, इसलिए नहीं दिख रही – ऐप दोबारा शुरू करने पर यह वापस आ जाएगी। अभी किए गए बदलाव सहेजे नहीं जाएँगे।"
+            "value" : "सहेजा गया डेटा अभी पढ़ा नहीं जा सकता, इसलिए वॉचलिस्ट नहीं दिख रही और अभी किए गए बदलाव सहेजे नहीं जाएँगे। ऐप दोबारा शुरू करें।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A mentett figyelőlistát most nem lehet feloldani, ezért nem látható – az alkalmazás újraindítása után visszatér. A most végzett módosítások nem lesznek mentve."
+            "value" : "A mentett adatok most nem olvashatók, ezért a figyelőlista nem látható, és a most végzett módosítások nem lesznek mentve. Indítsd újra az alkalmazást."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daftar pantau tersimpan belum bisa dibuka saat ini dan tidak ditampilkan – akan kembali setelah aplikasi dimulai ulang. Perubahan yang dibuat sekarang tidak akan disimpan."
+            "value" : "Data tersimpan tidak dapat dibaca saat ini, jadi daftar pantau tidak ditampilkan dan perubahan yang dibuat sekarang tidak akan disimpan. Mulai ulang aplikasi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La lista salvata non può essere sbloccata al momento e non viene mostrata – tornerà dopo il riavvio dell'app. Le modifiche fatte ora non verranno salvate."
+            "value" : "I dati salvati non sono leggibili al momento, quindi la lista non viene mostrata e le modifiche fatte ora non verranno salvate. Riavvia l'app."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "保存済みのウォッチリストを今はロック解除できないため表示していません。アプリを再起動すると戻ります。今行った変更は保存されません。"
+            "value" : "保存済みのデータを今は読み取れないため、ウォッチリストを表示できず、今行った変更は保存されません。アプリを再起動してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "저장된 관심 목록을 지금 잠금 해제할 수 없어 표시하지 않습니다. 앱을 다시 시작하면 돌아옵니다. 지금 변경한 내용은 저장되지 않습니다."
+            "value" : "저장된 데이터를 지금 읽을 수 없어 관심 목록을 표시할 수 없고, 지금 변경한 내용은 저장되지 않습니다. 앱을 다시 시작하세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den lagrede overvåkingslisten kan ikke låses opp akkurat nå og vises ikke – den er tilbake når appen startes på nytt. Endringer du gjør nå, blir ikke lagret."
+            "value" : "Lagrede data kan ikke leses akkurat nå, så overvåkingslisten vises ikke, og endringer du gjør nå, blir ikke lagret. Start appen på nytt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De opgeslagen volglijst kan nu niet worden ontgrendeld en wordt niet getoond – na een herstart van de app is hij terug. Wijzigingen van nu worden niet opgeslagen."
+            "value" : "Opgeslagen gegevens zijn nu niet leesbaar, dus de volglijst wordt niet getoond en wijzigingen van nu worden niet opgeslagen. Start de app opnieuw."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zapisanej listy nie można teraz odblokować i nie jest wyświetlana – wróci po ponownym uruchomieniu aplikacji. Zmiany wprowadzone teraz nie zostaną zapisane."
+            "value" : "Zapisanych danych nie można teraz odczytać, więc lista nie jest wyświetlana, a zmiany wprowadzone teraz nie zostaną zapisane. Uruchom aplikację ponownie."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A lista guardada não pode ser desbloqueada agora e não é mostrada – voltará depois de reiniciar a app. As alterações feitas agora não serão guardadas."
+            "value" : "Os dados guardados não podem ser lidos agora, por isso a lista não é mostrada e as alterações feitas agora não serão guardadas. Reinicie a app."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A lista salva não pode ser desbloqueada agora e não é exibida – ela volta depois que você reiniciar o app. As alterações feitas agora não serão salvas."
+            "value" : "Os dados salvos não podem ser lidos agora, por isso a lista não é exibida e as alterações feitas agora não serão salvas. Reinicie o app."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista salvată nu poate fi deblocată acum și nu este afișată – va reveni după repornirea aplicației. Modificările făcute acum nu vor fi salvate."
+            "value" : "Datele salvate nu pot fi citite acum, așa că lista nu este afișată, iar modificările făcute acum nu vor fi salvate. Repornește aplicația."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сохранённый список сейчас не удаётся разблокировать, поэтому он не показан – он вернётся после перезапуска приложения. Изменения, сделанные сейчас, не сохранятся."
+            "value" : "Сохранённые данные сейчас не удаётся прочитать, поэтому список не показан, а изменения, сделанные сейчас, не сохранятся. Перезапустите приложение."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista e ruajtur nuk mund të shkyçet tani dhe nuk shfaqet – do të rikthehet pas rinisjes së aplikacionit. Ndryshimet e bëra tani nuk do të ruhen."
+            "value" : "Të dhënat e ruajtura nuk mund të lexohen tani, ndaj lista nuk shfaqet dhe ndryshimet e bëra tani nuk do të ruhen. Rinis aplikacionin."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den sparade bevakningslistan kan inte låsas upp just nu och visas inte – den är tillbaka när appen startas om. Ändringar du gör nu sparas inte."
+            "value" : "Sparade data kan inte läsas just nu, så bevakningslistan visas inte och ändringar du gör nu sparas inte. Starta om appen."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ไม่สามารถปลดล็อกรายการติดตามที่บันทึกไว้ได้ในขณะนี้ จึงไม่แสดง – จะกลับมาหลังจากเริ่มแอปใหม่ การเปลี่ยนแปลงที่ทำตอนนี้จะไม่ถูกบันทึก"
+            "value" : "ยังอ่านข้อมูลที่บันทึกไว้ไม่ได้ในขณะนี้ จึงไม่แสดงรายการติดตาม และการเปลี่ยนแปลงที่ทำตอนนี้จะไม่ถูกบันทึก โปรดเริ่มแอปใหม่"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kayıtlı listenin kilidi şu anda açılamıyor ve gösterilmiyor – uygulama yeniden başlatıldığında geri gelir. Şimdi yapılan değişiklikler kaydedilmez."
+            "value" : "Kayıtlı veriler şu anda okunamıyor, bu yüzden liste gösterilmiyor ve şimdi yapılan değişiklikler kaydedilmez. Uygulamayı yeniden başlatın."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Збережений список зараз не вдається розблокувати, тому він не показаний – він повернеться після перезапуску застосунку. Зміни, зроблені зараз, не збережуться."
+            "value" : "Збережені дані зараз не вдається прочитати, тому список не показаний, а зміни, зроблені зараз, не збережуться. Перезапустіть застосунок."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Danh sách đã lưu hiện không thể mở khóa nên không được hiển thị – danh sách sẽ trở lại sau khi khởi động lại ứng dụng. Các thay đổi thực hiện bây giờ sẽ không được lưu."
+            "value" : "Hiện không đọc được dữ liệu đã lưu, nên danh sách không được hiển thị và các thay đổi thực hiện bây giờ sẽ không được lưu. Hãy khởi động lại ứng dụng."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已保存的自选列表暂时无法解锁，因此未显示——重启应用后会恢复。现在所做的更改不会被保存。"
+            "value" : "暂时无法读取已保存的数据，因此自选列表不会显示，现在所做的更改也不会被保存。请重启应用。"
           }
         }
       }

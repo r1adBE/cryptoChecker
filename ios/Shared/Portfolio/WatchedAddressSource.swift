@@ -55,7 +55,7 @@ actor WatchedAddressSource {
     private static let minRequestMillis: Int64 = 1_000
     /// xpub: Pause zwischen zwei Adressen (Vordergrund) — höflich zu den kostenlosen Anbietern.
     static let xpubPauseMillis: Int64 = 200
-    /// xpub im Hintergrund (Zeitbudget, nur bekannte benutzte Adressen).
+    /// xpub im Hintergrund (Zeitbudget, bekannte benutzte Adressen und kurzer Vorausblick).
     static let xpubPauseBackgroundMillis: Int64 = 50
 
     /// Pausen je Host (nur im Speicher; ein Neustart beginnt frisch).
@@ -70,8 +70,9 @@ actor WatchedAddressSource {
     /// - Parameter force: manuelles Aktualisieren (kürzerer Abstand).
     /// - Parameter budgetMillis: Hintergrund: höchstens so lange insgesamt (je Anfrage höchstens
     ///   `backgroundRequestMillis`); läuft schon ein Abruf, wird nicht gewartet. Was nicht mehr drankommt,
-    ///   bleibt fällig. nil = Vordergrund, ohne Grenze. xpub im Hintergrund: nur die bekannten benutzten Adressen und
-    ///   nur ganz (sonst bleibt er fällig).
+    ///   bleibt fällig. nil = Vordergrund, ohne Grenze. xpub im Hintergrund: die bekannten benutzten Adressen samt kurzem
+    ///   Vorausblick und nur ganz (sonst bleibt er fällig). Hintergrund: die am längsten nicht versuchten zuerst
+    ///   (`AddressBalance.dueOrder`).
     func refresh(_ addresses: [WatchedAddress], force: Bool, now: Int64 = TimeUtils.nowMillis,
                  budgetMillis: Int64? = nil) async throws -> [Update] {
         let deadline = budgetMillis.map { TimeUtils.nowMillis + $0 }
@@ -79,7 +80,7 @@ actor WatchedAddressSource {
         running += 1
         defer { running -= 1 }
         var updates: [Update] = []
-        for a in addresses where AddressBalance.isDue(lastAttempt: a.lastAttempt, now: now, force: force) {
+        for a in AddressBalance.dueOrder(addresses, now: now, force: force, background: deadline != nil) {
             try Task.checkCancellation()
             let time = TimeUtils.nowMillis
             do {
@@ -132,7 +133,7 @@ actor WatchedAddressSource {
         case .LTC:
             let (balance, provider) = try await firstWorking(ChainBalance.ltcHosts, deadline: deadline) { (host: String) -> String in
                 let body = try await Self.load(ChainBalance.ltcUrl(host: host, address: address), post: nil)
-                let stats = try AddressBalance.parseBtc(body, address: address)
+                let stats = try AddressBalance.parseBtc(body, address: address, chain: .LTC)
                 return AddressBalance.unitsText(String(stats.totalSats), decimals: AddressChain.LTC.decimals)
             }
             return Fetched(balance: balance, provider: provider)

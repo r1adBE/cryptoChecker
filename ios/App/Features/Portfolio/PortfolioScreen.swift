@@ -262,11 +262,8 @@ struct PortfolioScreen: View {
         }
         .sensoryFeedback(.impact(weight: .medium), trigger: deleteTick)
         .confirmationDialog(L("portfolio_clear"), isPresented: $askClear, titleVisibility: .visible) {
-            Button(L("portfolio_clear"), role: .destructive) {
-                var cleared = true
-                withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { cleared = data.clearPortfolio() }
-                if !cleared { banner = .portfolioNotSaved }
-            }
+            // Danach «Rückgängig» im Banner (alle Transaktionen mit ihren ids zurück) — wie Android
+            Button(L("portfolio_clear"), role: .destructive) { clearAll() }
             Button(L("action_cancel"), role: .cancel) {}
         } message: {
             // Anzahl nennen; beobachtete Adressen bleiben (nur Transaktionen werden gelöscht) — wie Android

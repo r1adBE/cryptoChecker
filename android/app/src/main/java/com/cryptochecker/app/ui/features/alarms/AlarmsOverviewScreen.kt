@@ -68,12 +68,15 @@ fun AlarmsOverviewScreen(
     onOpenLog: () -> Unit = {},
     /** «Damit Alarme ankommen» öffnen (Erlaubnisse, Akku, letzte Prüfung). */
     onOpenDelivery: () -> Unit = {},
+    /** Leere Merkliste: «Paar hinzufügen» (Seite «Paar hinzufügen», wie «+» der Merkliste). */
+    onAddPair: () -> Unit = {},
     viewModel: AlarmsOverviewViewModel = hiltViewModel(),
     lockViewModel: PortfolioLockViewModel = hiltViewModel(),
 ) {
     val groups by viewModel.groups.collectAsStateWithLifecycle()
     val portfolioAlarms by viewModel.portfolioAlarms.collectAsStateWithLifecycle()
     val portfolioDisplay by viewModel.portfolioDisplay.collectAsStateWithLifecycle()
+    val portfolioPause by viewModel.portfolioPause.collectAsStateWithLifecycle()
     val portfolioAccess by lockViewModel.access.collectAsStateWithLifecycle()
     // Beträge der Portfolio-Alarme: verborgen mit «Beträge verbergen» oder solange das Portfolio gesperrt ist
     val hidePortfolio = portfolioDisplay.first || portfolioAccess != PortfolioAccess.OPEN
@@ -146,8 +149,15 @@ fun AlarmsOverviewScreen(
                 iconRes = R.drawable.ic_notifications_active,
                 title = stringResource(R.string.alarms_overview_empty),
                 example = alarmsEmptyExample(),
-                actionLabel = if (watches.isNotEmpty()) stringResource(R.string.alarms_add) else null,
-                onAction = { if (watches.size == 1) onOpenWatch(watches.first().id) else pickPair = true },
+                // Leere Merkliste: ohne Paar kein Alarm — direkt «Paar hinzufügen» statt einer Sackgasse
+                actionLabel = stringResource(if (watches.isNotEmpty()) R.string.alarms_add else R.string.shortcut_add),
+                onAction = {
+                    when {
+                        watches.isEmpty() -> onAddPair()
+                        watches.size == 1 -> onOpenWatch(watches.first().id)
+                        else -> pickPair = true
+                    }
+                },
                 modifier = Modifier.fillMaxSize().padding(padding),
             )
             if (pickPair) {
@@ -175,6 +185,8 @@ fun AlarmsOverviewScreen(
                     item(key = "portfolio") {
                         PortfolioAlarmsCard(
                             alarms = portfolioAlarms,
+                            // Gesperrtes Portfolio bzw. «Beträge verbergen»: ohne Coin-Namen
+                            pausedHint = portfolioPause?.let { PortfolioPauseText.text(context, it, hideCoins = hidePortfolio) },
                             sentence = { PortfolioAlarmTexts.sentence(context, it, portfolioDisplay.second, hidePortfolio) },
                             onToggle = viewModel::setPortfolioAlarmEnabled,
                             onDelete = { askDeletePortfolio = it }
@@ -265,6 +277,7 @@ fun AlarmsOverviewScreen(
 @Composable
 private fun PortfolioAlarmsCard(
     alarms: List<PortfolioAlarmEntity>,
+    pausedHint: String?,
     sentence: (PortfolioAlarmEntity) -> String,
     onToggle: (Long, Boolean) -> Unit,
     onDelete: (PortfolioAlarmEntity) -> Unit,
@@ -275,6 +288,15 @@ private fun PortfolioAlarmsCard(
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
         )
+        // Warum die Alarme gerade nicht prüfen (kein aktueller Kurs, Adressen nicht geladen) — sonst schwiegen sie still
+        if (pausedHint != null) {
+            Text(
+                pausedHint,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(start = Spacing.lg, end = Spacing.lg, bottom = Spacing.md)
+            )
+        }
         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         alarms.forEach { alarm ->
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {

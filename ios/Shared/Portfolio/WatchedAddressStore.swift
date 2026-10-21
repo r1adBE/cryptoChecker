@@ -14,10 +14,13 @@ struct WatchedAddressFile: Codable, Equatable {
 
     private enum CodingKeys: String, CodingKey { case addresses, nextId }
 
+    /// Ein unlesbarer Eintrag (z. B. unbekanntes Netz einer neueren Version) wird übersprungen, statt die ganze Datei
+    /// unlesbar zu machen — wie Android (`mapNotNull`); die Id läuft nie hinter vergebene Ids zurück.
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
-        addresses = try c.decodeIfPresent([WatchedAddress].self, forKey: .addresses) ?? []
-        nextId = try c.decodeIfPresent(Int64.self, forKey: .nextId) ?? 1
+        addresses = try SharedStorage.lenientArray(c, .addresses, decoder: decoder) ?? []
+        let stored = (try? c.decodeIfPresent(Int64.self, forKey: .nextId)) ?? 1
+        nextId = SharedStorage.nextId(stored: stored, used: addresses.map(\.id))
     }
 }
 

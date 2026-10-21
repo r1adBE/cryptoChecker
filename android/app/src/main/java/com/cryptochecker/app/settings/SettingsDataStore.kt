@@ -17,7 +17,9 @@ import timber.log.Timber
 
 /**
  * Beschädigte Datei (z. B. halb geschrieben oder aus einer Systemsicherung wiederhergestellt):
- * durch leere Einstellungen ersetzen (= Standardwerte) statt bei jedem Start abzustürzen.
+ * durch leere Einstellungen ersetzen (= Standardwerte) statt bei jedem Start abzustürzen. Die Migrationen
+ * sehen dann eine neue Installation (Portfolio aus); sind Portfolio-Daten da, schaltet [PortfolioDataCheck]
+ * das Portfolio beim Start wieder ein.
  */
 internal val Context.settingsDataStore: DataStore<Preferences> by preferencesDataStore(
     name = "settings",
@@ -63,6 +65,7 @@ private object InstallDefaultsMigration : DataMigration<Preferences> {
     private val convertedKey = booleanPreferencesKey(SettingsRepository.KEY_SHOW_CONVERTED)
     private val alphaKey = booleanPreferencesKey(SettingsRepository.KEY_INCLUDE_ALPHA_TOKENS)
     private val portfolioKey = booleanPreferencesKey(SettingsRepository.KEY_PORTFOLIO_ENABLED)
+    private val portfolioCheckKey = booleanPreferencesKey(SettingsRepository.KEY_PORTFOLIO_DATA_CHECK)
 
     override suspend fun shouldMigrate(currentData: Preferences): Boolean =
         currentData[namesKey] == null || currentData[convertedKey] == null || currentData[alphaKey] == null ||
@@ -82,8 +85,13 @@ private object InstallDefaultsMigration : DataMigration<Preferences> {
                 existing, AppSettings.LEGACY_SHOW_CONVERTED, current.showConverted)
             if (currentData[alphaKey] == null) this[alphaKey] = AppSettings.defaultForMigration(
                 existing, AppSettings.LEGACY_INCLUDE_ALPHA_TOKENS, current.includeAlphaTokens)
-            if (currentData[portfolioKey] == null) this[portfolioKey] = AppSettings.defaultForMigration(
-                existing, AppSettings.LEGACY_PORTFOLIO_ENABLED, current.portfolioEnabled)
+            if (currentData[portfolioKey] == null) {
+                this[portfolioKey] = AppSettings.defaultForMigration(
+                    existing, AppSettings.LEGACY_PORTFOLIO_ENABLED, current.portfolioEnabled)
+                // Standard einer neuen Installation (auch nach beschädigter Datei): beim Start prüfen, ob doch
+                // Portfolio-Daten da sind ([PortfolioDataCheck])
+                if (!existing) this[portfolioCheckKey] = true
+            }
         }.toPreferences()
     }
 

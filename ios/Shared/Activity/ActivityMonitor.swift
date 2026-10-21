@@ -156,7 +156,7 @@ enum ActivityMonitor {
 
         // Veraltete oder unplausible Reihen (z. B. Spot nach Delisting) liefern keine Signale
         let valid = CandleSeries.usable(candles, now: now, tickerChange24h: rolling24h(watch))
-        let stats = valid.flatMap { ActivityAnalyzer.hourStats($0) }
+        let stats = valid.flatMap { ActivityAnalyzer.hourStats($0, now: now) }
         let oi = openInterest(watch, futures, now: now, store: true)
         // ⚡ nur bei einheitlicher Richtung gegenüber den älteren Messungen (wie Android)
         let oiChange: Double? = oi.flatMap { $0.consistent ? $0.changePercent : nil }

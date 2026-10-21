@@ -45,7 +45,7 @@
     <string name="portfolio_csv_import_transfers_title">Overføringer mellom kontoene dine</string>
     <string name="portfolio_csv_import_unreadable">Fant ingen støttede transaksjoner. Støttet: CSV-eksporter fra Relai, Swissquote, Kraken, Binance, Coinbase og Bitpanda.</string>
     <string name="portfolio_csv_import_failed">Importen mislyktes – ingenting ble lagret. Prøv igjen.</string>
-    <string name="portfolio_csv_import_locked">Import er ikke mulig akkurat nå: den lagrede porteføljen er låst. Åpne appen igjen senere.</string>
+    <string name="portfolio_csv_import_locked">Import er ikke mulig: Lagrede data kan ikke leses akkurat nå. Start appen på nytt.</string>
     <string name="portfolio_csv_import_withdrawals_title">Uttak – hvor ble coinene av?</string>
     <string name="portfolio_csv_import_zone">Tidspunkter uten tidssone leses som: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Enhet (%1$s)</string>

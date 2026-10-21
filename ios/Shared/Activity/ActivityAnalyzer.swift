@@ -11,8 +11,9 @@ enum ActivityAnalyzer {
     /// Vergleichsstunden für Volatilität und Volumen.
     static let windowHours = 24
 
-    /// 24 Vergleichsrenditen brauchen 25 Schlusskurse + letzte abgeschlossene + laufende Stunde.
-    static let minCandles = windowHours + 3
+    /// Mindestens so viele gültige Stunden-Renditen (genau 1 h Abstand) im 24-h-Fenster, sonst keine
+    /// Kennzahlen — bei vielen Lücken (dünn gehandelt, Coinbase) wäre σ nicht belastbar.
+    static let minWindowReturns = 20
 
     // MARK: Schwellen der Einordnung («Warum»-Blatt)
     static let priceZThreshold = 3.0
@@ -124,49 +125,56 @@ enum ActivityAnalyzer {
 
     // MARK: Kennzahlen
 
-    /// Letzte abgeschlossene Stunde (vorletzte Kerze) gegen die 24 Stunden davor.
-    /// Renditen Schluss zu Schluss in %, z = (r − Mittel) / Standardabweichung
-    /// (Stichprobe, n − 1). nil bei zu wenig oder ungültigen Kerzen.
-    static func hourStats(_ candles: [MarketCandle]) -> HourStats? {
-        guard candles.count >= minCandles else { return nil }
-        let last = candles.count - 2
-        let first = last - windowHours
+    /// Letzte abgeschlossene Stunde gegen die 24 Stunden davor. Renditen Schluss zu Schluss in %,
+    /// z = (r − Mittel) / Standardabweichung (Stichprobe, n − 1). Nur Renditen über genau eine
+    /// Stunde zählen: Coinbase u. a. lassen Stunden ohne Handel weg, sonst gälte eine Bewegung über
+    /// mehrere Stunden als Stunden-Bewegung (z zu hoch, falsches ⚡). Die abgeschlossene Stunde ist
+    /// die vor der laufenden zu `now` (im Raster der Kerzen; nil = die letzte Kerze läuft) — fehlt
+    /// sie oder ihre Vorgängerin: nil. nil auch bei weniger als `minWindowReturns` gültigen
+    /// Vergleichsrenditen. Wie Android.
+    static func hourStats(_ candles: [MarketCandle], now: Int64? = nil) -> HourStats? {
+        guard let newest = candles.last else { return nil }
+        var byOpen: [Int64: MarketCandle] = [:]
+        for c in candles { byOpen[c.openTime] = c }
+        // Wie viele Stunden die neueste Kerze vor der laufenden liegt (Uhr nachgehend: 0)
+        let behind: Int64 = now.map { max(0, ($0 - newest.openTime) / hourMillis) } ?? 0
+        let moveOpen = newest.openTime + (behind - 1) * hourMillis
 
-        func ret(_ i: Int) -> Double? {
-            let prev = candles[i - 1].close
-            let cur = candles[i].close
-            return prev > 0 && cur > 0 ? (cur / prev - 1) * 100 : nil
+        func ret(_ open: Int64) -> Double? {
+            guard let prev = byOpen[open - hourMillis]?.close, let cur = byOpen[open]?.close,
+                  prev > 0, cur > 0 else { return nil }
+            let r = (cur / prev - 1) * 100
+            return r.isFinite ? r : nil
         }
 
-        var window: [Double] = []
-        window.reserveCapacity(windowHours)
-        for i in first..<last {
-            guard let r = ret(i) else { return nil }
-            window.append(r)
-        }
-        guard let move = ret(last) else { return nil }
+        guard let move = ret(moveOpen), let moveCandle = byOpen[moveOpen] else { return nil }
+        // Vergleichsstunden aufsteigend (gleiche Summenreihenfolge wie bisher)
+        let windowOpens = (1...windowHours).reversed().map { moveOpen - Int64($0) * hourMillis }
+        let window = windowOpens.compactMap { ret($0) }
+        guard window.count >= minWindowReturns else { return nil }
         let mean = window.reduce(0, +) / Double(window.count)
         let variance = window.reduce(0) { $0 + ($1 - mean) * ($1 - mean) } / Double(window.count - 1)
         let sigma = max(variance.squareRoot(), minSigmaPercent)
 
         // Volumen: Umsatz in der Quote, wenn jede Kerze ihn hat (Binance), sonst die gehandelte
-        // Menge in Coins (Coinbase u. a.) — dann nur genähert. Zu viele Stunden ganz ohne Handel:
-        // kein Verhältnis (ein Schnitt über leere Stunden wäre bedeutungslos). Wie Android.
-        let quote = (first...last).allSatisfy { i in
-            guard let q = candles[i].quoteVolume else { return false }
+        // Menge in Coins (Coinbase u. a.) — dann nur genähert. Fehlende Stunden zählen als Stunden
+        // ohne Handel. Zu viele davon: kein Verhältnis (ein Schnitt über leere Stunden wäre bedeutungslos).
+        let windowCandles = windowOpens.compactMap { byOpen[$0] }
+        let quote = (windowCandles + [moveCandle]).allSatisfy { c in
+            guard let q = c.quoteVolume else { return false }
             return q.isFinite && q >= 0
         }
-        func vol(_ i: Int) -> Double { quote ? (candles[i].quoteVolume ?? 0) : candles[i].volume }
-        let emptyHours = (first..<last).filter { !(vol($0) > 0) }.count
-        let avgVolume = (first..<last).reduce(0.0) { $0 + vol($1) } / Double(windowHours)
-        var ratio: Double? = avgVolume > 0 && emptyHours <= maxEmptyVolumeHours ? vol(last) / avgVolume : nil
+        func vol(_ c: MarketCandle) -> Double { quote ? (c.quoteVolume ?? 0) : c.volume }
+        let emptyHours = windowHours - windowCandles.count + windowCandles.filter { !(vol($0) > 0) }.count
+        let avgVolume = windowCandles.reduce(0.0) { $0 + vol($1) } / Double(windowHours)
+        var ratio: Double? = avgVolume > 0 && emptyHours <= maxEmptyVolumeHours ? vol(moveCandle) / avgVolume : nil
         if let r = ratio, !r.isFinite { ratio = nil }
 
         return HourStats(
             movePercent: move,
             zScore: (move - mean) / sigma,
             volumeRatio: ratio,
-            candleOpenTime: candles[last].openTime,
+            candleOpenTime: moveOpen,
             volumeApproximate: !quote
         )
     }

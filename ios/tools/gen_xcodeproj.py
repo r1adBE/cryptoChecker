@@ -36,7 +36,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "93"
+CURRENT_PROJECT_VERSION = "94"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -345,6 +345,8 @@ def project_settings(debug):
             "ENABLE_NS_ASSERTIONS": "NO",
             "MTL_ENABLE_DEBUG_INFO": "NO",
             "SWIFT_COMPILATION_MODE": "wholemodule",
+            # Ausdrücklich statt Xcode-Vorgabe: CI (ios.yml) prüft die Release-Einstellungen gegen diesen Wert.
+            "SWIFT_OPTIMIZATION_LEVEL": "-O",
             "VALIDATE_PRODUCT": "YES",
         })
     return dict(sorted(s.items()))

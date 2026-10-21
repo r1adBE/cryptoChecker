@@ -1,0 +1,59 @@
+# Store readiness without a build, on every pull request and push to main (fast, ubuntu):
+# store text limits (Play and App Store), https store URLs, screenshots, the same version and build
+# number on Android and iOS, and that ios/CryptoChecker.xcodeproj matches ios/tools/gen_xcodeproj.py.
+# Results as annotations (release_readiness.py, annotate.py). The folder review_information is never read.
+name: Release readiness
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-readiness-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Errors: text over the limit, URL without https, version differs. Warnings: empty texts,
+      # no screenshots.
+      - name: Store metadata and versions
+        run: |
+          F="$RUNNER_TEMP/readiness-findings.tsv"
+          : > "$F"
+          python3 -I .github/scripts/release_readiness.py "$GITHUB_WORKSPACE" "$F"
+          python3 -I .github/scripts/annotate.py "$F" "Release readiness"
+
+      # The project file is generated: regenerate it and compare. A difference means
+      # «python3 ios/tools/gen_xcodeproj.py» was not run (or its output not committed); the
+      # Mac build would then use a different file list or different settings than the generator.
+      - name: Xcode project matches gen_xcodeproj.py
+        run: |
+          set -uo pipefail
+          # Workflow command data: escape % and line breaks
+          esc() { python3 -I -c 'import sys; print(sys.stdin.read().rstrip("\n").replace("%", "%25").replace("\r", "").replace("\n", "%0A"))'; }
+          if ! OUT=$(python3 -I ios/tools/gen_xcodeproj.py 2>&1); then
+            printf '%s\n' "$OUT" | tail -n 20
+            MSG=$(printf '%s\n' "$OUT" | tail -n 8 | esc)
+            echo "::error title=Xcode project drift::ios/tools/gen_xcodeproj.py failed:%0A$MSG"
+            exit 1
+          fi
+          CHANGED=$(git status --porcelain -- ios)
+          if [ -n "$CHANGED" ]; then
+            git --no-pager diff --stat -- ios | tail -n 20
+            LIST=$(printf '%s\n' "$CHANGED" | head -n 12 | esc)
+            echo "::error title=Xcode project drift::Run «python3 ios/tools/gen_xcodeproj.py» and commit the result. Changed by the generator:%0A$LIST"
+            exit 1
+          fi
+          echo "::notice title=Xcode project drift::ios/CryptoChecker.xcodeproj matches gen_xcodeproj.py"

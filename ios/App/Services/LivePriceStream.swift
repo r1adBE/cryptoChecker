@@ -251,10 +251,14 @@ actor LivePriceStream {
                 await Self.sleep(millis: min(max(state.pausedUntil - now, 1_000), LiveBackoff.rateLimitedMillis))
                 continue
             }
+            let startedAt = TimeUtils.nowMillis
             let ended = await connectOnce(spec)
             if Task.isCancelled { return }
-            attempt = ended.receivedData ? 0 : attempt + 1
-            await Self.sleep(millis: LiveBackoff.delayMillis(attempt: attempt, rateLimited: ended.rateLimited))
+            // Zurück auf 1 s erst nach stabiler Verbindung; Pause gestreut (wie Android)
+            attempt = LiveBackoff.nextAttempt(attempt, receivedData: ended.receivedData,
+                                              connectedMillis: TimeUtils.nowMillis - startedAt)
+            await Self.sleep(millis: LiveBackoff.reconnectDelayMillis(attempt: attempt, rateLimited: ended.rateLimited,
+                                                                       random: Double.random(in: 0..<1)))
         }
     }
 

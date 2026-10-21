@@ -1,5 +1,7 @@
-# Release gate for the Android app (android/): unit tests, lint, instrumented tests compiled,
-# debug and release (R8, unsigned) builds; on pull requests also a dependency review.
+# Release gate for the Android app (android/): unit tests, lint (debug and release), instrumented
+# tests compiled, debug and release (R8, unsigned) APK and AAB, an audit of the release build
+# (merged manifest policy, R8 mapping, baseline profile, 16 KB alignment; results as annotations)
+# and the release evidence as artifact; on pull requests also a dependency review.
 name: Android
 
 on:
@@ -8,10 +10,20 @@ on:
     paths:
       - 'android/**'
       - '.github/workflows/android.yml'
+      - '.github/scripts/android_release_audit.sh'
+      - '.github/scripts/manifest_policy.py'
+      - '.github/scripts/apk_contents.py'
+      - '.github/scripts/annotate.py'
+      - '.github/scripts/lint_errors.sh'
   pull_request:
     paths:
       - 'android/**'
       - '.github/workflows/android.yml'
+      - '.github/scripts/android_release_audit.sh'
+      - '.github/scripts/manifest_policy.py'
+      - '.github/scripts/apk_contents.py'
+      - '.github/scripts/annotate.py'
+      - '.github/scripts/lint_errors.sh'
   workflow_dispatch:
 
 permissions:
@@ -24,7 +36,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     defaults:
       run:
         working-directory: android
@@ -66,22 +78,47 @@ jobs:
         run: ./gradlew :app:assembleDebugAndroidTest --stacktrace
 
       # Lint as a gate (abortOnError = true in app/build.gradle.kts): report uploaded on failure.
+      # Release too: the store build has its own source set (src/withoutHttpLog) and R8-only checks.
       - name: Lint
-        run: ./gradlew :app:lintDebug --stacktrace
+        run: ./gradlew :app:lintDebug :app:lintRelease --stacktrace
 
       # Lint errors as annotations (the log shows only the first one; the run page shows these
       # without signing in)
       - name: Lint errors
         if: failure()
-        run: bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
+        run: |
+          bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
+          bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
 
       - name: Build debug APK
         run: ./gradlew :app:assembleDebug --stacktrace
 
       # Release build without keystore stays unsigned (app/build.gradle.kts); it runs R8/minify and
-      # resource shrinking, so missing keep rules show up here and not only on a device.
-      - name: Build release (unsigned, R8)
-        run: ./gradlew :app:assembleRelease --stacktrace
+      # resource shrinking, so missing keep rules show up here and not only on a device. The AAB is
+      # what goes to Play (native debug symbols, baseline profile and R8 mapping inside).
+      - name: Build release APK and AAB (unsigned, R8)
+        run: ./gradlew :app:assembleRelease :app:bundleRelease --stacktrace
+
+      # Audit of the release build as annotations (readable without the raw log). Errors are release
+      # blockers: forbidden permissions, debuggable/testOnly/cleartext, exported components without
+      # permission, typed foreground services, missing APK/AAB/R8 mapping. Warnings: baseline
+      # profile, 16 KB alignment, merged manifest not found. Details: android_release_audit.sh.
+      - name: Release audit
+        run: |
+          FINDINGS="$RUNNER_TEMP/android-release-findings.tsv"
+          bash "$GITHUB_WORKSPACE/.github/scripts/android_release_audit.sh" "$FINDINGS" "$RUNNER_TEMP/release-evidence"
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$FINDINGS" "Android release audit"
+
+      # Evidence of the audited release build: R8 mapping (deobfuscate crashes of exactly this
+      # build), AAB, merged manifest with summary and merger report.
+      - name: Upload release evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android-release-evidence
+          path: ${{ runner.temp }}/release-evidence/
+          if-no-files-found: ignore
+          retention-days: 30
 
       - name: Upload debug APK
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -100,6 +137,7 @@ jobs:
             android/**/build/reports/tests/
             android/app/build/reports/lint-results-*.html
             android/app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
+            android/app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
           if-no-files-found: ignore
 
   # Dependency graph for GitHub (Dependabot alerts) from the resolved Gradle dependencies.

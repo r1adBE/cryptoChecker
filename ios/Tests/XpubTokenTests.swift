@@ -250,6 +250,14 @@ final class XpubTokenTests: XCTestCase {
             XCTAssertEqual(cache.usedReceive, (e["usedReceive"] as? [Any] ?? []).map { int($0) }, "usedReceive \(name)")
             XCTAssertEqual(cache.usedChange, (e["usedChange"] as? [Any] ?? []).map { int($0) }, "usedChange \(name)")
             XCTAssertEqual(cache.fullScan, mode == .FULL ? Int64(777) : (oldCache?.fullScan ?? 0))
+            XCTAssertEqual(scan.complete, e["complete"] as? Bool ?? true, "complete \(name)")
+        }
+        // Seit Build 94: Hintergrund mit Vorausblick; unvollständig und tiefer als zuletzt = nicht übernehmen
+        XCTAssertEqual(XpubScan.backgroundLookahead, int(g["backgroundLookahead"]))
+        for c in S.list(g["keepBackground"]) {
+            XCTAssertEqual(XpubScan.keepBackground(complete: c["complete"] as? Bool ?? false, sats: int64(c["sats"]),
+                                                   lastBalance: c["lastBalance"] as? String),
+                           c["keep"] as? Bool, "keepBackground \(c)")
         }
         for c in S.list(g["modeFor"]) {
             let cache = (c["cache"] as? [String: Any]).map { XpubCache(fullScan: int64($0["fullScan"])) }

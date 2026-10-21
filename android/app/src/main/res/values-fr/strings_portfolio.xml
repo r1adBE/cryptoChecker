@@ -6,9 +6,9 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Vider le portefeuille</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Supprimer %d transaction ? Les adresses suivies restent. Cette action est irréversible.</item>
-        <item quantity="many">Supprimer les %d transactions ? Les adresses suivies restent. Cette action est irréversible.</item>
-        <item quantity="other">Supprimer les %d transactions ? Les adresses suivies restent. Cette action est irréversible.</item>
+        <item quantity="one">Supprimer %d transaction ? Les adresses suivies restent. Vous pourrez l\'annuler juste après.</item>
+        <item quantity="many">Supprimer les %d transactions ? Les adresses suivies restent. Vous pourrez l\'annuler juste après.</item>
+        <item quantity="other">Supprimer les %d transactions ? Les adresses suivies restent. Vous pourrez l\'annuler juste après.</item>
     </plurals>
     <string name="portfolio_empty_action">Ajouter votre premier achat</string>
     <string name="portfolio_empty_address">Suivre seulement une adresse de wallet</string>
@@ -307,4 +307,20 @@
         <item quantity="many">%1$s retiré du portefeuille (%2$d transactions)</item>
         <item quantity="other">%1$s retiré du portefeuille (%2$d transactions)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d transaction supprimée</item>
+        <item quantity="many">%d transactions supprimées</item>
+        <item quantity="other">%d transactions supprimées</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">%d lot sera aussi supprimé.</item>
+        <item quantity="many">%d lots seront aussi supprimés.</item>
+        <item quantity="other">%d lots seront aussi supprimés.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">%d lot et l\'historique des soldes seront aussi supprimés.</item>
+        <item quantity="many">%d lots et l\'historique des soldes seront aussi supprimés.</item>
+        <item quantity="other">%d lots et l\'historique des soldes seront aussi supprimés.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">L\'historique des soldes sera aussi supprimé.</string>
 </resources>

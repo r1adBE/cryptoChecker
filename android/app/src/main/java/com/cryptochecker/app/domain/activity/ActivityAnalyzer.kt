@@ -17,8 +17,11 @@ object ActivityAnalyzer {
     /** Vergleichsstunden für Volatilität und Volumen. */
     const val WINDOW_HOURS = 24
 
-    /** 24 Vergleichsrenditen brauchen 25 Schlusskurse + letzte abgeschlossene + laufende Stunde. */
-    const val MIN_CANDLES = WINDOW_HOURS + 3
+    /**
+     * Mindestens so viele gültige Stunden-Renditen (genau 1 h Abstand) im 24-h-Fenster, sonst keine
+     * Kennzahlen — bei vielen Lücken (dünn gehandelt, Coinbase) wäre σ nicht belastbar.
+     */
+    const val MIN_WINDOW_RETURNS = 20
 
     // --- Signale ---
     const val PRICE_Z_THRESHOLD = 3.0
@@ -135,40 +138,52 @@ object ActivityAnalyzer {
     // ---------------- Kennzahlen ----------------
 
     /**
-     * Letzte abgeschlossene Stunde (vorletzte Kerze) gegen die 24 Stunden davor.
-     * Renditen Schluss zu Schluss in %, z = (r − Mittel) / Standardabweichung
-     * (Stichprobe, n − 1). null bei zu wenig oder ungültigen Kerzen.
+     * Letzte abgeschlossene Stunde gegen die 24 Stunden davor. Renditen Schluss zu Schluss in %,
+     * z = (r − Mittel) / Standardabweichung (Stichprobe, n − 1). Nur Renditen über genau eine
+     * Stunde zählen: Coinbase u. a. lassen Stunden ohne Handel weg, sonst gälte eine Bewegung über
+     * mehrere Stunden als Stunden-Bewegung (z zu hoch, falsches ⚡). Die abgeschlossene Stunde ist
+     * die vor der laufenden zu [now] (im Raster der Kerzen; null = die letzte Kerze läuft) — fehlt
+     * sie oder ihre Vorgängerin: null. null auch bei weniger als [MIN_WINDOW_RETURNS] gültigen
+     * Vergleichsrenditen.
      */
-    fun hourStats(candles: List<HourCandle>): HourStats? {
-        if (candles.size < MIN_CANDLES) return null
-        val last = candles.size - 2
-        val first = last - WINDOW_HOURS
-        fun ret(i: Int): Double? {
-            val prev = candles[i - 1].close
-            val cur = candles[i].close
-            return if (prev > 0.0 && cur > 0.0) (cur / prev - 1.0) * 100.0 else null
+    fun hourStats(candles: List<HourCandle>, now: Long? = null): HourStats? {
+        val newest = candles.lastOrNull() ?: return null
+        val byOpen = candles.associateBy { it.openTime }
+        // Wie viele Stunden die neueste Kerze vor der laufenden liegt (Uhr nachgehend: 0)
+        val behind = if (now == null) 0L else maxOf(0L, (now - newest.openTime) / HOUR_MILLIS)
+        val moveOpen = newest.openTime + (behind - 1) * HOUR_MILLIS
+        fun ret(open: Long): Double? {
+            val prev = byOpen[open - HOUR_MILLIS]?.close ?: return null
+            val cur = byOpen[open]?.close ?: return null
+            if (!(prev > 0.0) || !(cur > 0.0)) return null
+            return ((cur / prev - 1.0) * 100.0).takeIf { it.isFinite() }
         }
 
-        val window = (first until last).map { ret(it) ?: return null }
-        val move = ret(last) ?: return null
+        val move = ret(moveOpen) ?: return null
+        val moveCandle = byOpen.getValue(moveOpen)
+        // Vergleichsstunden aufsteigend (gleiche Summenreihenfolge wie bisher)
+        val windowOpens = (WINDOW_HOURS downTo 1).map { moveOpen - it * HOUR_MILLIS }
+        val window = windowOpens.mapNotNull { ret(it) }
+        if (window.size < MIN_WINDOW_RETURNS) return null
         val mean = window.average()
         val variance = window.sumOf { (it - mean) * (it - mean) } / (window.size - 1)
         val sigma = maxOf(sqrt(variance), MIN_SIGMA_PERCENT)
 
         // Volumen: Umsatz in der Quote, wenn jede Kerze ihn hat (Binance), sonst die gehandelte
-        // Menge in Coins (Coinbase u. a.) — dann nur genähert. Zu viele Stunden ganz ohne Handel:
-        // kein Verhältnis (ein Schnitt über leere Stunden wäre bedeutungslos).
-        val quote = (first..last).all { candles[it].quoteVolume?.let { q -> q.isFinite() && q >= 0.0 } == true }
-        fun vol(i: Int): Double = if (quote) candles[i].quoteVolume ?: 0.0 else candles[i].volume
-        val emptyHours = (first until last).count { !(vol(it) > 0.0) }
-        val avgVolume = (first until last).sumOf { vol(it) } / WINDOW_HOURS
-        val ratio = if (avgVolume > 0.0 && emptyHours <= MAX_EMPTY_VOLUME_HOURS) vol(last) / avgVolume else null
+        // Menge in Coins (Coinbase u. a.) — dann nur genähert. Fehlende Stunden zählen als Stunden
+        // ohne Handel. Zu viele davon: kein Verhältnis (ein Schnitt über leere Stunden wäre bedeutungslos).
+        val windowCandles = windowOpens.mapNotNull { byOpen[it] }
+        val quote = (windowCandles + moveCandle).all { it.quoteVolume?.let { q -> q.isFinite() && q >= 0.0 } == true }
+        fun vol(c: HourCandle): Double = if (quote) c.quoteVolume ?: 0.0 else c.volume
+        val emptyHours = WINDOW_HOURS - windowCandles.size + windowCandles.count { !(vol(it) > 0.0) }
+        val avgVolume = windowCandles.sumOf { vol(it) } / WINDOW_HOURS
+        val ratio = if (avgVolume > 0.0 && emptyHours <= MAX_EMPTY_VOLUME_HOURS) vol(moveCandle) / avgVolume else null
 
         return HourStats(
             movePercent = move,
             zScore = (move - mean) / sigma,
             volumeRatio = ratio?.takeIf { it.isFinite() },
-            candleOpenTime = candles[last].openTime,
+            candleOpenTime = moveOpen,
             volumeApproximate = !quote,
         )
     }

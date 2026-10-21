@@ -74,6 +74,11 @@ class PortfolioSnapshotStore @Inject constructor(
             displayFx = PortfolioSnapshotCodec.readDisplayFx(p.text(KEY_DISPLAY_FX_V8)),
             unrealizedDisplay = PortfolioSnapshotCodec.readDisplayChange(p.text(KEY_UNREALIZED_DISPLAY_V8)),
             weekDisplay = PortfolioSnapshotCodec.readDisplayChange(p.text(KEY_WEEK_DISPLAY_V8)),
+            // fehlen bei älteren Aufnahmen → leer/0/null (Hinweis «Portfolio-Alarme pausiert» ohne Namen)
+            missingCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_MISSING_COINS_V9)),
+            staleCoins = PortfolioSnapshotCodec.readCoins(p.text(KEY_STALE_COINS_V9)),
+            staleValueUsdt = p.number(KEY_STALE_VALUE_V9),
+            addressesPending = p.optInt(KEY_ADDRESSES_PENDING_V9, 0).coerceAtLeast(0),
         )
     }
 
@@ -250,6 +255,12 @@ class PortfolioSnapshotStore @Inject constructor(
         snapshot.displayFx?.let { payload.put(KEY_DISPLAY_FX_V8, PortfolioSnapshotCodec.displayFxJson(it)) }
         PortfolioSnapshotCodec.displayChangeJson(snapshot.unrealizedDisplay)?.let { payload.put(KEY_UNREALIZED_DISPLAY_V8, it) }
         PortfolioSnapshotCodec.displayChangeJson(snapshot.weekDisplay)?.let { payload.put(KEY_WEEK_DISPLAY_V8, it) }
+        for ((key, coins) in listOf(KEY_MISSING_COINS_V9 to snapshot.missingCoins, KEY_STALE_COINS_V9 to snapshot.staleCoins)) {
+            val list = coins.filter { it.isNotBlank() }
+            if (list.isNotEmpty()) payload.put(key, JSONArray().apply { list.forEach { put(it) } }.toString())
+        }
+        payload.putNumber(KEY_STALE_VALUE_V9, snapshot.staleValueUsdt)
+        if (snapshot.addressesPending > 0) payload.put(KEY_ADDRESSES_PENDING_V9, snapshot.addressesPending)
         writeSealed(payload)
     }
 
@@ -309,6 +320,11 @@ class PortfolioSnapshotStore @Inject constructor(
         const val KEY_DISPLAY_FX_V8 = "display_fx_v8"
         const val KEY_UNREALIZED_DISPLAY_V8 = "unrealized_display_v8"
         const val KEY_WEEK_DISPLAY_V8 = "week_display_v8"
+        // Version 9: warum Portfolio-Alarme pausieren (Coins ohne aktuellen Kurs, Wert alter Kurse, nie geladene Adressen)
+        const val KEY_MISSING_COINS_V9 = "missing_coins_v9"
+        const val KEY_STALE_COINS_V9 = "stale_coins_v9"
+        const val KEY_STALE_VALUE_V9 = "stale_value_v9"
+        const val KEY_ADDRESSES_PENDING_V9 = "addresses_pending_v9"
         // Zuletzt bekannter Devisenkurs USD → Umrechnungswährung (Hintergrund und Widget ohne Netz)
         const val KEY_FX_CURRENCY = "fx_currency"
         const val KEY_FX_RATE = "fx_rate"

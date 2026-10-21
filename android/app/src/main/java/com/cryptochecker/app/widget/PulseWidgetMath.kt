@@ -2,6 +2,7 @@ package com.cryptochecker.app.widget
 
 import com.cryptochecker.app.domain.market.PulseReport
 import com.cryptochecker.app.domain.market.PulseSummary
+import com.cryptochecker.app.util.PercentText
 import com.cryptochecker.app.util.PriceFormat
 import java.util.Locale
 import kotlin.math.abs
@@ -122,10 +123,11 @@ object PulseWidgetMath {
      * nie dem Farbtausch.
      */
     fun changeText(change: Double, locale: Locale = Locale.getDefault()): String {
-        if (isFlat(change)) return String.format(locale, "%.1f", 0.0) + "%"
+        // Prozentzeichen der Sprache ([PercentText]): «0,0 %», türkisch «%0,0», arabisch «٠٫٠٪»
+        if (isFlat(change)) return PercentText.unsigned(0.0, 1, locale)
         val arrow = if (change > 0) PriceFormat.ARROW_UP else PriceFormat.ARROW_DOWN
         val sign = if (change > 0) "+" else "−"
-        return arrow + " " + sign + String.format(locale, "%.1f", abs(change)) + "%"
+        return arrow + " " + sign + PercentText.unsigned(change, 1, locale)
     }
 
     /** Text eines Coins «BTC ↗ +2.8%» (Kürzel in der Textfarbe, Veränderung in der Kursfarbe). */

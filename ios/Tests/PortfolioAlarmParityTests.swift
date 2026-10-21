@@ -26,4 +26,37 @@ final class PortfolioAlarmParityTests: XCTestCase {
             }
         }
     }
+
+    /// Unvollständiger Stand (seit Build 94): Adressen, Wesentlichkeit alter Kurse, Hinweis «pausiert».
+    func testIncomplete() throws {
+        let block = try XCTUnwrap(try data()["incomplete"] as? [String: Any])
+        XCTAssertEqual(PortfolioAlarmLogic.immaterialShare, TestSupport.number(block["immaterialShare"]))
+        func int(_ v: Any?) -> Int { Int(TestSupport.number(v) ?? 0) }
+        for c in TestSupport.list(block["cases"]) {
+            let r = c["reading"] as? [String: Any] ?? [:]
+            var reading = PortfolioReading(total: 0, currency: "USDT", totalUsdt: TestSupport.number(r["totalUsdt"]),
+                                           changePercent: 1, empty: false)
+            reading.missingPrices = int(r["missingPrices"])
+            reading.todaySkipped = int(r["todaySkipped"])
+            reading.stalePrices = int(r["stalePrices"])
+            reading.staleValueUsdt = TestSupport.number(r["staleValueUsdt"])
+            reading.addressesPending = int(r["addressesPending"])
+            let name = c["name"] as? String ?? ""
+            XCTAssertEqual(PortfolioAlarmLogic.incomplete(.VALUE_BELOW, reading), c["value"] as? Bool, "Wert: \(name)")
+            XCTAssertEqual(PortfolioAlarmLogic.incomplete(.VALUE_ABOVE, reading), c["value"] as? Bool, "Wert darüber: \(name)")
+            XCTAssertEqual(PortfolioAlarmLogic.incomplete(.CHANGE_UP, reading), c["change"] as? Bool, "Veränderung: \(name)")
+            let kinds = (c["kinds"] as? [String] ?? []).compactMap { PortfolioAlarmKind(rawValue: $0) }
+            let pause = PortfolioAlarmLogic.pause(kinds, reading, missingCoins: c["missingCoins"] as? [String] ?? [],
+                                                  staleCoins: c["staleCoins"] as? [String] ?? [])
+            let expected: PortfolioAlarmPause?
+            if c["pause"] as? String == "addresses" {
+                expected = .addressesPending(int(r["addressesPending"]))
+            } else if let coins = c["pause"] as? [String] {
+                expected = .noPrice(coins)
+            } else {
+                expected = nil
+            }
+            XCTAssertEqual(pause, expected, "pause: \(name)")
+        }
+    }
 }

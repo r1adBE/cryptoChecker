@@ -207,6 +207,14 @@ final class AppData: ObservableObject {
         watchedAddresses = Self.sortedWatched(watched.file.addresses)
         // Einmalig: alter Bestand aus der Merkliste wird zu Käufen im Portfolio
         migrateHoldingsOnce()
+        // Einstellungen fehlten oder waren unlesbar (Standardwerte), Portfolio-Daten sind aber da: Portfolio an
+        if settingsAccessible && loadedSettings.state == .missing {
+            let recovered = portfolioRecovered(settings, state: loadedSettings.state)
+            if recovered.portfolioEnabled != settings.portfolioEnabled {
+                settings = recovered
+                SharedStorage.saveSettings(settings)
+            }
+        }
         // Update mit vorhandenen Alarmen: die Erst-Alarm-Bestätigung gilt als gezeigt
         if settingsAccessible && !settings.firstAlarmShown && !snapshot.alarms.isEmpty {
             settings.firstAlarmShown = true
@@ -233,6 +241,19 @@ final class AppData: ObservableObject {
         SharedStorage.loadSettingsChecked(protectedDataAvailable: UIApplication.shared.isProtectedDataAvailable)
     }
 
+    /// Einstellungen ohne gelesenen Stand (fehlend oder unlesbar → Standardwerte, Portfolio aus), aber Portfolio-Daten
+    /// vorhanden: bestehende Installation, Portfolio an (`AppSettings.enablePortfolioForData`, wie Android).
+    private func portfolioRecovered(_ loaded: AppSettings, state: SharedStorage.SettingsReadState) -> AppSettings {
+        let hasData = !portfolioFile.transactions.isEmpty || !watchedAddressFile.addresses.isEmpty
+            || !(snapshot.portfolioAlarms ?? []).isEmpty
+        guard AppSettings.enablePortfolioForData(resetDefaults: state == .missing,
+                                                 portfolioEnabled: loaded.portfolioEnabled,
+                                                 hasPortfolioData: hasData) else { return loaded }
+        var recovered = loaded
+        recovered.portfolioEnabled = true
+        return recovered
+    }
+
     /// Portfolio-Sperre wirksam: eingeschaltet — oder unbekannt, solange die Einstellungen nicht zugänglich sind.
     var appLockEffective: Bool { !settingsAccessible || settings.appLock }
 
@@ -247,7 +268,7 @@ final class AppData: ObservableObject {
         if loaded.state == .missing { SharedStorage.markSettingsReadable() }
         settingsAccessible = true
         // didSet: speichert denselben Stand und wendet die Folgen der Unterschiede an
-        settings = loaded.settings
+        settings = portfolioRecovered(loaded.settings, state: loaded.state)
         PortfolioStore.applyBackupPolicy(includeInBackup: settings.portfolioSystemBackup)
         AppLock.shared.settingsReloaded()
         BackgroundRefresh.schedule(settings: settings)

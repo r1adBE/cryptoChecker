@@ -49,7 +49,7 @@
     <string name="portfolio_csv_import_transfers_title">Transferencias entre tus cuentas</string>
     <string name="portfolio_csv_import_unreadable">No se encontraron transacciones compatibles. Compatibles: exportaciones CSV de Relai, Swissquote, Kraken, Binance, Coinbase y Bitpanda.</string>
     <string name="portfolio_csv_import_failed">La importación no se ha podido completar: no se ha guardado nada. Inténtalo de nuevo.</string>
-    <string name="portfolio_csv_import_locked">Ahora no se puede importar: la cartera guardada está bloqueada. Vuelve a abrir la app más tarde.</string>
+    <string name="portfolio_csv_import_locked">No se puede importar: ahora no se pueden leer los datos guardados. Reinicia la app.</string>
     <string name="portfolio_csv_import_withdrawals_title">Retiradas: ¿adónde fueron las monedas?</string>
     <string name="portfolio_csv_import_zone">Horas sin zona horaria leídas como: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Dispositivo (%1$s)</string>

@@ -78,7 +78,8 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     /// für die Zeilen im Portfolio-Tab — die Summe ist `changeAmount` (in USDT); nil bei älterem Stand.
     var coinPnl: [String: PortfolioWidgetChange]?
     /// Bewertete Coins, deren Kurs beim Aufnehmen NICHT frisch war (`PortfolioPriceFallback.staleCoins`) — sie zählen
-    /// mit ihrem letzten Kurs; das Widget zeigt «teilweise alter Kurs», Portfolio-Alarme prüfen nicht. nil = 0.
+    /// mit ihrem letzten Kurs; das Widget zeigt «teilweise alter Kurs», Portfolio-Alarme prüfen nicht (ausser
+    /// unwesentlich, `staleValueUsdt`). nil = 0.
     /// Wie Android `PortfolioSnapshot.stalePrices`.
     var stalePrices: Int?
     /// Merkzettel der App für «Seit Kauf» und «7 T» in der Anzeigewährung (`PortfolioDisplayFx`) — gespeichert, damit
@@ -91,6 +92,16 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     /// «7 T» in `currency` mit den Tageskursen der App wie die Gesamtkarte (`PortfolioDisplayFigures.periodFx`); nil =
     /// nicht rechenbar: das Widget zeigt dann `periodChanges` in USDT mit Einheit «USDT». Wie Android `weekDisplay`.
     var weekDisplay: PortfolioWidgetChange?
+    /// Coins zu `missingPrices` (Grossschreibung, sortiert) — Hinweis «Portfolio-Alarme pausiert»; nil bei älterem Stand.
+    var missingCoins: [String]?
+    /// Coins zu `stalePrices` (sortiert) — Hinweis «Portfolio-Alarme pausiert»; nil bei älterem Stand.
+    var staleCoins: [String]?
+    /// Wert der Coins mit altem Kurs in USDT (zum letzten Kurs) — Portfolio-Alarme prüfen trotzdem, wenn er unwesentlich
+    /// ist (`PortfolioAlarmLogic.staleMaterial`); nil = unbekannt (älterer Stand). Wie Android `staleValueUsdt`.
+    var staleValueUsdt: Double?
+    /// Zählende Adressen ohne je geladenes Guthaben (`AddressBalance.pendingCount`) — fehlen in `total`; Portfolio-Alarme
+    /// prüfen dann nicht. nil = 0 (älterer Stand). Wie Android `addressesPending`.
+    var addressesPending: Int?
 
     init(total: Double, changeAmount: Double?, changePercent: Double?, currency: String, updatedAt: Int64, empty: Bool,
          totalUsdt: Double? = nil, positions: [PortfolioWidgetPosition]? = nil, otherPositions: Int? = nil,
@@ -146,6 +157,8 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     var missingCount: Int { Swift.max(0, missingPrices ?? 0) }
     /// Coins mit altem Kurs (0 bei älterem Stand).
     var staleCount: Int { Swift.max(0, stalePrices ?? 0) }
+    /// Nie geladene zählende Adressen (0 bei älterem Stand).
+    var pendingAddressCount: Int { Swift.max(0, addressesPending ?? 0) }
     /// Tagesverlauf (leer bei älterem Stand).
     var dailyPoints: [PortfolioHistoryPoint] { (daily ?? []).map(\.point) }
 
@@ -160,5 +173,21 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
         }
         copy.periodChanges = changes.isEmpty ? nil : changes
         return copy
+    }
+}
+
+extension PortfolioWidgetSnapshot {
+    /// Stand für die Portfolio-Alarme — Prüfung (`AppData.evaluatePortfolioAlarms`) und Hinweis «pausiert» der
+    /// Alarm-Übersicht (`PortfolioAlarmLogic.pause`) lesen ihn gleich. Wie Android `PortfolioSnapshot.toAlarmReading`.
+    func alarmReading(usdTo: [String: Double] = [:], usdtUsdLive: Double? = nil) -> PortfolioReading {
+        PortfolioReading(total: total, currency: currency, totalUsdt: totalUsdt, changePercent: changePercent, empty: empty,
+                         usdTo: usdTo, missingPrices: missingCount, todaySkipped: todaySkipped?.count ?? 0,
+                         stalePrices: staleCount, usdtUsdLive: usdtUsdLive, staleValueUsdt: staleValueUsdt,
+                         addressesPending: pendingAddressCount)
+    }
+
+    /// Hinweis «Portfolio-Alarme pausiert» für die eingeschalteten Alarme `kinds`; nil = keiner.
+    func alarmPause(_ kinds: [PortfolioAlarmKind]) -> PortfolioAlarmPause? {
+        PortfolioAlarmLogic.pause(kinds, alarmReading(), missingCoins: missingCoins ?? [], staleCoins: staleCoins ?? [])
     }
 }

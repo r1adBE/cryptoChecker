@@ -3,8 +3,10 @@
 # (main flows over the UI: add a coin from the search, price alarm, CSV import with undo, backup
 # with password — fake exchange answers, no network; the document picker is answered by
 # DocumentPickerStub).
-# Too slow for every push (android.yml only compiles them), so started by hand:
-# Actions › Android device tests › Run workflow.
+# Too slow for every pull request (android.yml only compiles them): runs on pushes to main and by
+# hand (Actions › Android device tests › Run workflow).
+# Job release-smoke: the R8 release build (signed with a throwaway key) on API 26 (minSdk) and 34:
+# start, monkey, WorkManager jobs, crash buffer -> annotations (android_smoke_test.sh).
 name: Android device tests
 
 on:
@@ -16,6 +18,8 @@ on:
     paths:
       - 'android/**'
       - '.github/workflows/android-device-tests.yml'
+      - '.github/scripts/android_smoke_test.sh'
+      - '.github/scripts/annotate.py'
   # Optional weekly run (Monday 04:17 UTC); uncomment to enable.
   # schedule:
   #   - cron: '17 4 * * 1'
@@ -105,5 +109,105 @@ jobs:
           path: |
             android/app/build/reports/androidTests/
             android/app/build/outputs/androidTest-results/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  # The instrumented tests above use the debug build; R8 (shrinking, obfuscation, missing keep
+  # rules) only shows in the release build. This job installs exactly that build on an emulator.
+  release-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        # 26 = minSdk, 34 = same image as connected-tests
+        api-level: [26, 34]
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle (with cache)
+        uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Enable KVM
+        working-directory: .
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Build release APK (R8, unsigned)
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleRelease --stacktrace
+
+      # Throwaway key, valid for one day and never stored: only so the emulator accepts the APK.
+      # zipalign before apksigner (signing must come last); -P 16 needs build-tools 35+.
+      - name: Sign release APK with a throwaway key
+        run: |
+          set -euo pipefail
+          BT=$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)
+          UNSIGNED=$(find app/build/outputs/apk/release -maxdepth 1 -name '*.apk' | sort | head -n 1)
+          test -n "$UNSIGNED" || { echo "::error::No release APK in app/build/outputs/apk/release"; exit 1; }
+          KS="$RUNNER_TEMP/smoke.jks"
+          keytool -genkeypair -noprompt -keystore "$KS" -storepass smokepass -keypass smokepass \
+            -alias smoke -keyalg RSA -keysize 2048 -validity 1 -dname "CN=CI smoke test"
+          ALIGNED="$RUNNER_TEMP/release-aligned.apk"
+          if [ "$(basename "$BT" | cut -d. -f1)" -ge 35 ] 2>/dev/null; then
+            "$BT/zipalign" -f -P 16 4 "$UNSIGNED" "$ALIGNED"
+          else
+            "$BT/zipalign" -f -p 4 "$UNSIGNED" "$ALIGNED"
+          fi
+          "$BT/apksigner" sign --ks "$KS" --ks-pass pass:smokepass --key-pass pass:smokepass \
+            --out "$RUNNER_TEMP/release-smoke.apk" "$ALIGNED"
+          "$BT/apksigner" verify "$RUNNER_TEMP/release-smoke.apk"
+          rm -f "$KS"
+
+      # Emulator boot problems are environmental: the step may fail without failing the job; the
+      # results step then warns «no results». App crashes are judged there, not here.
+      - name: Release smoke test on emulator (API ${{ matrix.api-level }})
+        continue-on-error: true
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          working-directory: android
+          emulator-boot-timeout: 900
+          # The script never fails the step itself; the next step turns its findings into annotations.
+          script: bash "$GITHUB_WORKSPACE/.github/scripts/android_smoke_test.sh" "$RUNNER_TEMP/release-smoke.apk" ${{ matrix.api-level }} "$RUNNER_TEMP/smoke-findings.tsv" "$RUNNER_TEMP/smoke-logs"
+
+      # Crash -> error (job fails); ANR -> warning; success -> notice with the start time.
+      - name: Smoke test results
+        if: always()
+        run: |
+          F="$RUNNER_TEMP/smoke-findings.tsv"
+          if [ ! -s "$F" ]; then
+            echo "::warning title=Release smoke test API ${{ matrix.api-level }}::No smoke test results (emulator did not start or the script did not run)"
+            exit 0
+          fi
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$F" "Release smoke test API ${{ matrix.api-level }}"
+
+      - name: Upload smoke test logs
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-smoke-logs-api${{ matrix.api-level }}
+          path: ${{ runner.temp }}/smoke-logs/
           if-no-files-found: ignore
           retention-days: 14

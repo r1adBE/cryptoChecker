@@ -6,8 +6,8 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Clear portfolio</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Delete %d transaction? Watched addresses stay. This cannot be undone.</item>
-        <item quantity="other">Delete all %d transactions? Watched addresses stay. This cannot be undone.</item>
+        <item quantity="one">Delete %d transaction? Watched addresses stay. You can undo this right afterwards.</item>
+        <item quantity="other">Delete all %d transactions? Watched addresses stay. You can undo this right afterwards.</item>
     </plurals>
     <string name="portfolio_empty_action">Add your first purchase</string>
     <string name="portfolio_empty_address">Just watch a wallet address</string>
@@ -301,4 +301,19 @@
         <item quantity="one">%1$s removed from portfolio (%2$d transaction)</item>
         <item quantity="other">%1$s removed from portfolio (%2$d transactions)</item>
     </plurals>
+    <!-- Banner nach «Portfolio leeren» (mit «Rückgängig»), %d = Zahl der gelöschten Transaktionen -->
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d transaction removed</item>
+        <item quantity="other">%d transactions removed</item>
+    </plurals>
+    <!-- «Adresse entfernen»: was mit der Adresse mitgeht (Eröffnungsposten, Guthaben-Verlauf), unter der Adresse in der Rückfrage -->
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">This also removes %d lot.</item>
+        <item quantity="other">This also removes %d lots.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">This also removes %d lot and the balance history.</item>
+        <item quantity="other">This also removes %d lots and the balance history.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">This also removes the balance history.</string>
 </resources>

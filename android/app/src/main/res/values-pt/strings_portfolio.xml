@@ -6,9 +6,9 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Esvaziar portfólio</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Eliminar %d transação? Os endereços observados mantêm-se. Esta ação não pode ser anulada.</item>
-        <item quantity="many">Eliminar todas as %d transações? Os endereços observados mantêm-se. Esta ação não pode ser anulada.</item>
-        <item quantity="other">Eliminar todas as %d transações? Os endereços observados mantêm-se. Esta ação não pode ser anulada.</item>
+        <item quantity="one">Eliminar %d transação? Os endereços observados mantêm-se. Pode anular logo a seguir.</item>
+        <item quantity="many">Eliminar todas as %d transações? Os endereços observados mantêm-se. Pode anular logo a seguir.</item>
+        <item quantity="other">Eliminar todas as %d transações? Os endereços observados mantêm-se. Pode anular logo a seguir.</item>
     </plurals>
     <string name="portfolio_empty_action">Adicionar a primeira compra</string>
     <string name="portfolio_empty_address">Só acompanhar um endereço de carteira</string>
@@ -307,4 +307,20 @@
         <item quantity="many">%1$s removido do portfólio (%2$d transações)</item>
         <item quantity="other">%1$s removido do portfólio (%2$d transações)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d transação removida</item>
+        <item quantity="many">%d transações removidas</item>
+        <item quantity="other">%d transações removidas</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Também será removido %d lote.</item>
+        <item quantity="many">Também serão removidos %d lotes.</item>
+        <item quantity="other">Também serão removidos %d lotes.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Também serão removidos %d lote e o histórico de saldo.</item>
+        <item quantity="many">Também serão removidos %d lotes e o histórico de saldo.</item>
+        <item quantity="other">Também serão removidos %d lotes e o histórico de saldo.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Também será removido o histórico de saldo.</string>
 </resources>

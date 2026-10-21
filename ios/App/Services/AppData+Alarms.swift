@@ -172,11 +172,8 @@ extension AppData {
         for code in portfolioAlarmCurrencies(widget) {
             if let rate = FxRateSource.cached(code) { usdTo[code] = rate }
         }
-        let reading = PortfolioReading(total: widget.total, currency: widget.currency, totalUsdt: widget.totalUsdt,
-                                       changePercent: widget.changePercent, empty: widget.empty, usdTo: usdTo,
-                                       missingPrices: widget.missingCount, todaySkipped: widget.todaySkipped?.count ?? 0,
-                                       stalePrices: widget.staleCount,
-                                       usdtUsdLive: DepegAlarmCheck.liveUsdtUsd(now: TimeUtils.nowMillis))
+        // Teilweise alter Kurs (wesentlich), fehlende Kurse und nie geladene Adressen: diesmal nicht prüfen
+        let reading = widget.alarmReading(usdTo: usdTo, usdtUsdLive: DepegAlarmCheck.liveUsdtUsd(now: TimeUtils.nowMillis))
         let now = TimeUtils.nowMillis
         var list = snapshot.portfolioAlarms ?? []
         var fired: [(alarm: PortfolioAlarm, value: Double)] = []

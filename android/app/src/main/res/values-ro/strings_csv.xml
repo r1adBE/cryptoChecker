@@ -49,7 +49,7 @@
     <string name="portfolio_csv_import_transfers_title">Transferuri între conturile tale</string>
     <string name="portfolio_csv_import_unreadable">Nu s-au găsit tranzacții acceptate. Acceptate: exporturi CSV din Relai, Swissquote, Kraken, Binance, Coinbase și Bitpanda.</string>
     <string name="portfolio_csv_import_failed">Importul nu a reușit – nu s-a salvat nimic. Încearcă din nou.</string>
-    <string name="portfolio_csv_import_locked">Importul nu este posibil acum: portofoliul salvat este blocat. Deschide aplicația din nou mai târziu.</string>
+    <string name="portfolio_csv_import_locked">Importul nu este posibil: datele salvate nu pot fi citite acum. Repornește aplicația.</string>
     <string name="portfolio_csv_import_withdrawals_title">Retrageri – unde au ajuns monedele?</string>
     <string name="portfolio_csv_import_zone">Orele fără fus orar citite ca: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Dispozitiv (%1$s)</string>

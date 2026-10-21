@@ -53,7 +53,7 @@
     <string name="portfolio_csv_import_transfers_title">Переводы между вашими счетами</string>
     <string name="portfolio_csv_import_unreadable">Поддерживаемые транзакции не найдены. Поддерживаются: CSV-выгрузки Relai, Swissquote, Kraken, Binance, Coinbase и Bitpanda.</string>
     <string name="portfolio_csv_import_failed">Не удалось импортировать – ничего не сохранено. Попробуйте ещё раз.</string>
-    <string name="portfolio_csv_import_locked">Импорт сейчас невозможен: сохранённый портфель заблокирован. Откройте приложение позже ещё раз.</string>
+    <string name="portfolio_csv_import_locked">Импорт невозможен: сохранённые данные сейчас не удаётся прочитать. Перезапустите приложение.</string>
     <string name="portfolio_csv_import_withdrawals_title">Выводы – куда ушли монеты?</string>
     <string name="portfolio_csv_import_zone">Время без часового пояса читается как: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Устройство (%1$s)</string>

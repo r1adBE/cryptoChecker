@@ -11,6 +11,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.portfolio.WatchedAddressRefresher
 import com.cryptochecker.app.data.portfolio.withAddresses
+import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressBalanceHistory
 import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -174,13 +175,16 @@ class PortfolioSnapshotUpdater @Inject constructor(
         val basis = settings.changeBasis.storage
         // Beobachtete Adress-Guthaben: zählen in Heute, 7 T / 30 T / 1 J und im 24-h-Verlauf erst ab ihrer
         // ersten Beobachtung (nie rückwirkend); Fehler → ohne (dann nur der eigene Bestand)
-        val addresses = try {
-            AddressBalanceHistory.of(repository.getWatchedAddresses())
+        val watched = try {
+            repository.getWatchedAddresses()
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
             emptyList()
         }
+        val addresses = AddressBalanceHistory.of(watched)
+        // Zählende Adressen ohne je geladenes Guthaben: fehlen im Gesamtwert — Portfolio-Alarme prüfen dann nicht
+        val addressesPending = AddressBalance.pendingCount(watched)
         val recorded = mutex.withLock {
             val summary = PortfolioCalculator.summarize(transactions.map { it.toTrade() }, prices, settings.costMethod)
             // Noch kein einziger Kurs bekannt: lieber die letzte Aufnahme stehen lassen als 0 zeigen
@@ -207,10 +211,11 @@ class PortfolioSnapshotUpdater @Inject constructor(
             // Bewertete Coins ohne frischen Kurs (je Coin, [PortfolioPriceFallback.staleCoins]; ohne Abfragezeiten
             // gelten alle als alt): zählen mit dem letzten Kurs, die Aufnahme ist dann als «teilweise alter Kurs»
             // markiert, Portfolio-Alarme prüfen nicht, und ihr alter Kurs wird nie als Kurs «jetzt» gemerkt
-            val staleCoins = PortfolioPriceFallback.staleCoins(
-                summary.open.mapNotNull { p -> p.value?.let { PortfolioCalculator.normalizeCoin(p.coin) to it } }.toMap(),
-                routing?.times.orEmpty(), now, PortfolioPriceFallback.staleAfterMillis(settings.backgroundIntervalMinutes),
-            ).toSet()
+            val pricedValues = summary.open.mapNotNull { p -> p.value?.let { PortfolioCalculator.normalizeCoin(p.coin) to it } }.toMap()
+            val staleList = PortfolioPriceFallback.staleCoins(
+                pricedValues, routing?.times.orEmpty(), now, PortfolioPriceFallback.staleAfterMillis(settings.backgroundIntervalMinutes),
+            )
+            val staleCoins = staleList.toSet()
             val freshCurrent = current.filterKeys { PortfolioCalculator.normalizeCoin(it) !in staleCoins }
 
             // Stundenkurse für den 24-h-Wertverlauf: gemerkte, dazu was ohnehin schon geladen
@@ -249,7 +254,13 @@ class PortfolioSnapshotUpdater @Inject constructor(
                     transactions, todayHoldings(summary.open, addresses),
                     current, settings.changeBasis, now, rate, addresses, settings.costMethod,
                 )
-                .copy(stalePrices = staleCoins.size)
+                // Wert der alten Kurse (unwesentlich unter 1 %: Alarme prüfen trotzdem) und nie geladene Adressen
+                .copy(
+                    stalePrices = staleCoins.size,
+                    staleCoins = staleList,
+                    staleValueUsdt = staleList.sumOf { pricedValues[it] ?: 0.0 },
+                    addressesPending = addressesPending,
+                )
             store.save(snapshot, PortfolioSnapshotMath.addSample(history, PriceSample(now, freshCurrent)), hourlyPrices)
             snapshot
         }

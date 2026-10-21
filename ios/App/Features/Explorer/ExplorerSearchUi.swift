@@ -36,7 +36,8 @@ extension ExplorerScreen {
             }
         }
         .padding(.horizontal, 16)
-        .frame(height: 52)
+        // Mindesthöhe statt fester Höhe: grosse Schrift (AX-Grössen) wächst mit, statt abgeschnitten zu werden
+        .frame(minHeight: 52)
         .background(AppColors.containerHigh, in: Capsule())
         .overlay(
             Capsule().strokeBorder(searchFocused ? accent.primary.opacity(0.7) : .clear, lineWidth: 1.5)

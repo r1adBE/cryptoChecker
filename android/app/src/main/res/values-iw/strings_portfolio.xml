@@ -6,9 +6,9 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">ריקון תיק ההשקעות</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">למחוק את העסקה (%d)? כתובות במעקב נשארות. לא ניתן לבטל פעולה זו.</item>
-        <item quantity="two">למחוק את כל העסקאות (%d)? כתובות במעקב נשארות. לא ניתן לבטל פעולה זו.</item>
-        <item quantity="other">למחוק את כל העסקאות (%d)? כתובות במעקב נשארות. לא ניתן לבטל פעולה זו.</item>
+        <item quantity="one">למחוק את העסקה (%d)? כתובות במעקב נשארות. אפשר לבטל את זה מיד אחר כך.</item>
+        <item quantity="two">למחוק את כל העסקאות (%d)? כתובות במעקב נשארות. אפשר לבטל את זה מיד אחר כך.</item>
+        <item quantity="other">למחוק את כל העסקאות (%d)? כתובות במעקב נשארות. אפשר לבטל את זה מיד אחר כך.</item>
     </plurals>
     <string name="portfolio_empty_action">הוספת הקנייה הראשונה</string>
     <string name="portfolio_empty_address">רק לעקוב אחר כתובת ארנק</string>
@@ -307,4 +307,20 @@
         <item quantity="two">%1$s הוסר מתיק ההשקעות (עסקאות: %2$d)</item>
         <item quantity="other">%1$s הוסר מתיק ההשקעות (עסקאות: %2$d)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">עסקאות שנמחקו: %d</item>
+        <item quantity="two">עסקאות שנמחקו: %d</item>
+        <item quantity="other">עסקאות שנמחקו: %d</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">תימחק גם %d מנה.</item>
+        <item quantity="two">יימחקו גם %d מנות.</item>
+        <item quantity="other">יימחקו גם %d מנות.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">יימחקו גם %d מנה והיסטוריית היתרות.</item>
+        <item quantity="two">יימחקו גם %d מנות והיסטוריית היתרות.</item>
+        <item quantity="other">יימחקו גם %d מנות והיסטוריית היתרות.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">תימחק גם היסטוריית היתרות.</string>
 </resources>

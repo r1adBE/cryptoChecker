@@ -228,9 +228,12 @@ object ChainBalance {
         return result.trimStart('0').ifEmpty { "0" }
     }
 
-    /** Jetton-Wallets eines Besitzers (v3); höchstens 50, Guthaben 0 ausgeschlossen. */
+    /** Höchstens so viele Jetton-Wallets je Anfrage (eine Seite, ohne Blättern). */
+    const val TON_JETTON_LIMIT = 50
+
+    /** Jetton-Wallets eines Besitzers (v3); höchstens [TON_JETTON_LIMIT], Guthaben 0 ausgeschlossen. */
     fun tonJettonsUrl(host: String, address: String): String =
-        "$host/api/v3/jetton/wallets?owner_address=" + percent(address) + "&exclude_zero_balance=true&limit=50&offset=0"
+        "$host/api/v3/jetton/wallets?owner_address=" + percent(address) + "&exclude_zero_balance=true&limit=$TON_JETTON_LIMIT&offset=0"
 
     /** TON-Adresse (roh «0:hex» oder benutzerfreundlich) → 64 Hex klein; unlesbar = null. */
     fun tonRawHex(address: String): String? {
@@ -244,7 +247,11 @@ object ChainBalance {
         return raw.copyOfRange(2, 34).joinToString("") { "%02x".format(it.toInt() and 0xff) }
     }
 
-    /** `{"jetton_wallets":[{"balance":"…","jetton":"0:…"}]}` → bekannte Jettons (Symbol → Text), Summe je Jetton. */
+    /**
+     * `{"jetton_wallets":[{"balance":"…","jetton":"0:…"}]}` → bekannte Jettons (Symbol → Text), Summe je Jetton. Volle
+     * Seite ([TON_JETTON_LIMIT] Einträge): ein bekannter Jetton, der fehlt, kann auf der nächsten Seite stehen — er fehlt
+     * dann im Ergebnis (unbekannt, der letzte Wert bleibt) statt als 0 zu gelten.
+     */
     fun parseTonJettons(body: String): Map<String, String> {
         val wallets = JSONObject(body).optJSONArray("jetton_wallets") ?: throw IllegalStateException("jetton_wallets fehlt")
         val sums = LinkedHashMap<String, BigInteger>()
@@ -255,8 +262,12 @@ object ChainBalance {
             val balance = w.optString("balance").takeIf { s -> s.isNotEmpty() && s.all { it in '0'..'9' } } ?: continue
             sums[jetton.symbol] = (sums[jetton.symbol] ?: BigInteger.ZERO) + BigInteger(balance)
         }
+        val full = wallets.length() >= TON_JETTON_LIMIT
         val out = LinkedHashMap<String, String>()
-        for (j in ChainAssets.TON_JETTONS) out[j.symbol] = AddressBalance.unitsText((sums[j.symbol] ?: BigInteger.ZERO).toString(), j.decimals)
+        for (j in ChainAssets.TON_JETTONS) {
+            val sum = sums[j.symbol] ?: if (full) continue else BigInteger.ZERO
+            out[j.symbol] = AddressBalance.unitsText(sum.toString(), j.decimals)
+        }
         return out
     }
 

@@ -23,6 +23,7 @@ import com.cryptochecker.app.data.portfolio.WatchedAddressSource.Companion.XPUB_
  * Zwischen zwei Anfragen eine kurze Pause (schont die Anbieter). xpub ohne bekannten Adresstyp
  * ([XpubScan.scripts]): vollständig als P2PKH, ohne Verlauf als P2SH-P2WPKH, dann P2WPKH (Segwit-Konto mit xpub,
  * Ledger Live); der erste Typ mit Verlauf wird gemerkt ([XpubCache.script]), im Hintergrund wird nicht gesucht.
+ * Hintergrund unvollständig und tiefer als zuletzt ([XpubScan.keepBackground]): null (bleibt fällig).
  */
 internal suspend fun WatchedAddressSource.fetchXpub(a: WatchedAddress, deadline: Long?): Fetched? {
     val key = Bip32.parse(a.address) ?: throw IllegalArgumentException("xpub ungültig")
@@ -40,6 +41,7 @@ internal suspend fun WatchedAddressSource.fetchXpub(a: WatchedAddress, deadline:
     val scripts = XpubScan.scripts(key, stored)
     val tried = ArrayList<Pair<Bip32.Script, Int>>()
     val results = ArrayList<Fetched>()
+    val scans = ArrayList<XpubScan>()
     for (script in scripts) {
         val cache = stored?.takeIf { storedScript == script }
         val mode = if (scripts.size > 1) {
@@ -51,10 +53,15 @@ internal suspend fun WatchedAddressSource.fetchXpub(a: WatchedAddress, deadline:
         val (scan, fetched) = scanXpub(XpubDeriver(a.address, script), cache, mode, deadline)
         tried += script to scan.usedCount
         results += fetched
+        scans += scan
         if (scan.usedCount > 0) break
     }
     val pick = XpubScan.pickScript(key, tried)
-    val chosen = results[tried.indexOfFirst { it.first == pick }.coerceAtLeast(0)]
+    val index = tried.indexOfFirst { it.first == pick }.coerceAtLeast(0)
+    val chosen = results[index]
+    // Hintergrund mit möglicherweise übersehener neuer Adresse und tieferer Summe: nicht speichern (keine Beobachtung,
+    // kein Wert für Alarme) — bleibt fällig für die Suche im Vordergrund
+    if (deadline != null && !XpubScan.keepBackground(scans[index].complete, scans[index].totalSats, a.lastBalance)) return null
     return chosen.copy(xpub = chosen.xpub?.copy(script = pick))
 }
 

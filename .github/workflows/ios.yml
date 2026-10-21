@@ -16,6 +16,9 @@ on:
       - 'android/testdata/uitest/**'
       - '.github/workflows/ios.yml'
       - '.github/scripts/xcode_errors.sh'
+      - '.github/scripts/ios_release_audit.py'
+      - '.github/scripts/annotate.py'
+      - 'android/app/build.gradle.kts'
   pull_request:
     paths:
       - 'ios/**'
@@ -23,6 +26,9 @@ on:
       - 'android/testdata/uitest/**'
       - '.github/workflows/ios.yml'
       - '.github/scripts/xcode_errors.sh'
+      - '.github/scripts/ios_release_audit.py'
+      - '.github/scripts/annotate.py'
+      - 'android/app/build.gradle.kts'
   workflow_dispatch:
 
 concurrency:
@@ -37,7 +43,7 @@ jobs:
     # Since 28 April 2026 App Store uploads must be built with Xcode 26 / the iOS 26 SDK,
     # so CI builds with the same toolchain.
     runs-on: macos-26
-    timeout-minutes: 90
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -95,6 +101,68 @@ jobs:
           tail -n 60 "$LOG"
           bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
           exit $status
+
+      # Release build settings of app and widget as annotations (ios_release_audit.py settings):
+      # error for DEBUG conditions, testability or a version different from Android; warning for
+      # optimisation level, VALIDATE_PRODUCT and dSYM.
+      - name: Release build settings audit
+        working-directory: ios
+        run: |
+          F="$RUNNER_TEMP/ios-settings-findings.tsv"
+          : > "$F"
+          xcodebuild -showBuildSettings -json \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            > "$RUNNER_TEMP/release-settings.json" 2> "$RUNNER_TEMP/release-settings.err" || true
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/ios_release_audit.py" settings \
+            "$RUNNER_TEMP/release-settings.json" "$GITHUB_WORKSPACE/android/app/build.gradle.kts" "$F"
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$F" "iOS release settings"
+
+      # The archive is built for devices, not the Simulator: same Release build for
+      # generic/platform=iOS, unsigned. Compile errors fail the step; a failure with only signing
+      # errors (no team/profile on the runner) is a warning, not an app error.
+      - name: Build Release for device (no signing)
+        working-directory: ios
+        run: |
+          LOG="$RUNNER_TEMP/xcode-build-device.log"
+          F="$RUNNER_TEMP/ios-device-findings.tsv"
+          : > "$F"
+          set +e
+          xcodebuild build \
+            -project CryptoChecker.xcodeproj \
+            -scheme CryptoChecker \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath "$RUNNER_TEMP/DerivedDataDevice" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            > "$LOG" 2>&1
+          status=$?
+          set -e
+          tail -n 40 "$LOG"
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/ios_release_audit.py" build-log "$LOG" "$status" "$F"
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$F" "iOS device Release build"
+
+      # The built Release app: Info.plist (version = Android, background tasks, export compliance),
+      # privacy manifests in app and widget, no UI test hooks or XCTest in the binaries, compiler
+      # warnings (count + first 8). Device build if it exists, otherwise the Simulator Release build.
+      - name: Inspect Release app
+        working-directory: ios
+        run: |
+          F="$RUNNER_TEMP/ios-app-findings.tsv"
+          : > "$F"
+          APP="$RUNNER_TEMP/DerivedDataDevice/Build/Products/Release-iphoneos/CryptoChecker.app"
+          LOG="$RUNNER_TEMP/xcode-build-device.log"
+          if [ ! -d "$APP" ]; then
+            APP="$RUNNER_TEMP/DerivedDataRelease/Build/Products/Release-iphonesimulator/CryptoChecker.app"
+            LOG="$RUNNER_TEMP/xcode-build-release.log"
+            echo "::notice title=iOS Release app::Device build missing, inspecting the Simulator Release build"
+          fi
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/ios_release_audit.py" app "$APP" \
+            CryptoCheckerWidgetsExtension "$GITHUB_WORKSPACE/android/app/build.gradle.kts" \
+            "$GITHUB_WORKSPACE/ios" "$LOG" "$F"
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/annotate.py" "$F" "iOS Release app"
 
       # Simulator for both test steps: "iPhone 17" if the installed Xcode has it, otherwise its
       # first available iPhone.

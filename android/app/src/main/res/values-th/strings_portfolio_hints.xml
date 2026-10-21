@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">หยุดการแจ้งเตือนพอร์ตชั่วคราว: ไม่มีราคาปัจจุบันของ %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">หยุดการแจ้งเตือนพอร์ตชั่วคราว: เหรียญบางตัวไม่มีราคาปัจจุบัน</string>
+    <string name="portfolio_alarms_paused_addresses">หยุดการแจ้งเตือนพอร์ตชั่วคราว: ยังไม่ได้โหลดยอดคงเหลือของที่อยู่ที่ติดตาม</string>
+</resources>

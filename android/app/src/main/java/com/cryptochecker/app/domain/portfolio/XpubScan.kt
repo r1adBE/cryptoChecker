@@ -72,7 +72,10 @@ data class XpubCache(
  *    nach der letzten benutzten; wird dort eine benutzt, geht die Suche weiter, bis wieder [GAP] unbenutzte in Folge
  *    kommen. Mit nur 5 blieb eine Zahlung an eine weiter hinten abgeleitete Adresse (Wallets geben oft mehrere neue
  *    Adressen auf einmal aus) bis zur täglichen vollständigen Suche unsichtbar.
- *  - [Mode.BACKGROUND]: nur bekannte benutzte Adressen (Zeitbudget).
+ *  - [Mode.BACKGROUND]: bekannte benutzte Adressen + die nächsten [BACKGROUND_LOOKAHEAD] je Kette (Zeitbudget). Nach
+ *    einer Ausgabe liegt das Wechselgeld auf einer NEUEN Wechselgeld-Adresse — nur die bekannten gefragt, fiele die Summe
+ *    zu tief aus (scheinbarer Abfluss, Wert-Alarm). Ist auch die letzte davon benutzt, könnten weitere folgen
+ *    ([complete] = false; [keepBackground] entscheidet, ob das Ergebnis taugt).
  * Guthaben = Summe der gefragten Adressen (nicht gefragte, unbenutzte zählen 0). Höchstens [MAX_REQUESTS] Anfragen,
  * sonst Fehler ([TooMany]).
  */
@@ -111,6 +114,14 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
     /** Benutzte Adressen nach der Suche (bekannte und neu gefundene). */
     val usedCount: Int get() = states.sumOf { it.used.size }
 
+    /**
+     * Nach der Suche: hinter der neusten benutzten Adresse jeder Kette wurde mindestens eine unbenutzte gefragt — also
+     * keine neue Adresse übersehen. Nur [Mode.BACKGROUND] kann unvollständig sein (Vorausblick ohne Gap-Suche).
+     */
+    val complete: Boolean
+        get() = mode != Mode.BACKGROUND ||
+            states.all { (it.used.lastOrNull() ?: -1) < it.lastUsedBefore + BACKGROUND_LOOKAHEAD }
+
     init {
         states = (0..1).map { chain ->
             val known = old.used(chain)
@@ -121,7 +132,10 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
                     ArrayDeque(known + (last + 1..last + LOOKAHEAD)), java.util.TreeSet(known),
                     gap = false, nextIndex = 0, unusedRun = 0, lastUsedBefore = last, lastQueried = -1,
                 )
-                Mode.BACKGROUND -> ChainState(ArrayDeque(known), java.util.TreeSet(known), gap = false, nextIndex = 0, unusedRun = 0, lastUsedBefore = last, lastQueried = -1)
+                Mode.BACKGROUND -> ChainState(
+                    ArrayDeque(known + (last + 1..last + BACKGROUND_LOOKAHEAD)), java.util.TreeSet(known),
+                    gap = false, nextIndex = 0, unusedRun = 0, lastUsedBefore = last, lastQueried = -1,
+                )
             }
         }
     }
@@ -188,6 +202,11 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
         const val GAP = 20
         /** QUICK: so viele Adressen nach der letzten benutzten je Kette — das volle Gap-Limit (BIP44). */
         const val LOOKAHEAD = GAP
+        /**
+         * BACKGROUND: so viele Adressen nach der letzten benutzten je Kette (Empfang und Wechselgeld) — fängt das
+         * Wechselgeld einer Ausgabe auf der nächsten neuen Adresse, kostet je xpub nur vier Anfragen mehr.
+         */
+        const val BACKGROUND_LOOKAHEAD = 2
         /** Vollständige Suche höchstens einmal täglich. */
         const val FULL_SCAN_MILLIS = 24 * 60 * 60_000L
         /** Grenze je Aktualisierung (schont die Anbieter). */
@@ -218,6 +237,20 @@ class XpubScan(val mode: Mode, cache: XpubCache?) {
             if (!key.detectsScript) return null
             tried.firstOrNull { it.second > 0 }?.let { return it.first }
             return tried.singleOrNull()?.first
+        }
+
+        /**
+         * Hintergrund-Ergebnis ([sats]) übernehmen? Vollständig ([complete]): ja. Sonst nur, wenn es nicht unter dem
+         * gespeicherten Guthaben [lastBalance] (BTC) liegt — eine zu tiefe, unvollständige Summe würde sonst als Abfluss
+         * beobachtet und könnte Wert-Alarme auslösen; ohne gespeichertes Guthaben nie. Nicht übernommen = bleibt fällig,
+         * die nächste Suche im Vordergrund (QUICK/FULL, mit Gap-Suche) klärt es.
+         */
+        fun keepBackground(complete: Boolean, sats: Long, lastBalance: String?): Boolean {
+            if (complete) return true
+            val last = PortfolioDecimal.parse(lastBalance) ?: return false
+            val now = PortfolioDecimal.parse(AddressBalance.unitsText(sats.coerceAtLeast(0).toString(), AddressChain.BTC.decimals))
+                ?: return false
+            return now >= last
         }
 
         fun modeFor(cache: XpubCache?, now: Long, background: Boolean): Mode? {

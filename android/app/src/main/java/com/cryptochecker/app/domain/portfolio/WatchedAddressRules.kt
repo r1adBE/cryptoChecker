@@ -92,6 +92,14 @@ object WatchedAddressRules {
     fun cleanNetworks(list: List<String>?): List<String>? =
         list?.let { l -> ChainAssets.EVM.map { it.id }.filter { it in l } }
 
+    /**
+     * Erste Suche einer 0x-Adresse: Netze mit Guthaben ([found]) plus die, die nicht antworteten ([unanswered]) — ein
+     * stummes Netz fiele sonst für immer aus der Wahl und würde nie wieder gefragt. Im Hintergrund nie (null = Wahl
+     * bleibt offen, die nächste Runde fragt wieder alle).
+     */
+    fun discoveredNetworks(found: List<String>, unanswered: List<String>, background: Boolean): List<String>? =
+        if (background) null else cleanNetworks(found + unanswered)
+
     fun backupEntries(list: List<WatchedAddress>): List<WatchedAddressBackupEntry> =
         list.map {
             WatchedAddressBackupEntry(

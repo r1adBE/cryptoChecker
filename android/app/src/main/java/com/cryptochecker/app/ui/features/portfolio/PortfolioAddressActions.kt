@@ -5,6 +5,9 @@ package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
+import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
+import com.cryptochecker.app.data.portfolio.WatchedAddressEntity
+import com.cryptochecker.app.data.portfolio.restoreWatchedAddress
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import kotlinx.coroutines.flow.map
@@ -59,9 +62,40 @@ fun PortfolioViewModel.addWatchedAddress(
     }
 }
 
-/** Adresse entfernen (nach Bestätigung). */
-fun PortfolioViewModel.removeWatchedAddress(id: Long) {
-    viewModelScope.launch { safe { repository.removeWatchedAddress(id) } }
+/**
+ * Adresse entfernen (nach Bestätigung). [onRemoved] bekommt die ganze Zeile (Eröffnungsposten, Verlauf, Token-Reihen)
+ * für «Rückgängig» ([restoreWatchedAddress]); gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]):
+ * nichts entfernt, [onLocked] — nie still.
+ */
+fun PortfolioViewModel.removeWatchedAddress(id: Long, onLocked: () -> Unit = {}, onRemoved: (WatchedAddressEntity) -> Unit = {}) {
+    viewModelScope.launch {
+        val removed = try {
+            repository.removeWatchedAddress(id)
+        } catch (e: PortfolioStorageLockedException) {
+            onLocked()
+            return@launch
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            null
+        }
+        removed?.let(onRemoved)
+    }
+}
+
+/** «Rückgängig» nach [removeWatchedAddress]: dieselbe Adresse mit alter Id samt allem, was dazugehört; gesperrt: [onLocked]. */
+fun PortfolioViewModel.restoreWatchedAddress(row: WatchedAddressEntity, onLocked: () -> Unit = {}) {
+    viewModelScope.launch {
+        try {
+            repository.restoreWatchedAddress(row)
+        } catch (e: PortfolioStorageLockedException) {
+            onLocked()
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            // Nicht zurückgeholt (z. B. Datei gerade nicht beschreibbar): die Liste zeigt den echten Stand
+        }
+    }
 }
 
 /** Gewählte EVM-Netze einer 0x-Adresse; ein neu gewähltes wird gleich gelesen. */

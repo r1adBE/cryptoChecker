@@ -287,7 +287,7 @@
 
     <!-- «Diagnose teilen» unter Einstellungen › Über die App -->
     <string name="diagnostics_share">Share diagnostics</string>
-    <string name="diagnostics_share_hint">Text file for support: version, device, alert settings, recent checks and alarm log – without portfolio, amounts, addresses or notes. You see it first; nothing is sent automatically.</string>
+    <string name="diagnostics_share_hint">Text file for support: version, device, alert settings, recent checks and alert log – without portfolio, amounts, addresses or notes. You see it first; nothing is sent automatically.</string>
     <string name="diagnostics_preview_title">Diagnostics preview</string>
     <string name="diagnostics_action_share">Share</string>
 </resources>

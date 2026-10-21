@@ -77,19 +77,19 @@
     <string name="system_backup_not_imported_message">A portfólió másolata az Android rendszermentéséből második próbálkozásra sem volt olvasható, ezért törlődött. Ha van mentési fájlod, állítsd vissza a Beállításokban, a „%1$s” alatt.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">A mentett portfóliót most nem lehet feloldani, ezért nem látható – az alkalmazás újraindítása után visszatér. Módosítani csak a következő indítás után lehet.</string>
+    <string name="portfolio_storage_kept_in_memory">A mentett adatok most nem olvashatók, ezért a portfólió nem látható és nem módosítható. Indítsd újra az alkalmazást.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
-    <string name="watchlist_storage_kept_in_memory">A mentett figyelőlistát most nem lehet feloldani, ezért nem látható – az alkalmazás újraindítása után visszatér. A most végzett módosítások nem lesznek mentve.</string>
-    <string name="alarm_save_storage_locked">Riasztásokat most nem lehet menteni – a mentett figyelőlista zárolva van. Indítsa újra az alkalmazást.</string>
+    <string name="watchlist_storage_kept_in_memory">A mentett adatok most nem olvashatók, ezért a figyelőlista nem látható, és a most végzett módosítások nem lesznek mentve. Indítsd újra az alkalmazást.</string>
+    <string name="alarm_save_storage_locked">Riasztásokat nem lehet menteni: a mentett adatok most nem olvashatók. Indítsd újra az alkalmazást.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
-    <string name="backup_storage_kept">A biztonsági mentés most nem lehetséges: a mentett adatokat jelenleg nem lehet feloldani. Indítsd újra az alkalmazást, és próbáld újra.</string>
+    <string name="backup_storage_kept">A biztonsági mentés nem lehetséges: a mentett adatok most nem olvashatók. Indítsd újra az alkalmazást, és próbáld újra.</string>
     <string name="backup_restore_storage_in_memory">Az importálás most nem lehetséges: az alkalmazás jelenleg nem ment adatot (a titkosítás még nem aktív), így az importált adatok újraindításkor elvesznének. Indítsd újra az alkalmazást, és próbáld újra.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">A titkosítás még nem aktív – a portfólió nincs mentve, a változások az app bezárásakor elvesznek. Az app a következő indításkor újra megpróbálja.</string>
 
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
-    <string name="portfolio_storage_locked">A mentett portfólió most zárolva van – módosítani csak a következő indítás után lehet.</string>
+    <string name="portfolio_storage_locked">A mentett adatok most nem olvashatók, ezért módosítani nem lehet. Indítsd újra az alkalmazást.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">Az eszköz most nem ad kulcsot – a figyelőlista nincs mentve, a változások az app bezárásakor elvesznek. A háttérben a riasztások szünetelnek. Az app a következő indításkor újra megpróbálja.</string>
 </resources>

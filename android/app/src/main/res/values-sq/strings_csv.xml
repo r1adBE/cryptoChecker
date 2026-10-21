@@ -45,7 +45,7 @@
     <string name="portfolio_csv_import_transfers_title">Transferime ndërmjet llogarive të tua</string>
     <string name="portfolio_csv_import_unreadable">Nuk u gjetën transaksione të mbështetura. Mbështeten: eksportet CSV nga Relai, Swissquote, Kraken, Binance, Coinbase dhe Bitpanda.</string>
     <string name="portfolio_csv_import_failed">Importimi dështoi – nuk u ruajt asgjë. Provo përsëri.</string>
-    <string name="portfolio_csv_import_locked">Importimi nuk është i mundur tani: portofoli i ruajtur është i kyçur. Hape aplikacionin përsëri më vonë.</string>
+    <string name="portfolio_csv_import_locked">Importimi nuk është i mundur: të dhënat e ruajtura nuk mund të lexohen tani. Rinis aplikacionin.</string>
     <string name="portfolio_csv_import_withdrawals_title">Tërheqjet – ku shkuan monedhat?</string>
     <string name="portfolio_csv_import_zone">Orët pa zonë kohore lexohen si: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Pajisja (%1$s)</string>

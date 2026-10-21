@@ -6,10 +6,10 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Vyprázdnit portfolio</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Smazat %d transakci? Sledované adresy zůstanou. Tuto akci nelze vrátit zpět.</item>
-        <item quantity="few">Smazat všechny %d transakce? Sledované adresy zůstanou. Tuto akci nelze vrátit zpět.</item>
-        <item quantity="many">Smazat všechny transakce (%d)? Sledované adresy zůstanou. Tuto akci nelze vrátit zpět.</item>
-        <item quantity="other">Smazat všech %d transakcí? Sledované adresy zůstanou. Tuto akci nelze vrátit zpět.</item>
+        <item quantity="one">Smazat %d transakci? Sledované adresy zůstanou. Hned poté to můžete vrátit zpět.</item>
+        <item quantity="few">Smazat všechny %d transakce? Sledované adresy zůstanou. Hned poté to můžete vrátit zpět.</item>
+        <item quantity="many">Smazat všechny transakce (%d)? Sledované adresy zůstanou. Hned poté to můžete vrátit zpět.</item>
+        <item quantity="other">Smazat všech %d transakcí? Sledované adresy zůstanou. Hned poté to můžete vrátit zpět.</item>
     </plurals>
     <string name="portfolio_empty_action">Zadat první nákup</string>
     <string name="portfolio_empty_address">Jen sledovat adresu peněženky</string>
@@ -313,4 +313,23 @@
         <item quantity="many">%1$s odebráno z portfolia (%2$d transakce)</item>
         <item quantity="other">%1$s odebráno z portfolia (%2$d transakcí)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">Odstraněna %d transakce</item>
+        <item quantity="few">Odstraněny %d transakce</item>
+        <item quantity="many">Odstraněno %d transakce</item>
+        <item quantity="other">Odstraněno %d transakcí</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Odstraní se také %d položka.</item>
+        <item quantity="few">Odstraní se také %d položky.</item>
+        <item quantity="many">Odstraní se také %d položky.</item>
+        <item quantity="other">Odstraní se také %d položek.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Odstraní se také %d položka a historie zůstatku.</item>
+        <item quantity="few">Odstraní se také %d položky a historie zůstatku.</item>
+        <item quantity="many">Odstraní se také %d položky a historie zůstatku.</item>
+        <item quantity="other">Odstraní se také %d položek a historie zůstatku.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Odstraní se také historie zůstatku.</string>
 </resources>

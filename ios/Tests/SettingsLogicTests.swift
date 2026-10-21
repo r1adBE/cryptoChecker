@@ -1123,6 +1123,22 @@ final class InstallDefaultsTests: XCTestCase {
         XCTAssertFalse(AppSettings.defaultForMigration(existingInstall: false, legacy: true, current: false))
     }
 
+    /// Unlesbare (oder fehlende) Einstellungen bei vorhandenem Portfolio: Portfolio wieder an — wie Android
+    /// `InstallDefaultsTest.corruptedSettingsWithPortfolioData`.
+    func testCorruptedSettingsWithPortfolioData() {
+        let unreadable = SharedStorage.settingsReadState(hasData: true, decodes: false, markerPresent: true,
+                                                         protectedDataAvailable: true)
+        XCTAssertEqual(unreadable, .missing)
+        let d = AppSettings()
+        XCTAssertTrue(AppSettings.enablePortfolioForData(resetDefaults: unreadable == .missing,
+                                                         portfolioEnabled: d.portfolioEnabled, hasPortfolioData: true))
+        // Ohne Daten (echte neue Installation): bleibt aus
+        XCTAssertFalse(AppSettings.enablePortfolioForData(resetDefaults: true, portfolioEnabled: false, hasPortfolioData: false))
+        // Gelesene Einstellungen oder schon an: nichts zu tun
+        XCTAssertFalse(AppSettings.enablePortfolioForData(resetDefaults: false, portfolioEnabled: false, hasPortfolioData: true))
+        XCTAssertFalse(AppSettings.enablePortfolioForData(resetDefaults: true, portfolioEnabled: true, hasPortfolioData: true))
+    }
+
     /// Ältere gespeicherte Einstellungen ohne die Schlüssel: bisherige Standards.
     func testStoredSettingsWithoutKeysKeepOldDefaults() throws {
         let old = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"darkMode":true}"#.utf8))

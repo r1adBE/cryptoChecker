@@ -44,6 +44,14 @@ extension AppSettings {
     static func defaultForMigration(existingInstall: Bool, legacy: Bool, current: Bool) -> Bool {
         existingInstall ? legacy : current
     }
+
+    /// Portfolio nach Standardwerten einschalten? Ja, wenn die Einstellungen fehlten oder unlesbar waren
+    /// (`resetDefaults`, Standardwerte einer neuen Installation), das Portfolio aus ist und trotzdem
+    /// Portfolio-Daten da sind (Transaktionen, Adressen, Portfolio-Alarme) — dann ist es eine bestehende
+    /// Installation, sonst blieben Tab und Portfolio-Alarme stumm. Wie Android `enablePortfolioForData`.
+    static func enablePortfolioForData(resetDefaults: Bool, portfolioEnabled: Bool, hasPortfolioData: Bool) -> Bool {
+        resetDefaults && !portfolioEnabled && hasPortfolioData
+    }
 }
 
 extension AppSettings {

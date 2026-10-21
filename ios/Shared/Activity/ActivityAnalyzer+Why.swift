@@ -19,7 +19,7 @@ extension ActivityAnalyzer {
         // 24 h wie Änderung und Merkliste (Ticker des Paars), sonst aus den Kerzen
         let candleChange24h = changeOver(candles, hours: 24, now: now)
         let change24h = CandleSeries.change24h(ticker: input.tickerChange24h, candles: candleChange24h)
-        let stats = candles.flatMap { hourStats($0) }
+        let stats = candles.flatMap { hourStats($0, now: now) }
         let reference = CandleSeries.usable(input.referenceCandles, now: now, tickerChange24h: nil)
         let stable = StablePeg.isPegged(base: input.baseAsset, quote: input.quoteAsset)
         let isBtc = input.baseAsset.trimmingCharacters(in: .whitespacesAndNewlines).uppercased() == "BTC"

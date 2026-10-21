@@ -269,6 +269,15 @@ class XpubTokenParityTest {
             assertEquals("usedChange $name", e["usedChange"].list().map { it.num()!!.toInt() }, cache.usedChange)
             val old = scanCache(c["cache"] as Map<String, Any?>?)
             assertEquals(if (c["mode"] == "FULL") 777L else old!!.fullScan, cache.fullScan)
+            assertEquals("complete $name", e["complete"] as Boolean? ?: true, scan.complete)
+        }
+        // Seit Build 94: Hintergrund mit Vorausblick; unvollständig und tiefer als zuletzt = nicht übernehmen
+        assertEquals(g["backgroundLookahead"].num()!!.toInt(), XpubScan.BACKGROUND_LOOKAHEAD)
+        g["keepBackground"].list().map { it.obj() }.forEach { c ->
+            assertEquals(
+                "keepBackground $c", c["keep"],
+                XpubScan.keepBackground(c["complete"] == true, c["sats"].num()!!.toLong(), c["lastBalance"] as String?),
+            )
         }
         g["modeFor"].list().map { it.obj() }.forEach { c ->
             val cache = (c["cache"] as Map<String, Any?>?)?.let { XpubCache(fullScan = it["fullScan"].num()!!.toLong()) }

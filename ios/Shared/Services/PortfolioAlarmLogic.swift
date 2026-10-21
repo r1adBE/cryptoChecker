@@ -82,12 +82,27 @@ struct PortfolioReading: Equatable, Sendable {
     /// %-Alarm wird dann weder gemeldet noch wieder scharf gestellt. Wie Android.
     var todaySkipped = 0
     /// Bewertete Coins mit altem Kurs (`PortfolioWidgetSnapshot.stalePrices`): ein alter Kurs gälte sonst als «jetzt» —
-    /// dann prüft KEIN Portfolio-Alarm (weder melden noch wieder scharf stellen). Wie Android.
+    /// dann prüft KEIN Portfolio-Alarm (weder melden noch wieder scharf stellen), ausser ihr Wert ist unwesentlich
+    /// (`staleValueUsdt`, `PortfolioAlarmLogic.immaterialShare`). Wie Android.
     var stalePrices = 0
     /// Live-Kurs USDT/USD (`DepegAlarm.liveUsdtUsd`) für Alarme in einer anderen Währung als der Stand: USDT gilt in Fiat
     /// (auch USD) seinen Marktkurs wie im Portfolio-Kopf (`PortfolioStables.usdtUsd`); nil = keiner (× 1, Näherung).
     /// Wie Android.
     var usdtUsdLive: Double? = nil
+    /// Wert (USDT, zum letzten Kurs) der Coins mit altem Kurs; nil = unbekannt (älterer Stand: dann wesentlich). Wie Android.
+    var staleValueUsdt: Double? = nil
+    /// Zählende Adressen, deren Guthaben noch nie geladen wurde (`AddressBalance.pendingCount`): sie fehlen im Gesamtwert —
+    /// dann prüft KEIN Portfolio-Alarm (seit Build 94). Wie Android.
+    var addressesPending = 0
+}
+
+/// Grund, weshalb Portfolio-Alarme gerade nicht prüfen (`PortfolioAlarmLogic.pause`) — Hinweis in der Alarm-Übersicht.
+/// Wie Android `PortfolioAlarmPause`.
+enum PortfolioAlarmPause: Equatable, Sendable {
+    /// So viele zählende Adressen ohne je geladenes Guthaben.
+    case addressesPending(Int)
+    /// Kein aktueller Kurs für diese Coins (leer = Namen unbekannt, älterer Stand).
+    case noPrice([String])
 }
 
 /// Ergebnis der Prüfung eines Portfolio-Alarms.
@@ -163,10 +178,44 @@ enum PortfolioAlarmLogic {
 
     /// Die Messung ist unvollständig: Wert-Alarm mit fehlendem Kurs (Coin zählt als 0 — «unter Betrag» löste sonst
     /// fälschlich aus), %-Alarm mit fehlendem Vergleichskurs. Dann diesmal gar nicht prüfen (kein Melden, kein
-    /// Wieder-scharf-Stellen), für «darüber» wie «darunter». Ein alter Kurs (`stalePrices`) sperrt jede Art. Wie Android.
+    /// Wieder-scharf-Stellen), für «darüber» wie «darunter». Ein wesentlicher alter Kurs (`staleMaterial`) und nie
+    /// geladene Adressen (`addressesPending`) sperren jede Art. Wie Android.
     static func incomplete(_ kind: PortfolioAlarmKind, _ reading: PortfolioReading) -> Bool {
-        if reading.stalePrices > 0 { return true }
+        if reading.addressesPending > 0 || staleMaterial(reading) { return true }
         return kind.isValue ? reading.missingPrices > 0 : reading.todaySkipped > 0
+    }
+
+    /// Spielraum der Wesentlichkeit: Coins mit altem Kurs unter 1 % des Gesamtwerts. Selbst wenn ihr Kurs seither um die
+    /// Hälfte fiel, verschiebt das den Gesamtwert um höchstens 0.5 % — ein Wert-Alarm meldet dann schlimmstenfalls so viel
+    /// zu früh oder zu spät, ein %-Alarm «heute» um höchstens so viele Prozentpunkte. Wie Android.
+    static let immaterialShare = 0.01
+
+    /// Alte Kurse wesentlich? Nein, wenn ihr Wert (zum letzten Kurs) unter `immaterialShare` des bekannten Gesamtwerts
+    /// liegt — sonst schwiege ein einzelner kleiner Coin ohne frischen Kurs ALLE Portfolio-Alarme für immer. Ohne bekannten
+    /// Wert oder Gesamtwert: wesentlich. Coins ganz ohne Kurs (`missingPrices`) haben keinen schätzbaren Wert und sperren
+    /// Wert-Alarme weiter. Wie Android.
+    static func staleMaterial(_ reading: PortfolioReading) -> Bool {
+        guard reading.stalePrices > 0 else { return false }
+        guard let stale = reading.staleValueUsdt, stale.isFinite, stale >= 0,
+              let total = reading.totalUsdt, total.isFinite, total > 0 else { return true }
+        return stale >= total * immaterialShare
+    }
+
+    /// Warum die eingeschalteten Portfolio-Alarme (`kinds`) gerade nicht prüfen (Hinweis in der Alarm-Übersicht); nil =
+    /// mindestens nicht wegen Adressen oder Kursen. Adressen zuerst (betrifft jede Art); sonst Coins ohne aktuellen Kurs:
+    /// die wesentlichen alten (`staleCoins`) und — bei Wert-Alarmen — die ganz ohne Kurs (`missingCoins`). Wie Android.
+    static func pause(_ kinds: [PortfolioAlarmKind], _ reading: PortfolioReading, missingCoins: [String],
+                      staleCoins: [String]) -> PortfolioAlarmPause? {
+        guard !kinds.isEmpty, !reading.empty else { return nil }
+        if reading.addressesPending > 0 { return .addressesPending(reading.addressesPending) }
+        let staleBlocks = staleMaterial(reading)
+        let missingBlocks = kinds.contains(where: \.isValue) && reading.missingPrices > 0
+        guard staleBlocks || missingBlocks else { return nil }
+        var coins: [String] = []
+        for coin in (staleBlocks ? staleCoins : []) + (missingBlocks ? missingCoins : []) where !coins.contains(coin) {
+            coins.append(coin)
+        }
+        return .noPrice(coins)
     }
 
     static func decide(_ alarm: PortfolioAlarm, _ reading: PortfolioReading, now: Int64,

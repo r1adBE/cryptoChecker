@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">התראות התיק מושהות: אין מחיר עדכני עבור %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">התראות התיק מושהות: לא לכל המטבעות יש מחיר עדכני</string>
+    <string name="portfolio_alarms_paused_addresses">התראות התיק מושהות: יתרות הכתובות במעקב עדיין לא נטענו</string>
+</resources>

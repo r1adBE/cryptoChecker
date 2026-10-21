@@ -6,8 +6,8 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Άδειασμα χαρτοφυλακίου</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Διαγραφή %d συναλλαγής; Οι παρακολουθούμενες διευθύνσεις παραμένουν. Η ενέργεια δεν αναιρείται.</item>
-        <item quantity="other">Διαγραφή όλων των %d συναλλαγών; Οι παρακολουθούμενες διευθύνσεις παραμένουν. Η ενέργεια δεν αναιρείται.</item>
+        <item quantity="one">Διαγραφή %d συναλλαγής; Οι παρακολουθούμενες διευθύνσεις παραμένουν. Μπορείτε να το αναιρέσετε αμέσως μετά.</item>
+        <item quantity="other">Διαγραφή όλων των %d συναλλαγών; Οι παρακολουθούμενες διευθύνσεις παραμένουν. Μπορείτε να το αναιρέσετε αμέσως μετά.</item>
     </plurals>
     <string name="portfolio_empty_action">Προσθήκη πρώτης αγοράς</string>
     <string name="portfolio_empty_address">Απλώς παρακολούθηση διεύθυνσης πορτοφολιού</string>
@@ -301,4 +301,17 @@
         <item quantity="one">Το %1$s αφαιρέθηκε από το χαρτοφυλάκιο (%2$d συναλλαγή)</item>
         <item quantity="other">Το %1$s αφαιρέθηκε από το χαρτοφυλάκιο (%2$d συναλλαγές)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">Αφαιρέθηκε %d συναλλαγή</item>
+        <item quantity="other">Αφαιρέθηκαν %d συναλλαγές</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Αφαιρείται επίσης %d παρτίδα.</item>
+        <item quantity="other">Αφαιρούνται επίσης %d παρτίδες.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Αφαιρούνται επίσης %d παρτίδα και το ιστορικό υπολοίπου.</item>
+        <item quantity="other">Αφαιρούνται επίσης %d παρτίδες και το ιστορικό υπολοίπου.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Αφαιρείται επίσης το ιστορικό υπολοίπου.</string>
 </resources>

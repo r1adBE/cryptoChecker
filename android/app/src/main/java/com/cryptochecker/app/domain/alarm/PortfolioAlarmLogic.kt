@@ -71,15 +71,33 @@ data class PortfolioReading(
     val todaySkipped: Int = 0,
     /**
      * Bewertete Coins mit altem Kurs ([com.cryptochecker.app.domain.portfolio.PortfolioSnapshot.stalePrices]): ein
-     * alter Kurs gälte sonst als «jetzt» — dann prüft KEIN Portfolio-Alarm (weder melden noch wieder scharf stellen).
+     * alter Kurs gälte sonst als «jetzt» — dann prüft KEIN Portfolio-Alarm (weder melden noch wieder scharf stellen),
+     * ausser ihr Wert ist unwesentlich ([staleValueUsdt], [PortfolioAlarmLogic.IMMATERIAL_SHARE]).
      */
     val stalePrices: Int = 0,
+    /** Wert (USDT, zum letzten Kurs) der Coins mit altem Kurs; null = unbekannt (ältere Aufnahme: dann wesentlich). */
+    val staleValueUsdt: Double? = null,
+    /**
+     * Zählende Adressen, deren Guthaben noch nie geladen wurde
+     * ([com.cryptochecker.app.domain.portfolio.AddressBalance.pendingCount]): sie fehlen im Gesamtwert — dann prüft
+     * KEIN Portfolio-Alarm (seit Build 94).
+     */
+    val addressesPending: Int = 0,
     /**
      * Live-Kurs USDT/USD ([DepegAlarm.liveUsdtUsd]) für Alarme in einer anderen Währung als der Stand: USDT gilt in
      * Fiat (auch USD) seinen Marktkurs wie im Portfolio-Kopf ([PortfolioStables.usdtUsd]); null = keiner (× 1, Näherung).
      */
     val usdtUsdLive: Double? = null,
 )
+
+/** Grund, weshalb Portfolio-Alarme gerade nicht prüfen ([PortfolioAlarmLogic.pause]) — Hinweis in der Alarm-Übersicht. */
+sealed interface PortfolioAlarmPause {
+    /** So viele zählende Adressen ohne je geladenes Guthaben. */
+    data class AddressesPending(val count: Int) : PortfolioAlarmPause
+
+    /** Kein aktueller Kurs für diese Coins (leer = Namen unbekannt, ältere Aufnahme). */
+    data class NoPrice(val coins: List<String>) : PortfolioAlarmPause
+}
 
 /** Ergebnis der Prüfung eines Portfolio-Alarms. */
 sealed interface PortfolioAlarmDecision {
@@ -173,11 +191,54 @@ object PortfolioAlarmLogic {
     /**
      * Die Messung ist unvollständig: Wert-Alarm mit fehlendem Kurs (Coin zählt als 0 — «unter Betrag» löste sonst
      * fälschlich aus), %-Alarm mit fehlendem Vergleichskurs. Dann diesmal gar nicht prüfen (kein Melden, kein
-     * Wieder-scharf-Stellen), für «darüber» wie «darunter». Ein alter Kurs ([PortfolioReading.stalePrices])
-     * sperrt jede Art.
+     * Wieder-scharf-Stellen), für «darüber» wie «darunter». Ein wesentlicher alter Kurs ([staleMaterial]) und
+     * nie geladene Adressen ([PortfolioReading.addressesPending]) sperren jede Art.
      */
     fun incomplete(kind: PortfolioAlarmKind, reading: PortfolioReading): Boolean =
-        reading.stalePrices > 0 || if (kind.isValue) reading.missingPrices > 0 else reading.todaySkipped > 0
+        reading.addressesPending > 0 || staleMaterial(reading) ||
+            if (kind.isValue) reading.missingPrices > 0 else reading.todaySkipped > 0
+
+    /**
+     * Alte Kurse wesentlich? Nein, wenn ihr Wert (zum letzten Kurs) unter [IMMATERIAL_SHARE] des bekannten Gesamtwerts
+     * liegt — sonst schwiege ein einzelner kleiner Coin ohne frischen Kurs ALLE Portfolio-Alarme für immer. Ohne
+     * bekannten Wert ([PortfolioReading.staleValueUsdt] null) oder Gesamtwert: wesentlich. Coins ganz ohne Kurs
+     * ([PortfolioReading.missingPrices]) haben keinen schätzbaren Wert und sperren Wert-Alarme weiter.
+     */
+    fun staleMaterial(reading: PortfolioReading): Boolean {
+        if (reading.stalePrices <= 0) return false
+        val stale = reading.staleValueUsdt?.takeIf { it.isFinite() && it >= 0.0 } ?: return true
+        val total = reading.totalUsdt?.takeIf { it.isFinite() && it > 0.0 } ?: return true
+        return stale >= total * IMMATERIAL_SHARE
+    }
+
+    /**
+     * Spielraum der Wesentlichkeit: Coins mit altem Kurs unter 1 % des Gesamtwerts. Selbst wenn ihr Kurs seither um
+     * die Hälfte fiel, verschiebt das den Gesamtwert um höchstens 0.5 % — ein Wert-Alarm meldet dann schlimmstenfalls
+     * so viel zu früh oder zu spät, ein %-Alarm «heute» um höchstens so viele Prozentpunkte.
+     */
+    const val IMMATERIAL_SHARE = 0.01
+
+    /**
+     * Warum die eingeschalteten Portfolio-Alarme ([kinds]) gerade nicht prüfen (Hinweis in der Alarm-Übersicht); null =
+     * mindestens nicht wegen Adressen oder Kursen. Adressen zuerst (betrifft jede Art); sonst Coins ohne aktuellen
+     * Kurs: die wesentlichen alten ([staleCoins]) und — bei Wert-Alarmen — die ganz ohne Kurs ([missingCoins]).
+     */
+    fun pause(
+        kinds: Collection<PortfolioAlarmKind>,
+        reading: PortfolioReading,
+        missingCoins: List<String>,
+        staleCoins: List<String>,
+    ): PortfolioAlarmPause? {
+        if (kinds.isEmpty() || reading.empty) return null
+        if (reading.addressesPending > 0) return PortfolioAlarmPause.AddressesPending(reading.addressesPending)
+        val staleBlocks = staleMaterial(reading)
+        val missingBlocks = kinds.any { it.isValue } && reading.missingPrices > 0
+        if (!staleBlocks && !missingBlocks) return null
+        val coins = LinkedHashSet<String>()
+        if (staleBlocks) coins += staleCoins
+        if (missingBlocks) coins += missingCoins
+        return PortfolioAlarmPause.NoPrice(coins.toList())
+    }
 
     fun decide(
         alarm: PortfolioAlarmInput,

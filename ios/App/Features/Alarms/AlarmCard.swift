@@ -140,7 +140,8 @@ struct AlarmCard: View {
     private var subtitle: String {
         var s = L(alarm.repeating ? "alarm_repeating" : "alarm_once")
         if alarm.lastTriggeredAt > 0 {
-            s += " · " + L("alarm_last_triggered", PriceFormat.time(alarm.lastTriggeredAt))
+            // Heute nur die Uhrzeit, sonst mit Datum («zuletzt 12.10.26, 14:02») — wie Android
+            s += " · " + L("alarm_last_triggered", MomentText.moment(alarm.lastTriggeredAt))
         }
         return s
     }

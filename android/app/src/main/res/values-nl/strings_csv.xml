@@ -45,7 +45,7 @@
     <string name="portfolio_csv_import_transfers_title">Overboekingen tussen je rekeningen</string>
     <string name="portfolio_csv_import_unreadable">Geen ondersteunde transacties gevonden. Ondersteund: CSV-exports van Relai, Swissquote, Kraken, Binance, Coinbase en Bitpanda.</string>
     <string name="portfolio_csv_import_failed">Importeren is mislukt – er is niets opgeslagen. Probeer het opnieuw.</string>
-    <string name="portfolio_csv_import_locked">Importeren is nu niet mogelijk: de opgeslagen portefeuille is vergrendeld. Open de app later opnieuw.</string>
+    <string name="portfolio_csv_import_locked">Importeren is niet mogelijk: opgeslagen gegevens zijn nu niet leesbaar. Start de app opnieuw.</string>
     <string name="portfolio_csv_import_withdrawals_title">Opnames – waar zijn de munten naartoe?</string>
     <string name="portfolio_csv_import_zone">Tijden zonder tijdzone gelezen als: %1$s</string>
     <string name="portfolio_csv_import_zone_device">Apparaat (%1$s)</string>

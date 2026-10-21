@@ -57,9 +57,10 @@ object AddressBalance {
 
     /**
      * Esplora-Antwort lesen; wirft bei fehlenden/negativen Feldern oder wenn die Antwort zu einer
-     * anderen Adresse gehört.
+     * anderen Adresse gehört. Plausibilität je Netz ([maxSats], Litecoin hat 84 Mio. Coins): geprüft wird das Guthaben,
+     * nicht die Summen über alle Zeit (funded_txo_sum einer Börsen-Adresse übersteigt die Geldmenge leicht).
      */
-    fun parseBtc(body: String, address: String): BtcStats {
+    fun parseBtc(body: String, address: String, chain: AddressChain = AddressChain.BTC): BtcStats {
         val json = JSONObject(body)
         if (json.has("address") && !json.isNull("address") &&
             (json.opt("address") as? String)?.equals(address, ignoreCase = true) != true
@@ -67,12 +68,22 @@ object AddressBalance {
             throw IllegalStateException("Antwort für andere Adresse")
         }
         val chain = json.optJSONObject("chain_stats") ?: throw IllegalStateException("chain_stats fehlt")
-        val confirmed = sats(chain, "funded_txo_sum") - sats(chain, "spent_txo_sum")
+        val max = maxSats(chain)
+        val stats = json.optJSONObject("chain_stats") ?: throw IllegalStateException("chain_stats fehlt")
+        val confirmed = sats(stats, "funded_txo_sum") - sats(stats, "spent_txo_sum")
         if (confirmed < 0) throw IllegalStateException("negatives Guthaben")
+        if (confirmed > max) throw IllegalStateException("Guthaben ungültig")
         val mempool = json.optJSONObject("mempool_stats")
         val pending = mempool?.let { sats(it, "funded_txo_sum") - sats(it, "spent_txo_sum") } ?: 0L
-        val txCount = txCountOf(chain) + (mempool?.let { txCountOf(it) } ?: 0)
+        if (pending > max || pending < -max) throw IllegalStateException("Guthaben ungültig")
+        val txCount = txCountOf(stats) + (mempool?.let { txCountOf(it) } ?: 0)
         return BtcStats(confirmed, pending, txCount)
+    }
+
+    /** Mehr als alle je möglichen Coins des Netzes in kleinsten Einheiten ist unplausibel (BTC 21 Mio., LTC 84 Mio. × 10⁸). */
+    fun maxSats(chain: AddressChain): Long = when (chain) {
+        AddressChain.LTC -> 8_400_000_000_000_000L
+        else -> 2_100_000_000_000_000L
     }
 
     /** `tx_count` (fehlt oder ungültig = 0: dann zählt nur das Guthaben). */
@@ -81,16 +92,16 @@ object AddressBalance {
         return if (v.isFinite() && v >= 0 && v <= Int.MAX_VALUE) v.toInt() else 0
     }
 
-    /** Ganze, nicht negative Zahl; sonst Fehler. */
+    /** Ganze, nicht negative Zahl im Long-Bereich (Summen über alle Zeit); sonst Fehler. */
     private fun sats(o: JSONObject, key: String): Long {
         val v = o.opt(key) as? Number ?: throw IllegalStateException("$key fehlt")
         val d = v.toDouble()
-        if (!d.isFinite() || d < 0 || d != Math.floor(d) || d > MAX_SATS) throw IllegalStateException("$key ungültig")
+        if (!d.isFinite() || d < 0 || d != Math.floor(d) || d > MAX_CUMULATIVE_SATS) throw IllegalStateException("$key ungültig")
         return v.toLong()
     }
 
-    /** Mehr als alle je möglichen Bitcoin (21 Mio. × 10⁸ Sat.) ist unplausibel. */
-    private const val MAX_SATS = 2.1e15
+    /** Obergrenze der Summen funded/spent (unter Long.MAX_VALUE, die Differenz läuft nie über). */
+    private const val MAX_CUMULATIVE_SATS = 9.0e18
 
     /** `eth_getBalance`-Antwort → Wei als Dezimalziffern; wirft bei Fehlerantwort oder unlesbarem Wert. */
     fun parseEthWei(body: String): String {
@@ -143,6 +154,34 @@ object AddressBalance {
         val elapsed = now - lastAttempt
         if (elapsed < 0) return true
         return elapsed >= if (force) MIN_FORCED_MILLIS else CACHE_MILLIS
+    }
+
+    /**
+     * Fällige Adressen ([isDue]) in Abruf-Reihenfolge: Vordergrund wie gespeichert; Hintergrund die am längsten nicht
+     * versuchten zuerst (nie versucht = 0 vorne, bei Gleichstand wie gespeichert) — das knappe Zeitbudget käme sonst
+     * immer nur den zuerst erfassten Adressen zugute.
+     */
+    fun dueOrder(addresses: List<WatchedAddress>, now: Long, force: Boolean, background: Boolean): List<WatchedAddress> {
+        val due = addresses.filter { isDue(it.lastAttempt, now, force) }
+        return if (background) due.sortedBy { it.lastAttempt.coerceAtLeast(0) } else due
+    }
+
+    /**
+     * Zählende Adressen ([WatchedAddress.countInPortfolio]), deren Guthaben noch nie geladen wurde (z. B. frisch
+     * wiederhergestellt, xpub ohne Zwischenspeicher im Hintergrund): sie fehlen in [holdings], der Gesamtwert ist dann zu
+     * tief — Portfolio-Alarme prüfen nicht ([com.cryptochecker.app.domain.alarm.PortfolioReading.addressesPending]).
+     * Einzelne Bitcoin-Adressen in einem beobachteten xpub zählen über den xpub, gleiche Adressen einmal.
+     */
+    fun pendingCount(addresses: List<WatchedAddress>): Int {
+        val counted = addresses.filter { it.countInPortfolio }
+        val covered = WatchedAddressRules.coveredByXpub(counted)
+        val loaded = counted.filter { PortfolioDecimal.parse(it.lastBalance)?.let { v -> v.signum() >= 0 } == true }
+        return counted.filterIndexed { i, a ->
+            if (a.chain == AddressChain.BTC && !a.isXpub && a.address in covered) return@filterIndexed false
+            if (loaded.any { it.chain == a.chain && WatchedAddressRules.sameAddress(a.chain, it.address, a.address) }) return@filterIndexed false
+            // Gleiche Adresse doppelt ohne Guthaben: einmal
+            counted.subList(0, i).none { it.chain == a.chain && WatchedAddressRules.sameAddress(a.chain, it.address, a.address) }
+        }.size
     }
 
     /** Anbieter für die Herkunftsangabe: «mempool.space», «publicnode.com», «llamarpc.com». */

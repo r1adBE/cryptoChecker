@@ -52,7 +52,7 @@ internal class WatchlistEditController(
 
     /**
      * Zuletzt Gelöschtes: ein Paar (Schlüssel = seine Id), alle nicht gehandelten
-     * ([NOT_TRADED_UNDO_KEY]) oder die Mehrfachauswahl ([SELECTION_UNDO_KEY]).
+     * ([NOT_TRADED_UNDO_KEY]), die Mehrfachauswahl ([SELECTION_UNDO_KEY]) oder die ganze Merkliste ([CLEAR_ALL_UNDO_KEY]).
      */
     private val undo = UndoSlot<Long, List<WatchSnapshot>>()
 
@@ -258,17 +258,29 @@ internal class WatchlistEditController(
         }
     }
 
-    fun deleteAll() {
+    /**
+     * «Merkliste leeren» (nach Rückfrage): alle Paare samt Alarmen löschen — seit Build 94 wie
+     * [deleteNotTradedWithUndo] vorher vollständig festgehalten (Paar mit Id, Platz, Gruppe, Notiz und Alarmen), damit
+     * «Rückgängig» ([undoDelete] mit [CLEAR_ALL_UNDO_KEY]) alles mit denselben Ids zurückholt. [onDone] bekommt die
+     * Zahl der gelöschten Paare (0 = nichts geschehen).
+     */
+    fun deleteAllWithUndo(onDone: (Int) -> Unit = {}) {
         scope.launch {
-            // Erst die Benachrichtigungen wegräumen, danach die Einträge —
-            // sonst fehlen hinterher die Ids, um sie zu schliessen.
-            val ids = watchRepository.getWatches().map { it.id }
-            notifier.cancelAllPrices(ids)
-            // Aktivitäts-Meldungen ebenso (wie beim Löschen einzelner Paare): sonst blieben sie zu gelöschten Paaren stehen
-            ids.forEach { notifier.cancelActivity(it) }
-            notifier.cancelAlarms(watchRepository.getAllAlarmIds())
-            watchRepository.deleteAllWatches()
-            widgetUpdater.updateAll()
+            val count = undoMutex.withLock {
+                val snapshots = watchRepository.getWatches().mapNotNull { watchRepository.snapshot(it.id) }
+                // Erst die Benachrichtigungen wegräumen, danach die Einträge —
+                // sonst fehlen hinterher die Ids, um sie zu schliessen.
+                val ids = snapshots.map { it.watch.id }
+                notifier.cancelAllPrices(ids)
+                // Aktivitäts-Meldungen ebenso (wie beim Löschen einzelner Paare): sonst blieben sie zu gelöschten Paaren stehen
+                ids.forEach { notifier.cancelActivity(it) }
+                notifier.cancelAlarms(watchRepository.getAllAlarmIds())
+                if (snapshots.isNotEmpty()) undo.put(CLEAR_ALL_UNDO_KEY, snapshots)
+                watchRepository.deleteAllWatches()
+                widgetUpdater.updateAll()
+                snapshots.size
+            }
+            onDone(count)
         }
     }
 
@@ -335,6 +347,9 @@ internal class WatchlistEditController(
         return turnOnSpeech
     }
 }
+
+/** «Rückgängig»-Schlüssel für «Merkliste leeren» (wie [NOT_TRADED_UNDO_KEY]; Watch-Ids sind immer positiv). */
+internal const val CLEAR_ALL_UNDO_KEY = -3L
 
 /** Bis zu so vielen wieder aktivierten Paaren einzeln abfragen, darüber ein ganzer Durchlauf. */
 private const val ENABLE_SINGLE_REFRESH_MAX = 3

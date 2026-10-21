@@ -15,6 +15,17 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 94)
+
+* Watched addresses: an xpub checked in the background also looks at the next unused addresses, so change after a spend is no longer missing; an incomplete, lower background result is not stored. Addresses whose balance was never loaded (e.g. after a restore) pause portfolio alerts instead of counting as 0; an EVM network that did not answer stays selected; a full TON jetton page without a known token keeps the last value; background updates take the oldest addresses first; Litecoin uses its own supply limit; iOS keeps reading the address list when one entry is unreadable.
+* Portfolio alerts: a stale price below 1 % of the portfolio value no longer pauses them; when they are paused, the alerts overview says why.
+* «Notable» activity: hourly statistics only use returns exactly one hour apart and skip pairs with too many missing candles (no false ⚡ for thinly traded pairs).
+* Live prices: reconnect delay resets only after a stable minute and is spread ±20 %; Android also closes a live connection when the exchange pauses, like iOS.
+* Android: a corrupted settings file no longer hides an existing portfolio (iOS likewise for unreadable settings).
+* Undo for «Clear watchlist», «Clear portfolio» and «Remove address» (the dialog names cost lots and history that go with an address; locked storage shows a notice instead of doing nothing).
+* Consistent wording for unreadable saved data with one remedy («Restart the app»); English uses «alert» throughout and «Notable»; percentages follow the language (e.g. Turkish «%2,4», Arabic/Persian «٪»); time spans in notifications are localized; «last at» shows a date when it was not today; «Add pair» on the empty alerts overview; iOS explorer rows and fields grow with large text; Hebrew tax note without arrows.
+* Release checks in CI: Android R8 release APK and bundle, release lint, merged-manifest policy, size, mapping, baseline profile and 16 KB alignment as annotations, plus a release smoke test on emulators; iOS release settings, a device build and inspection of the built app; store text limits, version parity and Xcode project drift on every pull request. Native debug symbols in the bundle; Swift optimisation set explicitly for Release; staged rollout documented.
+
 ## 16.2.2 (build 93)
 
 * UK tax export: rebuys within 30 days after 5 April now get the exchange rate and day close of their own date (rates were only loaded up to the end of the tax year). CSV totals add up to the cent (gain per row = rounded proceeds − rounded cost); DE/AT withdrawal fees have their own total line, as in the summary. The «orientation, not a tax return» note also stands under the totals in the app.

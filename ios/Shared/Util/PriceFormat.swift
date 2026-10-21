@@ -135,9 +135,10 @@ enum PriceFormat {
     static func changePercent(_ value: Double?) -> String? {
         guard let value, abs(value) >= 0.005 else { return nil }
         let sign = value > 0 ? "+" : "−"
-        // Vorher kaufmännisch runden (`DecimalText`): 1.005 → «1.01» wie in Android
+        // Vorher kaufmännisch runden (`DecimalText`): 1.005 → «1.01» wie in Android; Prozentzeichen der Sprache
+        // (`PercentText`: «2,40 %», «%2,40», «٢٫٤٠٪»)
         // RTL: als Insel, sonst stünde das Vorzeichen hinter der Zahl («1.20%+»)
-        return BidiText.ltr(sign + String(format: "%.2f%%", locale: Locale.current, DecimalText.rounded(abs(value), 2)))
+        return BidiText.ltr(sign + PercentText.unsigned(value, decimals: 2))
     }
 
     /// Pfeil zur Kursbewegung als Zeichen: «↗» steigend, «↘» fallend, leer bei praktisch 0 —
@@ -154,24 +155,22 @@ enum PriceFormat {
     static let arrowDown = "\u{2198}"
 
     /// Prozent mit Vorzeichen und genau `decimals` Nachkommastellen (z. B. Funding «+0.0100%»,
-    /// «−0.0050%»): echtes Minus U+2212, kaufmännisch gerundet, Schreibweise der App-Sprache;
+    /// «−0.0050%»): echtes Minus U+2212, kaufmännisch gerundet, Schreibweise der App-Sprache (`PercentText`);
     /// gerundet 0 ohne Vorzeichen. Wie `PriceFormat.signedPercent` (Android).
     static func signedPercent(_ value: Double, decimals: Int) -> String {
-        let rounded = DecimalText.rounded(abs(value), decimals)
-        let sign = rounded == 0 ? "" : (value > 0 ? "+" : "−")
-        return BidiText.ltr(sign + String(format: "%.\(decimals)f%%", locale: Locale.current, rounded))
+        BidiText.ltr(PercentText.signed(value, decimals: decimals))
     }
 
     /// Praktisch keine Änderung: «0.00%» grau, ohne Pfeil — in der Schreibweise der App-Sprache
-    /// («0,00%», arabisch «٠٫٠٠%») wie `changePercent`.
+    /// («0,00 %», arabisch «٠٫٠٠٪») wie `changePercent`.
     static func zeroPercent() -> String {
-        BidiText.ltr(String(format: "%.2f%%", locale: Locale.current, 0.0))
+        BidiText.ltr(PercentText.unsigned(0, decimals: 2))
     }
 
     /// Mit Vorzeichen (echtes Minus U+2212) und drei Nachkommastellen (Mitteilungen).
     static func changePercentDetailed(_ value: Double) -> String {
         let sign = value >= 0 ? "+" : "−"
-        return BidiText.ltr(sign + String(format: "%.3f%%", locale: Locale.current, DecimalText.rounded(abs(value), 3)))
+        return BidiText.ltr(sign + PercentText.unsigned(value, decimals: 3))
     }
 
     private static let timeFormatter: DateFormatter = {
@@ -193,16 +192,41 @@ enum PriceFormat {
         return Date(millis: millis).formatted(date: .omitted, time: .shortened)
     }
 
-    /// Kompakter Abstand: 45s, 12m, 3h, 7d.
-    static func age(since millis: Int64, now: Int64 = TimeUtils.nowMillis) -> String? {
+    /// Grösste ganze Einheit des Abstands seit `millis` (7 Tage → 7, `.day`); nil ohne bzw. mit künftigem Zeitpunkt —
+    /// wie Android `PriceFormat.ageParts`.
+    static func ageParts(since millis: Int64, now: Int64 = TimeUtils.nowMillis) -> (value: Int64, unit: NSCalendar.Unit)? {
         guard millis > 0 else { return nil }
         let elapsed = now - millis
         guard elapsed >= 0 else { return nil }
         let s = elapsed / 1000, m = s / 60, h = m / 60, d = h / 24
-        if d > 0 { return LocaleNumbers.integer(d) + "d" }
-        if h > 0 { return LocaleNumbers.integer(h) + "h" }
-        if m > 0 { return LocaleNumbers.integer(m) + "m" }
-        return LocaleNumbers.integer(s) + "s"
+        if d > 0 { return (d, .day) }
+        if h > 0 { return (h, .hour) }
+        if m > 0 { return (m, .minute) }
+        return (s, .second)
+    }
+
+    /// Kompakter Abstand in der App-Sprache: Englisch «45s», «12m», «3h», «7d», Deutsch «7 T.», «3 Std.»
+    /// (`DateComponentsFormatter` .abbreviated, wie Android ICU MeasureFormat NARROW). Seit Build 94 nicht mehr fest
+    /// englisch («vor 7d»).
+    static func age(since millis: Int64, now: Int64 = TimeUtils.nowMillis, locale: Locale = LocaleNumbers.appLocale) -> String? {
+        guard let parts = ageParts(since: millis, now: now) else { return nil }
+        let value = parts.value, unit = parts.unit
+        let f = DateComponentsFormatter()
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.locale = locale
+        f.calendar = calendar
+        f.unitsStyle = .abbreviated
+        f.allowedUnits = unit
+        f.maximumUnitCount = 1
+        var components = DateComponents()
+        let suffix: String
+        switch unit {
+        case .day: components.day = Int(value); suffix = "d"
+        case .hour: components.hour = Int(value); suffix = "h"
+        case .minute: components.minute = Int(value); suffix = "m"
+        default: components.second = Int(value); suffix = "s"
+        }
+        return f.string(from: components) ?? (LocaleNumbers.integer(value, locale: locale) + suffix)
     }
 
     static func duration(_ millis: Int64) -> String {

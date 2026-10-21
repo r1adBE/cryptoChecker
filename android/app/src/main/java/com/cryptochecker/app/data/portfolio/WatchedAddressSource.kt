@@ -81,7 +81,9 @@ class WatchedAddressSource @Inject constructor(
      * @param budgetMillis Hintergrund: höchstens so lange insgesamt (je Anfrage höchstens
      *   [BACKGROUND_REQUEST_MILLIS]); läuft schon ein Abruf, wird nicht gewartet. Was nicht mehr
      *   drankommt, bleibt fällig (kein Fehler). null = Vordergrund, ohne Grenze.
-     *   xpub im Hintergrund: nur die bekannten benutzten Adressen und nur ganz (sonst bleibt er fällig).
+     *   xpub im Hintergrund: die bekannten benutzten Adressen samt kurzem Vorausblick und nur ganz (sonst bleibt er
+     *   fällig). Hintergrund: die am längsten nicht versuchten zuerst ([AddressBalance.dueOrder]) — sonst kämen bei
+     *   knappem Budget immer nur die zuerst erfassten dran.
      */
     suspend fun refresh(
         addresses: List<WatchedAddress>,
@@ -93,7 +95,7 @@ class WatchedAddressSource @Inject constructor(
         if (deadline == null) mutex.lock() else if (!mutex.tryLock()) return emptyList()
         try {
             val updates = mutableListOf<Update>()
-            for (a in addresses.filter { AddressBalance.isDue(it.lastAttempt, now, force) }) {
+            for (a in AddressBalance.dueOrder(addresses, now, force, background = deadline != null)) {
                 val time = System.currentTimeMillis()
                 try {
                     val fetched = when {
@@ -136,7 +138,7 @@ class WatchedAddressSource @Inject constructor(
             AddressBalance.ethText(AddressBalance.parseEthWei(client.callMarket(rpc, json(AddressBalance.ethRequest(address)))))
         }
         AddressChain.LTC -> firstWorking(ChainBalance.LTC_HOSTS, deadline) { host ->
-            val stats = AddressBalance.parseBtc(client.callMarket(ChainBalance.ltcUrl(host, address), null), address)
+            val stats = AddressBalance.parseBtc(client.callMarket(ChainBalance.ltcUrl(host, address), null), address, AddressChain.LTC)
             AddressBalance.unitsText(stats.totalSats.toString(), AddressChain.LTC.decimals)
         }
         AddressChain.XRP -> firstWorking(ChainBalance.XRP_RPCS, deadline) { rpc ->
@@ -168,12 +170,14 @@ class WatchedAddressSource @Inject constructor(
     /**
      * 0x-Adresse: Ethereum (mit «Tokens mitzählen» als Stapel mit ERC-20) und die gewählten weiteren EVM-Netze
      * ([ChainAssets.EVM], vor der ersten Suche alle) — je Netz eine Stapel-Anfrage (Netz-Guthaben + Token). Ein Netz,
-     * das nicht antwortet, bleibt wie zuletzt; im Hintergrund endet die Runde, wenn die Zeit um ist.
+     * das nicht antwortet, bleibt wie zuletzt; im Hintergrund endet die Runde, wenn die Zeit um ist. Die erste Wahl der
+     * Netze nur im Vordergrund, stumme Netze bleiben darin ([WatchedAddressRules.discoveredNetworks]).
      */
     private suspend fun fetchEvm(a: WatchedAddress, deadline: Long?): Fetched {
         val ethereum = if (a.countTokens) fetchEthWithTokens(a.address, deadline) else fetch(AddressChain.ETH, a.address, deadline)
         val tokens = LinkedHashMap(ethereum.tokens ?: emptyMap())
         val found = ArrayList<String>()
+        val unanswered = ArrayList<String>()
         for (id in a.networks ?: ChainAssets.EVM.map { it.id }) {
             val net = ChainAssets.network(id) ?: continue
             val list = if (a.countTokens) net.tokens else emptyList()
@@ -191,9 +195,15 @@ class WatchedAddressSource @Inject constructor(
                 break
             } catch (e: Exception) {
                 Timber.d("Netz %s: %s", net.id, e.message)
+                unanswered += net.id
             }
         }
-        return ethereum.copy(tokens = tokens.ifEmpty { ethereum.tokens }, networks = if (a.networks == null) found else null)
+        val networks = if (a.networks == null) {
+            WatchedAddressRules.discoveredNetworks(found, unanswered, background = deadline != null)
+        } else {
+            null
+        }
+        return ethereum.copy(tokens = tokens.ifEmpty { ethereum.tokens }, networks = networks)
     }
 
     /**
@@ -350,7 +360,7 @@ class WatchedAddressSource @Inject constructor(
         private const val MIN_REQUEST_MILLIS = 1_000L
         /** xpub: Pause zwischen zwei Adressen (Vordergrund) — höflich zu den kostenlosen Anbietern. */
         const val XPUB_PAUSE_MILLIS = 200L
-        /** xpub im Hintergrund (Zeitbudget, nur bekannte benutzte Adressen). */
+        /** xpub im Hintergrund (Zeitbudget, bekannte benutzte Adressen und kurzer Vorausblick). */
         const val XPUB_PAUSE_BACKGROUND_MILLIS = 50L
     }
 }

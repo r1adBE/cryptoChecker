@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Alarmy portfolia pozastaveny: chybí aktuální cena pro %1$s</string>
+    <string name="portfolio_alarms_paused_price_generic">Alarmy portfolia pozastaveny: ne všechny mince mají aktuální cenu</string>
+    <string name="portfolio_alarms_paused_addresses">Alarmy portfolia pozastaveny: zůstatky sledovaných adres ještě nejsou načteny</string>
+</resources>

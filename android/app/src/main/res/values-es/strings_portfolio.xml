@@ -6,9 +6,9 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Vaciar cartera</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">¿Eliminar %d transacción? Las direcciones vigiladas se mantienen. No se puede deshacer.</item>
-        <item quantity="many">¿Eliminar las %d transacciones? Las direcciones vigiladas se mantienen. No se puede deshacer.</item>
-        <item quantity="other">¿Eliminar las %d transacciones? Las direcciones vigiladas se mantienen. No se puede deshacer.</item>
+        <item quantity="one">¿Eliminar %d transacción? Las direcciones vigiladas se mantienen. Puedes deshacerlo justo después.</item>
+        <item quantity="many">¿Eliminar las %d transacciones? Las direcciones vigiladas se mantienen. Puedes deshacerlo justo después.</item>
+        <item quantity="other">¿Eliminar las %d transacciones? Las direcciones vigiladas se mantienen. Puedes deshacerlo justo después.</item>
     </plurals>
     <string name="portfolio_empty_action">Añadir tu primera compra</string>
     <string name="portfolio_empty_address">Solo seguir una dirección de wallet</string>
@@ -307,4 +307,20 @@
         <item quantity="many">%1$s eliminado de la cartera (%2$d transacciones)</item>
         <item quantity="other">%1$s eliminado de la cartera (%2$d transacciones)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d transacción eliminada</item>
+        <item quantity="many">%d transacciones eliminadas</item>
+        <item quantity="other">%d transacciones eliminadas</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">También se eliminará %d lote.</item>
+        <item quantity="many">También se eliminarán %d lotes.</item>
+        <item quantity="other">También se eliminarán %d lotes.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">También se eliminarán %d lote y el historial de saldo.</item>
+        <item quantity="many">También se eliminarán %d lotes y el historial de saldo.</item>
+        <item quantity="other">También se eliminarán %d lotes y el historial de saldo.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">También se eliminará el historial de saldo.</string>
 </resources>

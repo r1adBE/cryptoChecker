@@ -88,9 +88,8 @@ extension WatchlistScreen {
                 Text(L("watchlist_remove_not_traded_confirm", count: data.notTradedCount))
             }
             .alert(L("watchlist_clear"), isPresented: $askClearAll) {
-                Button(L("watchlist_clear"), role: .destructive) {
-                    withAnimation { data.deleteAll() }
-                }
+                // Mit «Rückgängig» im Banner (wie «Nicht gehandelte entfernen»)
+                Button(L("watchlist_clear"), role: .destructive) { clearAll() }
                 Button(L("action_cancel"), role: .cancel) {}
             } message: {
                 Text(L("watchlist_clear_confirm"))

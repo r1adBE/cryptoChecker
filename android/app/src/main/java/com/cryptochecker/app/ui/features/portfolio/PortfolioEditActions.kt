@@ -182,12 +182,17 @@ fun PortfolioViewModel.restore(transactions: List<PortfolioTxEntity>) {
     viewModelScope.launch { safe { repository.restore(transactions) } }
 }
 
-/** «Portfolio leeren» (nach Bestätigung): alle Transaktionen löschen. */
-fun PortfolioViewModel.clearAll() {
+/**
+ * «Portfolio leeren» (nach Bestätigung): alle Transaktionen löschen; [onCleared] erhält sie für «Rückgängig»
+ * ([restore] legt sie mit denselben ids wieder an, die Kurse lädt der Tab danach neu) — seit Build 94 wie das
+ * Löschen eines Coins.
+ */
+fun PortfolioViewModel.clearAll(onCleared: (List<PortfolioTxEntity>) -> Unit = {}) {
     viewModelScope.launch {
-        safe { repository.clearAll() }
+        val removed = safe { repository.clearAll() }.orEmpty()
         // Gemerkte Kurse nennen die gehaltenen Coins: mit dem Portfolio weg
         safe { priceSource.clearStored() }
+        if (removed.isNotEmpty()) onCleared(removed)
     }
 }
 

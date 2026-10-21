@@ -1,5 +1,5 @@
 {
-  "description": "Live prices via WebSocket (Android domain/live/LiveFeed.kt / iOS App/Services/LiveFeed.swift): parser per exchange (sample messages -> ticks; change24h in percent, null = not in the message), stream symbol per pair, subscribe messages, connection plan, reconnect backoff, which 24 h change is kept and when REST may skip a live pair.",
+  "description": "Live prices via WebSocket (Android domain/live/LiveFeed.kt / iOS App/Services/LiveFeed.swift): parser per exchange (sample messages -> ticks; change24h in percent, null = not in the message), stream symbol per pair, subscribe messages, connection plan, reconnect backoff (attempt counter reset only after a stable connection, ±20 % jitter), which 24 h change is kept and when REST may skip a live pair.",
   "parse": [
     {
       "name": "binance spot 24hrTicker",
@@ -555,6 +555,87 @@
     {
       "attempt": 0,
       "rateLimited": true,
+      "millis": 300000
+    }
+  ],
+  "backoffAttempt": [
+    {
+      "name": "snapshot_then_disconnect",
+      "attempt": 0,
+      "receivedData": true,
+      "connectedMillis": 1000,
+      "expected": 1
+    },
+    {
+      "name": "short_with_data_grows",
+      "attempt": 3,
+      "receivedData": true,
+      "connectedMillis": 59999,
+      "expected": 4
+    },
+    {
+      "name": "stable_resets",
+      "attempt": 3,
+      "receivedData": true,
+      "connectedMillis": 60000,
+      "expected": 0
+    },
+    {
+      "name": "long_without_data_grows",
+      "attempt": 3,
+      "receivedData": false,
+      "connectedMillis": 600000,
+      "expected": 4
+    },
+    {
+      "name": "counter_capped",
+      "attempt": 250,
+      "receivedData": false,
+      "connectedMillis": 0,
+      "expected": 101
+    }
+  ],
+  "backoffJitter": [
+    {
+      "attempt": 0,
+      "rateLimited": false,
+      "random": 0.0,
+      "millis": 800
+    },
+    {
+      "attempt": 0,
+      "rateLimited": false,
+      "random": 0.5,
+      "millis": 1000
+    },
+    {
+      "attempt": 0,
+      "rateLimited": false,
+      "random": 1.0,
+      "millis": 1200
+    },
+    {
+      "attempt": 0,
+      "rateLimited": false,
+      "random": -1.0,
+      "millis": 800
+    },
+    {
+      "attempt": 2,
+      "rateLimited": false,
+      "random": 0.75,
+      "millis": 4400
+    },
+    {
+      "attempt": 6,
+      "rateLimited": false,
+      "random": 0.25,
+      "millis": 54000
+    },
+    {
+      "attempt": 1,
+      "rateLimited": true,
+      "random": 0.0,
       "millis": 300000
     }
   ],

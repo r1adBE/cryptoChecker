@@ -6,7 +6,7 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">清空投资组合</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="other">要删除全部 %d 笔交易吗？观察的地址会保留。此操作无法撤销。</item>
+        <item quantity="other">要删除全部 %d 笔交易吗？观察的地址会保留。删除后可立即撤销。</item>
     </plurals>
     <string name="portfolio_empty_action">添加第一笔买入</string>
     <string name="portfolio_empty_address">仅关注一个钱包地址</string>
@@ -295,4 +295,14 @@
     <plurals name="portfolio_coin_removed">
         <item quantity="other">已从投资组合移除 %1$s（%2$d 笔交易）</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="other">已删除 %d 笔交易</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="other">同时会删除 %d 个批次。</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="other">同时会删除 %d 个批次和余额历史。</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">同时会删除余额历史。</string>
 </resources>

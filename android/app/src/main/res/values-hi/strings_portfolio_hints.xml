@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">पोर्टफ़ोलियो अलर्ट रुके हुए हैं: %1$s का कोई मौजूदा भाव नहीं</string>
+    <string name="portfolio_alarms_paused_price_generic">पोर्टफ़ोलियो अलर्ट रुके हुए हैं: हर कॉइन का मौजूदा भाव नहीं है</string>
+    <string name="portfolio_alarms_paused_addresses">पोर्टफ़ोलियो अलर्ट रुके हुए हैं: देखे जा रहे पतों के बैलेंस अभी लोड नहीं हुए</string>
+</resources>

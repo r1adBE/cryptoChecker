@@ -6,8 +6,8 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">خالی کردن پرتفوی</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">%d تراکنش حذف شود؟ آدرس‌های زیر نظر باقی می‌مانند. این کار قابل بازگشت نیست.</item>
-        <item quantity="other">همهٔ %d تراکنش حذف شوند؟ آدرس‌های زیر نظر باقی می‌مانند. این کار قابل بازگشت نیست.</item>
+        <item quantity="one">%d تراکنش حذف شود؟ آدرس‌های زیر نظر باقی می‌مانند. می‌توانید بلافاصله پس از آن، این کار را واگرد کنید.</item>
+        <item quantity="other">همهٔ %d تراکنش حذف شوند؟ آدرس‌های زیر نظر باقی می‌مانند. می‌توانید بلافاصله پس از آن، این کار را واگرد کنید.</item>
     </plurals>
     <string name="portfolio_empty_action">افزودن اولین خرید</string>
     <string name="portfolio_empty_address">فقط دنبال کردن نشانی کیف پول</string>
@@ -301,4 +301,17 @@
         <item quantity="one">%1$s از پرتفوی حذف شد (%2$d تراکنش)</item>
         <item quantity="other">%1$s از پرتفوی حذف شد (%2$d تراکنش)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d تراکنش حذف شد</item>
+        <item quantity="other">%d تراکنش حذف شد</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">%d دسته نیز حذف می‌شود.</item>
+        <item quantity="other">%d دسته نیز حذف می‌شود.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">%d دسته و تاریخچهٔ موجودی نیز حذف می‌شوند.</item>
+        <item quantity="other">%d دسته و تاریخچهٔ موجودی نیز حذف می‌شوند.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">تاریخچهٔ موجودی نیز حذف می‌شود.</string>
 </resources>

@@ -345,7 +345,7 @@ class WatchlistViewModel @Inject constructor(
     /** «Deaktivieren» bzw. «Aktivieren» (dann gleich den Kurs holen). */
     fun setDisabled(ids: Collection<Long>, disabled: Boolean) = edits.setDisabled(ids, disabled)
 
-    fun deleteAll() = edits.deleteAll()
+    fun deleteAllWithUndo(onDone: (Int) -> Unit = {}) = edits.deleteAllWithUndo(onDone)
 
     fun setNotificationEnabled(watch: WatchEntity, enabled: Boolean) = edits.setNotificationEnabled(watch, enabled)
 

@@ -1,8 +1,8 @@
 import Accessibility
 import SwiftUI
 
-// Abläufe der Portfolio-Seite (Teil von `PortfolioScreen`): Meldung nach gespeichertem Alarm, Coin löschen und
-// Import zurücknehmen mit «Rückgängig», Hinweise zur Überschneidung beobachteter Adressen.
+// Abläufe der Portfolio-Seite (Teil von `PortfolioScreen`): Meldung nach gespeichertem Alarm, Coin löschen, Portfolio
+// leeren und Import zurücknehmen mit «Rückgängig», Hinweise zur Überschneidung beobachteter Adressen.
 // Eigene Datei, weil die Seite selbst nur den Aufbau regelt.
 
 extension PortfolioScreen {
@@ -120,6 +120,32 @@ extension PortfolioScreen {
     }
 
     /// «Rückgängig» im Banner: zurücklegen; nicht geschrieben → Hinweis statt still nichts.
+    /// «Portfolio leeren» bestätigt: alle Transaktionen weg, Banner mit Zahl, «Rückgängig» (alle mit ihren ids zurück,
+    /// die Kurse lädt die Seite danach neu) und Ansage — seit Build 94 wie `deleteCoin`, wie Android.
+    func clearAll() {
+        // Stand vorher für «Rückgängig» (mit ids), wie `PortfolioRepository.clearAll` (Android) ihn zurückgibt
+        let before = data.currentPortfolioFile().transactions
+        var cleared = true
+        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { cleared = data.clearPortfolio() }
+        guard cleared else {
+            banner = .portfolioNotSaved
+            return
+        }
+        guard !before.isEmpty else { return }
+        deleteTick += 1
+        let text = L("portfolio_cleared", count: before.count)
+        banner = WatchlistBannerMessage(
+            text: text,
+            icon: "trash",
+            action: WatchlistBannerAction(title: L("action_undo")) { restoreOrWarn(before) }
+        )
+        Task { @MainActor in
+            // Nach dem Fokuswechsel ansagen, sonst geht es unter
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            AccessibilityNotification.Announcement(text).post()
+        }
+    }
+
     private func restoreOrWarn(_ restore: [PortfolioTx]) {
         var saved = true
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { saved = data.restorePortfolioTxs(restore) }

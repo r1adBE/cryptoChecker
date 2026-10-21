@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">Portföy alarmları duraklatıldı: %1$s için güncel fiyat yok</string>
+    <string name="portfolio_alarms_paused_price_generic">Portföy alarmları duraklatıldı: her coinin güncel fiyatı yok</string>
+    <string name="portfolio_alarms_paused_addresses">Portföy alarmları duraklatıldı: izlenen adreslerin bakiyeleri henüz yüklenmedi</string>
+</resources>

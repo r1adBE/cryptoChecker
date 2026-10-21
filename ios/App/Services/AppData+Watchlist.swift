@@ -6,7 +6,7 @@ import UIKit
 import UserNotifications
 
 // Merkliste in AppData: Erst-Hinzufügen (Moment und Meldung), Startpaare, Paar einfügen/ändern, Löschen mit
-// Rückgängig (einzeln, nicht gehandelte, Auswahl), alles löschen.
+// Rückgängig (einzeln, nicht gehandelte, Auswahl, alles).
 // Eigene Datei, weil die Merkliste ein eigener Bereich ist; der Zustand bleibt in `AppData.swift`.
 
 extension AppData {
@@ -316,17 +316,21 @@ extension AppData {
         return restored.count
     }
 
-    func deleteAll() {
-        snapshot.watches.forEach {
-            Notifier.cancelPrice($0.id)
-            Notifier.cancelActivity($0.id)
-        }
-        snapshot.alarms.forEach { Notifier.cancelAlarm($0.id) }
+    /// «Merkliste leeren»: alle Paare samt Alarmen löschen — seit Build 94 wie `deleteForUndo` festgehalten, damit
+    /// `restore(_:)` mit der Liste alles mit denselben Ids zurückholt (wie Android `deleteAllWithUndo`).
+    func deleteAllForUndo() -> [DeletedWatch] {
+        let deleted = deleteForUndo(ids: Set(snapshot.watches.map(\.id)))
+        // Wie bisher «alles weg»: auch Alarme ohne Paar, alle Aktivitäts-Berichte und Live-Aktivitäten
+        let orphans = snapshot.alarms
+        orphans.forEach { Notifier.cancelAlarm($0.id) }
         activityReports = [:]
         Task { await LiveActivityController.endAll() }
-        mutate { s in
-            s.watches.removeAll()
-            s.alarms.removeAll()
+        if !orphans.isEmpty || !snapshot.watches.isEmpty {
+            mutate { s in
+                s.watches.removeAll()
+                s.alarms.removeAll()
+            }
         }
+        return deleted
     }
 }

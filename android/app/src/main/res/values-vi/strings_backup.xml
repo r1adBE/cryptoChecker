@@ -74,19 +74,19 @@
     <string name="system_backup_not_imported_message">Không đọc được bản sao danh mục từ bản sao lưu hệ thống Android, kể cả ở lần thử thứ hai, nên đã xóa. Nếu có tệp sao lưu, hãy khôi phục trong Cài đặt, mục “%1$s”.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Danh mục đã lưu hiện không thể mở khóa nên không được hiển thị – danh mục sẽ trở lại sau khi khởi động lại ứng dụng. Chỉ có thể thay đổi sau lần khởi động tới.</string>
+    <string name="portfolio_storage_kept_in_memory">Hiện không đọc được dữ liệu đã lưu, nên danh mục không được hiển thị và không thể thay đổi. Hãy khởi động lại ứng dụng.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
-    <string name="watchlist_storage_kept_in_memory">Danh sách đã lưu hiện không thể mở khóa nên không được hiển thị – danh sách sẽ trở lại sau khi khởi động lại ứng dụng. Các thay đổi thực hiện bây giờ sẽ không được lưu.</string>
-    <string name="alarm_save_storage_locked">Hiện không thể lưu cảnh báo – danh sách đã lưu đang bị khóa. Hãy khởi động lại ứng dụng.</string>
+    <string name="watchlist_storage_kept_in_memory">Hiện không đọc được dữ liệu đã lưu, nên danh sách không được hiển thị và các thay đổi thực hiện bây giờ sẽ không được lưu. Hãy khởi động lại ứng dụng.</string>
+    <string name="alarm_save_storage_locked">Không thể lưu cảnh báo: hiện không đọc được dữ liệu đã lưu. Hãy khởi động lại ứng dụng.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
-    <string name="backup_storage_kept">Hiện không thể sao lưu: dữ liệu đã lưu tạm thời không mở khóa được. Hãy khởi động lại ứng dụng và thử lại.</string>
+    <string name="backup_storage_kept">Không thể sao lưu: hiện không đọc được dữ liệu đã lưu. Hãy khởi động lại ứng dụng và thử lại.</string>
     <string name="backup_restore_storage_in_memory">Hiện không thể nhập: ứng dụng tạm thời không lưu dữ liệu (mã hóa chưa hoạt động), nên dữ liệu nhập sẽ mất khi khởi động lại. Hãy khởi động lại ứng dụng và thử lại.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Mã hóa chưa được bật – danh mục không được lưu, các thay đổi sẽ mất khi đóng ứng dụng. Ứng dụng sẽ thử lại ở lần khởi động tới.</string>
 
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
-    <string name="portfolio_storage_locked">Danh mục đã lưu hiện đang bị khóa – chỉ có thể thay đổi sau lần khởi động tới.</string>
+    <string name="portfolio_storage_locked">Hiện không đọc được dữ liệu đã lưu, nên không thể thay đổi. Hãy khởi động lại ứng dụng.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">Thiết bị này hiện không cung cấp khóa – danh sách không được lưu, các thay đổi sẽ mất khi đóng ứng dụng. Cảnh báo nền đang tạm dừng. Ứng dụng sẽ thử lại ở lần khởi động tới.</string>
 </resources>

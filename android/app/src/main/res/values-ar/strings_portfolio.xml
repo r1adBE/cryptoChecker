@@ -6,12 +6,12 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">إفراغ المحفظة</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="zero">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
-        <item quantity="one">حذف المعاملة (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
-        <item quantity="two">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
-        <item quantity="few">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
-        <item quantity="many">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
-        <item quantity="other">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. لا يمكن التراجع عن ذلك.</item>
+        <item quantity="zero">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
+        <item quantity="one">حذف المعاملة (%d)؟ تبقى العناوين المراقَبة. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
+        <item quantity="two">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
+        <item quantity="few">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
+        <item quantity="many">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
+        <item quantity="other">حذف جميع المعاملات (%d)؟ تبقى العناوين المراقَبة. يمكنك التراجع عن ذلك مباشرةً بعد الحذف.</item>
     </plurals>
     <string name="portfolio_empty_action">أضف أول عملية شراء</string>
     <string name="portfolio_empty_address">مراقبة عنوان محفظة فقط</string>
@@ -325,4 +325,29 @@
         <item quantity="many">تمت إزالة %1$s من المحفظة (المعاملات: %2$d)</item>
         <item quantity="other">تمت إزالة %1$s من المحفظة (المعاملات: %2$d)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="zero">المعاملات المحذوفة: %d</item>
+        <item quantity="one">المعاملات المحذوفة: %d</item>
+        <item quantity="two">المعاملات المحذوفة: %d</item>
+        <item quantity="few">المعاملات المحذوفة: %d</item>
+        <item quantity="many">المعاملات المحذوفة: %d</item>
+        <item quantity="other">المعاملات المحذوفة: %d</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="zero">ستُحذف أيضًا الدفعات المسجّلة (%d).</item>
+        <item quantity="one">ستُحذف أيضًا الدفعة المسجّلة (%d).</item>
+        <item quantity="two">ستُحذف أيضًا الدفعات المسجّلة (%d).</item>
+        <item quantity="few">ستُحذف أيضًا الدفعات المسجّلة (%d).</item>
+        <item quantity="many">ستُحذف أيضًا الدفعات المسجّلة (%d).</item>
+        <item quantity="other">ستُحذف أيضًا الدفعات المسجّلة (%d).</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="zero">ستُحذف أيضًا الدفعات المسجّلة (%d) وسجل الرصيد.</item>
+        <item quantity="one">ستُحذف أيضًا الدفعة المسجّلة (%d) وسجل الرصيد.</item>
+        <item quantity="two">ستُحذف أيضًا الدفعات المسجّلة (%d) وسجل الرصيد.</item>
+        <item quantity="few">ستُحذف أيضًا الدفعات المسجّلة (%d) وسجل الرصيد.</item>
+        <item quantity="many">ستُحذف أيضًا الدفعات المسجّلة (%d) وسجل الرصيد.</item>
+        <item quantity="other">ستُحذف أيضًا الدفعات المسجّلة (%d) وسجل الرصيد.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">سيُحذف أيضًا سجل الرصيد.</string>
 </resources>

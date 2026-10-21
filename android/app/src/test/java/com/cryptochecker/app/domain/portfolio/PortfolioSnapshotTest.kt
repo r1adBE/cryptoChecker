@@ -136,11 +136,14 @@ class PortfolioSnapshotTest {
             currency = "USD",
         )
         assertEquals(2, s.missingPrices)
+        // Namen für den Hinweis «Portfolio-Alarme pausiert» (sortiert)
+        assertEquals(listOf("ETH", "SOL"), s.missingCoins)
         val day = PortfolioSnapshotMath.snapshot(
             mapOf("BTC" to 1.0, "ETH" to 2.0), 100.0, mapOf("BTC" to 100.0), emptyList(), now, 1.0, "USD",
             stamp = ChangeStamp(ChangeBasis.UTC_DAY, now - 5 * h),
         )
         assertEquals(1, day.missingPrices)
+        assertEquals(listOf("ETH"), day.missingCoins)
         // alle mit Kurs bzw. ältere Aufnahme (Standardwert): kein Hinweis
         assertEquals(0, PortfolioSnapshotMath.snapshot(mapOf("BTC" to 1.0), 100.0, mapOf("BTC" to 100.0), emptyList(), now, 1.0, "USD").missingPrices)
         assertEquals(0, PortfolioSnapshot(1.0, null, null, "USD", now, false).missingPrices)

@@ -6,8 +6,8 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Portföyü temizle</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">%d işlem silinsin mi? İzlenen adresler kalır. Bu işlem geri alınamaz.</item>
-        <item quantity="other">Tüm %d işlem silinsin mi? İzlenen adresler kalır. Bu işlem geri alınamaz.</item>
+        <item quantity="one">%d işlem silinsin mi? İzlenen adresler kalır. Hemen ardından geri alabilirsiniz.</item>
+        <item quantity="other">Tüm %d işlem silinsin mi? İzlenen adresler kalır. Hemen ardından geri alabilirsiniz.</item>
     </plurals>
     <string name="portfolio_empty_action">İlk alımını ekle</string>
     <string name="portfolio_empty_address">Yalnızca bir cüzdan adresini izle</string>
@@ -301,4 +301,17 @@
         <item quantity="one">%1$s portföyden kaldırıldı (%2$d işlem)</item>
         <item quantity="other">%1$s portföyden kaldırıldı (%2$d işlem)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d işlem silindi</item>
+        <item quantity="other">%d işlem silindi</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">%d parti de silinecek.</item>
+        <item quantity="other">%d parti de silinecek.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">%d parti ve bakiye geçmişi de silinecek.</item>
+        <item quantity="other">%d parti ve bakiye geçmişi de silinecek.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Bakiye geçmişi de silinecek.</string>
 </resources>

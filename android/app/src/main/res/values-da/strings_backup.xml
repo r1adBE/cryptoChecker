@@ -77,19 +77,19 @@
     <string name="system_backup_not_imported_message">Porteføljekopien fra Androids systembackup kunne ikke læses, heller ikke ved andet forsøg, og er slettet. Har du en backupfil, så gendan den under “%1$s” i Indstillinger.</string>
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
-    <string name="portfolio_storage_kept_in_memory">Den gemte portefølje kan ikke låses op lige nu og vises ikke – den er tilbage, når appen genstartes. Ændringer er først mulige efter næste start.</string>
+    <string name="portfolio_storage_kept_in_memory">Gemte data kan ikke læses lige nu, så porteføljen vises ikke og kan ikke ændres. Genstart appen.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
-    <string name="watchlist_storage_kept_in_memory">Den gemte overvågningsliste kan ikke låses op lige nu og vises ikke – den er tilbage, når appen genstartes. Ændringer foretaget nu bliver ikke gemt.</string>
-    <string name="alarm_save_storage_locked">Alarmer kan ikke gemmes lige nu – den gemte overvågningsliste er låst. Genstart appen.</string>
+    <string name="watchlist_storage_kept_in_memory">Gemte data kan ikke læses lige nu, så overvågningslisten vises ikke, og ændringer foretaget nu bliver ikke gemt. Genstart appen.</string>
+    <string name="alarm_save_storage_locked">Alarmer kan ikke gemmes: Gemte data kan ikke læses lige nu. Genstart appen.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
-    <string name="backup_storage_kept">Sikkerhedskopi er ikke mulig lige nu: de gemte data kan ikke låses op i øjeblikket. Genstart appen, og prøv igen.</string>
+    <string name="backup_storage_kept">Sikkerhedskopi er ikke mulig: Gemte data kan ikke læses lige nu. Genstart appen, og prøv igen.</string>
     <string name="backup_restore_storage_in_memory">Import er ikke muligt lige nu: appen gemmer ikke data i øjeblikket (kryptering er endnu ikke aktiv), så importen ville gå tabt ved genstart. Genstart appen, og prøv igen.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Kryptering er endnu ikke aktiv – porteføljen gemmes ikke, og ændringer går tabt, når appen lukkes. Appen prøver igen ved næste start.</string>
 
     <!-- Schreibweg des Nutzers abgelehnt, solange das gespeicherte Portfolio gesperrt ist (PortfolioStorageLock: Transaktion, Löschen, Adressen, Einstandsposten) -->
-    <string name="portfolio_storage_locked">Den gemte portefølje er låst lige nu – ændringer er først mulige efter næste start.</string>
+    <string name="portfolio_storage_locked">Gemte data kan ikke læses lige nu, så ændringer er ikke mulige. Genstart appen.</string>
     <!-- Merkliste ohne Schlüssel nur im Arbeitsspeicher (Android: Decision.Refused, iOS: watchlistSavePending): Dauerhinweis in der Merkliste -->
     <string name="watchlist_storage_in_memory">Enheden stiller ikke en nøgle til rådighed lige nu – overvågningslisten gemmes ikke, og ændringer går tabt, når appen lukkes. Alarmer i baggrunden er sat på pause. Appen prøver igen ved næste start.</string>
 </resources>

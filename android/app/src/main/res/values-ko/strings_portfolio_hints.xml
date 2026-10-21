@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
+    <string name="portfolio_alarms_paused_price">포트폴리오 알림 일시 중지: %1$s의 현재 시세 없음</string>
+    <string name="portfolio_alarms_paused_price_generic">포트폴리오 알림 일시 중지: 일부 코인에 현재 시세가 없음</string>
+    <string name="portfolio_alarms_paused_addresses">포트폴리오 알림 일시 중지: 감시 중인 주소의 잔액을 아직 불러오지 못함</string>
+</resources>

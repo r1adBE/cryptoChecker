@@ -6,8 +6,8 @@
     <!-- ⋯ › «Portfolio leeren» (rot, mit Rückfrage) und Banner nach dem Wischen auf einer Transaktion -->
     <string name="portfolio_clear">Tyhjennä salkku</string>
     <plurals name="portfolio_clear_confirm_count">
-        <item quantity="one">Poistetaanko %d tapahtuma? Seuratut osoitteet säilyvät. Toimintoa ei voi kumota.</item>
-        <item quantity="other">Poistetaanko kaikki %d tapahtumaa? Seuratut osoitteet säilyvät. Toimintoa ei voi kumota.</item>
+        <item quantity="one">Poistetaanko %d tapahtuma? Seuratut osoitteet säilyvät. Voit perua sen heti perään.</item>
+        <item quantity="other">Poistetaanko kaikki %d tapahtumaa? Seuratut osoitteet säilyvät. Voit perua sen heti perään.</item>
     </plurals>
     <string name="portfolio_empty_action">Lisää ensimmäinen ostosi</string>
     <string name="portfolio_empty_address">Seuraa vain lompakon osoitetta</string>
@@ -301,4 +301,17 @@
         <item quantity="one">%1$s poistettu salkusta (%2$d tapahtuma)</item>
         <item quantity="other">%1$s poistettu salkusta (%2$d tapahtumaa)</item>
     </plurals>
+    <plurals name="portfolio_cleared">
+        <item quantity="one">%d tapahtuma poistettu</item>
+        <item quantity="other">%d tapahtumaa poistettu</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots">
+        <item quantity="one">Samalla poistetaan %d erä.</item>
+        <item quantity="other">Samalla poistetaan %d erää.</item>
+    </plurals>
+    <plurals name="portfolio_address_remove_lots_history">
+        <item quantity="one">Samalla poistetaan %d erä ja saldohistoria.</item>
+        <item quantity="other">Samalla poistetaan %d erää ja saldohistoria.</item>
+    </plurals>
+    <string name="portfolio_address_remove_history">Samalla poistetaan saldohistoria.</string>
 </resources>

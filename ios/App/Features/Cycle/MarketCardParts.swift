@@ -23,9 +23,10 @@ enum CycleFormat {
         return "\(number) \(code)"
     }
 
-    /// `"%.1f %%".format(value)`
+    /// «58.4%» (Deutsch «58,4 %») — eine Nachkommastelle, Ziffern und Prozentzeichen der App-Sprache (`PercentText`),
+    /// wie Android `percentOne`.
     static func percent1(_ value: Double) -> String {
-        String(format: "%.1f %%", locale: Locale.current, value)
+        PercentText.unsigned(value, decimals: 1)
     }
 }
 

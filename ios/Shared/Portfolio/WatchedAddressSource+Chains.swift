@@ -5,7 +5,8 @@ import Foundation
 
 extension WatchedAddressSource {
     /// 0x-Adresse: Ethereum (mit «Tokens mitzählen» als Stapel mit ERC-20) und die gewählten weiteren EVM-Netze (vor der
-    /// ersten Suche alle) — je Netz eine Stapel-Anfrage. Ein Netz, das nicht antwortet, bleibt wie zuletzt. Wie Android.
+    /// ersten Suche alle) — je Netz eine Stapel-Anfrage. Ein Netz, das nicht antwortet, bleibt wie zuletzt. Die erste Wahl
+    /// der Netze nur im Vordergrund, stumme Netze bleiben darin (`WatchedAddressRules.discoveredNetworks`). Wie Android.
     func fetchEvm(_ a: WatchedAddress, deadline: Int64?) async throws -> Fetched {
         var result: Fetched
         if a.countTokens {
@@ -15,6 +16,7 @@ extension WatchedAddressSource {
         }
         var tokens = result.tokens ?? [:]
         var found: [String] = []
+        var unanswered: [String] = []
         let address = a.address
         for id in a.networks ?? ChainAssets.evm.map(\.id) {
             guard let net = ChainAssets.network(id) else { continue }
@@ -34,10 +36,14 @@ extension WatchedAddressSource {
                 break
             } catch {
                 HttpLog.add("Netz \(net.id): \(error.localizedDescription)")
+                unanswered.append(net.id)
             }
         }
         if !tokens.isEmpty { result.tokens = tokens }
-        if a.networks == nil { result.networks = found }
+        if a.networks == nil {
+            result.networks = WatchedAddressRules.discoveredNetworks(found: found, unanswered: unanswered,
+                                                                    background: deadline != nil)
+        }
         return result
     }
 
@@ -150,7 +156,8 @@ extension WatchedAddressSource {
     /// Gap-Regel, vollständig höchstens täglich). Hintergrund ohne Zwischenspeicher: nil (bleibt fällig). Zwischen zwei
     /// Anfragen eine kurze Pause (schont die Anbieter). xpub ohne bekannten Adresstyp (`XpubScan.scripts`): vollständig
     /// als P2PKH, ohne Verlauf als P2SH-P2WPKH, dann P2WPKH (Segwit-Konto mit xpub, Ledger Live); der erste Typ mit
-    /// Verlauf wird gemerkt (`XpubCache.script`), im Hintergrund wird nicht gesucht. Wie Android.
+    /// Verlauf wird gemerkt (`XpubCache.script`), im Hintergrund wird nicht gesucht. Hintergrund unvollständig und tiefer
+    /// als zuletzt (`XpubScan.keepBackground`): nil (bleibt fällig). Wie Android.
     func fetchXpub(_ a: WatchedAddress, deadline: Int64?) async throws -> Fetched? {
         guard let key = Bip32.parse(a.address) else { throw AddressBalance.ParseError(message: "xpub ungültig") }
         let isXpub = key.detectsScript
@@ -169,6 +176,7 @@ extension WatchedAddressSource {
         let scripts = XpubScan.scripts(key, cache: stored)
         var tried: [(script: Bip32.Script, used: Int)] = []
         var results: [Fetched] = []
+        var keeps: [Bool] = []
         for script in scripts {
             let cache: XpubCache? = storedScript == script ? stored : nil
             let mode: XpubScan.Mode
@@ -182,20 +190,26 @@ extension WatchedAddressSource {
             guard let deriver = XpubDeriver(a.address, script: script) else {
                 throw AddressBalance.ParseError(message: "xpub ungültig")
             }
-            let (used, fetched) = try await scanXpub(deriver, cache: cache, mode: mode, deadline: deadline)
-            tried.append((script: script, used: used))
-            results.append(fetched)
-            if used > 0 { break }
+            let scan = try await scanXpub(deriver, cache: cache, mode: mode, deadline: deadline)
+            tried.append((script: script, used: scan.used))
+            results.append(scan.fetched)
+            keeps.append(XpubScan.keepBackground(complete: scan.complete, sats: scan.sats, lastBalance: a.lastBalance))
+            if scan.used > 0 { break }
         }
         let pick = XpubScan.pickScript(key, tried: tried)
-        var chosen = results[max(0, tried.firstIndex(where: { $0.script == pick }) ?? 0)]
+        let index = max(0, tried.firstIndex(where: { $0.script == pick }) ?? 0)
+        // Hintergrund mit möglicherweise übersehener neuer Adresse und tieferer Summe: nicht speichern (keine Beobachtung,
+        // kein Wert für Alarme) — bleibt fällig für die Suche im Vordergrund
+        if deadline != nil && !keeps[index] { return nil }
+        var chosen = results[index]
         chosen.xpub?.script = pick
         return chosen
     }
 
-    /// Eine Suche über die Adressen eines Adresstyps (`deriver`): benutzte Adressen und Ergebnis.
+    /// Eine Suche über die Adressen eines Adresstyps (`deriver`): benutzte Adressen, Ergebnis, vollständig
+    /// (`XpubScan.complete`) und Summe in Satoshi.
     private func scanXpub(_ deriver: XpubDeriver, cache: XpubCache?, mode: XpubScan.Mode,
-                          deadline: Int64?) async throws -> (used: Int, fetched: Fetched) {
+                          deadline: Int64?) async throws -> (used: Int, fetched: Fetched, complete: Bool, sats: Int64) {
         var lists = [cache?.receive ?? [], cache?.change ?? []]
         let scan = XpubScan(mode: mode, cache: cache)
         var provider = AddressBalance.providerName(AddressBalance.btcHosts[0])
@@ -222,6 +236,7 @@ extension WatchedAddressSource {
         let balance = AddressBalance.unitsText(String(scan.totalSats), decimals: AddressChain.BTC.decimals)
         return (used: scan.usedCount,
                 fetched: Fetched(balance: balance, provider: provider,
-                                 xpub: scan.cache(receive: lists[0], change: lists[1], now: TimeUtils.nowMillis)))
+                                 xpub: scan.cache(receive: lists[0], change: lists[1], now: TimeUtils.nowMillis)),
+                complete: scan.complete, sats: scan.totalSats)
     }
 }

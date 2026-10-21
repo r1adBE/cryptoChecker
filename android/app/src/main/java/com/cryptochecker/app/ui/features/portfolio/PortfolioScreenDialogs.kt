@@ -144,13 +144,21 @@ internal fun PortfolioScreenDialogs(
         AlertDialog(
             onDismissRequest = { onAskClearChange(false) },
             title = { Text(stringResource(R.string.portfolio_clear)) },
-            // Anzahl nennen; beobachtete Adressen bleiben (nur Transaktionen werden gelöscht)
+            // Anzahl nennen; beobachtete Adressen bleiben (nur Transaktionen werden gelöscht); «Rückgängig» danach
             text = {
                 val count = transactions?.size ?: 0
                 Text(pluralStringResource(R.plurals.portfolio_clear_confirm_count, count, count))
             },
             confirmButton = {
-                TextButton(onClick = { onAskClearChange(false); viewModel.clearAll() }) {
+                // Danach «Rückgängig» im Banner (alle Transaktionen mit ihren ids zurück), wie beim Löschen eines Coins
+                TextButton(onClick = {
+                    onAskClearChange(false)
+                    viewModel.clearAll { removed ->
+                        banner.show(resources.getQuantityString(R.plurals.portfolio_cleared, removed.size, removed.size)) {
+                            viewModel.restore(removed)
+                        }
+                    }
+                }) {
                     Text(stringResource(R.string.portfolio_clear), color = MaterialTheme.colorScheme.error)
                 }
             },

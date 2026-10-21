@@ -30,6 +30,8 @@ struct PortfolioAddressSheet: View {
     @State private var countConfirmed: Set<Int64> = []
     /// «Einstand für Adressguthaben» einer Adresse (eigenes Blatt darüber, Build 84).
     @State private var lotsFor: WatchedAddress?
+    /// Eigenes Banner im Blatt («entfernt» mit «Rückgängig», Sperre): das des Portfolio-Tabs läge dahinter — wie Android.
+    @State private var banner: WatchlistBannerMessage?
 
     var body: some View {
         let addresses = data.watchedAddresses
@@ -126,10 +128,13 @@ struct PortfolioAddressSheet: View {
             .confirmationDialog(L("portfolio_address_remove"), isPresented: Binding(
                 get: { askRemove != nil }, set: { if !$0 { askRemove = nil } }
             ), titleVisibility: .visible, presenting: askRemove) { target in
-                Button(L("portfolio_address_remove"), role: .destructive) { data.removeWatchedAddress(target.id) }
+                Button(L("portfolio_address_remove"), role: .destructive) { remove(target) }
                 Button(L("action_cancel"), role: .cancel) {}
             } message: { target in
-                Text(target.label.map { "\($0)\n\(target.address)" } ?? target.address)
+                Text(Self.removeMessage(target))
+            }
+            .overlay(alignment: .bottom) {
+                WatchlistBanner(message: $banner) { _ in }
             }
         }
         .tint(accent.primary)
@@ -138,6 +143,30 @@ struct PortfolioAddressSheet: View {
             Button(L("portfolio_discard_confirm"), role: .destructive) { dismiss() }
             Button(L("portfolio_discard_keep"), role: .cancel) {}
         }
+    }
+
+    /// Entfernen, dann «Rückgängig» im Banner (holt die ganze Adresse samt Posten und Verlauf zurück); gesperrt: Hinweis
+    /// statt still nichts zu tun — wie Android.
+    private func remove(_ target: WatchedAddress) {
+        switch data.removeWatchedAddress(target.id) {
+        case .removed(let removed):
+            let name = target.label ?? WatchedAddressRules.shortAddress(target.address)
+            banner = WatchlistBannerMessage(
+                text: L("watchlist_removed", name),
+                icon: "trash",
+                action: WatchlistBannerAction(title: L("action_undo")) {
+                    if data.restoreWatchedAddress(removed) == .locked { showLocked() }
+                }
+            )
+        case .locked:
+            showLocked()
+        case .failed:
+            break
+        }
+    }
+
+    private func showLocked() {
+        banner = WatchlistBannerMessage(text: L("portfolio_storage_locked"), icon: "lock.fill", long: true)
     }
 
     /// Angefangene Eingabe (Adresse oder Bezeichnung).
@@ -336,43 +365,6 @@ struct PortfolioAddressSheet: View {
             saveError = L("address_limit")
         case .locked:
             saveError = L("portfolio_storage_locked")
-        }
-    }
-
-    /// Anbieter, die die Adresse zu sehen bekommen: des erkannten Netzes (0x: alle EVM-Netze), sonst alle.
-    static func hosts(_ chain: AddressChain?) -> String {
-        (chain.map { ChainBalance.hosts($0) } ?? AddressBalance.privacyHosts).joined(separator: ", ")
-    }
-
-    /// Datenschutz-Hinweis zur Eingabe: Anbieter; bei xpub/ypub/zpub/Taproot-Konto dazu, was der Schlüssel verrät;
-    /// Taproot-Konto: welcher Adresstyp abgeleitet wird; einfacher xpub: Hinweis auf den Deskriptor — wie Android.
-    static func privacy(_ check: AddressValidation.Check) -> String {
-        let base = L("portfolio_address_privacy", hosts(check.chain))
-        // Gap-Regel offen nennen: Eine benutzte Adresse hinter `XpubScan.gap` unbenutzten in Folge fehlt im Guthaben
-        let keyNote = "\n\n" + L("portfolio_address_xpub_privacy", hosts(.BTC))
-            + "\n\n" + L("portfolio_address_xpub_gap", XpubScan.gap)
-        switch check.kind {
-        case .XPUB: return base + keyNote + "\n\n" + L("portfolio_address_taproot_hint")
-        case .YPUB, .ZPUB: return base + keyNote
-        case .TR_XPUB: return base + keyNote + "\n\n" + L("portfolio_address_taproot_account")
-        default: return base
-        }
-    }
-
-    /// Meldung zu einem Prüfergebnis — wie `problemRes` (Android).
-    static func message(_ problem: AddressValidation.Problem) -> String {
-        switch problem {
-        case .EMPTY, .UNKNOWN_FORMAT: return L("address_invalid")
-        case .BAD_CHECKSUM: return L("address_checksum")
-        case .TESTNET: return L("address_testnet")
-        case .EXTENDED_KEY: return L("address_xpub_multisig")
-        case .UNSUPPORTED_VERSION: return L("address_unsupported")
-        case .ENS_NAME: return L("address_ens")
-        case .SECRET: return L("address_secret")
-        case .WRONG_CHAIN: return L("address_wrong_chain")
-        case .BEP2_SHUTDOWN: return L("address_bep2_shutdown")
-        case .DOGE_UNSUPPORTED: return L("address_doge_unsupported")
-        case .BCH_UNSUPPORTED: return L("address_bch_unsupported")
         }
     }
 }
