@@ -2,6 +2,7 @@ package com.cryptochecker.app.ui
 
 import android.content.Context
 import android.content.Intent
+import androidx.core.content.edit
 import java.security.MessageDigest
 import java.security.SecureRandom
 
@@ -57,7 +58,8 @@ object OpenTargetGuard {
         val prefs = context.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         val token = prefs.getString(KEY_TOKEN, null) ?: run {
             val bytes = ByteArray(16).also { SecureRandom().nextBytes(it) }
-            bytes.joinToString("") { "%02x".format(it) }.also { prefs.edit().putString(KEY_TOKEN, it).apply() }
+            // sofort geschrieben (nicht verzögert): das Geheimnis steckt gleich in Mitteilungen und Widgets
+            bytes.joinToString("") { "%02x".format(it) }.also { prefs.edit(commit = true) { putString(KEY_TOKEN, it) } }
         }
         cached = token
         return token

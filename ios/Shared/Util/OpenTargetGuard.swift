@@ -68,6 +68,8 @@ enum OpenTargetGuard {
         }
         let created = bytes.map { String(format: "%02x", $0) }.joined()
         defaults.set(created, forKey: defaultsKey)
-        return created
+        // App und Widget sind getrennte Prozesse: hat der andere gleichzeitig eines angelegt, gilt das zuletzt
+        // geschriebene — darum den gespeicherten Wert zurückgeben, nicht den eigenen
+        return defaults.string(forKey: defaultsKey) ?? created
     }
 }
