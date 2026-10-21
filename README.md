@@ -11,6 +11,17 @@ Android and iPhone · 31 languages · no ads · no tracking · open source (MIT)
 > die Börsen-Bibliothek und die Datenschutzerklärung. Lizenz: MIT – jeder darf
 > den Code verwenden, ändern und weitergeben.
 
+## Support the project
+
+Crypto Checker is free and stays free – no ads, no account, nothing to unlock. If you
+would like to support development voluntarily, the USDT addresses are on
+**[SUPPORT.md](SUPPORT.md)** (also behind the “Sponsor” button above). The apps
+themselves contain no donation feature.
+
+> **Deutsch:** Die App ist und bleibt gratis. Wer die Entwicklung freiwillig
+> unterstützen möchte, findet die USDT-Adressen in **[SUPPORT.md](SUPPORT.md)**.
+> Eine Spende schaltet nichts frei.
+
 ## What is in this repository
 
 | Folder | Content |

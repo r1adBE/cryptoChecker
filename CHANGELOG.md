@@ -27,7 +27,7 @@ Detailed build history below.
 * Quotes in fiat currencies without an exchange rate (e.g. NGN, ARS) no longer trigger lookups as if they were coins; they show no conversion.
 * Alert reliability line: failed runs no longer count as «last check»; iOS warns only after 6 hours (background refresh runs less often there); no line limit at large text sizes. iOS confirms copying the contract address, also for VoiceOver.
 * Futures: the delivery date moves to the next contract after expiry (search and old Binance ids). WOO X ignores an unusable trade time.
-* Plain backup warning names holdings, balance history and cost basis; store texts mention Cardano; the privacy page describes the Android fallback exactly; iOS CI also builds the Release configuration.
+* Plain backup warning names holdings, balance history and cost basis; store texts mention Cardano; the privacy page describes the Android fallback exactly; iOS CI also builds the Release configuration; the repository README links the voluntary support page.
 
 ## 16.2.2 (build 91)
 

@@ -90,7 +90,9 @@ class BackgroundCheck @Inject constructor(
         // das bleibt so, bis ein Start mit Schlüssel die Datei überführt; im Vordergrund prüft die App weiter
         if (DatabaseEncryptionNotice.isVolatileCopy(AppDatabase.DB_NAME)) {
             Timber.d("Prüfung (%s) übersprungen: Merkliste nur als Kopie im Arbeitsspeicher", trigger.code)
-            log(trigger, CheckResult.SKIPPED, startedAt)
+            // Als gescheitert vermerken, nicht als übersprungen: Die Alarme sind tatsächlich ungeprüft, und
+            // «Letzte Prüfung» bzw. die Zuverlässigkeitszeile sollen das zeigen statt einer frischen Prüfung
+            log(trigger, CheckResult.FAILED, startedAt)
             return null
         }
         val summary = running.withLock { runLocked(trigger, networkGuaranteed, startedAt, deadlineAt) } ?: return null
