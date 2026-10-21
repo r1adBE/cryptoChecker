@@ -203,7 +203,8 @@ internal fun CoinRow(
                             maskAmount(PriceFormat.amount(position.holdingsExact)),
                             style = amountStyle.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
                             maxLines = 1,
-                            overflow = TextOverflow.Clip,
+                            // Passt sie auch klein nicht: sichtbar gekürzt («…») wie iOS, nie still abgeschnitten
+                            overflow = TextOverflow.Ellipsis,
                             autoSize = TextAutoSize.StepBased(
                                 minFontSize = amountStyle.fontSize * 0.6f,
                                 maxFontSize = amountStyle.fontSize,

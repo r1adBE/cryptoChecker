@@ -15,6 +15,7 @@ on:
       - '.github/scripts/apk_contents.py'
       - '.github/scripts/annotate.py'
       - '.github/scripts/lint_errors.sh'
+      - '.github/scripts/room_schema_drift.py'
   pull_request:
     paths:
       - 'android/**'
@@ -24,6 +25,7 @@ on:
       - '.github/scripts/apk_contents.py'
       - '.github/scripts/annotate.py'
       - '.github/scripts/lint_errors.sh'
+      - '.github/scripts/room_schema_drift.py'
   workflow_dispatch:
 
 permissions:

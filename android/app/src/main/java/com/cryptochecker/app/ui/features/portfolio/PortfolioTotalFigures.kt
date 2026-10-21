@@ -225,7 +225,7 @@ internal fun InsightFigure(
     val spokenValue = validAmount?.let { spokenAmount(unit.signed(it)) }
     val figureSpoken = when {
         validPercent == null && spokenValue == null -> stringResource(R.string.portfolio_card_figure_none_a11y, spokenLabel)
-        validPercent == null -> stringResource(R.string.label_value, spokenLabel, spokenValue)
+        validPercent == null -> stringResource(R.string.label_value, spokenLabel, spokenValue.orEmpty())
         spokenValue == null -> stringResource(R.string.label_value, spokenLabel, A11yText.change(context, validPercent))
         else -> stringResource(R.string.label_value, spokenLabel, A11yText.change(context, validPercent) + ", " + spokenValue)
     }

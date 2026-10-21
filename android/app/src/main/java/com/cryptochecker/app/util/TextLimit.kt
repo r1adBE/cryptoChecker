@@ -15,9 +15,9 @@ object TextLimit {
     /** Anzahl sichtbarer Zeichen. */
     fun graphemeCount(text: String): Int {
         if (text.isEmpty()) return 0
-        val it = iterator(text)
+        val breaks = iterator(text)
         var count = 0
-        while (it.next() != BreakIterator.DONE) count++
+        while (breaks.next() != BreakIterator.DONE) count++
         return count
     }
 
@@ -26,10 +26,10 @@ object TextLimit {
         if (max <= 0) return ""
         // Weniger UTF-16-Einheiten als die Grenze: auch weniger Zeichen, nichts zu zählen
         if (text.length <= max) return text
-        val it = iterator(text)
+        val breaks = iterator(text)
         var end = 0
         repeat(max) {
-            val next = it.next()
+            val next = breaks.next()
             if (next == BreakIterator.DONE) return text
             end = next
         }
