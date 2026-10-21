@@ -15,6 +15,17 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 98)
+
+* iOS like Android: an exchange pause with an implausible end time (clock set back) no longer lifts the pause on the next rate limit (also for the shared Binance pause); re-enabling a «near high/low» alert keeps the reported mark (no second notification for the same high); funding/open-interest alerts without data show «not checked».
+* iOS: watched-address answers and coin logos are read with a size limit like Android (2 MB / logo limit). Android: deeply nested exchange answers are rejected before parsing instead of crashing.
+* Diagnostics report: the temporary file is deleted after use (Android at the next start or when the preview closes; iOS only written when sharing).
+* Notes count visible characters on both platforms (emoji, flags and families no longer count double or get cut in half); month and year follow the language on Android like iOS (e.g. Japanese «2028年10月»).
+* «Label: value» texts follow the language's typography (French « : », Chinese/Japanese «：»).
+* iOS: portfolio figures are computed in the background once per refresh (no stutter with large portfolios); date formats are reused; the password eye and the favourite star have 44 pt touch targets. Portfolio amounts shrink instead of being cut with «…» (Android and iOS). A double tap on «Save» no longer creates two alerts (Android and iOS). Android caches for hourly candles and sparklines are bounded.
+* Privacy policy: corrected sentence on a failed encryption conversion (the old file is only read since build 93).
+* CI: the release smoke test reads newer job lists (API 34) and fails on main when the emulator gave no result; a Room schema check fails when an entity changes without a new database version; runs on main are no longer cancelled by newer pushes; runners pinned to Ubuntu 24.04.
+
 ## 16.2.2 (build 97)
 
 * Removing a watched address that cannot be saved now shows a message instead of doing nothing.

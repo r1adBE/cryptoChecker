@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.data.remote.util.HttpBodyLimit
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
+import com.cryptochecker.app.domain.exceptions.ParseError
 import com.cryptochecker.app.domain.exceptions.ResponseTooLargeError
 import com.cryptochecker.app.domain.exceptions.TimeoutError
 import com.cryptochecker.app.domain.exceptions.UserFriendlyMarketError
@@ -177,6 +178,18 @@ class MarketHttpTest {
         respond(body = "z".repeat((HttpBodyLimit.DEFAULT_MAX_BYTES + 1).toInt()))
         expect<ResponseTooLargeError> { runBlocking { client().callMarket(url("/huge"), null) } }
         Unit
+    }
+
+    /** Tief verschachtelte Antwort: ParseError (gewöhnlicher Fehler) statt StackOverflowError beim Parsen. */
+    @Test
+    fun deeplyNestedBodyBecomesParseError() = runBlocking {
+        respond(body = "[".repeat(100_000))
+        expect<ParseError> { runBlocking { client().callMarket(url("/deep"), null) } }
+        // Mit Fehlercode: Code bleibt, Text fällt weg
+        respond(503, body = "{\"e\":" + "[".repeat(100_000))
+        val e = expect<HttpMarketError> { runBlocking { client().callMarket(url("/deep2"), null) } }
+        assertEquals(503, e.httpCode)
+        assertEquals("", e.responseString)
     }
 
     @Test

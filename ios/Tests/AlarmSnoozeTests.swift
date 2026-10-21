@@ -98,7 +98,8 @@ final class AlarmSnoozeTests: XCTestCase {
         XCTAssertTrue(AlarmSnooze.rearm(1, in: &snapshot))
         XCTAssertTrue(snapshot.alarms[0].enabled)
         XCTAssertEqual(snapshot.alarms[0].referenceAt, 0)
-        XCTAssertNil(snapshot.alarms[0].referencePrice)
+        // Bezugskurs bleibt (wie WatchDao.rearmAlarm, Android)
+        XCTAssertEqual(snapshot.alarms[0].referencePrice, 101)
         // Letzte Auslösung bleibt (Abklingzeit, Protokoll) — wie beim Einschalten in der Liste
         XCTAssertEqual(snapshot.alarms[0].lastTriggeredAt, 5_000)
         XCTAssertEqual(snapshot.alarms[0], AlarmEdit.settingEnabled(Alarm(id: 1, watchId: 9, condition: .PRICE_ABOVE,

@@ -157,7 +157,7 @@ echo "Seed: $SEED_RESULT"
 JOBDUMP=$(adb shell dumpsys jobscheduler 2>/dev/null | tr -d '\r' || true)
 printf '%s\n' "$JOBDUMP" | grep -A 25 -E "JOB #[^ ]*: [0-9a-f]+ $PKG/" > "$OUT/jobscheduler-api$API.txt" 2>/dev/null || true
 JOBS=$(printf '%s\n' "$JOBDUMP" \
-  | sed -n "s/.*JOB #[^/]*\/\([0-9-]*\): [0-9a-f]* $PKG\/.*/\1/p" | sort -u | head -n 8 || true)
+  | sed -n "s/.*JOB #[^ ]*[^0-9-]\([0-9-][0-9]*\): [0-9a-f]* $PKG\/.*/\1/p" | sort -u | head -n 8 || true)
 RAN=0
 for id in $JOBS; do
   adb shell cmd jobscheduler run -f "$PKG" "$id" >/dev/null 2>&1 && RAN=$((RAN + 1))
@@ -209,7 +209,10 @@ if [ -n "$WORKER_FAIL" ]; then
   add error "API $API: WorkManager could not create a worker (R8 keep rule for the worker class or its factory?):
 $(printf '%s\n' "$WORKER_FAIL" | sed 's/^[0-9-]* [0-9:.]* *//')"
 fi
-if [ "$RAN" -eq 0 ]; then
+if [ "$RAN" -eq 0 ] && [ "$WORKER_RESULTS" -gt 0 ] && [ -z "$WORKER_FAIL" ]; then
+  # Newer dumpsys formats (namespaces) can hide the job ids; the workers ran on their own schedule anyway
+  add notice "API $API: no job id parsed from dumpsys jobscheduler, but $WORKER_RESULTS worker result(s) in logcat without creation errors"
+elif [ "$RAN" -eq 0 ]; then
   add warning "API $API: no WorkManager job found in dumpsys jobscheduler after seeding (seed: $SEED_RESULT); worker path not exercised"
 elif [ "$WORKER_RESULTS" -eq 0 ] && [ -z "$WORKER_FAIL" ]; then
   add warning "API $API: $RAN job(s) forced, but no «Worker result» line from WM-WorkerWrapper in logcat (periodic work run before its schedule is skipped; see jobscheduler-api$API.txt)"

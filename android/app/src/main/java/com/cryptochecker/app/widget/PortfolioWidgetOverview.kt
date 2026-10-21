@@ -140,7 +140,7 @@ internal fun PortfolioWidgetRenderer.bindFigures(
             context.getString(R.string.portfolio_card_figure_none_a11y, spokenLabel)
         } else {
             val incomplete = context.getString(R.string.portfolio_export_incomplete).takeIf { figure.incomplete }
-            spokenLabel + ": " + listOfNotNull(change, spokenAmount, incomplete).joinToString(", ")
+            context.getString(R.string.label_value, spokenLabel, listOfNotNull(change, spokenAmount, incomplete).joinToString(", "))
         }
     }
     return spoken.joinToString("; ")

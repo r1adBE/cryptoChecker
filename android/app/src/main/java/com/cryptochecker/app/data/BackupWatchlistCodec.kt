@@ -3,6 +3,7 @@ package com.cryptochecker.app.data
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.local.model.WatchEntity
+import com.cryptochecker.app.util.TextLimit
 import com.cryptochecker.marketdata.model.FuturesContractType
 import org.json.JSONObject
 
@@ -50,7 +51,7 @@ internal object BackupWatchlistCodec {
         else o.optString("group").trim().takeIf { it.isNotEmpty() },
         // Ältere Sicherungen haben keine Notiz
         note = if (o.isNull("note")) null
-        else o.optString("note").trim().take(NOTE_MAX).takeIf { it.isNotEmpty() },
+        else TextLimit.takeGraphemes(o.optString("note").trim(), NOTE_MAX).takeIf { it.isNotEmpty() },
         // Ältere Sicherungen kennen «deaktiviert» nicht: Paar aktiv
         disabled = o.optBoolean("disabled", false),
     )

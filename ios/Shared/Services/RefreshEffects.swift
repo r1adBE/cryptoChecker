@@ -81,10 +81,13 @@ extension PriceRefresher {
             // Funding/Open Interest: wie Kursmarken (scharf/gemeldet in `referenceAt`), Wert aus dem Vorladen
             if alarm.condition.isDerivatives {
                 guard let values = inputs.derivatives[watch.id] else { continue }
-                // Nur als geprüft vermerken, wenn der benötigte Wert da ist (Funding bzw. Open Interest) — wie Android;
-                // ohne Wert diesmal auslassen, ohne einen Hinweis «nicht geprüft» zu löschen
+                // Nur als geprüft vermerken, wenn der benötigte Wert da ist (Funding bzw. Open Interest); sonst
+                // «nicht geprüft» statt stiller Lücke — wie Android
                 let raw = alarm.condition.isFunding ? values.fundingPercent : values.oiUnits
-                guard raw != nil else { continue }
+                guard raw != nil else {
+                    checkStatus.markUnchecked(alarm.id, reason: .noData, now: now)
+                    continue
+                }
                 // Kein Hinweis «nicht geprüft» (z. B. von einer früheren Kursmarke) stehen lassen
                 checkStatus.markChecked(alarm.id)
                 let value = DerivativesAlarmData.value(for: alarm, watchId: watch.id, values: values, now: now)

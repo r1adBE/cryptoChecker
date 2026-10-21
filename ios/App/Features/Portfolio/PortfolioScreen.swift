@@ -71,8 +71,8 @@ struct PortfolioScreen: View {
         if !hasData {
             emptyState
         } else {
-            // Zwischengespeichert im Modell (neu nur bei geänderten Eingaben)
-            content(model.summary, currency: currency)
+            // Zwischengespeichert im Modell (neu nur bei geänderten Eingaben, im Hintergrund gerechnet)
+            content(model.shownSummary, currency: currency)
         }
     }
 
@@ -90,7 +90,7 @@ struct PortfolioScreen: View {
     private func refreshing<V: View>(_ base: V, transactions: [PortfolioTx], currency: String) -> some View {
         base
             // Beim Öffnen und bei neuen Coins Kurse auffrischen (60 s Zwischenspeicher)
-            .task(id: Set(transactions.flatMap(\.coins))) { await model.refresh(force: false) }
+            .task(id: model.calcCoins) { await model.refresh(force: false) }
             .task(id: currency) { await model.loadFx(currency) }
             .task {
                 while !Task.isCancelled {

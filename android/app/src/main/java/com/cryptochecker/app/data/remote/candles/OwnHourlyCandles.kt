@@ -5,10 +5,9 @@ import com.cryptochecker.app.domain.activity.HourCandle
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.DayReference
 import com.cryptochecker.app.domain.watch.DayReferenceCache
+import com.cryptochecker.app.data.BoundedCache
+import com.cryptochecker.app.data.KeyedMutex
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -94,8 +93,10 @@ class OwnHourlyCandles @Inject constructor(
 ) {
     private class Entry(val time: Long, val series: OwnHourly.Series?)
 
-    private val cache = ConcurrentHashMap<String, Entry>()
-    private val locks = ConcurrentHashMap<String, Mutex>()
+    // Begrenzt (zuletzt benutzte Paare); Sperren nur, solange ein Abruf läuft — wächst nicht mit jedem je
+    // abgefragten Paar
+    private val cache = BoundedCache<String, Entry>(MAX_ENTRIES)
+    private val locks = KeyedMutex<String>()
 
     fun supports(pair: CandlePair): Boolean = ownCandles.supports(pair, CandleInterval.H1)
 
@@ -134,8 +135,7 @@ class OwnHourlyCandles @Inject constructor(
         if (!supports(pair)) return null
         val key = pair.cacheKey
         fresh(key, ttl, needsHour)?.let { return it.series }
-        val lock = locks.getOrPut(key) { Mutex() }
-        return lock.withLock {
+        return locks.withLock(key) {
             fresh(key, ttl, needsHour)?.let { return@withLock it.series }
             val series = try {
                 val sourced = ownCandles.candles(pair, CandleInterval.H1, ChangeBasisMath.CANDLES)
@@ -159,5 +159,10 @@ class OwnHourlyCandles @Inject constructor(
     private fun fresh(key: String, ttl: Long, needsHour: Long?): Entry? {
         val entry = cache[key] ?: return null
         return entry.takeIf { OwnHourly.isFresh(it.time, it.series, ttl, System.currentTimeMillis(), needsHour) }
+    }
+
+    companion object {
+        /** Höchstens so viele Paare im Speicher (mehr als jede übliche Merkliste). */
+        const val MAX_ENTRIES = 512
     }
 }

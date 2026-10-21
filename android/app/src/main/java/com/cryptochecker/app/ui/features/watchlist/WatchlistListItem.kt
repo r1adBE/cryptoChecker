@@ -121,8 +121,13 @@ internal fun LazyItemScope.WatchlistItem(
     // 24-Stunden-Verlauf: nur für sichtbare Zeilen (LazyColumn), danach alle 15 Min. neu.
     // Fehler → kein Mini-Chart, keine Meldung. Nicht mehr gehandelt bzw. deaktiviert: keiner (keine Abfrage).
     val rowSparklines = sparklines && !watch.isNotTraded && !watch.disabled
+    // Zwischengespeicherter Verlauf als Startwert: nur einmal je Schlüssel nachschlagen, nicht bei jeder Rekomposition
+    // (produceState nimmt den Startwert ohnehin nur beim ersten Mal)
+    val initialSparkline = remember(watch.baseAsset, watch.quoteAsset, watch.lastPrice != null, rowSparklines) {
+        if (rowSparklines) cachedSparkline(watch) else null
+    }
     val sparkline by produceState(
-        initialValue = if (rowSparklines) cachedSparkline(watch) else null,
+        initialValue = initialSparkline,
         watch.baseAsset,
         watch.quoteAsset,
         // Erst mit Kurs prüfbar (gleicher Token, SheetChart.sparklineFor)

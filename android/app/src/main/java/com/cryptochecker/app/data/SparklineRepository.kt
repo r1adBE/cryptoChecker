@@ -17,15 +17,12 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.Semaphore
-import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.sync.withPermit
 import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
 import java.io.File
-import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -77,9 +74,11 @@ class SparklineRepository @Inject constructor(
      */
     private class TimedDay(val time: Long, val day: DayReference, val opens: Map<Long, Double>, val provider: String? = null)
 
-    private val cache = ConcurrentHashMap<String, Entry>()
-    private val days = ConcurrentHashMap<String, TimedDay>()
-    private val locks = ConcurrentHashMap<String, Mutex>()
+    // Begrenzt (zuletzt benutzte Paare); Sperren nur, solange ein Abruf läuft — wächst nicht mit jedem je
+    // abgefragten Paar
+    private val cache = BoundedCache<String, Entry>(MAX_ENTRIES)
+    private val days = BoundedCache<String, TimedDay>(MAX_ENTRIES)
+    private val locks = KeyedMutex<String>()
     private val permits = Semaphore(MAX_PARALLEL)
 
     private val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -171,8 +170,7 @@ class SparklineRepository @Inject constructor(
         val k = key(base, quote)
         if (k.isEmpty()) return null
         fresh(k, ttl, needsHour)?.let { return it.series }
-        val lock = locks.getOrPut(k) { Mutex() }
-        return lock.withLock {
+        return locks.withLock(k) {
             fresh(k, ttl, needsHour)?.let { return@withLock it.series }
             val series = try {
                 permits.withPermit {
@@ -286,7 +284,7 @@ class SparklineRepository @Inject constructor(
             val now = System.currentTimeMillis()
             // Nur die Kerzen der heutigen Tagesbeginne (UTC, Ortszeit, gewählte Zone) mitschreiben
             val dayStarts = ChangeBasisMath.keptDayStarts(settingsRepository.cached.changeBasis, now)
-            val stored = days.map { (k, v) ->
+            val stored = days.snapshot().map { (k, v) ->
                 DayReferenceCache.Stored(
                     k, v.time, v.day.open, v.day.lastClose, DayReferenceCache.keepStarts(v.opens, dayStarts), v.provider,
                 )
@@ -324,6 +322,8 @@ class SparklineRepository @Inject constructor(
         /** So lange nach Beginn einer Stunde darf ihre Kerze bei der Quelle noch fehlen. */
         private const val NEW_CANDLE_GRACE_MILLIS = 10 * 60_000L
         private const val MAX_PARALLEL = 6
+        /** Höchstens so viele Paare im Speicher (Mini-Chart und 24-h-Bezug; mehr als jede übliche Merkliste). */
+        const val MAX_ENTRIES = 512
         private const val QUOTE = "USDT"
         private const val SAVE_DELAY_MILLIS = 3_000L
         private const val FILE_NAME = "day_references_v1.json"

@@ -68,7 +68,7 @@ extension PortfolioTotalCard {
         // FIFO je Wallet: je Coin und Wallet der erste Abgang über den Bestand — antippen öffnet die Transaktion
         for s in firstShortfalls {
             let wallet: String = s.wallet.trimmingCharacters(in: .whitespaces).isEmpty ? L("tax_export_wallet_unspecified") : s.wallet
-            items.append(HintItem(text: s.coin + ": " + L("portfolio_wallet_shortfall", wallet), error: true, txId: s.txId))
+            items.append(HintItem(text: L("label_value", s.coin, L("portfolio_wallet_shortfall", wallet)), error: true, txId: s.txId))
         }
         // Umbuchungsgebühren auf Bestand ohne Kaufpreis: offener Posten (je Coin auf der Detailseite) — wie Android
         if summary.unassignedFeeUsdt != 0 {

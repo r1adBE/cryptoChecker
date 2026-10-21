@@ -7,6 +7,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.TaxEngines
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
+import com.cryptochecker.app.util.TextLimit
 import java.math.BigDecimal
 
 /**
@@ -169,7 +170,7 @@ object CsvImportMapping {
             // Gebühr/Umbuchung: Art als Notiz; Belohnung nur als Zins (AT: Anschaffungskosten = Wert, [TaxEngines.interestReward])
             note = if (row.kind == CsvImportKind.FEE || row.kind == CsvImportKind.TRANSFER ||
                 (row.kind == CsvImportKind.REWARD && TaxEngines.interestReward(row.rawKind))
-            ) row.rawKind.trim().take(NOTE_MAX).trim().ifEmpty { null } else null,
+            ) TextLimit.takeGraphemes(row.rawKind.trim(), NOTE_MAX).trim().ifEmpty { null } else null,
             importKey = row.key,
             toCoin = row.toCoin?.let { PortfolioCalculator.normalizeCoin(it) }.takeIf { row.kind == CsvImportKind.SWAP },
             toAmount = row.toAmount.takeIf { row.kind == CsvImportKind.SWAP },

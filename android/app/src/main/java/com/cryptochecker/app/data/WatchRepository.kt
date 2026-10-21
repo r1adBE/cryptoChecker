@@ -13,6 +13,7 @@ import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.watch.AutoGroup
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.domain.watch.WatchIdentity
+import com.cryptochecker.app.util.TextLimit
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
 import kotlinx.coroutines.flow.Flow
@@ -296,7 +297,7 @@ class WatchRepository @Inject constructor(
 
     /** Notiz setzen; null oder leer = keine Notiz. */
     suspend fun setNote(id: Long, note: String?) =
-        watchDao.setNote(id, note?.trim()?.take(NOTE_MAX)?.takeIf { it.isNotEmpty() })
+        watchDao.setNote(id, note?.trim()?.let { TextLimit.takeGraphemes(it, NOTE_MAX) }?.takeIf { it.isNotEmpty() })
 
     /** Gruppe setzen; null oder leer = keine Gruppe. */
     suspend fun setGroup(id: Long, groupName: String?) =

@@ -82,7 +82,7 @@ struct CycleCoinRow: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(Text(verbatim: "\(L("coin_choose")): \(viewModel.selectedCoin)"))
+        .accessibilityLabel(Text(verbatim: L("label_value", L("coin_choose"), viewModel.selectedCoin)))
     }
 }
 
@@ -228,7 +228,10 @@ struct CycleCoinPickerSheet: View {
                     .font(.body)
                     .foregroundStyle(isFavorite ? accent.primary : AppColors.outline)
                     .frame(width: 36, height: 36)
+                    // Trefferfläche 44 × 44 pt (Bedienungshilfen), die Zeile bleibt gleich hoch
+                    .frame(minWidth: 44, minHeight: 44)
                     .contentShape(Rectangle())
+                    .padding(-4)
             }
             .buttonStyle(.borderless)
             .accessibilityLabel(L(isFavorite ? "favorite_remove" : "favorite_add"))

@@ -25,8 +25,10 @@ import androidx.core.content.FileProvider
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.BuildConfig
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.DiagnosticsFiles
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
@@ -128,6 +130,12 @@ class DiagnosticsViewModel @Inject constructor(
     fun dismiss() {
         _preview.value = null
     }
+
+    /** Vorschau ohne Teilen geschlossen: eine von früher liegende Berichtsdatei gleich mit löschen ([DiagnosticsFiles]). */
+    fun cancel(cacheDir: File) {
+        dismiss()
+        viewModelScope.launch(Dispatchers.IO) { DiagnosticsFiles.clear(cacheDir) }
+    }
 }
 
 /** Zeile «Diagnose teilen» mit Hinweis; Tipp zeigt erst die Vorschau, «Teilen» öffnet das Teilen-Menü. */
@@ -153,7 +161,7 @@ internal fun DiagnosticsCard(viewModel: DiagnosticsViewModel = hiltViewModel()) 
     }
     preview?.let { text ->
         AlertDialog(
-            onDismissRequest = viewModel::dismiss,
+            onDismissRequest = { viewModel.cancel(context.cacheDir) },
             title = { Text(stringResource(R.string.diagnostics_preview_title)) },
             text = {
                 SelectionContainer {
@@ -175,21 +183,21 @@ internal fun DiagnosticsCard(viewModel: DiagnosticsViewModel = hiltViewModel()) 
                 }) { Text(stringResource(R.string.diagnostics_action_share)) }
             },
             dismissButton = {
-                TextButton(onClick = viewModel::dismiss) { Text(stringResource(R.string.action_cancel)) }
+                TextButton(onClick = { viewModel.cancel(context.cacheDir) }) { Text(stringResource(R.string.action_cancel)) }
             },
         )
     }
 }
 
 /**
- * Bericht als Datei im Cache (`cache/diagnostics/`, nie gesichert) und über das System-Teilen-Menü weitergeben
+ * Bericht als Datei im Cache ([DiagnosticsFiles], nie gesichert, beim nächsten Start gelöscht) und über das System-Teilen-Menü weitergeben
  * (FileProvider, nur Lesezugriff für die gewählte App). Ohne Datei (Speicher voll): als Text.
  */
 private fun shareDiagnostics(context: Context, text: String) {
     val subject = context.getString(R.string.diagnostics_share)
     val send = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_SUBJECT, subject)
     val uri = runCatching {
-        val dir = File(context.cacheDir, DIAGNOSTICS_DIR).apply { mkdirs() }
+        val dir = DiagnosticsFiles.dir(context.cacheDir).apply { mkdirs() }
         val file = File(dir, DiagnosticReport.FILE_NAME)
         file.writeText(text, Charsets.UTF_8)
         FileProvider.getUriForFile(context, "${context.packageName}$DIAGNOSTICS_AUTHORITY_SUFFIX", file)
@@ -204,9 +212,6 @@ private fun shareDiagnostics(context: Context, text: String) {
     val chooser = Intent.createChooser(send, subject).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     runCatching { context.startActivity(chooser) }.onFailure { Timber.w(it, "Teilen nicht möglich") }
 }
-
-/** Ordner im Cache, freigegeben in `res/xml/diagnostics_paths.xml`. */
-private const val DIAGNOSTICS_DIR = "diagnostics"
 
 /** Kennung des FileProviders im Manifest: `${applicationId}.diagnostics`. */
 private const val DIAGNOSTICS_AUTHORITY_SUFFIX = ".diagnostics"

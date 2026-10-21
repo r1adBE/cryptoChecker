@@ -1,0 +1,82 @@
+{
+  "description": "Längengrenze von Notizen in sichtbaren Zeichen (Graphem-Cluster): Android TextLimit.kt (BreakIterator), iOS String.count/prefix. «count» = Anzahl Zeichen von «text», «expected» = höchstens «max» Zeichen von vorn. Seit Build 98.",
+  "cases": [
+    {
+      "description": "119 × «a» plus Emoji: genau an der Grenze, nichts gekürzt",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa😀",
+      "max": 120,
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa😀",
+      "count": 120
+    },
+    {
+      "description": "120 × «a» plus Emoji: das Emoji fällt ganz weg (kein halbes Surrogatpaar)",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa😀",
+      "max": 120,
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "count": 121
+    },
+    {
+      "description": "Familie mit ZWJ zählt als ein Zeichen",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa👨‍👩‍👧‍👦",
+      "max": 120,
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa👨‍👩‍👧‍👦",
+      "count": 120
+    },
+    {
+      "description": "Familie bleibt ganz, das Zeichen danach fällt weg",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa👨‍👩‍👧‍👦b",
+      "max": 120,
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa👨‍👩‍👧‍👦",
+      "count": 121
+    },
+    {
+      "description": "Kombinierende Akzente bleiben am Grundbuchstaben",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaé̂x",
+      "max": 120,
+      "expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaé̂",
+      "count": 121
+    },
+    {
+      "description": "Flaggen: je zwei Regionalzeichen ein Zeichen",
+      "text": "🇨🇭🇩🇪🇫🇷",
+      "max": 2,
+      "expected": "🇨🇭🇩🇪",
+      "count": 3
+    },
+    {
+      "description": "Hautton gehört zum Emoji",
+      "text": "👍🏽👍🏽",
+      "max": 1,
+      "expected": "👍🏽",
+      "count": 2
+    },
+    {
+      "description": "CR LF ist ein Zeichen",
+      "text": "a\r\nb",
+      "max": 2,
+      "expected": "a\r\n",
+      "count": 3
+    },
+    {
+      "description": "leer",
+      "text": "",
+      "max": 120,
+      "expected": "",
+      "count": 0
+    },
+    {
+      "description": "Grenze 0",
+      "text": "abc",
+      "max": 0,
+      "expected": "",
+      "count": 3
+    },
+    {
+      "description": "kurzer Text unverändert",
+      "text": "Notiz 98’450 CHF",
+      "max": 120,
+      "expected": "Notiz 98’450 CHF",
+      "count": 16
+    }
+  ]
+}

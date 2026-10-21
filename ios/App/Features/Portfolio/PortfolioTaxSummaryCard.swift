@@ -185,7 +185,7 @@ struct PortfolioTaxSummaryCard: View {
             explain = L("tax_de_explain_loss")
         }
         return VStack(alignment: .leading, spacing: 1) {
-            Text(verbatim: label + ": " + text)
+            Text(verbatim: L("label_value", label, text))
                 .font(.caption.weight(.medium))
                 .foregroundStyle(status == .reached ? AppColors.error : AppColors.onSurface)
                 .fixedSize(horizontal: false, vertical: true)

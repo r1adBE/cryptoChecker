@@ -64,6 +64,8 @@ extension PortfolioModel {
         // letzten Portfolio-Stand — zum Stand der Kurse. Wie Android `PortfolioViewModel`.
         // Frische je Coin: ein einzelner alter Coin hält die übrigen nicht an, solange mindestens 80 % des
         // Werts frisch sind (`PortfolioPriceFallback.mayRecordShare`)
+        // Gesamtrechnung im Hintergrund (läuft schon für «7 T»); das Widget unten trifft danach den Zwischenspeicher
+        _ = await currentSummary()
         let recordable = calcPortfolio.isEmpty
             || PortfolioPriceFallback.mayRecord(transactions: calcPortfolio, prices: prices,
                                                 now: TimeUtils.nowMillis, staleAfterMillis: staleAfterMillis)
@@ -131,7 +133,7 @@ extension PortfolioModel {
         guard data.settings.portfolioCurrency == currency, from <= fxSeriesFrom() else { return }
         fxSeries = (currency: currency, from: from, rates: rates.flatMap { $0.isEmpty ? nil : $0 }, to: to)
         recomputeHistory()
-        refreshWidgetDisplayFx()
+        await refreshWidgetDisplayFx()
     }
 
     /// Kurse für «Seit Kauf»/Einstand in der Anzeigewährung ab dem frühesten Erwerbstag der offenen Posten
@@ -140,7 +142,7 @@ extension PortfolioModel {
     /// heutigen UTC-Tag) → nichts zu tun. Wie Android `loadCostFx`.
     func loadCostFx() async {
         let currency = data.settings.portfolioCurrency
-        guard currency != PortfolioFormat.usdt, let first = PortfolioCostFx.firstDay(summary) else { return }
+        guard currency != PortfolioFormat.usdt, let first = PortfolioCostFx.firstDay(await currentSummary()) else { return }
         let from = LocalDay(epochDay: first)
         let utcToday = LocalDay.todayUTC()
         if let known = costFxLoad, known.currency == currency, known.from <= from, known.rates != nil,
@@ -156,7 +158,7 @@ extension PortfolioModel {
         guard data.settings.portfolioCurrency == currency else { return }
         costFxLoad = (currency: currency, from: from, rates: rates, usdtUsd: usdt, to: to)
         // Widget: «Seit Kauf» in der Anzeigewährung mit den neuen Kursen
-        refreshWidgetDisplayFx()
+        await refreshWidgetDisplayFx()
     }
 
     // MARK: Wertverlauf
@@ -178,6 +180,6 @@ extension PortfolioModel {
         historyCloses = (request: request, prices: prices)
         recomputeHistory()
         // Widget: «7 T» in der Anzeigewährung braucht die USDT/USD-Tagesschlüsse dieser Ladung
-        refreshWidgetDisplayFx()
+        await refreshWidgetDisplayFx()
     }
 }

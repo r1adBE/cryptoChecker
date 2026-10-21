@@ -26,11 +26,12 @@ permissions:
 
 concurrency:
   group: parity-${{ github.ref }}
-  cancel-in-progress: true
+  # Pull requests: a newer push replaces the run; main keeps every run so each commit gets a result
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

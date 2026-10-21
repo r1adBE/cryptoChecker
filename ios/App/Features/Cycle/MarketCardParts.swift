@@ -4,11 +4,17 @@ import UIKit
 /// Datums- und Zahlenformate des Markt-Tabs.
 enum CycleFormat {
     /// Wie `DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)`.
+    /// Formatter zwischengespeichert (`DateFormatterCache`), nicht bei jedem Neuzeichnen neu.
     static func mediumDate(_ day: LocalDay) -> String {
-        let f = DateFormatter()
-        f.dateStyle = .medium
-        f.timeStyle = .none
-        return f.string(from: day.date)
+        mediumDate(day.date)
+    }
+
+    /// Mittleres Datum ohne Uhrzeit, Formatter zwischengespeichert — auch für `MarketStampText.age`.
+    static func mediumDate(_ date: Date) -> String {
+        DateFormatterCache.string(date, purpose: "mediumDate") { f in
+            f.dateStyle = .medium
+            f.timeStyle = .none
+        }
     }
 
     /// Kurz und lokalisiert mit Währungscode, höchstens 3 gültige Stellen:

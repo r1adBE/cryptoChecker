@@ -268,4 +268,50 @@ final class AlarmEditTests: XCTestCase {
         XCTAssertFalse(AlarmEdit.offersCurrency(priceThreshold: true, quote: "chf", other: "CHF", fiat: fiat))
         XCTAssertFalse(AlarmEdit.offersCurrency(priceThreshold: false, quote: "USDT", other: "CHF", fiat: fiat))
     }
+
+    // MARK: Ein-/Ausschalten
+
+    /// «Nahe am Hoch» hat ein neues Hoch (101) gemeldet; aus und wieder ein: Die gemeldete Marke bleibt, ein Kurs knapp
+    /// über dem alten Hoch des Zeitraums (100), aber unter der Marke meldet nicht nochmals «neues Hoch» — wie Android
+    /// (WatchDao.rearmAlarm setzt nur referenceAt = 0). Seit Build 98; vorher löschte iOS die Marke.
+    func testOffOnKeepsReportedNearHighMark() {
+        let t0: Int64 = 1_800_000_000_000
+        let range = NearExtreme.Range(high: 100, low: 50)
+        let armed = Alarm(id: 1, watchId: 9, condition: .NEAR_HIGH, threshold: 2, repeating: true, windowHours: 30)
+        let reported = AlarmEvaluator.triggered(armed, price: 101, time: t0, nearLevel: 101)
+        XCTAssertEqual(reported.referencePrice, 101)
+        XCTAssertGreaterThan(reported.referenceAt, 0)
+
+        let toggled = AlarmEdit.settingEnabled(AlarmEdit.settingEnabled(reported, false), true)
+        XCTAssertTrue(toggled.enabled)
+        XCTAssertEqual(toggled.referenceAt, 0)
+        XCTAssertEqual(toggled.referencePrice, 101)
+
+        let now = t0 + 2 * 60 * 60_000
+        let decision = NearExtreme.decide(
+            side: .high, price: 100.5, range: range, thresholdPercent: toggled.threshold,
+            armed: toggled.referenceAt <= 0,
+            lastLevel: NearExtreme.reportedMark(lastLevel: toggled.referencePrice, lastTriggeredAt: toggled.lastTriggeredAt,
+                                                windowDays: toggled.windowHours, now: now),
+            inCooldown: false, lastTriggeredAt: toggled.lastTriggeredAt, now: now)
+        XCTAssertEqual(decision, .idle)
+        // Über der gemeldeten Marke meldet er wieder
+        let higher = NearExtreme.decide(
+            side: .high, price: 101.5, range: range, thresholdPercent: toggled.threshold,
+            armed: true, lastLevel: 101, inCooldown: false, lastTriggeredAt: toggled.lastTriggeredAt, now: now)
+        if case .fire(true, _, _, _) = higher {} else { XCTFail("erwartet: neues Hoch, war \(higher)") }
+    }
+
+    /// Andere Bedingungen: Ein/Aus lässt Bezugskurs und Bezugszeit unberührt; Kursmarken, Funding und Open Interest
+    /// werden nur wieder scharf (referenceAt = 0) — wie WatchDao.rearmAlarm.
+    func testSettingEnabledKeepsReferencePriceForEveryCondition() {
+        for condition in AlarmCondition.allCases {
+            let alarm = Alarm(id: 1, watchId: 9, condition: condition, threshold: 3, enabled: false,
+                              referencePrice: 42, referenceAt: 7)
+            let on = AlarmEdit.settingEnabled(alarm, true)
+            XCTAssertEqual(on.referencePrice, 42, "\(condition)")
+            let rearms = condition.isPriceThreshold || condition.isNearExtreme || condition.isDerivatives
+            XCTAssertEqual(on.referenceAt, rearms ? 0 : 7, "\(condition)")
+        }
+    }
 }

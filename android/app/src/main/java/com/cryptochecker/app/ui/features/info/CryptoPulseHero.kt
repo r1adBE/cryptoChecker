@@ -177,12 +177,14 @@ internal fun PulseEvidence(report: PulseReport) {
     val marketSpoken = marketCap?.let { cap ->
         buildString {
             append(marketTitle).append(' ').append(cap)
-            report.marketCap24h?.let { append(", ").append(periodSpoken).append(": ").append(A11yText.change(context, it, decimals = 1)) }
+            report.marketCap24h?.let {
+                append(", ").append(stringResource(R.string.label_value, periodSpoken, A11yText.change(context, it, decimals = 1)))
+            }
         }
     }
     val spoken = buildString {
-        append(periodSpoken).append(": ")
-        append(coins.joinToString(", ") { (_, name, change) -> name + " " + coinSpoken(context, change) })
+        val coinList = coins.joinToString(", ") { (_, name, change) -> name + " " + coinSpoken(context, change) }
+        append(stringResource(R.string.label_value, periodSpoken, coinList))
         if (chips.isNotEmpty()) append(". ").append(chips.joinToString(", "))
         breadthNote?.let { append(". ").append(it) }
         breadthSpoken?.let { append(". ").append(it) }

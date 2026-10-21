@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.remote.util
 
+import com.cryptochecker.app.data.BackupLimits
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
@@ -11,6 +12,22 @@ import java.io.InputStream
 object HttpBodyLimit {
     const val DEFAULT_MAX_BYTES = 2L * 1024 * 1024
     const val BULK_MAX_BYTES = 16L * 1024 * 1024
+
+    /**
+     * Höchste JSON-Verschachtelung einer Antwort. org.json liest rekursiv: 16 MB «[[[[…» liefen sonst in einen
+     * StackOverflowError (ein Error, den kein `catch (Exception)` fängt — Absturz). Echte Antworten der Börsen und
+     * Ketten liegen bei Tiefe < 10; iOS (JSONSerialization) bricht von sich aus bei 512 ab. Seit Build 98.
+     */
+    const val MAX_JSON_DEPTH = 128
+
+    /** Antworttext tiefer verschachtelt als [max] ([com.cryptochecker.app.data.BackupLimits.checkDepth])? */
+    fun tooDeep(text: String, max: Int = MAX_JSON_DEPTH): Boolean =
+        try {
+            BackupLimits.checkDepth(text, max)
+            false
+        } catch (_: BackupLimits.TooLargeException) {
+            true
+        }
 
     /** Angekündigte Länge (Content-Length, −1 = unbekannt) schon zu gross? */
     fun exceeds(contentLength: Long, maxBytes: Long): Boolean = contentLength > maxBytes

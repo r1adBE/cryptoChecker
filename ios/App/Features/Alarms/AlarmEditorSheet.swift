@@ -30,6 +30,8 @@ struct AlarmEditorSheet: View {
     @State var hasHourlyVolume = false
     /// Rückfrage «Alarm löst sofort aus» vor dem Speichern.
     @State private var confirmFiresNow = false
+    /// Doppeltipp beim Anlegen (Speichern bzw. Vorlage, während das Blatt zugeht): nur ein neuer Alarm.
+    @State var createGuard = AlarmCreateGuard()
     /// Bestehender Alarm: letzte Prüfung aus dem Alarm-Protokoll («Zuletzt geprüft»).
     @State private var lastCheck: AlarmLogEntry?
 
@@ -292,6 +294,7 @@ struct AlarmEditorSheet: View {
     }
 
     private func commit() {
+        guard createGuard.begin(creating: draft.id == 0) else { return }
         onSave(draft)
         dismiss()
     }

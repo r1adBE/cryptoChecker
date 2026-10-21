@@ -27,6 +27,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.TextLimit
 
 /**
  * Notiz zu einem Paar bearbeiten. Leer speichern oder «Entfernen» löscht sie.
@@ -39,7 +40,7 @@ fun NoteDialog(
     onSave: (String?) -> Unit,
     onDismiss: () -> Unit,
 ) {
-    var text by rememberSaveable { mutableStateOf(initial.orEmpty().take(NOTE_MAX)) }
+    var text by rememberSaveable { mutableStateOf(TextLimit.takeGraphemes(initial.orEmpty(), NOTE_MAX)) }
     val focusRequester = remember { FocusRequester() }
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -48,7 +49,7 @@ fun NoteDialog(
             Column {
                 OutlinedTextField(
                     value = text,
-                    onValueChange = { text = it.take(NOTE_MAX) },
+                    onValueChange = { text = TextLimit.takeGraphemes(it, NOTE_MAX) },
                     placeholder = { Text(stringResource(R.string.note_hint)) },
                     minLines = 2,
                     maxLines = 4,
@@ -56,7 +57,7 @@ fun NoteDialog(
                     modifier = Modifier.fillMaxWidth().focusRequester(focusRequester)
                 )
                 Text(
-                    "${LocaleNumbers.integer(text.length)} / ${LocaleNumbers.integer(NOTE_MAX)}",
+                    "${LocaleNumbers.integer(TextLimit.graphemeCount(text))} / ${LocaleNumbers.integer(NOTE_MAX)}",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.align(androidx.compose.ui.Alignment.End).padding(top = 4.dp)

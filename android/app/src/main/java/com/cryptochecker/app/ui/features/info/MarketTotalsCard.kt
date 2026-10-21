@@ -46,7 +46,7 @@ internal fun MarketTotalsRow(
     val change = totals?.changePercent24h
     // Screenreader: ein Satz mit Titel, Marktkapitalisierung samt Veränderung in Worten und Volumen
     val spoken = if (cap != null && volume != null) buildString {
-        append(title).append(": ").append(capLabel).append(' ').append(cap)
+        append(stringResource(R.string.label_value, title, "$capLabel $cap"))
         if (change != null) append(", ").append(A11yText.change(context, change))
         append("; ").append(volumeLabel).append(' ').append(volume)
     } else null

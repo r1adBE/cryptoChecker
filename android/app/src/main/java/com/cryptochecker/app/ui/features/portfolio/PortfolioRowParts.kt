@@ -144,13 +144,15 @@ internal fun coinRowSpoken(
         note.takeIf { it != value },
         // «Seit Kauf» wie die Pille der Zeile; fehlt bei einem Teil der Kaufpreis, «Preis fehlt»
         if (!position.priceMissing || position.unrealizedPartial) {
-            stringResource(R.string.portfolio_unrealized) + ": " + A11yText.change(context, position.unrealizedPercent)
+            stringResource(R.string.label_value, stringResource(R.string.portfolio_unrealized), A11yText.change(context, position.unrealizedPercent))
         } else null,
         stringResource(R.string.portfolio_price_missing).takeIf { position.priceMissing },
         basis?.let { rowPnlSpoken(pnl, it, unit) },
         stringResource(R.string.a11y_price_outdated).takeIf { stale },
         exchange?.takeIf { it.isNotBlank() },
-        if (txCount > 0) stringResource(R.string.portfolio_transactions) + ": " + LocaleNumbers.integer(txCount) else null,
+        if (txCount > 0) {
+            stringResource(R.string.label_value, stringResource(R.string.portfolio_transactions), LocaleNumbers.integer(txCount))
+        } else null,
     )
     return parts.joinToString(", ")
 }
@@ -161,7 +163,7 @@ internal fun coinRowSpoken(
  */
 @Composable
 internal fun TxCountBadge(count: Int) {
-    val spoken = stringResource(R.string.portfolio_transactions) + ": " + LocaleNumbers.integer(count)
+    val spoken = stringResource(R.string.label_value, stringResource(R.string.portfolio_transactions), LocaleNumbers.integer(count))
     Text(
         LocaleNumbers.integer(count),
         style = MaterialTheme.typography.label.tabularNumbers(),

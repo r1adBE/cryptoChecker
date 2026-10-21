@@ -212,6 +212,15 @@ object ExchangeBackoff {
         return State(strikes, until, RefreshFailure.RATE_LIMIT, 0)
     }
 
+    /**
+     * Gemeinsame Pause, nachdem die Kursabfrage eine bis [until] gemeldet hat (BlockedSources.pauseGroup): Eine
+     * laufende längere bleibt, eine kürzere wird verlängert (Stufe bleibt). Eine unmögliche alte Pause ([isPaused]:
+     * zu weit in der Zukunft) blockiert die neue nicht — sonst bliebe die alte, kaputte stehen. Wie iOS.
+     */
+    fun adoptedPause(old: State?, until: Long, now: Long): State =
+        if (old != null && old.pausedUntil >= until && isPaused(old, now)) old
+        else State(old?.strikes ?: 1, until, RefreshFailure.RATE_LIMIT, 0)
+
     // ---------------- Gemeinsame Pause von Spot und Futures auf demselben Host ----------------
 
     /**

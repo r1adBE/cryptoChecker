@@ -37,6 +37,7 @@ extension AlarmEditorSheet {
     private func templateChip(_ template: AlarmTemplates.Template) -> some View {
         let label = Self.templateLabel(template)
         return Button {
+            guard createGuard.begin(creating: true) else { return }
             onTemplate(template)
             dismiss()
         } label: {

@@ -19,11 +19,12 @@ extension PortfolioModel {
     /// `displayRate` − Einstand je Teil zum Faktor seines Tags (Regel des Steuer-Exports). nil = nicht umgerechnet (USDT,
     /// kein Devisenkurs) oder die Kurse laden noch — die Karte zeigt dann in der Anzeigewährung «—» statt einer Zahl zum
     /// heutigen Kurs. Wie Android `PortfolioViewModel.costFx`.
-    func costFx(for currency: String) -> PortfolioCostFxFigures? {
+    /// `summary`: in `body` die gezeigte Rechnung (`shownSummary`), sonst die genaue (`summary`).
+    func costFx(for currency: String, summary shown: PortfolioSummary? = nil) -> PortfolioCostFxFigures? {
         let rate = displayRate(for: currency)
         guard PortfolioCardUnit(currency: currency, fxRate: rate).converted, let rate,
               let current = PortfolioDecimal.of(rate) else { return nil }
-        let summary = self.summary
+        let summary = shown ?? self.summary
         let first = PortfolioCostFx.firstDay(summary)
         // Ohne Teile mit Datum keine Kurse nötig; sonst nur mit einer Ladung, die den frühesten Tag abdeckt
         let usable = costFxLoad.flatMap { load -> (rates: [Int: Decimal]?, usdtUsd: [Int: Decimal])? in
@@ -67,7 +68,9 @@ extension PortfolioModel {
 
     /// Merkzettel fürs Widget, sobald seine Kurse da sind: hat er sich gegenüber dem gespeicherten Stand geändert, den
     /// Stand mit denselben Kursen neu rechnen (wie Android: der Merkzettel gehört zur Eingabe der Aufnahme).
-    func refreshWidgetDisplayFx() {
+    func refreshWidgetDisplayFx() async {
+        // Gesamtrechnung im Hintergrund abwarten; `widgetDisplayFx` trifft danach den Zwischenspeicher
+        _ = await currentSummary()
         let currency = data.settings.portfolioCurrency
         guard let memo = widgetDisplayFx(for: currency), PortfolioWidgetStore.load()?.displayFx != memo,
               !calcPortfolio.isEmpty, prices.updatedAt > 0,

@@ -44,7 +44,7 @@ extension PortfolioScreen {
                 // Faktor USDT → Anzeigewährung: Devisenkurs × USDT/USD (USDT zum Marktkurs)
                 fxRate: model.displayRate(for: currency),
                 // «Seit Kauf»/Einstand in der Anzeigewährung zum Kurs der Erwerbstage
-                costFx: model.costFx(for: currency),
+                costFx: model.costFx(for: currency, summary: summary),
                 today: model.today,
                 todaySkipped: model.todaySkipped,
                 weekChange: model.weekChange,

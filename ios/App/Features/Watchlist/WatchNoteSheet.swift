@@ -14,7 +14,7 @@ struct WatchNoteSheet: View {
     init(initial: String?, onSave: @escaping (String?) -> Void) {
         self.initial = initial
         self.onSave = onSave
-        _text = State(initialValue: initial ?? "")
+        _text = State(initialValue: String((initial ?? "").prefix(Watch.noteMax)))
     }
 
     var body: some View {
@@ -40,7 +40,8 @@ struct WatchNoteSheet: View {
                         .foregroundStyle(AppColors.error)
                     }
                     Spacer()
-                    Text("\(text.count) / \(Watch.noteMax)")
+                    // Ziffern nach der App-Sprache (Arabisch/Persisch) wie Android `NoteDialog`; count = sichtbare Zeichen
+                    Text(verbatim: "\(LocaleNumbers.integer(text.count)) / \(LocaleNumbers.integer(Watch.noteMax))")
                         .font(.caption.monospacedDigit())
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }

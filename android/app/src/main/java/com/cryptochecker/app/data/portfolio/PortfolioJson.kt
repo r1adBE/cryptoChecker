@@ -10,6 +10,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
 import com.cryptochecker.app.data.local.model.NOTE_MAX
+import com.cryptochecker.app.util.TextLimit
 import org.json.JSONArray
 import org.json.JSONObject
 import java.math.BigDecimal
@@ -113,7 +114,7 @@ object PortfolioJson {
         )
         val linkedImportKey = stored.linkedImportKey?.takeIf { stored.importKey != null }
         val price = decimal(o, "priceText", "priceUsdt")?.takeIf { it.signum() >= 0 }
-        val note = if (o.isNull("note")) null else o.optString("note").trim().take(NOTE_MAX).trim().takeIf { it.isNotEmpty() }
+        val note = if (o.isNull("note")) null else TextLimit.takeGraphemes(o.optString("note").trim(), NOTE_MAX).trim().takeIf { it.isNotEmpty() }
         return PortfolioTxEntity(
             id = o.optLong("id", 0L).coerceAtLeast(0L),
             coin = coin,

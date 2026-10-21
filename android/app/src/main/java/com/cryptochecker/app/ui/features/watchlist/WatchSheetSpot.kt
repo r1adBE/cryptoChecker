@@ -36,9 +36,15 @@ private const val SPOT_SOURCE = "CoinGecko"
 @Composable
 internal fun SpotSection(data: SpotData?, loaded: Boolean, showExplain: Boolean) {
     if (showExplain) {
-        MarketDataExplanation(stringResource(R.string.spot_market_cap) + ": " + stringResource(R.string.explain_spot_market_cap))
-        MarketDataExplanation(stringResource(R.string.spot_volume_24h) + ": " + stringResource(R.string.explain_spot_volume))
-        MarketDataExplanation(stringResource(R.string.spot_fdv) + ": " + stringResource(R.string.explain_spot_fdv))
+        MarketDataExplanation(
+            stringResource(R.string.label_value, stringResource(R.string.spot_market_cap), stringResource(R.string.explain_spot_market_cap))
+        )
+        MarketDataExplanation(
+            stringResource(R.string.label_value, stringResource(R.string.spot_volume_24h), stringResource(R.string.explain_spot_volume))
+        )
+        MarketDataExplanation(
+            stringResource(R.string.label_value, stringResource(R.string.spot_fdv), stringResource(R.string.explain_spot_fdv))
+        )
         MarketDataExplanation(stringResource(R.string.explain_spot_supply))
         MarketDataExplanation(stringResource(R.string.explain_spot_source))
     }

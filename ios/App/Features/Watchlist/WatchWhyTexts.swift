@@ -140,7 +140,7 @@ enum WatchlistWhyTexts {
             spokenValue = value
             note = fearGreedLabel(points)
         }
-        let spoken = "\(title): \(note)" + (spokenValue.isEmpty ? "" : ", \(spokenValue)") + "."
+        let spoken = L("label_value", title, note) + (spokenValue.isEmpty ? "" : ", \(spokenValue)") + "."
         return FactorLine(title: title, value: value, note: note, spoken: spoken)
     }
 

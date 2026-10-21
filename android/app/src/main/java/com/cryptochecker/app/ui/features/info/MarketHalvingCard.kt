@@ -17,6 +17,7 @@ import com.cryptochecker.app.domain.market.CycleHistory
 import com.cryptochecker.app.domain.market.HalvingEstimate
 import com.cryptochecker.app.domain.market.HalvingInfo
 import com.cryptochecker.app.util.LocaleNumbers
+import com.cryptochecker.app.util.MonthYearFormat
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
@@ -39,7 +40,7 @@ internal fun HalvingRow(
     estimate: HalvingEstimate? = null,
 ) {
     val dateFormat = remember { LocaleNumbers.dates(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)) }
-    val monthFormat = remember { LocaleNumbers.dates(DateTimeFormatter.ofPattern("MMM yyyy")) }
+    val monthFormat = remember { MonthYearFormat.formatter() }
     var expanded by rememberSaveable { mutableStateOf(false) }
     val nextMonth = "~" + (estimate?.date ?: halving.nextHalvingEstimate).format(monthFormat)
 

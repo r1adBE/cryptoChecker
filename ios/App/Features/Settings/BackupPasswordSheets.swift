@@ -233,9 +233,14 @@ private struct BackupPasswordInput: View {
                 Button {
                     visible.toggle()
                 } label: {
+                    // Trefferfläche 44 × 44 pt (Bedienungshilfen); das Feld bleibt gleich hoch — der Rand ragt
+                    // in den Innenabstand des Felds
                     Image(systemName: visible ? "eye.slash" : "eye")
                         .foregroundStyle(AppColors.onSurfaceVariant)
                         .frame(width: 32, height: 32)
+                        .frame(minWidth: 44, minHeight: 44)
+                        .contentShape(Rectangle())
+                        .padding(-6)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(L(visible ? "backup_password_hide" : "backup_password_show"))
