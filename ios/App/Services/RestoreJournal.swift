@@ -30,7 +30,9 @@ enum RestoreJournal {
     /// Versiegelt und atomar schreiben; false = kein Schlüssel oder Schreiben gescheitert (dann ohne Journal).
     @discardableResult
     static func write(_ data: Data, keys: StorageKey = .shared, to target: URL = url) -> Bool {
-        guard case .key(let key) = keys.lookup() else { return false }
+        // Schlüssel anlegen, falls noch keiner da ist (frische Installation: Sicherung einspielen vor dem ersten Speichern).
+        // Nur `lookup()` lehnte seit Build 102 genau diesen häufigsten Fall ab (`Failure.journalUnavailable`)
+        guard let key = keys.createIfAbsent() else { return false }
         do {
             try FileManager.default.createDirectory(at: target.deletingLastPathComponent(), withIntermediateDirectories: true)
             try ProtectedFile.writeSealed(data, to: target, key: key)
