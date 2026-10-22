@@ -55,6 +55,26 @@ extension AlarmsScreen {
         }
     }
 
+    /// Schalter einer Alarmkarte. Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» bzw. abgelehnt: der Schalter zeigt
+    /// wieder den echten Stand (`refusedToggles`).
+    func toggleAlarm(_ id: Int64, enabled: Bool) {
+        data.withWatchlistConfirm {
+            // Gesperrt: nur die Warn-Haptik des Hinweises (wie Android), seit Build 104
+            if !data.watchlistWritesBlocked { Haptics.play(.selection) }
+            if !data.setAlarmEnabled(id, enabled) { refusedToggles &+= 1 }
+        } cancelled: {
+            refusedToggles &+= 1
+        }
+    }
+
+    /// Löschen nach der Rückfrage «Alarm löschen?». Seit Build 105: Rückfrage F-08 vorher, Haptik nur nach dem Löschen.
+    func deleteConfirmed(_ id: Int64) {
+        data.withWatchlistConfirm {
+            let deleted = withAnimation { data.deleteAlarm(id) }
+            if deleted { Haptics.play(.destructive) }
+        }
+    }
+
     /// Merkliste gerade nicht lesbar (`AppData.alarmSaveBlocked`): nichts angelegt, sagen warum (der Editor schliesst sich)
     func showSaveLocked() {
         Haptics.play(.error)

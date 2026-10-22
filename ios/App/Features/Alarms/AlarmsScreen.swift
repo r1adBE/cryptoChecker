@@ -35,7 +35,7 @@ struct AlarmsScreen: View {
     /// Zählt abgelehnte Schalter (Merkliste gesperrt): wertet den body neu aus, damit sie den echten Zustand zeigen — der
     /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen. Seit
     /// Build 104 ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
-    @State private var refusedToggles = 0
+    @State var refusedToggles = 0
     @Environment(\.scenePhase) private var scenePhase
     /// «Anpassen» aus einer Alarm-Mitteilung (`AppRouter.pendingEditAlarmId`).
     @ObservedObject private var router = AppRouter.shared
@@ -117,14 +117,7 @@ struct AlarmsScreen: View {
                                 unchecked: checkStatus.unchecked(alarm.id) != nil,
                                 markFallback: watch.map { MarkFallbackStore.contains($0.id) } ?? false
                             ),
-                            onToggle: { enabled in
-                                // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» bzw. abgelehnt: Schalter zeigt den Stand
-                                data.withWatchlistConfirm {
-                                    // Gesperrt: nur die Warn-Haptik des Hinweises (wie Android), seit Build 104
-                                    if !data.watchlistWritesBlocked { Haptics.play(.selection) }
-                                    if !data.setAlarmEnabled(alarm.id, enabled) { refusedToggles &+= 1 }
-                                } cancelled: { refusedToggles &+= 1 }
-                            },
+                            onToggle: { enabled in toggleAlarm(alarm.id, enabled: enabled) },
                             onEdit: { if !lowLiquidity { draft = AlarmDraft.from(alarm) } },
                             onDelete: { askDelete = alarm }
                         )
@@ -230,9 +223,7 @@ struct AlarmsScreen: View {
         ) { alarm in
             Button(L("action_delete"), role: .destructive) {
                 askDelete = nil
-                data.withWatchlistConfirm { // seit Build 105: Rückfrage F-08 vorher, Haptik nur nach dem Löschen
-                    if withAnimation({ data.deleteAlarm(alarm.id) }) { Haptics.play(.destructive) }
-                }
+                deleteConfirmed(alarm.id)
             }
             Button(L("action_cancel"), role: .cancel) { askDelete = nil }
         } message: { _ in
