@@ -4,6 +4,9 @@ import SwiftUI
 // Eigene Datei, damit das Blatt selbst nur Zähler, Zeilen und den Ablauf enthält.
 
 extension PortfolioCsvImportSheet {
+    /// Seit Build 103: so viele Umbuchungen bzw. Auszahlungen einzeln im Blatt; alle über «Alle anzeigen» (wie Android).
+    static var listRows: Int { 10 }
+
     /// Umbuchungen zwischen Börsen: je Kandidat «Auszahlung → Einzahlung» mit Schalter (eindeutige vorgewählt),
     /// Netzwerkgebühr, Hinweis auf eine Seite aus einem früheren Import bzw. auf mehrere Treffer — wie Android `TransferLinks`.
     var transferLinks: some View {
@@ -12,38 +15,53 @@ extension PortfolioCsvImportSheet {
             Text(L("portfolio_csv_import_transfers_title"))
                 .font(.subheadline.weight(.semibold))
             hint(L("portfolio_csv_import_transfers_hint"))
-            ForEach(links) { link in
-                Toggle(isOn: Binding(
-                    get: { linked.contains(link.key) },
-                    set: { on in linked = CsvTransferMatch.toggle(links, chosen: linked, key: link.key, on: on) }
-                )) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(verbatim: PortfolioFormat.date(link.withdrawalTime) + " · "
-                             + PortfolioFormat.exactAmount(link.sent, link.coin) + " → "
-                             + PortfolioFormat.exactAmount(link.received, link.coin))
-                            .font(.subheadline.monospacedDigit())
-                        // Börsen nur, wenn beide bekannt sind (eigene CSV hat keine)
-                        if let from = link.from, let to = link.to {
-                            hint(from + " → " + to)
-                        }
-                        if let fee = link.fee {
-                            hint(L("portfolio_csv_import_transfer_fee", link.feeUnit == .COIN
-                                   ? PortfolioFormat.exactAmount(fee, link.coin)
-                                   : PortfolioFormat.usdtValue(PortfolioDecimal.double(fee))))
-                        }
-                        if link.withdrawalId != nil || link.depositId != nil {
-                            hint(L("portfolio_csv_import_transfer_stored"))
-                        }
-                        if !link.unambiguous {
-                            hint(L("portfolio_csv_import_transfer_ambiguous"))
-                        }
-                    }
-                }
-                .tint(accent.primary)
-                .accessibilityHint(L("portfolio_csv_import_transfer_link"))
-                .padding(.top, 4)
+            ForEach(links.prefix(Self.listRows)) { link in linkRow(link) }
+            if links.count > Self.listRows {
+                Button(L("explorer_bulk_show_all", links.count)) { showAllLinks = true }
+                    .font(.subheadline)
+                    .buttonStyle(.borderless)
             }
         }
+        .sheet(isPresented: $showAllLinks) {
+            fullList(L("portfolio_csv_import_transfers_title"), done: { showAllLinks = false }) {
+                ForEach(links) { link in linkRow(link) }
+            }
+        }
+    }
+
+    private func linkRow(_ link: CsvTransferLink) -> some View {
+        Toggle(isOn: Binding(
+            get: { linked.contains(link.key) },
+            set: { on in
+                linked = CsvTransferMatch.toggle(links, chosen: linked, key: link.key, on: on)
+                updatePlan()
+            }
+        )) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(verbatim: PortfolioFormat.date(link.withdrawalTime) + " · "
+                     + PortfolioFormat.exactAmount(link.sent, link.coin) + " → "
+                     + PortfolioFormat.exactAmount(link.received, link.coin))
+                    .font(.subheadline.monospacedDigit())
+                // Börsen nur, wenn beide bekannt sind (eigene CSV hat keine)
+                if let from = link.from, let to = link.to {
+                    hint(from + " → " + to)
+                }
+                if let fee = link.fee {
+                    hint(L("portfolio_csv_import_transfer_fee", link.feeUnit == .COIN
+                           ? PortfolioFormat.exactAmount(fee, link.coin)
+                           : PortfolioFormat.usdtValue(PortfolioDecimal.double(fee))))
+                }
+                if link.withdrawalId != nil || link.depositId != nil {
+                    hint(L("portfolio_csv_import_transfer_stored"))
+                }
+                if !link.unambiguous {
+                    hint(L("portfolio_csv_import_transfer_ambiguous"))
+                }
+            }
+        }
+        .tint(accent.primary)
+        .accessibilityHint(L("portfolio_csv_import_transfer_link"))
+        .padding(.top, 4)
     }
 
     /// Auszahlungen der Datei: je Zeile «Auf eigene Wallet (Umbuchung)» / «Verlässt das Portfolio (Auszahlung)», vorgewählt
@@ -69,20 +87,53 @@ extension PortfolioCsvImportSheet {
                 .font(.subheadline)
                 .buttonStyle(.borderless)
             }
-            ForEach(withdrawals, id: \.importKey) { tx in
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(rowText(tx))
-                        .font(.subheadline.monospacedDigit())
-                        .lineLimit(1)
-                    if let to = destinations[tx.importKey] {
-                        hint(L("portfolio_csv_import_choice_proposed", to))
-                    }
-                    choiceButton(tx, .TRANSFER, L("portfolio_csv_import_choice_transfer"))
-                    choiceButton(tx, .WITHDRAWAL, L("portfolio_csv_import_choice_withdrawal"))
-                }
-                .padding(.top, 4)
+            ForEach(withdrawals.prefix(Self.listRows), id: \.importKey) { tx in
+                withdrawalRow(tx, destination: destinations[tx.importKey])
+            }
+            if withdrawals.count > Self.listRows {
+                Button(L("explorer_bulk_show_all", withdrawals.count)) { showAllWithdrawals = true }
+                    .font(.subheadline)
+                    .buttonStyle(.borderless)
             }
         }
+        .sheet(isPresented: $showAllWithdrawals) {
+            fullList(L("portfolio_csv_import_withdrawals_title"), done: { showAllWithdrawals = false }) {
+                ForEach(withdrawals, id: \.importKey) { tx in
+                    withdrawalRow(tx, destination: destinations[tx.importKey])
+                }
+            }
+        }
+    }
+
+    private func withdrawalRow(_ tx: CsvImportTx, destination: String?) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(rowText(tx))
+                .font(.subheadline.monospacedDigit())
+                .lineLimit(1)
+            if let to = destination {
+                hint(L("portfolio_csv_import_choice_proposed", to))
+            }
+            choiceButton(tx, .TRANSFER, L("portfolio_csv_import_choice_transfer"))
+            choiceButton(tx, .WITHDRAWAL, L("portfolio_csv_import_choice_withdrawal"))
+        }
+        .padding(.top, 4)
+    }
+
+    /// Seit Build 103: alle Zeilen einer Liste im eigenen Blatt, als `List` (nur sichtbare Zeilen gebaut).
+    private func fullList<Rows: View>(_ title: String, done: @escaping () -> Void,
+                                      @ViewBuilder rows: () -> Rows) -> some View {
+        NavigationStack {
+            List { rows() }
+                .listStyle(.plain)
+                .navigationTitle(title)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(L("action_close"), action: done)
+                    }
+                }
+        }
+        .tint(accent.primary)
     }
 
     /// Eine Wahl als Auswahlknopf (Häkchen = gewählt), Screenreader: «ausgewählt».

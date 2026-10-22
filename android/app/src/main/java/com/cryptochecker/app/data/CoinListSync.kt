@@ -12,14 +12,13 @@ import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.domain.logos.CoinMeta
 import com.cryptochecker.app.util.ConnectivityMonitor
+import com.cryptochecker.app.util.appScope
 import com.cryptochecker.marketdata.model.market.BinanceAlpha
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -78,7 +77,7 @@ class CoinListSync @Inject constructor(
     internal val mapFile by lazy { File(context.noBackupFilesDir, MAP_FILE) }
     private val listsFile by lazy { File(context.noBackupFilesDir, LISTS_FILE) }
 
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val scope = appScope(Dispatchers.IO, "CoinListSync")
 
     // ---- 1. Binance-Symbolliste und Alpha-Liste (Namen, Alpha-Kennzeichen) — vor allem anderen
 
@@ -262,7 +261,8 @@ class CoinListSync @Inject constructor(
                 }
                 if (!images) added = runSync(false)
                 noteSyncResult(_retryPending.value, System.currentTimeMillis())
-                onDone(added)
+                // Seit Build 103: Fehler im Abschluss (Widgets neu zeichnen) nur protokollieren
+                runCatchingCancellable { onDone(added) }.onFailure { Timber.w(it, "Logo-Abgleich: Abschluss fehlgeschlagen") }
             }
         }
     }

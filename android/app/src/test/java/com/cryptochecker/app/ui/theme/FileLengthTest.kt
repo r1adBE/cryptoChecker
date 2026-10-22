@@ -95,10 +95,7 @@ class FileLengthTest {
          * Datei → höchstens so viele Zeilen. Android relativ zu `src/main/java/com/cryptochecker/`
          * (`app/…`, `marketdata/…`), iOS mit `ios/` davor.
          */
-        val CEILINGS = mapOf(
-            // Eine Datenklasse mit rund 95 dokumentierten Einstellungen: Kotlin kann einen Konstruktor nicht
-            // auf mehrere Dateien verteilen
-            "app/settings/AppSettings.kt" to 422,
-        )
+        // Seit Build 103 leer: AppSettings.kt (vorher 422) teilt Wahlmöglichkeiten mit AppSettingsDefaults.kt
+        val CEILINGS: Map<String, Int> = emptyMap()
     }
 }

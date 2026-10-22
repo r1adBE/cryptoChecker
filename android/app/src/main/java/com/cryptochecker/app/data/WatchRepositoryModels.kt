@@ -7,11 +7,15 @@ import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.marketdata.model.FuturesContractType
 
-/** Ergebnis einer Sammelaufnahme in die Watchlist; [refused] = wegen der vollen Merkliste nicht angelegt. */
+/**
+ * Ergebnis einer Sammelaufnahme in die Watchlist; [refused] = wegen der vollen Merkliste nicht angelegt; [locked] = Merkliste
+ * gesperrt ([com.cryptochecker.app.data.local.WatchlistStorageLock]), nichts angelegt (der Hinweis kommt von dort).
+ */
 data class BulkAddResult(
     val added: Int,
     val skipped: Int,
     val refused: Int = 0,
+    val locked: Boolean = false,
 )
 
 /** Richtung beim manuellen Sortieren. */
@@ -24,8 +28,8 @@ enum class WatchMove { TOP, UP, DOWN, BOTTOM }
  */
 data class WatchSnapshot(val watch: WatchEntity, val alarms: List<AlarmEntity>)
 
-/** Ergebnis von «Paar bearbeiten» ([WatchRepository.changePair]). */
-enum class PairEditResult { SAVED, UNCHANGED, DUPLICATE, MISSING }
+/** Ergebnis von «Paar bearbeiten» ([WatchRepository.changePair]); LOCKED = Merkliste gesperrt, nichts geändert. */
+enum class PairEditResult { SAVED, UNCHANGED, DUPLICATE, MISSING, LOCKED }
 
 /**
  * Welches Paar ein Eintrag zeigt — genau die Spalten, nicht der normalisierte Schlüssel

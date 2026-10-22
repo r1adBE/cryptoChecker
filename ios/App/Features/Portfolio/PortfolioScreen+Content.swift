@@ -54,7 +54,7 @@ extension PortfolioScreen {
                 exchangeFailed: model.prices.exchangeFailed,
                 mixedExchange: model.prices.mixedExchange,
                 periodScaled: model.periodScaled,
-                walletShortfalls: PortfolioCalculator.walletShortfalls(model.calcPortfolio, method: data.settings.costMethod),
+                walletShortfalls: walletShortfalls,
                 onShortfall: { id in
                     if id == PortfolioCostGapUi.hintId {
                         costGapsOpen = true

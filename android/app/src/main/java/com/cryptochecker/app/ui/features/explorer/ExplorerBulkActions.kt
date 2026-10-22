@@ -86,6 +86,11 @@ fun ExplorerViewModel.addBulkPairs() {
     viewModelScope.launch {
         bulkAdd.value = BulkAddResult(added = 0, skipped = 0, running = true)
         val outcome = watchRepository.addWatches(selected, pairs, sessionTargetGroup.value)
+        // Merkliste gesperrt: keine Zählung «0 hinzugefügt», den kurzen Hinweis zeigt WatchlistLockedHint
+        if (outcome.locked) {
+            bulkAdd.value = null
+            return@launch
+        }
         // Merkliste voll: nur bis zur Grenze angelegt, die Rückmeldung nennt die übrigen
         bulkAdd.value = BulkAddResult(added = outcome.added, skipped = outcome.skipped, refused = outcome.refused)
         // Viele auf einmal: kein Erst-Moment, das erste Paar gilt aber als erledigt

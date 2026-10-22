@@ -233,6 +233,8 @@ extension ExplorerViewModel {
     func insert(market: Market, pair: MarketPair, addedText: String, duplicateText: String) {
         let firstEver = data.isFirstPairAdd
         let outcome = data.tryAddWatch(market: market, pair: pair, group: data.addTargetGroup)
+        // Merkliste gesperrt: nichts angelegt, Hinweis und Haptik kommen von `.watchlistLockedHint`
+        if outcome == .locked { return }
         guard case .added(let id) = outcome else {
             show(outcome == .full ? ExplorerMessage(text: WatchlistLimitText.full, long: true) : ExplorerMessage(text: duplicateText))
             haptic(.warning)

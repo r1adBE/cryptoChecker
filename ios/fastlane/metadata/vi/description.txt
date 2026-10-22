@@ -1,4 +1,4 @@
-Cảnh báo khi Bitcoin chạm mức giá của bạn – từ chính sàn bạn đang dùng. Giá của sàn bạn, không phải giá trung bình – miễn phí, không cần tài khoản.
+Cảnh báo khi Bitcoin chạm mức giá của bạn – từ chính sàn bạn đang dùng. Khi đóng ứng dụng, iOS hiếm khi kiểm tra – thường chỉ sau vài giờ, và hoàn toàn không nếu bạn vuốt tắt ứng dụng. Đáng tin cậy nhất khi mở ứng dụng. Biến động ngắn ở giữa có thể bị lỡ; ứng dụng sẽ cho bạn biết điều này. Giá của sàn bạn, không phải giá trung bình – miễn phí, không cần tài khoản.
 
 ĐIỀU LÀM NÊN KHÁC BIỆT
 • Sàn của bạn, không phải giá trung bình: mỗi dòng hiển thị giá gần nhất của cặp trên sàn bạn đã chọn – Binance, Coinbase, Kraken, OKX, Bybit và nhiều sàn khác.
@@ -10,7 +10,6 @@ MINH BẠCH VỀ DỮ LIỆU
 • “Tiết kiệm” là mặc định: giá được làm mới khi mở ứng dụng và theo chu kỳ ở chế độ nền. “Trực tiếp khi đang mở” thêm giá trực tiếp cho Binance, Bybit, OKX, Coinbase và Kraken khi danh sách đang mở.
 • % thay đổi và biểu đồ lấy trước tiên từ chính sàn của cặp; nếu sàn không có nến, ứng dụng dùng Binance hoặc Coinbase và cho bạn biết.
 • Fear & Greed, tỷ lệ thống trị và chỉ số on-chain từ alternative.me, CoinGecko và Coin Metrics.
-• Khi đóng ứng dụng, iOS hiếm khi kiểm tra – thường chỉ sau vài giờ, và hoàn toàn không nếu bạn vuốt tắt ứng dụng. Đáng tin cậy nhất khi mở ứng dụng. Biến động ngắn ở giữa có thể bị lỡ; ứng dụng sẽ cho bạn biết điều này.
 • Số tiền chỉ rời thiết bị khi bạn xuất ra (CSV, bản sao lưu) hoặc ở dạng mã hóa trong bản sao lưu iCloud hoặc máy tính. Để lấy giá, chỉ mã cặp được gửi đến sàn của cặp đó; thêm vào đó là tỷ giá (Frankfurter), dữ liệu thị trường và logo (CoinGecko, Binance), bản sao dữ liệu (GitHub). Nếu bạn theo dõi địa chỉ hoặc xpub, các nút blockchain công khai thấy các địa chỉ (với xpub là các địa chỉ dẫn xuất) và IP của bạn.
 
 DANH SÁCH THEO DÕI

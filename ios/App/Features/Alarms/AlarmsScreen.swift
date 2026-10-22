@@ -300,6 +300,8 @@ struct AlarmsScreen: View {
             banner = message
         }
         .alarmTestRunner(trigger: alarmTestTrigger)
+        // Alarm nicht geändert bzw. gelöscht (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
+        .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, icon: "lock.fill", long: true) }
         // Einmal nach dem Speichern: ehrlich, wann geprüft wird
         .alarmTimingAlert(isPresented: $showTimingHint)
         .overlay(alignment: .bottom) {

@@ -30,6 +30,11 @@ on:
       - '.github/scripts/annotate.py'
       - 'android/app/build.gradle.kts'
   workflow_dispatch:
+    inputs:
+      thread_sanitizer:
+        description: 'Run the unit tests with Thread Sanitizer (manual check for data races, slower)'
+        type: boolean
+        default: false
 
 concurrency:
   group: ios-${{ github.ref }}
@@ -84,6 +89,7 @@ jobs:
 
       # Release configuration as archived for the App Store (no DEBUG branches, optimised):
       # catches compile errors that only show up there before anyone archives on a Mac.
+      # GIT_COMMIT: source commit in Info.plist (CCGitCommit, shown in "Share diagnostics"); local builds say "local".
       - name: Build Release configuration (no signing)
         working-directory: ios
         run: |
@@ -96,6 +102,7 @@ jobs:
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$RUNNER_TEMP/DerivedDataRelease" \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            GIT_COMMIT="$GITHUB_SHA" \
             > "$LOG" 2>&1
           status=$?
           set -e
@@ -138,6 +145,7 @@ jobs:
             -destination 'generic/platform=iOS' \
             -derivedDataPath "$RUNNER_TEMP/DerivedDataDevice" \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            GIT_COMMIT="$GITHUB_SHA" \
             > "$LOG" 2>&1
           status=$?
           set -e
@@ -179,10 +187,14 @@ jobs:
       # Unit tests in the Simulator (target CryptoCheckerTests, hosted by the app).
       - name: Unit tests (iOS Simulator)
         working-directory: ios
+        env:
+          TSAN: ${{ inputs.thread_sanitizer && 'YES' || 'NO' }}
         run: |
           LOG="$RUNNER_TEMP/xcode-test.log"
+          echo "Thread Sanitizer: $TSAN"
           set +e
           xcodebuild test \
+            -enableThreadSanitizer "$TSAN" \
             -project CryptoChecker.xcodeproj \
             -scheme CryptoChecker \
             -configuration Debug \

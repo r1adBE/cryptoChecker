@@ -68,6 +68,8 @@ internal fun PortfolioScreenDialogs(
     val resources = LocalResources.current
     val context = LocalContext.current
     val haptics = rememberHaptics()
+    // Nicht geschrieben: gesperrt bzw. Fehler nennen statt still (seit Build 103, wie iOS)
+    val notSaved = { result: PortfolioWriteResult -> banner.show(resources.getString(result.notSavedText())) }
     // Ungültige Einträge aus der Systemsicherung einmal nennen
     SystemRestoreNoticeDialog()
     sheet?.let { draft ->
@@ -98,7 +100,7 @@ internal fun PortfolioScreenDialogs(
                 viewModel.undoImport(batch.id) { removed ->
                     haptics.play(HapticEvent.DESTRUCTIVE)
                     banner.show(resources.getQuantityString(R.plurals.portfolio_import_undone, removed.size, removed.size)) {
-                        viewModel.restore(removed)
+                        viewModel.restore(removed) { if (it != PortfolioWriteResult.OK) notSaved(it) }
                     }
                 }
             },
@@ -158,11 +160,11 @@ internal fun PortfolioScreenDialogs(
                 // Danach «Rückgängig» im Banner (alle Transaktionen mit ihren ids zurück), wie beim Löschen eines Coins
                 TextButton(onClick = {
                     onAskClearChange(false)
-                    // Haptik erst nach dem Löschen und nur, wenn etwas weg ist (wie iOS); gesperrt nennt es der Dauerhinweis
-                    viewModel.clearAll { removed ->
+                    // Haptik erst nach dem Löschen und nur, wenn etwas weg ist (wie iOS); nicht geschrieben: Hinweis
+                    viewModel.clearAll(onFailed = notSaved) { removed ->
                         haptics.play(HapticEvent.DESTRUCTIVE)
                         banner.show(resources.getQuantityString(R.plurals.portfolio_cleared, removed.size, removed.size)) {
-                            viewModel.restore(removed)
+                            viewModel.restore(removed) { if (it != PortfolioWriteResult.OK) notSaved(it) }
                         }
                     }
                 }) {

@@ -20,6 +20,8 @@ struct PortfolioCoinDetail: View {
     @State private var lotsFor: WatchedAddress?
     @State private var banner: WatchlistBannerMessage?
     @State private var deleteTick = 0
+    /// Seit Build 103 im Hintergrund gerechnet (`PortfolioModel.coinLedger`); bis zum neuen Ergebnis bleibt das letzte.
+    @State private var ledger: CoinLedger?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
 
@@ -32,28 +34,34 @@ struct PortfolioCoinDetail: View {
         // Auch Tausche in diesen Coin («Tausch von BTC»)
         let own = all.filter { tx in tx.coins.contains { PortfolioCalculator.normalizeCoin($0) == coin } }
         // Mit Adress-Guthaben (eigener Teil ohne Einstand) — wie die Übersicht; dazu offene Posten und (FIFO je Wallet)
-        // Abgänge über den Bestand ihrer Wallet
-        // Gebühr-Zeilen zum Tageskurs wie auf der Karte (`PortfolioModel.feePrice`)
-        let ledger = PortfolioCalculator.ledger(coin, trades: model.calcPortfolio, currentPrice: model.prices.prices[coin],
-                                                method: data.settings.costMethod, feePrice: model.feePrice)
-        let position = ledger.position
+        // Abgänge über den Bestand ihrer Wallet. Gebühr-Zeilen zum Tageskurs wie auf der Karte (`PortfolioModel.feePrice`);
+        // seit Build 103 abseits des Hauptthreads (`.task(id: ledgerKey)`)
+        let ledgerKey = model.coinLedgerKey(coin)
         let fromAddress = addressAmount
         List {
-            PortfolioPositionCard(position: position, addressAmount: fromAddress, overlap: !own.isEmpty,
-                                  matches: WatchedAddressRules.transferMatches(coin: coin, addresses: data.watchedAddresses, txs: own),
-                                  onMissingCost: { costGapsOpen = true },
-                                  onAddressCost: lotAddress.map { a -> () -> Void in { lotsFor = a } })
-                .portfolioListRow(top: 4, bottom: 4)
+            if let ledger {
+                PortfolioPositionCard(position: ledger.position, addressAmount: fromAddress, overlap: !own.isEmpty,
+                                      matches: WatchedAddressRules.transferMatches(coin: coin, addresses: data.watchedAddresses,
+                                                                                   txs: own),
+                                      onMissingCost: { costGapsOpen = true },
+                                      onAddressCost: lotAddress.map { a -> () -> Void in { lotsFor = a } })
+                    .portfolioListRow(top: 4, bottom: 4)
+            } else {
+                // Erste Rechnung läuft noch (Bruchteil einer Sekunde): Platzhalter wie Android `SkeletonList`
+                ProgressView()
+                    .frame(maxWidth: .infinity, minHeight: 160)
+                    .portfolioListRow(top: 4, bottom: 4)
+            }
 
             // FIFO je Wallet: Abgang über den Bestand seiner Wallet — antippen öffnet die Transaktion
-            if !ledger.walletShortfalls.isEmpty {
+            if let ledger, !ledger.walletShortfalls.isEmpty {
                 PortfolioWalletShortfallBanner(shortfalls: ledger.walletShortfalls) { id in
                     if let tx = all.first(where: { $0.id == id }) { sheet = PortfolioTxDraft(tx: tx) }
                 }
                 .portfolioListRow(top: 4, bottom: 4)
             }
             // Offene Kauf-Posten (zugeklappt)
-            if !ledger.openLots.isEmpty {
+            if let ledger, !ledger.openLots.isEmpty {
                 PortfolioOpenLotsSection(lots: ledger.openLots, coin: coin)
                     .portfolioListRow(top: 4, bottom: 4)
             }
@@ -108,6 +116,10 @@ struct PortfolioCoinDetail: View {
         .navigationTitle(coin)
         .navigationBarTitleDisplayMode(.inline)
         .task { await model.refresh(force: false) }
+        .task(id: ledgerKey) {
+            let result = await model.coinLedger(ledgerKey)
+            if !Task.isCancelled { ledger = result }
+        }
         // Letzte Transaktion gelöscht: zurück zur Übersicht — erst wenn «Rückgängig» vorbei ist
         // (Coin nur aus einer Adresse bleibt offen)
         .onChange(of: own.isEmpty && fromAddress == nil && banner == nil, initial: true) { _, leave in
@@ -165,14 +177,14 @@ struct PortfolioCoinDetail: View {
             action: WatchlistBannerAction.undo {
                 var saved = true
                 withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { saved = data.restorePortfolioTxs([tx]) }
-                if !saved { banner = .portfolioNotSaved }
+                if !saved { banner = .portfolioNotWritten(data) }
             }
         )
         var deleted = true
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { deleted = data.deletePortfolioTx(tx.id) }
         // Nicht geschrieben: Transaktion bleibt, statt «entfernt / Rückgängig» der Hinweis
         guard deleted else {
-            banner = .portfolioNotSaved
+            banner = .portfolioNotWritten(data)
             return
         }
         deleteTick += 1

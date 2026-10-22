@@ -285,7 +285,7 @@ extension AppData {
     }
 
     /// Wartende, nicht versiegelt gespeicherte Stände (Portfolio, Portfolio-Alarme, beobachtete Adressen) jetzt schreiben.
-    /// - Returns: true = nichts wartet mehr.
+    /// - Returns: true = die Merkliste darf gelesen werden (`PortfolioSaveRetry.allowsDiskRead`).
     @discardableResult
     func retryPendingPortfolioSaves() -> Bool {
         guard portfolioSavePending else { return true }
@@ -294,13 +294,27 @@ extension AppData {
         if portfolioIntact {
             portfolioDone = PortfolioStore.save(portfolioFile, includeInBackup: settings.portfolioSystemBackup) == .saved
         }
-        if SharedStorage.portfolioAlarmsPending { SharedStorage.saveSnapshot(snapshot) }
         if watchedAddressSavePending && watchedAddressIntact {
             let result = WatchedAddressStore.save(watchedAddressFile, includeInBackup: settings.portfolioSystemBackup)
             watchedAddressSavePending = result != .saved
         }
-        portfolioSavePending = !portfolioDone || SharedStorage.portfolioAlarmsPending || watchedAddressSavePending
-        return !portfolioSavePending
+        // Portfolio-Alarme seit Build 103 über die Schreib-Warteschlange wie `mutate` (neuere Kurse und Auslösungen der
+        // Datei bleiben, kein doppelter Alarm) und nicht mehr blockierend auf dem Haupt-Thread (`PortfolioSaveRetry`)
+        let alarmsQueued = PortfolioSaveRetry.queuesAlarms(alarmsPending: SharedStorage.portfolioAlarmsPending,
+                                                           watchlistReadOnce: watchlistReadOnce)
+        if alarmsQueued {
+            let done = portfolioDone
+            SharedStorage.saveSnapshotInBackground(snapshot, done: { [weak self] in
+                guard let self else { return }
+                self.portfolioSavePending = PortfolioSaveRetry.stillPending(
+                    portfolioDone: done, addressesPending: self.watchedAddressSavePending,
+                    alarmsPending: SharedStorage.portfolioAlarmsPending)
+            })
+        }
+        portfolioSavePending = PortfolioSaveRetry.stillPending(portfolioDone: portfolioDone,
+                                                               addressesPending: watchedAddressSavePending,
+                                                               alarmsPending: SharedStorage.portfolioAlarmsPending)
+        return PortfolioSaveRetry.allowsDiskRead(portfolioDone: portfolioDone, addressesPending: watchedAddressSavePending)
     }
 
     /// Stand zum Ändern: war die Datei nicht lesbar, zuerst neu lesen (z. B. jetzt entsperrt).
@@ -324,10 +338,15 @@ extension AppData {
     /// - Returns: false, wenn nicht gespeichert (nicht lesbare, gesperrte Datei).
     @discardableResult
     func setPortfolioFile(_ file: PortfolioFile) -> Bool {
+        // Seit Build 103: Grund eines Fehlschlags für den Hinweis (gesperrt bzw. «Konnte nicht gespeichert werden»)
+        portfolioWriteLocked = false
         // Nicht (ganz) lesbare Datei nie still überschreiben: erst daneben sichern; geht nicht einmal das
         // (Datei gesperrt), gar nicht schreiben — die Änderung fällt dann weg, die Daten bleiben
         if !portfolioIntact {
-            guard PortfolioStore.preserveUnreadable(includeInBackup: settings.portfolioSystemBackup) else { return false }
+            guard PortfolioStore.preserveUnreadable(includeInBackup: settings.portfolioSystemBackup) else {
+                portfolioWriteLocked = true
+                return false
+            }
             portfolioIntact = true
         }
         // Erst schreiben, dann anzeigen: Scheitert das Schreiben, zeigt die Liste nichts, was nicht gespeichert ist.
@@ -337,7 +356,10 @@ extension AppData {
         case .saved: portfolioSavePending = SharedStorage.portfolioAlarmsPending || watchedAddressSavePending
         case .needsKey:
             let stored = FileManager.default.fileExists(atPath: PortfolioStore.url.path)
-            guard PortfolioStore.keepsUnsealed(storedFileExists: stored) else { return false }
+            guard PortfolioStore.keepsUnsealed(storedFileExists: stored) else {
+                portfolioWriteLocked = true
+                return false
+            }
             portfolioSavePending = true
         case .failed: return false
         }

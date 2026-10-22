@@ -6,6 +6,8 @@ package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.data.AddMoments
 import com.cryptochecker.app.data.AddWatchOutcome
+import com.cryptochecker.app.data.RestoreOutcome
+import com.cryptochecker.app.data.restore
 import com.cryptochecker.app.data.WatchMove
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.WatchSnapshot
@@ -122,6 +124,8 @@ internal class WatchlistEditController(
                 onFull()
                 return@launch
             }
+            // Merkliste gesperrt: nichts angelegt, den kurzen Hinweis zeigt WatchlistLockedHint
+            if (outcome == AddWatchOutcome.Locked) return@launch
             val id = (outcome as? AddWatchOutcome.Added)?.id
             if (id != null) {
                 addMoments.afterExplorerAdd(id)
@@ -162,8 +166,11 @@ internal class WatchlistEditController(
         }
     }
 
-    /** «Rückgängig» für [watchId]; tut nichts, wenn inzwischen etwas anderes gelöscht wurde. */
-    fun undoDelete(watchId: Long) {
+    /**
+     * «Rückgängig» für [watchId]; tut nichts, wenn inzwischen etwas anderes gelöscht wurde. Seit Build 103 nur bis zur
+     * Obergrenze der Merkliste: [onFull] bekommt die Zahl der deshalb nicht zurückgeholten Paare (nur wenn > 0).
+     */
+    fun undoDelete(watchId: Long, onFull: (Int) -> Unit = {}) {
         scope.launch {
             undoMutex.withLock {
                 val snapshots = undo.take(watchId) ?: return@withLock
@@ -172,14 +179,20 @@ internal class WatchlistEditController(
                 // nächste Aktualisierung (seit Build 95)
                 val showPrices = restoresPriceNotifications(snapshots.size)
                 var any = false
+                var full = 0
                 for (snapshot in snapshots) {
-                    if (!watchRepository.restore(snapshot)) continue
+                    when (watchRepository.restore(snapshot)) {
+                        RestoreOutcome.RESTORED -> Unit
+                        RestoreOutcome.FULL -> { full++; continue }
+                        RestoreOutcome.BLOCKED -> continue
+                    }
                     any = true
                     // Kurs-Meldung wie vorher wieder zeigen (letzter bekannter Kurs) — nur nach den
                     // Einstellungen (Kurs-Mitteilungen an, dauerhaft nur wenn eingestellt)
                     if (showPrices) notifier.showPriceNow(snapshot.watch)
                 }
                 if (any) widgetUpdater.updateAll()
+                if (full > 0) onFull(full)
             }
         }
     }

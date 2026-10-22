@@ -76,10 +76,12 @@ enum PortfolioHistorySource {
     ]
 
     private static let lock = NSLock()
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock). Seit Build 103 begrenzt (`BoundedCache`, 512 Coins
+    // wie `MEMORY_CACHE_ENTRIES` in PortfolioHistorySource.kt, Android) statt unbegrenzter Wörterbücher.
     /// Coin → (Schlüsse samt Spanne, Abfragezeit); leere Karte = kein Binance-Paar.
-    nonisolated(unsafe) private static var memory: [String: (entry: PortfolioCoinCloses, at: Int64)] = [:]
+    nonisolated(unsafe) private static var memory = BoundedCache<String, (entry: PortfolioCoinCloses, at: Int64)>()
     /// Coin → (eigene Tageskerzen in USDT, Abfragezeit).
-    nonisolated(unsafe) private static var ownMemory: [String: (entry: PortfolioOwnCloses, at: Int64)] = [:]
+    nonisolated(unsafe) private static var ownMemory = BoundedCache<String, (entry: PortfolioOwnCloses, at: Int64)>()
     /// Eigene Tageskerzen höchstens so viele (Grenze der eigenen Kerzen); davor Binance angeglichen.
     private static let maxOwnDays = 1000
 
@@ -208,12 +210,12 @@ enum PortfolioHistorySource {
 
     private static func cachedOwn(_ coin: String) -> (entry: PortfolioOwnCloses, at: Int64)? {
         lock.lock(); defer { lock.unlock() }
-        return ownMemory[coin]
+        return ownMemory.get(coin)
     }
 
     private static func rememberOwn(_ coin: String, _ entry: PortfolioOwnCloses, at: Int64) {
         lock.lock(); defer { lock.unlock() }
-        ownMemory[coin] = (entry: entry, at: at)
+        ownMemory.set(coin, (entry: entry, at: at))
     }
 
     /// Eigene Tageskerzen (USDT) des Wegs `route`: Speicher, Gerät, sonst Abfrage; nil = keine.
@@ -292,12 +294,12 @@ enum PortfolioHistorySource {
 
     private static func cached(_ coin: String) -> (entry: PortfolioCoinCloses, at: Int64)? {
         lock.lock(); defer { lock.unlock() }
-        return memory[coin]
+        return memory.get(coin)
     }
 
     private static func remember(_ coin: String, _ entry: PortfolioCoinCloses, at: Int64) {
         lock.lock(); defer { lock.unlock() }
-        memory[coin] = (entry: entry, at: at)
+        memory.set(coin, (entry: entry, at: at))
     }
 
     private static func closes(of coin: String, span: Int) async -> PortfolioCoinCloses? {

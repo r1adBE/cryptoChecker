@@ -60,6 +60,7 @@ extension AppData {
     /// - Returns: Anzahl neu hinzugefügter Paare.
     @discardableResult
     func addStarterCoins(_ coins: [String]) -> Int {
+        guard !watchlistWriteRefused() else { return 0 }
         var ids: [Int64] = []
         mutate { s in
             for coin in coins {
@@ -132,6 +133,8 @@ extension AppData {
     /// - Returns: `.duplicate`, wenn das neue Paar schon als anderer Eintrag in der Liste steht.
     @discardableResult
     func changePair(_ watchId: Int64, market: Market, pair: MarketPair) -> WatchEdit.Outcome? {
+        // Gesperrt: nil wie «Paar fehlt» (das Blatt schliesst, den Hinweis zeigt `.watchlistLockedHint`)
+        guard !watchlistWriteRefused() else { return nil }
         guard let watch = self.watch(watchId) else { return nil }
         let target = WatchEdit.Key(marketKey: market.key, pair: pair)
         let existing = snapshot.watches.first { WatchEdit.Key($0) == target }?.id
@@ -188,6 +191,7 @@ extension AppData {
     }
 
     func delete(_ watch: Watch) {
+        guard !watchlistWriteRefused() else { return }
         Notifier.cancelPrice(watch.id)
         Notifier.cancelActivity(watch.id)
         // Alte Alarm-Mitteilungen weg: ihr «Anpassen» zeigte sonst auf ein Paar, das es nicht mehr gibt — wie Android
@@ -214,6 +218,7 @@ extension AppData {
     /// alles für `restore`. Ids werden nie wieder vergeben, darum ist das Wiedereinfügen
     /// mit den alten Ids sicher. nil, wenn es das Paar nicht mehr gibt.
     func deleteForUndo(_ watch: Watch) -> DeletedWatch? {
+        guard !watchlistWriteRefused() else { return nil }
         // Gespeicherter Stand (ohne Live-Kurs darüber): wird beim «Rückgängig» so wieder eingefügt
         guard let current = snapshot.watches.first(where: { $0.id == watch.id }) else { return nil }
         let deleted = DeletedWatch(
@@ -228,11 +233,15 @@ extension AppData {
     }
 
     /// «Rückgängig»: Paar und Alarme unverändert zurück. Wurde dasselbe Paar inzwischen
-    /// neu hinzugefügt, passiert nichts (false).
+    /// neu hinzugefügt, passiert nichts. Seit Build 103 nur, solange die Merkliste nicht voll ist
+    /// (`WatchlistLimits.canAddPair`, sonst `full` = 1) — wie Android `WatchRepository.restore`.
     @discardableResult
-    func restore(_ deleted: DeletedWatch) -> Bool {
+    func restore(_ deleted: DeletedWatch) -> UndoRestoreResult {
+        guard !watchlistWriteRefused() else { return UndoRestoreResult() }
         let w = deleted.watch
-        guard !snapshot.watches.contains(where: { $0.id == w.id || $0.samePair(as: w) }) else { return false }
+        guard !snapshot.watches.contains(where: { $0.id == w.id || $0.samePair(as: w) }) else { return UndoRestoreResult() }
+        // Schon vorhanden geht vor «voll» (wie beim Anlegen)
+        guard WatchlistLimits.canAddPair(snapshot.watches.count) else { return UndoRestoreResult(full: 1) }
         mutate { s in
             s.watches.append(w)
             let taken = Set(s.alarms.map(\.id))
@@ -251,7 +260,7 @@ extension AppData {
             || (WatchFilter.isAlpha(group) && WatchFilter.showsAlpha(snapshot.watches)) {
             settings.watchlistGroup = group
         }
-        return true
+        return UndoRestoreResult(restored: 1)
     }
 
     /// Paare der Merkliste, die ihre Börse nicht mehr führt (`NotTraded`).
@@ -268,6 +277,7 @@ extension AppData {
     /// `deleteForUndo` festgehalten; `restore(_:)` mit der Liste holt sie zurück — wie Android
     /// `deleteSelectedWithUndo`. Leer, wenn keines davon (mehr) da ist.
     func deleteForUndo(ids wanted: Set<Int64>) -> [DeletedWatch] {
+        guard !watchlistWriteRefused() else { return [] }
         let targets = snapshot.watches.filter { wanted.contains($0.id) }
         guard !targets.isEmpty else { return [] }
         let ids = Set(targets.map(\.id))
@@ -301,22 +311,14 @@ extension AppData {
     }
 
     /// «Rückgängig» für mehrere Paare in einem Vorgang (siehe `restore(_:)` für eines).
-    /// Paare, die inzwischen neu hinzugefügt wurden, bleiben aus. Liefert die Zahl der zurückgeholten.
+    /// Paare, die inzwischen neu hinzugefügt wurden, bleiben aus; seit Build 103 auch die über der Obergrenze der
+    /// Merkliste (gezählt in `full`). Liefert die Zahl der zurückgeholten und der ausgelassenen.
     @discardableResult
-    func restore(_ deleted: [DeletedWatch]) -> Int {
+    func restore(_ deleted: [DeletedWatch]) -> UndoRestoreResult {
+        guard !watchlistWriteRefused() else { return UndoRestoreResult() }
         var restored: [DeletedWatch] = []
-        mutate { s in
-            for d in deleted {
-                let w = d.watch
-                guard !s.watches.contains(where: { $0.id == w.id || $0.samePair(as: w) }) else { continue }
-                s.watches.append(w)
-                let taken = Set(s.alarms.map(\.id))
-                s.alarms.append(contentsOf: d.alarms.filter { !taken.contains($0.id) })
-                s.nextWatchId = max(s.nextWatchId, w.id + 1)
-                if let maxAlarm = d.alarms.map(\.id).max() { s.nextAlarmId = max(s.nextAlarmId, maxAlarm + 1) }
-                restored.append(d)
-            }
-        }
+        var full = 0
+        mutate { s in (restored, full) = Self.restoreInto(&s, deleted) }
         for d in restored {
             if let activity = d.activity { activityReports[d.watch.id] = activity }
             if d.liveActivity {
@@ -331,12 +333,33 @@ extension AppData {
             || (WatchFilter.isAlpha(group) && WatchFilter.showsAlpha(snapshot.watches)) {
             settings.watchlistGroup = group
         }
-        return restored.count
+        return UndoRestoreResult(restored: restored.count, full: full)
+    }
+
+    /// Paare in den Stand `s` zurücklegen (rein, testbar): vorhandene bleiben aus, seit Build 103 auch die über der
+    /// Obergrenze der Merkliste (`full`). Liefert die zurückgelegten.
+    static func restoreInto(_ s: inout SharedStorage.Snapshot, _ deleted: [DeletedWatch])
+        -> (restored: [DeletedWatch], full: Int) {
+        var restored: [DeletedWatch] = []
+        var full = 0
+        for d in deleted {
+            let w = d.watch
+            guard !s.watches.contains(where: { $0.id == w.id || $0.samePair(as: w) }) else { continue }
+            guard WatchlistLimits.canAddPair(s.watches.count) else { full += 1; continue }
+            s.watches.append(w)
+            let taken = Set(s.alarms.map(\.id))
+            s.alarms.append(contentsOf: d.alarms.filter { !taken.contains($0.id) })
+            s.nextWatchId = max(s.nextWatchId, w.id + 1)
+            if let maxAlarm = d.alarms.map(\.id).max() { s.nextAlarmId = max(s.nextAlarmId, maxAlarm + 1) }
+            restored.append(d)
+        }
+        return (restored, full)
     }
 
     /// «Merkliste leeren»: alle Paare samt Alarmen löschen — seit Build 94 wie `deleteForUndo` festgehalten, damit
     /// `restore(_:)` mit der Liste alles mit denselben Ids zurückholt (wie Android `deleteAllWithUndo`).
     func deleteAllForUndo() -> [DeletedWatch] {
+        guard !watchlistWriteRefused() else { return [] }
         let deleted = deleteForUndo(ids: Set(snapshot.watches.map(\.id)))
         // Wie bisher «alles weg»: auch Alarme ohne Paar, alle Aktivitäts-Berichte und Live-Aktivitäten
         let orphans = snapshot.alarms
@@ -354,6 +377,13 @@ extension AppData {
     }
 }
 
+/// Ergebnis von «Rückgängig» (`AppData.restore`, seit Build 103): zurückgeholte und wegen voller Merkliste
+/// ausgelassene Paare — wie Android `RestoreOutcome`.
+struct UndoRestoreResult: Equatable {
+    var restored = 0
+    var full = 0
+}
+
 /// Ausgang von `AppData.tryAddWatch` bzw. `AppData.insertOutcome` — wie Android `AddWatchOutcome`.
 enum AddWatchOutcome: Equatable {
     case added(Int64)
@@ -361,4 +391,6 @@ enum AddWatchOutcome: Equatable {
     case duplicate
     /// Merkliste hat schon `WatchlistLimits.maxPairs` Paare.
     case full
+    /// Merkliste gesperrt (`watchlistWriteRefused`): nichts angelegt, den Hinweis zeigt `.watchlistLockedHint`.
+    case locked
 }

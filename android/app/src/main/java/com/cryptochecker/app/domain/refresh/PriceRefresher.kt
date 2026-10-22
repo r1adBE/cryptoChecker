@@ -13,13 +13,12 @@ import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.ChangeStamp
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.ConnectivityMonitor
+import com.cryptochecker.app.util.appScope
 import com.cryptochecker.app.widget.LiveWidgetGate
 import com.cryptochecker.app.widget.WidgetUpdater
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -93,7 +92,7 @@ class PriceRefresher @Inject constructor(
         private set
 
     /** Späte Tages-Bezüge: läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
-    internal val lateFillScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    internal val lateFillScope = appScope(Dispatchers.IO, "PriceRefresher")
 
     /**
      * Läuft komplett auf [Dispatchers.IO]: Aus dem ViewModel aufgerufen lief

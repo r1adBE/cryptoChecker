@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus); seit Build 103 -->
+    <string name="alarm_threshold_error_percent_down_below">Uma descida tem de ser inferior a 100 por cento.</string>
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen; seit Build 103 -->
+    <string name="portfolio_csv_import_rereading">A ler o ficheiro novamente …</string>
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze); seit Build 103 -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">%1$d par não reposto – lista de acompanhamento cheia</item>
+        <item quantity="many">%1$d pares não repostos – lista de acompanhamento cheia</item>
+        <item quantity="other">%1$d pares não repostos – lista de acompanhamento cheia</item>
+    </plurals>
+</resources>

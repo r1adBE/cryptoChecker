@@ -238,7 +238,11 @@ final class AlarmEditTests: XCTestCase {
         func draft(_ condition: AlarmCondition, _ text: String) -> AlarmDraft {
             AlarmDraft(condition: condition, thresholdText: text)
         }
-        XCTAssertNil(draft(.CHANGE_PERCENT_DOWN, "100").thresholdProblem)
+        // Seit Build 103: genau 100 % löste ebenfalls nie aus (Kurs 0 wird nie gemeldet)
+        XCTAssertEqual(draft(.CHANGE_PERCENT_DOWN, "100").thresholdProblem, .PERCENT_RANGE)
+        XCTAssertEqual(draft(.OI_DOWN, "100").thresholdProblem, .PERCENT_RANGE)
+        XCTAssertNil(draft(.CHANGE_PERCENT_DOWN, "99.99").thresholdProblem)
+        XCTAssertNil(draft(.CHANGE_PERCENT_UP, "100").thresholdProblem)
         XCTAssertEqual(draft(.CHANGE_PERCENT_DOWN, "150").thresholdProblem, .PERCENT_RANGE)
         XCTAssertNil(draft(.CHANGE_PERCENT_DOWN, "150").threshold)
         XCTAssertEqual(draft(.OI_DOWN, "500").thresholdProblem, .PERCENT_RANGE)
@@ -247,7 +251,7 @@ final class AlarmEditTests: XCTestCase {
         XCTAssertNil(draft(.CHANGE_PERCENT_UP, "150").thresholdProblem)
         XCTAssertNil(draft(.MOVE_PERCENT_WINDOW, "150").thresholdProblem)
         XCTAssertEqual(draft(.CHANGE_PERCENT_DOWN, "abc").thresholdProblem, .INVALID)
-        XCTAssertEqual(AlarmThresholdError.key(.PERCENT_RANGE), "alarm_threshold_error_percent_down")
+        XCTAssertEqual(AlarmThresholdError.key(.PERCENT_RANGE), "alarm_threshold_error_percent_down_below")
     }
 
     // MARK: «Nicht geprüft seit …»

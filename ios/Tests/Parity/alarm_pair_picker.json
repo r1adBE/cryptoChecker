@@ -1,0 +1,21 @@
+{
+  "description": "Since Build 103: choosing the pair for a new alert (sheet with search instead of a dialog listing all pairs). Hits of the search (same matching as the watchlist search: case and accents ignored, every word must match base, quote, BASE/QUOTE, contract short name, exchange, note or coin name), favourites first, otherwise in watchlist order. Android alarmPairChoices / iOS AlarmPairPicker.choices. «names» = coin names by pair id.",
+  "watches": [
+    { "id": 1, "marketName": "Binance", "base": "BTC", "quote": "USDT", "favorite": false },
+    { "id": 2, "marketName": "Kraken", "base": "ETH", "quote": "EUR", "favorite": true },
+    { "id": 3, "marketName": "Kraken", "base": "BTC", "quote": "CHF", "favorite": false },
+    { "id": 4, "marketName": "Coinbase", "base": "SOL", "quote": "USD", "favorite": true, "note": "Langfristig" }
+  ],
+  "names": { "1": "Bitcoin", "3": "Bitcoin", "2": "Ethereum", "4": "Solana" },
+  "cases": [
+    { "name": "empty query: favourites first, then list order", "query": "", "expected": [2, 4, 1, 3] },
+    { "name": "blank query", "query": "   ", "expected": [2, 4, 1, 3] },
+    { "name": "base asset", "query": "btc", "expected": [1, 3] },
+    { "name": "coin name", "query": "bitcoin", "expected": [1, 3] },
+    { "name": "two words must both match", "query": "btc kraken", "expected": [3] },
+    { "name": "exchange keeps favourite first", "query": "kraken", "expected": [2, 3] },
+    { "name": "pair with slash", "query": "eth/eur", "expected": [2] },
+    { "name": "note, accents ignored", "query": "LÄNGFRISTIG", "expected": [4] },
+    { "name": "no hit", "query": "doge", "expected": [] }
+  ]
+}

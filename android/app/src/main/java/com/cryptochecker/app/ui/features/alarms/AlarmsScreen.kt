@@ -104,6 +104,8 @@ fun AlarmsScreen(
         if (draft?.id == 0L) viewModel.loadTemplateData()
     }
     val snackbar = remember { SnackbarHostState() }
+    // Alarm nicht geändert bzw. gelöscht, weil die Merkliste gesperrt ist: kurzer Hinweis mit Warn-Haptik
+    com.cryptochecker.app.ui.components.WatchlistLockedHint { snackbar.currentSnackbarData?.dismiss(); snackbar.showSnackbar(it) }
     val scope = rememberCoroutineScope()
     val accessibilityManager = LocalAccessibilityManager.current
     val settingsLabel = stringResource(R.string.settings_title)

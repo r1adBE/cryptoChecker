@@ -83,11 +83,11 @@ Dateinamen.
 Dieselben Szenen wie bei Google Play: zwei starke Bilder, ein ruhiges (seit Build 41). Demo-Daten,
 Beschriftungen in allen Sprachen (`captions.json`, Tabellen im Kit-README) und das Rahmen-Skript liegen im
 Screenshot-Kit `../../../android/docs/store/screenshots/README.md`. Leitidee: ein Alarm, der einmal meldet, und
-«Warum bewegt sich das?» ohne Prognose. Keine «Markt-Terminal»-Szene, kein Portfolio-Bild.
+«Was bewegt sich mit?» ohne Ursache und ohne Prognose. Keine «Markt-Terminal»-Szene, kein Portfolio-Bild.
 
 1. «Ein Alarm, der einmal meldet» – Alarm-Editor mit dem Satz «Wenn BTC unter 90 000 geht», Wiederholung «Einmal»
    (oder die ausgelöste Demo-Mitteilung über der Merkliste)
-2. «Warum bewegt sich das?» – das Blatt mit «Kurz gesagt»
+2. «Was bewegt sich mit?» – das Blatt mit «Kurz gesagt»
 3. (optional) «Letzter Kurs von der Börse» – ruhige Merkliste mit «≈ … CHF» und Mini-Chart
 
 Dateinamen für fastlane z. B. `01_alarm.png`, `02_why.png`, `03_watchlist.png`.

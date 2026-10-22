@@ -21,6 +21,7 @@ on:
       - '.github/scripts/annotate.py'
       - '.github/scripts/lint_errors.sh'
       - '.github/scripts/room_schema_drift.py'
+      - '.github/scripts/line_limit.py'
   pull_request:
     paths:
       - 'android/**'
@@ -36,6 +37,7 @@ on:
       - '.github/scripts/annotate.py'
       - '.github/scripts/lint_errors.sh'
       - '.github/scripts/room_schema_drift.py'
+      - '.github/scripts/line_limit.py'
   workflow_dispatch:
 
 permissions:
@@ -69,6 +71,11 @@ jobs:
         uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      # Production sources (android/*/src/main, ios/App, ios/Shared, ios/Widgets) at most 400 lines each — fails
+      # fast without Gradle (same rule as FileLengthTest)
+      - name: Line limit
+        run: python3 -I "$GITHUB_WORKSPACE/.github/scripts/line_limit.py" "$GITHUB_WORKSPACE"
 
       # "test" = testDebugUnitTest + testReleaseUnitTest of all modules, including the
       # Android/iOS parity cases in testdata/parity (ParityFixturesTest).
@@ -117,8 +124,10 @@ jobs:
       # Release build without keystore stays unsigned (app/build.gradle.kts); it runs R8/minify and
       # resource shrinking, so missing keep rules show up here and not only on a device. The AAB is
       # what goes to Play (native debug symbols, baseline profile and R8 mapping inside).
+      # -PgitCommit: source commit in BuildConfig.GIT_COMMIT ("Share diagnostics"); without it Gradle
+      # falls back to GITHUB_SHA, local builds say "local".
       - name: Build release APK and AAB (unsigned, R8)
-        run: ./gradlew :app:assembleRelease :app:bundleRelease --stacktrace
+        run: ./gradlew :app:assembleRelease :app:bundleRelease -PgitCommit="$GITHUB_SHA" --stacktrace
 
       # Audit of the release build as annotations (readable without the raw log). Errors are release
       # blockers: forbidden permissions, debuggable/testOnly/cleartext, exported components without

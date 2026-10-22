@@ -43,6 +43,8 @@ final class DiagnosticReportTests: XCTestCase {
             pauses: ["binance": binance, "kraken": kraken]))
         XCTAssertTrue(text.contains("Created: 2026-10-18 14:00 (Europe/Zurich)"))
         XCTAssertTrue(text.contains("App: 16.2.2 (81)"))
+        // Seit Build 103: ohne Angabe «local»
+        XCTAssertTrue(text.contains("Source: local"))
         XCTAssertFalse(text.contains("Exact checks"))
         XCTAssertTrue(text.contains("Quiet hours: on 23:00-07:00"))
         XCTAssertTrue(text.contains("background_refresh: warn (off)"))
@@ -95,5 +97,18 @@ final class DiagnosticReportTests: XCTestCase {
             let text = c["in"] as? String ?? ""
             XCTAssertEqual(DiagnosticReport.redact(text), c["out"] as? String, text)
         }
+    }
+
+    /// Seit Build 103: Quell-Commit in der Zeile «Source», gleiche Fälle wie Android.
+    func testSourceCommitSharedCases() throws {
+        let data = try S.fixture("diagnostic_redact")
+        for c in S.list(data["sourceCommit"]) {
+            let text = c["in"] as? String ?? ""
+            XCTAssertEqual(DiagnosticReport.sourceCommit(text), c["out"] as? String, text)
+        }
+        // Ein Hash wird nie als Adresse ersetzt
+        var full = input()
+        full.sourceCommit = "3f9a1c2e7b4d5a6f8e9d0c1b2a3f4e5d6c7b8a9f"
+        XCTAssertTrue(DiagnosticReport.build(full).contains("Source: 3f9a1c2e7b4d\n"))
     }
 }

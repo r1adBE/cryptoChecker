@@ -72,4 +72,11 @@ class EncryptingOpenHelperFactoryDefaultsTest {
         assertEquals(WatchlistStorageLock.Notice.NOT_SAVED, WatchlistStorageLock.notice(inMemory, emptySet()))
         assertTrue(!WatchlistStorageLock.blocksAlarmSave(emptySet()))
     }
+
+    @Test
+    fun prepareLockIsSharedPerDatabaseAcrossFactories() {
+        // Seit Build 103: App und Systemsicherung (eigene Fabrik) überführen dieselbe Datei nie gleichzeitig
+        assertTrue(EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME) === EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME))
+        assertTrue(EncryptingOpenHelperFactory.prepareLock(AppDatabase.DB_NAME) !== EncryptingOpenHelperFactory.prepareLock(PortfolioDatabase.DB_NAME))
+    }
 }

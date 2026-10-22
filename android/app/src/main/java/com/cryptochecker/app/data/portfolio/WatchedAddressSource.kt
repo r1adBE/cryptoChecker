@@ -1,6 +1,8 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.remote.BlockedSources
+import com.cryptochecker.app.data.remote.HttpUserAgent
+import com.cryptochecker.app.data.remote.UserAgentInterceptor
 import com.cryptochecker.app.data.remote.callMarket
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.portfolio.AddressBalance
@@ -34,7 +36,7 @@ import javax.inject.Singleton
  * [WatchedAddressRefresher] (Portfolio-Tab, Hintergrund/Widget).
  *
  * Datenschutz: eigener Client ohne Mitschnitt (die Adresse landet nicht im Debug-Protokoll),
- * keine Cookies; Protokolle nennen nur die gekürzte Adresse.
+ * keine Cookies, neutraler User-Agent ([HttpUserAgent.NEUTRAL], seit Build 103); Protokolle nennen nur die gekürzte Adresse.
  * Pausen: 451/403 → Host 6 h übersprungen ([BlockedSources]); 429/418 und wiederholte
  * Zeitüberschreitungen → Pause je Host nach [ExchangeBackoff] («Retry-After» gilt); dann der
  * nächste Host. Adressen der Reihe nach, nie parallel (schont die kostenlosen Anbieter).
@@ -49,6 +51,8 @@ class WatchedAddressSource @Inject constructor(
         .apply {
             interceptors().clear()
             networkInterceptors().clear()
+            // Neutraler User-Agent statt «okhttp/…» bzw. App-Kennung, gleich wie iOS (seit Build 103)
+            addInterceptor(UserAgentInterceptor(HttpUserAgent.NEUTRAL))
         }
         .callTimeout(AddressBalance.TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
         .build()

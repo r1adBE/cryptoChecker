@@ -12,6 +12,8 @@ struct AlarmsOverviewScreen: View {
     @State private var deletePortfolio: PortfolioAlarm?
     /// Leere Übersicht: «Neuer Alarm» → Paar wählen → dessen Alarm-Seite (keine Sackgasse).
     @State private var pickPair = false
+    /// Seit Build 103: im Auswahlblatt gewähltes Paar — dessen Alarm-Seite öffnet erst, wenn das Blatt zu ist.
+    @State private var pickedPair: Int64?
     @State private var openWatchId: Int64?
     /// Warum Portfolio-Alarme gerade nicht prüfen (letzter Portfolio-Stand, `PortfolioAlarmLogic.pause`); nil = keiner.
     @State private var portfolioPause: PortfolioAlarmPause?
@@ -76,11 +78,15 @@ struct AlarmsOverviewScreen: View {
                     )
                     .containerRelativeFrame(.vertical, alignment: .center)
                 }
-                .confirmationDialog(L("alarms_add"), isPresented: $pickPair, titleVisibility: .visible) {
-                    ForEach(data.watches) { watch in
-                        Button("\(watch.displayName) · \(watch.marketName)") { openWatchId = watch.id }
+                // Seit Build 103: eigenes Blatt mit Suche, Favoriten oben und Lazy-Liste (`AlarmPairPicker`)
+                .sheet(isPresented: $pickPair, onDismiss: {
+                    if let id = pickedPair { openWatchId = id }
+                    pickedPair = nil
+                }) {
+                    AlarmPairPicker(watches: data.watches) { id in
+                        pickedPair = id
+                        pickPair = false
                     }
-                    Button(L("action_cancel"), role: .cancel) {}
                 }
                 .navigationDestination(isPresented: Binding(
                     get: { openWatchId != nil },

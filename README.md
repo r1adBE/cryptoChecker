@@ -5,8 +5,9 @@ straight from the exchanges, a market overview and “What is moving with it?”
 single coins – no account, no investment advice.
 Android and iPhone · 31 languages · no ads · no tracking · open source (MIT).
 
-> **Deutsch:** Crypto Checker erklärt dir, was im Markt passiert – Kurse und
-> Alarme direkt von der Börse, ohne Konto, ohne Prognosen. Dieses
+> **Deutsch:** Crypto Checker zeigt, was sich gleichzeitig bewegt – keine Ursache,
+> keine Prognose. Kurse und Alarme direkt von der Börse, eine Marktübersicht und
+> «Was bewegt sich mit?» für einzelne Coins – ohne Konto, ohne Anlageberatung. Dieses
 > Repository enthält den kompletten Quellcode der Android- und der iOS-App,
 > die Börsen-Bibliothek und die Datenschutzerklärung. Lizenz: MIT – jeder darf
 > den Code verwenden, ändern und weitergeben.
@@ -114,6 +115,9 @@ reads only the official public schedules of the BLS, the Federal Reserve and
 the BEA. If a source is unreachable, the previous dates are kept. Commits are
 made with the GitHub noreply address only. The app reads this file at most
 once a day and sends no personal data; it also ships a built-in copy.
+GitHub disables scheduled workflows after 60 days without repository activity, so
+[`.github/workflows/keepalive.yml`](.github/workflows/keepalive.yml) re-enables the scheduled
+workflows (market data, economic calendar, exchange check) once a week through the API – without commits.
 
 > **Deutsch:** Termine wichtiger US-Wirtschaftsdaten für den Hinweis
 > «Wirtschaftsdaten» in der App, wöchentlich automatisch aus den offiziellen

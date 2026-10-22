@@ -62,9 +62,12 @@
         <!-- singleTop: Tipp auf Mitteilung oder Widget (NEW_TASK|CLEAR_TOP) erreicht die laufende
              Activity über onNewIntent, statt sie neu aufzubauen. -->
         <!-- Startbildschirm: Theme.CryptoChecker.Starting (installSplashScreen in MainActivity). -->
+        <!-- taskAffinity="" (seit Build 103): keine fremde App kann sich per gleicher Affinität in unseren
+             Task schieben (Task-Hijacking); die activity-alias übernehmen die Affinität ihres Ziels. -->
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
+            android:taskAffinity=""
             android:theme="@style/Theme.CryptoChecker.Starting"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize" />

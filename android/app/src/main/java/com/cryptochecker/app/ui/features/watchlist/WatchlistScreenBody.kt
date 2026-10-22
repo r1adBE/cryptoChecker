@@ -310,7 +310,11 @@ internal fun WatchlistBody(
                                     haptics.play(HapticEvent.DESTRUCTIVE)
                                     banner.show(
                                         resources.getQuantityString(R.plurals.watchlist_removed_count, count, count)
-                                    ) { viewModel.undoDelete(SELECTION_UNDO_KEY) }
+                                    ) {
+                                        viewModel.undoDelete(SELECTION_UNDO_KEY) { n ->
+                                            banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n))
+                                        }
+                                    }
                                 }
                             }
                         },

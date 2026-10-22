@@ -42,6 +42,8 @@ class PlayStoreTextsTest {
         for ((lang, phrase) in expected) {
             val text = File(root, "$lang/full_description.txt").readText(Charsets.UTF_8)
             assertTrue("$lang: «$phrase» fehlt", phrase in text)
+            // Seit Build 103: die Grenze steht im ersten Absatz (sichtbar vor «Mehr»), nicht erst weit unten
+            assertTrue("$lang: Hintergrund-Grenze nicht im ersten Absatz", phrase in text.substringBefore("\n"))
         }
     }
 }

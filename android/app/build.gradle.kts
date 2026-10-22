@@ -41,8 +41,14 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 102
+        versionCode = 103
         versionName = "16.2.2"
+
+        // Seit Build 103: Quell-Commit für «Diagnose teilen». Store-Build: -PgitCommit=$(git rev-parse HEAD), CI: GITHUB_SHA,
+        // sonst «local». Kein git-Aufruf beim Konfigurieren (Konfigurations-Cache); nur Hex-Zeichen übernehmen.
+        val gitCommit = providers.gradleProperty("gitCommit").orElse(providers.environmentVariable("GITHUB_SHA"))
+            .getOrElse("").trim().filter { it in '0'..'9' || it in 'a'..'f' || it in 'A'..'F' }.ifEmpty { "local" }
+        buildConfigField("String", "GIT_COMMIT", "\"$gitCommit\"")
 
         // Instrumentierte Tests mit Hilt (HiltTestApplication); betrifft nur androidTest
         testInstrumentationRunner = "com.cryptochecker.app.HiltTestRunner"
@@ -252,6 +258,9 @@ dependencies {
     // WatchlistViewModelTest: Zustand mit Turbine über runTest beobachten
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.turbine)
+    // Seit Build 103: Migrationen aus app/schemas prüfen (RoomSchemaMigrationTest); die Schemas legt das Room-Plugin
+    // selbst als Assets des Test-APK bei
+    androidTestImplementation(libs.androidx.room.testing)
 
     // Gleiche Version in App und androidTest (sonst: «conflicting requirements … from lock file»
     // bei :app:assembleDebugAndroidTest und in Android Studio «Failed to resolve androidx.concurrent»).

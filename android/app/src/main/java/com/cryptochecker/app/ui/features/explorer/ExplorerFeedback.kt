@@ -47,6 +47,11 @@ internal fun ExplorerFeedback(
     val addGate = rememberOneShotGate()
     val dexGate = rememberOneShotGate()
     val bulkGate = rememberOneShotGate()
+    // Paar nicht übernommen, weil die Merkliste gesperrt ist (WatchlistStorageLock): kurzer Hinweis mit Warn-Haptik
+    com.cryptochecker.app.ui.components.WatchlistLockedHint {
+        snackbar.currentSnackbarData?.dismiss()
+        snackbar.showSnackbar(it)
+    }
     LaunchedEffect(addResult) {
         if (!addGate.claim(addResult)) {
             if (addResult != null) onAddResultShown()

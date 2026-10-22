@@ -98,6 +98,7 @@ class DiagnosticsViewModel @Inject constructor(
                 zone = ZoneId.systemDefault().id,
                 appVersion = BuildConfig.VERSION_NAME,
                 appBuild = BuildConfig.VERSION_CODE.toString(),
+                sourceCommit = BuildConfig.GIT_COMMIT,
                 system = "Android ${Build.VERSION.RELEASE} (API ${Build.VERSION.SDK_INT})",
                 device = "${Build.MANUFACTURER} ${Build.MODEL}",
                 locale = context.resources.configuration.locales[0]?.toLanguageTag().orEmpty(),

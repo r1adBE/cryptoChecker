@@ -222,8 +222,9 @@ extension AppData {
     }
 
     /// Gemeldeten Portfolio-Alarm speichern (einmalige: abschalten) — nur, wenn er noch so ist wie ausgewertet
-    /// (wie `markTriggered` in Android); abgewartet auf die Platte, damit ein Ende der App ihn nicht verliert.
-    private func markPortfolioAlarmTriggered(_ evaluated: PortfolioAlarm, value: Double, at now: Int64) -> Bool {
+    /// (wie `markTriggered` in Android); abgewartet auf die Platte, damit ein Ende der App ihn nicht verliert — seit
+    /// Build 103 ohne den Hauptfaden zu blockieren (`snapshotWritesSettled` statt `flushSnapshotWrites`).
+    private func markPortfolioAlarmTriggered(_ evaluated: PortfolioAlarm, value: Double, at now: Int64) async -> Bool {
         guard var list = snapshot.portfolioAlarms, let i = list.firstIndex(where: { $0.id == evaluated.id }) else {
             return false
         }
@@ -237,7 +238,7 @@ extension AppData {
         list[i].enabled = PortfolioAlarmLogic.enabledAfterFire(repeating: stored.repeating)
         let updated = list
         mutate({ s in s.portfolioAlarms = updated }, reloadWidgets: false)
-        SharedStorage.flushSnapshotWrites()
+        await SharedStorage.snapshotWritesSettled()
         return true
     }
 
@@ -264,6 +265,7 @@ extension AppData {
     }
 
     func deleteAlarm(_ id: Int64) {
+        guard !watchlistWriteRefused() else { return }
         mutate({ s in s.alarms.removeAll { $0.id == id } }, reloadWidgets: false)
         // Seine Mitteilung weg: ihr «Anpassen» zeigte sonst auf einen Alarm, den es nicht mehr gibt (wie Android)
         Notifier.cancelAlarm(id)
@@ -272,6 +274,7 @@ extension AppData {
     }
 
     func setAlarmEnabled(_ id: Int64, _ enabled: Bool) {
+        guard !watchlistWriteRefused() else { return }
         mutate({ s in
             if let i = s.alarms.firstIndex(where: { $0.id == id }) {
                 // Wieder eingeschaltet: «Nahe am Hoch/Tief», Kursmarken, Funding und Open Interest melden

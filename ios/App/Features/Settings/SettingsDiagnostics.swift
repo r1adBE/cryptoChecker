@@ -97,7 +97,9 @@ struct DiagnosticsPreviewPage: View {
             alarmEvents: [],
             exchangePauses: SharedStorage.exchangeBackoff,
             // Der Release-Build führt kein Fehlerprotokoll
-            errorLog: nil)
+            errorLog: nil,
+            // Seit Build 103: Quell-Commit aus dem Build-Setting GIT_COMMIT
+            sourceCommit: info?["CCGitCommit"] as? String ?? DiagnosticReport.localCommit)
         // Nur der Text: die Datei entsteht erst beim Teilen (`DiagnosticsShareFile`), nicht schon mit der Vorschau
         text = await Task.detached(priority: .utility) { () -> String in
             var full = input

@@ -87,6 +87,16 @@ object DatabaseEncryptionNotice {
         inMemoryNames.update { it + database }
     }
 
+    /**
+     * Nur für Tests (seit Build 103, WatchlistLockDeviceTest): Vermerke von [markInMemory] für [database] wieder entfernen,
+     * damit die Sperre der Merkliste nicht in die übrigen Tests desselben Prozesses hineinwirkt. Die App ruft es nie auf.
+     */
+    internal fun clearInMemoryForTest(database: String) {
+        keptNames.update { it - database }
+        copiedNames.update { it - database }
+        inMemoryNames.update { it - database }
+    }
+
     /** Liegt mindestens eine Datenbank unverschlüsselt? Nicht auf dem Hauptthread. */
     fun isPending(context: Context): Boolean {
         val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)

@@ -163,6 +163,12 @@ enum Notifier {
     static func priceId(_ watchId: Int64) -> String { "price-\(watchId)" }
     static func alarmId(_ alarmId: Int64) -> String { "alarm-\(alarmId)" }
 
+    /// Seit Build 103: Steht die Mitteilung des Paar-Alarms `id` noch in der Mitteilungszentrale? (Nach einem
+    /// Prozess-Ende zwischen Melden und Speichern, `AlarmDelivery.alreadyDelivered`.)
+    static func isAlarmDelivered(_ id: Int64) async -> Bool {
+        await center.deliveredNotifications().contains { $0.request.identifier == alarmId(id) }
+    }
+
     /// Gezeigte Mitteilung eines Paar-Alarms entfernen (Alarm liess sich nach dem Melden nicht speichern).
     static func cancelAlarm(_ id: Int64) {
         center.removeDeliveredNotifications(withIdentifiers: [alarmId(id)])

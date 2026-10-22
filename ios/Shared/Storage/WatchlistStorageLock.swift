@@ -3,8 +3,10 @@ import Foundation
 /// Gespeicherte Merkliste da, aber gerade nicht lesbar (Schlüssel im Schlüsselbund bzw. Datenschutz gerade nicht
 /// verfügbar, `SharedStorage.SnapshotRead.inaccessible`): Die App zeigt eine leere Merkliste im Speicher, und nichts
 /// davon wird geschrieben (`saveSnapshotInBackground` lässt die Datei unberührt) — was jetzt angelegt wird, ist weg,
-/// sobald die Datei wieder gelesen wird. Alarme werden darum gar nicht erst angelegt (Hinweis statt stillem Verlust), und
-/// die Merkliste zeigt einen Dauerhinweis. Paare hinzufügen bleibt erlaubt. Wie Android `WatchlistStorageLock`.
+/// sobald die Datei wieder gelesen wird. Seit Build 103 (Review F-08) ist die Merkliste darum nur lesbar wie das
+/// Portfolio: Alle Schreibwege des Nutzers (Paare hinzufügen, bearbeiten, löschen, Notiz, Gruppe, Favorit, Alarme) lehnt
+/// `AppData` zentral ab (`watchlistWriteRefused`) und nennt es kurz («watchlist_storage_locked», gedrosselt); die Merkliste
+/// zeigt einen Dauerhinweis. Hintergrund (Kurse, Alarmzustand, Widget) läuft weiter. Wie Android `WatchlistStorageLock`.
 ///
 /// Nicht gesperrt: noch keine Datei (`.missing`), kaputte Datei (`.unreadable`, gesichert und danach überschrieben) und
 /// verzögertes Speichern (`SharedStorage.watchlistPending`): Dort ist der Stand im Speicher vollständig und massgebend und
@@ -37,6 +39,9 @@ enum WatchlistStorageLock {
         if case .missing = read { return !keyAvailable }
         return false
     }
+
+    /// Schreibwege des Nutzers sperren (hinzufügen, bearbeiten, löschen, Notiz, Gruppe, Favorit, Alarme)?
+    static func blocksWrites(locked: Bool) -> Bool { locked }
 
     /// Alarm speichern bzw. Schnell-Alarm anlegen sperren?
     static func blocksAlarmSave(locked: Bool) -> Bool { locked }

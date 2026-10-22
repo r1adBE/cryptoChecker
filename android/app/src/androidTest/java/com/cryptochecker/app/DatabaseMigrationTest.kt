@@ -30,10 +30,11 @@ import org.junit.runner.RunWith
  *
  * Schema v3 entspricht `app/schemas/…/3.json`; v10/v12 entstehen daraus mit den App-Migrationen.
  * Schema v1 entspricht `app/schemas/…/1.json`: damit laufen auch MIGRATION_1_2 und MIGRATION_2_3
- * (die ganze Kette 1 → 15) durch Room. Im Repository liegen für AppDatabase nur 1–3 und ab 13 (13–16), für
- * PortfolioDatabase alle (1–5). Die Schemata 4–12 der AppDatabase wurden nie exportiert: Ein Gradle-Build schreibt
+ * (die ganze Kette 1 → 16) durch Room. Im Repository liegen für AppDatabase nur 1–3 und ab 13 (13–16), für
+ * PortfolioDatabase alle (1–6). Die Schemata 4–12 der AppDatabase wurden nie exportiert: Ein Gradle-Build schreibt
  * nur das Schema der aktuellen Version, die alten liessen sich nur durch Bauen der damaligen Stände zurückgewinnen —
- * darum legen die Tests hier die alten Tabellen von Hand an.
+ * darum legen die Tests hier die alten Tabellen von Hand an. Gegen die exportierten Schemas selbst (v1–v3, v13–v15 bzw.
+ * Portfolio v1–v5) prüft seit Build 103 [RoomSchemaMigrationTest] mit dem MigrationTestHelper.
  */
 @RunWith(AndroidJUnit4::class)
 class DatabaseMigrationTest {

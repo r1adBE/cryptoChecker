@@ -319,13 +319,15 @@ enum ProtectedFile {
     /// auch nicht für eine neue oder noch unverschlüsselte Datei — `locked`; der Aufrufer behält den Stand im Speicher
     /// und schreibt beim nächsten Mal
     /// (wie die Widget-Aufnahme, `PortfolioWidgetStore.writeSnapshotFile`).
-    static func write(_ data: Data, to url: URL, keys: StorageKey = .shared, requireSealed: Bool = false) throws {
+    /// `durability`: seit Build 103 `.barrier` für reine Kurs-Speicherungen (`Durability`), sonst `.full`.
+    static func write(_ data: Data, to url: URL, keys: StorageKey = .shared, requireSealed: Bool = false,
+                      durability: Durability = .full) throws {
         guard case .key(let key) = keys.lookup() else {
             if requireSealed || ProtectedStorage.isSealedFile(url) { throw ReadError.locked }
             try data.write(to: url, options: [.atomic])
             return
         }
-        try writeSealed(data, to: url, key: key)
+        try writeSealed(data, to: url, key: key, durability: durability)
     }
 
     /// Steht genau `data` schon in der gewünschten Form in der Datei (verschlüsselt, sobald es einen Schlüssel gibt)?
@@ -354,13 +356,15 @@ enum ProtectedFile {
 
     /// Versiegeln → in eine Nachbardatei schreiben → von dort lesen, öffnen und mit `data` vergleichen → atomar auf `url`
     /// umbenennen. `unchangedFrom`: nur ersetzen, wenn die Datei noch genau diese Bytes hat (Überführung).
-    static func writeSealed(_ data: Data, to url: URL, key: SymmetricKey, unchangedFrom expected: Data? = nil) throws {
+    /// `durability` `.barrier` (seit Build 103): ohne Nachlesen, mit F_BARRIERFSYNC (`Durability`).
+    static func writeSealed(_ data: Data, to url: URL, key: SymmetricKey, unchangedFrom expected: Data? = nil,
+                            durability: Durability = .full) throws {
         let sealed = try ProtectedContainer.seal(data, key: key)
         let temp = url.deletingLastPathComponent()
             .appendingPathComponent(".\(url.lastPathComponent).\(UUID().uuidString).tmp")
         do {
-            try writeDurably(sealed, to: temp)
-            guard try ProtectedContainer.open(Data(contentsOf: temp), key: key) == data else {
+            try writeDurably(sealed, to: temp, durability: durability)
+            if durability.verifiesReadBack, try ProtectedContainer.open(Data(contentsOf: temp), key: key) != data {
                 throw WriteError.verificationFailed
             }
             if let expected, (try? Data(contentsOf: url)) != expected { throw WriteError.changedMeanwhile }
@@ -370,26 +374,5 @@ enum ProtectedFile {
             try? FileManager.default.removeItem(at: temp)
             throw error
         }
-    }
-
-    /// Schreibt `data` in die neue Nachbardatei und erzwingt mit F_FULLFSYNC, dass die Bytes wirklich auf dem
-    /// Speicher liegen, bevor `rename` sie sichtbar macht: Sonst kann nach einem Stromausfall oder Absturz des
-    /// Geräts schon der neue Name auf eine leere oder halbe Datei zeigen (das Umbenennen ist im Journal, der Inhalt
-    /// noch im Cache des Laufwerks). Kennt das Dateisystem F_FULLFSYNC nicht, wenigstens fsync. Seit Build 102.
-    private static func writeDurably(_ data: Data, to temp: URL) throws {
-        guard FileManager.default.createFile(atPath: temp.path, contents: nil) else {
-            throw CocoaError(.fileWriteUnknown, userInfo: [NSFilePathErrorKey: temp.path])
-        }
-        let handle = try FileHandle(forWritingTo: temp)
-        do {
-            try handle.write(contentsOf: data)
-            if fcntl(handle.fileDescriptor, F_FULLFSYNC) == -1, fsync(handle.fileDescriptor) == -1 {
-                throw CocoaError(.fileWriteUnknown, userInfo: [NSFilePathErrorKey: temp.path])
-            }
-        } catch {
-            try? handle.close()
-            throw error
-        }
-        try handle.close()
     }
 }

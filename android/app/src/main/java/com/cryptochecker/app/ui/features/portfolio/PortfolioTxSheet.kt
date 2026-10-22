@@ -112,6 +112,8 @@ fun PortfolioTxSheet(
     val saveFailedText = stringResource(R.string.portfolio_tx_save_failed)
     // Gespeicherter Stand gerade nicht lesbar: nichts geschrieben (PortfolioStorageLock) — diesen Grund nennen
     val storageLockedText = stringResource(R.string.portfolio_storage_locked)
+    // Löschen nicht geschrieben (Fehler, nicht gesperrt), seit Build 103
+    val writeFailedText = stringResource(R.string.portfolio_write_failed)
     val scope = rememberCoroutineScope()
     val haptics = rememberHaptics()
     // Speichern mit Fehlern: zum ersten ungültigen Feld springen und den Fehler ansagen (PortfolioTxFocus.kt)
@@ -188,11 +190,18 @@ fun PortfolioTxSheet(
             confirmButton = {
                 TextButton(onClick = {
                     askDelete = false
-                    // Haptik nach dem Ergebnis: gelöscht = destruktiv, gesperrt = Fehler (wie iOS)
-                    viewModel.delete(initial.id) { deleted ->
-                        haptics.play(if (deleted) HapticEvent.DESTRUCTIVE else HapticEvent.ERROR)
+                    // Haptik nach dem Ergebnis: gelöscht = destruktiv und zu, nicht geschrieben = Fehler, Blatt bleibt mit
+                    // Hinweis offen (seit Build 103, wie iOS)
+                    viewModel.delete(initial.id) { result ->
+                        if (result == PortfolioWriteResult.OK) {
+                            haptics.play(HapticEvent.DESTRUCTIVE)
+                            onDismiss()
+                        } else {
+                            haptics.play(HapticEvent.ERROR)
+                            val text = if (result == PortfolioWriteResult.LOCKED) storageLockedText else writeFailedText
+                            scope.launch { saveErrorHost.showSnackbar(text, duration = SnackbarDuration.Long) }
+                        }
                     }
-                    onDismiss()
                 }) { Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error) }
             },
             dismissButton = {

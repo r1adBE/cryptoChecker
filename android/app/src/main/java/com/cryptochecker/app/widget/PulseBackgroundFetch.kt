@@ -1,9 +1,9 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.util.appScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 
@@ -14,7 +14,7 @@ import kotlinx.coroutines.withTimeoutOrNull
  * sähe bloss den Zwischenspeicher.
  */
 internal class PulseBackgroundFetch(
-    private val scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default),
+    private val scope: CoroutineScope = appScope(Dispatchers.Default, "PulseBackgroundFetch"),
 ) {
     @Volatile
     private var job: Job? = null

@@ -585,6 +585,28 @@ final class AccentContrastTests: XCTestCase {
         XCTAssertEqual(AccentColor.ORANGE.primaryHex(dark: true), 0xED835E)
     }
 
+    /// Coin-Plakette ohne Logo (seit Build 103): Initialen in primary auf der hellen Tönung über surfaceContainer
+    /// ≥ 4.5:1 für alle Akzente; mit der früheren Tönung 0.14 lagen sie darunter. Wie Android `AccentContrastTest`.
+    func testCoinBadgeInitialsReachAAOnTint() {
+        let container = ColorTokens.surfaceContainer.light
+        func over(_ fg: UInt32, _ alpha: Double, _ bg: UInt32) -> UInt32 {
+            var out: UInt32 = 0
+            for shift: UInt32 in [16, 8, 0] {
+                let f = Double((fg >> shift) & 0xFF), b = Double((bg >> shift) & 0xFF)
+                out |= UInt32((f * alpha + b * (1 - alpha)).rounded()) << shift
+            }
+            return out
+        }
+        for accent in AccentColor.allCases {
+            let primary = accent.primaryHex(dark: false)
+            let r = ContrastMath.ratio(primary, over(primary, CoinBadge.initialsTintLight, container))
+            XCTAssertGreaterThanOrEqual(r, 4.5, accent.rawValue)
+        }
+        let red = AccentColor.RED.primaryHex(dark: false)
+        XCTAssertLessThan(ContrastMath.ratio(red, over(red, 0.14, container)), 4.5)
+        XCTAssertEqual(CoinBadge.initialsTintDark, 0.14)
+    }
+
     /// Build 83: Akzent bei hohem Kontrast genau wie Android (`WidgetContrast.highContrastAccent`, in App und Widgets),
     /// Text auf dem Akzent bleibt ≥ 4.5:1 — wie `widgets raise the accent in high contrast like the app` (Android).
     func testHighContrastAccentAsAndroidAndUsedByWidgets() throws {

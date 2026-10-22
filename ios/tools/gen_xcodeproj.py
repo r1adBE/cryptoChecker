@@ -36,7 +36,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "102"
+CURRENT_PROJECT_VERSION = "103"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -377,6 +377,9 @@ def app_settings():
         "ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS": "YES",
         "CODE_SIGN_ENTITLEMENTS": "App/CryptoChecker.entitlements",
         "ENABLE_PREVIEWS": "YES",
+        # Seit Build 103: Quell-Commit für «Diagnose teilen» (Info.plist CCGitCommit); Store-Build überschreibt
+        # mit `GIT_COMMIT=$(git rev-parse HEAD)`, CI mit GITHUB_SHA
+        "GIT_COMMIT": "local",
         "INFOPLIST_FILE": "App/Info.plist",
         "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
         "PRODUCT_BUNDLE_IDENTIFIER": APP_ID,

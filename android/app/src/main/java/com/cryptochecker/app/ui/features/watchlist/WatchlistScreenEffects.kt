@@ -54,6 +54,8 @@ internal fun rememberAddMoment(
 ): AddMoment? {
     // Hier statt in `WatchlistScreen`: Dieser Effekt hat das Banner schon und läuft auf jedem Stand der Merkliste
     WatchlistStorageNotice(banner)
+    // Schreibweg abgelehnt (Merkliste gesperrt, WatchlistStorageLock): kurzer Hinweis mit Warn-Haptik
+    com.cryptochecker.app.ui.components.WatchlistLockedHint { banner.show(it) }
     val pendingMoment by viewModel.addMoment.collectAsStateWithLifecycle()
     val haptics = rememberHaptics()
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)

@@ -2,7 +2,7 @@ import XCTest
 @testable import CryptoChecker
 
 /// Uhr vor- und zurückgestellt: iOS hält den absoluten Beginn der vorgemerkten Anfrage fest — liegt er weiter weg,
-/// als `RefreshSchedule.nextBegin` je planen könnte, wird sie ersetzt; sonst bleibt sie stehen (wie Android KEEP).
+/// als `RefreshSchedule.nextBegin` je planen könnte, wird sie ersetzt; sonst bleibt sie stehen (ähnlich Android UPDATE: der laufende Takt bleibt).
 final class RefreshScheduleClockTests: XCTestCase {
     private let m: Int64 = 60_000
     private let now: Int64 = 1_760_000_000_000

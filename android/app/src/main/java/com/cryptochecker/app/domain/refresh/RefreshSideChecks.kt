@@ -7,11 +7,10 @@ import com.cryptochecker.app.domain.alarm.DepegAlarmChecker
 import com.cryptochecker.app.domain.gas.GasAlertChecker
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.AppVisibility
+import com.cryptochecker.app.util.appScope
 import com.cryptochecker.app.widget.PortfolioSnapshotUpdater
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
@@ -34,7 +33,7 @@ class RefreshSideChecks @Inject constructor(
     private val portfolioSnapshotUpdater: PortfolioSnapshotUpdater,
 ) {
     /** Läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val scope = appScope(Dispatchers.IO, "RefreshSideChecks")
 
     /** Eine zusätzliche Prüfung für [awaitAll] (z. B. Widget-Charts) mit eigener Zeitgrenze. */
     class Extra(val name: String, val timeoutMillis: Long, val check: suspend () -> Unit)

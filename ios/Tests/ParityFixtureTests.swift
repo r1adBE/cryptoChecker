@@ -171,9 +171,12 @@ final class ParityFixtureTests: XCTestCase {
             let text = c["text"] as? String ?? ""
             let decimal: Character = (c["decimal"] as? String)?.first ?? "."
             let expected = S.number(c["expected"])
-            let actual = ThresholdParser.parse(text, decimalSeparator: decimal, priceHint: S.number(c["hint"]))
+            // Seit Build 103: Region mit indischer Gruppierung («1,00,000»), Standard nein
+            let indian = c["indianGrouping"] as? Bool ?? false
+            let actual = ThresholdParser.parse(text, decimalSeparator: decimal, priceHint: S.number(c["hint"]),
+                                               indianGrouping: indian)
             S.assertNumber(actual, expected, accuracy: abs(expected ?? 0) * 1e-12,
-                           "threshold '\(text)' (\(decimal), \(c["hint"] ?? "nil"))")
+                           "threshold '\(text)' (\(decimal), \(c["hint"] ?? "nil"), indian \(indian))")
         }
     }
 

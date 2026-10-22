@@ -19,9 +19,8 @@ data class AppSettings(
     val exactChecks: Boolean = false,
 
     /**
-     * Intervall des früheren Vordergrunddienstes («Wie oft» bei «Immer kurz», vor 1.0 entfernt) in
-     * Sekunden. Ohne Wirkung und ohne Einstellung; nur noch gespeichert und gesichert, damit
-     * Sicherungen mit älteren Versionen austauschbar bleiben.
+     * Intervall des früheren Vordergrunddienstes («Wie oft» bei «Immer kurz», vor 1.0 entfernt) in Sekunden. Ohne Wirkung
+     * und ohne Einstellung; nur noch gespeichert und gesichert, damit Sicherungen mit älteren Versionen austauschbar bleiben.
      */
     val liveIntervalSeconds: Int = 60,
 
@@ -35,8 +34,7 @@ data class AppSettings(
     val ongoingNotifications: Boolean = false,
 
     /**
-     * Mindestveränderung in Prozent, ab der eine Kurs-Benachrichtigung
-     * gezeigt wird. 0 bedeutet: bei jeder Aktualisierung melden.
+     * Mindestveränderung in Prozent, ab der eine Kurs-Benachrichtigung gezeigt wird. 0 bedeutet: bei jeder Aktualisierung melden.
      */
     val notificationChangePercent: Double = 5.0,
 
@@ -53,9 +51,8 @@ data class AppSettings(
     val alarmCooldownMinutes: Int = 0,
 
     /**
-     * Quartals- und andere Laufzeit-Futures einzeln nachprüfen, wenn sie in
-     * der Sammelabfrage fehlen (ihre Kennung wechselt beim Verfall). Aus:
-     * werden wie andere fehlende Paare als „nicht mehr gehandelt“ markiert.
+     * Quartals- und andere Laufzeit-Futures einzeln nachprüfen, wenn sie in der Sammelabfrage fehlen (ihre Kennung wechselt
+     * beim Verfall). Aus: werden wie andere fehlende Paare als „nicht mehr gehandelt“ markiert.
      */
     val includeRollingFutures: Boolean = false,
 
@@ -76,10 +73,7 @@ data class AppSettings(
     /** Akzentfarbe für App, Widgets, Benachrichtigungen und App-Icon. */
     val accentColor: AccentColor = AccentColor.DEFAULT,
 
-    /**
-     * Dunkles Erscheinungsbild für App und Widgets. null = wie das System
-     * (Standard bei neuer Installation).
-     */
+    /** Dunkles Erscheinungsbild für App und Widgets. null = wie das System (Standard bei neuer Installation). */
     val darkMode: Boolean? = null,
 
     /** Entwickleroption: HTTP-Protokoll unten im Märkte-Tab anzeigen. */
@@ -385,7 +379,8 @@ data class AppSettings(
      */
     val speaksPairPrices: Boolean get() = ttsEnabled && !ttsAlarmsOnly
 
-    companion object {
+    /** Wahlmöglichkeiten und weitere bisherige Standards erbt der Companion (seit Build 103, [AppSettingsChoices]). */
+    companion object : AppSettingsChoices() {
         const val MIN_BACKGROUND_INTERVAL_MINUTES = 15
         const val MIN_LIVE_INTERVAL_SECONDS = 15
 
@@ -397,26 +392,7 @@ data class AppSettings(
         const val MAX_LIVE_INTERVAL_SECONDS = 3_600
         const val MAX_ALARM_COOLDOWN_MINUTES = 1_440
 
-        val BACKGROUND_INTERVAL_CHOICES = listOf(15, 30, 60)
-        val ALARM_COOLDOWN_CHOICES = listOf(0, 5, 15, 60)
-        val FEAR_GREED_BELOW_CHOICES = listOf(0, 10, 20, 25)
-        val FEAR_GREED_ABOVE_CHOICES = listOf(0, 75, 80, 90)
-
-        /** Gas-Alarm Ethereum in Zehntel-gwei: aus, 0.5, 1, 2, 5. */
-        val GAS_ETH_CHOICES = listOf(0, 5, 10, 20, 50)
-
-        /** Gas-Alarm Bitcoin in sat/vB. */
-        val GAS_BTC_CHOICES = listOf(0, 1, 2, 5, 10)
-
         /** Bisheriger Standard von «Nicht wegwischbar» (bis Build 41). */
         const val LEGACY_ONGOING_NOTIFICATIONS = true
-
-        /** Bisherige Standards (bis Build 42) der in Build 43 geänderten Schalter. */
-        const val LEGACY_WATCHLIST_NAMES = false
-        const val LEGACY_SHOW_CONVERTED = false
-        const val LEGACY_INCLUDE_ALPHA_TOKENS = true
-
-        /** Bisheriger Standard (bis Build 43) des Portfolio-Tabs; auch für Sicherungen ohne das Feld. */
-        const val LEGACY_PORTFOLIO_ENABLED = true
     }
 }

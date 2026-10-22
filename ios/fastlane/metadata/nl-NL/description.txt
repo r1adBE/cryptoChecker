@@ -1,4 +1,4 @@
-Een alarm wanneer Bitcoin jouw koers raakt – van de beurs die je echt gebruikt. Gratis, zonder account.
+Een alarm wanneer Bitcoin jouw koers raakt – van de beurs die je echt gebruikt. Met de app gesloten controleert iOS zelden – vaak pas na uren, en helemaal niet nadat je de app hebt weggeveegd. Het betrouwbaarst met de app open. Korte pieken daartussen kunnen worden gemist; de app zegt je dat. Gratis, zonder account.
 
 WAT HET ANDERS MAAKT
 • Jouw beurs, geen gemiddelde: elke rij toont de laatste koers van het paar op de beurs die je hebt gekozen – Binance, Coinbase, Kraken, OKX, Bybit en vele andere.
@@ -10,7 +10,6 @@ EERLIJK OVER DE DATA
 • ‘Zuinig’ is de standaard: koersen worden ververst bij het openen en met tussenpozen op de achtergrond. ‘Live zolang open’ geeft livekoersen voor Binance, Bybit, OKX, Coinbase en Kraken zolang de volglijst open is.
 • %-wijziging en grafieken komen eerst van de beurs van het paar; heeft die geen candles, dan gebruikt de app Binance of Coinbase en meldt dat.
 • Fear & Greed, dominantie en on-chainwaarden van alternative.me, CoinGecko en Coin Metrics.
-• Met de app gesloten controleert iOS zelden – vaak pas na uren, en helemaal niet nadat je de app hebt weggeveegd. Het betrouwbaarst met de app open. Korte pieken daartussen kunnen worden gemist; de app zegt je dat.
 • Bedragen verlaten het apparaat alleen via export (CSV, back-up) of versleuteld in een iCloud-/apparaatback-up. Voor koersen gaan alleen paarsymbolen naar de beurs van het betreffende paar; daarnaast wisselkoersen (Frankfurter), marktdata en logo’s (CoinGecko, Binance) en dataspiegels (GitHub). Volg je adressen of een xpub, dan zien openbare blockchain-nodes de adressen (bij een xpub de afgeleide) en je IP.
 
 VOLGLIJST

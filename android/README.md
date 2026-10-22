@@ -1,6 +1,6 @@
 # cryptoChecker
 
-**Crypto Checker erklärt dir, was im Markt passiert.** Kurse direkt von der
+**Crypto Checker zeigt, was sich gleichzeitig bewegt – keine Ursache, keine Prognose.** Kurse direkt von der
 Börse, Marktüberblick und «Was bewegt sich mit?» – ohne Prognosen, keine
 Anlageberatung.
 

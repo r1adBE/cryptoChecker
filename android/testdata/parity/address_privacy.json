@@ -1,0 +1,5 @@
+{
+  "_comment": "Adressabfragen (beobachtete Adressen, xpub) senden einen neutralen User-Agent ohne App-Name und -Version (seit Build 103), damit Blockchain-Knoten die Adresse nicht der App zuordnen. Android: AddressPrivacyParityTest.kt (HttpUserAgent.NEUTRAL, Client von WatchedAddressSource), iOS: AddressPrivacyParityTests.swift (HttpUserAgent.neutral).",
+  "userAgent": "Mozilla/5.0",
+  "forbiddenParts": ["cryptoChecker", "CryptoChecker", "Crypto Checker", "okhttp", "CFNetwork", "Darwin"]
+}

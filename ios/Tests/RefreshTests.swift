@@ -297,10 +297,12 @@ final class RefreshDeadlineTests: XCTestCase {
     }
 
     func testRunWithinReturnsResultOrNilAfterTimeout() async {
-        let fast = await RefreshDeadline.run(within: 1_000) { 42 }
+        // Seit Build 103 ohne knappe Zeiten: Die schnelle Arbeit hat eine Minute (antwortet sofort), die langsame endet
+        // nie von selbst — nur der Abbruch nach der Frist beendet sie. So hängt keine Prüfung vom Takt der Maschine ab.
+        let fast = await RefreshDeadline.run(within: 60_000) { 42 }
         XCTAssertEqual(fast, 42)
         let slow = await RefreshDeadline.run(within: 50) { () async -> Int in
-            try? await Task.sleep(nanoseconds: 2_000_000_000)
+            while !Task.isCancelled { try? await Task.sleep(nanoseconds: 3_600_000_000_000) }
             return 7
         }
         XCTAssertNil(slow)

@@ -1,4 +1,4 @@
-Une alerte quand le Bitcoin atteint ton cours – sur la plateforme que tu utilises vraiment. Gratuit, sans compte.
+Une alerte quand le Bitcoin atteint ton cours – sur la plateforme que tu utilises vraiment. App fermée, c’est Android qui décide quand les alertes sont vérifiées – pas plus d’une fois toutes les 15 minutes, souvent après plusieurs heures. De brefs pics entre deux peuvent passer inaperçus ; l’app te le dit. Gratuit, sans compte.
 
 CE QUI LA DISTINGUE
 • Ta plateforme, pas une moyenne : chaque ligne affiche le dernier cours de la paire sur la plateforme choisie – Binance, Coinbase, Kraken, OKX, Bybit…
@@ -10,7 +10,6 @@ TRANSPARENT SUR LES DONNÉES
 • « Économe » par défaut : cours actualisés à l’ouverture et à intervalles en arrière-plan. « En direct quand ouverte » ajoute le direct pour Binance, Bybit, OKX, Coinbase et Kraken.
 • Variation en % et graphiques viennent d’abord de la plateforme de la paire ; sinon, l’app utilise Binance ou Coinbase et te l’indique.
 • Fear & Greed, dominance et valeurs on-chain d’alternative.me, CoinGecko et Coin Metrics.
-• App fermée, c’est Android qui décide quand les alertes sont vérifiées – pas plus d’une fois toutes les 15 minutes, souvent après plusieurs heures. De brefs pics entre deux peuvent passer inaperçus ; l’app te le dit.
 • Les montants ne quittent l’appareil que par export ou sauvegarde système Android. Pour les cours, seuls les symboles de la paire vont à sa plateforme ; plus les taux de change (Frankfurter), données de marché et logos (CoinGecko, Binance), miroirs de données (GitHub). Si tu suis des adresses ou une xpub, des nœuds blockchain publics voient les adresses (pour une xpub, les dérivées) et ton IP.
 
 LISTE DE SUIVI

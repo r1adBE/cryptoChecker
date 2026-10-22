@@ -1,4 +1,4 @@
-Alarm ketika Bitcoin mencapai hargamu – dari bursa yang kamu gunakan. Gratis, tanpa akun.
+Alarm ketika Bitcoin mencapai hargamu – dari bursa yang kamu gunakan. Saat aplikasi ditutup, Android yang menentukan kapan alarm diperiksa – paling sering tiap 15 menit, kerap setelah berjam-jam. Lonjakan singkat di antaranya bisa terlewat; aplikasi memberi tahu kamu. Gratis, tanpa akun.
 
 YANG MEMBUATNYA BERBEDA
 • Bursamu, bukan rata-rata: setiap baris menampilkan harga terakhir pasangan itu di bursa yang kamu pilih – Binance, Coinbase, Kraken, OKX, Bybit, dan banyak lagi.
@@ -10,7 +10,6 @@ JUJUR SOAL DATA
 • “Hemat” adalah bawaan: harga diperbarui saat aplikasi dibuka dan berkala di latar belakang. “Langsung selama terbuka” menambahkan harga langsung untuk Binance, Bybit, OKX, Coinbase, dan Kraken selama daftar pantauan terbuka.
 • Perubahan % dan grafik pertama-tama berasal dari bursa pasangan itu; jika tidak ada candle, aplikasi memakai Binance atau Coinbase dan memberi tahu kamu.
 • Fear & Greed, dominasi, dan nilai on-chain dari alternative.me, CoinGecko, dan Coin Metrics.
-• Saat aplikasi ditutup, Android yang menentukan kapan alarm diperiksa – paling sering tiap 15 menit, kerap setelah berjam-jam. Lonjakan singkat di antaranya bisa terlewat; aplikasi memberi tahu kamu.
 • Jumlah hanya keluar dari perangkat lewat ekspor atau cadangan Android. Untuk harga, hanya simbol pasangan yang dikirim ke bursa pasangan itu; plus kurs (Frankfurter), data pasar dan logo (CoinGecko, Binance), cermin data (GitHub). Jika kamu memantau alamat atau xpub, node blockchain publik melihat alamatnya (untuk xpub, turunannya) dan IP-mu.
 
 DAFTAR PANTAUAN

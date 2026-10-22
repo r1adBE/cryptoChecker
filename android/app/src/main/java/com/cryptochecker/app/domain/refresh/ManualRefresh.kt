@@ -3,10 +3,9 @@ package com.cryptochecker.app.domain.refresh
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.util.AppVisibility
 import com.cryptochecker.app.util.ConnectivityMonitor
+import com.cryptochecker.app.util.appScope
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,7 +33,7 @@ class ManualRefresh @Inject constructor(
     private val connectivity: ConnectivityMonitor,
     private val checkRuns: CheckRunStore,
 ) {
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val scope = appScope(Dispatchers.Default, "ManualRefresh")
 
     private val _running = MutableStateFlow(false)
 

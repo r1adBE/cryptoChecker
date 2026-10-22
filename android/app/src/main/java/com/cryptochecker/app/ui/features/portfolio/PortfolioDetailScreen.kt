@@ -28,11 +28,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -42,10 +44,8 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
-import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioWalletShortfall
-import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.ui.components.AppFab
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.components.SectionTitle
@@ -66,18 +66,14 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 fun PortfolioDetailScreen(
     coin: String,
     onBack: () -> Unit,
+    /** Seit Build 103 die Instanz des Portfolio-Tabs (AppNavHost); eigene nur zur Not. */
     viewModel: PortfolioViewModel = hiltViewModel(),
 ) {
     val symbol = remember(coin) { PortfolioCalculator.normalizeCoin(coin) }
-    val transactions by viewModel.transactions.collectAsStateWithLifecycle()
-    // Mit Adress-Guthaben (Einzahlung ohne Kaufpreis) — wie die Übersicht
-    val calcTransactions by viewModel.calcTransactions.collectAsStateWithLifecycle()
-    val watchedAddresses by viewModel.watchedAddresses.collectAsStateWithLifecycle()
-    val prices by viewModel.prices.collectAsStateWithLifecycle()
     val refreshing by viewModel.refreshing.collectAsStateWithLifecycle()
     val hideAmounts by viewModel.hideAmounts.collectAsStateWithLifecycle()
-    val costMethod by viewModel.costMethod.collectAsStateWithLifecycle()
-    val feePrice by viewModel.feePrice.collectAsStateWithLifecycle()
+    // Seit Build 103: Ledger/FIFO, Adress-Guthaben und Treffer im ViewModel abseits des Hauptthreads (PortfolioCoinDetailFlow)
+    val detail by remember(viewModel, symbol) { viewModel.coinDetailFlow(symbol) }.collectAsStateWithLifecycle(null)
 
     LaunchedEffect(Unit) { viewModel.start() }
     LifecycleResumeEffect(Unit) {
@@ -85,45 +81,58 @@ fun PortfolioDetailScreen(
         onPauseOrDispose { }
     }
 
-    val all = transactions
-    // Auch Tausche in diesen Coin («Tausch von BTC»)
-    val own = remember(all, symbol) {
-        all.orEmpty().filter { tx -> tx.coins().any { PortfolioCalculator.normalizeCoin(it) == symbol } }
-    }
-    // Kennzahlen, offene Posten und (FIFO je Wallet) Abgänge über den Bestand ihrer Wallet
-    // Gebühr-Zeilen zum Tageskurs wie auf der Karte ([PortfolioViewModel.feePrice])
-    val ledger = remember(calcTransactions, prices, symbol, costMethod, feePrice) {
-        PortfolioCalculator.ledger(symbol, calcTransactions.orEmpty().map { it.toTrade() }, prices.prices[symbol], costMethod, feePrice)
-    }
-    val position = ledger.position
-    val addressAmount = remember(watchedAddresses, symbol, all) {
-        AddressBalance.amountFor(symbol, watchedAddresses, all.orEmpty().map { it.toTrade() })?.takeIf { it.signum() > 0 }
-    }
-    // Eigene Einzahlung/Umbuchung = Guthaben/Zugang einer zählenden Adresse (± 1 %): deutliche Warnung wie bei der Adresse
-    val addressMatches = remember(watchedAddresses, own, symbol) {
-        WatchedAddressRules.transferMatchesFor(symbol, watchedAddresses, own.map { it.toTrade() })
-    }
+    val all = detail?.all
+    val own = detail?.own.orEmpty()
+    val addressAmount = detail?.addressAmount
 
     val scope = rememberCoroutineScope()
     val banner = rememberWatchlistBanner(scope)
     val reduceMotion = rememberReduceMotion()
     val removedText = stringResource(R.string.portfolio_tx_removed)
+    // Nicht geschrieben: gesperrt bzw. Fehler nennen (wie iOS) statt «entfernt»
+    val resources = LocalResources.current
 
-    // Letzte Transaktion gelöscht: zurück zur Übersicht — erst wenn «Rückgängig» vorbei ist
-    val bannerShown = banner.host.currentSnackbarData != null
+    // Letzte Transaktion gelöscht: zurück zur Übersicht — erst wenn «Rückgängig» vorbei ist. Seit Build 103 auch nicht,
+    // solange ein Löschen auf sein Ergebnis wartet, dessen Banner noch nicht steht oder «Rückgängig» noch schreibt
+    val bannerData = banner.host.currentSnackbarData
+    var deletesPending by remember { mutableIntStateOf(0) }
+    var awaitingBanner by remember { mutableStateOf(false) }
+    var restorePending by remember { mutableStateOf(false) }
+    LaunchedEffect(bannerData) { if (bannerData != null) awaitingBanner = false }
+    // «Rückgängig» geschrieben und wieder in der Liste: nicht mehr festhalten
+    LaunchedEffect(own.isNotEmpty(), restorePending) { if (restorePending && own.isNotEmpty()) restorePending = false }
     // Coin nur aus einer Adresse: bleibt offen
     val nothingLeft = all != null && own.isEmpty() && addressAmount == null
-    LaunchedEffect(nothingLeft, bannerShown) {
-        if (nothingLeft && !bannerShown) onBack()
+    val holding = bannerData != null || deletesPending > 0 || awaitingBanner || restorePending
+    LaunchedEffect(nothingLeft, holding) {
+        if (nothingLeft && !holding) onBack()
     }
 
     var sheet by remember { mutableStateOf<TxDraft?>(null) }
 
     val haptics = rememberHaptics()
+    fun undo(tx: PortfolioTxEntity) {
+        restorePending = true
+        viewModel.restore(listOf(tx)) { result ->
+            if (result != PortfolioWriteResult.OK) {
+                restorePending = false
+                banner.show(resources.getString(result.notSavedText()))
+            }
+        }
+    }
     fun deleteTx(tx: PortfolioTxEntity) {
-        banner.show(removedText) { viewModel.restore(listOf(tx)) }
-        // Haptik erst nach dem Ergebnis, wie iOS
-        viewModel.delete(tx.id) { ok -> if (ok) haptics.play(HapticEvent.DESTRUCTIVE) }
+        deletesPending++
+        // Banner «entfernt» mit «Rückgängig» und Haptik erst nach dem Ergebnis (seit Build 103, wie iOS)
+        viewModel.delete(tx.id) { result ->
+            deletesPending--
+            if (result == PortfolioWriteResult.OK) {
+                haptics.play(HapticEvent.DESTRUCTIVE)
+                awaitingBanner = true
+                banner.show(removedText) { undo(tx) }
+            } else {
+                banner.show(resources.getString(result.notSavedText()))
+            }
+        }
     }
 
     sheet?.let { draft ->
@@ -140,10 +149,6 @@ fun PortfolioDetailScreen(
         )
     }
     lotsFor?.let { id -> PortfolioAddressLotsSheet(viewModel, id, onDismiss = { lotsFor = null }) }
-    val lotAddress = remember(watchedAddresses, symbol) {
-        com.cryptochecker.app.domain.portfolio.AddressCostLots.counted(watchedAddresses)
-            .firstOrNull { (_, balances) -> (balances[symbol]?.signum() ?: 0) > 0 }?.first
-    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -164,10 +169,12 @@ fun PortfolioDetailScreen(
             AppFab(onClick = { sheet = TxDraft(coin = symbol) }, contentDescription = stringResource(R.string.portfolio_add_tx))
         }
     ) { padding ->
-        if (all == null) {
+        val d = detail
+        if (d == null) {
             SkeletonList(modifier = Modifier.padding(padding))
             return@Scaffold
         }
+        val ledger = d.ledger
         PullToRefreshBox(
             isRefreshing = refreshing,
             onRefresh = { viewModel.refresh(force = true) },
@@ -183,16 +190,16 @@ fun PortfolioDetailScreen(
                     ) {
                         item(key = "summary") {
                             PositionCard(
-                                position, addressAmount, overlap = own.isNotEmpty(), matches = addressMatches,
+                                ledger.position, d.addressAmount, overlap = d.own.isNotEmpty(), matches = d.addressMatches,
                                 onMissingCost = { costGapsOpen = true },
-                                onAddressCost = lotAddress?.let { a -> { lotsFor = a.id } },
+                                onAddressCost = d.lotAddress?.let { a -> { lotsFor = a.id } },
                             )
                         }
                         // FIFO je Wallet: Abgang über den Bestand seiner Wallet — antippen öffnet die Transaktion
                         if (ledger.walletShortfalls.isNotEmpty()) {
                             item(key = "shortfalls") {
                                 WalletShortfallBanner(ledger.walletShortfalls) { id ->
-                                    all.orEmpty().firstOrNull { it.id == id }?.let { sheet = it.toDraft() }
+                                    d.all.firstOrNull { it.id == id }?.let { sheet = it.toDraft() }
                                 }
                             }
                         }
@@ -208,7 +215,7 @@ fun PortfolioDetailScreen(
                                 modifier = Modifier.padding(start = 4.dp, top = 12.dp, bottom = 4.dp).sectionTitleMarker()
                             )
                         }
-                        items(own, key = { it.id }) { tx ->
+                        items(d.own, key = { it.id }) { tx ->
                             SwipeActionsRow(
                                 enabled = true,
                                 favorite = false,

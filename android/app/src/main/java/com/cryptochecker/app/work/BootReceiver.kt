@@ -4,11 +4,10 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.util.appScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,7 +26,7 @@ class BootReceiver : BroadcastReceiver() {
 
     @Inject lateinit var exactScheduler: ExactCheckScheduler
 
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val scope = appScope(Dispatchers.Default, "BootReceiver")
 
     override fun onReceive(context: Context, intent: Intent) {
         if (BackgroundWorkPolicy.replansMacroOn(intent.action) || BackgroundWorkPolicy.resyncsExactOn(intent.action)) {

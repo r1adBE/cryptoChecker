@@ -61,7 +61,7 @@ final class PortfolioModel: ObservableObject {
         didSet { historyClosesStamp &+= 1 }
     }
     /// Zählt jede neue Ladung von `historyCloses` (Schlüssel des `summary`-Zwischenspeichers).
-    private var historyClosesStamp = 0
+    private(set) var historyClosesStamp = 0
     private var historyTask: Task<Void, Never>?
     /// Devisen-Tageskurse USD → `currency` ab `from` bis `to` (letzter abgefragter Tag); `rates` nil = nicht zu haben.
     var fxSeries: (currency: String, from: LocalDay, rates: [Int: Double]?, to: LocalDay)?
@@ -274,7 +274,7 @@ final class PortfolioModel: ObservableObject {
 
     /// Reihen für Verlauf, «7 T» und «1 J» zu den aktuellen Kursen (`PortfolioExchangeRoute.historyCloses`):
     /// eigene Börse, sonst Binance skaliert — ohne Binance-Bezugskurs jetzt fehlt der Coin («ohne …»).
-    private func routed(_ daily: PortfolioDailyPrices) -> RoutedHistory {
+    func routed(_ daily: PortfolioDailyPrices) -> RoutedHistory {
         PortfolioExchangeRoute.historyCloses(daily.closes, ranges: daily.ranges, own: daily.own,
                                              routed: daily.routed.union(prices.sources.keys),
                                              failed: Set(prices.exchangeFailed.keys),

@@ -75,10 +75,13 @@ extension SharedStorage {
     /// letzten Stand, die Änderung bleibt im Speicher (`AppData`) und geht mit dem nächsten Speichern hinaus
     /// (`watchlistPending`). Eine unverschlüsselte Datei aus älteren Versionen bleibt lesbar und wird beim nächsten
     /// Schreiben mit Schlüssel versiegelt.
+    /// - Parameter durability: nur für `watchlist.json` (seit Build 103): `.barrier` bei reinen Kurs-Speicherungen
+    ///   (Live-Takt); die Portfolio-Alarme immer voll (`ProtectedFile.Durability`).
     /// - Returns: true, wenn `watchlist.json` geschrieben wurde.
     @discardableResult
     static func writeFiles(_ snapshot: Snapshot, watchlist: URL, portfolioAlarms: URL,
-                           includePortfolioInBackup: Bool, keys: StorageKey = .shared) -> Bool {
+                           includePortfolioInBackup: Bool, keys: StorageKey = .shared,
+                           durability: ProtectedFile.Durability = .full) -> Bool {
         var main = snapshot
         if let alarms = snapshot.portfolioAlarms {
             let next = nextId(stored: snapshot.nextPortfolioAlarmId ?? 1, used: alarms.map(\.id))
@@ -106,7 +109,7 @@ extension SharedStorage {
         }
         guard let data = try? JSONEncoder().encode(main) else { return false }
         do {
-            try ProtectedFile.write(data, to: watchlist, keys: keys, requireSealed: true)
+            try ProtectedFile.write(data, to: watchlist, keys: keys, requireSealed: true, durability: durability)
         } catch ProtectedFile.ReadError.locked {
             AppLog.storage.error("Merkliste wartet auf den Schlüssel")
             watchlistPending = true

@@ -7,10 +7,11 @@ enum ThresholdProblem: Equatable {
 
 extension AlarmCondition {
     /// Fallende Prozent-Alarme («fällt um x %», «Open Interest fällt um x %»): mehr als 100 % kann nichts fallen — ein
-    /// solcher Alarm löste nie aus (seit Build 102 abgelehnt). Wie Android `isFallingPercent`.
+    /// solcher Alarm löste nie aus (seit Build 102 abgelehnt). Seit Build 103 auch genau 100 % (Wert 0 wird nie
+    /// gemeldet): der Schwellwert muss kleiner als `maxFallPercent` sein. Wie Android `isFallingPercent`.
     var isFallingPercent: Bool { self == .CHANGE_PERCENT_DOWN || self == .OI_DOWN }
 
-    /// Höchster Schwellwert eines fallenden Prozent-Alarms.
+    /// Obergrenze (ausschliesslich, seit Build 103) eines fallenden Prozent-Alarms.
     static let maxFallPercent = 100.0
 }
 
@@ -149,17 +150,17 @@ struct AlarmDraft: Identifiable, Equatable {
 
     var isValid: Bool { threshold != nil }
 
-    /// Fallender Prozent-Alarm mit gültiger Zahl über `AlarmCondition.maxFallPercent`?
+    /// Fallender Prozent-Alarm mit gültiger Zahl ab `AlarmCondition.maxFallPercent` (seit Build 103 auch genau 100)?
     private var exceedsFall: Bool {
         guard condition.isFallingPercent,
               let value = ThresholdParser.parse(thresholdText, decimalSeparator: ThresholdParser.localeDecimalSeparator)
         else { return false }
-        return value > AlarmCondition.maxFallPercent
+        return value >= AlarmCondition.maxFallPercent
     }
 
     /// Warum der Knopf gesperrt ist (nil = gültig) — für den Fehlertext unter dem Feld. Folgt genau
     /// `threshold`: leer; Funding ausserhalb ±`DerivativesAlarm.maxFundingPercent` bzw. keine Zahl;
-    /// Open Interest über dem Höchstwert; fallend über 100 %; sonst keine Zahl grösser als 0. Wie Android.
+    /// Open Interest über dem Höchstwert; fallend ab 100 %; sonst keine Zahl grösser als 0. Wie Android.
     var thresholdProblem: ThresholdProblem? {
         if isValid { return nil }
         if thresholdText.trimmingCharacters(in: .whitespaces).isEmpty { return .EMPTY }

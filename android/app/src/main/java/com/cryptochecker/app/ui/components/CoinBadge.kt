@@ -148,7 +148,10 @@ fun CoinBadge(
     }
 }
 
-/** Ersatz-Kreis: Akzentfarbe mit 14 % Tönung, Initialen in der Akzentfarbe. */
+/**
+ * Ersatz-Kreis: Akzentfarbe getönt ([INITIALS_TINT_LIGHT] bzw. [INITIALS_TINT_DARK]), Initialen in der Akzentfarbe.
+ * Hell seit Build 103 schwächer: mit 14 % lagen die Initialen auf surfaceContainer unter 4.5:1.
+ */
 @Composable
 private fun InitialsCircle(coin: String, size: Dp) {
     val accent = MaterialTheme.colorScheme.primary
@@ -161,7 +164,7 @@ private fun InitialsCircle(coin: String, size: Dp) {
         modifier = Modifier
             .fillMaxSize()
             .clip(CircleShape)
-            .background(AppColors.accentTint(0.14f))
+            .background(AppColors.accentTint(if (LocalDarkTheme.current) INITIALS_TINT_DARK else INITIALS_TINT_LIGHT))
     ) {
         Text(
             text = initials,
@@ -197,6 +200,12 @@ private fun FavoriteStar(badgeSize: Dp, ringColor: Color, modifier: Modifier) {
         )
     }
 }
+
+/** Tönung des Initialen-Kreises hell: primary darauf über surfaceContainer ≥ 4.5:1 (AccentContrastTest, iOS gleich). */
+internal const val INITIALS_TINT_LIGHT = 0.06f
+
+/** Tönung des Initialen-Kreises dunkel (unverändert). */
+internal const val INITIALS_TINT_DARK = 0.14f
 
 /** Heller Grund hinter Logos im Dunkelmodus (onSurface, leicht gedämpft). */
 private const val LOGO_BACKING_DARK_ALPHA = 0.92f

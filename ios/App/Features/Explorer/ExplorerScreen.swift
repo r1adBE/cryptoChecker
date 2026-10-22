@@ -49,6 +49,8 @@ struct ExplorerScreen: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(.hidden, for: .tabBar)
             .overlay(alignment: .bottom) { snackbar }
+            // Paar nicht übernommen (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
+            .watchlistLockedHint { vm.show(ExplorerMessage(text: $0, showView: false, long: true)) }
             .animation(.spring(duration: 0.35), value: vm.message)
             // Aus «Heute auffällig» (Markt-Tab): gleich mit dem Coin als Suchbegriff
             .onChange(of: router.explorerSearch, initial: true) { _, incoming in

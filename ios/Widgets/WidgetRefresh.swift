@@ -28,7 +28,8 @@ enum WidgetRefresh {
     private static let runningTimeoutMillis: Int64 = 60_000
     /// Endzeit eines Durchlaufs: begrenzt Kurse, Lease und Kursalarme, damit gespeichert und gemeldet ist,
     /// bevor WidgetKit die Erweiterung beendet; Alarme mit Zusatzdaten stellt sie zurück (`deferredAlarms`).
-    private static let runBudgetMillis: Int64 = 25_000
+    /// Knopf (App-Intent); aus dem Zeichnen seit Build 103 kürzer (`WidgetCadence.drawRunBudgetMillis`).
+    static let runBudgetMillis: Int64 = 25_000
 
     /// Ergebnis von `run()`.
     enum RunResult {
@@ -109,8 +110,9 @@ enum WidgetRefresh {
 
     /// Volle Aktualisierung. Der Knopf «Aktualisieren» ruft sie direkt auf, auch kurz nach einem
     /// misslungenen Versuch (`retryAfterMillis` gilt nur für `refreshIfStale`).
+    /// - Parameter budgetMillis: Endzeit ab Beginn (Kurse, Lease, Kursalarme); aus dem Zeichnen kürzer (seit Build 103).
     @discardableResult
-    static func run() async -> RunResult {
+    static func run(budgetMillis: Int64 = runBudgetMillis) async -> RunResult {
         let defaults = SharedStorage.defaults
         let started = TimeUtils.nowMillis
         guard claimRun(started: started) else { return .busy }
@@ -121,7 +123,7 @@ enum WidgetRefresh {
         // Speichergrenze der Erweiterung (~30 MB): keine grossen ungefilterten Sammellisten (`LowMemoryBulk`).
         // Mit Endzeit prüft `refresh` nur die Kursalarme; die mit Zusatzdaten (`deferredAlarms`) bleiben liegen.
         let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings,
-                                                   deadline: RefreshDeadline(endMillis: started + runBudgetMillis),
+                                                   deadline: RefreshDeadline(endMillis: started + budgetMillis),
                                                    lowMemory: true)
 
         // Frisch lesen und nur Kurse und Alarm-Zustand je Id übertragen — als ein abgestimmter Schritt mit der
@@ -161,9 +163,10 @@ enum WidgetRefresh {
         return .failed
     }
 
-    /// Wartezeit beim Zeichnen: danach zeichnet das Widget sofort mit den gespeicherten Kursen, die
-    /// Aktualisierung läuft weiter und lädt bei Erfolg nach. Kurz gehalten, weil WidgetKit eine Timeline, die
-    /// zu lange braucht, verwirft (dann bliebe das Widget leer oder auf dem alten Stand stehen).
+    /// Wartezeit beim Zeichnen: danach zeichnet das Widget sofort mit den gespeicherten Kursen. Kurz gehalten, weil
+    /// WidgetKit eine Timeline, die zu lange braucht, verwirft (dann bliebe das Widget leer oder auf dem alten Stand
+    /// stehen). Seit Build 103 endet der Durchlauf selbst vorher (`WidgetCadence.drawRunBudgetMillis`); nur wenn Speichern
+    /// oder Melden unerwartet hängt, läuft er nach der Rückgabe noch weiter und lädt bei Erfolg nach.
     static let drawDeadlineSeconds: Double = 8
 
     /// Aktualisiert, wenn die Daten alt sind — wartet aber höchstens `deadline` Sekunden.
@@ -178,7 +181,7 @@ enum WidgetRefresh {
         let savedInTime: Bool = await withCheckedContinuation { continuation in
             gate.set(continuation)
             Task {
-                let saved = (await run()) == .saved
+                let saved = (await run(budgetMillis: WidgetCadence.drawRunBudgetMillis(deadlineSeconds: deadline))) == .saved
                 if !gate.finish(saved), saved {
                     WidgetData.reloadKinds([ownKind] + otherKinds, reason: "spät gespeichert")
                 }

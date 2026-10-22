@@ -133,4 +133,14 @@ enum CheckRunStore {
         let now = TimeUtils.nowMillis
         add(CheckRun(at: now, trigger: trigger, result: result, durationMillis: Swift.max(now - startedAt, 0)))
     }
+
+    /// Wie `log`, aber abseits des Aufrufers (die Datei-Abstimmung kann auf einen anderen Prozess warten) — seit Build 103
+    /// für Hauptfaden und `expirationHandler`. Die Dauer zählt bis jetzt; mit `await …value` abwarten, wo der Eintrag vor
+    /// dem Ende der Aufgabe stehen muss.
+    @discardableResult
+    static func logDetached(_ trigger: CheckTrigger, _ result: CheckResult, startedAt: Int64) -> Task<Void, Never> {
+        let now = TimeUtils.nowMillis
+        let run = CheckRun(at: now, trigger: trigger, result: result, durationMillis: Swift.max(now - startedAt, 0))
+        return Task.detached(priority: .utility) { add(run) }
+    }
 }

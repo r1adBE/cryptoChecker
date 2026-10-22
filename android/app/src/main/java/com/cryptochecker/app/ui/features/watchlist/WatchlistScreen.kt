@@ -233,7 +233,8 @@ fun WatchlistScreen(
         viewModel.deleteWithUndo(watch, undoKey)
         val generation = removedBatch.generation
         banner.show(removedBatch.bannerText(resources), onClosed = { removedBatch.closed(generation) }) {
-            viewModel.undoDelete(undoKey)
+            // Seit Build 103: Merkliste inzwischen voll → Hinweis, wie viele nicht zurückkamen
+            viewModel.undoDelete(undoKey) { n -> banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n)) }
         }
     }
     // Nach rechts wischen: Favorit an/aus mit kurzem Banner

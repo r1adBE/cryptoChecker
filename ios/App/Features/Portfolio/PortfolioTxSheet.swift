@@ -361,7 +361,7 @@ struct PortfolioTxSheet: View {
         }
         .alert(L("portfolio_tx_delete_title"), isPresented: $askDelete) {
             Button(L("action_delete"), role: .destructive) {
-                // Haptik nach dem Ergebnis: gelöscht = destruktiv, nicht geschrieben (gesperrt) = Fehler (wie Android)
+                // Haptik nach dem Ergebnis: gelöscht = destruktiv, nicht geschrieben = Fehler, Hinweis gesperrt/Fehler (Build 103)
                 if data.deletePortfolioTx(initial.txId) {
                     Haptics.play(.destructive)
                     dismiss()
@@ -374,7 +374,7 @@ struct PortfolioTxSheet: View {
         } message: {
             Text(L("portfolio_tx_delete_confirm"))
         }
-        .alert(L("portfolio_storage_locked"), isPresented: $deleteFailed) {
+        .alert(L(data.portfolioWriteLocked ? "portfolio_storage_locked" : "portfolio_write_failed"), isPresented: $deleteFailed) {
             Button(L("action_close"), role: .cancel) {}
         }
     }

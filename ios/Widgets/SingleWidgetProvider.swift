@@ -19,29 +19,51 @@ struct SingleEntry: TimelineEntry {
     /// Kerzen oder Linie.
     let chartType: WidgetChartTypeOption
     let theme: WidgetThemeOption
+    /// Werte aus den App-Einstellungen: beim Erstellen des Eintrags EINMAL dekodiert (seit Build 103; vorher je Feld
+    /// und bei jedem Zeichnen erneut).
     let accent: AccentColor
-    /// Kursfarben aus der App-Einstellung (beim Erstellen des Eintrags gelesen).
-    var priceColors: PriceColorScheme = SharedStorage.loadSettings().priceColorScheme
-    /// Einstellung «Hoher Kontrast» (beim Erstellen des Eintrags gelesen).
-    var highContrast: Bool = SharedStorage.loadSettings().highContrast
-    /// Einstellung «Farben tauschen» (beim Erstellen des Eintrags gelesen).
-    var priceColorsInverted: Bool = SharedStorage.loadSettings().priceColorsInverted
+    /// Kursfarben aus der App-Einstellung.
+    var priceColors: PriceColorScheme
+    /// Einstellung «Hoher Kontrast».
+    var highContrast: Bool
+    /// Einstellung «Farben tauschen».
+    var priceColorsInverted: Bool
     /// Ab diesem Alter «veraltet» (`WidgetOutdated`), gemessen an `date`.
     var outdatedAfter: Int64 = WidgetOutdated.afterMillis
     /// «Basis der %-Änderung» und Stempel der gespeicherten Werte (beim Erstellen gelesen).
-    var changeBasis: ChangeBasis = SharedStorage.loadSettings().changeBasis
+    var changeBasis: ChangeBasis
     var changeStamp: ChangeStamp? = SharedStorage.changeStamp
+    /// Einstellung «Zeitraum zur Änderung zeigen».
+    var showPeriod: Bool
     /// Coin-Logo des Paares (`WidgetLogos`); leer = Initialen.
     var logos: [String: UIImage] = [:]
     /// Schalter «Coin-Logos in Widgets»; aus = keine Plakette.
-    var showLogos: Bool = SharedStorage.loadSettings().widgetCoinLogos
+    var showLogos: Bool
     /// Kerzen einer anderen Börse (Ausweich-Kette): deren Name für «Kraken · Chart: Binance»; nil = eigene Börse.
     var foreignChart: String? = nil
+
+    init(date: Date, watch: Watch?, candles: [MarketCandle]?, range: WidgetChartRangeOption,
+         chartType: WidgetChartTypeOption, theme: WidgetThemeOption,
+         settings: AppSettings = SharedStorage.loadSettings()) {
+        self.date = date
+        self.watch = watch
+        self.candles = candles
+        self.range = range
+        self.chartType = chartType
+        self.theme = theme
+        accent = settings.accentColor
+        priceColors = settings.priceColorScheme
+        highContrast = settings.highContrast
+        priceColorsInverted = settings.priceColorsInverted
+        changeBasis = settings.changeBasis
+        showPeriod = settings.showChangePeriod
+        showLogos = settings.widgetCoinLogos
+    }
 
     /// %-Basis zum Zeitpunkt des Eintrags: nach Mitternacht bzw. mit anderer Basis «—».
     var changeView: ChangeView {
         ChangeView.of(stamp: changeStamp, basis: changeBasis, now: Int64(date.timeIntervalSince1970 * 1000),
-                      showPeriod: SharedStorage.loadSettings().showChangePeriod)
+                      showPeriod: showPeriod)
     }
 
     /// Das Paar, wie es gezeigt wird: Veränderung nur, wenn sie zur %-Basis passt.
@@ -61,7 +83,7 @@ struct SingleEntry: TimelineEntry {
                        chartType: WidgetChartTypeOption = .candles) -> SingleEntry {
         SingleEntry(date: Date(), watch: WidgetData.sampleWatches.first,
                     candles: WidgetData.sampleCandles(range: range), range: range, chartType: chartType,
-                    theme: theme, accent: SharedStorage.loadSettings().accentColor)
+                    theme: theme)
     }
 }
 
@@ -105,7 +127,7 @@ struct SingleProvider: AppIntentTimelineProvider {
         var entry = SingleEntry(date: Date(), watch: watch,
                                 candles: watch?.isNotTraded == false && watch?.disabled == false ? candles : nil,
                                 range: configuration.range, chartType: configuration.chartType,
-                                theme: configuration.theme, accent: SharedStorage.loadSettings().accentColor)
+                                theme: configuration.theme)
         entry.foreignChart = Self.foreignChart(watch, sourced)
         entry.logos = await WidgetLogos.load(for: watch.map { [$0] } ?? [])
         // Zweiter Eintrag, sobald der Kurs veraltet («veraltet · 06:42»)
@@ -127,7 +149,7 @@ struct SingleProvider: AppIntentTimelineProvider {
         let sourced = await Self.candles(for: watch, range: configuration.range)
         var entry = SingleEntry(date: Date(), watch: watch, candles: sourced?.value, range: configuration.range,
                                 chartType: configuration.chartType,
-                                theme: configuration.theme, accent: SharedStorage.loadSettings().accentColor)
+                                theme: configuration.theme)
         entry.foreignChart = Self.foreignChart(watch, sourced)
         entry.logos = await WidgetLogos.load(for: watch.map { [$0] } ?? [])
         return entry

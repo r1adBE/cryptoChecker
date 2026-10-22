@@ -29,6 +29,10 @@ Behaviour:
     check); once everything is healthy again the issue is closed. The job stays green
     for these findings; exit 1 only if the issue itself could not be handled.
     Without GitHub Actions / GH_TOKEN (local run) or with --dry-run: print only.
+  - Two steps in the workflow (since Build 103), so the token never shares a step with
+    the third-party pages: --skip-health builds events.json and status.json without
+    a token and without the issue; --health-only downloads nothing, reads both files
+    and handles the issue (needs GH_TOKEN).
 
 Python 3.9+ standard library only.
 """
@@ -498,13 +502,30 @@ def run(output, now=None, fetcher=fetch, status_path=None):
     return True, problems
 
 
+def health_only(output, now, status_path=None):
+    """Health problems from the files a previous --skip-health run wrote; downloads nothing."""
+    status_path = status_path or os.path.join(os.path.dirname(os.path.abspath(output)), STATUS_FILE)
+    return health(load_failures(status_path), load_previous(output), now)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
     ap.add_argument("--output", default=os.path.join("docs", "macro", "events.json"))
     ap.add_argument("--dry-run", action="store_true", help="no GitHub issue, only print problems")
+    mode = ap.add_mutually_exclusive_group()
+    mode.add_argument("--skip-health", action="store_true",
+                      help="build only: no health report, no issue (step without token)")
+    mode.add_argument("--health-only", action="store_true",
+                      help="no download: health check from events.json/status.json and the issue")
     args = ap.parse_args(argv)
     now = dt.datetime.now(UTC).replace(microsecond=0)
+    if args.health_only:
+        return report(health_only(args.output, now), now, dry_run=args.dry_run)
     _, problems = run(args.output, now=now)
+    if args.skip_health:
+        if problems:
+            print(f"{len(problems)} health problem(s); reported by the --health-only step")
+        return 0
     return report(problems, now, dry_run=args.dry_run)
 
 

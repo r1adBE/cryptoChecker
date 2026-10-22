@@ -49,9 +49,10 @@ extension AppData {
             SheetChartStore.shared.invalidateAll()
             let startedAt = TimeUtils.nowMillis
             let outcome: PriceRefresher.Outcome? = await refreshAll()
-            // «Letzte Prüfungen» (Build 46): auch der Knopf in der App zählt (Auslöser «App»)
+            // «Letzte Prüfungen» (Build 46): auch der Knopf in der App zählt (Auslöser «App») — seit Build 103 abseits des
+            // Hauptfadens (die Datei-Abstimmung kann auf Widget oder Hintergrund-Aufgabe warten)
             let result: CheckResult = outcome.map { CheckRunLog.result(checked: $0.checked, failed: $0.failed) } ?? .skipped
-            CheckRunStore.log(.foreground, result, startedAt: startedAt)
+            CheckRunStore.logDetached(.foreground, result, startedAt: startedAt)
         }
         return decision
     }

@@ -15,6 +15,8 @@ Errors (each one blocks a store release):
   - application debuggable, testOnly or usesCleartextTraffic="true"
   - an exported component without a permission, except MainActivity, BootReceiver and the
     launcher activity-aliases (MAIN/LAUNCHER)
+  - an exported activity without android:taskAffinity="" (task hijacking; since Build 103).
+    activity-alias has no taskAffinity attribute, it uses the one of its target activity
 
 Usage: python3 -I manifest_policy.py <AndroidManifest.xml> <findings file> <summary file>
 """
@@ -137,7 +139,7 @@ def main():
                               f"{app.get(A + 'networkSecurityConfig')} by hand")
             app_permission = app.get(A + "permission")
 
-            exported_open, fgs_types, exported_list = [], [], []
+            exported_open, fgs_types, exported_list, affinity_open = [], [], [], []
             summary.append("components:")
             for tag in COMPONENTS:
                 for comp in app.findall(tag):
@@ -158,12 +160,17 @@ def main():
                         fgs_types.append(f"{name}: {fgs}")
                     if exported:
                         exported_list.append(name)
+                        if tag == "activity" and comp.get(A + "taskAffinity") != "":
+                            affinity_open.append(name)
                         allowed = name in ALLOWED_EXPORTED or (tag == "activity-alias" and is_launcher(comp))
                         if not permission and not allowed:
                             exported_open.append(f"{tag} {name}")
             if exported_open:
                 add("error", "Exported component(s) without permission in the release manifest (set "
                              "android:exported=\"false\" or protect them):\n- " + "\n- ".join(exported_open))
+            if affinity_open:
+                add("error", "Exported activity without android:taskAffinity=\"\" in the release manifest "
+                             "(another app could join its task):\n- " + "\n- ".join(affinity_open))
             if fgs_types:
                 add("error", "foregroundServiceType declared in the release manifest (the app declares no "
                              "foreground service; Play needs a declaration per type):\n- " + "\n- ".join(fgs_types))

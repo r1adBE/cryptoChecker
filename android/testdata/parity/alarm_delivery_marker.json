@@ -1,0 +1,14 @@
+{
+  "description": "Since Build 103: a pair alarm is marked «being delivered» (alarm id, time) durably BEFORE the notification is shown and the mark is removed after saving. If the process ends in between, the next run finds the mark: a fresh mark (0 <= now - markerAt < freshMillis) while the notification is still shown means «already delivered» — the alarm is only saved, never sounded a second time. Otherwise the mark counts as an unconfirmed attempt (retry after the cooldown). Android AlarmDeliveryMarker.alreadyDelivered / iOS AlarmDelivery.alreadyDelivered. markerAt null = no mark.",
+  "freshMillis": 600000,
+  "cases": [
+    { "name": "fresh mark and notification shown", "markerAt": 1700000000000, "now": 1700000060000, "shown": true, "expected": true },
+    { "name": "same instant", "markerAt": 1700000000000, "now": 1700000000000, "shown": true, "expected": true },
+    { "name": "just under ten minutes", "markerAt": 1700000000000, "now": 1700000599999, "shown": true, "expected": true },
+    { "name": "ten minutes is stale", "markerAt": 1700000000000, "now": 1700000600000, "shown": true, "expected": false },
+    { "name": "notification gone (dismissed)", "markerAt": 1700000000000, "now": 1700000060000, "shown": false, "expected": false },
+    { "name": "no mark", "markerAt": null, "now": 1700000060000, "shown": true, "expected": false },
+    { "name": "mark in the future (clock changed)", "markerAt": 1700000600000, "now": 1700000000000, "shown": true, "expected": false },
+    { "name": "zero mark", "markerAt": 0, "now": 1000, "shown": true, "expected": false }
+  ]
+}

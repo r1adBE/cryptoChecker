@@ -276,7 +276,8 @@ class AlarmsViewModel @Inject constructor(
     private suspend fun saveIfWatchExists(alarm: AlarmEntity, onLimit: () -> Unit): Long? {
         if (watchRepository.getWatch(watchId) == null) return null
         return try {
-            watchRepository.saveAlarm(alarm).also { if (it == null) onLimit() }
+            // null auch bei gesperrter Merkliste (WatchlistStorageLock): dann nicht «Paar voll» melden
+            watchRepository.saveAlarm(alarm).also { if (it == null && !alarmSaveBlocked()) onLimit() }
         } catch (e: android.database.sqlite.SQLiteConstraintException) {
             Timber.w(e, "Alarm nicht gespeichert: Paar fehlt")
             null
@@ -287,7 +288,7 @@ class AlarmsViewModel @Inject constructor(
     private suspend fun saveMergedIfWatchExists(id: Long, onLimit: () -> Unit, build: (AlarmEntity?) -> AlarmEntity): AlarmEntity? {
         if (watchRepository.getWatch(watchId) == null) return null
         return try {
-            watchRepository.saveAlarmMerged(id, build).also { if (it == null) onLimit() }
+            watchRepository.saveAlarmMerged(id, build).also { if (it == null && !alarmSaveBlocked()) onLimit() }
         } catch (e: android.database.sqlite.SQLiteConstraintException) {
             Timber.w(e, "Alarm nicht gespeichert: Paar fehlt")
             null

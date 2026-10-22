@@ -29,9 +29,16 @@ jobs:
           persist-credentials: false
           sparse-checkout: .github/scripts
 
+      # Exchange requests without a token in the environment; result into a file (since Build 103)
       - name: Check exchange APIs
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 .github/scripts/exchange_live_check.py --skip-issue --result "$RUNNER_TEMP/exchange-result.json"
+
+      # Token only here: contacts no exchange, reads only the result file and manages the issue
+      - name: Report issue
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           PYTHONDONTWRITEBYTECODE: '1'
-        run: python3 .github/scripts/exchange_live_check.py
+        run: python3 .github/scripts/exchange_live_check.py --issue-only --result "$RUNNER_TEMP/exchange-result.json"

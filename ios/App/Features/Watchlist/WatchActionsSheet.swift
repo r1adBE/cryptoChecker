@@ -115,6 +115,8 @@ struct WatchActionsSheet: View {
         guard let preview, !adding, let market = MarketsConfig.market(preview.marketKey) else { return }
         let firstEver = data.isFirstPairAdd
         let outcome = data.tryAddWatch(market: market, pair: preview.pairInfo)
+        // Merkliste gesperrt: nichts angelegt, Hinweis und Haptik kommen von `.watchlistLockedHint`
+        if outcome == .locked { return }
         if outcome == .full {
             // Merkliste voll (`WatchlistLimits`): nichts angelegt, sagen warum — wie Android
             toast = WatchlistLimitText.full
@@ -180,6 +182,8 @@ struct WatchActionsSheet: View {
         .scrollIndicators(.hidden)
         .background(AppColors.background.ignoresSafeArea())
         .toast($toast)
+        // Vorschau nicht übernommen bzw. Paar nicht geändert (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
+        .watchlistLockedHint { toast = $0 }
         // «1 CHF = … Sats»: Faktor zuerst aus dem Zwischenspeicher, sonst frisch (neu bei anderer
         // Quote oder Umrechnungswährung)
         .task(id: "\(watch.quoteAsset)|\(data.settings.portfolioCurrency)|\(Sats.isBitcoin(watch.baseAsset))") {

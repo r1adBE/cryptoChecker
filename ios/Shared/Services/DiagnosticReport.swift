@@ -36,6 +36,8 @@ struct DiagnosticInput: Sendable {
     var exchangePauses: [String: ExchangeBackoff.State]
     /// Fehlerprotokoll des Release-Builds; nil = die App führt keines.
     var errorLog: [String]? = nil
+    /// Seit Build 103: Quell-Commit des Builds (Info.plist `CCGitCommit`); «local» = ohne Angabe gebaut.
+    var sourceCommit: String = DiagnosticReport.localCommit
 }
 
 /// «Diagnose teilen» (Build 81): reiner Textbericht, nur auf dem Gerät erstellt und erst nach der Vorschau über das
@@ -45,6 +47,8 @@ enum DiagnosticReport {
     static let fileName = "cryptochecker-diagnostics.txt"
     static let maxCheckRuns = 20
     static let redacted = "[redacted]"
+    /// Seit Build 103: Commit-Angabe eines Builds ohne Quelle (lokal gebaut).
+    static let localCommit = "local"
     private static let none = "(none)"
 
     // Alles, was nach einer Adresse oder einem erweiterten Schlüssel aussieht, fliegt raus — wie Android
@@ -81,6 +85,7 @@ enum DiagnosticReport {
         lines.append("Crypto Checker diagnostics")
         lines.append("Created: \(at(input.createdAt)) (\(zone.identifier))")
         lines.append("App: \(clean(input.appVersion)) (\(clean(input.appBuild)))")
+        lines.append("Source: \(sourceCommit(input.sourceCommit))")
         lines.append("System: \(clean(input.system))")
         lines.append("Device: \(clean(input.device))")
         lines.append("Language: \(clean(input.locale))")
@@ -142,6 +147,14 @@ enum DiagnosticReport {
             lines.append("none - the app keeps no error log")
         }
         return lines.joined(separator: "\n") + "\n"
+    }
+
+    /// Seit Build 103: Commit für die Zeile «Source» — 7 bis 40 Hex-Zeichen, gekürzt auf 12 (klein), sonst «local».
+    /// Nicht über `clean`: ein Hash kann wie eine Adresse aussehen und würde sonst ersetzt. Wie Android.
+    static func sourceCommit(_ raw: String) -> String {
+        let text = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard (7...40).contains(text.count), text.allSatisfy({ $0.isASCII && $0.isHexDigit }) else { return localCommit }
+        return String(text.prefix(12)).lowercased()
     }
 
     /// Eine Zeile, ohne Steuerzeichen und ohne Adressen.

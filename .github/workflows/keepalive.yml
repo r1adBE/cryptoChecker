@@ -1,0 +1,42 @@
+# GitHub disables scheduled workflows of a public repository after 60 days without repository activity.
+# The app depends on the hourly market-data mirror and the weekly macro calendar; a silently disabled
+# schedule would let both go stale. This job re-enables the scheduled workflows (including itself) via the
+# REST API once a week – no commits, no changes to the repository. Re-enabling an active workflow is a no-op
+# that resets the inactivity timer.
+name: Keepalive
+
+on:
+  schedule:
+    - cron: '29 3 * * 0'   # Sundays 03:29 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: keepalive
+  cancel-in-progress: false
+
+jobs:
+  enable:
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: write   # PUT /actions/workflows/{id}/enable
+    timeout-minutes: 5
+    steps:
+      - name: Re-enable scheduled workflows
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -eu
+          failed=0
+          for wf in market-data.yml macro-calendar.yml exchange-live-check.yml keepalive.yml; do
+            if gh api -X PUT "repos/$REPO/actions/workflows/$wf/enable" --silent; then
+              echo "enabled: $wf"
+            else
+              echo "::error::could not enable $wf"
+              failed=1
+            fi
+          done
+          exit "$failed"

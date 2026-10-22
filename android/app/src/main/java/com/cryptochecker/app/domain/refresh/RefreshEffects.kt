@@ -9,6 +9,7 @@ import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.remote.NearExtremeDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
+import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarkerStore
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.alarm.AlarmLog
 import com.cryptochecker.app.domain.alarm.AlarmLogTrace
@@ -18,16 +19,16 @@ import com.cryptochecker.app.domain.convert.FiatAlarmGuard
 import com.cryptochecker.app.domain.alarm.DerivativesAlarmData
 import com.cryptochecker.app.domain.alarm.MoveWindow
 import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.NotificationBudget
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.tts.SpokenText
 import com.cryptochecker.app.tts.TtsSpeaker
 import com.cryptochecker.app.data.MoveHistoryStore
+import com.cryptochecker.app.util.appScope
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -53,6 +54,8 @@ class RefreshEffects internal constructor(
     private val moveHistoryStore: AlarmMoveHistory,
     /** «Nicht geprüft seit …» für Alarme ohne Devisenkurs bzw. Kerzen (nur im Speicher). */
     internal val alarmCheckStatus: AlarmCheckStatus,
+    /** Seit Build 103: Vermerk «wird gemeldet», in der App dauerhaft ([AlarmDeliveryMarkers]). */
+    deliveryMarkers: AlarmDeliveryMarkerStore = AlarmDeliveryMarkerStore.InMemory(),
 ) {
     /** Für Hilt: die App-Klassen hinter den schmalen Schnittstellen aus RefreshPorts.kt (Tests geben Fakes). */
     @Inject constructor(
@@ -67,6 +70,7 @@ class RefreshEffects internal constructor(
         derivativesAlarmData: DerivativesAlarmData,
         moveHistoryStore: MoveHistoryStore,
         alarmCheckStatus: AlarmCheckStatus,
+        deliveryMarkers: AlarmDeliveryMarkers,
     ) : this(
         watchRepository.asRefreshStore(),
         alarmEvaluator,
@@ -79,13 +83,14 @@ class RefreshEffects internal constructor(
         derivativesAlarmData.asAlarmDerivativesSource(),
         moveHistoryStore.asAlarmMoveHistory(),
         alarmCheckStatus,
+        deliveryMarkers,
     )
 
-    /** Melden-dann-Speichern samt unbestätigter Versuche (nur im Speicher). */
-    private val delivery = com.cryptochecker.app.domain.alarm.AlarmDelivery()
+    /** Melden-dann-Speichern samt unbestätigter Versuche (seit Build 103 dauerhaft vermerkt). */
+    private val delivery = com.cryptochecker.app.domain.alarm.AlarmDelivery(deliveryMarkers)
 
     /** Vorab-Abrufe der Alarm-Zusatzdaten ([startAlarmPrefetch]); laufen nach dem Warten fertig. */
-    internal val prefetchScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    internal val prefetchScope = appScope(Dispatchers.IO, "RefreshEffects")
 
     internal suspend fun checkAlarms(
         watch: WatchEntity,
@@ -179,6 +184,7 @@ class RefreshEffects internal constructor(
                 mark = mark,
                 retract = { notifier.cancelAlarms(listOf(alarm.id)) },
                 snoozed = snoozed,
+                isShown = { notifier.activeNotificationIds()?.contains(AppNotifier.alarmNotificationId(alarm.id)) == true },
             )
             if (trace != null && logPrice != null) observe {
                 AlarmLog.deliveryTrace(holdAlarms, canShowSeen, shownSeen, saved, snoozed)?.let { trace.note(alarm, it, logPrice) }

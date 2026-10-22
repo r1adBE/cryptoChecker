@@ -54,6 +54,8 @@ struct PortfolioScreen: View {
     @Environment(\.accessibilityVoiceOverEnabled) var voiceOver
     /// Uhr für «vor 2 Min.» und den Wechsel nach «veraltet» (alle 30 s, wie der Markt-Tab).
     @State var now = TimeUtils.nowMillis
+    /// FIFO je Wallet: Abgänge über den Bestand ihrer Wallet — seit Build 103 im Hintergrund (`PortfolioWalletShortfallKey`).
+    @State var walletShortfalls: [PortfolioWalletShortfall] = []
 
     init() {}
 
@@ -94,6 +96,11 @@ struct PortfolioScreen: View {
             // Beim Öffnen und bei neuen Coins Kurse auffrischen (60 s Zwischenspeicher)
             .task(id: model.calcCoins) { await model.refresh(force: false) }
             .task(id: currency) { await model.loadFx(currency) }
+            .task(id: PortfolioWalletShortfallKey(trades: transactions, method: data.settings.costMethod)) {
+                let key = PortfolioWalletShortfallKey(trades: transactions, method: data.settings.costMethod)
+                let result = await key.compute()
+                if !Task.isCancelled { walletShortfalls = result }
+            }
             .task {
                 while !Task.isCancelled {
                     try? await Task.sleep(nanoseconds: 30_000_000_000)

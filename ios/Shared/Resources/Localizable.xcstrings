@@ -59361,6 +59361,197 @@
         }
       }
     },
+    "alarm_threshold_error_percent_down_below" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يجب أن يكون الانخفاض أقل من 100 بالمئة."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokles musí být menší než 100 procent."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et fald skal være under 100 procent."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Rückgang muss unter 100 Prozent liegen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια πτώση πρέπει να είναι κάτω από 100 τοις εκατό."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A drop must be less than 100 percent."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una caída debe ser inferior al 100 por ciento."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کاهش باید کمتر از ۱۰۰ درصد باشد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laskun täytyy olla alle 100 prosenttia."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une baisse doit être inférieure à 100 pour cent."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ירידה חייבת להיות פחות מ-100 אחוז."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "गिरावट 100 प्रतिशत से कम होनी चाहिए।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egy esésnek 100 százalék alatt kell lennie."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Penurunan harus kurang dari 100 persen."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un calo deve essere inferiore al 100 per cento."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下落は 100 パーセント未満にしてください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "하락폭은 100퍼센트 미만이어야 합니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et fall må være under 100 prosent."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een daling moet minder dan 100 procent zijn."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spadek musi wynosić mniej niż 100 procent."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma descida tem de ser inferior a 100 por cento."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma queda precisa ser menor que 100 por cento."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O scădere trebuie să fie sub 100 la sută."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Падение должно быть меньше 100 процентов."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Një rënie duhet të jetë nën 100 për qind."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En nedgång måste vara under 100 procent."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การลดลงต้องน้อยกว่า 100 เปอร์เซ็นต์"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir düşüş yüzde 100'den az olmalı."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Падіння має бути менше ніж 100 відсотків."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mức giảm phải nhỏ hơn 100 phần trăm."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跌幅必须小于百分之一百。"
+          }
+        }
+      }
+    },
     "alarm_timing_hint_android" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -211160,6 +211351,197 @@
         }
       }
     },
+    "portfolio_csv_import_rereading" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تُعاد قراءة الملف …"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soubor se načítá znovu …"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filen læses igen …"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datei wird neu gelesen …"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το αρχείο διαβάζεται ξανά …"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading the file again …"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volviendo a leer el archivo …"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فایل دوباره خوانده می‌شود …"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiedostoa luetaan uudelleen …"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouvelle lecture du fichier …"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הקובץ נקרא מחדש …"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "फ़ाइल फिर से पढ़ी जा रही है …"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A fájl újraolvasása …"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Membaca ulang file …"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rilettura del file …"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ファイルを読み直しています…"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "파일을 다시 읽는 중…"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filen leses på nytt …"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bestand wordt opnieuw gelezen …"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ponowne wczytywanie pliku …"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A ler o ficheiro novamente …"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lendo o arquivo novamente …"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fișierul se citește din nou …"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Файл читается заново …"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skedari po lexohet sërish …"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filen läses in igen …"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กำลังอ่านไฟล์ใหม่…"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dosya yeniden okunuyor …"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Файл читається знову …"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đang đọc lại tệp…"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在重新读取文件…"
+          }
+        }
+      }
+    },
     "portfolio_csv_import_skipped" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -257336,6 +257718,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已提取：%1$@（截至提取的价值变化）"
+          }
+        }
+      }
+    },
+    "portfolio_write_failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّر الحفظ – يُرجى المحاولة مرة أخرى"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nepodařilo se uložit – zkus to prosím znovu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunne ikke gemmes – prøv igen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konnte nicht gespeichert werden – versuch es nochmals"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν ήταν δυνατή η αποθήκευση – δοκίμασε ξανά"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't be saved – please try again"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo guardar – inténtalo de nuevo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ذخیره ممکن نشد – لطفاً دوباره امتحان کن"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tallennus ei onnistunut – yritä uudelleen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible d’enregistrer – réessaie"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא ניתן היה לשמור – נסו שוב"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सहेजा नहीं जा सका – कृपया फिर से कोशिश करो"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nem sikerült menteni – próbáld újra"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak dapat disimpan – silakan coba lagi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossibile salvare – riprova"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存できませんでした – もう一度お試しください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저장할 수 없습니다 – 다시 시도해 주세요"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunne ikke lagres – prøv igjen"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kon niet worden opgeslagen – probeer het opnieuw"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się zapisać – spróbuj ponownie"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível guardar – tenta novamente"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não foi possível salvar – tente novamente"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nu s-a putut salva – încearcă din nou"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось сохранить – попробуй ещё раз"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nuk mund të ruhej – provo përsëri"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunde inte sparas – försök igen"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่สามารถบันทึกได้ – โปรดลองอีกครั้ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaydedilemedi – lütfen tekrar dene"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося зберегти – спробуй ще раз"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể lưu – vui lòng thử lại"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法保存 – 请重试"
           }
         }
       }
@@ -395119,187 +395692,378 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تعذّرت قراءة البيانات المحفوظة الآن، لذلك لا تُعرض قائمة المتابعة ولن تُحفظ التغييرات التي تجريها الآن. أعد تشغيل التطبيق."
+            "value" : "تعذّرت قراءة البيانات المحفوظة الآن، لذلك لا تُعرض قائمة المتابعة ولا يمكن تغييرها. أعد تشغيل التطبيق."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Uložená data teď nelze přečíst, proto se seznam nezobrazuje a změny provedené teď se neuloží. Restartuj aplikaci."
+            "value" : "Uložená data teď nelze přečíst, proto se seznam nezobrazuje a nelze ho měnit. Restartuj aplikaci."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gemte data kan ikke læses lige nu, så overvågningslisten vises ikke, og ændringer foretaget nu bliver ikke gemt. Genstart appen."
+            "value" : "Gemte data kan ikke læses lige nu, så overvågningslisten vises ikke og kan ikke ændres. Genstart appen."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gespeicherte Daten gerade nicht lesbar – die Merkliste wird nicht angezeigt, Änderungen von jetzt werden nicht gespeichert. Starte die App neu."
+            "value" : "Gespeicherte Daten gerade nicht lesbar – die Merkliste wird nicht angezeigt und lässt sich nicht ändern. Starte die App neu."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Τα αποθηκευμένα δεδομένα δεν μπορούν να διαβαστούν αυτή τη στιγμή, γι' αυτό η λίστα δεν εμφανίζεται και οι αλλαγές που κάνεις τώρα δεν θα αποθηκευτούν. Επανεκκίνησε την εφαρμογή."
+            "value" : "Τα αποθηκευμένα δεδομένα δεν μπορούν να διαβαστούν αυτή τη στιγμή, γι' αυτό η λίστα δεν εμφανίζεται και δεν αλλάζει. Επανεκκίνησε την εφαρμογή."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saved data can't be read right now, so the watchlist isn't shown and changes made now won't be saved. Restart the app."
+            "value" : "Saved data can't be read right now, so the watchlist isn't shown and can't be changed. Restart the app."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ahora no se pueden leer los datos guardados, así que la lista no se muestra y los cambios hechos ahora no se guardarán. Reinicia la app."
+            "value" : "Ahora no se pueden leer los datos guardados, así que la lista no se muestra ni se puede cambiar. Reinicia la app."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "داده‌های ذخیره‌شده الان خوانده نمی‌شوند، بنابراین واچ‌لیست نمایش داده نمی‌شود و تغییراتی که الان می‌دهی ذخیره نمی‌شوند. برنامه را دوباره راه‌اندازی کن."
+            "value" : "داده‌های ذخیره‌شده الان خوانده نمی‌شوند، بنابراین واچ‌لیست نمایش داده نمی‌شود و قابل تغییر نیست. برنامه را دوباره راه‌اندازی کن."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tallennettuja tietoja ei voi juuri nyt lukea, joten seurantalistaa ei näytetä eikä nyt tehtyjä muutoksia tallenneta. Käynnistä sovellus uudelleen."
+            "value" : "Tallennettuja tietoja ei voi juuri nyt lukea, joten seurantalistaa ei näytetä eikä sitä voi muuttaa. Käynnistä sovellus uudelleen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les données enregistrées sont illisibles pour l'instant : la liste n'est pas affichée et les modifications faites maintenant ne seront pas enregistrées. Redémarre l'app."
+            "value" : "Les données enregistrées sont illisibles pour l'instant : la liste n'est pas affichée et ne peut pas être modifiée. Redémarre l'app."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "לא ניתן לקרוא כרגע את הנתונים השמורים, ולכן רשימת המעקב לא מוצגת ושינויים שתבצעו עכשיו לא יישמרו. הפעילו מחדש את האפליקציה."
+            "value" : "לא ניתן לקרוא כרגע את הנתונים השמורים, ולכן רשימת המעקב לא מוצגת ואי אפשר לשנות אותה. הפעילו מחדש את האפליקציה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सहेजा गया डेटा अभी पढ़ा नहीं जा सकता, इसलिए वॉचलिस्ट नहीं दिख रही और अभी किए गए बदलाव सहेजे नहीं जाएँगे। ऐप दोबारा शुरू करो।"
+            "value" : "सहेजा गया डेटा अभी पढ़ा नहीं जा सकता, इसलिए वॉचलिस्ट नहीं दिख रही और बदली नहीं जा सकती। ऐप दोबारा शुरू करो।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A mentett adatok most nem olvashatók, ezért a figyelőlista nem látható, és a most végzett módosítások nem lesznek mentve. Indítsd újra az alkalmazást."
+            "value" : "A mentett adatok most nem olvashatók, ezért a figyelőlista nem látható és nem módosítható. Indítsd újra az alkalmazást."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Data tersimpan tidak dapat dibaca saat ini, jadi daftar pantau tidak ditampilkan dan perubahan yang dibuat sekarang tidak akan disimpan. Mulai ulang aplikasi."
+            "value" : "Data tersimpan tidak dapat dibaca saat ini, jadi daftar pantau tidak ditampilkan dan tidak dapat diubah. Mulai ulang aplikasi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I dati salvati non sono leggibili al momento, quindi la lista non viene mostrata e le modifiche fatte ora non verranno salvate. Riavvia l'app."
+            "value" : "I dati salvati non sono leggibili al momento, quindi la lista non viene mostrata e non si può modificare. Riavvia l'app."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "保存済みのデータを今は読み取れないため、ウォッチリストを表示できず、今行った変更は保存されません。アプリを再起動してください。"
+            "value" : "保存済みのデータを今は読み取れないため、ウォッチリストを表示・変更できません。アプリを再起動してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "저장된 데이터를 지금 읽을 수 없어 관심 목록을 표시할 수 없고, 지금 변경한 내용은 저장되지 않습니다. 앱을 다시 시작하세요."
+            "value" : "저장된 데이터를 지금 읽을 수 없어 관심 목록을 표시하거나 변경할 수 없습니다. 앱을 다시 시작하세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lagrede data kan ikke leses akkurat nå, så overvåkingslisten vises ikke, og endringer du gjør nå, blir ikke lagret. Start appen på nytt."
+            "value" : "Lagrede data kan ikke leses akkurat nå, så overvåkingslisten vises ikke og kan ikke endres. Start appen på nytt."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Opgeslagen gegevens zijn nu niet leesbaar, dus de volglijst wordt niet getoond en wijzigingen van nu worden niet opgeslagen. Start de app opnieuw."
+            "value" : "Opgeslagen gegevens zijn nu niet leesbaar, dus de volglijst wordt niet getoond en kan niet worden gewijzigd. Start de app opnieuw."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zapisanych danych nie można teraz odczytać, więc lista nie jest wyświetlana, a zmiany wprowadzone teraz nie zostaną zapisane. Uruchom aplikację ponownie."
+            "value" : "Zapisanych danych nie można teraz odczytać, więc lista nie jest wyświetlana i nie można jej zmienić. Uruchom aplikację ponownie."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Os dados guardados não podem ser lidos agora, por isso a lista não é mostrada e as alterações feitas agora não serão guardadas. Reinicia a app."
+            "value" : "Os dados guardados não podem ser lidos agora, por isso a lista não é mostrada nem pode ser alterada. Reinicia a app."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Os dados salvos não podem ser lidos agora, por isso a lista não é exibida e as alterações feitas agora não serão salvas. Reinicie o app."
+            "value" : "Os dados salvos não podem ser lidos agora, por isso a lista não é exibida nem pode ser alterada. Reinicie o app."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Datele salvate nu pot fi citite acum, așa că lista nu este afișată, iar modificările făcute acum nu vor fi salvate. Repornește aplicația."
+            "value" : "Datele salvate nu pot fi citite acum, așa că lista nu este afișată și nu poate fi modificată. Repornește aplicația."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сохранённые данные сейчас не удаётся прочитать, поэтому список не показан, а изменения, сделанные сейчас, не сохранятся. Перезапусти приложение."
+            "value" : "Сохранённые данные сейчас не удаётся прочитать, поэтому список не показан и его нельзя изменить. Перезапусти приложение."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Të dhënat e ruajtura nuk mund të lexohen tani, ndaj lista nuk shfaqet dhe ndryshimet e bëra tani nuk do të ruhen. Rinis aplikacionin."
+            "value" : "Të dhënat e ruajtura nuk mund të lexohen tani, ndaj lista nuk shfaqet dhe nuk mund të ndryshohet. Rinis aplikacionin."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sparade data kan inte läsas just nu, så bevakningslistan visas inte och ändringar du gör nu sparas inte. Starta om appen."
+            "value" : "Sparade data kan inte läsas just nu, så bevakningslistan visas inte och kan inte ändras. Starta om appen."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ยังอ่านข้อมูลที่บันทึกไว้ไม่ได้ในขณะนี้ จึงไม่แสดงรายการติดตาม และการเปลี่ยนแปลงที่ทำตอนนี้จะไม่ถูกบันทึก โปรดเริ่มแอปใหม่"
+            "value" : "ยังอ่านข้อมูลที่บันทึกไว้ไม่ได้ในขณะนี้ จึงไม่แสดงรายการติดตามและแก้ไขไม่ได้ โปรดเริ่มแอปใหม่"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kayıtlı veriler şu anda okunamıyor, bu yüzden liste gösterilmiyor ve şimdi yapılan değişiklikler kaydedilmez. Uygulamayı yeniden başlat."
+            "value" : "Kayıtlı veriler şu anda okunamıyor, bu yüzden liste gösterilmiyor ve değiştirilemiyor. Uygulamayı yeniden başlat."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Збережені дані зараз не вдається прочитати, тому список не показаний, а зміни, зроблені зараз, не збережуться. Перезапусти застосунок."
+            "value" : "Збережені дані зараз не вдається прочитати, тому список не показаний і його не можна змінити. Перезапусти застосунок."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hiện không đọc được dữ liệu đã lưu, nên danh sách không được hiển thị và các thay đổi thực hiện bây giờ sẽ không được lưu. Hãy khởi động lại ứng dụng."
+            "value" : "Hiện không đọc được dữ liệu đã lưu, nên danh sách không được hiển thị và không thể thay đổi. Hãy khởi động lại ứng dụng."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暂时无法读取已保存的数据，因此自选列表不会显示，现在所做的更改也不会被保存。请重启应用。"
+            "value" : "暂时无法读取已保存的数据，因此自选列表不会显示，也无法更改。请重启应用。"
+          }
+        }
+      }
+    },
+    "watchlist_storage_locked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يمكن تغيير قائمة المتابعة: تعذّرت قراءة البيانات المحفوظة الآن. أعد تشغيل التطبيق."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seznam nelze měnit: uložená data teď nelze přečíst. Restartuj aplikaci."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overvågningslisten kan ikke ændres: Gemte data kan ikke læses lige nu. Genstart appen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Merkliste lässt sich nicht ändern: Gespeicherte Daten gerade nicht lesbar. Starte die App neu."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η λίστα δεν μπορεί να αλλάξει: τα αποθηκευμένα δεδομένα δεν μπορούν να διαβαστούν αυτή τη στιγμή. Επανεκκίνησε την εφαρμογή."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The watchlist can't be changed: saved data can't be read right now. Restart the app."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se puede cambiar la lista: ahora no se pueden leer los datos guardados. Reinicia la app."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "واچ‌لیست قابل تغییر نیست: داده‌های ذخیره‌شده الان خوانده نمی‌شوند. برنامه را دوباره راه‌اندازی کن."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seurantalistaa ei voi muuttaa: tallennettuja tietoja ei voi juuri nyt lukea. Käynnistä sovellus uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de modifier la liste : les données enregistrées sont illisibles pour l'instant. Redémarre l'app."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אי אפשר לשנות את רשימת המעקב: לא ניתן לקרוא כרגע את הנתונים השמורים. הפעילו מחדש את האפליקציה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "वॉचलिस्ट बदली नहीं जा सकती: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करो।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A figyelőlista nem módosítható: a mentett adatok most nem olvashatók. Indítsd újra az alkalmazást."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daftar pantau tidak dapat diubah: data tersimpan tidak dapat dibaca saat ini. Mulai ulang aplikasi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossibile modificare la lista: i dati salvati non sono leggibili al momento. Riavvia l'app."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ウォッチリストを変更できません：保存済みのデータを今は読み取れません。アプリを再起動してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "관심 목록을 변경할 수 없습니다: 저장된 데이터를 지금 읽을 수 없습니다. 앱을 다시 시작하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overvåkingslisten kan ikke endres: Lagrede data kan ikke leses akkurat nå. Start appen på nytt."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De volglijst kan niet worden gewijzigd: opgeslagen gegevens zijn nu niet leesbaar. Start de app opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie można zmienić listy: zapisanych danych nie można teraz odczytać. Uruchom aplikację ponownie."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível alterar a lista: os dados guardados não podem ser lidos agora. Reinicia a app."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível alterar a lista: os dados salvos não podem ser lidos agora. Reinicie o app."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista nu poate fi modificată: datele salvate nu pot fi citite acum. Repornește aplicația."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Список нельзя изменить: сохранённые данные сейчас не удаётся прочитать. Перезапусти приложение."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista nuk mund të ndryshohet: të dhënat e ruajtura nuk mund të lexohen tani. Rinis aplikacionin."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bevakningslistan kan inte ändras: Sparade data kan inte läsas just nu. Starta om appen."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แก้ไขรายการติดตามไม่ได้: ยังอ่านข้อมูลที่บันทึกไว้ไม่ได้ในขณะนี้ โปรดเริ่มแอปใหม่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liste değiştirilemiyor: kayıtlı veriler şu anda okunamıyor. Uygulamayı yeniden başlat."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Список не можна змінити: збережені дані зараз не вдається прочитати. Перезапусти застосунок."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể thay đổi danh sách: hiện không đọc được dữ liệu đã lưu. Hãy khởi động lại ứng dụng."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法更改自选列表：暂时无法读取已保存的数据。请重启应用。"
           }
         }
       }
@@ -395682,6 +396446,647 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "语音播报已开启。可在此更改：设置 › 高级 › 语音播报。"
+          }
+        }
+      }
+    },
+    "watchlist_undo_full" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "أزواج لم تُستعد: %1$lld – قائمة المتابعة ممتلئة"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "أزواج لم تُستعد: %1$lld – قائمة المتابعة ممتلئة"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "أزواج لم تُستعد: %1$lld – قائمة المتابعة ممتلئة"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "أزواج لم تُستعد: %1$lld – قائمة المتابعة ممتلئة"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "أزواج لم تُستعد: %1$lld – قائمة المتابعة ممتلئة"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "أزواج لم تُستعد: %1$lld – قائمة المتابعة ممتلئة"
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Neobnovené páry: %1$lld – seznam sledovaných je plný"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Neobnovené páry: %1$lld – seznam sledovaných je plný"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Neobnovené páry: %1$lld – seznam sledovaných je plný"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Neobnovené páry: %1$lld – seznam sledovaných je plný"
+                }
+              }
+            }
+          }
+        },
+        "da" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par ikke gendannet – overvågningslisten er fuld"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par ikke gendannet – overvågningslisten er fuld"
+                }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld Paar nicht zurückgeholt – Merkliste voll"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld Paare nicht zurückgeholt – Merkliste voll"
+                }
+              }
+            }
+          }
+        },
+        "el" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Δεν επαναφέρθηκε %1$lld ζεύγος – η λίστα παρακολούθησης είναι γεμάτη"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Δεν επαναφέρθηκαν %1$lld ζεύγη – η λίστα παρακολούθησης είναι γεμάτη"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pair not restored – watchlist full"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pairs not restored – watchlist full"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pares no restaurados: lista de seguimiento llena"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par no restaurado: lista de seguimiento llena"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pares no restaurados: lista de seguimiento llena"
+                }
+              }
+            }
+          }
+        },
+        "fa" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld جفت برنگشت – واچ‌لیست پر است"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld جفت برنگشت – واچ‌لیست پر است"
+                }
+              }
+            }
+          }
+        },
+        "fi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pari ei palautettu – seurantalista on täynnä"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld paria ei palautettu – seurantalista on täynnä"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld paires non restaurées – liste de suivi pleine"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld paire non restaurée – liste de suivi pleine"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld paires non restaurées – liste de suivi pleine"
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "צמדים שלא שוחזרו: %1$lld – רשימת המעקב מלאה"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "צמדים שלא שוחזרו: %1$lld – רשימת המעקב מלאה"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "צמדים שלא שוחזרו: %1$lld – רשימת המעקב מלאה"
+                }
+              }
+            }
+          }
+        },
+        "hi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld पेयर वापस नहीं आया – वॉचलिस्ट भरी है"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld पेयर वापस नहीं आए – वॉचलिस्ट भरी है"
+                }
+              }
+            }
+          }
+        },
+        "hu" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pár nem állítható vissza – a figyelőlista megtelt"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pár nem állítható vissza – a figyelőlista megtelt"
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pasangan tidak dikembalikan – daftar pantau penuh"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld coppie non ripristinate – lista di osservazione piena"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld coppia non ripristinata – lista di osservazione piena"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld coppie non ripristinate – lista di osservazione piena"
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld 件のペアを元に戻せませんでした（ウォッチリストが上限です）"
+                }
+              }
+            }
+          }
+        },
+        "ko" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "거래쌍 %1$lld개를 복원하지 못했습니다 – 관심 목록이 가득 찼습니다"
+                }
+              }
+            }
+          }
+        },
+        "nb" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par ble ikke gjenopprettet – overvåkingslisten er full"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par ble ikke gjenopprettet – overvåkingslisten er full"
+                }
+              }
+            }
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld paar niet teruggezet – volglijst vol"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld paren niet teruggezet – volglijst vol"
+                }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Nieprzywrócone pary: %1$lld – lista obserwowanych pełna"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Nieprzywrócone pary: %1$lld – lista obserwowanych pełna"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Nieprzywrócone pary: %1$lld – lista obserwowanych pełna"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Nieprzywrócone pary: %1$lld – lista obserwowanych pełna"
+                }
+              }
+            }
+          }
+        },
+        "pt" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pares não repostos – lista de acompanhamento cheia"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par não reposto – lista de acompanhamento cheia"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pares não repostos – lista de acompanhamento cheia"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pares não restaurados – lista de acompanhamento cheia"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par não restaurado – lista de acompanhamento cheia"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld pares não restaurados – lista de acompanhamento cheia"
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Perechi nerecuperate: %1$lld – lista de urmărire e plină"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Perechi nerecuperate: %1$lld – lista de urmărire e plină"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Perechi nerecuperate: %1$lld – lista de urmărire e plină"
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Не восстановлено пар: %1$lld – список заполнен"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Не восстановлено пар: %1$lld – список заполнен"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Не восстановлено пар: %1$lld – список заполнен"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Не восстановлено пар: %1$lld – список заполнен"
+                }
+              }
+            }
+          }
+        },
+        "sq" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld çift nuk u rikthye – lista e ndjekjes është plot"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld çifte nuk u rikthyen – lista e ndjekjes është plot"
+                }
+              }
+            }
+          }
+        },
+        "sv" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par återställdes inte – bevakningslistan är full"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld par återställdes inte – bevakningslistan är full"
+                }
+              }
+            }
+          }
+        },
+        "th" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "กู้คืนไม่ได้ %1$lld คู่ – รายการติดตามเต็มแล้ว"
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld çift geri alınamadı – izleme listesi dolu"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld çift geri alınamadı – izleme listesi dolu"
+                }
+              }
+            }
+          }
+        },
+        "uk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Не відновлено пар: %1$lld – список заповнений"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Не відновлено пар: %1$lld – список заповнений"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Не відновлено пар: %1$lld – список заповнений"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Не відновлено пар: %1$lld – список заповнений"
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Không khôi phục được %1$lld cặp – danh sách theo dõi đã đầy"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "有 %1$lld 个交易对未恢复 – 自选已满"
+                }
+              }
+            }
           }
         }
       }

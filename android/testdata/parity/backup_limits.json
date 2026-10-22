@@ -1,5 +1,5 @@
 {
-  "description": "Grenzen beim Wiederherstellen von Merkliste und Paar-Alarmen aus einer Sicherung: Android BackupRestoreLimits.kt + BackupWatchlistCodec.jsonToWatch, iOS BackupRestoreLimits.swift + BackupManager.jsonToWatch. «kept» = Paar wird übernommen; «group»/«note» = gespeicherter Wert (null = keiner). Längen in Unicode-Codepunkten (Kennungen) bzw. sichtbaren Zeichen (Gruppe, Notiz). Seit Build 99. «limitCases» (seit Build 99): ganze Merkliste der Sicherung lesen, bereinigen und begrenzen (Android BackupWatchlistCodec.readWatchlist, iOS BackupManager.restoredWatchlist); Paare mit Ids 1…«pairs» (Basis «B<id>», Kennung «B<id>USDT»), «invalidPairIds» = Kennung mit Leerzeichen, «duplicates» = [id, gleiches Paar wie id], «alarms» = [Paar-Id, Anzahl] mit fortlaufenden Alarm-Ids; erwartet behaltene und wegen der Grenzen weggelassene Paare und Alarme.",
+  "description": "Grenzen beim Wiederherstellen von Merkliste und Paar-Alarmen aus einer Sicherung: Android BackupRestoreLimits.kt + BackupWatchlistCodec.jsonToWatch, iOS BackupRestoreLimits.swift + BackupManager.jsonToWatch. «kept» = Paar wird übernommen; «group»/«note» = gespeicherter Wert (null = keiner). Längen in Unicode-Codepunkten (Kennungen) bzw. sichtbaren Zeichen (Gruppe, Notiz). Seit Build 99. «limitCases» (seit Build 99): ganze Merkliste der Sicherung lesen, bereinigen und begrenzen (Android BackupWatchlistCodec.readWatchlist, iOS BackupManager.restoredWatchlist); Paare mit Ids 1…«pairs» (Basis «B<id>», Kennung «B<id>USDT»), «invalidPairIds» = Kennung mit Leerzeichen, «duplicates» = [id, gleiches Paar wie id], «alarms» = [Paar-Id, Anzahl] mit fortlaufenden Alarm-Ids; erwartet behaltene und wegen der Grenzen weggelassene Paare und Alarme. Seit Build 103: optional «expectedHoldings» = gespeicherter Bestand (null = keiner); nur endliche Werte > 0 bleiben (Android wie iOS `Watch.validHoldings`). Zahlen, die JSON nicht fassen kann, als Zeichenkette («Infinity», «1e400»).",
   "limits": {
     "maxMarketKey": 64,
     "maxMarketName": 60,
@@ -486,6 +486,120 @@
       "kept": true,
       "group": null,
       "note": "merken"
+    },
+    {
+      "description": "Bestand 0.5 bleibt",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null,
+        "holdings": 0.5
+      },
+      "kept": true,
+      "group": null,
+      "note": null,
+      "expectedHoldings": 0.5
+    },
+    {
+      "description": "Bestand unendlich fällt weg (seit Build 103)",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null,
+        "holdings": "Infinity"
+      },
+      "kept": true,
+      "group": null,
+      "note": null,
+      "expectedHoldings": null
+    },
+    {
+      "description": "Bestand minus unendlich fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null,
+        "holdings": "-Infinity"
+      },
+      "kept": true,
+      "group": null,
+      "note": null,
+      "expectedHoldings": null
+    },
+    {
+      "description": "Bestand 1e400 (unendlich) fällt weg (seit Build 103)",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null,
+        "holdings": "1e400"
+      },
+      "kept": true,
+      "group": null,
+      "note": null,
+      "expectedHoldings": null
+    },
+    {
+      "description": "Bestand NaN fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null,
+        "holdings": "NaN"
+      },
+      "kept": true,
+      "group": null,
+      "note": null,
+      "expectedHoldings": null
+    },
+    {
+      "description": "Bestand 0 fällt weg",
+      "watch": {
+        "id": 1,
+        "marketKey": "Binance",
+        "marketName": "Binance",
+        "baseAsset": "BTC",
+        "quoteAsset": "USDT",
+        "contractType": "NONE",
+        "pairId": "BTCUSDT",
+        "group": null,
+        "note": null,
+        "holdings": 0
+      },
+      "kept": true,
+      "group": null,
+      "note": null,
+      "expectedHoldings": null
     }
   ],
   "limitCases": [

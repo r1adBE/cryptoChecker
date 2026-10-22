@@ -330,8 +330,8 @@ class WatchlistViewModel @Inject constructor(
     /** Löschen mit «Rückgängig» ([undoDelete] mit [undoKey]; Sammlung im Banner: [RemovedBatch]). */
     fun deleteWithUndo(watch: WatchEntity, undoKey: Long = watch.id) = edits.deleteWithUndo(watch, undoKey)
 
-    /** «Rückgängig» für [watchId] bzw. [NOT_TRADED_UNDO_KEY] / [SELECTION_UNDO_KEY]. */
-    fun undoDelete(watchId: Long) = edits.undoDelete(watchId)
+    /** «Rückgängig» für [watchId] bzw. [NOT_TRADED_UNDO_KEY] / [SELECTION_UNDO_KEY]; [onFull] seit Build 103: Merkliste voll. */
+    fun undoDelete(watchId: Long, onFull: (Int) -> Unit = {}) = edits.undoDelete(watchId, onFull)
 
     /** «Nicht gehandelte Paare entfernen»; [onDone] bekommt die Zahl der gelöschten Paare. */
     fun deleteNotTradedWithUndo(onDone: (Int) -> Unit) = edits.deleteNotTradedWithUndo(onDone)

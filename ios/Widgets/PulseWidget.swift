@@ -28,10 +28,12 @@ struct PulseEntry: TimelineEntry {
     /// nil = keine (brauchbaren) Marktdaten → «nicht verfügbar».
     let data: PulseMarketData?
     let theme: WidgetThemeOption
+    /// Werte aus den App-Einstellungen: einmal dekodiert und übergeben (`PulseEntry.styled`, seit Build 103; vorher je
+    /// Feld erneut).
     let accent: AccentColor
-    var priceColors: PriceColorScheme = SharedStorage.loadSettings().priceColorScheme
-    var highContrast: Bool = SharedStorage.loadSettings().highContrast
-    var priceColorsInverted: Bool = SharedStorage.loadSettings().priceColorsInverted
+    var priceColors: PriceColorScheme
+    var highContrast: Bool
+    var priceColorsInverted: Bool
     /// Fear & Greed aus dem App-Group-Speicher (≤ 24 h, kein eigener Abruf); nil = Zeile weg.
     var fearGreed: Int? = FearGreedShared.showable(FearGreedShared.stored(), now: TimeUtils.nowMillis)
     /// Fear & Greed samt Speicherzeit für «Kurz gesagt» (Frische-Regel wie in der App, nicht die 24 h der Zeile).
@@ -100,8 +102,20 @@ struct PulseEntry: TimelineEntry {
                                    time: now,
                                    topChanges: Array(repeating: 1.2, count: 22) + Array(repeating: -0.8, count: 8),
                                    marketCapUsd: 2.9e12, marketCap24h: 1.8)
-        return PulseEntry(date: Date(), data: data, theme: theme, accent: SharedStorage.loadSettings().accentColor,
-                          fearGreed: 72, plainFearGreed: FearGreedShared.Stored(value: 72, time: now), displayWidth: width)
+        return styled(data: data, theme: theme, width: width, fearGreed: 72,
+                      plainFearGreed: FearGreedShared.Stored(value: 72, time: now))
+    }
+
+    /// Neuer Eintrag jetzt; Einstellungen und Fear & Greed je EINMAL gelesen (seit Build 103).
+    static func styled(data: PulseMarketData?, theme: WidgetThemeOption, width: CGFloat,
+                       fearGreed: Int? = nil, plainFearGreed: FearGreedShared.Stored? = nil,
+                       settings: AppSettings = SharedStorage.loadSettings()) -> PulseEntry {
+        let stored = plainFearGreed ?? FearGreedShared.stored()
+        return PulseEntry(date: Date(), data: data, theme: theme, accent: settings.accentColor,
+                          priceColors: settings.priceColorScheme, highContrast: settings.highContrast,
+                          priceColorsInverted: settings.priceColorsInverted,
+                          fearGreed: fearGreed ?? FearGreedShared.showable(stored, now: TimeUtils.nowMillis),
+                          plainFearGreed: stored, displayWidth: width)
     }
 }
 
@@ -190,8 +204,7 @@ struct PulseProvider: AppIntentTimelineProvider {
     }
 
     private static func entry(_ data: PulseMarketData?, theme: WidgetThemeOption, width: CGFloat) -> PulseEntry {
-        PulseEntry(date: Date(), data: data, theme: theme, accent: SharedStorage.loadSettings().accentColor,
-                   displayWidth: width)
+        PulseEntry.styled(data: data, theme: theme, width: width)
     }
 }
 

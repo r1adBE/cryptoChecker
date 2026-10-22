@@ -245,7 +245,10 @@ internal fun MarketCoinSheets(
                     state.actionsFor = null
                     watchlist.deleteWithUndo(shown)
                     banner.show(resources.getString(R.string.watchlist_removed, shown.displayName)) {
-                        watchlist.undoDelete(shown.id)
+                        // Seit Build 103: Merkliste inzwischen voll → Hinweis
+                        watchlist.undoDelete(shown.id) { n ->
+                            banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n))
+                        }
                     }
                 },
                 groups = groups,

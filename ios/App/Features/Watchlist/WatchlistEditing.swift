@@ -26,7 +26,7 @@ extension WatchlistScreen {
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.deleteForUndo(watch) }
         guard let deleted = result else { return }
         let message = WatchlistBannerMessage.removed(deleted, after: banner) { all in
-            withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(all) }
+            undoRestore(all)
         }
         let text = message.text
         banner = message
@@ -50,7 +50,7 @@ extension WatchlistScreen {
             text: text,
             icon: "trash",
             action: WatchlistBannerAction.undo {
-                withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(removed) }
+                undoRestore(removed)
             }
         )
         Task { @MainActor in
@@ -73,7 +73,7 @@ extension WatchlistScreen {
             text: text,
             icon: "trash",
             action: WatchlistBannerAction.undo {
-                withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(removed) }
+                undoRestore(removed)
             }
         )
         Task { @MainActor in
@@ -85,7 +85,23 @@ extension WatchlistScreen {
 
     /// «Rückgängig»: Paar mit Id, Platz, Gruppe, Notiz, Mitteilung, Favorit und Alarmen zurück.
     func undoDelete(_ deleted: DeletedWatch) {
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(deleted) }
+        var result = UndoRestoreResult()
+        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.restore(deleted) }
+        showUndoFull(result)
+    }
+
+    /// «Rückgängig» für mehrere Paare; seit Build 103 mit Hinweis, wenn die Merkliste inzwischen voll ist.
+    func undoRestore(_ deleted: [DeletedWatch]) {
+        var result = UndoRestoreResult()
+        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.restore(deleted) }
+        showUndoFull(result)
+    }
+
+    /// Seit Build 103: «n nicht zurückgeholt – Merkliste voll» (wie Android).
+    func showUndoFull(_ result: UndoRestoreResult) {
+        guard result.full > 0 else { return }
+        banner = WatchlistBannerMessage(text: L("watchlist_undo_full", count: result.full), icon: "exclamationmark.circle",
+                                        long: true)
     }
 
     func moveByAccessibility(_ watch: Watch, _ move: WatchMove) {
@@ -193,7 +209,7 @@ extension WatchlistScreen {
             text: text,
             icon: "trash",
             action: WatchlistBannerAction.undo {
-                withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(removed) }
+                undoRestore(removed)
             }
         )
         Task { @MainActor in

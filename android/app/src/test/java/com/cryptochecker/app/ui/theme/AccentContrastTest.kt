@@ -2,6 +2,7 @@ package com.cryptochecker.app.ui.theme
 
 import androidx.compose.ui.graphics.toArgb
 import com.cryptochecker.app.settings.AccentColor
+import com.cryptochecker.app.ui.components.INITIALS_TINT_LIGHT
 import com.cryptochecker.app.widget.WidgetColors
 import com.cryptochecker.app.widget.WidgetContrast
 import org.junit.Assert.assertEquals
@@ -235,6 +236,33 @@ class AccentContrastTest {
             assertTrue("$file: Feldrand", text.contains("BorderStroke(1.dp, MaterialTheme.colorScheme.outline)"))
             assertTrue("$file: Trennlinien-Ton als Feldrand", !text.contains("outlineVariant.copy(alpha = 0.6f)"))
         }
+    }
+
+    /**
+     * Coin-Plakette ohne Logo (seit Build 103): Initialen in primary auf der hellen Tönung über surfaceContainer
+     * ≥ 4.5:1 für alle Akzente; mit der früheren Tönung 14 % lagen sie darunter. Wie iOS `AccentContrastTests`.
+     */
+    @Test
+    fun `Initialen der Coin-Plakette erreichen AA auf der Toenung`() {
+        val container = 0xFFF1EEE9.toInt()
+        for (accent in AccentColor.entries) {
+            val primary = WidgetColors.of(accent, false).accentColor
+            val r = ratio(primary, over(primary, INITIALS_TINT_LIGHT, container))
+            assertTrue("${accent.name}: %.2f".format(r), r >= 4.5)
+        }
+        val red = WidgetColors.of(AccentColor.RED, false).accentColor
+        assertTrue(ratio(red, over(red, 0.14f, container)) < 4.5)
+    }
+
+    /** [fg] mit Deckkraft [alpha] über dem deckenden [bg] (je Kanal, gerundet wie 8 Bit). */
+    private fun over(fg: Int, alpha: Float, bg: Int): Int {
+        fun ch(c: Int, shift: Int) = (c shr shift) and 0xFF
+        var out = 0xFF shl 24
+        for (shift in listOf(16, 8, 0)) {
+            val v = Math.round(ch(fg, shift) * alpha + ch(bg, shift) * (1 - alpha))
+            out = out or (v shl shift)
+        }
+        return out
     }
 
     private fun schemesSource(): String? = sourceFile("src/main/java/com/cryptochecker/app/ui/theme/AppColorSchemes.kt")

@@ -15,7 +15,7 @@ settings:
     SWIFT_STRICT_CONCURRENCY: complete
     IPHONEOS_DEPLOYMENT_TARGET: "17.0"
     MARKETING_VERSION: "16.2.2"
-    CURRENT_PROJECT_VERSION: "102"
+    CURRENT_PROJECT_VERSION: "103"
     TARGETED_DEVICE_FAMILY: "1"
     CODE_SIGN_STYLE: Automatic
     DEVELOPMENT_TEAM: ""
@@ -51,6 +51,8 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.cryptochecker.app
         INFOPLIST_FILE: App/Info.plist
+        # Seit Build 103: Quell-Commit für «Diagnose teilen» (Info.plist CCGitCommit), wie tools/gen_xcodeproj.py
+        GIT_COMMIT: local
         CODE_SIGN_ENTITLEMENTS: App/CryptoChecker.entitlements
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor

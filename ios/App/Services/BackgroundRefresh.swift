@@ -25,7 +25,7 @@ enum BackgroundRefresh {
                 scheduleRefresh(settings: SharedStorage.loadSettings(), replace: true, fromNow: true)
                 return
             }
-            handleRefresh(refresh)
+            _ = handleRefresh(refresh)
         }
         // Übrig gebliebene Anfrage eines alten Builds: nichts tun, nur abschliessen
         BGTaskScheduler.shared.register(forTaskWithIdentifier: legacyZoneId, using: nil) { task in
@@ -34,70 +34,7 @@ enum BackgroundRefresh {
         BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: legacyZoneId)
     }
 
-    static func schedule(settings: AppSettings) {
-        scheduleRefresh(settings: settings)
-    }
-
-    /// Uhr oder Zeitzone geändert (`significantTimeChange`, `NSSystemClockDidChange`): vorgemerkte Anfrage prüfen.
-    static func clockChanged() {
-        scheduleRefresh(settings: SharedStorage.loadSettings())
-    }
-
-    /// Plant die Kurs-Aktualisierung im Hintergrund — wie Android (`ExistingPeriodicWorkPolicy.KEEP`):
-    /// Ist schon eine vorgemerkt, bleibt sie stehen. Vorher wurde sie bei jedem Start und jedem Wechsel in
-    /// den Hintergrund abgesagt und «Intervall ab jetzt» neu gelegt; wer die App oft öffnete, schob den
-    /// Alarm bei geschlossener App so immer weiter hinaus. Ist Fear & Greed früher fällig, beginnt sie
-    /// dann (`RefreshSchedule.nextBegin`).
-    /// - Parameter replace: true = vorhandene Anfrage ersetzen (Intervall geändert, oder aus der laufenden
-    ///   Aufgabe heraus, die selbst nicht mehr vorgemerkt ist).
-    /// - Parameter fromNow: true = Intervall ab jetzt (aus der laufenden Aufgabe: `lastAlarmCheckAt` ist dort noch
-    ///   der vorige Lauf, sonst käme die nächste Runde schon nach einer Minute).
-    /// - Parameter zoneRunsNow: true = die laufende Aufgabe prüft Fear & Greed gleich selbst (zählt als Lauf jetzt).
-    static func scheduleRefresh(settings: AppSettings, replace: Bool = false, fromNow: Bool = false,
-                                zoneRunsNow: Bool = false) {
-        // «Wie aktuell?»: Die Hintergrund-Aktualisierung läuft in jeder Wahl (auch «Sparsam»)
-        let minutes = max(settings.backgroundIntervalMinutes, AppSettings.minBackgroundIntervalMinutes)
-        let zoneOn = zoneWanted(settings)
-        func submit() {
-            let request = BGAppRefreshTaskRequest(identifier: refreshId)
-            let now = TimeUtils.nowMillis
-            // Basis ist die letzte Prüfung MIT allen Alarmen: das Widget prüft nur Kursalarme (keine mit
-            // Zusatzdaten, setzt nur `lastRefreshAt`) und darf die volle Alarmprüfung nicht hinausschieben
-            request.earliestBeginDate = RefreshSchedule.nextBegin(
-                lastRunMillis: fromNow ? now : SharedStorage.lastAlarmCheckAt, intervalMinutes: minutes,
-                zoneLastRunMillis: zoneOn ? (zoneRunsNow ? now : lastZoneCheckAt) : nil, now: now)
-            do {
-                try BGTaskScheduler.shared.submit(request)
-            } catch {
-                // Sonst bliebe still, dass gar nichts vorgemerkt ist (z. B. Hintergrundaktualisierung aus)
-                logSubmitError(error)
-            }
-        }
-        if replace {
-            BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: refreshId)
-            submit()
-            return
-        }
-        BGTaskScheduler.shared.getPendingTaskRequests { requests in
-            if let pending = requests.first(where: { $0.identifier == refreshId }) {
-                // Uhr verstellt: iOS hält den alten absoluten Beginn fest (Stunden weg) → ersetzen; sonst bleibt sie
-                let begin = pending.earliestBeginDate.map { Int64(($0.timeIntervalSince1970 * 1000).rounded()) }
-                guard RefreshSchedule.isImplausiblyFar(earliestBeginMillis: begin, intervalMinutes: minutes,
-                                                       now: TimeUtils.nowMillis) else { return }
-                AppLog.background.notice("BG-Anfrage unplausibel fern (Uhr verstellt?) – neu vorgemerkt")
-                BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: refreshId)
-            }
-            submit()
-        }
-    }
-
-    /// Vormerken gescheitert: in «Letzte Prüfungen» als fehlgeschlagener Lauf ohne Dauer — nur einmal, solange
-    /// der neueste Eintrag schon so ein Fehler ist (sonst füllte jeder Wechsel in den Hintergrund die Liste).
-    private static func logSubmitError(_ error: Error) {
-        guard BackgroundSchedule.shouldLogSubmitError(newest: CheckRunStore.load().first) else { return }
-        let now = TimeUtils.nowMillis
-        CheckRunStore.log(.bgTask, .failed, startedAt: now)
-    }
+    // Planen und Absagen (`schedule`, `scheduleRefresh`, Bedarf): BackgroundRefresh+Planning.swift (seit Build 103).
 
     // MARK: Fear & Greed (wie `ZoneCheckWorker`, zweimal täglich)
 
@@ -161,7 +98,10 @@ enum BackgroundRefresh {
         if !done { scheduleRefresh(settings: settings, replace: true, fromNow: true) }
     }
 
-    private static func handleRefresh(_ task: BGAppRefreshTask) {
+    /// Ein Lauf der Hintergrund-Aufgabe. Seit Build 103 hinter `BackgroundRefreshTask` (Tests: Fälschung statt `BGTask`);
+    /// liefert den Arbeits-Task (nil = sofort beendet), damit Tests sein Ende abwarten können.
+    @discardableResult
+    static func handleRefresh(_ task: any BackgroundRefreshTask) -> Task<Void, Never>? {
         let completion = BackgroundTaskCompletion(task)
         let startedAt = TimeUtils.nowMillis
         // Fear & Greed / Kennzahlen fällig? Läuft als Schritt in diesem Lauf (keine eigene Aufgabe mehr)
@@ -177,45 +117,58 @@ enum BackgroundRefresh {
             AppLog.background.info("BG-Aufgabe übersprungen (Alarme eben erst geprüft)")
             guard zoneDue else {
                 completion.complete(success: true)
-                return
+                return nil
             }
             // Kurse eben erst geprüft, Fear & Greed aber fällig: nur diese Prüfung. Den `expirationHandler` ZUERST
             // setzen: iOS darf ihn sofort nach dem Start rufen; ein Handler, der erst nach dem Task gesetzt wird,
             // könnte einen frühen Ablauf verpassen (dann meldete niemand das Ende rechtzeitig).
             let zoneBox = TaskCancelBox()
-            task.expirationHandler = {
-                AppLog.background.notice("BG-Aufgabe abgelaufen (nur Fear & Greed)")
-                zoneBox.cancel()
-                scheduleRefresh(settings: SharedStorage.loadSettings(), fromNow: true)
-                completion.complete(success: false)
+            task.onExpiration {
+                // Seit Build 103: zuerst abbrechen und das Ende melden, danach neu vormerken (`BackgroundExpiry`)
+                BackgroundExpiry(cancel: { zoneBox.cancel() }, complete: { completion.complete(success: false) },
+                                 afterwards: {
+                                     AppLog.background.notice("BG-Aufgabe abgelaufen (nur Fear & Greed)")
+                                     scheduleRefresh(settings: SharedStorage.loadSettings(), fromNow: true)
+                                 }).run()
             }
-            zoneBox.set(Task { @MainActor in
+            let zoneWork = Task { @MainActor in
                 await runZoneStep(settings: SharedStorage.loadSettings(), deadline: RefreshBudget(start: startedAt).deadline)
                 completion.complete(success: !Task.isCancelled)
-            })
-            return
+            }
+            zoneBox.set(zoneWork)
+            return zoneWork
         }
         // Genau ein Eintrag je Lauf: vom Ablauf selbst oder aus dem `expirationHandler`
         let logGate = OnceGate()
         // Ergebnis der Kurse, sobald gespeichert — läuft danach die Zeit ab, zählt es trotzdem
         let priceBox = CheckResultBox()
         // Zeit abgelaufen: Arbeit abbrechen UND sofort das Ende melden — sonst beendet iOS die App.
-        // Der Ablauf meldet danach nicht noch einmal (`BackgroundTaskCompletion`). Nächste Runde zur
-        // Sicherheit noch einmal vormerken: eine schon vorgemerkte bleibt stehen (`scheduleRefresh` ohne replace).
+        // Der Ablauf meldet danach nicht noch einmal (`BackgroundTaskCompletion`). Seit Build 103 erst danach und abseits
+        // des Aufrufers (`BackgroundExpiry`): Eintrag in «Letzte Prüfungen» (Datei-Abstimmung) und zur Sicherheit noch
+        // einmal vormerken (eine schon vorgemerkte bleibt stehen, `scheduleRefresh` ohne replace).
         // Gesetzt VOR dem Start der Arbeit: läuft die Zeit ab, bevor der Task angelegt ist, bricht die Box ihn
         // gleich beim Anlegen ab (`TaskCancelBox.set`).
         let workBox = TaskCancelBox()
-        task.expirationHandler = {
-            AppLog.background.notice("BG-Aufgabe abgelaufen nach \(TimeUtils.nowMillis - startedAt, privacy: .public) ms")
-            workBox.cancel()
-            scheduleRefresh(settings: SharedStorage.loadSettings(), fromNow: true)
-            if logGate.claim() { CheckRunStore.log(.bgTask, priceBox.get(), startedAt: startedAt) }
-            completion.complete(success: false)
+        task.onExpiration {
+            let endedAt = TimeUtils.nowMillis
+            let result = priceBox.get()
+            let logs = logGate.claim()
+            BackgroundExpiry(cancel: { workBox.cancel() }, complete: { completion.complete(success: false) },
+                             afterwards: {
+                                 AppLog.background.notice("BG-Aufgabe abgelaufen nach \(endedAt - startedAt, privacy: .public) ms")
+                                 // Dauer bis zum Ablauf, nicht bis zum (vielleicht späteren) Schreiben
+                                 if logs {
+                                     CheckRunStore.add(CheckRun(at: endedAt, trigger: .bgTask, result: result,
+                                                                durationMillis: max(endedAt - startedAt, 0)))
+                                 }
+                                 scheduleRefresh(settings: SharedStorage.loadSettings(), fromNow: true)
+                             }).run()
         }
         AppLog.background.info("BG-Aufgabe gestartet")
-        workBox.set(Task { @MainActor in
+        let work = Task { @MainActor in
             let settings = SharedStorage.loadSettings()
-            let snapshot = SharedStorage.loadSnapshot()
+            // Datei-Arbeit (Abstimmung, AES, JSON) seit Build 103 abseits des Hauptfadens (`offMain`)
+            let snapshot = await offMain { SharedStorage.loadSnapshot() }
             // Zeitbudget: iOS gibt der Aufgabe nur rund 30 s. Eine Endzeit gilt für ALLE Schritte (Kurse,
             // Tages-Bezüge, Lease, Alarm-Daten, Nebenprüfungen). Reihenfolge nach Wichtigkeit
             // (`RefreshBudget.Step`): Kurse und Kursalarme speichern und melden, dann Portfolio (braucht nur
@@ -230,14 +183,14 @@ enum BackgroundRefresh {
             if Task.isCancelled {
                 // Nicht gespeichert → auch nichts melden; die Alarme bleiben scharf.
                 outcome.releaseAlarmLease()
-                if logGate.claim() { CheckRunStore.log(.bgTask, .failed, startedAt: startedAt) }
+                if logGate.claim() { await CheckRunStore.logDetached(.bgTask, .failed, startedAt: startedAt).value }
                 completion.complete(success: false)
                 return
             }
             // 1) Kurse und Kursalarme ZUERST speichern. Frisch lesen und nur Kurse/Alarm-Zustand je Id
             // übertragen — als ein abgestimmter Schritt mit Widget und App (der Nutzer könnte inzwischen
             // etwas geändert haben). Unlesbare oder gerade nicht zugreifbare Datei: nichts schreiben.
-            let saved = SharedStorage.updateSnapshot { outcome.apply(to: &$0) }
+            let saved = await offMain { SharedStorage.updateSnapshot { outcome.apply(to: &$0) } }
             let current = saved ?? snapshot
             // Ergebnis für «Letzte Prüfungen»: Kurse geholt, aber nicht gespeichert zählt als fehlgeschlagen
             let priceResult: CheckResult = (saved == nil && outcome.checked > 0)
@@ -329,7 +282,7 @@ enum BackgroundRefresh {
                     // (verschlüsselte, abgestimmte Datei), abgewartet, damit es vor dem Ende der Aufgabe geschrieben ist
                     let log = AlarmLog.withSource(extra.alarmLog, .bgTask)
                     await Task.detached(priority: .utility) { AlarmLogStore.record(log, live: false) }.value
-                } else if let stored = SharedStorage.updateSnapshot({ extra.apply(to: &$0) }) {
+                } else if let stored = await offMain({ SharedStorage.updateSnapshot { extra.apply(to: &$0) } }) {
                     _ = await extra.keepingCurrentPairs(stored.watches)
                         .deliverAlarms(settings: settings, current: stored.alarms,
                                        save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
@@ -376,11 +329,20 @@ enum BackgroundRefresh {
                     await GasAlertCheck.runIfDue(settings: settings)
                 }
             }
-            // Alles Geschriebene auf die Platte, bevor iOS die App wieder anhält
-            SharedStorage.flushSnapshotWrites()
-            if logGate.claim() { CheckRunStore.log(.bgTask, priceResult, startedAt: startedAt) }
+            // Alles Geschriebene auf die Platte, bevor iOS die App wieder anhält — abgewartet, ohne den Hauptfaden zu
+            // blockieren (seit Build 103)
+            await SharedStorage.snapshotWritesSettled()
+            if logGate.claim() { await CheckRunStore.logDetached(.bgTask, priceResult, startedAt: startedAt).value }
             AppLog.background.info("BG-Aufgabe beendet nach \(TimeUtils.nowMillis - startedAt, privacy: .public) ms, geprüft \(outcome.checked, privacy: .public), fehlgeschlagen \(outcome.failed, privacy: .public)")
             completion.complete(success: !Task.isCancelled)
-        })
+        }
+        workBox.set(work)
+        return work
+    }
+
+    /// Datei-Arbeit (`NSFileCoordinator`, AES, JSON) abseits des Hauptfadens und abgewartet — seit Build 103: Der Lauf
+    /// selbst ist auf dem MainActor, und das Abstimmen kann auf Widget oder App warten (Oberfläche hinge sonst).
+    private static func offMain<T: Sendable>(_ work: @escaping @Sendable () -> T) async -> T {
+        await Task.detached(priority: .userInitiated) { work() }.value
     }
 }

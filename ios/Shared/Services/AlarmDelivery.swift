@@ -9,7 +9,11 @@ import Foundation
 ///
 /// Anders als Android liegt der unbestätigte Versuch im App-Group-Speicher statt nur im Speicher des
 /// Prozesses: App, Hintergrund-Aufgabe und Widget melden Alarme, und ein Neuversuch im anderen Prozess
-/// gleich danach wäre eine zweite Meldung. Gelesen und geschrieben wird nur unter der `AlarmLease`
+/// gleich danach wäre eine zweite Meldung.
+///
+/// Seit Build 103: Findet der nächste Lauf einen frischen Vermerk (`alreadyDelivered`, < `freshMillis`) und steht die
+/// Mitteilung noch da (`isShown`), wird der Alarm nur noch als gemeldet gespeichert — kein zweiter Alarmton nach der
+/// Abklingzeit. Wie Android `AlarmDeliveryMarker`. Gelesen und geschrieben wird nur unter der `AlarmLease`
 /// (Paar-Alarme) bzw. auf dem MainActor der App (Portfolio-Alarme) — darum genügt hier ein Lock.
 final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Schreiben nur unter `lock` (NSLock); UserDefaults selbst ist thread-sicher
     /// Paar-Alarme (App, Hintergrund, Widget).
@@ -19,6 +23,17 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
 
     /// Nicht bestätigter Alarm: frühestens so spät erneut melden (wie `NotificationBudget.MIN_RETRY_MINUTES`).
     static let minRetryMinutes = 5
+
+    /// Seit Build 103: So lange gilt ein Vermerk als frisch (wie Android `AlarmDeliveryMarker.FRESH_MILLIS`).
+    static let freshMillis: Int64 = 10 * 60_000
+
+    /// Seit Build 103: Frischer Vermerk und die Mitteilung steht noch da — schon gemeldet, nur noch speichern
+    /// (`alarm_delivery_marker.json`). Wie Android `AlarmDeliveryMarker.alreadyDelivered`.
+    static func alreadyDelivered(markerAt: Int64?, now: Int64, shown: Bool) -> Bool {
+        guard shown, let markerAt, markerAt > 0 else { return false }
+        let age = now - markerAt
+        return age >= 0 && age < freshMillis
+    }
 
     private let store: UserDefaults
     private let storeKey: String
@@ -45,12 +60,24 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
     /// - Parameter mark: speichert den Zustand nach dem Auslösen; false = nicht gespeichert (z. B. inzwischen bearbeitet).
     /// - Parameter retract: entfernt die schon gezeigte Mitteilung, wenn `mark` nichts speichern konnte — sie gehörte
     ///   zu einem Alarm, den es so nicht mehr gibt. Wie Android.
+    /// - Parameter isShown: seit Build 103 — steht die Mitteilung dieses Alarms noch da?
     /// - Returns: true = gemeldet und gespeichert (zählt als ausgelöst).
     func deliver(alarmId: Int64, now: Int64, cooldownMinutes: Int, holdAlarms: Bool, snoozed: Bool = false,
                  canShow: () async -> Bool,
                  show: @escaping @Sendable () async -> Bool,
                  mark: @escaping @Sendable () async -> Bool,
-                 retract: @escaping @Sendable () async -> Void = {}) async -> Bool {
+                 retract: @escaping @Sendable () async -> Void = {},
+                 isShown: () async -> Bool = { false }) async -> Bool {
+        // Seit Build 103: voriger Lauf endete zwischen Melden und Speichern — nur speichern, nicht erneut melden.
+        // false: in diesem Lauf nichts gemeldet (keine zweite Ansage)
+        if let pending = unconfirmedAt(alarmId),
+           Self.alreadyDelivered(markerAt: pending, now: now, shown: await isShown()) {
+            await Task {
+                _ = await mark()
+                self.setUnconfirmed(alarmId, at: nil)
+            }.value
+            return false
+        }
         if holdAlarms || snoozed { return false }
         let deliverable = await canShow()
         if !QuietHours.mayFire(holdAlarms: holdAlarms, deliverable: deliverable) { return false }

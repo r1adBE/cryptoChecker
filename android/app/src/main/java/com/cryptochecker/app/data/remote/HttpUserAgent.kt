@@ -15,6 +15,13 @@ object HttpUserAgent {
     /** «cryptoChecker-Android/16.2.2» aus dem versionName der App. */
     fun android(versionName: String): String = "cryptoChecker-Android/${versionName.trim()}"
 
+    /**
+     * Neutraler User-Agent ohne App-Name und -Version für Adressabfragen (seit Build 103): Blockchain-Knoten sehen
+     * die Adresse, sollen sie aber nicht der App zuordnen können. Gleicher Wert wie iOS
+     * (`testdata/parity/address_privacy.json`).
+     */
+    const val NEUTRAL = "Mozilla/5.0"
+
     /** Nur setzen, wenn die Anfrage noch keinen eigenen hat. */
     fun shouldSet(existing: String?): Boolean = existing.isNullOrBlank()
 }

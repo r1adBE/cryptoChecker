@@ -46,7 +46,10 @@ data class DiagnosticInput(
     val exchangePauses: Map<String, ExchangeBackoff.State>,
     /** Fehlerprotokoll des Release-Builds; null = die App führt keines. */
     val errorLog: List<String>? = null,
+    /** Seit Build 103: Quell-Commit des Builds (BuildConfig.GIT_COMMIT); «local» = ohne Angabe gebaut. */
+    val sourceCommit: String = DiagnosticReport.LOCAL_COMMIT,
 )
+
 
 /**
  * «Diagnose teilen» (Build 81): reiner Textbericht, nur auf dem Gerät erstellt und erst nach der Vorschau über das
@@ -61,6 +64,9 @@ object DiagnosticReport {
     const val MAX_CHECK_RUNS = 20
 
     const val REDACTED = "[redacted]"
+
+    /** Seit Build 103: Commit-Angabe eines Builds ohne Quelle (lokal gebaut). */
+    const val LOCAL_COMMIT = "local"
 
     private const val NONE = "(none)"
 
@@ -88,6 +94,7 @@ object DiagnosticReport {
         lines += "Crypto Checker diagnostics"
         lines += "Created: ${at(input.createdAt)} (${zone.id})"
         lines += "App: ${clean(input.appVersion)} (${clean(input.appBuild)})"
+        lines += "Source: ${sourceCommit(input.sourceCommit)}"
         lines += "System: ${clean(input.system)}"
         lines += "Device: ${clean(input.device)}"
         lines += "Language: ${clean(input.locale)}"
@@ -146,6 +153,15 @@ object DiagnosticReport {
             else -> errors.forEach { lines += clean(it) }
         }
         return lines.joinToString("\n") + "\n"
+    }
+
+    /**
+     * Seit Build 103: Commit für die Zeile «Source» — 7 bis 40 Hex-Zeichen, gekürzt auf 12 (klein), sonst «local».
+     * Nicht über [clean]: ein Hash kann wie eine Adresse aussehen und würde sonst ersetzt.
+     */
+    fun sourceCommit(raw: String): String {
+        val text = raw.trim()
+        return if (Regex("""[0-9a-fA-F]{7,40}""").matches(text)) text.take(12).lowercase(Locale.ROOT) else LOCAL_COMMIT
     }
 
     /** Eine Zeile, ohne Steuerzeichen und ohne Adressen. */

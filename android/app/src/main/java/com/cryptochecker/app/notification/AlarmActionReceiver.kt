@@ -35,7 +35,7 @@ class AlarmActionReceiver : BroadcastReceiver() {
             .onFailure { Timber.w(it, "Alarm-Meldung nach «1 h später» nicht entfernt") }
         if (intent.getBooleanExtra(EXTRA_REARM, false)) {
             // Einschalten stellt Kursmarken zugleich scharf (WatchRepository.setAlarmEnabled → rearmAlarm)
-            launchAsync("Kursmarke nach «1 h später» scharf stellen") { watchRepository.setAlarmEnabled(alarmId, true) }
+            launchAsync("Kursmarke nach «1 h später» scharf stellen") { watchRepository.setAlarmEnabled(alarmId, true, fromUser = false) }
         }
     }
 
