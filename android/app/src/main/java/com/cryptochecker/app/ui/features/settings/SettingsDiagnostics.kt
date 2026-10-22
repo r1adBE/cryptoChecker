@@ -120,6 +120,8 @@ class DiagnosticsViewModel @Inject constructor(
                 exchangePauses = refreshStats.backoffStates(),
                 // Der Release-Build führt kein Fehlerprotokoll (das HTTP-Protokoll gibt es nur im Debug-Build)
                 errorLog = null,
+                // Seit Build 104: nur Anzahl Fehler im Hintergrund je Bereich
+                backgroundErrors = com.cryptochecker.app.util.BackgroundErrorCounter.summary(),
             )
         )
     }

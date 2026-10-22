@@ -40,3 +40,10 @@ warning			No Play screenshots in android/fastlane/metadata/android/<lang>/images
 notice			Play store texts checked: 31 language(s)
 warning			No App Store screenshots in ios/fastlane/screenshots (upload them in App Store Connect by hand)
 notice			App Store texts checked: 29 language(s)
+notice			Version 16.2.2 (build 104) identical in android/app/build.gradle.kts, ios/tools/gen_xcodeproj.py, ios/project.yml
+notice			android/docs/PLAY_STORE.md: version 16.2.2 / build 104 consistent with the project
+notice			ios/APP_STORE.md: version 16.2.2 / build 104 consistent with the project
+warning			No Play screenshots in android/fastlane/metadata/android/<lang>/images (upload them in the Play Console by hand)
+notice			Play store texts checked: 31 language(s)
+warning			No App Store screenshots in ios/fastlane/screenshots (upload them in App Store Connect by hand)
+notice			App Store texts checked: 29 language(s)

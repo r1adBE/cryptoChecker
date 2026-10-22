@@ -76,7 +76,11 @@ class AlarmsOverviewViewModel @Inject constructor(
     }
 
     fun deletePortfolioAlarm(id: Long) {
-        viewModelScope.launch { portfolioAlarmRepository.delete(id) }
+        viewModelScope.launch {
+            portfolioAlarmRepository.delete(id)
+            // Seit Build 104: die Mitteilung des gelöschten Alarms gleich mit entfernen (wie iOS)
+            runCatching { appNotifier.cancelAlarms(emptyList(), listOf(id)) }
+        }
     }
 
     val groups: StateFlow<List<List<AlarmWithWatch>>> = watchRepository.observeAllAlarms()

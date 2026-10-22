@@ -1,0 +1,24 @@
+{
+  "_comment": "Seit Build 104 (F-08): Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand — vor der ersten Änderung des Nutzers je App-Lauf einmal fragen. «Trotzdem» bestätigt für den Rest des Laufs, «Abbrechen» nicht. Hintergrund (kein Schreibweg des Nutzers) und ohne sichtbare Oberfläche nie fragen. Android: WatchlistNotSavedGateTest.kt, iOS: WatchlistNotSavedGateTests.swift.",
+  "shouldAsk": [
+    {"notSaved": true, "userWrite": true, "confirmed": false, "canAsk": true, "ask": true},
+    {"notSaved": false, "userWrite": true, "confirmed": false, "canAsk": true, "ask": false},
+    {"notSaved": true, "userWrite": false, "confirmed": false, "canAsk": true, "ask": false},
+    {"notSaved": true, "userWrite": true, "confirmed": true, "canAsk": true, "ask": false},
+    {"notSaved": true, "userWrite": true, "confirmed": false, "canAsk": false, "ask": false}
+  ],
+  "confirmedAfter": [
+    {"confirmed": false, "proceed": true, "result": true},
+    {"confirmed": false, "proceed": false, "result": false},
+    {"confirmed": true, "proceed": false, "result": true}
+  ],
+  "sequence": {
+    "_comment": "Ein Lauf mit Oberfläche: Antworten der Reihe nach; asked = wurde vor dieser Änderung gefragt, written = geschrieben.",
+    "steps": [
+      {"answer": false, "asked": true, "written": false},
+      {"answer": true, "asked": true, "written": true},
+      {"answer": null, "asked": false, "written": true},
+      {"answer": null, "asked": false, "written": true}
+    ]
+  }
+}

@@ -63,7 +63,8 @@ enum MarketHTTP {
     static func sessionFor(host: String?, requested: URLSession) -> URLSession {
         guard let host, HttpUserAgent.isAddressHost(host) else { return requested }
         if requested === addressHostSession || requested === addressHostBulkSession { return requested }
-        return requested === MarketHTTP.session ? addressHostSession : addressHostBulkSession
+        // Nur Paarlisten (bulkSession, 60 s) über die lange Adress-Session; alle anderen behalten 20 s
+        return requested === bulkSession ? addressHostBulkSession : addressHostSession
     }
 
     /// Gleichzeitige Anfragen insgesamt und je Host — wie Android (OkHttp-Dispatcher `maxRequests` 32,

@@ -38,6 +38,8 @@ struct DiagnosticInput: Sendable {
     var errorLog: [String]? = nil
     /// Seit Build 103: Quell-Commit des Builds (Info.plist `CCGitCommit`); «local» = ohne Angabe gebaut.
     var sourceCommit: String = DiagnosticReport.localCommit
+    /// Seit Build 104: gezählte Fehler im Hintergrund je Bereich (`BackgroundErrors`), nur Zahlen.
+    var backgroundErrors = BackgroundErrorSummary()
 }
 
 /// «Diagnose teilen» (Build 81): reiner Textbericht, nur auf dem Gerät erstellt und erst nach der Vorschau über das
@@ -146,6 +148,7 @@ enum DiagnosticReport {
         } else {
             lines.append("none - the app keeps no error log")
         }
+        lines.append(BackgroundErrors.line(input.backgroundErrors))
         return lines.joined(separator: "\n") + "\n"
     }
 

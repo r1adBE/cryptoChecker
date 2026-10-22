@@ -25,6 +25,7 @@ Detailed build history below.
 * Privacy and security: every request to an address node uses the neutral browser user agent (also fees and halving) and on Android its own connection pool; privacy policy lists time zone and source commit in diagnostics; DexScreener pool ids are validated; scheduled workflows fetch without write access and publish in a separate checked job.
 * Accessibility: no notification permission prompt while the watchlist is locked; VoiceOver focus stays on a refused toggle; pair picker announces «no matches» and marks favourites.
 * Release: release builds stop without a source commit; CI runs on version tags; one tester rule (invite 16–20, keep ≥ 12 for 14 days).
+* Diagnostics: count of background errors per area (numbers and time of the last one only, no texts). While encryption isn't active yet, the first watchlist change per run asks for confirmation (it would be lost on restart). Device test for two simultaneous encryption conversions.
 
 ## 16.2.2 (build 103)
 

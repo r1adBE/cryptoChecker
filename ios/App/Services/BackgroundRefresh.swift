@@ -21,6 +21,8 @@ enum BackgroundRefresh {
         // weniger Hintergrundzeit) und neu vormerken — diese Anfrage ist verbraucht.
         BGTaskScheduler.shared.register(forTaskWithIdentifier: refreshId, using: nil) { task in
             guard let refresh = task as? BGAppRefreshTask else {
+                // Seit Build 104: Lauf gescheitert — nur gezählt (Diagnosebericht)
+                BackgroundErrorCounter.record(BackgroundErrors.refresh)
                 task.setTaskCompleted(success: false)
                 scheduleRefresh(settings: SharedStorage.loadSettings(), replace: true, fromNow: true)
                 return
@@ -196,6 +198,12 @@ enum BackgroundRefresh {
             let priceResult: CheckResult = (saved == nil && outcome.checked > 0)
                 ? .failed : CheckRunLog.result(checked: outcome.checked, failed: outcome.failed)
             priceBox.set(priceResult)
+            // Seit Build 104: Speichern bzw. Kursabruf komplett gescheitert — nur gezählt (wie Android BackgroundCheck)
+            if saved == nil && outcome.checked > 0 {
+                BackgroundErrorCounter.record(BackgroundErrors.storage)
+            } else if outcome.checked > 0 && outcome.failed >= outcome.checked {
+                BackgroundErrorCounter.record(BackgroundErrors.refresh)
+            }
             await seams.afterPriceSave()
             // Seit Build 104: während oder nach dem Speichern abgelaufen (Ende schon gemeldet) → nicht mehr melden; die
             // Kurse bleiben gespeichert, die Alarme scharf (wie Android: abgebrochener Lauf meldet nicht). Einmal gelesen,

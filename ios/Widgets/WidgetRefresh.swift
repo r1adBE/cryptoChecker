@@ -131,6 +131,8 @@ enum WidgetRefresh {
         // Datei: nichts schreiben (`SharedStorage.updateSnapshot`) und nichts melden — die Alarme bleiben scharf.
         guard let saved = SharedStorage.updateSnapshot({ outcome.apply(to: &$0) }) else {
             outcome.releaseAlarmLease()
+            // Seit Build 104: Speichern gescheitert (mit Paaren) — nur gezählt (Diagnosebericht)
+            if outcome.checked > 0 { BackgroundErrorCounter.record(BackgroundErrors.storage) }
             defaults.set(Double(TimeUtils.nowMillis), forKey: failedAtKey)
             CheckRunStore.log(.widget, .failed, startedAt: started)
             return .failed

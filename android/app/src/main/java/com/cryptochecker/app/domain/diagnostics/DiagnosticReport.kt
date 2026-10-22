@@ -48,6 +48,8 @@ data class DiagnosticInput(
     val errorLog: List<String>? = null,
     /** Seit Build 103: Quell-Commit des Builds (BuildConfig.GIT_COMMIT); «local» = ohne Angabe gebaut. */
     val sourceCommit: String = DiagnosticReport.LOCAL_COMMIT,
+    /** Seit Build 104: gezählte Fehler im Hintergrund je Bereich ([BackgroundErrors]), nur Zahlen. */
+    val backgroundErrors: BackgroundErrorSummary = BackgroundErrorSummary(),
 )
 
 
@@ -152,6 +154,7 @@ object DiagnosticReport {
             errors.isEmpty() -> lines += NONE
             else -> errors.forEach { lines += clean(it) }
         }
+        lines += BackgroundErrors.line(input.backgroundErrors)
         return lines.joinToString("\n") + "\n"
     }
 

@@ -4,6 +4,7 @@ package com.cryptochecker.app.data
 
 import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.local.WatchlistNotSavedGate
 import com.cryptochecker.app.data.local.WatchlistStorageLock
 import com.cryptochecker.app.data.local.WatchlistWriteRefusal
 
@@ -17,5 +18,8 @@ import com.cryptochecker.app.data.local.WatchlistWriteRefusal
 internal suspend fun WatchRepository.userWriteRefused(notify: Boolean = true): Boolean {
     val blocked = database.withTransaction { WatchlistStorageLock.blocksWrites(DatabaseEncryptionNotice.storedKept.value) }
     if (blocked && notify) WatchlistWriteRefusal.report()
-    return blocked
+    if (blocked) return true
+    // Seit Build 104 (F-08): nur im Arbeitsspeicher ohne gespeicherten Stand — vor der ersten Änderung je Lauf fragen
+    // (WatchlistNotSavedGate); «Abbrechen» = nichts schreiben, ohne Hinweis. Folge-Schreibwege ([notify] aus) nie
+    return notify && !WatchlistNotSavedGate.confirm()
 }

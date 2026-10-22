@@ -5,7 +5,9 @@ import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.DatabaseKeyUnavailableException
+import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
 import com.cryptochecker.app.domain.refresh.BackgroundSchedule
 import com.cryptochecker.app.domain.refresh.CheckBudget
 import com.cryptochecker.app.domain.refresh.CheckOrigin
@@ -17,6 +19,7 @@ import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.domain.refresh.PriceRefresher
 import com.cryptochecker.app.domain.refresh.RefreshSummary
 import com.cryptochecker.app.tts.TtsSpeaker
+import com.cryptochecker.app.util.BackgroundErrorCounter
 import com.cryptochecker.app.widget.PulseWidgetRenderer
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -114,6 +117,8 @@ class BackgroundCheck @Inject constructor(
             throw e
         }
         log(trigger, CheckRunLog.result(summary.checked, summary.failed), startedAt)
+        // Seit Build 104: Kursabruf komplett gescheitert — gezählt für den Diagnosebericht (wie iOS)
+        if (BackgroundWorkPolicy.allFailed(summary.checked, summary.failed)) BackgroundErrorCounter.record(BackgroundErrors.REFRESH)
         return summary
     }
 
@@ -157,6 +162,8 @@ class BackgroundCheck @Inject constructor(
             throw e
         } catch (e: Exception) {
             log(trigger, CheckResult.FAILED, startedAt)
+            // Seit Build 104: Lauf gescheitert — gezählt (Schlüssel gerade nicht lesbar ist kein Fehler)
+            if (!e.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.REFRESH)
             throw e
         }
     }

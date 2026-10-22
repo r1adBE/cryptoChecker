@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cryptochecker.app.data.AddWatchOutcome
+import com.cryptochecker.app.data.FallAlarmCleanup
 import com.cryptochecker.app.data.PairEditResult
 import com.cryptochecker.app.data.RestoreOutcome
 import com.cryptochecker.app.data.WatchMove
@@ -20,6 +21,7 @@ import com.cryptochecker.app.data.restore
 import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.refresh.AlarmLogStore
+import com.cryptochecker.app.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.widget.PortfolioSnapshotSeal
 import com.cryptochecker.marketdata.model.MarketPair
 import java.io.File
@@ -69,7 +71,10 @@ class WatchlistLockDeviceTest {
     /** Frische In-Memory-Datenbank mit zwei Paaren, Notiz, Gruppe, Kursalarm und %-Alarm ohne Bezug. */
     private fun openSeeded() {
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        repo = WatchRepository(db, db.getWatchDao(), AlarmLogStore(File(context.cacheDir, "alarm-log-lock-test"), noKeys))
+        repo = WatchRepository(
+            db, db.getWatchDao(), AlarmLogStore(File(context.cacheDir, "alarm-log-lock-test"), noKeys),
+            AlarmDeliveryMarkers(context), FallAlarmCleanup(context, db.getWatchDao()),
+        )
         runBlocking {
             watchId = checkNotNull(repo.addWatch(BINANCE, MarketPair("BTC", "USDT", "BTCUSDT"), group = "Layer 1"))
             checkNotNull(repo.addWatch(BINANCE, MarketPair("ETH", "USDT", "ETHUSDT")))

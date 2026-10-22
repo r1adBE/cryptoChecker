@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (Verschlüsselung noch nicht aktiv): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate); seit Build 104 -->
+    <string name="watchlist_not_saved_confirm_message">Los cambios no se están guardando ahora y se perderán al reiniciar. ¿Quieres cambiarlo de todos modos?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel); seit Build 104 -->
+    <string name="watchlist_not_saved_confirm_action">Cambiar igualmente</string>
+</resources>

@@ -118,6 +118,8 @@ class MainActivity : AppCompatActivity() {
                         openTarget = openTarget.value,
                         onOpenTargetHandled = { openTarget.value = null }
                     )
+                    // Seit Build 104 (F-08): Frage vor der ersten Änderung, solange die Merkliste nicht gespeichert wird
+                    com.cryptochecker.app.ui.components.WatchlistNotSavedGateHost()
                 }
             }
         }

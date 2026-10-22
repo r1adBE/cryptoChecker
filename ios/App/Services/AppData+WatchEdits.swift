@@ -16,7 +16,9 @@ extension AppData {
 
     /// Paar anlegen: angelegt (mit Id), schon vorhanden oder Merkliste voll (`WatchlistLimits.maxPairs`).
     func tryAddWatch(market: Market, pair: MarketPair, group: String? = nil) -> AddWatchOutcome {
-        guard !watchlistWriteRefused() else { return .locked }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.tryAddWatch(market: market, pair: pair, group: group)
+        }) else { return .locked }
         var outcome = AddWatchOutcome.duplicate
         mutate { s in
             outcome = Self.insertOutcome(&s, market: market, pair: pair, group: group)
@@ -30,7 +32,9 @@ extension AppData {
 
     /// Mehrere Paare: vorhandene übersprungen; ist die Merkliste voll, kommen die übrigen nicht mehr dazu (`refused`).
     func addWatches(market: Market, pairs: [MarketPair], group: String? = nil) -> BulkAddResult {
-        guard !watchlistWriteRefused() else { return BulkAddResult(added: 0, skipped: 0, locked: true) }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.addWatches(market: market, pairs: pairs, group: group)
+        }) else { return BulkAddResult(added: 0, skipped: 0, locked: true) }
         var added = 0, skipped = 0, refused = 0
         mutate { s in
             for p in pairs {
@@ -50,7 +54,9 @@ extension AppData {
     // MARK: Bearbeiten
 
     func setNotificationEnabled(_ watch: Watch, _ enabled: Bool) {
-        guard !watchlistWriteRefused() else { return }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.setNotificationEnabled(watch, enabled)
+        }) else { return }
         let current = settings
         mutate({ s in
             guard let i = s.watches.firstIndex(where: { $0.id == watch.id }) else { return }
@@ -74,7 +80,9 @@ extension AppData {
     /// «Alle an» / «Alle aus» unter Einstellungen › Kursmitteilungen › Paare — je Paar wie `setNotificationEnabled`.
     /// Wie Android `SettingsViewModel.setAllPairNotifications`.
     func setAllNotifications(_ enabled: Bool) {
-        guard !watchlistWriteRefused() else { return }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.setAllNotifications(enabled)
+        }) else { return }
         let current = settings
         mutate({ s in
             for i in s.watches.indices where s.watches[i].notificationEnabled != enabled {
@@ -100,7 +108,9 @@ extension AppData {
     /// - Returns: true, wenn die Sprachausgabe dafür eingeschaltet wurde (kurzer Hinweis im Blatt).
     @discardableResult
     func setTtsEnabled(_ watch: Watch, _ enabled: Bool) -> Bool {
-        guard !watchlistWriteRefused() else { return false }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.setTtsEnabled(watch, enabled)
+        }) else { return false }
         let turnOnSpeech = enabled && !settings.speaksPairPrices
         mutate({ s in
             if let i = s.watches.firstIndex(where: { $0.id == watch.id }) { s.watches[i].ttsEnabled = enabled }
@@ -116,7 +126,9 @@ extension AppData {
 
     /// Notiz setzen; nil oder leer = keine Notiz. Widgets zeigen keine Notiz.
     func setNote(_ watch: Watch, _ note: String?) {
-        guard !watchlistWriteRefused() else { return }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.setNote(watch, note)
+        }) else { return }
         let value = Watch.validNote(note)
         mutate({ s in
             if let i = s.watches.firstIndex(where: { $0.id == watch.id }) { s.watches[i].note = value }
@@ -125,7 +137,9 @@ extension AppData {
 
     /// Gruppe setzen; nil oder leer = keine Gruppe. Widgets neu zeichnen (Gruppen-Filter).
     func setGroup(_ watch: Watch, _ groupName: String?) {
-        guard !watchlistWriteRefused() else { return }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.setGroup(watch, groupName)
+        }) else { return }
         let value = Watch.validGroupName(groupName)
         mutate { s in
             if let i = s.watches.firstIndex(where: { $0.id == watch.id }) { s.watches[i].groupName = value }
@@ -134,7 +148,9 @@ extension AppData {
 
     /// Mehrfachauswahl › «Gruppe»: alle Paare `ids` in `groupName` (nil = keine Gruppe).
     func setGroup(ids: Set<Int64>, _ groupName: String?) {
-        guard !watchlistWriteRefused() else { return }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.setGroup(ids: ids, groupName)
+        }) else { return }
         let value = Watch.validGroupName(groupName)
         mutate { s in
             for i in s.watches.indices where ids.contains(s.watches[i].id) { s.watches[i].groupName = value }
@@ -143,7 +159,9 @@ extension AppData {
 
     /// Mehrfachauswahl › «Favorit»: alle Paare `ids` zu Favoriten machen bzw. entfernen.
     func setFavorite(ids: Set<Int64>, _ favorite: Bool) {
-        guard !watchlistWriteRefused() else { return }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.setFavorite(ids: ids, favorite)
+        }) else { return }
         mutate { s in
             for i in s.watches.indices where ids.contains(s.watches[i].id) { s.watches[i].favorite = favorite }
         }
@@ -155,7 +173,9 @@ extension AppData {
     /// leeren und sofort den Kurs holen — die Abfrage zeigt die Kurs-Mitteilung dann wieder nach den
     /// Einstellungen. Einzelne Paare gezielt, viele auf einmal mit einem ganzen Durchlauf.
     func setDisabled(ids: Set<Int64>, _ disabled: Bool) {
-        guard !ids.isEmpty, !watchlistWriteRefused() else { return }
+        guard !ids.isEmpty, !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.setDisabled(ids: ids, disabled)
+        }) else { return }
         mutate { s in
             for i in s.watches.indices where ids.contains(s.watches[i].id) {
                 s.watches[i].disabled = disabled
@@ -188,7 +208,9 @@ extension AppData {
 
     /// Favorit an/aus (Stern, Wischen nach rechts, Aktionen-Menü).
     func toggleFavorite(_ watch: Watch) {
-        guard !watchlistWriteRefused() else { return }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.toggleFavorite(watch)
+        }) else { return }
         mutate { s in
             if let i = s.watches.firstIndex(where: { $0.id == watch.id }) { s.watches[i].favorite.toggle() }
         }
@@ -199,7 +221,9 @@ extension AppData {
     /// Gruppe (gefilterte Ansicht); ausgeblendete Paare behalten ihren Platz.
     /// Danach wird die ganze Liste fortlaufend neu nummeriert — wie `WatchRepository.move`.
     func move(_ watch: Watch, _ move: WatchMove, group: String? = nil) {
-        guard !watchlistWriteRefused() else { return }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.move(watch, move, group: group)
+        }) else { return }
         let all = watches
         guard let current = all.first(where: { $0.id == watch.id }) else { return }
         var section = all.filter { $0.favorite == current.favorite && WatchFilter.matches(group, $0) }
@@ -222,7 +246,9 @@ extension AppData {
     /// Sie tauschen untereinander die Plätze, alle anderen bleiben, wo sie sind.
     /// Favoriten bleiben trotzdem immer vor den übrigen — wie `WatchRepository.reorder`.
     func reorder(_ orderedIds: [Int64]) {
-        guard !watchlistWriteRefused() else { return }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.reorder(orderedIds)
+        }) else { return }
         let all = watches
         let byId = Dictionary(all.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
         var seen = Set<Int64>()

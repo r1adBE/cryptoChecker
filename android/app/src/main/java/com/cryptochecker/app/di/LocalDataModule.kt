@@ -62,7 +62,7 @@ object LocalDataModule {
             .openHelperFactory(openHelperFactory)
             .addMigrations(*AppDatabase.ALL_MIGRATIONS)
             .addCallback(SecureDeleteCallback)
-            .addCallback(DeliveryMarkerResetCallback(context, AlarmDeliveryMarkers.PREFS))
+            .addCallback(DeliveryMarkerResetCallback(context, AlarmDeliveryMarkers.PREFS, AppDatabase.DB_NAME))
             .build()
     }
 
@@ -84,7 +84,7 @@ object LocalDataModule {
         // Gelöschte Transaktionen (Menge, Preis, Notiz) und Alarm-Schwellen mit Nullen überschreiben
         builder.addCallback(SecureDeleteCallback)
         builder.addCallback(PortfolioScrubCallback(context))
-        builder.addCallback(DeliveryMarkerResetCallback(context, PortfolioAlarmDeliveryMarkers.PREFS))
+        builder.addCallback(DeliveryMarkerResetCallback(context, PortfolioAlarmDeliveryMarkers.PREFS, PortfolioDatabase.DB_NAME))
         return builder.build()
     }
 
@@ -139,8 +139,12 @@ object LocalDataModule {
     private class DeliveryMarkerResetCallback(
         private val context: Context,
         private val prefsName: String,
+        private val databaseName: String,
     ) : RoomDatabase.Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
+            // Nur vorübergehend leer im Arbeitsspeicher (gespeicherte Datei bleibt, Schlüssel gerade nicht lesbar): die
+            // Vermerke gehören zu den echten Alarmen und bleiben — wie iOS (nur bei endgültig beiseitegelegten Daten)
+            if (com.cryptochecker.app.data.local.DatabaseEncryptionNotice.isStoredKept(databaseName)) return
             PrefsAlarmDeliveryMarkers.clearAll(context, prefsName)
         }
     }

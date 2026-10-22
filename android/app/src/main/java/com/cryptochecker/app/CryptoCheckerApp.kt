@@ -79,6 +79,8 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
     }
 
     override fun onCreate() {
+        // Seit Build 104: Zähler der Fehler im Hintergrund dauerhaft (Diagnosebericht) — vor allem anderen
+        com.cryptochecker.app.util.BackgroundErrorCounter.install(this)
         // Vor Hilt (öffnet evtl. schon die Datenbank): eine bei abgebrochener Systemsicherung liegengebliebene,
         // unverschlüsselte Kopie der Merkliste entfernen (sie läge sonst offen im App-Ordner)
         if (getDatabasePath(com.cryptochecker.app.data.local.SystemBackupAgent.EXPORT_NAME).exists()) {

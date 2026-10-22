@@ -2,6 +2,7 @@ package com.cryptochecker.app.util
 
 import android.content.BroadcastReceiver
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
+import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,6 +52,8 @@ object ReceiverAsync {
                 Timber.d(e, "%s: Datenbank-Schlüssel nicht verfügbar", label)
             } else {
                 Timber.w(e, "%s fehlgeschlagen", label)
+                // Seit Build 104: im Release nur gezählt (Bereich, keine Texte)
+                BackgroundErrorCounter.record(BackgroundErrors.areaForLabel(label))
             }
         } finally {
             onDone()

@@ -19,6 +19,11 @@ extension AppData {
                    currency: String? = nil) -> Bool {
         // Paar inzwischen gelöscht (z. B. Editor aus einer alten Mitteilung): kein verwaister Alarm — wie Android
         guard !alarmSaveBlocked, watch(watchId) != nil else { return false }
+        // Seit Build 104 (F-08): Merkliste wird gerade nicht gespeichert — erst fragen, nach «Trotzdem» erneut (wie Android)
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.saveAlarm(watchId: watchId, id: id, condition: condition, threshold: threshold, repeating: repeating,
+                                sound: sound, vibrate: vibrate, speak: speak, windowHours: windowHours, currency: currency)
+        }) else { return false }
         // Neuer Alarm an einem vollen Paar (`WatchlistLimits`): nichts anlegen — der Bildschirm prüft vorher und sagt es
         guard id != 0 || WatchlistLimits.canAddAlarm(alarms(for: watchId).count) else { return false }
         let existing = snapshot.alarms.first { $0.id == id && id != 0 }
@@ -82,6 +87,10 @@ extension AppData {
         guard !alarmSaveBlocked, watch(watchId) != nil, WatchlistLimits.canAddAlarm(alarms(for: watchId).count) else {
             return (0, false)
         }
+        // Seit Build 104 (F-08): wie `saveAlarm`
+        guard !watchlistWriteRefused(retry: { [weak self] in _ = self?.createAlarm(watchId: watchId, from: def) }) else {
+            return (0, false)
+        }
         let firstAlarm = !settings.firstAlarmShown && snapshot.alarms.isEmpty
         if !settings.firstAlarmShown { settings.firstAlarmShown = true }
         var newId: Int64 = 0
@@ -143,6 +152,8 @@ extension AppData {
         mutate({ s in s.portfolioAlarms?.removeAll { $0.id == id } }, reloadWidgets: false)
         // Seit Build 104: Vermerk «wird gemeldet» des gelöschten Alarms weg (wie Android)
         AlarmDelivery.portfolio.remove([id])
+        // Seit Build 104: die Mitteilung des gelöschten Alarms gleich mit entfernen (wie Android)
+        Notifier.cancelPortfolioAlarm(id)
     }
 
     /// Alarmwährungen, die einen Devisenkurs brauchen (`PortfolioAlarmLogic.currenciesNeedingRate`).
@@ -271,7 +282,9 @@ extension AppData {
     }
 
     func deleteAlarm(_ id: Int64) {
-        guard !watchlistWriteRefused() else { return }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.deleteAlarm(id)
+        }) else { return }
         mutate({ s in s.alarms.removeAll { $0.id == id } }, reloadWidgets: false)
         // Seine Mitteilung weg: ihr «Anpassen» zeigte sonst auf einen Alarm, den es nicht mehr gibt (wie Android)
         Notifier.cancelAlarm(id)
@@ -282,7 +295,9 @@ extension AppData {
     }
 
     func setAlarmEnabled(_ id: Int64, _ enabled: Bool) {
-        guard !watchlistWriteRefused() else { return }
+        guard !watchlistWriteRefused(retry: { [weak self] in
+            _ = self?.setAlarmEnabled(id, enabled)
+        }) else { return }
         mutate({ s in
             if let i = s.alarms.firstIndex(where: { $0.id == id }) {
                 // Wieder eingeschaltet: «Nahe am Hoch/Tief», Kursmarken, Funding und Open Interest melden
