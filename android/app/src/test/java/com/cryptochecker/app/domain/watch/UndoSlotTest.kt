@@ -37,4 +37,21 @@ class UndoSlotTest {
         slot.clear()
         assertNull(slot.take(3L))
     }
+
+    @Test
+    fun mergeNimmtZumGleichenSchluesselDazu() {
+        val slot = UndoSlot<Long, List<String>>()
+        slot.merge(1L, listOf("BTC/USDT")) { a, b -> a + b }
+        slot.merge(1L, listOf("ETH/USDT")) { a, b -> a + b }
+        assertEquals(listOf("BTC/USDT", "ETH/USDT"), slot.take(1L))
+    }
+
+    @Test
+    fun mergeMitAnderemSchluesselErsetzt() {
+        val slot = UndoSlot<Long, List<String>>()
+        slot.put(-1L, listOf("Alt"))
+        slot.merge(5L, listOf("SOL/USDT")) { a, b -> a + b }
+        assertNull(slot.take(-1L))
+        assertEquals(listOf("SOL/USDT"), slot.take(5L))
+    }
 }

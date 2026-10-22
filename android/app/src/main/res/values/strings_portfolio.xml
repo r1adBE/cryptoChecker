@@ -296,6 +296,8 @@
         <item quantity="one">%d transaction will be removed. You can undo this right afterwards.</item>
         <item quantity="other">%d transactions will be removed. You can undo this right afterwards.</item>
     </plurals>
+    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Fees paid in %1$s are also removed from other transactions: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">
         <item quantity="one">%1$s removed from portfolio (%2$d transaction)</item>

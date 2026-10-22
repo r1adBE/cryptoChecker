@@ -1,5 +1,6 @@
 import CryptoKit
 import XCTest
+import Security
 @testable import CryptoChecker
 
 /// Build 76 (Portfolio-Speicher und Steuer-Export) — wie `PortfolioStorageTaxB76Test.kt` und `DatabaseKeyRecoveryTest.kt`:
@@ -248,7 +249,15 @@ final class PortfolioStorageTaxB76Tests: XCTestCase {
         let url = dir.appendingPathComponent("journal.sealed")
         let key = SymmetricKey(data: Data(repeating: 5, count: 32))
         let state = Data(#"{"format":"cryptochecker-backup","portfolio":[]}"#.utf8)
-        XCTAssertFalse(RestoreJournal.write(state, keys: keychain(nil), to: url), "ohne Schlüssel kein Journal")
+        // Schlüsselbund gesperrt: kein Journal
+        let locked = ProtectedFileTests.FakeKeychain()
+        locked.readStatus = errSecInteractionNotAllowed
+        XCTAssertFalse(RestoreJournal.write(state, keys: StorageKey(keychain: locked), to: url), "gesperrt: kein Journal")
+        // Frische Installation (noch kein Schlüssel): Schlüssel wird angelegt, Journal geschrieben (seit Build 102)
+        let fresh = ProtectedFileTests.FakeKeychain()
+        let freshURL = dir.appendingPathComponent("journal-fresh.sealed")
+        XCTAssertTrue(RestoreJournal.write(state, keys: StorageKey(keychain: fresh), to: freshURL), "frisch: Journal mit neuem Schlüssel")
+        XCTAssertNotNil(fresh.stored)
         guard case .absent = RestoreJournal.read(keys: keychain(key), from: url) else { return XCTFail("kein Journal erwartet") }
         XCTAssertTrue(RestoreJournal.write(state, keys: keychain(key), to: url))
         XCTAssertNil(try Data(contentsOf: url).range(of: Data("portfolio".utf8)))

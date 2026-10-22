@@ -91,31 +91,48 @@ extension TaxEngines {
                 func feeCession(_ feeCoin: String, _ qty: Decimal, _ p: Decimal?, feeLeg: Bool) {
                     guard qty > 0 else { return }
                     let held: Decimal = books[feeCoin]?.total ?? 0
-                    let gross: Decimal? = p.map { PortfolioDecimal.multiply(qty, $0) }
-                    let value: Decimal? = portfolioValue(feeCoin, p, t.time).map { $0 - spent }
-                    let withAddresses = value != nil && valueHadAddresses
-                    let wasIncomplete = incomplete
-                    var cost: Decimal? = nil
-                    var parts: [PortfolioCostPart] = []
-                    if let gross, let value, value > 0 {
-                        let r = reduce(gross, value)
-                        cost = r.cost
-                        parts = r.parts
-                    } else {
-                        incomplete = true
+                    // Nur der gedeckte Anteil ist eine Abtretung mit Einstand (wie im Verkaufspfad): eine Gebühr in einem nie
+                    // erfassten Coin darf die PTA nicht kürzen und keinen Gewinn ergeben
+                    let covered: Decimal = min(qty, max(0, held))
+                    if covered > 0 {
+                        let coveredGross: Decimal? = p.map { PortfolioDecimal.multiply(covered, $0) }
+                        let value: Decimal? = portfolioValue(feeCoin, p, t.time).map { $0 - spent }
+                        let withAddresses = value != nil && valueHadAddresses
+                        let wasIncomplete = incomplete
+                        var cost: Decimal? = nil
+                        var parts: [PortfolioCostPart] = []
+                        if let coveredGross, let value, value > 0 {
+                            let r = reduce(coveredGross, value)
+                            cost = r.cost
+                            parts = r.parts
+                        } else {
+                            incomplete = true
+                        }
+                        if let coveredGross { spent += coveredGross }
+                        var gain: Decimal? = nil
+                        if let coveredGross, let cost { gain = coveredGross - cost }
+                        var d = PortfolioDisposal(
+                            coin: feeCoin, sellTxId: t.id, sellTime: t.time, lotTxId: nil, acquiredTime: nil, lotKind: nil,
+                            amount: covered, costUsdt: cost, proceedsUsdt: coveredGross, gainUsdt: gain, holdingDays: nil,
+                            feeLeg: feeLeg, feeValueMissing: false, method: .AVERAGE, costParts: parts, uncovered: false)
+                        d.costIncomplete = wasIncomplete || cost == nil
+                        d.portfolioValueUsdt = value
+                        d.grossProceedsUsdt = coveredGross
+                        d.addressValueIncluded = withAddresses
+                        out.append(d)
                     }
-                    if let gross { spent += gross }
-                    var gain: Decimal? = nil
-                    if let gross, let cost { gain = gross - cost }
-                    var d = PortfolioDisposal(
-                        coin: feeCoin, sellTxId: t.id, sellTime: t.time, lotTxId: nil, acquiredTime: nil, lotKind: nil,
-                        amount: qty, costUsdt: cost, proceedsUsdt: gross, gainUsdt: gain, holdingDays: nil,
-                        feeLeg: feeLeg, feeValueMissing: false, method: .AVERAGE, costParts: parts, uncovered: qty > held)
-                    d.costIncomplete = wasIncomplete || cost == nil
-                    d.portfolioValueUsdt = value
-                    d.grossProceedsUsdt = gross
-                    d.addressValueIncluded = withAddresses
-                    out.append(d)
+                    if covered < qty {
+                        // Rest ohne erfassten Bestand: Wert bekannt, Einstand unbekannt — zählt nicht in der Summe, PTA unverändert
+                        let rest = qty - covered
+                        let restGross: Decimal? = p.map { PortfolioDecimal.multiply(rest, $0) }
+                        var d = PortfolioDisposal(
+                            coin: feeCoin, sellTxId: t.id, sellTime: t.time, lotTxId: nil, acquiredTime: nil, lotKind: nil,
+                            amount: rest, costUsdt: nil, proceedsUsdt: restGross, gainUsdt: nil, holdingDays: nil,
+                            feeLeg: feeLeg, feeValueMissing: false, method: .AVERAGE, costParts: [], uncovered: true)
+                        d.costIncomplete = true
+                        d.grossProceedsUsdt = restGross
+                        out.append(d)
+                    }
                 }
 
                 /// Gebühr im dritten Coin (ausser beim Verkauf): eigene Abtretung zum erfassten Preis bzw. priceAt.

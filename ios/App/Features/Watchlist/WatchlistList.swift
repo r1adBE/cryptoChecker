@@ -226,13 +226,14 @@ extension WatchlistScreen {
         .background(AppColors.background)
         .environment(\.editMode, $editMode)
         .refreshable { await refreshByUser() }
-        .animation(.spring(duration: 0.35), value: watches.map(\.id))
-        .animation(.spring(duration: 0.35), value: groups)
-        .animation(.easeInOut(duration: 0.25), value: data.settings.gestureHintSeen)
-        .animation(.easeInOut(duration: 0.25), value: sorting)
-        .animation(.easeInOut(duration: 0.25), value: selecting)
-        .animation(.easeInOut(duration: 0.25), value: searching)
-        .animation(.easeInOut(duration: 0.2), value: found.map(\.id))
+        // «Bewegung reduzieren»: Zeilen und Hinweise springen ohne Bewegung an ihren Platz (wie die Überlagerungen)
+        .animation(reduceMotion ? nil : .spring(duration: 0.35), value: watches.map(\.id))
+        .animation(reduceMotion ? nil : .spring(duration: 0.35), value: groups)
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: data.settings.gestureHintSeen)
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: sorting)
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: selecting)
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: searching)
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: found.map(\.id))
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: pulse == nil)
     }
 

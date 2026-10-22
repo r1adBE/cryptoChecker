@@ -288,7 +288,9 @@ struct PortfolioScreen: View {
             }
             Button(L("action_cancel"), role: .cancel) { askDeleteCoin = nil }
         } message: { coin in
-            Text(L("portfolio_coin_delete_confirm", count: coinTxCount(coin)))
+            let refs = coinFeeRefCount(coin)
+            let confirm = L("portfolio_coin_delete_confirm", count: coinTxCount(coin))
+            Text(refs > 0 ? confirm + "\n\n" + L("portfolio_coin_delete_fee_refs", coin, refs) : confirm)
         }
     }
 }

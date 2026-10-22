@@ -91,7 +91,10 @@ internal fun AddressRow(
             // Token-Guthaben, die der letzte Abruf nicht bestätigt hat (TON: volle Jetton-Seite): «teilweise veraltet»
             val partlyStale = a.staleTokens.isNotEmpty() && a.tokenHoldings().any { it.key in a.staleTokens }
             val status = when {
-                a.lastError != null -> stringResource(R.string.portfolio_address_error) +
+                // xpub über der Anfragen-Grenze: eigener Hinweis (wiederholen hilft nicht)
+                a.lastError != null -> stringResource(
+                    if (a.lastError == XpubScan.TOO_MANY_MARKER) R.string.portfolio_address_xpub_too_many else R.string.portfolio_address_error
+                ) +
                     (if (a.lastUpdated > 0) " · " + ago(a.lastUpdated, now) else "")
                 a.lastUpdated > 0 -> ago(a.lastUpdated, now) + (a.lastProvider?.let { " · $it" } ?: "") +
                     (if (partlyStale) " · " + stringResource(R.string.portfolio_address_tokens_partly_stale) else "")
@@ -105,6 +108,14 @@ internal fun AddressRow(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
+                // Vollständige Suche zu gross, nur schnell gesucht (XpubCache.limitedFallback): dezenter Hinweis
+                if (a.xpub?.limitedFallback == true) {
+                    Text(
+                        stringResource(R.string.portfolio_address_xpub_limited),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             }
             val tokens = a.tokenHoldings()
             if (tokens.isNotEmpty()) {

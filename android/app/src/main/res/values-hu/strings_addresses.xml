@@ -23,6 +23,10 @@
     <string name="portfolio_address_xpub_privacy">Az xpub felfedi ennek a tárcának az összes címét. Ezeket a készüléked származtatja; ide: %1$s csak egyes címek kerülnek – az első keresésnél legalább 40 lekérés, később kevesebb. Privát kulcsot (xprv) sosem fogadunk el.</string>
     <string name="portfolio_address_xpub_gap">A keresés %1$d egymást követő használatlan cím után leáll (a legtöbb tárca által használt BIP44-szabvány). Az ezen a résen túli használt címet nem számolja – add hozzá külön.</string>
     <string name="portfolio_address_xpub_used">Használt címek: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Túl sok használt cím a frissítéshez</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <string name="portfolio_address_xpub_limited">Nagyon sok cím – a régi, üres címekre érkező új befizetéseket lehet, hogy nem ismeri fel</string>
     <string name="portfolio_addresses_title">Címek</string>
 
     <!-- Prüfung einer eingegebenen Adresse -->

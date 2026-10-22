@@ -25,7 +25,13 @@ extension PortfolioScreen {
     /// Daten, gleiche Regel wie `AppData.deletePortfolioCoin` und die Zahl in der Zeile.
     func coinTxCount(_ coin: String) -> Int {
         let key = PortfolioCalculator.normalizeCoin(coin)
-        return data.portfolio.filter { tx in tx.coins.contains { PortfolioCalculator.normalizeCoin($0) == key } }.count
+        return data.portfolio.filter { PortfolioEdits.involves($0, key) }.count
+    }
+
+    /// Transaktionen anderer Coins, die beim Löschen ihre Gebühr in `coin` verlieren (`PortfolioEdits.paysFee`).
+    func coinFeeRefCount(_ coin: String) -> Int {
+        let key = PortfolioCalculator.normalizeCoin(coin)
+        return data.portfolio.filter { PortfolioEdits.paysFee($0, in: key) }.count
     }
 
     /// Nach Rückfrage (gewischt oder VoiceOver «Löschen»): alle Transaktionen des Coins weg, Banner
@@ -41,7 +47,10 @@ extension PortfolioScreen {
         }
         deleteTick += 1
         let restore = removed
-        let text = L("portfolio_coin_removed", count: removed.count, coin, removed.count)
+        // Zurück kommen auch die Transaktionen, die nur ihre Gebühr in diesem Coin verloren; gezählt werden die gelöschten
+        let key = PortfolioCalculator.normalizeCoin(coin)
+        let count = removed.filter { PortfolioEdits.involves($0, key) }.count
+        let text = L("portfolio_coin_removed", count: count, coin, count)
         banner = WatchlistBannerMessage(
             text: text,
             icon: "trash",

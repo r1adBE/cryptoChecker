@@ -107,4 +107,20 @@ class NotificationBudgetTest {
         assertTrue(NotificationBudget.confirmedPost(mapOf(7 to start), 7, start))
         assertTrue(NotificationBudget.confirmedPost(mapOf(7 to start + 40L), 7, start))
     }
+
+    /**
+     * Seit Build 102: 48 offene Mitteilungen (47 Alarme + Zusammenfassung) — der neue Alarm verdrängt die älteste statt
+     * endlos still zu scheitern.
+     */
+    @Test
+    fun `bei 48 offenen Alarmen weicht die aelteste Alarm-Meldung`() {
+        val alarms = (1..47).toList() // älteste zuerst
+        val need = NotificationBudget.neededForAlarm(alarms.size + 1, alarmShown = false, summaryShown = true)
+        val room = NotificationBudget.roomForAlarm(need, prices = 0, overflowShown = false)
+        assertEquals(1, room.remaining)
+        assertEquals(listOf(1), NotificationBudget.alarmsToEvict(room.remaining, alarms, newId = 99))
+        // Die neue Meldung selbst (gleicher Alarm, schon offen) weicht nie
+        assertEquals(listOf(2, 3), NotificationBudget.alarmsToEvict(2, listOf(1, 2, 3), newId = 1))
+        assertTrue(NotificationBudget.alarmsToEvict(0, alarms, newId = 99).isEmpty())
+    }
 }

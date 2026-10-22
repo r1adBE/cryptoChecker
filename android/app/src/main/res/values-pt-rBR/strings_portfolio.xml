@@ -301,6 +301,8 @@
         <item quantity="many">%d transações serão removidas. Você pode desfazer logo em seguida.</item>
         <item quantity="other">%d transações serão removidas. Você pode desfazer logo em seguida.</item>
     </plurals>
+    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">As taxas pagas em %1$s também serão removidas de outras transações: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">
         <item quantity="one">%1$s removido do portfólio (%2$d transação)</item>

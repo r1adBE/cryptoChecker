@@ -273,7 +273,8 @@ data class PortfolioLostFeeCost(val coin: String, val txId: Long, val time: Long
  * Gebühr im dritten Coin), der nach Menge auf Bestand OHNE Kaufpreis fällt. Er gehört zu dessen unbekanntem Einstand und
  * kann keinem bekannten Einstand zugeschlagen werden — statt still zu entfallen steht er hier ([CoinPosition.unassignedFeeUsdt],
  * Anzeige «Gebühr nicht zugeordnet – Einstand unbekannt»; Steuer-Export: Info-Zeile). Weder im Einstand noch realisiert.
- * Die Veräusserung einer Gebühr im dritten Coin ([PortfolioDisposal.feeLeg]) bleibt davon unberührt.
+ * Die Veräusserung einer Gebühr im dritten Coin ([PortfolioDisposal.feeLeg]) bleibt davon unberührt. Seit Build 102 auch
+ * der Anteil einer Auszahlungsgebühr, der auf nicht erfassten Bestand fällt ([PortfolioFeeExpenses.withdrawalUncovered]).
  */
 data class PortfolioUnassignedFee(val coin: String, val txId: Long, val time: Long, val usdt: BigDecimal)
 

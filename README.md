@@ -81,7 +81,7 @@ Helper scripts (Python 3, run from `ios/`):
 ## Exchange library
 
 Both apps read **public** price data directly from the exchanges – no API
-keys, no accounts. 53 markets on 44 exchanges plus DexScreener:
+keys, no accounts. 54 markets: 53 on 44 exchanges, plus DexScreener:
 
 * Android: [`android/marketdata`](android/marketdata) (Gradle library module,
   registered in `config/MarketsConfig.kt`)

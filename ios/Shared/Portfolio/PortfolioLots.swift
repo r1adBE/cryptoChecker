@@ -233,7 +233,8 @@ struct PortfolioLostFeeCost: Sendable, Equatable {
 /// «Offener Posten sichtbar» (Entscheid des Inhabers 17.10.2026): Anteil einer Umbuchungsgebühr (Gebühr USDT + Wert der
 /// Gebühr im dritten Coin), der nach Menge auf Bestand OHNE Kaufpreis fällt — gehört zu dessen unbekanntem Einstand und
 /// steht hier statt still zu entfallen (Anzeige «Gebühr nicht zugeordnet – Einstand unbekannt», Steuer-Export: Info-Zeile).
-/// Weder im Einstand noch realisiert. Wie `PortfolioUnassignedFee` (Android).
+/// Weder im Einstand noch realisiert. Seit Build 102 auch der Anteil einer Auszahlungsgebühr, der auf nicht erfassten
+/// Bestand fällt (`PortfolioFeeExpenses.withdrawalUncovered`). Wie `PortfolioUnassignedFee` (Android).
 struct PortfolioUnassignedFee: Sendable, Equatable {
     let coin: String
     let txId: Int64

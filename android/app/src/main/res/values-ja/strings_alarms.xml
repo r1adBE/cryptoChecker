@@ -47,6 +47,7 @@
     <string name="alarm_threshold_error_funding">資金調達率は −10〜+10 パーセントの数値にしてください。</string>
     <string name="alarm_threshold_error_invalid">0 より大きい有効な数値を入力してください。</string>
     <string name="alarm_threshold_error_oi">建玉の変化：最大 1000 パーセント。</string>
+    <string name="alarm_threshold_error_percent_down">下落は最大 100 パーセントまでです。</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">%1$d 時間以内</item>
     </plurals>

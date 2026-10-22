@@ -113,6 +113,9 @@ class WatchedAddressSource @Inject constructor(
                     throw e
                 } catch (e: OutOfTime) {
                     break
+                } catch (e: XpubScan.TooMany) {
+                    // Eigener Hinweis «Zu viele Adressen» statt «Aktualisierung fehlgeschlagen» (wiederholen hilft nicht)
+                    updates += Update(a.id, time, null, XpubScan.TOO_MANY_MARKER)
                 } catch (e: Exception) {
                     Timber.d("Adresse %s: %s", WatchedAddressRules.shortAddress(a.address), e.message)
                     // Nur kurzer Code speichern (Ausnahmetexte enthalten Hosts/URLs, teils die Adresse)

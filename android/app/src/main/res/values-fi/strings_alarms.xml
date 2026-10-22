@@ -48,6 +48,7 @@
     <string name="alarm_threshold_error_funding">Rahoituskoron on oltava luku väliltä −10…+10 prosenttia.</string>
     <string name="alarm_threshold_error_invalid">Syötä kelvollinen luku, joka on suurempi kuin 0.</string>
     <string name="alarm_threshold_error_oi">Avoimet positiot: muutos enintään 1000 prosenttia.</string>
+    <string name="alarm_threshold_error_percent_down">Lasku voi olla enintään 100 prosenttia.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d tunnissa</item>
         <item quantity="other">%1$d tunnissa</item>

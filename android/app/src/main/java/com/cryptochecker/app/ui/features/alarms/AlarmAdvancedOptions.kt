@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.alarms
 
+import com.cryptochecker.app.util.PercentText
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -122,7 +123,7 @@ internal fun ThresholdField(draft: AlarmDraft, onDraftChange: (AlarmDraft) -> Un
                 )
             )
         },
-        suffix = { Text("%") },
+        suffix = { Text(PercentText.symbol()) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         isError = draft.thresholdProblem != null,
         supportingText = thresholdErrorText(draft.thresholdProblem),
@@ -201,7 +202,7 @@ internal fun MoreConditionOptions(
                 onValueChange = { onDraftChange(draft.copy(thresholdText = it)) },
                 singleLine = true,
                 label = { Text(stringResource(R.string.alarm_field_percent)) },
-                suffix = { Text("%") },
+                suffix = { Text(PercentText.symbol()) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                 isError = draft.thresholdProblem != null,
                 supportingText = thresholdErrorText(draft.thresholdProblem),

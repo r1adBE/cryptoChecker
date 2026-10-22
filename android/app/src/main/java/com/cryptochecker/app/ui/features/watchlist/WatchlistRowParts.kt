@@ -83,6 +83,13 @@ internal val LocalMarkFallback = compositionLocalOf<Set<Long>> { emptySet() }
 internal val LocalExchangePauses = compositionLocalOf<Map<String, Long>> { emptyMap() }
 
 /**
+ * Innere Breite einer Merkliste-Zeile, einmal in [WatchlistList] gemessen (alle Zeilen sind gleich breit): spart
+ * je Zeile eine eigene Messung per BoxWithConstraints (Subkomposition) bei bis zu 2000 Einträgen.
+ * Unspecified = nicht gesetzt, die Zeile nimmt dann die Bildschirmbreite.
+ */
+internal val LocalWatchRowWidth = compositionLocalOf { androidx.compose.ui.unit.Dp.Unspecified }
+
+/**
  * Links: Griff im Sortiermodus, sonst etwas Abstand. Favoriten zeigt mit eingeschalteten
  * Coin-Logos ein kleiner Stern am Logo (sonst ein eigener kleiner Stern vor dem Paar) — kein eigener Stern-Knopf mehr,
  * der dem Paar Breite nimmt (Favorit wechseln: nach rechts wischen, Aktionsblatt, Screenreader-Aktion).

@@ -48,6 +48,7 @@
     <string name="alarm_threshold_error_funding">Το funding rate πρέπει να είναι αριθμός από −10 έως +10 τοις εκατό.</string>
     <string name="alarm_threshold_error_invalid">Εισήγαγε έναν έγκυρο αριθμό μεγαλύτερο από 0.</string>
     <string name="alarm_threshold_error_oi">Μεταβολή ανοιχτού ενδιαφέροντος: έως 1000 τοις εκατό.</string>
+    <string name="alarm_threshold_error_percent_down">Μια πτώση μπορεί να είναι το πολύ 100 τοις εκατό.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">σε %1$d ώρα</item>
         <item quantity="other">σε %1$d ώρες</item>

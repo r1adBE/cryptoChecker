@@ -35,9 +35,14 @@ class DatabaseKeyStore(
     /** Stamm der Keystore-Aliase; je Datenbank ein eigener Schlüssel ([aliasFor]). */
     private val alias: String = ALIAS,
     private val directory: File = File(context.noBackupFilesDir, DIRECTORY),
+    /** Nur Tests: eigene Menge «in diesem Lauf vermerkt» = neuer Prozess ([DatabaseKeyRetry.SuspectMarker]). */
+    runSeen: MutableSet<String>? = null,
 ) : DatabaseEncryptionMigration.Keys {
 
     private fun keyFile(database: String) = File(directory, "$database.key")
+
+    /** Verdacht auf verlorenen Keystore-Schlüssel je Datenbank, erst im nächsten Lauf wirksam ([DatabaseKeyRetry]). */
+    private val suspects = runSeen?.let { DatabaseKeyRetry.SuspectMarker(directory, it) } ?: DatabaseKeyRetry.SuspectMarker(directory)
 
     /**
      * Von [create] beiseitegelegte frühere Schlüssel ([PREVIOUS_SUFFIX], weitere nummeriert `.previous.1`, `.previous.2` …),
@@ -62,22 +67,29 @@ class DatabaseKeyStore(
     override fun load(database: String): KeyLookup {
         val file = keyFile(database)
         if (!file.exists()) return KeyLookup.Absent
-        var lastError: Exception? = null
-        // Vorübergehende Keystore-Fehler (Dienst beschäftigt) kommen vor: kurz wiederholen
-        repeat(ATTEMPTS) { attempt ->
-            try {
-                val master = masterKey(database) ?: return KeyLookup.Absent
-                val raw = decrypt(master, file.readBytes())
-                if (raw.size != DatabaseEncryptionMigration.KEY_BYTES) return KeyLookup.Absent
-                return KeyLookup.Found(DatabaseEncryptionMigration.rawKeyLiteral(raw))
-            } catch (e: Exception) {
-                // Endgültig: Keystore-Schlüssel ungültig, nicht mehr herstellbar oder ein anderer als beim Verschlüsseln
-                if (e.isPermanent()) return KeyLookup.Absent
-                lastError = e
-                if (attempt < ATTEMPTS - 1) Thread.sleep(RETRY_DELAY_MILLIS)
+        // Vorübergehende Keystore-Fehler (Dienst beschäftigt, kurz nach Start oder Update) kommen vor: wiederholen —
+        // seit Build 102 auch `UnrecoverableKeyException` und «kein Schlüssel» ([DatabaseKeyRetry])
+        val outcome = DatabaseKeyRetry.run(ATTEMPTS, RETRY_DELAY_MILLIS, { Thread.sleep(it) }, { classify(it) }) {
+            masterKey(database)?.let { decrypt(it, file.readBytes()) }
+        }
+        return when (outcome) {
+            is DatabaseKeyRetry.Outcome.Value -> {
+                suspects.clear(database)
+                if (outcome.value.size != DatabaseEncryptionMigration.KEY_BYTES) KeyLookup.Absent
+                else KeyLookup.Found(DatabaseEncryptionMigration.rawKeyLiteral(outcome.value))
+            }
+            // Endgültig: Keystore-Schlüssel ungültig gemacht oder ein anderer als beim Verschlüsseln
+            is DatabaseKeyRetry.Outcome.Permanent -> KeyLookup.Absent
+            is DatabaseKeyRetry.Outcome.Transient -> KeyLookup.Unavailable(outcome.error)
+            is DatabaseKeyRetry.Outcome.Suspect -> {
+                val error = outcome.error ?: IllegalStateException("$database: Keystore liefert keinen Schlüssel")
+                // Eintrag noch da, nur gerade nicht herausgegeben: nie als verloren werten (Datei bleibt unberührt)
+                if (outcome.error == null && aliasPresent(database) != false) KeyLookup.Unavailable(error)
+                // Erst im nächsten Lauf als verloren werten: dann legt die Migration die Datei beiseite
+                else if (suspects.escalate(database)) KeyLookup.Absent
+                else KeyLookup.Unavailable(error)
             }
         }
-        return KeyLookup.Unavailable(lastError ?: IllegalStateException("Keystore"))
     }
 
     override fun create(database: String): ByteArray {
@@ -89,8 +101,10 @@ class DatabaseKeyStore(
                 masterKey(database)
             } catch (e: Exception) {
                 // Endgültig kaputter Keystore-Eintrag: Daran hängt nichts Lesbares mehr — ersetzen (nur der dieser
-                // Datenbank; die andere hat ihren eigenen und bleibt unberührt)
+                // Datenbank; die andere hat ihren eigenen und bleibt unberührt). Seit Build 102 nie im selben Lauf, in dem
+                // er zum ersten Mal unbrauchbar war ([DatabaseKeyRetry.SuspectMarker]): dann kein neuer Schlüssel in diesem Lauf
                 if (!e.isPermanent()) throw e
+                if (!suspects.escalate(database)) throw IOException("$database: Keystore-Eintrag erst im nächsten Lauf ersetzt", e)
                 keyStore().deleteEntry(aliasFor(alias, database))
                 null
             }
@@ -112,6 +126,7 @@ class DatabaseKeyStore(
             out.fd.sync()
         }
         if (!temp.renameTo(file)) throw IOException("$database: Schlüsseldatei nicht gespeichert")
+        suspects.clear(database)
         return DatabaseEncryptionMigration.rawKeyLiteral(raw)
     }
 
@@ -153,6 +168,17 @@ class DatabaseKeyStore(
 
     private fun masterKey(database: String): SecretKey? = keyStore().getKey(aliasFor(alias, database), null) as SecretKey?
 
+    /** Steht der Keystore-Eintrag von [database] noch im Verzeichnis? null = unbekannt (Keystore nicht lesbar). */
+    private fun aliasPresent(database: String): Boolean? =
+        runCatching { keyStore().containsAlias(aliasFor(alias, database)) }.getOrNull()
+
+    /** Ungültig gemacht oder falsches Chiffrat: sofort endgültig; `UnrecoverableKeyException`: erst verdächtig. */
+    private fun classify(e: Throwable): DatabaseKeyRetry.Failure = when {
+        e.isDefinite() -> DatabaseKeyRetry.Failure.PERMANENT
+        e.isPermanent() -> DatabaseKeyRetry.Failure.SUSPECT
+        else -> DatabaseKeyRetry.Failure.TRANSIENT
+    }
+
     private fun generateMasterKey(database: String): SecretKey {
         val generator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEYSTORE)
         generator.init(
@@ -183,6 +209,9 @@ class DatabaseKeyStore(
     private fun Throwable.isPermanent(): Boolean =
         this is KeyPermanentlyInvalidatedException || this is UnrecoverableKeyException || this is AEADBadTagException ||
             cause?.isPermanent() == true
+
+    private fun Throwable.isDefinite(): Boolean =
+        this is KeyPermanentlyInvalidatedException || this is AEADBadTagException || cause?.isDefinite() == true
 
     companion object {
         const val ALIAS = "cryptochecker_db_key_v1"
@@ -226,7 +255,8 @@ class DatabaseKeyStore(
         private const val IV_BYTES = 12
         private const val TAG_BYTES = 16
         private const val ATTEMPTS = 3
-        private const val RETRY_DELAY_MILLIS = 150L
+        /** 3 × 500 ms: ein nach Start oder Update noch beschäftigter Keystore braucht oft mehr als 150 ms. */
+        private const val RETRY_DELAY_MILLIS = 500L
 
         /** Sperre für Lesen/Anlegen des Keystore-Schlüssels, über alle Instanzen (App und Sicherungs-Agent). */
         private val MASTER_KEY_LOCK = Any()

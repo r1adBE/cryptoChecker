@@ -93,8 +93,9 @@ class SettingsViewModel @Inject constructor(
 
     override fun onCleared() { backupManager.forgetPickedBackup(); super.onCleared() }
 
+    // Start mit dem zuletzt gelesenen Stand statt Werks-Defaults: sonst springen Schalter beim Öffnen kurz um
     val settings: StateFlow<AppSettings> = settingsRepository.settings
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AppSettings())
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), settingsRepository.cached)
 
     /** Paare der Merkliste für «Kursmitteilungen › Paare» (Auswahl je Paar). */
     val watches: StateFlow<List<com.cryptochecker.app.data.local.model.WatchEntity>> = watchRepository.observeWatches()

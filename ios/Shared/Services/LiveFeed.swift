@@ -133,6 +133,14 @@ enum LiveBackoff {
 
 /// Regeln — wie `LiveRules` (Kotlin).
 enum LiveRules {
+    /// Zeit eines neuen Kurses: die der Börse, ausser sie fehlt oder liegt mehr als 5 Minuten in der Zukunft (falsch
+    /// gelesen, Ortszeit als Epoche) – dann jetzt. Wie die REST-Abfrage (`Market.markFetched`): eine Zeit aus der Zukunft
+    /// liesse einen stehenden Kurs lange frisch aussehen (seit Build 102). Wie `LiveRules.tickTime` (Android).
+    static func tickTime(_ reported: Int64?, now: Int64) -> Int64 {
+        guard let reported, reported > 0, reported <= now + Market.exchangeTimeFutureToleranceMillis else { return now }
+        return reported
+    }
+
     static let uiIntervalMillis: Int64 = 500
     static let dbIntervalMillis: Int64 = 10_000
     static let widgetIntervalMillis: Int64 = 60_000
@@ -196,11 +204,7 @@ struct LiveBuffer: Sendable {
                 time = previous.time
                 tradeTime = previous.tradeTime
             } else {
-                if let t = tick.time, t > 0 {
-                    time = t
-                } else {
-                    time = now
-                }
+                time = LiveRules.tickTime(tick.time, now: now)
                 tradeTime = previous == nil ? nil : time
             }
             let quote = LiveQuote(price: price, change24h: tick.change24h ?? previous?.change24h, time: time,

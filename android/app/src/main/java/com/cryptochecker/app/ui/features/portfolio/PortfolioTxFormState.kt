@@ -105,7 +105,8 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
         val isSwap = type == PortfolioTxType.SWAP
         // Menge ohne Kurs-Hinweis (mehrdeutig → Dezimalzeichen der Region), Preis am Kurs gemessen.
         // Exakt gelesen (BigDecimal): 0.00000001 BTC = 1 Satoshi, ohne Gleitkomma-Rundung
-        val amount = PriceFormat.parseDecimalAmount(amountText, sep)?.takeIf { it.signum() > 0 }
+        // Auf die gespeicherten 18 Nachkommastellen gerundet, dann geprüft: unter 10⁻¹⁸ ist ungültig (sonst als 0 gespeichert)
+        val amount = PriceFormat.parseDecimalAmount(amountText, sep)?.let { PortfolioDecimal.amount(it) }?.takeIf { it.signum() > 0 }
         // Eingabe in der Anzeigewährung: nur mit Preis-/Wertfeld und nicht für USD (USDT gilt als USD)
         val day = localDate(time)
         val fiatPossible = currency != "USD" && (fields.price || isSwap)
@@ -115,7 +116,7 @@ internal class TxFormState(val initial: TxDraft, val decimalSeparator: Char) {
         val priceEntered: BigDecimal? = if (priceText.isBlank()) null else PriceFormat.parseDecimalAmount(priceText, sep, priceHintEntry)
         // Gespeichert wird USDT: Eingabe in der Anzeigewährung ÷ Tageskurs
         val price: BigDecimal? = if (fiatActive) PortfolioTxForm.fiatToUsdt(priceEntered, fxRate) else priceEntered
-        val toAmount = PriceFormat.parseDecimalAmount(toAmountText, sep)?.takeIf { it.signum() > 0 }
+        val toAmount = PriceFormat.parseDecimalAmount(toAmountText, sep)?.let { PortfolioDecimal.amount(it) }?.takeIf { it.signum() > 0 }
         val swapValueEntered = if (swapValueText.isBlank()) null else PriceFormat.parseDecimalAmount(swapValueText, sep)
         val swapValue = if (fiatActive) PortfolioTxForm.fiatToUsdt(swapValueEntered, fxRate) else swapValueEntered
         val feeCoinAmount = PriceFormat.parseDecimalAmount(feeCoinAmountText, sep)

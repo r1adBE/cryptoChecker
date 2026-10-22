@@ -3,7 +3,6 @@ package com.cryptochecker.app.settings
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
 import android.content.Context
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.emptyPreferences
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.alarm.DepegAlarm
@@ -15,12 +14,12 @@ import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.UsageDays
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import timber.log.Timber
-import java.io.IOException
+import kotlinx.coroutines.withContext
+import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -30,17 +29,12 @@ import javax.inject.Singleton
 @Singleton
 class SettingsRepository @Inject constructor(
     @param:ApplicationContext private val context: Context,
-) {
+) : SettingsBackupTarget {
 
-    val settings: Flow<AppSettings> = context.settingsDataStore.data
-        // Lesefehler (I/O): mit Standardwerten weiter statt Absturz; andere Fehler weiterreichen
-        .catch { e ->
-            if (e !is IOException) throw e
-            Timber.w(e, "Einstellungen nicht lesbar – Standardwerte")
-            emit(emptyPreferences())
-        }
-        .map { prefs ->
-            appSettingsOf(prefs).also {
+    // Lesefehler (I/O): Standardwerte statt Absturz; Portfolio-Sperre dann und nach beschädigter Datei an ([SettingsLockFallback])
+    val settings: Flow<AppSettings> = SettingsLockFallback.settings(context, context.settingsDataStore.data)
+        .map { read ->
+            read.also {
                 cached = it
                 loaded = true
             }
@@ -80,13 +74,13 @@ class SettingsRepository @Inject constructor(
     var loaded: Boolean = false
         private set
 
-    suspend fun current(): AppSettings = settings.first()
+    override suspend fun current(): AppSettings = settings.first()
 
     /**
      * «Wie aktuell?»; die früheren Schalter werden passend mitgeschrieben (Downgrade). «Immer kurz»
      * wird nie gespeichert ([UpdateMode.withoutService]).
      */
-    suspend fun setUpdateMode(mode: UpdateMode) = edit {
+    override suspend fun setUpdateMode(mode: UpdateMode) = edit {
         val saved = mode.withoutService()
         val flags = saved.legacyFlags
         it[SettingsKeys.updateMode] = saved.name
@@ -95,53 +89,53 @@ class SettingsRepository @Inject constructor(
         it[SettingsKeys.liveWebSocketLegacy] = flags.liveWebSocket
     }
 
-    suspend fun setBackgroundInterval(minutes: Int) = edit {
+    override suspend fun setBackgroundInterval(minutes: Int) = edit {
         it[SettingsKeys.backgroundInterval] = AppSettings.clampBackgroundInterval(minutes)
     }
 
     suspend fun setExactChecks(enabled: Boolean) = edit { it[SettingsKeys.exactChecks] = enabled }
 
 
-    suspend fun setLiveInterval(seconds: Int) = edit {
+    override suspend fun setLiveInterval(seconds: Int) = edit {
         it[SettingsKeys.liveInterval] = AppSettings.clampLiveInterval(seconds)
     }
 
-    suspend fun setPriceNotifications(enabled: Boolean) = edit { it[SettingsKeys.priceNotifications] = enabled }
+    override suspend fun setPriceNotifications(enabled: Boolean) = edit { it[SettingsKeys.priceNotifications] = enabled }
 
-    suspend fun setOngoingNotifications(enabled: Boolean) = edit { it[SettingsKeys.ongoingNotifications] = enabled }
+    override suspend fun setOngoingNotifications(enabled: Boolean) = edit { it[SettingsKeys.ongoingNotifications] = enabled }
 
-    suspend fun setNotificationChangePercent(percent: Double) = edit {
+    override suspend fun setNotificationChangePercent(percent: Double) = edit {
         it[SettingsKeys.notificationChange] = percent.coerceIn(0.0, 100.0)
     }
 
-    suspend fun setTtsEnabled(enabled: Boolean) = edit { it[SettingsKeys.tts] = enabled }
+    override suspend fun setTtsEnabled(enabled: Boolean) = edit { it[SettingsKeys.tts] = enabled }
 
-    suspend fun setTtsAlarmsOnly(enabled: Boolean) = edit { it[SettingsKeys.ttsAlarmsOnly] = enabled }
+    override suspend fun setTtsAlarmsOnly(enabled: Boolean) = edit { it[SettingsKeys.ttsAlarmsOnly] = enabled }
 
-    suspend fun setTtsSpeechRate(rate: Float) = edit {
+    override suspend fun setTtsSpeechRate(rate: Float) = edit {
         it[SettingsKeys.ttsSpeechRate] = rate.coerceIn(0.5f, 2.0f)
     }
 
-    suspend fun setAlarmCooldown(minutes: Int) = edit {
+    override suspend fun setAlarmCooldown(minutes: Int) = edit {
         it[SettingsKeys.alarmCooldown] = AppSettings.clampAlarmCooldown(minutes)
     }
 
-    suspend fun setIncludeRollingFutures(enabled: Boolean) =
+    override suspend fun setIncludeRollingFutures(enabled: Boolean) =
         edit { it[SettingsKeys.includeRollingFutures] = enabled }
 
-    suspend fun setIncludeAlphaTokens(enabled: Boolean) =
+    override suspend fun setIncludeAlphaTokens(enabled: Boolean) =
         edit { it[SettingsKeys.includeAlphaTokens] = enabled }
 
     /** Ab hier gilt nur noch der neue Wert; der frühere Schalter wird entfernt. */
-    suspend fun setAssetScope(scope: AssetScope) = edit {
+    override suspend fun setAssetScope(scope: AssetScope) = edit {
         it[SettingsKeys.assetScope] = scope.name
         it.remove(SettingsKeys.includeTradFiFuturesLegacy)
     }
 
-    suspend fun setAccentColor(accent: AccentColor) = edit { it[SettingsKeys.accentColor] = accent.name }
+    override suspend fun setAccentColor(accent: AccentColor) = edit { it[SettingsKeys.accentColor] = accent.name }
 
     /** null = wie das System. */
-    suspend fun setDarkMode(dark: Boolean?) = edit {
+    override suspend fun setDarkMode(dark: Boolean?) = edit {
         if (dark == null) {
             it.remove(SettingsKeys.darkMode)
         } else {
@@ -166,37 +160,37 @@ class SettingsRepository @Inject constructor(
 
     // Markt-Meldungen: ausgeschaltet → gemerkten Stand vergessen (MarketAlertReset), sonst bliebe das Wiedereinschalten
     // mit derselben Grenze stumm, wenn während «Aus» keine Prüfung lief
-    suspend fun setFearGreedBelow(value: Int) {
+    override suspend fun setFearGreedBelow(value: Int) {
         edit { it[SettingsKeys.fearGreedBelow] = value.coerceIn(0, 100) }
         if (value <= 0) MarketAlertReset.fearGreedOff(context, below = true)
     }
 
-    suspend fun setFearGreedAbove(value: Int) {
+    override suspend fun setFearGreedAbove(value: Int) {
         edit { it[SettingsKeys.fearGreedAbove] = value.coerceIn(0, 100) }
         if (value <= 0) MarketAlertReset.fearGreedOff(context, below = false)
     }
 
     /** Eigene Grenze einer Bitcoin-Kennzahl; nur Werte aus [IndicatorAlertKind.choices], sonst aus. */
-    suspend fun setIndicatorAlert(kind: IndicatorAlertKind, value: Int) {
+    override suspend fun setIndicatorAlert(kind: IndicatorAlertKind, value: Int) {
         val stored = value.takeIf { v -> v in kind.choices } ?: 0
         edit { it[SettingsKeys.indicatorAlert(kind)] = stored }
         if (stored <= 0) MarketAlertReset.indicatorOff(context, kind)
     }
 
-    suspend fun setGasAlertEth(tenths: Int) {
+    override suspend fun setGasAlertEth(tenths: Int) {
         edit { it[SettingsKeys.gasAlertEth] = tenths.coerceIn(0, 10_000) }
         if (tenths <= 0) MarketAlertReset.gasOff(context, eth = true)
     }
 
-    suspend fun setGasAlertBtc(satPerVb: Int) {
+    override suspend fun setGasAlertBtc(satPerVb: Int) {
         edit { it[SettingsKeys.gasAlertBtc] = satPerVb.coerceIn(0, 10_000) }
         if (satPerVb <= 0) MarketAlertReset.gasOff(context, eth = false)
     }
 
-    suspend fun setDepegAlarm(enabled: Boolean) = edit { it[SettingsKeys.depegAlarm] = enabled }
+    override suspend fun setDepegAlarm(enabled: Boolean) = edit { it[SettingsKeys.depegAlarm] = enabled }
 
     /** Nur Werte aus [DepegAlarm.THRESHOLD_CHOICES], sonst Standard. */
-    suspend fun setDepegThreshold(tenths: Int) = edit { it[SettingsKeys.depegThreshold] = DepegAlarm.threshold(tenths) }
+    override suspend fun setDepegThreshold(tenths: Int) = edit { it[SettingsKeys.depegThreshold] = DepegAlarm.threshold(tenths) }
 
     /**
      * Alarmton setzen (null = Standardton). Erhöht die Kanal-Version, damit
@@ -220,52 +214,52 @@ class SettingsRepository @Inject constructor(
     }
 
     /** «Alarm-Signal» (Ton/Vibration der Kursalarme). */
-    suspend fun setAlarmSignal(signal: AlarmSignal) = edit { it[SettingsKeys.alarmSignal] = signal.name }
+    override suspend fun setAlarmSignal(signal: AlarmSignal) = edit { it[SettingsKeys.alarmSignal] = signal.name }
 
-    suspend fun setActivityAlerts(enabled: Boolean) = edit { it[SettingsKeys.activityAlerts] = enabled }
-    suspend fun setActivitySensitivity(sensitivity: ActivitySensitivity) =
+    override suspend fun setActivityAlerts(enabled: Boolean) = edit { it[SettingsKeys.activityAlerts] = enabled }
+    override suspend fun setActivitySensitivity(sensitivity: ActivitySensitivity) =
         edit { it[SettingsKeys.activitySensitivity] = sensitivity.name }
-    suspend fun setMacroNotifications(enabled: Boolean) = edit { it[SettingsKeys.macroNotifications] = enabled }
+    override suspend fun setMacroNotifications(enabled: Boolean) = edit { it[SettingsKeys.macroNotifications] = enabled }
 
-    suspend fun setPortfolioEnabled(enabled: Boolean) = edit { it[SettingsKeys.portfolioEnabled] = enabled }
+    override suspend fun setPortfolioEnabled(enabled: Boolean) = edit { it[SettingsKeys.portfolioEnabled] = enabled }
 
     /** Dreistelliger Währungscode, z. B. «CHF». */
-    suspend fun setPortfolioCurrency(currency: String) = edit {
+    override suspend fun setPortfolioCurrency(currency: String) = edit {
         val code = currency.trim().uppercase()
         if (code.length == 3 && code.all { c -> c in 'A'..'Z' }) it[SettingsKeys.portfolioCurrency] = code
     }
 
     /** Umgerechnete Kurse in der Merkliste zeigen. */
-    suspend fun setShowConverted(show: Boolean) = edit { it[SettingsKeys.showConverted] = show }
+    override suspend fun setShowConverted(show: Boolean) = edit { it[SettingsKeys.showConverted] = show }
 
     /** Kursfarben steigend/fallend. */
-    suspend fun setPriceColorScheme(scheme: PriceColorScheme) = edit { it[SettingsKeys.priceColorScheme] = scheme.name }
+    override suspend fun setPriceColorScheme(scheme: PriceColorScheme) = edit { it[SettingsKeys.priceColorScheme] = scheme.name }
 
     /** Mini-Chart in der Merkliste. */
-    suspend fun setWatchlistSparkline(show: Boolean) = edit { it[SettingsKeys.watchlistSparkline] = show }
-    suspend fun setWatchlistNames(show: Boolean) = edit { it[SettingsKeys.watchlistNames] = show }
-    suspend fun setShowChangePeriod(show: Boolean) = edit { it[SettingsKeys.showChangePeriod] = show }
-    suspend fun setAppIconBadge(show: Boolean) = edit { it[SettingsKeys.appIconBadge] = show }
+    override suspend fun setWatchlistSparkline(show: Boolean) = edit { it[SettingsKeys.watchlistSparkline] = show }
+    override suspend fun setWatchlistNames(show: Boolean) = edit { it[SettingsKeys.watchlistNames] = show }
+    override suspend fun setShowChangePeriod(show: Boolean) = edit { it[SettingsKeys.showChangePeriod] = show }
+    override suspend fun setAppIconBadge(show: Boolean) = edit { it[SettingsKeys.appIconBadge] = show }
 
-    suspend fun setWatchlistActivityCard(show: Boolean) = edit { it[SettingsKeys.watchlistActivityCard] = show }
+    override suspend fun setWatchlistActivityCard(show: Boolean) = edit { it[SettingsKeys.watchlistActivityCard] = show }
 
     /** Coin-Logos in der App. */
-    suspend fun setCoinLogos(show: Boolean) = edit { it[SettingsKeys.coinLogos] = show }
+    override suspend fun setCoinLogos(show: Boolean) = edit { it[SettingsKeys.coinLogos] = show }
 
     /** Coin-Logos in den Widgets. */
-    suspend fun setWidgetCoinLogos(show: Boolean) = edit { it[SettingsKeys.widgetCoinLogos] = show }
+    override suspend fun setWidgetCoinLogos(show: Boolean) = edit { it[SettingsKeys.widgetCoinLogos] = show }
 
     /** Coin-Logos im Portfolio. */
-    suspend fun setPortfolioCoinLogos(show: Boolean) = edit { it[SettingsKeys.portfolioCoinLogos] = show }
+    override suspend fun setPortfolioCoinLogos(show: Boolean) = edit { it[SettingsKeys.portfolioCoinLogos] = show }
 
     /** «Basis der %-Änderung». */
-    suspend fun setChangeBasis(basis: ChangeBasis) = edit { it[SettingsKeys.changeBasis] = basis.name }
+    override suspend fun setChangeBasis(basis: ChangeBasis) = edit { it[SettingsKeys.changeBasis] = basis.name }
 
     /** Hoher Kontrast (Kursfarben und Nebentexte). */
-    suspend fun setHighContrast(enabled: Boolean) = edit { it[SettingsKeys.highContrast] = enabled }
+    override suspend fun setHighContrast(enabled: Boolean) = edit { it[SettingsKeys.highContrast] = enabled }
 
     /** Kursfarben tauschen (Rot = steigend). */
-    suspend fun setPriceColorsInverted(inverted: Boolean) = edit { it[SettingsKeys.priceColorsInverted] = inverted }
+    override suspend fun setPriceColorsInverted(inverted: Boolean) = edit { it[SettingsKeys.priceColorsInverted] = inverted }
 
     suspend fun setAboutSeen(seen: Boolean) = edit { it[SettingsKeys.aboutSeen] = seen }
 
@@ -281,7 +275,7 @@ class SettingsRepository @Inject constructor(
         if (value == null) it.remove(SettingsKeys.watchlistColumnSort) else it[SettingsKeys.watchlistColumnSort] = value
     }
 
-    suspend fun setWatchlistColumnSort(value: String?) = edit {
+    override suspend fun setWatchlistColumnSort(value: String?) = edit {
         if (value == null) it.remove(SettingsKeys.watchlistColumnSort) else it[SettingsKeys.watchlistColumnSort] = value
     }
 
@@ -295,26 +289,30 @@ class SettingsRepository @Inject constructor(
     }
 
     /** Nachtruhe ein/aus. */
-    suspend fun setQuietHoursEnabled(enabled: Boolean) = edit { it[SettingsKeys.quietHoursEnabled] = enabled }
+    override suspend fun setQuietHoursEnabled(enabled: Boolean) = edit { it[SettingsKeys.quietHoursEnabled] = enabled }
 
     /** Beginn der Nachtruhe (Minuten seit Mitternacht, 0..1439); ungültige Werte werden ignoriert. */
-    suspend fun setQuietHoursStart(minute: Int) = edit {
+    override suspend fun setQuietHoursStart(minute: Int) = edit {
         if (QuietHours.isValidMinute(minute)) it[SettingsKeys.quietHoursStart] = minute
     }
 
     /** Ende der Nachtruhe (Minuten seit Mitternacht, 0..1439); ungültige Werte werden ignoriert. */
-    suspend fun setQuietHoursEnd(minute: Int) = edit {
+    override suspend fun setQuietHoursEnd(minute: Int) = edit {
         if (QuietHours.isValidMinute(minute)) it[SettingsKeys.quietHoursEnd] = minute
     }
 
     /** Portfolio-Sperre ein/aus. Ein- und (solange gesperrt) Ausschalten erst nach einer Entsperrung (siehe SettingsScreen). */
-    suspend fun setAppLock(enabled: Boolean) = edit { it[SettingsKeys.appLock] = enabled }
+    override suspend fun setAppLock(enabled: Boolean) {
+        edit { it[SettingsKeys.appLock] = enabled }
+        // Selbst gesetzt: nach beschädigten Einstellungen nicht mehr «unbekannt» (seit Build 102, SettingsLockFallback)
+        withContext(Dispatchers.IO) { StorageRecoveryNotice.confirmAppLock(context) }
+    }
 
     /** «Beträge verbergen» im Portfolio und im Portfolio-Widget. */
-    suspend fun setHidePortfolioAmounts(hidden: Boolean) = edit { it[SettingsKeys.hidePortfolioAmounts] = hidden }
+    override suspend fun setHidePortfolioAmounts(hidden: Boolean) = edit { it[SettingsKeys.hidePortfolioAmounts] = hidden }
 
     /** «Portfolio in Systemsicherung» (PortfolioBackupMirror setzt bzw. entfernt den Merker für den Sicherungs-Agenten). */
-    suspend fun setPortfolioSystemBackup(allowed: Boolean) = edit { it[SettingsKeys.portfolioSystemBackup] = allowed }
+    override suspend fun setPortfolioSystemBackup(allowed: Boolean) = edit { it[SettingsKeys.portfolioSystemBackup] = allowed }
 
     /** Bestätigung nach dem ersten Alarm erledigt (nicht in der Sicherung). */
     suspend fun setFirstAlarmShown(shown: Boolean) = edit { it[SettingsKeys.firstAlarmShown] = shown }
@@ -344,10 +342,10 @@ class SettingsRepository @Inject constructor(
     suspend fun setPortfolioHistoryPnl(pnl: Boolean) = edit { it[SettingsKeys.portfolioHistoryPnl] = pnl }
 
     /** Einstandsmethode FIFO | Ø (nicht in der Sicherung). */
-    suspend fun setCostMethod(method: CostMethod) = edit { it[SettingsKeys.costMethod] = method.name }
+    override suspend fun setCostMethod(method: CostMethod) = edit { it[SettingsKeys.costMethod] = method.name }
 
     /** Steuer-Vorlage der Arbeitsunterlage (in der Sicherung, «taxTemplate»). */
-    suspend fun setTaxTemplate(template: com.cryptochecker.app.domain.portfolio.TaxTemplate) =
+    override suspend fun setTaxTemplate(template: com.cryptochecker.app.domain.portfolio.TaxTemplate) =
         edit { it[SettingsKeys.taxTemplate] = template.name }
 
     /** Hinweis zu den Länder-Vorlagen (Beta) bestätigt (nicht in der Sicherung). */

@@ -54,6 +54,17 @@ enum PortfolioFeeExpenses {
         return Expense(usdt: usdt, feeValueMissing: feeValue == nil)
     }
 
+    /// Gebühr einer Auszahlung (Gebühr USDT + Wert der Gebühr im dritten Coin), die auf den nicht erfassten Teil fällt:
+    /// ganze Gebühr minus `withdrawal` (gedeckter Anteil), auch bei leerem Bestand die ganze Gebühr. Sie gehört zum
+    /// unbekannten Einstand dieser Coins — vermerkt als `PortfolioUnassignedFee` statt still verloren, nicht realisiert.
+    /// 0 = nichts zu vermerken (ganz gedeckt, keine Gebühr oder Wert der Gebühr unbekannt). Wie Android.
+    static func withdrawalUncovered(_ t: PortfolioTx, holdings: Decimal) -> Decimal {
+        if !t.type.isWithdrawalLike || t.amountExact <= 0 { return 0 }
+        let full: Decimal = t.quoteFeeExact + (t.thirdFeeValue ?? 0)
+        if full <= 0 { return 0 }
+        return max(0, full - (withdrawal(t, holdings: holdings)?.usdt ?? 0))
+    }
+
     /// Menge der Zeile: verbrauchter Zugang (Tausch: erhaltene Menge), Auszahlung 0 (Gebühr in USDT).
     private static func amountOf(_ e: PortfolioLedgerEvent, _ kind: PortfolioFeeExpense) -> Decimal {
         if kind == .WITHDRAWAL || kind == .TRANSFER { return 0 }

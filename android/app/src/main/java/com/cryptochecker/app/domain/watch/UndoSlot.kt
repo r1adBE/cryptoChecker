@@ -14,6 +14,15 @@ class UndoSlot<K, V> {
         entry = key to value
     }
 
+    /**
+     * Wie [put]; liegt unter [key] aber schon etwas, wird [value] mit [combine] dazugenommen (Sammel-Banner nach
+     * mehreren einzelnen Löschungen – «Rückgängig» holt dann alle zurück).
+     */
+    fun merge(key: K, value: V, combine: (held: V, added: V) -> V) {
+        val current = entry
+        entry = if (current != null && current.first == key) key to combine(current.second, value) else key to value
+    }
+
     /** Inhalt für [key] herausnehmen; null, wenn inzwischen etwas anderes gelöscht wurde. */
     fun take(key: K): V? {
         val current = entry ?: return null

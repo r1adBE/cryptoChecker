@@ -9,6 +9,7 @@ import com.cryptochecker.app.data.local.DatabaseEncryptionMigration.Decision
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 import timber.log.Timber
+import java.io.File
 
 /**
  * Öffnet die Room-Datenbanken verschlüsselt (SQLCipher). Entschieden wird erst beim ersten Zugriff auf die Datei —
@@ -92,6 +93,13 @@ class EncryptingOpenHelperFactory(
                 keys,
                 log = { message, error -> if (error == null) Timber.i(message) else Timber.w(error, message) },
                 encryptionRequired = { it in encryptionRequired },
+                // Beiseitegelegte Kopien erst nach bestätigtem Hinweis und Frist löschen (seit Build 102, AsideRetention)
+                asideExpired = { db, copies ->
+                    AsideRetention.expired(
+                        AsideRetention.SeenStore(File(context.noBackupFilesDir, "${DatabaseKeyStore.DIRECTORY}/$db.aside-seen")),
+                        copies, System.currentTimeMillis(), allowed = !StorageRecoveryNotice.isSetAsidePending(context, db),
+                    )
+                },
             ).prepare(name)
             // Unverschlüsselt bleiben nennt Einstellungen › Sicherung (EncryptionPending); verschlüsselt löscht es
             DatabaseEncryptionNotice.note(context, name, decision)

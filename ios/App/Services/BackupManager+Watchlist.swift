@@ -75,12 +75,25 @@ extension BackupManager {
         ]
     }
 
+    /// Alarmarten, deren Schwelle grösser als 0 sein muss (Kursmarke, Prozent seit Referenz, Bewegung im Zeitraum,
+    /// Volumen-Sprung, Open Interest); nicht
+    /// Funding (darf negativ sein) und «Nahe am Hoch/Tief» (0 % = nur neues Hoch/Tief). Wie Android `AlarmJson.needsPositiveThreshold`.
+    static func needsPositiveThreshold(_ condition: AlarmCondition) -> Bool {
+        switch condition {
+        case .PRICE_ABOVE, .PRICE_BELOW, .CHANGE_PERCENT_UP, .CHANGE_PERCENT_DOWN, .MOVE_PERCENT_WINDOW,
+             .VOLUME_SPIKE, .OI_UP, .OI_DOWN: return true
+        default: return false
+        }
+    }
+
     /// Ein Paar-Alarm; nil = ungültig (Id/Paar fehlt, unbekannte Alarmart einer neueren Version, Schwelle nicht
-    /// endlich) — nie zu «Kurs über …» mit fremder Schwelle umgedeutet. Wie Android `AlarmJson.fromJson`.
+    /// endlich bzw. ≤ 0, wo sie positiv sein muss) — nie zu «Kurs über …» mit fremder Schwelle umgedeutet. Wie Android `AlarmJson.fromJson`.
     static func alarmFromJson(_ o: [String: Any]) -> Alarm? {
         guard let id = int64(o, "id"), let watchId = int64(o, "watchId"),
               let threshold = double(o, "threshold"), threshold.isFinite,
-              let condition = AlarmCondition(rawValue: string(o, "condition") ?? "")
+              let condition = AlarmCondition(rawValue: string(o, "condition") ?? ""),
+              // Seit Build 102: Kursmarke, Prozent und Bewegung mit Schwelle ≤ 0 lösten bei jeder Prüfung aus
+              !(needsPositiveThreshold(condition) && threshold <= 0)
         else { return nil }
         let referencePrice: Double?
         if isNull(o, "referencePrice") {

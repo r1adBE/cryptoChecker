@@ -23,6 +23,10 @@
     <string name="portfolio_address_xpub_privacy">xpub इस वॉलेट के सभी पते उजागर करता है। वे तुम्हारे डिवाइस पर बनाए जाते हैं; %1$s को सिर्फ़ अलग-अलग पते भेजे जाते हैं – पहली खोज में कम से कम 40 अनुरोध, बाद में कम। निजी कुंजियाँ (xprv) कभी स्वीकार नहीं की जातीं।</string>
     <string name="portfolio_address_xpub_gap">लगातार %1$d अप्रयुक्त पतों के बाद खोज रुक जाती है (BIP44 मानक, जिसका उपयोग अधिकांश वॉलेट करते हैं)। इस अंतराल के बाद का कोई उपयोग किया गया पता नहीं गिना जाता – उसे अलग से जोड़ो।</string>
     <string name="portfolio_address_xpub_used">उपयोग में पते: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">अपडेट के लिए बहुत अधिक इस्तेमाल किए गए पते</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <string name="portfolio_address_xpub_limited">बहुत अधिक पते – पुराने, खाली पतों पर आए नए भुगतान शायद पहचाने न जाएँ</string>
     <string name="portfolio_addresses_title">पते</string>
 
     <!-- Prüfung einer eingegebenen Adresse -->

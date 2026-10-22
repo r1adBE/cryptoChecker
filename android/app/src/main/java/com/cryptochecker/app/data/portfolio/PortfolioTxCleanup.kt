@@ -2,31 +2,35 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
+import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 
 /**
  * Bereinigte Fassung von [tx] für [PortfolioRepository.save]: Coin vereinheitlicht (Grossbuchstaben), Gebühr, Umbuchung,
- * Tausch und Herkunftsschlüssel geprüft. Wirft bei einem ungültigen Tausch.
+ * Tausch und Herkunftsschlüssel geprüft. Mengen und Gebühren schon hier auf die gespeicherten 18 Nachkommastellen
+ * gerundet ([PortfolioDecimal.amount], dieselbe Regel wie beim Speichern): eine Menge unter 10⁻¹⁸ ist danach 0 und wird
+ * abgelehnt, statt als 0 gespeichert zu werden. Wirft bei einem ungültigen Tausch.
  */
 internal fun cleanForSave(tx: PortfolioTxEntity): PortfolioTxEntity {
     // Gebühr nur gültig (> 0) und dann immer mit Einheit; ohne Gebühr keine Einheit
-    val fee = tx.fee?.takeIf { it.signum() > 0 }
+    val fee = tx.fee?.let { PortfolioDecimal.amount(it) }?.takeIf { it.signum() > 0 }
     val coin = PortfolioCalculator.normalizeCoin(tx.coin)
     // Gebühr im dritten Coin nur vollständig (Coin ≠ Coin der Transaktion, Menge > 0); Preis ≥ 0 oder keiner
-    val third = PortfolioJson.cleanFeeCoin(tx.feeCoin, coin, tx.feeCoinAmount)
+    val third = PortfolioJson.cleanFeeCoin(tx.feeCoin, coin, tx.feeCoinAmount?.let { PortfolioDecimal.amount(it) })
     val transfer = tx.type == PortfolioTxType.TRANSFER
     val swap = tx.type == PortfolioTxType.SWAP
     // Tausch: erhaltener Coin ≠ Coin und Menge > 0 (sonst ungültig), Wert ≥ 0 oder unbekannt
     val toCoin = if (swap) PortfolioJson.cleanToCoin(tx.toCoin, coin) else null
-    val toAmount = if (swap) tx.toAmount?.takeIf { it.signum() > 0 } else null
+    val toAmount = if (swap) tx.toAmount?.let { PortfolioDecimal.amount(it) }?.takeIf { it.signum() > 0 } else null
     require(!swap || (toCoin != null && toAmount != null)) { "Ungültiger Tausch" }
     // Verknüpfte Umbuchung: zweiter Herkunftsschlüssel nur zu einem ersten, Zustand für «Rückgängig» nur zur Verknüpfung
     val importKey = PortfolioJson.cleanImportKey(tx.importKey)
     val linkedImportKey = importKey?.let { PortfolioJson.cleanImportKey(tx.linkedImportKey) }
     val clean = tx.copy(
         coin = coin,
+        amount = PortfolioDecimal.amount(tx.amount),
         note = tx.note?.trim()?.takeIf { it.isNotEmpty() },
         fee = fee,
         feeUnit = if (fee != null) PortfolioFeeUnit.fromName(tx.feeUnit).name else null,

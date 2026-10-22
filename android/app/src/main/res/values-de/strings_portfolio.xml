@@ -296,6 +296,8 @@
         <item quantity="one">%d Transaktion wird entfernt. Du kannst es direkt danach rückgängig machen.</item>
         <item quantity="other">%d Transaktionen werden entfernt. Du kannst es direkt danach rückgängig machen.</item>
     </plurals>
+    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Gebühren in %1$s werden auch aus anderen Transaktionen entfernt: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">
         <item quantity="one">%1$s aus dem Portfolio entfernt (%2$d Transaktion)</item>

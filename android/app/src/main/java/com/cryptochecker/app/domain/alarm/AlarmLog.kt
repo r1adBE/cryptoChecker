@@ -146,6 +146,24 @@ object AlarmLog {
     /** Live-Kurse kommen sekündlich: dann höchstens so oft schreiben (ein neuer Protokoll-Eintrag sofort, [startsEvent]). */
     const val LIVE_WRITE_INTERVAL_MILLIS = 60_000L
 
+    /**
+     * Übrige Durchläufe ohne Bemerkenswertes: die letzten Prüfungen höchstens so oft schreiben (seit Build 102). Bis zu
+     * 20'000 Alarme werden sonst bei jeder Aktualisierung komplett serialisiert und versiegelt.
+     */
+    const val CHECKS_WRITE_INTERVAL_MILLIS = 10 * 60_000L
+
+    /**
+     * Jetzt speichern? Ein neuer Protokoll-Eintrag ([startsEvent]) sofort; ausserhalb von Live-Kursen auch jede
+     * bemerkenswerte Prüfung ([notable], z. B. ein verlängertes «von … bis …»); sonst erst nach
+     * [LIVE_WRITE_INTERVAL_MILLIS] (Live) bzw. [CHECKS_WRITE_INTERVAL_MILLIS]. Uhr zurückgestellt: sofort.
+     */
+    fun shouldPersist(live: Boolean, startsEvent: Boolean, notable: Boolean, now: Long, lastWriteAt: Long): Boolean {
+        if (startsEvent || now < lastWriteAt) return true
+        if (!live && notable) return true
+        val interval = if (live) LIVE_WRITE_INTERVAL_MILLIS else CHECKS_WRITE_INTERVAL_MILLIS
+        return now - lastWriteAt >= interval
+    }
+
     const val FORMAT_VERSION = 1
 
     /** Erfasste Alarme: Kursmarken und Prozent-Alarme (die übrigen brauchen Zusatzdaten mit eigenen Gründen). */

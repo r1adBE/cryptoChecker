@@ -9,6 +9,11 @@ on:
     branches: [main]
     paths:
       - 'android/**'
+      # The source guards in the unit tests (FileLengthTest, HapticsUsageTest, licences, typography, …) also
+      # check the Swift sources: a pull request that only touches iOS must run them too
+      - 'ios/App/**'
+      - 'ios/Shared/**'
+      - 'ios/Widgets/**'
       - '.github/workflows/android.yml'
       - '.github/scripts/android_release_audit.sh'
       - '.github/scripts/manifest_policy.py'
@@ -19,6 +24,11 @@ on:
   pull_request:
     paths:
       - 'android/**'
+      # The source guards in the unit tests (FileLengthTest, HapticsUsageTest, licences, typography, …) also
+      # check the Swift sources: a pull request that only touches iOS must run them too
+      - 'ios/App/**'
+      - 'ios/Shared/**'
+      - 'ios/Widgets/**'
       - '.github/workflows/android.yml'
       - '.github/scripts/android_release_audit.sh'
       - '.github/scripts/manifest_policy.py'
@@ -76,7 +86,7 @@ jobs:
 
       # Instrumented tests (app/src/androidTest: CoreFlowTest, UiFlowsTest, database tests) are only
       # compiled here: running them needs an emulator (locally: ./gradlew :app:connectedDebugAndroidTest;
-      # in CI: workflow «Android device tests», started by hand).
+      # in CI: workflow «Android device tests» on every push to main and by hand).
       - name: Compile instrumented tests
         run: ./gradlew :app:assembleDebugAndroidTest --stacktrace
 
@@ -86,10 +96,11 @@ jobs:
       - name: Room schema drift
         run: python3 -I "$GITHUB_WORKSPACE/.github/scripts/room_schema_drift.py" app/schemas
 
-      # Lint as a gate (abortOnError = true in app/build.gradle.kts): report uploaded on failure.
+      # Lint as a gate (abortOnError = true in app/ and marketdata/build.gradle.kts): report uploaded on failure.
       # Release too: the store build has its own source set (src/withoutHttpLog) and R8-only checks.
+      # The exchange module (marketdata) on its own as well, with its own lint settings.
       - name: Lint
-        run: ./gradlew :app:lintDebug :app:lintRelease --stacktrace
+        run: ./gradlew :app:lintDebug :app:lintRelease :marketdata:lintRelease --stacktrace
 
       # Lint errors as annotations (the log shows only the first one; the run page shows these
       # without signing in)
@@ -98,6 +109,7 @@ jobs:
         run: |
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
           bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
+          bash "$GITHUB_WORKSPACE/.github/scripts/lint_errors.sh" marketdata/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
 
       - name: Build debug APK
         run: ./gradlew :app:assembleDebug --stacktrace
@@ -145,6 +157,7 @@ jobs:
           path: |
             android/**/build/reports/tests/
             android/app/build/reports/lint-results-*.html
+            android/marketdata/build/reports/lint-results-*.html
             android/app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt
             android/app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
           if-no-files-found: ignore

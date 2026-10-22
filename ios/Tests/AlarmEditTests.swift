@@ -233,6 +233,23 @@ final class AlarmEditTests: XCTestCase {
         XCTAssertEqual(AlarmThresholdError.key(.OI_RANGE), "alarm_threshold_error_oi")
     }
 
+    /// Seit Build 102: «fällt um 150 %» löste nie aus und wird abgelehnt; Steigen und «bewegt sich um» bleiben offen.
+    func testFallingPercentAboveHundredIsRejected() {
+        func draft(_ condition: AlarmCondition, _ text: String) -> AlarmDraft {
+            AlarmDraft(condition: condition, thresholdText: text)
+        }
+        XCTAssertNil(draft(.CHANGE_PERCENT_DOWN, "100").thresholdProblem)
+        XCTAssertEqual(draft(.CHANGE_PERCENT_DOWN, "150").thresholdProblem, .PERCENT_RANGE)
+        XCTAssertNil(draft(.CHANGE_PERCENT_DOWN, "150").threshold)
+        XCTAssertEqual(draft(.OI_DOWN, "500").thresholdProblem, .PERCENT_RANGE)
+        XCTAssertEqual(draft(.OI_DOWN, "2000").thresholdProblem, .PERCENT_RANGE)
+        XCTAssertNil(draft(.OI_UP, "500").thresholdProblem)
+        XCTAssertNil(draft(.CHANGE_PERCENT_UP, "150").thresholdProblem)
+        XCTAssertNil(draft(.MOVE_PERCENT_WINDOW, "150").thresholdProblem)
+        XCTAssertEqual(draft(.CHANGE_PERCENT_DOWN, "abc").thresholdProblem, .INVALID)
+        XCTAssertEqual(AlarmThresholdError.key(.PERCENT_RANGE), "alarm_threshold_error_percent_down")
+    }
+
     // MARK: «Nicht geprüft seit …»
 
     func testUncheckedKeepsFirstTimeAndLatestReason() {

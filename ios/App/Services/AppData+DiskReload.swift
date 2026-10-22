@@ -53,6 +53,39 @@ extension AppData {
         }
     }
 
+    /// Stand von der Platte neu laden und abwarten (z. B. nachdem Hintergrund oder Widget gespeichert haben). Seit
+    /// Build 102 ohne den Haupt-Thread zu blockieren: `readSnapshot` wartet die Schreib-Warteschlange synchron ab, und
+    /// ein Schreiben kann über `NSFileCoordinator` auf das Widget warten — darum Abwarten und Lesen auf `diskReader`,
+    /// übernommen auf dem Haupt-Thread. Wird inzwischen im Speicher geändert, gilt der Speicher (einmal neu gelesen),
+    /// wie beim Wechsel nach vorne. Das Lesen beim Start (`AppData.init`) bleibt bewusst synchron.
+    func reloadFromDisk() async {
+        for attempt in 0...1 {
+            // Vor jedem Lesen (auch dem zweiten): ausstehende Speicherungen nachholen, wie `reloadFromDiskInBackground`
+            guard prepareDiskReload() else { return }
+            diskReloadSequence &+= 1
+            let ticket = DiskReloadTicket(sequence: diskReloadSequence, generation: snapshotGeneration, reset: resetGeneration)
+            let (read, keyAvailable) = await Self.readOffMain()
+            switch ticket.verdict(sequence: diskReloadSequence, generation: snapshotGeneration, reset: resetGeneration) {
+            case .apply:
+                applyDiskRead(read, keyAvailable: keyAvailable)
+                return
+            case .stale:
+                if attempt == 1 { applyDiskRead(nil, keyAvailable: keyAvailable) }
+            case .superseded:
+                return
+            }
+        }
+    }
+
+    /// Merkliste auf `diskReader` lesen (wartet dort die eingereihten Schreibvorgänge ab, nie auf dem Haupt-Thread).
+    nonisolated private static func readOffMain() async -> (SharedStorage.SnapshotRead, Bool) {
+        await withCheckedContinuation { continuation in
+            diskReader.async {
+                continuation.resume(returning: (SharedStorage.readSnapshot(), StorageKey.shared.isAvailable))
+            }
+        }
+    }
+
     private func finishBackgroundReload(_ read: SharedStorage.SnapshotRead, keyAvailable: Bool, ticket: DiskReloadTicket,
                                         retries: Int) {
         switch ticket.verdict(sequence: diskReloadSequence, generation: snapshotGeneration, reset: resetGeneration) {

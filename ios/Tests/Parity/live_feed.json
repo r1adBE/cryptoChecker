@@ -1,5 +1,5 @@
 {
-  "description": "Live prices via WebSocket (Android domain/live/LiveFeed.kt / iOS App/Services/LiveFeed.swift): parser per exchange (sample messages -> ticks; change24h in percent, null = not in the message), stream symbol per pair, subscribe messages, connection plan, reconnect backoff (attempt counter reset only after a stable connection, ±20 % jitter), which 24 h change is kept and when REST may skip a live pair.",
+  "description": "Live prices via WebSocket (Android domain/live/LiveFeed.kt / iOS App/Services/LiveFeed.swift): parser per exchange (sample messages -> ticks; change24h in percent, null = not in the message), stream symbol per pair, subscribe messages, connection plan, reconnect backoff (attempt counter reset only after a stable connection, ±20 % jitter), which 24 h change is kept and when REST may skip a live pair; tick times in s/ms/µs/ns become ms (like REST), and tickTime: an exchange time more than 5 min ahead of the device clock (or missing) is replaced by now.",
   "parse": [
     {
       "name": "binance spot 24hrTicker",
@@ -42,7 +42,7 @@
           "symbol": "BTCUSDT",
           "price": 0.0025,
           "change24h": -1.25,
-          "time": 123456789
+          "time": 123456789000
         }
       ]
     },
@@ -56,6 +56,19 @@
           "price": 21109.77,
           "change24h": 1.96,
           "time": 1673853746003
+        }
+      ]
+    },
+    {
+      "name": "bybit ts in seconds",
+      "exchange": "BYBIT",
+      "message": "{\"topic\":\"tickers.BTCUSDT\",\"ts\":1673853746,\"type\":\"snapshot\",\"cs\":2588407389,\"data\":{\"symbol\":\"BTCUSDT\",\"lastPrice\":\"21109.77\",\"highPrice24h\":\"21426.99\",\"lowPrice24h\":\"20575\",\"prevPrice24h\":\"20704.93\",\"volume24h\":\"6780.866843\",\"turnover24h\":\"141946527.22907118\",\"price24hPcnt\":\"0.0196\",\"usdIndexPrice\":\"21120.2400136\"}}",
+      "ticks": [
+        {
+          "symbol": "BTCUSDT",
+          "price": 21109.77,
+          "change24h": 1.96,
+          "time": 1673853746000
         }
       ]
     },
@@ -82,6 +95,19 @@
       "name": "okx tickers push",
       "exchange": "OKX",
       "message": "{\"arg\":{\"channel\":\"tickers\",\"instId\":\"BTC-USDT\"},\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"9999.99\",\"lastSz\":\"0.1\",\"askPx\":\"9999.99\",\"askSz\":\"11\",\"bidPx\":\"8888.88\",\"bidSz\":\"5\",\"open24h\":\"9000\",\"high24h\":\"10000\",\"low24h\":\"8888.88\",\"volCcy24h\":\"2222\",\"vol24h\":\"2222\",\"sodUtc0\":\"2222\",\"sodUtc8\":\"2222\",\"ts\":\"1597026383085\"}]}",
+      "ticks": [
+        {
+          "symbol": "BTC-USDT",
+          "price": 9999.99,
+          "change24h": 11.110999999999997,
+          "time": 1597026383085
+        }
+      ]
+    },
+    {
+      "name": "okx ts in microseconds",
+      "exchange": "OKX",
+      "message": "{\"arg\":{\"channel\":\"tickers\",\"instId\":\"BTC-USDT\"},\"data\":[{\"instType\":\"SPOT\",\"instId\":\"BTC-USDT\",\"last\":\"9999.99\",\"lastSz\":\"0.1\",\"askPx\":\"9999.99\",\"askSz\":\"11\",\"bidPx\":\"8888.88\",\"bidSz\":\"5\",\"open24h\":\"9000\",\"high24h\":\"10000\",\"low24h\":\"8888.88\",\"volCcy24h\":\"2222\",\"vol24h\":\"2222\",\"sodUtc0\":\"2222\",\"sodUtc8\":\"2222\",\"ts\":\"1597026383085123\"}]}",
       "ticks": [
         {
           "symbol": "BTC-USDT",
@@ -156,7 +182,7 @@
           "symbol": "XUSDT",
           "price": null,
           "change24h": null,
-          "time": 5
+          "time": 5000
         }
       ]
     }
@@ -745,6 +771,44 @@
       "stampUnchanged": true,
       "exchangeRolling": true,
       "expected": false
+    }
+  ],
+  "tickTime": [
+    {
+      "name": "exchange time in the past",
+      "reported": 1700000000000,
+      "now": 1700000001000,
+      "expected": 1700000000000
+    },
+    {
+      "name": "clock skew within 5 min",
+      "reported": 1700000240000,
+      "now": 1700000000000,
+      "expected": 1700000240000
+    },
+    {
+      "name": "exactly 5 min ahead",
+      "reported": 1700000300000,
+      "now": 1700000000000,
+      "expected": 1700000300000
+    },
+    {
+      "name": "local time read as epoch (9 h ahead)",
+      "reported": 1700032400000,
+      "now": 1700000000000,
+      "expected": 1700000000000
+    },
+    {
+      "name": "no exchange time",
+      "reported": null,
+      "now": 1700000000000,
+      "expected": 1700000000000
+    },
+    {
+      "name": "zero",
+      "reported": 0,
+      "now": 1700000000000,
+      "expected": 1700000000000
     }
   ]
 }

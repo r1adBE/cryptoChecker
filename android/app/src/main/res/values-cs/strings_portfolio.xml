@@ -306,6 +306,8 @@
         <item quantity="many">Odstraní se %d transakce. Hned poté to můžeš vrátit zpět.</item>
         <item quantity="other">Odstraní se %d transakcí. Hned poté to můžeš vrátit zpět.</item>
     </plurals>
+    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Poplatky placené v %1$s budou odebrány i z jiných transakcí: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">
         <item quantity="one">%1$s odebráno z portfolia (%2$d transakce)</item>

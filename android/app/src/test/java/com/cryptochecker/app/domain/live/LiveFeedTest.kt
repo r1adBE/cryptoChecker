@@ -148,6 +148,19 @@ class LiveFeedTest {
     }
 
     @Test
+    fun tickTimeMatchesFixtures() {
+        val cases = data["tickTime"].list()
+        assertTrue(cases.size >= 5)
+        cases.forEach { raw ->
+            val c = raw.obj()
+            assertEquals(
+                "tickTime ${c["name"]}", c["expected"].num()!!.toLong(),
+                LiveRules.tickTime(c["reported"].num()?.toLong(), c["now"].num()!!.toLong()),
+            )
+        }
+    }
+
+    @Test
     fun rulesMatchFixtures() {
         data["chooseChange"].list().forEach { raw ->
             val c = raw.obj()

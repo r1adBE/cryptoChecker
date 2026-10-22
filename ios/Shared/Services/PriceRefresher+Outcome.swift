@@ -34,6 +34,9 @@ extension PriceRefresher {
         var threshold: Double
         var windowHours: Int
         var repeating: Bool
+        /// Ausgewertete Alarm-Währung (nil = Quote-Währung des Paars) — seit Build 102 geprüft wie Android
+        /// (`currency IS :currency` in allen bedingten UPDATEs).
+        var currency: String?
         /// Ausgewertetes Paar (`Watch.identity`): Gehört die Watch-Id des Alarms beim Speichern zu einem anderen Paar
         /// (Bearbeiten, Wiederherstellung mit gleicher Id), wird nichts übertragen — wie Android, das den Alarm nur
         /// für tatsächlich geschriebene Paare speichert. nil = ohne Prüfung.
@@ -51,13 +54,15 @@ extension PriceRefresher {
             threshold = evaluated.threshold
             windowHours = evaluated.windowHours
             repeating = evaluated.repeating
+            currency = evaluated.currency
         }
 
-        /// Alarm unverändert (eingeschaltet, gleiche Bedingung, Schwelle, Fenster; beim Auslösen
+        /// Alarm unverändert (eingeschaltet, gleiche Bedingung, Schwelle, Fenster und Alarm-Währung; beim Auslösen
         /// auch gleiche Wiederholung)? Wie die bedingten UPDATEs in Android (`WatchDao`).
         func matches(_ alarm: Alarm) -> Bool {
             alarm.enabled && alarm.condition == condition && alarm.threshold == threshold
-                && alarm.windowHours == windowHours && (enabled == nil || alarm.repeating == repeating)
+                && alarm.windowHours == windowHours && alarm.currency == currency
+                && (enabled == nil || alarm.repeating == repeating)
         }
 
         /// Überträgt die Änderung auf den Alarm `id` in `snapshot`, wenn er noch so ist wie ausgewertet (und, mit

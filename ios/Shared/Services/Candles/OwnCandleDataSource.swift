@@ -42,7 +42,8 @@ actor OwnCandleDataSource {
         return URLSession(configuration: c)
     }()
 
-    private var cache: [String: (time: Int64, value: Sourced<[MarketCandle]>?)] = [:]
+    // Begrenzt (seit Build 102): Schlüssel je Paar, Intervall und Anzahl — sonst wüchse er über die Prozesslebensdauer
+    private var cache = BoundedCache<String, (time: Int64, value: Sourced<[MarketCandle]>?)>()
     private var running = 0
     private var waiters: [CheckedContinuation<Void, Never>] = []
 
@@ -57,7 +58,7 @@ actor OwnCandleDataSource {
               let source = ExchangeCandleRegistry.source(for: pair) else { return nil }
         let n = min(max(limit, 2), Self.maxLimit)
         let key = "\(pair.cacheKey)|\(interval.rawValue)|\(n)"
-        if let entry = cache[key] {
+        if let entry = cache.get(key) {
             let age = TimeUtils.nowMillis - entry.time
             let ttl = entry.value == nil ? Self.failureMillis : Self.cacheMillis
             if age >= 0 && age < ttl { return entry.value }
@@ -67,14 +68,14 @@ actor OwnCandleDataSource {
         release()
         // Abgebrochen (Blatt geschlossen): nichts merken, sonst gälte es 2 Min. als Fehlschlag
         if Task.isCancelled { return result }
-        cache[key] = (TimeUtils.nowMillis, result)
+        cache.set(key, (TimeUtils.nowMillis, result))
         return result
     }
 
     /// Aktualisieren von Hand: nichts aus dem Speicher.
     func invalidate(_ pair: CandlePair) {
         let prefix = pair.cacheKey + "|"
-        cache = cache.filter { !$0.key.hasPrefix(prefix) }
+        cache.removeKeys { $0.hasPrefix(prefix) }
     }
 
     /// Nach unten ziehen in der Merkliste: alles neu laden.

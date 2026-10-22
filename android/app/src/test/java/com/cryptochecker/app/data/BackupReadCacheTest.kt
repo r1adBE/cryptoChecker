@@ -1,8 +1,10 @@
 package com.cryptochecker.app.data
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertThrows
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /** Gewählte Sicherung einmal je Wiederherstellen lesen und entschlüsseln ([BackupReadCache]). */
@@ -11,11 +13,16 @@ class BackupReadCacheTest {
 
     private var reads = 0
     private var decrypts = 0
-    private val cache = BackupReadCache<String, File> { f, pw ->
-        decrypts++
-        if (pw == "falsch") throw IllegalArgumentException("falsches Passwort")
-        f.text + "|" + pw
-    }
+    private var now = 1_000L
+    private val cache = BackupReadCache<String, File>(
+        decrypt = { f, pw ->
+            decrypts++
+            if (pw == "falsch") throw IllegalArgumentException("falsches Passwort")
+            f.text + "|" + pw
+        },
+        clock = { now },
+        plainTtlMillis = 60_000L,
+    )
 
     private fun read(text: String = "inhalt"): () -> File = { reads++; File(text) }
 
@@ -70,5 +77,45 @@ class BackupReadCacheTest {
         cache.file("a") { reads++; cache.clear(); File("alt") }
         cache.file("a", read())
         assertEquals(2, reads)
+    }
+
+    @Test
+    fun klartextVerfaelltNachDerFrist() {
+        // Seit Build 102: Klartext nur zwischen Passwort prüfen und Wiederherstellen, danach neu entschlüsseln
+        cache.plain("a", "pw", read())
+        now += 59_000L
+        cache.plain("a", "pw", read())
+        assertEquals(1, decrypts)
+        now += 2_000L
+        assertEquals("inhalt|pw", cache.plain("a", "pw", read()))
+        assertEquals(2, decrypts)
+        // Die Datei selbst bleibt gemerkt (kein zweites Lesen)
+        assertEquals(1, reads)
+    }
+
+    @Test
+    fun abgelaufenerKlartextWirdBeimNaechstenZugriffVerworfen() {
+        cache.plain("a", "falsch2", read())
+        assertTrue(cache.holdsPlain())
+        now += 61_000L
+        // Anderes Passwort, scheitert: der alte Klartext ist trotzdem weg
+        assertThrows(IllegalArgumentException::class.java) { cache.plain("a", "falsch", read()) }
+        assertFalse(cache.holdsPlain())
+    }
+
+    @Test
+    fun passwortVergleichUnterscheidetNullUndText() {
+        assertEquals("inhalt|null", cache.plain("a", null, read()))
+        assertEquals("inhalt|pw", cache.plain("a", "pw", read()))
+        assertEquals("inhalt|pw", cache.plain("a", "pw", read()))
+        assertEquals(2, decrypts)
+    }
+
+    @Test
+    fun keinPasswortImKlartextGemerkt() {
+        // Kein Feld der Klasse hält das Passwort selbst (nur einen gesalzenen Fingerabdruck)
+        cache.plain("a", "geheimesPasswort", read())
+        val fields = BackupReadCache::class.java.declaredFields.onEach { it.isAccessible = true }.map { it.get(cache) }
+        assertFalse(fields.any { it == "geheimesPasswort" })
     }
 }

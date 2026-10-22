@@ -24,6 +24,9 @@ import com.cryptochecker.app.data.portfolio.WatchedAddressSource.Companion.XPUB_
  * ([XpubScan.scripts]): vollständig als P2PKH, ohne Verlauf als P2SH-P2WPKH, dann P2WPKH (Segwit-Konto mit xpub,
  * Ledger Live); der erste Typ mit Verlauf wird gemerkt ([XpubCache.script]), im Hintergrund wird nicht gesucht.
  * Hintergrund unvollständig und tiefer als zuletzt ([XpubScan.keepBackground]): null (bleibt fällig).
+ * Vollständige Suche zu gross ([XpubScan.TooMany]) mit Zwischenspeicher: einmal schnell wiederholen statt Fehler; dieser
+ * Rückfall und der von [XpubScan.modeFor] setzen [XpubCache.limitedFallback]. Ohne Zwischenspeicher oder wenn auch die
+ * schnelle zu gross ist: Fehler («Zu viele Adressen»).
  */
 internal suspend fun WatchedAddressSource.fetchXpub(a: WatchedAddress, deadline: Long?): Fetched? {
     val key = Bip32.parse(a.address) ?: throw IllegalArgumentException("xpub ungültig")
@@ -44,15 +47,34 @@ internal suspend fun WatchedAddressSource.fetchXpub(a: WatchedAddress, deadline:
     val scans = ArrayList<XpubScan>()
     for (script in scripts) {
         val cache = stored?.takeIf { storedScript == script }
+        val now = System.currentTimeMillis()
         val mode = if (scripts.size > 1) {
             if (deadline != null) return null
             XpubScan.Mode.FULL
         } else {
-            XpubScan.modeFor(cache, System.currentTimeMillis(), background = deadline != null) ?: return null
+            XpubScan.modeFor(cache, now, background = deadline != null) ?: return null
         }
-        val (scan, fetched) = scanXpub(XpubDeriver(a.address, script), cache, mode, deadline)
+        // Fällige vollständige Suche schon vorab durch die schnelle ersetzt (sicher zu gross)
+        var limited = deadline == null && mode == XpubScan.Mode.QUICK && XpubScan.fullDue(cache, now)
+        var retried = false
+        val deriver = XpubDeriver(a.address, script)
+        val (scan, fetched) = try {
+            scanXpub(deriver, cache, mode, deadline)
+        } catch (e: XpubScan.TooMany) {
+            // Vollständige Suche doch zu gross: mit Zwischenspeicher einmal schnell (wirft sie auch TooMany: Fehler)
+            if (mode != XpubScan.Mode.FULL || cache == null || cache.fullScan <= 0) throw e
+            limited = true
+            retried = true
+            scanXpub(deriver, cache, XpubScan.Mode.QUICK, deadline)
+        }
         tried += script to scan.usedCount
-        results += fetched
+        // Nach einer gescheiterten vollständigen Suche diese erst wieder nach einem Tag versuchen (fullScan = jetzt),
+        // sonst kostete jede Aktualisierung im Vordergrund erneut über MAX_REQUESTS Anfragen
+        results += if (limited) {
+            fetched.copy(xpub = fetched.xpub?.let { x -> x.copy(limitedFallback = true, fullScan = if (retried) now else x.fullScan) })
+        } else {
+            fetched
+        }
         scans += scan
         if (scan.usedCount > 0) break
     }

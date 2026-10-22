@@ -128,10 +128,10 @@ struct PortfolioTxSheet: View {
     var coin: String { PortfolioCalculator.normalizeCoin(coinQuery) }
     var coinValid: Bool { PortfolioPriceSource.isSymbol(coin) }
     // Menge ohne Kurs-Hinweis (mehrdeutig → Dezimalzeichen der Region), Preis am Kurs gemessen.
-    // Exakt gelesen (`Decimal`): 0.00000001 BTC = 1 Satoshi, ohne Gleitkomma-Rundung
+    // Exakt gelesen (`Decimal`, 1 Satoshi bleibt 1 Satoshi), auf 18 Stellen gerundet geprüft: < 10⁻¹⁸ ist ungültig
     var amount: Decimal? {
         PriceFormat.parseDecimalAmount(amountText, decimalSeparator: decimalSeparator)
-            .flatMap { $0 > 0 ? $0 : nil }
+            .map(PortfolioDecimal.amount).flatMap { $0 > 0 ? $0 : nil }
     }
     var priceBlank: Bool { priceText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     private var priceEntered: Decimal? {
@@ -159,7 +159,7 @@ struct PortfolioTxSheet: View {
     var toCoinValid: Bool { check.toCoinValid }
     var toAmount: Decimal? {
         PriceFormat.parseDecimalAmount(toAmountText, decimalSeparator: decimalSeparator)
-            .flatMap { $0 > 0 ? $0 : nil }
+            .map(PortfolioDecimal.amount).flatMap { $0 > 0 ? $0 : nil }
     }
     private var toAmountValid: Bool { check.toAmountValid }
     private var swapValueBlank: Bool { swapValueText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }

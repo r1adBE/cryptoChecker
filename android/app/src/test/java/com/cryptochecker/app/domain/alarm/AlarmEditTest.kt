@@ -196,6 +196,22 @@ class AlarmEditTest {
         }
     }
 
+    /** Seit Build 102: «fällt um 150 %» löste nie aus und wird abgelehnt; Steigen und «bewegt sich um» bleiben offen. */
+    @Test
+    fun fallingPercentAboveHundredIsRejected() {
+        fun draft(condition: AlarmCondition, text: String) =
+            AlarmDraft(condition = condition, thresholdText = text, decimalSeparator = '.')
+        assertNull(draft(AlarmCondition.CHANGE_PERCENT_DOWN, "100").thresholdProblem)
+        assertEquals(ThresholdProblem.PERCENT_RANGE, draft(AlarmCondition.CHANGE_PERCENT_DOWN, "150").thresholdProblem)
+        assertNull(draft(AlarmCondition.CHANGE_PERCENT_DOWN, "150").threshold)
+        assertEquals(ThresholdProblem.PERCENT_RANGE, draft(AlarmCondition.OI_DOWN, "500").thresholdProblem)
+        assertEquals(ThresholdProblem.PERCENT_RANGE, draft(AlarmCondition.OI_DOWN, "2000").thresholdProblem)
+        assertNull(draft(AlarmCondition.OI_UP, "500").thresholdProblem)
+        assertNull(draft(AlarmCondition.CHANGE_PERCENT_UP, "150").thresholdProblem)
+        assertNull(draft(AlarmCondition.MOVE_PERCENT_WINDOW, "150").thresholdProblem)
+        assertEquals(ThresholdProblem.INVALID, draft(AlarmCondition.CHANGE_PERCENT_DOWN, "abc").thresholdProblem)
+    }
+
     // MARK: «Nicht geprüft seit …»
 
     @Test

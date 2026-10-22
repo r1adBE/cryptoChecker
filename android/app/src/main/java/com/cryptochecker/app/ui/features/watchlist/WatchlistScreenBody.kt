@@ -271,6 +271,7 @@ internal fun WatchlistBody(
                         onDelete = { deleteWithUndo(watch) },
                         onFavoriteWithBanner = { favoriteWithBanner(watch) },
                         onStartSelection = { ui.startSelectionWith(watch.id) },
+                        onSourceHint = { text -> banner.show(text) },
                     )
                 }
                 // Rund, unten am Ende über der Tableiste; die Liste hat unten Platz dafür.

@@ -5,20 +5,24 @@ import Foundation
 /// Kurs». In den gemeinsamen Einstellungen (App, Hintergrund) statt im Stand, wie `DexLiquidityStore` — abgeleiteter
 /// Marktwert, nicht in der Sicherung; jede Abfrage setzt ihn neu. Wie `MarkFallbackStore.kt`.
 enum MarkFallbackStore {
-    private static let defaultsKey = "mark_fallback"
+    /// Ein Schlüssel je Watch-Id (`PerKeyDefaults`); bis Build 101 eine Liste unter «mark_fallback».
+    static let storage = PerKeyDefaults(prefix: "mark_fallback.", legacyKey: "mark_fallback")
+    /// Einmal je Prozess vor dem ersten Zugriff (thread-sicher, `static let`).
+    private static let migration: Void = storage.migrateLegacy(SharedStorage.defaults)
 
-    static var ids: Set<Int64> {
-        Set((SharedStorage.defaults.array(forKey: defaultsKey) as? [NSNumber] ?? []).map(\.int64Value))
+    static func contains(_ watchId: Int64, defaults: UserDefaults = SharedStorage.defaults) -> Bool {
+        _ = migration
+        return defaults.bool(forKey: storage.key(String(watchId)))
     }
 
-    static func contains(_ watchId: Int64) -> Bool { ids.contains(watchId) }
-
-    /// Ergebnis der letzten Abfrage von `watchId`.
-    static func put(_ watchId: Int64, _ markFallback: Bool) {
-        var current = ids
-        guard current.contains(watchId) != markFallback else { return }
-        if markFallback { current.insert(watchId) } else { current.remove(watchId) }
-        SharedStorage.defaults.set(current.sorted().map { NSNumber(value: $0) }, forKey: defaultsKey)
+    /// Ergebnis der letzten Abfrage von `watchId`. Schreibt nur den eigenen Eintrag.
+    static func put(_ watchId: Int64, _ markFallback: Bool, defaults: UserDefaults = SharedStorage.defaults) {
+        guard contains(watchId, defaults: defaults) != markFallback else { return }
+        if markFallback {
+            defaults.set(true, forKey: storage.key(String(watchId)))
+        } else {
+            defaults.removeObject(forKey: storage.key(String(watchId)))
+        }
     }
 }
 

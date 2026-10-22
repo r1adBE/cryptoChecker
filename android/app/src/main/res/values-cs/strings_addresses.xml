@@ -23,6 +23,10 @@
     <string name="portfolio_address_xpub_privacy">Xpub prozrazí všechny adresy této peněženky. Odvozují se v tvém zařízení; na %1$s jdou jen jednotlivé adresy – při prvním hledání nejméně 40 dotazů, potom méně. Soukromé klíče (xprv) se nikdy nepřijímají.</string>
     <string name="portfolio_address_xpub_gap">Hledání skončí po %1$d nepoužitých adresách za sebou (standard BIP44, který používá většina peněženek). Použitá adresa za touto mezerou se nezapočítá – přidej ji samostatně.</string>
     <string name="portfolio_address_xpub_used">Použité adresy: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Příliš mnoho použitých adres pro aktualizaci</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <string name="portfolio_address_xpub_limited">Velmi mnoho adres – nové platby na staré, prázdné adresy nemusí být rozpoznány</string>
     <string name="portfolio_addresses_title">Adresy</string>
 
     <!-- Prüfung einer eingegebenen Adresse -->

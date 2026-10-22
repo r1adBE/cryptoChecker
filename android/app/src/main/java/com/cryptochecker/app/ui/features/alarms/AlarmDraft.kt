@@ -15,7 +15,17 @@ import java.math.BigDecimal
 import java.math.MathContext
 
 /** Grund für einen ungültigen Schwellwert ([AlarmDraft.thresholdProblem]). */
-enum class ThresholdProblem { EMPTY, INVALID, FUNDING_RANGE, OI_RANGE }
+enum class ThresholdProblem { EMPTY, INVALID, FUNDING_RANGE, OI_RANGE, PERCENT_RANGE }
+
+/**
+ * Fallende Prozent-Alarme («fällt um x %», «Open Interest fällt um x %»): mehr als 100 % kann nichts fallen — ein
+ * solcher Alarm löste nie aus (seit Build 102 abgelehnt). Steigen und «bewegt sich um» bleiben offen. Wie iOS.
+ */
+const val MAX_FALL_PERCENT = 100.0
+
+/** Fällt bei dieser Bedingung der Wert (Schwellwert höchstens [MAX_FALL_PERCENT])? */
+val AlarmCondition.isFallingPercent: Boolean
+    get() = this == AlarmCondition.CHANGE_PERCENT_DOWN || this == AlarmCondition.OI_DOWN
 
 /** Eingabezustand des Alarm-Dialogs. */
 data class AlarmDraft(
@@ -61,6 +71,7 @@ data class AlarmDraft(
     val threshold: Double?
         get() = if (condition.isNearExtreme && newExtremeOnly) NearExtreme.NEW_ONLY_DISTANCE
         else if (condition.isFunding) DerivativesAlarm.parseFunding(thresholdText, decimalSeparator)
+        else if (exceedsFall) null
         else if (condition.isOpenInterest) ThresholdParser.parse(thresholdText, decimalSeparator)
             ?.takeIf { DerivativesAlarm.isValidThreshold(condition, it) }
         else ThresholdParser.parse(
@@ -69,18 +80,25 @@ data class AlarmDraft(
             priceHint.takeIf { condition.isPriceThreshold },
         )
 
+    /** Fallender Prozent-Alarm mit gültiger Zahl über [MAX_FALL_PERCENT]? */
+    private val exceedsFall: Boolean
+        get() = condition.isFallingPercent &&
+            (ThresholdParser.parse(thresholdText, decimalSeparator)?.let { it > MAX_FALL_PERCENT } ?: false)
+
     val isValid: Boolean get() = threshold != null
 
     /**
      * Warum der Knopf gesperrt ist (null = gültig) — für den Fehlertext unter dem Feld. Folgt genau
      * [threshold]: leer; Funding ausserhalb ±[DerivativesAlarm.MAX_FUNDING_PERCENT] bzw. keine Zahl;
-     * Open Interest über [DerivativesAlarm.MAX_OI_PERCENT]; sonst keine Zahl grösser als 0. Wie iOS.
+     * Open Interest über [DerivativesAlarm.MAX_OI_PERCENT]; fallend über [MAX_FALL_PERCENT]; sonst keine Zahl
+     * grösser als 0. Wie iOS.
      */
     val thresholdProblem: ThresholdProblem?
         get() = when {
             isValid -> null
             thresholdText.isBlank() -> ThresholdProblem.EMPTY
             condition.isFunding -> ThresholdProblem.FUNDING_RANGE
+            exceedsFall -> ThresholdProblem.PERCENT_RANGE
             condition.isOpenInterest && ThresholdParser.parse(thresholdText, decimalSeparator) != null ->
                 ThresholdProblem.OI_RANGE
             else -> ThresholdProblem.INVALID

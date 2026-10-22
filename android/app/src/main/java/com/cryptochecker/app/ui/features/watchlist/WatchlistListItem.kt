@@ -91,6 +91,8 @@ internal fun LazyItemScope.WatchlistItem(
     onFavoriteWithBanner: () -> Unit,
     /** Lange drücken bzw. Screenreader-Aktion «Auswählen»: Mehrfachauswahl mit dieser Zeile starten. */
     onStartSelection: () -> Unit = {},
+    /** Kurzer Hinweis im Banner (Herkunft der Änderung, Tipp auf «*»). */
+    onSourceHint: (String) -> Unit = {},
 ) {
     val haptics = rememberHaptics()
     val dragging = reorder.draggingId == watch.id
@@ -239,6 +241,7 @@ internal fun LazyItemScope.WatchlistItem(
                 // Screenreader: «Löschen» und «Favorit» wie Wischen
                 onDeleteAction = onDelete,
                 onFavoriteAction = onFavoriteWithBanner,
+                onSourceHint = onSourceHint,
                 // Screenreader: «Nach oben/unten» wie Ziehen (nicht während der Suche)
                 canReorder = !searching,
                 // Am Griff ohne Warten ziehen

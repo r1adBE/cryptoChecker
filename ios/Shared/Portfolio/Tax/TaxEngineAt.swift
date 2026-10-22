@@ -257,7 +257,9 @@ extension TaxEngines {
                             c.addNew(s.qty, cost: nil, time: s.time)
                         }
                     } else if s.acquired < newFrom {
-                        c.old.append(AtLot(txId: s.id, acquired: s.acquired, kind: s.trade.type, qty: s.qty, cost: s.cost))
+                        // Nach Erwerb einsortieren: eine nachdatierte Einzahlung (Kaufdatum vor einem früher gebuchten Kauf)
+                        // ist der ältere Posten und geht beim Verkauf zuerst ab
+                        c.insertOld(AtLot(txId: s.id, acquired: s.acquired, kind: s.trade.type, qty: s.qty, cost: s.cost))
                     } else {
                         let cost = atNewCost(s)
                         c.addNew(s.qty, cost: cost, time: s.acquired, fee: atNewFee(s, cost))

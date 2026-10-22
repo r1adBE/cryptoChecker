@@ -3,7 +3,7 @@ import Network
 import UIKit
 
 // Logos laden (Teil von `CoinLogoStore`): Bilder der Rangliste je Server parallel, Pausen gebremster Server,
-// Fehlschläge einen Tag sperren, Verkleinern auf `CoinLogos.storedPixels`; dazu die Erkennung von teurem Netz.
+// Fehlschläge einen Tag sperren, Verkleinern auf `CoinLogos.storedPixels` (`CoinLogoDecode`); dazu die Erkennung von teurem Netz.
 
 extension CoinLogoStore {
     /// Höchstgrösse eines Bildes (wie Android `MAX_IMAGE_BYTES`); grössere werden gar nicht erst ganz gelesen.
@@ -157,7 +157,7 @@ extension CoinLogoStore {
                 pauses.pause(CoinLogoRetry.hostOf(candidate) ?? "", retryAfterSeconds: retry)
                 return .paused
             }
-            guard let body = loaded.body, let png = pngData(body) else { continue }
+            guard let body = loaded.body, let png = CoinLogoDecode.pngData(body) else { continue }
             if (try? png.write(to: directory.appendingPathComponent(name), options: [.atomic])) != nil {
                 return .ok
             }
@@ -187,22 +187,6 @@ extension CoinLogoStore {
         }
     }
 
-    /// Zu speichernde PNG-Daten: schon ein PNG in passender Grösse (CoinGecko «small», viele
-    /// Binance-Logos) → unverändert, ohne Umrechnen; sonst verkleinert als PNG — wie Android `pngBytes`.
-    private static func pngData(_ data: Data) -> Data? {
-        guard let image = UIImage(data: data), image.size.width > 0, image.size.height > 0 else { return nil }
-        let longest = max(image.size.width * image.scale, image.size.height * image.scale)
-        if isPNG(data), longest <= CGFloat(CoinLogos.storedPixels) { return data }
-        return scaled(image)?.pngData()
-    }
-
-    /// Anfang jeder PNG-Datei.
-    private static let pngSignature: [UInt8] = [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]
-
-    private static func isPNG(_ data: Data) -> Bool {
-        data.count > pngSignature.count && Array(data.prefix(pngSignature.count)) == pngSignature
-    }
-
     // MARK: Fehlschläge (Name → Zeitpunkt), einen Tag lang nicht wiederholen
 
     private static func loadFailures(now: Int64) -> [String: Int64] {
@@ -221,26 +205,6 @@ extension CoinLogoStore {
     private static func saveFailures(_ failures: [String: Int64]) {
         let text = failures.map { "\($0.key):\($0.value)" }.joined(separator: ";")
         SharedStorage.defaults.set(text, forKey: failedKey)
-    }
-
-    // MARK: Hilfen
-
-    /// Verkleinert auf `CoinLogos.storedPixels` (Seitenverhältnis bleibt), Massstab 1.
-    private static func scaled(_ image: UIImage) -> UIImage? {
-        guard image.size.width > 0, image.size.height > 0 else { return nil }
-        let pixels = CGFloat(CoinLogos.storedPixels)
-        let width = image.size.width * image.scale
-        let height = image.size.height * image.scale
-        let longest = max(width, height)
-        guard longest > pixels else { return image }
-        let factor = pixels / longest
-        let size = CGSize(width: max(1, (width * factor).rounded()), height: max(1, (height * factor).rounded()))
-        let format = UIGraphicsImageRendererFormat()
-        format.scale = 1
-        format.opaque = false
-        return UIGraphicsImageRenderer(size: size, format: format).image { _ in
-            image.draw(in: CGRect(origin: .zero, size: size))
-        }
     }
 }
 

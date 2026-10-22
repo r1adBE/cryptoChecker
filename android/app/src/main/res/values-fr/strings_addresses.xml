@@ -23,6 +23,10 @@
     <string name="portfolio_address_xpub_privacy">Un xpub révèle toutes les adresses de ce wallet. Elles sont dérivées sur ton appareil ; seules des adresses individuelles sont envoyées à %1$s – au moins 40 requêtes lors de la première recherche, moins ensuite. Les clés privées (xprv) ne sont jamais acceptées.</string>
     <string name="portfolio_address_xpub_gap">La recherche s\'arrête après %1$d adresses inutilisées consécutives (norme BIP44 utilisée par la plupart des portefeuilles). Une adresse utilisée au-delà de cet écart n\'est pas comptée – ajoute-la séparément.</string>
     <string name="portfolio_address_xpub_used">Adresses utilisées : %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Trop d\'adresses utilisées pour une mise à jour</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <string name="portfolio_address_xpub_limited">Très nombreuses adresses – les nouveaux paiements vers d\'anciennes adresses vides risquent de ne pas être détectés</string>
     <string name="portfolio_addresses_title">Adresses</string>
 
     <!-- Prüfung einer eingegebenen Adresse -->

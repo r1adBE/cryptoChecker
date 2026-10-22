@@ -247,10 +247,11 @@ extension PriceRefresher {
     }
 
     /// Kurs-Mitteilung (je nach Einstellung erst ab einer Bewegung) und Kursansage eines Paars.
-    /// Paare ohne Mitteilung kommen in `cancelIds` (gesammelt entfernt).
+    /// Paare ohne Mitteilung kommen in `cancelIds` (gesammelt entfernt), zu meldende in `pricePosts` — gemeldet
+    /// gesammelt mit Obergrenze (`Notifier.showPrices`, 20 einzeln + Sammelmeldung wie Android).
     static func priceEffects(watch: Watch, updated: Watch, price: Double, now: Int64, settings: AppSettings,
                              speechAllowed: Bool, spokeAlarm: Bool, live: Bool,
-                             outcome: inout Outcome, cancelIds: inout [Int64]) {
+                             outcome: inout Outcome, cancelIds: inout [Int64], pricePosts: inout [Watch]) {
         // Kurs-Mitteilung
         if settings.priceNotifications && watch.notificationEnabled {
             var notify = true
@@ -258,7 +259,7 @@ extension PriceRefresher {
                 notify = abs((price - ref) / ref * 100) >= settings.notificationChangePercent
             }
             if notify {
-                Notifier.showPrice(updated)
+                pricePosts.append(updated)
                 outcome.notified[watch.id] = (price, now)
             }
         } else {

@@ -148,6 +148,16 @@ class SqlCipherDatabaseFiles(private val context: Context) : DatabaseEncryptionM
         }
     }
 
+    override fun deleteAside(database: String, copy: String) {
+        val original = file(database)
+        val aside = File(original.parentFile, copy)
+        // Nur eine beiseitegelegte Datei, nie die aktuelle (anderer Name) oder eine «ersetzte»
+        require(isAsideName(aside.name, original.name + ASIDE_SUFFIX)) { "$copy ist keine beiseitegelegte Datei" }
+        for (f in listOf(aside, File(aside.path + "-wal"), File(aside.path + "-shm"), File(aside.path + "-journal"))) {
+            if (f.exists() && !f.delete()) throw IOException("${f.name} nicht gelöscht")
+        }
+    }
+
     /** `<db>.unreadable` bzw. `<db>.unreadable-<Zeit>` ohne Nebendateien. */
     private fun isAsideName(name: String, base: String): Boolean =
         (name == base || name.startsWith("$base-")) && !name.endsWith("-wal") && !name.endsWith("-shm") && !name.endsWith("-journal")

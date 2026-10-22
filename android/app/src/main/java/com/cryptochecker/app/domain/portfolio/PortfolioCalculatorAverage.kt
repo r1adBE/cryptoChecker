@@ -262,6 +262,9 @@ internal fun PortfolioCalculator.average(symbol: String, events: List<PortfolioL
                 val holdings = priced + unpriced
                 val requested = amount + t.coinFee
                 if (requested > holdings) oversold = true
+                // Gebühr auf den nicht erfassten Teil (auch bei leerem Bestand): vermerkt statt still verloren
+                val uncoveredFee = PortfolioFeeExpenses.withdrawalUncovered(t, holdings)
+                if (uncoveredFee.signum() > 0) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, uncoveredFee)
                 if (holdings.signum() <= 0) continue
                 // Gebühr USDT + Wert der Gebühr im dritten Coin: Aufwand (realisiert), wie im Zeitraum
                 expense(e, PortfolioFeeExpense.WITHDRAWAL, PortfolioFeeExpenses.withdrawal(t, holdings))

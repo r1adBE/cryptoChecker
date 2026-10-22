@@ -92,6 +92,8 @@
     <string name="backup_storage_kept">Backup isn\'t possible: saved data can\'t be read right now. Restart the app and try again.</string>
     <!-- Nur Android: Einspielen abgelehnt, solange Merkliste oder Portfolio nur im Arbeitsspeicher liegen (kein Schlüssel; BackupStorageInMemoryException) -->
     <string name="backup_restore_storage_in_memory">Import isn\'t possible right now: the app isn\'t saving data at the moment (encryption not active yet), so the import would be lost on restart. Restart the app and try again.</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable); seit Build 102 -->
+    <string name="backup_restore_journal_unavailable">Import isn\'t possible right now: the safety copy of your current data couldn\'t be saved (key not available at the moment). Nothing was changed. Try again later or restart the app.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Encryption not active yet – the portfolio is not being saved, changes are lost when the app closes. The app will try again at the next start.</string>

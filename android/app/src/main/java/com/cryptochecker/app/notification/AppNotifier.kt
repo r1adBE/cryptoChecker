@@ -253,6 +253,8 @@ class AppNotifier @Inject constructor(
         val other: Int,
         /** Aktivitäts-Meldungen, älteste zuerst (weichen nach den Kurs-Mitteilungen einem Alarm). */
         val activity: List<Int>,
+        /** Alarm-Meldungen (Paar- und Portfolio-Alarme), älteste zuerst — weichen als letzte einem neuen Alarm. */
+        val alarms: List<Int>,
         val total: Int,
     )
 

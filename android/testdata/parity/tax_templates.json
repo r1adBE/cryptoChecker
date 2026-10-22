@@ -2022,6 +2022,284 @@
       ]
     },
     {
+      "name": "FR Netzwerkgebühr ohne Bestand kürzt PTA nicht (Gebühr im Coin einer Umbuchung, ETH nie erfasst)",
+      "_calc": "PTA 20000. Umbuchung 1 ETH mit Gebühr 0,01 ETH ohne ETH-Bestand (priceAt 3000): Abtretung ohne Einstand — Wert 30, Einstand und Gewinn unbekannt, PTA bleibt 20000 (früher Kürzung 15 und Phantom-Gewinn 15). Verkauf 1 BTC zu 40000: Gesamtwert 40000, Einstand 20000 × 40000/40000 = 20000, Gewinn 20000.",
+      "method": "FR_PTA",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "20000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 1738411200000,
+          "fee": "0.01",
+          "feeUnit": "COIN",
+          "transferFrom": "X",
+          "transferTo": "Y"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1740830400000,
+          "price": "40000"
+        }
+      ],
+      "prices": {
+        "BTC": "40000",
+        "ETH": "3000"
+      },
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2025-02-01",
+          "acquired": null,
+          "amount": "0.01",
+          "cost": null,
+          "proceeds": "30",
+          "gain": null,
+          "portfolioValue": null,
+          "gross": "30",
+          "costIncomplete": true,
+          "uncovered": true
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "20000",
+          "proceeds": "40000",
+          "gain": "20000",
+          "portfolioValue": "40000",
+          "gross": "40000",
+          "costIncomplete": false
+        }
+      ]
+    },
+    {
+      "name": "FR Netzwerkgebühr im dritten Coin ohne Bestand kürzt PTA nicht",
+      "_calc": "PTA 20000. Umbuchung 0,5 BTC mit Gebühr 0,01 ETH ohne ETH-Bestand (priceAt 3000): Abtretung ohne Einstand — Wert 30, Einstand und Gewinn unbekannt, PTA bleibt 20000. Verkauf 1 BTC zu 40000: Einstand 20000, Gewinn 20000.",
+      "method": "FR_PTA",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "20000"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "0.5",
+          "time": 1738411200000,
+          "feeCoin": "ETH",
+          "feeCoinAmount": "0.01",
+          "transferFrom": "X",
+          "transferTo": "Y"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1740830400000,
+          "price": "40000"
+        }
+      ],
+      "prices": {
+        "BTC": "40000",
+        "ETH": "3000"
+      },
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2025-02-01",
+          "acquired": null,
+          "amount": "0.01",
+          "cost": null,
+          "proceeds": "30",
+          "gain": null,
+          "portfolioValue": null,
+          "gross": "30",
+          "costIncomplete": true,
+          "uncovered": true
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "20000",
+          "proceeds": "40000",
+          "gain": "20000",
+          "portfolioValue": "40000",
+          "gross": "40000",
+          "costIncomplete": false
+        }
+      ]
+    },
+    {
+      "name": "FR Netzwerkgebühr teilweise gedeckt: nur der erfasste Bestand ist eine Abtretung mit Einstand",
+      "_calc": "PTA 20000 + 0,004 × 2500 = 20010. Umbuchung 0,004 ETH mit Gebühr 0,01 ETH (priceAt 3000): gedeckt 0,004 ETH — Wert 12, Gesamtwert 40000 + 0,004 × 3000 = 40012, Einstand 20010 × 12/40012 = 6,0011996401, Gewinn 5,9988003599; Rest 0,006 ETH: Wert 18, Einstand unbekannt, PTA unverändert. PTA danach 20003,9988003599. Verkauf 1 BTC zu 40000: Gesamtwert 40000, Einstand = PTA, Gewinn 19996,0011996401.",
+      "method": "FR_PTA",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "20000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "0.004",
+          "time": 1736596800000,
+          "price": "2500"
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "TRANSFER",
+          "amount": "0.004",
+          "time": 1738411200000,
+          "fee": "0.01",
+          "feeUnit": "COIN",
+          "transferFrom": "X",
+          "transferTo": "Y"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1740830400000,
+          "price": "40000"
+        }
+      ],
+      "prices": {
+        "BTC": "40000",
+        "ETH": "3000"
+      },
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2025-02-01",
+          "acquired": null,
+          "amount": "0.004",
+          "cost": "6.001199640107967609717084874537639",
+          "proceeds": "12",
+          "gain": "5.998800359892032390282915125462361",
+          "portfolioValue": "40012",
+          "gross": "12",
+          "costIncomplete": false,
+          "uncovered": false
+        },
+        {
+          "coin": "ETH",
+          "sold": "2025-02-01",
+          "acquired": null,
+          "amount": "0.006",
+          "cost": null,
+          "proceeds": "18",
+          "gain": null,
+          "portfolioValue": null,
+          "gross": "18",
+          "costIncomplete": true,
+          "uncovered": true
+        },
+        {
+          "coin": "BTC",
+          "sold": "2025-03-01",
+          "acquired": null,
+          "amount": "1",
+          "cost": "20003.99880035989203239028291512546",
+          "proceeds": "40000",
+          "gain": "19996.00119964010796760971708487454",
+          "portfolioValue": "40000",
+          "gross": "40000",
+          "costIncomplete": false
+        }
+      ]
+    },
+    {
+      "name": "AT Einzahlung mit früherem Kaufdatum (Altbestand): nach Erwerb einsortiert, geht vor dem früher gebuchten Kauf ab",
+      "_calc": "Kauf 1 ETH 2020-06-01 zu 1000 (Altbestand). Einzahlung 1 ETH gebucht 2020-09-01, ursprünglich gekauft 2019-06-01 zu 500: älterer Altbestand-Posten, steht in der FIFO-Reihe vor dem Kauf (früher angehängt → Kauf zuerst). Verkauf 1 ETH 2024-01-01 zu 4000: Posten 2019-06-01, Einstand 500, Gewinn 3500. Verkauf 1 ETH 2024-06-01 zu 5000: Posten 2020-06-01, Einstand 1000, Gewinn 4000.",
+      "method": "AT_MOVING_AVERAGE",
+      "trades": [
+        {
+          "id": 1,
+          "coin": "ETH",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1591012800000,
+          "price": "1000"
+        },
+        {
+          "id": 2,
+          "coin": "ETH",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "time": 1598961600000,
+          "price": "500",
+          "acquiredTime": 1559390400000
+        },
+        {
+          "id": 3,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1704110400000,
+          "price": "4000"
+        },
+        {
+          "id": 4,
+          "coin": "ETH",
+          "type": "SELL",
+          "amount": "1",
+          "time": 1717243200000,
+          "price": "5000"
+        }
+      ],
+      "disposals": [
+        {
+          "coin": "ETH",
+          "sold": "2024-01-01",
+          "acquired": "2019-06-01",
+          "amount": "1",
+          "cost": "500",
+          "proceeds": "4000",
+          "gain": "3500",
+          "oldHolding": true
+        },
+        {
+          "coin": "ETH",
+          "sold": "2024-06-01",
+          "acquired": "2020-06-01",
+          "amount": "1",
+          "cost": "1000",
+          "proceeds": "5000",
+          "gain": "4000",
+          "oldHolding": true
+        }
+      ]
+    },
+    {
       "name": "UK Einzahlung mit früherem Kaufdatum: «30 Tage» nach dem Kaufdatum (Umbuchung eigener Coins ist kein Erwerb), Rest erst ab Buchung im Pool",
       "method": "UK_POOL",
       "_calc": "Kauf 1 BTC 2024-01-10 zu 100. Verkauf 2 BTC 2024-06-01 zu 300: die Einzahlung (gebucht 2025-03-01, ursprünglich gekauft 2024-06-10, Einstand 200) ist kein Erwerb am Buchungstag — erworben am 2024-06-10, also «30 Tage»: 1 BTC Einstand 200, Gewinn 100; 1 BTC aus dem Pool Einstand 100, Gewinn 200 (zusammen 300 im Steuerjahr 2024/25). Nichts bleibt für den Pool am Buchungstag. Verkauf 1 BTC 2025-04-01 zu 500: Pool leer → ohne Einstand",

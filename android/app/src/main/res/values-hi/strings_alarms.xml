@@ -48,6 +48,7 @@
     <string name="alarm_threshold_error_funding">फ़ंडिंग रेट −10 और +10 प्रतिशत के बीच की संख्या होनी चाहिए।</string>
     <string name="alarm_threshold_error_invalid">0 से बड़ी मान्य संख्या डालो।</string>
     <string name="alarm_threshold_error_oi">ओपन इंटरेस्ट में बदलाव: अधिकतम 1000 प्रतिशत।</string>
+    <string name="alarm_threshold_error_percent_down">गिरावट अधिकतम 100 प्रतिशत हो सकती है।</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d घंटे में</item>
         <item quantity="other">%1$d घंटे में</item>

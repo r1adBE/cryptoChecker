@@ -23,6 +23,10 @@
     <string name="portfolio_address_xpub_privacy">Xpub розкриває всі адреси цього гаманця. Вони обчислюються на твоєму пристрої; до %1$s надсилаються лише окремі адреси – під час першого пошуку щонайменше 40 запитів, потім менше. Приватні ключі (xprv) ніколи не приймаються.</string>
     <string name="portfolio_address_xpub_gap">Пошук зупиняється після %1$d невикористаних адрес поспіль (стандарт BIP44, який використовує більшість гаманців). Використана адреса за цим проміжком не враховується – додай її окремо.</string>
     <string name="portfolio_address_xpub_used">Використані адреси: %1$d</string>
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <string name="portfolio_address_xpub_too_many">Забагато використаних адрес для оновлення</string>
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <string name="portfolio_address_xpub_limited">Дуже багато адрес – нові платежі на старі порожні адреси можуть бути не виявлені</string>
     <string name="portfolio_addresses_title">Адреси</string>
 
     <!-- Prüfung einer eingegebenen Adresse -->

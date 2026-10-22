@@ -47,6 +47,7 @@
     <string name="alarm_threshold_error_funding">资金费率必须是介于 −10 到 +10 之间的百分比。</string>
     <string name="alarm_threshold_error_invalid">请输入大于 0 的有效数字。</string>
     <string name="alarm_threshold_error_oi">持仓量变化：最多百分之 1000。</string>
+    <string name="alarm_threshold_error_percent_down">跌幅最多为百分之一百。</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">%1$d 小时内</item>
     </plurals>

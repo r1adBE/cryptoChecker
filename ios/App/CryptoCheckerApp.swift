@@ -324,7 +324,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
                 if AlarmSnooze.rearm(alarmId, in: &probe) {
                     app.mutate({ _ = AlarmSnooze.rearm(alarmId, in: &$0) }, reloadWidgets: false)
                 }
-                app.reloadFromDisk()
+                await app.reloadFromDisk()
             }
             return
         } else if response.actionIdentifier == Notifier.actionEdit, let alarmId, let id = watchId {

@@ -2149,6 +2149,22 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 102: backup restore goes through `RestoreRun` (journal first — `BackupJournalUnavailableException` / iOS
+  `Failure.journalUnavailable` before any write; `RestoreRollback` separate, `RestoreRunTest`); `DatabaseKeyRetry`
+  (3 × 500 ms, key «lost» only on the next run via `<db>.key-suspect`); `SettingsLockFallback` / iOS
+  `SharedStorage.settingsAfterRead` (lock assumed on when settings are corrupt); `BackupReadCache` salted SHA-256, 5 min
+  plaintext TTL; `AsideRetention` (30 days after first seen, notice confirmed, current file opens); `LiveJson` depth 128;
+  `HttpBodyLimit` start buffer ≤ 256 KiB; `AlarmJson.needsPositiveThreshold` incl. volume spike and open interest
+  (`backup_alarms.json`); `SettingsBackupTarget` + `backup_settings.json`. Alerts: iOS `NotificationBudget` (20 +
+  overflow, `notification_budget.json`), `ActivityDueOrder`, `AlarmSaveBuilder` + `WatchRepository.saveAlarmMerged`,
+  per-key `MoveHistoryCore`/`MoveHistoryStore`, `AlarmLog.shouldPersist`. Portfolio: FR fee path, AT old holdings,
+  18-digit banker's rounding, `PortfolioCoinDeletion` (fee refs), `PortfolioUnassignedFee`, xpub QUICK fallback when a
+  FULL scan would exceed `XpubScan.MAX_REQUESTS` with a cache (hint `portfolio_address_xpub_limited`; a FULL that still
+  fails stamps `fullScan`, so it is retried after a day),
+  `OwnCandleDataSource` bounded. iOS widgets: `WidgetRows`, `CoinLogoDecode`, `PerKeyDefaults`, async
+  `reloadFromDisk`. UI: `NavigateOnce`, `RemovedBatch` + `UndoSlot.merge`, `LiveDispatcher` (own pool),
+  `UserAgentInterceptor`, `LiveRules.tickTime`. Fixtures changed: `live_feed.json`, `exchange_okx.json`,
+  `tax_templates.json`, `portfolio.json`, `address_balance.json`.
 * Build 101: nameless portfolio holdings on an ambiguous ticker — `PortfolioPriceIdentity.binanceCheck(..., otherNames)` returns
   `UNVERIFIED` when Binance's name and the names of other stored pair lists (`TokenIdentityStore.otherNames`) clearly
   conflict (`TokenIdentity.conflicting`); the Binance price is used but listed in `PortfolioPrices.unverified` (row «Kurs

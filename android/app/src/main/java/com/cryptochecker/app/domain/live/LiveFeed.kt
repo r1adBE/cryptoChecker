@@ -132,6 +132,14 @@ object LiveBackoff {
  * Minute; welche 24-h-Veränderung gilt; wann ein Paar die REST-Abfrage auslassen darf.
  */
 object LiveRules {
+
+    /**
+     * Zeit eines neuen Kurses: die der Börse, ausser sie fehlt oder liegt mehr als 5 Minuten in der Zukunft
+     * (falsch gelesen, Ortszeit als Epoche) – dann jetzt. Wie die REST-Abfrage (`Market.markFetched`): eine Zeit
+     * aus der Zukunft liesse einen stehenden Kurs lange frisch aussehen (seit Build 102).
+     */
+    fun tickTime(reported: Long?, now: Long): Long =
+        reported?.takeIf { it > 0 && it <= now + com.cryptochecker.marketdata.model.Market.EXCHANGE_TIME_FUTURE_TOLERANCE_MS } ?: now
     const val UI_INTERVAL_MILLIS = 500L
     const val DB_INTERVAL_MILLIS = 10_000L
     const val WIDGET_INTERVAL_MILLIS = 60_000L
@@ -203,7 +211,7 @@ class LiveBuffer {
                 time = previous.time
                 tradeTime = previous.tradeTime
             } else {
-                time = tick.time?.takeIf { it > 0 } ?: now
+                time = LiveRules.tickTime(tick.time, now)
                 tradeTime = if (previous == null) null else time
             }
             val quote = LiveQuote(

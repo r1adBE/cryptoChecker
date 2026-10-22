@@ -37,7 +37,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.WebSocket
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -65,16 +64,8 @@ class LivePriceStream @Inject constructor(
     private val livePriceApplier: LivePriceApplier,
     private val coverage: LiveCoverage,
 ) {
-    /** Ohne Gesamt-Zeitgrenze und Protokoll-Interceptor; Ping-Frames halten die Verbindung offen. */
-    private val client: OkHttpClient = baseClient.newBuilder()
-        .apply {
-            interceptors().clear()
-            networkInterceptors().clear()
-        }
-        .callTimeout(0, TimeUnit.MILLISECONDS)
-        .readTimeout(0, TimeUnit.MILLISECONDS)
-        .pingInterval(PROTOCOL_PING_SECONDS, TimeUnit.SECONDS)
-        .build()
+    /** Eigener Client des Live-Stroms ([LiveDispatcher.client]): ohne Zeitgrenzen, mit User-Agent, eigener Dispatcher. */
+    private val client: OkHttpClient = LiveDispatcher.client(baseClient, PROTOCOL_PING_SECONDS)
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 

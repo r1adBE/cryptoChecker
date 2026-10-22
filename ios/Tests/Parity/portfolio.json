@@ -4,6 +4,188 @@
   "baseDay": 19993,
   "positions": [
     {
+      "name": "B102 withdrawal from an empty queue (FIFO): the 10 USDT fee falls entirely on unrecorded coins — noted as «not assigned – cost basis unknown» instead of silently dropped, not realized",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "0.5",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "time": 259200000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 0,
+        "oversold": true,
+        "priceMissing": false,
+        "realizedExact": "0",
+        "withdrawn": 0.5,
+        "unassignedFee": "10",
+        "unassignedFees": [
+          {
+            "txId": 3,
+            "usdt": "10"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B102 withdrawal from an empty queue (AVERAGE): the 10 USDT fee falls entirely on unrecorded coins — noted as «not assigned – cost basis unknown» instead of silently dropped, not realized",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "0.5",
+          "time": 172800000
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "time": 259200000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 0,
+        "oversold": true,
+        "priceMissing": false,
+        "realizedExact": "0",
+        "withdrawn": 0.5,
+        "unassignedFee": "10",
+        "unassignedFees": [
+          {
+            "txId": 3,
+            "usdt": "10"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B102 withdrawal above holdings (FIFO): 0.5 BTC held, 1 BTC withdrawn, fee 10 USDT — 5 realized for the covered half (R9), the other 5 noted as not assigned",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "time": 172800000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": -5,
+        "oversold": true,
+        "priceMissing": false,
+        "realizedExact": "-5",
+        "withdrawn": 0.5,
+        "unassignedFee": "5",
+        "unassignedFees": [
+          {
+            "txId": 2,
+            "usdt": "5"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B102 withdrawal above holdings (AVERAGE): 0.5 BTC held, 1 BTC withdrawn, fee 10 USDT — 5 realized for the covered half (R9), the other 5 noted as not assigned",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.5",
+          "price": "100",
+          "time": 86400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "WITHDRAWAL",
+          "amount": "1",
+          "time": 172800000,
+          "fee": "10",
+          "feeUnit": "QUOTE"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": -5,
+        "oversold": true,
+        "priceMissing": false,
+        "realizedExact": "-5",
+        "withdrawn": 0.5,
+        "unassignedFee": "5",
+        "unassignedFees": [
+          {
+            "txId": 2,
+            "usdt": "5"
+          }
+        ]
+      }
+    },
+    {
       "name": "average cost with USDT fees on buy and sell",
       "method": "AVERAGE",
       "coin": "BTC",

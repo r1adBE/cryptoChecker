@@ -164,6 +164,7 @@ internal fun AppNotifier.activeState(): ActiveState? {
     var other = 0
     var overflowSbn: StatusBarNotification? = null
     val activity = ArrayList<StatusBarNotification>()
+    val alarms = ArrayList<StatusBarNotification>()
     for (sbn in list.sortedByDescending { it.postTime }) {
         val n = sbn.notification
         when {
@@ -177,6 +178,9 @@ internal fun AppNotifier.activeState(): ActiveState? {
             else -> {
                 other++
                 if (NotificationIds.isKind(NotificationIds.Kind.ACTIVITY, sbn.id)) activity += sbn
+                if (NotificationIds.isKind(NotificationIds.Kind.ALARM, sbn.id) ||
+                    NotificationIds.isKind(NotificationIds.Kind.PORTFOLIO_ALARM, sbn.id)
+                ) alarms += sbn
             }
         }
     }
@@ -203,6 +207,7 @@ internal fun AppNotifier.activeState(): ActiveState? {
         overflowShown = overflowShown,
         other = other,
         activity = activity.sortedBy { it.postTime }.map { it.id },
+        alarms = alarms.sortedBy { it.postTime }.map { it.id },
         total = list.size,
     )
 }

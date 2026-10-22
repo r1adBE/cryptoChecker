@@ -25,8 +25,8 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Banner unten in der Merkliste («BTC/USDT entfernt» mit «Rückgängig», «… wird jetzt
- * überwacht» mit «Alarm setzen», Favorit an/aus). Ein neues Banner ersetzt das alte; das
- * Löschen davor bleibt dann bestehen. Mit Screenreader bleibt ein Banner mit Aktion ggf.
+ * überwacht» mit «Alarm setzen», Favorit an/aus). Ein neues Banner ersetzt das alte; weitere einzelne
+ * Löschungen fasst der Bildschirm zu einem Sammel-Banner zusammen ([RemovedBatch]). Mit Screenreader bleibt ein Banner mit Aktion ggf.
  * länger stehen (Systemeinstellung «Zeit für Aktionen»).
  */
 @Stable

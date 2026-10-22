@@ -89,6 +89,8 @@
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">Kopja rezervë nuk është e mundur: të dhënat e ruajtura nuk mund të lexohen tani. Rinis aplikacionin dhe provo përsëri.</string>
     <string name="backup_restore_storage_in_memory">Importi nuk është i mundur tani: aplikacioni nuk po ruan të dhëna për momentin (enkriptimi ende jo aktiv), prandaj importi do të humbiste pas rinisjes. Rinis aplikacionin dhe provo përsëri.</string>
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable); seit Build 102 -->
+    <string name="backup_restore_journal_unavailable">Importimi nuk është i mundur tani: kopja e sigurisë e të dhënave të tua aktuale nuk u ruajt dot (çelësi nuk është i disponueshëm për momentin). Nuk u ndryshua asgjë. Provo përsëri më vonë ose rinis aplikacionin.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->
     <string name="portfolio_storage_in_memory">Enkriptimi ende nuk është aktiv – portofoli nuk po ruhet dhe ndryshimet humbasin kur mbyllet aplikacioni. Aplikacioni do të provojë sërish në nisjen e ardhshme.</string>

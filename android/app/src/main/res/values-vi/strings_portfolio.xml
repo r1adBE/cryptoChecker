@@ -291,6 +291,8 @@
     <plurals name="portfolio_coin_delete_confirm">
         <item quantity="other">Sẽ xóa %d giao dịch. Bạn có thể hoàn tác ngay sau đó.</item>
     </plurals>
+    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">Phí trả bằng %1$s cũng sẽ bị xóa khỏi các giao dịch khác: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">
         <item quantity="other">Đã xóa %1$s khỏi danh mục (%2$d giao dịch)</item>

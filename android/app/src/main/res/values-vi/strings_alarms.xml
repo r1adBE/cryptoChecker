@@ -47,6 +47,7 @@
     <string name="alarm_threshold_error_funding">Funding rate phải là số từ −10 đến +10 phần trăm.</string>
     <string name="alarm_threshold_error_invalid">Nhập một số hợp lệ lớn hơn 0.</string>
     <string name="alarm_threshold_error_oi">Thay đổi open interest: tối đa 1000 phần trăm.</string>
+    <string name="alarm_threshold_error_percent_down">Mức giảm tối đa là 100 phần trăm.</string>
     <plurals name="alarm_window_hours">
         <item quantity="other">trong %1$d giờ</item>
     </plurals>

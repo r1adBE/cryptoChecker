@@ -64,9 +64,12 @@ object PortfolioDecimal {
     fun amount(value: BigDecimal): BigDecimal =
         if (value.scale() > MAX_SCALE) value.setScale(MAX_SCALE, java.math.RoundingMode.HALF_EVEN) else value
 
-    /** Zum Speichern: ohne Exponent und Nullen am Ende, höchstens [MAX_SCALE] Stellen («0.00000001»). */
+    /**
+     * Zum Speichern: ohne Exponent und Nullen am Ende, höchstens [MAX_SCALE] Stellen («0.00000001»). Gerundet wie
+     * [amount] (halbe auf gerade): eine Rundungsregel für Rechnen, Prüfen vor dem Speichern und Speichern. Wie iOS.
+     */
     fun text(value: BigDecimal): String {
-        val v = if (value.scale() > MAX_SCALE) value.setScale(MAX_SCALE, java.math.RoundingMode.HALF_UP) else value
+        val v = amount(value)
         return if (v.signum() == 0) "0" else v.stripTrailingZeros().toPlainString()
     }
 

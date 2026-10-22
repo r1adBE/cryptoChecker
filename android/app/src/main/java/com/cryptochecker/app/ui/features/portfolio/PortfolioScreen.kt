@@ -27,6 +27,7 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.portfolio.PortfolioCoinDeletion
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
@@ -226,7 +227,10 @@ fun PortfolioScreen(
     fun deleteCoin(coin: String) {
         viewModel.deleteCoin(coin) { removed ->
             if (removed.isNotEmpty()) coinHaptics.play(HapticEvent.DESTRUCTIVE)
-            val text = resources.getQuantityString(R.plurals.portfolio_coin_removed, removed.size, coin, removed.size)
+            // Zurück kommen auch die Transaktionen, die nur ihre Gebühr in diesem Coin verloren; gezählt werden die gelöschten
+            val key = PortfolioCalculator.normalizeCoin(coin)
+            val count = removed.count { PortfolioCoinDeletion.involves(it, key) }
+            val text = resources.getQuantityString(R.plurals.portfolio_coin_removed, count, coin, count)
             banner.show(text) { viewModel.restore(removed) }
         }
     }
@@ -234,6 +238,7 @@ fun PortfolioScreen(
         DeleteCoinDialog(
             coin = coin,
             count = txCounts[PortfolioCalculator.normalizeCoin(coin)] ?: 0,
+            feeRefs = PortfolioCoinDeletion.counts(transactions.orEmpty(), coin).second,
             onConfirm = { askDeleteCoin = null; deleteCoin(coin) },
             onDismiss = { askDeleteCoin = null },
         )

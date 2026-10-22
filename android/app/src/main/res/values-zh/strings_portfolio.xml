@@ -291,6 +291,8 @@
     <plurals name="portfolio_coin_delete_confirm">
         <item quantity="other">将删除 %d 笔交易。删除后可立即撤销。</item>
     </plurals>
+    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <string name="portfolio_coin_delete_fee_refs">以 %1$s 支付的手续费也会从其他交易中移除：%2$d 笔</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">
         <item quantity="other">已从投资组合移除 %1$s（%2$d 笔交易）</item>

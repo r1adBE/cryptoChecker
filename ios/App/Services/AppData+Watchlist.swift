@@ -200,6 +200,14 @@ extension AppData {
             s.watches.removeAll { $0.id == watch.id }
             s.alarms.removeAll { $0.watchId == watch.id }
         }
+        forgetDeletedAlarmChecks()
+    }
+
+    /// Nach dem Löschen von Paaren: letzte Prüfungen ihrer Alarme aus dem Alarm-Protokoll entfernen (seit Build 102,
+    /// wie Android `WatchRepository.forgetDeletedAlarms`). Verschlüsseltes Schreiben nicht auf dem Haupt-Thread.
+    private func forgetDeletedAlarmChecks() {
+        let ids = Set(snapshot.alarms.map(\.id))
+        Task.detached(priority: .utility) { AlarmLogStore.retainAlarms(ids) }
     }
 
     /// Löschen mit «Rückgängig»: löscht sofort wie `delete` (samt Alarmen) und liefert
@@ -288,6 +296,7 @@ extension AppData {
             s.watches.removeAll { ids.contains($0.id) }
             s.alarms.removeAll { ids.contains($0.watchId) }
         }
+        forgetDeletedAlarmChecks()
         return deleted
     }
 
@@ -339,6 +348,7 @@ extension AppData {
                 s.watches.removeAll()
                 s.alarms.removeAll()
             }
+            forgetDeletedAlarmChecks()
         }
         return deleted
     }

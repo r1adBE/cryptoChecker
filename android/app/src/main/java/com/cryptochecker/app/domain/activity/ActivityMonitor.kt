@@ -62,6 +62,9 @@ class ActivityMonitor @Inject constructor(
 
     @Volatile private var fearGreedCache: Pair<Long, FearGreed>? = null
 
+    /** Letzter Versuch je Paar in diesem Prozess (auch ohne Ergebnis) — für [ActivityDueOrder]. */
+    private val attempts = ConcurrentHashMap<Long, Long>()
+
     /**
      * Prüft alle Paare, deren letzte Prüfung über 10 Min. her ist. Läuft nach
      * dem Speichern der Kurse und ausserhalb der Sperre des PriceRefreshers;
@@ -97,7 +100,15 @@ class ActivityMonitor @Inject constructor(
 
         val settings = settingsRepository.current()
         val now = System.currentTimeMillis()
-        val due = watches.filter { ActivityAnalyzer.isDue(repository.report(it.id), now) }
+        val reports = watches.associate { it.id to repository.report(it.id) }
+        attempts.keys.retainAll(reports.keys)
+        // Am längsten nicht geprüfte zuerst: sonst schnitte das Zeitbudget bei grossen Listen immer dieselben ab
+        val due = ActivityDueOrder.order(
+            watches.filter { ActivityAnalyzer.isDue(reports[it.id], now) },
+            id = { it.id },
+            computedAt = { reports[it.id]?.computedAt },
+            attemptedAt = attempts,
+        )
         if (due.isEmpty()) return
 
         val results = ConcurrentHashMap<Long, Pair<WatchEntity, ActivityAnalyzer.Merge>>()
@@ -107,6 +118,7 @@ class ActivityMonitor @Inject constructor(
                 due.map { watch ->
                     async {
                         permits.withPermit {
+                            attempts[watch.id] = now
                             val merge = runCatchingCancellable { analyzeOne(watch, now, settings.activitySensitivity) }
                                 .onFailure { Timber.d(it, "Aktivität nicht prüfbar: %s", watch.displayName) }
                                 .getOrNull()

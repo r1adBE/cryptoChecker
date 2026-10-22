@@ -105,7 +105,9 @@ enum PortfolioWidgetStore {
         // Klartext — für diesen Zwischenspeicher lieber gar nichts (wie Android `PortfolioSnapshotSeal`)
         guard case .key(_) = StorageKey.shared.lookup() else { return false }
         do {
-            try ProtectedFile.write(data, to: snapshotURL)
+            // `requireSealed`: wird der Schlüssel zwischen Prüfung und Schreiben unlesbar (Schlüsselbund gesperrt),
+            // wirft `write` statt Klartext abzulegen — der letzte versiegelte Stand bleibt stehen
+            try ProtectedFile.write(data, to: snapshotURL, requireSealed: true)
         } catch {
             return false
         }

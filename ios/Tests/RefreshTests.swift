@@ -355,3 +355,22 @@ final class OutcomePairIdentityTests: XCTestCase {
         XCTAssertEqual(same.alarms[0].referencePrice, 60_000)
     }
 }
+
+/// Seit Build 102: Änderungen eines Durchlaufs nur bei gleicher Alarm-Währung übertragen (wie Android
+/// `currency IS :currency`) — eine inzwischen auf USD gestellte EUR-Marke wird nicht wieder scharf.
+final class OutcomeAlarmCurrencyTests: XCTestCase {
+    func testRearmSkippedWhenCurrencyChanged() {
+        var alarm = Alarm(id: 7, watchId: 1, condition: .PRICE_ABOVE, threshold: 50_000)
+        alarm.currency = "EUR"
+        alarm.referenceAt = 1_000
+        var after = alarm
+        after.referenceAt = 0
+        let update = PriceRefresher.AlarmUpdate(evaluated: alarm, result: after, setsEnabled: false)
+        XCTAssertTrue(update.matches(alarm))
+        var changed = alarm
+        changed.currency = "USD"
+        XCTAssertFalse(update.matches(changed))
+        changed.currency = nil
+        XCTAssertFalse(update.matches(changed))
+    }
+}

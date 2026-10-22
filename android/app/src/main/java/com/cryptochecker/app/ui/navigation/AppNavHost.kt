@@ -219,15 +219,16 @@ fun AppNavHost(
                 enterTransition = { if (reduceMotion) EnterTransition.None else fadeIn(tween(NAV_FADE_MILLIS)) },
                 exitTransition = { if (reduceMotion) ExitTransition.None else fadeOut(tween(NAV_FADE_MILLIS)) },
             ) {
-                composable<ScreenRoute.Watchlist> {
+                composable<ScreenRoute.Watchlist> { entry ->
                     WatchlistScreen(
                         openWhyWatchId = whyWatchId,
                         onOpenWhyHandled = { whyWatchId = null },
                         focusWatchId = focusWatchId,
                         onFocusHandled = { focusWatchId = null },
-                        onAddClick = { navigation.openExplorer() },
-                        onOpenAlarms = { watchId -> navigation.navigate(ScreenRoute.Alarms(watchId)) },
-                        onOpenAllAlarms = { navigation.navigate(ScreenRoute.AlarmsOverview) },
+                        // Doppel-Tipp (Glocke, «Ersten Alarm setzen») legt die Seite nur einmal auf den Stapel
+                        onAddClick = { navigation.openExplorerOnce(entry) },
+                        onOpenAlarms = { watchId -> navigation.navigateOnce(entry, ScreenRoute.Alarms(watchId)) },
+                        onOpenAllAlarms = { navigation.navigateOnce(entry, ScreenRoute.AlarmsOverview) },
                         onOpenActivitySettings = {
                             navigation.navigate(ScreenRoute.SettingsMarketAlerts) { launchSingleTop = true }
                         },
@@ -277,12 +278,12 @@ fun AppNavHost(
                         lockViewModel = lockViewModel,
                         jump = MarketJump.fromName(marketJump),
                         onJumpHandled = { marketJump = null },
-                        onOpenAlarms = { watchId -> navigation.navigate(ScreenRoute.Alarms(watchId)) },
+                        onOpenAlarms = { watchId -> navigation.navigateOnce(entry, ScreenRoute.Alarms(watchId)) },
                         // Seite «Paar hinzufügen» über dem Markt-Tab (G-13): zurück führt wieder
                         // hierher, nicht in die Merkliste (gleich wie iOS)
                         onOpenExplorer = { query ->
                             explorerSearch = query
-                            navigation.openExplorer()
+                            navigation.openExplorerOnce(entry)
                         },
                         onOpenAbout = {
                             navigation.navigate(ScreenRoute.SettingsSubpage(SettingsPage.ABOUT.name)) { launchSingleTop = true }

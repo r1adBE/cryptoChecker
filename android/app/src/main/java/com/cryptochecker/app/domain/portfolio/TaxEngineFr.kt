@@ -94,30 +94,48 @@ internal fun TaxEngines.frPta(
             fun feeCession(feeCoin: String, qty: BigDecimal, p: BigDecimal?, feeLeg: Boolean) {
                 if (qty.signum() <= 0) return
                 val held = books[feeCoin]?.total ?: zero
-                val gross = p?.let { qty.multiply(it, mc) }
-                val value = portfolioValue(feeCoin, p, t.time)?.let { it - spent }
-                val withAddresses = value != null && valueHadAddresses
-                val wasIncomplete = incomplete
-                var cost: BigDecimal? = null
-                var parts: List<PortfolioCostPart> = emptyList()
-                if (gross != null && value != null && value.signum() > 0) {
-                    val (c, pp) = reduce(gross, value)
-                    cost = c
-                    parts = pp
-                } else {
-                    incomplete = true
+                // Nur der gedeckte Anteil ist eine Abtretung mit Einstand (wie im Verkaufspfad): eine Gebühr in einem nie
+                // erfassten Coin darf die PTA nicht kürzen und keinen Gewinn ergeben
+                val covered = qty.min(held.max(zero))
+                if (covered.signum() > 0) {
+                    val coveredGross = p?.let { covered.multiply(it, mc) }
+                    val value = portfolioValue(feeCoin, p, t.time)?.let { it - spent }
+                    val withAddresses = value != null && valueHadAddresses
+                    val wasIncomplete = incomplete
+                    var cost: BigDecimal? = null
+                    var parts: List<PortfolioCostPart> = emptyList()
+                    if (coveredGross != null && value != null && value.signum() > 0) {
+                        val (c, pp) = reduce(coveredGross, value)
+                        cost = c
+                        parts = pp
+                    } else {
+                        incomplete = true
+                    }
+                    if (coveredGross != null) spent += coveredGross
+                    out += PortfolioDisposal(
+                        coin = feeCoin, sellTxId = t.id, sellTime = t.time,
+                        lotTxId = null, acquiredTime = null, lotKind = null,
+                        amount = covered, costUsdt = cost, proceedsUsdt = coveredGross,
+                        gainUsdt = if (coveredGross != null && cost != null) coveredGross - cost else null,
+                        holdingDays = null, feeLeg = feeLeg, feeValueMissing = false,
+                        method = CostMethod.AVERAGE, costParts = parts,
+                        costIncomplete = wasIncomplete || cost == null, portfolioValueUsdt = value, grossProceedsUsdt = coveredGross,
+                        addressValueIncluded = withAddresses,
+                    )
                 }
-                if (gross != null) spent += gross
-                out += PortfolioDisposal(
-                    coin = feeCoin, sellTxId = t.id, sellTime = t.time,
-                    lotTxId = null, acquiredTime = null, lotKind = null,
-                    amount = qty, costUsdt = cost, proceedsUsdt = gross,
-                    gainUsdt = if (gross != null && cost != null) gross - cost else null,
-                    holdingDays = null, feeLeg = feeLeg, feeValueMissing = false,
-                    method = CostMethod.AVERAGE, costParts = parts, uncovered = qty > held,
-                    costIncomplete = wasIncomplete || cost == null, portfolioValueUsdt = value, grossProceedsUsdt = gross,
-                    addressValueIncluded = withAddresses,
-                )
+                if (covered < qty) {
+                    // Rest ohne erfassten Bestand: Wert bekannt, Einstand unbekannt — zählt nicht in der Summe, PTA unverändert
+                    val rest = qty - covered
+                    val restGross = p?.let { rest.multiply(it, mc) }
+                    out += PortfolioDisposal(
+                        coin = feeCoin, sellTxId = t.id, sellTime = t.time,
+                        lotTxId = null, acquiredTime = null, lotKind = null,
+                        amount = rest, costUsdt = null, proceedsUsdt = restGross, gainUsdt = null,
+                        holdingDays = null, feeLeg = feeLeg, feeValueMissing = false,
+                        method = CostMethod.AVERAGE, uncovered = true,
+                        costIncomplete = true, grossProceedsUsdt = restGross,
+                    )
+                }
             }
 
             /** Gebühr im dritten Coin (ausser beim Verkauf): eigene Abtretung zum erfassten Preis bzw. priceAt. */

@@ -5,8 +5,15 @@ package com.cryptochecker.app.domain.live
  * Array → List, Zahl → Double, Text → String, true/false, null. Reines Kotlin, damit die
  * Parser ohne Android (org.json) testbar sind. Ungültiges JSON ergibt null — eine kaputte
  * Nachricht wird still übergangen, der Strom läuft weiter.
+ *
+ * Seit Build 102 mit Tiefenlimit [MAX_DEPTH] (wie `HttpBodyLimit.MAX_JSON_DEPTH`): Der Leser ist rekursiv, eine
+ * Nachricht «[[[[…» liesse den Stapel des OkHttp-Threads überlaufen (StackOverflowError — ein Error, den der Strom
+ * sonst nicht fängt: Absturz). Echte Nachrichten der Börsen liegen bei Tiefe < 10.
  */
 internal object LiveJson {
+
+    /** Höchste Verschachtelung einer Nachricht; tiefer → ungültig (null). */
+    const val MAX_DEPTH = 128
 
     fun parse(text: String): Any? = try {
         val reader = Reader(text)
@@ -19,10 +26,14 @@ internal object LiveJson {
         null
     } catch (_: IndexOutOfBoundsException) {
         null
+    } catch (_: StackOverflowError) {
+        // Letzte Absicherung neben [MAX_DEPTH] (sehr kleiner Thread-Stapel): Nachricht übergehen statt Absturz
+        null
     }
 
     private class Reader(val s: String) {
         var pos = 0
+        private var depth = 0
 
         fun skipSpace() {
             while (pos < s.length && s[pos].isWhitespace()) pos++
@@ -48,7 +59,15 @@ internal object LiveJson {
             return result
         }
 
-        private fun obj(): Map<String, Any?> {
+        /** Eine Ebene tiefer (Objekt, Array); über [MAX_DEPTH] ungültig. */
+        private fun <T> nested(read: () -> T): T {
+            check(++depth <= MAX_DEPTH) { "depth" }
+            return read().also { depth-- }
+        }
+
+        private fun obj(): Map<String, Any?> = nested { objBody() }
+
+        private fun objBody(): Map<String, Any?> {
             val map = LinkedHashMap<String, Any?>()
             pos++
             skipSpace()
@@ -76,7 +95,9 @@ internal object LiveJson {
             }
         }
 
-        private fun array(): List<Any?> {
+        private fun array(): List<Any?> = nested { arrayBody() }
+
+        private fun arrayBody(): List<Any?> {
             val list = ArrayList<Any?>()
             pos++
             skipSpace()

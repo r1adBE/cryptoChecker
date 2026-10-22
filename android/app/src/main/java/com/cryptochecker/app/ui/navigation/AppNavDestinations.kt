@@ -110,13 +110,13 @@ internal fun NavGraphBuilder.alarmDestinations(
         AlarmsScreen(onBack = { navigation.popBackStack() })
     }
 
-    composable<ScreenRoute.AlarmsOverview> {
+    composable<ScreenRoute.AlarmsOverview> { entry ->
         AlarmsOverviewScreen(
             onBack = { navigation.popBackStack() },
-            onOpenWatch = { watchId -> navigation.navigate(ScreenRoute.Alarms(watchId)) },
+            onOpenWatch = { watchId -> navigation.navigateOnce(entry, ScreenRoute.Alarms(watchId)) },
             onOpenLog = openAlarmLog,
             onOpenDelivery = openAlarmDelivery,
-            onAddPair = { navigation.openExplorer() },
+            onAddPair = { navigation.openExplorerOnce(entry) },
         )
     }
 
@@ -165,6 +165,7 @@ internal fun PortfolioGate(
                 onUnlock = onUnlock,
                 screenLockMissing = screenLockMissing,
                 onTurnOffLock = lockViewModel::turnOffLockWithoutScreenLock,
+                autoPrompt = lockViewModel.autoPrompt,
             )
         }
         PortfolioAccess.PENDING -> PortfolioPendingState()

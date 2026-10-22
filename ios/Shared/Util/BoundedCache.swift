@@ -39,4 +39,9 @@ struct BoundedCache<Key: Hashable, Value> {
     mutating func removeValue(forKey key: Key) -> Value? { entries.removeValue(forKey: key)?.value }
 
     mutating func removeAll() { entries.removeAll() }
+
+    /// Alle Einträge entfernen, deren Schlüssel `predicate` erfüllt (z. B. alle eines Paars) — wie `removeKeysIf` (Android).
+    mutating func removeKeys(where predicate: (Key) -> Bool) {
+        for key in entries.keys where predicate(key) { entries.removeValue(forKey: key) }
+    }
 }

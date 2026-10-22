@@ -59170,6 +59170,197 @@
         }
       }
     },
+    "alarm_threshold_error_percent_down" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا يمكن أن يتجاوز الانخفاض 100 بالمئة."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokles může být nejvýše 100 procent."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et fald kan højst være 100 procent."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein Rückgang beträgt höchstens 100 Prozent."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μια πτώση μπορεί να είναι το πολύ 100 τοις εκατό."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A drop can be at most 100 percent."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una caída puede ser como máximo del 100 por ciento."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کاهش حداکثر می‌تواند ۱۰۰ درصد باشد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lasku voi olla enintään 100 prosenttia."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une baisse ne peut pas dépasser 100 pour cent."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ירידה יכולה להיות לכל היותר 100 אחוז."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "गिरावट अधिकतम 100 प्रतिशत हो सकती है।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egy esés legfeljebb 100 százalék lehet."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Penurunan paling banyak 100 persen."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un calo può essere al massimo del 100 per cento."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下落は最大 100 パーセントまでです。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "하락폭은 최대 100퍼센트입니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et fall kan være høyst 100 prosent."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een daling kan maximaal 100 procent zijn."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spadek może wynosić najwyżej 100 procent."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma descida pode ser no máximo de 100 por cento."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma queda pode ser de no máximo 100 por cento."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O scădere poate fi de cel mult 100 la sută."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Падение может составлять не более 100 процентов."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Një rënie mund të jetë më së shumti 100 për qind."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En nedgång kan vara högst 100 procent."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การลดลงสูงสุดได้ไม่เกิน 100 เปอร์เซ็นต์"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir düşüş en fazla yüzde 100 olabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Падіння може становити щонайбільше 100 відсотків."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mức giảm tối đa là 100 phần trăm."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跌幅最多为百分之一百。"
+          }
+        }
+      }
+    },
     "alarm_timing_hint_android" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -73325,6 +73516,197 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "backup_restore_journal_unavailable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الاستيراد غير ممكن الآن: تعذّر حفظ النسخة الاحتياطية لبياناتك الحالية (المفتاح غير متاح حاليًا). لم يتغير شيء. حاول مرة أخرى لاحقًا أو أعد تشغيل التطبيق."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import teď není možný: bezpečnostní kopii tvých současných dat se nepodařilo uložit (klíč momentálně není k dispozici). Nic se nezměnilo. Zkus to později nebo aplikaci restartuj."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import er ikke mulig lige nu: sikkerhedskopien af dine nuværende data kunne ikke gemmes (nøglen er ikke tilgængelig i øjeblikket). Intet er ændret. Prøv igen senere, eller genstart appen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einspielen geht gerade nicht: Die Sicherheitskopie deines bisherigen Stands liess sich nicht speichern (Schlüssel im Moment nicht verfügbar). Es wurde nichts geändert. Versuche es später erneut oder starte die App neu."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η εισαγωγή δεν είναι δυνατή τώρα: δεν ήταν δυνατή η αποθήκευση του αντιγράφου ασφαλείας των τρεχόντων δεδομένων σου (το κλειδί δεν είναι διαθέσιμο αυτή τη στιγμή). Δεν άλλαξε τίποτα. Δοκίμασε ξανά αργότερα ή επανεκκίνησε την εφαρμογή."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import isn't possible right now: the safety copy of your current data couldn't be saved (key not available at the moment). Nothing was changed. Try again later or restart the app."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se puede importar ahora: no se pudo guardar la copia de seguridad de tus datos actuales (clave no disponible en este momento). No se ha cambiado nada. Inténtalo más tarde o reinicia la app."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وارد کردن الان ممکن نیست: نسخهٔ ایمنی داده‌های فعلی‌ات ذخیره نشد (کلید فعلاً در دسترس نیست). چیزی تغییر نکرد. بعداً دوباره امتحان کن یا برنامه را دوباره راه‌اندازی کن."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuonti ei onnistu juuri nyt: nykyisten tietojesi varmuuskopiota ei voitu tallentaa (avain ei ole juuri nyt käytettävissä). Mitään ei muutettu. Yritä myöhemmin uudelleen tai käynnistä sovellus uudelleen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importation impossible pour le moment : la copie de sécurité de tes données actuelles n'a pas pu être enregistrée (clé indisponible pour l'instant). Rien n'a été modifié. Réessaie plus tard ou redémarre l'app."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הייבוא לא אפשרי כרגע: לא ניתן היה לשמור את עותק הביטחון של הנתונים הנוכחיים שלך (המפתח אינו זמין כרגע). שום דבר לא שונה. נסו שוב מאוחר יותר או הפעילו מחדש את האפליקציה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अभी इम्पोर्ट संभव नहीं है: तुम्हारे मौजूदा डेटा की सुरक्षा कॉपी सेव नहीं हो सकी (चाबी अभी उपलब्ध नहीं है)। कुछ भी नहीं बदला गया। बाद में फिर से कोशिश करो या ऐप को फिर से शुरू करो।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az importálás most nem lehetséges: a jelenlegi adataid biztonsági másolatát nem sikerült menteni (a kulcs pillanatnyilag nem érhető el). Semmi sem változott. Próbáld újra később, vagy indítsd újra az appot."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impor tidak bisa dilakukan sekarang: salinan pengaman data kamu saat ini tidak dapat disimpan (kunci sedang tidak tersedia). Tidak ada yang diubah. Coba lagi nanti atau mulai ulang aplikasi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importazione non possibile al momento: non è stato possibile salvare la copia di sicurezza dei tuoi dati attuali (chiave al momento non disponibile). Non è stato modificato nulla. Riprova più tardi o riavvia l'app."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今はインポートできません。現在のデータの安全コピーを保存できませんでした（キーが一時的に使えません）。何も変更されていません。あとでもう一度試すか、アプリを再起動してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금은 가져올 수 없습니다. 현재 데이터의 안전 사본을 저장하지 못했습니다(키를 지금 사용할 수 없음). 아무것도 변경되지 않았습니다. 나중에 다시 시도하거나 앱을 다시 시작하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import er ikke mulig akkurat nå: sikkerhetskopien av dine nåværende data kunne ikke lagres (nøkkelen er ikke tilgjengelig for øyeblikket). Ingenting er endret. Prøv igjen senere, eller start appen på nytt."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importeren kan nu niet: de veiligheidskopie van je huidige gegevens kon niet worden opgeslagen (sleutel op dit moment niet beschikbaar). Er is niets gewijzigd. Probeer het later opnieuw of start de app opnieuw."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import jest teraz niemożliwy: nie udało się zapisać kopii bezpieczeństwa twoich obecnych danych (klucz chwilowo niedostępny). Nic nie zostało zmienione. Spróbuj później lub uruchom aplikację ponownie."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível importar agora: não foi possível guardar a cópia de segurança dos teus dados atuais (chave indisponível de momento). Nada foi alterado. Tenta mais tarde ou reinicia a app."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não é possível importar agora: não foi possível salvar a cópia de segurança dos seus dados atuais (chave indisponível no momento). Nada foi alterado. Tente mais tarde ou reinicie o app."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importul nu este posibil acum: copia de siguranță a datelor tale actuale nu a putut fi salvată (cheie momentan indisponibilă). Nu s-a modificat nimic. Încearcă mai târziu sau repornește aplicația."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импорт сейчас невозможен: не удалось сохранить резервную копию твоих текущих данных (ключ сейчас недоступен). Ничего не изменено. Попробуй позже или перезапусти приложение."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importimi nuk është i mundur tani: kopja e sigurisë e të dhënave të tua aktuale nuk u ruajt dot (çelësi nuk është i disponueshëm për momentin). Nuk u ndryshua asgjë. Provo përsëri më vonë ose rinis aplikacionin."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import går inte just nu: säkerhetskopian av dina nuvarande data kunde inte sparas (nyckeln är inte tillgänglig för tillfället). Inget har ändrats. Försök igen senare eller starta om appen."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "นำเข้าไม่ได้ในขณะนี้: บันทึกสำเนาความปลอดภัยของข้อมูลปัจจุบันของคุณไม่ได้ (คีย์ยังใช้ไม่ได้ในขณะนี้) ไม่มีอะไรถูกเปลี่ยนแปลง ลองใหม่ภายหลังหรือรีสตาร์ทแอป"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İçe aktarma şu anda mümkün değil: mevcut verilerinin güvenlik kopyası kaydedilemedi (anahtar şu anda kullanılamıyor). Hiçbir şey değiştirilmedi. Daha sonra tekrar dene veya uygulamayı yeniden başlat."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Імпорт зараз неможливий: не вдалося зберегти резервну копію твоїх поточних даних (ключ зараз недоступний). Нічого не змінено. Спробуй пізніше або перезапусти застосунок."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiện không thể nhập: không lưu được bản sao an toàn của dữ liệu hiện tại của bạn (khóa tạm thời không khả dụng). Không có gì bị thay đổi. Hãy thử lại sau hoặc khởi động lại ứng dụng."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂时无法导入：无法保存你当前数据的安全副本（密钥暂时不可用）。未做任何更改。请稍后重试或重新启动应用。"
           }
         }
       }
@@ -191206,6 +191588,197 @@
         }
       }
     },
+    "portfolio_address_xpub_limited" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عناوين كثيرة جدًا – قد لا يتم التعرّف على الدفعات الجديدة إلى العناوين القديمة الفارغة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Velmi mnoho adres – nové platby na staré, prázdné adresy nemusí být rozpoznány"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rigtig mange adresser – nye betalinger til gamle, tomme adresser registreres måske ikke"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sehr viele Adressen – neue Zahlungen an alte, leere Adressen werden evtl. nicht erkannt"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Πάρα πολλές διευθύνσεις – νέες πληρωμές σε παλιές, άδειες διευθύνσεις ίσως να μην εντοπιστούν"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Very many addresses – new payments to old, empty addresses may not be detected"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muchísimas direcciones – puede que no se detecten pagos nuevos a direcciones antiguas y vacías"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نشانی‌های بسیار زیاد – ممکن است پرداخت‌های جدید به نشانی‌های قدیمی و خالی شناسایی نشوند"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hyvin paljon osoitteita – uusia maksuja vanhoihin, tyhjiin osoitteisiin ei ehkä tunnisteta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Très nombreuses adresses – les nouveaux paiements vers d'anciennes adresses vides risquent de ne pas être détectés"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הרבה מאוד כתובות – ייתכן שתשלומים חדשים לכתובות ישנות וריקות לא יזוהו"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बहुत अधिक पते – पुराने, खाली पतों पर आए नए भुगतान शायद पहचाने न जाएँ"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nagyon sok cím – a régi, üres címekre érkező új befizetéseket lehet, hogy nem ismeri fel"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sangat banyak alamat – pembayaran baru ke alamat lama yang kosong mungkin tidak terdeteksi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moltissimi indirizzi – i nuovi pagamenti su vecchi indirizzi vuoti potrebbero non essere rilevati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アドレスが非常に多いため、空になった古いアドレスへの新しい入金は検出されない場合があります"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "주소가 매우 많아 비어 있는 이전 주소로 들어온 새 입금은 감지되지 않을 수 있습니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Svært mange adresser – nye betalinger til gamle, tomme adresser blir kanskje ikke oppdaget"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zeer veel adressen – nieuwe betalingen naar oude, lege adressen worden mogelijk niet herkend"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bardzo dużo adresów – nowe płatności na stare, puste adresy mogą nie zostać wykryte"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muitíssimos endereços – pagamentos novos para endereços antigos e vazios podem não ser detetados"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endereços demais – pagamentos novos para endereços antigos e vazios podem não ser detectados"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foarte multe adrese – plățile noi către adrese vechi, goale s-ar putea să nu fie detectate"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очень много адресов – новые платежи на старые пустые адреса могут быть не обнаружены"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shumë adresa – pagesat e reja në adresa të vjetra e bosh mund të mos zbulohen"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Väldigt många adresser – nya betalningar till gamla, tomma adresser upptäcks kanske inte"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ที่อยู่มีจำนวนมากเกินไป – อาจตรวจไม่พบการชำระเงินใหม่ที่เข้าที่อยู่เก่าซึ่งว่างแล้ว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çok fazla adres – eski, boş adreslere gelen yeni ödemeler algılanmayabilir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дуже багато адрес – нові платежі на старі порожні адреси можуть бути не виявлені"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rất nhiều địa chỉ – khoản thanh toán mới vào địa chỉ cũ đã trống có thể không được phát hiện"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地址非常多，转入已清空旧地址的新付款可能无法识别"
+          }
+        }
+      }
+    },
     "portfolio_address_xpub_privacy" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -191393,6 +191966,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "xpub 会暴露此钱包的全部地址。地址在你的设备上推导；只向 %1$@ 发送单个地址——首次扫描至少 40 次请求，之后更少。绝不接受私钥（xprv）。"
+          }
+        }
+      }
+    },
+    "portfolio_address_xpub_too_many" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عناوين مستخدمة كثيرة جدًا للتحديث"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Příliš mnoho použitých adres pro aktualizaci"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For mange brugte adresser til en opdatering"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zu viele benutzte Adressen für eine Aktualisierung"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Πάρα πολλές χρησιμοποιημένες διευθύνσεις για ενημέρωση"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Too many used addresses to update"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Demasiadas direcciones usadas para actualizar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعداد نشانی‌های استفاده‌شده برای به‌روزرسانی بیش از حد است"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liian monta käytettyä osoitetta päivitykseen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trop d'adresses utilisées pour une mise à jour"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "יותר מדי כתובות בשימוש לעדכון"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अपडेट के लिए बहुत अधिक इस्तेमाल किए गए पते"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Túl sok használt cím a frissítéshez"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terlalu banyak alamat terpakai untuk diperbarui"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Troppi indirizzi usati per un aggiornamento"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用済みアドレスが多すぎて更新できません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "사용된 주소가 너무 많아 업데이트할 수 없습니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For mange brukte adresser til en oppdatering"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Te veel gebruikte adressen voor een update"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zbyt wiele użytych adresów, by zaktualizować"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Demasiados endereços usados para atualizar"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endereços usados demais para atualizar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prea multe adrese folosite pentru o actualizare"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Слишком много использованных адресов для обновления"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shumë adresa të përdorura për një përditësim"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "För många använda adresser för en uppdatering"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "มีที่อยู่ที่ใช้แล้วมากเกินไปสำหรับการอัปเดต"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Güncelleme için çok fazla kullanılmış adres var"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Забагато використаних адрес для оновлення"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quá nhiều địa chỉ đã dùng để cập nhật"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已用地址过多，无法更新"
           }
         }
       }
@@ -201788,6 +202552,197 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "portfolio_coin_delete_fee_refs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تُزال أيضًا الرسوم المدفوعة بـ %1$@ من معاملات أخرى: %2$ld."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poplatky placené v %1$@ budou odebrány i z jiných transakcí: %2$ld."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebyrer betalt i %1$@ fjernes også fra andre transaktioner: %2$ld."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebühren in %1$@ werden auch aus anderen Transaktionen entfernt: %2$ld."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι χρεώσεις σε %1$@ αφαιρούνται και από άλλες συναλλαγές: %2$ld."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fees paid in %1$@ are also removed from other transactions: %2$ld."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las comisiones pagadas en %1$@ también se quitarán de otras transacciones: %2$ld."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کارمزدهای پرداخت‌شده با %1$@ از تراکنش‌های دیگر هم حذف می‌شوند: %2$ld."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Myös muiden tapahtumien %1$@-maksut poistetaan: %2$ld."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les frais payés en %1$@ seront aussi retirés d'autres transactions : %2$ld."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "עמלות ששולמו ב-%1$@ יוסרו גם מעסקאות אחרות: %2$ld."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ में चुकाई गई फ़ीस दूसरे लेन-देन से भी हटाई जाएगी: %2$ld."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A %1$@ formájában fizetett díjak más tranzakciókból is törlődnek: %2$ld."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biaya yang dibayar dalam %1$@ juga dihapus dari transaksi lain: %2$ld."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le commissioni pagate in %1$@ verranno rimosse anche da altre transazioni: %2$ld."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ で支払った手数料は他の取引からも削除されます: %2$ld 件"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@(으)로 낸 수수료는 다른 거래에서도 삭제됩니다: %2$ld건"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebyrer betalt i %1$@ fjernes også fra andre transaksjoner: %2$ld."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kosten betaald in %1$@ worden ook uit andere transacties verwijderd: %2$ld."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opłaty zapłacone w %1$@ zostaną usunięte także z innych transakcji: %2$ld."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As comissões pagas em %1$@ também serão removidas de outras transações: %2$ld."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As taxas pagas em %1$@ também serão removidas de outras transações: %2$ld."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comisioanele plătite în %1$@ vor fi eliminate și din alte tranzacții: %2$ld."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Комиссии, оплаченные в %1$@, будут удалены и из других транзакций: %2$ld."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarifat e paguara në %1$@ do të hiqen edhe nga transaksione të tjera: %2$ld."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avgifter betalda i %1$@ tas också bort från andra transaktioner: %2$ld."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ค่าธรรมเนียมที่จ่ายเป็น %1$@ จะถูกลบออกจากรายการอื่นด้วย: %2$ld"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ile ödenen ücretler diğer işlemlerden de kaldırılır: %2$ld."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Комісії, сплачені в %1$@, буде вилучено й з інших транзакцій: %2$ld."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phí trả bằng %1$@ cũng sẽ bị xóa khỏi các giao dịch khác: %2$ld."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以 %1$@ 支付的手续费也会从其他交易中移除：%2$ld 笔"
           }
         }
       }

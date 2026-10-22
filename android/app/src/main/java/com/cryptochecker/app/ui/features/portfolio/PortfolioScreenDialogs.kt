@@ -178,15 +178,18 @@ internal fun PortfolioScreenDialogs(
 
 /**
  * Rückfrage vor dem Löschen eines ganzen Coins (Wischen oder Screenreader-Aktion «Löschen»): nennt die Zahl
- * [count] der Transaktionen, die mitgehen — ein Wisch soll nicht unbemerkt viele Einträge löschen.
+ * [count] der Transaktionen, die mitgehen — ein Wisch soll nicht unbemerkt viele Einträge löschen — und die Zahl
+ * [feeRefs] der Transaktionen anderer Coins, die ihre Gebühr in diesem Coin verlieren ([PortfolioCoinDeletion]).
  */
 @Composable
-internal fun DeleteCoinDialog(coin: String, count: Int, onConfirm: () -> Unit, onDismiss: () -> Unit) {
+internal fun DeleteCoinDialog(coin: String, count: Int, feeRefs: Int, onConfirm: () -> Unit, onDismiss: () -> Unit) {
     // Haptik erst nach dem Löschen ([PortfolioScreen] deleteCoin), wie iOS
+    val confirm = pluralStringResource(R.plurals.portfolio_coin_delete_confirm, count, count)
+    val feeText = if (feeRefs > 0) stringResource(R.string.portfolio_coin_delete_fee_refs, coin, feeRefs) else null
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.portfolio_coin_delete_title, coin)) },
-        text = { Text(pluralStringResource(R.plurals.portfolio_coin_delete_confirm, count, count)) },
+        text = { Text(if (feeText != null) "$confirm\n\n$feeText" else confirm) },
         confirmButton = {
             TextButton(onClick = onConfirm) {
                 Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)

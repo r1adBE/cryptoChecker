@@ -248,7 +248,8 @@ final class AppData: ObservableObject {
         SharedStorage.loadSettingsChecked(protectedDataAvailable: UIApplication.shared.isProtectedDataAvailable)
     }
 
-    /// Einstellungen waren unlesbar: Standardwerte speichern und den Hinweis vormerken (`StorageRecoveryNotice.settingsReset`).
+    /// Einstellungen waren unlesbar: Standardwerte (seit Build 102 mit Portfolio-Sperre an, `SharedStorage.settingsAfterRead`)
+    /// speichern und den Hinweis vormerken (`StorageRecoveryNotice.settingsReset`).
     private static func settingsWereReset(_ standard: AppSettings) {
         StorageRecoveryNotice.recordSettingsReset()
         SharedStorage.saveSettings(standard)
@@ -337,13 +338,6 @@ final class AppData: ObservableObject {
                 WidgetCenter.shared.reloadAllTimelines()
             }
         })
-    }
-
-    /// Stand von der Platte neu laden (z. B. nachdem das Widget aktualisiert hat) — blockiert den Haupt-Thread; beim
-    /// Wechsel nach vorne liest `reloadFromDiskInBackground`.
-    func reloadFromDisk() {
-        guard prepareDiskReload() else { return }
-        applyDiskRead(SharedStorage.readSnapshot(), keyAvailable: StorageKey.shared.isAvailable)
     }
 
     /// Vor dem Lesen (Haupt-Thread). false = nicht lesen: Der Speicher bleibt massgebend.

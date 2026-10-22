@@ -48,6 +48,7 @@
     <string name="alarm_threshold_error_funding">A finanszírozási rátának −10 és +10 százalék közötti számnak kell lennie.</string>
     <string name="alarm_threshold_error_invalid">Adj meg egy 0-nál nagyobb érvényes számot.</string>
     <string name="alarm_threshold_error_oi">Nyitott pozíciók változása: legfeljebb 1000 százalék.</string>
+    <string name="alarm_threshold_error_percent_down">Egy esés legfeljebb 100 százalék lehet.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">%1$d órán belül</item>
         <item quantity="other">%1$d órán belül</item>

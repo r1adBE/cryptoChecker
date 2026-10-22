@@ -117,8 +117,11 @@ enum MarketHTTP {
     static let maxBodyBytes = 2 * 1024 * 1024
     static let maxBulkBodyBytes = 16 * 1024 * 1024
 
-    /// Widget-Erweiterung (wenig Speicher): Listen höchstens 8 MB.
-    static let maxExtensionBodyBytes = 8 * 1024 * 1024
+    /// Widget-Erweiterung (rund 30 MB Speicher): Listen höchstens 3 MB — die Antwort liegt beim Lesen als Data, als
+    /// String und als JSON-Baum zugleich im Speicher (bei 8 MB bis 40–50 MB). Jede Sammelabfrage mit fester Adresse
+    /// ist ungepackt höchstens 2 MB (Aufnahme `record_exchange_fixtures.py` verwirft Grösseres, keine wurde verworfen);
+    /// die grossen ungefilterten Listen holt das Widget ohnehin nicht (`LowMemoryBulk`). Seit Build 102.
+    static let maxExtensionBodyBytes = 3 * 1024 * 1024
 
     /// Läuft der Code in einer Erweiterung (Widget)?
     static let isAppExtension = Bundle.main.bundlePath.hasSuffix(".appex")
@@ -215,6 +218,21 @@ actor InFlightRequests {
     private var entries: [String: Entry] = [:]
 
     func value(_ key: String, load: @escaping @Sendable () async throws -> String) async throws -> String {
+        do {
+            return try await join(key, load: load)
+        } catch let error where Self.isCancellation(error) && !Task.isCancelled {
+            // Geerbte Anfrage wurde abgebrochen, obwohl dieser Wartende weiter will (er kam gerade an, als der
+            // einzige frühere ging): einmal selbst neu senden, statt «abgebrochen» als Börsenfehler zu speichern
+            return try await join(key, load: load)
+        }
+    }
+
+    /// Abbruch statt Antwort (Task abgebrochen oder URLSession-Übertragung beendet)?
+    static func isCancellation(_ error: Error) -> Bool {
+        error is CancellationError || (error as? URLError)?.code == .cancelled
+    }
+
+    private func join(_ key: String, load: @escaping @Sendable () async throws -> String) async throws -> String {
         let id: UUID
         let task: Task<String, Error>
         if var entry = entries[key] {
@@ -245,10 +263,16 @@ actor InFlightRequests {
         }
     }
 
+    /// Der einzige Wartende bricht ab: Anfrage abbrechen und den Eintrag sofort entfernen — wer danach dieselbe
+    /// Anfrage stellt, startet eine neue, statt die abgebrochene zu erben (bis `leave` lief, stand sie sonst noch da).
     private func cancelIfAlone(_ key: String, id: UUID) {
         guard let entry = entries[key], entry.id == id, entry.waiters <= 1 else { return }
+        entries[key] = nil
         entry.task.cancel()
     }
+
+    /// Laufende Einträge (nur Tests).
+    var count: Int { entries.count }
 }
 
 /// Mitgeschnittene HTTP-Zeilen für das Entwickler-Protokoll im Explorer; nur im Speicher, die jüngsten `capacity`

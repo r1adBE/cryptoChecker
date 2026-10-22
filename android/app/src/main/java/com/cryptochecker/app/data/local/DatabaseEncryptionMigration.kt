@@ -39,6 +39,8 @@ class DatabaseEncryptionMigration(
     internal val log: (message: String, error: Throwable?) -> Unit = { _, _ -> },
     /** Darf [database] ohne Schlüssel nie unverschlüsselt angelegt werden (Portfolio)? Siehe [planOpen]. */
     internal val encryptionRequired: (database: String) -> Boolean = { false },
+    /** Seit Build 102: welche beiseitegelegten Kopien weg dürfen ([pruneAside], [AsideRetention]); Standard keine. */
+    internal val asideExpired: (database: String, copies: List<String>) -> List<String> = { _, _ -> emptyList() },
 ) {
 
     /** Art einer Datenbankdatei nach ihrem Kopf (unverschlüsselt: «SQLite format 3\u0000»). */
@@ -143,6 +145,11 @@ class DatabaseEncryptionMigration(
         fun restoreAside(database: String, copy: String) {
             throw UnsupportedOperationException("restoreAside")
         }
+
+        /** Beiseitegelegte Kopie [copy] samt Nebendateien löschen (nur über [pruneAside], nie die aktuelle Datei). */
+        fun deleteAside(database: String, copy: String) {
+            throw UnsupportedOperationException("deleteAside")
+        }
     }
 
     sealed interface Decision {
@@ -215,7 +222,7 @@ class DatabaseEncryptionMigration(
             val before = files.fingerprintOriginal(database)
             files.exportEncrypted(database, passphrase)
             val after = files.fingerprintExportCopy(database, passphrase)
-            check(before == after) { "Exportkopie weicht ab: ${difference(before, after)}" }
+            check(before == after) { "Exportkopie weicht ab: ${DatabaseEncryptionMigration.difference(before, after)}" }
             files.deleteSidecars(database)
             files.replaceWithExportCopy(database)
             log("$database verschlüsselt (${before.tables.size} Tabellen)", null)
@@ -248,6 +255,7 @@ class DatabaseEncryptionMigration(
                 if (opens) {
                     // Wartet eine beiseitegelegte Datei auf einen früheren Schlüssel, der sie doch öffnet: zurückholen
                     restoreFromAside(database)?.let { return it }
+                    pruneAside(database)
                     // Gespeicherter Schlüssel öffnet die Datei: frühere nur löschen, wenn keine beiseitegelegte Datei mehr
                     // auf einen warten kann
                     if (runCatching { files.asideCopies(database).isEmpty() }.getOrDefault(false)) {
@@ -375,21 +383,6 @@ class DatabaseEncryptionMigration(
         /** Zeile zur Tabellen-Prüfsumme hinzufügen (Addition mit Überlauf, reihenfolgeunabhängig). */
         fun addRow(table: TableFingerprint, values: List<Any?>): TableFingerprint =
             TableFingerprint(table.rows + 1, table.checksum + rowChecksum(values))
-
-        /** Kurzbeschreibung der Abweichung fürs Protokoll (Tabellennamen, keine Inhalte). */
-        fun difference(before: Fingerprint, after: Fingerprint): String = buildList {
-            if (before.userVersion != after.userVersion) add("user_version ${before.userVersion} → ${after.userVersion}")
-            (before.tables.keys + after.tables.keys).sorted().forEach { table ->
-                val a = before.tables[table]
-                val b = after.tables[table]
-                when {
-                    a == null -> add("$table nur in der Kopie")
-                    b == null -> add("$table fehlt in der Kopie")
-                    a.rows != b.rows -> add("$table: ${a.rows} → ${b.rows} Zeilen")
-                    a.checksum != b.checksum -> add("$table: Prüfsumme")
-                }
-            }
-        }.joinToString()
 
         private const val FNV_OFFSET = -0x340d631b7bdddcdbL // 0xcbf29ce484222325
         private const val FNV_PRIME = 0x100000001b3L

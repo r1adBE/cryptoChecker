@@ -176,11 +176,13 @@ enum Notifier {
         let show = PriceNotificationRule.showNow(masterOn: settings.priceNotifications, pairOn: watch.notificationEnabled,
                                                  disabled: watch.disabled, notTraded: watch.isNotTraded,
                                                  price: watch.lastPrice)
-        if show { showPrice(watch) }
+        // Mit Obergrenze (`showPrices`): über 20 Einzelmeldungen in der Sammelmeldung, zählt als gezeigt
+        if show { Task { await showPrices([watch]) } }
         return show
     }
 
-    /// Die zweite Zeile bezieht sich auf die vorige Meldung, nicht auf die vorige Abfrage.
+    /// Die zweite Zeile bezieht sich auf die vorige Meldung, nicht auf die vorige Abfrage. Nur über `showPrices`
+    /// (Obergrenze und Sammelmeldung).
     static func showPrice(_ watch: Watch) {
         guard let price = watch.lastPrice else { return }
         let content = UNMutableNotificationContent()
@@ -204,8 +206,16 @@ enum Notifier {
         return L("notification_price_change_no_age", PriceFormat.changePercentDetailed(change), refText)
     }
 
+    /// Kurs-Mitteilung eines Paars entfernen — einzeln und aus der Sammelmeldung (`showPrices`).
     static func cancelPrice(_ watchId: Int64) {
         center.removeDeliveredNotifications(withIdentifiers: [priceId(watchId)])
+        // Gesammelt: viele Paare auf einmal (Mehrfachauswahl) räumen die Sammelmeldung nur einmal auf
+        PriceRunGate.shared.removeFromOverflow(watchId)
+    }
+
+    /// Alle Kurs-Mitteilungen dieser Paare samt Sammelmeldung entfernen (Kurs-Mitteilungen ausgeschaltet).
+    static func cancelAllPrices(_ watchIds: [Int64]) {
+        center.removeDeliveredNotifications(withIdentifiers: watchIds.map(priceId) + [priceOverflowId])
     }
 
     /// Wie `cancelPrice`, für viele Paare in EINEM Aufruf (Aktualisierung mit hunderten Paaren).

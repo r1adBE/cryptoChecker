@@ -205,7 +205,9 @@ internal fun TaxEngines.atSplit(real: List<PortfolioTrade>, zone: ZoneId, lost: 
                         c.addNew(s.qty, carry.value, s.time)
                     }
                 } else if (carry == null) {
-                    if (s.acquired < newFrom) c.old += AtLot(s.id, s.acquired, s.trade.type, s.qty, s.cost)
+                    // Nach Erwerb einsortieren: eine nachdatierte Einzahlung (Kaufdatum vor einem früher gebuchten Kauf)
+                    // ist der ältere Posten und geht beim Verkauf zuerst ab
+                    if (s.acquired < newFrom) c.insertOld(AtLot(s.id, s.acquired, s.trade.type, s.qty, s.cost))
                     else newCost(s).let { cost -> c.addNew(s.qty, cost, s.acquired, newFee(s, cost)) }
                 } else if (carry.total.signum() > 0) {
                     // Erhaltene Menge anteilig: aus Altbestand (Veräusserung, Einstand = Wert), aus Neubestand mit

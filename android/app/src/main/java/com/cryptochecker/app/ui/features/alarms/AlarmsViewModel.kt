@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistStorageLock
-import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
@@ -15,6 +14,7 @@ import com.cryptochecker.app.data.remote.VolumeDataSource
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
 import com.cryptochecker.app.domain.alarm.AlarmEdit
+import com.cryptochecker.app.domain.alarm.AlarmSaveBuilder
 import com.cryptochecker.app.domain.alarm.AlarmTemplates
 import com.cryptochecker.app.domain.alarm.AlarmTimingHint
 import com.cryptochecker.app.domain.convert.CurrencyConversion
@@ -283,6 +283,17 @@ class AlarmsViewModel @Inject constructor(
         }
     }
 
+    /** Wie [saveIfWatchExists], aber über [WatchRepository.saveAlarmMerged] (Lesen und Schreiben in einer Transaktion). */
+    private suspend fun saveMergedIfWatchExists(id: Long, onLimit: () -> Unit, build: (AlarmEntity?) -> AlarmEntity): AlarmEntity? {
+        if (watchRepository.getWatch(watchId) == null) return null
+        return try {
+            watchRepository.saveAlarmMerged(id, build).also { if (it == null) onLimit() }
+        } catch (e: android.database.sqlite.SQLiteConstraintException) {
+            Timber.w(e, "Alarm nicht gespeichert: Paar fehlt")
+            null
+        }
+    }
+
     /** Eigene Währung nur bei Kursalarmen und nur, wenn sie von der Quote abweicht. */
     private fun alarmCurrency(draft: AlarmDraft): String? = draft.currency
         ?.takeIf { draft.condition.isPriceThreshold }
@@ -322,56 +333,27 @@ class AlarmsViewModel @Inject constructor(
 
             // Allererster Alarm? Gab es schon Alarme (z. B. vor dem Update), gilt die Bestätigung als gezeigt.
             val firstEver = notices.isFirstAlarm(existing = existing != null)
-            val keepReference = existing != null && existing.condition == draft.condition &&
-                existing.windowHours == draft.windowHours
-            val referencePrice = when {
-                !draft.condition.isPercent -> null
-                // Prozentalarme messen ab dem Kurs, der beim Anlegen galt.
-                keepReference -> existing.referencePrice
-                // Nur ein frischer Kurs taugt als Bezug; sonst setzt ihn die nächste Abfrage
-                else -> (watch.value ?: watchRepository.getWatch(watchId)).let { w ->
-                    AlarmEdit.freshReference(
-                        w?.lastPrice, w?.lastUpdate ?: 0L, System.currentTimeMillis(),
-                        com.cryptochecker.app.domain.watch.LiveStatus.pollingStaleAfterMillis(
-                            settingsRepository.current().backgroundIntervalMinutes,
-                        ),
-                    )
-                }
+            val now = System.currentTimeMillis()
+            // Nur ein frischer Kurs taugt als Bezug neuer Prozentalarme; sonst setzt ihn die nächste Abfrage
+            val freshReference = if (!draft.condition.isPercent) null
+            else (watch.value ?: watchRepository.getWatch(watchId)).let { w ->
+                AlarmEdit.freshReference(
+                    w?.lastPrice, w?.lastUpdate ?: 0L, now,
+                    com.cryptochecker.app.domain.watch.LiveStatus.pollingStaleAfterMillis(
+                        settingsRepository.current().backgroundIntervalMinutes,
+                    ),
+                )
             }
-            // Bewegungs-Alarm: Fenster beginnt jetzt (oder läuft unverändert weiter).
-            // Volumen-Spike: zuletzt gemeldete Kerze behalten, damit sie nicht nochmals meldet.
-            val referenceAt = when {
-                draft.condition == AlarmCondition.VOLUME_SPIKE ->
-                    existing?.takeIf { it.condition == AlarmCondition.VOLUME_SPIKE }?.referenceAt ?: 0L
-                draft.condition != AlarmCondition.MOVE_PERCENT_WINDOW -> 0L
-                keepReference -> existing.referenceAt
-                referencePrice != null -> System.currentTimeMillis()
-                else -> 0L
-            }
-
-            val edited = AlarmEntity(
-                id = draft.id,
-                watchId = watchId,
-                condition = draft.condition,
-                threshold = threshold,
-                enabled = true,
-                repeating = draft.repeating,
-                sound = draft.sound,
-                vibrate = draft.vibrate,
-                speak = draft.speak,
-                referencePrice = referencePrice,
-                lastTriggeredAt = 0,
-                lastTriggeredPrice = null,
-                windowHours = draft.windowHours,
-                referenceAt = referenceAt,
-                currency = alarmCurrency(draft),
+            val input = AlarmSaveBuilder.Input(
+                id = draft.id, watchId = watchId, condition = draft.condition, threshold = threshold,
+                repeating = draft.repeating, sound = draft.sound, vibrate = draft.vibrate, speak = draft.speak,
+                windowHours = draft.windowHours, currency = alarmCurrency(draft), freshReference = freshReference, now = now,
             )
-            // Nur Ton, Vibration, Ansage oder Wiederholung geändert: Zustand (ausgelöst/gemeldet,
-            // Bezug, Ein/Aus) bleibt; neu scharf nur bei geänderter Bedingung ([AlarmEdit.merged])
-            val alarm = AlarmEdit.merged(existing, edited)
             // Bearbeitet: alte Mitteilung vor dem Speichern weg (eine neue, die gleich danach meldet, bleibt) — [AlarmUserChange]
             if (existing != null && AlarmUserChange.cancelsNotification(enabled = null)) appNotifier.retractAlarm(existing.id)
-            if (saveIfWatchExists(alarm, onLimit) == null) return@launch
+            // Zusammenführen mit dem GESPEICHERTEN Stand, in derselben Transaktion ([AlarmSaveBuilder])
+            val alarm = saveMergedIfWatchExists(draft.id, onLimit) { stored -> AlarmSaveBuilder.build(input, stored) }
+                ?: return@launch
             val timingHint = notices.markSaved(firstEver)
             onSaved(alarm, runCatchingCancellable { appNotifier.canShowAlarm(alarm) }.getOrDefault(true), firstEver)
             if (firstEver) notices.showFirstAlarm()

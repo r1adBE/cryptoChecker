@@ -11,13 +11,16 @@ import com.cryptochecker.app.data.local.model.GROUP_NAME_MAX
 import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.domain.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.domain.watch.WatchIdentity
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.util.TextLimit
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -26,6 +29,8 @@ import javax.inject.Singleton
 class WatchRepository @Inject constructor(
     internal val database: AppDatabase,
     internal val watchDao: WatchDao,
+    /** Alarm-Protokoll: letzte Prüfungen gelöschter Paare entfernen ([forgetDeletedAlarms]). */
+    private val alarmLogStore: AlarmLogStore,
 ) {
     fun observeWatches(): Flow<List<WatchEntity>> = watchDao.observeWatches()
 
@@ -122,12 +127,26 @@ class WatchRepository @Inject constructor(
     suspend fun setMissingPercentReferences(watchId: Long, price: Double) =
         watchDao.setMissingPercentReferences(watchId, price)
 
-    suspend fun deleteWatch(id: Long) = watchDao.deleteWatch(id)
+    suspend fun deleteWatch(id: Long) {
+        watchDao.deleteWatch(id)
+        forgetDeletedAlarms()
+    }
 
     /** Mehrere Paare (samt Alarmen, per Fremdschlüssel) in einem Vorgang löschen. */
     suspend fun deleteWatches(ids: Collection<Long>) {
         if (ids.isEmpty()) return
         database.withTransaction { ids.forEach { watchDao.deleteWatch(it) } }
+        forgetDeletedAlarms()
+    }
+
+    /**
+     * Nach dem Löschen von Paaren (Alarme per Fremdschlüssel weg): deren letzte Prüfungen aus dem Alarm-Protokoll
+     * entfernen (seit Build 102) — sonst wüchse der Stand, den jeder Durchlauf versiegelt schreibt, mit jedem gelöschten
+     * Paar. Versiegeltes Schreiben nicht auf dem Hauptfaden.
+     */
+    private suspend fun forgetDeletedAlarms() {
+        val ids = watchDao.getAlarmIds().toHashSet()
+        withContext(Dispatchers.IO) { alarmLogStore.retainAlarms(ids) }
     }
 
     /** Paar mit allen Alarmen festhalten (vor dem Löschen); null, wenn es das Paar nicht gibt. */
@@ -161,7 +180,10 @@ class WatchRepository @Inject constructor(
         }
     }
 
-    suspend fun deleteAllWatches() = watchDao.deleteAllWatches()
+    suspend fun deleteAllWatches() {
+        watchDao.deleteAllWatches()
+        forgetDeletedAlarms()
+    }
 
     suspend fun setNotificationEnabled(id: Long, enabled: Boolean) =
         watchDao.setNotificationEnabled(id, enabled)
@@ -310,6 +332,25 @@ class WatchRepository @Inject constructor(
         } else {
             watchDao.updateAlarm(alarm)
             alarm.id
+        }
+
+    /**
+     * Alarm aus dem Editor speichern: gespeicherten Stand lesen, mit [build] zusammenführen und schreiben — alles in
+     * EINER Transaktion (seit Build 102). Sonst überschrieb ein Zwischenstand der Oberfläche einen eben ausgelösten
+     * Alarm (zweite Meldung). Neuer Alarm (id 0) nur unter der Obergrenze je Paar. Rückgabe: gespeicherter Alarm mit
+     * seiner id; null = Paar voll.
+     */
+    suspend fun saveAlarmMerged(id: Long, build: (AlarmEntity?) -> AlarmEntity): AlarmEntity? =
+        database.withTransaction {
+            val alarm = build(if (id != 0L) watchDao.getAlarm(id) else null)
+            if (alarm.id != 0L) {
+                watchDao.updateAlarm(alarm)
+                alarm
+            } else if (WatchlistLimits.canAddAlarm(watchDao.getAlarms(alarm.watchId).size)) {
+                alarm.copy(id = watchDao.insertAlarm(alarm))
+            } else {
+                null
+            }
         }
 
     suspend fun deleteAlarm(id: Long) = watchDao.deleteAlarm(id)

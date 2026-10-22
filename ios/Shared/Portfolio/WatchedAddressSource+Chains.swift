@@ -159,7 +159,9 @@ extension WatchedAddressSource {
     /// Anfragen eine kurze Pause (schont die Anbieter). xpub ohne bekannten Adresstyp (`XpubScan.scripts`): vollständig
     /// als P2PKH, ohne Verlauf als P2SH-P2WPKH, dann P2WPKH (Segwit-Konto mit xpub, Ledger Live); der erste Typ mit
     /// Verlauf wird gemerkt (`XpubCache.script`), im Hintergrund wird nicht gesucht. Hintergrund unvollständig und tiefer
-    /// als zuletzt (`XpubScan.keepBackground`): nil (bleibt fällig). Wie Android.
+    /// als zuletzt (`XpubScan.keepBackground`): nil (bleibt fällig). Vollständige Suche zu gross (`XpubScan.TooMany`) mit
+    /// Zwischenspeicher: einmal schnell wiederholen statt Fehler; dieser Rückfall und der von `XpubScan.mode(for:)` setzen
+    /// `XpubCache.limitedFallback`. Ohne Zwischenspeicher oder wenn auch die schnelle zu gross ist: Fehler. Wie Android.
     func fetchXpub(_ a: WatchedAddress, deadline: Int64?) async throws -> Fetched? {
         guard let key = Bip32.parse(a.address) else { throw AddressBalance.ParseError(message: "xpub ungültig") }
         let isXpub = key.detectsScript
@@ -181,20 +183,37 @@ extension WatchedAddressSource {
         var keeps: [Bool] = []
         for script in scripts {
             let cache: XpubCache? = storedScript == script ? stored : nil
+            let now = TimeUtils.nowMillis
             let mode: XpubScan.Mode
             if scripts.count > 1 {
                 if deadline != nil { return nil }
                 mode = .FULL
             } else {
-                guard let m = XpubScan.mode(for: cache, now: TimeUtils.nowMillis, background: deadline != nil) else { return nil }
+                guard let m = XpubScan.mode(for: cache, now: now, background: deadline != nil) else { return nil }
                 mode = m
             }
+            // Fällige vollständige Suche schon vorab durch die schnelle ersetzt (sicher zu gross)
+            var limited = deadline == nil && mode == .QUICK && XpubScan.fullDue(cache, now: now)
+            var retried = false
             guard let deriver = XpubDeriver(a.address, script: script) else {
                 throw AddressBalance.ParseError(message: "xpub ungültig")
             }
-            let scan = try await scanXpub(deriver, cache: cache, mode: mode, deadline: deadline)
+            let scan: (used: Int, fetched: Fetched, complete: Bool, sats: Int64)
+            do {
+                scan = try await scanXpub(deriver, cache: cache, mode: mode, deadline: deadline)
+            } catch let error as XpubScan.TooMany {
+                // Vollständige Suche doch zu gross: mit Zwischenspeicher einmal schnell (wirft sie auch TooMany: Fehler)
+                guard mode == .FULL, let cache, cache.fullScan > 0 else { throw error }
+                limited = true
+                retried = true
+                scan = try await scanXpub(deriver, cache: cache, mode: .QUICK, deadline: deadline)
+            }
+            var fetched = scan.fetched
+            if limited { fetched.xpub?.limitedFallback = true }
+            // Nach einer gescheiterten vollständigen Suche diese erst wieder nach einem Tag versuchen (wie Android)
+            if retried { fetched.xpub?.fullScan = now }
             tried.append((script: script, used: scan.used))
-            results.append(scan.fetched)
+            results.append(fetched)
             keeps.append(XpubScan.keepBackground(complete: scan.complete, sats: scan.sats, lastBalance: a.lastBalance))
             if scan.used > 0 { break }
         }

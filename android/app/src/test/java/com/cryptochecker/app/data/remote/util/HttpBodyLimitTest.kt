@@ -34,6 +34,18 @@ class HttpBodyLimitTest {
     }
 
     @Test
+    fun startBufferIsCappedAt256KiB() {
+        // Seit Build 102: angekündigte 16 MB belegen nicht sofort 16 MB
+        assertEquals(256 * 1024, HttpBodyLimit.initialCapacity(HttpBodyLimit.BULK_MAX_BYTES, HttpBodyLimit.BULK_MAX_BYTES))
+        assertEquals(1000, HttpBodyLimit.initialCapacity(1000, HttpBodyLimit.BULK_MAX_BYTES))
+        assertEquals(8192, HttpBodyLimit.initialCapacity(-1, HttpBodyLimit.BULK_MAX_BYTES))
+        assertEquals(8192, HttpBodyLimit.initialCapacity(0, HttpBodyLimit.BULK_MAX_BYTES))
+        // Grössere Antworten wachsen beim Lesen nach
+        val data = ByteArray(300 * 1024) { it.toByte() }
+        assertArrayEquals(data, HttpBodyLimit.read(ByteArrayInputStream(data), data.size.toLong(), HttpBodyLimit.BULK_MAX_BYTES))
+    }
+
+    @Test
     fun decodesUtf8AndDropsBom() {
         val text = "{\"p\":\"98’450\"}"
         val bom = byteArrayOf(0xEF.toByte(), 0xBB.toByte(), 0xBF.toByte()) + text.toByteArray()
