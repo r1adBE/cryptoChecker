@@ -5,25 +5,25 @@ import SwiftUI
 struct AlarmsScreen: View {
     let watchId: Int64
 
-    @EnvironmentObject private var data: AppData
+    @EnvironmentObject var data: AppData
     @Environment(\.appAccent) private var accent
-    @State private var draft: AlarmDraft?
+    @State var draft: AlarmDraft?
     @State private var askDelete: Alarm?
     /// Erster Alarm überhaupt gespeichert: nach dem Schliessen des Editors bestätigen.
-    @State private var firstAlarmPending = false
+    @State var firstAlarmPending = false
     @State private var showFirstAlarm = false
     /// «Damit Alarme ankommen» als Blatt, geöffnet aus der Bestätigung des ersten Alarms.
     @State private var showDelivery = false
     /// Hinweis «Wann Alarme geprüft werden» (`AlarmTimingHint`): nach dem Schliessen des Editors zeigen.
-    @State private var timingHintPending = false
+    @State var timingHintPending = false
     @State private var showTimingHint = false
-    @State private var alarmTestTrigger = 0
+    @State var alarmTestTrigger = 0
     /// Paar ohne Alarm: Editor beim ersten Erscheinen gleich geöffnet, danach nicht mehr.
     @State private var autoOpenDone = false
     /// «Alarm erstellt · Rückgängig» nach einem Schnell-Alarm.
-    @State private var banner: WatchlistBannerMessage?
+    @State var banner: WatchlistBannerMessage?
     /// «Rückgängig», das auf das Schliessen der Dialoge wartet (sonst liefe es unerreichbar dahinter ab) — wie Android.
-    @State private var bannerAfterDialogs: WatchlistBannerMessage?
+    @State var bannerAfterDialogs: WatchlistBannerMessage?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     /// «Konnte nicht geprüft werden (…)» je Alarm (nur im Speicher).
     @ObservedObject private var checkStatus = AlarmCheckStatus.shared
@@ -214,51 +214,8 @@ struct AlarmsScreen: View {
                 watch: watch,
                 targetCurrency: data.settings.portfolioCurrency,
                 existing: current.id == 0 ? nil : data.alarms(for: watchId).first(where: { $0.id == current.id }),
-                onSave: { saved in
-                    if data.alarmSaveBlocked { return showSaveLocked() }
-                    // Paar inzwischen gelöscht: nichts gespeichert, der Hinweis «Wann geprüft wird» bleibt unverbraucht
-                    guard let threshold = saved.threshold, data.watch(watchId) != nil else { return }
-                    // Sicherheitsnetz: Paar inzwischen voll — nichts angelegt, sagen warum
-                    if saved.id == 0 && !WatchlistLimits.canAddAlarm(data.alarms(for: watchId).count) { return showAlarmLimit() }
-                    // Seit Build 105 (UX3-02): Rückfrage F-08 vorher; Haptik und Bestätigung erst nach dem Speichern
-                    data.withWatchlistConfirm {
-                        let outcome = withAnimation {
-                            data.saveAlarm(watchId: watchId, id: saved.id, condition: saved.condition, threshold: threshold,
-                                           repeating: saved.repeating, sound: saved.sound, vibrate: saved.vibrate, speak: saved.speak,
-                                           windowHours: saved.windowHours, currency: saved.condition.isPriceThreshold ? saved.currency : nil)
-                        }
-                        guard case .saved(let firstAlarm) = outcome else { return outcome == .full ? showAlarmLimit() : () }
-                        Haptics.play(.success)
-                        firstAlarmPending = firstAlarm
-                        noteTimingHint(firstAlarm: firstAlarm)
-                        showSaved(id: saved.id, firstAlarm: firstAlarm)
-                        if draft == nil { showPendingDialogs() }
-                    }
-                },
-                onTemplate: { template in
-                    if data.alarmSaveBlocked { return showSaveLocked() }
-                    guard let def = AlarmTemplates.definition(template, currentPrice: watch?.lastPrice) else { return }
-                    if !WatchlistLimits.canAddAlarm(data.alarms(for: watchId).count) { return showAlarmLimit() }
-                    // Seit Build 105: Rückfrage F-08 vorher; nach «Trotzdem» ist das Blatt schon zu (Dialoge gleich zeigen)
-                    data.withWatchlistConfirm {
-                        let created = withAnimation { data.createAlarm(watchId: watchId, from: def) }
-                        guard created.id != 0 else { return } // nichts angelegt (Paar gelöscht): keine Bestätigung, wie Android
-                        Haptics.play(.success)
-                        if created.firstAlarm { firstAlarmPending = true }
-                        noteTimingHint(firstAlarm: created.firstAlarm)
-                        let id = created.id
-                        let message = WatchlistBannerMessage(
-                            // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig») — wie Android
-                            text: templateCreatedText(id), icon: "bell.and.waves.left.and.right.fill",
-                            action: WatchlistBannerAction.undo {
-                                data.withWatchlistConfirm { withAnimation { _ = data.deleteAlarm(id) } }
-                            }
-                        )
-                        // Kommt nach dem Editor ein Dialog: «Rückgängig» erst danach zeigen
-                        if firstAlarmPending || timingHintPending { bannerAfterDialogs = message } else { banner = message }
-                        if draft == nil { showPendingDialogs() }
-                    }
-                }
+                onSave: saveDraft,
+                onTemplate: createFromTemplate
             )
             .environmentObject(data)
             .environment(\.appAccent, accent)
@@ -321,7 +278,7 @@ struct AlarmsScreen: View {
     }
 
     /// Vorgemerkte Dialoge zeigen: beim Schliessen des Editors, seit Build 105 auch nach einer späteren Antwort (F-08).
-    private func showPendingDialogs() {
+    func showPendingDialogs() {
         if firstAlarmPending {
             firstAlarmPending = false
             showFirstAlarm = true
@@ -334,67 +291,5 @@ struct AlarmsScreen: View {
     /// Editor oder ein Dialog danach offen (bzw. vorgemerkt): Die Bestätigung mit «Rückgängig» wartet (`bannerAfterDialogs`).
     private var dialogsOpen: Bool {
         draft != nil || firstAlarmPending || timingHintPending || showFirstAlarm || showTimingHint || showDelivery
-    }
-
-    /// Merkliste gerade nicht lesbar (`AppData.alarmSaveBlocked`): nichts angelegt, sagen warum (der Editor schliesst sich)
-    private func showSaveLocked() {
-        Haptics.play(.error)
-        banner = WatchlistBannerMessage(text: L("alarm_save_storage_locked"), icon: "lock.fill", long: true)
-    }
-
-    /// Paar hat schon die Höchstzahl Alarme (`WatchlistLimits`): nichts angelegt, sagen warum (der Editor schliesst sich)
-    private func showAlarmLimit() {
-        Haptics.play(.warning)
-        banner = WatchlistBannerMessage(text: AlarmLimitText.text, icon: "bell.badge", long: true)
-    }
-
-    /// Bestätigung eines Schnell-Alarms: Bedingung wie nach dem Speichern (`AlarmSavedText`), ohne Mitteilungs-Hinweis.
-    private func templateCreatedText(_ id: Int64) -> String {
-        guard let alarm = data.alarms(for: watchId).first(where: { $0.id == id }) else { return L("alarm_saved_active") }
-        let watch = data.watch(watchId)
-        let title = AlarmStyle.title(alarm, quote: watch?.quoteAsset ?? "")
-        let condition = AlarmSavedText.pairCondition(symbol: watch?.baseAsset ?? "", title: title)
-        return AlarmSavedText.text(condition: condition, repeating: alarm.repeating, notificationsOff: false)
-    }
-
-    /// Hinweis «Wann Alarme geprüft werden» prüfen und merken (`AlarmTimingHint`): einmal, nicht
-    /// zusätzlich zur Bestätigung des allerersten Alarms (sie zeigt denselben Satz) — wie Android.
-    /// Nach jedem Speichern gilt er als gezeigt.
-    private func noteTimingHint(firstAlarm: Bool) {
-        let shown = data.settings.alarmTimingHintShown
-        if AlarmTimingHint.shouldShow(alreadyShown: shown, firstAlarmDialog: firstAlarm) {
-            timingHintPending = true
-        }
-        if !shown { data.settings.alarmTimingHintShown = true }
-    }
-
-    /// «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig»; Mitteilungen aus → « · Mitteilungen
-    /// aus» mit «Einstellungen». `id` 0 = neu angelegt (dann der Alarm mit der höchsten Id): eine Zeile
-    /// «Alarm aktiv · Testen» (wie Android) — nicht beim allerersten Alarm (`firstAlarm`), dessen
-    /// Bestätigung das Testen schon anbietet.
-    private func showSaved(id: Int64, firstAlarm: Bool = false) {
-        let list = data.alarms(for: watchId)
-        let found = id != 0 ? list.first(where: { $0.id == id }) : list.max(by: { $0.id < $1.id })
-        guard let alarm = found else { return }
-        let watch = data.watch(watchId)
-        let title = AlarmStyle.title(alarm, quote: watch?.quoteAsset ?? "")
-        let condition = AlarmSavedText.pairCondition(symbol: watch?.baseAsset ?? "", title: title)
-        let repeating = alarm.repeating
-        Task { @MainActor in
-            let off = await Notifier.isDenied()
-            if id == 0 && !off {
-                if firstAlarm { return }
-                banner = WatchlistBannerMessage(
-                    text: L("alarm_saved_active"), icon: "bell.badge.fill",
-                    action: WatchlistBannerAction(title: L("alarm_test_action"), perform: { alarmTestTrigger += 1 })
-                )
-                return
-            }
-            banner = WatchlistBannerMessage(
-                text: AlarmSavedText.text(condition: condition, repeating: repeating, notificationsOff: off),
-                icon: off ? "bell.slash.fill" : "bell.badge.fill",
-                action: off ? WatchlistBannerAction(title: L("settings_title"), perform: { NotificationsOffBanner.openSettings() }) : nil
-            )
-        }
     }
 }

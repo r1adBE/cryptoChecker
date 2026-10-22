@@ -104,7 +104,8 @@ final class WatchlistWriteLockTests: XCTestCase {
             "Watchlist/WatchlistEditing.swift", "Watchlist/WatchSheetActions.swift", "Watchlist/WatchActionsSheet.swift",
             "Watchlist/WatchSheetGroup.swift", "Watchlist/WatchGroupEditSheet.swift", "Watchlist/WatchEditSheet.swift",
             "Watchlist/WatchlistScreen+Starter.swift", "Explorer/ExplorerBulkActions.swift",
-            "Explorer/ExplorerSelectionActions.swift", "Alarms/AlarmsScreen.swift", "Alarms/AlarmsOverviewScreen.swift",
+            "Explorer/ExplorerSelectionActions.swift", "Alarms/AlarmsScreen.swift", "Alarms/AlarmsScreen+Save.swift",
+            "Alarms/AlarmsOverviewScreen.swift",
             "Settings/SettingsAlarmPages.swift", "Cycle/MarketCoinSheets.swift",
         ]
         for file in screens {
@@ -116,7 +117,7 @@ final class WatchlistWriteLockTests: XCTestCase {
                               encoding: .utf8)
         XCTAssertFalse(hint.contains(".alert("))
         // Alarm speichern: «Grenze erreicht» nur bei `.full`, Erfolg (Haptik, Bestätigung) nur bei `.saved`
-        let alarms = try String(contentsOf: features.appendingPathComponent("Alarms/AlarmsScreen.swift"), encoding: .utf8)
+        let alarms = try String(contentsOf: features.appendingPathComponent("Alarms/AlarmsScreen+Save.swift"), encoding: .utf8)
         XCTAssertTrue(alarms.contains("guard case .saved(let firstAlarm) = outcome"))
     }
 
