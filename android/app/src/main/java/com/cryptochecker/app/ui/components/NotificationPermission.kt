@@ -119,8 +119,15 @@ fun rememberNotificationPermissionRequest(reason: NotificationAsk = Notification
     var explaining by rememberSaveable { mutableStateOf(false) }
 
     fun launchSystem() {
+        // Seit Build 107 (ARC5-R01): nie auf einem abgemeldeten Launcher (Komposition schon weg) — sonst
+        // IllegalStateException und Absturz; dann nicht fragen und nichts als gefragt merken
+        try {
+            launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } catch (e: IllegalStateException) {
+            timber.log.Timber.w(e, "Erlaubnis-Abfrage ohne aktiven Bildschirm übersprungen")
+            return
+        }
         NotificationPrePrompt.markSystemAsked(context)
-        launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
     }
 
     if (explaining) {

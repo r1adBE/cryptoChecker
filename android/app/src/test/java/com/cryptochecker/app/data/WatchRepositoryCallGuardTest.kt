@@ -74,13 +74,17 @@ class WatchRepositoryCallGuardTest {
                     scope.launch { watchRepository.setAlarmEnabled(id, true) }
                 }
                 fun systemNotListed(id: Long) { scope.launch { watchRepository.setAlarmEnabled(id, true, fromUser = false) } }
+                fun cancelledPath(id: Long) { launchWrite(cancelled = { watchRepository.setFavorite(id, false) }) { } }
                 // watchRepository.setFavorite(1, true) — Kommentar zählt nicht
                 fun notRepo() { scope.launch { other.reorder(emptyList()) } }
             }
         """.trimIndent()
         val result = check(mapOf("ui/Sample.kt" to strip(sample)), writes)
-        assertEquals(listOf("bad", "afterBlock", "closedGuard", "systemNotListed"), result.problems.map { it.substringAfter("fun ").substringBefore(":") })
-        assertEquals(6, result.calls)
+        assertEquals(
+            listOf("bad", "afterBlock", "closedGuard", "systemNotListed", "cancelledPath"),
+            result.problems.map { it.substringAfter("fun ").substringBefore(":") },
+        )
+        assertEquals(7, result.calls)
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
@@ -215,7 +219,8 @@ class WatchRepositoryCallGuardTest {
                 at = matching(text, at, '(', ')') + 1
                 while (text[at].isWhitespace()) at++
             }
-            text[at] == '{' && neverBelow(text, at + 1, pos, 1, start = 1)
+            // seit Build 107 (TST5-R1): Aufruf in den Klammern (z. B. `cancelled = { … }`) liegt vor dem Block, gilt nicht
+            text[at] == '{' && at < pos && neverBelow(text, at + 1, pos, 1, start = 1)
         }
     }
 

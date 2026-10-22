@@ -3,62 +3,73 @@ import SwiftUI
 /// Speichern aus dem Alarm-Editor und Schnell-Alarme von `AlarmsScreen` — seit Build 105 ausgelagert (der body war für
 /// den Swift-Typprüfer zu gross, und die Datei stand an der 400-Zeilen-Grenze).
 extension AlarmsScreen {
-    /// Editor «Speichern» (`AlarmEditorSheet.onSave`).
-    func saveDraft(_ saved: AlarmDraft) {
+    /// Editor «Speichern» (`AlarmEditorSheet.onSave`). Seit Build 106 (UX4-06) schliesst der Editor erst nach bestätigter
+    /// Rückfrage F-08 (`close`), «Abbrechen» lässt ihn mit den Eingaben offen (`cancelled`). Seit Build 107 (IOS5-R01):
+    /// genau eine Frage — danach speichert `saveDraftNow` ohne zweite (vorher fragte `saveDraft` nach einem Durchlass
+    /// ohne Szene erneut, ggf. erst nach dem Schliessen).
+    func saveFromEditor(_ saved: AlarmDraft, close: @escaping @MainActor () -> Void,
+                        cancelled: @escaping @MainActor () -> Void) {
+        data.withWatchlistConfirm({
+            saveDraftNow(saved)
+            close()
+        }, cancelled: cancelled)
+    }
+
+    /// Speicher-Kern ohne Rückfrage; einziger Aufrufer ist `saveFromEditor` (schon bestätigt).
+    private func saveDraftNow(_ saved: AlarmDraft) {
         if data.alarmSaveBlocked { return showSaveLocked() }
         // Paar inzwischen gelöscht: nichts gespeichert, der Hinweis «Wann geprüft wird» bleibt unverbraucht
         guard let threshold = saved.threshold, data.watch(watchId) != nil else { return }
         // Sicherheitsnetz: Paar inzwischen voll — nichts angelegt, sagen warum
         if saved.id == 0 && !WatchlistLimits.canAddAlarm(data.alarms(for: watchId).count) { return showAlarmLimit() }
-        // Seit Build 105 (UX3-02): Rückfrage F-08 vorher; Haptik und Bestätigung erst nach dem Speichern
-        data.withWatchlistConfirm {
-            let outcome = withAnimation {
-                data.saveAlarm(watchId: watchId, id: saved.id, condition: saved.condition, threshold: threshold,
-                               repeating: saved.repeating, sound: saved.sound, vibrate: saved.vibrate, speak: saved.speak,
-                               windowHours: saved.windowHours, currency: saved.condition.isPriceThreshold ? saved.currency : nil)
-            }
-            guard case .saved(let firstAlarm) = outcome else {
-                if outcome == .full { showAlarmLimit() }
-                return
-            }
-            Haptics.play(.success)
-            firstAlarmPending = firstAlarm
-            noteTimingHint(firstAlarm: firstAlarm)
-            showSaved(id: saved.id, firstAlarm: firstAlarm)
-            if draft == nil { showPendingDialogs() }
+        // Haptik und Bestätigung erst nach dem Speichern (Rückfrage F-08 schon in `saveFromEditor`)
+        let outcome = withAnimation {
+            data.saveAlarm(watchId: watchId, id: saved.id, condition: saved.condition, threshold: threshold,
+                           repeating: saved.repeating, sound: saved.sound, vibrate: saved.vibrate, speak: saved.speak,
+                           windowHours: saved.windowHours, currency: saved.condition.isPriceThreshold ? saved.currency : nil)
         }
+        guard case .saved(let firstAlarm) = outcome else {
+            if outcome == .full { showAlarmLimit() }
+            return
+        }
+        Haptics.play(.success)
+        firstAlarmPending = firstAlarm
+        noteTimingHint(firstAlarm: firstAlarm)
+        showSaved(id: saved.id, firstAlarm: firstAlarm)
+        if draft == nil { showPendingDialogs() }
     }
 
-    /// Seit Build 106 (UX4-06): Editor erst nach bestätigter Rückfrage F-08 schliessen (`AlarmEditorSheet.confirmClose`);
-    /// danach fragt `saveDraft`/`createFromTemplate` nicht mehr (schon bestätigt).
-    func confirmEditorClose(_ close: @escaping @MainActor () -> Void, cancelled: @escaping @MainActor () -> Void) {
-        data.withWatchlistConfirm(close, cancelled: cancelled)
+    /// Schnell-Alarm aus einer Vorlage (`AlarmEditorSheet.onTemplate`): wie `saveFromEditor` genau eine Rückfrage F-08,
+    /// danach anlegen und schliessen; «Abbrechen» = Blatt bleibt offen (seit Build 107, IOS5-R01).
+    func templateFromEditor(_ template: AlarmTemplates.Template, close: @escaping @MainActor () -> Void,
+                            cancelled: @escaping @MainActor () -> Void) {
+        data.withWatchlistConfirm({
+            createFromTemplateNow(template)
+            close()
+        }, cancelled: cancelled)
     }
 
-    /// Schnell-Alarm aus einer Vorlage (`AlarmEditorSheet.onTemplate`).
-    func createFromTemplate(_ template: AlarmTemplates.Template) {
+    /// Anlege-Kern ohne Rückfrage; einziger Aufrufer ist `templateFromEditor` (schon bestätigt).
+    private func createFromTemplateNow(_ template: AlarmTemplates.Template) {
         if data.alarmSaveBlocked { return showSaveLocked() }
         guard let def = AlarmTemplates.definition(template, currentPrice: data.watch(watchId)?.lastPrice) else { return }
         if !WatchlistLimits.canAddAlarm(data.alarms(for: watchId).count) { return showAlarmLimit() }
-        // Seit Build 105: Rückfrage F-08 vorher; nach «Trotzdem» ist das Blatt schon zu (Dialoge gleich zeigen)
-        data.withWatchlistConfirm {
-            let created = withAnimation { data.createAlarm(watchId: watchId, from: def) }
-            guard created.id != 0 else { return } // nichts angelegt (Paar gelöscht): keine Bestätigung, wie Android
-            Haptics.play(.success)
-            if created.firstAlarm { firstAlarmPending = true }
-            noteTimingHint(firstAlarm: created.firstAlarm)
-            let id = created.id
-            let message = WatchlistBannerMessage(
-                // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig») — wie Android
-                text: templateCreatedText(id), icon: "bell.and.waves.left.and.right.fill",
-                action: WatchlistBannerAction.undo {
-                    data.withWatchlistConfirm { withAnimation { _ = data.deleteAlarm(id) } }
-                }
-            )
-            // Kommt nach dem Editor ein Dialog: «Rückgängig» erst danach zeigen
-            if firstAlarmPending || timingHintPending { bannerAfterDialogs = message } else { banner = message }
-            if draft == nil { showPendingDialogs() }
-        }
+        let created = withAnimation { data.createAlarm(watchId: watchId, from: def) }
+        guard created.id != 0 else { return } // nichts angelegt (Paar gelöscht): keine Bestätigung, wie Android
+        Haptics.play(.success)
+        if created.firstAlarm { firstAlarmPending = true }
+        noteTimingHint(firstAlarm: created.firstAlarm)
+        let id = created.id
+        let message = WatchlistBannerMessage(
+            // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig») — wie Android
+            text: templateCreatedText(id), icon: "bell.and.waves.left.and.right.fill",
+            action: WatchlistBannerAction.undo {
+                data.withWatchlistConfirm { withAnimation { _ = data.deleteAlarm(id) } }
+            }
+        )
+        // Kommt nach dem Editor ein Dialog: «Rückgängig» erst danach zeigen
+        if firstAlarmPending || timingHintPending { bannerAfterDialogs = message } else { banner = message }
+        if draft == nil { showPendingDialogs() }
     }
 
     /// Schalter einer Alarmkarte. Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» bzw. abgelehnt: der Schalter zeigt

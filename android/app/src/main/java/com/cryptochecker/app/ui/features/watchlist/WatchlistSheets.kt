@@ -63,6 +63,9 @@ internal fun WatchlistSheets(
     val outdatedAfter = state.display.staleAfterMillis
     val liveIds = state.live.liveWatchIds
     val requestNotifications = rememberNotificationPermissionRequest()
+    // Seit Build 107 (ARC5-R01): Rückmeldungen nach der Rückfrage F-08 im aktuellen Bildschirm (auch nach dem Neuerstellen)
+    val uiEvents = rememberWatchUiEvents(WATCHLIST_UI_EVENTS)
+    WatchlistUiEffects(uiEvents, ui, viewModel, banner, haptics, resources, requestNotifications)
 
     // Portfolio-Sperre: Das Erfassen-Blatt zeigt Bestände — erst nach dem Entsperren,
     // und wird es unterwegs wieder gesperrt (Hintergrund-Limit), schliesst es sich.
@@ -92,16 +95,10 @@ internal fun WatchlistSheets(
             onConfirm = {
                 ui.askRemoveNotTraded = false
                 viewModel.deleteNotTradedWithUndo { count ->
-                    if (count > 0) {
-                        haptics.play(HapticEvent.DESTRUCTIVE)
-                        banner.show(
-                            resources.getQuantityString(R.plurals.watchlist_removed_not_traded, count, count)
-                        ) {
-                            viewModel.undoDelete(NOT_TRADED_UNDO_KEY) { n ->
-                                banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n))
-                            }
-                        }
-                    }
+                    if (count > 0) uiEvents.send(
+                        WatchUiEvent.Haptic(HapticEvent.DESTRUCTIVE),
+                        WatchUiEvent.Banner(BannerText(plural = R.plurals.watchlist_removed_not_traded, count = count), NOT_TRADED_UNDO_KEY),
+                    )
                 }
             },
             onDismiss = { ui.askRemoveNotTraded = false }
@@ -117,14 +114,10 @@ internal fun WatchlistSheets(
             onConfirm = {
                 ui.askClearAll = false
                 viewModel.deleteAllWithUndo { count ->
-                    if (count > 0) {
-                        haptics.play(HapticEvent.DESTRUCTIVE)
-                        banner.show(resources.getQuantityString(R.plurals.watchlist_removed_count, count, count)) {
-                            viewModel.undoDelete(CLEAR_ALL_UNDO_KEY) { n ->
-                                banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n))
-                            }
-                        }
-                    }
+                    if (count > 0) uiEvents.send(
+                        WatchUiEvent.Haptic(HapticEvent.DESTRUCTIVE),
+                        WatchUiEvent.Banner(BannerText(plural = R.plurals.watchlist_removed_count, count = count), CLEAR_ALL_UNDO_KEY),
+                    )
                 }
             },
             onDismiss = { ui.askClearAll = false }
@@ -145,10 +138,14 @@ internal fun WatchlistSheets(
                 onDismiss = { ui.actionsFor = null },
                 onNotificationChange = { on ->
                     // Seit Build 106 (UX4-R3): Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
-                    viewModel.setNotificationEnabled(watch, on) { written -> if (written && on) requestNotifications() }
+                    viewModel.setNotificationEnabled(watch, on) { written ->
+                        if (written && on) uiEvents.send(WatchUiEvent.RequestNotifications)
+                    }
                 },
                 onTtsChange = { viewModel.setTtsEnabled(watch, it) },
-                onToggleFavorite = { viewModel.toggleFavorite(watch) { if (it) haptics.play(HapticEvent.LIGHT_IMPACT) } },
+                onToggleFavorite = {
+                    viewModel.toggleFavorite(watch) { if (it) uiEvents.send(WatchUiEvent.Haptic(HapticEvent.LIGHT_IMPACT)) }
+                },
                 // Zurück aus «Alarme» öffnet dieses Blatt wieder
                 onOpenAlarms = { ui.returnToActions = watch.id; ui.actionsFor = null; onOpenAlarms(watch.id) },
                 onRefresh = { viewModel.refreshOneByUser(watch) },
@@ -162,21 +159,12 @@ internal fun WatchlistSheets(
                         ui.portfolioFor = watch
                     }
                 },
-                onSetGroup = { viewModel.setGroup(watch, it) },
-                onSetNote = { viewModel.setNote(watch, it) },
-                // Deaktivieren bzw. wieder aktivieren (dann gleich den Kurs holen); Blatt zu, kurzes Banner erst nach dem
-                // Schreiben (seit Build 106)
-                onToggleDisabled = {
-                    ui.actionsFor = null
-                    viewModel.setDisabled(listOf(watch.id), !watch.disabled) { written ->
-                        if (written) banner.show(
-                            resources.getString(
-                                if (watch.disabled) R.string.watch_enabled_banner else R.string.watch_disabled_banner,
-                                watch.displayName,
-                            )
-                        )
-                    }
-                },
+                // Seit Build 107 (IOS5-R02): Dialog erst nach bestätigter Rückfrage F-08 zu («Abbrechen»: offen mit Eingabe)
+                onSetGroup = { group, close -> viewModel.setGroup(watch, group, close) },
+                onSetNote = { note, close -> viewModel.setNote(watch, note, close) },
+                // Deaktivieren bzw. wieder aktivieren (dann gleich den Kurs holen); seit Build 107 (UX5-R2) Blatt erst nach
+                // der Rückfrage zu, mit Haptik und kurzem Banner ([toggleDisabled])
+                onToggleDisabled = { uiEvents.toggleDisabled(viewModel, watch) },
                 loadFutures = viewModel::fetchFutures,
                 loadSpot = viewModel::fetchSpot,
                 onWhy = { ui.returnToActions = watch.id; ui.actionsFor = null; ui.whyFor = watch.id },
@@ -225,14 +213,12 @@ internal fun WatchlistSheets(
             // Seit Build 106 (wie iOS): Haptik und Blatt zu erst nach der Rückfrage F-08 («Abbrechen»: Blatt bleibt offen)
             onDone = { newName, ids ->
                 viewModel.saveGroup(if (ui.editGroupIsNew) null else name, newName, ids) {
-                    haptics.play(HapticEvent.SUCCESS)
-                    ui.editGroup = null
+                    uiEvents.send(WatchUiEvent.Haptic(HapticEvent.SUCCESS), WatchUiEvent.CloseGroupEdit)
                 }
             },
             onDelete = {
                 viewModel.deleteGroup(name) {
-                    haptics.play(HapticEvent.DESTRUCTIVE)
-                    ui.editGroup = null
+                    uiEvents.send(WatchUiEvent.Haptic(HapticEvent.DESTRUCTIVE), WatchUiEvent.CloseGroupEdit)
                 }
             },
             onDismiss = { ui.editGroup = null }

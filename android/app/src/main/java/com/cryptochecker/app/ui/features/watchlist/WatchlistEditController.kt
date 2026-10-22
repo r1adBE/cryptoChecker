@@ -68,12 +68,14 @@ internal class WatchlistEditController(
         scope.launch { settingsRepository.setWatchlistGroup(group) }
     }
 
-    fun setNote(watch: WatchEntity, note: String?) {
-        launchWrite { watchRepository.setNote(watch.id, note) }
+    /** Notiz bzw. Gruppe eines Paars; [onProceed] seit Build 107 (IOS5-R02): nach bestätigter Rückfrage (Dialog zu). */
+    fun setNote(watch: WatchEntity, note: String?, onProceed: () -> Unit = {}) {
+        launchWrite { onProceed(); watchRepository.setNote(watch.id, note) }
     }
 
-    fun setGroup(watch: WatchEntity, group: String?) {
+    fun setGroup(watch: WatchEntity, group: String?, onProceed: () -> Unit = {}) {
         launchWrite {
+            onProceed()
             watchRepository.setGroup(watch.id, group)
             widgetUpdater.updateAll()
         }
@@ -178,9 +180,8 @@ internal class WatchlistEditController(
         launchWrite {
             undoMutex.withLock {
                 val snapshots = undo.take(watchId) ?: return@withLock
-                // Nach «Merkliste leeren» bzw. vielen Paaren keine Kurs-Meldung je Paar: Android drosselt rund
-                // 5 Meldungen pro Sekunde und verwirft den Rest still; wie unter iOS meldet dann erst die
-                // nächste Aktualisierung (seit Build 95)
+                // Nach «Merkliste leeren» bzw. vielen Paaren keine Kurs-Meldung je Paar: Android drosselt rund 5 Meldungen
+                // pro Sekunde und verwirft den Rest still; wie unter iOS meldet dann erst die nächste Aktualisierung (Build 95)
                 val showPrices = restoresPriceNotifications(snapshots.size)
                 var any = false
                 var full = 0
@@ -191,8 +192,7 @@ internal class WatchlistEditController(
                         RestoreOutcome.BLOCKED -> continue
                     }
                     any = true
-                    // Kurs-Meldung wie vorher wieder zeigen (letzter bekannter Kurs) — nur nach den
-                    // Einstellungen (Kurs-Mitteilungen an, dauerhaft nur wenn eingestellt)
+                    // Kurs-Meldung wie vorher wieder zeigen (letzter bekannter Kurs) — nur nach den Einstellungen
                     if (showPrices) notifier.showPriceNow(snapshot.watch)
                 }
                 if (any) widgetUpdater.updateAll()

@@ -4,6 +4,7 @@ import SwiftUI
 
 /// Gruppe wählen: «Keine Gruppe», bestehende Gruppen oder eine neue anlegen.
 /// Eine Auswahl gilt sofort; nur die neue Gruppe braucht «Speichern» — wie `GroupDialog`.
+/// Seit Build 107 (IOS5-R02): schliesst erst nach bestätigter Rückfrage F-08; «Abbrechen» = Blatt bleibt (samt Name).
 @MainActor
 struct WatchGroupSheet: View {
     /// Höchstlänge eines Gruppennamens (wie `GROUP_NAME_MAX`).
@@ -11,13 +12,16 @@ struct WatchGroupSheet: View {
 
     let current: String?
     let groups: [String]
-    let onSelect: (String?) -> Void
+    /// Der Aufrufer fragt, speichert und ruft `close` (siehe `ConfirmedFinish`).
+    let onSelect: ConfirmedFinish<String?>
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appAccent) private var accent
     @State private var creating = false
     @State private var name = ""
     @FocusState private var nameFocused: Bool
+    /// Rückfrage steht aus: ein zweiter Tipp fragt nicht nochmals (nach «Abbrechen» wieder frei).
+    @State private var saving = false
 
     private var trimmed: String { name.trimmingCharacters(in: .whitespacesAndNewlines) }
 
@@ -110,9 +114,10 @@ struct WatchGroupSheet: View {
     }
 
     private func pick(_ group: String?) {
+        guard !saving else { return }
+        saving = true
         Haptics.play(.selection)
-        onSelect(group)
-        dismiss()
+        onSelect(group, { dismiss() }, { saving = false })
     }
 
     private func saveNew() {

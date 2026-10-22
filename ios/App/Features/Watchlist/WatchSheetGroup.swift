@@ -154,6 +154,23 @@ extension WatchActionsSheet {
         }
     }
 
+    /// Notiz-Blatt «Speichern»/«Entfernen»: seit Build 107 (IOS5-R02) erst nach bestätigter Rückfrage F-08 schreiben und
+    /// das Blatt schliessen; «Abbrechen» = Blatt bleibt mit dem Text (wie der Alarm-Editor).
+    func saveNote(_ note: String?, close: @escaping @MainActor () -> Void, cancelled: @escaping @MainActor () -> Void) {
+        data.withWatchlistConfirm({
+            if let w = data.watch(currentId) { data.setNote(w, note) }
+            close()
+        }, cancelled: cancelled)
+    }
+
+    /// Gruppen-Blatt: Auswahl bzw. neue Gruppe wie `saveNote` erst nach bestätigter Rückfrage, dann Blatt zu.
+    func saveGroup(_ group: String?, close: @escaping @MainActor () -> Void, cancelled: @escaping @MainActor () -> Void) {
+        data.withWatchlistConfirm({
+            if let w = data.watch(currentId) { data.setGroup(w, group) }
+            close()
+        }, cancelled: cancelled)
+    }
+
     /// Eigene Notiz (#233): ganzer Text unter dem Titel, Tippen bearbeitet.
     private func noteRow(_ watch: Watch) -> some View {
         Button {

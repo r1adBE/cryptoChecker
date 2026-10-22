@@ -216,7 +216,10 @@ def binary_hits(binary):
 def strip_comments(text):
     """Swift comments (line, nested block) -> spaces, newlines kept (line numbers stay). Since build 106 (SEC4-01) a
     small tokenizer: string literals (plain, multi-line, raw #"..."# with escapes and interpolation) are skipped,
-    so "a//b" or "/0/*" no longer hides the code after it."""
+    so "a//b" or "/0/*" no longer hides the code after it. Since build 107 (REL5-R1) extended regex literals #/.../#
+    (any number of #, multi-line when #/ ends the line) are skipped too, so #/a//b/# hides nothing. Bare /.../ literals
+    are not recognised on purpose: they need Swift 6 mode or -enable-bare-slash-regex (the app builds with Swift 5),
+    and telling them apart from division needs a parser - a wrong guess would blank real code."""
     out = list(text)
     n = len(text)
 
@@ -238,6 +241,25 @@ def strip_comments(text):
             if text.startswith(escape, i):
                 j = i + len(escape)
                 i = code(j + 1, True) if j < n and text[j] == "(" else j + 1
+            elif text.startswith(close, i):
+                return i + len(close)
+            elif not multi and text[i] == "\n":
+                return i
+            else:
+                i += 1
+        return n
+
+    def regex(i):
+        hashes = 0
+        while text[i] == "#":
+            hashes += 1
+            i += 1
+        i += 1
+        multi = i < n and text[i] == "\n"
+        close = "/" + "#" * hashes
+        while i < n:
+            if text[i] == "\\":
+                i += 2
             elif text.startswith(close, i):
                 return i + len(close)
             elif not multi and text[i] == "\n":
@@ -269,6 +291,8 @@ def strip_comments(text):
                 i = k
             elif text[i] == '"' or (text[i] == "#" and re.match(r'#+"', text[i:i + 8])):
                 i = string(i)
+            elif text[i] == "#" and re.match(r"#+/", text[i:]):
+                i = regex(i)
             else:
                 if until_paren and text[i] == "(":
                     depth += 1
@@ -382,6 +406,16 @@ def self_test():
         ("let n = fgetattrlist(fd, &list, buf, size, 0)", ["NSPrivacyAccessedAPICategoryFileTimestamp"],
          {"NSPrivacyAccessedAPITypes": []}),
         ("/* a /* nested */ systemUptime */ let x = 1", []),
+        # Since build 107 (REL5-R1): extended regex literals hide nothing; a regex in a comment or string stays inert
+        ("let r = #/a//b/#; let t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ("let r = #/https?://x/#; let t = ProcessInfo.processInfo.systemUptime",
+         ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ("let r = ##/a/#/*b/##\nlet t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ("let r = #/\n  a // b /* c\n  \\/# d\n/#\nlet t = mach_absolute_time()",
+         ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ("let r = #/x\\/#\"/#; let t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ("// docs/#/en-us mach_absolute_time()\nlet x = 1", []),
+        ('let u = "docs/#/en"; let t = mach_absolute_time()', ["NSPrivacyAccessedAPICategorySystemBootTime"]),
     ]
     for case in cases:
         text, expected = case[0], case[1]

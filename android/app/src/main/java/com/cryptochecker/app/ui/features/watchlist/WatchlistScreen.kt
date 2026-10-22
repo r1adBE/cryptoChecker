@@ -53,8 +53,6 @@ import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
 import com.cryptochecker.app.util.StartupClock
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import com.cryptochecker.app.ui.components.HapticEvent
-import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * Die Merkliste: fester Kopf (Gruppen, Glocke, Menü, Status mit Lupe und «+» bzw. Suche), darunter Puls,
@@ -222,31 +220,12 @@ fun WatchlistScreen(
             banner.show(resources.getString(R.string.watchlist_refresh_just_done, ago))
         }
     }
-    // Wischen, Screenreader-Aktion und Aktionen-Blatt «Löschen»: ohne Rückfrage, mit «Rückgängig» (überall derselbe Weg)
-    val haptics = rememberHaptics()
-    // Weiteres Löschen, solange der Banner steht: ein Sammel-Banner. Seit Build 105 Haptik/Banner erst nach dem Löschen
-    val removedBatch = remember { RemovedBatch() }
-    val deleteWithUndo: (WatchEntity) -> Unit = { watch ->
-        viewModel.deleteWithUndo(watch) {
-            haptics.play(HapticEvent.DESTRUCTIVE)
-            val undoKey = removedBatch.add(watch.id, watch.displayName)
-            val generation = removedBatch.generation
-            banner.show(removedBatch.bannerText(resources), onClosed = { removedBatch.closed(generation) }) {
-                // Seit Build 103: Merkliste inzwischen voll → Hinweis, wie viele nicht zurückkamen
-                viewModel.undoDelete(undoKey) { n -> banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n)) }
-            }
-            undoKey
-        }
-    }
-    // Nach rechts wischen: Favorit an/aus mit kurzem Banner — seit Build 106 Haptik/Banner erst nach dem Schreiben (ARC4-R01)
-    val favoriteWithBanner: (WatchEntity) -> Unit = { watch ->
-        viewModel.toggleFavorite(watch) { written ->
-            if (!written) return@toggleFavorite
-            haptics.play(HapticEvent.LIGHT_IMPACT)
-            val text = resources.getString(if (watch.favorite) R.string.favorite_removed else R.string.favorite_added, watch.displayName)
-            banner.show(text)
-        }
-    }
+    // Wischen, Screenreader-Aktion und Aktionen-Blatt «Löschen» (ohne Rückfrage, mit «Rückgängig», weiteres Löschen als
+    // Sammel-Banner) bzw. nach rechts wischen (Favorit): seit Build 107 (ARC5-R01) Haptik und Banner über Ereignisse im
+    // aktuellen Bildschirm ([WatchlistUiEffects] in [WatchlistSheets])
+    val uiEvents = rememberWatchUiEvents(WATCHLIST_UI_EVENTS)
+    val deleteWithUndo: (WatchEntity) -> Unit = { uiEvents.deleteWithUndo(viewModel, it) }
+    val favoriteWithBanner: (WatchEntity) -> Unit = { uiEvents.favoriteWithBanner(viewModel, it) }
 
     val reorder = rememberReorderState(listState, scope, visible, viewModel::reorder)
     val ordered = reorder.items ?: visible

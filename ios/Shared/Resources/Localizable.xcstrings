@@ -381973,187 +381973,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لا يتم حفظ قائمة المتابعة وتنبيهاتها الآن (هذا الجهاز لا يوفّر مفتاحًا). سيضيع هذا التغيير وأي تغييرات أخرى عند إغلاق التطبيق. هل تريد التغيير رغم ذلك؟"
+            "value" : "لا يتم حفظ قائمة المتابعة وتنبيهاتها الآن. سيضيع هذا التغيير وأي تغييرات أخرى عند إغلاق التطبيق. هل تريد التغيير رغم ذلك؟"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Seznam včetně alarmů se teď neukládá (zařízení neposkytuje klíč). Tato i další změny se po zavření aplikace ztratí. Přesto změnit?"
+            "value" : "Seznam včetně alarmů se teď neukládá. Tato i další změny se po zavření aplikace ztratí. Přesto změnit?"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Overvågningslisten med alarmer gemmes ikke lige nu (enheden stiller ingen nøgle til rådighed). Denne og flere ændringer går tabt, når appen lukkes. Ændr alligevel?"
+            "value" : "Overvågningslisten med alarmer gemmes ikke lige nu. Denne og flere ændringer går tabt, når appen lukkes. Ændr alligevel?"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die Merkliste samt Alarmen wird gerade nicht gespeichert (das Gerät stellt keinen Schlüssel bereit). Diese und weitere Änderungen gehen beim Schliessen der App verloren. Trotzdem ändern?"
+            "value" : "Die Merkliste samt Alarmen wird gerade nicht gespeichert. Diese und weitere Änderungen gehen beim Schliessen der App verloren. Trotzdem ändern?"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Η λίστα μαζί με τους συναγερμούς δεν αποθηκεύεται αυτή τη στιγμή (η συσκευή δεν παρέχει κλειδί). Αυτή και οι επόμενες αλλαγές θα χαθούν όταν κλείσει η εφαρμογή. Θέλεις να αλλάξεις παρ’ όλα αυτά;"
+            "value" : "Η λίστα μαζί με τους συναγερμούς δεν αποθηκεύεται αυτή τη στιγμή. Αυτή και οι επόμενες αλλαγές θα χαθούν όταν κλείσει η εφαρμογή. Θέλεις να αλλάξεις παρ’ όλα αυτά;"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The watchlist and its alerts aren't being saved right now (this device isn't providing a key). This and any further changes will be lost when the app closes. Change anyway?"
+            "value" : "The watchlist and its alerts aren't being saved right now. This and any further changes will be lost when the app closes. Change anyway?"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La lista y sus alarmas no se están guardando ahora (este dispositivo no proporciona una clave). Este y otros cambios se perderán al cerrar la app. ¿Quieres cambiarlo de todos modos?"
+            "value" : "La lista y sus alarmas no se están guardando ahora. Este y otros cambios se perderán al cerrar la app. ¿Quieres cambiarlo de todos modos?"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "واچ‌لیست همراه با هشدارها فعلاً ذخیره نمی‌شود (این دستگاه کلیدی فراهم نمی‌کند). این تغییر و تغییرهای بعدی با بستن برنامه از بین می‌روند. باز هم تغییر می‌دهی؟"
+            "value" : "واچ‌لیست همراه با هشدارها فعلاً ذخیره نمی‌شود. این تغییر و تغییرهای بعدی با بستن برنامه از بین می‌روند. باز هم تغییر می‌دهی؟"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Seurantalistaa hälytyksineen ei tallenneta juuri nyt (laite ei anna avainta). Tämä ja muut muutokset katoavat, kun sovellus suljetaan. Muutetaanko silti?"
+            "value" : "Seurantalistaa hälytyksineen ei tallenneta juuri nyt. Tämä ja muut muutokset katoavat, kun sovellus suljetaan. Muutetaanko silti?"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La liste et ses alertes ne sont pas enregistrées pour le moment (cet appareil ne fournit pas de clé). Cette modification et les suivantes seront perdues à la fermeture de l'app. Modifier quand même ?"
+            "value" : "La liste et ses alertes ne sont pas enregistrées pour le moment. Cette modification et les suivantes seront perdues à la fermeture de l'app. Modifier quand même ?"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "רשימת המעקב וההתראות שלה לא נשמרות כרגע (המכשיר לא מספק מפתח). השינוי הזה ושינויים נוספים יאבדו כשהאפליקציה תיסגר. לשנות בכל זאת?"
+            "value" : "רשימת המעקב וההתראות שלה לא נשמרות כרגע. השינוי הזה ושינויים נוספים יאבדו כשהאפליקציה תיסגר. לשנות בכל זאת?"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉचलिस्ट और उसके अलार्म अभी सहेजे नहीं जा रहे (यह डिवाइस कोई कुंजी उपलब्ध नहीं करा रहा)। यह और आगे के बदलाव ऐप बंद होने पर खो जाएँगे। फिर भी बदलो?"
+            "value" : "वॉचलिस्ट और उसके अलार्म अभी सहेजे नहीं जा रहे। यह और आगे के बदलाव ऐप बंद होने पर खो जाएँगे। फिर भी बदलो?"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A figyelőlista a riasztásokkal együtt most nincs mentve (az eszköz nem ad kulcsot). Ez és a további változások az app bezárásakor elvesznek. Mégis módosítod?"
+            "value" : "A figyelőlista a riasztásokkal együtt most nincs mentve. Ez és a további változások az app bezárásakor elvesznek. Mégis módosítod?"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daftar pantau beserta alarmnya sedang tidak disimpan (perangkat ini tidak menyediakan kunci). Perubahan ini dan berikutnya akan hilang saat aplikasi ditutup. Tetap ubah?"
+            "value" : "Daftar pantau beserta alarmnya sedang tidak disimpan. Perubahan ini dan berikutnya akan hilang saat aplikasi ditutup. Tetap ubah?"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "La lista con i suoi allarmi al momento non viene salvata (questo dispositivo non fornisce una chiave). Questa e le altre modifiche andranno perse alla chiusura dell'app. Vuoi modificare comunque?"
+            "value" : "La lista con i suoi allarmi al momento non viene salvata. Questa e le altre modifiche andranno perse alla chiusura dell'app. Vuoi modificare comunque?"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "現在、ウォッチリストとアラームは保存されていません（この端末がキーを提供していません）。この変更とこの後の変更は、アプリを閉じると失われます。変更しますか？"
+            "value" : "現在、ウォッチリストとアラームは保存されていません。この変更とこの後の変更は、アプリを閉じると失われます。変更しますか？"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "지금은 관심 목록과 경보가 저장되지 않습니다(이 기기가 키를 제공하지 않음). 이번 변경과 이후의 변경 사항은 앱을 닫으면 사라집니다. 그래도 변경할까요?"
+            "value" : "지금은 관심 목록과 경보가 저장되지 않습니다. 이번 변경과 이후의 변경 사항은 앱을 닫으면 사라집니다. 그래도 변경할까요?"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Overvåkingslisten med alarmer lagres ikke akkurat nå (enheten gir ingen nøkkel). Denne og flere endringer går tapt når appen lukkes. Endre likevel?"
+            "value" : "Overvåkingslisten med alarmer lagres ikke akkurat nå. Denne og flere endringer går tapt når appen lukkes. Endre likevel?"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De volglijst met alarmen wordt nu niet opgeslagen (dit apparaat levert geen sleutel). Deze en verdere wijzigingen gaan verloren als de app sluit. Wil je toch wijzigen?"
+            "value" : "De volglijst met alarmen wordt nu niet opgeslagen. Deze en verdere wijzigingen gaan verloren als de app sluit. Wil je toch wijzigen?"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista wraz z alarmami nie jest teraz zapisywana (urządzenie nie udostępnia klucza). Ta i kolejne zmiany przepadną po zamknięciu aplikacji. Zmienić mimo to?"
+            "value" : "Lista wraz z alarmami nie jest teraz zapisywana. Ta i kolejne zmiany przepadną po zamknięciu aplikacji. Zmienić mimo to?"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A lista e os respetivos alarmes não estão a ser guardados neste momento (este dispositivo não está a fornecer uma chave). Esta e outras alterações perdem-se ao fechar a app. Queres alterar mesmo assim?"
+            "value" : "A lista e os respetivos alarmes não estão a ser guardados neste momento. Esta e outras alterações perdem-se ao fechar a app. Queres alterar mesmo assim?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A lista e os alarmes não estão sendo salvos agora (este aparelho não está fornecendo uma chave). Esta e outras alterações serão perdidas ao fechar o app. Você quer alterar mesmo assim?"
+            "value" : "A lista e os alarmes não estão sendo salvos agora. Esta e outras alterações serão perdidas ao fechar o app. Você quer alterar mesmo assim?"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista, împreună cu alarmele, nu se salvează acum (dispozitivul nu oferă o cheie). Această modificare și următoarele se pierd la închiderea aplicației. Modifici oricum?"
+            "value" : "Lista, împreună cu alarmele, nu se salvează acum. Această modificare și următoarele se pierd la închiderea aplicației. Modifici oricum?"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Список вместе с оповещениями сейчас не сохраняется (устройство не предоставляет ключ). Это и следующие изменения пропадут при закрытии приложения. Всё равно изменить?"
+            "value" : "Список вместе с оповещениями сейчас не сохраняется. Это и следующие изменения пропадут при закрытии приложения. Всё равно изменить?"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lista bashkë me alarmet nuk po ruhet tani (pajisja nuk po jep çelës). Ky ndryshim dhe të tjerët humbasin kur mbyllet aplikacioni. Do ta ndryshosh gjithsesi?"
+            "value" : "Lista bashkë me alarmet nuk po ruhet tani. Ky ndryshim dhe të tjerët humbasin kur mbyllet aplikacioni. Do ta ndryshosh gjithsesi?"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bevakningslistan med larm sparas inte just nu (enheten tillhandahåller ingen nyckel). Den här och fler ändringar försvinner när appen stängs. Ändra ändå?"
+            "value" : "Bevakningslistan med larm sparas inte just nu. Den här och fler ändringar försvinner när appen stängs. Ändra ändå?"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ขณะนี้รายการติดตามและสัญญาณเตือนไม่ได้ถูกบันทึก (อุปกรณ์นี้ไม่ได้ให้คีย์) การเปลี่ยนแปลงนี้และครั้งต่อ ๆ ไปจะหายไปเมื่อปิดแอป เปลี่ยนต่อไหม"
+            "value" : "ขณะนี้รายการติดตามและสัญญาณเตือนไม่ได้ถูกบันทึก การเปลี่ยนแปลงนี้และครั้งต่อ ๆ ไปจะหายไปเมื่อปิดแอป เปลี่ยนต่อไหม"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Liste ve alarmları şu anda kaydedilmiyor (bu cihaz anahtar sağlamıyor). Bu ve sonraki değişiklikler uygulama kapanınca kaybolur. Yine de değiştirmek istiyor musun?"
+            "value" : "Liste ve alarmları şu anda kaydedilmiyor. Bu ve sonraki değişiklikler uygulama kapanınca kaybolur. Yine de değiştirmek istiyor musun?"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Список разом із сигналами зараз не зберігається (пристрій не надає ключ). Ця та наступні зміни зникнуть після закриття застосунку. Усе одно змінити?"
+            "value" : "Список разом із сигналами зараз не зберігається. Ця та наступні зміни зникнуть після закриття застосунку. Усе одно змінити?"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Danh sách cùng các cảnh báo hiện không được lưu (thiết bị không cung cấp khóa). Thay đổi này và các thay đổi tiếp theo sẽ mất khi đóng ứng dụng. Vẫn thay đổi?"
+            "value" : "Danh sách cùng các cảnh báo hiện không được lưu. Thay đổi này và các thay đổi tiếp theo sẽ mất khi đóng ứng dụng. Vẫn thay đổi?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "自选列表及其提醒目前不会被保存（此设备未提供密钥）。此次及之后的更改将在关闭应用后丢失。仍要更改吗？"
+            "value" : "自选列表及其提醒目前不会被保存。此次及之后的更改将在关闭应用后丢失。仍要更改吗？"
           }
         }
       }

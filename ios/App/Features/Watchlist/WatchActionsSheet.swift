@@ -323,9 +323,7 @@ struct WatchActionsSheet: View {
                 .presentationBackground(AppColors.background)
         }
         .sheet(isPresented: $editNote) {
-            WatchNoteSheet(initial: watch.note) { note in
-                data.withWatchlistConfirm { if let w = data.watch(currentId) { data.setNote(w, note) } }
-            }
+            WatchNoteSheet(initial: watch.note, onSave: saveNote)
             .environment(\.appAccent, accent)
             // Volle Höhe: das Feld fokussiert beim Öffnen, die Tastatur schiebt das Blatt so nicht hoch
             .presentationDetents([.large])
@@ -341,9 +339,7 @@ struct WatchActionsSheet: View {
                 .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $editGroup) {
-            WatchGroupSheet(current: watch.groupName, groups: data.watchGroups) { group in
-                data.withWatchlistConfirm { if let w = data.watch(currentId) { data.setGroup(w, group) } }
-            }
+            WatchGroupSheet(current: watch.groupName, groups: data.watchGroups, onSelect: saveGroup)
             .environment(\.appAccent, accent)
             // Volle Höhe: «Neue Gruppe» blendet ein Feld samt Tastatur ein, das Blatt springt nicht
             .presentationDetents([.large])

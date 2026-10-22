@@ -191,7 +191,9 @@ enum CallGuard {
     /// Liegt `pos` hinter der Rückfrage — oder fragen alle Aufrufer des umschliessenden Hilfswegs?
     private static func confirmed(_ sources: [String: Source], _ file: String, _ pos: Int, seen: Set<String>) -> Bool {
         guard let src = sources[file], let region = src.regions.last(where: { $0.start <= pos }) else { return false }
-        if insideConfirm(sources, src, region.headerEnd, pos, seen: seen) { return true }
+        // Seit Build 107: der eigene Rumpf zählt nicht als fragender Hilfsweg (sonst gälte eine Funktion, die ihre
+        // Closure-Parameter nur nach der Frage aufruft, z. B. `saveNote(_:close:cancelled:)`, auch für Schreibwege davor)
+        if insideConfirm(sources, src, region.headerEnd, pos, seen: seen.union([region.name])) { return true }
         if seen.contains(region.name) || seen.count > 4 { return false }
         guard let callRegex = try? NSRegularExpression(pattern: "(?<![\\w])\(region.name)\\(") else { return false }
         var sites: [(String, Int)] = []
@@ -287,7 +289,9 @@ enum CallGuard {
 }
 
 /// Kleiner Zerleger für Swift: Kommentare (auch verschachtelt) durch Leerraum ersetzen; Zeichenketten `"…"`, `"""…"""` und
-/// `#"…"#` samt Interpolation `\(…)` überspringen, damit z. B. `"/0/*"` keinen Kommentar öffnet.
+/// `#"…"#` samt Interpolation `\(…)` überspringen, damit z. B. `"/0/*"` keinen Kommentar öffnet. Seit Build 107 (REL5-R1)
+/// auch erweiterte Regex-Literale `#/…/#` (beliebig viele `#`), wie `ios_release_audit.py`; nackte `/…/` bewusst nicht
+/// (nur Swift 6 bzw. mit Compiler-Schalter, ohne Parser nicht sicher von Division zu trennen).
 private struct Stripper {
     let t: [UInt16]
     var out: [UInt16]
@@ -328,6 +332,8 @@ private struct Stripper {
                 i = k
             } else if t[i] == 34 || (t[i] == 35 && rawStringStart(i)) {
                 i = string(i)
+            } else if t[i] == 35 && regexStart(i) {
+                i = regex(i)
             } else {
                 if untilParen && t[i] == 40 { depth += 1 }
                 if untilParen && t[i] == 41 {
@@ -344,6 +350,34 @@ private struct Stripper {
         var k = i
         while k < t.count && t[k] == 35 { k += 1 }
         return k < t.count && t[k] == 34
+    }
+
+    private func regexStart(_ i: Int) -> Bool {
+        var k = i
+        while k < t.count && t[k] == 35 { k += 1 }
+        return k < t.count && t[k] == 47
+    }
+
+    /// Erweitertes Regex-Literal ab `start` (dort «#»): bis «/» plus gleich viele «#»; `\` maskiert das nächste Zeichen;
+    /// mehrzeilig nur, wenn direkt nach «#/» die Zeile endet. Bleibt stehen (wie Zeichenketten), wird nicht geleert.
+    private func regex(_ start: Int) -> Int {
+        var i = start, hashes = 0
+        while t[i] == 35 { hashes += 1; i += 1 }
+        i += 1
+        let multi = i < t.count && t[i] == 10
+        let close = [UInt16(47)] + [UInt16](repeating: 35, count: hashes)
+        while i < t.count {
+            if t[i] == 92 {
+                i += 2
+            } else if has(i, close) {
+                return i + close.count
+            } else if !multi && t[i] == 10 {
+                return i
+            } else {
+                i += 1
+            }
+        }
+        return t.count
     }
 
     private mutating func string(_ start: Int) -> Int {

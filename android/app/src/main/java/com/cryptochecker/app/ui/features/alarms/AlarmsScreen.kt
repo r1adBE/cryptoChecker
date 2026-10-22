@@ -15,7 +15,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -28,7 +27,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalAccessibilityManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -72,8 +70,9 @@ fun AlarmsScreen(
     /** Rückfrage «Alarm löst sofort aus»: der Entwurf, der gespeichert würde. */
     var confirmFiresNow by rememberSaveable(stateSaver = AlarmDraftSaver.saver) { mutableStateOf<AlarmDraft?>(null) }
 
-    // Offener Editor samt Eingaben übersteht Drehen und Prozess-Neustart (sonst wäre alles Getippte weg)
-    var draft by rememberSaveable(stateSaver = AlarmDraftSaver.saver) { mutableStateOf<AlarmDraft?>(null) }
+    // Offener Editor samt Eingaben übersteht Drehen und Prozess-Neustart (sonst wäre alles Getippte weg). Seit Build 107
+    // (ARC5-R01) im ViewModel: «Trotzdem» in der Rückfrage F-08 schliesst ihn auch nach dem Neuerstellen der Activity
+    var draft by viewModel.editor
     // Neuer Alarm im einfachen Modus: Feld leer, aktueller Kurs nur als Platzhalter
     val newDraft: () -> AlarmDraft = { AlarmDraft.blankFor() }
     // Paar ohne Alarm: gleich den Editor öffnen statt der leeren Liste (einmal je Besuch)
@@ -107,17 +106,12 @@ fun AlarmsScreen(
     // Alarm nicht geändert bzw. gelöscht, weil die Merkliste gesperrt ist: kurzer Hinweis mit Warn-Haptik
     com.cryptochecker.app.ui.components.WatchlistLockedHint { snackbar.currentSnackbarData?.dismiss(); snackbar.showSnackbar(it) }
     val scope = rememberCoroutineScope()
-    val accessibilityManager = LocalAccessibilityManager.current
-    val settingsLabel = stringResource(R.string.settings_title)
-    val activeText = stringResource(R.string.alarm_saved_active)
-    val testLabel = stringResource(R.string.alarm_test_action)
     val context = LocalContext.current
     // Paar gibt es nicht mehr (z. B. «Anpassen» aus der Mitteilung eines gelöschten Paars): kein Editor ohne Paar —
     // kurzer Hinweis (überdauert das Zurück, darum kein Snackbar) und zurück. Merkliste nur gesperrt: das sagen statt
     // «Nicht in der Merkliste»
     val missingText = stringResource(R.string.watch_preview_not_watched)
     val lockedText = stringResource(R.string.alarm_save_storage_locked)
-    val limitText = alarmLimitText()
     LaunchedEffect(watchMissing) {
         if (watchMissing != true) return@LaunchedEffect
         draft = null
@@ -128,10 +122,6 @@ fun AlarmsScreen(
         ).show()
         onBack()
     }
-    // Alarm angelegt: nach «Später» die Erklärung noch einmal (NotificationPrePrompt)
-    val requestNotifications = com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest(
-        com.cryptochecker.app.ui.components.NotificationAsk.ALARM_CREATED
-    )
     var askDelete by remember { mutableStateOf<AlarmEntity?>(null) }
     val firstAlarm by viewModel.firstAlarm.collectAsStateWithLifecycle()
     val timingHint by viewModel.timingHint.collectAsStateWithLifecycle()
@@ -143,6 +133,8 @@ fun AlarmsScreen(
             snackbar.showSnackbar(text, duration = SnackbarDuration.Long)
         }
     }
+    // Seit Build 107 (ARC5-R01): Erlaubnis, Haptik und Bestätigung nach dem Speichern im aktuellen Bildschirm
+    AlarmEditorEffects(viewModel, snackbar, watch, testAlarm)
 
     // Einmal nach dem Speichern: ehrlich, wann bei geschlossener App geprüft wird
     if (timingHint) {
@@ -281,48 +273,13 @@ fun AlarmsScreen(
         return true
     }
 
-    // Sicherheitsnetz: Paar inzwischen voll (z. B. Editor offen, Alarm anderswo angelegt) — nichts angelegt, sagen warum
-    val showLimit: () -> Unit = { snackbar.showNotice(scope, limitText, haptics, HapticEvent.WARNING) }
-
     /**
-     * Speichern und bestätigen («Alarm gespeichert …»), Editor schliessen. Seit Build 106 (UX4-06, UX4-R3): Editor erst nach
+     * Speichern; Editor zu, Erlaubnis und Bestätigung ([AlarmEditorEffects]). Seit Build 106 (UX4-06, UX4-R3): Editor erst nach
      * bestätigter Rückfrage F-08 zu («Abbrechen»: offen mit Eingaben), Erlaubnis erst nach dem Speichern.
      */
     fun saveDraft(toSave: AlarmDraft) {
         if (showSaveLocked()) return
-        // Wird die Erlaubnis gleich erst erfragt, nennt die Bestätigung «Mitteilungen aus» noch nicht
-        val asking = com.cryptochecker.app.ui.components.notificationPermissionMissing(context)
-        val isNew = toSave.id == 0L
-        viewModel.save(toSave, showLimit, onProceed = { draft = null }) { alarm, allowed, firstEver ->
-            // Ein Alarm braucht Benachrichtigungen: jetzt fragen (nach dem Speichern), nicht beim Start
-            requestNotifications()
-            haptics.play(HapticEvent.SUCCESS)
-            val off = !allowed && !asking
-            // Neuer Alarm: eine Zeile «Alarm aktiv · Testen»; beim allerersten Alarm
-            // bietet der Bestätigungsdialog das Testen schon an
-            if (isNew && !off) {
-                if (firstEver) return@save
-                scope.launch {
-                    val result = snackbar.showTimed(activeText, testLabel, ACTIVE_MILLIS, accessibilityManager)
-                    if (result == SnackbarResult.ActionPerformed) testAlarm()
-                }
-                return@save
-            }
-            // «Alarm gespeichert: BTC Kurs über 70’000 USDT · einmalig» (· Mitteilungen aus)
-            val text = alarmSavedText(context, alarm, watch?.baseAsset.orEmpty(), watch?.quoteAsset.orEmpty(), off)
-            scope.launch {
-                snackbar.currentSnackbarData?.dismiss()
-                if (off) {
-                    // Mit Aktion «Einstellungen» (Mitteilungs-Einstellungen der App)
-                    val result = snackbar.showTimed(text, settingsLabel, SAVED_MILLIS, accessibilityManager)
-                    if (result == SnackbarResult.ActionPerformed) {
-                        com.cryptochecker.app.ui.components.openAppNotificationSettings(context)
-                    }
-                } else {
-                    snackbar.showSnackbar(text, duration = SnackbarDuration.Short)
-                }
-            }
-        }
+        viewModel.save(toSave)
     }
 
     PendingUndoSnackbar(viewModel.undo, viewModel.firstAlarm, viewModel.timingHint, snackbar, UNDO_MILLIS, viewModel::delete)
@@ -344,19 +301,7 @@ fun AlarmsScreen(
             onLoadRate = viewModel::loadRate,
             onDraftChange = { draft = it },
             // Seit Build 106: Editor erst nach bestätigter Rückfrage F-08 zu, Erlaubnis erst nach dem Anlegen
-            onTemplate = onTemplate@{ template ->
-                if (showSaveLocked()) return@onTemplate
-                viewModel.createFromTemplate(template, showLimit, onProceed = { draft = null }) { created ->
-                    requestNotifications()
-                    haptics.play(HapticEvent.SUCCESS)
-                    // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig»), nicht nur «erstellt»
-                    val createdText = alarmSavedText(
-                        context, created, watch?.baseAsset.orEmpty(), watch?.quoteAsset.orEmpty(), notificationsOff = false,
-                    )
-                    // Gezeigt von PendingUndoSnackbar: nach dem Dialog bzw. zurück aus «Damit Alarme ankommen»
-                    viewModel.undo.offer(PendingAlarmUndo(created.id, createdText, System.currentTimeMillis()))
-                }
-            },
+            onTemplate = { template -> if (!showSaveLocked()) viewModel.createFromTemplate(template) },
             onDismiss = { draft = null },
             // Kopf mit Paar und aktuellem Kurs (wie iOS)
             watch = watch,
@@ -387,12 +332,6 @@ fun AlarmsScreen(
 
 /** So lange steht «Alarm erstellt · Rückgängig». */
 private const val UNDO_MILLIS = 6_000L
-
-/** So lange steht «Alarm gespeichert … · Mitteilungen aus» mit «Einstellungen». */
-private const val SAVED_MILLIS = 8_000L
-
-/** So lange steht «Alarm aktiv · Testen» nach einem neuen Alarm. */
-private const val ACTIVE_MILLIS = 6_000L
 
 /** Takt, in dem die Statuszeilen der Karten die Uhr nachführen («Wartet auf aktuellen Kurs»). */
 private const val STATUS_TICK_MILLIS = 60_000L
