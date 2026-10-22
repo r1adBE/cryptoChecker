@@ -2149,6 +2149,22 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 103 (two review rounds): watchlist read-only while `storedKept` (Android `WatchRepository.userWriteRefused()`,
+  `AddWatchOutcome.Locked`/`PairEditResult.LOCKED`/`BulkAddResult.locked`, `WatchlistWriteRefusal` + `WatchlistLockedHint`;
+  iOS `AppData.watchlistWriteRefused()` for `watchlistLocked`); `EncryptingOpenHelperFactory.prepareLock(name)`;
+  `util/AppScope.appScope()` (SupervisorJob + handler) for all process-wide scopes; `PortfolioWriteResult`
+  (OK/LOCKED/FAILED, `portfolio_write_failed`), restore `NonCancellable`, coin page shares the overview's
+  `PortfolioViewModel`, `PortfolioCoinDetailFlow` / iOS `PortfolioCoinLedger` off the main thread; `CsvReadChoice`
+  (confirm gate, `csv_import.json` › `confirmGate`); `AlarmDeliveryMarkers` (`alarm_delivery_marker.json`);
+  `AlarmPairPicker` (`alarm_pair_picker.json`); falling percent < 100; undo respects `WatchlistLimits`;
+  `ThresholdParser` Indian grouping; iOS `PortfolioSaveRetry` (merge path), `ProtectedFile+Durability` (`.full`/
+  `.barrier`), `BackgroundExpiry`, `BackgroundWorkDemand` (`periodic_needed.json`), widget draw budget 7 s,
+  `BackgroundRefreshTask` protocol; `HttpUserAgent.NEUTRAL` for address lookups (`address_privacy.json`); live
+  message cap 1 MiB; `AppLock.authenticatorsFor(sdk)`; `taskAffinity=""`; diagnostics `Source:` (BuildConfig
+  `GIT_COMMIT` / Info.plist `CCGitCommit`); workflows `keepalive.yml`, `line_limit.py`, token split in
+  `macro-calendar.yml` and `exchange-live-check.yml`, Binance via data-api.binance.vision, `ios.yml` input
+  `thread_sanitizer`; tests `RoomSchemaMigrationTest` (room-testing), `WatchlistLockDeviceTest`,
+  `PriceUpdateWorkerTest`, `WatchlistLockBehaviorTests`, `BackgroundRefreshRunTests`.
 * Build 102: backup restore goes through `RestoreRun` (journal first — `BackupJournalUnavailableException` / iOS
   `Failure.journalUnavailable` before any write; `RestoreRollback` separate, `RestoreRunTest`); `DatabaseKeyRetry`
   (3 × 500 ms, key «lost» only on the next run via `<db>.key-suspect`); `SettingsLockFallback` / iOS

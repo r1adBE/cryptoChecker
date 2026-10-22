@@ -88,7 +88,9 @@ class EncryptingOpenHelperFactory(
         private fun delegate(): SupportSQLiteOpenHelper {
             delegate?.let { return it }
             val name = requireNotNull(configuration.name)
-            val decision = DatabaseEncryptionMigration(
+            // Prozessweit je Datenbank nur eine Überführung zugleich (seit Build 103): Die Systemsicherung
+            // (PortfolioBackupMirror) baut eine eigene Fabrik — @Synchronized gilt nur je Instanz
+            val decision = synchronized(prepareLock(name)) { DatabaseEncryptionMigration(
                 files,
                 keys,
                 log = { message, error -> if (error == null) Timber.i(message) else Timber.w(error, message) },
@@ -100,7 +102,7 @@ class EncryptingOpenHelperFactory(
                         copies, System.currentTimeMillis(), allowed = !StorageRecoveryNotice.isSetAsidePending(context, db),
                     )
                 },
-            ).prepare(name)
+            ).prepare(name) }
             // Unverschlüsselt bleiben nennt Einstellungen › Sicherung (EncryptionPending); verschlüsselt löscht es
             DatabaseEncryptionNotice.note(context, name, decision)
             val helper = when (decision) {
@@ -160,6 +162,11 @@ class EncryptingOpenHelperFactory(
     companion object {
         /** Standard von `encryptionRequired`: Portfolio und Merkliste (Unit-Test `EncryptingOpenHelperFactoryDefaultsTest`). */
         val ENCRYPTION_REQUIRED: Set<String> = setOf(PortfolioDatabase.DB_NAME, AppDatabase.DB_NAME)
+
+        private val PREPARE_LOCKS = java.util.concurrent.ConcurrentHashMap<String, Any>()
+
+        /** Sperre für die Überführung von [database], gleich für alle Fabriken im Prozess. */
+        internal fun prepareLock(database: String): Any = PREPARE_LOCKS.getOrPut(database) { Any() }
     }
 }
 

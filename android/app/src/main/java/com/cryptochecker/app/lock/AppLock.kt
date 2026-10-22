@@ -6,6 +6,7 @@ import android.content.ContextWrapper
 import android.os.Build
 import android.os.SystemClock
 import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
@@ -19,20 +20,26 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Portfolio-Sperre: Entsperren mit Biometrie (schwach/stark) ODER Geräte-Sperre (PIN, Muster, Passwort),
- * über androidx.biometric.
- *  - ab API 30: setAllowedAuthenticators(BIOMETRIC_WEAK or DEVICE_CREDENTIAL)
- *  - API 26–29: BIOMETRIC_WEAK mit setDeviceCredentialAllowed(true) (dort so verlangt)
+ * Portfolio-Sperre: Entsperren mit Biometrie ODER Geräte-Sperre (PIN, Muster, Passwort), über androidx.biometric
+ * ([authenticatorsFor]).
+ *  - ab API 30: setAllowedAuthenticators(BIOMETRIC_STRONG or DEVICE_CREDENTIAL) — seit Build 103 nur starke
+ *    Biometrie (Klasse 3), schwache (z. B. reine Kamera-Gesichtserkennung) führt zur Geräte-Sperre
+ *  - API 26–29: BIOMETRIC_WEAK mit setDeviceCredentialAllowed(true) (dort so verlangt; STRONG mit
+ *    DEVICE_CREDENTIAL gibt es dort nicht)
  * Mit Geräte-Sperre als Ausweg gibt es keinen «Abbrechen»-Knopf (negativeButton).
  */
 object AppLockAuth {
 
-    private const val AUTHENTICATORS = BIOMETRIC_WEAK or DEVICE_CREDENTIAL
+    /** Erlaubte Verfahren je API-Stufe (seit Build 103): ab API 30 starke Biometrie oder Geräte-Sperre. */
+    fun authenticatorsFor(sdk: Int): Int =
+        if (sdk >= Build.VERSION_CODES.R) BIOMETRIC_STRONG or DEVICE_CREDENTIAL else BIOMETRIC_WEAK or DEVICE_CREDENTIAL
+
+    private val authenticators get() = authenticatorsFor(Build.VERSION.SDK_INT)
 
     /** Kann dieses Gerät entsperren (Biometrie oder eingerichtete Displaysperre)? */
     fun canAuthenticate(context: Context): Boolean {
         val biometric = runCatching {
-            BiometricManager.from(context).canAuthenticate(AUTHENTICATORS) == BiometricManager.BIOMETRIC_SUCCESS
+            BiometricManager.from(context).canAuthenticate(authenticators) == BiometricManager.BIOMETRIC_SUCCESS
         }.getOrDefault(false)
         if (biometric) return true
         // Vor API 30 prüft canAuthenticate die Geräte-Sperre nicht überall zuverlässig
@@ -61,7 +68,7 @@ object AppLockAuth {
         )
         val builder = BiometricPrompt.PromptInfo.Builder().setTitle(title)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            builder.setAllowedAuthenticators(AUTHENTICATORS)
+            builder.setAllowedAuthenticators(authenticators)
         } else {
             @Suppress("DEPRECATION")
             builder.setDeviceCredentialAllowed(true)

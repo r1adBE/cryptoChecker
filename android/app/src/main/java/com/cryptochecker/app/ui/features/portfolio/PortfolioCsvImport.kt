@@ -132,6 +132,8 @@ fun PortfolioCsvImportFlow(
             onDateOrder = viewModel::setDateOrder,
             onDecimalMark = viewModel::setDecimalMark,
             onDismiss = close,
+            // Seit Build 103: während des Neu-Lesens kein «Importieren»
+            rereading = s.rereading,
             onConfirm = {
                 viewModel.confirm(
                     onDone = { count -> onImported(count); onDismiss() },

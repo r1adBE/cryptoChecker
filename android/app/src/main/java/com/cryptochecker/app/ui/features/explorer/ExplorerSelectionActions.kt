@@ -137,6 +137,8 @@ internal fun ExplorerViewModel.launchAdd(target: MarketInfo, pair: MarketPair, r
             }
             AddWatchOutcome.Duplicate -> report(false)
             AddWatchOutcome.Full -> addResult.value = AddResult.WATCHLIST_FULL
+            // Merkliste gesperrt: nichts angelegt, den kurzen Hinweis zeigt WatchlistLockedHint
+            AddWatchOutcome.Locked -> Unit
         }
     }
 }

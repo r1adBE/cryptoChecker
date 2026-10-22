@@ -218,9 +218,11 @@ class ParityFixturesTest {
             val c = raw.obj()
             val text = c["text"] as String
             val decimal = (c["decimal"] as String).single()
-            val actual = ThresholdParser.parse(text, decimal, c["hint"].num())
+            // Seit Build 103: Region mit indischer Gruppierung («1,00,000»), Standard nein
+            val indian = c["indianGrouping"] as Boolean? ?: false
+            val actual = ThresholdParser.parse(text, decimal, c["hint"].num(), indianGrouping = indian)
             val expected = c["expected"].num()
-            assertNumber(expected, actual, abs(expected ?: 0.0) * 1e-12, "threshold '$text' ($decimal, ${c["hint"]})")
+            assertNumber(expected, actual, abs(expected ?: 0.0) * 1e-12, "threshold '$text' ($decimal, ${c["hint"]}, indian $indian)")
         }
         assertTrue(cases.size >= 40)
     }

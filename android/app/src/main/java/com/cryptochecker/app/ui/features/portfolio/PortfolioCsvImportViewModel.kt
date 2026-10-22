@@ -27,6 +27,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportPreview
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportRefusal
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportResult
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportTx
+import com.cryptochecker.app.domain.portfolio.csvimport.CsvReadChoice
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferLink
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvTransferMatch
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvWithdrawalChoice
@@ -50,7 +51,8 @@ import javax.inject.Inject
 sealed interface CsvImportState {
     data object Idle : CsvImportState
     data object Loading : CsvImportState
-    data class Preview(val preview: CsvImportPreview) : CsvImportState
+    /** [rereading] seit Build 103: Lesart geändert, Datei wird neu gelesen — «Importieren» aus, Vorschau gedimmt. */
+    data class Preview(val preview: CsvImportPreview, val rereading: Boolean = false) : CsvImportState
     /** Keine unterstützte Zeile (fremdes Format, leere Datei, nicht lesbar). */
     data object Unreadable : CsvImportState
     /** Datei zu gross ([CsvImportRefusal.TOO_LARGE]): über 16 MB oder zu viele Zeilen bzw. Spalten. Seit Build 99. */
@@ -100,19 +102,23 @@ class PortfolioCsvImportViewModel @Inject constructor(
     private val _linked = MutableStateFlow<Set<String>>(emptySet())
     val linked: StateFlow<Set<String>> = _linked.asStateFlow()
 
-    /** Zeitzone der Zeiten ohne Versatz (Gerät / Europe/Zurich / UTC); null = Regel ([CsvImportParser.zoneFor]). */
-    private val _zone = MutableStateFlow<String?>(null)
+    /**
+     * Gewählte Lesart (Zeitzone der Zeiten ohne Versatz, Tag/Monat, Dezimalzeichen; null = Regel). Seit Build 103 eine
+     * Wahl samt der Lesart der gezeigten Vorschau ([Input.choice]): «Importieren» nur, wenn beide gleich sind.
+     */
+    private var chosen = CsvReadChoice()
 
-    /** Reihenfolge Tag/Monat bei mehrdeutigen Daten, in der Vorschau gewählt; null = Standard (Tag zuerst). */
-    private val _dateOrder = MutableStateFlow<CsvDateOrder?>(null)
+    /** Seit Build 103: Nummer der letzten Neu-Lese-Anfrage; nur deren Ergebnis zählt ([reread]). */
+    private var rereadGeneration = 0
 
-    /** Dezimalzeichen bei mehrdeutigen Zahlen («42,000»), in der Vorschau gewählt; null = Standard (Zeichen = Dezimal). */
-    private val _decimalMark = MutableStateFlow<Char?>(null)
-
-    /** Text, Ergebnis, Schlüssel, Tageskurse, USDT/USD-Schlüsse ([CsvImport.priceInUsdt]) — für eine neue Vorschau. */
+    /**
+     * Text, Ergebnis, Schlüssel, Tageskurse, USDT/USD-Schlüsse ([CsvImport.priceInUsdt]) — für eine neue Vorschau;
+     * [choice] = Lesart, mit der gelesen wurde (seit Build 103).
+     */
     private class Input(
         val text: String, val result: CsvImportResult, val keys: Set<String>,
         val rates: Map<String, List<Pair<Long, Double>>>, val usdtUsd: Map<Long, java.math.BigDecimal>,
+        val choice: CsvReadChoice,
     )
     private var input: Input? = null
 
@@ -179,13 +185,15 @@ class PortfolioCsvImportViewModel @Inject constructor(
             context.contentResolver.openInputStream(uri)?.use { BackupLimits.readLimited(it, max = BackupLimits.CSV_MAX_BYTES) }
                 ?.let { CsvImportParser.decode(it) } ?: error("Datei kann nicht gelesen werden")
         }
-        return prepare(text)
+        val read = prepare(text, chosen)
+        input = read
+        return mapPreview(read)
     }
 
-    /** Text lesen, Tageskurse für den Zeitraum laden, Vorschau bilden. */
-    private suspend fun prepare(text: String): CsvImportPreview {
+    /** Text mit der Lesart [choice] lesen und Tageskurse für den Zeitraum laden (die Vorschau bildet [mapPreview]). */
+    private suspend fun prepare(text: String, choice: CsvReadChoice): Input {
         val result = withContext(Dispatchers.Default) {
-            CsvImportParser.parse(text, ZoneId.systemDefault().id, _zone.value, _dateOrder.value, _decimalMark.value)
+            CsvImportParser.parse(text, ZoneId.systemDefault().id, choice.zone, choice.dateOrder, choice.decimalMark)
         }
         // Tageskurse je Währung: eine Abfrage über den ganzen Zeitraum (mit Vorlauf für Wochenenden/Feiertage)
         val rates = HashMap<String, List<Pair<Long, Double>>>()
@@ -195,9 +203,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
             if (series != null) rates[currency] = series.entries.map { it.key to it.value }.sortedBy { it.first }
         }
         val keys = repository.importKeys()
-        val read = Input(text, result, keys, rates, usdtUsdCloses(result))
-        input = read
-        return mapPreview(read)
+        return Input(text, result, keys, rates, usdtUsdCloses(result), choice)
     }
 
     /**
@@ -235,22 +241,15 @@ class PortfolioCsvImportViewModel @Inject constructor(
      * Zeitzone der Zeiten ohne Versatz wählen: den Text im Speicher neu zuordnen (Datei und Tageskurse werden nicht neu
      * geladen; ein um einen Tag verschobenes Datum nimmt den Kurs des letzten Geschäftstags davor).
      */
-    fun setZone(zone: String?) {
-        _zone.value = zone
-        val read = input ?: return
-        viewModelScope.launch {
-            val preview = runCatchingCancellable {
-                val result = withContext(Dispatchers.Default) {
-                    CsvImportParser.parse(read.text, ZoneId.systemDefault().id, zone, _dateOrder.value, _decimalMark.value)
-                }
-                val updated = Input(read.text, result, read.keys, read.rates, read.usdtUsd)
-                input = updated
-                mapPreview(updated)
-            }.getOrNull() ?: return@launch
-            if (_state.value is CsvImportState.Preview && _zone.value == zone) {
-                propose(preview)
-                _state.value = CsvImportState.Preview(preview)
+    fun setZone(zone: String?) = reread(chosen.copy(zone = zone)) { read, choice ->
+        // Tag/Monat und Dezimalzeichen wie beim letzten Lesen: nur neu zuordnen; sonst ganz neu (Tageskurse)
+        if (read.choice.dateOrder != choice.dateOrder || read.choice.decimalMark != choice.decimalMark) {
+            prepare(read.text, choice)
+        } else {
+            val result = withContext(Dispatchers.Default) {
+                CsvImportParser.parse(read.text, ZoneId.systemDefault().id, choice.zone, choice.dateOrder, choice.decimalMark)
             }
+            Input(read.text, result, read.keys, read.rates, read.usdtUsd, choice)
         }
     }
 
@@ -258,28 +257,37 @@ class PortfolioCsvImportViewModel @Inject constructor(
      * Reihenfolge Tag/Monat bei mehrdeutigen Daten wählen: Text im Speicher neu lesen; die Tage können sich um Monate
      * verschieben, darum auch die Tageskurse neu laden.
      */
-    fun setDateOrder(order: CsvDateOrder) {
-        _dateOrder.value = order
-        reprepare { _dateOrder.value == order }
-    }
+    fun setDateOrder(order: CsvDateOrder) = reread(chosen.copy(dateOrder = order)) { read, choice -> prepare(read.text, choice) }
 
     /**
      * Dezimalzeichen bei mehrdeutigen Zahlen wählen («42,000 = 42000 oder 42?»): Text im Speicher neu lesen (Preise und
      * Mengen ändern sich; Tageskurse wie beim Umschalten der Reihenfolge neu laden).
      */
-    fun setDecimalMark(mark: Char) {
-        _decimalMark.value = mark
-        reprepare { _decimalMark.value == mark }
-    }
+    fun setDecimalMark(mark: Char) = reread(chosen.copy(decimalMark = mark)) { read, choice -> prepare(read.text, choice) }
 
-    /** Text im Speicher samt Tageskursen neu lesen; übernommen nur, solange die Wahl noch gilt ([stillChosen]). */
-    private fun reprepare(stillChosen: () -> Boolean) {
+    /**
+     * Text im Speicher mit der Lesart [choice] neu lesen ([build]). Seit Build 103 steht die Vorschau solange auf
+     * «wird neu gelesen» (Knopf aus, gedimmt); übernommen wird nur das Ergebnis der letzten Wahl. Scheitert das Lesen,
+     * gilt wieder die Lesart der gezeigten Vorschau.
+     */
+    private fun reread(choice: CsvReadChoice, build: suspend (Input, CsvReadChoice) -> Input) {
+        chosen = choice
         val read = input ?: return
+        val generation = ++rereadGeneration
+        (_state.value as? CsvImportState.Preview)?.let { _state.value = it.copy(rereading = true) }
         viewModelScope.launch {
-            val preview = runCatchingCancellable { prepare(read.text) }.getOrNull() ?: return@launch
-            if (_state.value is CsvImportState.Preview && stillChosen()) {
-                propose(preview)
-                _state.value = CsvImportState.Preview(preview)
+            val built = runCatchingCancellable { build(read, choice).let { it to mapPreview(it) } }.getOrNull()
+            if (generation != rereadGeneration) return@launch
+            val shown = _state.value as? CsvImportState.Preview ?: return@launch
+            if (built == null) {
+                chosen = input?.choice ?: CsvReadChoice()
+                _state.value = shown.copy(rereading = false)
+                return@launch
+            }
+            input = built.first
+            propose(built.second)
+            if (generation == rereadGeneration && _state.value is CsvImportState.Preview) {
+                _state.value = CsvImportState.Preview(built.second)
             }
         }
     }
@@ -289,7 +297,10 @@ class PortfolioCsvImportViewModel @Inject constructor(
      * (im Hauptthread), [onPortfolioEnabled] wenn eingeschaltet.
      */
     fun confirm(onDone: (Int) -> Unit, onPortfolioEnabled: () -> Unit) {
-        val preview = (_state.value as? CsvImportState.Preview)?.preview ?: return
+        val shown = _state.value as? CsvImportState.Preview ?: return
+        // Seit Build 103: nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen Lesart
+        if (!CsvReadChoice.canConfirm(shown.rereading, input?.choice, chosen)) return
+        val preview = shown.preview
         val choices = _choices.value
         val plan = CsvTransferMatch.apply(preview.transactions, _links.value, _linked.value)
         // Jede Auszahlung (ohne verknüpfte Umbuchung) braucht eine Wahl (der Knopf ist sonst aus)
@@ -350,9 +361,8 @@ class PortfolioCsvImportViewModel @Inject constructor(
         _state.value = CsvImportState.Idle
         input = null
         clearChoices()
-        _zone.value = null
-        _dateOrder.value = null
-        _decimalMark.value = null
+        chosen = CsvReadChoice()
+        rereadGeneration++
     }
 
     private fun clearChoices() {

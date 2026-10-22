@@ -2,6 +2,7 @@ package com.cryptochecker.app.domain.alarm
 
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
 import com.cryptochecker.app.util.BidiText
+import com.cryptochecker.app.util.LocaleNumbers
 import java.math.BigDecimal
 import kotlin.math.abs
 import kotlin.math.ln
@@ -14,6 +15,7 @@ import kotlin.math.ln
  * - Tausendertrenner ’ ' ‘ ` Leerzeichen, geschütztes und schmales Leerzeichen werden ignoriert.
  * - Kommen Punkt und Komma vor, ist das letzte der beiden das Dezimalzeichen: «1.234,56», «1,234.56».
  * - Mehrfach dasselbe Zeichen = Tausendertrennung in Dreiergruppen: «1.234.567», «1,234,567».
+ *   Seit Build 103 mit [indianGrouping] (Region mit Zweier-Nebengruppen wie hi-IN) auch indisch: «1,00,000».
  * - Einmal ein Zeichen mit genau drei Ziffern danach («60,000», «60.000») ist mehrdeutig:
  *   Mit [priceHint] (aktueller Kurs in der Währung des Schwellwerts) gewinnt die Lesart, die
  *   näher am Kurs liegt (Verhältnis am nächsten bei 1) — aber nur, wenn diese Lesart höchstens
@@ -30,23 +32,40 @@ object ThresholdParser {
     /** Zeichen, die nur der Tausendertrennung dienen. */
     private val GROUPING = setOf('’', '\'', '‘', '`', ' ', ' ', ' ', ' ')
 
-    fun parse(text: String, decimalSeparator: Char, priceHint: Double? = null): Double? =
-        canonical(text, decimalSeparator, priceHint)?.toDoubleOrNull()?.takeIf { it.isFinite() && it > 0.0 }
+    /**
+     * Seit Build 103: Gruppiert die Zahlen-Locale ([LocaleNumbers.appLocale], auch für Eingaben) indisch?
+     * Standard für [indianGrouping]; wie iOS `ThresholdParser.regionIndianGrouping`.
+     */
+    val regionIndianGrouping: Boolean
+        get() = LocaleNumbers.usesIndianGrouping(LocaleNumbers.appLocale)
+
+    fun parse(
+        text: String,
+        decimalSeparator: Char,
+        priceHint: Double? = null,
+        indianGrouping: Boolean = regionIndianGrouping,
+    ): Double? =
+        canonical(text, decimalSeparator, priceHint, indianGrouping)?.toDoubleOrNull()?.takeIf { it.isFinite() && it > 0.0 }
 
     /**
      * Wie [parse], aber exakt als [BigDecimal] (z. B. 0.00000001 BTC = 1 Satoshi ohne
      * Gleitkomma-Rundung) — für Mengen, Kurse und Gebühren im Portfolio.
      */
-    fun parseDecimal(text: String, decimalSeparator: Char, priceHint: Double? = null): BigDecimal? =
+    fun parseDecimal(
+        text: String,
+        decimalSeparator: Char,
+        priceHint: Double? = null,
+        indianGrouping: Boolean = regionIndianGrouping,
+    ): BigDecimal? =
         // Wie iOS über PortfolioDecimal.parse (gleiche Grössengrenzen)
-        canonical(text, decimalSeparator, priceHint)?.let { PortfolioDecimal.parse(it) }
+        canonical(text, decimalSeparator, priceHint, indianGrouping)?.let { PortfolioDecimal.parse(it) }
             ?.takeIf { it.signum() > 0 }
 
     /**
      * Gelesene Zahl als Dezimaltext mit Punkt ohne Tausendertrennung («1234.56»), nach den Regeln
      * oben; null = ungültig. Der Wert kann 0 sein (prüfen die Aufrufer).
      */
-    private fun canonical(text: String, decimalSeparator: Char, priceHint: Double?): String? {
+    private fun canonical(text: String, decimalSeparator: Char, priceHint: Double?, indianGrouping: Boolean): String? {
         val cleaned = buildString {
             for (c in latinDigits(text).trim()) {
                 when {
@@ -71,7 +90,7 @@ object ThresholdParser {
                 if (cleaned.count { it == decimal } != 1) null
                 else {
                     val intPart = cleaned.substring(0, decimalIndex)
-                    if (!validGrouping(intPart, grouping)) null
+                    if (!validGrouping(intPart, grouping, indianGrouping)) null
                     else number(intPart.replace(grouping.toString(), ""), cleaned.substring(decimalIndex + 1))
                 }
             }
@@ -80,7 +99,7 @@ object ThresholdParser {
                 val count = if (dots > 0) dots else commas
                 if (count > 1) {
                     // Mehrfach: nur Tausendertrennung
-                    if (validGrouping(cleaned, sep)) cleaned.replace(sep.toString(), "") else null
+                    if (validGrouping(cleaned, sep, indianGrouping)) cleaned.replace(sep.toString(), "") else null
                 } else {
                     val index = cleaned.indexOf(sep)
                     val intPart = cleaned.substring(0, index)
@@ -108,14 +127,24 @@ object ThresholdParser {
      * Transaktion (Kurs 0 = geschenkt). Leer bleibt ungültig (null); negativ, Exponent oder
      * Buchstaben («1.5f», «2d») ebenso.
      */
-    fun parseAllowingZero(text: String, decimalSeparator: Char, priceHint: Double? = null): Double? {
-        parse(text, decimalSeparator, priceHint)?.let { return it }
+    fun parseAllowingZero(
+        text: String,
+        decimalSeparator: Char,
+        priceHint: Double? = null,
+        indianGrouping: Boolean = regionIndianGrouping,
+    ): Double? {
+        parse(text, decimalSeparator, priceHint, indianGrouping)?.let { return it }
         return if (isZero(text)) 0.0 else null
     }
 
     /** Wie [parseAllowingZero], aber exakt als [BigDecimal]. */
-    fun parseDecimalAllowingZero(text: String, decimalSeparator: Char, priceHint: Double? = null): BigDecimal? {
-        parseDecimal(text, decimalSeparator, priceHint)?.let { return it }
+    fun parseDecimalAllowingZero(
+        text: String,
+        decimalSeparator: Char,
+        priceHint: Double? = null,
+        indianGrouping: Boolean = regionIndianGrouping,
+    ): BigDecimal? {
+        parseDecimal(text, decimalSeparator, priceHint, indianGrouping)?.let { return it }
         return if (isZero(text)) BigDecimal.ZERO else null
     }
 
@@ -153,13 +182,18 @@ object ThresholdParser {
         return "${intPart.ifEmpty { "0" }}.${fracPart.ifEmpty { "0" }}"
     }
 
-    /** Tausendergruppen: erste Gruppe 1–3 Ziffern ohne führende 0, danach je genau drei. */
-    private fun validGrouping(text: String, sep: Char): Boolean {
+    /**
+     * Tausendergruppen: erste Gruppe 1–3 Ziffern ohne führende 0, danach je genau drei. Seit Build 103 mit
+     * [indian] zusätzlich indisch: erste Gruppe 1–2 Ziffern, dann Zweiergruppen, zuletzt genau drei («12,34,567»).
+     */
+    private fun validGrouping(text: String, sep: Char, indian: Boolean = false): Boolean {
         val groups = text.split(sep)
         if (groups.size < 2) return true
         val first = groups.first()
         if (first.isEmpty() || first.length > 3 || first.startsWith('0')) return false
-        return groups.drop(1).all { it.length == 3 }
+        if (groups.drop(1).all { it.length == 3 }) return true
+        return indian && first.length <= 2 && groups.last().length == 3 &&
+            groups.subList(1, groups.size - 1).all { it.length == 2 }
     }
 
     /** Abstand zweier positiver Werte auf der log. Skala (Verhältnis zu 1). */

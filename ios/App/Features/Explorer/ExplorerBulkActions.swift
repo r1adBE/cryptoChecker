@@ -73,6 +73,8 @@ extension ExplorerViewModel {
             return
         }
         let outcome = data.addWatches(market: market, pairs: bulkPairs, group: data.addTargetGroup)
+        // Merkliste gesperrt: keine Zählung «0 hinzugefügt», Hinweis und Haptik kommen von `.watchlistLockedHint`
+        if outcome.locked { return }
         let anyAdded = outcome.added > 0
         var text = L("explorer_bulk_added", count: outcome.added, outcome.added, outcome.skipped)
         // Merkliste voll: nur bis zur Grenze angelegt, die Rückmeldung nennt die übrigen — wie Android

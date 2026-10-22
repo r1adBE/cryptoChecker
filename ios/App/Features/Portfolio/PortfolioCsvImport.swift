@@ -1,3 +1,4 @@
+import Accessibility
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -32,12 +33,30 @@ struct PortfolioCsvImportSheet: View {
     @State var ratesStale = false
     /// Schreiben gescheitert: nichts importiert — Meldung statt «0 importiert» (wie Android `CsvImportState.SaveFailed`).
     @State private var saveFailed = false
+    /// Seit Build 103: Lesart, mit der die gezeigte Vorschau gebaut wurde (die beim Laden: Regel).
+    @State var builtWith = CsvReadChoice()
+    /// Seit Build 103: Lesart geändert, Datei wird neu gelesen — «Importieren» aus, Vorschau gedimmt (wie Android).
+    @State var rereading = false
+    /// Seit Build 103: gewählte Umbuchungen angewendet, gemerkt statt bei jeder Auswertung von `body` neu
+    /// (`updatePlan` nach jeder Änderung von Vorschau, Kandidaten oder Wahl) — wie Android `remember`.
+    @State var plan: CsvTransferPlan
+    /// Auszahlungen in `plan` (seit Build 103 gemerkt).
+    @State var withdrawals: [CsvImportTx] = []
+    /// Seit Build 103: alle Umbuchungen bzw. Auszahlungen im eigenen Blatt (Lazy-Liste).
+    @State var showAllLinks = false
+    @State var showAllWithdrawals = false
 
     init(loaded: CsvImportLoaded, onImported: @escaping (_ count: Int, _ enabled: Bool) -> Void) {
         self.loaded = loaded
         self.onImported = onImported
         _preview = State(initialValue: loaded.preview)
+        let plan = CsvTransferMatch.apply(loaded.preview.transactions, links: [], chosen: [])
+        _plan = State(initialValue: plan)
+        _withdrawals = State(initialValue: plan.transactions.filter { $0.type == .WITHDRAWAL })
     }
+
+    /// Seit Build 103: aktuell gewählte Lesart.
+    var chosenRead: CsvReadChoice { CsvReadChoice(zone: zone, dateOrder: dateOrder, decimalMark: decimalMark) }
 
     @EnvironmentObject private var data: AppData
     @Environment(\.appAccent) var accent
@@ -46,10 +65,14 @@ struct PortfolioCsvImportSheet: View {
     private static let previewRows = 8
 
     /// Gewählte Umbuchungen angewendet: so wird gespeichert (Auszahlungen darin brauchen keine Wahl mehr) — wie Android.
-    private var plan: CsvTransferPlan { CsvTransferMatch.apply(preview.transactions, links: links, chosen: linked) }
+    /// Seit Build 103 nur nach Änderungen neu berechnet.
+    func updatePlan() {
+        let next = CsvTransferMatch.apply(preview.transactions, links: links, chosen: linked)
+        plan = next
+        withdrawals = next.transactions.filter { $0.type == .WITHDRAWAL }
+    }
 
     var body: some View {
-        let plan = self.plan
         let txs = plan.transactions
         let total = txs.count + plan.storedUpdates.count
         NavigationStack {
@@ -62,8 +85,15 @@ struct PortfolioCsvImportSheet: View {
                     if !preview.columns.isEmpty {
                         hint(L("portfolio_csv_import_columns", preview.columns.joined(separator: ", ")))
                     }
+                    // Seit Build 103: neue Lesart wird gelesen — Hinweis, Rest gedimmt
+                    if rereading {
+                        Text(L("portfolio_csv_import_rereading"))
+                            .font(.subheadline)
+                            .foregroundStyle(accent.primary)
+                    }
                     Text(L("portfolio_csv_import_new", count: txs.count))
                         .font(.body.weight(.semibold))
+                        .opacity(rereading ? 0.4 : 1)
                     if preview.duplicates > 0 {
                         Text(L("portfolio_csv_import_duplicates", count: preview.duplicates))
                     }
@@ -97,24 +127,27 @@ struct PortfolioCsvImportSheet: View {
                     if preview.dateOrderAmbiguous { dateOrderPicker }
                     // Kein Dezimalzeichen erkennbar, aber «42,000»: 42000 oder 42 wählen lassen — wie Android
                     if let sample = preview.decimalSample { decimalPicker(sample) }
-                    // Auszahlung + Einzahlung desselben Coins (Datei oder früherer Import): als eine Umbuchung buchen
-                    if !links.isEmpty { transferLinks }
-                    // Auszahlungen in der Datei: je Zeile wählen — eigene Wallet (Umbuchung) oder verlässt das Portfolio
-                    let withdrawals: [CsvImportTx] = txs.filter { $0.type == .WITHDRAWAL }
-                    if !withdrawals.isEmpty {
-                        withdrawalChoices(withdrawals)
-                    }
-                    if !txs.isEmpty {
-                        Divider().padding(.vertical, Spacing.xs)
-                        ForEach(Array(txs.prefix(Self.previewRows).enumerated()), id: \.offset) { _, tx in
-                            Text(rowText(tx))
-                                .font(.subheadline.monospacedDigit())
-                                .lineLimit(1)
+                    VStack(alignment: .leading, spacing: Spacing.sm) {
+                        // Auszahlung + Einzahlung desselben Coins (Datei oder früherer Import): als eine Umbuchung buchen
+                        if !links.isEmpty { transferLinks }
+                        // Auszahlungen in der Datei: je Zeile wählen — eigene Wallet (Umbuchung) oder verlässt das Portfolio
+                        if !withdrawals.isEmpty {
+                            withdrawalChoices(withdrawals)
                         }
-                        if txs.count > Self.previewRows {
-                            hint(L("portfolio_csv_import_more", txs.count - Self.previewRows))
+                        if !txs.isEmpty {
+                            Divider().padding(.vertical, Spacing.xs)
+                            ForEach(Array(txs.prefix(Self.previewRows).enumerated()), id: \.offset) { _, tx in
+                                Text(rowText(tx))
+                                    .font(.subheadline.monospacedDigit())
+                                    .lineLimit(1)
+                            }
+                            if txs.count > Self.previewRows {
+                                hint(L("portfolio_csv_import_more", txs.count - Self.previewRows))
+                            }
                         }
                     }
+                    // Seit Build 103 gedimmt, solange neu gelesen wird
+                    .opacity(rereading ? 0.4 : 1)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, Spacing.lg)
@@ -131,12 +164,17 @@ struct PortfolioCsvImportSheet: View {
                     Button(L("portfolio_csv_import_confirm", total), action: confirm)
                         .accessibilityIdentifier(UiTestTags.csvImportConfirm)
                         .fontWeight(.semibold)
-                        .disabled(total == 0 || !CsvImportMapping.allWithdrawalsDecided(txs, choices: choices))
+                        .disabled(total == 0 || !CsvImportMapping.allWithdrawalsDecided(txs, choices: choices)
+                                  || !CsvReadChoice.canConfirm(rereading: rereading, builtWith: builtWith, chosen: chosenRead))
                 }
             }
         }
         .tint(accent.primary)
         .onAppear { propose() }
+        // Seit Build 103: Screenreader hört, dass neu gelesen wird
+        .onChange(of: rereading) { _, now in
+            if now { AccessibilityNotification.Announcement(L("portfolio_csv_import_rereading")).post() }
+        }
         .alert(L("portfolio_csv_import_action"), isPresented: $saveFailed) {
             Button(L("action_close"), role: .cancel) { dismiss() }
         } message: {
@@ -159,6 +197,7 @@ struct PortfolioCsvImportSheet: View {
                                                      stored: data.portfolio.compactMap(PortfolioCsvImporter.storedMove))
         linked = CsvTransferMatch.carryOver(candidates, seen: Set(links.map(\.key)), chosen: linked)
         links = candidates
+        updatePlan()
     }
 
     /// Datei mit der gewählten Zeitzone, Reihenfolge Tag/Monat und dem Dezimalzeichen neu lesen und zuordnen — einmal
@@ -173,6 +212,8 @@ struct PortfolioCsvImportSheet: View {
         let order = dateOrder
         let mark = decimalMark
         let refetch = ratesStale
+        // Seit Build 103: bis die Vorschau zur Wahl passt, kein «Importieren»
+        rereading = true
         Task { @MainActor in
             let computed = await Task.detached(priority: .userInitiated) {
                 () -> (preview: CsvImportPreview, rates: [String: [(day: Int, rate: Double)]]) in
@@ -190,6 +231,8 @@ struct PortfolioCsvImportSheet: View {
                 ratesStale = false
             }
             preview = computed.preview
+            builtWith = CsvReadChoice(zone: chosenZone, dateOrder: order, decimalMark: mark)
+            rereading = false
             propose()
         }
     }
@@ -209,7 +252,9 @@ struct PortfolioCsvImportSheet: View {
     }
 
     private func confirm() {
-        let plan = self.plan
+        // Seit Build 103: nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen Lesart
+        guard CsvReadChoice.canConfirm(rereading: rereading, builtWith: builtWith, chosen: chosenRead) else { return }
+        let plan = CsvTransferMatch.apply(preview.transactions, links: links, chosen: linked)
         // Jede Auszahlung (ohne verknüpfte Umbuchung) braucht eine Wahl (der Knopf ist sonst aus) — wie Android
         guard CsvImportMapping.allWithdrawalsDecided(plan.transactions, choices: choices) else { return }
         var destinations: [String: String?] = [:]

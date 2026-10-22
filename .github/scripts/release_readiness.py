@@ -12,6 +12,7 @@
   warning required store text empty or missing (title / name / description), no screenshots
           android/docs/PLAY_STORE.md / ios/APP_STORE.md (private guides, only if present): version or
             versionCode / build number named there differs from android/app/build.gradle.kts
+  notice  private guide missing (public repository): named as "not checked" instead of skipped silently
 
 The folder review_information (contact data for the App Review) is never read or listed.
 Usage: python3 -I release_readiness.py <repository root> <findings file>
@@ -195,6 +196,8 @@ def check_store_docs(repo):
     for rel, patterns in DOC_PATTERNS.items():
         path = os.path.join(repo, *rel.split("/"))
         if not os.path.isfile(path):
+            # Seit Build 103 sichtbar statt still: im öffentlichen Repository fehlen die privaten Anleitungen
+            add("notice", f"{rel}: not checked (private file, not in this repository)")
             continue
         wrong = []
         with open(path, encoding="utf-8") as f:

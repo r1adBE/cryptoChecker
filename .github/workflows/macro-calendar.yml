@@ -28,8 +28,8 @@ jobs:
       issues: write     # health-check issue (macro_calendar.py)
     timeout-minutes: 10
     steps:
-      # The token is not stored in .git/config, so the build step (third-party web pages)
-      # cannot read it; only the push below passes it explicitly.
+      # The token is not stored in .git/config and the build step (third-party web pages)
+      # gets none in its environment; only the health-check, push and Pages steps get it.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -37,9 +37,15 @@ jobs:
       - name: Build events.json
         env:
           PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 .github/scripts/macro_calendar.py --output docs/macro/events.json --skip-health
+
+      # Downloads nothing: reads events.json and status.json from the build step, opens/closes the issue
+      - name: Health check
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-        run: python3 .github/scripts/macro_calendar.py --output docs/macro/events.json
+        run: python3 .github/scripts/macro_calendar.py --output docs/macro/events.json --health-only
 
       - name: Commit if changed
         id: commit

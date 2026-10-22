@@ -15,12 +15,14 @@ import com.cryptochecker.app.domain.watch.WatchFilter
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.settings.WatchlistSettings
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
@@ -84,7 +86,10 @@ internal class WatchlistContentFlows(
         } else {
             GroupFilter(groups, group, tokens, alpha, kinds)
         }
-    }.stateIn(scope, SharingStarted.WhileSubscribed(5_000), null)
+    }
+        // Erster Zugriff liest und dekodiert die Namensdatei (TokenIdentityStore): nicht auf Main (seit Build 103)
+        .flowOn(Dispatchers.Default)
+        .stateIn(scope, SharingStarted.WhileSubscribed(5_000), null)
 
     /** Alle Alarme der Datenbank (Paar-Alarme), für die Zählungen unten. */
     private val pairAlarms = watchRepository.observeAllAlarms()

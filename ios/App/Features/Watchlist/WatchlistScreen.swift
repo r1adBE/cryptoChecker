@@ -47,6 +47,8 @@ struct WatchlistScreen: View {
     @State var showOverview = false
     /// Glocke ohne Alarm bei mehreren Paaren: erst das Paar wählen (`AlarmBellRoute.pickPair`).
     @State var pickAlarmPair = false
+    /// Seit Build 103: im Auswahlblatt gewähltes Paar — dessen Alarm-Seite öffnet erst, wenn das Blatt zu ist.
+    @State var pickedAlarmPair: Int64?
     /// Logo mit App-Namen im Menü: «Über die App».
     @State var showAbout = false
     @State var alarmsFor: Int64?
@@ -186,6 +188,8 @@ struct WatchlistScreen: View {
             WatchlistBanner(message: $banner) { deleted in undoDelete(deleted) }
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
         }
+        // Schreibweg abgelehnt (Merkliste gesperrt, `WatchlistStorageLock`): kurzer Hinweis mit Warn-Haptik
+        .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, icon: "lock.fill", long: true) }
         // Banner «Alarm setzen» weg (abgelaufen, weggewischt, ersetzt): jetzt nach Mitteilungen fragen
         .onChange(of: banner?.id) { _, _ in askNotificationsAfterHint() }
         .haptic(.success, trigger: firstAddHaptic)

@@ -36,10 +36,12 @@ extension PortfolioHistorySource {
     private static let chainMissMillis: Int64 = 60 * 60_000
     private static let chainParallel = 4
     private static let chainLock = NSLock()
+    // Seit Build 103 begrenzt (`BoundedCache`, 512 Coins wie `chainMemory`/`chainMisses` mit `MEMORY_CACHE_ENTRIES`,
+    // Android) statt unbegrenzter Wörterbücher.
     /// Coin → (Reihe der Kette samt Weg, Abfragezeit); nur unter `chainLock`.
-    nonisolated(unsafe) private static var chainMemory: [String: (entry: PortfolioOwnCloses, at: Int64)] = [:]
+    nonisolated(unsafe) private static var chainMemory = BoundedCache<String, (entry: PortfolioOwnCloses, at: Int64)>()
     /// Coin → Zeit der letzten Abfrage ohne Treffer; nur unter `chainLock`.
-    nonisolated(unsafe) private static var chainMisses: [String: Int64] = [:]
+    nonisolated(unsafe) private static var chainMisses = BoundedCache<String, Int64>()
 
     private static func chainCacheKey(_ coin: String) -> String { "phistc_" + coin }
 
@@ -75,26 +77,26 @@ extension PortfolioHistorySource {
     /// Bezug (`chainReference`) — sonst höchstens ein älterer Stand (den der Verlauf noch gegen den Kurs prüft).
     private static func chainCloses(of coin: String, span: Int, usdtUsd: [Int: Double]) async -> PortfolioOwnCloses? {
         let now = TimeUtils.nowMillis
-        let hit: (entry: PortfolioOwnCloses, at: Int64)? = chainLock.withLock { chainMemory[coin] }
+        let hit: (entry: PortfolioOwnCloses, at: Int64)? = chainLock.withLock { chainMemory.get(coin) }
         if let hit, hit.entry.entry.span >= span, CycleCachePolicy.isFresh(savedAt: hit.at, now: now, ttl: ttl) {
             return hit.entry
         }
         let stored = CycleCache.read(chainCacheKey(coin), as: PortfolioOwnCloses.self)
         if let stored, stored.value.entry.span >= span, CycleCachePolicy.isFresh(savedAt: stored.savedAt, now: now, ttl: ttl) {
-            chainLock.withLock { chainMemory[coin] = (entry: stored.value, at: stored.savedAt) }
+            chainLock.withLock { chainMemory.set(coin, (entry: stored.value, at: stored.savedAt)) }
             return stored.value
         }
         let older = stored?.value ?? hit?.entry
-        let missAt: Int64? = chainLock.withLock { chainMisses[coin] }
+        let missAt: Int64? = chainLock.withLock { chainMisses.get(coin) }
         if let missAt, now - missAt >= 0, now - missAt < chainMissMillis { return older }
         guard let reference = await chainReference(coin) else { return older }
         guard let fresh = await fetchChain(coin, span: span, now: now, usdtUsd: usdtUsd, reference: reference) else {
-            chainLock.withLock { chainMisses[coin] = now }
+            chainLock.withLock { chainMisses.set(coin, now) }
             return older
         }
         chainLock.withLock {
-            chainMisses[coin] = nil
-            chainMemory[coin] = (entry: fresh, at: now)
+            chainMisses.removeValue(forKey: coin)
+            chainMemory.set(coin, (entry: fresh, at: now))
         }
         CycleCache.write(chainCacheKey(coin), fresh, savedAt: now)
         return fresh

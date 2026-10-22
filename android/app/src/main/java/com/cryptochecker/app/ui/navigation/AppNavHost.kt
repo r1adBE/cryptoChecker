@@ -328,10 +328,16 @@ fun AppNavHost(
                 }
 
                 composable<ScreenRoute.PortfolioCoin> { entry ->
+                    // Seit Build 103: dieselbe PortfolioViewModel-Instanz wie der Tab (keine doppelten Abrufe); fehlt
+                    // dessen Eintrag im Stapel (heute nie, nur aus dem Tab erreichbar), zur Not eine eigene
+                    val portfolioOwner = androidx.compose.runtime.remember(entry) {
+                        runCatching { navigation.getBackStackEntry<ScreenRoute.Portfolio>() }.getOrNull() ?: entry
+                    }
                     PortfolioGate(portfolioAccess, requestUnlock, lockViewModel) {
                         PortfolioDetailScreen(
                             coin = entry.toRoute<ScreenRoute.PortfolioCoin>().coin,
-                            onBack = { navigation.popBackStack() }
+                            onBack = { navigation.popBackStack() },
+                            viewModel = hiltViewModel(viewModelStoreOwner = portfolioOwner),
                         )
                     }
                 }

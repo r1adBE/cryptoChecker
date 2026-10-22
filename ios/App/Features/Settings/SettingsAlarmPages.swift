@@ -251,6 +251,11 @@ struct NotificationPermissionRow: View {
 /// Wie Android `PricePairsPage`.
 struct PricePairsPage: View {
     @EnvironmentObject var data: AppData
+    /// Merkliste gesperrt: Hinweis «watchlist_storage_locked» nach einem abgelehnten Schalter (`.watchlistLockedHint`).
+    @State private var toast: String?
+    /// Zählt abgelehnte Schalter (Merkliste gesperrt): zeichnet sie neu, damit sie den echten Zustand zeigen — der
+    /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
+    @State private var refusedToggles = 0
 
     var body: some View {
         SettingsSubPage(title: L("settings_price_notifications")) {
@@ -281,10 +286,15 @@ struct PricePairsPage: View {
                         set: { enabled in
                             if enabled { Task { _ = await Notifier.requestPermission() } }
                             if let w = data.watch(watch.id) { data.setNotificationEnabled(w, enabled) }
+                            if data.watchlistWritesBlocked { refusedToggles &+= 1 }
                         }
                     ))
+                    .id(refusedToggles)
                 }
             }
         }
+        // Schalter bzw. «Alle an/aus» abgelehnt (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
+        .watchlistLockedHint { toast = $0 }
+        .toast($toast)
     }
 }

@@ -42,7 +42,7 @@ extension PortfolioScreen {
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { removed = data.deletePortfolioCoin(coin) }
         guard !removed.isEmpty else {
             // Nicht geschrieben (gesperrte Datei): kein «Coin entfernt», sondern sagen, dass nichts gespeichert wird
-            if expected > 0 { banner = .portfolioNotSaved }
+            if expected > 0 { banner = .portfolioNotWritten(data) }
             return
         }
         deleteTick += 1
@@ -137,7 +137,7 @@ extension PortfolioScreen {
         var cleared = true
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { cleared = data.clearPortfolio() }
         guard cleared else {
-            banner = .portfolioNotSaved
+            banner = .portfolioNotWritten(data)
             return
         }
         guard !before.isEmpty else { return }
@@ -158,7 +158,7 @@ extension PortfolioScreen {
     private func restoreOrWarn(_ restore: [PortfolioTx]) {
         var saved = true
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { saved = data.restorePortfolioTxs(restore) }
-        if !saved { banner = .portfolioNotSaved }
+        if !saved { banner = .portfolioNotWritten(data) }
     }
 
     /// «Import rückgängig»: Lauf löschen, Banner mit «Rückgängig» (stellt die Transaktionen wieder her) — wie Android.
@@ -189,5 +189,17 @@ extension WatchlistBannerMessage {
     static var portfolioNotSaved: WatchlistBannerMessage {
         WatchlistBannerMessage(text: L("portfolio_storage_locked"), icon: "lock.trianglebadge.exclamationmark",
                                long: true)
+    }
+
+    /// Nicht geschrieben wegen eines Schreibfehlers (nicht gesperrt): «Konnte nicht gespeichert werden» — seit Build 103,
+    /// wie Android `portfolio_write_failed`.
+    static var portfolioWriteFailed: WatchlistBannerMessage {
+        WatchlistBannerMessage(text: L("portfolio_write_failed"), icon: "exclamationmark.triangle", long: true)
+    }
+
+    /// Hinweis nach einem nicht geschriebenen Schreibweg: gesperrt (`AppData.portfolioWriteLocked`) → `portfolioNotSaved`,
+    /// sonst `portfolioWriteFailed` — wie Android `PortfolioWriteResult.notSavedText`.
+    @MainActor static func portfolioNotWritten(_ data: AppData) -> WatchlistBannerMessage {
+        data.portfolioWriteLocked ? .portfolioNotSaved : .portfolioWriteFailed
     }
 }

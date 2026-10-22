@@ -7,6 +7,7 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.refresh.CheckTrigger
 import com.cryptochecker.app.notification.AppNotifier
 import com.cryptochecker.app.notification.refreshNotification
@@ -85,9 +86,9 @@ class PriceUpdateWorker @AssistedInject constructor(
 
     /** Wecker «Pünktlich prüfen» abgleichen (stellt nur, wenn keiner gestellt ist); Fehler bleiben still. */
     private suspend fun syncExact() {
-        runCatching {
+        runCatchingCancellable {
             exactScheduler.sync(settingsRepository.current().exactChecks, hasWork = backgroundCheck.hasWork())
-        }.onFailure { if (it is CancellationException) throw it }
+        }
     }
 
     private fun BackgroundWorkPolicy.WorkOutcome.toResult(): Result = when (this) {

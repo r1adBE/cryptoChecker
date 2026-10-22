@@ -1,4 +1,4 @@
-Alarm, gdy Bitcoin osiągnie Twoją cenę – z giełdy, której naprawdę używasz. Za darmo, bez konta.
+Alarm, gdy Bitcoin osiągnie Twoją cenę – z giełdy, której naprawdę używasz. Przy zamkniętej aplikacji iOS sprawdza rzadko – często dopiero po kilku godzinach, a po zamknięciu aplikacji przesunięciem wcale. Najpewniej przy otwartej aplikacji. Krótkie skoki pomiędzy mogą umknąć; aplikacja Ci o tym mówi. Za darmo, bez konta.
 
 CO JĄ WYRÓŻNIA
 • Twoja giełda, nie średnia: każdy wiersz pokazuje ostatnią cenę pary na wybranej giełdzie – Binance, Coinbase, Kraken, OKX, Bybit i wiele innych.
@@ -10,7 +10,6 @@ UCZCIWIE O DANYCH
 • „Oszczędny” jest domyślny: ceny odświeżają się przy otwarciu aplikacji i co pewien czas w tle. „Na żywo, gdy otwarta” dodaje ceny na żywo z Binance, Bybit, OKX, Coinbase i Kraken, gdy lista jest otwarta.
 • Zmiana % i wykresy pochodzą najpierw z giełdy danej pary; jeśli nie ma ona świec, aplikacja używa Binance lub Coinbase i o tym informuje.
 • Fear & Greed, dominacja i dane on-chain z alternative.me, CoinGecko i Coin Metrics.
-• Przy zamkniętej aplikacji iOS sprawdza rzadko – często dopiero po kilku godzinach, a po zamknięciu aplikacji przesunięciem wcale. Najpewniej przy otwartej aplikacji. Krótkie skoki pomiędzy mogą umknąć; aplikacja Ci o tym mówi.
 • Kwoty opuszczają urządzenie tylko przez Twój eksport (CSV, kopia zapasowa) lub zaszyfrowane w kopii iCloud/urządzenia. Do cen trafiają tylko symbole pary – do giełdy danej pary; do tego kursy walut (Frankfurter), dane rynkowe i logo (CoinGecko, Binance), lustra danych (GitHub). Jeśli obserwujesz adresy lub xpub, publiczne węzły blockchain widzą adresy (przy xpub – pochodne) i Twój adres IP.
 
 LISTA OBSERWOWANYCH

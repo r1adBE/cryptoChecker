@@ -1,0 +1,347 @@
+{
+  "_comment": "Bedarf der periodischen Hintergrund-Aktualisierung (seit Build 103): BackgroundWorkPolicy.periodicNeeded / portfolioWork (Android, PriceUpdateScheduler) und BackgroundWorkDemand (iOS, BackgroundRefresh.scheduleRefresh). Ohne Bedarf wird die Aufgabe abgesagt. Fehlende Felder in «demand» = false, «pairs» fehlt = keine Paare. Gemeinsam für PeriodicNeededParityTest.kt und PeriodicNeededParityTests.swift. Nur iOS (plattformspezifisch, nicht hier): Fear & Greed/Kennzahlen und Live-Aktivität laufen in derselben Aufgabe.",
+  "periodicNeeded": [
+    {
+      "name": "nothing",
+      "demand": {
+        "pairs": []
+      },
+      "expected": false
+    },
+    {
+      "name": "pairs without alarm, notification switch off, no widget",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": false,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": true,
+            "ttsEnabled": true
+          }
+        ]
+      },
+      "expected": false
+    },
+    {
+      "name": "alarm on an active pair",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": false,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          },
+          {
+            "disabled": false,
+            "hasEnabledAlarm": true,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          }
+        ]
+      },
+      "expected": true
+    },
+    {
+      "name": "alarm only on a disabled pair, with pair widget",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": true,
+            "hasEnabledAlarm": true,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          }
+        ],
+        "pairWidgets": true
+      },
+      "expected": false
+    },
+    {
+      "name": "price notification: switch and pair",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": false,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": true,
+            "ttsEnabled": false
+          }
+        ],
+        "priceNotifications": true
+      },
+      "expected": true
+    },
+    {
+      "name": "price notification switch, pair without notification",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": false,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          }
+        ],
+        "priceNotifications": true
+      },
+      "expected": false
+    },
+    {
+      "name": "price notification of a disabled pair",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": true,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": true,
+            "ttsEnabled": false
+          }
+        ],
+        "priceNotifications": true
+      },
+      "expected": false
+    },
+    {
+      "name": "price speech: tts prices and pair",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": false,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": false,
+            "ttsEnabled": true
+          }
+        ],
+        "ttsPrices": true
+      },
+      "expected": true
+    },
+    {
+      "name": "price speech off (alarms only), pair with tts",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": false,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": false,
+            "ttsEnabled": true
+          }
+        ],
+        "ttsPrices": false
+      },
+      "expected": false
+    },
+    {
+      "name": "pair widget with an active pair",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": false,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          }
+        ],
+        "pairWidgets": true
+      },
+      "expected": true
+    },
+    {
+      "name": "activity alerts with an active pair",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": false,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          }
+        ],
+        "activityAlerts": true
+      },
+      "expected": true
+    },
+    {
+      "name": "pair widget and activity without pairs",
+      "demand": {
+        "pairs": [],
+        "pairWidgets": true,
+        "activityAlerts": true
+      },
+      "expected": false
+    },
+    {
+      "name": "pair widget, all pairs disabled",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": true,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          },
+          {
+            "disabled": true,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          }
+        ],
+        "pairWidgets": true
+      },
+      "expected": false
+    },
+    {
+      "name": "portfolio work without pairs",
+      "demand": {
+        "pairs": [],
+        "portfolioWork": true
+      },
+      "expected": true
+    },
+    {
+      "name": "gas or depeg alarm without pairs",
+      "demand": {
+        "pairs": [],
+        "marketAlarms": true
+      },
+      "expected": true
+    },
+    {
+      "name": "pulse widget without pairs",
+      "demand": {
+        "pairs": [],
+        "pulseWidget": true
+      },
+      "expected": true
+    },
+    {
+      "name": "watchlist kept (stored state not readable)",
+      "demand": {
+        "pairs": [],
+        "watchlistKept": true
+      },
+      "expected": true
+    },
+    {
+      "name": "watchlist kept overrides empty demand with disabled pairs",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": true,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          }
+        ],
+        "watchlistKept": true
+      },
+      "expected": true
+    },
+    {
+      "name": "mixed: disabled pair with alarm, active pair with notification but switch off",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": true,
+            "hasEnabledAlarm": true,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          },
+          {
+            "disabled": false,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": true,
+            "ttsEnabled": false
+          }
+        ]
+      },
+      "expected": false
+    },
+    {
+      "name": "mixed: second active pair has alarm",
+      "demand": {
+        "pairs": [
+          {
+            "disabled": true,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          },
+          {
+            "disabled": false,
+            "hasEnabledAlarm": false,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          },
+          {
+            "disabled": false,
+            "hasEnabledAlarm": true,
+            "notificationEnabled": false,
+            "ttsEnabled": false
+          }
+        ]
+      },
+      "expected": true
+    }
+  ],
+  "portfolioWork": [
+    {
+      "name": "portfolio on, alarm armed",
+      "portfolioEnabled": true,
+      "alarmOn": true,
+      "portfolioKept": false,
+      "widget": false,
+      "expected": true
+    },
+    {
+      "name": "portfolio on, stored state kept",
+      "portfolioEnabled": true,
+      "alarmOn": false,
+      "portfolioKept": true,
+      "widget": false,
+      "expected": true
+    },
+    {
+      "name": "portfolio on, nothing",
+      "portfolioEnabled": true,
+      "alarmOn": false,
+      "portfolioKept": false,
+      "widget": false,
+      "expected": false
+    },
+    {
+      "name": "portfolio off, kept does not count",
+      "portfolioEnabled": false,
+      "alarmOn": false,
+      "portfolioKept": true,
+      "widget": false,
+      "expected": false
+    },
+    {
+      "name": "portfolio off, alarm does not count",
+      "portfolioEnabled": false,
+      "alarmOn": true,
+      "portfolioKept": false,
+      "widget": false,
+      "expected": false
+    },
+    {
+      "name": "portfolio widget alone",
+      "portfolioEnabled": false,
+      "alarmOn": false,
+      "portfolioKept": false,
+      "widget": true,
+      "expected": true
+    },
+    {
+      "name": "portfolio on with widget",
+      "portfolioEnabled": true,
+      "alarmOn": false,
+      "portfolioKept": false,
+      "widget": true,
+      "expected": true
+    }
+  ]
+}

@@ -18,11 +18,13 @@ sealed interface AddWatchOutcome {
     data object Duplicate : AddWatchOutcome
     /** Merkliste hat schon [WatchlistLimits.MAX_PAIRS] Paare. */
     data object Full : AddWatchOutcome
+    /** Merkliste gesperrt ([userWriteRefused]): nichts angelegt, der kurze Hinweis ist schon ausgelöst. */
+    data object Locked : AddWatchOutcome
 }
 
 /**
  * Legt ein Paar in der Watchlist an — wie [tryAddWatch], ohne Grund für «nicht angelegt».
- * @return die Id des Eintrags, oder null, wenn er bereits vorhanden war bzw. die Merkliste voll ist.
+ * @return die Id des Eintrags, oder null, wenn er bereits vorhanden war bzw. die Merkliste voll oder gesperrt ist.
  */
 suspend fun WatchRepository.addWatch(
     market: MarketInfo,
@@ -35,14 +37,14 @@ suspend fun WatchRepository.addWatch(
  * Legt ein Paar in der Watchlist an.
  * @param notificationEnabled Kurs-Benachrichtigung des Paares (Standard: [WatchRepository.DEFAULT_NOTIFICATION_ENABLED];
  *   einschalten bzw. ausschalten im Paar-Menü)
- * @return angelegt (mit Id), schon vorhanden oder Merkliste voll ([WatchlistLimits.MAX_PAIRS]).
+ * @return angelegt (mit Id), schon vorhanden, Merkliste voll ([WatchlistLimits.MAX_PAIRS]) oder gesperrt.
  */
 suspend fun WatchRepository.tryAddWatch(
     market: MarketInfo,
     pair: MarketPair,
     group: String? = null,
     notificationEnabled: Boolean = WatchRepository.DEFAULT_NOTIFICATION_ENABLED,
-): AddWatchOutcome = database.withTransaction {
+): AddWatchOutcome = if (userWriteRefused()) AddWatchOutcome.Locked else database.withTransaction {
     // Suchen, Zählen und Einfügen in EINEM Vorgang: Zwei gleichzeitige Aufnahmen (Doppeltipp, Sammelaufnahme)
     // legen sonst dasselbe Paar zweimal an (bei Börsen ist die Kennung null, der Index greift dort nicht)
     // Paar aus einer älteren, noch nicht neu geladenen Paarliste: inverse Perpetuals wie heute gespeichert
@@ -78,13 +80,15 @@ suspend fun WatchRepository.tryAddWatch(
 
 /**
  * Legt mehrere Paare auf einmal an. Bereits vorhandene werden übersprungen, nicht doppelt eingetragen; ist die
- * Merkliste voll ([WatchlistLimits.MAX_PAIRS]), kommen die übrigen nicht mehr dazu ([BulkAddResult.refused]).
+ * Merkliste voll ([WatchlistLimits.MAX_PAIRS]), kommen die übrigen nicht mehr dazu ([BulkAddResult.refused]). Gesperrt
+ * ([userWriteRefused]): nichts angelegt ([BulkAddResult.locked]), ein einziger Hinweis.
  */
 suspend fun WatchRepository.addWatches(
     market: MarketInfo,
     pairs: List<MarketPair>,
     group: String? = null,
 ): BulkAddResult {
+    if (userWriteRefused()) return BulkAddResult(added = 0, skipped = 0, locked = true)
     var added = 0
     var skipped = 0
     var refused = 0
@@ -94,8 +98,46 @@ suspend fun WatchRepository.addWatches(
             is AddWatchOutcome.Added -> added++
             AddWatchOutcome.Duplicate -> skipped++
             AddWatchOutcome.Full -> refused++
+            // Erst während der Aufnahme gesperrt (kommt praktisch nicht vor): die übrigen nicht mehr versuchen
+            AddWatchOutcome.Locked -> return BulkAddResult(added = added, skipped = skipped, refused = refused, locked = true)
         }
     }
 
     return BulkAddResult(added = added, skipped = skipped, refused = refused)
 }
+
+/** Ausgang von [restore] (seit Build 103). */
+enum class RestoreOutcome {
+    RESTORED,
+    /** Paar besteht noch, wurde inzwischen neu angelegt, Id vergeben oder Merkliste gesperrt. */
+    BLOCKED,
+    /** Merkliste hat schon [WatchlistLimits.MAX_PAIRS] Paare: nicht zurückgeholt. */
+    FULL,
+}
+
+/**
+ * Gelöschtes Paar unverändert zurückholen: gleiche Id (Ids werden nie neu vergeben,
+ * Room-Primärschlüssel mit AUTOINCREMENT), gleicher Platz, Gruppe, Notiz, Favorit,
+ * Einstellungen und alle Alarme mit ihren Ids — in einem Vorgang. Seit Build 103 wie das Anlegen nur, solange die
+ * Merkliste nicht voll ist ([WatchlistLimits.canAddPair]); «Rückgängig» umging sonst die Obergrenze. Wie iOS
+ * `AppData.restore`.
+ */
+suspend fun WatchRepository.restore(snapshot: WatchSnapshot): RestoreOutcome =
+    if (userWriteRefused()) RestoreOutcome.BLOCKED else database.withTransaction {
+        val watch = snapshot.watch
+        val blocked = watchDao.getWatch(watch.id) != null ||
+            watchDao.findWatchId(
+                watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name,
+                WatchIdentity.pool(watch.marketKey, watch.pairId),
+            ) != null
+        when {
+            blocked -> RestoreOutcome.BLOCKED
+            // Schon vorhanden geht vor «voll» (wie beim Anlegen)
+            !WatchlistLimits.canAddPair(watchDao.countWatches()) -> RestoreOutcome.FULL
+            watchDao.insertWatch(watch) == watch.id -> {
+                snapshot.alarms.forEach { watchDao.insertAlarm(it.copy(watchId = watch.id)) }
+                RestoreOutcome.RESTORED
+            }
+            else -> RestoreOutcome.BLOCKED
+        }
+    }

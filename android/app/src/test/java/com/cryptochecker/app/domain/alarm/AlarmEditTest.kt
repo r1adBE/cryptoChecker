@@ -201,7 +201,11 @@ class AlarmEditTest {
     fun fallingPercentAboveHundredIsRejected() {
         fun draft(condition: AlarmCondition, text: String) =
             AlarmDraft(condition = condition, thresholdText = text, decimalSeparator = '.')
-        assertNull(draft(AlarmCondition.CHANGE_PERCENT_DOWN, "100").thresholdProblem)
+        // Seit Build 103: genau 100 % löste ebenfalls nie aus (Kurs 0 wird nie gemeldet)
+        assertEquals(ThresholdProblem.PERCENT_RANGE, draft(AlarmCondition.CHANGE_PERCENT_DOWN, "100").thresholdProblem)
+        assertEquals(ThresholdProblem.PERCENT_RANGE, draft(AlarmCondition.OI_DOWN, "100").thresholdProblem)
+        assertNull(draft(AlarmCondition.CHANGE_PERCENT_DOWN, "99.99").thresholdProblem)
+        assertNull(draft(AlarmCondition.CHANGE_PERCENT_UP, "100").thresholdProblem)
         assertEquals(ThresholdProblem.PERCENT_RANGE, draft(AlarmCondition.CHANGE_PERCENT_DOWN, "150").thresholdProblem)
         assertNull(draft(AlarmCondition.CHANGE_PERCENT_DOWN, "150").threshold)
         assertEquals(ThresholdProblem.PERCENT_RANGE, draft(AlarmCondition.OI_DOWN, "500").thresholdProblem)

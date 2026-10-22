@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus); seit Build 103 -->
+    <string name="alarm_threshold_error_percent_down_below">Падение должно быть меньше 100 процентов.</string>
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen; seit Build 103 -->
+    <string name="portfolio_csv_import_rereading">Файл читается заново …</string>
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze); seit Build 103 -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="one">Не восстановлено пар: %1$d – список заполнен</item>
+        <item quantity="few">Не восстановлено пар: %1$d – список заполнен</item>
+        <item quantity="many">Не восстановлено пар: %1$d – список заполнен</item>
+        <item quantity="other">Не восстановлено пар: %1$d – список заполнен</item>
+    </plurals>
+</resources>

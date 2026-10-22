@@ -6,7 +6,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** [WatchlistStorageLock]: Alarme sperren, solange die gespeicherte Merkliste nur leer im Arbeitsspeicher steht. */
+/** [WatchlistStorageLock]: Schreibwege sperren, solange die gespeicherte Merkliste nur leer im Arbeitsspeicher steht. */
 class WatchlistStorageLockTest {
 
     @Test
@@ -28,6 +28,21 @@ class WatchlistStorageLockTest {
         val kept = setOf("cryptochecker_portfolio.db")
         assertFalse(WatchlistStorageLock.isLocked(kept))
         assertFalse(WatchlistStorageLock.blocksAlarmSave(kept))
+    }
+
+    /** Seit Build 103 (F-08): gesperrt = nur lesbar wie das Portfolio — alle Schreibwege des Nutzers, nicht nur Alarme. */
+    @Test
+    fun keptWatchlistBlocksAllUserWrites() {
+        assertTrue(WatchlistStorageLock.blocksWrites(setOf("cryptochecker.db")))
+        assertTrue(WatchlistStorageLock.blocksWrites(setOf("cryptochecker.db", "cryptochecker_portfolio.db")))
+    }
+
+    @Test
+    fun inMemoryWithoutStoredStateDoesNotBlockWrites() {
+        // Kein Schlüssel, keine Datei (NOT_SAVED): nichts Gespeichertes zu verlieren, Merkliste bleibt nutzbar
+        assertFalse(WatchlistStorageLock.blocksWrites(emptySet()))
+        // Nur das Portfolio gesperrt: die Merkliste nicht
+        assertFalse(WatchlistStorageLock.blocksWrites(setOf("cryptochecker_portfolio.db")))
     }
 
     @Test

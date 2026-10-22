@@ -36,6 +36,9 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -133,14 +136,17 @@ internal fun WatchSearchField(query: String, onQueryChange: (String) -> Unit, on
             modifier = Modifier.weight(1f).padding(start = 8.dp)
         ) {
             val textStyle = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurface)
+            val hint = stringResource(R.string.watchlist_search_hint)
             if (query.isEmpty()) {
                 Text(
-                    text = stringResource(R.string.watchlist_search_hint),
+                    text = hint,
                     style = textStyle,
                     // Volle onSurfaceVariant (≥ 4.5:1); mit 70 % lag der Platzhalter unter AA
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    // Screenreader liest den Hinweis am Feld selbst, nicht doppelt (seit Build 103)
+                    modifier = Modifier.clearAndSetSemantics {}
                 )
             }
             BasicTextField(
@@ -151,7 +157,8 @@ internal fun WatchSearchField(query: String, onQueryChange: (String) -> Unit, on
                 cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
-                modifier = Modifier.fillMaxWidth().focusRequester(focusRequester)
+                // Bezeichnung für Screenreader, auch wenn schon Text drinsteht (seit Build 103)
+                modifier = Modifier.fillMaxWidth().focusRequester(focusRequester).semantics { contentDescription = hint }
             )
         }
         Box(

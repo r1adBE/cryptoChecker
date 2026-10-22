@@ -150,6 +150,16 @@ object LiveRules {
     /** Kein Lebenszeichen der Verbindung so lange: neu verbinden. */
     const val STALE_CONNECTION_MILLIS = 60_000L
 
+    /** Grösste Nachricht des Stroms (1 MiB, wie iOS `maximumMessageSize`); grössere trennen die Verbindung (seit Build 103). */
+    const val MAX_MESSAGE_BYTES = 1_048_576
+
+    /** Nachricht grösser als [MAX_MESSAGE_BYTES] (UTF-8)? Jede UTF-16-Einheit zählt 1 bis 3 Byte. */
+    fun isMessageTooLarge(text: String): Boolean = when {
+        text.length > MAX_MESSAGE_BYTES -> true
+        text.length.toLong() * 3 <= MAX_MESSAGE_BYTES -> false
+        else -> text.toByteArray(Charsets.UTF_8).size > MAX_MESSAGE_BYTES
+    }
+
     /**
      * Veränderung, die mit dem Live-Kurs gespeichert bzw. gezeigt wird: die des Stroms nur bei
      * Basis «Letzte 24 Std.», passendem Stempel und Börse mit gleitendem Wert — sonst bleibt

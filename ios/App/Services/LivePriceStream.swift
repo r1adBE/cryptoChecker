@@ -267,6 +267,8 @@ actor LivePriceStream {
         var request = URLRequest(url: url)
         request.setValue(HttpUserAgent.value, forHTTPHeaderField: HttpUserAgent.header)
         let socket = session.webSocketTask(with: request)
+        // Ausdrücklich 1 MiB: grössere Nachricht → Fehler → Neuverbindung wie Android (seit Build 103)
+        socket.maximumMessageSize = LiveRules.maxMessageBytes
         socket.resume()
         let clock = LiveClock()
         var received = false

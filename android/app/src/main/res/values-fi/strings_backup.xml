@@ -84,7 +84,8 @@
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
     <string name="portfolio_storage_kept_in_memory">Tallennettuja tietoja ei voi juuri nyt lukea, joten salkkua ei näytetä eikä sitä voi muuttaa. Käynnistä sovellus uudelleen.</string>
     <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste -->
-    <string name="watchlist_storage_kept_in_memory">Tallennettuja tietoja ei voi juuri nyt lukea, joten seurantalistaa ei näytetä eikä nyt tehtyjä muutoksia tallenneta. Käynnistä sovellus uudelleen.</string>
+    <string name="watchlist_storage_kept_in_memory">Tallennettuja tietoja ei voi juuri nyt lukea, joten seurantalistaa ei näytetä eikä sitä voi muuttaa. Käynnistä sovellus uudelleen.</string>
+    <string name="watchlist_storage_locked">Seurantalistaa ei voi muuttaa: tallennettuja tietoja ei voi juuri nyt lukea. Käynnistä sovellus uudelleen.</string>
     <string name="alarm_save_storage_locked">Hälytyksiä ei voi tallentaa: tallennettuja tietoja ei voi juuri nyt lukea. Käynnistä sovellus uudelleen.</string>
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">Varmuuskopiointi ei ole mahdollista: tallennettuja tietoja ei voi juuri nyt lukea. Käynnistä sovellus uudelleen ja yritä uudestaan.</string>

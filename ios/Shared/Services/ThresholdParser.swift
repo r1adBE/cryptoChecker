@@ -6,6 +6,7 @@ import Foundation
 /// - Tausendertrenner ’ ' ‘ ` Leerzeichen, geschütztes und schmales Leerzeichen werden ignoriert.
 /// - Kommen Punkt und Komma vor, ist das letzte der beiden das Dezimalzeichen: «1.234,56», «1,234.56».
 /// - Mehrfach dasselbe Zeichen = Tausendertrennung in Dreiergruppen: «1.234.567», «1,234,567».
+///   Seit Build 103 mit `indianGrouping` (Region mit Zweier-Nebengruppen wie hi-IN) auch indisch: «1,00,000».
 /// - Einmal ein Zeichen mit genau drei Ziffern danach («60,000», «60.000») ist mehrdeutig:
 ///   Mit `priceHint` (aktueller Kurs in der Währung des Schwellwerts) gewinnt die Lesart, die
 ///   näher am Kurs liegt (Verhältnis am nächsten bei 1); ohne Kurs entscheidet das
@@ -31,23 +32,32 @@ enum ThresholdParser {
     /// Dezimalzeichen auf Punkt oder Komma abbilden (anderes → Punkt).
     static func normalized(_ separator: Character) -> Character { separator == "," ? "," : "." }
 
-    static func parse(_ text: String, decimalSeparator: Character, priceHint: Double? = nil) -> Double? {
-        guard let text = canonical(text, decimalSeparator: decimalSeparator, priceHint: priceHint),
+    /// Seit Build 103: Gruppiert die Zahlen-Locale (`LocaleNumbers.appLocale`) indisch? Standard für `indianGrouping`;
+    /// wie Android `ThresholdParser.regionIndianGrouping`.
+    static var regionIndianGrouping: Bool { LocaleNumbers.usesIndianGrouping(LocaleNumbers.appLocale) }
+
+    static func parse(_ text: String, decimalSeparator: Character, priceHint: Double? = nil,
+                      indianGrouping: Bool = ThresholdParser.regionIndianGrouping) -> Double? {
+        guard let text = canonical(text, decimalSeparator: decimalSeparator, priceHint: priceHint,
+                                   indianGrouping: indianGrouping),
               let value = Double(text), value.isFinite, value > 0 else { return nil }
         return value
     }
 
     /// Wie `parse`, aber exakt als `Decimal` (z. B. 0.00000001 BTC = 1 Satoshi ohne Gleitkomma-Rundung)
     /// — für Mengen, Kurse und Gebühren im Portfolio. Wie `ThresholdParser.parseDecimal` (Android).
-    static func parseDecimal(_ text: String, decimalSeparator: Character, priceHint: Double? = nil) -> Decimal? {
-        guard let text = canonical(text, decimalSeparator: decimalSeparator, priceHint: priceHint),
+    static func parseDecimal(_ text: String, decimalSeparator: Character, priceHint: Double? = nil,
+                             indianGrouping: Bool = ThresholdParser.regionIndianGrouping) -> Decimal? {
+        guard let text = canonical(text, decimalSeparator: decimalSeparator, priceHint: priceHint,
+                                   indianGrouping: indianGrouping),
               let value = PortfolioDecimal.parse(text), value > 0 else { return nil }
         return value
     }
 
     /// Gelesene Zahl als Dezimaltext mit Punkt ohne Tausendertrennung («1234.56»), nach den Regeln
     /// oben; nil = ungültig. Der Wert kann 0 sein (prüfen die Aufrufer).
-    private static func canonical(_ text: String, decimalSeparator: Character, priceHint: Double?) -> String? {
+    private static func canonical(_ text: String, decimalSeparator: Character, priceHint: Double?,
+                                  indianGrouping: Bool) -> String? {
         var cleaned = ""
         for c in latinDigits(text).trimmingCharacters(in: .whitespacesAndNewlines) {
             if grouping.contains(c) { continue }
@@ -71,7 +81,7 @@ enum ThresholdParser {
             guard cleaned.filter({ $0 == decimal }).count == 1 else { return nil }
             let intPart = String(cleaned[..<decimalIndex])
             let fracPart = String(cleaned[cleaned.index(after: decimalIndex)...])
-            return validGrouping(intPart, groupSep)
+            return validGrouping(intPart, groupSep, indian: indianGrouping)
                 ? number(intPart.replacingOccurrences(of: String(groupSep), with: ""), fracPart)
                 : nil
         }
@@ -79,7 +89,7 @@ enum ThresholdParser {
         let count = dots > 0 ? dots : commas
         if count > 1 {
             // Mehrfach: nur Tausendertrennung
-            return validGrouping(cleaned, sep) ? cleaned.replacingOccurrences(of: String(sep), with: "") : nil
+            return validGrouping(cleaned, sep, indian: indianGrouping) ? cleaned.replacingOccurrences(of: String(sep), with: "") : nil
         }
         guard let index = cleaned.firstIndex(of: sep) else { return nil }
         let intPart = String(cleaned[..<index])
@@ -99,14 +109,18 @@ enum ThresholdParser {
     /// Wie `parse`, aber auch 0 gilt («0», «0,00», «.0», «0’000») — für Menge und Kurs einer
     /// Transaktion (Kurs 0 = geschenkt). Leer bleibt ungültig (nil); negativ, Exponent oder
     /// Buchstaben («1.5f», «2d») ebenso. Wie `ThresholdParser.parseAllowingZero` (Android).
-    static func parseAllowingZero(_ text: String, decimalSeparator: Character, priceHint: Double? = nil) -> Double? {
-        if let value = parse(text, decimalSeparator: decimalSeparator, priceHint: priceHint) { return value }
+    static func parseAllowingZero(_ text: String, decimalSeparator: Character, priceHint: Double? = nil,
+                                  indianGrouping: Bool = ThresholdParser.regionIndianGrouping) -> Double? {
+        if let value = parse(text, decimalSeparator: decimalSeparator, priceHint: priceHint,
+                             indianGrouping: indianGrouping) { return value }
         return isZero(text) ? 0 : nil
     }
 
     /// Wie `parseAllowingZero`, aber exakt als `Decimal`.
-    static func parseDecimalAllowingZero(_ text: String, decimalSeparator: Character, priceHint: Double? = nil) -> Decimal? {
-        if let value = parseDecimal(text, decimalSeparator: decimalSeparator, priceHint: priceHint) { return value }
+    static func parseDecimalAllowingZero(_ text: String, decimalSeparator: Character, priceHint: Double? = nil,
+                                         indianGrouping: Bool = ThresholdParser.regionIndianGrouping) -> Decimal? {
+        if let value = parseDecimal(text, decimalSeparator: decimalSeparator, priceHint: priceHint,
+                                    indianGrouping: indianGrouping) { return value }
         return isZero(text) ? 0 : nil
     }
 
@@ -150,13 +164,16 @@ enum ThresholdParser {
         return (intPart.isEmpty ? "0" : intPart) + "." + (fracPart.isEmpty ? "0" : fracPart)
     }
 
-    /// Tausendergruppen: erste Gruppe 1–3 Ziffern ohne führende 0, danach je genau drei.
-    private static func validGrouping(_ text: String, _ sep: Character) -> Bool {
+    /// Tausendergruppen: erste Gruppe 1–3 Ziffern ohne führende 0, danach je genau drei. Seit Build 103 mit
+    /// `indian` zusätzlich indisch: erste Gruppe 1–2 Ziffern, dann Zweiergruppen, zuletzt genau drei («12,34,567»).
+    private static func validGrouping(_ text: String, _ sep: Character, indian: Bool = false) -> Bool {
         let groups = text.split(separator: sep, omittingEmptySubsequences: false)
         guard groups.count >= 2 else { return true }
         let first = groups[0]
         if first.isEmpty || first.count > 3 || first.hasPrefix("0") { return false }
-        return groups.dropFirst().allSatisfy { $0.count == 3 }
+        if groups.dropFirst().allSatisfy({ $0.count == 3 }) { return true }
+        return indian && first.count <= 2 && groups[groups.count - 1].count == 3
+            && groups.dropFirst().dropLast().allSatisfy { $0.count == 2 }
     }
 
     /// Abstand zweier positiver Werte auf der log. Skala (Verhältnis zu 1).

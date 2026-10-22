@@ -93,8 +93,14 @@ final class RequestGateTests: XCTestCase {
         let entered = await meter.peak["h.test"]
         XCTAssertEqual(entered, 1)
         let waiter = Task { try await Self.work(gate, meter, host: "h.test", millis: 10) }
-        // Zeit zum Einreihen; auch ein früherer Abbruch endet als CancellationError (Prüfung vor dem Einreihen)
-        try await Task.sleep(nanoseconds: 50_000_000)
+        // Seit Build 103: warten, bis er wirklich in der Schlange steht (statt fester 50 ms) — so prüft der Test sicher
+        // das Verlassen der Schlange und nicht nur die Prüfung vor dem Einreihen
+        for _ in 0..<500 {
+            if await gate.waitingCount == 1 { break }
+            try await Task.sleep(nanoseconds: 10_000_000)
+        }
+        let waitingBefore = await gate.waitingCount
+        XCTAssertEqual(waitingBefore, 1)
         waiter.cancel()
         do {
             _ = try await waiter.value
@@ -102,6 +108,8 @@ final class RequestGateTests: XCTestCase {
         } catch {
             XCTAssertTrue(error is CancellationError, "war \(error)")
         }
+        let waitingAfter = await gate.waitingCount
+        XCTAssertEqual(waitingAfter, 0)
         await latch.open()
         _ = try await blocker.value
         // Platz wieder frei: die nächste Anfrage läuft sofort

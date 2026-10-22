@@ -2960,5 +2960,109 @@
       "EUR",
       "GBP"
     ]
-  }
+  },
+  "_confirmGateComment": "Since Build 103: «Import» only while the file is not being read again (rereading) and the shown preview was built with the current choice (zone, dateOrder DAY_FIRST/MONTH_FIRST, decimalMark; null = rule). Android CsvReadChoice.canConfirm / iOS CsvReadChoice.canConfirm. builtWith null = no preview.",
+  "confirmGate": [
+    {
+      "name": "same choice",
+      "rereading": false,
+      "builtWith": {
+        "zone": null,
+        "dateOrder": null,
+        "decimalMark": null
+      },
+      "chosen": {
+        "zone": null,
+        "dateOrder": null,
+        "decimalMark": null
+      },
+      "expected": true
+    },
+    {
+      "name": "same explicit choice",
+      "rereading": false,
+      "builtWith": {
+        "zone": "UTC",
+        "dateOrder": "MONTH_FIRST",
+        "decimalMark": ","
+      },
+      "chosen": {
+        "zone": "UTC",
+        "dateOrder": "MONTH_FIRST",
+        "decimalMark": ","
+      },
+      "expected": true
+    },
+    {
+      "name": "rereading",
+      "rereading": true,
+      "builtWith": {
+        "zone": null,
+        "dateOrder": null,
+        "decimalMark": null
+      },
+      "chosen": {
+        "zone": null,
+        "dateOrder": null,
+        "decimalMark": null
+      },
+      "expected": false
+    },
+    {
+      "name": "zone changed, old preview",
+      "rereading": false,
+      "builtWith": {
+        "zone": null,
+        "dateOrder": null,
+        "decimalMark": null
+      },
+      "chosen": {
+        "zone": "UTC",
+        "dateOrder": null,
+        "decimalMark": null
+      },
+      "expected": false
+    },
+    {
+      "name": "date order changed",
+      "rereading": false,
+      "builtWith": {
+        "zone": null,
+        "dateOrder": "DAY_FIRST",
+        "decimalMark": null
+      },
+      "chosen": {
+        "zone": null,
+        "dateOrder": "MONTH_FIRST",
+        "decimalMark": null
+      },
+      "expected": false
+    },
+    {
+      "name": "decimal mark changed",
+      "rereading": false,
+      "builtWith": {
+        "zone": null,
+        "dateOrder": null,
+        "decimalMark": "."
+      },
+      "chosen": {
+        "zone": null,
+        "dateOrder": null,
+        "decimalMark": ","
+      },
+      "expected": false
+    },
+    {
+      "name": "no preview",
+      "rereading": false,
+      "builtWith": null,
+      "chosen": {
+        "zone": null,
+        "dateOrder": null,
+        "decimalMark": null
+      },
+      "expected": false
+    }
+  ]
 }

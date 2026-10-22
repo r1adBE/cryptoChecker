@@ -75,6 +75,12 @@ internal class LiveConnection(
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
+                // Übergrosse Nachricht verwerfen und trennen wie bei einem Fehler (seit Build 103, iOS gleich)
+                if (LiveRules.isMessageTooLarge(text)) {
+                    Timber.d("Live-Kurse: %s Nachricht zu gross (%d Zeichen)", spec.exchange, text.length)
+                    webSocket.cancel()
+                    return
+                }
                 lastMessageAt.set(System.currentTimeMillis())
                 if (onText(spec.exchange, text)) receivedData.set(true)
             }

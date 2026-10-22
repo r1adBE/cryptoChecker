@@ -18,14 +18,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -33,16 +31,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
-import com.cryptochecker.app.domain.portfolio.PortfolioFeeUnit
 import com.cryptochecker.app.domain.portfolio.PortfolioTxType
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvDateOrder
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImport
@@ -78,12 +76,18 @@ internal fun CsvImportPreviewSheet(
     onDecimalMark: (Char) -> Unit,
     onDismiss: () -> Unit,
     onConfirm: () -> Unit,
+    /** Seit Build 103: Lesart geändert, Datei wird neu gelesen — Knopf aus, Vorschau gedimmt. */
+    rereading: Boolean = false,
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     // Gewählte Umbuchungen angewendet: so wird gespeichert (Auszahlungen darin brauchen keine Wahl mehr)
     val plan = remember(preview, links, linked) { CsvTransferMatch.apply(preview.transactions, links, linked) }
     val txs = plan.transactions
     val total = txs.size + plan.storedUpdates.size
+    // Seit Build 103 gemerkt: bei Tausenden Zeilen nicht bei jeder Neuzeichnung filtern
+    val withdrawals = remember(txs) { txs.filter { it.type == PortfolioTxType.WITHDRAWAL } }
+    val allDecided = remember(txs, choices) { CsvImportMapping.allWithdrawalsDecided(txs, choices) }
+    val dim = if (rereading) 0.4f else 1f
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -107,11 +111,21 @@ internal fun CsvImportPreviewSheet(
             if (preview.columns.isNotEmpty()) {
                 PreviewHint(stringResource(R.string.portfolio_csv_import_columns, preview.columns.joinToString(", ")))
             }
+            // Seit Build 103: neue Lesart wird gelesen — Hinweis (auch für Screenreader), Rest gedimmt
+            if (rereading) {
+                Text(
+                    stringResource(R.string.portfolio_csv_import_rereading),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+                )
+            }
             // Zähler: neu, doppelt, übersprungen (mit Grund)
             Text(
                 pluralStringResource(R.plurals.portfolio_csv_import_new, txs.size, txs.size),
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Medium,
+                modifier = Modifier.alpha(dim),
             )
             if (preview.duplicates > 0) {
                 Text(pluralStringResource(R.plurals.portfolio_csv_import_duplicates, preview.duplicates, preview.duplicates))
@@ -145,22 +159,24 @@ internal fun CsvImportPreviewSheet(
             if (preview.dateOrderAmbiguous) DateOrderPicker(preview.dateOrder, onDateOrder)
             // Kein Dezimalzeichen erkennbar, aber «42,000»: 42000 oder 42 wählen lassen
             preview.decimalSample?.let { DecimalPicker(it, preview.decimalMark, onDecimalMark) }
-            // Auszahlung + Einzahlung desselben Coins (Datei oder früherer Import): als eine Umbuchung buchen
-            if (links.isNotEmpty()) TransferLinks(links, linked, onLink)
-            // Auszahlungen in der Datei: je Zeile wählen — eigene Wallet (Umbuchung) oder verlässt das Portfolio
-            val withdrawals = txs.filter { it.type == PortfolioTxType.WITHDRAWAL }
-            if (withdrawals.isNotEmpty()) {
-                WithdrawalChoices(withdrawals, proposals, choices, onChoice, onAllChoices)
-            }
-            if (txs.isNotEmpty()) {
-                HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
-                txs.take(PREVIEW_ROWS).forEach { tx -> PreviewRow(tx) }
-                if (txs.size > PREVIEW_ROWS) {
-                    Text(
-                        stringResource(R.string.portfolio_csv_import_more, txs.size - PREVIEW_ROWS),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+            // Listen und Zeilen gedimmt, solange neu gelesen wird (seit Build 103)
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.alpha(dim)) {
+                // Auszahlung + Einzahlung desselben Coins (Datei oder früherer Import): als eine Umbuchung buchen
+                if (links.isNotEmpty()) TransferLinks(links, linked, onLink)
+                // Auszahlungen in der Datei: je Zeile wählen — eigene Wallet (Umbuchung) oder verlässt das Portfolio
+                if (withdrawals.isNotEmpty()) {
+                    WithdrawalChoices(withdrawals, proposals, choices, onChoice, onAllChoices)
+                }
+                if (txs.isNotEmpty()) {
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+                    txs.take(PREVIEW_ROWS).forEach { tx -> PreviewRow(tx) }
+                    if (txs.size > PREVIEW_ROWS) {
+                        Text(
+                            stringResource(R.string.portfolio_csv_import_more, txs.size - PREVIEW_ROWS),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                 }
             }
             Row(
@@ -172,117 +188,12 @@ internal fun CsvImportPreviewSheet(
                 Spacer(Modifier.width(8.dp))
                 Button(
                     onClick = onConfirm,
-                    enabled = total > 0 && CsvImportMapping.allWithdrawalsDecided(txs, choices),
+                    enabled = total > 0 && allDecided && !rereading,
                     modifier = Modifier.testTag(UiTestTags.CSV_IMPORT_CONFIRM),
                 ) {
                     Text(stringResource(R.string.portfolio_csv_import_confirm, total))
                 }
             }
-        }
-    }
-}
-
-/**
- * Auszahlungen der Datei: je Zeile «Auf eigene Wallet (Umbuchung)» / «Verlässt das Portfolio (Auszahlung)», vorgewählt
- * nur bei passender beobachteter Adresse («Vorschlag: passt zu …»); dazu «Alle …». Ohne Wahl kein «Importieren».
- */
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-private fun WithdrawalChoices(
-    withdrawals: List<CsvImportTx>,
-    proposals: List<CsvWithdrawalProposal>,
-    choices: Map<String, CsvWithdrawalChoice>,
-    onChoice: (String, CsvWithdrawalChoice) -> Unit,
-    onAllChoices: (CsvWithdrawalChoice) -> Unit,
-) {
-    val destinations = proposals.associate { it.importKey to it.transferTo }
-    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
-    Text(
-        stringResource(R.string.portfolio_csv_import_withdrawals_title),
-        style = MaterialTheme.typography.titleSmall,
-        fontWeight = FontWeight.SemiBold,
-    )
-    if (!CsvImportMapping.allWithdrawalsDecided(withdrawals, choices)) {
-        PreviewHint(stringResource(R.string.portfolio_csv_import_choose_each))
-    }
-    // «Alle …» nur bei mehreren Auszahlungen
-    if (withdrawals.size > 1) {
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            TextButton(onClick = { onAllChoices(CsvWithdrawalChoice.TRANSFER) }) {
-                Text(stringResource(R.string.portfolio_csv_import_all_transfer))
-            }
-            TextButton(onClick = { onAllChoices(CsvWithdrawalChoice.WITHDRAWAL) }) {
-                Text(stringResource(R.string.portfolio_csv_import_all_withdrawal))
-            }
-        }
-    }
-    withdrawals.forEach { tx ->
-        val choice = choices[tx.importKey]
-        Column(modifier = Modifier.fillMaxWidth().padding(top = 4.dp)) {
-            PreviewRow(tx)
-            destinations[tx.importKey]?.let { PreviewHint(stringResource(R.string.portfolio_csv_import_choice_proposed, it)) }
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                FilterChip(
-                    selected = choice == CsvWithdrawalChoice.TRANSFER,
-                    onClick = { onChoice(tx.importKey, CsvWithdrawalChoice.TRANSFER) },
-                    label = { Text(stringResource(R.string.portfolio_csv_import_choice_transfer)) },
-                )
-                FilterChip(
-                    selected = choice == CsvWithdrawalChoice.WITHDRAWAL,
-                    onClick = { onChoice(tx.importKey, CsvWithdrawalChoice.WITHDRAWAL) },
-                    label = { Text(stringResource(R.string.portfolio_csv_import_choice_withdrawal)) },
-                )
-            }
-        }
-    }
-}
-
-/**
- * Umbuchungen zwischen Börsen: je Kandidat «Auszahlung → Einzahlung» mit Schalter «Als eine Umbuchung buchen»
- * (eindeutige vorgewählt), Netzwerkgebühr, Hinweis auf eine Seite aus einem früheren Import bzw. auf mehrere Treffer.
- */
-@Composable
-private fun TransferLinks(links: List<CsvTransferLink>, linked: Set<String>, onLink: (String, Boolean) -> Unit) {
-    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
-    Text(
-        stringResource(R.string.portfolio_csv_import_transfers_title),
-        style = MaterialTheme.typography.titleSmall,
-        fontWeight = FontWeight.SemiBold,
-    )
-    PreviewHint(stringResource(R.string.portfolio_csv_import_transfers_hint))
-    val linkLabel = stringResource(R.string.portfolio_csv_import_transfer_link)
-    links.forEach { link ->
-        val on = link.key in linked
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .toggleable(value = on, role = Role.Switch, onValueChange = { onLink(link.key, it) })
-                .padding(vertical = 4.dp),
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    listOf(
-                        PortfolioFormat.date(link.withdrawalTime),
-                        "${PortfolioFormat.amount(link.sent, link.coin)} → ${PortfolioFormat.amount(link.received, link.coin)}",
-                    ).joinToString(" · "),
-                    style = MaterialTheme.typography.bodyMedium.tabularNumbers(),
-                )
-                // Börsen nur, wenn beide bekannt sind (eigene CSV hat keine)
-                if (link.from != null && link.to != null) PreviewHint("${link.from} → ${link.to}")
-                link.fee?.let { fee ->
-                    val text = if (link.feeUnit == PortfolioFeeUnit.COIN) PortfolioFormat.amount(fee, link.coin)
-                    else PortfolioFormat.usdt(fee.toDouble())
-                    PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_fee, text))
-                }
-                if (link.withdrawalId != null || link.depositId != null) {
-                    PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_stored))
-                }
-                if (!link.unambiguous) PreviewHint(stringResource(R.string.portfolio_csv_import_transfer_ambiguous))
-            }
-            Spacer(Modifier.width(12.dp))
-            // Zustand trägt die Zeile (toggleable); der Schalter zeigt ihn nur, Screenreader liest «Als eine Umbuchung buchen»
-            Switch(checked = on, onCheckedChange = null, modifier = Modifier.semantics { contentDescription = linkLabel })
         }
     }
 }
@@ -347,13 +258,13 @@ private fun DecimalPicker(sample: String, mark: Char?, onDecimalMark: (Char) -> 
 }
 
 @Composable
-private fun PreviewHint(text: String) {
+internal fun PreviewHint(text: String) {
     Text(text, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }
 
 /** «12.06.2024 · Kauf · 0.0028 BTC · 95’287.63 USDT». */
 @Composable
-private fun PreviewRow(tx: CsvImportTx) {
+internal fun PreviewRow(tx: CsvImportTx) {
     val parts = listOfNotNull(
         PortfolioFormat.date(tx.time),
         stringResource(tx.type.labelRes()),

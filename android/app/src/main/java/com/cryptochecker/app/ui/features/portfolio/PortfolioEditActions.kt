@@ -4,7 +4,9 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
+import com.cryptochecker.app.data.portfolio.PortfolioStorageLockedException
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
@@ -19,6 +21,7 @@ import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.ZoneId
+import timber.log.Timber
 import com.cryptochecker.app.notification.alarmsAllowed
 import com.cryptochecker.app.data.portfolio.clearStored
 
@@ -154,48 +157,89 @@ fun PortfolioViewModel.enablePortfolio(onEnabled: () -> Unit = {}) {
 }
 
 /**
- * Löschen; gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]) bleibt alles, der Dauerhinweis nennt es.
- * [onResult] erfährt, ob gelöscht wurde (Haptik nach dem Ergebnis, wie iOS).
+ * Ergebnis eines Schreibwegs im Portfolio (seit Build 103, wie iOS `Bool` + `portfolioNotSaved`): geschrieben, gesperrt
+ * ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock], Schlüssel nicht lesbar) oder sonst fehlgeschlagen.
  */
-fun PortfolioViewModel.delete(id: Long, onResult: (Boolean) -> Unit = {}) {
-    viewModelScope.launch { onResult(safe { repository.delete(id); true } == true) }
+enum class PortfolioWriteResult { OK, LOCKED, FAILED }
+
+/** Hinweis zu einem nicht geschriebenen Ergebnis: gesperrt → Sperr-Text, sonst «Konnte nicht gespeichert werden» (wie iOS). */
+internal fun PortfolioWriteResult.notSavedText(): Int =
+    if (this == PortfolioWriteResult.LOCKED) com.cryptochecker.app.R.string.portfolio_storage_locked
+    else com.cryptochecker.app.R.string.portfolio_write_failed
+
+/** [block] schreiben; Fehler werden protokolliert und als [PortfolioWriteResult] gemeldet statt still verschluckt. */
+internal suspend fun <T> portfolioWrite(label: String, block: suspend () -> T): Pair<PortfolioWriteResult, T?> = try {
+    PortfolioWriteResult.OK to block()
+} catch (e: kotlinx.coroutines.CancellationException) {
+    throw e
+} catch (e: Exception) {
+    if (e is PortfolioStorageLockedException || e.isDatabaseKeyUnavailable()) {
+        Timber.d(e, "Portfolio %s: gesperrt", label)
+        PortfolioWriteResult.LOCKED to null
+    } else {
+        Timber.w(e, "Portfolio %s fehlgeschlagen", label)
+        PortfolioWriteResult.FAILED to null
+    }
+}
+
+/**
+ * Löschen; gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]) bleibt alles. [onResult] erfährt das
+ * Ergebnis (Haptik und Banner erst danach, wie iOS).
+ */
+fun PortfolioViewModel.delete(id: Long, onResult: (PortfolioWriteResult) -> Unit = {}) {
+    viewModelScope.launch { onResult(portfolioWrite("Löschen") { repository.delete(id) }.first) }
 }
 
 /**
  * Wischen auf einem Coin: alle seine Transaktionen löschen; [onDeleted] erhält sie
- * für «Rückgängig» ([restore]).
+ * für «Rückgängig» ([restore]). Nicht geschrieben: [onFailed] (seit Build 103, statt still).
  */
-fun PortfolioViewModel.deleteCoin(coin: String, onDeleted: (List<PortfolioTxEntity>) -> Unit) {
+fun PortfolioViewModel.deleteCoin(
+    coin: String,
+    onFailed: (PortfolioWriteResult) -> Unit = {},
+    onDeleted: (List<PortfolioTxEntity>) -> Unit,
+) {
     viewModelScope.launch {
-        val removed = safe { repository.deleteCoin(coin) }.orEmpty()
-        if (removed.isNotEmpty()) onDeleted(removed)
+        val (result, removed) = portfolioWrite("Coin löschen") { repository.deleteCoin(coin) }
+        if (result != PortfolioWriteResult.OK) onFailed(result)
+        else if (!removed.isNullOrEmpty()) onDeleted(removed)
     }
 }
 
 /** «Import rückgängig»: alle Transaktionen des Laufs [batch] löschen; [onDeleted] erhält sie für «Rückgängig». */
 fun PortfolioViewModel.undoImport(batch: String, onDeleted: (List<PortfolioTxEntity>) -> Unit) {
     viewModelScope.launch {
-        val removed = safe { repository.undoImport(batch) }.orEmpty()
+        val removed = portfolioWrite("Import rückgängig") { repository.undoImport(batch) }.second.orEmpty()
         if (removed.isNotEmpty()) onDeleted(removed)
     }
 }
 
-/** «Rückgängig»: gelöschte Transaktionen mit ihren ids wieder anlegen. */
-fun PortfolioViewModel.restore(transactions: List<PortfolioTxEntity>) {
-    viewModelScope.launch { safe { repository.restore(transactions) } }
+/**
+ * «Rückgängig»: gelöschte Transaktionen mit ihren ids wieder anlegen; [onResult] mit dem Ergebnis (nicht geschrieben →
+ * Hinweis statt still, wie iOS). Das Schreiben selbst läuft im Repository auch nach dem Schliessen fertig.
+ */
+fun PortfolioViewModel.restore(transactions: List<PortfolioTxEntity>, onResult: (PortfolioWriteResult) -> Unit = {}) {
+    viewModelScope.launch { onResult(portfolioWrite("Rückgängig") { repository.restore(transactions) }.first) }
 }
 
 /**
  * «Portfolio leeren» (nach Bestätigung): alle Transaktionen löschen; [onCleared] erhält sie für «Rückgängig»
  * ([restore] legt sie mit denselben ids wieder an, die Kurse lädt der Tab danach neu) — seit Build 94 wie das
- * Löschen eines Coins.
+ * Löschen eines Coins. Nicht geschrieben: [onFailed] (seit Build 103).
  */
-fun PortfolioViewModel.clearAll(onCleared: (List<PortfolioTxEntity>) -> Unit = {}) {
+fun PortfolioViewModel.clearAll(
+    onFailed: (PortfolioWriteResult) -> Unit = {},
+    onCleared: (List<PortfolioTxEntity>) -> Unit = {},
+) {
     viewModelScope.launch {
-        val removed = safe { repository.clearAll() }.orEmpty()
+        val (result, removed) = portfolioWrite("Leeren") { repository.clearAll() }
+        if (result != PortfolioWriteResult.OK) {
+            onFailed(result)
+            return@launch
+        }
         // Gemerkte Kurse nennen die gehaltenen Coins: mit dem Portfolio weg
         safe { priceSource.clearStored() }
-        if (removed.isNotEmpty()) onCleared(removed)
+        if (!removed.isNullOrEmpty()) onCleared(removed)
     }
 }
 

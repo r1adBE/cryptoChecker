@@ -12,9 +12,17 @@ struct AlarmsOverviewScreen: View {
     @State private var deletePortfolio: PortfolioAlarm?
     /// Leere Übersicht: «Neuer Alarm» → Paar wählen → dessen Alarm-Seite (keine Sackgasse).
     @State private var pickPair = false
+    /// Seit Build 103: im Auswahlblatt gewähltes Paar — dessen Alarm-Seite öffnet erst, wenn das Blatt zu ist.
+    @State private var pickedPair: Int64?
     @State private var openWatchId: Int64?
     /// Warum Portfolio-Alarme gerade nicht prüfen (letzter Portfolio-Stand, `PortfolioAlarmLogic.pause`); nil = keiner.
     @State private var portfolioPause: PortfolioAlarmPause?
+    /// Merkliste gesperrt: Hinweis «watchlist_storage_locked» nach einem abgelehnten Schalter (`.watchlistLockedHint`).
+    @State private var banner: WatchlistBannerMessage?
+    /// Zählt abgelehnte Schalter (Merkliste gesperrt): zeichnet die Schalter neu, damit sie den echten Zustand zeigen —
+    /// der gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
+    @State private var refusedToggles = 0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     /// Alarme «Portfolio-Wert» — nur mit eingeschaltetem Portfolio (sonst prüft sie niemand).
     private var portfolioAlarms: [PortfolioAlarm] {
@@ -76,11 +84,15 @@ struct AlarmsOverviewScreen: View {
                     )
                     .containerRelativeFrame(.vertical, alignment: .center)
                 }
-                .confirmationDialog(L("alarms_add"), isPresented: $pickPair, titleVisibility: .visible) {
-                    ForEach(data.watches) { watch in
-                        Button("\(watch.displayName) · \(watch.marketName)") { openWatchId = watch.id }
+                // Seit Build 103: eigenes Blatt mit Suche, Favoriten oben und Lazy-Liste (`AlarmPairPicker`)
+                .sheet(isPresented: $pickPair, onDismiss: {
+                    if let id = pickedPair { openWatchId = id }
+                    pickedPair = nil
+                }) {
+                    AlarmPairPicker(watches: data.watches) { id in
+                        pickedPair = id
+                        pickPair = false
                     }
-                    Button(L("action_cancel"), role: .cancel) {}
                 }
                 .navigationDestination(isPresented: Binding(
                     get: { openWatchId != nil },
@@ -126,6 +138,12 @@ struct AlarmsOverviewScreen: View {
             }
         }
         .background(AppColors.background.ignoresSafeArea())
+        // Schalter abgelehnt (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik — wie die Alarme des Paars
+        .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, icon: "lock.fill", long: true) }
+        .overlay(alignment: .bottom) {
+            WatchlistBanner(message: $banner) { _ in }
+                .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
+        }
         .confirmationDialog(L("alarm_delete_title"), isPresented: Binding(
             get: { deletePortfolio != nil },
             set: { if !$0 { deletePortfolio = nil } }
@@ -219,6 +237,7 @@ struct AlarmsOverviewScreen: View {
                         set: { enabled in
                             Haptics.play(.selection)
                             withAnimation(.snappy) { data.setAlarmEnabled(alarm.id, enabled) }
+                            if data.watchlistWritesBlocked { refusedToggles &+= 1 }
                         }
                     ), verticalPadding: 8) {
                         HStack(spacing: Spacing.sm) {
@@ -242,6 +261,7 @@ struct AlarmsOverviewScreen: View {
                         .accessibilityElement(children: .ignore)
                         .accessibilityLabel(Self.a11yLabel(alarm, watch: watch))
                     }
+                    .id(refusedToggles)
                     .padding(.horizontal, 16)
                 }
             }

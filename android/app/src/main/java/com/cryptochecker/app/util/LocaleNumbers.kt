@@ -94,6 +94,21 @@ object LocaleNumbers {
             DecimalFormatSymbols.getInstance(inputLocale(app, region)).decimalSeparator
         )
 
+    /** Seit Build 103: Ergebnis von [usesIndianGrouping] je Locale (ICU-Formatierer sind teuer). */
+    private val indianGroupingCache = java.util.concurrent.ConcurrentHashMap<Locale, Boolean>()
+
+    /**
+     * Seit Build 103: Gruppiert [locale] Zahlen indisch, mit Zweier-Nebengruppen («1,00,000», z. B. hi-IN, en-IN)?
+     * Aus den CLDR-Daten von ICU (`java.text` kennt keine Nebengruppen); ohne ICU (JVM-Tests) nein. Wie iOS
+     * `NumberFormatter.secondaryGroupingSize`.
+     */
+    fun usesIndianGrouping(locale: Locale): Boolean = indianGroupingCache.getOrPut(locale) {
+        runCatching {
+            (android.icu.text.NumberFormat.getNumberInstance(locale) as? android.icu.text.DecimalFormat)
+                ?.secondaryGroupingSize == 2
+        }.getOrDefault(false)
+    }
+
     /** Null-Ziffer der Sprache: '0', '٠' (Arabisch) oder '۰' (Persisch). */
     fun zeroDigit(locale: Locale = appLocale): Char = DecimalFormatSymbols.getInstance(locale).zeroDigit
 

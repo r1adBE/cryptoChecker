@@ -1,4 +1,4 @@
-Ett larm när Bitcoin når din kurs – från börsen du faktiskt använder. Kursen från din börs, inget snitt – gratis, utan konto.
+Ett larm när Bitcoin når din kurs – från börsen du faktiskt använder. Med appen stängd kontrollerar iOS sällan – ofta först efter flera timmar, och inte alls om du har svept bort appen. Mest tillförlitligt med appen öppen. Korta toppar däremellan kan missas; appen säger det till dig. Kursen från din börs, inget snitt – gratis, utan konto.
 
 DET SOM GÖR DEN ANNORLUNDA
 • Din börs, inte ett snitt: varje rad visar parets senaste kurs på den börs du har valt – Binance, Coinbase, Kraken, OKX, Bybit och många fler.
@@ -10,7 +10,6 @@ DET SOM GÖR DEN ANNORLUNDA
 • ”Sparsam” är standard: kurserna uppdateras när du öppnar appen och med jämna mellanrum i bakgrunden. ”Live medan den är öppen” ger livekurser för Binance, Bybit, OKX, Coinbase och Kraken medan bevakningslistan är öppen.
 • %-ändring och diagram kommer först från parets egen börs; saknar den candles använder appen Binance eller Coinbase och säger det.
 • Fear & Greed, dominans och on-chain-värden från alternative.me, CoinGecko och Coin Metrics.
-• Med appen stängd kontrollerar iOS sällan – ofta först efter flera timmar, och inte alls om du har svept bort appen. Mest tillförlitligt med appen öppen. Korta toppar däremellan kan missas; appen säger det till dig.
 • Belopp lämnar enheten bara via din export (CSV, säkerhetskopia) eller krypterat i iCloud-/enhetsbackup. För kurser skickas bara parets symbol till börsen för just det paret; dessutom valutakurser (Frankfurter), marknadsdata och logotyper (CoinGecko, Binance) och dataspeglar (GitHub). Bevakar du adresser eller en xpub ser publika blockkedjenoder adresserna (för en xpub de härledda) och din IP.
 
 BEVAKNINGSLISTA

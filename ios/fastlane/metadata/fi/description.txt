@@ -1,4 +1,4 @@
-Hälytys, kun Bitcoin saavuttaa hintasi – siitä pörssistä, jota oikeasti käytät. Ilmainen, ei tiliä.
+Hälytys, kun Bitcoin saavuttaa hintasi – siitä pörssistä, jota oikeasti käytät. Kun sovellus on suljettu, iOS tarkistaa harvoin – usein vasta tuntien päästä, ja pois pyyhkäistyä sovellusta ei lainkaan. Luotettavinta, kun sovellus on auki. Lyhyet piikit välissä voivat jäädä huomaamatta; sovellus kertoo sen. Ilmainen, ei tiliä.
 
 MIKÄ TEKEE SIITÄ ERILAISEN
 • Oma pörssisi, ei keskiarvo: jokainen rivi näyttää parin viimeisimmän hinnan valitsemassasi pörssissä – Binance, Coinbase, Kraken, OKX, Bybit ja monta muuta.
@@ -10,7 +10,6 @@ REHELLISESTI DATASTA
 • ”Säästävä” on oletus: hinnat päivittyvät, kun avaat sovelluksen, ja välein taustalla. ”Live, kun auki” tuo live-hinnat Binancelle, Bybitille, OKX:lle, Coinbaselle ja Krakenille, kun lista on auki.
 • %-muutos ja kaaviot tulevat ensin parin omasta pörssistä; jos siltä puuttuvat kynttilät, sovellus käyttää Binancea tai Coinbasea ja kertoo sen.
 • Fear & Greed, dominanssi ja on-chain-arvot alternative.me:ltä, CoinGeckolta ja Coin Metricsiltä.
-• Kun sovellus on suljettu, iOS tarkistaa harvoin – usein vasta tuntien päästä, ja pois pyyhkäistyä sovellusta ei lainkaan. Luotettavinta, kun sovellus on auki. Lyhyet piikit välissä voivat jäädä huomaamatta; sovellus kertoo sen.
 • Summat lähtevät laitteelta vain viennillä (CSV, varmuuskopio) tai salattuina iCloud-/laitevarmuuskopiossa. Hintoja varten vain parin tunnus lähtee parin pörssiin; lisäksi valuuttakurssit (Frankfurter), markkinatiedot ja logot (CoinGecko, Binance) sekä datapeilit (GitHub). Jos seuraat osoitteita tai xpubia, julkiset lohkoketjusolmut näkevät osoitteet (xpubissa johdetut) ja IP-osoitteesi.
 
 SEURANTALISTA

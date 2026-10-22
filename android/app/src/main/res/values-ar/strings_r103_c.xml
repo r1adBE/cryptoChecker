@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus); seit Build 103 -->
+    <string name="alarm_threshold_error_percent_down_below">يجب أن يكون الانخفاض أقل من 100 بالمئة.</string>
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen; seit Build 103 -->
+    <string name="portfolio_csv_import_rereading">تُعاد قراءة الملف …</string>
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze); seit Build 103 -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="zero">أزواج لم تُستعد: %1$d – قائمة المتابعة ممتلئة</item>
+        <item quantity="one">أزواج لم تُستعد: %1$d – قائمة المتابعة ممتلئة</item>
+        <item quantity="two">أزواج لم تُستعد: %1$d – قائمة المتابعة ممتلئة</item>
+        <item quantity="few">أزواج لم تُستعد: %1$d – قائمة المتابعة ممتلئة</item>
+        <item quantity="many">أزواج لم تُستعد: %1$d – قائمة المتابعة ممتلئة</item>
+        <item quantity="other">أزواج لم تُستعد: %1$d – قائمة المتابعة ممتلئة</item>
+    </plurals>
+</resources>

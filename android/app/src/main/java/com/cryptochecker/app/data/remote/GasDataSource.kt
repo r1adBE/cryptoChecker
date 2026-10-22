@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.remote
 
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.market.BtcFees
 import com.cryptochecker.app.domain.market.DataFreshness
 import com.cryptochecker.app.domain.market.EvmGas
@@ -47,11 +48,11 @@ class GasDataSource @Inject constructor(
     }
 
     private suspend fun load(): Sourced<GasReport> = coroutineScope {
-        val pricesJob = async { runCatching { prices() }.getOrElse { if (it is CancellationException) throw it; emptyMap() } }
+        val pricesJob = async { runCatchingCancellable { prices() }.getOrDefault(emptyMap()) }
         val evmJobs = GasNetwork.entries.map { network ->
-            async { runCatching { network to evmGas(network) }.getOrElse { if (it is CancellationException) throw it; null } }
+            async { runCatchingCancellable { network to evmGas(network) }.getOrNull() }
         }
-        val btcJob = async { runCatching { mempool() }.getOrElse { if (it is CancellationException) throw it; null } }
+        val btcJob = async { runCatchingCancellable { mempool() }.getOrNull() }
 
         val prices = pricesJob.await()
         val evmResults = evmJobs.awaitAll().filterNotNull()

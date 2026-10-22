@@ -7,13 +7,12 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.OnInitListener
 import android.speech.tts.UtteranceProgressListener
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.util.appScope
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,7 +53,7 @@ class TtsSpeaker @Inject constructor(
     @param:ApplicationContext private val context: Context,
 ) {
     // App-weit, ein Singleton: läuft so lange wie der Prozess
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val scope = appScope(Dispatchers.Default, "TtsSpeaker")
 
     private val engineMutex = Mutex()
 

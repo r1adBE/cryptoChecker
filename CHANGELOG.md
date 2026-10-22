@@ -15,6 +15,20 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 103)
+
+* Watchlist: while the stored watchlist can't be read (key temporarily locked), it is read-only on Android and iOS – changes show a short notice instead of being lost on restart. Background price updates keep running.
+* Alerts: a crash between showing an alert and saving it no longer rings a second time; «falls by 100 %» (never reachable) is no longer accepted, also not from backups; undo after deleting respects the 2,000-pair limit and says how many pairs stayed out; the pair picker for new alerts has a search field and lists favourites first.
+* Portfolio: deleting, undoing and clearing report failures instead of showing «removed» (own notice when saving fails); undoing the last transaction of a coin keeps the page open; the coin page reuses the overview's data instead of loading everything twice; portfolio maths runs off the main thread on both platforms.
+* CSV import: «Import» is disabled while the file is re-read after changing time zone, day/month order or decimal mark (the old reading could be imported); long lists of withdrawals and transfers show the first 10 and «Show all».
+* Number input accepts Indian digit grouping (1,00,000) where the region uses it.
+* iOS: re-saving after a background alert no longer writes an older state back (doubled alert); background work no longer blocks the main thread on file coordination; live prices are saved with a cheaper sync; on expiry the background task reports completion first; widgets stop working when their timeline is returned; no background task is scheduled when there is nothing to check (like Android).
+* Android: background scopes catch unexpected errors instead of ending the app; the encryption conversion is serialized per database for the whole process; the portfolio lock requires strong biometrics from Android 11; the main activity can't be pulled into another app's task.
+* Privacy and security: address lookups send the same neutral user agent on both platforms; live messages over 1 MiB are dropped; workflows that fetch third-party pages no longer hold a write token; a weekly keepalive keeps scheduled workflows enabled.
+* Accessibility: search fields are named for TalkBack; coin badge initials meet 4.5:1 contrast in light mode.
+* Diagnostics show the source commit; store texts mention the background limits in the first paragraph; README wording «shows what moves at the same time – no cause».
+* Tests: Room migrations from the real schemas, behaviour tests for the read-only watchlist, background worker and iOS background task, fewer timing-dependent tests; one release-candidate device checklist with a «required before upload» stage.
+
 ## 16.2.2 (build 102)
 
 * Backups: restoring refuses before replacing anything when the safety journal of the current data cannot be written (e.g. key temporarily unavailable) and says so; the rollback path is tested on its own. Alerts with a threshold of 0 or less (price level, percent, move, volume spike, open interest) are dropped and counted as invalid. Settings round-trip Android ↔ iOS checked against a shared fixture.

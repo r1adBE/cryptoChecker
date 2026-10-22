@@ -82,3 +82,28 @@ fun defaultCurrency(locale: java.util.Locale = java.util.Locale.getDefault()): S
     val code = runCatching { java.util.Currency.getInstance(locale)?.currencyCode }.getOrNull()
     return code?.takeIf { it in com.cryptochecker.app.data.portfolio.FxRateSource.CURRENCIES } ?: "USD"
 }
+
+/**
+ * Wahlmöglichkeiten und bisherige Standards der Einstellungen — seit Build 103 aus `AppSettings.kt` ausgelagert (Datei
+ * über 400 Zeilen). `AppSettings.Companion` erbt sie: Aufrufe bleiben `AppSettings.GAS_ETH_CHOICES` usw.
+ */
+open class AppSettingsChoices internal constructor() {
+    val BACKGROUND_INTERVAL_CHOICES = listOf(15, 30, 60)
+    val ALARM_COOLDOWN_CHOICES = listOf(0, 5, 15, 60)
+    val FEAR_GREED_BELOW_CHOICES = listOf(0, 10, 20, 25)
+    val FEAR_GREED_ABOVE_CHOICES = listOf(0, 75, 80, 90)
+
+    /** Gas-Alarm Ethereum in Zehntel-gwei: aus, 0.5, 1, 2, 5. */
+    val GAS_ETH_CHOICES = listOf(0, 5, 10, 20, 50)
+
+    /** Gas-Alarm Bitcoin in sat/vB. */
+    val GAS_BTC_CHOICES = listOf(0, 1, 2, 5, 10)
+
+    /** Bisherige Standards (bis Build 42) der in Build 43 geänderten Schalter. */
+    val LEGACY_WATCHLIST_NAMES = false
+    val LEGACY_SHOW_CONVERTED = false
+    val LEGACY_INCLUDE_ALPHA_TOKENS = true
+
+    /** Bisheriger Standard (bis Build 43) des Portfolio-Tabs; auch für Sicherungen ohne das Feld. */
+    val LEGACY_PORTFOLIO_ENABLED = true
+}

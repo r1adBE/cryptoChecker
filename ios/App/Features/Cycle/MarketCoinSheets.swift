@@ -76,9 +76,17 @@ struct CycleCoinSheets: ViewModifier {
                 onEnabled: { banner = WatchlistBannerMessage(text: L("portfolio_enabled_banner")) },
                 onLater: { banner = WatchlistBannerMessage(text: L("portfolio_enable_later_hint")) }
             ))
+            // Paar nicht übernommen bzw. geändert (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
+            .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, icon: "lock.fill", long: true) }
             .overlay(alignment: .bottom) {
                 WatchlistBanner(message: $banner) { deleted in
-                    withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { _ = data.restore(deleted) }
+                    var result = UndoRestoreResult()
+                    withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.restore(deleted) }
+                    // Seit Build 103: Merkliste inzwischen voll → Hinweis (wie Android)
+                    if result.full > 0 {
+                        banner = WatchlistBannerMessage(text: L("watchlist_undo_full", count: result.full),
+                                                        icon: "exclamationmark.circle", long: true)
+                    }
                 }
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
             }

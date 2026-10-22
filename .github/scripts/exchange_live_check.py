@@ -13,12 +13,23 @@ Result handling (GitHub Actions, gh CLI with GITHUB_TOKEN):
   - any failure: open ONE issue "Exchange API check failed" or update the open one
   - all pass:    close that issue (with a comment) if it is open
 Geo-blocked answers (HTTP 451, or 403 for exchanges that block US cloud IPs)
-count as "skipped", not as failure: GitHub's runners are in the US.
+count as "skipped", not as failure: GitHub's runners are in the US. Skipped
+exchanges are listed in the job summary and in the issue (since Build 103).
+Binance Spot is also checked via data-api.binance.vision (same schema as
+api.binance.com, not geo-blocked; the apps read it for candles and portfolio
+prices, see mirror_data.py), so the Spot schema is checked even when
+api.binance.com answers 451 from the runner.
 
 Usage:
   python3 exchange_live_check.py              # check and manage the issue (CI)
   python3 exchange_live_check.py --dry-run    # check only, print the issue text
   python3 exchange_live_check.py --only kraken,okx --dry-run
+  python3 exchange_live_check.py --skip-issue --result r.json   # CI step 1: check, no token
+  python3 exchange_live_check.py --issue-only --result r.json   # CI step 2: issue, no requests
+
+Since Build 103 the workflow runs two steps, so the token never shares a step with the
+exchange requests: --skip-issue checks and writes the result (failed count, issue text) to
+--result; --issue-only contacts no exchange, reads only that file and manages the issue.
 
 Exit code: 0 = checks done (all passed, or failures reported in the issue, or --dry-run);
 1 = the script itself failed (e.g. the gh CLI could not open/update the issue), 2 = usage error.
@@ -54,6 +65,10 @@ EXCHANGES = [
      "fields": [[0, "last"], [0, "change_percentage"], [0, "quote_volume"]]},
     {"key": "binance", "name": "Binance",
      "url": "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT", "geo": True,
+     "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
+    # Gleiche Antwort wie api.binance.com, aber nicht geosperrt (seit Build 103): Schema auch vom US-Runner geprüft
+    {"key": "binancevision", "name": "Binance (data-api)",
+     "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
      "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
     {"key": "binanceus", "name": "Binance.US",
      "url": "https://api.binance.us/api/v3/ticker/24hr?symbol=BTCUSDT", "geo": True,
@@ -299,13 +314,43 @@ def issue_body(results):
         "|---|---|---|---|",
     ]
     for entry, (status, note) in results:
-        if status == OK:
+        if status != FAIL:
             continue
         lines.append(f"| {entry['name']} | {status} | {note} | `{entry['url']}` |")
     passed = sum(1 for _, (s, _) in results if s == OK)
-    lines += ["", f"{passed} of {len(results)} passed. Updated {time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())}.",
-              "", "This issue is closed automatically once all checks pass again."]
+    lines += ["", f"{passed} of {len(results)} passed. Updated {time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())}."]
+    lines += skipped_lines(results)
+    lines += ["", "This issue is closed automatically once all checks pass again."]
     return "\n".join(lines)
+
+
+def skipped_lines(results):
+    """Übersprungene Börsen (geosperrt vom Runner) als Markdown-Abschnitt; leer = keine."""
+    skipped = [(e, note) for e, (s, note) in results if s == SKIP]
+    if not skipped:
+        return []
+    lines = ["", f"Skipped ({len(skipped)}, not checked from this runner):", ""]
+    lines += [f"- {e['name']}: {note}" for e, note in skipped]
+    return lines
+
+
+def write_summary(results):
+    """Kurzbericht in die Job-Zusammenfassung (GitHub Actions), auch übersprungene Börsen."""
+    path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not path:
+        return
+    counts = {k: sum(1 for _, (s, _) in results if s == k) for k in (OK, FAIL, SKIP)}
+    lines = ["## Exchange API check", "",
+             f"{counts[OK]} passed, {counts[FAIL]} failed, {counts[SKIP]} skipped (of {len(results)})."]
+    failed = [f"- {e['name']}: {note}" for e, (s, note) in results if s == FAIL]
+    if failed:
+        lines += ["", "Failed:", ""] + failed
+    lines += skipped_lines(results)
+    try:
+        with open(path, "a", encoding="utf-8") as f:
+            f.write("\n".join(lines) + "\n")
+    except OSError as e:
+        print(f"could not write the job summary: {e}", file=sys.stderr)
 
 
 def gh(*args):
@@ -336,11 +381,60 @@ def manage_issue(failed, body):
         print(f"Closed issue #{number}.")
 
 
+def save_result(path, failed_count, body):
+    """Ergebnis für den Issue-Schritt: nur Zahl und fertiger Issue-Text."""
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump({"failed": failed_count, "body": body}, f)
+
+
+def load_result(path):
+    """(Anzahl Fehler, Issue-Text) aus --result; wirft ValueError bei falschem Inhalt."""
+    with open(path, encoding="utf-8") as f:
+        doc = json.load(f)
+    if not isinstance(doc, dict):
+        raise ValueError("unexpected result file content")
+    failed, body = doc.get("failed"), doc.get("body")
+    if not isinstance(failed, int) or isinstance(failed, bool) or failed < 0 or not isinstance(body, str):
+        raise ValueError("unexpected result file content")
+    return failed, body[:60000]
+
+
+def report_issue(failed_count, body):
+    """Issue öffnen/aktualisieren/schliessen; Exit-Code."""
+    if os.environ.get("GITHUB_ACTIONS") != "true" and not os.environ.get("GH_TOKEN"):
+        print("Not in GitHub Actions and no GH_TOKEN: use --dry-run.", file=sys.stderr)
+        return 2
+    try:
+        manage_issue(failed_count > 0, body)
+    except (subprocess.CalledProcessError, OSError) as e:
+        detail = getattr(e, "stderr", "") or str(e)
+        print(f"::error::could not manage the issue: {detail.strip()[:300]}")
+        return 1
+    if failed_count:
+        # Reported in the issue: annotation only, the job stays green
+        print(f"::warning::{failed_count} exchange API check(s) failed - see issue \"{ISSUE_TITLE}\"")
+    return 0
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--dry-run", action="store_true", help="only check and print, no GitHub issue")
     parser.add_argument("--only", help="comma-separated exchange keys")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--skip-issue", action="store_true", help="check and write --result, no issue (no token)")
+    mode.add_argument("--issue-only", action="store_true", help="no requests: manage the issue from --result")
+    parser.add_argument("--result", help="result file between --skip-issue and --issue-only")
     args = parser.parse_args()
+    if (args.skip_issue or args.issue_only) and not args.result:
+        print("--skip-issue and --issue-only need --result", file=sys.stderr)
+        return 2
+    if args.issue_only:
+        try:
+            failed_count, body = load_result(args.result)
+        except (OSError, ValueError) as e:
+            print(f"::error::result file unreadable: {e}")
+            return 1
+        return report_issue(failed_count, body)
 
     entries = EXCHANGES
     if args.only:
@@ -358,24 +452,20 @@ def main():
         print(f"{status.upper():4}  {entry['name']:<20} {note}")
 
     failed = [e for e, (s, _) in results if s == FAIL]
+    skipped = [e["name"] for e, (s, _) in results if s == SKIP]
+    if skipped:
+        print(f"\nSkipped ({len(skipped)}): " + ", ".join(skipped))
+    write_summary(results)
     body = issue_body(results)
+    if args.skip_issue:
+        save_result(args.result, len(failed), body)
+        print(f"result written: {args.result}")
+        return 0
     if args.dry_run:
         if failed:
             print("\n--- issue text (dry run) ---\n" + body)
         return 0
-    if os.environ.get("GITHUB_ACTIONS") != "true" and not os.environ.get("GH_TOKEN"):
-        print("Not in GitHub Actions and no GH_TOKEN: use --dry-run.", file=sys.stderr)
-        return 2
-    try:
-        manage_issue(bool(failed), body)
-    except (subprocess.CalledProcessError, OSError) as e:
-        detail = getattr(e, "stderr", "") or str(e)
-        print(f"::error::could not manage the issue: {detail.strip()[:300]}")
-        return 1
-    if failed:
-        # Reported in the issue: annotation only, the job stays green
-        print(f"::warning::{len(failed)} exchange API check(s) failed - see issue \"{ISSUE_TITLE}\"")
-    return 0
+    return report_issue(len(failed), body)
 
 
 if __name__ == "__main__":

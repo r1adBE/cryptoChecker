@@ -96,7 +96,11 @@ internal fun WatchlistSheets(
                         haptics.play(HapticEvent.DESTRUCTIVE)
                         banner.show(
                             resources.getQuantityString(R.plurals.watchlist_removed_not_traded, count, count)
-                        ) { viewModel.undoDelete(NOT_TRADED_UNDO_KEY) }
+                        ) {
+                            viewModel.undoDelete(NOT_TRADED_UNDO_KEY) { n ->
+                                banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n))
+                            }
+                        }
                     }
                 }
             },
@@ -116,7 +120,9 @@ internal fun WatchlistSheets(
                     if (count > 0) {
                         haptics.play(HapticEvent.DESTRUCTIVE)
                         banner.show(resources.getQuantityString(R.plurals.watchlist_removed_count, count, count)) {
-                            viewModel.undoDelete(CLEAR_ALL_UNDO_KEY)
+                            viewModel.undoDelete(CLEAR_ALL_UNDO_KEY) { n ->
+                                banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n))
+                            }
                         }
                     }
                 }

@@ -1,10 +1,9 @@
 package com.cryptochecker.app.data.remote.util
 
-import kotlinx.coroutines.CoroutineScope
+import com.cryptochecker.app.util.appScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 
 /**
@@ -24,7 +23,7 @@ internal object InFlightRequests {
         var waiters = 0
     }
 
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val scope = appScope(Dispatchers.IO, "InFlightRequests")
     private val entries = HashMap<String, Entry>()
 
     suspend fun shared(key: String, load: suspend () -> String): String {

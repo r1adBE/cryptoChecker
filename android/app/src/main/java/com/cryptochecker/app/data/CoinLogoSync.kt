@@ -5,13 +5,13 @@ import com.cryptochecker.app.domain.logos.CoinLogoRetry
 import com.cryptochecker.app.domain.logos.CoinLogos
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.ConnectivityMonitor
+import com.cryptochecker.app.util.appScope
 import com.cryptochecker.app.widget.WidgetUpdater
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -46,7 +46,7 @@ class CoinLogoSync @Inject constructor(
     private val marketLocalDataSource: MarketLocalDataSource,
     private val connectivity: ConnectivityMonitor,
 ) {
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val scope = appScope(Dispatchers.IO, "CoinLogoSync")
     private val lock = Any()
     private var tradFiJob: Job? = null
     private var retryJob: Job? = null
@@ -112,6 +112,7 @@ class CoinLogoSync @Inject constructor(
                     CoinLogoRetry.syncNeeded(pending, online)
                 }
                     .distinctUntilChanged()
+                    .catch { e -> Timber.w(e, "Coin-Logos: Netzbeobachtung beendet") }
                     .collectLatest { needed -> if (needed) retryUntilDone() }
             }
         }
@@ -154,6 +155,8 @@ class CoinLogoSync @Inject constructor(
                             .toSet()
                     }
                     .distinctUntilChanged()
+                    // Seit Build 103: Merkliste nicht lesbar (z. B. Datenbank-Schlüssel) beendet nur diese Beobachtung
+                    .catch { e -> Timber.w(e, "TradFi: Merkliste nicht gelesen") }
                     .collectLatest { pairs ->
                         try {
                             val (found, bases) = tradFiPairs(pairs)

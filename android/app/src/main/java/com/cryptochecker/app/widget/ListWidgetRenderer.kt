@@ -25,12 +25,10 @@ import com.cryptochecker.app.settings.HighContrast
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.MainActivity
 import com.cryptochecker.app.util.PriceFormat
+import com.cryptochecker.app.util.appScope
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -57,7 +55,7 @@ class ListWidgetRenderer @Inject constructor(
     private val priceRefresher: dagger.Lazy<PriceRefresher>,
 ) {
     /** Neuzeichnen am Ende der Sperre ([scheduleUnlock]); läuft unabhängig vom Aufrufer weiter. */
-    private val unlockScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val unlockScope = appScope(Dispatchers.Default, "ListWidgetRenderer")
 
     /** Ende der Sperre, für das das Neuzeichnen schon geplant ist (nur einmal je Sperre). */
     @Volatile private var unlockScheduledFor = 0L
@@ -112,9 +110,7 @@ class ListWidgetRenderer @Inject constructor(
             // Leer oder nicht: selbst entscheiden statt über setEmptyView — manche Launcher lassen den
             // Hinweis «Noch keine Paare» sonst stehen, obwohl inzwischen Paare da sind (z. B. nach dem
             // Einspielen einer Sicherung in ein leeres Widget)
-            val empty = runCatching { rows.count(appWidgetId) == 0 }.onFailure {
-                if (it is CancellationException) throw it
-            }.getOrDefault(false)
+            val empty = runCatchingCancellable { rows.count(appWidgetId) == 0 }.getOrDefault(false)
             // Merkliste nur leer im Arbeitsspeicher (gespeicherter Stand gerade nicht lesbar; nach dem Zählen oben
             // verlässlich): nicht neu zeichnen — der Launcher behält den bisherigen Inhalt statt «Noch keine Paare»
             if (DatabaseEncryptionNotice.isStoredKept(AppDatabase.DB_NAME)) continue
@@ -279,8 +275,7 @@ class ListWidgetRenderer @Inject constructor(
      */
     private suspend fun headerTitle(appWidgetId: Int): String {
         val default = context.getString(R.string.tab_watchlist)
-        val group = runCatching { rows.group(appWidgetId) }.onFailure {
-            if (it is CancellationException) throw it
+        val group = runCatchingCancellable { rows.group(appWidgetId) }.onFailure {
             Timber.w(it, "Widget-Gruppe %d nicht lesbar", appWidgetId)
         }.getOrNull()
         return WidgetGroupSelection.title(group, default) { filter ->
@@ -310,7 +305,6 @@ class ListWidgetRenderer @Inject constructor(
             data.watches.forEachIndexed { index, watch -> builder.addItem(watch.id, rows.row(data, index)) }
             builder.build()
         }.onFailure {
-            if (it is CancellationException) throw it
             Timber.w(it, "Widget-Zeilen %d: weiter über den Dienst", appWidgetId)
         }.getOrNull()
     }

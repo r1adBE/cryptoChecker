@@ -148,6 +148,9 @@ enum LiveRules {
     static let freshMillis: Int64 = 30_000
     /// Kein Lebenszeichen der Verbindung so lange (Börsen mit Text-Ping): neu verbinden.
     static let staleConnectionMillis: Int64 = 60_000
+    /// Grösste Nachricht des Stroms (1 MiB, `maximumMessageSize`); grössere trennen die Verbindung — wie Android
+    /// `LiveRules.MAX_MESSAGE_BYTES` (seit Build 103).
+    static let maxMessageBytes = 1 << 20
 
     /// Veränderung, die mit dem Live-Kurs gilt: die des Stroms nur bei Basis «Letzte 24 Std.»,
     /// passendem Stempel und Börse mit gleitendem Wert — sonst bleibt die bisherige.

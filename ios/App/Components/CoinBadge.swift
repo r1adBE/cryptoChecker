@@ -44,6 +44,11 @@ struct CoinBadge: View {
         self.ringColor = ringColor
     }
 
+    /// Tönung des Initialen-Kreises hell: primary darauf über `container` ≥ 4.5:1 (seit Build 103, vorher 0.14).
+    static let initialsTintLight = 0.06
+    /// Tönung des Initialen-Kreises dunkel (unverändert).
+    static let initialsTintDark = 0.14
+
     private var enabled: Bool { portfolio ? portfolioEnabled : appEnabled }
 
     /// Schlüssel des Logos (TradFi eigener Namensraum).
@@ -81,7 +86,8 @@ struct CoinBadge: View {
                     .clipShape(Circle())
             } else {
                 let label = CoinLogos.initials(symbol)
-                Circle().fill(accent.tint(0.14))
+                // Hell schwächer getönt (seit Build 103): Initialen ≥ 4.5:1 auf der Tönung, wie Android
+                Circle().fill(accent.tint(colorScheme == .dark ? Self.initialsTintDark : Self.initialsTintLight))
                 Text(label)
                     .font(.system(size: size * (label.count <= 3 ? 0.33 : 0.275), weight: .bold))
                     .foregroundStyle(accent.primary)

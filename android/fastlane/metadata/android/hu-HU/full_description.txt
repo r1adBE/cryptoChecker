@@ -1,4 +1,4 @@
-Riasztás, ha a Bitcoin eléri az árfolyamodat – a tőzsdédről, amit tényleg használsz. Ingyen, fiók nélkül.
+Riasztás, ha a Bitcoin eléri az árfolyamodat – a tőzsdédről, amit tényleg használsz. Bezárt appnál az Android dönti el, mikor ellenőrzi a riasztásokat – legfeljebb 15 percenként egyszer, gyakran csak órák múlva. A közben lévő rövid kiugrások kimaradhatnak; az app ezt meg is mondja. Ingyen, fiók nélkül.
 
 AMITŐL MÁS
 • A te tőzsdéd, nem átlag: minden sor a pár utolsó árát mutatja azon a tőzsdén, amelyet választottál – Binance, Coinbase, Kraken, OKX, Bybit és sok más.
@@ -10,7 +10,6 @@ AMITŐL MÁS
 • A „Takarékos” az alapbeállítás: az árak megnyitáskor és időközönként a háttérben frissülnek. Az „Élő, amíg nyitva van” élő árakat ad a Binance, Bybit, OKX, Coinbase és Kraken párokhoz, amíg a lista nyitva van.
 • A %-os változás és a diagramok elsőként a pár saját tőzsdéjéről jönnek; ha annak nincsenek gyertyái, az app a Binance-t vagy a Coinbase-t használja, és ezt jelzi.
 • Fear & Greed, dominancia és on-chain értékek az alternative.me-től, a CoinGeckótól és a Coin Metricstől.
-• Bezárt appnál az Android dönti el, mikor ellenőrzi a riasztásokat – legfeljebb 15 percenként egyszer, gyakran csak órák múlva. A közben lévő rövid kiugrások kimaradhatnak; az app ezt meg is mondja.
 • Az összegek csak exporttal vagy az Android rendszermentésével hagyják el az eszközt. Az árakhoz csak a pár jelölése megy az adott pár tőzsdéjéhez; ezen felül devizaárfolyamok (Frankfurter), piaci adatok és logók (CoinGecko, Binance), adattükrök (GitHub). Ha címeket vagy egy xpubot figyelsz, a nyilvános blokklánc-csomópontok látják a címeket (xpubnál a származtatottakat) és az IP-címedet.
 
 FIGYELŐLISTA

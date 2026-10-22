@@ -12,11 +12,10 @@ import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.domain.watch.DayChange
+import com.cryptochecker.app.util.appScope
 import com.cryptochecker.marketdata.model.Ticker
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
@@ -41,7 +40,7 @@ class DayReferences @Inject constructor(
     private val tokenIdentityStore: TokenIdentityStore,
 ) {
     /** Läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
-    private val loadScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val loadScope = appScope(Dispatchers.IO, "DayReferences")
 
     /**
      * Paare, die beim letzten vollen Durchlauf Kerzen brauchten (Ticker ohne 24-h-Wert) —

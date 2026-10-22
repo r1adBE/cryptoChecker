@@ -38,6 +38,20 @@ enum WidgetCadence {
     /// Weiche Tagesgrenze für Neuladen aus der Erweiterung: darüber nur noch der normale Takt (kein früher
     /// Neuversuch), damit das Kontingent von WidgetKit nicht vor dem Abend aufgebraucht ist.
     static let dailyReloadSoftCap = 40
+    /// Reserve nach dem Kursholen im Zeichenpfad (Speichern, Melden) — seit Build 103.
+    static let drawReserveMillis: Int64 = 1_000
+    /// Kürzeste Endzeit eines Durchlaufs aus dem Zeichnen.
+    static let minDrawRunMillis: Int64 = 1_000
+
+    /// Endzeit eines Durchlaufs aus dem Zeichnen (`WidgetRefresh.refreshIfStale`), seit Build 103 an die Zeichen-Frist
+    /// gekoppelt (8 s → 7 s): Kurse, Lease und Kursalarme enden so vor der Rückgabe der Timeline, Speichern und Melden
+    /// haben die Reserve. Vorher galten auch hier 25 s, und der Lauf arbeitete nach der Rückgabe unbeaufsichtigt weiter
+    /// (WidgetKit kann die Erweiterung dann jederzeit anhalten). Der Knopf (App-Intent) behält seine 25 s.
+    static func drawRunBudgetMillis(deadlineSeconds: Double) -> Int64 {
+        guard deadlineSeconds.isFinite, deadlineSeconds > 0 else { return minDrawRunMillis }
+        let millis = Int64(min(deadlineSeconds, 3_600) * 1_000)
+        return max(minDrawRunMillis, millis - drawReserveMillis)
+    }
 }
 
 /// Zählt Neuladen der Widgets je Kalendertag (Gerätezeit) in den App-Group-Defaults — für alle Widget-Arten

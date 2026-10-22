@@ -86,6 +86,12 @@ extension BackupManager {
         }
     }
 
+    /// Seit Build 103: fallende Prozent-Alarme («fällt um x %», Open Interest fällt) ab 100 % lösten nie aus und sind
+    /// ungültig — der Editor nimmt nur Werte unter 100 an. Wie Android `AlarmJson.exceedsFall`.
+    static func exceedsFall(_ condition: AlarmCondition, _ threshold: Double) -> Bool {
+        condition.isFallingPercent && threshold >= AlarmCondition.maxFallPercent
+    }
+
     /// Ein Paar-Alarm; nil = ungültig (Id/Paar fehlt, unbekannte Alarmart einer neueren Version, Schwelle nicht
     /// endlich bzw. ≤ 0, wo sie positiv sein muss) — nie zu «Kurs über …» mit fremder Schwelle umgedeutet. Wie Android `AlarmJson.fromJson`.
     static func alarmFromJson(_ o: [String: Any]) -> Alarm? {
@@ -93,7 +99,9 @@ extension BackupManager {
               let threshold = double(o, "threshold"), threshold.isFinite,
               let condition = AlarmCondition(rawValue: string(o, "condition") ?? ""),
               // Seit Build 102: Kursmarke, Prozent und Bewegung mit Schwelle ≤ 0 lösten bei jeder Prüfung aus
-              !(needsPositiveThreshold(condition) && threshold <= 0)
+              !(needsPositiveThreshold(condition) && threshold <= 0),
+              // Seit Build 103: fallend ab 100 % löste nie aus
+              !exceedsFall(condition, threshold)
         else { return nil }
         let referencePrice: Double?
         if isNull(o, "referencePrice") {

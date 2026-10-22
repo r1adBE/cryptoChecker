@@ -8,12 +8,11 @@ import com.cryptochecker.app.domain.watch.ChangeBasisMath
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.domain.watch.DayReference
 import com.cryptochecker.app.domain.watch.DayReferenceCache
+import com.cryptochecker.app.util.appScope
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -81,7 +80,7 @@ class SparklineRepository @Inject constructor(
     private val locks = KeyedMutex<String>()
     private val permits = Semaphore(MAX_PARALLEL)
 
-    private val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val ioScope = appScope(Dispatchers.IO, "SparklineRepository")
 
     /** Datei einmal im Hintergrund lesen; wer 24-h-Bezüge braucht, wartet darauf ([awaitRestored]). */
     private val restored: Deferred<Unit> = ioScope.async { restore() }

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.data.portfolio
 
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.convert.CurrencyConversion.QuoteKind
 import kotlinx.coroutines.CancellationException
@@ -57,7 +58,7 @@ class CurrencyConverter @Inject constructor(
             kind == QuoteKind.CRYPTO || (kind == QuoteKind.USD && CurrencyConversion.stableNeedsMarket(it))
         }
         if (cryptos.isNotEmpty()) {
-            runCatching { priceSource.prices(cryptos) }.onFailure { if (it is CancellationException) throw it }
+            runCatchingCancellable { priceSource.prices(cryptos) }
         }
         val result = HashMap<String, Double>()
         for (quote in wanted) rate(quote, target)?.let { result[quote] = it }

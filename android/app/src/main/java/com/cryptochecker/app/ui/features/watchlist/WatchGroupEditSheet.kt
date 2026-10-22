@@ -48,6 +48,9 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -265,9 +268,9 @@ internal fun GroupEditSheet(
     }
 }
 
-/** Schlichtes, rundes Suchfeld für die Paarliste (ohne Autofokus). */
+/** Schlichtes, rundes Suchfeld für die Paarliste (ohne Autofokus). Intern statt privat für den Semantik-Test. */
 @Composable
-private fun GroupSearchField(query: String, onQueryChange: (String) -> Unit, modifier: Modifier = Modifier) {
+internal fun GroupSearchField(query: String, onQueryChange: (String) -> Unit, modifier: Modifier = Modifier) {
     val keyboard = LocalSoftwareKeyboardController.current
     // Tippflächen 48 dp, sichtbare Pille wie bisher 44 dp (2 dp Rand oben und unten)
     Box(contentAlignment = Alignment.CenterEnd, modifier = modifier.fillMaxWidth().height(48.dp)) {
@@ -295,14 +298,17 @@ private fun GroupSearchField(query: String, onQueryChange: (String) -> Unit, mod
                 modifier = Modifier.weight(1f).padding(start = 8.dp)
             ) {
                 val textStyle = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurface)
+                val hint = stringResource(R.string.group_search_hint)
                 if (query.isEmpty()) {
                     Text(
-                        text = stringResource(R.string.group_search_hint),
+                        text = hint,
                         style = textStyle,
                         // Volle onSurfaceVariant (≥ 4.5:1); mit 70 % lag der Platzhalter unter AA
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        // Screenreader liest den Hinweis am Feld selbst, nicht doppelt (seit Build 103)
+                        modifier = Modifier.clearAndSetSemantics {}
                     )
                 }
                 BasicTextField(
@@ -313,7 +319,8 @@ private fun GroupSearchField(query: String, onQueryChange: (String) -> Unit, mod
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                     keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
-                    modifier = Modifier.fillMaxWidth()
+                    // Bezeichnung für Screenreader, auch wenn schon Text drinsteht (seit Build 103)
+                    modifier = Modifier.fillMaxWidth().semantics { contentDescription = hint }
                 )
             }
             // Platz für den Löschknopf darüber

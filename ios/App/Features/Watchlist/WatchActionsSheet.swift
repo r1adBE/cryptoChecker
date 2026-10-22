@@ -69,6 +69,9 @@ struct WatchActionsSheet: View {
     @State var previewReload = 0
     /// Kurzer Hinweis unten im Blatt (z. B. «Sprachausgabe ist an»).
     @State private var toast: String? = nil
+    /// Zählt abgelehnte Schalter (Merkliste gesperrt): zeichnet sie neu, damit sie den echten Zustand zeigen — der
+    /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
+    @State private var refusedToggles = 0
 
     /// Gezeigter Eintrag: der hinzugefügte (Vorschau) bzw. der übergebene.
     var currentId: Int64 { addedId ?? watchId }
@@ -115,6 +118,8 @@ struct WatchActionsSheet: View {
         guard let preview, !adding, let market = MarketsConfig.market(preview.marketKey) else { return }
         let firstEver = data.isFirstPairAdd
         let outcome = data.tryAddWatch(market: market, pair: preview.pairInfo)
+        // Merkliste gesperrt: nichts angelegt, Hinweis und Haptik kommen von `.watchlistLockedHint`
+        if outcome == .locked { return }
         if outcome == .full {
             // Merkliste voll (`WatchlistLimits`): nichts angelegt, sagen warum — wie Android
             toast = WatchlistLimitText.full
@@ -180,6 +185,8 @@ struct WatchActionsSheet: View {
         .scrollIndicators(.hidden)
         .background(AppColors.background.ignoresSafeArea())
         .toast($toast)
+        // Vorschau nicht übernommen bzw. Paar nicht geändert (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
+        .watchlistLockedHint { toast = $0 }
         // «1 CHF = … Sats»: Faktor zuerst aus dem Zwischenspeicher, sonst frisch (neu bei anderer
         // Quote oder Umrechnungswährung)
         .task(id: "\(watch.quoteAsset)|\(data.settings.portfolioCurrency)|\(Sats.isBitcoin(watch.baseAsset))") {
@@ -246,16 +253,20 @@ struct WatchActionsSheet: View {
                             if let w = data.watch(currentId), data.setTtsEnabled(w, enabled) {
                                 toast = L("watchlist_tts_speech_on")
                             }
+                            if data.watchlistWritesBlocked { refusedToggles &+= 1 }
                         }
                     ), icon: "speaker.wave.2")
+                    .id(refusedToggles)
                     RowDivider()
                     SwitchRow(title: L("watchlist_notification"), isOn: Binding(
                         get: { data.watch(currentId)?.notificationEnabled ?? false },
                         set: { enabled in
                             if enabled { Task { _ = await Notifier.requestPermission() } }
                             if let w = data.watch(currentId) { data.setNotificationEnabled(w, enabled) }
+                            if data.watchlistWritesBlocked { refusedToggles &+= 1 }
                         }
                     ), icon: data.watch(currentId)?.notificationEnabled == true ? "bell" : "bell.slash")  // wie in der Zeile; aus = durchgestrichen
+                    .id(refusedToggles)
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 4)

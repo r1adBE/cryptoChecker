@@ -19,7 +19,8 @@ enum class ThresholdProblem { EMPTY, INVALID, FUNDING_RANGE, OI_RANGE, PERCENT_R
 
 /**
  * Fallende Prozent-Alarme («fällt um x %», «Open Interest fällt um x %»): mehr als 100 % kann nichts fallen — ein
- * solcher Alarm löste nie aus (seit Build 102 abgelehnt). Steigen und «bewegt sich um» bleiben offen. Wie iOS.
+ * solcher Alarm löste nie aus (seit Build 102 abgelehnt). Seit Build 103 auch genau 100 % (Wert 0 wird nie
+ * gemeldet): der Schwellwert muss kleiner als [MAX_FALL_PERCENT] sein. Steigen und «bewegt sich um» bleiben offen. Wie iOS.
  */
 const val MAX_FALL_PERCENT = 100.0
 
@@ -80,17 +81,17 @@ data class AlarmDraft(
             priceHint.takeIf { condition.isPriceThreshold },
         )
 
-    /** Fallender Prozent-Alarm mit gültiger Zahl über [MAX_FALL_PERCENT]? */
+    /** Fallender Prozent-Alarm mit gültiger Zahl ab [MAX_FALL_PERCENT] (seit Build 103 auch genau 100)? */
     private val exceedsFall: Boolean
         get() = condition.isFallingPercent &&
-            (ThresholdParser.parse(thresholdText, decimalSeparator)?.let { it > MAX_FALL_PERCENT } ?: false)
+            (ThresholdParser.parse(thresholdText, decimalSeparator)?.let { it >= MAX_FALL_PERCENT } ?: false)
 
     val isValid: Boolean get() = threshold != null
 
     /**
      * Warum der Knopf gesperrt ist (null = gültig) — für den Fehlertext unter dem Feld. Folgt genau
      * [threshold]: leer; Funding ausserhalb ±[DerivativesAlarm.MAX_FUNDING_PERCENT] bzw. keine Zahl;
-     * Open Interest über [DerivativesAlarm.MAX_OI_PERCENT]; fallend über [MAX_FALL_PERCENT]; sonst keine Zahl
+     * Open Interest über [DerivativesAlarm.MAX_OI_PERCENT]; fallend ab [MAX_FALL_PERCENT]; sonst keine Zahl
      * grösser als 0. Wie iOS.
      */
     val thresholdProblem: ThresholdProblem?

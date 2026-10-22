@@ -39,6 +39,13 @@ final class TokenIdentityStore: @unchecked Sendable { // @unchecked: veränderli
         }
     }
 
+    /// Datei einmal lesen und dekodieren (Hintergrund beim Start, seit Build 103), damit der erste Zugriff aus der
+    /// Oberfläche nicht auf dem Hauptthread liest.
+    func warmUp() {
+        lock.lock(); defer { lock.unlock() }
+        _ = currentLocked()
+    }
+
     /// Name des Coins `base` in der Paarliste der Börse `marketKey`; nil = unbekannt.
     func pairName(marketKey: String, base: String) -> String? {
         lock.lock(); defer { lock.unlock() }

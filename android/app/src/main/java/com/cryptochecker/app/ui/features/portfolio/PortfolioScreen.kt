@@ -214,24 +214,23 @@ fun PortfolioScreen(
     }
     // CSV-Importläufe für ⋯ › «Importe» (neueste zuerst)
     val importBatches = remember(transactions) { PortfolioImportBatch.summarize(transactions.orEmpty().map { it.importBatch }) }
-    // FIFO je Wallet: Abgänge über den Bestand ihrer Wallet (Hinweis unter der Gesamtkarte)
-    val costMethod by viewModel.costMethod.collectAsStateWithLifecycle()
-    val calcTransactions by viewModel.calcTransactions.collectAsStateWithLifecycle()
-    val walletShortfalls = remember(calcTransactions, costMethod) {
-        PortfolioCalculator.walletShortfalls(calcTransactions.orEmpty().map { it.toTrade() }, costMethod)
-    }
+    // FIFO je Wallet: Abgänge über den Bestand ihrer Wallet (Hinweis unter der Gesamtkarte); seit Build 103 im ViewModel
+    // abseits des Hauptthreads gerechnet (PortfolioCoinDetailFlow)
+    val walletShortfalls by remember(viewModel) { viewModel.walletShortfallsFlow() }.collectAsStateWithLifecycle(emptyList())
 
     // Wischen auf einem Coin: erst Rückfrage mit der Zahl der Transaktionen, dann alle weg, «Rückgängig» im Banner
     var askDeleteCoin by rememberSaveable { mutableStateOf<String?>(null) }
     val coinHaptics = rememberHaptics()
+    // Nicht geschrieben: gesperrt bzw. Fehler nennen statt «entfernt» (seit Build 103, wie iOS)
+    val notSaved = { result: PortfolioWriteResult -> banner.show(resources.getString(result.notSavedText())) }
     fun deleteCoin(coin: String) {
-        viewModel.deleteCoin(coin) { removed ->
+        viewModel.deleteCoin(coin, onFailed = notSaved) { removed ->
             if (removed.isNotEmpty()) coinHaptics.play(HapticEvent.DESTRUCTIVE)
             // Zurück kommen auch die Transaktionen, die nur ihre Gebühr in diesem Coin verloren; gezählt werden die gelöschten
             val key = PortfolioCalculator.normalizeCoin(coin)
             val count = removed.count { PortfolioCoinDeletion.involves(it, key) }
             val text = resources.getQuantityString(R.plurals.portfolio_coin_removed, count, coin, count)
-            banner.show(text) { viewModel.restore(removed) }
+            banner.show(text) { viewModel.restore(removed) { if (it != PortfolioWriteResult.OK) notSaved(it) } }
         }
     }
     askDeleteCoin?.let { coin ->

@@ -1,10 +1,9 @@
 package com.cryptochecker.app.domain.refresh
 
+import com.cryptochecker.app.util.appScope
 import com.cryptochecker.app.widget.WidgetUpdater
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withTimeoutOrNull
@@ -25,7 +24,7 @@ class ChartRefresher @Inject constructor(
     private val widgetUpdater: WidgetUpdater,
 ) {
     /** Läuft unabhängig vom Aufrufer weiter (App-weit, ein Singleton). */
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val scope = appScope(Dispatchers.IO, "ChartRefresher")
 
     /** Unter der Sperre gezeichnete Widgets vermissten Kerzen: Charts ausserhalb der Sperre nachladen. */
     private val pending = AtomicBoolean(false)

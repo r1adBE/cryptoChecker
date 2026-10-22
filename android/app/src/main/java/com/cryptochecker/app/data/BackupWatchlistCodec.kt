@@ -46,9 +46,9 @@ internal object BackupWatchlistCodec {
         notificationEnabled = o.optBoolean("notificationEnabled", WatchRepository.LEGACY_NOTIFICATION_ENABLED),
         ttsEnabled = o.optBoolean("ttsEnabled", false),
         favorite = o.optBoolean("favorite", false),
-        // Ältere Sicherungen kennen Bestand und Gruppe noch nicht.
+        // Ältere Sicherungen kennen Bestand und Gruppe noch nicht. Seit Build 103 nur endlich (kein ∞), wie iOS `Watch.validHoldings`.
         holdings = if (o.isNull("holdings")) null
-        else o.optDouble("holdings").takeIf { !it.isNaN() && it > 0.0 },
+        else o.optDouble("holdings").takeIf { it.isFinite() && it > 0.0 },
         // Gruppe und Notiz mit denselben Grenzen wie die Eingabe (wie iOS `Watch.validGroupName`/`validNote`)
         groupName = if (o.isNull("group")) null else TextLimit.clean(o.optString("group"), GROUP_NAME_MAX),
         // Ältere Sicherungen haben keine Notiz

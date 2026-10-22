@@ -101,6 +101,8 @@ androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constr
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+# Migrationstests aus den exportierten Schemas (MigrationTestHelper, nur androidTest; seit Build 103)
+androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 # Nur als AAR ohne Abhängigkeiten eingebunden (siehe app/build.gradle.kts)
 sqlcipher-android = { module = "net.zetetic:sqlcipher-android", version.ref = "sqlcipher" }
 

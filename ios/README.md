@@ -1,10 +1,10 @@
 # Crypto Checker für iOS
 
-**Crypto Checker erklärt dir, was im Markt passiert.** Kurse direkt von der
+**Crypto Checker zeigt, was sich gleichzeitig bewegt – keine Ursache, keine Prognose.** Kurse direkt von der
 Börse, Marktüberblick und «Was bewegt sich mit?» – ohne Prognosen, keine
 Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 102 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 103 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit).
 
 Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, Ordner `ios/`

@@ -94,15 +94,16 @@ extension WatchlistScreen {
             } message: {
                 Text(L("watchlist_clear_confirm"))
             }
-            // Glocke ohne Alarm, mehrere Paare: Paar wählen → dessen Alarm-Seite (gleiche Zeilen wie die leere Übersicht)
-            .confirmationDialog(L("alarms_add"), isPresented: $pickAlarmPair, titleVisibility: .visible) {
-                ForEach(data.watches) { watch in
-                    // String statt Interpolation im Titel: wird nicht als Übersetzungsschlüssel gesucht und bleibt für
-                    // den Typprüfer einfach (Button(_ title: some StringProtocol))
-                    let title: String = watch.displayName + " · " + watch.marketName
-                    Button(title) { alarmsFor = watch.id }
+            // Glocke ohne Alarm, mehrere Paare: Paar wählen → dessen Alarm-Seite (gleiches Blatt wie die leere Übersicht).
+            // Seit Build 103 mit Suche, Favoriten oben und Lazy-Liste (`AlarmPairPicker`)
+            .sheet(isPresented: $pickAlarmPair, onDismiss: {
+                if let id = pickedAlarmPair { alarmsFor = id }
+                pickedAlarmPair = nil
+            }) {
+                AlarmPairPicker(watches: data.watches) { id in
+                    pickedAlarmPair = id
+                    pickAlarmPair = false
                 }
-                Button(L("action_cancel"), role: .cancel) {}
             }
             .navigationDestination(isPresented: $showOverview) {
                 AlarmsOverviewScreen()

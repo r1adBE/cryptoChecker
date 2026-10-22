@@ -1,4 +1,4 @@
-Alarm ketika Bitcoin mencapai hargamu – dari bursa yang kamu gunakan. Gratis, tanpa akun.
+Alarm ketika Bitcoin mencapai hargamu – dari bursa yang kamu gunakan. Saat aplikasi ditutup, iOS jarang memeriksa – sering baru setelah berjam-jam, dan sama sekali tidak jika aplikasi diusap hingga tertutup. Paling andal saat aplikasi terbuka. Lonjakan singkat di antaranya bisa terlewat; aplikasi memberi tahu kamu. Gratis, tanpa akun.
 
 YANG MEMBUATNYA BERBEDA
 • Bursamu, bukan rata-rata: setiap baris menampilkan harga terakhir pasangan itu di bursa yang kamu pilih – Binance, Coinbase, Kraken, OKX, Bybit, dan banyak lagi.
@@ -10,7 +10,6 @@ JUJUR SOAL DATA
 • “Hemat” adalah bawaan: harga diperbarui saat aplikasi dibuka dan berkala di latar belakang. “Langsung selama terbuka” menambahkan harga langsung untuk Binance, Bybit, OKX, Coinbase, dan Kraken selama daftar terbuka.
 • Perubahan % dan grafik pertama berasal dari bursa pasangan itu; jika tidak ada candle, aplikasi memakai Binance atau Coinbase dan memberi tahu kamu.
 • Fear & Greed, dominasi, dan nilai on-chain dari alternative.me, CoinGecko, dan Coin Metrics.
-• Saat aplikasi ditutup, iOS jarang memeriksa – sering baru setelah berjam-jam, dan sama sekali tidak jika aplikasi diusap hingga tertutup. Paling andal saat aplikasi terbuka. Lonjakan singkat di antaranya bisa terlewat; aplikasi memberi tahu kamu.
 • Jumlah hanya keluar dari perangkat lewat ekspor (CSV, cadangan) atau terenkripsi di cadangan iCloud atau komputer. Untuk harga, hanya simbol pasangan yang dikirim ke bursanya; plus kurs (Frankfurter), data pasar dan logo (CoinGecko, Binance), cermin data (GitHub). Jika kamu memantau alamat atau xpub, node blockchain publik melihat alamatnya (untuk xpub, turunannya) dan IP-mu.
 
 DAFTAR PANTAUAN

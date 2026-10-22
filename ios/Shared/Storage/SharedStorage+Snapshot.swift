@@ -74,14 +74,8 @@ extension SharedStorage {
         return coordinated(writing: false) { readFiles(watchlist: watchlist, portfolioAlarms: portfolio) }
     }
 
-    /// Schreibt den ganzen Stand (Merkliste, Alarme, Portfolio-Alarme), abgestimmt mit den anderen Prozessen.
-    static func saveSnapshot(_ snapshot: Snapshot) {
-        let watchlist = watchlistURL, portfolio = portfolioAlarmsURL
-        let include = loadSettings().portfolioSystemBackup
-        coordinated(writing: true) {
-            writeFiles(snapshot, watchlist: watchlist, portfolioAlarms: portfolio, includePortfolioInBackup: include)
-        }
-    }
+    // `saveSnapshot` (synchron, ohne Übernahme neuerer Kurse und Auslösungen) entfällt seit Build 103: Der ganze Stand
+    // der App geht nur noch über `saveSnapshotInBackground` hinaus (sonst meldete sich ein Alarm doppelt).
 
     /// Lesen → ändern → schreiben als EIN abgestimmter Schritt (prozessübergreifend über
     /// `NSFileCoordinator`): für Hintergrund-Aktualisierung und Widget, die nur Kurse und
@@ -89,7 +83,7 @@ extension SharedStorage {
     /// So kann kein gleichzeitig in der App hinzugefügtes Paar bzw. Alarm verloren gehen.
     ///
     /// Ist die Datei unlesbar, nicht zugreifbar oder fehlt sie, wird NICHT geschrieben.
-    /// - Parameter body: darf `loadSnapshot`/`saveSnapshot` nicht aufrufen (verschachtelte
+    /// - Parameter body: darf `loadSnapshot`/`updateSnapshot` nicht aufrufen (verschachtelte
     ///   Abstimmung verklemmt sich).
     /// - Returns: der gespeicherte Stand; nil = nicht geschrieben.
     @discardableResult
@@ -116,27 +110,41 @@ extension SharedStorage {
     /// inzwischen neuer geholt hat, und Alarme, die es inzwischen gemeldet hat, bleiben erhalten
     /// (`mergeNewerPrices`, `mergeNewerAlarmTriggers`) — sonst überschriebe ein älterer Stand im Speicher
     /// der App sie wieder (und der Alarm meldete sich ein zweites Mal).
-    static func saveSnapshotInBackground(_ snapshot: Snapshot, done: (() -> Void)? = nil) {
+    /// - Parameter durability: `.barrier` nur für reine Kurs-Speicherungen (Live-Takt, seit Build 103).
+    static func saveSnapshotInBackground(_ snapshot: Snapshot, durability: ProtectedFile.Durability = .full,
+                                         done: (() -> Void)? = nil) {
         let watchlist = watchlistURL, portfolio = portfolioAlarmsURL
         snapshotWriter.async {
             let include = loadSettings().portfolioSystemBackup
             coordinated(writing: true) { () -> Void in
-                var s = snapshot
-                switch readFiles(watchlist: watchlist, portfolioAlarms: portfolio) {
-                case .ok(let disk):
-                    mergeNewerPrices(from: disk, into: &s)
-                    mergeNewerAlarmTriggers(from: disk, into: &s)
-                case .inaccessible:
-                    // Gerade nicht lesbar (Datenschutz): auch nicht überschreiben
-                    return
-                case .missing, .unreadable:
-                    // Unlesbare Datei ist beim Lesen gesichert worden (`preserveUnreadable`)
-                    break
-                }
-                writeFiles(s, watchlist: watchlist, portfolioAlarms: portfolio, includePortfolioInBackup: include)
+                _ = mergeAndWriteFiles(snapshot, watchlist: watchlist, portfolioAlarms: portfolio,
+                                       includePortfolioInBackup: include, durability: durability)
             }
             if let done { DispatchQueue.main.async(execute: done) }
         }
+    }
+
+    /// Ein Schritt von `saveSnapshotInBackground` ohne Abstimmung (nur innerhalb von `coordinated`; testbar über URLs,
+    /// eigene Funktion seit Build 103): neuere Kurse und Auslösungen der Datei übernehmen, dann schreiben.
+    /// - Returns: true, wenn `watchlist.json` geschrieben wurde; false auch bei gerade nicht zugreifbarer Datei.
+    @discardableResult
+    static func mergeAndWriteFiles(_ snapshot: Snapshot, watchlist: URL, portfolioAlarms: URL,
+                                   includePortfolioInBackup: Bool, keys: StorageKey = .shared,
+                                   durability: ProtectedFile.Durability = .full) -> Bool {
+        var s = snapshot
+        switch readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys) {
+        case .ok(let disk):
+            mergeNewerPrices(from: disk, into: &s)
+            mergeNewerAlarmTriggers(from: disk, into: &s)
+        case .inaccessible:
+            // Gerade nicht lesbar (Datenschutz): auch nicht überschreiben
+            return false
+        case .missing, .unreadable:
+            // Unlesbare Datei ist beim Lesen gesichert worden (`preserveUnreadable`)
+            break
+        }
+        return writeFiles(s, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
+                          includePortfolioInBackup: includePortfolioInBackup, keys: keys, durability: durability)
     }
 
     // MARK: Abstimmung über NSFileCoordinator

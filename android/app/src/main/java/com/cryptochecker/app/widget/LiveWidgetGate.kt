@@ -6,10 +6,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import androidx.core.content.ContextCompat
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.util.appScope
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -35,7 +34,7 @@ class LiveWidgetGate @Inject constructor(
     private val widgetUpdater: WidgetUpdater,
 ) {
     private val gate = WidgetScreenGate()
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val scope = appScope(Dispatchers.IO, "LiveWidgetGate")
     private val receiverLock = Any()
     private var receiverRegistered = false
 

@@ -16,12 +16,11 @@ import com.cryptochecker.app.domain.refresh.LivePriceApplier
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.util.AppVisibility
 import com.cryptochecker.app.util.ConnectivityMonitor
+import com.cryptochecker.app.util.appScope
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -67,7 +66,7 @@ class LivePriceStream @Inject constructor(
     /** Eigener Client des Live-Stroms ([LiveDispatcher.client]): ohne Zeitgrenzen, mit User-Agent, eigener Dispatcher. */
     private val client: OkHttpClient = LiveDispatcher.client(baseClient, PROTOCOL_PING_SECONDS)
 
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val scope = appScope(Dispatchers.IO, "LivePriceStream")
 
     /** Paare der angezeigten Merkliste (gewählte Gruppe). */
     private val screenPairs = MutableStateFlow<List<LivePair>>(emptyList())

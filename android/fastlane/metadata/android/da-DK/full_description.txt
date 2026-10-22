@@ -1,4 +1,4 @@
-En alarm, når Bitcoin rammer din kurs – fra den børs, du faktisk bruger. Kursen fra din børs, intet gennemsnit – gratis, uden konto.
+En alarm, når Bitcoin rammer din kurs – fra den børs, du faktisk bruger. Når appen er lukket, bestemmer Android, hvornår alarmer tjekkes – højst én gang pr. 15 minutter, ofte først efter timer. Korte udsving ind imellem kan blive overset; appen fortæller dig det. Kursen fra din børs, intet gennemsnit – gratis, uden konto.
 
 DET, DER GØR DEN ANDERLEDES
 • Din børs, ikke et gennemsnit: hver række viser parrets seneste kurs på den børs, du har valgt – Binance, Coinbase, Kraken, OKX, Bybit og mange flere.
@@ -10,7 +10,6 @@ DET, DER GØR DEN ANDERLEDES
 • »Sparsom« er standard: kurserne opdateres, når du åbner appen, og med mellemrum i baggrunden. »Live, mens den er åben« giver livekurser for Binance, Bybit, OKX, Coinbase og Kraken, mens listen er åben.
 • %-ændring og grafer kommer først fra parrets egen børs; har den ingen candles, bruger appen Binance eller Coinbase og siger det.
 • Fear & Greed, dominans og on-chain-værdier fra alternative.me, CoinGecko og Coin Metrics.
-• Når appen er lukket, bestemmer Android, hvornår alarmer tjekkes – højst én gang pr. 15 minutter, ofte først efter timer. Korte udsving ind imellem kan blive overset; appen fortæller dig det.
 • Beløb forlader kun enheden via din eksport eller Androids systemsikkerhedskopi. Til kurser sendes kun parrets symbol til børsen for det pågældende par; dertil valutakurser (Frankfurter), markedsdata og logoer (CoinGecko, Binance), dataspejle (GitHub). Overvåger du adresser eller en xpub, ser offentlige blockchain-noder adresserne (ved xpub de afledte) og din IP.
 
 OVERVÅGNINGSLISTE

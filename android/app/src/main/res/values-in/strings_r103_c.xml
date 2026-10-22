@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus); seit Build 103 -->
+    <string name="alarm_threshold_error_percent_down_below">Penurunan harus kurang dari 100 persen.</string>
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen; seit Build 103 -->
+    <string name="portfolio_csv_import_rereading">Membaca ulang file …</string>
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze); seit Build 103 -->
+    <plurals name="watchlist_undo_full">
+        <item quantity="other">%1$d pasangan tidak dikembalikan – daftar pantau penuh</item>
+    </plurals>
+</resources>

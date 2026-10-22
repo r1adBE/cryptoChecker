@@ -88,6 +88,8 @@ class DiagnosticReportTest {
         // 12:00 UTC = 14:00 in Zürich (Sommerzeit)
         assertTrue(text.contains("Created: 2026-10-18 14:00 (Europe/Zurich)"))
         assertTrue(text.contains("App: 16.2.2 (81)"))
+        // Seit Build 103: ohne Angabe «local»
+        assertTrue(text.contains("Source: local"))
         assertTrue(text.contains("Exact checks: on"))
         assertTrue(text.contains("Quiet hours: on 23:00-07:00"))
         assertTrue(text.contains("channel: warn (channel_low)"))
@@ -157,5 +159,18 @@ class DiagnosticReportTest {
             val c = raw.obj()
             assertEquals(c["in"] as String, c["out"], DiagnosticReport.redact(c["in"] as String))
         }
+    }
+
+    /** Seit Build 103: Quell-Commit in der Zeile «Source», gleiche Fälle wie iOS. */
+    @Test
+    fun sourceCommitSharedCases() {
+        val data = ParityJson.load("diagnostic_redact.json")
+        for (raw in data["sourceCommit"].list()) {
+            val c = raw.obj()
+            assertEquals(c["in"] as String, c["out"], DiagnosticReport.sourceCommit(c["in"] as String))
+        }
+        // Ein Hash wird nie als Adresse ersetzt
+        val text = DiagnosticReport.build(input().copy(sourceCommit = "3f9a1c2e7b4d5a6f8e9d0c1b2a3f4e5d6c7b8a9f"))
+        assertTrue(text.contains("Source: 3f9a1c2e7b4d\n"))
     }
 }

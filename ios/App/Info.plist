@@ -7,6 +7,8 @@
 		<string>com.cryptochecker.app.refresh</string>
 		<string>com.cryptochecker.app.zone</string>
 	</array>
+	<key>CCGitCommit</key>
+	<string>$(GIT_COMMIT)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

@@ -5,6 +5,7 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.portfolio.PortfolioDailyPrices
 import com.cryptochecker.app.data.portfolio.withAddresses
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -200,10 +202,13 @@ fun PortfolioViewModel.loadExchanges() {
     viewModelScope.launch { _exchanges.value = safe { priceSource.spotMarketNames() }.orEmpty() }
 }
 
+/** Abruf ohne Absturz: Fehler → null; seit Build 103 protokolliert (Datenbank-Schlüssel nicht lesbar nur als Hinweis). */
 internal suspend fun <T> PortfolioViewModel.safe(block: suspend () -> T): T? = try {
     block()
 } catch (e: CancellationException) {
     throw e
 } catch (e: Exception) {
+    if (e.isDatabaseKeyUnavailable()) Timber.d(e, "Portfolio: Datenbank-Schlüssel nicht verfügbar")
+    else Timber.w(e, "Portfolio: Abruf fehlgeschlagen")
     null
 }

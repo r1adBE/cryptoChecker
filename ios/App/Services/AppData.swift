@@ -11,6 +11,8 @@ struct BulkAddResult {
     var skipped: Int
     /// Wegen der vollen Merkliste nicht angelegt (`WatchlistLimits.maxPairs`).
     var refused: Int = 0
+    /// Merkliste gesperrt (`WatchlistStorageLock`): nichts angelegt, den Hinweis zeigt `.watchlistLockedHint`.
+    var locked = false
 }
 
 
@@ -129,6 +131,8 @@ final class AppData: ObservableObject {
     /// false = `portfolio.json` war beim Lesen da, aber nicht (ganz) lesbar: vor jedem Schreiben neu lesen
     /// bzw. die Datei sichern, statt sie mit einem leeren Stand zu überschreiben.
     var portfolioIntact = true
+    /// Letztes `setPortfolioFile` scheiterte an der Sperre (Datei/Schlüssel), nicht an einem Schreibfehler — seit Build 103.
+    var portfolioWriteLocked = false
     /// Portfolio bzw. Portfolio-Alarme konnten nicht versiegelt gespeichert werden (Schlüsselbund gerade nicht lesbar) und
     /// warten im Speicher — nie im Klartext geschrieben. Das Portfolio nennt es; das nächste Speichern bzw. die Rückkehr
     /// der App nach vorne versucht es erneut (`retryPendingPortfolioSaves`).
@@ -138,8 +142,13 @@ final class AppData: ObservableObject {
     /// versucht das Speichern erneut, und jedes weitere Speichern (`mutate`) schreibt den ganzen Stand.
     @Published private(set) var watchlistSavePending = false
     /// `watchlist.json` ist da, aber gerade nicht lesbar (`WatchlistStorageLock`): Die Merkliste steht leer im Speicher und
-    /// wird nicht gespeichert. Die Merkliste nennt es dauerhaft; Alarme werden dann nicht angelegt. Neu bei jedem Lesen.
-    @Published private(set) var watchlistLocked = false
+    /// wird nicht gespeichert. Die Merkliste nennt es dauerhaft; Schreibwege des Nutzers sind gesperrt. Neu bei jedem Lesen.
+    /// Setzen nur hier beim Lesen; `internal(set)` seit Build 103 allein für den Verhaltenstest (WatchlistLockBehaviorTests).
+    @Published internal(set) var watchlistLocked = false
+    /// Zähler der gemeldeten Ablehnungen (`watchlistWriteRefused`, gedrosselt): Bildschirme zeigen je Erhöhung den kurzen
+    /// Hinweis «watchlist_storage_locked» (`.watchlistLockedHint`). Zeit des letzten Hinweises (monotone ms) dazu.
+    @Published var watchlistLockedHints = 0
+    var watchlistLockedHintAt: Int64?
     /// Noch keine `watchlist.json` und kein Schlüssel zum Versiegeln (`WatchlistStorageLock.waitsForKey`): Was jetzt
     /// angelegt wird, kann nicht gespeichert werden — die Merkliste sagt es gleich, nicht erst nach dem ersten Speichern.
     @Published private(set) var watchlistWaitsForKey = false
@@ -149,7 +158,7 @@ final class AppData: ObservableObject {
     }
     /// Merkliste in diesem Lauf schon einmal gelesen (`WatchlistStorageLock.holdsStoredState`): Dann hält der Speicher
     /// den echten Stand, und ein später unlesbarer Zugriff setzt `watchlistLocked` nicht mehr.
-    private var watchlistReadOnce = false
+    private(set) var watchlistReadOnce = false
     var appActive = false
     /// Dateien mit Nutzerdaten blieben beim Start unverschlüsselt (`LaunchOutcome.encryptionPending`): Einstellungen ›
     /// Sicherung nennt «Verschlüsselung noch nicht aktiv» — wie Android `DatabaseEncryptionNotice`.
@@ -206,6 +215,8 @@ final class AppData: ObservableObject {
         PriceColors.accent = settings.accentColor
         for kind in FavoriteKind.allCases { favorites[kind] = SharedStorage.favorites(kind) }
         activityReports = ActivityRepository.reports()
+        // Namensdatei vorwärmen, sonst liest `watchKinds` sie beim ersten Zeichnen auf Main — wie Android (seit Build 103)
+        Task.detached(priority: .utility) { TokenIdentityStore.shared.warmUp() }
         portfolio = PortfolioStore.newestFirst(portfolioFile.transactions)
         let watched = WatchedAddressStore.loadChecked()
         watchedAddressFile = watched.file
@@ -325,8 +336,8 @@ final class AppData: ObservableObject {
         quietPriceSave = false
         dropMissingWatchlistGroup()
         // Speichern im Hintergrund; die Widgets erst danach neu laden (sie lesen die Datei). Danach: warten Portfolio-Alarme
-        // auf den Schlüssel (nie Klartext), nennt das Portfolio es
-        SharedStorage.saveSnapshotInBackground(s, done: { [weak self] in
+        // auf den Schlüssel (nie Klartext), nennt das Portfolio es. Nur Kurse (`quiet`): Barriere (seit Build 103, `Durability`)
+        SharedStorage.saveSnapshotInBackground(s, durability: quiet ? .barrier : .full, done: { [weak self] in
             if SharedStorage.portfolioAlarmsPending { self?.portfolioSavePending = true }
             // Nur bei Änderung veröffentlichen (gespeichert wird bei Live-Kursen alle paar Sekunden)
             let waiting = SharedStorage.watchlistPending
@@ -338,6 +349,7 @@ final class AppData: ObservableObject {
                 WidgetCenter.shared.reloadAllTimelines()
             }
         })
+        if !quiet { followBackgroundDemand() } // Bedarf der Hintergrund-Aktualisierung (seit Build 103)
     }
 
     /// Vor dem Lesen (Haupt-Thread). false = nicht lesen: Der Speicher bleibt massgebend.
@@ -363,8 +375,12 @@ final class AppData: ObservableObject {
             if watchlistWaitsForKey != waitsForKey { watchlistWaitsForKey = waitsForKey }
             // Nur einen gelesenen Stand übernehmen: Ist die Datei gerade unlesbar oder nicht zugreifbar,
             // bleibt der Stand im Speicher (sonst stünde eine leere Merkliste da) — ebenso, solange die Merkliste
-            // noch nicht versiegelt gespeichert ist (die Datei hat dann einen älteren Stand)
-            if !waiting, let fresh = read.snapshot { snapshot = fresh }
+            // noch nicht versiegelt gespeichert ist (die Datei hat dann einen älteren Stand). Warten Portfolio-Alarme auf den
+            // Schlüssel, bleiben seit Build 103 diese aus dem Speicher (`PortfolioSaveRetry.merged`)
+            if !waiting, let fresh = read.snapshot {
+                snapshot = PortfolioSaveRetry.merged(disk: fresh, memory: snapshot,
+                                                     alarmsPending: SharedStorage.portfolioAlarmsPending)
+            }
         }
         reloadSettingsIfInaccessible()
         lastRefreshMillis = SharedStorage.lastRefreshDuration

@@ -127,6 +127,8 @@ fun MarketPhaseScreen(
     val scope = rememberCoroutineScope()
     // «… entfernt» mit «Rückgängig» nach «Löschen» im Aktionsblatt (wie in der Merkliste)
     val banner = rememberWatchlistBanner(scope)
+    // Paar nicht übernommen bzw. nicht geändert, weil die Merkliste gesperrt ist: kurzer Hinweis mit Warn-Haptik
+    com.cryptochecker.app.ui.components.WatchlistLockedHint { banner.show(it) }
     // Was beim Betreten des Tabs schon stand, erscheint ohne Animation (kein Schauspiel je Tab-Wechsel)
     // Auf «Jetzt» zählt nur, was dort schon stand (Fear & Greed erst unter den Karten darüber)
     val revealedOnEntry = remember {

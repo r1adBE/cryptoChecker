@@ -41,12 +41,15 @@ class BackupRestoreLimitsParityTest {
             val name = c["description"] as String
             val json = JSONObject()
             c["watch"].obj().forEach { (key, value) ->
-                json.put(key, if (value is Double) value.toLong() else value ?: JSONObject.NULL)
+                // Ganze Zahlen als Long (Ids); Bruchzahlen wie ein Bestand 0.5 bleiben Double (seit Build 103)
+                json.put(key, if (value is Double && value % 1.0 == 0.0) value.toLong() else value ?: JSONObject.NULL)
             }
             val watch = BackupWatchlistCodec.jsonToWatch(json)
             assertEquals(name, c["kept"] as Boolean, BackupRestoreLimits.acceptsWatch(watch))
             assertEquals(name, c["group"] as String?, watch.groupName)
             assertEquals(name, c["note"] as String?, watch.note)
+            // Seit Build 103: Bestand nur endlich und > 0 (wie iOS `Watch.validHoldings`)
+            if (c.containsKey("expectedHoldings")) assertEquals(name, c["expectedHoldings"].num(), watch.holdings)
         }
     }
 

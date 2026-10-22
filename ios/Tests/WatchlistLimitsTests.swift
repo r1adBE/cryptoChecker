@@ -56,4 +56,23 @@ final class WatchlistLimitsTests: XCTestCase {
         XCTAssertEqual(AppData.insertOutcome(&snapshot, market: market, pair: pool(3)), .duplicate)
         XCTAssertEqual(snapshot.watches.count, WatchlistLimits.maxPairs)
     }
+
+    /// Seit Build 103 (Review FUN-03): «Rückgängig» umgeht die Obergrenze nicht — Überzählige bleiben aus und werden
+    /// gezählt; vorhandene Paare zählen nicht als «voll». Wie Android `WatchRepository.restore`.
+    func testRueckgaengigNurBisZurGrenze() {
+        var snapshot = SharedStorage.Snapshot()
+        let market = DexScreener()
+        for i in 0..<(WatchlistLimits.maxPairs - 1) {
+            XCTAssertNotNil(AppData.insert(&snapshot, market: market, pair: pool(i)))
+        }
+        func deleted(_ id: Int64) -> DeletedWatch {
+            DeletedWatch(watch: Watch(id: id, marketKey: "Binance", marketName: "Binance", baseAsset: "B\(id)", quoteAsset: "USDT"),
+                         alarms: [], activity: nil, selectedGroup: nil)
+        }
+        let existing = DeletedWatch(watch: snapshot.watches[0], alarms: [], activity: nil, selectedGroup: nil)
+        let result = AppData.restoreInto(&snapshot, [existing, deleted(90_001), deleted(90_002), deleted(90_003)])
+        XCTAssertEqual(result.restored.map(\.watch.id), [90_001])
+        XCTAssertEqual(result.full, 2)
+        XCTAssertEqual(snapshot.watches.count, WatchlistLimits.maxPairs)
+    }
 }
