@@ -13,34 +13,67 @@ on:
     - cron: '7 * * * *'    # hourly at :07 UTC
   workflow_dispatch:
 
-# Standard nur lesen; Schreibrecht nur im Job, der die Release-Assets hochlädt
-permissions:
-  contents: read
+# Seit Build 104 zwei Jobs: «fetch» fragt die Anbieter ohne Schreibrecht ab und übergibt die Dateien als Artefakt;
+# «publish» (Schreibrecht, keine fremden Netzabfragen) checkt github.sha frisch aus, prüft das Artefakt streng
+# (artifact_check.py) und lädt erst dann die Release-Assets hoch.
+permissions: {}
 
 concurrency:
   group: market-data
   cancel-in-progress: false
 
 jobs:
-  mirror:
+  fetch:
     runs-on: ubuntu-24.04
     permissions:
-      contents: write   # gh release create/edit/upload
+      contents: read    # checkout only
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           sparse-checkout: .github/scripts
-          # Hochladen mit GH_TOKEN aus env; kein Token in .git/config liegen lassen
           persist-credentials: false
 
       - name: Self-test
         run: python3 .github/scripts/mirror_data.py --output "$RUNNER_TEMP/data" --selftest
 
+      # Anbieter-Abfragen; in diesem Job gibt es kein Schreib-Token
       - name: Fetch
         env:
           PYTHONDONTWRITEBYTECODE: '1'
         run: python3 .github/scripts/mirror_data.py --output "$RUNNER_TEMP/data"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: market-data
+          path: ${{ runner.temp }}/data
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    needs: fetch
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write   # gh release create/edit/upload
+      actions: read     # Artefakt dieses Laufs laden (gh run download)
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          sparse-checkout: .github/scripts
+          # Hochladen mit GH_TOKEN aus env; kein Token in .git/config liegen lassen
+          persist-credentials: false
+
+      # actions/download-artifact ist im Repository noch nicht gepinnt: gh (vorinstalliert) mit dem Artefakt dieses Laufs
+      - name: Download artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name market-data --dir "$RUNNER_TEMP/data"
+
+      # Nur erwartete Dateinamen, Grösse, Kopfzeile/JSON grob; aus dem Artefakt wird nichts ausgeführt
+      - name: Check artifact
+        run: python3 -I .github/scripts/artifact_check.py --dir "$RUNNER_TEMP/data" --profile mirror
 
       - name: Upload
         env:

@@ -228,7 +228,8 @@ internal fun MarketCoinSheets(
                     state.closePreview()
                 },
                 onNotificationChange = {
-                    if (it) requestNotifications()
+                    // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage (seit Build 104)
+                    if (it && !com.cryptochecker.app.data.local.WatchlistStorageLock.blocksWritesNow()) requestNotifications()
                     watchlist.setNotificationEnabled(shown, it)
                 },
                 onTtsChange = { watchlist.setTtsEnabled(shown, it) },

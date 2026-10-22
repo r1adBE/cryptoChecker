@@ -1,6 +1,7 @@
 import Foundation
 
-/// User-Agent aller Netzabfragen (Börsen, Kerzen, Logos; Adressen: `neutral`), wie Android
+/// User-Agent aller Netzabfragen (Börsen, Kerzen, Logos; Adress-Hosts: `neutral`, seit Build 104 bei jeder Anfrage
+/// über `MarketHTTP.sessionFor(host:requested:)`), wie Android
 /// (`HttpUserAgent.kt`, «cryptoChecker-Android/…»). Version aus dem Bundle
 /// (CFBundleShortVersionString) — in der Widget-Erweiterung deren eigenes Bundle (gleiche Version).
 enum HttpUserAgent {
@@ -12,9 +13,25 @@ enum HttpUserAgent {
         return "cryptoChecker-iOS/\(v.isEmpty ? "16" : v)"
     }
 
-    /// Neutraler User-Agent ohne App-Name und -Version für Adressabfragen (seit Build 103): ausdrücklich gesetzt,
-    /// sonst sendet CFNetwork den Bundle-Namen. Gleicher Wert wie Android (`Parity/address_privacy.json`).
-    static let neutral = "Mozilla/5.0"
+    /// Neutraler User-Agent für Adress-Hosts (seit Build 103; seit Build 104 verbreiteter vollständiger Browser-Wert:
+    /// Firefox ESR 153): ausdrücklich gesetzt, sonst sendet CFNetwork den Bundle-Namen. Nennt weder App noch Version,
+    /// tarnt die Anfrage aber nicht als Browser (TLS-/HTTP-Merkmale, IP und Abfragemuster bleiben die der App).
+    /// Gleicher Wert wie Android (`Parity/address_privacy.json`).
+    static let neutral = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0"
+
+    /// Hosts, die eine Adresse zu sehen bekommen (`AddressBalance.privacyHosts`), seit Build 104.
+    private static let addressHosts: Set<String> = Set(AddressBalance.privacyHosts.map { $0.lowercased() })
+
+    /// Bekommt dieser Host Adressen? Dann bei JEDER Anfrage `neutral` — auch Gebühren und Halving (mempool.space,
+    /// publicnode …), sonst verbände der Host App-Kennung und Adresse. Wie Android `HttpUserAgent.isAddressHost`.
+    static func isAddressHost(_ host: String) -> Bool {
+        var h = host.lowercased()
+        while h.hasSuffix(".") { h.removeLast() }
+        return addressHosts.contains(h)
+    }
+
+    /// User-Agent für eine Anfrage an `host`: Adress-Hosts `neutral`, sonst `app` (seit Build 104).
+    static func forHost(_ host: String, app: String = HttpUserAgent.value) -> String { isAddressHost(host) ? neutral : app }
 
     /// Wert für diese App bzw. Erweiterung (einmal gelesen).
     static let value: String = ios(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String)

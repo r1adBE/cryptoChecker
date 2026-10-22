@@ -1,8 +1,8 @@
-Një alarm kur Bitcoin arrin çmimin tënd – nga bursa që përdor vërtet. Me aplikacionin të mbyllur, Android vendos kur kontrollohen alarmet – jo më shpesh se çdo 15 minuta, shpesh vetëm pas orësh. Kërcime të shkurtra në mes mund të humbasin; aplikacioni ta thotë këtë. Falas, pa llogari.
+Crypto Checker kontrollon çmimet e bursës sate dhe të njofton kur, gjatë kontrollit, niveli yt është arritur. Me aplikacionin të mbyllur, Android vendos kur kontrollohen alarmet – jo më shpesh se çdo 15 minuta, shpesh vetëm pas orësh. Kërcime të shkurtra në mes mund të humbasin; aplikacioni ta thotë këtë. Falas, pa llogari.
 
 ÇFARË E BËN TË NDRYSHME
 • Bursa jote, jo një mesatare: çdo rresht tregon çmimin e fundit të çiftit në bursën që ke zgjedhur – Binance, Coinbase, Kraken, OKX, Bybit dhe shumë të tjera.
-• Një alarm që njofton një herë: «Më njofto kur BTC të kalojë mbi 100 000 USDT.» Bie kur niveli kapërcehet, jo në çdo përditësim – «Një herë» pastaj e çaktivizon, «Çdo herë» e riaktivizon kur çmimi kthehet.
+• Një alarm që njofton një herë: «Më njofto kur BTC të kalojë mbi 100 000 USDT.» Bie kur një kontroll gjen nivelin të kapërcyer, jo në çdo përditësim – «Një herë» pastaj e çaktivizon, «Çdo herë» e riaktivizon kur çmimi kthehet.
 • «Çfarë lëviz bashkë?»: një listë faktorësh për një monedhë – tregu i përgjithshëm, vëllimi, luhatshmëria, funding dhe open interest, largësia nga maksimumi ose minimumi, Fear & Greed. Tregon çfarë lëviz në të njëjtën kohë – jo shkak, jo lajm, jo këshillë investimi.
 • Pa llogari, pa reklama, pa gjurmim. Zhvilluesi nuk merr asnjë nga të dhënat e tua.
 
@@ -31,7 +31,7 @@ TREGU
 
 GJITHASHTU
 • Widget-e: lista, vlera totale e portofolit, një monedhë me grafik
-• Portofoli sipas dëshirës (aktivizohet te Cilësimet): blerje, shitje, shkëmbime, transferime, shpërblime, depozita dhe tërheqje; FIFO (parazgjedhje) ose mesatare (Ø); adresa vetëm për lexim, pa seed, për BTC (edhe xpub), ETH dhe zinxhirë EVM, SOL, TRX, XRP, LTC, ADA dhe TON; import CSV nga Relai, Swissquote, Bitpanda, Kraken, Binance dhe Coinbase; përmbledhje vjetore në CSV; kyçje e veçantë. Bitpanda dhe Swissquote nuk kanë burim publik çmimesh, prandaj nuk kanë çmim të vetin – transaksionet e tyre vijnë me import CSV.
+• Portofoli sipas dëshirës (aktivizohet te Cilësimet): blerje, shitje, shkëmbime, transferime, shpërblime, depozita dhe tërheqje; FIFO (parazgjedhje) ose mesatare (Ø); adresa vetëm për lexim, pa seed, për BTC (edhe xpub), ETH dhe zinxhirë EVM, SOL, TRX, XRP, LTC, ADA dhe TON; import CSV nga Relai, Swissquote, Bitpanda, Kraken, Binance dhe Coinbase; përmbledhje vjetore në CSV; kyçje e veçantë. Bitpanda dhe Swissquote: pa çmim të vetin, vetëm me CSV.
 • E lexueshme për të gjithë: jeshile/kuqe ose blu/portokalli, shenjë dhe shigjetë në vend të vetëm ngjyrës; TalkBack lexon çdo rresht si një fjali
 • Kopje rezervë dhe rikthim në një skedar – edhe mes Android dhe iPhone
 • Modalitet i çelët dhe i errët, pesë ngjyra theksi, 31 gjuhë

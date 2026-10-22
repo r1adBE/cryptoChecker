@@ -1,5 +1,31 @@
 {
-  "_comment": "Adressabfragen (beobachtete Adressen, xpub) senden einen neutralen User-Agent ohne App-Name und -Version (seit Build 103), damit Blockchain-Knoten die Adresse nicht der App zuordnen. Android: AddressPrivacyParityTest.kt (HttpUserAgent.NEUTRAL, Client von WatchedAddressSource), iOS: AddressPrivacyParityTests.swift (HttpUserAgent.neutral).",
-  "userAgent": "Mozilla/5.0",
-  "forbiddenParts": ["cryptoChecker", "CryptoChecker", "Crypto Checker", "okhttp", "CFNetwork", "Darwin"]
+  "_comment": "Adressabfragen (beobachtete Adressen, xpub) senden einen neutralen User-Agent ohne App-Name und -Version (seit Build 103), damit Blockchain-Knoten die Adresse nicht der App zuordnen. Seit Build 104: verbreiteter vollständiger Browser-Wert (Firefox ESR 153) und Host-Regel – jeder Host, der Adressen sieht (AddressBalance.PRIVACY_HOSTS / privacyHosts), bekommt ihn bei JEDER Anfrage, auch Gebühren und Halving; alle anderen Hosts den App-User-Agent. Android: AddressPrivacyParityTest.kt (HttpUserAgent.NEUTRAL/forHost, UserAgentInterceptor, Client von WatchedAddressSource), iOS: AddressPrivacyParityTests.swift (HttpUserAgent.neutral/forHost, MarketHTTP.sessionFor(host:requested:)).",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
+  "forbiddenParts": ["cryptoChecker", "CryptoChecker", "Crypto Checker", "okhttp", "CFNetwork", "Darwin"],
+  "hostCases": [
+    { "host": "mempool.space", "neutral": true, "_why": "Adressen (BTC) und Gebühren/Halving" },
+    { "host": "blockstream.info", "neutral": true },
+    { "host": "ethereum-rpc.publicnode.com", "neutral": true, "_why": "Adressen (ETH) und Gebühren" },
+    { "host": "eth.llamarpc.com", "neutral": true },
+    { "host": "base-rpc.publicnode.com", "neutral": true },
+    { "host": "mainnet.base.org", "neutral": true },
+    { "host": "arbitrum-one-rpc.publicnode.com", "neutral": true },
+    { "host": "arb1.arbitrum.io", "neutral": true },
+    { "host": "polygon-bor-rpc.publicnode.com", "neutral": true },
+    { "host": "polygon-rpc.com", "neutral": true },
+    { "host": "bsc-rpc.publicnode.com", "neutral": true },
+    { "host": "bsc-dataseed.bnbchain.org", "neutral": true },
+    { "host": "litecoinspace.org", "neutral": true },
+    { "host": "s2.ripple.com", "neutral": true },
+    { "host": "toncenter.com", "neutral": true },
+    { "host": "api.koios.rest", "neutral": true },
+    { "host": "api.trongrid.io", "neutral": true },
+    { "host": "api.mainnet.solana.com", "neutral": true },
+    { "host": "MEMPOOL.space", "neutral": true, "_why": "Gross-/Kleinschreibung egal" },
+    { "host": "cloudflare-eth.com", "neutral": false, "_why": "nur Gebühren, nie Adressen" },
+    { "host": "api.binance.com", "neutral": false },
+    { "host": "api.coinbase.com", "neutral": false },
+    { "host": "space", "neutral": false },
+    { "host": "evil-mempool.space", "neutral": false, "_why": "nur genaue Hosts" }
+  ]
 }

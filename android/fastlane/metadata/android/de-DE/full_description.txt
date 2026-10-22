@@ -1,8 +1,8 @@
-Ein Alarm, wenn Bitcoin deinen Kurs erreicht – von der Börse, die du wirklich nutzt. Bei geschlossener App entscheidet Android, wann Alarme geprüft werden – frühestens alle 15 Minuten, oft erst nach Stunden. Kurze Spitzen dazwischen können fehlen; die App sagt dir das. Gratis, ohne Konto.
+Crypto Checker prüft die Kurse deiner Börse und meldet sich, wenn beim Nachsehen deine Marke erreicht ist. Bei geschlossener App entscheidet Android, wann Alarme geprüft werden – frühestens alle 15 Minuten, oft erst nach Stunden. Kurze Spitzen dazwischen können fehlen; die App sagt dir das. Gratis, ohne Konto.
 
 WAS DIE APP ANDERS MACHT
 • Deine Börse, kein Mittelwert: Jede Zeile zeigt den letzten Kurs des Paars an der Börse, die du gewählt hast – Binance, Coinbase, Kraken, OKX, Bybit und viele mehr.
-• Ein Alarm, der einmal Bescheid gibt: «Sag mir Bescheid, wenn BTC über 100 000 USDT steigt.» Er meldet sich beim Überschreiten der Marke, nicht bei jeder Aktualisierung – «Einmal» schaltet ihn aus, «Jedes Mal» macht ihn wieder scharf, sobald der Kurs zurückkommt.
+• Ein Alarm, der einmal Bescheid gibt: «Sag mir Bescheid, wenn BTC über 100 000 USDT steigt.» Er meldet sich, wenn eine Prüfung die Marke überschritten findet, nicht bei jeder Aktualisierung – «Einmal» schaltet ihn aus, «Jedes Mal» macht ihn wieder scharf, sobald der Kurs zurückkommt.
 • «Was bewegt sich mit?»: eine Faktorliste zu einem Coin – Gesamtmarkt, Volumen, Schwankung, Funding und Open Interest, Abstand zu Hoch oder Tief, Fear & Greed. Sie zeigt, was sich gleichzeitig bewegt – keine Ursache, keine Nachricht, keine Anlageberatung.
 • Kein Konto, keine Werbung, kein Tracking. Der Entwickler bekommt keine deiner Daten.
 
@@ -31,7 +31,7 @@ MARKT
 
 AUSSERDEM
 • Widgets: Merkliste, Portfolio-Gesamtwert, ein Coin mit Chart
-• Portfolio optional, einschaltbar unter Einstellungen: Käufe, Verkäufe, Tausch, Transfers, Rewards, Ein- und Auszahlungen; FIFO (Standard) oder Durchschnitt (Ø); Adressen nur lesend, ohne Seed, für BTC (auch xpub), ETH & EVM-Chains, SOL, TRX, XRP, LTC, ADA und TON; CSV-Import von Relai, Swissquote, Bitpanda, Kraken, Binance und Coinbase; Jahresübersicht als CSV; eigene Sperre. Bitpanda und Swissquote haben keinen öffentlichen Kursfeed, darum keinen eigenen Kurs – ihre Käufe kommen per CSV-Import.
+• Portfolio optional, einschaltbar unter Einstellungen: Käufe, Verkäufe, Tausch, Transfers, Rewards, Ein- und Auszahlungen; FIFO (Standard) oder Durchschnitt (Ø); Adressen nur lesend, ohne Seed, für BTC (auch xpub), ETH & EVM-Chains, SOL, TRX, XRP, LTC, ADA und TON; CSV-Import von Relai, Swissquote, Bitpanda, Kraken, Binance und Coinbase; Jahresübersicht als CSV; eigene Sperre. Bitpanda und Swissquote: kein eigener Kurs, nur per CSV.
 • Lesbar für alle: Grün/Rot oder Blau/Orange, Vorzeichen und Pfeil statt nur Farbe; TalkBack liest jede Zeile als einen Satz
 • Sichern & Wiederherstellen in eine Datei – auch zwischen Android und iPhone
 • Heller und dunkler Modus, fünf Akzentfarben, 31 Sprachen

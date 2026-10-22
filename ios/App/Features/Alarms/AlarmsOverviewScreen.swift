@@ -19,8 +19,9 @@ struct AlarmsOverviewScreen: View {
     @State private var portfolioPause: PortfolioAlarmPause?
     /// Merkliste gesperrt: Hinweis «watchlist_storage_locked» nach einem abgelehnten Schalter (`.watchlistLockedHint`).
     @State private var banner: WatchlistBannerMessage?
-    /// Zählt abgelehnte Schalter (Merkliste gesperrt): zeichnet die Schalter neu, damit sie den echten Zustand zeigen —
-    /// der gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
+    /// Zählt abgelehnte Schalter (Merkliste gesperrt): wertet den body neu aus, damit die Schalter den echten Zustand
+    /// zeigen — der gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst
+    /// stehen. Seit Build 104 ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
     @State private var refusedToggles = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -57,6 +58,8 @@ struct AlarmsOverviewScreen: View {
     }
 
     var body: some View {
+        // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus), seit Build 104
+        let _ = refusedToggles
         let groups = self.groups
         let portfolio = portfolioAlarms
         let active = groups.reduce(0) { sum, g in sum + g.filter(\.alarm.enabled).count }
@@ -235,7 +238,8 @@ struct AlarmsOverviewScreen: View {
                     SwitchRow(isOn: Binding(
                         get: { alarm.enabled },
                         set: { enabled in
-                            Haptics.play(.selection)
+                            // Gesperrt: nur die Warn-Haptik des Hinweises (wie Android), seit Build 104
+                            if !data.watchlistWritesBlocked { Haptics.play(.selection) }
                             withAnimation(.snappy) { data.setAlarmEnabled(alarm.id, enabled) }
                             if data.watchlistWritesBlocked { refusedToggles &+= 1 }
                         }
@@ -255,13 +259,19 @@ struct AlarmsOverviewScreen: View {
                                     .foregroundStyle(AppColors.onSurfaceVariant)
                                     .lineLimit(2)
                                     .fixedSize(horizontal: false, vertical: true)
+                                // Seit Build 104: «fällt um ≥ 100 %» (aus Build 102) löst nie aus — kennzeichnen
+                                if BackupManager.exceedsFall(alarm.condition, alarm.threshold) {
+                                    Text(L("alarm_threshold_invalid_fix"))
+                                        .font(.caption)
+                                        .foregroundStyle(AppColors.error)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
                             }
                         }
                         // VoiceOver: vollständig, inkl. Wiederholung, Ton und Ansage (Symbol bleibt stumm)
                         .accessibilityElement(children: .ignore)
                         .accessibilityLabel(Self.a11yLabel(alarm, watch: watch))
                     }
-                    .id(refusedToggles)
                     .padding(.horizontal, 16)
                 }
             }
@@ -273,7 +283,9 @@ struct AlarmsOverviewScreen: View {
     /// Vorgelesen je Paar-Alarm: Titel, Satz, Wiederholung, Ton, Ansage (`AlarmA11y`).
     private static func a11yLabel(_ alarm: Alarm, watch: Watch) -> String {
         let sentence = AlarmTexts.sentence(alarm, base: watch.baseAsset, quote: watch.quoteAsset)
-        return AlarmA11y.description(alarm, title: AlarmStyle.title(alarm, quote: watch.quoteAsset), sentence: sentence)
+        let text = AlarmA11y.description(alarm, title: AlarmStyle.title(alarm, quote: watch.quoteAsset), sentence: sentence)
+        // Seit Build 104: ungültige Schwelle mit vorlesen (wie Android)
+        return BackupManager.exceedsFall(alarm.condition, alarm.threshold) ? text + ". " + L("alarm_threshold_invalid_fix") : text
     }
 
     /// Karte «Portfolio»: je Alarm Satz und Schalter (ganze Zeile); Löschen über das Kontextmenü.

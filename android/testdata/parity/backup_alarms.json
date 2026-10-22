@@ -1,5 +1,5 @@
 {
- "description": "Pair alarms read from a backup (Android AlarmJson.fromJson / iOS BackupManager.alarmFromJson). An unknown condition (newer app version) or a threshold that is not a finite number makes the alarm invalid: it is counted and named in the restore confirmation, never turned into «price above» with a foreign threshold. Numbers JSON cannot hold are strings (\"NaN\"). An optional \"windowHours\" per case is the expected window after reading: clamped to 1 … 365 (no overflow, no 32-bit wrap). Since Build 102 a threshold <= 0 is also invalid for price level (PRICE_ABOVE/BELOW), percent change (CHANGE_PERCENT_UP/DOWN) and move (MOVE_PERCENT_WINDOW) alarms — they fired on every check; funding may be negative and «near high/low» may be 0. Since Build 103 a falling percent alarm (CHANGE_PERCENT_DOWN, OI_DOWN) with a threshold >= 100 is invalid as well — a drop of 100 % or more never fires; rising and move alarms stay open.",
+ "description": "Pair alarms read from a backup (Android AlarmJson.fromJson / iOS BackupManager.alarmFromJson). An unknown condition (newer app version) or a threshold that is not a finite number makes the alarm invalid: it is counted and named in the restore confirmation, never turned into «price above» with a foreign threshold. Numbers JSON cannot hold are strings (\"NaN\"). An optional \"windowHours\" per case is the expected window after reading: clamped to 1 … 365 (no overflow, no 32-bit wrap). Since Build 102 a threshold <= 0 is also invalid for price level (PRICE_ABOVE/BELOW), percent change (CHANGE_PERCENT_UP/DOWN) and move (MOVE_PERCENT_WINDOW) alarms — they fired on every check; funding may be negative and «near high/low» may be 0. Since Build 103 a falling percent alarm (CHANGE_PERCENT_DOWN, OI_DOWN) with a threshold >= 100 is invalid as well — a drop of 100 % or more never fires; rising and move alarms stay open. Since Build 104 such a falling alarm >= 100 % is no longer invalid: it is taken over but switched off (the alarm list marks it «threshold invalid – please adjust»). An optional \"expectedEnabled\" per case is the enabled state after reading.",
  "cases": [
   {
    "name": "known condition is kept",
@@ -432,10 +432,11 @@
     "windowHours": 1,
     "currency": null
    },
-   "valid": true
+   "valid": true,
+   "expectedEnabled": true
   },
   {
-   "name": "percent down 100 is invalid",
+   "name": "percent down 100 is kept switched off (since Build 104)",
    "alarm": {
     "id": 1,
     "watchId": 10,
@@ -450,10 +451,11 @@
     "windowHours": 1,
     "currency": null
    },
-   "valid": false
+   "valid": true,
+   "expectedEnabled": false
   },
   {
-   "name": "percent down 150 is invalid",
+   "name": "percent down 150 is kept switched off",
    "alarm": {
     "id": 1,
     "watchId": 10,
@@ -468,10 +470,11 @@
     "windowHours": 1,
     "currency": null
    },
-   "valid": false
+   "valid": true,
+   "expectedEnabled": false
   },
   {
-   "name": "open interest down 100 is invalid",
+   "name": "open interest down 100 is kept switched off",
    "alarm": {
     "id": 1,
     "watchId": 10,
@@ -486,7 +489,8 @@
     "windowHours": 1,
     "currency": null
    },
-   "valid": false
+   "valid": true,
+   "expectedEnabled": false
   },
   {
    "name": "percent up 150 is kept",

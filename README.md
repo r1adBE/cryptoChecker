@@ -1,13 +1,17 @@
 # Crypto Checker
 
-**Crypto Checker shows what is moving at the same time – no cause, no forecast.** Prices and alarms
-straight from the exchanges, a market overview and “What is moving with it?” for
-single coins – no account, no investment advice.
+**Crypto Checker is a crypto checker: prices straight from your exchange, and a notice when a check finds
+your level reached – no account.** It checks when it looks (with the app closed, the phone decides how often), not
+at the moment a price is hit. Watchlist, widgets and a market overview; as an extra, “What is moving with it?”
+shows what moves at the same time as a single coin – no cause, no forecast, no investment advice.
 Android and iPhone · 31 languages · no ads · no tracking · open source (MIT).
 
-> **Deutsch:** Crypto Checker zeigt, was sich gleichzeitig bewegt – keine Ursache,
-> keine Prognose. Kurse und Alarme direkt von der Börse, eine Marktübersicht und
-> «Was bewegt sich mit?» für einzelne Coins – ohne Konto, ohne Anlageberatung. Dieses
+> **Deutsch:** Crypto Checker ist ein Krypto-Checker: Kurse direkt von deiner Börse und
+> Hinweise, wenn beim Nachsehen eine Marke erreicht ist – ohne Konto. Die App meldet sich,
+> wenn sie nachsieht (bei geschlossener App entscheidet das Telefon, wie oft), nicht im
+> Moment, in dem ein Kurs erreicht wird. Dazu Merkliste, Widgets und eine Marktübersicht; als
+> Zusatz zeigt «Was bewegt sich mit?», was sich gleichzeitig mit einem Coin bewegt – keine
+> Ursache, keine Prognose, keine Anlageberatung. Dieses
 > Repository enthält den kompletten Quellcode der Android- und der iOS-App,
 > die Börsen-Bibliothek und die Datenschutzerklärung. Lizenz: MIT – jeder darf
 > den Code verwenden, ändern und weitergeben.

@@ -1,8 +1,8 @@
-Um alarme quando a Bitcoin atingir o teu preço – da exchange que realmente usas. Com a app fechada, é o Android que decide quando os alarmes são verificados – no máximo uma vez a cada 15 minutos, muitas vezes só após horas. Picos curtos pelo meio podem escapar; a app avisa-te disso. Grátis, sem conta.
+O Crypto Checker verifica os preços da tua exchange e avisa-te quando, na verificação, o teu nível foi atingido. Com a app fechada, é o Android que decide quando os alarmes são verificados – no máximo uma vez a cada 15 minutos, muitas vezes só após horas. Picos curtos pelo meio podem escapar; a app avisa-te disso. Grátis, sem conta.
 
 O QUE A TORNA DIFERENTE
 • A tua exchange, não uma média: cada linha mostra o último preço do par na exchange que escolheste – Binance, Coinbase, Kraken, OKX, Bybit e muitas mais.
-• Um alarme que avisa uma vez: «Avisar-me quando BTC subir acima de 100 000 USDT.» Toca quando o nível é ultrapassado, não a cada atualização – «Uma vez» desativa-o depois, «Todas as vezes» volta a armá-lo quando o preço regressa.
+• Um alarme que avisa uma vez: «Avisar-me quando BTC subir acima de 100 000 USDT.» Toca quando uma verificação encontra o nível ultrapassado, não a cada atualização – «Uma vez» desativa-o depois, «Todas as vezes» volta a armá-lo quando o preço regressa.
 • «O que se mexe com ele?»: uma lista de fatores para uma moeda – mercado global, volume, volatilidade, funding e open interest, distância ao máximo ou ao mínimo, Fear & Greed. Mostra o que se mexe ao mesmo tempo – nem causa, nem notícia, nem aconselhamento de investimento.
 • Sem conta, sem anúncios, sem rastreio. O programador não recebe nenhum dado teu.
 
@@ -31,7 +31,7 @@ MERCADO
 
 E AINDA
 • Widgets: lista, valor total do portefólio, uma moeda com gráfico
-• Portefólio opcional (ativa nas definições): compras, vendas, swaps, transferências, recompensas, depósitos e levantamentos; FIFO (predefinido) ou média (Ø); endereços só de leitura, sem seed, para BTC (incl. xpub), ETH e redes EVM, SOL, TRX, XRP, LTC, ADA e TON; importação CSV da Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual em CSV; bloqueio próprio. A Bitpanda e a Swissquote não têm feed público de preços, por isso não têm preço próprio – as operações entram por importação CSV.
+• Portefólio opcional (ativa nas definições): compras, vendas, swaps, transferências, recompensas, depósitos e levantamentos; FIFO (predefinido) ou média (Ø); endereços só de leitura, sem seed, para BTC (incl. xpub), ETH e redes EVM, SOL, TRX, XRP, LTC, ADA e TON; importação CSV da Relai, Swissquote, Bitpanda, Kraken, Binance e Coinbase; resumo anual em CSV; bloqueio próprio. Bitpanda e Swissquote: sem preço próprio, só por CSV.
 • Legível para todos: verde/vermelho ou azul/laranja, sinal e seta em vez de só cor; o TalkBack lê cada linha como uma frase
 • Cópia de segurança e restauro num ficheiro – também entre Android e iPhone
 • Modo claro e escuro, cinco cores de destaque, 31 idiomas

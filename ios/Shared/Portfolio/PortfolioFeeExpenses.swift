@@ -65,6 +65,19 @@ enum PortfolioFeeExpenses {
         return max(0, full - (withdrawal(t, holdings: holdings)?.usdt ?? 0))
     }
 
+    /// Seit Build 104: Gebühr einer Umbuchung (Gebühr USDT + Wert der Gebühr im dritten Coin), die auf den nicht erfassten
+    /// Teil der Menge fällt: Gebühr × max(Menge − `covered`, 0) / Menge, bei leerem Bestand die ganze Gebühr. Wie
+    /// `withdrawalUncovered` als `PortfolioUnassignedFee` vermerkt statt still verworfen; der Rest verteilt sich wie bisher.
+    /// `covered`: universell der Bestand vor der Umbuchung, je Wallet die verschobene Menge. Wie Android.
+    static func transferUncovered(_ t: PortfolioTx, covered: Decimal) -> Decimal {
+        let amount = t.amountExact
+        if t.type != .TRANSFER || amount <= 0 || covered >= amount { return 0 }
+        let full: Decimal = t.quoteFeeExact + (t.thirdFeeValue ?? 0)
+        if full <= 0 { return 0 }
+        if covered <= 0 { return full }
+        return PortfolioDecimal.divide(full * (amount - covered), amount)
+    }
+
     /// Menge der Zeile: verbrauchter Zugang (Tausch: erhaltene Menge), Auszahlung 0 (Gebühr in USDT).
     private static func amountOf(_ e: PortfolioLedgerEvent, _ kind: PortfolioFeeExpense) -> Decimal {
         if kind == .WITHDRAWAL || kind == .TRANSFER { return 0 }

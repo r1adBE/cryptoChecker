@@ -330,4 +330,14 @@ interface WatchDao {
             "AND `condition` IN ('CHANGE_PERCENT_UP', 'CHANGE_PERCENT_DOWN')"
     )
     suspend fun setMissingPercentReferences(watchId: Long, price: Double)
+
+    /**
+     * Seit Build 104: «fällt um ≥ [maxFall] %» (Kurs, Open Interest) löst nie aus — ausschalten ([FallAlarmCleanup],
+     * einmalig). Rückgabe: geänderte Zeilen.
+     */
+    @Query(
+        "UPDATE alarms SET enabled = 0 WHERE enabled = 1 AND `condition` IN ('CHANGE_PERCENT_DOWN', 'OI_DOWN') " +
+            "AND threshold >= :maxFall"
+    )
+    suspend fun disableInvalidFallAlarms(maxFall: Double): Int
 }

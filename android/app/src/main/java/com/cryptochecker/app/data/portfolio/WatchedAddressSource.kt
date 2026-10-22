@@ -23,6 +23,8 @@ import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withTimeout
+import okhttp3.ConnectionPool
+import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import timber.log.Timber
 import java.io.InterruptedIOException
@@ -36,7 +38,8 @@ import javax.inject.Singleton
  * [WatchedAddressRefresher] (Portfolio-Tab, Hintergrund/Widget).
  *
  * Datenschutz: eigener Client ohne Mitschnitt (die Adresse landet nicht im Debug-Protokoll),
- * keine Cookies, neutraler User-Agent ([HttpUserAgent.NEUTRAL], seit Build 103); Protokolle nennen nur die gekürzte Adresse.
+ * keine Cookies, neutraler User-Agent ([HttpUserAgent.NEUTRAL], seit Build 103), eigener Verbindungs-Pool und Dispatcher
+ * (seit Build 104); Protokolle nennen nur die gekürzte Adresse.
  * Pausen: 451/403 → Host 6 h übersprungen ([BlockedSources]); 429/418 und wiederholte
  * Zeitüberschreitungen → Pause je Host nach [ExchangeBackoff] («Retry-After» gilt); dann der
  * nächste Host. Adressen der Reihe nach, nie parallel (schont die kostenlosen Anbieter).
@@ -54,6 +57,9 @@ class WatchedAddressSource @Inject constructor(
             // Neutraler User-Agent statt «okhttp/…» bzw. App-Kennung, gleich wie iOS (seit Build 103)
             addInterceptor(UserAgentInterceptor(HttpUserAgent.NEUTRAL))
         }
+        // Eigene Verbindungen und Warteschlange (seit Build 104): keine Wiederverwendung von Verbindungen der App-Anfragen
+        .connectionPool(ConnectionPool())
+        .dispatcher(Dispatcher())
         .callTimeout(AddressBalance.TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
         .build()
 

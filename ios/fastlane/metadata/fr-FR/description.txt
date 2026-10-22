@@ -1,8 +1,8 @@
-Une alerte quand le Bitcoin atteint ton cours – sur la plateforme que tu utilises vraiment. App fermée, iOS vérifie rarement – souvent seulement après des heures, et plus du tout si l’app est fermée d’un balayage. Le plus fiable : app ouverte. De brefs pics entre deux peuvent passer inaperçus ; l’app te le dit. Gratuit, sans compte.
+Crypto Checker vérifie les cours de ta plateforme et te prévient si, lors d’une vérification, ton seuil est atteint. App fermée, iOS vérifie rarement – souvent seulement après des heures, et plus du tout si l’app est fermée d’un balayage. Le plus fiable : app ouverte. De brefs pics entre deux peuvent passer inaperçus ; l’app te le dit. Gratuit, sans compte.
 
 CE QUI LA DISTINGUE
 • Ta plateforme, pas une moyenne : chaque ligne affiche le dernier cours de la paire sur la plateforme choisie – Binance, Coinbase, Kraken, OKX, Bybit…
-• Une alerte qui prévient une fois : « Préviens-moi quand BTC dépasse 100 000 USDT. » Elle sonne au franchissement du seuil, pas à chaque mise à jour – « Une fois » la désactive, « À chaque fois » la réarme au retour du cours.
+• Une alerte qui prévient une fois : « Préviens-moi quand BTC dépasse 100 000 USDT. » Elle sonne quand une vérification constate le seuil franchi, pas à chaque mise à jour – « Une fois » la désactive, « À chaque fois » la réarme au retour du cours.
 • « Qu’est-ce qui bouge avec ? » : une liste de facteurs pour une crypto – marché global, volume, volatilité, funding et open interest, écart au plus haut/bas, Fear & Greed. Juste ce qui bouge en même temps – ni cause, ni actualité, ni conseil en investissement.
 • Sans compte, sans publicité, sans pistage. Le développeur ne reçoit aucune de tes données.
 
@@ -31,7 +31,7 @@ MARCHÉ
 
 ET AUSSI
 • Widgets pour l’écran d’accueil et de verrouillage, Activité en direct pour une crypto
-• Portefeuille en option (dans les réglages) : achats, ventes, swaps, transferts, récompenses, dépôts et retraits ; FIFO (par défaut) ou moyenne (Ø) ; adresses en lecture seule, sans seed, pour BTC (xpub inclus), ETH et chaînes EVM, SOL, TRX, XRP, LTC, ADA et TON ; import CSV de Relai, Swissquote, Bitpanda, Kraken, Binance et Coinbase ; bilan annuel en CSV ; verrou dédié. Sans flux de cours public, Bitpanda et Swissquote n’ont pas de cours propre : importe-les en CSV.
+• Portefeuille en option (dans les réglages) : achats, ventes, swaps, transferts, récompenses, dépôts et retraits ; FIFO (par défaut) ou moyenne (Ø) ; adresses en lecture seule, sans seed, pour BTC (xpub inclus), ETH et chaînes EVM, SOL, TRX, XRP, LTC, ADA et TON ; import CSV de Relai, Swissquote, Bitpanda, Kraken, Binance et Coinbase ; bilan annuel en CSV ; verrou dédié. Bitpanda et Swissquote : pas de cours propre, CSV uniquement.
 • Lisible pour tous : vert/rouge ou bleu/orange, signe et flèche, pas que la couleur, Dynamic Type ; VoiceOver lit chaque ligne comme une phrase
 • Sauvegarde et restauration via l’app Fichiers
 • Modes clair et sombre, cinq couleurs d’accent, 31 langues

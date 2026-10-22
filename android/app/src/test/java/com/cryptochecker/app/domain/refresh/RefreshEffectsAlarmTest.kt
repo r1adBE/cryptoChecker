@@ -10,6 +10,8 @@ import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.above
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.below
 import com.cryptochecker.app.domain.refresh.RefreshFixture.Companion.watch
 import com.cryptochecker.app.settings.AppSettings
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.job
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -73,6 +75,24 @@ class RefreshEffectsAlarmTest {
         // Erneut darüber, nach der Abklingzeit (15 Min.): zweite Meldung
         assertEquals(1, f.check(101.0, 95.0, NOW + 20 * minute))
         assertEquals(2, f.notifier.alarmPosts.size)
+    }
+
+    /** Seit Build 104 (wie iOS IOS2-R03): Lauf abgebrochen (Worker gestoppt) → keine Meldung, der Alarm bleibt scharf. */
+    @Test
+    fun cancelledRunDoesNotNotify() {
+        val f = RefreshFixture(listOf(watch()), listOf(above(100.0)))
+        val thrown = runCatching {
+            runBlocking {
+                val enabled = f.store.getAllEnabledAlarms()
+                // Abgebrochen ohne Haltepunkt dazwischen: erst das Melden darf es bemerken
+                coroutineContext.job.cancel()
+                f.effects.checkAlarms(f.store.watches.getValue(1), 101.0, 99.0, enabled, f.settings.settings, NOW, false)
+            }
+        }.exceptionOrNull()
+        assertTrue("Abbruch weitergereicht", thrown is CancellationException)
+        assertTrue(f.notifier.alarmPosts.isEmpty())
+        assertEquals(0L, f.store.alarm(7).lastTriggeredAt)
+        assertTrue(f.store.alarm(7).enabled)
     }
 
     @Test

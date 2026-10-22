@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Alarmkarte/Alarm-Übersicht: «fällt um ≥ 100 %» (Build 102) löst nie aus – ausgeschaltet, Schwelle anpassen; seit Build 104 -->
+    <string name="alarm_threshold_invalid_fix">آستانه نامعتبر است – لطفاً آن را تغییر بده</string>
+</resources>

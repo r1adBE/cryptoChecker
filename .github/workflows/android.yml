@@ -7,6 +7,9 @@ name: Android
 on:
   push:
     branches: [main]
+    # Since build 104: release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
+    # evaluate the paths filter for tag pushes, so every workflow runs for the tagged commit
+    tags: ['v*']
     paths:
       - 'android/**'
       # The source guards in the unit tests (FileLengthTest, HapticsUsageTest, licences, typography, …) also
@@ -75,7 +78,9 @@ jobs:
       # Production sources (android/*/src/main, ios/App, ios/Shared, ios/Widgets) at most 400 lines each — fails
       # fast without Gradle (same rule as FileLengthTest)
       - name: Line limit
-        run: python3 -I "$GITHUB_WORKSPACE/.github/scripts/line_limit.py" "$GITHUB_WORKSPACE"
+        run: |
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/line_limit.py" --self-test
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/line_limit.py" "$GITHUB_WORKSPACE"
 
       # "test" = testDebugUnitTest + testReleaseUnitTest of all modules, including the
       # Android/iOS parity cases in testdata/parity (ParityFixturesTest).

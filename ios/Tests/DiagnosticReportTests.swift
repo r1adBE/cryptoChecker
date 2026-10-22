@@ -53,7 +53,15 @@ final class DiagnosticReportTests: XCTestCase {
         XCTAssertTrue(text.contains("binance | paused until 2026-10-18 14:01 | RATE_LIMIT | strikes 2"))
         XCTAssertTrue(text.contains("kraken | not paused | TIMEOUT | strikes 1"))
         XCTAssertTrue(text.contains("none - the app keeps no error log"))
+        // Seit Build 104: Zähler der Fehler im Hintergrund
+        XCTAssertTrue(text.contains("none - the app keeps no error log\nBackground errors: none\n"))
         XCTAssertTrue(text.hasSuffix("\n"))
+    }
+
+    func testBackgroundErrorsLine() {
+        var full = input()
+        full.backgroundErrors = BackgroundErrorSummary(counts: ["refresh": 2, "logos": 1], lastAt: now)
+        XCTAssertTrue(DiagnosticReport.build(full).contains("Background errors: refresh 2, logos 1 (last 2026-10-18 12:00 UTC)\n"))
     }
 
     func testEmptySectionsSayNone() {

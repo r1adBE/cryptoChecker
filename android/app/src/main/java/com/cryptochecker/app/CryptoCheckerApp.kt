@@ -16,12 +16,10 @@ import com.cryptochecker.app.settings.AppLanguages
 import com.cryptochecker.app.settings.AppearanceApplier
 import com.cryptochecker.app.settings.PortfolioDataCheck
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.util.appScope
 import com.cryptochecker.app.work.PriceUpdateScheduler
 import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -58,12 +56,10 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
 
     /**
      * Hintergrundarbeit des Prozesses. Fehler (Datenbank, Datei, WorkManager) nur protokollieren:
-     * Ohne Handler würde eine Ausnahme in einem dieser Jobs den ganzen Prozess beenden.
+     * Ohne Handler würde eine Ausnahme in einem dieser Jobs den ganzen Prozess beenden. Seit Build 104 über [appScope]
+     * (Datenbank-Schlüssel gerade nicht lesbar nur als Hinweis, nicht als Fehler).
      */
-    private val scope = CoroutineScope(
-        SupervisorJob() + Dispatchers.Default +
-            CoroutineExceptionHandler { _, e -> Timber.w(e, "Hintergrundaufgabe beim Start fehlgeschlagen") }
-    )
+    private val scope = appScope(Dispatchers.Default, "Hintergrundaufgabe beim Start")
 
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
@@ -83,6 +79,8 @@ class CryptoCheckerApp : Application(), Configuration.Provider {
     }
 
     override fun onCreate() {
+        // Seit Build 104: Zähler der Fehler im Hintergrund dauerhaft (Diagnosebericht) — vor allem anderen
+        com.cryptochecker.app.util.BackgroundErrorCounter.install(this)
         // Vor Hilt (öffnet evtl. schon die Datenbank): eine bei abgebrochener Systemsicherung liegengebliebene,
         // unverschlüsselte Kopie der Merkliste entfernen (sie läge sonst offen im App-Ordner)
         if (getDatabasePath(com.cryptochecker.app.data.local.SystemBackupAgent.EXPORT_NAME).exists()) {

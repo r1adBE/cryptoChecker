@@ -11,14 +11,15 @@ import javax.inject.Singleton
  * Seit Build 103: Vermerk «Alarm wird gemeldet» dauerhaft (eigene SharedPreferences), damit ein Prozess-Ende zwischen
  * Melden und Speichern keinen zweiten Alarmton auslöst ([com.cryptochecker.app.domain.alarm.AlarmDelivery]). Wie iOS
  * `AlarmDelivery` im App-Group-Speicher. Synchron geschrieben (`commit`): der Vermerk muss vor der Mitteilung stehen;
- * die Prüfung läuft nie auf dem Haupt-Thread.
+ * die Prüfung läuft nie auf dem Haupt-Thread. Seit Build 104 je Alarmart eine eigene Datei ([prefsName]): Paar- und
+ * Portfolio-Alarme haben eigene Ids (wie iOS `AlarmDelivery.pairs` / `.portfolio`).
  */
-@Singleton
-class AlarmDeliveryMarkers @Inject constructor(
-    @ApplicationContext private val context: Context,
+abstract class PrefsAlarmDeliveryMarkers(
+    private val context: Context,
+    private val prefsName: String,
 ) : AlarmDeliveryMarkerStore {
 
-    private val prefs get() = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+    private val prefs get() = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE)
 
     override fun get(alarmId: Long): Long? =
         runCatching { prefs.getLong(alarmId.toString(), 0L) }.getOrNull()?.takeIf { it > 0L }
@@ -35,7 +36,50 @@ class AlarmDeliveryMarkers @Inject constructor(
         }
     }
 
-    private companion object {
+    /** Seit Build 104: in einem Schreibvorgang. */
+    @SuppressLint("ApplySharedPref")
+    override fun remove(alarmIds: Collection<Long>) {
+        runCatching {
+            val keys = alarmIds.map { it.toString() }.filter { prefs.contains(it) }
+            if (keys.isEmpty()) return
+            val edit = prefs.edit()
+            keys.forEach { edit.remove(it) }
+            edit.commit()
+        }
+    }
+
+    /** Seit Build 104: Vermerke gelöschter Alarme entfernen. */
+    override fun retain(alarmIds: Set<Long>) {
+        val stale = runCatching { prefs.all.keys.mapNotNull { it.toLongOrNull() }.filter { it !in alarmIds } }
+            .getOrDefault(emptyList())
+        if (stale.isNotEmpty()) remove(stale)
+    }
+
+    companion object {
+        /** Seit Build 104: alle Vermerke einer Datei löschen (Datenbank neu angelegt — Ids beginnen von vorn). */
+        @SuppressLint("ApplySharedPref")
+        fun clearAll(context: Context, prefsName: String) {
+            runCatching { context.getSharedPreferences(prefsName, Context.MODE_PRIVATE).edit().clear().commit() }
+        }
+    }
+}
+
+/** Paar-Alarme ([com.cryptochecker.app.domain.refresh.RefreshEffects]). */
+@Singleton
+class AlarmDeliveryMarkers @Inject constructor(
+    @ApplicationContext context: Context,
+) : PrefsAlarmDeliveryMarkers(context, PREFS) {
+    companion object {
         const val PREFS = "alarm_delivery_markers"
+    }
+}
+
+/** Seit Build 104: Portfolio-Alarme ([com.cryptochecker.app.data.portfolio.PortfolioAlarmChecker]), wie iOS `.portfolio`. */
+@Singleton
+class PortfolioAlarmDeliveryMarkers @Inject constructor(
+    @ApplicationContext context: Context,
+) : PrefsAlarmDeliveryMarkers(context, PREFS) {
+    companion object {
+        const val PREFS = "portfolio_alarm_delivery_markers"
     }
 }

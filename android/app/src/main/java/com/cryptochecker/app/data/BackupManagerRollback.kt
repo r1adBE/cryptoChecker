@@ -10,6 +10,9 @@ import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.BackupManager.Step
+import com.cryptochecker.app.notification.AlarmDeliveryMarkers
+import com.cryptochecker.app.notification.PortfolioAlarmDeliveryMarkers
+import com.cryptochecker.app.notification.PrefsAlarmDeliveryMarkers
 
 /** Merkliste in einer Transaktion ersetzen; ein übergangenes Paar bricht ab (statt Alarme zu verlieren). */
 internal suspend fun BackupManager.writeWatchlist(watches: List<WatchEntity>, alarms: List<AlarmEntity>) {
@@ -23,6 +26,8 @@ internal suspend fun BackupManager.writeWatchlist(watches: List<WatchEntity>, al
             watches.forEach { w -> check(watchDao.insertWatch(w) != -1L) { "Paar ${w.id} nicht übernommen" } }
             alarms.forEach { watchDao.insertAlarm(it) }
         }
+        // Seit Build 104: alle Alarme ersetzt (Ids können sich decken) — alte Vermerke «wird gemeldet» gelten nicht mehr
+        PrefsAlarmDeliveryMarkers.clearAll(context, AlarmDeliveryMarkers.PREFS)
     }
 }
 
@@ -53,6 +58,8 @@ internal suspend fun BackupManager.rollBack(previous: PreviousState, touched: Se
                 watchedAddressDao.deleteAll()
                 previous.watchedAddresses.forEach { watchedAddressDao.insert(it) }
             }
+            // Seit Build 104: Portfolio-Alarme ersetzt — alte Vermerke «wird gemeldet» gelten nicht mehr
+            PrefsAlarmDeliveryMarkers.clearAll(context, PortfolioAlarmDeliveryMarkers.PREFS)
         }
         override suspend fun watchlist() = writeWatchlist(previous.watches, previous.alarms)
     })

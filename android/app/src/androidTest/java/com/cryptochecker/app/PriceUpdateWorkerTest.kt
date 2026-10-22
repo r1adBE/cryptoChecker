@@ -9,6 +9,8 @@ import androidx.work.testing.TestListenableWorkerBuilder
 import com.cryptochecker.app.data.RefreshStats
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.domain.model.MarketInfo
@@ -36,6 +38,8 @@ import javax.inject.Inject
  * [HiltWorkerFactory] wie in der App) fragt die Fake-Börse ab ([FakeMarket], kein Netz), wertet den Alarm aus, vermerkt
  * ihn als ausgelöst und postet die Alarm-Mitteilung — ohne Activity, wie ein geplanter WorkManager-Lauf bei
  * geschlossener App. Ergänzt die reinen Regeln (BackgroundWorkPolicyTest, JVM) und den Vordergrund-Weg (CoreFlowTest).
+ * Seit Build 104 (Review TST2-03): Ein geplanter Lauf liefert fast immer `Result.success()` (auch bei Fehlern, siehe
+ * `BackgroundWorkPolicy.outcome`) — das Ergebnis prüft darum der Fall «Merkliste nur leer im Arbeitsspeicher» (retry).
  */
 @HiltAndroidTest
 class PriceUpdateWorkerTest {
@@ -88,9 +92,9 @@ class PriceUpdateWorkerTest {
         val worker = TestListenableWorkerBuilder<PriceUpdateWorker>(context)
             .setWorkerFactory(workerFactory)
             .build()
-        val result = worker.doWork()
+        worker.doWork()
 
-        assertEquals(ListenableWorker.Result.success(), result)
+        // Kein Vergleich mit Result.success(): das liefert ein geplanter Lauf immer (seit Build 104, TST2-03)
         val alarm = watchRepository.observeAlarms(watchId).first().single { it.id == alarmId }
         assertTrue("Alarm als ausgelöst vermerkt", alarm.lastTriggeredAt > 0)
         assertEquals(105_000.0, alarm.lastTriggeredPrice ?: 0.0, 0.0)
@@ -102,6 +106,41 @@ class PriceUpdateWorkerTest {
         assertEquals("Alarm-Mitteilung gepostet", true, shown)
         // Vermerkt als volle Prüfung: ein gleich folgender geplanter Lauf würde übersprungen
         assertTrue(refreshStats.lastFullCheck() > 0)
+    }
+
+    /**
+     * Seit Build 104: Merkliste in diesem Prozess nur leer im Arbeitsspeicher ([DatabaseEncryptionNotice.storedKept],
+     * Schlüssel gerade nicht lesbar) — der Lauf prüft nichts, meldet `Result.retry()` (kurzer Backoff), löst keinen Alarm
+     * aus und postet keine Mitteilung, obwohl der Kurs über der Marke liegt.
+     */
+    @Test
+    fun storedKeptRunRetriesWithoutAlarm() = runBlocking {
+        val watchId = checkNotNull(watchRepository.addWatch(MarketInfo("Binance", "Binance"), MarketPair("BTC", "USDT", "BTCUSDT")))
+        priceRefresher.refreshOne(watchId)
+        val alarmId = checkNotNull(
+            watchRepository.saveAlarm(
+                AlarmEntity(watchId = watchId, condition = AlarmCondition.PRICE_ABOVE, threshold = 100_000.0, repeating = true),
+            ),
+        )
+        FakeMarket.btcPrice = 105_000.0
+        refreshStats.setLastFullCheck(0)
+        val result = try {
+            DatabaseEncryptionNotice.markInMemory(AppDatabase.DB_NAME, storedKept = true)
+            TestListenableWorkerBuilder<PriceUpdateWorker>(context)
+                .setWorkerFactory(workerFactory)
+                .build()
+                .doWork()
+        } finally {
+            DatabaseEncryptionNotice.clearInMemoryForTest(AppDatabase.DB_NAME)
+        }
+
+        assertEquals(ListenableWorker.Result.retry(), result)
+        val alarm = watchRepository.observeAlarms(watchId).first().single { it.id == alarmId }
+        assertEquals("nicht als ausgelöst vermerkt", 0L, alarm.lastTriggeredAt)
+        // Kurz warten: eine (fälschlich) gepostete Mitteilung käme asynchron
+        delay(500)
+        assertTrue("keine Alarm-Mitteilung", !alarmNotificationShown())
+        assertEquals("nicht als volle Prüfung vermerkt", 0L, refreshStats.lastFullCheck())
     }
 
     private companion object {

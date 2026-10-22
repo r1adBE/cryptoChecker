@@ -41,6 +41,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.AlarmJson
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.convertCurrency
 import com.cryptochecker.app.domain.alarm.AlarmCardStatus
@@ -65,7 +66,7 @@ internal fun AlarmCard(
 ) {
     val context = LocalContext.current
     // Nur bei eingeschalteten Alarmen (das stellt AlarmCardStatus sicher): ausgeschaltete werden nicht geprüft
-    val statusLine: Pair<Int, Int>? = when (status) {
+    val checkLine: Pair<Int, Int>? = when (status) {
         null -> null
         AlarmCardStatus.Kind.NOTIFICATIONS_OFF -> R.string.alarm_status_notifications_off to R.drawable.ic_notifications_off
         AlarmCardStatus.Kind.LOW_LIQUIDITY -> R.string.alarm_status_low_liquidity to R.drawable.ic_warning
@@ -79,6 +80,10 @@ internal fun AlarmCard(
             } to R.drawable.ic_error
         }
     }
+    // Seit Build 104: «fällt um ≥ 100 %» (aus Build 102) löst nie aus — vor allen anderen Gründen, auch ausgeschaltet
+    val invalidThreshold = AlarmJson.exceedsFall(alarm.condition, alarm.threshold)
+    val statusLine: Pair<Int, Int>? =
+        if (invalidThreshold) R.string.alarm_threshold_invalid_fix to R.drawable.ic_warning else checkLine
     val statusText = statusLine?.let { stringResource(it.first) }
     val title = AlarmTexts.describe(context, alarm) +
         if (alarm.condition.isPriceThreshold && alarm.convertCurrency == null) " $quoteAsset" else ""
@@ -146,7 +151,7 @@ internal fun AlarmCard(
             // Statuszeile, bis der Grund wegfällt. Vorgelesen über die Beschreibung der Karte; nur «Mitteilungen
             // aus» ist antippbar (öffnet die Mitteilungs-Einstellungen) und dafür ein eigenes Element.
             if (statusLine != null && statusText != null) {
-                val notificationsOff = status == AlarmCardStatus.Kind.NOTIFICATIONS_OFF
+                val notificationsOff = !invalidThreshold && status == AlarmCardStatus.Kind.NOTIFICATIONS_OFF
                 val turnOnLabel = stringResource(R.string.alarms_notifications_turn_on)
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -167,17 +172,19 @@ internal fun AlarmCard(
                             }
                         )
                 ) {
+                    val lineColor = if (invalidThreshold) MaterialTheme.colorScheme.error
+                    else MaterialTheme.colorScheme.onSurfaceVariant
                     Icon(
                         painterResource(statusLine.second),
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        tint = lineColor,
                         modifier = Modifier.size(14.dp)
                     )
                     Spacer(Modifier.width(4.dp))
                     Text(
                         text = statusText,
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = lineColor,
                     )
                 }
             }

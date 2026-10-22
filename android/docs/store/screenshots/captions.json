@@ -15,7 +15,7 @@
       },
       "02": {
         "caption": "تنبيه يُعلمك مرة واحدة",
-        "subline": "«أبلغني عندما ينخفض BTC تحت 90,000 CHF»"
+        "subline": "يُعلمك عندما يجد الفحص أن مستواك قد تحقق"
       },
       "03": {
         "caption": "الأسعار على الشاشة الرئيسية",
@@ -37,7 +37,7 @@
       },
       "02": {
         "caption": "Alarm, který upozorní jednou",
-        "subline": "„Upozornit, až BTC klesne pod 90 000 CHF“"
+        "subline": "Ozve se, když kontrola zjistí, že je hranice dosažena"
       },
       "03": {
         "caption": "Ceny na ploše",
@@ -59,7 +59,7 @@
       },
       "02": {
         "caption": "En alarm, der melder én gang",
-        "subline": "»Giv mig besked, når BTC falder under 90.000 CHF«"
+        "subline": "Giver besked, når et tjek viser, at niveauet er nået"
       },
       "03": {
         "caption": "Kurser på startskærmen",
@@ -81,7 +81,7 @@
       },
       "02": {
         "caption": "Ein Alarm, der einmal meldet",
-        "subline": "«Sag mir Bescheid, wenn BTC unter 90 000 CHF fällt»"
+        "subline": "Meldet sich, wenn beim Nachsehen deine Marke erreicht ist"
       },
       "03": {
         "caption": "Kurse auf dem Startbildschirm",
@@ -103,7 +103,7 @@
       },
       "02": {
         "caption": "Μία ειδοποίηση, μία φορά",
-        "subline": "«Ειδοποίηση όταν το BTC πέσει κάτω από 90.000 CHF»"
+        "subline": "Σε ειδοποιεί όταν ένας έλεγχος βρει το όριό σου"
       },
       "03": {
         "caption": "Τιμές στην αρχική οθόνη",
@@ -125,7 +125,7 @@
       },
       "02": {
         "caption": "An alarm that tells you once",
-        "subline": "“Tell me when BTC falls below 90,000 CHF”"
+        "subline": "Notifies you when a check finds your level reached"
       },
       "03": {
         "caption": "Prices on your home screen",
@@ -147,7 +147,7 @@
       },
       "02": {
         "caption": "Una alarma que avisa una vez",
-        "subline": "«Avísame cuando BTC baje de 90.000 CHF»"
+        "subline": "Avisa cuando una comprobación ve tu nivel alcanzado"
       },
       "03": {
         "caption": "Precios en tu pantalla",
@@ -169,7 +169,7 @@
       },
       "02": {
         "caption": "هشداری که یک بار خبر می‌دهد",
-        "subline": "«وقتی BTC از ۹۰٬۰۰۰ CHF پایین‌تر رفت، خبرم کن»"
+        "subline": "وقتی بررسی ببیند سطح تو رسیده، خبرت می‌کند"
       },
       "03": {
         "caption": "قیمت‌ها روی صفحهٔ اصلی",
@@ -191,7 +191,7 @@
       },
       "02": {
         "caption": "Hälytys, joka ilmoittaa kerran",
-        "subline": "”Ilmoita, kun BTC laskee alle 90 000 CHF”"
+        "subline": "Ilmoittaa, kun tarkistus huomaa rajasi saavutetuksi"
       },
       "03": {
         "caption": "Hinnat aloitusnäytöllä",
@@ -213,7 +213,7 @@
       },
       "02": {
         "caption": "Une alerte, une seule fois",
-        "subline": "« Me prévenir quand BTC passe sous 90 000 CHF »"
+        "subline": "Te prévient quand une vérification voit ton seuil atteint"
       },
       "03": {
         "caption": "Cours sur l’écran d’accueil",
@@ -235,7 +235,7 @@
       },
       "02": {
         "caption": "एक बार बताने वाला अलार्म",
-        "subline": "“जब BTC 90,000 CHF से नीचे जाए, तो मुझे बताएँ”"
+        "subline": "जाँच में तुम्हारा स्तर पहुँचा मिले तो बताता है"
       },
       "03": {
         "caption": "होम स्क्रीन पर भाव",
@@ -257,7 +257,7 @@
       },
       "02": {
         "caption": "Riasztás, amely egyszer szól",
-        "subline": "„Szólj, ha a BTC 90 000 CHF alá esik”"
+        "subline": "Szól, ha egy ellenőrzéskor az ár eléri a szintedet"
       },
       "03": {
         "caption": "Árfolyamok a kezdőképernyőn",
@@ -279,7 +279,7 @@
       },
       "02": {
         "caption": "Alarm yang memberi tahu sekali",
-        "subline": "“Beri tahu saya saat BTC turun di bawah 90.000 CHF”"
+        "subline": "Memberi tahu saat pemeriksaan mendapati levelmu tercapai"
       },
       "03": {
         "caption": "Harga di layar utama",
@@ -301,7 +301,7 @@
       },
       "02": {
         "caption": "Un allarme, un solo avviso",
-        "subline": "«Avvisami quando BTC scende sotto 90.000 CHF»"
+        "subline": "Ti avvisa quando un controllo trova raggiunto il livello"
       },
       "03": {
         "caption": "Prezzi nella schermata Home",
@@ -323,7 +323,7 @@
       },
       "02": {
         "caption": "התראה שמודיעה פעם אחת",
-        "subline": "״להודיע לי כש-BTC יורד מתחת ל-90,000 CHF״"
+        "subline": "מודיע כשבדיקה מגלה שהרמה שלך הושגה"
       },
       "03": {
         "caption": "מחירים במסך הבית",
@@ -345,7 +345,7 @@
       },
       "02": {
         "caption": "一度だけ知らせるアラーム",
-        "subline": "「BTC が 90,000 CHF を下回ったら知らせる」"
+        "subline": "確認のときに設定した水準に達していればお知らせ"
       },
       "03": {
         "caption": "ホーム画面で価格をチェック",
@@ -367,7 +367,7 @@
       },
       "02": {
         "caption": "한 번만 알려 주는 경보",
-        "subline": "‘BTC가 90,000 CHF 아래로 내려가면 알려 주세요’"
+        "subline": "확인할 때 기준에 도달해 있으면 알려 줍니다"
       },
       "03": {
         "caption": "홈 화면에서 바로 가격 확인",
@@ -389,7 +389,7 @@
       },
       "02": {
         "caption": "Een alarm dat één keer meldt",
-        "subline": "‘Laat het me weten als BTC onder 90.000 CHF daalt’"
+        "subline": "Meldt zich als een controle ziet dat je grens is bereikt"
       },
       "03": {
         "caption": "Koersen op je beginscherm",
@@ -411,7 +411,7 @@
       },
       "02": {
         "caption": "En alarm som sier fra én gang",
-        "subline": "«Gi meg beskjed når BTC faller under 90 000 CHF»"
+        "subline": "Gir beskjed når en sjekk viser at nivået ditt er nådd"
       },
       "03": {
         "caption": "Kurser på startskjermen",
@@ -433,7 +433,7 @@
       },
       "02": {
         "caption": "Alarm, który powiadamia raz",
-        "subline": "„Powiadom mnie, gdy BTC spadnie poniżej 90 000 CHF”"
+        "subline": "Daje znać, gdy sprawdzenie wykaże osiągnięty poziom"
       },
       "03": {
         "caption": "Ceny na ekranie głównym",
@@ -455,7 +455,7 @@
       },
       "02": {
         "caption": "Um alarme que avisa uma vez",
-        "subline": "“Me avise quando o BTC cair abaixo de 90.000 CHF”"
+        "subline": "Avisa quando uma verificação encontra seu nível atingido"
       },
       "03": {
         "caption": "Preços na tela inicial",
@@ -477,7 +477,7 @@
       },
       "02": {
         "caption": "Um alarme que avisa uma vez",
-        "subline": "«Avisar-me quando BTC descer abaixo de 90 000 CHF»"
+        "subline": "Avisa quando uma verificação encontra o teu nível atingido"
       },
       "03": {
         "caption": "Preços no ecrã principal",
@@ -499,7 +499,7 @@
       },
       "02": {
         "caption": "O alarmă care anunță o dată",
-        "subline": "„Anunță-mă când BTC coboară sub 90.000 CHF”"
+        "subline": "Te anunță când o verificare găsește nivelul atins"
       },
       "03": {
         "caption": "Prețuri pe ecranul principal",
@@ -521,7 +521,7 @@
       },
       "02": {
         "caption": "Одно оповещение – один раз",
-        "subline": "«Сообщить, когда BTC опустится ниже 90 000 CHF»"
+        "subline": "Сообщает, когда проверка видит, что уровень достигнут"
       },
       "03": {
         "caption": "Цены на главном экране",
@@ -543,7 +543,7 @@
       },
       "02": {
         "caption": "Një alarm që njofton një herë",
-        "subline": "«Më njofto kur BTC të bjerë nën 90 000 CHF»"
+        "subline": "Të njofton kur një kontroll gjen nivelin të arritur"
       },
       "03": {
         "caption": "Çmimet në ekranin kryesor",
@@ -565,7 +565,7 @@
       },
       "02": {
         "caption": "Larm som meddelar en gång",
-        "subline": "”Meddela mig när BTC sjunker under 90 000 CHF”"
+        "subline": "Meddelar när en kontroll visar att din nivå är nådd"
       },
       "03": {
         "caption": "Kurser på hemskärmen",
@@ -587,7 +587,7 @@
       },
       "02": {
         "caption": "แจ้งเตือนครั้งเดียว",
-        "subline": "“แจ้งฉันเมื่อ BTC ลงต่ำกว่า 90,000 CHF”"
+        "subline": "แจ้งเมื่อการตรวจพบว่าราคาถึงระดับที่ตั้งไว้"
       },
       "03": {
         "caption": "ราคาบนหน้าจอหลัก",
@@ -609,7 +609,7 @@
       },
       "02": {
         "caption": "Bir kez haber veren alarm",
-        "subline": "“BTC 90.000 CHF altına düşünce bana haber ver”"
+        "subline": "Bir kontrol seviyene ulaşıldığını görünce haber verir"
       },
       "03": {
         "caption": "Ana ekranda fiyatlar",
@@ -631,7 +631,7 @@
       },
       "02": {
         "caption": "Сигнал, що спрацьовує раз",
-        "subline": "«Повідомити, коли BTC опуститься нижче 90 000 CHF»"
+        "subline": "Повідомляє, коли перевірка бачить, що рівень досягнуто"
       },
       "03": {
         "caption": "Ціни на головному екрані",
@@ -653,7 +653,7 @@
       },
       "02": {
         "caption": "Cảnh báo chỉ báo một lần",
-        "subline": "“Báo cho tôi khi BTC giảm dưới 90.000 CHF”"
+        "subline": "Báo khi lần kiểm tra thấy mức của bạn đã đạt"
       },
       "03": {
         "caption": "Giá ngay trên màn hình chính",
@@ -675,7 +675,7 @@
       },
       "02": {
         "caption": "只通知一次的提醒",
-        "subline": "“当 BTC 跌破 90,000 CHF 时提醒我”"
+        "subline": "检查时发现达到你设定的水平就通知你"
       },
       "03": {
         "caption": "主屏幕上看价格",

@@ -48,6 +48,12 @@ suspend fun PortfolioPriceSource.clearStored() = withContext(Dispatchers.IO) {
         cache.clear()
         uncheckedCoins.clear()
         unverifiedCoins.clear()
+        // Seit Build 104 auch «Kurs nicht verfügbar» und die Börsen-Herkunft (wie iOS) — nennen gehaltene Coins
+        unavailableCoins.clear()
+        sourceOf.clear()
+        failedOf.clear()
+        binanceOf.clear()
+        mixedCoins = emptySet()
         runCatchingCancellable { storeFile.delete() }
         storedEntries = emptyMap()
     }

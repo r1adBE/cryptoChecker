@@ -1,8 +1,8 @@
-O alarmă când Bitcoin atinge prețul tău – de la bursa pe care o folosești cu adevărat. Cu aplicația închisă, Android decide când sunt verificate alarmele – cel mult o dată la 15 minute, adesea abia după ore. Vârfuri scurte între timp pot fi ratate; aplicația îți spune asta. Gratuit, fără cont.
+Crypto Checker verifică prețurile bursei tale și te anunță când, la verificare, nivelul tău a fost atins. Cu aplicația închisă, Android decide când sunt verificate alarmele – cel mult o dată la 15 minute, adesea abia după ore. Vârfuri scurte între timp pot fi ratate; aplicația îți spune asta. Gratuit, fără cont.
 
 CE O FACE DIFERITĂ
 • Bursa ta, nu o medie: fiecare rând arată ultimul preț al perechii pe bursa pe care ai ales-o – Binance, Coinbase, Kraken, OKX, Bybit și multe altele.
-• O alarmă care te anunță o dată: „Anunță-mă când BTC trece peste 100.000 USDT.” Sună când nivelul e depășit, nu la fiecare actualizare – „O dată” o oprește apoi, „De fiecare dată” o rearmează când prețul revine.
+• O alarmă care te anunță o dată: „Anunță-mă când BTC trece peste 100.000 USDT.” Sună când o verificare găsește nivelul depășit, nu la fiecare actualizare – „O dată” o oprește apoi, „De fiecare dată” o rearmează când prețul revine.
 • „Ce se mișcă odată cu el?”: o listă de factori pentru o monedă – piața generală, volum, volatilitate, funding și open interest, distanța față de maxim sau minim, Fear & Greed. Arată ce se mișcă în același timp – nu o cauză, nu o știre, nu consultanță de investiții.
 • Fără cont, fără reclame, fără urmărire. Dezvoltatorul nu primește niciuna dintre datele tale.
 
@@ -31,7 +31,7 @@ PIAȚĂ
 
 ÎN PLUS
 • Widgeturi: listă, valoarea totală a portofoliului, o monedă cu grafic
-• Portofoliu opțional (se activează din Setări): cumpărări, vânzări, swapuri, transferuri, recompense, depuneri și retrageri; FIFO (implicit) sau medie (Ø); adrese doar pentru citire, fără seed, pentru BTC (inclusiv xpub), ETH și rețele EVM, SOL, TRX, XRP, LTC, ADA și TON; import CSV din Relai, Swissquote, Bitpanda, Kraken, Binance și Coinbase; sinteză anuală în CSV; blocare proprie. Bitpanda și Swissquote nu au un flux public de prețuri, deci nici preț propriu – tranzacțiile lor intră prin import CSV.
+• Portofoliu opțional (se activează din Setări): cumpărări, vânzări, swapuri, transferuri, recompense, depuneri și retrageri; FIFO (implicit) sau medie (Ø); adrese doar pentru citire, fără seed, pentru BTC (inclusiv xpub), ETH și rețele EVM, SOL, TRX, XRP, LTC, ADA și TON; import CSV din Relai, Swissquote, Bitpanda, Kraken, Binance și Coinbase; sinteză anuală în CSV; blocare proprie. Bitpanda și Swissquote: fără preț propriu, doar prin CSV.
 • Lizibil pentru toți: verde/roșu sau albastru/portocaliu, semn și săgeată în loc de doar culoare; TalkBack citește fiecare rând ca o propoziție
 • Backup și restaurare într-un fișier – și între Android și iPhone
 • Mod luminos și întunecat, cinci culori de accent, 31 de limbi

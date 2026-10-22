@@ -21,6 +21,8 @@ enum BackgroundRefresh {
         // weniger Hintergrundzeit) und neu vormerken — diese Anfrage ist verbraucht.
         BGTaskScheduler.shared.register(forTaskWithIdentifier: refreshId, using: nil) { task in
             guard let refresh = task as? BGAppRefreshTask else {
+                // Seit Build 104: Lauf gescheitert — nur gezählt (Diagnosebericht)
+                BackgroundErrorCounter.record(BackgroundErrors.refresh)
                 task.setTaskCompleted(success: false)
                 scheduleRefresh(settings: SharedStorage.loadSettings(), replace: true, fromNow: true)
                 return
@@ -100,8 +102,10 @@ enum BackgroundRefresh {
 
     /// Ein Lauf der Hintergrund-Aufgabe. Seit Build 103 hinter `BackgroundRefreshTask` (Tests: Fälschung statt `BGTask`);
     /// liefert den Arbeits-Task (nil = sofort beendet), damit Tests sein Ende abwarten können.
+    /// - Parameter seams: Kurse, Melde-Weg und Haken nach dem Speichern (seit Build 104; Tests: Fälschungen).
     @discardableResult
-    static func handleRefresh(_ task: any BackgroundRefreshTask) -> Task<Void, Never>? {
+    static func handleRefresh(_ task: any BackgroundRefreshTask,
+                              seams: BackgroundRunSeams = .live) -> Task<Void, Never>? {
         let completion = BackgroundTaskCompletion(task)
         let startedAt = TimeUtils.nowMillis
         // Fear & Greed / Kennzahlen fällig? Läuft als Schritt in diesem Lauf (keine eigene Aufgabe mehr)
@@ -162,7 +166,7 @@ enum BackgroundRefresh {
                                                                 durationMillis: max(endedAt - startedAt, 0)))
                                  }
                                  scheduleRefresh(settings: SharedStorage.loadSettings(), fromNow: true)
-                             }).run()
+                             }, detach: seams.detachAfterExpiry).run()
         }
         AppLog.background.info("BG-Aufgabe gestartet")
         let work = Task { @MainActor in
@@ -176,9 +180,7 @@ enum BackgroundRefresh {
             // bleibt. Sonst endet alles im Ablauf, nichts ist gespeichert, und iOS gibt künftig weniger Hintergrundzeit.
             let budget = RefreshBudget(start: TimeUtils.nowMillis)
             let deadline = budget.deadline
-            let outcome = await PriceRefresher.refresh(snapshot: snapshot, settings: settings,
-                                                       networkBudgetMillis: RefreshBudget.networkMillis,
-                                                       deadline: deadline)
+            let outcome = await seams.refresh(snapshot, settings, deadline)
             // Von iOS abgebrochen: abgebrochene Anfragen nicht als Fehler speichern.
             if Task.isCancelled {
                 // Nicht gespeichert → auch nichts melden; die Alarme bleiben scharf.
@@ -196,27 +198,44 @@ enum BackgroundRefresh {
             let priceResult: CheckResult = (saved == nil && outcome.checked > 0)
                 ? .failed : CheckRunLog.result(checked: outcome.checked, failed: outcome.failed)
             priceBox.set(priceResult)
+            // Seit Build 104: Speichern bzw. Kursabruf komplett gescheitert — nur gezählt (wie Android BackgroundCheck)
+            if saved == nil && outcome.checked > 0 {
+                BackgroundErrorCounter.record(BackgroundErrors.storage)
+            } else if outcome.checked > 0 && outcome.failed >= outcome.checked {
+                BackgroundErrorCounter.record(BackgroundErrors.refresh)
+            }
+            await seams.afterPriceSave()
+            // Seit Build 104: während oder nach dem Speichern abgelaufen (Ende schon gemeldet) → nicht mehr melden; die
+            // Kurse bleiben gespeichert, die Alarme scharf (wie Android: abgebrochener Lauf meldet nicht). Einmal gelesen,
+            // damit «Alarme geprüft» und Melden zusammenpassen
+            let expired = Task.isCancelled
             // Uhrzeit nur mit gespeichertem Stand: Ohne (unlesbar, nicht zugreifbar) hielten die Widgets die alten Kurse
             // auf der Platte sonst für frisch (`WidgetDataFreshness`)
             if saved != nil && outcome.failed < outcome.checked {
                 SharedStorage.lastRefreshAt = TimeUtils.nowMillis
                 SharedStorage.lastRefreshDuration = outcome.durationMillis
                 // Alarme ausgewertet, gemeldet gleich danach (nur mit voller Prüfung — die meisten Paare mit Kurs,
-                // wie `AppData.apply` und Android `lastFullCheck`)
-                if BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed) {
+                // wie `AppData.apply` und Android `lastFullCheck`); abgelaufen: nicht gemeldet, zählt nicht
+                if !expired && BackgroundSchedule.isFullCheck(attempted: outcome.checked, failed: outcome.failed) {
                     SharedStorage.lastAlarmCheckAt = TimeUtils.nowMillis
                 }
             }
             if let report = outcome.report { SharedStorage.lastRefreshReport = report }
             // Mit dieser %-Basis gerechnet (Änderung, Widgets und Live-Aktivität prüfen das)
             if let stamp = outcome.changeStamp { SharedStorage.changeStamp = stamp }
+            if expired {
+                outcome.releaseAlarmLease()
+                if logGate.claim() { await CheckRunStore.logDetached(.bgTask, priceResult, startedAt: startedAt).value }
+                completion.complete(success: false)
+                return
+            }
             if let saved {
                 // Erst jetzt Alarme melden, je bestätigter Mitteilung den Alarm speichern und die Lease freigeben —
                 // nach der Uhrzeit, damit sie zur eben geschriebenen Datei passt (`WidgetDataFreshness`)
                 // Paar seit der Abfrage geändert (Bearbeiten, Wiederherstellung mit gleicher Id): nicht melden
                 _ = await outcome.keepingCurrentPairs(saved.watches)
                     .deliverAlarms(settings: settings, current: saved.alarms,
-                                   save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
+                                   save: { PriceRefresher.saveAlarmOnDisk($0, $1) }, notifier: seams.notifier,
                                    recordLog: { AlarmLogStore.record(AlarmLog.withSource($0, .bgTask), live: $1) })
             } else {
                 // Nicht gespeichert (keine Merkliste, unlesbar, nicht zugreifbar) → nichts melden; die

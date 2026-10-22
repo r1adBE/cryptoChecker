@@ -1,1 +1,1 @@
-Hinta ja hälytys suoraan valitsemastasi pörssistä, widgettien kanssa. ”Mikä liikkuu mukana?” näyttää, mikä liikkuu samaan aikaan: ei syytä, ei uutista. Ei tiliä.
+Hinnat suoraan valitsemastasi pörssistä, widgettien kanssa. Ilmoitus, kun tarkistus huomaa rajasi saavutetuksi. Ei tiliä, ei mainoksia.

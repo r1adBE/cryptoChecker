@@ -1,8 +1,8 @@
-Een alarm wanneer Bitcoin jouw koers raakt – van de beurs die je echt gebruikt. Met de app gesloten controleert iOS zelden – vaak pas na uren, en helemaal niet nadat je de app hebt weggeveegd. Het betrouwbaarst met de app open. Korte pieken daartussen kunnen worden gemist; de app zegt je dat. Gratis, zonder account.
+Crypto Checker controleert de koersen van jouw beurs en meldt zich als bij een controle je grens is bereikt. Met de app gesloten controleert iOS zelden – vaak pas na uren, en helemaal niet nadat je de app hebt weggeveegd. Het betrouwbaarst met de app open. Korte pieken daartussen kunnen worden gemist; de app zegt je dat. Gratis, zonder account.
 
 WAT HET ANDERS MAAKT
 • Jouw beurs, geen gemiddelde: elke rij toont de laatste koers van het paar op de beurs die je hebt gekozen – Binance, Coinbase, Kraken, OKX, Bybit en vele andere.
-• Een alarm dat één keer meldt: ‘Laat het me weten als BTC boven 100.000 USDT komt.’ Het gaat af wanneer de grens wordt overschreden, niet bij elke update – ‘Eenmalig’ zet het daarna uit, ‘Elke keer’ zet het weer scherp zodra de koers terugkomt.
+• Een alarm dat één keer meldt: ‘Laat het me weten als BTC boven 100.000 USDT komt.’ Het gaat af wanneer een controle ziet dat de grens is overschreden, niet bij elke update – ‘Eenmalig’ zet het daarna uit, ‘Elke keer’ zet het weer scherp zodra de koers terugkomt.
 • ‘Wat beweegt mee?’: een lijst met factoren voor een munt – totale markt, volume, volatiliteit, funding en open interest, afstand tot de top of bodem, Fear & Greed. Het toont wat er tegelijk beweegt – geen oorzaak, geen nieuws, geen beleggingsadvies.
 • Geen account, geen reclame, geen tracking. De ontwikkelaar krijgt geen enkel gegeven van je.
 
@@ -31,7 +31,7 @@ MARKT
 
 VERDER
 • Widgets voor beginscherm en toegangsscherm, Live Activity voor één munt
-• Portfolio optioneel (aan te zetten in Instellingen): aankopen, verkopen, swaps, transfers, rewards, stortingen en opnames; FIFO (standaard) of gemiddelde (Ø); adressen alleen-lezen, zonder seed, voor BTC (ook xpub), ETH & EVM-chains, SOL, TRX, XRP, LTC, ADA en TON; CSV-import van Relai, Swissquote, Bitpanda, Kraken, Binance en Coinbase; jaaroverzicht als CSV; eigen vergrendeling. Bitpanda en Swissquote hebben geen openbare koersfeed en dus geen eigen koers – hun transacties komen binnen via CSV-import.
+• Portfolio optioneel (aan te zetten in Instellingen): aankopen, verkopen, swaps, transfers, rewards, stortingen en opnames; FIFO (standaard) of gemiddelde (Ø); adressen alleen-lezen, zonder seed, voor BTC (ook xpub), ETH & EVM-chains, SOL, TRX, XRP, LTC, ADA en TON; CSV-import van Relai, Swissquote, Bitpanda, Kraken, Binance en Coinbase; jaaroverzicht als CSV; eigen vergrendeling. Bitpanda en Swissquote: geen eigen koers, alleen via CSV.
 • Leesbaar voor iedereen: groen/rood of blauw/oranje, teken en pijl in plaats van alleen kleur, Dynamic Type; VoiceOver leest elke rij als één zin
 • Back-up en herstel via de Bestanden-app
 • Lichte en donkere modus, vijf accentkleuren, 31 talen

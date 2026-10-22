@@ -1,0 +1,28 @@
+{
+  "_comment": "DexScreener-Kennung «chain/adresse» (seit Build 104): nur gültig, wenn beide Teile ausschliesslich aus Zeichen bestehen, die unkodiert im URL-Pfad stehen dürfen (A–Z a–z 0–9 . _ ~ -). Ungültig → Einzelkurs «Pool not found» ohne Anfrage, Suchtreffer fallen weg, Sicherung übernimmt das Paar nicht («backupKept»; dort gilt zusätzlich die allgemeine Kennungsregel ohne «~», und DexScreener ohne Kennung fällt weg). Android: DexPairIdParityTest.kt (DexScreener.isSafePairId, tickerAddress, parseSearch, BackupRestoreLimits.acceptsPair), iOS: DexPairIdParityTests.swift (DexScreener.isSafePairId, tickerQueryError, parseSearch, BackupRestoreLimits.acceptsPair).",
+  "tickerBase": "https://api.dexscreener.com/latest/dex/pairs/",
+  "cases": [
+    { "pairId": "ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58", "valid": true, "backupKept": true },
+    { "pairId": "solana/7qbRF6YsyGuLUVs6Y1q64bdVrfe4ZcUUz1JRdoVNUJnm", "valid": true, "backupKept": true },
+    { "pairId": "hedera/0.0.1234", "valid": true, "backupKept": true },
+    { "pairId": "my_chain/a-b~c", "valid": true, "backupKept": false },
+    { "pairId": "", "valid": false, "backupKept": false },
+    { "pairId": "noslash", "valid": false, "backupKept": false },
+    { "pairId": "ethereum/", "valid": false, "backupKept": false },
+    { "pairId": "/0xabc", "valid": false, "backupKept": false },
+    { "pairId": "ethereum/0x1/2", "valid": false, "_why": "zweites «/» verlässt den Pfad", "backupKept": false },
+    { "pairId": "ethereum/../../latest/dex/search", "valid": false, "backupKept": false },
+    { "pairId": "ethereum/0xabc?q=1", "valid": false, "backupKept": false },
+    { "pairId": "ethereum/0xabc#x", "valid": false, "backupKept": false },
+    { "pairId": "ethereum/0xa%2Fb", "valid": false, "backupKept": false },
+    { "pairId": "ethereum/0xa,0xb", "valid": false, "_why": "Komma macht daraus eine Sammelabfrage", "backupKept": false },
+    { "pairId": "ethereum/0x abc", "valid": false, "backupKept": false },
+    { "pairId": " ethereum/0xabc", "valid": false, "_why": "keine Leerzeichen, auch nicht am Rand", "backupKept": false },
+    { "pairId": "ethereum:x/0xabc", "valid": false, "backupKept": false },
+    { "pairId": "ethereum/0xäbc", "valid": false, "backupKept": false }
+  ],
+  "search": {
+    "body": "{\"pairs\":[{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"pairAddress\":\"0xgood\",\"baseToken\":{\"symbol\":\"AAA\",\"address\":\"0xa\"},\"quoteToken\":{\"symbol\":\"WETH\"},\"priceUsd\":\"1.5\",\"liquidity\":{\"usd\":50000}},{\"chainId\":\"ethereum\",\"dexId\":\"uniswap\",\"pairAddress\":\"0xbad/../x\",\"baseToken\":{\"symbol\":\"BBB\",\"address\":\"0xb\"},\"quoteToken\":{\"symbol\":\"WETH\"},\"priceUsd\":\"2\",\"liquidity\":{\"usd\":90000}},{\"chainId\":\"eth ereum\",\"dexId\":\"uniswap\",\"pairAddress\":\"0xc\",\"baseToken\":{\"symbol\":\"CCC\",\"address\":\"0xc\"},\"quoteToken\":{\"symbol\":\"WETH\"},\"priceUsd\":\"3\",\"liquidity\":{\"usd\":80000}}]}",
+    "expectedPairIds": ["ethereum/0xgood"]
+  }
+}

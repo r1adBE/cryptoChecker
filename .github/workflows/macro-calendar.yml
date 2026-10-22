@@ -3,7 +3,7 @@
 # Served by GitHub Pages at https://r1adbe.github.io/cryptoChecker/macro/events.json
 # Health check: a source failing on 2+ consecutive runs (counters in docs/macro/status.json) or an
 # event type without dates newer than 14 days opens/updates ONE issue "Macro calendar check failed"
-# (closed again once healthy). The job stays green for that; red only if the script itself fails.
+# (closed again once healthy). The run stays green for that; red only if a script or the artifact check fails.
 name: Macro calendar
 
 on:
@@ -11,35 +11,71 @@ on:
     - cron: '17 5 * * 1'   # Mondays 05:17 UTC
   workflow_dispatch:
 
-# Least privilege: read-only by default; only the job that commits gets write access.
-permissions:
-  contents: read
+# Least privilege (since build 104 two jobs): «fetch» reads the third-party pages without any write permission and
+# hands its result over as an artifact; «publish» (write permissions, no third-party requests) checks out github.sha
+# afresh, downloads and strictly checks the artifact (artifact_check.py), then manages the issue and commits.
+permissions: {}
 
 concurrency:
   group: macro-calendar
   cancel-in-progress: false
 
 jobs:
-  update:
+  fetch:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read    # checkout only
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Third-party web pages; no write token exists in this job
+      - name: Build events.json
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          python3 .github/scripts/macro_calendar.py --output docs/macro/events.json --skip-health
+          mkdir -p "$RUNNER_TEMP/macro"
+          cp docs/macro/events.json docs/macro/status.json "$RUNNER_TEMP/macro/"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: macro-calendar
+          path: ${{ runner.temp }}/macro
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    needs: fetch
     runs-on: ubuntu-24.04
     permissions:
       contents: write   # commit and push docs/macro
       pages: write      # request a Pages build
       issues: write     # health-check issue (macro_calendar.py)
+      actions: read     # download the artifact of this run (gh run download)
     timeout-minutes: 10
     steps:
-      # The token is not stored in .git/config and the build step (third-party web pages)
-      # gets none in its environment; only the health-check, push and Pages steps get it.
+      # Fresh checkout of the tested commit; the token is not stored in .git/config
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ github.sha }}
           persist-credentials: false
 
-      - name: Build events.json
+      # actions/download-artifact is not pinned in this repository yet: gh (preinstalled) with this run's artifact
+      - name: Download artifact
         env:
-          PYTHONDONTWRITEBYTECODE: '1'
-        run: python3 .github/scripts/macro_calendar.py --output docs/macro/events.json --skip-health
+          GH_TOKEN: ${{ github.token }}
+        run: gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name macro-calendar --dir "$RUNNER_TEMP/macro"
 
-      # Downloads nothing: reads events.json and status.json from the build step, opens/closes the issue
+      # Only events.json and status.json, size and rough schema; nothing from the artifact is executed
+      - name: Check artifact
+        run: |
+          python3 -I .github/scripts/artifact_check.py --dir "$RUNNER_TEMP/macro" --profile macro
+          cp "$RUNNER_TEMP/macro/events.json" "$RUNNER_TEMP/macro/status.json" docs/macro/
+
+      # Downloads nothing: reads events.json and status.json, opens/closes the issue
       - name: Health check
         env:
           PYTHONDONTWRITEBYTECODE: '1'
@@ -68,8 +104,8 @@ jobs:
           echo "::add-mask::$AUTH"
           GIT_AUTH=(-c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH")
           for i in 1 2 3; do
-            if git "${GIT_AUTH[@]}" push; then break; fi
-            git "${GIT_AUTH[@]}" pull --rebase
+            if git "${GIT_AUTH[@]}" push origin HEAD:"$GITHUB_REF_NAME"; then break; fi
+            git "${GIT_AUTH[@]}" pull --rebase origin "$GITHUB_REF_NAME"
             if [ "$i" = 3 ]; then exit 1; fi
           done
           echo "changed=true" >> "$GITHUB_OUTPUT"

@@ -1,8 +1,8 @@
-Alarm, gdy Bitcoin osiągnie Twoją cenę – z giełdy, której naprawdę używasz. Przy zamkniętej aplikacji iOS sprawdza rzadko – często dopiero po kilku godzinach, a po zamknięciu aplikacji przesunięciem wcale. Najpewniej przy otwartej aplikacji. Krótkie skoki pomiędzy mogą umknąć; aplikacja Ci o tym mówi. Za darmo, bez konta.
+Crypto Checker sprawdza ceny na Twojej giełdzie i daje znać, gdy przy sprawdzeniu Twój poziom jest osiągnięty. Przy zamkniętej aplikacji iOS sprawdza rzadko – często dopiero po kilku godzinach, a po zamknięciu aplikacji przesunięciem wcale. Najpewniej przy otwartej aplikacji. Krótkie skoki pomiędzy mogą umknąć; aplikacja Ci o tym mówi. Za darmo, bez konta.
 
 CO JĄ WYRÓŻNIA
 • Twoja giełda, nie średnia: każdy wiersz pokazuje ostatnią cenę pary na wybranej giełdzie – Binance, Coinbase, Kraken, OKX, Bybit i wiele innych.
-• Alarm, który powiadamia raz: „Powiadom mnie, gdy BTC przekroczy 100 000 USDT.” Dzwoni, gdy poziom zostanie przekroczony, a nie przy każdej aktualizacji – „Raz” potem go wyłącza, „Za każdym razem” uzbraja go ponownie, gdy cena wróci.
+• Alarm, który powiadamia raz: „Powiadom mnie, gdy BTC przekroczy 100 000 USDT.” Dzwoni, gdy sprawdzenie wykaże przekroczenie poziomu, a nie przy każdej aktualizacji – „Raz” potem go wyłącza, „Za każdym razem” uzbraja go ponownie, gdy cena wróci.
 • „Co rusza się razem?”: lista czynników dla monety – cały rynek, wolumen, zmienność, funding i open interest, odległość od szczytu lub dołka, Fear & Greed. Pokazuje, co porusza się jednocześnie – nie wskazuje przyczyny, nie podaje wiadomości, nie jest doradztwem inwestycyjnym.
 • Bez konta, bez reklam, bez śledzenia. Twórca nie dostaje żadnych Twoich danych.
 
@@ -32,7 +32,7 @@ RYNEK
 
 PONADTO
 • Widżety na ekran początkowy i blokady, Live Activity dla jednej monety
-• Portfel opcjonalnie (włączany w Ustawieniach): zakupy, sprzedaże, swapy, transfery, nagrody, wpłaty i wypłaty; FIFO (domyślnie) lub średnia (Ø); adresy tylko do odczytu, bez seeda, dla BTC (też xpub), ETH i sieci EVM, SOL, TRX, XRP, LTC, ADA i TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance i Coinbase; podsumowanie roczne w CSV; osobna blokada. Bitpanda i Swissquote nie mają publicznego źródła cen, więc ich transakcje trafiają przez import CSV.
+• Portfel opcjonalnie (włączany w Ustawieniach): zakupy, sprzedaże, swapy, transfery, nagrody, wpłaty i wypłaty; FIFO (domyślnie) lub średnia (Ø); adresy tylko do odczytu, bez seeda, dla BTC (też xpub), ETH i sieci EVM, SOL, TRX, XRP, LTC, ADA i TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance i Coinbase; podsumowanie roczne w CSV; osobna blokada. Bitpanda i Swissquote: bez własnej ceny, tylko przez CSV.
 • Czytelna dla wszystkich: zielony/czerwony lub niebieski/pomarańczowy, znak i strzałka zamiast samego koloru, Dynamic Type; VoiceOver czyta każdy wiersz jako jedno zdanie
 • Kopia zapasowa i przywracanie przez aplikację Pliki
 • Tryb jasny i ciemny, pięć kolorów akcentu, 31 języków

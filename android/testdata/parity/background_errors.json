@@ -1,0 +1,42 @@
+{
+  "_comment": "Seit Build 104 (F-25): Zeile «Background errors» im Diagnosebericht — nur Anzahl je Bereich und Zeitpunkt des letzten Fehlers (UTC), nie Texte. Nach Anzahl absteigend, bei Gleichstand nach Code; unbekannter Code zählt als «other»; 0 und weniger fallen weg. Android: BackgroundErrorsTest.kt, iOS: BackgroundErrorsTests.swift.",
+  "areas": ["alarms", "coins", "live", "logos", "other", "refresh", "schedule", "startup", "storage", "widgets"],
+  "lines": [
+    {
+      "name": "keine Fehler",
+      "counts": {},
+      "lastAt": null,
+      "line": "Background errors: none"
+    },
+    {
+      "name": "nur Nullen",
+      "counts": {"refresh": 0, "logos": 0},
+      "lastAt": "2026-10-22T08:14:00Z",
+      "line": "Background errors: none"
+    },
+    {
+      "name": "Beispiel",
+      "counts": {"logos": 1, "refresh": 2},
+      "lastAt": "2026-10-22T08:14:59Z",
+      "line": "Background errors: refresh 2, logos 1 (last 2026-10-22 08:14 UTC)"
+    },
+    {
+      "name": "Gleichstand nach Code",
+      "counts": {"widgets": 3, "alarms": 3, "storage": 5},
+      "lastAt": "2026-01-02T23:05:00Z",
+      "line": "Background errors: storage 5, alarms 3, widgets 3 (last 2026-01-02 23:05 UTC)"
+    },
+    {
+      "name": "unbekannter Code wird other",
+      "counts": {"Mein Fehler: 0x6982508145454ce325ddbe47a25d4ec3d2311933": 2, "other": 1},
+      "lastAt": "2026-10-22T08:14:00Z",
+      "line": "Background errors: other 3 (last 2026-10-22 08:14 UTC)"
+    },
+    {
+      "name": "ohne Zeitpunkt",
+      "counts": {"refresh": 1},
+      "lastAt": null,
+      "line": "Background errors: refresh 1"
+    }
+  ]
+}

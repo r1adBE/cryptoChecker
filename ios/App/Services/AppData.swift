@@ -172,11 +172,10 @@ final class AppData: ObservableObject {
     @Published var addTargetGroup: String?
 
     private init() {
-        // Vor dem ersten Lesen: Dateien mit Nutzerdaten verschlüsseln (einmalig, Build 59); ohne Schlüssel
-        // unlesbare beiseitelegen und das nennen, bis der Nutzer es bestätigt (`StorageRecoveryNotice`); öffnen
-        // beiseitegelegte Dateien doch mit dem Schlüssel, kommen sie zurück (einmal genannt)
+        // Vor dem ersten Lesen: Dateien mit Nutzerdaten verschlüsseln (einmalig, Build 59); ohne Schlüssel unlesbare beiseitelegen
+        // und nennen, bis bestätigt (`StorageRecoveryNotice`); öffnen sie doch mit dem Schlüssel, kommen sie zurück (einmal genannt)
         let protection = ProtectedStorage.prepareAtLaunch()
-        if !protection.setAside.isEmpty { StorageRecoveryNotice.record() }
+        if !protection.setAside.isEmpty { StorageRecoveryNotice.record(); AlarmDelivery.removeAllMarkers() }
         if !protection.restored.isEmpty && protection.setAside.isEmpty { StorageRecoveryNotice.recordRestored() }
         encryptionPending = protection.encryptionPending
         let read = SharedStorage.readSnapshot()
@@ -252,6 +251,7 @@ final class AppData: ObservableObject {
                                                    object: nil, queue: .main) { _ in
             Task { @MainActor in AppData.shared.reloadSettingsIfInaccessible() }
         }
+        primeBackgroundDemand() // Basis des Hintergrund-Bedarfs schon beim Start (seit Build 104)
     }
 
     /// Einstellungen lesen; «nicht zugänglich» erkennt die App an `isProtectedDataAvailable`.
@@ -298,7 +298,7 @@ final class AppData: ObservableObject {
         // Zuerst verschlüsseln (wie beim Start vor dem ersten Lesen), dann neu lesen
         if encryptionPending {
             let protection = ProtectedStorage.prepareAtLaunch()
-            if !protection.setAside.isEmpty { StorageRecoveryNotice.record() }
+            if !protection.setAside.isEmpty { StorageRecoveryNotice.record(); AlarmDelivery.removeAllMarkers() }
             encryptionPending = protection.encryptionPending
         }
         // `current…File()` liest nur neu, solange der Stand als nicht lesbar gilt, und übernimmt ihn dann

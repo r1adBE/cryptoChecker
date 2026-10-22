@@ -77,10 +77,21 @@ internal fun WatchEntity.matchesSearch(query: String, name: String? = null): Boo
  * Name des Coins bzw. der Firma eines Paars für die Suche ([CoinLogos.nameKey], TradFi beachtet);
  * null bei DEX-Pools ([CoinLogos.allowedFor]) und unbekannten Coins — wie `CoinLogoStore.name(for:)` in iOS.
  */
-internal fun searchName(watch: WatchEntity, names: Map<String, String>, tradFiPairs: Set<String>): String? {
-    if (!CoinLogos.allowedFor(watch.marketKey)) return null
-    val tradFi = CoinLogos.pairKey(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name) in tradFiPairs
-    return names[CoinLogos.nameKey(watch.baseAsset, tradFi)]
+internal fun searchName(watch: WatchEntity, names: Map<String, String>, tradFiPairs: Set<String>): String? =
+    searchName(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, names, tradFiPairs)
+
+/** Wie oben, aus den einzelnen Feldern (seit Build 104 auch für die Zeilen der Paarwahl ohne [WatchEntity]). */
+internal fun searchName(
+    marketKey: String,
+    baseAsset: String,
+    quoteAsset: String,
+    contractType: String,
+    names: Map<String, String>,
+    tradFiPairs: Set<String>,
+): String? {
+    if (!CoinLogos.allowedFor(marketKey)) return null
+    val tradFi = CoinLogos.pairKey(marketKey, baseAsset, quoteAsset, contractType) in tradFiPairs
+    return names[CoinLogos.nameKey(baseAsset, tradFi)]
 }
 
 /**

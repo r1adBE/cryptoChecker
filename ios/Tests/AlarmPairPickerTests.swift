@@ -2,7 +2,8 @@ import XCTest
 @testable import CryptoChecker
 
 /// Seit Build 103 (Review UX-02): Paarwahl für einen neuen Alarm — Suche wie in der Merkliste, Favoriten zuerst
-/// (`testdata/parity/alarm_pair_picker.json`). Gegenstück: `AlarmPairPickerParityTest.kt`.
+/// (`testdata/parity/alarm_pair_picker.json`). Gegenstück: `AlarmPairPickerParityTest.kt`. Seit Build 104 über die
+/// vorberechneten Zeilen (`AlarmPairPicker.makeRows`) mit gefalteten Coin-Namen.
 @MainActor
 final class AlarmPairPickerTests: XCTestCase {
     private typealias S = TestSupport
@@ -21,13 +22,20 @@ final class AlarmPairPickerTests: XCTestCase {
         for (id, name) in fixture["names"] as? [String: String] ?? [:] {
             if let key = Int64(id) { names[key] = name }
         }
+        let rows = AlarmPairPicker.makeRows(watches)
+        let folded = AlarmPairPicker.foldedNames(names)
         let cases = S.list(fixture["cases"])
         XCTAssertGreaterThanOrEqual(cases.count, 8)
         for c in cases {
             let name = c["name"] as? String ?? "?"
             let expected = (c["expected"] as? [NSNumber] ?? []).map(\.int64Value)
-            let actual = AlarmPairPicker.choices(watches, query: c["query"] as? String ?? "", names: names).map(\.id)
+            let actual = AlarmPairPicker.choices(rows, query: c["query"] as? String ?? "", foldedNames: folded).map(\.id)
             XCTAssertEqual(actual, expected, name)
         }
+        // Seit Build 104: ein neuer Kurs ändert die Zeilen-Quelle nicht, ein Favorit schon
+        let priced = watches.map { w -> Watch in var copy = w; copy.lastPrice = 42; copy.lastUpdate = 1; return copy }
+        XCTAssertEqual(watches.map(AlarmPairPicker.Source.init), priced.map(AlarmPairPicker.Source.init))
+        let flipped = watches.map { w -> Watch in var copy = w; copy.favorite.toggle(); return copy }
+        XCTAssertNotEqual(watches.map(AlarmPairPicker.Source.init), flipped.map(AlarmPairPicker.Source.init))
     }
 }

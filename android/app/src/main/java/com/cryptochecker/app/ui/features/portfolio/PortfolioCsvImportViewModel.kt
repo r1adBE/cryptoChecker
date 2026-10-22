@@ -51,8 +51,15 @@ import javax.inject.Inject
 sealed interface CsvImportState {
     data object Idle : CsvImportState
     data object Loading : CsvImportState
-    /** [rereading] seit Build 103: Lesart geändert, Datei wird neu gelesen — «Importieren» aus, Vorschau gedimmt. */
-    data class Preview(val preview: CsvImportPreview, val rereading: Boolean = false) : CsvImportState
+    /**
+     * [rereading] seit Build 103: Lesart geändert, Datei wird neu gelesen — «Importieren» aus, Vorschau gedimmt.
+     * [choice] seit Build 104: Lesart, mit der GENAU diese Vorschau gebaut wurde ([CsvReadChoice.canConfirm]).
+     */
+    data class Preview(
+        val preview: CsvImportPreview,
+        val rereading: Boolean = false,
+        val choice: CsvReadChoice = CsvReadChoice(),
+    ) : CsvImportState
     /** Keine unterstützte Zeile (fremdes Format, leere Datei, nicht lesbar). */
     data object Unreadable : CsvImportState
     /** Datei zu gross ([CsvImportRefusal.TOO_LARGE]): über 16 MB oder zu viele Zeilen bzw. Spalten. Seit Build 99. */
@@ -140,7 +147,8 @@ class PortfolioCsvImportViewModel @Inject constructor(
             _state.value = when (CsvImportRefusal.of(built.exceptionOrNull() is BackupLimits.TooLargeException, preview)) {
                 CsvImportRefusal.TOO_LARGE -> CsvImportState.TooLarge
                 CsvImportRefusal.UNREADABLE -> CsvImportState.Unreadable
-                null -> preview?.let { propose(it); CsvImportState.Preview(it) } ?: CsvImportState.Unreadable
+                null -> preview?.let { propose(it); CsvImportState.Preview(it, choice = input?.choice ?: CsvReadChoice()) }
+                    ?: CsvImportState.Unreadable
             }
         }
     }
@@ -150,13 +158,24 @@ class PortfolioCsvImportViewModel @Inject constructor(
      * sonst keine Vorauswahl. Eine schon getroffene Wahl (gleiche Zeile) bleibt. Dazu mögliche Umbuchungen zwischen Börsen
      * in der Datei und gegen gespeicherte Importe; schon gezeigte behalten ihre Wahl ([CsvTransferMatch.carryOver]).
      */
-    private suspend fun propose(preview: CsvImportPreview) {
+    private suspend fun propose(preview: CsvImportPreview) = applyProposals(proposalsFor(preview))
+
+    /** Seit Build 104 getrennt: erst rechnen ([proposalsFor]), übernehmen ([applyProposals]) erst nach der Generationsprüfung. */
+    private class Proposals(val list: List<CsvWithdrawalProposal>, val links: List<CsvTransferLink>)
+
+    private suspend fun proposalsFor(preview: CsvImportPreview): Proposals {
         val addresses = runCatchingCancellable { repository.watchedAddresses.first() }.getOrDefault(emptyList())
         val stored = runCatchingCancellable { repository.getTransactions() }.getOrDefault(emptyList()).mapNotNull { it.toStoredMove() }
         val list = withContext(Dispatchers.Default) { CsvImportMapping.proposeWithdrawals(preview.transactions, addresses) }
         val links = withContext(Dispatchers.Default) {
             CsvTransferMatch.candidates(preview.transactions, preview.format.exchangeName, stored)
         }
+        return Proposals(list, links)
+    }
+
+    private fun applyProposals(p: Proposals) {
+        val list = p.list
+        val links = p.links
         val previous = _choices.value
         _proposals.value = list
         _choices.value = list.mapNotNull { p -> (previous[p.importKey] ?: p.choice)?.let { p.importKey to it } }.toMap()
@@ -268,7 +287,9 @@ class PortfolioCsvImportViewModel @Inject constructor(
     /**
      * Text im Speicher mit der Lesart [choice] neu lesen ([build]). Seit Build 103 steht die Vorschau solange auf
      * «wird neu gelesen» (Knopf aus, gedimmt); übernommen wird nur das Ergebnis der letzten Wahl. Scheitert das Lesen,
-     * gilt wieder die Lesart der gezeigten Vorschau.
+     * gilt wieder die Lesart der gezeigten Vorschau. Seit Build 104: [input] und die Vorschläge erst nach der
+     * Generationsprüfung, die Vorschau trägt ihre Lesart ([CsvImportState.Preview.choice]) — ein überholtes Ergebnis
+     * kann so nie als Lesart der gezeigten Vorschau gelten.
      */
     private fun reread(choice: CsvReadChoice, build: suspend (Input, CsvReadChoice) -> Input) {
         chosen = choice
@@ -280,15 +301,15 @@ class PortfolioCsvImportViewModel @Inject constructor(
             if (generation != rereadGeneration) return@launch
             val shown = _state.value as? CsvImportState.Preview ?: return@launch
             if (built == null) {
-                chosen = input?.choice ?: CsvReadChoice()
+                chosen = shown.choice
                 _state.value = shown.copy(rereading = false)
                 return@launch
             }
+            val proposals = proposalsFor(built.second)
+            if (generation != rereadGeneration || _state.value !is CsvImportState.Preview) return@launch
             input = built.first
-            propose(built.second)
-            if (generation == rereadGeneration && _state.value is CsvImportState.Preview) {
-                _state.value = CsvImportState.Preview(built.second)
-            }
+            applyProposals(proposals)
+            _state.value = CsvImportState.Preview(built.second, choice = built.first.choice)
         }
     }
 
@@ -299,7 +320,8 @@ class PortfolioCsvImportViewModel @Inject constructor(
     fun confirm(onDone: (Int) -> Unit, onPortfolioEnabled: () -> Unit) {
         val shown = _state.value as? CsvImportState.Preview ?: return
         // Seit Build 103: nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen Lesart
-        if (!CsvReadChoice.canConfirm(shown.rereading, input?.choice, chosen)) return
+        // Seit Build 104 mit der Lesart der GEZEIGTEN Vorschau (nicht der zuletzt gelesenen)
+        if (!CsvReadChoice.canConfirm(shown.rereading, shown.choice, chosen)) return
         val preview = shown.preview
         val choices = _choices.value
         val plan = CsvTransferMatch.apply(preview.transactions, _links.value, _linked.value)

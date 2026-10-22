@@ -1,0 +1,56 @@
+package com.cryptochecker.app.domain.diagnostics
+
+import com.cryptochecker.app.parity.ParityJson
+import com.cryptochecker.app.parity.list
+import com.cryptochecker.app.parity.num
+import com.cryptochecker.app.parity.obj
+import com.cryptochecker.app.util.BackgroundErrorCounter
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
+import java.time.Instant
+
+/** Seit Build 104 (F-25): Zeile «Background errors» — gleiche Fälle wie `BackgroundErrorsTests.swift`. */
+class BackgroundErrorsTest {
+
+    private val data = ParityJson.load("background_errors.json")
+
+    @Test
+    fun areasMatchFixture() {
+        assertEquals(data["areas"].list().map { it as String }.toSet(), BackgroundErrors.AREAS)
+    }
+
+    @Test
+    fun sharedLines() {
+        data["lines"].list().forEach { raw ->
+            val c = raw.obj()
+            val counts = c["counts"].obj().mapValues { it.value.num()!!.toInt() }
+            val lastAt = (c["lastAt"] as String?)?.let { Instant.parse(it).toEpochMilli() } ?: 0L
+            assertEquals(c["name"] as String, c["line"], BackgroundErrors.line(BackgroundErrorSummary(counts, lastAt)))
+        }
+    }
+
+    @Test
+    fun androidLabelsMapToAreas() {
+        assertEquals(BackgroundErrors.LOGOS, BackgroundErrors.areaForLabel("CoinLogoSync"))
+        assertEquals(BackgroundErrors.REFRESH, BackgroundErrors.areaForLabel("PriceRefresher"))
+        assertEquals(BackgroundErrors.WIDGETS, BackgroundErrors.areaForLabel("Listen-Widget neu zeichnen"))
+        assertEquals(BackgroundErrors.SCHEDULE, BackgroundErrors.areaForLabel("Neuplanung nach Neustart"))
+        assertEquals(BackgroundErrors.ALARMS, BackgroundErrors.areaForLabel("Kursmarke nach «1 h später» scharf stellen"))
+        assertEquals(BackgroundErrors.STARTUP, BackgroundErrors.areaForLabel("Hintergrundaufgabe beim Start"))
+        assertEquals(BackgroundErrors.OTHER, BackgroundErrors.areaForLabel("Test"))
+    }
+
+    @Test
+    fun counterCountsOnlyKnownAreas() {
+        // Ohne install (Unit-Test): nur im Arbeitsspeicher; andere Tests zählen evtl. mit — darum Differenzen
+        val before = BackgroundErrorCounter.summary().counts
+        BackgroundErrorCounter.record(BackgroundErrors.LOGOS, now = 1_000L)
+        BackgroundErrorCounter.record("frei erfundener Text", now = 2_000L)
+        val after = BackgroundErrorCounter.summary()
+        assertEquals((before[BackgroundErrors.LOGOS] ?: 0) + 1, after.counts[BackgroundErrors.LOGOS])
+        assertEquals((before[BackgroundErrors.OTHER] ?: 0) + 1, after.counts[BackgroundErrors.OTHER])
+        assertTrue(after.counts.keys.all { it in BackgroundErrors.AREAS })
+        assertTrue(after.lastAt >= 2_000L)
+    }
+}

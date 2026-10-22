@@ -164,14 +164,33 @@ enum Notifier {
     static func alarmId(_ alarmId: Int64) -> String { "alarm-\(alarmId)" }
 
     /// Seit Build 103: Steht die Mitteilung des Paar-Alarms `id` noch in der Mitteilungszentrale? (Nach einem
-    /// Prozess-Ende zwischen Melden und Speichern, `AlarmDelivery.alreadyDelivered`.)
-    static func isAlarmDelivered(_ id: Int64) async -> Bool {
-        await center.deliveredNotifications().contains { $0.request.identifier == alarmId(id) }
+    /// Prozess-Ende zwischen Melden und Speichern, `AlarmDelivery.alreadyDelivered`.) Seit Build 104 nur, wenn sie ab
+    /// dem Vermerk `markerAt` gezeigt wurde — eine ältere desselben Alarms zählt nicht (`AlarmDelivery.shownSinceMarker`).
+    static func isAlarmDelivered(_ id: Int64, since markerAt: Int64) async -> Bool {
+        await isDelivered(alarmId(id), since: markerAt)
+    }
+
+    /// Seit Build 104: wie `isAlarmDelivered`, für Portfolio-Alarme.
+    static func isPortfolioAlarmDelivered(_ id: Int64, since markerAt: Int64) async -> Bool {
+        await isDelivered(portfolioAlarmId(id), since: markerAt)
+    }
+
+    private static func isDelivered(_ identifier: String, since markerAt: Int64) async -> Bool {
+        let postedAt = await center.deliveredNotifications()
+            .filter { $0.request.identifier == identifier }
+            .map { Int64($0.date.timeIntervalSince1970 * 1000) }
+            .max()
+        return AlarmDelivery.shownSinceMarker(postedAt: postedAt, markerAt: markerAt)
     }
 
     /// Gezeigte Mitteilung eines Paar-Alarms entfernen (Alarm liess sich nach dem Melden nicht speichern).
     static func cancelAlarm(_ id: Int64) {
         center.removeDeliveredNotifications(withIdentifiers: [alarmId(id)])
+    }
+
+    /// Seit Build 104: wie `cancelAlarm`, für Portfolio-Alarme.
+    static func cancelPortfolioAlarm(_ id: Int64) {
+        center.removeDeliveredNotifications(withIdentifiers: [portfolioAlarmId(id)])
     }
 
     /// Kurs-Mitteilung nach einer bewussten Handlung (Paar-Mitteilung ein, «Alle an»): einziger Weg dafür —

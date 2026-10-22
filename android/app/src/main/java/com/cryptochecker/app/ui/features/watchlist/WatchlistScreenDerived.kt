@@ -52,7 +52,8 @@ internal fun rememberBellClick(
     }
     if (pickAlarmPair) {
         AlarmPairPicker(
-            watches = watches,
+            // Zeilen ohne Kurs im Hintergrund, nur bei echter Änderung neu (seit Build 104)
+            rows = com.cryptochecker.app.ui.features.alarms.rememberAlarmPickerRows(watches),
             onPick = { id -> pickAlarmPair = false; onOpenAlarms(id) },
             onDismiss = { pickAlarmPair = false },
         )

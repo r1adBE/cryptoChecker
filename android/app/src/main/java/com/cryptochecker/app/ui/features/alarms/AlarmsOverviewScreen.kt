@@ -49,6 +49,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.AlarmJson
 import com.cryptochecker.app.data.local.model.convertCurrency
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.lock.PortfolioAccess
@@ -167,8 +168,10 @@ fun AlarmsOverviewScreen(
                 modifier = Modifier.fillMaxSize().padding(padding),
             )
             if (pickPair) {
+                // Zeilen ohne Kurs, nur bei echter Änderung neu (seit Build 104)
+                val pickerRows by viewModel.pickerRows.collectAsStateWithLifecycle()
                 AlarmPairPicker(
-                    watches = watches,
+                    rows = pickerRows,
                     onPick = { id -> pickPair = false; onOpenWatch(id) },
                     onDismiss = { pickPair = false },
                 )
@@ -237,8 +240,13 @@ fun AlarmsOverviewScreen(
                                 currency = alarm.convertCurrency ?: watch.quoteAsset,
                                 windowHours = alarm.windowHours,
                             )
+                            // Seit Build 104: «fällt um ≥ 100 %» (aus Build 102) löst nie aus — kennzeichnen
+                            val invalidText = if (AlarmJson.exceedsFall(alarm.condition, alarm.threshold)) {
+                                stringResource(R.string.alarm_threshold_invalid_fix)
+                            } else null
                             // TalkBack: vollständig, inkl. Wiederholung, Ton und Ansage (sichtbare Texte stumm)
-                            val description = alarmA11yDescription(context, alarm, title, sentence)
+                            val description = alarmA11yDescription(context, alarm, title, sentence) +
+                                (invalidText?.let { ". $it" } ?: "")
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
                                 // Ganze Zeile schaltet, mit Rolle «Schalter» für die Sprachausgabe
@@ -267,6 +275,13 @@ fun AlarmsOverviewScreen(
                                         maxLines = 2,
                                         overflow = TextOverflow.Ellipsis
                                     )
+                                    if (invalidText != null) {
+                                        Text(
+                                            invalidText,
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = MaterialTheme.colorScheme.error,
+                                        )
+                                    }
                                 }
                                 Switch(checked = alarm.enabled, onCheckedChange = null)
                             }

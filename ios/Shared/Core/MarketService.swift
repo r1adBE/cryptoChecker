@@ -276,6 +276,8 @@ enum MarketService {
     /// (`explained`).
     private static func loadTickerCall(_ call: Int, market: Market, info: PairQuery,
                                        into ticker: inout Ticker) async throws {
+        // Seit Build 104: unzulässige Kennung → Fehler ohne Anfrage (`tickerQueryError`, wie Android)
+        if let refused = market.tickerQueryError(call: call, info: info) { throw refused }
         let address = market.tickerAddress(call: call, info: info)
         if address.isEmpty {
             if call == 0 { throw UserFriendlyMarketError(message: L("something_went_wrong")) }

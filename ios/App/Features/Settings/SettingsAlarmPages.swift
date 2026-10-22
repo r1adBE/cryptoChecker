@@ -253,11 +253,14 @@ struct PricePairsPage: View {
     @EnvironmentObject var data: AppData
     /// Merkliste gesperrt: Hinweis «watchlist_storage_locked» nach einem abgelehnten Schalter (`.watchlistLockedHint`).
     @State private var toast: String?
-    /// Zählt abgelehnte Schalter (Merkliste gesperrt): zeichnet sie neu, damit sie den echten Zustand zeigen — der
-    /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
+    /// Zählt abgelehnte Schalter (Merkliste gesperrt): wertet den body neu aus, damit sie den echten Zustand zeigen — der
+    /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen. Seit
+    /// Build 104 ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
     @State private var refusedToggles = 0
 
     var body: some View {
+        // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus), seit Build 104
+        let _ = refusedToggles
         SettingsSubPage(title: L("settings_price_notifications")) {
             SettingsHint(text: L("settings_price_pairs_hint"), top: 4)
             if data.watches.isEmpty {
@@ -265,7 +268,8 @@ struct PricePairsPage: View {
             } else {
                 HStack(spacing: 8) {
                     Button(L("settings_price_pairs_all_on")) {
-                        Task { _ = await Notifier.requestPermission() }
+                        // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage (seit Build 104)
+                        if !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }
                         data.setAllNotifications(true)
                     }
                     .buttonStyle(.bordered)
@@ -284,12 +288,11 @@ struct PricePairsPage: View {
                     SwitchRow(title: watch.displayName, subtitle: watch.marketName, isOn: Binding(
                         get: { data.watch(watch.id)?.notificationEnabled ?? false },
                         set: { enabled in
-                            if enabled { Task { _ = await Notifier.requestPermission() } }
+                            if enabled && !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }
                             if let w = data.watch(watch.id) { data.setNotificationEnabled(w, enabled) }
                             if data.watchlistWritesBlocked { refusedToggles &+= 1 }
                         }
                     ))
-                    .id(refusedToggles)
                 }
             }
         }

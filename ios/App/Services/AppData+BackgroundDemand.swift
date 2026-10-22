@@ -13,7 +13,8 @@ extension AppData {
     /// Nach jeder Änderung des Stands bzw. der Einstellungen: Haben sich die Eingaben des Bedarfs geändert (neues Paar,
     /// Alarm an/aus, Mitteilung, Ansage, Portfolio, Gas/Depeg …), neu planen — `scheduleRefresh` rechnet dann mit
     /// Widgets und dem gespeicherten Stand und sagt ab bzw. merkt vor. Der erste Stand nach dem Start legt nur die Basis
-    /// (geplant wird beim Start ohnehin).
+    /// (geplant wird beim Start ohnehin) — seit Build 104 schon in `AppData.init` (`primeBackgroundDemand`), sonst plante
+    /// die erste echte Änderung nach dem Start nicht neu.
     func followBackgroundDemand() {
         let demand = BackgroundWorkDemand.demand(settings: settings, read: .ok(snapshot), widgets: .none)
         guard demand != lastBackgroundDemand else { return }
@@ -21,5 +22,10 @@ extension AppData {
         lastBackgroundDemand = demand
         guard !first, settingsAccessible else { return }
         BackgroundRefresh.schedule(settings: settings)
+    }
+
+    /// Basis aus dem eben gelesenen Stand (seit Build 104, am Ende von `AppData.init`).
+    func primeBackgroundDemand() {
+        lastBackgroundDemand = BackgroundWorkDemand.demand(settings: settings, read: .ok(snapshot), widgets: .none)
     }
 }

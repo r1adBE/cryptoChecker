@@ -138,14 +138,21 @@ extension CsvImportParser {
         return era * 146_097 + doe - 719_468
     }
 
-    /// Ortszeit in `zone` → UTC, zwei Schritte über den Versatz (gleich wie Android): Herbst-Doppelstunde
-    /// = spätere (Winterzeit), Frühlingslücke = eine Stunde vorgerückt.
+    /// Ortszeit in `zone` → UTC (gleich wie Android `LocalDateTime.atZone(…).withLaterOffsetAtOverlap()`): in der
+    /// Herbst-Doppelstunde gilt der spätere Versatz (Winterzeit), in der Frühlingslücke wird um die Länge der Lücke
+    /// vorgerückt (02:30 → 03:30 Sommerzeit). Seit Build 104 über die Versätze vor und nach der Ortszeit (±1 Tag,
+    /// höchstens ein Wechsel) — vorher zwei Schritte über den Versatz, westlich von UTC in Lücke und Doppelstunde falsch.
     static func toUtc(_ local: Int64, zone: String) -> Int64 {
         let tz = timeZone(zone)
         func offset(_ utc: Int64) -> Int64 {
             Int64(tz.secondsFromGMT(for: Date(timeIntervalSince1970: Double(utc) / 1000))) * 1000
         }
-        let guess = local - offset(local)
-        return local - offset(guess)
+        let day: Int64 = 86_400_000
+        let before = offset(local - day)
+        let after = offset(local + day)
+        // Gültig = der Versatz am so berechneten Zeitpunkt ist derselbe
+        let valid = [before, after].map { local - $0 }.filter { local - offset($0) == $0 }
+        // Doppelstunde: beide gültig → späterer Zeitpunkt (Versatz danach); Lücke: keiner → Versatz davor (vorgerückt)
+        return valid.max() ?? (local - before)
     }
 }

@@ -105,6 +105,8 @@ struct DiagnosticsPreviewPage: View {
             var full = input
             full.checkRuns = CheckRunStore.load()
             full.alarmEvents = AlarmLogStore.load().events
+            // Seit Build 104: nur Anzahl Fehler im Hintergrund je Bereich
+            full.backgroundErrors = BackgroundErrorCounter.summary()
             return DiagnosticReport.build(full)
         }.value
     }

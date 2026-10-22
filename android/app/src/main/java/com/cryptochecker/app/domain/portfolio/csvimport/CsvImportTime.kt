@@ -1,7 +1,8 @@
 package com.cryptochecker.app.domain.portfolio.csvimport
 
-import java.time.Instant
+import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
 
 // CSV-Import ([CsvImportParser]): Zeitpunkte (ISO, Tag zuerst/Monat zuerst) in der Zeitzone der Datei lesen.
 
@@ -109,12 +110,11 @@ internal fun CsvImportParser.daysFromCivil(y0: Int, m: Int, d: Int): Long {
 }
 
 /**
- * Ortszeit in [zone] → UTC. Zwei Schritte über den Versatz (gleich wie iOS): in der Herbst-Doppelstunde
- * gilt die spätere (Winterzeit), in der Frühlingslücke wird um eine Stunde vorgerückt.
+ * Ortszeit in [zone] → UTC (gleich wie iOS): in der Herbst-Doppelstunde gilt der spätere Versatz (Winterzeit), in
+ * der Frühlingslücke wird um die Länge der Lücke vorgerückt (02:30 → 03:30 Sommerzeit). Seit Build 104 über
+ * [LocalDateTime.atZone] — vorher zwei Schritte über den Versatz, westlich von UTC in Lücke und Doppelstunde falsch.
  */
 internal fun CsvImportParser.toUtc(local: Long, zone: String): Long {
-    val rules = ZoneId.of(zone).rules
-    fun offset(utc: Long): Long = rules.getOffset(Instant.ofEpochMilli(utc)).totalSeconds * 1000L
-    val guess = local - offset(local)
-    return local - offset(guess)
+    val clock = LocalDateTime.ofEpochSecond(Math.floorDiv(local, 1000L), Math.floorMod(local, 1000L).toInt() * 1_000_000, ZoneOffset.UTC)
+    return clock.atZone(ZoneId.of(zone)).withLaterOffsetAtOverlap().toInstant().toEpochMilli()
 }

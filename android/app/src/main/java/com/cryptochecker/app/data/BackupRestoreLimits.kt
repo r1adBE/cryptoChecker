@@ -2,6 +2,7 @@ package com.cryptochecker.app.data
 
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.watch.WatchlistLimits
+import com.cryptochecker.marketdata.model.market.DexScreener
 
 /**
  * Obergrenzen für Merkliste und Paar-Alarme aus einer Sicherung ([BackupManager.restore]) — gleich wie iOS
@@ -14,6 +15,7 @@ import com.cryptochecker.app.domain.watch.WatchlistLimits
  * - Paar-Kennung nur aus Buchstaben und Ziffern jeder Schrift (Binance führt Coins mit chinesischem Namen) sowie
  *   «/ _ : . -» (DexScreener «chain/adresse», Bitfinex «tBTC:USD», Coinbase «BTC-USD»); Leerzeichen, «@», «&», «?»
  *   u. Ä. kommen in keiner Börse vor und landeten sonst unverändert in einer Adresse.
+ * - DexScreener-Paar nur mit gültiger Kennung «chain/adresse» ([DexScreener.isSafePairId], seit Build 104).
  * - Unbekannte Börsen bleiben (Platzhalter `UnknownMarket`, z. B. eine inzwischen entfernte Börse), nur begrenzt.
  * - Höchstens [MAX_PAIRS] Paare (die ersten der Datei) und je Paar [MAX_ALARMS_PER_PAIR] Alarme.
  */
@@ -35,7 +37,9 @@ internal object BackupRestoreLimits {
             codePoints(marketName) <= MAX_MARKET_NAME &&
             codePoints(base) <= MAX_ASSET &&
             codePoints(quote) <= MAX_ASSET &&
-            (pairId == null || validPairId(pairId))
+            (pairId == null || validPairId(pairId)) &&
+            // Seit Build 104: DexScreener nur mit «chain/adresse», die unkodiert in den Pfad darf
+            (marketKey != DexScreener.KEY || (pairId != null && DexScreener.isSafePairId(pairId)))
 
     /** Kennung höchstens [MAX_PAIR_ID] Codepunkte, nur Buchstaben/Ziffern jeder Schrift und «/ _ : . -». */
     fun validPairId(pairId: String): Boolean {

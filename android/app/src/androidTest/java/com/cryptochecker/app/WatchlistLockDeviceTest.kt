@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cryptochecker.app.data.AddWatchOutcome
+import com.cryptochecker.app.data.FallAlarmCleanup
 import com.cryptochecker.app.data.PairEditResult
 import com.cryptochecker.app.data.RestoreOutcome
 import com.cryptochecker.app.data.WatchMove
@@ -20,6 +21,7 @@ import com.cryptochecker.app.data.restore
 import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.refresh.AlarmLogStore
+import com.cryptochecker.app.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.widget.PortfolioSnapshotSeal
 import com.cryptochecker.marketdata.model.MarketPair
 import java.io.File
@@ -29,9 +31,7 @@ import kotlin.coroutines.Continuation
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
-import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -44,6 +44,8 @@ import org.junit.runner.RunWith
  * `WatchRepositoryLockTest` (JVM). Per Reflection muss jede öffentliche suspend-Funktion des Repositorys (Klasse und
  * Erweiterungen in `WatchRepositoryAdd.kt`/`WatchRepositoryRefresh.kt`) in genau einer Liste stehen: Schreibweg des
  * Nutzers (hier aufgerufen), nur lesen oder Hintergrund — ein neuer Schreibweg fällt so auf, bis er eingeordnet ist.
+ * Seit Build 104 (Review TST2-03): Gegenprobe pro Eintrag — ungesperrt ändert jeder Schreibweg die Tabellen (frische
+ * Datenbank je Eintrag), sonst bewiese der Sperr-Vergleich nichts; dafür liegt im Ausgangsstand ein %-Alarm ohne Bezug.
  */
 @RunWith(AndroidJUnit4::class)
 class WatchlistLockDeviceTest {
@@ -53,6 +55,7 @@ class WatchlistLockDeviceTest {
     private lateinit var repo: WatchRepository
     private var watchId = 0L
     private var alarmId = 0L
+    private var percentAlarmId = 0L
 
     /** Alarm-Protokoll ohne Schlüssel: gesperrt wird nichts gelöscht, es wird also nie versiegelt. */
     private val noKeys = object : PortfolioSnapshotSeal.Keys {
@@ -62,14 +65,26 @@ class WatchlistLockDeviceTest {
 
     @Before
     fun setUp() {
+        openSeeded()
+    }
+
+    /** Frische In-Memory-Datenbank mit zwei Paaren, Notiz, Gruppe, Kursalarm und %-Alarm ohne Bezug. */
+    private fun openSeeded() {
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        repo = WatchRepository(db, db.getWatchDao(), AlarmLogStore(File(context.cacheDir, "alarm-log-lock-test"), noKeys))
+        repo = WatchRepository(
+            db, db.getWatchDao(), AlarmLogStore(File(context.cacheDir, "alarm-log-lock-test"), noKeys),
+            AlarmDeliveryMarkers(context), FallAlarmCleanup(context, db.getWatchDao()),
+        )
         runBlocking {
             watchId = checkNotNull(repo.addWatch(BINANCE, MarketPair("BTC", "USDT", "BTCUSDT"), group = "Layer 1"))
             checkNotNull(repo.addWatch(BINANCE, MarketPair("ETH", "USDT", "ETHUSDT")))
             repo.setNote(watchId, "Ø 77 500")
             alarmId = checkNotNull(
                 repo.saveAlarm(AlarmEntity(watchId = watchId, condition = AlarmCondition.PRICE_ABOVE, threshold = 100_000.0)),
+            )
+            // Ohne Bezug (referencePrice null): setMissingPercentReferences hat ungesperrt etwas zu schreiben
+            percentAlarmId = checkNotNull(
+                repo.saveAlarm(AlarmEntity(watchId = watchId, condition = AlarmCondition.CHANGE_PERCENT_UP, threshold = 5.0)),
             )
         }
     }
@@ -90,21 +105,25 @@ class WatchlistLockDeviceTest {
     }
 
     /**
-     * Jeder Schreibweg des Nutzers einmal, mit Argumenten, die ungesperrt etwas ändern würden. Rückgabe-Prüfungen gleich
-     * mit (gesperrt: «gesperrt», null bzw. nichts angelegt).
+     * Jeder Schreibweg des Nutzers einmal, mit Argumenten, die ungesperrt etwas ändern. Der Parameter sagt, ob die
+     * Merkliste gerade gesperrt ist; Rückgabe-Prüfungen gleich mit (gesperrt: «gesperrt», null bzw. nichts angelegt;
+     * ungesperrt: geschrieben bzw. angelegt).
      */
-    private fun userWrites(): Map<String, suspend () -> Unit> {
+    private fun userWrites(): Map<String, suspend (Boolean) -> Unit> {
         // Ausdrücklich als suspend-Lambda (mit «to» allein wäre es ein gewöhnliches Lambda)
-        fun write(block: suspend () -> Unit): suspend () -> Unit = block
+        fun write(block: suspend (locked: Boolean) -> Unit): suspend (Boolean) -> Unit = block
         val btc = MarketPair("BTC", "USDT", "BTCUSDT")
         val sol = MarketPair("SOL", "USDT", "SOLUSDT")
         return mapOf(
-            "changePair" to write { assertEquals(PairEditResult.LOCKED, repo.changePair(watchId, BINANCE, sol)) },
+            "changePair" to write { locked ->
+                val expected = if (locked) PairEditResult.LOCKED else PairEditResult.SAVED
+                assertEquals(expected, repo.changePair(watchId, BINANCE, sol))
+            },
             "setMissingPercentReferences" to write { repo.setMissingPercentReferences(watchId, 99_000.0) },
             "deleteWatch" to write { repo.deleteWatch(watchId) },
             "deleteWatches" to write { repo.deleteWatches(listOf(watchId)) },
             "deleteAllWatches" to write { repo.deleteAllWatches() },
-            "setNotificationEnabled" to write { assertFalse(repo.setNotificationEnabled(watchId, false)) },
+            "setNotificationEnabled" to write { locked -> assertEquals(!locked, repo.setNotificationEnabled(watchId, false)) },
             "setFavorite" to write { repo.setFavorite(watchId, true) },
             "move" to write { repo.move(watchId, WatchMove.BOTTOM) },
             "reorder" to write { repo.reorder(repo.getWatches().map { it.id }.reversed()) },
@@ -112,23 +131,28 @@ class WatchlistLockDeviceTest {
             "setGroup" to write { repo.setGroup(watchId, "Neu") },
             "applyGroupEdit" to write { repo.applyGroupEdit("Layer 1", "Neu", setOf(watchId)) },
             "clearGroup" to write { repo.clearGroup("Layer 1") },
-            "setTtsEnabled" to write { assertFalse(repo.setTtsEnabled(watchId, true)) },
+            "setTtsEnabled" to write { locked -> assertEquals(!locked, repo.setTtsEnabled(watchId, true)) },
             "setDisabled" to write { repo.setDisabled(listOf(watchId), true) },
             "setNotifiedPrice" to write { repo.setNotifiedPrice(watchId, 98_000.0) },
-            "saveAlarm" to write {
-                assertNull(repo.saveAlarm(AlarmEntity(watchId = watchId, condition = AlarmCondition.PRICE_BELOW, threshold = 1.0)))
+            "saveAlarm" to write { locked ->
+                val id = repo.saveAlarm(AlarmEntity(watchId = watchId, condition = AlarmCondition.PRICE_BELOW, threshold = 1.0))
+                assertEquals(locked, id == null)
             },
-            "saveAlarmMerged" to write {
-                assertNull(repo.saveAlarmMerged(alarmId) { it!!.copy(threshold = 120_000.0) })
+            "saveAlarmMerged" to write { locked ->
+                assertEquals(locked, repo.saveAlarmMerged(alarmId) { it!!.copy(threshold = 120_000.0) } == null)
             },
             "deleteAlarm" to write { repo.deleteAlarm(alarmId) },
-            "setAlarmEnabled" to write { assertFalse(repo.setAlarmEnabled(alarmId, false)) },
-            "addWatch" to write { assertNull(repo.addWatch(BINANCE, sol)) },
-            "tryAddWatch" to write { assertEquals(AddWatchOutcome.Locked, repo.tryAddWatch(BINANCE, sol)) },
-            "addWatches" to write { assertTrue(repo.addWatches(BINANCE, listOf(sol, btc)).locked) },
-            "restore" to write {
+            "setAlarmEnabled" to write { locked -> assertEquals(!locked, repo.setAlarmEnabled(alarmId, false)) },
+            "addWatch" to write { locked -> assertEquals(locked, repo.addWatch(BINANCE, sol) == null) },
+            "tryAddWatch" to write { locked ->
+                val outcome = repo.tryAddWatch(BINANCE, sol)
+                if (locked) assertEquals(AddWatchOutcome.Locked, outcome) else assertTrue(outcome is AddWatchOutcome.Added)
+            },
+            "addWatches" to write { locked -> assertEquals(locked, repo.addWatches(BINANCE, listOf(sol, btc)).locked) },
+            "restore" to write { locked ->
                 val gone = checkNotNull(repo.getWatch(watchId)).copy(id = 99, baseAsset = "SOL", pairId = "SOLUSDT")
-                assertEquals(RestoreOutcome.BLOCKED, repo.restore(WatchSnapshot(gone, emptyList())))
+                val expected = if (locked) RestoreOutcome.BLOCKED else RestoreOutcome.RESTORED
+                assertEquals(expected, repo.restore(WatchSnapshot(gone, emptyList())))
             },
         )
     }
@@ -138,17 +162,30 @@ class WatchlistLockDeviceTest {
         val before = dump()
         DatabaseEncryptionNotice.markInMemory(AppDatabase.DB_NAME, storedKept = true)
         for ((name, write) in userWrites()) {
-            write()
+            write(true)
             assertEquals("$name hat trotz Sperre geschrieben", before, dump())
         }
-        // Gegenprobe: ohne Sperre ändert derselbe Schreibweg die Tabelle (der Vergleich oben sieht also Änderungen)
-        DatabaseEncryptionNotice.clearInMemoryForTest(AppDatabase.DB_NAME)
-        repo.setNote(watchId, "neu")
-        assertNotEquals(before, dump())
-        // Ungesperrt melden die Schalter «geschrieben» (Aufrufer führen erst dann die Folgeaktionen aus)
-        assertTrue(repo.setNotificationEnabled(watchId, false))
-        assertTrue(repo.setAlarmEnabled(alarmId, false))
-        assertTrue(repo.setTtsEnabled(watchId, true))
+    }
+
+    /**
+     * Gegenprobe pro Eintrag (seit Build 104): ungesperrt ändert jeder Schreibweg die Tabellen — auf einer frischen
+     * Datenbank je Eintrag, damit kein früherer Schreibweg den Ausgangsstand verschiebt. Sonst bewiese der Sperr-Test
+     * für diesen Eintrag nichts.
+     */
+    @Test
+    fun everyUserWriteChangesTablesWhenUnlocked() = runBlocking {
+        for (name in userWrites().keys) {
+            db.close()
+            openSeeded()
+            val before = dump()
+            checkNotNull(userWrites()[name]).invoke(false)
+            assertNotEquals("$name ändert ungesperrt nichts (Gegenprobe zum Sperr-Test)", before, dump())
+        }
+        // Der %-Alarm hatte keinen Bezug, setMissingPercentReferences hat ihn gesetzt (frische Datenbank, nur dieser Weg)
+        db.close()
+        openSeeded()
+        checkNotNull(userWrites()["setMissingPercentReferences"]).invoke(false)
+        assertEquals(99_000.0, checkNotNull(db.getWatchDao().getAlarm(percentAlarmId)).referencePrice)
     }
 
     @Test

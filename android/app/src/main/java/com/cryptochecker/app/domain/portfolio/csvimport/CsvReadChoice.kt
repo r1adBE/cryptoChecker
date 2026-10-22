@@ -14,7 +14,8 @@ data class CsvReadChoice(
     companion object {
         /**
          * Darf importiert werden? Nicht, solange die Datei neu gelesen wird ([rereading]) oder die gezeigte Vorschau mit
-         * einer anderen Lesart gebaut wurde ([builtWith] ≠ [chosen]) — sonst käme die alte Lesart in die Daten.
+         * einer anderen Lesart gebaut wurde ([builtWith] ≠ [chosen]) — sonst käme die alte Lesart in die Daten. Seit Build
+         * 104 ist [builtWith] die im Vorschau-Zustand mitgeführte Lesart der GEZEIGTEN Vorschau (nicht der zuletzt gelesenen).
          */
         fun canConfirm(rereading: Boolean, builtWith: CsvReadChoice?, chosen: CsvReadChoice): Boolean =
             !rereading && builtWith == chosen

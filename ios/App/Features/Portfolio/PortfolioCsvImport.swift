@@ -33,8 +33,11 @@ struct PortfolioCsvImportSheet: View {
     @State var ratesStale = false
     /// Schreiben gescheitert: nichts importiert — Meldung statt «0 importiert» (wie Android `CsvImportState.SaveFailed`).
     @State private var saveFailed = false
-    /// Seit Build 103: Lesart, mit der die gezeigte Vorschau gebaut wurde (die beim Laden: Regel).
+    /// Seit Build 103: Lesart, mit der die gezeigte Vorschau gebaut wurde (die beim Laden: Regel). Wird nur zusammen mit
+    /// `preview` gesetzt (seit Build 104 nur vom letzten Neu-Lesen, `remapGeneration`) — wie Android `Preview.choice`.
     @State var builtWith = CsvReadChoice()
+    /// Seit Build 104: Nummer des letzten Neu-Lesens; nur dessen Ergebnis zählt (wie Android `rereadGeneration`).
+    @State var remapGeneration = 0
     /// Seit Build 103: Lesart geändert, Datei wird neu gelesen — «Importieren» aus, Vorschau gedimmt (wie Android).
     @State var rereading = false
     /// Seit Build 103: gewählte Umbuchungen angewendet, gemerkt statt bei jeder Auswertung von `body` neu
@@ -137,9 +140,7 @@ struct PortfolioCsvImportSheet: View {
                         if !txs.isEmpty {
                             Divider().padding(.vertical, Spacing.xs)
                             ForEach(Array(txs.prefix(Self.previewRows).enumerated()), id: \.offset) { _, tx in
-                                Text(rowText(tx))
-                                    .font(.subheadline.monospacedDigit())
-                                    .lineLimit(1)
+                                previewRow(tx)
                             }
                             if txs.count > Self.previewRows {
                                 hint(L("portfolio_csv_import_more", txs.count - Self.previewRows))
@@ -214,6 +215,8 @@ struct PortfolioCsvImportSheet: View {
         let refetch = ratesStale
         // Seit Build 103: bis die Vorschau zur Wahl passt, kein «Importieren»
         rereading = true
+        remapGeneration += 1
+        let generation = remapGeneration
         Task { @MainActor in
             let computed = await Task.detached(priority: .userInitiated) {
                 () -> (preview: CsvImportPreview, rates: [String: [(day: Int, rate: Double)]]) in
@@ -224,8 +227,8 @@ struct PortfolioCsvImportSheet: View {
                                                              withdrawalsAsTransfer: false)
                 return (preview: mapped, rates: fresh)
             }.value
-            // Inzwischen anders gewählt: verwerfen (die neuere Neuzuordnung übernimmt)
-            guard zone == chosenZone, dateOrder == order, decimalMark == mark else { return }
+            // Inzwischen anders gewählt bzw. neuer angestossen: verwerfen (die neuere Neuzuordnung übernimmt)
+            guard generation == remapGeneration, zone == chosenZone, dateOrder == order, decimalMark == mark else { return }
             if refetch {
                 rates = computed.rates
                 ratesStale = false
@@ -243,12 +246,21 @@ struct PortfolioCsvImportSheet: View {
             .foregroundStyle(AppColors.onSurfaceVariant)
     }
 
-    /// «12.06.2024 · Kauf · 0.0028 BTC · 95’287.63 USDT».
-    func rowText(_ tx: CsvImportTx) -> String {
-        var parts = [PortfolioFormat.date(tx.time), PortfolioFormat.typeLabel(tx.type),
-                     PortfolioFormat.exactAmount(tx.amount, tx.coin)]
-        if let p = tx.priceUsdt { parts.append(PortfolioFormat.price(PortfolioDecimal.double(p))) }
-        return parts.joined(separator: " · ")
+    /// «12.06.2024 · Kauf» / «0.0028 BTC · 95’287.63 USDT» — seit Build 104 zwei Zeilen, je bis zu drei Zeilen hoch
+    /// (vorher eine Zeile mit lineLimit(1): bei grosser Schrift fehlten Menge und Preis) — wie Android `PreviewRow`.
+    func previewRow(_ tx: CsvImportTx) -> some View {
+        var amounts = [PortfolioFormat.exactAmount(tx.amount, tx.coin)]
+        if let p = tx.priceUsdt { amounts.append(PortfolioFormat.price(PortfolioDecimal.double(p))) }
+        return VStack(alignment: .leading, spacing: 0) {
+            Text(verbatim: PortfolioFormat.date(tx.time) + " · " + PortfolioFormat.typeLabel(tx.type))
+                .lineLimit(3)
+                .fixedSize(horizontal: false, vertical: true)
+            Text(verbatim: amounts.joined(separator: " · "))
+                .lineLimit(3)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .font(.subheadline.monospacedDigit())
+        .accessibilityElement(children: .combine)
     }
 
     private func confirm() {

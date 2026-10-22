@@ -98,7 +98,17 @@ class DiagnosticReportTest {
         assertTrue(text.contains("binance | paused until 2026-10-18 14:01 | RATE_LIMIT | strikes 2"))
         assertTrue(text.contains("kraken | not paused | TIMEOUT | strikes 1"))
         assertTrue(text.contains("none - the app keeps no error log"))
+        // Seit Build 104: Zähler der Fehler im Hintergrund
+        assertTrue(text.contains("none - the app keeps no error log\nBackground errors: none\n"))
         assertTrue(text.endsWith("\n"))
+    }
+
+    @Test
+    fun backgroundErrorsLine() {
+        val text = DiagnosticReport.build(
+            input().copy(backgroundErrors = BackgroundErrorSummary(mapOf("refresh" to 2, "logos" to 1), now))
+        )
+        assertTrue(text.contains("Background errors: refresh 2, logos 1 (last 2026-10-18 12:00 UTC)\n"))
     }
 
     @Test

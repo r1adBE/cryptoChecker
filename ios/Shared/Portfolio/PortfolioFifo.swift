@@ -18,7 +18,8 @@ import Foundation
 ///    ältesten verbleibenden Posten mit Kaufpreis über (Kosten des Haltens/Verschiebens, keine Veräusserung — wird mit
 ///    dem nächsten Verkauf realisiert); ohne solchen Posten wartet er auf den nächsten später hinzukommenden Posten mit
 ///    Kaufpreis, erst ohne einen solchen bis zum Ende `PortfolioLostFeeCost`; Gebühr USDT + Wert der Gebühr im dritten Coin nach Menge auf alle Posten
-///    (Anteil ohne Kaufpreis gehört zu deren unbekanntem Einstand und wird als `PortfolioUnassignedFee` vermerkt).
+///    (Anteil ohne Kaufpreis gehört zu deren unbekanntem Einstand und wird als `PortfolioUnassignedFee` vermerkt; seit
+///    Build 104 ebenso der Anteil einer Menge über dem Bestand, `PortfolioFeeExpenses.transferUncovered`, markiert oversold).
 ///  - Herkunft des Einstands: jeder Posten führt seinen Einstand in Teilen mit Zeitpunkt (Erwerb, Umbuchungsgebühr zum
 ///    Zeitpunkt der Umbuchung, übernommener Netzwerkgebühr-Einstand mit seinen Teilen); ein Abgang nimmt sie anteilig mit
 ///    (`PortfolioDisposal.costParts`), der Steuer-Export rechnet jeden Teil zum Kurs SEINES Datums um. Anfangsposten des
@@ -315,7 +316,11 @@ enum PortfolioFifo {
                 if src !== dst {
                     // Je Wallet: Posten wandern mit Kaufdatum und Einstand von der Quelle zum Ziel
                     check(src, amount + coinFee, t, feeLeg: false)
-                    if src.held <= 0 { continue }
+                    // Seit Build 104: leere Quelle → die ganze Gebühr vermerkt statt still verworfen
+                    if src.held <= 0 {
+                        unassign(t, PortfolioFeeExpenses.transferUncovered(t, covered: 0))
+                        continue
+                    }
                     // Netzwerkgebühr zuerst (älteste Posten der Quelle); ihr Einstand wandert mit
                     let carried = consume(src, coinFee)
                     let moved = consume(src, amount).map {
@@ -323,10 +328,11 @@ enum PortfolioFifo {
                             parts: $0.parts)
                     }
                     // Gebühr USDT + Wert der Gebühr im dritten Coin nach Menge auf die verschobenen Teile; der Anteil ohne
-                    // Kaufpreis wird vermerkt
+                    // Kaufpreis und (seit Build 104) der Anteil der nicht angekommenen Menge werden vermerkt
                     if feeValue == nil && moved.contains(where: { $0.cost != nil }) { r.feeValueMissing = true }
-                    unassign(t, spread(moved, t.quoteFeeExact + (feeValue ?? 0), moved.reduce(Decimal(0)) { $0 + $1.amount },
-                                       at: t.time))
+                    let movedAmount = moved.reduce(Decimal(0)) { $0 + $1.amount }
+                    let lost = PortfolioFeeExpenses.transferUncovered(t, covered: movedAmount)
+                    unassign(t, lost + spread(moved, t.quoteFeeExact + (feeValue ?? 0) - lost, movedAmount, at: t.time))
                     // Nächster Posten mit Kaufpreis: verschoben, Rest der Quelle, sonst im Ziel; erst ohne jeden
                     // wartet der Einstand (bei den verschobenen Coins im Ziel, sonst in der Quelle)
                     let target = moved.first(where: { $0.cost != nil }) ?? src.lots.first(where: { $0.cost != nil })
@@ -337,14 +343,20 @@ enum PortfolioFifo {
                 }
                 let q = src
                 let h = q.held
-                if h <= 0 { continue }
-                // Gebühr USDT + Wert der Gebühr im dritten Coin: nach Menge auf die Posten verteilt; der Anteil der Posten
-                // ohne Kaufpreis wird vermerkt
+                // Seit Build 104: Menge oder Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
+                // erfassten Menge wird vermerkt (leerer Bestand: die ganze Gebühr), nicht still verworfen
+                if amount > h || coinFee > h { check(q, max(amount, coinFee), t, feeLeg: false) }
+                let lost = PortfolioFeeExpenses.transferUncovered(t, covered: h)
+                if h <= 0 {
+                    unassign(t, lost)
+                    continue
+                }
+                // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: nach Menge auf die Posten verteilt; der Anteil
+                // der Posten ohne Kaufpreis wird vermerkt
                 if feeValue == nil && q.lots.contains(where: { $0.cost != nil }) { r.feeValueMissing = true }
-                unassign(t, spread(q.lots, t.quoteFeeExact + (feeValue ?? 0), h, at: t.time))
+                unassign(t, lost + spread(q.lots, t.quoteFeeExact + (feeValue ?? 0) - lost, h, at: t.time))
                 // Netzwerkgebühr im Coin: Menge sinkt (älteste zuerst), ihr Einstand geht auf den nächsten Posten mit
                 // Kaufpreis über (Kosten des Haltens, keine Veräusserung)
-                if coinFee > h { check(q, coinFee, t, feeLeg: false) }
                 if coinFee > 0 {
                     let carried = consume(q, coinFee)
                     carry(q.lots.first(where: { $0.cost != nil }), q, t, carried)

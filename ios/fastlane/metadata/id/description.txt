@@ -1,8 +1,8 @@
-Alarm ketika Bitcoin mencapai hargamu – dari bursa yang kamu gunakan. Saat aplikasi ditutup, iOS jarang memeriksa – sering baru setelah berjam-jam, dan sama sekali tidak jika aplikasi diusap hingga tertutup. Paling andal saat aplikasi terbuka. Lonjakan singkat di antaranya bisa terlewat; aplikasi memberi tahu kamu. Gratis, tanpa akun.
+Crypto Checker memeriksa harga di bursamu dan memberi tahu kamu jika saat pemeriksaan levelmu sudah tercapai. Saat aplikasi ditutup, iOS jarang memeriksa – sering baru setelah berjam-jam, dan sama sekali tidak jika aplikasi diusap hingga tertutup. Paling andal saat aplikasi terbuka. Lonjakan singkat di antaranya bisa terlewat; aplikasi memberi tahu kamu. Gratis, tanpa akun.
 
 YANG MEMBUATNYA BERBEDA
 • Bursamu, bukan rata-rata: setiap baris menampilkan harga terakhir pasangan itu di bursa yang kamu pilih – Binance, Coinbase, Kraken, OKX, Bybit, dan banyak lagi.
-• Alarm yang memberi tahu sekali: “Beri tahu saya saat BTC naik di atas 100.000 USDT.” Berbunyi saat level terlewati, bukan di setiap pembaruan – “Sekali” lalu menonaktifkannya, “Setiap kali” menyiapkannya lagi saat harga kembali.
+• Alarm yang memberi tahu sekali: “Beri tahu saya saat BTC naik di atas 100.000 USDT.” Berbunyi saat pemeriksaan mendapati level sudah terlewati, bukan di setiap pembaruan – “Sekali” lalu menonaktifkannya, “Setiap kali” menyiapkannya lagi saat harga kembali.
 • “Apa yang ikut bergerak?”: daftar faktor untuk satu koin – pasar umum, volume, volatilitas, funding dan open interest, jarak ke titik tertinggi atau terendah, Fear & Greed. Menunjukkan apa yang bergerak bersamaan – bukan penyebab, bukan berita, bukan saran investasi.
 • Tanpa akun, tanpa iklan, tanpa pelacakan. Pengembang tidak menerima datamu.
 
@@ -31,7 +31,7 @@ PASAR
 
 LAINNYA
 • Widget untuk Layar Utama dan Layar Terkunci, Aktivitas Langsung untuk satu koin
-• Portofolio opsional (aktifkan di Pengaturan): beli, jual, swap, transfer, reward, setoran dan penarikan; FIFO (bawaan) atau rata-rata (Ø); alamat hanya-baca tanpa seed untuk BTC (termasuk xpub), ETH & jaringan EVM, SOL, TRX, XRP, LTC, ADA, dan TON; impor CSV dari Relai, Swissquote, Bitpanda, Kraken, Binance dan Coinbase; ringkasan tahunan sebagai CSV; kunci tersendiri. Bitpanda dan Swissquote tidak punya feed harga publik, jadi tanpa harga sendiri – transaksinya masuk lewat impor CSV.
+• Portofolio opsional (aktifkan di Pengaturan): beli, jual, swap, transfer, reward, setoran dan penarikan; FIFO (bawaan) atau rata-rata (Ø); alamat hanya-baca tanpa seed untuk BTC (termasuk xpub), ETH & jaringan EVM, SOL, TRX, XRP, LTC, ADA, dan TON; impor CSV dari Relai, Swissquote, Bitpanda, Kraken, Binance dan Coinbase; ringkasan tahunan sebagai CSV; kunci tersendiri. Bitpanda dan Swissquote: tanpa harga sendiri, hanya lewat CSV.
 • Mudah dibaca semua orang: hijau/merah atau biru/oranye, tanda dan panah, bukan hanya warna, Dynamic Type; VoiceOver membacakan tiap baris sebagai satu kalimat
 • Cadangkan & pulihkan lewat app File
 • Mode terang dan gelap, lima warna aksen, 31 bahasa

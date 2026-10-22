@@ -1,6 +1,7 @@
 package com.cryptochecker.app.util
 
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
+import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -25,4 +26,8 @@ internal fun appExceptionHandler(
         if (e.isDatabaseKeyUnavailable()) Timber.d(e, "%s: Datenbank-Schlüssel nicht verfügbar", label)
         else Timber.w(e, "%s: Hintergrundarbeit fehlgeschlagen", label)
     },
-): CoroutineExceptionHandler = CoroutineExceptionHandler { _, e -> log(e) }
+): CoroutineExceptionHandler = CoroutineExceptionHandler { _, e ->
+    // Seit Build 104: im Release sonst unsichtbar — nur zählen je Bereich (BackgroundErrorCounter), keine Texte
+    if (!e.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.areaForLabel(label))
+    log(e)
+}

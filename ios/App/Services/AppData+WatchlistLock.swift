@@ -28,9 +28,18 @@ extension AppData {
     /// Schreibweg des Nutzers ablehnen? true = gesperrt, der Aufrufer schreibt nichts. Mit `notify` zählt die Ablehnung
     /// als Hinweis (gedrosselt, `watchlistLockedHints`). Nur Schreibwege des Nutzers fragen hier; Kurse, Alarmzustand und
     /// Widget schreiben weiter (`saveSnapshotInBackground` lässt die gesperrte Datei ohnehin unberührt).
+    /// Seit Build 104 (F-08): wird die Merkliste gerade nicht gespeichert, fragt die erste Änderung je Lauf nach
+    /// (`WatchlistNotSavedGate`); `retry` führt sie nach «Trotzdem» erneut aus. Nur mit `notify` (Folge-Schreibwege nie)
+    /// und nur mit sichtbarem Bildschirm, der fragen kann.
     @discardableResult
-    func watchlistWriteRefused(notify: Bool = true, now: Int64 = WatchlistWriteRefusal.nowMillis) -> Bool {
-        guard watchlistWritesBlocked else { return false }
+    func watchlistWriteRefused(notify: Bool = true, now: Int64 = WatchlistWriteRefusal.nowMillis,
+                               retry: (@MainActor () -> Void)? = nil) -> Bool {
+        guard watchlistWritesBlocked else {
+            guard notify else { return false }
+            return WatchlistNotSavedGate.shared.intercept(
+                notSaved: watchlistStorageNotice == .notSaved,
+                canAsk: appActive && !WatchlistLockedHintHosts.stack.isEmpty, retry: retry)
+        }
         if notify, WatchlistWriteRefusal.shouldNotify(lastAt: watchlistLockedHintAt, now: now) {
             watchlistLockedHintAt = now
             watchlistLockedHints &+= 1

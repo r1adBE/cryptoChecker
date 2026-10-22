@@ -18,6 +18,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -74,7 +76,11 @@ class AlarmsOverviewViewModel @Inject constructor(
     }
 
     fun deletePortfolioAlarm(id: Long) {
-        viewModelScope.launch { portfolioAlarmRepository.delete(id) }
+        viewModelScope.launch {
+            portfolioAlarmRepository.delete(id)
+            // Seit Build 104: die Mitteilung des gelöschten Alarms gleich mit entfernen (wie iOS)
+            com.cryptochecker.app.data.remote.util.runCatchingCancellable { appNotifier.cancelAlarms(emptyList(), listOf(id)) }
+        }
     }
 
     val groups: StateFlow<List<List<AlarmWithWatch>>> = watchRepository.observeAllAlarms()
@@ -92,6 +98,16 @@ class AlarmsOverviewViewModel @Inject constructor(
     /** Paare der Merkliste (für «Neuer Alarm» in der leeren Übersicht: Paar wählen). */
     val watches: StateFlow<List<com.cryptochecker.app.data.local.model.WatchEntity>> = watchRepository.observeWatches()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
+    /**
+     * Zeilen der Paarwahl ([AlarmPickerRow]) ohne Kurs, im Hintergrund gerechnet und nur bei echter Änderung weitergegeben
+     * (nicht bei jeder Kurs-Schreibung) — seit Build 104. null = noch nicht gerechnet.
+     */
+    internal val pickerRows: StateFlow<List<AlarmPickerRow>?> = watchRepository.observeWatches()
+        .map { alarmPickerRows(it) }
+        .distinctUntilChanged()
+        .flowOn(Dispatchers.Default)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     fun setEnabled(alarmId: Long, enabled: Boolean) {
         viewModelScope.launch {

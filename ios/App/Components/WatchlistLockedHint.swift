@@ -23,6 +23,9 @@ enum WatchlistLockedHintHosts {
 /// Bildschirms — wie Android `WatchlistLockedHint`.
 private struct WatchlistLockedHintModifier: ViewModifier {
     @EnvironmentObject private var data: AppData
+    /// Seit Build 104 (F-08): Frage «Änderungen werden gerade nicht gespeichert …» (`WatchlistNotSavedGate`) — gezeigt vom
+    /// obersten sichtbaren Bildschirm, wie der Hinweis; wie Android `WatchlistNotSavedGateHost`.
+    @ObservedObject private var notSavedGate = WatchlistNotSavedGate.shared
     @State private var host = UUID()
     let show: (String) -> Void
 
@@ -34,6 +37,12 @@ private struct WatchlistLockedHintModifier: ViewModifier {
                 guard WatchlistLockedHintHosts.isTop(host) else { return }
                 Haptics.play(.warning)
                 show(L("watchlist_storage_locked"))
+            }
+            .alert(L("watchlist_not_saved_confirm_message"), isPresented: Binding(
+                get: { notSavedGate.pending && WatchlistLockedHintHosts.isTop(host) },
+                set: { _ in })) {
+                Button(L("action_cancel"), role: .cancel) { notSavedGate.answer(proceed: false) }
+                Button(L("watchlist_not_saved_confirm_action")) { notSavedGate.answer(proceed: true) }
             }
     }
 }

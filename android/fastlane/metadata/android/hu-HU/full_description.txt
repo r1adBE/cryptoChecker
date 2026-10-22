@@ -1,8 +1,8 @@
-Riasztás, ha a Bitcoin eléri az árfolyamodat – a tőzsdédről, amit tényleg használsz. Bezárt appnál az Android dönti el, mikor ellenőrzi a riasztásokat – legfeljebb 15 percenként egyszer, gyakran csak órák múlva. A közben lévő rövid kiugrások kimaradhatnak; az app ezt meg is mondja. Ingyen, fiók nélkül.
+A Crypto Checker ellenőrzi a tőzsdéd árfolyamait, és szól, ha egy ellenőrzéskor az ár eléri a szintedet. Bezárt appnál az Android dönti el, mikor ellenőrzi a riasztásokat – legfeljebb 15 percenként egyszer, gyakran csak órák múlva. A közben lévő rövid kiugrások kimaradhatnak; az app ezt meg is mondja. Ingyen, fiók nélkül.
 
 AMITŐL MÁS
 • A te tőzsdéd, nem átlag: minden sor a pár utolsó árát mutatja azon a tőzsdén, amelyet választottál – Binance, Coinbase, Kraken, OKX, Bybit és sok más.
-• Riasztás, amely egyszer szól: „Szólj, ha a BTC 100 000 USDT fölé megy.” Akkor szól, ha az ár átlépi a szintet, nem minden frissítéskor – az „Egyszer” utána kikapcsolja, a „Minden alkalommal” újra élesíti, amikor az ár visszatér.
+• Riasztás, amely egyszer szól: „Szólj, ha a BTC 100 000 USDT fölé megy.” Akkor szól, ha egy ellenőrzés azt látja, hogy az ár átlépte a szintet, nem minden frissítéskor – az „Egyszer” utána kikapcsolja, a „Minden alkalommal” újra élesíti, amikor az ár visszatér.
 • „Mi mozog vele együtt?”: tényezőlista egy coinhoz – teljes piac, forgalom, volatilitás, funding és open interest, távolság a csúcstól vagy a mélyponttól, Fear & Greed. Azt mutatja, mi mozog ugyanabban az időben – nem ok, nem hír, nem befektetési tanácsadás.
 • Nincs fiók, nincs reklám, nincs követés. A fejlesztő semmilyen adatodat nem kapja meg.
 
@@ -32,7 +32,7 @@ PIAC
 
 EZENKÍVÜL
 • Widgetek: lista, a portfólió teljes értéke, egy coin diagrammal
-• Portfólió opcionálisan (a Beállításokban kapcsolható be): vételek, eladások, cserék, átvezetések, jutalmak, befizetések és kifizetések; FIFO (alapértelmezett) vagy átlag (Ø); csak olvasható címek, seed nélkül: BTC (xpub is), ETH és EVM-láncok, SOL, TRX, XRP, LTC, ADA és TON; CSV-import Relai-, Swissquote-, Bitpanda-, Kraken-, Binance- és Coinbase-fájlokból; éves áttekintés CSV-ben; saját zár. A Bitpanda és a Swissquote nem ad nyilvános árfolyamot, így nincs saját áruk – ügyleteik CSV-importtal jönnek.
+• Portfólió opcionálisan (a Beállításokban kapcsolható be): vételek, eladások, cserék, átvezetések, jutalmak, befizetések és kifizetések; FIFO (alapértelmezett) vagy átlag (Ø); csak olvasható címek, seed nélkül: BTC (xpub is), ETH és EVM-láncok, SOL, TRX, XRP, LTC, ADA és TON; CSV-import Relai-, Swissquote-, Bitpanda-, Kraken-, Binance- és Coinbase-fájlokból; éves áttekintés CSV-ben; saját zár. Bitpanda és Swissquote: saját ár nélkül, csak CSV-vel.
 • Mindenkinek olvasható: zöld/piros vagy kék/narancs, előjel és nyíl a szín mellett; a TalkBack minden sort egy mondatként olvas fel
 • Mentés és visszaállítás fájlba – Android és iPhone között is
 • Világos és sötét mód, öt kiemelőszín, 31 nyelv

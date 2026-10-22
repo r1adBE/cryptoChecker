@@ -2,46 +2,124 @@ import SwiftUI
 
 /// «Neuer Alarm» ohne Paar: erst das Paar wählen, dann dessen Alarm-Seite. Seit Build 103 ein eigenes Blatt mit Suchfeld
 /// (Abgleich wie die Merklisten-Suche, `WatchlistSearch.matches`), Favoriten oben und Lazy-Liste statt eines
-/// Bestätigungsdialogs mit bis zu 2000 Knöpfen — wie Android `AlarmPairPicker`.
+/// Bestätigungsdialogs mit bis zu 2000 Knöpfen — wie Android `AlarmPairPicker`. Seit Build 104: Zeilen ohne Kurs
+/// vorberechnet und gefaltet (`Row`), neu nur bei Änderung der Paare (`Source`); «keine Treffer» wird angesagt,
+/// Favoriten mit Stern. Der Titel ist als Navigationstitel schon eine Überschrift für VoiceOver.
 struct AlarmPairPicker: View {
     let watches: [Watch]
     let onPick: (Int64) -> Void
 
+    /// Zeile der Auswahl ohne Kurs, Suchfelder schon gefaltet — wie Android `AlarmPickerRow`.
+    struct Row: Identifiable, Equatable {
+        let id: Int64
+        let displayName: String
+        let marketName: String
+        let favorite: Bool
+        /// Suchfelder wie `WatchlistSearch.matches` ohne Coin-Namen, gefaltet (`ExplorerNameMatch.fold`).
+        let folded: [String]
+    }
+
+    /// Was eine Zeile ausmacht (ohne Kurs): ändert sich das, werden die Zeilen neu gerechnet.
+    struct Source: Equatable {
+        let id: Int64
+        let displayName: String
+        let marketName: String
+        let favorite: Bool
+        let note: String?
+        let logoPairKey: String
+
+        init(_ watch: Watch) {
+            id = watch.id
+            displayName = watch.displayName
+            marketName = watch.marketName
+            favorite = watch.favorite
+            note = watch.note
+            logoPairKey = watch.logoPairKey
+        }
+    }
+
     @State private var query = ""
-    /// Coin-Namen für die Suche, einmal beim Öffnen gelesen (`WatchlistSearch.names`).
-    @State private var names: [Int64: String] = [:]
+    /// Zeilen, einmal beim Öffnen und danach nur bei geänderten Paaren gerechnet.
+    @State private var rows: [Row]
+    /// Gefaltete Coin-Namen für die Suche (`WatchlistSearch.names`), mit den Zeilen gerechnet.
+    @State private var names: [Int64: String]
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appAccent) private var accent
 
-    /// Treffer der Suche, Favoriten zuerst, sonst in der Reihenfolge der Merkliste (`alarm_pair_picker.json`) — wie
-    /// Android `alarmPairChoices`.
-    static func choices(_ watches: [Watch], query: String, names: [Int64: String]) -> [Watch] {
-        let blank = query.trimmingCharacters(in: .whitespaces).isEmpty
-        let hits = blank ? watches : watches.filter { WatchlistSearch.matches($0, query: query, name: names[$0.id]) }
+    init(watches: [Watch], onPick: @escaping (Int64) -> Void) {
+        self.watches = watches
+        self.onPick = onPick
+        _rows = State(initialValue: Self.makeRows(watches))
+        _names = State(initialValue: Self.foldedNames(WatchlistSearch.names(for: watches)))
+    }
+
+    /// Zeilen in der Reihenfolge der Merkliste — wie Android `alarmPickerRows`.
+    static func makeRows(_ watches: [Watch]) -> [Row] {
+        watches.map { watch in
+            Row(id: watch.id, displayName: watch.displayName, marketName: watch.marketName, favorite: watch.favorite,
+                folded: [
+                    watch.baseAsset,
+                    watch.quoteAsset,
+                    watch.displayPair,
+                    watch.displayName,
+                    watch.contractType.shortName ?? "",
+                    watch.marketName,
+                    watch.note ?? "",
+                ].map(ExplorerNameMatch.fold))
+        }
+    }
+
+    /// Coin-Namen je Paar-Id gefaltet.
+    static func foldedNames(_ names: [Int64: String]) -> [Int64: String] {
+        names.mapValues(ExplorerNameMatch.fold)
+    }
+
+    /// Treffer der Suche (jedes Wort muss ein Feld oder den Coin-Namen treffen), Favoriten zuerst, sonst in der
+    /// Reihenfolge der Merkliste (`alarm_pair_picker.json`) — wie Android `alarmPairChoices`.
+    static func choices(_ rows: [Row], query: String, foldedNames: [Int64: String]) -> [Row] {
+        let tokens = ExplorerNameMatch.fold(query).split(whereSeparator: { $0.isWhitespace }).map(String.init)
+        let hits = tokens.isEmpty ? rows : rows.filter { row in
+            let name = foldedNames[row.id]
+            return tokens.allSatisfy { token in
+                row.folded.contains { $0.contains(token) } || (name?.contains(token) ?? false)
+            }
+        }
         return hits.filter(\.favorite) + hits.filter { !$0.favorite }
     }
 
     var body: some View {
-        let shown = Self.choices(watches, query: query, names: names)
+        let shown = Self.choices(rows, query: query, foldedNames: names)
+        let trimmed = query.trimmingCharacters(in: .whitespaces)
         NavigationStack {
             List {
                 if shown.isEmpty {
-                    Text(L("watchlist_search_empty", query.trimmingCharacters(in: .whitespaces)))
+                    Text(L("watchlist_search_empty", trimmed))
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
-                ForEach(shown) { watch in
+                ForEach(shown) { row in
                     Button {
-                        onPick(watch.id)
+                        onPick(row.id)
                     } label: {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(watch.displayName)
-                                .foregroundStyle(AppColors.onSurface)
-                            Text(watch.marketName)
-                                .font(.footnote)
-                                .foregroundStyle(AppColors.onSurfaceVariant)
+                        HStack(spacing: Spacing.sm) {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(row.displayName)
+                                    .foregroundStyle(AppColors.onSurface)
+                                Text(row.marketName)
+                                    .font(.footnote)
+                                    .foregroundStyle(AppColors.onSurfaceVariant)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            // Favorit: Stern wie in der Merkliste, VoiceOver liest «Favorit» (nicht den Bildnamen)
+                            if row.favorite {
+                                Image(systemName: "star.fill")
+                                    .font(.footnote)
+                                    .foregroundStyle(accent.primary)
+                                    .accessibilityLabel(L("a11y_favorite"))
+                            }
                         }
                         .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                         .contentShape(Rectangle())
+                        .accessibilityElement(children: .combine)
                     }
                 }
             }
@@ -60,6 +138,14 @@ struct AlarmPairPicker: View {
             }
         }
         .tint(accent.primary)
-        .onAppear { names = WatchlistSearch.names(for: watches) }
+        // Nur bei geänderten Paaren neu rechnen, nicht bei jedem Kurs (seit Build 104)
+        .onChange(of: watches.map(Source.init)) { _, _ in
+            rows = Self.makeRows(watches)
+            names = Self.foldedNames(WatchlistSearch.names(for: watches))
+        }
+        // Keine Treffer: VoiceOver sagt es beim Tippen an (wie die Live-Region in Android), seit Build 104
+        .onChange(of: shown.isEmpty ? trimmed : nil) { _, empty in
+            if let empty { AccessibilityNotification.Announcement(L("watchlist_search_empty", empty)).post() }
+        }
     }
 }

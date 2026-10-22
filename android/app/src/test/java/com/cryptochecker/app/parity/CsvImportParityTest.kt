@@ -89,7 +89,9 @@ class CsvImportParityTest {
     @Test
     fun dates() {
         data["dates"].list().map { it.obj() }.forEach { c ->
-            assertEquals("date: $c", millis(c["expected"]), CsvImportParser.parseTime(c["text"] as String))
+            // Seit Build 104: optionale Zeitzone (Sommerzeit-Wechsel Zürich/New York)
+            val zone = c["zone"] as String? ?: CsvImportParser.DEFAULT_ZONE
+            assertEquals("date: $c", millis(c["expected"]), CsvImportParser.parseTime(c["text"] as String, zone))
         }
     }
 

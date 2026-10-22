@@ -15,6 +15,10 @@ import Foundation
 /// Mitteilung noch da (`isShown`), wird der Alarm nur noch als gemeldet gespeichert — kein zweiter Alarmton nach der
 /// Abklingzeit. Wie Android `AlarmDeliveryMarker`. Gelesen und geschrieben wird nur unter der `AlarmLease`
 /// (Paar-Alarme) bzw. auf dem MainActor der App (Portfolio-Alarme) — darum genügt hier ein Lock.
+///
+/// Seit Build 104: `isShown` bekommt den Zeitpunkt des Vermerks — nur eine danach gezeigte Mitteilung bestätigt
+/// (`shownSinceMarker`), eine ältere desselben Alarms nicht; lässt sich der Alarm dann nicht speichern, wird die
+/// Mitteilung entfernt (`retract`). Vermerke gelöschter bzw. ersetzter Alarme räumt `retain`/`remove` weg.
 final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Schreiben nur unter `lock` (NSLock); UserDefaults selbst ist thread-sicher
     /// Paar-Alarme (App, Hintergrund, Widget).
     static let pairs = AlarmDelivery(storeKey: "alarm_unconfirmed_at")
@@ -33,6 +37,17 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
         guard shown, let markerAt, markerAt > 0 else { return false }
         let age = now - markerAt
         return age >= 0 && age < freshMillis
+    }
+
+    /// Seit Build 104: Spielraum für das Datum der Mitteilung gegenüber dem Vermerk (wie Android
+    /// `AlarmDeliveryMarker.POSTED_TOLERANCE_MILLIS`).
+    static let postedToleranceMillis: Int64 = 1_000
+
+    /// Seit Build 104: Zählt die zugestellte Mitteilung (Datum `postedAt` in ms, nil = keine) als die nach dem Vermerk
+    /// `markerAt` gezeigte? Eine ältere desselben Alarms bestätigt nichts. Wie Android `AlarmDeliveryMarker.shownSinceMarker`.
+    static func shownSinceMarker(postedAt: Int64?, markerAt: Int64) -> Bool {
+        guard let postedAt else { return false }
+        return postedAt >= markerAt - postedToleranceMillis
     }
 
     private let store: UserDefaults
@@ -60,20 +75,22 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
     /// - Parameter mark: speichert den Zustand nach dem Auslösen; false = nicht gespeichert (z. B. inzwischen bearbeitet).
     /// - Parameter retract: entfernt die schon gezeigte Mitteilung, wenn `mark` nichts speichern konnte — sie gehörte
     ///   zu einem Alarm, den es so nicht mehr gibt. Wie Android.
-    /// - Parameter isShown: seit Build 103 — steht die Mitteilung dieses Alarms noch da?
+    /// - Parameter isShown: seit Build 103 — steht die Mitteilung dieses Alarms noch da? Seit Build 104 mit dem Zeitpunkt
+    ///   des Vermerks: nur eine danach gezeigte zählt (`shownSinceMarker`).
     /// - Returns: true = gemeldet und gespeichert (zählt als ausgelöst).
     func deliver(alarmId: Int64, now: Int64, cooldownMinutes: Int, holdAlarms: Bool, snoozed: Bool = false,
                  canShow: () async -> Bool,
                  show: @escaping @Sendable () async -> Bool,
                  mark: @escaping @Sendable () async -> Bool,
                  retract: @escaping @Sendable () async -> Void = {},
-                 isShown: () async -> Bool = { false }) async -> Bool {
+                 isShown: (_ markerAt: Int64) async -> Bool = { _ in false }) async -> Bool {
         // Seit Build 103: voriger Lauf endete zwischen Melden und Speichern — nur speichern, nicht erneut melden.
         // false: in diesem Lauf nichts gemeldet (keine zweite Ansage)
         if let pending = unconfirmedAt(alarmId),
-           Self.alreadyDelivered(markerAt: pending, now: now, shown: await isShown()) {
+           Self.alreadyDelivered(markerAt: pending, now: now, shown: await isShown(pending)) {
             await Task {
-                _ = await mark()
+                // Seit Build 104: nicht gespeichert (inzwischen bearbeitet/gelöscht) → Mitteilung wieder weg
+                if !(await mark()) { await retract() }
                 self.setUnconfirmed(alarmId, at: nil)
             }.value
             return false
@@ -104,6 +121,45 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
         lock.lock(); defer { lock.unlock() }
         guard let value = (store.dictionary(forKey: storeKey) as? [String: Double])?[String(alarmId)] else { return nil }
         return Int64(value)
+    }
+
+    /// Seit Build 104: Vermerke dieser Alarme entfernen (gelöscht bzw. durch eine Sicherung ersetzt).
+    func remove<S: Sequence>(_ alarmIds: S) where S.Element == Int64 {
+        let keys = Set(alarmIds.map { String($0) })
+        modifyAll { all in all = all.filter { entry in !keys.contains(entry.key) } }
+    }
+
+    /// Seit Build 104: nur Vermerke noch vorhandener Alarme behalten.
+    func retain(_ alarmIds: Set<Int64>) {
+        modifyAll { all in all = all.filter { entry in Int64(entry.key).map { alarmIds.contains($0) } ?? false } }
+    }
+
+    /// Seit Build 104: alle Vermerke löschen (Speicher neu angelegt — Ids beginnen von vorn).
+    func removeAll() {
+        modifyAll { all in all = [:] }
+    }
+
+    /// Seit Build 104: Vermerke beider Arten löschen (gespeicherter Stand beiseitegelegt, neu begonnen; wie Android
+    /// beim Neuanlegen der Datenbanken).
+    static func removeAllMarkers() {
+        pairs.removeAll()
+        portfolio.removeAll()
+    }
+
+    private func modifyAll(_ change: (inout [String: Double]) -> Void) {
+        lock.lock(); defer { lock.unlock() }
+        guard var all = store.dictionary(forKey: storeKey) as? [String: Double] else {
+            if store.object(forKey: storeKey) != nil { store.removeObject(forKey: storeKey) }
+            return
+        }
+        let before = all.count
+        change(&all)
+        guard all.count != before else { return }
+        if all.isEmpty {
+            store.removeObject(forKey: storeKey)
+        } else {
+            store.set(all, forKey: storeKey)
+        }
     }
 
     private func setUnconfirmed(_ alarmId: Int64, at time: Int64?) {

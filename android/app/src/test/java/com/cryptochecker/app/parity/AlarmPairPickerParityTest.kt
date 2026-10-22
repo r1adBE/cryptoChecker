@@ -2,13 +2,16 @@ package com.cryptochecker.app.parity
 
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.ui.features.alarms.alarmPairChoices
+import com.cryptochecker.app.ui.features.alarms.alarmPickerRows
+import com.cryptochecker.app.ui.features.explorer.NameMatch
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
  * Seit Build 103 (Review UX-02): Paarwahl für einen neuen Alarm — Suche wie in der Merkliste, Favoriten zuerst
- * (`testdata/parity/alarm_pair_picker.json`). Gegenstück: `Tests/AlarmPairPickerTests.swift`.
+ * (`testdata/parity/alarm_pair_picker.json`). Gegenstück: `Tests/AlarmPairPickerTests.swift`. Seit Build 104 über die
+ * vorberechneten Zeilen ([alarmPickerRows]) mit gefalteten Coin-Namen.
  */
 class AlarmPairPickerParityTest {
 
@@ -28,13 +31,17 @@ class AlarmPairPickerParityTest {
                 note = w["note"] as String?,
             )
         }
-        val names = fixture["names"].obj().map { (id, name) -> id.toLong() to name as String }.toMap()
+        val names = fixture["names"].obj().map { (id, name) -> id.toLong() to NameMatch.fold(name as String) }.toMap()
+        val rows = alarmPickerRows(watches)
         val cases = fixture["cases"].list()
         assertTrue(cases.size >= 8)
         for (raw in cases) {
             val c = raw.obj()
             val expected = c["expected"].list().map { it.num()!!.toLong() }
-            assertEquals(c["name"] as String, expected, alarmPairChoices(watches, c["query"] as String, names).map { it.id })
+            assertEquals(c["name"] as String, expected, alarmPairChoices(rows, c["query"] as String, names).map { it.id })
         }
+        // Seit Build 104: ein neuer Kurs ändert die Zeilen nicht (distinctUntilChanged lässt ihn durch), ein Favorit schon
+        assertEquals(rows, alarmPickerRows(watches.map { it.copy(lastPrice = 42.0, lastUpdate = 1L) }))
+        assertTrue(rows != alarmPickerRows(watches.map { it.copy(favorite = !it.favorite) }))
     }
 }

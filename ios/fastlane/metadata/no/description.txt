@@ -1,8 +1,8 @@
-En alarm når Bitcoin når kursen din – fra børsen du faktisk bruker. Når appen er lukket, sjekker iOS sjelden – ofte først etter timer, og ikke i det hele tatt etter at du har sveipet bort appen. Mest pålitelig med appen åpen. Korte topper innimellom kan bli oversett; appen sier ifra om det. Kursen fra børsen din, ikke et snitt – gratis, uten konto.
+Crypto Checker sjekker kursene på børsen din og gir beskjed når en sjekk viser at nivået ditt er nådd. Når appen er lukket, sjekker iOS sjelden – ofte først etter timer, og ikke i det hele tatt etter at du har sveipet bort appen. Mest pålitelig med appen åpen. Korte topper innimellom kan bli oversett; appen sier ifra om det. Kursen fra børsen din, ikke et snitt – gratis, uten konto.
 
 DET SOM GJØR DEN ANNERLEDES
 • Din børs, ikke et snitt: hver rad viser parets siste kurs på børsen du har valgt – Binance, Coinbase, Kraken, OKX, Bybit og mange flere.
-• En alarm som gir beskjed én gang: «Gi meg beskjed når BTC går over 100 000 USDT.» Den går når nivået krysses, ikke ved hver oppdatering – «Én gang» slår den så av, «Hver gang» gjør den klar igjen når kursen kommer tilbake.
+• En alarm som gir beskjed én gang: «Gi meg beskjed når BTC går over 100 000 USDT.» Den går når en sjekk viser at nivået er krysset, ikke ved hver oppdatering – «Én gang» slår den så av, «Hver gang» gjør den klar igjen når kursen kommer tilbake.
 • «Hva beveger seg med?»: en liste over faktorer for en coin – hele markedet, volum, volatilitet, funding og open interest, avstand til toppen eller bunnen, Fear & Greed. Den viser hva som beveger seg samtidig – ingen årsak, ingen nyhet, ingen investeringsråd.
 • Ingen konto, ingen reklame, ingen sporing. Utvikleren får ingen av dataene dine.
 
@@ -32,7 +32,7 @@ MARKED
 
 I TILLEGG
 • Widgeter for Hjem-skjermen og låseskjermen, Live Activity for én coin
-• Portefølje valgfritt (slås på under Innstillinger): kjøp, salg, bytter, overføringer, rewards, inn- og uttak; FIFO (standard) eller gjennomsnitt (Ø); adresser kun for lesing, uten seed, for BTC (også xpub), ETH & EVM-kjeder, SOL, TRX, XRP, LTC, ADA og TON; CSV-import fra Relai, Swissquote, Bitpanda, Kraken, Binance og Coinbase; årsoversikt som CSV; egen lås. Bitpanda og Swissquote har ingen offentlig kursfeed og derfor ingen egen kurs – handlene deres kommer inn via CSV-import.
+• Portefølje valgfritt (slås på under Innstillinger): kjøp, salg, bytter, overføringer, rewards, inn- og uttak; FIFO (standard) eller gjennomsnitt (Ø); adresser kun for lesing, uten seed, for BTC (også xpub), ETH & EVM-kjeder, SOL, TRX, XRP, LTC, ADA og TON; CSV-import fra Relai, Swissquote, Bitpanda, Kraken, Binance og Coinbase; årsoversikt som CSV; egen lås. Bitpanda og Swissquote: ingen egen kurs, kun via CSV.
 • Lesbar for alle: grønn/rød eller blå/oransje, fortegn og pil i stedet for bare farge, Dynamic Type; VoiceOver leser hver rad som én setning
 • Sikkerhetskopi og gjenoppretting via Filer-appen
 • Lys og mørk modus, fem aksentfarger, 31 språk

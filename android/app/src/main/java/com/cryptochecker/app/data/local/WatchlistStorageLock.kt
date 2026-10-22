@@ -20,6 +20,12 @@ object WatchlistStorageLock {
     /** Schreibwege des Nutzers sperren (hinzufügen, bearbeiten, löschen, Notiz, Gruppe, Alarme)? */
     fun blocksWrites(keptDatabases: Set<String>): Boolean = isLocked(keptDatabases)
 
+    /**
+     * Schreibwege gerade gesperrt (nach [DatabaseEncryptionNotice.storedKept])? Für die Oberfläche, seit Build 104: vor
+     * einer Mitteilungs-Erlaubnis prüfen — bei Sperre nur der Hinweis, keine Anfrage (wie Alarme speichern).
+     */
+    fun blocksWritesNow(): Boolean = blocksWrites(DatabaseEncryptionNotice.storedKept.value)
+
     /** Alarm speichern bzw. Schnell-Alarm anlegen sperren? */
     fun blocksAlarmSave(keptDatabases: Set<String>): Boolean = isLocked(keptDatabases)
 

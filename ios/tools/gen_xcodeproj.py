@@ -36,7 +36,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "103"
+CURRENT_PROJECT_VERSION = "104"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -109,6 +109,21 @@ RESOURCE_EXTS = {".xcassets", ".xcstrings", ".strings", ".json", ".png", ".story
 # Testdaten, die die Tests neben ihrer Quelle lesen (#filePath): nicht ins Projekt, ohne Hinweis
 # (Tests/Csv, UITests/Fixtures).
 SOURCE_READ_EXTS = {".csv"}
+# Seit Build 104: Run-Script-Phase im App-Ziel (vor dem Kompilieren). Bricht ab, wenn REQUIRE_GIT_COMMIT=YES (nur im
+# Archiv-Befehl, APP_STORE.md §4.6) und GIT_COMMIT fehlt oder «local» ist. Gleicher Text in project.yml (preBuildScripts).
+# Kein «/*» und keine Zeile mit «//» im Text (parse_openstep entfernt Kommentare).
+GIT_COMMIT_CHECK_NAME = "Check source commit"
+GIT_COMMIT_CHECK_SCRIPT = (
+    '# Since build 104: App Store archives must carry the source commit (ios/APP_STORE.md 4.6)\n'
+    'if [ "${REQUIRE_GIT_COMMIT:-NO}" = "YES" ]; then\n'
+    '  case "${GIT_COMMIT:-local}" in\n'
+    '    ""|local)\n'
+    "      echo 'error: REQUIRE_GIT_COMMIT=YES but GIT_COMMIT is missing or local. "
+    "Pass GIT_COMMIT=<output of git -C <public clone> rev-parse HEAD> (ios/APP_STORE.md 4.6).'\n"
+    '      exit 1 ;;\n'
+    '  esac\n'
+    'fi\n'
+)
 
 
 def parity_source(sources=PARITY_SOURCES):
@@ -381,6 +396,8 @@ def app_settings():
         # mit `GIT_COMMIT=$(git rev-parse HEAD)`, CI mit GITHUB_SHA
         "GIT_COMMIT": "local",
         "INFOPLIST_FILE": "App/Info.plist",
+        # Seit Build 104: nur der Archiv-Befehl für den App Store setzt YES (Phase «Check source commit»)
+        "REQUIRE_GIT_COMMIT": "NO",
         "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
         "PRODUCT_BUNDLE_IDENTIFIER": APP_ID,
     })
@@ -558,6 +575,13 @@ def build():
         build_phases = [src, fw, res]
         deps = []
         if tgt == APP_TARGET:
+            # Seit Build 104: Commit-Prüfung vor dem Kompilieren (läuft immer, ohne Ein-/Ausgabedateien)
+            check = add(Obj(uid("scriptphase", tgt, "gitcommit"), GIT_COMMIT_CHECK_NAME,
+                            isa="PBXShellScriptBuildPhase", alwaysOutOfDate="1", buildActionMask="2147483647",
+                            files=[], inputFileListPaths=[], inputPaths=[], name=GIT_COMMIT_CHECK_NAME,
+                            outputFileListPaths=[], outputPaths=[], runOnlyForDeploymentPostprocessing="0",
+                            shellPath="/bin/sh", shellScript=GIT_COMMIT_CHECK_SCRIPT))
+            build_phases.insert(0, check)
             embed = add(Obj(uid("embedphase", tgt), "Embed Foundation Extensions",
                             isa="PBXCopyFilesBuildPhase", buildActionMask="2147483647", dstPath="",
                             dstSubfolderSpec="13", files=[embed_bf], name="Embed Foundation Extensions",
@@ -816,6 +840,9 @@ def project_yml_differences():
         if not found:
             errors.append(f"project.yml: {key} missing (expected {expected})")
         errors += [f"project.yml: {key} {v} != {expected} (gen_xcodeproj.py)" for v in found if v != expected]
+    # Seit Build 104: XcodeGen-Fallback muss die Commit-Prüfung ebenfalls tragen
+    if "REQUIRE_GIT_COMMIT" not in text or GIT_COMMIT_CHECK_NAME not in text:
+        errors.append(f"project.yml: preBuildScripts «{GIT_COMMIT_CHECK_NAME}» / REQUIRE_GIT_COMMIT missing")
     return errors
 
 

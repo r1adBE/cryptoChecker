@@ -37,12 +37,13 @@ extension BackgroundRefresh {
         // Zuerst wie bisher vormerken (aus der laufenden Aufgabe synchron, bevor sie ihr Ende meldet und iOS die App
         // anhält), danach den Bedarf prüfen und ohne Bedarf wieder absagen — nie umgekehrt: Die Bedarfsprüfung wartet
         // auf WidgetKit und die Platte, und ein angehaltener Prozess hätte sonst gar nichts vorgemerkt.
+        // Seit Build 104: Nummer dieser Planung — nur ihr Entscheid gilt, solange keine neuere kommt (`followDemand`)
+        let generation = demandGate.next()
         let cancelIfUnneeded: @Sendable () -> Void = {
-            workNeeded(settings: settings) { needed in
-                guard !needed else { return }
-                BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: refreshId)
-                AppLog.background.info("Hintergrund-Aktualisierung abgesagt: nichts zu prüfen")
-            }
+            followDemand(generation: generation, actions: BackgroundDemandActions(submit: { fresh in
+                trySubmit(minutes: max(fresh.backgroundIntervalMinutes, AppSettings.minBackgroundIntervalMinutes),
+                          fromNow: fromNow, zoneOn: zoneWanted(fresh), zoneRunsNow: zoneRunsNow)
+            }))
         }
         if replace {
             BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: refreshId)
@@ -65,6 +66,15 @@ extension BackgroundRefresh {
     }
 
     private static func submit(minutes: Int, fromNow: Bool, zoneOn: Bool, zoneRunsNow: Bool) {
+        // Sonst bliebe still, dass gar nichts vorgemerkt ist (z. B. Hintergrundaktualisierung aus)
+        if let error = trySubmit(minutes: minutes, fromNow: fromNow, zoneOn: zoneOn, zoneRunsNow: zoneRunsNow) {
+            logSubmitError(error)
+        }
+    }
+
+    /// Vormerken ohne Protokoll (seit Build 104 getrennt: `followDemand` protokolliert ausserhalb seiner Sperre).
+    /// - Returns: Fehler; nil = vorgemerkt.
+    private static func trySubmit(minutes: Int, fromNow: Bool, zoneOn: Bool, zoneRunsNow: Bool) -> Error? {
         let request = BGAppRefreshTaskRequest(identifier: refreshId)
         let now = TimeUtils.nowMillis
         // Basis ist die letzte Prüfung MIT allen Alarmen: das Widget prüft nur Kursalarme (keine mit
@@ -74,15 +84,15 @@ extension BackgroundRefresh {
             zoneLastRunMillis: zoneOn ? (zoneRunsNow ? now : lastZoneCheckAt) : nil, now: now)
         do {
             try BGTaskScheduler.shared.submit(request)
+            return nil
         } catch {
-            // Sonst bliebe still, dass gar nichts vorgemerkt ist (z. B. Hintergrundaktualisierung aus)
-            logSubmitError(error)
+            return error
         }
     }
 
     /// Vormerken gescheitert: in «Letzte Prüfungen» als fehlgeschlagener Lauf ohne Dauer — nur einmal, solange
     /// der neueste Eintrag schon so ein Fehler ist (sonst füllte jeder Wechsel in den Hintergrund die Liste).
-    private static func logSubmitError(_ error: Error) {
+    static func logSubmitError(_ error: Error) {
         guard BackgroundSchedule.shouldLogSubmitError(newest: CheckRunStore.load().first) else { return }
         let now = TimeUtils.nowMillis
         CheckRunStore.log(.bgTask, .failed, startedAt: now)

@@ -164,8 +164,13 @@ extension PortfolioScreen {
     /// «Import rückgängig»: Lauf löschen, Banner mit «Rückgängig» (stellt die Transaktionen wieder her) — wie Android.
     func undoImport(_ batch: PortfolioImportBatchInfo) {
         var removed: [PortfolioTx] = []
+        let expected = data.portfolio.contains { $0.importBatch == batch.id }
         withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { removed = data.undoPortfolioImport(batch.id) }
-        guard !removed.isEmpty else { return }
+        guard !removed.isEmpty else {
+            // Seit Build 104: nicht geschrieben (gesperrt/Fehler) → Hinweis statt still, wie beim Löschen eines Coins
+            if expected { banner = .portfolioNotWritten(data) }
+            return
+        }
         deleteTick += 1
         let restore = removed
         let text = L("portfolio_import_undone", count: removed.count)

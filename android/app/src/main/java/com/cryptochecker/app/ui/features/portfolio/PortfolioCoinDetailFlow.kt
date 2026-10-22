@@ -52,20 +52,24 @@ internal fun coinDetail(
     return CoinDetailUi(all, own, ledger, addressAmount, matches, lotAddress)
 }
 
-/** Coin-Ansicht für [symbol] (normalisiert); leer, bis die Datenbank geantwortet hat. */
+/**
+ * Coin-Ansicht für [symbol] (normalisiert); leer, bis die Datenbank geantwortet hat. Seit Build 104: erst mit beiden
+ * Listen (alle und zählende Transaktionen — vorher kurz Bestand 0), Kurs-Ticks anderer Coins rechnen nicht neu
+ * (distinctUntilChanged der Eingaben), und der Vergleich der Ergebnisse läuft vor [flowOn] abseits des Hauptthreads.
+ */
 internal fun PortfolioViewModel.coinDetailFlow(symbol: String): Flow<CoinDetailUi> =
     combine(transactions, calcTransactions, watchedAddresses, prices, costMethod) { all, calc, addresses, p, method ->
         Inputs(all, calc, addresses, p.prices[symbol], method)
-    }.combine(feePrice) { input, fee ->
-        if (input.all == null) null
-        else coinDetail(symbol, input.all, input.calc.orEmpty(), input.addresses, input.price, input.method, fee)
-    }.filterNotNull().flowOn(Dispatchers.Default).distinctUntilChanged()
+    }.distinctUntilChanged().combine(feePrice) { input, fee ->
+        if (input.all == null || input.calc == null) null
+        else coinDetail(symbol, input.all, input.calc, input.addresses, input.price, input.method, fee)
+    }.filterNotNull().distinctUntilChanged().flowOn(Dispatchers.Default)
 
 /** FIFO je Wallet: Abgänge über den Bestand ihrer Wallet (Hinweis unter der Gesamtkarte, [PortfolioScreen]). */
 internal fun PortfolioViewModel.walletShortfallsFlow(): Flow<List<PortfolioWalletShortfall>> =
     combine(calcTransactions, costMethod) { calc, method ->
         PortfolioCalculator.walletShortfalls(calc.orEmpty().map { it.toTrade() }, method)
-    }.flowOn(Dispatchers.Default).distinctUntilChanged()
+    }.distinctUntilChanged().flowOn(Dispatchers.Default) // seit Build 104: Vergleich vor flowOn (nicht auf Main)
 
 private data class Inputs(
     val all: List<PortfolioTxEntity>?,
