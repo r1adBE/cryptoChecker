@@ -86,6 +86,8 @@ extension BackupManager {
             "costMethod": s.costMethod.rawValue,
             // Steuer-Vorlage «NEUTRAL» | «DE» | … (wie Android)
             "taxTemplate": s.taxTemplate.rawValue,
+            // Eigener Bitcoin-Server für Adressabfragen; null = öffentliche Knoten (wie Android)
+            "addressServerBtc": s.addressServerBtc.map { $0 as Any } ?? NSNull(),
         ]
     }
 
@@ -193,6 +195,9 @@ extension BackupManager {
         s.costMethod = CostMethod.fromName(string(o, "costMethod"))
         // Steuer-Vorlage: ältere Sicherungen ohne den Schlüssel lassen sie stehen; unbekannt → Neutral (wie Android)
         if let v = string(o, "taxTemplate") { s.taxTemplate = TaxTemplate.fromName(v) }
+        // Eigener Bitcoin-Server: fehlt/ungültig bleibt er; ohne Passwort nie zurück auf öffentliche Knoten (wie Android)
+        s.addressServerBtc = AddressServer.restored(present: o["addressServerBtc"] != nil, value: string(o, "addressServerBtc"),
+                                                    current: current.addressServerBtc, trusted: trusted)
         // Portfolio-Sperre: nicht hier, sondern in `restore` (`BackupRestorePolicy.appLock`)
         return s
     }

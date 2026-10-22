@@ -2180,6 +2180,12 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 108: transfer coverage «amount + network fee» on all methods (`uncoveredShare`, `portfolio.json` B108 cases,
+  `tax_templates.json` `poolUncovered`, `TaxPool.addFee` with amount/fee); own address server (`AddressServer`,
+  `address_server.json`, `WatchedAddressSourceServer` / `WatchedAddressSource+Server`, Bitcoin Esplora only, backup key
+  in `backup_settings.json`); first-xpub consent; `PortfolioWidgetOptions` (`widget_portfolio_options.json`);
+  `SettingsUiEvents`; double-tap guards; `launchOrSkip`; `AlarmEditorStateTest`; `WatchlistNotSavedGate.run` +
+  `EditorConfirmBehaviorTests`; background error kinds (`background_errors.json`).
 * Build 107 (review round 5): `ScreenEvents<T>` + `CollectScreenEvents` (buffered one-shot results, collected by the
   current screen); alert editor draft in `AlarmEditorState` (`SavedStateHandle`), effects in `AlarmEditorEffects`;
   `WatchUiEventsHolder` / `MarketCoinUiEffects`; `launchSystem()` guards an unregistered permission launcher;

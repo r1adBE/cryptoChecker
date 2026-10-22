@@ -1,5 +1,5 @@
 {
-  "description": "Shared portfolio cases (Android PortfolioCalculator / PortfolioPeriodChange / PortfolioExchangeRoute, iOS the same names). Amounts, prices and fees are exact decimal texts; times are epoch ms (day × 86 400 000). 'positions' = average-cost ledger; 'periodGain' = «7 D»/«1 Y» gain with buys and sells taken out (baseDay = today − 7; closes per UTC day); 'scaleCloses' = Binance daily closes scaled to the price of the entered exchange, a different token (ratio outside 1/3…3) is dropped. Numbers compared with tolerance 1e-9 (relative), holdings exactly. 'todayAdjusted' = «Gewinn heute»: todayFromCoinChanges(holdings, current, coinChanges) then todayAdjusted(trades, windowStart); a buy/sell without price inside the window leaves that coin out (like 'periodGain') and lists it in skipped. Optional exact texts 'costBasisExact', 'realizedExact', 'unrealizedExact', 'pricedHoldings' are compared exactly (divisions round to 34 significant digits, half-even, on both platforms; unrealized = holdings × shortest text of the price − cost basis). 'historyCloses' = series for history, «7 D»/«1 Y», widget and alarms: own-exchange series (own) and coins without own exchange stay, a failed exchange keeps Binance, otherwise Binance scaled ONLY with own and Binance price now — else the coin is dropped (never the unscaled Binance series); expectedScaled = coins with scaled fallback. 'ownDailyUsdt' = own daily closes to USDT (USDT/USD as is, fiat per day ÷ USD→fiat rate of that day or the last before; days without rate dropped; null = not convertible). 'stitch' = own series, before its first day Binance aligned by the ratio on that day (binanceBefore = first own day; null = own only). 'scaledHint' = coins for the «Binance history scaled» hint from fromDay. Build 46: transaction types TRANSFER, REWARD, DEPOSIT, WITHDRAWAL and a fee in a third coin (feeCoin, feeCoinAmount, optional feeCoinPrice = USDT per fee coin) — see PortfolioLedger; optional expected 'withdrawn', 'feeValueMissing', 'realizedIncomplete'. 'exchangeByLedger' = pricing route per coin: from the latest TRANSFER with a destination only its destination and the exchanges of later trades count (same time: by id); single = coin → exchange name (first spelling), mixed = coins with several. 'byCoin' (in 'todayAdjusted') = MY gain/loss per open coin over the same window (PortfolioPeriodChange.todayByCoin, rows of app and widget); coins left out are missing; the amounts sum to the total. Build 46 (cost method): every 'positions' case names its 'method' (FIFO | AVERAGE; FIFO is the app default). FIFO = universal per coin (all exchanges/wallets), time then id; optional expected 'lots' (open lots: txId, amount, costUsdt) and 'disposals' (sell or third-coin fee leg; FIFO one per consumed lot with lotTxId, lotKind, holdingDays = UTC day(sell) − UTC day(acquired); AVERAGE one per sell, or two with a part without buy price, lot fields null); 'realizedUnknownAmount'. A withdrawal without price is valued at the MARKET price of its time in 'periodGain' (daily close of its UTC day, after the last close the current price) and 'todayAdjusted' (current price) — no gain or loss from the withdrawal itself; before build 46 it used the average cost (flat SOL showed −10). Build 46 (review): a sell beyond the holdings keeps capping the position (oversold) but its uncovered rest is a disposal with its share of the proceeds and no buy price ('uncovered': true); proceeds are split by amount over all parts. A deposit may carry 'acquiredTime' (original purchase date): FIFO lots are ordered by acquisition, then time, then id, holding days from acquisition. AVERAGE disposals carry 'costParts' (time, usdt per purchase/fee, taken proportionally). 'withdrawnGain' = value at withdrawal (recorded price) − cost of the consumed lots, known part. A deposit without price is valued at the market price of its time in 'periodGain' (money put in, no gain). Build 46 (cases 'B46 …'): SWAP (toCoin/toAmount/swapValue; fees: USDT and third coin off the proceeds, coin fee more given, fee in the received coin less received; lot cost = swap value), FIFO_WALLET (wallet = exchange, empty = own bucket; transfers move lots with their date; 'shortfalls' = per-wallet oversold, not taken from other wallets), 'openLots' (FIFO per lot, AVERAGE aggregated). 'ledgerFlows' = holdings and flows per step of both swap sides; 'importBatch' = CSV import run id FORMAT:time:FNV-1a-32 of the row keys joined by \\n. Build 46 (fee expenses): a coin fee that eats the whole receipt (buy, received coin of a swap) and a USDT/third-coin fee of a withdrawal are realized fee expenses — a disposal with cost = expense, proceeds 0, gain −expense, holding 0 days, 'feeExpense' CONSUMED/WITHDRAWAL; withdrawnGain no longer subtracts withdrawal fees. Optional 'lostFeeCost' = CoinPosition.lostFeeCostUsdt (exact); FIFO: a network fee cost without a priced lot passes to the next priced lot added later. Build 46 (partial «Seit Kauf»): unrealized = priced holdings × price − cost of the priced part, also when another part has no buy price (optional 'pricedCost', 'unpricedHoldings', 'unrealizedPartial', 'unrealizedPercent'); optional 'summary' = summarize(trades, summaryPrices, method): unrealized sums the priced parts, invested only coins fully priced, 'partialCost' = coins with an unpriced part (coin, amount), 'missingCostCoins' = coins without any priced part. Build 104 (cases 'B104 …'): a TRANSFER above the holdings is oversold (amount or network fee > holdings; per wallet amount + network fee > wallet); the share of its USDT/third-coin fee on the unrecorded amount, fee × max(amount − holdings, 0) / amount (per wallet: amount that did not arrive), is an unassigned fee, from empty holdings the whole fee; the rest is spread as before. 'usdtMarket' (owner decision Oct 2026): USDT valued at its market price USDT/USD in fiat — PortfolioStables.usdtUsd (plausible 0.5..1.5, else 1 marked approximate), usdtTo (USD→target × USDT/USD), UsdtUsdRates.on (live from today, daily close before, missing close = 1 approximate), PortfolioExchangeRoute.toUsdt with usdtUsd (USD ÷ USDT/USD, fiat ÷ FX ÷ USDT/USD), holdings = summarize total × usdtTo, and with the display 'currency' the widget/card factor (PortfolioWidgetChart.usdtFactor(currency, usdToTarget, usdtMarket)) gives the same valueTarget — USD included (USDT at its market price, not 1:1), history converted (PortfolioHistoryFx.convertsUsdt(currency, usdtMarket = true)); 'ownDailyUsdt' optional usdtUsd (daily USDT/USD closes).",
+  "description": "Shared portfolio cases (Android PortfolioCalculator / PortfolioPeriodChange / PortfolioExchangeRoute, iOS the same names). Amounts, prices and fees are exact decimal texts; times are epoch ms (day × 86 400 000). 'positions' = average-cost ledger; 'periodGain' = «7 D»/«1 Y» gain with buys and sells taken out (baseDay = today − 7; closes per UTC day); 'scaleCloses' = Binance daily closes scaled to the price of the entered exchange, a different token (ratio outside 1/3…3) is dropped. Numbers compared with tolerance 1e-9 (relative), holdings exactly. 'todayAdjusted' = «Gewinn heute»: todayFromCoinChanges(holdings, current, coinChanges) then todayAdjusted(trades, windowStart); a buy/sell without price inside the window leaves that coin out (like 'periodGain') and lists it in skipped. Optional exact texts 'costBasisExact', 'realizedExact', 'unrealizedExact', 'pricedHoldings' are compared exactly (divisions round to 34 significant digits, half-even, on both platforms; unrealized = holdings × shortest text of the price − cost basis). 'historyCloses' = series for history, «7 D»/«1 Y», widget and alarms: own-exchange series (own) and coins without own exchange stay, a failed exchange keeps Binance, otherwise Binance scaled ONLY with own and Binance price now — else the coin is dropped (never the unscaled Binance series); expectedScaled = coins with scaled fallback. 'ownDailyUsdt' = own daily closes to USDT (USDT/USD as is, fiat per day ÷ USD→fiat rate of that day or the last before; days without rate dropped; null = not convertible). 'stitch' = own series, before its first day Binance aligned by the ratio on that day (binanceBefore = first own day; null = own only). 'scaledHint' = coins for the «Binance history scaled» hint from fromDay. Build 46: transaction types TRANSFER, REWARD, DEPOSIT, WITHDRAWAL and a fee in a third coin (feeCoin, feeCoinAmount, optional feeCoinPrice = USDT per fee coin) — see PortfolioLedger; optional expected 'withdrawn', 'feeValueMissing', 'realizedIncomplete'. 'exchangeByLedger' = pricing route per coin: from the latest TRANSFER with a destination only its destination and the exchanges of later trades count (same time: by id); single = coin → exchange name (first spelling), mixed = coins with several. 'byCoin' (in 'todayAdjusted') = MY gain/loss per open coin over the same window (PortfolioPeriodChange.todayByCoin, rows of app and widget); coins left out are missing; the amounts sum to the total. Build 46 (cost method): every 'positions' case names its 'method' (FIFO | AVERAGE; FIFO is the app default). FIFO = universal per coin (all exchanges/wallets), time then id; optional expected 'lots' (open lots: txId, amount, costUsdt) and 'disposals' (sell or third-coin fee leg; FIFO one per consumed lot with lotTxId, lotKind, holdingDays = UTC day(sell) − UTC day(acquired); AVERAGE one per sell, or two with a part without buy price, lot fields null); 'realizedUnknownAmount'. A withdrawal without price is valued at the MARKET price of its time in 'periodGain' (daily close of its UTC day, after the last close the current price) and 'todayAdjusted' (current price) — no gain or loss from the withdrawal itself; before build 46 it used the average cost (flat SOL showed −10). Build 46 (review): a sell beyond the holdings keeps capping the position (oversold) but its uncovered rest is a disposal with its share of the proceeds and no buy price ('uncovered': true); proceeds are split by amount over all parts. A deposit may carry 'acquiredTime' (original purchase date): FIFO lots are ordered by acquisition, then time, then id, holding days from acquisition. AVERAGE disposals carry 'costParts' (time, usdt per purchase/fee, taken proportionally). 'withdrawnGain' = value at withdrawal (recorded price) − cost of the consumed lots, known part. A deposit without price is valued at the market price of its time in 'periodGain' (money put in, no gain). Build 46 (cases 'B46 …'): SWAP (toCoin/toAmount/swapValue; fees: USDT and third coin off the proceeds, coin fee more given, fee in the received coin less received; lot cost = swap value), FIFO_WALLET (wallet = exchange, empty = own bucket; transfers move lots with their date; 'shortfalls' = per-wallet oversold, not taken from other wallets), 'openLots' (FIFO per lot, AVERAGE aggregated). 'ledgerFlows' = holdings and flows per step of both swap sides; 'importBatch' = CSV import run id FORMAT:time:FNV-1a-32 of the row keys joined by \\n. Build 46 (fee expenses): a coin fee that eats the whole receipt (buy, received coin of a swap) and a USDT/third-coin fee of a withdrawal are realized fee expenses — a disposal with cost = expense, proceeds 0, gain −expense, holding 0 days, 'feeExpense' CONSUMED/WITHDRAWAL; withdrawnGain no longer subtracts withdrawal fees. Optional 'lostFeeCost' = CoinPosition.lostFeeCostUsdt (exact); FIFO: a network fee cost without a priced lot passes to the next priced lot added later. Build 46 (partial «Seit Kauf»): unrealized = priced holdings × price − cost of the priced part, also when another part has no buy price (optional 'pricedCost', 'unpricedHoldings', 'unrealizedPartial', 'unrealizedPercent'); optional 'summary' = summarize(trades, summaryPrices, method): unrealized sums the priced parts, invested only coins fully priced, 'partialCost' = coins with an unpriced part (coin, amount), 'missingCostCoins' = coins without any priced part. Build 104/108 (cases 'B104 …', 'B108 …', owner decision Oct 2026: «like FIFO per wallet»): a TRANSFER is judged the same on every method — amount + network fee above the holdings (per wallet: the source wallet) is oversold; the share of its USDT/third-coin fee on the amount not covered, fee × max(amount − max(holdings − network fee, 0), 0) / amount (per wallet: the amount that did not arrive), is an unassigned fee, from empty holdings the whole fee; the rest is spread as before (B108: the same trades give the same oversold, unassigned fee and cost basis on FIFO, AVERAGE and FIFO_WALLET). 'usdtMarket' (owner decision Oct 2026): USDT valued at its market price USDT/USD in fiat — PortfolioStables.usdtUsd (plausible 0.5..1.5, else 1 marked approximate), usdtTo (USD→target × USDT/USD), UsdtUsdRates.on (live from today, daily close before, missing close = 1 approximate), PortfolioExchangeRoute.toUsdt with usdtUsd (USD ÷ USDT/USD, fiat ÷ FX ÷ USDT/USD), holdings = summarize total × usdtTo, and with the display 'currency' the widget/card factor (PortfolioWidgetChart.usdtFactor(currency, usdToTarget, usdtMarket)) gives the same valueTarget — USD included (USDT at its market price, not 1:1), history converted (PortfolioHistoryFx.convertsUsdt(currency, usdtMarket = true)); 'ownDailyUsdt' optional usdtUsd (daily USDT/USD closes).",
   "today": 20000,
   "baseDay": 19993,
   "positions": [
@@ -472,7 +472,7 @@
       }
     },
     {
-      "name": "transfer: network fee in the coin lowers the amount, the cost basis stays (average rises)",
+      "name": "transfer: network fee in the coin lowers the amount, the cost basis stays (average rises); since B108 amount 1 + network fee 0.1 above holdings 1 is oversold (like FIFO per wallet)",
       "method": "AVERAGE",
       "coin": "BTC",
       "currentPrice": 200,
@@ -501,7 +501,7 @@
         "costBasis": 100,
         "avgCost": 111.11111111111111,
         "realized": 0,
-        "oversold": false,
+        "oversold": true,
         "priceMissing": false,
         "costBasisExact": "100",
         "unrealizedExact": "80",
@@ -1514,7 +1514,7 @@
       }
     },
     {
-      "name": "FIFO: network fee of a transfer takes the oldest coins, its cost moves to the next lot",
+      "name": "FIFO: network fee of a transfer takes the oldest coins, its cost moves to the next lot; since B108 amount 2 + network fee 0.1 above holdings 2 is oversold (like FIFO per wallet)",
       "method": "FIFO",
       "coin": "BTC",
       "currentPrice": 200,
@@ -1559,7 +1559,7 @@
         "costBasis": 200,
         "avgCost": 200,
         "realized": 35,
-        "oversold": false,
+        "oversold": true,
         "priceMissing": false,
         "costBasisExact": "200",
         "realizedExact": "35",
@@ -1588,7 +1588,7 @@
       }
     },
     {
-      "name": "FIFO: transfer fee carried, the cost basis stays (before any sell)",
+      "name": "FIFO: transfer fee carried, the cost basis stays (before any sell); since B108 amount 2 + network fee 0.1 above holdings 2 is oversold (like FIFO per wallet)",
       "method": "FIFO",
       "coin": "BTC",
       "currentPrice": 200,
@@ -1625,7 +1625,7 @@
         "costBasis": 300,
         "avgCost": 157.89473684210526,
         "realized": 0,
-        "oversold": false,
+        "oversold": true,
         "priceMissing": false,
         "costBasisExact": "300",
         "unrealizedExact": "80",
@@ -4919,6 +4919,269 @@
             "wallet": "A",
             "txId": 2,
             "missing": "1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B108 transfer above holdings (FIFO), same trades as «B104 transfer above the wallet»: 1 BTC held, 1 BTC + network fee 0.2 BTC + 0.01 BNB at 1000 — amount + network fee 1.2 > 1 is oversold, covered = 1 − 0.2 = 0.8, the fee share of the 0.2 not covered (10 × 0.2 / 1 = 2) is noted, the other 8 joins the lot and the cost of the network fee coins stays with the remaining 0.8 (cost basis 108, like FIFO per wallet)",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000,
+          "exchange": "A"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 172800000,
+          "fee": "0.2",
+          "feeUnit": "COIN",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": "1000",
+          "transferFrom": "A",
+          "transferTo": "B"
+        }
+      ],
+      "expected": {
+        "holdings": "0.8",
+        "costBasis": 108,
+        "avgCost": 135,
+        "realized": 0,
+        "oversold": true,
+        "priceMissing": false,
+        "costBasisExact": "108",
+        "realizedExact": "0",
+        "unrealizedExact": "-28",
+        "pricedHoldings": "0.8",
+        "feeValueMissing": false,
+        "unassignedFee": "2",
+        "unassignedFees": [
+          {
+            "txId": 2,
+            "usdt": "2"
+          }
+        ],
+        "lots": [
+          {
+            "txId": 1,
+            "amount": "0.8",
+            "costUsdt": "108"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B108 transfer above holdings (AVERAGE), same trades: oversold, 2 noted as «not assigned», 8 to the cost basis — cost basis 108 on 0.8 like FIFO and FIFO per wallet",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "price": "100",
+          "time": 86400000,
+          "exchange": "A"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 172800000,
+          "fee": "0.2",
+          "feeUnit": "COIN",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": "1000",
+          "transferFrom": "A",
+          "transferTo": "B"
+        }
+      ],
+      "expected": {
+        "holdings": "0.8",
+        "costBasis": 108,
+        "avgCost": 135,
+        "realized": 0,
+        "oversold": true,
+        "priceMissing": false,
+        "costBasisExact": "108",
+        "realizedExact": "0",
+        "unrealizedExact": "-28",
+        "pricedHoldings": "0.8",
+        "feeValueMissing": false,
+        "unassignedFee": "2",
+        "unassignedFees": [
+          {
+            "txId": 2,
+            "usdt": "2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B108 network fee above holdings (FIFO): 0.1 BTC held (cost 10), 1 BTC + network fee 0.2 BTC + 0.01 BNB at 1000 — nothing covered (0.1 − 0.2 < 0): the whole fee value 10 is noted (before B108: 9 noted, 1 to the lot); the network fee takes the lot, its cost 10 is a lost fee cost",
+      "method": "FIFO",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "price": "100",
+          "time": 86400000,
+          "exchange": "A"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 172800000,
+          "fee": "0.2",
+          "feeUnit": "COIN",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": "1000",
+          "transferFrom": "A",
+          "transferTo": "B"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 0,
+        "oversold": true,
+        "priceMissing": false,
+        "realizedExact": "0",
+        "feeValueMissing": false,
+        "lostFeeCost": "10",
+        "unassignedFee": "10",
+        "unassignedFees": [
+          {
+            "txId": 2,
+            "usdt": "10"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B108 network fee above holdings (AVERAGE), same trades: the whole fee value 10 noted, lost fee cost 10",
+      "method": "AVERAGE",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "price": "100",
+          "time": 86400000,
+          "exchange": "A"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 172800000,
+          "fee": "0.2",
+          "feeUnit": "COIN",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": "1000",
+          "transferFrom": "A",
+          "transferTo": "B"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 0,
+        "oversold": true,
+        "priceMissing": false,
+        "realizedExact": "0",
+        "feeValueMissing": false,
+        "lostFeeCost": "10",
+        "unassignedFee": "10",
+        "unassignedFees": [
+          {
+            "txId": 2,
+            "usdt": "10"
+          }
+        ]
+      }
+    },
+    {
+      "name": "B108 network fee above the wallet (FIFO per wallet), same trades: nothing arrives, the whole fee value 10 noted, lost fee cost 10, shortfall 1.2 − 0.1 = 1.1 in A",
+      "method": "FIFO_WALLET",
+      "coin": "BTC",
+      "currentPrice": 100,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "0.1",
+          "price": "100",
+          "time": 86400000,
+          "exchange": "A"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 172800000,
+          "fee": "0.2",
+          "feeUnit": "COIN",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": "1000",
+          "transferFrom": "A",
+          "transferTo": "B"
+        }
+      ],
+      "expected": {
+        "holdings": "0",
+        "costBasis": null,
+        "avgCost": null,
+        "realized": 0,
+        "oversold": true,
+        "priceMissing": false,
+        "realizedExact": "0",
+        "feeValueMissing": false,
+        "lostFeeCost": "10",
+        "unassignedFee": "10",
+        "unassignedFees": [
+          {
+            "txId": 2,
+            "usdt": "10"
+          }
+        ],
+        "shortfalls": [
+          {
+            "wallet": "A",
+            "txId": 2,
+            "missing": "1.1"
           }
         ]
       }

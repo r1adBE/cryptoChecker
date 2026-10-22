@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">アドレス用の独自サーバー</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bitcoin のみ：Esplora または mempool 互換の独自サーバー（例：https://node.example/api、有効な証明書が必要）。設定すると、Bitcoin アドレスと xpub はそこにだけ問い合わせます。サーバーに接続できない場合でも、公開ノードには問い合わせません。他のネットワークは引き続き公開ノードを使います。空欄＝公開ノード。</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin サーバー（https://）</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">テスト</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">テスト中…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">サーバーが応答しました – ブロック %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">有効な応答がありません – アドレスと証明書を確認してください</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">使用中：%1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">未設定 – 公開ノードを使用します</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">https:// のアドレスのみ使用できます</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">アドレスにユーザー名やパスワードを含めないでください</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">アドレスに ? や # の部分を含めないでください</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">サーバーのアドレスが無効です</string>
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">独自サーバーに接続できません</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">%1$s の運営者は、このウォレットの問い合わせたすべてのアドレスを確認でき、それらを相互に、またお使いの IP アドレスと結び付けることができます。</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">これを避けるには、「設定 › ポートフォリオ › アドレス用の独自サーバー」で独自サーバーを入力してください。</string>
+</resources>

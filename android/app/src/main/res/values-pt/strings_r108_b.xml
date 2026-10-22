@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Servidor próprio para endereços</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Só Bitcoin: o teu próprio servidor compatível com Esplora ou mempool (p. ex. https://no.example/api, é preciso um certificado válido). Se estiver definido, os endereços Bitcoin e as xpub só são consultados aí – nunca em nós públicos, nem quando o teu servidor não está acessível. As outras redes continuam a usar nós públicos. Vazio = nós públicos.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Servidor Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Testar</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">A testar…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">O servidor responde – bloco %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Sem resposta válida – verifica o endereço e o certificado</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Em uso: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Não definido – são usados nós públicos</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Só são permitidos endereços https://</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Sem nome de utilizador nem palavra-passe no endereço</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Sem parte ? ou # no endereço</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Endereço de servidor inválido</string>
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Servidor próprio inacessível</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Quem gere %1$s vê todos os endereços consultados desta wallet e pode ligá-los entre si e ao teu endereço IP.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Para o evitar, indica o teu próprio servidor em Definições › Portfólio › Servidor próprio para endereços.</string>
+</resources>

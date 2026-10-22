@@ -59,6 +59,7 @@ import javax.inject.Inject
  * Hintergrund und Deckkraft — je Widget gespeichert ([WidgetPrefs]). Optional
  * (configuration_optional ab Android 12): Ohne Einrichten gilt Chart, «Umrechnung» (bei USD «Nur USDT»),
  * 24 h und Linie; die Chart-Art erscheint nur bei der Ansicht «Chart», der Zeitraum nicht bei «Liste»; später über «Widget bearbeiten» änderbar.
+ * Je Ansicht nur, was dort wirkt ([PortfolioWidgetOptions]): «Liste» ohne «Umrechnung + USDT», «Übersicht» nur 30 T / 1 J.
  */
 @AndroidEntryPoint
 class PortfolioWidgetConfigureActivity : AppCompatActivity() {
@@ -137,6 +138,14 @@ class PortfolioWidgetConfigureViewModel @Inject constructor(
     }
 }
 
+/** Kurzform des Zeitraums auf den Segmenten («24h» / «7T» / «30T» / «1J»). */
+private fun rangeLabel(range: PortfolioChartRange): Int = when (range) {
+    PortfolioChartRange.DAY -> R.string.widget_range_short_24h
+    PortfolioChartRange.WEEK -> R.string.widget_range_short_7d
+    PortfolioChartRange.MONTH -> R.string.widget_range_short_30d
+    PortfolioChartRange.YEAR -> R.string.widget_range_short_1y
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PortfolioWidgetConfigureContent(
@@ -175,62 +184,66 @@ private fun PortfolioWidgetConfigureContent(
                 }
             }
 
-            // Anzeige: drei Möglichkeiten als Liste (die Bezeichnungen sind für Segmente zu lang)
+            // Anzeige: als Liste (die Bezeichnungen sind für Segmente zu lang); je Ansicht nur, was dort wirkt
+            // ([PortfolioWidgetOptions]: Liste ohne «+ USDT»). Markiert ist die wirksame Wahl; gespeichert wird nur,
+            // was man antippt — beim Wechsel zurück auf Übersicht/Chart gilt die frühere Wahl wieder.
             Text(
                 stringResource(R.string.widget_portfolio_display),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 16.dp)
             )
-            val displays = listOf(
+            val displayLabels = mapOf(
                 PortfolioDisplay.USDT to R.string.widget_portfolio_display_usdt,
                 PortfolioDisplay.CONVERSION to R.string.widget_portfolio_display_conversion,
                 PortfolioDisplay.CONVERSION_USDT to R.string.widget_portfolio_display_conversion_usdt,
             )
+            val displays = PortfolioWidgetOptions.displays(view)
+            val shownDisplay = PortfolioWidgetOptions.effectiveDisplay(view, display)
             Column(modifier = Modifier.fillMaxWidth().padding(top = 4.dp).selectableGroup()) {
-                displays.forEach { (value, label) ->
+                displays.forEach { value ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .selectable(selected = display == value, role = Role.RadioButton) { chosenDisplay = value }
+                            .selectable(selected = shownDisplay == value, role = Role.RadioButton) { chosenDisplay = value }
                             .padding(vertical = 2.dp)
                     ) {
-                        RadioButton(selected = display == value, onClick = null)
+                        RadioButton(selected = shownDisplay == value, onClick = null)
                         Text(
-                            stringResource(label),
+                            stringResource(displayLabels.getValue(value)),
                             style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier.padding(start = 12.dp)
                         )
                     }
                 }
             }
-            Text(
-                stringResource(R.string.widget_portfolio_display_hint),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 4.dp)
-            )
+            // Hinweis zur USDT-Zeile nur, wo «Umrechnung + USDT» angeboten wird
+            if (PortfolioDisplay.CONVERSION_USDT in displays) {
+                Text(
+                    stringResource(R.string.widget_portfolio_display_hint),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
 
-            // Zeitraum für Veränderung und Chart: nicht bei der Ansicht «Liste» (die Wahl bleibt gespeichert)
-            if (view.usesRange) {
+            // Zeitraum: nicht bei «Liste», bei «Übersicht» nur 30 T / 1 J ([PortfolioWidgetOptions]); markiert ist der
+            // wirksame Zeitraum, gespeichert nur ein angetippter (die frühere Wahl bleibt sonst erhalten)
+            val ranges = PortfolioWidgetOptions.ranges(view)
+            if (view.usesRange && ranges.isNotEmpty()) {
                 Text(
                     stringResource(R.string.widget_portfolio_period),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(top = 16.dp)
                 )
-                val ranges = listOf(
-                    PortfolioChartRange.DAY to R.string.widget_range_short_24h,
-                    PortfolioChartRange.WEEK to R.string.widget_range_short_7d,
-                    PortfolioChartRange.MONTH to R.string.widget_range_short_30d,
-                    PortfolioChartRange.YEAR to R.string.widget_range_short_1y,
-                )
+                val shownRange = PortfolioWidgetOptions.effectiveRange(view, range)
                 SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth().padding(top = 8.dp)) {
-                    ranges.forEachIndexed { index, (value, label) ->
+                    ranges.forEachIndexed { index, value ->
                         SegmentedButton(
-                            selected = range == value,
+                            selected = shownRange == value,
                             onClick = { range = value },
                             shape = SegmentedButtonDefaults.itemShape(index = index, count = ranges.size)
-                        ) { Text(stringResource(label)) }
+                        ) { Text(stringResource(rangeLabel(value))) }
                     }
                 }
             }

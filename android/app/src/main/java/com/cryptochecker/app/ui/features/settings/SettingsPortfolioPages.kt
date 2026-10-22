@@ -187,6 +187,8 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = Spacing.md)
             )
         }
+        // Eigener Server für Adressabfragen (nur Bitcoin); immer sichtbar wie die Adressen selbst
+        AddressServerCard()
     }
 }
 

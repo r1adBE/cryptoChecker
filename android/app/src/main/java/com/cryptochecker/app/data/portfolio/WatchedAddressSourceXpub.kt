@@ -5,6 +5,8 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.data.remote.callMarket
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
+import com.cryptochecker.app.domain.portfolio.AddressServer
+import com.cryptochecker.app.domain.portfolio.ChainBalance
 import com.cryptochecker.app.domain.portfolio.Bip32
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.XpubCache
@@ -91,7 +93,9 @@ internal suspend fun WatchedAddressSource.fetchXpub(a: WatchedAddress, deadline:
 internal suspend fun WatchedAddressSource.scanXpub(deriver: XpubDeriver, cache: XpubCache?, mode: XpubScan.Mode, deadline: Long?): Pair<XpubScan, Fetched> {
     val lists = listOf(ArrayList(cache?.receive.orEmpty()), ArrayList(cache?.change.orEmpty()))
     val scan = XpubScan(mode, cache)
-    var provider = AddressBalance.providerName(AddressBalance.BTC_HOSTS.first())
+    // Eigener Server oder die öffentlichen Hosts, für die ganze Suche gleich
+    val entries = btcEntries
+    var provider = AddressBalance.providerName(ChainBalance.host(entries.first()))
     while (true) {
         val target = scan.next() ?: break
         val list = lists[target.chain]
@@ -102,8 +106,8 @@ internal suspend fun WatchedAddressSource.scanXpub(deriver: XpubDeriver, cache: 
         }
         val address = list[target.index]
         if (scan.requests > 1) delay(if (deadline == null) XPUB_PAUSE_MILLIS else XPUB_PAUSE_BACKGROUND_MILLIS)
-        val (stats, host) = firstWorking(AddressBalance.BTC_HOSTS, deadline) { h ->
-            AddressBalance.parseBtc(client.callMarket(AddressBalance.btcUrl(h, address), null), address)
+        val (stats, host) = firstWorking(entries, deadline) { h ->
+            AddressBalance.parseBtc(client.callMarket(AddressServer.btcUrl(h, address), null), address)
         }
         provider = host
         scan.report(target, stats.txCount, stats.totalSats)

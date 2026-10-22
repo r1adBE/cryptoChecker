@@ -402,16 +402,21 @@ final class PortfolioFifoTests: XCTestCase {
         // Portfolio-Methoden über das Buch (gleicher Anteil), andere Jahre leer
         XCTAssertEqual(TaxExport.unassignedFees(in: trades, method: CostMethod.FIFO, year: 1970, timeZone: zone).first?.usdt, dec("5"))
         XCTAssertTrue(TaxExport.unassignedFees(in: trades, method: CostMethod.AVERAGE, year: 1971, timeZone: zone).isEmpty)
-        // Pool direkt: ohne Bestand nichts, ohne Teil mit Kaufpreis die ganze Gebühr
+        // Pool direkt: ohne Bestand und ohne Teil mit Kaufpreis die ganze Gebühr (wie FIFO je Wallet vermerkt)
         var pool = TaxPool()
-        let empty = pool.addFee(day, dec("4"))
-        XCTAssertEqual(empty, 0)
+        let empty = pool.addFee(day, dec("4"), amount: dec("1"), coinFee: 0)
+        XCTAssertEqual(empty, dec("4"))
         pool.add(dec("1"), cost: nil, time: day)
-        let unpricedOnly = pool.addFee(day, dec("4"))
+        let unpricedOnly = pool.addFee(day, dec("4"), amount: dec("1"), coinFee: 0)
         XCTAssertEqual(unpricedOnly, dec("4"))
         pool.add(dec("1"), cost: dec("100"), time: day)
-        let half = pool.addFee(day, dec("4"))
+        let half = pool.addFee(day, dec("4"), amount: dec("2"), coinFee: 0)
         XCTAssertEqual(half, dec("2"))
         XCTAssertEqual(pool.cost, dec("102"))
+        // Menge 2 + Netzwerkgebühr 0,5 bei Bestand 2: gedeckt 1,5 → 4 × 0,5 / 2 = 1 vermerkt, vom Rest 3 die Hälfte
+        // zum Einstand (1,5), die andere vermerkt: 2,5
+        let overHoldings = pool.addFee(day, dec("4"), amount: dec("2"), coinFee: dec("0.5"))
+        XCTAssertEqual(overHoldings, dec("2.5"))
+        XCTAssertEqual(pool.cost, dec("103.5"))
     }
 }

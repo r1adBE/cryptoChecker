@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Egen server for adresser</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Bare Bitcoin: din egen Esplora- eller mempool-kompatible server (f.eks. https://node.example/api, gyldig sertifikat kreves). Er den angitt, spørres Bitcoin-adresser og xpub bare der – aldri hos offentlige noder, heller ikke når serveren din ikke svarer. Andre nettverk bruker fortsatt offentlige noder. Tom = offentlige noder.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin-server (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Test</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Tester …</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Serveren svarer – blokk %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Ikke noe gyldig svar – sjekk adressen og sertifikatet</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Aktiv: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Ikke angitt – offentlige noder brukes</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Bare https://-adresser er tillatt</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Ikke brukernavn eller passord i adressen</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Ingen ?- eller #-del i adressen</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Ikke en gyldig serveradresse</string>
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Egen server kan ikke nås</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Den som driver %1$s, ser alle forespurte adresser i denne walleten og kan koble dem til hverandre og til IP-adressen din.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Unngå det ved å angi din egen server under Innstillinger › Portefølje › Egen server for adresser.</string>
+</resources>

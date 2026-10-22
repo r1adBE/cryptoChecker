@@ -274,10 +274,10 @@ extension PortfolioCalculator {
             case .TRANSFER:
                 let holdings = book.holdings
                 let coinFee = t.coinFeeExact
-                // Seit Build 104: Menge oder Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
-                // erfassten Menge wird vermerkt (leerer Bestand: die ganze Gebühr), nicht still verworfen
-                if amount > holdings || coinFee > holdings { oversold = true }
-                let lost = PortfolioFeeExpenses.transferUncovered(t, covered: holdings)
+                // Wie FIFO je Wallet: Menge + Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
+                // gedeckten Menge (gedeckt = Bestand − Netzwerkgebühr) wird vermerkt (leerer Bestand: die ganze Gebühr)
+                if amount + coinFee > holdings { oversold = true }
+                let lost = PortfolioFeeExpenses.transferUncovered(t, covered: max(0, holdings - coinFee))
                 if holdings <= 0 {
                     if lost > 0 { unassignedFees.append(PortfolioUnassignedFee(coin: symbol, txId: t.id, time: t.time, usdt: lost)) }
                     continue

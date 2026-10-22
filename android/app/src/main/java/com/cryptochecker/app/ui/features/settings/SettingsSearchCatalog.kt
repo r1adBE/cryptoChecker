@@ -215,6 +215,9 @@ internal fun settingsSearchItems(settings: AppSettings): List<SettingsSearchItem
     add("portfolio.system_backup", stringResource(R.string.settings_portfolio_system_backup), portfolio,
         SettingsSearchTarget.Page(SettingsPage.PORTFOLIO, "portfolio.system_backup"),
         stringResource(R.string.settings_portfolio_system_backup_hint))
+    add("portfolio.address_server", stringResource(R.string.settings_address_server_title), portfolio,
+        SettingsSearchTarget.Page(SettingsPage.PORTFOLIO, "portfolio.address_server"),
+        stringResource(R.string.settings_address_server_hint))
 
     // 5 Sicherung (unter «Mehr»)
     val backup = stringResource(R.string.backup_title)

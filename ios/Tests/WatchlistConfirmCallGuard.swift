@@ -359,12 +359,16 @@ private struct Stripper {
     }
 
     /// Erweitertes Regex-Literal ab `start` (dort «#»): bis «/» plus gleich viele «#»; `\` maskiert das nächste Zeichen;
-    /// mehrzeilig nur, wenn direkt nach «#/» die Zeile endet. Bleibt stehen (wie Zeichenketten), wird nicht geleert.
+    /// mehrzeilig, wenn nach «#/» bis zum Zeilenende nur Leerzeichen/Tabs (und das CR von CRLF) stehen (REL6-R1).
+    /// Bleibt stehen (wie Zeichenketten), wird nicht geleert.
     private func regex(_ start: Int) -> Int {
         var i = start, hashes = 0
         while t[i] == 35 { hashes += 1; i += 1 }
         i += 1
-        let multi = i < t.count && t[i] == 10
+        var j = i
+        while j < t.count && (t[j] == 32 || t[j] == 9) { j += 1 }
+        if j < t.count && t[j] == 13 { j += 1 }
+        let multi = j < t.count && t[j] == 10
         let close = [UInt16(47)] + [UInt16](repeating: 35, count: hashes)
         while i < t.count {
             if t[i] == 92 {

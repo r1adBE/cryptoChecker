@@ -77,11 +77,9 @@ extension AppData {
     /// Animationen und Rückgaben wie bisher), sonst erst nach «Trotzdem»; nach «Abbrechen» nie, dann `cancelled` (z. B.
     /// einen umgelegten Schalter zurückzeigen).
     /// Seit Build 106: auch ohne sichtbare Szene über `confirmWatchlistWrite` (wartet kurz auf sie), sobald gefragt werden kann.
+    /// Ablauf in `WatchlistNotSavedGate.run` (dort mit eigenem Tor testbar, IOS6-02).
     func withWatchlistConfirm(_ action: @escaping @MainActor () -> Void, cancelled: (@MainActor () -> Void)? = nil) {
-        guard !watchlistWritesBlocked, WatchlistNotSavedGate.shared.mayAsk(notSaved: watchlistGateNotSaved)
-        else { return action() }
-        Task { @MainActor in
-            if await confirmWatchlistWrite() { action() } else { cancelled?() }
-        }
+        WatchlistNotSavedGate.shared.run(blocked: watchlistWritesBlocked, notSaved: watchlistGateNotSaved,
+                                         confirm: { await self.confirmWatchlistWrite() }, action, cancelled: cancelled)
     }
 }

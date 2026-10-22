@@ -8084,6 +8084,172 @@
       "FR_PTA": null
     }
   },
+  "_poolUncoveredComment": "Umbuchung über dem Bestand im Pool UK/CA wie FIFO je Wallet (Owner-Entscheid Okt. 2026, TaxPool.addFee): Gebühr USDT + Wert der Gebühr im dritten Coin — zuerst der Anteil der nicht gedeckten Menge (gedeckt = Pool − Netzwerkgebühr), Gebühr × max(Menge − gedeckt, 0) / Menge, leerer Pool die ganze Gebühr, dann der Rest anteilig zum Einstand bzw. (Teil ohne Kaufpreis) nicht zugeordnet. Geprüft mit TaxExport.unassignedFeesIn(trades, method, NEUTRAL.period(year), zone, rules) je Methode in methods; rules NONE = TaxEventRules.NONE, TEMPLATE = TaxEventRules.of(method) (Regeln der Vorlage UK bzw. CA: Gebühr im dritten Coin ist dort eine eigene Veräusserung, die Umbuchung trägt keine Gebühr). disposalCost (optional) = Summe des bekannten Einstands der Veräusserungen des Coins BTC (TaxEngines.disposals, ohne Gebühr-Abgänge).",
+  "poolUncovered": [
+    {
+      "name": "Umbuchung aus leerem Pool, Gebühr im dritten Coin (ohne Vorlage-Regeln)",
+      "_calc": "Kein BTC im Pool: gedeckt 0 → der ganze Wert der Gebühr 0,01 × 1000 = 10 nicht zugeordnet (vorher 0, still weggefallen).",
+      "methods": [
+        "UK_POOL",
+        "CA_ACB"
+      ],
+      "rules": "NONE",
+      "year": 2025,
+      "trades": [
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 1738411200000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": "1000",
+          "transferFrom": "X",
+          "transferTo": "Y"
+        }
+      ],
+      "unassignedFees": [
+        {
+          "coin": "BTC",
+          "txId": 2,
+          "usdt": "10"
+        }
+      ]
+    },
+    {
+      "name": "Dieselbe Umbuchung mit den Regeln der Vorlage UK bzw. CA: Gebühr im dritten Coin ist eine eigene Veräusserung, nichts nicht zugeordnet",
+      "_calc": "TaxEventRules.networkFeeIsDisposal: die BNB-Gebühr wird ein Verkauf in BNB, die Umbuchung trägt keine Gebühr mehr.",
+      "methods": [
+        "UK_POOL",
+        "CA_ACB"
+      ],
+      "rules": "TEMPLATE",
+      "year": 2025,
+      "trades": [
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 1738411200000,
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": "1000",
+          "transferFrom": "X",
+          "transferTo": "Y"
+        }
+      ],
+      "unassignedFees": []
+    },
+    {
+      "name": "Menge + Netzwerkgebühr über dem Pool (ohne Vorlage-Regeln), wie FIFO je Wallet",
+      "_calc": "Pool 1 BTC, Einstand 100. Umbuchung 1 + Netzwerkgebühr 0,2: gedeckt 1 − 0,2 = 0,8 → 10 × 0,2 / 1 = 2 nicht zugeordnet, 8 zum Einstand (108; vorher 10 → 110). Netzwerkgebühr: Menge 0,8, Einstand bleibt. Verkauf 0,8: Einstand 108.",
+      "methods": [
+        "UK_POOL",
+        "CA_ACB"
+      ],
+      "rules": "NONE",
+      "year": 2025,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "100"
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "1",
+          "time": 1738411200000,
+          "fee": "0.2",
+          "feeUnit": "COIN",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": "1000",
+          "transferFrom": "X",
+          "transferTo": "Y"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "0.8",
+          "time": 1740830400000,
+          "price": "200"
+        }
+      ],
+      "unassignedFees": [
+        {
+          "coin": "BTC",
+          "txId": 2,
+          "usdt": "2"
+        }
+      ],
+      "disposalCost": "108"
+    },
+    {
+      "name": "Menge + Netzwerkgebühr über dem Pool mit Teil ohne Kaufpreis (ohne Vorlage-Regeln)",
+      "_calc": "Pool 1 BTC mit Kaufpreis (100) + 1 BTC ohne. Umbuchung 2 + Netzwerkgebühr 0,5: gedeckt 1,5 → 10 × 0,5 / 2 = 2,5 nicht gedeckt; Rest 7,5 zur Hälfte zum Einstand (3,75 → 103,75), zur Hälfte nicht zugeordnet: 2,5 + 3,75 = 6,25 (vorher 5, Einstand 105). Netzwerkgebühr 0,5 anteilig: 0,75 mit + 0,75 ohne Kaufpreis. Verkauf 1,5: Teil mit Kaufpreis 0,75, Einstand 103,75.",
+      "methods": [
+        "UK_POOL",
+        "CA_ACB"
+      ],
+      "rules": "NONE",
+      "year": 2025,
+      "trades": [
+        {
+          "id": 1,
+          "coin": "BTC",
+          "type": "BUY",
+          "amount": "1",
+          "time": 1736510400000,
+          "price": "100"
+        },
+        {
+          "id": 4,
+          "coin": "BTC",
+          "type": "DEPOSIT",
+          "amount": "1",
+          "time": 1736510400000
+        },
+        {
+          "id": 2,
+          "coin": "BTC",
+          "type": "TRANSFER",
+          "amount": "2",
+          "time": 1738411200000,
+          "fee": "0.5",
+          "feeUnit": "COIN",
+          "feeCoin": "BNB",
+          "feeCoinAmount": "0.01",
+          "feeCoinPrice": "1000",
+          "transferFrom": "X",
+          "transferTo": "Y"
+        },
+        {
+          "id": 3,
+          "coin": "BTC",
+          "type": "SELL",
+          "amount": "1.5",
+          "time": 1740830400000,
+          "price": "200"
+        }
+      ],
+      "unassignedFees": [
+        {
+          "coin": "BTC",
+          "txId": 2,
+          "usdt": "6.25"
+        }
+      ],
+      "disposalCost": "103.75"
+    }
+  ],
   "methodOverridden": [
     [
       "NEUTRAL",

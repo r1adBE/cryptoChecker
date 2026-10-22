@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">पतों के लिए अपना सर्वर</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">सिर्फ़ Bitcoin: तुम्हारा अपना Esplora- या mempool-संगत सर्वर (जैसे https://node.example/api, मान्य सर्टिफ़िकेट ज़रूरी)। सेट होने पर Bitcoin पते और xpub सिर्फ़ वहीं पूछे जाते हैं – सार्वजनिक नोड्स पर कभी नहीं, तब भी नहीं जब तुम्हारा सर्वर उपलब्ध न हो। बाकी नेटवर्क सार्वजनिक नोड्स ही इस्तेमाल करते हैं। खाली = सार्वजनिक नोड्स।</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Bitcoin सर्वर (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">जाँचो</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">जाँच हो रही है…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">सर्वर जवाब दे रहा है – ब्लॉक %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">कोई मान्य जवाब नहीं – पता और सर्टिफ़िकेट जाँचो</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">इस्तेमाल में: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">सेट नहीं – सार्वजनिक नोड्स इस्तेमाल होते हैं</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">सिर्फ़ https:// पते मान्य हैं</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">पते में यूज़रनेम या पासवर्ड न हो</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">पते में ? या # वाला हिस्सा न हो</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">मान्य सर्वर पता नहीं</string>
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">अपना सर्वर उपलब्ध नहीं</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">जो %1$s चलाता है, वह इस वॉलेट के सभी पूछे गए पते देखता है और उन्हें आपस में और तुम्हारे IP पते से जोड़ सकता है।</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">इससे बचने के लिए सेटिंग्स › पोर्टफ़ोलियो › पतों के लिए अपना सर्वर में अपना सर्वर डालो।</string>
+</resources>

@@ -220,6 +220,9 @@ internal fun AlarmsPage(
 internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val watches by viewModel.watches.collectAsStateWithLifecycle()
     val requestNotifications = rememberNotificationPermissionRequest()
+    // Erlaubnis als Ereignis: kommt die Antwort auf F-08 erst nach dem Drehen, fragt die neue Komposition (ARC6-R01)
+    val uiEvents = rememberSettingsUiEvents()
+    com.cryptochecker.app.ui.components.CollectScreenEvents(uiEvents.requestNotifications) { requestNotifications() }
     // Merkliste gesperrt: Schalter abgelehnt (bleibt beim echten Zustand) — kurz sagen, warum; Einstellungen melden per Toast
     val context = LocalContext.current
     com.cryptochecker.app.ui.components.WatchlistLockedHint { Toast.makeText(context, it, Toast.LENGTH_LONG).show() }
@@ -235,7 +238,7 @@ internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = h
                 FilledTonalButton(
                     onClick = {
                         // Seit Build 106 (UX4-R3): Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
-                        viewModel.setAllPairNotifications(true) { written -> if (written) requestNotifications() }
+                        viewModel.setAllPairNotifications(true, askPermissionAfterWrite(uiEvents.requestNotifications, true))
                     },
                     enabled = watches.any { !it.notificationEnabled },
                     modifier = Modifier.weight(1f)
@@ -254,7 +257,7 @@ internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = h
                     subtitle = watch.marketName,
                     checked = watch.notificationEnabled,
                     onCheckedChange = { on ->
-                        viewModel.setPairNotification(watch.id, on) { written -> if (written && on) requestNotifications() }
+                        viewModel.setPairNotification(watch.id, on, askPermissionAfterWrite(uiEvents.requestNotifications, on))
                     }
                 )
             }

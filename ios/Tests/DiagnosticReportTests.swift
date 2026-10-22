@@ -62,6 +62,10 @@ final class DiagnosticReportTests: XCTestCase {
         var full = input()
         full.backgroundErrors = BackgroundErrorSummary(counts: ["refresh": 2, "logos": 1], lastAt: now)
         XCTAssertTrue(DiagnosticReport.build(full).contains("Background errors: refresh 2, logos 1 (last 2026-10-18 12:00 UTC)\n"))
+        // Ohne gezählte Arten keine eigene Zeile; mit Arten direkt darunter (wie Android)
+        XCTAssertFalse(DiagnosticReport.build(full).contains("Background error kinds"))
+        full.backgroundErrors = BackgroundErrorSummary(counts: ["refresh": 2], lastAt: now, kinds: ["refresh": ["URLError": 2]])
+        XCTAssertTrue(DiagnosticReport.build(full).contains("(last 2026-10-18 12:00 UTC)\nBackground error kinds: refresh URLError 2\n"))
     }
 
     func testEmptySectionsSayNone() {

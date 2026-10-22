@@ -15,6 +15,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 108)
+
+* Portfolio: a transfer counts as «more than recorded» on every method (FIFO, average, FIFO per wallet) when amount plus network fee exceed the holdings; the uncovered part of the fee is shown as unassigned. UK and Canada pools report an uncovered fee instead of dropping it (the app's own UK/CA templates were not affected).
+* Own server for addresses (Settings › Portfolio): Bitcoin balance and xpub queries can go to your own Esplora/mempool-compatible server (https only, test button, no fallback to public nodes); included in backups. A consent dialog now also appears before the first xpub/descriptor and explains what the node operator can see.
+* Portfolio widget: «List» offers only «USDT» and «Conversion» (the USDT line has no effect there); «Overview» offers 30 days and 1 year (24 h and 7 days repeated the fixed figures). Saved choices are kept.
+* Android: the notification permission after «Change anyway» in Settings › Price notifications appears in the current screen; double-tap protection for note, group and alert editing on both platforms.
+* Diagnostics: background errors are also counted per error type (type name only, no texts). Privacy policy and SECURITY.md updated (data without encryption key: readable, changes not kept).
+
 ## 16.2.2 (build 107)
 
 * Android: results after the «not saved» question survive rotating or a theme/language change – the alert editor closes after «Change anyway» (no second alert from a second tap), confirmations, undo and the notification permission appear in the current screen; the permission request can no longer crash on a screen that was just rebuilt.

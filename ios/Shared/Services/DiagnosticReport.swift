@@ -149,6 +149,7 @@ enum DiagnosticReport {
             lines.append("none - the app keeps no error log")
         }
         lines.append(BackgroundErrors.line(input.backgroundErrors))
+        if let kinds = BackgroundErrors.kindsLine(input.backgroundErrors) { lines.append(kinds) }
         return lines.joined(separator: "\n") + "\n"
     }
 

@@ -6,6 +6,7 @@ import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
 import com.cryptochecker.app.util.BackgroundErrorCounter
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.Instant
@@ -39,6 +40,47 @@ class BackgroundErrorsTest {
         assertEquals(BackgroundErrors.ALARMS, BackgroundErrors.areaForLabel("Kursmarke nach «1 h später» scharf stellen"))
         assertEquals(BackgroundErrors.STARTUP, BackgroundErrors.areaForLabel("Hintergrundaufgabe beim Start"))
         assertEquals(BackgroundErrors.OTHER, BackgroundErrors.areaForLabel("Test"))
+    }
+
+    @Test
+    fun sharedKinds() {
+        assertEquals(data["maxKinds"].num()!!.toInt(), BackgroundErrors.MAX_KINDS)
+        data["kinds"].list().forEach { raw ->
+            val c = raw.obj()
+            assertEquals(c["raw"] as String, c["kind"], BackgroundErrors.kind(c["raw"] as String))
+        }
+        data["kindSlots"].list().forEach { raw ->
+            val c = raw.obj()
+            val known = c["known"].list().map { it as String }.toSet()
+            assertEquals(c["name"] as String, c["slot"], BackgroundErrors.kindSlot(known, c["kind"] as String))
+        }
+        data["kindLines"].list().forEach { raw ->
+            val c = raw.obj()
+            val kinds = c["kinds"].obj().mapValues { area -> area.value.obj().mapValues { it.value.num()!!.toInt() } }
+            assertEquals(c["name"] as String, c["line"], BackgroundErrors.kindsLine(BackgroundErrorSummary(kinds = kinds)))
+        }
+    }
+
+    @Test
+    fun androidKindIsTheSimpleClassNameWithoutMessage() {
+        assertEquals("SocketTimeoutException", BackgroundErrors.kindOf(java.net.SocketTimeoutException("geheim 0x12ab")))
+        assertEquals("IllegalStateException", BackgroundErrors.kindOf(IllegalStateException("bob")))
+        // Anonyme Klasse: Name ohne Paket (gesäubert), nie der Meldungstext
+        val anonymous = object : RuntimeException("geheim") {}
+        assertTrue(BackgroundErrors.kindOf(anonymous).none { it == '.' || it == '$' })
+        assertFalse(BackgroundErrors.kindOf(anonymous).contains("geheim"))
+    }
+
+    @Test
+    fun counterCountsKindsPerArea() {
+        val before = BackgroundErrorCounter.summary().kinds[BackgroundErrors.COINS].orEmpty()
+        BackgroundErrorCounter.record(BackgroundErrors.COINS, now = 3_000L, error = java.io.IOException("x"))
+        BackgroundErrorCounter.record(BackgroundErrors.COINS, now = 3_000L, kind = BackgroundErrors.ALL_FAILED_KIND)
+        BackgroundErrorCounter.record(BackgroundErrors.COINS, now = 3_000L)
+        val after = BackgroundErrorCounter.summary().kinds[BackgroundErrors.COINS].orEmpty()
+        assertEquals((before["IOException"] ?: 0) + 1, after["IOException"])
+        assertEquals((before[BackgroundErrors.ALL_FAILED_KIND] ?: 0) + 1, after[BackgroundErrors.ALL_FAILED_KIND])
+        assertTrue(after.size <= BackgroundErrors.MAX_KINDS)
     }
 
     @Test

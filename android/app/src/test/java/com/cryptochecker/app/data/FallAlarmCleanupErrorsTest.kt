@@ -19,7 +19,7 @@ class FallAlarmCleanupErrorsTest {
             val path = "src/main/java/com/cryptochecker/app/data/$name"
             val text = SourceGuard.android(listOf(File(path), File("app/$path")).firstOrNull { it.isFile }, path).readText()
             val failure = text.substringAfter("}.onFailure {", "").substringBefore("\n            }")
-            assertTrue(name, failure.contains("if (!it.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.ALARMS)"))
+            assertTrue(name, failure.contains("if (!it.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.ALARMS, error = it)"))
         }
     }
 }

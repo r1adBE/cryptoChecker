@@ -160,8 +160,8 @@ internal fun WatchlistSheets(
                     }
                 },
                 // Seit Build 107 (IOS5-R02): Dialog erst nach bestätigter Rückfrage F-08 zu («Abbrechen»: offen mit Eingabe)
-                onSetGroup = { group, close -> viewModel.setGroup(watch, group, close) },
-                onSetNote = { note, close -> viewModel.setNote(watch, note, close) },
+                onSetGroup = { group, close, cancelled -> viewModel.setGroup(watch, group, close, cancelled) },
+                onSetNote = { note, close, cancelled -> viewModel.setNote(watch, note, close, cancelled) },
                 // Deaktivieren bzw. wieder aktivieren (dann gleich den Kurs holen); seit Build 107 (UX5-R2) Blatt erst nach
                 // der Rückfrage zu, mit Haptik und kurzem Banner ([toggleDisabled])
                 onToggleDisabled = { uiEvents.toggleDisabled(viewModel, watch) },
@@ -211,15 +211,15 @@ internal fun WatchlistSheets(
             watches = watches,
             groups = groups,
             // Seit Build 106 (wie iOS): Haptik und Blatt zu erst nach der Rückfrage F-08 («Abbrechen»: Blatt bleibt offen)
-            onDone = { newName, ids ->
-                viewModel.saveGroup(if (ui.editGroupIsNew) null else name, newName, ids) {
+            onDone = { newName, ids, cancelled ->
+                viewModel.saveGroup(if (ui.editGroupIsNew) null else name, newName, ids, onDone = {
                     uiEvents.send(WatchUiEvent.Haptic(HapticEvent.SUCCESS), WatchUiEvent.CloseGroupEdit)
-                }
+                }, cancelled = cancelled)
             },
-            onDelete = {
-                viewModel.deleteGroup(name) {
+            onDelete = { cancelled ->
+                viewModel.deleteGroup(name, onDone = {
                     uiEvents.send(WatchUiEvent.Haptic(HapticEvent.DESTRUCTIVE), WatchUiEvent.CloseGroupEdit)
-                }
+                }, cancelled = cancelled)
             },
             onDismiss = { ui.editGroup = null }
         )

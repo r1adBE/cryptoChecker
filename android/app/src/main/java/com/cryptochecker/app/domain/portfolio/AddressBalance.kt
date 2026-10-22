@@ -178,6 +178,8 @@ object AddressBalance {
     fun providerName(hostOrUrl: String): String {
         val host = hostOrUrl.removePrefix("https://").substringBefore('/')
         val parts = host.split('.')
+        // IPv4 (eigener Server) ganz, sonst die letzten beiden Teile des Namens
+        if (host.all { it in '0'..'9' || it == '.' }) return host
         return if (parts.size > 2) parts.takeLast(2).joinToString(".") else host
     }
 

@@ -275,6 +275,33 @@ class TaxTemplatesParityTest {
         }
     }
 
+    /** Umbuchung über dem Bestand im Pool UK/CA wie FIFO je Wallet ([TaxExport.unassignedFeesIn], Einstand danach). */
+    @Test
+    fun poolUncovered() {
+        val cases = data["poolUncovered"].list().map { it.obj() }
+        assertTrue(cases.size >= 4)
+        cases.forEach { c ->
+            val trades = parseTrades(c["trades"])
+            val period = TaxTemplate.NEUTRAL.period(c["year"].num()!!.toInt())
+            c["methods"].list().map { TaxMethod.valueOf(it as String) }.forEach { m ->
+                val label = "${c["name"]} $m"
+                val rules = if (c["rules"] == "NONE") TaxEventRules.NONE else TaxEventRules.of(m)
+                val got = TaxExport.unassignedFeesIn(trades, m, period, zone, rules)
+                val expected = c["unassignedFees"].list().map { it.obj() }
+                assertEquals("$label unassigned", expected.size, got.size)
+                expected.zip(got).forEach { (e, f) ->
+                    assertEquals("$label coin", e["coin"], f.coin)
+                    assertEquals("$label txId", e["txId"].num()!!.toLong(), f.txId)
+                    assertEquals("$label usdt", r8(dec(e["usdt"])), r8(f.usdt))
+                }
+                dec(c["disposalCost"])?.let { cost ->
+                    val sells = TaxEngines.disposals(trades, m, zone, null, null, rules).filter { it.coin == "BTC" && !it.feeLeg }
+                    assertEquals("$label disposalCost", r8(cost), r8(sells.mapNotNull { it.costUsdt }.fold(BigDecimal.ZERO, BigDecimal::add)))
+                }
+            }
+        }
+    }
+
     /** Jahresübersicht-CSV: Tatsachen zuerst, Schlüsse (Grenzen, Sätze) nur im Orientierungs-Block mit Vorsatz. */
     @Test
     fun summaryCsvOrientationBlock() {

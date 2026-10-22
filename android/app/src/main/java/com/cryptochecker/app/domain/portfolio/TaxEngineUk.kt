@@ -108,7 +108,7 @@ internal fun TaxEngines.ukPool(
             }
             TaxStepKind.REMOVE -> pool.take(s.qty)
             TaxStepKind.NETWORK_FEE -> lost.note(coin, s, pool.dropQty(s.qty))
-            TaxStepKind.ADD_FEE -> unassigned.noteUnassigned(coin, s, pool.addFee(s.time, s.cost ?: BigDecimal.ZERO))
+            TaxStepKind.ADD_FEE -> unassigned.noteUnassigned(coin, s, pool.addFee(s.time, s.cost ?: BigDecimal.ZERO, s.trade.amount, s.trade.coinFee))
         }
     }
     return out

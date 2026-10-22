@@ -1,7 +1,10 @@
 package com.cryptochecker.app
 
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isEnabled
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onFirst
@@ -79,6 +82,41 @@ class AlarmEditorRecreateTest {
 
     @Test
     fun confirmAfterRecreateClosesEditorAndSavesOnce() {
+        saveAcrossRecreate()
+        // Bleibt so: kein zweiter Alarm, Editor nicht wieder offen; gespeichert ist die Eingabe von vor dem Drehen
+        assertEquals(1, alarms())
+        assertFalse(exists(UiTestTags.ALARM_THRESHOLD))
+        assertEquals(THRESHOLD.toDouble(), storedThreshold(), 0.0)
+    }
+
+    /**
+     * Review TST6-R1/ARC6 C2: nicht der allererste Alarm — dann kommt nach «Trotzdem» die Zeile «Alarm aktiv · Testen»
+     * über das Ereignis im NEUEN Bildschirm (beim ersten Alarm endet der Weg früh im Bestätigungsdialog).
+     */
+    @Test
+    fun confirmAfterRecreateShowsConfirmationForAFurtherAlarm() {
+        val before = runBlocking { settingsRepository.current() }
+        runBlocking {
+            settingsRepository.setFirstAlarmShown(true)
+            settingsRepository.setAlarmTimingHintShown(true)
+        }
+        try {
+            saveAcrossRecreate()
+            val active = compose.activity.getString(R.string.alarm_saved_active)
+            compose.waitUntil(TIMEOUT) {
+                compose.onAllNodes(hasText(active, substring = true), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
+            }
+            assertEquals(1, alarms())
+        } finally {
+            runBlocking {
+                settingsRepository.setFirstAlarmShown(before.firstAlarmShown)
+                settingsRepository.setAlarmTimingHintShown(before.alarmTimingHintShown)
+            }
+        }
+    }
+
+    /** Editor öffnen, Schwelle eingeben, «nicht gespeichert», Speichern → Frage offen → neu erstellen → «Trotzdem». */
+    private fun saveAcrossRecreate() {
         clickTag(UiTestTags.WATCH_ROW)
         clickTag(UiTestTags.WATCH_ACTION_ALARM)
         // Paar ohne Alarm: der Editor öffnet sich gleich; neuer Alarm = «über»
@@ -98,18 +136,26 @@ class AlarmEditorRecreateTest {
         // Neuer Bildschirm: Editor samt Eingaben wieder da, die Frage noch offen
         compose.waitUntil(TIMEOUT) { exists(UiTestTags.ALARM_THRESHOLD) && WatchlistNotSavedGate.request.value != null }
         assertEquals(0, alarms())
+        // Review TST6-R1: die Eingabe steht nach dem Drehen noch im Feld (nur Ziffern verglichen, Gruppierung egal)
+        assertEquals(THRESHOLD, thresholdDigits())
 
         WatchlistNotSavedGate.answer(true)
         compose.waitUntil(TIMEOUT) { alarms() == 1 && !exists(UiTestTags.ALARM_THRESHOLD) }
         compose.waitForIdle()
-        // Bleibt so: kein zweiter Alarm, Editor nicht wieder offen
-        assertEquals(1, alarms())
-        assertFalse(exists(UiTestTags.ALARM_THRESHOLD))
     }
 
     // ── Hilfen (wie UiFlowsTest) ──
 
     private fun alarms(): Int = runBlocking { watchRepository.observeAlarms(watchId).first() }.size
+
+    private fun storedThreshold(): Double = runBlocking { watchRepository.observeAlarms(watchId).first() }.single().threshold
+
+    /** Ziffern im Schwellen-Feld (EditableText des ersten Knotens mit dem Tag). */
+    private fun thresholdDigits(): String {
+        val node = compose.onAllNodes(hasTestTag(UiTestTags.ALARM_THRESHOLD), useUnmergedTree = true).fetchSemanticsNodes().first()
+        val text = node.config.getOrNull(SemanticsProperties.EditableText)?.text.orEmpty()
+        return text.filter { it.isDigit() }
+    }
 
     private fun exists(tag: String): Boolean =
         compose.onAllNodes(hasTestTag(tag), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()

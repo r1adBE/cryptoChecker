@@ -51,6 +51,7 @@
   "portfolioSystemBackup": true,
   "costMethod": "AVERAGE",
   "taxTemplate": "CH",
-  "watchlistColumnSort": "PRICE_DESC"
+  "watchlistColumnSort": "PRICE_DESC",
+  "addressServerBtc": "https://node.example.org/api"
  }
 }

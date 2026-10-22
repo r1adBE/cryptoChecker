@@ -186,6 +186,8 @@ enum AddressBalance {
         var host = hostOrUrl.hasPrefix("https://") ? String(hostOrUrl.dropFirst(8)) : hostOrUrl
         if let slash = host.firstIndex(of: "/") { host = String(host[..<slash]) }
         let parts = host.split(separator: ".", omittingEmptySubsequences: false)
+        // IPv4 (eigener Server) ganz, sonst die letzten beiden Teile des Namens
+        if host.allSatisfy({ $0 == "." || ("0"..."9").contains($0) }) { return host }
         return parts.count > 2 ? parts.suffix(2).joined(separator: ".") : host
     }
 

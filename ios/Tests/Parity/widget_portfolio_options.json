@@ -1,0 +1,290 @@
+{
+  "description": "Portfolio widget options per view (Android PortfolioWidgetOptions.kt / iOS PortfolioWidgetOptions.swift): which display and range the configuration offers per view, and which stored choice takes effect. The stored choice is never rewritten (switching the view back keeps it). List has no USDT line: only usdt/conversion offered, conversionUsdt acts as conversion; no range offered, stored range unchanged. Overview already shows fixed 'Today' and '7 D' figures: only month/year offered, day/week act as month (default month). Chart: everything. Applied before the currency rule (USD stablecoin -> usdt, no USDT value -> conversion).",
+  "offered": {
+    "overview": {
+      "displays": [
+        "usdt",
+        "conversion",
+        "conversionUsdt"
+      ],
+      "ranges": [
+        "month",
+        "year"
+      ]
+    },
+    "chart": {
+      "displays": [
+        "usdt",
+        "conversion",
+        "conversionUsdt"
+      ],
+      "ranges": [
+        "day",
+        "week",
+        "month",
+        "year"
+      ]
+    },
+    "list": {
+      "displays": [
+        "usdt",
+        "conversion"
+      ],
+      "ranges": []
+    }
+  },
+  "cases": [
+    {
+      "view": "overview",
+      "display": "usdt",
+      "range": "day",
+      "effectiveDisplay": "usdt",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "overview",
+      "display": "usdt",
+      "range": "week",
+      "effectiveDisplay": "usdt",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "overview",
+      "display": "usdt",
+      "range": "month",
+      "effectiveDisplay": "usdt",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "overview",
+      "display": "usdt",
+      "range": "year",
+      "effectiveDisplay": "usdt",
+      "effectiveRange": "year"
+    },
+    {
+      "view": "overview",
+      "display": "conversion",
+      "range": "day",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "overview",
+      "display": "conversion",
+      "range": "week",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "overview",
+      "display": "conversion",
+      "range": "month",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "overview",
+      "display": "conversion",
+      "range": "year",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "year"
+    },
+    {
+      "view": "overview",
+      "display": "conversionUsdt",
+      "range": "day",
+      "effectiveDisplay": "conversionUsdt",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "overview",
+      "display": "conversionUsdt",
+      "range": "week",
+      "effectiveDisplay": "conversionUsdt",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "overview",
+      "display": "conversionUsdt",
+      "range": "month",
+      "effectiveDisplay": "conversionUsdt",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "overview",
+      "display": "conversionUsdt",
+      "range": "year",
+      "effectiveDisplay": "conversionUsdt",
+      "effectiveRange": "year"
+    },
+    {
+      "view": "chart",
+      "display": "usdt",
+      "range": "day",
+      "effectiveDisplay": "usdt",
+      "effectiveRange": "day"
+    },
+    {
+      "view": "chart",
+      "display": "usdt",
+      "range": "week",
+      "effectiveDisplay": "usdt",
+      "effectiveRange": "week"
+    },
+    {
+      "view": "chart",
+      "display": "usdt",
+      "range": "month",
+      "effectiveDisplay": "usdt",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "chart",
+      "display": "usdt",
+      "range": "year",
+      "effectiveDisplay": "usdt",
+      "effectiveRange": "year"
+    },
+    {
+      "view": "chart",
+      "display": "conversion",
+      "range": "day",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "day"
+    },
+    {
+      "view": "chart",
+      "display": "conversion",
+      "range": "week",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "week"
+    },
+    {
+      "view": "chart",
+      "display": "conversion",
+      "range": "month",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "chart",
+      "display": "conversion",
+      "range": "year",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "year"
+    },
+    {
+      "view": "chart",
+      "display": "conversionUsdt",
+      "range": "day",
+      "effectiveDisplay": "conversionUsdt",
+      "effectiveRange": "day"
+    },
+    {
+      "view": "chart",
+      "display": "conversionUsdt",
+      "range": "week",
+      "effectiveDisplay": "conversionUsdt",
+      "effectiveRange": "week"
+    },
+    {
+      "view": "chart",
+      "display": "conversionUsdt",
+      "range": "month",
+      "effectiveDisplay": "conversionUsdt",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "chart",
+      "display": "conversionUsdt",
+      "range": "year",
+      "effectiveDisplay": "conversionUsdt",
+      "effectiveRange": "year"
+    },
+    {
+      "view": "list",
+      "display": "usdt",
+      "range": "day",
+      "effectiveDisplay": "usdt",
+      "effectiveRange": "day"
+    },
+    {
+      "view": "list",
+      "display": "usdt",
+      "range": "week",
+      "effectiveDisplay": "usdt",
+      "effectiveRange": "week"
+    },
+    {
+      "view": "list",
+      "display": "usdt",
+      "range": "month",
+      "effectiveDisplay": "usdt",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "list",
+      "display": "usdt",
+      "range": "year",
+      "effectiveDisplay": "usdt",
+      "effectiveRange": "year"
+    },
+    {
+      "view": "list",
+      "display": "conversion",
+      "range": "day",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "day"
+    },
+    {
+      "view": "list",
+      "display": "conversion",
+      "range": "week",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "week"
+    },
+    {
+      "view": "list",
+      "display": "conversion",
+      "range": "month",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "list",
+      "display": "conversion",
+      "range": "year",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "year"
+    },
+    {
+      "view": "list",
+      "display": "conversionUsdt",
+      "range": "day",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "day"
+    },
+    {
+      "view": "list",
+      "display": "conversionUsdt",
+      "range": "week",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "week"
+    },
+    {
+      "view": "list",
+      "display": "conversionUsdt",
+      "range": "month",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "month"
+    },
+    {
+      "view": "list",
+      "display": "conversionUsdt",
+      "range": "year",
+      "effectiveDisplay": "conversion",
+      "effectiveRange": "year"
+    }
+  ]
+}

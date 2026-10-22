@@ -154,7 +154,7 @@ internal fun TaxEngines.caAcb(
             }
             TaxStepKind.REMOVE -> pool.take(s.qty)
             TaxStepKind.NETWORK_FEE -> lost.note(coin, s, pool.dropQty(s.qty))
-            TaxStepKind.ADD_FEE -> unassigned.noteUnassigned(coin, s, pool.addFee(s.time, s.cost ?: zero))
+            TaxStepKind.ADD_FEE -> unassigned.noteUnassigned(coin, s, pool.addFee(s.time, s.cost ?: zero, s.trade.amount, s.trade.coinFee))
         }
     }
     return out

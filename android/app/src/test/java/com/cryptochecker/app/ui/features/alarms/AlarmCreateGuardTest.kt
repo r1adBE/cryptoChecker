@@ -10,6 +10,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /** Doppeltipp beim Anlegen eines Alarms: nur ein INSERT. */
@@ -33,8 +34,26 @@ class AlarmCreateGuardTest {
         assertEquals(2, inserts)
     }
 
+    /** Der Alarm-Editor sperrt auch beim Bearbeiten (IOS6-01, wie iOS `AlarmCreateGuard`): kein ungesperrter Start mehr. */
     @Test
-    fun `Bearbeiten bleibt ungebremst`() = runBlocking {
+    fun `Alarm-Editor sperrt auch beim Bearbeiten`() {
+        var dir: java.io.File? = java.io.File(System.getProperty("user.dir") ?: ".").absoluteFile
+        var source: java.io.File? = null
+        while (dir != null && source == null) {
+            source = listOf("", "app/", "android/app/")
+                .map { java.io.File(dir, it + "src/main/java/com/cryptochecker/app/ui/features/alarms/AlarmsViewModel.kt") }
+                .firstOrNull { it.isFile }
+            dir = dir.parentFile
+        }
+        assertNotNull("AlarmsViewModel.kt nicht gefunden (Arbeitsverzeichnis?)", source)
+        val text = source!!.readText()
+        val save = text.substringAfter("fun save(draft: AlarmDraft) {").substringBefore("\n    fun ")
+        assertTrue(save.contains("createGuard.launch(viewModelScope, guarded = true)"))
+        assertFalse(text.contains("guarded = draft.id == 0L"))
+    }
+
+    @Test
+    fun `ungesperrter Start laeuft neben einem Anlegen`() = runBlocking {
         val guard = AlarmCreateGuard()
         val release = CompletableDeferred<Unit>()
         var saves = 0

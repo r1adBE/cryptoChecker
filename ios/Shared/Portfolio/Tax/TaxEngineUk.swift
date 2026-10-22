@@ -127,7 +127,7 @@ extension TaxEngines {
             case .networkFee:
                 note(&lost, coin, s, pool.dropQty(s.qty))
             case .addFee:
-                noteUnassigned(&unassigned, coin, s, pool.addFee(s.time, s.cost ?? 0))
+                noteUnassigned(&unassigned, coin, s, pool.addFee(s.time, s.cost ?? 0, amount: s.trade.amountExact, coinFee: s.trade.coinFeeExact))
             }
         }
         return out

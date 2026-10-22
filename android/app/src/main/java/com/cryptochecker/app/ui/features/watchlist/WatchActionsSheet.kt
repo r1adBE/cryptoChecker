@@ -88,10 +88,13 @@ internal fun WatchActionsSheet(
     groups: List<String> = emptyList(),
     /** null = Eintrag verborgen (Vorschau); sonst immer, auch mit Portfolio aus ([PortfolioOff]). */
     onAddToPortfolio: (() -> Unit)? = null,
-    /** Seit Build 107 (IOS5-R02): zweites Argument schliesst den Dialog — erst nach bestätigter Rückfrage F-08 aufrufen. */
-    onSetGroup: (String?, close: () -> Unit) -> Unit = { _, close -> close() },
+    /**
+     * Seit Build 107 (IOS5-R02): `close` schliesst den Dialog — erst nach bestätigter Rückfrage F-08 aufrufen; `cancelled`
+     * bei «Abbrechen» (Dialog bleibt, wieder bereit). Bis dahin zählt kein weiterer Tipp (wie iOS `saving`).
+     */
+    onSetGroup: (String?, close: () -> Unit, cancelled: () -> Unit) -> Unit = { _, close, _ -> close() },
     onWhy: () -> Unit = {},
-    onSetNote: (String?, close: () -> Unit) -> Unit = { _, close -> close() },
+    onSetNote: (String?, close: () -> Unit, cancelled: () -> Unit) -> Unit = { _, close, _ -> close() },
     /** Chart als Linie statt Kerzen (zuletzt gewählt, für alle Paare gleich). */
     chartLine: Boolean = false,
     onChartLineChange: (Boolean) -> Unit = {},
@@ -130,6 +133,8 @@ internal fun WatchActionsSheet(
     if (showWidgetManual) WidgetManualDialog(onDismiss = { showWidgetManual = false })
     var editGroup by remember { mutableStateOf(false) }
     var editNote by remember { mutableStateOf(false) }
+    // Notiz bzw. Gruppe wird gespeichert (Rückfrage F-08 offen): weitere Tipps zählen nicht (ARC6-R02, wie iOS)
+    var savingEdit by remember { mutableStateOf(false) }
     // «Paar bearbeiten» (Stift neben dem Paar): Börse, Paar, Kontrakt desselben Eintrags
     var editPair by rememberSaveable(watch.id) { mutableStateOf(false) }
     if (editPair && !preview) {
@@ -140,16 +145,26 @@ internal fun WatchActionsSheet(
             title = stringResource(R.string.note_title),
             initial = watch.note,
             // «Abbrechen» in der Rückfrage F-08: Dialog bleibt mit dem Text (wie der Alarm-Editor)
-            onSave = { onSetNote(it) { editNote = false } },
-            onDismiss = { editNote = false }
+            onSave = { note ->
+                if (!savingEdit) {
+                    savingEdit = true
+                    onSetNote(note, { editNote = false; savingEdit = false }, { savingEdit = false })
+                }
+            },
+            onDismiss = { editNote = false; savingEdit = false }
         )
     }
     if (editGroup) {
         GroupDialog(
             current = watch.groupName,
             groups = groups,
-            onSelect = { onSetGroup(it) { editGroup = false } },
-            onDismiss = { editGroup = false }
+            onSelect = { group ->
+                if (!savingEdit) {
+                    savingEdit = true
+                    onSetGroup(group, { editGroup = false; savingEdit = false }, { savingEdit = false })
+                }
+            },
+            onDismiss = { editGroup = false; savingEdit = false }
         )
     }
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = sheetState) {

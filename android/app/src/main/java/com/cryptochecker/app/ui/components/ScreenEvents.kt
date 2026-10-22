@@ -24,7 +24,11 @@ import kotlinx.coroutines.withContext
 class ScreenEvents<T : Any> {
     private val channel = Channel<T>(Channel.UNLIMITED)
 
-    /** Aus jedem Faden; geht nicht verloren (unbegrenzt gepuffert). */
+    /**
+     * Nur vom Hauptfaden (viewModelScope, Klick-Handler): dann setzt der Sammler (`Main.immediate`) noch im selben Aufruf
+     * fort, das Ereignis geht nicht verloren (unbegrenzt gepuffert). Aus einem Hintergrundfaden würde die Fortsetzung nur
+     * gepostet; geht der Bildschirm vorher unter STARTED, wäre das schon entnommene Ereignis weg.
+     */
     fun send(event: T) {
         channel.trySend(event)
     }

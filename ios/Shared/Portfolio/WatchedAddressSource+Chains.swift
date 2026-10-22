@@ -233,7 +233,9 @@ extension WatchedAddressSource {
                           deadline: Int64?) async throws -> (used: Int, fetched: Fetched, complete: Bool, sats: Int64) {
         var lists = [cache?.receive ?? [], cache?.change ?? []]
         let scan = XpubScan(mode: mode, cache: cache)
-        var provider = AddressBalance.providerName(AddressBalance.btcHosts[0])
+        // Eigener Server oder die öffentlichen Hosts, für die ganze Suche gleich
+        let entries = btcEntries
+        var provider = AddressBalance.providerName(ChainBalance.host(entries[0]))
         while let target = try scan.next() {
             try Task.checkCancellation()
             while lists[target.chain].count <= target.index {
@@ -247,8 +249,8 @@ extension WatchedAddressSource {
                 let pause = deadline == nil ? Self.xpubPauseMillis : Self.xpubPauseBackgroundMillis
                 try await Task.sleep(nanoseconds: UInt64(pause) * 1_000_000)
             }
-            let (stats, host) = try await firstWorking(AddressBalance.btcHosts, deadline: deadline) { (h: String) -> AddressBalance.BtcStats in
-                try AddressBalance.parseBtc(try await Self.load(AddressBalance.btcUrl(host: h, address: address), post: nil),
+            let (stats, host) = try await firstWorking(entries, deadline: deadline) { (h: String) -> AddressBalance.BtcStats in
+                try AddressBalance.parseBtc(try await Self.load(AddressServer.btcUrl(h, address: address), post: nil),
                                             address: address)
             }
             provider = host

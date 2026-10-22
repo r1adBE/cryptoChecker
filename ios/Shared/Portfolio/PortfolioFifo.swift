@@ -18,8 +18,8 @@ import Foundation
 ///    ältesten verbleibenden Posten mit Kaufpreis über (Kosten des Haltens/Verschiebens, keine Veräusserung — wird mit
 ///    dem nächsten Verkauf realisiert); ohne solchen Posten wartet er auf den nächsten später hinzukommenden Posten mit
 ///    Kaufpreis, erst ohne einen solchen bis zum Ende `PortfolioLostFeeCost`; Gebühr USDT + Wert der Gebühr im dritten Coin nach Menge auf alle Posten
-///    (Anteil ohne Kaufpreis gehört zu deren unbekanntem Einstand und wird als `PortfolioUnassignedFee` vermerkt; seit
-///    Build 104 ebenso der Anteil einer Menge über dem Bestand, `PortfolioFeeExpenses.transferUncovered`, markiert oversold).
+///    (Anteil ohne Kaufpreis gehört zu deren unbekanntem Einstand und wird als `PortfolioUnassignedFee` vermerkt; wie
+///    je Wallet ebenso der Anteil der Menge über Bestand − Netzwerkgebühr, `PortfolioFeeExpenses.transferUncovered`, markiert oversold).
 ///  - Herkunft des Einstands: jeder Posten führt seinen Einstand in Teilen mit Zeitpunkt (Erwerb, Umbuchungsgebühr zum
 ///    Zeitpunkt der Umbuchung, übernommener Netzwerkgebühr-Einstand mit seinen Teilen); ein Abgang nimmt sie anteilig mit
 ///    (`PortfolioDisposal.costParts`), der Steuer-Export rechnet jeden Teil zum Kurs SEINES Datums um. Anfangsposten des
@@ -343,10 +343,10 @@ enum PortfolioFifo {
                 }
                 let q = src
                 let h = q.held
-                // Seit Build 104: Menge oder Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
-                // erfassten Menge wird vermerkt (leerer Bestand: die ganze Gebühr), nicht still verworfen
-                if amount > h || coinFee > h { check(q, max(amount, coinFee), t, feeLeg: false) }
-                let lost = PortfolioFeeExpenses.transferUncovered(t, covered: h)
+                // Wie je Wallet: Menge + Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
+                // gedeckten Menge (gedeckt = Bestand − Netzwerkgebühr) wird vermerkt (leerer Bestand: die ganze Gebühr)
+                check(q, amount + coinFee, t, feeLeg: false)
+                let lost = PortfolioFeeExpenses.transferUncovered(t, covered: max(0, h - coinFee))
                 if h <= 0 {
                     unassign(t, lost)
                     continue

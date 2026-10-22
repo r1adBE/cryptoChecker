@@ -88,6 +88,17 @@ final class WatchlistNotSavedGate: ObservableObject {
         if waiters.isEmpty { pending = false }
     }
 
+    /// Kern von `AppData.withWatchlistConfirm`: gesperrt (`blocked`) oder keine Frage nötig → `action` sofort (synchron);
+    /// sonst nach `confirm` (fragt über dieses Tor) erst bei «Trotzdem» `action`, bei «Abbrechen» `cancelled`. Eigene
+    /// Funktion, damit Tests den Ablauf mit eigenem Tor prüfen (Zähler für close/cancelled, IOS6-02).
+    func run(blocked: Bool, notSaved: Bool, confirm: @escaping @MainActor () async -> Bool,
+             _ action: @escaping @MainActor () -> Void, cancelled: (@MainActor () -> Void)?) {
+        guard !blocked, mayAsk(notSaved: notSaved) else { return action() }
+        Task { @MainActor in
+            if await confirm() { action() } else { cancelled?() }
+        }
+    }
+
     /// Wartende Aktionen (nur für Tests).
     var waitingCount: Int { waiters.count }
 

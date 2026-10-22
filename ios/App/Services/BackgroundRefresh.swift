@@ -200,9 +200,9 @@ enum BackgroundRefresh {
             priceBox.set(priceResult)
             // Seit Build 104: Speichern bzw. Kursabruf komplett gescheitert — nur gezählt (wie Android BackgroundCheck)
             if saved == nil && outcome.checked > 0 {
-                BackgroundErrorCounter.record(BackgroundErrors.storage)
+                BackgroundErrorCounter.record(BackgroundErrors.storage, kind: BackgroundErrors.saveFailedKind)
             } else if outcome.checked > 0 && outcome.failed >= outcome.checked {
-                BackgroundErrorCounter.record(BackgroundErrors.refresh)
+                BackgroundErrorCounter.record(BackgroundErrors.refresh, kind: BackgroundErrors.allFailedKind)
             }
             await seams.afterPriceSave()
             // Seit Build 104: während oder nach dem Speichern abgelaufen (Ende schon gemeldet) → nicht mehr melden; die

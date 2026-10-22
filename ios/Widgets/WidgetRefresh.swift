@@ -132,7 +132,7 @@ enum WidgetRefresh {
         guard let saved = SharedStorage.updateSnapshot({ outcome.apply(to: &$0) }) else {
             outcome.releaseAlarmLease()
             // Seit Build 104: Speichern gescheitert (mit Paaren) — nur gezählt (Diagnosebericht)
-            if outcome.checked > 0 { BackgroundErrorCounter.record(BackgroundErrors.storage) }
+            if outcome.checked > 0 { BackgroundErrorCounter.record(BackgroundErrors.storage, kind: BackgroundErrors.saveFailedKind) }
             defaults.set(Double(TimeUtils.nowMillis), forKey: failedAtKey)
             CheckRunStore.log(.widget, .failed, startedAt: started)
             return .failed

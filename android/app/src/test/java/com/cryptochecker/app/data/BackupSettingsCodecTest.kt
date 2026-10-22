@@ -84,6 +84,10 @@ class BackupSettingsCodecTest {
         override suspend fun setTaxTemplate(template: TaxTemplate) { s = s.copy(taxTemplate = template) }
         override suspend fun setWatchlistColumnSort(value: String?) { s = s.copy(watchlistColumnSort = value) }
         override suspend fun setAppLock(enabled: Boolean) { s = s.copy(appLock = enabled) }
+        /** Eigener Bitcoin-Server (ausserhalb von AppSettings). */
+        var server: String? = null
+        override suspend fun addressServer() = server
+        override suspend fun setAddressServer(url: String?) { server = url }
     }
 
     private val fixture = JSONObject(File(ParityJson.dir(), "backup_settings.json").readText(Charsets.UTF_8))
@@ -166,6 +170,22 @@ class BackupSettingsCodecTest {
         assertTrue(settings.s.appLock)
         assertTrue(settings.s.hidePortfolioAmounts)
         assertFalse(settings.s.portfolioSystemBackup)
+    }
+
+    /** Eigener Bitcoin-Server: ohne Passwort nie zurück auf öffentliche Knoten, ungültige Werte bleiben aussen vor. */
+    @Test
+    fun eigenerServerAusDerSicherung() = runTest {
+        val settings = FakeSettings().apply { server = "https://a.example/api" }
+        codec(settings).restoreSettings(JSONObject().put("addressServerBtc", JSONObject.NULL), trusted = false)
+        assertEquals("https://a.example/api", settings.server)
+        codec(settings).restoreSettings(JSONObject().put("addressServerBtc", "http://b.example"), trusted = true)
+        assertEquals("https://a.example/api", settings.server)
+        codec(settings).restoreSettings(JSONObject().put("addressServerBtc", "https://B.example/api/"), trusted = false)
+        assertEquals("https://b.example/api", settings.server)
+        codec(settings).restoreSettings(JSONObject(), trusted = true)
+        assertEquals("https://b.example/api", settings.server)
+        codec(settings).restoreSettings(JSONObject().put("addressServerBtc", JSONObject.NULL), trusted = true)
+        assertEquals(null, settings.server)
     }
 
     @Test

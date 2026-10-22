@@ -1,0 +1,80 @@
+{
+ "description": "Own server for address queries (Settings › Portfolio, Bitcoin only, Esplora/mempool-compatible). Android AddressServer.kt, iOS AddressServer.swift. «check»: input → normalized url (null = empty/public nodes or invalid) and problem (null = ok). «urls»: entry (own server base or public host) + address → request URL. «tip»: body of GET {server}/blocks/tip/height → height or null. «providers»: host → provider name (AddressBalance.providerName; IPv4 stays whole). «consent»: privacy consent before adding (first address, first xpub). «restore»: value from a backup (present = key in the file).",
+ "check": [
+  {"input": "", "url": null, "problem": null},
+  {"input": "   ", "url": null, "problem": null},
+  {"input": "https://mempool.example.org/api", "url": "https://mempool.example.org/api", "problem": null},
+  {"input": "  https://mempool.example.org/api/  ", "url": "https://mempool.example.org/api", "problem": null},
+  {"input": "HTTPS://Node.Example.ORG/Api", "url": "https://node.example.org/Api", "problem": null},
+  {"input": "https://node.example.org", "url": "https://node.example.org", "problem": null},
+  {"input": "https://node.example.org/", "url": "https://node.example.org", "problem": null},
+  {"input": "https://node.example.org:3006/api", "url": "https://node.example.org:3006/api", "problem": null},
+  {"input": "https://node.example.org:443/api", "url": "https://node.example.org/api", "problem": null},
+  {"input": "https://192.168.1.20:3002", "url": "https://192.168.1.20:3002", "problem": null},
+  {"input": "https://umbrel/api", "url": "https://umbrel/api", "problem": null},
+  {"input": "https://my-node.local/electrs_api/v1", "url": "https://my-node.local/electrs_api/v1", "problem": null},
+  {"input": "http://node.example.org/api", "url": null, "problem": "NOT_HTTPS"},
+  {"input": "node.example.org/api", "url": null, "problem": "NOT_HTTPS"},
+  {"input": "ftp://node.example.org", "url": null, "problem": "NOT_HTTPS"},
+  {"input": "https://user:pass@node.example.org/api", "url": null, "problem": "USER_INFO"},
+  {"input": "https://user@node.example.org", "url": null, "problem": "USER_INFO"},
+  {"input": "https://node.example.org/api#x", "url": null, "problem": "QUERY_OR_FRAGMENT"},
+  {"input": "https://node.example.org/api?key=1", "url": null, "problem": "QUERY_OR_FRAGMENT"},
+  {"input": "https://", "url": null, "problem": "INVALID"},
+  {"input": "https:///api", "url": null, "problem": "INVALID"},
+  {"input": "https://node example.org", "url": null, "problem": "INVALID"},
+  {"input": "https://knoten.bücher.example", "url": null, "problem": "INVALID"},
+  {"input": "https://-node.example.org", "url": null, "problem": "INVALID"},
+  {"input": "https://node..example.org", "url": null, "problem": "INVALID"},
+  {"input": "https://node.example.org.", "url": null, "problem": "INVALID"},
+  {"input": "https://node_x.example.org", "url": null, "problem": "INVALID"},
+  {"input": "https://node.example.org:0", "url": null, "problem": "INVALID"},
+  {"input": "https://node.example.org:65536", "url": null, "problem": "INVALID"},
+  {"input": "https://node.example.org:", "url": null, "problem": "INVALID"},
+  {"input": "https://node.example.org:80:81", "url": null, "problem": "INVALID"},
+  {"input": "https://[::1]:3002", "url": null, "problem": "INVALID"},
+  {"input": "https://300.1.1.1", "url": null, "problem": "INVALID"},
+  {"input": "https://1.2.3", "url": null, "problem": "INVALID"},
+  {"input": "https://010.1.1.1", "url": null, "problem": "INVALID"},
+  {"input": "https://node.example.org/a%20b", "url": null, "problem": "INVALID"},
+  {"input": "https://node.example.org/a;b", "url": null, "problem": "INVALID"}
+ ],
+ "urls": [
+  {"entry": "https://node.example.org/api", "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh", "url": "https://node.example.org/api/address/bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh"},
+  {"entry": "https://192.168.1.20:3002", "address": "1BoatSLRHtKNngkdXEeobR76b53LETtpyT", "url": "https://192.168.1.20:3002/address/1BoatSLRHtKNngkdXEeobR76b53LETtpyT"},
+  {"entry": "mempool.space", "address": "1BoatSLRHtKNngkdXEeobR76b53LETtpyT", "url": "https://mempool.space/api/address/1BoatSLRHtKNngkdXEeobR76b53LETtpyT"}
+ ],
+ "testUrl": {"server": "https://node.example.org/api", "url": "https://node.example.org/api/blocks/tip/height"},
+ "tip": [
+  {"body": "868123", "height": 868123},
+  {"body": " 868123\n", "height": 868123},
+  {"body": "0", "height": null},
+  {"body": "-5", "height": null},
+  {"body": "<html>", "height": null},
+  {"body": "", "height": null},
+  {"body": "12345678901", "height": null}
+ ],
+ "providers": [
+  {"host": "mempool.space", "name": "mempool.space"},
+  {"host": "node.example.org", "name": "example.org"},
+  {"host": "192.168.1.20", "name": "192.168.1.20"},
+  {"host": "umbrel", "name": "umbrel"}
+ ],
+ "consent": [
+  {"addresses": 0, "xpubs": 0, "newIsKey": false, "needed": true},
+  {"addresses": 0, "xpubs": 0, "newIsKey": true, "needed": true},
+  {"addresses": 2, "xpubs": 0, "newIsKey": false, "needed": false},
+  {"addresses": 2, "xpubs": 0, "newIsKey": true, "needed": true},
+  {"addresses": 3, "xpubs": 1, "newIsKey": true, "needed": false}
+ ],
+ "restore": [
+  {"present": false, "value": null, "current": "https://a.example/api", "trusted": true, "result": "https://a.example/api"},
+  {"present": true, "value": "https://b.example/api/", "current": null, "trusted": false, "result": "https://b.example/api"},
+  {"present": true, "value": "https://b.example/api", "current": "https://a.example/api", "trusted": true, "result": "https://b.example/api"},
+  {"present": true, "value": null, "current": "https://a.example/api", "trusted": true, "result": null},
+  {"present": true, "value": "", "current": "https://a.example/api", "trusted": true, "result": null},
+  {"present": true, "value": null, "current": "https://a.example/api", "trusted": false, "result": "https://a.example/api"},
+  {"present": true, "value": "http://b.example", "current": "https://a.example/api", "trusted": true, "result": "https://a.example/api"},
+  {"present": true, "value": "http://b.example", "current": null, "trusted": true, "result": null}
+ ]
+}

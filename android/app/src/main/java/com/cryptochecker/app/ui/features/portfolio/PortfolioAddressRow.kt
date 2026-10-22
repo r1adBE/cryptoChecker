@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
+import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.AddressValidation
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.ChainBalance
@@ -92,9 +93,7 @@ internal fun AddressRow(
             val partlyStale = a.staleTokens.isNotEmpty() && a.tokenHoldings().any { it.key in a.staleTokens }
             val status = when {
                 // xpub über der Anfragen-Grenze: eigener Hinweis (wiederholen hilft nicht)
-                a.lastError != null -> stringResource(
-                    if (a.lastError == XpubScan.TOO_MANY_MARKER) R.string.portfolio_address_xpub_too_many else R.string.portfolio_address_error
-                ) +
+                a.lastError != null -> stringResource(addressErrorText(a.lastError)) +
                     (if (a.lastUpdated > 0) " · " + ago(a.lastUpdated, now) else "")
                 a.lastUpdated > 0 -> ago(a.lastUpdated, now) + (a.lastProvider?.let { " · $it" } ?: "") +
                     (if (partlyStale) " · " + stringResource(R.string.portfolio_address_tokens_partly_stale) else "")
@@ -255,20 +254,35 @@ internal fun AddressRow(
     }
 }
 
-/** Anbieter, die die Adresse zu sehen bekommen: des erkannten Netzes (0x: alle EVM-Netze), sonst alle. */
-private fun hostsText(chain: AddressChain?): String =
-    (chain?.let { ChainBalance.hosts(it) } ?: AddressBalance.PRIVACY_HOSTS).joinToString(", ")
+/**
+ * Anbieter, die die Adresse zu sehen bekommen: des erkannten Netzes (0x: alle EVM-Netze), sonst alle. Mit eigenem
+ * Bitcoin-Server ([btcServer]) steht er statt der öffentlichen Bitcoin-Hosts da.
+ */
+private fun hostsText(chain: AddressChain?, btcServer: String?): String {
+    val hosts = chain?.let { ChainBalance.hosts(it) } ?: AddressBalance.PRIVACY_HOSTS
+    val own = btcServer?.let { AddressServer.host(it) }
+    val list = if (own != null && (chain == null || chain == AddressChain.BTC)) {
+        listOf(own) + hosts.filterNot { it in AddressBalance.BTC_HOSTS }
+    } else {
+        hosts
+    }
+    return list.joinToString(", ")
+}
 
 /**
  * Datenschutz-Hinweis zur Eingabe: Anbieter; bei xpub/ypub/zpub/Taproot-Konto dazu, was der Schlüssel verrät. Taproot-Konto:
  * welcher Adresstyp abgeleitet wird; einfacher xpub: Hinweis auf den Deskriptor (ein xpub allein sagt nicht, dass es ein
- * Taproot-Konto ist, und wird nur als Legacy/SegWit durchsucht).
+ * Taproot-Konto ist, und wird nur als Legacy/SegWit durchsucht). Schlüssel: der Knotenbetreiber sieht alle abgeleiteten
+ * Adressen; ohne eigenen Server ([btcServer]) der Verweis auf Einstellungen › Portfolio.
  */
 @Composable
-internal fun privacyText(check: AddressValidation.Check): String {
-    val base = stringResource(R.string.portfolio_address_privacy, hostsText(check.chain))
+internal fun privacyText(check: AddressValidation.Check, btcServer: String?): String {
+    val base = stringResource(R.string.portfolio_address_privacy, hostsText(check.chain, btcServer))
+    val btcHosts = hostsText(AddressChain.BTC, btcServer)
+    val ownServerHint = if (btcServer == null) " " + stringResource(R.string.portfolio_address_xpub_own_server_hint) else ""
     // Gap-Regel offen nennen: Eine benutzte Adresse hinter GAP unbenutzten in Folge fehlt im Guthaben
-    val keyNote = "\n\n" + stringResource(R.string.portfolio_address_xpub_privacy, hostsText(AddressChain.BTC)) +
+    val keyNote = "\n\n" + stringResource(R.string.portfolio_address_xpub_privacy, btcHosts) +
+        "\n\n" + stringResource(R.string.portfolio_address_xpub_operator, btcHosts) + ownServerHint +
         "\n\n" + stringResource(R.string.portfolio_address_xpub_gap, XpubScan.GAP)
     return when (check.kind) {
         AddressValidation.Kind.XPUB -> base + keyNote + "\n\n" + stringResource(R.string.portfolio_address_taproot_hint)
@@ -276,6 +290,13 @@ internal fun privacyText(check: AddressValidation.Check): String {
         AddressValidation.Kind.TR_XPUB -> base + keyNote + "\n\n" + stringResource(R.string.portfolio_address_taproot_account)
         else -> base
     }
+}
+
+/** Fehlertext einer Adresse: gespeicherte Marker (xpub zu gross, eigener Server nicht erreichbar) oder allgemein. */
+internal fun addressErrorText(error: String): Int = when (error) {
+    XpubScan.TOO_MANY_MARKER -> R.string.portfolio_address_xpub_too_many
+    AddressServer.FAILED_MARKER -> R.string.portfolio_address_server_failed
+    else -> R.string.portfolio_address_error
 }
 
 /** Meldung zu einem Prüfergebnis. */

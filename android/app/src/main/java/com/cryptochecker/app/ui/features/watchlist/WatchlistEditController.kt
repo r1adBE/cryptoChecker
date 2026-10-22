@@ -69,12 +69,12 @@ internal class WatchlistEditController(
     }
 
     /** Notiz bzw. Gruppe eines Paars; [onProceed] seit Build 107 (IOS5-R02): nach bestätigter Rückfrage (Dialog zu). */
-    fun setNote(watch: WatchEntity, note: String?, onProceed: () -> Unit = {}) {
-        launchWrite { onProceed(); watchRepository.setNote(watch.id, note) }
+    fun setNote(watch: WatchEntity, note: String?, onProceed: () -> Unit = {}, cancelled: () -> Unit = {}) {
+        launchWrite(cancelled) { onProceed(); watchRepository.setNote(watch.id, note) }
     }
 
-    fun setGroup(watch: WatchEntity, group: String?, onProceed: () -> Unit = {}) {
-        launchWrite {
+    fun setGroup(watch: WatchEntity, group: String?, onProceed: () -> Unit = {}, cancelled: () -> Unit = {}) {
+        launchWrite(cancelled) {
             onProceed()
             watchRepository.setGroup(watch.id, group)
             widgetUpdater.updateAll()
@@ -86,10 +86,10 @@ internal class WatchlistEditController(
      * ohne Paare entsteht gar nicht; eine bestehende ohne Paare verschwindet. [onDone] seit Build 106 erst nach der Rückfrage
      * F-08 und dem Schreiben (Haptik, Blatt zu; wie iOS), nicht bei «Abbrechen».
      */
-    fun saveGroup(oldName: String?, newName: String, memberIds: Set<Long>, onDone: () -> Unit = {}) {
+    fun saveGroup(oldName: String?, newName: String, memberIds: Set<Long>, onDone: () -> Unit = {}, cancelled: () -> Unit = {}) {
         val name = newName.trim()
         if (name.isEmpty() || (oldName == null && memberIds.isEmpty())) return onDone()
-        launchWrite {
+        launchWrite(cancelled) {
             val renamed = oldName != null && oldName != name
             if (renamed && memberIds.isNotEmpty()) renamedGroups[oldName] = name
             watchRepository.applyGroupEdit(oldName, name, memberIds)
@@ -100,8 +100,8 @@ internal class WatchlistEditController(
     }
 
     /** Gruppe löschen: Paare bleiben in der Merkliste; die Ansicht springt auf «Alle». [onDone] wie bei [saveGroup]. */
-    fun deleteGroup(name: String, onDone: () -> Unit = {}) {
-        launchWrite {
+    fun deleteGroup(name: String, onDone: () -> Unit = {}, cancelled: () -> Unit = {}) {
+        launchWrite(cancelled) {
             renamedGroups.remove(name)
             if (groupFilter()?.selected == name) settingsRepository.setWatchlistGroup(null)
             watchRepository.clearGroup(name)

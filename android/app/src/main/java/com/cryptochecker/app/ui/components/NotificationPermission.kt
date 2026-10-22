@@ -7,6 +7,7 @@ import android.content.ContextWrapper
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
@@ -119,15 +120,7 @@ fun rememberNotificationPermissionRequest(reason: NotificationAsk = Notification
     var explaining by rememberSaveable { mutableStateOf(false) }
 
     fun launchSystem() {
-        // Seit Build 107 (ARC5-R01): nie auf einem abgemeldeten Launcher (Komposition schon weg) — sonst
-        // IllegalStateException und Absturz; dann nicht fragen und nichts als gefragt merken
-        try {
-            launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
-        } catch (e: IllegalStateException) {
-            timber.log.Timber.w(e, "Erlaubnis-Abfrage ohne aktiven Bildschirm übersprungen")
-            return
-        }
-        NotificationPrePrompt.markSystemAsked(context)
+        launchOrSkip(launcher) { NotificationPrePrompt.markSystemAsked(context) }
     }
 
     if (explaining) {
@@ -172,6 +165,22 @@ fun rememberNotificationPermissionRequest(reason: NotificationAsk = Notification
             }
         }
     }
+}
+
+/**
+ * System-Abfrage über [launcher] starten. Seit Build 107 (ARC5-R01): nie auf einem abgemeldeten Launcher (Komposition schon
+ * weg) — der wirft `IllegalStateException`; dann nicht fragen, nicht abstürzen und [onLaunched] (als gefragt merken) nicht
+ * aufrufen. true = gestartet. Eigene Funktion, damit ein Unit-Test sie mit einem Fake-Launcher prüft (TST6-R1).
+ */
+internal fun launchOrSkip(launcher: ActivityResultLauncher<String>, onLaunched: () -> Unit): Boolean {
+    try {
+        launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
+    } catch (e: IllegalStateException) {
+        timber.log.Timber.w(e, "Erlaubnis-Abfrage ohne aktiven Bildschirm übersprungen")
+        return false
+    }
+    onLaunched()
+    return true
 }
 
 /**

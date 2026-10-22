@@ -6,8 +6,8 @@ import Foundation
 // JP 総平均法, AT Alt-/Neubestand je Coin und Wallet (Belohnung im Neubestand mit Anschaffungskosten 0, Zins zum Wert beim
 // Zufluss; Gebühren im Neubestand nicht abzugsfähig — § 27a Abs. 4 Z 2, § 20 Abs. 2 EStG, BMF-Info Kryptowährungen).
 // Netzwerkgebühr ohne Rest mit Kaufpreis (AT; CA/JP nur ohne Vorlage-Regeln): `PortfolioLostFeeCost`; Anteil einer
-// Umbuchungsgebühr auf Bestand ohne Kaufpreis im Pool (UK/CA ohne Vorlage-Regeln, `TaxPool.addFee`):
-// `PortfolioUnassignedFee`. Gebühr-Zeile (CSV «Fee»)
+// Umbuchungsgebühr auf Bestand ohne Kaufpreis bzw. Menge über Bestand − Netzwerkgebühr im Pool (UK/CA ohne
+// Vorlage-Regeln, `TaxPool.addFee`): `PortfolioUnassignedFee`. Gebühr-Zeile (CSV «Fee»)
 // zum Tageskurs `priceAt` (alle Vorlagen, `PortfolioLedger.valueAtDayClose`; ebenso Verschenkt/bezahlt ohne Marktwert und
 // Tausch ohne Wert, Build 47). Damit bezahlt (`.PAYMENT`) = Veräusserung zum Marktwert wie ein Verkauf (alle Vorlagen);
 // Schenkung und Netzwerkgebühr nach den Regeln der Vorlage (`TaxEventRules`, `applyRules`, Build 56): Verschenkt nur für

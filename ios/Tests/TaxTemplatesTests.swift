@@ -294,6 +294,42 @@ final class TaxTemplatesTests: XCTestCase {
         }
     }
 
+    /// Umbuchung über dem Bestand im Pool UK/CA wie FIFO je Wallet (`TaxExport.unassignedFees`, Einstand danach) — wie
+    /// Android `poolUncovered`.
+    func testPoolUncovered() throws {
+        let d = try data()
+        let zone = try XCTUnwrap(TimeZone(identifier: d["zone"] as? String ?? ""))
+        let cases = S.list(d["poolUncovered"])
+        XCTAssertGreaterThanOrEqual(cases.count, 4)
+        for c in cases {
+            let txs = trades(c["trades"])
+            let period = TaxTemplate.NEUTRAL.period(Int(int64(c["year"])))
+            for case let raw as String in c["methods"] as? [Any] ?? [] {
+                let m = try XCTUnwrap(TaxMethod(rawValue: raw))
+                try checkPoolUncovered(c, txs, m, period, zone)
+            }
+        }
+    }
+
+    private func checkPoolUncovered(_ c: [String: Any], _ txs: [PortfolioTx], _ m: TaxMethod, _ period: TaxPeriod,
+                                    _ zone: TimeZone) throws {
+        let label = "\(c["name"] as? String ?? "") \(m)"
+        let rules = (c["rules"] as? String) == "NONE" ? TaxEventRules.none : TaxEventRules.of(m)
+        let got = TaxExport.unassignedFees(in: txs, method: m, period: period, timeZone: zone, rules: rules)
+        let expected = S.list(c["unassignedFees"])
+        XCTAssertEqual(got.count, expected.count, "\(label) unassigned")
+        for (e, f) in zip(expected, got) {
+            XCTAssertEqual(f.coin, e["coin"] as? String, "\(label) coin")
+            XCTAssertEqual(f.txId, int64(e["txId"]), "\(label) txId")
+            XCTAssertEqual(r8(f.usdt), r8(dec(e["usdt"])), "\(label) usdt")
+        }
+        if let cost = dec(c["disposalCost"]) {
+            let sells = TaxEngines.disposals(txs, method: m, timeZone: zone, rules: rules).filter { $0.coin == "BTC" && !$0.feeLeg }
+            let sum = sells.reduce(Decimal(0)) { $0 + ($1.costUsdt ?? 0) }
+            XCTAssertEqual(r8(sum), r8(cost), "\(label) disposalCost")
+        }
+    }
+
     /// Jahresübersicht-CSV: Tatsachen zuerst, Schlüsse (Grenzen, Sätze) nur im Orientierungs-Block mit Vorsatz — wie Android.
     func testSummaryCsvOrientationBlock() throws {
         let d = try data()

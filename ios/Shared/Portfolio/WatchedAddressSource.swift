@@ -5,7 +5,8 @@ import Foundation
 ///
 /// Datenschutz: eigene flüchtige Sitzung (keine Cookies, kein Zwischenspeicher) und nicht über
 /// `MarketHTTP.call`, damit die Adresse nicht im HTTP-Protokoll der App landet; Protokolle nennen nur
-/// die gekürzte Adresse. Neutraler User-Agent (`HttpUserAgent.neutral`, seit Build 103).
+/// die gekürzte Adresse. Neutraler User-Agent (`HttpUserAgent.neutral`, seit Build 103). Eigener Bitcoin-Server
+/// (`AddressServer`): nur dorthin.
 /// Pausen: 451/403 → Host 6 h übersprungen (`BlockedSources`); 429/418 und wiederholte
 /// Zeitüberschreitungen → Pause je Host nach `ExchangeBackoff` («Retry-After» gilt); dann der
 /// nächste Host. Adressen der Reihe nach, nie parallel (schont die kostenlosen Anbieter).
@@ -61,6 +62,8 @@ actor WatchedAddressSource {
 
     /// Pausen je Host (nur im Speicher; ein Neustart beginnt frisch).
     private var backoff: [String: ExchangeBackoff.State] = [:]
+    /// Bitcoin-Hosts dieser Runde: eigener Server allein oder die öffentlichen (`AddressServer.btcEntries`).
+    var btcEntries: [String] = AddressBalance.btcHosts
     /// Laufende Abrufe (der Hintergrund wartet nicht auf einen laufenden — wie Android `tryLock`).
     private var running = 0
 
@@ -74,12 +77,14 @@ actor WatchedAddressSource {
     ///   bleibt fällig. nil = Vordergrund, ohne Grenze. xpub im Hintergrund: die bekannten benutzten Adressen samt kurzem
     ///   Vorausblick und nur ganz (sonst bleibt er fällig). Hintergrund: die am längsten nicht versuchten zuerst
     ///   (`AddressBalance.dueOrder`).
+    /// - Parameter btcServer: eigener Bitcoin-Server (`AddressServer`): Bitcoin nur dort, ohne Rückfall; nil = öffentlich.
     func refresh(_ addresses: [WatchedAddress], force: Bool, now: Int64 = TimeUtils.nowMillis,
-                 budgetMillis: Int64? = nil) async throws -> [Update] {
+                 budgetMillis: Int64? = nil, btcServer: String? = nil) async throws -> [Update] {
         let deadline = budgetMillis.map { TimeUtils.nowMillis + $0 }
         if deadline != nil && running > 0 { return [] }
         running += 1
         defer { running -= 1 }
+        btcEntries = AddressServer.btcEntries(btcServer)
         var updates: [Update] = []
         for a in AddressBalance.dueOrder(addresses, now: now, force: force, background: deadline != nil) {
             try Task.checkCancellation()
@@ -110,9 +115,11 @@ actor WatchedAddressSource {
                 updates.append(Update(id: a.id, time: time, fetched: nil, error: XpubScan.tooManyMarker))
             } catch {
                 HttpLog.add("Adresse \(WatchedAddressRules.shortAddress(a.address)): \(error.localizedDescription)")
-                // Nur kurzer Code speichern (Fehlertexte enthalten Hosts/URLs, teils die Adresse)
+                // Nur kurzer Code speichern (Fehlertexte enthalten Hosts/URLs, teils die Adresse); eigener Server: eigener Hinweis
+                let ownServer = btcServer != nil && a.chain == .BTC
                 updates.append(Update(id: a.id, time: time, fetched: nil,
-                                      error: StoredError.sanitize(ConnectionErrors.describe(error))))
+                                      error: ownServer ? AddressServer.failedMarker
+                                          : StoredError.sanitize(ConnectionErrors.describe(error))))
             }
         }
         return updates
@@ -123,8 +130,8 @@ actor WatchedAddressSource {
     func fetch(_ chain: AddressChain, address: String, deadline: Int64? = nil) async throws -> Fetched {
         switch chain {
         case .BTC:
-            let (balance, provider) = try await firstWorking(AddressBalance.btcHosts, deadline: deadline) { (host: String) -> String in
-                let body = try await Self.load(AddressBalance.btcUrl(host: host, address: address), post: nil)
+            let (balance, provider) = try await firstWorking(btcEntries, deadline: deadline) { (host: String) -> String in
+                let body = try await Self.load(AddressServer.btcUrl(host, address: address), post: nil)
                 return AddressBalance.btcText(try AddressBalance.parseBtc(body, address: address))
             }
             return Fetched(balance: balance, provider: provider)
