@@ -25,7 +25,13 @@ final class WatchlistNotSavedGate: ObservableObject {
     private(set) var confirmed = false
     private var retries: [@MainActor () -> Void] = []
 
-    init() {}
+    init() {
+        #if DEBUG
+        // UI-Tests (`-uiTesting`): Der unsignierte Simulator hat keinen Schlüsselbund der App Group, die Merkliste ist dort
+        // immer «nicht gespeichert» — die Abläufe gelten als bestätigt (sonst wartete jede erste Änderung auf den Dialog)
+        if UITesting.isActive { confirmed = true }
+        #endif
+    }
 
     /// Vor einem Schreibweg des Nutzers: true = jetzt nicht schreiben (Frage offen); `retry` läuft nach «Trotzdem».
     func intercept(notSaved: Bool, canAsk: Bool, retry: (@MainActor () -> Void)?) -> Bool {
