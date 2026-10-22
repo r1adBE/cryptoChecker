@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui
 
+import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -12,7 +13,7 @@ import java.io.File
  * «: ». Sonst fehlt die Typografie der Sprache — Französisch « : » mit geschütztem Leerzeichen vor dem
  * Doppelpunkt, Chinesisch und Japanisch der breite Doppelpunkt «：».
  *
- * Durchsucht die Kotlin-Quellen und `ios/App`, `ios/Shared`, `ios/Widgets` (optional, reiner
+ * Durchsucht die Kotlin-Quellen und `ios/App`, `ios/Shared`, `ios/Widgets` ([com.cryptochecker.app.util.SourceGuard], reiner
  * Android-Checkout) wie [com.cryptochecker.app.ui.theme.TypographyUsageTest]. Protokollzeilen und
  * Programmierfehler-Texte zählen nicht; technische Texte (Diagnose, CSV, HTTP-Fehler) stehen mit
  * Begründung in [ALLOWED].
@@ -36,8 +37,9 @@ class LabelValueUsageTest {
         val roots = listOf("App", "Shared", "Widgets").mapNotNull { dir ->
             findUp(listOf("ios/$dir", "../ios/$dir", "../../ios/$dir"))
         }
-        if (roots.isEmpty()) return // reiner Android-Checkout
-        val problems = roots.flatMap { offenders(it, "swift", SWIFT_PATTERNS) }
+        // Seit Build 106 (SEC4-R1/TST4-R1): fehlt ios/, nicht still grün — übersprungen bzw. mit REQUIRE_IOS_SOURCES Fehler
+        val found = SourceGuard.ios(roots.takeIf { it.isNotEmpty() }, "ios/App|Shared|Widgets")
+        val problems = found.flatMap { offenders(it, "swift", SWIFT_PATTERNS) }
         assertTrue(
             "«Bezeichnung: Wert» per Verkettung — L(\"label_value\", a, b) nehmen:\n" + problems.joinToString("\n"),
             problems.isEmpty()

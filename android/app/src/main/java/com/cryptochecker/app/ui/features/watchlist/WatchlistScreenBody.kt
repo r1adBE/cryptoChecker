@@ -289,24 +289,25 @@ internal fun WatchlistBody(
                     SelectionBar(
                         count = selectedIds.size,
                         allFavorites = chosen.isNotEmpty() && chosen.all { it.favorite },
+                        // Seit Build 106 (ARC4-R01, UX4-06): Haptik und Ende der Auswahl erst nach dem Schreiben —
+                        // «Abbrechen» in der Rückfrage F-08 lässt die Auswahl stehen
                         onFavorite = {
-                            haptics.play(HapticEvent.LIGHT_IMPACT)
-                            viewModel.setFavorite(selectedIds, !chosen.all { it.favorite })
-                            ui.endSelection()
+                            viewModel.setFavorite(selectedIds, !chosen.all { it.favorite }) { written ->
+                                if (written) { haptics.play(HapticEvent.LIGHT_IMPACT); ui.endSelection() }
+                            }
                         },
                         onGroup = { ui.askGroupForSelection = true },
                         // Alle deaktiviert: wieder aktivieren, sonst alle deaktivieren
                         allDisabled = allDisabled,
                         onToggleDisabled = {
-                            haptics.play(HapticEvent.LIGHT_IMPACT)
-                            viewModel.setDisabled(selectedIds.toList(), !allDisabled)
-                            ui.endSelection()
+                            viewModel.setDisabled(selectedIds.toList(), !allDisabled) { written ->
+                                if (written) { haptics.play(HapticEvent.LIGHT_IMPACT); ui.endSelection() }
+                            }
                         },
                         onDelete = {
-                            val ids = selectedIds.toList()
-                            ui.endSelection()
-                            viewModel.deleteSelectedWithUndo(ids) { count ->
+                            viewModel.deleteSelectedWithUndo(selectedIds.toList()) { count ->
                                 if (count > 0) {
+                                    ui.endSelection()
                                     haptics.play(HapticEvent.DESTRUCTIVE)
                                     banner.show(
                                         resources.getQuantityString(R.plurals.watchlist_removed_count, count, count)
@@ -329,9 +330,10 @@ internal fun WatchlistBody(
                         // Gleiche Gruppe bei allen: vorgewählt, sonst nichts
                         current = chosen.map { it.groupName }.distinct().singleOrNull(),
                         groups = groups,
+                        // Seit Build 106 (UX4-06): Dialog zu, Auswahl erst nach dem Schreiben beenden
                         onSelect = { group ->
-                            viewModel.setGroup(selectedIds, group)
-                            ui.endSelection()
+                            ui.askGroupForSelection = false
+                            viewModel.setGroup(selectedIds, group) { written -> if (written) ui.endSelection() }
                         },
                         onDismiss = { ui.askGroupForSelection = false },
                     )

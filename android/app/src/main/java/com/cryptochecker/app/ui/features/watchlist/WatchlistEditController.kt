@@ -1,7 +1,6 @@
-// Änderungen an der Merkliste (Teil von `WatchlistViewModel`): Gruppen, Notiz, Hinzufügen aus der
-// Vorschau, Löschen mit Rückgängig, Favorit, Deaktivieren, Kursmitteilung, Vorlesen, Reihenfolge.
-// Eigene Klasse, weil es die schreibenden Aktionen sind; sie besitzt ihren Zustand (Rückgängig-Speicher,
-// umbenannte Gruppen) privat und läuft im viewModelScope, den das ViewModel als [scope] mitgibt.
+// Änderungen an der Merkliste (Teil von `WatchlistViewModel`): Gruppen, Notiz, Hinzufügen aus der Vorschau, Löschen mit
+// Rückgängig, Favorit, Deaktivieren, Kursmitteilung, Vorlesen, Reihenfolge. Eigene Klasse (die schreibenden Aktionen) mit
+// privatem Zustand (Rückgängig-Speicher, umbenannte Gruppen); läuft im viewModelScope, den das ViewModel als [scope] mitgibt.
 package com.cryptochecker.app.ui.features.watchlist
 
 import com.cryptochecker.app.data.AddMoments
@@ -44,10 +43,7 @@ internal class WatchlistEditController(
     /** Ganzer Durchlauf ohne 15-s-Sperre ([WatchlistRefreshController.refreshAll]). */
     private val refreshAll: () -> Unit,
 ) {
-    /**
-     * Umbenannte Gruppen (alt → neu): Verschwindet die gewählte Gruppe durch
-     * Umbenennen, folgt die Auswahl dem neuen Namen statt auf «Alle» zu springen.
-     */
+    /** Umbenannte Gruppen (alt → neu): Verschwindet die gewählte Gruppe durch Umbenennen, folgt die Auswahl dem neuen Namen. */
     private val renamedGroups = java.util.concurrent.ConcurrentHashMap<String, String>()
 
     /** Neuer Name der umbenannten Gruppe [oldName]; null, wenn sie nicht umbenannt wurde. */
@@ -61,8 +57,12 @@ internal class WatchlistEditController(
      */
     private val undo = UndoSlot<Long, List<WatchSnapshot>>()
 
-    /** Seit Build 105 (F-08): Rückfrage EINMAL je Aktion vorher ([confirmUserWrite], vor [undoMutex]); «Abbrechen» = nichts. */
-    private fun launchWrite(block: suspend () -> Unit) = scope.launch { if (watchRepository.confirmUserWrite()) block() }
+    /**
+     * Seit Build 105 (F-08): Rückfrage EINMAL je Aktion vorher ([confirmUserWrite], vor [undoMutex]); «Abbrechen» = nichts
+     * ausser [cancelled] (seit Build 106: Rückmeldung «nicht geschrieben» an den Bildschirm, ARC4-R01).
+     */
+    private fun launchWrite(cancelled: () -> Unit = {}, block: suspend () -> Unit) =
+        scope.launch { if (watchRepository.confirmUserWrite()) block() else cancelled() }
 
     fun selectGroup(group: String?) {
         scope.launch { settingsRepository.setWatchlistGroup(group) }
@@ -80,46 +80,46 @@ internal class WatchlistEditController(
     }
 
     /**
-     * «Gruppe bearbeiten» übernehmen (ein Vorgang): [oldName] = bisheriger
-     * Name, null für eine neue Gruppe. Eine neue Gruppe ohne Paare entsteht
-     * gar nicht; eine bestehende ohne Paare verschwindet.
+     * «Gruppe bearbeiten» übernehmen (ein Vorgang): [oldName] = bisheriger Name, null für eine neue Gruppe. Eine neue Gruppe
+     * ohne Paare entsteht gar nicht; eine bestehende ohne Paare verschwindet. [onDone] seit Build 106 erst nach der Rückfrage
+     * F-08 und dem Schreiben (Haptik, Blatt zu; wie iOS), nicht bei «Abbrechen».
      */
-    fun saveGroup(oldName: String?, newName: String, memberIds: Set<Long>) {
+    fun saveGroup(oldName: String?, newName: String, memberIds: Set<Long>, onDone: () -> Unit = {}) {
         val name = newName.trim()
-        if (name.isEmpty()) return
-        if (oldName == null && memberIds.isEmpty()) return
+        if (name.isEmpty() || (oldName == null && memberIds.isEmpty())) return onDone()
         launchWrite {
             val renamed = oldName != null && oldName != name
             if (renamed && memberIds.isNotEmpty()) renamedGroups[oldName] = name
             watchRepository.applyGroupEdit(oldName, name, memberIds)
+            onDone()
             if (renamed) widgetPrefs.replaceGroup(oldName, name.takeIf { memberIds.isNotEmpty() })
             widgetUpdater.updateAll()
         }
     }
 
-    /** Gruppe löschen: Paare bleiben in der Merkliste; die Ansicht springt auf «Alle». */
-    fun deleteGroup(name: String) {
+    /** Gruppe löschen: Paare bleiben in der Merkliste; die Ansicht springt auf «Alle». [onDone] wie bei [saveGroup]. */
+    fun deleteGroup(name: String, onDone: () -> Unit = {}) {
         launchWrite {
             renamedGroups.remove(name)
             if (groupFilter()?.selected == name) settingsRepository.setWatchlistGroup(null)
             watchRepository.clearGroup(name)
+            onDone()
             widgetPrefs.replaceGroup(name, null)
             widgetUpdater.updateAll()
         }
     }
 
     /**
-     * Vorschau-Paar (Aktionsblatt aus «Heute auffällig», nur im Speicher) in die Merkliste: wie
-     * «Hinzufügen» im Hinzufügen-Tab — Dublettenprüfung in [WatchRepository.addWatch] (gleiche
-     * Standardwerte, Kurs-Benachrichtigung an, Gruppe nach [com.cryptochecker.app.domain.watch.AutoGroup]),
-     * Erst-Moment beim allerersten Paar ([com.cryptochecker.app.data.AddMoments.afterExplorerAdd]),
-     * danach gleich den Kurs holen (nach [onDone]). [onDone]: Id des neuen Eintrags, bzw. des schon vorhandenen
-     * (stand das Paar inzwischen schon in der Merkliste); null, wenn nichts zu finden ist.
-     * Die Erlaubnis für Mitteilungen fragt die Oberfläche (wie der Hinzufügen-Tab nach «ADDED»). Merkliste voll
+     * Vorschau-Paar (Aktionsblatt aus «Heute auffällig», nur im Speicher) in die Merkliste: wie «Hinzufügen» im
+     * Hinzufügen-Tab — Dublettenprüfung in [WatchRepository.addWatch] (gleiche Standardwerte, Kurs-Benachrichtigung an,
+     * Gruppe nach [com.cryptochecker.app.domain.watch.AutoGroup]), Erst-Moment beim allerersten Paar
+     * ([com.cryptochecker.app.data.AddMoments.afterExplorerAdd]), danach gleich den Kurs holen (nach [onDone]). [onDone]: Id
+     * des neuen bzw. schon vorhandenen Eintrags; null, wenn nichts zu finden ist — seit Build 106 auch bei «Abbrechen» bzw.
+     * gesperrt. Die Erlaubnis für Mitteilungen fragt die Oberfläche (wie der Hinzufügen-Tab nach «ADDED»). Merkliste voll
      * ([com.cryptochecker.app.domain.watch.WatchlistLimits]): nichts angelegt, nur [onFull] (Hinweis).
      */
     fun addPreview(watch: WatchEntity, onFull: () -> Unit, onDone: (id: Long?, added: Boolean) -> Unit) {
-        launchWrite {
+        launchWrite(cancelled = { onDone(null, false) }) {
             val outcome = watchRepository.tryAddWatch(
                 MarketInfo(key = watch.marketKey, name = watch.marketName),
                 MarketPair(watch.baseAsset, watch.quoteAsset, watch.pairId, watch.contractType),
@@ -129,7 +129,7 @@ internal class WatchlistEditController(
                 return@launchWrite
             }
             // Merkliste gesperrt: nichts angelegt, den kurzen Hinweis zeigt WatchlistLockedHint
-            if (outcome == AddWatchOutcome.Locked) return@launchWrite
+            if (outcome == AddWatchOutcome.Locked) return@launchWrite onDone(null, false)
             val id = (outcome as? AddWatchOutcome.Added)?.id
             if (id != null) {
                 addMoments.afterExplorerAdd(id)
@@ -147,11 +147,10 @@ internal class WatchlistEditController(
     }
 
     /**
-     * Löschen per Wischen bzw. Aktionen-Blatt (ohne Rückfrage), mit «Rückgängig»: Das Paar wird sofort
-     * wirklich gelöscht (Alarme, Meldungen und Widgets sehen es nicht mehr), vorher
-     * aber vollständig festgehalten ([WatchSnapshot]). [undoDelete] legt es mit
-     * derselben Id und denselben Alarm-Ids wieder an. Nur die letzte Löschung lässt
-     * sich zurückholen; Löschen und Zurückholen laufen nacheinander ([undoMutex]).
+     * Löschen per Wischen bzw. Aktionen-Blatt (ohne Rückfrage), mit «Rückgängig»: Das Paar wird sofort wirklich gelöscht
+     * (Alarme, Meldungen und Widgets sehen es nicht mehr), vorher aber vollständig festgehalten ([WatchSnapshot]).
+     * [undoDelete] legt es mit derselben Id und denselben Alarm-Ids wieder an. Nur die letzte Löschung lässt sich
+     * zurückholen; Löschen und Zurückholen laufen nacheinander ([undoMutex]).
      * Seit Build 105: erst nach dem Löschen ruft es [onDeleted] (Banner, Haptik; liefert den Rückgängig-Schlüssel — liegt
      * dort schon etwas, Sammlung solange der Banner steht, [RemovedBatch], kommt das Paar dazu), danach Rückgängig-Eintrag
      * und Mitteilungen. «Abbrechen» in der Rückfrage bzw. abgelehnt: nichts davon.
@@ -203,10 +202,9 @@ internal class WatchlistEditController(
     }
 
     /**
-     * «Nicht gehandelte Paare entfernen» (Überlaufmenü, nach Rückfrage): alle Paare, die ihre
-     * Börse nicht mehr führt, samt Alarmen löschen — wie [deleteWithUndo] festgehalten, damit
-     * «Rückgängig» ([undoDelete] mit [NOT_TRADED_UNDO_KEY]) alle zurückholt.
-     * [onDone] bekommt die Zahl der gelöschten Paare (0 = nichts geschehen).
+     * «Nicht gehandelte Paare entfernen» (Überlaufmenü, nach Rückfrage): alle Paare, die ihre Börse nicht mehr führt, samt
+     * Alarmen löschen — wie [deleteWithUndo] festgehalten, damit «Rückgängig» ([undoDelete] mit [NOT_TRADED_UNDO_KEY]) alle
+     * zurückholt. [onDone] bekommt die Zahl der gelöschten Paare (0 = nichts geschehen).
      */
     fun deleteNotTradedWithUndo(onDone: (Int) -> Unit) {
         scope.launch {
@@ -220,9 +218,8 @@ internal class WatchlistEditController(
     }
 
     /**
-     * Mehrfachauswahl › «Löschen»: alle [ids] samt Alarmen löschen — festgehalten wie
-     * [deleteNotTradedWithUndo], «Rückgängig» ([undoDelete] mit [SELECTION_UNDO_KEY]) holt alle
-     * zurück. [onDone] bekommt die Zahl der gelöschten Paare.
+     * Mehrfachauswahl › «Löschen»: alle [ids] samt Alarmen löschen — festgehalten wie [deleteNotTradedWithUndo],
+     * «Rückgängig» ([undoDelete] mit [SELECTION_UNDO_KEY]) holt alle zurück. [onDone]: Zahl der gelöschten Paare.
      */
     fun deleteSelectedWithUndo(ids: Collection<Long>, onDone: (Int) -> Unit) {
         scope.launch {
@@ -248,18 +245,21 @@ internal class WatchlistEditController(
         return snapshots.size
     }
 
-    /** Mehrfachauswahl › «Favorit»: alle [ids] zu Favoriten machen bzw. ([favorite] = false) entfernen. */
-    fun setFavorite(ids: Collection<Long>, favorite: Boolean) {
-        launchWrite {
-            ids.forEach { watchRepository.setFavorite(it, favorite) }
+    /**
+     * Mehrfachauswahl › «Favorit»: alle [ids] zu Favoriten machen bzw. ([favorite] = false) entfernen. Seit Build 106 (ARC4-R01,
+     * UX4-06): [onDone] erst nach dem Schreiben — true = geschrieben (Haptik, Auswahl zu), false = «Abbrechen» bzw. abgelehnt.
+     */
+    fun setFavorite(ids: Collection<Long>, favorite: Boolean, onDone: (Boolean) -> Unit = {}) {
+        launchWrite(cancelled = { onDone(false) }) {
+            onDone(ids.count { watchRepository.setFavorite(it, favorite) } > 0)
             widgetUpdater.updateAll()
         }
     }
 
-    /** Mehrfachauswahl › «Gruppe»: alle [ids] in [group] (null = keine Gruppe). */
-    fun setGroup(ids: Collection<Long>, group: String?) {
-        launchWrite {
-            ids.forEach { watchRepository.setGroup(it, group) }
+    /** Mehrfachauswahl › «Gruppe»: alle [ids] in [group] (null = keine Gruppe); [onDone] wie bei [setFavorite]. */
+    fun setGroup(ids: Collection<Long>, group: String?, onDone: (Boolean) -> Unit = {}) {
+        launchWrite(cancelled = { onDone(false) }) {
+            onDone(ids.count { watchRepository.setGroup(it, group) } > 0)
             widgetUpdater.updateAll()
         }
     }
@@ -268,13 +268,14 @@ internal class WatchlistEditController(
      * Aktionsblatt bzw. Mehrfachauswahl › «Deaktivieren»/«Aktivieren». Deaktiviert: Kurs- und
      * Aktivitäts-Meldungen weg, keine Abfragen und Alarme mehr (Alarme bleiben gespeichert).
      * Wieder aktiviert: Melde-Bezug leeren und sofort den Kurs holen — die Aktualisierung zeigt
-     * die Kurs-Meldung dann wieder nach den Einstellungen (wie nach dem Einschalten).
+     * die Kurs-Meldung dann wieder nach den Einstellungen (wie nach dem Einschalten). [onDone] wie bei [setFavorite] (Banner).
      */
-    fun setDisabled(ids: Collection<Long>, disabled: Boolean) {
-        if (ids.isEmpty()) return
-        launchWrite {
+    fun setDisabled(ids: Collection<Long>, disabled: Boolean, onDone: (Boolean) -> Unit = {}) {
+        if (ids.isEmpty()) return onDone(false)
+        launchWrite(cancelled = { onDone(false) }) {
             // Abgelehnt: keine Mitteilungen weg, keine Abfragen
-            if (!watchRepository.setDisabled(ids, disabled)) return@launchWrite
+            if (!watchRepository.setDisabled(ids, disabled)) return@launchWrite onDone(false)
+            onDone(true)
             if (disabled) {
                 notifier.cancelAllPrices(ids)
                 ids.forEach { notifier.cancelActivity(it) }
@@ -290,10 +291,9 @@ internal class WatchlistEditController(
     }
 
     /**
-     * «Merkliste leeren» (nach Rückfrage): alle Paare samt Alarmen löschen — seit Build 94 wie
-     * [deleteNotTradedWithUndo] vorher vollständig festgehalten (Paar mit Id, Platz, Gruppe, Notiz und Alarmen), damit
-     * «Rückgängig» ([undoDelete] mit [CLEAR_ALL_UNDO_KEY]) alles mit denselben Ids zurückholt. [onDone] bekommt die
-     * Zahl der gelöschten Paare (0 = nichts geschehen).
+     * «Merkliste leeren» (nach Rückfrage): alle Paare samt Alarmen löschen — seit Build 94 wie [deleteNotTradedWithUndo]
+     * vorher vollständig festgehalten (Paar mit Id, Platz, Gruppe, Notiz und Alarmen), damit «Rückgängig» ([undoDelete] mit
+     * [CLEAR_ALL_UNDO_KEY]) alles mit denselben Ids zurückholt. [onDone]: Zahl der gelöschten Paare (0 = nichts geschehen).
      */
     fun deleteAllWithUndo(onDone: (Int) -> Unit = {}) {
         scope.launch {
@@ -315,10 +315,12 @@ internal class WatchlistEditController(
         }
     }
 
-    fun setNotificationEnabled(watch: WatchEntity, enabled: Boolean) {
-        launchWrite {
+    /** Kursmitteilung an/aus; [onDone] wie bei [setFavorite] (seit Build 106: erst dann die Erlaubnis fragen, UX4-R3). */
+    fun setNotificationEnabled(watch: WatchEntity, enabled: Boolean, onDone: (Boolean) -> Unit = {}) {
+        launchWrite(cancelled = { onDone(false) }) {
             // Abgelehnt (Merkliste gesperrt): nichts zeigen bzw. entfernen, das Paar meldet wie bisher
-            if (!watchRepository.setNotificationEnabled(watch.id, enabled)) return@launchWrite
+            if (!watchRepository.setNotificationEnabled(watch.id, enabled)) return@launchWrite onDone(false)
+            onDone(true)
             if (enabled) {
                 // Einschalten ist eine bewusste Handlung: einmal zeigen und den
                 // Bezugspunkt für die Melde-Schwelle auf den aktuellen Kurs setzen.
@@ -354,10 +356,10 @@ internal class WatchlistEditController(
         }
     }
 
-    /** Stern, Aktionen-Menü bzw. nach rechts wischen: Favorit an/aus. */
-    fun toggleFavorite(watch: WatchEntity) {
-        launchWrite {
-            watchRepository.setFavorite(watch.id, !watch.favorite)
+    /** Stern, Aktionen-Menü bzw. nach rechts wischen: Favorit an/aus; [onDone] wie bei [setFavorite] (Banner, Haptik). */
+    fun toggleFavorite(watch: WatchEntity, onDone: (Boolean) -> Unit = {}) {
+        launchWrite(cancelled = { onDone(false) }) {
+            onDone(watchRepository.setFavorite(watch.id, !watch.favorite))
             widgetUpdater.updateAll()
         }
     }
@@ -372,8 +374,8 @@ internal class WatchlistEditController(
         val blocked = com.cryptochecker.app.data.local.WatchlistStorageLock
             .blocksWrites(com.cryptochecker.app.data.local.DatabaseEncryptionNotice.storedKept.value)
         val turnOnSpeech = enabled && !blocked && !settingsRepository.cached.speaksPairPrices
-        // Seit Build 105: kommt erst die Rückfrage (F-08), keinen Hinweis vorwegnehmen («Abbrechen» änderte nichts)
-        val asksFirst = com.cryptochecker.app.data.local.WatchlistNotSavedGate.needsConfirmation()
+        // Seit Build 105: kommt erst die Rückfrage (F-08), keinen Hinweis vorwegnehmen; seit 106 auch ohne sichtbare Oberfläche
+        val asksFirst = com.cryptochecker.app.data.local.WatchlistNotSavedGate.mayAsk()
         launchWrite {
             // Abgelehnt (Merkliste gesperrt): die Sprachausgabe bleibt, wie sie ist
             if (watchRepository.setTtsEnabled(watch.id, enabled) && turnOnSpeech) {

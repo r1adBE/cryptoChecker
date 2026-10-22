@@ -3,6 +3,7 @@ import XCTest
 
 /// Seit Build 104 (F-08): Frage vor der ersten Änderung je Lauf — gleiche Fälle wie `WatchlistNotSavedGateTest.kt`.
 /// Seit Build 105: einmal je Aktion vorher (`confirm`), Sicherung im Schreibweg, Abbruch des Wartenden räumt die Frage.
+/// Seit Build 106: ohne Szene kurz auf sie warten; ein Durchlass ohne Szene wird im Schreibweg nicht abgelehnt.
 @MainActor
 final class WatchlistNotSavedGateTests: XCTestCase {
     private typealias S = TestSupport
@@ -35,13 +36,20 @@ final class WatchlistNotSavedGateTests: XCTestCase {
         let gate = WatchlistNotSavedGate()
         for (i, step) in steps.enumerated() {
             let write = Task { await gate.confirm(notSaved: true, canAsk: true) }
-            let answer = step["answer"] as? Bool
-            if let answer {
+            let asked: Bool
+            if let answer = step["answer"] as? Bool {
                 try await waitUntil { gate.pending }
+                asked = gate.pending
                 gate.answer(proceed: answer)
+            } else {
+                // Seit Build 106 (TST4-01): echte Prüfung statt Fixture gegen Fixture — ohne Antwort erscheint keine Frage
+                // (kurz warten, bis `confirm` gelaufen ist); eine unerwartete Frage abbrechen statt hängen
+                try await Task.sleep(nanoseconds: 100_000_000)
+                asked = gate.pending
+                if asked { gate.answer(proceed: false) }
             }
-            let written = await write.value
-            XCTAssertEqual(answer != nil, step["asked"] as? Bool, "Schritt \(i)")
+            let written = await value(of: write)
+            XCTAssertEqual(asked, step["asked"] as? Bool, "Schritt \(i)")
             XCTAssertEqual(written, step["written"] as? Bool, "Schritt \(i)")
             XCTAssertFalse(gate.pending, "Schritt \(i)")
         }
@@ -49,8 +57,8 @@ final class WatchlistNotSavedGateTests: XCTestCase {
 
     func testWithoutVisibleUiNeverAsks() async {
         let gate = WatchlistNotSavedGate()
-        let written = await gate.confirm(notSaved: true, canAsk: false)
-        XCTAssertTrue(written)
+        let written = await value(of: Task { await gate.confirm(notSaved: true, canAsk: false) })
+        XCTAssertEqual(written, true)
         XCTAssertFalse(gate.pending)
         XCTAssertFalse(gate.needsConfirmation(notSaved: true, canAsk: false))
     }
@@ -66,13 +74,32 @@ final class WatchlistNotSavedGateTests: XCTestCase {
         XCTFail("Bedingung nicht erreicht")
     }
 
+    /// Seit Build 106 (Review TST4-02): Ergebnis von `task` abwarten, höchstens `seconds` — sonst abbrechen und XCTFail
+    /// (nil) statt den CI-Lauf bis zum Job-Timeout hängen zu lassen. Wie Android `withTimeout(5_000)`.
+    private func value<T: Sendable>(of task: Task<T, Never>, within seconds: Int = 5,
+                                    file: StaticString = #filePath, line: UInt = #line) async -> T? {
+        let box = TaskResultBox<T>()
+        let reader = Task { @MainActor in box.result = await task.value }
+        for _ in 0..<(seconds * 100) {
+            if let result = box.result { return result }
+            try? await Task.sleep(nanoseconds: 10_000_000)
+        }
+        if let result = box.result { return result }
+        task.cancel()
+        reader.cancel()
+        XCTFail("Kein Ergebnis nach \(seconds) s (Rückfrage hängt?)", file: file, line: line)
+        return nil
+    }
+
     /// Eine Nutzeraktion wie im Bildschirm: einmal `confirm` vorher, danach je Schreibweg nur die Sicherung von AppData
     /// (`needsConfirmation`, fragt nie), Folgen erst nach allen Schreibwegen. Rückgabe: geschriebene Wege, Folgen gelaufen.
     private func action(_ gate: WatchlistNotSavedGate, writes: Int, notSaved: Bool, canAsk: Bool,
-                        skipConfirm: Bool) async -> (Int, Bool) {
-        if !skipConfirm, !(await gate.confirm(notSaved: notSaved, canAsk: canAsk)) { return (0, false) }
+                        skipConfirm: Bool, screenAppears: Bool = false, canAskAtWrite: Bool? = nil) async -> (Int, Bool) {
+        if !skipConfirm, !(await gate.confirm(notSaved: notSaved, canAsk: canAsk, awaitAsker: { screenAppears })) {
+            return (0, false)
+        }
         var written = 0
-        for _ in 0..<writes where !gate.needsConfirmation(notSaved: notSaved, canAsk: canAsk) { written += 1 }
+        for _ in 0..<writes where !gate.needsConfirmation(notSaved: notSaved, canAsk: canAskAtWrite ?? canAsk) { written += 1 }
         return (written, written == writes)
     }
 
@@ -87,8 +114,8 @@ final class WatchlistNotSavedGateTests: XCTestCase {
                 let first = Task { await gate.confirm(notSaved: true, canAsk: true) }
                 try await waitUntil { gate.pending }
                 gate.answer(proceed: true)
-                let confirmed = await first.value
-                XCTAssertTrue(confirmed, name)
+                let confirmed = await value(of: first)
+                XCTAssertEqual(confirmed, true, name)
             }
             let writes = (c["writes"] as? NSNumber)?.intValue ?? 0
             let notSaved = c["notSaved"] as? Bool ?? true, canAsk = c["canAsk"] as? Bool ?? true
@@ -100,7 +127,7 @@ final class WatchlistNotSavedGateTests: XCTestCase {
                 questions += 1
                 gate.answer(proceed: answer)
             }
-            let (written, effects) = await run.value
+            guard case let (written, effects)? = await value(of: run) else { continue }
             XCTAssertEqual(questions, (c["questions"] as? NSNumber)?.intValue, name)
             XCTAssertEqual(written, (c["written"] as? NSNumber)?.intValue, name)
             XCTAssertEqual(effects, c["effects"] as? Bool, name)
@@ -115,8 +142,8 @@ final class WatchlistNotSavedGateTests: XCTestCase {
         let waiting = Task { await gate.confirm(notSaved: true, canAsk: true) }
         try await waitUntil { gate.pending }
         waiting.cancel()
-        let result = await waiting.value
-        XCTAssertFalse(result)
+        let result = await value(of: waiting)
+        XCTAssertEqual(result, false)
         try await waitUntil { !gate.pending }
         XCTAssertEqual(gate.pending, expected["pendingAfterCancel"] as? Bool)
         XCTAssertEqual(!gate.needsConfirmation(notSaved: true, canAsk: true), expected["confirmedAfterCancel"] as? Bool)
@@ -124,8 +151,8 @@ final class WatchlistNotSavedGateTests: XCTestCase {
         try await waitUntil { gate.pending }
         XCTAssertEqual(gate.pending, expected["nextActionAsks"] as? Bool)
         gate.answer(proceed: false)
-        let nextResult = await next.value
-        XCTAssertFalse(nextResult)
+        let nextResult = await value(of: next)
+        XCTAssertEqual(nextResult, false)
     }
 
     /// Zwei gleichzeitige Aktionen: eine Frage; einer abgebrochen → die Frage bleibt für den anderen.
@@ -135,13 +162,62 @@ final class WatchlistNotSavedGateTests: XCTestCase {
         let b = Task { await gate.confirm(notSaved: true, canAsk: true) }
         try await waitUntil { gate.waitingCount == 2 }
         a.cancel()
-        let aResult = await a.value
-        XCTAssertFalse(aResult)
+        let aResult = await value(of: a)
+        XCTAssertEqual(aResult, false)
         try await waitUntil { gate.waitingCount == 1 }
         XCTAssertTrue(gate.pending)
         gate.answer(proceed: true)
-        let bResult = await b.value
-        XCTAssertTrue(bResult)
+        let bResult = await value(of: b)
+        XCTAssertEqual(bResult, true)
         XCTAssertFalse(gate.needsConfirmation(notSaved: true, canAsk: true))
     }
+
+    // MARK: Seit Build 106 (Review ARC4-R02, Variante A): ohne Szene erst warten, Durchlass wird nicht still abgelehnt
+
+    func testSharedLateScreen() async throws {
+        let late = try XCTUnwrap(try S.fixture("watchlist_not_saved_gate")["lateScreen"] as? [String: Any])
+        XCTAssertEqual((late["waitMillis"] as? NSNumber)?.uint64Value, WatchlistNotSavedGate.askerWaitMillis)
+        let cases = S.list(late["cases"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            let name = c["name"] as? String ?? ""
+            let gate = WatchlistNotSavedGate()
+            let writes = (c["writes"] as? NSNumber)?.intValue ?? 0
+            let appears = c["screenAppears"] as? Bool ?? false
+            let atWrite = c["canAskAtWrite"] as? Bool ?? true
+            let run = Task {
+                await self.action(gate, writes: writes, notSaved: true, canAsk: false, skipConfirm: false,
+                                  screenAppears: appears, canAskAtWrite: atWrite)
+            }
+            var questions = 0
+            if let answer = c["answer"] as? Bool {
+                try await waitUntil { gate.pending }
+                questions += 1
+                gate.answer(proceed: answer)
+            }
+            guard case let (written, effects)? = await value(of: run) else { continue }
+            XCTAssertEqual(questions, (c["questions"] as? NSNumber)?.intValue, name)
+            XCTAssertEqual(written, (c["written"] as? NSNumber)?.intValue, name)
+            XCTAssertEqual(effects, c["effects"] as? Bool, name)
+            XCTAssertFalse(gate.pending, name)
+        }
+        // Nach dem Durchlass: die nächste Aktion mit Szene fragt wieder, nach «Abbrechen» gilt die Sicherung wieder
+        let after = try XCTUnwrap(late["afterUnaskedPass"] as? [String: Any])
+        let gate = WatchlistNotSavedGate()
+        let passed = await value(of: Task { await gate.confirm(notSaved: true, canAsk: false, awaitAsker: { false }) })
+        XCTAssertEqual(passed, true)
+        let next = Task { await gate.confirm(notSaved: true, canAsk: true) }
+        try await waitUntil { gate.pending }
+        XCTAssertEqual(gate.pending, after["nextActionAsks"] as? Bool)
+        gate.answer(proceed: false)
+        let nextResult = await value(of: next)
+        XCTAssertEqual(nextResult, false)
+        XCTAssertEqual(gate.needsConfirmation(notSaved: true, canAsk: true), after["refusesAgainAfterCancel"] as? Bool)
+    }
+}
+
+/// Ergebnis einer Aufgabe für `value(of:within:)` (seit Build 106); nur auf dem MainActor gelesen und geschrieben.
+@MainActor
+private final class TaskResultBox<T> {
+    var result: T?
 }

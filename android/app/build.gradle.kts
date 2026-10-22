@@ -67,7 +67,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 105
+        versionCode = 106
         versionName = "16.2.2"
 
         // Seit Build 103: Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).

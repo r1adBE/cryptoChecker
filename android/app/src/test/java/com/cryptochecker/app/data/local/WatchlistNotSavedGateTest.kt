@@ -9,6 +9,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import org.junit.After
@@ -22,6 +23,7 @@ import org.junit.Test
 /**
  * Seit Build 104 (F-08): Frage vor der ersten Änderung je Lauf — gleiche Fälle wie `WatchlistNotSavedGateTests.swift`.
  * Seit Build 105: einmal je Aktion vorher, Sicherung im Schreibweg, Abbruch des Wartenden räumt die Frage weg.
+ * Seit Build 106: ohne Oberfläche kurz auf sie warten, Durchlass ohne Oberfläche wird im Schreibweg nicht abgelehnt.
  */
 class WatchlistNotSavedGateTest {
 
@@ -75,8 +77,8 @@ class WatchlistNotSavedGateTest {
 
     @Test
     fun withoutVisibleUiNeverAsks() = runBlocking {
-        // Kein Beobachter (Hintergrund): schreibt, ohne zu fragen
-        assertEquals(true, WatchlistNotSavedGate.confirm(notSaved = true, canAsk = false))
+        // Kein Beobachter (Hintergrund), auch nach dem Warten nicht: schreibt, ohne zu fragen
+        assertEquals(true, WatchlistNotSavedGate.confirm(notSaved = true, canAsk = false, awaitAsker = { false }))
         assertNull(WatchlistNotSavedGate.request.value)
     }
 
@@ -85,10 +87,15 @@ class WatchlistNotSavedGateTest {
      * Schreibweg nur die Sicherung des Repositorys ([WatchlistNotSavedGate.needsConfirmation], fragt nie), Folgen erst nach
      * allen Schreibwegen. Rückgabe: geschriebene Schreibwege und ob die Folgen liefen.
      */
-    private suspend fun action(writes: Int, notSaved: Boolean, canAsk: Boolean, skipConfirm: Boolean): Pair<Int, Boolean> {
-        if (!skipConfirm && !WatchlistNotSavedGate.confirm(notSaved = notSaved, canAsk = canAsk)) return 0 to false
+    private suspend fun action(
+        writes: Int, notSaved: Boolean, canAsk: Boolean, skipConfirm: Boolean,
+        screenAppears: Boolean = false, canAskAtWrite: Boolean = canAsk,
+    ): Pair<Int, Boolean> {
+        if (!skipConfirm &&
+            !WatchlistNotSavedGate.confirm(notSaved = notSaved, canAsk = canAsk, awaitAsker = { screenAppears })
+        ) return 0 to false
         var written = 0
-        repeat(writes) { if (!WatchlistNotSavedGate.needsConfirmation(notSaved = notSaved, canAsk = canAsk)) written++ }
+        repeat(writes) { if (!WatchlistNotSavedGate.needsConfirmation(notSaved = notSaved, canAsk = canAskAtWrite)) written++ }
         return written to (written == writes)
     }
 
@@ -154,6 +161,73 @@ class WatchlistNotSavedGateTest {
         assertTrue(WatchlistNotSavedGate.request.value === question)
         WatchlistNotSavedGate.answer(true)
         assertTrue(withTimeout(5_000) { b.await() })
+        assertFalse(WatchlistNotSavedGate.needsConfirmation(notSaved = true, canAsk = true))
+    }
+
+    /**
+     * Seit Build 106 (Review ARC4-R02, Variante A): ohne Oberfläche beim Bestätigen erst warten; erscheint sie, wird gefragt,
+     * sonst durchgelassen — und die Sicherung lehnt die Schreibwege dieser Aktion nicht still ab.
+     */
+    @Test
+    fun sharedLateScreen() = runBlocking {
+        val late = data["lateScreen"].obj()
+        assertEquals(late["waitMillis"].num()!!.toLong(), WatchlistNotSavedGate.ASKER_WAIT_MILLIS)
+        late["cases"].list().forEach { raw ->
+            val c = raw.obj()
+            val name = c["name"] as String
+            WatchlistNotSavedGate.resetForTest()
+            val run = async(Dispatchers.Default) {
+                action(
+                    writes = c["writes"].num()!!.toInt(), notSaved = true, canAsk = false, skipConfirm = false,
+                    screenAppears = c["screenAppears"] == true, canAskAtWrite = c["canAskAtWrite"] as Boolean? ?: true,
+                )
+            }
+            var questions = 0
+            (c["answer"] as Boolean?)?.let { answer ->
+                withTimeout(5_000) { WatchlistNotSavedGate.request.filterNotNull().first() }
+                questions++
+                WatchlistNotSavedGate.answer(answer)
+            }
+            val (written, effects) = withTimeout(5_000) { run.await() }
+            assertEquals(name, c["questions"].num()!!.toInt(), questions)
+            assertEquals(name, c["written"].num()!!.toInt(), written)
+            assertEquals(name, c["effects"], effects)
+            assertNull(name, WatchlistNotSavedGate.request.value)
+        }
+        // Nach dem Durchlass: die nächste Aktion mit Oberfläche fragt wieder, nach «Abbrechen» gilt die Sicherung wieder
+        val after = late["afterUnaskedPass"].obj()
+        WatchlistNotSavedGate.resetForTest()
+        assertTrue(WatchlistNotSavedGate.confirm(notSaved = true, canAsk = false, awaitAsker = { false }))
+        val next = async(Dispatchers.Default) { WatchlistNotSavedGate.confirm(notSaved = true, canAsk = true) }
+        val asked = withTimeout(5_000) { WatchlistNotSavedGate.request.filterNotNull().first() }.isActive
+        assertEquals(after["nextActionAsks"], asked)
+        WatchlistNotSavedGate.answer(false)
+        assertFalse(withTimeout(5_000) { next.await() })
+        assertEquals(after["refusesAgainAfterCancel"], WatchlistNotSavedGate.needsConfirmation(notSaved = true, canAsk = true))
+    }
+
+    /** Seit Build 106: Die Oberfläche beginnt erst während des Wartens zu sammeln (Activity neu erstellt) → es wird gefragt. */
+    @Test
+    fun confirmWaitsForAReturningScreenThenAsks() = runBlocking {
+        val write = async(Dispatchers.Default) { WatchlistNotSavedGate.confirm(notSaved = true, canAsk = false) }
+        kotlinx.coroutines.delay(100)
+        val screen = launch(Dispatchers.Default) { WatchlistNotSavedGate.request.collect {} }
+        withTimeout(5_000) { WatchlistNotSavedGate.request.filterNotNull().first() }
+        WatchlistNotSavedGate.answer(true)
+        assertTrue(withTimeout(5_000) { write.await() })
+        screen.cancelAndJoin()
+    }
+
+    /** Seit Build 106: ohne Oberfläche endet das Warten nach der Frist (false), ohne Frage. */
+    @Test
+    fun awaitSubscriberTimesOut() = runBlocking {
+        assertFalse(WatchlistNotSavedGate.awaitSubscriber(50))
+        val passed = WatchlistNotSavedGate.confirm(
+            notSaved = true, canAsk = false, awaitAsker = { WatchlistNotSavedGate.awaitSubscriber(50) },
+        )
+        assertTrue(passed)
+        assertNull(WatchlistNotSavedGate.request.value)
+        // Durchgelassen: die Sicherung lehnt diese Aktion auch mit Oberfläche nicht ab
         assertFalse(WatchlistNotSavedGate.needsConfirmation(notSaved = true, canAsk = true))
     }
 }

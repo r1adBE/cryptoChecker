@@ -29,6 +29,12 @@ extension AlarmsScreen {
         }
     }
 
+    /// Seit Build 106 (UX4-06): Editor erst nach bestätigter Rückfrage F-08 schliessen (`AlarmEditorSheet.confirmClose`);
+    /// danach fragt `saveDraft`/`createFromTemplate` nicht mehr (schon bestätigt).
+    func confirmEditorClose(_ close: @escaping @MainActor () -> Void, cancelled: @escaping @MainActor () -> Void) {
+        data.withWatchlistConfirm(close, cancelled: cancelled)
+    }
+
     /// Schnell-Alarm aus einer Vorlage (`AlarmEditorSheet.onTemplate`).
     func createFromTemplate(_ template: AlarmTemplates.Template) {
         if data.alarmSaveBlocked { return showSaveLocked() }

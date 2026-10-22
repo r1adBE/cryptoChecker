@@ -3,8 +3,11 @@ package com.cryptochecker.app.data.portfolio
 import android.annotation.SuppressLint
 import android.content.Context
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
+import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
+import com.cryptochecker.app.util.BackgroundErrorCounter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -27,7 +30,7 @@ class PortfolioFallAlarmCleanup @Inject constructor(
     @Volatile
     private var checked = false
 
-    /** Ein-/Ausgabe im Hintergrund; Fehler bleiben hier (nächster Prozess versucht es wieder). */
+    /** Ein-/Ausgabe im Hintergrund; Fehler bleiben hier (gezählt, nächster Prozess versucht es wieder). */
     suspend fun runOnce() {
         if (checked) return
         checked = true
@@ -41,7 +44,11 @@ class PortfolioFallAlarmCleanup @Inject constructor(
                 val changed = dao.disableInvalidFallAlarms(PortfolioAlarmLogic.MAX_FALL_PERCENT)
                 if (changed > 0) Timber.i("Portfolio-Alarme «fällt um ≥ 100 %%» ausgeschaltet: %d", changed)
                 markDone(prefs)
-            }.onFailure { Timber.w(it, "Portfolio-Alarme «fällt um ≥ 100 %» nicht bereinigt") }
+            }.onFailure {
+                // Seit Build 106 (F-25): im Release sonst unsichtbar — zählen (Bereich «alarms»), Schlüssel fehlt: nur Hinweis
+                if (!it.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.ALARMS)
+                Timber.w(it, "Portfolio-Alarme «fällt um ≥ 100 %» nicht bereinigt")
+            }
         }
     }
 

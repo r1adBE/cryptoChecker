@@ -143,13 +143,12 @@ internal fun WatchlistSheets(
                 outdatedAfter = com.cryptochecker.app.domain.watch.LiveStatus.staleAfterMillis(watch.id in liveIds, outdatedAfter),
                 hasActivity = !watch.isNotTraded && !watch.disabled && activeSignals[watch.id].orEmpty().isNotEmpty(),
                 onDismiss = { ui.actionsFor = null },
-                onNotificationChange = {
-                    // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage (seit Build 104)
-                    if (it && !com.cryptochecker.app.data.local.WatchlistStorageLock.blocksWritesNow()) requestNotifications()
-                    viewModel.setNotificationEnabled(watch, it)
+                onNotificationChange = { on ->
+                    // Seit Build 106 (UX4-R3): Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
+                    viewModel.setNotificationEnabled(watch, on) { written -> if (written && on) requestNotifications() }
                 },
                 onTtsChange = { viewModel.setTtsEnabled(watch, it) },
-                onToggleFavorite = { haptics.play(HapticEvent.LIGHT_IMPACT); viewModel.toggleFavorite(watch) },
+                onToggleFavorite = { viewModel.toggleFavorite(watch) { if (it) haptics.play(HapticEvent.LIGHT_IMPACT) } },
                 // Zurück aus «Alarme» öffnet dieses Blatt wieder
                 onOpenAlarms = { ui.returnToActions = watch.id; ui.actionsFor = null; onOpenAlarms(watch.id) },
                 onRefresh = { viewModel.refreshOneByUser(watch) },
@@ -165,16 +164,18 @@ internal fun WatchlistSheets(
                 },
                 onSetGroup = { viewModel.setGroup(watch, it) },
                 onSetNote = { viewModel.setNote(watch, it) },
-                // Deaktivieren bzw. wieder aktivieren (dann gleich den Kurs holen); Blatt zu, kurzes Banner
+                // Deaktivieren bzw. wieder aktivieren (dann gleich den Kurs holen); Blatt zu, kurzes Banner erst nach dem
+                // Schreiben (seit Build 106)
                 onToggleDisabled = {
                     ui.actionsFor = null
-                    viewModel.setDisabled(listOf(watch.id), !watch.disabled)
-                    banner.show(
-                        resources.getString(
-                            if (watch.disabled) R.string.watch_enabled_banner else R.string.watch_disabled_banner,
-                            watch.displayName,
+                    viewModel.setDisabled(listOf(watch.id), !watch.disabled) { written ->
+                        if (written) banner.show(
+                            resources.getString(
+                                if (watch.disabled) R.string.watch_enabled_banner else R.string.watch_disabled_banner,
+                                watch.displayName,
+                            )
                         )
-                    )
+                    }
                 },
                 loadFutures = viewModel::fetchFutures,
                 loadSpot = viewModel::fetchSpot,
@@ -221,15 +222,18 @@ internal fun WatchlistSheets(
             isNew = ui.editGroupIsNew,
             watches = watches,
             groups = groups,
+            // Seit Build 106 (wie iOS): Haptik und Blatt zu erst nach der Rückfrage F-08 («Abbrechen»: Blatt bleibt offen)
             onDone = { newName, ids ->
-                haptics.play(HapticEvent.SUCCESS)
-                viewModel.saveGroup(if (ui.editGroupIsNew) null else name, newName, ids)
-                ui.editGroup = null
+                viewModel.saveGroup(if (ui.editGroupIsNew) null else name, newName, ids) {
+                    haptics.play(HapticEvent.SUCCESS)
+                    ui.editGroup = null
+                }
             },
             onDelete = {
-                haptics.play(HapticEvent.DESTRUCTIVE)
-                viewModel.deleteGroup(name)
-                ui.editGroup = null
+                viewModel.deleteGroup(name) {
+                    haptics.play(HapticEvent.DESTRUCTIVE)
+                    ui.editGroup = null
+                }
             },
             onDismiss = { ui.editGroup = null }
         )

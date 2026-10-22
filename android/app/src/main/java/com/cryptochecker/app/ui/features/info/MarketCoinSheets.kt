@@ -83,6 +83,9 @@ internal class MarketCoinState(
      */
     var adding by mutableStateOf(false)
 
+    /** Seit Build 106 (UX4-R2): «Hinzufügen» läuft (Rückfrage F-08 offen bzw. Schreiben); nur gegen Doppeltipp, ohne Anzeige. */
+    var addPending = false
+
     /** Paar, das gerade ins Portfolio übernommen wird (Erfassen-Blatt). */
     var portfolioFor by mutableStateOf<WatchEntity?>(null)
 
@@ -96,6 +99,7 @@ internal class MarketCoinState(
     fun openPreview(watch: WatchEntity) {
         actionsFor = null
         adding = false
+        addPending = false
         whyPreview = false
         previewBase = watch
         previewSymbol = watch.baseAsset
@@ -227,10 +231,9 @@ internal fun MarketCoinSheets(
                     state.actionsFor = null
                     state.closePreview()
                 },
-                onNotificationChange = {
-                    // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage (seit Build 104)
-                    if (it && !com.cryptochecker.app.data.local.WatchlistStorageLock.blocksWritesNow()) requestNotifications()
-                    watchlist.setNotificationEnabled(shown, it)
+                onNotificationChange = { on ->
+                    // Seit Build 106 (UX4-R3): Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
+                    watchlist.setNotificationEnabled(shown, on) { written -> if (written && on) requestNotifications() }
                 },
                 onTtsChange = { watchlist.setTtsEnabled(shown, it) },
                 onToggleFavorite = { watchlist.toggleFavorite(shown) },
@@ -267,16 +270,17 @@ internal fun MarketCoinSheets(
                 } else null,
                 onSetGroup = { watchlist.setGroup(shown, it) },
                 onSetNote = { watchlist.setNote(shown, it) },
-                // Wie in der Merkliste: deaktivieren bzw. wieder aktivieren, Blatt zu, kurzes Banner
+                // Wie in der Merkliste: deaktivieren bzw. wieder aktivieren, Blatt zu, kurzes Banner erst nach dem Schreiben
                 onToggleDisabled = {
                     state.actionsFor = null
-                    watchlist.setDisabled(listOf(shown.id), !shown.disabled)
-                    banner.show(
-                        resources.getString(
-                            if (shown.disabled) R.string.watch_enabled_banner else R.string.watch_disabled_banner,
-                            shown.displayName,
+                    watchlist.setDisabled(listOf(shown.id), !shown.disabled) { written ->
+                        if (written) banner.show(
+                            resources.getString(
+                                if (shown.disabled) R.string.watch_enabled_banner else R.string.watch_disabled_banner,
+                                shown.displayName,
+                            )
                         )
-                    )
+                    }
                 },
                 loadFutures = watchlist::fetchFutures,
                 loadSpot = watchlist::fetchSpot,
@@ -301,11 +305,12 @@ internal fun MarketCoinSheets(
                 adding = state.adding,
                 onAddToWatchlist = add@{
                     val candidate = state.previewBase ?: return@add
-                    if (state.adding) return@add
-                    state.adding = true
+                    if (state.adding || state.addPending) return@add
+                    // Seit Build 106 (UX4-R2): «hinzugefügt» erst nach dem Schreiben zeigen (wie iOS), nicht vor der Rückfrage
+                    state.addPending = true
                     val onFull = {
                         // Merkliste voll: nichts angelegt, sagen warum (Zahl im Format der App-Sprache)
-                        state.adding = false
+                        state.addPending = false
                         haptics.play(HapticEvent.WARNING)
                         banner.show(
                             resources.getString(
@@ -315,17 +320,15 @@ internal fun MarketCoinSheets(
                         )
                     }
                     watchlist.addPreview(candidate, onFull) { id, added ->
-                        if (id == null) {
-                            state.adding = false
-                            return@addPreview
-                        }
-                        // Wie der Hinzufügen-Tab: neue Paare haben Meldungen an — Erlaubnis jetzt fragen
+                        state.addPending = false
+                        // «Abbrechen», gesperrt bzw. nichts gefunden: Knopf gleich wieder bereit
+                        if (id == null) return@addPreview
+                        // Wie der Hinzufügen-Tab: neue Paare haben Meldungen an — Erlaubnis jetzt fragen. Stand es schon
+                        // in der Merkliste: gleich dessen Blatt (ohne Halten)
+                        state.adding = added
                         if (added) {
                             haptics.play(HapticEvent.SUCCESS)
                             requestNotificationsAdded()
-                        } else {
-                            // Stand schon in der Merkliste: gleich dessen Blatt
-                            state.adding = false
                         }
                         state.actionsFor = id
                     }

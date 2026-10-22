@@ -36,8 +36,9 @@ extension WatchActionsSheet {
             ) {
                 // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts, keine Haptik
                 data.withWatchlistConfirm {
-                    Haptics.play(.lightImpact)
                     data.toggleFavorite(watch)
+                    // Seit Build 106 (wie Android): gesperrt → nur der Hinweis, keine Haptik
+                    if !data.watchlistWritesBlocked { Haptics.play(.lightImpact) }
                 }
             }
         }

@@ -56,17 +56,29 @@ extension AppData {
     /// VOR der Aktion; false = «Abbrechen» (nichts tun, kein Banner, keine Haptik). Danach läuft der normale Weg mit
     /// Banner, Rückgängig, Ansage und Erst-Alarm. Gesperrte Merkliste fragt nicht (true): Dort lehnt der Schreibweg selbst
     /// ab und zeigt den Hinweis. Wie Android `WatchRepository.confirmUserWrite`.
+    /// Seit Build 106 (ARC4-R02): ohne sichtbare Szene erst kurz auf sie warten (`awaitWatchlistGateAsker`), dann fragen.
     func confirmWatchlistWrite() async -> Bool {
         if watchlistWritesBlocked { return true }
-        return await WatchlistNotSavedGate.shared.confirm(notSaved: watchlistGateNotSaved, canAsk: watchlistGateCanAsk)
+        return await WatchlistNotSavedGate.shared.confirm(notSaved: watchlistGateNotSaved, canAsk: watchlistGateCanAsk,
+                                                          awaitAsker: { await self.awaitWatchlistGateAsker() })
+    }
+
+    /// Seit Build 106: höchstens `WatchlistNotSavedGate.askerWaitMillis` auf eine Szene warten, die fragen kann; true = da.
+    func awaitWatchlistGateAsker() async -> Bool {
+        let step: UInt64 = 100
+        for _ in 0..<(WatchlistNotSavedGate.askerWaitMillis / step) {
+            if watchlistGateCanAsk { return true }
+            do { try await Task.sleep(nanoseconds: step * 1_000_000) } catch { return false }
+        }
+        return watchlistGateCanAsk
     }
 
     /// Wie `confirmWatchlistWrite()`, für Aktionen der Bildschirme: ohne nötige Frage läuft `action` sofort (synchron,
     /// Animationen und Rückgaben wie bisher), sonst erst nach «Trotzdem»; nach «Abbrechen» nie, dann `cancelled` (z. B.
     /// einen umgelegten Schalter zurückzeigen).
+    /// Seit Build 106: auch ohne sichtbare Szene über `confirmWatchlistWrite` (wartet kurz auf sie), sobald gefragt werden kann.
     func withWatchlistConfirm(_ action: @escaping @MainActor () -> Void, cancelled: (@MainActor () -> Void)? = nil) {
-        guard !watchlistWritesBlocked,
-              WatchlistNotSavedGate.shared.needsConfirmation(notSaved: watchlistGateNotSaved, canAsk: watchlistGateCanAsk)
+        guard !watchlistWritesBlocked, WatchlistNotSavedGate.shared.mayAsk(notSaved: watchlistGateNotSaved)
         else { return action() }
         Task { @MainActor in
             if await confirmWatchlistWrite() { action() } else { cancelled?() }

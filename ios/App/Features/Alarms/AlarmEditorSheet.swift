@@ -16,6 +16,10 @@ struct AlarmEditorSheet: View {
     let onSave: (AlarmDraft) -> Void
     /// Schnell-Alarm angetippt: der Aufrufer legt ihn an, das Blatt schliesst sich.
     var onTemplate: (AlarmTemplates.Template) -> Void = { _ in }
+    /// Seit Build 106 (UX4-06): vor dem Schliessen bestätigen lassen (Rückfrage F-08) — `close` erst nach «Trotzdem»,
+    /// `cancelled` nach «Abbrechen» (das Blatt bleibt offen mit den Eingaben).
+    var confirmClose: @MainActor (_ close: @escaping @MainActor () -> Void,
+                                  _ cancelled: @escaping @MainActor () -> Void) -> Void = { close, _ in close() }
 
     @Environment(\.appAccent) var accent
     @Environment(\.dismiss) var dismiss
@@ -38,13 +42,16 @@ struct AlarmEditorSheet: View {
     init(initial: AlarmDraft, watch: Watch?, targetCurrency: String = AppSettings.defaultCurrency(),
          existing: Alarm? = nil,
          onSave: @escaping (AlarmDraft) -> Void,
-         onTemplate: @escaping (AlarmTemplates.Template) -> Void = { _ in }) {
+         onTemplate: @escaping (AlarmTemplates.Template) -> Void = { _ in },
+         confirmClose: @escaping @MainActor (_ close: @escaping @MainActor () -> Void,
+                                             _ cancelled: @escaping @MainActor () -> Void) -> Void = { close, _ in close() }) {
         self.initial = initial
         self.watch = watch
         self.targetCurrency = targetCurrency
         self.existing = existing
         self.onSave = onSave
         self.onTemplate = onTemplate
+        self.confirmClose = confirmClose
         _draft = State(initialValue: initial)
         // «Mehr» offen, wenn in dieser Sitzung schon aufgeklappt oder der Alarm etwas darin braucht (z. B. Volumen-Spike,
         // Kursmarke in eigener Währung)
@@ -295,8 +302,9 @@ struct AlarmEditorSheet: View {
 
     private func commit() {
         guard createGuard.begin(creating: draft.id == 0) else { return }
-        onSave(draft)
-        dismiss()
+        // Seit Build 106 (UX4-06): erst nach bestätigter Rückfrage F-08 speichern und schliessen; «Abbrechen» = Blatt bleibt
+        let saved = draft
+        confirmClose({ onSave(saved); dismiss() }, { createGuard.reset() })
     }
 
     /// Würde der Alarm gleich nach dem Speichern melden? Kursmarke schon erreicht

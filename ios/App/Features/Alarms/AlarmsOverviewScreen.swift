@@ -92,7 +92,8 @@ struct AlarmsOverviewScreen: View {
                     if let id = pickedPair { openWatchId = id }
                     pickedPair = nil
                 }) {
-                    AlarmPairPicker(watches: data.watches) { id in
+                    let input = data.alarmPairPickerInput // seit Build 106 (PERF4-R1): einmal je Stand
+                    AlarmPairPicker(watches: input.watches, sourceKey: input.sourceKey) { id in
                         pickedPair = id
                         pickPair = false
                     }
@@ -245,7 +246,7 @@ struct AlarmsOverviewScreen: View {
                             } cancelled: { refusedToggles &+= 1 }
                         }
                     ), enabled: BackupManager.toggleAllowed(alarm.condition, alarm.threshold, enable: !alarm.enabled),
-                    verticalPadding: 8) {
+                    verticalPadding: 8, dimsLabel: false) { // seit Build 106 (UX4-R4): Hinweis nicht mitdimmen
                         HStack(spacing: Spacing.sm) {
                             Image(systemName: AlarmStyle.symbol(alarm.condition))
                                 .scaledFont(size: 13, weight: .semibold, relativeTo: .footnote)
@@ -337,13 +338,15 @@ struct AlarmsOverviewScreen: View {
                             Text(PortfolioAlarmTexts.sentence(alarm, basis: data.settings.changeBasis.storage, hidden: hidePortfolio))
                                 .font(.subheadline.monospacedDigit())
                                 .foregroundStyle(alarm.enabled ? AppColors.onSurface : AppColors.onSurfaceVariant)
-                            Text(L(invalid ? "alarm_threshold_invalid_fix" : (alarm.repeating ? "alarm_repeating" : "alarm_once")))
+                            // Seit Build 106 (FUN4-R2): kein Editor für Portfolio-Alarme – löschen und neu anlegen
+                            Text(L(invalid ? "portfolio_alarm_threshold_invalid_recreate"
+                                   : (alarm.repeating ? "alarm_repeating" : "alarm_once")))
                                 .font(.caption)
                                 .foregroundStyle(invalid ? AppColors.error : AppColors.onSurfaceVariant)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                     }
-                    // Ausschalten geht immer, einschalten erst nach dem Anpassen
+                    // Ausschalten geht immer, einschalten nie (löschen und neu anlegen)
                     .disabled(invalid && !alarm.enabled)
                     .padding(.horizontal, 16)
                     .contextMenu {

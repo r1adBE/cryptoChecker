@@ -149,8 +149,8 @@ extension AppData {
 
     func deletePortfolioAlarm(_ id: Int64) {
         mutate({ s in s.portfolioAlarms?.removeAll { $0.id == id } }, reloadWidgets: false)
-        // Seit Build 104: Vermerk des gelöschten Alarms weg (wie Android); seit Build 105 nur, wenn der Stand bleibt
-        if portfolioMarkersPrunable { AlarmDelivery.portfolio.remove([id]) }
+        // Seit Build 104: Vermerk des gelöschten Alarms weg (wie Android); seit Build 106 erst nach diesem Schreiben
+        removePortfolioMarkersAfterWrite([id])
         // Seit Build 104: die Mitteilung des gelöschten Alarms gleich mit entfernen (wie Android)
         Notifier.cancelPortfolioAlarm(id)
     }
@@ -293,8 +293,8 @@ extension AppData {
         Notifier.cancelAlarm(id)
         // Alarm-Protokoll: seine letzte Prüfung gehört zum Alarm (Protokoll-Einträge bleiben); Datei abseits des Hauptfadens
         Task.detached(priority: .utility) { AlarmLogStore.removeAlarm(id) }
-        // Seit Build 104: Vermerk des gelöschten Alarms weg (wie Android); seit Build 105 nur, wenn der Stand bleibt
-        if pairMarkersPrunable { AlarmDelivery.pairs.remove([id]) }
+        // Seit Build 104: Vermerk des gelöschten Alarms weg (wie Android); seit Build 106 erst nach diesem Schreiben
+        removePairMarkersAfterWrite([id])
         return true
     }
 

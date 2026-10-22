@@ -3,7 +3,8 @@ import SwiftUI
 
 /// Favorit, Löschen mit «Rückgängig» und Reihenfolge — per Wischen, VoiceOver oder Ziehen. Seit Build 105 (F-08,
 /// Review UX3-02, IOS3-R04): jede Aktion fragt EINMAL vorher (`data.withWatchlistConfirm`); nach «Trotzdem» läuft der
-/// normale Weg mit Banner, «Rückgängig», Haptik und Ansage, nach «Abbrechen» nichts davon.
+/// normale Weg mit Banner, «Rückgängig», Haptik und Ansage, nach «Abbrechen» nichts davon. Seit Build 106 (UX4-06,
+/// wie Android): Banner/Haptik nur nach dem Schreiben (gesperrt: nur der Hinweis), die Mehrfachauswahl endet erst dann.
 extension WatchlistScreen {
     /// Wisch-Aktionen: nicht beim Sortieren (Ziehgriffe) und nicht mit VoiceOver.
     var swipeEnabled: Bool { !sorting && !selecting && !voiceOver }
@@ -11,9 +12,10 @@ extension WatchlistScreen {
     /// Nach rechts gewischt: Favorit an/aus, leichte Haptik, kurzer Banner.
     func swipeFavorite(_ watch: Watch) {
         data.withWatchlistConfirm {
-            swipeFavoriteTick += 1
             let nowFavorite = !watch.favorite
             withAnimation(reduceMotion ? nil : .spring(duration: 0.4)) { data.toggleFavorite(watch) }
+            guard !data.watchlistWritesBlocked else { return }
+            swipeFavoriteTick += 1
             banner = WatchlistBannerMessage(
                 text: L(nowFavorite ? "favorite_added" : "favorite_removed", watch.displayPair),
                 icon: nowFavorite ? "star.fill" : "star"
@@ -125,8 +127,8 @@ extension WatchlistScreen {
 
     func toggleFavorite(_ watch: Watch) {
         data.withWatchlistConfirm {
-            Haptics.play(.lightImpact)
             withAnimation(.spring(duration: 0.4)) { data.toggleFavorite(watch) }
+            if !data.watchlistWritesBlocked { Haptics.play(.lightImpact) }
         }
     }
 
@@ -168,10 +170,11 @@ extension WatchlistScreen {
         guard !chosen.isEmpty else { return }
         let makeFavorite = !chosen.allSatisfy(\.favorite)
         let ids = selectedIds
-        endSelection()
-        // Eine Frage für alle ausgewählten Paare
+        // Eine Frage für alle ausgewählten Paare; «Abbrechen» lässt die Auswahl stehen
         data.withWatchlistConfirm {
             withAnimation(reduceMotion ? nil : .spring(duration: 0.4)) { data.setFavorite(ids: ids, makeFavorite) }
+            guard !data.watchlistWritesBlocked else { return }
+            endSelection()
             Haptics.play(.lightImpact)
         }
     }
@@ -189,9 +192,10 @@ extension WatchlistScreen {
     func disableSelected(_ disabled: Bool) {
         let ids = selectedIds
         guard !ids.isEmpty else { return }
-        endSelection()
         data.withWatchlistConfirm {
             withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { data.setDisabled(ids: ids, disabled) }
+            guard !data.watchlistWritesBlocked else { return }
+            endSelection()
             Haptics.play(.lightImpact)
         }
     }
@@ -199,17 +203,20 @@ extension WatchlistScreen {
     /// Leiste › «Gruppe» gewählt: alle Ausgewählten in `group` (nil = keine Gruppe).
     func groupSelected(_ group: String?) {
         let ids = selectedIds
-        endSelection()
-        data.withWatchlistConfirm { withAnimation(.spring(duration: 0.35)) { data.setGroup(ids: ids, group) } }
+        askGroupForSelection = false
+        data.withWatchlistConfirm {
+            withAnimation(.spring(duration: 0.35)) { data.setGroup(ids: ids, group) }
+            if !data.watchlistWritesBlocked { endSelection() }
+        }
     }
 
     /// Leiste › «Löschen»: alle auf einmal (samt Alarmen), Banner mit «Rückgängig» für alle.
     func deleteSelected() {
         let ids = selectedIds
-        endSelection()
         data.withWatchlistConfirm {
             var deleted: [DeletedWatch] = []
             withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { deleted = data.deleteForUndo(ids: ids) }
+            if !deleted.isEmpty { endSelection() }
             showRemoved(deleted, text: L("watchlist_removed_count", count: deleted.count))
         }
     }

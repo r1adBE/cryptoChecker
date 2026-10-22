@@ -345,7 +345,8 @@ private fun PortfolioAlarmsCard(
                             else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            if (invalid) stringResource(R.string.alarm_threshold_invalid_fix)
+                            // Seit Build 106 (FUN4-R2): kein Editor für Portfolio-Alarme – löschen und neu anlegen
+                            if (invalid) stringResource(R.string.portfolio_alarm_threshold_invalid_recreate)
                             else stringResource(if (alarm.repeating) R.string.alarm_repeating else R.string.alarm_once),
                             style = MaterialTheme.typography.bodySmall,
                             color = if (invalid) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant

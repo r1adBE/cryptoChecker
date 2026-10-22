@@ -9,6 +9,9 @@ import SwiftUI
 /// `.task(id:)` im Hintergrund, nur wenn sich der Schlüssel der Paare (`sourceKey`) ändert.
 struct AlarmPairPicker: View {
     let watches: [Watch]
+    /// Seit Build 106 (PERF4-R1): Schlüssel der Paare vom Elternteil (`AppData.alarmPairPickerInput`, einmal je Stand);
+    /// nil = hier rechnen (gleicher Wert).
+    var sourceKey: Int? = nil
     let onPick: (Int64) -> Void
 
     /// Zeile der Auswahl ohne Kurs, Suchfelder schon gefaltet — wie Android `AlarmPickerRow`.
@@ -152,7 +155,7 @@ struct AlarmPairPicker: View {
         }
         .tint(accent.primary)
         // Nur bei geänderten Paaren neu rechnen, nicht bei jedem Kurs (seit Build 104); seit Build 105 im Hintergrund
-        .task(id: Self.sourceKey(watches)) {
+        .task(id: sourceKey ?? Self.sourceKey(watches)) {
             let current = watches
             let coinNames = WatchlistSearch.names(for: current)
             let built = await Task.detached(priority: .userInitiated) {

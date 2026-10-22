@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (Verschlüsselung noch nicht aktiv): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate); seit Build 104 -->
-    <string name="watchlist_not_saved_confirm_message">השינויים לא נשמרים כרגע ויאבדו בהפעלה מחדש. לשנות בכל זאת?</string>
-    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel); seit Build 104 -->
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen), Grund und dass auch weitere Änderungen verloren gehen, wie der Banner watchlist_storage_in_memory; seit Build 104, Text seit Build 106 -->
+    <string name="watchlist_not_saved_confirm_message">רשימת המעקב וההתראות שלה לא נשמרות כרגע (המכשיר לא מספק מפתח). השינוי הזה ושינויים נוספים יאבדו כשהאפליקציה תיסגר. לשנות בכל זאת?</string>
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel); seit Build 104, Text seit Build 106 -->
     <string name="watchlist_not_saved_confirm_action">לשנות בכל זאת</string>
 </resources>

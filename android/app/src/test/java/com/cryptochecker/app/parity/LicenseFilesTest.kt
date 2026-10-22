@@ -1,5 +1,6 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -17,12 +18,18 @@ class LicenseFilesTest {
 
     private fun bytes(path: String): ByteArray = File(android, path).readBytes()
 
+    /**
+     * iOS-Gegenstück; fehlt es, nicht still grün (seit Build 106, SEC4-R1/TST4-R1): reiner Android-Checkout übersprungen,
+     * mit `REQUIRE_IOS_SOURCES=true` Fehler ([SourceGuard]).
+     */
+    private fun iosBytes(path: String): ByteArray =
+        SourceGuard.ios(File(android.parentFile, path).takeIf { it.isFile }?.readBytes(), path)
+
     @Test
     fun appLicenseEqualsLicenseFile() {
         val license = bytes("LICENSE")
         assertArrayEquals(license, bytes("app/src/main/assets/licenses/MIT-cryptochecker.txt"))
-        val ios = File(android.parentFile, "ios/App/Resources/Licenses/MIT-cryptochecker.txt")
-        if (ios.exists()) assertArrayEquals(license, ios.readBytes())
+        assertArrayEquals(license, iosBytes("ios/App/Resources/Licenses/MIT-cryptochecker.txt"))
     }
 
     @Test
@@ -31,7 +38,6 @@ class LicenseFilesTest {
         assertTrue(origin.startsWith("Origin"))
         assertTrue(origin.contains("BitcoinChecker"))
         assertFalse(String(bytes("LICENSE"), Charsets.UTF_8).contains("\nOrigin\n"))
-        val ios = File(android.parentFile, "ios/App/Resources/Licenses/NOTICE-origin.txt")
-        if (ios.exists()) assertArrayEquals(origin.toByteArray(Charsets.UTF_8), ios.readBytes())
+        assertArrayEquals(origin.toByteArray(Charsets.UTF_8), iosBytes("ios/App/Resources/Licenses/NOTICE-origin.txt"))
     }
 }

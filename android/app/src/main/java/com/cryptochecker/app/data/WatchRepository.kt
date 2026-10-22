@@ -185,8 +185,11 @@ class WatchRepository @Inject constructor(
         return true
     }
 
-    suspend fun setFavorite(id: Long, favorite: Boolean) {
-        if (!userWriteRefused()) watchDao.setFavorite(id, favorite)
+    /** true = geschrieben, false = abgelehnt (seit Build 106, wie [setDisabled]): dann keine Rückmeldung (Banner, Haptik). */
+    suspend fun setFavorite(id: Long, favorite: Boolean): Boolean {
+        if (userWriteRefused()) return false
+        watchDao.setFavorite(id, favorite)
+        return true
     }
 
     /**
@@ -265,8 +268,11 @@ class WatchRepository @Inject constructor(
     }
 
     /** Gruppe setzen (höchstens [GROUP_NAME_MAX] Zeichen); null oder leer = keine Gruppe. */
-    suspend fun setGroup(id: Long, groupName: String?) {
-        if (!userWriteRefused()) watchDao.setGroup(id, TextLimit.clean(groupName, GROUP_NAME_MAX))
+    /** true = geschrieben, false = abgelehnt (seit Build 106): die Mehrfachauswahl bleibt dann stehen. */
+    suspend fun setGroup(id: Long, groupName: String?): Boolean {
+        if (userWriteRefused()) return false
+        watchDao.setGroup(id, TextLimit.clean(groupName, GROUP_NAME_MAX))
+        return true
     }
 
     /**
