@@ -26,6 +26,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -101,7 +103,11 @@ fun AlarmsOverviewScreen(
     }
 
     val notificationsEnabled = com.cryptochecker.app.ui.components.rememberNotificationsEnabled()
+    // Merkliste gesperrt: Schalter abgelehnt (bleibt beim echten Zustand) — kurz sagen, warum (wie die Alarme des Paars)
+    val snackbar = remember { SnackbarHostState() }
+    com.cryptochecker.app.ui.components.WatchlistLockedHint { snackbar.currentSnackbarData?.dismiss(); snackbar.showSnackbar(it) }
     Scaffold(
+        snackbarHost = { SnackbarHost(snackbar) },
         topBar = {
             TopAppBar(
                 title = {

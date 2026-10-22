@@ -313,7 +313,8 @@ internal class WatchlistEditController(
 
     fun setNotificationEnabled(watch: WatchEntity, enabled: Boolean) {
         scope.launch {
-            watchRepository.setNotificationEnabled(watch.id, enabled)
+            // Abgelehnt (Merkliste gesperrt): nichts zeigen bzw. entfernen, das Paar meldet wie bisher
+            if (!watchRepository.setNotificationEnabled(watch.id, enabled)) return@launch
             if (enabled) {
                 // Einschalten ist eine bewusste Handlung: einmal zeigen und den
                 // Bezugspunkt für die Melde-Schwelle auf den aktuellen Kurs setzen.
@@ -363,10 +364,13 @@ internal class WatchlistEditController(
      * @return true, wenn die Sprachausgabe dafür eingeschaltet wurde (kurzer Hinweis im Blatt).
      */
     fun setTtsEnabled(watch: WatchEntity, enabled: Boolean): Boolean {
-        val turnOnSpeech = enabled && !settingsRepository.cached.speaksPairPrices
+        // Merkliste gesperrt: kein Hinweis «Sprachausgabe an» (die Rückgabe gilt sofort, das Schreiben folgt erst)
+        val blocked = com.cryptochecker.app.data.local.WatchlistStorageLock
+            .blocksWrites(com.cryptochecker.app.data.local.DatabaseEncryptionNotice.storedKept.value)
+        val turnOnSpeech = enabled && !blocked && !settingsRepository.cached.speaksPairPrices
         scope.launch {
-            watchRepository.setTtsEnabled(watch.id, enabled)
-            if (turnOnSpeech) {
+            // Abgelehnt (Merkliste gesperrt): die Sprachausgabe bleibt, wie sie ist
+            if (watchRepository.setTtsEnabled(watch.id, enabled) && turnOnSpeech) {
                 settingsRepository.setTtsEnabled(true)
                 settingsRepository.setTtsAlarmsOnly(false)
             }

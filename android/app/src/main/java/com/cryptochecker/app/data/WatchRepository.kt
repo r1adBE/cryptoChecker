@@ -164,8 +164,11 @@ class WatchRepository @Inject constructor(
         forgetDeletedAlarms()
     }
 
-    suspend fun setNotificationEnabled(id: Long, enabled: Boolean) {
-        if (!userWriteRefused()) watchDao.setNotificationEnabled(id, enabled)
+    /** true = geschrieben, false = abgelehnt (Merkliste gesperrt): dann keine Folgeaktionen (Mitteilung zeigen/entfernen). */
+    suspend fun setNotificationEnabled(id: Long, enabled: Boolean): Boolean {
+        if (userWriteRefused()) return false
+        watchDao.setNotificationEnabled(id, enabled)
+        return true
     }
 
     suspend fun setFavorite(id: Long, favorite: Boolean) {
@@ -273,8 +276,11 @@ class WatchRepository @Inject constructor(
         if (!userWriteRefused()) watchDao.clearGroup(groupName)
     }
 
-    suspend fun setTtsEnabled(id: Long, enabled: Boolean) {
-        if (!userWriteRefused()) watchDao.setTtsEnabled(id, enabled)
+    /** true = geschrieben, false = abgelehnt (Merkliste gesperrt): dann keine Folgeaktionen (Sprachausgabe umstellen). */
+    suspend fun setTtsEnabled(id: Long, enabled: Boolean): Boolean {
+        if (userWriteRefused()) return false
+        watchDao.setTtsEnabled(id, enabled)
+        return true
     }
 
     /** Paare deaktivieren ([disabled] = true) bzw. wieder aktivieren. */
@@ -349,11 +355,13 @@ class WatchRepository @Inject constructor(
         if (!userWriteRefused()) watchDao.deleteAlarm(id)
     }
 
-    suspend fun setAlarmEnabled(id: Long, enabled: Boolean, fromUser: Boolean = true) {
-        if (fromUser && userWriteRefused()) return // Hintergrund («1 h später») nie gesperrt
+    /** true = geschrieben, false = abgelehnt (Merkliste gesperrt): dann keine Folgeaktionen (Mitteilung entfernen). */
+    suspend fun setAlarmEnabled(id: Long, enabled: Boolean, fromUser: Boolean = true): Boolean {
+        if (fromUser && userWriteRefused()) return false // Hintergrund («1 h später») nie gesperrt
         watchDao.setAlarmEnabled(id, enabled)
         // Wieder eingeschaltet: «Nahe am Hoch/Tief», Kursmarken, Funding und Open Interest melden wieder (wirkt nur bei diesen)
         if (enabled) watchDao.rearmAlarm(id)
+        return true
     }
 
     companion object {

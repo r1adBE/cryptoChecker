@@ -29,6 +29,7 @@ import kotlin.coroutines.Continuation
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -103,7 +104,7 @@ class WatchlistLockDeviceTest {
             "deleteWatch" to write { repo.deleteWatch(watchId) },
             "deleteWatches" to write { repo.deleteWatches(listOf(watchId)) },
             "deleteAllWatches" to write { repo.deleteAllWatches() },
-            "setNotificationEnabled" to write { repo.setNotificationEnabled(watchId, false) },
+            "setNotificationEnabled" to write { assertFalse(repo.setNotificationEnabled(watchId, false)) },
             "setFavorite" to write { repo.setFavorite(watchId, true) },
             "move" to write { repo.move(watchId, WatchMove.BOTTOM) },
             "reorder" to write { repo.reorder(repo.getWatches().map { it.id }.reversed()) },
@@ -111,7 +112,7 @@ class WatchlistLockDeviceTest {
             "setGroup" to write { repo.setGroup(watchId, "Neu") },
             "applyGroupEdit" to write { repo.applyGroupEdit("Layer 1", "Neu", setOf(watchId)) },
             "clearGroup" to write { repo.clearGroup("Layer 1") },
-            "setTtsEnabled" to write { repo.setTtsEnabled(watchId, true) },
+            "setTtsEnabled" to write { assertFalse(repo.setTtsEnabled(watchId, true)) },
             "setDisabled" to write { repo.setDisabled(listOf(watchId), true) },
             "setNotifiedPrice" to write { repo.setNotifiedPrice(watchId, 98_000.0) },
             "saveAlarm" to write {
@@ -121,7 +122,7 @@ class WatchlistLockDeviceTest {
                 assertNull(repo.saveAlarmMerged(alarmId) { it!!.copy(threshold = 120_000.0) })
             },
             "deleteAlarm" to write { repo.deleteAlarm(alarmId) },
-            "setAlarmEnabled" to write { repo.setAlarmEnabled(alarmId, false) },
+            "setAlarmEnabled" to write { assertFalse(repo.setAlarmEnabled(alarmId, false)) },
             "addWatch" to write { assertNull(repo.addWatch(BINANCE, sol)) },
             "tryAddWatch" to write { assertEquals(AddWatchOutcome.Locked, repo.tryAddWatch(BINANCE, sol)) },
             "addWatches" to write { assertTrue(repo.addWatches(BINANCE, listOf(sol, btc)).locked) },
@@ -144,6 +145,10 @@ class WatchlistLockDeviceTest {
         DatabaseEncryptionNotice.clearInMemoryForTest(AppDatabase.DB_NAME)
         repo.setNote(watchId, "neu")
         assertNotEquals(before, dump())
+        // Ungesperrt melden die Schalter «geschrieben» (Aufrufer führen erst dann die Folgeaktionen aus)
+        assertTrue(repo.setNotificationEnabled(watchId, false))
+        assertTrue(repo.setAlarmEnabled(alarmId, false))
+        assertTrue(repo.setTtsEnabled(watchId, true))
     }
 
     @Test

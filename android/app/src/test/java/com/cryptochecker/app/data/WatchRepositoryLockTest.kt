@@ -88,6 +88,31 @@ class WatchRepositoryLockTest {
         }
     }
 
+    /**
+     * Schalter melden «abgelehnt» (false): Folgeaktionen (Mitteilung zeigen bzw. entfernen) laufen nur nach dem Schreiben —
+     * sonst verschwände z. B. die Mitteilung eines noch scharfen Alarms samt «1 h später».
+     */
+    @Test
+    fun refusedTogglesSkipFollowUps() {
+        val repo = source("WatchRepository.kt")
+        assertTrue(member(repo, "suspend fun setNotificationEnabled(").contains("): Boolean {"))
+        assertTrue(member(repo, "suspend fun setAlarmEnabled(").contains("): Boolean {"))
+        assertTrue(member(repo, "suspend fun setTtsEnabled(").contains("): Boolean {"))
+        // Liste statt Map: eine Datei kann mehrere Aufrufer haben
+        val callers = listOf(
+            "alarms/AlarmsOverviewViewModel.kt" to "if (!watchRepository.setAlarmEnabled(alarmId, enabled)) return@launch",
+            "alarms/AlarmsViewModel.kt" to "if (!watchRepository.setAlarmEnabled(alarmId, enabled)) return@launch",
+            "settings/SettingsAlarmActions.kt" to "if (!watchRepository.setNotificationEnabled(watchId, enabled)) return",
+            "watchlist/WatchlistEditController.kt" to "if (!watchRepository.setNotificationEnabled(watch.id, enabled)) return@launch",
+            "watchlist/WatchlistEditController.kt" to "if (watchRepository.setTtsEnabled(watch.id, enabled) && turnOnSpeech) {",
+        )
+        for ((file, guard) in callers) {
+            val path = "src/main/java/com/cryptochecker/app/ui/features/$file"
+            val text = listOf(File(path), File("app/$path")).first { it.exists() }.readText()
+            assertTrue(file, text.contains(guard))
+        }
+    }
+
     @Test
     fun lockChecksStoredKeptInsideATransaction() {
         val lock = source("WatchRepositoryLock.kt").substringAfter("fun WatchRepository.userWriteRefused(")

@@ -32,6 +32,9 @@ struct AlarmsScreen: View {
     @State private var notificationsAllowed = true
     /// Uhr der Statuszeilen, jede Minute nachgeführt — ein Kurs wird auch ohne neue Daten veraltet.
     @State private var now: Int64 = TimeUtils.nowMillis
+    /// Zählt abgelehnte Schalter (Merkliste gesperrt): zeichnet sie neu, damit sie den echten Zustand zeigen — der
+    /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
+    @State private var refusedToggles = 0
     @Environment(\.scenePhase) private var scenePhase
     /// «Anpassen» aus einer Alarm-Mitteilung (`AppRouter.pendingEditAlarmId`).
     @ObservedObject private var router = AppRouter.shared
@@ -114,10 +117,12 @@ struct AlarmsScreen: View {
                             onToggle: { enabled in
                                 Haptics.play(.selection)
                                 data.setAlarmEnabled(alarm.id, enabled)
+                                if data.watchlistWritesBlocked { refusedToggles &+= 1 }
                             },
                             onEdit: { if !lowLiquidity { draft = AlarmDraft.from(alarm) } },
                             onDelete: { askDelete = alarm }
                         )
+                        .id(refusedToggles)
                         .listRowInsets(EdgeInsets(top: Spacing.xs, leading: 16, bottom: Spacing.xs, trailing: 16))
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color.clear)

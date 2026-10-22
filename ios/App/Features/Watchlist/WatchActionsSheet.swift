@@ -69,6 +69,9 @@ struct WatchActionsSheet: View {
     @State var previewReload = 0
     /// Kurzer Hinweis unten im Blatt (z. B. «Sprachausgabe ist an»).
     @State private var toast: String? = nil
+    /// Zählt abgelehnte Schalter (Merkliste gesperrt): zeichnet sie neu, damit sie den echten Zustand zeigen — der
+    /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
+    @State private var refusedToggles = 0
 
     /// Gezeigter Eintrag: der hinzugefügte (Vorschau) bzw. der übergebene.
     var currentId: Int64 { addedId ?? watchId }
@@ -250,16 +253,20 @@ struct WatchActionsSheet: View {
                             if let w = data.watch(currentId), data.setTtsEnabled(w, enabled) {
                                 toast = L("watchlist_tts_speech_on")
                             }
+                            if data.watchlistWritesBlocked { refusedToggles &+= 1 }
                         }
                     ), icon: "speaker.wave.2")
+                    .id(refusedToggles)
                     RowDivider()
                     SwitchRow(title: L("watchlist_notification"), isOn: Binding(
                         get: { data.watch(currentId)?.notificationEnabled ?? false },
                         set: { enabled in
                             if enabled { Task { _ = await Notifier.requestPermission() } }
                             if let w = data.watch(currentId) { data.setNotificationEnabled(w, enabled) }
+                            if data.watchlistWritesBlocked { refusedToggles &+= 1 }
                         }
                     ), icon: data.watch(currentId)?.notificationEnabled == true ? "bell" : "bell.slash")  // wie in der Zeile; aus = durchgestrichen
+                    .id(refusedToggles)
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 4)

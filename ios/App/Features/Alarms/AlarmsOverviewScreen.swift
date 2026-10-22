@@ -17,6 +17,12 @@ struct AlarmsOverviewScreen: View {
     @State private var openWatchId: Int64?
     /// Warum Portfolio-Alarme gerade nicht prüfen (letzter Portfolio-Stand, `PortfolioAlarmLogic.pause`); nil = keiner.
     @State private var portfolioPause: PortfolioAlarmPause?
+    /// Merkliste gesperrt: Hinweis «watchlist_storage_locked» nach einem abgelehnten Schalter (`.watchlistLockedHint`).
+    @State private var banner: WatchlistBannerMessage?
+    /// Zählt abgelehnte Schalter (Merkliste gesperrt): zeichnet die Schalter neu, damit sie den echten Zustand zeigen —
+    /// der gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
+    @State private var refusedToggles = 0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     /// Alarme «Portfolio-Wert» — nur mit eingeschaltetem Portfolio (sonst prüft sie niemand).
     private var portfolioAlarms: [PortfolioAlarm] {
@@ -132,6 +138,12 @@ struct AlarmsOverviewScreen: View {
             }
         }
         .background(AppColors.background.ignoresSafeArea())
+        // Schalter abgelehnt (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik — wie die Alarme des Paars
+        .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, icon: "lock.fill", long: true) }
+        .overlay(alignment: .bottom) {
+            WatchlistBanner(message: $banner) { _ in }
+                .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
+        }
         .confirmationDialog(L("alarm_delete_title"), isPresented: Binding(
             get: { deletePortfolio != nil },
             set: { if !$0 { deletePortfolio = nil } }
@@ -225,6 +237,7 @@ struct AlarmsOverviewScreen: View {
                         set: { enabled in
                             Haptics.play(.selection)
                             withAnimation(.snappy) { data.setAlarmEnabled(alarm.id, enabled) }
+                            if data.watchlistWritesBlocked { refusedToggles &+= 1 }
                         }
                     ), verticalPadding: 8) {
                         HStack(spacing: Spacing.sm) {
@@ -248,6 +261,7 @@ struct AlarmsOverviewScreen: View {
                         .accessibilityElement(children: .ignore)
                         .accessibilityLabel(Self.a11yLabel(alarm, watch: watch))
                     }
+                    .id(refusedToggles)
                     .padding(.horizontal, 16)
                 }
             }

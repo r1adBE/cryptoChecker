@@ -375,7 +375,8 @@ class AlarmsViewModel @Inject constructor(
 
     fun setEnabled(alarmId: Long, enabled: Boolean) {
         viewModelScope.launch {
-            watchRepository.setAlarmEnabled(alarmId, enabled)
+            // Abgelehnt (Merkliste gesperrt): Alarm bleibt scharf, seine Mitteilung bleibt
+            if (!watchRepository.setAlarmEnabled(alarmId, enabled)) return@launch
             // Ausgeschaltet: Mitteilung weg, ihr «1 h später» schaltete ihn sonst wieder ein ([AlarmUserChange])
             if (AlarmUserChange.cancelsNotification(enabled)) appNotifier.retractAlarm(alarmId)
         }

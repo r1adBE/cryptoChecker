@@ -22,8 +22,8 @@ extension BackgroundRefresh {
     /// ersetzt hier über `replace`). Vorher wurde sie bei jedem Start und jedem Wechsel in den Hintergrund abgesagt und
     /// «Intervall ab jetzt» neu gelegt; wer die App oft öffnete, schob den Alarm bei geschlossener App so immer weiter
     /// hinaus. Ist Fear & Greed früher fällig, beginnt sie dann (`RefreshSchedule.nextBegin`).
-    /// Seit Build 103 nur bei Bedarf (`workNeeded`, wie Android `periodicNeeded`); sonst wird sie abgesagt. Der Bedarf wird
-    /// abseits des Aufrufers ermittelt (Widgets, Merkliste von der Platte), das Vormerken folgt danach.
+    /// Seit Build 103 nur bei Bedarf (`workNeeded`, wie Android `periodicNeeded`): Vorgemerkt wird sofort, der Bedarf
+    /// danach abseits des Aufrufers ermittelt (Widgets, Merkliste von der Platte); ohne Bedarf wird wieder abgesagt.
     /// - Parameter replace: true = vorhandene Anfrage ersetzen (Intervall geändert, oder aus der laufenden
     ///   Aufgabe heraus, die selbst nicht mehr vorgemerkt ist).
     /// - Parameter fromNow: true = Intervall ab jetzt (aus der laufenden Aufgabe: `lastAlarmCheckAt` ist dort noch
@@ -34,28 +34,33 @@ extension BackgroundRefresh {
         // «Wie aktuell?»: Die Hintergrund-Aktualisierung läuft in jeder Wahl (auch «Sparsam»)
         let minutes = max(settings.backgroundIntervalMinutes, AppSettings.minBackgroundIntervalMinutes)
         let zoneOn = zoneWanted(settings)
-        workNeeded(settings: settings) { needed in
-            guard needed else {
+        // Zuerst wie bisher vormerken (aus der laufenden Aufgabe synchron, bevor sie ihr Ende meldet und iOS die App
+        // anhält), danach den Bedarf prüfen und ohne Bedarf wieder absagen — nie umgekehrt: Die Bedarfsprüfung wartet
+        // auf WidgetKit und die Platte, und ein angehaltener Prozess hätte sonst gar nichts vorgemerkt.
+        let cancelIfUnneeded: @Sendable () -> Void = {
+            workNeeded(settings: settings) { needed in
+                guard !needed else { return }
                 BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: refreshId)
                 AppLog.background.info("Hintergrund-Aktualisierung abgesagt: nichts zu prüfen")
-                return
             }
-            if replace {
+        }
+        if replace {
+            BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: refreshId)
+            submit(minutes: minutes, fromNow: fromNow, zoneOn: zoneOn, zoneRunsNow: zoneRunsNow)
+            cancelIfUnneeded()
+            return
+        }
+        BGTaskScheduler.shared.getPendingTaskRequests { requests in
+            if let pending = requests.first(where: { $0.identifier == refreshId }) {
+                // Uhr verstellt: iOS hält den alten absoluten Beginn fest (Stunden weg) → ersetzen; sonst bleibt sie
+                let begin = pending.earliestBeginDate.map { Int64(($0.timeIntervalSince1970 * 1000).rounded()) }
+                guard RefreshSchedule.isImplausiblyFar(earliestBeginMillis: begin, intervalMinutes: minutes,
+                                                       now: TimeUtils.nowMillis) else { return cancelIfUnneeded() }
+                AppLog.background.notice("BG-Anfrage unplausibel fern (Uhr verstellt?) – neu vorgemerkt")
                 BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: refreshId)
-                submit(minutes: minutes, fromNow: fromNow, zoneOn: zoneOn, zoneRunsNow: zoneRunsNow)
-                return
             }
-            BGTaskScheduler.shared.getPendingTaskRequests { requests in
-                if let pending = requests.first(where: { $0.identifier == refreshId }) {
-                    // Uhr verstellt: iOS hält den alten absoluten Beginn fest (Stunden weg) → ersetzen; sonst bleibt sie
-                    let begin = pending.earliestBeginDate.map { Int64(($0.timeIntervalSince1970 * 1000).rounded()) }
-                    guard RefreshSchedule.isImplausiblyFar(earliestBeginMillis: begin, intervalMinutes: minutes,
-                                                           now: TimeUtils.nowMillis) else { return }
-                    AppLog.background.notice("BG-Anfrage unplausibel fern (Uhr verstellt?) – neu vorgemerkt")
-                    BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: refreshId)
-                }
-                submit(minutes: minutes, fromNow: fromNow, zoneOn: zoneOn, zoneRunsNow: zoneRunsNow)
-            }
+            submit(minutes: minutes, fromNow: fromNow, zoneOn: zoneOn, zoneRunsNow: zoneRunsNow)
+            cancelIfUnneeded()
         }
     }
 

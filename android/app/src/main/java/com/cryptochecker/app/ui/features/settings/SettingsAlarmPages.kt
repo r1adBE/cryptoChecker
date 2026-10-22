@@ -220,6 +220,9 @@ internal fun AlarmsPage(
 internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel()) {
     val watches by viewModel.watches.collectAsStateWithLifecycle()
     val requestNotifications = rememberNotificationPermissionRequest()
+    // Merkliste gesperrt: Schalter abgelehnt (bleibt beim echten Zustand) — kurz sagen, warum; Einstellungen melden per Toast
+    val context = LocalContext.current
+    com.cryptochecker.app.ui.components.WatchlistLockedHint { Toast.makeText(context, it, Toast.LENGTH_LONG).show() }
     SettingsSubPage(title = stringResource(R.string.settings_price_notifications), onBack = onBack) {
         Hint(stringResource(R.string.settings_price_pairs_hint), top = 4.dp)
         if (watches.isEmpty()) {

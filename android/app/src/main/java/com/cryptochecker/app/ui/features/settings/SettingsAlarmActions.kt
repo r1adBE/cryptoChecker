@@ -25,7 +25,8 @@ fun SettingsViewModel.setAllPairNotifications(enabled: Boolean) {
 }
 
 internal suspend fun SettingsViewModel.applyPairNotification(watchId: Long, enabled: Boolean) {
-    watchRepository.setNotificationEnabled(watchId, enabled)
+    // Abgelehnt (Merkliste gesperrt): nichts zeigen bzw. entfernen, das Paar meldet wie bisher
+    if (!watchRepository.setNotificationEnabled(watchId, enabled)) return
     if (enabled) {
         // Einschalten: einmal zeigen und den Bezugspunkt der Melde-Schwelle auf den aktuellen Kurs setzen;
         // deaktiviertes Paar nur merken
