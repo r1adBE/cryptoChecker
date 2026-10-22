@@ -41,6 +41,8 @@ final class BackgroundErrorsTests: XCTestCase {
     }
 
     private struct SampleError: Error { let message = "geheim 0x12ab" }
+    /// Reiner Swift-Fehler (URLError wird je nach Laufzeit als «NSError» gemeldet).
+    private enum OtherError: Error { case timedOut }
 
     func testCounterCountsKindsWithoutMessage() throws {
         let suite = "BackgroundErrorsKindsTests"
@@ -48,12 +50,12 @@ final class BackgroundErrorsTests: XCTestCase {
         defaults.removePersistentDomain(forName: suite)
         defer { defaults.removePersistentDomain(forName: suite) }
         BackgroundErrorCounter.record(BackgroundErrors.refresh, now: 1_000, defaults: defaults, error: SampleError())
-        BackgroundErrorCounter.record(BackgroundErrors.refresh, now: 1_000, defaults: defaults, error: URLError(.timedOut))
+        BackgroundErrorCounter.record(BackgroundErrors.refresh, now: 1_000, defaults: defaults, error: OtherError.timedOut)
         BackgroundErrorCounter.record(BackgroundErrors.storage, now: 1_000, defaults: defaults,
                                       kind: BackgroundErrors.saveFailedKind)
         BackgroundErrorCounter.record(BackgroundErrors.storage, now: 1_000, defaults: defaults)
         let summary = BackgroundErrorCounter.summary(defaults: defaults)
-        XCTAssertEqual(summary.kinds[BackgroundErrors.refresh], ["SampleError": 1, "URLError": 1])
+        XCTAssertEqual(summary.kinds[BackgroundErrors.refresh], ["SampleError": 1, "OtherError": 1])
         XCTAssertEqual(summary.kinds[BackgroundErrors.storage], [BackgroundErrors.saveFailedKind: 1])
         XCTAssertEqual(summary.counts[BackgroundErrors.storage], 2)
         XCTAssertFalse(BackgroundErrors.kindsLine(summary)?.contains("geheim") ?? true)
