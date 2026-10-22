@@ -311,9 +311,9 @@ class WatchlistViewModel @Inject constructor(
 
     fun selectGroup(group: String?) = edits.selectGroup(group)
 
-    fun setNote(watch: WatchEntity, note: String?) = edits.setNote(watch, note)
+    fun setNote(watch: WatchEntity, note: String?, onProceed: () -> Unit = {}) = edits.setNote(watch, note, onProceed)
 
-    fun setGroup(watch: WatchEntity, group: String?) = edits.setGroup(watch, group)
+    fun setGroup(watch: WatchEntity, group: String?, onProceed: () -> Unit = {}) = edits.setGroup(watch, group, onProceed)
 
     /** Mehrfachauswahl › «Gruppe»: alle [ids] in [group] (null = keine Gruppe). */
     fun setGroup(ids: Collection<Long>, group: String?, onDone: (Boolean) -> Unit = {}) = edits.setGroup(ids, group, onDone)

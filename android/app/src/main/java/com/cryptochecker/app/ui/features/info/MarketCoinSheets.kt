@@ -24,22 +24,22 @@ import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.portfolio.PortfolioOff
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.domain.watch.ChangeView
-import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.lock.PortfolioAccess
 import com.cryptochecker.app.lock.findFragmentActivity
-import com.cryptochecker.app.ui.components.NotificationAsk
-import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import com.cryptochecker.app.ui.features.portfolio.PortfolioQuickAddSheet
 import com.cryptochecker.app.ui.features.watchlist.LocalChangeView
+import com.cryptochecker.app.ui.features.watchlist.BannerText
 import com.cryptochecker.app.ui.features.watchlist.USD_LIKE_QUOTES
+import com.cryptochecker.app.ui.features.watchlist.WatchUiEvent
+import com.cryptochecker.app.ui.features.watchlist.rememberWatchUiEvents
+import com.cryptochecker.app.ui.features.watchlist.toggleDisabled
 import com.cryptochecker.app.ui.features.watchlist.WatchActionsSheet
 import com.cryptochecker.app.ui.features.watchlist.WatchlistBanner
 import com.cryptochecker.app.ui.features.watchlist.WatchlistViewModel
 import com.cryptochecker.app.ui.features.watchlist.WhySheet
 import com.cryptochecker.app.ui.features.watchlist.groupsOf
 import com.cryptochecker.app.ui.lock.PortfolioLockViewModel
-import com.cryptochecker.app.util.LocaleNumbers
 import kotlinx.coroutines.delay
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
@@ -153,10 +153,10 @@ internal fun MarketCoinSheets(
     val context = LocalContext.current
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
-    val requestNotifications = rememberNotificationPermissionRequest()
-    // Paar aus der Vorschau übernommen: erst kurz erklären, dann die System-Abfrage
-    val requestNotificationsAdded = rememberNotificationPermissionRequest(NotificationAsk.PAIRS_ADDED)
     val haptics = rememberHaptics()
+    // Seit Build 107 (ARC5-R01): Rückmeldungen nach der Rückfrage F-08 im aktuellen Bildschirm (auch nach dem Neuerstellen)
+    val uiEvents = rememberWatchUiEvents(MARKET_COIN_UI_EVENTS)
+    MarketCoinUiEffects(uiEvents, state, watchlist, banner, haptics, resources)
     val alarmCounts by watchlist.alarmCounts.collectAsStateWithLifecycle()
     val sheetChartLine by watchlist.sheetChartLine.collectAsStateWithLifecycle()
     val changeBasis by watchlist.changeBasis.collectAsStateWithLifecycle()
@@ -233,10 +233,15 @@ internal fun MarketCoinSheets(
                 },
                 onNotificationChange = { on ->
                     // Seit Build 106 (UX4-R3): Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
-                    watchlist.setNotificationEnabled(shown, on) { written -> if (written && on) requestNotifications() }
+                    watchlist.setNotificationEnabled(shown, on) { written ->
+                        if (written && on) uiEvents.send(WatchUiEvent.RequestNotifications)
+                    }
                 },
                 onTtsChange = { watchlist.setTtsEnabled(shown, it) },
-                onToggleFavorite = { watchlist.toggleFavorite(shown) },
+                // Seit Build 107 (UX5-R2): Haptik wie in der Merkliste, erst nach dem Schreiben
+                onToggleFavorite = {
+                    watchlist.toggleFavorite(shown) { if (it) uiEvents.send(WatchUiEvent.Haptic(HapticEvent.LIGHT_IMPACT)) }
+                },
                 // Zurück aus «Alarme» öffnet dieses Blatt wieder
                 onOpenAlarms = {
                     state.returnToActions = shown.id
@@ -248,13 +253,9 @@ internal fun MarketCoinSheets(
                 onDelete = {
                     state.actionsFor = null
                     // Seit Build 105: Banner erst nach dem Löschen (Rückfrage F-08 «Abbrechen» bzw. abgelehnt: keiner)
+                    // Seit Build 103: «Rückgängig», Merkliste inzwischen voll → Hinweis ([handleShared])
                     watchlist.deleteWithUndo(shown) {
-                        banner.show(resources.getString(R.string.watchlist_removed, shown.displayName)) {
-                            // Seit Build 103: Merkliste inzwischen voll → Hinweis
-                            watchlist.undoDelete(shown.id) { n ->
-                                banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n))
-                            }
-                        }
+                        uiEvents.send(WatchUiEvent.Banner(BannerText(R.string.watchlist_removed, shown.displayName), shown.id))
                         shown.id
                     }
                 },
@@ -268,20 +269,11 @@ internal fun MarketCoinSheets(
                         }
                     }
                 } else null,
-                onSetGroup = { watchlist.setGroup(shown, it) },
-                onSetNote = { watchlist.setNote(shown, it) },
-                // Wie in der Merkliste: deaktivieren bzw. wieder aktivieren, Blatt zu, kurzes Banner erst nach dem Schreiben
-                onToggleDisabled = {
-                    state.actionsFor = null
-                    watchlist.setDisabled(listOf(shown.id), !shown.disabled) { written ->
-                        if (written) banner.show(
-                            resources.getString(
-                                if (shown.disabled) R.string.watch_enabled_banner else R.string.watch_disabled_banner,
-                                shown.displayName,
-                            )
-                        )
-                    }
-                },
+                // Seit Build 107 (IOS5-R02): Dialog erst nach bestätigter Rückfrage F-08 zu («Abbrechen»: offen mit Eingabe)
+                onSetGroup = { group, close -> watchlist.setGroup(shown, group, close) },
+                onSetNote = { note, close -> watchlist.setNote(shown, note, close) },
+                // Wie in der Merkliste (seit Build 107, UX5-R2): Blatt erst nach der Rückfrage zu, Haptik und kurzes Banner
+                onToggleDisabled = { uiEvents.toggleDisabled(watchlist, shown) },
                 loadFutures = watchlist::fetchFutures,
                 loadSpot = watchlist::fetchSpot,
                 onWhy = {
@@ -308,29 +300,9 @@ internal fun MarketCoinSheets(
                     if (state.adding || state.addPending) return@add
                     // Seit Build 106 (UX4-R2): «hinzugefügt» erst nach dem Schreiben zeigen (wie iOS), nicht vor der Rückfrage
                     state.addPending = true
-                    val onFull = {
-                        // Merkliste voll: nichts angelegt, sagen warum (Zahl im Format der App-Sprache)
-                        state.addPending = false
-                        haptics.play(HapticEvent.WARNING)
-                        banner.show(
-                            resources.getString(
-                                R.string.watchlist_limit_reached,
-                                LocaleNumbers.integer(WatchlistLimits.MAX_PAIRS, grouping = true),
-                            )
-                        )
-                    }
-                    watchlist.addPreview(candidate, onFull) { id, added ->
-                        state.addPending = false
-                        // «Abbrechen», gesperrt bzw. nichts gefunden: Knopf gleich wieder bereit
-                        if (id == null) return@addPreview
-                        // Wie der Hinzufügen-Tab: neue Paare haben Meldungen an — Erlaubnis jetzt fragen. Stand es schon
-                        // in der Merkliste: gleich dessen Blatt (ohne Halten)
-                        state.adding = added
-                        if (added) {
-                            haptics.play(HapticEvent.SUCCESS)
-                            requestNotificationsAdded()
-                        }
-                        state.actionsFor = id
+                    // Seit Build 107 (ARC5-R01): voll bzw. hinzugefügt über Ereignisse ([MarketCoinUiEffects])
+                    watchlist.addPreview(candidate, { uiEvents.send(WatchUiEvent.PreviewFull) }) { id, added ->
+                        uiEvents.send(WatchUiEvent.PreviewAdded(id, added))
                     }
                 },
             )

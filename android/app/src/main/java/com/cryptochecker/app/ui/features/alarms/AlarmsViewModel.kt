@@ -81,6 +81,8 @@ class AlarmsViewModel @Inject constructor(
     private val notices = AlarmSaveNotices(viewModelScope, watchRepository, settingsRepository, exactScheduler)
     /** Doppeltipp beim Anlegen: ein zweites «Speichern»/eine Vorlage, solange das erste läuft, bleibt ohne Wirkung. */
     private val createGuard = AlarmCreateGuard()
+    /** Seit Build 107 (ARC5-R01): offener Editor und Ergebnisse fürs aktuelle Bild, statt Rückrufe des Bildschirms. */
+    internal val editor = AlarmEditorState(savedStateHandle)
 
     /** Bestätigung nach dem allerersten Alarm zeigen (Text = Hinweis «Wann Alarme geprüft werden», [AlarmTimingHint]). */
     val firstAlarm: StateFlow<Boolean> = notices.firstAlarm
@@ -240,17 +242,15 @@ class AlarmsViewModel @Inject constructor(
     fun alarmSaveBlocked(): Boolean = WatchlistStorageLock.blocksAlarmSave(DatabaseEncryptionNotice.storedKept.value)
 
     /**
-     * Schnell-Alarm sofort anlegen (einmalig, Ton/Vibration wie neue Alarme). [onCreated] bekommt den gespeicherten Alarm (Id
-     * für «Rückgängig», Bedingung für die Bestätigung); [onLimit]: Paar voll. [onProceed] seit Build 106 (UX4-06): gleich
-     * nach bestätigter Rückfrage F-08 (Editor schliessen), nicht bei «Abbrechen».
+     * Schnell-Alarm sofort anlegen (einmalig, Ton/Vibration wie neue Alarme). Ergebnis seit Build 107 als
+     * [AlarmEditorEvent.Created] (Id für «Rückgängig», Bedingung für die Bestätigung) bzw. [AlarmEditorEvent.Limit] (Paar
+     * voll). Editor zu gleich nach bestätigter Rückfrage F-08 (seit Build 106, UX4-06), nicht bei «Abbrechen».
      */
-    fun createFromTemplate(
-        template: AlarmTemplates.Template, onLimit: () -> Unit, onProceed: () -> Unit = {}, onCreated: (AlarmEntity) -> Unit,
-    ) {
+    fun createFromTemplate(template: AlarmTemplates.Template) {
         if (alarmSaveBlocked()) return
         createGuard.launch(viewModelScope, guarded = true) {
             // Seit Build 105: Rückfrage F-08 vor der Aktion; «Abbrechen» = nichts, keine Meldung, der Editor bleibt offen
-            if (!watchRepository.confirmUserWrite()) return@launch else onProceed()
+            if (!watchRepository.confirmUserWrite()) return@launch else editor.close()
             val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
             val def = AlarmTemplates.definition(template, w.lastPrice) ?: return@launch
             val firstEver = notices.isFirstAlarm(existing = false)
@@ -263,12 +263,12 @@ class AlarmsViewModel @Inject constructor(
                 referencePrice = def.referencePrice,
                 windowHours = def.windowHours,
             )
-            val id = saveIfWatchExists(alarm, onLimit) ?: return@launch
+            val id = saveIfWatchExists(alarm, editor::limit) ?: return@launch
             val timingHint = notices.markSaved(firstEver)
             // Dialoge zuerst: Die Bestätigung mit «Rückgängig» wartet, bis sie geschlossen sind (sonst liefe sie dahinter ab)
             if (firstEver) notices.showFirstAlarm()
             if (timingHint) notices.showTimingHint()
-            onCreated(alarm.copy(id = id))
+            editor.events.send(AlarmEditorEvent.Created(alarm.copy(id = id)))
         }
     }
 
@@ -329,20 +329,17 @@ class AlarmsViewModel @Inject constructor(
     }
 
     /**
-     * Alarm speichern. [onSaved] bekommt den gespeicherten Alarm, ob er als Mitteilung erscheinen darf
-     * ([com.cryptochecker.app.notification.canShowAlarm]) und ob gleich die Bestätigung des allerersten Alarms kommt (dann
-     * keine eigene Zeile) — für die Bestätigung. [onLimit]: Paar voll. [onProceed] wie bei [createFromTemplate].
+     * Alarm speichern. Ergebnis seit Build 107 als [AlarmEditorEvent.Saved]: gespeicherter Alarm, ob er als Mitteilung
+     * erscheinen darf ([com.cryptochecker.app.notification.canShowAlarm]) und ob gleich die Bestätigung des allerersten Alarms
+     * kommt (dann keine eigene Zeile). Paar voll und Editor zu wie bei [createFromTemplate].
      */
-    fun save(
-        draft: AlarmDraft, onLimit: () -> Unit = {}, onProceed: () -> Unit = {},
-        onSaved: (AlarmEntity, Boolean, Boolean) -> Unit = { _, _, _ -> },
-    ) {
+    fun save(draft: AlarmDraft) {
         if (alarmSaveBlocked()) return
         createGuard.launch(viewModelScope, guarded = draft.id == 0L) {
             val threshold = draft.threshold ?: return@launch
             // Seit Build 105: Rückfrage F-08 VOR allem (auch vor dem Entfernen der alten Mitteilung); «Abbrechen» = nichts
             if (!watchRepository.confirmUserWrite()) return@launch
-            onProceed()
+            editor.close()
             val existing = alarms.value.firstOrNull { it.id == draft.id }
 
             // Allererster Alarm? Gab es schon Alarme (z. B. vor dem Update), gilt die Bestätigung als gezeigt.
@@ -366,10 +363,11 @@ class AlarmsViewModel @Inject constructor(
             // Bearbeitet: alte Mitteilung vor dem Speichern weg (eine neue, die gleich danach meldet, bleibt) — [AlarmUserChange]
             if (existing != null && AlarmUserChange.cancelsNotification(enabled = null)) appNotifier.retractAlarm(existing.id)
             // Zusammenführen mit dem GESPEICHERTEN Stand, in derselben Transaktion ([AlarmSaveBuilder])
-            val alarm = saveMergedIfWatchExists(draft.id, onLimit) { stored -> AlarmSaveBuilder.build(input, stored) }
+            val alarm = saveMergedIfWatchExists(draft.id, editor::limit) { stored -> AlarmSaveBuilder.build(input, stored) }
                 ?: return@launch
             val timingHint = notices.markSaved(firstEver)
-            onSaved(alarm, runCatchingCancellable { appNotifier.canShowAlarm(alarm) }.getOrDefault(true), firstEver)
+            val allowed = runCatchingCancellable { appNotifier.canShowAlarm(alarm) }.getOrDefault(true)
+            editor.events.send(AlarmEditorEvent.Saved(alarm, isNew = draft.id == 0L, allowed = allowed, firstEver = firstEver))
             if (firstEver) notices.showFirstAlarm()
             if (timingHint) notices.showTimingHint()
         }

@@ -15,6 +15,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 107)
+
+* Android: results after the «not saved» question survive rotating or a theme/language change – the alert editor closes after «Change anyway» (no second alert from a second tap), confirmations, undo and the notification permission appear in the current screen; the permission request can no longer crash on a screen that was just rebuilt.
+* «Cancel» keeps the note and group dialogs open with their text (both platforms); the Android disable/enable sheet closes only after the change, with haptics like on iPhone.
+* iPhone: the alert editor asks only once per save.
+* The question text no longer names a reason that may not apply.
+* Tests: the confirmation guards also check the cancel branch and closure parameters; the privacy scan skips Swift regex literals.
+
 ## 16.2.2 (build 106)
 
 * Watchlist not saved: no feedback before the answer any more – favourite, disable, «add to watchlist», price notifications and group actions show banner, haptics and the notification permission only after the change was written; «Cancel» keeps a multi-selection and an open alert editor with its input; if the screen is briefly rebuilt, the app waits up to 2 s to ask instead of refusing silently. Clearer question text in all languages («Change anyway»).

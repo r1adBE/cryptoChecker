@@ -2180,6 +2180,12 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 107 (review round 5): `ScreenEvents<T>` + `CollectScreenEvents` (buffered one-shot results, collected by the
+  current screen); alert editor draft in `AlarmEditorState` (`SavedStateHandle`), effects in `AlarmEditorEffects`;
+  `WatchUiEventsHolder` / `MarketCoinUiEffects`; `launchSystem()` guards an unregistered permission launcher;
+  `AlarmEditorRecreateTest`; iOS `ConfirmedFinish` (editor, note and group sheets close after the confirmation,
+  `saveFromEditor` / `templateFromEditor`); guards: cancel branch (Android) and own closure parameters (iOS);
+  `ios_release_audit.py` skips `#/…/#` regex literals.
 * Build 106 (review round 4): `launchWrite(cancelled = …)` with `onDone(Boolean)` for favourite, group, disable and
   notification writes (feedback only after writing); `addPreview` reports cancel/locked; `WatchlistNotSavedGate.confirm`
   waits up to 2 s for a screen (`lateScreen` in `watchlist_not_saved_gate.json`, `mayAsk()`), iOS `confirmClose` keeps

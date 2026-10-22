@@ -88,9 +88,10 @@ internal fun WatchActionsSheet(
     groups: List<String> = emptyList(),
     /** null = Eintrag verborgen (Vorschau); sonst immer, auch mit Portfolio aus ([PortfolioOff]). */
     onAddToPortfolio: (() -> Unit)? = null,
-    onSetGroup: (String?) -> Unit = {},
+    /** Seit Build 107 (IOS5-R02): zweites Argument schliesst den Dialog — erst nach bestätigter Rückfrage F-08 aufrufen. */
+    onSetGroup: (String?, close: () -> Unit) -> Unit = { _, close -> close() },
     onWhy: () -> Unit = {},
-    onSetNote: (String?) -> Unit = {},
+    onSetNote: (String?, close: () -> Unit) -> Unit = { _, close -> close() },
     /** Chart als Linie statt Kerzen (zuletzt gewählt, für alle Paare gleich). */
     chartLine: Boolean = false,
     onChartLineChange: (Boolean) -> Unit = {},
@@ -138,7 +139,8 @@ internal fun WatchActionsSheet(
         NoteDialog(
             title = stringResource(R.string.note_title),
             initial = watch.note,
-            onSave = { onSetNote(it); editNote = false },
+            // «Abbrechen» in der Rückfrage F-08: Dialog bleibt mit dem Text (wie der Alarm-Editor)
+            onSave = { onSetNote(it) { editNote = false } },
             onDismiss = { editNote = false }
         )
     }
@@ -146,7 +148,7 @@ internal fun WatchActionsSheet(
         GroupDialog(
             current = watch.groupName,
             groups = groups,
-            onSelect = { onSetGroup(it); editGroup = false },
+            onSelect = { onSetGroup(it) { editGroup = false } },
             onDismiss = { editGroup = false }
         )
     }

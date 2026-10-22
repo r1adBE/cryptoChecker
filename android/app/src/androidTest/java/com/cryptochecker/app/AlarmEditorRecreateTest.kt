@@ -1,0 +1,132 @@
+package com.cryptochecker.app
+
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.isEnabled
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
+import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.addWatch
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.local.WatchlistNotSavedGate
+import com.cryptochecker.app.domain.model.MarketInfo
+import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.testing.AppTestEnvironmentRule
+import com.cryptochecker.app.ui.MainActivity
+import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.marketdata.model.MarketPair
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import javax.inject.Inject
+
+/**
+ * Seit Build 107 (Review ARC5-R01): Merkliste wird nicht gespeichert, Alarm-Editor «Speichern» → Rückfrage F-08 offen →
+ * Activity neu erstellt (Drehen, Dunkelmodus, Sprache) → «Trotzdem»: Der Editor schliesst sich im NEUEN Bildschirm, es gibt
+ * genau einen Alarm und keinen Absturz. Vorher schloss der Rückruf nur den Editor der alten Komposition (der neue blieb mit
+ * den Eingaben offen; ein zweites «Speichern» legte einen zweiten Alarm an). Erlaubnis erteilt [AppTestEnvironmentRule]
+ * (kein System-Dialog); den Launcher sichert `rememberNotificationPermissionRequest` zusätzlich ab.
+ */
+@HiltAndroidTest
+class AlarmEditorRecreateTest {
+
+    @get:Rule(order = 0)
+    val hiltRule = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
+    val environment = AppTestEnvironmentRule()
+
+    @get:Rule(order = 2)
+    val compose = createAndroidComposeRule<MainActivity>()
+
+    @Inject lateinit var watchRepository: WatchRepository
+
+    @Inject lateinit var settingsRepository: SettingsRepository
+
+    private var watchId = 0L
+
+    @Before
+    fun setUp() {
+        hiltRule.inject()
+        WatchlistNotSavedGate.resetForTest()
+        runBlocking {
+            settingsRepository.setAboutSeen(true)
+            settingsRepository.setGestureHintSeen(true)
+            settingsRepository.setAppLock(false)
+            watchRepository.deleteAllWatches()
+            watchId = checkNotNull(
+                watchRepository.addWatch(MarketInfo("Binance", "Binance"), MarketPair("BTC", "USDT", "BTCUSDT"))
+            )
+        }
+    }
+
+    @After
+    fun tearDown() {
+        WatchlistNotSavedGate.resetForTest()
+        DatabaseEncryptionNotice.clearInMemoryForTest(AppDatabase.DB_NAME)
+        runBlocking { watchRepository.deleteAllWatches() }
+    }
+
+    @Test
+    fun confirmAfterRecreateClosesEditorAndSavesOnce() {
+        clickTag(UiTestTags.WATCH_ROW)
+        clickTag(UiTestTags.WATCH_ACTION_ALARM)
+        // Paar ohne Alarm: der Editor öffnet sich gleich; neuer Alarm = «über»
+        waitForTag(UiTestTags.ALARM_THRESHOLD)
+        compose.onAllNodes(hasTestTag(UiTestTags.ALARM_THRESHOLD), useUnmergedTree = true).onFirst()
+            .performTextInput(THRESHOLD)
+        compose.waitForIdle()
+
+        // Ab jetzt «nicht gespeichert» (wie ohne Schlüssel): die nächste Änderung fragt
+        DatabaseEncryptionNotice.markInMemory(AppDatabase.DB_NAME)
+        compose.waitUntil(TIMEOUT) { WatchlistNotSavedGate.mayAsk() }
+        clickTag(UiTestTags.ALARM_SAVE)
+        compose.waitUntil(TIMEOUT) { WatchlistNotSavedGate.request.value != null }
+
+        compose.activityRule.scenario.recreate()
+        compose.waitForIdle()
+        // Neuer Bildschirm: Editor samt Eingaben wieder da, die Frage noch offen
+        compose.waitUntil(TIMEOUT) { exists(UiTestTags.ALARM_THRESHOLD) && WatchlistNotSavedGate.request.value != null }
+        assertEquals(0, alarms())
+
+        WatchlistNotSavedGate.answer(true)
+        compose.waitUntil(TIMEOUT) { alarms() == 1 && !exists(UiTestTags.ALARM_THRESHOLD) }
+        compose.waitForIdle()
+        // Bleibt so: kein zweiter Alarm, Editor nicht wieder offen
+        assertEquals(1, alarms())
+        assertFalse(exists(UiTestTags.ALARM_THRESHOLD))
+    }
+
+    // ── Hilfen (wie UiFlowsTest) ──
+
+    private fun alarms(): Int = runBlocking { watchRepository.observeAlarms(watchId).first() }.size
+
+    private fun exists(tag: String): Boolean =
+        compose.onAllNodes(hasTestTag(tag), useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
+
+    private fun waitForTag(tag: String) {
+        compose.waitUntil(TIMEOUT) { exists(tag) }
+    }
+
+    private fun clickTag(tag: String) {
+        val enabled: SemanticsMatcher = hasTestTag(tag) and isEnabled()
+        compose.waitUntil(TIMEOUT) { compose.onAllNodes(enabled, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
+        compose.onAllNodes(enabled, useUnmergedTree = true).onFirst().performClick()
+        compose.waitForIdle()
+    }
+
+    private companion object {
+        const val TIMEOUT = 15_000L
+        const val THRESHOLD = "200000"
+    }
+}

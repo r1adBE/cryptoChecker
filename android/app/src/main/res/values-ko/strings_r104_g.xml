@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen), Grund und dass auch weitere Änderungen verloren gehen, wie der Banner watchlist_storage_in_memory; seit Build 104, Text seit Build 106 -->
-    <string name="watchlist_not_saved_confirm_message">지금은 관심 목록과 경보가 저장되지 않습니다(이 기기가 키를 제공하지 않음). 이번 변경과 이후의 변경 사항은 앱을 닫으면 사라집니다. 그래도 변경할까요?</string>
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; seit Build 104, Text seit Build 106, seit Build 107 ohne Grund (UX5-R1: passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">지금은 관심 목록과 경보가 저장되지 않습니다. 이번 변경과 이후의 변경 사항은 앱을 닫으면 사라집니다. 그래도 변경할까요?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel); seit Build 104, Text seit Build 106 -->
     <string name="watchlist_not_saved_confirm_action">그래도 변경</string>
 </resources>

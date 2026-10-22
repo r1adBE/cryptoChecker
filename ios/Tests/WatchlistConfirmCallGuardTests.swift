@@ -6,7 +6,8 @@ import XCTest
 /// Aufruf `data.<Schreibweg>(` in `App` ausserhalb von `Services` liegt im Block von `withWatchlistConfirm { … }` (nicht im
 /// `cancelled:`-Block), in der Aktion eines Hilfswegs, der seine Aktion nur darin ausführt (z. B. `moveButton`), oder hinter
 /// `await confirmWatchlistWrite()` (Block noch offen). Ein Hilfsweg ohne eigene Frage gilt, wenn jeder Aufrufer fragt (z. B.
-/// `addStarterConfirmed`, den `confirmEditorClose`-Weg deckt `saveDraft` mit eigener Frage).
+/// `addStarterConfirmed`; seit Build 107 `saveDraftNow`, einziger Aufrufer `saveFromEditor` fragt). Der eigene Rumpf einer
+/// Funktion zählt dabei nie als fragender Hilfsweg (seit Build 107).
 @MainActor
 final class WatchlistConfirmCallGuardTests: XCTestCase {
 
@@ -36,7 +37,8 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
     }
 
     /// Gegenprobe mit eingebautem Beispiel: ohne Rückfrage, im `cancelled:`-Block, nach dem Block, Zeichenkette mit
-    /// Kommentarzeichen → Befund; Hilfsweg, `confirmWatchlistWrite` und andere Überladung → kein Befund.
+    /// Kommentarzeichen → Befund; Hilfsweg, `confirmWatchlistWrite` und andere Überladung → kein Befund. Seit Build 107:
+    /// Regex-Literal mit `//` verdeckt nichts; Schreibweg vor der Frage in einer Funktion mit Closure-Parameter → Befund.
     func testCounterSampleIsFlagged() {
         let repo = CallGuard.Source(#"""
         extension AppData {
@@ -77,6 +79,13 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
             func stringOpensComment() {
                 let s = "/* kein Kommentar \(s.count)"; data.reorder([]); let e = "*/"
             }
+            func regexHidesNothing() {
+                let r = #/a//b/#; data.reorder([])
+            }
+            func ownClosureParam(_ note: String?, close: @escaping () -> Void) {
+                data.setNote(w, note)
+                data.withWatchlistConfirm({ close() }, cancelled: nil)
+            }
             func otherOverload() {
                 data.toggleFavorite(.coin, "BTC")
             }
@@ -84,9 +93,9 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
         }
         """#)
         let result = CallGuard.check(["Features/Sample.swift": sample], writes: writes, allowed: [])
-        XCTAssertEqual(result.calls, 7)
+        XCTAssertEqual(result.calls, 9)
         XCTAssertEqual(result.problems.map { $0.components(separatedBy: " ").last ?? "" },
-                       ["bad", "cancelledPath", "afterBlock", "stringOpensComment"])
+                       ["bad", "cancelledPath", "afterBlock", "stringOpensComment", "regexHidesNothing", "ownClosureParam"])
     }
 
     /// Alle Swift-Dateien unter `dir` (Schlüssel relativ zu `dir`), ohne Kommentare.

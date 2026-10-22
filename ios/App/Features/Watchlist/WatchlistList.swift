@@ -215,7 +215,7 @@ extension WatchlistScreen {
             // Gleiche Gruppe bei allen: vorgewählt, sonst nichts
             let common = Set(chosen.map { $0.groupName ?? "" })
             WatchGroupSheet(current: common.count == 1 ? chosen.first?.groupName : nil,
-                            groups: data.watchGroups) { group in groupSelected(group) }
+                            groups: data.watchGroups) { group, _, _ in groupSelected(group) }
                 .environment(\.appAccent, accent)
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)

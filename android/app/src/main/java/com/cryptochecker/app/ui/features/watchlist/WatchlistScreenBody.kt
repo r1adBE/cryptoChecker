@@ -28,7 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.WatchEntity
@@ -106,8 +105,9 @@ internal fun WatchlistBody(
     val columnSort = display.columnSort
     val changeBasis = display.changeBasis
     val haptics = rememberHaptics()
-    // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
-    val resources = LocalResources.current
+    // Seit Build 107 (ARC5-R01): Rückmeldungen der Mehrfachauswahl nach der Rückfrage F-08 im aktuellen Bildschirm
+    val uiEvents = rememberWatchUiEvents(WATCHLIST_UI_EVENTS)
+    val selectionDone = arrayOf<WatchUiEvent>(WatchUiEvent.Haptic(HapticEvent.LIGHT_IMPACT), WatchUiEvent.EndSelection)
     ReadableInset { inset ->
         Column(modifier = Modifier.fillMaxSize()) {
             // Fest oben (scrollt nicht mit): Kopfzeile mit Gruppen-Chips und Knöpfen,
@@ -292,31 +292,23 @@ internal fun WatchlistBody(
                         // Seit Build 106 (ARC4-R01, UX4-06): Haptik und Ende der Auswahl erst nach dem Schreiben —
                         // «Abbrechen» in der Rückfrage F-08 lässt die Auswahl stehen
                         onFavorite = {
-                            viewModel.setFavorite(selectedIds, !chosen.all { it.favorite }) { written ->
-                                if (written) { haptics.play(HapticEvent.LIGHT_IMPACT); ui.endSelection() }
-                            }
+                            viewModel.setFavorite(selectedIds, !chosen.all { it.favorite }) { if (it) uiEvents.send(*selectionDone) }
                         },
                         onGroup = { ui.askGroupForSelection = true },
                         // Alle deaktiviert: wieder aktivieren, sonst alle deaktivieren
                         allDisabled = allDisabled,
                         onToggleDisabled = {
-                            viewModel.setDisabled(selectedIds.toList(), !allDisabled) { written ->
-                                if (written) { haptics.play(HapticEvent.LIGHT_IMPACT); ui.endSelection() }
-                            }
+                            viewModel.setDisabled(selectedIds.toList(), !allDisabled) { if (it) uiEvents.send(*selectionDone) }
                         },
                         onDelete = {
                             viewModel.deleteSelectedWithUndo(selectedIds.toList()) { count ->
-                                if (count > 0) {
-                                    ui.endSelection()
-                                    haptics.play(HapticEvent.DESTRUCTIVE)
-                                    banner.show(
-                                        resources.getQuantityString(R.plurals.watchlist_removed_count, count, count)
-                                    ) {
-                                        viewModel.undoDelete(SELECTION_UNDO_KEY) { n ->
-                                            banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n))
-                                        }
-                                    }
-                                }
+                                if (count > 0) uiEvents.send(
+                                    WatchUiEvent.EndSelection,
+                                    WatchUiEvent.Haptic(HapticEvent.DESTRUCTIVE),
+                                    WatchUiEvent.Banner(
+                                        BannerText(plural = R.plurals.watchlist_removed_count, count = count), SELECTION_UNDO_KEY,
+                                    ),
+                                )
                             }
                         },
                         modifier = Modifier
@@ -333,7 +325,7 @@ internal fun WatchlistBody(
                         // Seit Build 106 (UX4-06): Dialog zu, Auswahl erst nach dem Schreiben beenden
                         onSelect = { group ->
                             ui.askGroupForSelection = false
-                            viewModel.setGroup(selectedIds, group) { written -> if (written) ui.endSelection() }
+                            viewModel.setGroup(selectedIds, group) { if (it) uiEvents.send(WatchUiEvent.EndSelection) }
                         },
                         onDismiss = { ui.askGroupForSelection = false },
                     )

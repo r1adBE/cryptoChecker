@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen), Grund und dass auch weitere Änderungen verloren gehen, wie der Banner watchlist_storage_in_memory; seit Build 104, Text seit Build 106 -->
-    <string name="watchlist_not_saved_confirm_message">Bevakningslistan med larm sparas inte just nu (enheten tillhandahåller ingen nyckel). Den här och fler ändringar försvinner när appen stängs. Ändra ändå?</string>
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; seit Build 104, Text seit Build 106, seit Build 107 ohne Grund (UX5-R1: passt so auch zur unverschlüsselten Kopie) -->
+    <string name="watchlist_not_saved_confirm_message">Bevakningslistan med larm sparas inte just nu. Den här och fler ändringar försvinner när appen stängs. Ändra ändå?</string>
     <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel); seit Build 104, Text seit Build 106 -->
     <string name="watchlist_not_saved_confirm_action">Ändra ändå</string>
 </resources>
