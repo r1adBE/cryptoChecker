@@ -76,7 +76,7 @@ final class WatchlistWriteLockTests: XCTestCase {
         for (file, signatures) in checks {
             let text = try source(file)
             for signature in signatures {
-                XCTAssertTrue(body(text, signature).contains("watchlistWriteRefused()"), "\(file): \(signature) prüft die Sperre nicht")
+                XCTAssertTrue(body(text, signature).contains("watchlistWriteRefused("), "\(file): \(signature) prüft die Sperre nicht")
             }
         }
         // Neue Alarme sperrt weiterhin `alarmSaveBlocked` (der Bildschirm nennt es vorher selbst)
