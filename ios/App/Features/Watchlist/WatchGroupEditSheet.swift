@@ -112,9 +112,12 @@ struct WatchGroupEditSheet: View {
             }
             .alert(L("group_delete"), isPresented: $askDelete) {
                 Button(L("group_delete"), role: .destructive) {
-                    Haptics.play(.destructive)
-                    data.deleteGroup(groupName)
-                    dismiss()
+                    // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts
+                    data.withWatchlistConfirm {
+                        Haptics.play(.destructive)
+                        data.deleteGroup(groupName)
+                        dismiss()
+                    }
                 }
                 Button(L("action_cancel"), role: .cancel) {}
             } message: {
@@ -235,8 +238,10 @@ struct WatchGroupEditSheet: View {
     }
 
     private func done() {
-        Haptics.play(.success)
-        data.applyGroupEdit(oldName: isNew ? nil : groupName, newName: name, memberIds: checked)
-        dismiss()
+        data.withWatchlistConfirm {
+            Haptics.play(.success)
+            data.applyGroupEdit(oldName: isNew ? nil : groupName, newName: name, memberIds: checked)
+            dismiss()
+        }
     }
 }

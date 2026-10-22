@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.settings
 
+import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -42,7 +43,7 @@ class SettingsSearchAnchorsTest {
 
     @Test
     fun everyIosTargetHasAnAnchor() {
-        val app = findUp(listOf("ios/App", "../ios/App", "../../ios/App")) ?: return // reiner Android-Checkout
+        val app = SourceGuard.ios(findUp(listOf("ios/App", "../ios/App", "../../ios/App")), "ios/App")
         val search = listOf("SettingsSearchUi.swift", "SettingsSearchCatalog.swift").joinToString("\n") { File(app, "Features/Settings/$it").readText() }
         val targets = (
             Regex("""anchor:\s*"([^"]+)"""").findAll(search) + Regex("""\.main\("([^"]+)"\)""").findAll(search)

@@ -7,7 +7,14 @@ struct BackgroundRunSeams: Sendable {
     var refresh: @Sendable (SharedStorage.Snapshot, AppSettings, RefreshDeadline) async -> PriceRefresher.Outcome
     /// Gleich nach dem Speichern der Kurse, vor dem Melden (Tests: Ablauf auslösen).
     var afterPriceSave: @Sendable () async -> Void = {}
-    /// Mitteilungs-Weg der Paar-Alarme.
+    /// Seit Build 105: Alarme mit Zusatzdaten prüfen (`PriceRefresher.checkDeferredAlarms`; Tests: ohne Netz).
+    var checkDeferred: @Sendable (PriceRefresher.DeferredAlarms, AppSettings, RefreshDeadline) async
+        -> PriceRefresher.Outcome = { deferred, settings, deadline in
+            await PriceRefresher.checkDeferredAlarms(deferred, settings: settings, deadline: deadline)
+        }
+    /// Seit Build 105: gleich nach dem Speichern der Zusatzdaten-Alarme, vor dem Melden (Tests: Ablauf auslösen).
+    var afterExtraSave: @Sendable () async -> Void = {}
+    /// Mitteilungs-Weg der Paar-Alarme (Kurs- und seit Build 105 auch Zusatzdaten-Pfad).
     var notifier: PriceRefresher.AlarmNotifier = .system
     /// Startet Protokoll und neues Vormerken nach einem Ablauf (`BackgroundExpiry.detach`; Tests: sofort, damit nichts
     /// nach dem Test noch schreibt).

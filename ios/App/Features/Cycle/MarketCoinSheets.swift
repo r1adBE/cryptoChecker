@@ -80,12 +80,14 @@ struct CycleCoinSheets: ViewModifier {
             .watchlistLockedHint { banner = WatchlistBannerMessage(text: $0, icon: "lock.fill", long: true) }
             .overlay(alignment: .bottom) {
                 WatchlistBanner(message: $banner) { deleted in
-                    var result = UndoRestoreResult()
-                    withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.restore(deleted) }
-                    // Seit Build 103: Merkliste inzwischen voll → Hinweis (wie Android)
-                    if result.full > 0 {
-                        banner = WatchlistBannerMessage(text: L("watchlist_undo_full", count: result.full),
-                                                        icon: "exclamationmark.circle", long: true)
+                    data.withWatchlistConfirm {
+                        var result = UndoRestoreResult()
+                        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.restore(deleted) }
+                        // Seit Build 103: Merkliste inzwischen voll → Hinweis (wie Android)
+                        if result.full > 0 {
+                            banner = WatchlistBannerMessage(text: L("watchlist_undo_full", count: result.full),
+                                                            icon: "exclamationmark.circle", long: true)
+                        }
                     }
                 }
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
@@ -160,15 +162,18 @@ struct CycleCoinSheets: ViewModifier {
 
     /// Wie nach links wischen in der Merkliste: sofort löschen, «Rückgängig» im Banner, Ansage.
     private func delete(_ watch: Watch) {
-        var result: DeletedWatch?
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.deleteForUndo(watch) }
-        guard let deleted = result else { return }
-        let text = L("watchlist_removed", deleted.watch.displayPair)
-        banner = WatchlistBannerMessage(text: text, icon: "trash", undo: deleted)
-        Task { @MainActor in
-            // Nach dem Fokuswechsel ansagen, sonst geht es unter
-            try? await Task.sleep(nanoseconds: 300_000_000)
-            AccessibilityNotification.Announcement(text).post()
+        // Seit Build 105: Rückfrage F-08 vorher; nach «Trotzdem» Banner mit «Rückgängig» und Ansage, nach «Abbrechen» nichts
+        data.withWatchlistConfirm {
+            var result: DeletedWatch?
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.deleteForUndo(watch) }
+            guard let deleted = result else { return }
+            let text = L("watchlist_removed", deleted.watch.displayPair)
+            banner = WatchlistBannerMessage(text: text, icon: "trash", undo: deleted)
+            Task { @MainActor in
+                // Nach dem Fokuswechsel ansagen, sonst geht es unter
+                try? await Task.sleep(nanoseconds: 300_000_000)
+                AccessibilityNotification.Announcement(text).post()
+            }
         }
     }
 }

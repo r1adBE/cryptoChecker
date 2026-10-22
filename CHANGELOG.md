@@ -3,7 +3,7 @@
 ## 16.2.2 – first public release
 
 * Last price straight from the exchange that lists the pair – 44 exchanges, including futures and DEX pools.
-* Price alarms run locally on the device: no account, no server.
+* Alerts run locally on the device when the app checks prices (with the app closed, often only after hours) – no account, no server.
 * Home-screen widgets for the watchlist, single pairs, the portfolio and the market pulse.
 * «What is moving with it?»: a checklist that puts a price move in context (market, Bitcoin and other factors).
 * Optional portfolio (off by default): own transactions, CSV import, watched addresses and tax worksheets.
@@ -15,12 +15,22 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 105)
+
+* Watchlist not saved (encryption not active yet): the confirmation now comes once per action and before it – «Cancel» changes nothing (no «removed» banner, notifications stay, no «alert limit reached»); «Continue anyway» runs the normal path with banner and undo; actions on many pairs ask once; on iPhone the question also appears above the alert editor and the explorer.
+* Alerts: «falls by 100 % or more» can no longer be switched on (pair and portfolio alerts); stored portfolio alerts of that kind are switched off once and marked; an old delivery marker no longer swallows a new real trigger; iOS stops notifying at the end of the background time also in the extra-data path and between alerts; iOS only clears a delivery marker after the alert was really written; Android keeps delivery markers while only an in-memory copy is open.
+* iOS: the privacy manifest matches the code again (monotonic clock instead of the system uptime API) – checked in CI.
+* Security: DexScreener pool ids with «.» or «..» parts are rejected; coin logo addresses are checked with a real URL parser (no tricks with «#» or «\»).
+* Performance: the coin page only recomputes when a price it needs changes (both platforms); the iOS pair picker builds its rows in the background.
+* Privacy policy: alert log in diagnostics also lists the condition; background error counter stays on the device (on iPhone also in the device backup).
+* Release and tests: source commit must be a full 40-character hash; tag must match version and build; iOS storage tests run in CI without skip; source guard tests fail when their file is missing; UI test requires the first-alert explanation.
+
 ## 16.2.2 (build 104)
 
 * Positioning: Crypto Checker checks your exchange's prices and notifies you when a check finds your level reached – store titles «Crypto Checker: Coin Prices» / «Kurse & Börse» instead of «Price Alerts»; descriptions, screenshots captions, README and website say so honestly in all languages.
 * Alerts: after a crash an alert only counts as already shown if its notification was posted after the attempt (an older notification of the same alert no longer swallows a new one); delivery markers are cleared when alerts are deleted, a backup is restored or the database is recreated; Android portfolio alerts use the same crash-safe delivery as iOS; stored «falls by 100 %» alerts from build 102 are switched off and marked «threshold invalid – please adjust», backups bring them in switched off.
 * Background: no alert is shown after the background time has run out (both platforms); iOS planning ignores outdated demand decisions and re-schedules when needed.
-* Portfolio: transfer fees above the recorded holdings show the uncovered part as unassigned instead of loading it onto the recorded coins; «undo import» reports failures; clearing the portfolio also forgets unavailable coins; the coin page no longer recomputes on other coins' price ticks.
+* Portfolio: transfer fees above the recorded holdings show the uncovered part as unassigned instead of loading it onto the recorded coins; «undo import» reports failures; clearing the portfolio also forgets unavailable coins; the coin page skips some recomputation on other coins' price ticks (not yet all of it).
 * CSV import: preview rows wrap (amount and price stay readable at large text sizes); choices are disabled while re-reading; the confirm check compares against the shown preview; daylight-saving gaps and overlaps west of UTC are handled like in Europe.
 * Privacy and security: every request to an address node uses the neutral browser user agent (also fees and halving) and on Android its own connection pool; privacy policy lists time zone and source commit in diagnostics; DexScreener pool ids are validated; scheduled workflows fetch without write access and publish in a separate checked job.
 * Accessibility: no notification permission prompt while the watchlist is locked; VoiceOver focus stays on a refused toggle; pair picker announces «no matches» and marks favourites.

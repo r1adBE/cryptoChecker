@@ -222,19 +222,20 @@ fun WatchlistScreen(
             banner.show(resources.getString(R.string.watchlist_refresh_just_done, ago))
         }
     }
-    // Nach links wischen, Screenreader-Aktion «Löschen» und «Löschen» im Aktionen-Blatt:
-    // ohne Rückfrage, mit «Rückgängig» (derselbe Weg überall)
+    // Wischen, Screenreader-Aktion und Aktionen-Blatt «Löschen»: ohne Rückfrage, mit «Rückgängig» (überall derselbe Weg)
     val haptics = rememberHaptics()
-    // Weiteres Löschen, solange der Banner steht: ein Sammel-Banner, «Rückgängig» holt alle zurück
+    // Weiteres Löschen, solange der Banner steht: ein Sammel-Banner. Seit Build 105 Haptik/Banner erst nach dem Löschen
     val removedBatch = remember { RemovedBatch() }
     val deleteWithUndo: (WatchEntity) -> Unit = { watch ->
-        haptics.play(HapticEvent.DESTRUCTIVE)
-        val undoKey = removedBatch.add(watch.id, watch.displayName)
-        viewModel.deleteWithUndo(watch, undoKey)
-        val generation = removedBatch.generation
-        banner.show(removedBatch.bannerText(resources), onClosed = { removedBatch.closed(generation) }) {
-            // Seit Build 103: Merkliste inzwischen voll → Hinweis, wie viele nicht zurückkamen
-            viewModel.undoDelete(undoKey) { n -> banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n)) }
+        viewModel.deleteWithUndo(watch) {
+            haptics.play(HapticEvent.DESTRUCTIVE)
+            val undoKey = removedBatch.add(watch.id, watch.displayName)
+            val generation = removedBatch.generation
+            banner.show(removedBatch.bannerText(resources), onClosed = { removedBatch.closed(generation) }) {
+                // Seit Build 103: Merkliste inzwischen voll → Hinweis, wie viele nicht zurückkamen
+                viewModel.undoDelete(undoKey) { n -> banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n)) }
+            }
+            undoKey
         }
     }
     // Nach rechts wischen: Favorit an/aus mit kurzem Banner

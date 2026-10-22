@@ -1,5 +1,6 @@
 package com.cryptochecker.app.settings
 
+import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.io.File
@@ -30,7 +31,7 @@ class AccentColorTest {
      */
     @Test
     fun `manifest declares exactly these aliases with only the default enabled`() {
-        val manifest = findManifest() ?: return // anderes Arbeitsverzeichnis
+        val manifest = SourceGuard.android(findManifest(), "src/main/AndroidManifest.xml")
         val aliases = Regex("""<activity-alias\b(.*?)>""", RegexOption.DOT_MATCHES_ALL).findAll(manifest.readText())
             .map { it.groupValues[1] }
             .toList()

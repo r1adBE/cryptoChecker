@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.theme
 
+import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -36,7 +37,7 @@ class TypographyUsageTest {
      */
     @Test
     fun labelSmallIsAtLeast12sp() {
-        val root = androidSources() ?: return
+        val root = SourceGuard.android(androidSources(), "android/app/src/main/java")
         val source = File(root, "ui/theme/Typography.kt").readText(Charsets.UTF_8)
         val match = Regex("""labelSmall = base\.labelSmall\.copy\(fontSize = (\d+)\.sp""").find(source)
         assertNotNull("labelSmall-Grösse in Typography.kt nicht gefunden", match)
@@ -46,7 +47,7 @@ class TypographyUsageTest {
 
     @Test
     fun caption2UsesOnlyGoDownOnIos() {
-        val root = iosSources() ?: return // reiner Android-Checkout
+        val root = SourceGuard.ios(iosSources(), "ios/App")
         val uses = countUses(root, "swift", CAPTION2)
         assertTrue(
             ".caption2 in ios/App: $uses Stellen, erlaubt höchstens $IOS_CAPTION2_CEILING — für Metadaten .caption nehmen",

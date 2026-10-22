@@ -6,6 +6,7 @@ import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import com.cryptochecker.app.util.SourceGuard
 import com.cryptochecker.marketdata.config.MarketsConfig
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -377,17 +378,15 @@ class ExchangeContractTest {
 
     /**
      * Aufgezeichnete echte Antworten (`tools/record_exchange_fixtures.py`, Aktion «Record exchange
-     * fixtures»), sofern vorhanden — ohne Aufzeichnung gibt es nichts zu prüfen. Jede Datei nennt
+     * fixtures»), seit Build 105 Pflicht (liegen im Repo). Jede Datei nennt
      * ihren Aufnahmezeitpunkt (`recordedAt`), damit ein Fehlschlag einem Stand der Börse zugeordnet
      * werden kann.
      */
     @Test
     fun recordedResponsesStillParse() {
         val files = recordedFixtures()
-        if (files.isEmpty()) {
-            println("ExchangeContractTest: no recorded responses in testdata/exchanges/recorded (optional)")
-            return
-        }
+        // Seit Build 105 Pflicht (liegen im Repo): fehlen sie, nicht still grün
+        assertTrue("keine recorded_*.json in testdata/exchanges/recorded", files.isNotEmpty())
         val failures = ArrayList<String>()
         var cases = 0
         for ((file, data) in files) {
@@ -419,7 +418,7 @@ class ExchangeContractTest {
      */
     @Test
     fun recordedBithumbTradeTimeIsUtc() {
-        val data = recordedFixtures().firstOrNull { it.first == "recorded_bithumb.json" }?.second ?: return
+        val data = SourceGuard.android(recordedFixtures().firstOrNull { it.first == "recorded_bithumb.json" }?.second, "testdata/exchanges/recorded/recorded_bithumb.json")
         val recordedAt = Instant.parse(data["recordedAt"] as String).toEpochMilli()
         val single = data["cases"].list().map { it.obj() }.first { it["kind"] == "single" }
         val ticker = SimpleTicker()

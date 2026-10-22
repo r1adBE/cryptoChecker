@@ -20,5 +20,25 @@
       {"answer": null, "asked": false, "written": true},
       {"answer": null, "asked": false, "written": true}
     ]
+  },
+  "actions": {
+    "_comment": "Seit Build 105 (Review ARC3-R01/R02, UX3-01..05, IOS3-R04): EINE Nutzeraktion (Paar löschen, «Merkliste leeren», Gruppe für viele Paare, Startpaare, Alarm speichern) fragt EINMAL VOR der Aktion (Android confirmUserWrite, iOS confirmWatchlistWrite), danach laufen ihre Schreibwege (writes) und erst dann die Folgen (effects: Rückgängig-Eintrag, Mitteilungen entfernen, Banner, Haptik, Ansage, Erst-Alarm). «Abbrechen» = nichts geschrieben, keine Folgen. Ohne vorherige Bestätigung lehnt der Schreibweg ab (Sicherung, eindeutiges Ergebnis), statt selbst zu fragen. confirmed = schon «Trotzdem» in diesem Lauf; skipConfirm = Aktion ruft die Bestätigung nicht auf; questions = gestellte Fragen; written = ausgeführte Schreibwege.",
+    "cases": [
+      {"name": "delete one pair, cancel", "writes": 1, "answer": false, "questions": 1, "written": 0, "effects": false},
+      {"name": "delete one pair, proceed", "writes": 1, "answer": true, "questions": 1, "written": 1, "effects": true},
+      {"name": "group for 20 pairs, cancel asks once", "writes": 20, "answer": false, "questions": 1, "written": 0, "effects": false},
+      {"name": "group for 20 pairs, proceed asks once", "writes": 20, "answer": true, "questions": 1, "written": 20, "effects": true},
+      {"name": "4 starter pairs, proceed asks once", "writes": 4, "answer": true, "questions": 1, "written": 4, "effects": true},
+      {"name": "already confirmed this run", "writes": 3, "confirmed": true, "answer": null, "questions": 0, "written": 3, "effects": true},
+      {"name": "write path without confirmation is refused", "writes": 1, "skipConfirm": true, "answer": null, "questions": 0, "written": 0, "effects": false},
+      {"name": "saved (not not-saved): no question", "writes": 2, "notSaved": false, "answer": null, "questions": 0, "written": 2, "effects": true},
+      {"name": "no visible screen: no question", "writes": 2, "canAsk": false, "answer": null, "questions": 0, "written": 2, "effects": true}
+    ]
+  },
+  "cancelledWaiter": {
+    "_comment": "Seit Build 105: Wird die wartende Aktion abgebrochen (Bildschirm/ViewModel weg), verschwindet die offene Frage (pending leer) — kein Dialog ohne Aktion dahinter, nichts bestätigt; die nächste Aktion fragt neu.",
+    "pendingAfterCancel": false,
+    "confirmedAfterCancel": false,
+    "nextActionAsks": true
   }
 }

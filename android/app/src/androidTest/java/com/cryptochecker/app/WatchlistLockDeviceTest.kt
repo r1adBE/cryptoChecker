@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.cryptochecker.app.data.AddWatchOutcome
+import com.cryptochecker.app.data.AlarmSaveResult
 import com.cryptochecker.app.data.FallAlarmCleanup
 import com.cryptochecker.app.data.PairEditResult
 import com.cryptochecker.app.data.RestoreOutcome
@@ -15,10 +16,13 @@ import com.cryptochecker.app.data.addWatch
 import com.cryptochecker.app.data.addWatches
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.local.WatchlistNotSavedGate
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.restore
 import com.cryptochecker.app.data.tryAddWatch
+import com.cryptochecker.app.data.trySaveAlarm
+import com.cryptochecker.app.data.trySaveAlarmMerged
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.refresh.AlarmLogStore
 import com.cryptochecker.app.notification.AlarmDeliveryMarkers
@@ -28,7 +32,12 @@ import java.io.File
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
 import kotlin.coroutines.Continuation
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
@@ -120,9 +129,9 @@ class WatchlistLockDeviceTest {
                 assertEquals(expected, repo.changePair(watchId, BINANCE, sol))
             },
             "setMissingPercentReferences" to write { repo.setMissingPercentReferences(watchId, 99_000.0) },
-            "deleteWatch" to write { repo.deleteWatch(watchId) },
-            "deleteWatches" to write { repo.deleteWatches(listOf(watchId)) },
-            "deleteAllWatches" to write { repo.deleteAllWatches() },
+            "deleteWatch" to write { locked -> assertEquals(!locked, repo.deleteWatch(watchId)) },
+            "deleteWatches" to write { locked -> assertEquals(!locked, repo.deleteWatches(listOf(watchId))) },
+            "deleteAllWatches" to write { locked -> assertEquals(!locked, repo.deleteAllWatches()) },
             "setNotificationEnabled" to write { locked -> assertEquals(!locked, repo.setNotificationEnabled(watchId, false)) },
             "setFavorite" to write { repo.setFavorite(watchId, true) },
             "move" to write { repo.move(watchId, WatchMove.BOTTOM) },
@@ -132,7 +141,7 @@ class WatchlistLockDeviceTest {
             "applyGroupEdit" to write { repo.applyGroupEdit("Layer 1", "Neu", setOf(watchId)) },
             "clearGroup" to write { repo.clearGroup("Layer 1") },
             "setTtsEnabled" to write { locked -> assertEquals(!locked, repo.setTtsEnabled(watchId, true)) },
-            "setDisabled" to write { repo.setDisabled(listOf(watchId), true) },
+            "setDisabled" to write { locked -> assertEquals(!locked, repo.setDisabled(listOf(watchId), true)) },
             "setNotifiedPrice" to write { repo.setNotifiedPrice(watchId, 98_000.0) },
             "saveAlarm" to write { locked ->
                 val id = repo.saveAlarm(AlarmEntity(watchId = watchId, condition = AlarmCondition.PRICE_BELOW, threshold = 1.0))
@@ -141,7 +150,16 @@ class WatchlistLockDeviceTest {
             "saveAlarmMerged" to write { locked ->
                 assertEquals(locked, repo.saveAlarmMerged(alarmId) { it!!.copy(threshold = 120_000.0) } == null)
             },
-            "deleteAlarm" to write { repo.deleteAlarm(alarmId) },
+            // Seit Build 105: eindeutiges Ergebnis (gespeichert / voll / abgelehnt)
+            "trySaveAlarm" to write { locked ->
+                val r = repo.trySaveAlarm(AlarmEntity(watchId = watchId, condition = AlarmCondition.PRICE_BELOW, threshold = 2.0))
+                if (locked) assertEquals(AlarmSaveResult.Refused, r) else assertTrue(r is AlarmSaveResult.Saved)
+            },
+            "trySaveAlarmMerged" to write { locked ->
+                val r = repo.trySaveAlarmMerged(alarmId) { it!!.copy(threshold = 130_000.0) }
+                if (locked) assertEquals(AlarmSaveResult.Refused, r) else assertTrue(r is AlarmSaveResult.Saved)
+            },
+            "deleteAlarm" to write { locked -> assertEquals(!locked, repo.deleteAlarm(alarmId)) },
             "setAlarmEnabled" to write { locked -> assertEquals(!locked, repo.setAlarmEnabled(alarmId, false)) },
             "addWatch" to write { locked -> assertEquals(locked, repo.addWatch(BINANCE, sol) == null) },
             "tryAddWatch" to write { locked ->
@@ -188,6 +206,32 @@ class WatchlistLockDeviceTest {
         assertEquals(99_000.0, checkNotNull(db.getWatchDao().getAlarm(percentAlarmId)).referencePrice)
     }
 
+    /**
+     * Seit Build 105 (F-08, Review ARC3-R01/R02): nur im Arbeitsspeicher ohne gespeicherten Stand und mit sichtbarer
+     * Oberfläche lehnt jeder Schreibweg des Nutzers OHNE vorherige Bestätigung (`confirmUserWrite`) ab — eindeutig und ohne
+     * selbst zu fragen oder zu warten. Folge-Schreibwege laufen nur nach einem bestätigten und lehnen nie ab.
+     */
+    @Test
+    fun unconfirmedUserWritesAreRefusedWhenNotSaved() = runBlocking {
+        WatchlistNotSavedGate.resetForTest()
+        DatabaseEncryptionNotice.markInMemory(AppDatabase.DB_NAME)
+        // Sichtbare Oberfläche: jemand sammelt die Frage (wie WatchlistNotSavedGateHost)
+        val visible = launch(Dispatchers.Default) { WatchlistNotSavedGate.request.collect {} }
+        try {
+            withTimeout(5_000) { while (!WatchlistNotSavedGate.needsConfirmation()) delay(5) }
+            val before = dump()
+            for ((name, write) in userWrites()) {
+                if (name in FOLLOW_UPS) continue
+                write(true)
+                assertEquals("$name hat ohne Bestätigung geschrieben", before, dump())
+                assertEquals("$name hat selbst gefragt", null, WatchlistNotSavedGate.request.value)
+            }
+        } finally {
+            visible.cancelAndJoin()
+            WatchlistNotSavedGate.resetForTest()
+        }
+    }
+
     @Test
     fun everyPublicSuspendFunctionIsClassified() {
         val declared = suspendFunctions(WatchRepository::class.java, extension = false) +
@@ -216,7 +260,10 @@ class WatchlistLockDeviceTest {
         val BINANCE = MarketInfo("Binance", "Binance")
 
         /** Dateien mit Erweiterungen von [WatchRepository] (Klassen der Kotlin-Dateien). */
-        val EXTENSION_FILES = listOf("WatchRepositoryAddKt", "WatchRepositoryRefreshKt")
+        val EXTENSION_FILES = listOf("WatchRepositoryAddKt", "WatchRepositoryRefreshKt", "WatchRepositoryAlarmSaveKt")
+
+        /** Folge-Schreibwege (nur nach einem bestätigten Schreibweg, `userWriteRefused(notify = false)`): lehnen nie ab. */
+        val FOLLOW_UPS = setOf("setMissingPercentReferences", "setNotifiedPrice")
 
         /** Nur lesen. */
         val READS = setOf("getWatches", "getWatch", "snapshot", "getEnabledAlarms", "getAllEnabledAlarms", "getAllAlarmIds")

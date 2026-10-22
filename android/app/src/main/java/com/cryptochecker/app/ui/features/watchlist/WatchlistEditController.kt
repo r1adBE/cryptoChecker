@@ -11,6 +11,7 @@ import com.cryptochecker.app.data.restore
 import com.cryptochecker.app.data.WatchMove
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.WatchSnapshot
+import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.tryAddWatch
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.model.MarketInfo
@@ -60,16 +61,19 @@ internal class WatchlistEditController(
      */
     private val undo = UndoSlot<Long, List<WatchSnapshot>>()
 
+    /** Seit Build 105 (F-08): Rückfrage EINMAL je Aktion vorher ([confirmUserWrite], vor [undoMutex]); «Abbrechen» = nichts. */
+    private fun launchWrite(block: suspend () -> Unit) = scope.launch { if (watchRepository.confirmUserWrite()) block() }
+
     fun selectGroup(group: String?) {
         scope.launch { settingsRepository.setWatchlistGroup(group) }
     }
 
     fun setNote(watch: WatchEntity, note: String?) {
-        scope.launch { watchRepository.setNote(watch.id, note) }
+        launchWrite { watchRepository.setNote(watch.id, note) }
     }
 
     fun setGroup(watch: WatchEntity, group: String?) {
-        scope.launch {
+        launchWrite {
             watchRepository.setGroup(watch.id, group)
             widgetUpdater.updateAll()
         }
@@ -84,7 +88,7 @@ internal class WatchlistEditController(
         val name = newName.trim()
         if (name.isEmpty()) return
         if (oldName == null && memberIds.isEmpty()) return
-        scope.launch {
+        launchWrite {
             val renamed = oldName != null && oldName != name
             if (renamed && memberIds.isNotEmpty()) renamedGroups[oldName] = name
             watchRepository.applyGroupEdit(oldName, name, memberIds)
@@ -95,7 +99,7 @@ internal class WatchlistEditController(
 
     /** Gruppe löschen: Paare bleiben in der Merkliste; die Ansicht springt auf «Alle». */
     fun deleteGroup(name: String) {
-        scope.launch {
+        launchWrite {
             renamedGroups.remove(name)
             if (groupFilter()?.selected == name) settingsRepository.setWatchlistGroup(null)
             watchRepository.clearGroup(name)
@@ -115,17 +119,17 @@ internal class WatchlistEditController(
      * ([com.cryptochecker.app.domain.watch.WatchlistLimits]): nichts angelegt, nur [onFull] (Hinweis).
      */
     fun addPreview(watch: WatchEntity, onFull: () -> Unit, onDone: (id: Long?, added: Boolean) -> Unit) {
-        scope.launch {
+        launchWrite {
             val outcome = watchRepository.tryAddWatch(
                 MarketInfo(key = watch.marketKey, name = watch.marketName),
                 MarketPair(watch.baseAsset, watch.quoteAsset, watch.pairId, watch.contractType),
             )
             if (outcome == AddWatchOutcome.Full) {
                 onFull()
-                return@launch
+                return@launchWrite
             }
             // Merkliste gesperrt: nichts angelegt, den kurzen Hinweis zeigt WatchlistLockedHint
-            if (outcome == AddWatchOutcome.Locked) return@launch
+            if (outcome == AddWatchOutcome.Locked) return@launchWrite
             val id = (outcome as? AddWatchOutcome.Added)?.id
             if (id != null) {
                 addMoments.afterExplorerAdd(id)
@@ -148,19 +152,20 @@ internal class WatchlistEditController(
      * aber vollständig festgehalten ([WatchSnapshot]). [undoDelete] legt es mit
      * derselben Id und denselben Alarm-Ids wieder an. Nur die letzte Löschung lässt
      * sich zurückholen; Löschen und Zurückholen laufen nacheinander ([undoMutex]).
-     * Liegt unter [undoKey] schon etwas (Sammlung, solange der Banner steht – [RemovedBatch]), kommt das Paar
-     * dazu: «Rückgängig» holt dann alle zurück.
+     * Seit Build 105: erst nach dem Löschen ruft es [onDeleted] (Banner, Haptik; liefert den Rückgängig-Schlüssel — liegt
+     * dort schon etwas, Sammlung solange der Banner steht, [RemovedBatch], kommt das Paar dazu), danach Rückgängig-Eintrag
+     * und Mitteilungen. «Abbrechen» in der Rückfrage bzw. abgelehnt: nichts davon.
      */
-    fun deleteWithUndo(watch: WatchEntity, undoKey: Long = watch.id) {
-        scope.launch {
+    fun deleteWithUndo(watch: WatchEntity, onDeleted: () -> Long = { watch.id }) {
+        launchWrite {
             undoMutex.withLock {
                 val snapshot = watchRepository.snapshot(watch.id) ?: return@withLock
-                undo.merge(undoKey, listOf(snapshot)) { held, added -> held + added }
+                if (!watchRepository.deleteWatch(watch.id)) return@withLock
+                undo.merge(onDeleted(), listOf(snapshot)) { held, added -> held + added }
                 notifier.cancelPrice(watch.id)
                 notifier.cancelActivity(watch.id)
                 // Alte Alarm-Mitteilungen weg: ihr «Anpassen» zeigte sonst auf ein Paar, das es nicht mehr gibt
                 notifier.cancelAlarms(snapshot.alarms.map { it.id })
-                watchRepository.deleteWatch(watch.id)
                 widgetUpdater.updateAll()
             }
         }
@@ -171,7 +176,7 @@ internal class WatchlistEditController(
      * Obergrenze der Merkliste: [onFull] bekommt die Zahl der deshalb nicht zurückgeholten Paare (nur wenn > 0).
      */
     fun undoDelete(watchId: Long, onFull: (Int) -> Unit = {}) {
-        scope.launch {
+        launchWrite {
             undoMutex.withLock {
                 val snapshots = undo.take(watchId) ?: return@withLock
                 // Nach «Merkliste leeren» bzw. vielen Paaren keine Kurs-Meldung je Paar: Android drosselt rund
@@ -205,18 +210,10 @@ internal class WatchlistEditController(
      */
     fun deleteNotTradedWithUndo(onDone: (Int) -> Unit) {
         scope.launch {
-            val count = undoMutex.withLock {
+            // Seit Build 105: Rückfrage vor der Sperre; «Abbrechen» bzw. abgelehnt = 0 (kein Banner, nichts weggeräumt)
+            val count = if (!watchRepository.confirmUserWrite()) 0 else undoMutex.withLock {
                 val ids = watchRepository.getWatches().filter { it.isNotTraded }.map { it.id }
-                val snapshots = ids.mapNotNull { watchRepository.snapshot(it) }
-                if (snapshots.isEmpty()) return@withLock 0
-                undo.put(NOT_TRADED_UNDO_KEY, snapshots)
-                // Kurs-Meldungen in einem Schritt (Sammelmeldung nur einmal neu)
-                notifier.cancelAllPrices(snapshots.map { it.watch.id })
-                snapshots.forEach { notifier.cancelActivity(it.watch.id) }
-                notifier.cancelAlarms(snapshots.flatMap { it.alarms }.map { it.id })
-                watchRepository.deleteWatches(snapshots.map { it.watch.id })
-                widgetUpdater.updateAll()
-                snapshots.size
+                deleteSnapshots(NOT_TRADED_UNDO_KEY, ids.mapNotNull { watchRepository.snapshot(it) })
             }
             onDone(count)
         }
@@ -229,25 +226,31 @@ internal class WatchlistEditController(
      */
     fun deleteSelectedWithUndo(ids: Collection<Long>, onDone: (Int) -> Unit) {
         scope.launch {
-            val count = undoMutex.withLock {
-                val snapshots = ids.mapNotNull { watchRepository.snapshot(it) }
-                if (snapshots.isEmpty()) return@withLock 0
-                undo.put(SELECTION_UNDO_KEY, snapshots)
-                // Kurs-Meldungen in einem Schritt (Sammelmeldung nur einmal neu)
-                notifier.cancelAllPrices(snapshots.map { it.watch.id })
-                snapshots.forEach { notifier.cancelActivity(it.watch.id) }
-                notifier.cancelAlarms(snapshots.flatMap { it.alarms }.map { it.id })
-                watchRepository.deleteWatches(snapshots.map { it.watch.id })
-                widgetUpdater.updateAll()
-                snapshots.size
+            val count = if (!watchRepository.confirmUserWrite()) 0 else undoMutex.withLock {
+                deleteSnapshots(SELECTION_UNDO_KEY, ids.mapNotNull { watchRepository.snapshot(it) })
             }
             onDone(count)
         }
     }
 
+    /**
+     * Festgehaltene Paare löschen (unter [undoMutex]); erst NACH dem Löschen Rückgängig-Eintrag unter [key] und Kurs-,
+     * Aktivitäts- und Alarm-Mitteilungen weg (seit Build 105). Rückgabe: Zahl der gelöschten Paare, 0 = nichts geschehen.
+     */
+    private suspend fun deleteSnapshots(key: Long, snapshots: List<WatchSnapshot>): Int {
+        if (snapshots.isEmpty() || !watchRepository.deleteWatches(snapshots.map { it.watch.id })) return 0
+        undo.put(key, snapshots)
+        // Kurs-Meldungen in einem Schritt (Sammelmeldung nur einmal neu)
+        notifier.cancelAllPrices(snapshots.map { it.watch.id })
+        snapshots.forEach { notifier.cancelActivity(it.watch.id) }
+        notifier.cancelAlarms(snapshots.flatMap { it.alarms }.map { it.id })
+        widgetUpdater.updateAll()
+        return snapshots.size
+    }
+
     /** Mehrfachauswahl › «Favorit»: alle [ids] zu Favoriten machen bzw. ([favorite] = false) entfernen. */
     fun setFavorite(ids: Collection<Long>, favorite: Boolean) {
-        scope.launch {
+        launchWrite {
             ids.forEach { watchRepository.setFavorite(it, favorite) }
             widgetUpdater.updateAll()
         }
@@ -255,7 +258,7 @@ internal class WatchlistEditController(
 
     /** Mehrfachauswahl › «Gruppe»: alle [ids] in [group] (null = keine Gruppe). */
     fun setGroup(ids: Collection<Long>, group: String?) {
-        scope.launch {
+        launchWrite {
             ids.forEach { watchRepository.setGroup(it, group) }
             widgetUpdater.updateAll()
         }
@@ -269,8 +272,9 @@ internal class WatchlistEditController(
      */
     fun setDisabled(ids: Collection<Long>, disabled: Boolean) {
         if (ids.isEmpty()) return
-        scope.launch {
-            watchRepository.setDisabled(ids, disabled)
+        launchWrite {
+            // Abgelehnt: keine Mitteilungen weg, keine Abfragen
+            if (!watchRepository.setDisabled(ids, disabled)) return@launchWrite
             if (disabled) {
                 notifier.cancelAllPrices(ids)
                 ids.forEach { notifier.cancelActivity(it) }
@@ -293,17 +297,17 @@ internal class WatchlistEditController(
      */
     fun deleteAllWithUndo(onDone: (Int) -> Unit = {}) {
         scope.launch {
-            val count = undoMutex.withLock {
+            val count = if (!watchRepository.confirmUserWrite()) 0 else undoMutex.withLock {
                 val snapshots = watchRepository.getWatches().mapNotNull { watchRepository.snapshot(it.id) }
-                // Erst die Benachrichtigungen wegräumen, danach die Einträge —
-                // sonst fehlen hinterher die Ids, um sie zu schliessen.
+                // Ids vorher festhalten; die Mitteilungen gehen seit Build 105 erst nach dem Löschen weg (abgelehnt: bleiben)
                 val ids = snapshots.map { it.watch.id }
+                val alarmIds = watchRepository.getAllAlarmIds()
+                if (!watchRepository.deleteAllWatches()) return@withLock 0
                 notifier.cancelAllPrices(ids)
                 // Aktivitäts-Meldungen ebenso (wie beim Löschen einzelner Paare): sonst blieben sie zu gelöschten Paaren stehen
                 ids.forEach { notifier.cancelActivity(it) }
-                notifier.cancelAlarms(watchRepository.getAllAlarmIds())
+                notifier.cancelAlarms(alarmIds)
                 if (snapshots.isNotEmpty()) undo.put(CLEAR_ALL_UNDO_KEY, snapshots)
-                watchRepository.deleteAllWatches()
                 widgetUpdater.updateAll()
                 snapshots.size
             }
@@ -312,9 +316,9 @@ internal class WatchlistEditController(
     }
 
     fun setNotificationEnabled(watch: WatchEntity, enabled: Boolean) {
-        scope.launch {
+        launchWrite {
             // Abgelehnt (Merkliste gesperrt): nichts zeigen bzw. entfernen, das Paar meldet wie bisher
-            if (!watchRepository.setNotificationEnabled(watch.id, enabled)) return@launch
+            if (!watchRepository.setNotificationEnabled(watch.id, enabled)) return@launchWrite
             if (enabled) {
                 // Einschalten ist eine bewusste Handlung: einmal zeigen und den
                 // Bezugspunkt für die Melde-Schwelle auf den aktuellen Kurs setzen.
@@ -334,7 +338,7 @@ internal class WatchlistEditController(
 
     /** Paar im Sortiermodus verschieben. */
     fun move(watch: WatchEntity, move: WatchMove) {
-        scope.launch {
+        launchWrite {
             // In einer gefilterten Ansicht nur unter den Paaren der Gruppe
             val filter = groupFilter()
             watchRepository.move(watch.id, move, filter?.selected) { filter?.kinds?.get(it.id) == AssetKind.ALPHA }
@@ -344,7 +348,7 @@ internal class WatchlistEditController(
 
     /** Neue Reihenfolge nach dem Ziehen einer Karte. */
     fun reorder(orderedIds: List<Long>) {
-        scope.launch {
+        launchWrite {
             watchRepository.reorder(orderedIds)
             widgetUpdater.updateAll()
         }
@@ -352,7 +356,7 @@ internal class WatchlistEditController(
 
     /** Stern, Aktionen-Menü bzw. nach rechts wischen: Favorit an/aus. */
     fun toggleFavorite(watch: WatchEntity) {
-        scope.launch {
+        launchWrite {
             watchRepository.setFavorite(watch.id, !watch.favorite)
             widgetUpdater.updateAll()
         }
@@ -368,14 +372,16 @@ internal class WatchlistEditController(
         val blocked = com.cryptochecker.app.data.local.WatchlistStorageLock
             .blocksWrites(com.cryptochecker.app.data.local.DatabaseEncryptionNotice.storedKept.value)
         val turnOnSpeech = enabled && !blocked && !settingsRepository.cached.speaksPairPrices
-        scope.launch {
+        // Seit Build 105: kommt erst die Rückfrage (F-08), keinen Hinweis vorwegnehmen («Abbrechen» änderte nichts)
+        val asksFirst = com.cryptochecker.app.data.local.WatchlistNotSavedGate.needsConfirmation()
+        launchWrite {
             // Abgelehnt (Merkliste gesperrt): die Sprachausgabe bleibt, wie sie ist
             if (watchRepository.setTtsEnabled(watch.id, enabled) && turnOnSpeech) {
                 settingsRepository.setTtsEnabled(true)
                 settingsRepository.setTtsAlarmsOnly(false)
             }
         }
-        return turnOnSpeech
+        return turnOnSpeech && !asksFirst
     }
 }
 

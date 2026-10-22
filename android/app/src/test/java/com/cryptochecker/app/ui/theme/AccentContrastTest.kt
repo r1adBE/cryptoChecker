@@ -3,6 +3,7 @@ package com.cryptochecker.app.ui.theme
 import androidx.compose.ui.graphics.toArgb
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.ui.components.INITIALS_TINT_LIGHT
+import com.cryptochecker.app.util.SourceGuard
 import com.cryptochecker.app.widget.WidgetColors
 import com.cryptochecker.app.widget.WidgetContrast
 import org.junit.Assert.assertEquals
@@ -70,7 +71,7 @@ class AccentContrastTest {
     /** primary in `AppColorSchemes.kt` = Akzent der Widgets (eine Palette, zwei Stellen). */
     @Test
     fun `App-Farbschema und Widget haben denselben Akzent`() {
-        val source = schemesSource() ?: return // Quelle nicht auffindbar (anderes Arbeitsverzeichnis)
+        val source = schemesSource()
         val names = mapOf(
             AccentColor.ORANGE to "orange", AccentColor.RED to "red", AccentColor.BLUE to "blue",
             AccentColor.GREEN to "green", AccentColor.MARRS_GREEN to "marrsGreen",
@@ -115,7 +116,7 @@ class AccentContrastTest {
     /** K-9: Die hellen Farbschemata in `AppColorSchemes.kt` nutzen die warmen Flächen. */
     @Test
     fun `helle Farbschemata haben die warmen Flaechen`() {
-        val source = schemesSource() ?: return
+        val source = schemesSource()
         for (name in listOf("orange", "red", "blue", "green", "marrsGreen")) {
             val start = source.indexOf("private val ${name}Light = ")
             val end = source.indexOf("\n)", start)
@@ -166,7 +167,7 @@ class AccentContrastTest {
      */
     @Test
     fun `outline als Chip-Rand erreicht 3 zu 1`() {
-        val source = schemesSource() ?: return
+        val source = schemesSource()
         for ((outline, surfaces) in listOf(0xFF777777.toInt() to LIGHT_SURFACES + WARM_SURFACES, 0xFF919191.toInt() to DARK_SURFACES)) {
             for (bg in surfaces) {
                 val r = ratio(outline, bg)
@@ -188,7 +189,7 @@ class AccentContrastTest {
     /** Build 46: Blau ohne violettes Tertiär; tertiary als Schrift AA, onTertiary auf tertiary AA. */
     @Test
     fun `Blau hat ein blaues Tertiaer mit AA`() {
-        val source = schemesSource() ?: return
+        val source = schemesSource()
         assertTrue(!source.contains("0xFF804E73") && !source.contains("0xFFFED7F3"))
         for ((tertiary, on, surfaces) in listOf(
             Triple(0xFF3F5F90.toInt(), 0xFFFFFFFF.toInt(), LIGHT_SURFACES + WARM_SURFACES),
@@ -229,10 +230,10 @@ class AccentContrastTest {
             val r = ratio(0xFF919191.toInt(), bg)
             assertTrue("dark outline on %06X: %.2f".format(bg and 0xFFFFFF, r), r >= 3.0)
         }
-        val source = schemesSource() ?: return
+        val source = schemesSource()
         assertTrue(source.contains("outline = Color(0xFF777777)") && source.contains("outline = Color(0xFF919191)"))
         for (file in listOf("watchlist/WatchlistSearch.kt", "watchlist/WatchGroupEditSheet.kt")) {
-            val text = sourceFile("src/main/java/com/cryptochecker/app/ui/features/$file") ?: continue
+            val text = SourceGuard.android(sourceFile("src/main/java/com/cryptochecker/app/ui/features/$file"), file)
             assertTrue("$file: Feldrand", text.contains("BorderStroke(1.dp, MaterialTheme.colorScheme.outline)"))
             assertTrue("$file: Trennlinien-Ton als Feldrand", !text.contains("outlineVariant.copy(alpha = 0.6f)"))
         }
@@ -265,7 +266,9 @@ class AccentContrastTest {
         return out
     }
 
-    private fun schemesSource(): String? = sourceFile("src/main/java/com/cryptochecker/app/ui/theme/AppColorSchemes.kt")
+    /** Seit Build 105 Pflicht (vorher still grün ohne Datei). */
+    private fun schemesSource(): String =
+        SourceGuard.android(sourceFile("src/main/java/com/cryptochecker/app/ui/theme/AppColorSchemes.kt"), "ui/theme/AppColorSchemes.kt")
 
     private fun sourceFile(rel: String): String? {
         var dir: File? = File(System.getProperty("user.dir") ?: ".").absoluteFile

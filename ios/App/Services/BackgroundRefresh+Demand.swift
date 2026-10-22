@@ -79,4 +79,18 @@ extension BackgroundRefresh {
             }
         }
     }
+
+    /// Seit Build 105 (Review IOS3-R05): erstes Vormerken einer nicht ersetzenden Planung — es folgt erst nach der
+    /// asynchronen Abfrage der vorgemerkten Anfrage, darum nur, solange `generation` die neueste Planung ist; sonst
+    /// ersetzte es die Anfrage einer neueren (z. B. neues Intervall). Protokoll ausserhalb der Sperre (wie `followDemand`).
+    /// - Returns: true = vorgemerkt bzw. versucht; false = von einer neueren Planung überholt.
+    @discardableResult
+    static func submitIfCurrent(generation: Int, gate: BackgroundDemandGate = demandGate,
+                                submit: () -> Error?,
+                                submitFailed: (Error) -> Void = { BackgroundRefresh.logSubmitError($0) }) -> Bool {
+        var failure: Error?
+        guard gate.ifCurrent(generation, { failure = submit() }) else { return false }
+        if let failure { submitFailed(failure) }
+        return true
+    }
 }

@@ -602,5 +602,19 @@
         }
       }
     ]
+  },
+  "threshold": {
+    "_comment": "Seit Build 105 (FUN3-01): gültige Schwelle (PortfolioAlarmLogic.isValidThreshold): Betrag > 0; steigt um x % mit 0 < x <= 1000; fällt um x % nur 0 < x < maxFallPercent (die Veränderung «heute» fällt nie unter −100 %). exceedsFall = fällt um >= maxFallPercent (löst nie aus). Wiederherstellung (Android PortfolioJson.jsonToAlarm / iOS BackupManager.jsonToPortfolioAlarm, eingeschaltet gesichert): restored = übernommen, restoredEnabled = danach eingeschaltet (exceedsFall: aus und gekennzeichnet). Einmalige Bereinigung schaltet genau die exceedsFall-Alarme aus.",
+    "maxFallPercent": 100,
+    "cases": [
+      { "name": "fällt um 99,9 % gültig", "kind": "CHANGE_DOWN", "threshold": 99.9, "valid": true, "exceedsFall": false, "restored": true, "restoredEnabled": true },
+      { "name": "fällt um 100 % ungültig", "kind": "CHANGE_DOWN", "threshold": 100, "valid": false, "exceedsFall": true, "restored": true, "restoredEnabled": false },
+      { "name": "fällt um 150 % ungültig", "kind": "CHANGE_DOWN", "threshold": 150, "valid": false, "exceedsFall": true, "restored": true, "restoredEnabled": false },
+      { "name": "fällt um 0 % ungültig", "kind": "CHANGE_DOWN", "threshold": 0, "valid": false, "exceedsFall": false, "restored": false, "restoredEnabled": false },
+      { "name": "steigt um 150 % gültig", "kind": "CHANGE_UP", "threshold": 150, "valid": true, "exceedsFall": false, "restored": true, "restoredEnabled": true },
+      { "name": "steigt um 1000 % gültig", "kind": "CHANGE_UP", "threshold": 1000, "valid": true, "exceedsFall": false, "restored": true, "restoredEnabled": true },
+      { "name": "steigt um 1500 % ungültig", "kind": "CHANGE_UP", "threshold": 1500, "valid": false, "exceedsFall": false, "restored": false, "restoredEnabled": false },
+      { "name": "Betrag 150 gültig", "kind": "VALUE_BELOW", "threshold": 150, "valid": true, "exceedsFall": false, "restored": true, "restoredEnabled": true }
+    ]
   }
 }

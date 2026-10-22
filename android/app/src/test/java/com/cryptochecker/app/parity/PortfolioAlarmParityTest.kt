@@ -1,9 +1,11 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.data.portfolio.PortfolioJson
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmKind
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.domain.alarm.PortfolioAlarmPause
 import com.cryptochecker.app.domain.alarm.PortfolioReading
+import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
@@ -12,6 +14,27 @@ import org.junit.Test
 class PortfolioAlarmParityTest {
 
     private val data = ParityJson.load("portfolio_alarm.json")
+
+    /** Seit Build 105 (FUN3-01): «fällt um» nur unter 100 %; aus einer Sicherung ≥ 100 % übernommen, aber aus. */
+    @Test
+    fun threshold() {
+        val block = data["threshold"].obj()
+        assertEquals(block["maxFallPercent"].num()!!, PortfolioAlarmLogic.MAX_FALL_PERCENT, 0.0)
+        val cases = block["cases"].list().map { it.obj() }
+        assertEquals(8, cases.size)
+        cases.forEach { c ->
+            val name = c["name"] as String
+            val kind = PortfolioAlarmKind.valueOf(c["kind"] as String)
+            val threshold = c["threshold"].num()!!
+            assertEquals("$name: gültig", c["valid"] as Boolean, PortfolioAlarmLogic.isValidThreshold(kind, threshold))
+            assertEquals("$name: fällt ≥ 100", c["exceedsFall"] as Boolean, PortfolioAlarmLogic.exceedsFall(kind, threshold))
+            val json = JSONObject().put("id", 1).put("kind", kind.name).put("threshold", threshold)
+                .put("currency", if (kind.isValue) "CHF" else JSONObject.NULL).put("enabled", true).put("repeating", false)
+            val restored = PortfolioJson.jsonToAlarm(json)
+            assertEquals("$name: übernommen", c["restored"] as Boolean, restored != null)
+            assertEquals("$name: danach an", c["restoredEnabled"] as Boolean, restored?.enabled ?: false)
+        }
+    }
 
     /** Alarm in einer anderen Währung als der Stand: USDT zum Marktkurs wie der Portfolio-Kopf. */
     @Test

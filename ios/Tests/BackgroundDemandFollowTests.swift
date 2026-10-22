@@ -105,4 +105,36 @@ final class BackgroundDemandFollowTests: XCTestCase {
                                        actions: actions(recorder, pending: true, interval: 240))
         XCTAssertEqual(recorder.intervals, [240])
     }
+
+    /// Seit Build 105 (Review IOS3-R05): Eine ältere, nicht ersetzende Planung, deren Abfrage erst nach einer neueren
+    /// (ersetzenden) Planung zurückkommt, merkt nicht mehr vor — sie überschriebe sonst deren Anfrage.
+    func testOlderFirstSubmitAfterNewerPlanDoesNotReplace() {
+        let gate = BackgroundDemandGate()
+        let recorder = Recorder()
+        let older = gate.next()
+        // Neuere Planung (replace, anderes Intervall) läuft sofort durch
+        _ = gate.next()
+        recorder.add("submit 30")
+        // Abfrage der älteren kommt zurück: «keine Anfrage» → würde heute mit dem alten Intervall vormerken
+        let done = BackgroundRefresh.submitIfCurrent(generation: older, gate: gate,
+                                                     submit: { recorder.add("submit 15"); return nil },
+                                                     submitFailed: { _ in recorder.add("failed") })
+        XCTAssertFalse(done)
+        XCTAssertEqual(recorder.all, ["submit 30"])
+    }
+
+    /// Gegenprobe: die neueste Planung merkt vor; ein Fehler wird ausserhalb der Sperre gemeldet.
+    func testCurrentFirstSubmitRunsAndReportsFailure() {
+        let gate = BackgroundDemandGate()
+        let recorder = Recorder()
+        let current = gate.next()
+        XCTAssertTrue(BackgroundRefresh.submitIfCurrent(generation: current, gate: gate,
+                                                        submit: { recorder.add("submit"); return nil },
+                                                        submitFailed: { _ in recorder.add("failed") }))
+        struct Failure: Error {}
+        XCTAssertTrue(BackgroundRefresh.submitIfCurrent(generation: current, gate: gate,
+                                                        submit: { recorder.add("submit"); return Failure() },
+                                                        submitFailed: { _ in recorder.add("failed") }))
+        XCTAssertEqual(recorder.all, ["submit", "submit", "failed"])
+    }
 }

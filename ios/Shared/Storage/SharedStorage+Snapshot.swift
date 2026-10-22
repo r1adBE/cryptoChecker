@@ -116,13 +116,19 @@ extension SharedStorage {
         let watchlist = watchlistURL, portfolio = portfolioAlarmsURL
         snapshotWriter.async {
             let include = loadSettings().portfolioSystemBackup
-            coordinated(writing: true) { () -> Void in
-                _ = mergeAndWriteFiles(snapshot, watchlist: watchlist, portfolioAlarms: portfolio,
-                                       includePortfolioInBackup: include, durability: durability)
+            let written = coordinated(writing: true) { () -> Bool in
+                mergeAndWriteFiles(snapshot, watchlist: watchlist, portfolioAlarms: portfolio,
+                                   includePortfolioInBackup: include, durability: durability)
             }
+            // Seit Build 105: Ergebnis für `snapshotWritesSettled` (gemeldeter Alarm wirklich auf der Platte?)
+            lastQueuedWriteBox.current = written
             if let done { DispatchQueue.main.async(execute: done) }
         }
     }
+
+    /// Seit Build 105: Ergebnis des zuletzt über die Warteschlange ausgeführten Schreibens (true = `watchlist.json`
+    /// geschrieben). Nur auf `snapshotWriter` gesetzt und gelesen.
+    private static let lastQueuedWriteBox = LockedBox(true)
 
     /// Ein Schritt von `saveSnapshotInBackground` ohne Abstimmung (nur innerhalb von `coordinated`; testbar über URLs,
     /// eigene Funktion seit Build 103): neuere Kurse und Auslösungen der Datei übernehmen, dann schreiben.
@@ -245,9 +251,12 @@ extension SharedStorage {
     /// geschrieben ist (die Warteschlange arbeitet der Reihe nach). Für den Haupt-Thread, z. B. bevor die Alarm-Lease
     /// frei wird oder der nächste Alarm gemeldet wird — sonst hängt die Oberfläche (Ziehen zum Aktualisieren), solange
     /// das Widget die Datei hält.
-    static func snapshotWritesSettled() async {
-        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
-            snapshotWriter.async { continuation.resume() }
+    /// - Returns: seit Build 105 das Ergebnis des zuletzt eingereihten Schreibens (true = geschrieben; ohne eingereihtes
+    ///   Schreiben das des vorigen) — z. B. damit ein gemeldeter Alarm nur bei echtem Schreiben als gespeichert gilt.
+    @discardableResult
+    static func snapshotWritesSettled() async -> Bool {
+        await withCheckedContinuation { (continuation: CheckedContinuation<Bool, Never>) in
+            snapshotWriter.async { continuation.resume(returning: lastQueuedWriteBox.current) }
         }
     }
 }

@@ -33,9 +33,11 @@ if (providers.gradleProperty("requireReleaseSigning").orNull == "true" && !keyst
 }
 
 // Seit Build 103: Quell-Commit für «Diagnose teilen». Store-Build: -PgitCommit=<Hash aus dem public-Klon>, CI: GITHUB_SHA,
-// sonst «local». Kein git-Aufruf beim Konfigurieren (Konfigurations-Cache); nur Hex-Zeichen übernehmen.
-val gitCommit: String = providers.gradleProperty("gitCommit").orElse(providers.environmentVariable("GITHUB_SHA"))
-    .getOrElse("").trim().filter { it in '0'..'9' || it in 'a'..'f' || it in 'A'..'F' }.ifEmpty { "local" }
+// sonst «local». Kein git-Aufruf beim Konfigurieren (Konfigurations-Cache). Seit Build 105 (REL3-R1): nur ein voller
+// Commit-Hash (40 Zeichen 0-9a-f) zählt, alles andere wird «local» (und der Guard unten bricht beim Store-Build ab).
+val gitCommitRaw: String = providers.gradleProperty("gitCommit").orElse(providers.environmentVariable("GITHUB_SHA"))
+    .getOrElse("").trim()
+val gitCommit: String = gitCommitRaw.takeIf { Regex("^[0-9a-f]{40}$").matches(it) } ?: "local"
 
 // Seit Build 104: Store-Build (requireReleaseSigning=true) ohne Commit bricht ab, statt «local» in die Diagnose zu
 // schreiben. Geprüft erst im fertigen Task-Graph und nur, wenn ein Release-Bundle/-APK gebaut wird (Debug-Builds,
@@ -43,12 +45,14 @@ val gitCommit: String = providers.gradleProperty("gitCommit").orElse(providers.e
 val requireReleaseCommit = providers.gradleProperty("requireReleaseSigning").orNull == "true" && gitCommit == "local"
 if (requireReleaseCommit) {
     val appPath = project.path
+    val received = gitCommitRaw
     gradle.taskGraph.whenReady {
         val releaseTasks = listOf("bundleRelease", "assembleRelease", "packageReleaseBundle", "packageRelease")
         if (releaseTasks.any { hasTask("$appPath:$it") }) {
             throw GradleException(
-                "requireReleaseSigning=true, aber gitCommit fehlt (wäre «local»). Commit aus dem öffentlichen Klon " +
-                    "übergeben: -PgitCommit=<Ausgabe von «git -C <public-Klon> rev-parse HEAD»> (siehe docs/PLAY_STORE.md §3)",
+                "requireReleaseSigning=true, aber gitCommit fehlt oder ist kein voller Commit-Hash (40 Zeichen 0-9a-f, " +
+                    "erhalten: «$received»). Commit des Tags aus dem öffentlichen Klon übergeben: -PgitCommit=<Ausgabe " +
+                    "von «git -C <public-Klon> rev-parse \"v<versionName>-<versionCode>^{commit}\"»> (siehe docs/PLAY_STORE.md §3)",
             )
         }
     }
@@ -63,7 +67,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 104
+        versionCode = 105
         versionName = "16.2.2"
 
         // Seit Build 103: Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).

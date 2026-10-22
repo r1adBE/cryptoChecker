@@ -20,16 +20,19 @@ extension BackupManager {
         ]
     }
 
-    /// Unbekannte Art (neuere Version), ungültiger Schwellwert oder fehlende Währung: überspringen.
+    /// Unbekannte Art (neuere Version), ungültiger Schwellwert oder fehlende Währung: überspringen. Seit Build 105
+    /// «fällt um ≥ 100 %» übernommen, aber ausgeschaltet (`PortfolioAlarmLogic.exceedsFall`, wie die Paar-Alarme).
     static func jsonToPortfolioAlarm(_ o: [String: Any]) -> PortfolioAlarm? {
         guard let name = string(o, "kind"), let kind = PortfolioAlarmKind(rawValue: name),
-              let threshold = double(o, "threshold"), PortfolioAlarmLogic.isValidThreshold(kind, threshold)
+              let threshold = double(o, "threshold"),
+              PortfolioAlarmLogic.isValidThreshold(kind, threshold) || PortfolioAlarmLogic.exceedsFall(kind, threshold)
         else { return nil }
         let currency = isNull(o, "currency") ? nil : Alarm.validCurrency(string(o, "currency"))
         if kind.isValue && currency == nil { return nil }
         return PortfolioAlarm(id: max(0, int64(o, "id") ?? 0), kind: kind, threshold: threshold,
                               currency: kind.isValue ? currency : nil,
-                              enabled: bool(o, "enabled") ?? true, repeating: bool(o, "repeating") ?? false)
+                              enabled: (bool(o, "enabled") ?? true) && !PortfolioAlarmLogic.exceedsFall(kind, threshold),
+                              repeating: bool(o, "repeating") ?? false)
     }
 
     // MARK: Beobachtete Adressen

@@ -95,6 +95,30 @@ class RefreshEffectsAlarmTest {
         assertTrue(f.store.alarm(7).enabled)
     }
 
+    /**
+     * Seit Build 105 (Gegenstück zu iOS IOS3-R01): Abbruch während der Melde-Schleife — der erste Alarm ist gemeldet und
+     * gespeichert, der zweite wird nicht mehr gemeldet und bleibt scharf.
+     */
+    @Test
+    fun cancelDuringLoopStopsBeforeSecondAlarm() {
+        val f = RefreshFixture(listOf(watch()), listOf(above(100.0), above(100.5, id = 9)))
+        val thrown = runCatching {
+            runBlocking {
+                val run = coroutineContext.job
+                f.notifier.onShow = { run.cancel() }
+                val enabled = f.store.getAllEnabledAlarms()
+                f.effects.checkAlarms(f.store.watches.getValue(1), 101.0, 99.0, enabled, f.settings.settings, NOW, false)
+            }
+        }.exceptionOrNull()
+        assertTrue("Abbruch weitergereicht", thrown is CancellationException)
+        assertEquals(1, f.notifier.alarmPosts.size)
+        val first = f.notifier.alarmPosts.single().first
+        val second = if (first == 7L) 9L else 7L
+        assertEquals("gemeldeter Alarm gespeichert", NOW, f.store.alarm(first).lastTriggeredAt)
+        assertEquals(0L, f.store.alarm(second).lastTriggeredAt)
+        assertTrue(f.store.alarm(second).enabled)
+    }
+
     @Test
     fun crossingDownFiresOnceAndOneShotSwitchesOff() {
         val f = RefreshFixture(listOf(watch(price = 101.0)), listOf(below(100.0)))

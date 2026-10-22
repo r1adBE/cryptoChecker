@@ -72,6 +72,12 @@ extension ExplorerViewModel {
             show(ExplorerMessage(text: L("explorer_no_pair_selected"), showView: false))
             return
         }
+        let pairs = bulkPairs
+        // Seit Build 105: EINE Rückfrage F-08 für alle Paare, vorher; «Abbrechen» = nichts angelegt, keine Meldung
+        data.withWatchlistConfirm { [weak self] in self?.addBulkPairsNow(market, pairs) }
+    }
+
+    private func addBulkPairsNow(_ market: Market, _ bulkPairs: [MarketPair]) {
         let outcome = data.addWatches(market: market, pairs: bulkPairs, group: data.addTargetGroup)
         // Merkliste gesperrt: keine Zählung «0 hinzugefügt», Hinweis und Haptik kommen von `.watchlistLockedHint`
         if outcome.locked { return }

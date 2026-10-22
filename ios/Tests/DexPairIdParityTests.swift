@@ -36,6 +36,17 @@ final class DexPairIdParityTests: XCTestCase {
         XCTAssertEqual(missing?.message, DexScreener.poolNotFound)
     }
 
+    /// Seit Build 105 (SEC3-R1): die Sammelabfrage nimmt dieselben Kennungen wie der Einzelkurs.
+    func testSammelabfrageNurMitGueltigerKennung() throws {
+        for c in try cases() {
+            let id = try XCTUnwrap(c["pairId"] as? String)
+            if id != id.trimmingCharacters(in: .whitespacesAndNewlines) { continue } // Rand-Leerzeichen werden gekürzt
+            let groups = DexScreener.bulkGroups([id])
+            XCTAssertEqual(!groups.isEmpty, try XCTUnwrap(c["valid"] as? Bool), id)
+            for g in groups { XCTAssertTrue(DexScreener.bulkURL(g).hasSuffix("/" + id), id) }
+        }
+    }
+
     func testSuchtrefferMitUngueltigerKennungFallenWeg() throws {
         let search = try XCTUnwrap(try S.fixture("dex_pair_id")["search"] as? [String: Any])
         let pools = try DexScreener.parseSearch(try XCTUnwrap(search["body"] as? String))

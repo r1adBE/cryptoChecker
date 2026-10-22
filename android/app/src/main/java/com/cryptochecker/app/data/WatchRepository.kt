@@ -14,7 +14,6 @@ import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.refresh.AlarmLogStore
 import com.cryptochecker.app.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.domain.watch.WatchEdit
-import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.util.TextLimit
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.FuturesContractType
@@ -134,17 +133,20 @@ class WatchRepository @Inject constructor(
         if (!userWriteRefused(notify = false)) watchDao.setMissingPercentReferences(watchId, price)
     }
 
-    suspend fun deleteWatch(id: Long) {
-        if (userWriteRefused()) return
+    /** true = gelöscht; false = abgelehnt (seit Build 105 eindeutig: dann keine Folgeaktionen wie Rückgängig/Mitteilungen). */
+    suspend fun deleteWatch(id: Long): Boolean {
+        if (userWriteRefused()) return false
         watchDao.deleteWatch(id)
         forgetDeletedAlarms()
+        return true
     }
 
-    /** Mehrere Paare (samt Alarmen, per Fremdschlüssel) in einem Vorgang löschen. */
-    suspend fun deleteWatches(ids: Collection<Long>) {
-        if (ids.isEmpty() || userWriteRefused()) return
+    /** Mehrere Paare (samt Alarmen, per Fremdschlüssel) in einem Vorgang löschen; Rückgabe wie [deleteWatch]. */
+    suspend fun deleteWatches(ids: Collection<Long>): Boolean {
+        if (ids.isEmpty() || userWriteRefused()) return false
         database.withTransaction { ids.forEach { watchDao.deleteWatch(it) } }
         forgetDeletedAlarms()
+        return true
     }
 
     /**
@@ -156,7 +158,8 @@ class WatchRepository @Inject constructor(
         val ids = watchDao.getAlarmIds().toHashSet()
         withContext(Dispatchers.IO) {
             alarmLogStore.retainAlarms(ids)
-            deliveryMarkers.retain(ids)
+            // Seit Build 105: nicht bei Kopie im Speicher — der nächste Prozess bringt die Alarme der Datei zurück
+            if (AlarmDeliveryMarkers.prunable()) deliveryMarkers.retain(ids)
         }
     }
 
@@ -167,10 +170,12 @@ class WatchRepository @Inject constructor(
 
     // Gelöschtes Paar zurückholen: [restore] in WatchRepositoryAdd.kt (seit Build 103 mit Obergrenze der Merkliste)
 
-    suspend fun deleteAllWatches() {
-        if (userWriteRefused()) return
+    /** Rückgabe wie [deleteWatch] (seit Build 105). */
+    suspend fun deleteAllWatches(): Boolean {
+        if (userWriteRefused()) return false
         watchDao.deleteAllWatches()
         forgetDeletedAlarms()
+        return true
     }
 
     /** true = geschrieben, false = abgelehnt (Merkliste gesperrt): dann keine Folgeaktionen (Mitteilung zeigen/entfernen). */
@@ -292,9 +297,11 @@ class WatchRepository @Inject constructor(
         return true
     }
 
-    /** Paare deaktivieren ([disabled] = true) bzw. wieder aktivieren. */
-    suspend fun setDisabled(ids: Collection<Long>, disabled: Boolean) {
-        if (ids.isNotEmpty() && !userWriteRefused()) watchDao.setDisabled(ids.toList(), disabled)
+    /** Paare deaktivieren ([disabled] = true) bzw. wieder aktivieren; true = geschrieben (seit Build 105). */
+    suspend fun setDisabled(ids: Collection<Long>, disabled: Boolean): Boolean {
+        if (ids.isEmpty() || userWriteRefused()) return false
+        watchDao.setDisabled(ids.toList(), disabled)
+        return true
     }
 
     /** Meldekurs nach dem Ein- bzw. Ausschalten der Kurs-Mitteilung (Folge-Schreibweg: gesperrt ohne eigenen Hinweis). */
@@ -330,46 +337,31 @@ class WatchRepository @Inject constructor(
     fun observeWatchIdsWithEnabledAlarms(): Flow<List<Long>> = watchDao.observeWatchIdsWithEnabledAlarms()
 
     /**
-     * Neuer Alarm (id 0) nur unter der Obergrenze je Paar ([WatchlistLimits.MAX_ALARMS_PER_PAIR], Zählen und Einfügen
-     * in einem Vorgang); null = Paar hat schon so viele bzw. Merkliste gesperrt. Bearbeiten (feste id) zählt nicht.
+     * Neuer bzw. bearbeiteter Alarm; null = nicht gespeichert (Paar voll oder abgelehnt). Seit Build 105 nur noch Kurzform
+     * von [trySaveAlarm] (`WatchRepositoryAlarmSave.kt`), das «voll» und «abgelehnt» unterscheidet.
      */
-    suspend fun saveAlarm(alarm: AlarmEntity): Long? =
-        if (userWriteRefused()) null else if (alarm.id == 0L) database.withTransaction {
-            if (WatchlistLimits.canAddAlarm(watchDao.getAlarms(alarm.watchId).size)) watchDao.insertAlarm(alarm) else null
-        } else {
-            watchDao.updateAlarm(alarm)
-            alarm.id
-        }
+    suspend fun saveAlarm(alarm: AlarmEntity): Long? = (trySaveAlarm(alarm) as? AlarmSaveResult.Saved)?.alarm?.id
 
-    /**
-     * Alarm aus dem Editor speichern: gespeicherten Stand lesen, mit [build] zusammenführen und schreiben — alles in
-     * EINER Transaktion (seit Build 102). Sonst überschrieb ein Zwischenstand der Oberfläche einen eben ausgelösten
-     * Alarm (zweite Meldung). Neuer Alarm (id 0) nur unter der Obergrenze je Paar. Rückgabe: gespeicherter Alarm mit
-     * seiner id; null = Paar voll bzw. Merkliste gesperrt.
-     */
+    /** Kurzform von [trySaveAlarmMerged] (seit Build 105); null = nicht gespeichert (Paar voll oder abgelehnt). */
     suspend fun saveAlarmMerged(id: Long, build: (AlarmEntity?) -> AlarmEntity): AlarmEntity? =
-        if (userWriteRefused()) null else database.withTransaction {
-            val alarm = build(if (id != 0L) watchDao.getAlarm(id) else null)
-            if (alarm.id != 0L) {
-                watchDao.updateAlarm(alarm)
-                alarm
-            } else if (WatchlistLimits.canAddAlarm(watchDao.getAlarms(alarm.watchId).size)) {
-                alarm.copy(id = watchDao.insertAlarm(alarm))
-            } else {
-                null
-            }
-        }
+        (trySaveAlarmMerged(id, build) as? AlarmSaveResult.Saved)?.alarm
 
-    suspend fun deleteAlarm(id: Long) {
-        if (userWriteRefused()) return
+    /** true = gelöscht; false = abgelehnt (seit Build 105: dann keine Folgeaktionen wie Mitteilung/Protokoll entfernen). */
+    suspend fun deleteAlarm(id: Long): Boolean {
+        if (userWriteRefused()) return false
         watchDao.deleteAlarm(id)
-        // Seit Build 104: Vermerk des gelöschten Alarms weg (eine neue Id könnte ihn sonst erben)
-        withContext(Dispatchers.IO) { deliveryMarkers.remove(listOf(id)) }
+        // Seit Build 104: Vermerk des gelöschten Alarms weg (eine neue Id könnte ihn sonst erben); seit Build 105 nicht bei
+        // Kopie im Speicher (der Alarm kommt mit dem nächsten Prozess aus der Datei zurück)
+        if (AlarmDeliveryMarkers.prunable()) withContext(Dispatchers.IO) { deliveryMarkers.remove(listOf(id)) }
+        return true
     }
 
     /** true = geschrieben, false = abgelehnt (Merkliste gesperrt): dann keine Folgeaktionen (Mitteilung entfernen). */
     suspend fun setAlarmEnabled(id: Long, enabled: Boolean, fromUser: Boolean = true): Boolean {
         if (fromUser && userWriteRefused()) return false // Hintergrund («1 h später») nie gesperrt
+        // Seit Build 105 (FUN3-02): «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst im Editor anpassen)
+        val alarm = if (enabled) watchDao.getAlarm(id) else null
+        if (alarm != null && !AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = true)) return false
         watchDao.setAlarmEnabled(id, enabled)
         // Wieder eingeschaltet: «Nahe am Hoch/Tief», Kursmarken, Funding und Open Interest melden wieder (wirkt nur bei diesen)
         if (enabled) watchDao.rearmAlarm(id)

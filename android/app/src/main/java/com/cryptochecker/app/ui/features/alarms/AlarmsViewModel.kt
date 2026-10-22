@@ -3,7 +3,11 @@ package com.cryptochecker.app.ui.features.alarms
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.AlarmSaveResult
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.confirmUserWrite
+import com.cryptochecker.app.data.trySaveAlarm
+import com.cryptochecker.app.data.trySaveAlarmMerged
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchlistStorageLock
 import com.cryptochecker.app.data.local.model.AlarmEntity
@@ -248,6 +252,8 @@ class AlarmsViewModel @Inject constructor(
     fun createFromTemplate(template: AlarmTemplates.Template, onLimit: () -> Unit, onCreated: (AlarmEntity) -> Unit) {
         if (alarmSaveBlocked()) return
         createGuard.launch(viewModelScope, guarded = true) {
+            // Seit Build 105: Rückfrage F-08 vor der Aktion; «Abbrechen» = nichts, keine Meldung
+            if (!watchRepository.confirmUserWrite()) return@launch
             val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
             val def = AlarmTemplates.definition(template, w.lastPrice) ?: return@launch
             val firstEver = notices.isFirstAlarm(existing = false)
@@ -276,23 +282,29 @@ class AlarmsViewModel @Inject constructor(
     private suspend fun saveIfWatchExists(alarm: AlarmEntity, onLimit: () -> Unit): Long? {
         if (watchRepository.getWatch(watchId) == null) return null
         return try {
-            // null auch bei gesperrter Merkliste (WatchlistStorageLock): dann nicht «Paar voll» melden
-            watchRepository.saveAlarm(alarm).also { if (it == null && !alarmSaveBlocked()) onLimit() }
+            watchRepository.trySaveAlarm(alarm).savedOr(onLimit)?.id
         } catch (e: android.database.sqlite.SQLiteConstraintException) {
             Timber.w(e, "Alarm nicht gespeichert: Paar fehlt")
             null
         }
     }
 
-    /** Wie [saveIfWatchExists], aber über [WatchRepository.saveAlarmMerged] (Lesen und Schreiben in einer Transaktion). */
+    /** Wie [saveIfWatchExists], aber über [trySaveAlarmMerged] (Lesen und Schreiben in einer Transaktion). */
     private suspend fun saveMergedIfWatchExists(id: Long, onLimit: () -> Unit, build: (AlarmEntity?) -> AlarmEntity): AlarmEntity? {
         if (watchRepository.getWatch(watchId) == null) return null
         return try {
-            watchRepository.saveAlarmMerged(id, build).also { if (it == null && !alarmSaveBlocked()) onLimit() }
+            watchRepository.trySaveAlarmMerged(id, build).savedOr(onLimit)
         } catch (e: android.database.sqlite.SQLiteConstraintException) {
             Timber.w(e, "Alarm nicht gespeichert: Paar fehlt")
             null
         }
+    }
+
+    /** Seit Build 105 (UX3-03): gespeicherter Alarm; «Paar voll» ([onLimit]) nur bei Full, abgelehnt/abgebrochen still. */
+    private fun AlarmSaveResult.savedOr(onLimit: () -> Unit): AlarmEntity? = when (this) {
+        is AlarmSaveResult.Saved -> alarm
+        AlarmSaveResult.Full -> { onLimit(); null }
+        AlarmSaveResult.Refused -> null
     }
 
     /** Eigene Währung nur bei Kursalarmen und nur, wenn sie von der Quote abweicht. */
@@ -329,6 +341,8 @@ class AlarmsViewModel @Inject constructor(
         if (alarmSaveBlocked()) return
         createGuard.launch(viewModelScope, guarded = draft.id == 0L) {
             val threshold = draft.threshold ?: return@launch
+            // Seit Build 105: Rückfrage F-08 VOR allem (auch vor dem Entfernen der alten Mitteilung); «Abbrechen» = nichts
+            if (!watchRepository.confirmUserWrite()) return@launch
 
             val existing = alarms.value.firstOrNull { it.id == draft.id }
 
@@ -364,7 +378,8 @@ class AlarmsViewModel @Inject constructor(
 
     fun delete(alarmId: Long) {
         viewModelScope.launch {
-            watchRepository.deleteAlarm(alarmId)
+            // Seit Build 105 (ARC3-R01): Rückfrage vorher; abgebrochen bzw. abgelehnt = Mitteilung und Protokoll bleiben
+            if (!watchRepository.confirmUserWrite() || !watchRepository.deleteAlarm(alarmId)) return@launch
             // Mitteilung weg (ihr «Anpassen» zeigte ins Leere), nur im Arbeitsspeicher nicht ([AlarmUserChange.afterDelete])
             val cleanup = AlarmUserChange.afterDelete()
             if (cleanup.cancelNotification) appNotifier.retractAlarm(alarmId)
@@ -375,7 +390,8 @@ class AlarmsViewModel @Inject constructor(
 
     fun setEnabled(alarmId: Long, enabled: Boolean) {
         viewModelScope.launch {
-            // Abgelehnt (Merkliste gesperrt): Alarm bleibt scharf, seine Mitteilung bleibt
+            if (!watchRepository.confirmUserWrite()) return@launch
+            // Abgelehnt (Merkliste gesperrt, «fällt um ≥ 100 %» einschalten): Alarm bleibt, wie er ist, seine Mitteilung bleibt
             if (!watchRepository.setAlarmEnabled(alarmId, enabled)) return@launch
             // Ausgeschaltet: Mitteilung weg, ihr «1 h später» schaltete ihn sonst wieder ein ([AlarmUserChange])
             if (AlarmUserChange.cancelsNotification(enabled)) appNotifier.retractAlarm(alarmId)

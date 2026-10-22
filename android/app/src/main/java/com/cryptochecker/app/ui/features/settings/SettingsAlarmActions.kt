@@ -4,6 +4,7 @@
 package com.cryptochecker.app.ui.features.settings
 
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.notification.AlarmSoundStore
 import com.cryptochecker.app.notification.NotificationChannels
@@ -13,12 +14,15 @@ import com.cryptochecker.app.notification.alarmChannel
 
 /** Kursmitteilung eines Paars an/aus — wie der Schalter im Aktionsblatt (`WatchlistViewModel.setNotificationEnabled`). */
 fun SettingsViewModel.setPairNotification(watchId: Long, enabled: Boolean) {
-    viewModelScope.launch { applyPairNotification(watchId, enabled) }
+    // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts
+    viewModelScope.launch { if (watchRepository.confirmUserWrite()) applyPairNotification(watchId, enabled) }
 }
 
 /** «Alle an» / «Alle aus» für alle Paare der Merkliste. */
 fun SettingsViewModel.setAllPairNotifications(enabled: Boolean) {
     viewModelScope.launch {
+        // Seit Build 105: EINE Rückfrage F-08 für alle Paare (nicht je Paar); «Abbrechen» = nichts
+        if (!watchRepository.confirmUserWrite()) return@launch
         watchRepository.getWatches().filter { it.notificationEnabled != enabled }
             .forEach { applyPairNotification(it.id, enabled) }
     }

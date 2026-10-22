@@ -23,6 +23,18 @@ Subcommands:
         warning BGTaskScheduler identifier not found in the Swift sources,
                 ITSAppUsesNonExemptEncryption = true, compiler warnings (first 8)
         notice  compiler warning count (error above MAX_COMPILER_WARNINGS)
+      Also runs the privacy check below against the manifest in the app bundle.
+
+  privacy <ios source dir> <findings>
+      Since build 105 (SEC3-01): Required Reason APIs in the Swift sources of App, Shared and Widgets
+      (system boot time, disk space, active keyboards, file timestamps, user defaults) against the
+      NSPrivacyAccessedAPITypes of ios/App/PrivacyInfo.xcprivacy (used by app and widget):
+        error   API used but its category missing in the manifest (App Store Connect rejects the
+                upload with ITMS-91053), manifest missing or unreadable
+        notice  categories found / declared
+
+  --self-test
+      Checks the privacy scan with sample sources and manifests (no files needed).
 
 Usage: python3 -I ios_release_audit.py <subcommand> ...
 """
@@ -42,6 +54,24 @@ WARNING = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? warning: (.*)$")
 # Ceiling for unique compiler warnings of the Release build: the count of Build 99 (94). Above it the build got noisier
 # -> error, so new warnings are fixed instead of piling up; lower the ceiling whenever warnings are removed.
 MAX_COMPILER_WARNINGS = 94
+
+# Required Reason APIs (Apple, «Describing use of required reason API»), as they appear in Swift: category -> patterns.
+# Comments are removed before the scan, so a comment naming an API does not count.
+REQUIRED_REASON_APIS = {
+    "NSPrivacyAccessedAPICategorySystemBootTime": (
+        r"\bsystemUptime\b", r"\bmach_absolute_time\b", r"kern\.boottime", r"\bKERN_BOOTTIME\b"),
+    "NSPrivacyAccessedAPICategoryDiskSpace": (
+        r"\bvolumeAvailableCapacity\w*", r"\bvolumeTotalCapacity\w*", r"\.systemFreeSize\b", r"\.systemSize\b",
+        r"\bNSFileSystemFreeSize\b", r"\bNSFileSystemSize\b", r"\bstatv?fs\s*\(", r"\bfstatv?fs\s*\("),
+    "NSPrivacyAccessedAPICategoryActiveKeyboards": (r"\bactiveInputModes\b",),
+    "NSPrivacyAccessedAPICategoryFileTimestamp": (
+        r"\.creationDate\b", r"\.modificationDate\b", r"\bcreationDateKey\b", r"\bcontentModificationDate\w*",
+        r"\bfileModificationDate\b", r"\bgetattrlist\s*\(", r"\bf?l?stat\s*\("),
+    "NSPrivacyAccessedAPICategoryUserDefaults": (r"\bUserDefaults\b", r"\bNSUserDefaults\b"),
+}
+SOURCE_AREAS = ("App", "Shared", "Widgets")
+BLOCK_COMMENT = re.compile(r"/\*.*?\*/", re.DOTALL)
+LINE_COMMENT = re.compile(r"(?<![:\"])//.*$", re.MULTILINE)
 
 findings = []
 
@@ -184,6 +214,110 @@ def binary_hits(binary):
     return hits
 
 
+def strip_comments(text):
+    return LINE_COMMENT.sub("", BLOCK_COMMENT.sub("", text))
+
+
+def api_uses(sources):
+    """{category: [(file, line, api)]} for (file, text) pairs; first hit per category and file."""
+    uses = {}
+    for path, text in sources:
+        lines = strip_comments(text).splitlines()
+        for category, patterns in REQUIRED_REASON_APIS.items():
+            for no, line in enumerate(lines, 1):
+                m = next((m for m in (re.search(p, line) for p in patterns) if m), None)
+                if m:
+                    uses.setdefault(category, []).append((path, no, m.group(0)))
+                    break
+    return uses
+
+
+def declared_categories(manifest):
+    """Categories in NSPrivacyAccessedAPITypes (manifest = parsed plist dict); a category without a reason
+    does not count."""
+    out = set()
+    for entry in manifest.get("NSPrivacyAccessedAPITypes") or []:
+        if isinstance(entry, dict) and entry.get("NSPrivacyAccessedAPITypeReasons"):
+            out.add(str(entry.get("NSPrivacyAccessedAPIType", "")))
+    return out
+
+
+def privacy_check(sources, manifest, manifest_name):
+    """Findings for used but undeclared categories (sources = [(file, text)], manifest = dict)."""
+    uses = api_uses(sources)
+    declared = declared_categories(manifest)
+    for category in sorted(uses):
+        if category not in declared:
+            path, no, api = uses[category][0]
+            more = f" (+{len(uses[category]) - 1} more file(s))" if len(uses[category]) > 1 else ""
+            add("error", f"{api} is a Required Reason API ({category}) but {manifest_name} does not declare the "
+                         f"category: add it with a reason or use another API{more} (upload fails with ITMS-91053)",
+                rel(path), no)
+    add("notice", "Required Reason APIs used: " + (", ".join(sorted(uses)) or "none")
+        + "; declared: " + (", ".join(sorted(declared)) or "none"))
+
+
+def swift_sources(src):
+    sources = []
+    for d in SOURCE_AREAS:
+        for root, _, files in os.walk(os.path.join(src, d)):
+            for name in sorted(files):
+                if name.endswith(".swift"):
+                    path = os.path.join(root, name)
+                    try:
+                        with open(path, encoding="utf-8", errors="replace") as f:
+                            sources.append((path, f.read()))
+                    except OSError:
+                        pass
+    return sources
+
+
+def privacy_from_files(src, manifest_path):
+    try:
+        manifest = read_plist(manifest_path)
+    except (OSError, plistlib.InvalidFileException) as e:
+        add("error", f"Privacy manifest unreadable ({e}); Required Reason APIs not checked", rel(manifest_path))
+        return
+    privacy_check(swift_sources(src), manifest, os.path.basename(manifest_path))
+
+
+def cmd_privacy(src, out):
+    privacy_from_files(src, os.path.join(src, "App", "PrivacyInfo.xcprivacy"))
+    flush(out)
+    return 0
+
+
+def self_test():
+    """Privacy scan with samples: undeclared API -> error, declared or only in a comment -> none."""
+    manifest = {"NSPrivacyAccessedAPITypes": [
+        {"NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+         "NSPrivacyAccessedAPITypeReasons": ["CA92.1"]},
+        {"NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryFileTimestamp",
+         "NSPrivacyAccessedAPITypeReasons": ["C617.1"]},
+        {"NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryDiskSpace", "NSPrivacyAccessedAPITypeReasons": []},
+    ]}
+    cases = [
+        ("let t = ProcessInfo.processInfo.systemUptime", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ("let t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ("let v = try url.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])",
+         ["NSPrivacyAccessedAPICategoryDiskSpace"]),  # declared without reason -> still missing
+        ("let m = UITextInputMode.activeInputModes", ["NSPrivacyAccessedAPICategoryActiveKeyboards"]),
+        ("let d = attrs[.modificationDate] as? Date\nlet u = UserDefaults.standard", []),
+        ("// statt `systemUptime` (seit Build 105)\nlet s = clock_gettime_nsec_np(CLOCK_MONOTONIC)", []),
+        ("/* mach_absolute_time()\n systemUptime */ let x = 1", []),
+        ('let u = "https://example.com" // systemUptime', []),
+    ]
+    for text, expected in cases:
+        findings.clear()
+        privacy_check([("/src/App/X.swift", text)], manifest, "PrivacyInfo.xcprivacy")
+        errors = [f for f in findings if f.startswith("error\t")]
+        got = sorted(c for c in REQUIRED_REASON_APIS if any(f"({c})" in e for e in errors))
+        assert got == expected, (text, got, errors)
+    findings.clear()
+    print("ios_release_audit.py self-test passed")
+    return 0
+
+
 def cmd_app(app, widget, gradle, src, log, out):
     if not os.path.isdir(app):
         add("error", f"Release app not found: {app}")
@@ -230,6 +364,9 @@ def cmd_app(app, widget, gradle, src, log, out):
 
     if not os.path.isfile(os.path.join(app, "PrivacyInfo.xcprivacy")):
         add("error", "PrivacyInfo.xcprivacy missing in the app bundle")
+    else:
+        # Seit Build 105 (SEC3-01): Required-Reason-APIs der Quellen gegen das Manifest im Bundle
+        privacy_from_files(src, os.path.join(app, "PrivacyInfo.xcprivacy"))
     appex = os.path.join(app, "PlugIns", f"{widget}.appex")
     binaries = [os.path.join(app, str(info.get("CFBundleExecutable", "CryptoChecker")))]
     if not os.path.isdir(appex):
@@ -284,6 +421,10 @@ def main():
         return cmd_build_log(*args[1:])
     if args[:1] == ["app"] and len(args) == 7:
         return cmd_app(*args[1:])
+    if args[:1] == ["privacy"] and len(args) == 3:
+        return cmd_privacy(*args[1:])
+    if args == ["--self-test"]:
+        return self_test()
     print(__doc__)
     return 2
 

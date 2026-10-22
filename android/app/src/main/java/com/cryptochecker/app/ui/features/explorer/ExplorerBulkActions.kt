@@ -6,6 +6,7 @@ package com.cryptochecker.app.ui.features.explorer
 
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.addWatches
+import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.marketdata.model.MarketPair
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -85,6 +86,11 @@ fun ExplorerViewModel.addBulkPairs() {
 
     viewModelScope.launch {
         bulkAdd.value = BulkAddResult(added = 0, skipped = 0, running = true)
+        // Seit Build 105: Rückfrage F-08 einmal für alle Paare; «Abbrechen» = nichts angelegt, keine Zählung
+        if (!watchRepository.confirmUserWrite()) {
+            bulkAdd.value = null
+            return@launch
+        }
         val outcome = watchRepository.addWatches(selected, pairs, sessionTargetGroup.value)
         // Merkliste gesperrt: keine Zählung «0 hinzugefügt», den kurzen Hinweis zeigt WatchlistLockedHint
         if (outcome.locked) {

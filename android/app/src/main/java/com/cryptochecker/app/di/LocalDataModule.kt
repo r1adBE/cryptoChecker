@@ -142,9 +142,10 @@ object LocalDataModule {
         private val databaseName: String,
     ) : RoomDatabase.Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
-            // Nur vorübergehend leer im Arbeitsspeicher (gespeicherte Datei bleibt, Schlüssel gerade nicht lesbar): die
+            // Nur vorübergehend leer im Arbeitsspeicher (gespeicherte Datei bleibt, Schlüssel gerade nicht lesbar) bzw.
+            // seit Build 105 auch Kopie einer alten Datei im Speicher (PlaintextKept, `markInMemory` vor dem Öffnen): die
             // Vermerke gehören zu den echten Alarmen und bleiben — wie iOS (nur bei endgültig beiseitegelegten Daten)
-            if (com.cryptochecker.app.data.local.DatabaseEncryptionNotice.isStoredKept(databaseName)) return
+            if (!PrefsAlarmDeliveryMarkers.prunable(databaseName)) return
             PrefsAlarmDeliveryMarkers.clearAll(context, prefsName)
         }
     }

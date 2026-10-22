@@ -144,8 +144,12 @@ internal class FakeRefreshNotifier(
     ): Boolean {
         alarmPosts += Triple(alarm.id, price, priceCurrency)
         textNotes += textNote
+        onShow()
         return shows
     }
+
+    /** Seit Build 105: nach jeder Meldung (Tests: z. B. den Lauf abbrechen). */
+    var onShow: () -> Unit = {}
 
     override fun cancelAlarms(alarmIds: Collection<Long>) {
         cancelledAlarms += alarmIds

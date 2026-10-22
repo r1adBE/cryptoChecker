@@ -48,6 +48,8 @@ final class BackgroundRefreshRunTests: XCTestCase {
 
     nonisolated private static let watchId: Int64 = 990_001
     nonisolated private static let alarmId: Int64 = 990_002
+    /// Seit Build 105: zweiter Alarm desselben Paars (Abbruch mitten in der Melde-Schleife).
+    nonisolated private static let alarmId2: Int64 = 990_003
     private var saved: SavedState?
 
     /// Echte Wege, aber Protokoll und Vormerken nach einem Ablauf sofort: sonst schriebe es nach `tearDown`.
@@ -68,15 +70,15 @@ final class BackgroundRefreshRunTests: XCTestCase {
         // Sonst endete der Lauf als «Alarme eben erst geprüft», ohne Arbeits-Task
         SharedStorage.lastAlarmCheckAt = 0
         // Vermerk «wird gemeldet» eines früheren Laufs hielte die Meldung zurück
-        AlarmDelivery.pairs.remove([Self.alarmId])
+        AlarmDelivery.pairs.remove([Self.alarmId, Self.alarmId2])
     }
 
     override func tearDown() async throws {
         _ = SharedStorage.updateSnapshot { s in
             s.watches.removeAll { $0.id == Self.watchId }
-            s.alarms.removeAll { $0.id == Self.alarmId }
+            s.alarms.removeAll { $0.id == Self.alarmId || $0.id == Self.alarmId2 }
         }
-        AlarmDelivery.pairs.remove([Self.alarmId])
+        AlarmDelivery.pairs.remove([Self.alarmId, Self.alarmId2])
         guard let saved else { return }
         SharedStorage.lastAlarmCheckAt = saved.lastAlarmCheckAt
         SharedStorage.lastRefreshAt = saved.lastRefreshAt
@@ -99,12 +101,13 @@ final class BackgroundRefreshRunTests: XCTestCase {
     }
 
     /// Paar mit einem Alarm, der beim ersten Kurs sicher auslöste («über 1»). Datei nicht beschreibbar: übersprungen.
-    private func insertArmedAlarm() throws {
+    private func insertArmedAlarm(second: Bool = false) throws {
         let stored = SharedStorage.updateSnapshot { s in
             s.watches.removeAll { $0.id == Self.watchId }
-            s.alarms.removeAll { $0.id == Self.alarmId }
+            s.alarms.removeAll { $0.id == Self.alarmId || $0.id == Self.alarmId2 }
             s.watches.append(Self.watch)
             s.alarms.append(Self.alarm)
+            if second { s.alarms.append(Self.alarm2) }
         }
         guard stored != nil else { throw XCTSkip("Merkliste der Test-App gerade nicht beschreibbar") }
     }
@@ -114,25 +117,53 @@ final class BackgroundRefreshRunTests: XCTestCase {
     nonisolated private static let alarm = Alarm(id: alarmId, watchId: watchId, condition: .PRICE_ABOVE,
                                                  threshold: 1)
 
-    private func storedAlarm() -> Alarm? {
-        SharedStorage.loadSnapshot().alarms.first { $0.id == Self.alarmId }
+    nonisolated private static let alarm2 = Alarm(id: alarmId2, watchId: watchId, condition: .PRICE_ABOVE,
+                                                  threshold: 2)
+
+    private func storedAlarm(_ id: Int64 = BackgroundRefreshRunTests.alarmId) -> Alarm? {
+        SharedStorage.loadSnapshot().alarms.first { $0.id == id }
     }
 
     /// Gefälschter Durchlauf (seit Build 104): Kurs 100 für das eigene Paar, sein Alarm ausgelöst und zum Melden bereit
     /// (ohne Netz und ohne Lease).
-    nonisolated private static func firedOutcome() -> PriceRefresher.Outcome {
+    nonisolated private static func firedOutcome(_ alarms: [Alarm] = [alarm]) -> PriceRefresher.Outcome {
         let now = TimeUtils.nowMillis
+        var outcome = PriceRefresher.Outcome()
+        outcome.prices[watchId] = PriceRefresher.PriceUpdate(price: 100, time: now)
+        outcome.pendingAlarms = alarms.map { pending($0, now: now) }
+        outcome.checked = 1
+        return outcome
+    }
+
+    /// Ausgelöster Alarm, zum Melden bereit (seit Build 105 auch für den Zusatzdaten-Pfad).
+    nonisolated private static func pending(_ alarm: Alarm, now: Int64) -> PriceRefresher.PendingAlarm {
         var fired = alarm
         fired.enabled = false
         fired.lastTriggeredAt = now
         fired.lastTriggeredPrice = 100
-        var outcome = PriceRefresher.Outcome()
-        outcome.prices[watchId] = PriceRefresher.PriceUpdate(price: 100, time: now)
-        outcome.pendingAlarms = [PriceRefresher.PendingAlarm(
+        return PriceRefresher.PendingAlarm(
             watch: watch, alarm: alarm, price: 100,
-            update: PriceRefresher.AlarmUpdate(evaluated: alarm, result: fired, setsEnabled: true))]
-        outcome.checked = 1
-        return outcome
+            update: PriceRefresher.AlarmUpdate(evaluated: alarm, result: fired, setsEnabled: true))
+    }
+
+    /// Seit Build 105: Kurs gespeichert, Kursalarme keine, aber ein Alarm mit Zusatzdaten wartet; dessen Prüfung
+    /// (gefälscht, ohne Netz) löst ihn aus.
+    nonisolated private static func extraSeams(shows: LockedBox<Int>,
+                                               afterExtraSave: @escaping @Sendable () async -> Void) -> BackgroundRunSeams {
+        var seams = fakeSeams(shows: shows) {}
+        seams.refresh = { _, _, _ in
+            var outcome = firedOutcome([])
+            outcome.deferredAlarms.items = [PriceRefresher.DeferredAlarms.Item(
+                watch: watch, updated: watch, price: 100, fetched: .init())]
+            return outcome
+        }
+        seams.checkDeferred = { _, _, _ in
+            var extra = PriceRefresher.Outcome()
+            extra.pendingAlarms = [pending(alarm, now: TimeUtils.nowMillis)]
+            return extra
+        }
+        seams.afterExtraSave = afterExtraSave
+        return seams
     }
 
     /// Fälschungen für Kurse und Melde-Weg; `shows` zählt die Meldungen, `afterSave` läuft nach dem Speichern.
@@ -216,5 +247,70 @@ final class BackgroundRefreshRunTests: XCTestCase {
         await work.value
         XCTAssertEqual(shows.current, 1)
         XCTAssertEqual(task.completions, [true])
+    }
+
+    /// Seit Build 105 (Review IOS3-R01): Ablauf nach dem Speichern der Zusatzdaten-Alarme → kein Melden, kein Vermerk,
+    /// genau ein Ende mit `false`, der Alarm bleibt scharf.
+    func testExpiryAfterSavingExtraAlarmsShowsNothing() async throws {
+        try insertArmedAlarm()
+        let task = FakeTask()
+        let shows = LockedBox(0)
+        let reached = LockedBox(false)
+        let work = try XCTUnwrap(BackgroundRefresh.handleRefresh(task, seams: Self.extraSeams(shows: shows) {
+            reached.current = true
+            task.expire()
+        }), "ohne Arbeits-Task (übersprungen?)")
+        await work.value
+        guard reached.current else { throw XCTSkip("Restzeit reichte nicht für die Zusatzdaten-Alarme") }
+        XCTAssertEqual(shows.current, 0, "nach dem Ablauf nicht mehr melden")
+        XCTAssertEqual(task.completions, [false])
+        XCTAssertNil(AlarmDelivery.pairs.unconfirmedAt(Self.alarmId), "kein Vermerk ohne Meldung")
+        let alarm = try XCTUnwrap(storedAlarm())
+        XCTAssertTrue(alarm.enabled)
+        XCTAssertEqual(alarm.lastTriggeredAt, 0)
+    }
+
+    /// Gegenprobe zum Zusatzdaten-Pfad: ohne Ablauf über `seams.notifier` genau einmal gemeldet.
+    func testExtraAlarmsWithoutExpiryShowOnce() async throws {
+        guard !QuietHours.holdsAlarmsNow(SharedStorage.loadSettings()) else {
+            throw XCTSkip("Nachtruhe der Test-App hält Alarme zurück")
+        }
+        try insertArmedAlarm()
+        let task = FakeTask()
+        let shows = LockedBox(0)
+        let reached = LockedBox(false)
+        let work = try XCTUnwrap(BackgroundRefresh.handleRefresh(task, seams: Self.extraSeams(shows: shows) {
+            reached.current = true
+        }), "ohne Arbeits-Task (übersprungen?)")
+        await work.value
+        guard reached.current else { throw XCTSkip("Restzeit reichte nicht für die Zusatzdaten-Alarme") }
+        XCTAssertEqual(shows.current, 1)
+        XCTAssertEqual(task.completions, [true])
+    }
+
+    /// Seit Build 105 (Review IOS3-R01): Ablauf während der Melde-Schleife — die Meldung des ersten Alarms löst ihn
+    /// aus, der zweite wird nicht mehr gemeldet und bleibt scharf (wie Android `ensureActive` je Alarm).
+    func testExpiryDuringDeliveryLoopStopsBeforeSecondAlarm() async throws {
+        guard !QuietHours.holdsAlarmsNow(SharedStorage.loadSettings()) else {
+            throw XCTSkip("Nachtruhe der Test-App hält Alarme zurück")
+        }
+        try insertArmedAlarm(second: true)
+        let task = FakeTask()
+        let shows = LockedBox(0)
+        var seams = Self.fakeSeams(shows: shows) {}
+        seams.refresh = { _, _, _ in Self.firedOutcome([Self.alarm, Self.alarm2]) }
+        seams.notifier = PriceRefresher.AlarmNotifier(canShow: { true }, show: { _ in
+            shows.write { $0 += 1 }
+            task.expire()
+            return true
+        })
+        let work = try XCTUnwrap(BackgroundRefresh.handleRefresh(task, seams: seams), "ohne Arbeits-Task (übersprungen?)")
+        await work.value
+        XCTAssertEqual(shows.current, 1, "nach dem Ablauf kein zweiter Alarm")
+        XCTAssertEqual(task.completions, [false])
+        let second = try XCTUnwrap(storedAlarm(Self.alarmId2))
+        XCTAssertTrue(second.enabled)
+        XCTAssertEqual(second.lastTriggeredAt, 0)
+        XCTAssertNil(AlarmDelivery.pairs.unconfirmedAt(Self.alarmId2))
     }
 }

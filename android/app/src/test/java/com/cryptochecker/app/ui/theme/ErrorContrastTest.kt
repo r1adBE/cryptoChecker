@@ -2,6 +2,7 @@ package com.cryptochecker.app.ui.theme
 
 import androidx.compose.ui.graphics.toArgb
 import com.cryptochecker.app.settings.AccentColor
+import com.cryptochecker.app.util.SourceGuard
 import com.cryptochecker.app.widget.WidgetContrast
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -75,7 +76,7 @@ class ErrorContrastTest {
     /** Hoher Kontrast übernimmt die Fehlerfarbe (#B8361A erreicht AA schon auf der dunkelsten Karte). */
     @Test
     fun `hoher Kontrast setzt die Fehlerfarbe nicht neu`() {
-        val source = sourceFile("src/main/java/com/cryptochecker/app/ui/theme/Theme.kt") ?: return
+        val source = SourceGuard.android(sourceFile("src/main/java/com/cryptochecker/app/ui/theme/Theme.kt"), "ui/theme/Theme.kt")
         val start = source.indexOf("private fun ColorScheme.withHighContrast(")
         assertTrue("withHighContrast fehlt", start >= 0)
         val end = source.indexOf("\n}", start)

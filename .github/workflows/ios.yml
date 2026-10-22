@@ -210,9 +210,12 @@ jobs:
           set -e
           tail -n 120 "$LOG"
           bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
-          # Since build 104: skipped tests (XCTSkip, e.g. App Group storage not writable in the unsigned test host) are
-          # listed as warnings; on main and release tags the watchlist-lock tests must not be skipped. The background-run
-          # tests need writable App Group storage, which the unsigned CI host lacks: they stay a warning (device test)
+          # Since build 104: skipped tests (XCTSkip) are listed as warnings. Since build 105 the SharedStorage tests run
+          # on a test keychain and must not be skipped on main and release tags. The watchlist-lock behaviour tests and
+          # the background-run tests use the test app's sealed watchlist, which needs the real keychain; the unsigned CI
+          # host has no keychain entitlement, so they stay a warning (lock rules are also covered by
+          # WatchlistNotSavedGateTests/WatchlistWriteLockTests here and WatchlistLockDeviceTest on Android; run the
+          # behaviour tests on a signed device/simulator before a release)
           SKIPPED=$(grep -oE "Test [Cc]ase '[^']+' skipped" "$LOG" | sed -E "s/^Test [Cc]ase '(.*)' skipped$/\1/" | sort -u || true)
           COUNT=$(printf '%s\n' "$SKIPPED" | grep -c . || true)
           echo "Skipped unit tests: $COUNT"
@@ -221,11 +224,11 @@ jobs:
             [ -n "$name" ] || continue
             echo "::warning title=Skipped iOS unit test::$name"
             case "$name" in
-              *WatchlistLock*) CRITICAL=$((CRITICAL + 1)) ;;
+              *SharedStorageTests*) CRITICAL=$((CRITICAL + 1)) ;;
             esac
           done <<< "$SKIPPED"
           if [ "$CRITICAL" -gt 0 ] && { [ "$GITHUB_REF" = "refs/heads/main" ] || [[ "$GITHUB_REF" == refs/tags/v* ]]; }; then
-            echo "::error title=Skipped critical iOS tests::$CRITICAL WatchlistLock* test(s) skipped on $GITHUB_REF"
+            echo "::error title=Skipped critical iOS tests::$CRITICAL SharedStorageTests test(s) skipped on $GITHUB_REF"
             [ "$status" -ne 0 ] || status=1
           fi
           exit $status

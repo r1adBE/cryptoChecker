@@ -332,9 +332,28 @@ object PortfolioAlarmLogic {
      */
     fun notifyAfterSave(updatedRows: Int): Boolean = updatedRows > 0
 
-    /** Gültige Eingabe? Betrag bzw. Prozent über 0 (Prozent höchstens 1000). */
+    /**
+     * Gültige Eingabe? Betrag bzw. Prozent über 0 (steigend höchstens 1000 %). Seit Build 105 (Review FUN3-01) «fällt um»
+     * nur unter [MAX_FALL_PERCENT]: Die Veränderung «heute» fällt nie unter −100 %, so ein Alarm löste nie aus.
+     * Gemeinsame Fälle `portfolio_alarm.json` («threshold»).
+     */
     fun isValidThreshold(kind: PortfolioAlarmKind, threshold: Double?): Boolean {
         if (threshold == null || !threshold.isFinite() || threshold <= 0.0) return false
-        return kind.isValue || threshold <= 1000.0
+        return when (kind) {
+            PortfolioAlarmKind.CHANGE_DOWN -> threshold < MAX_FALL_PERCENT
+            PortfolioAlarmKind.CHANGE_UP -> threshold <= 1000.0
+            else -> true
+        }
     }
+
+    /** Seit Build 105: Obergrenze (ausschliesslich) von «fällt um x %» — wie die Paar-Alarme (`AlarmJson.exceedsFall`). */
+    const val MAX_FALL_PERCENT = 100.0
+
+    /**
+     * Seit Build 105 (Review FUN3-01): «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
+     * ausgeschaltet, einmalig bereinigt ([com.cryptochecker.app.data.portfolio.PortfolioFallAlarmCleanup]) und in der
+     * Übersicht als «Schwelle ungültig» gekennzeichnet; einschalten erst nach dem Anpassen. Wie iOS.
+     */
+    fun exceedsFall(kind: PortfolioAlarmKind, threshold: Double): Boolean =
+        kind == PortfolioAlarmKind.CHANGE_DOWN && threshold.isFinite() && threshold >= MAX_FALL_PERCENT
 }

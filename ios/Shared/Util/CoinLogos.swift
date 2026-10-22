@@ -156,18 +156,9 @@ enum CoinLogos {
     static func allowed(forMarket marketKey: String?) -> Bool { marketKey != dexMarketKey }
 
     /// Nur HTTPS-Bilder von CoinGecko (`coin-images.coingecko.com` u. ä.) und Binance (`bin.bnbstatic.com`).
-    /// Adressen der früheren eigenen Logo-Liste (GitHub Pages) gelten nicht mehr.
-    static func isAllowedURL(_ url: String?) -> Bool {
-        guard let url else { return false }
-        guard url.hasPrefix("https://") else { return false }
-        let rest = url.dropFirst("https://".count)
-        let host = String(rest.prefix { $0 != "/" && $0 != "?" }).lowercased()
-        if host.isEmpty || host.contains("@") || host.contains(":") { return false }
-        guard host == "coingecko.com" || host.hasSuffix(".coingecko.com") || host.hasSuffix(".bnbstatic.com")
-        else { return false }
-        // Platzhalter für Coins ohne Logo («missing_large.png»): lieber Initialen
-        return !url.contains("/missing_")
-    }
+    /// Adressen der früheren eigenen Logo-Liste (GitHub Pages) gelten nicht mehr. Seit Build 105 mit URL-Parser
+    /// (`LogoURLPolicy`, SEC3-02).
+    static func isAllowedURL(_ url: String?) -> Bool { LogoURLPolicy.isAllowed(url) }
 
     /// Kleine Fassung des Bildes (CoinGecko liefert «thumb», «small», «large»; die Rangliste nennt
     /// «large»). «small» reicht für 24–48 pt und spart beim Laden aller Logos viel Datenvolumen.

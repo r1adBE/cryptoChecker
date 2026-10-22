@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.components
 
+import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -24,7 +25,7 @@ class HapticsUsageTest {
 
     @Test
     fun noHapticsInBackgroundNotificationsOrWidgets() {
-        val root = androidSources() ?: return
+        val root = SourceGuard.android(androidSources(), "android/app/src/main/java")
         val hits = BACKGROUND_DIRS.flatMap { dir ->
             findUses(File(root, dir), "kt", ANDROID_CATALOG, allowed = emptySet()).map { "$dir/$it" }
         }
@@ -37,7 +38,7 @@ class HapticsUsageTest {
      */
     @Test
     fun noHapticPlaybackInDataDomainOrUtil() {
-        val root = androidSources() ?: return
+        val root = SourceGuard.android(androidSources(), "android/app/src/main/java")
         val hits = NON_UI_DIRS.flatMap { dir ->
             val pkg = File(root, dir)
             if (!pkg.isDirectory) emptyList() else findUses(pkg, "kt", ANDROID_PLAYBACK, allowed = emptySet()).map { "$dir/$it" }
@@ -47,7 +48,7 @@ class HapticsUsageTest {
 
     @Test
     fun iosHapticsOnlyThroughTheCatalog() {
-        val ios = iosRoot() ?: return // reiner Android-Checkout
+        val ios = SourceGuard.ios(iosRoot(), "ios/App")
         val hits = listOf("App", "Shared", "Widgets").flatMap { top ->
             val dir = File(ios, top)
             if (!dir.isDirectory) emptyList()
@@ -58,7 +59,7 @@ class HapticsUsageTest {
 
     @Test
     fun noHapticsInIosWidgetsOrShared() {
-        val ios = iosRoot() ?: return
+        val ios = SourceGuard.ios(iosRoot(), "ios/App")
         val hits = listOf("Shared", "Widgets").flatMap { top ->
             val dir = File(ios, top)
             if (!dir.isDirectory) emptyList() else findUses(dir, "swift", IOS_CATALOG, allowed = emptySet()).map { "$top/$it" }
@@ -69,9 +70,9 @@ class HapticsUsageTest {
     /** iOS-Dienste (App/Services) ordnen Ereignisse höchstens zu (z. B. `AddWatchedResult.haptic`), spielen sie aber nie ab. */
     @Test
     fun noHapticPlaybackInIosServices() {
-        val ios = iosRoot() ?: return
+        val ios = SourceGuard.ios(iosRoot(), "ios/App")
         val dir = File(ios, "App/Services")
-        if (!dir.isDirectory) return
+        assertTrue("ios/App/Services nicht gefunden (umbenannt?)", dir.isDirectory)
         val hits = findUses(dir, "swift", IOS_PLAYBACK, allowed = emptySet()).map { "App/Services/$it" }
         assertTrue("Haptik wird in App/Services abgespielt: $hits", hits.isEmpty())
     }

@@ -191,6 +191,8 @@ class RefreshEffects internal constructor(
                 snoozed = snoozed,
                 // Seit Build 104: nur eine NACH dem Vermerk gemeldete Mitteilung bestätigt (nicht eine ältere desselben Alarms)
                 isShown = { markerAt -> AlarmDeliveryMarker.shownSinceMarker(notifier.alarmPostedAt(alarm.id), markerAt) },
+                // Seit Build 105: Vermerk einer schon gespeicherten Auslösung zählt nicht (neue Auslösung wird gemeldet)
+                savedSince = { markerAt -> AlarmDeliveryMarker.savedSinceMarker(alarm.lastTriggeredAt, markerAt) },
             )
             if (trace != null && logPrice != null) observe {
                 AlarmLog.deliveryTrace(holdAlarms, canShowSeen, shownSeen, saved, snoozed)?.let { trace.note(alarm, it, logPrice) }

@@ -142,10 +142,13 @@ extension WatchActionsSheet {
     /// Deaktivieren bzw. wieder aktivieren (dann gleich den Kurs holen); Blatt zu, der Aufrufer
     /// zeigt ein kurzes Banner (`onDisabledChange`).
     func toggleDisabled(_ watch: Watch) {
-        Haptics.play(.lightImpact)
-        data.setDisabled(ids: [watch.id], !watch.disabled)
-        onDisabledChange(watch)
-        dismiss()
+        // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts, kein Banner
+        data.withWatchlistConfirm {
+            Haptics.play(.lightImpact)
+            data.setDisabled(ids: [watch.id], !watch.disabled)
+            onDisabledChange(watch)
+            dismiss()
+        }
     }
 
     /// Eigene Notiz (#233): ganzer Text unter dem Titel, Tippen bearbeitet.

@@ -245,12 +245,7 @@ class PortfolioViewModel @Inject constructor(
         txs?.let { list -> PortfolioCalculator.summarize(list.map { it.toTrade() }, p.prices, method, marketPriceAt(p, loaded)) }
     }.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.Eagerly, null) // Rechnen nicht auf dem Main-Thread
 
-    /**
-     * Marktkurs eines Coins zu einem Zeitpunkt (Tagesschluss seines Tags, danach aktueller Kurs) wie in [summary] — für
-     * die Gebühr-Zeilen der Coin-Ansicht ([PortfolioCalculator.ledger] `feePrice`), damit sie dieselbe Zahl zeigt.
-     */
-    val feePrice: StateFlow<(String, Long) -> Double?> = combine(_prices, _closes) { p, loaded -> marketPriceAt(p, loaded) }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, marketPriceAt(PortfolioPrices(), null))
+    // Seit Build 105 (PERF3-R1): Kursfunktion der Coin-Ansicht nicht mehr hier, sondern in coinDetailFlow (CoinFeePrices)
 
     /** Zeitraum des Wertverlaufs (zuletzt gewählt, nur auf diesem Gerät). */
     val historyRange: StateFlow<PortfolioHistoryRange> = settingsRepository.settings

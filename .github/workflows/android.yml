@@ -84,7 +84,11 @@ jobs:
 
       # "test" = testDebugUnitTest + testReleaseUnitTest of all modules, including the
       # Android/iOS parity cases in testdata/parity (ParityFixturesTest).
+      # Since build 105: the source guards must find the Swift sources (whole repo checked out); without the variable a
+      # missing ios/ only marks those tests as skipped (Android-only checkout)
       - name: Unit tests
+        env:
+          REQUIRE_IOS_SOURCES: 'true'
         run: |
           chmod +x gradlew
           set -o pipefail

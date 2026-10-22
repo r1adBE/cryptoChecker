@@ -8,6 +8,7 @@ import com.cryptochecker.app.data.FavoritesRepository
 import com.cryptochecker.app.data.MarketRepository
 import com.cryptochecker.app.data.PairEditResult
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.live.LivePriceStream
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
@@ -193,6 +194,11 @@ class WatchEditViewModel @Inject constructor(
         if (s.saving) return
         _state.value = s.copy(saving = true, duplicate = false)
         viewModelScope.launch {
+            // Seit Build 105 (ARC3-R02): Rückfrage F-08 VOR der Refresh-Sperre — ein offener Dialog hält keine Kurse auf
+            if (!watchRepository.confirmUserWrite()) {
+                _state.value = _state.value.copy(saving = false)
+                return@launch
+            }
             // Unter der Refresh-Sperre: Kein laufender Durchlauf (REST oder Live) schreibt danach noch den
             // Kurs des alten Paars, der sonst zum Bezug des neuen würde (riesiger %-Alarm, falsche Kursmarke).
             // Gepufferte Live-Kurse des alten Paars gleich mit vergessen. Nie refreshOne in der Sperre (Verklemmung).

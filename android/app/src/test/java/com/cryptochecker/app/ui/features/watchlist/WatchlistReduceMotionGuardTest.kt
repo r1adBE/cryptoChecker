@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.watchlist
 
+import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.io.File
@@ -7,13 +8,13 @@ import java.io.File
 /**
  * iOS-Merkliste: Jede `.animation(…)` der Liste richtet sich nach «Bewegung reduzieren» (`reduceMotion ? nil : …`),
  * wie die Überlagerungen. Quellwächter über `ios/App/Features/Watchlist/WatchlistList.swift`; im reinen
- * Android-Checkout übersprungen. Seit Build 102.
+ * Android-Checkout übersprungen (seit Build 105 sichtbar, in der CI Pflicht). Seit Build 102.
  */
 class WatchlistReduceMotionGuardTest {
 
     @Test
     fun `Listen-Animationen beachten Bewegung reduzieren`() {
-        val file = iosFile("App/Features/Watchlist/WatchlistList.swift") ?: return
+        val file = SourceGuard.ios(iosFile("App/Features/Watchlist/WatchlistList.swift"), "ios/App/Features/Watchlist/WatchlistList.swift")
         val ungated = file.readLines(Charsets.UTF_8)
             .withIndex()
             .filter { (_, line) -> line.contains(".animation(") && !line.contains("reduceMotion") }

@@ -80,6 +80,8 @@ class UiFlowsTest {
             settingsRepository.setGestureHintSeen(true)
             settingsRepository.setAppLock(false)
             settingsRepository.setPortfolioEnabled(true) // Tab «Portfolio» für Import und Sicherung
+            // Seit Build 105: erster Alarm wie nach frischer Installation (die Einstellung überlebt frühere Läufe)
+            settingsRepository.setFirstAlarmShown(false)
             watchRepository.deleteAllWatches() // mit den Paaren auch ihre Alarme
             portfolioRepository.clearAll()
         }
@@ -113,7 +115,7 @@ class UiFlowsTest {
         val alarm = runBlocking { watchRepository.observeAlarms(watchId).first() }.single()
         assertEquals(AlarmCondition.PRICE_ABOVE, alarm.condition)
         assertEquals(ALARM_THRESHOLD.toDouble(), alarm.threshold, 0.0)
-        // Allererster Alarm: Hauptknopf öffnet «Damit Alarme ankommen», zurück zur Liste
+        // Allererster Alarm (seit Build 105 Pflicht): Hauptknopf öffnet «Damit Alarme ankommen», zurück zur Liste
         openDeliveryFromFirstAlarm()
         // Sonst ggf. Hinweis «Wann geprüft wird»: Dialog mit «OK»
         dismissOkDialogs()
@@ -270,14 +272,14 @@ class UiFlowsTest {
 
     /**
      * Bestätigung des allerersten Alarms: «Prüfen, ob Alarme ankommen» öffnet die Prüfliste, «Zurück» führt zu den
-     * Alarmen. Ohne Bestätigung (Alarm nicht der erste) nichts.
+     * Alarmen. Seit Build 105 Pflicht (Speicher in [setUp] wie frisch installiert): fehlt sie, scheitert der Test.
      */
     private fun openDeliveryFromFirstAlarm() {
         val check = hasText(string(R.string.alarm_first_check)) and hasClickAction()
         val shown = runCatching {
-            compose.waitUntil(DIALOG_TIMEOUT) { compose.onAllNodes(check).fetchSemanticsNodes().isNotEmpty() }
+            compose.waitUntil(TIMEOUT) { compose.onAllNodes(check).fetchSemanticsNodes().isNotEmpty() }
         }.isSuccess
-        if (!shown) return
+        assertTrue("Bestätigung des ersten Alarms fehlt", shown)
         compose.onAllNodes(check).onFirst().performClick()
         val title = hasText(string(R.string.delivery_title))
         compose.waitUntil(TIMEOUT) { compose.onAllNodes(title).fetchSemanticsNodes().isNotEmpty() }

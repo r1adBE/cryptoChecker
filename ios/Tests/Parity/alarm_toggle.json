@@ -1,0 +1,12 @@
+{
+  "_comment": "Seit Build 105 (Review FUN3-02/UX3-06): Paar-Alarm per Schalter (Karte, Übersicht) ein- bzw. ausschalten. Ein fallender Prozent-Alarm (CHANGE_PERCENT_DOWN, OI_DOWN) ab 100 % löst nie aus (Android AlarmJson.exceedsFall, iOS BackupManager.exceedsFall) — Einschalten ist nicht erlaubt (Schalter deaktiviert, Hinweis «Schwelle ungültig – bitte anpassen» bleibt; der Schreibweg lehnt ebenfalls ab), Ausschalten immer. Android: AlarmJson.toggleAllowed (AlarmToggleParityTest.kt), iOS: BackupManager.toggleAllowed (AlarmToggleParityTests.swift).",
+  "cases": [
+    {"name": "percent down 100, switch on", "condition": "CHANGE_PERCENT_DOWN", "threshold": 100, "enable": true, "allowed": false},
+    {"name": "percent down 150, switch on", "condition": "CHANGE_PERCENT_DOWN", "threshold": 150, "enable": true, "allowed": false},
+    {"name": "percent down 100, switch off", "condition": "CHANGE_PERCENT_DOWN", "threshold": 100, "enable": false, "allowed": true},
+    {"name": "percent down 99.9, switch on", "condition": "CHANGE_PERCENT_DOWN", "threshold": 99.9, "enable": true, "allowed": true},
+    {"name": "open interest down 100, switch on", "condition": "OI_DOWN", "threshold": 100, "enable": true, "allowed": false},
+    {"name": "percent up 100, switch on", "condition": "CHANGE_PERCENT_UP", "threshold": 100, "enable": true, "allowed": true},
+    {"name": "price below 100, switch on", "condition": "PRICE_BELOW", "threshold": 100, "enable": true, "allowed": true}
+  ]
+}

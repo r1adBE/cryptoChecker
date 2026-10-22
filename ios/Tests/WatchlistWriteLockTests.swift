@@ -79,10 +79,46 @@ final class WatchlistWriteLockTests: XCTestCase {
                 XCTAssertTrue(body(text, signature).contains("watchlistWriteRefused("), "\(file): \(signature) prüft die Sperre nicht")
             }
         }
-        // Neue Alarme sperrt weiterhin `alarmSaveBlocked` (der Bildschirm nennt es vorher selbst)
+        // Neue Alarme sperrt weiterhin `alarmSaveBlocked` (der Bildschirm nennt es vorher selbst); seit Build 105 fragen
+        // auch sie die Sicherung (`watchlistWriteRefused`)
         let alarms = try source("AppData+Alarms.swift")
         XCTAssertTrue(body(alarms, "func saveAlarm(").contains("!alarmSaveBlocked"))
         XCTAssertTrue(body(alarms, "func createAlarm(").contains("!alarmSaveBlocked"))
+    }
+
+    /// Seit Build 105 (F-08, Review UX3-02/05, IOS3-R04): Die Rückfrage kommt EINMAL je Aktion VOR der Aktion im
+    /// Bildschirm (`withWatchlistConfirm`/`confirmWatchlistWrite`); der Schreibweg fragt nicht und führt nichts erneut
+    /// aus (kein `retry`), sondern lehnt ohne Bestätigung ab. Gezeigt wird sie über allem (`WatchlistNotSavedGatePresenter`).
+    func testActionsConfirmFirstAndWritePathsOnlyRefuse() throws {
+        let lock = try source("AppData+WatchlistLock.swift")
+        XCTAssertFalse(lock.contains("retry"), "Schreibweg führt nach «Trotzdem» nichts mehr erneut aus")
+        XCTAssertTrue(body(lock, "func watchlistWriteRefused(").contains("needsConfirmation("))
+        XCTAssertTrue(lock.contains("func confirmWatchlistWrite() async -> Bool"))
+        for file in ["AppData+Watchlist.swift", "AppData+WatchEdits.swift", "AppData+Reading.swift", "AppData+Alarms.swift"] {
+            XCTAssertFalse(try source(file).contains("retry:"), "\(file): Schreibweg mit retry")
+        }
+        // Jeder Bildschirm, der Schreibwege des Nutzers aufruft, fragt vorher
+        let features = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+            .appendingPathComponent("App/Features")
+        let screens = [
+            "Watchlist/WatchlistEditing.swift", "Watchlist/WatchSheetActions.swift", "Watchlist/WatchActionsSheet.swift",
+            "Watchlist/WatchSheetGroup.swift", "Watchlist/WatchGroupEditSheet.swift", "Watchlist/WatchEditSheet.swift",
+            "Watchlist/WatchlistScreen+Starter.swift", "Explorer/ExplorerBulkActions.swift",
+            "Explorer/ExplorerSelectionActions.swift", "Alarms/AlarmsScreen+Save.swift",
+            "Alarms/AlarmsOverviewScreen.swift",
+            "Settings/SettingsAlarmPages.swift", "Cycle/MarketCoinSheets.swift",
+        ]
+        for file in screens {
+            let text = try String(contentsOf: features.appendingPathComponent(file), encoding: .utf8)
+            XCTAssertTrue(text.contains("withWatchlistConfirm"), "\(file) fragt nicht vorher")
+        }
+        // Frage über allem statt am obersten registrierten Bildschirm (unter einem Blatt konnte sie ausbleiben)
+        let hint = try String(contentsOf: features.deletingLastPathComponent().appendingPathComponent("Components/WatchlistLockedHint.swift"),
+                              encoding: .utf8)
+        XCTAssertFalse(hint.contains(".alert("))
+        // Alarm speichern: «Grenze erreicht» nur bei `.full`, Erfolg (Haptik, Bestätigung) nur bei `.saved`
+        let alarms = try String(contentsOf: features.appendingPathComponent("Alarms/AlarmsScreen+Save.swift"), encoding: .utf8)
+        XCTAssertTrue(alarms.contains("guard case .saved(let firstAlarm) = outcome"))
     }
 
     /// Kurse, Alarmzustand und Widget schreiben weiter — kein Hinweis, keine Sperre.

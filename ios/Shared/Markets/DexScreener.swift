@@ -161,13 +161,15 @@ final class DexScreener: Market {
     /// Seit Build 104: Kennung genau «chain/adresse», beide Teile nur aus Zeichen, die unkodiert im Pfad stehen dürfen
     /// (`safePathCharacters`; keine Leerzeichen, kein zweites «/», kein «?», «#», «%»). Gilt für Einzelkurs, Suchtreffer
     /// und Sicherung. Wie Android `DexScreener.isSafePairId` (`Parity/dex_pair_id.json`).
+    /// Seit Build 105 (SEC3-R1): kein Teil nur aus Punkten («.», «..» würden den Pfad beim Parsen verlassen).
     static func isSafePairId(_ pairId: String) -> Bool {
         guard let cut = pairId.firstIndex(of: "/") else { return false }
-        let chain = pairId[..<cut]
-        let address = pairId[pairId.index(after: cut)...]
-        return !chain.isEmpty && !address.isEmpty
-            && chain.allSatisfy { safePathCharacters.contains($0) }
-            && address.allSatisfy { safePathCharacters.contains($0) }
+        return isSafePart(pairId[..<cut]) && isSafePart(pairId[pairId.index(after: cut)...])
+    }
+
+    /// Ein Teil der Kennung: nicht leer, nur Pfad-Zeichen und nicht nur Punkte (seit Build 105).
+    private static func isSafePart(_ part: Substring) -> Bool {
+        !part.isEmpty && part.allSatisfy { safePathCharacters.contains($0) } && part.contains { $0 != "." }
     }
 
     /// Pools für die Sammelabfrage: je Chain (sortiert) die Adressen ohne Doppelte, sortiert, in Gruppen von höchstens
@@ -177,14 +179,9 @@ final class DexScreener: Market {
         var byChain: [String: Set<String>] = [:]
         for raw in pairIds {
             let id = raw.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard let cut = id.firstIndex(of: "/") else { continue }
-            let chain = String(id[..<cut])
-            let address = String(id[id.index(after: cut)...])
-            guard !chain.isEmpty, !address.isEmpty,
-                  chain.allSatisfy({ safePathCharacters.contains($0) }),
-                  address.allSatisfy({ safePathCharacters.contains($0) })
-            else { continue }
-            byChain[chain, default: []].insert(address)
+            guard let cut = id.firstIndex(of: "/"),
+                  isSafePart(id[..<cut]), isSafePart(id[id.index(after: cut)...]) else { continue }
+            byChain[String(id[..<cut]), default: []].insert(String(id[id.index(after: cut)...]))
         }
         return byChain.keys.sorted().flatMap { chain -> [(chain: String, addresses: [String])] in
             let addresses = byChain[chain, default: []].sorted()

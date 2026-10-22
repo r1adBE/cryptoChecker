@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.AddWatchOutcome
 import com.cryptochecker.app.data.TickerImpl
 import com.cryptochecker.app.data.tryAddWatch
+import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.exceptions.MarketError
 import com.cryptochecker.app.domain.model.MarketInfo
@@ -130,6 +131,8 @@ fun ExplorerViewModel.addSelectedPair() {
  */
 internal fun ExplorerViewModel.launchAdd(target: MarketInfo, pair: MarketPair, report: (added: Boolean) -> Unit) {
     viewModelScope.launch {
+        // Seit Build 105: Rückfrage F-08 vor dem Anlegen; «Abbrechen» = nichts, keine Meldung
+        if (!watchRepository.confirmUserWrite()) return@launch
         when (val outcome = watchRepository.tryAddWatch(target, pair, sessionTargetGroup.value)) {
             is AddWatchOutcome.Added -> {
                 report(true)

@@ -9,6 +9,8 @@
                  release_notes 4000 (also ios/fastlane/release_notes_later/<lang>/)
           privacy_url / support_url / marketing_url not https (when filled in)
           version differs: android/app/build.gradle.kts vs ios/tools/gen_xcodeproj.py vs ios/project.yml
+          tag run (GITHUB_REF refs/tags/v*): tag != v<versionName>-<versionCode> of android/app/build.gradle.kts
+            (since build 105)
   warning required store text empty or missing (title / name / description), no screenshots
           android/docs/PLAY_STORE.md / ios/APP_STORE.md (private guides, only if present): version or
             versionCode / build number named there differs from android/app/build.gradle.kts
@@ -16,6 +18,7 @@
 
 The folder review_information (contact data for the App Review) is never read or listed.
 Usage: python3 -I release_readiness.py <repository root> <findings file>
+       python3 -I release_readiness.py --self-test   (tag check, since build 105)
 """
 import os
 import re
@@ -170,6 +173,49 @@ def check_versions(repo):
         add("notice", f"Version {name} (build {code}) identical in " + ", ".join(sources))
 
 
+def expected_tag_problem(ref, name, code):
+    """Error text when a release tag run (refs/tags/v*) does not carry v<versionName>-<versionCode>, else None.
+    Other refs (branches, pull requests, tags without the v prefix) are not release tags."""
+    if not ref.startswith("refs/tags/v"):
+        return None
+    tag = ref[len("refs/tags/"):]
+    if not name or not code:
+        return f"Release tag {tag}: versionName / versionCode not found in android/app/build.gradle.kts"
+    expected = f"v{name}-{code}"
+    if tag != expected:
+        return (f"Release tag {tag} does not match the project version: expected {expected} "
+                "(versionName-versionCode of android/app/build.gradle.kts)")
+    return None
+
+
+def check_tag(repo):
+    # Seit Build 105 (REL3-R1): Tag-Lauf nur mit passendem Tag
+    ref = os.environ.get("GITHUB_REF", "")
+    if not ref.startswith("refs/tags/"):
+        return
+    gradle = os.path.join(repo, "android", "app", "build.gradle.kts")
+    name = first(r'^\s*versionName\s*=\s*"([^"]+)"', gradle)
+    code = first(r"^\s*versionCode\s*=\s*(\d+)", gradle)
+    problem = expected_tag_problem(ref, name, code)
+    if problem:
+        add("error", problem, "android/app/build.gradle.kts")
+    elif ref.startswith("refs/tags/v"):
+        add("notice", f"Release tag {ref[len('refs/tags/'):]} matches versionName-versionCode")
+
+
+def self_test():
+    assert expected_tag_problem("refs/tags/v16.2.2-105", "16.2.2", "105") is None
+    assert "expected v16.2.2-105" in expected_tag_problem("refs/tags/v16.2.2-104", "16.2.2", "105")
+    assert expected_tag_problem("refs/tags/v16.2.3-105", "16.2.2", "105") is not None
+    assert expected_tag_problem("refs/tags/v16.2.2-105-rc", "16.2.2", "105") is not None
+    assert expected_tag_problem("refs/tags/v16.2.2-105", None, "105") is not None
+    assert expected_tag_problem("refs/heads/main", "16.2.2", "105") is None
+    assert expected_tag_problem("refs/pull/7/merge", "16.2.2", "105") is None
+    assert expected_tag_problem("refs/tags/other", "16.2.2", "105") is None
+    print("release_readiness.py self-test passed")
+    return 0
+
+
 # Version mentions in the private store guides (not in the public repository). Only the current
 # version is named like this; history lines read «Build 91: …» and are not matched.
 DOC_PATTERNS = {
@@ -216,11 +262,14 @@ def check_store_docs(repo):
 
 
 def main():
+    if sys.argv[1:] == ["--self-test"]:
+        return self_test()
     if len(sys.argv) != 3:
         print(__doc__)
         return 2
     repo, out = sys.argv[1:3]
     check_versions(repo)
+    check_tag(repo)
     check_store_docs(repo)
     check_play(repo)
     check_apple(repo)

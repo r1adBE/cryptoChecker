@@ -72,8 +72,9 @@ class AlarmSaveBuilderTest {
         val save = vm.substringAfter("fun save(draft: AlarmDraft").substringBefore("\n    fun delete(")
         assertTrue(save.contains("saveMergedIfWatchExists("))
         assertFalse(save.contains("AlarmEdit.merged("))
-        val repo = source("src/main/java/com/cryptochecker/app/data/WatchRepository.kt")
-        val merged = repo.substringAfter("suspend fun saveAlarmMerged(").substringBefore("\n    suspend fun ")
+        // Seit Build 105 in WatchRepositoryAlarmSave.kt (eindeutiges Ergebnis: gespeichert, voll, abgelehnt)
+        val repo = source("src/main/java/com/cryptochecker/app/data/WatchRepositoryAlarmSave.kt")
+        val merged = repo.substringAfter("suspend fun WatchRepository.trySaveAlarmMerged(")
         assertTrue(merged.contains("database.withTransaction"))
         assertTrue(merged.contains("watchDao.getAlarm(id)"))
     }

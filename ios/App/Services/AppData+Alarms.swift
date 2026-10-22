@@ -11,21 +11,18 @@ extension AppData {
     var alarmSaveBlocked: Bool { WatchlistStorageLock.blocksAlarmSave(locked: watchlistLocked) }
 
     /// Speichert einen Alarm (id 0 = neu) — Bezugskurs und Zustand wie in `AlarmsViewModel.save`.
-    /// - Returns: true, wenn es der allererste Alarm ist (Bestätigung zeigen);
-    ///   `firstAlarmShown` ist dann schon gesetzt.
+    /// - Returns: seit Build 105 eindeutig (UX3-02/03): gespeichert (mit «allererster Alarm», dann ist `firstAlarmShown`
+    ///   schon gesetzt), Paar voll oder abgelehnt — wie Android `AlarmSaveResult`.
     @discardableResult
     func saveAlarm(watchId: Int64, id: Int64, condition: AlarmCondition, threshold: Double,
                    repeating: Bool, sound: Bool, vibrate: Bool, speak: Bool, windowHours: Int,
-                   currency: String? = nil) -> Bool {
+                   currency: String? = nil) -> AlarmSaveOutcome {
         // Paar inzwischen gelöscht (z. B. Editor aus einer alten Mitteilung): kein verwaister Alarm — wie Android
-        guard !alarmSaveBlocked, watch(watchId) != nil else { return false }
-        // Seit Build 104 (F-08): Merkliste wird gerade nicht gespeichert — erst fragen, nach «Trotzdem» erneut (wie Android)
-        guard !watchlistWriteRefused(retry: { [weak self] in
-            _ = self?.saveAlarm(watchId: watchId, id: id, condition: condition, threshold: threshold, repeating: repeating,
-                                sound: sound, vibrate: vibrate, speak: speak, windowHours: windowHours, currency: currency)
-        }) else { return false }
+        guard !alarmSaveBlocked, watch(watchId) != nil else { return .refused }
+        // Seit Build 105 (F-08): ohne vorherige Bestätigung (`confirmWatchlistWrite`) ablehnen
+        guard !watchlistWriteRefused() else { return .refused }
         // Neuer Alarm an einem vollen Paar (`WatchlistLimits`): nichts anlegen — der Bildschirm prüft vorher und sagt es
-        guard id != 0 || WatchlistLimits.canAddAlarm(alarms(for: watchId).count) else { return false }
+        guard id != 0 || WatchlistLimits.canAddAlarm(alarms(for: watchId).count) else { return .full }
         let existing = snapshot.alarms.first { $0.id == id && id != 0 }
         // Erster Alarm überhaupt? Gibt es schon Alarme, gilt die Bestätigung als gezeigt.
         let firstAlarm = !settings.firstAlarmShown && snapshot.alarms.isEmpty
@@ -77,7 +74,7 @@ extension AppData {
         if id != 0 { Notifier.cancelAlarm(id) }
         // Alarm angelegt: nach «Später» die kurze Erklärung noch einmal (`NotificationPrePrompt`)
         NotificationPrePrompt.request(.alarmCreated)
-        return firstAlarm
+        return .saved(firstAlarm: firstAlarm)
     }
 
     /// Schnell-Alarm sofort anlegen (scharf, Ton/Vibration wie neue Alarme) — wie
@@ -87,8 +84,8 @@ extension AppData {
         guard !alarmSaveBlocked, watch(watchId) != nil, WatchlistLimits.canAddAlarm(alarms(for: watchId).count) else {
             return (0, false)
         }
-        // Seit Build 104 (F-08): wie `saveAlarm`
-        guard !watchlistWriteRefused(retry: { [weak self] in _ = self?.createAlarm(watchId: watchId, from: def) }) else {
+        // Seit Build 105 (F-08): wie `saveAlarm`
+        guard !watchlistWriteRefused() else {
             return (0, false)
         }
         let firstAlarm = !settings.firstAlarmShown && snapshot.alarms.isEmpty
@@ -142,6 +139,8 @@ extension AppData {
     func setPortfolioAlarmEnabled(_ id: Int64, _ enabled: Bool) {
         mutate({ s in
             guard var list = s.portfolioAlarms, let i = list.firstIndex(where: { $0.id == id }) else { return }
+            // Seit Build 105 (FUN3-01): «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst anpassen), wie Android
+            if enabled && PortfolioAlarmLogic.exceedsFall(list[i].kind, list[i].threshold) { return }
             list[i].enabled = enabled
             if enabled { list[i].referenceAt = 0 }
             s.portfolioAlarms = list
@@ -150,8 +149,8 @@ extension AppData {
 
     func deletePortfolioAlarm(_ id: Int64) {
         mutate({ s in s.portfolioAlarms?.removeAll { $0.id == id } }, reloadWidgets: false)
-        // Seit Build 104: Vermerk «wird gemeldet» des gelöschten Alarms weg (wie Android)
-        AlarmDelivery.portfolio.remove([id])
+        // Seit Build 104: Vermerk des gelöschten Alarms weg (wie Android); seit Build 105 nur, wenn der Stand bleibt
+        if portfolioMarkersPrunable { AlarmDelivery.portfolio.remove([id]) }
         // Seit Build 104: die Mitteilung des gelöschten Alarms gleich mit entfernen (wie Android)
         Notifier.cancelPortfolioAlarm(id)
     }
@@ -234,13 +233,17 @@ extension AppData {
                 // Seit Build 104 wie die Paar-Alarme: nicht gespeichert → Mitteilung weg; nach einem Prozess-Ende
                 // zählt nur eine nach dem Vermerk gezeigte Mitteilung als zugestellt (`alreadyDelivered`)
                 retract: { Notifier.cancelPortfolioAlarm(alarm.id) },
-                isShown: { markerAt in await Notifier.isPortfolioAlarmDelivered(alarm.id, since: markerAt) })
+                isShown: { markerAt in await Notifier.isPortfolioAlarmDelivered(alarm.id, since: markerAt) },
+                // Seit Build 105: Vermerk einer schon gespeicherten Auslösung zählt nicht (neue wird gemeldet)
+                savedSince: { AlarmDelivery.savedSinceMarker(lastTriggeredAt: alarm.lastTriggeredAt, markerAt: $0) },
+                // Seit Build 105: echtes Schreib-Ergebnis (auch die eigene Datei der Portfolio-Alarme), sonst bleibt der Vermerk
+                persisted: { await SharedStorage.snapshotWritesSettled() && !SharedStorage.portfolioAlarmsPending })
         }
     }
 
     /// Gemeldeten Portfolio-Alarm speichern (einmalige: abschalten) — nur, wenn er noch so ist wie ausgewertet
-    /// (wie `markTriggered` in Android); abgewartet auf die Platte, damit ein Ende der App ihn nicht verliert — seit
-    /// Build 103 ohne den Hauptfaden zu blockieren (`snapshotWritesSettled` statt `flushSnapshotWrites`).
+    /// (wie `markTriggered` in Android). Seit Build 105 wartet `persisted` in `deliver` die Platte ab (ohne den
+    /// Hauptfaden zu blockieren) und liefert das echte Ergebnis — nicht geschrieben → der Vermerk bleibt.
     private func markPortfolioAlarmTriggered(_ evaluated: PortfolioAlarm, value: Double, at now: Int64) async -> Bool {
         guard var list = snapshot.portfolioAlarms, let i = list.firstIndex(where: { $0.id == evaluated.id }) else {
             return false
@@ -255,7 +258,7 @@ extension AppData {
         list[i].enabled = PortfolioAlarmLogic.enabledAfterFire(repeating: stored.repeating)
         let updated = list
         mutate({ s in s.portfolioAlarms = updated }, reloadWidgets: false)
-        await SharedStorage.snapshotWritesSettled()
+        // Seit Build 105: das Abwarten der Platte mit echtem Ergebnis übernimmt `persisted` in `deliver`
         return true
     }
 
@@ -281,23 +284,27 @@ extension AppData {
         return QuietHours.isQuietNow(current) ? .sentDuringQuietHours : .sent
     }
 
-    func deleteAlarm(_ id: Int64) {
-        guard !watchlistWriteRefused(retry: { [weak self] in
-            _ = self?.deleteAlarm(id)
-        }) else { return }
+    /// true = gelöscht; false = abgelehnt (seit Build 105 eindeutig: dann keine Haptik, nichts weggeräumt).
+    @discardableResult
+    func deleteAlarm(_ id: Int64) -> Bool {
+        guard !watchlistWriteRefused() else { return false }
         mutate({ s in s.alarms.removeAll { $0.id == id } }, reloadWidgets: false)
         // Seine Mitteilung weg: ihr «Anpassen» zeigte sonst auf einen Alarm, den es nicht mehr gibt (wie Android)
         Notifier.cancelAlarm(id)
         // Alarm-Protokoll: seine letzte Prüfung gehört zum Alarm (Protokoll-Einträge bleiben); Datei abseits des Hauptfadens
         Task.detached(priority: .utility) { AlarmLogStore.removeAlarm(id) }
-        // Seit Build 104: Vermerk «wird gemeldet» des gelöschten Alarms weg (wie Android)
-        AlarmDelivery.pairs.remove([id])
+        // Seit Build 104: Vermerk des gelöschten Alarms weg (wie Android); seit Build 105 nur, wenn der Stand bleibt
+        if pairMarkersPrunable { AlarmDelivery.pairs.remove([id]) }
+        return true
     }
 
-    func setAlarmEnabled(_ id: Int64, _ enabled: Bool) {
-        guard !watchlistWriteRefused(retry: { [weak self] in
-            _ = self?.setAlarmEnabled(id, enabled)
-        }) else { return }
+    /// true = geschrieben; false = abgelehnt (gesperrt bzw. nicht bestätigt, oder seit Build 105 (FUN3-02) «fällt um ≥ 100 %»
+    /// einschalten — löst nie aus, erst im Editor anpassen; wie Android `setAlarmEnabled`).
+    @discardableResult
+    func setAlarmEnabled(_ id: Int64, _ enabled: Bool) -> Bool {
+        guard !watchlistWriteRefused() else { return false }
+        if let alarm = snapshot.alarms.first(where: { $0.id == id }),
+           !BackupManager.toggleAllowed(alarm.condition, alarm.threshold, enable: enabled) { return false }
         mutate({ s in
             if let i = s.alarms.firstIndex(where: { $0.id == id }) {
                 // Wieder eingeschaltet: «Nahe am Hoch/Tief», Kursmarken, Funding und Open Interest melden
@@ -307,7 +314,16 @@ extension AppData {
         }, reloadWidgets: false)
         // Ausgeschaltet: seine Mitteilung weg — «1 h später» darauf schaltete ihn sonst wieder ein
         if !enabled { Notifier.cancelAlarm(id) }
+        return true
     }
+}
+
+/// Ausgang von `AppData.saveAlarm` (seit Build 105) — wie Android `AlarmSaveResult`: nur `.full` meldet «Grenze erreicht»,
+/// `.refused` (gesperrt, nicht bestätigt, Paar fehlt) meldet nichts.
+enum AlarmSaveOutcome: Equatable {
+    case saved(firstAlarm: Bool)
+    case full
+    case refused
 }
 
 /// Portfolio-Alarme werden gerade gemeldet (`evaluatePortfolioAlarms`): eine zweite Prüfung wartet die nächste

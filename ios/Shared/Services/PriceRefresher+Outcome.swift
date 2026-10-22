@@ -84,6 +84,14 @@ extension PriceRefresher {
             snapshot.alarms[i].lastTriggeredPrice = lastTriggeredPrice
             return true
         }
+
+        /// Seit Build 105: Auslösung mit der Zeit des Vermerks speichern (wie Android, wo `mark` dieselbe Zeit nutzt) —
+        /// nur so erkennt `AlarmDelivery.savedSinceMarker` einen nach dem Speichern liegengebliebenen Vermerk.
+        func fired(at time: Int64) -> AlarmUpdate {
+            var stamped = self
+            stamped.lastTriggeredAt = time
+            return stamped
+        }
     }
 
     /// Ausgelöster Alarm: erst melden, dann speichern (`Outcome.deliverAlarms`, wie Android
@@ -198,6 +206,10 @@ extension PriceRefresher {
         /// - Parameter snoozedUntil: Ende einer «1 h später»-Pause je Alarm (`AlarmSnooze`); Tests: Fake.
         /// - Parameter recordLog: Alarm-Protokoll übernehmen (Einträge, aus Live-Kursen?) — nach dem Melden, mit dem
         ///   Ergebnis jedes gemeldeten Alarms; nil = nicht protokollieren (Tests).
+        /// - Parameter persisted: seit Build 105 — nach `save` == true: auch auf der Platte? (App: Ergebnis der
+        ///   Schreib-Warteschlange; false → Vermerk bleibt, `AlarmDelivery.deliver`). Hintergrund/Widget: `save` schreibt selbst.
+        /// - Parameter isCancelled: seit Build 105 — vor jedem Alarm geprüft: abgebrochen (BG-Aufgabe abgelaufen) → keine
+        ///   weiteren Meldungen, die übrigen Alarme bleiben scharf (wie Android `ensureActive` in `report`).
         /// - Returns: gemeldete und gespeicherte Alarme (für die Ansagen).
         func deliverAlarms(settings: AppSettings, current: [Alarm],
                            save: @escaping @Sendable (Int64, AlarmUpdate) async -> Bool,
@@ -205,6 +217,8 @@ extension PriceRefresher {
                            notifier: AlarmNotifier = .system, delivery: AlarmDelivery = .pairs,
                            now: @Sendable () -> Int64 = { TimeUtils.nowMillis },
                            snoozedUntil: @Sendable (Int64) -> Int64? = { AlarmSnooze.until($0) },
+                           isCancelled: @Sendable () -> Bool = { Task.isCancelled },
+                           persisted: @escaping @Sendable () async -> Bool = { true },
                            recordLog: (@Sendable ([AlarmLogEntry], Bool) -> Void)? = nil) async -> [PendingAlarm] {
             // Protokoll: Ergebnis je gemeldetem Alarm, nur mitgelesen (`AlarmLog.deliveryTrace`)
             var resolvedLog: [AlarmLogEntry] = []
@@ -221,6 +235,8 @@ extension PriceRefresher {
             let holdAlarms = QuietHours.holdsAlarmsNow(settings)
             var delivered: [PendingAlarm] = []
             for item in pendingAlarms {
+                // Seit Build 105: abgebrochen (z. B. BG-Aufgabe abgelaufen) → nicht mehr melden, Alarme bleiben scharf
+                if isCancelled() { break }
                 guard let stored = byId[item.alarm.id], item.update.matches(stored) else { continue }
                 // Lease vor jeder Meldung auffrischen: Langes Melden (viele Alarme) liesse sie sonst nach
                 // `AlarmLease.staleAfterSeconds` verwaisen, ein zweiter Prozess übernähme und meldete doppelt.
@@ -244,9 +260,13 @@ extension PriceRefresher {
                         shownBox.current = shown
                         return shown
                     },
-                    mark: { await save(item.alarm.id, item.update) },
+                    // Seit Build 105: mit der Zeit des Vermerks gespeichert (`AlarmUpdate.fired(at:)`)
+                    mark: { await save(item.alarm.id, item.update.fired(at: at)) },
                     retract: { await notifier.retract(item) },
-                    isShown: { markerAt in await notifier.isShown(item, markerAt) })
+                    isShown: { markerAt in await notifier.isShown(item, markerAt) },
+                    // Seit Build 105: Vermerk einer schon gespeicherten Auslösung zählt nicht (neue wird gemeldet)
+                    savedSince: { AlarmDelivery.savedSinceMarker(lastTriggeredAt: item.alarm.lastTriggeredAt, markerAt: $0) },
+                    persisted: persisted)
                 if saved { delivered.append(item) }
                 if let entry = item.logEntry,
                    let trace = AlarmLog.deliveryTrace(holdAlarms: holdAlarms, canShow: deliverable,

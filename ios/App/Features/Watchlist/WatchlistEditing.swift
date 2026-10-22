@@ -1,100 +1,95 @@
 import Accessibility
 import SwiftUI
 
-/// Favorit, Löschen mit «Rückgängig» und Reihenfolge — per Wischen, VoiceOver oder Ziehen.
+/// Favorit, Löschen mit «Rückgängig» und Reihenfolge — per Wischen, VoiceOver oder Ziehen. Seit Build 105 (F-08,
+/// Review UX3-02, IOS3-R04): jede Aktion fragt EINMAL vorher (`data.withWatchlistConfirm`); nach «Trotzdem» läuft der
+/// normale Weg mit Banner, «Rückgängig», Haptik und Ansage, nach «Abbrechen» nichts davon.
 extension WatchlistScreen {
     /// Wisch-Aktionen: nicht beim Sortieren (Ziehgriffe) und nicht mit VoiceOver.
     var swipeEnabled: Bool { !sorting && !selecting && !voiceOver }
 
     /// Nach rechts gewischt: Favorit an/aus, leichte Haptik, kurzer Banner.
     func swipeFavorite(_ watch: Watch) {
-        swipeFavoriteTick += 1
-        let nowFavorite = !watch.favorite
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.4)) { data.toggleFavorite(watch) }
-        banner = WatchlistBannerMessage(
-            text: L(nowFavorite ? "favorite_added" : "favorite_removed", watch.displayPair),
-            icon: nowFavorite ? "star.fill" : "star"
-        )
+        data.withWatchlistConfirm {
+            swipeFavoriteTick += 1
+            let nowFavorite = !watch.favorite
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.4)) { data.toggleFavorite(watch) }
+            banner = WatchlistBannerMessage(
+                text: L(nowFavorite ? "favorite_added" : "favorite_removed", watch.displayPair),
+                icon: nowFavorite ? "star.fill" : "star"
+            )
+        }
     }
 
     /// Nach links gewischt, VoiceOver «Löschen» oder «Löschen» im Aktionsblatt: sofort löschen (samt
     /// Alarmen), Banner mit «Rückgängig» und Ansage. Ein weiteres Löschen, solange der Banner steht, fasst beide
     /// zusammen («2 Paare entfernt»); «Rückgängig» holt dann alle zurück.
     func swipeDelete(_ watch: Watch) {
-        swipeDeleteTick += 1
-        var result: DeletedWatch?
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.deleteForUndo(watch) }
-        guard let deleted = result else { return }
-        let message = WatchlistBannerMessage.removed(deleted, after: banner) { all in
-            undoRestore(all)
+        data.withWatchlistConfirm {
+            var result: DeletedWatch?
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.deleteForUndo(watch) }
+            guard let deleted = result else { return }
+            swipeDeleteTick += 1
+            let message = WatchlistBannerMessage.removed(deleted, after: banner) { all in
+                undoRestore(all)
+            }
+            banner = message
+            announce(message.text)
         }
-        let text = message.text
-        banner = message
+    }
+
+    /// Nach dem Fokuswechsel ansagen, sonst geht es unter.
+    private func announce(_ text: String) {
         Task { @MainActor in
-            // Nach dem Fokuswechsel ansagen, sonst geht es unter
             try? await Task.sleep(nanoseconds: 300_000_000)
             AccessibilityNotification.Announcement(text).post()
         }
     }
 
+    /// Mehrere Paare entfernt (`deleted` leer = nichts geschehen): Haptik, Banner mit «Rückgängig» für alle, Ansage.
+    private func showRemoved(_ deleted: [DeletedWatch], text: String) {
+        guard !deleted.isEmpty else { return }
+        swipeDeleteTick += 1
+        banner = WatchlistBannerMessage(text: text, icon: "trash", action: WatchlistBannerAction.undo { undoRestore(deleted) })
+        announce(text)
+    }
+
     /// «Nicht gehandelte Paare entfernen» bestätigt: alle auf einmal löschen, Banner mit
     /// «Rückgängig» (holt alle zurück) und Ansage.
     func removeNotTraded() {
-        var deleted: [DeletedWatch] = []
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { deleted = data.deleteNotTradedForUndo() }
-        guard !deleted.isEmpty else { return }
-        let removed = deleted
-        swipeDeleteTick += 1
-        let text = L("watchlist_removed_not_traded", count: removed.count)
-        banner = WatchlistBannerMessage(
-            text: text,
-            icon: "trash",
-            action: WatchlistBannerAction.undo {
-                undoRestore(removed)
-            }
-        )
-        Task { @MainActor in
-            // Nach dem Fokuswechsel ansagen, sonst geht es unter
-            try? await Task.sleep(nanoseconds: 300_000_000)
-            AccessibilityNotification.Announcement(text).post()
+        data.withWatchlistConfirm {
+            var deleted: [DeletedWatch] = []
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { deleted = data.deleteNotTradedForUndo() }
+            showRemoved(deleted, text: L("watchlist_removed_not_traded", count: deleted.count))
         }
     }
 
     /// «Merkliste leeren» bestätigt: alles auf einmal löschen, Banner mit «Rückgängig» (holt alle samt Alarmen,
     /// Gruppen und Notizen zurück) und Ansage — wie `removeNotTraded`, wie Android.
     func clearAll() {
-        var deleted: [DeletedWatch] = []
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { deleted = data.deleteAllForUndo() }
-        guard !deleted.isEmpty else { return }
-        let removed = deleted
-        swipeDeleteTick += 1
-        let text = L("watchlist_removed_count", count: removed.count)
-        banner = WatchlistBannerMessage(
-            text: text,
-            icon: "trash",
-            action: WatchlistBannerAction.undo {
-                undoRestore(removed)
-            }
-        )
-        Task { @MainActor in
-            // Nach dem Fokuswechsel ansagen, sonst geht es unter
-            try? await Task.sleep(nanoseconds: 300_000_000)
-            AccessibilityNotification.Announcement(text).post()
+        data.withWatchlistConfirm {
+            var deleted: [DeletedWatch] = []
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { deleted = data.deleteAllForUndo() }
+            showRemoved(deleted, text: L("watchlist_removed_count", count: deleted.count))
         }
     }
 
     /// «Rückgängig»: Paar mit Id, Platz, Gruppe, Notiz, Mitteilung, Favorit und Alarmen zurück.
     func undoDelete(_ deleted: DeletedWatch) {
-        var result = UndoRestoreResult()
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.restore(deleted) }
-        showUndoFull(result)
+        data.withWatchlistConfirm {
+            var result = UndoRestoreResult()
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.restore(deleted) }
+            showUndoFull(result)
+        }
     }
 
     /// «Rückgängig» für mehrere Paare; seit Build 103 mit Hinweis, wenn die Merkliste inzwischen voll ist.
     func undoRestore(_ deleted: [DeletedWatch]) {
-        var result = UndoRestoreResult()
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.restore(deleted) }
-        showUndoFull(result)
+        data.withWatchlistConfirm {
+            var result = UndoRestoreResult()
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { result = data.restore(deleted) }
+            showUndoFull(result)
+        }
     }
 
     /// Seit Build 103: «n nicht zurückgeholt – Merkliste voll» (wie Android).
@@ -105,15 +100,19 @@ extension WatchlistScreen {
     }
 
     func moveByAccessibility(_ watch: Watch, _ move: WatchMove) {
-        reorderTick += 1
-        withAnimation(.spring(duration: 0.35)) {
-            data.move(watch, move, group: data.selectedWatchlistGroup)
+        data.withWatchlistConfirm {
+            reorderTick += 1
+            withAnimation(.spring(duration: 0.35)) {
+                data.move(watch, move, group: data.selectedWatchlistGroup)
+            }
         }
     }
 
     func commitOrder(_ list: [Watch]) {
-        reorderTick += 1
-        data.reorder(list.map(\.id))
+        data.withWatchlistConfirm {
+            reorderTick += 1
+            data.reorder(list.map(\.id))
+        }
     }
 
     /// «Nach Coin/Börse ordnen» im Sortiermodus (`AutoOrder`): die gezeigten Paare einmal ordnen und wie nach dem
@@ -125,8 +124,10 @@ extension WatchlistScreen {
     }
 
     func toggleFavorite(_ watch: Watch) {
-        Haptics.play(.lightImpact)
-        withAnimation(.spring(duration: 0.4)) { data.toggleFavorite(watch) }
+        data.withWatchlistConfirm {
+            Haptics.play(.lightImpact)
+            withAnimation(.spring(duration: 0.4)) { data.toggleFavorite(watch) }
+        }
     }
 
     // MARK: Vorübergehende Ansichten und Mehrfachauswahl (wie Android `WatchlistUiState`)
@@ -166,9 +167,13 @@ extension WatchlistScreen {
         let chosen = data.watches.filter { selectedIds.contains($0.id) }
         guard !chosen.isEmpty else { return }
         let makeFavorite = !chosen.allSatisfy(\.favorite)
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.4)) { data.setFavorite(ids: selectedIds, makeFavorite) }
-        Haptics.play(.lightImpact)
+        let ids = selectedIds
         endSelection()
+        // Eine Frage für alle ausgewählten Paare
+        data.withWatchlistConfirm {
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.4)) { data.setFavorite(ids: ids, makeFavorite) }
+            Haptics.play(.lightImpact)
+        }
     }
 
     /// Aktionsblatt › «Deaktivieren»/«Aktivieren»: kurzes Banner («BTC/USDT deaktiviert»);
@@ -184,37 +189,28 @@ extension WatchlistScreen {
     func disableSelected(_ disabled: Bool) {
         let ids = selectedIds
         guard !ids.isEmpty else { return }
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { data.setDisabled(ids: ids, disabled) }
-        Haptics.play(.lightImpact)
         endSelection()
+        data.withWatchlistConfirm {
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { data.setDisabled(ids: ids, disabled) }
+            Haptics.play(.lightImpact)
+        }
     }
 
     /// Leiste › «Gruppe» gewählt: alle Ausgewählten in `group` (nil = keine Gruppe).
     func groupSelected(_ group: String?) {
-        withAnimation(.spring(duration: 0.35)) { data.setGroup(ids: selectedIds, group) }
+        let ids = selectedIds
         endSelection()
+        data.withWatchlistConfirm { withAnimation(.spring(duration: 0.35)) { data.setGroup(ids: ids, group) } }
     }
 
     /// Leiste › «Löschen»: alle auf einmal (samt Alarmen), Banner mit «Rückgängig» für alle.
     func deleteSelected() {
         let ids = selectedIds
         endSelection()
-        var deleted: [DeletedWatch] = []
-        withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { deleted = data.deleteForUndo(ids: ids) }
-        guard !deleted.isEmpty else { return }
-        let removed = deleted
-        swipeDeleteTick += 1
-        let text = L("watchlist_removed_count", count: removed.count)
-        banner = WatchlistBannerMessage(
-            text: text,
-            icon: "trash",
-            action: WatchlistBannerAction.undo {
-                undoRestore(removed)
-            }
-        )
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 300_000_000)
-            AccessibilityNotification.Announcement(text).post()
+        data.withWatchlistConfirm {
+            var deleted: [DeletedWatch] = []
+            withAnimation(reduceMotion ? nil : .spring(duration: 0.35)) { deleted = data.deleteForUndo(ids: ids) }
+            showRemoved(deleted, text: L("watchlist_removed_count", count: deleted.count))
         }
     }
 }

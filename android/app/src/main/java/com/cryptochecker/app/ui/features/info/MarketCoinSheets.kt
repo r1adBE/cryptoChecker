@@ -244,12 +244,15 @@ internal fun MarketCoinSheets(
                 // Wie in der Merkliste: sofort löschen, «Rückgängig» im Banner (keine Rückfrage)
                 onDelete = {
                     state.actionsFor = null
-                    watchlist.deleteWithUndo(shown)
-                    banner.show(resources.getString(R.string.watchlist_removed, shown.displayName)) {
-                        // Seit Build 103: Merkliste inzwischen voll → Hinweis
-                        watchlist.undoDelete(shown.id) { n ->
-                            banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n))
+                    // Seit Build 105: Banner erst nach dem Löschen (Rückfrage F-08 «Abbrechen» bzw. abgelehnt: keiner)
+                    watchlist.deleteWithUndo(shown) {
+                        banner.show(resources.getString(R.string.watchlist_removed, shown.displayName)) {
+                            // Seit Build 103: Merkliste inzwischen voll → Hinweis
+                            watchlist.undoDelete(shown.id) { n ->
+                                banner.show(resources.getQuantityString(R.plurals.watchlist_undo_full, n, n))
+                            }
                         }
+                        shown.id
                     }
                 },
                 groups = groups,

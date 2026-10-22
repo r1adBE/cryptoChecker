@@ -1,6 +1,7 @@
 package com.cryptochecker.app.lock
 
 import com.cryptochecker.app.data.local.SystemBackupScope
+import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -79,8 +80,8 @@ class PortfolioLockPolicyTest {
      */
     @Test
     fun backupRulesKeepPortfolioAndDatabaseCopyOffAndroid8() {
-        val base = resourceText("xml/backup_rules.xml") ?: return // Quelle nicht auffindbar
-        val v28 = resourceText("xml-v28/backup_rules.xml") ?: return
+        val base = SourceGuard.android(resourceText("xml/backup_rules.xml"), "res/xml/backup_rules.xml")
+        val v28 = SourceGuard.android(resourceText("xml-v28/backup_rules.xml"), "res/xml-v28/backup_rules.xml")
         val include = Regex("""<include[^>]*path="([^"]+)"""")
         val basePaths = include.findAll(base).map { it.groupValues[1] }.toSet()
         assertFalse(basePaths.any { it.contains("portfolio_system_backup") || it.startsWith("cryptochecker_portfolio") })
@@ -111,7 +112,7 @@ class PortfolioLockPolicyTest {
     fun backupRulesCarryDatabaseCopyNotEncryptedFiles() {
         val include = Regex("""<include[^>]*path="([^"]+)"""")
         for (rel in listOf("xml/backup_rules.xml", "xml-v28/backup_rules.xml", "xml/data_extraction_rules.xml")) {
-            val text = resourceText(rel) ?: return // Quelle nicht auffindbar
+            val text = SourceGuard.android(resourceText(rel), "res/$rel")
             val paths = include.findAll(text).map { it.groupValues[1] }.toSet()
             // Kopie nur mit wirksamer Verschlüsselungs-Bedingung (nicht Android 8/8.1)
             assertEquals(rel, rel != "xml/backup_rules.xml", "cryptochecker_system_backup.db" in paths)
