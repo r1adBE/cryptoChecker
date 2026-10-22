@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.theme
 
+import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -39,7 +40,7 @@ class SpacingUsageTest {
 
     @Test
     fun iosSpacingStaysOnGrid() {
-        val root = iosRoot() ?: return // reiner Android-Checkout
+        val root = SourceGuard.ios(iosRoot(), "ios/App")
         val problems = IOS_AREAS.flatMap { area ->
             val dir = File(root, area)
             if (!dir.isDirectory) emptyList()
@@ -83,8 +84,8 @@ class SpacingUsageTest {
     /** Beide Plattformen haben dieselben Stufen mit denselben Werten. */
     @Test
     fun spacingTokensMatchIos() {
-        val androidRoot = androidSources() ?: return
-        val iosRoot = iosRoot() ?: return
+        val androidRoot = SourceGuard.android(androidSources(), "android/app/src/main/java")
+        val iosRoot = SourceGuard.ios(iosRoot(), "ios/App")
         val android = Regex("""val (\w+) = (\d+)\.dp""")
             .findAll(File(androidRoot, "ui/theme/Spacing.kt").readText(Charsets.UTF_8))
             .associate { it.groupValues[1] to it.groupValues[2].toInt() }
@@ -103,13 +104,13 @@ class SpacingUsageTest {
      */
     @Test
     fun fabClearanceIsDerivedFromGrid() {
-        val androidRoot = androidSources() ?: return
+        val androidRoot = SourceGuard.android(androidSources(), "android/app/src/main/java")
         assertTrue(File(androidRoot, "ui/theme/Spacing.kt").readText(Charsets.UTF_8).contains("val fabClearance = xxl * 3"))
         val literal = Regex("""bottom = 96\.dp""")
         val androidHits = androidRoot.walkTopDown().filter { it.isFile && it.extension == "kt" }
             .filter { literal.containsMatchIn(it.readText(Charsets.UTF_8)) }.map { it.name }.toList()
         assertEquals(emptyList<String>(), androidHits)
-        val iosRoot = iosRoot() ?: return
+        val iosRoot = SourceGuard.ios(iosRoot(), "ios/App")
         val swift = File(iosRoot, "Shared/Util/Spacing.swift").readText(Charsets.UTF_8)
         assertTrue(swift.contains("static let fabClearance: CGFloat = Spacing.xxl * 3"))
         val iosHits = File(iosRoot, "App").walkTopDown().filter { it.isFile && it.extension == "swift" }

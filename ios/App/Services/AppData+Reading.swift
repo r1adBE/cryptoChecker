@@ -90,9 +90,7 @@ extension AppData {
     func applyGroupEdit(oldName: String?, newName: String, memberIds: Set<Int64>) {
         guard let name = Watch.validGroupName(newName) else { return }
         if oldName == nil && memberIds.isEmpty { return }
-        guard !watchlistWriteRefused(retry: { [weak self] in
-            _ = self?.applyGroupEdit(oldName: oldName, newName: newName, memberIds: memberIds)
-        }) else { return }
+        guard !watchlistWriteRefused() else { return }
         // Vor dem Speichern umstellen — sonst gälte die alte Gruppe als verschwunden («Alle»)
         if let oldName, oldName != name, !memberIds.isEmpty, settings.watchlistGroup == oldName {
             settings.watchlistGroup = name
@@ -118,9 +116,7 @@ extension AppData {
     /// Gruppe löschen: Die Paare bleiben in der Merkliste, nur ohne Gruppe;
     /// die Ansicht springt auf «Alle».
     func deleteGroup(_ name: String) {
-        guard !watchlistWriteRefused(retry: { [weak self] in
-            _ = self?.deleteGroup(name)
-        }) else { return }
+        guard !watchlistWriteRefused() else { return }
         if settings.watchlistGroup == name { settings.watchlistGroup = nil }
         // Merkliste-Widgets, die der Gruppe über eine Umbenennung folgten, zeigen wieder «Alle»
         WidgetGroupSelection.recordDelete(name)

@@ -2,6 +2,10 @@ package com.cryptochecker.app.notification
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.portfolio.PortfolioDatabase
+import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarker
 import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarkerStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -61,6 +65,15 @@ abstract class PrefsAlarmDeliveryMarkers(
         fun clearAll(context: Context, prefsName: String) {
             runCatching { context.getSharedPreferences(prefsName, Context.MODE_PRIVATE).edit().clear().commit() }
         }
+
+        /**
+         * Seit Build 105: Vermerke der Alarme in [databaseName] löschen bzw. kürzen? Nicht, solange der nächste Prozess den
+         * Stand der Datei zurückbringt (gesperrt behalten oder Kopie im Speicher, [AlarmDeliveryMarker.shouldClear]).
+         */
+        fun prunable(databaseName: String): Boolean = AlarmDeliveryMarker.shouldClear(
+            DatabaseEncryptionNotice.isStoredKept(databaseName),
+            DatabaseEncryptionNotice.isVolatileCopy(databaseName),
+        )
     }
 }
 
@@ -71,6 +84,9 @@ class AlarmDeliveryMarkers @Inject constructor(
 ) : PrefsAlarmDeliveryMarkers(context, PREFS) {
     companion object {
         const val PREFS = "alarm_delivery_markers"
+
+        /** Seit Build 105: Vermerke der Paar-Alarme kürzen ([PrefsAlarmDeliveryMarkers.prunable])? */
+        fun prunable(): Boolean = PrefsAlarmDeliveryMarkers.prunable(AppDatabase.DB_NAME)
     }
 }
 
@@ -81,5 +97,8 @@ class PortfolioAlarmDeliveryMarkers @Inject constructor(
 ) : PrefsAlarmDeliveryMarkers(context, PREFS) {
     companion object {
         const val PREFS = "portfolio_alarm_delivery_markers"
+
+        /** Seit Build 105: Vermerke der Portfolio-Alarme kürzen ([PrefsAlarmDeliveryMarkers.prunable])? */
+        fun prunable(): Boolean = PrefsAlarmDeliveryMarkers.prunable(PortfolioDatabase.DB_NAME)
     }
 }

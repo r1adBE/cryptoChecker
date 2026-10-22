@@ -37,5 +37,18 @@ final class AlarmPairPickerTests: XCTestCase {
         XCTAssertEqual(watches.map(AlarmPairPicker.Source.init), priced.map(AlarmPairPicker.Source.init))
         let flipped = watches.map { w -> Watch in var copy = w; copy.favorite.toggle(); return copy }
         XCTAssertNotEqual(watches.map(AlarmPairPicker.Source.init), flipped.map(AlarmPairPicker.Source.init))
+        // Seit Build 105 (PERF3-R2): Schlüssel für `.task(id:)` ebenso
+        XCTAssertEqual(AlarmPairPicker.sourceKey(watches), AlarmPairPicker.sourceKey(priced))
+        XCTAssertNotEqual(AlarmPairPicker.sourceKey(watches), AlarmPairPicker.sourceKey(flipped))
+        XCTAssertNotEqual(AlarmPairPicker.sourceKey(watches), AlarmPairPicker.sourceKey(Array(watches.reversed())))
+    }
+
+    /// Seit Build 105 (PERF3-R2): das Struct neu zu erzeugen (Elternbildschirm zeichnet neu) faltet keine Zeilen.
+    func testErzeugenRechnetKeineZeilen() {
+        let watches = (1...50).map { Watch(id: Int64($0), marketKey: "binance", marketName: "Binance", baseAsset: "C\($0)",
+                                           quoteAsset: "USDT") }
+        let before = AlarmPairPicker.makeRowsCalls
+        for _ in 0..<5 { _ = AlarmPairPicker(watches: watches) { _ in } }
+        XCTAssertEqual(AlarmPairPicker.makeRowsCalls, before)
     }
 }

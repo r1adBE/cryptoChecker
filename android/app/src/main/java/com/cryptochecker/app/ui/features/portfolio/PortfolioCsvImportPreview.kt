@@ -274,7 +274,8 @@ internal fun PreviewHint(text: String) {
 @Composable
 internal fun PreviewRow(tx: CsvImportTx) {
     val style = MaterialTheme.typography.bodyMedium.tabularNumbers()
-    Column {
+    // Seit Build 105: TalkBack liest Datum und Menge als ein Element (wie iOS `.accessibilityElement(children: .combine)`)
+    Column(Modifier.semantics(mergeDescendants = true) {}) {
         Text(listOf(PortfolioFormat.date(tx.time), stringResource(tx.type.labelRes())).joinToString(" · "), style = style)
         Text(
             listOfNotNull(PortfolioFormat.amount(tx.amount, tx.coin), tx.priceUsdt?.let { PortfolioFormat.price(it.toDouble()) })

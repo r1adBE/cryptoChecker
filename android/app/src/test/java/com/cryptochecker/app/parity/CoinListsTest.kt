@@ -230,7 +230,7 @@ class CoinListsTest {
     @Test
     fun bundledSnapshot() {
         val file = File(ParityJson.dir(), "../../app/src/main/assets/" + CoinMeta.SNAPSHOT_FILE)
-        if (!file.isFile) return
+        assertTrue("assets/${CoinMeta.SNAPSHOT_FILE} nicht gefunden (seit Build 105 Pflicht)", file.isFile)
         val meta = CoinMeta.parse(file.readText(Charsets.UTF_8))
         assertNotNull(meta)
         if (meta == null) return

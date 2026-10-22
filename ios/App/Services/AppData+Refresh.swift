@@ -224,6 +224,8 @@ extension AppData {
             }
             let delivered = await pending.deliverAlarms(settings: settings, current: current,
                                                         save: { id, update in await self.saveDeliveredAlarm(id, update) },
+                                                        // Seit Build 105: echtes Ergebnis der Schreib-Warteschlange
+                                                        persisted: { await SharedStorage.snapshotWritesSettled() },
                                                         recordLog: { AppData.recordAlarmLog($0, live: $1) })
             for item in delivered {
                 if let text = item.speech { Speaker.shared.enqueue(text, rate: settings.ttsSpeechRate, alarm: true) }
@@ -239,15 +241,14 @@ extension AppData {
         Task.detached(priority: .utility) { AlarmLogStore.record(stamped, live: live) }
     }
 
-    /// `save` für `Outcome.deliverAlarms`: in den Stand im Speicher und abgewartet auf die Platte, bevor der
-    /// nächste Alarm gemeldet bzw. die Lease frei wird (ohne den Haupt-Thread zu blockieren).
-    /// false = Alarm inzwischen bearbeitet oder gelöscht.
+    /// `save` für `Outcome.deliverAlarms`: in den Stand im Speicher übernehmen und in die Schreib-Warteschlange.
+    /// false = Alarm inzwischen bearbeitet oder gelöscht. Seit Build 105 wartet `persisted` (`snapshotWritesSettled`)
+    /// das Schreiben ab, bevor der nächste Alarm gemeldet bzw. die Lease frei wird, und liefert das echte Ergebnis:
+    /// nicht geschrieben (z. B. Datei gesperrt, Schlüssel fehlt) → der Vermerk bleibt (`AlarmDelivery.deliver`).
     private func saveDeliveredAlarm(_ id: Int64, _ update: PriceRefresher.AlarmUpdate) async -> Bool {
         var applied = false
         mutate({ s in applied = update.apply(toAlarm: id, in: &s) }, reloadWidgets: false)
-        guard applied else { return false }
-        await SharedStorage.snapshotWritesSettled()
-        return true
+        return applied
     }
 
     /// Späte Tages-Bezüge übernehmen — nur, solange Basis und Tag gleich sind und das Paar noch

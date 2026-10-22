@@ -99,16 +99,19 @@ struct WatchEditSheet: View {
 
     private func save() {
         guard let market = vm.exchange, let pair = vm.selectedPair else { return }
-        switch data.changePair(watch.id, market: market, pair: pair) {
-        case .duplicate:
-            Haptics.play(.warning)
-            duplicate = true
-            AccessibilityNotification.Announcement(L("explorer_already_in_watchlist")).post()
-        case .changed:
-            Haptics.play(.success)
-            dismiss()
-        case .unchanged, nil:
-            dismiss()
+        // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts geändert, das Blatt bleibt
+        data.withWatchlistConfirm {
+            switch data.changePair(watch.id, market: market, pair: pair) {
+            case .duplicate:
+                Haptics.play(.warning)
+                duplicate = true
+                AccessibilityNotification.Announcement(L("explorer_already_in_watchlist")).post()
+            case .changed:
+                Haptics.play(.success)
+                dismiss()
+            case .unchanged, nil:
+                dismiss()
+            }
         }
     }
 

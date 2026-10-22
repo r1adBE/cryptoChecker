@@ -16,6 +16,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withTimeoutOrNull
@@ -31,8 +32,10 @@ class PortfolioAlarmRepository @Inject constructor(
     private val dao: PortfolioAlarmDao,
     /** Seit Build 104: Vermerke «wird gemeldet» gelöschter bzw. ersetzter Alarme aufräumen. */
     private val deliveryMarkers: PortfolioAlarmDeliveryMarkers,
+    /** Seit Build 105: «fällt um ≥ 100 %» einmalig ausschalten, bevor die Liste erscheint. */
+    private val fallCleanup: PortfolioFallAlarmCleanup,
 ) {
-    fun observeAll(): Flow<List<PortfolioAlarmEntity>> = dao.observeAll()
+    fun observeAll(): Flow<List<PortfolioAlarmEntity>> = dao.observeAll().onStart { fallCleanup.runOnce() }
 
     suspend fun getAll(): List<PortfolioAlarmEntity> = dao.getAll()
 
@@ -49,10 +52,15 @@ class PortfolioAlarmRepository @Inject constructor(
 
     suspend fun delete(id: Long) {
         dao.delete(id)
-        withContext(Dispatchers.IO) { deliveryMarkers.remove(listOf(id)) }
+        // Seit Build 105: nicht bei Kopie im Speicher (der Alarm kommt mit dem nächsten Prozess aus der Datei zurück)
+        if (PortfolioAlarmDeliveryMarkers.prunable()) withContext(Dispatchers.IO) { deliveryMarkers.remove(listOf(id)) }
     }
 
-    suspend fun setEnabled(id: Long, enabled: Boolean) = dao.setEnabled(id, enabled)
+    suspend fun setEnabled(id: Long, enabled: Boolean) {
+        // Seit Build 105 (FUN3-01): «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst anpassen)
+        if (enabled && dao.getAll().any { it.id == id && PortfolioAlarmLogic.exceedsFall(it.kind, it.threshold) }) return
+        dao.setEnabled(id, enabled)
+    }
 
     /** Wiederherstellen: alles ersetzen, jeweils scharf (wie Paar-Alarme aus einer Sicherung). */
     suspend fun replaceAll(alarms: List<PortfolioAlarmEntity>) {
@@ -78,6 +86,8 @@ class PortfolioAlarmChecker @Inject constructor(
     private val depegReadings: com.cryptochecker.app.domain.alarm.DepegReadingStore,
     /** Seit Build 104: Vermerk «wird gemeldet» der Portfolio-Alarme. */
     deliveryMarkers: PortfolioAlarmDeliveryMarkers,
+    /** Seit Build 105: «fällt um ≥ 100 %» einmalig ausschalten (vor dem ersten Prüfen). */
+    private val fallCleanup: PortfolioFallAlarmCleanup,
 ) {
     private val mutex = Mutex()
 
@@ -85,12 +95,16 @@ class PortfolioAlarmChecker @Inject constructor(
     private val delivery = AlarmDelivery(deliveryMarkers)
 
     /** Braucht die Hintergrund-Aktualisierung eine Momentaufnahme für die Alarme? */
-    suspend fun hasActiveAlarms(): Boolean =
-        settingsRepository.current().portfolioEnabled && dao.countEnabled() > 0
+    suspend fun hasActiveAlarms(): Boolean {
+        if (!settingsRepository.current().portfolioEnabled) return false
+        fallCleanup.runOnce()
+        return dao.countEnabled() > 0
+    }
 
     suspend fun check(snapshot: PortfolioSnapshot) = mutex.withLock {
         val settings = settingsRepository.current()
         if (!settings.portfolioEnabled) return@withLock
+        fallCleanup.runOnce()
         val alarms = dao.getAll().filter { it.enabled }
         if (alarms.isEmpty()) return@withLock
         // Alarme in einer anderen Währung als der Stand (z. B. nach Wechsel CHF → EUR): mit Devisenkurs umrechnen
@@ -151,6 +165,8 @@ class PortfolioAlarmChecker @Inject constructor(
                             isShown = { markerAt ->
                                 AlarmDeliveryMarker.shownSinceMarker(notifier.activePostTimes()?.get(notificationId), markerAt)
                             },
+                            // Seit Build 105: Vermerk einer schon gespeicherten Auslösung zählt nicht
+                            savedSince = { markerAt -> AlarmDeliveryMarker.savedSinceMarker(alarm.lastTriggeredAt, markerAt) },
                         )
                     }
                 }

@@ -3,10 +3,11 @@ import Foundation
 /// Seit Build 104 (Review F-08): Merkliste wird gerade nicht gespeichert (`WatchlistStorageLock.Notice.notSaved`, kein
 /// Schlüssel zum Versiegeln) — Änderungen gehen beim Neustart verloren. Vor der ersten Änderung des Nutzers je App-Lauf
 /// einmal fragen: «Abbrechen» ändert nichts, «Trotzdem» führt die Änderung aus und fragt in diesem Lauf nicht mehr.
-/// Gefragt wird zentral in `AppData.watchlistWriteRefused`; die Schreibwege sind hier synchron, darum wird die erste
-/// Änderung abgefangen und nach «Trotzdem» erneut ausgeführt (`retry`) — im Ergebnis wie Android, wo der Schreibweg auf
-/// die Antwort wartet. Den Dialog zeigt der oberste sichtbare Bildschirm mit `.watchlistLockedHint`. Ohne sichtbaren
-/// Bildschirm (Hintergrund) nie fragen. Wie Android `WatchlistNotSavedGate` (Testfälle `watchlist_not_saved_gate.json`).
+/// Seit Build 105 (Review UX3-02/05, IOS3-R04): gefragt wird EINMAL je Nutzeraktion VOR der Aktion im Bildschirm
+/// (`AppData.confirmWatchlistWrite`, wartet per `confirm`), danach läuft der normale Weg mit Banner, Rückgängig, Ansage und
+/// Erst-Alarm. Der Schreibweg in AppData fragt nicht mehr und führt nichts erneut aus, sondern lehnt ohne Bestätigung ab
+/// (`needsConfirmation`, Sicherung). Den Dialog zeigt `WatchlistNotSavedGatePresenter` über allem (eigenes Fenster, auch
+/// über Blättern). Ohne sichtbare App nie fragen. Wie Android `WatchlistNotSavedGate` (`watchlist_not_saved_gate.json`).
 @MainActor
 final class WatchlistNotSavedGate: ObservableObject {
     static let shared = WatchlistNotSavedGate()
@@ -23,7 +24,8 @@ final class WatchlistNotSavedGate: ObservableObject {
     /// Offene Frage (Dialog zeigen).
     @Published private(set) var pending = false
     private(set) var confirmed = false
-    private var retries: [@MainActor () -> Void] = []
+    /// Wartende Aktionen (seit Build 105), je mit eigener Kennung, damit ein abgebrochener Wartender sich austragen kann.
+    private var waiters: [UUID: CheckedContinuation<Bool, Never>] = [:]
 
     init() {
         #if DEBUG
@@ -33,21 +35,46 @@ final class WatchlistNotSavedGate: ObservableObject {
         #endif
     }
 
-    /// Vor einem Schreibweg des Nutzers: true = jetzt nicht schreiben (Frage offen); `retry` läuft nach «Trotzdem».
-    func intercept(notSaved: Bool, canAsk: Bool, retry: (@MainActor () -> Void)?) -> Bool {
-        guard Self.shouldAsk(notSaved: notSaved, userWrite: true, confirmed: confirmed, canAsk: canAsk) else { return false }
-        if let retry { retries.append(retry) }
-        if !pending { pending = true }
-        return true
+    /// Sicherung im Schreibweg (seit Build 105): bräuchte er jetzt noch eine Antwort? Dann lehnt AppData ab — die Aktion
+    /// hat `confirm` nicht vorher aufgerufen; fragt selbst nie. Wie Android `needsConfirmation`.
+    func needsConfirmation(notSaved: Bool, canAsk: Bool) -> Bool {
+        Self.shouldAsk(notSaved: notSaved, userWrite: true, confirmed: confirmed, canAsk: canAsk)
     }
+
+    /// Vor einer Aktion des Nutzers: true = ausführen. Fragt höchstens einmal gleichzeitig (weitere Aktionen warten auf
+    /// dieselbe Antwort). Wird der Wartende abgebrochen, trägt er sich aus (false); wartet niemand mehr, verschwindet die
+    /// Frage. Wie Android `confirm`.
+    func confirm(notSaved: Bool, canAsk: Bool) async -> Bool {
+        guard needsConfirmation(notSaved: notSaved, canAsk: canAsk) else { return true }
+        let id = UUID()
+        return await withTaskCancellationHandler {
+            await withCheckedContinuation { (continuation: CheckedContinuation<Bool, Never>) in
+                guard !Task.isCancelled else { return continuation.resume(returning: false) }
+                waiters[id] = continuation
+                if !pending { pending = true }
+            }
+        } onCancel: {
+            Task { @MainActor in self.drop(id) }
+        }
+    }
+
+    /// Abgebrochenen Wartenden austragen (false); ohne weitere Wartende keine offene Frage mehr.
+    private func drop(_ id: UUID) {
+        guard let continuation = waiters.removeValue(forKey: id) else { return }
+        continuation.resume(returning: false)
+        if waiters.isEmpty { pending = false }
+    }
+
+    /// Wartende Aktionen (nur für Tests).
+    var waitingCount: Int { waiters.count }
 
     /// Antwort aus dem Dialog.
     func answer(proceed: Bool) {
         guard pending else { return }
         confirmed = Self.confirmedAfter(confirmed: confirmed, proceed: proceed)
-        let waiting = retries
-        retries = []
+        let waiting = waiters
+        waiters = [:]
         pending = false
-        if proceed { waiting.forEach { $0() } }
+        waiting.values.forEach { $0.resume(returning: proceed) }
     }
 }

@@ -44,17 +44,22 @@ final class CryptoCheckerUITests: XCTestCase {
         tap(app, UiTestTags.alarmSave)
 
         allowNotificationsIfAsked()
-        // Allererster Alarm: Hauptknopf der Bestätigung öffnet «Damit Alarme ankommen» als Blatt, «OK» schliesst es
+        // Allererster Alarm (leerer Speicher: immer): die Bestätigung muss kommen (seit Build 105 Pflicht, vorher
+        // optional). Hauptknopf öffnet «Damit Alarme ankommen» als Blatt, «OK» schliesst es
         let check = app.alerts.firstMatch.buttons["Check that alerts arrive"]
-        if check.waitForExistence(timeout: 3) {
-            check.tap()
-            XCTAssertTrue(app.navigationBars["Make sure alerts arrive"].waitForExistence(timeout: uiTimeout),
-                          "alert checklist not shown")
-            app.navigationBars["Make sure alerts arrive"].buttons["OK"].tap()
-        }
-        // Sonst ggf. «Wann geprüft wird»
+        XCTAssertTrue(check.waitForExistence(timeout: uiTimeout), "first-alert explanation not shown")
+        check.tap()
+        let checklist = app.navigationBars["Make sure alerts arrive"]
+        XCTAssertTrue(checklist.waitForExistence(timeout: uiTimeout), "alert checklist not shown")
+        checklist.buttons["OK"].tap()
+        // Danach ggf. «Wann geprüft wird»
         dismissAppAlerts(app)
-        XCTAssertTrue(app.tagged(UiTestTags.alarmCard).waitForExistence(timeout: uiTimeout))
+        // Gespeicherte Schwelle auf der Karte (wie Android im Repository): Ziffern der Beschriftung, gleich welche
+        // Tausendertrennung
+        let card = app.tagged(UiTestTags.alarmCard)
+        XCTAssertTrue(card.waitForExistence(timeout: uiTimeout), "alarm card missing")
+        XCTAssertTrue(card.label.filter(\.isNumber).contains(Self.alarmThreshold),
+                      "threshold \(Self.alarmThreshold) not on the alarm card: \(card.label)")
     }
 
     // MARK: 3. CSV-Import mit Rückgängig
@@ -272,14 +277,21 @@ final class CryptoCheckerUITests: XCTestCase {
     }
 
     /// Hinweise der App mit «OK» schliessen; ohne Hinweis nichts. Über die Beschriftung, nicht die Stelle: mit
-    /// drei Knöpfen stehen sie untereinander und «OK» (Abbrechen-Rolle) unten.
+    /// drei Knöpfen stehen sie untereinander und «OK» (Abbrechen-Rolle) unten. Seit Build 105 nur «OK»: ein
+    /// unerwarteter Hinweis ohne «OK» lässt den Test scheitern (statt irgendeinen Knopf zu tippen).
     @MainActor
     private func dismissAppAlerts(_ app: XCUIApplication) {
         for _ in 0..<2 {
             let alert = app.alerts.firstMatch
             guard alert.waitForExistence(timeout: 3) else { return }
             let ok = alert.buttons["OK"]
-            if ok.exists { ok.tap() } else { alert.buttons.element(boundBy: 0).tap() }
+            guard ok.exists else {
+                let buttons = alert.buttons.allElementsBoundByIndex.map(\.label)
+                return XCTFail("unexpected alert «\(alert.label)» without OK: \(buttons)")
+            }
+            ok.tap()
+            // Erst weiter, wenn er zu ist (sonst träfe die nächste Runde denselben Hinweis)
+            _ = wait(ok, "exists == false", timeout: 5)
         }
     }
 }

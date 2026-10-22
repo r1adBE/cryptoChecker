@@ -39,8 +39,11 @@ struct AlarmCard: View {
                     }
                 }
 
-            // Beschriftung nur für VoiceOver: welcher Alarm geschaltet wird
-            SwitchRow(isOn: Binding(get: { alarm.enabled }, set: onToggle), verticalPadding: 0, labelHidden: true) {
+            // Beschriftung nur für VoiceOver: welcher Alarm geschaltet wird. Seit Build 105 (FUN3-02): «Schwelle ungültig»
+            // lässt sich nicht einschalten (erst im Editor anpassen), wie Android
+            SwitchRow(isOn: Binding(get: { alarm.enabled }, set: onToggle),
+                      enabled: BackupManager.toggleAllowed(alarm.condition, alarm.threshold, enable: !alarm.enabled),
+                      verticalPadding: 0, labelHidden: true) {
                 Text(AlarmStyle.title(alarm, quote: quote))
             }
             .padding(.trailing, Spacing.md)

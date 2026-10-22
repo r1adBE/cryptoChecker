@@ -50,6 +50,20 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
         return postedAt >= markerAt - postedToleranceMillis
     }
 
+    /// Seit Build 105: Ist die Auslösung zum Vermerk `markerAt` schon gespeichert? `mark` speichert `lastTriggeredAt` mit
+    /// derselben Zeit wie der Vermerk; ein Vermerk aus der Zeit davor gehört zu einer ungespeicherten Auslösung.
+    /// Wie Android `AlarmDeliveryMarker.savedSinceMarker`.
+    static func savedSinceMarker(lastTriggeredAt: Int64, markerAt: Int64) -> Bool {
+        markerAt > 0 && lastTriggeredAt >= markerAt
+    }
+
+    /// Seit Build 105: Vermerke löschen bzw. gegen die vorhandenen Alarme kürzen? Nicht, solange der nächste Prozess den
+    /// Stand der Datei zurückbringt (gesperrt behalten bzw. nur im Speicher wartend). Wie Android
+    /// `AlarmDeliveryMarker.shouldClear` (`alarm_delivery_marker.json`, «resetCases»).
+    static func shouldClear(storedKept: Bool, volatileCopy: Bool) -> Bool {
+        !storedKept && !volatileCopy
+    }
+
     private let store: UserDefaults
     private let storeKey: String
     private let lock = NSLock()
@@ -77,20 +91,38 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
     ///   zu einem Alarm, den es so nicht mehr gibt. Wie Android.
     /// - Parameter isShown: seit Build 103 — steht die Mitteilung dieses Alarms noch da? Seit Build 104 mit dem Zeitpunkt
     ///   des Vermerks: nur eine danach gezeigte zählt (`shownSinceMarker`).
+    /// - Parameter savedSince: seit Build 105 — ist die Auslösung zum Vermerk schon gespeichert (`savedSinceMarker` mit
+    ///   `lastTriggeredAt` des ausgewerteten Alarms)? Dann ist der Vermerk liegen geblieben und wird verworfen.
+    /// - Parameter persisted: seit Build 105 (nur iOS) — nach `mark` == true: ist der Zustand auch auf der Platte? Die App
+    ///   übernimmt in den Speicher und schreibt über die Warteschlange; schlägt das Schreiben fehl, bleibt der Vermerk
+    ///   (endet die App vor dem nächsten Speichern, meldet der nächste Prozess nicht ein zweites Mal). Die Mitteilung
+    ///   bleibt — der Alarm gilt im Speicher als ausgelöst. Android: Room liefert das Ergebnis direkt aus `mark`.
     /// - Returns: true = gemeldet und gespeichert (zählt als ausgelöst).
     func deliver(alarmId: Int64, now: Int64, cooldownMinutes: Int, holdAlarms: Bool, snoozed: Bool = false,
                  canShow: () async -> Bool,
                  show: @escaping @Sendable () async -> Bool,
                  mark: @escaping @Sendable () async -> Bool,
                  retract: @escaping @Sendable () async -> Void = {},
-                 isShown: (_ markerAt: Int64) async -> Bool = { _ in false }) async -> Bool {
+                 isShown: (_ markerAt: Int64) async -> Bool = { _ in false },
+                 savedSince: (_ markerAt: Int64) -> Bool = { _ in false },
+                 persisted: @escaping @Sendable () async -> Bool = { true }) async -> Bool {
+        // Seit Build 105: liegengebliebener Vermerk einer schon gespeicherten Auslösung → verwerfen und normal melden
+        // (sonst würde eine neue, echte Auslösung still als «schon gemeldet» gespeichert). Wie Android.
+        if let stale = unconfirmedAt(alarmId), savedSince(stale) {
+            setUnconfirmed(alarmId, at: nil)
+        }
         // Seit Build 103: voriger Lauf endete zwischen Melden und Speichern — nur speichern, nicht erneut melden.
         // false: in diesem Lauf nichts gemeldet (keine zweite Ansage)
         if let pending = unconfirmedAt(alarmId),
            Self.alreadyDelivered(markerAt: pending, now: now, shown: await isShown(pending)) {
             await Task {
                 // Seit Build 104: nicht gespeichert (inzwischen bearbeitet/gelöscht) → Mitteilung wieder weg
-                if !(await mark()) { await retract() }
+                if await mark() {
+                    // Seit Build 105: nicht auf der Platte → Vermerk bleibt
+                    guard await persisted() else { return }
+                } else {
+                    await retract()
+                }
                 self.setUnconfirmed(alarmId, at: nil)
             }.value
             return false
@@ -109,6 +141,8 @@ final class AlarmDelivery: @unchecked Sendable { // @unchecked: Lesen-Ändern-Sc
             // Nicht bestätigt: Vermerk bleibt — frühestens nach der Abklingzeit erneut
             guard await show() else { return false }
             let saved = await mark()
+            // Seit Build 105: übernommen, aber nicht auf der Platte → Vermerk bleibt (Mitteilung auch)
+            if saved, !(await persisted()) { return true }
             self.setUnconfirmed(alarmId, at: nil)
             if !saved { await retract() }
             return saved

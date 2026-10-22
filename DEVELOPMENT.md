@@ -450,6 +450,11 @@ cd android
 
 Reports: `android/app/build/reports/tests/testDebugUnitTest/index.html`.
 
+Source guards (`FileLengthTest`, `HapticsUsageTest`, contrast and backup-rule checks …) fail when a file they read is
+missing (`SourceGuard`, since build 105 – before, they passed silently). Swift sources count as optional locally: in an
+Android-only checkout those tests are reported as skipped; the *Android* workflow sets `REQUIRE_IOS_SOURCES=true`, so
+there a missing Swift file fails the run.
+
 **Shared test cases (parity).** `android/testdata/parity/*.json` hold input → expected
 result for alarms (crossing, re-arm, cooldown, volume spike), threshold parsing, the basis
 of the % change (including daylight-saving days), «no longer traded» and the 24 h change
@@ -491,16 +496,21 @@ change the version in both places. The build number (`versionCode` in `android/a
 `CURRENT_PROJECT_VERSION` here) goes up by one with every delivered state, on both platforms together.
 
 In Xcode: scheme *CryptoChecker* → Product › Test (⌘U) runs both test targets; a single one from the
-Test navigator. The *iOS* workflow (automatic on changes in `ios/` and by hand under Actions) builds the
+Test navigator. The *iOS* workflow (automatic on changes in `ios/`, on every release tag `v*` and by hand under
+Actions) builds the
 app and runs the unit tests and then the UI tests in the Simulator (two steps).
 
 **Android instrumented test** (`app/src/androidTest`, `CoreFlowTest`): starter selection →
 add BTC → price alarm → new price → alarm and notification → swipe to delete → Undo →
 portfolio lock shows the locked state. Hilt replaces the network client with fixed prices
 (`FakeRemoteDataModule`), so no exchange is called. `DatabaseMigrationTest` checks the
-update path of the database: it creates an old database (schema v3 from `app/schemas/…/3.json`,
-and v10 via the app's own migrations), fills it, and lets Room open it – Room runs the
-migrations and validates the result against the entities. Needs an emulator or a device:
+update path of the database: it creates old databases (schemas v1 and v3 from `app/schemas/…`; v10, v12 – the
+published 16.2 – and the test builds' v13–v15 built from them with the app's own migrations or by hand), fills
+them, and lets Room open them – Room runs the migrations (the whole chain up to the current version, plus the
+one-time move of the portfolio into its own database and portfolio database v1 → current) and validates the
+result against the entities. `RoomSchemaMigrationTest` (since build 103) checks the same paths against the
+exported schemas with `MigrationTestHelper` (AppDatabase v1–v3 and v13–v15, PortfolioDatabase all versions; the
+AppDatabase schemas 4–12 were never exported). Needs an emulator or a device:
 
 ```sh
 cd android
@@ -512,16 +522,19 @@ afterwards) and is skipped where that is not possible. The *Android* workflow on
 instrumented tests (`assembleDebugAndroidTest`); running them takes an emulator and is too slow
 for every push, so it has its own workflow:
 
-**Android device tests** (`.github/workflows/android-device-tests.yml`, on every push that touches `android/` and by hand under
-*Actions › Android device tests › Run workflow*; `workflow_dispatch` only, a weekly schedule is
-prepared but commented out). It uses the same toolchain as `android.yml` (JDK 17, Gradle with
+**Android device tests** (`.github/workflows/android-device-tests.yml`): on every push to `main` that touches
+`android/` (or the workflow and its smoke script), on every release tag `v*` (since build 104; GitHub ignores the
+paths filter for tags) and by hand under *Actions › Android device tests › Run workflow*; a weekly schedule is
+prepared but commented out. On pull requests only the job `release-smoke` runs, and only when a file changes that
+decides about the R8 release build (keep rules, build script, dependency versions, the smoke test). It uses the same toolchain as `android.yml` (JDK 17, Gradle with
 cache), builds `:app:assembleDebug` and `:app:assembleDebugAndroidTest` before the emulator
 starts, then runs `:app:connectedDebugAndroidTest` on an x86_64 emulator with KVM
 (`reactivecircus/android-emulator-runner`: API 34, `google_apis`, Pixel 6 profile, animations
 off) – i.e. everything in `app/src/androidTest`, including `CoreFlowTest` and
 `DatabaseMigrationTest`. On failure the test reports are uploaded as the artifact
-`device-test-reports` (kept 14 days). The job has a 60-minute timeout, cancels an older run on
-the same branch, and its token is read-only (`permissions: contents: read`). Pushing a new or
+`device-test-reports` (kept 14 days). The job has a 60-minute timeout; on pull requests a newer push cancels
+the older run, on `main` and tags every run is kept so each commit gets a result; its token is read-only
+(`permissions: contents: read`). Pushing a new or
 changed workflow file needs a token with the `workflow` scope (`gh auth refresh -s workflow`).
 
 **UI tests of the main flows (both platforms).** The same four flows, the same steps, the same
@@ -579,12 +592,13 @@ xcodebuild test -project CryptoChecker.xcodeproj -scheme CryptoChecker \
   -destination 'platform=iOS Simulator,name=iPhone 16' -only-testing:CryptoCheckerUITests
 ```
 
-CI: Android in *Android device tests* (on push and by hand, see above); iOS in the *iOS* workflow, step «UI tests
+CI: Android in *Android device tests* (on pushes to `main`, release tags and by hand, see above); iOS in the *iOS*
+workflow, step «UI tests
 (iOS Simulator)» after the unit tests (30-minute limit, one retry per failed test, the `.xcresult` with
 screenshots is uploaded on failure).
 
-**CI gates** (`.github/workflows/android.yml`, on pushes and pull requests touching
-`android/`): unit tests, lint (`lintDebug`, `abortOnError`), instrumented tests compiled, debug
+**CI gates** (`.github/workflows/android.yml`, on pushes to `main` and pull requests touching
+`android/` or the Swift sources checked by the source guards, and on every release tag `v*`): unit tests, lint (`lintDebug`, `abortOnError`), instrumented tests compiled, debug
 build and an unsigned release build with R8 (catches missing keep rules). Pushes to `main`
 submit the Gradle dependency graph (Dependabot alerts); pull requests run a dependency review
 that fails on new dependencies with known high-severity vulnerabilities.
@@ -2166,6 +2180,16 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 105 (review round 3): `WatchlistNotSavedGate` asked once per user action before side effects – Android
+  `confirmUserWrite()` before `withRefreshLock`/`undoMutex`, repository write paths return `Boolean` / save outcome
+  (`WatchRepositoryAlarmSave`), cancelled waiter clears `pending`; iOS `withWatchlistConfirm` (async), `retry` removed,
+  alert in its own window (`WatchlistNotSavedGatePresenter`, 2 s safety net); fixtures `watchlist_not_saved_gate.json`
+  (`actions`, `cancelledWaiter`), `alarm_toggle.json` (`toggleAllowed`). `AlarmDelivery` `savedSinceMarker`
+  (`alarm_delivery_marker.json` `savedSinceCases`, `deliverCases`, `resetCases` / `shouldClear`), iOS `persisted` step,
+  `deliverAlarms(isCancelled:)`, `submitIfCurrent`; portfolio `CHANGE_DOWN` < 100 (`portfolio_alarm.json` `threshold`,
+  `PortfolioFallAlarmCleanup`); `LogoUrlPolicy` (`logo_url_allow.json`); DexScreener dot segments
+  (`dex_pair_id.json`); `ios_release_audit.py privacy` (required-reason APIs vs. `PrivacyInfo.xcprivacy`);
+  `release_readiness.py` tag check; commit `^[0-9a-f]{40}$`; `SourceGuard` / `REQUIRE_IOS_SOURCES`.
 * Build 104 (review round 2): `AlarmDelivery` `isShown(markerAt)` with post-time tolerance (`alarm_delivery_marker.json`
   `postedAt`), `mark()==false` → `retract()`, marker cleanup (delete, restore, DB onCreate); Android
   `PortfolioAlarmDeliveryMarkers` for portfolio alerts; `FallAlarmCleanup` / iOS `disableInvalidFallAlarmsOnce`

@@ -327,8 +327,8 @@ class WatchlistViewModel @Inject constructor(
     /** Vorschau-Paar aus «Heute auffällig» in die Merkliste ([WatchlistEditController.addPreview]); [onFull]: Merkliste voll. */
     fun addPreview(watch: WatchEntity, onFull: () -> Unit, onDone: (Long?, Boolean) -> Unit) = edits.addPreview(watch, onFull, onDone)
 
-    /** Löschen mit «Rückgängig» ([undoDelete] mit [undoKey]; Sammlung im Banner: [RemovedBatch]). */
-    fun deleteWithUndo(watch: WatchEntity, undoKey: Long = watch.id) = edits.deleteWithUndo(watch, undoKey)
+    /** Löschen mit «Rückgängig»; [onDeleted] erst nach dem Löschen (Banner, liefert den Rückgängig-Schlüssel, [RemovedBatch]). */
+    fun deleteWithUndo(watch: WatchEntity, onDeleted: () -> Long = { watch.id }) = edits.deleteWithUndo(watch, onDeleted)
 
     /** «Rückgängig» für [watchId] bzw. [NOT_TRADED_UNDO_KEY] / [SELECTION_UNDO_KEY]; [onFull] seit Build 103: Merkliste voll. */
     fun undoDelete(watchId: Long, onFull: (Int) -> Unit = {}) = edits.undoDelete(watchId, onFull)

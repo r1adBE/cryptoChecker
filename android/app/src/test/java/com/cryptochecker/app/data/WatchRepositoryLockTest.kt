@@ -40,12 +40,19 @@ class WatchRepositoryLockTest {
             "suspend fun setNotificationEnabled(", "suspend fun setFavorite(", "suspend fun move(", "suspend fun reorder(",
             "suspend fun setNote(", "suspend fun setGroup(", "suspend fun applyGroupEdit(", "suspend fun clearGroup(",
             "suspend fun setTtsEnabled(", "suspend fun setDisabled(", "suspend fun setNotifiedPrice(",
-            "suspend fun saveAlarm(", "suspend fun saveAlarmMerged(", "suspend fun deleteAlarm(",
-            "suspend fun setAlarmEnabled(",
+            "suspend fun deleteAlarm(", "suspend fun setAlarmEnabled(",
         )
         for (signature in userWrites) {
             assertTrue(signature, member(repo, signature).contains("userWriteRefused("))
         }
+        // Seit Build 105: Alarm speichern in WatchRepositoryAlarmSave.kt (eindeutiges Ergebnis); die Kurzformen leiten weiter
+        val save = source("WatchRepositoryAlarmSave.kt")
+        for (signature in listOf("fun WatchRepository.trySaveAlarm(", "fun WatchRepository.trySaveAlarmMerged(")) {
+            val body = save.substringAfter(signature).substringBefore("\n\n")
+            assertTrue(signature, body.contains("userWriteRefused()) AlarmSaveResult.Refused"))
+        }
+        assertTrue(member(repo, "suspend fun saveAlarm(").contains("trySaveAlarm(alarm)"))
+        assertTrue(member(repo, "suspend fun saveAlarmMerged(").contains("trySaveAlarmMerged(id, build)"))
     }
 
     @Test
@@ -103,7 +110,7 @@ class WatchRepositoryLockTest {
             "alarms/AlarmsOverviewViewModel.kt" to "if (!watchRepository.setAlarmEnabled(alarmId, enabled)) return@launch",
             "alarms/AlarmsViewModel.kt" to "if (!watchRepository.setAlarmEnabled(alarmId, enabled)) return@launch",
             "settings/SettingsAlarmActions.kt" to "if (!watchRepository.setNotificationEnabled(watchId, enabled)) return",
-            "watchlist/WatchlistEditController.kt" to "if (!watchRepository.setNotificationEnabled(watch.id, enabled)) return@launch",
+            "watchlist/WatchlistEditController.kt" to "if (!watchRepository.setNotificationEnabled(watch.id, enabled)) return@launchWrite",
             "watchlist/WatchlistEditController.kt" to "if (watchRepository.setTtsEnabled(watch.id, enabled) && turnOnSpeech) {",
         )
         for ((file, guard) in callers) {
@@ -111,6 +118,74 @@ class WatchRepositoryLockTest {
             val text = listOf(File(path), File("app/$path")).first { it.exists() }.readText()
             assertTrue(file, text.contains(guard))
         }
+    }
+
+    /**
+     * Seit Build 105 (Review ARC3-R01, UX3-01): Lösch- und Deaktivier-Wege melden «abgelehnt» eindeutig (false); Rückgängig,
+     * Mitteilungen und Protokoll laufen erst danach und nur nach dem Schreiben.
+     */
+    @Test
+    fun deletesReportRefusalAndFollowUpsComeAfter() {
+        val repo = source("WatchRepository.kt")
+        for (signature in listOf(
+            "suspend fun deleteWatch(id: Long)", "suspend fun deleteWatches(", "suspend fun deleteAllWatches()",
+            "suspend fun setDisabled(", "suspend fun deleteAlarm(",
+        )) {
+            assertTrue(signature, member(repo, signature).contains("): Boolean {"))
+        }
+        val controller = ui("watchlist/WatchlistEditController.kt")
+        val single = controller.substringAfter("fun deleteWithUndo(").substringBefore("\n    fun ")
+        assertTrue(single.indexOf("deleteWatch(watch.id)) return@withLock") in 0 until single.indexOf("undo.merge("))
+        assertTrue(single.indexOf("undo.merge(") < single.indexOf("notifier.cancelAlarms("))
+        val many = controller.substringAfter("private suspend fun deleteSnapshots(").substringBefore("\n    fun ")
+        assertTrue(many.indexOf("deleteWatches(") in 0 until many.indexOf("undo.put("))
+        assertTrue(many.indexOf("undo.put(") < many.indexOf("notifier.cancelAlarms("))
+        val all = controller.substringAfter("fun deleteAllWithUndo(").substringBefore("\n    fun ")
+        assertTrue(all.indexOf("deleteAllWatches()) return@withLock 0") in 0 until all.indexOf("notifier.cancelAllPrices("))
+        val alarms = ui("alarms/AlarmsViewModel.kt").substringAfter("fun delete(alarmId: Long)").substringBefore("\n    fun ")
+        assertTrue(alarms.indexOf("!watchRepository.deleteAlarm(alarmId)) return@launch") in 0 until alarms.indexOf("retractAlarm("))
+    }
+
+    /**
+     * Seit Build 105 (Review ARC3-R02, UX3-01/03/04): Die Rückfrage F-08 kommt EINMAL je Aktion VOR Sperren und Folgen
+     * ([confirmUserWrite]); der Schreibweg wartet nie auf sie (sonst hielte ein offener Dialog z. B. die Refresh-Sperre),
+     * sondern lehnt ohne Bestätigung ab. Jede Datei, die Schreibwege des Nutzers aufruft, fragt vorher.
+     */
+    @Test
+    fun actionsConfirmBeforeLocksAndWritePathsNeverWait() {
+        val lock = source("WatchRepositoryLock.kt").substringAfter("fun WatchRepository.userWriteRefused(").substringBefore("\n}\n")
+        assertFalse(lock.contains(".confirm("))
+        assertTrue(lock.contains("WatchlistNotSavedGate.needsConfirmation()"))
+        val edit = ui("watchlist/WatchEditViewModel.kt")
+        assertTrue(edit.indexOf("confirmUserWrite()") in 0 until edit.indexOf("withRefreshLock {"))
+        val controller = ui("watchlist/WatchlistEditController.kt")
+        // Jede Sperre der Löschwege liegt hinter der Rückfrage (launchWrite bzw. confirmUserWrite davor)
+        Regex("""fun (\w+)\([^\n]*\{\n((?:(?!\n    fun ).)*)""", RegexOption.DOT_MATCHES_ALL).findAll(controller).forEach { m ->
+            val body = m.groupValues[2]
+            val lockAt = body.indexOf("undoMutex.withLock")
+            if (lockAt >= 0) {
+                val asked = body.indexOf("launchWrite {").takeIf { it >= 0 } ?: body.indexOf("confirmUserWrite()")
+                assertTrue(m.groupValues[1], asked in 0 until lockAt)
+            }
+        }
+        val callers = listOf(
+            "watchlist/WatchlistEditController.kt", "watchlist/WatchEditViewModel.kt", "watchlist/WatchlistStarterController.kt",
+            "explorer/ExplorerBulkActions.kt", "explorer/ExplorerSelectionActions.kt", "alarms/AlarmsViewModel.kt",
+            "alarms/AlarmsOverviewViewModel.kt", "settings/SettingsAlarmActions.kt",
+        )
+        for (file in callers) assertTrue(file, ui(file).contains("watchRepository.confirmUserWrite()"))
+        // Startpaare: eine Frage vor dem Erst-Moment und vor der Schleife
+        val starter = ui("watchlist/WatchlistStarterController.kt").substringAfter("private suspend fun addStarterPairs(")
+        assertTrue(starter.indexOf("confirmUserWrite()") in 0 until starter.indexOf("addMoments.postStarter("))
+        // «Abbrechen» beim Alarm-Speichern meldet keine Grenze (nur AlarmSaveResult.Full)
+        val alarms = ui("alarms/AlarmsViewModel.kt")
+        assertFalse(alarms.contains("!alarmSaveBlocked()) onLimit()"))
+        assertTrue(alarms.contains("AlarmSaveResult.Full -> { onLimit(); null }"))
+    }
+
+    private fun ui(file: String): String {
+        val path = "src/main/java/com/cryptochecker/app/ui/features/$file"
+        return listOf(File(path), File("app/$path")).first { it.exists() }.readText()
     }
 
     @Test

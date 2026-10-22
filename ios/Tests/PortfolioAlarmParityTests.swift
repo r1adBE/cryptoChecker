@@ -5,6 +5,30 @@ import XCTest
 final class PortfolioAlarmParityTests: XCTestCase {
     private func data() throws -> [String: Any] { try TestSupport.fixture("portfolio_alarm") }
 
+    /// Seit Build 105 (FUN3-01): «fällt um» nur unter 100 %; aus einer Sicherung ≥ 100 % übernommen, aber aus; die
+    /// einmalige Bereinigung schaltet genau diese aus.
+    func testThreshold() throws {
+        let block = try XCTUnwrap(try data()["threshold"] as? [String: Any])
+        XCTAssertEqual(PortfolioAlarmLogic.maxFallPercent, TestSupport.number(block["maxFallPercent"]))
+        let cases = TestSupport.list(block["cases"])
+        XCTAssertEqual(cases.count, 8)
+        for c in cases {
+            let name = c["name"] as? String ?? "?"
+            let kind = try XCTUnwrap(PortfolioAlarmKind(rawValue: c["kind"] as? String ?? ""), name)
+            let threshold = TestSupport.number(c["threshold"]) ?? .nan
+            XCTAssertEqual(PortfolioAlarmLogic.isValidThreshold(kind, threshold), c["valid"] as? Bool, "\(name): gültig")
+            XCTAssertEqual(PortfolioAlarmLogic.exceedsFall(kind, threshold), c["exceedsFall"] as? Bool, "\(name): fällt ≥ 100")
+            let json: [String: Any] = ["id": 1, "kind": kind.rawValue, "threshold": threshold,
+                                       "currency": kind.isValue ? "CHF" : NSNull(), "enabled": true, "repeating": false]
+            let restored = BackupManager.jsonToPortfolioAlarm(json)
+            XCTAssertEqual(restored != nil, c["restored"] as? Bool, "\(name): übernommen")
+            XCTAssertEqual(restored?.enabled ?? false, c["restoredEnabled"] as? Bool, "\(name): danach an")
+            let alarm = PortfolioAlarm(id: 7, kind: kind, threshold: threshold, currency: nil, enabled: true)
+            XCTAssertEqual(FallAlarmCleanup.portfolioIdsToDisable([alarm]) == [7], c["exceedsFall"] as? Bool,
+                           "\(name): Bereinigung")
+        }
+    }
+
     /// Alarm in einer anderen Währung als der Stand: USDT zum Marktkurs wie der Portfolio-Kopf.
     func testTotalIn() throws {
         for c in TestSupport.list(try data()["totalIn"]) {

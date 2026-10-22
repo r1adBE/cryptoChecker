@@ -1,5 +1,6 @@
 package com.cryptochecker.app.widget
 
+import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -57,7 +58,7 @@ class WidgetContrastTest {
         val source = listOf(
             "src/main/java/com/cryptochecker/app/widget/WidgetColors.kt",
             "app/src/main/java/com/cryptochecker/app/widget/WidgetColors.kt",
-        ).map(::File).firstOrNull { it.exists() }?.readText() ?: return
+        ).map(::File).firstOrNull { it.exists() }?.readText().let { SourceGuard.android(it, "widget/WidgetColors.kt") }
         assertTrue(source.contains("neutralColor = 0xFF5F5F5F.toInt()"))
         assertTrue(!source.contains("neutralColor = 0xFF777777.toInt()"))
     }

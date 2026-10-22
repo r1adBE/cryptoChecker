@@ -201,7 +201,7 @@ internal fun PortfolioViewModel.historyFlow(): StateFlow<PortfolioHistoryUi?> = 
 
 /**
  * Marktkurs eines Coins zu einem Zeitpunkt: Tagesschluss seines Tags, danach aktueller Kurs
- * ([PortfolioViewModel.summary], [PortfolioViewModel.feePrice]).
+ * ([PortfolioViewModel.summary]; Coin-Ansicht: [CoinFeePrices], gleiche Regel).
  */
 internal fun marketPriceAt(p: PortfolioPrices, loaded: HistoryCloses?): (String, Long) -> Double? {
     val closes = loaded?.routed(p)?.closes.orEmpty()

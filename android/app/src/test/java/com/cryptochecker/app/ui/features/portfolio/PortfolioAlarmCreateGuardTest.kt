@@ -1,6 +1,7 @@
 package com.cryptochecker.app.ui.features.portfolio
 
 import com.cryptochecker.app.ui.features.alarms.AlarmCreateGuard
+import com.cryptochecker.app.util.SourceGuard
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -40,7 +41,7 @@ class PortfolioAlarmCreateGuardTest {
     @Test
     fun iosBlattHatDenWaechter() {
         val path = "../../ios/App/Features/Portfolio/PortfolioInsightsViews.swift"
-        val file = listOf(File(path), File(path.removePrefix("../"))).firstOrNull { it.exists() } ?: return
+        val file = SourceGuard.ios(listOf(File(path), File(path.removePrefix("../"))).firstOrNull { it.exists() }, "ios/…/PortfolioInsightsViews.swift")
         val text = file.readText().substringAfter("struct PortfolioAlarmSheet")
         assertTrue(text.contains("createGuard.begin(creating: true)"))
     }

@@ -234,16 +234,18 @@ struct AlarmsOverviewScreen: View {
             VStack(spacing: 0) {
                 ForEach(items) { item in
                     let alarm = item.alarm
-                    // Ganze Zeile schaltet
+                    // Ganze Zeile schaltet; seit Build 105 Rückfrage F-08 vorher und «Schwelle ungültig» nicht einschalten (FUN3-02)
                     SwitchRow(isOn: Binding(
                         get: { alarm.enabled },
                         set: { enabled in
-                            // Gesperrt: nur die Warn-Haptik des Hinweises (wie Android), seit Build 104
-                            if !data.watchlistWritesBlocked { Haptics.play(.selection) }
-                            withAnimation(.snappy) { data.setAlarmEnabled(alarm.id, enabled) }
-                            if data.watchlistWritesBlocked { refusedToggles &+= 1 }
+                            data.withWatchlistConfirm {
+                                // Gesperrt: nur die Warn-Haptik des Hinweises (wie Android), seit Build 104
+                                if !data.watchlistWritesBlocked { Haptics.play(.selection) }
+                                if !withAnimation(.snappy, { data.setAlarmEnabled(alarm.id, enabled) }) { refusedToggles &+= 1 }
+                            } cancelled: { refusedToggles &+= 1 }
                         }
-                    ), verticalPadding: 8) {
+                    ), enabled: BackupManager.toggleAllowed(alarm.condition, alarm.threshold, enable: !alarm.enabled),
+                    verticalPadding: 8) {
                         HStack(spacing: Spacing.sm) {
                             Image(systemName: AlarmStyle.symbol(alarm.condition))
                                 .scaledFont(size: 13, weight: .semibold, relativeTo: .footnote)
@@ -322,6 +324,8 @@ struct AlarmsOverviewScreen: View {
 
             VStack(spacing: 0) {
                 ForEach(alarms) { alarm in
+                    // Seit Build 105 (FUN3-01): «fällt um ≥ 100 %» löst nie aus — kennzeichnen, nicht einschalten
+                    let invalid = PortfolioAlarmLogic.exceedsFall(alarm.kind, alarm.threshold)
                     SwitchRow(isOn: Binding(
                         get: { alarm.enabled },
                         set: { enabled in
@@ -333,11 +337,14 @@ struct AlarmsOverviewScreen: View {
                             Text(PortfolioAlarmTexts.sentence(alarm, basis: data.settings.changeBasis.storage, hidden: hidePortfolio))
                                 .font(.subheadline.monospacedDigit())
                                 .foregroundStyle(alarm.enabled ? AppColors.onSurface : AppColors.onSurfaceVariant)
-                            Text(L(alarm.repeating ? "alarm_repeating" : "alarm_once"))
+                            Text(L(invalid ? "alarm_threshold_invalid_fix" : (alarm.repeating ? "alarm_repeating" : "alarm_once")))
                                 .font(.caption)
-                                .foregroundStyle(AppColors.onSurfaceVariant)
+                                .foregroundStyle(invalid ? AppColors.error : AppColors.onSurfaceVariant)
+                                .fixedSize(horizontal: false, vertical: true)
                         }
                     }
+                    // Ausschalten geht immer, einschalten erst nach dem Anpassen
+                    .disabled(invalid && !alarm.enabled)
                     .padding(.horizontal, 16)
                     .contextMenu {
                         Button(role: .destructive) {

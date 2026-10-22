@@ -1,0 +1,175 @@
+{
+  "_comment": "Freigabe von Logo-Adressen (seit Build 105, SEC3-02): CoinLogos.isAllowedUrl (Android, LogoUrlPolicy mit OkHttp HttpUrl) und CoinLogos.isAllowedURL (iOS, LogoURLPolicy mit URLComponents) müssen gleich entscheiden. Regeln: nur https://, nur URL-Zeichen in ASCII, «%» nur mit zwei Hex-Ziffern, kein «#», kein «\\», Authority ohne «@» und «%», Host aus DNS-Labels ohne «xn--», Port fehlt oder 443, Host coingecko.com / *.coingecko.com / *.bnbstatic.com, kein «/missing_». Android: LogoUrlAllowParityTest.kt, iOS: LogoURLAllowParityTests.swift.",
+  "cases": [
+    {
+      "url": "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+      "expected": true,
+      "_why": "normale CoinGecko-Adresse"
+    },
+    {
+      "url": "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20260727/8f4cd76d.png",
+      "expected": true,
+      "_why": "normale Binance-Adresse"
+    },
+    {
+      "url": "https://coingecko.com",
+      "expected": true,
+      "_why": "ohne Pfad"
+    },
+    {
+      "url": "https://COIN-IMAGES.CoinGecko.com/coins/images/1/large/bitcoin.png",
+      "expected": true,
+      "_why": "Grossschreibung im Host"
+    },
+    {
+      "url": "https://coin-images.coingecko.com:443/x.png",
+      "expected": true,
+      "_why": "Standard-Port 443 ausdrücklich"
+    },
+    {
+      "url": "https://coin-images.coingecko.com/a/%2e%2e/x.png",
+      "expected": true,
+      "_why": "Kodierung im Pfad ändert den Host nicht"
+    },
+    {
+      "url": "https://evil.example#.coingecko.com/a.png",
+      "expected": false,
+      "_why": "«#» beendet den Host beim Parser"
+    },
+    {
+      "url": "https://evil.example\\.coingecko.com/a.png",
+      "expected": false,
+      "_why": "«\\» beendet den Host bei OkHttp"
+    },
+    {
+      "url": "https://evil.example%2e.coingecko.com/a.png",
+      "expected": false,
+      "_why": "«%» in der Authority"
+    },
+    {
+      "url": "https://evil.example%23.coingecko.com/a.png",
+      "expected": false,
+      "_why": "«%23» in der Authority"
+    },
+    {
+      "url": "https://user:pw@coin-images.coingecko.com/x.png",
+      "expected": false,
+      "_why": "Benutzer und Passwort"
+    },
+    {
+      "url": "https://coin-images.coingecko.com@evil.example/x.png",
+      "expected": false,
+      "_why": "«@»: echter Host dahinter"
+    },
+    {
+      "url": "https://coin-images.coingecko.com:8443/x.png",
+      "expected": false,
+      "_why": "anderer Port"
+    },
+    {
+      "url": "https://coin-images.coingecko.com:/x.png",
+      "expected": false,
+      "_why": "leerer Port"
+    },
+    {
+      "url": "https://coin-images.coingecko.com/x.png#frag",
+      "expected": false,
+      "_why": "Fragment"
+    },
+    {
+      "url": "https://bücher.coingecko.com/x.png",
+      "expected": false,
+      "_why": "IDN (nicht ASCII)"
+    },
+    {
+      "url": "https://xn--bcher-kva.coingecko.com/x.png",
+      "expected": false,
+      "_why": "Punycode-Label"
+    },
+    {
+      "url": "https://a..coingecko.com/x.png",
+      "expected": false,
+      "_why": "leeres Label"
+    },
+    {
+      "url": "https://.coingecko.com/x.png",
+      "expected": false,
+      "_why": "leeres erstes Label"
+    },
+    {
+      "url": "https://coin-images.coingecko.com./x.png",
+      "expected": false,
+      "_why": "Punkt am Ende des Hosts"
+    },
+    {
+      "url": "https://-a.coingecko.com/x.png",
+      "expected": false,
+      "_why": "Label beginnt mit «-»"
+    },
+    {
+      "url": "https://coin-images.coingecko.com/x y.png",
+      "expected": false,
+      "_why": "Leerzeichen"
+    },
+    {
+      "url": " https://coin-images.coingecko.com/x.png",
+      "expected": false,
+      "_why": "Leerzeichen am Rand"
+    },
+    {
+      "url": "https://coin-images.coingecko.com/x.png\n",
+      "expected": false,
+      "_why": "Zeilenumbruch am Ende"
+    },
+    {
+      "url": "https://coin-images.coingecko.com/x%zz.png",
+      "expected": false,
+      "_why": "ungültige Kodierung"
+    },
+    {
+      "url": "https://coin-images.coingecko.com/x%2.png",
+      "expected": false,
+      "_why": "unvollständige Kodierung"
+    },
+    {
+      "url": "HTTPS://coin-images.coingecko.com/x.png",
+      "expected": false,
+      "_why": "Schema nur klein"
+    },
+    {
+      "url": "http://coin-images.coingecko.com/x.png",
+      "expected": false,
+      "_why": "kein https"
+    },
+    {
+      "url": "https://[::1]/x.png",
+      "expected": false,
+      "_why": "IP-Literal"
+    },
+    {
+      "url": "https:///x.png",
+      "expected": false,
+      "_why": "ohne Host"
+    },
+    {
+      "url": "https://coin-images.coingecko.com.evil.example/x.png",
+      "expected": false,
+      "_why": "fremder Host"
+    },
+    {
+      "url": "https://evil.example/coingecko.com/x.png",
+      "expected": false,
+      "_why": "Freigabe-Name nur im Pfad"
+    },
+    {
+      "url": "https://coin-images.coingecko.com/coins/images/missing_large.png",
+      "expected": false,
+      "_why": "Platzhalter ohne Logo"
+    },
+    {
+      "url": null,
+      "expected": false,
+      "_why": "keine Adresse"
+    }
+  ]
+}

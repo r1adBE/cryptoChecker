@@ -45,6 +45,14 @@ object AlarmJson {
         (condition == AlarmCondition.CHANGE_PERCENT_DOWN || condition == AlarmCondition.OI_DOWN) &&
             threshold >= MAX_FALL_PERCENT
 
+    /**
+     * Seit Build 105 (Review FUN3-02/UX3-06): Schalter auf [enable] stellen erlaubt? Einschalten eines [exceedsFall]-Alarms
+     * nie (er löst nie aus, die Karte zeigt «Schwelle ungültig») — erst im Editor anpassen; ausschalten immer. Wie iOS
+     * `BackupManager.toggleAllowed` (Fälle `alarm_toggle.json`).
+     */
+    fun toggleAllowed(condition: AlarmCondition, threshold: Double, enable: Boolean): Boolean =
+        !enable || !exceedsFall(condition, threshold)
+
     /** Alle Alarme einer Liste; ungültige (auch Nicht-Objekte) werden gezählt. */
     fun parse(array: JSONArray): PortfolioJson.Parsed<AlarmEntity> {
         val items = ArrayList<AlarmEntity>(array.length())

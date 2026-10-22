@@ -93,6 +93,13 @@ extension BackupManager {
         condition.isFallingPercent && threshold >= AlarmCondition.maxFallPercent
     }
 
+    /// Seit Build 105 (Review FUN3-02/UX3-06): Schalter auf `enable` stellen erlaubt? Einschalten eines `exceedsFall`-Alarms
+    /// nie (löst nie aus, die Karte zeigt «Schwelle ungültig») — erst im Editor anpassen; ausschalten immer. Wie Android
+    /// `AlarmJson.toggleAllowed` (Fälle `alarm_toggle.json`).
+    static func toggleAllowed(_ condition: AlarmCondition, _ threshold: Double, enable: Bool) -> Bool {
+        !enable || !exceedsFall(condition, threshold)
+    }
+
     /// Ein Paar-Alarm; nil = ungültig (Id/Paar fehlt, unbekannte Alarmart einer neueren Version, Schwelle nicht
     /// endlich bzw. ≤ 0, wo sie positiv sein muss) — nie zu «Kurs über …» mit fremder Schwelle umgedeutet. Wie Android `AlarmJson.fromJson`.
     static func alarmFromJson(_ o: [String: Any]) -> Alarm? {

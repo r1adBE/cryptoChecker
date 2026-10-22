@@ -176,6 +176,11 @@ extension WatchlistScreen {
     }
 
     private func addStarterNow(_ symbols: [String]) {
+        // Seit Build 105 (UX3-04): EINE Rückfrage F-08 für alle Startpaare, vorher; «Abbrechen» = nichts, kein Moment
+        data.withWatchlistConfirm { addStarterConfirmed(symbols) }
+    }
+
+    private func addStarterConfirmed(_ symbols: [String]) {
         let added = withAnimation(.spring(duration: 0.35)) {
             data.addStarterCoins(symbols)
         }

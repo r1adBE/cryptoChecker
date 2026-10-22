@@ -119,24 +119,27 @@ struct WatchActionsSheet: View {
     /// Merkliste, zeigt das Blatt einfach jenes.
     func addPreview() {
         guard let preview, !adding, let market = MarketsConfig.market(preview.marketKey) else { return }
-        let firstEver = data.isFirstPairAdd
-        let outcome = data.tryAddWatch(market: market, pair: preview.pairInfo)
-        // Merkliste gesperrt: nichts angelegt, Hinweis und Haptik kommen von `.watchlistLockedHint`
-        if outcome == .locked { return }
-        if outcome == .full {
-            // Merkliste voll (`WatchlistLimits`): nichts angelegt, sagen warum — wie Android
-            toast = WatchlistLimitText.full
-            Haptics.play(.warning)
-        } else if case .added(let id) = outcome {
-            adding = true
-            addedId = id
-            Haptics.play(.success)
-            if firstEver { _ = data.celebrateFirstAdd(id, announceInWatchlist: true) }
-            // Neues Paar mit Kurs-Mitteilungen: erst kurz erklären, dann die System-Abfrage
-            NotificationPrePrompt.request(.pairsAdded)
-            Task { await data.refreshOne(id) }
-        } else if let existing = data.watches.first(where: { $0.samePair(as: preview) }) {
-            addedId = existing.id
+        // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts angelegt, keine Haptik
+        data.withWatchlistConfirm {
+            let firstEver = data.isFirstPairAdd
+            let outcome = data.tryAddWatch(market: market, pair: preview.pairInfo)
+            // Merkliste gesperrt: nichts angelegt, Hinweis und Haptik kommen von `.watchlistLockedHint`
+            if outcome == .locked { return }
+            if outcome == .full {
+                // Merkliste voll (`WatchlistLimits`): nichts angelegt, sagen warum — wie Android
+                toast = WatchlistLimitText.full
+                Haptics.play(.warning)
+            } else if case .added(let id) = outcome {
+                adding = true
+                addedId = id
+                Haptics.play(.success)
+                if firstEver { _ = data.celebrateFirstAdd(id, announceInWatchlist: true) }
+                // Neues Paar mit Kurs-Mitteilungen: erst kurz erklären, dann die System-Abfrage
+                NotificationPrePrompt.request(.pairsAdded)
+                Task { await data.refreshOne(id) }
+            } else if let existing = data.watches.first(where: { $0.samePair(as: preview) }) {
+                addedId = existing.id
+            }
         }
     }
 
@@ -252,21 +255,26 @@ struct WatchActionsSheet: View {
                     SwitchRow(title: L("watchlist_tts"), isOn: Binding(
                         get: { data.watch(currentId)?.ttsEnabled ?? false },
                         set: { enabled in
-                            // Sprachausgabe war aus bzw. «Nur Alarme»: jetzt an — kurz sagen, wo man es ändert
-                            if let w = data.watch(currentId), data.setTtsEnabled(w, enabled) {
-                                toast = L("watchlist_tts_speech_on")
-                            }
-                            if data.watchlistWritesBlocked { refusedToggles &+= 1 }
+                            // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen»: Schalter zeigt den Stand
+                            data.withWatchlistConfirm {
+                                // Sprachausgabe war aus bzw. «Nur Alarme»: jetzt an — kurz sagen, wo man es ändert
+                                if let w = data.watch(currentId), data.setTtsEnabled(w, enabled) {
+                                    toast = L("watchlist_tts_speech_on")
+                                }
+                                if data.watchlistWritesBlocked { refusedToggles &+= 1 }
+                            } cancelled: { refusedToggles &+= 1 }
                         }
                     ), icon: "speaker.wave.2")
                     RowDivider()
                     SwitchRow(title: L("watchlist_notification"), isOn: Binding(
                         get: { data.watch(currentId)?.notificationEnabled ?? false },
                         set: { enabled in
-                            // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage (seit Build 104)
-                            if enabled && !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }
-                            if let w = data.watch(currentId) { data.setNotificationEnabled(w, enabled) }
-                            if data.watchlistWritesBlocked { refusedToggles &+= 1 }
+                            data.withWatchlistConfirm {
+                                // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage (seit Build 104)
+                                if enabled && !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }
+                                if let w = data.watch(currentId) { data.setNotificationEnabled(w, enabled) }
+                                if data.watchlistWritesBlocked { refusedToggles &+= 1 }
+                            } cancelled: { refusedToggles &+= 1 }
                         }
                     ), icon: data.watch(currentId)?.notificationEnabled == true ? "bell" : "bell.slash")  // wie in der Zeile; aus = durchgestrichen
                 }
@@ -316,7 +324,7 @@ struct WatchActionsSheet: View {
         }
         .sheet(isPresented: $editNote) {
             WatchNoteSheet(initial: watch.note) { note in
-                if let w = data.watch(currentId) { data.setNote(w, note) }
+                data.withWatchlistConfirm { if let w = data.watch(currentId) { data.setNote(w, note) } }
             }
             .environment(\.appAccent, accent)
             // Volle Höhe: das Feld fokussiert beim Öffnen, die Tastatur schiebt das Blatt so nicht hoch
@@ -334,7 +342,7 @@ struct WatchActionsSheet: View {
         }
         .sheet(isPresented: $editGroup) {
             WatchGroupSheet(current: watch.groupName, groups: data.watchGroups) { group in
-                if let w = data.watch(currentId) { data.setGroup(w, group) }
+                data.withWatchlistConfirm { if let w = data.watch(currentId) { data.setGroup(w, group) } }
             }
             .environment(\.appAccent, accent)
             // Volle Höhe: «Neue Gruppe» blendet ein Feld samt Tastatur ein, das Blatt springt nicht

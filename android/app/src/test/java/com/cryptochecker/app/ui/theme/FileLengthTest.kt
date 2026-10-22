@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.theme
 
+import com.cryptochecker.app.util.SourceGuard
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -32,7 +33,7 @@ class FileLengthTest {
 
     @Test
     fun iosDateienBleibenKurz() {
-        val root = iosRoot() ?: return // reiner Android-Checkout
+        val root = SourceGuard.ios(iosRoot(), "ios/App")
         val files = IOS_AREAS.flatMap { area ->
             val dir = File(root, area)
             if (!dir.isDirectory) emptyList()

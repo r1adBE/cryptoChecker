@@ -34,8 +34,11 @@ extension WatchActionsSheet {
                 title: L("watch_action_favorite"),
                 selected: watch.favorite
             ) {
-                Haptics.play(.lightImpact)
-                data.toggleFavorite(watch)
+                // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts, keine Haptik
+                data.withWatchlistConfirm {
+                    Haptics.play(.lightImpact)
+                    data.toggleFavorite(watch)
+                }
             }
         }
         // Gleich hoch, auch wenn ein Text umbricht
@@ -177,8 +180,11 @@ extension WatchActionsSheet {
 
     private func moveButton(_ symbol: String, _ key: String, disabled: Bool, action: @escaping () -> Void) -> some View {
         Button {
-            Haptics.play(.selection)
-            withAnimation(.spring(duration: 0.35)) { action() }
+            // Seit Build 105: Rückfrage F-08 vorher (verschieben schreibt die Merkliste)
+            data.withWatchlistConfirm {
+                Haptics.play(.selection)
+                withAnimation(.spring(duration: 0.35)) { action() }
+            }
         } label: {
             VStack(spacing: Spacing.xs) {
                 Image(systemName: symbol).scaledFont(size: 16, weight: .semibold, relativeTo: .callout)

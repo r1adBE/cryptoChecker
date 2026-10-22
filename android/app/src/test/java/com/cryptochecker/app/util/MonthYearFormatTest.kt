@@ -51,9 +51,8 @@ class MonthYearFormatTest {
     /** Gleiche Vorlage wie iOS (`setLocalizedDateFormatFromTemplate`): sonst wichen Monat und Jahr je Plattform ab. */
     @Test
     fun vorlageWieIos() {
-        val ios = findUp("ios/App/Features/Cycle/MarketHalvingCard.swift")
-        org.junit.Assume.assumeTrue("iOS-Quelle nicht im Baum", ios != null)
-        val text = ios!!.readText(Charsets.UTF_8)
+        val ios = SourceGuard.ios(findUp("ios/App/Features/Cycle/MarketHalvingCard.swift"), "ios/App/Features/Cycle/MarketHalvingCard.swift")
+        val text = ios.readText(Charsets.UTF_8)
         assertEquals(true, text.contains("setLocalizedDateFormatFromTemplate(\"${MonthYearFormat.SKELETON}\")"))
     }
 

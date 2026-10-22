@@ -118,10 +118,12 @@ struct AlarmsScreen: View {
                                 markFallback: watch.map { MarkFallbackStore.contains($0.id) } ?? false
                             ),
                             onToggle: { enabled in
-                                // Gesperrt: nur die Warn-Haptik des Hinweises (wie Android), seit Build 104
-                                if !data.watchlistWritesBlocked { Haptics.play(.selection) }
-                                data.setAlarmEnabled(alarm.id, enabled)
-                                if data.watchlistWritesBlocked { refusedToggles &+= 1 }
+                                // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» bzw. abgelehnt: Schalter zeigt den Stand
+                                data.withWatchlistConfirm {
+                                    // Gesperrt: nur die Warn-Haptik des Hinweises (wie Android), seit Build 104
+                                    if !data.watchlistWritesBlocked { Haptics.play(.selection) }
+                                    if !data.setAlarmEnabled(alarm.id, enabled) { refusedToggles &+= 1 }
+                                } cancelled: { refusedToggles &+= 1 }
                             },
                             onEdit: { if !lowLiquidity { draft = AlarmDraft.from(alarm) } },
                             onDelete: { askDelete = alarm }
@@ -206,15 +208,7 @@ struct AlarmsScreen: View {
                 }
             }
         }
-        .sheet(item: $draft, onDismiss: {
-            if firstAlarmPending {
-                firstAlarmPending = false
-                showFirstAlarm = true
-            } else if timingHintPending {
-                timingHintPending = false
-                showTimingHint = true
-            }
-        }) { current in
+        .sheet(item: $draft, onDismiss: showPendingDialogs) { current in
             AlarmEditorSheet(
                 initial: current,
                 watch: watch,
@@ -226,38 +220,44 @@ struct AlarmsScreen: View {
                     guard let threshold = saved.threshold, data.watch(watchId) != nil else { return }
                     // Sicherheitsnetz: Paar inzwischen voll — nichts angelegt, sagen warum
                     if saved.id == 0 && !WatchlistLimits.canAddAlarm(data.alarms(for: watchId).count) { return showAlarmLimit() }
-                    Haptics.play(.success)
-                    withAnimation {
-                        firstAlarmPending = data.saveAlarm(
-                            watchId: watchId, id: saved.id, condition: saved.condition, threshold: threshold,
-                            repeating: saved.repeating, sound: saved.sound, vibrate: saved.vibrate,
-                            speak: saved.speak, windowHours: saved.windowHours,
-                            currency: saved.condition.isPriceThreshold ? saved.currency : nil
-                        )
+                    // Seit Build 105 (UX3-02): Rückfrage F-08 vorher; Haptik und Bestätigung erst nach dem Speichern
+                    data.withWatchlistConfirm {
+                        let outcome = withAnimation {
+                            data.saveAlarm(watchId: watchId, id: saved.id, condition: saved.condition, threshold: threshold,
+                                           repeating: saved.repeating, sound: saved.sound, vibrate: saved.vibrate, speak: saved.speak,
+                                           windowHours: saved.windowHours, currency: saved.condition.isPriceThreshold ? saved.currency : nil)
+                        }
+                        guard case .saved(let firstAlarm) = outcome else { return outcome == .full ? showAlarmLimit() : () }
+                        Haptics.play(.success)
+                        firstAlarmPending = firstAlarm
+                        noteTimingHint(firstAlarm: firstAlarm)
+                        showSaved(id: saved.id, firstAlarm: firstAlarm)
+                        if draft == nil { showPendingDialogs() }
                     }
-                    noteTimingHint(firstAlarm: firstAlarmPending)
-                    showSaved(id: saved.id, firstAlarm: firstAlarmPending)
                 },
                 onTemplate: { template in
                     if data.alarmSaveBlocked { return showSaveLocked() }
                     guard let def = AlarmTemplates.definition(template, currentPrice: watch?.lastPrice) else { return }
                     if !WatchlistLimits.canAddAlarm(data.alarms(for: watchId).count) { return showAlarmLimit() }
-                    let created = withAnimation { data.createAlarm(watchId: watchId, from: def) }
-                    // Nichts angelegt (Paar inzwischen gelöscht): keine Bestätigung — wie Android
-                    guard created.id != 0 else { return }
-                    Haptics.play(.success)
-                    if created.firstAlarm { firstAlarmPending = true }
-                    noteTimingHint(firstAlarm: created.firstAlarm)
-                    let id = created.id
-                    let message = WatchlistBannerMessage(
-                        // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig») — wie Android
-                        text: templateCreatedText(id), icon: "bell.and.waves.left.and.right.fill",
-                        action: WatchlistBannerAction.undo {
-                            withAnimation { data.deleteAlarm(id) }
-                        }
-                    )
-                    // Kommt nach dem Editor ein Dialog: «Rückgängig» erst danach zeigen
-                    if firstAlarmPending || timingHintPending { bannerAfterDialogs = message } else { banner = message }
+                    // Seit Build 105: Rückfrage F-08 vorher; nach «Trotzdem» ist das Blatt schon zu (Dialoge gleich zeigen)
+                    data.withWatchlistConfirm {
+                        let created = withAnimation { data.createAlarm(watchId: watchId, from: def) }
+                        guard created.id != 0 else { return } // nichts angelegt (Paar gelöscht): keine Bestätigung, wie Android
+                        Haptics.play(.success)
+                        if created.firstAlarm { firstAlarmPending = true }
+                        noteTimingHint(firstAlarm: created.firstAlarm)
+                        let id = created.id
+                        let message = WatchlistBannerMessage(
+                            // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig») — wie Android
+                            text: templateCreatedText(id), icon: "bell.and.waves.left.and.right.fill",
+                            action: WatchlistBannerAction.undo {
+                                data.withWatchlistConfirm { withAnimation { _ = data.deleteAlarm(id) } }
+                            }
+                        )
+                        // Kommt nach dem Editor ein Dialog: «Rückgängig» erst danach zeigen
+                        if firstAlarmPending || timingHintPending { bannerAfterDialogs = message } else { banner = message }
+                        if draft == nil { showPendingDialogs() }
+                    }
                 }
             )
             .environmentObject(data)
@@ -272,9 +272,10 @@ struct AlarmsScreen: View {
             presenting: askDelete
         ) { alarm in
             Button(L("action_delete"), role: .destructive) {
-                Haptics.play(.destructive)
-                withAnimation { data.deleteAlarm(alarm.id) }
                 askDelete = nil
+                data.withWatchlistConfirm { // seit Build 105: Rückfrage F-08 vorher, Haptik nur nach dem Löschen
+                    if withAnimation({ data.deleteAlarm(alarm.id) }) { Haptics.play(.destructive) }
+                }
             }
             Button(L("action_cancel"), role: .cancel) { askDelete = nil }
         } message: { _ in
@@ -316,6 +317,17 @@ struct AlarmsScreen: View {
             // Kein gelöschtes Paar hier: «Rückgängig» läuft über die Aktion des Banners
             WatchlistBanner(message: $banner) { _ in }
                 .animation(reduceMotion ? nil : .spring(duration: 0.35), value: banner)
+        }
+    }
+
+    /// Vorgemerkte Dialoge zeigen: beim Schliessen des Editors, seit Build 105 auch nach einer späteren Antwort (F-08).
+    private func showPendingDialogs() {
+        if firstAlarmPending {
+            firstAlarmPending = false
+            showFirstAlarm = true
+        } else if timingHintPending {
+            timingHintPending = false
+            showTimingHint = true
         }
     }
 

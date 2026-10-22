@@ -36,7 +36,7 @@ PROJECT_NAME = "CryptoChecker"
 PROJ_DIR = os.path.join(ROOT, PROJECT_NAME + ".xcodeproj")
 
 MARKETING_VERSION = "16.2.2"
-CURRENT_PROJECT_VERSION = "104"
+CURRENT_PROJECT_VERSION = "105"
 DEPLOYMENT_TARGET = "17.0"
 APP_ID = "com.cryptochecker.app"
 WIDGET_ID = "com.cryptochecker.app.widgets"
@@ -110,18 +110,22 @@ RESOURCE_EXTS = {".xcassets", ".xcstrings", ".strings", ".json", ".png", ".story
 # (Tests/Csv, UITests/Fixtures).
 SOURCE_READ_EXTS = {".csv"}
 # Seit Build 104: Run-Script-Phase im App-Ziel (vor dem Kompilieren). Bricht ab, wenn REQUIRE_GIT_COMMIT=YES (nur im
-# Archiv-Befehl, APP_STORE.md §4.6) und GIT_COMMIT fehlt oder «local» ist. Gleicher Text in project.yml (preBuildScripts).
+# Archiv-Befehl, APP_STORE.md §4.6) und GIT_COMMIT fehlt oder kein voller Hash ist (seit Build 105: 40 Zeichen 0-9a-f).
+# Gleicher Text in project.yml (preBuildScripts).
 # Kein «/*» und keine Zeile mit «//» im Text (parse_openstep entfernt Kommentare).
 GIT_COMMIT_CHECK_NAME = "Check source commit"
 GIT_COMMIT_CHECK_SCRIPT = (
     '# Since build 104: App Store archives must carry the source commit (ios/APP_STORE.md 4.6)\n'
+    '# Since build 105: only a full commit hash (40 characters 0-9a-f) counts\n'
     'if [ "${REQUIRE_GIT_COMMIT:-NO}" = "YES" ]; then\n'
-    '  case "${GIT_COMMIT:-local}" in\n'
-    '    ""|local)\n'
-    "      echo 'error: REQUIRE_GIT_COMMIT=YES but GIT_COMMIT is missing or local. "
-    "Pass GIT_COMMIT=<output of git -C <public clone> rev-parse HEAD> (ios/APP_STORE.md 4.6).'\n"
-    '      exit 1 ;;\n'
+    '  case "${GIT_COMMIT:-}" in\n'
+    '    ""|*[!0-9a-f]*) ok=NO ;;\n'
+    '    *) ok=YES ;;\n'
     '  esac\n'
+    '  if [ "$ok" != YES ] || [ "${#GIT_COMMIT}" -ne 40 ]; then\n'
+    '    echo \'error: REQUIRE_GIT_COMMIT=YES but GIT_COMMIT is missing, local or not a full commit hash (40 characters 0-9a-f). Pass GIT_COMMIT=<output of git -C <public clone> rev-parse "v<version>-<build>^{commit}"> (ios/APP_STORE.md 4.6).\'\n'
+    '    exit 1\n'
+    '  fi\n'
     'fi\n'
 )
 

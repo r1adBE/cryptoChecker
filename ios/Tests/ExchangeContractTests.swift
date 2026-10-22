@@ -397,11 +397,12 @@ final class ExchangeContractTests: XCTestCase {
     }
 
     /// Aufgezeichnete echte Antworten (`tools/record_exchange_fixtures.py`, Aktion «Record exchange
-    /// fixtures»), sofern vorhanden — ohne Aufzeichnung gibt es nichts zu prüfen. `recordedAt` ordnet
+    /// fixtures»), seit Build 105 Pflicht (liegen im Repo). `recordedAt` ordnet
     /// einen Fehlschlag einem Stand der Börse zu. Wie Android `recordedResponsesStillParse`.
     func testRecordedResponsesStillParse() throws {
         let files = try recordedFixtures()
-        guard !files.isEmpty else { return }
+        // Seit Build 105 Pflicht: die Aufzeichnungen liegen im Test-Bundle (gen_xcodeproj.py); fehlen sie, nicht still grün
+        guard !files.isEmpty else { return XCTFail("keine recorded_*.json im Test-Bundle (gen_xcodeproj.py gelaufen?)") }
         for file in files {
             let recordedAt = file.recordedAt ?? ""
             if recordedAt.isEmpty { XCTFail("\(file.name): missing recordedAt") }
@@ -418,7 +419,8 @@ final class ExchangeContractTests: XCTestCase {
     /// Börsenzeit der echten Antwort liegt darum höchstens 60 s nach der Aufnahme (Bithumb wird früh im Lauf
     /// abgefragt) und nicht weiter als eine Stunde davor. Wie Android `recordedBithumbTradeTimeIsUtc`.
     func testRecordedBithumbTradeTimeIsUtc() throws {
-        guard let file = try recordedFixtures().first(where: { $0.name == "recorded_bithumb.json" }) else { return }
+        let file = try XCTUnwrap(try recordedFixtures().first(where: { $0.name == "recorded_bithumb.json" }),
+                                 "recorded_bithumb.json fehlt im Test-Bundle")
         let recordedAt = try XCTUnwrap(recordedMillis(file.recordedAt))
         let single = try XCTUnwrap(file.cases.first { $0["kind"] as? String == "single" })
         let market = try XCTUnwrap(MarketsConfig.market("Bithumb"))

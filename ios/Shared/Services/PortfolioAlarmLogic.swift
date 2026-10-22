@@ -296,9 +296,25 @@ enum PortfolioAlarmLogic {
     /// Nach dem Melden: ein einmaliger Alarm schaltet sich ab, ein wiederholender bleibt an.
     static func enabledAfterFire(repeating: Bool) -> Bool { repeating }
 
-    /// Gültige Eingabe? Betrag bzw. Prozent über 0 (Prozent höchstens 1000).
+    /// Gültige Eingabe? Betrag bzw. Prozent über 0 (steigend höchstens 1000 %). Seit Build 105 (Review FUN3-01) «fällt um»
+    /// nur unter `maxFallPercent`: Die Veränderung «heute» fällt nie unter −100 %, so ein Alarm löste nie aus. Wie Android
+    /// (`portfolio_alarm.json`, «threshold»).
     static func isValidThreshold(_ kind: PortfolioAlarmKind, _ threshold: Double?) -> Bool {
         guard let threshold, threshold.isFinite, threshold > 0 else { return false }
-        return kind.isValue || threshold <= 1000
+        switch kind {
+        case .CHANGE_DOWN: return threshold < maxFallPercent
+        case .CHANGE_UP: return threshold <= 1000
+        default: return true
+        }
+    }
+
+    /// Seit Build 105: Obergrenze (ausschliesslich) von «fällt um x %» — wie die Paar-Alarme (`BackupManager.exceedsFall`).
+    static let maxFallPercent = 100.0
+
+    /// Seit Build 105 (Review FUN3-01): «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
+    /// ausgeschaltet, einmalig bereinigt (`disableInvalidFallAlarmsOnce`) und in der Übersicht als «Schwelle ungültig»
+    /// gekennzeichnet; einschalten erst nach dem Anpassen. Wie Android.
+    static func exceedsFall(_ kind: PortfolioAlarmKind, _ threshold: Double) -> Bool {
+        kind == .CHANGE_DOWN && threshold.isFinite && threshold >= maxFallPercent
     }
 }

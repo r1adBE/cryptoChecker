@@ -46,8 +46,19 @@ class AlarmDelivery(
          * Vermerks: nur eine danach gemeldete zählt ([AlarmDeliveryMarker.shownSinceMarker]).
          */
         isShown: suspend (markerAt: Long) -> Boolean = { false },
+        /**
+         * Seit Build 105: Ist die Auslösung zum Vermerk schon gespeichert ([AlarmDeliveryMarker.savedSinceMarker] mit
+         * `lastTriggeredAt` des ausgewerteten Alarms)? Dann ist der Vermerk liegen geblieben (Prozess-Ende nach dem Speichern).
+         */
+        savedSince: (markerAt: Long) -> Boolean = { false },
     ): Boolean {
-        val pending = markers.get(alarmId)
+        var pending = markers.get(alarmId)
+        // Seit Build 105: liegengebliebener Vermerk einer schon gespeicherten Auslösung → verwerfen und normal melden
+        // (sonst würde eine neue, echte Auslösung still als «schon gemeldet» gespeichert)
+        if (pending != null && savedSince(pending)) {
+            markers.set(alarmId, null)
+            pending = null
+        }
         // Seit Build 103: voriger Lauf endete zwischen Melden und Speichern — nur speichern, nicht erneut melden.
         // false: in diesem Lauf nichts gemeldet (keine zweite Ansage, nicht gezählt)
         if (pending != null && AlarmDeliveryMarker.alreadyDelivered(pending, now, isShown(pending))) {
@@ -121,4 +132,19 @@ object AlarmDeliveryMarker {
      */
     fun shownSinceMarker(postedAt: Long?, markerAt: Long): Boolean =
         postedAt != null && postedAt >= markerAt - POSTED_TOLERANCE_MILLIS
+
+    /**
+     * Seit Build 105: Ist die Auslösung zum Vermerk [markerAt] schon gespeichert? `mark` speichert `lastTriggeredAt`
+     * mit derselben Zeit wie der Vermerk; ein Vermerk aus der Zeit davor gehört zu einer ungespeicherten Auslösung.
+     */
+    fun savedSinceMarker(lastTriggeredAt: Long, markerAt: Long): Boolean =
+        markerAt > 0L && lastTriggeredAt >= markerAt
+
+    /**
+     * Seit Build 105: Vermerke löschen bzw. gegen die Alarme dieses Laufs kürzen? Nicht, solange die Datenbank nur im
+     * Speicher liegt und der nächste Prozess den Stand der Datei zurückbringt — gesperrt behaltene Datei ([storedKept])
+     * oder Kopie einer alten Datei ([volatileCopy], PlaintextKept): Die Vermerke gehören dann zu den echten Alarmen.
+     * Gemeinsame Fälle in `alarm_delivery_marker.json` («resetCases»).
+     */
+    fun shouldClear(storedKept: Boolean, volatileCopy: Boolean): Boolean = !storedKept && !volatileCopy
 }

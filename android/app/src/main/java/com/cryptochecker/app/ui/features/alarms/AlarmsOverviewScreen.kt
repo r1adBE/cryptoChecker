@@ -52,6 +52,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.AlarmJson
 import com.cryptochecker.app.data.local.model.convertCurrency
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
+import com.cryptochecker.app.domain.alarm.PortfolioAlarmLogic
 import com.cryptochecker.app.lock.PortfolioAccess
 import com.cryptochecker.app.notification.AlarmTexts
 import com.cryptochecker.app.notification.PortfolioAlarmTexts
@@ -247,6 +248,8 @@ fun AlarmsOverviewScreen(
                             // TalkBack: vollständig, inkl. Wiederholung, Ton und Ansage (sichtbare Texte stumm)
                             val description = alarmA11yDescription(context, alarm, title, sentence) +
                                 (invalidText?.let { ". $it" } ?: "")
+                            // Seit Build 105 (FUN3-02): ungültige Schwelle nicht einschalten (Hinweis steht in der Zeile)
+                            val canToggle = AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = !alarm.enabled)
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
                                 // Ganze Zeile schaltet, mit Rolle «Schalter» für die Sprachausgabe
@@ -255,6 +258,7 @@ fun AlarmsOverviewScreen(
                                     .semantics { contentDescription = description }
                                     .toggleable(
                                         value = alarm.enabled,
+                                        enabled = canToggle,
                                         role = Role.Switch,
                                         onValueChange = { viewModel.setEnabled(alarm.id, it) }
                                     )
@@ -283,7 +287,7 @@ fun AlarmsOverviewScreen(
                                         )
                                     }
                                 }
-                                Switch(checked = alarm.enabled, onCheckedChange = null)
+                                Switch(checked = alarm.enabled, onCheckedChange = null, enabled = canToggle)
                             }
                         }
                         Box(modifier = Modifier.padding(bottom = Spacing.xs))
@@ -320,12 +324,17 @@ private fun PortfolioAlarmsCard(
         }
         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         alarms.forEach { alarm ->
+            // Seit Build 105 (FUN3-01): «fällt um ≥ 100 %» löst nie aus — kennzeichnen, nicht einschalten (ausschalten geht)
+            val invalid = PortfolioAlarmLogic.exceedsFall(alarm.kind, alarm.threshold)
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .weight(1f)
-                        .toggleable(value = alarm.enabled, role = Role.Switch, onValueChange = { onToggle(alarm.id, it) })
+                        .toggleable(
+                            value = alarm.enabled, enabled = !invalid || alarm.enabled, role = Role.Switch,
+                            onValueChange = { onToggle(alarm.id, it) },
+                        )
                         .padding(start = 16.dp, top = Spacing.sm, bottom = Spacing.sm, end = 8.dp)
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
@@ -336,12 +345,13 @@ private fun PortfolioAlarmsCard(
                             else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            stringResource(if (alarm.repeating) R.string.alarm_repeating else R.string.alarm_once),
+                            if (invalid) stringResource(R.string.alarm_threshold_invalid_fix)
+                            else stringResource(if (alarm.repeating) R.string.alarm_repeating else R.string.alarm_once),
                             style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = if (invalid) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
-                    Switch(checked = alarm.enabled, onCheckedChange = null)
+                    Switch(checked = alarm.enabled, onCheckedChange = null, enabled = !invalid || alarm.enabled)
                 }
                 IconButton(onClick = { onDelete(alarm) }) {
                     Icon(

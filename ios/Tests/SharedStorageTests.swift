@@ -8,6 +8,8 @@ import XCTest
 final class SharedStorageTests: XCTestCase {
 
     private var dir: URL!
+    /// Schlüssel aus dem Test-Schlüsselbund (`ProtectedFileTests.FakeKeychain`), seit Build 105.
+    private var keys: StorageKey!
     private var watchlist: URL { dir.appendingPathComponent("watchlist.json") }
     private var portfolioAlarms: URL { dir.appendingPathComponent("portfolio_alarms.json") }
 
@@ -15,14 +17,18 @@ final class SharedStorageTests: XCTestCase {
         dir = FileManager.default.temporaryDirectory.appendingPathComponent("shared-storage-\(UUID().uuidString)")
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         // Portfolio-Alarme werden nur noch versiegelt geschrieben: Schlüssel anlegen wie die App beim Start
-        // (`ProtectedStorage.prepareAtLaunch`); ohne Schlüsselbund im Testlauf ist der Fall hier nicht prüfbar
-        guard StorageKey.shared.createIfAbsent() != nil else {
-            throw XCTSkip("Schlüsselbund im Testlauf nicht verfügbar")
-        }
+        // (`ProtectedStorage.prepareAtLaunch`). Seit Build 105 im Test-Schlüsselbund statt im echten — läuft so
+        // auch auf dem unsignierten CI-Host (vorher XCTSkip ohne Schlüsselbund)
+        let fake = ProtectedFileTests.FakeKeychain()
+        keys = StorageKey(keychain: fake, readGeneration: { nil }, writeGeneration: { _ in })
+        XCTAssertNotNil(keys.createIfAbsent())
     }
 
     override func tearDownWithError() throws {
         try? FileManager.default.removeItem(at: dir)
+        // Prozessweite Merker der gastgebenden App nicht verfälscht zurücklassen
+        SharedStorage.watchlistPending = false
+        SharedStorage.portfolioAlarmsPending = false
     }
 
     private func write(_ json: String, to url: URL) throws {
@@ -31,7 +37,7 @@ final class SharedStorageTests: XCTestCase {
 
     /// Inhalt einer geschriebenen Datei — verschlüsselt, sobald die App einen Schlüssel hat (`ProtectedFile`, Build 59).
     private func object(_ url: URL) throws -> [String: Any] {
-        let any = try JSONSerialization.jsonObject(with: ProtectedFile.read(url))
+        let any = try JSONSerialization.jsonObject(with: ProtectedFile.read(url, keys: keys))
         return try XCTUnwrap(any as? [String: Any])
     }
 
@@ -132,7 +138,7 @@ final class SharedStorageTests: XCTestCase {
     // MARK: Lesen der Dateien
 
     func testMissingFiles() {
-        guard case .missing = SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms) else {
+        guard case .missing = SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys) else {
             return XCTFail("erwartet .missing")
         }
     }
@@ -140,11 +146,13 @@ final class SharedStorageTests: XCTestCase {
     /// Kaputte Datei: Ergebnis «unlesbar» (Schreiber brechen ab), Kopie gesichert, Original unverändert.
     func testUnreadableFileIsPreservedAndReported() throws {
         try write("{ kaputt", to: watchlist)
-        guard case .unreadable = SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms) else {
+        guard case .unreadable = SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys) else {
             return XCTFail("erwartet .unreadable")
         }
         let copy = SharedStorage.unreadableCopyURL(of: watchlist)
         XCTAssertEqual(copy.lastPathComponent, "watchlist.unreadable.json")
+        // Kopie schreibt die App mit dem prozessweiten Schlüssel (`ProtectedFile.writeCopy`, ohne Schlüsselbund im
+        // Klartext) — darum hier ohne `keys` gelesen
         XCTAssertEqual(try ProtectedFile.read(copy), Data("{ kaputt".utf8))
         XCTAssertEqual(try Data(contentsOf: watchlist), Data("{ kaputt".utf8))
     }
@@ -153,7 +161,7 @@ final class SharedStorageTests: XCTestCase {
     func testDroppedEntriesKeepCopyOfOriginal() throws {
         let json = #"{"watches":[\#(Self.watchBtc)],"alarms":[{"id":1,"watchId":1,"condition":"NEW","threshold":1}]}"#
         try write(json, to: watchlist)
-        let snap = try XCTUnwrap(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms).snapshot)
+        let snap = try XCTUnwrap(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys).snapshot)
         XCTAssertEqual(snap.watches.count, 1)
         XCTAssertTrue(snap.alarms.isEmpty)
         XCTAssertEqual(try ProtectedFile.read(SharedStorage.unreadableCopyURL(of: watchlist)), Data(json.utf8))
@@ -161,7 +169,7 @@ final class SharedStorageTests: XCTestCase {
 
     func testCleanFileMakesNoCopy() throws {
         try write(#"{"watches":[\#(Self.watchBtc)]}"#, to: watchlist)
-        XCTAssertNotNil(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms).snapshot)
+        XCTAssertNotNil(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys).snapshot)
         XCTAssertFalse(FileManager.default.fileExists(atPath: SharedStorage.unreadableCopyURL(of: watchlist).path))
     }
 
@@ -175,26 +183,26 @@ final class SharedStorageTests: XCTestCase {
          "portfolioAlarms":[{"id":4,"kind":"VALUE_BELOW","threshold":500,"currency":"CHF","enabled":true}],
          "nextPortfolioAlarmId":5}
         """, to: watchlist)
-        let legacy = try XCTUnwrap(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms).snapshot)
+        let legacy = try XCTUnwrap(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys).snapshot)
         XCTAssertEqual(legacy.portfolioAlarms?.map(\.id), [4])
 
         XCTAssertTrue(SharedStorage.writeFiles(legacy, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
-                                               includePortfolioInBackup: false))
+                                               includePortfolioInBackup: false, keys: keys))
         let main = try object(watchlist)
         XCTAssertNil(main["portfolioAlarms"])
         XCTAssertNil(main["nextPortfolioAlarmId"])
-        let file = try JSONDecoder().decode(SharedStorage.PortfolioAlarmsFile.self, from: ProtectedFile.read(portfolioAlarms))
+        let file = try JSONDecoder().decode(SharedStorage.PortfolioAlarmsFile.self, from: ProtectedFile.read(portfolioAlarms, keys: keys))
         XCTAssertEqual(file.alarms.map(\.id), [4])
         XCTAssertEqual(file.nextId, 5)
         XCTAssertEqual(BackupExclusion.isExcluded(portfolioAlarms), true)
 
-        let again = try XCTUnwrap(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms).snapshot)
+        let again = try XCTUnwrap(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys).snapshot)
         XCTAssertEqual(again.portfolioAlarms, legacy.portfolioAlarms)
         XCTAssertEqual(again.nextPortfolioAlarmId, 5)
         XCTAssertEqual(again.watches.map(\.id), [1])
         let before = try Data(contentsOf: portfolioAlarms)
         XCTAssertTrue(SharedStorage.writeFiles(again, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
-                                               includePortfolioInBackup: false))
+                                               includePortfolioInBackup: false, keys: keys))
         XCTAssertEqual(try Data(contentsOf: portfolioAlarms), before)
     }
 
@@ -204,19 +212,19 @@ final class SharedStorageTests: XCTestCase {
         var snap = SharedStorage.Snapshot()
         snap.watches = []
         XCTAssertNil(snap.portfolioAlarms)
-        SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: portfolioAlarms, includePortfolioInBackup: true)
-        let file = try JSONDecoder().decode(SharedStorage.PortfolioAlarmsFile.self, from: ProtectedFile.read(portfolioAlarms))
+        SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: portfolioAlarms, includePortfolioInBackup: true, keys: keys)
+        let file = try JSONDecoder().decode(SharedStorage.PortfolioAlarmsFile.self, from: ProtectedFile.read(portfolioAlarms, keys: keys))
         XCTAssertEqual(file.alarms.map(\.id), [1])
         // Nur Portfolio-Datei vorhanden (Merkliste fehlt): wird trotzdem gelesen
         try FileManager.default.removeItem(at: watchlist)
-        let read = try XCTUnwrap(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms).snapshot)
+        let read = try XCTUnwrap(SharedStorage.readFiles(watchlist: watchlist, portfolioAlarms: portfolioAlarms, keys: keys).snapshot)
         XCTAssertEqual(read.portfolioAlarms?.map(\.id), [1])
     }
 
     func testIncludeInBackupClearsFlag() throws {
         var snap = SharedStorage.Snapshot()
         snap.portfolioAlarms = [PortfolioAlarm(id: 1, kind: .CHANGE_DOWN, threshold: 3, currency: nil)]
-        SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: portfolioAlarms, includePortfolioInBackup: true)
+        SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: portfolioAlarms, includePortfolioInBackup: true, keys: keys)
         XCTAssertEqual(BackupExclusion.isExcluded(portfolioAlarms), false)
     }
 
@@ -227,12 +235,12 @@ final class SharedStorageTests: XCTestCase {
         snap.portfolioAlarms = [PortfolioAlarm(id: 1, kind: .CHANGE_DOWN, threshold: 3, currency: nil)]
         let unwritable = dir.appendingPathComponent("fehlt").appendingPathComponent("portfolio_alarms.json")
         XCTAssertTrue(SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: unwritable,
-                                               includePortfolioInBackup: false))
+                                               includePortfolioInBackup: false, keys: keys))
         XCTAssertNotNil(try object(watchlist)["portfolioAlarms"])
         XCTAssertEqual(BackupExclusion.isExcluded(watchlist), true)
 
         XCTAssertTrue(SharedStorage.writeFiles(snap, watchlist: watchlist, portfolioAlarms: portfolioAlarms,
-                                               includePortfolioInBackup: false))
+                                               includePortfolioInBackup: false, keys: keys))
         XCTAssertNil(try object(watchlist)["portfolioAlarms"])
         XCTAssertEqual(BackupExclusion.isExcluded(watchlist), false)
     }

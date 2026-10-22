@@ -291,8 +291,7 @@ enum BackgroundRefresh {
             // was nicht rechtzeitig kommt, bleibt diese Runde ungeprüft (Alarm bleibt scharf).
             if saved != nil && !outcome.deferredAlarms.isEmpty && !Task.isCancelled
                 && RefreshBudget.shouldRun(.extraAlarms, remaining: deadline.remaining()) {
-                let extra = await PriceRefresher.checkDeferredAlarms(outcome.deferredAlarms, settings: settings,
-                                                                     deadline: deadline)
+                let extra = await seams.checkDeferred(outcome.deferredAlarms, settings, deadline)
                 if Task.isCancelled {
                     extra.releaseAlarmLease()
                 } else if extra.alarms.isEmpty && extra.pendingAlarms.isEmpty {
@@ -302,10 +301,17 @@ enum BackgroundRefresh {
                     let log = AlarmLog.withSource(extra.alarmLog, .bgTask)
                     await Task.detached(priority: .utility) { AlarmLogStore.record(log, live: false) }.value
                 } else if let stored = await offMain({ SharedStorage.updateSnapshot { extra.apply(to: &$0) } }) {
-                    _ = await extra.keepingCurrentPairs(stored.watches)
-                        .deliverAlarms(settings: settings, current: stored.alarms,
-                                       save: { PriceRefresher.saveAlarmOnDisk($0, $1) },
-                                       recordLog: { AlarmLogStore.record(AlarmLog.withSource($0, .bgTask), live: $1) })
+                    await seams.afterExtraSave()
+                    // Seit Build 105: während des Speicherns abgelaufen → nicht mehr melden, Lease frei, Alarme scharf
+                    // (wie der Kurs-Pfad; in der Melde-Schleife prüft `deliverAlarms` je Alarm erneut)
+                    if Task.isCancelled {
+                        extra.releaseAlarmLease()
+                    } else {
+                        _ = await extra.keepingCurrentPairs(stored.watches)
+                            .deliverAlarms(settings: settings, current: stored.alarms,
+                                           save: { PriceRefresher.saveAlarmOnDisk($0, $1) }, notifier: seams.notifier,
+                                           recordLog: { AlarmLogStore.record(AlarmLog.withSource($0, .bgTask), live: $1) })
+                    }
                     await AppData.shared.reloadFromDisk()
                 } else {
                     extra.releaseAlarmLease()

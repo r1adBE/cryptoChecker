@@ -197,7 +197,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
             Write(key: "saveAlarm(watchId", hints: false) { d, l in
                 let r = d.saveAlarm(watchId: btc.id, id: 0, condition: .PRICE_ABOVE, threshold: 1e15, repeating: false,
                                     sound: true, vibrate: true, speak: false, windowHours: 1)
-                whenLocked(l, !r, "saveAlarm")
+                whenLocked(l, r == .refused, "saveAlarm")
             },
             Write(key: "createAlarm(watchId", hints: false) { d, l in
                 let r = d.createAlarm(watchId: btc.id, from: template); whenLocked(l, r.id == 0, "createAlarm")

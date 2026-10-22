@@ -268,15 +268,18 @@ struct PricePairsPage: View {
             } else {
                 HStack(spacing: 8) {
                     Button(L("settings_price_pairs_all_on")) {
-                        // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage (seit Build 104)
-                        if !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }
-                        data.setAllNotifications(true)
+                        // Seit Build 105: EINE Rückfrage F-08 für alle Paare, vorher
+                        data.withWatchlistConfirm {
+                            // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage (seit Build 104)
+                            if !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }
+                            data.setAllNotifications(true)
+                        }
                     }
                     .buttonStyle(.bordered)
                     .frame(maxWidth: .infinity)
                     .disabled(!data.watches.contains { !$0.notificationEnabled })
                     Button(L("settings_price_pairs_all_off")) {
-                        data.setAllNotifications(false)
+                        data.withWatchlistConfirm { data.setAllNotifications(false) }
                     }
                     .buttonStyle(.bordered)
                     .frame(maxWidth: .infinity)
@@ -288,9 +291,11 @@ struct PricePairsPage: View {
                     SwitchRow(title: watch.displayName, subtitle: watch.marketName, isOn: Binding(
                         get: { data.watch(watch.id)?.notificationEnabled ?? false },
                         set: { enabled in
-                            if enabled && !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }
-                            if let w = data.watch(watch.id) { data.setNotificationEnabled(w, enabled) }
-                            if data.watchlistWritesBlocked { refusedToggles &+= 1 }
+                            data.withWatchlistConfirm {
+                                if enabled && !data.watchlistWritesBlocked { Task { _ = await Notifier.requestPermission() } }
+                                if let w = data.watch(watch.id) { data.setNotificationEnabled(w, enabled) }
+                                if data.watchlistWritesBlocked { refusedToggles &+= 1 }
+                            } cancelled: { refusedToggles &+= 1 }
                         }
                     ))
                 }

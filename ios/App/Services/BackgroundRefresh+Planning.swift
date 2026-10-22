@@ -52,15 +52,20 @@ extension BackgroundRefresh {
             return
         }
         BGTaskScheduler.shared.getPendingTaskRequests { requests in
+            var implausible = false
             if let pending = requests.first(where: { $0.identifier == refreshId }) {
                 // Uhr verstellt: iOS hält den alten absoluten Beginn fest (Stunden weg) → ersetzen; sonst bleibt sie
                 let begin = pending.earliestBeginDate.map { Int64(($0.timeIntervalSince1970 * 1000).rounded()) }
                 guard RefreshSchedule.isImplausiblyFar(earliestBeginMillis: begin, intervalMinutes: minutes,
                                                        now: TimeUtils.nowMillis) else { return cancelIfUnneeded() }
                 AppLog.background.notice("BG-Anfrage unplausibel fern (Uhr verstellt?) – neu vorgemerkt")
-                BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: refreshId)
+                implausible = true
             }
-            submit(minutes: minutes, fromNow: fromNow, zoneOn: zoneOn, zoneRunsNow: zoneRunsNow)
+            // Seit Build 105: Absagen und Vormerken nur, solange diese Planung die neueste ist (`submitIfCurrent`)
+            submitIfCurrent(generation: generation, submit: {
+                if implausible { BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: refreshId) }
+                return trySubmit(minutes: minutes, fromNow: fromNow, zoneOn: zoneOn, zoneRunsNow: zoneRunsNow)
+            })
             cancelIfUnneeded()
         }
     }

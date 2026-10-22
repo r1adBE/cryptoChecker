@@ -2,11 +2,15 @@
 // Hauptthreads statt in der Komposition: Ledger/FIFO, Adress-Guthaben, Umbuchungs-Treffer. Ergebnis wie vorher.
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.data.portfolio.PortfolioPrices
 import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressCostLots
 import com.cryptochecker.app.domain.portfolio.CoinLedger
+import com.cryptochecker.app.domain.portfolio.CostMethod
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
+import com.cryptochecker.app.domain.portfolio.PortfolioLedger
+import com.cryptochecker.app.domain.portfolio.PortfolioPeriodChange
 import com.cryptochecker.app.domain.portfolio.PortfolioTrade
 import com.cryptochecker.app.domain.portfolio.PortfolioWalletShortfall
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
@@ -17,6 +21,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import java.math.BigDecimal
 
 /** Alles, was die Coin-Ansicht zeigt ([PortfolioDetailScreen]); [all] = alle echten Transaktionen. */
@@ -40,11 +45,11 @@ internal fun coinDetail(
     calc: List<PortfolioTxEntity>,
     addresses: List<WatchedAddress>,
     currentPrice: Double?,
-    method: com.cryptochecker.app.domain.portfolio.CostMethod,
+    method: CostMethod,
     feePrice: ((String, Long) -> Double?)?,
 ): CoinDetailUi {
     val own = all.filter { tx -> tx.coins().any { PortfolioCalculator.normalizeCoin(it) == symbol } }
-    // Gebühr-Zeilen zum Tageskurs wie auf der Karte ([PortfolioViewModel.feePrice])
+    // Gebühr-Zeilen zum Tageskurs wie auf der Karte ([marketPriceAt], hier [CoinFeePrices])
     val ledger = PortfolioCalculator.ledger(symbol, calc.map { it.toTrade() }, currentPrice, method, feePrice)
     val addressAmount = AddressBalance.amountFor(symbol, addresses, all.map { it.toTrade() })?.takeIf { it.signum() > 0 }
     val matches = WatchedAddressRules.transferMatchesFor(symbol, addresses, own.map { it.toTrade() })
@@ -54,16 +59,73 @@ internal fun coinDetail(
 
 /**
  * Coin-Ansicht für [symbol] (normalisiert); leer, bis die Datenbank geantwortet hat. Seit Build 104: erst mit beiden
- * Listen (alle und zählende Transaktionen — vorher kurz Bestand 0), Kurs-Ticks anderer Coins rechnen nicht neu
- * (distinctUntilChanged der Eingaben), und der Vergleich der Ergebnisse läuft vor [flowOn] abseits des Hauptthreads.
+ * Listen (alle und zählende Transaktionen — vorher kurz Bestand 0), und der Vergleich der Ergebnisse läuft vor [flowOn]
+ * abseits des Hauptthreads. Seit Build 105 (PERF3-R1): Kurs-Ticks anderer Coins rechnen wirklich nicht neu — der
+ * Tageskurs für Gebühr-/Tausch-Zeilen hängt nur an den Kursen der Coins, die die eigenen Zeilen brauchen
+ * ([coinDetailFeeCoins], [CoinFeePrices]); die Kursfunktion entsteht erst in der Rechnung.
  */
 internal fun PortfolioViewModel.coinDetailFlow(symbol: String): Flow<CoinDetailUi> =
-    combine(transactions, calcTransactions, watchedAddresses, prices, costMethod) { all, calc, addresses, p, method ->
+    coinDetailFlowOf(symbol, transactions, calcTransactions, watchedAddresses, prices, _closes, costMethod)
+
+/** [coinDetailFlow] aus den einzelnen Flows; [detail] = Rechnung (Tests zählen damit die Aufrufe). Seit Build 105. */
+internal fun coinDetailFlowOf(
+    symbol: String,
+    transactions: Flow<List<PortfolioTxEntity>?>,
+    calcTransactions: Flow<List<PortfolioTxEntity>?>,
+    watchedAddresses: Flow<List<WatchedAddress>>,
+    prices: Flow<PortfolioPrices>,
+    closes: Flow<HistoryCloses?>,
+    costMethod: Flow<CostMethod>,
+    detail: (String, List<PortfolioTxEntity>, List<PortfolioTxEntity>, List<WatchedAddress>, Double?, CostMethod,
+             ((String, Long) -> Double?)?) -> CoinDetailUi = ::coinDetail,
+): Flow<CoinDetailUi> {
+    val feeCoins = calcTransactions.map { coinDetailFeeCoins(symbol, it.orEmpty()) }.distinctUntilChanged()
+    val feePrices = combine(feeCoins, prices, closes) { coins, p, loaded -> CoinFeePrices.of(coins, p, loaded) }
+        .distinctUntilChanged()
+    return combine(transactions, calcTransactions, watchedAddresses, prices, costMethod) { all, calc, addresses, p, method ->
         Inputs(all, calc, addresses, p.prices[symbol], method)
-    }.distinctUntilChanged().combine(feePrice) { input, fee ->
+    }.distinctUntilChanged().combine(feePrices) { input, fee ->
         if (input.all == null || input.calc == null) null
-        else coinDetail(symbol, input.all, input.calc, input.addresses, input.price, input.method, fee)
+        else detail(symbol, input.all, input.calc, input.addresses, input.price, input.method, fee.priceAt())
     }.filterNotNull().distinctUntilChanged().flowOn(Dispatchers.Default)
+}
+
+/**
+ * Coins (normalisiert), deren Tageskurs die Zeilen von [symbol] brauchen ([PortfolioLedger.valueAtDayClose]): Zeilen, die
+ * [symbol] betreffen (Coin, erhaltener Coin oder Gebühr-Coin) und einen Tagesschluss brauchen — deren Coin und beim
+ * Tausch der erhaltene Coin. Seit Build 105.
+ */
+internal fun coinDetailFeeCoins(symbol: String, calc: List<PortfolioTxEntity>): Set<String> {
+    val out = sortedSetOf<String>()
+    for (t in calc.map { it.toTrade() }) {
+        val coin = PortfolioCalculator.normalizeCoin(t.coin)
+        if (symbol != coin && symbol != t.swapToCoin && symbol != t.thirdFeeCoin) continue
+        if (!PortfolioLedger.needsDayClose(t)) continue
+        out += coin
+        t.swapToCoin?.let { out += it }
+    }
+    return out
+}
+
+/**
+ * Kurse nur der Coins aus [coinDetailFeeCoins]: aktueller Kurs und Tagesschlüsse (wie [marketPriceAt]). Vergleichbar,
+ * damit Ticks anderer Coins nichts auslösen; [priceAt] gibt für andere Coins null (deren Zeilen zählen hier nicht).
+ */
+internal data class CoinFeePrices(val live: Map<String, Double?>, val closes: Map<String, Map<Long, Double>>) {
+    fun priceAt(): (String, Long) -> Double? = { coin, time ->
+        val c = PortfolioCalculator.normalizeCoin(coin)
+        if (c in live) PortfolioPeriodChange.marketPriceAt(c, live[c], closes, time) else null
+    }
+
+    companion object {
+        fun of(coins: Set<String>, p: PortfolioPrices, loaded: HistoryCloses?): CoinFeePrices {
+            if (coins.isEmpty()) return CoinFeePrices(emptyMap(), emptyMap())
+            val all = loaded?.routed(p)?.closes.orEmpty()
+            val closes = coins.mapNotNull { c -> all[c]?.let { c to it } }.toMap()
+            return CoinFeePrices(coins.associateWith { p.prices[it] }, closes)
+        }
+    }
+}
 
 /** FIFO je Wallet: Abgänge über den Bestand ihrer Wallet (Hinweis unter der Gesamtkarte, [PortfolioScreen]). */
 internal fun PortfolioViewModel.walletShortfallsFlow(): Flow<List<PortfolioWalletShortfall>> =
@@ -76,5 +138,5 @@ private data class Inputs(
     val calc: List<PortfolioTxEntity>?,
     val addresses: List<WatchedAddress>,
     val price: Double?,
-    val method: com.cryptochecker.app.domain.portfolio.CostMethod,
+    val method: CostMethod,
 )

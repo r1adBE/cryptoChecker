@@ -207,10 +207,15 @@ object PortfolioJson {
         .put("enabled", a.enabled)
         .put("repeating", a.repeating)
 
-    /** Unbekannte Art (neuere Version) oder ungültiger Schwellwert: überspringen. */
+    /**
+     * Unbekannte Art (neuere Version) oder ungültiger Schwellwert: überspringen. Seit Build 105 «fällt um ≥ 100 %»
+     * übernommen, aber ausgeschaltet ([PortfolioAlarmLogic.exceedsFall], wie die Paar-Alarme).
+     */
     fun jsonToAlarm(o: JSONObject): PortfolioAlarmEntity? {
         val kind = PortfolioAlarmKind.fromName(o.optString("kind")) ?: return null
-        val threshold = o.optDouble("threshold").takeIf { PortfolioAlarmLogic.isValidThreshold(kind, it) } ?: return null
+        val threshold = o.optDouble("threshold").takeIf {
+            PortfolioAlarmLogic.isValidThreshold(kind, it) || PortfolioAlarmLogic.exceedsFall(kind, it)
+        } ?: return null
         val currency = if (o.isNull("currency")) null else o.optString("currency").trim().uppercase()
             .takeIf { code -> code.length == 3 && code.all { it in 'A'..'Z' } }
         if (kind.isValue && currency == null) return null
@@ -219,7 +224,7 @@ object PortfolioJson {
             kind = kind,
             threshold = threshold,
             currency = currency.takeIf { kind.isValue },
-            enabled = o.optBoolean("enabled", true),
+            enabled = o.optBoolean("enabled", true) && !PortfolioAlarmLogic.exceedsFall(kind, threshold),
             repeating = o.optBoolean("repeating", false),
         )
     }

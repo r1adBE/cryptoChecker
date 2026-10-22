@@ -3,6 +3,7 @@ package com.cryptochecker.app.ui.features.alarms
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.data.WatchRepository
+import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.data.local.model.AlarmWithWatch
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmEntity
 import com.cryptochecker.app.data.portfolio.PortfolioAlarmRepository
@@ -111,7 +112,9 @@ class AlarmsOverviewViewModel @Inject constructor(
 
     fun setEnabled(alarmId: Long, enabled: Boolean) {
         viewModelScope.launch {
-            // Abgelehnt (Merkliste gesperrt): Alarm bleibt scharf, seine Mitteilung bleibt
+            // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts
+            if (!watchRepository.confirmUserWrite()) return@launch
+            // Abgelehnt (Merkliste gesperrt, «fällt um ≥ 100 %» einschalten): Alarm bleibt, wie er ist, seine Mitteilung bleibt
             if (!watchRepository.setAlarmEnabled(alarmId, enabled)) return@launch
             // Ausgeschaltet: Mitteilung weg, ihr «1 h später» schaltete ihn sonst wieder ein
             if (AlarmUserChange.cancelsNotification(enabled)) appNotifier.retractAlarm(alarmId)

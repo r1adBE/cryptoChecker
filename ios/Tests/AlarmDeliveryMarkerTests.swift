@@ -131,4 +131,100 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
         XCTAssertEqual(marks.current, 0)
         XCTAssertEqual(delivery.unconfirmedAt(9), at)
     }
+
+    // MARK: Seit Build 105
+
+    /// Review IOS3-R02: Auslösung zum Vermerk schon gespeichert?
+    func testGespeichertSeitDemVermerkWieGemeinsameTestfaelle() throws {
+        let cases = S.list(try S.fixture("alarm_delivery_marker")["savedSinceCases"])
+        XCTAssertGreaterThanOrEqual(cases.count, 5)
+        for c in cases {
+            let actual = AlarmDelivery.savedSinceMarker(lastTriggeredAt: Int64(S.number(c["lastTriggeredAt"]) ?? -1),
+                                                        markerAt: Int64(S.number(c["markerAt"]) ?? -1))
+            XCTAssertEqual(actual, c["expected"] as? Bool, c["name"] as? String ?? "?")
+        }
+    }
+
+    /// Review IOS3-R02: ganze Läufe von `deliver` — ein liegengebliebener Vermerk einer schon gespeicherten Auslösung
+    /// verschluckt die neue nicht; ein Prozess-Ende zwischen Melden und Speichern speichert weiter nur.
+    func testMeldenWieGemeinsameTestfaelle() async throws {
+        let cases = S.list(try S.fixture("alarm_delivery_marker")["deliverCases"])
+        XCTAssertGreaterThanOrEqual(cases.count, 7)
+        for (index, c) in cases.enumerated() {
+            let name = c["name"] as? String ?? "?"
+            let delivery = AlarmDelivery(storeKey: "deliver-\(index)", store: defaults)
+            // Vermerk wie ein unbestätigter Versuch zu dieser Zeit anlegen
+            if let markerAt = S.number(c["markerAt"]).map({ Int64($0) }) {
+                _ = await delivery.deliver(alarmId: 1, now: markerAt, cooldownMinutes: 0, holdAlarms: false,
+                                           canShow: { true }, show: { false }, mark: { true })
+                XCTAssertEqual(delivery.unconfirmedAt(1), markerAt, name)
+            }
+            let lastTriggeredAt = Int64(S.number(c["lastTriggeredAt"]) ?? 0)
+            let shown = c["shown"] as? Bool ?? false
+            let shows = LockedBox(0)
+            let marks = LockedBox(0)
+            let result = await delivery.deliver(
+                alarmId: 1, now: Int64(S.number(c["now"]) ?? 0), cooldownMinutes: 0,
+                holdAlarms: c["holdAlarms"] as? Bool ?? false, canShow: { true },
+                show: { shows.write { $0 += 1 }; return true },
+                mark: { marks.write { $0 += 1 }; return true },
+                isShown: { _ in shown },
+                savedSince: { AlarmDelivery.savedSinceMarker(lastTriggeredAt: lastTriggeredAt, markerAt: $0) })
+            XCTAssertEqual(shows.current > 0, c["expectShow"] as? Bool, "\(name): show")
+            XCTAssertEqual(marks.current > 0, c["expectMark"] as? Bool, "\(name): mark")
+            XCTAssertEqual(delivery.unconfirmedAt(1), S.number(c["expectMarkerAfter"]).map { Int64($0) },
+                           "\(name): Vermerk danach")
+            XCTAssertEqual(result, c["expectResult"] as? Bool, "\(name): Ergebnis")
+        }
+    }
+
+    /// Review ARC3-R03: Vermerke nur löschen/kürzen, wenn der Stand dieses Laufs bleibt.
+    func testZuruecksetzenWieGemeinsameTestfaelle() throws {
+        let cases = S.list(try S.fixture("alarm_delivery_marker")["resetCases"])
+        XCTAssertGreaterThanOrEqual(cases.count, 4)
+        for c in cases {
+            let actual = AlarmDelivery.shouldClear(storedKept: c["storedKept"] as? Bool ?? false,
+                                                   volatileCopy: c["volatileCopy"] as? Bool ?? false)
+            XCTAssertEqual(actual, c["expected"] as? Bool, c["name"] as? String ?? "?")
+        }
+    }
+
+    /// Review IOS3-R03: übernommen, aber nicht auf die Platte geschrieben → der Vermerk bleibt, die Mitteilung auch
+    /// (kein Rückzug); der nächste Prozess meldet darum nicht ein zweites Mal.
+    func testNichtGeschriebenBehaeltVermerk() async {
+        let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
+        let retracted = LockedBox(0)
+        let result = await delivery.deliver(alarmId: 13, now: at, cooldownMinutes: 0, holdAlarms: false,
+                                            canShow: { true }, show: { true }, mark: { true },
+                                            retract: { retracted.write { $0 += 1 } },
+                                            persisted: { false })
+        XCTAssertTrue(result, "im Speicher gespeichert: zählt als gemeldet")
+        XCTAssertEqual(retracted.current, 0)
+        XCTAssertEqual(delivery.unconfirmedAt(13), at)
+        // Nächster Prozess (Platte noch alt, Mitteilung steht): nur speichern, nicht erneut melden
+        let shows = LockedBox(0)
+        let again = await delivery.deliver(alarmId: 13, now: at + 60_000, cooldownMinutes: 0, holdAlarms: false,
+                                           canShow: { true }, show: { shows.write { $0 += 1 }; return true },
+                                           mark: { true }, isShown: { _ in true },
+                                           savedSince: { AlarmDelivery.savedSinceMarker(lastTriggeredAt: 0, markerAt: $0) })
+        XCTAssertFalse(again)
+        XCTAssertEqual(shows.current, 0)
+        XCTAssertNil(delivery.unconfirmedAt(13))
+    }
+
+    /// Review IOS3-R03: auch im Zweig «nur speichern» bleibt der Vermerk, wenn nicht geschrieben wurde; Gegenprobe
+    /// geschrieben → weg.
+    func testNurSpeichernOhneSchreibenBehaeltVermerk() async {
+        let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
+        _ = await delivery.deliver(alarmId: 14, now: at, cooldownMinutes: 0, holdAlarms: false,
+                                   canShow: { true }, show: { false }, mark: { true })
+        _ = await delivery.deliver(alarmId: 14, now: at + 60_000, cooldownMinutes: 0, holdAlarms: false,
+                                   canShow: { true }, show: { true }, mark: { true }, isShown: { _ in true },
+                                   persisted: { false })
+        XCTAssertEqual(delivery.unconfirmedAt(14), at)
+        _ = await delivery.deliver(alarmId: 14, now: at + 120_000, cooldownMinutes: 0, holdAlarms: false,
+                                   canShow: { true }, show: { true }, mark: { true }, isShown: { _ in true },
+                                   persisted: { true })
+        XCTAssertNil(delivery.unconfirmedAt(14))
+    }
 }

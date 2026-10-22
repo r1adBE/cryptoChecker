@@ -38,6 +38,60 @@ class AlarmDeliveryMarkerParityTest {
         }
     }
 
+    /** Seit Build 105 (Review IOS3-R02): Auslösung zum Vermerk schon gespeichert? */
+    @Test
+    fun gespeichertSeitDemVermerkWieGemeinsameTestfaelle() {
+        val cases = fixture["savedSinceCases"].list()
+        assertTrue(cases.size >= 5)
+        for (raw in cases) {
+            val c = raw.obj()
+            val actual = AlarmDeliveryMarker.savedSinceMarker(c["lastTriggeredAt"].num()!!.toLong(), c["markerAt"].num()!!.toLong())
+            assertEquals(c["name"] as String, c["expected"] as Boolean, actual)
+        }
+    }
+
+    /**
+     * Seit Build 105 (Review IOS3-R02): ganze Läufe von [AlarmDelivery.deliver] — ein liegengebliebener Vermerk einer schon
+     * gespeicherten Auslösung verschluckt die neue nicht; ein Prozess-Ende zwischen Melden und Speichern speichert weiter nur.
+     */
+    @Test
+    fun meldenWieGemeinsameTestfaelle() = runBlocking {
+        val cases = fixture["deliverCases"].list()
+        assertTrue(cases.size >= 7)
+        for (raw in cases) {
+            val c = raw.obj()
+            val name = c["name"] as String
+            val store = AlarmDeliveryMarkerStore.InMemory()
+            c["markerAt"].num()?.toLong()?.let { store.set(1, it) }
+            val lastTriggeredAt = c["lastTriggeredAt"].num()!!.toLong()
+            var shows = 0
+            var marks = 0
+            val result = AlarmDelivery(store).deliver(
+                alarmId = 1, now = c["now"].num()!!.toLong(), cooldownMinutes = 0,
+                holdAlarms = c["holdAlarms"] as? Boolean ?: false,
+                canShow = { true }, show = { shows++; true }, mark = { marks++; true },
+                isShown = { c["shown"] as Boolean },
+                savedSince = { AlarmDeliveryMarker.savedSinceMarker(lastTriggeredAt, it) },
+            )
+            assertEquals("$name: show", c["expectShow"] as Boolean, shows > 0)
+            assertEquals("$name: mark", c["expectMark"] as Boolean, marks > 0)
+            assertEquals("$name: Vermerk danach", c["expectMarkerAfter"].num()?.toLong(), store.get(1))
+            assertEquals("$name: Ergebnis", c["expectResult"] as Boolean, result)
+        }
+    }
+
+    /** Seit Build 105 (Review ARC3-R03): Vermerke nur löschen/kürzen, wenn der Stand dieses Laufs bleibt. */
+    @Test
+    fun zuruecksetzenWieGemeinsameTestfaelle() {
+        val cases = fixture["resetCases"].list()
+        assertTrue(cases.size >= 4)
+        for (raw in cases) {
+            val c = raw.obj()
+            val actual = AlarmDeliveryMarker.shouldClear(c["storedKept"] as Boolean, c["volatileCopy"] as Boolean)
+            assertEquals(c["name"] as String, c["expected"] as Boolean, actual)
+        }
+    }
+
     /** Seit Build 104: Eine ältere Mitteilung desselben Alarms bestätigt nicht — Abklingzeit statt stillem Speichern. */
     @Test
     fun aeltereMitteilungBestaetigtNicht() = runBlocking {

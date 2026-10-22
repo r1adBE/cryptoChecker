@@ -4,7 +4,9 @@ import SwiftUI
 /// (Abgleich wie die Merklisten-Suche, `WatchlistSearch.matches`), Favoriten oben und Lazy-Liste statt eines
 /// Bestätigungsdialogs mit bis zu 2000 Knöpfen — wie Android `AlarmPairPicker`. Seit Build 104: Zeilen ohne Kurs
 /// vorberechnet und gefaltet (`Row`), neu nur bei Änderung der Paare (`Source`); «keine Treffer» wird angesagt,
-/// Favoriten mit Stern. Der Titel ist als Navigationstitel schon eine Überschrift für VoiceOver.
+/// Favoriten mit Stern. Der Titel ist als Navigationstitel schon eine Überschrift für VoiceOver. Seit Build 105
+/// (PERF3-R2): Zeilen nicht mehr bei jeder Erzeugung des Structs (`State(initialValue:)` rechnete eager), sondern in
+/// `.task(id:)` im Hintergrund, nur wenn sich der Schlüssel der Paare (`sourceKey`) ändert.
 struct AlarmPairPicker: View {
     let watches: [Watch]
     let onPick: (Int64) -> Void
@@ -20,7 +22,7 @@ struct AlarmPairPicker: View {
     }
 
     /// Was eine Zeile ausmacht (ohne Kurs): ändert sich das, werden die Zeilen neu gerechnet.
-    struct Source: Equatable {
+    struct Source: Hashable {
         let id: Int64
         let displayName: String
         let marketName: String
@@ -39,23 +41,34 @@ struct AlarmPairPicker: View {
     }
 
     @State private var query = ""
-    /// Zeilen, einmal beim Öffnen und danach nur bei geänderten Paaren gerechnet.
-    @State private var rows: [Row]
+    /// Zeilen, beim Öffnen und danach nur bei geänderten Paaren im Hintergrund gerechnet.
+    @State private var rows: [Row] = []
     /// Gefaltete Coin-Namen für die Suche (`WatchlistSearch.names`), mit den Zeilen gerechnet.
-    @State private var names: [Int64: String]
+    @State private var names: [Int64: String] = [:]
+    /// Zeilen schon gerechnet? Vorher kein «keine Treffer» (seit Build 105).
+    @State private var loaded = false
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appAccent) private var accent
 
-    init(watches: [Watch], onPick: @escaping (Int64) -> Void) {
-        self.watches = watches
-        self.onPick = onPick
-        _rows = State(initialValue: Self.makeRows(watches))
-        _names = State(initialValue: Self.foldedNames(WatchlistSearch.names(for: watches)))
+    #if DEBUG
+    /// Aufrufe von `makeRows` (nur Tests: Erzeugen des Structs rechnet nicht).
+    nonisolated(unsafe) static var makeRowsCalls = 0
+    #endif
+
+    /// Schlüssel der Paare ohne Kurs (`Source`): Hash statt Array, billig in `body` (seit Build 105).
+    nonisolated static func sourceKey(_ watches: [Watch]) -> Int {
+        var hasher = Hasher()
+        hasher.combine(watches.count)
+        for watch in watches { hasher.combine(Source(watch)) }
+        return hasher.finalize()
     }
 
     /// Zeilen in der Reihenfolge der Merkliste — wie Android `alarmPickerRows`.
-    static func makeRows(_ watches: [Watch]) -> [Row] {
-        watches.map { watch in
+    nonisolated static func makeRows(_ watches: [Watch]) -> [Row] {
+        #if DEBUG
+        makeRowsCalls += 1
+        #endif
+        return watches.map { watch in
             Row(id: watch.id, displayName: watch.displayName, marketName: watch.marketName, favorite: watch.favorite,
                 folded: [
                     watch.baseAsset,
@@ -70,7 +83,7 @@ struct AlarmPairPicker: View {
     }
 
     /// Coin-Namen je Paar-Id gefaltet.
-    static func foldedNames(_ names: [Int64: String]) -> [Int64: String] {
+    nonisolated static func foldedNames(_ names: [Int64: String]) -> [Int64: String] {
         names.mapValues(ExplorerNameMatch.fold)
     }
 
@@ -92,7 +105,7 @@ struct AlarmPairPicker: View {
         let trimmed = query.trimmingCharacters(in: .whitespaces)
         NavigationStack {
             List {
-                if shown.isEmpty {
+                if loaded && shown.isEmpty {
                     Text(L("watchlist_search_empty", trimmed))
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }
@@ -138,13 +151,20 @@ struct AlarmPairPicker: View {
             }
         }
         .tint(accent.primary)
-        // Nur bei geänderten Paaren neu rechnen, nicht bei jedem Kurs (seit Build 104)
-        .onChange(of: watches.map(Source.init)) { _, _ in
-            rows = Self.makeRows(watches)
-            names = Self.foldedNames(WatchlistSearch.names(for: watches))
+        // Nur bei geänderten Paaren neu rechnen, nicht bei jedem Kurs (seit Build 104); seit Build 105 im Hintergrund
+        .task(id: Self.sourceKey(watches)) {
+            let current = watches
+            let coinNames = WatchlistSearch.names(for: current)
+            let built = await Task.detached(priority: .userInitiated) {
+                (Self.makeRows(current), Self.foldedNames(coinNames))
+            }.value
+            guard !Task.isCancelled else { return }
+            rows = built.0
+            names = built.1
+            loaded = true
         }
         // Keine Treffer: VoiceOver sagt es beim Tippen an (wie die Live-Region in Android), seit Build 104
-        .onChange(of: shown.isEmpty ? trimmed : nil) { _, empty in
+        .onChange(of: loaded && shown.isEmpty ? trimmed : nil) { _, empty in
             if let empty { AccessibilityNotification.Announcement(L("watchlist_search_empty", empty)).post() }
         }
     }

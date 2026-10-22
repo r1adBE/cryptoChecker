@@ -135,12 +135,16 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
          * Seit Build 104: Kennung genau «chain/adresse», beide Teile nur aus Zeichen, die unkodiert im Pfad stehen
          * dürfen ([SAFE_PART]; keine Leerzeichen, kein zweites «/», kein «?», «#», «%»). Gilt für Einzelkurs, Suchtreffer
          * und Sicherung. Wie iOS `DexScreener.isSafePairId` (`testdata/parity/dex_pair_id.json`).
+         * Seit Build 105 (SEC3-R1): kein Teil nur aus Punkten («.», «..» würden den Pfad beim Parsen verlassen).
          */
         fun isSafePairId(pairId: String): Boolean {
             val cut = pairId.indexOf('/')
             if (cut <= 0 || cut == pairId.lastIndex) return false
-            return SAFE_PART.matches(pairId.substring(0, cut)) && SAFE_PART.matches(pairId.substring(cut + 1))
+            return isSafePart(pairId.substring(0, cut)) && isSafePart(pairId.substring(cut + 1))
         }
+
+        // Ein Teil der Kennung: nur Pfad-Zeichen und nicht nur Punkte (seit Build 105)
+        private fun isSafePart(part: String): Boolean = SAFE_PART.matches(part) && part.any { it != '.' }
 
         /**
          * Mindest-Liquidität (USD) eines Pools für Alarme. Darunter (oder unbekannt) bewegen schon kleine Beträge den
@@ -189,7 +193,7 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
                 if (cut <= 0 || cut == id.lastIndex) continue
                 val chain = id.substring(0, cut)
                 val address = id.substring(cut + 1)
-                if (!SAFE_PART.matches(chain) || !SAFE_PART.matches(address)) continue
+                if (!isSafePart(chain) || !isSafePart(address)) continue
                 byChain.getOrPut(chain) { sortedSetOf() }.add(address)
             }
             return byChain.flatMap { (chain, addresses) ->

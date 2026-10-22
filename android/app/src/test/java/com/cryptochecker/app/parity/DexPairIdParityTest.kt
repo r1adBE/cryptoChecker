@@ -6,7 +6,9 @@ import com.cryptochecker.marketdata.model.FuturesContractType
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.market.DexScreener
 import org.junit.Assert.assertEquals
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
 
@@ -52,6 +54,28 @@ class DexPairIdParityTest {
             fail("ohne Kennung: Adresse statt «nicht gefunden»")
         } catch (e: MarketParseException) {
             assertEquals(DexScreener.POOL_NOT_FOUND, e.message)
+        }
+    }
+
+    /** Seit Build 105 (SEC3-R1): der Pfad bleibt nach dem URL-Parser «…/<chain>/<adresse>» (keine Punkt-Segmente). */
+    @Test
+    fun pfadBleibtNachUrlParser() {
+        for (c in cases().filter { it["valid"] as Boolean }) {
+            val id = c["pairId"] as String
+            val url = market.tickerAddress(0, PairQuery("X", "USD (ethereum)", id, FuturesContractType.NONE)).toHttpUrl()
+            assertTrue(id, url.encodedPath.endsWith("/latest/dex/pairs/$id"))
+        }
+    }
+
+    /** Seit Build 105 (SEC3-R1): die Sammelabfrage nimmt dieselben Kennungen wie der Einzelkurs. */
+    @Test
+    fun sammelabfrageNurMitGueltigerKennung() {
+        for (c in cases()) {
+            val id = c["pairId"] as String
+            if (id != id.trim()) continue // Sammelabfrage schneidet Leerzeichen am Rand ab
+            val groups = DexScreener.bulkGroups(listOf(id))
+            assertEquals(id, c["valid"] as Boolean, groups.isNotEmpty())
+            groups.forEach { assertTrue(id, DexScreener.bulkUrl(it).toHttpUrl().encodedPath.endsWith("/$id")) }
         }
     }
 

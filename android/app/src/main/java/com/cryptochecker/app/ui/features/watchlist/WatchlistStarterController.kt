@@ -9,6 +9,7 @@ import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.data.StarterCoinsRepository
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.addWatch
+import com.cryptochecker.app.data.confirmUserWrite
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.starter.AddMoment
 import com.cryptochecker.app.domain.starter.StarterPairs
@@ -213,6 +214,8 @@ internal class WatchlistStarterController(
         val existing = watchRepository.getWatches().map { Triple(it.marketKey, it.baseAsset, it.quoteAsset) }
         val toAdd = StarterPairs.missing(wanted, existing)
         if (toAdd.isEmpty()) return
+        // Seit Build 105 (UX3-04): Rückfrage F-08 EINMAL für alle Startpaare, vor dem Erst-Moment; «Abbrechen» = nichts
+        if (!watchRepository.confirmUserWrite()) return
         // Erst-Moment vor dem Speichern bereitstellen: Zeilen, Häkchen, Haptik und Banner
         addMoments.postStarter(toAdd.map { AddMoment.Added(it.marketKey, it.base, it.quote, "${it.base}/${it.quote}") })
         var added = 0

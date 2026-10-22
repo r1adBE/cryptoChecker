@@ -214,18 +214,10 @@ object CoinLogos {
 
     /**
      * Nur HTTPS-Bilder von CoinGecko (`coin-images.coingecko.com` u. ä.) und Binance (`bin.bnbstatic.com`).
-     * Adressen der früheren eigenen Logo-Liste (GitHub Pages) gelten nicht mehr.
+     * Adressen der früheren eigenen Logo-Liste (GitHub Pages) gelten nicht mehr. Seit Build 105 mit URL-Parser
+     * ([LogoUrlPolicy], SEC3-02).
      */
-    fun isAllowedUrl(url: String?): Boolean {
-        if (url == null) return false
-        if (!url.startsWith("https://")) return false
-        val host = url.removePrefix("https://").substringBefore('/').substringBefore('?').lowercase()
-        if (host.isEmpty() || host.contains('@') || host.contains(':')) return false
-        val known = host == "coingecko.com" || host.endsWith(".coingecko.com") || host.endsWith(".bnbstatic.com")
-        if (!known) return false
-        // Platzhalter für Coins ohne Logo («missing_large.png»): lieber Initialen
-        return !url.contains("/missing_")
-    }
+    fun isAllowedUrl(url: String?): Boolean = LogoUrlPolicy.isAllowed(url)
 
     /**
      * Kleine Fassung des Bildes (CoinGecko liefert «thumb», «small», «large»; die Rangliste nennt
