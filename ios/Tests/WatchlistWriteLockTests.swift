@@ -104,7 +104,7 @@ final class WatchlistWriteLockTests: XCTestCase {
             "Watchlist/WatchlistEditing.swift", "Watchlist/WatchSheetActions.swift", "Watchlist/WatchActionsSheet.swift",
             "Watchlist/WatchSheetGroup.swift", "Watchlist/WatchGroupEditSheet.swift", "Watchlist/WatchEditSheet.swift",
             "Watchlist/WatchlistScreen+Starter.swift", "Explorer/ExplorerBulkActions.swift",
-            "Explorer/ExplorerSelectionActions.swift", "Alarms/AlarmsScreen.swift", "Alarms/AlarmsScreen+Save.swift",
+            "Explorer/ExplorerSelectionActions.swift", "Alarms/AlarmsScreen+Save.swift",
             "Alarms/AlarmsOverviewScreen.swift",
             "Settings/SettingsAlarmPages.swift", "Cycle/MarketCoinSheets.swift",
         ]
