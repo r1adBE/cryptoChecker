@@ -80,8 +80,9 @@ internal fun GroupEditSheet(
     isNew: Boolean,
     watches: List<WatchEntity>,
     groups: List<String>,
-    onDone: (newName: String, memberIds: Set<Long>) -> Unit,
-    onDelete: () -> Unit,
+    /** `cancelled`: «Abbrechen» in der Rückfrage F-08 (Blatt bleibt, wieder bereit); zu geht es über den Aufrufer. */
+    onDone: (newName: String, memberIds: Set<Long>, cancelled: () -> Unit) -> Unit,
+    onDelete: (cancelled: () -> Unit) -> Unit,
     onDismiss: () -> Unit,
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -93,6 +94,8 @@ internal fun GroupEditSheet(
     var query by remember { mutableStateOf("") }
     var renaming by remember { mutableStateOf(false) }
     var askDelete by remember { mutableStateOf(false) }
+    // Speichern bzw. Löschen läuft (Rückfrage F-08 offen): weitere Tipps zählen nicht (IOS6-01, wie iOS `saving`)
+    var saving by remember { mutableStateOf(false) }
 
     if (renaming) {
         GroupNameDialog(
@@ -114,7 +117,10 @@ internal fun GroupEditSheet(
             title = { Text(stringResource(R.string.group_delete)) },
             text = { Text(stringResource(R.string.group_delete_confirm)) },
             confirmButton = {
-                TextButton(onClick = { askDelete = false; onDelete() }) {
+                TextButton(onClick = {
+                    askDelete = false
+                    if (!saving) { saving = true; onDelete { saving = false } }
+                }) {
                     Text(stringResource(R.string.group_delete), color = MaterialTheme.colorScheme.error)
                 }
             },
@@ -261,7 +267,7 @@ internal fun GroupEditSheet(
                 }
             }
             Spacer(modifier = Modifier.weight(1f))
-            Button(onClick = { onDone(name, checked) }) {
+            Button(onClick = { if (!saving) { saving = true; onDone(name, checked) { saving = false } } }) {
                 Text(stringResource(R.string.group_done))
             }
         }

@@ -76,7 +76,9 @@ enum PortfolioDisplayOption: String, AppEnum {
     static let caseDisplayRepresentations: [PortfolioDisplayOption: DisplayRepresentation] = [
         .usdt: "widget_portfolio_display_usdt",
         .conversion: "widget_portfolio_display_conversion",
-        .conversionUsdt: "widget_portfolio_display_conversion_usdt",
+        // Untertitel: bei «Liste» ohne USDT-Zeile (wirkt dort wie «Umrechnung», `PortfolioWidgetOptions`)
+        .conversionUsdt: DisplayRepresentation(title: "widget_portfolio_display_conversion_usdt",
+                                               subtitle: "widget_portfolio_display_not_list"),
     ]
 
     /// Gleiche Anzeige in der geteilten Rechnung.
@@ -121,9 +123,10 @@ enum PortfolioChartRangeOption: String, AppEnum {
 
     static let typeDisplayRepresentation: TypeDisplayRepresentation = "widget_portfolio_period"
 
+    // Untertitel bei 24 h und 7 T: die Übersicht nimmt dafür 30 T (`PortfolioWidgetOptions`)
     static let caseDisplayRepresentations: [PortfolioChartRangeOption: DisplayRepresentation] = [
-        .day: "widget_range_24h",
-        .week: "widget_range_7d",
+        .day: DisplayRepresentation(title: "widget_range_24h", subtitle: "widget_portfolio_range_overview"),
+        .week: DisplayRepresentation(title: "widget_range_7d", subtitle: "widget_portfolio_range_overview"),
         .month: "widget_range_30d",
         .year: "widget_range_1y",
     ]
@@ -309,6 +312,10 @@ struct SingleWidgetIntent: WidgetConfigurationIntent {
 /// `PortfolioWidgetChart.effectiveDisplay`), 24 h, Linie. Bereits abgelegte Widgets ohne Ansicht zeigen
 /// den Chart wie bisher; mit früherer Wahl «Umrechnung + USDT» behalten sie diese. Die Chart-Art
 /// erscheint nur bei der Ansicht «Chart», der Zeitraum nicht bei «Liste» (`parameterSummary`).
+/// Je Ansicht wirkt nur ein Teil (`PortfolioWidgetOptions`, wie Android): «Liste» zeigt «Umrechnung + USDT» wie
+/// «Umrechnung», «Übersicht» 24 h und 7 T wie 30 T. Einzelne Werte einer Auswahl lassen sich in App Intents nicht je
+/// Ansicht ausblenden (dafür bräuchte es eigene Parameter je Ansicht mit eigener gespeicherter Wahl oder dynamische
+/// Optionen ohne Gewähr in der Widget-Einrichtung); stattdessen nennt der Untertitel der Werte die Regel.
 struct PortfolioWidgetIntent: WidgetConfigurationIntent {
     static let title: LocalizedStringResource = "widget_portfolio_name"
     static let description = IntentDescription("widget_portfolio_description")

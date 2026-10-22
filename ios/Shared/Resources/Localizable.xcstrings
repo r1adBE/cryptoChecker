@@ -190442,6 +190442,197 @@
         }
       }
     },
+    "portfolio_address_server_failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعذّر الوصول إلى الخادم الخاص"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vlastní server nedostupný"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen server kan ikke nås"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigener Server nicht erreichbar"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ο δικός σου διακομιστής δεν είναι προσβάσιμος"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Own server not reachable"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor propio no disponible"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سرور خودت در دسترس نیست"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omaa palvelinta ei tavoiteta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveur perso injoignable"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "השרת הפרטי לא זמין"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अपना सर्वर उपलब्ध नहीं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A saját szerver nem érhető el"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server sendiri tidak terjangkau"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server personale non raggiungibile"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "独自サーバーに接続できません"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "자체 서버에 연결할 수 없음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen server kan ikke nås"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigen server niet bereikbaar"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Własny serwer nieosiągalny"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor próprio inacessível"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor próprio inacessível"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serverul propriu nu răspunde"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Свой сервер недоступен"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveri yt nuk arrihet"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen server nås inte"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เชื่อมต่อเซิร์ฟเวอร์ของคุณเองไม่ได้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kendi sunucuna ulaşılamıyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Власний сервер недоступний"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không truy cập được máy chủ riêng"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无法连接自有服务器"
+          }
+        }
+      }
+    },
     "portfolio_address_show_only" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -192157,6 +192348,388 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "地址非常多，转入已清空旧地址的新付款可能无法识别"
+          }
+        }
+      }
+    },
+    "portfolio_address_xpub_operator" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "من يشغّل %1$@ يرى كل العناوين المستعلَم عنها من هذه المحفظة ويمكنه ربطها ببعضها وبعنوان IP الخاص بك."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kdo provozuje %1$@, vidí všechny dotazované adresy této peněženky a může je propojit mezi sebou i s tvou IP adresou."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den, der driver %1$@, ser alle forespurgte adresser i denne wallet og kan koble dem til hinanden og til din IP-adresse."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wer %1$@ betreibt, sieht alle abgefragten Adressen dieser Wallet und kann sie miteinander und mit deiner IP-Adresse verknüpfen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Όποιος λειτουργεί το %1$@ βλέπει όλες τις διευθύνσεις αυτού του πορτοφολιού που ερωτώνται και μπορεί να τις συνδέσει μεταξύ τους και με τη διεύθυνση IP σου."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Whoever runs %1$@ sees all queried addresses of this wallet and can link them to each other and to your IP address."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quien opera %1$@ ve todas las direcciones consultadas de esta wallet y puede vincularlas entre sí y con tu dirección IP."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هر کس %1$@ را اداره می‌کند، همهٔ آدرس‌های پرسیده‌شدهٔ این کیف پول را می‌بیند و می‌تواند آن‌ها را به هم و به آدرس IP تو ربط دهد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se, joka ylläpitää palvelua %1$@, näkee kaikki tämän lompakon kysytyt osoitteet ja voi yhdistää ne toisiinsa ja IP-osoitteeseesi."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quiconque exploite %1$@ voit toutes les adresses interrogées de ce wallet et peut les relier entre elles et à ton adresse IP."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מי שמפעיל את %1$@ רואה את כל הכתובות שנשאלו מהארנק הזה ויכול לקשר ביניהן ולכתובת ה-IP שלכם."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जो %1$@ चलाता है, वह इस वॉलेट के सभी पूछे गए पते देखता है और उन्हें आपस में और तुम्हारे IP पते से जोड़ सकता है।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aki a(z) %1$@ szolgáltatást üzemelteti, látja ennek a tárcának az összes lekérdezett címét, és összekapcsolhatja őket egymással és az IP-címeddel."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siapa pun yang mengelola %1$@ melihat semua alamat dompet ini yang ditanyakan dan bisa menghubungkannya satu sama lain serta dengan alamat IP-mu."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chi gestisce %1$@ vede tutti gli indirizzi interrogati di questo wallet e può collegarli tra loro e al tuo indirizzo IP."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ の運営者は、このウォレットの問い合わせたすべてのアドレスを確認でき、それらを相互に、またお使いの IP アドレスと結び付けることができます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 운영자는 이 지갑에서 조회한 모든 주소를 볼 수 있으며, 이를 서로 그리고 사용자의 IP 주소와 연결할 수 있습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den som driver %1$@, ser alle forespurte adresser i denne walleten og kan koble dem til hverandre og til IP-adressen din."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wie %1$@ beheert, ziet alle opgevraagde adressen van deze wallet en kan ze aan elkaar en aan je IP-adres koppelen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ten, kto prowadzi %1$@, widzi wszystkie sprawdzane adresy tego portfela i może powiązać je ze sobą oraz z twoim adresem IP."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quem gere %1$@ vê todos os endereços consultados desta wallet e pode ligá-los entre si e ao teu endereço IP."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quem opera %1$@ vê todos os endereços consultados desta wallet e pode ligá-los entre si e ao seu endereço IP."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cine operează %1$@ vede toate adresele interogate ale acestui portofel și le poate lega între ele și de adresa ta IP."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Тот, кто управляет %1$@, видит все запрошенные адреса этого кошелька и может связать их друг с другом и с твоим IP-адресом."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kushdo që drejton %1$@ sheh të gjitha adresat e pyetura të këtij portofoli dhe mund t’i lidhë me njëra-tjetrën dhe me adresën tënde IP."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Den som driver %1$@ ser alla efterfrågade adresser i den här walleten och kan koppla ihop dem med varandra och med din IP-adress."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ผู้ที่ดูแล %1$@ จะเห็นที่อยู่ทั้งหมดของวอลเล็ตนี้ที่ถูกสอบถาม และเชื่อมโยงที่อยู่เหล่านั้นเข้าด้วยกันและกับที่อยู่ IP ของคุณได้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ hizmetini işleten, bu cüzdanın sorgulanan tüm adreslerini görür ve bunları birbirine ve IP adresine bağlayabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Той, хто керує %1$@, бачить усі запитані адреси цього гаманця й може пов’язати їх між собою та з твоєю IP-адресою."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bên vận hành %1$@ thấy mọi địa chỉ được truy vấn của ví này và có thể liên kết chúng với nhau cũng như với địa chỉ IP của bạn."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ 的运营者能看到此钱包被查询的全部地址，并能将它们相互关联，也能与你的 IP 地址关联。"
+          }
+        }
+      }
+    },
+    "portfolio_address_xpub_own_server_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لتجنّب ذلك أدخل خادمك الخاص من الإعدادات › المحفظة › خادم خاص للعناوين."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tomu se vyhneš vlastním serverem v Nastavení › Portfolio › Vlastní server pro adresy."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undgå det ved at angive din egen server under Indstillinger › Portefølje › Egen server til adresser."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das vermeidest du mit einem eigenen Server unter Einstellungen › Portfolio › Eigener Server für Adressen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Για να το αποφύγεις, όρισε δικό σου διακομιστή στο Ρυθμίσεις › Χαρτοφυλάκιο › Δικός σου διακομιστής για διευθύνσεις."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To avoid this, enter your own server under Settings › Portfolio › Own server for addresses."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para evitarlo, introduce tu propio servidor en Ajustes › Cartera › Servidor propio para direcciones."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای جلوگیری از این، سرور خودت را در تنظیمات › پرتفوی › سرور خودت برای آدرس‌ها وارد کن."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vältä tämä asettamalla oma palvelin kohdassa Asetukset › Salkku › Oma palvelin osoitteille."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour l’éviter, saisis ton propre serveur dans Paramètres › Portefeuille › Serveur perso pour les adresses."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כדי להימנע מכך, הזינו שרת משלכם בהגדרות › תיק השקעות › שרת משלכם לכתובות."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "इससे बचने के लिए सेटिंग्स › पोर्टफ़ोलियो › पतों के लिए अपना सर्वर में अपना सर्वर डालो।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ezt elkerülheted saját szerverrel itt: Beállítások › Portfólió › Saját szerver a címekhez."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Untuk menghindarinya, masukkan servermu sendiri di Pengaturan › Portofolio › Server sendiri untuk alamat."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per evitarlo, inserisci il tuo server in Impostazioni › Portafoglio › Server personale per indirizzi."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "これを避けるには、「設定 › ポートフォリオ › アドレス用の独自サーバー」で独自サーバーを入力してください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이를 피하려면 설정 › 포트폴리오 › 주소용 자체 서버에서 자체 서버를 입력하세요."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unngå det ved å angi din egen server under Innstillinger › Portefølje › Egen server for adresser."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Om dat te voorkomen, vul je je eigen server in via Instellingen › Portfolio › Eigen server voor adressen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aby tego uniknąć, podaj własny serwer w Ustawienia › Portfel › Własny serwer dla adresów."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para o evitar, indica o teu próprio servidor em Definições › Portfólio › Servidor próprio para endereços."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para evitar isso, informe seu próprio servidor em Configurações › Portfólio › Servidor próprio para endereços."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ca să eviți asta, introdu serverul tău în Setări › Portofoliu › Server propriu pentru adrese."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Чтобы избежать этого, укажи свой сервер в разделе Настройки › Портфель › Свой сервер для адресов."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Për ta shmangur, vendos serverin tënd te Cilësimet › Portofoli › Server i yti për adresat."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undvik det genom att ange din egen server under Inställningar › Portfölj › Egen server för adresser."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หากต้องการหลีกเลี่ยง ให้ใส่เซิร์ฟเวอร์ของคุณเองที่ ตั้งค่า › พอร์ตโฟลิโอ › เซิร์ฟเวอร์ของคุณเองสำหรับที่อยู่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bunu önlemek için kendi sunucunu Ayarlar › Portföy › Adresler için kendi sunucun bölümüne gir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Щоб цього уникнути, вкажи власний сервер у розділі Налаштування › Портфель › Власний сервер для адрес."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Để tránh điều này, hãy nhập máy chủ riêng trong Cài đặt › Danh mục › Máy chủ riêng cho địa chỉ."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "如需避免，请在“设置 › 投资组合 › 地址专用的自有服务器”中填写你自己的服务器。"
           }
         }
       }
@@ -284162,6 +284735,2489 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "币种被视为异常的难易程度——自选列表卡片与通知相同。选择“较少”时，卡片只显示最强的 3 个。"
+          }
+        }
+      }
+    },
+    "settings_address_server_active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قيد الاستخدام: %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Používá se: %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiv: %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiv: %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Σε χρήση: %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In use: %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En uso: %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در حال استفاده: %1$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Käytössä: %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actif : %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בשימוש: %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "इस्तेमाल में: %1$@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Használatban: %1$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dipakai: %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In uso: %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用中：%1$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "사용 중: %1$@"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiv: %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actief: %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Używany: %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em uso: %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em uso: %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activ: %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Используется: %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Në përdorim: %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiv: %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กำลังใช้: %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kullanımda: %1$@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Використовується: %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đang dùng: %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用中：%1$@"
+          }
+        }
+      }
+    },
+    "settings_address_server_error_https" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يُسمح بعناوين https:// فقط"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Povoleny jsou jen adresy https://"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kun https://-adresser er tilladt"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur https://-Adressen sind erlaubt"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Επιτρέπονται μόνο διευθύνσεις https://"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Only https:// addresses are allowed"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo se permiten direcciones https://"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فقط آدرس‌های https:// مجازند"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vain https://-osoitteet ovat sallittuja"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seules les adresses https:// sont autorisées"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מותרות רק כתובות https://"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सिर्फ़ https:// पते मान्य हैं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Csak https:// címek engedélyezettek"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hanya alamat https:// yang diizinkan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sono ammessi solo indirizzi https://"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https:// のアドレスのみ使用できます"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https:// 주소만 사용할 수 있습니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bare https://-adresser er tillatt"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alleen https://-adressen zijn toegestaan"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dozwolone są tylko adresy https://"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Só são permitidos endereços https://"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Só são permitidos endereços https://"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sunt permise doar adrese https://"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Разрешены только адреса https://"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lejohen vetëm adresa https://"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endast https://-adresser är tillåtna"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "อนุญาตเฉพาะที่อยู่ https://"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yalnızca https:// adreslerine izin verilir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дозволені лише адреси https://"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chỉ cho phép địa chỉ https://"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "只允许 https:// 地址"
+          }
+        }
+      }
+    },
+    "settings_address_server_error_invalid" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عنوان الخادم غير صالح"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neplatná adresa serveru"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke en gyldig serveradresse"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine gültige Serveradresse"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μη έγκυρη διεύθυνση διακομιστή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not a valid server address"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dirección de servidor no válida"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آدرس سرور معتبر نیست"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Virheellinen palvelimen osoite"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresse de serveur non valide"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כתובת שרת לא תקפה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मान्य सर्वर पता नहीं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Érvénytelen szervercím"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alamat server tidak valid"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indirizzo del server non valido"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーのアドレスが無効です"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유효하지 않은 서버 주소"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke en gyldig serveradresse"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geen geldig serveradres"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nieprawidłowy adres serwera"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endereço de servidor inválido"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endereço de servidor inválido"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresă de server nevalidă"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Недопустимый адрес сервера"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresë serveri e pavlefshme"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen giltig serveradress"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ที่อยู่เซิร์ฟเวอร์ไม่ถูกต้อง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geçerli bir sunucu adresi değil"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Недійсна адреса сервера"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Địa chỉ máy chủ không hợp lệ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服务器地址无效"
+          }
+        }
+      }
+    },
+    "settings_address_server_error_query" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بدون جزء ? أو # في العنوان"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "V adrese nesmí být část ? ani #"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen ?- eller #-del i adressen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein ?- oder #-Teil in der Adresse"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χωρίς τμήμα ? ή # στη διεύθυνση"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No ? or # part in the address"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin parte ? ni # en la dirección"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بخش ? یا # در آدرس نباشد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei ?- tai #-osaa osoitteeseen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de partie ? ou # dans l’adresse"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בלי חלק ? או # בכתובת"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पते में ? या # वाला हिस्सा न हो"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne legyen ? vagy # rész a címben"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jangan ada bagian ? atau # di alamat"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niente parte ? o # nell’indirizzo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アドレスに ? や # の部分を含めないでください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "주소에 ? 또는 # 부분을 넣지 마세요"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen ?- eller #-del i adressen"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geen ?- of #-deel in het adres"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez części ? ani # w adresie"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem parte ? ou # no endereço"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem parte ? ou # no endereço"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fără parte ? sau # în adresă"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без части ? или # в адресе"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pa pjesë ? ose # në adresë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen ?- eller #-del i adressen"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ห้ามมีส่วน ? หรือ # ในที่อยู่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adreste ? veya # kısmı olmasın"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без частини ? або # в адресі"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không được có phần ? hoặc # trong địa chỉ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地址中不能包含 ? 或 # 部分"
+          }
+        }
+      }
+    },
+    "settings_address_server_error_userinfo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بدون اسم مستخدم أو كلمة مرور في العنوان"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "V adrese nesmí být uživatelské jméno ani heslo"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intet brugernavn eller adgangskode i adressen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Benutzername oder Passwort in der Adresse"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χωρίς όνομα χρήστη ή κωδικό στη διεύθυνση"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No user name or password in the address"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin nombre de usuario ni contraseña en la dirección"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نام کاربری یا گذرواژه در آدرس نباشد"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei käyttäjänimeä tai salasanaa osoitteeseen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de nom d’utilisateur ni de mot de passe dans l’adresse"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בלי שם משתמש או סיסמה בכתובת"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पते में यूज़रनेम या पासवर्ड न हो"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne legyen felhasználónév vagy jelszó a címben"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jangan ada nama pengguna atau kata sandi di alamat"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niente nome utente o password nell’indirizzo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アドレスにユーザー名やパスワードを含めないでください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "주소에 사용자 이름이나 비밀번호를 넣지 마세요"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke brukernavn eller passord i adressen"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geen gebruikersnaam of wachtwoord in het adres"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bez nazwy użytkownika i hasła w adresie"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem nome de utilizador nem palavra-passe no endereço"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem nome de usuário nem senha no endereço"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fără nume de utilizator sau parolă în adresă"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без имени пользователя и пароля в адресе"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pa emër përdoruesi ose fjalëkalim në adresë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inget användarnamn eller lösenord i adressen"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ห้ามมีชื่อผู้ใช้หรือรหัสผ่านในที่อยู่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adreste kullanıcı adı veya parola olmasın"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без імені користувача й пароля в адресі"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không được có tên người dùng hoặc mật khẩu trong địa chỉ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地址中不能包含用户名或密码"
+          }
+        }
+      }
+    },
+    "settings_address_server_field" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خادم بيتكوين (https://)"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoinový server (https://)"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin-server (https://)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin-Server (https://)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Διακομιστής Bitcoin (https://)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin server (https://)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor Bitcoin (https://)"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سرور بیت‌کوین (https://)"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin-palvelin (https://)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveur Bitcoin (https://)"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שרת ביטקוין (https://)"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin सर्वर (https://)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin-szerver (https://)"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server Bitcoin (https://)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server Bitcoin (https://)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin サーバー（https://）"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "비트코인 서버(https://)"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin-server (https://)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin-server (https://)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serwer Bitcoin (https://)"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor Bitcoin (https://)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor Bitcoin (https://)"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server Bitcoin (https://)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сервер Bitcoin (https://)"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveri Bitcoin (https://)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin-server (https://)"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เซิร์ฟเวอร์ Bitcoin (https://)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin sunucusu (https://)"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сервер Bitcoin (https://)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Máy chủ Bitcoin (https://)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "比特币服务器（https://）"
+          }
+        }
+      }
+    },
+    "settings_address_server_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بيتكوين فقط: خادمك الخاص المتوافق مع Esplora أو mempool (مثل https://node.example/api، ويلزم شهادة صالحة). عند ضبطه تُستعلم عناوين بيتكوين وxpub منه فقط – ولا تُرسل أبدًا إلى عُقد عامة، حتى إن تعذّر الوصول إلى خادمك. تستخدم الشبكات الأخرى العُقد العامة كما في السابق. فارغ = عُقد عامة."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jen Bitcoin: tvůj vlastní server kompatibilní s Esplora nebo mempool (např. https://uzel.example/api, je nutný platný certifikát). Pokud je nastaven, bitcoinové adresy a xpub se dotazují jen tam – nikdy u veřejných uzlů, ani když tvůj server není dostupný. Ostatní sítě dál používají veřejné uzly. Prázdné = veřejné uzly."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kun Bitcoin: din egen Esplora- eller mempool-kompatible server (f.eks. https://node.example/api, gyldigt certifikat påkrævet). Er den angivet, slås Bitcoin-adresser og xpub kun op dér – aldrig hos offentlige noder, heller ikke når din server ikke svarer. Andre netværk bruger fortsat offentlige noder. Tom = offentlige noder."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur Bitcoin: dein eigener Esplora- oder mempool-kompatibler Server (z. B. https://knoten.example/api, gültiges Zertifikat nötig). Ist er gesetzt, werden Bitcoin-Adressen und xpub nur dort abgefragt – nie bei öffentlichen Knoten, auch nicht, wenn dein Server nicht erreichbar ist. Andere Netze nutzen weiter öffentliche Knoten. Leer = öffentliche Knoten."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μόνο Bitcoin: ο δικός σου διακομιστής συμβατός με Esplora ή mempool (π.χ. https://node.example/api, απαιτείται έγκυρο πιστοποιητικό). Αν έχει οριστεί, οι διευθύνσεις Bitcoin και τα xpub ερωτώνται μόνο εκεί – ποτέ σε δημόσιους κόμβους, ούτε όταν ο διακομιστής σου δεν απαντά. Τα άλλα δίκτυα χρησιμοποιούν ακόμη δημόσιους κόμβους. Κενό = δημόσιοι κόμβοι."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin only: your own Esplora- or mempool-compatible server (e.g. https://node.example/api, valid certificate required). If set, Bitcoin addresses and xpub keys are queried only there – never at public nodes, not even when your server is unreachable. Other networks keep using public nodes. Empty = public nodes."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo Bitcoin: tu propio servidor compatible con Esplora o mempool (p. ej. https://nodo.example/api, se necesita un certificado válido). Si está configurado, las direcciones Bitcoin y las xpub solo se consultan allí, nunca en nodos públicos, ni siquiera si tu servidor no responde. Las demás redes siguen usando nodos públicos. Vacío = nodos públicos."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فقط بیت‌کوین: سرور خودت که با Esplora یا mempool سازگار است (مثلاً https://node.example/api، گواهی معتبر لازم است). اگر تنظیم شده باشد، آدرس‌های بیت‌کوین و xpub فقط از همان‌جا پرسیده می‌شوند – هرگز از گره‌های عمومی، حتی وقتی سرورت در دسترس نیست. شبکه‌های دیگر همچنان از گره‌های عمومی استفاده می‌کنند. خالی = گره‌های عمومی."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vain Bitcoin: oma Esplora- tai mempool-yhteensopiva palvelimesi (esim. https://solmu.example/api, voimassa oleva varmenne vaaditaan). Jos se on asetettu, Bitcoin-osoitteet ja xpubit kysytään vain sieltä – ei koskaan julkisilta solmuilta, ei edes silloin, kun palvelimesi ei vastaa. Muut verkot käyttävät edelleen julkisia solmuja. Tyhjä = julkiset solmut."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin uniquement : ton propre serveur compatible Esplora ou mempool (p. ex. https://noeud.example/api, certificat valide requis). S’il est défini, les adresses Bitcoin et les xpub ne sont interrogées que là – jamais auprès de nœuds publics, même si ton serveur est injoignable. Les autres réseaux utilisent toujours des nœuds publics. Vide = nœuds publics."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "רק ביטקוין: שרת משלכם התואם ל-Esplora או ל-mempool (למשל https://node.example/api, נדרשת תעודה תקפה). אם הוגדר, כתובות ביטקוין ו-xpub נשאלות רק שם – אף פעם לא בצמתים ציבוריים, גם לא כשהשרת אינו זמין. רשתות אחרות ממשיכות להשתמש בצמתים ציבוריים. ריק = צמתים ציבוריים."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सिर्फ़ Bitcoin: तुम्हारा अपना Esplora- या mempool-संगत सर्वर (जैसे https://node.example/api, मान्य सर्टिफ़िकेट ज़रूरी)। सेट होने पर Bitcoin पते और xpub सिर्फ़ वहीं पूछे जाते हैं – सार्वजनिक नोड्स पर कभी नहीं, तब भी नहीं जब तुम्हारा सर्वर उपलब्ध न हो। बाकी नेटवर्क सार्वजनिक नोड्स ही इस्तेमाल करते हैं। खाली = सार्वजनिक नोड्स।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Csak Bitcoin: a saját Esplora- vagy mempool-kompatibilis szervered (pl. https://csomopont.example/api, érvényes tanúsítvány kell). Ha be van állítva, a Bitcoin-címeket és az xpubokat csak ott kérdezzük le – soha nyilvános csomópontoknál, akkor sem, ha a szervered nem érhető el. A többi hálózat továbbra is nyilvános csomópontokat használ. Üres = nyilvános csomópontok."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hanya Bitcoin: server milikmu yang kompatibel dengan Esplora atau mempool (mis. https://node.example/api, perlu sertifikat yang valid). Jika diatur, alamat Bitcoin dan xpub hanya ditanyakan ke sana – tidak pernah ke node publik, bahkan saat servermu tidak bisa dijangkau. Jaringan lain tetap memakai node publik. Kosong = node publik."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo Bitcoin: il tuo server compatibile con Esplora o mempool (ad es. https://nodo.example/api, serve un certificato valido). Se è impostato, gli indirizzi Bitcoin e le xpub vengono interrogati solo lì – mai su nodi pubblici, nemmeno se il tuo server non è raggiungibile. Le altre reti continuano a usare nodi pubblici. Vuoto = nodi pubblici."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin のみ：Esplora または mempool 互換の独自サーバー（例：https://node.example/api、有効な証明書が必要）。設定すると、Bitcoin アドレスと xpub はそこにだけ問い合わせます。サーバーに接続できない場合でも、公開ノードには問い合わせません。他のネットワークは引き続き公開ノードを使います。空欄＝公開ノード。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "비트코인만: Esplora 또는 mempool 호환 자체 서버(예: https://node.example/api, 유효한 인증서 필요). 설정하면 비트코인 주소와 xpub은 그곳에만 조회합니다. 서버에 연결할 수 없어도 공개 노드에는 절대 조회하지 않습니다. 다른 네트워크는 계속 공개 노드를 사용합니다. 비워 두면 공개 노드를 사용합니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bare Bitcoin: din egen Esplora- eller mempool-kompatible server (f.eks. https://node.example/api, gyldig sertifikat kreves). Er den angitt, spørres Bitcoin-adresser og xpub bare der – aldri hos offentlige noder, heller ikke når serveren din ikke svarer. Andre nettverk bruker fortsatt offentlige noder. Tom = offentlige noder."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alleen Bitcoin: je eigen Esplora- of mempool-compatibele server (bijv. https://node.example/api, geldig certificaat vereist). Is hij ingesteld, dan worden Bitcoin-adressen en xpubs alleen daar opgevraagd – nooit bij openbare nodes, ook niet als je server onbereikbaar is. Andere netwerken gebruiken nog steeds openbare nodes. Leeg = openbare nodes."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tylko Bitcoin: twój własny serwer zgodny z Esplora lub mempool (np. https://wezel.example/api, wymagany ważny certyfikat). Jeśli jest ustawiony, adresy Bitcoin i xpub są sprawdzane tylko tam – nigdy w publicznych węzłach, nawet gdy twój serwer jest nieosiągalny. Inne sieci nadal korzystają z publicznych węzłów. Puste = publiczne węzły."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Só Bitcoin: o teu próprio servidor compatível com Esplora ou mempool (p. ex. https://no.example/api, é preciso um certificado válido). Se estiver definido, os endereços Bitcoin e as xpub só são consultados aí – nunca em nós públicos, nem quando o teu servidor não está acessível. As outras redes continuam a usar nós públicos. Vazio = nós públicos."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Só Bitcoin: seu próprio servidor compatível com Esplora ou mempool (ex.: https://no.example/api, é preciso um certificado válido). Se estiver definido, os endereços Bitcoin e as xpub são consultados só nele – nunca em nós públicos, nem quando seu servidor não está acessível. As outras redes continuam usando nós públicos. Vazio = nós públicos."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doar Bitcoin: serverul tău compatibil Esplora sau mempool (de ex. https://nod.example/api, e nevoie de un certificat valid). Dacă e setat, adresele Bitcoin și xpub sunt interogate doar acolo – niciodată la noduri publice, nici când serverul tău nu răspunde. Celelalte rețele folosesc în continuare noduri publice. Gol = noduri publice."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Только Bitcoin: твой собственный сервер, совместимый с Esplora или mempool (например, https://node.example/api, нужен действительный сертификат). Если он задан, адреса Bitcoin и xpub запрашиваются только там – никогда у публичных узлов, даже если твой сервер недоступен. Другие сети по-прежнему используют публичные узлы. Пусто = публичные узлы."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vetëm Bitcoin: serveri yt i përputhshëm me Esplora ose mempool (p.sh. https://nyje.example/api, duhet certifikatë e vlefshme). Nëse është vendosur, adresat Bitcoin dhe xpub pyeten vetëm aty – kurrë te nyjet publike, as kur serveri yt nuk arrihet. Rrjetet e tjera përdorin ende nyje publike. Bosh = nyje publike."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endast Bitcoin: din egen Esplora- eller mempool-kompatibla server (t.ex. https://nod.example/api, giltigt certifikat krävs). Är den angiven frågas Bitcoin-adresser och xpub bara där – aldrig hos offentliga noder, inte ens när din server inte svarar. Andra nätverk använder fortfarande offentliga noder. Tomt = offentliga noder."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เฉพาะ Bitcoin: เซิร์ฟเวอร์ของคุณเองที่รองรับ Esplora หรือ mempool (เช่น https://node.example/api ต้องมีใบรับรองที่ถูกต้อง) เมื่อตั้งค่าแล้ว ที่อยู่ Bitcoin และ xpub จะถูกสอบถามที่นั่นเท่านั้น ไม่สอบถามโหนดสาธารณะเลย แม้เซิร์ฟเวอร์ของคุณจะเชื่อมต่อไม่ได้ เครือข่ายอื่นยังใช้โหนดสาธารณะ เว้นว่าง = โหนดสาธารณะ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yalnızca Bitcoin: kendi Esplora veya mempool uyumlu sunucun (ör. https://node.example/api, geçerli sertifika gerekir). Ayarlıysa Bitcoin adresleri ve xpub’lar yalnızca orada sorgulanır – sunucuna ulaşılamasa bile asla herkese açık düğümlerde değil. Diğer ağlar herkese açık düğümleri kullanmaya devam eder. Boş = herkese açık düğümler."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Лише Bitcoin: твій власний сервер, сумісний з Esplora або mempool (наприклад, https://node.example/api, потрібен дійсний сертифікат). Якщо його задано, адреси Bitcoin і xpub запитуються лише там – ніколи в публічних вузлів, навіть коли твій сервер недоступний. Інші мережі й далі використовують публічні вузли. Порожньо = публічні вузли."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chỉ Bitcoin: máy chủ riêng của bạn tương thích Esplora hoặc mempool (vd. https://node.example/api, cần chứng chỉ hợp lệ). Khi đã đặt, địa chỉ Bitcoin và xpub chỉ được truy vấn ở đó – không bao giờ ở nút công khai, kể cả khi máy chủ của bạn không truy cập được. Các mạng khác vẫn dùng nút công khai. Để trống = nút công khai."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仅限比特币：你自己的 Esplora 或 mempool 兼容服务器（例如 https://node.example/api，需要有效证书）。设置后，比特币地址和 xpub 只向该服务器查询——即使服务器无法访问，也绝不改用公共节点。其他网络仍使用公共节点。留空 = 公共节点。"
+          }
+        }
+      }
+    },
+    "settings_address_server_none" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "غير مضبوط – تُستخدم العُقد العامة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenastaveno – používají se veřejné uzly"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke angivet – offentlige noder bruges"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht gesetzt – öffentliche Knoten werden genutzt"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν έχει οριστεί – χρησιμοποιούνται δημόσιοι κόμβοι"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not set – public nodes are used"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin configurar: se usan nodos públicos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنظیم نشده – از گره‌های عمومی استفاده می‌شود"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei asetettu – käytetään julkisia solmuja"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non défini – des nœuds publics sont utilisés"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא הוגדר – נעשה שימוש בצמתים ציבוריים"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सेट नहीं – सार्वजनिक नोड्स इस्तेमाल होते हैं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nincs beállítva – nyilvános csomópontokat használunk"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Belum diatur – node publik dipakai"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non impostato – si usano nodi pubblici"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未設定 – 公開ノードを使用します"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설정 안 됨 – 공개 노드를 사용합니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke angitt – offentlige noder brukes"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet ingesteld – openbare nodes worden gebruikt"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie ustawiono – używane są publiczne węzły"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não definido – são usados nós públicos"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não definido – são usados nós públicos"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nesetat – se folosesc noduri publice"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не задан – используются публичные узлы"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I pavendosur – përdoren nyje publike"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inte angiven – offentliga noder används"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยังไม่ได้ตั้งค่า – ใช้โหนดสาธารณะ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayarlanmadı – herkese açık düğümler kullanılıyor"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не задано – використовуються публічні вузли"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa đặt – dùng nút công khai"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未设置——使用公共节点"
+          }
+        }
+      }
+    },
+    "settings_address_server_test" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختبار"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otestovat"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δοκιμή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آزمایش"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testaa"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tester"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בדיקה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जाँचो"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teszt"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uji"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "テスト"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "테스트"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testuj"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testar"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testează"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверить"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testo"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testa"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทดสอบ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test et"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перевірити"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiểm tra"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "测试"
+          }
+        }
+      }
+    },
+    "settings_address_server_test_failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد استجابة صالحة – تحقّق من العنوان والشهادة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žádná platná odpověď – zkontroluj adresu a certifikát"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intet gyldigt svar – tjek adressen og certifikatet"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine gültige Antwort – Adresse und Zertifikat prüfen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Καμία έγκυρη απάντηση – έλεγξε τη διεύθυνση και το πιστοποιητικό"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No valid answer – check the address and the certificate"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin respuesta válida: revisa la dirección y el certificado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پاسخ معتبری نیامد – آدرس و گواهی را بررسی کن"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ei kelvollista vastausta – tarkista osoite ja varmenne"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de réponse valide – vérifie l’adresse et le certificat"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אין תשובה תקפה – בדקו את הכתובת ואת התעודה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कोई मान्य जवाब नहीं – पता और सर्टिफ़िकेट जाँचो"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nincs érvényes válasz – ellenőrizd a címet és a tanúsítványt"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak ada jawaban valid – periksa alamat dan sertifikat"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessuna risposta valida – controlla l’indirizzo e il certificato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有効な応答がありません – アドレスと証明書を確認してください"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "유효한 응답 없음 – 주소와 인증서를 확인하세요"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke noe gyldig svar – sjekk adressen og sertifikatet"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geen geldig antwoord – controleer het adres en het certificaat"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak prawidłowej odpowiedzi – sprawdź adres i certyfikat"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem resposta válida – verifica o endereço e o certificado"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem resposta válida – confira o endereço e o certificado"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niciun răspuns valid – verifică adresa și certificatul"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет корректного ответа – проверь адрес и сертификат"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asnjë përgjigje e vlefshme – kontrollo adresën dhe certifikatën"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inget giltigt svar – kontrollera adressen och certifikatet"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีคำตอบที่ถูกต้อง – ตรวจสอบที่อยู่และใบรับรอง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geçerli yanıt yok – adresi ve sertifikayı kontrol et"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Немає коректної відповіді – перевір адресу й сертифікат"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không có phản hồi hợp lệ – hãy kiểm tra địa chỉ và chứng chỉ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有有效响应——请检查地址和证书"
+          }
+        }
+      }
+    },
+    "settings_address_server_test_ok" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الخادم يستجيب – الكتلة %1$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server odpovídá – blok %1$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveren svarer – blok %1$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server antwortet – Block %1$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ο διακομιστής απαντά – μπλοκ %1$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server responds – block %1$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El servidor responde: bloque %1$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سرور پاسخ می‌دهد – بلوک %1$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Palvelin vastaa – lohko %1$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le serveur répond – bloc %1$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "השרת עונה – בלוק %1$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सर्वर जवाब दे रहा है – ब्लॉक %1$@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A szerver válaszol – %1$@. blokk"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server merespons – blok %1$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il server risponde – blocco %1$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーが応答しました – ブロック %1$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "서버 응답 – 블록 %1$@"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveren svarer – blokk %1$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server antwoordt – blok %1$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serwer odpowiada – blok %1$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O servidor responde – bloco %1$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O servidor responde – bloco %1$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serverul răspunde – blocul %1$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сервер отвечает – блок %1$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveri përgjigjet – blloku %1$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servern svarar – block %1$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เซิร์ฟเวอร์ตอบกลับ – บล็อก %1$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sunucu yanıt veriyor – blok %1$@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сервер відповідає – блок %1$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Máy chủ phản hồi – khối %1$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服务器有响应——区块 %1$@"
+          }
+        }
+      }
+    },
+    "settings_address_server_testing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جارٍ الاختبار…"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testuje se…"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tester…"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wird getestet …"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Γίνεται δοκιμή…"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testing…"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probando…"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در حال آزمایش…"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testataan…"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test en cours…"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הבדיקה מתבצעת…"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जाँच हो रही है…"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tesztelés…"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menguji…"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova in corso…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "テスト中…"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "테스트 중…"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tester …"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bezig met testen…"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testowanie…"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A testar…"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testando…"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se testează…"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверка…"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Po testohet…"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testar…"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กำลังทดสอบ…"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Test ediliyor…"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перевірка…"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đang kiểm tra…"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在测试…"
+          }
+        }
+      }
+    },
+    "settings_address_server_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خادم خاص للعناوين"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vlastní server pro adresy"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen server til adresser"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigener Server für Adressen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δικός σου διακομιστής για διευθύνσεις"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Own server for addresses"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor propio para direcciones"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سرور خودت برای آدرس‌ها"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oma palvelin osoitteille"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveur perso pour les adresses"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שרת משלכם לכתובות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पतों के लिए अपना सर्वर"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saját szerver a címekhez"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server sendiri untuk alamat"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server personale per indirizzi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アドレス用の独自サーバー"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "주소용 자체 서버"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen server for adresser"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigen server voor adressen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Własny serwer dla adresów"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor próprio para endereços"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor próprio para endereços"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server propriu pentru adrese"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Свой сервер для адресов"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server i yti për adresat"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen server för adresser"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เซิร์ฟเวอร์ของคุณเองสำหรับที่อยู่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresler için kendi sunucun"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Власний сервер для адрес"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Máy chủ riêng cho địa chỉ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "地址专用的自有服务器"
           }
         }
       }
@@ -429519,6 +432575,197 @@
         }
       }
     },
+    "widget_portfolio_display_not_list" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بدون سطر USDT في «قائمة»"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "V zobrazení „Seznam“ bez řádku USDT"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uden USDT-linje i ”Liste”"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei «Liste» ohne USDT-Zeile"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χωρίς γραμμή USDT στη «Λίστα»"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No USDT line in “List”"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin línea USDT en «Lista»"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در «فهرست» بدون خط USDT"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näkymässä ”Luettelo” ei USDT-riviä"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sans ligne USDT dans « Liste »"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ב״רשימה״ ללא שורת USDT"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“सूची” में USDT पंक्ति नहीं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A „Lista” nézetben nincs USDT-sor"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tanpa baris USDT di “Daftar”"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senza riga USDT in «Elenco»"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「リスト」では USDT の行なし"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‘목록’에서는 USDT 줄 없음"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uten USDT-linje i «Liste»"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zonder USDT-regel in ‘Lijst’"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "W widoku „Lista” bez wiersza USDT"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem linha USDT em «Lista»"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem linha USDT em “Lista”"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fără rândul USDT în „Listă”"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В виде «Список» без строки USDT"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pa rreshtin USDT te «Listë»"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utan USDT-rad i ”Lista”"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีบรรทัด USDT ใน “รายการ”"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“Liste” görünümünde USDT satırı yok"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "У вигляді «Список» без рядка USDT"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không có dòng USDT trong “Danh sách”"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“列表”中不显示 USDT 行"
+          }
+        }
+      }
+    },
     "widget_portfolio_display_usdt" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -433280,6 +436527,197 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$@：请打开投资组合"
+          }
+        }
+      }
+    },
+    "widget_portfolio_range_overview" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "في «نظرة عامة»: مثل 30 يومًا"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "V zobrazení „Přehled“ jako 30 dní"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I ”Oversigt” som 30 dage"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei «Übersicht» wie 30 Tage"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Στην «Επισκόπηση» ως 30 ημέρες"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“Overview” shows 30 days instead"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En «Resumen», como 30 días"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در «نمای کلی» مانند ۳۰ روز"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näkymässä ”Yleiskatsaus” kuin 30 päivää"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dans « Aperçu » : comme 30 jours"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ב״סקירה״ כמו 30 יום"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“सारांश” में 30 दिन की तरह"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az „Áttekintés” nézetben 30 napként"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Di “Ringkasan” seperti 30 hari"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In «Panoramica» come 30 giorni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「概要」では 30日として表示"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‘개요’에서는 30일로 표시"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I «Oversikt» som 30 dager"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In ‘Overzicht’ als 30 dagen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "W widoku „Przegląd” jak 30 dni"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em «Resumo», como 30 dias"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Em “Resumo”, como 30 dias"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "În „Prezentare”, ca 30 de zile"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В виде «Обзор» — как 30 дней"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Te «Përmbledhje» si 30 ditë"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I ”Översikt” som 30 dagar"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ใน “ภาพรวม” แสดงเป็น 30 วัน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“Genel bakış” görünümünde 30 gün gibi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "У вигляді «Огляд» — як 30 днів"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trong “Tổng quan” tính như 30 ngày"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“概览”中按 30 天显示"
           }
         }
       }

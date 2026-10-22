@@ -45,6 +45,8 @@ struct WatchGroupEditSheet: View {
     @State private var renaming = false
     @State private var renameText = ""
     @State private var askDelete = false
+    /// Speichern bzw. Löschen läuft (Rückfrage F-08 offen): weitere Tipps zählen nicht (IOS6-01, wie `WatchGroupSheet`).
+    @State private var saving = false
 
     /// `initialMembers`: die Paare, die schon in dieser Gruppe sind.
     init(groupName: String, isNew: Bool, initialMembers: Set<Int64>) {
@@ -111,14 +113,7 @@ struct WatchGroupEditSheet: View {
                 Button(L("action_cancel"), role: .cancel) {}
             }
             .alert(L("group_delete"), isPresented: $askDelete) {
-                Button(L("group_delete"), role: .destructive) {
-                    // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts
-                    data.withWatchlistConfirm {
-                        Haptics.play(.destructive)
-                        data.deleteGroup(groupName)
-                        dismiss()
-                    }
-                }
+                Button(L("group_delete"), role: .destructive, action: deleteGroup)
                 Button(L("action_cancel"), role: .cancel) {}
             } message: {
                 Text(L("group_delete_confirm"))
@@ -238,10 +233,23 @@ struct WatchGroupEditSheet: View {
     }
 
     private func done() {
-        data.withWatchlistConfirm {
+        guard !saving else { return }
+        saving = true
+        data.withWatchlistConfirm({
             Haptics.play(.success)
             data.applyGroupEdit(oldName: isNew ? nil : groupName, newName: name, memberIds: checked)
             dismiss()
-        }
+        }, cancelled: { saving = false })
+    }
+
+    /// Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts (Blatt bleibt, wieder bereit).
+    private func deleteGroup() {
+        guard !saving else { return }
+        saving = true
+        data.withWatchlistConfirm({
+            Haptics.play(.destructive)
+            data.deleteGroup(groupName)
+            dismiss()
+        }, cancelled: { saving = false })
     }
 }

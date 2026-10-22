@@ -88,7 +88,7 @@ import java.time.ZoneId
  * Netzwerkgebühr im Coin ohne Regel [TaxEventRules.networkFeeIsDisposal] (AT; CA/JP nur ohne Vorlage-Regeln): Einstand
  * bleibt im Rest; ohne Rest mit Kaufpreis wird er als [PortfolioLostFeeCost] vermerkt ([lostFeeCosts]) wie beim FIFO
  * des Portfolios. Gebühr USDT/dritter Coin einer Umbuchung im Pool (UK/CA nur ohne Vorlage-Regeln, [TaxPool.addFee]):
- * der Anteil des Bestands ohne Kaufpreis wird als [PortfolioUnassignedFee] vermerkt ([unassignedFees]).
+ * der Anteil des Bestands ohne Kaufpreis und der Menge über Bestand − Netzwerkgebühr wird als [PortfolioUnassignedFee] vermerkt.
  * Ergebnis wie [PortfolioCalculator.disposals]: [PortfolioDisposal] zeitlich (Verkauf), dann Id, Coin.
  */
 object TaxEngines {

@@ -7,6 +7,7 @@ import com.cryptochecker.app.data.remote.callMarket
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
+import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.ChainBalance
 import com.cryptochecker.app.domain.portfolio.Erc20Tokens
@@ -39,7 +40,7 @@ import javax.inject.Singleton
  *
  * Datenschutz: eigener Client ohne Mitschnitt (die Adresse landet nicht im Debug-Protokoll),
  * keine Cookies, neutraler User-Agent ([HttpUserAgent.NEUTRAL], seit Build 103), eigener Verbindungs-Pool und Dispatcher
- * (seit Build 104); Protokolle nennen nur die gekürzte Adresse.
+ * (seit Build 104); Protokolle nennen nur die gekürzte Adresse. Eigener Bitcoin-Server ([AddressServer]): nur dorthin.
  * Pausen: 451/403 → Host 6 h übersprungen ([BlockedSources]); 429/418 und wiederholte
  * Zeitüberschreitungen → Pause je Host nach [ExchangeBackoff] («Retry-After» gilt); dann der
  * nächste Host. Adressen der Reihe nach, nie parallel (schont die kostenlosen Anbieter).
@@ -65,6 +66,8 @@ class WatchedAddressSource @Inject constructor(
 
     /** Pausen je Host (nur im Speicher; ein Neustart beginnt frisch). */
     private val backoff = ConcurrentHashMap<String, ExchangeBackoff.State>()
+    /** Bitcoin-Hosts dieser Runde: eigener Server allein oder die öffentlichen ([AddressServer.btcEntries]). */
+    @Volatile internal var btcEntries: List<String> = AddressBalance.BTC_HOSTS
     private val mutex = Mutex()
 
     /**
@@ -96,16 +99,19 @@ class WatchedAddressSource @Inject constructor(
      *   xpub im Hintergrund: die bekannten benutzten Adressen samt kurzem Vorausblick und nur ganz (sonst bleibt er
      *   fällig). Hintergrund: die am längsten nicht versuchten zuerst ([AddressBalance.dueOrder]) — sonst kämen bei
      *   knappem Budget immer nur die zuerst erfassten dran.
+     * @param btcServer eigener Bitcoin-Server ([AddressServer]): Bitcoin nur dort, ohne Rückfall; null = öffentliche Knoten.
      */
     suspend fun refresh(
         addresses: List<WatchedAddress>,
         force: Boolean,
         now: Long = System.currentTimeMillis(),
         budgetMillis: Long? = null,
+        btcServer: String? = null,
     ): List<Update> {
         val deadline = budgetMillis?.let { System.currentTimeMillis() + it }
         if (deadline == null) mutex.lock() else if (!mutex.tryLock()) return emptyList()
         try {
+            btcEntries = AddressServer.btcEntries(btcServer)
             val updates = mutableListOf<Update>()
             for (a in AddressBalance.dueOrder(addresses, now, force, background = deadline != null)) {
                 val time = System.currentTimeMillis()
@@ -128,8 +134,9 @@ class WatchedAddressSource @Inject constructor(
                     updates += Update(a.id, time, null, XpubScan.TOO_MANY_MARKER)
                 } catch (e: Exception) {
                     Timber.d("Adresse %s: %s", WatchedAddressRules.shortAddress(a.address), e.message)
-                    // Nur kurzer Code speichern (Ausnahmetexte enthalten Hosts/URLs, teils die Adresse)
-                    updates += Update(a.id, time, null, StoredError.sanitize(e.toString()))
+                    // Nur kurzer Code speichern (Ausnahmetexte enthalten Hosts/URLs, teils die Adresse); eigener Server: eigener Hinweis
+                    val ownServer = btcServer != null && a.chain == AddressChain.BTC
+                    updates += Update(a.id, time, null, if (ownServer) AddressServer.FAILED_MARKER else StoredError.sanitize(e.toString()))
                 }
             }
             return updates
@@ -146,8 +153,8 @@ class WatchedAddressSource @Inject constructor(
      * @param deadline Endzeit (ms) im Hintergrund, null = ohne Grenze
      */
     suspend fun fetch(chain: AddressChain, address: String, deadline: Long? = null): Fetched = when (chain) {
-        AddressChain.BTC -> firstWorking(AddressBalance.BTC_HOSTS, deadline) { host ->
-            AddressBalance.btcText(AddressBalance.parseBtc(client.callMarket(AddressBalance.btcUrl(host, address), null), address))
+        AddressChain.BTC -> firstWorking(btcEntries, deadline) { host ->
+            AddressBalance.btcText(AddressBalance.parseBtc(client.callMarket(AddressServer.btcUrl(host, address), null), address))
         }
         AddressChain.ETH -> firstWorking(AddressBalance.ETH_RPCS, deadline) { rpc ->
             AddressBalance.ethText(AddressBalance.parseEthWei(client.callMarket(rpc, json(AddressBalance.ethRequest(address)))))

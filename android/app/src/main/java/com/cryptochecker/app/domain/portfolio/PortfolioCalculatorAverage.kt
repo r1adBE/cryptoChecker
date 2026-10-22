@@ -276,10 +276,10 @@ internal fun PortfolioCalculator.average(symbol: String, events: List<PortfolioL
             PortfolioTxType.TRANSFER -> {
                 val holdings = priced + unpriced
                 val coinFee = t.coinFee
-                // Seit Build 104: Menge oder Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
-                // erfassten Menge wird vermerkt (leerer Bestand: die ganze Gebühr), nicht still verworfen
-                if (amount > holdings || coinFee > holdings) oversold = true
-                val lost = PortfolioFeeExpenses.transferUncovered(t, holdings)
+                // Wie FIFO je Wallet: Menge + Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
+                // gedeckten Menge (gedeckt = Bestand − Netzwerkgebühr) wird vermerkt (leerer Bestand: die ganze Gebühr)
+                if (amount + coinFee > holdings) oversold = true
+                val lost = PortfolioFeeExpenses.transferUncovered(t, (holdings - coinFee).max(zero))
                 if (holdings.signum() <= 0) {
                     if (lost.signum() > 0) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, lost)
                     continue

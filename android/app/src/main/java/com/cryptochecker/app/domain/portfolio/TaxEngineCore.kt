@@ -130,15 +130,19 @@ internal class TaxPool(
     }
 
     /**
-     * Gebühr einer Umbuchung: anteilig (Menge mit Kaufpreis / Bestand) zum Einstand, wie der Ø. Rückgabe = Anteil des
-     * Teils ohne Kaufpreis (ohne Teil mit Kaufpreis: die ganze Gebühr) — der Aufrufer vermerkt ihn als
-     * [PortfolioUnassignedFee]; 0 = alles zugeordnet bzw. kein Bestand.
+     * Gebühr [extra] einer Umbuchung der Menge [amount] mit Netzwerkgebühr [coinFee] (vor dem Schritt
+     * [TaxStepKind.NETWORK_FEE]), wie der Ø des Portfolios: zuerst der Anteil der nicht gedeckten Menge (gedeckt =
+     * Bestand − Netzwerkgebühr, wie FIFO je Wallet, [PortfolioFeeExpenses.uncoveredShare]; leerer Pool: die ganze Gebühr),
+     * der Rest anteilig (Menge mit Kaufpreis / Bestand) zum Einstand. Rückgabe = nicht gedeckter Anteil + Anteil des Teils
+     * ohne Kaufpreis (ohne Teil mit Kaufpreis: der ganze Rest) — der Aufrufer vermerkt ihn als [PortfolioUnassignedFee];
+     * 0 = alles zugeordnet.
      */
-    fun addFee(time: Long, extra: BigDecimal): BigDecimal {
+    fun addFee(time: Long, extra: BigDecimal, amount: BigDecimal, coinFee: BigDecimal): BigDecimal {
+        if (extra.signum() <= 0) return BigDecimal.ZERO
         val h = held
-        if (extra.signum() <= 0 || h.signum() <= 0) return BigDecimal.ZERO
-        if (priced.signum() <= 0) return extra
-        val assigned = if (unpriced.signum() == 0) extra else extra.multiply(priced).divide(h, PortfolioDecimal.MC)
+        val rest = extra - PortfolioFeeExpenses.uncoveredShare(extra, amount, (h - coinFee).max(BigDecimal.ZERO))
+        if (rest.signum() <= 0 || priced.signum() <= 0) return extra
+        val assigned = if (unpriced.signum() == 0) rest else rest.multiply(priced).divide(h, PortfolioDecimal.MC)
         addCost(time, assigned)
         return extra - assigned
     }

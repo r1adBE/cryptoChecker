@@ -37,11 +37,21 @@ struct PortfolioEntry: TimelineEntry {
     /// `ChangeBasisMath.chartTimeZone`; seit Build 93, vorher Balken immer in der Gerätezone). Wie Android.
     var chartTimeZone: TimeZone = .current
 
-    /// Wirksame Anzeige (bei einem USD-Stablecoin «Nur USDT», ohne USDT-Wert nur Umrechnung).
+    /// Beispiel der Galerie: Zeitraum wie gesetzt (24 h, ohne Tagesverlauf kein Hinweis), ohne Regel je Ansicht.
+    var isSample = false
+
+    /// Wirksame Anzeige: je Ansicht (`PortfolioWidgetOptions`: Liste ohne «+ USDT»), dann bei einem USD-Stablecoin
+    /// «Nur USDT», ohne USDT-Wert nur Umrechnung.
     var effectiveDisplay: PortfolioWidgetDisplay {
-        guard let snapshot else { return display.display }
-        return PortfolioWidgetChart.effectiveDisplay(display.display, currency: snapshot.currency,
+        let chosen = PortfolioWidgetOptions.effectiveDisplay(view, display.display)
+        guard let snapshot else { return chosen }
+        return PortfolioWidgetChart.effectiveDisplay(chosen, currency: snapshot.currency,
                                                      hasUsdt: snapshot.totalUsdt != nil)
+    }
+
+    /// Wirksamer Zeitraum je Ansicht (`PortfolioWidgetOptions`: Übersicht nur 30 T / 1 J); gespeichert bleibt die Wahl.
+    var effectiveRange: PortfolioWidgetRange {
+        isSample ? range.range : PortfolioWidgetOptions.effectiveRange(view, range.range)
     }
 
     /// Der Stand, wie das Widget ihn zeigt (bei «Nur USDT» in USDT).
@@ -59,7 +69,7 @@ struct PortfolioEntry: TimelineEntry {
 
     /// Zeitraum, Chart und Veränderung für den gezeigten Stand (`PortfolioWidgetChart.plan`).
     func plan(for s: PortfolioWidgetSnapshot) -> PortfolioChartPlan {
-        PortfolioWidgetChart.plan(s, requested: range.range, type: chartType.chartType,
+        PortfolioWidgetChart.plan(s, requested: effectiveRange, type: chartType.chartType,
                                   // UTC-Tag wie der Tagesverlauf der Aufnahme (`PortfolioWidgetChart.dailyData`)
                                   todayEpochDay: PortfolioHistory.epochDay(utcMillis: Int64(date.timeIntervalSince1970 * 1000)),
                                   timeZone: chartTimeZone,
@@ -158,6 +168,7 @@ struct PortfolioEntry: TimelineEntry {
         entry.apply(config)
         // Beispiel ohne Tagesverlauf: in der Galerie immer 24 h (kein Hinweis «7T: Portfolio öffnen»)
         entry.range = .day
+        entry.isSample = true
         return entry
     }
 }

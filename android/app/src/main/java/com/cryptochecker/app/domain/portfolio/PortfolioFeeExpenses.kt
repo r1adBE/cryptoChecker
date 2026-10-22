@@ -80,16 +80,24 @@ internal object PortfolioFeeExpenses {
     }
 
     /**
-     * Seit Build 104: Gebühr einer Umbuchung (Gebühr USDT + Wert der Gebühr im dritten Coin), die auf den nicht erfassten
+     * Seit Build 104: Gebühr einer Umbuchung (Gebühr USDT + Wert der Gebühr im dritten Coin), die auf den nicht gedeckten
      * Teil der Menge fällt: Gebühr × max(Menge − [covered], 0) / Menge, bei leerem Bestand die ganze Gebühr. Wie
      * [withdrawalUncovered] als [PortfolioUnassignedFee] vermerkt statt still verworfen; der Rest verteilt sich wie bisher.
-     * [covered]: universell der Bestand vor der Umbuchung, je Wallet die verschobene Menge.
+     * [covered]: die Menge, die ankommt — für alle Methoden wie FIFO je Wallet: Menge und Netzwerkgebühr verlassen die
+     * Quelle, die Netzwerkgebühr zuerst; universell also max(Bestand − Netzwerkgebühr, 0), je Wallet die verschobene Menge.
      */
     fun transferUncovered(t: PortfolioTrade, covered: BigDecimal): BigDecimal {
-        val amount = t.amount
-        if (t.type != PortfolioTxType.TRANSFER || amount.signum() <= 0 || covered >= amount) return BigDecimal.ZERO
-        val full = t.quoteFee + (t.thirdFeeValue ?: BigDecimal.ZERO)
-        if (full.signum() <= 0) return BigDecimal.ZERO
+        if (t.type != PortfolioTxType.TRANSFER) return BigDecimal.ZERO
+        return uncoveredShare(t.quoteFee + (t.thirdFeeValue ?: BigDecimal.ZERO), t.amount, covered)
+    }
+
+    /**
+     * Anteil der Gebühr [full] auf die nicht gedeckte Menge: full × max([amount] − [covered], 0) / amount, ohne Deckung
+     * die ganze Gebühr; 0 = ganz gedeckt, keine Gebühr oder keine Menge. Auch für den Pool der Steuer-Vorlagen
+     * ([TaxPool.addFee]).
+     */
+    fun uncoveredShare(full: BigDecimal, amount: BigDecimal, covered: BigDecimal): BigDecimal {
+        if (full.signum() <= 0 || amount.signum() <= 0 || covered >= amount) return BigDecimal.ZERO
         if (covered.signum() <= 0) return full
         return full.multiply(amount - covered).divide(amount, PortfolioDecimal.MC)
     }

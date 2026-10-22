@@ -118,7 +118,9 @@ class BackgroundCheck @Inject constructor(
         }
         log(trigger, CheckRunLog.result(summary.checked, summary.failed), startedAt)
         // Seit Build 104: Kursabruf komplett gescheitert — gezählt für den Diagnosebericht (wie iOS)
-        if (BackgroundWorkPolicy.allFailed(summary.checked, summary.failed)) BackgroundErrorCounter.record(BackgroundErrors.REFRESH)
+        if (BackgroundWorkPolicy.allFailed(summary.checked, summary.failed)) {
+            BackgroundErrorCounter.record(BackgroundErrors.REFRESH, kind = BackgroundErrors.ALL_FAILED_KIND)
+        }
         return summary
     }
 
@@ -163,7 +165,7 @@ class BackgroundCheck @Inject constructor(
         } catch (e: Exception) {
             log(trigger, CheckResult.FAILED, startedAt)
             // Seit Build 104: Lauf gescheitert — gezählt (Schlüssel gerade nicht lesbar ist kein Fehler)
-            if (!e.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.REFRESH)
+            if (!e.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.REFRESH, error = e)
             throw e
         }
     }

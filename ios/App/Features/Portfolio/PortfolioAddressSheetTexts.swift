@@ -21,23 +21,42 @@ extension PortfolioAddressSheet {
         return also.map { head + "\n\n" + $0 } ?? head
     }
 
-    /// Anbieter, die die Adresse zu sehen bekommen: des erkannten Netzes (0x: alle EVM-Netze), sonst alle.
-    static func hosts(_ chain: AddressChain?) -> String {
-        (chain.map { ChainBalance.hosts($0) } ?? AddressBalance.privacyHosts).joined(separator: ", ")
+    /// Anbieter, die die Adresse zu sehen bekommen: des erkannten Netzes (0x: alle EVM-Netze), sonst alle. Mit eigenem
+    /// Bitcoin-Server (`btcServer`) steht er statt der öffentlichen Bitcoin-Hosts da — wie Android.
+    static func hosts(_ chain: AddressChain?, btcServer: String?) -> String {
+        let hosts = chain.map { ChainBalance.hosts($0) } ?? AddressBalance.privacyHosts
+        guard let own = btcServer.map({ AddressServer.host($0) }), chain == nil || chain == .BTC else {
+            return hosts.joined(separator: ", ")
+        }
+        return ([own] + hosts.filter { !AddressBalance.btcHosts.contains($0) }).joined(separator: ", ")
     }
 
-    /// Datenschutz-Hinweis zur Eingabe: Anbieter; bei xpub/ypub/zpub/Taproot-Konto dazu, was der Schlüssel verrät;
-    /// Taproot-Konto: welcher Adresstyp abgeleitet wird; einfacher xpub: Hinweis auf den Deskriptor — wie Android.
-    static func privacy(_ check: AddressValidation.Check) -> String {
-        let base = L("portfolio_address_privacy", hosts(check.chain))
+    /// Datenschutz-Hinweis zur Eingabe: Anbieter; bei xpub/ypub/zpub/Taproot-Konto dazu, was der Schlüssel verrät
+    /// (der Knotenbetreiber sieht alle abgeleiteten Adressen; ohne eigenen Server der Verweis auf Einstellungen ›
+    /// Portfolio); Taproot-Konto: welcher Adresstyp abgeleitet wird; einfacher xpub: Hinweis auf den Deskriptor — wie Android.
+    static func privacy(_ check: AddressValidation.Check, btcServer: String?) -> String {
+        let base = L("portfolio_address_privacy", hosts(check.chain, btcServer: btcServer))
+        let btcHosts = hosts(.BTC, btcServer: btcServer)
+        let ownServerHint = btcServer == nil ? " " + L("portfolio_address_xpub_own_server_hint") : ""
         // Gap-Regel offen nennen: Eine benutzte Adresse hinter `XpubScan.gap` unbenutzten in Folge fehlt im Guthaben
-        let keyNote = "\n\n" + L("portfolio_address_xpub_privacy", hosts(.BTC))
+        let keyNote = "\n\n" + L("portfolio_address_xpub_privacy", btcHosts)
+            + "\n\n" + L("portfolio_address_xpub_operator", btcHosts) + ownServerHint
             + "\n\n" + L("portfolio_address_xpub_gap", XpubScan.gap)
         switch check.kind {
         case .XPUB: return base + keyNote + "\n\n" + L("portfolio_address_taproot_hint")
         case .YPUB, .ZPUB: return base + keyNote
         case .TR_XPUB: return base + keyNote + "\n\n" + L("portfolio_address_taproot_account")
         default: return base
+        }
+    }
+
+    /// Fehlertext einer Adresse: gespeicherte Marker (xpub zu gross, eigener Server nicht erreichbar) oder allgemein —
+    /// wie `PortfolioAddressRow` (Android).
+    static func errorText(_ error: String) -> String {
+        switch error {
+        case XpubScan.tooManyMarker: return L("portfolio_address_xpub_too_many")
+        case AddressServer.failedMarker: return L("portfolio_address_server_failed")
+        default: return L("portfolio_address_error")
         }
     }
 

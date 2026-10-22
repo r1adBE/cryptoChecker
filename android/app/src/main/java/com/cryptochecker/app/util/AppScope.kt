@@ -27,7 +27,7 @@ internal fun appExceptionHandler(
         else Timber.w(e, "%s: Hintergrundarbeit fehlgeschlagen", label)
     },
 ): CoroutineExceptionHandler = CoroutineExceptionHandler { _, e ->
-    // Seit Build 104: im Release sonst unsichtbar — nur zählen je Bereich (BackgroundErrorCounter), keine Texte
-    if (!e.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.areaForLabel(label))
+    // Seit Build 104: im Release sonst unsichtbar — nur zählen je Bereich und Art (BackgroundErrorCounter), keine Texte
+    if (!e.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.areaForLabel(label), error = e)
     log(e)
 }

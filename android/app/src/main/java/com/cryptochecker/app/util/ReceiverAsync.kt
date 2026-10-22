@@ -53,7 +53,7 @@ object ReceiverAsync {
             } else {
                 Timber.w(e, "%s fehlgeschlagen", label)
                 // Seit Build 104: im Release nur gezählt (Bereich, keine Texte)
-                BackgroundErrorCounter.record(BackgroundErrors.areaForLabel(label))
+                BackgroundErrorCounter.record(BackgroundErrors.areaForLabel(label), error = e)
             }
         } finally {
             onDone()

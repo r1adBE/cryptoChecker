@@ -132,14 +132,18 @@ struct TaxPool: Sendable {
         dayIndex = [:]
     }
 
-    /// Gebühr einer Umbuchung: anteilig (Menge mit Kaufpreis / Bestand) zum Einstand, wie der Ø. Rückgabe = Anteil des
-    /// Teils ohne Kaufpreis (ohne Teil mit Kaufpreis: die ganze Gebühr) — der Aufrufer vermerkt ihn als
-    /// `PortfolioUnassignedFee`; 0 = alles zugeordnet bzw. kein Bestand. Wie Android.
-    mutating func addFee(_ time: Int64, _ extra: Decimal) -> Decimal {
+    /// Gebühr `extra` einer Umbuchung der Menge `amount` mit Netzwerkgebühr `coinFee` (vor dem Schritt `.networkFee`),
+    /// wie der Ø des Portfolios: zuerst der Anteil der nicht gedeckten Menge (gedeckt = Bestand − Netzwerkgebühr, wie FIFO
+    /// je Wallet, `PortfolioFeeExpenses.uncoveredShare`; leerer Pool: die ganze Gebühr), der Rest anteilig (Menge mit
+    /// Kaufpreis / Bestand) zum Einstand. Rückgabe = nicht gedeckter Anteil + Anteil des Teils ohne Kaufpreis (ohne Teil
+    /// mit Kaufpreis: der ganze Rest) — der Aufrufer vermerkt ihn als `PortfolioUnassignedFee`; 0 = alles zugeordnet.
+    /// Wie Android.
+    mutating func addFee(_ time: Int64, _ extra: Decimal, amount: Decimal, coinFee: Decimal) -> Decimal {
+        guard extra > 0 else { return 0 }
         let h = held
-        guard extra > 0, h > 0 else { return 0 }
-        guard priced > 0 else { return extra }
-        let assigned = unpriced == 0 ? extra : PortfolioDecimal.divide(extra * priced, h)
+        let rest = extra - PortfolioFeeExpenses.uncoveredShare(extra, amount: amount, covered: max(0, h - coinFee))
+        guard rest > 0, priced > 0 else { return extra }
+        let assigned = unpriced == 0 ? rest : PortfolioDecimal.divide(rest * priced, h)
         addCost(time, assigned)
         return extra - assigned
     }

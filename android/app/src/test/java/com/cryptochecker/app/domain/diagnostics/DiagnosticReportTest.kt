@@ -109,6 +109,12 @@ class DiagnosticReportTest {
             input().copy(backgroundErrors = BackgroundErrorSummary(mapOf("refresh" to 2, "logos" to 1), now))
         )
         assertTrue(text.contains("Background errors: refresh 2, logos 1 (last 2026-10-18 12:00 UTC)\n"))
+        // Ohne gezählte Arten keine eigene Zeile
+        assertFalse(text.contains("Background error kinds"))
+        val withKinds = DiagnosticReport.build(
+            input().copy(backgroundErrors = BackgroundErrorSummary(mapOf("refresh" to 2), now, mapOf("refresh" to mapOf("IOException" to 2))))
+        )
+        assertTrue(withKinds.contains("(last 2026-10-18 12:00 UTC)\nBackground error kinds: refresh IOException 2\n"))
     }
 
     @Test

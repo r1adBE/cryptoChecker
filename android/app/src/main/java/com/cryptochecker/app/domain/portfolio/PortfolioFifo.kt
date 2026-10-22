@@ -38,8 +38,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.spread
  *    kein Verlust im Jahr der Umbuchung, sondern erhöht den Einstand der übrigen Coins; sie landet beim
  *    ältesten Posten, damit sie mit dem nächsten Verkauf realisiert wird. Gebühr USDT + Wert der Gebühr
  *    im dritten Coin verteilen sich nach Menge auf alle Posten; der Anteil von Posten ohne Kaufpreis gehört
- *    zu deren unbekanntem Einstand (wie beim Ø), vermerkt als [PortfolioUnassignedFee]; seit Build 104 ebenso der Anteil
- *    einer Menge über dem Bestand ([PortfolioFeeExpenses.transferUncovered], markiert [PortfolioBookResult.oversold]).
+ *    zu deren unbekanntem Einstand (wie beim Ø), vermerkt als [PortfolioUnassignedFee]; ebenso (wie je Wallet) der Anteil
+ *    der Menge, die Bestand − Netzwerkgebühr übersteigt ([PortfolioFeeExpenses.transferUncovered], markiert [PortfolioBookResult.oversold]).
  *  - Herkunft des Einstands: jeder Posten führt seinen Einstand in Teilen mit Zeitpunkt ([PortfolioCostPart]: Erwerb,
  *    zugeschlagene Umbuchungsgebühr zum Zeitpunkt der Umbuchung, übernommener Netzwerkgebühr-Einstand mit seinen Teilen);
  *    ein Abgang nimmt die Teile anteilig mit ([PortfolioDisposal.costParts]) — der Steuer-Export rechnet so jeden Teil
@@ -350,10 +350,10 @@ internal object PortfolioFifo {
                     }
                     val q = src
                     val h = q.held
-                    // Seit Build 104: Menge oder Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
-                    // erfassten Menge wird vermerkt (leerer Bestand: die ganze Gebühr), nicht still verworfen
-                    if (amount > h || coinFee > h) check(q, amount.max(coinFee), t, feeLeg = false)
-                    val lost = PortfolioFeeExpenses.transferUncovered(t, h)
+                    // Wie je Wallet: Menge + Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
+                    // gedeckten Menge (gedeckt = Bestand − Netzwerkgebühr) wird vermerkt (leerer Bestand: die ganze Gebühr)
+                    check(q, amount + coinFee, t, feeLeg = false)
+                    val lost = PortfolioFeeExpenses.transferUncovered(t, (h - coinFee).max(zero))
                     if (h.signum() <= 0) { unassign(t, lost); continue }
                     // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: nach Menge auf die Posten verteilt; der
                     // Anteil der Posten ohne Kaufpreis wird vermerkt

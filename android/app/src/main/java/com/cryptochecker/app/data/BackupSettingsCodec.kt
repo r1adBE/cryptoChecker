@@ -1,6 +1,7 @@
 package com.cryptochecker.app.data
 
 import com.cryptochecker.app.domain.alarm.QuietHours
+import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.watch.ColumnSort
 import com.cryptochecker.app.settings.AccentColor
 import com.cryptochecker.app.settings.SettingsBackupTarget
@@ -80,6 +81,8 @@ internal class BackupSettingsCodec(
             .put("taxTemplate", s.taxTemplate.name)
             // Spaltensortierung der Merkliste; null = eigene Reihenfolge
             .put(ColumnSort.BACKUP_FIELD, ColumnSort.backupValue(s.watchlistColumnSort) ?: JSONObject.NULL)
+            // Eigener Bitcoin-Server für Adressabfragen; null = öffentliche Knoten (wie iOS)
+            .put(ADDRESS_SERVER, settings.addressServer() ?: JSONObject.NULL)
     }
 
     /**
@@ -193,6 +196,9 @@ internal class BackupSettingsCodec(
         o.string("taxTemplate")?.let { setTaxTemplate(com.cryptochecker.app.domain.portfolio.TaxTemplate.fromName(it)) }
         // Spaltensortierung: ältere Sicherungen ohne das Feld lassen sie stehen; null/unbekannt = eigene Reihenfolge
         if (o.has(ColumnSort.BACKUP_FIELD)) setWatchlistColumnSort(ColumnSort.backupValue(o.string(ColumnSort.BACKUP_FIELD)))
+        // Eigener Bitcoin-Server: fehlt/ungültig bleibt er; ohne Passwort nie zurück auf öffentliche Knoten
+        val server = AddressServer.restored(o.has(ADDRESS_SERVER), o.string(ADDRESS_SERVER), addressServer(), trusted)
+        if (server != addressServer()) setAddressServer(server)
         // Portfolio-Sperre nur, wenn dieses Gerät entsperren kann — sonst sperrte sie das Portfolio aus
         // Ohne Passwort (nicht [trusted]) nie ausschalten, solange sie an ist
         val lock = BackupRestorePolicy.appLock(
@@ -203,6 +209,11 @@ internal class BackupSettingsCodec(
         )
         lock.apply?.let { setAppLock(it) }
         lock.keptOn
+    }
+
+    private companion object {
+        /** Schlüssel des eigenen Bitcoin-Servers in der Sicherung (wie iOS). */
+        const val ADDRESS_SERVER = "addressServerBtc"
     }
 
     // Tolerantes Lesen wie iOS (BackupManager.swift: bool/int/double/string): falscher Typ → null,

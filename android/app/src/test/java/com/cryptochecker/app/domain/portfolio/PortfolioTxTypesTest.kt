@@ -74,7 +74,8 @@ class PortfolioTxTypesTest {
         assertEquals(133.33333333333334, p.avgCost!!, 1e-9)
         same("0", p.realizedExact)
         assertEquals(0.0, p.soldAmount, 0.0)
-        assertFalse(p.oversold)
+        // Menge + Netzwerkgebühr (1,25) über dem Bestand 1: markiert wie FIFO je Wallet (Rechnung unverändert)
+        assertTrue(p.oversold)
         assertEquals(2, p.tradeCount)
     }
 

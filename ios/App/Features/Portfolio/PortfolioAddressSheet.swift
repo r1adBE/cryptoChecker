@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Portfolio ⋯ › «Adressen»: beobachtete öffentliche Adressen (nur lesen) — wie `PortfolioAddressSheet.kt`. Liste mit
 /// Guthaben, Stand bzw. Fehler, Entfernen mit Rückfrage; darunter Hinzufügen (Netz automatisch erkannt, Bezeichnung
-/// optional). Vor der ersten Adresse ein Datenschutz-Hinweis mit den Anbietern; Seed-Wörter und private Schlüssel lehnt
+/// optional). Vor der ersten Adresse/xpub ein Datenschutz-Hinweis mit den Anbietern; Seed-Wörter und private Schlüssel lehnt
 /// die Prüfung ab (`AddressValidation.Problem.SECRET`). xpub/ypub/zpub: eigener Hinweis (alle Adressen der Wallet auf
 /// dem Gerät, gesendet werden nur einzelne). ETH-Zeilen: Token-Guthaben und Schalter «Tokens mitzählen».
 @MainActor
@@ -74,14 +74,14 @@ struct PortfolioAddressSheet: View {
                         Text(L("address_limit")).font(.footnote).foregroundStyle(AppColors.error)
                     }
                     Button {
-                        if addresses.isEmpty { askPrivacy = true } else { addChecked(check) }
+                        if AddressServer.consentNeeded(addresses, check: check) { askPrivacy = true } else { addChecked(check) }
                     } label: {
                         Text(L("portfolio_address_add")).frame(maxWidth: .infinity)
                     }
                     .disabled(!canAdd)
                 } footer: {
                     // Wer die Adresse sieht (Anbieter des erkannten Netzes); xpub: was er verrät und wie viele Anfragen
-                    Text(Self.privacy(check))
+                    Text(Self.privacy(check, btcServer: data.settings.addressServerBtc))
                 }
             }
             .navigationTitle(L("portfolio_addresses_title"))
@@ -122,7 +122,7 @@ struct PortfolioAddressSheet: View {
                 Button(L("portfolio_address_add")) { addChecked(check) }
                 Button(L("action_cancel"), role: .cancel) {}
             } message: {
-                Text(Self.privacy(check))
+                Text(Self.privacy(check, btcServer: data.settings.addressServerBtc))
             }
             .confirmationDialog(L("portfolio_address_remove"), isPresented: Binding(
                 get: { askRemove != nil }, set: { if !$0 { askRemove = nil } }
@@ -203,7 +203,7 @@ struct PortfolioAddressSheet: View {
         let status: String? = {
             if let error = a.lastError {
                 // xpub über der Anfragen-Grenze: eigener Hinweis (wiederholen hilft nicht)
-                let head = error == XpubScan.tooManyMarker ? L("portfolio_address_xpub_too_many") : L("portfolio_address_error")
+                let head = Self.errorText(error)
                 return head + (a.lastUpdated > 0 ? " · " + WatchlistTime.ago(a.lastUpdated, now: now) : "")
             }
             if a.lastUpdated > 0 {

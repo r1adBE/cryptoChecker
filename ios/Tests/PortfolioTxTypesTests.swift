@@ -59,7 +59,8 @@ final class PortfolioTxTypesTests: XCTestCase {
         XCTAssertEqual(p.avgCost ?? 0, 133.33333333333334, accuracy: 1e-9)
         XCTAssertEqual(p.realizedExact, 0)
         XCTAssertEqual(p.soldAmount, 0)
-        XCTAssertFalse(p.oversold)
+        // Menge + Netzwerkgebühr (1,25) über dem Bestand 1: markiert wie FIFO je Wallet (Rechnung unverändert)
+        XCTAssertTrue(p.oversold)
         XCTAssertEqual(p.tradeCount, 2)
     }
 

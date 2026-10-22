@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
+    <string name="settings_address_server_title">Δικός σου διακομιστής για διευθύνσεις</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Μόνο Bitcoin: ο δικός σου διακομιστής συμβατός με Esplora ή mempool (π.χ. https://node.example/api, απαιτείται έγκυρο πιστοποιητικό). Αν έχει οριστεί, οι διευθύνσεις Bitcoin και τα xpub ερωτώνται μόνο εκεί – ποτέ σε δημόσιους κόμβους, ούτε όταν ο διακομιστής σου δεν απαντά. Τα άλλα δίκτυα χρησιμοποιούν ακόμη δημόσιους κόμβους. Κενό = δημόσιοι κόμβοι.</string>
+    <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
+    <string name="settings_address_server_field">Διακομιστής Bitcoin (https://)</string>
+    <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->
+    <string name="settings_address_server_test">Δοκιμή</string>
+    <!-- Hinweis während des Tests -->
+    <string name="settings_address_server_testing">Γίνεται δοκιμή…</string>
+    <!-- Test erfolgreich; %1$s = aktuelle Blockhöhe (Zahl) -->
+    <string name="settings_address_server_test_ok">Ο διακομιστής απαντά – μπλοκ %1$s</string>
+    <!-- Test fehlgeschlagen (keine oder keine passende Antwort, z. B. falsche Adresse oder ungültiges Zertifikat) -->
+    <string name="settings_address_server_test_failed">Καμία έγκυρη απάντηση – έλεγξε τη διεύθυνση και το πιστοποιητικό</string>
+    <!-- Stand unter dem Feld: eigener Server gespeichert; %1$s = Host des Servers -->
+    <string name="settings_address_server_active">Σε χρήση: %1$s</string>
+    <!-- Stand unter dem Feld: kein eigener Server – öffentliche Knoten wie bisher -->
+    <string name="settings_address_server_none">Δεν έχει οριστεί – χρησιμοποιούνται δημόσιοι κόμβοι</string>
+    <!-- Eingabefehler: Adresse beginnt nicht mit https:// -->
+    <string name="settings_address_server_error_https">Επιτρέπονται μόνο διευθύνσεις https://</string>
+    <!-- Eingabefehler: Benutzername oder Passwort in der Adresse (user:pass@) -->
+    <string name="settings_address_server_error_userinfo">Χωρίς όνομα χρήστη ή κωδικό στη διεύθυνση</string>
+    <!-- Eingabefehler: Abfrage (?) oder Fragment (#) in der Adresse -->
+    <string name="settings_address_server_error_query">Χωρίς τμήμα ? ή # στη διεύθυνση</string>
+    <!-- Eingabefehler: sonst ungültig (Host, Port oder Zeichen) -->
+    <string name="settings_address_server_error_invalid">Μη έγκυρη διεύθυνση διακομιστή</string>
+    <!-- Portfolio › Adressen: Status einer Bitcoin-Adresse, wenn der eigene Server nicht liefert (statt «Aktualisierung fehlgeschlagen»; kein Rückfall auf öffentliche Knoten) -->
+    <string name="portfolio_address_server_failed">Ο δικός σου διακομιστής δεν είναι προσβάσιμος</string>
+    <!-- Datenschutz-Hinweis zu xpub/Deskriptor (auch Zustimmung vor dem ersten xpub): der Betreiber des Knotens sieht alle abgefragten Adressen der Wallet und kann sie verknüpfen; %1$s = Host(s) -->
+    <string name="portfolio_address_xpub_operator">Όποιος λειτουργεί το %1$s βλέπει όλες τις διευθύνσεις αυτού του πορτοφολιού που ερωτώνται και μπορεί να τις συνδέσει μεταξύ τους και με τη διεύθυνση IP σου.</string>
+    <!-- Folgesatz zu portfolio_address_xpub_operator, nur ohne eigenen Server: Verweis auf die Einstellung (Pfad Einstellungen › Portfolio › Titel der Karte) -->
+    <string name="portfolio_address_xpub_own_server_hint">Για να το αποφύγεις, όρισε δικό σου διακομιστή στο Ρυθμίσεις › Χαρτοφυλάκιο › Δικός σου διακομιστής για διευθύνσεις.</string>
+</resources>

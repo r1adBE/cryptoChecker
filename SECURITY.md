@@ -59,12 +59,21 @@ keys or other secrets never belong in this repository.
     restore on a new iPhone the files are set aside and the app asks for a backup
     file; Settings › Backup says so up front on both platforms (Android Keystore
     keys are device-bound too). File protection stays the system default.
-  * If encryption cannot be set up (no key, failed migration), the data stays
-    readable in plaintext as before and Settings › Backup says «Encryption not
-    active yet» until a later start succeeds – except the portfolio: iOS keeps
-    changes in memory, Android never creates the portfolio database unencrypted
-    (kept in memory only, retried at the next start; an existing plaintext one
-    still opens and migrates).
+  * If encryption cannot be set up (no key, failed migration), the app never
+    writes the watchlist or the portfolio in plaintext (since build 91, the same
+    on Android and iOS). Settings › Backup says «Encryption not active yet» while
+    a plaintext file from an older version exists, and every start tries again.
+    What that means:
+    * **Readable:** a plaintext file left over from an older version is opened
+      read-only and its content shown from a copy in memory. If there is no file
+      yet, nothing is created on disk and the app starts empty.
+    * **Stays saved:** that file stays exactly as it was. Nothing is written into
+      it or deleted, and a later start with a key encrypts it.
+    * **Changes are saved:** no. Changes are kept in memory for this session only
+      and are lost when the app closes. The watchlist asks once before the first
+      change («not being saved» – change anyway?), and the watchlist and the
+      portfolio show a notice while this lasts. Watchlist alerts pause in the
+      background during this time.
   * Copying the files off the device does not reveal their content without the
     device's key. On an unlocked phone the app itself still reads and shows
     everything – the portfolio lock only hides the display.

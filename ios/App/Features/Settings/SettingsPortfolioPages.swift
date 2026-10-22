@@ -93,6 +93,8 @@ struct PortfolioSettingsPage: View {
                 SettingsHint(text: L("settings_portfolio_lock_footer"), top: 2)
                     .padding(.horizontal, 16)
             }
+            // Eigener Server für Adressabfragen (nur Bitcoin); immer sichtbar wie die Adressen selbst
+            SettingsAddressServerCard()
         }
         .toast($toast)
         // Zurück aus den Systemeinstellungen: Gerätecode neu prüfen

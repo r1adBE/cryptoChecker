@@ -348,6 +348,11 @@ class SettingsRepository @Inject constructor(
     override suspend fun setTaxTemplate(template: com.cryptochecker.app.domain.portfolio.TaxTemplate) =
         edit { it[SettingsKeys.taxTemplate] = template.name }
 
+    /** Eigener Bitcoin-Server für Adressabfragen ([AddressServerStore]; in der Sicherung, «addressServerBtc»). */
+    val addressServerFlow: Flow<String?> = AddressServerStore.flow(context.settingsDataStore)
+    override suspend fun addressServer(): String? = addressServerFlow.first()
+    override suspend fun setAddressServer(url: String?) = AddressServerStore.set(context.settingsDataStore, url)
+
     /** Hinweis zu den Länder-Vorlagen (Beta) bestätigt (nicht in der Sicherung). */
     suspend fun setTaxTemplateConfirmed() = edit { it[SettingsKeys.taxTemplateConfirmed] = true }
 

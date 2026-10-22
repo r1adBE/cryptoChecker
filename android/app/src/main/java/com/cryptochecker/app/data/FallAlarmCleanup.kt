@@ -47,7 +47,7 @@ class FallAlarmCleanup @Inject constructor(
                 markDone(prefs)
             }.onFailure {
                 // Seit Build 106 (F-25): im Release sonst unsichtbar — zählen (Bereich «alarms»), Schlüssel fehlt: nur Hinweis
-                if (!it.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.ALARMS)
+                if (!it.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.ALARMS, error = it)
                 Timber.w(it, "Alarme «fällt um ≥ 100 %» nicht bereinigt")
             }
         }

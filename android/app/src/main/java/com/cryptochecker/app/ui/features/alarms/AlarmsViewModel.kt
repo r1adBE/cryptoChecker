@@ -335,7 +335,8 @@ class AlarmsViewModel @Inject constructor(
      */
     fun save(draft: AlarmDraft) {
         if (alarmSaveBlocked()) return
-        createGuard.launch(viewModelScope, guarded = draft.id == 0L) {
+        // Auch beim Bearbeiten gesperrt (ARC6-R02/IOS6-01): ein Doppeltipp gibt sonst zwei Saved (Haptik, Bestätigung doppelt)
+        createGuard.launch(viewModelScope, guarded = true) {
             val threshold = draft.threshold ?: return@launch
             // Seit Build 105: Rückfrage F-08 VOR allem (auch vor dem Entfernen der alten Mitteilung); «Abbrechen» = nichts
             if (!watchRepository.confirmUserWrite()) return@launch

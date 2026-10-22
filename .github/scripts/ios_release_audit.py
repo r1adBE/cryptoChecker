@@ -217,7 +217,7 @@ def strip_comments(text):
     """Swift comments (line, nested block) -> spaces, newlines kept (line numbers stay). Since build 106 (SEC4-01) a
     small tokenizer: string literals (plain, multi-line, raw #"..."# with escapes and interpolation) are skipped,
     so "a//b" or "/0/*" no longer hides the code after it. Since build 107 (REL5-R1) extended regex literals #/.../#
-    (any number of #, multi-line when #/ ends the line) are skipped too, so #/a//b/# hides nothing. Bare /.../ literals
+    (any number of #, multi-line when #/ ends the line, spaces/tabs/CR allowed) are skipped too, so #/a//b/# hides nothing. Bare /.../ literals
     are not recognised on purpose: they need Swift 6 mode or -enable-bare-slash-regex (the app builds with Swift 5),
     and telling them apart from division needs a parser - a wrong guess would blank real code."""
     out = list(text)
@@ -255,7 +255,13 @@ def strip_comments(text):
             hashes += 1
             i += 1
         i += 1
-        multi = i < n and text[i] == "\n"
+        # Multi-line when only spaces/tabs (and a CR of CRLF) follow #/ up to the line end (REL6-R1)
+        j = i
+        while j < n and text[j] in " \t":
+            j += 1
+        if j < n and text[j] == "\r":
+            j += 1
+        multi = j < n and text[j] == "\n"
         close = "/" + "#" * hashes
         while i < n:
             if text[i] == "\\":
@@ -416,6 +422,11 @@ def self_test():
         ("let r = #/x\\/#\"/#; let t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
         ("// docs/#/en-us mach_absolute_time()\nlet x = 1", []),
         ('let u = "docs/#/en"; let t = mach_absolute_time()', ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        # REL6-R1: multi-line also with spaces/tabs or CRLF after #/
+        ("let r = #/ \t\n a /* c\n/#\nlet t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ("let r = #/\r\n a /* c\r\n/#\r\nlet t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ("let r = #/ \r\n a /* c\n/#\nlet t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ("let r = #/ a /#\nlet t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
     ]
     for case in cases:
         text, expected = case[0], case[1]

@@ -157,9 +157,13 @@ class PortfolioWidgetRenderer @Inject constructor(
                     title = if (state == PortfolioOff.WidgetState.OFF) context.getString(R.string.widget_portfolio_off_title) else null,
                 )
             } else {
-                // Je Widget: Anzeige (Nur USDT / Umrechnung / + USDT), Zeitraum und Chart-Art
+                // Ansicht je Widget: Übersicht, Chart (Standard) oder Liste
+                val view = widgetPrefs.getPortfolioView(appWidgetId)
+                // Je Widget: Anzeige (Nur USDT / Umrechnung / + USDT), Zeitraum und Chart-Art — wirksam je Ansicht
+                // ([PortfolioWidgetOptions]: Liste ohne «+ USDT», Übersicht nur 30 T / 1 J)
+                val chosenDisplay = widgetPrefs.getPortfolioDisplay(appWidgetId, settings.portfolioCurrency)
                 val display = PortfolioWidgetChart.effectiveDisplay(
-                    widgetPrefs.getPortfolioDisplay(appWidgetId, settings.portfolioCurrency),
+                    PortfolioWidgetOptions.effectiveDisplay(view, chosenDisplay),
                     snapshot.currency,
                     snapshot.totalUsdt != null,
                 )
@@ -168,15 +172,13 @@ class PortfolioWidgetRenderer @Inject constructor(
                 val wantUsdt = display == PortfolioDisplay.CONVERSION_USDT
                 val plan = PortfolioWidgetChart.plan(
                     snapshot = shown,
-                    requested = widgetPrefs.getPortfolioRange(appWidgetId),
+                    requested = PortfolioWidgetOptions.effectiveRange(view, widgetPrefs.getPortfolioRange(appWidgetId)),
                     type = widgetPrefs.getPortfolioChartType(appWidgetId),
                     // UTC-Tag wie der Tagesverlauf der Aufnahme ([PortfolioWidgetChart.dailyData])
                     todayEpochDay = PortfolioHistory.utcToday(),
                     zone = zone,
                     dayAxis = dayAxis(shown),
                 )
-                // Ansicht je Widget: Übersicht, Chart (Standard) oder Liste
-                val view = widgetPrefs.getPortfolioView(appWidgetId)
                 // Liste: Coin-Logos (Schalter «Coin-Logos in Widgets»), einmal für alle Grössen
                 val logos = if (view == PortfolioWidgetView.LIST && settings.widgetCoinLogos && shown.positions.isNotEmpty()) {
                     try {

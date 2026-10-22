@@ -65,15 +65,22 @@ enum PortfolioFeeExpenses {
         return max(0, full - (withdrawal(t, holdings: holdings)?.usdt ?? 0))
     }
 
-    /// Seit Build 104: Gebühr einer Umbuchung (Gebühr USDT + Wert der Gebühr im dritten Coin), die auf den nicht erfassten
+    /// Seit Build 104: Gebühr einer Umbuchung (Gebühr USDT + Wert der Gebühr im dritten Coin), die auf den nicht gedeckten
     /// Teil der Menge fällt: Gebühr × max(Menge − `covered`, 0) / Menge, bei leerem Bestand die ganze Gebühr. Wie
     /// `withdrawalUncovered` als `PortfolioUnassignedFee` vermerkt statt still verworfen; der Rest verteilt sich wie bisher.
-    /// `covered`: universell der Bestand vor der Umbuchung, je Wallet die verschobene Menge. Wie Android.
+    /// `covered`: die Menge, die ankommt — für alle Methoden wie FIFO je Wallet: Menge und Netzwerkgebühr verlassen die
+    /// Quelle, die Netzwerkgebühr zuerst; universell also max(Bestand − Netzwerkgebühr, 0), je Wallet die verschobene Menge.
+    /// Wie Android.
     static func transferUncovered(_ t: PortfolioTx, covered: Decimal) -> Decimal {
-        let amount = t.amountExact
-        if t.type != .TRANSFER || amount <= 0 || covered >= amount { return 0 }
-        let full: Decimal = t.quoteFeeExact + (t.thirdFeeValue ?? 0)
-        if full <= 0 { return 0 }
+        if t.type != .TRANSFER { return 0 }
+        return uncoveredShare(t.quoteFeeExact + (t.thirdFeeValue ?? 0), amount: t.amountExact, covered: covered)
+    }
+
+    /// Anteil der Gebühr `full` auf die nicht gedeckte Menge: full × max(`amount` − `covered`, 0) / amount, ohne Deckung
+    /// die ganze Gebühr; 0 = ganz gedeckt, keine Gebühr oder keine Menge. Auch für den Pool der Steuer-Vorlagen
+    /// (`TaxPool.addFee`). Wie Android.
+    static func uncoveredShare(_ full: Decimal, amount: Decimal, covered: Decimal) -> Decimal {
+        if full <= 0 || amount <= 0 || covered >= amount { return 0 }
         if covered <= 0 { return full }
         return PortfolioDecimal.divide(full * (amount - covered), amount)
     }

@@ -311,18 +311,18 @@ class WatchlistViewModel @Inject constructor(
 
     fun selectGroup(group: String?) = edits.selectGroup(group)
 
-    fun setNote(watch: WatchEntity, note: String?, onProceed: () -> Unit = {}) = edits.setNote(watch, note, onProceed)
-
-    fun setGroup(watch: WatchEntity, group: String?, onProceed: () -> Unit = {}) = edits.setGroup(watch, group, onProceed)
+    fun setNote(watch: WatchEntity, note: String?, onProceed: () -> Unit = {}, cancelled: () -> Unit = {}) = edits.setNote(watch, note, onProceed, cancelled)
+    fun setGroup(watch: WatchEntity, group: String?, onProceed: () -> Unit = {}, cancelled: () -> Unit = {}) =
+        edits.setGroup(watch, group, onProceed, cancelled)
 
     /** Mehrfachauswahl › «Gruppe»: alle [ids] in [group] (null = keine Gruppe). */
     fun setGroup(ids: Collection<Long>, group: String?, onDone: (Boolean) -> Unit = {}) = edits.setGroup(ids, group, onDone)
 
     /** «Gruppe bearbeiten» übernehmen; [oldName] null für eine neue Gruppe. */
-    fun saveGroup(oldName: String?, newName: String, memberIds: Set<Long>, onDone: () -> Unit = {}) = edits.saveGroup(oldName, newName, memberIds, onDone)
+    fun saveGroup(oldName: String?, newName: String, memberIds: Set<Long>, onDone: () -> Unit = {}, cancelled: () -> Unit = {}) = edits.saveGroup(oldName, newName, memberIds, onDone, cancelled)
 
     /** Gruppe löschen: Paare bleiben in der Merkliste; die Ansicht springt auf «Alle». */
-    fun deleteGroup(name: String, onDone: () -> Unit = {}) = edits.deleteGroup(name, onDone)
+    fun deleteGroup(name: String, onDone: () -> Unit = {}, cancelled: () -> Unit = {}) = edits.deleteGroup(name, onDone, cancelled)
 
     /** Vorschau-Paar aus «Heute auffällig» in die Merkliste ([WatchlistEditController.addPreview]); [onFull]: Merkliste voll. */
     fun addPreview(watch: WatchEntity, onFull: () -> Unit, onDone: (Long?, Boolean) -> Unit) = edits.addPreview(watch, onFull, onDone)

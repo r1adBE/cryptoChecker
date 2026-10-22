@@ -43,16 +43,19 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.PortfolioStorageLock
 import com.cryptochecker.app.domain.portfolio.AddressChain
+import com.cryptochecker.app.domain.portfolio.AddressServer
 import com.cryptochecker.app.domain.portfolio.AddressValidation
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.WatchedAddressUndo
+import com.cryptochecker.app.ui.features.settings.AddressServerViewModel
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -61,7 +64,7 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 /**
  * Portfolio ⋯ › «Adressen»: beobachtete öffentliche Adressen (nur lesen) — Liste mit Guthaben, Stand bzw.
  * Fehler, Entfernen mit Rückfrage; darunter Hinzufügen (Netz automatisch erkannt, Bezeichnung optional).
- * Vor der ersten Adresse ein Datenschutz-Hinweis mit den Anbietern; Seed-Wörter und private Schlüssel
+ * Vor der ersten Adresse und vor dem ersten xpub ein Datenschutz-Hinweis mit den Anbietern; Seed-Wörter und private Schlüssel
  * lehnt die Prüfung ab ([AddressValidation.Problem.SECRET]). xpub/ypub/zpub: eigener Hinweis (alle Adressen der
  * Wallet auf dem Gerät, gesendet werden nur einzelne). ETH-Zeilen: Token-Guthaben und Schalter «Tokens mitzählen».
  */
@@ -74,6 +77,9 @@ internal fun PortfolioAddressSheet(
     val addresses by viewModel.watchedAddresses.collectAsStateWithLifecycle()
     val hideAmounts by viewModel.hideAmounts.collectAsStateWithLifecycle()
     val transactions by viewModel.transactions.collectAsStateWithLifecycle()
+    // Eigener Bitcoin-Server (Einstellungen › Portfolio): im Datenschutz-Hinweis statt der öffentlichen Hosts
+    val serverState by hiltViewModel<AddressServerViewModel>().state.collectAsStateWithLifecycle()
+    val btcServer = serverState.server
     // Coins aus eigenen Transaktionen: Überschneidung mit einer Adresse = möglicherweise doppelt
     val ownCoins = remember(transactions) {
         transactions.orEmpty().map { com.cryptochecker.app.domain.portfolio.PortfolioCalculator.normalizeCoin(it.coin) }.toSet()
@@ -192,7 +198,7 @@ internal fun PortfolioAddressSheet(
         AlertDialog(
             onDismissRequest = { askPrivacy = false },
             title = { Text(stringResource(R.string.portfolio_addresses_title)) },
-            text = { Text(privacyText(check)) },
+            text = { Text(privacyText(check, btcServer)) },
             confirmButton = {
                 TextButton(onClick = { askPrivacy = false; addChecked() }) { Text(stringResource(R.string.portfolio_address_add)) }
             },
@@ -325,13 +331,14 @@ internal fun PortfolioAddressSheet(
                         }
                         // Wer die Adresse sieht (Anbieter des erkannten Netzes); xpub: was er verrät und wie viele Anfragen
                         Text(
-                            privacyText(check),
+                            privacyText(check, btcServer),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(top = Spacing.md)
                         )
                         Button(
-                            onClick = { if (addresses.isEmpty()) askPrivacy = true else addChecked() },
+                            // Zustimmung vor der ersten Adresse und vor dem ersten xpub/Deskriptor ([AddressServer.consentNeeded])
+                            onClick = { if (AddressServer.consentNeeded(addresses, check)) askPrivacy = true else addChecked() },
                             enabled = canAdd,
                             modifier = Modifier.fillMaxWidth().padding(top = Spacing.md, bottom = Spacing.lg)
                         ) {

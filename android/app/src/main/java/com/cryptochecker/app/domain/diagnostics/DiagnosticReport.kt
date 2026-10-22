@@ -155,6 +155,7 @@ object DiagnosticReport {
             else -> errors.forEach { lines += clean(it) }
         }
         lines += BackgroundErrors.line(input.backgroundErrors)
+        BackgroundErrors.kindsLine(input.backgroundErrors)?.let { lines += it }
         return lines.joinToString("\n") + "\n"
     }
 

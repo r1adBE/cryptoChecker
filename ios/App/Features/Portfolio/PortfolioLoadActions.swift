@@ -11,7 +11,9 @@ extension PortfolioModel {
     func refreshWatchedAddresses(force: Bool, budgetMillis: Int64? = nil) async {
         let list = data.watchedAddresses
         guard !list.isEmpty else { return }
-        guard let updates = try? await WatchedAddressSource.shared.refresh(list, force: force, budgetMillis: budgetMillis)
+        // Eigener Bitcoin-Server aus den Einstellungen: Bitcoin dann nur dort (`AddressServer`)
+        guard let updates = try? await WatchedAddressSource.shared.refresh(list, force: force, budgetMillis: budgetMillis,
+                                                                           btcServer: data.settings.addressServerBtc)
         else { return }
         data.applyWatchedAddressUpdates(updates)
     }

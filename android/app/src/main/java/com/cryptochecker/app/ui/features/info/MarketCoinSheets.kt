@@ -270,8 +270,8 @@ internal fun MarketCoinSheets(
                     }
                 } else null,
                 // Seit Build 107 (IOS5-R02): Dialog erst nach bestätigter Rückfrage F-08 zu («Abbrechen»: offen mit Eingabe)
-                onSetGroup = { group, close -> watchlist.setGroup(shown, group, close) },
-                onSetNote = { note, close -> watchlist.setNote(shown, note, close) },
+                onSetGroup = { group, close, cancelled -> watchlist.setGroup(shown, group, close, cancelled) },
+                onSetNote = { note, close, cancelled -> watchlist.setNote(shown, note, close, cancelled) },
                 // Wie in der Merkliste (seit Build 107, UX5-R2): Blatt erst nach der Rückfrage zu, Haptik und kurzes Banner
                 onToggleDisabled = { uiEvents.toggleDisabled(watchlist, shown) },
                 loadFutures = watchlist::fetchFutures,

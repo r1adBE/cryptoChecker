@@ -157,6 +157,8 @@ enum SettingsSearchCatalog {
             [L("tax_template_hint")])
         add("portfolio.system_backup", L("settings_portfolio_system_backup"), portfolio,
             .page(.portfolio, anchor: "portfolio.system_backup"), [L("settings_portfolio_system_backup_hint_ios")])
+        add("portfolio.address_server", L("settings_address_server_title"), portfolio,
+            .page(.portfolio, anchor: "portfolio.address_server"), [L("settings_address_server_hint")])
 
         // 5 Sicherung (unter «Mehr»)
         let backup = L("backup_title")

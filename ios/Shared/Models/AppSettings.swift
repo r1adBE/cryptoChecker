@@ -187,6 +187,9 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// Markt-Tab: «Mehr Marktdaten» (Zeilen zu «Stimmung & Zyklus» und «Marktdaten») aufgeklappt
     /// (Standard zu), wie Android («market_more_expanded»); nur auf diesem Gerät, nicht in der Sicherung.
     var marketMoreExpanded: Bool = false
+    /// Eigener Bitcoin-Server für Adressabfragen (`AddressServer`, normalisiert); nil = öffentliche Knoten. Gesetzt fragen
+    /// Bitcoin-Adressen und xpub nur dort. In der Sicherung («addressServerBtc»), wie Android.
+    var addressServerBtc: String? = nil
 
     init() {}
 
@@ -316,6 +319,8 @@ struct AppSettings: Codable, Equatable, Sendable {
         marketTabSeen = (try? c.decodeIfPresent(Bool.self, forKey: .marketTabSeen)) ?? d.marketTabSeen
         taxTemplateConfirmed = (try? c.decodeIfPresent(Bool.self, forKey: .taxTemplateConfirmed)) ?? d.taxTemplateConfirmed
         marketMoreExpanded = (try? c.decodeIfPresent(Bool.self, forKey: .marketMoreExpanded)) ?? d.marketMoreExpanded
+        // Beim Lesen erneut geprüft; ungültig gilt als nicht gesetzt (wie Android `AddressServerStore`)
+        addressServerBtc = ((try? c.decodeIfPresent(String.self, forKey: .addressServerBtc)) ?? nil).flatMap { AddressServer.check($0).url }
     }
 }
 

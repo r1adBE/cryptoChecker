@@ -3,7 +3,9 @@ package com.cryptochecker.app.data.portfolio
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.PortfolioHistory
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
+import com.cryptochecker.app.settings.SettingsRepository
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.first
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -13,12 +15,14 @@ import javax.inject.Singleton
  * Hintergrund/Widget, [com.cryptochecker.app.widget.PortfolioSnapshotUpdater.refresh]):
  * höchstens alle [AddressBalance.CACHE_MILLIS] je Adresse, manuell frühestens nach
  * [AddressBalance.MIN_FORCED_MILLIS]. Ohne Adressen keine Anfrage. Fehler bleiben still
- * (stehen je Adresse als `lastError`, das letzte Guthaben bleibt).
+ * (stehen je Adresse als `lastError`, das letzte Guthaben bleibt). Eigener Bitcoin-Server aus den Einstellungen; ist er
+ * nicht lesbar, wird gar nicht gefragt (nie still bei öffentlichen Knoten).
  */
 @Singleton
 class WatchedAddressRefresher @Inject constructor(
     private val repository: PortfolioRepository,
     private val source: WatchedAddressSource,
+    private val settings: SettingsRepository,
 ) {
     /**
      * @param background Hintergrund/Widget: alle Adressen zusammen höchstens
@@ -30,7 +34,8 @@ class WatchedAddressRefresher @Inject constructor(
             val addresses = repository.getWatchedAddresses()
             if (addresses.isEmpty()) return false
             val budget = if (background) WatchedAddressSource.BACKGROUND_TOTAL_MILLIS else null
-            val updates = source.refresh(addresses, force, budgetMillis = budget)
+            val server = settings.addressServerFlow.first()
+            val updates = source.refresh(addresses, force, budgetMillis = budget, btcServer = server)
             for (u in updates) {
                 repository.updateWatchedAddressBalance(
                     u.id, u.fetched?.balance, u.time, u.error, u.fetched?.provider, u.fetched?.tokens, u.fetched?.xpub,

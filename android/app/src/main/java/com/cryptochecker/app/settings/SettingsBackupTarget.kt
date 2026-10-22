@@ -64,4 +64,7 @@ interface SettingsBackupTarget {
     suspend fun setTaxTemplate(template: TaxTemplate)
     suspend fun setWatchlistColumnSort(value: String?)
     suspend fun setAppLock(enabled: Boolean)
+    /** Eigener Bitcoin-Server für Adressabfragen (ausserhalb von [AppSettings], `AddressServerStore`); null = öffentlich. */
+    suspend fun addressServer(): String?
+    suspend fun setAddressServer(url: String?)
 }

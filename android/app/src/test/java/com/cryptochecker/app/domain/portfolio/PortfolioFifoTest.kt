@@ -293,14 +293,18 @@ class PortfolioFifoTest {
         // Portfolio-Methoden über das Buch (gleicher Anteil), andere Jahre leer
         same("5", TaxExport.unassignedFeesIn(trades, CostMethod.FIFO, 1970, zone).single().usdt)
         assertTrue(TaxExport.unassignedFeesIn(trades, CostMethod.AVERAGE, 1971, zone).isEmpty())
-        // Pool direkt: ohne Teil mit Kaufpreis die ganze Gebühr, ohne Bestand nichts
+        // Pool direkt: ohne Bestand und ohne Teil mit Kaufpreis die ganze Gebühr (wie FIFO je Wallet vermerkt)
         val pool = TaxPool()
-        same("0", pool.addFee(day, dec("4")))
+        same("4", pool.addFee(day, dec("4"), dec("1"), BigDecimal.ZERO))
         pool.add(dec("1"), null, day)
-        same("4", pool.addFee(day, dec("4")))
+        same("4", pool.addFee(day, dec("4"), dec("1"), BigDecimal.ZERO))
         pool.add(dec("1"), dec("100"), day)
-        same("2", pool.addFee(day, dec("4")))
+        same("2", pool.addFee(day, dec("4"), dec("2"), BigDecimal.ZERO))
         same("102", pool.cost)
+        // Menge 2 + Netzwerkgebühr 0,5 bei Bestand 2: gedeckt 1,5 → 4 × 0,5 / 2 = 1 vermerkt, vom Rest 3 die Hälfte
+        // zum Einstand (1,5), die andere vermerkt: 2,5
+        same("2.5", pool.addFee(day, dec("4"), dec("2"), dec("0.5")))
+        same("103.5", pool.cost)
     }
 
     /** M-6b: Gebühr im Coin über zwei Posten mit verschiedener Haltedauer — kurz/lang getrennt richtig. */

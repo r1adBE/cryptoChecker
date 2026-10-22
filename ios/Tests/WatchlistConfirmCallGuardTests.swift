@@ -98,6 +98,24 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
                        ["bad", "cancelledPath", "afterBlock", "stringOpensComment", "regexHidesNothing", "ownClosureParam"])
     }
 
+    /// REL6-R1: mehrzeiliges Regex-Literal auch mit Leerzeichen/Tab bzw. CRLF nach `#/` — ein `/*` darin öffnet keinen
+    /// Kommentar, der Schreibweg danach bleibt sichtbar (wie `ios_release_audit.py --self-test`).
+    func testMultilineRegexWithSpaceOrCRLF() {
+        let repo = CallGuard.Source(#"""
+        extension AppData {
+            func reorder(_ ids: [Int64]) { guard !watchlistWriteRefused() else { return } }
+        }
+        """#)
+        let writes = CallGuard.writePaths([repo])
+        XCTAssertEqual(writes.map(\.name), ["reorder"])
+        for gap in [" \t\n", "\r\n", " \r\n"] {
+            let text = "extension X {\n    func spaced() {\n        let r = #/" + gap + "  a /* c" + gap
+                + "/#\n        data.reorder([])\n    }\n}\n"
+            let result = CallGuard.check(["Features/Sample.swift": CallGuard.Source(text)], writes: writes, allowed: [])
+            XCTAssertEqual(result.problems.map { $0.components(separatedBy: " ").last ?? "" }, ["spaced"], gap.debugDescription)
+        }
+    }
+
     /// Alle Swift-Dateien unter `dir` (Schlüssel relativ zu `dir`), ohne Kommentare.
     private func swiftSources(in dir: URL) throws -> [String: CallGuard.Source] {
         var out: [String: CallGuard.Source] = [:]
