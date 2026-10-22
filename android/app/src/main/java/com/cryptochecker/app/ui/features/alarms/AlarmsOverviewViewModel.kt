@@ -99,7 +99,7 @@ class AlarmsOverviewViewModel @Inject constructor(
      * Zeilen der Paarwahl ([AlarmPickerRow]) ohne Kurs, im Hintergrund gerechnet und nur bei echter Änderung weitergegeben
      * (nicht bei jeder Kurs-Schreibung) — seit Build 104. null = noch nicht gerechnet.
      */
-    val pickerRows: StateFlow<List<AlarmPickerRow>?> = watchRepository.observeWatches()
+    internal val pickerRows: StateFlow<List<AlarmPickerRow>?> = watchRepository.observeWatches()
         .map { alarmPickerRows(it) }
         .distinctUntilChanged()
         .flowOn(Dispatchers.Default)
