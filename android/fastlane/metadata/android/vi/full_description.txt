@@ -1,8 +1,8 @@
-Cảnh báo khi Bitcoin chạm mức giá của bạn – từ chính sàn bạn đang dùng. Khi ứng dụng đóng, Android quyết định lúc nào kiểm tra cảnh báo – nhiều nhất 15 phút một lần, thường chỉ sau vài giờ. Biến động ngắn ở giữa có thể bị lỡ; ứng dụng sẽ cho bạn biết điều này. Giá của sàn bạn, không phải giá trung bình – miễn phí, không cần tài khoản.
+Crypto Checker kiểm tra giá trên sàn của bạn và báo cho bạn khi lần kiểm tra thấy mức của bạn đã đạt. Khi ứng dụng đóng, Android quyết định lúc nào kiểm tra cảnh báo – nhiều nhất 15 phút một lần, thường chỉ sau vài giờ. Biến động ngắn ở giữa có thể bị lỡ; ứng dụng sẽ cho bạn biết điều này. Giá của sàn bạn, không phải giá trung bình – miễn phí, không cần tài khoản.
 
 ĐIỀU LÀM NÊN KHÁC BIỆT
 • Sàn của bạn, không phải giá trung bình: mỗi dòng hiển thị giá gần nhất của cặp trên sàn bạn đã chọn – Binance, Coinbase, Kraken, OKX, Bybit và nhiều sàn khác.
-• Cảnh báo chỉ báo một lần: “Báo cho tôi khi BTC vượt 100.000 USDT.” Nó kêu khi giá vượt mốc, không phải mỗi lần cập nhật – “Một lần” sẽ tắt sau đó, “Mỗi lần” sẽ bật lại khi giá quay về.
+• Cảnh báo chỉ báo một lần: “Báo cho tôi khi BTC vượt 100.000 USDT.” Nó kêu khi lần kiểm tra thấy giá đã vượt mốc, không phải mỗi lần cập nhật – “Một lần” sẽ tắt sau đó, “Mỗi lần” sẽ bật lại khi giá quay về.
 • “Cái gì biến động cùng?”: danh sách yếu tố cho một đồng coin – toàn thị trường, khối lượng, độ biến động, funding và open interest, khoảng cách tới đỉnh hoặc đáy, Fear & Greed. Nó cho thấy những gì biến động cùng lúc – không phải nguyên nhân, không phải tin tức, không phải tư vấn đầu tư.
 • Không tài khoản, không quảng cáo, không theo dõi. Nhà phát triển không nhận bất kỳ dữ liệu nào của bạn.
 
@@ -32,7 +32,7 @@ THỊ TRƯỜNG
 
 NGOÀI RA
 • Widget: danh sách, tổng giá trị danh mục, một coin kèm biểu đồ
-• Danh mục tùy chọn (bật trong Cài đặt): mua, bán, hoán đổi, chuyển, phần thưởng, nạp và rút; FIFO (mặc định) hoặc trung bình (Ø); địa chỉ chỉ đọc, không cần seed, cho BTC (cả xpub), ETH & chuỗi EVM, SOL, TRX, XRP, LTC, ADA và TON; nhập CSV từ Relai, Swissquote, Bitpanda, Kraken, Binance và Coinbase; tổng hợp năm dạng CSV; khóa riêng. Bitpanda và Swissquote không có nguồn giá công khai nên không có giá riêng – giao dịch của chúng được nhập qua CSV.
+• Danh mục tùy chọn (bật trong Cài đặt): mua, bán, hoán đổi, chuyển, phần thưởng, nạp và rút; FIFO (mặc định) hoặc trung bình (Ø); địa chỉ chỉ đọc, không cần seed, cho BTC (cả xpub), ETH & chuỗi EVM, SOL, TRX, XRP, LTC, ADA và TON; nhập CSV từ Relai, Swissquote, Bitpanda, Kraken, Binance và Coinbase; tổng hợp năm dạng CSV; khóa riêng. Bitpanda và Swissquote: không có giá riêng, chỉ qua CSV.
 • Dễ đọc cho mọi người: xanh/đỏ hoặc xanh dương/cam, dấu và mũi tên thay vì chỉ màu; TalkBack đọc mỗi dòng thành một câu
 • Sao lưu và khôi phục ra tệp – cả giữa Android và iPhone
 • Chế độ sáng và tối, năm màu nhấn, 31 ngôn ngữ

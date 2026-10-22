@@ -335,6 +335,10 @@ enum BackupManager {
         }
         // Kurs-Mitteilungen der bisherigen Paare erst nach Erfolg entfernen (beim Rückrollen bleiben sie)
         old.watches.forEach { Notifier.cancelPrice($0.id) }
+        // Seit Build 104: Alarme ersetzt (Ids der Sicherung können sich mit bisherigen decken) — alte Vermerke
+        // «wird gemeldet» gelten nicht mehr (wie Android)
+        AlarmDelivery.pairs.removeAll()
+        if portfolioAlarms != nil { AlarmDelivery.portfolio.removeAll() }
         return RestoreResult(watches: watches.count, alarms: alarms.count, appLockKept: lock.keptOn,
                              droppedPairs: watchlist.droppedPairs, droppedAlarms: watchlist.droppedAlarms)
     }

@@ -206,11 +206,19 @@ fun PortfolioViewModel.deleteCoin(
     }
 }
 
-/** «Import rückgängig»: alle Transaktionen des Laufs [batch] löschen; [onDeleted] erhält sie für «Rückgängig». */
-fun PortfolioViewModel.undoImport(batch: String, onDeleted: (List<PortfolioTxEntity>) -> Unit) {
+/**
+ * «Import rückgängig»: alle Transaktionen des Laufs [batch] löschen; [onDeleted] erhält sie für «Rückgängig». Nicht
+ * geschrieben (gesperrt/Fehler): [onFailed] (seit Build 104, statt still — wie [deleteCoin]).
+ */
+fun PortfolioViewModel.undoImport(
+    batch: String,
+    onFailed: (PortfolioWriteResult) -> Unit = {},
+    onDeleted: (List<PortfolioTxEntity>) -> Unit,
+) {
     viewModelScope.launch {
-        val removed = portfolioWrite("Import rückgängig") { repository.undoImport(batch) }.second.orEmpty()
-        if (removed.isNotEmpty()) onDeleted(removed)
+        val (result, removed) = portfolioWrite("Import rückgängig") { repository.undoImport(batch) }
+        if (result != PortfolioWriteResult.OK) onFailed(result)
+        else if (!removed.isNullOrEmpty()) onDeleted(removed)
     }
 }
 

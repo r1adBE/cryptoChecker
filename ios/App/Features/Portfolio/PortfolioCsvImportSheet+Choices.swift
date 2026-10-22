@@ -20,6 +20,7 @@ extension PortfolioCsvImportSheet {
                 Button(L("explorer_bulk_show_all", links.count)) { showAllLinks = true }
                     .font(.subheadline)
                     .buttonStyle(.borderless)
+                    .disabled(rereading)
             }
         }
         .sheet(isPresented: $showAllLinks) {
@@ -61,6 +62,8 @@ extension PortfolioCsvImportSheet {
         }
         .tint(accent.primary)
         .accessibilityHint(L("portfolio_csv_import_transfer_link"))
+        // Seit Build 104: während des Neu-Lesens aus (nicht nur gedimmt) — wie Android
+        .disabled(rereading)
         .padding(.top, 4)
     }
 
@@ -86,6 +89,7 @@ extension PortfolioCsvImportSheet {
                 }
                 .font(.subheadline)
                 .buttonStyle(.borderless)
+                .disabled(rereading)
             }
             ForEach(withdrawals.prefix(Self.listRows), id: \.importKey) { tx in
                 withdrawalRow(tx, destination: destinations[tx.importKey])
@@ -94,6 +98,7 @@ extension PortfolioCsvImportSheet {
                 Button(L("explorer_bulk_show_all", withdrawals.count)) { showAllWithdrawals = true }
                     .font(.subheadline)
                     .buttonStyle(.borderless)
+                    .disabled(rereading)
             }
         }
         .sheet(isPresented: $showAllWithdrawals) {
@@ -107,9 +112,7 @@ extension PortfolioCsvImportSheet {
 
     private func withdrawalRow(_ tx: CsvImportTx, destination: String?) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(rowText(tx))
-                .font(.subheadline.monospacedDigit())
-                .lineLimit(1)
+            previewRow(tx)
             if let to = destination {
                 hint(L("portfolio_csv_import_choice_proposed", to))
             }
@@ -148,6 +151,7 @@ extension PortfolioCsvImportSheet {
         }
         .buttonStyle(.borderless)
         .accessibilityAddTraits(selected ? .isSelected : [])
+        .disabled(rereading)
     }
 
     /// Alle Auszahlungen gleich («Alle auf eigene Wallet» / «Alle verlassen das Portfolio»).
@@ -178,6 +182,7 @@ extension PortfolioCsvImportSheet {
             }
             .pickerStyle(.menu)
             .tint(accent.primary)
+            .disabled(rereading)
         }
     }
 
@@ -199,6 +204,7 @@ extension PortfolioCsvImportSheet {
                 Text(L("portfolio_csv_import_date_month_first")).tag(CsvDateOrder.MONTH_FIRST)
             }
             .pickerStyle(.segmented)
+            .disabled(rereading)
         }
     }
 
@@ -228,6 +234,7 @@ extension PortfolioCsvImportSheet {
                 }
             }
             .pickerStyle(.segmented)
+            .disabled(rereading)
         }
     }
 }

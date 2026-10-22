@@ -1,5 +1,5 @@
 {
-  "_comment": "CSV-Import Relai/Swissquote (CsvImportParser.kt/.swift). Zeiten: ISO-UTC oder Epoch-ms. Beträge als exakter Text.",
+  "_comment": "CSV-Import Relai/Swissquote (CsvImportParser.kt/.swift). Zeiten: ISO-UTC oder Epoch-ms. Beträge als exakter Text. dates: zone = Zeitzone der Zeit ohne Versatz (fehlt = Standard); seit Build 104 Herbst-Doppelstunde = späterer Versatz (Winterzeit), Frühlingslücke um ihre Länge vorgerückt (02:30 → 03:30 Sommerzeit), auch westlich von UTC.",
   "files": [
     {
       "name": "relai_basic",
@@ -1700,6 +1700,46 @@
     {
       "text": "",
       "expected": null
+    },
+    {
+      "text": "2024-10-27 02:30:00",
+      "zone": "Europe/Zurich",
+      "expected": "2024-10-27T01:30:00Z"
+    },
+    {
+      "text": "2024-03-31 02:30:00",
+      "zone": "Europe/Zurich",
+      "expected": "2024-03-31T01:30:00Z"
+    },
+    {
+      "text": "2024-07-01 12:00:00",
+      "zone": "Europe/Zurich",
+      "expected": "2024-07-01T10:00:00Z"
+    },
+    {
+      "text": "2024-11-03 01:30:00",
+      "zone": "America/New_York",
+      "expected": "2024-11-03T06:30:00Z"
+    },
+    {
+      "text": "2024-03-10 02:30:00",
+      "zone": "America/New_York",
+      "expected": "2024-03-10T07:30:00Z"
+    },
+    {
+      "text": "2024-11-03 00:30:00",
+      "zone": "America/New_York",
+      "expected": "2024-11-03T04:30:00Z"
+    },
+    {
+      "text": "2024-11-03 02:30:00",
+      "zone": "America/New_York",
+      "expected": "2024-11-03T07:30:00Z"
+    },
+    {
+      "text": "2024-07-01 12:00:00",
+      "zone": "America/New_York",
+      "expected": "2024-07-01T16:00:00Z"
     }
   ],
   "classify": [

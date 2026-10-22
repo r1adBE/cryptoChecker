@@ -273,25 +273,28 @@ extension PortfolioCalculator {
                                                            pricedRemoved: taken.removedPriced, cost: taken.costRemoved))
             case .TRANSFER:
                 let holdings = book.holdings
-                if holdings <= 0 { continue }
+                let coinFee = t.coinFeeExact
+                // Seit Build 104: Menge oder Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
+                // erfassten Menge wird vermerkt (leerer Bestand: die ganze Gebühr), nicht still verworfen
+                if amount > holdings || coinFee > holdings { oversold = true }
+                let lost = PortfolioFeeExpenses.transferUncovered(t, covered: holdings)
+                if holdings <= 0 {
+                    if lost > 0 { unassignedFees.append(PortfolioUnassignedFee(coin: symbol, txId: t.id, time: t.time, usdt: lost)) }
+                    continue
+                }
                 let allPriced = book.unpriced == 0
-                // Gebühr USDT + Wert der Gebühr im dritten Coin: zum Einstand des Teils mit Kaufpreis; der Anteil des
-                // Teils ohne Kaufpreis (ohne Teil mit Kaufpreis: die ganze Gebühr) wird vermerkt
-                let extra = t.quoteFeeExact + (feeValue ?? 0)
+                // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: zum Einstand des Teils mit Kaufpreis; der Anteil
+                // des Teils ohne Kaufpreis (ohne Teil mit Kaufpreis: der ganze Rest) wird vermerkt
+                let extra = t.quoteFeeExact + (feeValue ?? 0) - lost
                 var assigned: Decimal = 0
                 if book.priced > 0 {
                     if feeValue == nil { feeValueMissing = true }
                     assigned = allPriced ? extra : PortfolioDecimal.divide(extra * book.priced, holdings)
                 }
-                if extra > 0 {
-                    book.addCost(t.time, assigned)
-                    if extra > assigned {
-                        unassignedFees.append(PortfolioUnassignedFee(coin: symbol, txId: t.id, time: t.time, usdt: extra - assigned))
-                    }
-                }
+                if extra > 0 { book.addCost(t.time, assigned) }
+                let noted = extra - assigned + lost
+                if noted > 0 { unassignedFees.append(PortfolioUnassignedFee(coin: symbol, txId: t.id, time: t.time, usdt: noted)) }
                 // Netzwerkgebühr im Coin: nur die Menge sinkt, der Einstand bleibt im Rest (Kosten des Haltens)
-                let coinFee = t.coinFeeExact
-                if coinFee > holdings { oversold = true }
                 if coinFee > 0 {
                     let removed = min(coinFee, holdings)
                     let removedPriced = allPriced ? removed

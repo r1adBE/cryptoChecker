@@ -54,19 +54,31 @@ enum MarketHTTP {
     /// Sammelabfragen der Kurse: 20 s wie Einzelabfragen (auch Gesamtdauer) — eine hängende Börse hielte sonst
     /// die Aktualisierung bis zu 70 s auf (Hintergrund und Widget haben nur rund 30 s).
     static let tickerBulkSession: URLSession = makeSession(timeout: 20, resource: 20)
+    /// Adress-Hosts (`HttpUserAgent.isAddressHost`, seit Build 104): eigene Sessions mit neutralem User-Agent und
+    /// eigenen Verbindungen — Gebühren/Halving an mempool.space, publicnode … nennen die App so nie (wie Android).
+    static let addressHostSession: URLSession = makeSession(timeout: 20, userAgent: HttpUserAgent.neutral)
+    static let addressHostBulkSession: URLSession = makeSession(timeout: 60, userAgent: HttpUserAgent.neutral)
+
+    /// Session für eine Anfrage an `host`: Adress-Hosts nie über die Sessions mit App-User-Agent (seit Build 104).
+    static func sessionFor(host: String?, requested: URLSession) -> URLSession {
+        guard let host, HttpUserAgent.isAddressHost(host) else { return requested }
+        if requested === addressHostSession || requested === addressHostBulkSession { return requested }
+        return requested === MarketHTTP.session ? addressHostSession : addressHostBulkSession
+    }
 
     /// Gleichzeitige Anfragen insgesamt und je Host — wie Android (OkHttp-Dispatcher `maxRequests` 32,
     /// `maxRequestsPerHost` 5). Mehr wartet in `RequestGate`, bevor die URLSession-Aufgabe entsteht.
     static let maxRequests = 32
     static let maxRequestsPerHost = 5
 
-    private static func makeSession(timeout: TimeInterval, resource: TimeInterval? = nil) -> URLSession {
+    private static func makeSession(timeout: TimeInterval, resource: TimeInterval? = nil,
+                                    userAgent: String = HttpUserAgent.value) -> URLSession {
         let c = PrivateSessionConfig.make(timeout: timeout, resource: resource ?? timeout + 10)
         // Mehr Verbindungen je Host als `RequestGate` je Host durchlässt: Keine Aufgabe wartet in der URLSession auf eine
         // freie Verbindung — dort liefen ihre Fristen schon und endeten als Schein-Zeitüberschreitung (Pause der Börse)
         c.httpMaximumConnectionsPerHost = maxRequestsPerHost + 1
         c.requestCachePolicy = .reloadIgnoringLocalCacheData
-        c.httpAdditionalHeaders = [HttpUserAgent.header: HttpUserAgent.value, "Accept": "application/json"]
+        c.httpAdditionalHeaders = [HttpUserAgent.header: userAgent, "Accept": "application/json"]
         c.waitsForConnectivity = false
         return URLSession(configuration: c)
     }
@@ -80,6 +92,8 @@ enum MarketHTTP {
             return body
         }
         guard let u = URL(string: url) else { throw UserFriendlyMarketError(message: L("something_went_wrong")) }
+        // Erst nach dem Spiegel: dessen Host (GitHub) behält die gewünschte Session
+        let effective = Self.sessionFor(host: u.host, requested: session)
         var request = URLRequest(url: u)
         if let post {
             request.httpMethod = "POST"
@@ -89,18 +103,22 @@ enum MarketHTTP {
             }
             post.headers?.forEach { request.setValue($0.value, forHTTPHeaderField: $0.key) }
         }
+        // Adress-Hosts: neutral auch gegen mitgegebene Kopfzeilen (seit Build 104)
+        if HttpUserAgent.isAddressHost(u.host ?? "") {
+            request.setValue(HttpUserAgent.neutral, forHTTPHeaderField: HttpUserAgent.header)
+        }
         // Gleiche gleichzeitige Anfragen nur einmal ins Netz (`InFlightRequests`): GETs mit derselben Adresse, POSTs
         // mit derselben Adresse, denselben Kopfzeilen und demselben Körper — etwa Hyperliquid, dessen Einzelkurs für
         // jedes Paar dieselbe «metaAndAssetCtxs»-Antwort (~100 KB) holt
         // Schlüssel ohne Zeitstempel (BingX, `RequestKey`): sonst wären gleiche Anfragen nie gleich
-        var key = "\(session.configuration.timeoutIntervalForRequest)|\(session.configuration.timeoutIntervalForResource)|\(RequestKey.of(url))"
+        var key = "\(effective.configuration.timeoutIntervalForRequest)|\(effective.configuration.timeoutIntervalForResource)|\(RequestKey.of(url))"
         if let post {
             let headers = (post.headers ?? [:]).sorted { $0.key < $1.key }.map { $0.key + "=" + $0.value }
             key = "POST|" + key + "|" + headers.joined(separator: ",") + "|" + post.body
         }
         let shared = request
         return try await InFlightRequests.shared.value(key) {
-            try await gatedLoad(shared, url: url, session: session)
+            try await gatedLoad(shared, url: url, session: effective)
         }
     }
 
@@ -129,7 +147,8 @@ enum MarketHTTP {
     /// Grenze je Session: Nur die Einzelabfrage-Session hat die kleine Grenze, alle anderen (Listen,
     /// Sammelabfragen) die grosse — in der Widget-Erweiterung höchstens `maxExtensionBodyBytes`.
     static func bodyLimit(session: URLSession, inExtension: Bool = isAppExtension) -> Int {
-        let limit = session === MarketHTTP.session ? maxBodyBytes : maxBulkBodyBytes
+        let small = session === MarketHTTP.session || session === addressHostSession
+        let limit = small ? maxBodyBytes : maxBulkBodyBytes
         return inExtension ? min(limit, maxExtensionBodyBytes) : limit
     }
 

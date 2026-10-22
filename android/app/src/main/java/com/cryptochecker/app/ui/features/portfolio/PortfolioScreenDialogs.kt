@@ -97,7 +97,8 @@ internal fun PortfolioScreenDialogs(
         PortfolioImportsDialog(
             batches = PortfolioImportBatch.summarize(transactions.orEmpty().map { it.importBatch }),
             onUndo = { batch ->
-                viewModel.undoImport(batch.id) { removed ->
+                // Nicht geschrieben: Hinweis statt still (seit Build 104)
+                viewModel.undoImport(batch.id, onFailed = notSaved) { removed ->
                     haptics.play(HapticEvent.DESTRUCTIVE)
                     banner.show(resources.getQuantityString(R.plurals.portfolio_import_undone, removed.size, removed.size)) {
                         viewModel.restore(removed) { if (it != PortfolioWriteResult.OK) notSaved(it) }

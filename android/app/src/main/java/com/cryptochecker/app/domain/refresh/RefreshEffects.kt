@@ -9,6 +9,7 @@ import com.cryptochecker.app.data.portfolio.CurrencyConverter
 import com.cryptochecker.app.data.remote.NearExtremeDataSource
 import com.cryptochecker.app.data.remote.VolumeDataSource
 import com.cryptochecker.app.domain.alarm.AlarmCheckStatus
+import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarker
 import com.cryptochecker.app.domain.alarm.AlarmDeliveryMarkerStore
 import com.cryptochecker.app.domain.alarm.AlarmEvaluator
 import com.cryptochecker.app.domain.alarm.AlarmLog
@@ -29,6 +30,8 @@ import com.cryptochecker.app.data.MoveHistoryStore
 import com.cryptochecker.app.util.appScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -168,6 +171,8 @@ class RefreshEffects internal constructor(
             /** Alarm-Protokoll: Kurs in der Währung der Schwelle; null = dieser Alarm wird nicht protokolliert. */
             logPrice: Double? = null,
         ) {
+            // Seit Build 104: Lauf abgebrochen (Worker gestoppt) → nicht mehr melden, Alarm bleibt scharf (wie iOS)
+            currentCoroutineContext().ensureActive()
             // Fürs Protokoll nur mitlesen, was die Schritte liefern (null = Schritt nicht erreicht)
             var canShowSeen: Boolean? = null
             var shownSeen: Boolean? = null
@@ -184,7 +189,8 @@ class RefreshEffects internal constructor(
                 mark = mark,
                 retract = { notifier.cancelAlarms(listOf(alarm.id)) },
                 snoozed = snoozed,
-                isShown = { notifier.activeNotificationIds()?.contains(AppNotifier.alarmNotificationId(alarm.id)) == true },
+                // Seit Build 104: nur eine NACH dem Vermerk gemeldete Mitteilung bestätigt (nicht eine ältere desselben Alarms)
+                isShown = { markerAt -> AlarmDeliveryMarker.shownSinceMarker(notifier.alarmPostedAt(alarm.id), markerAt) },
             )
             if (trace != null && logPrice != null) observe {
                 AlarmLog.deliveryTrace(holdAlarms, canShowSeen, shownSeen, saved, snoozed)?.let { trace.note(alarm, it, logPrice) }

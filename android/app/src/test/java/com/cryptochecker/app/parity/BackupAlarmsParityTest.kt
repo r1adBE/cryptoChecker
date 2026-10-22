@@ -23,6 +23,8 @@ class BackupAlarmsParityTest {
             assertEquals(c.getString("name"), c.getBoolean("valid"), alarm != null)
             // Zeitraum nach dem Lesen (gekürzt, kein Überlauf)
             if (c.has("windowHours")) assertEquals(c.getString("name"), c.getInt("windowHours"), alarm?.windowHours)
+            // Seit Build 104: fallend ≥ 100 % ausgeschaltet übernommen
+            if (c.has("expectedEnabled")) assertEquals(c.getString("name"), c.getBoolean("expectedEnabled"), alarm?.enabled)
         }
         // Liste: ungültige werden gezählt, nicht still verworfen
         val list = JSONArray().apply { for (i in 0 until cases.length()) put(cases.getJSONObject(i).getJSONObject("alarm")) }

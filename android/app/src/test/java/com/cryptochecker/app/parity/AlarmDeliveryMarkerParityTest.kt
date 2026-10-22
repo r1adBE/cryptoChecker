@@ -21,15 +21,71 @@ class AlarmDeliveryMarkerParityTest {
     @Test
     fun entscheidungWieGemeinsameTestfaelle() {
         assertEquals(fixture["freshMillis"].num()!!.toLong(), AlarmDeliveryMarker.FRESH_MILLIS)
+        assertEquals(fixture["postedToleranceMillis"].num()!!.toLong(), AlarmDeliveryMarker.POSTED_TOLERANCE_MILLIS)
         val cases = fixture["cases"].list()
-        assertTrue(cases.size >= 8)
+        assertTrue(cases.size >= 15)
         for (raw in cases) {
             val c = raw.obj()
-            val actual = AlarmDeliveryMarker.alreadyDelivered(
-                c["markerAt"].num()?.toLong(), c["now"].num()!!.toLong(), c["shown"] as Boolean,
-            )
+            val markerAt = c["markerAt"].num()?.toLong()
+            // Seit Build 104: «postedAt» statt «shown» — gezeigt nur, wenn ab dem Vermerk gemeldet
+            val shown = if (c.containsKey("postedAt")) {
+                AlarmDeliveryMarker.shownSinceMarker(c["postedAt"].num()?.toLong(), markerAt ?: 0L)
+            } else {
+                c["shown"] as Boolean
+            }
+            val actual = AlarmDeliveryMarker.alreadyDelivered(markerAt, c["now"].num()!!.toLong(), shown)
             assertEquals(c["name"] as String, c["expected"] as Boolean, actual)
         }
+    }
+
+    /** Seit Build 104: Eine ältere Mitteilung desselben Alarms bestätigt nicht — Abklingzeit statt stillem Speichern. */
+    @Test
+    fun aeltereMitteilungBestaetigtNicht() = runBlocking {
+        val store = AlarmDeliveryMarkerStore.InMemory()
+        val at = 1_700_000_000_000L
+        store.set(11, at)
+        var marks = 0
+        var seenMarker: Long? = null
+        val result = AlarmDelivery(store).deliver(
+            alarmId = 11, now = at + 60_000L, cooldownMinutes = 0, holdAlarms = false,
+            canShow = { true }, show = { true }, mark = { marks++; true },
+            isShown = { markerAt -> seenMarker = markerAt; AlarmDeliveryMarker.shownSinceMarker(at - 3_600_000L, markerAt) },
+        )
+        assertFalse(result)
+        assertEquals(at, seenMarker)
+        assertEquals(0, marks)
+        assertEquals(at, store.get(11))
+    }
+
+    /** Seit Build 104: schon gemeldet, aber nicht mehr speicherbar (inzwischen bearbeitet) → Mitteilung wieder weg. */
+    @Test
+    fun schonGemeldetAberNichtGespeichertEntferntMitteilung() = runBlocking {
+        val store = AlarmDeliveryMarkerStore.InMemory()
+        val at = 1_700_000_000_000L
+        store.set(12, at)
+        var retracted = 0
+        val result = AlarmDelivery(store).deliver(
+            alarmId = 12, now = at + 60_000L, cooldownMinutes = 0, holdAlarms = false,
+            canShow = { true }, show = { true }, mark = { false }, retract = { retracted++ },
+            isShown = { markerAt -> AlarmDeliveryMarker.shownSinceMarker(at + 300L, markerAt) },
+        )
+        assertFalse(result)
+        assertEquals(1, retracted)
+        assertNull(store.get(12))
+    }
+
+    /** Seit Build 104: Vermerke gelöschter bzw. ersetzter Alarme aufräumen. */
+    @Test
+    fun vermerkeAufraeumen() {
+        val store = AlarmDeliveryMarkerStore.InMemory()
+        store.set(1, 10L)
+        store.set(2, 20L)
+        store.set(3, 30L)
+        store.retain(setOf(1L, 3L))
+        assertNull(store.get(2))
+        store.remove(listOf(3L))
+        assertNull(store.get(3))
+        assertEquals(10L, store.get(1))
     }
 
     /** Erster Lauf endet nach dem Melden (vor dem Speichern); der nächste Lauf speichert nur, ohne erneut zu melden. */

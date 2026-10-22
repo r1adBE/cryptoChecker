@@ -141,6 +141,8 @@ extension AppData {
 
     func deletePortfolioAlarm(_ id: Int64) {
         mutate({ s in s.portfolioAlarms?.removeAll { $0.id == id } }, reloadWidgets: false)
+        // Seit Build 104: Vermerk «wird gemeldet» des gelöschten Alarms weg (wie Android)
+        AlarmDelivery.portfolio.remove([id])
     }
 
     /// Alarmwährungen, die einen Devisenkurs brauchen (`PortfolioAlarmLogic.currenciesNeedingRate`).
@@ -217,7 +219,11 @@ extension AppData {
                     await Notifier.showPortfolioAlarm(alarm, measured: value, settings: current,
                                                       usdtAssumed: PortfolioAlarmLogic.usdtAssumed(alarm, reading))
                 },
-                mark: { await self.markPortfolioAlarmTriggered(alarm, value: value, at: now) })
+                mark: { await self.markPortfolioAlarmTriggered(alarm, value: value, at: now) },
+                // Seit Build 104 wie die Paar-Alarme: nicht gespeichert → Mitteilung weg; nach einem Prozess-Ende
+                // zählt nur eine nach dem Vermerk gezeigte Mitteilung als zugestellt (`alreadyDelivered`)
+                retract: { Notifier.cancelPortfolioAlarm(alarm.id) },
+                isShown: { markerAt in await Notifier.isPortfolioAlarmDelivered(alarm.id, since: markerAt) })
         }
     }
 
@@ -271,6 +277,8 @@ extension AppData {
         Notifier.cancelAlarm(id)
         // Alarm-Protokoll: seine letzte Prüfung gehört zum Alarm (Protokoll-Einträge bleiben); Datei abseits des Hauptfadens
         Task.detached(priority: .utility) { AlarmLogStore.removeAlarm(id) }
+        // Seit Build 104: Vermerk «wird gemeldet» des gelöschten Alarms weg (wie Android)
+        AlarmDelivery.pairs.remove([id])
     }
 
     func setAlarmEnabled(_ id: Int64, _ enabled: Bool) {

@@ -32,6 +32,28 @@ if (providers.gradleProperty("requireReleaseSigning").orNull == "true" && !keyst
     )
 }
 
+// Seit Build 103: Quell-Commit für «Diagnose teilen». Store-Build: -PgitCommit=<Hash aus dem public-Klon>, CI: GITHUB_SHA,
+// sonst «local». Kein git-Aufruf beim Konfigurieren (Konfigurations-Cache); nur Hex-Zeichen übernehmen.
+val gitCommit: String = providers.gradleProperty("gitCommit").orElse(providers.environmentVariable("GITHUB_SHA"))
+    .getOrElse("").trim().filter { it in '0'..'9' || it in 'a'..'f' || it in 'A'..'F' }.ifEmpty { "local" }
+
+// Seit Build 104: Store-Build (requireReleaseSigning=true) ohne Commit bricht ab, statt «local» in die Diagnose zu
+// schreiben. Geprüft erst im fertigen Task-Graph und nur, wenn ein Release-Bundle/-APK gebaut wird (Debug-Builds,
+// Tests und CI ohne die Eigenschaft bleiben unberührt); whenReady läuft vor dem Speichern des Konfigurations-Caches.
+val requireReleaseCommit = providers.gradleProperty("requireReleaseSigning").orNull == "true" && gitCommit == "local"
+if (requireReleaseCommit) {
+    val appPath = project.path
+    gradle.taskGraph.whenReady {
+        val releaseTasks = listOf("bundleRelease", "assembleRelease", "packageReleaseBundle", "packageRelease")
+        if (releaseTasks.any { hasTask("$appPath:$it") }) {
+            throw GradleException(
+                "requireReleaseSigning=true, aber gitCommit fehlt (wäre «local»). Commit aus dem öffentlichen Klon " +
+                    "übergeben: -PgitCommit=<Ausgabe von «git -C <public-Klon> rev-parse HEAD»> (siehe docs/PLAY_STORE.md §3)",
+            )
+        }
+    }
+}
+
 android {
     namespace = "com.cryptochecker.app"
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -41,13 +63,10 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 103
+        versionCode = 104
         versionName = "16.2.2"
 
-        // Seit Build 103: Quell-Commit für «Diagnose teilen». Store-Build: -PgitCommit=$(git rev-parse HEAD), CI: GITHUB_SHA,
-        // sonst «local». Kein git-Aufruf beim Konfigurieren (Konfigurations-Cache); nur Hex-Zeichen übernehmen.
-        val gitCommit = providers.gradleProperty("gitCommit").orElse(providers.environmentVariable("GITHUB_SHA"))
-            .getOrElse("").trim().filter { it in '0'..'9' || it in 'a'..'f' || it in 'A'..'F' }.ifEmpty { "local" }
+        // Seit Build 103: Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
         buildConfigField("String", "GIT_COMMIT", "\"$gitCommit\"")
 
         // Instrumentierte Tests mit Hilt (HiltTestApplication); betrifft nur androidTest

@@ -212,6 +212,8 @@ extension AppData {
     private func forgetDeletedAlarmChecks() {
         let ids = Set(snapshot.alarms.map(\.id))
         Task.detached(priority: .utility) { AlarmLogStore.retainAlarms(ids) }
+        // Seit Build 104: Vermerke «wird gemeldet» gelöschter Alarme weg (wie Android `forgetDeletedAlarms`)
+        AlarmDelivery.pairs.retain(ids)
     }
 
     /// Löschen mit «Rückgängig»: löscht sofort wie `delete` (samt Alarmen) und liefert

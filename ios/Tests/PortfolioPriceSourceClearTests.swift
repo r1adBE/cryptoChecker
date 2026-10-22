@@ -1,0 +1,33 @@
+import XCTest
+@testable import CryptoChecker
+
+/// Seit Build 104 (Review IOS2-04): «Portfolio leeren» (`PortfolioPriceSource.clearStored`) vergisst auch die Coins
+/// mit «Kurs nicht verfügbar» — sie nennen gehaltene Coins. Android: `PortfolioPriceSourceStore.kt` › `clearStored`.
+final class PortfolioPriceSourceClearTests: XCTestCase {
+
+    override func tearDown() {
+        PortfolioPriceSource.lock.lock()
+        PortfolioPriceSource.unavailableCoins = []
+        PortfolioPriceSource.uncheckedCoins = []
+        PortfolioPriceSource.lock.unlock()
+        super.tearDown()
+    }
+
+    func testClearStoredForgetsUnavailableCoins() {
+        PortfolioPriceSource.lock.lock()
+        PortfolioPriceSource.unavailableCoins = ["ZZTESTA", "ZZTESTB"]
+        PortfolioPriceSource.uncheckedCoins = ["ZZTESTC"]
+        PortfolioPriceSource.lock.unlock()
+        // Gegenprobe: vor dem Leeren gesetzt
+        XCTAssertEqual(PortfolioPriceSource.unavailableCoins, ["ZZTESTA", "ZZTESTB"])
+
+        PortfolioPriceSource.clearStored()
+
+        PortfolioPriceSource.lock.lock()
+        let unavailable = PortfolioPriceSource.unavailableCoins
+        let unchecked = PortfolioPriceSource.uncheckedCoins
+        PortfolioPriceSource.lock.unlock()
+        XCTAssertTrue(unavailable.isEmpty, "unavailableCoins nach clearStored: \(unavailable)")
+        XCTAssertTrue(unchecked.isEmpty, "uncheckedCoins nach clearStored: \(unchecked)")
+    }
+}

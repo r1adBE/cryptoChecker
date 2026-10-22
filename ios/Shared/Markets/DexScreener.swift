@@ -36,11 +36,25 @@ struct DexPool: Hashable, Sendable, Identifiable {
 /// (`/latest/dex/pairs/{chain}/{a,b,…}`, höchstens `bulkMaxPools` je Anfrage), einzelne über dieselbe Adresse. Frei
 /// und ohne Schlüssel; laut Anbieter rund 300 Abfragen pro Minute.
 final class DexScreener: Market {
+    /// Schlüssel der Börse (Sicherung, Merkliste).
+    static let key = "DexScreener"
+    /// Lesefehler «Pool nicht gefunden» (Einzelkurs, ungültige Kennung).
+    static let poolNotFound = "Pool not found"
+
     init() {
-        super.init(key: "DexScreener", name: "DexScreener", ttsName: "Dex Screener")
+        super.init(key: DexScreener.key, name: "DexScreener", ttsName: "Dex Screener")
     }
 
     // MARK: Einzelkurs
+
+    /// Kennung, die nicht unkodiert in den Pfad darf (`isSafePairId`): «nicht gefunden» ohne Anfrage (seit Build 104,
+    /// Android wirft in `tickerAddress`).
+    override func tickerQueryError(call: Int, info: PairQuery) -> Error? {
+        guard let pairId = info.pairId, DexScreener.isSafePairId(pairId) else {
+            return JSONError(message: DexScreener.poolNotFound)
+        }
+        return nil
+    }
 
     override func tickerAddress(call: Int, info: PairQuery) -> String {
         dexScreenerAPI + "/latest/dex/pairs/" + (info.pairId ?? "null")
@@ -53,7 +67,7 @@ final class DexScreener: Market {
             DexScreener.isPool(chainId: pool.optString("chainId"), pairAddress: pool.optString("pairAddress"),
                                pairId: info.pairId)
         }
-        guard let pool = found else { throw JSONError(message: "Pool not found") }
+        guard let pool = found else { throw JSONError(message: DexScreener.poolNotFound) }
         try DexScreener.copyPool(pool, into: &ticker)
     }
 
@@ -144,6 +158,18 @@ final class DexScreener: Market {
     /// Zeichen, die unkodiert im Pfad stehen dürfen (Chain-Namen, EVM-/Solana-Adressen).
     private static let safePathCharacters = Set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._~-")
 
+    /// Seit Build 104: Kennung genau «chain/adresse», beide Teile nur aus Zeichen, die unkodiert im Pfad stehen dürfen
+    /// (`safePathCharacters`; keine Leerzeichen, kein zweites «/», kein «?», «#», «%»). Gilt für Einzelkurs, Suchtreffer
+    /// und Sicherung. Wie Android `DexScreener.isSafePairId` (`Parity/dex_pair_id.json`).
+    static func isSafePairId(_ pairId: String) -> Bool {
+        guard let cut = pairId.firstIndex(of: "/") else { return false }
+        let chain = pairId[..<cut]
+        let address = pairId[pairId.index(after: cut)...]
+        return !chain.isEmpty && !address.isEmpty
+            && chain.allSatisfy { safePathCharacters.contains($0) }
+            && address.allSatisfy { safePathCharacters.contains($0) }
+    }
+
     /// Pools für die Sammelabfrage: je Chain (sortiert) die Adressen ohne Doppelte, sortiert, in Gruppen von höchstens
     /// `bulkMaxPools`. Kennungen ohne «chain/adresse» oder mit Zeichen, die kodiert werden müssten, fehlen — sie
     /// laufen über die Einzelabfrage. Wie `DexScreener.bulkGroups` (Android).
@@ -203,8 +229,10 @@ final class DexScreener: Market {
                 baseAddress: base.optString("address")
             ))
         }
+        // Seit Build 104: nur Pools, deren Kennung unkodiert in den Pfad darf (`isSafePairId`) — sonst nie übernehmbar
         let usable = pools.filter { pool in
             !pool.chainId.isEmpty && !pool.pairAddress.isEmpty && !pool.baseSymbol.isEmpty && pool.priceUsd != nil
+                && DexScreener.isSafePairId(pool.pairId)
         }
         // Stabil sortieren: bei gleicher Liquidität entscheidet die Position in der Antwort
         let ranked = usable.indices.sorted { left, right in

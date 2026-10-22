@@ -36,8 +36,10 @@ object AlarmJson {
     private const val MAX_FALL_PERCENT = 100.0
 
     /**
-     * Seit Build 103: fallende Prozent-Alarme («fällt um x %», Open Interest fällt) ab 100 % lösten nie aus und sind
-     * ungültig — der Editor nimmt nur Werte unter 100 an. Wie iOS `BackupManager.exceedsFall`.
+     * Seit Build 103: fallende Prozent-Alarme («fällt um x %», Open Interest fällt) ab 100 % lösen nie aus — der Editor
+     * nimmt nur Werte unter 100 an. Seit Build 104 kommen sie aus einer Sicherung AUSGESCHALTET (nicht als ungültig
+     * gezählt) und werden in der Alarmliste gekennzeichnet («Schwelle ungültig – bitte anpassen»). Wie iOS
+     * `BackupManager.exceedsFall`.
      */
     fun exceedsFall(condition: AlarmCondition, threshold: Double): Boolean =
         (condition == AlarmCondition.CHANGE_PERCENT_DOWN || condition == AlarmCondition.OI_DOWN) &&
@@ -54,19 +56,21 @@ object AlarmJson {
         return PortfolioJson.Parsed(items, invalid)
     }
 
-    /** Ein Alarm; null = ungültig (Id/Paar fehlt, Alarmart unbekannt, Schwelle nicht endlich bzw. ≤ 0, wo sie positiv sein muss, fallend ≥ 100 %). */
+    /**
+     * Ein Alarm; null = ungültig (Id/Paar fehlt, Alarmart unbekannt, Schwelle nicht endlich bzw. ≤ 0, wo sie positiv sein
+     * muss). Fallend ≥ 100 % seit Build 104: übernommen, aber ausgeschaltet ([exceedsFall]).
+     */
     fun fromJson(o: JSONObject): AlarmEntity? {
         if (!o.has("id") || !o.has("watchId")) return null
         val condition = AlarmCondition.entries.firstOrNull { it.name == o.optString("condition") } ?: return null
         val threshold = o.optDouble("threshold").takeIf { it.isFinite() } ?: return null
         if (needsPositiveThreshold(condition) && threshold <= 0.0) return null
-        if (exceedsFall(condition, threshold)) return null
         return AlarmEntity(
             id = o.optLong("id"),
             watchId = o.optLong("watchId"),
             condition = condition,
             threshold = threshold,
-            enabled = o.optBoolean("enabled", true),
+            enabled = o.optBoolean("enabled", true) && !exceedsFall(condition, threshold),
             repeating = o.optBoolean("repeating", false),
             sound = o.optBoolean("sound", true),
             vibrate = o.optBoolean("vibrate", true),

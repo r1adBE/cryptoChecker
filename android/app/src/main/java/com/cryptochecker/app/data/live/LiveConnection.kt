@@ -21,6 +21,7 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
+import okio.ByteString
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
@@ -75,7 +76,9 @@ internal class LiveConnection(
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
-                // Übergrosse Nachricht verwerfen und trennen wie bei einem Fehler (seit Build 103, iOS gleich)
+                // Übergrosse Nachricht verwerfen und trennen wie bei einem Fehler (seit Build 103). Die Grenze greift
+                // erst nach dem Empfang: OkHttp liest (und entpackt bei permessage-deflate) die ganze Nachricht ohne
+                // eigene Obergrenze; iOS begrenzt im System (maximumMessageSize). Restrisiko: public/DEVELOPMENT.md.
                 if (LiveRules.isMessageTooLarge(text)) {
                     Timber.d("Live-Kurse: %s Nachricht zu gross (%d Zeichen)", spec.exchange, text.length)
                     webSocket.cancel()
@@ -83,6 +86,17 @@ internal class LiveConnection(
                 }
                 lastMessageAt.set(System.currentTimeMillis())
                 if (onText(spec.exchange, text)) receivedData.set(true)
+            }
+
+            override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
+                // Binäre Nachricht (seit Build 104): zu gross → trennen; sonst als UTF-8-Text wie iOS (`.data`)
+                val text = binaryText(bytes)
+                if (text == null) {
+                    Timber.d("Live-Kurse: %s binäre Nachricht zu gross (%d Byte)", spec.exchange, bytes.size)
+                    webSocket.cancel()
+                    return
+                }
+                onMessage(webSocket, text)
             }
 
             override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
@@ -136,8 +150,12 @@ internal class LiveConnection(
 
     private class Ended(val receivedData: Boolean, val rateLimited: Boolean)
 
-    private companion object {
-        const val HEARTBEAT_CHECK_MILLIS = 5_000L
-        const val NORMAL_CLOSURE = 1000
+    internal companion object {
+        private const val HEARTBEAT_CHECK_MILLIS = 5_000L
+        private const val NORMAL_CLOSURE = 1000
+
+        /** Binäre Nachricht als Text (UTF-8, wie iOS); null = grösser als [LiveRules.MAX_MESSAGE_BYTES] (seit Build 104). */
+        fun binaryText(bytes: ByteString): String? =
+            if (bytes.size > LiveRules.MAX_MESSAGE_BYTES) null else bytes.utf8()
     }
 }

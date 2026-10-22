@@ -19,6 +19,10 @@ import java.util.concurrent.ConcurrentHashMap
  * vermerkt: Endet der Prozess zwischen Melden und Speichern, findet der nächste Lauf einen frischen Merker
  * ([AlarmDeliveryMarker.alreadyDelivered]) — steht die Mitteilung noch da ([isShown]), wird der Alarm nur noch als
  * gemeldet gespeichert statt ein zweites Mal zu klingeln.
+ *
+ * Seit Build 104: [isShown] bekommt den Zeitpunkt des Vermerks — nur eine Mitteilung, die NACH dem Vermerk gemeldet
+ * wurde ([AlarmDeliveryMarker.shownSinceMarker]), bestätigt; eine ältere desselben Alarms nicht. Lässt sich der Alarm
+ * dann nicht speichern, wird die Mitteilung wie im normalen Ablauf wieder entfernt.
  */
 class AlarmDelivery(
     /** Alarm-Id → Zeitpunkt des laufenden bzw. unbestätigten Versuchs; Standard nur im Speicher (Tests). */
@@ -37,15 +41,19 @@ class AlarmDelivery(
         retract: suspend () -> Unit = {},
         /** «1 h später» läuft ([AlarmSnooze.isSnoozed]): wie die Nachtruhe — nicht melden, scharf bleiben. */
         snoozed: Boolean = false,
-        /** Seit Build 103: Steht die Mitteilung dieses Alarms noch unter den offenen? */
-        isShown: suspend () -> Boolean = { false },
+        /**
+         * Seit Build 103: Steht die Mitteilung dieses Alarms noch unter den offenen? Seit Build 104 mit dem Zeitpunkt des
+         * Vermerks: nur eine danach gemeldete zählt ([AlarmDeliveryMarker.shownSinceMarker]).
+         */
+        isShown: suspend (markerAt: Long) -> Boolean = { false },
     ): Boolean {
         val pending = markers.get(alarmId)
         // Seit Build 103: voriger Lauf endete zwischen Melden und Speichern — nur speichern, nicht erneut melden.
         // false: in diesem Lauf nichts gemeldet (keine zweite Ansage, nicht gezählt)
-        if (pending != null && AlarmDeliveryMarker.alreadyDelivered(pending, now, isShown())) {
+        if (pending != null && AlarmDeliveryMarker.alreadyDelivered(pending, now, isShown(pending))) {
             withContext(NonCancellable) {
-                mark()
+                // Seit Build 104: nicht gespeichert (inzwischen bearbeitet/gelöscht) → Mitteilung wieder weg
+                if (!mark()) retract()
                 markers.set(alarmId, null)
             }
             return false
@@ -77,11 +85,20 @@ interface AlarmDeliveryMarkerStore {
     /** null = Vermerk entfernen. */
     fun set(alarmId: Long, at: Long?)
 
+    /** Seit Build 104: Vermerke dieser Alarme entfernen (gelöscht bzw. durch eine Sicherung ersetzt). */
+    fun remove(alarmIds: Collection<Long>) = alarmIds.forEach { set(it, null) }
+
+    /** Seit Build 104: nur Vermerke noch vorhandener Alarme behalten. */
+    fun retain(alarmIds: Set<Long>)
+
     class InMemory : AlarmDeliveryMarkerStore {
         private val map = ConcurrentHashMap<Long, Long>()
         override fun get(alarmId: Long): Long? = map[alarmId]
         override fun set(alarmId: Long, at: Long?) {
             if (at == null) map.remove(alarmId) else map[alarmId] = at
+        }
+        override fun retain(alarmIds: Set<Long>) {
+            map.keys.retainAll(alarmIds)
         }
     }
 }
@@ -94,4 +111,14 @@ object AlarmDeliveryMarker {
     /** Frischer Vermerk und die Mitteilung steht noch da: schon gemeldet, nur noch speichern. */
     fun alreadyDelivered(markerAt: Long?, now: Long, shown: Boolean): Boolean =
         shown && markerAt != null && markerAt > 0L && now - markerAt in 0 until FRESH_MILLIS
+
+    /** Seit Build 104: Spielraum für die Meldezeit des Systems gegenüber dem Vermerk (wie iOS 1 s). */
+    const val POSTED_TOLERANCE_MILLIS = 1_000L
+
+    /**
+     * Seit Build 104: Zählt die offene Mitteilung (Meldezeit [postedAt], null = keine offen) als die nach dem Vermerk
+     * [markerAt] gemeldete? Eine ältere desselben Alarms (z. B. vom vorigen Auslösen) bestätigt nichts.
+     */
+    fun shownSinceMarker(postedAt: Long?, markerAt: Long): Boolean =
+        postedAt != null && postedAt >= markerAt - POSTED_TOLERANCE_MILLIS
 }

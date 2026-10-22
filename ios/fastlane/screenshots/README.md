@@ -82,8 +82,9 @@ Dateinamen.
 
 Dieselben Szenen wie bei Google Play: zwei starke Bilder, ein ruhiges (seit Build 41). Demo-Daten,
 Beschriftungen in allen Sprachen (`captions.json`, Tabellen im Kit-README) und das Rahmen-Skript liegen im
-Screenshot-Kit `../../../android/docs/store/screenshots/README.md`. Leitidee: ein Alarm, der einmal meldet, und
-«Was bewegt sich mit?» ohne Ursache und ohne Prognose. Keine «Markt-Terminal»-Szene, kein Portfolio-Bild.
+Screenshot-Kit `../../../android/docs/store/screenshots/README.md`. Leitidee (seit Build 104): Krypto-Checker
+ohne Konto – Kurse direkt von deiner Börse, ein Hinweis, wenn beim Nachsehen die Marke erreicht ist (nicht im Moment
+des Kurses); als Zusatz «Was bewegt sich mit?» ohne Ursache und ohne Prognose. Keine «Markt-Terminal»-Szene, kein Portfolio-Bild.
 
 1. «Ein Alarm, der einmal meldet» – Alarm-Editor mit dem Satz «Wenn BTC unter 90 000 geht», Wiederholung «Einmal»
    (oder die ausgelöste Demo-Mitteilung über der Merkliste)

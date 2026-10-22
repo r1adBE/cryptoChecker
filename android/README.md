@@ -1,8 +1,8 @@
 # cryptoChecker
 
-**Crypto Checker zeigt, was sich gleichzeitig bewegt – keine Ursache, keine Prognose.** Kurse direkt von der
-Börse, Marktüberblick und «Was bewegt sich mit?» – ohne Prognosen, keine
-Anlageberatung.
+**Crypto Checker ist ein Krypto-Checker: Kurse direkt von deiner Börse; Hinweise, wenn beim Nachsehen eine
+Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
+bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
 Kursüberwachung für Kryptowährungen: Merkliste, Benachrichtigungen, Alarme,
 Sprachausgabe und Startbildschirm-Widgets über 53 Märkte – 44 Börsen (teils

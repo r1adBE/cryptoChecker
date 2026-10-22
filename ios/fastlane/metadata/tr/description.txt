@@ -1,8 +1,8 @@
-Bitcoin senin fiyatına ulaştığında alarm – gerçekten kullandığın borsadan. Uygulama kapalıyken iOS nadiren kontrol eder – çoğu zaman ancak saatler sonra, uygulamayı kaydırıp kapattıysan hiç etmez. En güvenilir yol: uygulamayı açık tutmak. Aradaki kısa sıçramalar kaçabilir; uygulama bunu sana söyler. Ortalama değil, senin borsanın fiyatı – ücretsiz, hesap olmadan.
+Crypto Checker borsanın fiyatlarını kontrol eder ve bir kontrolde seviyene ulaşıldığını görünce sana haber verir. Uygulama kapalıyken iOS nadiren kontrol eder – çoğu zaman ancak saatler sonra, uygulamayı kaydırıp kapattıysan hiç etmez. En güvenilir yol: uygulamayı açık tutmak. Aradaki kısa sıçramalar kaçabilir; uygulama bunu sana söyler. Ortalama değil, senin borsanın fiyatı – ücretsiz, hesap olmadan.
 
 ONU FARKLI KILAN
 • Senin borsan, ortalama değil: her satır, çiftin seçtiğin borsadaki son fiyatını gösterir – Binance, Coinbase, Kraken, OKX, Bybit ve daha fazlası.
-• Bir kez haber veren alarm: “BTC 100.000 USDT’nin üstüne çıkınca bana haber ver.” Seviye geçildiğinde çalar, her güncellemede değil – “Bir kez” ardından onu kapatır, “Her seferinde” fiyat geri dönünce yeniden kurar.
+• Bir kez haber veren alarm: “BTC 100.000 USDT’nin üstüne çıkınca bana haber ver.” Bir kontrol seviyenin geçildiğini görünce çalar; her güncellemede değil – “Bir kez” ardından onu kapatır, “Her seferinde” fiyat geri dönünce yeniden kurar.
 • “Onunla birlikte ne hareket ediyor?”: bir coin için etken listesi – genel piyasa, hacim, oynaklık, funding ve open interest, zirveye veya dibe uzaklık, Fear & Greed. Aynı anda neyin hareket ettiğini gösterir – neden değil, haber değil, yatırım tavsiyesi değil.
 • Hesap yok, reklam yok, takip yok. Geliştirici hiçbir verini almaz.
 
@@ -32,7 +32,7 @@ PİYASA
 
 AYRICA
 • Ana ekran ve kilit ekranı için widget’lar, tek coin için Canlı Etkinlik
-• Portföy isteğe bağlı (Ayarlar’dan açılır): alımlar, satımlar, takaslar, transferler, ödüller, yatırma ve çekme işlemleri; FIFO (varsayılan) veya ortalama (Ø); seed olmadan salt okunur adresler: BTC (xpub dahil), ETH ve EVM ağları, SOL, TRX, XRP, LTC, ADA ve TON; Relai, Swissquote, Bitpanda, Kraken, Binance ve Coinbase’ten CSV içe aktarma; CSV olarak yıllık özet; ayrı kilit. Bitpanda ve Swissquote’un herkese açık fiyat akışı olmadığından işlemleri CSV içe aktarmayla gelir.
+• Portföy isteğe bağlı (Ayarlar’dan açılır): alımlar, satımlar, takaslar, transferler, ödüller, yatırma ve çekme işlemleri; FIFO (varsayılan) veya ortalama (Ø); seed olmadan salt okunur adresler: BTC (xpub dahil), ETH ve EVM ağları, SOL, TRX, XRP, LTC, ADA ve TON; Relai, Swissquote, Bitpanda, Kraken, Binance ve Coinbase’ten CSV içe aktarma; CSV olarak yıllık özet; ayrı kilit. Bitpanda ve Swissquote: kendi fiyatı yok, yalnızca CSV ile.
 • Herkes için okunur: yeşil/kırmızı veya mavi/turuncu, yalnızca renk yerine işaret ve ok, Dynamic Type; VoiceOver her satırı tek cümle olarak okur
 • Dosyalar uygulamasıyla yedekleme ve geri yükleme
 • Açık ve koyu mod, beş vurgu rengi, 31 dil

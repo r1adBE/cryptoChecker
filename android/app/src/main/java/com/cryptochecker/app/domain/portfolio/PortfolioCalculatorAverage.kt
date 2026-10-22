@@ -275,22 +275,27 @@ internal fun PortfolioCalculator.average(symbol: String, events: List<PortfolioL
             }
             PortfolioTxType.TRANSFER -> {
                 val holdings = priced + unpriced
-                if (holdings.signum() <= 0) continue
+                val coinFee = t.coinFee
+                // Seit Build 104: Menge oder Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
+                // erfassten Menge wird vermerkt (leerer Bestand: die ganze Gebühr), nicht still verworfen
+                if (amount > holdings || coinFee > holdings) oversold = true
+                val lost = PortfolioFeeExpenses.transferUncovered(t, holdings)
+                if (holdings.signum() <= 0) {
+                    if (lost.signum() > 0) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, lost)
+                    continue
+                }
                 val allPriced = unpriced.signum() == 0
-                // Gebühr USDT + Wert der Gebühr im dritten Coin: zum Einstand des Teils mit Kaufpreis; der Anteil
-                // des Teils ohne Kaufpreis (ohne Teil mit Kaufpreis: die ganze Gebühr) wird vermerkt
-                val extra = t.quoteFee + (feeValue ?: zero)
+                // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: zum Einstand des Teils mit Kaufpreis; der
+                // Anteil des Teils ohne Kaufpreis (ohne Teil mit Kaufpreis: der ganze Rest) wird vermerkt
+                val extra = t.quoteFee + (feeValue ?: zero) - lost
                 val assigned = if (priced.signum() > 0) {
                     if (feeValue == null) feeValueMissing = true
                     if (allPriced) extra else extra.multiply(priced).divide(holdings, mc)
                 } else zero
-                if (extra.signum() > 0) {
-                    addCost(t.time, assigned)
-                    if (extra > assigned) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, extra - assigned)
-                }
+                if (extra.signum() > 0) addCost(t.time, assigned)
+                val noted = extra - assigned + lost
+                if (noted.signum() > 0) unassignedFees += PortfolioUnassignedFee(symbol, t.id, t.time, noted)
                 // Netzwerkgebühr im Coin: nur die Menge sinkt, der Einstand bleibt im Rest (Kosten des Haltens)
-                val coinFee = t.coinFee
-                if (coinFee > holdings) oversold = true
                 if (coinFee.signum() > 0) {
                     val removed = coinFee.min(holdings)
                     val removedPriced = if (allPriced) removed else PortfolioDecimal.amount(removed.multiply(priced).divide(holdings, mc)).min(priced)

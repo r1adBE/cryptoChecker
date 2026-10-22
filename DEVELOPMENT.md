@@ -601,7 +601,13 @@ and field table lives in the script; update it together with an adapter (URLs an
 as in `android/testdata/exchanges/exchange_*.json`). On a failure the job opens ONE issue
 «Exchange API check failed» (or updates the open one) and the run stays green (the issue is the signal); when all pass again it
 closes the issue. HTTP 451 (and 403 for exchanges that block US cloud IPs) counts as skipped,
-since GitHub's runners are in the US. The token has `contents: read` and `issues: write`. Locally, without
+since GitHub's runners are in the US. Since build 104 the scheduled data workflows (`exchange-live-check.yml`,
+`macro-calendar.yml`, `market-data.yml`) run in two jobs: the fetch job (`contents: read` only) talks to third-party
+servers and uploads its result as an artifact; the publish job (write/issue permissions, no third-party requests)
+checks out `github.sha` afresh, downloads the artifact with `gh run download` (`actions: read`;
+`actions/download-artifact` is not pinned in the repository) and checks it with
+`.github/scripts/artifact_check.py` (expected file names, size, rough JSON schema; `--self-test`) before committing,
+uploading or managing the issue. Locally, without
 touching GitHub: `python3 .github/scripts/exchange_live_check.py --dry-run` (optionally
 `--only kraken,okx`).
 
@@ -1502,7 +1508,18 @@ the tests named here.
 * **Gemini**: an ambiguous symbol always goes through `/symbols/details`.
 * **Background decisions are pure** (`work/BackgroundWorkPolicy.kt`): exact alarm arm/cancel, fired action,
   rescheduling actions, worker outcome. Receivers and the worker only call it. No `runBlocking` at app start.
-* **User-Agent** carries the real app version on both platforms (`HttpUserAgent`).
+* **User-Agent** carries the real app version on both platforms (`HttpUserAgent`). Exception (build 104): every
+  host that sees watched addresses (`AddressBalance.PRIVACY_HOSTS`/`privacyHosts`) gets `HttpUserAgent.NEUTRAL`
+  (Firefox ESR 153 string, one value for both platforms, `address_privacy.json`) on *every* request, gas fees and
+  halving included (Android: `UserAgentInterceptor` host rule; iOS: `MarketHTTP.sessionFor(host:requested:)`). The
+  address client has its own connection pool/dispatcher (iOS: own sessions). It hides the app name, not the fact
+  that it is an app (TLS/HTTP fingerprint).
+* **Live stream message cap (residual risk, build 104).** Android checks the 1 MiB cap only after OkHttp has read
+  the whole message (text and, since build 104, binary → UTF-8 like iOS `.data`): OkHttp has no incoming size limit
+  and always offers `permessage-deflate`, inflating before the listener (switching it off would need a network
+  interceptor stripping `Sec-WebSocket-Extensions`; not done – more traffic, and uncompressed frames are unbounded
+  too). A hostile or broken exchange endpoint (TLS-authenticated) could therefore exhaust memory before the cut;
+  iOS limits inside `URLSessionWebSocketTask` (`maximumMessageSize`).
 * **Stablecoin trades are swaps (CSV).** A buy/sell priced in a stablecoin (`PortfolioStables` set) is imported as
   a SWAP into/out of the stablecoin; only fiat (`CsvImport.FIAT`) makes a BUY/SELL. FR/AT treat crypto→stablecoin
   as neutral; a manual «Sell» always means a sale for fiat. Converted rows keep their old key as accepted duplicate.
@@ -2149,6 +2166,17 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 104 (review round 2): `AlarmDelivery` `isShown(markerAt)` with post-time tolerance (`alarm_delivery_marker.json`
+  `postedAt`), `mark()==false` → `retract()`, marker cleanup (delete, restore, DB onCreate); Android
+  `PortfolioAlarmDeliveryMarkers` for portfolio alerts; `FallAlarmCleanup` / iOS `disableInvalidFallAlarmsOnce`
+  (`alarm_threshold_invalid_fix`, `backup_alarms.json` `expectedEnabled`); `PortfolioFeeExpenses.transferUncovered`;
+  `CsvImportState.Preview.choice`, `CsvImportTime` later offset at overlap (`csv_import.json` dates `zone`);
+  `BackgroundRunSeams`, cancelled run after saving does not notify (Android `ensureActive` in `RefreshEffects.report`);
+  `BackgroundDemandGate` (generation); `HttpUserAgent` privacy hosts always neutral (Firefox ESR UA,
+  `address_privacy.json` host cases), own pool/dispatcher for address lookups; `DexScreener.isSafePairId`
+  (`dex_pair_id.json`); workflows macro/market-data/exchange-live-check as fetch job + publish job
+  (`artifact_check.py`); `line_limit.py --self-test`; `REQUIRE_GIT_COMMIT` / Gradle stop without `gitCommit` for
+  signed release builds; CI workflows also on tags `v*`; iOS skipped-test check in `ios.yml`; `AlarmPickerRows`.
 * Build 103 (two review rounds): watchlist read-only while `storedKept` (Android `WatchRepository.userWriteRefused()`,
   `AddWatchOutcome.Locked`/`PairEditResult.LOCKED`/`BulkAddResult.locked`, `WatchlistWriteRefusal` + `WatchlistLockedHint`;
   iOS `AppData.watchlistWriteRefused()` for `watchlistLocked`); `EncryptingOpenHelperFactory.prepareLock(name)`;

@@ -79,6 +79,21 @@ internal object PortfolioFeeExpenses {
         return (full - (withdrawal(t, holdings)?.usdt ?: BigDecimal.ZERO)).max(BigDecimal.ZERO)
     }
 
+    /**
+     * Seit Build 104: Gebühr einer Umbuchung (Gebühr USDT + Wert der Gebühr im dritten Coin), die auf den nicht erfassten
+     * Teil der Menge fällt: Gebühr × max(Menge − [covered], 0) / Menge, bei leerem Bestand die ganze Gebühr. Wie
+     * [withdrawalUncovered] als [PortfolioUnassignedFee] vermerkt statt still verworfen; der Rest verteilt sich wie bisher.
+     * [covered]: universell der Bestand vor der Umbuchung, je Wallet die verschobene Menge.
+     */
+    fun transferUncovered(t: PortfolioTrade, covered: BigDecimal): BigDecimal {
+        val amount = t.amount
+        if (t.type != PortfolioTxType.TRANSFER || amount.signum() <= 0 || covered >= amount) return BigDecimal.ZERO
+        val full = t.quoteFee + (t.thirdFeeValue ?: BigDecimal.ZERO)
+        if (full.signum() <= 0) return BigDecimal.ZERO
+        if (covered.signum() <= 0) return full
+        return full.multiply(amount - covered).divide(amount, PortfolioDecimal.MC)
+    }
+
     /** Menge der Zeile: verbrauchter Zugang (Tausch: erhaltene Menge), Auszahlung und Umbuchung 0 (Gebühr in USDT). */
     private fun amountOf(e: PortfolioLedgerEvent, kind: PortfolioFeeExpense): BigDecimal = when {
         kind == PortfolioFeeExpense.WITHDRAWAL || kind == PortfolioFeeExpense.TRANSFER -> BigDecimal.ZERO

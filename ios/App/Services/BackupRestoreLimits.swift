@@ -9,6 +9,7 @@ import Foundation
 ///   gemeint ist). Gezählt werden Unicode-Codepunkte, auf beiden Plattformen gleich.
 /// - Paar-Kennung nur aus Buchstaben und Ziffern jeder Schrift (Binance führt Coins mit chinesischem Namen) sowie
 ///   «/ _ : . -»; Leerzeichen, «@», «&», «?» u. Ä. kommen in keiner Börse vor.
+/// - DexScreener-Paar nur mit gültiger Kennung «chain/adresse» (`DexScreener.isSafePairId`, seit Build 104).
 /// - Unbekannte Börsen bleiben (Platzhalter `UnknownMarket`), nur begrenzt.
 /// - Höchstens `maxPairs` Paare (die ersten der Datei) und je Paar `maxAlarmsPerPair` Alarme.
 enum BackupRestoreLimits {
@@ -31,6 +32,8 @@ enum BackupRestoreLimits {
             && base.unicodeScalars.count <= maxAsset
             && quote.unicodeScalars.count <= maxAsset
             && (pairId.map(validPairId) ?? true)
+            // Seit Build 104: DexScreener nur mit «chain/adresse», die unkodiert in den Pfad darf
+            && (marketKey != DexScreener.key || pairId.map(DexScreener.isSafePairId) == true)
     }
 
     /// Kennung höchstens `maxPairId` Codepunkte, nur Buchstaben/Ziffern jeder Schrift und «/ _ : . -».

@@ -1,8 +1,8 @@
-Alarm, když Bitcoin dosáhne tvé ceny – z burzy, kterou opravdu používáš. Když je aplikace zavřená, rozhoduje Android, kdy se alarmy kontrolují – nejvýš jednou za 15 minut, často až po hodinách. Krátké výkyvy mezitím mohou uniknout; aplikace ti to řekne. Cena tvé burzy, žádný průměr – zdarma, bez účtu.
+Crypto Checker kontroluje ceny tvé burzy a ozve se, když kontrola zjistí, že je tvá hranice dosažena. Když je aplikace zavřená, rozhoduje Android, kdy se alarmy kontrolují – nejvýš jednou za 15 minut, často až po hodinách. Krátké výkyvy mezitím mohou uniknout; aplikace ti to řekne. Cena tvé burzy, žádný průměr – zdarma, bez účtu.
 
 ČÍM JE JINÁ
 • Tvoje burza, ne průměr: každý řádek ukazuje poslední cenu páru na tebou vybrané burze – Binance, Coinbase, Kraken, OKX, Bybit a mnoho dalších.
-• Alarm, který upozorní jednou: „Upozornit, až BTC stoupne nad 100 000 USDT.“ Ozve se při překročení hranice, ne při každé aktualizaci – „Jednou“ ho pak vypne, „Pokaždé“ ho znovu nastaví, jakmile se cena vrátí.
+• Alarm, který upozorní jednou: „Upozornit, až BTC stoupne nad 100 000 USDT.“ Ozve se, když kontrola zjistí překročení hranice, ne při každé aktualizaci – „Jednou“ ho pak vypne, „Pokaždé“ ho znovu nastaví, jakmile se cena vrátí.
 • „Co se hýbe s ním?“: seznam faktorů pro minci – celý trh, objem, volatilita, funding a open interest, vzdálenost od maxima či minima, Fear & Greed. Ukazuje, co se hýbe ve stejnou dobu – není to příčina, zpráva ani investiční poradenství.
 • Bez účtu, bez reklam, bez sledování. Vývojář nedostane žádná tvoje data.
 
@@ -32,7 +32,7 @@ TRH
 
 DÁLE
 • Widgety: seznam, celková hodnota portfolia, jedna mince s grafem
-• Portfolio volitelně (zapíná se v Nastavení): nákupy, prodeje, směny, převody, odměny, vklady a výběry; FIFO (výchozí) nebo průměr (Ø); adresy jen pro čtení, bez seedu, pro BTC (i xpub), ETH a sítě EVM, SOL, TRX, XRP, LTC, ADA a TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance a Coinbase; roční přehled jako CSV; vlastní zámek. Bitpanda a Swissquote nemají veřejný cenový feed, a proto ani vlastní cenu – jejich obchody přidáš importem CSV.
+• Portfolio volitelně (zapíná se v Nastavení): nákupy, prodeje, směny, převody, odměny, vklady a výběry; FIFO (výchozí) nebo průměr (Ø); adresy jen pro čtení, bez seedu, pro BTC (i xpub), ETH a sítě EVM, SOL, TRX, XRP, LTC, ADA a TON; import CSV z Relai, Swissquote, Bitpanda, Kraken, Binance a Coinbase; roční přehled jako CSV; vlastní zámek. Bitpanda a Swissquote: bez vlastní ceny, jen přes CSV.
 • Čitelné pro všechny: zelená/červená nebo modrá/oranžová, znaménko a šipka místo pouhé barvy; TalkBack čte každý řádek jako jednu větu
 • Záloha a obnovení do souboru – i mezi Androidem a iPhonem
 • Světlý a tmavý režim, pět barev zvýraznění, 31 jazyků

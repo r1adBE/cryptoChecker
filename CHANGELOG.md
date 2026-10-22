@@ -15,6 +15,17 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 104)
+
+* Positioning: Crypto Checker checks your exchange's prices and notifies you when a check finds your level reached – store titles «Crypto Checker: Coin Prices» / «Kurse & Börse» instead of «Price Alerts»; descriptions, screenshots captions, README and website say so honestly in all languages.
+* Alerts: after a crash an alert only counts as already shown if its notification was posted after the attempt (an older notification of the same alert no longer swallows a new one); delivery markers are cleared when alerts are deleted, a backup is restored or the database is recreated; Android portfolio alerts use the same crash-safe delivery as iOS; stored «falls by 100 %» alerts from build 102 are switched off and marked «threshold invalid – please adjust», backups bring them in switched off.
+* Background: no alert is shown after the background time has run out (both platforms); iOS planning ignores outdated demand decisions and re-schedules when needed.
+* Portfolio: transfer fees above the recorded holdings show the uncovered part as unassigned instead of loading it onto the recorded coins; «undo import» reports failures; clearing the portfolio also forgets unavailable coins; the coin page no longer recomputes on other coins' price ticks.
+* CSV import: preview rows wrap (amount and price stay readable at large text sizes); choices are disabled while re-reading; the confirm check compares against the shown preview; daylight-saving gaps and overlaps west of UTC are handled like in Europe.
+* Privacy and security: every request to an address node uses the neutral browser user agent (also fees and halving) and on Android its own connection pool; privacy policy lists time zone and source commit in diagnostics; DexScreener pool ids are validated; scheduled workflows fetch without write access and publish in a separate checked job.
+* Accessibility: no notification permission prompt while the watchlist is locked; VoiceOver focus stays on a refused toggle; pair picker announces «no matches» and marks favourites.
+* Release: release builds stop without a source commit; CI runs on version tags; one tester rule (invite 16–20, keep ≥ 12 for 14 days).
+
 ## 16.2.2 (build 103)
 
 * Watchlist: while the stored watchlist can't be read (key temporarily locked), it is read-only on Android and iOS – changes show a short notice instead of being lost on restart. Background price updates keep running.

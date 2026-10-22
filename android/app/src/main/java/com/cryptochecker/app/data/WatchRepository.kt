@@ -12,6 +12,7 @@ import com.cryptochecker.app.data.local.model.NOTE_MAX
 import com.cryptochecker.app.data.local.model.WatchEntity
 import com.cryptochecker.app.domain.model.MarketInfo
 import com.cryptochecker.app.domain.refresh.AlarmLogStore
+import com.cryptochecker.app.notification.AlarmDeliveryMarkers
 import com.cryptochecker.app.domain.watch.WatchEdit
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.util.TextLimit
@@ -30,6 +31,10 @@ class WatchRepository @Inject constructor(
     internal val watchDao: WatchDao,
     /** Alarm-Protokoll: letzte Prüfungen gelöschter Paare entfernen ([forgetDeletedAlarms]). */
     private val alarmLogStore: AlarmLogStore,
+    /** Seit Build 104: Vermerke «wird gemeldet» gelöschter Alarme aufräumen ([forgetDeletedAlarms], [deleteAlarm]). */
+    private val deliveryMarkers: AlarmDeliveryMarkers,
+    /** Seit Build 104: «fällt um ≥ 100 %»-Alarme einmalig ausschalten (vor dem ersten Lesen, [getWatches]). */
+    private val fallAlarmCleanup: FallAlarmCleanup,
 ) {
     fun observeWatches(): Flow<List<WatchEntity>> = watchDao.observeWatches()
 
@@ -41,6 +46,7 @@ class WatchRepository @Inject constructor(
             contractTypesNormalized = true
             runCatchingCancellable { normalizeContractTypes() }
         }
+        fallAlarmCleanup.runOnce()
         return watchDao.getWatches()
     }
 
@@ -148,7 +154,10 @@ class WatchRepository @Inject constructor(
      */
     private suspend fun forgetDeletedAlarms() {
         val ids = watchDao.getAlarmIds().toHashSet()
-        withContext(Dispatchers.IO) { alarmLogStore.retainAlarms(ids) }
+        withContext(Dispatchers.IO) {
+            alarmLogStore.retainAlarms(ids)
+            deliveryMarkers.retain(ids)
+        }
     }
 
     /** Paar mit allen Alarmen festhalten (vor dem Löschen); null, wenn es das Paar nicht gibt. */
@@ -352,7 +361,10 @@ class WatchRepository @Inject constructor(
         }
 
     suspend fun deleteAlarm(id: Long) {
-        if (!userWriteRefused()) watchDao.deleteAlarm(id)
+        if (userWriteRefused()) return
+        watchDao.deleteAlarm(id)
+        // Seit Build 104: Vermerk des gelöschten Alarms weg (eine neue Id könnte ihn sonst erben)
+        withContext(Dispatchers.IO) { deliveryMarkers.remove(listOf(id)) }
     }
 
     /** true = geschrieben, false = abgelehnt (Merkliste gesperrt): dann keine Folgeaktionen (Mitteilung entfernen). */

@@ -16,7 +16,8 @@ struct CsvReadChoice: Equatable, Sendable {
     }
 
     /// Darf importiert werden? Nicht, solange die Datei neu gelesen wird (`rereading`) oder die gezeigte Vorschau mit
-    /// einer anderen Lesart gebaut wurde (`builtWith` ≠ `chosen`) — sonst käme die alte Lesart in die Daten.
+    /// einer anderen Lesart gebaut wurde (`builtWith` ≠ `chosen`) — sonst käme die alte Lesart in die Daten. Seit Build 104
+    /// ist `builtWith` die zusammen mit der Vorschau gesetzte Lesart der GEZEIGTEN Vorschau (nur vom letzten Neu-Lesen).
     static func canConfirm(rereading: Bool, builtWith: CsvReadChoice?, chosen: CsvReadChoice) -> Bool {
         !rereading && builtWith == chosen
     }

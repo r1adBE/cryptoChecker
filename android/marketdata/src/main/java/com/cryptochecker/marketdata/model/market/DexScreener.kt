@@ -52,12 +52,16 @@ data class DexPool(
  * und ohne Schlüssel; laut Anbieter rund 300 Abfragen pro Minute.
  */
 class DexScreener : Market("DexScreener", "Dex Screener") {
-    override val key = "DexScreener"
+    override val key = KEY
 
     // ── Einzelkurs ──
 
-    override fun tickerAddress(call: Int, info: PairQuery): String =
-        "$DEXSCREENER_API/latest/dex/pairs/${info.pairId}"
+    /** Kennung, die nicht unkodiert in den Pfad darf ([isSafePairId]): «nicht gefunden» ohne Anfrage (seit Build 104). */
+    override fun tickerAddress(call: Int, info: PairQuery): String {
+        val pairId = info.pairId
+        if (pairId == null || !isSafePairId(pairId)) throw MarketParseException(POOL_NOT_FOUND)
+        return "$DEXSCREENER_API/latest/dex/pairs/$pairId"
+    }
 
     /**
      * Nur der gemerkte Pool zählt: Liefert die API einen anderen zuerst (oder nur einen anderen), gilt das als
@@ -65,7 +69,7 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
      */
     override fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) {
         val pool = poolsIn(json).firstOrNull { isPool(it.optString("chainId"), it.optString("pairAddress"), info.pairId) }
-            ?: throw MarketParseException("Pool not found")
+            ?: throw MarketParseException(POOL_NOT_FOUND)
         copyPool(pool, ticker)
     }
 
@@ -121,6 +125,23 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
     }
 
     companion object {
+        /** Schlüssel der Börse (Sicherung, Merkliste). */
+        const val KEY = "DexScreener"
+
+        /** Lesefehler «Pool nicht gefunden» (Einzelkurs, ungültige Kennung). */
+        const val POOL_NOT_FOUND = "Pool not found"
+
+        /**
+         * Seit Build 104: Kennung genau «chain/adresse», beide Teile nur aus Zeichen, die unkodiert im Pfad stehen
+         * dürfen ([SAFE_PART]; keine Leerzeichen, kein zweites «/», kein «?», «#», «%»). Gilt für Einzelkurs, Suchtreffer
+         * und Sicherung. Wie iOS `DexScreener.isSafePairId` (`testdata/parity/dex_pair_id.json`).
+         */
+        fun isSafePairId(pairId: String): Boolean {
+            val cut = pairId.indexOf('/')
+            if (cut <= 0 || cut == pairId.lastIndex) return false
+            return SAFE_PART.matches(pairId.substring(0, cut)) && SAFE_PART.matches(pairId.substring(cut + 1))
+        }
+
         /**
          * Mindest-Liquidität (USD) eines Pools für Alarme. Darunter (oder unbekannt) bewegen schon kleine Beträge den
          * Kurs — ein Alarm wäre leicht auszulösen bzw. zu manipulieren. Wie iOS `DexScreener.minAlarmLiquidityUsd`.
@@ -216,9 +237,10 @@ class DexScreener : Market("DexScreener", "Dex Screener") {
                     baseAddress = base.optString("address"),
                 )
             }
+            // Seit Build 104: nur Pools, deren Kennung unkodiert in den Pfad darf (isSafePairId) — sonst nie übernehmbar
             val usable = pools.filter { pool ->
                 pool.chainId.isNotEmpty() && pool.pairAddress.isNotEmpty() &&
-                    pool.baseSymbol.isNotEmpty() && pool.priceUsd != null
+                    pool.baseSymbol.isNotEmpty() && pool.priceUsd != null && isSafePairId(pool.pairId)
             }
             // sortedByDescending ist stabil: gleiche Liquidität behält die Reihenfolge der Antwort
             val ranked = usable.sortedByDescending { it.liquidityUsd ?: 0.0 }

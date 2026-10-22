@@ -144,7 +144,8 @@ internal fun WatchlistSheets(
                 hasActivity = !watch.isNotTraded && !watch.disabled && activeSignals[watch.id].orEmpty().isNotEmpty(),
                 onDismiss = { ui.actionsFor = null },
                 onNotificationChange = {
-                    if (it) requestNotifications()
+                    // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage (seit Build 104)
+                    if (it && !com.cryptochecker.app.data.local.WatchlistStorageLock.blocksWritesNow()) requestNotifications()
                     viewModel.setNotificationEnabled(watch, it)
                 },
                 onTtsChange = { viewModel.setTtsEnabled(watch, it) },

@@ -34,7 +34,7 @@ struct AlarmCard: View {
                 .accessibilityAction(named: Text(L("action_delete")), onDelete)
                 // «Mitteilungen aus»: Einstellungen öffnen wie beim Antippen der Statuszeile
                 .accessibilityActions {
-                    if status == .notificationsOff {
+                    if status == .notificationsOff && !invalidThreshold {
                         Button(L("alarms_notifications_turn_on")) { NotificationsOffBanner.openSettings() }
                     }
                 }
@@ -83,7 +83,7 @@ struct AlarmCard: View {
                 // Statuszeile, bis der Grund wegfällt (vorgelesen über die Beschreibung der Karte). «Mitteilungen
                 // aus» öffnet beim Antippen die Mitteilungs-Einstellungen (VoiceOver: Aktion auf der Karte).
                 if let statusLine {
-                    if status == .notificationsOff {
+                    if status == .notificationsOff && !invalidThreshold {
                         Button { NotificationsOffBanner.openSettings() } label: { statusLineView(statusLine) }
                             .buttonStyle(.plain)
                     } else {
@@ -117,12 +117,16 @@ struct AlarmCard: View {
             Text(line.text)
         }
         .font(.footnote)
-        .foregroundStyle(AppColors.onSurfaceVariant)
+        .foregroundStyle(invalidThreshold ? AppColors.error : AppColors.onSurfaceVariant)
         .fixedSize(horizontal: false, vertical: true)
     }
 
-    /// Text und Symbol der Statuszeile; nur bei eingeschalteten Alarmen (das stellt `AlarmCardStatus` sicher).
+    /// Seit Build 104: «fällt um ≥ 100 %» (aus Build 102) löst nie aus — vor allen anderen Gründen, auch ausgeschaltet.
+    private var invalidThreshold: Bool { BackupManager.exceedsFall(alarm.condition, alarm.threshold) }
+
+    /// Text und Symbol der Statuszeile; sonst nur bei eingeschalteten Alarmen (das stellt `AlarmCardStatus` sicher).
     private var statusLine: (text: String, symbol: String)? {
+        if invalidThreshold { return (L("alarm_threshold_invalid_fix"), "exclamationmark.triangle") }
         switch status {
         case nil: return nil
         case .notificationsOff: return (L("alarm_status_notifications_off"), "bell.slash")

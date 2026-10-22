@@ -9,11 +9,11 @@ on:
     - cron: '41 6 * * 3'   # Wednesdays 06:41 UTC
   workflow_dispatch:
 
-# Least privilege: read the code (checkout) and manage the one issue. Failures are reported in the
-# issue and the run stays green; a red run means the check script itself failed.
-permissions:
-  contents: read
-  issues: write
+# Least privilege (since build 104 two jobs): «check» asks the exchanges without any write permission and hands the
+# result over as an artifact; «report» (issues: write, no exchange requests) checks out github.sha afresh, strictly
+# checks the artifact (artifact_check.py) and manages the one issue. Failures are reported in the issue and the run
+# stays green; a red run means a script or the artifact check failed.
+permissions: {}
 
 concurrency:
   group: exchange-live-check
@@ -22,6 +22,8 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read    # checkout only
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -29,16 +31,49 @@ jobs:
           persist-credentials: false
           sparse-checkout: .github/scripts
 
-      # Exchange requests without a token in the environment; result into a file (since Build 103)
+      # Exchange requests; no write token exists in this job. Result into a file (since Build 103)
       - name: Check exchange APIs
         env:
           PYTHONDONTWRITEBYTECODE: '1'
-        run: python3 .github/scripts/exchange_live_check.py --skip-issue --result "$RUNNER_TEMP/exchange-result.json"
+        run: |
+          mkdir -p "$RUNNER_TEMP/exchange"
+          python3 .github/scripts/exchange_live_check.py --skip-issue --result "$RUNNER_TEMP/exchange/exchange-result.json"
 
-      # Token only here: contacts no exchange, reads only the result file and manages the issue
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: exchange-result
+          path: ${{ runner.temp }}/exchange
+          if-no-files-found: error
+          retention-days: 1
+
+  report:
+    needs: check
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read    # checkout
+      issues: write     # the one issue
+      actions: read     # download the artifact of this run (gh run download)
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          sparse-checkout: .github/scripts
+
+      # actions/download-artifact is not pinned in this repository yet: gh (preinstalled) with this run's artifact
+      - name: Download artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name exchange-result --dir "$RUNNER_TEMP/exchange"
+
+      - name: Check artifact
+        run: python3 -I .github/scripts/artifact_check.py --dir "$RUNNER_TEMP/exchange" --profile exchange
+
+      # Contacts no exchange, reads only the checked result file and manages the issue
       - name: Report issue
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           PYTHONDONTWRITEBYTECODE: '1'
-        run: python3 .github/scripts/exchange_live_check.py --issue-only --result "$RUNNER_TEMP/exchange-result.json"
+        run: python3 .github/scripts/exchange_live_check.py --issue-only --result "$RUNNER_TEMP/exchange/exchange-result.json"

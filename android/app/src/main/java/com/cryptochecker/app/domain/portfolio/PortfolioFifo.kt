@@ -38,7 +38,8 @@ import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.spread
  *    kein Verlust im Jahr der Umbuchung, sondern erhöht den Einstand der übrigen Coins; sie landet beim
  *    ältesten Posten, damit sie mit dem nächsten Verkauf realisiert wird. Gebühr USDT + Wert der Gebühr
  *    im dritten Coin verteilen sich nach Menge auf alle Posten; der Anteil von Posten ohne Kaufpreis gehört
- *    zu deren unbekanntem Einstand (wie beim Ø) und wird als [PortfolioUnassignedFee] vermerkt, nicht still verworfen.
+ *    zu deren unbekanntem Einstand (wie beim Ø), vermerkt als [PortfolioUnassignedFee]; seit Build 104 ebenso der Anteil
+ *    einer Menge über dem Bestand ([PortfolioFeeExpenses.transferUncovered], markiert [PortfolioBookResult.oversold]).
  *  - Herkunft des Einstands: jeder Posten führt seinen Einstand in Teilen mit Zeitpunkt ([PortfolioCostPart]: Erwerb,
  *    zugeschlagene Umbuchungsgebühr zum Zeitpunkt der Umbuchung, übernommener Netzwerkgebühr-Einstand mit seinen Teilen);
  *    ein Abgang nimmt die Teile anteilig mit ([PortfolioDisposal.costParts]) — der Steuer-Export rechnet so jeden Teil
@@ -65,8 +66,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioFifoLots.spread
  *    Auszahlung → Aufwand realisiert.
  *  - Netzwerkgebühr-Einstand ohne bezahlten Posten: wartet in der Warteschlange und geht auf den nächsten Posten MIT
  *    Kaufpreis, der später hinzukommt (Kauf, Tausch, Einzahlung, verschobener Posten); erst wenn bis zum Ende keiner
- *    kommt, steht er als [PortfolioLostFeeCost] da.
- *  - Bestand läuft als Summe mit (kein erneutes Aufsummieren je Schritt).
+ *    kommt, steht er als [PortfolioLostFeeCost] da. Bestand läuft als Summe mit (kein erneutes Aufsummieren je Schritt).
  */
 internal object PortfolioFifo {
 
@@ -327,16 +327,19 @@ internal object PortfolioFifo {
                     if (src !== dst) {
                         // Je Wallet: Posten wandern mit Kaufdatum und Einstand von der Quelle zum Ziel
                         check(src, amount + coinFee, t, feeLeg = false)
-                        if (src.held.signum() <= 0) continue
+                        // Seit Build 104: leere Quelle → die ganze Gebühr vermerkt statt still verworfen
+                        if (src.held.signum() <= 0) { unassign(t, PortfolioFeeExpenses.transferUncovered(t, zero)); continue }
                         // Netzwerkgebühr zuerst (älteste Posten der Quelle); ihr Einstand wandert mit
                         val carried = consume(src, coinFee)
                         val moved = consume(src, amount).map { s ->
                             Lot(s.lot.txId, s.lot.acquired, s.lot.time, s.lot.kind, s.amount, s.cost, s.parts)
                         }
                         // Gebühr USDT + Wert der Gebühr im dritten Coin nach Menge auf die verschobenen Teile; der Anteil
-                        // ohne Kaufpreis wird vermerkt
+                        // ohne Kaufpreis und (seit Build 104) der Anteil der nicht angekommenen Menge werden vermerkt
                         if (feeValue == null && moved.any { it.cost != null }) feeValueMissing = true
-                        unassign(t, spread(moved, t.quoteFee + (feeValue ?: zero), moved.fold(zero) { acc, l -> acc + l.amount }, t.time))
+                        val movedAmount = moved.fold(zero) { acc, l -> acc + l.amount }
+                        val lost = PortfolioFeeExpenses.transferUncovered(t, movedAmount)
+                        unassign(t, lost + spread(moved, t.quoteFee + (feeValue ?: zero) - lost, movedAmount, t.time))
                         // Nächster Posten mit Kaufpreis: verschoben, Rest der Quelle, sonst im Ziel; erst ohne jeden
                         // wartet der Einstand (bei den verschobenen Coins im Ziel, sonst in der Quelle)
                         val target = moved.firstOrNull { it.cost != null } ?: src.lots.firstOrNull { it.cost != null }
@@ -347,14 +350,17 @@ internal object PortfolioFifo {
                     }
                     val q = src
                     val h = q.held
-                    if (h.signum() <= 0) continue
-                    // Gebühr USDT + Wert der Gebühr im dritten Coin: nach Menge auf die Posten verteilt; der Anteil der
-                    // Posten ohne Kaufpreis wird vermerkt
+                    // Seit Build 104: Menge oder Netzwerkgebühr über dem Bestand → markiert; der Gebühr-Anteil der nicht
+                    // erfassten Menge wird vermerkt (leerer Bestand: die ganze Gebühr), nicht still verworfen
+                    if (amount > h || coinFee > h) check(q, amount.max(coinFee), t, feeLeg = false)
+                    val lost = PortfolioFeeExpenses.transferUncovered(t, h)
+                    if (h.signum() <= 0) { unassign(t, lost); continue }
+                    // Rest der Gebühr USDT + Wert der Gebühr im dritten Coin: nach Menge auf die Posten verteilt; der
+                    // Anteil der Posten ohne Kaufpreis wird vermerkt
                     if (feeValue == null && q.lots.any { it.cost != null }) feeValueMissing = true
-                    unassign(t, spread(q.lots, t.quoteFee + (feeValue ?: zero), h, t.time))
+                    unassign(t, lost + spread(q.lots, t.quoteFee + (feeValue ?: zero) - lost, h, t.time))
                     // Netzwerkgebühr im Coin: Menge sinkt (älteste zuerst), ihr Einstand geht auf den nächsten
                     // Posten mit Kaufpreis über (Begründung oben: Kosten des Haltens, keine Veräusserung)
-                    if (coinFee > h) check(q, coinFee, t, feeLeg = false)
                     if (coinFee.signum() > 0) {
                         val carried = consume(q, coinFee)
                         carry(symbol, q.lots.firstOrNull { it.cost != null }, q, t, carried)

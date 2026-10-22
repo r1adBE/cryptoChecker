@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.local.WatchlistStorageLock
 import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.settings.AppSettings
 import com.cryptochecker.app.ui.components.SwitchRow
@@ -234,7 +235,8 @@ internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = h
             ) {
                 FilledTonalButton(
                     onClick = {
-                        requestNotifications()
+                        // Merkliste gesperrt: nur der Hinweis, keine Erlaubnis-Anfrage (seit Build 104)
+                        if (!WatchlistStorageLock.blocksWritesNow()) requestNotifications()
                         viewModel.setAllPairNotifications(true)
                     },
                     enabled = watches.any { !it.notificationEnabled },
@@ -254,7 +256,7 @@ internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = h
                     subtitle = watch.marketName,
                     checked = watch.notificationEnabled,
                     onCheckedChange = { on ->
-                        if (on) requestNotifications()
+                        if (on && !WatchlistStorageLock.blocksWritesNow()) requestNotifications()
                         viewModel.setPairNotification(watch.id, on)
                     }
                 )

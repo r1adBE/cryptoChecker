@@ -71,7 +71,9 @@ final class CsvImportTests: XCTestCase {
 
     func testDates() throws {
         for c in S.list(try S.fixture("csv_import")["dates"]) {
-            XCTAssertEqual(CsvImportParser.parseTime(string(c["text"]) ?? ""), millis(c["expected"]), "date: \(c)")
+            // Seit Build 104: optionale Zeitzone (Sommerzeit-Wechsel Zürich/New York)
+            let zone = string(c["zone"]) ?? CsvImportParser.defaultZone
+            XCTAssertEqual(CsvImportParser.parseTime(string(c["text"]) ?? "", zone: zone), millis(c["expected"]), "date: \(c)")
         }
     }
 

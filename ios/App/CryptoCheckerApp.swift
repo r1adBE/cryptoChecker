@@ -168,8 +168,9 @@ struct CryptoCheckerApp: App {
                 // Verschlüsselte Daten ohne Schlüssel beiseitegelegt: sagen, wie sie zurückkommen (bis bestätigt);
                 // «Sicherung wiederherstellen» öffnet Einstellungen › Sicherung
                 .storageRecoveryNotice(onRestoreBackup: { router.openBackupSettings() })
-                // Abgebrochenes Wiederherstellen (Journal liegt noch da): Stand davor zurückschreiben, Hinweis vormerken
-                .task { BackupManager.recoverInterruptedRestore(data) }
+                // Abgebrochenes Wiederherstellen (Journal liegt noch da): Stand davor zurückschreiben, Hinweis vormerken;
+                // danach einmalig «fällt um ≥ 100 %»-Alarme ausschalten (seit Build 104)
+                .task { BackupManager.recoverInterruptedRestore(data); data.disableInvalidFallAlarmsOnce() }
                 // Portfolio-Sperre: gesperrt ist nur der Portfolio-Tab (RootView); hier nur der
                 // Sichtschutz im App-Umschalter, solange die Sperre an ist
                 .overlay {

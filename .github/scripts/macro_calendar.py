@@ -262,6 +262,10 @@ def parse_bea(page):
 
 # --------------------------------------------------------------------------- network
 
+# Largest page read (since build 104): the schedule pages are well below 1 MB; more is cut off as an error
+MAX_PAGE_BYTES = 5 * 1024 * 1024
+
+
 def fetch(url, timeout=30):
     req = urllib.request.Request(url, headers={
         "User-Agent": USER_AGENT,
@@ -271,7 +275,10 @@ def fetch(url, timeout=30):
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             charset = resp.headers.get_content_charset() or "utf-8"
-            return resp.read().decode(charset, errors="replace")
+            data = resp.read(MAX_PAGE_BYTES + 1)
+            if len(data) > MAX_PAGE_BYTES:
+                raise SourceError(f"{url}: page larger than {MAX_PAGE_BYTES} bytes")
+            return data.decode(charset, errors="replace")
     except (urllib.error.URLError, OSError, ValueError) as exc:  # HTTPError is a URLError
         raise SourceError(f"{url}: {exc}") from exc
 

@@ -24,7 +24,7 @@ import org.junit.runner.RunWith
  * Update-Pfad der Datenbank: eine alte Datenbank anlegen, mit Daten füllen und dann von Room
  * öffnen lassen. Room führt die Migrationen aus und prüft danach das Schema gegen die Entities
  * (sonst «Migration didn't properly handle …»). So ist die ganze Kette 3 → 16 und der reale
- * Update-Weg der Version 16.2.x (Datenbank v10/v12/v13/v14/v15 → v16) geprüft, ohne die Schema-Dateien 4–12.
+ * Update-Weg der veröffentlichten 16.2 (v12) und älterer Stände (v10) sowie der Test-Builds (v13/v14/v15) → v16 geprüft, ohne die Schema-Dateien 4–12.
  * Ab v13 liegt das Portfolio in einer eigenen Datei (PortfolioDatabase); die Tests unten prüfen
  * auch die einmalige Übernahme (PortfolioLegacyImport) samt Wiederholung und Systemsicherungs-Kopie.
  *

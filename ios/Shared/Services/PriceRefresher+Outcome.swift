@@ -116,7 +116,8 @@ extension PriceRefresher {
         /// Entfernt eine gezeigte Mitteilung wieder (Alarm liess sich danach nicht speichern).
         var retract: @Sendable (PendingAlarm) async -> Void = { _ in }
         /// Seit Build 103: Steht die Mitteilung dieses Alarms noch da? (Prozess-Ende zwischen Melden und Speichern)
-        var isShown: @Sendable (PendingAlarm) async -> Bool = { _ in false }
+        /// Seit Build 104 mit dem Zeitpunkt des Vermerks: nur eine danach gezeigte zählt.
+        var isShown: @Sendable (PendingAlarm, Int64) async -> Bool = { _, _ in false }
 
         static let system = AlarmNotifier(
             canShow: { await Notifier.isAuthorized() },
@@ -125,7 +126,7 @@ extension PriceRefresher {
                                          volumeRatio: item.volumeRatio, text: item.text, currency: item.shownCurrency)
             },
             retract: { item in Notifier.cancelAlarm(item.alarm.id) },
-            isShown: { item in await Notifier.isAlarmDelivered(item.alarm.id) })
+            isShown: { item, markerAt in await Notifier.isAlarmDelivered(item.alarm.id, since: markerAt) })
     }
 
     /// Zurückgestellte Alarm-Prüfung (siehe `Outcome.deferredAlarms`): je Paar mit neuem Kurs der
@@ -245,7 +246,7 @@ extension PriceRefresher {
                     },
                     mark: { await save(item.alarm.id, item.update) },
                     retract: { await notifier.retract(item) },
-                    isShown: { await notifier.isShown(item) })
+                    isShown: { markerAt in await notifier.isShown(item, markerAt) })
                 if saved { delivered.append(item) }
                 if let entry = item.logEntry,
                    let trace = AlarmLog.deliveryTrace(holdAlarms: holdAlarms, canShow: deliverable,

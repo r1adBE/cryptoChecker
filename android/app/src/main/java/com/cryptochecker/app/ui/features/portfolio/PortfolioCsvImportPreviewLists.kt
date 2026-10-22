@@ -65,6 +65,8 @@ internal fun WithdrawalChoices(
     choices: Map<String, CsvWithdrawalChoice>,
     onChoice: (String, CsvWithdrawalChoice) -> Unit,
     onAllChoices: (CsvWithdrawalChoice) -> Unit,
+    /** Seit Build 104: false während des Neu-Lesens — Chips und Knöpfe aus, nicht nur gedimmt. */
+    enabled: Boolean = true,
 ) {
     // Abgeleitete Werte nur neu, wenn sich ihre Eingaben ändern (seit Build 103)
     val destinations = remember(proposals) { proposals.associate { it.importKey to it.transferTo } }
@@ -80,23 +82,26 @@ internal fun WithdrawalChoices(
     // «Alle …» nur bei mehreren Auszahlungen
     if (withdrawals.size > 1) {
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            TextButton(onClick = { onAllChoices(CsvWithdrawalChoice.TRANSFER) }) {
+            TextButton(onClick = { onAllChoices(CsvWithdrawalChoice.TRANSFER) }, enabled = enabled) {
                 Text(stringResource(R.string.portfolio_csv_import_all_transfer))
             }
-            TextButton(onClick = { onAllChoices(CsvWithdrawalChoice.WITHDRAWAL) }) {
+            TextButton(onClick = { onAllChoices(CsvWithdrawalChoice.WITHDRAWAL) }, enabled = enabled) {
                 Text(stringResource(R.string.portfolio_csv_import_all_withdrawal))
             }
         }
     }
     withdrawals.take(PREVIEW_LIST_ROWS).forEach { tx ->
-        WithdrawalChoiceRow(tx, destinations[tx.importKey], choices[tx.importKey], onChoice)
+        WithdrawalChoiceRow(tx, destinations[tx.importKey], choices[tx.importKey], onChoice, enabled)
     }
     if (withdrawals.size > PREVIEW_LIST_ROWS) {
-        TextButton(onClick = { showAll = true }) { Text(stringResource(R.string.explorer_bulk_show_all, withdrawals.size)) }
+        TextButton(onClick = { showAll = true }, enabled = enabled) {
+            Text(stringResource(R.string.explorer_bulk_show_all, withdrawals.size))
+        }
     }
     if (showAll) {
         FullListSheet(stringResource(R.string.portfolio_csv_import_withdrawals_title), onDismiss = { showAll = false }) {
-            items(withdrawals) { tx -> WithdrawalChoiceRow(tx, destinations[tx.importKey], choices[tx.importKey], onChoice) }
+            // Schlüssel (seit Build 104): Zeilen behalten ihren Zustand beim Neuordnen; importKey ist je Vorschau eindeutig
+            items(withdrawals, key = { it.importKey }) { tx -> WithdrawalChoiceRow(tx, destinations[tx.importKey], choices[tx.importKey], onChoice, enabled) }
         }
     }
 }
@@ -108,6 +113,7 @@ private fun WithdrawalChoiceRow(
     destination: String?,
     choice: CsvWithdrawalChoice?,
     onChoice: (String, CsvWithdrawalChoice) -> Unit,
+    enabled: Boolean,
 ) {
     Column(modifier = Modifier.fillMaxWidth().padding(top = 4.dp)) {
         PreviewRow(tx)
@@ -116,11 +122,13 @@ private fun WithdrawalChoiceRow(
             FilterChip(
                 selected = choice == CsvWithdrawalChoice.TRANSFER,
                 onClick = { onChoice(tx.importKey, CsvWithdrawalChoice.TRANSFER) },
+                enabled = enabled,
                 label = { Text(stringResource(R.string.portfolio_csv_import_choice_transfer)) },
             )
             FilterChip(
                 selected = choice == CsvWithdrawalChoice.WITHDRAWAL,
                 onClick = { onChoice(tx.importKey, CsvWithdrawalChoice.WITHDRAWAL) },
+                enabled = enabled,
                 label = { Text(stringResource(R.string.portfolio_csv_import_choice_withdrawal)) },
             )
         }
@@ -132,7 +140,13 @@ private fun WithdrawalChoiceRow(
  * (eindeutige vorgewählt), Netzwerkgebühr, Hinweis auf eine Seite aus einem früheren Import bzw. auf mehrere Treffer.
  */
 @Composable
-internal fun TransferLinks(links: List<CsvTransferLink>, linked: Set<String>, onLink: (String, Boolean) -> Unit) {
+internal fun TransferLinks(
+    links: List<CsvTransferLink>,
+    linked: Set<String>,
+    onLink: (String, Boolean) -> Unit,
+    /** Seit Build 104: false während des Neu-Lesens — Schalter und Knöpfe aus, nicht nur gedimmt. */
+    enabled: Boolean = true,
+) {
     var showAll by rememberSaveable { mutableStateOf(false) }
     HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
     Text(
@@ -141,25 +155,28 @@ internal fun TransferLinks(links: List<CsvTransferLink>, linked: Set<String>, on
         fontWeight = FontWeight.SemiBold,
     )
     PreviewHint(stringResource(R.string.portfolio_csv_import_transfers_hint))
-    links.take(PREVIEW_LIST_ROWS).forEach { link -> TransferLinkRow(link, link.key in linked, onLink) }
+    links.take(PREVIEW_LIST_ROWS).forEach { link -> TransferLinkRow(link, link.key in linked, onLink, enabled) }
     if (links.size > PREVIEW_LIST_ROWS) {
-        TextButton(onClick = { showAll = true }) { Text(stringResource(R.string.explorer_bulk_show_all, links.size)) }
+        TextButton(onClick = { showAll = true }, enabled = enabled) {
+            Text(stringResource(R.string.explorer_bulk_show_all, links.size))
+        }
     }
     if (showAll) {
         FullListSheet(stringResource(R.string.portfolio_csv_import_transfers_title), onDismiss = { showAll = false }) {
-            items(links) { link -> TransferLinkRow(link, link.key in linked, onLink) }
+            // Schlüssel (seit Build 104): link.key ist je Vorschau eindeutig
+            items(links, key = { it.key }) { link -> TransferLinkRow(link, link.key in linked, onLink, enabled) }
         }
     }
 }
 
 @Composable
-private fun TransferLinkRow(link: CsvTransferLink, on: Boolean, onLink: (String, Boolean) -> Unit) {
+private fun TransferLinkRow(link: CsvTransferLink, on: Boolean, onLink: (String, Boolean) -> Unit, enabled: Boolean) {
     val linkLabel = stringResource(R.string.portfolio_csv_import_transfer_link)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .toggleable(value = on, role = Role.Switch, onValueChange = { onLink(link.key, it) })
+            .toggleable(value = on, enabled = enabled, role = Role.Switch, onValueChange = { onLink(link.key, it) })
             .padding(vertical = 4.dp),
     ) {
         Column(modifier = Modifier.weight(1f)) {
@@ -184,7 +201,7 @@ private fun TransferLinkRow(link: CsvTransferLink, on: Boolean, onLink: (String,
         }
         Spacer(Modifier.width(12.dp))
         // Zustand trägt die Zeile (toggleable); der Schalter zeigt ihn nur, Screenreader liest «Als eine Umbuchung buchen»
-        Switch(checked = on, onCheckedChange = null, modifier = Modifier.semantics { contentDescription = linkLabel })
+        Switch(checked = on, onCheckedChange = null, enabled = enabled, modifier = Modifier.semantics { contentDescription = linkLabel })
     }
 }
 

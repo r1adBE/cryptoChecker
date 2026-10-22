@@ -53,6 +53,10 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
         fatalError("\(key): tickerAddress(call:info:) fehlt")
     }
 
+    /// Seit Build 104: Fehler statt Anfrage, wenn die Kennung nicht in die Adresse darf (DexScreener `pairId`); nil =
+    /// anfragen. Android: `tickerAddress` wirft.
+    func tickerQueryError(call: Int, info: PairQuery) -> Error? { nil }
+
     /// POST body for request `call`; nil means a plain GET request.
     func tickerPostBody(call: Int, info: PairQuery) -> PostRequestInfo? { nil }
 

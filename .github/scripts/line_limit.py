@@ -1,17 +1,46 @@
 """Line limit: every production source file has at most 400 lines (since build 103).
 
 Usage: python3 -I line_limit.py [repository root, default: current directory]
+       python3 -I line_limit.py --self-test   (checks the annotation escaping, since build 104)
 
 Checks Kotlin under android/<module>/src/main and Swift under ios/App, ios/Shared and ios/Widgets; tests
 (src/test, src/androidTest, ios/Tests) are not checked. Same rule as the unit test FileLengthTest, but without
 Gradle: the result is an error annotation per file and exit 1. A missing ios/ directory (Android-only checkout)
-is fine.
+is fine. File names and texts in annotations are escaped like annotate.py (a crafted file name cannot inject
+further workflow commands; since build 104).
 """
 import os
 import sys
 
 LIMIT = 400
 IOS_AREAS = ("App", "Shared", "Widgets")
+
+
+def escape_data(text):
+    """Message part of a workflow command - same as annotate.py (run with -I, so no import)."""
+    return text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+
+
+def escape_property(text):
+    """Property value (file=, title=) - same as annotate.py."""
+    return escape_data(text).replace(":", "%3A").replace(",", "%2C")
+
+
+def annotation(message, file=None):
+    """One ::error line with escaped file and message."""
+    props = (f"file={escape_property(file)}," if file else "") + "title=" + escape_property("Line limit")
+    return f"::error {props}::{escape_data(message)}"
+
+
+def self_test():
+    """Escaping like annotate.py: no raw line break, %, : or , can leave its field."""
+    line = annotation("a\nb%c", file="x,y:z\r\n::error ::boom.kt")
+    expected = "::error file=x%2Cy%3Az%0D%0A%3A%3Aerror %3A%3Aboom.kt,title=Line limit::a%0Ab%25c"
+    assert line == expected, line
+    assert "\n" not in line and "\r" not in line
+    assert annotation("plain") == "::error title=Line limit::plain"
+    print("line_limit self-test ok")
+    return 0
 
 
 def sources(directory, extension):
@@ -41,6 +70,8 @@ def line_count(path):
 
 
 def main():
+    if sys.argv[1:] == ["--self-test"]:
+        return self_test()
     root = sys.argv[1] if len(sys.argv) > 1 else "."
     checked = 0
     too_long = []
@@ -50,11 +81,11 @@ def main():
         if lines > LIMIT:
             too_long.append((os.path.relpath(path, root), lines))
     if checked == 0:
-        print(f"::error title=Line limit::no production sources found under {os.path.abspath(root)}")
+        print(annotation(f"no production sources found under {os.path.abspath(root)}"))
         return 1
     for path, lines in too_long:
-        print(f"::error file={path},title=Line limit::{lines} lines, at most {LIMIT} allowed - split the file "
-              "(extension or helper file next to it)")
+        print(annotation(f"{lines} lines, at most {LIMIT} allowed - split the file (extension or helper file next "
+                         "to it)", file=path))
     if too_long:
         return 1
     print(f"Line limit: {checked} files, none over {LIMIT} lines")

@@ -154,18 +154,20 @@ internal fun CsvImportPreviewSheet(
             // Kauf/Verkauf gegen Stablecoin als Tausch gebucht: der Stablecoin erscheint im Bestand
             if (preview.stableSwaps) PreviewHint(stringResource(R.string.portfolio_csv_import_stable_swaps))
             // Zeiten ohne Zeitzone in der Datei: verwendete Zeitzone zeigen und wählen lassen
-            if (preview.localTimes) ZonePicker(preview.zone, onZone)
+            // Seit Build 104: während des Neu-Lesens sind Chips, Schalter und Knöpfe aus (nicht nur gedimmt)
+            val enabled = !rereading
+            if (preview.localTimes) ZonePicker(preview.zone, onZone, enabled)
             // Nur mehrdeutige Daten («03/04/2024»): Tag/Monat wählen lassen statt still Tag zuerst
-            if (preview.dateOrderAmbiguous) DateOrderPicker(preview.dateOrder, onDateOrder)
+            if (preview.dateOrderAmbiguous) DateOrderPicker(preview.dateOrder, onDateOrder, enabled)
             // Kein Dezimalzeichen erkennbar, aber «42,000»: 42000 oder 42 wählen lassen
-            preview.decimalSample?.let { DecimalPicker(it, preview.decimalMark, onDecimalMark) }
+            preview.decimalSample?.let { DecimalPicker(it, preview.decimalMark, onDecimalMark, enabled) }
             // Listen und Zeilen gedimmt, solange neu gelesen wird (seit Build 103)
             Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.alpha(dim)) {
                 // Auszahlung + Einzahlung desselben Coins (Datei oder früherer Import): als eine Umbuchung buchen
-                if (links.isNotEmpty()) TransferLinks(links, linked, onLink)
+                if (links.isNotEmpty()) TransferLinks(links, linked, onLink, enabled)
                 // Auszahlungen in der Datei: je Zeile wählen — eigene Wallet (Umbuchung) oder verlässt das Portfolio
                 if (withdrawals.isNotEmpty()) {
-                    WithdrawalChoices(withdrawals, proposals, choices, onChoice, onAllChoices)
+                    WithdrawalChoices(withdrawals, proposals, choices, onChoice, onAllChoices, enabled)
                 }
                 if (txs.isNotEmpty()) {
                     HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
@@ -201,7 +203,7 @@ internal fun CsvImportPreviewSheet(
 /** «Zeiten ohne Zeitzone gelesen als: …» mit Auswahl Gerät / Europe/Zurich / UTC. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun ZonePicker(zone: String, onZone: (String) -> Unit) {
+private fun ZonePicker(zone: String, onZone: (String) -> Unit, enabled: Boolean) {
     val device = ZoneId.systemDefault().id
     PreviewHint(stringResource(R.string.portfolio_csv_import_zone, zone))
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -209,6 +211,7 @@ private fun ZonePicker(zone: String, onZone: (String) -> Unit) {
             FilterChip(
                 selected = z == zone,
                 onClick = { if (z != zone) onZone(z) },
+                enabled = enabled,
                 label = { Text(if (z == device) stringResource(R.string.portfolio_csv_import_zone_device, z) else z) },
             )
         }
@@ -218,13 +221,14 @@ private fun ZonePicker(zone: String, onZone: (String) -> Unit) {
 /** «Mehrdeutige Daten (z. B. 03/04/2024) gelesen als:» mit Auswahl «Tag/Monat» / «Monat/Tag». */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun DateOrderPicker(order: CsvDateOrder, onDateOrder: (CsvDateOrder) -> Unit) {
+private fun DateOrderPicker(order: CsvDateOrder, onDateOrder: (CsvDateOrder) -> Unit, enabled: Boolean) {
     PreviewHint(stringResource(R.string.portfolio_csv_import_date_order))
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         CsvDateOrder.entries.forEach { o ->
             FilterChip(
                 selected = o == order,
                 onClick = { if (o != order) onDateOrder(o) },
+                enabled = enabled,
                 label = {
                     Text(
                         stringResource(
@@ -241,7 +245,7 @@ private fun DateOrderPicker(order: CsvDateOrder, onDateOrder: (CsvDateOrder) -> 
 /** «Mehrdeutige Zahlen (z. B. 42,000) gelesen als:» mit Auswahl «42,000 = 42000» / «42,000 = 42». */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun DecimalPicker(sample: String, mark: Char?, onDecimalMark: (Char) -> Unit) {
+private fun DecimalPicker(sample: String, mark: Char?, onDecimalMark: (Char) -> Unit, enabled: Boolean) {
     PreviewHint(stringResource(R.string.portfolio_csv_import_decimal, sample))
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         // Komma als Tausender (Punkt = Dezimal) zuerst, dann Komma als Dezimal; gleiche Werte nur einmal
@@ -251,6 +255,7 @@ private fun DecimalPicker(sample: String, mark: Char?, onDecimalMark: (Char) -> 
                 FilterChip(
                     selected = m == mark,
                     onClick = { if (m != mark) onDecimalMark(m) },
+                    enabled = enabled,
                     label = { Text("$sample = ${CsvImport.text(value)}", style = MaterialTheme.typography.bodyMedium.tabularNumbers()) },
                 )
             }
@@ -262,20 +267,21 @@ internal fun PreviewHint(text: String) {
     Text(text, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }
 
-/** «12.06.2024 · Kauf · 0.0028 BTC · 95’287.63 USDT». */
+/**
+ * «12.06.2024 · Kauf» / «0.0028 BTC · 95’287.63 USDT» — seit Build 104 zwei Zeilen ohne harte Begrenzung (vorher eine
+ * Zeile mit maxLines = 1: bei grosser Schrift fehlten Menge und Preis).
+ */
 @Composable
 internal fun PreviewRow(tx: CsvImportTx) {
-    val parts = listOfNotNull(
-        PortfolioFormat.date(tx.time),
-        stringResource(tx.type.labelRes()),
-        PortfolioFormat.amount(tx.amount, tx.coin),
-        tx.priceUsdt?.let { PortfolioFormat.price(it.toDouble()) },
-    )
-    Text(
-        parts.joinToString(" · "),
-        style = MaterialTheme.typography.bodyMedium.tabularNumbers(),
-        maxLines = 1,
-    )
+    val style = MaterialTheme.typography.bodyMedium.tabularNumbers()
+    Column {
+        Text(listOf(PortfolioFormat.date(tx.time), stringResource(tx.type.labelRes())).joinToString(" · "), style = style)
+        Text(
+            listOfNotNull(PortfolioFormat.amount(tx.amount, tx.coin), tx.priceUsdt?.let { PortfolioFormat.price(it.toDouble()) })
+                .joinToString(" · "),
+            style = style,
+        )
+    }
 }
 
 internal fun CsvImportFormat.displayName(): String = exchangeName ?: "CSV"

@@ -26,7 +26,7 @@ ohne Prognose. Das Portfolio ist optional und kommt höchstens als letztes Bild.
 | 05 | Portfolio, wenn du willst | Portfolio (optional) | Tab «Portfolio» mit den Demo-Käufen (Gesamtwert in CHF). Nur zeigen, wenn das Portfolio eingeschaltet ist; keine Gewinn-Aussage im Untertitel |
 
 Die Untertitel versprechen nur, was stimmt: Szene 01 «ohne Konto, ohne Werbung» und dass Beträge auf dem Gerät
-bleiben, Szene 02 zitiert den Alarm-Satz, Szene 03 sagt, dass Widgets den Kurs ohne Öffnen der App zeigen,
+bleiben, Szene 02 sagt ehrlich, dass der Alarm beim Nachsehen kommt (nicht im Moment des Kurses; seit Build 104), Szene 03 sagt, dass Widgets den Kurs ohne Öffnen der App zeigen,
 Szene 04 nennt die Datenbasis (Volumen, Gesamtmarkt, Futures) und «ohne Prognose», Szene 05 sagt, dass das
 Portfolio optional ist (einschaltbar in den Einstellungen). Keine Wörter wie «Echtzeit», «sofort», «garantiert»
 oder «alle Daten direkt von der Börse».
@@ -147,7 +147,7 @@ Blau, Grün, Rot und Marrs Green sind optionale Themes, die man in der App wähl
 ## Beschriftungen je Sprache
 
 Gleicher Inhalt wie `captions.json` (bei Änderungen beide Stellen anpassen). Titel ≤ 30 Zeichen,
-Untertitel ≤ 60 Zeichen. Untertitel 02 ist der Alarm-Satz aus dem bisherigen Kit, Titel 04 «Was bewegt sich mit?»
+Untertitel ≤ 60 Zeichen. Untertitel 02 sagt seit Build 104 ehrlich, wann der Alarm kommt (beim Nachsehen, nicht im Moment des Kurses), Titel 04 «Was bewegt sich mit?»
 entspricht dem Titel des Blatts in der App.
 
 ### ar – Arabisch
@@ -155,7 +155,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | آخر سعر من المنصة | بلا حساب ولا إعلانات – المبالغ تبقى على جهازك |
-| 02 | تنبيه يُعلمك مرة واحدة | «أبلغني عندما ينخفض BTC تحت 90,000 CHF» |
+| 02 | تنبيه يُعلمك مرة واحدة | يُعلمك عندما يجد الفحص أن مستواك قد تحقق |
 | 03 | الأسعار على الشاشة الرئيسية | قائمة المتابعة أو عملة واحدة كأداة – دون فتح التطبيق |
 | 04 | ما الذي يتحرك معه؟ | الحجم والسوق والعقود الآجلة باختصار – بلا توقعات |
 | 05 | المحفظة إن أردتها | اختياري، يُفعَّل من الإعدادات: شراء وبيع وتحويلات |
@@ -165,7 +165,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Poslední cena z burzy | Bez účtu a reklam – částky zůstávají v zařízení |
-| 02 | Alarm, který upozorní jednou | „Upozornit, až BTC klesne pod 90 000 CHF“ |
+| 02 | Alarm, který upozorní jednou | Ozve se, když kontrola zjistí, že je hranice dosažena |
 | 03 | Ceny na ploše | Seznam nebo jedna mince jako widget – bez otevření aplikace |
 | 04 | Co se hýbe s ním? | Objem, trh a futures ve zkratce – bez prognóz |
 | 05 | Portfolio, když chcete | Volitelné, zapnete v nastavení: nákupy, prodeje, převody |
@@ -175,7 +175,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Seneste kurs fra børsen | Ingen konto, ingen reklamer – beløb bliver på enheden |
-| 02 | En alarm, der melder én gang | »Giv mig besked, når BTC falder under 90.000 CHF« |
+| 02 | En alarm, der melder én gang | Giver besked, når et tjek viser, at niveauet er nået |
 | 03 | Kurser på startskærmen | Listen eller én coin som widget – uden at åbne appen |
 | 04 | Hvad bevæger sig med? | Volumen, marked og futures kort – uden prognose |
 | 05 | Portefølje, hvis du vil | Valgfrit, slås til i indstillinger: køb, salg, overførsler |
@@ -185,7 +185,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Letzter Kurs von der Börse | Ohne Konto, ohne Werbung – Beträge bleiben auf dem Gerät |
-| 02 | Ein Alarm, der einmal meldet | «Sag mir Bescheid, wenn BTC unter 90 000 CHF fällt» |
+| 02 | Ein Alarm, der einmal meldet | Meldet sich, wenn beim Nachsehen deine Marke erreicht ist |
 | 03 | Kurse auf dem Startbildschirm | Merkliste oder ein Coin als Widget – ohne die App zu öffnen |
 | 04 | Was bewegt sich mit? | Volumen, Markt und Futures kurz gesagt – ohne Prognose |
 | 05 | Portfolio, wenn du willst | Optional, in den Einstellungen: Käufe, Verkäufe, Transfers |
@@ -195,7 +195,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Η τιμή από το ανταλλακτήριο | Χωρίς λογαριασμό και διαφημίσεις – τα ποσά μένουν σε σένα |
-| 02 | Μία ειδοποίηση, μία φορά | «Ειδοποίηση όταν το BTC πέσει κάτω από 90.000 CHF» |
+| 02 | Μία ειδοποίηση, μία φορά | Σε ειδοποιεί όταν ένας έλεγχος βρει το όριό σου |
 | 03 | Τιμές στην αρχική οθόνη | Λίστα ή ένα νόμισμα σε widget – χωρίς άνοιγμα εφαρμογής |
 | 04 | Τι κινείται μαζί; | Όγκος, αγορά και futures με λίγα λόγια – χωρίς πρόβλεψη |
 | 05 | Χαρτοφυλάκιο, αν θέλεις | Προαιρετικό, από τις ρυθμίσεις: αγορές, πωλήσεις, μεταφορές |
@@ -205,7 +205,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Last price from the exchange | No account, no ads – amounts stay on your device |
-| 02 | An alarm that tells you once | “Tell me when BTC falls below 90,000 CHF” |
+| 02 | An alarm that tells you once | Notifies you when a check finds your level reached |
 | 03 | Prices on your home screen | Watchlist or one coin as a widget – without opening the app |
 | 04 | What is moving with it? | Volume, market and futures in short – no forecast |
 | 05 | Portfolio, if you want it | Optional, turn on in Settings: buys, sells, transfers |
@@ -215,7 +215,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Último precio del exchange | Sin cuenta ni anuncios: los importes no salen del móvil |
-| 02 | Una alarma que avisa una vez | «Avísame cuando BTC baje de 90.000 CHF» |
+| 02 | Una alarma que avisa una vez | Avisa cuando una comprobación ve tu nivel alcanzado |
 | 03 | Precios en tu pantalla | Tu lista o una moneda como widget, sin abrir la app |
 | 04 | ¿Qué se mueve con él? | Volumen, mercado y futuros en resumen, sin pronósticos |
 | 05 | Cartera, si la quieres | Opcional, en Ajustes: compras, ventas, transferencias |
@@ -225,7 +225,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | آخرین قیمت از صرافی | بدون حساب و تبلیغ – مبالغ روی دستگاه شما می‌ماند |
-| 02 | هشداری که یک بار خبر می‌دهد | «وقتی BTC از ۹۰٬۰۰۰ CHF پایین‌تر رفت، خبرم کن» |
+| 02 | هشداری که یک بار خبر می‌دهد | وقتی بررسی ببیند سطح تو رسیده، خبرت می‌کند |
 | 03 | قیمت‌ها روی صفحهٔ اصلی | واچ‌لیست یا یک کوین به‌صورت ابزارک – بدون باز کردن برنامه |
 | 04 | چه چیزی همراه آن حرکت می‌کند؟ | حجم، بازار و فیوچرز به‌طور خلاصه – بدون پیش‌بینی |
 | 05 | پرتفوی، اگر بخواهید | اختیاری، از تنظیمات: خرید، فروش، انتقال |
@@ -235,7 +235,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Viimeisin hinta pörssistä | Ei tiliä, ei mainoksia – summat pysyvät laitteellasi |
-| 02 | Hälytys, joka ilmoittaa kerran | ”Ilmoita, kun BTC laskee alle 90 000 CHF” |
+| 02 | Hälytys, joka ilmoittaa kerran | Ilmoittaa, kun tarkistus huomaa rajasi saavutetuksi |
 | 03 | Hinnat aloitusnäytöllä | Lista tai yksi kolikko widgetinä – avaamatta sovellusta |
 | 04 | Mikä liikkuu mukana? | Volyymi, markkina ja futuurit lyhyesti – ei ennusteita |
 | 05 | Salkku, jos haluat | Valinnainen, asetuksista: ostot, myynnit, siirrot |
@@ -245,7 +245,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Dernier cours de la plateforme | Sans compte ni pub – les montants restent sur l’appareil |
-| 02 | Une alerte, une seule fois | « Me prévenir quand BTC passe sous 90 000 CHF » |
+| 02 | Une alerte, une seule fois | Te prévient quand une vérification voit ton seuil atteint |
 | 03 | Cours sur l’écran d’accueil | Liste ou une crypto en widget – sans ouvrir l’app |
 | 04 | Qu’est-ce qui bouge avec ? | Volume, marché et futures en bref – sans prévision |
 | 05 | Portefeuille, si besoin | En option, dans les réglages : achats, ventes, transferts |
@@ -255,7 +255,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | एक्सचेंज से आख़िरी भाव | बिना खाते, बिना विज्ञापन – रकम डिवाइस पर ही रहती है |
-| 02 | एक बार बताने वाला अलार्म | “जब BTC 90,000 CHF से नीचे जाए, तो मुझे बताएँ” |
+| 02 | एक बार बताने वाला अलार्म | जाँच में तुम्हारा स्तर पहुँचा मिले तो बताता है |
 | 03 | होम स्क्रीन पर भाव | वॉचलिस्ट या एक कॉइन विजेट में – ऐप खोले बिना |
 | 04 | साथ में किसमें हलचल है? | वॉल्यूम, बाज़ार और फ़्यूचर्स संक्षेप में – बिना पूर्वानुमान |
 | 05 | पोर्टफ़ोलियो, अगर चाहें | वैकल्पिक, सेटिंग्स में चालू करें: ख़रीद, बिक्री, ट्रांसफ़र |
@@ -265,7 +265,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Utolsó ár a tőzsdéről | Fiók és reklám nélkül – az összegek az eszközön maradnak |
-| 02 | Riasztás, amely egyszer szól | „Szólj, ha a BTC 90 000 CHF alá esik” |
+| 02 | Riasztás, amely egyszer szól | Szól, ha egy ellenőrzéskor az ár eléri a szintedet |
 | 03 | Árfolyamok a kezdőképernyőn | Lista vagy egy érme widgetként – az app megnyitása nélkül |
 | 04 | Mi mozog vele együtt? | Forgalom, piac és futures röviden – előrejelzés nélkül |
 | 05 | Portfólió, ha szeretnéd | Opcionális, a beállításokban: vétel, eladás, átutalás |
@@ -275,7 +275,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Harga terakhir dari bursa | Tanpa akun, tanpa iklan – jumlah tetap di perangkat Anda |
-| 02 | Alarm yang memberi tahu sekali | “Beri tahu saya saat BTC turun di bawah 90.000 CHF” |
+| 02 | Alarm yang memberi tahu sekali | Memberi tahu saat pemeriksaan mendapati levelmu tercapai |
 | 03 | Harga di layar utama | Daftar pantau atau satu koin di widget, tanpa buka aplikasi |
 | 04 | Apa yang ikut bergerak? | Volume, pasar, dan futures singkatnya – tanpa prediksi |
 | 05 | Portofolio, jika mau | Opsional, aktifkan di Pengaturan: beli, jual, transfer |
@@ -285,7 +285,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Ultimo prezzo dall’exchange | Senza account né pubblicità – importi solo sul dispositivo |
-| 02 | Un allarme, un solo avviso | «Avvisami quando BTC scende sotto 90.000 CHF» |
+| 02 | Un allarme, un solo avviso | Ti avvisa quando un controllo trova raggiunto il livello |
 | 03 | Prezzi nella schermata Home | Lista o una moneta come widget, senza aprire l’app |
 | 04 | Cosa si muove insieme? | Volume, mercato e futures in breve, senza previsioni |
 | 05 | Portafoglio, se vuoi | Facoltativo: acquisti, vendite e trasferimenti |
@@ -295,7 +295,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | מחיר אחרון מהבורסה | בלי חשבון, בלי פרסומות – הסכומים נשארים במכשיר |
-| 02 | התראה שמודיעה פעם אחת | ״להודיע לי כש-BTC יורד מתחת ל-90,000 CHF״ |
+| 02 | התראה שמודיעה פעם אחת | מודיע כשבדיקה מגלה שהרמה שלך הושגה |
 | 03 | מחירים במסך הבית | רשימת מעקב או מטבע אחד כווידג׳ט – בלי לפתוח את האפליקציה |
 | 04 | מה זז יחד איתו? | מחזור, שוק וחוזים עתידיים בקצרה – בלי תחזית |
 | 05 | תיק השקעות, אם רוצים | אופציונלי, בהגדרות: קניות, מכירות, העברות |
@@ -305,7 +305,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | 直近価格は取引所から直接 | アカウント不要・広告なし。金額は端末の外に出ません |
-| 02 | 一度だけ知らせるアラーム | 「BTC が 90,000 CHF を下回ったら知らせる」 |
+| 02 | 一度だけ知らせるアラーム | 確認のときに設定した水準に達していればお知らせ |
 | 03 | ホーム画面で価格をチェック | ウォッチリストや1つのコインをウィジェットに。アプリを開かずに |
 | 04 | 一緒に動いているのは？ | 出来高・市場・先物から短くまとめ。予測はしません |
 | 05 | ポートフォリオは必要なときに | 任意・設定でオン：購入、売却、送金 |
@@ -315,7 +315,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | 거래소에서 바로 온 최근 가격 | 계정·광고 없음 – 금액은 기기에만 남습니다 |
-| 02 | 한 번만 알려 주는 경보 | ‘BTC가 90,000 CHF 아래로 내려가면 알려 주세요’ |
+| 02 | 한 번만 알려 주는 경보 | 확인할 때 기준에 도달해 있으면 알려 줍니다 |
 | 03 | 홈 화면에서 바로 가격 확인 | 관심 목록이나 코인 하나를 위젯으로 – 앱을 열지 않고 |
 | 04 | 함께 움직이는 것은? | 거래량·시장·선물 데이터를 짧게 요약, 예측 없음 |
 | 05 | 원할 때만 포트폴리오 | 선택 사항, 설정에서 켜기: 매수, 매도, 이체 |
@@ -325,7 +325,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Laatste koers van de beurs | Geen account, geen reclame – bedragen blijven op je toestel |
-| 02 | Een alarm dat één keer meldt | ‘Laat het me weten als BTC onder 90.000 CHF daalt’ |
+| 02 | Een alarm dat één keer meldt | Meldt zich als een controle ziet dat je grens is bereikt |
 | 03 | Koersen op je beginscherm | Volglijst of één munt als widget – zonder de app te openen |
 | 04 | Wat beweegt mee? | Volume, markt en futures kort samengevat – geen voorspelling |
 | 05 | Portfolio, als je wilt | Optioneel, via instellingen: aankopen, verkopen, transfers |
@@ -335,7 +335,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Siste kurs fra børsen | Ingen konto, ingen reklame – beløp blir på enheten |
-| 02 | En alarm som sier fra én gang | «Gi meg beskjed når BTC faller under 90 000 CHF» |
+| 02 | En alarm som sier fra én gang | Gir beskjed når en sjekk viser at nivået ditt er nådd |
 | 03 | Kurser på startskjermen | Listen eller én mynt som widget – uten å åpne appen |
 | 04 | Hva beveger seg med? | Volum, marked og futures kort fortalt – uten prognose |
 | 05 | Portefølje, om du vil | Valgfritt, slås på i innstillinger: kjøp, salg, overføringer |
@@ -345,7 +345,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Ostatnia cena z giełdy | Bez konta i reklam – kwoty zostają na urządzeniu |
-| 02 | Alarm, który powiadamia raz | „Powiadom mnie, gdy BTC spadnie poniżej 90 000 CHF” |
+| 02 | Alarm, który powiadamia raz | Daje znać, gdy sprawdzenie wykaże osiągnięty poziom |
 | 03 | Ceny na ekranie głównym | Lista lub moneta jako widżet – bez otwierania aplikacji |
 | 04 | Co rusza się razem? | Wolumen, rynek i futures w skrócie – bez prognoz |
 | 05 | Portfel, jeśli chcesz | Opcjonalnie, w ustawieniach: kupno, sprzedaż, transfery |
@@ -355,7 +355,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Último preço da exchange | Sem conta, sem anúncios – os valores ficam no aparelho |
-| 02 | Um alarme que avisa uma vez | “Me avise quando o BTC cair abaixo de 90.000 CHF” |
+| 02 | Um alarme que avisa uma vez | Avisa quando uma verificação encontra seu nível atingido |
 | 03 | Preços na tela inicial | Lista ou uma moeda como widget, sem abrir o app |
 | 04 | O que se move junto? | Volume, mercado e futuros em resumo, sem previsões |
 | 05 | Portfólio, se você quiser | Opcional, ative nos Ajustes: compras, vendas, transferências |
@@ -365,7 +365,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Último preço da exchange | Sem conta nem anúncios – os montantes ficam no dispositivo |
-| 02 | Um alarme que avisa uma vez | «Avisar-me quando BTC descer abaixo de 90 000 CHF» |
+| 02 | Um alarme que avisa uma vez | Avisa quando uma verificação encontra o teu nível atingido |
 | 03 | Preços no ecrã principal | Lista ou uma moeda como widget, sem abrir a app |
 | 04 | O que se mexe com ele? | Volume, mercado e futuros em resumo, sem previsões |
 | 05 | Portefólio, se quiser | Opcional, nas Definições: compras, vendas, transferências |
@@ -375,7 +375,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Ultimul preț de la bursă | Fără cont, fără reclame – sumele rămân pe dispozitiv |
-| 02 | O alarmă care anunță o dată | „Anunță-mă când BTC coboară sub 90.000 CHF” |
+| 02 | O alarmă care anunță o dată | Te anunță când o verificare găsește nivelul atins |
 | 03 | Prețuri pe ecranul principal | Lista sau o monedă ca widget – fără să deschizi aplicația |
 | 04 | Ce se mișcă odată cu el? | Volum, piață și futures pe scurt – fără prognoze |
 | 05 | Portofoliu, dacă vrei | Opțional, din setări: cumpărări, vânzări, transferuri |
@@ -385,7 +385,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Последняя цена с биржи | Без аккаунта и рекламы – суммы остаются на устройстве |
-| 02 | Одно оповещение – один раз | «Сообщить, когда BTC опустится ниже 90 000 CHF» |
+| 02 | Одно оповещение – один раз | Сообщает, когда проверка видит, что уровень достигнут |
 | 03 | Цены на главном экране | Список или одна монета в виджете – без открытия приложения |
 | 04 | Что движется вместе? | Объём, рынок и фьючерсы коротко – без прогнозов |
 | 05 | Портфель – по желанию | По желанию, в настройках: покупки, продажи, переводы |
@@ -395,7 +395,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Çmimi i fundit nga bursa | Pa llogari, pa reklama – shumat mbeten në pajisje |
-| 02 | Një alarm që njofton një herë | «Më njofto kur BTC të bjerë nën 90 000 CHF» |
+| 02 | Një alarm që njofton një herë | Të njofton kur një kontroll gjen nivelin të arritur |
 | 03 | Çmimet në ekranin kryesor | Lista ose një monedhë si widget – pa hapur aplikacionin |
 | 04 | Çfarë lëviz bashkë? | Vëllimi, tregu dhe futures shkurt – pa parashikime |
 | 05 | Portofol, nëse do | Opsionale, nga cilësimet: blerje, shitje, transferime |
@@ -405,7 +405,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Senaste kursen från börsen | Inget konto, ingen reklam – beloppen stannar på enheten |
-| 02 | Larm som meddelar en gång | ”Meddela mig när BTC sjunker under 90 000 CHF” |
+| 02 | Larm som meddelar en gång | Meddelar när en kontroll visar att din nivå är nådd |
 | 03 | Kurser på hemskärmen | Listan eller ett mynt som widget – utan att öppna appen |
 | 04 | Vad rör sig med? | Volym, marknad och terminer kort sagt – utan prognos |
 | 05 | Portfölj, om du vill | Valfritt, i inställningar: köp, försäljning, överföringar |
@@ -415,7 +415,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | ราคาล่าสุดจากกระดานเทรด | ไม่ต้องมีบัญชี ไม่มีโฆษณา จำนวนเงินอยู่บนเครื่องคุณ |
-| 02 | แจ้งเตือนครั้งเดียว | “แจ้งฉันเมื่อ BTC ลงต่ำกว่า 90,000 CHF” |
+| 02 | แจ้งเตือนครั้งเดียว | แจ้งเมื่อการตรวจพบว่าราคาถึงระดับที่ตั้งไว้ |
 | 03 | ราคาบนหน้าจอหลัก | รายการติดตามหรือเหรียญเดียวเป็นวิดเจ็ต ไม่ต้องเปิดแอป |
 | 04 | อะไรเคลื่อนไหวไปด้วย? | วอลุ่ม ตลาด และฟิวเจอร์ส สรุปสั้น ๆ ไม่พยากรณ์ |
 | 05 | พอร์ตโฟลิโอ ถ้าต้องการ | ไม่บังคับ เปิดในการตั้งค่า: ซื้อ ขาย โอน |
@@ -425,7 +425,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Borsadan son fiyat | Hesap yok, reklam yok – tutarlar cihazında kalır |
-| 02 | Bir kez haber veren alarm | “BTC 90.000 CHF altına düşünce bana haber ver” |
+| 02 | Bir kez haber veren alarm | Bir kontrol seviyene ulaşıldığını görünce haber verir |
 | 03 | Ana ekranda fiyatlar | Liste veya tek coin widget olarak – uygulamayı açmadan |
 | 04 | Onunla birlikte ne hareket ediyor? | Hacim, piyasa ve vadeli kısaca – tahmin yok |
 | 05 | İstersen portföy | İsteğe bağlı, ayarlardan: alım, satım, transfer |
@@ -435,7 +435,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Остання ціна з біржі | Без акаунта й реклами – суми лишаються на пристрої |
-| 02 | Сигнал, що спрацьовує раз | «Повідомити, коли BTC опуститься нижче 90 000 CHF» |
+| 02 | Сигнал, що спрацьовує раз | Повідомляє, коли перевірка бачить, що рівень досягнуто |
 | 03 | Ціни на головному екрані | Список або одна монета у віджеті – без відкриття застосунку |
 | 04 | Що рухається разом? | Обсяг, ринок і ф’ючерси коротко – без прогнозів |
 | 05 | Портфель – за бажанням | За бажанням, у налаштуваннях: купівлі, продажі, перекази |
@@ -445,7 +445,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | Giá gần nhất từ sàn | Không tài khoản, không quảng cáo – số tiền ở lại máy bạn |
-| 02 | Cảnh báo chỉ báo một lần | “Báo cho tôi khi BTC giảm dưới 90.000 CHF” |
+| 02 | Cảnh báo chỉ báo một lần | Báo khi lần kiểm tra thấy mức của bạn đã đạt |
 | 03 | Giá ngay trên màn hình chính | Danh sách hoặc một coin dạng widget – không cần mở app |
 | 04 | Cái gì biến động cùng? | Khối lượng, thị trường, futures – ngắn gọn, không dự đoán |
 | 05 | Danh mục, nếu bạn muốn | Tùy chọn, bật trong Cài đặt: mua, bán, chuyển |
@@ -455,7 +455,7 @@ entspricht dem Titel des Blatts in der App.
 | Nr. | Titel | Untertitel |
 |---|---|---|
 | 01 | 最新价来自交易所 | 无需账户，没有广告，金额不离开设备 |
-| 02 | 只通知一次的提醒 | “当 BTC 跌破 90,000 CHF 时提醒我” |
+| 02 | 只通知一次的提醒 | 检查时发现达到你设定的水平就通知你 |
 | 03 | 主屏幕上看价格 | 自选列表或单个币种做成小组件，无需打开应用 |
 | 04 | 哪些在同步波动？ | 成交量、大盘和合约数据，简短总结，不做预测 |
 | 05 | 需要时再用投资组合 | 可选，在设置中开启：买入、卖出、转账 |

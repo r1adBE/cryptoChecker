@@ -14,6 +14,9 @@ import com.cryptochecker.app.data.portfolio.PortfolioDatabase
 import com.cryptochecker.app.data.portfolio.WatchedAddressDao
 import com.cryptochecker.app.domain.refresh.AlarmLogStore
 import com.cryptochecker.app.domain.refresh.CheckRunStore
+import com.cryptochecker.app.notification.AlarmDeliveryMarkers
+import com.cryptochecker.app.notification.PortfolioAlarmDeliveryMarkers
+import com.cryptochecker.app.notification.PrefsAlarmDeliveryMarkers
 import com.cryptochecker.app.widget.PortfolioSnapshotKeyStore
 import com.cryptochecker.app.widget.PortfolioSnapshotSeal
 import dagger.Module
@@ -59,6 +62,7 @@ object LocalDataModule {
             .openHelperFactory(openHelperFactory)
             .addMigrations(*AppDatabase.ALL_MIGRATIONS)
             .addCallback(SecureDeleteCallback)
+            .addCallback(DeliveryMarkerResetCallback(context, AlarmDeliveryMarkers.PREFS))
             .build()
     }
 
@@ -80,6 +84,7 @@ object LocalDataModule {
         // Gelöschte Transaktionen (Menge, Preis, Notiz) und Alarm-Schwellen mit Nullen überschreiben
         builder.addCallback(SecureDeleteCallback)
         builder.addCallback(PortfolioScrubCallback(context))
+        builder.addCallback(DeliveryMarkerResetCallback(context, PortfolioAlarmDeliveryMarkers.PREFS))
         return builder.build()
     }
 
@@ -126,6 +131,19 @@ object LocalDataModule {
     fun provideWatchedAddressDao(database: PortfolioDatabase): WatchedAddressDao = database.getWatchedAddressDao()
 
     // ---- Callbacks
+
+    /**
+     * Seit Build 104: Datenbank neu angelegt (erste Installation, unlesbare Datei beiseitegelegt, nur im Arbeitsspeicher):
+     * Alarm-Ids beginnen von vorn — alte Vermerke «wird gemeldet» ([AlarmDeliveryMarkers]) gehörten zu anderen Alarmen.
+     */
+    private class DeliveryMarkerResetCallback(
+        private val context: Context,
+        private val prefsName: String,
+    ) : RoomDatabase.Callback() {
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            PrefsAlarmDeliveryMarkers.clearAll(context, prefsName)
+        }
+    }
 
     /**
      * `PRAGMA secure_delete`: Gelöschte oder überschriebene Inhalte (geleerte Bestände, entfernte Paare …)

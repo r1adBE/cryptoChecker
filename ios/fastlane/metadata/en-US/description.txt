@@ -1,8 +1,8 @@
-Get an alert when Bitcoin hits your price – from the exchange you actually use. With the app closed, iOS checks rarely – often only after hours, and not at all after you swipe the app away. Most reliable with the app open. Short spikes in between can be missed; the app tells you so. Your exchange's price, not an average – free, no account.
+Crypto Checker checks the prices on your exchange and lets you know when a check finds your level reached. With the app closed, iOS checks rarely – often only after hours, and not at all after you swipe the app away. Most reliable with the app open. Short spikes in between can be missed; the app tells you so. Your exchange's price, not an average – free, no account.
 
 WHAT MAKES IT DIFFERENT
 • Your exchange, not an average: each row shows the last price of the pair on the exchange you picked – Binance, Coinbase, Kraken, OKX, Bybit and many more.
-• An alert that notifies once: “Tell me when BTC goes above 100,000 USDT.” It rings when the level is crossed, not on every update – “Once” then switches it off, “Every time” re-arms it when the price comes back.
+• An alert that notifies once: “Tell me when BTC goes above 100,000 USDT.” It rings when a check finds the level crossed, not on every update – “Once” then switches it off, “Every time” re-arms it when the price comes back.
 • “What is moving with it?”: a factor list for one coin – overall market, volume, volatility, funding and open interest, distance to the high or low, Fear & Greed. It shows what is moving at the same time – no cause, no news, no investment advice.
 • No account, no ads, no tracking. The developer receives none of your data.
 
@@ -32,7 +32,7 @@ MARKET
 
 MORE
 • Widgets for Home Screen and Lock Screen, Live Activity for one coin
-• Portfolio optional (turn it on in Settings): buys, sells, swaps, transfers, rewards, deposits and withdrawals; FIFO (default) or average (Ø); read-only addresses without a seed for BTC (incl. xpub), ETH & EVM chains, SOL, TRX, XRP, LTC, ADA and TON; CSV import from Relai, Swissquote, Bitpanda, Kraken, Binance and Coinbase; year overview as CSV; its own lock. Bitpanda and Swissquote have no public price feed, so they have no price of their own – import their trades via CSV.
+• Portfolio optional (turn it on in Settings): buys, sells, swaps, transfers, rewards, deposits and withdrawals; FIFO (default) or average (Ø); read-only addresses without a seed for BTC (incl. xpub), ETH & EVM chains, SOL, TRX, XRP, LTC, ADA and TON; CSV import from Relai, Swissquote, Bitpanda, Kraken, Binance and Coinbase; year overview as CSV; its own lock. Bitpanda and Swissquote: no price of their own, CSV only.
 • Readable for everyone: green/red or blue/orange, sign and arrow instead of color alone, Dynamic Type; VoiceOver reads each row as one sentence
 • Backup & restore via the Files app
 • Light and dark mode, five accent colors, 31 languages

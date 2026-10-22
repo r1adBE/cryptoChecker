@@ -60,6 +60,8 @@ extension PortfolioPriceSource {
         cache = [:]
         uncheckedCoins = []
         unverifiedCoins = []
+        // Seit Build 104 auch «Kurs nicht verfügbar» (wie Android) — nennt gehaltene Coins
+        unavailableCoins = []
         storedEntries = [:]
         sourceOf = [:]
         failedOf = [:]
