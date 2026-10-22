@@ -18,6 +18,13 @@ enum FallAlarmCleanup {
     static func portfolioIdsToDisable(_ alarms: [PortfolioAlarm]) -> Set<Int64> {
         Set(alarms.filter { $0.enabled && PortfolioAlarmLogic.exceedsFall($0.kind, $0.threshold) }.map(\.id))
     }
+
+    /// Seit Build 106 (Review FUN4-R1): Portfolio-Alarme wirklich gelesen? `nil` bei vorhandener Datei = gerade nicht
+    /// zugreifbar (nicht «leer») — dann keinen Merker setzen, beim nächsten Start erneut (wie Android erst nach dem
+    /// gelungenen DB-Zugriff).
+    static func portfolioAlarmsRead(_ alarms: [PortfolioAlarm]?, fileExists: Bool) -> Bool {
+        alarms != nil || !fileExists
+    }
 }
 
 extension AppData {
@@ -40,6 +47,9 @@ extension AppData {
     /// Nur aus `disableInvalidFallAlarmsOnce` (gelesener, beschreibbarer Stand).
     private func disableInvalidPortfolioFallAlarmsOnce(defaults: UserDefaults) {
         guard !defaults.bool(forKey: FallAlarmCleanup.portfolioDoneKey) else { return }
+        // Seit Build 106 (FUN4-R1): nicht gelesen (Datei da, aber nicht zugreifbar) → kein Merker, nächster Start
+        let fileExists = FileManager.default.fileExists(atPath: SharedStorage.portfolioAlarmsURL.path)
+        guard FallAlarmCleanup.portfolioAlarmsRead(snapshot.portfolioAlarms, fileExists: fileExists) else { return }
         let ids = FallAlarmCleanup.portfolioIdsToDisable(snapshot.portfolioAlarms ?? [])
         if !ids.isEmpty {
             mutate({ s in

@@ -100,7 +100,8 @@ extension WatchlistScreen {
                 if let id = pickedAlarmPair { alarmsFor = id }
                 pickedAlarmPair = nil
             }) {
-                AlarmPairPicker(watches: data.watches) { id in
+                let input = data.alarmPairPickerInput // seit Build 106 (PERF4-R1): einmal je Stand
+                AlarmPairPicker(watches: input.watches, sourceKey: input.sourceKey) { id in
                     pickedAlarmPair = id
                     pickAlarmPair = false
                 }

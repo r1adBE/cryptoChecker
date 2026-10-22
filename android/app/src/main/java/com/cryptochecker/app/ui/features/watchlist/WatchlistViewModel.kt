@@ -316,13 +316,13 @@ class WatchlistViewModel @Inject constructor(
     fun setGroup(watch: WatchEntity, group: String?) = edits.setGroup(watch, group)
 
     /** Mehrfachauswahl › «Gruppe»: alle [ids] in [group] (null = keine Gruppe). */
-    fun setGroup(ids: Collection<Long>, group: String?) = edits.setGroup(ids, group)
+    fun setGroup(ids: Collection<Long>, group: String?, onDone: (Boolean) -> Unit = {}) = edits.setGroup(ids, group, onDone)
 
     /** «Gruppe bearbeiten» übernehmen; [oldName] null für eine neue Gruppe. */
-    fun saveGroup(oldName: String?, newName: String, memberIds: Set<Long>) = edits.saveGroup(oldName, newName, memberIds)
+    fun saveGroup(oldName: String?, newName: String, memberIds: Set<Long>, onDone: () -> Unit = {}) = edits.saveGroup(oldName, newName, memberIds, onDone)
 
     /** Gruppe löschen: Paare bleiben in der Merkliste; die Ansicht springt auf «Alle». */
-    fun deleteGroup(name: String) = edits.deleteGroup(name)
+    fun deleteGroup(name: String, onDone: () -> Unit = {}) = edits.deleteGroup(name, onDone)
 
     /** Vorschau-Paar aus «Heute auffällig» in die Merkliste ([WatchlistEditController.addPreview]); [onFull]: Merkliste voll. */
     fun addPreview(watch: WatchEntity, onFull: () -> Unit, onDone: (Long?, Boolean) -> Unit) = edits.addPreview(watch, onFull, onDone)
@@ -339,15 +339,15 @@ class WatchlistViewModel @Inject constructor(
     /** Mehrfachauswahl › «Löschen»; [onDone] bekommt die Zahl der gelöschten Paare. */
     fun deleteSelectedWithUndo(ids: Collection<Long>, onDone: (Int) -> Unit) = edits.deleteSelectedWithUndo(ids, onDone)
 
-    /** Mehrfachauswahl › «Favorit». */
-    fun setFavorite(ids: Collection<Long>, favorite: Boolean) = edits.setFavorite(ids, favorite)
+    /** Mehrfachauswahl › «Favorit»; [onDone] seit Build 106 nach dem Schreiben (true = geschrieben). */
+    fun setFavorite(ids: Collection<Long>, favorite: Boolean, onDone: (Boolean) -> Unit = {}) = edits.setFavorite(ids, favorite, onDone)
 
     /** «Deaktivieren» bzw. «Aktivieren» (dann gleich den Kurs holen). */
-    fun setDisabled(ids: Collection<Long>, disabled: Boolean) = edits.setDisabled(ids, disabled)
+    fun setDisabled(ids: Collection<Long>, disabled: Boolean, onDone: (Boolean) -> Unit = {}) = edits.setDisabled(ids, disabled, onDone)
 
     fun deleteAllWithUndo(onDone: (Int) -> Unit = {}) = edits.deleteAllWithUndo(onDone)
-
-    fun setNotificationEnabled(watch: WatchEntity, enabled: Boolean) = edits.setNotificationEnabled(watch, enabled)
+    fun setNotificationEnabled(watch: WatchEntity, enabled: Boolean, onDone: (Boolean) -> Unit = {}) =
+        edits.setNotificationEnabled(watch, enabled, onDone)
 
     /** Paar im Sortiermodus verschieben. */
     fun move(watch: WatchEntity, move: WatchMove) = edits.move(watch, move)
@@ -356,7 +356,7 @@ class WatchlistViewModel @Inject constructor(
     fun reorder(orderedIds: List<Long>) = edits.reorder(orderedIds)
 
     /** Stern, Aktionen-Menü bzw. nach rechts wischen: Favorit an/aus. */
-    fun toggleFavorite(watch: WatchEntity) = edits.toggleFavorite(watch)
+    fun toggleFavorite(watch: WatchEntity, onDone: (Boolean) -> Unit = {}) = edits.toggleFavorite(watch, onDone)
 
     /** «Kurs vorlesen»; true, wenn die Sprachausgabe dafür eingeschaltet wurde (kurzer Hinweis im Blatt). */
     fun setTtsEnabled(watch: WatchEntity, enabled: Boolean): Boolean = edits.setTtsEnabled(watch, enabled)

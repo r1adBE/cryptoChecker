@@ -56,7 +56,8 @@ WARNING = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? warning: (.*)$")
 MAX_COMPILER_WARNINGS = 94
 
 # Required Reason APIs (Apple, «Describing use of required reason API»), as they appear in Swift: category -> patterns.
-# Comments are removed before the scan, so a comment naming an API does not count.
+# Comments are removed before the scan, so a comment naming an API does not count (since build 106 string-aware:
+# "//" or "/*" inside a string literal opens no comment, SEC4-01).
 REQUIRED_REASON_APIS = {
     "NSPrivacyAccessedAPICategorySystemBootTime": (
         r"\bsystemUptime\b", r"\bmach_absolute_time\b", r"kern\.boottime", r"\bKERN_BOOTTIME\b"),
@@ -66,12 +67,10 @@ REQUIRED_REASON_APIS = {
     "NSPrivacyAccessedAPICategoryActiveKeyboards": (r"\bactiveInputModes\b",),
     "NSPrivacyAccessedAPICategoryFileTimestamp": (
         r"\.creationDate\b", r"\.modificationDate\b", r"\bcreationDateKey\b", r"\bcontentModificationDate\w*",
-        r"\bfileModificationDate\b", r"\bgetattrlist\s*\(", r"\bf?l?stat\s*\("),
+        r"\bfileModificationDate\b", r"\bf?getattrlist(?:bulk|at)?\s*\(", r"\bf?l?stat\s*\(", r"\bfstatat\s*\("),
     "NSPrivacyAccessedAPICategoryUserDefaults": (r"\bUserDefaults\b", r"\bNSUserDefaults\b"),
 }
 SOURCE_AREAS = ("App", "Shared", "Widgets")
-BLOCK_COMMENT = re.compile(r"/\*.*?\*/", re.DOTALL)
-LINE_COMMENT = re.compile(r"(?<![:\"])//.*$", re.MULTILINE)
 
 findings = []
 
@@ -215,7 +214,73 @@ def binary_hits(binary):
 
 
 def strip_comments(text):
-    return LINE_COMMENT.sub("", BLOCK_COMMENT.sub("", text))
+    """Swift comments (line, nested block) -> spaces, newlines kept (line numbers stay). Since build 106 (SEC4-01) a
+    small tokenizer: string literals (plain, multi-line, raw #"..."# with escapes and interpolation) are skipped,
+    so "a//b" or "/0/*" no longer hides the code after it."""
+    out = list(text)
+    n = len(text)
+
+    def blank(a, b):
+        for k in range(a, b):
+            if out[k] != "\n":
+                out[k] = " "
+
+    def string(i):
+        hashes = 0
+        while text[i] == "#":
+            hashes += 1
+            i += 1
+        multi = text.startswith('"""', i)
+        i += 3 if multi else 1
+        close = ('"""' if multi else '"') + "#" * hashes
+        escape = "\\" + "#" * hashes
+        while i < n:
+            if text.startswith(escape, i):
+                j = i + len(escape)
+                i = code(j + 1, True) if j < n and text[j] == "(" else j + 1
+            elif text.startswith(close, i):
+                return i + len(close)
+            elif not multi and text[i] == "\n":
+                return i
+            else:
+                i += 1
+        return n
+
+    def code(i, until_paren):
+        depth = 0
+        while i < n:
+            if text.startswith("//", i):
+                j = text.find("\n", i)
+                j = n if j < 0 else j
+                blank(i, j)
+                i = j
+            elif text.startswith("/*", i):
+                nested, k = 0, i
+                while k < n:
+                    if text.startswith("/*", k):
+                        nested, k = nested + 1, k + 2
+                    elif text.startswith("*/", k):
+                        nested, k = nested - 1, k + 2
+                        if nested == 0:
+                            break
+                    else:
+                        k += 1
+                blank(i, k)
+                i = k
+            elif text[i] == '"' or (text[i] == "#" and re.match(r'#+"', text[i:i + 8])):
+                i = string(i)
+            else:
+                if until_paren and text[i] == "(":
+                    depth += 1
+                elif until_paren and text[i] == ")":
+                    if depth == 0:
+                        return i + 1
+                    depth -= 1
+                i += 1
+        return n
+
+    code(0, False)
+    return "".join(out)
 
 
 def api_uses(sources):
@@ -306,10 +371,22 @@ def self_test():
         ("// statt `systemUptime` (seit Build 105)\nlet s = clock_gettime_nsec_np(CLOCK_MONOTONIC)", []),
         ("/* mach_absolute_time()\n systemUptime */ let x = 1", []),
         ('let u = "https://example.com" // systemUptime', []),
+        # Since build 106 (SEC4-01): comment markers inside strings hide nothing; more FileTimestamp functions
+        ('let p = "a//b"; let t = ProcessInfo.processInfo.systemUptime', ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ('let a = ["/0/*"]\nlet t = ProcessInfo.processInfo.systemUptime\nlet b = "*/"',
+         ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ('let s = "x\\(f("//"))y"; let t = ProcessInfo.processInfo.systemUptime', ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ('let r = #"a"//b"#; let t = mach_absolute_time()', ["NSPrivacyAccessedAPICategorySystemBootTime"]),
+        ('let r = fstatat(fd, name, &st, 0)\nlet n = getattrlistbulk(fd, &list, buf, size, 0)',
+         ["NSPrivacyAccessedAPICategoryFileTimestamp"], {"NSPrivacyAccessedAPITypes": []}),
+        ("let n = fgetattrlist(fd, &list, buf, size, 0)", ["NSPrivacyAccessedAPICategoryFileTimestamp"],
+         {"NSPrivacyAccessedAPITypes": []}),
+        ("/* a /* nested */ systemUptime */ let x = 1", []),
     ]
-    for text, expected in cases:
+    for case in cases:
+        text, expected = case[0], case[1]
         findings.clear()
-        privacy_check([("/src/App/X.swift", text)], manifest, "PrivacyInfo.xcprivacy")
+        privacy_check([("/src/App/X.swift", text)], case[2] if len(case) > 2 else manifest, "PrivacyInfo.xcprivacy")
         errors = [f for f in findings if f.startswith("error\t")]
         got = sorted(c for c in REQUIRED_REASON_APIS if any(f"({c})" in e for e in errors))
         assert got == expected, (text, got, errors)

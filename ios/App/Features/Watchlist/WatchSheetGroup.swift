@@ -144,9 +144,12 @@ extension WatchActionsSheet {
     func toggleDisabled(_ watch: Watch) {
         // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts, kein Banner
         data.withWatchlistConfirm {
-            Haptics.play(.lightImpact)
             data.setDisabled(ids: [watch.id], !watch.disabled)
-            onDisabledChange(watch)
+            // Seit Build 106 (wie Android): gesperrt → nur der Hinweis, kein Banner «deaktiviert», keine Haptik
+            if !data.watchlistWritesBlocked {
+                Haptics.play(.lightImpact)
+                onDisabledChange(watch)
+            }
             dismiss()
         }
     }

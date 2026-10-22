@@ -13,4 +13,9 @@ struct AlarmCreateGuard {
         used = true
         return true
     }
+
+    /// Seit Build 106 (UX4-06): «Abbrechen» in der Rückfrage F-08 — nichts angelegt, der nächste Tipp zählt wieder.
+    mutating func reset() {
+        used = false
+    }
 }

@@ -14,11 +14,13 @@
   warning required store text empty or missing (title / name / description), no screenshots
           android/docs/PLAY_STORE.md / ios/APP_STORE.md (private guides, only if present): version or
             versionCode / build number named there differs from android/app/build.gradle.kts
+          ROADMAP.md / TESTPLAN.md (private, only if present): "Build N" in the header (first lines) differs
+            from versionCode or is missing (since build 106)
   notice  private guide missing (public repository): named as "not checked" instead of skipped silently
 
 The folder review_information (contact data for the App Review) is never read or listed.
 Usage: python3 -I release_readiness.py <repository root> <findings file>
-       python3 -I release_readiness.py --self-test   (tag check, since build 105)
+       python3 -I release_readiness.py --self-test   (tag check since build 105, document headers since 106)
 """
 import os
 import re
@@ -212,6 +214,14 @@ def self_test():
     assert expected_tag_problem("refs/heads/main", "16.2.2", "105") is None
     assert expected_tag_problem("refs/pull/7/merge", "16.2.2", "105") is None
     assert expected_tag_problem("refs/tags/other", "16.2.2", "105") is None
+    # Seit Build 106 (REL4-02): Build-Nummer im Kopf von ROADMAP/TESTPLAN
+    head = "# Liste\n\nStand: 22. Oktober 2026 · Version 16.2.2 (Build {} – steigt)\n"
+    assert head_build_problem(head.format(105), "105") is None
+    assert "Build 104" in head_build_problem(head.format(104), "105")
+    assert head_build_problem("# Liste\n\nohne Nummer\n", "105") is not None
+    # Nur der Kopf zählt: Verlauf weiter unten («Build 91: …») nicht
+    assert head_build_problem(head.format(105) + "\n" * 10 + "Build 91: alt\n", "105") is None
+    assert head_build_problem("# Liste\n" + "\n" * 10 + "Build 105\n", "105") is not None
     print("release_readiness.py self-test passed")
     return 0
 
@@ -261,6 +271,40 @@ def check_store_docs(repo):
             add("notice", f"{rel}: version {name} / build {code} consistent with the project")
 
 
+# Private working documents (not in the public repository) whose header names the current build.
+HEAD_DOCS = ("ROADMAP.md", "TESTPLAN.md")
+HEAD_LINES = 5
+
+
+def head_build_problem(text, code):
+    """Problem text when the header (first HEAD_LINES lines) names no or another «Build N» than versionCode, else None."""
+    head = "\n".join(text.splitlines()[:HEAD_LINES])
+    found = re.findall(r"\bBuild (\d+)", head)
+    if not found:
+        return f"no «Build N» in the first {HEAD_LINES} lines (project: build {code})"
+    wrong = [n for n in found if n != code]
+    if wrong:
+        return f"header names Build {wrong[0]}, project is build {code}"
+    return None
+
+
+def check_head_docs(repo):
+    # Seit Build 106 (REL4-02): «Build-Nummer siehe Kopf» — der Kopf muss zum versionCode passen
+    code = first(r"^\s*versionCode\s*=\s*(\d+)", os.path.join(repo, "android", "app", "build.gradle.kts"))
+    if not code:
+        return
+    for rel in HEAD_DOCS:
+        path = os.path.join(repo, rel)
+        if not os.path.isfile(path):
+            add("notice", f"{rel}: not checked (private file, not in this repository)")
+            continue
+        problem = head_build_problem(read(path), code)
+        if problem:
+            add("warning", f"{rel}: {problem}; update the header before the upload", rel)
+        else:
+            add("notice", f"{rel}: header build {code} consistent with the project")
+
+
 def main():
     if sys.argv[1:] == ["--self-test"]:
         return self_test()
@@ -271,6 +315,7 @@ def main():
     check_versions(repo)
     check_tag(repo)
     check_store_docs(repo)
+    check_head_docs(repo)
     check_play(repo)
     check_apple(repo)
     with open(out, "a", encoding="utf-8") as f:

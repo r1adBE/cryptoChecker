@@ -8,6 +8,9 @@ import Foundation
 /// Erst-Alarm. Der Schreibweg in AppData fragt nicht mehr und führt nichts erneut aus, sondern lehnt ohne Bestätigung ab
 /// (`needsConfirmation`, Sicherung). Den Dialog zeigt `WatchlistNotSavedGatePresenter` über allem (eigenes Fenster, auch
 /// über Blättern). Ohne sichtbare App nie fragen. Wie Android `WatchlistNotSavedGate` (`watchlist_not_saved_gate.json`).
+/// Seit Build 106 (Review ARC4-R02, Variante A): Fehlt die Szene beim Bestätigen nur kurz, wartet `confirm` bis zu
+/// `askerWaitMillis` auf sie und fragt dann. Ohne Szene durchgelassen, lehnt die Sicherung im Schreibweg danach nicht ab
+/// (`needsConfirmation`) — bis zur nächsten beantworteten Frage.
 @MainActor
 final class WatchlistNotSavedGate: ObservableObject {
     static let shared = WatchlistNotSavedGate()
@@ -21,9 +24,14 @@ final class WatchlistNotSavedGate: ObservableObject {
     /// Reine Folge einer Antwort: «Trotzdem» bestätigt für den Rest des Laufs, «Abbrechen» nicht. Wie Android.
     nonisolated static func confirmedAfter(confirmed: Bool, proceed: Bool) -> Bool { confirmed || proceed }
 
+    /// Seit Build 106 (ARC4-R02): so lange wartet `confirm` ohne sichtbare Szene auf sie (ms) — wie Android.
+    nonisolated static let askerWaitMillis: UInt64 = 2_000
+
     /// Offene Frage (Dialog zeigen).
     @Published private(set) var pending = false
     private(set) var confirmed = false
+    /// Seit Build 106: letzte Aktion ohne Szene durchgelassen (bis zur nächsten Antwort).
+    private var passedUnasked = false
     /// Wartende Aktionen (seit Build 105), je mit eigener Kennung, damit ein abgebrochener Wartender sich austragen kann.
     private var waiters: [UUID: CheckedContinuation<Bool, Never>] = [:]
 
@@ -36,16 +44,31 @@ final class WatchlistNotSavedGate: ObservableObject {
     }
 
     /// Sicherung im Schreibweg (seit Build 105): bräuchte er jetzt noch eine Antwort? Dann lehnt AppData ab — die Aktion
-    /// hat `confirm` nicht vorher aufgerufen; fragt selbst nie. Wie Android `needsConfirmation`.
+    /// hat `confirm` nicht vorher aufgerufen; fragt selbst nie. Wie Android `needsConfirmation`. Seit Build 106 nicht nach
+    /// einem Durchlass ohne Szene: sonst lehnte sie dieselbe Aktion still ab (ARC4-R02).
     func needsConfirmation(notSaved: Bool, canAsk: Bool) -> Bool {
-        Self.shouldAsk(notSaved: notSaved, userWrite: true, confirmed: confirmed, canAsk: canAsk)
+        !passedUnasked && Self.shouldAsk(notSaved: notSaved, userWrite: true, confirmed: confirmed, canAsk: canAsk)
+    }
+
+    /// Seit Build 106: Kann eine Aktion jetzt eine Frage brauchen (nicht gespeichert, noch nicht bestätigt), egal ob sichtbar?
+    func mayAsk(notSaved: Bool) -> Bool {
+        Self.shouldAsk(notSaved: notSaved, userWrite: true, confirmed: confirmed, canAsk: true)
     }
 
     /// Vor einer Aktion des Nutzers: true = ausführen. Fragt höchstens einmal gleichzeitig (weitere Aktionen warten auf
     /// dieselbe Antwort). Wird der Wartende abgebrochen, trägt er sich aus (false); wartet niemand mehr, verschwindet die
-    /// Frage. Wie Android `confirm`.
-    func confirm(notSaved: Bool, canAsk: Bool) async -> Bool {
-        guard needsConfirmation(notSaved: notSaved, canAsk: canAsk) else { return true }
+    /// Frage. Wie Android `confirm`. Seit Build 106: ohne Szene erst `awaitAsker` (true = Szene jetzt da, dann fragen).
+    func confirm(notSaved: Bool, canAsk: Bool, awaitAsker: @MainActor () async -> Bool = { false }) async -> Bool {
+        var asker = canAsk || !mayAsk(notSaved: notSaved)
+        if !asker {
+            asker = await awaitAsker()
+            if Task.isCancelled { return false }
+        }
+        guard Self.shouldAsk(notSaved: notSaved, userWrite: true, confirmed: confirmed, canAsk: asker) else {
+            // Ohne Szene durchgelassen: die Sicherung lehnt die Schreibwege dieser Aktion nicht ab
+            if !asker && notSaved && !confirmed { passedUnasked = true }
+            return true
+        }
         let id = UUID()
         return await withTaskCancellationHandler {
             await withCheckedContinuation { (continuation: CheckedContinuation<Bool, Never>) in
@@ -72,6 +95,7 @@ final class WatchlistNotSavedGate: ObservableObject {
     func answer(proceed: Bool) {
         guard pending else { return }
         confirmed = Self.confirmedAfter(confirmed: confirmed, proceed: proceed)
+        passedUnasked = false
         let waiting = waiters
         waiters = [:]
         pending = false

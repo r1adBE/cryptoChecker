@@ -212,8 +212,8 @@ extension AppData {
     private func forgetDeletedAlarmChecks() {
         let ids = Set(snapshot.alarms.map(\.id))
         Task.detached(priority: .utility) { AlarmLogStore.retainAlarms(ids) }
-        // Seit Build 104: Vermerke gelöschter Alarme weg (wie Android); seit Build 105 nur, wenn der Stand bleibt
-        if pairMarkersPrunable { AlarmDelivery.pairs.retain(ids) }
+        // Seit Build 104: Vermerke gelöschter Alarme weg (wie Android); seit Build 106 erst nach diesem Schreiben
+        retainPairMarkersAfterWrite(ids)
     }
 
     /// Löschen mit «Rückgängig»: löscht sofort wie `delete` (samt Alarmen) und liefert

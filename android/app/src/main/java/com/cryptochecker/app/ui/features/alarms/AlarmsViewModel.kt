@@ -82,10 +82,7 @@ class AlarmsViewModel @Inject constructor(
     /** Doppeltipp beim Anlegen: ein zweites «Speichern»/eine Vorlage, solange das erste läuft, bleibt ohne Wirkung. */
     private val createGuard = AlarmCreateGuard()
 
-    /**
-     * Bestätigung nach dem allerersten Alarm zeigen. Ihr Text ist der Hinweis «Wann Alarme geprüft
-     * werden» ([AlarmTimingHint]) und braucht kein Symbol (Build 55).
-     */
+    /** Bestätigung nach dem allerersten Alarm zeigen (Text = Hinweis «Wann Alarme geprüft werden», [AlarmTimingHint]). */
     val firstAlarm: StateFlow<Boolean> = notices.firstAlarm
 
     fun dismissFirstAlarm() = notices.dismissFirstAlarm()
@@ -157,10 +154,7 @@ class AlarmsViewModel @Inject constructor(
             com.cryptochecker.app.domain.watch.LiveStatus.pollingStaleAfterMillis(settingsRepository.cached.backgroundIntervalMinutes),
         )
 
-    /**
-     * Dürfen Alarme als Mitteilung erscheinen (Erlaubnis, App-Mitteilungen, Alarm-Kanal nicht stumm)? Für die
-     * Statuszeile der Karten; im Zweifel ja, damit kein falscher Hinweis erscheint.
-     */
+    /** Dürfen Alarme als Mitteilung erscheinen (Erlaubnis, App-Mitteilungen, Kanal nicht stumm)? Im Zweifel ja (Statuszeile). */
     fun alarmsAllowed(): Boolean = runCatching { appNotifier.alarmsAllowed() }.getOrDefault(true)
 
     /** Paar hat (nach dem Laden) keinen Alarm: Der Bildschirm öffnet gleich den Editor statt der leeren Liste. null = offen. */
@@ -206,8 +200,8 @@ class AlarmsViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     /**
-     * Beim Öffnen des Editors: prüfen, ob das Paar Tages-/Stundenkerzen hat (zwischengespeichert,
-     * gleiche Quellen wie die Alarmprüfung). DEX-Paare ohne Kerzenquelle fragen gar nicht.
+     * Beim Öffnen des Editors: prüfen, ob das Paar Tages-/Stundenkerzen hat (zwischengespeichert, gleiche Quellen wie die
+     * Alarmprüfung). DEX-Paare ohne Kerzenquelle fragen gar nicht.
      */
     fun loadTemplateData() {
         if (candleDataLoading || (candleData.value.dailyRange && candleData.value.hourlyVolume)) return
@@ -246,14 +240,17 @@ class AlarmsViewModel @Inject constructor(
     fun alarmSaveBlocked(): Boolean = WatchlistStorageLock.blocksAlarmSave(DatabaseEncryptionNotice.storedKept.value)
 
     /**
-     * Schnell-Alarm sofort anlegen (einmalig, Ton/Vibration wie neue Alarme).
-     * [onCreated] bekommt den gespeicherten Alarm (Id für «Rückgängig», Bedingung für die Bestätigung); [onLimit]: Paar voll.
+     * Schnell-Alarm sofort anlegen (einmalig, Ton/Vibration wie neue Alarme). [onCreated] bekommt den gespeicherten Alarm (Id
+     * für «Rückgängig», Bedingung für die Bestätigung); [onLimit]: Paar voll. [onProceed] seit Build 106 (UX4-06): gleich
+     * nach bestätigter Rückfrage F-08 (Editor schliessen), nicht bei «Abbrechen».
      */
-    fun createFromTemplate(template: AlarmTemplates.Template, onLimit: () -> Unit, onCreated: (AlarmEntity) -> Unit) {
+    fun createFromTemplate(
+        template: AlarmTemplates.Template, onLimit: () -> Unit, onProceed: () -> Unit = {}, onCreated: (AlarmEntity) -> Unit,
+    ) {
         if (alarmSaveBlocked()) return
         createGuard.launch(viewModelScope, guarded = true) {
-            // Seit Build 105: Rückfrage F-08 vor der Aktion; «Abbrechen» = nichts, keine Meldung
-            if (!watchRepository.confirmUserWrite()) return@launch
+            // Seit Build 105: Rückfrage F-08 vor der Aktion; «Abbrechen» = nichts, keine Meldung, der Editor bleibt offen
+            if (!watchRepository.confirmUserWrite()) return@launch else onProceed()
             val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
             val def = AlarmTemplates.definition(template, w.lastPrice) ?: return@launch
             val firstEver = notices.isFirstAlarm(existing = false)
@@ -314,9 +311,8 @@ class AlarmsViewModel @Inject constructor(
         ?.takeIf { it.isNotEmpty() && !CurrencyConversion.sameCurrency(it, watch.value?.quoteAsset) }
 
     /**
-     * Würde der Alarm gleich nach dem Speichern melden? Kursmarke schon erreicht
-     * ([AlarmEdit.firesNow], Kurs in der Währung des Schwellwerts = [AlarmDraft.priceHint]) —
-     * und nur, wenn er dabei (neu) scharf wird ([AlarmEdit.rearms]); sonst behält er seinen Zustand.
+     * Würde der Alarm gleich nach dem Speichern melden? Kursmarke schon erreicht ([AlarmEdit.firesNow], Kurs in der Währung
+     * des Schwellwerts = [AlarmDraft.priceHint]) — und nur, wenn er dabei (neu) scharf wird ([AlarmEdit.rearms]).
      */
     fun firesOnSave(draft: AlarmDraft): Boolean {
         val threshold = draft.threshold ?: return false
@@ -333,17 +329,20 @@ class AlarmsViewModel @Inject constructor(
     }
 
     /**
-     * Alarm speichern. [onSaved] bekommt den gespeicherten Alarm, ob er als Mitteilung erscheinen
-     * darf ([com.cryptochecker.app.notification.canShowAlarm]) und ob gleich die
-     * Bestätigung des allerersten Alarms kommt (dann keine eigene Zeile) — für die Bestätigung. [onLimit]: Paar voll.
+     * Alarm speichern. [onSaved] bekommt den gespeicherten Alarm, ob er als Mitteilung erscheinen darf
+     * ([com.cryptochecker.app.notification.canShowAlarm]) und ob gleich die Bestätigung des allerersten Alarms kommt (dann
+     * keine eigene Zeile) — für die Bestätigung. [onLimit]: Paar voll. [onProceed] wie bei [createFromTemplate].
      */
-    fun save(draft: AlarmDraft, onLimit: () -> Unit = {}, onSaved: (AlarmEntity, Boolean, Boolean) -> Unit = { _, _, _ -> }) {
+    fun save(
+        draft: AlarmDraft, onLimit: () -> Unit = {}, onProceed: () -> Unit = {},
+        onSaved: (AlarmEntity, Boolean, Boolean) -> Unit = { _, _, _ -> },
+    ) {
         if (alarmSaveBlocked()) return
         createGuard.launch(viewModelScope, guarded = draft.id == 0L) {
             val threshold = draft.threshold ?: return@launch
             // Seit Build 105: Rückfrage F-08 VOR allem (auch vor dem Entfernen der alten Mitteilung); «Abbrechen» = nichts
             if (!watchRepository.confirmUserWrite()) return@launch
-
+            onProceed()
             val existing = alarms.value.firstOrNull { it.id == draft.id }
 
             // Allererster Alarm? Gab es schon Alarme (z. B. vor dem Update), gilt die Bestätigung als gezeigt.

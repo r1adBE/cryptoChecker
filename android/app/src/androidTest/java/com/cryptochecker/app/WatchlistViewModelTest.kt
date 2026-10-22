@@ -14,6 +14,9 @@ import com.cryptochecker.app.data.StarterCoinsRepository
 import com.cryptochecker.app.data.TokenIdentityStore
 import com.cryptochecker.app.data.WatchRepository
 import com.cryptochecker.app.data.live.LivePriceStream
+import com.cryptochecker.app.data.local.AppDatabase
+import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
+import com.cryptochecker.app.data.local.WatchlistNotSavedGate
 import com.cryptochecker.app.data.local.model.AlarmCondition
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.portfolio.CurrencyConverter
@@ -37,10 +40,19 @@ import com.cryptochecker.app.work.PriceUpdateScheduler
 import com.cryptochecker.marketdata.model.MarketPair
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -229,6 +241,47 @@ class WatchlistViewModelTest {
             cancelAndIgnoreRemainingEvents()
         }
         assertEquals(listOf("BTC"), watchRepository.getWatches().map { it.baseAsset })
+    }
+
+    /**
+     * Seit Build 106 (Review ARC4-R01, UX4-R1/R2/R3): Merkliste wird nicht gespeichert, Rückfrage F-08 mit «Abbrechen» →
+     * Rückruf «nicht geschrieben» (der Bildschirm zeigt dann kein Banner, keine Haptik, fragt keine Erlaubnis; die Vorschau
+     * bekommt `onDone(null, false)`), mit «Trotzdem» → «geschrieben».
+     */
+    @Test
+    fun notSavedQuestionReportsTheOutcomeToTheScreen() = runBlocking {
+        val id = add("BTC")
+        val watch = checkNotNull(watchRepository.getWatch(id))
+        WatchlistNotSavedGate.resetForTest()
+        DatabaseEncryptionNotice.markInMemory(AppDatabase.DB_NAME)
+        // Sichtbare Oberfläche: jemand sammelt die Frage (wie WatchlistNotSavedGateHost)
+        val visible = launch(Dispatchers.Default) { WatchlistNotSavedGate.request.collect {} }
+        try {
+            withTimeout(5_000) { while (!WatchlistNotSavedGate.needsConfirmation()) delay(5) }
+            suspend fun answered(answer: Boolean, action: ((Boolean) -> Unit) -> Unit): Boolean {
+                val done = CompletableDeferred<Boolean>()
+                action { done.complete(it) }
+                withTimeout(5_000) { WatchlistNotSavedGate.request.filterNotNull().first() }
+                WatchlistNotSavedGate.answer(answer)
+                return withTimeout(5_000) { done.await() }
+            }
+            assertFalse(answered(false) { vm.toggleFavorite(watch, it) })
+            assertFalse(answered(false) { vm.setFavorite(listOf(id), true, it) })
+            assertFalse(answered(false) { vm.setDisabled(listOf(id), true, it) })
+            assertFalse(answered(false) { vm.setNotificationEnabled(watch, false, it) })
+            assertFalse(answered(false) { vm.setGroup(listOf(id), "Neu", it) })
+            val preview = watch.copy(id = 0L, baseAsset = "ETH", pairId = "ETHUSDT")
+            assertFalse(answered(false) { done -> vm.addPreview(preview, {}) { newId, _ -> done(newId != null) } })
+            val unchanged = checkNotNull(watchRepository.getWatch(id))
+            assertFalse(unchanged.favorite || unchanged.disabled)
+            assertEquals(1, watchRepository.getWatches().size)
+            assertTrue(answered(true) { vm.toggleFavorite(watch, it) })
+            assertTrue(checkNotNull(watchRepository.getWatch(id)).favorite)
+        } finally {
+            visible.cancelAndJoin()
+            WatchlistNotSavedGate.resetForTest()
+            DatabaseEncryptionNotice.clearInMemoryForTest(AppDatabase.DB_NAME)
+        }
     }
 
     private companion object {

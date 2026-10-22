@@ -15,6 +15,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 106)
+
+* Watchlist not saved: no feedback before the answer any more – favourite, disable, «add to watchlist», price notifications and group actions show banner, haptics and the notification permission only after the change was written; «Cancel» keeps a multi-selection and an open alert editor with its input; if the screen is briefly rebuilt, the app waits up to 2 s to ask instead of refusing silently. Clearer question text in all languages («Change anyway»).
+* Portfolio alerts with an invalid «falls by 100 % or more» threshold say «delete and create again» (there is no editor); iOS no longer dims that hint.
+* iOS: swipe-to-delete keeps the row visible until the answer; delivery markers are pruned only after the delete was written; the portfolio cleanup only marks itself done after the alert file was read; the pair picker reuses its key per data state.
+* Background error counter also counts failures of the alert cleanups (Android).
+* Tests and release: the not-saved guard checks every single write call on both platforms; iOS gate tests have a time limit; all iOS source guards fail when their file is missing; the privacy manifest check understands strings and more file-timestamp functions; release readiness compares the build in the private work lists with the project.
+
 ## 16.2.2 (build 105)
 
 * Watchlist not saved (encryption not active yet): the confirmation now comes once per action and before it – «Cancel» changes nothing (no «removed» banner, notifications stay, no «alert limit reached»); «Continue anyway» runs the normal path with banner and undo; actions on many pairs ask once; on iPhone the question also appears above the alert editor and the explorer.

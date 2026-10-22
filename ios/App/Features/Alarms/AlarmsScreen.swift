@@ -208,7 +208,8 @@ struct AlarmsScreen: View {
                 targetCurrency: data.settings.portfolioCurrency,
                 existing: current.id == 0 ? nil : data.alarms(for: watchId).first(where: { $0.id == current.id }),
                 onSave: saveDraft,
-                onTemplate: createFromTemplate
+                onTemplate: createFromTemplate,
+                confirmClose: confirmEditorClose
             )
             .environmentObject(data)
             .environment(\.appAccent, accent)

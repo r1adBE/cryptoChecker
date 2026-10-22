@@ -12,25 +12,29 @@ import com.cryptochecker.app.notification.PriceNotificationRule
 import kotlinx.coroutines.launch
 import com.cryptochecker.app.notification.alarmChannel
 
-/** Kursmitteilung eines Paars an/aus — wie der Schalter im Aktionsblatt (`WatchlistViewModel.setNotificationEnabled`). */
-fun SettingsViewModel.setPairNotification(watchId: Long, enabled: Boolean) {
+/**
+ * Kursmitteilung eines Paars an/aus — wie der Schalter im Aktionsblatt (`WatchlistViewModel.setNotificationEnabled`).
+ * Seit Build 106 (UX4-R3): [onDone] nach dem Schreiben, true = geschrieben (erst dann die Erlaubnis fragen).
+ */
+fun SettingsViewModel.setPairNotification(watchId: Long, enabled: Boolean, onDone: (Boolean) -> Unit = {}) {
     // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts
-    viewModelScope.launch { if (watchRepository.confirmUserWrite()) applyPairNotification(watchId, enabled) }
+    viewModelScope.launch { onDone(watchRepository.confirmUserWrite() && applyPairNotification(watchId, enabled)) }
 }
 
-/** «Alle an» / «Alle aus» für alle Paare der Merkliste. */
-fun SettingsViewModel.setAllPairNotifications(enabled: Boolean) {
+/** «Alle an» / «Alle aus» für alle Paare der Merkliste; [onDone] wie bei [setPairNotification] (mindestens eins geschrieben). */
+fun SettingsViewModel.setAllPairNotifications(enabled: Boolean, onDone: (Boolean) -> Unit = {}) {
     viewModelScope.launch {
         // Seit Build 105: EINE Rückfrage F-08 für alle Paare (nicht je Paar); «Abbrechen» = nichts
-        if (!watchRepository.confirmUserWrite()) return@launch
-        watchRepository.getWatches().filter { it.notificationEnabled != enabled }
-            .forEach { applyPairNotification(it.id, enabled) }
+        if (!watchRepository.confirmUserWrite()) return@launch onDone(false)
+        onDone(watchRepository.getWatches().filter { it.notificationEnabled != enabled }
+            .count { applyPairNotification(it.id, enabled) } > 0)
     }
 }
 
-internal suspend fun SettingsViewModel.applyPairNotification(watchId: Long, enabled: Boolean) {
+/** true = geschrieben (seit Build 106), false = abgelehnt. */
+internal suspend fun SettingsViewModel.applyPairNotification(watchId: Long, enabled: Boolean): Boolean {
     // Abgelehnt (Merkliste gesperrt): nichts zeigen bzw. entfernen, das Paar meldet wie bisher
-    if (!watchRepository.setNotificationEnabled(watchId, enabled)) return
+    if (!watchRepository.setNotificationEnabled(watchId, enabled)) return false
     if (enabled) {
         // Einschalten: einmal zeigen und den Bezugspunkt der Melde-Schwelle auf den aktuellen Kurs setzen;
         // deaktiviertes Paar nur merken
@@ -44,6 +48,7 @@ internal suspend fun SettingsViewModel.applyPairNotification(watchId: Long, enab
         notifier.cancelPrice(watchId)
         watchRepository.setNotifiedPrice(watchId, null)
     }
+    return true
 }
 
 /** Alarmton aus der System-Auswahl; null = Standardton. */

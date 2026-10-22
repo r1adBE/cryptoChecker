@@ -38,8 +38,8 @@ extension AlarmEditorSheet {
         let label = Self.templateLabel(template)
         return Button {
             guard createGuard.begin(creating: true) else { return }
-            onTemplate(template)
-            dismiss()
+            // Seit Build 106 (UX4-06): erst nach bestätigter Rückfrage F-08 anlegen und schliessen
+            confirmClose({ onTemplate(template); dismiss() }, { createGuard.reset() })
         } label: {
             Text(label)
                 .font(.subheadline.weight(.medium).monospacedDigit())

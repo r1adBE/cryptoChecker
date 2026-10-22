@@ -352,7 +352,8 @@ object PortfolioAlarmLogic {
     /**
      * Seit Build 105 (Review FUN3-01): «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
      * ausgeschaltet, einmalig bereinigt ([com.cryptochecker.app.data.portfolio.PortfolioFallAlarmCleanup]) und in der
-     * Übersicht als «Schwelle ungültig» gekennzeichnet; einschalten erst nach dem Anpassen. Wie iOS.
+     * Übersicht als «Schwelle ungültig» gekennzeichnet; nicht einschaltbar. Seit Build 106 (FUN4-R2): kein Editor, darum
+     * Hinweis «löschen und neu anlegen» (`portfolio_alarm_threshold_invalid_recreate`). Wie iOS.
      */
     fun exceedsFall(kind: PortfolioAlarmKind, threshold: Double): Boolean =
         kind == PortfolioAlarmKind.CHANGE_DOWN && threshold.isFinite() && threshold >= MAX_FALL_PERCENT

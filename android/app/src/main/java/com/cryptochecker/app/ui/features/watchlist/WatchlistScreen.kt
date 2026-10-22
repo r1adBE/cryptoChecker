@@ -238,15 +238,14 @@ fun WatchlistScreen(
             undoKey
         }
     }
-    // Nach rechts wischen: Favorit an/aus mit kurzem Banner
+    // Nach rechts wischen: Favorit an/aus mit kurzem Banner — seit Build 106 Haptik/Banner erst nach dem Schreiben (ARC4-R01)
     val favoriteWithBanner: (WatchEntity) -> Unit = { watch ->
-        haptics.play(HapticEvent.LIGHT_IMPACT)
-        viewModel.toggleFavorite(watch)
-        val text = resources.getString(
-            if (watch.favorite) R.string.favorite_removed else R.string.favorite_added,
-            watch.displayName,
-        )
-        banner.show(text)
+        viewModel.toggleFavorite(watch) { written ->
+            if (!written) return@toggleFavorite
+            haptics.play(HapticEvent.LIGHT_IMPACT)
+            val text = resources.getString(if (watch.favorite) R.string.favorite_removed else R.string.favorite_added, watch.displayName)
+            banner.show(text)
+        }
     }
 
     val reorder = rememberReorderState(listState, scope, visible, viewModel::reorder)

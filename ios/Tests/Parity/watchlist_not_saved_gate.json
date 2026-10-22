@@ -40,5 +40,16 @@
     "pendingAfterCancel": false,
     "confirmedAfterCancel": false,
     "nextActionAsks": true
+  },
+  "lateScreen": {
+    "_comment": "Seit Build 106 (Review ARC4-R02, Variante A): Fehlt beim Bestätigen die sichtbare Oberfläche (Drehen, kurz verdeckt), wartet die Aktion bis zu waitMillis auf sie. Erscheint sie (screenAppears), wird gefragt; sonst läuft die Aktion ohne Frage, und die Sicherung im Schreibweg lehnt ihre Schreibwege danach nicht ab, auch wenn die Oberfläche inzwischen da ist (canAskAtWrite) — vorher still abgelehnt. afterUnaskedPass: Die nächste Aktion mit Oberfläche fragt wieder; nach deren «Abbrechen» gilt die Sicherung wieder.",
+    "waitMillis": 2000,
+    "cases": [
+      {"name": "screen appears while waiting, proceed", "writes": 3, "screenAppears": true, "answer": true, "questions": 1, "written": 3, "effects": true},
+      {"name": "screen appears while waiting, cancel", "writes": 3, "screenAppears": true, "answer": false, "questions": 1, "written": 0, "effects": false},
+      {"name": "no screen within wait, screen back before the writes", "writes": 20, "screenAppears": false, "canAskAtWrite": true, "answer": null, "questions": 0, "written": 20, "effects": true},
+      {"name": "no screen within wait, still hidden", "writes": 2, "screenAppears": false, "canAskAtWrite": false, "answer": null, "questions": 0, "written": 2, "effects": true}
+    ],
+    "afterUnaskedPass": {"nextActionAsks": true, "refusesAgainAfterCancel": true}
   }
 }

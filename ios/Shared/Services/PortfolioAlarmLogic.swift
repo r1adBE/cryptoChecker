@@ -313,7 +313,8 @@ enum PortfolioAlarmLogic {
 
     /// Seit Build 105 (Review FUN3-01): «fällt um ≥ 100 %» — löst nie aus. Aus einer Sicherung übernommen, aber
     /// ausgeschaltet, einmalig bereinigt (`disableInvalidFallAlarmsOnce`) und in der Übersicht als «Schwelle ungültig»
-    /// gekennzeichnet; einschalten erst nach dem Anpassen. Wie Android.
+    /// gekennzeichnet; nicht einschaltbar. Seit Build 106 (FUN4-R2): kein Editor, darum Hinweis «löschen und neu anlegen»
+    /// (`portfolio_alarm_threshold_invalid_recreate`). Wie Android.
     static func exceedsFall(_ kind: PortfolioAlarmKind, _ threshold: Double) -> Bool {
         kind == .CHANGE_DOWN && threshold.isFinite && threshold >= maxFallPercent
     }

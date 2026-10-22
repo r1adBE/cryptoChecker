@@ -4,6 +4,8 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * Seit Build 104 (Review F-08): Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand ([WatchlistStorageLock.Notice.NOT_SAVED],
@@ -15,6 +17,9 @@ import kotlinx.coroutines.flow.asStateFlow
  * ([needsConfirmation], Sicherung in [com.cryptochecker.app.data.userWriteRefused]). Die Oberfläche zeigt den Dialog
  * (`WatchlistNotSavedGateHost`, einmal in der MainActivity). Ohne sichtbare Oberfläche (Hintergrund, Empfänger) wird nie
  * gefragt — dann wie bisher geschrieben. Gleich wie iOS (`WatchlistNotSavedGate`, Testfälle in beiden Tests).
+ * Seit Build 106 (Review ARC4-R02, Variante A): Fehlt die Oberfläche beim Bestätigen nur kurz (Drehen, Dunkelmodus), wartet
+ * [confirm] bis zu [ASKER_WAIT_MILLIS] auf sie und fragt dann. Ohne Oberfläche durchgelassen, lehnt die Sicherung im
+ * Schreibweg danach nicht ab ([needsConfirmation]) — bis zur nächsten beantworteten Frage.
  */
 object WatchlistNotSavedGate {
 
@@ -42,10 +47,20 @@ object WatchlistNotSavedGate {
      * Vor einer Aktion des Nutzers: true = schreiben. Fragt höchstens einmal gleichzeitig (weitere Aktionen warten
      * auf dieselbe Antwort). [canAsk]: sammelt gerade eine sichtbare Oberfläche [request]? Seit Build 105: Wird der letzte
      * Wartende abgebrochen (ViewModel weg), verschwindet die offene Frage — kein Dialog mehr ohne Aktion dahinter.
+     * Seit Build 106: ohne Oberfläche erst [awaitAsker] (true = Oberfläche jetzt da, dann fragen).
      */
-    suspend fun confirm(notSaved: Boolean = notSavedNow(), canAsk: Boolean = canAskNow()): Boolean {
+    suspend fun confirm(
+        notSaved: Boolean = notSavedNow(),
+        canAsk: Boolean = canAskNow(),
+        awaitAsker: suspend () -> Boolean = { awaitSubscriber(ASKER_WAIT_MILLIS) },
+    ): Boolean {
+        val asker = canAsk || !mayAsk(notSaved) || awaitAsker()
         val question = synchronized(this) {
-            if (!shouldAsk(notSaved, userWrite = true, confirmed = confirmed, canAsk = canAsk)) return true
+            if (!shouldAsk(notSaved, userWrite = true, confirmed = confirmed, canAsk = asker)) {
+                // Ohne Oberfläche durchgelassen: die Sicherung lehnt die Schreibwege dieser Aktion nicht ab
+                if (!asker && notSaved && !confirmed) passedUnasked = true
+                return true
+            }
             waiting++
             pending.value ?: CompletableDeferred<Boolean>().also { pending.value = it }
         }
@@ -65,13 +80,25 @@ object WatchlistNotSavedGate {
 
     /**
      * Seit Build 105: Sicherung im Schreibweg — bräuchte dieser Schreibweg jetzt noch eine Antwort ([shouldAsk])? Dann
-     * lehnt das Repository ab (die Aktion hat [confirm] nicht vorher aufgerufen); fragt selbst nie.
+     * lehnt das Repository ab (die Aktion hat [confirm] nicht vorher aufgerufen); fragt selbst nie. Seit Build 106 nicht
+     * nach einem Durchlass ohne Oberfläche ([passedUnasked]): sonst lehnte sie dieselbe Aktion still ab (ARC4-R02).
      */
     fun needsConfirmation(notSaved: Boolean = notSavedNow(), canAsk: Boolean = canAskNow()): Boolean =
-        synchronized(this) { shouldAsk(notSaved, userWrite = true, confirmed = confirmed, canAsk = canAsk) }
+        synchronized(this) { !passedUnasked && shouldAsk(notSaved, userWrite = true, confirmed = confirmed, canAsk = canAsk) }
+
+    /** Seit Build 106: Kann eine Aktion jetzt eine Frage brauchen (nicht gespeichert, noch nicht bestätigt), egal ob sichtbar? */
+    fun mayAsk(notSaved: Boolean = notSavedNow()): Boolean =
+        synchronized(this) { shouldAsk(notSaved, userWrite = true, confirmed = confirmed, canAsk = true) }
 
     /** Sammelt gerade eine sichtbare Oberfläche [request]? */
     private fun canAskNow(): Boolean = pending.subscriptionCount.value > 0
+
+    /** Seit Build 106: höchstens [millis] auf eine sichtbare Oberfläche warten; true = sie ist da. */
+    internal suspend fun awaitSubscriber(millis: Long): Boolean =
+        withTimeoutOrNull(millis) { pending.subscriptionCount.first { it > 0 } } != null
+
+    /** Seit Build 106: letzte Aktion ohne Oberfläche durchgelassen (unter `synchronized`; bis zur nächsten Antwort). */
+    private var passedUnasked = false
 
     /** Wartende Aufrufer von [confirm] (unter `synchronized`). */
     private var waiting = 0
@@ -81,6 +108,7 @@ object WatchlistNotSavedGate {
         val question = synchronized(this) {
             val open = pending.value ?: return
             confirmed = confirmedAfter(confirmed, proceed)
+            passedUnasked = false
             pending.value = null
             open
         }
@@ -94,9 +122,13 @@ object WatchlistNotSavedGate {
     internal fun resetForTest() {
         synchronized(this) {
             confirmed = false
+            passedUnasked = false
             waiting = 0
             pending.value?.complete(false)
             pending.value = null
         }
     }
+
+    /** Seit Build 106 (ARC4-R02): so lange wartet [confirm] ohne Oberfläche auf sie (wie das 2-s-Netz unter iOS). */
+    const val ASKER_WAIT_MILLIS = 2_000L
 }

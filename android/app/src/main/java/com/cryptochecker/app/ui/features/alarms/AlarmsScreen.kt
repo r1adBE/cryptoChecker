@@ -284,15 +284,18 @@ fun AlarmsScreen(
     // Sicherheitsnetz: Paar inzwischen voll (z. B. Editor offen, Alarm anderswo angelegt) — nichts angelegt, sagen warum
     val showLimit: () -> Unit = { snackbar.showNotice(scope, limitText, haptics, HapticEvent.WARNING) }
 
-    /** Speichern und bestätigen («Alarm gespeichert …»), Editor schliessen. */
+    /**
+     * Speichern und bestätigen («Alarm gespeichert …»), Editor schliessen. Seit Build 106 (UX4-06, UX4-R3): Editor erst nach
+     * bestätigter Rückfrage F-08 zu («Abbrechen»: offen mit Eingaben), Erlaubnis erst nach dem Speichern.
+     */
     fun saveDraft(toSave: AlarmDraft) {
         if (showSaveLocked()) return
         // Wird die Erlaubnis gleich erst erfragt, nennt die Bestätigung «Mitteilungen aus» noch nicht
         val asking = com.cryptochecker.app.ui.components.notificationPermissionMissing(context)
-        // Ein Alarm braucht Benachrichtigungen: jetzt fragen, nicht beim Start.
-        requestNotifications()
         val isNew = toSave.id == 0L
-        viewModel.save(toSave, showLimit) { alarm, allowed, firstEver ->
+        viewModel.save(toSave, showLimit, onProceed = { draft = null }) { alarm, allowed, firstEver ->
+            // Ein Alarm braucht Benachrichtigungen: jetzt fragen (nach dem Speichern), nicht beim Start
+            requestNotifications()
             haptics.play(HapticEvent.SUCCESS)
             val off = !allowed && !asking
             // Neuer Alarm: eine Zeile «Alarm aktiv · Testen»; beim allerersten Alarm
@@ -320,7 +323,6 @@ fun AlarmsScreen(
                 }
             }
         }
-        draft = null
     }
 
     PendingUndoSnackbar(viewModel.undo, viewModel.firstAlarm, viewModel.timingHint, snackbar, UNDO_MILLIS, viewModel::delete)
@@ -341,11 +343,11 @@ fun AlarmsScreen(
             } == true,
             onLoadRate = viewModel::loadRate,
             onDraftChange = { draft = it },
+            // Seit Build 106: Editor erst nach bestätigter Rückfrage F-08 zu, Erlaubnis erst nach dem Anlegen
             onTemplate = onTemplate@{ template ->
                 if (showSaveLocked()) return@onTemplate
-                requestNotifications()
-                draft = null
-                viewModel.createFromTemplate(template, showLimit) { created ->
+                viewModel.createFromTemplate(template, showLimit, onProceed = { draft = null }) { created ->
+                    requestNotifications()
                     haptics.play(HapticEvent.SUCCESS)
                     // Den angelegten Alarm nennen («Alarm gespeichert: BTC Steigt um 5 % · einmalig»), nicht nur «erstellt»
                     val createdText = alarmSavedText(
