@@ -131,7 +131,7 @@ class WatchRepositoryLockTest {
             "suspend fun deleteWatch(id: Long)", "suspend fun deleteWatches(", "suspend fun deleteAllWatches()",
             "suspend fun setDisabled(", "suspend fun deleteAlarm(",
         )) {
-            assertTrue(signature, member(repo, signature).contains("): Boolean {"))
+            assertTrue(signature, (signature + member(repo, signature)).contains("): Boolean {"))
         }
         val controller = ui("watchlist/WatchlistEditController.kt")
         val single = controller.substringAfter("fun deleteWithUndo(").substringBefore("\n    fun ")
