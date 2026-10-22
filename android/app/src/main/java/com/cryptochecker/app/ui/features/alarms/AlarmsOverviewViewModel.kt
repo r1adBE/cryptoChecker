@@ -79,7 +79,7 @@ class AlarmsOverviewViewModel @Inject constructor(
         viewModelScope.launch {
             portfolioAlarmRepository.delete(id)
             // Seit Build 104: die Mitteilung des gelöschten Alarms gleich mit entfernen (wie iOS)
-            runCatching { appNotifier.cancelAlarms(emptyList(), listOf(id)) }
+            com.cryptochecker.app.data.remote.util.runCatchingCancellable { appNotifier.cancelAlarms(emptyList(), listOf(id)) }
         }
     }
 
