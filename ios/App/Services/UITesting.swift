@@ -1,3 +1,4 @@
+import CryptoKit
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -16,6 +17,9 @@ import UniformTypeIdentifiers
 ///   `UITEST_KEEP_BACKUP=1` gesetzt ist (Sichern → Neustart = Daten weg → Wiederherstellen).
 enum UITesting {
     static let isActive = ProcessInfo.processInfo.arguments.contains(UiTestTags.launchArgument)
+
+    /// Schlüssel des Wiederherstellungs-Journals im UI-Test (`RestoreJournal.journalKey`), nur für diesen Lauf.
+    static let journalKey = SymmetricKey(size: .bits256)
 
     private static var csvURL: URL {
         FileManager.default.temporaryDirectory.appendingPathComponent("uitest_import.csv")
