@@ -8,7 +8,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Wache über «Bezeichnung: Wert» (seit Build 98): sichtbare und gesprochene Texte setzen Bezeichnung
+ * Wache über «Bezeichnung: Wert»: sichtbare und gesprochene Texte setzen Bezeichnung
  * und Wert über `R.string.label_value` bzw. iOS `L("label_value", …)` zusammen, nie über ein festes
  * «: ». Sonst fehlt die Typografie der Sprache — Französisch « : » mit geschütztem Leerzeichen vor dem
  * Doppelpunkt, Chinesisch und Japanisch der breite Doppelpunkt «：».
@@ -37,7 +37,7 @@ class LabelValueUsageTest {
         val roots = listOf("App", "Shared", "Widgets").mapNotNull { dir ->
             findUp(listOf("ios/$dir", "../ios/$dir", "../../ios/$dir"))
         }
-        // Seit Build 106 (SEC4-R1/TST4-R1): fehlt ios/, nicht still grün — übersprungen bzw. mit REQUIRE_IOS_SOURCES Fehler
+        // SEC4-R1/TST4-R1: fehlt ios/, nicht still grün — übersprungen bzw. mit REQUIRE_IOS_SOURCES Fehler
         val found = SourceGuard.ios(roots.takeIf { it.isNotEmpty() }, "ios/App|Shared|Widgets")
         val problems = found.flatMap { offenders(it, "swift", SWIFT_PATTERNS) }
         assertTrue(

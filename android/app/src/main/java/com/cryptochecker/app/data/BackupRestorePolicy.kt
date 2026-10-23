@@ -4,7 +4,7 @@ package com.cryptochecker.app.data
  * Regeln beim Wiederherstellen (reines Kotlin, testbar; gespiegelt in `BackupRestorePolicy.swift`).
  *
  * Eine Sicherung ohne Passwort hat keine Echtheitsprüfung: Eine bearbeitete Datei im gleichen Format
- * wird angenommen. Darum schaltet sie die Portfolio-Sperre nie aus, wenn sie gerade an ist — und seit Build 99
+ * wird angenommen. Darum schaltet sie die Portfolio-Sperre nie aus, wenn sie gerade an ist — und
  * auch sonst nichts in Richtung «weniger Schutz»: «Portfolio in Systemsicherung» nie ein ([systemBackup]),
  * «Beträge verbergen» nie aus ([hideAmounts]).
  */

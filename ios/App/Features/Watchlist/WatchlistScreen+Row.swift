@@ -92,7 +92,7 @@ extension WatchlistScreen {
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             if swipeEnabled {
-                // Seit Build 106 (UX4-R5): ohne destruktive Rolle — sonst blendet die Liste die Zeile sofort aus,
+                // UX4-R5: ohne destruktive Rolle — sonst blendet die Liste die Zeile sofort aus,
                 // obwohl die Rückfrage F-08 noch kommt und «Abbrechen» nichts löscht
                 Button { swipeDelete(watch) } label: {
                     Label(L("action_delete"), systemImage: "trash")

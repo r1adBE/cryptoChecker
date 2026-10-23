@@ -8,14 +8,14 @@ Errors (each one blocks a store release):
   - forbidden permissions: USE_EXACT_ALARM, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, QUERY_ALL_PACKAGES,
     AD_ID, MANAGE_EXTERNAL_STORAGE, SYSTEM_ALERT_WINDOW and every typed FOREGROUND_SERVICE_*
     (the app declares no foreground service type; Play would demand a declaration per type)
-  - any permission outside the allow-list EXPECTED (the 11 permissions of build 94, each justified in
+  - any permission outside the allow-list EXPECTED (the 11 permissions, each justified in
     android/docs/PLAY_STORE.md §6): a new permission must be a conscious decision (Data safety,
     store text), not a side effect of a library update
   - a service with android:foregroundServiceType
   - application debuggable, testOnly or usesCleartextTraffic="true"
   - an exported component without a permission, except MainActivity, BootReceiver and the
     launcher activity-aliases (MAIN/LAUNCHER)
-  - an exported activity without android:taskAffinity="" (task hijacking; since Build 103).
+  - an exported activity without android:taskAffinity="" (task hijacking).
     activity-alias has no taskAffinity attribute, it uses the one of its target activity
 
 Usage: python3 -I manifest_policy.py <AndroidManifest.xml> <findings file> <summary file>

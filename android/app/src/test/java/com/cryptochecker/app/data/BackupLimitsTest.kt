@@ -48,7 +48,7 @@ class BackupLimitsTest {
     }
 
     @Test
-    fun `indented backup up to build 91 is still read`() {
+    fun `indented backup from older versions is still read`() {
         val indented = """
             {
               "format": "cryptochecker-backup",

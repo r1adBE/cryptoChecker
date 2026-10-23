@@ -5,7 +5,7 @@ import com.cryptochecker.app.domain.portfolio.csvimport.CsvRestoreState
 import java.math.BigDecimal
 
 /**
- * Einmalige Umstellung der Speicher-Notlösungen aus Build 56/57 auf eigene Felder (Entscheid des Inhabers, 17. Okt. 2026;
+ * Einmalige Umstellung der früheren Speicher-Notlösungen auf eigene Felder (Entscheid des Inhabers, 17. Okt. 2026;
  * reines Kotlin, iOS `LegacyStorageMigration.swift`, gemeinsame Fälle `legacy_storage_migration.json`). Läuft in
  * [com.cryptochecker.app.data.portfolio.PortfolioDatabase.MIGRATION_3_4], beim Wiederherstellen alter Sicherungen
  * ([com.cryptochecker.app.data.portfolio.PortfolioJson.jsonToTx]) und auf iOS beim Lesen der Datei. Nur hier stehen die
@@ -17,7 +17,7 @@ import java.math.BigDecimal
  *  - Verknüpfte Umbuchung: beide Herkunftsschlüssel in `importKey`, getrennt durch [LINK] (Auszahlung links, Einzahlung
  *    rechts) → `importKey` + `linkedImportKey`.
  *  - Dahinter, durch [RESTORE] getrennt, der Zustand der gespeicherten Seite vor der Verknüpfung (Felder mit «|», Text mit
- *    %-Ersatz): Fassung «1» (Build 56, nur die gespeicherte Seite) bzw. «2» (Build 57, dazu ein dritter Abschnitt mit der
+ *    %-Ersatz): Fassung «1» (nur die gespeicherte Seite) bzw. «2» (dazu ein dritter Abschnitt mit der
  *    aufgegangenen neuen Zeile) → `importRestoreState` ([CsvRestoreState]). Unlesbarer Zustand → keiner (die Schlüssel
  *    werden trotzdem getrennt; «Import rückgängig» behandelt die Umbuchung dann wie eine eigene Zeile ihres Laufs).
  *
@@ -25,7 +25,7 @@ import java.math.BigDecimal
  */
 object LegacyStorageMigration {
 
-    /** Merker im Feld «nach» einer Schenkung (Build 56/57). */
+    /** Merker im Feld «nach» einer Schenkung. */
     const val SPOUSE_MARKER = "@spouse"
 
     /** Trenner der beiden Herkunftsschlüssel im alten `importKey`. */
@@ -37,7 +37,7 @@ object LegacyStorageMigration {
     private const val VERSION_WITH_ABSORBED = "2"
 
     /**
-     * Gebühr-Zeile nach der Regel bis Portfolio-Datenbank v4 (Build 75): ein Verkauf zum Preis 0 MIT Import-Herkunft. Seit
+     * Gebühr-Zeile nach der Regel bis Portfolio-Datenbank v4: ein Verkauf zum Preis 0 MIT Import-Herkunft. Seit
      * v5 steht das im eigenen Feld `feeRow`; diese Regel leitet es nur noch einmal ab — in
      * [com.cryptochecker.app.data.portfolio.PortfolioDatabase.MIGRATION_4_5] und für Sicherungen ohne das Feld
      * ([com.cryptochecker.app.data.portfolio.PortfolioJson.jsonToTx]). Wie iOS.
@@ -53,7 +53,7 @@ object LegacyStorageMigration {
         type == PortfolioTxType.REWARD && interestRewardLegacy(note)
 
     /**
-     * Zins-Erkennung, wie sie bis Build 87 galt (Teilstring, auch «Verzinsung»): eingefroren für Altbestand — Migration v4 →
+     * Zins-Erkennung, wie sie früher galt (Teilstring, auch «Verzinsung»): eingefroren für Altbestand — Migration v4 →
      * v5 und Sicherungen ohne Feld `interest` werden so abgeleitet, wie die App sie damals rechnete. Die Wort-Regel
      * ([TaxEngines.interestReward]) gilt nur für neue Eingaben und Importe. Wie iOS.
      */
@@ -96,7 +96,7 @@ object LegacyStorageMigration {
     }
 
     /**
-     * Kurzform eines langen Teilschlüssels («~» + FNV-1a wie [PortfolioImportBatch.hash]): Vor Build 58 kürzte die
+     * Kurzform eines langen Teilschlüssels («~» + FNV-1a wie [PortfolioImportBatch.hash]): Früher kürzte die
      * Verknüpfung Teile über 98 Zeichen so, damit beide in 200 Zeichen passten. Solche Teile bleiben nach der Umstellung
      * stehen ([com.cryptochecker.app.domain.portfolio.csvimport.CsvImport.splitDuplicates] erkennt die Zeile darüber).
      */

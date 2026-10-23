@@ -168,7 +168,7 @@ enum PriceFormat {
     }
 
     /// Mit Vorzeichen (echtes Minus U+2212) und drei Nachkommastellen (Mitteilungen); gerundet 0 ohne Vorzeichen
-    /// («0.000%» statt «+0.000%»/«−0.000%», seit Build 95) wie `PercentText.signed`.
+    /// («0.000%» statt «+0.000%»/«−0.000%») wie `PercentText.signed`.
     static func changePercentDetailed(_ value: Double, locale: Locale = LocaleNumbers.appLocale) -> String {
         BidiText.ltr(PercentText.signed(value, decimals: 3, locale: locale))
     }
@@ -207,13 +207,13 @@ enum PriceFormat {
     }
 
     /// Kompakter Abstand in der App-Sprache: Englisch «45s», «12m», «3h», «7d», Deutsch «7 T.», «3 Std.»
-    /// (`DateComponentsFormatter` .abbreviated, wie Android ICU MeasureFormat NARROW). Seit Build 94 nicht mehr fest
+    /// (`DateComponentsFormatter` .abbreviated, wie Android ICU MeasureFormat NARROW), nicht fest
     /// englisch («vor 7d»).
     static func age(since millis: Int64, now: Int64 = TimeUtils.nowMillis, locale: Locale = LocaleNumbers.appLocale) -> String? {
         guard let parts = ageParts(since: millis, now: now) else { return nil }
         // DateComponentsFormatter .abbreviated wie Android MeasureFormat NARROW (en «7d», de «7 T.»). Die Sprache kommt
         // über den Kalender (calendar.locale), sonst nähme der Formatter die Sprache des Bundles.
-        // Duration.UnitsFormatStyle .narrow lieferte auf iOS 26 für de «7d» (Build 94 CI).
+        // Duration.UnitsFormatStyle .narrow lieferte auf iOS 26 für de «7d» (CI).
         let f = DateComponentsFormatter()
         f.unitsStyle = .abbreviated
         f.maximumUnitCount = 1

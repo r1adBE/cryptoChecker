@@ -43,7 +43,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.ui.theme.tabularNumbers
 import com.cryptochecker.app.domain.portfolio.PortfolioTxFirstInvalid.Field
 
-/** Art als eine kompakte Wahl «Art: Kauf ▾» (Build 46; die übrigen Arten im Menü) samt Erklärung. */
+/** Art als eine kompakte Wahl «Art: Kauf ▾» (die übrigen Arten im Menü) samt Erklärung. */
 @Composable
 internal fun TxTypeSection(state: TxFormState) {
     var typeMenu by remember { mutableStateOf(false) }

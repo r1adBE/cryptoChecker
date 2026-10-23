@@ -29,7 +29,7 @@ class AlarmSentenceTest {
         assertEquals("1.25%", parts(Kind.MOVE_PERCENT, 1.25, Locale.US)?.value)
     }
 
-    /** Seit Build 96 über PercentText statt getPercentInstance: gleiche Zeichen wie iOS (`PercentCallersTests`). */
+    /** Über PercentText statt getPercentInstance: gleiche Zeichen wie iOS (`PercentCallersTests`). */
     @Test
     fun prozentInDerSchreibweiseDerSprache() {
         assertEquals("%0,5", AlarmSentence.percent(0.5, Locale.forLanguageTag("tr-TR")))

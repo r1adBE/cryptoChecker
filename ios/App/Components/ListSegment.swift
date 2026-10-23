@@ -55,7 +55,7 @@ private struct SegmentLines: View {
             if !last {
                 // Zwischen den Seitenrändern, damit sich die Linien nicht überlagern
                 Rectangle()
-                    // Volle Token-Farbe wie der Rand (keine halbtransparenten Linien, Build 46)
+                    // Volle Token-Farbe wie der Rand (keine halbtransparenten Linien)
                     .fill(AppColors.outlineVariant)
                     .frame(height: 0.5)
                     .padding(.horizontal, outline ? 1 : 0)

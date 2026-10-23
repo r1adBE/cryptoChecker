@@ -69,7 +69,7 @@ fun PortfolioViewModel.addWatchedAddress(
  * Adresse entfernen (nach Bestätigung). [onRemoved] bekommt die ganze Zeile (Eröffnungsposten, Verlauf, Token-Reihen)
  * für «Rückgängig» ([restoreWatchedAddress]); gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]):
  * nichts entfernt, [onLocked] — nie still. Nicht geschrieben (Datenbank gerade nicht beschreibbar): [onFailed]
- * (seit Build 97, vorher still). Schon weg (keine Zeile): nichts zu melden.
+ * (vorher still). Schon weg (keine Zeile): nichts zu melden.
  */
 fun PortfolioViewModel.removeWatchedAddress(
     id: Long,
@@ -97,7 +97,7 @@ fun PortfolioViewModel.removeWatchedAddress(
 /**
  * «Rückgängig» nach [removeWatchedAddress]: dieselbe Adresse mit alter Id samt allem, was dazugehört; gesperrt: [onLocked].
  * Nicht zurückgeholt (Adresse inzwischen neu hinzugefügt, Liste voll, nicht gespeichert): [onFailed] mit dem Grund
- * ([WatchedAddressUndo.failure]) — seit Build 95 nie mehr still.
+ * ([WatchedAddressUndo.failure]) — nie still.
  */
 fun PortfolioViewModel.restoreWatchedAddress(
     row: WatchedAddressEntity,

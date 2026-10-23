@@ -112,7 +112,7 @@ data class PortfolioSnapshot(
     /** Wert dieser Token in USDT ([AddressAlarmState.staleTokenValue]); 0 = keine bzw. ältere Aufnahme. */
     val staleTokenValueUsdt: Double = 0.0,
     /**
-     * Bewertete Coins mit «Kurs ungeprüft» (Token nicht bestätigt, PortfolioPrices.unverified; seit Build 101), ohne die
+     * Bewertete Coins mit «Kurs ungeprüft» (Token nicht bestätigt, PortfolioPrices.unverified), ohne die
      * schon in [staleCoins] — für Portfolio-Alarme wie ein alter Kurs (Wert [unverifiedValueUsdt]); das Widget zeigt
      * deswegen NICHT «teilweise alter Kurs». Leer bei älterer Aufnahme.
      */

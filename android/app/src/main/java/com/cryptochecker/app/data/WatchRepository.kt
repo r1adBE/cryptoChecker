@@ -30,9 +30,9 @@ class WatchRepository @Inject constructor(
     internal val watchDao: WatchDao,
     /** Alarm-Protokoll: letzte Prüfungen gelöschter Paare entfernen ([forgetDeletedAlarms]). */
     private val alarmLogStore: AlarmLogStore,
-    /** Seit Build 104: Vermerke «wird gemeldet» gelöschter Alarme aufräumen ([forgetDeletedAlarms], [deleteAlarm]). */
+    /** Vermerke «wird gemeldet» gelöschter Alarme aufräumen ([forgetDeletedAlarms], [deleteAlarm]). */
     private val deliveryMarkers: AlarmDeliveryMarkers,
-    /** Seit Build 104: «fällt um ≥ 100 %»-Alarme einmalig ausschalten (vor dem ersten Lesen, [getWatches]). */
+    /** «fällt um ≥ 100 %»-Alarme einmalig ausschalten (vor dem ersten Lesen, [getWatches]). */
     private val fallAlarmCleanup: FallAlarmCleanup,
 ) {
     fun observeWatches(): Flow<List<WatchEntity>> = watchDao.observeWatches()
@@ -64,7 +64,7 @@ class WatchRepository @Inject constructor(
     suspend fun getWatch(id: Long): WatchEntity? = watchDao.getWatch(id)
 
     /**
-     * Inverse Perpetuals (Binance COIN-M, OKX «-USD-SWAP», Deribit BTC/ETH), die vor Build 47 als PERPETUAL
+     * Inverse Perpetuals (Binance COIN-M, OKX «-USD-SWAP», Deribit BTC/ETH), die ältere Versionen als PERPETUAL
      * gespeichert wurden, auf INVERSE_PERPETUAL umstellen — wie die Paarlisten sie heute liefern. Kennung,
      * Kurs, Alarme bleiben; nur so passt die Dublettenprüfung zur Paarliste. Einmal je Prozess ([getWatches]; wirkt
      * auch nach dem Wiederherstellen einer älteren Sicherung), ohne passende Einträge ohne Schreibzugriff.
@@ -133,7 +133,7 @@ class WatchRepository @Inject constructor(
         if (!userWriteRefused(notify = false)) watchDao.setMissingPercentReferences(watchId, price)
     }
 
-    /** true = gelöscht; false = abgelehnt (seit Build 105 eindeutig: dann keine Folgeaktionen wie Rückgängig/Mitteilungen). */
+    /** true = gelöscht; false = abgelehnt (eindeutig: dann keine Folgeaktionen wie Rückgängig/Mitteilungen). */
     suspend fun deleteWatch(id: Long): Boolean {
         if (userWriteRefused()) return false
         watchDao.deleteWatch(id)
@@ -151,14 +151,14 @@ class WatchRepository @Inject constructor(
 
     /**
      * Nach dem Löschen von Paaren (Alarme per Fremdschlüssel weg): deren letzte Prüfungen aus dem Alarm-Protokoll
-     * entfernen (seit Build 102) — sonst wüchse der Stand, den jeder Durchlauf versiegelt schreibt, mit jedem gelöschten
+     * entfernen — sonst wüchse der Stand, den jeder Durchlauf versiegelt schreibt, mit jedem gelöschten
      * Paar. Versiegeltes Schreiben nicht auf dem Hauptfaden.
      */
     private suspend fun forgetDeletedAlarms() {
         val ids = watchDao.getAlarmIds().toHashSet()
         withContext(Dispatchers.IO) {
             alarmLogStore.retainAlarms(ids)
-            // Seit Build 105: nicht bei Kopie im Speicher — der nächste Prozess bringt die Alarme der Datei zurück
+            // Nicht bei Kopie im Speicher — der nächste Prozess bringt die Alarme der Datei zurück
             if (AlarmDeliveryMarkers.prunable()) deliveryMarkers.retain(ids)
         }
     }
@@ -168,9 +168,9 @@ class WatchRepository @Inject constructor(
         watchDao.getWatch(id)?.let { WatchSnapshot(it, watchDao.getAlarms(id)) }
     }
 
-    // Gelöschtes Paar zurückholen: [restore] in WatchRepositoryAdd.kt (seit Build 103 mit Obergrenze der Merkliste)
+    // Gelöschtes Paar zurückholen: [restore] in WatchRepositoryAdd.kt (mit Obergrenze der Merkliste)
 
-    /** Rückgabe wie [deleteWatch] (seit Build 105). */
+    /** Rückgabe wie [deleteWatch]. */
     suspend fun deleteAllWatches(): Boolean {
         if (userWriteRefused()) return false
         watchDao.deleteAllWatches()
@@ -185,7 +185,7 @@ class WatchRepository @Inject constructor(
         return true
     }
 
-    /** true = geschrieben, false = abgelehnt (seit Build 106, wie [setDisabled]): dann keine Rückmeldung (Banner, Haptik). */
+    /** true = geschrieben, false = abgelehnt (wie [setDisabled]): dann keine Rückmeldung (Banner, Haptik). */
     suspend fun setFavorite(id: Long, favorite: Boolean): Boolean {
         if (userWriteRefused()) return false
         watchDao.setFavorite(id, favorite)
@@ -268,7 +268,7 @@ class WatchRepository @Inject constructor(
     }
 
     /** Gruppe setzen (höchstens [GROUP_NAME_MAX] Zeichen); null oder leer = keine Gruppe. */
-    /** true = geschrieben, false = abgelehnt (seit Build 106): die Mehrfachauswahl bleibt dann stehen. */
+    /** true = geschrieben, false = abgelehnt: die Mehrfachauswahl bleibt dann stehen. */
     suspend fun setGroup(id: Long, groupName: String?): Boolean {
         if (userWriteRefused()) return false
         watchDao.setGroup(id, TextLimit.clean(groupName, GROUP_NAME_MAX))
@@ -303,7 +303,7 @@ class WatchRepository @Inject constructor(
         return true
     }
 
-    /** Paare deaktivieren ([disabled] = true) bzw. wieder aktivieren; true = geschrieben (seit Build 105). */
+    /** Paare deaktivieren ([disabled] = true) bzw. wieder aktivieren; true = geschrieben. */
     suspend fun setDisabled(ids: Collection<Long>, disabled: Boolean): Boolean {
         if (ids.isEmpty() || userWriteRefused()) return false
         watchDao.setDisabled(ids.toList(), disabled)
@@ -343,20 +343,20 @@ class WatchRepository @Inject constructor(
     fun observeWatchIdsWithEnabledAlarms(): Flow<List<Long>> = watchDao.observeWatchIdsWithEnabledAlarms()
 
     /**
-     * Neuer bzw. bearbeiteter Alarm; null = nicht gespeichert (Paar voll oder abgelehnt). Seit Build 105 nur noch Kurzform
+     * Neuer bzw. bearbeiteter Alarm; null = nicht gespeichert (Paar voll oder abgelehnt). Nur Kurzform
      * von [trySaveAlarm] (`WatchRepositoryAlarmSave.kt`), das «voll» und «abgelehnt» unterscheidet.
      */
     suspend fun saveAlarm(alarm: AlarmEntity): Long? = (trySaveAlarm(alarm) as? AlarmSaveResult.Saved)?.alarm?.id
 
-    /** Kurzform von [trySaveAlarmMerged] (seit Build 105); null = nicht gespeichert (Paar voll oder abgelehnt). */
+    /** Kurzform von [trySaveAlarmMerged]; null = nicht gespeichert (Paar voll oder abgelehnt). */
     suspend fun saveAlarmMerged(id: Long, build: (AlarmEntity?) -> AlarmEntity): AlarmEntity? =
         (trySaveAlarmMerged(id, build) as? AlarmSaveResult.Saved)?.alarm
 
-    /** true = gelöscht; false = abgelehnt (seit Build 105: dann keine Folgeaktionen wie Mitteilung/Protokoll entfernen). */
+    /** true = gelöscht; false = abgelehnt (dann keine Folgeaktionen wie Mitteilung/Protokoll entfernen). */
     suspend fun deleteAlarm(id: Long): Boolean {
         if (userWriteRefused()) return false
         watchDao.deleteAlarm(id)
-        // Seit Build 104: Vermerk des gelöschten Alarms weg (eine neue Id könnte ihn sonst erben); seit Build 105 nicht bei
+        // Vermerk des gelöschten Alarms weg (eine neue Id könnte ihn sonst erben); nicht bei
         // Kopie im Speicher (der Alarm kommt mit dem nächsten Prozess aus der Datei zurück)
         if (AlarmDeliveryMarkers.prunable()) withContext(Dispatchers.IO) { deliveryMarkers.remove(listOf(id)) }
         return true
@@ -365,7 +365,7 @@ class WatchRepository @Inject constructor(
     /** true = geschrieben, false = abgelehnt (Merkliste gesperrt): dann keine Folgeaktionen (Mitteilung entfernen). */
     suspend fun setAlarmEnabled(id: Long, enabled: Boolean, fromUser: Boolean = true): Boolean {
         if (fromUser && userWriteRefused()) return false // Hintergrund («1 h später») nie gesperrt
-        // Seit Build 105 (FUN3-02): «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst im Editor anpassen)
+        // FUN3-02: «fällt um ≥ 100 %» löst nie aus — nicht einschalten (erst im Editor anpassen)
         val alarm = if (enabled) watchDao.getAlarm(id) else null
         if (alarm != null && !AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = true)) return false
         watchDao.setAlarmEnabled(id, enabled)
@@ -384,7 +384,7 @@ class WatchRepository @Inject constructor(
         const val DEFAULT_NOTIFICATION_ENABLED = true
 
         /**
-         * Gesicherte Paare OHNE Angabe: an. Bis Build 41 hatte jedes Paar die Kurs-Benachrichtigung
+         * Gesicherte Paare OHNE Angabe: an. In älteren Versionen hatte jedes Paar die Kurs-Benachrichtigung
          * standardmässig an (Spalten-Standard, iOS ebenso); fehlt das Feld, stammt die Sicherung aus
          * so einer Version — «an» erhält ihr damaliges Verhalten.
          */

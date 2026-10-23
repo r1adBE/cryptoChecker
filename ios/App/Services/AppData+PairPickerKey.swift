@@ -1,6 +1,6 @@
 import Foundation
 
-/// Seit Build 106 (Review PERF4-R1): Paare und Schlüssel (`AlarmPairPicker.sourceKey`) für die Paarwahl einmal je Stand
+/// Review PERF4-R1: Paare und Schlüssel (`AlarmPairPicker.sourceKey`) für die Paarwahl einmal je Stand
 /// (`snapshotGeneration`) statt bei jedem Neuzeichnen des Blatts (Tastenanschlag, Elternbildschirm) über bis zu 2000
 /// Paare. Gleiche Werte wie bisher (`watches` und `sourceKey(watches)`), nur gemerkt.
 extension AppData {

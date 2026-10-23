@@ -52,8 +52,8 @@ sealed interface CsvImportState {
     data object Idle : CsvImportState
     data object Loading : CsvImportState
     /**
-     * [rereading] seit Build 103: Lesart geändert, Datei wird neu gelesen — «Importieren» aus, Vorschau gedimmt.
-     * [choice] seit Build 104: Lesart, mit der GENAU diese Vorschau gebaut wurde ([CsvReadChoice.canConfirm]).
+     * [rereading]: Lesart geändert, Datei wird neu gelesen — «Importieren» aus, Vorschau gedimmt.
+     * [choice]: Lesart, mit der GENAU diese Vorschau gebaut wurde ([CsvReadChoice.canConfirm]).
      */
     data class Preview(
         val preview: CsvImportPreview,
@@ -62,7 +62,7 @@ sealed interface CsvImportState {
     ) : CsvImportState
     /** Keine unterstützte Zeile (fremdes Format, leere Datei, nicht lesbar). */
     data object Unreadable : CsvImportState
-    /** Datei zu gross ([CsvImportRefusal.TOO_LARGE]): über 16 MB oder zu viele Zeilen bzw. Spalten. Seit Build 99. */
+    /** Datei zu gross ([CsvImportRefusal.TOO_LARGE]): über 16 MB oder zu viele Zeilen bzw. Spalten. */
     data object TooLarge : CsvImportState
     data object Saving : CsvImportState
     /** Portfolio gesperrt ([com.cryptochecker.app.data.portfolio.PortfolioStorageLock]): nichts gelesen bzw. geschrieben. */
@@ -110,17 +110,17 @@ class PortfolioCsvImportViewModel @Inject constructor(
     val linked: StateFlow<Set<String>> = _linked.asStateFlow()
 
     /**
-     * Gewählte Lesart (Zeitzone der Zeiten ohne Versatz, Tag/Monat, Dezimalzeichen; null = Regel). Seit Build 103 eine
+     * Gewählte Lesart (Zeitzone der Zeiten ohne Versatz, Tag/Monat, Dezimalzeichen; null = Regel). Eine
      * Wahl samt der Lesart der gezeigten Vorschau ([Input.choice]): «Importieren» nur, wenn beide gleich sind.
      */
     private var chosen = CsvReadChoice()
 
-    /** Seit Build 103: Nummer der letzten Neu-Lese-Anfrage; nur deren Ergebnis zählt ([reread]). */
+    /** Nummer der letzten Neu-Lese-Anfrage; nur deren Ergebnis zählt ([reread]). */
     private var rereadGeneration = 0
 
     /**
      * Text, Ergebnis, Schlüssel, Tageskurse, USDT/USD-Schlüsse ([CsvImport.priceInUsdt]) — für eine neue Vorschau;
-     * [choice] = Lesart, mit der gelesen wurde (seit Build 103).
+     * [choice] = Lesart, mit der gelesen wurde.
      */
     private class Input(
         val text: String, val result: CsvImportResult, val keys: Set<String>,
@@ -160,7 +160,7 @@ class PortfolioCsvImportViewModel @Inject constructor(
      */
     private suspend fun propose(preview: CsvImportPreview) = applyProposals(proposalsFor(preview))
 
-    /** Seit Build 104 getrennt: erst rechnen ([proposalsFor]), übernehmen ([applyProposals]) erst nach der Generationsprüfung. */
+    /** Getrennt: erst rechnen ([proposalsFor]), übernehmen ([applyProposals]) erst nach der Generationsprüfung. */
     private class Proposals(val list: List<CsvWithdrawalProposal>, val links: List<CsvTransferLink>)
 
     private suspend fun proposalsFor(preview: CsvImportPreview): Proposals {
@@ -285,9 +285,9 @@ class PortfolioCsvImportViewModel @Inject constructor(
     fun setDecimalMark(mark: Char) = reread(chosen.copy(decimalMark = mark)) { read, choice -> prepare(read.text, choice) }
 
     /**
-     * Text im Speicher mit der Lesart [choice] neu lesen ([build]). Seit Build 103 steht die Vorschau solange auf
+     * Text im Speicher mit der Lesart [choice] neu lesen ([build]). Die Vorschau steht solange auf
      * «wird neu gelesen» (Knopf aus, gedimmt); übernommen wird nur das Ergebnis der letzten Wahl. Scheitert das Lesen,
-     * gilt wieder die Lesart der gezeigten Vorschau. Seit Build 104: [input] und die Vorschläge erst nach der
+     * gilt wieder die Lesart der gezeigten Vorschau. [input] und die Vorschläge erst nach der
      * Generationsprüfung, die Vorschau trägt ihre Lesart ([CsvImportState.Preview.choice]) — ein überholtes Ergebnis
      * kann so nie als Lesart der gezeigten Vorschau gelten.
      */
@@ -319,8 +319,8 @@ class PortfolioCsvImportViewModel @Inject constructor(
      */
     fun confirm(onDone: (Int) -> Unit, onPortfolioEnabled: () -> Unit) {
         val shown = _state.value as? CsvImportState.Preview ?: return
-        // Seit Build 103: nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen Lesart
-        // Seit Build 104 mit der Lesart der GEZEIGTEN Vorschau (nicht der zuletzt gelesenen)
+        // Nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen Lesart
+        // Mit der Lesart der GEZEIGTEN Vorschau (nicht der zuletzt gelesenen)
         if (!CsvReadChoice.canConfirm(shown.rereading, shown.choice, chosen)) return
         val preview = shown.preview
         val choices = _choices.value

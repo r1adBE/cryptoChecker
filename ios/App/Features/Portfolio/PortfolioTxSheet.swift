@@ -67,7 +67,7 @@ struct PortfolioTxSheet: View {
     @State var tried = false
     /// Dezimalzeichen, mit dem die Texte vorbelegt und gelesen werden: einmal beim Öffnen festgehalten (`@State` übersteht
     /// das Neu-Erzeugen der Ansicht) — ändert sich die Region bei offenem Blatt, bleibt «2,125» 2,125 statt 2125. Wie
-    /// Android `TxFormState.decimalSeparator` (seit Build 92 auch über einen Sprachwechsel gesichert).
+    /// Android `TxFormState.decimalSeparator` (auch über einen Sprachwechsel gesichert).
     @State var decimalSeparator: Character
     @State var askDelete = false
     @State private var askDiscard = false
@@ -284,7 +284,7 @@ struct PortfolioTxSheet: View {
                     }
                     if fields.price {
                         priceField
-                        // Gespeicherter Zugang ohne Preis: Vorschlag Tagesschluss bzw. «Wert bei Zufluss» (Build 84)
+                        // Gespeicherter Zugang ohne Preis: Vorschlag Tagesschluss bzw. «Wert bei Zufluss»
                         PortfolioTxCostSuggestion(
                             isEdit: isEdit, txId: initial.txId, storedPrice: initial.priceUsdt, type: type, coin: coin,
                             coinValid: coinValid, amount: amount, millis: date.millis, interest: interest, entryFiat: entryFiat,
@@ -361,7 +361,7 @@ struct PortfolioTxSheet: View {
         }
         .alert(L("portfolio_tx_delete_title"), isPresented: $askDelete) {
             Button(L("action_delete"), role: .destructive) {
-                // Haptik nach dem Ergebnis: gelöscht = destruktiv, nicht geschrieben = Fehler, Hinweis gesperrt/Fehler (Build 103)
+                // Haptik nach dem Ergebnis: gelöscht = destruktiv, nicht geschrieben = Fehler, Hinweis gesperrt/Fehler
                 if data.deletePortfolioTx(initial.txId) {
                     Haptics.play(.destructive)
                     dismiss()

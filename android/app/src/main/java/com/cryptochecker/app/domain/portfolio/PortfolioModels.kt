@@ -18,15 +18,15 @@ import java.math.BigDecimal
  *  - [SWAP]: Tausch Coin gegen Coin in EINER Transaktion ([PortfolioTrade.toCoin]/[PortfolioTrade.toAmount], Wert
  *    [PortfolioTrade.swapValueUsdt]) — Veräusserung von [PortfolioTrade.coin] und Zugang von `toCoin` (Regeln in
  *    [PortfolioLedger] und [PortfolioFifo]). Weder Zu- noch Abgang im Sinne von [isInflow]/[isOutflow].
- *  - [GIFT]: «Verschenkt» (Build 47) — beim Schenkenden in den meisten Ländern KEINE Veräusserung: Karte, Verlauf und die
+ *  - [GIFT]: «Verschenkt» — beim Schenkenden in den meisten Ländern KEINE Veräusserung: Karte, Verlauf und die
  *    Einstandsmethoden rechnen sie wie eine Auszahlung (Bestand und Einstand gehen ab, Wert verlässt das Portfolio zum
  *    Marktwert, kein realisierter Gewinn). Nur wo die Schenkung beim Schenkenden eine Veräusserung zum Marktwert ist (UK,
  *    CA, AU, [TaxTemplate.giftIsDisposal]) wird sie im Steuer-Export wie [PAYMENT] gerechnet ([TaxEngines.applyRules],
  *    Vermerk «Schenkung»); an Ehe-/Lebenspartner ([PortfolioTrade.isGiftToSpouse]) in UK/CA ohne Gewinn und Verlust.
- *  - [PAYMENT]: «Damit bezahlt» (Build 47) — Tausch gegen Waren/Dienstleistungen: überall eine Veräusserung zum MARKTWERT
+ *  - [PAYMENT]: «Damit bezahlt» — Tausch gegen Waren/Dienstleistungen: überall eine Veräusserung zum MARKTWERT
  *    wie ein Verkauf ([isSaleLike]; Preis = Marktwert je Coin, Erlös = Menge × Preis, kein Geld erhalten), Steuer-Export
  *    mit Vermerk «Zahlung mit Krypto». Ohne Preis zum Tagesschluss geschätzt ([PortfolioLedger.valueAtDayClose]).
- * Ältere Versionen kennen nur [BUY]/[SELL] (bis Build 45) bzw. kein [SWAP]/[GIFT]/[PAYMENT]: Sie zählen unbekannte Arten beim
+ * Ältere Versionen kennen nur [BUY]/[SELL] bzw. kein [SWAP]/[GIFT]/[PAYMENT]: Sie zählen unbekannte Arten beim
  * Wiederherstellen als ungültig (Rückfrage, nichts stürzt ab). Der Name wird als Text gespeichert (Room-Enum-Konverter):
  * ein neues Mitglied braucht keine Migration, alte Daten lesen sich unverändert.
  */

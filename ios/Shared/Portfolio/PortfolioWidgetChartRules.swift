@@ -263,7 +263,7 @@ enum PortfolioWidgetChart {
 
     /// Prozent der Betragszeile: «+2.31%» / «−0.50%» / «0.00%» — Text in der Kursfarbe hinter dem Betrag
     /// (keine Pille; der Pfeil steht vor dem Betrag); nil ohne Prozent. Wie Android `PortfolioWidgetChart.percentText`;
-    /// seit Build 95 in der Prozent-Schreibweise der App-Sprache (`PercentText`: «+2,31 %», «+%2,31»).
+    /// in der Prozent-Schreibweise der App-Sprache (`PercentText`: «+2,31 %», «+%2,31»).
     static func percentText(_ plan: PortfolioChartPlan, locale: Locale = LocaleNumbers.appLocale) -> String? {
         guard plan.changeAmount != nil, let percent = plan.changePercent else { return nil }
         return BidiText.ltr(PercentText.signed(percent, decimals: 2, locale: locale))

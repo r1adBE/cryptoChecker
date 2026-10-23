@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 95 (`Parity/address_balance.json`, wie `AddressAlarmStateParityTest.kt`): nie geladene Adressen sperren die
+/// Wie `AddressAlarmStateParityTest.kt` (`Parity/address_balance.json`): nie geladene Adressen sperren die
 /// Portfolio-Alarme nur noch 24 Stunden (`AddressAlarmState`), nicht bestätigte Token-Guthaben (`WatchedAddress.staleTokens`)
 /// aus einer vollen TON-Jetton-Seite (`ChainBalance.parseTonJettonPage`).
 final class AddressAlarmStateTests: XCTestCase {

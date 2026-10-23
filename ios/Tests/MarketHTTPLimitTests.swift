@@ -20,7 +20,7 @@ final class MarketHTTPLimitTests: XCTestCase {
         XCTAssertEqual(MarketHTTP.maxBulkBodyBytes, 16 * 1024 * 1024)
     }
 
-    /// Widget-Erweiterung: Listen höchstens 3 MB (seit Build 102; vorher 8 MB), Einzelabfragen weiter 2 MB. Jede
+    /// Widget-Erweiterung: Listen höchstens 3 MB (vorher 8 MB), Einzelabfragen weiter 2 MB. Jede
     /// aufgenommene Sammelabfrage ist höchstens 2 MB (die Aufnahme verwirft Grösseres) — passt also weiter.
     func testExtensionUsesLowerListLimit() {
         XCTAssertEqual(MarketHTTP.maxExtensionBodyBytes, 3 * 1024 * 1024)

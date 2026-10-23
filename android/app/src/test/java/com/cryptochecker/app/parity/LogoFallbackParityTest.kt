@@ -89,7 +89,7 @@ class LogoFallbackParityTest {
     @Test
     fun iconPack_bundledAsset() {
         val file = File(ParityJson.dir(), "../../app/src/main/assets/" + CoinLogos.ICON_PACK_FILE)
-        assertTrue("assets/${CoinLogos.ICON_PACK_FILE} nicht gefunden (seit Build 105 Pflicht)", file.isFile)
+        assertTrue("assets/${CoinLogos.ICON_PACK_FILE} nicht gefunden (Pflicht)", file.isFile)
         val bytes = file.readBytes()
         val index = CoinLogos.parseIconPack(bytes)
         assertNotNull(index)

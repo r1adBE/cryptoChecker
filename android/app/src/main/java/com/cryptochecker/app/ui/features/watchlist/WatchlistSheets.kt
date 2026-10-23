@@ -63,7 +63,7 @@ internal fun WatchlistSheets(
     val outdatedAfter = state.display.staleAfterMillis
     val liveIds = state.live.liveWatchIds
     val requestNotifications = rememberNotificationPermissionRequest()
-    // Seit Build 107 (ARC5-R01): Rückmeldungen nach der Rückfrage F-08 im aktuellen Bildschirm (auch nach dem Neuerstellen)
+    // ARC5-R01: Rückmeldungen nach der Rückfrage F-08 im aktuellen Bildschirm (auch nach dem Neuerstellen)
     val uiEvents = rememberWatchUiEvents(WATCHLIST_UI_EVENTS)
     WatchlistUiEffects(uiEvents, ui, viewModel, banner, haptics, resources, requestNotifications)
 
@@ -137,7 +137,7 @@ internal fun WatchlistSheets(
                 hasActivity = !watch.isNotTraded && !watch.disabled && activeSignals[watch.id].orEmpty().isNotEmpty(),
                 onDismiss = { ui.actionsFor = null },
                 onNotificationChange = { on ->
-                    // Seit Build 106 (UX4-R3): Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
+                    // UX4-R3: Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
                     viewModel.setNotificationEnabled(watch, on) { written ->
                         if (written && on) uiEvents.send(WatchUiEvent.RequestNotifications)
                     }
@@ -159,10 +159,10 @@ internal fun WatchlistSheets(
                         ui.portfolioFor = watch
                     }
                 },
-                // Seit Build 107 (IOS5-R02): Dialog erst nach bestätigter Rückfrage F-08 zu («Abbrechen»: offen mit Eingabe)
+                // IOS5-R02: Dialog erst nach bestätigter Rückfrage F-08 zu («Abbrechen»: offen mit Eingabe)
                 onSetGroup = { group, close, cancelled -> viewModel.setGroup(watch, group, close, cancelled) },
                 onSetNote = { note, close, cancelled -> viewModel.setNote(watch, note, close, cancelled) },
-                // Deaktivieren bzw. wieder aktivieren (dann gleich den Kurs holen); seit Build 107 (UX5-R2) Blatt erst nach
+                // Deaktivieren bzw. wieder aktivieren (dann gleich den Kurs holen); UX5-R2: Blatt erst nach
                 // der Rückfrage zu, mit Haptik und kurzem Banner ([toggleDisabled])
                 onToggleDisabled = { uiEvents.toggleDisabled(viewModel, watch) },
                 loadFutures = viewModel::fetchFutures,
@@ -210,7 +210,7 @@ internal fun WatchlistSheets(
             isNew = ui.editGroupIsNew,
             watches = watches,
             groups = groups,
-            // Seit Build 106 (wie iOS): Haptik und Blatt zu erst nach der Rückfrage F-08 («Abbrechen»: Blatt bleibt offen)
+            // Wie iOS: Haptik und Blatt zu erst nach der Rückfrage F-08 («Abbrechen»: Blatt bleibt offen)
             onDone = { newName, ids, cancelled ->
                 viewModel.saveGroup(if (ui.editGroupIsNew) null else name, newName, ids, onDone = {
                     uiEvents.send(WatchUiEvent.Haptic(HapticEvent.SUCCESS), WatchUiEvent.CloseGroupEdit)

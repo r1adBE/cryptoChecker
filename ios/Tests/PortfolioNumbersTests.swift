@@ -111,7 +111,7 @@ final class PortfolioNumbersTests: XCTestCase {
         XCTAssertEqual(delta?.percent ?? .nan, 5, accuracy: d)
     }
 
-    /// Build 76: Live-Kurs USDT/USD — bestätigter Einbruch zählt, Tagesschlüsse bleiben im Normalbereich. Wie Android.
+    /// Live-Kurs USDT/USD — bestätigter Einbruch zählt, Tagesschlüsse bleiben im Normalbereich. Wie Android.
     func testUsdtUsdLiveKeepsConfirmedBreak() {
         XCTAssertEqual(PortfolioStables.usdtUsdLive(0.3), UsdtUsd(rate: 0.3, approximate: false))
         XCTAssertEqual(PortfolioStables.usdtUsdLive(2.0), UsdtUsd(rate: 2.0, approximate: false))

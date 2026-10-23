@@ -201,7 +201,7 @@ class PortfolioTxFormTest {
 
     /**
      * Preis 0 ausdrücklich eingegeben: nur bei einer importierten Transaktion abgelehnt (dort Kennzeichen der Gebühr-Zeile);
-     * von Hand erfasst ist 0 ein echter Preis (wertlosen Coin verkaufen, Build 47); leer und > 0 sind erlaubt. Wie iOS.
+     * von Hand erfasst ist 0 ein echter Preis (wertlosen Coin verkaufen); leer und > 0 sind erlaubt. Wie iOS.
      */
     @Test
     fun priceZeroIsRejectedOnlyForImported() {
@@ -216,7 +216,7 @@ class PortfolioTxFormTest {
     }
 
     /**
-     * Verschenkt und Damit bezahlt (Build 47): nach der Auszahlung in der Liste; Verschenkt mit den Feldern der Auszahlung,
+     * Verschenkt und Damit bezahlt: nach der Auszahlung in der Liste; Verschenkt mit den Feldern der Auszahlung,
      * Damit bezahlt mit Preisfeld (Marktwert) und Gebühren wie ein Verkauf.
      */
     @Test

@@ -265,7 +265,7 @@ class CsvTransferMatchParityTest {
         }
     }
 
-    /** Beide Seiten einer Verknüpfung gelten als importiert, auch vor Build 58 gekürzte lange Teile. */
+    /** Beide Seiten einer Verknüpfung gelten als importiert, auch früher gekürzte lange Teile. */
     @Test
     fun linkedKeysCountAsImported() {
         val d = data["duplicates"].obj()
@@ -284,7 +284,7 @@ class CsvTransferMatchParityTest {
         val c = cases().first { it["name"] == "stored side with separators in its text and a long key both link" }
         val plan = CsvTransferMatch.apply(c["txs"].list().map { tx(it.obj()) }, linksOf(c), CsvTransferMatch.defaultChoice(linksOf(c)))
         val long = plan.storedUpdates.single { it.id == 13L }
-        // Bis Build 57 nicht verknüpft (Teil über 98 Zeichen passte nicht in den gepackten Schlüssel)
+        // Früher nicht verknüpft (Teil über 98 Zeichen passte nicht in den gepackten Schlüssel)
         assertEquals(c["stored"].list().map { it.obj() }.first { it["id"] == 13.0 }["importKey"], long.importKey)
         assertTrue(long.importKey.length > 98)
         assertNull(plan.transactions.firstOrNull { it.importKey == "COINBASE|X11" })

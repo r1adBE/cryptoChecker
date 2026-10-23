@@ -14,15 +14,15 @@ import java.io.File
  * Abstands-Aufrufen; Grössen (`size`, `height`, `width` ausser in `Spacer`), Radien, Strichstärken,
  * Feinabstimmungen von 1–3 und negative Werte (Ausgleich einer grösseren Tippfläche) zählen nicht.
  *
- * Seit Build 80 sind alle Abstände auf dem Raster ausser den Stellen in [ANDROID_CEILINGS] bzw.
+ * Alle Abstände sind auf dem Raster ausser den Stellen in [ANDROID_CEILINGS] bzw.
  * [IOS_CEILINGS], die bewusst bleiben (Begründung je Eintrag). Die Obergrenzen dürfen nur sinken —
  * wer eine Stelle bereinigt, senkt die Zahl hier mit. Liest die Quellen von der Platte (wie
  * [TypographyUsageTest]); das iOS-Verzeichnis ist optional (reiner Android-Checkout).
  *
- * Seit Build 82 auch die Widget-Layouts (`res/layout/widget_*.xml`, RemoteViews): `android:padding*`,
+ * Ebenso die Widget-Layouts (`res/layout/widget_*.xml`, RemoteViews): `android:padding*`,
  * `android:layout_margin*` und Breite/Höhe von `<Space>` als Lücke. Widgets haben wenig Platz, darum
  * wurde abgerundet (6 → 4, 10 → 8); was bleibt, steht in [WIDGET_XML_CEILINGS]. Die iOS-Widgets
- * sind seit Build 82 ganz auf dem Raster (keine Obergrenze mehr).
+ * sind ganz auf dem Raster (keine Obergrenze mehr).
  */
 class SpacingUsageTest {
 
@@ -204,9 +204,9 @@ class SpacingUsageTest {
         /** Datei (relativ zu `ios/`) → höchstens so viele Stellen, die bewusst bleiben. */
         val IOS_CEILINGS = mapOf(
             // Zeilen der Marktdaten: wie Android 2 × 3 dp Zeilen-Innenabstand (Feinabstimmung) = 6
-            // (seit Build 83 in `PulseFacts`, CryptoPulseParts.swift)
+            // (in `PulseFacts`, CryptoPulseParts.swift)
             "App/Features/Cycle/CryptoPulseParts.swift" to 1,
-            // Widgets/: seit Build 82 alle auf dem Raster (abgerundet wie die Android-Widgets) — keine Ausnahme
+            // Widgets/: alle auf dem Raster (abgerundet wie die Android-Widgets) — keine Ausnahme
         )
     }
 }

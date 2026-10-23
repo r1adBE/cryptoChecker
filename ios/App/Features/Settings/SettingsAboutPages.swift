@@ -27,7 +27,7 @@ struct AboutSettingsPage: View {
                 }
                 .padding(.bottom, Spacing.sm)
             }
-            // Build 53: Links und Lizenzen von der Hauptseite hierher — wie Android
+            // Links und Lizenzen von der Hauptseite hierher — wie Android
             SettingsCard {
                 aboutLinkRows
             }

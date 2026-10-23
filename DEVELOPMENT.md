@@ -2240,6 +2240,8 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 110: comments without build numbers (F-21; history lives in CHANGELOG and git), `NSLocalNetworkUsageDescription`
+  (`ios_local_network_usage` in `ios_extra_strings.json`, `convert_strings.py` `INFO_PLIST_KEYS`), `lint_warnings.py --details`.
 * Build 109: signed mirror (`MirrorManifest`, `MirrorTrust`, `mirror_signature.json`, `mirror_data.py --manifest`,
   `artifact_check.py` profile `mirror_manifest`, secret `MIRROR_SIGNING_KEY`); consent per action
   (`WatchlistNotSavedGate` job scope / `TaskLocal` `actionConsent`, `unaskedPassScope`); condition-direction guards;

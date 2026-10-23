@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Build 46: Herkunftsschlüssel (CSV-Import) und beobachtete Adressen in der Sicherung —
+/// Herkunftsschlüssel (CSV-Import) und beobachtete Adressen in der Sicherung —
 /// wie `PortfolioBackupWatchedTest.kt`.
 final class PortfolioBackupWatchedTests: XCTestCase {
 

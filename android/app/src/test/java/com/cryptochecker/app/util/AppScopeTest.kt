@@ -14,7 +14,7 @@ import org.junit.Test
 import java.util.concurrent.CopyOnWriteArrayList
 
 /**
- * Seit Build 103: prozessweiter Bereich fängt Ausnahmen ab und läuft danach weiter. Seit Build 104 auch der Bereich der
+ * Prozessweiter Bereich fängt Ausnahmen ab und läuft danach weiter. Ebenso der Bereich der
  * Empfänger ([ReceiverAsync], über [appScope]) und dessen Zeitgrenze ([ReceiverAsync.launchBounded], Kern von launchAsync).
  */
 class AppScopeTest {

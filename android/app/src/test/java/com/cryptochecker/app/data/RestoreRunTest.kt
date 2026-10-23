@@ -11,7 +11,7 @@ import java.io.IOException
 
 /**
  * Wiederherstellen mit Journal und Zurückrollen ([RestoreRun], [RestoreRollback]) mit Fälschungen statt Datenbanken:
- * ohne Journal wird nichts geschrieben (seit Build 102), jeder Zweig des Zurückrollens (Einstellungen, Favoriten,
+ * ohne Journal wird nichts geschrieben, jeder Zweig des Zurückrollens (Einstellungen, Favoriten,
  * Portfolio, Merkliste) und «Zurückrollen unvollständig → Journal bleibt».
  */
 class RestoreRunTest {

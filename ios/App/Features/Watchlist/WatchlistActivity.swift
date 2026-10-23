@@ -37,7 +37,7 @@ enum WatchlistActivity {
 
 /// ⚡-Chip neben dem Paar, beschriftet mit der Kurzform von «Was bewegt sich mit?» (`watch_action_why_short`); tippen
 /// öffnet das Blatt «Was bewegt sich mit?». Sichtbar bleibt der 28-pt-Chip, das Layout unverändert; die Tippfläche ragt
-/// je 8 pt seitlich (Build 70), aber nur je 4 pt darüber und darunter hinaus: Sie bleibt im Innenabstand der eigenen Zeile
+/// je 8 pt seitlich, aber nur je 4 pt darüber und darunter hinaus: Sie bleibt im Innenabstand der eigenen Zeile
 /// und reicht nie in die Nachbarzeile (wie Android). Reicht die Breite nicht, bleibt nur der ⚡ (das Paar geht vor).
 struct WatchlistActivityBolt: View {
     let action: () -> Void

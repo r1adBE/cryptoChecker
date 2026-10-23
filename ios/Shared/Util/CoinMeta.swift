@@ -1,7 +1,7 @@
 import Foundation
 
 /// Namen, Alpha-Kennzeichen und Bild-Adressen der Coins: Zusammenführen der Listen und Ersatz, wenn
-/// die Binance-Listen direkt nicht kommen (Build 46). Gleich in Android `CoinMeta.kt` (gemeinsame
+/// die Binance-Listen direkt nicht kommen. Gleich in Android `CoinMeta.kt` (gemeinsame
 /// Testfälle `testdata/parity/coin_meta.json`).
 ///
 /// - `merge`: Rangliste (CoinGecko), Binance-Symbolliste und Alpha-Liste → Logo-Adressen, Namen und

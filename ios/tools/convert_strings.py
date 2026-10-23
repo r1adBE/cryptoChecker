@@ -4,7 +4,8 @@
 Output:
   Shared/Resources/Localizable.xcstrings  (all <string> and <plurals> entries + iOS-only extras)
   Shared/Resources/InfoPlist.xcstrings    (CFBundleDisplayName from app_name,
-                                           NSFaceIDUsageDescription from ios_face_id_usage)
+                                           NSFaceIDUsageDescription from ios_face_id_usage,
+                                           NSLocalNetworkUsageDescription from ios_local_network_usage)
 
 Usage:
   python3 tools/convert_strings.py [--android-res PATH] [--extra tools/ios_extra_strings.json]
@@ -46,6 +47,7 @@ LOCALE_MAP = {"iw": "he", "in": "id", "ji": "yi", "zh": "zh-Hans", "zh-rCN": "zh
 INFO_PLIST_KEYS = {
     "CFBundleDisplayName": "app_name",
     "NSFaceIDUsageDescription": "ios_face_id_usage",
+    "NSLocalNetworkUsageDescription": "ios_local_network_usage",
 }
 
 

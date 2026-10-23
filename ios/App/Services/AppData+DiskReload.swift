@@ -53,8 +53,8 @@ extension AppData {
         }
     }
 
-    /// Stand von der Platte neu laden und abwarten (z. B. nachdem Hintergrund oder Widget gespeichert haben). Seit
-    /// Build 102 ohne den Haupt-Thread zu blockieren: `readSnapshot` wartet die Schreib-Warteschlange synchron ab, und
+    /// Stand von der Platte neu laden und abwarten (z. B. nachdem Hintergrund oder Widget gespeichert haben),
+    /// ohne den Haupt-Thread zu blockieren: `readSnapshot` wartet die Schreib-Warteschlange synchron ab, und
     /// ein Schreiben kann über `NSFileCoordinator` auf das Widget warten — darum Abwarten und Lesen auf `diskReader`,
     /// übernommen auf dem Haupt-Thread. Wird inzwischen im Speicher geändert, gilt der Speicher (einmal neu gelesen),
     /// wie beim Wechsel nach vorne. Das Lesen beim Start (`AppData.init`) bleibt bewusst synchron.

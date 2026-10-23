@@ -12,7 +12,7 @@ extension AppData {
     // MARK: Einstellungen
 
     func settingsChanged(from old: AppSettings) {
-        // Bedarf der Hintergrund-Aktualisierung (Mitteilungen, Ansagen, Aktivität, Portfolio, Gas/Depeg; seit Build 103)
+        // Bedarf der Hintergrund-Aktualisierung (Mitteilungen, Ansagen, Aktivität, Portfolio, Gas/Depeg)
         followBackgroundDemand()
         if old.updateMode != settings.updateMode {
             updateLiveStream()

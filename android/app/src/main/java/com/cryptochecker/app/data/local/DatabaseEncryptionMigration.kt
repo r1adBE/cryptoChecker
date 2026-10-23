@@ -1,7 +1,7 @@
 package com.cryptochecker.app.data.local
 
 /**
- * Verschlüsselung der Datenbanken (SQLCipher, Build 59): entscheidet vor dem ersten Öffnen einer Datenbankdatei,
+ * Verschlüsselung der Datenbanken (SQLCipher): entscheidet vor dem ersten Öffnen einer Datenbankdatei,
  * wie sie geöffnet wird, und überführt eine unverschlüsselte Datei einmalig in eine verschlüsselte. Reine
  * Ablauflogik ohne Android: Dateien und SQL über [Files], Schlüssel über [Keys] (App: `SqlCipherDatabaseFiles`,
  * `DatabaseKeyStore`; Unit-Test: Fälschungen).
@@ -12,16 +12,16 @@ package com.cryptochecker.app.data.local
  * 2. Ersetzt wird durch atomares Umbenennen der Kopie auf den Dateinamen: Ein Abbruch davor lässt die alte Datei
  *    stehen, danach ist die neue vollständig. Ob eine Datei verschlüsselt ist, sagt ihr Kopf ([FileKind]) — kein
  *    Merker in den Einstellungen, der nach einer Wiederherstellung (alte, unverschlüsselte Datei) falsch wäre.
- * 3. Jeder Fehler: Kopie löschen, unverschlüsselt öffnen wie bis Build 58, beim nächsten Start erneut versuchen.
+ * 3. Jeder Fehler: Kopie löschen, unverschlüsselt öffnen (Rückfall), beim nächsten Start erneut versuchen.
  * 4. Ein neuer Schlüssel entsteht nur, solange keine verschlüsselte Datei von ihm abhängt. Ist der Schlüssel einer
  *    verschlüsselten Datei endgültig verloren, wird die Datei beiseitegelegt (nicht gelöscht) und neu begonnen;
  *    die App nennt das, bis der Nutzer es bestätigt ([Decision.Encrypted.setAside]).
  * 5. Eine Datei mit Verschlüsselungspflicht ([encryptionRequired]; App: Portfolio und Merkliste) entsteht nie unverschlüsselt: Ohne
  *    Schlüssel wird sie gar nicht angelegt ([Decision.Refused]); eine schon unverschlüsselt vorhandene (früherer
- *    Fehlschlag) bleibt seit Build 91 ohne Schlüssel unberührt: Ihr Inhalt wird in den Arbeitsspeicher kopiert, Änderungen
+ *    Fehlschlag) bleibt ohne Schlüssel unberührt: Ihr Inhalt wird in den Arbeitsspeicher kopiert, Änderungen
  *    landen nie im Klartext ([Decision.PlaintextKept], wie iOS); mit Schlüssel wird sie beim nächsten Start überführt.
- *    Scheitert diese Überführung trotz Schlüssel, seit Build 93 derselbe Weg ([Decision.PlaintextKept]): Datei unberührt,
- *    Inhalt nur gelesen, nächster Start erneut — bis Build 92 wurde sie dann wie bis Build 58 im Klartext weiterbeschrieben.
+ *    Scheitert diese Überführung trotz Schlüssel, derselbe Weg ([Decision.PlaintextKept]): Datei unberührt,
+ *    Inhalt nur gelesen, nächster Start erneut — nie im Klartext weiterbeschrieben.
  *    Ohne Pflicht gilt Regel 3 ([Decision.Plaintext]).
  *    Gibt der Keystore den Schlüssel einer schon verschlüsselten Datei gerade nicht heraus ([Decision.KeyUnavailable]),
  *    bleibt die Datei unberührt; die App hält die Datenbank dann für diesen Lauf im Arbeitsspeicher oder wartet
@@ -39,7 +39,7 @@ class DatabaseEncryptionMigration(
     internal val log: (message: String, error: Throwable?) -> Unit = { _, _ -> },
     /** Darf [database] ohne Schlüssel nie unverschlüsselt angelegt werden (Portfolio)? Siehe [planOpen]. */
     internal val encryptionRequired: (database: String) -> Boolean = { false },
-    /** Seit Build 102: welche beiseitegelegten Kopien weg dürfen ([pruneAside], [AsideRetention]); Standard keine. */
+    /** Welche beiseitegelegten Kopien weg dürfen ([pruneAside], [AsideRetention]); Standard keine. */
     internal val asideExpired: (database: String, copies: List<String>) -> List<String> = { _, _ -> emptyList() },
 ) {
 
@@ -166,7 +166,7 @@ class DatabaseEncryptionMigration(
         ) : Decision
 
         /**
-         * Unverschlüsselt öffnen wie bis Build 58 (Rückfall; der nächste Start versucht es erneut): nur ohne
+         * Unverschlüsselt öffnen wie vor der Verschlüsselung (Rückfall; der nächste Start versucht es erneut): nur ohne
          * Verschlüsselungspflicht — ohne Schlüssel oder nach gescheiterter Überführung.
          */
         data object Plaintext : Decision
@@ -178,8 +178,8 @@ class DatabaseEncryptionMigration(
         data object Refused : Decision
 
         /**
-         * Unverschlüsselte Datei mit Verschlüsselungspflicht, aber kein Schlüssel (seit Build 91, wie iOS
-         * `ProtectedFile.write(requireSealed:)`) oder Überführung trotz Schlüssel gescheitert (seit Build 93): Die Datei
+         * Unverschlüsselte Datei mit Verschlüsselungspflicht, aber kein Schlüssel (wie iOS
+         * `ProtectedFile.write(requireSealed:)`) oder Überführung trotz Schlüssel gescheitert: Die Datei
          * bleibt unberührt, ihr Inhalt wird für diesen Lauf in den Arbeitsspeicher kopiert; Änderungen werden nicht
          * gespeichert. Der nächste Start mit Schlüssel überführt sie.
          */
@@ -230,7 +230,7 @@ class DatabaseEncryptionMigration(
         } catch (e: Exception) {
             runCatching { files.deleteExportCopy(database) }
                 .onFailure { log("$database: Exportkopie nicht gelöscht", it) }
-            // Pflicht (Merkliste, Portfolio, seit Build 93): nie im Klartext weiterschreiben, nur gelesen wie ohne Schlüssel
+            // Pflicht (Merkliste, Portfolio): nie im Klartext weiterschreiben, nur gelesen wie ohne Schlüssel
             if (encryptionRequired(database)) {
                 log("$database: Verschlüsselung fehlgeschlagen, Datei unberührt (Inhalt im Arbeitsspeicher, nächster Start)", e)
                 Decision.PlaintextKept
@@ -309,7 +309,7 @@ class DatabaseEncryptionMigration(
          * Regel ohne Android (Unit-Test): Art der vorhandenen Datei × brauchbarer Schlüssel (gespeichert oder neu angelegt)
          * × Verschlüsselungspflicht → wie öffnen. Mit Schlüssel immer verschlüsselt. Ohne Schlüssel: eine schon
          * unverschlüsselte Datei ohne Pflicht weiter unverschlüsselt, mit Pflicht nur in den Arbeitsspeicher kopiert
-         * (seit Build 91; Überführung beim nächsten Start mit Schlüssel), eine
+         * (Überführung beim nächsten Start mit Schlüssel), eine
          * fehlende nur ohne Pflicht neu unverschlüsselt — mit Pflicht (Portfolio: Beträge, Adressen, xpub) gar nicht, wie
          * iOS `ProtectedFile.write(requireSealed:)`. Eine verschlüsselte Datei folgt eigenen Regeln (Schlüssel gerade nicht
          * lesbar → nichts tun; verloren → beiseitelegen), nie unverschlüsselt.

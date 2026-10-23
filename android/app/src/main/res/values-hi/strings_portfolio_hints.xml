@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">पोर्टफ़ोलियो अलार्म रुके हुए हैं: %1$s का कोई मौजूदा भाव नहीं</string>
     <string name="portfolio_alarms_paused_price_generic">पोर्टफ़ोलियो अलार्म रुके हुए हैं: हर कॉइन का मौजूदा भाव नहीं है</string>
     <string name="portfolio_alarms_paused_addresses">पोर्टफ़ोलियो अलार्म रुके हुए हैं: देखे जा रहे पतों के बैलेंस अभी लोड नहीं हुए</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">पोर्टफ़ोलियो अलार्म रुके हुए हैं: %1$s के टोकन बैलेंस आंशिक रूप से पुराने हैं</string>
     <string name="portfolio_alarms_paused_tokens_generic">पोर्टफ़ोलियो अलार्म रुके हुए हैं: देखे जा रहे पतों के टोकन बैलेंस आंशिक रूप से पुराने हैं</string>
     <string name="portfolio_alarms_paused_unverified">पोर्टफ़ोलियो अलार्म रुके हुए हैं: %1$s का भाव अपुष्ट है</string>

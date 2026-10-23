@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!-- «Pünktlich prüfen» (Build 46, Schalter, Standard aus): exakter Wecker alle 15 Min.
+    <!-- «Pünktlich prüfen» (Schalter, Standard aus): exakter Wecker alle 15 Min.
          (ExactCheckScheduler). SCHEDULE_EXACT_ALARM — vom Nutzer erteilt und widerrufbar; bewusst
          NICHT USE_EXACT_ALARM (nur für Wecker-/Kalender-Apps) und NICHT
          REQUEST_IGNORE_BATTERY_OPTIMIZATIONS. Keine Play-Console-Erklärung nötig: Die Pflicht-
@@ -31,7 +31,7 @@
 
     <!-- Systemsicherung: Auto Backup nach den XML-Regeln (fullBackupOnly); der eigene Agent legt nur für die
          Dauer einer Sicherung eine unverschlüsselte Kopie der (verschlüsselten) Hauptdatenbank dazu und macht
-         sie nach einer Wiederherstellung wieder zur Datenbank (SystemBackupAgent, Build 59). -->
+         sie nach einer Wiederherstellung wieder zur Datenbank (SystemBackupAgent). -->
     <!-- largeHeap: Sicherungen mit Passwort leiten den Schlüssel mit Argon2id ab, das 64 MiB am Stück im ART-Heap
          braucht (Argon2id.kt, m = 65 536 KiB). Ohne largeHeap liegt die Heap-Grenze auf Geräten mit 2 GB RAM oft
          bei 128–192 MiB; zusammen mit der laufenden App reicht das nicht, und die Sicherung liesse sich dort nie
@@ -62,7 +62,7 @@
         <!-- singleTop: Tipp auf Mitteilung oder Widget (NEW_TASK|CLEAR_TOP) erreicht die laufende
              Activity über onNewIntent, statt sie neu aufzubauen. -->
         <!-- Startbildschirm: Theme.CryptoChecker.Starting (installSplashScreen in MainActivity). -->
-        <!-- taskAffinity="" (seit Build 103): keine fremde App kann sich per gleicher Affinität in unseren
+        <!-- taskAffinity="": keine fremde App kann sich per gleicher Affinität in unseren
              Task schieben (Task-Hijacking); die activity-alias übernehmen die Affinität ihres Ziels. -->
         <activity
             android:name=".ui.MainActivity"

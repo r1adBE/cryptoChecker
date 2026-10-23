@@ -1,4 +1,4 @@
-// Einstand im Erfassen-Blatt eines Zugangs ohne Preis (Build 84): Vorschlag Tagesschluss zum Übernehmen bzw. Hinweis
+// Einstand im Erfassen-Blatt eines Zugangs ohne Preis: Vorschlag Tagesschluss zum Übernehmen bzw. Hinweis
 // «Wert bei Zufluss» bei Belohnungen. Eigene Datei, damit das Blatt nur den Aufruf trägt.
 package com.cryptochecker.app.ui.features.portfolio
 

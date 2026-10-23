@@ -18,7 +18,7 @@ struct WatchlistBannerMessage: Identifiable, Equatable {
 
     /// Banner nach dem Löschen von `deleted`. Steht noch das Banner eines vorigen Löschens (`previous`), fasst es
     /// beide zusammen («2 Paare entfernt») und «Rückgängig» holt alle zurück — sonst wäre das vorige ohne Hinweis
-    /// endgültig (seit Build 102, wie Android `RemovedBatch`).
+    /// endgültig (wie Android `RemovedBatch`).
     static func removed(
         _ deleted: DeletedWatch,
         after previous: WatchlistBannerMessage?,

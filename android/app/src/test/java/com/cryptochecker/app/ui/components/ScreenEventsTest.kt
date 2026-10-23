@@ -11,7 +11,7 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 
 /**
- * Seit Build 107 (Review ARC5-R01): Ergebnisse nach der Rückfrage F-08 gehen nicht verloren, wenn gerade kein Bildschirm
+ * Review ARC5-R01: Ergebnisse nach der Rückfrage F-08 gehen nicht verloren, wenn gerade kein Bildschirm
  * sammelt (Activity wird neu erstellt), und kommen genau einmal an — auch beim Wechsel des Sammlers (alter Bildschirm weg,
  * neuer da).
  */

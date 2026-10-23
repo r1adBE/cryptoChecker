@@ -93,7 +93,7 @@ class AlarmDeliveryViewModel @Inject constructor(
         .map { runs -> lastScheduled(runs) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), lastScheduled(checkRunStore.runs.value))
 
-    /** Neuester geplanter Lauf, wenn keiner der gespeicherten gelang (Zuverlässigkeitszeile warnt dann, seit Build 93). */
+    /** Neuester geplanter Lauf, wenn keiner der gespeicherten gelang (Zuverlässigkeitszeile warnt dann). */
     val lastFailedBackgroundCheck: StateFlow<Long?> = checkRunStore.runs
         .map { runs -> com.cryptochecker.app.domain.refresh.CheckRunLog.lastFailedBackgroundCheck(runs) }
         .stateIn(
@@ -141,7 +141,7 @@ internal fun alarmKinds(settings: AppSettings, pairAlarm: Boolean, portfolioAlar
 )
 
 /**
- * «Damit Alarme ankommen» (Build 81): der echte Zustand je Punkt (✓ / ⚠ / Hinweis) mit Knopf zur passenden
+ * «Damit Alarme ankommen»: der echte Zustand je Punkt (✓ / ⚠ / Hinweis) mit Knopf zur passenden
  * Systemseite. Erreichbar aus «Alle Alarme», dem Hinweis im Alarm-Editor und Einstellungen › Alarme. Wie
  * `AlarmDeliveryScreen` (iOS). Nach der Rückkehr aus den Android-Einstellungen neu gelesen.
  */

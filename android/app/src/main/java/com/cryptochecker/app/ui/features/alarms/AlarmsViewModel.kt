@@ -81,7 +81,7 @@ class AlarmsViewModel @Inject constructor(
     private val notices = AlarmSaveNotices(viewModelScope, watchRepository, settingsRepository, exactScheduler)
     /** Doppeltipp beim Anlegen: ein zweites «Speichern»/eine Vorlage, solange das erste läuft, bleibt ohne Wirkung. */
     private val createGuard = AlarmCreateGuard()
-    /** Seit Build 107 (ARC5-R01): offener Editor und Ergebnisse fürs aktuelle Bild, statt Rückrufe des Bildschirms. */
+    /** ARC5-R01: offener Editor und Ergebnisse fürs aktuelle Bild, statt Rückrufe des Bildschirms. */
     internal val editor = AlarmEditorState(savedStateHandle)
 
     /** Bestätigung nach dem allerersten Alarm zeigen (Text = Hinweis «Wann Alarme geprüft werden», [AlarmTimingHint]). */
@@ -242,14 +242,14 @@ class AlarmsViewModel @Inject constructor(
     fun alarmSaveBlocked(): Boolean = WatchlistStorageLock.blocksAlarmSave(DatabaseEncryptionNotice.storedKept.value)
 
     /**
-     * Schnell-Alarm sofort anlegen (einmalig, Ton/Vibration wie neue Alarme). Ergebnis seit Build 107 als
+     * Schnell-Alarm sofort anlegen (einmalig, Ton/Vibration wie neue Alarme). Ergebnis als
      * [AlarmEditorEvent.Created] (Id für «Rückgängig», Bedingung für die Bestätigung) bzw. [AlarmEditorEvent.Limit] (Paar
-     * voll). Editor zu gleich nach bestätigter Rückfrage F-08 (seit Build 106, UX4-06), nicht bei «Abbrechen».
+     * voll). Editor zu gleich nach bestätigter Rückfrage F-08 (UX4-06), nicht bei «Abbrechen».
      */
     fun createFromTemplate(template: AlarmTemplates.Template) {
         if (alarmSaveBlocked()) return
         createGuard.launch(viewModelScope, guarded = true) {
-            // Seit Build 105: Rückfrage F-08 vor der Aktion; «Abbrechen» = nichts, keine Meldung, der Editor bleibt offen
+            // Rückfrage F-08 vor der Aktion; «Abbrechen» = nichts, keine Meldung, der Editor bleibt offen
             if (!watchRepository.confirmUserWrite()) return@launch else editor.close()
             val w = watch.value ?: watchRepository.getWatch(watchId) ?: return@launch
             val def = AlarmTemplates.definition(template, w.lastPrice) ?: return@launch
@@ -297,7 +297,7 @@ class AlarmsViewModel @Inject constructor(
         }
     }
 
-    /** Seit Build 105 (UX3-03): gespeicherter Alarm; «Paar voll» ([onLimit]) nur bei Full, abgelehnt/abgebrochen still. */
+    /** UX3-03: gespeicherter Alarm; «Paar voll» ([onLimit]) nur bei Full, abgelehnt/abgebrochen still. */
     private fun AlarmSaveResult.savedOr(onLimit: () -> Unit): AlarmEntity? = when (this) {
         is AlarmSaveResult.Saved -> alarm
         AlarmSaveResult.Full -> { onLimit(); null }
@@ -329,7 +329,7 @@ class AlarmsViewModel @Inject constructor(
     }
 
     /**
-     * Alarm speichern. Ergebnis seit Build 107 als [AlarmEditorEvent.Saved]: gespeicherter Alarm, ob er als Mitteilung
+     * Alarm speichern. Ergebnis als [AlarmEditorEvent.Saved]: gespeicherter Alarm, ob er als Mitteilung
      * erscheinen darf ([com.cryptochecker.app.notification.canShowAlarm]) und ob gleich die Bestätigung des allerersten Alarms
      * kommt (dann keine eigene Zeile). Paar voll und Editor zu wie bei [createFromTemplate].
      */
@@ -338,7 +338,7 @@ class AlarmsViewModel @Inject constructor(
         // Auch beim Bearbeiten gesperrt (ARC6-R02/IOS6-01): ein Doppeltipp gibt sonst zwei Saved (Haptik, Bestätigung doppelt)
         createGuard.launch(viewModelScope, guarded = true) {
             val threshold = draft.threshold ?: return@launch
-            // Seit Build 105: Rückfrage F-08 VOR allem (auch vor dem Entfernen der alten Mitteilung); «Abbrechen» = nichts
+            // Rückfrage F-08 VOR allem (auch vor dem Entfernen der alten Mitteilung); «Abbrechen» = nichts
             if (!watchRepository.confirmUserWrite()) return@launch
             editor.close()
             val existing = alarms.value.firstOrNull { it.id == draft.id }
@@ -376,7 +376,7 @@ class AlarmsViewModel @Inject constructor(
 
     fun delete(alarmId: Long) {
         viewModelScope.launch {
-            // Seit Build 105 (ARC3-R01): Rückfrage vorher; abgebrochen bzw. abgelehnt = Mitteilung und Protokoll bleiben
+            // ARC3-R01: Rückfrage vorher; abgebrochen bzw. abgelehnt = Mitteilung und Protokoll bleiben
             if (!watchRepository.confirmUserWrite() || !watchRepository.deleteAlarm(alarmId)) return@launch
             // Mitteilung weg (ihr «Anpassen» zeigte ins Leere), nur im Arbeitsspeicher nicht ([AlarmUserChange.afterDelete])
             val cleanup = AlarmUserChange.afterDelete()

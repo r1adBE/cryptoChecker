@@ -16,7 +16,7 @@ extension CoinLogos {
 
 /// Bild-Bytes der Coin-Logos (Teil von `CoinLogoStore`): Masse aus dem Bildkopf lesen und nur verkleinert dekodieren
 /// (`CGImageSourceCreateThumbnailAtIndex`), nie das volle Quellbild — wie Android `LogoImageCodec` mit
-/// `inJustDecodeBounds`/`inSampleSize`. Seit Build 102.
+/// `inJustDecodeBounds`/`inSampleSize`.
 enum CoinLogoDecode {
     /// Breite und Höhe in Pixeln laut Bildkopf, ohne zu dekodieren; nil = kein lesbares Bild.
     static func pixelSize(_ data: Data) -> (width: Int, height: Int)? {

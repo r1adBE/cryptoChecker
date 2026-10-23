@@ -41,7 +41,7 @@ actor RequestGate {
     /// Laufende Anfragen (für Tests).
     var runningCount: Int { running }
 
-    /// Wartende Anfragen (für Tests, seit Build 103: auf den Zustand warten statt auf eine feste Zeit).
+    /// Wartende Anfragen (für Tests: auf den Zustand warten statt auf eine feste Zeit).
     var waitingCount: Int { waiting.count }
 
     private func canStart(_ host: String) -> Bool {

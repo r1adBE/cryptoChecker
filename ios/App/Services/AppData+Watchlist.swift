@@ -207,12 +207,12 @@ extension AppData {
         forgetDeletedAlarmChecks()
     }
 
-    /// Nach dem Löschen von Paaren: letzte Prüfungen ihrer Alarme aus dem Alarm-Protokoll entfernen (seit Build 102,
-    /// wie Android `WatchRepository.forgetDeletedAlarms`). Verschlüsseltes Schreiben nicht auf dem Haupt-Thread.
+    /// Nach dem Löschen von Paaren: letzte Prüfungen ihrer Alarme aus dem Alarm-Protokoll entfernen (wie
+    /// Android `WatchRepository.forgetDeletedAlarms`). Verschlüsseltes Schreiben nicht auf dem Haupt-Thread.
     private func forgetDeletedAlarmChecks() {
         let ids = Set(snapshot.alarms.map(\.id))
         Task.detached(priority: .utility) { AlarmLogStore.retainAlarms(ids) }
-        // Seit Build 104: Vermerke gelöschter Alarme weg (wie Android); seit Build 106 erst nach diesem Schreiben
+        // Vermerke gelöschter Alarme weg (wie Android); erst nach diesem Schreiben
         retainPairMarkersAfterWrite(ids)
     }
 
@@ -235,7 +235,7 @@ extension AppData {
     }
 
     /// «Rückgängig»: Paar und Alarme unverändert zurück. Wurde dasselbe Paar inzwischen
-    /// neu hinzugefügt, passiert nichts. Seit Build 103 nur, solange die Merkliste nicht voll ist
+    /// neu hinzugefügt, passiert nichts. Nur, solange die Merkliste nicht voll ist
     /// (`WatchlistLimits.canAddPair`, sonst `full` = 1) — wie Android `WatchRepository.restore`.
     @discardableResult
     func restore(_ deleted: DeletedWatch) -> UndoRestoreResult {
@@ -313,7 +313,7 @@ extension AppData {
     }
 
     /// «Rückgängig» für mehrere Paare in einem Vorgang (siehe `restore(_:)` für eines).
-    /// Paare, die inzwischen neu hinzugefügt wurden, bleiben aus; seit Build 103 auch die über der Obergrenze der
+    /// Paare, die inzwischen neu hinzugefügt wurden, bleiben aus; auch die über der Obergrenze der
     /// Merkliste (gezählt in `full`). Liefert die Zahl der zurückgeholten und der ausgelassenen.
     @discardableResult
     func restore(_ deleted: [DeletedWatch]) -> UndoRestoreResult {
@@ -338,7 +338,7 @@ extension AppData {
         return UndoRestoreResult(restored: restored.count, full: full)
     }
 
-    /// Paare in den Stand `s` zurücklegen (rein, testbar): vorhandene bleiben aus, seit Build 103 auch die über der
+    /// Paare in den Stand `s` zurücklegen (rein, testbar): vorhandene bleiben aus, auch die über der
     /// Obergrenze der Merkliste (`full`). Liefert die zurückgelegten.
     static func restoreInto(_ s: inout SharedStorage.Snapshot, _ deleted: [DeletedWatch])
         -> (restored: [DeletedWatch], full: Int) {
@@ -358,7 +358,7 @@ extension AppData {
         return (restored, full)
     }
 
-    /// «Merkliste leeren»: alle Paare samt Alarmen löschen — seit Build 94 wie `deleteForUndo` festgehalten, damit
+    /// «Merkliste leeren»: alle Paare samt Alarmen löschen — wie `deleteForUndo` festgehalten, damit
     /// `restore(_:)` mit der Liste alles mit denselben Ids zurückholt (wie Android `deleteAllWithUndo`).
     func deleteAllForUndo() -> [DeletedWatch] {
         guard !watchlistWriteRefused() else { return [] }
@@ -379,7 +379,7 @@ extension AppData {
     }
 }
 
-/// Ergebnis von «Rückgängig» (`AppData.restore`, seit Build 103): zurückgeholte und wegen voller Merkliste
+/// Ergebnis von «Rückgängig» (`AppData.restore`): zurückgeholte und wegen voller Merkliste
 /// ausgelassene Paare — wie Android `RestoreOutcome`.
 struct UndoRestoreResult: Equatable {
     var restored = 0

@@ -77,11 +77,11 @@ object PortfolioTxForm {
     /** Die Warnung nennt die Gebühr, wenn eine Gebühr im Coin mitzählt. */
     fun sellExceedsIncludesFee(fee: BigDecimal?, feeUnit: PortfolioFeeUnit): Boolean = coinFee(fee, feeUnit).signum() > 0
 
-    // ---- Arten (Build 46, Regeln in [PortfolioLedger]) ----
+    // ---- Arten (Regeln in [PortfolioLedger]) ----
 
     /**
      * Reihenfolge der Arten im Blatt: Kauf, Verkauf, Umbuchung, Belohnung, Einzahlung, Auszahlung, Verschenkt, Damit
-     * bezahlt (Build 47, gleich nach der Auszahlung), Tausch.
+     * bezahlt (gleich nach der Auszahlung), Tausch.
      */
     val TYPES: List<PortfolioTxType> = listOf(
         PortfolioTxType.BUY, PortfolioTxType.SELL, PortfolioTxType.TRANSFER,
@@ -192,7 +192,7 @@ object PortfolioTxForm {
     /** Von/Nach: getrimmt, höchstens 40 Zeichen (wie die Börse). */
     const val MAX_ROUTE = 40
 
-    // ---- Tausch und Eingabe in der Anzeigewährung (Build 46) ----
+    // ---- Tausch und Eingabe in der Anzeigewährung ----
 
     /** Tausch: erhaltener Coin gültig (1–15 Buchstaben/Ziffern) und ≠ dem abgegebenen Coin. */
     fun swapToCoinValid(toCoin: String, coin: String): Boolean {
@@ -214,7 +214,7 @@ object PortfolioTxForm {
      * Ausdrücklich eingegebener Preis 0 ([entered], schon gelesen) nicht speicherbar? Nur bei einer importierten
      * Transaktion ([imported], CSV): dort ist ein Verkauf zum Preis 0 das Kennzeichen der Gebühr-Zeile
      * ([PortfolioLedger.isFeeDisposal]) und würde still zum Tageskurs bewertet. Von Hand erfasst ist 0 ein echter Preis
-     * (z. B. wertlosen Coin zu 0 verkaufen, Build 47).
+     * (z. B. wertlosen Coin zu 0 verkaufen).
      */
     fun priceZero(entered: BigDecimal?, imported: Boolean): Boolean = imported && entered != null && entered.signum() == 0
 

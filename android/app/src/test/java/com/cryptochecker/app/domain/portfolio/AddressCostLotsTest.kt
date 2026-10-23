@@ -11,7 +11,7 @@ import org.junit.Test
 import java.math.BigDecimal
 
 /**
- * Einstand für Adressguthaben (Build 84): Prüfung, Abdeckung gegen das Guthaben (FIFO), Speicherform und Sicherung (hin
+ * Einstand für Adressguthaben: Prüfung, Abdeckung gegen das Guthaben (FIFO), Speicherform und Sicherung (hin
  * und zurück, Sicherung ohne das Feld). Gegenstück: `Tests/AddressCostLotsTests.swift`.
  */
 class AddressCostLotsTest {

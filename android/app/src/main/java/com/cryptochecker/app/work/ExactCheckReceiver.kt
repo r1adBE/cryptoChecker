@@ -80,7 +80,7 @@ class ExactCheckReceiver : BroadcastReceiver() {
                         return@launch
                     }
                     // Offline: kein Versuch — sonst stünden alle Paare auf Fehler. WorkManager holt
-                    // nach, sobald Netz da ist. Kein Eintrag in «Letzte Prüfungen» (seit Build 93): Ein
+                    // nach, sobald Netz da ist. Kein Eintrag in «Letzte Prüfungen»: Ein
                     // «übersprungen» zählte dort als Prüfung, und die Zuverlässigkeitszeile wirkte frisch,
                     // obwohl offline tagelang nichts geprüft wurde
                     BackgroundWorkPolicy.FiredAction.REARM_SKIP_OFFLINE -> {

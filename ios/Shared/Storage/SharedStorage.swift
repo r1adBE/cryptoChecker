@@ -164,10 +164,10 @@ enum SharedStorage {
         var settings: AppSettings
         var state: SettingsReadState
         /// Gespeichert, aber nicht lesbar (beschädigt oder unbekanntes Format): Standardwerte statt der Einstellungen
-        /// (`settingsCorrupt`). Seit Build 97 meldet die App das einmal (`StorageRecoveryNotice.settingsReset`).
+        /// (`settingsCorrupt`). Die App meldet das einmal (`StorageRecoveryNotice.settingsReset`).
         var corrupt = false
 
-        /// Portfolio-Sperre: unbekannt (Ablage nicht zugänglich, seit Build 102 auch unlesbar) → an.
+        /// Portfolio-Sperre: unbekannt (Ablage nicht zugänglich oder unlesbar) → an.
         var appLockAssumed: Bool { state == .inaccessible || corrupt || settings.appLock }
     }
 
@@ -189,9 +189,8 @@ enum SharedStorage {
     /// Installation oder gesperrte Ablage). Wie Android, wo DataStore nur unlesbaren Inhalt ersetzt.
     static func settingsCorrupt(hasData: Bool, decodes: Bool) -> Bool { hasData && !decodes }
 
-    /// Rein (testbar): gelesene Einstellungen bzw. Standardwerte. Seit Build 102 nach unlesbarem Stand mit Portfolio-Sperre
-    /// an — unbekannt heisst gesperrt, bis der Nutzer sie selbst ausschaltet (wie Android `SettingsLockFallback`); bis
-    /// Build 101 stand sie dann still auf «aus».
+    /// Rein (testbar): gelesene Einstellungen bzw. Standardwerte. Nach unlesbarem Stand mit Portfolio-Sperre
+    /// an — unbekannt heisst gesperrt, bis der Nutzer sie selbst ausschaltet (wie Android `SettingsLockFallback`).
     static func settingsAfterRead(_ decoded: AppSettings?, corrupt: Bool) -> AppSettings {
         var settings = decoded ?? AppSettings()
         if corrupt { settings.appLock = true }

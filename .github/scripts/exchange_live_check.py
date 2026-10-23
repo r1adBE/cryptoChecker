@@ -14,7 +14,7 @@ Result handling (GitHub Actions, gh CLI with GITHUB_TOKEN):
   - all pass:    close that issue (with a comment) if it is open
 Geo-blocked answers (HTTP 451, or 403 for exchanges that block US cloud IPs)
 count as "skipped", not as failure: GitHub's runners are in the US. Skipped
-exchanges are listed in the job summary and in the issue (since Build 103).
+exchanges are listed in the job summary and in the issue.
 Binance Spot is also checked via data-api.binance.vision (same schema as
 api.binance.com, not geo-blocked; the apps read it for candles and portfolio
 prices, see mirror_data.py), so the Spot schema is checked even when
@@ -27,7 +27,7 @@ Usage:
   python3 exchange_live_check.py --skip-issue --result r.json   # CI step 1: check, no token
   python3 exchange_live_check.py --issue-only --result r.json   # CI step 2: issue, no requests
 
-Since Build 103 the workflow runs two steps, so the token never shares a step with the
+The workflow runs two steps, so the token never shares a step with the
 exchange requests: --skip-issue checks and writes the result (failed count, issue text) to
 --result; --issue-only contacts no exchange, reads only that file and manages the issue.
 
@@ -66,7 +66,7 @@ EXCHANGES = [
     {"key": "binance", "name": "Binance",
      "url": "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT", "geo": True,
      "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},
-    # Gleiche Antwort wie api.binance.com, aber nicht geosperrt (seit Build 103): Schema auch vom US-Runner geprüft
+    # Gleiche Antwort wie api.binance.com, aber nicht geosperrt: Schema auch vom US-Runner geprüft
     {"key": "binancevision", "name": "Binance (data-api)",
      "url": "https://data-api.binance.vision/api/v3/ticker/24hr?symbol=BTCUSDT",
      "fields": [["lastPrice"], ["priceChangePercent"], ["quoteVolume"]]},

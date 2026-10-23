@@ -26,11 +26,11 @@ import kotlinx.coroutines.flow.update
  *  - [Kind.SYSTEM_BACKUP_NOT_IMPORTED] (nur Android): Die Portfolio-Kopie aus der Android-Systemsicherung liess sich auch
  *    beim zweiten Versuch nicht übernehmen und wurde gelöscht ([com.cryptochecker.app.data.portfolio.PortfolioBackupMirror.retryFailed]).
  *    Einmal; Weg zurück ist die eigene Sicherungsdatei.
- *  - [Kind.SETTINGS_RESET] (seit Build 97): Die Einstellungsdatei war beschädigt und wurde durch Standardwerte ersetzt
+ *  - [Kind.SETTINGS_RESET]: Die Einstellungsdatei war beschädigt und wurde durch Standardwerte ersetzt
  *    ([com.cryptochecker.app.settings.settingsDataStore]) — Portfolio-Sperre, Intervall und Währung stehen dann still auf
  *    dem Standard (Sperre aus). Bleibt vorgemerkt, bis der Nutzer den Hinweis schliesst, damit er sicher gesehen wird.
  *    Nicht bei einer neuen Installation und nicht, wenn die Datei bloss nicht lesbar war (dann ersetzt DataStore nichts).
- *    Seit Build 102 gilt die Sperre danach als an, bis der Nutzer sie selbst setzt ([confirmAppLock]); ein blosser
+ *    Die Sperre gilt danach als an, bis der Nutzer sie selbst setzt ([confirmAppLock]); ein blosser
  *    Lesefehler wird ebenfalls gemeldet (`SettingsLockFallback`).
  *
  * Eigene SharedPreferences-Datei [PREFS], nicht in den Sicherungsregeln: Die Hinweise gehören zu diesem Gerät.
@@ -93,7 +93,7 @@ object StorageRecoveryNotice {
     }
 
     /**
-     * Seit Build 93: Für das Journal mit Zeitpunkt [journalCreatedAt] wollte ein Start schon zurückrollen (gescheitert)
+     * Für das Journal mit Zeitpunkt [journalCreatedAt] wollte ein Start schon zurückrollen (gescheitert)
      * oder gab auf — der nächste Start rollt es nicht mehr zurück ([com.cryptochecker.app.data.RestoreRecoveryPolicy]).
      * Ein neues Journal hat einen anderen Zeitpunkt, darum muss der Wert nie gelöscht werden.
      */
@@ -114,7 +114,7 @@ object StorageRecoveryNotice {
     /**
      * Einstellungen beschädigt und durch Standardwerte ersetzt vormerken. Läuft im Ersatz-Handler von DataStore, also
      * vor dem ersten Lesen — darum sofort geschrieben (der Prozess kann gleich danach enden).
-     * [lockUnknown] (seit Build 102): Die Portfolio-Sperre gilt als unbekannt und damit als an, bis der Nutzer sie selbst
+     * [lockUnknown]: Die Portfolio-Sperre gilt als unbekannt und damit als an, bis der Nutzer sie selbst
      * setzt ([confirmAppLock]) — nicht bei einem blossen Lesefehler, dort ist die Datei unverändert.
      */
     fun recordSettingsReset(context: Context, lockUnknown: Boolean = true) {

@@ -35,7 +35,7 @@ class HttpBodyLimitTest {
 
     @Test
     fun startBufferIsCappedAt256KiB() {
-        // Seit Build 102: angekündigte 16 MB belegen nicht sofort 16 MB
+        // Angekündigte 16 MB belegen nicht sofort 16 MB
         assertEquals(256 * 1024, HttpBodyLimit.initialCapacity(HttpBodyLimit.BULK_MAX_BYTES, HttpBodyLimit.BULK_MAX_BYTES))
         assertEquals(1000, HttpBodyLimit.initialCapacity(1000, HttpBodyLimit.BULK_MAX_BYTES))
         assertEquals(8192, HttpBodyLimit.initialCapacity(-1, HttpBodyLimit.BULK_MAX_BYTES))

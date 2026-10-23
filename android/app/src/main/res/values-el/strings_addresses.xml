@@ -23,9 +23,9 @@
     <string name="portfolio_address_xpub_privacy">Ένα xpub αποκαλύπτει όλες τις διευθύνσεις αυτού του πορτοφολιού. Παράγονται στη συσκευή σου· στο %1$s στέλνονται μόνο μεμονωμένες διευθύνσεις – τουλάχιστον 40 αιτήματα στην πρώτη αναζήτηση, μετά λιγότερα. Ιδιωτικά κλειδιά (xprv) δεν γίνονται ποτέ δεκτά.</string>
     <string name="portfolio_address_xpub_gap">Η αναζήτηση σταματά μετά από %1$d αχρησιμοποίητες διευθύνσεις στη σειρά (το πρότυπο BIP44 που χρησιμοποιούν τα περισσότερα πορτοφόλια). Μια χρησιμοποιημένη διεύθυνση πέρα από αυτό το κενό δεν μετράται – πρόσθεσέ την ξεχωριστά.</string>
     <string name="portfolio_address_xpub_used">Διευθύνσεις σε χρήση: %1$d</string>
-    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">Πάρα πολλές χρησιμοποιημένες διευθύνσεις για ενημέρωση</string>
-    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
     <string name="portfolio_address_xpub_limited">Πάρα πολλές διευθύνσεις – νέες πληρωμές σε παλιές, άδειες διευθύνσεις ίσως να μην εντοπιστούν</string>
     <string name="portfolio_addresses_title">Διευθύνσεις</string>
 

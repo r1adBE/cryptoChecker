@@ -1,4 +1,4 @@
-// Alarm speichern (Teil von `WatchRepository`, seit Build 105 eigene Datei): Ergebnis eindeutig — gespeichert, Paar voll
+// Alarm speichern (Teil von `WatchRepository`, eigene Datei): Ergebnis eindeutig — gespeichert, Paar voll
 // oder abgelehnt (Review UX3-03). Vorher hiess null beides, und «Abbrechen» in der Rückfrage meldete «Alarm-Grenze erreicht».
 package com.cryptochecker.app.data
 
@@ -6,7 +6,7 @@ import androidx.room.withTransaction
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 
-/** Ausgang von [trySaveAlarm] bzw. [trySaveAlarmMerged] (seit Build 105). */
+/** Ausgang von [trySaveAlarm] bzw. [trySaveAlarmMerged]. */
 sealed interface AlarmSaveResult {
     /** Gespeichert, mit seiner Id. */
     data class Saved(val alarm: AlarmEntity) : AlarmSaveResult
@@ -36,7 +36,7 @@ suspend fun WatchRepository.trySaveAlarm(alarm: AlarmEntity): AlarmSaveResult =
 
 /**
  * Alarm aus dem Editor speichern: gespeicherten Stand lesen, mit [build] zusammenführen und schreiben — alles in EINER
- * Transaktion (seit Build 102). Sonst überschrieb ein Zwischenstand der Oberfläche einen eben ausgelösten Alarm (zweite
+ * Transaktion. Sonst überschrieb ein Zwischenstand der Oberfläche einen eben ausgelösten Alarm (zweite
  * Meldung). Neuer Alarm (id 0) nur unter der Obergrenze je Paar.
  */
 suspend fun WatchRepository.trySaveAlarmMerged(id: Long, build: (AlarmEntity?) -> AlarmEntity): AlarmSaveResult =

@@ -50,7 +50,7 @@ object BackupPasswordStrength {
      *  - fast nur ein Zeichen: höchstens 3 verschiedene Zeichen, mindestens 75 % dasselbe Zeichen oder ein einziges
      *    wiederholtes Zeichen, wenn man Ziffern/Zeichen vorne und hinten weglässt («aaaaaaaaaaa1», «!!bbbbbbbbbb»).
      * Gleiche Regeln wie iOS `BackupPasswordStrength.isWeak` (Fälle in `testdata/parity/backup_passwords.json`).
-     * Die frühere Regel «höchstens 2 Zeichenklassen und kürzer als 12 Zeichen» deckt seit Build 69 die
+     * Die frühere Regel «höchstens 2 Zeichenklassen und kürzer als 12 Zeichen» deckt die
      * Mindestlänge 12 ab (Zeichenklassen spielen ab 12 Zeichen keine Rolle).
      */
     fun isWeak(password: String): Boolean {

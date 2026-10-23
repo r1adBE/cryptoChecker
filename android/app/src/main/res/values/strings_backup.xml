@@ -54,18 +54,18 @@
         <item quantity="one">%1$d pair</item>
         <item quantity="other">%1$d pairs</item>
     </plurals>
-    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
     <string name="backup_restore_over_limits">Over the limits (%3$s pairs, %4$s alerts per pair), won\'t be restored: %1$s, %2$s.</string>
     <string name="backup_restored_over_limits">Over the limits (%3$s pairs, %4$s alerts per pair), not restored: %1$s, %2$s.</string>
 
-    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
     <string name="storage_recovery_message">This device no longer has the key to the app’s encrypted data, so the app started empty. Nothing was deleted. To get your watchlist and portfolio back, import a backup file under “%1$s” in Settings.</string>
     <string name="storage_recovery_title">Saved data could not be unlocked</string>
 
     <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
     <string name="backup_not_enough_memory">Not enough free memory to protect or open the backup with a password. Close other apps and try again.</string>
 
-    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
     <string name="storage_recovery_restore_action">Restore backup</string>
     <string name="storage_recovery_acknowledge">Got it</string>
     <string name="storage_recovery_restored_title">Saved data unlocked again</string>
@@ -84,9 +84,9 @@
 
     <!-- Verschlüsselte Datei da, Schlüssel gerade nicht lesbar: Portfolio für diesen Lauf nur im Arbeitsspeicher (EncryptingOpenHelperFactory, OpenPlan.KEEP_FILE_IN_MEMORY); Banner im Portfolio statt portfolio_storage_in_memory -->
     <string name="portfolio_storage_kept_in_memory">Saved data can\'t be read right now, so the portfolio isn\'t shown and can\'t be changed. Restart the app.</string>
-    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste; seit Build 103 auch dort nur lesbar (WatchlistStorageLock) -->
+    <!-- Dasselbe für die Merkliste (Hauptdatenbank): Banner in der Merkliste; auch dort nur lesbar (WatchlistStorageLock) -->
     <string name="watchlist_storage_kept_in_memory">Saved data can\'t be read right now, so the watchlist isn\'t shown and can\'t be changed. Restart the app.</string>
-    <!-- Schreibweg des Nutzers abgelehnt, solange die gespeicherte Merkliste gesperrt ist (WatchlistStorageLock: Paare, Notiz, Gruppe, Alarme …); kurzer Hinweis, seit Build 103 -->
+    <!-- Schreibweg des Nutzers abgelehnt, solange die gespeicherte Merkliste gesperrt ist (WatchlistStorageLock: Paare, Notiz, Gruppe, Alarme …); kurzer Hinweis -->
     <string name="watchlist_storage_locked">The watchlist can\'t be changed: saved data can\'t be read right now. Restart the app.</string>
     <!-- Alarm speichern/Schnell-Alarm gesperrt, solange die Merkliste nur leer im Arbeitsspeicher steht (storedKept) -->
     <string name="alarm_save_storage_locked">Alerts can\'t be saved: saved data can\'t be read right now. Restart the app.</string>
@@ -94,7 +94,7 @@
     <string name="backup_storage_kept">Backup isn\'t possible: saved data can\'t be read right now. Restart the app and try again.</string>
     <!-- Nur Android: Einspielen abgelehnt, solange Merkliste oder Portfolio nur im Arbeitsspeicher liegen (kein Schlüssel; BackupStorageInMemoryException) -->
     <string name="backup_restore_storage_in_memory">Import isn\'t possible right now: the app isn\'t saving data at the moment (encryption not active yet), so the import would be lost on restart. Restart the app and try again.</string>
-    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable); seit Build 102 -->
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
     <string name="backup_restore_journal_unavailable">Import isn\'t possible right now: the safety copy of your current data couldn\'t be saved (key not available at the moment). Nothing was changed. Try again later or restart the app.</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->

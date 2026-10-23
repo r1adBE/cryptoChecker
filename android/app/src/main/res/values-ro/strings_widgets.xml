@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Afișare</string>
     <string name="widget_portfolio_display_conversion">Doar conversie</string>
     <string name="widget_portfolio_display_conversion_usdt">Conversie + USDT</string>
-    <string name="widget_portfolio_display_hint">Rândul USDT este ascuns când moneda de conversie este USD.</string>
+    <string name="widget_portfolio_display_hint">Rândul USDT este ascuns când moneda de conversie este un stablecoin în USD (de ex. USDC).</string>
     <string name="widget_portfolio_display_usdt">Doar USDT</string>
     <string name="widget_portfolio_empty">Adaugă achiziții în fila Portofoliu</string>
     <string name="widget_portfolio_list_hint">Deschide aplicația pentru a afișa aici pozițiile.</string>

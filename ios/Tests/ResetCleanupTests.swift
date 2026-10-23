@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// «App zurücksetzen» leert seit Build 99 auch den Ordner `tmp` (`AppData.clearTemporaryFiles`) — in einem eigenen
+/// «App zurücksetzen» leert auch den Ordner `tmp` (`AppData.clearTemporaryFiles`) — in einem eigenen
 /// Testordner statt im echten `tmp` geprüft.
 final class ResetCleanupTests: XCTestCase {
     func testClearTemporaryFilesRemovesFilesAndFolders() throws {

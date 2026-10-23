@@ -284,7 +284,7 @@ class SettingsViewModel @Inject constructor(
         scheduler.apply(settingsRepository.current())
     }
 
-    // ── «Aktualisierung»: Pünktlich prüfen, Letzte Prüfungen (Build 46) ──
+    // ── «Aktualisierung»: Pünktlich prüfen, Letzte Prüfungen ──
 
     /** «Letzte Prüfungen», neueste zuerst. */
     val checkRuns: StateFlow<List<com.cryptochecker.app.domain.refresh.CheckRun>> get() = checkRunStore.runs

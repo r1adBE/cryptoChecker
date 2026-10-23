@@ -71,7 +71,7 @@ final class CsvImportTests: XCTestCase {
 
     func testDates() throws {
         for c in S.list(try S.fixture("csv_import")["dates"]) {
-            // Seit Build 104: optionale Zeitzone (Sommerzeit-Wechsel Zürich/New York)
+            // Optionale Zeitzone (Sommerzeit-Wechsel Zürich/New York)
             let zone = string(c["zone"]) ?? CsvImportParser.defaultZone
             XCTAssertEqual(CsvImportParser.parseTime(string(c["text"]) ?? "", zone: zone), millis(c["expected"]), "date: \(c)")
         }
@@ -249,7 +249,7 @@ final class CsvImportTests: XCTestCase {
         }
     }
 
-    /// Zweiter Import derselben Datei mit anderer Zeitzone: keine Doppel (auch gegen Schlüssel bis Build 45).
+    /// Zweiter Import derselben Datei mit anderer Zeitzone: keine Doppel (auch gegen Schlüssel älterer Importe).
     func testZoneDedupe() throws {
         let d = try S.fixture("csv_import")
         let files = S.list(d["files"])
@@ -355,7 +355,7 @@ final class CsvImportTests: XCTestCase {
                 XCTAssertEqual(tx.toCoin, string(e["toCoin"]), "\(m) toCoin")
                 XCTAssertEqual(text(tx.toAmount), string(e["toAmount"]), "\(m) toAmount")
                 XCTAssertEqual(text(tx.swapValueUsdt), string(e["swapValueUsdt"]), "\(m) swapValueUsdt")
-                // Gebühr (Build 48; fehlt im Fixture = nicht geprüft)
+                // Gebühr (fehlt im Fixture = nicht geprüft)
                 if e["fee"] != nil { XCTAssertEqual(text(tx.fee), string(e["fee"]), "\(m) fee") }
                 if e["feeUnit"] != nil { XCTAssertEqual(tx.feeUnit?.rawValue, string(e["feeUnit"]), "\(m) feeUnit") }
                 if e["feeCoin"] != nil { XCTAssertEqual(tx.feeCoin, string(e["feeCoin"]), "\(m) feeCoin") }
@@ -407,10 +407,10 @@ final class CsvImportTests: XCTestCase {
         XCTAssertNil(CsvImportParser.parseTime("2024-02-29T25:00:00Z"))
     }
 
-    /// Build 93: Fiat-Gebühr in einer anderen Währung als die Preiswährung zum Tageskurs ihrer Währung, ohne Kurs
+    /// Fiat-Gebühr in einer anderen Währung als die Preiswährung zum Tageskurs ihrer Währung, ohne Kurs
     /// missingFx (nie still weg); Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso; Belohnung mit Fiat-Betrag
-    /// bekommt Preis = Betrag / Menge, der Schlüssel bis Build 92 (ohne Preis) erkennt den früheren Import weiter. Wie
-    /// Android `fiatFeeReward`.
+    /// bekommt Preis = Betrag / Menge, der Schlüssel älterer Importe (ohne Preis) erkennt den früheren Import
+    /// weiter. Wie Android `fiatFeeReward`.
     func testFiatFeeReward() throws {
         let c = try XCTUnwrap(try S.fixture("csv_import")["fiatFeeReward"] as? [String: Any])
         var rates: [String: [Int64: Decimal]] = [:]

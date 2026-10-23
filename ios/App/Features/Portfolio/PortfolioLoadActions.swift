@@ -75,7 +75,7 @@ extension PortfolioModel {
             if today == nil { today = storedToday(rate: self.rate(for: currency)) }
         } else if data.settings.portfolioCurrency == currency {
             // Mit dem Merkzettel der App: «Seit Kauf»/«7 T» des Widgets in der Anzeigewährung wie die Karte. Gerechnet
-            // im Hintergrund (seit Build 99), nacheinander mit den übrigen Aufnahmen — eine neuere gewinnt
+            // im Hintergrund, nacheinander mit den übrigen Aufnahmen — eine neuere gewinnt
             let widget = await PortfolioWidgetStore.updateInBackground(
                 transactions: calcPortfolio, prices: prices, currency: currency, rate: self.rate(for: currency),
                 displayFx: widgetDisplayFx(for: currency, summary: summary))

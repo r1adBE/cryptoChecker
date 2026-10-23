@@ -337,7 +337,7 @@ class LogoImageStore @Inject constructor(
         const val OLD_FALLBACK_MANIFEST_FILE = "coin_logos/fallback_manifest_0_18_1.json"
         const val OLD_KEY_FALLBACK_ATTEMPT = "fallback_attempt_v1"
         /**
-         * Wie die Börsen-Abfragen und iOS («cryptoChecker-iOS/16.2.2»): mit der vollen App-Version (seit Build 93, vorher
+         * Wie die Börsen-Abfragen und iOS («cryptoChecker-iOS/16.2.2»): mit der vollen App-Version (vorher
          * fest «/16»); ohne Angabe lehnen manche Bild-Server Abrufe ab.
          */
         val USER_AGENT = HttpUserAgent.android(BuildConfig.VERSION_NAME)

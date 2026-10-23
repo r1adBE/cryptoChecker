@@ -23,7 +23,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Einstellungen in der Sicherung ([BackupSettingsCodec], seit Build 102 getestet): alle Werte hin und zurück —
+ * Einstellungen in der Sicherung ([BackupSettingsCodec]): alle Werte hin und zurück —
  * gemeinsame Fixture `testdata/parity/backup_settings.json` (iOS `BackupSettingsParityTests`) — und ohne Passwort
  * (`trusted` = false) nur in Richtung «mehr Schutz».
  */

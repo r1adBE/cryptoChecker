@@ -6,7 +6,7 @@ enum PortfolioFeeExpense: String, Sendable, Equatable {
     case CONSUMED
     /// Gebühr USDT + Wert der Gebühr im dritten Coin einer Auszahlung.
     case WITHDRAWAL
-    /// Nur Steuer-Vorlagen mit `TaxEventRules.quoteFeeIsInfo` (Build 57): Gebühr USDT einer Umbuchung zwischen eigenen Wallets
+    /// Nur Steuer-Vorlagen mit `TaxEventRules.quoteFeeIsInfo`: Gebühr USDT einer Umbuchung zwischen eigenen Wallets
     /// — nicht im Einstand, Zeile nur zur Information (`TaxEngines.disposals`). Das Portfolio rechnet sie weiter zum Einstand.
     case TRANSFER
 }
@@ -65,7 +65,7 @@ enum PortfolioFeeExpenses {
         return max(0, full - (withdrawal(t, holdings: holdings)?.usdt ?? 0))
     }
 
-    /// Seit Build 104: Gebühr einer Umbuchung (Gebühr USDT + Wert der Gebühr im dritten Coin), die auf den nicht gedeckten
+    /// Gebühr einer Umbuchung (Gebühr USDT + Wert der Gebühr im dritten Coin), die auf den nicht gedeckten
     /// Teil der Menge fällt: Gebühr × max(Menge − `covered`, 0) / Menge, bei leerem Bestand die ganze Gebühr. Wie
     /// `withdrawalUncovered` als `PortfolioUnassignedFee` vermerkt statt still verworfen; der Rest verteilt sich wie bisher.
     /// `covered`: die Menge, die ankommt — für alle Methoden wie FIFO je Wallet: Menge und Netzwerkgebühr verlassen die

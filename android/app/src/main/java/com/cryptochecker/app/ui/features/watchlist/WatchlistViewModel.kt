@@ -330,7 +330,7 @@ class WatchlistViewModel @Inject constructor(
     /** Löschen mit «Rückgängig»; [onDeleted] erst nach dem Löschen (Banner, liefert den Rückgängig-Schlüssel, [RemovedBatch]). */
     fun deleteWithUndo(watch: WatchEntity, onDeleted: () -> Long = { watch.id }) = edits.deleteWithUndo(watch, onDeleted)
 
-    /** «Rückgängig» für [watchId] bzw. [NOT_TRADED_UNDO_KEY] / [SELECTION_UNDO_KEY]; [onFull] seit Build 103: Merkliste voll. */
+    /** «Rückgängig» für [watchId] bzw. [NOT_TRADED_UNDO_KEY] / [SELECTION_UNDO_KEY]; [onFull]: Merkliste voll. */
     fun undoDelete(watchId: Long, onFull: (Int) -> Unit = {}) = edits.undoDelete(watchId, onFull)
 
     /** «Nicht gehandelte Paare entfernen»; [onDone] bekommt die Zahl der gelöschten Paare. */
@@ -339,7 +339,7 @@ class WatchlistViewModel @Inject constructor(
     /** Mehrfachauswahl › «Löschen»; [onDone] bekommt die Zahl der gelöschten Paare. */
     fun deleteSelectedWithUndo(ids: Collection<Long>, onDone: (Int) -> Unit) = edits.deleteSelectedWithUndo(ids, onDone)
 
-    /** Mehrfachauswahl › «Favorit»; [onDone] seit Build 106 nach dem Schreiben (true = geschrieben). */
+    /** Mehrfachauswahl › «Favorit»; [onDone] nach dem Schreiben (true = geschrieben). */
     fun setFavorite(ids: Collection<Long>, favorite: Boolean, onDone: (Boolean) -> Unit = {}) = edits.setFavorite(ids, favorite, onDone)
 
     /** «Deaktivieren» bzw. «Aktivieren» (dann gleich den Kurs holen). */

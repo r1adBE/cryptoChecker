@@ -6,7 +6,11 @@ comma-separated alternatives, the first existing file is read: the XML report (l
 report (lint-results-*.txt). Findings of several reports (debug, release, marketdata) are counted once per
 (id, file, line, message).
 
-Usage: python3 -I lint_warnings.py --report A.xml,A.txt [--report B.xml,B.txt ...]
+With --details a second notice lists every warning as «id  file:line  message» (paths shortened to the part
+after «android/», messages cut to 100 characters, at most 60 000 characters), so the findings can be read from the
+check annotations without downloading the report.
+
+Usage: python3 -I lint_warnings.py --report A.xml,A.txt [--report B.xml,B.txt ...] [--details]
        python3 -I lint_warnings.py --self-test
 """
 import argparse
@@ -75,6 +79,30 @@ def summary(items):
     return head, lines
 
 
+DETAILS_MAX = 60000
+
+
+def short_path(path):
+    path = path.replace("\\", "/")
+    marker = "/android/"
+    return path.split(marker, 1)[1] if marker in path else path
+
+
+def details(items):
+    rows = []
+    for issue_id, file, line, msg in sorted(items, key=lambda i: (i[0], short_path(i[1]), int(i[2] or 0))):
+        where = short_path(file) + (f":{line}" if line else "")
+        rows.append(f"{issue_id}  {where}  {msg[:100]}")
+    out, size = [], 0
+    for row in rows:
+        if size + len(row) + 1 > DETAILS_MAX:
+            out.append(f"... {len(rows) - len(out)} more")
+            break
+        out.append(row)
+        size += len(row) + 1
+    return out
+
+
 def self_test():
     with tempfile.TemporaryDirectory() as tmp:
         xml_path = os.path.join(tmp, "r.xml")
@@ -91,6 +119,8 @@ def self_test():
         # A twice from XML, A line 1 again from text (same message: counted once), B once
         assert head.startswith("3 lint warnings in 2 ids"), head
         assert lines[0].split() == ["2", "A"] and lines[1].split() == ["1", "B"], lines
+        rows = details({("A", "/w/r/android/app/F.kt", "12", "m" * 150)})
+        assert rows == ["A  app/F.kt:12  " + "m" * 100], rows
     print("lint_warnings self-test ok")
     return 0
 
@@ -99,6 +129,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--report", action="append", default=[])
     parser.add_argument("--self-test", action="store_true")
+    parser.add_argument("--details", action="store_true")
     args = parser.parse_args()
     if args.self_test:
         return self_test()
@@ -111,6 +142,8 @@ def main():
     print("\n".join(lines))
     if items:
         print(f"::notice title=Lint warnings::{escape(head + chr(10) + chr(10).join(lines))}")
+        if args.details:
+            print(f"::notice title=Lint warning details::{escape(chr(10).join(details(items)))}")
     return 0
 
 

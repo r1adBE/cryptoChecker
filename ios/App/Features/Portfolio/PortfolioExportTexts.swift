@@ -22,7 +22,7 @@ extension PortfolioExportSheet {
         var notes = keys.map { L($0) }
         if let source = Self.networkFeeSource(taxTemplate) { notes.append(L("tax_note_network_fee", source)) }
         if let source = Self.withdrawalFeeSource(taxTemplate) { notes.append(L("tax_note_withdrawal_fee", source)) }
-        // Build 57: Gebühr USDT/Fiat einer Umbuchung ebenso (gleiche Vorlagen, `TaxTemplate.quoteFeeIsInfo`)
+        // Gebühr USDT/Fiat einer Umbuchung ebenso (gleiche Vorlagen, `TaxTemplate.quoteFeeIsInfo`)
         if taxTemplate.quoteFeeIsInfo { notes.append(L("tax_note_transfer_fee")) }
         if let source = Self.spouseGiftSource(taxTemplate) { notes.append(L("tax_note_spouse_gift", source)) }
         return notes

@@ -43,7 +43,7 @@ import kotlinx.coroutines.launch
 /**
  * Thema eines Info-Blatts im Markt-Tab: Titel der Karte, «Was ist das?», «So liest du es»,
  * Quelle mit Aktualisierungs-Rhythmus und ob der Hinweis «Keine Anlageberatung» dazugehört
- * ([advice], bei allem, was den Markt deutet). [readingRes] (Build 55): Zeilen «hoch heisst …,
+ * ([advice], bei allem, was den Markt deutet). [readingRes]: Zeilen «hoch heisst …,
  * tief heisst …» zu Werten der Karte, die «So liest du es» noch nicht erklärt (Hebel, Funding,
  * Altcoins). Wie `MarketInfoTopic` (iOS, MarketRow.swift).
  */

@@ -23,9 +23,9 @@
     <string name="portfolio_address_xpub_privacy">يكشف xpub جميع عناوين هذه المحفظة الرقمية. تُشتق على جهازك؛ ولا تُرسل إلى %1$s إلا عناوين منفردة – 40 طلبًا على الأقل في البحث الأول ثم أقل. لا تُقبل المفاتيح الخاصة (xprv) أبدًا.</string>
     <string name="portfolio_address_xpub_gap">يتوقف البحث عندما يبلغ عدد العناوين غير المستخدمة المتتالية %1$d (معيار BIP44 الذي تستخدمه معظم المحافظ). لا يُحتسب عنوان مستخدم يقع بعد هذه الفجوة – أضفه بشكل منفصل.</string>
     <string name="portfolio_address_xpub_used">العناوين المستخدمة: %1$d</string>
-    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">عناوين مستخدمة كثيرة جدًا للتحديث</string>
-    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
     <string name="portfolio_address_xpub_limited">عناوين كثيرة جدًا – قد لا يتم التعرّف على الدفعات الجديدة إلى العناوين القديمة الفارغة</string>
     <string name="portfolio_addresses_title">العناوين</string>
 

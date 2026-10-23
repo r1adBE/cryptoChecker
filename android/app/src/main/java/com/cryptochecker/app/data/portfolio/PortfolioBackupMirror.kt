@@ -22,14 +22,14 @@ import java.io.File
  * kennen keine Einstellung, und die verschlüsselte Datei hülfe auf einem neuen Gerät ohnehin nicht (Schlüssel im
  * Keystore). Stattdessen sichert die Systemsicherung die Datei [FILE_NAME] (in backup_rules.xml und
  * data_extraction_rules.xml eingeschlossen) — Klartext-JSON wie die eigene Sicherung (ohne Alarm-Zustand), und darum nur
- * für die Dauer einer Sicherung vorhanden (Build 76; wie die Kopie der Hauptdatenbank, DatabaseSystemBackup):
+ * für die Dauer einer Sicherung vorhanden (wie die Kopie der Hauptdatenbank, DatabaseSystemBackup):
  *  - Schalter an: eine Merker-Datei [MARKER_NAME] in `noBackupFilesDir` ([setEnabled], CryptoCheckerApp folgt der
  *    Einstellung). Der Sicherungs-Agent (SystemBackupAgent, eingeschränkter Prozess ohne Hilt und ohne Einstellungen)
  *    liest nur sie, schreibt die Kopie in [SystemBackupAgent.onFullBackup][com.cryptochecker.app.data.local.SystemBackupAgent]
  *    ([writeForBackup]) und löscht sie danach wieder.
  *  - Schalter aus: kein Merker, keine Kopie.
  * Nach einer Wiederherstellung (neue Installation, die Portfolio-Datenbank gibt es noch nicht) übernimmt
- * [PortfolioDatabase] die Datei beim Anlegen ([importInto]) und löscht sie danach. Bis Build 75 lag die Kopie dauernd
+ * [PortfolioDatabase] die Datei beim Anlegen ([importInto]) und löscht sie danach. Früher lag die Kopie dauernd
  * da; [cleanUpLeftover] löscht eine solche (und eine nach abgebrochener Sicherung liegengebliebene) beim Start.
  * Scheitert die Übernahme, liegt die Kopie bis zum nächsten Start beiseite ([setAside]); dann folgt genau ein weiterer
  * Versuch ([retryFailed]) und sie wird gelöscht — Klartext bleibt nie dauerhaft liegen.
@@ -70,7 +70,7 @@ object PortfolioBackupMirror {
 
     /**
      * Beim Start, vor dem ersten Öffnen der Portfolio-Datenbank: Eine Kopie neben einer bestehenden Datenbank ist ein Rest
-     * (dauernde Kopie bis Build 75 oder abgebrochene Sicherung) — Klartext, also weg. Ohne Datenbank ist sie eine noch nicht
+     * (alte dauernde Kopie oder abgebrochene Sicherung) — Klartext, also weg. Ohne Datenbank ist sie eine noch nicht
      * übernommene Wiederherstellung und bleibt für [importInto].
      */
     fun cleanUpLeftover(context: Context) {
@@ -162,7 +162,7 @@ object PortfolioBackupMirror {
         .put("version", VERSION)
         .put("portfolio", JSONArray().apply { txs.forEach { put(PortfolioJson.txToJson(it)) } })
         .put("portfolioAlarms", JSONArray().apply { alarms.forEach { put(PortfolioJson.alarmToJson(it)) } })
-        // Seit Build 46 (gleiches Format wie die eigene Sicherung); ältere Kopien haben den Schlüssel nicht
+        // Gleiches Format wie die eigene Sicherung; ältere Kopien haben den Schlüssel nicht
         .put(WatchedAddressRules.BACKUP_KEY, WatchedAddressRules.toJson(addresses))
         .toString()
 
@@ -257,11 +257,11 @@ object PortfolioBackupMirror {
                     t.time, t.note, decimals.toText(t.fee), t.feeUnit, t.exchange,
                     t.transferFrom, t.transferTo, t.feeCoin, decimals.toText(t.feeCoinAmount), decimals.toText(t.feeCoinPriceUsdt),
                     t.importKey, t.acquiredTime,
-                    // Tausch und Importlauf (Build 46)
+                    // Tausch und Importlauf
                     t.toCoin, decimals.toText(t.toAmount), decimals.toText(t.swapValueUsdt), t.importBatch,
-                    // Partner-Merker und Verknüpfung (Build 58, Portfolio-Datenbank v4)
+                    // Partner-Merker und Verknüpfung (Portfolio-Datenbank v4)
                     if (t.giftToSpouse) 1L else 0L, t.linkedImportKey, restoreStates.toText(t.importRestoreState),
-                    // Gebühr-Zeile und Zins (Build 76, Portfolio-Datenbank v5)
+                    // Gebühr-Zeile und Zins (Portfolio-Datenbank v5)
                     if (t.feeRow) 1L else 0L, if (t.interest) 1L else 0L,
                 ),
             )
@@ -278,7 +278,7 @@ object PortfolioBackupMirror {
         }
         // Beobachtete Adressen ohne Guthaben (lädt die nächste Aktualisierung), mit ihren Beobachtungen,
         // Zusatzdaten (Token-Reihen, «Tokens mitzählen», EVM-Netze, «Nur anzeigen» — WatchedAddressExtras) und
-        // Eröffnungsposten (Build 84, Portfolio-Datenbank v6)
+        // Eröffnungsposten (Portfolio-Datenbank v6)
         content.addresses.forEach { a ->
             db.execSQL(
                 "INSERT OR IGNORE INTO `${WatchedAddressEntity.TABLE}` (`chain`, `address`, `label`, `lastBalance`, " +

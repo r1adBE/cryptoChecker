@@ -81,11 +81,11 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
     /// Eröffnungsposten («Einstand für Adressguthaben», `AddressCostLots`): Einstand für einen Teil des Guthabens. Ältere
     /// Dateien ohne: leer; ältere Versionen übergehen das Feld.
     var costLots: [AddressCostLot] = []
-    /// Schlüssel von `tokenBalances`, deren Wert der letzte Abruf NICHT bestätigt hat (seit Build 95; TON: bekannter Jetton
+    /// Schlüssel von `tokenBalances`, deren Wert der letzte Abruf NICHT bestätigt hat (TON: bekannter Jetton
     /// fehlt auf einer vollen Seite) — der alte Wert bleibt, gilt aber als veraltet: «teilweise veraltet», Portfolio-Alarme
     /// wie bei einem alten Kurs (`AddressAlarmState`). Leer = alles bestätigt. Wie Android.
     var staleTokens: [String] = []
-    /// Seit Build 95: wann die Adresse auf DIESEM Gerät angelegt wurde (aus einer Sicherung eingespielt oder per
+    /// Wann die Adresse auf DIESEM Gerät angelegt wurde (aus einer Sicherung eingespielt oder per
     /// «Rückgängig» zurückgeholt); 0 = unbekannt. Eingespielte Adressen behalten ihr altes `addedAt` (auch 0) — ohne diesen
     /// Zeitpunkt gälte eine frisch eingespielte Adresse beim ersten Fehler sofort als fehlgeschlagen
     /// (`AddressAlarmState.isPending`). Nur gerätelokal: nicht in der Sicherung (`WatchedAddressRules.backupEntries`).
@@ -188,15 +188,15 @@ struct WatchedAddress: Codable, Equatable, Identifiable, Sendable {
         // Ohne `overlapV2`: Entscheid nach der alten Regel (nur gleicher Coin)
         let v2: Bool = (try? c.decodeIfPresent(Bool.self, forKey: .overlapV2)) ?? false
         overlapLegacy = overlapChecked && !v2
-        // Eröffnungsposten (Build 84); unlesbare machen die Datei nicht unlesbar
+        // Eröffnungsposten; unlesbare machen die Datei nicht unlesbar
         costLots = AddressCostLots.clean((try? c.decodeIfPresent([AddressCostLot].self, forKey: .costLots)) ?? [])
-        // Nicht bestätigte Token (Build 95): nur Schlüssel mit gespeichertem Guthaben
+        // Nicht bestätigte Token: nur Schlüssel mit gespeichertem Guthaben
         var stale: [String] = []
         for key in (try? c.decodeIfPresent([String].self, forKey: .staleTokens)) ?? [] where tokenBalances[key] != nil {
             if !stale.contains(key) { stale.append(key) }
         }
         staleTokens = stale
-        // Angelegt auf diesem Gerät (Build 95); ältere Dateien ohne: 0
+        // Angelegt auf diesem Gerät; ältere Dateien ohne: 0
         pendingSince = max(0, (try? c.decodeIfPresent(Int64.self, forKey: .pendingSince)) ?? 0)
     }
 

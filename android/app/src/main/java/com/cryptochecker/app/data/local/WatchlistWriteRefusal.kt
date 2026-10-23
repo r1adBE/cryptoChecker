@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
 /**
- * Schreibweg des Nutzers in die Merkliste abgelehnt ([WatchlistStorageLock.blocksWrites], seit Build 103): Die Oberfläche
+ * Schreibweg des Nutzers in die Merkliste abgelehnt ([WatchlistStorageLock.blocksWrites]): Die Oberfläche
  * zeigt dann einen kurzen Hinweis mit Warn-Haptik (`WatchlistLockedHint`). Ausgelöst zentral von
  * [com.cryptochecker.app.data.WatchRepository], nicht von jedem Bildschirm. Mehrere Ablehnungen kurz hintereinander
  * (z. B. eine Start-Auswahl mit mehreren Paaren) ergeben nur einen Hinweis ([shouldNotify]).

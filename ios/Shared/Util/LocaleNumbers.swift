@@ -14,12 +14,12 @@ enum LocaleNumbers {
     /// Android `LocaleNumbers.appLocale`): Deutsch auf einem Schweizer Gerät = de_CH, «90’000.00».
     static var appLocale: Locale { Locale.current }
 
-    /// Seit Build 103: Ergebnis von `usesIndianGrouping` je Locale-Kennung (Formatierer sind teuer).
+    /// Ergebnis von `usesIndianGrouping` je Locale-Kennung (Formatierer sind teuer).
     private static let indianGroupingLock = NSLock()
     // nonisolated(unsafe): jeder Zugriff nur unter `indianGroupingLock` (NSLock)
     nonisolated(unsafe) private static var indianGroupingCache: [String: Bool] = [:]
 
-    /// Seit Build 103: Gruppiert `locale` Zahlen indisch, mit Zweier-Nebengruppen («1,00,000», z. B. hi-IN, en-IN)?
+    /// Gruppiert `locale` Zahlen indisch, mit Zweier-Nebengruppen («1,00,000», z. B. hi-IN, en-IN)?
     /// Aus den CLDR-Daten des Formatierers. Wie Android `LocaleNumbers.usesIndianGrouping`.
     static func usesIndianGrouping(_ locale: Locale) -> Bool {
         indianGroupingLock.lock()

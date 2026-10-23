@@ -460,7 +460,7 @@ final class WarmSurfaceAndScaleContrastTests: XCTestCase {
             (0xF9F9F9, ColorTokens.background.light), (0xF3F3F3, ColorTokens.surfaceContainerLow.light),
             (0xEEEEEE, ColorTokens.surfaceContainer.light), (0xE8E8E8, ColorTokens.surfaceContainerHigh.light),
             (0xE2E2E2, ColorTokens.surfaceContainerHighest.light), (0xE4E4E4, ColorTokens.widgetSurfaceDeep.light),
-            // outlineVariant bewusst dunkler (Build 58, ≈ 2.2:1): eigener Test
+            // outlineVariant bewusst dunkler (≈ 2.2:1): eigener Test
         ]
         for (old, warm) in pairs {
             XCTAssertGreaterThanOrEqual(ContrastMath.luminance(warm), ContrastMath.luminance(old) - 1e-9,
@@ -509,7 +509,7 @@ final class WarmSurfaceAndScaleContrastTests: XCTestCase {
         }
     }
 
-    /// Build 46, wie Android: Bitcoin-Orange als Grafik ≥ 3:1 (hell dunkler, dunkel das Original);
+    /// Wie Android: Bitcoin-Orange als Grafik ≥ 3:1 (hell dunkler, dunkel das Original);
     /// `outline` als einzige Chip-Kontur ≥ 3:1, `outlineVariant` lag darunter.
     func testBitcoinOrangeAndChipOutlineReachThreeToOne() {
         for dark in [false, true] {
@@ -526,7 +526,7 @@ final class WarmSurfaceAndScaleContrastTests: XCTestCase {
         XCTAssertLessThan(ContrastMath.ratio(ColorTokens.outlineVariant.light, ColorTokens.surfaceContainer.light), 3)
     }
 
-    /// Build 58, wie Android: Trennlinien hell ≈ 2.2:1 auf dem Hintergrund #FBF9F6 (vorher #C9C6BF 1.6:1), unter 3:1.
+    /// Wie Android: Trennlinien hell ≈ 2.2:1 auf dem Hintergrund #FBF9F6 (vorher #C9C6BF 1.6:1), unter 3:1.
     func testLightDividerReachesAboutTwoPointTwo() {
         XCTAssertEqual(ColorTokens.outlineVariant.light, 0xADA9A0)
         XCTAssertEqual(ColorTokens.outlineVariant.dark, 0x474747)
@@ -535,7 +535,7 @@ final class WarmSurfaceAndScaleContrastTests: XCTestCase {
         XCTAssertLessThanOrEqual(ratio, 2.3)
     }
 
-    /// Build 46, wie Android: Ethereum-Blau als Grafik ≥ 3:1 (hell dunkler, dunkel das Original).
+    /// Wie Android: Ethereum-Blau als Grafik ≥ 3:1 (hell dunkler, dunkel das Original).
     func testEthereumBlueReachesThreeToOne() {
         for dark in [false, true] {
             let eth = ColorTokens.ethereum.hex(dark: dark)
@@ -585,7 +585,7 @@ final class AccentContrastTests: XCTestCase {
         XCTAssertEqual(AccentColor.ORANGE.primaryHex(dark: true), 0xED835E)
     }
 
-    /// Coin-Plakette ohne Logo (seit Build 103): Initialen in primary auf der hellen Tönung über surfaceContainer
+    /// Coin-Plakette ohne Logo: Initialen in primary auf der hellen Tönung über surfaceContainer
     /// ≥ 4.5:1 für alle Akzente; mit der früheren Tönung 0.14 lagen sie darunter. Wie Android `AccentContrastTest`.
     func testCoinBadgeInitialsReachAAOnTint() {
         let container = ColorTokens.surfaceContainer.light
@@ -607,7 +607,7 @@ final class AccentContrastTests: XCTestCase {
         XCTAssertEqual(CoinBadge.initialsTintDark, 0.14)
     }
 
-    /// Build 83: Akzent bei hohem Kontrast genau wie Android (`WidgetContrast.highContrastAccent`, in App und Widgets),
+    /// Akzent bei hohem Kontrast genau wie Android (`WidgetContrast.highContrastAccent`, in App und Widgets),
     /// Text auf dem Akzent bleibt ≥ 4.5:1 — wie `widgets raise the accent in high contrast like the app` (Android).
     func testHighContrastAccentAsAndroidAndUsedByWidgets() throws {
         let light: [AccentColor: UInt32] = [.ORANGE: 0x78341C, .RED: 0x891F28, .BLUE: 0x1F4490, .GREEN: 0x0C5334,
@@ -893,7 +893,7 @@ final class AssetScopeTests: XCTestCase {
         XCTAssertEqual(info.scoped(.TOKENS, marketKey: "BinanceFutures").pairs, [btc, aia])
     }
 
-    /// «inkl. Alpha-Tokens»: ab Build 43 für neue Installationen aus; ältere gespeicherte Einstellungen
+    /// «inkl. Alpha-Tokens»: für neue Installationen aus; ältere gespeicherte Einstellungen
     /// ohne den Wert behalten den bisherigen Standard an.
     func testIncludeAlphaTokensDefaultsOffForNewInstallsOnly() throws {
         XCTAssertFalse(AppSettings().includeAlphaTokens)
@@ -905,7 +905,7 @@ final class AssetScopeTests: XCTestCase {
         XCTAssertFalse(try JSONDecoder().decode(AppSettings.self, from: data).includeAlphaTokens)
     }
 
-    /// Portfolio-Tab: neue Installationen ab Build 44 aus; ältere gespeicherte Einstellungen (mit dem damals
+    /// Portfolio-Tab: neue Installationen aus; ältere gespeicherte Einstellungen (mit dem damals
     /// mitgespeicherten Standard «aus», ohne Merker) einmalig an; danach bleibt eine Wahl «aus» stehen.
     func testPortfolioEnabledDefaultsWithOneTimeMigration() throws {
         XCTAssertFalse(AppSettings().portfolioEnabled)
@@ -920,7 +920,7 @@ final class AssetScopeTests: XCTestCase {
         let chosen = try JSONDecoder().decode(AppSettings.self,
                                               from: Data(#"{"portfolioEnabled":false,"portfolioDefaultV2":true}"#.utf8))
         XCTAssertFalse(chosen.portfolioEnabled)
-        // Gespeicherte Einstellungen (bestehende Installation, Build 43) ohne den Wert: bisheriger Standard an
+        // Gespeicherte Einstellungen (bestehende ältere Installation) ohne den Wert: bisheriger Standard an
         let build43 = try JSONDecoder().decode(AppSettings.self, from: Data(#"{"portfolioDefaultV2":true}"#.utf8))
         XCTAssertTrue(build43.portfolioEnabled)
         // Neue Installation, gespeichert und wieder gelesen: bleibt aus
@@ -1093,7 +1093,7 @@ final class SpeaksPairPricesTests: XCTestCase {
     }
 }
 
-/// Keine Mitteilungs-Flut beim ersten Start (Build 42) — wie `NotificationDefaultsTest.kt`.
+/// Keine Mitteilungs-Flut beim ersten Start — wie `NotificationDefaultsTest.kt`.
 @MainActor
 final class NotificationDefaultsTests: XCTestCase {
 
@@ -1105,7 +1105,7 @@ final class NotificationDefaultsTests: XCTestCase {
         let id = try XCTUnwrap(AppData.insert(&s, market: market, pair: MarketPair("BTC", "USDT", "BTCUSDT")))
         XCTAssertEqual(s.watches.first { $0.id == id }?.notificationEnabled, true)
         XCTAssertTrue(Watch.newPairNotificationEnabled)
-        // Sicherung ohne Feld (bis Build 41 war jedes Paar an): bleibt an — wie Android
+        // Sicherung ohne Feld (in älteren Versionen war jedes Paar an): bleibt an — wie Android
         XCTAssertTrue(Watch.legacyNotificationEnabled)
 
         // Bestehende Paare ohne Angabe (ältere Version): bleiben an
@@ -1125,7 +1125,7 @@ final class NotificationDefaultsTests: XCTestCase {
     }
 }
 
-/// Geänderte Standards von Build 43 nur für neue Installationen — wie `InstallDefaultsTest` (Android).
+/// Geänderte Standards nur für neue Installationen — wie `InstallDefaultsTest` (Android).
 /// iOS speichert alle Einstellungen als Ganzes: Gespeicherte Einstellungen ohne den Wert stammen von vor
 /// dem Schalter (bestehende Installation) und behalten den bisherigen Standard.
 final class InstallDefaultsTests: XCTestCase {
@@ -1162,7 +1162,7 @@ final class InstallDefaultsTests: XCTestCase {
         XCTAssertFalse(AppSettings.enablePortfolioForData(resetDefaults: true, portfolioEnabled: true, hasPortfolioData: true))
     }
 
-    /// Seit Build 95: Portfolio- oder Adressdatei gesperrt und nichts gefunden — nicht als «keine Daten» entscheiden
+    /// Portfolio- oder Adressdatei gesperrt und nichts gefunden — nicht als «keine Daten» entscheiden
     /// (wie Android `PortfolioDataCheckTest`).
     func testPortfolioRecoveryWaitsForReadableFiles() {
         XCTAssertTrue(AppData.deferPortfolioRecovery(hasData: false, filesIntact: false))
@@ -1172,7 +1172,7 @@ final class InstallDefaultsTests: XCTestCase {
         XCTAssertFalse(AppData.deferPortfolioRecovery(hasData: true, filesIntact: false))
     }
 
-    /// Seit Build 95: Der Merker ist gespeichert — ein späterer Start mit gelesenen Einstellungen entscheidet trotzdem,
+    /// Der Merker ist gespeichert — ein späterer Start mit gelesenen Einstellungen entscheidet trotzdem,
     /// sobald die Dateien lesbar sind; vorher bleibt er (wie Android `PortfolioDataCheck.resolve`).
     func testPortfolioRecoveryDecisionMitGespeichertemMerker() {
         typealias D = PortfolioRecoveryDecision

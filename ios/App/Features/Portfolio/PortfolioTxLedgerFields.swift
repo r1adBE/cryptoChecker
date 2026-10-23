@@ -5,7 +5,7 @@ import SwiftUI
 // Eigene Datei, weil das Blatt sonst zu lang wird (Gegenstück zu `PortfolioTxFields.kt`).
 
 extension PortfolioTxSheet {
-    /// Build 46: selbst benutzte Börsen/Wallets aus den gespeicherten Transaktionen — wie Android `usedWallets`.
+    /// Selbst benutzte Börsen/Wallets aus den gespeicherten Transaktionen — wie Android `usedWallets`.
     private var usedWallets: [String] {
         var names: [String?] = []
         for tx in data.portfolio {
@@ -16,7 +16,7 @@ extension PortfolioTxSheet {
         return PortfolioWalletNames.known(names)
     }
 
-    /// Von/Nach einer Umbuchung: freier Text (Börse oder Wallet). Build 46: Vorschläge als Chips — im leeren,
+    /// Von/Nach einer Umbuchung: freier Text (Börse oder Wallet). Vorschläge als Chips — im leeren,
     /// fokussierten Feld die selbst benutzten Namen, beim Tippen dazu die Börsen der App
     /// (`PortfolioWalletNames.suggestions`); bei einem fast gleichen bekannten Namen («Binanse») der Hinweis
     /// «Meintest du Binance?» zum Antippen — bei FIFO je Wallet wäre jede andere Schreibweise eine eigene Wallet.
@@ -154,7 +154,7 @@ extension PortfolioTxSheet {
     }
 
     /// Kauf: Notiz im zugeklappten Abschnitt «Gebühr, Börse, Notiz» (wie Android).
-    /// Die Notiz steht seit Build 78 bei allen Arten direkt unter dem Preis, nie im zugeklappten Abschnitt.
+    /// Die Notiz steht bei allen Arten direkt unter dem Preis, nie im zugeklappten Abschnitt.
     var noteInLedger: Bool { false }
 
     var noteField: some View {

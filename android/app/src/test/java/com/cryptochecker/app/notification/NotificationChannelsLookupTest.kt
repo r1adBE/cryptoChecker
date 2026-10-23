@@ -5,7 +5,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Alarm-Kanal (seit Build 102): zuerst nur den einen Kanal abfragen; alle Kanäle listen und alte Versionen wegräumen
+ * Alarm-Kanal: zuerst nur den einen Kanal abfragen; alle Kanäle listen und alte Versionen wegräumen
  * erst beim Anlegen — sonst zwei Binder-Listungen je Alarm. Systemdienst nicht im Unit-Test: am Quelltext geprüft.
  */
 class NotificationChannelsLookupTest {

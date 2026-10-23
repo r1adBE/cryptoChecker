@@ -61,7 +61,7 @@ object DatabaseEncryptionNotice {
     private val copiedNames = MutableStateFlow<Set<String>>(emptySet())
 
     /**
-     * Teilmenge von [inMemory] (seit Build 92 eigens gemerkt): Der Inhalt einer alten unverschlüsselten Datei liegt für diesen
+     * Teilmenge von [inMemory] (eigens gemerkt): Der Inhalt einer alten unverschlüsselten Datei liegt für diesen
      * Lauf als Kopie im Arbeitsspeicher ([Decision.PlaintextKept], [PlaintextMemoryCopy]). Paare und Alarme sind die
      * gespeicherten, aber was dieser Lauf an ihnen ändert — auch «ausgelöst» eines Alarms —, ist im nächsten Prozess wieder
      * der Stand der Datei.
@@ -88,7 +88,7 @@ object DatabaseEncryptionNotice {
     }
 
     /**
-     * Nur für Tests (seit Build 103, WatchlistLockDeviceTest): Vermerke von [markInMemory] für [database] wieder entfernen,
+     * Nur für Tests (WatchlistLockDeviceTest): Vermerke von [markInMemory] für [database] wieder entfernen,
      * damit die Sperre der Merkliste nicht in die übrigen Tests desselben Prozesses hineinwirkt. Die App ruft es nie auf.
      */
     internal fun clearInMemoryForTest(database: String) {

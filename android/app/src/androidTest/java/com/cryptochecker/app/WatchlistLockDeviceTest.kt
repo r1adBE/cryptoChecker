@@ -47,13 +47,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Notfall-Sperre der Merkliste auf dem Gerät (seit Build 103, Review TST-02): Liegt die gespeicherte Merkliste nur leer im
+ * Notfall-Sperre der Merkliste auf dem Gerät (Review TST-02): Liegt die gespeicherte Merkliste nur leer im
  * Arbeitsspeicher ([DatabaseEncryptionNotice.storedKept]), ruft der Test JEDEN Schreibweg des Nutzers von
  * [WatchRepository] mit echtem Room auf und prüft, dass sich keine Zeile ändert — ergänzt den Quelltext-Test
  * `WatchRepositoryLockTest` (JVM). Per Reflection muss jede öffentliche suspend-Funktion des Repositorys (Klasse und
  * Erweiterungen in `WatchRepositoryAdd.kt`/`WatchRepositoryRefresh.kt`) in genau einer Liste stehen: Schreibweg des
  * Nutzers (hier aufgerufen), nur lesen oder Hintergrund — ein neuer Schreibweg fällt so auf, bis er eingeordnet ist.
- * Seit Build 104 (Review TST2-03): Gegenprobe pro Eintrag — ungesperrt ändert jeder Schreibweg die Tabellen (frische
+ * Review TST2-03: Gegenprobe pro Eintrag — ungesperrt ändert jeder Schreibweg die Tabellen (frische
  * Datenbank je Eintrag), sonst bewiese der Sperr-Vergleich nichts; dafür liegt im Ausgangsstand ein %-Alarm ohne Bezug.
  */
 @RunWith(AndroidJUnit4::class)
@@ -150,7 +150,7 @@ class WatchlistLockDeviceTest {
             "saveAlarmMerged" to write { locked ->
                 assertEquals(locked, repo.saveAlarmMerged(alarmId) { it!!.copy(threshold = 120_000.0) } == null)
             },
-            // Seit Build 105: eindeutiges Ergebnis (gespeichert / voll / abgelehnt)
+            // Eindeutiges Ergebnis (gespeichert / voll / abgelehnt)
             "trySaveAlarm" to write { locked ->
                 val r = repo.trySaveAlarm(AlarmEntity(watchId = watchId, condition = AlarmCondition.PRICE_BELOW, threshold = 2.0))
                 if (locked) assertEquals(AlarmSaveResult.Refused, r) else assertTrue(r is AlarmSaveResult.Saved)
@@ -186,7 +186,7 @@ class WatchlistLockDeviceTest {
     }
 
     /**
-     * Gegenprobe pro Eintrag (seit Build 104): ungesperrt ändert jeder Schreibweg die Tabellen — auf einer frischen
+     * Gegenprobe pro Eintrag: ungesperrt ändert jeder Schreibweg die Tabellen — auf einer frischen
      * Datenbank je Eintrag, damit kein früherer Schreibweg den Ausgangsstand verschiebt. Sonst bewiese der Sperr-Test
      * für diesen Eintrag nichts.
      */
@@ -207,7 +207,7 @@ class WatchlistLockDeviceTest {
     }
 
     /**
-     * Seit Build 105 (F-08, Review ARC3-R01/R02): nur im Arbeitsspeicher ohne gespeicherten Stand und mit sichtbarer
+     * F-08, Review ARC3-R01/R02: nur im Arbeitsspeicher ohne gespeicherten Stand und mit sichtbarer
      * Oberfläche lehnt jeder Schreibweg des Nutzers OHNE vorherige Bestätigung (`confirmUserWrite`) ab — eindeutig und ohne
      * selbst zu fragen oder zu warten. Folge-Schreibwege laufen nur nach einem bestätigten und lehnen nie ab.
      */

@@ -36,7 +36,7 @@ private const val WOO_NO_TRADES = "Keine Abschlüsse"
  * Veränderung (dann rechnet die App mit eigenen Kerzen). Zeit der Börse = Ende der Information der jüngsten Kerze
  * (laufend: Antwortzeit, sonst höchstens jetzt; abgeschlossen: Stundenende).
  *
- * Seit Build 91 eine zweite Anfrage (`/v1/public/market_trades`, letzter Abschluss): Sie setzt den letzten Kurs auf
+ * Eine zweite Anfrage (`/v1/public/market_trades`, letzter Abschluss): Sie setzt den letzten Kurs auf
  * den echten letzten Abschluss und die Zeit der Börse auf dessen Zeit; die Veränderung wird gegen dieselbe
  * Eröffnung neu gerechnet. Scheitert sie, bleibt der Schluss der Stundenkerze (der laufenden Kerze = letzter
  * Abschluss bis zur Antwortzeit). Darum kein «Stundenkurs» mehr. Gegenstück: `Woo.swift`.

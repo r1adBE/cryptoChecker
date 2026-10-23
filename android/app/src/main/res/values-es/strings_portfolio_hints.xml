@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">Alarmas de cartera en pausa: sin precio actual para %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Alarmas de cartera en pausa: no todas las monedas tienen precio actual</string>
     <string name="portfolio_alarms_paused_addresses">Alarmas de cartera en pausa: los saldos de las direcciones vigiladas aún no se han cargado</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Alarmas de cartera en pausa: saldos de tokens de %1$s parcialmente desactualizados</string>
     <string name="portfolio_alarms_paused_tokens_generic">Alarmas de cartera en pausa: saldos de tokens de las direcciones vigiladas parcialmente desactualizados</string>
     <string name="portfolio_alarms_paused_unverified">Alarmas de cartera en pausa: precio sin verificar para %1$s</string>

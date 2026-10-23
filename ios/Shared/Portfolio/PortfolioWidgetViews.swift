@@ -126,7 +126,7 @@ enum PortfolioWidgetViews {
     /// Anteil der Total-Zeile: das ganze Portfolio — wie Android `LIST_TOTAL_SHARE`.
     static let listTotalShare: Double = 100
 
-    /// Total-Zeile der Liste, gestaltet wie die Listenzeilen ohne Logo (Build 46: breit einzeilig 12 pt, sonst
+    /// Total-Zeile der Liste, gestaltet wie die Listenzeilen ohne Logo (breit einzeilig 12 pt, sonst
     /// zweizeilig 12 + 12 pt; je 8 pt Innenrand) und die Trennlinie darüber (1 pt) — wie Android `listTotalHeightDp`.
     static func listTotalHeight(fontScale: Double = 1, wide: Bool = false) -> Double {
         if wide {

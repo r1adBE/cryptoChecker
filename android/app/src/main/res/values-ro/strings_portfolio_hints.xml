@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">Alarmele portofoliului sunt în pauză: niciun preț actual pentru %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Alarmele portofoliului sunt în pauză: nu toate monedele au un preț actual</string>
     <string name="portfolio_alarms_paused_addresses">Alarmele portofoliului sunt în pauză: soldurile adreselor urmărite nu sunt încă încărcate</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Alarmele portofoliului sunt în pauză: soldurile de tokenuri ale %1$s sunt parțial învechite</string>
     <string name="portfolio_alarms_paused_tokens_generic">Alarmele portofoliului sunt în pauză: soldurile de tokenuri ale adreselor urmărite sunt parțial învechite</string>
     <string name="portfolio_alarms_paused_unverified">Alarmele portofoliului sunt în pauză: preț neverificat pentru %1$s</string>

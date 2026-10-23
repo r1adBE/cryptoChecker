@@ -171,7 +171,7 @@ internal fun AddressRow(
                 }
             } else if (overlap.isNotEmpty() && a.countInPortfolio) {
                 // Dieselben Coins wie eigene Transaktionen: Hinweis (zählt doppelt, wenn es dieselben sind) —
-                // bleibt stehen, solange die Adresse zählt; Build 46: daneben «Nur anzeigen» mit einem Tipp
+                // bleibt stehen, solange die Adresse zählt; daneben «Nur anzeigen» mit einem Tipp
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         stringResource(R.string.portfolio_address_overlap, overlap.joinToString(", ")),
@@ -217,7 +217,7 @@ internal fun AddressRow(
                     Switch(checked = a.countTokens, onCheckedChange = null)
                 }
             }
-            // Build 84: Einstand für das Guthaben (Posten wie Käufe in dieser Adresse); Stand je Coin, wenn erfasst
+            // Einstand für das Guthaben (Posten wie Käufe in dieser Adresse); Stand je Coin, wenn erfasst
             if (a.countInPortfolio) {
                 val covered = com.cryptochecker.app.domain.portfolio.AddressCostLots.coverage(a, trades, allAddresses)
                 covered.forEach { c ->

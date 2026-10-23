@@ -8,14 +8,14 @@ import com.cryptochecker.marketdata.model.market.DexScreener
  * Obergrenzen für Merkliste und Paar-Alarme aus einer Sicherung ([BackupManager.restore]) — gleich wie iOS
  * `BackupRestoreLimits` (gemeinsame Fälle `testdata/parity/backup_limits.json`). Eine Datei kann von Hand
  * verändert sein: ohne Grenzen kämen beliebig lange Kennungen oder Hunderttausende Paare in die Datenbank,
- * in Abfragen und Adressen der Börsen. Seit Build 99.
+ * in Abfragen und Adressen der Börsen.
  *
  * - Paar mit zu langer Börse, Basis, Quote, Börsenname oder Paar-Kennung fällt weg (Kürzen änderte, welches Paar
  *   gemeint ist). Gezählt werden Unicode-Codepunkte, auf beiden Plattformen gleich.
  * - Paar-Kennung nur aus Buchstaben und Ziffern jeder Schrift (Binance führt Coins mit chinesischem Namen) sowie
  *   «/ _ : . -» (DexScreener «chain/adresse», Bitfinex «tBTC:USD», Coinbase «BTC-USD»); Leerzeichen, «@», «&», «?»
  *   u. Ä. kommen in keiner Börse vor und landeten sonst unverändert in einer Adresse.
- * - DexScreener-Paar nur mit gültiger Kennung «chain/adresse» ([DexScreener.isSafePairId], seit Build 104).
+ * - DexScreener-Paar nur mit gültiger Kennung «chain/adresse» ([DexScreener.isSafePairId]).
  * - Unbekannte Börsen bleiben (Platzhalter `UnknownMarket`, z. B. eine inzwischen entfernte Börse), nur begrenzt.
  * - Höchstens [MAX_PAIRS] Paare (die ersten der Datei) und je Paar [MAX_ALARMS_PER_PAIR] Alarme.
  */
@@ -38,7 +38,7 @@ internal object BackupRestoreLimits {
             codePoints(base) <= MAX_ASSET &&
             codePoints(quote) <= MAX_ASSET &&
             (pairId == null || validPairId(pairId)) &&
-            // Seit Build 104: DexScreener nur mit «chain/adresse», die unkodiert in den Pfad darf
+            // DexScreener nur mit «chain/adresse», die unkodiert in den Pfad darf
             (marketKey != DexScreener.KEY || (pairId != null && DexScreener.isSafePairId(pairId)))
 
     /** Kennung höchstens [MAX_PAIR_ID] Codepunkte, nur Buchstaben/Ziffern jeder Schrift und «/ _ : . -». */
@@ -50,7 +50,7 @@ internal object BackupRestoreLimits {
     /**
      * Was nach [accept] bzw. [limit] übernommen wird; [droppedPairs]/[droppedAlarms] = wie viele wegen der Grenzen
      * wegfallen. Gezählt, damit Rückfrage und Erfolgsmeldung sie nennen — eine eigene ältere Sicherung mit mehr Paaren
-     * oder Alarmen verlöre sonst still Daten (seit Build 99).
+     * oder Alarmen verlöre sonst still Daten.
      */
     data class Limited<W, A>(val watches: List<W>, val alarms: List<A>, val droppedPairs: Int = 0, val droppedAlarms: Int = 0)
 

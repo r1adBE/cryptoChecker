@@ -1,13 +1,13 @@
-"""Line limit: every production source file has at most 400 lines (since build 103).
+"""Line limit: every production source file has at most 400 lines.
 
 Usage: python3 -I line_limit.py [repository root, default: current directory]
-       python3 -I line_limit.py --self-test   (checks the annotation escaping, since build 104)
+       python3 -I line_limit.py --self-test   (checks the annotation escaping)
 
 Checks Kotlin under android/<module>/src/main and Swift under ios/App, ios/Shared and ios/Widgets; tests
 (src/test, src/androidTest, ios/Tests) are not checked. Same rule as the unit test FileLengthTest, but without
 Gradle: the result is an error annotation per file and exit 1. A missing ios/ directory (Android-only checkout)
 is fine. File names and texts in annotations are escaped like annotate.py (a crafted file name cannot inject
-further workflow commands; since build 104).
+further workflow commands).
 """
 import os
 import sys

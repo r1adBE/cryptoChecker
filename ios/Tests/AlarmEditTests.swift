@@ -233,12 +233,12 @@ final class AlarmEditTests: XCTestCase {
         XCTAssertEqual(AlarmThresholdError.key(.OI_RANGE), "alarm_threshold_error_oi")
     }
 
-    /// Seit Build 102: «fällt um 150 %» löste nie aus und wird abgelehnt; Steigen und «bewegt sich um» bleiben offen.
+    /// «fällt um 150 %» löste nie aus und wird abgelehnt; Steigen und «bewegt sich um» bleiben offen.
     func testFallingPercentAboveHundredIsRejected() {
         func draft(_ condition: AlarmCondition, _ text: String) -> AlarmDraft {
             AlarmDraft(condition: condition, thresholdText: text)
         }
-        // Seit Build 103: genau 100 % löste ebenfalls nie aus (Kurs 0 wird nie gemeldet)
+        // Genau 100 % löste ebenfalls nie aus (Kurs 0 wird nie gemeldet)
         XCTAssertEqual(draft(.CHANGE_PERCENT_DOWN, "100").thresholdProblem, .PERCENT_RANGE)
         XCTAssertEqual(draft(.OI_DOWN, "100").thresholdProblem, .PERCENT_RANGE)
         XCTAssertNil(draft(.CHANGE_PERCENT_DOWN, "99.99").thresholdProblem)
@@ -294,7 +294,7 @@ final class AlarmEditTests: XCTestCase {
 
     /// «Nahe am Hoch» hat ein neues Hoch (101) gemeldet; aus und wieder ein: Die gemeldete Marke bleibt, ein Kurs knapp
     /// über dem alten Hoch des Zeitraums (100), aber unter der Marke meldet nicht nochmals «neues Hoch» — wie Android
-    /// (WatchDao.rearmAlarm setzt nur referenceAt = 0). Seit Build 98; vorher löschte iOS die Marke.
+    /// (WatchDao.rearmAlarm setzt nur referenceAt = 0).
     func testOffOnKeepsReportedNearHighMark() {
         let t0: Int64 = 1_800_000_000_000
         let range = NearExtreme.Range(high: 100, low: 50)

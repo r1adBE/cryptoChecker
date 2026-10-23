@@ -321,7 +321,7 @@ final class ExchangeContractTests: XCTestCase {
     /// Älter als 30 Tage ist für einen gehandelten Kurs keine plausible letzte Handelszeit mehr.
     private static let recordedMaxAgeMillis: Int64 = 30 * 24 * 60 * 60 * 1000
 
-    /// Werte eines aufgezeichneten Einzelkurses, seit Build 93: Eine Börsenzeit liegt höchstens 30 Tage vor und
+    /// Werte eines aufgezeichneten Einzelkurses: Eine Börsenzeit liegt höchstens 30 Tage vor und
     /// kurz nach der Aufnahme (eine Zeitzone als Epoche geschrieben, wie Bithumbs KST-Zeit, fiele sonst erst beim
     /// Nutzer auf). Liefert die Börse Hoch und Tief, liegt der Kurs dazwischen (kleine Toleranz für Rundung) —
     /// sonst gehörten Hoch/Tief zu einem anderen Zeitraum als der Kurs. Nicht gelieferte Felder zählen nicht.
@@ -397,11 +397,11 @@ final class ExchangeContractTests: XCTestCase {
     }
 
     /// Aufgezeichnete echte Antworten (`tools/record_exchange_fixtures.py`, Aktion «Record exchange
-    /// fixtures»), seit Build 105 Pflicht (liegen im Repo). `recordedAt` ordnet
+    /// fixtures»), Pflicht (liegen im Repo). `recordedAt` ordnet
     /// einen Fehlschlag einem Stand der Börse zu. Wie Android `recordedResponsesStillParse`.
     func testRecordedResponsesStillParse() throws {
         let files = try recordedFixtures()
-        // Seit Build 105 Pflicht: die Aufzeichnungen liegen im Test-Bundle (gen_xcodeproj.py); fehlen sie, nicht still grün
+        // Pflicht: die Aufzeichnungen liegen im Test-Bundle (gen_xcodeproj.py); fehlen sie, nicht still grün
         guard !files.isEmpty else { return XCTFail("keine recorded_*.json im Test-Bundle (gen_xcodeproj.py gelaufen?)") }
         for file in files {
             let recordedAt = file.recordedAt ?? ""

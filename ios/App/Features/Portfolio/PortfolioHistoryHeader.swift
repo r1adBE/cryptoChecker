@@ -81,7 +81,7 @@ extension PortfolioHistoryCard {
             PortfolioFormat.plColor($0, scheme: priceColors, highContrast: highContrast, inverted: inverted)
         } ?? AppColors.onSurfaceVariant
         // Teile mit festen Typen (eine lange `+`-Kette aus Text und String ist für den Type-Checker teuer)
-        // Build 46: Umbruch nur zwischen den Teilen («Wert …» · «Gewinn …»), nie in einer Zahl (geschützte Leerzeichen)
+        // Umbruch nur zwischen den Teilen («Wert …» · «Gewinn …»), nie in einer Zahl (geschützte Leerzeichen)
         let nbsp: String = "\u{00A0}"
         let valueLabel: String = L("portfolio_value") + nbsp
         let gainLabel: String = " · " + L("portfolio_history_gain_label") + nbsp

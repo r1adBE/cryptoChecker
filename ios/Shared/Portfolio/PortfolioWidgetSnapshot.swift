@@ -109,7 +109,7 @@ struct PortfolioWidgetSnapshot: Codable, Equatable, Sendable {
     var staleTokenAddresses: [String]?
     /// Wert dieser Token in USDT (`AddressAlarmState.staleTokenValue`); nil = 0. Wie Android `staleTokenValueUsdt`.
     var staleTokenValueUsdt: Double?
-    /// Bewertete Coins mit «Kurs ungeprüft» (Token nicht bestätigt, `PortfolioPrices.unverified`; seit Build 101), ohne
+    /// Bewertete Coins mit «Kurs ungeprüft» (Token nicht bestätigt, `PortfolioPrices.unverified`), ohne
     /// die schon in `staleCoins` — für Portfolio-Alarme wie ein alter Kurs (Wert `unverifiedValueUsdt`); das Widget zeigt
     /// deswegen NICHT «teilweise alter Kurs». nil = keine (älterer Stand). Wie Android `unverifiedCoins`.
     var unverifiedCoins: [String]?

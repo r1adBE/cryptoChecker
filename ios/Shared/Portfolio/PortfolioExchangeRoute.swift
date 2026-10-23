@@ -112,7 +112,7 @@ enum PortfolioExchangeRoute {
     }
 
     /// Kurs in USDT: USDT unverändert; USD geteilt durch den Marktkurs USDT/USD `usdtUsd` (ungültig oder Standard = 1,
-    /// USDT = USD wie bis Build 58); Fiat geteilt durch den Kurs USD → Fiat und durch `usdtUsd`; sonst nil. Wie Android.
+    /// USDT = USD wie früher); Fiat geteilt durch den Kurs USD → Fiat und durch `usdtUsd`; sonst nil. Wie Android.
     static func toUsdt(_ price: Double, quote: String, usdtUsd: Double = 1, usdTo: (String) -> Double?) -> Double? {
         guard price > 0, price.isFinite else { return nil }
         let usdt = usdtUsd > 0 && usdtUsd.isFinite ? usdtUsd : 1

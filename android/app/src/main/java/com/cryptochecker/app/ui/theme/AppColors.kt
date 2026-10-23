@@ -94,7 +94,7 @@ object AssetColors {
  * dunkel) — für den Farbpunkt in den Einstellungen statt der Grundfarbe (Orange: hell #A64827,
  * dunkel #ED835E = Grundfarbe und App-Icon). Wie iOS `AppAccent.primary`.
  *
- * Ein Orange (Build 46): #ED835E ist Markenfarbe, Icon und Akzent dunkel; #A64827 ist nur die
+ * Ein Orange: #ED835E ist Markenfarbe, Icon und Akzent dunkel; #A64827 ist nur die
  * dunklere Stufe desselben Oranges für Knöpfe im hellen Modus (AA 4.5:1 auf heller Fläche).
  */
 fun accentButtonColor(accent: AccentColor, dark: Boolean): Color = appColorScheme(accent, dark).primary

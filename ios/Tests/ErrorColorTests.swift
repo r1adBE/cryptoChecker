@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Fehlerfarben (Build 90): hell wie dunkel warmes Orange-Rot — wie Android `ErrorContrastTest`.
+/// Fehlerfarben: hell wie dunkel warmes Orange-Rot — wie Android `ErrorContrastTest`.
 /// Liest die echten Token aus `ColorTokens`, keine Kopie der Werte für die Kontrastprüfung.
 final class ErrorColorTests: XCTestCase {
 

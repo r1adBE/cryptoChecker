@@ -50,7 +50,7 @@ class SqlCipherDatabaseFiles(private val context: Context) : DatabaseEncryptionM
 
     override fun exportEncrypted(database: String, passphrase: ByteArray) {
         // CREATE_IF_NECESSARY: ATTACH übernimmt die Öffnungs-Flags der Hauptverbindung; ohne Erlaubnis zum Anlegen
-        // scheitert die neue Exportkopie mit SQLITE_CANTOPEN (code 14) – gesehen auf dem Gerät, Build 61
+        // scheitert die neue Exportkopie mit SQLITE_CANTOPEN (code 14) – gesehen auf dem Gerät
         open(file(database), passphrase = null, create = true).use { db ->
             db.execSQL("ATTACH DATABASE ? AS encrypted KEY ?", arrayOf<Any?>(copy(database).path, String(passphrase, Charsets.US_ASCII)))
             try {
@@ -208,7 +208,7 @@ class SqlCipherDatabaseFiles(private val context: Context) : DatabaseEncryptionM
             if (!file.exists() || file.length() == 0L) return FileKind.ABSENT
             val head = ByteArray(SQLITE_HEADER.size)
             val read = file.inputStream().use { it.read(head) }
-            // Zu kurz für einen Kopf: als unverschlüsselt behandeln — dann öffnet Room sie wie bis Build 58
+            // Zu kurz für einen Kopf: als unverschlüsselt behandeln — dann öffnet Room sie wie vor der Verschlüsselung
             if (read < head.size) return FileKind.PLAINTEXT
             return if (head.contentEquals(SQLITE_HEADER)) FileKind.PLAINTEXT else FileKind.ENCRYPTED
         }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; seit Build 104, Text seit Build 106, seit Build 107 ohne Grund (UX5-R1: passt so auch zur unverschlüsselten Kopie) -->
+    <!-- Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand (kein Schlüssel oder unverschlüsselte Kopie): Frage vor der ersten Änderung je App-Lauf (WatchlistNotSavedGate) – nennt Gegenstand (Merkliste samt Alarmen) und dass auch weitere Änderungen verloren gehen; ohne Grund (UX5-R1: passt so auch zur unverschlüsselten Kopie) -->
     <string name="watchlist_not_saved_confirm_message">Daftar pantau beserta alarmnya sedang tidak disimpan. Perubahan ini dan berikutnya akan hilang saat aplikasi ditutup. Tetap ubah?</string>
-    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel); seit Build 104, Text seit Build 106 -->
+    <!-- Knopf der Frage oben: Änderung trotzdem ausführen (danach in diesem Lauf nicht mehr fragen); daneben «Abbrechen» (action_cancel) -->
     <string name="watchlist_not_saved_confirm_action">Tetap ubah</string>
 </resources>

@@ -297,7 +297,7 @@ final class RefreshDeadlineTests: XCTestCase {
     }
 
     func testRunWithinReturnsResultOrNilAfterTimeout() async {
-        // Seit Build 103 ohne knappe Zeiten: Die schnelle Arbeit hat eine Minute (antwortet sofort), die langsame endet
+        // Ohne knappe Zeiten: Die schnelle Arbeit hat eine Minute (antwortet sofort), die langsame endet
         // nie von selbst — nur der Abbruch nach der Frist beendet sie. So hängt keine Prüfung vom Takt der Maschine ab.
         let fast = await RefreshDeadline.run(within: 60_000) { 42 }
         XCTAssertEqual(fast, 42)
@@ -358,7 +358,7 @@ final class OutcomePairIdentityTests: XCTestCase {
     }
 }
 
-/// Seit Build 102: Änderungen eines Durchlaufs nur bei gleicher Alarm-Währung übertragen (wie Android
+/// Änderungen eines Durchlaufs nur bei gleicher Alarm-Währung übertragen (wie Android
 /// `currency IS :currency`) — eine inzwischen auf USD gestellte EUR-Marke wird nicht wieder scharf.
 final class OutcomeAlarmCurrencyTests: XCTestCase {
     func testRearmSkippedWhenCurrencyChanged() {

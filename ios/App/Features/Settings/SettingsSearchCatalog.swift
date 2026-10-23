@@ -81,7 +81,7 @@ enum SettingsSearchCatalog {
             [L("settings_price_colors_hint")] + PriceColorScheme.allCases.map { L($0.labelKey) })
         add("price_colors.swap", L("price_colors_swap"), L("settings_price_colors"), .page(.priceColors, anchor: "price_colors.swap"),
             [L("price_colors_red_up_hint")])
-        // %-Änderung unter «Merkliste» (Review D13), Coin-Logos unter «Erweitert», Widgets unter «Darstellung» (Build 55)
+        // %-Änderung unter «Merkliste» (Review D13), Coin-Logos unter «Erweitert», Widgets unter «Darstellung»
         let changeBasis = L("settings_change_basis", "%")
         add("page.change_basis", changeBasis, watchlist, .page(.changeBasis, anchor: nil),
             [L("settings_change_basis_hint_1"), L("change_basis_rolling"), L("change_basis_since_last"), L("change_basis_device", "UTC"),
@@ -167,7 +167,7 @@ enum SettingsSearchCatalog {
         add("backup.import", L("backup_import"), backup, .page(.backup, anchor: "backup.actions"))
         // «App zurücksetzen»: eigene rote Karte ganz unten auf der Hauptseite
         add("main.reset", L("settings_reset_app"), "", .main("main.reset"), [L("settings_reset_app_confirm")])
-        // «Token & TradFi» mit Alpha und QTLY: eigene Seite unter «Erweitert» (Build 53, vorher «Merkliste»);
+        // «Token & TradFi» mit Alpha und QTLY: eigene Seite unter «Erweitert» (vorher «Merkliste»);
         // frühere Namen bleiben Suchwörter
         let futures = L("settings_asset_scope_title")
         addPage("page.markets", .markets, futures)

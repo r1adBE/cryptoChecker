@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Verlauf des Bewegungs-Alarms mit einem Schlüssel je Paar (seit Build 102, wie `MoveHistoryCoreTest.kt`): append für
+/// Verlauf des Bewegungs-Alarms mit einem Schlüssel je Paar (wie `MoveHistoryCoreTest.kt`): append für
 /// N Paare bleibt O(N).
 final class MoveHistoryStoreTests: XCTestCase {
     private final class FakeStorage: MoveHistoryStorage {

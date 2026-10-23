@@ -46,7 +46,7 @@ const val ALARM_RELIABILITY_TAG = "alarm_reliability_line"
 private const val LARGE_FONT_SCALE = 1.3f
 
 /**
- * Eine Zeile über der Merkliste (Build 91): Kommen die Alarme an ([AlarmReliability])? Ruhig eine graue Zeile
+ * Eine Zeile über der Merkliste: Kommen die Alarme an ([AlarmReliability])? Ruhig eine graue Zeile
  * «Letzte Prüfung vor 12 Min.», sonst Bernstein mit dem wichtigsten Grund; Tipp öffnet «Damit Alarme ankommen»
  * ([LocalOpenAlarmDelivery]). Liest denselben Zustand wie die Seite ([AlarmDeliveryViewModel], [AlarmReadinessProbe]),
  * nach der Rückkehr aus den Systemeinstellungen neu. Ohne Alarme oder ohne Navigation: nichts.

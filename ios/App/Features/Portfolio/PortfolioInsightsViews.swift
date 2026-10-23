@@ -122,7 +122,7 @@ struct PortfolioAlarmSheet: View {
     @State private var text = ""
     @State private var repeating = true
     @FocusState private var focused: Bool
-    /// Doppeltipp auf «Speichern», während das Blatt zugeht: nur ein neuer Alarm (seit Build 99, wie Android).
+    /// Doppeltipp auf «Speichern», während das Blatt zugeht: nur ein neuer Alarm (wie Android).
     @State private var createGuard = AlarmCreateGuard()
 
     private var threshold: Double? {

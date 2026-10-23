@@ -15,7 +15,7 @@ import org.junit.Test
 import java.math.BigDecimal
 
 /**
- * Seit Build 103: Schreibwege im Portfolio melden ihr Ergebnis statt Fehler zu verschlucken ([portfolioWrite]); die
+ * Schreibwege im Portfolio melden ihr Ergebnis statt Fehler zu verschlucken ([portfolioWrite]); die
  * Coin-Ansicht rechnet ausserhalb der Komposition dasselbe wie vorher ([coinDetail]).
  */
 class PortfolioWriteResultTest {

@@ -16,7 +16,7 @@ object HttpBodyLimit {
     /**
      * Höchste JSON-Verschachtelung einer Antwort. org.json liest rekursiv: 16 MB «[[[[…» liefen sonst in einen
      * StackOverflowError (ein Error, den kein `catch (Exception)` fängt — Absturz). Echte Antworten der Börsen und
-     * Ketten liegen bei Tiefe < 10; iOS (JSONSerialization) bricht von sich aus bei 512 ab. Seit Build 98.
+     * Ketten liegen bei Tiefe < 10; iOS (JSONSerialization) bricht von sich aus bei 512 ab.
      */
     const val MAX_JSON_DEPTH = 128
 
@@ -52,7 +52,7 @@ object HttpBodyLimit {
     }
 
     /**
-     * Startgrösse des Puffers: die angekündigte Länge, höchstens [INITIAL_BUFFER_MAX] (seit Build 102). Bis Build 101 bis
+     * Startgrösse des Puffers: die angekündigte Länge, höchstens [INITIAL_BUFFER_MAX]. Früher bis
      * [BULK_MAX_BYTES] auf einmal — ein Server, der 16 MB ankündigt und dann nichts schickt, belegte so je Anfrage 16 MB.
      * Grössere Antworten wachsen beim Lesen nach (ByteArrayOutputStream verdoppelt).
      */

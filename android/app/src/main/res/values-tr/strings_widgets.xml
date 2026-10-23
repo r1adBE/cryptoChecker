@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Görünüm</string>
     <string name="widget_portfolio_display_conversion">Yalnızca çevrim</string>
     <string name="widget_portfolio_display_conversion_usdt">Çevrim + USDT</string>
-    <string name="widget_portfolio_display_hint">Çevrim para birimi USD olduğunda USDT satırı gizlenir.</string>
+    <string name="widget_portfolio_display_hint">Çevrim para birimi bir USD sabit coini (ör. USDC) olduğunda USDT satırı gizlenir.</string>
     <string name="widget_portfolio_display_usdt">Yalnızca USDT</string>
     <string name="widget_portfolio_empty">Alımları Portföy sekmesinde ekle</string>
     <string name="widget_portfolio_list_hint">Pozisyonlarını burada göstermek için uygulamayı aç.</string>

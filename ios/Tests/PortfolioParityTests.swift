@@ -17,13 +17,13 @@ final class PortfolioParityTests: XCTestCase {
                             time: Int64(TestSupport.number(o["time"]) ?? 0),
                             feeExact: (o["fee"] as? String).map(dec),
                             feeUnit: (o["feeUnit"] as? String).flatMap(PortfolioFeeUnit.init(rawValue:)))
-        // Build 46: Gebühr in einem dritten Coin
+        // Gebühr in einem dritten Coin
         t.feeCoin = o["feeCoin"] as? String
         t.feeCoinAmountExact = (o["feeCoinAmount"] as? String).map(dec)
         t.feeCoinPriceExact = (o["feeCoinPrice"] as? String).map(dec)
         // Einzahlung: ursprüngliches Kaufdatum (optional)
         t.acquiredTime = TestSupport.number(o["acquiredTime"]).map { Int64($0) }
-        // Build 46 (optional): Börse/Wallet (FIFO je Wallet), Umbuchung, Tausch
+        // Optional: Börse/Wallet (FIFO je Wallet), Umbuchung, Tausch
         t.exchange = o["exchange"] as? String
         t.transferFrom = o["transferFrom"] as? String
         t.transferTo = o["transferTo"] as? String
@@ -31,7 +31,7 @@ final class PortfolioParityTests: XCTestCase {
         t.toAmountExact = (o["toAmount"] as? String).map(dec)
         t.swapValueExact = (o["swapValue"] as? String).map(dec)
         t.importKey = o["importKey"] as? String
-        // Gebühr-Zeile: eigenes Feld (Build 76); fehlt es im Fixture, die frühere Regel (wie beim Lesen alter Dateien)
+        // Gebühr-Zeile: eigenes Feld; fehlt es im Fixture, die frühere Regel (wie beim Lesen alter Dateien)
         t.feeRow = o["feeRow"] as? Bool ?? LegacyStorageMigration.legacyFeeRow(t.type, importKey: t.importKey, price: t.priceExact)
         return t
     }
@@ -88,7 +88,7 @@ final class PortfolioParityTests: XCTestCase {
             exact("\(name) pricedHoldings", e["pricedHoldings"], p.pricedHoldingsExact)
             // Netzwerkgebühr-Einstand ohne bezahlten Posten (optional)
             exact("\(name) lostFeeCost", e["lostFeeCost"], p.lostFeeCostUsdt)
-            // Build 58 (optional): Umbuchungsgebühr auf Bestand ohne Kaufpreis — vermerkt statt still verworfen
+            // Optional: Umbuchungsgebühr auf Bestand ohne Kaufpreis — vermerkt statt still verworfen
             exact("\(name) unassignedFee", e["unassignedFee"], p.unassignedFeeUsdt)
             if let fees = e["unassignedFees"] as? [[String: Any]] {
                 XCTAssertEqual(ledger.unassignedFees.count, fees.count, "\(name) unassignedFees")
@@ -97,7 +97,7 @@ final class PortfolioParityTests: XCTestCase {
                     exact("\(name) unassignedFee \(i) usdt", x["usdt"], f.usdt)
                 }
             }
-            // Build 46 (optional): «Seit Kauf» des Teils mit Kaufpreis, auch wenn ein Teil ohne Kaufpreis ist
+            // Optional: «Seit Kauf» des Teils mit Kaufpreis, auch wenn ein Teil ohne Kaufpreis ist
             exact("\(name) pricedCost", e["pricedCost"], p.pricedCostExact)
             exact("\(name) unpricedHoldings", e["unpricedHoldings"], p.unpricedHoldingsExact)
             if let partial = e["unrealizedPartial"] as? Bool { XCTAssertEqual(p.unrealizedPartial, partial, "\(name) unrealizedPartial") }
@@ -120,13 +120,13 @@ final class PortfolioParityTests: XCTestCase {
                     exact("\(name) summary partial amount", y["amount"], part.amount)
                 }
             }
-            // Build 46 (optional): Auszahlung, Gebühr im dritten Coin
+            // Optional: Auszahlung, Gebühr im dritten Coin
             if let withdrawn = TestSupport.number(e["withdrawn"]) { near("\(name) withdrawn", withdrawn, p.withdrawnAmount) }
             if let missing = e["feeValueMissing"] as? Bool { XCTAssertEqual(p.feeValueMissing, missing, "\(name) feeValueMissing") }
             if let incomplete = e["realizedIncomplete"] as? Bool {
                 XCTAssertEqual(p.realizedIncomplete, incomplete, "\(name) realizedIncomplete")
             }
-            // Build 46 (optional): Einstandsmethode — offene Posten und Veräusserungen
+            // Optional: Einstandsmethode — offene Posten und Veräusserungen
             if let unknown = TestSupport.number(e["realizedUnknownAmount"]) {
                 near("\(name) realizedUnknownAmount", unknown, p.realizedUnknownAmount)
             }
@@ -142,7 +142,7 @@ final class PortfolioParityTests: XCTestCase {
                     if let kind = x["kind"] as? String { XCTAssertEqual(lot.kind.rawValue, kind, "\(name) lot \(i) kind") }
                 }
             }
-            // Build 46 (optional): offene Posten für die Anzeige, Fehlbestand je Wallet
+            // Optional: offene Posten für die Anzeige, Fehlbestand je Wallet
             if let expected = e["openLots"] as? [Any] {
                 XCTAssertEqual(ledger.openLots.count, expected.count, "\(name) openLots")
                 for (i, pair) in zip(expected, ledger.openLots).enumerated() {

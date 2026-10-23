@@ -1,16 +1,16 @@
 import Foundation
 
-/// Einmalige Umstellung der Speicher-Notlösungen aus Build 56/57 auf eigene Felder — wie Android `LegacyStorageMigration`
+/// Einmalige Umstellung der alten Speicher-Notlösungen auf eigene Felder — wie Android `LegacyStorageMigration`
 /// (Begründung und alte Formen dort; gemeinsame Fälle `legacy_storage_migration.json`). Läuft beim Lesen von
 /// `portfolio.json` (`PortfolioTx.init(from:)`) und beim Wiederherstellen alter Sicherungen (`BackupManager.jsonToTx`); das
 /// nächste Speichern schreibt nur noch die neuen Felder. Nur hier stehen die alten Formen noch.
 ///  - Merker `spouseMarker` im Feld «nach» einer Schenkung → `giftToSpouse`.
 ///  - Beide Herkunftsschlüssel im `importKey` («Auszahlung `link` Einzahlung») → `importKey` + `linkedImportKey`.
-///  - Zustand vor der Verknüpfung hinter `restore` (Fassung «1» = Build 56, «2» = Build 57) → `importRestoreState`;
+///  - Zustand vor der Verknüpfung hinter `restore` (Fassung «1» oder «2» der alten Form) → `importRestoreState`;
 ///    unlesbar → keiner (die Schlüssel werden trotzdem getrennt).
 /// Werte ohne alte Form kommen unverändert zurück — die Umstellung ist beliebig oft anwendbar.
 enum LegacyStorageMigration {
-    /// Gebühr-Zeile nach der Regel bis Build 75: ein Verkauf zum Preis 0 MIT Import-Herkunft. Seit Build 76 steht das im
+    /// Gebühr-Zeile nach der früheren Regel: ein Verkauf zum Preis 0 MIT Import-Herkunft. Heute steht das im
     /// eigenen Feld `feeRow`; diese Regel leitet es nur noch einmal ab (Datei bzw. Sicherung ohne das Feld). Wie Android
     /// `legacyFeeRow`.
     static func legacyFeeRow(_ type: PortfolioTxType?, importKey: String?, price: Decimal?) -> Bool {
@@ -19,13 +19,13 @@ enum LegacyStorageMigration {
         return price == 0
     }
 
-    /// Zins (Lending) nach der Regel bis Build 75: Belohnung, deren Notiz «interest», «lending», «Zins» … nennt
-    /// (`interestRewardLegacy`). Seit Build 76 eigenes Feld `interest`. Wie Android `legacyInterest`.
+    /// Zins (Lending) nach der früheren Regel: Belohnung, deren Notiz «interest», «lending», «Zins» … nennt
+    /// (`interestRewardLegacy`). Heute eigenes Feld `interest`. Wie Android `legacyInterest`.
     static func legacyInterest(_ type: PortfolioTxType?, note: String?) -> Bool {
         type == .REWARD && interestRewardLegacy(note)
     }
 
-    /// Zins-Erkennung, wie sie bis Build 87 galt (Teilstring, auch «Verzinsung»): eingefroren für Altbestand — alte Dateien
+    /// Zins-Erkennung, wie sie früher galt (Teilstring, auch «Verzinsung»): eingefroren für Altbestand — alte Dateien
     /// und Sicherungen ohne Feld `interest` werden so abgeleitet, wie die App sie damals rechnete. Die Wort-Regel
     /// (`TaxEngines.interestReward`) gilt nur für neue Eingaben und Importe. Wie Android.
     static func interestRewardLegacy(_ text: String?) -> Bool {
@@ -34,7 +34,7 @@ enum LegacyStorageMigration {
     }
 
 
-    /// Merker im Feld «nach» einer Schenkung (Build 56/57).
+    /// Merker im Feld «nach» einer Schenkung (alte Form).
     static let spouseMarker = "@spouse"
 
     /// Trenner der beiden Herkunftsschlüssel im alten `importKey`.
@@ -74,7 +74,7 @@ enum LegacyStorageMigration {
         return out
     }
 
-    /// Kurzform eines langen Teilschlüssels («~» + FNV-1a wie `PortfolioImportBatch.hash`): vor Build 58 gekürzte Teile
+    /// Kurzform eines langen Teilschlüssels («~» + FNV-1a wie `PortfolioImportBatch.hash`): früher gekürzte Teile
     /// verknüpfter Umbuchungen bleiben so stehen (`CsvImport.splitDuplicates` erkennt die Zeile darüber). Wie Android.
     static func shortKey(_ key: String) -> String { "~" + PortfolioImportBatch.hash([key]) }
 

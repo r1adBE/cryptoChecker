@@ -30,7 +30,7 @@ class WatchlistStorageLockTest {
         assertFalse(WatchlistStorageLock.blocksAlarmSave(kept))
     }
 
-    /** Seit Build 103 (F-08): gesperrt = nur lesbar wie das Portfolio — alle Schreibwege des Nutzers, nicht nur Alarme. */
+    /** F-08: gesperrt = nur lesbar wie das Portfolio — alle Schreibwege des Nutzers, nicht nur Alarme. */
     @Test
     fun keptWatchlistBlocksAllUserWrites() {
         assertTrue(WatchlistStorageLock.blocksWrites(setOf("cryptochecker.db")))

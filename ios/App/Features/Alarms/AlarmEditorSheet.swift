@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Alarm anlegen/bearbeiten als Blatt von unten — wie `AlarmEditorSheet` in Android. Oben nur das Nötige (Build 91):
+/// Alarm anlegen/bearbeiten als Blatt von unten — wie `AlarmEditorSheet` in Android. Oben nur das Nötige:
 /// Paar und Kurs, die einfachen Bedingungen (Kurs über/unter zuerst, Steigt/Fällt um), der Betrag — die Kursmarke
 /// als Satz «Wenn BTC über [Betrag] geht» — und «Einmal / Jedes Mal». Schnell-Alarme (nur beim Anlegen), alle übrigen
 /// Bedingungen, Währung, Ton und Vorlesen unter «Mehr» (zugeklappt; offen, wenn in dieser Sitzung schon aufgeklappt
@@ -13,9 +13,9 @@ struct AlarmEditorSheet: View {
     let targetCurrency: String
     /// Gespeicherter Alarm beim Bearbeiten (nil = neu): entscheidet, ob Speichern ihn neu scharf stellt.
     let existing: Alarm?
-    /// Speichern: der Aufrufer fragt (Rückfrage F-08), speichert und ruft dann `close` (seit Build 106, UX4-06: erst nach
-    /// «Trotzdem»); nach «Abbrechen» `cancelled` — das Blatt bleibt offen mit den Eingaben. Seit Build 107 (IOS5-R01) in
-    /// einem Rückruf, damit nur einmal gefragt wird.
+    /// Speichern: der Aufrufer fragt (Rückfrage F-08), speichert und ruft dann `close` (UX4-06: erst nach
+    /// «Trotzdem»); nach «Abbrechen» `cancelled` — das Blatt bleibt offen mit den Eingaben. IOS5-R01:
+    /// in einem Rückruf, damit nur einmal gefragt wird.
     let onSave: ConfirmedFinish<AlarmDraft>
     /// Schnell-Alarm angetippt: der Aufrufer fragt, legt ihn an und schliesst das Blatt (`close`) — wie `onSave`.
     var onTemplate: ConfirmedFinish<AlarmTemplates.Template> = { _, close, _ in close() }
@@ -298,7 +298,7 @@ struct AlarmEditorSheet: View {
 
     private func commit() {
         guard createGuard.begin(creating: draft.id == 0) else { return }
-        // Seit Build 106 (UX4-06): erst nach bestätigter Rückfrage F-08 speichern und schliessen; «Abbrechen» = Blatt bleibt
+        // UX4-06: erst nach bestätigter Rückfrage F-08 speichern und schliessen; «Abbrechen» = Blatt bleibt
         let saved = draft
         onSave(saved, { dismiss() }, { createGuard.reset() })
     }

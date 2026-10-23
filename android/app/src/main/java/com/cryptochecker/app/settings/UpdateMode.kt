@@ -5,7 +5,7 @@ package com.cryptochecker.app.settings
  * Schalter «Im Hintergrund aktualisieren», «Häufig aktualisieren» und «Live-Kurse». Wie iOS
  * `UpdateMode`. Reine Logik (ohne android.*), in JVM-Tests geprüft.
  *
- *  - [SPARSAM] (Standard, empfohlen, seit Build 43): nur die Hintergrund-Aktualisierung im gewählten Intervall (15 Min.),
+ *  - [SPARSAM] (Standard, empfohlen): nur die Hintergrund-Aktualisierung im gewählten Intervall (15 Min.),
  *    kein WebSocket. Bei offener App wird beim Öffnen aktualisiert.
  *  - [LIVE_OFFEN] (für Profis): Live-Kurse per WebSocket, solange die Merkliste offen
  *    ist, dazu die Hintergrund-Aktualisierung bei geschlossener App.

@@ -32,7 +32,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Verschlüsselung der Datenbanken auf dem Gerät (Build 59): alte unverschlüsselte Dateien (Portfolio v3, Hauptdatenbank v1 und
+ * Verschlüsselung der Datenbanken auf dem Gerät: alte unverschlüsselte Dateien (Portfolio v3, Hauptdatenbank v1 und
  * v12 aus 16.2 samt Portfolio-Altbestand) werden beim ersten Öffnen mit echtem SQLCipher und echtem Keystore überführt, die
  * Room-Migrationen laufen danach auf der verschlüsselten Datei. Geprüft: Daten vollständig, keine unverschlüsselte Datei
  * oder Kopie mehr, ohne Schlüssel unlesbar; Fehler lassen die alte Datei stehen; verlorener Schlüssel legt beiseite;
@@ -173,7 +173,7 @@ class DatabaseEncryptionTest {
     }
 
     /**
-     * Schlüssel weg (Keystore zurückgesetzt): Seit Build 102 im ersten Lauf nur «gerade nicht verfügbar» (Datei
+     * Schlüssel weg (Keystore zurückgesetzt): im ersten Lauf nur «gerade nicht verfügbar» (Datei
      * unverändert, [com.cryptochecker.app.data.local.DatabaseKeyRetry]); erst der nächste Lauf legt die Datei beiseite,
      * nicht gelöscht; App beginnt leer und nennt es einmal.
      */
@@ -198,7 +198,7 @@ class DatabaseEncryptionTest {
         val aside = File(context.getDatabasePath(MAIN).path + SqlCipherDatabaseFiles.ASIDE_SUFFIX)
         assertTrue(aside.exists())
         assertEquals(FileKind.ENCRYPTED, SqlCipherDatabaseFiles.kindOf(aside))
-        // Hinweis bleibt, bis er bestätigt ist (Build 76), danach keiner mehr
+        // Hinweis bleibt, bis er bestätigt ist, danach keiner mehr
         assertEquals(StorageRecoveryNotice.Kind.SET_ASIDE, StorageRecoveryNotice.pending(context))
         assertEquals(StorageRecoveryNotice.Kind.SET_ASIDE, StorageRecoveryNotice.pending(context))
         StorageRecoveryNotice.acknowledge(context, StorageRecoveryNotice.Kind.SET_ASIDE)

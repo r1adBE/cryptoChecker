@@ -304,7 +304,7 @@ class SettingsRepository @Inject constructor(
     /** Portfolio-Sperre ein/aus. Ein- und (solange gesperrt) Ausschalten erst nach einer Entsperrung (siehe SettingsScreen). */
     override suspend fun setAppLock(enabled: Boolean) {
         edit { it[SettingsKeys.appLock] = enabled }
-        // Selbst gesetzt: nach beschädigten Einstellungen nicht mehr «unbekannt» (seit Build 102, SettingsLockFallback)
+        // Selbst gesetzt: nach beschädigten Einstellungen nicht mehr «unbekannt» (SettingsLockFallback)
         withContext(Dispatchers.IO) { StorageRecoveryNotice.confirmAppLock(context) }
     }
 
@@ -374,7 +374,7 @@ class SettingsRepository @Inject constructor(
         const val KEY_WATCHLIST_NAMES = "watchlist_names"
         const val KEY_SHOW_CONVERTED = "show_converted"
         const val KEY_INCLUDE_ALPHA_TOKENS = "include_alpha_tokens"
-        /** Portfolio-Tab (auch für [InstallDefaultsMigration], Build 44). */
+        /** Portfolio-Tab (auch für [InstallDefaultsMigration]). */
         const val KEY_PORTFOLIO_ENABLED = "portfolio_enabled"
         /** Merker «Portfolio-Daten prüfen» nach Standardwerten einer neuen Installation ([PortfolioDataCheck]). */
         const val KEY_PORTFOLIO_DATA_CHECK = "portfolio_data_check"

@@ -40,7 +40,7 @@ class WatchedAddressUndoTest {
 
     @Test
     fun gescheitertesZurueckNenntDenGrund() {
-        // Seit Build 95: Banner statt still nichts
+        // Banner statt still nichts
         val removed = address(5)
         assertEquals(WatchedAddressUndo.RestoreFailure.DUPLICATE, WatchedAddressUndo.failure(listOf(address(9, removed.address)), removed))
         val full = (100L until 100L + WatchedAddressRules.MAX_ADDRESSES).map { address(it) }

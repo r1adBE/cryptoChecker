@@ -30,7 +30,7 @@ enum BackupManager {
         case invalid(String)
         /// Mehr ungültige Portfolio-Einträge, als der Nutzer bestätigt hat — nichts wird ersetzt.
         case unconfirmedInvalid(Int)
-        /// Seit Build 102: Journal des Wiederherstellens nicht geschrieben (Schlüssel gerade nicht verfügbar oder
+        /// Journal des Wiederherstellens nicht geschrieben (Schlüssel gerade nicht verfügbar oder
         /// Speicherfehler) — nichts wird ersetzt, wie Android `BackupJournalUnavailableException`.
         case journalUnavailable
     }
@@ -106,14 +106,14 @@ enum BackupManager {
             "portfolio": data.portfolio.map(txToJson),
             // Alarme «Portfolio-Wert» (Runde 28), nach Id — wie Android
             "portfolioAlarms": data.portfolioAlarms.map(portfolioAlarmToJson),
-            // Seit Build 46: beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
+            // Beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
             WatchedAddressRules.backupKey: watchedToJson(WatchedAddressRules.backupEntries(data.watchedAddresses)),
         ]
         return try encode(root)
     }
 
-    /// Kompakt seit Build 92 (bis Build 91 `.prettyPrinted`, gut ein Drittel grösser); das Einlesen nimmt beides. Sortierte
-    /// Schlüssel wie bisher: gleicher Stand ergibt dieselbe Datei.
+    /// Kompakt (ältere Versionen schrieben `.prettyPrinted`, gut ein Drittel grösser); das Einlesen nimmt beides.
+    /// Sortierte Schlüssel wie bisher: gleicher Stand ergibt dieselbe Datei.
     static func encode(_ root: [String: Any]) throws -> Data {
         try JSONSerialization.data(withJSONObject: root, options: [.sortedKeys])
     }
@@ -177,7 +177,7 @@ enum BackupManager {
 
     /// Was eine Wiederherstellung übernommen hat (wie Android `RestoreResult`); `appLockKept` = eine Sicherung ohne
     /// Passwort wollte die Portfolio-Sperre ausschalten, sie blieb an; `droppedPairs`/`droppedAlarms` = über den Grenzen
-    /// nicht übernommen (seit Build 99).
+    /// nicht übernommen.
     struct RestoreResult: Equatable {
         let watches: Int
         let alarms: Int
@@ -296,7 +296,7 @@ enum BackupManager {
         let watched = watchedEntries(root)
 
         // Journal vor dem ersten Schreiben: bricht die App mittendrin ab, rollt der nächste Start zurück (wie Android).
-        // Seit Build 102 nie ohne: ein mittendrin beendeter Lauf liesse sonst einen halben Stand ohne Rückweg
+        // Nie ohne: ein mittendrin beendeter Lauf liesse sonst einen halben Stand ohne Rückweg
         if journal { try requireJournal(try? plainExportData(data), write: { RestoreJournal.write($0) }) }
         var steps = RestoreSteps()
         do {
@@ -316,7 +316,7 @@ enum BackupManager {
             try steps.run({
                 guard data.restorePortfolio(portfolio) else { throw Failure.invalid("portfolio") }
             }, undo: { _ = data.rollBackPortfolioFile(oldPortfolio) })
-            // Seit Build 46; fehlt der Schlüssel (ältere Sicherung), bleiben die bestehenden Adressen stehen.
+            // Fehlt der Schlüssel (ältere Sicherung), bleiben die bestehenden Adressen stehen.
             // Sonst ersetzen wie die Transaktionen (ungültige fallen weg, `WatchedAddressRules.merge`)
             if let watched {
                 try steps.run({
@@ -335,7 +335,7 @@ enum BackupManager {
         }
         // Kurs-Mitteilungen der bisherigen Paare erst nach Erfolg entfernen (beim Rückrollen bleiben sie)
         old.watches.forEach { Notifier.cancelPrice($0.id) }
-        // Seit Build 104: Alarme ersetzt (Ids der Sicherung können sich mit bisherigen decken) — alte Vermerke
+        // Alarme ersetzt (Ids der Sicherung können sich mit bisherigen decken) — alte Vermerke
         // «wird gemeldet» gelten nicht mehr (wie Android)
         AlarmDelivery.pairs.removeAll()
         if portfolioAlarms != nil { AlarmDelivery.portfolio.removeAll() }
@@ -343,7 +343,7 @@ enum BackupManager {
                              droppedPairs: watchlist.droppedPairs, droppedAlarms: watchlist.droppedAlarms)
     }
 
-    /// Journal vor dem ersten Schreiben (seit Build 102 Pflicht, wie Android `RestoreRun`): ohne bisherigen Stand
+    /// Journal vor dem ersten Schreiben (Pflicht, wie Android `RestoreRun`): ohne bisherigen Stand
     /// (`previous` nil) oder ohne geschriebenes Journal `Failure.journalUnavailable` — dann wird nichts ersetzt.
     static func requireJournal(_ previous: Data?, write: (Data) -> Bool) throws {
         guard let previous, write(previous) else { throw Failure.journalUnavailable }

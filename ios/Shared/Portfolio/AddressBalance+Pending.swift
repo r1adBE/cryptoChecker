@@ -18,8 +18,8 @@ extension AddressBalance {
 
     /// Zählende Adressen (`countInPortfolio`), deren Guthaben noch nie geladen wurde (z. B. frisch wiederhergestellt, xpub
     /// ohne Zwischenspeicher im Hintergrund) und die noch «laden» (`AddressAlarmState.isPending`): sie fehlen in `holdings`,
-    /// der Gesamtwert ist dann zu tief — Portfolio-Alarme prüfen nicht (`PortfolioReading.addressesPending`). Seit Build 95
-    /// zählt eine Adresse, die seit über 24 Stunden scheitert, nicht mehr (`AddressAlarmState.failing`). Regeln wie
+    /// der Gesamtwert ist dann zu tief — Portfolio-Alarme prüfen nicht (`PortfolioReading.addressesPending`).
+    /// Eine Adresse, die seit über 24 Stunden scheitert, zählt nicht (`AddressAlarmState.failing`). Regeln wie
     /// `AddressAlarmState.of`.
     static func pendingCount(_ addresses: [WatchedAddress], now: Int64) -> Int {
         AddressAlarmState.of(addresses, now: now).pending

@@ -262,7 +262,7 @@
         <item quantity="other">بدون %1$d سکه بدون قیمت خرید (%2$s) – قیمت‌ها را وارد کن تا حساب شوند.</item>
     </plurals>
 
-    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
     <string name="portfolio_usdt_break">سقوط USDT – بازار در %1$s USD</string>
     <string name="portfolio_usdt_via_usdc">نرخ دلاری USDT از طریق USDC/USDT – اگر USDC افت کند، این مقدار درست نیست</string>
     <string name="portfolio_amount_bridged_stable">≈ شامل %1$s (پل‌شده)</string>
@@ -296,7 +296,7 @@
         <item quantity="one">%d تراکنش حذف می‌شود. می‌توانی بلافاصله پس از آن، این کار را واگرد کنی.</item>
         <item quantity="other">%d تراکنش حذف می‌شود. می‌توانی بلافاصله پس از آن، این کار را واگرد کنی.</item>
     </plurals>
-    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
     <string name="portfolio_coin_delete_fee_refs">کارمزدهای پرداخت‌شده با %1$s از تراکنش‌های دیگر هم حذف می‌شوند: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

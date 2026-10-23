@@ -78,7 +78,7 @@ class PortfolioWidgetMathTest {
         assertEquals(0.0, PortfolioWidgetMath.sharePercent(10.0, 0.0), 0.0)
         assertEquals(100.0, PortfolioWidgetMath.sharePercent(10.0, 5.0), 0.0)
         assertEquals("62.3%", PortfolioWidgetMath.shareText(62.34, Locale.US))
-        // seit Build 96 über PercentText: Deutsch mit geschütztem Abstand, Türkisch «%» vorn
+        // Über PercentText: Deutsch mit geschütztem Abstand, Türkisch «%» vorn
         assertEquals("62,3\u00A0%", PortfolioWidgetMath.shareText(62.34, Locale.GERMANY))
         assertEquals("%62,3", PortfolioWidgetMath.shareText(62.34, Locale.forLanguageTag("tr-TR")))
         assertEquals("62.3%", PortfolioWidgetMath.shareText(62.34, Locale.forLanguageTag("de-CH")))

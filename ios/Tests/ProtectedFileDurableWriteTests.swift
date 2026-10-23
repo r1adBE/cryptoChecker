@@ -2,8 +2,8 @@ import CryptoKit
 import XCTest
 @testable import CryptoChecker
 
-/// Versiegeltes Schreiben über eine Nachbardatei (F_FULLFSYNC bzw. seit Build 103 für Kurse F_BARRIERFSYNC vor `rename`) und der Widget-Stand mit
-/// `requireSealed`: ohne lesbaren Schlüssel nie Klartext, der letzte versiegelte Stand bleibt.
+/// Versiegeltes Schreiben über eine Nachbardatei (F_FULLFSYNC bzw. für Kurse F_BARRIERFSYNC vor `rename`) und der
+/// Widget-Stand mit `requireSealed`: ohne lesbaren Schlüssel nie Klartext, der letzte versiegelte Stand bleibt.
 final class ProtectedFileDurableWriteTests: XCTestCase {
     private var dir: URL!
     private let key = SymmetricKey(data: Data(repeating: 9, count: 32))
@@ -34,7 +34,7 @@ final class ProtectedFileDurableWriteTests: XCTestCase {
         XCTAssertEqual(names, ["portfolio_widget.json"], "keine .tmp-Datei darf liegen bleiben")
     }
 
-    /// Seit Build 103: Reine Kurs-Speicherung (Live-Takt) mit F_BARRIERFSYNC und ohne Nachlesen, sonst F_FULLFSYNC mit
+    /// Reine Kurs-Speicherung (Live-Takt) mit F_BARRIERFSYNC und ohne Nachlesen, sonst F_FULLFSYNC mit
     /// Nachlesen — beide versiegelt, lesbar und ohne liegen gebliebene Nachbardatei.
     func testKursSpeicherungMitBarriereStrukturVoll() throws {
         XCTAssertEqual(ProtectedFile.Durability.full.syncCommand, F_FULLFSYNC)

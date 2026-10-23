@@ -96,7 +96,7 @@ internal fun PortfolioWidgetRenderer.listViews(
 }
 
 /**
- * Total-Zeile der Liste, gestaltet wie die Listenzeilen (Build 46: [wide] einzeilig wie
+ * Total-Zeile der Liste, gestaltet wie die Listenzeilen ([wide] einzeilig wie
  * widget_portfolio_list_item_wide.xml, sonst zweizeilig wie widget_portfolio_list_item.xml):
  * links «Gesamt» (fett wie das Kürzel) und «100%» (wie der Anteil), rechts der Wert (Währung klein und
  * grau; verborgen «•••») und MEIN Gewinn/Verlust wie in den Zeilen («24h +1’500.00 CHF · +1.61%», Zeitraum

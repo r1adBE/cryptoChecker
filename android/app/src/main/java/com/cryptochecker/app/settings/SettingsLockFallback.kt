@@ -13,7 +13,7 @@ import timber.log.Timber
 import java.io.IOException
 
 /**
- * Seit Build 102: Die Portfolio-Sperre ist kein «fail-open» mehr. Bis Build 101 stand sie nach einer beschädigten
+ * Die Portfolio-Sperre ist kein «fail-open» mehr. Früher stand sie nach einer beschädigten
  * Einstellungsdatei (ersetzt durch Standardwerte, Sperre aus) oder einem Lesefehler still auf «aus» — wer das Gerät in
  * der Hand hatte, sah das Portfolio. Jetzt gilt der Wert als unbekannt und damit als «an» ([effective]):
  *  - Datei beschädigt: vorgemerkt in [StorageRecoveryNotice.recordSettingsReset] (eigene Ablage, nicht die kaputte

@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">العرض</string>
     <string name="widget_portfolio_display_conversion">التحويل فقط</string>
     <string name="widget_portfolio_display_conversion_usdt">التحويل + USDT</string>
-    <string name="widget_portfolio_display_hint">يُخفى سطر USDT عندما تكون عملة التحويل هي USD.</string>
+    <string name="widget_portfolio_display_hint">يُخفى سطر USDT عندما تكون عملة التحويل عملة مستقرة مرتبطة بالدولار (مثل USDC).</string>
     <string name="widget_portfolio_display_usdt">USDT فقط</string>
     <string name="widget_portfolio_empty">أضف عمليات الشراء في تبويب «المحفظة»</string>
     <string name="widget_portfolio_list_hint">افتح التطبيق لعرض مراكزك هنا.</string>

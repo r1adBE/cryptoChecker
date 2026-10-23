@@ -22,7 +22,7 @@ import java.time.ZoneId
 import java.util.TreeMap
 
 /**
- * Build 76 (Portfolio-Speicher und Steuer-Export): Devisenkurs je Tag ohne Durchsuchen der ganzen Reihe, Zeitzone je
+ * Portfolio-Speicher und Steuer-Export: Devisenkurs je Tag ohne Durchsuchen der ganzen Reihe, Zeitzone je
  * Vorlage, AT-Freigrenze Altbestand, Gebühr-Zeile und Zins als eigene Merker, exakter Zufluss, Vorschlag «Umbuchung».
  * Wie `PortfolioStorageTaxB76Tests.swift`.
  */
@@ -149,7 +149,7 @@ class PortfolioStorageTaxB76Test {
         // Ausdrücklich false bleibt false, auch wenn die frühere Regel true ergäbe
         val explicit = JSONObject(json.toString()).put("feeRow", false)
         assertFalse(PortfolioJson.jsonToTx(explicit)!!.feeRow)
-        // Sicherung bis Build 75 (ohne Feld): einmal nach der früheren Regel
+        // Ältere Sicherung (ohne Feld): einmal nach der früheren Regel
         val old = JSONObject(json.toString()).apply { remove("feeRow"); remove("interest") }
         assertTrue(PortfolioJson.jsonToTx(old)!!.feeRow)
         val reward = JSONObject()

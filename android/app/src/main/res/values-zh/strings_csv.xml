@@ -40,7 +40,7 @@
     <string name="portfolio_csv_import_transfers_hint">同一币种的一笔提现和与之匹配的充值合并为一次转移：买入价和持有期保留，差额计为网络手续费。</string>
     <string name="portfolio_csv_import_transfers_title">你的账户之间的转移</string>
     <string name="portfolio_csv_import_unreadable">未找到支持的交易。支持：Relai、Swissquote、Kraken、Binance、Coinbase 和 Bitpanda 导出的 CSV。</string>
-    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
     <string name="portfolio_csv_import_too_large">文件过大，无法导入（上限 16 MB、%1$s 行）。请分成较短的时间段导出，再依次导入。</string>
     <string name="portfolio_csv_import_failed">导入失败，未保存任何内容。请重试。</string>
     <string name="portfolio_csv_import_locked">无法导入：暂时无法读取已保存的数据。请重启应用。</string>

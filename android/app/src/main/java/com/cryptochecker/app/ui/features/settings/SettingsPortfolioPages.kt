@@ -66,7 +66,7 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                 val unavailableText = stringResource(R.string.app_lock_unavailable)
                 val haptics = rememberHaptics()
                 val reason = stringResource(R.string.portfolio_lock_reason)
-                // Build 46: ohne Displaysperre (PIN/Muster/Passwort) hebt sich die Sperre selbst auf
+                // Ohne Displaysperre (PIN/Muster/Passwort) hebt sich die Sperre selbst auf
                 // (AppLock.requireUnlock) — das hier ehrlich sagen; beim Zurückkehren neu prüfen
                 var deviceSecure by remember { mutableStateOf(AppLockAuth.canAuthenticate(context)) }
                 LifecycleResumeEffect(Unit) {
@@ -115,7 +115,7 @@ internal fun PortfolioPage(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                     )
                 }
             }
-            // Build 46: Methode und Steuer-Vorlage erst mit eingeschaltetem Portfolio (wer nur Alarme will, sieht
+            // Methode und Steuer-Vorlage erst mit eingeschaltetem Portfolio (wer nur Alarme will, sieht
             // keine Buchhaltung); die Werte bleiben beim Ausblenden erhalten
             if (settings.portfolioEnabled) {
                 RowDivider()

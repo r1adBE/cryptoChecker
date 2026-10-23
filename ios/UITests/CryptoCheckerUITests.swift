@@ -44,8 +44,8 @@ final class CryptoCheckerUITests: XCTestCase {
         tap(app, UiTestTags.alarmSave)
 
         allowNotificationsIfAsked()
-        // Allererster Alarm (leerer Speicher: immer): die Bestätigung muss kommen (seit Build 105 Pflicht, vorher
-        // optional). Hauptknopf öffnet «Damit Alarme ankommen» als Blatt, «OK» schliesst es
+        // Allererster Alarm (leerer Speicher: immer): die Bestätigung muss kommen (Pflicht).
+        // Hauptknopf öffnet «Damit Alarme ankommen» als Blatt, «OK» schliesst es
         let check = app.alerts.firstMatch.buttons["Check that alerts arrive"]
         XCTAssertTrue(check.waitForExistence(timeout: uiTimeout), "first-alert explanation not shown")
         check.tap()
@@ -277,7 +277,7 @@ final class CryptoCheckerUITests: XCTestCase {
     }
 
     /// Hinweise der App mit «OK» schliessen; ohne Hinweis nichts. Über die Beschriftung, nicht die Stelle: mit
-    /// drei Knöpfen stehen sie untereinander und «OK» (Abbrechen-Rolle) unten. Seit Build 105 nur «OK»: ein
+    /// drei Knöpfen stehen sie untereinander und «OK» (Abbrechen-Rolle) unten. Nur «OK»: ein
     /// unerwarteter Hinweis ohne «OK» lässt den Test scheitern (statt irgendeinen Knopf zu tippen).
     @MainActor
     private func dismissAppAlerts(_ app: XCUIApplication) {

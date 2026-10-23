@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">Alarm portofolio dijeda: tidak ada harga terkini untuk %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Alarm portofolio dijeda: tidak semua koin memiliki harga terkini</string>
     <string name="portfolio_alarms_paused_addresses">Alarm portofolio dijeda: saldo alamat yang dipantau belum dimuat</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Alarm portofolio dijeda: saldo token %1$s sebagian usang</string>
     <string name="portfolio_alarms_paused_tokens_generic">Alarm portofolio dijeda: saldo token alamat yang dipantau sebagian usang</string>
     <string name="portfolio_alarms_paused_unverified">Alarm portofolio dijeda: harga belum diperiksa untuk %1$s</string>

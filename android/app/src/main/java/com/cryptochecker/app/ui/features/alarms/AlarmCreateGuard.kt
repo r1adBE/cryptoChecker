@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Ein neuer Alarm zur Zeit: Ein zweiter Tipp auf «Speichern» bzw. eine Vorlage, während das erste Anlegen noch läuft,
- * legte sonst einen zweiten, gleichen Alarm an (zwei INSERTs mit id 0). Seit Build 98; wie `AlarmCreateGuard` (iOS).
+ * legte sonst einen zweiten, gleichen Alarm an (zwei INSERTs mit id 0). Wie `AlarmCreateGuard` (iOS).
  * Der Alarm-Editor sperrt auch beim Bearbeiten (feste id): sonst doppelte Haptik und Bestätigung (IOS6-01).
  */
 class AlarmCreateGuard {

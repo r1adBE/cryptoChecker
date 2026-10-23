@@ -29,7 +29,7 @@ Behaviour:
     check); once everything is healthy again the issue is closed. The job stays green
     for these findings; exit 1 only if the issue itself could not be handled.
     Without GitHub Actions / GH_TOKEN (local run) or with --dry-run: print only.
-  - Two steps in the workflow (since Build 103), so the token never shares a step with
+  - Two steps in the workflow, so the token never shares a step with
     the third-party pages: --skip-health builds events.json and status.json without
     a token and without the issue; --health-only downloads nothing, reads both files
     and handles the issue (needs GH_TOKEN).
@@ -262,7 +262,7 @@ def parse_bea(page):
 
 # --------------------------------------------------------------------------- network
 
-# Largest page read (since build 104): the schedule pages are well below 1 MB; more is cut off as an error
+# Largest page read: the schedule pages are well below 1 MB; more is cut off as an error
 MAX_PAGE_BYTES = 5 * 1024 * 1024
 
 

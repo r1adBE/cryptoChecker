@@ -6,8 +6,8 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 
 /**
- * Reihenfolge der Hinweise über der App ([StorageRecoveryNotice.next]) samt «Einstellungen zurückgesetzt»
- * (seit Build 97) — gleiche Fälle wie iOS `SettingsResetNoticeTests`.
+ * Reihenfolge der Hinweise über der App ([StorageRecoveryNotice.next]) samt «Einstellungen zurückgesetzt» —
+ * gleiche Fälle wie iOS `SettingsResetNoticeTests`.
  */
 class SettingsResetNoticeTest {
 

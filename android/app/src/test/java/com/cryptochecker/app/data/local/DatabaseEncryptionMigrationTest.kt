@@ -143,7 +143,7 @@ class DatabaseEncryptionMigrationTest {
 
     @Test
     fun requiredExistingPlaintextWithoutKeyKeepsWorkingUntouched() {
-        // Alte unverschlüsselte Datei aus einem früheren Fehlschlag: seit Build 91 nur gelesen (Inhalt im Arbeitsspeicher),
+        // Alte unverschlüsselte Datei aus einem früheren Fehlschlag: nur gelesen (Inhalt im Arbeitsspeicher),
         // nie weitergeschrieben wie iOS — und nie Daten verlieren: die Datei bleibt, wie sie ist
         val keys = FakeKeys(KeyLookup.Absent).apply { failCreate = true }
         val files = FakeFiles(FileKind.PLAINTEXT, content)
@@ -163,7 +163,7 @@ class DatabaseEncryptionMigrationTest {
 
     @Test
     fun requiredExistingPlaintextWithFailedMigrationIsOnlyRead() {
-        // Seit Build 93: Schlüssel da, Überführung scheitert → wie ohne Schlüssel nur gelesen (Inhalt im Arbeitsspeicher),
+        // Schlüssel da, Überführung scheitert → wie ohne Schlüssel nur gelesen (Inhalt im Arbeitsspeicher),
         // nie im Klartext weitergeschrieben; Datei unberührt, Kopie weg, nächster Start versucht es erneut
         for (step in listOf("checkpoint", "fingerprintOriginal", "export", "fingerprintCopy", "deleteSidecars", "replace")) {
             val files = FakeFiles(FileKind.PLAINTEXT, content).apply { failAt = step }
@@ -216,7 +216,7 @@ class DatabaseEncryptionMigrationTest {
             // Verschlüsselte Datei: eigene Regeln, nie unverschlüsselt
             assertEquals(OpenPlan.ENCRYPTED, plan(FileKind.ENCRYPTED, false, required))
         }
-        // Schon unverschlüsselt vorhanden: ohne Pflicht weiter wie bisher, mit Pflicht nur gelesen (seit Build 91, wie iOS)
+        // Schon unverschlüsselt vorhanden: ohne Pflicht weiter wie bisher, mit Pflicht nur gelesen (wie iOS)
         assertEquals(OpenPlan.PLAINTEXT, plan(FileKind.PLAINTEXT, false, false))
         assertEquals(OpenPlan.COPY_TO_MEMORY, plan(FileKind.PLAINTEXT, false, true))
         assertEquals(OpenPlan.PLAINTEXT, plan(FileKind.ABSENT, false, false))

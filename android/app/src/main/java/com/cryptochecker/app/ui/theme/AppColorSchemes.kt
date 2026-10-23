@@ -11,10 +11,10 @@ import com.cryptochecker.app.settings.AccentColor
  * Erzeugt aus den Grundfarben (Orange #ED835E, Rubinrot #E8414D,
  * Königsblau #3B78F0, Smaragdgrün #22A96C, Marrs Green #4BACA5) nach dem Tonstufen-Prinzip von Material 3:
  * gleicher Farbton, abgestufte Helligkeit. Hintergründe, Flächen und Karten
- * sind dunkel neutral grau, hell «warmes Papier» (K-9, Build 46: #FBF9F6 … #E5E2DB, je mindestens
+ * sind dunkel neutral grau, hell «warmes Papier» (K-9: #FBF9F6 … #E5E2DB, je mindestens
  * so hell wie die früheren Grautöne #F9F9F9 … #E2E2E2, damit kein Kontrast sinkt) — die
  * Akzentfarbe steckt nur in Knöpfen, Schaltern und Hervorhebungen. Gleiche Werte: iOS `ColorTokens`.
- * Trennlinien hell (`outlineVariant`, Build 58): #ADA9A0 ≈ 2.2:1 auf #FBF9F6 (vorher #C9C6BF 1.6:1, kaum sichtbar);
+ * Trennlinien hell (`outlineVariant`): #ADA9A0 ≈ 2.2:1 auf #FBF9F6 (vorher #C9C6BF 1.6:1, kaum sichtbar);
  * bewusst unter 3:1 — Linien trennen nur, die einzige Kontur eines Bedienelements ist `outline`.
  *
  * Kontrast (WCAG AA ≥ 4.5:1, geprüft in AccentContrastTest): primary hell auf der dunkelsten

@@ -12,7 +12,7 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 
 /**
- * Seit Build 102: beiseitegelegte Kopien nach Frist und bestätigtem Hinweis löschen ([AsideRetention],
+ * Beiseitegelegte Kopien nach Frist und bestätigtem Hinweis löschen ([AsideRetention],
  * [DatabaseEncryptionMigration.pruneAside]) — nie die aktuelle Datei, frühere Schlüssel danach im selben Lauf.
  */
 class AsideRetentionTest {

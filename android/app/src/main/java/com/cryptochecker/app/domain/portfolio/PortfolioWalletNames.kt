@@ -4,7 +4,7 @@ import java.text.Normalizer
 import java.util.Locale
 
 /**
- * Build 46: Namen von Börsen/Wallets bei der Eingabe (Umbuchung «Von»/«Nach»). Bei FIFO je Wallet ist
+ * Namen von Börsen/Wallets bei der Eingabe (Umbuchung «Von»/«Nach»). Bei FIFO je Wallet ist
  * jeder anders geschriebene Name ([PortfolioWallets.key]) eine eigene Wallet — «Binanse» statt «Binance»
  * hätte einen zweiten Topf. Deshalb: bekannte Namen vorschlagen ([suggestions]) und bei einem fast
  * gleichen Namen nachfragen ([nearDuplicate], «Meintest du Binance?»).

@@ -26,7 +26,7 @@ Subcommands:
       Also runs the privacy check below against the manifest in the app bundle.
 
   privacy <ios source dir> <findings>
-      Since build 105 (SEC3-01): Required Reason APIs in the Swift sources of App, Shared and Widgets
+      SEC3-01: Required Reason APIs in the Swift sources of App, Shared and Widgets
       (system boot time, disk space, active keyboards, file timestamps, user defaults) against the
       NSPrivacyAccessedAPITypes of ios/App/PrivacyInfo.xcprivacy (used by app and widget):
         error   API used but its category missing in the manifest (App Store Connect rejects the
@@ -51,12 +51,12 @@ SIGNING = re.compile(r"(development team|code ?sign|signing|provisioning profile
                      r"No Accounts|requires a provisioning)", re.IGNORECASE)
 COMPILE_ERROR = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? error: (.*)$")
 WARNING = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? warning: (.*)$")
-# Ceiling for unique compiler warnings of the Release build: the count of Build 99 (94). Above it the build got noisier
+# Ceiling for unique compiler warnings of the Release build: the count when it was set (94). Above it the build got noisier
 # -> error, so new warnings are fixed instead of piling up; lower the ceiling whenever warnings are removed.
 MAX_COMPILER_WARNINGS = 94
 
 # Required Reason APIs (Apple, «Describing use of required reason API»), as they appear in Swift: category -> patterns.
-# Comments are removed before the scan, so a comment naming an API does not count (since build 106 string-aware:
+# Comments are removed before the scan, so a comment naming an API does not count (string-aware:
 # "//" or "/*" inside a string literal opens no comment, SEC4-01).
 REQUIRED_REASON_APIS = {
     "NSPrivacyAccessedAPICategorySystemBootTime": (
@@ -214,9 +214,9 @@ def binary_hits(binary):
 
 
 def strip_comments(text):
-    """Swift comments (line, nested block) -> spaces, newlines kept (line numbers stay). Since build 106 (SEC4-01) a
+    """Swift comments (line, nested block) -> spaces, newlines kept (line numbers stay). SEC4-01: a
     small tokenizer: string literals (plain, multi-line, raw #"..."# with escapes and interpolation) are skipped,
-    so "a//b" or "/0/*" no longer hides the code after it. Since build 107 (REL5-R1) extended regex literals #/.../#
+    so "a//b" or "/0/*" no longer hides the code after it. REL5-R1: extended regex literals #/.../#
     (any number of #, multi-line when #/ ends the line, spaces/tabs/CR allowed) are skipped too, so #/a//b/# hides nothing. Bare /.../ literals
     are not recognised on purpose: they need Swift 6 mode or -enable-bare-slash-regex (the app builds with Swift 5),
     and telling them apart from division needs a parser - a wrong guess would blank real code."""
@@ -401,7 +401,7 @@ def self_test():
         ("// statt `systemUptime` (seit Build 105)\nlet s = clock_gettime_nsec_np(CLOCK_MONOTONIC)", []),
         ("/* mach_absolute_time()\n systemUptime */ let x = 1", []),
         ('let u = "https://example.com" // systemUptime', []),
-        # Since build 106 (SEC4-01): comment markers inside strings hide nothing; more FileTimestamp functions
+        # SEC4-01: comment markers inside strings hide nothing; more FileTimestamp functions
         ('let p = "a//b"; let t = ProcessInfo.processInfo.systemUptime', ["NSPrivacyAccessedAPICategorySystemBootTime"]),
         ('let a = ["/0/*"]\nlet t = ProcessInfo.processInfo.systemUptime\nlet b = "*/"',
          ["NSPrivacyAccessedAPICategorySystemBootTime"]),
@@ -412,7 +412,7 @@ def self_test():
         ("let n = fgetattrlist(fd, &list, buf, size, 0)", ["NSPrivacyAccessedAPICategoryFileTimestamp"],
          {"NSPrivacyAccessedAPITypes": []}),
         ("/* a /* nested */ systemUptime */ let x = 1", []),
-        # Since build 107 (REL5-R1): extended regex literals hide nothing; a regex in a comment or string stays inert
+        # REL5-R1: extended regex literals hide nothing; a regex in a comment or string stays inert
         ("let r = #/a//b/#; let t = mach_absolute_time()", ["NSPrivacyAccessedAPICategorySystemBootTime"]),
         ("let r = #/https?://x/#; let t = ProcessInfo.processInfo.systemUptime",
          ["NSPrivacyAccessedAPICategorySystemBootTime"]),
@@ -487,7 +487,7 @@ def cmd_app(app, widget, gradle, src, log, out):
     if not os.path.isfile(os.path.join(app, "PrivacyInfo.xcprivacy")):
         add("error", "PrivacyInfo.xcprivacy missing in the app bundle")
     else:
-        # Seit Build 105 (SEC3-01): Required-Reason-APIs der Quellen gegen das Manifest im Bundle
+        # SEC3-01: Required-Reason-APIs der Quellen gegen das Manifest im Bundle
         privacy_from_files(src, os.path.join(app, "PrivacyInfo.xcprivacy"))
     appex = os.path.join(app, "PlugIns", f"{widget}.appex")
     binaries = [os.path.join(app, str(info.get("CFBundleExecutable", "CryptoChecker")))]

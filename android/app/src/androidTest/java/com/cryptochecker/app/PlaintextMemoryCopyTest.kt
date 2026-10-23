@@ -17,7 +17,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Seit Build 91 (Entscheid «Android wie iOS»): Eine alte unverschlüsselte Merkliste bzw. ein Portfolio ohne Schlüssel wird
+ * Entscheid «Android wie iOS»: Eine alte unverschlüsselte Merkliste bzw. ein Portfolio ohne Schlüssel wird
  * nur gelesen — der Inhalt kommt in die Datenbank im Arbeitsspeicher, Änderungen erreichen die Datei nie. Echtes SQLite:
  * Spalten in anderer Reihenfolge (Room-Migrationen hängen Spalten hinten an), Datei danach byte-gleich, anderes Schema
  * kopiert nichts.

@@ -44,7 +44,7 @@
     <string name="portfolio_csv_import_transfers_hint">Nosto ja saman coinin vastaava talletus yhdistetään yhdeksi siirroksi: ostohinta ja omistusaika säilyvät, erotus lasketaan verkkomaksuksi.</string>
     <string name="portfolio_csv_import_transfers_title">Siirrot tiliesi välillä</string>
     <string name="portfolio_csv_import_unreadable">Tuettuja tapahtumia ei löytynyt. Tuetut: Relain, Swissquoten, Krakenin, Binancen, Coinbasen ja Bitpandan CSV-viennit.</string>
-    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
     <string name="portfolio_csv_import_too_large">Tiedosto on liian suuri tuotavaksi (enintään 16 Mt ja %1$s riviä). Vie lyhyempiä jaksoja ja tuo ne yksi kerrallaan.</string>
     <string name="portfolio_csv_import_failed">Tuonti epäonnistui – mitään ei tallennettu. Yritä uudelleen.</string>
     <string name="portfolio_csv_import_locked">Tuonti ei ole mahdollista: tallennettuja tietoja ei voi juuri nyt lukea. Käynnistä sovellus uudelleen.</string>

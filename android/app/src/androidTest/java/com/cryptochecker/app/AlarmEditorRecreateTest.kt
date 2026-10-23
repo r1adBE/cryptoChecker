@@ -34,7 +34,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Seit Build 107 (Review ARC5-R01): Merkliste wird nicht gespeichert, Alarm-Editor «Speichern» → Rückfrage F-08 offen →
+ * Review ARC5-R01: Merkliste wird nicht gespeichert, Alarm-Editor «Speichern» → Rückfrage F-08 offen →
  * Activity neu erstellt (Drehen, Dunkelmodus, Sprache) → «Trotzdem»: Der Editor schliesst sich im NEUEN Bildschirm, es gibt
  * genau einen Alarm und keinen Absturz. Vorher schloss der Rückruf nur den Editor der alten Komposition (der neue blieb mit
  * den Eingaben offen; ein zweites «Speichern» legte einen zweiten Alarm an). Erlaubnis erteilt [AppTestEnvironmentRule]

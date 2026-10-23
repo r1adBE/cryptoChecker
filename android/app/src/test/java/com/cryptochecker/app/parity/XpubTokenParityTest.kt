@@ -232,7 +232,7 @@ class XpubTokenParityTest {
             usedReceive = it["usedReceive"].list().map { i -> i.num()!!.toInt() },
             usedChange = it["usedChange"].list().map { i -> i.num()!!.toInt() },
             fullScan = it["fullScan"].num()!!.toLong(),
-            // Seit Build 102 (optional): zuletzt leere benutzte Adressen
+            // Optional: zuletzt leere benutzte Adressen
             emptyReceive = it["emptyReceive"]?.list()?.map { i -> i.num()!!.toInt() }.orEmpty(),
             emptyChange = it["emptyChange"]?.list()?.map { i -> i.num()!!.toInt() }.orEmpty(),
         )
@@ -276,7 +276,7 @@ class XpubTokenParityTest {
             assertEquals(if (c["mode"] == "FULL") 777L else old!!.fullScan, cache.fullScan)
             assertEquals("complete $name", e["complete"] as Boolean? ?: true, scan.complete)
         }
-        // Seit Build 94: Hintergrund mit Vorausblick; unvollständig und tiefer als zuletzt = nicht übernehmen
+        // Hintergrund mit Vorausblick; unvollständig und tiefer als zuletzt = nicht übernehmen
         assertEquals(g["backgroundLookahead"].num()!!.toInt(), XpubScan.BACKGROUND_LOOKAHEAD)
         g["keepBackground"].list().map { it.obj() }.forEach { c ->
             assertEquals(
@@ -284,7 +284,7 @@ class XpubTokenParityTest {
                 XpubScan.keepBackground(c["complete"] == true, c["sats"].num()!!.toLong(), c["lastBalance"] as String?),
             )
         }
-        // Seit Build 102 (F-16): benutzte Indizes optional — vollständige Suche sicher zu gross = schnell
+        // F-16: benutzte Indizes optional — vollständige Suche sicher zu gross = schnell
         fun ints(v: Any?) = v?.list()?.map { it.num()!!.toInt() }.orEmpty()
         g["modeFor"].list().map { it.obj() }.forEach { c ->
             val cache = (c["cache"] as Map<String, Any?>?)?.let {
@@ -300,11 +300,11 @@ class XpubTokenParityTest {
         val cache = XpubCache(listOf("a", "b"), listOf("c"), listOf(1), listOf(0), 42)
         assertEquals(cache, XpubCache.fromJson(XpubCache.toJson(cache)))
         assertEquals(listOf(1), XpubCache.fromJson(org.json.JSONObject("{\"r\":[\"a\",\"b\"],\"ru\":[1,5,-1,1]}"))!!.usedReceive)
-        // Seit Build 102: leere benutzte hin und zurück; nur benutzte Indizes bleiben
+        // Leere benutzte hin und zurück; nur benutzte Indizes bleiben
         val withEmpty = XpubCache(listOf("a", "b"), listOf("c"), listOf(0, 1), listOf(0), 42, emptyReceive = listOf(1), emptyChange = listOf(0))
         assertEquals(withEmpty, XpubCache.fromJson(XpubCache.toJson(withEmpty)))
         assertEquals(listOf(1), XpubCache.fromJson(org.json.JSONObject("{\"r\":[\"a\",\"b\"],\"ru\":[1],\"re\":[0,1,7]}"))!!.emptyReceive)
-        // Seit Build 102 (F-16): Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
+        // F-16: Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
         val limited = cache.copy(limitedFallback = true)
         assertEquals(true, XpubCache.toJson(limited).getBoolean("lf"))
         assertEquals(limited, XpubCache.fromJson(XpubCache.toJson(limited)))
@@ -346,7 +346,7 @@ class XpubTokenParityTest {
         val all = listOf(Bip32.Script.P2PKH, Bip32.Script.P2SH_P2WPKH, Bip32.Script.P2WPKH)
         assertEquals(all, XpubScan.scripts(xpub, null))
         assertEquals(all, XpubScan.scripts(xpub, XpubCache(listOf("a"), fullScan = 5)))
-        // Bis Build 46 mit benutzter Adresse = als P2PKH gefunden
+        // Wie in älteren Versionen: mit benutzter Adresse = als P2PKH gefunden
         assertEquals(listOf(Bip32.Script.P2PKH), XpubScan.scripts(xpub, XpubCache(listOf("a"), usedReceive = listOf(0))))
         assertEquals(listOf(Bip32.Script.P2WPKH), XpubScan.scripts(xpub, XpubCache(script = Bip32.Script.P2WPKH)))
         // Erster Typ mit Verlauf; keiner = null (wieder alle prüfen); nur einer = dieser

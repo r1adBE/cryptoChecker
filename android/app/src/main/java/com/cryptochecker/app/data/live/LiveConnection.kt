@@ -76,7 +76,7 @@ internal class LiveConnection(
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
-                // Übergrosse Nachricht verwerfen und trennen wie bei einem Fehler (seit Build 103). Die Grenze greift
+                // Übergrosse Nachricht verwerfen und trennen wie bei einem Fehler. Die Grenze greift
                 // erst nach dem Empfang: OkHttp liest (und entpackt bei permessage-deflate) die ganze Nachricht ohne
                 // eigene Obergrenze; iOS begrenzt im System (maximumMessageSize). Restrisiko: public/DEVELOPMENT.md.
                 if (LiveRules.isMessageTooLarge(text)) {
@@ -89,7 +89,7 @@ internal class LiveConnection(
             }
 
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-                // Binäre Nachricht (seit Build 104): zu gross → trennen; sonst als UTF-8-Text wie iOS (`.data`)
+                // Binäre Nachricht: zu gross → trennen; sonst als UTF-8-Text wie iOS (`.data`)
                 val text = binaryText(bytes)
                 if (text == null) {
                     Timber.d("Live-Kurse: %s binäre Nachricht zu gross (%d Byte)", spec.exchange, bytes.size)
@@ -154,7 +154,7 @@ internal class LiveConnection(
         private const val HEARTBEAT_CHECK_MILLIS = 5_000L
         private const val NORMAL_CLOSURE = 1000
 
-        /** Binäre Nachricht als Text (UTF-8, wie iOS); null = grösser als [LiveRules.MAX_MESSAGE_BYTES] (seit Build 104). */
+        /** Binäre Nachricht als Text (UTF-8, wie iOS); null = grösser als [LiveRules.MAX_MESSAGE_BYTES]. */
         fun binaryText(bytes: ByteString): String? =
             if (bytes.size > LiveRules.MAX_MESSAGE_BYTES) null else bytes.utf8()
     }

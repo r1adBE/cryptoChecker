@@ -1,6 +1,6 @@
 import Foundation
 
-/// Obergrenzen der Merkliste überall in der App (Entscheid Build 99): höchstens `maxPairs` Paare und je Paar
+/// Obergrenzen der Merkliste überall in der App: höchstens `maxPairs` Paare und je Paar
 /// `maxAlarmsPerPair` Alarme — beim Hinzufügen (einzeln, Sammelaufnahme, Start-Coins, DEX, Vorschau), beim Anlegen
 /// von Alarmen (Editor, Schnell-Alarme) und beim Wiederherstellen einer Sicherung (`BackupRestoreLimits`). Mehr Paare
 /// machen jede Aktualisierung, die Widgets und die Sicherung träge; mehr als zehn Alarme an einem Paar überblickt

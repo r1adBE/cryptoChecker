@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.portfolio
 
 /**
- * Portfolio ausgeschaltet (ab Werk seit Build 44, `AppSettings.portfolioEnabled`): was trotzdem geht
+ * Portfolio ausgeschaltet (ab Werk, `AppSettings.portfolioEnabled`): was trotzdem geht
  * und was das Portfolio-Widget dann zeigt. Reines Kotlin, testbar — gespiegelt in
  * `Shared/Portfolio/PortfolioOff.swift`.
  */
@@ -15,7 +15,7 @@ object PortfolioOff {
     fun enableOnSave(isNew: Boolean, portfolioEnabled: Boolean): Boolean = isNew && !portfolioEnabled
 
     /**
-     * Build 46: Nach dem Speichern der ERSTEN Transaktion (vorher keine, [hadTransactions] false) mit
+     * Nach dem Speichern der ERSTEN Transaktion (vorher keine, [hadTransactions] false) mit
      * ausgeschaltetem Portfolio fragen «Portfolio-Tab einschalten?» statt still einzuschalten
      * (Merkliste, Markt). «Später» behält die Transaktion, der Tab bleibt aus; danach wird nicht mehr gefragt.
      */

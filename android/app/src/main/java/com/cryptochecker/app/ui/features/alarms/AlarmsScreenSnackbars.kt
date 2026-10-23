@@ -73,7 +73,7 @@ internal suspend fun awaitAlarmDialogsClosed(firstAlarm: StateFlow<Boolean>, tim
  * «Rückgängig» nach einem Schnell-Alarm, das noch gezeigt werden muss: [alarmId] und Text der Snackbar, angelegt um
  * [createdAt]. Liegt im ViewModel ([AlarmUndoOffer]) statt im Bildschirm — öffnet «Prüfen» im Dialog nach dem
  * allerersten Alarm «Damit Alarme ankommen», verlässt der Bildschirm die Komposition; zurück erscheint die Snackbar
- * dann noch (Build 91), statt unbemerkt abgelaufen zu sein.
+ * dann noch, statt unbemerkt abgelaufen zu sein.
  */
 internal data class PendingAlarmUndo(val alarmId: Long, val text: String, val createdAt: Long) {
     /** Nicht ewig: Wer erst viel später zurückkommt, löscht den Alarm in der Liste. */

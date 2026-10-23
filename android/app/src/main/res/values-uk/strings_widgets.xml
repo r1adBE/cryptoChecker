@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Відображення</string>
     <string name="widget_portfolio_display_conversion">Лише перерахунок</string>
     <string name="widget_portfolio_display_conversion_usdt">Перерахунок + USDT</string>
-    <string name="widget_portfolio_display_hint">Рядок USDT приховано, якщо валюта перерахунку — USD.</string>
+    <string name="widget_portfolio_display_hint">Рядок USDT приховано, якщо валюта перерахунку — стейблкоїн у USD (наприклад, USDC).</string>
     <string name="widget_portfolio_display_usdt">Лише USDT</string>
     <string name="widget_portfolio_empty">Додай купівлі на вкладці «Портфель»</string>
     <string name="widget_portfolio_list_hint">Відкрий застосунок, щоб тут з’явилися твої позиції.</string>

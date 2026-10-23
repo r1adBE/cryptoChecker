@@ -31,7 +31,7 @@ enum VolumeDataSource {
 
     // Kerzen je Symbol (und Anzahl), kurz zwischengespeichert (auch «nicht gefunden»), mit Anbieter
     private static let lock = NSLock()
-    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock). Begrenzt seit Build 99 (`BoundedCache`).
+    // nonisolated(unsafe): jeder Zugriff nur unter `lock` (NSLock). Begrenzt (`BoundedCache`).
     nonisolated(unsafe) private static var cache = BoundedCache<String, (time: Int64, candles: Sourced<[MarketCandle]>?)>()
 
     /// Markt-Referenz (z. B. BTC/USDT für den Puls) direkt aus der Ausweich-Kette.
@@ -139,7 +139,7 @@ enum VolumeDataSource {
     /// Bewertet wird die letzte ABGESCHLOSSENE Stunde gegen die 24 davor — nach Uhrzeit, nicht nach
     /// Position: Kerzen werden je Stunde (`openTime / 1 h`, abgerundet) zusammengefasst, fehlende Stunden
     /// (Börsen lassen Stunden ohne Handel aus) zählen mit Volumen 0. Vorher war bei Lücken «die vorletzte
-    /// Kerze» womöglich Stunden alt und der Schnitt über mehr als 24 Stunden gerechnet (seit Build 95 wie Android).
+    /// Kerze» womöglich Stunden alt und der Schnitt über mehr als 24 Stunden gerechnet (jetzt wie Android).
     ///
     /// Laufende Stunde = die spätere aus Uhr (`now`) und neuester Kerze (Uhr des Geräts etwas nach).
     /// nil, wenn die Reihe nicht mehr läuft (`CandleSeries.isLive`) oder nicht alle 24 Vergleichsstunden

@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Build 46: alte Vorlagenfarben (purple_*, teal_*, green_500 #26DE9B, red_500, gray_*,
-         black/white, transparent_*) entfernt — nirgends verwendet. Farben stehen in
-         AppColorSchemes.kt, Widget-Farben in WidgetColors.kt / colors_widget_preview.xml. -->
+    <!-- Farben stehen in AppColorSchemes.kt, Widget-Farben in WidgetColors.kt / colors_widget_preview.xml. -->
 </resources>

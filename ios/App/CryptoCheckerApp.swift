@@ -169,7 +169,7 @@ struct CryptoCheckerApp: App {
                 // «Sicherung wiederherstellen» öffnet Einstellungen › Sicherung
                 .storageRecoveryNotice(onRestoreBackup: { router.openBackupSettings() })
                 // Abgebrochenes Wiederherstellen (Journal liegt noch da): Stand davor zurückschreiben, Hinweis vormerken;
-                // danach einmalig «fällt um ≥ 100 %»-Alarme ausschalten (seit Build 104)
+                // danach einmalig «fällt um ≥ 100 %»-Alarme ausschalten
                 .task { BackupManager.recoverInterruptedRestore(data); data.disableInvalidFallAlarmsOnce() }
                 // Portfolio-Sperre: gesperrt ist nur der Portfolio-Tab (RootView); hier nur der
                 // Sichtschutz im App-Umschalter, solange die Sperre an ist
@@ -196,7 +196,7 @@ struct CryptoCheckerApp: App {
                     let target = [url.host, url.path.isEmpty ? nil : String(url.path.dropFirst())]
                         .compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: "/")
                     // Fremde Links (andere Apps, Webseiten) nur zu harmlosen Zielen; Portfolio u. a. nur mit dem
-                    // Geheimnis der eigenen Widgets (`OpenTargetGuard`, seit Build 97, wie Android)
+                    // Geheimnis der eigenen Widgets (`OpenTargetGuard`, wie Android)
                     guard OpenTargetGuard.accepts(target, token: OpenTargetGuard.linkToken(of: url),
                                                   expected: OpenTargetGuard.token) else { return }
                     router.open(target)
@@ -255,8 +255,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         // Alarmtöne auch nach `Library/Sounds` der App Group: dort findet iOS sie sicher, wenn die Widget-Erweiterung
         // einen Kursalarm meldet (`AlarmSounds.installSharedSounds`, wiederholbar, kopiert nur Fehlendes/Geändertes)
         DispatchQueue.global(qos: .utility).async { AlarmSounds.installSharedSounds() }
-        // Keine Kennungen: Cookies/Cache-Antworten älterer Versionen weg (eigene Sitzungen speichern keine mehr, seit
-        // Build 99), ebenso ein nach Absturz oder Beenden liegen gebliebener Diagnosebericht im `tmp`-Ordner
+        // Keine Kennungen: Cookies/Cache-Antworten älterer Versionen weg (eigene Sitzungen speichern
+        // keine mehr), ebenso ein nach Absturz oder Beenden liegen gebliebener Diagnosebericht im `tmp`-Ordner
         DispatchQueue.global(qos: .utility).async {
             PrivateSessionConfig.clearSharedStores()
             DiagnosticsShareFile.remove()
@@ -315,7 +315,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
                     return written != nil && changed
                 }.value
                 guard saved else { return }
-                // Seit Build 93 auch im Speicher der App: Ein Speichern der App zwischen dem Schreiben oben und dem Neuladen
+                // Auch im Speicher der App: Ein Speichern der App zwischen dem Schreiben oben und dem Neuladen
                 // schrieb sonst ihr «aus» zurück (das Zusammenführen übernimmt die Datei nur bei neuerer Auslösung, das
                 // Einschalten ändert sie nicht) — der Alarm bliebe trotz «1 h später» aus. Gleiche Änderung wie auf der
                 // Datei, gespeichert wie der Schalter in der Liste; nur wenn der Alarm im Speicher steht (sonst nichts zu

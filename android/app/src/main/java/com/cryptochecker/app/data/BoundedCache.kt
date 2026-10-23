@@ -4,14 +4,14 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 /**
- * Übliche Grenze für Zwischenspeicher je Paar bzw. Coin im Arbeitsspeicher (seit Build 99): weit über einer
+ * Übliche Grenze für Zwischenspeicher je Paar bzw. Coin im Arbeitsspeicher: weit über einer
  * gewöhnlichen Merkliste bzw. einem Portfolio, aber nicht unbegrenzt über die Lebensdauer des Prozesses.
  */
 const val MEMORY_CACHE_ENTRIES = 512
 
 /**
  * Thread-sicherer Zwischenspeicher mit höchstens [maxEntries] Einträgen: der am längsten nicht benutzte fällt
- * heraus (LRU über `LinkedHashMap` in Zugriffsreihenfolge). Seit Build 98 statt einer unbegrenzten
+ * heraus (LRU über `LinkedHashMap` in Zugriffsreihenfolge). Statt einer unbegrenzten
  * `ConcurrentHashMap` — Paare, die einmal in der Merkliste standen, blieben sonst bis zum Prozessende im Speicher.
  */
 class BoundedCache<K : Any, V : Any>(private val maxEntries: Int) {

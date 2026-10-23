@@ -94,11 +94,11 @@ object LocaleNumbers {
             DecimalFormatSymbols.getInstance(inputLocale(app, region)).decimalSeparator
         )
 
-    /** Seit Build 103: Ergebnis von [usesIndianGrouping] je Locale (ICU-Formatierer sind teuer). */
+    /** Ergebnis von [usesIndianGrouping] je Locale (ICU-Formatierer sind teuer). */
     private val indianGroupingCache = java.util.concurrent.ConcurrentHashMap<Locale, Boolean>()
 
     /**
-     * Seit Build 103: Gruppiert [locale] Zahlen indisch, mit Zweier-Nebengruppen («1,00,000», z. B. hi-IN, en-IN)?
+     * Gruppiert [locale] Zahlen indisch, mit Zweier-Nebengruppen («1,00,000», z. B. hi-IN, en-IN)?
      * Aus den CLDR-Daten von ICU (`java.text` kennt keine Nebengruppen); ohne ICU (JVM-Tests) nein. Wie iOS
      * `NumberFormatter.secondaryGroupingSize`.
      */

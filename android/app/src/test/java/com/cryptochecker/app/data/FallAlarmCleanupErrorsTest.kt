@@ -6,7 +6,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Seit Build 106 (F-25): Die einmalige Bereinigung «fällt um ≥ 100 %» (Paar- und Portfolio-Alarme) zählt gefangene Fehler
+ * F-25: Die einmalige Bereinigung «fällt um ≥ 100 %» (Paar- und Portfolio-Alarme) zählt gefangene Fehler
  * im Bereich «alarms» ([com.cryptochecker.app.domain.diagnostics.BackgroundErrors.ALARMS]) — ausser «Schlüssel gerade
  * nicht lesbar» (kein Fehler, nur Hinweis; wie `appExceptionHandler`). Room läuft nur auf dem Gerät, darum am Quelltext.
  * iOS: `disableInvalidFallAlarmsOnce` wirft nicht (nicht lesbare Portfolio-Datei = Schlüssel fehlt, nicht gezählt).

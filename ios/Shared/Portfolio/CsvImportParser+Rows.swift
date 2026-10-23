@@ -45,7 +45,7 @@ extension CsvImportParser {
         }
         var parsed: [(row: CsvImportRow, sign: Int)] = []
         var skipped: [CsvImportSkip] = []
-        // Zeile → ursprünglicher Kauf/Verkauf (vor dem Tausch gegen Stablecoin), für die Schlüssel bis Build 46
+        // Zeile → ursprünglicher Kauf/Verkauf (vor dem Tausch gegen Stablecoin), für die früheren Schlüssel
         var origins: [Int: CsvImportRow] = [:]
         for rec in data {
             do {
@@ -65,8 +65,8 @@ extension CsvImportParser {
         // stabil nach Zeile (wie Android `sortBy`)
         skipped = skipped.enumerated().sorted { ($0.element.line, $0.offset) < ($1.element.line, $1.offset) }.map(\.element)
         let keys = CsvImport.withOccurrence(drafts.map(\.key))
-        // Frühere Schlüssel: Zeit in UTC je Zeitzone der Auswahl (bis Build 45), Kauf/Verkauf gegen Stablecoin noch
-        // als Kauf/Verkauf (bis Build 46) und Belohnung ohne Preis (bis Build 92) — ältere Importe weiter als Duplikat erkennen
+        // Frühere Schlüssel: Zeit in UTC je Zeitzone der Auswahl, Kauf/Verkauf gegen Stablecoin noch
+        // als Kauf/Verkauf und Belohnung ohne Preis — ältere Importe weiter als Duplikat erkennen
         let old: [CsvImportRow] = drafts.map { r in r.kind == .SWAP || r.kind == .REWARD ? (origins[r.line] ?? r) : r }
         let oldKeys = CsvImport.withOccurrence(old.map(\.key))
         var legacyZones: [String] = []
@@ -278,12 +278,12 @@ extension CsvImportParser {
 
         var price = try number(.price).map { $0 < 0 ? -$0 : $0 }
         if let p = price, p == 0 { price = nil }
-        // Belohnung mit Fiat-Betrag (seit Build 93, wie Coinbase/Bitpanda): Preis = Betrag / Menge — nur mit Geld als
+        // Belohnung mit Fiat-Betrag (wie Coinbase/Bitpanda): Preis = Betrag / Menge — nur mit Geld als
         // Preiswährung (Fiat oder USDT), sonst bliebe sie ohne Wert bzw. würde mangels Währung übersprungen. Wie Android
         let rewardValue = kind == .REWARD && (CsvImport.isFiat(quote) || quote == PortfolioStables.valuation)
         var derivedReward = false
         if price == nil && (kind == .BUY || kind == .SELL || rewardValue) {
-            // Belohnung mit unlesbarem Betrag: ohne Preis wie bis Build 92, nicht übersprungen
+            // Belohnung mit unlesbarem Betrag: ohne Preis wie früher, nicht übersprungen
             let fiatAmount: Decimal?
             if kind == .REWARD { fiatAmount = try? number(.fiatAmount) } else { fiatAmount = try number(.fiatAmount) }
             if let fiat = fiatAmount {
@@ -365,7 +365,7 @@ extension CsvImportParser {
             origins[rec.line] = draft
             return (swapped, sign)
         }
-        // Belohnung mit abgeleitetem Preis: bis Build 92 ohne Preis importiert — dieser Schlüssel bleibt als früherer
+        // Belohnung mit abgeleitetem Preis: früher ohne Preis importiert — dieser Schlüssel bleibt als früherer
         // (`CsvImportRow.legacyKeys`), sonst käme eine schon importierte Belohnung ein zweites Mal. Wie Android
         if derivedReward {
             var priceless = CsvImportRow(

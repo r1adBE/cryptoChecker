@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Build 46: Umbuchung, Belohnung, Ein-/Auszahlung und Gebühr in einem dritten Coin (`PortfolioLedger`) —
+/// Umbuchung, Belohnung, Ein-/Auszahlung und Gebühr in einem dritten Coin (`PortfolioLedger`) —
 /// wie `PortfolioTxTypesTest.kt`; gemeinsame Fälle in `Parity/portfolio.json`.
 final class PortfolioTxTypesTests: XCTestCase {
 
@@ -29,7 +29,7 @@ final class PortfolioTxTypesTests: XCTestCase {
     func testTypeNamesStayStable() {
         XCTAssertEqual(PortfolioTxType.allCases.map(\.rawValue),
                        ["BUY", "SELL", "TRANSFER", "REWARD", "DEPOSIT", "WITHDRAWAL", "SWAP", "GIFT", "PAYMENT"])
-        // Build 47: «Verschenkt» und «Damit bezahlt» als Text gespeichert (neue Fälle am Ende, alte Daten unverändert)
+        // «Verschenkt» und «Damit bezahlt» als Text gespeichert (neue Fälle am Ende, alte Daten unverändert)
         XCTAssertEqual(PortfolioTxType(rawValue: "GIFT"), .GIFT)
         XCTAssertEqual(PortfolioTxType(rawValue: "PAYMENT"), .PAYMENT)
         XCTAssertTrue(PortfolioTxType.GIFT.isOutflow && PortfolioTxType.GIFT.isWithdrawalLike && !PortfolioTxType.GIFT.isSaleLike)
@@ -216,7 +216,7 @@ final class PortfolioTxTypesTests: XCTestCase {
         XCTAssertEqual(file.dropped, 1)
     }
 
-    /// Build 58: Schenkung an Ehe-/Lebenspartner als eigenes Feld — übersteht Datei und Sicherung. Wie Android.
+    /// Schenkung an Ehe-/Lebenspartner als eigenes Feld — übersteht Datei und Sicherung. Wie Android.
     func testSpouseGiftFlagRoundTrips() throws {
         var gift = PortfolioTx(id: 8, coin: "BTC", type: .GIFT, amountExact: dec("0.1"), time: 12, exchange: "Ledger")
         gift.giftToSpouse = true
@@ -292,7 +292,7 @@ final class PortfolioTxTypesTests: XCTestCase {
         XCTAssertNil(BackupManager.jsonToTx(long)?.importBatch)
     }
 
-    /// Build 47: Damit bezahlt = Veräusserung zum Marktwert in allen Methoden; Abfluss wie ein Verkauf. Wie Android.
+    /// Damit bezahlt = Veräusserung zum Marktwert in allen Methoden; Abfluss wie ein Verkauf. Wie Android.
     func testPaymentIsDisposalAtMarketValueInEveryMethod() {
         let trades = [tx(1, "BTC", .BUY, "1", "100", day), tx(2, "BTC", .PAYMENT, "0.4", "300", 2 * day)]
         for m in [CostMethod.FIFO, .FIFO_WALLET, .AVERAGE] {
@@ -325,7 +325,7 @@ final class PortfolioTxTypesTests: XCTestCase {
         XCTAssertEqual(needs.map(\.time), [2 * day])
     }
 
-    /// Build 47: Verschenkt = beim Schenkenden keine Veräusserung — Karte und Einstandsmethoden wie eine Auszahlung; nur für
+    /// Verschenkt = beim Schenkenden keine Veräusserung — Karte und Einstandsmethoden wie eine Auszahlung; nur für
     /// UK/CA/AU als Veräusserung (`TaxEngines.applyRules`). Wie Android.
     func testGiftLeavesLikeWithdrawalAndIsDisposalOnlyWhereTemplateSaysSo() {
         let trades = [tx(1, "BTC", .BUY, "1", "100", day), tx(2, "BTC", .GIFT, "0.4", nil, 2 * day)]
@@ -375,7 +375,7 @@ final class PortfolioTxTypesTests: XCTestCase {
         XCTAssertEqual(btc.position.costBasisExact, dec("2000"))
     }
 
-    /// Build 76: Gebühr-Zeile nur mit eigenem Merker (`feeRow`) — ein Verkauf zum Preis 0 mit Import-Herkunft allein ist keine
+    /// Gebühr-Zeile nur mit eigenem Merker (`feeRow`) — ein Verkauf zum Preis 0 mit Import-Herkunft allein ist keine
     /// mehr; von Hand ein Verkauf eines wertlosen Coins. Wie Android.
     func testSaleIsFeeRowOnlyWithExplicitFlag() {
         let buy = tx(1, "BTC", .BUY, "1", "100", day)

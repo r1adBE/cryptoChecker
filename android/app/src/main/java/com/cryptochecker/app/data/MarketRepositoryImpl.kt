@@ -55,7 +55,7 @@ class MarketRepositoryImpl @Inject constructor(
             return MarketPairsInfo(lastSyncDate = 0, pairs = builtInPairs(builtIn))
         }
 
-        // Listen von vor Build 47: inverse Perpetuals wie heute als INVERSE_PERPETUAL
+        // Listen älterer Versionen: inverse Perpetuals wie heute als INVERSE_PERPETUAL
         val normalized = stored.withInversePerpetuals(market.key)
         val visible = when {
             normalized.pairs.none { it.tradFi } -> normalized

@@ -11,7 +11,7 @@ import kotlin.math.roundToInt
  * neutralen Grau gemischt. Nur für Flächen (Skala, Markierung), nie für Schrift; jede Stufe hält
  * ≥ 3:1 (Nicht-Text-Kontrast) auf allen Flächen bis #E2E2E2 bzw. #353535 (MarketScalePaletteTest).
  * Gilt für den Stufenpunkt der Fear-&-Greed-Karte ([MarketScaleColors]) und des Puls-Widgets
- * (Entscheid Build 80: Skala folgt den Kursfarben, passend zu den Pfeilen; früher eine feste Skala).
+ * (Entscheid: Skala folgt den Kursfarben, passend zu den Pfeilen; früher eine feste Skala).
  * Reines Kotlin, wie iOS `MarketScalePalette.swift`.
  */
 object MarketScalePalette {

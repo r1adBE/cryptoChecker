@@ -237,7 +237,7 @@ internal fun PricePairsPage(onBack: () -> Unit, viewModel: SettingsViewModel = h
             ) {
                 FilledTonalButton(
                     onClick = {
-                        // Seit Build 106 (UX4-R3): Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
+                        // UX4-R3: Erlaubnis erst nach dem Schreiben (nicht bei «Abbrechen» bzw. gesperrt)
                         viewModel.setAllPairNotifications(true, askPermissionAfterWrite(uiEvents.requestNotifications, true))
                     },
                     enabled = watches.any { !it.notificationEnabled },

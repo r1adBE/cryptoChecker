@@ -75,7 +75,7 @@ enum Notifier {
     /// Einstellung aus: kein Kennzeichen.
     static func badge(_ content: UNMutableNotificationContent, _ settings: AppSettings) {
         guard settings.appIconBadge else { return }
-        // Bis Build 74 stand der Zähler in den Defaults: ohne Datei dort weiterzählen
+        // In älteren Versionen stand der Zähler in den Defaults: ohne Datei dort weiterzählen
         let count = incrementBadge(at: badgeURL, fallback: SharedStorage.defaults.integer(forKey: badgeKey))
         content.badge = NSNumber(value: count)
     }
@@ -163,14 +163,14 @@ enum Notifier {
     static func priceId(_ watchId: Int64) -> String { "price-\(watchId)" }
     static func alarmId(_ alarmId: Int64) -> String { "alarm-\(alarmId)" }
 
-    /// Seit Build 103: Steht die Mitteilung des Paar-Alarms `id` noch in der Mitteilungszentrale? (Nach einem
-    /// Prozess-Ende zwischen Melden und Speichern, `AlarmDelivery.alreadyDelivered`.) Seit Build 104 nur, wenn sie ab
+    /// Steht die Mitteilung des Paar-Alarms `id` noch in der Mitteilungszentrale? (Nach einem
+    /// Prozess-Ende zwischen Melden und Speichern, `AlarmDelivery.alreadyDelivered`.) Nur, wenn sie ab
     /// dem Vermerk `markerAt` gezeigt wurde — eine ältere desselben Alarms zählt nicht (`AlarmDelivery.shownSinceMarker`).
     static func isAlarmDelivered(_ id: Int64, since markerAt: Int64) async -> Bool {
         await isDelivered(alarmId(id), since: markerAt)
     }
 
-    /// Seit Build 104: wie `isAlarmDelivered`, für Portfolio-Alarme.
+    /// Wie `isAlarmDelivered`, für Portfolio-Alarme.
     static func isPortfolioAlarmDelivered(_ id: Int64, since markerAt: Int64) async -> Bool {
         await isDelivered(portfolioAlarmId(id), since: markerAt)
     }
@@ -188,7 +188,7 @@ enum Notifier {
         center.removeDeliveredNotifications(withIdentifiers: [alarmId(id)])
     }
 
-    /// Seit Build 104: wie `cancelAlarm`, für Portfolio-Alarme.
+    /// Wie `cancelAlarm`, für Portfolio-Alarme.
     static func cancelPortfolioAlarm(_ id: Int64) {
         center.removeDeliveredNotifications(withIdentifiers: [portfolioAlarmId(id)])
     }

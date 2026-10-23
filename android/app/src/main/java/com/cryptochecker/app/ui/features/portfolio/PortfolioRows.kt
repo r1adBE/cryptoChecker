@@ -228,7 +228,7 @@ internal fun CoinRow(
                         }
                     }
                     // Anteil am Gesamtwert, daneben die Anzahl Transaktionen als kleine Zahl («88.9%  3»);
-                    // Build 46: dahinter die Börse des Kurses («· Kraken», nur mit eigener Börse) und nur bei
+                    // Dahinter die Börse des Kurses («· Kraken», nur mit eigener Börse) und nur bei
                     // veraltetem Kurs «veraltet» in Fehlerfarbe (wie die Merkliste). Fehlt Platz, kürzt
                     // zuerst die Börse, dann der Anteil; Zahl und «veraltet» bleiben ganz.
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -324,7 +324,7 @@ internal fun EmptyPortfolio(
     onImportCsv: (() -> Unit)? = null,
 ) {
     // Reihenfolge wie überall: Symbol → Titel → Text → Beispiel → Hauptknopf → Textknöpfe (wie iOS).
-    // Alltagssprache vor dem ersten Eintrag (Build 58): Beispiel ohne Kaufkurs in USDT, Hauptweg «Ersten Kauf
+    // Alltagssprache vor dem ersten Eintrag: Beispiel ohne Kaufkurs in USDT, Hauptweg «Ersten Kauf
     // eintragen»; Börsen-Datei und Adresse nur als Nebenwege darunter
     EmptyState(
         iconRes = R.drawable.ic_portfolio,

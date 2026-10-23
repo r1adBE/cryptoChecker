@@ -100,7 +100,7 @@ class AssetScopeTest {
         assertSame(info, info.scoped(AssetScope.TOKENS, "BinanceFutures"))
     }
 
-    /** Ab Build 43 für neue Installationen aus; bestehende behalten an ([InstallDefaultsTest]). */
+    /** Für neue Installationen aus; bestehende behalten an ([InstallDefaultsTest]). */
     @Test
     fun alpha_defaultExcludedForNewInstalls() {
         assertFalse(AppSettings().includeAlphaTokens)

@@ -42,9 +42,9 @@ import com.cryptochecker.app.R
 /**
  * «Neuer Alarm» ohne Paar: erst das Paar wählen, dann dessen Alarm-Seite (öffnet ohne Alarm gleich den Editor).
  * Eine Auswahl für die leere Alarm-Übersicht und die Glocke der Merkliste ohne Alarm
- * ([com.cryptochecker.app.domain.watch.AlarmBellRoute.PICK_PAIR]). Seit Build 103 ein Blatt mit Suchfeld, Favoriten
+ * ([com.cryptochecker.app.domain.watch.AlarmBellRoute.PICK_PAIR]). Ein Blatt mit Suchfeld, Favoriten
  * oben und Lazy-Liste (bis 2000 Paare); Zeilen als Knopf für Screenreader. iOS: `AlarmPairPicker`.
- * Seit Build 104: Zeilen ohne Kurs vorberechnet ([rows], [AlarmPickerRow]; null = noch nicht gerechnet), Titel als
+ * Zeilen ohne Kurs vorberechnet ([rows], [AlarmPickerRow]; null = noch nicht gerechnet), Titel als
  * Überschrift, «keine Treffer» als Live-Region, Favoriten mit Stern.
  */
 @Composable
@@ -73,7 +73,7 @@ internal fun AlarmPairPicker(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 8.dp),
             )
-            // Keine Treffer: der Screenreader sagt es beim Tippen an (Live-Region), seit Build 104
+            // Keine Treffer: der Screenreader sagt es beim Tippen an (Live-Region)
             if (shown != null && shown.isEmpty()) {
                 Text(
                     stringResource(R.string.watchlist_search_empty, query.trim()),
@@ -101,7 +101,7 @@ internal fun AlarmPairPicker(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
-                        // Favorit: Stern wie in der Merkliste, vorgelesen als «Favorit» (seit Build 104)
+                        // Favorit: Stern wie in der Merkliste, vorgelesen als «Favorit»
                         if (row.favorite) {
                             Icon(
                                 painterResource(R.drawable.ic_star),

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">هشدارهای سبد متوقف شده‌اند: قیمت فعلی برای %1$s وجود ندارد</string>
     <string name="portfolio_alarms_paused_price_generic">هشدارهای سبد متوقف شده‌اند: همه کوین‌ها قیمت فعلی ندارند</string>
     <string name="portfolio_alarms_paused_addresses">هشدارهای سبد متوقف شده‌اند: موجودی آدرس‌های تحت نظر هنوز بارگیری نشده است</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">هشدارهای سبد متوقف شده‌اند: موجودی توکن‌های %1$s تا حدی قدیمی است</string>
     <string name="portfolio_alarms_paused_tokens_generic">هشدارهای سبد متوقف شده‌اند: موجودی توکن‌های آدرس‌های تحت نظر تا حدی قدیمی است</string>
     <string name="portfolio_alarms_paused_unverified">هشدارهای سبد متوقف شده‌اند: قیمت %1$s بررسی‌نشده است</string>

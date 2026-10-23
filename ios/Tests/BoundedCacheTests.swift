@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Begrenzter Zwischenspeicher (`BoundedCache`, seit Build 99) — wie `BoundedCacheTest.kt` (Android).
+/// Begrenzter Zwischenspeicher (`BoundedCache`) — wie `BoundedCacheTest.kt` (Android).
 final class BoundedCacheTests: XCTestCase {
 
     func testHoechstensMaxEntriesDerAmLaengstenNichtBenutzteFaelltHeraus() {
@@ -37,7 +37,7 @@ final class BoundedCacheTests: XCTestCase {
         XCTAssertEqual(cache.count, 0)
     }
 
-    /// Seit Build 102 (eigene Kerzen, `OwnCandleDataSource.invalidate`): alle Einträge eines Paars entfernen.
+    /// Eigene Kerzen (`OwnCandleDataSource.invalidate`): alle Einträge eines Paars entfernen.
     func testRemoveKeysWhere() {
         var cache = BoundedCache<String, Int>(maxEntries: 4)
         cache.set("A", 1)

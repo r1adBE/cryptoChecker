@@ -28,7 +28,7 @@ import com.cryptochecker.app.ui.theme.Spacing
 import com.cryptochecker.app.util.BatteryOptimization
 import com.cryptochecker.app.work.ExactCheckScheduler
 
-// «Aktualisierung» (Build 46): Pünktlich prüfen, Akku-Hinweis, Letzte Prüfungen — wie iOS
+// «Aktualisierung»: Pünktlich prüfen, Akku-Hinweis, Letzte Prüfungen — wie iOS
 // `SettingsUpdateChecks.swift` (dort ohne Wecker und Akku: iOS entscheidet allein).
 
 /**

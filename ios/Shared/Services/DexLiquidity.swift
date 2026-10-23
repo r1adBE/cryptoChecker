@@ -28,7 +28,7 @@ enum DexLiquidity {
 /// abgeleiteter Marktwert, nicht in der Sicherung; fehlt er, gilt die Liquidität als unbekannt (kein Alarm bis zur
 /// nächsten Abfrage). Wie `DexLiquidityStore.kt`.
 enum DexLiquidityStore {
-    /// Ein Schlüssel je Pool (`PerKeyDefaults`); bis Build 101 ein Wörterbuch unter «dex_liquidity».
+    /// Ein Schlüssel je Pool (`PerKeyDefaults`); in älteren Versionen ein Wörterbuch unter «dex_liquidity».
     static let storage = PerKeyDefaults(prefix: "dex_liquidity.", legacyKey: "dex_liquidity")
     /// Einmal je Prozess vor dem ersten Zugriff (thread-sicher, `static let`).
     private static let migration: Void = storage.migrateLegacy(SharedStorage.defaults)

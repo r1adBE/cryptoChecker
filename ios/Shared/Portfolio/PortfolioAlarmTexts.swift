@@ -10,8 +10,8 @@ enum PortfolioAlarmTexts {
         PercentText.unsigned(value, decimals: 2)
     }
 
-    /// «+5.20%» / «−5.20%»; ±0 ohne Vorzeichen — wie Android `PortfolioSnapshotMath.signedPercent`. Seit Build 96
-    /// auch «0.00%» als links-nach-rechts-Insel (vorher ohne, anders als jeder andere Wert und als Android).
+    /// «+5.20%» / «−5.20%»; ±0 ohne Vorzeichen — wie Android `PortfolioSnapshotMath.signedPercent`.
+    /// Auch «0.00%» als links-nach-rechts-Insel (wie jeder andere Wert und wie Android).
     /// `language` nur für Tests (RTL-Sprache).
     static func signedPercent(_ value: Double, language: String = BidiText.currentLanguage) -> String {
         BidiText.ltr(PercentText.signed(value, decimals: 2), language: language)

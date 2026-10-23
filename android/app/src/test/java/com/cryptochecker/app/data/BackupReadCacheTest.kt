@@ -81,7 +81,7 @@ class BackupReadCacheTest {
 
     @Test
     fun klartextVerfaelltNachDerFrist() {
-        // Seit Build 102: Klartext nur zwischen Passwort prüfen und Wiederherstellen, danach neu entschlüsseln
+        // Klartext nur zwischen Passwort prüfen und Wiederherstellen, danach neu entschlüsseln
         cache.plain("a", "pw", read())
         now += 59_000L
         cache.plain("a", "pw", read())

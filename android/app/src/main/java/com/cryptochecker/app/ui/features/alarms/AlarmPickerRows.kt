@@ -1,4 +1,4 @@
-// Zeilen der Paarwahl für einen neuen Alarm, seit Build 104 (Review PERF2-02): ohne Kurs vorberechnet und schon
+// Zeilen der Paarwahl für einen neuen Alarm (Review PERF2-02): ohne Kurs vorberechnet und schon
 // gefaltet, damit Kurs-Schreibungen und Tastendrücke nicht jedes Mal alle Paare auf dem Main-Thread neu falten.
 package com.cryptochecker.app.ui.features.alarms
 

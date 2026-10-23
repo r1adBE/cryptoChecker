@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Kompakter Kopf wie in Portfolio-Trackern (Build 46 entlastet): Gesamtwert und die Umrechnung, darunter
+/// Kompakter Kopf wie in Portfolio-Trackern (entlastet): Gesamtwert und die Umrechnung, darunter
 /// EINE Veränderung «Heute» (`PortfolioTotalChangeLine`, %-Basis der App), dann zwei Kennzahlen
 /// nebeneinander — «7 T» (Gewinn seit dem Tagesschluss vor 7 Tagen, `PortfolioPeriodChange.gain`) und
 /// «Seit Kauf» (± unrealisiert seit Kauf). Hinter «Details» (zugeklappt): 1 J, Belohnungen, Einstand,
@@ -52,7 +52,7 @@ struct PortfolioTotalCard: View {
     @Environment(\.appAccent) var accent
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.hidePortfolioAmounts) var hideAmounts
-    /// Build 46: Details und Hinweise aufklappbar — wie Android `rememberSaveable`.
+    /// Details und Hinweise aufklappbar — wie Android `rememberSaveable`.
     @State private var showDetails = false
     @State var showHints = false
 
@@ -146,7 +146,7 @@ struct PortfolioTotalCard: View {
                         .padding(.top, 2)
                 }
             }
-            // Build 46: eine Veränderung direkt unter dem Gesamtwert — «↗ +412.95 CHF +1.85% · Heute»
+            // Eine Veränderung direkt unter dem Gesamtwert — «↗ +412.95 CHF +1.85% · Heute»
             // (Prozent ohne Betrag, z. B. ohne Devisenkurs, bleibt sichtbar); ohne Daten keine Zeile
             if let line = todayLine {
                 line.padding(.top, 2)
@@ -265,7 +265,7 @@ struct PortfolioTotalCard: View {
 
     /// Gesamtwert gross mit rollenden Ziffern (Anzeigewährung, sonst USDT), dahinter die Einheit klein und grau
     /// (Grundlinie wie die Zahl, immer rechts davon). Passt beides nicht, wird nur die Zahl verkleinert, höchstens auf
-    /// 70 % (lesbar, seit Build 93; vorher bis auf die Hälfte) — reicht das nicht, bricht sie in eine zweite Zeile um;
+    /// 70 % (lesbar; vorher bis auf die Hälfte) — reicht das nicht, bricht sie in eine zweite Zeile um;
     /// verborgen («•••») ohne Währung. Android `FittedTotal` bleibt einzeilig (rollende Ziffern), verkleinert bis 50 %.
     private var totalValue: some View {
         let unit = self.unit
@@ -300,7 +300,7 @@ struct PortfolioTotalCard: View {
         return value.isFinite && !PortfolioFormat.isZero(value) ? value : nil
     }
 
-    /// 7 Tage · Seit Kauf nebeneinander (gleich breit); «Heute» steht unter dem Gesamtwert (Build 46). Ausgeschrieben
+    /// 7 Tage · Seit Kauf nebeneinander (gleich breit); «Heute» steht unter dem Gesamtwert. Ausgeschrieben
     /// statt «7 T», weil das Kürzel allein unverständlich war — wie Android.
     private var figureRow: some View {
         HStack(alignment: .top, spacing: Spacing.sm) {

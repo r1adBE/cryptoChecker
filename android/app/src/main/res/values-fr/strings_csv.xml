@@ -48,7 +48,7 @@
     <string name="portfolio_csv_import_transfers_hint">Un retrait et le dépôt correspondant du même coin deviennent un seul transfert : le prix d’achat et la durée de détention sont conservés, la différence compte comme frais de réseau.</string>
     <string name="portfolio_csv_import_transfers_title">Transferts entre tes comptes</string>
     <string name="portfolio_csv_import_unreadable">Aucune transaction prise en charge trouvée. Pris en charge : exports CSV de Relai, Swissquote, Kraken, Binance, Coinbase et Bitpanda.</string>
-    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
     <string name="portfolio_csv_import_too_large">Le fichier est trop volumineux pour l’import (16 Mo et %1$s lignes max.). Exporte des périodes plus courtes et importe-les l’une après l’autre.</string>
     <string name="portfolio_csv_import_failed">L’importation a échoué – rien n’a été enregistré. Réessaie.</string>
     <string name="portfolio_csv_import_locked">Importation impossible : les données enregistrées sont illisibles pour l\'instant. Redémarre l\'app.</string>

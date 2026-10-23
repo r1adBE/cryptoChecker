@@ -221,7 +221,7 @@ fun WatchlistScreen(
         }
     }
     // Wischen, Screenreader-Aktion und Aktionen-Blatt «Löschen» (ohne Rückfrage, mit «Rückgängig», weiteres Löschen als
-    // Sammel-Banner) bzw. nach rechts wischen (Favorit): seit Build 107 (ARC5-R01) Haptik und Banner über Ereignisse im
+    // Sammel-Banner) bzw. nach rechts wischen (Favorit): Haptik und Banner (ARC5-R01) über Ereignisse im
     // aktuellen Bildschirm ([WatchlistUiEffects] in [WatchlistSheets])
     val uiEvents = rememberWatchUiEvents(WATCHLIST_UI_EVENTS)
     val deleteWithUndo: (WatchEntity) -> Unit = { uiEvents.deleteWithUndo(viewModel, it) }

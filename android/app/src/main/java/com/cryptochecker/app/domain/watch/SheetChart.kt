@@ -355,7 +355,7 @@ object SheetChart {
 class SheetChartCache(private val now: () -> Long = System::currentTimeMillis) {
     private class Entry(val time: Long, val value: SheetChartResult.Ready, val price: Double?)
 
-    /** Begrenzt seit Build 99 (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
+    /** Begrenzt (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
     private val entries = com.cryptochecker.app.data.BoundedCache<String, Entry>(com.cryptochecker.app.data.MEMORY_CACHE_ENTRIES)
 
     /**

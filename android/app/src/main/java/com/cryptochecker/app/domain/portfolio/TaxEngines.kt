@@ -38,7 +38,7 @@ import java.time.ZoneId
  *    (Gebühren inklusive, Belohnungen zum Wert beim Erhalt); Abtretung: Einstand = PTA × Preis vor Gebühren / Gesamtwert
  *    des Portfolios unmittelbar davor, PTA sinkt um diesen Teil. Gesamtwert = Bestände × Kurs (verkaufter Coin zum
  *    Verkaufspreis, übrige über `priceAt`, Stablecoins nach [PortfolioStables]) — samt Guthaben beobachteter Adressen
- *    (Adress-Einträge, Build 47: sie gehören zum Portfolio); fehlt ein Kurs, bleibt der Einstand leer.
+ *    (Adress-Einträge: sie gehören zum Portfolio); fehlt ein Kurs, bleibt der Einstand leer.
  *    Verkauf über den erfassten Bestand hinaus: nur der gedeckte Anteil (Bestand / (Menge + Gebühr im Coin)) ist eine
  *    Abtretung mit Einstand; der Rest steht als eigene Zeile ohne Einstand (Gewinn unbekannt, «mehr verkauft als
  *    erfasst») und kürzt die PTA nicht.
@@ -239,7 +239,7 @@ object TaxEngines {
      *    Partner-Merker fällt dabei weg — Vorlagen ohne die Regel ignorieren ihn;
      *  - mit [TaxEventRules.networkFeeIsDisposal]: Netzwerkgebühr in Krypto einer Umbuchung, Auszahlung oder Schenkung
      *    (Gebühr im Coin und im dritten Coin) wird eine eigene Veräusserung der Gebühr-Coins zum Marktwert ([networkFeeSales]);
-     *  - mit [TaxEventRules.quoteFeeIsInfo] (Build 57): die Gebühr USDT einer Umbuchung erhöht den Einstand nicht (sie
+     *  - mit [TaxEventRules.quoteFeeIsInfo]: die Gebühr USDT einer Umbuchung erhöht den Einstand nicht (sie
      *    fällt weg; [disposals] führt sie als Zeile zur Information).
      * Danach Gebühr-Zeilen und Werte ohne Marktwert wie bisher ([PortfolioLedger.valueAtDayClose]).
      */

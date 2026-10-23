@@ -7,7 +7,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Verlauf des Bewegungs-Alarms mit einem Schlüssel je Paar (seit Build 102): append für N Paare bleibt O(N). */
+/** Verlauf des Bewegungs-Alarms mit einem Schlüssel je Paar: append für N Paare bleibt O(N). */
 class MoveHistoryCoreTest {
 
     /** Ablage im Speicher; zählt Schreibvorgänge. */

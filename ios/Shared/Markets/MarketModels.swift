@@ -78,7 +78,7 @@ enum FuturesContractType: Int, Codable, CaseIterable, Comparable, Sendable {
 
     /// Erkennt an der Kennung ein inverses (in Coins abgerechnetes) Perpetual: Binance COIN-M «2:BTCUSD_PERP»,
     /// OKX «BTC-USD-SWAP», Deribit «BTC-PERPETUAL» (lineare Deribit-Paare heissen «SOL_USDC-PERPETUAL»). Nötig
-    /// für Paare, die vor Build 47 noch als `.perpetual` abgelegt wurden (`normalized`); neue Paarlisten setzen
+    /// für Paare, die in älteren Versionen noch als `.perpetual` abgelegt wurden (`normalized`); neue Paarlisten setzen
     /// `.inversePerpetual` selbst. Wie `FuturesContractType.isInversePerpetualId` (Android).
     static func isInversePerpetualId(marketKey: String, pairId: String?) -> Bool {
         guard let id = pairId?.trimmingCharacters(in: .whitespaces), !id.isEmpty else { return false }
@@ -99,7 +99,7 @@ enum FuturesContractType: Int, Codable, CaseIterable, Comparable, Sendable {
     var deliveryDate: Date? { delivery(asOf: Date()) }
 
     /// Verfall laut Kalender zum Zeitpunkt `now` (Tests). Abgerechnet wird freitags um 08:00 UTC: Ab dann gilt schon der
-    /// nächste Kontrakt — seit Build 92 auch für Monat und Quartal, wenn ihr letzter Freitag vorbei ist (vorher z. B. am
+    /// nächste Kontrakt — auch für Monat und Quartal, wenn ihr letzter Freitag vorbei ist (vorher z. B. am
     /// 31. Oktober noch der 30. Oktober). Wie Android `FuturesContractType.getDeliveryDate`.
     func delivery(asOf now: Date) -> Date? {
         var utc = Calendar(identifier: .gregorian)

@@ -133,7 +133,7 @@ data class AlarmLogState(
 }
 
 /**
- * Alarm-Protokoll (Build 80): beantwortet «Warum hat es nicht gepiepst?». Zwei Teile — je Kursalarm die letzte Prüfung
+ * Alarm-Protokoll: beantwortet «Warum hat es nicht gepiepst?». Zwei Teile — je Kursalarm die letzte Prüfung
  * (bei jeder Prüfung überschrieben) und ein Ringpuffer mit höchstens [MAX_EVENTS] bemerkenswerten Prüfungen der letzten
  * [RETENTION_MILLIS] (ausgelöst bzw. zurückgehalten, obwohl fällig — nicht jedes «nicht erreicht»). Nur auf dem Gerät,
  * nie in einer Sicherung. Reine Logik — wie `AlarmLog.swift`.
@@ -147,7 +147,7 @@ object AlarmLog {
     const val LIVE_WRITE_INTERVAL_MILLIS = 60_000L
 
     /**
-     * Übrige Durchläufe ohne Bemerkenswertes: die letzten Prüfungen höchstens so oft schreiben (seit Build 102). Bis zu
+     * Übrige Durchläufe ohne Bemerkenswertes: die letzten Prüfungen höchstens so oft schreiben. Bis zu
      * 20'000 Alarme werden sonst bei jeder Aktualisierung komplett serialisiert und versiegelt.
      */
     const val CHECKS_WRITE_INTERVAL_MILLIS = 10 * 60_000L

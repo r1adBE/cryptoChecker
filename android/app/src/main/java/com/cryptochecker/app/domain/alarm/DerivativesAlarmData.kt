@@ -39,7 +39,7 @@ class DerivativesAlarmData @Inject constructor(
 
     /**
      * Schlüssel mit Börse und Paar: Wird ein Paar bearbeitet (gleiche Id), gilt der alte Wert nicht.
-     * Begrenzt seit Build 99 (sonst blieb jedes je geprüfte Paar bis zum Prozessende).
+     * Begrenzt (sonst blieb jedes je geprüfte Paar bis zum Prozessende).
      */
     private val cache = BoundedCache<String, Values>(MEMORY_CACHE_ENTRIES)
 

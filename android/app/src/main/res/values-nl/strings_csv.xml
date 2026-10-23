@@ -44,7 +44,7 @@
     <string name="portfolio_csv_import_transfers_hint">Een opname en de bijbehorende storting van dezelfde coin worden één overboeking: aankoopprijs en bezitsduur blijven behouden, het verschil telt als netwerkkosten.</string>
     <string name="portfolio_csv_import_transfers_title">Overboekingen tussen je rekeningen</string>
     <string name="portfolio_csv_import_unreadable">Geen ondersteunde transacties gevonden. Ondersteund: CSV-exports van Relai, Swissquote, Kraken, Binance, Coinbase en Bitpanda.</string>
-    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
     <string name="portfolio_csv_import_too_large">Het bestand is te groot om te importeren (max. 16 MB en %1$s rijen). Exporteer kortere periodes en importeer ze een voor een.</string>
     <string name="portfolio_csv_import_failed">Importeren is mislukt – er is niets opgeslagen. Probeer het opnieuw.</string>
     <string name="portfolio_csv_import_locked">Importeren is niet mogelijk: opgeslagen gegevens zijn nu niet leesbaar. Start de app opnieuw.</string>

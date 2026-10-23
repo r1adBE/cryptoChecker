@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Visualizzazione</string>
     <string name="widget_portfolio_display_conversion">Solo conversione</string>
     <string name="widget_portfolio_display_conversion_usdt">Conversione + USDT</string>
-    <string name="widget_portfolio_display_hint">La riga USDT non viene mostrata se la valuta di conversione è USD.</string>
+    <string name="widget_portfolio_display_hint">La riga USDT non viene mostrata se la valuta di conversione è una stablecoin in USD (ad es. USDC).</string>
     <string name="widget_portfolio_display_usdt">Solo USDT</string>
     <string name="widget_portfolio_empty">Aggiungi acquisti nella scheda Portafoglio</string>
     <string name="widget_portfolio_list_hint">Apri l\'app per mostrare qui le tue posizioni.</string>

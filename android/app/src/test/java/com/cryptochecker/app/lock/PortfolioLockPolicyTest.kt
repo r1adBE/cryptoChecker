@@ -76,7 +76,7 @@ class PortfolioLockPolicyTest {
 
     /**
      * Sicherungsregeln: Android 8/8.1 (xml/, requireFlags wirkungslos) ohne Portfolio und ohne die unverschlüsselte
-     * Kopie der Hauptdatenbank (Build 60), ab Android 9 (xml-v28/) mit beiden.
+     * Kopie der Hauptdatenbank, ab Android 9 (xml-v28/) mit beiden.
      */
     @Test
     fun backupRulesKeepPortfolioAndDatabaseCopyOffAndroid8() {
@@ -105,7 +105,7 @@ class PortfolioLockPolicyTest {
     }
 
     /**
-     * Verschlüsselte Datenbanken (Build 59) nie in einer Sicherungsregel — ihr Schlüssel bleibt im Keystore; die
+     * Verschlüsselte Datenbanken nie in einer Sicherungsregel — ihr Schlüssel bleibt im Keystore; die
      * Hauptdatenbank geht ab Android 9 als Kopie des Sicherungs-Agenten mit (SystemBackupAgent.EXPORT_NAME).
      */
     @Test

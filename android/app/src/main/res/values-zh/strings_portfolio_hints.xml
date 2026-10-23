@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">投资组合提醒已暂停：%1$s 没有当前价格</string>
     <string name="portfolio_alarms_paused_price_generic">投资组合提醒已暂停：并非所有币种都有当前价格</string>
     <string name="portfolio_alarms_paused_addresses">投资组合提醒已暂停：所关注地址的余额尚未加载</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">投资组合提醒已暂停：%1$s 的代币余额部分已过时</string>
     <string name="portfolio_alarms_paused_tokens_generic">投资组合提醒已暂停：所关注地址的代币余额部分已过时</string>
     <string name="portfolio_alarms_paused_unverified">投资组合提醒已暂停：%1$s 的价格未核实</string>

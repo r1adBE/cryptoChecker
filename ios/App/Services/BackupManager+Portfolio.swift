@@ -20,8 +20,8 @@ extension BackupManager {
         ]
     }
 
-    /// Unbekannte Art (neuere Version), ungültiger Schwellwert oder fehlende Währung: überspringen. Seit Build 105
-    /// «fällt um ≥ 100 %» übernommen, aber ausgeschaltet (`PortfolioAlarmLogic.exceedsFall`, wie die Paar-Alarme).
+    /// Unbekannte Art (neuere Version), ungültiger Schwellwert oder fehlende Währung: überspringen.
+    /// «fällt um ≥ 100 %»: übernommen, aber ausgeschaltet (`PortfolioAlarmLogic.exceedsFall`, wie die Paar-Alarme).
     static func jsonToPortfolioAlarm(_ o: [String: Any]) -> PortfolioAlarm? {
         guard let name = string(o, "kind"), let kind = PortfolioAlarmKind(rawValue: name),
               let threshold = double(o, "threshold"),
@@ -69,18 +69,18 @@ extension BackupManager {
         o["feeText"] = PortfolioTx.validFee(t.feeExact).map { PortfolioDecimal.text($0) as Any } ?? NSNull()
         o["feeUnit"] = PortfolioTx.validFee(t.fee) == nil ? NSNull() as Any : (t.feeUnit ?? .QUOTE).rawValue as Any
         o["exchange"] = t.exchange.map { $0 as Any } ?? NSNull()
-        // Seit Build 46 (wie Android); ältere Versionen kennen sie nicht (und die neuen Arten nicht:
+        // Wie Android; ältere Versionen kennen sie nicht (und die neuen Arten nicht:
         // sie zählen sie als ungültig, Rückfrage)
         o["transferFrom"] = t.transferFrom.map { $0 as Any } ?? NSNull()
         o["transferTo"] = t.transferTo.map { $0 as Any } ?? NSNull()
         o["feeCoin"] = t.feeCoin.map { $0 as Any } ?? NSNull()
         o["feeCoinAmountText"] = t.feeCoinAmountExact.map { PortfolioDecimal.text($0) as Any } ?? NSNull()
         o["feeCoinPriceText"] = t.feeCoinPriceExact.map { PortfolioDecimal.text($0) as Any } ?? NSNull()
-        // CSV-Import (Build 46): Herkunft der Zeile — nach dem Wiederherstellen weiterhin als doppelt erkannt
+        // CSV-Import: Herkunft der Zeile — nach dem Wiederherstellen weiterhin als doppelt erkannt
         o["importKey"] = t.importKey.map { $0 as Any } ?? NSNull()
-        // Einzahlung: ursprüngliches Kaufdatum (Build 46); fehlt = Datum der Einzahlung
+        // Einzahlung: ursprüngliches Kaufdatum; fehlt = Datum der Einzahlung
         o["acquiredTime"] = PortfolioTx.cleanAcquiredTime(t.type, t.acquiredTime).map { $0 as Any } ?? NSNull()
-        // Tausch (Build 46): erhaltener Coin, Menge und Wert exakt als Text; ältere Versionen kennen die Art nicht
+        // Tausch: erhaltener Coin, Menge und Wert exakt als Text; ältere Versionen kennen die Art nicht
         let swap = t.type == .SWAP
         let toCoin: String? = swap ? t.toCoin : nil
         let toAmount: String? = swap ? t.toAmountExact.map(PortfolioDecimal.text) : nil
@@ -88,15 +88,15 @@ extension BackupManager {
         o["toCoin"] = toCoin.map { $0 as Any } ?? NSNull()
         o["toAmountText"] = toAmount.map { $0 as Any } ?? NSNull()
         o["swapValueText"] = swapValue.map { $0 as Any } ?? NSNull()
-        // CSV-Importlauf (Build 46): «Import rückgängig» auch nach dem Wiederherstellen
+        // CSV-Importlauf: «Import rückgängig» auch nach dem Wiederherstellen
         o["importBatch"] = t.importBatch.map { $0 as Any } ?? NSNull()
-        // Build 58: eigene Felder statt der alten Formen in «transferTo»/«importKey» (wie Android). Ältere Versionen
+        // Eigene Felder statt der alten Formen in «transferTo»/«importKey» (wie Android). Ältere Versionen
         // ignorieren unbekannte Felder und lesen den Eintrag trotzdem — ohne Partner-Merker, mit nur dem Schlüssel der
         // Auszahlung und ohne «Rückgängig» der Verknüpfung (kein Absturz, nichts ungültig)
         o["giftToSpouse"] = t.isGiftToSpouse
         o["linkedImportKey"] = t.linkedImportKey.map { $0 as Any } ?? NSNull()
         o["importRestoreState"] = t.importRestoreState?.json().map { $0 as Any } ?? NSNull()
-        // Build 76: Gebühr-Zeile und Zins als eigene Merker (wie Android); ältere Versionen ignorieren sie
+        // Gebühr-Zeile und Zins als eigene Merker (wie Android); ältere Versionen ignorieren sie
         o["feeRow"] = t.feeRow && t.type == .SELL
         o["interest"] = t.interest && t.type == .REWARD
         return o
@@ -127,7 +127,7 @@ extension BackupManager {
             feeUnit: feeUnit,
             exchange: isNull(o, "exchange") ? nil : PortfolioTx.cleanExchange(string(o, "exchange"))
         )
-        // Seit Build 46; fehlen = keine Angabe. Gebühr im dritten Coin nur mit Coin und Menge > 0
+        // Fehlen = keine Angabe. Gebühr im dritten Coin nur mit Coin und Menge > 0
         tx.transferFrom = isNull(o, "transferFrom") ? nil : PortfolioTx.cleanExchange(string(o, "transferFrom"))
         let feeCoinAmount = isNull(o, "feeCoinAmountText") ? nil : PortfolioDecimal.parse(string(o, "feeCoinAmountText"))
         if let third = PortfolioTx.cleanFeeCoin(isNull(o, "feeCoin") ? nil : string(o, "feeCoin"), coin: coin,
@@ -137,7 +137,7 @@ extension BackupManager {
             tx.feeCoinPriceExact = isNull(o, "feeCoinPriceText") ? nil
                 : PortfolioDecimal.parse(string(o, "feeCoinPriceText")).flatMap { $0 >= 0 ? $0 : nil }
         }
-        // Sicherungen bis Build 57 tragen Partner-Merker und Verknüpfung noch in «transferTo»/«importKey» (alte Formen)
+        // Ältere Sicherungen tragen Partner-Merker und Verknüpfung noch in «transferTo»/«importKey» (alte Formen)
         let stored = LegacyStorageMigration.convert(type, LegacyStorageMigration.Fields(
             transferTo: isNull(o, "transferTo") ? nil : PortfolioTx.cleanExchange(string(o, "transferTo")),
             giftToSpouse: o["giftToSpouse"] as? Bool ?? false,
@@ -161,7 +161,7 @@ extension BackupManager {
                 : PortfolioDecimal.parse(string(o, "swapValueText")).flatMap { $0 >= 0 ? $0 : nil }
         }
         tx.importBatch = isNull(o, "importBatch") ? nil : PortfolioImportBatch.clean(string(o, "importBatch"))
-        // Fehlen die Merker (Sicherung bis Build 75), einmal nach der früheren Regel ableiten — wie Android
+        // Fehlen die Merker (ältere Sicherung), einmal nach der früheren Regel ableiten — wie Android
         if let flag = o["feeRow"] as? Bool {
             tx.feeRow = flag && type == .SELL
         } else {

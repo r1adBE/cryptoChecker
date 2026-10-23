@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
                         openTarget = openTarget.value,
                         onOpenTargetHandled = { openTarget.value = null }
                     )
-                    // Seit Build 104 (F-08): Frage vor der ersten Änderung, solange die Merkliste nicht gespeichert wird
+                    // F-08: Frage vor der ersten Änderung, solange die Merkliste nicht gespeichert wird
                     com.cryptochecker.app.ui.components.WatchlistNotSavedGateHost()
                 }
             }
@@ -181,7 +181,7 @@ class MainActivity : AppCompatActivity() {
      * Ziel eines Aufrufs: [EXTRA_OPEN] (Verknüpfung, Ziel-Mitteilung) oder das Paar aus
      * [EXTRA_WATCH_ID] (Kurs-/Alarm-Mitteilung, Zeile im Listen-Widget) → [openWatchTarget].
      * Aus «Zuletzt verwendet» neu gestartet: kein Ziel (der alte Tipp gilt nicht noch einmal). [EXTRA_OPEN] von einer
-     * fremden App (ohne Geheimnis, [OpenTargetGuard]) gilt nur für die Ziele der App-Verknüpfungen — seit Build 97.
+     * fremden App (ohne Geheimnis, [OpenTargetGuard]) gilt nur für die Ziele der App-Verknüpfungen.
      */
     private fun targetOf(intent: Intent): String? {
         if ((intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0) return null

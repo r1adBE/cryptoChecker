@@ -8,7 +8,7 @@ import org.junit.runner.RunWith
 
 /**
  * Notizlänge auf dem Gerät (ICU): ZWJ-Folgen, Flaggen und Hauttöne zählen je als ein Zeichen und werden nie
- * zerrissen — die JVM-Tests prüfen diese Fälle erst ab JDK 20 (`TextLimitParityTest`). Seit Build 98.
+ * zerrissen — die JVM-Tests prüfen diese Fälle erst ab JDK 20 (`TextLimitParityTest`).
  */
 @RunWith(AndroidJUnit4::class)
 class TextLimitDeviceTest {

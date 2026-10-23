@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// WOO X Spot seit Build 91: zweite Anfrage «letzter Abschluss» (echte Antwort vom 20.10.2026) ersetzt den Schluss der
+/// WOO X Spot: zweite Anfrage «letzter Abschluss» (echte Antwort vom 20.10.2026) ersetzt den Schluss der
 /// Stundenkerze, behält die Eröffnung der Veränderung und setzt die Zeit der Börse — wie `WooLastTradeTest.kt`.
 final class WooLastTradeTests: XCTestCase {
 

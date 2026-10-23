@@ -32,8 +32,8 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 
 /**
  * «0x1234…abcd» unter der Börse eines DEX-Pools ([DexTokenAddress]); Tippen legt die volle Adresse in die
- * Zwischenablage (Android 13+ bestätigt das selbst, darunter ein Toast — wie iOS). Ohne gemerkte Adresse (Paar vor
- * Build 91 hinzugefügt) nichts. TalkBack liest statt «0 x 1 2 3 4 …» die letzten vier Zeichen einzeln (wie iOS).
+ * Zwischenablage (Android 13+ bestätigt das selbst, darunter ein Toast — wie iOS). Ohne gemerkte Adresse (Paar aus
+ * älterer Version) nichts. TalkBack liest statt «0 x 1 2 3 4 …» die letzten vier Zeichen einzeln (wie iOS).
  */
 @Composable
 internal fun DexTokenAddressLine(watch: WatchEntity) {
@@ -64,7 +64,7 @@ internal fun dexSpokenTail(address: String): String = address.trim().takeLast(4)
 private fun copyAddress(context: Context, label: String, address: String, copiedText: String) {
     val clipboard = context.getSystemService(ClipboardManager::class.java) ?: return
     val clip = ClipData.newPlainText(label, address).apply {
-        // Als vertraulich markiert (seit Build 97): Android 13+ zeigt die Adresse dann nicht in der Vorschau der
+        // Als vertraulich markiert: Android 13+ zeigt die Adresse dann nicht in der Vorschau der
         // Kopier-Bestätigung; ältere Versionen übergehen das Extra
         description.extras = PersistableBundle().apply { putBoolean(EXTRA_IS_SENSITIVE, true) }
     }

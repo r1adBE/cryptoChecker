@@ -15,7 +15,7 @@ class PortfolioAlarmParityTest {
 
     private val data = ParityJson.load("portfolio_alarm.json")
 
-    /** Seit Build 105 (FUN3-01): «fällt um» nur unter 100 %; aus einer Sicherung ≥ 100 % übernommen, aber aus. */
+    /** FUN3-01: «fällt um» nur unter 100 %; aus einer Sicherung ≥ 100 % übernommen, aber aus. */
     @Test
     fun threshold() {
         val block = data["threshold"].obj()
@@ -57,7 +57,7 @@ class PortfolioAlarmParityTest {
         }
     }
 
-    /** Unvollständiger Stand (seit Build 94): Adressen, Wesentlichkeit alter Kurse und Token (seit Build 95), Hinweis «pausiert». */
+    /** Unvollständiger Stand: Adressen, Wesentlichkeit alter Kurse und Token, Hinweis «pausiert». */
     @Test
     fun incomplete() {
         val block = data["incomplete"].obj()
@@ -93,7 +93,7 @@ class PortfolioAlarmParityTest {
             val expected: PortfolioAlarmPause? = when (val p = c["pause"]) {
                 null -> null
                 "addresses" -> PortfolioAlarmPause.AddressesPending(r["addressesPending"].num()!!.toInt())
-                // Seit Build 95: {"tokens":[…]} bzw. {"failing":[…]}; seit Build 101 {"unverified":[…]}
+                // {"tokens":[…]} bzw. {"failing":[…]} bzw. {"unverified":[…]}
                 is Map<*, *> -> p.obj()["tokens"]?.let { t -> PortfolioAlarmPause.TokensStale(t.list().map { it as String }) }
                     ?: p.obj()["unverified"]?.let { u -> PortfolioAlarmPause.PriceUnverified(u.list().map { it as String }) }
                     ?: PortfolioAlarmPause.AddressesFailing(p.obj()["failing"].list().map { it as String })

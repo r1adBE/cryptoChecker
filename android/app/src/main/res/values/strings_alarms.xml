@@ -178,10 +178,10 @@
     <string name="alarm_status_waiting_price">Waiting for a current price</string>
     <!-- Unter dem gesperrten Knopf «Erstellen», solange das Betragsfeld eines neuen Alarms leer ist -->
     <string name="alarm_enter_amount">Enter a value</string>
-    <!-- Alarm-Editor (Build 91): eingeklappter Abschnitt mit Schnell-Alarmen, weiteren Bedingungen, Währung, Ton und Ansage; darunter grau, was er enthält -->
+    <!-- Alarm-Editor: eingeklappter Abschnitt mit Schnell-Alarmen, weiteren Bedingungen, Währung, Ton und Ansage; darunter grau, was er enthält -->
     <string name="alarm_editor_more">More</string>
     <string name="alarm_editor_more_summary">Quick alerts, other conditions, sound and voice</string>
-    <!-- Zuverlässigkeitszeile über der Merkliste (seit Build 93): Merkliste ohne gespeicherten Stand nur im Arbeitsspeicher (kein Schlüssel bzw. nur Kopie der alten Datei) – Prüfungen im Hintergrund ruhen -->
+    <!-- Zuverlässigkeitszeile über der Merkliste: Merkliste ohne gespeicherten Stand nur im Arbeitsspeicher (kein Schlüssel bzw. nur Kopie der alten Datei) – Prüfungen im Hintergrund ruhen -->
     <string name="alarm_reliability_storage_no_key">Alerts paused in the background – watchlist not saved</string>
     <string name="alarms_limit_reached">A pair can have at most %1$s alerts.</string>
 </resources>

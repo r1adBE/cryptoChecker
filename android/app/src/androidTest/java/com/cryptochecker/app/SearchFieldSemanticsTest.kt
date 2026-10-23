@@ -20,7 +20,7 @@ import org.junit.Test
 
 /**
  * Suchfelder (BasicTextField) tragen den Platzhalter als Screenreader-Bezeichnung, der sichtbare Platzhalter selbst
- * ist für Screenreader ausgeblendet (seit Build 103). Braucht ein Gerät (Compose-Semantik ohne Robolectric).
+ * ist für Screenreader ausgeblendet. Braucht ein Gerät (Compose-Semantik ohne Robolectric).
  */
 @HiltAndroidTest
 class SearchFieldSemanticsTest {

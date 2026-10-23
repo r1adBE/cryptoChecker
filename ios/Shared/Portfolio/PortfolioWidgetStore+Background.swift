@@ -1,6 +1,6 @@
 import Foundation
 
-// Portfolio-Widget-Stand ausserhalb des Hauptthreads rechnen (Teil von `PortfolioWidgetStore`, seit Build 99): Die
+// Portfolio-Widget-Stand ausserhalb des Hauptthreads rechnen (Teil von `PortfolioWidgetStore`): Die
 // ganze Rechnung (FIFO, Verlauf, Tageskurse) lief nach jedem Kursabruf des Portfolio-Tabs synchron auf dem MainActor —
 // Android rechnet sie auf `Dispatchers.IO` (`PortfolioSnapshotUpdater`). Alle Aufnahmen eines Prozesses laufen
 // nacheinander (`OrderedSerialRunner`): Verlauf, Stundenkurse und Stand schreibt immer nur eine, und eine ältere

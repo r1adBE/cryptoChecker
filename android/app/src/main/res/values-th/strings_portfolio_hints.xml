@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">หยุดสัญญาณเตือนพอร์ตชั่วคราว: ไม่มีราคาปัจจุบันของ %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">หยุดสัญญาณเตือนพอร์ตชั่วคราว: เหรียญบางตัวไม่มีราคาปัจจุบัน</string>
     <string name="portfolio_alarms_paused_addresses">หยุดสัญญาณเตือนพอร์ตชั่วคราว: ยังไม่ได้โหลดยอดคงเหลือของที่อยู่ที่ติดตาม</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">หยุดสัญญาณเตือนพอร์ตชั่วคราว: ยอดคงเหลือโทเค็นของ %1$s ล้าสมัยบางส่วน</string>
     <string name="portfolio_alarms_paused_tokens_generic">หยุดสัญญาณเตือนพอร์ตชั่วคราว: ยอดคงเหลือโทเค็นของที่อยู่ที่ติดตามล้าสมัยบางส่วน</string>
     <string name="portfolio_alarms_paused_unverified">หยุดสัญญาณเตือนพอร์ตชั่วคราว: ราคาของ %1$s ยังไม่ตรวจสอบ</string>

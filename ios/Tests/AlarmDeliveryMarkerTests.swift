@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 103 (Review FUN-05): Prozess-Ende zwischen Mitteilung und Speichern löst keinen zweiten Alarmton aus
+/// Review FUN-05: Prozess-Ende zwischen Mitteilung und Speichern löst keinen zweiten Alarmton aus
 /// (`testdata/parity/alarm_delivery_marker.json`). Gegenstück: `AlarmDeliveryMarkerParityTest.kt`.
 final class AlarmDeliveryMarkerTests: XCTestCase {
     private typealias S = TestSupport
@@ -29,7 +29,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
         for c in cases {
             let name = c["name"] as? String ?? "?"
             let markerAt = S.number(c["markerAt"]).map { Int64($0) }
-            // Seit Build 104: «postedAt» statt «shown» — gezeigt nur, wenn ab dem Vermerk zugestellt
+            // «postedAt» statt «shown» — gezeigt nur, wenn ab dem Vermerk zugestellt
             let shown: Bool
             if c.keys.contains("postedAt") {
                 shown = AlarmDelivery.shownSinceMarker(postedAt: S.number(c["postedAt"]).map { Int64($0) },
@@ -43,7 +43,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
         }
     }
 
-    /// Seit Build 104: Eine ältere Mitteilung desselben Alarms bestätigt nicht — Abklingzeit statt stillem Speichern.
+    /// Eine ältere Mitteilung desselben Alarms bestätigt nicht — Abklingzeit statt stillem Speichern.
     func testAeltereMitteilungBestaetigtNicht() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         _ = await delivery.deliver(alarmId: 11, now: at, cooldownMinutes: 0, holdAlarms: false,
@@ -64,7 +64,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
         XCTAssertEqual(delivery.unconfirmedAt(11), at)
     }
 
-    /// Seit Build 104: schon gemeldet, aber nicht mehr speicherbar (inzwischen bearbeitet) → Mitteilung wieder weg.
+    /// Schon gemeldet, aber nicht mehr speicherbar (inzwischen bearbeitet) → Mitteilung wieder weg.
     func testSchonGemeldetAberNichtGespeichertEntferntMitteilung() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         _ = await delivery.deliver(alarmId: 12, now: at, cooldownMinutes: 0, holdAlarms: false,
@@ -80,7 +80,7 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
         XCTAssertNil(delivery.unconfirmedAt(12))
     }
 
-    /// Seit Build 104: Vermerke gelöschter bzw. ersetzter Alarme aufräumen.
+    /// Vermerke gelöschter bzw. ersetzter Alarme aufräumen.
     func testVermerkeAufraeumen() async {
         let delivery = AlarmDelivery(storeKey: "pairs", store: defaults)
         for id: Int64 in [1, 2, 3] {
@@ -131,8 +131,6 @@ final class AlarmDeliveryMarkerTests: XCTestCase {
         XCTAssertEqual(marks.current, 0)
         XCTAssertEqual(delivery.unconfirmedAt(9), at)
     }
-
-    // MARK: Seit Build 105
 
     /// Review IOS3-R02: Auslösung zum Vermerk schon gespeichert?
     func testGespeichertSeitDemVermerkWieGemeinsameTestfaelle() throws {

@@ -12,7 +12,7 @@ import timber.log.Timber
  * Einstellungen als neue Installation angelegt (fehlend oder beschädigt und durch leere ersetzt): Die Migration
  * schreibt «Portfolio aus» und den Merker [SettingsRepository.KEY_PORTFOLIO_DATA_CHECK]. Beim Start prüft
  * [resolve], ob trotzdem Portfolio-Daten da sind, und schaltet das Portfolio dann wieder ein
- * ([AppSettings.enablePortfolioForData]). Seit Build 94.
+ * ([AppSettings.enablePortfolioForData]).
  */
 object PortfolioDataCheck {
 
@@ -49,7 +49,7 @@ object PortfolioDataCheck {
      * Merker behalten statt «keine Daten» zu entscheiden? Ja, wenn das Portfolio leer ist, aber nur im Arbeitsspeicher
      * liegt (Schlüssel gerade nicht verfügbar, [com.cryptochecker.app.data.portfolio.PortfolioDatabase.inMemory]): Der
      * gespeicherte Stand ist dann nicht zu sehen — der Merker darf nicht weg, sonst bliebe das Portfolio nach dem
-     * nächsten Start mit lesbarem Schlüssel aus (seit Build 95). Daten gefunden: entscheiden (einschalten).
+     * nächsten Start mit lesbarem Schlüssel aus. Daten gefunden: entscheiden (einschalten).
      */
     internal fun keepMarker(hasData: Boolean, portfolioInMemory: Boolean): Boolean = !hasData && portfolioInMemory
 

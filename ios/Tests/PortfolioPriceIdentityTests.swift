@@ -70,7 +70,7 @@ final class PortfolioPriceIdentityTests: XCTestCase {
         XCTAssertEqual(got.unverified, Set(split["unverified"] as? [String] ?? []))
     }
 
-    /// Ohne andere Paarlisten bleibt alles wie bis Build 100: kein Coin «Kurs ungeprüft».
+    /// Ohne andere Paarlisten bleibt alles wie ohne diese Prüfung: kein Coin «Kurs ungeprüft».
     func testWithoutOtherListsNothingUnverified() {
         XCTAssertEqual(PortfolioPriceIdentity.binanceCheck("BEAM", knownName: nil, binanceName: "Beam Gaming"), .use)
         let split = PortfolioPriceIdentity.binanceSplit(["BTC", "BEAM"], knownNames: [:],

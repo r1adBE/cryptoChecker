@@ -18,12 +18,12 @@ enum WatchlistLockedHintHosts {
     static func isTop(_ host: UUID) -> Bool { stack.last == host }
 }
 
-/// Kurzer Hinweis, wenn AppData einen Schreibweg der Merkliste abgelehnt hat (`AppData.watchlistWriteRefused`, seit
-/// Build 103): Warn-Haptik und `show` mit dem Text «watchlist_storage_locked» über das Banner bzw. den Hinweis des
+/// Kurzer Hinweis, wenn AppData einen Schreibweg der Merkliste abgelehnt hat (`AppData.watchlistWriteRefused`):
+/// Warn-Haptik und `show` mit dem Text «watchlist_storage_locked» über das Banner bzw. den Hinweis des
 /// Bildschirms — wie Android `WatchlistLockedHint`.
 private struct WatchlistLockedHintModifier: ViewModifier {
     @EnvironmentObject private var data: AppData
-    // Die Frage «Änderungen werden gerade nicht gespeichert …» zeigt seit Build 105 `WatchlistNotSavedGatePresenter`
+    // Die Frage «Änderungen werden gerade nicht gespeichert …» zeigt `WatchlistNotSavedGatePresenter`
     // (eigenes Fenster über allem, auch über Blättern) — nicht mehr dieser Bildschirm
     @State private var host = UUID()
     let show: (String) -> Void

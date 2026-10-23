@@ -24,7 +24,7 @@ internal object BackupJournalCodec {
     fun journalJson(previous: PreviousState, createdAt: Long = System.currentTimeMillis()): JSONObject = JSONObject()
         .put("format", RestoreJournal.FORMAT)
         .put("version", RestoreJournal.VERSION)
-        // Seit Build 93: Alter des Journals für [RestoreRecoveryPolicy] (ältere Journale: Änderungszeit der Datei)
+        // Alter des Journals für [RestoreRecoveryPolicy] (ältere Journale: Änderungszeit der Datei)
         .put("createdAt", createdAt)
         .put("watches", JSONArray().apply { previous.watches.forEach { put(watchToJson(it)) } })
         .put("alarms", JSONArray().apply { previous.alarms.forEach { put(alarmToJson(it)) } })

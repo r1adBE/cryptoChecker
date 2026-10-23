@@ -23,9 +23,9 @@
     <string name="portfolio_address_xpub_privacy">Një xpub zbulon të gjitha adresat e këtij wallet-i. Ato derivohen në pajisjen tënde; te %1$s dërgohen vetëm adresa të veçanta – të paktën 40 kërkesa në kërkimin e parë, më pas më pak. Çelësat privatë (xprv) nuk pranohen kurrë.</string>
     <string name="portfolio_address_xpub_gap">Kërkimi ndalon pas %1$d adresash të papërdorura radhazi (standardi BIP44 që përdorin shumica e portofolave). Një adresë e përdorur përtej këtij boshllëku nuk numërohet – shtoje veçmas.</string>
     <string name="portfolio_address_xpub_used">Adresa në përdorim: %1$d</string>
-    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">Shumë adresa të përdorura për një përditësim</string>
-    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
     <string name="portfolio_address_xpub_limited">Shumë adresa – pagesat e reja në adresa të vjetra e bosh mund të mos zbulohen</string>
     <string name="portfolio_addresses_title">Adresat</string>
 

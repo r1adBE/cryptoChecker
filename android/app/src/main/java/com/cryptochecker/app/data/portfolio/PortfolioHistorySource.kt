@@ -131,7 +131,7 @@ class PortfolioHistorySource @Inject constructor(
     internal val tokenIdentityStore: TokenIdentityStore,
     internal val priceSource: PortfolioPriceSource,
 ) {
-    /** Coin → (Reihe der Ausweich-Kette samt Weg, Abfragezeit). Begrenzt seit Build 99 (sonst blieb jeder je abgefragte Coin bis zum Prozessende). */
+    /** Coin → (Reihe der Ausweich-Kette samt Weg, Abfragezeit). Begrenzt (sonst blieb jeder je abgefragte Coin bis zum Prozessende). */
     internal val chainMemory = BoundedCache<String, Pair<OwnCloses, Long>>(MEMORY_CACHE_ENTRIES)
 
     /** Coin → Zeit der letzten Ausweich-Abfrage ohne Treffer (nicht bei jedem Öffnen alle Börsen erneut). */

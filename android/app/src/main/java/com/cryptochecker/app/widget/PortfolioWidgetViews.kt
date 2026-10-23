@@ -212,7 +212,7 @@ object PortfolioWidgetViews {
     }
 
     /**
-     * Total-Zeile der Liste, gestaltet wie die Listenzeilen ohne Logo (Build 46: breit einzeilig 12 sp, sonst
+     * Total-Zeile der Liste, gestaltet wie die Listenzeilen ohne Logo (breit einzeilig 12 sp, sonst
      * zweizeilig 12 sp + 12 sp; je 8 dp Innenrand) und die Trennlinie darüber (1 dp).
      */
     fun listTotalHeightDp(fontScale: Float, wide: Boolean = false): Float =

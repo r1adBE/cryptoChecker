@@ -22,7 +22,7 @@ import com.cryptochecker.marketdata.model.market.BinanceAlpha
  *   ([pickTradFi], Schlüssel [tradFiKey]); ohne Treffer Initialen.
  * - Nur Bilder von CoinGecko- und Binance-Bildservern über HTTPS ([isAllowedUrl]). Kein eigenes
  *   Logo-Paket (CoinGecko-API-Bedingungen verbieten Weitergabe und Speicherung ihrer Daten).
- * - Mitgeliefert (Build 46): das freie Icon-Paket «Cryptocurrency Icons» (CC0, [ICON_PACK_FILE],
+ * - Mitgeliefert: das freie Icon-Paket «Cryptocurrency Icons» (CC0, [ICON_PACK_FILE],
  *   rund 480 grössere Coins) — sofort und ohne Netz; Reihenfolge: CoinGecko → Binance-Liste/Alpha →
  *   mitgeliefertes Icon → Initialen. Kein Abruf bei jsDelivr mehr.
  * - Kein Logo (unbekannt, Fehler, Schalter aus): Kreis mit [initials] — nie ein kaputtes Bild.
@@ -124,7 +124,7 @@ object CoinLogos {
     /**
      * Höchstens so viele Pixel (Breite × Höhe laut Bildkopf) hat ein Logo-Quellbild; grössere werden verworfen,
      * ohne sie zu dekodieren. Die Übertragungsgrenze (512 KB) schützt nicht: Ein stark komprimiertes PNG kann
-     * 20'000 × 20'000 Pixel ankündigen. Wie iOS `CoinLogos.maxSourcePixels`. Seit Build 102.
+     * 20'000 × 20'000 Pixel ankündigen. Wie iOS `CoinLogos.maxSourcePixels`.
      */
     const val MAX_SOURCE_PIXELS = 4096L * 4096L
 
@@ -214,7 +214,7 @@ object CoinLogos {
 
     /**
      * Nur HTTPS-Bilder von CoinGecko (`coin-images.coingecko.com` u. ä.) und Binance (`bin.bnbstatic.com`).
-     * Adressen der früheren eigenen Logo-Liste (GitHub Pages) gelten nicht mehr. Seit Build 105 mit URL-Parser
+     * Adressen der früheren eigenen Logo-Liste (GitHub Pages) gelten nicht mehr. Mit URL-Parser
      * ([LogoUrlPolicy], SEC3-02).
      */
     fun isAllowedUrl(url: String?): Boolean = LogoUrlPolicy.isAllowed(url)

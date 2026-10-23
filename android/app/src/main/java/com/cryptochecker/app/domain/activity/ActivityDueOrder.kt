@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.activity
 
 /**
- * Reihenfolge der fälligen Paare für «Ungewöhnliche Aktivität» (seit Build 102). Der Durchlauf hat ein Zeitbudget;
+ * Reihenfolge der fälligen Paare für «Ungewöhnliche Aktivität». Der Durchlauf hat ein Zeitbudget;
  * in Listenreihenfolge kämen bei grossen Merklisten immer dieselben vorderen Paare dran und die hinteren nie
  * (beim nächsten Lauf sind alle wieder fällig, gleicher Abbruch). Darum: am längsten nicht geprüfte zuerst, nie
  * geprüfte ganz vorn. Ein Versuch ohne Ergebnis (Fehler, Abbruch) zählt wie eine Prüfung, damit ein Paar ohne

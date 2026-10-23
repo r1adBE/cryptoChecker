@@ -1,6 +1,6 @@
 import Foundation
 
-/// Entscheide von `AppData.retryPendingPortfolioSaves` ohne Dateien (testbar, seit Build 103).
+/// Entscheide von `AppData.retryPendingPortfolioSaves` ohne Dateien (testbar).
 ///
 /// Wartende Portfolio-Alarme gehen über die Schreib-Warteschlange hinaus (`SharedStorage.saveSnapshotInBackground`, mit
 /// `mergeNewerPrices`/`mergeNewerAlarmTriggers`) — vorher schrieb ein synchrones `saveSnapshot` den älteren Stand im

@@ -20,7 +20,7 @@ object MomentText {
 
     /**
      * Heute: Uhrzeit mit Sekunden; sonst Datum und Uhrzeit kurz; nicht gesetzt (≤ 0): «—». 12/24 h nach der
-     * Systemeinstellung ([ClockText], seit Build 95); [is24] = null: wie die Sprache.
+     * Systemeinstellung ([ClockText]); [is24] = null: wie die Sprache.
      */
     fun moment(
         millis: Long,

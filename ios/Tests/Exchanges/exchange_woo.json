@@ -2,7 +2,7 @@
   "exchange": "WOO X / WOO X Futures",
   "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS).",
   "endpoints": {
-    "single": "GET https://api.woox.io/v3/public/kline?symbol=SPOT_BTC_USDT&type=1h&limit=25 (+ /v1/public/market_trades?symbol=SPOT_BTC_USDT&limit=1, since build 91) | /v3/public/futures?symbol=PERP_BTC_USDT",
+    "single": "GET https://api.woox.io/v3/public/kline?symbol=SPOT_BTC_USDT&type=1h&limit=25 (+ /v1/public/market_trades?symbol=SPOT_BTC_USDT&limit=1) | /v3/public/futures?symbol=PERP_BTC_USDT",
     "bulk": "GET https://api.woox.io/v3/public/futures"
   },
   "cases": [

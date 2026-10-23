@@ -40,7 +40,7 @@ package com.cryptochecker.app.settings
  *
  * Die Reihenfolge der Einträge ist die Reihenfolge der Karten in «Kursfarben»
  * (Ruhig, Frisch, Traditionell, Farbsehschwäche, Ruhig Farbsehschwäche); gespeichert wird der Name, nie die Position.
- * Standard seit Build 46: «Ruhig» ([CALM]). Ohne gespeicherte Wahl gilt er (auch für bestehende
+ * Standard: «Ruhig» ([CALM]). Ohne gespeicherte Wahl gilt er (auch für bestehende
  * Installationen, die nie gewählt haben); eine gespeicherte Wahl («GREEN_RED» = Frisch) bleibt.
  */
 enum class PriceColorScheme(
@@ -62,7 +62,7 @@ enum class PriceColorScheme(
     ),
 
     /**
-     * «Frisch»: Binance-Grün/-Rot (#0ECB81 / #F6465D, bis Build 45 der Standard). Wie «Traditionell»
+     * «Frisch»: Binance-Grün/-Rot (#0ECB81 / #F6465D, früher der Standard). Wie «Traditionell»
      * und «Farbsehschwäche» feste Standardfarben wie an jeder Börse (Entscheid 16. Oktober 2026):
      * nur «Ruhig» und «Ruhig Farbsehschwäche» weichen je Akzent aus. Dunkel steigend genau der
      * Binance-Ton; sonst gleicher Farbton, so hell bzw. dunkel wie der Kontrast verlangt.
@@ -107,7 +107,7 @@ enum class PriceColorScheme(
     ),
 
     /**
-     * «Ruhig Farbsehschwäche»: gedämpftes Blau steigend, gedämpftes Orange fallend (bis Build 52 die
+     * «Ruhig Farbsehschwäche»: gedämpftes Blau steigend, gedämpftes Orange fallend (früher die
      * Werte von «Farbsehschwäche»). Weicht wie «Ruhig» je Akzent aus, auf der Blau-Gelb-Achse:
      * Petrol bzw. Blau-Violett statt Blau, Senfgelb statt Orange.
      */

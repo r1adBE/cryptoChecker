@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Affichage</string>
     <string name="widget_portfolio_display_conversion">Conversion seule</string>
     <string name="widget_portfolio_display_conversion_usdt">Conversion + USDT</string>
-    <string name="widget_portfolio_display_hint">La ligne USDT est masquée si la devise de conversion est l\'USD.</string>
+    <string name="widget_portfolio_display_hint">La ligne USDT est masquée si la devise de conversion est un stablecoin en USD (p. ex. USDC).</string>
     <string name="widget_portfolio_display_usdt">USDT seul</string>
     <string name="widget_portfolio_empty">Ajoute des achats dans l\'onglet Portefeuille</string>
     <string name="widget_portfolio_list_hint">Ouvre l\'app pour afficher tes positions ici.</string>

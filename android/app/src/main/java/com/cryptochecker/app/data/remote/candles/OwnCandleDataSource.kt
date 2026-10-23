@@ -58,7 +58,7 @@ class OwnCandleDataSource @Inject constructor(
 ) {
     private class Entry(val time: Long, val value: Sourced<List<HourCandle>>?)
 
-    // Begrenzt (seit Build 102): Schlüssel je Paar, Intervall und Anzahl — sonst wüchse er über die Prozesslebensdauer
+    // Begrenzt: Schlüssel je Paar, Intervall und Anzahl — sonst wüchse er über die Prozesslebensdauer
     private val cache = BoundedCache<String, Entry>(MEMORY_CACHE_ENTRIES)
     private val permits = Semaphore(MAX_PARALLEL)
 

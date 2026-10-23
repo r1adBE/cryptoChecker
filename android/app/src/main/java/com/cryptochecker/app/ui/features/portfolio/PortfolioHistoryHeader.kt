@@ -168,7 +168,7 @@ internal fun ValueGainLine(history: PortfolioHistoryUi) {
     val gainColor = plColor(change)
     val valueLabel = stringResource(R.string.portfolio_value)
     val gainLabel = stringResource(R.string.portfolio_history_gain_label)
-    // Build 46: Umbruch nur zwischen den Teilen («Wert …» · «Gewinn …»), nie in einer Zahl — darin
+    // Umbruch nur zwischen den Teilen («Wert …» · «Gewinn …»), nie in einer Zahl — darin
     // geschützte Leerzeichen (gleich lang, die Stile der Währung bleiben an ihrer Stelle)
     val small = withSmallQuote(maskAmount(PriceFormat.valueWithCurrency(series.points.last().value, history.unit)))
     val valueText = AnnotatedString(small.text.replace(' ', NO_BREAK_SPACE), spanStyles = small.spanStyles)

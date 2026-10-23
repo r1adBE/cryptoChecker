@@ -16,7 +16,7 @@ struct AppSettings: Codable, Equatable, Sendable {
     var backgroundIntervalMinutes: Int = 15
     var liveIntervalSeconds: Int = 60
     var priceNotifications: Bool = true
-    /// Ohne Wirkung auf iOS; Standard wie Android (ab Build 42 aus), gespeicherte Werte bleiben.
+    /// Ohne Wirkung auf iOS; Standard wie Android (aus), gespeicherte Werte bleiben.
     var ongoingNotifications: Bool = false
     /// Mindestveränderung in Prozent für eine Kurs-Mitteilung (0 = jede Aktualisierung).
     var notificationChangePercent: Double = 5.0
@@ -32,7 +32,7 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// der Merkliste. Ersetzt den früheren Schalter «includeTradFiFutures» (siehe `AssetScope`).
     var assetScope: AssetScope = .default
     /// «inkl. Alpha-Tokens» (bei «Token & TradFi»): Alpha-Tokens (`AssetKind.ALPHA`) in der
-    /// Paar-Auswahl zeigen. Ab Build 43 für neue Installationen aus; gespeicherte Einstellungen ohne
+    /// Paar-Auswahl zeigen. Für neue Installationen aus; gespeicherte Einstellungen ohne
     /// den Wert behalten den bisherigen Standard an (`legacyIncludeAlphaTokens`). Gemerkte Paare
     /// bleiben immer — wie Android `includeAlphaTokens`.
     var includeAlphaTokens: Bool = false
@@ -76,7 +76,7 @@ struct AppSettings: Codable, Equatable, Sendable {
     var activitySensitivity: ActivitySensitivity = .NORMAL
     /// Morgen-Mitteilung (08:00) an Tagen mit wichtigen US-Wirtschaftsdaten.
     var macroNotifications: Bool = false
-    /// Optionaler Bereich «Portfolio» (eigener Tab vor den Optionen). Ab Build 44 für neue Installationen
+    /// Optionaler Bereich «Portfolio» (eigener Tab vor den Optionen). Für neue Installationen
     /// ab Werk aus; gespeicherte Einstellungen ohne den Wert behalten den bisherigen Standard an
     /// (`legacyPortfolioEnabled`) — wie Android.
     var portfolioEnabled: Bool = false
@@ -89,18 +89,18 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// Umrechnungswährung: Zielwährung der Umrechnungszeile im Portfolio und der
     /// umgerechneten Kurse in der Merkliste (USD = keine Umrechnung im Portfolio).
     var portfolioCurrency: String = AppSettings.defaultCurrency()
-    /// Kurse in der Merkliste zusätzlich in der Umrechnungswährung zeigen («≈ 61’234 CHF»). Ab Build 43
-    /// für neue Installationen an; gespeicherte Einstellungen ohne den Wert: bisher aus (`legacyShowConverted`).
+    /// Kurse in der Merkliste zusätzlich in der Umrechnungswährung zeigen («≈ 61’234 CHF»).
+    /// Für neue Installationen an; gespeicherte Einstellungen ohne den Wert: bisher aus (`legacyShowConverted`).
     var showConverted: Bool = true
     /// Kursfarben steigend/fallend: Grün/Rot oder Blau/Orange (Rot-Grün-Sehschwäche).
     var priceColorScheme: PriceColorScheme = .default
-    /// Merker «Ruhig ist Standard» (Build 46): fehlt er, ist ein gespeichertes «Frisch» (GREEN_RED) der
+    /// Merker «Ruhig ist Standard»: fehlt er, ist ein gespeichertes «Frisch» (GREEN_RED) der
     /// frühere, mitgespeicherte Standard und keine erkennbare Wahl → einmalig «Ruhig». Wie Android: dort
     /// steht ohne eigene Wahl gar nichts gespeichert.
     var priceColorDefaultV2: Bool = true
     /// Mini-Chart (24-Stunden-Verlauf) in den Zeilen der Merkliste.
     var watchlistSparkline: Bool = false
-    /// Name unter dem Paar in der Merkliste («Bitcoin», «NVIDIA»). Ab Build 43 für neue Installationen an;
+    /// Name unter dem Paar in der Merkliste («Bitcoin», «NVIDIA»). Für neue Installationen an;
     /// gespeicherte Einstellungen ohne den Wert: bisher aus (`legacyWatchlistNames`).
     var watchlistNames: Bool = true
     /// Zeitraum der %-Änderung («24h», «heute», «letzter Stand») klein neben der Änderung, Puls,
@@ -226,7 +226,7 @@ struct AppSettings: Codable, Equatable, Sendable {
         let legacyTradFi = (try? legacy?.decodeIfPresent(Bool.self, forKey: .includeTradFiFutures)) ?? nil
         assetScope = AssetScope.resolve(stored: (try? c.decodeIfPresent(String.self, forKey: .assetScope)) ?? nil,
                                         legacyTradFi: legacyTradFi)
-        // Fehlt (vor dem Schalter gespeichert): bisheriger Standard, nicht der neue von Build 43
+        // Fehlt (vor dem Schalter gespeichert): bisheriger Standard, nicht der neue
         includeAlphaTokens = (try? c.decodeIfPresent(Bool.self, forKey: .includeAlphaTokens))
             ?? AppSettings.defaultForMigration(existingInstall: true, legacy: AppSettings.legacyIncludeAlphaTokens,
                                                current: d.includeAlphaTokens)
@@ -248,7 +248,7 @@ struct AppSettings: Codable, Equatable, Sendable {
         // Fehlt (ältere Einstellungen) oder unbekannt: «Normal»
         activitySensitivity = ActivitySensitivity.from(name: try? c.decodeIfPresent(String.self, forKey: .activitySensitivity))
         macroNotifications = (try? c.decodeIfPresent(Bool.self, forKey: .macroNotifications)) ?? d.macroNotifications
-        // Fehlt (vor dem Schalter gespeichert): bisheriger Standard an, nicht der neue von Build 44
+        // Fehlt (vor dem Schalter gespeichert): bisheriger Standard an, nicht der neue
         portfolioEnabled = (try? c.decodeIfPresent(Bool.self, forKey: .portfolioEnabled))
             ?? AppSettings.defaultForMigration(existingInstall: true, legacy: AppSettings.legacyPortfolioEnabled,
                                                current: d.portfolioEnabled)

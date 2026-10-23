@@ -1,7 +1,7 @@
 import Accessibility
 import SwiftUI
 
-/// Eigener Tab für die Marktphase. Aufbau von «Jetzt» (Entscheid Build 83, gleich wie Android): oben EINE
+/// Eigener Tab für die Marktphase. Aufbau von «Jetzt» (gleich wie Android): oben EINE
 /// Heldenkarte — Crypto Pulse mit «Kurz gesagt» als Körper (`CryptoPulseCard`, `MarketPlainSummaryBlock`);
 /// darüber nur die Status-Pille. Darunter ruhig und kompakt Fear & Greed (`CycleFearGreedRow`, compact) und
 /// «Gewinner und Verlierer 24 h» (`CycleMoversCard`, je drei, «Alle zeigen»). Dann «Mehr Marktdaten»

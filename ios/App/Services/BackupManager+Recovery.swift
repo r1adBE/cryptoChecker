@@ -4,7 +4,7 @@ import Foundation
 // `BackupManager.recoverInterruptedRestore`.
 extension BackupManager {
     /// Beim Start: Liegt ein Journal (`RestoreJournal`) da, ist ein Wiederherstellen abgebrochen — den Stand davor
-    /// zurückschreiben und das nennen (`StorageRecoveryNotice.recordInterruptedRestore`). Seit Build 93 nur, solange
+    /// zurückschreiben und das nennen (`StorageRecoveryNotice.recordInterruptedRestore`). Nur, solange
     /// `RestoreRecoveryPolicy` es erlaubt (genau ein Zurückrollen je Journal beim Start, nie mit einem Journal älter
     /// als einen Tag) — sonst aufgeben: Journal weg, Hinweis «nicht zurückgeschrieben» einmal. Wie Android.
     @MainActor
@@ -55,7 +55,7 @@ extension BackupManager {
     }
 
     /// Nach dem Zurückrollen (Tests): Journal nur löschen, wenn es erledigt oder nie zurückrollbar ist — nach einem
-    /// gescheiterten Schreiben bleibt es bis zum nächsten Start, der dann aufgibt (`markAttempt`, seit Build 93), wie Android.
+    /// gescheiterten Schreiben bleibt es bis zum nächsten Start, der dann aufgibt (`markAttempt`), wie Android.
     /// Den Hinweis gibt es in jedem Fall.
     static func finishRecovery(_ outcome: RecoveryOutcome, deleteJournal: () -> Void = { RestoreJournal.delete() },
                                notice: (Bool) -> Void = { StorageRecoveryNotice.recordInterruptedRestore(rolledBack: $0) },

@@ -46,8 +46,8 @@ class DatabaseKeyStore(
 
     /**
      * Von [create] beiseitegelegte frühere Schlüssel ([PREVIOUS_SUFFIX], weitere nummeriert `.previous.1`, `.previous.2` …),
-     * neuester zuerst. Bis Build 75 überschrieb ein zweites Beiseitelegen den ersten — der Schlüssel einer früher
-     * beiseitegelegten Datei war dann weg.
+     * neuester zuerst. In älteren Versionen überschrieb ein zweites Beiseitelegen den ersten — der Schlüssel einer
+     * früher beiseitegelegten Datei war dann weg.
      */
     private fun previousKeyFiles(database: String): List<File> =
         slotFiles(database, PREVIOUS_SUFFIX).sortedByDescending { slotNumber(it.name, keyFile(database).name + PREVIOUS_SUFFIX) }
@@ -68,7 +68,7 @@ class DatabaseKeyStore(
         val file = keyFile(database)
         if (!file.exists()) return KeyLookup.Absent
         // Vorübergehende Keystore-Fehler (Dienst beschäftigt, kurz nach Start oder Update) kommen vor: wiederholen —
-        // seit Build 102 auch `UnrecoverableKeyException` und «kein Schlüssel» ([DatabaseKeyRetry])
+        // auch `UnrecoverableKeyException` und «kein Schlüssel» ([DatabaseKeyRetry])
         val outcome = DatabaseKeyRetry.run(ATTEMPTS, RETRY_DELAY_MILLIS, { Thread.sleep(it) }, { classify(it) }) {
             masterKey(database)?.let { decrypt(it, file.readBytes()) }
         }
@@ -101,7 +101,7 @@ class DatabaseKeyStore(
                 masterKey(database)
             } catch (e: Exception) {
                 // Endgültig kaputter Keystore-Eintrag: Daran hängt nichts Lesbares mehr — ersetzen (nur der dieser
-                // Datenbank; die andere hat ihren eigenen und bleibt unberührt). Seit Build 102 nie im selben Lauf, in dem
+                // Datenbank; die andere hat ihren eigenen und bleibt unberührt). Nie im selben Lauf, in dem
                 // er zum ersten Mal unbrauchbar war ([DatabaseKeyRetry.SuspectMarker]): dann kein neuer Schlüssel in diesem Lauf
                 if (!e.isPermanent()) throw e
                 if (!suspects.escalate(database)) throw IOException("$database: Keystore-Eintrag erst im nächsten Lauf ersetzt", e)

@@ -85,13 +85,13 @@ data class WatchedAddress(
      */
     val costLots: List<AddressCostLot> = emptyList(),
     /**
-     * Schlüssel von [tokenBalances], deren Wert der letzte Abruf NICHT bestätigt hat (seit Build 95; TON: bekannter Jetton
+     * Schlüssel von [tokenBalances], deren Wert der letzte Abruf NICHT bestätigt hat (TON: bekannter Jetton
      * fehlt auf einer vollen Seite, kann auf der nächsten stehen) — der alte Wert bleibt, gilt aber als veraltet: Anzeige
      * «teilweise veraltet», Portfolio-Alarme wie bei einem alten Kurs ([AddressAlarmState]). Leer = alles bestätigt.
      */
     val staleTokens: List<String> = emptyList(),
     /**
-     * Seit Build 95: wann die Adresse auf DIESEM Gerät aus einer Sicherung eingespielt oder per «Rückgängig» zurückgeholt
+     * Wann die Adresse auf DIESEM Gerät aus einer Sicherung eingespielt oder per «Rückgängig» zurückgeholt
      * wurde; 0 = nie (beim Hinzufügen zählt [addedAt], das dann ohnehin «jetzt» ist). Eingespielte Adressen behalten ihr altes [addedAt] (auch 0) — ohne
      * diesen Zeitpunkt gälte eine frisch eingespielte Adresse beim ersten Fehler sofort als fehlgeschlagen
      * ([AddressAlarmState.isPending]). Nur gerätelokal: nicht in der Sicherung ([WatchedAddressRules.backupEntries]).

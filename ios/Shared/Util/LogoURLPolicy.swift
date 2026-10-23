@@ -1,6 +1,6 @@
 import Foundation
 
-/// Freigabe einer Logo-Adresse (`CoinLogos.isAllowedURL`), seit Build 105 (SEC3-02) mit echtem URL-Parser statt
+/// Freigabe einer Logo-Adresse (`CoinLogos.isAllowedURL`), SEC3-02: mit echtem URL-Parser statt
 /// ausgeschnittenem Host: Ein «#» oder «\» in der Authority (der Parser beendet den Host dort) kann die Liste nicht mehr
 /// umgehen. Gleich in Android `LogoUrlPolicy` (gemeinsame Fälle `Parity/logo_url_allow.json`).
 ///

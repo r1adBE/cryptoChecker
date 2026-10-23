@@ -107,7 +107,7 @@ object AlarmEdit {
      * Eigene Alarmwährung im Editor anbieten? Nur bei Kursmarken ([priceThreshold]), wenn die Quote [quote] nicht schon
      * die Währung [other] ist — und nur, wenn sich die Quote überhaupt umrechnen lässt: Eine Fiat-Quote ohne Devisenkurs
      * (NGN, ARS: [CurrencyConversion.QuoteKind.FIAT_UNSUPPORTED]) oder ein ungültiges Kürzel nie, sonst wartete der Alarm
-     * für immer auf einen Kurs (seit Build 93). [fiat] = Währungen mit Devisenkurs. Spiegel: AlarmEdit.swift.
+     * für immer auf einen Kurs. [fiat] = Währungen mit Devisenkurs. Spiegel: AlarmEdit.swift.
      */
     fun offersCurrency(priceThreshold: Boolean, quote: String, other: String, fiat: Collection<String>): Boolean {
         if (!priceThreshold || quote.isBlank() || CurrencyConversion.sameCurrency(quote, other)) return false

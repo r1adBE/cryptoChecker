@@ -34,11 +34,11 @@ import org.junit.Test
 import javax.inject.Inject
 
 /**
- * Hintergrund-Prüfung von Anfang bis Ende (seit Build 103, Review TST-03): Der echte [PriceUpdateWorker] (über die
+ * Hintergrund-Prüfung von Anfang bis Ende (Review TST-03): Der echte [PriceUpdateWorker] (über die
  * [HiltWorkerFactory] wie in der App) fragt die Fake-Börse ab ([FakeMarket], kein Netz), wertet den Alarm aus, vermerkt
  * ihn als ausgelöst und postet die Alarm-Mitteilung — ohne Activity, wie ein geplanter WorkManager-Lauf bei
  * geschlossener App. Ergänzt die reinen Regeln (BackgroundWorkPolicyTest, JVM) und den Vordergrund-Weg (CoreFlowTest).
- * Seit Build 104 (Review TST2-03): Ein geplanter Lauf liefert fast immer `Result.success()` (auch bei Fehlern, siehe
+ * Review TST2-03: Ein geplanter Lauf liefert fast immer `Result.success()` (auch bei Fehlern, siehe
  * `BackgroundWorkPolicy.outcome`) — das Ergebnis prüft darum der Fall «Merkliste nur leer im Arbeitsspeicher» (retry).
  */
 @HiltAndroidTest
@@ -94,7 +94,7 @@ class PriceUpdateWorkerTest {
             .build()
         worker.doWork()
 
-        // Kein Vergleich mit Result.success(): das liefert ein geplanter Lauf immer (seit Build 104, TST2-03)
+        // Kein Vergleich mit Result.success(): das liefert ein geplanter Lauf immer (TST2-03)
         val alarm = watchRepository.observeAlarms(watchId).first().single { it.id == alarmId }
         assertTrue("Alarm als ausgelöst vermerkt", alarm.lastTriggeredAt > 0)
         assertEquals(105_000.0, alarm.lastTriggeredPrice ?: 0.0, 0.0)
@@ -109,7 +109,7 @@ class PriceUpdateWorkerTest {
     }
 
     /**
-     * Seit Build 104: Merkliste in diesem Prozess nur leer im Arbeitsspeicher ([DatabaseEncryptionNotice.storedKept],
+     * Merkliste in diesem Prozess nur leer im Arbeitsspeicher ([DatabaseEncryptionNotice.storedKept],
      * Schlüssel gerade nicht lesbar) — der Lauf prüft nichts, meldet `Result.retry()` (kurzer Backoff), löst keinen Alarm
      * aus und postet keine Mitteilung, obwohl der Kurs über der Marke liegt.
      */

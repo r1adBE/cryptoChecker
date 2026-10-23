@@ -7,7 +7,7 @@ name: Release readiness
 on:
   push:
     branches: [main]
-    # Since build 104: release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
+    # Release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
     # evaluate the paths filter for tag pushes, so every workflow runs for the tagged commit
     tags: ['v*']
   pull_request:
@@ -37,7 +37,7 @@ jobs:
           F="$RUNNER_TEMP/readiness-findings.tsv"
           : > "$F"
           python3 -I .github/scripts/release_readiness.py "$GITHUB_WORKSPACE" "$F"
-          # Since build 105: Required Reason APIs in the iOS sources vs ios/App/PrivacyInfo.xcprivacy (ITMS-91053)
+          # Required Reason APIs in the iOS sources vs ios/App/PrivacyInfo.xcprivacy (ITMS-91053)
           python3 -I .github/scripts/ios_release_audit.py --self-test
           python3 -I .github/scripts/release_readiness.py --self-test
           if [ -d ios/App ]; then python3 -I .github/scripts/ios_release_audit.py privacy "$GITHUB_WORKSPACE/ios" "$F"; fi

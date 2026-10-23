@@ -4,7 +4,7 @@ import com.cryptochecker.app.domain.portfolio.PortfolioStables
 import kotlin.math.abs
 
 /**
- * USDT-Depeg-Alarm (Build 46): meldet einmal je Abweichung, wenn USDT um mindestens die Schwelle
+ * USDT-Depeg-Alarm: meldet einmal je Abweichung, wenn USDT um mindestens die Schwelle
  * von 1 USD abweicht. Dieselbe Messung ist der Live-Kurs USDT/USD der Bewertung ([liveUsdtUsd]): USDT gilt in Fiat seinen
  * Marktkurs ([com.cryptochecker.app.domain.portfolio.PortfolioStables.usdtUsd]); ohne frische Messung 1 als Näherung.
  *
@@ -108,7 +108,7 @@ object DepegAlarm {
     private fun closestToOne(values: List<Double>): Double = values.minBy { abs(it - 1.0) }
 
     /**
-     * Taugt der letzte Kurs [last] einer Quelle für die Messung? Seit Build 96 dieselbe Regel wie bei Kursalarmen
+     * Taugt der letzte Kurs [last] einer Quelle für die Messung? Dieselbe Regel wie bei Kursalarmen
      * ([AlarmFreshness.exchangeTimeTooOld]): Meldet die Börse eine Zeit des Kurses ([exchangeTime]) älter als 2 Std.,
      * steht der Wert (Handel ruht) — er zählt wie keine Antwort (null), damit weder eine alte Zahl als frische Messung
      * gespeichert wird noch der Alarm auf ihr auslöst. Ohne Zeit der Börse zählt der Kurs wie bisher.
@@ -210,7 +210,7 @@ object DepegAlarm {
     data class CardNote(val kind: CardNoteKind, val reading: Reading? = null)
 
     /**
-     * Zeile zu «USDT = 1» auf der Portfolio-Karte (Build 58) — UNABHÄNGIG vom Depeg-Alarm: Die Annahme gilt immer, also
+     * Zeile zu «USDT = 1» auf der Portfolio-Karte — UNABHÄNGIG vom Depeg-Alarm: Die Annahme gilt immer, also
      * steht sie da, sobald sie die Zahlen trägt; der Alarm liefert nur die Abweichung dazu.
      *  1. frische Messung ≥ Schwelle ([cardWarning], wie bisher immer auf der Karte) → [CardNoteKind.DEVIATION];
      *  2. sonst [valuesViaUsdt] (`PortfolioExchangeRoute.usdtParityShown`) → [CardNoteKind.PRICE_SOURCE];

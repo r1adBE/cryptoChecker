@@ -288,7 +288,7 @@ final class AlarmLogicTests: XCTestCase {
     }
 
     /// Ein Satz, kurz genug für die Bestätigung des ersten Alarms; der Weg nennt die Seite
-    /// «Kurs-Aktualisierung» direkt unter «Einstellungen» (Build 55) — wie `AlarmTimingHintTest.kt`.
+    /// «Kurs-Aktualisierung» direkt unter «Einstellungen» — wie `AlarmTimingHintTest.kt`.
     func testAlarmTimingHintTextIsOneShortSentence() {
         let text = AlarmTimingHint.text
         XCTAssertFalse(text.isEmpty)

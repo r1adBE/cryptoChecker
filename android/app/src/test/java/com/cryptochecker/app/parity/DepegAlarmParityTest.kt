@@ -80,7 +80,7 @@ class DepegAlarmParityTest {
         }
     }
 
-    /** Build 58: Zeile «USDT = 1» der Karte unabhängig vom Alarm (Bestand mit USDT, Werte über USDT = USD, Abweichung). */
+    /** Zeile «USDT = 1» der Karte unabhängig vom Alarm (Bestand mit USDT, Werte über USDT = USD, Abweichung). */
     @Test
     fun cardNote() {
         val now = 1_800_000_000_000L
@@ -133,7 +133,7 @@ class DepegAlarmParityTest {
         assertTrue(DepegAlarm.shouldMeasure(depegAlarm = false, portfolioEnabled = false, hasPortfolioData = false, fiatConversion = true))
     }
 
-    /** Build 96: Kurs laut Börse älter als 2 Std. zählt wie keine Antwort (wie Kursalarme); ohne Zeit der Börse zählt er. */
+    /** Kurs laut Börse älter als 2 Std. zählt wie keine Antwort (wie Kursalarme); ohne Zeit der Börse zählt er. */
     @Test
     fun usablePrice() {
         val now = 1_800_000_000_000L

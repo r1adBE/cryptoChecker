@@ -15,7 +15,7 @@ import java.io.File
 import java.io.IOException
 
 /**
- * Systemsicherung der Hauptdatenbank (Merkliste, Alarme, Gruppen, Notizen) trotz Verschlüsselung (Build 59).
+ * Systemsicherung der Hauptdatenbank (Merkliste, Alarme, Gruppen, Notizen) trotz Verschlüsselung.
  *
  * Die verschlüsselte `cryptochecker.db` taugt nicht für Auto Backup oder die Übertragung auf ein neues Gerät: Ihr
  * Schlüssel liegt im Keystore dieses Geräts und geht nie mit. Darum steht in den Sicherungsregeln statt der Datei
@@ -23,7 +23,7 @@ import java.io.IOException
  * (geprüft wie die Überführung), lässt die normale Sicherung nach den XML-Regeln laufen (`super`, gleiche Regeln und
  * Bedingungen wie bisher: nur Ende-zu-Ende-verschlüsselte Cloud-Sicherung oder Gerät zu Gerät) und löscht sie danach.
  * Nach einer Wiederherstellung wird die Kopie zur (unverschlüsselten) Hauptdatenbank ([onRestoreFinished]); der erste
- * Start verschlüsselt sie wie ein Update ([DatabaseEncryptionMigration]). Eine Sicherung aus Build 58 oder älter
+ * Start verschlüsselt sie wie ein Update ([DatabaseEncryptionMigration]). Eine Sicherung älterer Versionen
  * bringt `cryptochecker.db` selbst mit — auf die Kopie umgeleitet ([onRestoreFile]), ebenso beim ersten Start verschlüsselt.
  *
  * Android 8/8.1 (API 26/27) ohne Kopie ([SystemBackupScope]): Dort wirkt `requireFlags` nicht, die Merkliste ginge
@@ -32,7 +32,7 @@ import java.io.IOException
  * Läuft im eingeschränkten App-Prozess der Systemsicherung (ohne `CryptoCheckerApp`, ohne Hilt): nur Context, Dateien
  * und Keystore. Das Portfolio geht nur mit dem Schalter «Portfolio in Systemsicherung» mit (Merker-Datei,
  * [PortfolioBackupMirror.isEnabled]): dann schreibt [onFullBackup] auch dessen Kopie und löscht sie danach — sie liegt
- * nie länger als die Sicherung im Klartext da (Build 76; bis Build 75 dauernd).
+ * nie länger als die Sicherung im Klartext da (in älteren Versionen dauernd).
  */
 class SystemBackupAgent : BackupAgent() {
 
@@ -72,7 +72,7 @@ class SystemBackupAgent : BackupAgent() {
     }
 
     /**
-     * Sicherung aus Build 58 oder älter: `cryptochecker.db` (+ `-wal`) steht nicht mehr in den Regeln, Android
+     * Sicherung älterer Versionen: `cryptochecker.db` (+ `-wal`) steht nicht mehr in den Regeln, Android
      * verwürfe sie (geprüft wird gegen die heutigen Regeln). Darum auf den Namen der Kopie umgeleitet, der in den
      * Regeln steht; [onRestoreFinished] übernimmt sie dann wie eine neue Sicherung.
      */
@@ -165,7 +165,7 @@ class DatabaseSystemBackup(
     }
 
     /**
-     * Nach einer Wiederherstellung: Die Kopie ersetzt die Hauptdatenbank (wie bis Build 58 die gesicherte Datei selbst;
+     * Nach einer Wiederherstellung: Die Kopie ersetzt die Hauptdatenbank (wie früher die gesicherte Datei selbst;
      * Android stellt nur in eine frische Installation wieder her). Beim nächsten Öffnen wird sie verschlüsselt.
      */
     fun adoptRestored() {

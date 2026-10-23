@@ -8,7 +8,7 @@ name: Android
 on:
   push:
     branches: [main]
-    # Since build 104: release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
+    # Release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
     # evaluate the paths filter for tag pushes, so every workflow runs for the tagged commit
     tags: ['v*']
     paths:
@@ -89,8 +89,8 @@ jobs:
 
       # "test" = testDebugUnitTest + testReleaseUnitTest of all modules, including the
       # Android/iOS parity cases in testdata/parity (ParityFixturesTest).
-      # Since build 105: the source guards must find the Swift sources (whole repo checked out); without the variable a
-      # missing ios/ only marks those tests as skipped (Android-only checkout)
+      # The source guards must find the Swift sources (whole repo checked out); without the variable a missing ios/
+      # only marks those tests as skipped (Android-only checkout)
       - name: Unit tests
         env:
           REQUIRE_IOS_SOURCES: 'true'
@@ -133,7 +133,8 @@ jobs:
           python3 -I "$GITHUB_WORKSPACE/.github/scripts/lint_warnings.py" \
             --report app/build/reports/lint-results-debug.xml,app/build/intermediates/lint_intermediate_text_report/debug/lintReportDebug/lint-results-debug.txt \
             --report app/build/reports/lint-results-release.xml,app/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
-            --report marketdata/build/reports/lint-results-release.xml,marketdata/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt
+            --report marketdata/build/reports/lint-results-release.xml,marketdata/build/intermediates/lint_intermediate_text_report/release/lintReportRelease/lint-results-release.txt \
+            --details
 
       # Lint errors as annotations (the log shows only the first one; the run page shows these
       # without signing in)

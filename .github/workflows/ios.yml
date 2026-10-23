@@ -10,7 +10,7 @@ name: iOS
 on:
   push:
     branches: [main]
-    # Since build 104: release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
+    # Release tags (v<versionName>-<versionCode>) always run the full gate; GitHub does not
     # evaluate the paths filter for tag pushes, so every workflow runs for the tagged commit
     tags: ['v*']
     paths:
@@ -210,7 +210,7 @@ jobs:
           set -e
           tail -n 120 "$LOG"
           bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
-          # Since build 104: skipped tests (XCTSkip) are listed as warnings. Since build 105 the SharedStorage tests run
+          # Skipped tests (XCTSkip) are listed as warnings. The SharedStorage tests run
           # on a test keychain and must not be skipped on main and release tags. The watchlist-lock behaviour tests and
           # the background-run tests use the test app's sealed watchlist, which needs the real keychain; the unsigned CI
           # host has no keychain entitlement, so they stay a warning (lock rules are also covered by

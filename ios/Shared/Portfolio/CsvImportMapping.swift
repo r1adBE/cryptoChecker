@@ -57,7 +57,7 @@ struct CsvImportPreview {
     /// Zeilen, deren USD-/Fiat-Betrag mit USDT = 1 USD umgerechnet ist (kein USDT/USD-Tagesschluss DES Tags,
     /// `CsvImportPriced.usdtApproximate`) — die Vorschau nennt sie wie `missingFx`. Wie Android.
     var usdtApproximate: [Int] = []
-    /// Datei über den Grenzen des Zerlegens (`CsvImportResult.tooLarge`): keine Zeilen, Meldung «zu gross». Seit Build 99.
+    /// Datei über den Grenzen des Zerlegens (`CsvImportResult.tooLarge`): keine Zeilen, Meldung «zu gross».
     var tooLarge = false
 }
 
@@ -154,7 +154,7 @@ enum CsvImportMapping {
                            toCoin: row.kind == .SWAP ? row.toCoin.map { PortfolioCalculator.normalizeCoin($0) } : nil,
                            toAmount: row.kind == .SWAP ? row.toAmount : nil,
                            swapValueUsdt: row.kind == .SWAP ? p.swapValueUsdt.flatMap { $0 >= 0 ? $0 : nil } : nil,
-                           // Eigene Merker (Build 76): Gebühr-Zeile und Zins — die Notiz bleibt nur zur Anzeige
+                           // Eigene Merker: Gebühr-Zeile und Zins — die Notiz bleibt nur zur Anzeige
                            feeRow: row.kind == .FEE,
                            interest: row.kind == .REWARD && TaxEngines.interestReward(row.rawKind))
     }

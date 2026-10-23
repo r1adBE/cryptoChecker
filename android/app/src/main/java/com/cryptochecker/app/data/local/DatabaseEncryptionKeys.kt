@@ -85,7 +85,7 @@ internal fun DatabaseEncryptionMigration.usableOrNewKey(database: String): ByteA
 }
 
 /**
- * Seit Build 102: beiseitegelegte Kopien löschen, die [DatabaseEncryptionMigration.asideExpired] freigibt ([AsideRetention]).
+ * Beiseitegelegte Kopien löschen, die [DatabaseEncryptionMigration.asideExpired] freigibt ([AsideRetention]).
  * Nur aus dem Weg «gespeicherter Schlüssel öffnet die aktuelle Datei» und nach [restoreFromAside] — die aktuelle Datei
  * ist nie darunter. Fehler bleiben still (die Kopie bleibt, der nächste Start versucht es erneut).
  */

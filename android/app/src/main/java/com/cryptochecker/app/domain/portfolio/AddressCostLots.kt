@@ -6,7 +6,7 @@ import org.json.JSONObject
 import java.math.BigDecimal
 
 /**
- * Eröffnungsposten einer beobachteten Adresse («Einstand für Adressguthaben», Build 84): der Nutzer nennt für einen Teil
+ * Eröffnungsposten einer beobachteten Adresse («Einstand für Adressguthaben»): der Nutzer nennt für einen Teil
  * des Guthabens Kaufdatum, Menge und Einstand. [id] ist innerhalb der Adresse eindeutig (1, 2, …), [coin] normalisiert,
  * [time] = Erwerb (ms), [amount] > 0. Einstand entweder als [priceUsdt] (je Coin) oder als [costUsdt] (gesamt) — so wie
  * eingegeben gespeichert, damit nichts durch Umrechnen rundet.

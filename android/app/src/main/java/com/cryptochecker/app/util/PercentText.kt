@@ -10,10 +10,10 @@ import kotlin.math.abs
  * `getPercentInstance`, damit Android, die JVM-Tests und iOS (`PercentText.swift`) Zeichen für Zeichen dasselbe
  * liefern (die ICU-Stände der Systeme unterscheiden sich, z. B. beim Abstand vor «%»).
  *
- * Seit Build 95 zählt für den Abstand die ganze Locale (Sprache + Region) wie CLDR, nicht nur die Sprache:
+ * Für den Abstand zählt die ganze Locale (Sprache + Region) wie CLDR, nicht nur die Sprache:
  * Spanisch (Mexiko) «2.4%», Englisch in Deutschland, Österreich, Schweden, Finnland, Dänemark «2,4 %».
  *
- * Seit Build 94 die eine Stelle für «+2.40%» (Kurs), «+2.9 %» (Aktivität), «58.4 %» (Dominanz) und das
+ * Die eine Stelle für «+2.40%» (Kurs), «+2.9 %» (Aktivität), «58.4 %» (Dominanz) und das
  * Pulse-Widget — vorher schrieb jede Stelle das Zeichen selbst und anders.
  */
 object PercentText {
@@ -74,8 +74,8 @@ object PercentText {
     /**
      * Betrag von [value] mit genau [decimals] Nachkommastellen (kaufmännisch gerundet, Ziffern und Dezimalzeichen
      * der Sprache, ohne Tausendertrennung) und Prozentzeichen — ohne Vorzeichen. Mit [minDecimals] unter
-     * [decimals] fallen Nullen am Ende weg («5%», «2.5%», «0.0125%»; seit Build 96 für Schwellen und Alarm-Sätze,
-     * die vorher `getPercentInstance` nutzten). Mit [grouping] mit Tausendertrennung («1,000%», Deutsch «1.000 %») —
+     * [decimals] fallen Nullen am Ende weg («5%», «2.5%», «0.0125%»; auch für Schwellen und Alarm-Sätze).
+     * Mit [grouping] mit Tausendertrennung («1,000%», Deutsch «1.000 %») —
      * für Alarm-Sätze, deren Schwellen bis 1000 % gehen (Open Interest); sonst ohne, wie bisher.
      */
     fun unsigned(

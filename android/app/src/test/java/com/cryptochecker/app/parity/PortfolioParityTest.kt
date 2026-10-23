@@ -47,7 +47,7 @@ class PortfolioParityTest {
             feeCoinPrice = (o["feeCoinPrice"] as String?)?.let(::BigDecimal),
             // Einzahlung: ursprüngliches Kaufdatum (optional)
             acquiredTime = o["acquiredTime"].num()?.toLong(),
-            // Build 46 (optional): Börse/Wallet (FIFO je Wallet), Umbuchung, Tausch
+            // Optional: Börse/Wallet (FIFO je Wallet), Umbuchung, Tausch
             exchange = o["exchange"] as String?,
             transferFrom = o["transferFrom"] as String?,
             transferTo = o["transferTo"] as String?,
@@ -55,7 +55,7 @@ class PortfolioParityTest {
             toAmount = (o["toAmount"] as String?)?.let(::BigDecimal),
             swapValueUsdt = (o["swapValue"] as String?)?.let(::BigDecimal),
             imported = o["importKey"] != null,
-            // Gebühr-Zeile: eigenes Feld (Build 76); fehlt es im Fixture, die frühere Regel (wie beim Wiederherstellen)
+            // Gebühr-Zeile: eigenes Feld; fehlt es im Fixture, die frühere Regel (wie beim Wiederherstellen)
             feeRow = (o["feeRow"] as Boolean?) ?: com.cryptochecker.app.domain.portfolio.LegacyStorageMigration.legacyFeeRow(
                 PortfolioTxType.valueOf(o["type"] as String), o["importKey"] as String?, (o["price"] as String?)?.let(::BigDecimal),
             ),
@@ -108,7 +108,7 @@ class PortfolioParityTest {
             exact("$name pricedHoldings", e["pricedHoldings"], p.pricedHoldingsExact)
             // Netzwerkgebühr-Einstand ohne bezahlten Posten (optional)
             exact("$name lostFeeCost", e["lostFeeCost"], p.lostFeeCostUsdt)
-            // Build 58 (optional): Umbuchungsgebühr auf Bestand ohne Kaufpreis — vermerkt statt still verworfen
+            // Optional: Umbuchungsgebühr auf Bestand ohne Kaufpreis — vermerkt statt still verworfen
             exact("$name unassignedFee", e["unassignedFee"], p.unassignedFeeUsdt)
             e["unassignedFees"]?.let { raw ->
                 val expected = raw.list().map { it.obj() }
@@ -118,7 +118,7 @@ class PortfolioParityTest {
                     exact("$name unassignedFee $i usdt", x["usdt"], f.usdt)
                 }
             }
-            // Build 46 (optional): «Seit Kauf» des Teils mit Kaufpreis, auch wenn ein Teil ohne Kaufpreis ist
+            // Optional: «Seit Kauf» des Teils mit Kaufpreis, auch wenn ein Teil ohne Kaufpreis ist
             exact("$name pricedCost", e["pricedCost"], p.pricedCostExact)
             exact("$name unpricedHoldings", e["unpricedHoldings"], p.unpricedHoldingsExact)
             (e["unrealizedPartial"] as Boolean?)?.let { assertEquals("$name unrealizedPartial", it, p.unrealizedPartial) }
@@ -139,11 +139,11 @@ class PortfolioParityTest {
                     exact("$name summary partial amount", y["amount"], part.amount)
                 }
             }
-            // Build 46 (optional): Auszahlung, Gebühr im dritten Coin
+            // Optional: Auszahlung, Gebühr im dritten Coin
             e["withdrawn"].num()?.let { near("$name withdrawn", it, p.withdrawnAmount) }
             (e["feeValueMissing"] as Boolean?)?.let { assertEquals("$name feeValueMissing", it, p.feeValueMissing) }
             (e["realizedIncomplete"] as Boolean?)?.let { assertEquals("$name realizedIncomplete", it, p.realizedIncomplete) }
-            // Build 46 (optional): Einstandsmethode — offene Posten und Veräusserungen
+            // Optional: Einstandsmethode — offene Posten und Veräusserungen
             e["realizedUnknownAmount"].num()?.let { near("$name realizedUnknownAmount", it, p.realizedUnknownAmount) }
             e["lots"]?.let { raw ->
                 val lots = raw.list().map { it.obj() }
@@ -156,7 +156,7 @@ class PortfolioParityTest {
                     (x["kind"] as String?)?.let { assertEquals("$name lot $i kind", it, lot.kind.name) }
                 }
             }
-            // Build 46 (optional): offene Posten für die Anzeige, Fehlbestand je Wallet
+            // Optional: offene Posten für die Anzeige, Fehlbestand je Wallet
             e["openLots"]?.let { raw ->
                 val expected = raw.list().map { it.obj() }
                 assertEquals("$name openLots", expected.size, ledger.openLots.size)

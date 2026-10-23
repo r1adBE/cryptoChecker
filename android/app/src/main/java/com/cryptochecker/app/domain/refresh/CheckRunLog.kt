@@ -31,7 +31,7 @@ enum class CheckResult(val code: String) {
 
     /**
      * Nicht gelaufen: eben erst geprüft bzw. läuft gerade (zählt als Prüfung), nichts zu tun oder offline (nur die
-     * App; ein geplanter Lauf offline wird seit Build 93 nicht vermerkt).
+     * App; ein geplanter Lauf offline wird nicht vermerkt).
      */
     SKIPPED("skipped"),
     ;
@@ -50,7 +50,7 @@ data class CheckRun(
 )
 
 /**
- * «Letzte Prüfungen» (Build 46): die letzten [MAX] Läufe der Hintergrund-Prüfung, neueste zuerst, in
+ * «Letzte Prüfungen»: die letzten [MAX] Läufe der Hintergrund-Prüfung, neueste zuerst, in
  * einer kleinen Textdatei ohne Sicherung (eine Zeile je Lauf: `at;trigger;result;dauer`). Zeigt
  * ehrlich, wann das System wirklich geprüft hat. Reine Logik — wie `CheckRunLog.swift`.
  */
@@ -80,7 +80,7 @@ object CheckRunLog {
     /**
      * Ende des neuesten geplanten Laufs, wenn unter den gespeicherten ([MAX]) keiner gelang — sonst null. Scheitert
      * jede Prüfung, fiele die letzte gelungene sonst aus dem Ringpuffer, und «Letzte Prüfung» sähe aus wie «noch nie
-     * geprüft» (grau) statt wie eine Warnung (seit Build 93). Wie iOS.
+     * geprüft» (grau) statt wie eine Warnung. Wie iOS.
      */
     fun lastFailedBackgroundCheck(runs: List<CheckRun>): Long? =
         if (lastBackgroundCheck(runs) != null) null else runs.firstOrNull { it.trigger.scheduled }?.at

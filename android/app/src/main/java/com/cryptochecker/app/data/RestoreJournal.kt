@@ -15,8 +15,8 @@ import java.io.IOException
  *
  * Inhalt mit Portfolio-Daten: versiegelt (AES-GCM, Schlüssel im Keystore unter eigenem Alias [KEY_ALIAS], wie die Aufnahme
  * des Portfolio-Widgets [PortfolioSnapshotSeal]) in `noBackupFilesDir` — nie in einer Sicherung, nie im Klartext auf dem
- * Speicher. Ohne Schlüssel kein Journal — seit Build 102 lehnt das Wiederherstellen dann ab, bevor etwas ersetzt wird
- * ([BackupJournalUnavailableException]); bis Build 101 lief es weiter, mit Zurückrollen nur im selben Lauf.
+ * Speicher. Ohne Schlüssel kein Journal — dann lehnt das Wiederherstellen ab, bevor etwas ersetzt wird
+ * ([BackupJournalUnavailableException]); früher lief es weiter, mit Zurückrollen nur im selben Lauf.
  */
 class RestoreJournal(
     private val file: File,

@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
-/** Build 46: Vorschläge und «Meintest du …?» für Wallet-Namen — wie iOS `PortfolioWalletNamesTests`. */
+/** Vorschläge und «Meintest du …?» für Wallet-Namen — wie iOS `PortfolioWalletNamesTests`. */
 class PortfolioWalletNamesTest {
 
     private val used = listOf("Binance", "Ledger Nano", "Kraken")

@@ -46,15 +46,15 @@ data class DiagnosticInput(
     val exchangePauses: Map<String, ExchangeBackoff.State>,
     /** Fehlerprotokoll des Release-Builds; null = die App führt keines. */
     val errorLog: List<String>? = null,
-    /** Seit Build 103: Quell-Commit des Builds (BuildConfig.GIT_COMMIT); «local» = ohne Angabe gebaut. */
+    /** Quell-Commit des Builds (BuildConfig.GIT_COMMIT); «local» = ohne Angabe gebaut. */
     val sourceCommit: String = DiagnosticReport.LOCAL_COMMIT,
-    /** Seit Build 104: gezählte Fehler im Hintergrund je Bereich ([BackgroundErrors]), nur Zahlen. */
+    /** Gezählte Fehler im Hintergrund je Bereich ([BackgroundErrors]), nur Zahlen. */
     val backgroundErrors: BackgroundErrorSummary = BackgroundErrorSummary(),
 )
 
 
 /**
- * «Diagnose teilen» (Build 81): reiner Textbericht, nur auf dem Gerät erstellt und erst nach der Vorschau über das
+ * «Diagnose teilen»: reiner Textbericht, nur auf dem Gerät erstellt und erst nach der Vorschau über das
  * Teilen-Menü weitergegeben — nichts wird automatisch gesendet. Bezeichnungen fest auf Englisch (für den Support in
  * jeder Sprache gleich lesbar), Werte als Codes. Gleiches Format wie `DiagnosticReport.swift`.
  */
@@ -67,7 +67,7 @@ object DiagnosticReport {
 
     const val REDACTED = "[redacted]"
 
-    /** Seit Build 103: Commit-Angabe eines Builds ohne Quelle (lokal gebaut). */
+    /** Commit-Angabe eines Builds ohne Quelle (lokal gebaut). */
     const val LOCAL_COMMIT = "local"
 
     private const val NONE = "(none)"
@@ -160,7 +160,7 @@ object DiagnosticReport {
     }
 
     /**
-     * Seit Build 103: Commit für die Zeile «Source» — 7 bis 40 Hex-Zeichen, gekürzt auf 12 (klein), sonst «local».
+     * Commit für die Zeile «Source» — 7 bis 40 Hex-Zeichen, gekürzt auf 12 (klein), sonst «local».
      * Nicht über [clean]: ein Hash kann wie eine Adresse aussehen und würde sonst ersetzt.
      */
     fun sourceCommit(raw: String): String {

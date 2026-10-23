@@ -5,9 +5,9 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 
 /**
- * Build 55: Kurs-Aktualisierung unter «Allgemein», Widgets unter «Darstellung»; «Erweitert» behält
+ * Kurs-Aktualisierung unter «Allgemein», Widgets unter «Darstellung»; «Erweitert» behält
  * Token & TradFi, Coin-Logos und Entwickler; %-Änderung steht auf «Merkliste» (Markt-Meldungen und Sprachausgabe
- * haben eigene Routen). Build 83: Portfolio hat genau einen Ort, die Zeile unter «Allgemein» (Einstellungen ›
+ * haben eigene Routen). Portfolio hat genau einen Ort, die Zeile unter «Allgemein» (Einstellungen ›
  * Portfolio) — kein Schalter mehr in «Mehr», keine Zeile mehr unter «Erweitert». Die Suche zeigt den Pfad aus
  * diesem Ort — wie `testPagesSitWhereTheMainPageShowsThem` (iOS, SettingsSearchTests).
  */

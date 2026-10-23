@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 105 (Review FUN3-02/UX3-06): «fällt um ≥ 100 %» lässt sich per Schalter nicht einschalten
+/// Review FUN3-02/UX3-06: «fällt um ≥ 100 %» lässt sich per Schalter nicht einschalten
 /// (`Parity/alarm_toggle.json`) — wie `AlarmToggleParityTest.kt`.
 final class AlarmToggleParityTests: XCTestCase {
     func testToggleMatchesFixture() throws {

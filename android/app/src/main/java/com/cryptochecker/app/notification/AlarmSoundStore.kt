@@ -94,7 +94,7 @@ object AlarmSoundStore {
     fun isOwnTone(uri: String?, relativePath: String?): Boolean = isMediaStoreAudio(uri) && isOwnRelativePath(relativePath)
 
     /**
-     * Seit Build 99: Ein neu gewählter Ton ersetzt den vorigen eigenen — der alte würde sonst bei jedem Wechsel in
+     * Ein neu gewählter Ton ersetzt den vorigen eigenen — der alte würde sonst bei jedem Wechsel in
      * der Mediathek liegen bleiben. Nur löschen, wenn sich der Ton wirklich ändert.
      */
     fun shouldDeletePrevious(previous: String?, next: String?, previousRelativePath: String?): Boolean =

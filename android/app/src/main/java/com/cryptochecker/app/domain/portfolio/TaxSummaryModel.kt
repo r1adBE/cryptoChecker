@@ -66,7 +66,7 @@ enum class TaxSummaryNote {
      */
     WITHDRAWAL_FEE_INFO,
     /**
-     * UK, US, CA, AU, JP Umbuchungsgebühren in USDT/Fiat ([TaxLine.TRANSFER_FEES], Build 57): kein Verlust und nicht im
+     * UK, US, CA, AU, JP Umbuchungsgebühren in USDT/Fiat ([TaxLine.TRANSFER_FEES]): kein Verlust und nicht im
      * Einstand, nur Information.
      */
     TRANSFER_FEE_INFO,
@@ -74,7 +74,7 @@ enum class TaxSummaryNote {
      * AT Spekulationsgeschäfte netto ([TaxLine.OLD_SHORT_NET]): darin Verkäufe bzw. Tausch von Neuvermögen vom 1.1. bis
      * 28.2.2022 ([TaxTemplate.AT_OPTION_FROM] bis vor [TaxTemplate.AT_SWAP_NEUTRAL_FROM]) — für diese Realisationen ist
      * auf Antrag schon der Sondersteuersatz 27,5 % möglich (§ 124b Z 384 lit. c EStG); gerechnet ist ohne Option.
-     * Verkäufe vom 1.3. bis 31.12.2021 haben diese Option nicht (nur alte Rechtslage). Name aus Build 76 beibehalten.
+     * Verkäufe vom 1.3. bis 31.12.2021 haben diese Option nicht (nur alte Rechtslage). Alter Name beibehalten.
      */
     AT_TRANSITION_2021,
     /**
@@ -142,7 +142,7 @@ enum class TaxLine(val orientation: Boolean = false) {
      */
     WITHDRAWAL_FEES,
     /**
-     * UK, US, CA, AU, JP (Build 57): Gebühren USDT/Fiat von Umbuchungen zwischen eigenen Wallets ([PortfolioFeeExpense.TRANSFER])
+     * UK, US, CA, AU, JP: Gebühren USDT/Fiat von Umbuchungen zwischen eigenen Wallets ([PortfolioFeeExpense.TRANSFER])
      * — nur Information (Vermerk [TaxSummaryNote.TRANSFER_FEE_INFO]), weder Verlust noch Einstand.
      */
     TRANSFER_FEES,

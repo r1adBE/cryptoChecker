@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Grenzen beim Zerlegen einer CSV-Datei (seit Build 99): höchstens `CsvImportParser.maxCellsPerRow` Zellen je Zeile und
+/// Grenzen beim Zerlegen einer CSV-Datei: höchstens `CsvImportParser.maxCellsPerRow` Zellen je Zeile und
 /// `maxRows` Datensätze; mehr = Datei zu gross, nicht lesbar wie eine Datei über 16 MB. Gleiche Fälle: Android
 /// `CsvTokenizeLimitsTest`.
 final class CsvTokenizeLimitsTests: XCTestCase {
@@ -54,7 +54,7 @@ final class CsvTokenizeLimitsTests: XCTestCase {
         XCTAssertTrue(long.tooLarge)
     }
 
-    /// Zu gross wird als «zu gross» gemeldet, nicht als fremdes Format (seit Build 99): die Vorschau trägt
+    /// Zu gross wird als «zu gross» gemeldet, nicht als fremdes Format: die Vorschau trägt
     /// `CsvImportResult.tooLarge` weiter, `CsvImportRefusal` wählt die Meldung. Gleiche Fälle: Android `CsvTokenizeLimitsTest`.
     func testZuGrosseDateiMeldetZuGross() {
         func preview(_ text: String) -> CsvImportPreview {

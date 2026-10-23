@@ -118,7 +118,7 @@ data class CsvTransferPlan(val transactions: List<CsvImportTx>, val storedUpdate
  * verknüpfenden Imports; ihr Zustand davor und der der darin aufgegangenen neuen Zeile stehen im Feld `importRestoreState`
  * ([restoreState], [CsvRestoreState]). «Import rückgängig» ([undoPlan]) des verknüpfenden Laufs setzt die gespeicherte
  * Seite zurück — nichts aus ihm bleibt —; der des früheren Laufs verwandelt die Umbuchung in die neue Zeile der späteren
- * Datei zurück (Entscheid des Inhabers, Build 57: sie gehört dem späteren Lauf, dessen «Rückgängig» sie danach entfernt).
+ * Datei zurück (Entscheid des Inhabers: sie gehört dem späteren Lauf, dessen «Rückgängig» sie danach entfernt).
  */
 object CsvTransferMatch {
 

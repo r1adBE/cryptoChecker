@@ -5,7 +5,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Test
 
-/** Seit Build 102: Tiefenlimit des Live-JSON-Lesers ([LiveJson.MAX_DEPTH]) — tiefe Nachrichten ergeben null statt Absturz. */
+/** Tiefenlimit des Live-JSON-Lesers ([LiveJson.MAX_DEPTH]) — tiefe Nachrichten ergeben null statt Absturz. */
 class LiveJsonDepthTest {
 
     private fun arrays(depth: Int) = "[".repeat(depth) + "]".repeat(depth)
@@ -18,7 +18,7 @@ class LiveJsonDepthTest {
 
     @Test
     fun riesigeVerschachtelungIstUngueltigOhneStackOverflow() {
-        // 1 MB «[[[[…»: bis Build 101 ein StackOverflowError auf dem OkHttp-Thread
+        // 1 MB «[[[[…»: früher ein StackOverflowError auf dem OkHttp-Thread
         assertNull(LiveJson.parse("[".repeat(1_000_000)))
         assertNull(LiveJson.parse("{\"a\":".repeat(200_000) + "1" + "}".repeat(200_000)))
     }

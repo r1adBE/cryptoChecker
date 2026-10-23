@@ -70,7 +70,7 @@ abstract class PortfolioDatabase : RoomDatabase() {
         }
 
         /**
-         * v2 → v3 (Build 46): weitere Arten (Umbuchung, Belohnung, Ein-/Auszahlung — nur neue Namen in `type`)
+         * v2 → v3: weitere Arten (Umbuchung, Belohnung, Ein-/Auszahlung — nur neue Namen in `type`)
          * und dazu Spalten für Umbuchung (`transferFrom`, `transferTo`) und die Gebühr in einem dritten Coin
          * (`feeCoin`, `feeCoinAmount`, `feeCoinPriceUsdt`; Zahlen als Text wie v2) sowie `importKey` (CSV-Import,
          * mit Index für die Suche nach Doppelten) und `acquiredTime` (Einzahlung: ursprüngliches Kaufdatum, ms).
@@ -100,7 +100,7 @@ abstract class PortfolioDatabase : RoomDatabase() {
         }
 
         /**
-         * v3 → v4 (Build 58, Entscheid des Inhabers vom 17. Okt. 2026): eigene Spalten statt der Notlösungen aus Build 56/57 —
+         * v3 → v4 (Entscheid des Inhabers vom 17. Okt. 2026): eigene Spalten statt der früheren Notlösungen —
          * `giftToSpouse` (statt Merker «@spouse» im Feld «nach» einer Schenkung), `linkedImportKey` (zweiter Herkunftsschlüssel
          * einer verknüpften Umbuchung, statt «A ⇄ B» in `importKey`) und `importRestoreState` (Zustand vor der Verknüpfung als
          * JSON, statt «⟲ …» im Schlüssel). Bestehende Zeilen mit einer alten Form werden umgeschrieben
@@ -145,7 +145,7 @@ abstract class PortfolioDatabase : RoomDatabase() {
         }
 
         /**
-         * v4 → v5 (Build 76): eigene Merker statt Schlüssen aus anderen Feldern — `feeRow` (Gebühr-Zeile, bisher «Verkauf zum
+         * v4 → v5: eigene Merker statt Schlüssen aus anderen Feldern — `feeRow` (Gebühr-Zeile, bisher «Verkauf zum
          * Preis 0 mit Import-Herkunft») und `interest` (Zins, bisher aus der Notiz «interest/lending/Zins»). Beide einmal nach
          * der alten Regel abgeleitet ([LegacyStorageMigration.legacyFeeRow], [LegacyStorageMigration.legacyInterest]); danach
          * zählt nur noch das Feld. Zuerst gelesen, dann geschrieben (kein Schreiben während der Cursor offen ist); Preise
@@ -176,7 +176,7 @@ abstract class PortfolioDatabase : RoomDatabase() {
         }
 
         /**
-         * v5 → v6 (Build 84): Eröffnungsposten beobachteter Adressen («Einstand für Adressguthaben», [AddressCostLots]) in
+         * v5 → v6: Eröffnungsposten beobachteter Adressen («Einstand für Adressguthaben», [AddressCostLots]) in
          * einer eigenen Spalte `costLots` (JSON, NULL = keine). Bestehende Adressen bleiben unverändert (ohne Posten).
          */
         val MIGRATION_5_6: Migration = object : Migration(5, 6) {

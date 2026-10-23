@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 106 (Review PERF4-R1, UX4-R4, UX4-R5): Schlüssel der Paarwahl einmal je Stand; Hinweis «Schwelle ungültig»
+/// Review PERF4-R1, UX4-R4, UX4-R5: Schlüssel der Paarwahl einmal je Stand; Hinweis «Schwelle ungültig»
 /// nicht mitgedimmt; Wisch-Löschen mit Rückfrage ohne `role: .destructive`.
 @MainActor
 final class B106IosRowTests: XCTestCase {

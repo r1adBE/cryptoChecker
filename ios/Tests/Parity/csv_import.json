@@ -1,5 +1,5 @@
 {
-  "_comment": "CSV-Import Relai/Swissquote (CsvImportParser.kt/.swift). Zeiten: ISO-UTC oder Epoch-ms. Beträge als exakter Text. dates: zone = Zeitzone der Zeit ohne Versatz (fehlt = Standard); seit Build 104 Herbst-Doppelstunde = späterer Versatz (Winterzeit), Frühlingslücke um ihre Länge vorgerückt (02:30 → 03:30 Sommerzeit), auch westlich von UTC.",
+  "_comment": "CSV-Import Relai/Swissquote (CsvImportParser.kt/.swift). Zeiten: ISO-UTC oder Epoch-ms. Beträge als exakter Text. dates: zone = Zeitzone der Zeit ohne Versatz (fehlt = Standard); Herbst-Doppelstunde = späterer Versatz (Winterzeit), Frühlingslücke um ihre Länge vorgerückt (02:30 → 03:30 Sommerzeit), auch westlich von UTC.",
   "files": [
     {
       "name": "relai_basic",
@@ -911,7 +911,7 @@
     },
     {
       "name": "generic_crypto_quote",
-      "_comment": "Build 48 (K7): Kauf/Verkauf gegen einen Krypto-Coin (Paar «ETH/BTC») = Tausch: Kauf ETH mit BTC → Tausch BTC → ETH (BTC-Menge = Preis × Menge), Verkauf ETH gegen BTC → Tausch ETH → BTC (Gebühr im erhaltenen BTC = weniger erhalten), Fiat-Betrag der Datei = Menge des gegebenen Coins; Wert unbekannt (Tagesschluss), kein Stablecoin-Hinweis. Fiat mit Tageskurs (TRY) bleibt Kauf, ohne Preis bleibt Kauf.",
+      "_comment": "K7: Kauf/Verkauf gegen einen Krypto-Coin (Paar «ETH/BTC») = Tausch: Kauf ETH mit BTC → Tausch BTC → ETH (BTC-Menge = Preis × Menge), Verkauf ETH gegen BTC → Tausch ETH → BTC (Gebühr im erhaltenen BTC = weniger erhalten), Fiat-Betrag der Datei = Menge des gegebenen Coins; Wert unbekannt (Tagesschluss), kein Stablecoin-Hinweis. Fiat mit Tageskurs (TRY) bleibt Kauf, ohne Preis bleibt Kauf.",
       "format": "GENERIC",
       "csv": "Date,Type,Coin,Pair,Amount,Price,Fiat Amount,Fee,Fee Currency\n2024-06-01T10:00:00Z,Buy,ETH,ETH/BTC,2,0.05,,0.0001,BTC\n2024-06-02T10:00:00Z,Sell,ETH,ETH/BTC,1,0.052,,0.001,BTC\n2024-06-03T10:00:00Z,Buy,SOL,SOL-ETH,10,,0.8,,\n2024-06-04T10:00:00Z,Buy,BTC,BTC/TRY,0.01,2000000,,,\n2024-06-05T10:00:00Z,Buy,DOT,DOT/BTC,5,,,,\n",
       "rows": [
@@ -1070,7 +1070,7 @@
     },
     {
       "name": "kraken_txid_staking_unpaired",
-      "_comment": "Build 76: gleiche txid L1 mit gleicher Menge (anders geschrieben) fällt still weg, mit ANDERER Menge (1.5) → DUPLICATE_TXID_DIFFERENT in der Vorschau statt still verworfen; Einzahlung DOT.S und Auszahlung ETH2.S ohne Gegenbuchung (keine Spot-Buchung gleicher Menge) → STAKING_UNPAIRED («Bestand prüfen») statt UNSUPPORTED_KIND, nicht gebucht.",
+      "_comment": "Gleiche txid L1 mit gleicher Menge (anders geschrieben) fällt still weg, mit ANDERER Menge (1.5) → DUPLICATE_TXID_DIFFERENT in der Vorschau statt still verworfen; Einzahlung DOT.S und Auszahlung ETH2.S ohne Gegenbuchung (keine Spot-Buchung gleicher Menge) → STAKING_UNPAIRED («Bestand prüfen») statt UNSUPPORTED_KIND, nicht gebucht.",
       "format": "KRAKEN",
       "csv": "\"txid\",\"refid\",\"time\",\"type\",\"subtype\",\"aclass\",\"asset\",\"wallet\",\"amount\",\"fee\",\"balance\"\n\"L1\",\"R1\",\"2024-05-01 10:00:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0000000000\",\"0.0000000000\",\"1.0000000000\"\n\"L1\",\"R1\",\"2024-05-01 10:00:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0\",\"0.0000000000\",\"1.0000000000\"\n\"L1\",\"R1\",\"2024-05-01 10:00:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.5000000000\",\"0.0000000000\",\"1.5000000000\"\n\"L2\",\"B1\",\"2024-05-02 09:00:00\",\"deposit\",\"\",\"currency\",\"DOT.S\",\"spot / main\",\"10.0000000000\",\"0.0000000000\",\"10.0000000000\"\n\"L3\",\"B2\",\"2024-05-03 09:00:00\",\"withdrawal\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"-0.5000000000\",\"0.0000000000\",\"0.0000000000\"\n\"L4\",\"W1\",\"2024-05-04 09:00:00\",\"withdrawal\",\"\",\"currency\",\"XETH\",\"spot / main\",\"-0.2000000000\",\"0.0010000000\",\"0.7990000000\"\n",
       "rows": [
@@ -1120,7 +1120,7 @@
     },
     {
       "name": "kraken_staking_refid_first",
-      "_comment": "Build 92: Staking-Auszahlung ETH2.S refid AAA, 10 min später Spot-Einzahlung XETH refid BBB, 20 min später Spot-Einzahlung XETH refid AAA — das Paar mit gleicher refid (AAA) wird übersprungen, die Einzahlung BBB gebucht. Vorher nahm das Zeitfenster BBB weg und AAA wurde als Einzahlung gebucht.",
+      "_comment": "Staking-Auszahlung ETH2.S refid AAA, 10 min später Spot-Einzahlung XETH refid BBB, 20 min später Spot-Einzahlung XETH refid AAA — das Paar mit gleicher refid (AAA) wird übersprungen, die Einzahlung BBB gebucht. Vorher nahm das Zeitfenster BBB weg und AAA wurde als Einzahlung gebucht.",
       "format": "KRAKEN",
       "csv": "\"txid\",\"refid\",\"time\",\"type\",\"subtype\",\"aclass\",\"asset\",\"wallet\",\"amount\",\"fee\",\"balance\"\n\"L1\",\"AAA\",\"2024-06-01 10:00:00\",\"withdrawal\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"-1.0000000000\",\"0.0000000000\",\"0.0000000000\"\n\"L2\",\"BBB\",\"2024-06-01 10:10:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0000000000\",\"0.0000000000\",\"1.0000000000\"\n\"L3\",\"AAA\",\"2024-06-01 10:20:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0000000000\",\"0.0000000000\",\"2.0000000000\"\n",
       "rows": [
@@ -1152,7 +1152,7 @@
     },
     {
       "name": "kraken_staking_window_after_refid",
-      "_comment": "Build 92: Staking-Auszahlung refid AAA ohne Gegenstück, Spot-Einzahlung refid CCC 1 min später, Staking-Auszahlung refid CCC 2 min später — CCC bildet ein Paar (gleiche refid zuerst), AAA bleibt STAKING_UNPAIRED. Vorher nahm AAA die Spot-Zeile über das Zeitfenster, CCC war ohne Gegenstück.",
+      "_comment": "Staking-Auszahlung refid AAA ohne Gegenstück, Spot-Einzahlung refid CCC 1 min später, Staking-Auszahlung refid CCC 2 min später — CCC bildet ein Paar (gleiche refid zuerst), AAA bleibt STAKING_UNPAIRED. Vorher nahm AAA die Spot-Zeile über das Zeitfenster, CCC war ohne Gegenstück.",
       "format": "KRAKEN",
       "csv": "\"txid\",\"refid\",\"time\",\"type\",\"subtype\",\"aclass\",\"asset\",\"wallet\",\"amount\",\"fee\",\"balance\"\n\"L1\",\"AAA\",\"2024-06-02 10:00:00\",\"withdrawal\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"-1.0000000000\",\"0.0000000000\",\"1.0000000000\"\n\"L2\",\"CCC\",\"2024-06-02 10:01:00\",\"deposit\",\"\",\"currency\",\"XETH\",\"spot / main\",\"1.0000000000\",\"0.0000000000\",\"1.0000000000\"\n\"L3\",\"CCC\",\"2024-06-02 10:02:00\",\"withdrawal\",\"\",\"currency\",\"ETH2.S\",\"spot / main\",\"-1.0000000000\",\"0.0000000000\",\"0.0000000000\"\n",
       "rows": [],
@@ -2447,7 +2447,7 @@
       ]
     },
     {
-      "name": "stablecoin trades imported as buy/sell before build 47",
+      "name": "stablecoin trades imported as buy/sell by older versions",
       "file": "generic_stable",
       "deviceZone": "Europe/Zurich",
       "override": null,
@@ -2554,7 +2554,7 @@
       ]
     }
   ],
-  "_stableSwapsComment": "Vorschau: Hinweis «gegen Stablecoin als Tausch gebucht» (stableSwaps), sobald eine neue Zeile so umgebucht wurde; txs = zugeordnete Transaktionen (Tausch mit Wert in USDT wie die [R10]-Fälle FR/AT in tax_templates.json). Build 48: fee/feeUnit/feeCoin/feeCoinAmount (fehlt = nicht geprüft) — Gebühr im erhaltenen Coin eines Tauschs (auch USDT) = feeCoin = toCoin (weniger erhalten); balances = Bestand je Coin nach allen Transaktionen der Vorschau (PortfolioCalculator.holdingsAt), z. B. Kraken-Saldo 1246.7 USDT.",
+  "_stableSwapsComment": "Vorschau: Hinweis «gegen Stablecoin als Tausch gebucht» (stableSwaps), sobald eine neue Zeile so umgebucht wurde; txs = zugeordnete Transaktionen (Tausch mit Wert in USDT wie die [R10]-Fälle FR/AT in tax_templates.json). fee/feeUnit/feeCoin/feeCoinAmount (fehlt = nicht geprüft) — Gebühr im erhaltenen Coin eines Tauschs (auch USDT) = feeCoin = toCoin (weniger erhalten); balances = Bestand je Coin nach allen Transaktionen der Vorschau (PortfolioCalculator.holdingsAt), z. B. Kraken-Saldo 1246.7 USDT.",
   "stableSwaps": [
     {
       "file": "generic_stable",
@@ -2915,7 +2915,7 @@
       ]
     }
   ],
-  "_fiatFeeRewardComment": "Build 93: Gebühr in einer anderen Fiat-Währung als der Preiswährung (Kauf in USD, Gebühr EUR) zum Tageskurs ihrer Währung, ohne Kurs (GBP) needsFx/missingFx statt still weg; Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso. Belohnung mit Fiat-Betrag (Fiat Amount, Währung Fiat/USDT): Preis = Betrag / Menge (wie Coinbase/Bitpanda); Währung ein Coin (DOT) → ohne Preis wie bisher. legacyKey = Schlüssel bis Build 92 (Belohnung ohne Preis) der Zeile legacyLine — erkennt den früheren Import als Duplikat. fxNeeds: Währungen der Tageskurse (Gebühr in jeder Fiat-Währung).",
+  "_fiatFeeRewardComment": "Gebühr in einer anderen Fiat-Währung als der Preiswährung (Kauf in USD, Gebühr EUR) zum Tageskurs ihrer Währung, ohne Kurs (GBP) needsFx/missingFx statt still weg; Tausch aus zwei Seiten ohne Fiat-Wert mit EUR-Gebühr ebenso. Belohnung mit Fiat-Betrag (Fiat Amount, Währung Fiat/USDT): Preis = Betrag / Menge (wie Coinbase/Bitpanda); Währung ein Coin (DOT) → ohne Preis wie bisher. legacyKey = älterer Schlüssel (Belohnung ohne Preis) der Zeile legacyLine — erkennt den früheren Import als Duplikat. fxNeeds: Währungen der Tageskurse (Gebühr in jeder Fiat-Währung).",
   "fiatFeeReward": {
     "file": "generic_fiat_fee_reward",
     "rates": {
@@ -3001,7 +3001,7 @@
       "GBP"
     ]
   },
-  "_confirmGateComment": "Since Build 103: «Import» only while the file is not being read again (rereading) and the shown preview was built with the current choice (zone, dateOrder DAY_FIRST/MONTH_FIRST, decimalMark; null = rule). Android CsvReadChoice.canConfirm / iOS CsvReadChoice.canConfirm. builtWith null = no preview.",
+  "_confirmGateComment": "«Import» only while the file is not being read again (rereading) and the shown preview was built with the current choice (zone, dateOrder DAY_FIRST/MONTH_FIRST, decimalMark; null = rule). Android CsvReadChoice.canConfirm / iOS CsvReadChoice.canConfirm. builtWith null = no preview.",
   "confirmGate": [
     {
       "name": "same choice",

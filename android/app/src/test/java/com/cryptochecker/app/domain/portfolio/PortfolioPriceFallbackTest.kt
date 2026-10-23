@@ -67,7 +67,7 @@ class PortfolioPriceFallbackTest {
         assertEquals(mapOf("ETH" to StoredPrice(3000.0, now)), PortfolioPriceFallback.decode(text))
     }
 
-    /** «Kurs ungeprüft» wird mit dem Kurs gemerkt (seit Build 101); ältere Dateien ohne Feld gelten als geprüft. */
+    /** «Kurs ungeprüft» wird mit dem Kurs gemerkt; ältere Dateien ohne Feld gelten als geprüft. */
     @Test
     fun unverifiedFlagRoundTrip() {
         val entries = mapOf(

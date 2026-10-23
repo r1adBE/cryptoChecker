@@ -4,7 +4,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Welche Töne die App aus der Mediathek wieder löschen darf ([AlarmSoundStore.isOwnTone], seit Build 99). */
+/** Welche Töne die App aus der Mediathek wieder löschen darf ([AlarmSoundStore.isOwnTone]). */
 class AlarmSoundStoreOwnToneTest {
 
     private val own = "content://media/external_primary/audio/media/42"

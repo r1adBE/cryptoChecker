@@ -8,7 +8,7 @@ import timber.log.Timber
 
 /**
  * Was eine Änderung des Nutzers an einem Paar-Alarm mit dessen gemeldeter Mitteilung und seinem Protokoll macht (reine Regeln,
- * Unit-Test `AlarmUserChangeTest`). Seit Build 92 nehmen Ausschalten, Bearbeiten und Löschen die Mitteilung weg: Ihr Knopf
+ * Unit-Test `AlarmUserChangeTest`). Ausschalten, Bearbeiten und Löschen nehmen die Mitteilung weg: Ihr Knopf
  * «1 h später» stellt eine Kursmarke wieder scharf und schaltet sie dabei ein (AlarmActionReceiver) — auch einen Alarm, den
  * der Nutzer inzwischen ausgeschaltet hat. Schaltet die Prüfung einen einmaligen Alarm nach dem Melden aus, bleibt die
  * Mitteilung samt Knopf (das läuft nicht hier durch).

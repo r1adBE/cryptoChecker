@@ -25,7 +25,7 @@ final class FuturesDeliveryDateTests: XCTestCase {
     }
 
     func testLastFridayOfTheMonthAlreadyPassedMovesToNextMonth() {
-        // Samstag nach dem letzten Freitag im Oktober: bis Build 91 noch der 30. Oktober
+        // Samstag nach dem letzten Freitag im Oktober: früher fälschlich noch der 30. Oktober
         let now = "2026-10-31T00:00:00Z"
         XCTAssertEqual(delivery(.monthly, now), "2026-11-27")
         XCTAssertEqual(delivery(.bimonthly, now), "2026-12-25")

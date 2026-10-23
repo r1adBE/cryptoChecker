@@ -1,5 +1,5 @@
 {
-  "description": "ThresholdParser (Android ThresholdParser.kt / iOS ThresholdParser.swift): text, decimal separator of the region ('.' or ','), current price as hint (null = none) -> expected value (null = invalid). Since Build 103 optional \"indianGrouping\" (default false): the region groups digits Indian style (secondary groups of two, e.g. hi-IN «1,00,000»); then a first group of 1–2 digits, groups of exactly two and a last group of three are accepted besides the usual groups of three. Compared with a relative tolerance of 1e-12.",
+  "description": "ThresholdParser (Android ThresholdParser.kt / iOS ThresholdParser.swift): text, decimal separator of the region ('.' or ','), current price as hint (null = none) -> expected value (null = invalid). Optional \"indianGrouping\" (default false): the region groups digits Indian style (secondary groups of two, e.g. hi-IN «1,00,000»); then a first group of 1–2 digits, groups of exactly two and a last group of three are accepted besides the usual groups of three. Compared with a relative tolerance of 1e-12.",
   "cases": [
     {"text": "60,000", "decimal": ",", "hint": 65000, "expected": 60000},
     {"text": "60,000", "decimal": ",", "hint": 58, "expected": 60},

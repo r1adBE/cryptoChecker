@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Visning</string>
     <string name="widget_portfolio_display_conversion">Kun omregning</string>
     <string name="widget_portfolio_display_conversion_usdt">Omregning + USDT</string>
-    <string name="widget_portfolio_display_hint">USDT-linjen vises ikke, når omregningsvalutaen er USD.</string>
+    <string name="widget_portfolio_display_hint">USDT-linjen vises ikke, når omregningsvalutaen er en USD-stablecoin (f.eks. USDC).</string>
     <string name="widget_portfolio_display_usdt">Kun USDT</string>
     <string name="widget_portfolio_empty">Tilføj køb under fanen Portefølje</string>
     <string name="widget_portfolio_list_hint">Åbn appen for at vise dine positioner her.</string>

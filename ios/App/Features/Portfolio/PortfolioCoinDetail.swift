@@ -15,12 +15,12 @@ struct PortfolioCoinDetail: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var sheet: PortfolioTxDraft?
-    /// Build 84: «ohne Kaufpreis» → Einträge ohne Einstand dieses Coins; «Aus Adresse» → Einstand für Adressguthaben.
+    /// «ohne Kaufpreis» → Einträge ohne Einstand dieses Coins; «Aus Adresse» → Einstand für Adressguthaben.
     @State private var costGapsOpen = false
     @State private var lotsFor: WatchedAddress?
     @State private var banner: WatchlistBannerMessage?
     @State private var deleteTick = 0
-    /// Seit Build 103 im Hintergrund gerechnet (`PortfolioModel.coinLedger`); bis zum neuen Ergebnis bleibt das letzte.
+    /// Im Hintergrund gerechnet (`PortfolioModel.coinLedger`); bis zum neuen Ergebnis bleibt das letzte.
     @State private var ledger: CoinLedger?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
@@ -35,7 +35,7 @@ struct PortfolioCoinDetail: View {
         let own = all.filter { tx in tx.coins.contains { PortfolioCalculator.normalizeCoin($0) == coin } }
         // Mit Adress-Guthaben (eigener Teil ohne Einstand) — wie die Übersicht; dazu offene Posten und (FIFO je Wallet)
         // Abgänge über den Bestand ihrer Wallet. Gebühr-Zeilen zum Tageskurs wie auf der Karte (`PortfolioModel.feePrice`);
-        // seit Build 103 abseits des Hauptthreads (`.task(id: ledgerKey)`)
+        // abseits des Hauptthreads (`.task(id: ledgerKey)`)
         let ledgerKey = model.coinLedgerKey(coin)
         let fromAddress = addressAmount
         List {

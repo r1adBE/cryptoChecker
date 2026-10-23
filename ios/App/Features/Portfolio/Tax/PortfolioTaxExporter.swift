@@ -29,7 +29,7 @@ enum PortfolioTaxExporter {
         return exact
     }
 
-    /// Eigene Transaktionen + Eröffnungsposten beobachteter Adressen als Käufe (Build 84, `AddressCostLots.exportTrades`); FR
+    /// Eigene Transaktionen + Eröffnungsposten beobachteter Adressen als Käufe (`AddressCostLots.exportTrades`); FR
     /// dazu der Gesamtwert samt beobachteter Adressen («im Portfolio zählen») — ihre Guthaben-Änderungen als Adress-Einträge
     /// (`AddressBalanceHistory.trades`, negative Id: keine Veräusserungen) ohne den belegten Teil. Wie `withAddressTrades`
     /// (Android).
@@ -100,7 +100,7 @@ enum PortfolioTaxExporter {
 
     /// FR: Kurse für den Gesamtwert des Portfolios vor jeder Abtretung bis Ende `period` — je Verkauf, Auszahlung und
     /// Gebühr in Krypto die gehaltenen Coins (ohne den verkauften, ohne Stablecoins) zum Tagesschluss des UTC-Tags der
-    /// Abtretung (`TaxDayClose`, dieselbe Regel wie die Gebühr-Zeilen; bis Build 85 der Vortag). Wie `frPrices` (Android).
+    /// Abtretung (`TaxDayClose`, dieselbe Regel wie die Gebühr-Zeilen). Wie `frPrices` (Android).
     static func frPrices(_ transactions: [PortfolioTx], period: TaxPeriod,
                          zone: TimeZone = .current, until: LocalDay? = nil) async -> (String, Int64) -> Decimal? {
         let end = endMillis(period, until: until, zone: zone)

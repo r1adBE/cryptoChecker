@@ -3,7 +3,7 @@ import Security
 import XCTest
 @testable import CryptoChecker
 
-/// «App zurücksetzen» erneuert den Schlüssel der verschlüsselten Dateien (`StorageKey.renew`, seit Build 99): alter
+/// «App zurücksetzen» erneuert den Schlüssel der verschlüsselten Dateien (`StorageKey.renew`): alter
 /// Eintrag weg, neuer sofort da; ein zweiter Prozess (Widget) mit gemerktem altem Schlüssel liest nach dem Wechsel neu.
 /// Mit gefälschtem Schlüsselbund und Merker im Speicher — nie die App Group oder der echte Schlüsselbund.
 final class StorageKeyRenewTests: XCTestCase {

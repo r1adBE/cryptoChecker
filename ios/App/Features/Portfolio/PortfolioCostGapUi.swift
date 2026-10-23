@@ -1,6 +1,6 @@
 import SwiftUI
 
-// Einträge ohne Einstand und Einstand für Adressguthaben (Build 84): Hilfen, Merker «Unbekannt lassen» und die sanfte
+// Einträge ohne Einstand und Einstand für Adressguthaben: Hilfen, Merker «Unbekannt lassen» und die sanfte
 // Karte im Portfolio-Tab — wie `PortfolioCostGapUi.kt`. Blätter in `PortfolioCostGapsSheet.swift` und
 // `PortfolioAddressLotsSheet.swift`.
 

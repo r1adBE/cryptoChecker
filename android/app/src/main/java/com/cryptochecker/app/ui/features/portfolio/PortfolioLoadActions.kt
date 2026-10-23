@@ -202,7 +202,7 @@ fun PortfolioViewModel.loadExchanges() {
     viewModelScope.launch { _exchanges.value = safe { priceSource.spotMarketNames() }.orEmpty() }
 }
 
-/** Abruf ohne Absturz: Fehler → null; seit Build 103 protokolliert (Datenbank-Schlüssel nicht lesbar nur als Hinweis). */
+/** Abruf ohne Absturz: Fehler → null; protokolliert (Datenbank-Schlüssel nicht lesbar nur als Hinweis). */
 internal suspend fun <T> PortfolioViewModel.safe(block: suspend () -> T): T? = try {
     block()
 } catch (e: CancellationException) {

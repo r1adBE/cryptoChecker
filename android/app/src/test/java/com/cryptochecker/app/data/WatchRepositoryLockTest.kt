@@ -8,7 +8,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Sperre der Merkliste im Repository (seit Build 103, Review F-08): Jeder Schreibweg des Nutzers fragt zuerst
+ * Sperre der Merkliste im Repository (Review F-08): Jeder Schreibweg des Nutzers fragt zuerst
  * [userWriteRefused] (zentral, nicht in jeder Oberfläche), Hintergrundarbeit nicht. Room läuft nur auf dem Gerät, darum
  * am Quelltext wie [com.cryptochecker.app.data.local.WatchDaoAlarmQueriesTest]; die Drosselung des Hinweises
  * ([WatchlistWriteRefusal]) rein.
@@ -45,7 +45,7 @@ class WatchRepositoryLockTest {
         for (signature in userWrites) {
             assertTrue(signature, member(repo, signature).contains("userWriteRefused("))
         }
-        // Seit Build 105: Alarm speichern in WatchRepositoryAlarmSave.kt (eindeutiges Ergebnis); die Kurzformen leiten weiter
+        // Alarm speichern in WatchRepositoryAlarmSave.kt (eindeutiges Ergebnis); die Kurzformen leiten weiter
         val save = source("WatchRepositoryAlarmSave.kt")
         for (signature in listOf("fun WatchRepository.trySaveAlarm(", "fun WatchRepository.trySaveAlarmMerged(")) {
             val body = save.substringAfter(signature).substringBefore("\n\n")
@@ -58,7 +58,7 @@ class WatchRepositoryLockTest {
     @Test
     fun addingPairsAsksTheLock() {
         val add = source("WatchRepositoryAdd.kt")
-        // «Rückgängig» seit Build 103 ebenfalls dort (Obergrenze der Merkliste)
+        // «Rückgängig» ebenfalls dort (Obergrenze der Merkliste)
         for (signature in listOf("fun WatchRepository.tryAddWatch(", "fun WatchRepository.addWatches(", "fun WatchRepository.restore(")) {
             assertTrue(signature, add.substringAfter(signature).substringBefore("\n}\n").contains("userWriteRefused("))
         }
@@ -66,7 +66,7 @@ class WatchRepositoryLockTest {
         assertTrue(add.substringAfter("fun WatchRepository.addWatch(").substringBefore("\n\n").contains("tryAddWatch("))
     }
 
-    /** Seit Build 103 (Review FUN-03): «Rückgängig» prüft die Obergrenze der Merkliste wie das Anlegen. */
+    /** Review FUN-03: «Rückgängig» prüft die Obergrenze der Merkliste wie das Anlegen. */
     @Test
     fun restoreRespectsPairLimit() {
         val body = source("WatchRepositoryAdd.kt").substringAfter("fun WatchRepository.restore(")
@@ -121,7 +121,7 @@ class WatchRepositoryLockTest {
     }
 
     /**
-     * Seit Build 105 (Review ARC3-R01, UX3-01): Lösch- und Deaktivier-Wege melden «abgelehnt» eindeutig (false); Rückgängig,
+     * Review ARC3-R01, UX3-01: Lösch- und Deaktivier-Wege melden «abgelehnt» eindeutig (false); Rückgängig,
      * Mitteilungen und Protokoll laufen erst danach und nur nach dem Schreiben.
      */
     @Test
@@ -147,7 +147,7 @@ class WatchRepositoryLockTest {
     }
 
     /**
-     * Seit Build 105 (Review ARC3-R02, UX3-01/03/04): Die Rückfrage F-08 kommt EINMAL je Aktion VOR Sperren und Folgen
+     * Review ARC3-R02, UX3-01/03/04: Die Rückfrage F-08 kommt EINMAL je Aktion VOR Sperren und Folgen
      * ([confirmUserWrite]); der Schreibweg wartet nie auf sie (sonst hielte ein offener Dialog z. B. die Refresh-Sperre),
      * sondern lehnt ohne Bestätigung ab. Jede Datei, die Schreibwege des Nutzers aufruft, fragt vorher.
      */

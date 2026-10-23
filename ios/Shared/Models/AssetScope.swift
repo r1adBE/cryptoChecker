@@ -8,7 +8,7 @@ import Foundation
 ///  - `BOTH`: alles.
 ///
 /// Alpha-Tokens (`AssetKind.ALPHA`) gehören zu Token; der Schalter «inkl. Alpha-Tokens»
-/// (`AppSettings.includeAlphaTokens`, ab Build 43 Standard aus) blendet sie in der Auswahl aus (`allows` mit
+/// (`AppSettings.includeAlphaTokens`, Standard aus) blendet sie in der Auswahl aus (`allows` mit
 /// `hiddenAlpha`).
 ///
 /// Gemerkte Paare bleiben immer in der Merkliste. Gespeichert und gesichert unter dem Namen

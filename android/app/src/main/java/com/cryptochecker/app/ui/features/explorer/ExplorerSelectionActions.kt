@@ -131,7 +131,7 @@ fun ExplorerViewModel.addSelectedPair() {
  */
 internal fun ExplorerViewModel.launchAdd(target: MarketInfo, pair: MarketPair, report: (added: Boolean) -> Unit) {
     viewModelScope.launch {
-        // Seit Build 105: Rückfrage F-08 vor dem Anlegen; «Abbrechen» = nichts, keine Meldung
+        // Rückfrage F-08 vor dem Anlegen; «Abbrechen» = nichts, keine Meldung
         if (!watchRepository.confirmUserWrite()) return@launch
         when (val outcome = watchRepository.tryAddWatch(target, pair, sessionTargetGroup.value)) {
             is AddWatchOutcome.Added -> {

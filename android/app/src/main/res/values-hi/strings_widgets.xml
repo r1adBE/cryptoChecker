@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">दिखाओ</string>
     <string name="widget_portfolio_display_conversion">केवल रूपांतरण</string>
     <string name="widget_portfolio_display_conversion_usdt">रूपांतरण + USDT</string>
-    <string name="widget_portfolio_display_hint">रूपांतरण मुद्रा USD होने पर USDT पंक्ति नहीं दिखती।</string>
+    <string name="widget_portfolio_display_hint">रूपांतरण मुद्रा USD स्टेबलकॉइन (जैसे USDC) होने पर USDT पंक्ति नहीं दिखती।</string>
     <string name="widget_portfolio_display_usdt">केवल USDT</string>
     <string name="widget_portfolio_empty">पोर्टफ़ोलियो टैब में खरीदारी जोड़ो</string>
     <string name="widget_portfolio_list_hint">अपनी पोज़िशन यहाँ दिखाने के लिए ऐप खोलो।</string>

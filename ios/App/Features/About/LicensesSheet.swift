@@ -72,7 +72,7 @@ struct LicensesSheet: View {
                     .font(.subheadline)
                     .foregroundStyle(AppColors.onSurface)
                     .padding(.bottom, Spacing.xs)
-                // Ersatz-Logos (Build 46): freies Icon-Paket, CC0 1.0 — wie Android
+                // Ersatz-Logos: freies Icon-Paket, CC0 1.0 — wie Android
                 Text(L("licenses_icons_title"))
                     .sectionTitleStyle()
                     .accessibilityAddTraits(.isHeader)

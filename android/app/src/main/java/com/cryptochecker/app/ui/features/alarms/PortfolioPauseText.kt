@@ -21,7 +21,7 @@ object PortfolioPauseText {
         is PortfolioAlarmPause.TokensStale -> coins(pause.addresses, hideCoins)
             ?.let { context.getString(R.string.portfolio_alarms_paused_tokens, it) }
             ?: context.getString(R.string.portfolio_alarms_paused_tokens_generic)
-        // Seit Build 101: Kurs ungeprüft (Token nicht bestätigt)
+        // Kurs ungeprüft (Token nicht bestätigt)
         is PortfolioAlarmPause.PriceUnverified -> coins(pause.coins, hideCoins)
             ?.let { context.getString(R.string.portfolio_alarms_paused_unverified, it) }
             ?: context.getString(R.string.portfolio_alarms_paused_unverified_generic)

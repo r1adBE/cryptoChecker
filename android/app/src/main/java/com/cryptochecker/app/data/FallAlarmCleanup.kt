@@ -17,7 +17,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
- * Seit Build 104: «fällt um ≥ 100 %»-Alarme (Kurs bzw. Open Interest, [AlarmJson.exceedsFall]) konnte Build 102 noch
+ * «fällt um ≥ 100 %»-Alarme (Kurs bzw. Open Interest, [AlarmJson.exceedsFall]) konnten ältere Versionen
  * speichern; sie lösen nie aus. Einmal je Installation ausschalten (Merker in eigenen SharedPreferences); die
  * Alarmliste kennzeichnet sie («Schwelle ungültig – bitte anpassen»). Keine Room-Migration: nur ein UPDATE im
  * Hintergrund. Nicht gegen eine Merkliste, die nur im Arbeitsspeicher liegt (dann beim nächsten Start erneut).
@@ -46,7 +46,7 @@ class FallAlarmCleanup @Inject constructor(
                 if (changed > 0) Timber.i("Alarme «fällt um ≥ 100 %%» ausgeschaltet: %d", changed)
                 markDone(prefs)
             }.onFailure {
-                // Seit Build 106 (F-25): im Release sonst unsichtbar — zählen (Bereich «alarms»), Schlüssel fehlt: nur Hinweis
+                // F-25: im Release sonst unsichtbar — zählen (Bereich «alarms»), Schlüssel fehlt: nur Hinweis
                 if (!it.isDatabaseKeyUnavailable()) BackgroundErrorCounter.record(BackgroundErrors.ALARMS, error = it)
                 Timber.w(it, "Alarme «fällt um ≥ 100 %» nicht bereinigt")
             }

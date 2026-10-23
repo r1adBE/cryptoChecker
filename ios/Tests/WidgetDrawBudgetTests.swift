@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Endzeit eines Widget-Durchlaufs aus dem Zeichnen (`WidgetCadence.drawRunBudgetMillis`, seit Build 103): an die
+/// Endzeit eines Widget-Durchlaufs aus dem Zeichnen (`WidgetCadence.drawRunBudgetMillis`): an die
 /// Zeichen-Frist gekoppelt, damit nach der Rückgabe der Timeline keine Arbeit mehr läuft (vorher 25 s).
 final class WidgetDrawBudgetTests: XCTestCase {
     func testBudgetEndsBeforeDrawDeadline() {

@@ -36,7 +36,7 @@ final class FiatAlarmGuardTests: XCTestCase {
         }
     }
 
-    /// Seit Build 92: echte Fiat-Währung ohne Devisenkurs (NGN, ARS …) = `.fiatUnsupported`, nie Krypto über USDT — wie
+    /// Echte Fiat-Währung ohne Devisenkurs (NGN, ARS …) = `.fiatUnsupported`, nie Krypto über USDT — wie
     /// Android `quoteKindKnowsFiatWithoutFxRate`.
     func testQuoteKindKnowsFiatWithoutFxRate() throws {
         func name(_ kind: CurrencyConversion.QuoteKind) -> String {

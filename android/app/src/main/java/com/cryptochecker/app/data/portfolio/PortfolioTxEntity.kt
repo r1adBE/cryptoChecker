@@ -98,7 +98,7 @@ data class PortfolioTxEntity(
 
     /**
      * CSV-Importlauf ([com.cryptochecker.app.domain.portfolio.PortfolioImportBatch]): alle Transaktionen eines Imports
-     * haben dieselbe Kennung — «Import rückgängig» löscht genau sie. null = von Hand erfasst (oder vor Build 46 importiert).
+     * haben dieselbe Kennung — «Import rückgängig» löscht genau sie. null = von Hand erfasst (oder früher importiert).
      */
     @ColumnInfo val importBatch: String? = null,
 

@@ -1,7 +1,7 @@
 import SwiftUI
 import UIKit
 
-/// Eine Zeile über der Merkliste (Build 91): Kommen die Alarme an (`AlarmReliability`)? Ruhig eine graue Zeile
+/// Eine Zeile über der Merkliste: Kommen die Alarme an (`AlarmReliability`)? Ruhig eine graue Zeile
 /// «Letzte Prüfung vor 12 Min.», sonst Bernstein mit dem wichtigsten Grund; Tipp öffnet «Damit Alarme ankommen» als
 /// Blatt. Liest denselben Zustand wie die Seite (`AlarmReadinessProbe`), beim Zurückkehren in die App neu. Ohne Alarme
 /// nichts. Wie `AlarmReliabilityLine.kt`.

@@ -1,9 +1,9 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Portfolio-Widget-Stand ausserhalb des Hauptthreads (`OrderedSerialRunner`, `PortfolioWidgetStore.updateInBackground`,
-/// seit Build 99): die Rechnung läuft nie auf dem Hauptthread, Aufnahmen laufen einzeln nacheinander, eine ältere
-/// überschreibt nie eine neuere, und das Ergebnis ist dasselbe wie synchron gerechnet.
+/// Portfolio-Widget-Stand ausserhalb des Hauptthreads (`OrderedSerialRunner`,
+/// `PortfolioWidgetStore.updateInBackground`): die Rechnung läuft nie auf dem Hauptthread, Aufnahmen laufen einzeln
+/// nacheinander, eine ältere überschreibt nie eine neuere, und das Ergebnis ist dasselbe wie synchron gerechnet.
 final class PortfolioWidgetBackgroundTests: XCTestCase {
     @MainActor
     func testWorkRunsOffMainThread() async {

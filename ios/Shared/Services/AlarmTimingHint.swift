@@ -1,7 +1,7 @@
 import Foundation
 
-/// Ehrlicher Hinweis «Wann Alarme geprüft werden» als EIN Satz je Plattform (Build 55 —
-/// vorher vier verschieden lange Fassungen): Solange die App offen ist, prüft sie zuverlässig; bei
+/// Ehrlicher Hinweis «Wann Alarme geprüft werden» als EIN Satz je Plattform
+/// (statt vier verschieden langer Fassungen): Solange die App offen ist, prüft sie zuverlässig; bei
 /// geschlossener App entscheidet iOS, wann (`alarm_timing_hint_ios`). Derselbe Satz steht unter jedem
 /// Alarm, ist der ganze Text der Bestätigung nach dem ersten Alarm und erscheint einmal nach dem
 /// Speichern — wie `AlarmTimingHint.kt` (Android).
@@ -27,8 +27,8 @@ enum AlarmTimingHint {
     /// Der eine Satz mit den Texten der App.
     static var text: String { L("alarm_timing_hint_ios") }
 
-    /// Weg zur Wahl «Wie aktuell?» unter dem Satz im einmaligen Hinweis. Build 55: «Kurs-Aktualisierung»
-    /// steht wieder auf der Hauptseite (Gruppe «Allgemein»).
+    /// Weg zur Wahl «Wie aktuell?» unter dem Satz im einmaligen Hinweis. «Kurs-Aktualisierung»
+    /// steht auf der Hauptseite (Gruppe «Allgemein»).
     static var whereText: String {
         L("alarm_timing_where", settingsPath([L("settings_title"), L("settings_row_updates")]))
     }

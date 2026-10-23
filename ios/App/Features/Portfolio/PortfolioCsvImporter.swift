@@ -44,7 +44,7 @@ struct CsvImportLoaded: Identifiable {
 /// `PortfolioHistoryFx.rateOn`) in USDT umrechnen und die Vorschau bauen (`CsvImportMapping.preview`); Umbuchungen zwischen
 /// Börsen schlägt die Vorschau vor (`CsvTransferMatch`).
 enum PortfolioCsvImporter {
-    /// Höchstens 16 MB, wie Android (`BackupLimits.CSV_MAX_BYTES`); die Sicherung selbst darf seit Build 92 64 MB.
+    /// Höchstens 16 MB, wie Android (`BackupLimits.CSV_MAX_BYTES`); die Sicherung selbst darf 64 MB.
     static let maxBytes = 16 * 1024 * 1024
 
     /// Erlaubte Dateien der Auswahl — CSV aus Dateien/Drive kommt teils als Text oder ohne Typ (`.data`);
@@ -85,7 +85,7 @@ enum PortfolioCsvImporter {
         let usdtUsd = await fetchUsdtUsd(result)
         let preview = mapPreview(result, existingKeys: existingKeys, rates: rates, withdrawalsAsTransfer: false,
                                  usdtUsd: usdtUsd)
-        // Zu gross (über den Grenzen des Zerlegens) eigens melden, nicht als fremdes Format (seit Build 99, wie Android)
+        // Zu gross (über den Grenzen des Zerlegens) eigens melden, nicht als fremdes Format (wie Android)
         if let refusal = CsvImportRefusal.of(fileTooLarge: false, preview: preview) { return .failure(refusal) }
         return .success(CsvImportLoaded(text: text, result: result, existingKeys: existingKeys, rates: rates,
                                         preview: preview, usdtUsd: usdtUsd))

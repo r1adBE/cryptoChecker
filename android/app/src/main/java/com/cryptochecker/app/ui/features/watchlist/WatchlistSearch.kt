@@ -80,7 +80,7 @@ internal fun WatchEntity.matchesSearch(query: String, name: String? = null): Boo
 internal fun searchName(watch: WatchEntity, names: Map<String, String>, tradFiPairs: Set<String>): String? =
     searchName(watch.marketKey, watch.baseAsset, watch.quoteAsset, watch.contractType.name, names, tradFiPairs)
 
-/** Wie oben, aus den einzelnen Feldern (seit Build 104 auch für die Zeilen der Paarwahl ohne [WatchEntity]). */
+/** Wie oben, aus den einzelnen Feldern (auch für die Zeilen der Paarwahl ohne [WatchEntity]). */
 internal fun searchName(
     marketKey: String,
     baseAsset: String,
@@ -156,7 +156,7 @@ internal fun WatchSearchField(query: String, onQueryChange: (String) -> Unit, on
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    // Screenreader liest den Hinweis am Feld selbst, nicht doppelt (seit Build 103)
+                    // Screenreader liest den Hinweis am Feld selbst, nicht doppelt
                     modifier = Modifier.clearAndSetSemantics {}
                 )
             }
@@ -168,7 +168,7 @@ internal fun WatchSearchField(query: String, onQueryChange: (String) -> Unit, on
                 cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
-                // Bezeichnung für Screenreader, auch wenn schon Text drinsteht (seit Build 103)
+                // Bezeichnung für Screenreader, auch wenn schon Text drinsteht
                 modifier = Modifier.fillMaxWidth().focusRequester(focusRequester).semantics { contentDescription = hint }
             )
         }

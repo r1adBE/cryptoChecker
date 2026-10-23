@@ -8,7 +8,7 @@ import java.io.File
 /**
  * iOS-Merkliste: Jede `.animation(…)` der Liste richtet sich nach «Bewegung reduzieren» (`reduceMotion ? nil : …`),
  * wie die Überlagerungen. Quellwächter über `ios/App/Features/Watchlist/WatchlistList.swift`; im reinen
- * Android-Checkout übersprungen (seit Build 105 sichtbar, in der CI Pflicht). Seit Build 102.
+ * Android-Checkout übersprungen (sichtbar, in der CI Pflicht).
  */
 class WatchlistReduceMotionGuardTest {
 

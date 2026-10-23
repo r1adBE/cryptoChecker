@@ -1,8 +1,8 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Neutraler User-Agent der Adressabfragen (`Parity/address_privacy.json`, seit Build 103): gleicher Wert wie Android,
-/// ohne App-Name/Version (sonst sendet CFNetwork den Bundle-Namen); seit Build 104 Host-Regel und eigene Sessions.
+/// Neutraler User-Agent der Adressabfragen (`Parity/address_privacy.json`): gleicher Wert wie Android,
+/// ohne App-Name/Version (sonst sendet CFNetwork den Bundle-Namen); dazu Host-Regel und eigene Sessions.
 /// Gegenstück: `AddressPrivacyParityTest.kt`.
 final class AddressPrivacyParityTests: XCTestCase {
     private typealias S = TestSupport
@@ -16,7 +16,7 @@ final class AddressPrivacyParityTests: XCTestCase {
         }
     }
 
-    /// Host → User-Agent wie Android (seit Build 104).
+    /// Host → User-Agent wie Android.
     func testHostRegelWieGemeinsameFaelle() throws {
         let fixture = try S.fixture("address_privacy")
         let cases = try XCTUnwrap(fixture["hostCases"] as? [[String: Any]])
@@ -28,7 +28,7 @@ final class AddressPrivacyParityTests: XCTestCase {
         }
     }
 
-    /// Adress-Hosts laufen nie über die Sessions mit App-User-Agent und teilen keine Verbindungen (seit Build 104).
+    /// Adress-Hosts laufen nie über die Sessions mit App-User-Agent und teilen keine Verbindungen.
     func testAdressHostsBekommenEigeneSession() {
         let single = MarketHTTP.sessionFor(host: "mempool.space", requested: MarketHTTP.session)
         XCTAssertTrue(single === MarketHTTP.addressHostSession)

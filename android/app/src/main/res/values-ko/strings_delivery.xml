@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Seite «Damit Alarme ankommen» (Build 81): Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
+    <!-- Seite «Damit Alarme ankommen»: Titel, auch Name der Knöpfe in «Alle Alarme», im Alarm-Editor und unter Einstellungen › Alarme -->
     <string name="delivery_title">경보가 제대로 도착하려면</string>
     <!-- Screenreader: Zustand einer Zeile (✓ / ⚠ / Hinweis) -->
     <string name="delivery_state_ok">정상</string>

@@ -75,7 +75,7 @@ fun PortfolioTxSheet(
     val focus = LocalFocusManager.current
     val coins by viewModel.coins.collectAsState()
     val exchanges by viewModel.exchanges.collectAsState()
-    // Build 46: selbst benutzte Börsen/Wallets (Vorschläge und «Meintest du …?» bei Von/Nach)
+    // Selbst benutzte Börsen/Wallets (Vorschläge und «Meintest du …?» bei Von/Nach)
     val savedTxs by viewModel.transactions.collectAsState()
     val usedWallets = remember(savedTxs) {
         com.cryptochecker.app.domain.portfolio.PortfolioWalletNames.known(
@@ -112,7 +112,7 @@ fun PortfolioTxSheet(
     val saveFailedText = stringResource(R.string.portfolio_tx_save_failed)
     // Gespeicherter Stand gerade nicht lesbar: nichts geschrieben (PortfolioStorageLock) — diesen Grund nennen
     val storageLockedText = stringResource(R.string.portfolio_storage_locked)
-    // Löschen nicht geschrieben (Fehler, nicht gesperrt), seit Build 103
+    // Löschen nicht geschrieben (Fehler, nicht gesperrt)
     val writeFailedText = stringResource(R.string.portfolio_write_failed)
     val scope = rememberCoroutineScope()
     val haptics = rememberHaptics()
@@ -191,7 +191,7 @@ fun PortfolioTxSheet(
                 TextButton(onClick = {
                     askDelete = false
                     // Haptik nach dem Ergebnis: gelöscht = destruktiv und zu, nicht geschrieben = Fehler, Blatt bleibt mit
-                    // Hinweis offen (seit Build 103, wie iOS)
+                    // Hinweis offen (wie iOS)
                     viewModel.delete(initial.id) { result ->
                         if (result == PortfolioWriteResult.OK) {
                             haptics.play(HapticEvent.DESTRUCTIVE)
@@ -248,7 +248,7 @@ fun PortfolioTxSheet(
                 // K-2: Preis/Wert in USDT oder in der Anzeigewährung (umgerechnet mit dem Tageskurs, gespeichert in USDT)
                 if (d.fiatPossible) TxEntryCurrencySection(state, d, currency)
                 TxPriceValueSection(state, d, currency)
-                // Gespeicherter Zugang ohne Preis: Vorschlag Tagesschluss bzw. «Wert bei Zufluss» (Build 84)
+                // Gespeicherter Zugang ohne Preis: Vorschlag Tagesschluss bzw. «Wert bei Zufluss»
                 TxCostSuggestion(state, coin, coinValid, d.amount, viewModel)
                 // Notiz direkt unter dem Preis, bei allen Arten (Entscheid 18. Oktober 2026)
                 TxNoteField(state, 12.dp)

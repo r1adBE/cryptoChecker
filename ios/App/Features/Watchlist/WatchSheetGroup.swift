@@ -142,10 +142,10 @@ extension WatchActionsSheet {
     /// Deaktivieren bzw. wieder aktivieren (dann gleich den Kurs holen); Blatt zu, der Aufrufer
     /// zeigt ein kurzes Banner (`onDisabledChange`).
     func toggleDisabled(_ watch: Watch) {
-        // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts, kein Banner
+        // Rückfrage F-08 vorher; «Abbrechen» = nichts, kein Banner
         data.withWatchlistConfirm {
             data.setDisabled(ids: [watch.id], !watch.disabled)
-            // Seit Build 106 (wie Android): gesperrt → nur der Hinweis, kein Banner «deaktiviert», keine Haptik
+            // Wie Android: gesperrt → nur der Hinweis, kein Banner «deaktiviert», keine Haptik
             if !data.watchlistWritesBlocked {
                 Haptics.play(.lightImpact)
                 onDisabledChange(watch)
@@ -154,7 +154,7 @@ extension WatchActionsSheet {
         }
     }
 
-    /// Notiz-Blatt «Speichern»/«Entfernen»: seit Build 107 (IOS5-R02) erst nach bestätigter Rückfrage F-08 schreiben und
+    /// Notiz-Blatt «Speichern»/«Entfernen» (IOS5-R02): erst nach bestätigter Rückfrage F-08 schreiben und
     /// das Blatt schliessen; «Abbrechen» = Blatt bleibt mit dem Text (wie der Alarm-Editor).
     func saveNote(_ note: String?, close: @escaping @MainActor () -> Void, cancelled: @escaping @MainActor () -> Void) {
         data.withWatchlistConfirm({

@@ -34,7 +34,7 @@ internal object PulseSideLine {
         if (fearGreedValue != null && fearGreedText != null) {
             val from = text.indexOf(fearGreedText)
             val number = LocaleNumbers.integer(fearGreedValue)
-            // Zahl in Textfarbe statt Stufenfarbe: die Stufenfarben erreichen als Text kein AA (Build 43, wie die Karte)
+            // Zahl in Textfarbe statt Stufenfarbe: die Stufenfarben erreichen als Text kein AA (wie die Karte)
             if (from >= 0) color(text.indexOf(number, from), number.length, colors.textColor)
             // Stufenpunkt am Anfang des Fear-&-Greed-Teils in der Farbe der Stufe
             if (from >= 0 && text.startsWith(FNG_DOT, from)) {

@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Hiển thị</string>
     <string name="widget_portfolio_display_conversion">Chỉ quy đổi</string>
     <string name="widget_portfolio_display_conversion_usdt">Quy đổi + USDT</string>
-    <string name="widget_portfolio_display_hint">Dòng USDT bị ẩn khi tiền tệ quy đổi là USD.</string>
+    <string name="widget_portfolio_display_hint">Dòng USDT bị ẩn khi tiền tệ quy đổi là stablecoin USD (ví dụ USDC).</string>
     <string name="widget_portfolio_display_usdt">Chỉ USDT</string>
     <string name="widget_portfolio_empty">Thêm giao dịch mua trong tab Danh mục</string>
     <string name="widget_portfolio_list_hint">Mở ứng dụng để hiển thị các vị thế của bạn tại đây.</string>

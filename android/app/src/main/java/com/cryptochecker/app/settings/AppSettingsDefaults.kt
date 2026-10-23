@@ -84,7 +84,7 @@ fun defaultCurrency(locale: java.util.Locale = java.util.Locale.getDefault()): S
 }
 
 /**
- * Wahlmöglichkeiten und bisherige Standards der Einstellungen — seit Build 103 aus `AppSettings.kt` ausgelagert (Datei
+ * Wahlmöglichkeiten und bisherige Standards der Einstellungen — aus `AppSettings.kt` ausgelagert (Datei
  * über 400 Zeilen). `AppSettings.Companion` erbt sie: Aufrufe bleiben `AppSettings.GAS_ETH_CHOICES` usw.
  */
 open class AppSettingsChoices internal constructor() {
@@ -99,11 +99,11 @@ open class AppSettingsChoices internal constructor() {
     /** Gas-Alarm Bitcoin in sat/vB. */
     val GAS_BTC_CHOICES = listOf(0, 1, 2, 5, 10)
 
-    /** Bisherige Standards (bis Build 42) der in Build 43 geänderten Schalter. */
+    /** Bisherige Standards der später geänderten Schalter (bestehende Installationen). */
     val LEGACY_WATCHLIST_NAMES = false
     val LEGACY_SHOW_CONVERTED = false
     val LEGACY_INCLUDE_ALPHA_TOKENS = true
 
-    /** Bisheriger Standard (bis Build 43) des Portfolio-Tabs; auch für Sicherungen ohne das Feld. */
+    /** Bisheriger Standard des Portfolio-Tabs (bestehende Installationen); auch für Sicherungen ohne das Feld. */
     val LEGACY_PORTFOLIO_ENABLED = true
 }

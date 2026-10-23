@@ -1,5 +1,5 @@
 {
-  "_comment": "Bedarf der periodischen Hintergrund-Aktualisierung (seit Build 103): BackgroundWorkPolicy.periodicNeeded / portfolioWork (Android, PriceUpdateScheduler) und BackgroundWorkDemand (iOS, BackgroundRefresh.scheduleRefresh). Ohne Bedarf wird die Aufgabe abgesagt. Fehlende Felder in «demand» = false, «pairs» fehlt = keine Paare. Gemeinsam für PeriodicNeededParityTest.kt und PeriodicNeededParityTests.swift. Nur iOS (plattformspezifisch, nicht hier): Fear & Greed/Kennzahlen und Live-Aktivität laufen in derselben Aufgabe.",
+  "_comment": "Bedarf der periodischen Hintergrund-Aktualisierung: BackgroundWorkPolicy.periodicNeeded / portfolioWork (Android, PriceUpdateScheduler) und BackgroundWorkDemand (iOS, BackgroundRefresh.scheduleRefresh). Ohne Bedarf wird die Aufgabe abgesagt. Fehlende Felder in «demand» = false, «pairs» fehlt = keine Paare. Gemeinsam für PeriodicNeededParityTest.kt und PeriodicNeededParityTests.swift. Nur iOS (plattformspezifisch, nicht hier): Fear & Greed/Kennzahlen und Live-Aktivität laufen in derselben Aufgabe.",
   "periodicNeeded": [
     {
       "name": "nothing",

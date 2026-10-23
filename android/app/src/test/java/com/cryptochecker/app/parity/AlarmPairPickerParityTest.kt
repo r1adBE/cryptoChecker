@@ -9,8 +9,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Seit Build 103 (Review UX-02): Paarwahl für einen neuen Alarm — Suche wie in der Merkliste, Favoriten zuerst
- * (`testdata/parity/alarm_pair_picker.json`). Gegenstück: `Tests/AlarmPairPickerTests.swift`. Seit Build 104 über die
+ * Review UX-02: Paarwahl für einen neuen Alarm — Suche wie in der Merkliste, Favoriten zuerst
+ * (`testdata/parity/alarm_pair_picker.json`). Gegenstück: `Tests/AlarmPairPickerTests.swift`. Über die
  * vorberechneten Zeilen ([alarmPickerRows]) mit gefalteten Coin-Namen.
  */
 class AlarmPairPickerParityTest {
@@ -40,7 +40,7 @@ class AlarmPairPickerParityTest {
             val expected = c["expected"].list().map { it.num()!!.toLong() }
             assertEquals(c["name"] as String, expected, alarmPairChoices(rows, c["query"] as String, names).map { it.id })
         }
-        // Seit Build 104: ein neuer Kurs ändert die Zeilen nicht (distinctUntilChanged lässt ihn durch), ein Favorit schon
+        // Ein neuer Kurs ändert die Zeilen nicht (distinctUntilChanged lässt ihn durch), ein Favorit schon
         assertEquals(rows, alarmPickerRows(watches.map { it.copy(lastPrice = 42.0, lastUpdate = 1L) }))
         assertTrue(rows != alarmPickerRows(watches.map { it.copy(favorite = !it.favorite) }))
     }

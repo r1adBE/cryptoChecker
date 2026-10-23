@@ -42,7 +42,7 @@ actor OwnCandleDataSource {
         return URLSession(configuration: c)
     }()
 
-    // Begrenzt (seit Build 102): Schlüssel je Paar, Intervall und Anzahl — sonst wüchse er über die Prozesslebensdauer
+    // Begrenzt: Schlüssel je Paar, Intervall und Anzahl — sonst wüchse er über die Prozesslebensdauer
     private var cache = BoundedCache<String, (time: Int64, value: Sourced<[MarketCandle]>?)>()
     private var running = 0
     private var waiters: [CheckedContinuation<Void, Never>] = []

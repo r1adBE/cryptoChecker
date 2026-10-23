@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Sperre der Merkliste (seit Build 103, Review F-08), wie Android `WatchRepositoryLockTest`: Ist die gespeicherte
+/// Sperre der Merkliste (Review F-08), wie Android `WatchRepositoryLockTest`: Ist die gespeicherte
 /// Merkliste gerade nicht lesbar (`watchlistLocked`), lehnt `AppData` jeden Schreibweg des Nutzers ab, Hintergrund nicht;
 /// der Hinweis ist gedrosselt und erscheint nur auf dem zuletzt erschienenen Bildschirm. Die Schreibwege prüft der Test
 /// an der Quelle, weil `AppData` die echte App Group nutzt.
@@ -79,14 +79,14 @@ final class WatchlistWriteLockTests: XCTestCase {
                 XCTAssertTrue(body(text, signature).contains("watchlistWriteRefused("), "\(file): \(signature) prüft die Sperre nicht")
             }
         }
-        // Neue Alarme sperrt weiterhin `alarmSaveBlocked` (der Bildschirm nennt es vorher selbst); seit Build 105 fragen
+        // Neue Alarme sperrt weiterhin `alarmSaveBlocked` (der Bildschirm nennt es vorher selbst); zusätzlich fragen
         // auch sie die Sicherung (`watchlistWriteRefused`)
         let alarms = try source("AppData+Alarms.swift")
         XCTAssertTrue(body(alarms, "func saveAlarm(").contains("!alarmSaveBlocked"))
         XCTAssertTrue(body(alarms, "func createAlarm(").contains("!alarmSaveBlocked"))
     }
 
-    /// Seit Build 105 (F-08, Review UX3-02/05, IOS3-R04): Die Rückfrage kommt EINMAL je Aktion VOR der Aktion im
+    /// F-08, Review UX3-02/05, IOS3-R04: Die Rückfrage kommt EINMAL je Aktion VOR der Aktion im
     /// Bildschirm (`withWatchlistConfirm`/`confirmWatchlistWrite`); der Schreibweg fragt nicht und führt nichts erneut
     /// aus (kein `retry`), sondern lehnt ohne Bestätigung ab. Gezeigt wird sie über allem (`WatchlistNotSavedGatePresenter`).
     func testActionsConfirmFirstAndWritePathsOnlyRefuse() throws {

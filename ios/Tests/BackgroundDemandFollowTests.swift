@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Bedarfs-Entscheid nach dem Vormerken (`BackgroundRefresh.followDemand`, seit Build 104, Review IOS2-R02): Kommen die
+/// Bedarfs-Entscheid nach dem Vormerken (`BackgroundRefresh.followDemand`, Review IOS2-R02): Kommen die
 /// Entscheide zweier Planungen in umgekehrter Reihenfolge, sagt der ältere nicht mehr ab; mit Bedarf, aber ohne
 /// vorgemerkte Anfrage wird nachgeholt; geprüft wird mit frisch geladenen Einstellungen.
 final class BackgroundDemandFollowTests: XCTestCase {
@@ -106,7 +106,7 @@ final class BackgroundDemandFollowTests: XCTestCase {
         XCTAssertEqual(recorder.intervals, [240])
     }
 
-    /// Seit Build 105 (Review IOS3-R05): Eine ältere, nicht ersetzende Planung, deren Abfrage erst nach einer neueren
+    /// Review IOS3-R05: Eine ältere, nicht ersetzende Planung, deren Abfrage erst nach einer neueren
     /// (ersetzenden) Planung zurückkommt, merkt nicht mehr vor — sie überschriebe sonst deren Anfrage.
     func testOlderFirstSubmitAfterNewerPlanDoesNotReplace() {
         let gate = BackgroundDemandGate()

@@ -6,7 +6,7 @@ import java.io.File
 
 /**
  * Bedingte Alarm-UPDATEs der Aktualisierung prüfen alle die Alarm-Währung (Room-Abfragen laufen nur auf dem Gerät,
- * darum am Quelltext): seit Build 102 auch [WatchDao.rearmAlarmIfUnchanged] — wie markAlarmTriggered.
+ * darum am Quelltext): auch [WatchDao.rearmAlarmIfUnchanged] — wie markAlarmTriggered.
  */
 class WatchDaoAlarmQueriesTest {
 
@@ -30,7 +30,7 @@ class WatchDaoAlarmQueriesTest {
         }
     }
 
-    /** Seit Build 102: Paare löschen entfernt auch die letzten Prüfungen ihrer Alarme aus dem Alarm-Protokoll. */
+    /** Paare löschen entfernt auch die letzten Prüfungen ihrer Alarme aus dem Alarm-Protokoll. */
     @Test
     fun paarLoeschenRaeumtDasAlarmProtokollAuf() {
         val path = "src/main/java/com/cryptochecker/app/data/WatchRepository.kt"

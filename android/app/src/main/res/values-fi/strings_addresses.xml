@@ -23,9 +23,9 @@
     <string name="portfolio_address_xpub_privacy">Xpub paljastaa kaikki tämän lompakon osoitteet. Ne johdetaan laitteellasi; palveluun %1$s lähetetään vain yksittäisiä osoitteita – ensimmäisellä haulla vähintään 40 pyyntöä, myöhemmin vähemmän. Yksityisiä avaimia (xprv) ei koskaan hyväksytä.</string>
     <string name="portfolio_address_xpub_gap">Haku päättyy %1$d peräkkäisen käyttämättömän osoitteen jälkeen (useimpien lompakoiden käyttämä BIP44-standardi). Tämän aukon jälkeistä käytettyä osoitetta ei lasketa – lisää se erikseen.</string>
     <string name="portfolio_address_xpub_used">Käytössä olevat osoitteet: %1$d</string>
-    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">Liian monta käytettyä osoitetta päivitykseen</string>
-    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
     <string name="portfolio_address_xpub_limited">Hyvin paljon osoitteita – uusia maksuja vanhoihin, tyhjiin osoitteisiin ei ehkä tunnisteta</string>
     <string name="portfolio_addresses_title">Osoitteet</string>
 

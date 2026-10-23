@@ -7,7 +7,7 @@ import java.security.MessageDigest
 import java.security.SecureRandom
 
 /**
- * Ziel eines Aufrufs ([MainActivity.EXTRA_OPEN]) nur von der App selbst (seit Build 97): `MainActivity` ist exportiert,
+ * Ziel eines Aufrufs ([MainActivity.EXTRA_OPEN]) nur von der App selbst: `MainActivity` ist exportiert,
  * jede andere App könnte sie mit einem Ziel starten — etwa direkt in den Portfolio-Tab. Darum tragen eigene
  * PendingIntents (Mitteilungen, Widgets) ein Geheimnis dieser Installation mit ([EXTRA_TOKEN]); ohne passendes Geheimnis
  * gelten nur die harmlosen Ziele der statischen App-Verknüpfungen (res/xml/shortcuts.xml, die kein dynamisches

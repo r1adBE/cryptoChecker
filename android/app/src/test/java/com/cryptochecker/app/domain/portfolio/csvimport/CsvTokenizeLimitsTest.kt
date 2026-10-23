@@ -7,7 +7,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Grenzen beim Zerlegen einer CSV-Datei (seit Build 99): höchstens [CsvImportParser.MAX_CELLS_PER_ROW] Zellen je Zeile
+ * Grenzen beim Zerlegen einer CSV-Datei: höchstens [CsvImportParser.MAX_CELLS_PER_ROW] Zellen je Zeile
  * und [CsvImportParser.MAX_ROWS] Datensätze; mehr = Datei zu gross, nicht lesbar wie eine Datei über 16 MB.
  * Gleiche Fälle: iOS `CsvTokenizeLimitsTests`.
  */
@@ -61,7 +61,7 @@ class CsvTokenizeLimitsTest {
     }
 
     /**
-     * Zu gross wird als «zu gross» gemeldet, nicht als fremdes Format (seit Build 99): die Vorschau trägt
+     * Zu gross wird als «zu gross» gemeldet, nicht als fremdes Format: die Vorschau trägt
      * [CsvImportResult.tooLarge] weiter, [CsvImportRefusal] wählt die Meldung. Gleiche Fälle: iOS `CsvTokenizeLimitsTests`.
      */
     @Test

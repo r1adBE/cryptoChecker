@@ -150,7 +150,7 @@ object AlarmTemplates {
         condition.isPriceThreshold && !currency.isNullOrBlank()
 
     /**
-     * Öffnet der Editor gleich mit «Mehr» (Build 91: Schnell-Alarme, weitere Bedingungen, Währung, Ton, Vibration,
+     * Öffnet der Editor gleich mit «Mehr» (Schnell-Alarme, weitere Bedingungen, Währung, Ton, Vibration,
      * Vorlesen)? Ja, wenn der Nutzer es in dieser Sitzung schon aufgeklappt hatte ([sessionExpanded]), oder wenn der
      * Alarm etwas darin braucht ([opensMoreConditions], [opensAdvanced]) — sonst stünde sein Wert verborgen.
      */

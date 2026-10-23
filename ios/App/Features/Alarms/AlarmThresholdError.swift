@@ -25,7 +25,7 @@ struct AlarmThresholdError: View {
         case .some(.INVALID): return "alarm_threshold_error_invalid"
         case .some(.FUNDING_RANGE): return "alarm_threshold_error_funding"
         case .some(.OI_RANGE): return "alarm_threshold_error_oi"
-        case .some(.PERCENT_RANGE): return "alarm_threshold_error_percent_down_below" // seit Build 103 «unter 100»
+        case .some(.PERCENT_RANGE): return "alarm_threshold_error_percent_down_below" // «unter 100»
         }
     }
 }

@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// CSV-Datei höchstens bis zur Grenze lesen (`PortfolioCsvImporter.readFile`, seit Build 99): auch wenn die Grösse
+/// CSV-Datei höchstens bis zur Grenze lesen (`PortfolioCsvImporter.readFile`): auch wenn die Grösse
 /// vorab unbekannt ist, liest der Import nie mehr als Grenze + 1 Byte — wie `BackupManager.readFile`.
 final class PortfolioCsvReadFileTests: XCTestCase {
     private var dir: URL!
@@ -33,7 +33,7 @@ final class PortfolioCsvReadFileTests: XCTestCase {
         XCTAssertNil(PortfolioCsvImporter.readFile(dir.appendingPathComponent("fehlt.csv"), maxBytes: 64))
     }
 
-    /// Mit Grund (seit Build 99): über der Grenze «zu gross» (eigene Meldung), fehlende Datei «nicht lesbar».
+    /// Mit Grund: über der Grenze «zu gross» (eigene Meldung), fehlende Datei «nicht lesbar».
     func testReadCheckedNamesTheReason() throws {
         XCTAssertEqual(try PortfolioCsvImporter.readChecked(try file(64), maxBytes: 64).get().count, 64)
         XCTAssertEqual(PortfolioCsvImporter.readChecked(try file(65), maxBytes: 64), .failure(.tooLarge))

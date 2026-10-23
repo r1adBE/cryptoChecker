@@ -3,7 +3,7 @@ package com.cryptochecker.app.util
 import org.junit.AssumptionViolatedException
 
 /**
- * Pfade der Quelltext-Wächtertests (seit Build 105): Fehlt eine Datei, darf der Test nicht still grün werden.
+ * Pfade der Quelltext-Wächtertests: Fehlt eine Datei, darf der Test nicht still grün werden.
  * - [android]: eigene Android-Quellen und Ressourcen sind im Checkout immer da → Fehler.
  * - [ios]: iOS-Quellen fehlen in einem reinen Android-Checkout → «übersprungen» (sichtbar statt grün); in der CI
  *   (`REQUIRE_IOS_SOURCES=true`, android.yml checkt das ganze Repo aus) → Fehler.

@@ -82,17 +82,17 @@ internal fun taxCsvTexts(currency: String, zone: ZoneId = ZoneId.systemDefault()
     withdrawalFee = stringResource(R.string.tax_export_withdrawal_fee),
     // CSV-Zeile «Fee»: Veräusserung ohne Erlös
     feeRow = stringResource(R.string.tax_export_fee_row),
-    // Build 47: Verschenkt/bezahlt und geschätzter Wert (Tagesschluss)
+    // Verschenkt/bezahlt und geschätzter Wert (Tagesschluss)
     gift = stringResource(R.string.tax_export_gift),
     payment = stringResource(R.string.tax_export_payment),
     valueEstimated = stringResource(R.string.tax_export_value_estimated),
-    // Build 56: Schenkung an Ehe-/Lebenspartner (UK s. 58, CA 73(1))
+    // Schenkung an Ehe-/Lebenspartner (UK s. 58, CA 73(1))
     spouseGift = stringResource(R.string.tax_export_spouse_gift),
     // Auszahlungsgebühr USDT/Fiat nur Information (UK, US, CA, AU, JP: TaxTemplate.quoteFeeIsInfo)
     withdrawalFeeInfo = stringResource(R.string.tax_export_withdrawal_fee_info),
-    // Build 57: Umbuchungsgebühr USDT/Fiat nur Information (nicht im Einstand)
+    // Umbuchungsgebühr USDT/Fiat nur Information (nicht im Einstand)
     transferFeeInfo = stringResource(R.string.tax_export_transfer_fee_info),
-    // Build 58: Umbuchungsgebühr auf Bestand ohne Kaufpreis (Info-Zeile, kein Gewinn/Verlust)
+    // Umbuchungsgebühr auf Bestand ohne Kaufpreis (Info-Zeile, kein Gewinn/Verlust)
     unassignedFee = stringResource(R.string.tax_export_unassigned_fee),
     // USDT zum Marktkurs: Tag ohne USDT/USD-Tagesschluss rechnet mit 1 — je Zeile vermerkt
     usdtAssumed = stringResource(R.string.portfolio_usdt_assumed),
@@ -180,7 +180,7 @@ internal fun taxTemplateNotes(t: TaxTemplate): List<String> {
     val networkFee = taxNetworkFeeSource(t)?.let { stringResource(R.string.tax_note_network_fee, it) }
     val spouse = taxSpouseGiftSource(t)?.let { stringResource(R.string.tax_note_spouse_gift, it) }
     val withdrawalFee = taxWithdrawalFeeSource(t)?.let { stringResource(R.string.tax_note_withdrawal_fee, it) }
-    // Build 57: Gebühr USDT/Fiat einer Umbuchung ebenso (gleiche Vorlagen, [TaxTemplate.quoteFeeIsInfo])
+    // Gebühr USDT/Fiat einer Umbuchung ebenso (gleiche Vorlagen, [TaxTemplate.quoteFeeIsInfo])
     val transferFee = stringResource(R.string.tax_note_transfer_fee).takeIf { t.quoteFeeIsInfo }
     return notes + listOfNotNull(networkFee, withdrawalFee, transferFee, spouse)
 }

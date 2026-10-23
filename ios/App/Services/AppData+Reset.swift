@@ -55,7 +55,7 @@ extension AppData {
 
     /// Speicher leeren wie nach der Installation: Einstellungen (App und App Group), dann alle Dateien der
     /// App-Ordner. Ohne Zustand im Speicher — auch vor dem ersten Zugriff auf `shared` nutzbar (UI-Tests:
-    /// `UITesting.prepareIfRequested`). Seit Build 99 auch Cookies und URL-Cache sowie der Schlüssel der verschlüsselten
+    /// `UITesting.prepareIfRequested`). Auch Cookies und URL-Cache sowie der Schlüssel der verschlüsselten
     /// Dateien: Er wird gelöscht und gleich neu angelegt (`StorageKey.renew`) — die App läuft weiter und schreibt ab
     /// hier mit dem neuen, nichts vom alten Stand bleibt entschlüsselbar zurück. Den Ordner `tmp` leert nur
     /// `resetApp` (`clearTemporaryFiles`): UI-Tests behalten dort eine Sicherung über den Neustart.

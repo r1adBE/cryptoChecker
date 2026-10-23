@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Strict check of an artifact handed from a fetch job to a publish job (since build 104).
+"""Strict check of an artifact handed from a fetch job to a publish job.
 
 The scheduled data workflows (macro-calendar.yml, market-data.yml, exchange-live-check.yml) run in two jobs: the
 fetch job talks to third-party servers without write permissions and uploads its result as an artifact; the

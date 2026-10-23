@@ -7,7 +7,7 @@ import org.junit.AssumptionViolatedException
 import org.junit.Test
 import java.io.File
 
-/** Meta-Test der Pfadwächter (seit Build 105): ein fehlender Pfad lässt den Wächtertest scheitern bzw. überspringen. */
+/** Meta-Test der Pfadwächter: ein fehlender Pfad lässt den Wächtertest scheitern bzw. überspringen. */
 class SourceGuardTest {
 
     @Test
@@ -25,7 +25,7 @@ class SourceGuardTest {
     }
 
     /**
-     * Seit Build 106 (SEC4-R1/TST4-R1): Jede Testdatei, die einen iOS-Pfad liest (Zeichenkette mit `ios/` oder `.swift`),
+     * SEC4-R1/TST4-R1: Jede Testdatei, die einen iOS-Pfad liest (Zeichenkette mit `ios/` oder `.swift`),
      * nutzt [SourceGuard] — kein stilles `if (exists())`/`return` mehr. Kommentare zählen nicht.
      */
     @Test

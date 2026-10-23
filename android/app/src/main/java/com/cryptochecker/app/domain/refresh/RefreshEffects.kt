@@ -57,7 +57,7 @@ class RefreshEffects internal constructor(
     private val moveHistoryStore: AlarmMoveHistory,
     /** «Nicht geprüft seit …» für Alarme ohne Devisenkurs bzw. Kerzen (nur im Speicher). */
     internal val alarmCheckStatus: AlarmCheckStatus,
-    /** Seit Build 103: Vermerk «wird gemeldet», in der App dauerhaft ([AlarmDeliveryMarkers]). */
+    /** Vermerk «wird gemeldet», in der App dauerhaft ([AlarmDeliveryMarkers]). */
     deliveryMarkers: AlarmDeliveryMarkerStore = AlarmDeliveryMarkerStore.InMemory(),
 ) {
     /** Für Hilt: die App-Klassen hinter den schmalen Schnittstellen aus RefreshPorts.kt (Tests geben Fakes). */
@@ -89,7 +89,7 @@ class RefreshEffects internal constructor(
         deliveryMarkers,
     )
 
-    /** Melden-dann-Speichern samt unbestätigter Versuche (seit Build 103 dauerhaft vermerkt). */
+    /** Melden-dann-Speichern samt unbestätigter Versuche (dauerhaft vermerkt). */
     private val delivery = com.cryptochecker.app.domain.alarm.AlarmDelivery(deliveryMarkers)
 
     /** Vorab-Abrufe der Alarm-Zusatzdaten ([startAlarmPrefetch]); laufen nach dem Warten fertig. */
@@ -171,7 +171,7 @@ class RefreshEffects internal constructor(
             /** Alarm-Protokoll: Kurs in der Währung der Schwelle; null = dieser Alarm wird nicht protokolliert. */
             logPrice: Double? = null,
         ) {
-            // Seit Build 104: Lauf abgebrochen (Worker gestoppt) → nicht mehr melden, Alarm bleibt scharf (wie iOS)
+            // Lauf abgebrochen (Worker gestoppt) → nicht mehr melden, Alarm bleibt scharf (wie iOS)
             currentCoroutineContext().ensureActive()
             // Fürs Protokoll nur mitlesen, was die Schritte liefern (null = Schritt nicht erreicht)
             var canShowSeen: Boolean? = null
@@ -189,9 +189,9 @@ class RefreshEffects internal constructor(
                 mark = mark,
                 retract = { notifier.cancelAlarms(listOf(alarm.id)) },
                 snoozed = snoozed,
-                // Seit Build 104: nur eine NACH dem Vermerk gemeldete Mitteilung bestätigt (nicht eine ältere desselben Alarms)
+                // Nur eine NACH dem Vermerk gemeldete Mitteilung bestätigt (nicht eine ältere desselben Alarms)
                 isShown = { markerAt -> AlarmDeliveryMarker.shownSinceMarker(notifier.alarmPostedAt(alarm.id), markerAt) },
-                // Seit Build 105: Vermerk einer schon gespeicherten Auslösung zählt nicht (neue Auslösung wird gemeldet)
+                // Vermerk einer schon gespeicherten Auslösung zählt nicht (neue Auslösung wird gemeldet)
                 savedSince = { markerAt -> AlarmDeliveryMarker.savedSinceMarker(alarm.lastTriggeredAt, markerAt) },
             )
             if (trace != null && logPrice != null) observe {

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus); seit Build 103 -->
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">Një rënie duhet të jetë nën 100 për qind.</string>
-    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen; seit Build 103 -->
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">Skedari po lexohet sërish …</string>
-    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze); seit Build 103 -->
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
     <plurals name="watchlist_undo_full">
         <item quantity="one">%1$d çift nuk u rikthye – lista e ndjekjes është plot</item>
         <item quantity="other">%1$d çifte nuk u rikthyen – lista e ndjekjes është plot</item>

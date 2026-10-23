@@ -34,10 +34,10 @@ extension WatchActionsSheet {
                 title: L("watch_action_favorite"),
                 selected: watch.favorite
             ) {
-                // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts, keine Haptik
+                // Rückfrage F-08 vorher; «Abbrechen» = nichts, keine Haptik
                 data.withWatchlistConfirm {
                     data.toggleFavorite(watch)
-                    // Seit Build 106 (wie Android): gesperrt → nur der Hinweis, keine Haptik
+                    // Wie Android: gesperrt → nur der Hinweis, keine Haptik
                     if !data.watchlistWritesBlocked { Haptics.play(.lightImpact) }
                 }
             }
@@ -181,7 +181,7 @@ extension WatchActionsSheet {
 
     private func moveButton(_ symbol: String, _ key: String, disabled: Bool, action: @escaping () -> Void) -> some View {
         Button {
-            // Seit Build 105: Rückfrage F-08 vorher (verschieben schreibt die Merkliste)
+            // Rückfrage F-08 vorher (verschieben schreibt die Merkliste)
             data.withWatchlistConfirm {
                 Haptics.play(.selection)
                 withAnimation(.spring(duration: 0.35)) { action() }

@@ -9,7 +9,7 @@ import Foundation
 /// sonst Zeitzone des Geräts; in der Vorschau wählbar).
 /// Tausch («Tausch», «Swap», «Convert», «Échange» → `.SWAP`): beide Seiten in einer Zeile («To Coin»/«To Amount»)
 /// oder in zwei aufeinanderfolgenden Tausch-Zeilen mit gleicher Kennung (ohne: gleicher Zeit) — Regeln wie Android.
-/// Kauf/Verkauf gegen einen Stablecoin (`CsvImport.stables`) → Tausch (`stableSwap`); Schlüssel bis Build 46 in
+/// Kauf/Verkauf gegen einen Stablecoin (`CsvImport.stables`) → Tausch (`stableSwap`); frühere Schlüssel in
 /// `legacyKeys` — wie Android.
 enum CsvImportParser {
 
@@ -36,7 +36,7 @@ enum CsvImportParser {
 
     /// Höchstens so viele Zellen je Zeile und Datensätze je Datei (`tokenizeOrNil`); mehr = Datei zu gross, gleich wie
     /// eine Datei über 16 MB «nicht lesbar» (wie Android). Echte Exporte haben unter 40 Spalten; ohne Grenze baute eine
-    /// Zeile aus lauter Trennern Millionen leere Zellen. Seit Build 99.
+    /// Zeile aus lauter Trennern Millionen leere Zellen.
     static let maxCellsPerRow = 200
     static let maxRows = 200_000
 

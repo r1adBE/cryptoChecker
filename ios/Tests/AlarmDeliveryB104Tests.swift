@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 104 (Review ARC2-02, FUN2-04): Portfolio-Alarme mit eigenem Vermerk-Speicher und einmaliges Ausschalten der
+/// Review ARC2-02, FUN2-04: Portfolio-Alarme mit eigenem Vermerk-Speicher und einmaliges Ausschalten der
 /// «fällt um ≥ 100 %»-Alarme. Gegenstück: `AlarmDeliveryB104Test.kt`.
 final class AlarmDeliveryB104Tests: XCTestCase {
     private typealias S = TestSupport

@@ -1,6 +1,6 @@
 import Foundation
 
-/// Portfolio ausgeschaltet (ab Werk seit Build 44, `AppSettings.portfolioEnabled`): was trotzdem geht
+/// Portfolio ausgeschaltet (ab Werk, `AppSettings.portfolioEnabled`): was trotzdem geht
 /// und was das Portfolio-Widget dann zeigt — Spiegel von `PortfolioOff.kt`.
 enum PortfolioOff {
     /// Schaltet das Speichern einer Transaktion das Portfolio ein? Nur eine neue (`isNew`, id 0),
@@ -8,7 +8,7 @@ enum PortfolioOff {
     /// Aktionsblatt. Abbrechen speichert nichts und schaltet nichts ein.
     static func enableOnSave(isNew: Bool, portfolioEnabled: Bool) -> Bool { isNew && !portfolioEnabled }
 
-    /// Build 46: Nach dem Speichern der ERSTEN Transaktion (vorher keine) mit ausgeschaltetem Portfolio fragen
+    /// Nach dem Speichern der ERSTEN Transaktion (vorher keine) mit ausgeschaltetem Portfolio fragen
     /// «Portfolio-Tab einschalten?» statt still einzuschalten (Merkliste, Markt). «Später» behält die Transaktion,
     /// der Tab bleibt aus; danach wird nicht mehr gefragt — wie `PortfolioOff.kt`.
     static func askEnableOnSave(isNew: Bool, portfolioEnabled: Bool, hadTransactions: Bool) -> Bool {

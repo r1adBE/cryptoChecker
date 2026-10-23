@@ -10,16 +10,16 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withTimeoutOrNull
 
 /**
- * Seit Build 104 (Review F-08): Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand ([WatchlistStorageLock.Notice.NOT_SAVED],
+ * Review F-08: Merkliste nur im Arbeitsspeicher ohne gespeicherten Stand ([WatchlistStorageLock.Notice.NOT_SAVED],
  * Verschlüsselung noch nicht aktiv) — Änderungen gehen beim Neustart verloren. Vor der ersten Änderung des Nutzers je
  * App-Lauf (Prozess) einmal fragen: «Abbrechen» schreibt nicht, «Trotzdem» schreibt und fragt in diesem Lauf nicht mehr.
- * Seit Build 105 (Review ARC3-R01/R02, UX3-01/03/04): gefragt wird EINMAL je Nutzeraktion VOR der Aktion
+ * Review ARC3-R01/R02, UX3-01/03/04: gefragt wird EINMAL je Nutzeraktion VOR der Aktion
  * ([com.cryptochecker.app.data.confirmUserWrite] im Controller bzw. ViewModel, vor Sperren, Rückgängig-Eintrag,
  * Mitteilungen, Banner und Haptik). Der Schreibweg im Repository fragt nicht mehr, sondern lehnt ohne Bestätigung ab
  * ([needsConfirmation], Sicherung in [com.cryptochecker.app.data.userWriteRefused]). Die Oberfläche zeigt den Dialog
  * (`WatchlistNotSavedGateHost`, einmal in der MainActivity). Ohne sichtbare Oberfläche (Hintergrund, Empfänger) wird nie
  * gefragt — dann wie bisher geschrieben. Gleich wie iOS (`WatchlistNotSavedGate`, Testfälle in beiden Tests).
- * Seit Build 106 (Review ARC4-R02, Variante A): Fehlt die Oberfläche beim Bestätigen nur kurz (Drehen, Dunkelmodus), wartet
+ * Review ARC4-R02, Variante A: Fehlt die Oberfläche beim Bestätigen nur kurz (Drehen, Dunkelmodus), wartet
  * [confirm] bis zu [ASKER_WAIT_MILLIS] auf sie und fragt dann. Ohne Oberfläche durchgelassen, lehnt die Sicherung im
  * Schreibweg danach nicht ab ([needsConfirmation]).
  * Review F-27: Dieser Durchlass gilt nur für die eine Aktion — die Coroutine, die [confirm] aufrief, samt ihren Kindern
@@ -51,9 +51,9 @@ object WatchlistNotSavedGate {
 
     /**
      * Vor einer Aktion des Nutzers: true = schreiben. Fragt höchstens einmal gleichzeitig (weitere Aktionen warten
-     * auf dieselbe Antwort). [canAsk]: sammelt gerade eine sichtbare Oberfläche [request]? Seit Build 105: Wird der letzte
+     * auf dieselbe Antwort). [canAsk]: sammelt gerade eine sichtbare Oberfläche [request]? Wird der letzte
      * Wartende abgebrochen (ViewModel weg), verschwindet die offene Frage — kein Dialog mehr ohne Aktion dahinter.
-     * Seit Build 106: ohne Oberfläche erst [awaitAsker] (true = Oberfläche jetzt da, dann fragen).
+     * Ohne Oberfläche erst [awaitAsker] (true = Oberfläche jetzt da, dann fragen).
      */
     suspend fun confirm(
         notSaved: Boolean = notSavedNow(),
@@ -96,7 +96,7 @@ object WatchlistNotSavedGate {
     }
 
     /**
-     * Seit Build 105: Sicherung im Schreibweg — bräuchte dieser Schreibweg jetzt noch eine Antwort ([shouldAsk])? Dann
+     * Sicherung im Schreibweg — bräuchte dieser Schreibweg jetzt noch eine Antwort ([shouldAsk])? Dann
      * lehnt das Repository ab (die Aktion hat [confirm] nicht vorher aufgerufen); fragt selbst nie. Nicht für Schreibwege
      * einer Aktion, die ohne Oberfläche durchgelassen wurde (ARC4-R02) — seit F-27 nur in deren eigener Coroutine
      * ([unaskedPasses]), nicht mehr global.
@@ -113,14 +113,14 @@ object WatchlistNotSavedGate {
     /** Ist [job] diese Coroutine oder eines ihrer Kinder (auch tiefer)? */
     private fun Job.covers(job: Job): Boolean = this === job || children.any { it.covers(job) }
 
-    /** Seit Build 106: Kann eine Aktion jetzt eine Frage brauchen (nicht gespeichert, noch nicht bestätigt), egal ob sichtbar? */
+    /** Kann eine Aktion jetzt eine Frage brauchen (nicht gespeichert, noch nicht bestätigt), egal ob sichtbar? */
     fun mayAsk(notSaved: Boolean = notSavedNow()): Boolean =
         synchronized(this) { shouldAsk(notSaved, userWrite = true, confirmed = confirmed, canAsk = true) }
 
     /** Sammelt gerade eine sichtbare Oberfläche [request]? */
     private fun canAskNow(): Boolean = pending.subscriptionCount.value > 0
 
-    /** Seit Build 106: höchstens [millis] auf eine sichtbare Oberfläche warten; true = sie ist da. */
+    /** Höchstens [millis] auf eine sichtbare Oberfläche warten; true = sie ist da. */
     internal suspend fun awaitSubscriber(millis: Long): Boolean =
         withTimeoutOrNull(millis) { pending.subscriptionCount.first { it > 0 } } != null
 
@@ -155,6 +155,6 @@ object WatchlistNotSavedGate {
         }
     }
 
-    /** Seit Build 106 (ARC4-R02): so lange wartet [confirm] ohne Oberfläche auf sie (wie das 2-s-Netz unter iOS). */
+    /** ARC4-R02: so lange wartet [confirm] ohne Oberfläche auf sie (wie das 2-s-Netz unter iOS). */
     const val ASKER_WAIT_MILLIS = 2_000L
 }

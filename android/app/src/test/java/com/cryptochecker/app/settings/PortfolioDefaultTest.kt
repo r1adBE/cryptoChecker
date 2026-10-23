@@ -5,7 +5,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Portfolio-Tab ab Build 44 für neue Installationen ab Werk aus, bestehende behalten «an»
+ * Portfolio-Tab für neue Installationen ab Werk aus, bestehende behalten «an»
  * (InstallDefaultsMigration, siehe InstallDefaultsTest) — wie `testPortfolioEnabledDefaults…` (iOS).
  */
 class PortfolioDefaultTest {

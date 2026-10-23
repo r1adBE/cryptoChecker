@@ -57,7 +57,7 @@ import com.cryptochecker.app.util.A11yText
  * allein). Tippen ([onOpen]): dasselbe wie in «Heute auffällig» (Aktionsblatt des Paars, sonst seine Vorschau mit
  * «Zur Merkliste»). Screenreader: je Zeile ein Element mit Aktion. Keine Prognose, keine Empfehlung.
  *
- * Auf «Jetzt» ruhig und kompakt (Build 83): je Gruppe zuerst [MOVERS_COMPACT] Zeilen, «Alle zeigen» klappt auf alle
+ * Auf «Jetzt» ruhig und kompakt: je Gruppe zuerst [MOVERS_COMPACT] Zeilen, «Alle zeigen» klappt auf alle
  * (bis fünf) auf, «Weniger zeigen» wieder zu — gemerkt, solange der Tab lebt (auch über Drehen). Wie iOS `CycleMoversCard`.
  */
 @Composable

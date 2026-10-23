@@ -111,7 +111,7 @@ internal fun CsvImportParser.daysFromCivil(y0: Int, m: Int, d: Int): Long {
 
 /**
  * Ortszeit in [zone] → UTC (gleich wie iOS): in der Herbst-Doppelstunde gilt der spätere Versatz (Winterzeit), in
- * der Frühlingslücke wird um die Länge der Lücke vorgerückt (02:30 → 03:30 Sommerzeit). Seit Build 104 über
+ * der Frühlingslücke wird um die Länge der Lücke vorgerückt (02:30 → 03:30 Sommerzeit). Über
  * [LocalDateTime.atZone] — vorher zwei Schritte über den Versatz, westlich von UTC in Lücke und Doppelstunde falsch.
  */
 internal fun CsvImportParser.toUtc(local: Long, zone: String): Long {

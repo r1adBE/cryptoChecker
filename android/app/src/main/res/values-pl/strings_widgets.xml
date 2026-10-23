@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">Wyświetlanie</string>
     <string name="widget_portfolio_display_conversion">Tylko przeliczenie</string>
     <string name="widget_portfolio_display_conversion_usdt">Przeliczenie + USDT</string>
-    <string name="widget_portfolio_display_hint">Wiersz USDT jest ukryty, gdy walutą przeliczenia jest USD.</string>
+    <string name="widget_portfolio_display_hint">Wiersz USDT jest ukryty, gdy walutą przeliczenia jest stablecoin powiązany z USD (np. USDC).</string>
     <string name="widget_portfolio_display_usdt">Tylko USDT</string>
     <string name="widget_portfolio_empty">Dodaj zakupy na karcie Portfel</string>
     <string name="widget_portfolio_list_hint">Otwórz aplikację, aby wyświetlić tu swoje pozycje.</string>

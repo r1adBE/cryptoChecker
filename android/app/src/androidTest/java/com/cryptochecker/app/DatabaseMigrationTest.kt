@@ -34,7 +34,7 @@ import org.junit.runner.RunWith
  * PortfolioDatabase alle (1–6). Die Schemata 4–12 der AppDatabase wurden nie exportiert: Ein Gradle-Build schreibt
  * nur das Schema der aktuellen Version, die alten liessen sich nur durch Bauen der damaligen Stände zurückgewinnen —
  * darum legen die Tests hier die alten Tabellen von Hand an. Gegen die exportierten Schemas selbst (v1–v3, v13–v15 bzw.
- * Portfolio v1–v5) prüft seit Build 103 [RoomSchemaMigrationTest] mit dem MigrationTestHelper.
+ * Portfolio v1–v5) prüft [RoomSchemaMigrationTest] mit dem MigrationTestHelper.
  */
 @RunWith(AndroidJUnit4::class)
 class DatabaseMigrationTest {
@@ -614,7 +614,7 @@ class DatabaseMigrationTest {
                 assertEquals(0L, c.getLong(3))
             }
         }
-        // Übernommen: die Klartext-Kopie ist danach gelöscht (Build 76)
+        // Übernommen: die Klartext-Kopie ist danach gelöscht
         assertFalse(mirrorFile.exists())
         // Nur beim Anlegen: eine spätere Kopie ändert eine bestehende Datenbank nicht
         mirrorFile.writeText(com.cryptochecker.app.data.portfolio.PortfolioBackupMirror.encode(emptyList(), emptyList()))
@@ -647,7 +647,7 @@ class DatabaseMigrationTest {
     }
 
     /**
-     * Portfolio-Datenbank v3 → v4 (Build 58): Partner-Merker «@spouse» im Feld «nach» und die in `importKey` gepackten
+     * Portfolio-Datenbank v3 → v4: Partner-Merker «@spouse» im Feld «nach» und die in `importKey` gepackten
      * Verknüpfungen (beide Schlüssel, Zustand Fassung 1 und 2) werden eigene Spalten; alles andere bleibt unverändert.
      */
     @Test
@@ -699,14 +699,14 @@ class DatabaseMigrationTest {
                 val dao = room.getPortfolioDao()
                 val all = dao.getAll().associateBy { it.id }
                 assertTrue(all.getValue(1).giftToSpouse)
-                // Zustand Fassung 2 (Build 57): gespeicherte Auszahlung und aufgegangene Einzahlung
+                // Zustand Fassung 2: gespeicherte Auszahlung und aufgegangene Einzahlung
                 val v2 = all.getValue(3).importRestoreState!!
                 assertEquals(com.cryptochecker.app.domain.portfolio.PortfolioTxType.WITHDRAWAL, v2.type)
                 assertEquals("BINANCE|W", v2.importKey)
                 assertEquals("BINANCE:1729000000000:0a1b2c3d", v2.importBatch)
                 assertEquals("COINBASE|D", v2.absorbed!!.importKey)
                 assertEquals(0, java.math.BigDecimal("0.0049").compareTo(v2.absorbed!!.amount))
-                // Fassung 1 (Build 56): nur die gespeicherte Seite
+                // Fassung 1: nur die gespeicherte Seite
                 val v1 = all.getValue(4).importRestoreState!!
                 assertEquals("BINANCE|W5", v1.importKey)
                 assertEquals(null, v1.absorbed)
@@ -721,7 +721,7 @@ class DatabaseMigrationTest {
     }
 
     /**
-     * Portfolio v4 → v5 (Build 76): Gebühr-Zeile und Zins als eigene Merker, einmal nach der früheren Regel abgeleitet —
+     * Portfolio v4 → v5: Gebühr-Zeile und Zins als eigene Merker, einmal nach der früheren Regel abgeleitet —
      * Verkauf zum Preis 0 MIT Herkunft = Gebühr-Zeile (auch «0.00»), von Hand zum Preis 0 nicht; Belohnung mit Notiz
      * «Lending interest» = Zins, Staking nicht.
      */
@@ -919,11 +919,11 @@ class DatabaseMigrationTest {
             "CREATE UNIQUE INDEX IF NOT EXISTS `index_watched_addresses_chain_address` ON `watched_addresses` (`chain`, `address`)",
         )
 
-        /** Verknüpfung mit Zustand Fassung 2 im Schlüssel (Build 57; wie `legacy_storage_migration.json`). */
+        /** Verknüpfung mit Zustand Fassung 2 im Schlüssel (wie `legacy_storage_migration.json`). */
         const val V2_PACKED = "BINANCE|W ⇄ COINBASE|D ⟲ 2|BINANCE:1729000000000:0a1b2c3d|WITHDRAWAL|0.005||1704987000000" +
             "||||||||| ⟲ DEPOSIT|0.0049||1704989100000||||"
 
-        /** Verknüpfung mit Zustand Fassung 1 im Schlüssel (Build 56). */
+        /** Verknüpfung mit Zustand Fassung 1 im Schlüssel. */
         const val V1_PACKED = "BINANCE|W5 ⇄ COINBASE|D5 ⟲ 1|BINANCE:1729000000000:0a1b2c3d|WITHDRAWAL|0.005||1704987000000|||||||||"
 
         /** Schema v1, wie in `app/schemas/com.cryptochecker.app.data.local.AppDatabase/1.json`. */

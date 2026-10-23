@@ -5,7 +5,7 @@ package com.cryptochecker.app.data.local
  * Sicherungsregeln in PortfolioLockPolicyTest.
  *
  * Android 8/8.1 (API 26/27) kennt `requireFlags="clientSideEncryption"` nicht und gäbe jede eingeschlossene Datei auch
- * ohne Ende-zu-Ende-Verschlüsselung an die Cloud. Darum dort keine Kopie der Hauptdatenbank (Build 60): Sie steht
+ * ohne Ende-zu-Ende-Verschlüsselung an die Cloud. Darum dort keine Kopie der Hauptdatenbank: Sie steht
  * nicht in xml/backup_rules.xml, und [SystemBackupAgent] legt sie gar nicht erst an.
  */
 object SystemBackupScope {

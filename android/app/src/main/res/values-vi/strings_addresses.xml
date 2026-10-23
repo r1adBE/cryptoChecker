@@ -23,9 +23,9 @@
     <string name="portfolio_address_xpub_privacy">Một xpub để lộ mọi địa chỉ của ví này. Chúng được tạo trên thiết bị của bạn; chỉ từng địa chỉ riêng lẻ được gửi đến %1$s – lần quét đầu ít nhất 40 yêu cầu, về sau ít hơn. Không bao giờ chấp nhận khóa riêng tư (xprv).</string>
     <string name="portfolio_address_xpub_gap">Việc tìm kiếm dừng sau %1$d địa chỉ chưa dùng liên tiếp (chuẩn BIP44 mà hầu hết ví sử dụng). Địa chỉ đã dùng nằm sau khoảng trống đó sẽ không được tính – hãy thêm riêng địa chỉ đó.</string>
     <string name="portfolio_address_xpub_used">Địa chỉ đã dùng: %1$d</string>
-    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (seit Build 102; statt «Aktualisierung fehlgeschlagen») -->
+    <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">Quá nhiều địa chỉ đã dùng để cập nhật</string>
-    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt (seit Build 102) -->
+    <!-- xpub: tägliche vollständige Suche zu gross, nur schnell gesucht – neue Zahlungen auf alte, leere Adressen evtl. unerkannt -->
     <string name="portfolio_address_xpub_limited">Rất nhiều địa chỉ – khoản thanh toán mới vào địa chỉ cũ đã trống có thể không được phát hiện</string>
     <string name="portfolio_addresses_title">Địa chỉ</string>
 

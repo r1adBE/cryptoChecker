@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">Portfólió-riasztások szüneteltetve: nincs aktuális árfolyam ehhez: %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Portfólió-riasztások szüneteltetve: nem minden coinnak van aktuális árfolyama</string>
     <string name="portfolio_alarms_paused_addresses">Portfólió-riasztások szüneteltetve: a figyelt címek egyenlegei még nincsenek betöltve</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Portfólió-riasztások szüneteltetve: %1$s tokenegyenlegei részben elavultak</string>
     <string name="portfolio_alarms_paused_tokens_generic">Portfólió-riasztások szüneteltetve: a figyelt címek tokenegyenlegei részben elavultak</string>
     <string name="portfolio_alarms_paused_unverified">Portfólió-riasztások szüneteltetve: ellenőrizetlen árfolyam ehhez: %1$s</string>

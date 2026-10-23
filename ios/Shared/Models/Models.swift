@@ -23,7 +23,7 @@ struct Watch: Codable, Identifiable, Hashable, Sendable {
     /// Alarme › Kursmitteilungen › Paare. Wie `WatchRepository.DEFAULT_NOTIFICATION_ENABLED` (Android).
     static let newPairNotificationEnabled = true
 
-    /// Gespeicherte/gesicherte Paare OHNE Angabe: an. Bis Build 41 hatte jedes Paar die Kurs-Mitteilung
+    /// Gespeicherte/gesicherte Paare OHNE Angabe: an. In älteren Versionen hatte jedes Paar die Kurs-Mitteilung
     /// standardmässig an (Android ebenso); fehlt das Feld, stammt es aus so einer Version — «an» erhält
     /// das damalige Verhalten. Wie `WatchRepository.LEGACY_NOTIFICATION_ENABLED` (Android).
     static let legacyNotificationEnabled = true
@@ -239,7 +239,7 @@ extension Watch {
         baseAsset = try c.decode(String.self, forKey: .baseAsset)
         quoteAsset = try c.decode(String.self, forKey: .quoteAsset)
         pairId = try c.decodeIfPresent(String.self, forKey: .pairId)
-        // Vor Build 47 als `.perpetual` gespeicherte inverse Perpetuals (COIN-M, OKX «-USD-SWAP», Deribit BTC/ETH)
+        // Früher als `.perpetual` gespeicherte inverse Perpetuals (COIN-M, OKX «-USD-SWAP», Deribit BTC/ETH)
         // wie die heutige Paarliste — sonst passte die Dublettenprüfung nicht. Wie Android `normalizeContractTypes`.
         let storedType = try c.decodeIfPresent(FuturesContractType.self, forKey: .contractType) ?? .none
         contractType = FuturesContractType.normalized(marketKey: marketKey, pairId: pairId, storedType)

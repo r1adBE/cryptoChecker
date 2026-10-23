@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Freigabe von Logo-Adressen (`Parity/logo_url_allow.json`, seit Build 105, SEC3-02): die Prüfung entscheidet wie der
+/// Freigabe von Logo-Adressen (`Parity/logo_url_allow.json`, SEC3-02): die Prüfung entscheidet wie der
 /// URL-Parser, der die Anfrage stellt. Gegenstück: `LogoUrlAllowParityTest.kt`.
 final class LogoURLAllowParityTests: XCTestCase {
     private typealias S = TestSupport

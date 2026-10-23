@@ -28,7 +28,7 @@ class AlarmTimingHintTest {
     }
 
     /**
-     * Build 55: Der Satz ist der ganze Text der Bestätigung nach dem ersten Alarm — in allen 31 Sprachen
+     * Der Satz ist der ganze Text der Bestätigung nach dem ersten Alarm — in allen 31 Sprachen
      * höchstens [AlarmTimingHint.MAX_CHARS] Zeichen (Android mit eingesetztem Namen «Pünktlich prüfen»),
      * ein Satz und für beide Plattformen vorhanden (iOS liest dieselben Texte).
      */

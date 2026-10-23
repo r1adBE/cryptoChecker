@@ -209,7 +209,7 @@ final class XpubTokenTests: XCTestCase {
                          usedReceive: (m["usedReceive"] as? [Any] ?? []).map { int($0) },
                          usedChange: (m["usedChange"] as? [Any] ?? []).map { int($0) },
                          fullScan: int64(m["fullScan"]),
-                         // Seit Build 102 (optional): zuletzt leere benutzte Adressen
+                         // Optional: zuletzt leere benutzte Adressen
                          emptyReceive: (m["emptyReceive"] as? [Any] ?? []).map { int($0) },
                          emptyChange: (m["emptyChange"] as? [Any] ?? []).map { int($0) })
     }
@@ -257,14 +257,14 @@ final class XpubTokenTests: XCTestCase {
             XCTAssertEqual(cache.fullScan, mode == .FULL ? Int64(777) : (oldCache?.fullScan ?? 0))
             XCTAssertEqual(scan.complete, e["complete"] as? Bool ?? true, "complete \(name)")
         }
-        // Seit Build 94: Hintergrund mit Vorausblick; unvollständig und tiefer als zuletzt = nicht übernehmen
+        // Hintergrund mit Vorausblick; unvollständig und tiefer als zuletzt = nicht übernehmen
         XCTAssertEqual(XpubScan.backgroundLookahead, int(g["backgroundLookahead"]))
         for c in S.list(g["keepBackground"]) {
             XCTAssertEqual(XpubScan.keepBackground(complete: c["complete"] as? Bool ?? false, sats: int64(c["sats"]),
                                                    lastBalance: c["lastBalance"] as? String),
                            c["keep"] as? Bool, "keepBackground \(c)")
         }
-        // Seit Build 102 (F-16): benutzte Indizes optional — vollständige Suche sicher zu gross = schnell
+        // F-16: benutzte Indizes optional — vollständige Suche sicher zu gross = schnell
         func ints(_ v: Any?) -> [Int] { (v as? [Any] ?? []).map { int($0) } }
         for c in S.list(g["modeFor"]) {
             let cache = (c["cache"] as? [String: Any]).map {
@@ -282,13 +282,13 @@ final class XpubTokenTests: XCTestCase {
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: JSONEncoder().encode(cache)), cache)
         let raw = Data(#"{"r":["a","b"],"ru":[1,5,-1,1]}"#.utf8)
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: raw).usedReceive, [1])
-        // Seit Build 102: leere benutzte hin und zurück; nur benutzte Indizes bleiben
+        // Leere benutzte hin und zurück; nur benutzte Indizes bleiben
         let withEmpty = XpubCache(receive: ["a", "b"], change: ["c"], usedReceive: [0, 1], usedChange: [0], fullScan: 42,
                                   emptyReceive: [1], emptyChange: [0])
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: JSONEncoder().encode(withEmpty)), withEmpty)
         let rawEmpty = Data(#"{"r":["a","b"],"ru":[1],"re":[0,1,7]}"#.utf8)
         XCTAssertEqual(try JSONDecoder().decode(XpubCache.self, from: rawEmpty).emptyReceive, [1])
-        // Seit Build 102 (F-16): Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
+        // F-16: Rückfall-Merkmal «lf» nur wenn true; nach vollständiger Suche wieder false
         var limited = cache
         limited.limitedFallback = true
         let limitedJson = try XCTUnwrap(try JSONSerialization.jsonObject(with: JSONEncoder().encode(limited)) as? [String: Any])
@@ -340,7 +340,7 @@ final class XpubTokenTests: XCTestCase {
         let all: [Bip32.Script] = [.p2pkh, .p2shP2wpkh, .p2wpkh]
         XCTAssertEqual(XpubScan.scripts(xpub, cache: nil), all)
         XCTAssertEqual(XpubScan.scripts(xpub, cache: XpubCache(receive: ["a"], fullScan: 5)), all)
-        // Bis Build 46 mit benutzter Adresse = als P2PKH gefunden
+        // Ältere Daten mit benutzter Adresse = als P2PKH gefunden
         XCTAssertEqual(XpubScan.scripts(xpub, cache: XpubCache(receive: ["a"], usedReceive: [0])), [.p2pkh])
         XCTAssertEqual(XpubScan.scripts(xpub, cache: XpubCache(script: .p2wpkh)), [.p2wpkh])
         // Erster Typ mit Verlauf; keiner = nil (wieder alle prüfen); nur einer = dieser

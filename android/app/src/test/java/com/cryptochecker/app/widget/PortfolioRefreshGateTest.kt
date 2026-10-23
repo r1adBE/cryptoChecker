@@ -25,7 +25,7 @@ class PortfolioRefreshGateTest {
 
     @Test
     fun unreadableAlarmsRefreshAnyway() {
-        // Kurz gesperrte Datenbank ist nicht «keine Alarme»: im Zweifel aktualisieren (seit Build 97)
+        // Kurz gesperrte Datenbank ist nicht «keine Alarme»: im Zweifel aktualisieren
         assertTrue(PortfolioSnapshotUpdater.shouldRefresh(hasPortfolioWidget = false, activeAlarms = null))
     }
 }

@@ -76,7 +76,7 @@ internal fun TaxSummaryCard(summary: TaxYearSummary?, texts: TaxSummaryTexts, me
                 return l.target?.let { PriceFormat.valueWithCurrency(it.toDouble(), summary.currency) }
             }
             var orientationShown = false
-            // Letzter Tatsachen-Posten (Summen): dort steht der Hinweis «keine Steuererklärung» noch einmal (seit Build 93)
+            // Letzter Tatsachen-Posten (Summen): dort steht der Hinweis «keine Steuererklärung» noch einmal
             val lastFact = summary.lines.indexOfLast { !it.line.orientation }
             for ((index, l) in summary.lines.withIndex()) {
                 val plain = texts.labels[l.line].orEmpty()

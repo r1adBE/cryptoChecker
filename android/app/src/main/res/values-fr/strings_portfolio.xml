@@ -266,7 +266,7 @@
         <item quantity="other">Sans %1$d coins sans prix d\'achat (%2$s) – ajoute les prix pour qu\'ils comptent.</item>
     </plurals>
 
-    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
     <string name="portfolio_usdt_break">Effondrement de l\'USDT – marché à %1$s USD</string>
     <string name="portfolio_usdt_via_usdc">Cours en dollars de l’USDT via USDC/USDT – si l’USDC chute, cette valeur est fausse</string>
     <string name="portfolio_amount_bridged_stable">≈ y c. %1$s (bridgé)</string>
@@ -301,7 +301,7 @@
         <item quantity="many">%d transactions seront supprimées. Tu pourras l\'annuler juste après.</item>
         <item quantity="other">%d transactions seront supprimées. Tu pourras l\'annuler juste après.</item>
     </plurals>
-    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
     <string name="portfolio_coin_delete_fee_refs">Les frais payés en %1$s seront aussi retirés d\'autres transactions : %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

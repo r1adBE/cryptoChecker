@@ -3,7 +3,7 @@ import Foundation
 /// Darf ein beim Start gefundenes Journal (`RestoreJournal`) noch zurückgerollt werden? Wie `RestoreRecoveryPolicy.kt`,
 /// gleiche Fälle auf beiden Seiten.
 ///
-/// Seit Build 93: Scheiterte das Zurückrollen, blieb das Journal liegen und jeder Start versuchte es erneut. Der Nutzer
+/// Scheiterte das Zurückrollen, blieb früher das Journal liegen und jeder Start versuchte es erneut. Der Nutzer
 /// arbeitet aber weiter — ein späteres, gelungenes Zurückrollen hätte Tage an Änderungen mit dem Stand vor dem
 /// Wiederherstellen überschrieben, und der Hinweis «nicht vollständig» kam bei jedem Start. Darum je Journal genau ein
 /// Zurückrollen beim Start (nie mit einem Journal, das älter als `maxAgeMillis` ist); scheitert es, gibt der nächste

@@ -42,7 +42,7 @@ struct PortfolioGainHeader: View {
 /// Zeile unter dem Gesamtwert wie im Portfolio-Widget: «↘ −38’412.95 USDT −27.85% · 1J» — Pfeil,
 /// Betrag (verborgen «•••») und Prozent als farbige Schrift ohne Pille in der Kursfarbe (Richtung
 /// nach dem Betrag, ohne Betrag nach dem Prozent; Null-Regel des Portfolios), die Währung klein und
-/// grau, der Zeitraum `period` klein und grau dahinter. Build 46: für «Heute» und «1 J» (Details).
+/// grau, der Zeitraum `period` klein und grau dahinter. Für «Heute» und «1 J» (Details).
 /// VoiceOver: ein Satz («1 Jahr: gefallen um 27.85%, −38’412.95 USDT»). Wie `TotalChangeLine` (Android).
 struct PortfolioTotalChangeLine: View {
     /// Betrag in USDT; nil = nur Prozent.

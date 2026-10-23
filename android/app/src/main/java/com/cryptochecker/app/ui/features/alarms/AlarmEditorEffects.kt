@@ -20,7 +20,7 @@ import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
 import kotlinx.coroutines.launch
 
 /**
- * Seit Build 107 (Review ARC5-R01): Ergebnisse von Speichern und Schnell-Alarm ([AlarmEditorEvent]) im GERADE gezeigten
+ * Review ARC5-R01: Ergebnisse von Speichern und Schnell-Alarm ([AlarmEditorEvent]) im GERADE gezeigten
  * Bildschirm — auch wenn die Activity während der Rückfrage F-08 neu erstellt wurde: Erlaubnis über den Launcher dieser
  * Komposition, Bestätigung in ihrer Snackbar. Vorher Rückrufe in `AlarmsScreen` (saveDraft, onTemplate), Ablauf unverändert.
  */

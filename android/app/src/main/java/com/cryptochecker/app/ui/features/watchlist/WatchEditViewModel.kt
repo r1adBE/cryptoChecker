@@ -194,7 +194,7 @@ class WatchEditViewModel @Inject constructor(
         if (s.saving) return
         _state.value = s.copy(saving = true, duplicate = false)
         viewModelScope.launch {
-            // Seit Build 105 (ARC3-R02): Rückfrage F-08 VOR der Refresh-Sperre — ein offener Dialog hält keine Kurse auf
+            // ARC3-R02: Rückfrage F-08 VOR der Refresh-Sperre — ein offener Dialog hält keine Kurse auf
             if (!watchRepository.confirmUserWrite()) {
                 _state.value = _state.value.copy(saving = false)
                 return@launch

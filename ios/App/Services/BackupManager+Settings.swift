@@ -54,7 +54,7 @@ extension BackupManager {
             "fearGreedAbove": s.fearGreedAbove,
             "gasAlertEthTenths": s.gasAlertEthTenths,
             "gasAlertBtc": s.gasAlertBtc,
-            // USDT-Depeg-Alarm (Build 46); ältere Versionen ignorieren die Felder
+            // USDT-Depeg-Alarm; ältere Versionen ignorieren die Felder
             "depegAlarm": s.depegAlarm,
             "depegThresholdTenths": s.depegThresholdTenths,
             "activityAlerts": s.activityAlerts,
@@ -149,7 +149,7 @@ extension BackupManager {
             let code = v.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
             if FxRateSource.isCurrencyCode(code) { s.portfolioCurrency = code }
         }
-        // Ältere Sicherungen ohne den Wert: bisheriger Standard (aus), nicht der neue von Build 43 — wie Android
+        // Ältere Sicherungen ohne den Wert: bisheriger Standard (aus), nicht der heutige — wie Android
         s.showConverted = bool(o, "showConverted") ?? AppSettings.legacyShowConverted
         if !isNull(o, "priceColorScheme") {
             s.priceColorScheme = PriceColorScheme(rawValue: string(o, "priceColorScheme") ?? "") ?? .default

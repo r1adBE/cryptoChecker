@@ -1,5 +1,5 @@
 {
-  "_comment": "«Diagnose teilen» (Build 81): adressähnliche Zeichenfolgen werden im Bericht ersetzt. Android: DiagnosticReportTest.kt, iOS: DiagnosticReportTests.swift.",
+  "_comment": "«Diagnose teilen»: adressähnliche Zeichenfolgen werden im Bericht ersetzt. Android: DiagnosticReportTest.kt, iOS: DiagnosticReportTests.swift.",
   "redacted": "[redacted]",
   "redact": [
     {
@@ -79,7 +79,7 @@
       "out": "release1-candidate"
     }
   ],
-  "_comment_sourceCommit": "Seit Build 103: Zeile «Source» im Bericht — 7 bis 40 Hex-Zeichen, gekürzt auf 12 (klein), sonst «local»; nie ersetzt wie eine Adresse.",
+  "_comment_sourceCommit": "Zeile «Source» im Bericht — 7 bis 40 Hex-Zeichen, gekürzt auf 12 (klein), sonst «local»; nie ersetzt wie eine Adresse.",
   "sourceCommit": [
     {
       "in": "3f9a1c2e7b4d5a6f8e9d0c1b2a3f4e5d6c7b8a9f",

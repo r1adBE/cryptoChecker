@@ -62,7 +62,7 @@ extension PortfolioHomeView {
                                               basis: basis, empty: sorted.isEmpty))
     }
 
-    /// Total-Zeile (immer sichtbar), gestaltet wie die Listenzeilen ohne Logo (Build 46: `wide` einzeilig, sonst
+    /// Total-Zeile (immer sichtbar), gestaltet wie die Listenzeilen ohne Logo (`wide` einzeilig, sonst
     /// zweizeilig): «Gesamt» (fett wie das Kürzel) und «100%» (wie der Anteil), dazu der Wert (Währung klein und grau;
     /// verborgen «•••») und MEIN Gewinn/Verlust wie in den Zeilen («24h +1’500.00 CHF · +1.61%», die Summe der Zeilen);
     /// ohne Betrag bleibt der Platz leer. Darüber die Trennlinie — wie Android `bindListTotal`.

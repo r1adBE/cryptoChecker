@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">تنبيهات المحفظة متوقفة مؤقتًا: لا يوجد سعر حالي لـ %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">تنبيهات المحفظة متوقفة مؤقتًا: ليس لكل العملات سعر حالي</string>
     <string name="portfolio_alarms_paused_addresses">تنبيهات المحفظة متوقفة مؤقتًا: لم يتم تحميل أرصدة العناوين المراقبة بعد</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">تنبيهات المحفظة متوقفة مؤقتًا: أرصدة الرموز في %1$s قديمة جزئيًا</string>
     <string name="portfolio_alarms_paused_tokens_generic">تنبيهات المحفظة متوقفة مؤقتًا: أرصدة الرموز في العناوين المراقبة قديمة جزئيًا</string>
     <string name="portfolio_alarms_paused_unverified">تنبيهات المحفظة متوقفة مؤقتًا: السعر غير متحقق لـ %1$s</string>

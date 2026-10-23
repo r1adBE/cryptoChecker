@@ -231,7 +231,7 @@ extension ExplorerViewModel {
     /// Gemeinsamer Weg für Börsen-Paare und DEX-Pools: aufnehmen, melden, Haptik, Mitteilungen. Merkliste voll
     /// (`WatchlistLimits`): nichts angelegt, Hinweis — wie Android `launchAdd`.
     func insert(market: Market, pair: MarketPair, addedText: String, duplicateText: String) {
-        // Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» = nichts angelegt, keine Meldung
+        // Rückfrage F-08 vorher; «Abbrechen» = nichts angelegt, keine Meldung
         data.withWatchlistConfirm { [weak self] in
             self?.insertNow(market: market, pair: pair, addedText: addedText, duplicateText: duplicateText)
         }

@@ -270,7 +270,7 @@
         <item quantity="other">Bez %1$d mincí bez nákupní ceny (%2$s) – doplň ceny, aby se započítaly.</item>
     </plurals>
 
-    <!-- Build 76: USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
+    <!-- USDT-Einbruch, DEX-Liquidität, Kraken-CSV, gebrückte Stablecoins -->
     <string name="portfolio_usdt_break">Propad USDT – trh na %1$s USD</string>
     <string name="portfolio_usdt_via_usdc">Dolarový kurz USDT přes USDC/USDT – když USDC klesne, tato hodnota nesedí</string>
     <string name="portfolio_amount_bridged_stable">≈ vč. %1$s (přemostěno)</string>
@@ -306,7 +306,7 @@
         <item quantity="many">Odstraní se %d transakce. Hned poté to můžeš vrátit zpět.</item>
         <item quantity="other">Odstraní se %d transakcí. Hned poté to můžeš vrátit zpět.</item>
     </plurals>
-    <!-- Zusatz der Rückfrage (seit Build 102): Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
+    <!-- Zusatz der Rückfrage: Transaktionen anderer Coins mit Gebühr in diesem Coin verlieren diese Gebühr, %1$s = Coin-Kürzel, %2$d = Zahl -->
     <string name="portfolio_coin_delete_fee_refs">Poplatky placené v %1$s budou odebrány i z jiných transakcí: %2$d.</string>
     <!-- Banner nach dem Löschen (mit «Rückgängig»), %1$s = Coin-Kürzel, %2$d = Zahl der gelöschten Transaktionen -->
     <plurals name="portfolio_coin_removed">

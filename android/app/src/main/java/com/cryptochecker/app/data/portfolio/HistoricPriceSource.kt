@@ -76,7 +76,7 @@ class HistoricPriceSource @Inject constructor(
 ) {
     /**
      * Coin → (eigene Börse oder null, Lesezeit): die Steuer-Vorlage fragt je (Coin, Tag) einzeln ([ownRoutes]).
-     * Begrenzt seit Build 99 (sonst blieb jeder je abgefragte Coin bis zum Prozessende).
+     * Begrenzt (sonst blieb jeder je abgefragte Coin bis zum Prozessende).
      */
     internal val routeMemo = BoundedCache<String, Pair<CandlePair?, Long>>(MEMORY_CACHE_ENTRIES)
 

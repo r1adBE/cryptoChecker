@@ -123,7 +123,7 @@ object PortfolioExchangeRoute {
 
     /**
      * Kurs in USDT: USDT unverändert; USD geteilt durch den Marktkurs USDT/USD [usdtUsd] (ungültig oder Standard = 1,
-     * USDT = USD wie bis Build 58); Fiat geteilt durch den Kurs USD → Fiat ([usdTo]) und durch [usdtUsd]; sonst null.
+     * USDT = USD wie früher); Fiat geteilt durch den Kurs USD → Fiat ([usdTo]) und durch [usdtUsd]; sonst null.
      */
     fun toUsdt(price: Double, quote: String, usdtUsd: Double = 1.0, usdTo: (String) -> Double?): Double? {
         if (!(price > 0.0) || !price.isFinite()) return null

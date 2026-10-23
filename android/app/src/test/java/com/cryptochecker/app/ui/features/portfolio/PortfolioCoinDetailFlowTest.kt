@@ -18,7 +18,7 @@ import java.math.BigDecimal
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
- * Seit Build 105 (PERF3-R1): die Coin-Ansicht rechnet bei Kurs-Ticks fremder Coins nicht neu, wohl aber bei Ticks des
+ * PERF3-R1: die Coin-Ansicht rechnet bei Kurs-Ticks fremder Coins nicht neu, wohl aber bei Ticks des
  * eigenen Coins und der Coins, deren Tageskurs ihre Zeilen brauchen (Tausch ohne Wert → erhaltener Coin).
  */
 class PortfolioCoinDetailFlowTest {

@@ -12,7 +12,7 @@ struct AlarmsOverviewScreen: View {
     @State private var deletePortfolio: PortfolioAlarm?
     /// Leere Übersicht: «Neuer Alarm» → Paar wählen → dessen Alarm-Seite (keine Sackgasse).
     @State private var pickPair = false
-    /// Seit Build 103: im Auswahlblatt gewähltes Paar — dessen Alarm-Seite öffnet erst, wenn das Blatt zu ist.
+    /// Im Auswahlblatt gewähltes Paar — dessen Alarm-Seite öffnet erst, wenn das Blatt zu ist.
     @State private var pickedPair: Int64?
     @State private var openWatchId: Int64?
     /// Warum Portfolio-Alarme gerade nicht prüfen (letzter Portfolio-Stand, `PortfolioAlarmLogic.pause`); nil = keiner.
@@ -21,7 +21,7 @@ struct AlarmsOverviewScreen: View {
     @State private var banner: WatchlistBannerMessage?
     /// Zählt abgelehnte Schalter (Merkliste gesperrt): wertet den body neu aus, damit die Schalter den echten Zustand
     /// zeigen — der gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst
-    /// stehen. Seit Build 104 ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
+    /// stehen. Ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
     @State private var refusedToggles = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -58,7 +58,7 @@ struct AlarmsOverviewScreen: View {
     }
 
     var body: some View {
-        // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus), seit Build 104
+        // Abgelehnte Schalter neu auswerten, ohne Identitätswechsel (sonst springt der VoiceOver-Fokus)
         let _ = refusedToggles
         let groups = self.groups
         let portfolio = portfolioAlarms
@@ -87,12 +87,12 @@ struct AlarmsOverviewScreen: View {
                     )
                     .containerRelativeFrame(.vertical, alignment: .center)
                 }
-                // Seit Build 103: eigenes Blatt mit Suche, Favoriten oben und Lazy-Liste (`AlarmPairPicker`)
+                // Eigenes Blatt mit Suche, Favoriten oben und Lazy-Liste (`AlarmPairPicker`)
                 .sheet(isPresented: $pickPair, onDismiss: {
                     if let id = pickedPair { openWatchId = id }
                     pickedPair = nil
                 }) {
-                    let input = data.alarmPairPickerInput // seit Build 106 (PERF4-R1): einmal je Stand
+                    let input = data.alarmPairPickerInput // PERF4-R1: einmal je Stand
                     AlarmPairPicker(watches: input.watches, sourceKey: input.sourceKey) { id in
                         pickedPair = id
                         pickPair = false
@@ -235,18 +235,18 @@ struct AlarmsOverviewScreen: View {
             VStack(spacing: 0) {
                 ForEach(items) { item in
                     let alarm = item.alarm
-                    // Ganze Zeile schaltet; seit Build 105 Rückfrage F-08 vorher und «Schwelle ungültig» nicht einschalten (FUN3-02)
+                    // Ganze Zeile schaltet; Rückfrage F-08 vorher und «Schwelle ungültig» nicht einschalten (FUN3-02)
                     SwitchRow(isOn: Binding(
                         get: { alarm.enabled },
                         set: { enabled in
                             data.withWatchlistConfirm {
-                                // Gesperrt: nur die Warn-Haptik des Hinweises (wie Android), seit Build 104
+                                // Gesperrt: nur die Warn-Haptik des Hinweises (wie Android)
                                 if !data.watchlistWritesBlocked { Haptics.play(.selection) }
                                 if !withAnimation(.snappy, { data.setAlarmEnabled(alarm.id, enabled) }) { refusedToggles &+= 1 }
                             } cancelled: { refusedToggles &+= 1 }
                         }
                     ), enabled: BackupManager.toggleAllowed(alarm.condition, alarm.threshold, enable: !alarm.enabled),
-                    verticalPadding: 8, dimsLabel: false) { // seit Build 106 (UX4-R4): Hinweis nicht mitdimmen
+                    verticalPadding: 8, dimsLabel: false) { // UX4-R4: Hinweis nicht mitdimmen
                         HStack(spacing: Spacing.sm) {
                             Image(systemName: AlarmStyle.symbol(alarm.condition))
                                 .scaledFont(size: 13, weight: .semibold, relativeTo: .footnote)
@@ -262,7 +262,7 @@ struct AlarmsOverviewScreen: View {
                                     .foregroundStyle(AppColors.onSurfaceVariant)
                                     .lineLimit(2)
                                     .fixedSize(horizontal: false, vertical: true)
-                                // Seit Build 104: «fällt um ≥ 100 %» (aus Build 102) löst nie aus — kennzeichnen
+                                // «fällt um ≥ 100 %» löst nie aus — kennzeichnen
                                 if BackupManager.exceedsFall(alarm.condition, alarm.threshold) {
                                     Text(L("alarm_threshold_invalid_fix"))
                                         .font(.caption)
@@ -287,7 +287,7 @@ struct AlarmsOverviewScreen: View {
     private static func a11yLabel(_ alarm: Alarm, watch: Watch) -> String {
         let sentence = AlarmTexts.sentence(alarm, base: watch.baseAsset, quote: watch.quoteAsset)
         let text = AlarmA11y.description(alarm, title: AlarmStyle.title(alarm, quote: watch.quoteAsset), sentence: sentence)
-        // Seit Build 104: ungültige Schwelle mit vorlesen (wie Android)
+        // Ungültige Schwelle mit vorlesen (wie Android)
         return BackupManager.exceedsFall(alarm.condition, alarm.threshold) ? text + ". " + L("alarm_threshold_invalid_fix") : text
     }
 
@@ -325,7 +325,7 @@ struct AlarmsOverviewScreen: View {
 
             VStack(spacing: 0) {
                 ForEach(alarms) { alarm in
-                    // Seit Build 105 (FUN3-01): «fällt um ≥ 100 %» löst nie aus — kennzeichnen, nicht einschalten
+                    // FUN3-01: «fällt um ≥ 100 %» löst nie aus — kennzeichnen, nicht einschalten
                     let invalid = PortfolioAlarmLogic.exceedsFall(alarm.kind, alarm.threshold)
                     SwitchRow(isOn: Binding(
                         get: { alarm.enabled },
@@ -338,7 +338,7 @@ struct AlarmsOverviewScreen: View {
                             Text(PortfolioAlarmTexts.sentence(alarm, basis: data.settings.changeBasis.storage, hidden: hidePortfolio))
                                 .font(.subheadline.monospacedDigit())
                                 .foregroundStyle(alarm.enabled ? AppColors.onSurface : AppColors.onSurfaceVariant)
-                            // Seit Build 106 (FUN4-R2): kein Editor für Portfolio-Alarme – löschen und neu anlegen
+                            // FUN4-R2: kein Editor für Portfolio-Alarme – löschen und neu anlegen
                             Text(L(invalid ? "portfolio_alarm_threshold_invalid_recreate"
                                    : (alarm.repeating ? "alarm_repeating" : "alarm_once")))
                                 .font(.caption)

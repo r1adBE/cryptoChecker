@@ -8,7 +8,7 @@ import SwiftUI
 extension PortfolioTxSheet {
     // MARK: Felder
 
-    /// Art (Build 46): eine kompakte Wahl «Art: Kauf ▾», die übrigen Arten im Menü (gewählte mit Häkchen),
+    /// Art: eine kompakte Wahl «Art: Kauf ▾», die übrigen Arten im Menü (gewählte mit Häkchen),
     /// darunter eine kurze Erklärung der neuen Arten — wie Android.
     var typePicker: some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {

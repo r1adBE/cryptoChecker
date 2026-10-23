@@ -20,8 +20,8 @@ import timber.log.Timber
  * Beschädigte Datei (z. B. halb geschrieben oder aus einer Systemsicherung wiederhergestellt):
  * durch leere Einstellungen ersetzen (= Standardwerte) statt bei jedem Start abzustürzen. Die Migrationen
  * sehen dann eine neue Installation (Portfolio aus); sind Portfolio-Daten da, schaltet [PortfolioDataCheck]
- * das Portfolio beim Start wieder ein. Seit Build 97 nicht mehr still: Intervall und Währung stehen auf dem Standard —
- * einmaliger Hinweis ([StorageRecoveryNotice.recordSettingsReset]); die Portfolio-Sperre gilt seit Build 102 als an, bis
+ * das Portfolio beim Start wieder ein. Nicht still: Intervall und Währung stehen auf dem Standard —
+ * einmaliger Hinweis ([StorageRecoveryNotice.recordSettingsReset]); die Portfolio-Sperre gilt als an, bis
  * der Nutzer sie selbst setzt ([SettingsLockFallback]). DataStore ruft den Handler nur bei unlesbarem Inhalt auf, nie bei
  * fehlender Datei (neue Installation) oder einem Lesefehler (IOException, siehe [SettingsLockFallback]).
  */
@@ -48,7 +48,7 @@ internal val Context.settingsDataStore: DataStore<Preferences> by preferencesDat
 @Volatile private var settingsStoreContext: Context? = null
 
 /**
- * «Nicht wegwischbar» einmalig festschreiben (Build 42, Standard neu aus): Fehlt der Schlüssel,
+ * «Nicht wegwischbar» einmalig festschreiben (Standard neu aus): Fehlt der Schlüssel,
  * erhält eine bestehende Installation (schon Einstellungen gespeichert) den bisherigen Standard an,
  * eine neue (noch nichts gespeichert) den neuen Standard aus ([AppSettings.ongoingForMigration]).
  * Läuft vor [UpdateModeMigration], die auch bei neuen Installationen sofort schreibt (und diesen

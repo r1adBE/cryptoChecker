@@ -53,7 +53,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-// «Diagnose teilen» (Build 81) unter Einstellungen › Über die App — wie iOS `DiagnosticsRow`.
+// «Diagnose teilen» unter Einstellungen › Über die App — wie iOS `DiagnosticsRow`.
 
 /**
  * Baut den Bericht ([DiagnosticReport]) nur aus Daten auf dem Gerät: Einstellungen für Alarme, Zustand von
@@ -120,7 +120,7 @@ class DiagnosticsViewModel @Inject constructor(
                 exchangePauses = refreshStats.backoffStates(),
                 // Der Release-Build führt kein Fehlerprotokoll (das HTTP-Protokoll gibt es nur im Debug-Build)
                 errorLog = null,
-                // Seit Build 104: nur Anzahl Fehler im Hintergrund je Bereich
+                // Nur Anzahl Fehler im Hintergrund je Bereich
                 backgroundErrors = com.cryptochecker.app.util.BackgroundErrorCounter.summary(),
             )
         )

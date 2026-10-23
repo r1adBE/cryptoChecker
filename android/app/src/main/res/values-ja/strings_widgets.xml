@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">表示</string>
     <string name="widget_portfolio_display_conversion">換算のみ</string>
     <string name="widget_portfolio_display_conversion_usdt">換算 + USDT</string>
-    <string name="widget_portfolio_display_hint">換算通貨が USD の場合、USDT の行は表示されません。</string>
+    <string name="widget_portfolio_display_hint">換算通貨が USD ステーブルコイン（例: USDC）の場合、USDT の行は表示されません。</string>
     <string name="widget_portfolio_display_usdt">USDTのみ</string>
     <string name="widget_portfolio_empty">「ポートフォリオ」タブで購入を追加</string>
     <string name="widget_portfolio_list_hint">アプリを開くと、ここに保有銘柄が表示されます。</string>

@@ -33,19 +33,19 @@ struct PortfolioCsvImportSheet: View {
     @State var ratesStale = false
     /// Schreiben gescheitert: nichts importiert — Meldung statt «0 importiert» (wie Android `CsvImportState.SaveFailed`).
     @State private var saveFailed = false
-    /// Seit Build 103: Lesart, mit der die gezeigte Vorschau gebaut wurde (die beim Laden: Regel). Wird nur zusammen mit
-    /// `preview` gesetzt (seit Build 104 nur vom letzten Neu-Lesen, `remapGeneration`) — wie Android `Preview.choice`.
+    /// Lesart, mit der die gezeigte Vorschau gebaut wurde (die beim Laden: Regel). Wird nur zusammen mit
+    /// `preview` gesetzt (nur vom letzten Neu-Lesen, `remapGeneration`) — wie Android `Preview.choice`.
     @State var builtWith = CsvReadChoice()
-    /// Seit Build 104: Nummer des letzten Neu-Lesens; nur dessen Ergebnis zählt (wie Android `rereadGeneration`).
+    /// Nummer des letzten Neu-Lesens; nur dessen Ergebnis zählt (wie Android `rereadGeneration`).
     @State var remapGeneration = 0
-    /// Seit Build 103: Lesart geändert, Datei wird neu gelesen — «Importieren» aus, Vorschau gedimmt (wie Android).
+    /// Lesart geändert, Datei wird neu gelesen — «Importieren» aus, Vorschau gedimmt (wie Android).
     @State var rereading = false
-    /// Seit Build 103: gewählte Umbuchungen angewendet, gemerkt statt bei jeder Auswertung von `body` neu
+    /// Gewählte Umbuchungen angewendet, gemerkt statt bei jeder Auswertung von `body` neu
     /// (`updatePlan` nach jeder Änderung von Vorschau, Kandidaten oder Wahl) — wie Android `remember`.
     @State var plan: CsvTransferPlan
-    /// Auszahlungen in `plan` (seit Build 103 gemerkt).
+    /// Auszahlungen in `plan` (gemerkt).
     @State var withdrawals: [CsvImportTx] = []
-    /// Seit Build 103: alle Umbuchungen bzw. Auszahlungen im eigenen Blatt (Lazy-Liste).
+    /// Alle Umbuchungen bzw. Auszahlungen im eigenen Blatt (Lazy-Liste).
     @State var showAllLinks = false
     @State var showAllWithdrawals = false
 
@@ -58,7 +58,7 @@ struct PortfolioCsvImportSheet: View {
         _withdrawals = State(initialValue: plan.transactions.filter { $0.type == .WITHDRAWAL })
     }
 
-    /// Seit Build 103: aktuell gewählte Lesart.
+    /// Aktuell gewählte Lesart.
     var chosenRead: CsvReadChoice { CsvReadChoice(zone: zone, dateOrder: dateOrder, decimalMark: decimalMark) }
 
     @EnvironmentObject private var data: AppData
@@ -68,7 +68,7 @@ struct PortfolioCsvImportSheet: View {
     private static let previewRows = 8
 
     /// Gewählte Umbuchungen angewendet: so wird gespeichert (Auszahlungen darin brauchen keine Wahl mehr) — wie Android.
-    /// Seit Build 103 nur nach Änderungen neu berechnet.
+    /// Nur nach Änderungen neu berechnet.
     func updatePlan() {
         let next = CsvTransferMatch.apply(preview.transactions, links: links, chosen: linked)
         plan = next
@@ -88,7 +88,7 @@ struct PortfolioCsvImportSheet: View {
                     if !preview.columns.isEmpty {
                         hint(L("portfolio_csv_import_columns", preview.columns.joined(separator: ", ")))
                     }
-                    // Seit Build 103: neue Lesart wird gelesen — Hinweis, Rest gedimmt
+                    // Neue Lesart wird gelesen — Hinweis, Rest gedimmt
                     if rereading {
                         Text(L("portfolio_csv_import_rereading"))
                             .font(.subheadline)
@@ -147,7 +147,7 @@ struct PortfolioCsvImportSheet: View {
                             }
                         }
                     }
-                    // Seit Build 103 gedimmt, solange neu gelesen wird
+                    // Gedimmt, solange neu gelesen wird
                     .opacity(rereading ? 0.4 : 1)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -172,7 +172,7 @@ struct PortfolioCsvImportSheet: View {
         }
         .tint(accent.primary)
         .onAppear { propose() }
-        // Seit Build 103: Screenreader hört, dass neu gelesen wird
+        // Screenreader hört, dass neu gelesen wird
         .onChange(of: rereading) { _, now in
             if now { AccessibilityNotification.Announcement(L("portfolio_csv_import_rereading")).post() }
         }
@@ -213,7 +213,7 @@ struct PortfolioCsvImportSheet: View {
         let order = dateOrder
         let mark = decimalMark
         let refetch = ratesStale
-        // Seit Build 103: bis die Vorschau zur Wahl passt, kein «Importieren»
+        // Bis die Vorschau zur Wahl passt, kein «Importieren»
         rereading = true
         remapGeneration += 1
         let generation = remapGeneration
@@ -246,7 +246,7 @@ struct PortfolioCsvImportSheet: View {
             .foregroundStyle(AppColors.onSurfaceVariant)
     }
 
-    /// «12.06.2024 · Kauf» / «0.0028 BTC · 95’287.63 USDT» — seit Build 104 zwei Zeilen, je bis zu drei Zeilen hoch
+    /// «12.06.2024 · Kauf» / «0.0028 BTC · 95’287.63 USDT» — zwei Zeilen, je bis zu drei Zeilen hoch
     /// (vorher eine Zeile mit lineLimit(1): bei grosser Schrift fehlten Menge und Preis) — wie Android `PreviewRow`.
     func previewRow(_ tx: CsvImportTx) -> some View {
         var amounts = [PortfolioFormat.exactAmount(tx.amount, tx.coin)]
@@ -264,7 +264,7 @@ struct PortfolioCsvImportSheet: View {
     }
 
     private func confirm() {
-        // Seit Build 103: nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen Lesart
+        // Nicht während des Neu-Lesens und nur mit der Vorschau der aktuellen Lesart
         guard CsvReadChoice.canConfirm(rereading: rereading, builtWith: builtWith, chosen: chosenRead) else { return }
         let plan = CsvTransferMatch.apply(preview.transactions, links: links, chosen: linked)
         // Jede Auszahlung (ohne verknüpfte Umbuchung) braucht eine Wahl (der Knopf ist sonst aus) — wie Android

@@ -270,7 +270,7 @@ final class ChainTests: XCTestCase {
                                                      tokens: f["tokens"] as? [String: String],
                                                      networks: f["networks"] as? [String])
         XCTAssertEqual(after.networks, f["expectedNetworks"] as? [String])
-        // Erste Wahl: stumme Netze bleiben gewählt, im Hintergrund keine Wahl (seit Build 94)
+        // Erste Wahl: stumme Netze bleiben gewählt, im Hintergrund keine Wahl
         for c in S.list(r["discovered"]) {
             XCTAssertEqual(WatchedAddressRules.discoveredNetworks(found: c["found"] as? [String] ?? [],
                                                                  unanswered: c["unanswered"] as? [String] ?? [],

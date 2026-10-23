@@ -1,7 +1,7 @@
 package com.cryptochecker.app.domain.alarm
 
 /**
- * Eine Zeile über der Merkliste (Build 91): Kommen die Alarme an? Verdichtet denselben gelesenen Zustand wie «Damit
+ * Eine Zeile über der Merkliste: Kommen die Alarme an? Verdichtet denselben gelesenen Zustand wie «Damit
  * Alarme ankommen» ([AlarmReadiness.Input]) auf genau einen Satz — ruhig (grau) mit der letzten Prüfung, oder eine
  * Warnung (Bernstein) mit dem wichtigsten Grund; Tipp öffnet die Seite. Ohne Alarme keine Zeile. Reine Logik — wie
  * `AlarmReliability.swift`; gemeinsame Fälle in `testdata/parity/alarm_reliability.json`.
@@ -16,7 +16,7 @@ object AlarmReliability {
 
     /**
      * iOS: gleiche Grenze wie die Seite ([AlarmReadiness.STALE_CHECK_MILLIS], 6 h) — iOS startet die Hintergrund-Aufgabe
-     * nach eigenem Ermessen, oft nur alle paar Stunden (seit Build 92). Hier für den gemeinsamen Testfall.
+     * nach eigenem Ermessen, oft nur alle paar Stunden. Hier für den gemeinsamen Testfall.
      */
     const val STALE_MILLIS_IOS = AlarmReadiness.STALE_CHECK_MILLIS
 
@@ -35,7 +35,7 @@ object AlarmReliability {
         NOTIFICATIONS_OFF("notifications_off"),
         /**
          * Android: Merkliste nur als Kopie im Arbeitsspeicher (kein Schlüssel) — Prüfungen im Hintergrund ruhen, bis ein
-         * Start mit Schlüssel die Datei überführt (seit Build 93). Geht dem Akku vor: Der wäre hier nicht der Grund.
+         * Start mit Schlüssel die Datei überführt. Geht dem Akku vor: Der wäre hier nicht der Grund.
          */
         STORAGE_NO_KEY("storage_no_key"),
         /** Android: Hintergrundnutzung eingeschränkt, oder Prüfung zu alt bei Akku-Optimierung/Akkusparen des Herstellers. */

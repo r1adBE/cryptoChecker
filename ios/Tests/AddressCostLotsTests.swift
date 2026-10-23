@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Einstand für Adressguthaben (Build 84) — wie `AddressCostLotsTest.kt`: Prüfung, Abdeckung (FIFO), Datei und Sicherung
+/// Einstand für Adressguthaben — wie `AddressCostLotsTest.kt`: Prüfung, Abdeckung (FIFO), Datei und Sicherung
 /// (hin und zurück, Sicherung ohne das Feld).
 final class AddressCostLotsTests: XCTestCase {
 

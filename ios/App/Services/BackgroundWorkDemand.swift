@@ -1,8 +1,8 @@
 import Foundation
 
 /// Braucht es die periodische Hintergrund-Aktualisierung? Spiegel von `BackgroundWorkPolicy.periodicNeeded` und
-/// `portfolioWork` (Android, `PriceUpdateScheduler`), gemeinsame Fälle in `periodic_needed.json`. Seit Build 103 — vorher
-/// plante iOS die Aufgabe immer. Ohne Bedarf sagt `BackgroundRefresh.scheduleRefresh` sie ab (kein Akku für nichts).
+/// `portfolioWork` (Android, `PriceUpdateScheduler`), gemeinsame Fälle in `periodic_needed.json`.
+/// Ohne Bedarf sagt `BackgroundRefresh.scheduleRefresh` sie ab (kein Akku für nichts).
 enum BackgroundWorkDemand {
     /// Was ein Paar im Hintergrund braucht.
     struct PairWork: Equatable, Sendable {

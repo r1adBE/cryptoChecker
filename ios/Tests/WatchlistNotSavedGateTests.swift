@@ -1,9 +1,9 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 104 (F-08): Frage vor der ersten Änderung je Lauf — gleiche Fälle wie `WatchlistNotSavedGateTest.kt`.
-/// Seit Build 105: einmal je Aktion vorher (`confirm`), Sicherung im Schreibweg, Abbruch des Wartenden räumt die Frage.
-/// Seit Build 106: ohne Szene kurz auf sie warten; ein Durchlass ohne Szene wird im Schreibweg nicht abgelehnt.
+/// F-08: Frage vor der ersten Änderung je Lauf — gleiche Fälle wie `WatchlistNotSavedGateTest.kt`.
+/// Einmal je Aktion vorher (`confirm`), Sicherung im Schreibweg, Abbruch des Wartenden räumt die Frage.
+/// Ohne Szene kurz auf sie warten; ein Durchlass ohne Szene wird im Schreibweg nicht abgelehnt.
 /// Review F-27: dieser Durchlass gilt nur für die eigene Aktion (`runConsented`), nicht global.
 @MainActor
 final class WatchlistNotSavedGateTests: XCTestCase {
@@ -29,7 +29,7 @@ final class WatchlistNotSavedGateTests: XCTestCase {
         }
     }
 
-    /// Ein Lauf mit Oberfläche: gefragt wird bis zum ersten «Trotzdem», danach nicht mehr (seit Build 105 per `confirm`).
+    /// Ein Lauf mit Oberfläche: gefragt wird bis zum ersten «Trotzdem», danach nicht mehr (per `confirm`).
     func testSharedSequence() async throws {
         let data = try S.fixture("watchlist_not_saved_gate")
         let steps = S.list((data["sequence"] as? [String: Any])?["steps"])
@@ -43,7 +43,7 @@ final class WatchlistNotSavedGateTests: XCTestCase {
                 asked = gate.pending
                 gate.answer(proceed: answer)
             } else {
-                // Seit Build 106 (TST4-01): echte Prüfung statt Fixture gegen Fixture — ohne Antwort erscheint keine Frage
+                // TST4-01: echte Prüfung statt Fixture gegen Fixture — ohne Antwort erscheint keine Frage
                 // (kurz warten, bis `confirm` gelaufen ist); eine unerwartete Frage abbrechen statt hängen
                 try await Task.sleep(nanoseconds: 100_000_000)
                 asked = gate.pending
@@ -64,7 +64,7 @@ final class WatchlistNotSavedGateTests: XCTestCase {
         XCTAssertFalse(gate.needsConfirmation(notSaved: true, canAsk: false))
     }
 
-    // MARK: Seit Build 105: einmal je Aktion vorher, Sicherung im Schreibweg
+    // MARK: Einmal je Aktion vorher, Sicherung im Schreibweg
 
     /// Bedingung auf dem MainActor abwarten (höchstens 5 s).
     private func waitUntil(_ condition: @MainActor () -> Bool) async throws {
@@ -75,7 +75,7 @@ final class WatchlistNotSavedGateTests: XCTestCase {
         XCTFail("Bedingung nicht erreicht")
     }
 
-    /// Seit Build 106 (Review TST4-02): Ergebnis von `task` abwarten, höchstens `seconds` — sonst abbrechen und XCTFail
+    /// Review TST4-02: Ergebnis von `task` abwarten, höchstens `seconds` — sonst abbrechen und XCTFail
     /// (nil) statt den CI-Lauf bis zum Job-Timeout hängen zu lassen. Wie Android `withTimeout(5_000)`.
     private func value<T: Sendable>(of task: Task<T, Never>, within seconds: Int = 5,
                                     file: StaticString = #filePath, line: UInt = #line) async -> T? {
@@ -175,7 +175,7 @@ final class WatchlistNotSavedGateTests: XCTestCase {
         XCTAssertFalse(gate.needsConfirmation(notSaved: true, canAsk: true))
     }
 
-    // MARK: Seit Build 106 (Review ARC4-R02, Variante A): ohne Szene erst warten, Durchlass wird nicht still abgelehnt
+    // MARK: Review ARC4-R02, Variante A: ohne Szene erst warten, Durchlass wird nicht still abgelehnt
 
     func testSharedLateScreen() async throws {
         let late = try XCTUnwrap(try S.fixture("watchlist_not_saved_gate")["lateScreen"] as? [String: Any])
@@ -269,7 +269,7 @@ private final class ConsentProbe {
     }
 }
 
-/// Ergebnis einer Aufgabe für `value(of:within:)` (seit Build 106); nur auf dem MainActor gelesen und geschrieben.
+/// Ergebnis einer Aufgabe für `value(of:within:)`; nur auf dem MainActor gelesen und geschrieben.
 @MainActor
 private final class TaskResultBox<T> {
     var result: T?

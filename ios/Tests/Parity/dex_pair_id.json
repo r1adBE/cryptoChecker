@@ -1,5 +1,5 @@
 {
-  "_comment": "DexScreener-Kennung «chain/adresse» (seit Build 104): nur gültig, wenn beide Teile ausschliesslich aus Zeichen bestehen, die unkodiert im URL-Pfad stehen dürfen (A–Z a–z 0–9 . _ ~ -). Ungültig → Einzelkurs «Pool not found» ohne Anfrage, Suchtreffer fallen weg, Sicherung übernimmt das Paar nicht («backupKept»; dort gilt zusätzlich die allgemeine Kennungsregel ohne «~», und DexScreener ohne Kennung fällt weg). Android: DexPairIdParityTest.kt (DexScreener.isSafePairId, tickerAddress, parseSearch, BackupRestoreLimits.acceptsPair), iOS: DexPairIdParityTests.swift (DexScreener.isSafePairId, tickerQueryError, parseSearch, BackupRestoreLimits.acceptsPair).",
+  "_comment": "DexScreener-Kennung «chain/adresse»: nur gültig, wenn beide Teile ausschliesslich aus Zeichen bestehen, die unkodiert im URL-Pfad stehen dürfen (A–Z a–z 0–9 . _ ~ -). Ungültig → Einzelkurs «Pool not found» ohne Anfrage, Suchtreffer fallen weg, Sicherung übernimmt das Paar nicht («backupKept»; dort gilt zusätzlich die allgemeine Kennungsregel ohne «~», und DexScreener ohne Kennung fällt weg). Android: DexPairIdParityTest.kt (DexScreener.isSafePairId, tickerAddress, parseSearch, BackupRestoreLimits.acceptsPair), iOS: DexPairIdParityTests.swift (DexScreener.isSafePairId, tickerQueryError, parseSearch, BackupRestoreLimits.acceptsPair).",
   "tickerBase": "https://api.dexscreener.com/latest/dex/pairs/",
   "cases": [
     { "pairId": "ethereum/0x11950d141EcB863F01007AdD7D1A342041227b58", "valid": true, "backupKept": true },
@@ -12,11 +12,11 @@
     { "pairId": "/0xabc", "valid": false, "backupKept": false },
     { "pairId": "ethereum/0x1/2", "valid": false, "_why": "zweites «/» verlässt den Pfad", "backupKept": false },
     { "pairId": "ethereum/../../latest/dex/search", "valid": false, "backupKept": false },
-    { "pairId": "ethereum/..", "valid": false, "_why": "Punkt-Segment (seit Build 105)", "backupKept": false },
-    { "pairId": "../0xabc", "valid": false, "_why": "Punkt-Segment (seit Build 105)", "backupKept": false },
-    { "pairId": "./0xabc", "valid": false, "_why": "Punkt-Segment (seit Build 105)", "backupKept": false },
-    { "pairId": "ethereum/.", "valid": false, "_why": "Punkt-Segment (seit Build 105)", "backupKept": false },
-    { "pairId": "ethereum/...", "valid": false, "_why": "nur Punkte (seit Build 105)", "backupKept": false },
+    { "pairId": "ethereum/..", "valid": false, "_why": "Punkt-Segment", "backupKept": false },
+    { "pairId": "../0xabc", "valid": false, "_why": "Punkt-Segment", "backupKept": false },
+    { "pairId": "./0xabc", "valid": false, "_why": "Punkt-Segment", "backupKept": false },
+    { "pairId": "ethereum/.", "valid": false, "_why": "Punkt-Segment", "backupKept": false },
+    { "pairId": "ethereum/...", "valid": false, "_why": "nur Punkte", "backupKept": false },
     { "pairId": "eth.net/0x.a.", "valid": true, "_why": "Punkte neben anderen Zeichen bleiben erlaubt", "backupKept": true },
     { "pairId": "ethereum/0xabc?q=1", "valid": false, "backupKept": false },
     { "pairId": "ethereum/0xabc#x", "valid": false, "backupKept": false },

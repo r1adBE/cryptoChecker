@@ -131,7 +131,7 @@ struct PortfolioPositionCard: View {
             // Wie Einstand und Ø gerechnet werden (nach der gewählten Methode) — wie Android
             PortfolioHint(text: L(p.method.isFifo ? "portfolio_fifo_hint" : "portfolio_avg_price_hint")).padding(.top, 8)
             if p.priceMissing {
-                // Antippbar: öffnet die Einträge ohne Einstand dieses Coins (Build 84)
+                // Antippbar: öffnet die Einträge ohne Einstand dieses Coins
                 PortfolioHint(text: L("portfolio_price_missing_hint")).padding(.top, 8).costLink(onMissingCost)
             }
             // Netzwerkgebühr, deren Einstand keinen bezahlten Posten mehr fand (weder Einstand noch realisiert)

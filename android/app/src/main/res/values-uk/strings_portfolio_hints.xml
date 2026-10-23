@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">Сигнали портфеля призупинено: немає поточного курсу для %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">Сигнали портфеля призупинено: не всі монети мають поточний курс</string>
     <string name="portfolio_alarms_paused_addresses">Сигнали портфеля призупинено: баланси відстежуваних адрес ще не завантажено</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">Сигнали портфеля призупинено: баланси токенів %1$s частково застаріли</string>
     <string name="portfolio_alarms_paused_tokens_generic">Сигнали портфеля призупинено: баланси токенів відстежуваних адрес частково застаріли</string>
     <string name="portfolio_alarms_paused_unverified">Сигнали портфеля призупинено: ціна не перевірена для %1$s</string>

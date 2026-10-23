@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 104 (Review IOS2-04): «Portfolio leeren» (`PortfolioPriceSource.clearStored`) vergisst auch die Coins
+/// Review IOS2-04: «Portfolio leeren» (`PortfolioPriceSource.clearStored`) vergisst auch die Coins
 /// mit «Kurs nicht verfügbar» — sie nennen gehaltene Coins. Android: `PortfolioPriceSourceStore.kt` › `clearStored`.
 final class PortfolioPriceSourceClearTests: XCTestCase {
 

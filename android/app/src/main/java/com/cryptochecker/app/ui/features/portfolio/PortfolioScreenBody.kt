@@ -168,7 +168,7 @@ internal fun PortfolioList(
                             now = now,
                         ) }
                     }
-                    // Einträge ohne Einstand: sanfte Karte zum Ergänzen (Build 84)
+                    // Einträge ohne Einstand: sanfte Karte zum Ergänzen
                     if (costGapsPending > 0) {
                         item(key = "cost_gaps") {
                             Box(Modifier.padding(bottom = ListSegment.Spacing)) { CostGapsCard(costGapsPending, onOpenCostGaps) }
@@ -239,7 +239,7 @@ internal fun PortfolioList(
                                 unavailable = position.coin in prices.unavailable,
                                 // Wert und 24h wie im Widget in der Anzeigewährung (Detail bleibt USDT)
                                 unit = cardUnit(currency, fxRate),
-                                // Build 46: Börse des Kurses klein in der Zeile (nicht nur unter «Hinweise»)
+                                // Börse des Kurses klein in der Zeile (nicht nur unter «Hinweise»)
                                 exchange = prices.sources[position.coin],
                                 viaBase = prices.viaBase[position.coin],
                                 bridgedStable = bridgedStables[position.coin]?.joinToString(", "),

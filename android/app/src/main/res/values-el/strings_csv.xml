@@ -44,7 +44,7 @@
     <string name="portfolio_csv_import_transfers_hint">Μια ανάληψη και η αντίστοιχη κατάθεση του ίδιου coin γίνονται μία μεταφορά: η τιμή αγοράς και η περίοδος κατοχής διατηρούνται, η διαφορά μετρά ως προμήθεια δικτύου.</string>
     <string name="portfolio_csv_import_transfers_title">Μεταφορές μεταξύ των λογαριασμών σου</string>
     <string name="portfolio_csv_import_unreadable">Δεν βρέθηκαν υποστηριζόμενες συναλλαγές. Υποστηρίζονται: εξαγωγές CSV από Relai, Swissquote, Kraken, Binance, Coinbase και Bitpanda.</string>
-    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
     <string name="portfolio_csv_import_too_large">Το αρχείο είναι πολύ μεγάλο για εισαγωγή (έως 16 MB και %1$s γραμμές). Κάνε εξαγωγή μικρότερων περιόδων και εισήγαγέ τες μία μία.</string>
     <string name="portfolio_csv_import_failed">Η εισαγωγή απέτυχε – δεν αποθηκεύτηκε τίποτα. Δοκίμασε ξανά.</string>
     <string name="portfolio_csv_import_locked">Η εισαγωγή δεν είναι δυνατή: τα αποθηκευμένα δεδομένα δεν μπορούν να διαβαστούν αυτή τη στιγμή. Επανεκκίνησε την εφαρμογή.</string>

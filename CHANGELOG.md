@@ -15,6 +15,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 110)
+
+* Code comments describe the code as it is now: build-number history removed from comments in about 820 files (audit F-21); compatibility notes for older versions kept without numbers.
+* iOS: own text for the local network prompt (own address server in the home network), in all 31 languages.
+* Portfolio widget: the display hint now correctly says the USDT line is hidden for a USD stablecoin (e.g. USDC), not for USD.
+* CI: lint warnings additionally listed per finding (file, line, message) in the check annotations.
+* Repository: a stray CI output line at the end of `docs/privacy/index.html` (published with build 109, after `</html>`) removed; the page is again identical to `android/docs/privacy/index.html`.
+
 ## 16.2.2 (build 109)
 
 * Mirror data is signed: the apps accept files from the GitHub data mirror only with a valid signature (ECDSA P-256 over a manifest with SHA-256 per file, at most 7 days old); otherwise they use the exchanges directly as before.

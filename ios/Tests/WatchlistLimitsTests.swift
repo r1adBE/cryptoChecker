@@ -57,7 +57,7 @@ final class WatchlistLimitsTests: XCTestCase {
         XCTAssertEqual(snapshot.watches.count, WatchlistLimits.maxPairs)
     }
 
-    /// Seit Build 103 (Review FUN-03): «Rückgängig» umgeht die Obergrenze nicht — Überzählige bleiben aus und werden
+    /// Review FUN-03: «Rückgängig» umgeht die Obergrenze nicht — Überzählige bleiben aus und werden
     /// gezählt; vorhandene Paare zählen nicht als «voll». Wie Android `WatchRepository.restore`.
     func testRueckgaengigNurBisZurGrenze() {
         var snapshot = SharedStorage.Snapshot()

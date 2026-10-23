@@ -2,7 +2,7 @@ import CryptoKit
 import XCTest
 @testable import CryptoChecker
 
-/// Build 79 — wie die Android-Tests (`PortfolioLockPolicyTest`, `AlarmCardStatusTest`, `PriceKindLabelTest`,
+/// Review-Korrekturen — wie die Android-Tests (`PortfolioLockPolicyTest`, `AlarmCardStatusTest`, `PriceKindLabelTest`,
 /// `FirstAlarmCardTest`, `StatusPillToneTest`): Sicherung mit beobachteten Adressen gilt als Portfolio-Daten,
 /// beobachtete Adressen nie im Klartext, kein Alarm auf einen Mark-Ersatzkurs, Karte «Ersten Alarm setzen» nach der
 /// gespeicherten Reihenfolge, «veraltet» in Bernstein.
@@ -84,7 +84,7 @@ final class ReviewFixesB79Tests: XCTestCase {
         XCTAssertEqual(PriceKindLabel.of(priceIsMid: true, markFallback: false, hourlyClose: false), .mid)
         XCTAssertEqual(PriceKindLabel.of(priceIsMid: false, markFallback: false, hourlyClose: true), .hourly)
         XCTAssertNil(PriceKindLabel.of(priceIsMid: false, markFallback: false, hourlyClose: false))
-        XCTAssertFalse(Woo().priceIsHourlyClose) // seit Build 91 letzter Abschluss statt Stundenkurs
+        XCTAssertFalse(Woo().priceIsHourlyClose) // letzter Abschluss statt Stundenkurs
         XCTAssertFalse(WooFutures().priceIsHourlyClose)
     }
 

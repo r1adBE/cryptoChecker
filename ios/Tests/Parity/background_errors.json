@@ -1,5 +1,5 @@
 {
-  "_comment": "Seit Build 104 (F-25): Zeile «Background errors» im Diagnosebericht — nur Anzahl je Bereich und Zeitpunkt des letzten Fehlers (UTC), nie Texte. Nach Anzahl absteigend, bei Gleichstand nach Code; unbekannter Code zählt als «other»; 0 und weniger fallen weg. Android: BackgroundErrorsTest.kt, iOS: BackgroundErrorsTests.swift.",
+  "_comment": "F-25: Zeile «Background errors» im Diagnosebericht — nur Anzahl je Bereich und Zeitpunkt des letzten Fehlers (UTC), nie Texte. Nach Anzahl absteigend, bei Gleichstand nach Code; unbekannter Code zählt als «other»; 0 und weniger fallen weg. Android: BackgroundErrorsTest.kt, iOS: BackgroundErrorsTests.swift.",
   "areas": ["alarms", "coins", "live", "logos", "other", "refresh", "schedule", "startup", "storage", "widgets"],
   "lines": [
     {

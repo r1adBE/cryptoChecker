@@ -1,6 +1,6 @@
 import Foundation
 
-/// Seit Build 104: «fällt um ≥ 100 %»-Alarme (Kurs bzw. Open Interest, `BackupManager.exceedsFall`) konnte Build 102 noch
+/// «fällt um ≥ 100 %»-Alarme (Kurs bzw. Open Interest, `BackupManager.exceedsFall`) konnten ältere Versionen noch
 /// speichern; sie lösen nie aus. Einmal je Installation ausschalten (Merker im App-Group-Speicher); die Alarmliste
 /// kennzeichnet sie («Schwelle ungültig – bitte anpassen»). Wie Android `FallAlarmCleanup`.
 enum FallAlarmCleanup {
@@ -11,15 +11,15 @@ enum FallAlarmCleanup {
         Set(alarms.filter { $0.enabled && BackupManager.exceedsFall($0.condition, $0.threshold) }.map(\.id))
     }
 
-    /// Seit Build 105 (Review FUN3-01): eigener Merker für die Portfolio-Alarme (der von Build 104 ist schon gesetzt).
+    /// Review FUN3-01: eigener Merker für die Portfolio-Alarme (`doneKey` der Paar-Alarme ist oft schon gesetzt).
     static let portfolioDoneKey = "portfolio_fall_alarm_cleanup_done_b105"
 
-    /// Seit Build 105: eingeschaltete Portfolio-Alarme «fällt um ≥ 100 %» (`PortfolioAlarmLogic.exceedsFall`).
+    /// Eingeschaltete Portfolio-Alarme «fällt um ≥ 100 %» (`PortfolioAlarmLogic.exceedsFall`).
     static func portfolioIdsToDisable(_ alarms: [PortfolioAlarm]) -> Set<Int64> {
         Set(alarms.filter { $0.enabled && PortfolioAlarmLogic.exceedsFall($0.kind, $0.threshold) }.map(\.id))
     }
 
-    /// Seit Build 106 (Review FUN4-R1): Portfolio-Alarme wirklich gelesen? `nil` bei vorhandener Datei = gerade nicht
+    /// Review FUN4-R1: Portfolio-Alarme wirklich gelesen? `nil` bei vorhandener Datei = gerade nicht
     /// zugreifbar (nicht «leer») — dann keinen Merker setzen, beim nächsten Start erneut (wie Android erst nach dem
     /// gelungenen DB-Zugriff).
     static func portfolioAlarmsRead(_ alarms: [PortfolioAlarm]?, fileExists: Bool) -> Bool {
@@ -43,11 +43,11 @@ extension AppData {
         defaults.set(true, forKey: FallAlarmCleanup.doneKey)
     }
 
-    /// Seit Build 105 (Review FUN3-01): dasselbe für die Portfolio-Alarme (wie Android `PortfolioFallAlarmCleanup`).
+    /// Review FUN3-01: dasselbe für die Portfolio-Alarme (wie Android `PortfolioFallAlarmCleanup`).
     /// Nur aus `disableInvalidFallAlarmsOnce` (gelesener, beschreibbarer Stand).
     private func disableInvalidPortfolioFallAlarmsOnce(defaults: UserDefaults) {
         guard !defaults.bool(forKey: FallAlarmCleanup.portfolioDoneKey) else { return }
-        // Seit Build 106 (FUN4-R1): nicht gelesen (Datei da, aber nicht zugreifbar) → kein Merker, nächster Start
+        // FUN4-R1: nicht gelesen (Datei da, aber nicht zugreifbar) → kein Merker, nächster Start
         let fileExists = FileManager.default.fileExists(atPath: SharedStorage.portfolioAlarmsURL.path)
         guard FallAlarmCleanup.portfolioAlarmsRead(snapshot.portfolioAlarms, fileExists: fileExists) else { return }
         let ids = FallAlarmCleanup.portfolioIdsToDisable(snapshot.portfolioAlarms ?? [])

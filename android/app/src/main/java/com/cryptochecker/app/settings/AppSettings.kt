@@ -13,7 +13,7 @@ data class AppSettings(
     val backgroundIntervalMinutes: Int = 15,
 
     /**
-     * «Pünktlich prüfen» (Build 46, nur Android): exakter Wecker alle 15 Min. statt nur WorkManager
+     * «Pünktlich prüfen» (nur Android): exakter Wecker alle 15 Min. statt nur WorkManager
      * (`ExactCheckScheduler`). Standard aus; braucht «Wecker und Erinnerungen» (SCHEDULE_EXACT_ALARM).
      */
     val exactChecks: Boolean = false,
@@ -28,7 +28,7 @@ data class AppSettings(
     val priceNotifications: Boolean = true,
 
     /**
-     * Kurs-Benachrichtigungen sind nicht wegwischbar. Ab Build 42 für neue Installationen aus;
+     * Kurs-Benachrichtigungen sind nicht wegwischbar. Für neue Installationen aus;
      * bestehende behalten den bisherigen Wert ([ongoingForMigration], OngoingNotificationsMigration).
      */
     val ongoingNotifications: Boolean = false,
@@ -65,7 +65,7 @@ data class AppSettings(
 
     /**
      * «inkl. Alpha-Tokens» (bei «Token & TradFi»): Alpha-Tokens ([com.cryptochecker.app.domain.watch.AssetKind.ALPHA])
-     * in der Paar-Auswahl zeigen. Ab Build 43 für neue Installationen aus; bestehende behalten den
+     * in der Paar-Auswahl zeigen. Für neue Installationen aus; bestehende behalten den
      * bisherigen Standard an ([LEGACY_INCLUDE_ALPHA_TOKENS], InstallDefaultsMigration). Gemerkte Paare bleiben immer.
      */
     val includeAlphaTokens: Boolean = false,
@@ -172,7 +172,7 @@ data class AppSettings(
     val macroNotifications: Boolean = false,
 
     /**
-     * Optionaler Bereich «Portfolio» (eigener Tab vor den Optionen). Ab Build 44 für neue Installationen
+     * Optionaler Bereich «Portfolio» (eigener Tab vor den Optionen). Für neue Installationen
      * ab Werk aus; bestehende Installationen behalten den bisherigen Standard an
      * ([LEGACY_PORTFOLIO_ENABLED], einmalig festgeschrieben von InstallDefaultsMigration), wer ihn
      * umgeschaltet hat, behält seine Wahl.
@@ -186,8 +186,8 @@ data class AppSettings(
     val portfolioCurrency: String = defaultCurrency(),
 
     /**
-     * Kurse in der Merkliste zusätzlich in der Umrechnungswährung zeigen (« ≈ 61’234 CHF »). Ab Build 43
-     * für neue Installationen an; bestehende behalten den bisherigen Standard aus ([LEGACY_SHOW_CONVERTED]).
+     * Kurse in der Merkliste zusätzlich in der Umrechnungswährung zeigen (« ≈ 61’234 CHF »). Für neue
+     * Installationen an; bestehende behalten den bisherigen Standard aus ([LEGACY_SHOW_CONVERTED]).
      */
     val showConverted: Boolean = true,
 
@@ -198,7 +198,7 @@ data class AppSettings(
     val watchlistSparkline: Boolean = false,
 
     /**
-     * Name unter dem Paar in der Merkliste («Bitcoin», «NVIDIA»). Ab Build 43 für neue Installationen an;
+     * Name unter dem Paar in der Merkliste («Bitcoin», «NVIDIA»). Für neue Installationen an;
      * bestehende behalten den bisherigen Standard aus ([LEGACY_WATCHLIST_NAMES]).
      */
     val watchlistNames: Boolean = true,
@@ -379,7 +379,7 @@ data class AppSettings(
      */
     val speaksPairPrices: Boolean get() = ttsEnabled && !ttsAlarmsOnly
 
-    /** Wahlmöglichkeiten und weitere bisherige Standards erbt der Companion (seit Build 103, [AppSettingsChoices]). */
+    /** Wahlmöglichkeiten und weitere bisherige Standards erbt der Companion ([AppSettingsChoices]). */
     companion object : AppSettingsChoices() {
         const val MIN_BACKGROUND_INTERVAL_MINUTES = 15
         const val MIN_LIVE_INTERVAL_SECONDS = 15
@@ -392,7 +392,7 @@ data class AppSettings(
         const val MAX_LIVE_INTERVAL_SECONDS = 3_600
         const val MAX_ALARM_COOLDOWN_MINUTES = 1_440
 
-        /** Bisheriger Standard von «Nicht wegwischbar» (bis Build 41). */
+        /** Bisheriger Standard von «Nicht wegwischbar» (ältere Installationen). */
         const val LEGACY_ONGOING_NOTIFICATIONS = true
     }
 }

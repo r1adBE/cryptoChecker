@@ -15,7 +15,7 @@ final class AlarmReliabilityTests: XCTestCase {
             now: S.millis(m["now"]),
             minuteOfDay: Int(S.number(m["minuteOfDay"]) ?? 0))
         input.lastBackgroundCheck = S.number(m["lastBackgroundCheck"]).map { Int64($0) }
-        // Gespeicherte Läufe («at;trigger;result;dauer»), falls der Fall sie nennt (seit Build 93)
+        // Gespeicherte Läufe («at;trigger;result;dauer»), falls der Fall sie nennt
         if let lines = m["runs"] as? [String] {
             let runs = CheckRunLog.decode(lines.joined(separator: "\n"))
             input.lastBackgroundCheck = CheckRunLog.lastBackgroundCheck(runs)

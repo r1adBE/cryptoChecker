@@ -169,8 +169,8 @@ object AddressBalance {
      * Zählende Adressen ([WatchedAddress.countInPortfolio]), deren Guthaben noch nie geladen wurde (z. B. frisch
      * wiederhergestellt, xpub ohne Zwischenspeicher im Hintergrund) und die noch «laden» ([AddressAlarmState.isPending]):
      * sie fehlen in [holdings], der Gesamtwert ist dann zu tief — Portfolio-Alarme prüfen nicht
-     * ([com.cryptochecker.app.domain.alarm.PortfolioReading.addressesPending]). Seit Build 95 zählt eine Adresse, die seit
-     * über 24 Stunden scheitert, nicht mehr ([AddressAlarmState.failing]). Regeln wie [AddressAlarmState.of].
+     * ([com.cryptochecker.app.domain.alarm.PortfolioReading.addressesPending]). Eine Adresse, die seit
+     * über 24 Stunden scheitert, zählt nicht ([AddressAlarmState.failing]). Regeln wie [AddressAlarmState.of].
      */
     fun pendingCount(addresses: List<WatchedAddress>, now: Long): Int = AddressAlarmState.of(addresses, now).pending
 
@@ -256,7 +256,7 @@ object AddressBalance {
 
     // --- Adress-Bestände im Portfolio-Rechner ---
     //
-    // Ehrliche Regel (ab Build 46): Das Guthaben beobachteter Adressen ist ein EIGENER Teil der Position,
+    // Ehrliche Regel: Das Guthaben beobachteter Adressen ist ein EIGENER Teil der Position,
     // kein Posten der Buchhaltung. Die Eingabe bleibt kompatibel: [withAddresses] hängt je Coin eine Einzahlung
     // ohne Kaufpreis mit negativer Id an; [split] trennt sie wieder ab. Daraus folgt:
     //  - Gesamtwert, Positionen, Widget und Portfolio-Alarme zählen das Guthaben × aktueller Kurs mit
@@ -267,7 +267,7 @@ object AddressBalance {
     //    Guthaben-Reihe ([AddressBalanceHistory]) zählt, ab ihrer ersten Beobachtung; Änderungen zwischen
     //    Beobachtungen sind Zu-/Abflüsse zum Marktkurs (kein Gewinn).
     // Die echten Transaktionen bleiben unverändert (Liste, Export, Sicherung kennen diese Einträge nicht).
-    // Build 84: Eröffnungsposten ([AddressCostLots]) belegen einen Teil des Guthabens mit Einstand — sie rechnen wie Käufe
+    // Eröffnungsposten ([AddressCostLots]) belegen einen Teil des Guthabens mit Einstand — sie rechnen wie Käufe
     // (Wallet = Adresse), nur der Rest bleibt Adress-Teil ohne Einstand ([isAddressPart]).
 
     private const val DAY_MILLIS = 86_400_000L

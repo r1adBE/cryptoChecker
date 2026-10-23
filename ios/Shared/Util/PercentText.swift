@@ -5,10 +5,10 @@ import Foundation
 /// Spiegel von `PercentText.kt` (gleiche Tabelle, gleiche Testfälle `Parity/percent_text.json`). Eine eigene kleine
 /// Tabelle statt `NumberFormatter.percent`, damit beide Systeme Zeichen für Zeichen dasselbe liefern.
 ///
-/// Seit Build 95 zählt für den Abstand die ganze Locale (Sprache + Region) wie CLDR, nicht nur die Sprache:
+/// Für den Abstand zählt die ganze Locale (Sprache + Region) wie CLDR, nicht nur die Sprache:
 /// Spanisch (Mexiko) «2.4%», Englisch in Deutschland, Österreich, Schweden, Finnland, Dänemark «2,4 %».
 ///
-/// Seit Build 94 die eine Stelle für Kursänderungen, Aktivität («+2.9 %» vorher), Dominanz und das Pulse-Widget.
+/// Die eine Stelle für Kursänderungen, Aktivität («+2.9 %» vorher), Dominanz und das Pulse-Widget.
 enum PercentText {
 
     /// Abstand vor «%» (geschützt, bricht nicht um) wie CLDR.
@@ -67,8 +67,8 @@ enum PercentText {
 
     /// Betrag von `value` mit genau `decimals` Nachkommastellen (kaufmännisch gerundet, Ziffern und Dezimalzeichen der
     /// Sprache, ohne Tausendertrennung) und Prozentzeichen — ohne Vorzeichen. Mit `minDecimals` unter `decimals` fallen
-    /// Nullen am Ende weg («5%», «2.5%», «0.0125%»; seit Build 96 für Schwellen und Alarm-Sätze, die vorher
-    /// `NumberFormatter.percent` nutzten). Mit `grouping` mit Tausendertrennung («1,000%», Deutsch «1.000 %») — für
+    /// Nullen am Ende weg («5%», «2.5%», «0.0125%»; für Schwellen und Alarm-Sätze statt
+    /// `NumberFormatter.percent`). Mit `grouping` mit Tausendertrennung («1,000%», Deutsch «1.000 %») — für
     /// Alarm-Sätze, deren Schwellen bis 1000 % gehen (Open Interest); sonst ohne, wie bisher.
     static func unsigned(_ value: Double, decimals: Int, minDecimals: Int? = nil,
                          locale: Locale = LocaleNumbers.appLocale, grouping: Bool = false) -> String {

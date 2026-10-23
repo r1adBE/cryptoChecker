@@ -56,7 +56,7 @@ enum CoinLogoRetry {
         return min(max(lastFailureAt + backoff - now, 0), backoff)
     }
 
-    // MARK: Bild-Server bremst (Build 46)
+    // MARK: Bild-Server bremst
 
     /// Antwort eines Bild-Servers, die eine Pause verlangt statt «Bild kaputt»: 429, 403, 503 — wie Android.
     static func pausesImages(httpCode: Int) -> Bool { httpCode == 429 || httpCode == 403 || httpCode == 503 }

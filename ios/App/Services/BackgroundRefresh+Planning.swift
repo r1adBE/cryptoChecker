@@ -4,8 +4,8 @@ import Foundation
 import os
 import WidgetKit
 
-// Planen und Absagen der Hintergrund-Aktualisierung (Teil von `BackgroundRefresh`, eigene Datei seit Build 103). Seit
-// Build 103 wie Android nur bei Bedarf (`BackgroundWorkDemand.periodicNeeded`, `PriceUpdateScheduler.syncPeriodic`).
+// Planen und Absagen der Hintergrund-Aktualisierung (Teil von `BackgroundRefresh`, eigene Datei),
+// wie Android nur bei Bedarf (`BackgroundWorkDemand.periodicNeeded`, `PriceUpdateScheduler.syncPeriodic`).
 
 extension BackgroundRefresh {
     static func schedule(settings: AppSettings) {
@@ -22,7 +22,7 @@ extension BackgroundRefresh {
     /// ersetzt hier über `replace`). Vorher wurde sie bei jedem Start und jedem Wechsel in den Hintergrund abgesagt und
     /// «Intervall ab jetzt» neu gelegt; wer die App oft öffnete, schob den Alarm bei geschlossener App so immer weiter
     /// hinaus. Ist Fear & Greed früher fällig, beginnt sie dann (`RefreshSchedule.nextBegin`).
-    /// Seit Build 103 nur bei Bedarf (`workNeeded`, wie Android `periodicNeeded`): Vorgemerkt wird sofort, der Bedarf
+    /// Nur bei Bedarf (`workNeeded`, wie Android `periodicNeeded`): Vorgemerkt wird sofort, der Bedarf
     /// danach abseits des Aufrufers ermittelt (Widgets, Merkliste von der Platte); ohne Bedarf wird wieder abgesagt.
     /// - Parameter replace: true = vorhandene Anfrage ersetzen (Intervall geändert, oder aus der laufenden
     ///   Aufgabe heraus, die selbst nicht mehr vorgemerkt ist).
@@ -37,7 +37,7 @@ extension BackgroundRefresh {
         // Zuerst wie bisher vormerken (aus der laufenden Aufgabe synchron, bevor sie ihr Ende meldet und iOS die App
         // anhält), danach den Bedarf prüfen und ohne Bedarf wieder absagen — nie umgekehrt: Die Bedarfsprüfung wartet
         // auf WidgetKit und die Platte, und ein angehaltener Prozess hätte sonst gar nichts vorgemerkt.
-        // Seit Build 104: Nummer dieser Planung — nur ihr Entscheid gilt, solange keine neuere kommt (`followDemand`)
+        // Nummer dieser Planung — nur ihr Entscheid gilt, solange keine neuere kommt (`followDemand`)
         let generation = demandGate.next()
         let cancelIfUnneeded: @Sendable () -> Void = {
             followDemand(generation: generation, actions: BackgroundDemandActions(submit: { fresh in
@@ -61,7 +61,7 @@ extension BackgroundRefresh {
                 AppLog.background.notice("BG-Anfrage unplausibel fern (Uhr verstellt?) – neu vorgemerkt")
                 implausible = true
             }
-            // Seit Build 105: Absagen und Vormerken nur, solange diese Planung die neueste ist (`submitIfCurrent`)
+            // Absagen und Vormerken nur, solange diese Planung die neueste ist (`submitIfCurrent`)
             submitIfCurrent(generation: generation, submit: {
                 if implausible { BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: refreshId) }
                 return trySubmit(minutes: minutes, fromNow: fromNow, zoneOn: zoneOn, zoneRunsNow: zoneRunsNow)
@@ -77,7 +77,7 @@ extension BackgroundRefresh {
         }
     }
 
-    /// Vormerken ohne Protokoll (seit Build 104 getrennt: `followDemand` protokolliert ausserhalb seiner Sperre).
+    /// Vormerken ohne Protokoll (getrennt: `followDemand` protokolliert ausserhalb seiner Sperre).
     /// - Returns: Fehler; nil = vorgemerkt.
     private static func trySubmit(minutes: Int, fromNow: Bool, zoneOn: Bool, zoneRunsNow: Bool) -> Error? {
         let request = BGAppRefreshTaskRequest(identifier: refreshId)

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen (seit Build 94) -->
+    <!-- Alarm-Übersicht: warum Portfolio-Alarme gerade nicht prüfen -->
     <!-- %1$s = Coins, z. B. «PEPE, WIF» -->
     <string name="portfolio_alarms_paused_price">התראות התיק מושהות: אין מחיר עדכני עבור %1$s</string>
     <string name="portfolio_alarms_paused_price_generic">התראות התיק מושהות: לא לכל המטבעות יש מחיר עדכני</string>
     <string name="portfolio_alarms_paused_addresses">התראות התיק מושהות: יתרות הכתובות במעקב עדיין לא נטענו</string>
-    <!-- Seit Build 95: nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
+    <!-- Nicht bestätigte Token-Guthaben (%1$s = Adressnamen), seit über 24 h scheiternde Adressen -->
     <string name="portfolio_alarms_paused_tokens">התראות התיק מושהות: יתרות הטוקנים של %1$s לא עדכניות בחלקן</string>
     <string name="portfolio_alarms_paused_tokens_generic">התראות התיק מושהות: יתרות הטוקנים של הכתובות במעקב לא עדכניות בחלקן</string>
     <string name="portfolio_alarms_paused_unverified">התראות התיק מושהות: מחיר לא נבדק עבור %1$s</string>

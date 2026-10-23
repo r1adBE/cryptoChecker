@@ -299,7 +299,7 @@ class ExchangeContractTest {
     }
 
     /**
-     * Werte eines aufgezeichneten Einzelkurses, seit Build 93: Eine Börsenzeit liegt höchstens 30 Tage vor und
+     * Werte eines aufgezeichneten Einzelkurses: Eine Börsenzeit liegt höchstens 30 Tage vor und
      * kurz nach der Aufnahme ([RECORDED_FUTURE_SLACK_MS]; eine Zeitzone als Epoche geschrieben, wie Bithumbs
      * KST-Zeit, fiele sonst erst beim Nutzer auf). Liefert die Börse Hoch und Tief, liegt der Kurs dazwischen (kleine Toleranz für Rundung) —
      * sonst gehörten Hoch/Tief zu einem anderen Zeitraum als der Kurs. Nicht gelieferte Felder zählen nicht.
@@ -378,14 +378,14 @@ class ExchangeContractTest {
 
     /**
      * Aufgezeichnete echte Antworten (`tools/record_exchange_fixtures.py`, Aktion «Record exchange
-     * fixtures»), seit Build 105 Pflicht (liegen im Repo). Jede Datei nennt
+     * fixtures»), Pflicht (liegen im Repo). Jede Datei nennt
      * ihren Aufnahmezeitpunkt (`recordedAt`), damit ein Fehlschlag einem Stand der Börse zugeordnet
      * werden kann.
      */
     @Test
     fun recordedResponsesStillParse() {
         val files = recordedFixtures()
-        // Seit Build 105 Pflicht (liegen im Repo): fehlen sie, nicht still grün
+        // Pflicht (liegen im Repo): fehlen sie, nicht still grün
         assertTrue("keine recorded_*.json in testdata/exchanges/recorded", files.isNotEmpty())
         val failures = ArrayList<String>()
         var cases = 0

@@ -52,7 +52,7 @@
     <string name="portfolio_csv_import_transfers_hint">Виведення та відповідний депозит тієї самої монети стають одним переказом: ціна купівлі й строк володіння зберігаються, різниця вважається комісією мережі.</string>
     <string name="portfolio_csv_import_transfers_title">Перекази між твоїми рахунками</string>
     <string name="portfolio_csv_import_unreadable">Підтримуваних транзакцій не знайдено. Підтримуються: CSV-експорти Relai, Swissquote, Kraken, Binance, Coinbase і Bitpanda.</string>
-    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000). Seit Build 99 -->
+    <!-- Datei über 16 MB bzw. über den Zeilen-/Spaltengrenzen; %1$s = Zeilengrenze (200 000) -->
     <string name="portfolio_csv_import_too_large">Файл завеликий для імпорту (не більше 16 МБ і %1$s рядків). Експортуй коротші періоди й імпортуй їх по черзі.</string>
     <string name="portfolio_csv_import_failed">Не вдалося імпортувати – нічого не збережено. Спробуй ще раз.</string>
     <string name="portfolio_csv_import_locked">Імпорт неможливий: збережені дані зараз не вдається прочитати. Перезапусти застосунок.</string>

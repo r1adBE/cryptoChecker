@@ -14,7 +14,7 @@ import javax.inject.Singleton
  * ausgedünnt, 31 Stunden lang (Spiegel: `MoveHistoryStore.swift`).
  *
  * Bewusst SharedPreferences statt Room: kleine, kurzlebige Daten ohne Migration (wie der
- * Open-Interest-Verlauf in [ActivityRepository]). Format seit Build 102: ein Schlüssel je Paar
+ * Open-Interest-Verlauf in [ActivityRepository]). Format: ein Schlüssel je Paar
  * («h_<watchId>» = [[zeit, kurs], …], [MoveHistoryCore]).
  * Fehlt der Verlauf (gelöscht, neu installiert), prüft der Alarm gegen seinen gespeicherten Bezug.
  */

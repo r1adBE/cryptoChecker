@@ -169,7 +169,7 @@ fun AlarmsOverviewScreen(
                 modifier = Modifier.fillMaxSize().padding(padding),
             )
             if (pickPair) {
-                // Zeilen ohne Kurs, nur bei echter Änderung neu (seit Build 104)
+                // Zeilen ohne Kurs, nur bei echter Änderung neu
                 val pickerRows by viewModel.pickerRows.collectAsStateWithLifecycle()
                 AlarmPairPicker(
                     rows = pickerRows,
@@ -241,14 +241,14 @@ fun AlarmsOverviewScreen(
                                 currency = alarm.convertCurrency ?: watch.quoteAsset,
                                 windowHours = alarm.windowHours,
                             )
-                            // Seit Build 104: «fällt um ≥ 100 %» (aus Build 102) löst nie aus — kennzeichnen
+                            // «fällt um ≥ 100 %» (aus älteren Versionen) löst nie aus — kennzeichnen
                             val invalidText = if (AlarmJson.exceedsFall(alarm.condition, alarm.threshold)) {
                                 stringResource(R.string.alarm_threshold_invalid_fix)
                             } else null
                             // TalkBack: vollständig, inkl. Wiederholung, Ton und Ansage (sichtbare Texte stumm)
                             val description = alarmA11yDescription(context, alarm, title, sentence) +
                                 (invalidText?.let { ". $it" } ?: "")
-                            // Seit Build 105 (FUN3-02): ungültige Schwelle nicht einschalten (Hinweis steht in der Zeile)
+                            // FUN3-02: ungültige Schwelle nicht einschalten (Hinweis steht in der Zeile)
                             val canToggle = AlarmJson.toggleAllowed(alarm.condition, alarm.threshold, enable = !alarm.enabled)
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
@@ -324,7 +324,7 @@ private fun PortfolioAlarmsCard(
         }
         HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         alarms.forEach { alarm ->
-            // Seit Build 105 (FUN3-01): «fällt um ≥ 100 %» löst nie aus — kennzeichnen, nicht einschalten (ausschalten geht)
+            // FUN3-01: «fällt um ≥ 100 %» löst nie aus — kennzeichnen, nicht einschalten (ausschalten geht)
             val invalid = PortfolioAlarmLogic.exceedsFall(alarm.kind, alarm.threshold)
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
                 Row(
@@ -345,7 +345,7 @@ private fun PortfolioAlarmsCard(
                             else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            // Seit Build 106 (FUN4-R2): kein Editor für Portfolio-Alarme – löschen und neu anlegen
+                            // FUN4-R2: kein Editor für Portfolio-Alarme – löschen und neu anlegen
                             if (invalid) stringResource(R.string.portfolio_alarm_threshold_invalid_recreate)
                             else stringResource(if (alarm.repeating) R.string.alarm_repeating else R.string.alarm_once),
                             style = MaterialTheme.typography.bodySmall,

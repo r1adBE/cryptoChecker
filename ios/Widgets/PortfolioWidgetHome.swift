@@ -240,7 +240,7 @@ struct PortfolioHomeView: View {
                 .font(.system(size: size, weight: .bold, design: .rounded))
                 .monospacedDigit()
                 .foregroundStyle(palette.text)
-                // Lesbar bleiben (seit Build 93): höchstens auf 70 % verkleinern, ein sehr langer Betrag bricht
+                // Lesbar bleiben: höchstens auf 70 % verkleinern, ein sehr langer Betrag bricht
                 // stattdessen in eine zweite Zeile um (Platz geben die Abstände darunter bzw. der Chart) — vorher bis 45 %
                 .lineLimit(2)
                 .minimumScaleFactor(0.7)

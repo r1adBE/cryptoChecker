@@ -53,18 +53,18 @@
         <item quantity="one">%1$d पेयर</item>
         <item quantity="other">%1$d पेयर</item>
     </plurals>
-    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen. Seit Build 99 -->
+    <!-- Paare/Alarme über den Grenzen (WatchlistLimits): %1$s/%2$s = backup_restored_pairs/-alarms, %3$s/%4$s = Grenzen -->
     <string name="backup_restore_over_limits">सीमाओं (%3$s पेयर, हर पेयर पर %4$s अलार्म) से ज़्यादा होने के कारण रीस्टोर नहीं होंगे: %1$s, %2$s।</string>
     <string name="backup_restored_over_limits">सीमाओं (%3$s पेयर, हर पेयर पर %4$s अलार्म) से ज़्यादा होने के कारण रीस्टोर नहीं हुए: %1$s, %2$s।</string>
 
-    <!-- Verschlüsselter Speicher: Schlüssel verloren (Build 59) -->
+    <!-- Verschlüsselter Speicher: Schlüssel verloren -->
     <string name="storage_recovery_message">इस डिवाइस पर अब ऐप के एन्क्रिप्टेड डेटा की कुंजी नहीं है, इसलिए ऐप खाली शुरू हुआ। कुछ भी हटाया नहीं गया। अपनी सूची और पोर्टफ़ोलियो वापस पाने के लिए सेटिंग में “%1$s” के अंतर्गत बैकअप फ़ाइल आयात करो।</string>
     <string name="storage_recovery_title">सहेजा गया डेटा अनलॉक नहीं हो सका</string>
 
     <!-- Sicherung mit Passwort (Argon2id, 64 MiB): zu wenig Arbeitsspeicher -->
     <string name="backup_not_enough_memory">पासवर्ड से बैकअप को सुरक्षित करने या खोलने के लिए पर्याप्त खाली मेमोरी नहीं है। दूसरे ऐप बंद करो और फिर से कोशिश करो।</string>
 
-    <!-- Build 76: Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
+    <!-- Portfolio-Speicher, Sicherung, Steuer-Export, Sperre -->
     <string name="storage_recovery_restore_action">बैकअप पुनर्स्थापित करो</string>
     <string name="storage_recovery_acknowledge">समझ गया</string>
     <string name="storage_recovery_restored_title">सहेजा गया डेटा फिर से अनलॉक हुआ</string>
@@ -90,7 +90,7 @@
     <!-- Sichern/Einspielen abgelehnt, solange ein gespeicherter Stand nur leer im Arbeitsspeicher steht (BackupStorageKeptException) -->
     <string name="backup_storage_kept">बैकअप संभव नहीं है: सहेजा गया डेटा अभी पढ़ा नहीं जा सकता। ऐप दोबारा शुरू करो और फिर से कोशिश करो।</string>
     <string name="backup_restore_storage_in_memory">इम्पोर्ट अभी संभव नहीं है: ऐप इस समय डेटा सहेज नहीं रहा है (एन्क्रिप्शन अभी सक्रिय नहीं है), इसलिए ऐप फिर से शुरू होने पर इम्पोर्ट खो जाएगा। ऐप को फिर से शुरू करो और दोबारा कोशिश करो।</string>
-    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable); seit Build 102 -->
+    <!-- Einspielen abgelehnt, bevor etwas ersetzt wird: Journal (Sicherheitskopie des bisherigen Stands) nicht geschrieben, Schlüssel gerade nicht verfügbar (BackupJournalUnavailableException, iOS Failure.journalUnavailable) -->
     <string name="backup_restore_journal_unavailable">अभी इम्पोर्ट संभव नहीं है: तुम्हारे मौजूदा डेटा की सुरक्षा कॉपी सेव नहीं हो सकी (चाबी अभी उपलब्ध नहीं है)। कुछ भी नहीं बदला गया। बाद में फिर से कोशिश करो या ऐप को फिर से शुरू करो।</string>
 
     <!-- Portfolio ohne Schlüssel nur im Arbeitsspeicher (EncryptingOpenHelperFactory, Decision.Refused): Banner im Portfolio -->

@@ -29,7 +29,7 @@ hilt = "2.60.1"
 androidxHilt = "1.4.0"
 
 room = "2.8.5"
-# Verschlüsselte Datenbanken (Build 59): SQLCipher mit 16-KB-Seiten (ab 4.6.1); androidx.sqlite kommt über Room
+# Verschlüsselte Datenbanken: SQLCipher mit 16-KB-Seiten (ab 4.6.1); androidx.sqlite kommt über Room
 sqlcipher = "4.19.1"
 work = "2.12.0"
 # work-testing 2.12 braucht concurrent-futures 1.2.0, work-runtime nur 1.1.0. AGP gleicht
@@ -104,7 +104,7 @@ androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constr
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-# Migrationstests aus den exportierten Schemas (MigrationTestHelper, nur androidTest; seit Build 103)
+# Migrationstests aus den exportierten Schemas (MigrationTestHelper, nur androidTest)
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 # Nur als AAR ohne Abhängigkeiten eingebunden (siehe app/build.gradle.kts)
 sqlcipher-android = { module = "net.zetetic:sqlcipher-android", version.ref = "sqlcipher" }

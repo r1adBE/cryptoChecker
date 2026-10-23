@@ -51,7 +51,7 @@ class SingleWidgetRenderer @Inject constructor(
     internal val tokenIdentityStore: com.cryptochecker.app.data.TokenIdentityStore,
 ) {
     /** Mini-Chart-Kerzen je Symbol und Zeitraum, 10 Minuten zwischengespeichert (für Kerzen und Linie). */
-    /** Begrenzt seit Build 99 (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
+    /** Begrenzt (sonst blieb jedes je geprüfte Paar bis zum Prozessende). */
     internal val sparkCache = BoundedCache<String, Pair<Long, List<WidgetCandle>>>(MEMORY_CACHE_ENTRIES)
 
     /**

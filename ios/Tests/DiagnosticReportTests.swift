@@ -43,7 +43,7 @@ final class DiagnosticReportTests: XCTestCase {
             pauses: ["binance": binance, "kraken": kraken]))
         XCTAssertTrue(text.contains("Created: 2026-10-18 14:00 (Europe/Zurich)"))
         XCTAssertTrue(text.contains("App: 16.2.2 (81)"))
-        // Seit Build 103: ohne Angabe «local»
+        // Ohne Angabe «local»
         XCTAssertTrue(text.contains("Source: local"))
         XCTAssertFalse(text.contains("Exact checks"))
         XCTAssertTrue(text.contains("Quiet hours: on 23:00-07:00"))
@@ -53,7 +53,7 @@ final class DiagnosticReportTests: XCTestCase {
         XCTAssertTrue(text.contains("binance | paused until 2026-10-18 14:01 | RATE_LIMIT | strikes 2"))
         XCTAssertTrue(text.contains("kraken | not paused | TIMEOUT | strikes 1"))
         XCTAssertTrue(text.contains("none - the app keeps no error log"))
-        // Seit Build 104: Zähler der Fehler im Hintergrund
+        // Zähler der Fehler im Hintergrund
         XCTAssertTrue(text.contains("none - the app keeps no error log\nBackground errors: none\n"))
         XCTAssertTrue(text.hasSuffix("\n"))
     }
@@ -111,7 +111,7 @@ final class DiagnosticReportTests: XCTestCase {
         }
     }
 
-    /// Seit Build 103: Quell-Commit in der Zeile «Source», gleiche Fälle wie Android.
+    /// Quell-Commit in der Zeile «Source», gleiche Fälle wie Android.
     func testSourceCommitSharedCases() throws {
         let data = try S.fixture("diagnostic_redact")
         for c in S.list(data["sourceCommit"]) {

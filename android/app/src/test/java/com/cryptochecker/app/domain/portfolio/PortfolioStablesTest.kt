@@ -116,7 +116,7 @@ class PortfolioStablesTest {
         assertEquals(5.0, change.percent!!, d)
     }
 
-    /** Build 76: Live-Kurs USDT/USD — bestätigter Einbruch zählt, Tagesschlüsse bleiben im Normalbereich. Wie iOS. */
+    /** Live-Kurs USDT/USD — bestätigter Einbruch zählt, Tagesschlüsse bleiben im Normalbereich. Wie iOS. */
     @Test
     fun usdtUsdLiveKeepsConfirmedBreak() {
         assertEquals(UsdtUsd(0.3, approximate = false), PortfolioStables.usdtUsdLive(0.3))

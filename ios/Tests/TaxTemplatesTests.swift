@@ -42,7 +42,7 @@ final class TaxTemplatesTests: XCTestCase {
             tx.acquiredTime = TestSupport.number(t["acquiredTime"]).map { Int64($0) }
             tx.importKey = t["importKey"] as? String
             tx.note = t["note"] as? String
-            // Gebühr-Zeile und Zins: eigene Felder (Build 76); fehlen sie im Fixture, die frühere Regel
+            // Gebühr-Zeile und Zins: eigene Felder; fehlen sie im Fixture, die frühere Regel
             tx.feeRow = t["feeRow"] as? Bool
                 ?? LegacyStorageMigration.legacyFeeRow(tx.type, importKey: tx.importKey, price: tx.priceExact)
             tx.interest = t["interest"] as? Bool ?? LegacyStorageMigration.legacyInterest(tx.type, note: tx.note)
@@ -172,7 +172,7 @@ final class TaxTemplatesTests: XCTestCase {
         for case let c as [Any] in d["ukExempt"] as? [Any] ?? [] {
             XCTAssertEqual(TaxTemplate.ukAnnualExemptGbp(Int(int64(c[0]))), dec(c[1]), "ukExempt \(c)")
         }
-        // Build 56: Regeln je Vorlage (Schenkung, Schenkung an Ehe-/Lebenspartner, Netzwerkgebühr); Partner-Merker (Build 58: Feld)
+        // Regeln je Vorlage (Schenkung, Schenkung an Ehe-/Lebenspartner, Netzwerkgebühr); Partner-Merker (eigenes Feld)
         for case let c as [Any] in d["eventRules"] as? [Any] ?? [] {
             let tpl = try XCTUnwrap(TaxTemplate(rawValue: c[0] as? String ?? ""))
             let expected = TaxEventRules(giftIsDisposal: c[1] as? Bool ?? false, spouseGiftNeutral: c[2] as? Bool ?? false,
@@ -238,13 +238,13 @@ final class TaxTemplatesTests: XCTestCase {
                 if let ci = e["costIncomplete"] as? Bool { XCTAssertEqual(g.costIncomplete, ci, "\(label) costIncomplete") }
                 if let u = e["uncovered"] as? Bool { XCTAssertEqual(g.uncovered, u, "\(label) uncovered") }
                 if let w = e["wallet"] as? String { XCTAssertEqual(g.wallet, w, "\(label) wallet") }
-                // Build 47: Verschenkt/bezahlt und geschätzter Wert (Tagesschluss)
+                // Verschenkt/bezahlt und geschätzter Wert (Tagesschluss)
                 if let v = e["gift"] as? Bool { XCTAssertEqual(g.gift, v, "\(label) gift") }
                 if let v = e["payment"] as? Bool { XCTAssertEqual(g.payment, v, "\(label) payment") }
                 if let v = e["valueEstimated"] as? Bool { XCTAssertEqual(g.valueEstimated, v, "\(label) valueEstimated") }
-                // Build 56: Schenkung an Ehe-/Lebenspartner (UK s. 58, CA 73(1))
+                // Schenkung an Ehe-/Lebenspartner (UK s. 58, CA 73(1))
                 if let v = e["spouseGift"] as? Bool { XCTAssertEqual(g.spouseGift, v, "\(label) spouseGift") }
-                // Build 81: FR-Gesamtwert samt beobachteter Adressen (ohne Einstand)
+                // FR-Gesamtwert samt beobachteter Adressen (ohne Einstand)
                 if let v = e["addressValueIncluded"] as? Bool {
                     XCTAssertEqual(g.addressValueIncluded, v, "\(label) addressValueIncluded")
                 }

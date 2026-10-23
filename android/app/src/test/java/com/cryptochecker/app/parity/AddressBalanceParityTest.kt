@@ -89,7 +89,7 @@ class AddressBalanceParityTest {
         }
     }
 
-    /** Zählende Adressen ohne je geladenes Guthaben (Portfolio-Alarme prüfen dann nicht), seit Build 94. */
+    /** Zählende Adressen ohne je geladenes Guthaben (Portfolio-Alarme prüfen dann nicht). */
     @Test
     fun pendingCount() {
         val p = data["pendingCount"].obj()
@@ -104,7 +104,7 @@ class AddressBalanceParityTest {
         assertEquals(0, AddressBalance.pendingCount(emptyList(), now))
     }
 
-    /** Hintergrund: die am längsten nicht versuchten Adressen zuerst, seit Build 94. */
+    /** Hintergrund: die am längsten nicht versuchten Adressen zuerst. */
     @Test
     fun dueOrder() {
         val d = data["dueOrder"].obj()

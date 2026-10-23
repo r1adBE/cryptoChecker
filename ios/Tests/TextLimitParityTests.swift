@@ -1,8 +1,8 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Längengrenze von Notizen in sichtbaren Zeichen (`Parity/text_limit.json`, seit Build 98): Swift zählt Graphem-Cluster
-/// (`count`, `prefix`) — Android zählt seit Build 98 gleich (`TextLimit.kt`). Gegenstück: `TextLimitParityTest.kt`.
+/// Längengrenze von Notizen in sichtbaren Zeichen (`Parity/text_limit.json`): Swift zählt Graphem-Cluster
+/// (`count`, `prefix`) — Android zählt gleich (`TextLimit.kt`). Gegenstück: `TextLimitParityTest.kt`.
 final class TextLimitParityTests: XCTestCase {
     private typealias S = TestSupport
 
@@ -18,7 +18,7 @@ final class TextLimitParityTests: XCTestCase {
         }
     }
 
-    /// Gruppenname, Börse/Wallet und Notiz säubern wie Eingabe und Sicherung (seit Build 99) — wie Android.
+    /// Gruppenname, Börse/Wallet und Notiz säubern wie Eingabe und Sicherung — wie Android.
     func testSaeubertFelderWieGemeinsameTestfaelle() throws {
         let fields = S.list(try S.fixture("text_limit")["fields"])
         XCTAssertGreaterThanOrEqual(fields.count, 8)

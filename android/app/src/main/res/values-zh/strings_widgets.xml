@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">显示</string>
     <string name="widget_portfolio_display_conversion">仅换算</string>
     <string name="widget_portfolio_display_conversion_usdt">换算 + USDT</string>
-    <string name="widget_portfolio_display_hint">换算货币为 USD 时不显示 USDT 行。</string>
+    <string name="widget_portfolio_display_hint">换算货币为 USD 稳定币（如 USDC）时不显示 USDT 行。</string>
     <string name="widget_portfolio_display_usdt">仅 USDT</string>
     <string name="widget_portfolio_empty">在“投资组合”标签页中添加买入记录</string>
     <string name="widget_portfolio_list_hint">打开应用即可在此显示你的持仓。</string>

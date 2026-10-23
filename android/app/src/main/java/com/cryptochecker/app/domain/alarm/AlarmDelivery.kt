@@ -15,12 +15,12 @@ import java.util.concurrent.ConcurrentHashMap
  * wird die schon gezeigte Meldung wieder entfernt ([retract]) — sie gehörte zu einem Alarm, den es so
  * nicht mehr gibt.
  *
- * Seit Build 103 liegt der Versuch dauerhaft in [markers] (wie iOS `AlarmDelivery`) und wird schon VOR dem Melden
+ * Der Versuch liegt dauerhaft in [markers] (wie iOS `AlarmDelivery`) und wird schon VOR dem Melden
  * vermerkt: Endet der Prozess zwischen Melden und Speichern, findet der nächste Lauf einen frischen Merker
  * ([AlarmDeliveryMarker.alreadyDelivered]) — steht die Mitteilung noch da ([isShown]), wird der Alarm nur noch als
  * gemeldet gespeichert statt ein zweites Mal zu klingeln.
  *
- * Seit Build 104: [isShown] bekommt den Zeitpunkt des Vermerks — nur eine Mitteilung, die NACH dem Vermerk gemeldet
+ * [isShown] bekommt den Zeitpunkt des Vermerks — nur eine Mitteilung, die NACH dem Vermerk gemeldet
  * wurde ([AlarmDeliveryMarker.shownSinceMarker]), bestätigt; eine ältere desselben Alarms nicht. Lässt sich der Alarm
  * dann nicht speichern, wird die Mitteilung wie im normalen Ablauf wieder entfernt.
  */
@@ -42,28 +42,28 @@ class AlarmDelivery(
         /** «1 h später» läuft ([AlarmSnooze.isSnoozed]): wie die Nachtruhe — nicht melden, scharf bleiben. */
         snoozed: Boolean = false,
         /**
-         * Seit Build 103: Steht die Mitteilung dieses Alarms noch unter den offenen? Seit Build 104 mit dem Zeitpunkt des
+         * Steht die Mitteilung dieses Alarms noch unter den offenen? Mit dem Zeitpunkt des
          * Vermerks: nur eine danach gemeldete zählt ([AlarmDeliveryMarker.shownSinceMarker]).
          */
         isShown: suspend (markerAt: Long) -> Boolean = { false },
         /**
-         * Seit Build 105: Ist die Auslösung zum Vermerk schon gespeichert ([AlarmDeliveryMarker.savedSinceMarker] mit
+         * Ist die Auslösung zum Vermerk schon gespeichert ([AlarmDeliveryMarker.savedSinceMarker] mit
          * `lastTriggeredAt` des ausgewerteten Alarms)? Dann ist der Vermerk liegen geblieben (Prozess-Ende nach dem Speichern).
          */
         savedSince: (markerAt: Long) -> Boolean = { false },
     ): Boolean {
         var pending = markers.get(alarmId)
-        // Seit Build 105: liegengebliebener Vermerk einer schon gespeicherten Auslösung → verwerfen und normal melden
+        // Liegengebliebener Vermerk einer schon gespeicherten Auslösung → verwerfen und normal melden
         // (sonst würde eine neue, echte Auslösung still als «schon gemeldet» gespeichert)
         if (pending != null && savedSince(pending)) {
             markers.set(alarmId, null)
             pending = null
         }
-        // Seit Build 103: voriger Lauf endete zwischen Melden und Speichern — nur speichern, nicht erneut melden.
+        // Voriger Lauf endete zwischen Melden und Speichern — nur speichern, nicht erneut melden.
         // false: in diesem Lauf nichts gemeldet (keine zweite Ansage, nicht gezählt)
         if (pending != null && AlarmDeliveryMarker.alreadyDelivered(pending, now, isShown(pending))) {
             withContext(NonCancellable) {
-                // Seit Build 104: nicht gespeichert (inzwischen bearbeitet/gelöscht) → Mitteilung wieder weg
+                // Nicht gespeichert (inzwischen bearbeitet/gelöscht) → Mitteilung wieder weg
                 if (!mark()) retract()
                 markers.set(alarmId, null)
             }
@@ -87,7 +87,7 @@ class AlarmDelivery(
 }
 
 /**
- * Seit Build 103: Vermerk «Alarm wird gemeldet» (Alarm-Id → Zeitpunkt), dauerhaft in der App
+ * Vermerk «Alarm wird gemeldet» (Alarm-Id → Zeitpunkt), dauerhaft in der App
  * ([com.cryptochecker.app.notification.AlarmDeliveryMarkers]), im Test nur im Speicher.
  */
 interface AlarmDeliveryMarkerStore {
@@ -96,10 +96,10 @@ interface AlarmDeliveryMarkerStore {
     /** null = Vermerk entfernen. */
     fun set(alarmId: Long, at: Long?)
 
-    /** Seit Build 104: Vermerke dieser Alarme entfernen (gelöscht bzw. durch eine Sicherung ersetzt). */
+    /** Vermerke dieser Alarme entfernen (gelöscht bzw. durch eine Sicherung ersetzt). */
     fun remove(alarmIds: Collection<Long>) = alarmIds.forEach { set(it, null) }
 
-    /** Seit Build 104: nur Vermerke noch vorhandener Alarme behalten. */
+    /** Nur Vermerke noch vorhandener Alarme behalten. */
     fun retain(alarmIds: Set<Long>)
 
     class InMemory : AlarmDeliveryMarkerStore {
@@ -114,7 +114,7 @@ interface AlarmDeliveryMarkerStore {
     }
 }
 
-/** Seit Build 103: Entscheidung nach einem Prozess-Ende zwischen Melden und Speichern (rein; `alarm_delivery_marker.json`). */
+/** Entscheidung nach einem Prozess-Ende zwischen Melden und Speichern (rein; `alarm_delivery_marker.json`). */
 object AlarmDeliveryMarker {
     /** So lange gilt ein Vermerk als frisch (danach normaler Neuversuch nach der Abklingzeit). Wie iOS. */
     const val FRESH_MILLIS = 10 * 60_000L
@@ -123,25 +123,25 @@ object AlarmDeliveryMarker {
     fun alreadyDelivered(markerAt: Long?, now: Long, shown: Boolean): Boolean =
         shown && markerAt != null && markerAt > 0L && now - markerAt in 0 until FRESH_MILLIS
 
-    /** Seit Build 104: Spielraum für die Meldezeit des Systems gegenüber dem Vermerk (wie iOS 1 s). */
+    /** Spielraum für die Meldezeit des Systems gegenüber dem Vermerk (wie iOS 1 s). */
     const val POSTED_TOLERANCE_MILLIS = 1_000L
 
     /**
-     * Seit Build 104: Zählt die offene Mitteilung (Meldezeit [postedAt], null = keine offen) als die nach dem Vermerk
+     * Zählt die offene Mitteilung (Meldezeit [postedAt], null = keine offen) als die nach dem Vermerk
      * [markerAt] gemeldete? Eine ältere desselben Alarms (z. B. vom vorigen Auslösen) bestätigt nichts.
      */
     fun shownSinceMarker(postedAt: Long?, markerAt: Long): Boolean =
         postedAt != null && postedAt >= markerAt - POSTED_TOLERANCE_MILLIS
 
     /**
-     * Seit Build 105: Ist die Auslösung zum Vermerk [markerAt] schon gespeichert? `mark` speichert `lastTriggeredAt`
+     * Ist die Auslösung zum Vermerk [markerAt] schon gespeichert? `mark` speichert `lastTriggeredAt`
      * mit derselben Zeit wie der Vermerk; ein Vermerk aus der Zeit davor gehört zu einer ungespeicherten Auslösung.
      */
     fun savedSinceMarker(lastTriggeredAt: Long, markerAt: Long): Boolean =
         markerAt > 0L && lastTriggeredAt >= markerAt
 
     /**
-     * Seit Build 105: Vermerke löschen bzw. gegen die Alarme dieses Laufs kürzen? Nicht, solange die Datenbank nur im
+     * Vermerke löschen bzw. gegen die Alarme dieses Laufs kürzen? Nicht, solange die Datenbank nur im
      * Speicher liegt und der nächste Prozess den Stand der Datei zurückbringt — gesperrt behaltene Datei ([storedKept])
      * oder Kopie einer alten Datei ([volatileCopy], PlaintextKept): Die Vermerke gehören dann zu den echten Alarmen.
      * Gemeinsame Fälle in `alarm_delivery_marker.json` («resetCases»).

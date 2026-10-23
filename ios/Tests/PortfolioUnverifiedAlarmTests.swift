@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// «Kurs ungeprüft» (Binance-Kurs mit unbestätigtem Token, seit Build 101) zählt für die Portfolio-Alarme wie ein alter
+/// «Kurs ungeprüft» (Binance-Kurs mit unbestätigtem Token) zählt für die Portfolio-Alarme wie ein alter
 /// Kurs: wesentlich → keine Prüfung und Hinweis mit dem Coin, unwesentlich (unter 1 %) → Alarme prüfen. Wie
 /// `PortfolioUnverifiedAlarmTest.kt`.
 final class PortfolioUnverifiedAlarmTests: XCTestCase {

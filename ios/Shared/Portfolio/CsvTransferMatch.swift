@@ -101,7 +101,7 @@ struct CsvTransferPlan {
 /// `importKey`, Einzahlung `linkedImportKey`). Gegen eine gespeicherte Seite wird diese die Umbuchung und wandert in den
 /// verknüpfenden Importlauf; ihr Zustand davor und der der aufgegangenen neuen Zeile stehen in `importRestoreState`
 /// (`restoreState`, `CsvRestoreState`). «Import rückgängig» des späteren Laufs setzt sie zurück, der des früheren
-/// verwandelt sie in die neue Zeile der späteren Datei zurück (Build 57, `undoPlan`).
+/// verwandelt sie in die neue Zeile der späteren Datei zurück (`undoPlan`).
 enum CsvTransferMatch {
 
     /// Zeitfenster nach der Auszahlung.
@@ -132,7 +132,7 @@ enum CsvTransferMatch {
 
     /// «Import rückgängig» des Laufs `batch` — wie Android `undoPlan`: eine vom Lauf verknüpfte Umbuchung mit gespeicherter
     /// Seite eines früheren Imports zurücksetzen; eine verknüpfte Umbuchung, deren gespeicherte Seite aus diesem Lauf stammt,
-    /// wieder in die aufgegangene neue Zeile der späteren Datei verwandeln (ohne deren Zustand, Altbestand aus Build 56:
+    /// wieder in die aufgegangene neue Zeile der späteren Datei verwandeln (ohne deren Zustand, alter Bestand:
     /// löschen); die übrigen Zeilen des Laufs löschen.
     static func undoPlan(_ rows: [CsvImportedRef], batch: String) -> CsvUndoPlan {
         var delete = Set<Int64>()

@@ -97,7 +97,7 @@ internal fun rowPnlSpoken(pnl: PortfolioChange?, basis: ChangeBasis, unit: CardU
 }
 
 /**
- * Screenreader (seit Build 93): die ganze Positionszeile [CoinRow] als EIN Satz, wie die Zeile der Merkliste
+ * Screenreader: die ganze Positionszeile [CoinRow] als EIN Satz, wie die Zeile der Merkliste
  * ([A11yText.row]) — Menge und Coin, Wert und Anteil ([R.string.a11y_portfolio_position], wie das Portfolio-Widget),
  * Hinweis zum Kurs, offener Gewinn/Verlust seit Kauf, Gewinn/Verlust über die %-Basis ([rowPnlSpoken]), «Kurs
  * veraltet», Börse und Anzahl Transaktionen. Die Teile der Zeile sind für TalkBack ausgeblendet, sonst läse er jedes

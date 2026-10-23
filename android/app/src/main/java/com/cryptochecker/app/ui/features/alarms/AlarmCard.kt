@@ -80,7 +80,7 @@ internal fun AlarmCard(
             } to R.drawable.ic_error
         }
     }
-    // Seit Build 104: «fällt um ≥ 100 %» (aus Build 102) löst nie aus — vor allen anderen Gründen, auch ausgeschaltet
+    // «fällt um ≥ 100 %» (aus älteren Versionen) löst nie aus — vor allen anderen Gründen, auch ausgeschaltet
     val invalidThreshold = AlarmJson.exceedsFall(alarm.condition, alarm.threshold)
     val statusLine: Pair<Int, Int>? =
         if (invalidThreshold) R.string.alarm_threshold_invalid_fix to R.drawable.ic_warning else checkLine
@@ -213,7 +213,7 @@ internal fun AlarmCard(
                     modifier = Modifier.weight(1f).clearAndSetSemantics {}
                 )
                 // Schalter mit Beschriftung: welcher Alarm geschaltet wird
-                // Seit Build 105 (FUN3-02): «Schwelle ungültig» lässt sich nicht einschalten (erst im Editor anpassen)
+                // FUN3-02: «Schwelle ungültig» lässt sich nicht einschalten (erst im Editor anpassen)
                 Switch(
                     checked = alarm.enabled,
                     onCheckedChange = onToggle,

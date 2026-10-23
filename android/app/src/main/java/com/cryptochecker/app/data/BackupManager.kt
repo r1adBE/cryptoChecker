@@ -106,10 +106,10 @@ class BackupManager @Inject constructor(
             .put("settings", settingsCodec.settingsToJson())
             .put("portfolio", JSONArray().apply { portfolio.first.forEach { put(PortfolioJson.txToJson(it)) } })
             .put("portfolioAlarms", JSONArray().apply { portfolio.second.forEach { put(PortfolioJson.alarmToJson(it)) } })
-            // Seit Build 46: beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
+            // Beobachtete Adressen (Netz, Adresse, Bezeichnung, Datum, Guthaben-Verlauf und Einstandsposten)
             .put(WatchedAddressRules.BACKUP_KEY, WatchedAddressRules.toJson(WatchedAddressRules.backupEntries(portfolio.third)))
 
-        // Kompakt seit Build 92 (vorher eingerückt, das Einlesen nimmt beides) und nie grösser als lesbar
+        // Kompakt (ältere Sicherungen eingerückt, das Einlesen nimmt beides) und nie grösser als lesbar
         val plain = BackupFormat.encode(root)
         val bytes = if (password == null) plain
         else withPasswordChars(password) { BackupCrypto.toJson(BackupCrypto.encrypt(plain, it)).toByteArray(Charsets.UTF_8) }
@@ -256,7 +256,7 @@ class BackupManager @Inject constructor(
         if (invalid > acceptInvalid) throw UnconfirmedInvalidEntriesException(invalid)
         val portfolio = parsedPortfolio?.items
         val portfolioAlarms = parsedPortfolioAlarms?.items
-        // Seit Build 46; fehlt der Schlüssel (ältere Sicherung), bleiben die bestehenden Adressen stehen.
+        // Fehlt der Schlüssel (ältere Sicherung), bleiben die bestehenden Adressen stehen.
         // Sonst ersetzen wie die Transaktionen (ungültige fallen weg, [WatchedAddressRules.merge])
         val watchedAddresses = if (root.has(WatchedAddressRules.BACKUP_KEY)) {
             WatchedAddressRules.fromJson(root.optJSONArray(WatchedAddressRules.BACKUP_KEY))

@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Seit Build 102: «Coin löschen» entfernt auch die Gebühr in diesem Coin bei Transaktionen anderer Coins (sonst erschiene
+/// «Coin löschen» entfernt auch die Gebühr in diesem Coin bei Transaktionen anderer Coins (sonst erschiene
 /// der Coin als Position «mehr abgegeben als erfasst»); «Rückgängig» legt die Originalfassung wieder an. Wie
 /// `PortfolioCoinDeletionTest.kt` (Android).
 final class PortfolioDeleteCoinFeeTests: XCTestCase {

@@ -3,12 +3,12 @@ import Foundation
 /// Zwischenspeicher eines beobachteten xpub/ypub/zpub — wie `XpubCache` (Kotlin): abgeleitete Adressen je Kette
 /// (0 = Empfang, 1 = Wechselgeld, Index = Position) und die benutzten Indizes (mindestens eine Transaktion). `fullScan` =
 /// letzte vollständige Suche (ms, 0 = nie). `script` = gefundener Adresstyp eines xpub (Segwit-Konto mit xpub,
-/// `XpubScan.scripts`); nil = noch keiner mit Verlauf (bis Build 46 immer nil: P2PKH). `emptyReceive`/`emptyChange` (seit
-/// Build 102) = benutzte Indizes ohne Guthaben beim letzten Abruf: QUICK und BACKGROUND fragen sie nicht erneut (nur
-/// FULL), sonst scheitert ein xpub mit vielen benutzten Adressen an `XpubScan.maxRequests`. `limitedFallback` (seit
-/// Build 102) = die tägliche vollständige Suche war zu gross und wurde durch die schnelle ersetzt; bleibt, bis wieder
-/// eine vollständige gelingt (Hinweis in der Adresszeile). Gespeichert in `watched_addresses.json` (Feld `xpub` der
-/// Adresse).
+/// `XpubScan.scripts`); nil = noch keiner mit Verlauf (in alten Zwischenspeichern immer nil: P2PKH).
+/// `emptyReceive`/`emptyChange` = benutzte Indizes ohne Guthaben beim letzten Abruf: QUICK und BACKGROUND fragen
+/// sie nicht erneut (nur FULL), sonst scheitert ein xpub mit vielen benutzten Adressen an `XpubScan.maxRequests`.
+/// `limitedFallback` = die tägliche vollständige Suche war zu gross und wurde durch die schnelle ersetzt;
+/// bleibt, bis wieder eine vollständige gelingt (Hinweis in der Adresszeile). Gespeichert in
+/// `watched_addresses.json` (Feld `xpub` der Adresse).
 struct XpubCache: Codable, Equatable, Sendable {
     var receive: [String] = []
     var change: [String] = []
@@ -232,7 +232,7 @@ final class XpubScan {
     }
 
     /// Adresstypen der Suche in dieser Reihenfolge — wie Android `scripts`: ypub/zpub/Taproot-Konto nur ihr Typ; xpub mit gemerktem Typ
-    /// oder mit benutzten Adressen im Zwischenspeicher bis Build 46 (P2PKH) nur dieser; sonst P2PKH, P2SH-P2WPKH, P2WPKH
+    /// oder mit benutzten Adressen im alten Zwischenspeicher (P2PKH) nur dieser; sonst P2PKH, P2SH-P2WPKH, P2WPKH
     /// (Ledger Live zeigt die xpub auch für Segwit-Konten). `cache` muss zum Schlüssel gehören.
     static func scripts(_ key: Bip32.ExtendedKey, cache: XpubCache?) -> [Bip32.Script] {
         guard key.detectsScript else { return [key.script] }

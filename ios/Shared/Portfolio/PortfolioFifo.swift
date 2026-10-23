@@ -316,7 +316,7 @@ enum PortfolioFifo {
                 if src !== dst {
                     // Je Wallet: Posten wandern mit Kaufdatum und Einstand von der Quelle zum Ziel
                     check(src, amount + coinFee, t, feeLeg: false)
-                    // Seit Build 104: leere Quelle → die ganze Gebühr vermerkt statt still verworfen
+                    // Leere Quelle → die ganze Gebühr vermerkt statt still verworfen
                     if src.held <= 0 {
                         unassign(t, PortfolioFeeExpenses.transferUncovered(t, covered: 0))
                         continue
@@ -328,7 +328,7 @@ enum PortfolioFifo {
                             parts: $0.parts)
                     }
                     // Gebühr USDT + Wert der Gebühr im dritten Coin nach Menge auf die verschobenen Teile; der Anteil ohne
-                    // Kaufpreis und (seit Build 104) der Anteil der nicht angekommenen Menge werden vermerkt
+                    // Kaufpreis und der Anteil der nicht angekommenen Menge werden vermerkt
                     if feeValue == nil && moved.contains(where: { $0.cost != nil }) { r.feeValueMissing = true }
                     let movedAmount = moved.reduce(Decimal(0)) { $0 + $1.amount }
                     let lost = PortfolioFeeExpenses.transferUncovered(t, covered: movedAmount)

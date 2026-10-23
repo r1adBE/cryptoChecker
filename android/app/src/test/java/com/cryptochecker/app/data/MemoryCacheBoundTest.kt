@@ -12,7 +12,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Zwischenspeicher je Paar bzw. Coin im Arbeitsspeicher bleiben begrenzt (seit Build 99, [MEMORY_CACHE_ENTRIES]):
+ * Zwischenspeicher je Paar bzw. Coin im Arbeitsspeicher bleiben begrenzt ([MEMORY_CACHE_ENTRIES]):
  * neue Hilfen von [BoundedCache], das Blatt-Chart als Beispiel und eine Wache, dass die betroffenen Klassen keine
  * unbegrenzte `ConcurrentHashMap` mehr nehmen.
  */
@@ -63,7 +63,7 @@ class MemoryCacheBoundTest {
             File("app/src/main/java/com/cryptochecker/app/data/portfolio/HistoricPriceSource.kt"),
         ).first { it.exists() }.readText()
         assertTrue(historic.contains("routeMemo = BoundedCache"))
-        // Seit Build 102: eigene Kerzen (die Pausen je Host bleiben eine kleine Map, begrenzt durch die Zahl der Börsen)
+        // Eigene Kerzen (die Pausen je Host bleiben eine kleine Map, begrenzt durch die Zahl der Börsen)
         val ownCandles = listOf(
             File("src/main/java/com/cryptochecker/app/data/remote/candles/OwnCandleDataSource.kt"),
             File("app/src/main/java/com/cryptochecker/app/data/remote/candles/OwnCandleDataSource.kt"),

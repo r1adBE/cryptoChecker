@@ -20,10 +20,10 @@ enum DexTokenAddress {
 }
 
 /// Vertragsadresse des Basis-Tokens je DEX-Pool (`DexTokenAddress`), gemerkt beim Hinzufügen aus der Suche. In den
-/// gemeinsamen Einstellungen statt im Stand (wie `DexLiquidityStore`) — nicht in der Sicherung; fehlt sie (Paar vor
-/// Build 91 hinzugefügt), zeigt das Paar-Blatt einfach keine Adresse. Wie `DexTokenAddressStore.kt`.
+/// gemeinsamen Einstellungen statt im Stand (wie `DexLiquidityStore`) — nicht in der Sicherung; fehlt sie (Paar von
+/// einer älteren Version hinzugefügt), zeigt das Paar-Blatt einfach keine Adresse. Wie `DexTokenAddressStore.kt`.
 enum DexTokenAddressStore {
-    /// Ein Schlüssel je Pool (`PerKeyDefaults`); bis Build 101 ein Wörterbuch unter «dex_token_address».
+    /// Ein Schlüssel je Pool (`PerKeyDefaults`); in älteren Versionen ein Wörterbuch unter «dex_token_address».
     static let storage = PerKeyDefaults(prefix: "dex_token_address.", legacyKey: "dex_token_address")
     /// Einmal je Prozess vor dem ersten Zugriff (thread-sicher, `static let`).
     private static let migration: Void = storage.migrateLegacy(SharedStorage.defaults)

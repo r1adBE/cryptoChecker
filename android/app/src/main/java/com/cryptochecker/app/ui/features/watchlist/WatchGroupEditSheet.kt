@@ -313,7 +313,7 @@ internal fun GroupSearchField(query: String, onQueryChange: (String) -> Unit, mo
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        // Screenreader liest den Hinweis am Feld selbst, nicht doppelt (seit Build 103)
+                        // Screenreader liest den Hinweis am Feld selbst, nicht doppelt
                         modifier = Modifier.clearAndSetSemantics {}
                     )
                 }
@@ -325,7 +325,7 @@ internal fun GroupSearchField(query: String, onQueryChange: (String) -> Unit, mo
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                     keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
-                    // Bezeichnung für Screenreader, auch wenn schon Text drinsteht (seit Build 103)
+                    // Bezeichnung für Screenreader, auch wenn schon Text drinsteht
                     modifier = Modifier.fillMaxWidth().semantics { contentDescription = hint }
                 )
             }

@@ -84,7 +84,7 @@ class CallGuardTest {
 
     @Test
     fun queuedOkHttpCallsToOneHostAllSucceed() = runBlocking {
-        // Seit Build 103 ohne feste Arbeitszeiten (Review TST-04): Ein Platz je Host; die erste Anfrage hält ihn, bis der
+        // Ohne feste Arbeitszeiten (Review TST-04): Ein Platz je Host; die erste Anfrage hält ihn, bis der
         // Test sie freigibt (Latch). Die übrigen drei warten derweil nachweislich in der Warteschlange des Dispatchers —
         // länger als ihre Wache. Zählte die Wartezeit, endeten sie als Schein-Zeitüberschreitung (null). Nach der Freigabe
         // antworten alle sofort; die Wache ab dem Start ist grosszügig (keine Abhängigkeit vom Takt der CI-Maschine).

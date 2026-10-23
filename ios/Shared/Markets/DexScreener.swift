@@ -47,8 +47,8 @@ final class DexScreener: Market {
 
     // MARK: Einzelkurs
 
-    /// Kennung, die nicht unkodiert in den Pfad darf (`isSafePairId`): «nicht gefunden» ohne Anfrage (seit Build 104,
-    /// Android wirft in `tickerAddress`).
+    /// Kennung, die nicht unkodiert in den Pfad darf (`isSafePairId`): «nicht gefunden» ohne Anfrage
+    /// (Android wirft in `tickerAddress`).
     override func tickerQueryError(call: Int, info: PairQuery) -> Error? {
         guard let pairId = info.pairId, DexScreener.isSafePairId(pairId) else {
             return JSONError(message: DexScreener.poolNotFound)
@@ -158,16 +158,16 @@ final class DexScreener: Market {
     /// Zeichen, die unkodiert im Pfad stehen dürfen (Chain-Namen, EVM-/Solana-Adressen).
     private static let safePathCharacters = Set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._~-")
 
-    /// Seit Build 104: Kennung genau «chain/adresse», beide Teile nur aus Zeichen, die unkodiert im Pfad stehen dürfen
+    /// Kennung genau «chain/adresse», beide Teile nur aus Zeichen, die unkodiert im Pfad stehen dürfen
     /// (`safePathCharacters`; keine Leerzeichen, kein zweites «/», kein «?», «#», «%»). Gilt für Einzelkurs, Suchtreffer
     /// und Sicherung. Wie Android `DexScreener.isSafePairId` (`Parity/dex_pair_id.json`).
-    /// Seit Build 105 (SEC3-R1): kein Teil nur aus Punkten («.», «..» würden den Pfad beim Parsen verlassen).
+    /// SEC3-R1: kein Teil nur aus Punkten («.», «..» würden den Pfad beim Parsen verlassen).
     static func isSafePairId(_ pairId: String) -> Bool {
         guard let cut = pairId.firstIndex(of: "/") else { return false }
         return isSafePart(pairId[..<cut]) && isSafePart(pairId[pairId.index(after: cut)...])
     }
 
-    /// Ein Teil der Kennung: nicht leer, nur Pfad-Zeichen und nicht nur Punkte (seit Build 105).
+    /// Ein Teil der Kennung: nicht leer, nur Pfad-Zeichen und nicht nur Punkte.
     private static func isSafePart(_ part: Substring) -> Bool {
         !part.isEmpty && part.allSatisfy { safePathCharacters.contains($0) } && part.contains { $0 != "." }
     }
@@ -226,7 +226,7 @@ final class DexScreener: Market {
                 baseAddress: base.optString("address")
             ))
         }
-        // Seit Build 104: nur Pools, deren Kennung unkodiert in den Pfad darf (`isSafePairId`) — sonst nie übernehmbar
+        // Nur Pools, deren Kennung unkodiert in den Pfad darf (`isSafePairId`) — sonst nie übernehmbar
         let usable = pools.filter { pool in
             !pool.chainId.isEmpty && !pool.pairAddress.isEmpty && !pool.baseSymbol.isEmpty && pool.priceUsd != nil
                 && DexScreener.isSafePairId(pool.pairId)

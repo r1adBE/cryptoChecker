@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Bedarf der periodischen Hintergrund-Aktualisierung (seit Build 103): gemeinsame Fälle mit Android
+/// Bedarf der periodischen Hintergrund-Aktualisierung: gemeinsame Fälle mit Android
 /// (`PeriodicNeededParityTest.kt`, `periodic_needed.json`) und die Eingaben aus Einstellungen und Merkliste.
 final class PeriodicNeededParityTests: XCTestCase {
     private func flag(_ object: [String: Any], _ key: String) -> Bool { object[key] as? Bool ?? false }

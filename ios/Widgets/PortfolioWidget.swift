@@ -34,7 +34,7 @@ struct PortfolioEntry: TimelineEntry {
     /// Schalter «Coin-Logos in Widgets»; aus = keine Plakette.
     var showLogos = false
     /// Zone für die Tage der Balken und das Zeitgitter — dieselbe wie im Einzel-Widget (Chart-Zeitzone der %-Basis,
-    /// `ChangeBasisMath.chartTimeZone`; seit Build 93, vorher Balken immer in der Gerätezone). Wie Android.
+    /// `ChangeBasisMath.chartTimeZone`). Wie Android.
     var chartTimeZone: TimeZone = .current
 
     /// Beispiel der Galerie: Zeitraum wie gesetzt (24 h, ohne Tagesverlauf kein Hinweis), ohne Regel je Ansicht.

@@ -35,7 +35,7 @@ enum PriceColorScheme: String, CaseIterable, Codable, Identifiable, Sendable {
     /// Farbsehschwäche, Ruhig Farbsehschwäche); gespeichert wird der Name, nie die Position. Wie Android `PriceColorScheme`.
     case CALM, GREEN_RED, TRADITIONAL, BLUE_ORANGE, CALM_COLOR_VISION
 
-    /// Standard seit Build 46: «Ruhig» (gedämpftes Grün/Rot); «Frisch» (Binance-Grün/-Rot) bleibt wählbar.
+    /// Standard: «Ruhig» (gedämpftes Grün/Rot); «Frisch» (Binance-Grün/-Rot) bleibt wählbar.
     static let `default`: PriceColorScheme = .CALM
 
     /// Gespeicherte Einstellungen ohne Merker `priceColorDefaultV2`: «Frisch» war der mitgespeicherte

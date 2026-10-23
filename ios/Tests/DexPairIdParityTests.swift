@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// DexScreener-Kennung «chain/adresse» (`Parity/dex_pair_id.json`, seit Build 104): ungültige Kennungen gehen nie
+/// DexScreener-Kennung «chain/adresse» (`Parity/dex_pair_id.json`): ungültige Kennungen gehen nie
 /// unkodiert in den Pfad — Einzelkurs «nicht gefunden» ohne Anfrage, Suchtreffer fallen weg, Sicherung lehnt ab.
 /// Gegenstück: `DexPairIdParityTest.kt`.
 final class DexPairIdParityTests: XCTestCase {
@@ -36,7 +36,7 @@ final class DexPairIdParityTests: XCTestCase {
         XCTAssertEqual(missing?.message, DexScreener.poolNotFound)
     }
 
-    /// Seit Build 105 (SEC3-R1): die Sammelabfrage nimmt dieselben Kennungen wie der Einzelkurs.
+    /// SEC3-R1: die Sammelabfrage nimmt dieselben Kennungen wie der Einzelkurs.
     func testSammelabfrageNurMitGueltigerKennung() throws {
         for c in try cases() {
             let id = try XCTUnwrap(c["pairId"] as? String)

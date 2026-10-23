@@ -7,7 +7,7 @@ import org.junit.Test
 import java.io.File
 import java.nio.file.Files
 
-/** Alte Datenbank des Vorgängerprojekts nur einmal entfernen ([LegacyDatabaseCleanup], seit Build 99). */
+/** Alte Datenbank des Vorgängerprojekts nur einmal entfernen ([LegacyDatabaseCleanup]). */
 class LegacyDatabaseCleanupTest {
 
     private fun tempFlag(): File = File(Files.createTempDirectory("legacy").toFile(), "sub/" + LegacyDatabaseCleanup.FLAG_FILE)

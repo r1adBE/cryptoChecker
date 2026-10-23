@@ -218,7 +218,7 @@ class ParityFixturesTest {
             val c = raw.obj()
             val text = c["text"] as String
             val decimal = (c["decimal"] as String).single()
-            // Seit Build 103: Region mit indischer Gruppierung («1,00,000»), Standard nein
+            // Region mit indischer Gruppierung («1,00,000»), Standard nein
             val indian = c["indianGrouping"] as Boolean? ?: false
             val actual = ThresholdParser.parse(text, decimal, c["hint"].num(), indianGrouping = indian)
             val expected = c["expected"].num()
@@ -329,7 +329,7 @@ class ParityFixturesTest {
         assertTrue(cases.size >= 3)
     }
 
-    /** Bezugskurse der Tagesschlüsse: ohne ungeprüfte und (seit Build 101) ohne «Kurs ungeprüft». */
+    /** Bezugskurse der Tagesschlüsse: ohne ungeprüfte und ohne «Kurs ungeprüft». */
     @Test
     fun cutoffReferencePrices() {
         val cases = ParityJson.load("cutoff_export.json")["referenceCases"].list().map { it.obj() }
@@ -348,7 +348,7 @@ class ParityFixturesTest {
         assertTrue(cases.size >= 3)
     }
 
-    /** Bezugskurs des Wertverlaufs (Speicher, dann gemerkter Stand) nach derselben Regel (seit Build 101). */
+    /** Bezugskurs des Wertverlaufs (Speicher, dann gemerkter Stand) nach derselben Regel. */
     @Test
     fun chainReference() {
         val cases = ParityJson.load("cutoff_export.json")["chainReferenceCases"].list().map { it.obj() }

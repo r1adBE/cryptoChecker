@@ -22,7 +22,7 @@ internal class AlarmSaveNotices(
 ) {
     /**
      * Bestätigung nach dem allerersten Alarm zeigen. Ihr Text ist der Hinweis «Wann Alarme geprüft
-     * werden» ([AlarmTimingHint]) und braucht kein Symbol (Build 55).
+     * werden» ([AlarmTimingHint]) und braucht kein Symbol.
      */
     private val _firstAlarm = MutableStateFlow(false)
     val firstAlarm: StateFlow<Boolean> = _firstAlarm.asStateFlow()

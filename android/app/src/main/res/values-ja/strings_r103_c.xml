@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus); seit Build 103 -->
+    <!-- Alarm-Editor: fallender Prozent-Alarm muss unter 100 % liegen (100 % löste nie aus) -->
     <string name="alarm_threshold_error_percent_down_below">下落は 100 パーセント未満にしてください。</string>
-    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen; seit Build 103 -->
+    <!-- CSV-Import: Lesart (Zeitzone, Tag/Monat, Dezimalzeichen) geändert, Datei wird neu gelesen -->
     <string name="portfolio_csv_import_rereading">ファイルを読み直しています…</string>
-    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze); seit Build 103 -->
+    <!-- Merkliste: «Rückgängig» nach dem Löschen – so viele Paare passten nicht mehr (Obergrenze) -->
     <plurals name="watchlist_undo_full">
         <item quantity="other">%1$d 件のペアを元に戻せませんでした（ウォッチリストが上限です）</item>
     </plurals>

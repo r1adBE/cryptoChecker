@@ -9,7 +9,7 @@ import org.junit.Test
 import java.math.BigDecimal
 
 /**
- * Seit Build 102: «Coin löschen» entfernt auch die Gebühr in diesem Coin bei Transaktionen anderer Coins (sonst erschiene
+ * «Coin löschen» entfernt auch die Gebühr in diesem Coin bei Transaktionen anderer Coins (sonst erschiene
  * der Coin als Position «mehr abgegeben als erfasst»). Wie iOS (`PortfolioDeleteCoinFeeTests`).
  */
 class PortfolioCoinDeletionTest {

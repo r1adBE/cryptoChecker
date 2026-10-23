@@ -1,10 +1,10 @@
 import SwiftUI
 
-/// Speichern aus dem Alarm-Editor und Schnell-Alarme von `AlarmsScreen` — seit Build 105 ausgelagert (der body war für
+/// Speichern aus dem Alarm-Editor und Schnell-Alarme von `AlarmsScreen`, ausgelagert (der body war für
 /// den Swift-Typprüfer zu gross, und die Datei stand an der 400-Zeilen-Grenze).
 extension AlarmsScreen {
-    /// Editor «Speichern» (`AlarmEditorSheet.onSave`). Seit Build 106 (UX4-06) schliesst der Editor erst nach bestätigter
-    /// Rückfrage F-08 (`close`), «Abbrechen» lässt ihn mit den Eingaben offen (`cancelled`). Seit Build 107 (IOS5-R01):
+    /// Editor «Speichern» (`AlarmEditorSheet.onSave`). UX4-06: Der Editor schliesst erst nach bestätigter
+    /// Rückfrage F-08 (`close`), «Abbrechen» lässt ihn mit den Eingaben offen (`cancelled`). IOS5-R01:
     /// genau eine Frage — danach speichert `saveDraftNow` ohne zweite (vorher fragte `saveDraft` nach einem Durchlass
     /// ohne Szene erneut, ggf. erst nach dem Schliessen).
     func saveFromEditor(_ saved: AlarmDraft, close: @escaping @MainActor () -> Void,
@@ -40,7 +40,7 @@ extension AlarmsScreen {
     }
 
     /// Schnell-Alarm aus einer Vorlage (`AlarmEditorSheet.onTemplate`): wie `saveFromEditor` genau eine Rückfrage F-08,
-    /// danach anlegen und schliessen; «Abbrechen» = Blatt bleibt offen (seit Build 107, IOS5-R01).
+    /// danach anlegen und schliessen; «Abbrechen» = Blatt bleibt offen (IOS5-R01).
     func templateFromEditor(_ template: AlarmTemplates.Template, close: @escaping @MainActor () -> Void,
                             cancelled: @escaping @MainActor () -> Void) {
         data.withWatchlistConfirm({
@@ -72,11 +72,11 @@ extension AlarmsScreen {
         if draft == nil { showPendingDialogs() }
     }
 
-    /// Schalter einer Alarmkarte. Seit Build 105: Rückfrage F-08 vorher; «Abbrechen» bzw. abgelehnt: der Schalter zeigt
+    /// Schalter einer Alarmkarte. Rückfrage F-08 vorher; «Abbrechen» bzw. abgelehnt: der Schalter zeigt
     /// wieder den echten Stand (`refusedToggles`).
     func toggleAlarm(_ id: Int64, enabled: Bool) {
         data.withWatchlistConfirm {
-            // Gesperrt: nur die Warn-Haptik des Hinweises (wie Android), seit Build 104
+            // Gesperrt: nur die Warn-Haptik des Hinweises (wie Android)
             if !data.watchlistWritesBlocked { Haptics.play(.selection) }
             if !data.setAlarmEnabled(id, enabled) { refusedToggles &+= 1 }
         } cancelled: {
@@ -84,7 +84,7 @@ extension AlarmsScreen {
         }
     }
 
-    /// Löschen nach der Rückfrage «Alarm löschen?». Seit Build 105: Rückfrage F-08 vorher, Haptik nur nach dem Löschen.
+    /// Löschen nach der Rückfrage «Alarm löschen?». Rückfrage F-08 vorher, Haptik nur nach dem Löschen.
     func deleteConfirmed(_ id: Int64) {
         data.withWatchlistConfirm {
             let deleted = withAnimation { data.deleteAlarm(id) }

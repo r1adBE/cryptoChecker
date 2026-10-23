@@ -4,7 +4,7 @@ import Foundation
 struct StoredPrice: Sendable, Equatable {
     var price: Double
     var at: Int64
-    /// Binance-Kurs mit unbestätigtem Token («Kurs ungeprüft», seit Build 101): gilt als Wert, aber nie als bestätigter
+    /// Binance-Kurs mit unbestätigtem Token («Kurs ungeprüft»): gilt als Wert, aber nie als bestätigter
     /// Bezug (Kerzen, Tagesschlüsse) — auch nach einem Neustart, darum mit dem Kurs gemerkt. Wie Android.
     var unverified = false
 
@@ -83,12 +83,12 @@ enum PortfolioPriceFallback {
         Set(coins.filter { coin in (entries[coin] ?? via[coin].flatMap { entries[$0] })?.unverified == true })
     }
 
-    /// Zeilenformat: Kopfzeile, dann je Coin «COIN;Kurs;Zeit», bei «Kurs ungeprüft» (seit Build 101) «COIN;Kurs;Zeit;u».
+    /// Zeilenformat: Kopfzeile, dann je Coin «COIN;Kurs;Zeit», bei «Kurs ungeprüft» «COIN;Kurs;Zeit;u».
     static func encode(_ entries: [String: StoredPrice]) -> String {
         var lines = [formatHeader]
         for (coin, entry) in entries.sorted(by: { $0.key < $1.key }) {
             guard entry.valid, !coin.isEmpty, !coin.contains(";"), !coin.contains("\n") else { continue }
-            // «Kurs ungeprüft» (seit Build 101) als 4. Feld
+            // «Kurs ungeprüft» als 4. Feld
             lines.append("\(coin);\(entry.price);\(entry.at)" + (entry.unverified ? ";\(unverifiedMark)" : ""))
         }
         return lines.joined(separator: "\n")

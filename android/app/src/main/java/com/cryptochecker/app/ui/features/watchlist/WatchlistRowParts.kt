@@ -248,7 +248,7 @@ internal fun RowPrice(
         if (converted != null) {
             Text(
                 text = converted,
-                // Build 57: wie die Börsenzeile links (14 sp); die Spalte ist so breit wie ihr Inhalt
+                // Wie die Börsenzeile links (14 sp); die Spalte ist so breit wie ihr Inhalt
                 style = MaterialTheme.typography.body.amountNumbers(),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,

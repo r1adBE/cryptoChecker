@@ -32,8 +32,8 @@ struct PortfolioTaxSummaryCard: View {
             }
             if let s = summary {
                 let firstOrientation = s.lines.firstIndex { $0.line.orientation }
-                // Letzter Tatsachen-Posten (Summen): dort steht der Hinweis «keine Steuererklärung» noch einmal (seit
-                // Build 93) — gleich bei den Summen, nicht nur unter dem Titel und in der CSV. Wie Android
+                // Letzter Tatsachen-Posten (Summen): dort steht der Hinweis «keine Steuererklärung» noch einmal
+                // — gleich bei den Summen, nicht nur unter dem Titel und in der CSV. Wie Android
                 let lastFact = s.lines.lastIndex { !$0.line.orientation }
                 ForEach(Array(s.lines.enumerated()), id: \.offset) { index, l in
                     if index == firstOrientation {

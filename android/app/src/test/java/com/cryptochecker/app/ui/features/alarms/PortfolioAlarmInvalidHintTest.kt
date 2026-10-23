@@ -7,7 +7,7 @@ import org.junit.Test
 import java.io.File
 
 /**
- * Seit Build 106 (Review FUN4-R2): Portfolio-Alarme haben keinen Bearbeiten-Dialog – die Zeile mit ungültiger Schwelle
+ * Review FUN4-R2: Portfolio-Alarme haben keinen Bearbeiten-Dialog – die Zeile mit ungültiger Schwelle
  * nennt darum «löschen und neu anlegen» (die angebotene Aktion: Löschen-Knopf bzw. Kontextmenü), nicht «anpassen».
  * Beide Plattformen; Text in allen Sprachen.
  */

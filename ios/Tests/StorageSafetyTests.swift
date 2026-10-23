@@ -1,7 +1,7 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Speicher und Sicherheit (Build 91): Merkliste ohne Schlüssel (Hinweis wie Android), gesperrtes Portfolio sperrt auch
+/// Speicher und Sicherheit: Merkliste ohne Schlüssel (Hinweis wie Android), gesperrtes Portfolio sperrt auch
 /// die beobachteten Adressen, Lesen der Merkliste im Hintergrund übernimmt nie einen veralteten Stand.
 final class StorageSafetyTests: XCTestCase {
 

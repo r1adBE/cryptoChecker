@@ -9,7 +9,7 @@ import java.util.Locale
  * Uhrzeiten nach der 12/24-h-Einstellung des Systems (Einstellungen › Datum und Uhrzeit), nicht nur nach der Sprache:
  * `java.text.DateFormat` kennt diese Einstellung nicht und schrieb in Englisch immer «2:05:09 PM», auch wenn das
  * Gerät auf 24 h steht — der Chart (`android.text.format.DateFormat.is24HourFormat`) zeigte dagegen «14:05».
- * Seit Build 95 für [PriceFormat.time], [PriceFormat.shortTime] und [MomentText]. Unter iOS folgt `DateFormatter`
+ * Gilt für [PriceFormat.time], [PriceFormat.shortTime] und [MomentText]. Unter iOS folgt `DateFormatter`
  * der Einstellung von sich aus.
  *
  * Die Musterumstellung ([pattern]) ist eine reine Funktion (JVM-Tests); die Systemeinstellung kommt über [install].

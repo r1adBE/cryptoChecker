@@ -74,7 +74,7 @@ extension SharedStorage {
         return coordinated(writing: false) { readFiles(watchlist: watchlist, portfolioAlarms: portfolio) }
     }
 
-    // `saveSnapshot` (synchron, ohne Übernahme neuerer Kurse und Auslösungen) entfällt seit Build 103: Der ganze Stand
+    // `saveSnapshot` (synchron, ohne Übernahme neuerer Kurse und Auslösungen) entfällt: Der ganze Stand
     // der App geht nur noch über `saveSnapshotInBackground` hinaus (sonst meldete sich ein Alarm doppelt).
 
     /// Lesen → ändern → schreiben als EIN abgestimmter Schritt (prozessübergreifend über
@@ -110,7 +110,7 @@ extension SharedStorage {
     /// inzwischen neuer geholt hat, und Alarme, die es inzwischen gemeldet hat, bleiben erhalten
     /// (`mergeNewerPrices`, `mergeNewerAlarmTriggers`) — sonst überschriebe ein älterer Stand im Speicher
     /// der App sie wieder (und der Alarm meldete sich ein zweites Mal).
-    /// - Parameter durability: `.barrier` nur für reine Kurs-Speicherungen (Live-Takt, seit Build 103).
+    /// - Parameter durability: `.barrier` nur für reine Kurs-Speicherungen (Live-Takt).
     static func saveSnapshotInBackground(_ snapshot: Snapshot, durability: ProtectedFile.Durability = .full,
                                          done: (() -> Void)? = nil) {
         let watchlist = watchlistURL, portfolio = portfolioAlarmsURL
@@ -120,18 +120,18 @@ extension SharedStorage {
                 mergeAndWriteFiles(snapshot, watchlist: watchlist, portfolioAlarms: portfolio,
                                    includePortfolioInBackup: include, durability: durability)
             }
-            // Seit Build 105: Ergebnis für `snapshotWritesSettled` (gemeldeter Alarm wirklich auf der Platte?)
+            // Ergebnis für `snapshotWritesSettled` (gemeldeter Alarm wirklich auf der Platte?)
             lastQueuedWriteBox.current = written
             if let done { DispatchQueue.main.async(execute: done) }
         }
     }
 
-    /// Seit Build 105: Ergebnis des zuletzt über die Warteschlange ausgeführten Schreibens (true = `watchlist.json`
+    /// Ergebnis des zuletzt über die Warteschlange ausgeführten Schreibens (true = `watchlist.json`
     /// geschrieben). Nur auf `snapshotWriter` gesetzt und gelesen.
     private static let lastQueuedWriteBox = LockedBox(true)
 
     /// Ein Schritt von `saveSnapshotInBackground` ohne Abstimmung (nur innerhalb von `coordinated`; testbar über URLs,
-    /// eigene Funktion seit Build 103): neuere Kurse und Auslösungen der Datei übernehmen, dann schreiben.
+    /// eigene Funktion): neuere Kurse und Auslösungen der Datei übernehmen, dann schreiben.
     /// - Returns: true, wenn `watchlist.json` geschrieben wurde; false auch bei gerade nicht zugreifbarer Datei.
     @discardableResult
     static func mergeAndWriteFiles(_ snapshot: Snapshot, watchlist: URL, portfolioAlarms: URL,
@@ -251,7 +251,7 @@ extension SharedStorage {
     /// geschrieben ist (die Warteschlange arbeitet der Reihe nach). Für den Haupt-Thread, z. B. bevor die Alarm-Lease
     /// frei wird oder der nächste Alarm gemeldet wird — sonst hängt die Oberfläche (Ziehen zum Aktualisieren), solange
     /// das Widget die Datei hält.
-    /// - Returns: seit Build 105 das Ergebnis des zuletzt eingereihten Schreibens (true = geschrieben; ohne eingereihtes
+    /// - Returns: das Ergebnis des zuletzt eingereihten Schreibens (true = geschrieben; ohne eingereihtes
     ///   Schreiben das des vorigen) — z. B. damit ein gemeldeter Alarm nur bei echtem Schreiben als gespeichert gilt.
     @discardableResult
     static func snapshotWritesSettled() async -> Bool {

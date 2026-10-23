@@ -20,7 +20,7 @@ object DenseRowText {
     /** Rechte Spalte unter die linke stellen? */
     fun stacksTrailing(scale: Float): Boolean = scale >= STACK_FROM
 
-    /** Zeilen schmaler als das (dp/pt) gelten als schmal: Mini-Chart dort schmaler (Build 57). */
+    /** Zeilen schmaler als das (dp/pt) gelten als schmal: Mini-Chart dort schmaler. */
     const val NARROW_ROW = 360f
     const val SPARKLINE_WIDTH_REGULAR = 56f
     const val SPARKLINE_WIDTH_NARROW = 48f

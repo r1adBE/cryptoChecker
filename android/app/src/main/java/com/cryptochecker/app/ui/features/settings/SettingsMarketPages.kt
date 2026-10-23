@@ -92,7 +92,7 @@ internal fun WatchlistPage(
 }
 
 /**
- * «Token & TradFi» (Build 53 unter «Erweitert», vorher auf «Merkliste»): was die Paar-Auswahl zeigt,
+ * «Token & TradFi» (unter «Erweitert», vorher auf «Merkliste»): was die Paar-Auswahl zeigt,
  * dazu Alpha-Tokens und QTLY (gehören zu Token). Gleiche Anker wie zuvor.
  */
 @Composable

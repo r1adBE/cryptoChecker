@@ -47,7 +47,7 @@ enum class SettingsPage {
     PORTFOLIO,
     BACKUP,
     ABOUT, LICENSES, WIDGETS, DEVELOPER,
-    // Build 53: «Erweitert» (Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos, Entwickler)
+    // «Erweitert» (Token & TradFi, Markt-Meldungen, Sprachausgabe, Coin-Logos, Entwickler)
     // und «Token & TradFi» als eigene Seite
     ADVANCED, MARKETS;
 
@@ -60,8 +60,8 @@ enum class SettingsPage {
 enum class SettingsHome { GENERAL, APPEARANCE, MORE, ADVANCED }
 
 /**
- * Wo die Zeile zu dieser Seite steht (Build 55: Kurs-Aktualisierung unter «Allgemein», Widgets unter
- * «Darstellung»; Build 83: Portfolio unter «Allgemein»); null = Unterseite einer Unterseite (Preis-Paare unter «Alarme», Lizenzen unter «Über
+ * Wo die Zeile zu dieser Seite steht (Kurs-Aktualisierung und Portfolio unter «Allgemein», Widgets
+ * unter «Darstellung»); null = Unterseite einer Unterseite (Preis-Paare unter «Alarme», Lizenzen unter «Über
  * die App»). Die Suche zeigt daraus den Pfad ihrer Treffer, damit er zur Anordnung passt. Wie
  * `SettingsSearchPage.home` (iOS).
  */

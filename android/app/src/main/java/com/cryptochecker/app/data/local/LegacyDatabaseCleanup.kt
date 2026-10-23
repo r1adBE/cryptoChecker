@@ -6,8 +6,8 @@ import java.io.File
 
 /**
  * Überbleibsel des Vorgängerprojekts ([AppDatabase.LEGACY_DB_NAME], anderer Name, andere Pakete) einmal entfernen —
- * wird nicht übernommen. Bis Build 98 lief das bei jedem Anlegen der Datenbank im Hauptthread (auch für Widgets,
- * WorkManager und den Neustart); seit Build 99 einmal je Installation im Hintergrund, mit Merker in
+ * wird nicht übernommen. Früher lief das bei jedem Anlegen der Datenbank im Hauptthread (auch für Widgets,
+ * WorkManager und den Neustart); jetzt einmal je Installation im Hintergrund, mit Merker in
  * `noBackupFilesDir`. Keine Reihenfolge zur Datenbank nötig: andere Datei, nie gelesen.
  */
 object LegacyDatabaseCleanup {

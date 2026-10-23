@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// «Einstand für Adressguthaben» (Build 84) einer beobachteten Adresse — wie `PortfolioAddressLotsSheet.kt`: je Coin, wie
+/// «Einstand für Adressguthaben» einer beobachteten Adresse — wie `PortfolioAddressLotsSheet.kt`: je Coin, wie
 /// viel des Guthabens Posten mit Einstand hat (Rest «ohne Einstand»), Hinweis, wenn die Posten das Guthaben übersteigen
 /// (älteste zuerst verbraucht, `AddressCostLots.cover`); Liste der Posten (antippen = bearbeiten) und «Posten
 /// hinzufügen». Die Posten zählen wie Käufe in dieser Adresse.
@@ -127,7 +127,7 @@ struct PortfolioAddressLotEditor: View {
 
     /// Dezimalzeichen, mit dem die Texte vorbelegt und gelesen werden: einmal beim Öffnen festgehalten (`@State` übersteht
     /// das Neu-Erzeugen der Ansicht) statt bei jedem Zeichnen neu gelesen — ändert sich die Region bei offenem Blatt,
-    /// bleibt «2,125» 2,125 statt 2125. Wie `PortfolioTxSheet.decimalSeparator` (seit Build 93 auch hier).
+    /// bleibt «2,125» 2,125 statt 2125. Wie `PortfolioTxSheet.decimalSeparator` (auch hier).
     @State private var sep: Character = ThresholdParser.localeDecimalSeparator
     private var amount: Decimal? { PriceFormat.parseDecimalAmount(amountText, decimalSeparator: sep).flatMap { $0 > 0 ? $0 : nil } }
     private var value: Decimal? { PriceFormat.parseDecimalAmount(valueText, decimalSeparator: sep).flatMap { $0 >= 0 ? $0 : nil } }

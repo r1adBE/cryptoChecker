@@ -1,5 +1,5 @@
 {
-  "description": "Längengrenze von Notizen in sichtbaren Zeichen (Graphem-Cluster): Android TextLimit.kt (BreakIterator), iOS String.count/prefix. «count» = Anzahl Zeichen von «text», «expected» = höchstens «max» Zeichen von vorn. Seit Build 98. «fields» (seit Build 99): Gruppenname (24), Börse/Wallet (40) und Notiz (120) gesäubert wie Eingabe und Sicherung — trimmen, kürzen, nochmals trimmen; «expected» null = leer.",
+  "description": "Längengrenze von Notizen in sichtbaren Zeichen (Graphem-Cluster): Android TextLimit.kt (BreakIterator), iOS String.count/prefix. «count» = Anzahl Zeichen von «text», «expected» = höchstens «max» Zeichen von vorn. «fields»: Gruppenname (24), Börse/Wallet (40) und Notiz (120) gesäubert wie Eingabe und Sicherung — trimmen, kürzen, nochmals trimmen; «expected» null = leer.",
   "cases": [
     {
       "description": "119 × «a» plus Emoji: genau an der Grenze, nichts gekürzt",

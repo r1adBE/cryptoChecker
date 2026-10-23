@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix); seit Build 106 -->
+    <!-- Portfolio-Alarm mit ungültiger Schwelle («fällt um ≥ 100 %», aus einer Sicherung): Hinweis in der Alarm-Übersicht – Portfolio-Alarme haben keinen Bearbeiten-Dialog, darum löschen und neu anlegen (statt alarm_threshold_invalid_fix) -->
     <string name="portfolio_alarm_threshold_invalid_recreate">Eşik geçersiz – sil ve yeniden oluştur</string>
 </resources>

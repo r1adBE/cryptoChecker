@@ -19,7 +19,7 @@ import java.time.ZoneId
  *    fortgeführt; Stablecoins wie Tether sind Kryptowährungen — Verkauf gegen USDT = Tausch) ab 01.03.2022; davor und
  *    für Altvermögen Realisation nach § 31 EStG a. F. (EStR Rz 6103k), erhaltener Coin angeschafft am Tag des Tauschs; Staking mit vorhandenen Coins, Airdrops, Bounties, Hardforks: kein Zufluss, Anschaffungskosten null
  *    (§ 27b Abs. 2 EStG — der erfasste Wert beim Erhalt zählt dafür nicht, Hinweis im Export). Zinsen aus Lending/
- *    Liquidity-Pools: laufende Einkünfte beim Zufluss, Anschaffungskosten = Wert beim Zufluss — seit Build 55
+ *    Liquidity-Pools: laufende Einkünfte beim Zufluss, Anschaffungskosten = Wert beim Zufluss —
  *    unterschieden, wo der CSV-Import die Art kennt oder die Notiz sie nennt ([PortfolioTrade.interestIncome],
  *    [TaxEngines.interestReward]); jede andere Belohnung im Neubestand rechnet mit 0. KryptowährungsVO BGBl. II 2022/455 § 2 Abs. 1
  *    (Durchschnitt für alle Einheiten derselben Kryptowährung auf EINER Adresse bzw. EINEM Wallet — hier je Coin und
@@ -30,7 +30,7 @@ import java.time.ZoneId
  *    wie nach neuer Rechtslage (keine Verwaltungsquelle zum Wert beim Zufluss vor dem Inkrafttreten — Vermerk). Kalenderjahr.
  *  - CH: ESTV «Kryptowährungen» (Stand 22.09.2026) und Arbeitspapier vom 03.08.2022 — die App ordnet NICHT ein:
  *    Kapitalgewinne im Privatvermögen «nicht gerechnet – Einordnung siehe ESTV», Belohnungen aufgeführt «Behandlung siehe
- *    ESTV-Arbeitspapier», Vermögenssteuer «nicht gerechnet» (Verkehrswert Ende Steuerperiode, ESTV-Kursliste); seit Build 80
+ *    ESTV-Arbeitspapier», Vermögenssteuer «nicht gerechnet» (Verkehrswert Ende Steuerperiode, ESTV-Kursliste);
  *    der Vermögenswert per 31.12. als Orientierung (Bestand × Börsen-Tagesschluss × Devisenkurs, [TaxExport.chWealth]) —
  *    massgebend bleibt die ESTV-Kursliste, die Steuer selbst rechnet die App nicht (kantonale Tarife). Kalenderjahr.
  *  - UK: HMRC Cryptoassets Manual CRYPTO22200 (Same Day → 30 Tage → Section-104-Pool), Beispiele CRYPTO22251–22253;
@@ -186,8 +186,8 @@ enum class TaxTemplate {
 
     /**
      * Auszahlungsgebühr in USDT bzw. Fiat ([PortfolioTrade.quoteFee] einer Auszahlung/Schenkung, [PortfolioFeeExpense.WITHDRAWAL])
-     * ist kein Verlust, nur Information (Entscheid des Inhabers 17.10.2026, statt «überall realisierter Aufwand» aus
-     * Build 46). Das Feld hält USDT (Preiswährung; der CSV-Import rechnet Fiat-Gebühren darin um), darum beide Lesarten:
+     * ist kein Verlust, nur Information (Entscheid des Inhabers 17.10.2026, statt «überall realisierter Aufwand» wie
+     * früher). Das Feld hält USDT (Preiswährung; der CSV-Import rechnet Fiat-Gebühren darin um), darum beide Lesarten:
      * Fiat-Gebühr = keine Veräusserung und keine abziehbaren Kosten; USDT-Gebühr = Veräusserung von USDT zum Nennwert
      * (Einstand 1 wie überall angenommen, Kopfzeile «USDT = 1 USD») ohne Gewinn — in beiden Fällen kein Verlust.
      *  - UK: HMRC CRYPTO22150 — Ein-/Auszahlungen von Fiat haben keine «allowable cost» (keine Anschaffung/Veräusserung).
@@ -199,7 +199,7 @@ enum class TaxTemplate {
      * Gebühren in Krypto (auch in einem Stablecoin als drittem Coin) sind dagegen Veräusserungen ([networkFeeIsDisposal]).
      * DE/AT führen die Gebühr als eigenen Posten (dort unverändert), CH, FR und Neutral rechnen sie weiter als Aufwand.
      *
-     * Build 57 (Entscheid des Inhabers 17.10.2026): ebenso die Gebühr USDT/Fiat einer Umbuchung zwischen eigenen Wallets —
+     * Entscheid des Inhabers 17.10.2026: ebenso die Gebühr USDT/Fiat einer Umbuchung zwischen eigenen Wallets —
      * sie erhöht den Einstand nicht mehr (UK CRYPTO22150: Kosten nur bei Anschaffung/Veräusserung, eine Umbuchung ist
      * keins von beiden; US/CA/AU/JP: Umbuchung zwischen eigenen Wallets kein steuerbarer Vorgang, keine Regel für einen
      * Zuschlag zum Einstand — unklar, darum «nicht abziehbar, Information»), eigene Zeile [PortfolioFeeExpense.TRANSFER].

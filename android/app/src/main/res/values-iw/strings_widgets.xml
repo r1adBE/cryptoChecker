@@ -41,7 +41,7 @@
     <string name="widget_portfolio_display">תצוגה</string>
     <string name="widget_portfolio_display_conversion">המרה בלבד</string>
     <string name="widget_portfolio_display_conversion_usdt">המרה + USDT</string>
-    <string name="widget_portfolio_display_hint">שורת USDT מוסתרת כשמטבע ההמרה הוא USD.</string>
+    <string name="widget_portfolio_display_hint">שורת USDT מוסתרת כשמטבע ההמרה הוא מטבע יציב מבוסס USD (למשל USDC).</string>
     <string name="widget_portfolio_display_usdt">USDT בלבד</string>
     <string name="widget_portfolio_empty">הוסיפו רכישות בלשונית תיק השקעות</string>
     <string name="widget_portfolio_list_hint">יש לפתוח את האפליקציה כדי להציג כאן את הפוזיציות.</string>

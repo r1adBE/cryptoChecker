@@ -38,7 +38,7 @@ import com.cryptochecker.app.ui.theme.label
 import java.math.BigDecimal
 
 /**
- * «Einträge ohne Einstand» (Build 84): Zugänge ohne Kaufpreis ([PortfolioCostGaps]), neueste zuerst, wahlweise nur ein
+ * «Einträge ohne Einstand»: Zugänge ohne Kaufpreis ([PortfolioCostGaps]), neueste zuerst, wahlweise nur ein
  * Coin ([coin]). Je Kauf/Einzahlung der Vorschlag Menge × geprüfter Tagesschluss des Datums («Vorschlag: Tagesschluss …»)
  * und «Einstand erfassen» (öffnet den Eintrag mit dem Vorschlag zum Übernehmen und Anpassen, [onEdit]) oder «Unbekannt
  * lassen» (zählt auf der Karte nicht mehr). Belohnungen: «Einstand = Wert bei Zufluss (Einkommen)» — kein Angebot, ihn zu

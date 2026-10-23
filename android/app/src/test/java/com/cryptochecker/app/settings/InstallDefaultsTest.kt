@@ -6,7 +6,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * Geänderte Standards von Build 43 (und Build 44: Portfolio-Tab aus) nur für neue Installationen — wie `InstallDefaultsTests` (iOS).
+ * Geänderte Standards (darunter Portfolio-Tab aus) nur für neue Installationen — wie `InstallDefaultsTests` (iOS).
  * Die Kette bildet die Reihenfolge in SettingsRepository nach: OngoingNotificationsMigration →
  * InstallDefaultsMigration → UpdateModeMigration.
  */

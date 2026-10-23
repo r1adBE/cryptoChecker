@@ -28,7 +28,7 @@ enum WidgetRefresh {
     private static let runningTimeoutMillis: Int64 = 60_000
     /// Endzeit eines Durchlaufs: begrenzt Kurse, Lease und Kursalarme, damit gespeichert und gemeldet ist,
     /// bevor WidgetKit die Erweiterung beendet; Alarme mit Zusatzdaten stellt sie zurück (`deferredAlarms`).
-    /// Knopf (App-Intent); aus dem Zeichnen seit Build 103 kürzer (`WidgetCadence.drawRunBudgetMillis`).
+    /// Knopf (App-Intent); aus dem Zeichnen kürzer (`WidgetCadence.drawRunBudgetMillis`).
     static let runBudgetMillis: Int64 = 25_000
 
     /// Ergebnis von `run()`.
@@ -110,7 +110,7 @@ enum WidgetRefresh {
 
     /// Volle Aktualisierung. Der Knopf «Aktualisieren» ruft sie direkt auf, auch kurz nach einem
     /// misslungenen Versuch (`retryAfterMillis` gilt nur für `refreshIfStale`).
-    /// - Parameter budgetMillis: Endzeit ab Beginn (Kurse, Lease, Kursalarme); aus dem Zeichnen kürzer (seit Build 103).
+    /// - Parameter budgetMillis: Endzeit ab Beginn (Kurse, Lease, Kursalarme); aus dem Zeichnen kürzer.
     @discardableResult
     static func run(budgetMillis: Int64 = runBudgetMillis) async -> RunResult {
         let defaults = SharedStorage.defaults
@@ -131,7 +131,7 @@ enum WidgetRefresh {
         // Datei: nichts schreiben (`SharedStorage.updateSnapshot`) und nichts melden — die Alarme bleiben scharf.
         guard let saved = SharedStorage.updateSnapshot({ outcome.apply(to: &$0) }) else {
             outcome.releaseAlarmLease()
-            // Seit Build 104: Speichern gescheitert (mit Paaren) — nur gezählt (Diagnosebericht)
+            // Speichern gescheitert (mit Paaren) — nur gezählt (Diagnosebericht)
             if outcome.checked > 0 { BackgroundErrorCounter.record(BackgroundErrors.storage, kind: BackgroundErrors.saveFailedKind) }
             defaults.set(Double(TimeUtils.nowMillis), forKey: failedAtKey)
             CheckRunStore.log(.widget, .failed, startedAt: started)
@@ -167,7 +167,7 @@ enum WidgetRefresh {
 
     /// Wartezeit beim Zeichnen: danach zeichnet das Widget sofort mit den gespeicherten Kursen. Kurz gehalten, weil
     /// WidgetKit eine Timeline, die zu lange braucht, verwirft (dann bliebe das Widget leer oder auf dem alten Stand
-    /// stehen). Seit Build 103 endet der Durchlauf selbst vorher (`WidgetCadence.drawRunBudgetMillis`); nur wenn Speichern
+    /// stehen). Der Durchlauf endet selbst vorher (`WidgetCadence.drawRunBudgetMillis`); nur wenn Speichern
     /// oder Melden unerwartet hängt, läuft er nach der Rückgabe noch weiter und lädt bei Erfolg nach.
     static let drawDeadlineSeconds: Double = 8
 

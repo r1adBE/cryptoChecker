@@ -261,7 +261,7 @@ class CoinListSync @Inject constructor(
                 }
                 if (!images) added = runSync(false)
                 noteSyncResult(_retryPending.value, System.currentTimeMillis())
-                // Seit Build 103: Fehler im Abschluss (Widgets neu zeichnen) nur protokollieren
+                // Fehler im Abschluss (Widgets neu zeichnen) nur protokollieren
                 runCatchingCancellable { onDone(added) }.onFailure { Timber.w(it, "Logo-Abgleich: Abschluss fehlgeschlagen") }
             }
         }

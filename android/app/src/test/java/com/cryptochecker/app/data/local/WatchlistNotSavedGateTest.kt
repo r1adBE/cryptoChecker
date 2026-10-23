@@ -23,9 +23,9 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * Seit Build 104 (F-08): Frage vor der ersten Änderung je Lauf — gleiche Fälle wie `WatchlistNotSavedGateTests.swift`.
- * Seit Build 105: einmal je Aktion vorher, Sicherung im Schreibweg, Abbruch des Wartenden räumt die Frage weg.
- * Seit Build 106: ohne Oberfläche kurz auf sie warten, Durchlass ohne Oberfläche wird im Schreibweg nicht abgelehnt.
+ * F-08: Frage vor der ersten Änderung je Lauf — gleiche Fälle wie `WatchlistNotSavedGateTests.swift`.
+ * Einmal je Aktion vorher, Sicherung im Schreibweg, Abbruch des Wartenden räumt die Frage weg.
+ * Ohne Oberfläche kurz auf sie warten, Durchlass ohne Oberfläche wird im Schreibweg nicht abgelehnt.
  * Review F-27: dieser Durchlass gilt nur für die eigene Aktion (Coroutine samt Kindern), nicht global.
  */
 class WatchlistNotSavedGateTest {
@@ -86,7 +86,7 @@ class WatchlistNotSavedGateTest {
     }
 
     /**
-     * Eine Nutzeraktion wie im Controller/ViewModel (seit Build 105): einmal [WatchlistNotSavedGate.confirm] vorher, danach je
+     * Eine Nutzeraktion wie im Controller/ViewModel: einmal [WatchlistNotSavedGate.confirm] vorher, danach je
      * Schreibweg nur die Sicherung des Repositorys ([WatchlistNotSavedGate.needsConfirmation], fragt nie), Folgen erst nach
      * allen Schreibwegen. Rückgabe: geschriebene Schreibwege und ob die Folgen liefen.
      */
@@ -135,7 +135,7 @@ class WatchlistNotSavedGateTest {
         }
     }
 
-    /** Seit Build 105 (ARC3-R02): Wartende Aktion abgebrochen (ViewModel weg) → keine offene Frage mehr, nichts bestätigt. */
+    /** ARC3-R02: Wartende Aktion abgebrochen (ViewModel weg) → keine offene Frage mehr, nichts bestätigt. */
     @Test
     fun sharedCancelledWaiterClearsTheQuestion() = runBlocking {
         val expected = data["cancelledWaiter"].obj()
@@ -168,7 +168,7 @@ class WatchlistNotSavedGateTest {
     }
 
     /**
-     * Seit Build 106 (Review ARC4-R02, Variante A): ohne Oberfläche beim Bestätigen erst warten; erscheint sie, wird gefragt,
+     * Review ARC4-R02, Variante A: ohne Oberfläche beim Bestätigen erst warten; erscheint sie, wird gefragt,
      * sonst durchgelassen — und die Sicherung lehnt die Schreibwege dieser Aktion nicht still ab.
      */
     @Test
@@ -251,7 +251,7 @@ class WatchlistNotSavedGateTest {
         assertEquals(e["refusedAfterOwnEnd"], refused())
     }
 
-    /** Seit Build 106: Die Oberfläche beginnt erst während des Wartens zu sammeln (Activity neu erstellt) → es wird gefragt. */
+    /** Die Oberfläche beginnt erst während des Wartens zu sammeln (Activity neu erstellt) → es wird gefragt. */
     @Test
     fun confirmWaitsForAReturningScreenThenAsks() = runBlocking {
         val write = async(Dispatchers.Default) { WatchlistNotSavedGate.confirm(notSaved = true, canAsk = false) }
@@ -263,7 +263,7 @@ class WatchlistNotSavedGateTest {
         screen.cancelAndJoin()
     }
 
-    /** Seit Build 106: ohne Oberfläche endet das Warten nach der Frist (false), ohne Frage. */
+    /** Ohne Oberfläche endet das Warten nach der Frist (false), ohne Frage. */
     @Test
     fun awaitSubscriberTimesOut() = runBlocking {
         assertFalse(WatchlistNotSavedGate.awaitSubscriber(50))

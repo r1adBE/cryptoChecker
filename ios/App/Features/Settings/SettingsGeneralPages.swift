@@ -83,7 +83,7 @@ struct UpdatesSettingsPage: View {
                 // iOS bestimmt den Zeitpunkt im Hintergrund; bei offener App pünktlich
                 SettingsHint(text: L("settings_ios_background_hint"))
             }
-            // «Letzte Prüfungen» (Build 46): wann iOS wirklich geprüft hat
+            // «Letzte Prüfungen»: wann iOS wirklich geprüft hat
             CheckRunsCard()
                 .settingsAnchor("updates.check_runs")
         }
@@ -121,7 +121,7 @@ private struct UpdateModeCard: View {
 
     private func title(_ mode: UpdateMode) -> String {
         switch mode {
-        // Sparsam ist Standard und empfohlen; Live nur für Profis (Build 43, wie Android)
+        // Sparsam ist Standard und empfohlen; Live nur für Profis (wie Android)
         case .SPARSAM: return L("update_mode_sparsam") + " · " + L("update_mode_recommended")
         // «Immer kurz» steht nie zur Wahl (`iosChoices`); der Fall gilt wie überall als Live
         case .LIVE_OFFEN, .IMMER_KURZ: return L("update_mode_live") + " · " + L("update_mode_for_pros")
@@ -188,7 +188,7 @@ struct WatchlistSettingsPage: View {
     }
 }
 
-/// «Token & TradFi» (Build 53 unter «Erweitert», vorher auf «Merkliste»): was die Paar-Auswahl zeigt,
+/// «Token & TradFi» (unter «Erweitert»): was die Paar-Auswahl zeigt,
 /// dazu Alpha-Tokens und QTLY (gehören zu Token). Gleiche Anker wie zuvor — wie `MarketsPage` (Android).
 @MainActor
 struct MarketsSettingsPage: View {

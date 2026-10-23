@@ -11,7 +11,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
  *
  * Merkt sich den Schlüssel (`toString()`) der zuletzt gezeigten Meldung; das passt zu Meldungen als Enum,
  * Data-Klasse, Zähler oder Boolean. `null` (Meldung weg) setzt zurück, sodass die nächste gleiche Meldung wieder zählt.
- * Seit Build 100.
  */
 internal class OneShotGate(private var shownKey: String? = null) {
 

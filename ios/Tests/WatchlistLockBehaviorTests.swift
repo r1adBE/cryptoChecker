@@ -1,11 +1,11 @@
 import XCTest
 @testable import CryptoChecker
 
-/// Notfall-Sperre der Merkliste als Verhalten (seit Build 103, Review TST-02), wie Android `WatchlistLockDeviceTest`:
+/// Notfall-Sperre der Merkliste als Verhalten (Review TST-02), wie Android `WatchlistLockDeviceTest`:
 /// Mit `watchlistLocked` ruft der Test jeden Schreibweg des Nutzers von `AppData` auf und prüft, dass sich weder Merkliste
 /// noch Alarme noch Einstellungen ändern und jeder Weg die Ablehnung meldet (`watchlistLockedHints`, Drosselung je Aufruf
 /// zurückgesetzt). Ergänzt die Quelltext-Prüfung in `WatchlistWriteLockTests`. Läuft auf `AppData.shared` der Test-App.
-/// Seit Build 104 (Review TST2-R1): mit eigenen Testdaten (zwei Paare, ein Alarm), damit jeder Weg ungesperrt wirklich
+/// Review TST2-R1: mit eigenen Testdaten (zwei Paare, ein Alarm), damit jeder Weg ungesperrt wirklich
 /// etwas änderte; die Gegenprobe ohne Sperre zeigt das je Weg. Merkliste, Alarme und Einstellungen der Test-App kommen
 /// danach zurück. Dazu ein Quelltext-Scan: Jede nicht-private Funktion der AppData-Merklisten-Dateien steht in genau
 /// einer Liste (Schreibweg, Lesen, Hintergrund) — ein neuer Schreibweg fällt so auf.

@@ -1,15 +1,15 @@
 import SwiftUI
 
-/// «Neuer Alarm» ohne Paar: erst das Paar wählen, dann dessen Alarm-Seite. Seit Build 103 ein eigenes Blatt mit Suchfeld
+/// «Neuer Alarm» ohne Paar: erst das Paar wählen, dann dessen Alarm-Seite. Ein eigenes Blatt mit Suchfeld
 /// (Abgleich wie die Merklisten-Suche, `WatchlistSearch.matches`), Favoriten oben und Lazy-Liste statt eines
-/// Bestätigungsdialogs mit bis zu 2000 Knöpfen — wie Android `AlarmPairPicker`. Seit Build 104: Zeilen ohne Kurs
+/// Bestätigungsdialogs mit bis zu 2000 Knöpfen — wie Android `AlarmPairPicker`. Zeilen ohne Kurs
 /// vorberechnet und gefaltet (`Row`), neu nur bei Änderung der Paare (`Source`); «keine Treffer» wird angesagt,
-/// Favoriten mit Stern. Der Titel ist als Navigationstitel schon eine Überschrift für VoiceOver. Seit Build 105
-/// (PERF3-R2): Zeilen nicht mehr bei jeder Erzeugung des Structs (`State(initialValue:)` rechnete eager), sondern in
+/// Favoriten mit Stern. Der Titel ist als Navigationstitel schon eine Überschrift für VoiceOver.
+/// PERF3-R2: Zeilen nicht mehr bei jeder Erzeugung des Structs (`State(initialValue:)` rechnete eager), sondern in
 /// `.task(id:)` im Hintergrund, nur wenn sich der Schlüssel der Paare (`sourceKey`) ändert.
 struct AlarmPairPicker: View {
     let watches: [Watch]
-    /// Seit Build 106 (PERF4-R1): Schlüssel der Paare vom Elternteil (`AppData.alarmPairPickerInput`, einmal je Stand);
+    /// PERF4-R1: Schlüssel der Paare vom Elternteil (`AppData.alarmPairPickerInput`, einmal je Stand);
     /// nil = hier rechnen (gleicher Wert).
     var sourceKey: Int? = nil
     let onPick: (Int64) -> Void
@@ -48,7 +48,7 @@ struct AlarmPairPicker: View {
     @State private var rows: [Row] = []
     /// Gefaltete Coin-Namen für die Suche (`WatchlistSearch.names`), mit den Zeilen gerechnet.
     @State private var names: [Int64: String] = [:]
-    /// Zeilen schon gerechnet? Vorher kein «keine Treffer» (seit Build 105).
+    /// Zeilen schon gerechnet? Vorher kein «keine Treffer».
     @State private var loaded = false
     @Environment(\.dismiss) private var dismiss
     @Environment(\.appAccent) private var accent
@@ -58,7 +58,7 @@ struct AlarmPairPicker: View {
     nonisolated(unsafe) static var makeRowsCalls = 0
     #endif
 
-    /// Schlüssel der Paare ohne Kurs (`Source`): Hash statt Array, billig in `body` (seit Build 105).
+    /// Schlüssel der Paare ohne Kurs (`Source`): Hash statt Array, billig in `body`.
     nonisolated static func sourceKey(_ watches: [Watch]) -> Int {
         var hasher = Hasher()
         hasher.combine(watches.count)
@@ -154,7 +154,7 @@ struct AlarmPairPicker: View {
             }
         }
         .tint(accent.primary)
-        // Nur bei geänderten Paaren neu rechnen, nicht bei jedem Kurs (seit Build 104); seit Build 105 im Hintergrund
+        // Nur bei geänderten Paaren neu rechnen, nicht bei jedem Kurs; im Hintergrund
         .task(id: sourceKey ?? Self.sourceKey(watches)) {
             let current = watches
             let coinNames = WatchlistSearch.names(for: current)
@@ -166,7 +166,7 @@ struct AlarmPairPicker: View {
             names = built.1
             loaded = true
         }
-        // Keine Treffer: VoiceOver sagt es beim Tippen an (wie die Live-Region in Android), seit Build 104
+        // Keine Treffer: VoiceOver sagt es beim Tippen an (wie die Live-Region in Android)
         .onChange(of: loaded && shown.isEmpty ? trimmed : nil) { _, empty in
             if let empty { AccessibilityNotification.Announcement(L("watchlist_search_empty", empty)).post() }
         }

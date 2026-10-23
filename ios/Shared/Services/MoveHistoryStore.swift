@@ -8,7 +8,7 @@ protocol MoveHistoryStorage: AnyObject {
 }
 
 /// Kursverlauf je Paar für den Bewegungs-Alarm — wie `MoveHistoryStore.kt`. Nur für Paare mit so einem Alarm, im
-/// gemeinsamen Speicher (App Group, auch die Hintergrund-Aktualisierung prüft Alarme). Seit Build 102 ein Schlüssel je
+/// gemeinsamen Speicher (App Group, auch die Hintergrund-Aktualisierung prüft Alarme). Ein Schlüssel je
 /// Paar («move_history_<watchId>» = `[[zeit, kurs], …]`, `MoveHistoryCore`). Fehlt der Verlauf, prüft der Alarm gegen
 /// seinen gespeicherten Bezug.
 enum MoveHistoryStore {
@@ -37,7 +37,7 @@ enum MoveHistoryStore {
     }
 }
 
-/// Kern von `MoveHistoryStore` (seit Build 102) — wie `MoveHistoryCore.kt`: ein Schlüssel je Paar statt aller Verläufe
+/// Kern von `MoveHistoryStore` — wie `MoveHistoryCore.kt`: ein Schlüssel je Paar statt aller Verläufe
 /// unter einem. Vorher las und schrieb jedes `append` den Inhalt aller Paare und dekodierte jeden fremden Verlauf —
 /// O(M²) je Durchlauf. Jetzt nur der eigene Eintrag; fremde, abgelaufene Verläufe räumt höchstens alle
 /// `cleanupIntervalMillis` ein Durchgang weg. Der alte Sammelschlüssel wird einmal aufgeteilt.
@@ -97,7 +97,7 @@ final class MoveHistoryCore: @unchecked Sendable { // @unchecked: veränderliche
         }
     }
 
-    /// Bis Build 101 standen alle Verläufe unter `legacyKey` (`{"<watchId>": [[zeit, kurs], …]}`): einmal aufteilen.
+    /// Früher standen alle Verläufe unter `legacyKey` (`{"<watchId>": [[zeit, kurs], …]}`): einmal aufteilen.
     private func migrate() {
         guard !migrated else { return }
         migrated = true

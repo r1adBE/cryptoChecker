@@ -1,7 +1,7 @@
 import Foundation
 import Security
 
-/// Ziel eines `cryptochecker://`-Links nur von der App selbst (seit Build 97): Jede andere App und jede Webseite kann
+/// Ziel eines `cryptochecker://`-Links nur von der App selbst: Jede andere App und jede Webseite kann
 /// das Schema öffnen — etwa direkt in den Portfolio-Tab. Darum tragen die Links der eigenen Widgets ein Geheimnis dieser
 /// Installation mit (`?t=…`, gespeichert in der App Group, die nur App und Widgets lesen); ohne passendes Geheimnis
 /// gelten nur die harmlosen Ziele (wie die Schnellaktionen) und «Paar öffnen». Mitteilungen und Schnellaktionen

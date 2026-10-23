@@ -35,7 +35,7 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
 
     var id: String { rawValue }
 
-    /// Grundfarbe (Seed), aus der das Schema abgeleitet ist. Ein Orange (Build 46): #ED835E ist
+    /// Grundfarbe (Seed), aus der das Schema abgeleitet ist. Ein Orange: #ED835E ist
     /// Markenfarbe, App-Icon und Akzent dunkel; #A64827 (hell) ist die dunklere Stufe davon (AA).
     var seed: UInt32 {
         switch self {
@@ -89,7 +89,7 @@ enum AccentColor: String, CaseIterable, Codable, Identifiable, Sendable {
         case .RED: 0xFFAFB1
         case .BLUE: 0xA8C6FD
         case .GREEN: 0x88D4AD
-        // Build 83: #92CFCA wie Android zur Laufzeit (vorher #95D0CC aus einem älteren Grundton)
+        // #92CFCA wie Android zur Laufzeit (vorher #95D0CC aus einem älteren Grundton)
         case .MARRS_GREEN: 0x92CFCA
         }
     }
@@ -247,7 +247,7 @@ enum ColorTokens {
     static let onSurface = Pair(light: 0x1B1B1B, dark: 0xE2E2E2)
     static let onSurfaceVariant = Pair(light: 0x474747, dark: 0xC6C6C6)
     static let outline = Pair(light: 0x777777, dark: 0x919191)
-    /// Trennlinien: hell #ADA9A0 ≈ 2.2:1 auf #FBF9F6 (Build 58, vorher #C9C6BF 1.6:1) — wie Android.
+    /// Trennlinien: hell #ADA9A0 ≈ 2.2:1 auf #FBF9F6 (vorher #C9C6BF 1.6:1) — wie Android.
     static let outlineVariant = Pair(light: 0xADA9A0, dark: 0x474747)
     /// Fehler in Hell und Dunkel warmes Orange-Rot statt Material-Rot/-Rosa — wie Android `ErrorColors.kt`.
     /// Hell #B8361A: 5.58:1 auf #FBF9F6, 4.53:1 auf #E5E2DB, Weiss darauf 5.86:1; dunkel #FF5833: 5.9:1 auf #131313.

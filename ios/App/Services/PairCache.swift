@@ -242,7 +242,7 @@ actor PairCache {
             try? FileManager.default.removeItem(at: fileURL(key))
             return MarketPairsInfo()
         }
-        // Dateien von vor Build 47 kennen inverse Perpetuals noch nicht (`FuturesContractType.normalized`)
+        // Ältere Dateien kennen inverse Perpetuals noch nicht (`FuturesContractType.normalized`)
         let upgraded = Self.withInversePerpetuals(fromDisk, marketKey: key)
         memory[key] = upgraded
         return upgraded

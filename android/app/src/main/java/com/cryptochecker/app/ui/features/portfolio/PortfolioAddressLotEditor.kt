@@ -1,4 +1,4 @@
-// Ein Eröffnungsposten einer beobachteten Adresse erfassen/ändern (Build 84). Teil von `PortfolioAddressLotsSheet.kt`.
+// Ein Eröffnungsposten einer beobachteten Adresse erfassen/ändern. Teil von `PortfolioAddressLotsSheet.kt`.
 @file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 
 package com.cryptochecker.app.ui.features.portfolio

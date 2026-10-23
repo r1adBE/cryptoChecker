@@ -6,7 +6,7 @@ import java.util.Locale
 /**
  * Längengrenzen in Zeichen, wie sie der Mensch sieht (Graphem-Cluster) — wie Swift `String.count`/`prefix` auf iOS.
  * `String.take`/`length` zählen UTF-16-Einheiten: ein Emoji zählte doppelt, eine Familie 👨‍👩‍👧‍👦 elfmal, und das
- * Kürzen konnte ein Surrogatpaar oder eine ZWJ-Folge zerreissen. Seit Build 98 (Parität: `text_limit.json`).
+ * Kürzen konnte ein Surrogatpaar oder eine ZWJ-Folge zerreissen. Parität: `text_limit.json`.
  *
  * java.text.BreakIterator: auf Android über ICU, in JVM-Tests ab JDK 20 mit erweiterten Graphem-Clustern.
  */
@@ -39,7 +39,7 @@ object TextLimit {
     /**
      * Freitext säubern: trimmen, auf [max] sichtbare Zeichen kürzen und nochmals trimmen (ein Schnitt kann
      * auf ein Leerzeichen fallen); leer = null. Für Notizen, Gruppen- und Börsennamen — aus der Eingabe wie
-     * aus einer Sicherung gleich wie iOS `TextLimit.clean` (seit Build 99).
+     * aus einer Sicherung gleich wie iOS `TextLimit.clean`.
      */
     fun clean(raw: String?, max: Int): String? =
         raw?.trim()?.let { takeGraphemes(it, max) }?.trim()?.takeIf { it.isNotEmpty() }

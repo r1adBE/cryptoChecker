@@ -298,7 +298,7 @@ extension AppData {
             let result = WatchedAddressStore.save(watchedAddressFile, includeInBackup: settings.portfolioSystemBackup)
             watchedAddressSavePending = result != .saved
         }
-        // Portfolio-Alarme seit Build 103 über die Schreib-Warteschlange wie `mutate` (neuere Kurse und Auslösungen der
+        // Portfolio-Alarme über die Schreib-Warteschlange wie `mutate` (neuere Kurse und Auslösungen der
         // Datei bleiben, kein doppelter Alarm) und nicht mehr blockierend auf dem Haupt-Thread (`PortfolioSaveRetry`)
         let alarmsQueued = PortfolioSaveRetry.queuesAlarms(alarmsPending: SharedStorage.portfolioAlarmsPending,
                                                            watchlistReadOnce: watchlistReadOnce)
@@ -338,7 +338,7 @@ extension AppData {
     /// - Returns: false, wenn nicht gespeichert (nicht lesbare, gesperrte Datei).
     @discardableResult
     func setPortfolioFile(_ file: PortfolioFile) -> Bool {
-        // Seit Build 103: Grund eines Fehlschlags für den Hinweis (gesperrt bzw. «Konnte nicht gespeichert werden»)
+        // Grund eines Fehlschlags für den Hinweis (gesperrt bzw. «Konnte nicht gespeichert werden»)
         portfolioWriteLocked = false
         // Nicht (ganz) lesbare Datei nie still überschreiben: erst daneben sichern; geht nicht einmal das
         // (Datei gesperrt), gar nicht schreiben — die Änderung fällt dann weg, die Daten bleiben

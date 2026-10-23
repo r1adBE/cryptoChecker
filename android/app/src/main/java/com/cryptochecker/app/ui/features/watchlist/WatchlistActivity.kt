@@ -38,7 +38,7 @@ import com.cryptochecker.app.R
  * ⚡-Chip in der Zeile eines Paars mit aktiven Signalen, beschriftet mit der Kurzform von «Was bewegt sich mit?»
  * ([R.string.watch_action_why_short]); Tipp öffnet das Blatt «Was bewegt sich mit?».
  * Sichtbar bleibt der 28-dp-Chip; nach aussen meldet der Knopf nur die Chip-Grösse (Zeile wächst nicht). Die
- * Tippfläche ragt je 9 dp seitlich (Build 70: der Chip nur mit ⚡ ist so 48 dp breit antippbar), aber nur je 4 dp
+ * Tippfläche ragt je 9 dp seitlich (der Chip nur mit ⚡ ist so 48 dp breit antippbar), aber nur je 4 dp
  * darüber und darunter hinaus: Sie bleibt im Innenabstand der eigenen Zeile (12 dp) und reicht nie in die
  * Nachbarzeile — dort tippte man sonst ungewollt «Was bewegt sich mit?» statt das andere Paar. Reicht die Breite nicht für «Was bewegt sich mit?», bleibt nur der ⚡ (das Paar geht vor, [RowInfo]).
  */

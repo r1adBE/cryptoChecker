@@ -1,6 +1,6 @@
 import Foundation
 
-/// Seit Build 103: Lesart der CSV-Datei, die in der Vorschau gewählt wird — Zeitzone der Zeiten ohne Versatz,
+/// Lesart der CSV-Datei, die in der Vorschau gewählt wird — Zeitzone der Zeiten ohne Versatz,
 /// Tag/Monat bei mehrdeutigen Daten, Dezimalzeichen bei mehrdeutigen Zahlen (nil = Regel). Die Vorschau merkt sich, mit
 /// welcher Lesart sie gebaut wurde; «Importieren» nur, wenn sie zur aktuellen Wahl gehört (`canConfirm`). Wie Android
 /// `CsvReadChoice`.
@@ -16,8 +16,8 @@ struct CsvReadChoice: Equatable, Sendable {
     }
 
     /// Darf importiert werden? Nicht, solange die Datei neu gelesen wird (`rereading`) oder die gezeigte Vorschau mit
-    /// einer anderen Lesart gebaut wurde (`builtWith` ≠ `chosen`) — sonst käme die alte Lesart in die Daten. Seit Build 104
-    /// ist `builtWith` die zusammen mit der Vorschau gesetzte Lesart der GEZEIGTEN Vorschau (nur vom letzten Neu-Lesen).
+    /// einer anderen Lesart gebaut wurde (`builtWith` ≠ `chosen`) — sonst käme die alte Lesart in die Daten.
+    /// `builtWith` ist die mit der Vorschau gesetzte Lesart der GEZEIGTEN Vorschau (nur vom letzten Neu-Lesen).
     static func canConfirm(rereading: Bool, builtWith: CsvReadChoice?, chosen: CsvReadChoice) -> Bool {
         !rereading && builtWith == chosen
     }

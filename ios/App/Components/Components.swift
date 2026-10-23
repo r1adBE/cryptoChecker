@@ -119,7 +119,7 @@ struct SwitchRow<Label: View>: View {
     var verticalPadding: CGFloat = Spacing.md
     /// Beschriftung nur für VoiceOver (z. B. Schalter am Rand einer Karte).
     var labelHidden: Bool = false
-    /// Seit Build 106 (Review UX4-R4): false = gesperrt nur den Schalter abblenden (System-Darstellung), die Beschriftung
+    /// Review UX4-R4: false = gesperrt nur den Schalter abblenden (System-Darstellung), die Beschriftung
     /// bleibt voll deckend — z. B. wenn sie den Grund der Sperre nennt (wie Android: nur der `Switch`).
     var dimsLabel: Bool = true
     @ViewBuilder let label: () -> Label
@@ -194,7 +194,7 @@ enum BoltHint {
     }
 }
 
-/// Trennlinie zwischen Zeilen einer SectionCard: volle Token-Farbe, nie halbtransparent (Build 46).
+/// Trennlinie zwischen Zeilen einer SectionCard: volle Token-Farbe, nie halbtransparent.
 struct RowDivider: View {
     var body: some View {
         Rectangle().fill(AppColors.outlineVariant).frame(height: 0.5)

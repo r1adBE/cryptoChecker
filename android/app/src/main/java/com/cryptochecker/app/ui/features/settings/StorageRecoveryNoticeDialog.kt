@@ -28,7 +28,7 @@ import kotlinx.coroutines.withContext
  *    er beim nächsten Start wieder.
  *  - «Wieder entsperrt», «Wiederherstellen abgebrochen» bzw. «Portfolio nicht aus der Systemsicherung übernommen» (nur
  *    Android): einmal, mit «Schliessen».
- *  - «Einstellungen zurückgesetzt» (seit Build 97): erst mit «Schliessen» erledigt — bis dahin auch nach einem Neustart.
+ *  - «Einstellungen zurückgesetzt»: erst mit «Schliessen» erledigt — bis dahin auch nach einem Neustart.
  */
 @Composable
 internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {

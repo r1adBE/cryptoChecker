@@ -147,7 +147,7 @@ object GasFees {
 
     /**
      * Wei als Hex-String → gwei. Nur ASCII-Hexziffern ohne Vorzeichen: BigInteger nähme auch «-» (negative Gebühr)
-     * und Unicode-Ziffern an — iOS nicht; seit Build 97 wirft beides wie dort.
+     * und Unicode-Ziffern an — iOS nicht; hier wirft beides wie dort.
      */
     fun hexToGwei(hex: String): Double {
         val clean = when {
