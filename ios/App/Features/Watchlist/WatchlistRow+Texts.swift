@@ -105,7 +105,7 @@ extension WatchlistRow {
                              hourlyPrice ? L("watch_price_hourly") : nil].compactMap { $0 }
                 return parts.isEmpty ? nil : parts.joined(separator: ", ")
             }(),
-            converted: converted,
+            converted: convertedA11y ?? converted,
             chart: chart,
             alarmCount: alarmCount,
             // Alarm eben ausgelöst (Mitteilung kam bei offener App): bis 15 Min. danach

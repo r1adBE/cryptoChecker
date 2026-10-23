@@ -24,12 +24,19 @@ object DenseRowText {
     const val NARROW_ROW = 360f
     const val SPARKLINE_WIDTH_REGULAR = 56f
     const val SPARKLINE_WIDTH_NARROW = 48f
+    private const val CONVERTED_MAX_SHARE = 0.5f
 
     /**
      * Breite des Mini-Charts der Merkliste für eine Zeile von [rowWidth] dp/pt: 48 statt 56 in
      * schmalen Zeilen, damit das Paar dort mehr Platz behält (Kurs-Spalte bleibt unberührt).
      */
     fun sparklineWidth(rowWidth: Float): Float = if (rowWidth < NARROW_ROW) SPARKLINE_WIDTH_NARROW else SPARKLINE_WIDTH_REGULAR
+
+    /**
+     * Höchstbreite der ≈ Umrechnung neben dem Paar: die Hälfte der Zeile. Längeres (Vermerk dahinter) wird mit «…»
+     * gekürzt — sonst drückt die Kurs-Spalte Paar, Name und Börse auf Breite 0 (Gerätetest 23.10.2026).
+     */
+    fun convertedMaxWidth(rowWidth: Float): Float = rowWidth * CONVERTED_MAX_SHARE
 
     /**
      * Kurs der Merkliste eine Stufe grösser (Android `titleLarge`, iOS `.title3`)? Unter dem Paar

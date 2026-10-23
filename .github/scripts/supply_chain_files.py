@@ -35,6 +35,7 @@ SEED = """<?xml version="1.0" encoding="UTF-8"?>
       <trusted-artifacts>
          <trust file=".*-javadoc[.]jar" regex="true" reason="Android Studio downloads documentation, not part of the build"/>
          <trust file=".*-sources[.]jar" regex="true" reason="Android Studio downloads sources, not part of the build"/>
+         <trust group="gradle" name="gradle" file="gradle-.*-src[.]zip" regex="true" reason="Android Studio downloads the Gradle sources, not part of the build"/>
       </trusted-artifacts>
    </configuration>
    <components>

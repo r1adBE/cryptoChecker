@@ -29,6 +29,11 @@ class MirrorSignatureParityTest {
         assertEquals(data["signatureFile"], MirrorManifest.SIGNATURE_FILE)
         assertEquals(DataMirror.BASE + MirrorManifest.FILE, MirrorManifest.URL)
         assertNotEquals(testKey, MirrorManifest.PUBLIC_KEY)
+        // F-29: Reserve-Schlüssel eingebaut, verschieden vom aktiven und vom Test-Schlüssel
+        assertEquals(data["productionReservePublicKey"], MirrorManifest.RESERVE_PUBLIC_KEY)
+        assertEquals(listOf(MirrorManifest.PUBLIC_KEY, MirrorManifest.RESERVE_PUBLIC_KEY), MirrorManifest.PUBLIC_KEYS)
+        assertNotEquals(MirrorManifest.PUBLIC_KEY, MirrorManifest.RESERVE_PUBLIC_KEY)
+        assertNotEquals(testKey, MirrorManifest.RESERVE_PUBLIC_KEY)
     }
 
     @Test
@@ -36,8 +41,9 @@ class MirrorSignatureParityTest {
         val cases = list("verify")
         assertTrue(cases.size >= 20)
         cases.forEach { c ->
-            val key = c["publicKey"] as String? ?: testKey
-            val v = MirrorManifest.verify(c["manifest"] as String?, c["signature"] as String?, now, key)
+            @Suppress("UNCHECKED_CAST")
+            val keys = c["publicKeys"] as List<String>? ?: listOf(c["publicKey"] as String? ?: testKey)
+            val v = MirrorManifest.verify(c["manifest"] as String?, c["signature"] as String?, now, keys)
             assertEquals("${c["name"]}", c["expected"], v.status.name.lowercase())
             if (v.status == MirrorManifest.Status.OK) {
                 val m = assertNotNullAndGet(v.manifest, c)

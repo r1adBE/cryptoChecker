@@ -85,7 +85,7 @@ internal fun rowPnlSpoken(pnl: PortfolioChange?, basis: ChangeBasis, unit: CardU
     val context = LocalContext.current
     val hidden = LocalHidePortfolioAmounts.current
     val amount = pnl?.amount?.takeIf { it.isFinite() }?.let(unit::of) ?: return ChangeBasisText.spoken(context, basis, null)
-    val percent = pnl?.percent?.takeIf { it.isFinite() }
+    val percent = pnl.percent?.takeIf { it.isFinite() }
     val spokenAmount = when {
         hidden -> stringResource(R.string.a11y_amount_hidden)
         PortfolioFormat.isZero(amount) -> stringResource(R.string.a11y_change_flat)

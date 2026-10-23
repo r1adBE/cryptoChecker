@@ -29,6 +29,10 @@ enum DenseRowText {
         rowWidth < narrowRow ? sparklineWidthNarrow : sparklineWidthRegular
     }
 
+    /// Höchstbreite der ≈ Umrechnung neben dem Paar: die Hälfte der Zeile. Längeres (Vermerk dahinter) wird mit «…»
+    /// gekürzt — sonst drückt die Kurs-Spalte Paar, Name und Börse auf Breite 0 (Gerätetest 23.10.2026). Wie Android.
+    static func convertedMaxWidth(rowWidth: Double) -> Double { rowWidth * 0.5 }
+
     /// Kurs der Merkliste eine Stufe grösser (iOS `.title3`, Android `titleLarge`)? Unter dem Paar
     /// (gestapelt) immer, daneben nur bei normaler Schrift in Zeilen ab `narrowRow` — sonst bliebe dem
     /// Paar neben Logo, Mini-Chart und Kurs kaum Breite. Wie Android.

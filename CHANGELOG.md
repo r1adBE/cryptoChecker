@@ -15,6 +15,14 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 117)
+
+* Watchlist: right after the start, the «≈ CHF» line with the note on the USDT rate could push pair, name and exchange out of the row. The converted line now takes at most half the row (longer text ends in «…»), the row shows the short note «conversion uncertain» (the full sentence stays for the screen reader), and the conversion is recalculated as soon as the first USDT/USD reading arrives instead of after up to 60 seconds (both platforms).
+* Signed data mirror: the apps and the workflow accept a second, reserve public key; its private key is kept offline, so a lost or leaked signing key can be replaced without an app update (F-29).
+* CI: Kotlin compiler warnings in the app and library sources fail the Android build (ceiling 0, like lint and the iOS release build); three unnecessary safe calls removed.
+* Dependency verification trusts the Gradle sources that Android Studio downloads for the IDE (not part of the build), like the existing sources and javadoc rules.
+* iOS tests: the in-memory test keychain is used only when the host verifiably lacks the keychain entitlement (probe entry), never in an unknown state.
+
 ## 16.2.2 (build 116)
 
 Fixes from the twelfth review round (on build 115):

@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -48,6 +49,8 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
@@ -155,6 +158,8 @@ internal fun RowLeading(
 internal fun RowPrice(
     watch: WatchEntity,
     converted: String?,
+    /** Höchstbreite der ≈ Umrechnung ([DenseRowText.convertedMaxWidth]), länger → «…»; Unspecified = frei (gestapelt). */
+    convertedMaxWidth: Dp = Dp.Unspecified,
     /** Deaktiviert: Kurs in onSurfaceVariant (nicht abgeblasst), Änderung neutral grau. */
     off: Boolean,
     /** Veraltet: Kurs in onSurfaceVariant statt abgeblasst (mindestens 4.5:1 in hell und dunkel). */
@@ -257,7 +262,8 @@ internal fun RowPrice(
                 style = MaterialTheme.typography.body.amountNumbers(),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,
-                modifier = Modifier.padding(top = 2.dp, end = 4.dp)
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.widthIn(max = convertedMaxWidth).padding(top = 2.dp, end = 4.dp)
             )
         }
     }

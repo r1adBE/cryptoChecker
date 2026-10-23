@@ -194,12 +194,19 @@ extension WatchlistRow {
                 }
                 if let converted {
                     // Wie die Zeitzeile links (`.subheadline`)
-                    Text(converted)
-                        .font(AppFont.amount(.subheadline))
-                        .foregroundStyle(AppColors.onSurfaceVariant)
-                        .lineLimit(1)
-                        .padding(.trailing, 2)
-                        .frame(minHeight: namesEnabled ? line3 : nil, alignment: .trailing)
+                    // Höchstens halbe Zeile (`DenseRowText.convertedMaxWidth`), länger → «…»: sonst drückt die
+                    // Kurs-Spalte (fixedSize) Paar, Name und Börse auf Breite 0 — wie Android
+                    // Gestapelt (Kurs unter dem Paar) frei
+                    let capped = !DenseRowText.stacksTrailing(typeScale)
+                    CappedWidthLayout(maxWidth: capped ? DenseRowText.convertedMaxWidth(rowWidth: Double(rowWidth)) : .infinity) {
+                        Text(converted)
+                            .font(AppFont.amount(.subheadline))
+                            .foregroundStyle(AppColors.onSurfaceVariant)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                    }
+                    .padding(.trailing, 2)
+                    .frame(minHeight: namesEnabled ? line3 : nil, alignment: .trailing)
                 }
             }
         }
@@ -250,5 +257,22 @@ extension WatchlistRow {
     private var flashColor: Color {
         flashUp ? priceColors.up(highContrast: highContrast, inverted: inverted)
             : priceColors.down(highContrast: highContrast, inverted: inverted)
+    }
+}
+
+/// Schlägt dem Inhalt höchstens `maxWidth` vor, auch ohne Vorschlag (die Kurs-Spalte ist `fixedSize`): kurzer Text
+/// bleibt so breit wie er ist, längerer wird mit «…» gekürzt. Rechtsbündig. Wie Android `widthIn(max = …)`.
+struct CappedWidthLayout: Layout {
+    let maxWidth: Double
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        guard let child = subviews.first else { return .zero }
+        let width = min(proposal.width ?? .infinity, CGFloat(maxWidth))
+        return child.sizeThatFits(ProposedViewSize(width: width, height: proposal.height))
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        subviews.first?.place(at: CGPoint(x: bounds.maxX, y: bounds.midY), anchor: .trailing,
+                              proposal: ProposedViewSize(width: bounds.width, height: bounds.height))
     }
 }

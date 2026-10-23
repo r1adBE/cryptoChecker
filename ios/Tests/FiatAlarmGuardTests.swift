@@ -106,7 +106,20 @@ final class FiatAlarmGuardTests: XCTestCase {
         XCTAssertNil(WatchlistConversion.usdtNote(watch("EUR"), target: "CHF", notes: notes))
         XCTAssertNil(WatchlistConversion.usdtNote(watch("USDT"), target: nil, notes: notes))
         let text = WatchlistConversion.text(watch("USDT"), target: "CHF", rates: ["USDT": 0.8], usdtNotes: notes) ?? ""
-        XCTAssertTrue(text.hasSuffix(" · " + L("portfolio_usdt_assumed")), text)
+        // Zeile kurz «Umrechnung unsicher» (passt neben das Paar), VoiceOver der ganze Satz — wie Android
+        XCTAssertTrue(text.hasSuffix(" · " + L("converted_unsure")), text)
+        let spoken = WatchlistConversion.accessibilityText(watch("USDT"), target: "CHF", rates: ["USDT": 0.8],
+                                                           usdtNotes: notes) ?? ""
+        XCTAssertTrue(spoken.hasSuffix(" · " + L("portfolio_usdt_assumed")), spoken)
+        XCTAssertNil(WatchlistConversion.accessibilityText(watch("BTC"), target: "CHF", rates: ["BTC": 0.8],
+                                                           usdtNotes: notes), "unsicher: Zeilentext genügt")
+    }
+
+    /// Erste USDT/USD-Messung beendet das Warten sofort, ohne Vermerk wird normal gewartet — wie Android `usdtMeasured`.
+    func testWaitEndsWhenUsdtMeasured() async {
+        let start = Date()
+        await WatchlistConversion.waitForNextRound(usdtAssumed: true, measured: { true })
+        XCTAssertLessThan(Date().timeIntervalSince(start), 10)
     }
 
     /// Aster «U» (United Stables) zählt 1:1 als USD, anderswo bleibt U ein Coin — wie Android

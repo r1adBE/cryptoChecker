@@ -321,6 +321,11 @@ MANIFEST_VERSION = 1
 # Public key of MIRROR_SIGNING_KEY (ECDSA P-256, SubjectPublicKeyInfo DER, Base64), built into the apps
 PUBLIC_KEY = ("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnyWpdnpqDJUM1yHZQxQKPAcaXyGpbk8HvfNVmnR1"
               "MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw==")
+# Reserve key (F-29): its private part is kept offline by the owner; the apps accept both keys, so the secret can be
+# switched to the reserve key without an app update (DEVELOPMENT.md, "Mirror signing key")
+RESERVE_PUBLIC_KEY = ("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2QmggFHrIqdCNnz8a03ZyaQoet4YwwLdBwy9MP4k"
+                      "lEv3ChD2aFAhLUyH2gs3vk7c4TUuihar2eMy/wx6He+Ltw==")
+PUBLIC_KEYS = (PUBLIC_KEY, RESERVE_PUBLIC_KEY)
 MANIFEST_MAX_AGE_MILLIS = 7 * 24 * 60 * 60 * 1000
 MANIFEST_MAX_BYTES = 64 * 1024
 # Files whose hash may be carried over from the previous signed manifest (old asset stays on the release)
@@ -383,6 +388,9 @@ def openssl_sign(data, key_pem):
 
 
 def openssl_verify(data, signature_der, public_b64):
+    """True if the signature matches public_b64 (one Base64 key, or a tuple/list of keys: any of them)."""
+    if isinstance(public_b64, (tuple, list)):
+        return any(openssl_verify(data, signature_der, key) for key in public_b64)
     with tempfile.TemporaryDirectory() as d:
         pub = _private_file(d, "pub.pem", public_pem(public_b64).encode("ascii"))
         msg = _private_file(d, "msg.bin", data)
@@ -411,7 +419,7 @@ def previous_hashes(previous_dir, public_b64, now_millis):
     return doc["files"]
 
 
-def build_manifest(data_dir, out_dir, key_pem, public_b64=PUBLIC_KEY, previous_dir=None, now_millis=None):
+def build_manifest(data_dir, out_dir, key_pem, public_b64=PUBLIC_KEYS, previous_dir=None, now_millis=None):
     """Writes manifest.json (and manifest.json.sig if the key works) to out_dir; returns "signed"/"unsigned"."""
     now_millis = now_millis if now_millis is not None else int(time.time() * 1000)
     files = {name: sha256_file(os.path.join(data_dir, name)) for name in sorted(os.listdir(data_dir))
@@ -492,10 +500,21 @@ def _selftest_manifest():
             assert build_manifest(data, out3, k, pub, None, now) == "unsigned"
             assert os.path.exists(os.path.join(out3, MANIFEST)) and not os.path.exists(os.path.join(out3, SIGNATURE))
             os.remove(os.path.join(out3, MANIFEST))
+        # Key list (active + reserve, F-29): signed if the secret matches any key, unsigned if it matches none
+        other_der = run("pkey", "-in", os.path.join(d, "o.pem"), "-pubout", "-outform", "DER")
+        other_pub = base64.b64encode(other_der).decode()
+        out4 = os.path.join(d, "out4")
+        assert build_manifest(data, out4, other, (pub, other_pub), None, now) == "signed"
+        sig4 = base64.b64decode(open(os.path.join(out4, SIGNATURE), "rb").read(), validate=True)
+        raw4 = open(os.path.join(out4, MANIFEST), "rb").read()
+        assert openssl_verify(raw4, sig4, (pub, other_pub)) and not openssl_verify(raw4, sig4, (pub,))
+        out5 = os.path.join(d, "out5")
+        assert build_manifest(data, out5, other, (pub,), None, now) == "unsigned"
     assert parse_manifest(b'{"v":true,"created":1,"files":{}}') is None
     assert parse_manifest(b'{"v":1,"created":1,"files":{"a/b":"' + b"0" * 64 + b'"}}') is None
     assert parse_manifest(b'{"v":1,"created":1.5,"files":{}}') is None
-    assert base64.b64decode(PUBLIC_KEY)[:2] == b"\x30\x59"  # SubjectPublicKeyInfo of a P-256 key (91 bytes)
+    # SubjectPublicKeyInfo of a P-256 key (91 bytes); active and reserve key differ
+    assert all(base64.b64decode(k)[:2] == b"\x30\x59" for k in PUBLIC_KEYS) and len(set(PUBLIC_KEYS)) == 2
 
 
 def main():

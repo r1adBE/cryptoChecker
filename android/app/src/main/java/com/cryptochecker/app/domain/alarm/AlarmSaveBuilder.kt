@@ -34,7 +34,7 @@ object AlarmSaveBuilder {
         val referencePrice = when {
             !input.condition.isPercent -> null
             // Prozentalarme messen ab dem Kurs, der beim Anlegen galt.
-            keepReference -> existing?.referencePrice
+            keepReference -> existing.referencePrice
             // Nur ein frischer Kurs taugt als Bezug; sonst setzt ihn die nächste Abfrage
             else -> input.freshReference
         }
@@ -44,7 +44,7 @@ object AlarmSaveBuilder {
             input.condition == AlarmCondition.VOLUME_SPIKE ->
                 existing?.takeIf { it.condition == AlarmCondition.VOLUME_SPIKE }?.referenceAt ?: 0L
             input.condition != AlarmCondition.MOVE_PERCENT_WINDOW -> 0L
-            keepReference -> existing?.referenceAt ?: 0L
+            keepReference -> existing.referenceAt
             referencePrice != null -> input.now
             else -> 0L
         }

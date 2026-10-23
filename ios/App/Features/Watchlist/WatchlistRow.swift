@@ -34,6 +34,8 @@ struct WatchlistRow: View {
     var hasActivity = false
     /// Kurs in der Umrechnungswährung, z. B. «≈ 61’234 CHF»; nil = nichts zeigen.
     var converted: String? = nil
+    /// VoiceOver-Fassung von `converted` (ganzer Vermerk statt der kurzen Zeile); nil = `converted`.
+    var convertedA11y: String? = nil
     /// Mini-Chart (24 h) laden und zeigen — Einstellung «Mini-Chart in der Merkliste».
     var sparklineEnabled = false
     /// «Erst-Hinzufügen»: Position der Zeile im Moment (Versatz 90 ms je Zeile); nil = keiner.

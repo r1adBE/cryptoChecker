@@ -107,6 +107,8 @@ internal fun WatchRow(
     onActivityClick: () -> Unit = {},
     /** Kurs in der Umrechnungswährung, z. B. «≈ 61’234 CHF»; null = nichts zeigen. */
     converted: String? = null,
+    /** Screenreader-Fassung von [converted] (ganzer Vermerk statt der kurzen Zeile); null = [converted]. */
+    convertedA11y: String? = null,
     /** 24-Stunden-Verlauf (Schlusskurse) für das Mini-Chart; null = keines zeigen. */
     sparkline: List<Double>? = null,
     /** Börse des Mini-Charts, falls nicht die eigene: im Screenreader-Satz «Chart: Binance»; null = eigene. */
@@ -211,7 +213,7 @@ internal fun WatchRow(
             changeMarker?.let { stringResource(R.string.change_candle_source, it) },
             if (markPrice) stringResource(R.string.watch_price_mark_fallback) else null,
             if (hourlyPrice) stringResource(R.string.watch_price_hourly) else null,
-            converted?.let { stringResource(R.string.a11y_converted, it.removePrefix("≈ ")) },
+            (convertedA11y ?: converted)?.let { stringResource(R.string.a11y_converted, it.removePrefix("≈ ")) },
             sparkline?.takeIf { it.size >= 2 }?.let { A11yText.chart(context, chartPeriod, it) },
             chartSource?.takeIf { sparkline != null && sparkline.size >= 2 }?.let { stringResource(R.string.watch_row_source_chart, it) },
             watch.note?.let { stringResource(R.string.a11y_note, it) },
@@ -301,6 +303,7 @@ internal fun WatchRow(
                 RowPrice(
                     watch = watch,
                     converted = converted,
+                    convertedMaxWidth = if (stacked) Dp.Unspecified else DenseRowText.convertedMaxWidth(rowWidth).dp,
                     off = off,
                     stale = stale,
                     reveal = motion.priceReveal,

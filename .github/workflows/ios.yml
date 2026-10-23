@@ -2,7 +2,7 @@
 # unit tests (target CryptoCheckerTests, incl. the shared Android/iOS cases in Tests/Parity)
 # and the UI tests of the main flows (target CryptoCheckerUITests: add a coin, price alarm,
 # CSV import, backup — app started with -uiTesting: empty storage, fake exchange answers).
-# Runs automatically when ios/ changes (pushes to main and pull requests) and by hand
+# Runs on every pull request, on pushes to main when ios/ changes, and by hand
 # (Actions -> iOS -> Run workflow); macOS runners are slow, so Android-only changes skip it.
 # Signing, archiving and uploading happen locally in Xcode.
 name: iOS

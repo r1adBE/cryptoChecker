@@ -100,7 +100,9 @@ internal class WatchlistLiveFlows(
     private val convertRates: StateFlow<Map<String, Double>> = combine(
         conversionSetting,
         quoteCurrencies,
-    ) { setting, quotes -> setting to quotes }
+        // Erste frische USDT/USD-Messung nach dem Start: sofort neu rechnen (Faktor und Vermerk «Umrechnung unsicher»)
+        currencyConverter.usdtMeasured(),
+    ) { setting, quotes, _ -> setting to quotes }
         .transformLatest { (setting, quotes) ->
             val (show, target) = setting
             val wanted = quotes.filterNot { CurrencyConversion.sameCurrency(it, target) }

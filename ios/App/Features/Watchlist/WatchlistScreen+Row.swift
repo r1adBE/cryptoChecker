@@ -43,6 +43,8 @@ extension WatchlistScreen {
                 hasActivity: signals[watch.id] != nil,
                 converted: WatchlistConversion.text(shown, target: target, rates: rates, fxTimes: fxTimes,
                                                     usdtNotes: usdtNotes, now: now),
+                convertedA11y: WatchlistConversion.accessibilityText(shown, target: target, rates: rates,
+                                                                     fxTimes: fxTimes, usdtNotes: usdtNotes, now: now),
                 // Nicht mehr gehandelt: kein Mini-Chart
                 sparklineEnabled: sparklines,
                 celebrationIndex: celebrating[watch.id],

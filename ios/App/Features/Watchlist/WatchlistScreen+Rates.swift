@@ -87,7 +87,7 @@ extension WatchlistScreen {
             convertFxTimes = CurrencyConverter.staleFxTimes(quotes: quotes, target: target)
             // USDT/USD: angenommen (keine Messung) bzw. unsicher (nur über USDC) — Vermerk an der Zeile
             convertUsdtNotes = CurrencyConverter.usdtNotes(quotes: quotes, target: target)
-            try? await Task.sleep(nanoseconds: WatchlistConversion.refreshNanos)
+            await WatchlistConversion.waitForNextRound(usdtAssumed: convertUsdtNotes.values.contains(.ASSUMED))
         }
     }
 }
