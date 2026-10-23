@@ -112,6 +112,18 @@ final class AddressBalanceTests: XCTestCase {
         }
     }
 
+    /// Während des Abrufs vom Nutzer fällig gemacht: Ergebnis verwerfen (Single-Flight, wie Android).
+    func testResetDuringFetch() throws {
+        let d = try XCTUnwrap(try data()["resetDuringFetch"] as? [String: Any])
+        let cases = S.list(d["cases"])
+        XCTAssertFalse(cases.isEmpty)
+        for c in cases {
+            let reset = AddressBalance.resetDuringFetch(currentAttempt: int64(c["current"]),
+                                                        snapshotAttempt: int64(c["snapshot"]))
+            XCTAssertEqual(reset, c["reset"] as? Bool, "reset: \(c)")
+        }
+    }
+
     func testHoldings() throws {
         let h = try XCTUnwrap(try data()["holdings"] as? [String: Any])
         let list = S.list(h["addresses"]).map {

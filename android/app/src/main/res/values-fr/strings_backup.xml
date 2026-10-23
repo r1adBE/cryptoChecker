@@ -44,7 +44,7 @@
         <item quantity="other">%d entrées de la sauvegarde (portefeuille ou alertes) sont invalides et ne seront pas importées.</item>
     </plurals>
     <string name="backup_restore_newer_version">Cette sauvegarde provient d’une version plus récente de l’app – mets d’abord l’app à jour. Rien n’a été importé.</string>
-    <string name="backup_restore_unencrypted_warning">Cette sauvegarde n’est pas chiffrée – vérifie qu’elle vient bien de toi. Les réglages seront appliqués, sauf les changements qui réduisent la protection (verrouillage du portefeuille, serveur Bitcoin perso, masquer les montants, sauvegarde système).</string>
+    <string name="backup_restore_unencrypted_warning">Cette sauvegarde n’est pas chiffrée – vérifie qu’elle vient bien de toi. Les réglages seront appliqués, sauf les changements qui réduisent la protection (Verrouillage du portefeuille, Serveur perso pour les adresses, Masquer les montants, Portefeuille dans la sauvegarde système).</string>
     <string name="backup_restored">Restauré : %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alerte</item>

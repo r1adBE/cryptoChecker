@@ -12533,5 +12533,35 @@
         "staleTokens": []
       }
     ]
+  },
+  "resetDuringFetch": {
+    "_comment": "AddressBalance.resetDuringFetch(current, snapshot): waehrend des Abrufs vom Nutzer faellig gemacht (lastAttempt jetzt 0, im Abzug != 0) -> Ergebnis verwerfen, Adresse bleibt faellig. Sonst speichern (auch nie versucht: Abzug 0).",
+    "cases": [
+      {
+        "current": 0,
+        "snapshot": 99000000,
+        "reset": true
+      },
+      {
+        "current": 0,
+        "snapshot": 0,
+        "reset": false
+      },
+      {
+        "current": 99000000,
+        "snapshot": 99000000,
+        "reset": false
+      },
+      {
+        "current": 99500000,
+        "snapshot": 99000000,
+        "reset": false
+      },
+      {
+        "current": 0,
+        "snapshot": 1,
+        "reset": true
+      }
+    ]
   }
 }

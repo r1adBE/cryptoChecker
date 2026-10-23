@@ -36,14 +36,14 @@
     <string name="backup_plain_contents_addresses">Mentett tárcacímek és xpub-kulcsok egyenlegelőzménnyel és bekerülési értékkel</string>
     <string name="backup_plain_contents_base">Figyelőlista jegyzetekkel, csoportokkal és állományokkal, riasztások, kedvencek és beállítások</string>
     <string name="backup_plain_contents_portfolio">Portfólió: tranzakciók mennyiségekkel és árakkal</string>
-    <string name="backup_restore_app_lock_kept">A portfólió zárolása bekapcsolva marad – titkosítatlan mentés nem kapcsolhatja ki.</string>
+    <string name="backup_restore_app_lock_kept">A Portfóliózár bekapcsolva marad – titkosítatlan mentés nem kapcsolhatja ki.</string>
     <string name="backup_restore_confirm">Az importálás a mentésre cseréli a listát (jegyzetekkel és csoportokkal), a riasztásokat, kedvenceket, a portfóliót és a beállításokat.</string>
     <plurals name="backup_restore_invalid">
         <item quantity="one">A mentés %d bejegyzése (portfólió vagy riasztás) érvénytelen, nem lesz importálva.</item>
         <item quantity="other">A mentés %d bejegyzése (portfólió vagy riasztások) érvénytelen, nem lesznek importálva.</item>
     </plurals>
     <string name="backup_restore_newer_version">Ez a mentés egy újabb alkalmazásverzióból származik – előbb frissítsd az alkalmazást. Semmi sem került importálásra.</string>
-    <string name="backup_restore_unencrypted_warning">Ez a mentés nincs titkosítva – ellenőrizd, hogy tőled származik. A beállítások átkerülnek – kivéve a védelmet csökkentő változásokat (portfóliózár, saját Bitcoin-szerver, összegek elrejtése, rendszermentés).</string>
+    <string name="backup_restore_unencrypted_warning">Ez a mentés nincs titkosítva – ellenőrizd, hogy tőled származik. A beállítások átkerülnek – kivéve a védelmet csökkentő változásokat (Portfóliózár, Saját szerver a címekhez, Összegek elrejtése, Portfólió a rendszermentésben).</string>
     <string name="backup_restored">Visszaállítva: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d riasztás</item>

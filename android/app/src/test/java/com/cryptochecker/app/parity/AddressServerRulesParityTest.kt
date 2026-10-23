@@ -26,7 +26,7 @@ class AddressServerRulesParityTest {
         for (c in cases("clamp")) {
             val output = AddressServerRules.clamp(c["input"] as String)
             assertEquals(c["output"], output)
-            // Gekürzte Eingabe gilt nie still als gültig: 201/250 Zeichen → INVALID, genau 200 → gültig
+            // Gekürzte Eingabe gilt nie still als gültig: 201/250 Zeichen → INVALID, genau 200 → gültig (auch nach führendem Leerraum)
             assertEquals("Länge ${output.length}", c["problem"], AddressServer.check(output).problem?.name)
         }
     }

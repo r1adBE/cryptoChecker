@@ -16,8 +16,8 @@ enum MirrorManifest {
     static let signatureURL = DataMirror.base + signatureFile
 
     /// Öffentlicher Schlüssel zu MIRROR_SIGNING_KEY (SubjectPublicKeyInfo, DER, Base64); Wechsel: DEVELOPMENT.md.
-    static let publicKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEap5aFGMac2zZpTaPRry17dQxVQe+tG95C7aIo+cK"
-        + "d9gtm8em3ZZeLFpTD6yALgH0HTiZxN6p7Z7BHyDSFils6g=="
+    static let publicKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnyWpdnpqDJUM1yHZQxQKPAcaXyGpbk8HvfNVmnR1"
+        + "MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw=="
 
     /// Älter → verworfen (die Action läuft stündlich).
     static let maxAgeMillis: Int64 = 7 * 24 * 60 * 60 * 1000

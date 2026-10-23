@@ -726,7 +726,8 @@ the public key into `MirrorManifest.kt`, `MirrorManifest.swift` and `productionP
 `MIRROR_SIGNING_KEY` with the new private key and, at the same time, `PUBLIC_KEY` in `mirror_data.py` (the workflow
 checks its own signature against it and otherwise publishes unsigned); older app versions then ignore the mirror and
 use the providers directly. If the private key leaked, replace the secret at once and ship the new public key quickly.
-Keep the private key file offline; never commit it.
+Keep the private key file offline; never commit it. Rotated in build 113 (the previous private key was lost; no app
+with the old key was released).
 
 **CoinGecko is never mirrored.** The CoinGecko API terms forbid redistributing and storing their
 data, so `global.txt`, `coins30.txt` and `coins40.txt` were removed in Build 42 (the workflow deletes
@@ -1077,9 +1078,14 @@ the tests named here.
   iOS `PortfolioRestoreNotice`, remembered per file so the same file is not reported again).
 * **An unencrypted backup cannot weaken protection** (build 45). Importing a backup without a
   password shows a warning before replacing (`backup_restore_unencrypted_warning`: check that it comes
-  from you). Its settings are applied, but it can never turn the portfolio lock **off**: if the lock
-  is on, it stays on and the result says so (`backup_restore_app_lock_kept`, `appLockKept`). An
-  encrypted backup restores the lock setting as stored.
+  from you; it names the four protected settings with their exact labels — `BackupUnencryptedWarningTest`).
+  Its settings are applied, except four changes that would lower protection (`BackupRestorePolicy`, Kotlin and
+  Swift): it never turns the portfolio lock **off** — if the lock is on, it stays on and the result says so
+  (`appLock`, `backup_restore_app_lock_kept`, `appLockKept`); it never turns «Hide amounts» **off**
+  (`hideAmounts`); it never turns «Portfolio in system backup» **on** (`systemBackup`); and it never sets,
+  replaces or removes the own Bitcoin server (`AddressServer.restored`; the result names a kept server,
+  `addressServerNote` KEPT → `backup_restore_server_kept`). An encrypted backup restores all four as stored
+  (the lock turns on only if the device can authenticate; an invalid server value is ignored).
 * **iOS `portfolio.json` is never overwritten blind.** `PortfolioStore.loadChecked` tells a missing
   file (empty portfolio) from an unreadable or partly unreadable one (`PortfolioFile.dropped`).
   `AppData` re-reads before every change (`currentPortfolioFile`) and, if still unreadable, keeps a
@@ -2248,6 +2254,8 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 113: `AddressBalance.resetDuringFetch` (+ `Update.snapshotAttempt`), `BackupResultPresentation.displayWidth` / font scale /
+  `canPresent`, iOS `ToastMessage`, `BackupUnencryptedWarningTest`, mirror signing key rotated (`MirrorManifest`, `mirror_data.py`).
 * Build 112: `singleFlightRefresh` / `AddressRefreshGate`, `AddressServerTestRun`, `BackupResultPresentation` (+ `backup_result_dialog.json`),
   `DialogText` + `DialogScrollGuardTest`, `mirrorLoader` / `loadMirrorMeta` tests, environment `mirror-signing`, split dependency graph jobs.
 * Build 111: `AddressServerRules` (+ `address_server_ui.json`), `BackupRestorePolicy.addressServerNote`, `SettingsRestoreNotes`,

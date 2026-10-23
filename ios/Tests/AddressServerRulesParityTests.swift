@@ -16,7 +16,7 @@ final class AddressServerRulesParityTests: XCTestCase {
         for c in try cases("clamp") {
             let output = AddressServerRules.clamp(try XCTUnwrap(c["input"] as? String))
             XCTAssertEqual(output, c["output"] as? String)
-            // Gekürzte Eingabe gilt nie still als gültig: 201/250 Zeichen → INVALID, genau 200 → gültig
+            // Gekürzte Eingabe gilt nie still als gültig: 201/250 Zeichen → INVALID, genau 200 → gültig (auch nach führendem Leerraum)
             XCTAssertEqual(AddressServer.check(output).problem?.rawValue, c["problem"] as? String, "Länge \(output.count)")
         }
     }

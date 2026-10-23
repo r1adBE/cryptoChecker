@@ -45,6 +45,30 @@ class AddressServerTestRunTest {
     }
 
     @Test
+    fun lateResultOfOldUrlDoesNotAppearAfterResetAndNewUrl() = runTest {
+        val other = "https://other.example"
+        val answers = listOf(CompletableDeferred<Long?>(), CompletableDeferred())
+        var calls = 0
+        val run = AddressServerTestRun { withContext(NonCancellable) { answers[calls++].await() } }
+
+        run.start(backgroundScope, url)
+        runCurrent()
+        run.reset()
+        run.start(backgroundScope, other)
+        runCurrent()
+        assertEquals(2, calls)
+
+        // Spätes Ok der alten URL: weder Ok(url) noch eine Änderung an Running(other)
+        answers[0].complete(111)
+        runCurrent()
+        assertEquals(AddressServerTest.Running(other), run.state.value)
+
+        answers[1].complete(222)
+        runCurrent()
+        assertEquals(AddressServerTest.Ok(other, 222), run.state.value)
+    }
+
+    @Test
     fun resultOfCurrentTestIsShown() = runTest {
         val run = AddressServerTestRun { null }
         run.start(backgroundScope, url)

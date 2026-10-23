@@ -181,6 +181,12 @@ enum AddressBalance {
         return elapsed >= (force ? minForcedMillis : cacheMillis)
     }
 
+    /// Während des Abrufs vom Nutzer fällig gemacht («Tokens mitzählen» an, neues EVM-Netz: lastAttempt 0), der Abzug
+    /// war schon versucht: Ergebnis verwerfen — es gilt der alten Einstellung, die Adresse bleibt fällig. Wie Android.
+    static func resetDuringFetch(currentAttempt: Int64, snapshotAttempt: Int64) -> Bool {
+        currentAttempt == 0 && snapshotAttempt != 0
+    }
+
     /// Anbieter für die Herkunftsangabe: «mempool.space», «publicnode.com», «llamarpc.com».
     static func providerName(_ hostOrUrl: String) -> String {
         var host = hostOrUrl.hasPrefix("https://") ? String(hostOrUrl.dropFirst(8)) : hostOrUrl

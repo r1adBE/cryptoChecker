@@ -72163,7 +72163,7 @@
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قفل سبد روشن می‌ماند – پشتیبان رمزنشده نمی‌تواند آن را خاموش کند."
+            "value" : "قفل پرتفوی روشن می‌ماند – پشتیبان رمزنشده نمی‌تواند آن را خاموش کند."
           }
         },
         "fi" : {
@@ -72181,7 +72181,7 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נעילת התיק נשארת פעילה – גיבוי לא מוצפן לא יכול לכבות אותה."
+            "value" : "נעילת תיק השקעות נשארת פעילה – גיבוי לא מוצפן לא יכול לכבות אותה."
           }
         },
         "hi" : {
@@ -72193,7 +72193,7 @@
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A portfólió zárolása bekapcsolva marad – titkosítatlan mentés nem kapcsolhatja ki."
+            "value" : "A Portfóliózár bekapcsolva marad – titkosítatlan mentés nem kapcsolhatja ki."
           }
         },
         "id" : {
@@ -72205,7 +72205,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Il blocco del portafoglio resta attivo – un backup non cifrato non può disattivarlo."
+            "value" : "Il «Blocco portafoglio» resta attivo – un backup non cifrato non può disattivarlo."
           }
         },
         "ja" : {
@@ -72241,7 +72241,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O bloqueio do portefólio mantém-se – uma cópia não encriptada não o pode desativar."
+            "value" : "O bloqueio do portfólio mantém-se – uma cópia não encriptada não o pode desativar."
           }
         },
         "pt-BR" : {
@@ -72277,7 +72277,7 @@
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ล็อกพอร์ตยังเปิดอยู่ – ข้อมูลสำรองที่ไม่เข้ารหัสปิดไม่ได้"
+            "value" : "ล็อกพอร์ตโฟลิโอยังเปิดอยู่ – ข้อมูลสำรองที่ไม่เข้ารหัสปิดไม่ได้"
           }
         },
         "tr" : {
@@ -75054,187 +75054,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "هذه النسخة غير مشفرة – تأكد أنها منك. ستُطبَّق الإعدادات – باستثناء التغييرات التي تُضعف الحماية (قفل المحفظة، خادم بيتكوين الخاص، إخفاء المبالغ، نسخ النظام الاحتياطي)."
+            "value" : "هذه النسخة غير مشفرة – تأكد أنها منك. ستُطبَّق الإعدادات – باستثناء التغييرات التي تُضعف الحماية (قفل المحفظة، خادم خاص للعناوين، إخفاء المبالغ، المحفظة في نسخ النظام الاحتياطي)."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tato záloha není šifrovaná – ověř, že je tvoje. Nastavení se převezmou – kromě změn, které snižují ochranu (zámek portfolia, vlastní server pro Bitcoin, skrytí částek, systémová záloha)."
+            "value" : "Tato záloha není šifrovaná – ověř, že je tvoje. Nastavení se převezmou – kromě změn, které snižují ochranu (Zámek portfolia, Vlastní server pro adresy, Skrýt částky, Portfolio v systémové záloze)."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Denne sikkerhedskopi er ikke krypteret – tjek, at den er din. Indstillinger overføres – undtagen ændringer, der sænker beskyttelsen (porteføljelås, egen Bitcoin-server, skjul beløb, systembackup)."
+            "value" : "Denne sikkerhedskopi er ikke krypteret – tjek, at den er din. Indstillinger overføres – undtagen ændringer, der sænker beskyttelsen (Porteføljelås, Egen server til adresser, Skjul beløb, Portefølje i systembackup)."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diese Sicherung ist nicht verschlüsselt – prüfe, ob sie von dir stammt. Einstellungen werden übernommen – ausser Änderungen, die den Schutz senken (Portfolio-Sperre, eigener Bitcoin-Server, Beträge verbergen, Systemsicherung)."
+            "value" : "Diese Sicherung ist nicht verschlüsselt – prüfe, ob sie von dir stammt. Einstellungen werden übernommen – ausser Änderungen, die den Schutz senken (Portfolio-Sperre, Eigener Server für Adressen, Beträge verbergen, Portfolio in Systemsicherung)."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Αυτό το αντίγραφο δεν είναι κρυπτογραφημένο – βεβαιώσου ότι είναι δικό σου. Οι ρυθμίσεις θα εφαρμοστούν – εκτός από αλλαγές που μειώνουν την προστασία (κλείδωμα χαρτοφυλακίου, δικός σου διακομιστής Bitcoin, απόκρυψη ποσών, αντίγραφο συστήματος)."
+            "value" : "Αυτό το αντίγραφο δεν είναι κρυπτογραφημένο – βεβαιώσου ότι είναι δικό σου. Οι ρυθμίσεις θα εφαρμοστούν – εκτός από αλλαγές που μειώνουν την προστασία (Κλείδωμα χαρτοφυλακίου, Δικός σου διακομιστής για διευθύνσεις, Απόκρυψη ποσών, Χαρτοφυλάκιο στο αντίγραφο συστήματος)."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This backup is not encrypted – check that it comes from you. Settings will be applied – except changes that lower protection (portfolio lock, own Bitcoin server, hide amounts, system backup)."
+            "value" : "This backup is not encrypted – check that it comes from you. Settings will be applied – except changes that lower protection (Portfolio lock, Own server for addresses, Hide amounts, Portfolio in system backup)."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Esta copia no está cifrada: comprueba que es tuya. Se aplicarán los ajustes, salvo los cambios que reducen la protección (bloqueo de cartera, servidor propio de Bitcoin, ocultar importes, copia del sistema)."
+            "value" : "Esta copia no está cifrada: comprueba que es tuya. Se aplicarán los ajustes, salvo los cambios que reducen la protección (Bloqueo de la cartera, Servidor propio para direcciones, Ocultar importes, Cartera en la copia del sistema)."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "این پشتیبان رمزگذاری نشده است – مطمئن شو که مال توست. تنظیمات اعمال می‌شوند – به‌جز تغییراتی که حفاظت را کم می‌کنند (قفل سبد، سرور بیت‌کوین خودت، پنهان کردن مبالغ، پشتیبان سیستم)."
+            "value" : "این پشتیبان رمزگذاری نشده است – مطمئن شو که مال توست. تنظیمات اعمال می‌شوند – به‌جز تغییراتی که حفاظت را کم می‌کنند (قفل پرتفوی، سرور خودت برای آدرس‌ها، پنهان کردن مبالغ، پرتفوی در پشتیبان سیستم)."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tätä varmuuskopiota ei ole salattu – varmista, että se on sinun. Asetukset otetaan käyttöön – paitsi muutokset, jotka heikentävät suojaa (salkun lukitus, oma Bitcoin-palvelin, summien piilotus, järjestelmän varmuuskopio)."
+            "value" : "Tätä varmuuskopiota ei ole salattu – varmista, että se on sinun. Asetukset otetaan käyttöön – paitsi muutokset, jotka heikentävät suojaa (Salkun lukitus, Oma palvelin osoitteille, Piilota summat, Salkku järjestelmän varmuuskopioon)."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cette sauvegarde n’est pas chiffrée – vérifie qu’elle vient bien de toi. Les réglages seront appliqués, sauf les changements qui réduisent la protection (verrouillage du portefeuille, serveur Bitcoin perso, masquer les montants, sauvegarde système)."
+            "value" : "Cette sauvegarde n’est pas chiffrée – vérifie qu’elle vient bien de toi. Les réglages seront appliqués, sauf les changements qui réduisent la protection (Verrouillage du portefeuille, Serveur perso pour les adresses, Masquer les montants, Portefeuille dans la sauvegarde système)."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הגיבוי הזה לא מוצפן – ודאו שהוא שלכם. ההגדרות יוחלו – למעט שינויים שמפחיתים את ההגנה (נעילת תיק, שרת הביטקוין שלכם, הסתרת סכומים, גיבוי המערכת)."
+            "value" : "הגיבוי הזה לא מוצפן – ודאו שהוא שלכם. ההגדרות יוחלו – למעט שינויים שמפחיתים את ההגנה (נעילת תיק השקעות, שרת משלכם לכתובות, הסתרת סכומים, תיק השקעות בגיבוי המערכת)."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "यह बैकअप एन्क्रिप्टेड नहीं है – जाँच लो कि यह तुम्हारा है। सेटिंग लागू होंगी – सिवाय उन बदलावों के जो सुरक्षा घटाते हैं (पोर्टफ़ोलियो लॉक, अपना Bitcoin सर्वर, राशियाँ छिपाना, सिस्टम बैकअप)।"
+            "value" : "यह बैकअप एन्क्रिप्टेड नहीं है – जाँच लो कि यह तुम्हारा है। सेटिंग लागू होंगी – सिवाय उन बदलावों के जो सुरक्षा घटाते हैं (पोर्टफ़ोलियो लॉक, पतों के लिए अपना सर्वर, राशियाँ छिपाओ, सिस्टम बैकअप में पोर्टफ़ोलियो)।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ez a mentés nincs titkosítva – ellenőrizd, hogy tőled származik. A beállítások átkerülnek – kivéve a védelmet csökkentő változásokat (portfóliózár, saját Bitcoin-szerver, összegek elrejtése, rendszermentés)."
+            "value" : "Ez a mentés nincs titkosítva – ellenőrizd, hogy tőled származik. A beállítások átkerülnek – kivéve a védelmet csökkentő változásokat (Portfóliózár, Saját szerver a címekhez, Összegek elrejtése, Portfólió a rendszermentésben)."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cadangan ini tidak dienkripsi – pastikan itu milikmu. Pengaturan akan diterapkan – kecuali perubahan yang menurunkan perlindungan (kunci portofolio, server Bitcoin sendiri, sembunyikan jumlah, cadangan sistem)."
+            "value" : "Cadangan ini tidak dienkripsi – pastikan itu milikmu. Pengaturan akan diterapkan – kecuali perubahan yang menurunkan perlindungan (Kunci portofolio, Server sendiri untuk alamat, Sembunyikan jumlah, Portofolio di cadangan sistem)."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Questo backup non è cifrato – verifica che provenga da te. Le impostazioni verranno applicate, tranne le modifiche che riducono la protezione (blocco del portafoglio, server Bitcoin personale, nascondi importi, backup di sistema)."
+            "value" : "Questo backup non è cifrato – verifica che provenga da te. Le impostazioni verranno applicate, tranne le modifiche che riducono la protezione (Blocco portafoglio, Server personale per indirizzi, Nascondi importi, Portafoglio nel backup di sistema)."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "このバックアップは暗号化されていません。自分のものか確認してください。設定は反映されますが、保護を弱める変更（ポートフォリオロック、独自の Bitcoin サーバー、金額を隠す、システムバックアップ）は反映されません。"
+            "value" : "このバックアップは暗号化されていません。自分のものか確認してください。設定は反映されますが、保護を弱める変更（ポートフォリオのロック、アドレス用の独自サーバー、金額を隠す、ポートフォリオをシステムバックアップに含める）は反映されません。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "이 백업은 암호화되지 않았습니다. 본인의 것인지 확인하세요. 설정은 적용되지만, 보호를 낮추는 변경(포트폴리오 잠금, 비트코인 자체 서버, 금액 숨기기, 시스템 백업)은 적용되지 않습니다."
+            "value" : "이 백업은 암호화되지 않았습니다. 본인의 것인지 확인하세요. 설정은 적용되지만, 보호를 낮추는 변경(포트폴리오 잠금, 주소용 자체 서버, 금액 숨기기, 시스템 백업에 포트폴리오 포함)은 적용되지 않습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Denne sikkerhetskopien er ikke kryptert – sjekk at den er din. Innstillinger overføres – unntatt endringer som svekker beskyttelsen (porteføljelås, egen Bitcoin-server, skjul beløp, systemsikkerhetskopi)."
+            "value" : "Denne sikkerhetskopien er ikke kryptert – sjekk at den er din. Innstillinger overføres – unntatt endringer som svekker beskyttelsen (Porteføljelås, Egen server for adresser, Skjul beløp, Portefølje i systemsikkerhetskopi)."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deze back-up is niet versleuteld – controleer of hij van jou is. Instellingen worden overgenomen – behalve wijzigingen die de bescherming verlagen (portfoliovergrendeling, eigen Bitcoin-server, bedragen verbergen, systeemback-up)."
+            "value" : "Deze back-up is niet versleuteld – controleer of hij van jou is. Instellingen worden overgenomen – behalve wijzigingen die de bescherming verlagen (Portfolio-vergrendeling, Eigen server voor adressen, Bedragen verbergen, Portfolio in systeemback-up)."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ta kopia nie jest zaszyfrowana – sprawdź, czy pochodzi od ciebie. Ustawienia zostaną przejęte – z wyjątkiem zmian obniżających ochronę (blokada portfela, własny serwer Bitcoin, ukrywanie kwot, kopia systemowa)."
+            "value" : "Ta kopia nie jest zaszyfrowana – sprawdź, czy pochodzi od ciebie. Ustawienia zostaną przejęte – z wyjątkiem zmian obniżających ochronę (Blokada portfela, Własny serwer dla adresów, Ukryj kwoty, Portfel w kopii systemowej)."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Esta cópia não está encriptada – confirma que é tua. As definições serão aplicadas, exceto alterações que reduzem a proteção (bloqueio do portefólio, servidor Bitcoin próprio, ocultar montantes, cópia do sistema)."
+            "value" : "Esta cópia não está encriptada – confirma que é tua. As definições serão aplicadas, exceto alterações que reduzem a proteção (Bloqueio do portfólio, Servidor próprio para endereços, Ocultar montantes, Portfólio na cópia do sistema)."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Este backup não está criptografado – confira se ele é seu. As configurações serão aplicadas, exceto mudanças que reduzem a proteção (bloqueio do portfólio, servidor Bitcoin próprio, ocultar valores, backup do sistema)."
+            "value" : "Este backup não está criptografado – confira se ele é seu. As configurações serão aplicadas, exceto mudanças que reduzem a proteção (Bloqueio do portfólio, Servidor próprio para endereços, Ocultar valores, Portfólio no backup do sistema)."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Această copie nu este criptată – verifică dacă e a ta. Setările vor fi preluate – cu excepția modificărilor care reduc protecția (blocarea portofoliului, serverul Bitcoin propriu, ascunderea sumelor, copia de sistem)."
+            "value" : "Această copie nu este criptată – verifică dacă e a ta. Setările vor fi preluate – cu excepția modificărilor care reduc protecția (Blocarea portofoliului, Server propriu pentru adrese, Ascunde sumele, Portofoliu în copia de sistem)."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Эта копия не зашифрована – убедись, что она твоя. Настройки будут применены – кроме изменений, снижающих защиту (блокировка портфеля, свой сервер Bitcoin, скрытие сумм, системная копия)."
+            "value" : "Эта копия не зашифрована – убедись, что она твоя. Настройки будут применены – кроме изменений, снижающих защиту (Блокировка портфеля, Свой сервер для адресов, Скрыть суммы, Портфель в системной копии)."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kjo kopje nuk është e enkriptuar – kontrollo që është jotja. Cilësimet zbatohen – përveç ndryshimeve që ulin mbrojtjen (kyçja e portofolit, serveri yt Bitcoin, fshehja e shumave, kopja e sistemit)."
+            "value" : "Kjo kopje nuk është e enkriptuar – kontrollo që është jotja. Cilësimet zbatohen – përveç ndryshimeve që ulin mbrojtjen (Kyçja e portofolit, Server i yti për adresat, Fshih shumat, Portofoli në kopjen e sistemit)."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Den här säkerhetskopian är inte krypterad – kontrollera att den kommer från dig. Inställningar tas över – utom ändringar som sänker skyddet (portföljlås, egen Bitcoin-server, dölj belopp, systemsäkerhetskopia)."
+            "value" : "Den här säkerhetskopian är inte krypterad – kontrollera att den kommer från dig. Inställningar tas över – utom ändringar som sänker skyddet (Portföljlås, Egen server för adresser, Dölj belopp, Portfölj i systemsäkerhetskopia)."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ข้อมูลสำรองนี้ไม่ได้เข้ารหัส – ตรวจสอบว่าเป็นของคุณ การตั้งค่าจะถูกนำไปใช้ ยกเว้นการเปลี่ยนแปลงที่ลดการป้องกัน (ล็อกพอร์ต, เซิร์ฟเวอร์ Bitcoin ของคุณเอง, ซ่อนจำนวนเงิน, การสำรองของระบบ)"
+            "value" : "ข้อมูลสำรองนี้ไม่ได้เข้ารหัส – ตรวจสอบว่าเป็นของคุณ การตั้งค่าจะถูกนำไปใช้ ยกเว้นการเปลี่ยนแปลงที่ลดการป้องกัน (ล็อกพอร์ตโฟลิโอ, เซิร์ฟเวอร์ของคุณเองสำหรับที่อยู่, ซ่อนจำนวนเงิน, รวมพอร์ตโฟลิโอในการสำรองของระบบ)"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bu yedek şifreli değil – senden geldiğini kontrol et. Ayarlar uygulanır – korumayı azaltan değişiklikler hariç (portföy kilidi, kendi Bitcoin sunucun, tutarları gizle, sistem yedeği)."
+            "value" : "Bu yedek şifreli değil – senden geldiğini kontrol et. Ayarlar uygulanır – korumayı azaltan değişiklikler hariç (Portföy kilidi, Adresler için kendi sunucun, Tutarları gizle, Portföy sistem yedeğinde)."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ця копія не зашифрована – переконайся, що вона твоя. Налаштування буде застосовано – крім змін, що знижують захист (блокування портфеля, власний сервер Bitcoin, приховування сум, системна копія)."
+            "value" : "Ця копія не зашифрована – переконайся, що вона твоя. Налаштування буде застосовано – крім змін, що знижують захист (Блокування портфеля, Власний сервер для адрес, Сховати суми, Портфель у системній копії)."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bản sao lưu này không được mã hóa – hãy kiểm tra nó là của bạn. Cài đặt sẽ được áp dụng, trừ các thay đổi làm giảm bảo vệ (khóa danh mục, máy chủ Bitcoin riêng, ẩn số tiền, sao lưu hệ thống)."
+            "value" : "Bản sao lưu này không được mã hóa – hãy kiểm tra nó là của bạn. Cài đặt sẽ được áp dụng, trừ các thay đổi làm giảm bảo vệ (Khóa danh mục, Máy chủ riêng cho địa chỉ, Ẩn số tiền, Danh mục trong sao lưu hệ thống)."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "此备份未加密，请确认它来自你。设置会被应用，但降低保护的更改除外（投资组合锁、自有比特币服务器、隐藏金额、系统备份）。"
+            "value" : "此备份未加密，请确认它来自你。设置会被应用，但降低保护的更改除外（投资组合锁、地址专用的自有服务器、隐藏金额、将投资组合纳入系统备份）。"
           }
         }
       }

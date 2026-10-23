@@ -8,9 +8,13 @@ struct BackupSettingsPage: View {
     @EnvironmentObject private var data: AppData
     @ObservedObject private var lock = AppLock.shared
 
-    @State private var toast: String?
+    @State private var toast: ToastMessage?
     /// Ergebnis mit Hinweisen oder langem Text (`BackupResultPresentation`); Mitteilungs-Frage erst nach dem Schliessen.
     @State private var resultDialog: String?
+    /// Ergebnis wartet, bis Rückfrage, Blatt und Dateiauswahl zu sind (`BackupResultPresentation.canPresent`).
+    @State private var pendingResult: String?
+    /// Blatt «Sichern» bzw. Passwort offen, bis sein onDismiss kam (auch während es sich schliesst).
+    @State private var sheetShown = false
     @State private var askAfterResult = false
     @State private var exportDocument: BackupDocument?
     @State private var exporting = false
@@ -27,20 +31,6 @@ struct BackupSettingsPage: View {
     @State private var exportChoice: ExportChoice?
     /// Verschlüsselte Sicherung gewählt: Datei bis zur Passwort-Eingabe.
     @State private var encryptedFile: EncryptedFile?
-
-    private struct ExportOptions: Identifiable {
-        let id = UUID()
-        let defaultProtect: Bool
-    }
-
-    private struct ExportChoice {
-        let password: String?
-    }
-
-    private struct EncryptedFile: Identifiable {
-        let id = UUID()
-        let data: Data
-    }
 
     init() {}
 
@@ -122,9 +112,11 @@ struct BackupSettingsPage: View {
         } message: { Text($0) }
         .sheet(item: $exportOptions, onDismiss: {
             // Gleicher Weg wie bisher (Dateiablage des Systems), nur mit gewähltem Schutz
-            guard let choice = exportChoice else { return }
-            exportChoice = nil
-            export(password: choice.password)
+            if let choice = exportChoice {
+                exportChoice = nil
+                export(password: choice.password)
+            }
+            sheetClosed()
         }) { options in
             BackupExportSheet(defaultProtect: options.defaultProtect) { password in
                 exportChoice = ExportChoice(password: password)
@@ -134,6 +126,7 @@ struct BackupSettingsPage: View {
             // Passwort richtig: Rückfrage «Ersetzen?» erst nach dem Schliessen des Blatts
             // (nicht, wenn unterdessen wieder gesperrt)
             if pendingRestore != nil && !lock.locked { confirmRestore = true }
+            sheetClosed()
         }) { file in
             BackupImportPasswordSheet { password in
                 // Schlüsselableitung (Argon2id 64 MiB bzw. PBKDF2 bei v2, bis wenige s) im Hintergrund — die Oberfläche bleibt bedienbar
@@ -186,29 +179,17 @@ struct BackupSettingsPage: View {
             .accessibilityIdentifier(UiTestTags.backupRestoreConfirm)
             Button(L("action_cancel"), role: .cancel) { pendingRestore = nil }
         } message: { _ in
-            // Ohne Passwort keine Echtheitsprüfung: Herkunft prüfen lassen; ungültige Einträge und solche über den
-            // Grenzen nennen, bevor etwas ersetzt wird, statt sie still wegzulassen (wie Android)
-            let parts: [String] = [
-                L("backup_restore_confirm"),
-                pendingEncrypted ? nil : L("backup_restore_unencrypted_warning"),
-                pendingPreview.invalid > 0 ? L("backup_restore_invalid", count: pendingPreview.invalid) : nil,
-                Self.overLimitsText("backup_restore_over_limits", pairs: pendingPreview.droppedPairs,
-                                    alarms: pendingPreview.droppedAlarms),
-            ].compactMap { $0 }
-            Text(parts.joined(separator: "\n\n"))
+            Text(Self.confirmText(pendingPreview, encrypted: pendingEncrypted))
         }
+        // Wartendes Ergebnis zeigen, sobald Rückfrage bzw. Dateiauswahl zu sind (statt fester Wartezeit)
+        .onChange(of: [confirmRestore, importing, exporting]) { _, _ in showPendingResult() }
+        .onDisappear(perform: leftPage)
         // Wieder gesperrt (Hintergrund-Limit), während ein Blatt oder die Rückfrage offen ist:
         // schliessen wie die Erfassen-Blätter
         .onChange(of: lock.locked) { _, locked in
             if locked { dropOpenDialogs() }
         }
-        #if DEBUG
-        // Ohne Test-Ziel: Prüfwerte v2 und v3 (backup_crypto.json) einmal nachrechnen (gleiche Bytes wie Android)
-        .task {
-            let ok = await Task.detached(priority: .utility) { BackupCrypto.verifyTestVector() }.value
-            assert(ok, "BackupCrypto: Prüfwert weicht von Android ab")
-        }
-        #endif
+        .backupCryptoSelfCheck()
     }
 
     /// Sperre greift wieder: offene Blätter und die Rückfrage schliessen. Nur die Oberfläche vor
@@ -232,6 +213,7 @@ struct BackupSettingsPage: View {
                 PortfolioLockPolicy.backupExportNeedsUnlock(locked: locked, hasPortfolioData: hasPortfolio)
             }
             guard open else { return }
+            sheetShown = true
             exportOptions = ExportOptions(defaultProtect: hasPortfolio)
         }
     }
@@ -295,6 +277,7 @@ struct BackupSettingsPage: View {
         do {
             if try BackupManager.needsPassword(file) {
                 pendingRestore = nil
+                sheetShown = true
                 encryptedFile = EncryptedFile(data: file)
             } else {
                 pendingPreview = try BackupManager.preview(file)
@@ -365,19 +348,38 @@ struct BackupSettingsPage: View {
     /// Meldung mit Schlüssel `key`: lang als Dialog, sonst als Toast (`BackupResultPresentation`, wie Android).
     private func show(_ key: String) {
         let text = L(key)
-        present(text, asDialog: BackupResultPresentation.asDialog(key: key, text: text))
+        present(text, asDialog: BackupResultPresentation.asDialog(key: key, text: text, fontScale: Self.fontScale))
     }
 
     private func present(_ text: String, asDialog: Bool) {
         guard asDialog else {
-            toast = text
+            toast = ToastMessage(text)
             return
         }
-        // Erst nach dem Schliessen von Rückfrage, Blatt oder Dateiauswahl (sonst erscheint der Dialog nicht)
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 600_000_000)
-            resultDialog = text
-        }
+        pendingResult = text
+        showPendingResult()
+    }
+
+    /// Wartendes Ergebnis zeigen, sobald Rückfrage, Blatt, Dateiauswahl und voriges Ergebnis zu sind (sonst erscheint
+    /// der Dialog nicht).
+    private func showPendingResult() {
+        guard let text = pendingResult, BackupResultPresentation.canPresent(
+            confirmOpen: confirmRestore, sheetOpen: sheetShown || exportOptions != nil || encryptedFile != nil,
+            pickerOpen: importing || exporting, resultOpen: resultDialog != nil) else { return }
+        pendingResult = nil
+        resultDialog = text
+    }
+
+    private func sheetClosed() {
+        sheetShown = false
+        showPendingResult()
+    }
+
+    /// Seite verlassen, solange die Mitteilungs-Frage nach dem Ergebnis aussteht: trotzdem fragen (eigenes Fenster).
+    private func leftPage() {
+        guard askAfterResult else { return }
+        askAfterResult = false
+        NotificationPrePrompt.request(.pairsAdded)
     }
 
     private var resultShown: Binding<Bool> {
@@ -390,9 +392,5 @@ struct BackupSettingsPage: View {
         guard askAfterResult else { return }
         askAfterResult = false
         NotificationPrePrompt.request(.pairsAdded)
-    }
-
-    private static func isCancel(_ error: Error) -> Bool {
-        (error as? CocoaError)?.code == .userCancelled
     }
 }

@@ -45,7 +45,7 @@
         <item quantity="other">%d entries in the backup (portfolio or alerts) are invalid and will not be imported.</item>
     </plurals>
     <string name="backup_restore_newer_version">This backup is from a newer app version – update the app first. Nothing was imported.</string>
-    <string name="backup_restore_unencrypted_warning">This backup is not encrypted – check that it comes from you. Settings will be applied – except changes that lower protection (portfolio lock, own Bitcoin server, hide amounts, system backup).</string>
+    <string name="backup_restore_unencrypted_warning">This backup is not encrypted – check that it comes from you. Settings will be applied – except changes that lower protection (Portfolio lock, Own server for addresses, Hide amounts, Portfolio in system backup).</string>
     <string name="backup_restored">Restored: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alert</item>

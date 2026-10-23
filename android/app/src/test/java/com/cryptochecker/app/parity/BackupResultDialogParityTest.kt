@@ -19,7 +19,7 @@ class BackupResultDialogParityTest {
     @Test
     fun entscheidetWieGemeinsameTestfaelle() {
         val cases = fixture["cases"].list()
-        assertTrue(cases.size >= 15)
+        assertTrue(cases.size >= 35)
         for (raw in cases) {
             val c = raw.obj()
             val name = c["description"] as String
@@ -31,6 +31,7 @@ class BackupResultDialogParityTest {
                 droppedAlarms = c["droppedAlarms"].num()!!.toInt(),
                 appLockKept = c["appLockKept"] as Boolean,
                 addressServerNote = note,
+                fontScale = (c["fontScale"].num() ?: 1.0).toFloat(),
             )
             assertEquals(name, c["expected"] as String, if (actual) "dialog" else "toast")
         }
@@ -40,6 +41,19 @@ class BackupResultDialogParityTest {
     fun grenzeUndSchluesselWieGemeinsameTestfaelle() {
         assertEquals(fixture["toastMaxChars"].num()!!.toInt(), BackupResultPresentation.TOAST_MAX_CHARS)
         assertEquals(fixture["longKeys"].list().map { it as String }.toSet(), BackupResultPresentation.LONG_KEYS)
+        val ranges = fixture["wideRanges"].list().map { r -> r.list().map { (it as String).toInt(16) } }
+        assertEquals(ranges, BackupResultPresentation.WIDE_RANGES.map { listOf(it.first, it.last) })
+    }
+
+    /** Breite: schmal 1, breit 2 (auch ausserhalb der BMP); Grenze sinkt mit grösserer Schrift, steigt nie über 80. */
+    @Test
+    fun breiteUndGrenze() {
+        assertEquals(3, BackupResultPresentation.displayWidth("abc"))
+        assertEquals(4, BackupResultPresentation.displayWidth("日本"))
+        assertEquals(2, BackupResultPresentation.displayWidth("\uD840\uDC00"))
+        assertEquals(1, BackupResultPresentation.displayWidth("\uFF71"))
+        assertEquals(80.0, BackupResultPresentation.toastLimit(0.85f), 0.0)
+        assertEquals(40.0, BackupResultPresentation.toastLimit(2f), 0.0)
     }
 
     /** Die langen Fehlermeldungen zeigen genau die Texte, deren Namen in LONG_KEYS stehen. */

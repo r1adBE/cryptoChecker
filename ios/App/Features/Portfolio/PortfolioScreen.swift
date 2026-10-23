@@ -22,7 +22,7 @@ struct PortfolioScreen: View {
     @State var exportOpen = false
     /// Neuer Alarm «Portfolio-Wert» (erscheint in der Alarm-Übersicht).
     @State var alarmOpen = false
-    @State private var toast: String?
+    @State private var toast: ToastMessage?
     /// Banner unten («BTC entfernt» mit «Rückgängig») — wie in der Merkliste.
     @State var banner: WatchlistBannerMessage?
     /// «Portfolio leeren» — Rückfrage.
@@ -152,7 +152,7 @@ struct PortfolioScreen: View {
     private func presentations<V: View>(_ base: V) -> some View {
         base
         .sheet(isPresented: $addressesOpen) {
-            PortfolioAddressSheet(onPortfolioEnabled: { toast = L("portfolio_enabled_banner") })
+            PortfolioAddressSheet(onPortfolioEnabled: { toast = ToastMessage(L("portfolio_enabled_banner")) })
                 .environmentObject(data)
                 .environment(\.appAccent, accent)
                 .presentationDetents([.large])
@@ -212,7 +212,7 @@ struct PortfolioScreen: View {
                 onConfirmTemplate: { data.settings.taxTemplateConfirmed = true },
                 onExported: {
                     exportOpen = false
-                    toast = L("portfolio_export_done")
+                    toast = ToastMessage(L("portfolio_export_done"))
                 }
             )
             .environment(\.appAccent, accent)
@@ -241,7 +241,7 @@ struct PortfolioScreen: View {
         }
         .sheet(item: $csvPreview) { loaded in
             PortfolioCsvImportSheet(loaded: loaded) { count, enabled in
-                toast = enabled ? L("portfolio_enabled_banner") : L("portfolio_csv_import_done", count: count)
+                toast = ToastMessage(enabled ? L("portfolio_enabled_banner") : L("portfolio_csv_import_done", count: count))
             }
             .environmentObject(data)
             .environment(\.appAccent, accent)

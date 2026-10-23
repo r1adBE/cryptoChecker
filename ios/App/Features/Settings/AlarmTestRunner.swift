@@ -9,7 +9,7 @@ struct AlarmTestRunner: ViewModifier {
     let trigger: Int
 
     @EnvironmentObject private var data: AppData
-    @State private var toast: String?
+    @State private var toast: ToastMessage?
     @State private var denied = false
 
     func body(content: Content) -> some View {
@@ -33,7 +33,7 @@ struct AlarmTestRunner: ViewModifier {
         case .sent:
             Haptics.play(.success)
         case .sentDuringQuietHours:
-            toast = L("alarm_test_quiet")
+            toast = ToastMessage(L("alarm_test_quiet"))
         case .denied:
             Haptics.play(.warning)
             denied = true

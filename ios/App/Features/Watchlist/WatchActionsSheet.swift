@@ -68,7 +68,7 @@ struct WatchActionsSheet: View {
     /// «Erneut versuchen» der Vorschau.
     @State var previewReload = 0
     /// Kurzer Hinweis unten im Blatt (z. B. «Sprachausgabe ist an»).
-    @State private var toast: String? = nil
+    @State private var toast: ToastMessage? = nil
     /// Zählt abgelehnte Schalter (Merkliste gesperrt): wertet den body neu aus, damit sie den echten Zustand zeigen — der
     /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
     /// Ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
@@ -127,7 +127,7 @@ struct WatchActionsSheet: View {
             if outcome == .locked { return }
             if outcome == .full {
                 // Merkliste voll (`WatchlistLimits`): nichts angelegt, sagen warum — wie Android
-                toast = WatchlistLimitText.full
+                toast = ToastMessage(WatchlistLimitText.full)
                 Haptics.play(.warning)
             } else if case .added(let id) = outcome {
                 adding = true
@@ -192,7 +192,7 @@ struct WatchActionsSheet: View {
         .background(AppColors.background.ignoresSafeArea())
         .toast($toast)
         // Vorschau nicht übernommen bzw. Paar nicht geändert (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
-        .watchlistLockedHint { toast = $0 }
+        .watchlistLockedHint { toast = ToastMessage($0) }
         // «1 CHF = … Sats»: Faktor zuerst aus dem Zwischenspeicher, sonst frisch (neu bei anderer
         // Quote oder Umrechnungswährung)
         .task(id: "\(watch.quoteAsset)|\(data.settings.portfolioCurrency)|\(Sats.isBitcoin(watch.baseAsset))") {
@@ -259,7 +259,7 @@ struct WatchActionsSheet: View {
                             data.withWatchlistConfirm {
                                 // Sprachausgabe war aus bzw. «Nur Alarme»: jetzt an — kurz sagen, wo man es ändert
                                 if let w = data.watch(currentId), data.setTtsEnabled(w, enabled) {
-                                    toast = L("watchlist_tts_speech_on")
+                                    toast = ToastMessage(L("watchlist_tts_speech_on"))
                                 }
                                 if data.watchlistWritesBlocked { refusedToggles &+= 1 }
                             } cancelled: { refusedToggles &+= 1 }

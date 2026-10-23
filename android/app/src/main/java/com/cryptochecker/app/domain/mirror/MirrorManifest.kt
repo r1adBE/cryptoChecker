@@ -25,8 +25,8 @@ object MirrorManifest {
     const val SIGNATURE_URL = DataMirror.BASE + SIGNATURE_FILE
 
     /** Öffentlicher Schlüssel zu MIRROR_SIGNING_KEY (SubjectPublicKeyInfo, DER, Base64); Wechsel: DEVELOPMENT.md. */
-    const val PUBLIC_KEY = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEap5aFGMac2zZpTaPRry17dQxVQe+tG95C7aIo+cK" +
-        "d9gtm8em3ZZeLFpTD6yALgH0HTiZxN6p7Z7BHyDSFils6g=="
+    const val PUBLIC_KEY = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnyWpdnpqDJUM1yHZQxQKPAcaXyGpbk8HvfNVmnR1" +
+        "MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw=="
 
     /** Älter → verworfen (die Action läuft stündlich). */
     const val MAX_AGE_MILLIS = 7L * 24 * 60 * 60 * 1000

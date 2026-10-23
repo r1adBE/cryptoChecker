@@ -4,7 +4,7 @@
 Marke erreicht ist – ohne Konto.** Dazu Marktüberblick und als Zusatz «Was bewegt sich mit?» (was sich gleichzeitig
 bewegt – keine Ursache) – ohne Prognosen, keine Anlageberatung.
 
-Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 112 – die Build-Nummer steigt mit jedem Stand um eins).
+Native SwiftUI-Version der Android-App Crypto Checker (Version 16.2.2, Build 113 – die Build-Nummer steigt mit jedem Stand um eins).
 Mindestens iOS 17. Die App enthält eine Widget-Erweiterung (WidgetKit).
 
 Der Quellcode ist öffentlich (MIT): <https://github.com/r1adBE/cryptoChecker>, Ordner `ios/`
@@ -678,5 +678,8 @@ erscheint eine klare Meldung (kein Rückfall auf schwächere Parameter). Ältere
 600 000 bzw. 210 000 Durchläufen, ohne AAD) bleiben lesbar. Gemeinsame Prüfwerte: `Tests/Parity/backup_crypto.json`. Ein
 neues Passwort braucht mindestens 12 Zeichen; ein leicht zu erratendes (nur Ziffern, ein wiederholtes Zeichen, häufige
 Folge wie «12345678» oder «passwort») ist für neue Sicherungen gesperrt. Ältere Dateien (damals mindestens 8 Zeichen)
-lassen sich weiter öffnen. Eine Sicherung ohne Passwort zeigt beim Einspielen eine Warnung und kann die
-Portfolio-Sperre nicht ausschalten. Ver- und Entschlüsseln laufen im Hintergrund, «Weiter» bleibt während der Prüfung gesperrt.
+lassen sich weiter öffnen. Eine Sicherung ohne Passwort zeigt beim Einspielen eine Warnung (nennt die vier geschützten
+Einstellungen mit ihren Namen) und senkt nie den Schutz (`BackupRestorePolicy.swift`, gleich wie Android): Sie schaltet die
+Portfolio-Sperre und «Beträge verbergen» nie aus, «Portfolio in Systemsicherung» nie ein und setzt, ersetzt oder löscht
+den eigenen Bitcoin-Server nie; eine beibehaltene Sperre bzw. ein beibehaltener Server steht in der Meldung danach.
+Ver- und Entschlüsseln laufen im Hintergrund, «Weiter» bleibt während der Prüfung gesperrt.

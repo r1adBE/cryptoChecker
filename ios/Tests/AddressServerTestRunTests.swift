@@ -46,6 +46,27 @@ final class AddressServerTestRunTests: XCTestCase {
         XCTAssertEqual(run.state, .ok(url, 222))
     }
 
+    func testSpaetesOkDerAltenUrlErscheintNachNeuerUrlNicht() async {
+        let other = "https://other.example"
+        let server = FakeServer()
+        let run = AddressServerTestRun(load: { _ in await server.load() })
+        let first = run.start(url)
+        await waitFor { server.calls == 1 }
+        run.reset()
+        let second = run.start(other)
+        await waitFor { server.calls == 2 }
+        XCTAssertEqual(run.state, .running(other))
+
+        // Spätes Ok der alten URL: weder .ok(url) noch eine Änderung an .running(other)
+        server.released.insert(1)
+        await first?.value
+        XCTAssertEqual(run.state, .running(other))
+
+        server.released.insert(2)
+        await second?.value
+        XCTAssertEqual(run.state, .ok(other, 222))
+    }
+
     func testZweiterStartWaehrendEinesTestsZaehltNicht() async {
         let server = FakeServer()
         let run = AddressServerTestRun(load: { _ in await server.load() })

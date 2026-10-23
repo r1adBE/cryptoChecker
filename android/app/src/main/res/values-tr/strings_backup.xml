@@ -43,7 +43,7 @@
         <item quantity="other">Yedekteki %d kayıt (portföy veya alarmlar) geçersiz ve içe aktarılmayacak.</item>
     </plurals>
     <string name="backup_restore_newer_version">Bu yedek daha yeni bir uygulama sürümünden – önce uygulamayı güncelle. Hiçbir şey içe aktarılmadı.</string>
-    <string name="backup_restore_unencrypted_warning">Bu yedek şifreli değil – senden geldiğini kontrol et. Ayarlar uygulanır – korumayı azaltan değişiklikler hariç (portföy kilidi, kendi Bitcoin sunucun, tutarları gizle, sistem yedeği).</string>
+    <string name="backup_restore_unencrypted_warning">Bu yedek şifreli değil – senden geldiğini kontrol et. Ayarlar uygulanır – korumayı azaltan değişiklikler hariç (Portföy kilidi, Adresler için kendi sunucun, Tutarları gizle, Portföy sistem yedeğinde).</string>
     <string name="backup_restored">Geri yüklendi: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarm</item>

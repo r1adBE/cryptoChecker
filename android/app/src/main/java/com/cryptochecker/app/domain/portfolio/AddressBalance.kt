@@ -156,6 +156,12 @@ object AddressBalance {
     }
 
     /**
+     * Während des Abrufs vom Nutzer fällig gemacht («Tokens mitzählen» an, neues EVM-Netz: lastAttempt 0), der Abzug
+     * war schon versucht: Ergebnis verwerfen — es gilt der alten Einstellung, die Adresse bleibt für den nächsten Aufruf fällig.
+     */
+    fun resetDuringFetch(currentAttempt: Long, snapshotAttempt: Long): Boolean = currentAttempt == 0L && snapshotAttempt != 0L
+
+    /**
      * Fällige Adressen ([isDue]) in Abruf-Reihenfolge: Vordergrund wie gespeichert; Hintergrund die am längsten nicht
      * versuchten zuerst (nie versucht = 0 vorne, bei Gleichstand wie gespeichert) — das knappe Zeitbudget käme sonst
      * immer nur den zuerst erfassten Adressen zugute.

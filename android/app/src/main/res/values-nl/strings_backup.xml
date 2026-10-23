@@ -43,7 +43,7 @@
         <item quantity="other">%d items in de back-up (portfolio of alarmen) zijn ongeldig en worden niet geïmporteerd.</item>
     </plurals>
     <string name="backup_restore_newer_version">Deze back-up komt van een nieuwere appversie – werk eerst de app bij. Er is niets geïmporteerd.</string>
-    <string name="backup_restore_unencrypted_warning">Deze back-up is niet versleuteld – controleer of hij van jou is. Instellingen worden overgenomen – behalve wijzigingen die de bescherming verlagen (portfoliovergrendeling, eigen Bitcoin-server, bedragen verbergen, systeemback-up).</string>
+    <string name="backup_restore_unencrypted_warning">Deze back-up is niet versleuteld – controleer of hij van jou is. Instellingen worden overgenomen – behalve wijzigingen die de bescherming verlagen (Portfolio-vergrendeling, Eigen server voor adressen, Bedragen verbergen, Portfolio in systeemback-up).</string>
     <string name="backup_restored">Hersteld: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarm</item>

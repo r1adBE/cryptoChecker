@@ -35,29 +35,22 @@ class WatchedAddressRefresher @Inject constructor(
      * @return true, wenn mindestens ein Abruf gespeichert wurde.
      */
     suspend fun refresh(force: Boolean, background: Boolean = false): Boolean {
-        return try {
-            val budget = if (background) WatchedAddressSource.BACKGROUND_TOTAL_MILLIS else null
-            singleFlightRefresh(
-                gate, background,
-                read = { repository.getWatchedAddresses() },
-                load = { addresses ->
-                    val server = settings.addressServerFlow.first()
-                    source.refresh(addresses, force, budgetMillis = budget, btcServer = server)
-                },
-                save = { updates -> updates.forEach { save(it) } },
-            )
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: Exception) {
-            Timber.w(e, "Adressen: Aktualisierung fehlgeschlagen")
-            false
-        }
+        val budget = if (background) WatchedAddressSource.BACKGROUND_TOTAL_MILLIS else null
+        return singleFlightRefresh(
+            gate, background,
+            read = { repository.getWatchedAddresses() },
+            load = { addresses ->
+                val server = settings.addressServerFlow.first()
+                source.refresh(addresses, force, budgetMillis = budget, btcServer = server)
+            },
+            save = { updates -> updates.forEach { save(it) } },
+        )
     }
 
     private suspend fun save(u: WatchedAddressSource.Update) {
         repository.updateWatchedAddressBalance(
             u.id, u.fetched?.balance, u.time, u.error, u.fetched?.provider, u.fetched?.tokens, u.fetched?.xpub,
-            u.fetched?.networks, u.fetched?.unknownTokens, u.fetched?.keptTokens,
+            u.fetched?.networks, u.fetched?.unknownTokens, u.fetched?.keptTokens, u.snapshotAttempt,
         )
     }
 }
@@ -65,8 +58,9 @@ class WatchedAddressRefresher @Inject constructor(
 /**
  * Single-Flight der Adress-Aktualisierung: Lesen, Laden und Speichern unter [gate]. Vordergrund wartet auf eine
  * laufende Runde und liest danach frisch (eben geladene Adressen sind nicht mehr fällig, nichts doppelt);
- * Hintergrund kehrt sofort zurück, wenn schon eine läuft.
- * @return true, wenn mindestens ein Ergebnis gespeichert wurde.
+ * Hintergrund kehrt sofort zurück, wenn schon eine läuft. Fehler (auch beim Lesen) bleiben still und geben das Gate
+ * frei; Abbruch wird weitergereicht.
+ * @return true, wenn mindestens ein Ergebnis gespeichert wurde; false bei Fehler.
  */
 internal suspend fun <U> singleFlightRefresh(
     gate: Mutex,
@@ -80,12 +74,17 @@ internal suspend fun <U> singleFlightRefresh(
     } else {
         gate.lock()
     }
-    try {
+    return try {
         val addresses = read()
         if (addresses.isEmpty()) return false
         val updates = load(addresses)
         save(updates)
-        return updates.isNotEmpty()
+        updates.isNotEmpty()
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Timber.w(e, "Adressen: Aktualisierung fehlgeschlagen")
+        false
     } finally {
         gate.unlock()
     }
