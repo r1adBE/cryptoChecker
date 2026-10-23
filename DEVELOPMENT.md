@@ -490,6 +490,12 @@ xcodebuild test -project CryptoChecker.xcodeproj -scheme CryptoChecker \
 
 Without `-only-testing` the scheme runs the unit tests and the UI tests (see below).
 
+Tests on the test app's own storage (`WatchlistLockBehaviorTests`, `BackgroundRefreshRunTests`) call
+`HostStorageKey.prepareAppStorage()` first: without a keychain entitlement (unsigned Simulator, CI) the process-wide
+`StorageKey.shared` gets an in-memory test keychain with a fixed key (`StorageKey.replaceKeychainForTesting`, Debug
+build only); with a real keychain nothing is replaced. They therefore run everywhere; a skip of these classes (quiet
+hours, not enough time left) or of `SharedStorageTests` fails `ios.yml` on `main` and release tags.
+
 `gen_xcodeproj.py` (also with `--check`) fails when `ios/project.yml` (the XcodeGen fallback) carries a
 `MARKETING_VERSION` or `CURRENT_PROJECT_VERSION` different from the constants at the top of the script —
 change the version in both places. The build number (`versionCode` in `android/app/build.gradle.kts`,
@@ -566,6 +572,9 @@ identifiers and the same test file on Android and iOS:
   `testableFileImporter` (in place of `.fileImporter` for the CSV import and the backup restore) and the
   export branch in `BackupSettingsPage.presentExport` use `UITesting.importURL`/`exportURL`: the CSV text
   comes from the launch environment `UITEST_CSV`, the backup goes to `tmp/uitest_backup.json`; `UITEST_BACKUP` puts a given backup text into that file for the restore test.
+  The export branch reads the file back like the real path (`UITesting.writeExport` →
+  `BackupManager.verifyWritten`); `UITEST_FAIL_VERIFY=1` truncates it after writing, so the check fails and
+  «backup not verified» comes as a result dialog (`testExportResultDialogAfterSheet`).
 * **iOS seams are inert in production.** All of `UITesting` and `UITestMarket` is inside `#if DEBUG` (a
   Release/App Store build does not contain it; `testableFileImporter` compiles to a plain `.fileImporter`
   there). In a Debug build they act only when the app is launched with `-uiTesting`: then every launch
@@ -2254,6 +2263,8 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 115: iOS warning ceiling 1 (`MAX_COMPILER_WARNINGS`, `warning_details`), `HostStorageKey` / `StorageKey.replaceKeychainForTesting`,
+  `UITEST_FAIL_VERIFY`, `tickerFallbackAddress` / `SingleTickerFallback` (One Trading), job names for required checks.
 * Build 114: `AddressBalance.discardFetched` (+ `Update.snapshotCountTokens/snapshotNetworks`, replaces `resetDuringFetch`/`snapshotAttempt`),
   `WatchedAddressBalanceWriter`, iOS `presentDelayNanos` / `UITEST_BACKUP`, `BackupSettingsTextsTests`, exchange check `onetradingbulk`.
 * Build 113: `AddressBalance.resetDuringFetch` (+ `Update.snapshotAttempt`), `BackupResultPresentation.displayWidth` / font scale /

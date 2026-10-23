@@ -119,7 +119,7 @@ struct CycleHistoryChart: View {
             Canvas { context, size in
                 let w = size.width
                 let h = size.height
-                func x(_ day: Double) -> CGFloat { CGFloat(day / Self.maxDay) * w }
+                func x(_ day: Double) -> CGFloat { CGFloat(day / CycleChartScale.maxDay) * w }
                 func y(_ v: Double) -> CGFloat { scale.point(day: 0, value: v, width: w, height: h).y }
 
                 // Hilfslinien: je Jahr senkrecht, 1× waagrecht

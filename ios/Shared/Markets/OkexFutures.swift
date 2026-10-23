@@ -6,7 +6,7 @@ private let okxSwapTickers = "https://www.okx.com/api/v5/market/tickers?instType
 /// OKX Perpetual-Swaps. Die Paarliste kommt aus `/api/v5/public/instruments`, nicht aus den Tickern: Nur dort stehen
 /// `instCategory` (Krypto, Aktie, Rohstoff …) und `state` — sonst liefen NVDA-, AAPL- oder XAU-Swaps als Krypto-Token.
 /// Gegenstück: `OkexFutures.kt`.
-final class OkexFutures: SimpleMarket {
+final class OkexFutures: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "OkexFutures",

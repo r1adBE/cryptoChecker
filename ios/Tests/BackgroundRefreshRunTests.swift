@@ -8,7 +8,8 @@ import XCTest
 /// Protokoll) prüft `BackgroundExpiryTests`; hier geht es um das Zusammenspiel mit dem Arbeits-Task.
 /// Läuft auf der Merkliste der Test-App (App Group): Der Test legt ein eigenes Paar mit Alarm an und entfernt es danach.
 /// Er sichert auch den übrigen geteilten Zustand (Uhrzeiten, Bericht, %-Basis, «Letzte Prüfungen»,
-/// vorgemerkte Anfrage) und stellt ihn danach wieder her.
+/// vorgemerkte Anfrage) und stellt ihn danach wieder her. Ohne Schlüsselbund (unsignierter CI-Simulator) mit
+/// Test-Schlüssel (`HostStorageKey`): eine nicht beschreibbare Merkliste ist ein Fehler, kein Überspringen.
 @MainActor
 final class BackgroundRefreshRunTests: XCTestCase {
     /// Hält Ablauf-Handler und jede Meldung des Endes fest (thread-sicher).
@@ -60,6 +61,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
     }
 
     override func setUp() async throws {
+        try await HostStorageKey.prepareAppStorage()
         let pending = await BGTaskScheduler.shared.pendingTaskRequests()
             .first { $0.identifier == BackgroundRefresh.refreshId }
         saved = SavedState(lastAlarmCheckAt: SharedStorage.lastAlarmCheckAt, lastRefreshAt: SharedStorage.lastRefreshAt,
@@ -100,7 +102,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
         self.saved = nil
     }
 
-    /// Paar mit einem Alarm, der beim ersten Kurs sicher auslöste («über 1»). Datei nicht beschreibbar: übersprungen.
+    /// Paar mit einem Alarm, der beim ersten Kurs sicher auslöste («über 1»). Datei nicht beschreibbar: Fehler.
     private func insertArmedAlarm(second: Bool = false) throws {
         let stored = SharedStorage.updateSnapshot { s in
             s.watches.removeAll { $0.id == Self.watchId }
@@ -109,7 +111,7 @@ final class BackgroundRefreshRunTests: XCTestCase {
             s.alarms.append(Self.alarm)
             if second { s.alarms.append(Self.alarm2) }
         }
-        guard stored != nil else { throw XCTSkip("Merkliste der Test-App gerade nicht beschreibbar") }
+        _ = try XCTUnwrap(stored, "Merkliste der Test-App nicht beschreibbar")
     }
 
     nonisolated private static let watch = Watch(id: watchId, marketKey: "Binance", marketName: "Binance",

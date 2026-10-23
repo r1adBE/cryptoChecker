@@ -224,8 +224,9 @@ extension AppData {
             // scharf, auch ein wiederholender; unbestätigte Mitteilung: frühestens nach der Abklingzeit erneut
             _ = await AlarmDelivery.portfolio.deliver(
                 alarmId: alarm.id, now: now, cooldownMinutes: current.alarmCooldownMinutes, holdAlarms: holdAlarms,
-                canShow: { deliverable },
-                show: {
+                // @Sendable bzw. Kopie `[current]`: `deliver` läuft ohne Akteur, die Closures gehören dann nicht dem MainActor
+                canShow: { @Sendable in deliverable },
+                show: { [current] in
                     await Notifier.showPortfolioAlarm(alarm, measured: value, settings: current,
                                                       usdtAssumed: PortfolioAlarmLogic.usdtAssumed(alarm, reading))
                 },
@@ -233,9 +234,11 @@ extension AppData {
                 // Wie die Paar-Alarme: nicht gespeichert → Mitteilung weg; nach einem Prozess-Ende
                 // zählt nur eine nach dem Vermerk gezeigte Mitteilung als zugestellt (`alreadyDelivered`)
                 retract: { Notifier.cancelPortfolioAlarm(alarm.id) },
-                isShown: { markerAt in await Notifier.isPortfolioAlarmDelivered(alarm.id, since: markerAt) },
+                isShown: { @Sendable markerAt in await Notifier.isPortfolioAlarmDelivered(alarm.id, since: markerAt) },
                 // Vermerk einer schon gespeicherten Auslösung zählt nicht (neue wird gemeldet)
-                savedSince: { AlarmDelivery.savedSinceMarker(lastTriggeredAt: alarm.lastTriggeredAt, markerAt: $0) },
+                savedSince: { @Sendable markerAt in
+                    AlarmDelivery.savedSinceMarker(lastTriggeredAt: alarm.lastTriggeredAt, markerAt: markerAt)
+                },
                 // Echtes Schreib-Ergebnis (auch die eigene Datei der Portfolio-Alarme), sonst bleibt der Vermerk
                 persisted: { await SharedStorage.snapshotWritesSettled() && !SharedStorage.portfolioAlarmsPending })
         }

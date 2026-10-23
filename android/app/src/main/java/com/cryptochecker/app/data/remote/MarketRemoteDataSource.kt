@@ -351,7 +351,15 @@ class MarketRemoteDataSource @Inject constructor(
             return
         }
 
-        val body = httpClient.callMarket(address, market.tickerPostBody(call, info))
+        val body = try {
+            httpClient.callMarket(address, market.tickerPostBody(call, info))
+        } catch (server: HttpMarketError) {
+            // Serverfehler: Kurs über die Ausweichadresse der Börse, sonst bleibt er ([SingleTickerFallback])
+            SingleTickerFallback.load(market, call, info, ticker, server) { fallback ->
+                bulkClient.callMarket(fallback, null, HttpBodyLimit.BULK_MAX_BYTES)
+            }
+            return
+        }
         // Übersetzt wird erst in der Oberfläche (friendlyError → market_data_empty_error)
         if (body.isEmpty()) throw UserFriendlyMarketError(UserFriendlyMarketError.EMPTY_RESPONSE)
 

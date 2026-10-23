@@ -28,7 +28,7 @@ private let lighterNoTradesWindowMillis: Int64 = 24 * 60 * 60 * 1000
 /// Kurs = letzter Handel (`last_trade_price`), kein Mark- oder Mittelkurs. Keine Zeit der Börse (Momentaufnahme),
 /// Frische ab Abruf. TradFi (SPY, NATGAS, US10Y …) erkennt erst `tokenlist` (`asset_type` «RWA»), darum liest die
 /// Paarliste zwei Antworten gemeinsam; `tokenlist` liefert auch die vollen Namen.
-final class Lighter: Market {
+final class Lighter: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(key: "Lighter", name: "Lighter", ttsName: "Lighter")
     }

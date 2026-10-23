@@ -96,7 +96,7 @@ final class AppData: ObservableObject {
     @Published var portfolio: [PortfolioTx] = []
     /// Beobachtete Adressen in Reihenfolge des Hinzufügens (wie `PortfolioRepository.watchedAddresses`);
     /// Zugriff über `AppData+WatchedAddresses.swift`.
-    @Published internal(set) var watchedAddresses: [WatchedAddress] = []
+    @Published var watchedAddresses: [WatchedAddress] = []
     /// Stand von `watched_addresses.json`; false = Datei da, aber nicht lesbar (dann vor dem Schreiben neu lesen).
     var watchedAddressFile = WatchedAddressFile()
     /// Gibt es Transaktionen oder beobachtete Adressen (ein Portfolio, das bewertet wird)? Dann misst
@@ -143,8 +143,8 @@ final class AppData: ObservableObject {
     @Published private(set) var watchlistSavePending = false
     /// `watchlist.json` ist da, aber gerade nicht lesbar (`WatchlistStorageLock`): Die Merkliste steht leer im Speicher und
     /// wird nicht gespeichert. Die Merkliste nennt es dauerhaft; Schreibwege des Nutzers sind gesperrt. Neu bei jedem Lesen.
-    /// Setzen nur hier beim Lesen; `internal(set)` allein für den Verhaltenstest (WatchlistLockBehaviorTests).
-    @Published internal(set) var watchlistLocked = false
+    /// Setzen nur hier beim Lesen; von aussen setzbar allein für den Verhaltenstest (WatchlistLockBehaviorTests).
+    @Published var watchlistLocked = false
     /// Zähler der gemeldeten Ablehnungen (`watchlistWriteRefused`, gedrosselt): Bildschirme zeigen je Erhöhung den kurzen
     /// Hinweis «watchlist_storage_locked» (`.watchlistLockedHint`). Zeit des letzten Hinweises (monotone ms) dazu.
     @Published var watchlistLockedHints = 0
@@ -165,7 +165,7 @@ final class AppData: ObservableObject {
     private(set) var encryptionPending = false
     /// Zähler für «App zurücksetzen»: Ein Ablauf, der über ein `await` hinweg läuft (z. B. `applyLive`),
     /// übernimmt sein Ergebnis nicht mehr, wenn inzwischen zurückgesetzt wurde.
-    internal(set) var resetGeneration = 0
+    var resetGeneration = 0
 
     /// «In Gruppe» beim Hinzufügen: nur für die laufende Sitzung, nicht gespeichert.
     /// nil = «Keine Gruppe».

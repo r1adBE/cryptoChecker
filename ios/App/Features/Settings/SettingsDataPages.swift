@@ -248,9 +248,9 @@ struct BackupSettingsPage: View {
 
     private func presentExport(_ file: Data) {
         #if DEBUG
-        // UI-Test: in die Datei des Tests schreiben statt die Dateiablage zu öffnen (wie deren Erfolg)
+        // UI-Test: in die Datei des Tests schreiben und zurücklesen statt die Dateiablage zu öffnen
         if let url = UITesting.exportURL {
-            show((try? file.write(to: url, options: .atomic)) != nil ? "backup_exported" : "backup_failed")
+            show(UITesting.writeExport(file, to: url))
             return
         }
         #endif

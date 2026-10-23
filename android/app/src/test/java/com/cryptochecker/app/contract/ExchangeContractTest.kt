@@ -166,6 +166,36 @@ class ExchangeContractTest {
         if (message != wanted) throw CaseFailure("error text: expected '$wanted', got '$message'")
     }
 
+    /**
+     * Ausweg des Einzelkurses nach einem Serverfehler (`singleFallback`): die Antwort der Ausweichadresse über
+     * `readTickerFallback`, geprüft wie ein Einzelkurs. Fehler = in der App bleibt der Serverfehler
+     * (SingleTickerFallback, dort samt «status» geprüft).
+     */
+    private fun runSingleFallback(c: Map<String, Any?>) {
+        val market = market(c["market"] as String)
+        val info = checkerInfo(c["pair"].obj())
+        val requestId = c["requestId"].num()?.toInt() ?: 0
+        val expect = c["expect"].obj()
+        if (market.tickerFallbackAddress(requestId, info).isNullOrEmpty()) throw CaseFailure("no fallback address")
+
+        val ticker = SimpleTicker()
+        val failure = try {
+            market.readTickerFallback(requestId, c["body"] as String, ticker, info)
+            if (!ticker.last.isFinite() || ticker.last <= 0.0) IllegalStateException("no ticker data") else null
+        } catch (e: Exception) {
+            e
+        }
+        if (expect["error"] != true) {
+            if (failure != null) throw CaseFailure("expected a ticker, fallback parser failed: $failure")
+            checkTicker("ticker", expect, ticker)
+            return
+        }
+        if (failure == null) throw CaseFailure("expected an error, got last=${ticker.last}")
+        (expect["thrown"] as? String)?.let {
+            if (failure.message != it) throw CaseFailure("thrown: expected '$it', got '${failure.message}'")
+        }
+    }
+
     private fun runBulk(c: Map<String, Any?>) {
         val market = market(c["market"] as String)
         val requestId = c["requestId"].num()?.toInt() ?: 0
@@ -351,6 +381,7 @@ class ExchangeContractTest {
                 val error = try {
                     when (kind) {
                         "single" -> runSingle(c)
+                        "singleFallback" -> runSingleFallback(c)
                         "bulk" -> runBulk(c)
                         "live" -> runLive(c)
                         "pairs" -> runPairs(c)

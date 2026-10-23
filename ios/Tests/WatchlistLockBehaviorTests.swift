@@ -9,6 +9,7 @@ import XCTest
 /// etwas änderte; die Gegenprobe ohne Sperre zeigt das je Weg. Merkliste, Alarme und Einstellungen der Test-App kommen
 /// danach zurück. Dazu ein Quelltext-Scan: Jede nicht-private Funktion der AppData-Merklisten-Dateien steht in genau
 /// einer Liste (Schreibweg, Lesen, Hintergrund) — ein neuer Schreibweg fällt so auf.
+/// Ohne Schlüsselbund (unsignierter CI-Simulator) mit Test-Schlüssel (`HostStorageKey`): läuft überall, nie übersprungen.
 @MainActor
 final class WatchlistLockBehaviorTests: XCTestCase {
     private static let btc = Watch(id: 990_101, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC",
@@ -63,14 +64,12 @@ final class WatchlistLockBehaviorTests: XCTestCase {
     }
 
     override func setUp() async throws {
+        try await HostStorageKey.prepareAppStorage()
         let data = AppData.shared
         wasLocked = data.watchlistLocked
         hintAt = data.watchlistLockedHintAt
         originalSettings = data.settings
-        guard let stored = SharedStorage.readSnapshot().snapshot else {
-            throw XCTSkip("Merkliste der Test-App gerade nicht lesbar")
-        }
-        original = stored
+        original = try XCTUnwrap(SharedStorage.readSnapshot().snapshot, "Merkliste der Test-App nicht lesbar")
     }
 
     override func tearDown() async throws {
@@ -118,7 +117,7 @@ final class WatchlistLockBehaviorTests: XCTestCase {
             if Shape(data.snapshot) == Shape(expected) { return }
         }
         XCTFail("Testdaten nicht übernommen")
-        throw XCTSkip("Testdaten nicht übernommen")
+        throw HostStorageKey.NotReady()
     }
 
     private func encoded(_ snapshot: SharedStorage.Snapshot) throws -> Data {

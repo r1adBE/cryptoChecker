@@ -8,7 +8,7 @@ private let coincheckStatusStop = "stop"
 /// Coincheck (Japan, JPY-Paare): https://coincheck.com/documents/exchange/api. Eine eigene Paarliste gibt es nicht;
 /// `exchange_status` nennt aber jedes Paar mit seinem Zustand und dient darum als Liste (keine feste Tabelle).
 /// Kennung «btc_jpy». Keine Sammelabfrage, keine 24-h-Veränderung im Ticker.
-final class Coincheck: SimpleMarket {
+final class Coincheck: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Coincheck",

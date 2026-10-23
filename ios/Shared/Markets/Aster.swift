@@ -5,7 +5,7 @@ private let asterFapi = "https://fapi.asterdex.com/fapi/v1"
 /// Aster — dezentrale Perpetual-Börse mit öffentlicher Schnittstelle im Aufbau von Binance USDⓈ-M (fapi):
 /// `exchangeInfo` und `ticker/24hr` (mit `symbol` ein Objekt, ohne alle als Array). Der Kurs ist der letzte Handel
 /// (`lastPrice`), kein Mark-Preis — darum weder Mittelkurs- noch Mark-Kennzeichnung wie bei Hyperliquid.
-final class Aster: SimpleMarket {
+final class Aster: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Aster",

@@ -5,7 +5,7 @@ private let latokenAPI = "https://api.latoken.com/v2"
 /// LATOKEN (API v2). Paare und Ticker kennen nur Währungs-IDs (UUID); die Kürzel liefert die Währungsliste — darum
 /// zwei gemeinsam gelesene Paarlisten statt einer (`pairListCombined`) und kein `SimpleMarket`.
 /// Paar-Kennung: «Basis-ID/Quote-ID». Vorsicht: «amount24h» = Menge im Coin, «volume24h» = Gegenwert.
-final class Latoken: Market {
+final class Latoken: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() { super.init(key: "Latoken", name: "LATOKEN", ttsName: "La token") }
 
     // MARK: Einzelkurs

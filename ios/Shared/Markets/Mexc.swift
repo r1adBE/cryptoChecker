@@ -7,7 +7,7 @@ private let mexcContract = "https://contract.mexc.com/api/v1/contract"
 private let mexcTradable: Set<String> = ["1", "ENABLED", "TRADING"]
 
 /// MEXC Spot (Aufbau ähnlich Binance v3).
-final class Mexc: SimpleMarket {
+final class Mexc: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Mexc",
@@ -73,7 +73,7 @@ final class Mexc: SimpleMarket {
 }
 
 /// MEXC USDT-Perpetuals (contract.mexc.com).
-final class MexcFutures: SimpleMarket {
+final class MexcFutures: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "MexcFutures",

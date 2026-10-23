@@ -3,7 +3,7 @@ import Foundation
 private let btcturkAPI = "https://api.btcturk.com/api/v2"
 
 /// BtcTurk (Türkei), API v2: https://docs.btcturk.com — Kennung wie «BTCTRY».
-final class Btcturk: SimpleMarket {
+final class Btcturk: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Btcturk",

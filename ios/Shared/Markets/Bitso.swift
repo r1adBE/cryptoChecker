@@ -3,7 +3,7 @@ import Foundation
 private let bitsoAPI = "https://bitso.com/api/v3"
 
 /// Bitso (Lateinamerika), API v3: https://docs.bitso.com — Bücher heissen «btc_mxn».
-final class Bitso: SimpleMarket {
+final class Bitso: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Bitso",

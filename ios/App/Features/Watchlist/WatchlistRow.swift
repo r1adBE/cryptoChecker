@@ -126,7 +126,9 @@ struct WatchlistRow: View {
     /// Zeile: Auswahl, Logo, Paar (mit Mini-Chart) und daneben der Kurs — bei grösster Schrift steht der
     /// Kurs darunter (`body`, `DenseRowText`).
     private var mainLine: some View {
-        HStack(spacing: Spacing.sm) {
+        // Vorher gelesen: Die Ausrichtungs-Closures laufen ohne Akteur (Sendable), die Eigenschaften gehören dem MainActor
+        let center: CGFloat? = namesEnabled ? threeLineCenter : nil
+        return HStack(spacing: Spacing.sm) {
             if selecting {
                 // Gefüllt in der Themenfarbe = ausgewählt, sonst nur Rand (VoiceOver: «ausgewählt»)
                 Image(systemName: selected ? "checkmark.circle.fill" : "circle")
@@ -160,14 +162,14 @@ struct WatchlistRow: View {
                 }
             }
             .alignmentGuide(VerticalAlignment.center) { d in
-                namesEnabled ? threeLineCenter : d[VerticalAlignment.center]
+                center ?? d[VerticalAlignment.center]
             }
 
             if !stacked {
                 // Deaktiviert: Kurs in onSurfaceVariant statt abgeblasst (`priceText`)
                 priceColumn
                     .alignmentGuide(VerticalAlignment.center) { d in
-                        namesEnabled ? threeLineCenter : d[VerticalAlignment.center]
+                        center ?? d[VerticalAlignment.center]
                     }
             }
         }

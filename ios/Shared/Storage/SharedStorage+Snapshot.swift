@@ -112,7 +112,7 @@ extension SharedStorage {
     /// der App sie wieder (und der Alarm meldete sich ein zweites Mal).
     /// - Parameter durability: `.barrier` nur für reine Kurs-Speicherungen (Live-Takt).
     static func saveSnapshotInBackground(_ snapshot: Snapshot, durability: ProtectedFile.Durability = .full,
-                                         done: (() -> Void)? = nil) {
+                                         done: (@MainActor @Sendable () -> Void)? = nil) {
         let watchlist = watchlistURL, portfolio = portfolioAlarmsURL
         snapshotWriter.async {
             let include = loadSettings().portfolioSystemBackup

@@ -11,19 +11,19 @@ private let binanceFirstAlphaCall = 1
 private let binanceComPairListQuery = "?symbolStatus=TRADING&showPermissionSets=false"
 
 /// Binance Spot (binance.com).
-final class Binance: BinanceBase {
+final class Binance: BinanceBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() { super.init(key: "Binance", name: "Binance", domain: "com", pairListQuery: binanceComPairListQuery) }
 }
 
 /// Binance.US — gleiche API unter eigener Domain.
-final class BinanceUs: BinanceBase {
+final class BinanceUs: BinanceBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() { super.init(key: "BinanceUs", name: "Binance.US", domain: "us") }
 }
 
 /// Gemeinsamer Teil von Binance und Binance.US (API v3). Unter «Binance» stehen zusätzlich die Alpha-Paare
 /// (`BinanceAlpha`, Kennung «ALPHA_<id>USDT») mit eigenen Endpunkten. `pairListQuery` hängt an die Paarliste; der
 /// Status wird beim Lesen trotzdem geprüft (Binance.US filtert nicht).
-class BinanceBase: SimpleMarket {
+class BinanceBase: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     /// 24-h-Ticker: mit `symbol` ein Paar, ohne Parameter alle.
     private let dayTicker: String
 

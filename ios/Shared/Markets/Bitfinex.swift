@@ -35,7 +35,7 @@ private let bitfinexAliases: [String: String] = [
 /// [BID, BID_SIZE, ASK, ASK_SIZE, DAILY_CHANGE, DAILY_CHANGE_RELATIVE, LAST_PRICE, VOLUME, HIGH, LOW],
 /// in der Sammelabfrage mit dem Symbol davor. Bitfinex' eigene Kürzel (UST = USDT, UDC = USDC, ATO = ATOM …) werden
 /// für die Anzeige übersetzt (`bitfinexAliases`); die Kennung bleibt die der Börse.
-final class Bitfinex: SimpleMarket {
+final class Bitfinex: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Bitfinex",

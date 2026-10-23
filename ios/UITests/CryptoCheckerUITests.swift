@@ -8,7 +8,8 @@ import XCTest
 ///  4. Sichern: mit Passwort sichern → Neustart mit leerem Speicher → falsches Passwort abgelehnt →
 ///     richtiges stellt Merkliste und Portfolio wieder her.
 ///  5. Ergebnis als Dialog (nur iOS): Sicherung ohne Passwort mit eigenem Bitcoin-Server → Rückfrage → Ergebnis mit
-///     Hinweis erscheint als Dialog, nachdem die Rückfrage zu ist.
+///     Hinweis erscheint als Dialog, nachdem die Rückfrage zu ist; ebenso «Sicherung nicht bestätigt» nach dem
+///     Blatt «Sichern» (Prüfung erzwungen fehlgeschlagen).
 ///
 /// Jeder Start beginnt mit leerem Speicher und festen Börsen-Antworten (Startargument `-uiTesting`, nur im
 /// Debug-Build, siehe `UITesting` in der App); die Dateiauswahl ersetzen Testdateien. Kein Netz.
@@ -162,6 +163,32 @@ final class CryptoCheckerUITests: XCTestCase {
         allowNotificationsIfAsked(timeout: 6)
         tap(app, UiTestTags.tabWatchlist)
         XCTAssertTrue(app.tagged(UiTestTags.watchRow).waitForExistence(timeout: uiTimeout), "pair not restored")
+    }
+
+    /// Gleiche Zeitannahme beim Sichern: Das Ergebnis kommt, während sich das Blatt «Sichern» noch schliesst.
+    /// Die Prüfung nach dem Schreiben scheitert hier absichtlich (`UITEST_FAIL_VERIFY`) → «nicht bestätigt» als Dialog.
+    @MainActor
+    func testExportResultDialogAfterSheet() throws {
+        let app = launchApp(failVerify: true)
+        // Ohne Portfolio-Daten ist «Mit Passwort schützen» aus: Sichern → Rückfrage «Ohne Passwort speichern?»
+        openBackupPage(app)
+        tap(app, UiTestTags.backupExport)
+        tap(app, UiTestTags.backupExportConfirm)
+        let plain = app.alerts.firstMatch.buttons["Save without password"]
+        XCTAssertTrue(plain.waitForExistence(timeout: uiTimeout), "plain backup confirmation not shown")
+        plain.tap()
+
+        let dialog = app.alerts.containing(NSPredicate(format: "label == %@", "Backup & restore")).firstMatch
+        XCTAssertTrue(dialog.waitForExistence(timeout: 5), "export result dialog not shown")
+        let message = dialog.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "could not be verified")).firstMatch
+        XCTAssertTrue(message.exists, "not-verified message missing in the result dialog")
+        XCTAssertFalse(app.tagged(UiTestTags.toast).exists, "export reported as success")
+
+        let close = dialog.buttons["Close"]
+        XCTAssertTrue(close.waitForExistence(timeout: uiTimeout), "close button missing")
+        close.tap()
+        XCTAssertTrue(wait(dialog, "exists == false", timeout: uiTimeout), "result dialog not closed")
+        XCTAssertTrue(app.tagged(UiTestTags.backupExport).waitForExistence(timeout: uiTimeout), "backup page left")
     }
 
     // MARK: Gemeinsame Schritte

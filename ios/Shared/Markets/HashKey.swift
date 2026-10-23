@@ -10,7 +10,7 @@ private let hashKeyStatusTrading = "TRADING"
 
 /// HashKey Exchange (Hongkong, lizenziert; USD-, HKD- und Stablecoin-Paare), öffentliche Kurse ohne Schlüssel:
 /// https://hashkeypro-apidoc.readme.io. Kennung «BTCUSD». Der Ticker kommt als Liste, auch für ein einzelnes Paar.
-final class HashKey: SimpleMarket {
+final class HashKey: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "HashKey",

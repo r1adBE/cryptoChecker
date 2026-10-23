@@ -9,7 +9,7 @@ private let isoLira = "TRY"
 
 /// Paribu (Türkei), öffentlicher Ticker: ein Objekt je Markt unter Schlüsseln wie «BTC_TL» (= Kennung).
 /// Einzelkurs und Paarliste lesen dieselbe Gesamtliste.
-final class Paribu: SimpleMarket {
+final class Paribu: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Paribu",

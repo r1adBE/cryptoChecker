@@ -4,7 +4,7 @@ private let htxSpotAPI = "https://api.huobi.pro"
 private let htxSwapAPI = "https://api.hbdm.com"
 
 /// HTX (vormals Huobi) Spot. Kennung = `sc` («btcusdt»).
-final class Htx: HtxBase {
+final class Htx: HtxBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Htx",
@@ -34,7 +34,7 @@ final class Htx: HtxBase {
 }
 
 /// HTX USDT-Perpetuals (linear swap). Kennung = `contract_code` («BTC-USDT»).
-final class HtxFutures: HtxBase {
+final class HtxFutures: HtxBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "HtxFutures",
@@ -80,7 +80,7 @@ final class HtxFutures: HtxBase {
 /// Hoch/Tief: Die Sammelabfragen (Spot `market/tickers`, Swap `batch_merged`) und der Swap-Einzelkurs zählen sie seit
 /// Tagesbeginn UTC+8, nicht über 24 h — nur der Spot-Einzelkurs (`detail/merged`, rollend) liefert sie
 /// (`singleHighLowRolling`).
-class HtxBase: SimpleMarket {
+class HtxBase: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     private let allTickersURL: String
     private let rowsField: String
     private let idField: String

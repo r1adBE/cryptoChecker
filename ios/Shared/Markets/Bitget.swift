@@ -7,7 +7,7 @@ private let bitgetAPI = "https://api.bitget.com/api/v2"
 private let bitgetUsdtFutures = "productType=USDT-FUTURES"
 
 /// Bitget Spot (API v2).
-final class Bitget: BitgetBase {
+final class Bitget: BitgetBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Bitget",
@@ -25,7 +25,7 @@ final class Bitget: BitgetBase {
 }
 
 /// Bitget USDT-Perpetuals.
-final class BitgetFutures: BitgetBase {
+final class BitgetFutures: BitgetBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "BitgetFutures",
@@ -52,7 +52,7 @@ final class BitgetFutures: BitgetBase {
 
 /// Spot und Futures unterscheiden sich nur in Adressen und Paarfilter (`pairOf`); Antworten haben die Form
 /// {"code", "msg", "data": [...]}, die Ticker-Felder heissen gleich.
-class BitgetBase: SimpleMarket {
+class BitgetBase: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     private let allTickersURL: String
 
     init(key: String, name: String, pairListURL: String, tickerURL: String, allTickersURL: String) {

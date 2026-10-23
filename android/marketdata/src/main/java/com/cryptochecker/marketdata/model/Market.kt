@@ -102,6 +102,25 @@ abstract class Market(
     protected open fun fillTickerJson(call: Int, json: JSONObject, ticker: Ticker, info: PairQuery) = Unit
 
     /**
+     * Ausweichadresse (GET), wenn Einzelanfrage [call] mit einem Serverfehler (HTTP 5xx) scheitert; null = keine
+     * (Standard). Die Antwort liest [readTickerFallback]; bringt sie keinen gültigen Kurs, bleibt der Serverfehler
+     * (App: `SingleTickerFallback`). iOS gleich.
+     */
+    open fun tickerFallbackAddress(call: Int, info: PairQuery): String? = null
+
+    /** Wie [readTicker], für die Antwort von [tickerFallbackAddress] (über [fillTickerFallback]). */
+    @Throws(Exception::class)
+    fun readTickerFallback(call: Int, body: String, ticker: Ticker, info: PairQuery): Ticker {
+        fillTickerFallback(call, body, ticker, info)
+        markFetched(ticker)
+        return ticker
+    }
+
+    /** Hook zu [tickerFallbackAddress]: fehlt das Paar in der Antwort, werfen. Standard: kein Ausweg. */
+    protected open fun fillTickerFallback(call: Int, body: String, ticker: Ticker, info: PairQuery): Unit =
+        throw MarketParseException(MarketParseException.NO_DATA)
+
+    /**
      * Error text of the exchange for a ticker response that could not be parsed (via [errorMessage]). Throws if the
      * response contains none; the caller then reports the original parse error.
      */

@@ -7,7 +7,7 @@ private let zebPayStopped: Set<String> = ["closed", "close", "halt", "halted", "
                                           "disabled"]
 
 /// ZebPay (Indien), Spot-API v2. Referenz: github.com/zebpay/zebpay-api-references
-final class ZebPay: SimpleMarket {
+final class ZebPay: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "ZebPay",

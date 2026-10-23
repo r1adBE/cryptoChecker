@@ -15,6 +15,16 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 115)
+
+Quality towards a review score of 9:
+
+* iOS: 93 of 94 compiler warnings of the Release build fixed (Swift strict concurrency: restated Sendable conformances, main-actor isolation of gestures and view helpers, async-safe locking, Live Activity calls without crossing actors); the warning ceiling drops from 94 to 1. The CI now lists every remaining warning in its annotations.
+* iOS: the watchlist lock and background run tests no longer need the real keychain (in-memory test keychain only when the real one is unavailable) and therefore run in every CI build; skipping them on main counts as failure.
+* iOS: second UI test – the result dialog after creating a backup (forced «could not be verified») appears and closes.
+* One Trading: when the single-ticker endpoint answers with a server error (5xx), the price is read from the all-tickers endpoint (both platforms); a pair missing there keeps the original error and is never marked as delisted.
+* CI: unique job names (Android build, iOS build, Strings check, Parity check, Release readiness check) so they can be required checks.
+
 ## 16.2.2 (build 114)
 
 Fixes from the tenth review round (on build 113):

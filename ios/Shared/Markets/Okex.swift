@@ -4,7 +4,7 @@ import Foundation
 private let okxSpotTickers = "https://www.okx.com/api/v5/market/tickers?instType=SPOT"
 
 /// OKX Spot. Kennung «BASE-QUOTE».
-final class Okex: SimpleMarket {
+final class Okex: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Okex",

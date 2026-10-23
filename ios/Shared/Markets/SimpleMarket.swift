@@ -7,7 +7,7 @@ import Foundation
 ///
 /// Exchanges needing several pair lists, a combined list or POST requests subclass `Market` directly.
 /// Android counterpart: `SimpleMarket.kt`.
-class SimpleMarket: Market {
+class SimpleMarket: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     private let pairListURL: String
     private let tickerURL: String
     private let errorField: String?

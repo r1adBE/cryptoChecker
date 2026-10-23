@@ -1,5 +1,6 @@
 package com.cryptochecker.marketdata.model.market
 
+import com.cryptochecker.marketdata.exceptions.MarketParseException
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.MarketPair
 import com.cryptochecker.marketdata.model.Ticker
@@ -11,6 +12,9 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 private const val ONE_TRADING_API = "https://api.onetrading.com/fast/v1"
+
+/** Alle Kurse auf einmal: Sammelabfrage und Ausweg des Einzelkurses. */
+private const val ONE_TRADING_TICKERS = "$ONE_TRADING_API/market-ticker"
 
 /** Instrumenttyp und Buchzustand, wie in «instruments» und «market-ticker». */
 private const val SPOT = "SPOT"
@@ -33,6 +37,21 @@ class OneTrading : SimpleMarket(
         copyRow(json, ticker)
     }
 
+    /** Einzelkurs mit Serverfehler (HTTP 5xx, etwa seit Oktober 2026): Kurs aus der Sammelliste. */
+    override fun tickerFallbackAddress(call: Int, info: PairQuery): String = ONE_TRADING_TICKERS
+
+    /**
+     * Die Zeile des Paars aus der Sammelliste, Zeilen anderer Art (Futures) zählen nicht — wie [parseBulkTickers].
+     * Fehlt sie: [MarketParseException.NO_DATA]; die App behält dann den ursprünglichen Serverfehler.
+     */
+    override fun fillTickerFallback(call: Int, body: String, ticker: Ticker, info: PairQuery) {
+        val id = pairId(info)
+        val rows = JSONArray(body)
+        val row = (0 until rows.length()).map(rows::getJSONObject)
+            .firstOrNull { !isOtherType(it) && it.optString("instrument_code") == id }
+        copyRow(row ?: throw MarketParseException(MarketParseException.NO_DATA), ticker)
+    }
+
     // ── Sammelabfrage ──
 
     override val bulkTickersNumOfRequests: Int
@@ -41,7 +60,7 @@ class OneTrading : SimpleMarket(
     override val bulkTickersComplete: Boolean
         get() = true
 
-    override fun getBulkTickersUrl(call: Int): String = "$ONE_TRADING_API/market-ticker"
+    override fun getBulkTickersUrl(call: Int): String = ONE_TRADING_TICKERS
 
     /**
      * Die Sammelliste enthält auch Futures («type» DATED_FUTURE, EQUITY_FUTURE …): nur Spot-Zeilen zählen. Zeilen
