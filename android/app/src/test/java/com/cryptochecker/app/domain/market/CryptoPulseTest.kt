@@ -80,7 +80,7 @@ class CryptoPulseTest {
         assertEquals(PulseSummary.CALM, summary(0.9, -0.9, 0.0, 3.0))
         assertEquals(PulseSummary.MIXED, summary(1.0, 0.0, 0.0, 1.0)) // |1.0| ist nicht < 1, 0.0 im Rauschen
         // alle drei gleichgerichtet → nie «gemischt», auch unter 1.5 %
-        assertEquals(PulseSummary.BROAD_UP, summary(2.0, 2.0, 1.4, 2.0))
+        assertEquals(PulseSummary.BROAD_UP_VOLUME, summary(2.0, 2.0, 1.4, 2.0))
         assertEquals(PulseSummary.BROAD_DOWN, summary(-2.0, -2.6, -1.2, null, market = -3.1))
         assertEquals(PulseSummary.MIXED, summary(3.0, -3.0, 3.0, 1.0))
     }

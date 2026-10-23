@@ -141,7 +141,7 @@ internal fun StepHeader(number: Int, title: String, active: Boolean, done: Boole
         ) {
             Text(
                 text = if (done) "✓" else LocaleNumbers.integer(number),
-                style = if (done) MaterialTheme.typography.labelSmall else MaterialTheme.typography.labelMedium,
+                style = MaterialTheme.typography.labelMedium,
                 color = when {
                     done -> MaterialTheme.colorScheme.onSurfaceVariant
                     lit -> AppColors.onAccent

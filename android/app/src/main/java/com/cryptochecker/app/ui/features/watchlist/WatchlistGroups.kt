@@ -42,6 +42,7 @@ import com.cryptochecker.app.domain.watch.AutoGroup
 import com.cryptochecker.app.ui.components.AssetKindIcon
 import com.cryptochecker.app.domain.watch.QuickView
 import com.cryptochecker.app.domain.watch.WatchFilter
+import com.cryptochecker.app.ui.theme.Spacing
 import kotlinx.coroutines.delay
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -300,7 +301,7 @@ private fun GroupChip(
                         color = contentColor,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.padding(start = 6.dp).clearAndSetSemantics { }
+                        modifier = Modifier.padding(start = Spacing.xs).clearAndSetSemantics { }
                     )
                 }
             }

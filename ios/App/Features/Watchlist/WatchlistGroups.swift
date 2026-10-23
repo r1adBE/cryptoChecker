@@ -211,7 +211,7 @@ struct WatchlistGroupChips: View {
         }
         return Group {
             if let icon {
-                HStack(spacing: 6) {
+                HStack(spacing: Spacing.xs) {
                     GroupChipIconView(icon: icon)
                         .foregroundStyle(tint)
                         .padding(.horizontal, -2)
