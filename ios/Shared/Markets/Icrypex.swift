@@ -15,7 +15,7 @@ private let icrypexRunning = "Running"
 /// Paarliste kommt aus `exchange/info` (`pairs` mit `base`, `quote`, `status`, `marketTypes`): nur sie sagt, was Spot
 /// ist und was gehandelt wird, und führt auch Gegenwährungen wie ICPX, die sich aus dem Symbol allein nicht sicher
 /// abtrennen liessen. Perpetuals tragen «/P» im Symbol und werden nirgends übernommen.
-final class Icrypex: SimpleMarket {
+final class Icrypex: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Icrypex",

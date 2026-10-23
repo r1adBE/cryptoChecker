@@ -36,21 +36,31 @@ enum LiveActivityController {
     }
 
     static func stop(watchId: Int64) async {
-        for activity in activities where activity.attributes.watchId == watchId {
-            await activity.end(nil, dismissalPolicy: .immediate)
-        }
+        await endActivities(watchId: watchId)
     }
 
     static func endAll() async {
-        for activity in activities {
-            await activity.end(nil, dismissalPolicy: .immediate)
-        }
+        await endActivities(watchId: nil)
     }
 
     /// Nach einer Kursprüfung: laufende Aktivität mit dem neuen Stand des Paars
     /// aktualisieren (veraltet nach 30 Min.). Gibt es das Paar nicht mehr, endet sie.
     static func update(watches: [Watch]) async {
-        for activity in activities where isLive(activity.activityState) {
+        await updateActivities(watches)
+    }
+
+    // Ohne Akteur: Die Aktivitäten werden hier geholt und benutzt, wechseln also nie den Akteur
+    // (`end`/`update` laufen ohne Akteur – vom MainActor aus wäre das ein unsicheres Senden).
+    /// Beendet die Aktivitäten dieses Paars (`nil` = alle).
+    nonisolated private static func endActivities(watchId: Int64?) async {
+        for activity in Activity<PriceActivityAttributes>.activities
+        where watchId == nil || activity.attributes.watchId == watchId {
+            await activity.end(nil, dismissalPolicy: .immediate)
+        }
+    }
+
+    nonisolated private static func updateActivities(_ watches: [Watch]) async {
+        for activity in Activity<PriceActivityAttributes>.activities where isLive(activity.activityState) {
             guard let watch = watches.first(where: { $0.id == activity.attributes.watchId }) else {
                 await activity.end(nil, dismissalPolicy: .immediate)
                 continue
@@ -59,7 +69,7 @@ enum LiveActivityController {
         }
     }
 
-    private static func isLive(_ state: ActivityState) -> Bool {
+    nonisolated private static func isLive(_ state: ActivityState) -> Bool {
         state == .active || state == .stale
     }
 }

@@ -1,6 +1,6 @@
 {
   "exchange": "One Trading",
-  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). NOTE: bid/ask field names follow the adapter (highest_bid/lowest_ask); the older Bitpanda Pro API used best_bid/best_ask - verify against a live response.",
+  "description": "Hand-written in the documented response format (no live capture possible in the build environment); field names are exactly the ones the adapters read. Bodies are raw response text, expectations are the parsed Ticker (-1 = Ticker.NO_DATA, change24hPercent null = must not be set). Shared by ExchangeContractTest.kt (Android) and ExchangeContractTests.swift (iOS). NOTE: bid/ask field names follow the adapter (highest_bid/lowest_ask); the older Bitpanda Pro API used best_bid/best_ask - verify against a live response. Kind singleFallback: the single ticker failed with the server error «status» (HTTP 5xx); «body» is the response of the fallback address (the bulk list), read via readTickerFallback (ExchangeContractTest) and through SingleTickerFallback (SingleTickerFallbackTest.kt / SingleTickerFallbackTests.swift). Expected error = the original server error stays.",
   "endpoints": {
     "single": "GET https://api.onetrading.com/fast/v1/market-ticker/BTC_EUR",
     "bulk": "GET https://api.onetrading.com/fast/v1/market-ticker"
@@ -218,6 +218,102 @@
           "ETH_USDC": {},
           "USDC_EUR": {}
         }
+      }
+    },
+    {
+      "kind": "singleFallback",
+      "name": "single ticker HTTP 500 -> price from the bulk list (spot row of the pair, same fields as the single ticker)",
+      "market": "OneTrading",
+      "pair": {
+        "base": "BTC",
+        "quote": "EUR",
+        "id": "BTC_EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "status": 500,
+      "body": "[{\"instrument_code\":\"BTC_USD_P\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"DATED_FUTURE\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58010.5\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"},{\"instrument_code\":\"ETH_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"SPOT\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"2400.5\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"},{\"instrument_code\":\"BTC_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"SPOT\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58000.1\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"}]",
+      "expect": {
+        "last": 58000.1,
+        "bid": 58000.0,
+        "ask": 58000.2,
+        "high": 58500.0,
+        "low": 56500.0,
+        "vol": 210.5,
+        "volQuote": 12345678.9,
+        "change24hPercent": 2.11,
+        "exchangeTime": null
+      }
+    },
+    {
+      "kind": "singleFallback",
+      "name": "single ticker HTTP 503 -> pair missing from the bulk list -> error (the original server error stays)",
+      "market": "OneTrading",
+      "pair": {
+        "base": "FOO",
+        "quote": "EUR",
+        "id": "FOO_EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "status": 503,
+      "body": "[{\"instrument_code\":\"BTC_USD_P\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"DATED_FUTURE\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58010.5\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"},{\"instrument_code\":\"ETH_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"SPOT\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"2400.5\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"},{\"instrument_code\":\"BTC_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"SPOT\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58000.1\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"}]",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "singleFallback",
+      "name": "single ticker HTTP 500 -> only a futures row with this code -> error (spot only)",
+      "market": "OneTrading",
+      "pair": {
+        "base": "BTC",
+        "quote": "USD",
+        "id": "BTC_USD_P",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "status": 500,
+      "body": "[{\"instrument_code\":\"BTC_USD_P\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"DATED_FUTURE\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58010.5\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"},{\"instrument_code\":\"BTC_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"SPOT\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58000.1\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"}]",
+      "expect": {
+        "error": true,
+        "thrown": "No data"
+      }
+    },
+    {
+      "kind": "singleFallback",
+      "name": "single ticker HTTP 502 -> row of the pair with null «last_price» (inactive) -> error",
+      "market": "OneTrading",
+      "pair": {
+        "base": "BTC",
+        "quote": "EUR",
+        "id": "BTC_EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "status": 502,
+      "body": "[{\"instrument_code\":\"BTC_USD_P\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"DATED_FUTURE\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58010.5\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"},{\"instrument_code\":\"BTC_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"SPOT\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":null,\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"}]",
+      "expect": {
+        "error": true
+      }
+    },
+    {
+      "kind": "singleFallback",
+      "name": "single ticker HTTP 500 -> row without «type» is read like in the bulk query (kind unknown)",
+      "market": "OneTrading",
+      "pair": {
+        "base": "BTC",
+        "quote": "EUR",
+        "id": "BTC_EUR",
+        "contract": "NONE"
+      },
+      "requestId": 0,
+      "status": 500,
+      "body": "[{\"instrument_code\":\"BTC_USD_P\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"type\":\"DATED_FUTURE\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58010.5\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"},{\"instrument_code\":\"BTC_EUR\",\"sequence\":1234567,\"time\":\"2024-10-10T06:00:00.123Z\",\"state\":\"ACTIVE\",\"quote_volume\":\"12345678.9\",\"base_volume\":\"210.5\",\"last_price\":\"58000.1\",\"highest_bid\":\"58000\",\"lowest_ask\":\"58000.2\",\"price_change\":\"1200.1\",\"price_change_percentage\":\"2.11\",\"high\":\"58500\",\"low\":\"56500\"}]",
+      "expect": {
+        "last": 58000.1,
+        "change24hPercent": 2.11
       }
     }
   ]

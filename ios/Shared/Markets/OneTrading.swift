@@ -2,12 +2,15 @@ import Foundation
 
 private let oneTradingAPI = "https://api.onetrading.com/fast/v1"
 
+/// Alle Kurse auf einmal: Sammelabfrage und Ausweg des Einzelkurses.
+private let oneTradingTickers = oneTradingAPI + "/market-ticker"
+
 /// Instrumenttyp und Buchzustand, wie in «instruments» und «market-ticker».
 private let oneTradingSpot = "SPOT"
 private let oneTradingActive = "ACTIVE"
 
 /// One Trading (EU, vormals Bitpanda Pro), nur Spot. Doku: docs.onetrading.com
-final class OneTrading: SimpleMarket {
+final class OneTrading: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "OneTrading",
@@ -26,13 +29,27 @@ final class OneTrading: SimpleMarket {
         try copyRow(json, into: &ticker)
     }
 
+    /// Einzelkurs mit Serverfehler (HTTP 5xx, etwa seit Oktober 2026): Kurs aus der Sammelliste.
+    override func tickerFallbackAddress(call: Int, info: PairQuery) -> String? { oneTradingTickers }
+
+    /// Die Zeile des Paars aus der Sammelliste, Zeilen anderer Art (Futures) zählen nicht — wie `parseBulkTickers`.
+    /// Fehlt sie: `JSONError.noData`; die App behält dann den ursprünglichen Serverfehler.
+    override func fillTickerFallback(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+        let id = pairId(info)
+        let rows = try JArray(string: body).allObjects()
+        guard let row = rows.first(where: { !OneTrading.isOtherType($0) && $0.optString("instrument_code") == id }) else {
+            throw JSONError(message: JSONError.noData)
+        }
+        try copyRow(row, into: &ticker)
+    }
+
     // MARK: Sammelabfrage
 
     override var bulkTickersNumOfRequests: Int { 1 }
 
     override var bulkTickersComplete: Bool { true }
 
-    override func bulkTickersURL(call: Int) -> String? { oneTradingAPI + "/market-ticker" }
+    override func bulkTickersURL(call: Int) -> String? { oneTradingTickers }
 
     /// Die Sammelliste enthält auch Futures («type» DATED_FUTURE, EQUITY_FUTURE …): nur Spot-Zeilen zählen. Zeilen
     /// ohne «type» werden gelesen (Art unbekannt), machen die Antwort aber unvollständig (`bulkResponseComplete`).

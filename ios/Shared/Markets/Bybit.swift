@@ -3,19 +3,19 @@ import Foundation
 private let bybitAPI = "https://api.bybit.com/v5/market"
 
 /// Bybit Spot. API v5: https://bybit-exchange.github.io/docs/v5/market/tickers
-final class Bybit: BybitBase {
+final class Bybit: BybitBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() { super.init(key: "Bybit", name: "Bybit", category: "spot", contractType: .none) }
 }
 
 /// Bybit USDT-/USDC-Perpetuals (Kategorie «linear»).
-final class BybitFutures: BybitBase {
+final class BybitFutures: BybitBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() { super.init(key: "BybitFutures", name: "Bybit Futures", category: "linear", contractType: .perpetual) }
 }
 
 /// Gemeinsamer Teil von Spot und Perpetuals; die Kategorie steht in jeder Adresse. Antworten haben die Form
 /// {"retCode", "retMsg", "result": {"list": [...]}}. Die Paarliste fragt «limit=1000» an: linear hat über 500
 /// Symbole, ohne Angabe kämen nur 500.
-class BybitBase: SimpleMarket {
+class BybitBase: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     private let category: String
     private let contractType: FuturesContractType
 

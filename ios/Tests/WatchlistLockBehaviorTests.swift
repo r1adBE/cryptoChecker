@@ -9,6 +9,7 @@ import XCTest
 /// etwas änderte; die Gegenprobe ohne Sperre zeigt das je Weg. Merkliste, Alarme und Einstellungen der Test-App kommen
 /// danach zurück. Dazu ein Quelltext-Scan: Jede nicht-private Funktion der AppData-Merklisten-Dateien steht in genau
 /// einer Liste (Schreibweg, Lesen, Hintergrund) — ein neuer Schreibweg fällt so auf.
+/// Ohne Schlüsselbund (unsignierter CI-Simulator) mit Test-Schlüssel (`HostStorageKey`): läuft überall, nie übersprungen.
 @MainActor
 final class WatchlistLockBehaviorTests: XCTestCase {
     private static let btc = Watch(id: 990_101, marketKey: "Binance", marketName: "Binance", baseAsset: "BTC",
@@ -63,14 +64,12 @@ final class WatchlistLockBehaviorTests: XCTestCase {
     }
 
     override func setUp() async throws {
+        try await HostStorageKey.prepareAppStorage()
         let data = AppData.shared
         wasLocked = data.watchlistLocked
         hintAt = data.watchlistLockedHintAt
         originalSettings = data.settings
-        guard let stored = SharedStorage.readSnapshot().snapshot else {
-            throw XCTSkip("Merkliste der Test-App gerade nicht lesbar")
-        }
-        original = stored
+        original = try XCTUnwrap(SharedStorage.readSnapshot().snapshot, "Merkliste der Test-App nicht lesbar")
     }
 
     override func tearDown() async throws {
@@ -100,6 +99,21 @@ final class WatchlistLockBehaviorTests: XCTestCase {
         let data = AppData.shared
         data.watchlistLocked = false
         let portfolioAlarms = original?.portfolioAlarms, nextPortfolioAlarmId = original?.nextPortfolioAlarmId
+        // Schreibvorgänge der vorigen Prüfung (ungesperrt) erst abwarten, sonst überschreiben sie die Testdaten
+        await SharedStorage.snapshotWritesSettled()
+        await data.waitForLiveApply()
+        for attempt in 0..<3 {
+            if try await writeTestData(portfolioAlarms, nextPortfolioAlarmId, prepare) { return }
+            if attempt < 2 { try await Task.sleep(nanoseconds: 200_000_000) }
+        }
+        XCTFail("Testdaten nicht übernommen")
+        throw HostStorageKey.NotReady()
+    }
+
+    /// Ein Versuch: schreiben, neu lesen, vergleichen.
+    private func writeTestData(_ portfolioAlarms: [PortfolioAlarm]?, _ nextPortfolioAlarmId: Int64?,
+                               _ prepare: ((inout SharedStorage.Snapshot) -> Void)?) async throws -> Bool {
+        let data = AppData.shared
         let stored = SharedStorage.updateSnapshot { s in
             s.watches = [Self.btc, Self.eth]
             s.alarms = [Self.alarm]
@@ -115,10 +129,10 @@ final class WatchlistLockBehaviorTests: XCTestCase {
         // Ändert die App zwischendurch etwas, gilt der Speicher (`reloadFromDisk`): dann noch einmal lesen
         for _ in 0..<3 {
             await data.reloadFromDisk()
-            if Shape(data.snapshot) == Shape(expected) { return }
+            if Shape(data.snapshot) == Shape(expected) { return true }
+            await SharedStorage.snapshotWritesSettled()
         }
-        XCTFail("Testdaten nicht übernommen")
-        throw XCTSkip("Testdaten nicht übernommen")
+        return false
     }
 
     private func encoded(_ snapshot: SharedStorage.Snapshot) throws -> Data {

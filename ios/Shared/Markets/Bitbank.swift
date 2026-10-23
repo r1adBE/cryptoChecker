@@ -13,7 +13,7 @@ private let bitbankCommon: [String: String] = ["BCC": "BCH"]
 
 /// bitbank (Japan, JPY-Paare), öffentliche API: https://github.com/bitbankinc/bitbank-api-docs. Kennung «btc_jpy».
 /// Jede Antwort steckt in {"success":1,"data":…}; Fehler sind {"success":0,"data":{"code":…}} ohne Text.
-final class Bitbank: SimpleMarket {
+final class Bitbank: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Bitbank",

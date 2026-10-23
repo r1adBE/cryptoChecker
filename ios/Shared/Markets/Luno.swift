@@ -11,7 +11,7 @@ private let lunoTrading: Set<String> = ["ACTIVE", "POST_ONLY", "POSTONLY"]
 
 /// Luno (Südafrika, Nigeria, Malaysia u. a.), öffentliche API: https://www.luno.com/en/developers/api — Kennung
 /// wie «XBTZAR». Ticker ohne Hoch/Tief und ohne 24-h-Veränderung (die App rechnet mit Kerzen).
-final class Luno: SimpleMarket {
+final class Luno: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Luno",

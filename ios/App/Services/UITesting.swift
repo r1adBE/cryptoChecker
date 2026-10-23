@@ -15,7 +15,8 @@ import UniformTypeIdentifiers
 ///   «Sichern» schreibt nach `tmp/uitest_backup.json`, «Wiederherstellen» liest von dort
 ///   (`testableFileImporter`, `exportURL`). Die Sicherung bleibt über einen Neustart, wenn
 ///   `UITEST_KEEP_BACKUP=1` gesetzt ist (Sichern → Neustart = Daten weg → Wiederherstellen); `UITEST_BACKUP`
-///   legt dort eine Sicherung des Tests ab.
+///   legt dort eine Sicherung des Tests ab. «Sichern» liest die Datei zurück wie im echten Weg;
+///   `UITEST_FAIL_VERIFY=1` lässt diese Prüfung scheitern (`writeExport`).
 enum UITesting {
     static let isActive = ProcessInfo.processInfo.arguments.contains(UiTestTags.launchArgument)
 
@@ -66,6 +67,17 @@ enum UITesting {
     /// «Sichern» schreibt hierhin statt die Dateiablage zu öffnen; nil = echte Ablage (kein UI-Test).
     static var exportURL: URL? {
         isActive ? backupURL : nil
+    }
+
+    /// «Sichern» im UI-Test: Datei schreiben und zurücklesen wie nach der Dateiablage (`BackupManager.verifyWritten`).
+    /// Mit `UITEST_FAIL_VERIFY=1` wird sie danach gekürzt: die Prüfung scheitert («nicht bestätigt», als Dialog).
+    /// Liefert den Schlüssel der Meldung.
+    static func writeExport(_ file: Data, to url: URL) -> String {
+        guard (try? file.write(to: url, options: .atomic)) != nil else { return "backup_failed" }
+        if isActive && ProcessInfo.processInfo.environment[UiTestTags.failVerifyEnvironment] == "1" {
+            try? Data(file.prefix(file.count / 2)).write(to: url, options: .atomic)
+        }
+        return BackupManager.verifyWritten(url, expected: file) == nil ? "backup_exported" : "backup_not_verified"
     }
 }
 #endif

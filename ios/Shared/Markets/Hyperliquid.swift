@@ -15,7 +15,7 @@ private let hyperliquidErrorChars = 200
 /// `priceIsMid` («Mittelkurs»), Frische ab Abruf. Die 24-h-Veränderung rechnet mit demselben Kurs gegen `prevDayPx`
 /// (`shownChange`), damit Kurs, Änderung und Alarme auf einer Basis stehen. Letzte Handel gäbe es nur je Coin
 /// (`recentTrades`) — für alle Perps zu teuer.
-final class Hyperliquid: Market {
+final class Hyperliquid: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(key: "Hyperliquid", name: "Hyperliquid", ttsName: "Hyperliquid")
     }

@@ -3,7 +3,7 @@ import Foundation
 private let kucoinAPI = "https://api.kucoin.com/api"
 
 /// KuCoin Spot: Paare aus v2/symbols, Kurse aus market/stats bzw. allTickers.
-final class Kucoin: SimpleMarket {
+final class Kucoin: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Kucoin",

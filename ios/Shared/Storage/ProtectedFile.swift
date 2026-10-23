@@ -168,7 +168,8 @@ final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zus
     /// dem gelöschten Schlüssel, und die App könnte diese Dateien nie mehr öffnen.
     static let generationKey = "storage_key_generation"
 
-    private let keychain: StorageKeychain
+    /// Nur unter `lock` gelesen; ersetzt nur in Unit-Tests (`replaceKeychainForTesting`, Debug-Build).
+    private var keychain: StorageKeychain
     private let readGeneration: @Sendable () -> String?
     private let writeGeneration: @Sendable (String) -> Void
     private let lock = NSLock()
@@ -260,6 +261,18 @@ final class StorageKey: @unchecked Sendable { // @unchecked: veränderlicher Zus
         cachedGeneration = readGeneration()
         return true
     }
+
+    #if DEBUG
+    /// Nur Unit-Tests auf einem Host ohne Schlüsselbund-Berechtigung (unsignierter Simulator): Schlüsselbund ersetzen und
+    /// den gemerkten Schlüssel vergessen. Fehlt im Release-Build.
+    func replaceKeychainForTesting(_ replacement: StorageKeychain) {
+        lock.lock()
+        defer { lock.unlock() }
+        keychain = replacement
+        cached = nil
+        cachedGeneration = nil
+    }
+    #endif
 
     private func lookupLocked() -> Lookup {
         if let cached {

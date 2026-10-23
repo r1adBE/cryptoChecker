@@ -3,7 +3,7 @@ import Foundation
 private let nonKycAPI = "https://api.nonkyc.io/api/v2"
 
 /// NonKYC.io (API v2). Marktliste mit «BASE/QUOTE», Ticker-Kennung «BASE_QUOTE».
-final class NonKyc: SimpleMarket {
+final class NonKyc: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "NonKyc",

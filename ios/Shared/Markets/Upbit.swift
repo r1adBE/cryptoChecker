@@ -1,7 +1,7 @@
 import Foundation
 
 /// Upbit (Südkorea). Kennung «QUOTE-BASE», z. B. KRW-BTC. Doku: docs.upbit.com
-final class Upbit: UpbitStyleMarket {
+final class Upbit: UpbitStyleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Upbit",
@@ -18,7 +18,7 @@ final class Upbit: UpbitStyleMarket {
 /// Bithumb (Südkorea), API v1 mit Upbits Aufbau. Doku: apidocs.bithumb.com. Anders als bei Upbit ist
 /// «trade_timestamp» die koreanische Uhrzeit als Epoche geschrieben (9 h zu spät); die Zeit kommt darum aus
 /// «trade_date» + «trade_time» (UTC).
-final class Bithumb: UpbitStyleMarket {
+final class Bithumb: UpbitStyleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Bithumb",
@@ -35,7 +35,7 @@ final class Bithumb: UpbitStyleMarket {
 /// Gemeinsamer Aufbau von Upbit und Bithumb: Paarliste `market/all`, Ticker `ticker?markets=…`, Kennung «QUOTE-BASE».
 /// `unfilteredURL`: Sammelabfrage ohne Auswahl, falls die Börse eine hat (Upbit), sonst nil (Bithumb).
 /// `tradeTimeFromUTCFields`: Handelszeit aus «trade_date»/«trade_time» (UTC) statt aus «trade_timestamp» (Bithumb).
-class UpbitStyleMarket: SimpleMarket {
+class UpbitStyleMarket: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     private let unfilteredURL: String?
     private let tradeTimeFromUTCFields: Bool
     /// Gefilterte Sammelabfrage: dahinter die Kennungen mit Komma.

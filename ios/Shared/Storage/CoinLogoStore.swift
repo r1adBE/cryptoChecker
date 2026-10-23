@@ -26,7 +26,8 @@ actor CoinLogoStore {
     static let shared = CoinLogoStore()
 
     /// Zuletzt benutzte Bilder; `NSCache` ist threadsicher, daher ohne Actor-Sprung lesbar.
-    static let memory: NSCache<NSString, UIImage> = {
+    // nonisolated(unsafe): NSCache ist laut Apple threadsicher, im SDK aber nicht als Sendable markiert.
+    nonisolated(unsafe) static let memory: NSCache<NSString, UIImage> = {
         let cache = NSCache<NSString, UIImage>()
         cache.countLimit = 300
         return cache

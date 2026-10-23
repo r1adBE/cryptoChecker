@@ -51,9 +51,9 @@ SIGNING = re.compile(r"(development team|code ?sign|signing|provisioning profile
                      r"No Accounts|requires a provisioning)", re.IGNORECASE)
 COMPILE_ERROR = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? error: (.*)$")
 WARNING = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? warning: (.*)$")
-# Ceiling for unique compiler warnings of the Release build: the count when it was set (94). Above it the build got noisier
-# -> error, so new warnings are fixed instead of piling up; lower the ceiling whenever warnings are removed.
-MAX_COMPILER_WARNINGS = 94
+# Ceiling for unique compiler warnings of the Release build: 0 (was 94 until build 115). Any new warning -> error, so it
+# is fixed right away; the annotations list every warning.
+MAX_COMPILER_WARNINGS = 0
 
 # Required Reason APIs (Apple, «Describing use of required reason API»), as they appear in Swift: category -> patterns.
 # Comments are removed before the scan, so a comment naming an API does not count (string-aware:

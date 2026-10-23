@@ -14,6 +14,8 @@ enum UiTestTags {
     static let keepBackupEnvironment = "UITEST_KEEP_BACKUP"
     /// Umgebung: Text der Sicherungsdatei, die «Wiederherstellen» statt der Dateiauswahl bekommt.
     static let backupEnvironment = "UITEST_BACKUP"
+    /// Umgebung «1»: «Sichern» kürzt die Datei nach dem Schreiben, die Prüfung scheitert («nicht bestätigt»).
+    static let failVerifyEnvironment = "UITEST_FAIL_VERIFY"
 
     // MARK: Tableiste
     static let tabWatchlist = "tab_watchlist"

@@ -34,7 +34,7 @@ private let coinbaseStarterPairs: CurrencyPairsMap = [
 /// Eine Anfrage je Paar: `/stats` liefert gleitend über 24 h open, high, low, last und volume — genug für Merkliste,
 /// Alarme und Widgets. Geld/Brief aus `/ticker` zeigt die App nirgends dauerhaft (die Vorschau beim Hinzufügen
 /// blendet fehlende Werte aus); die Zeit ist dann der Abruf.
-final class Coinbase: SimpleMarket {
+final class Coinbase: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Coinbase",

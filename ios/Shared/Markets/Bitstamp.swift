@@ -3,7 +3,7 @@ import Foundation
 private let bitstampAPI = "https://www.bitstamp.net/api/v2"
 
 /// Bitstamp (EU-reguliert, auch EUR-/GBP-Paare), API v2. Kennung = `url_symbol` («btcusd»).
-final class Bitstamp: SimpleMarket {
+final class Bitstamp: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Bitstamp",

@@ -11,15 +11,17 @@ extension XCTestCase {
     /// App frisch starten: Speicher leer (wie eine Neuinstallation), feste Börsen-Antworten, Englisch.
     /// `csv`: Text, den «CSV importieren» statt der Dateiauswahl bekommt; `keepBackup`: Sicherung des
     /// vorigen Starts behalten (Wiederherstellen nach «Daten weg»); `backup`: Sicherungsdatei, die «Wiederherstellen»
-    /// statt der Dateiauswahl bekommt.
+    /// statt der Dateiauswahl bekommt; `failVerify`: Prüfung nach dem Sichern scheitert («nicht bestätigt»).
     @MainActor
-    func launchApp(csv: String? = nil, keepBackup: Bool = false, backup: String? = nil) -> XCUIApplication {
+    func launchApp(csv: String? = nil, keepBackup: Bool = false, backup: String? = nil,
+                   failVerify: Bool = false) -> XCUIApplication {
         let app = XCUIApplication()
         // Startargument zuletzt: ohne Wert, damit es kein «-AppleLocale»-Wert verschluckt
         app.launchArguments = ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", UiTestTags.launchArgument]
         if let csv { app.launchEnvironment[UiTestTags.csvEnvironment] = csv }
         if keepBackup { app.launchEnvironment[UiTestTags.keepBackupEnvironment] = "1" }
         if let backup { app.launchEnvironment[UiTestTags.backupEnvironment] = backup }
+        if failVerify { app.launchEnvironment[UiTestTags.failVerifyEnvironment] = "1" }
         // Rückfallebene, falls die Mitteilungs-Abfrage eine Eingabe blockiert (sonst `allowNotificationsIfAsked`)
         addUIInterruptionMonitor(withDescription: "Notification permission") { alert in
             let allow = alert.buttons["Allow"]

@@ -163,6 +163,38 @@ final class ExchangeContractTests: XCTestCase {
         return message == wanted ? nil : "error text: expected '\(wanted ?? "nil")', got '\(message ?? "nil")'"
     }
 
+    /// Ausweg des Einzelkurses nach einem Serverfehler (`singleFallback`): die Antwort der Ausweichadresse über
+    /// `readTickerFallback`, geprüft wie ein Einzelkurs. Fehler = in der App bleibt der Serverfehler
+    /// (`SingleTickerFallback`, dort samt «status» geprüft). Wie Android.
+    private func runSingleFallback(_ c: [String: Any]) -> String? {
+        guard let market = market(c) else { return "unknown market \(c["market"] ?? "")" }
+        let info = pair(c["pair"] as? [String: Any] ?? [:])
+        let requestId = Int(S.number(c["requestId"]) ?? 0)
+        let expect = c["expect"] as? [String: Any] ?? [:]
+        guard let address = market.tickerFallbackAddress(call: requestId, info: info), !address.isEmpty else {
+            return "no fallback address"
+        }
+
+        var ticker = Ticker()
+        var failure: Error?
+        do {
+            try market.readTickerFallback(call: requestId, body: c["body"] as? String ?? "", ticker: &ticker, info: info)
+            if !(ticker.last.isFinite && ticker.last > 0) { failure = JSONError(message: "no ticker data") }
+        } catch {
+            failure = error
+        }
+        if expect["error"] as? Bool != true {
+            if let failure { return "expected a ticker, fallback parser failed: \(failure)" }
+            return checkTicker("ticker", expect, ticker)
+        }
+        guard let failure else { return "expected an error, got last=\(ticker.last)" }
+        if let thrown = expect["thrown"] as? String {
+            let message = (failure as? JSONError)?.message
+            if message != thrown { return "thrown: expected '\(thrown)', got '\(message ?? "\(failure)")'" }
+        }
+        return nil
+    }
+
     private func runBulk(_ c: [String: Any]) -> String? {
         guard let market = market(c) else { return "unknown market \(c["market"] ?? "")" }
         let requestId = Int(S.number(c["requestId"]) ?? 0)
@@ -373,6 +405,7 @@ final class ExchangeContractTests: XCTestCase {
                 let problem: String?
                 switch kind {
                 case "single": problem = runSingle(c)
+                case "singleFallback": problem = runSingleFallback(c)
                 case "bulk": problem = runBulk(c)
                 case "live": problem = runLive(c)
                 case "pairs": problem = runPairs(c)

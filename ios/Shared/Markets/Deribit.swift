@@ -8,7 +8,7 @@ private let deribitSettleCurrencies = ["BTC", "ETH", "USDC"]
 /// Deribit, nur Perpetuals: BTC-/ETH-PERPETUAL (gegen USD, in Coins abgerechnet = invers) und die linearen
 /// USDC-Perpetuals (z. B. SOL_USDC-PERPETUAL). Eine Paarliste je Abrechnungswährung, darum kein `SimpleMarket`.
 /// API v2: https://docs.deribit.com
-final class Deribit: Market {
+final class Deribit: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() { super.init(key: "Deribit", name: "Deribit") }
 
     // MARK: Einzelkurs

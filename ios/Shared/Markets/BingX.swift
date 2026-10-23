@@ -6,7 +6,7 @@ private let bingxAPI = "https://open-api.bingx.com/openApi"
 private let bingxOnline = 1
 
 /// BingX Spot. API: https://bingx-api.github.io/docs/#/en-us/spot/market-api.html
-final class BingX: BingXBase {
+final class BingX: BingXBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(key: "BingX", name: "BingX", contractType: .none,
                    pairListPath: "/spot/v1/common/symbols", tickerPath: "/spot/v1/ticker/24hr")
@@ -14,7 +14,7 @@ final class BingX: BingXBase {
 }
 
 /// BingX USDT-Perpetuals (Swap V2). API: https://bingx-api.github.io/docs/#/en-us/swapV2/market-api.html
-final class BingXFutures: BingXBase {
+final class BingXFutures: BingXBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(key: "BingXFutures", name: "BingX Futures", contractType: .perpetual,
                    pairListPath: "/swap/v2/quote/contracts", tickerPath: "/swap/v2/quote/ticker")
@@ -27,7 +27,7 @@ final class BingXFutures: BingXBase {
 ///
 /// Die Doku verlangt auch bei öffentlichen Abfragen den Parameter `timestamp` (ms); ohne ihn können Abfragen
 /// abgelehnt werden. Darum kein `SimpleMarket`: jede Adresse wird beim Abruf gestempelt (`stamped`). Wie `BingX.kt`.
-class BingXBase: Market {
+class BingXBase: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     private let contractType: FuturesContractType
     private let pairListPath: String
     private let tickerPath: String

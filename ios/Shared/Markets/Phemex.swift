@@ -10,7 +10,7 @@ private let phemexMD = "https://api.phemex.com/md"
 /// Menge (volumeEv, Basis) und Umsatz (turnoverEv, Kotierung) durch 10^`valueScale` der jeweiligen Währung aus
 /// `/public/products` (meist 8; SHIB 2, VPAD 4). Doku: github.com/phemex/phemex-api-docs.
 /// `PhemexFutures` bekommt Dezimaltexte (Rp) und braucht keine Faktoren.
-final class Phemex: PhemexBase {
+final class Phemex: PhemexBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(key: "Phemex", name: "Phemex", tickerURL: phemexMD + "/spot/ticker/24hr?symbol=%1$s",
                    contractType: .none)
@@ -116,7 +116,7 @@ final class Phemex: PhemexBase {
 }
 
 /// Phemex USDT-Perpetuals: Dezimaltexte (Rp/Rq/Rv), ohne Geld-/Briefkurs.
-final class PhemexFutures: PhemexBase {
+final class PhemexFutures: PhemexBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(key: "PhemexFutures", name: "Phemex Futures", tickerURL: phemexMD + "/v2/ticker/24hr?symbol=%1$s",
                    contractType: .perpetual)
@@ -146,7 +146,7 @@ final class PhemexFutures: PhemexBase {
 }
 
 /// Gemeinsames von Spot und Perpetuals: Paarliste aus `/public/products`, Fehlerformat, Sammelabfrage.
-class PhemexBase: SimpleMarket {
+class PhemexBase: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     private let contractType: FuturesContractType
 
     init(key: String, name: String, tickerURL: String, contractType: FuturesContractType) {

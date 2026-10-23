@@ -251,7 +251,9 @@ private struct WatchlistStatusSpeech: ViewModifier {
 
 /// Zeitangaben der Merkliste.
 enum WatchlistTime {
-    private static let relative: RelativeDateTimeFormatter = {
+    // nonisolated(unsafe): nach dem Einrichten nur gelesen; Foundation-Formatter formatieren threadsicher
+    // (DateFormatter/NumberFormatter sind im SDK schon Sendable, RelativeDateTimeFormatter noch nicht markiert).
+    nonisolated(unsafe) private static let relative: RelativeDateTimeFormatter = {
         let f = RelativeDateTimeFormatter()
         f.unitsStyle = .abbreviated
         f.dateTimeStyle = .numeric
@@ -264,7 +266,8 @@ enum WatchlistTime {
         return relative.localizedString(for: Date(millis: millis), relativeTo: Date(millis: now))
     }
 
-    private static let spokenRelative: RelativeDateTimeFormatter = {
+    // nonisolated(unsafe): wie `relative`.
+    nonisolated(unsafe) private static let spokenRelative: RelativeDateTimeFormatter = {
         let f = RelativeDateTimeFormatter()
         f.unitsStyle = .full
         f.dateTimeStyle = .numeric

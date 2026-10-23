@@ -5,7 +5,7 @@ private let independentReserveAPI = "https://api.independentreserve.com/Public"
 /// Independent Reserve (Australien, Neuseeland, Singapur). Statt einer Paarliste gibt es zwei Listen — Coins (Xbt,
 /// Eth, …) und Gegenwährungen (Aud, Usd, Nzd, Sgd); jedes Paar daraus ist handelbar (`pairListCombined`, darum kein
 /// `SimpleMarket`). Bitcoin heisst dort «Xbt». https://www.independentreserve.com/features/api
-final class IndependentReserve: Market {
+final class IndependentReserve: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() { super.init(key: "IndependentReserve", name: "Independent Reserve") }
 
     // MARK: Einzelkurs

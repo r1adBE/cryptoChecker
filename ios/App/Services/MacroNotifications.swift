@@ -149,7 +149,7 @@ actor MacroRescheduleQueue {
         let previous = last
         let task = Task {
             await previous?.value
-            guard await self.isCurrent(mine) else { return }
+            guard self.isCurrent(mine) else { return }
             await work { await self.isCurrent(mine) }
         }
         last = task

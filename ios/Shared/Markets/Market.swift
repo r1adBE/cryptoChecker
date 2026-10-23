@@ -84,6 +84,22 @@ class Market: @unchecked Sendable { // @unchecked: nur let-Konstanten, Unterklas
     /// Hook: reads the fields of a JSON-object response. Without an override the ticker stays empty («no price»).
     func fillTicker(call: Int, json: JObject, ticker: inout Ticker, info: PairQuery) throws {}
 
+    /// Ausweichadresse (GET), wenn Einzelanfrage `call` mit einem Serverfehler (HTTP 5xx) scheitert; nil = keine
+    /// (Standard). Die Antwort liest `readTickerFallback`; bringt sie keinen gültigen Kurs, bleibt der Serverfehler
+    /// (`SingleTickerFallback`). Android gleich.
+    func tickerFallbackAddress(call: Int, info: PairQuery) -> String? { nil }
+
+    /// Wie `readTicker`, für die Antwort von `tickerFallbackAddress` (über `fillTickerFallback`).
+    final func readTickerFallback(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+        try fillTickerFallback(call: call, body: body, ticker: &ticker, info: info)
+        Market.markFetched(&ticker)
+    }
+
+    /// Hook zu `tickerFallbackAddress`: fehlt das Paar in der Antwort, werfen. Standard: kein Ausweg.
+    func fillTickerFallback(call: Int, body: String, ticker: inout Ticker, info: PairQuery) throws {
+        throw JSONError(message: JSONError.noData)
+    }
+
     /// Error text of the exchange for a ticker response that could not be parsed (via `errorMessage`). Throws if the
     /// response contains none; the caller then reports the original parse error.
     final func readError(call: Int, body: String, info: PairQuery) throws -> String? {

@@ -7,7 +7,7 @@ private let mercadoTickers = mercadoAPI + "/tickers?symbols="
 
 /// Mercado Bitcoin (Brasilien, BRL-Paare), öffentliche API v4: https://api.mercadobitcoin.net/api/v4/docs —
 /// Kennung wie «BTC-BRL». Die Paarliste kommt spaltenweise (je Feld eine Liste, gleiche Stelle = gleiches Paar).
-final class MercadoBitcoin: SimpleMarket {
+final class MercadoBitcoin: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "MercadoBitcoin",

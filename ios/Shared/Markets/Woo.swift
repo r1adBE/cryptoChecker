@@ -27,7 +27,7 @@ private let wooNoTrades = "Keine Abschlüsse"
 /// den echten letzten Abschluss und die Zeit der Börse auf dessen Zeit; die Veränderung wird gegen dieselbe
 /// Eröffnung neu gerechnet. Scheitert sie, bleibt der Schluss der Stundenkerze (der laufenden Kerze = letzter
 /// Abschluss bis zur Antwortzeit). Darum kein «Stundenkurs» mehr. Gegenstück: `Woo.kt`.
-final class Woo: WooBase {
+final class Woo: WooBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(key: "Woo", name: "WOO X", symbolPrefix: "SPOT", contractType: .none,
                    tickerURL: wooAPI + "/v3/public/kline?symbol=%1$s&type=1h&limit=\(wooHours)")
@@ -125,7 +125,7 @@ final class Woo: WooBase {
 }
 
 /// WOO X USDT-Perpetuals.
-final class WooFutures: WooBase {
+final class WooFutures: WooBase, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(key: "WooFutures", name: "WOO X Futures", symbolPrefix: "PERP", contractType: .perpetual,
                    tickerURL: wooAPI + "/v3/public/futures?symbol=%1$s")
@@ -170,7 +170,7 @@ final class WooFutures: WooBase {
 }
 
 /// Gemeinsam: Instrumentliste, Kennung «PRÄFIX_BASIS_QUOTE», Fehlertext in «message».
-class WooBase: SimpleMarket {
+class WooBase: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     private let symbolPrefix: String
     private let contractType: FuturesContractType
 

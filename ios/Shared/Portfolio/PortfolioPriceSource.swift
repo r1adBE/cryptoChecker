@@ -185,14 +185,14 @@ enum PortfolioPriceSource {
                 failed[coin] = route.marketName
             }
         }
-        lock.lock()
-        for coin in coins {
-            sourceOf[coin] = sources[coin]
-            failedOf[coin] = failed[coin]
-            binanceOf[coin] = refs[coin]
+        lock.withLock {
+            for coin in coins {
+                sourceOf[coin] = sources[coin]
+                failedOf[coin] = failed[coin]
+                binanceOf[coin] = refs[coin]
+            }
+            mixedCoins = stored.mixed
         }
-        mixedCoins = stored.mixed
-        lock.unlock()
         return fetched
     }
 

@@ -13,7 +13,7 @@ private let geminiQuoteEndings = ["rlusd", "gusd", "usdc", "usdt", "usd", "eur",
 /// Synchronisierung. Die Warteschlange dafür gehört der einzelnen Synchronisierung (`DetailPaging`), nicht der von allen
 /// geteilten Börse. Die Antworten merkt sich die Börse (`knownDetails`); was über der Grenze liegt oder eine
 /// Fehlerantwort bekam, fehlt vorerst in der Paarliste und kommt bei einer späteren Synchronisierung dran.
-final class Gemini: SimpleMarket, PagedPairList {
+final class Gemini: SimpleMarket, PagedPairList, @unchecked Sendable { // @unchecked: `knownDetails` nur unter `knownLock` (NSLock)
     typealias Split = (symbol: String, base: String, quote: String)
 
     /// Schützt `knownDetails` (gleichzeitige Synchronisierungen lesen und ergänzen es aus verschiedenen Aufgaben).

@@ -5,6 +5,7 @@ import SwiftUI
 // heutigen Wert — als Linie (Tagespunkte) oder Kerzen (`PortfolioCandles`). Wie `PortfolioHistoryChart.kt`.
 
 /// Kurz drücken, dann ziehen (wie im Aktionsblatt); schnelles Wischen bleibt dem Bildschirm (Scrollen).
+@MainActor
 func portfolioScrubGesture(_ state: GestureState<CGFloat?>) -> some Gesture {
     LongPressGesture(minimumDuration: 0.2)
         .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .local))

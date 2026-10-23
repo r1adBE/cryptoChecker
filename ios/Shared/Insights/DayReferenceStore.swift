@@ -228,7 +228,7 @@ actor DayReferenceStore {
         savePending = true
         Task {
             try? await Task.sleep(nanoseconds: Self.saveDelayNanos)
-            await self.save()
+            self.save()
         }
     }
 

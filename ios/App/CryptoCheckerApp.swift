@@ -237,7 +237,9 @@ struct CryptoCheckerApp: App {
     }
 }
 
-final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+// @preconcurrency: iOS ruft die Mitteilungs-Delegate-Methoden auf dem Haupt-Thread auf; das SDK markiert das
+// Protokoll aber nicht als MainActor (die Klasse ist es über UIApplicationDelegate).
+final class AppDelegate: NSObject, UIApplicationDelegate, @preconcurrency UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {

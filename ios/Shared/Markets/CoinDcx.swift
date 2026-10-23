@@ -8,7 +8,7 @@ private let coinDcxTicker = coinDcxAPI + "/ticker"
 /// CoinDCX (Indien, INR- und USDT-Paare), öffentliche API: https://docs.coindcx.com — Kennung = `coindcx_name`
 /// («BTCINR»), im Ticker `market`. Vorsicht: In der Paarliste ist `base_currency_short_name` die Gegenwährung
 /// (INR/USDT) und `target_currency_short_name` der gehandelte Coin.
-final class CoinDcx: SimpleMarket {
+final class CoinDcx: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "CoinDcx",

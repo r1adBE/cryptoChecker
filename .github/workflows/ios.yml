@@ -49,6 +49,7 @@ permissions:
 
 jobs:
   build:
+    name: iOS build
     # Since 28 April 2026 App Store uploads must be built with Xcode 26 / the iOS 26 SDK,
     # so CI builds with the same toolchain.
     runs-on: macos-26
@@ -210,12 +211,12 @@ jobs:
           set -e
           tail -n 120 "$LOG"
           bash "$GITHUB_WORKSPACE/.github/scripts/xcode_errors.sh" "$LOG"
-          # Skipped tests (XCTSkip) are listed as warnings. The SharedStorage tests run
-          # on a test keychain and must not be skipped on main and release tags. The watchlist-lock behaviour tests and
-          # the background-run tests use the test app's sealed watchlist, which needs the real keychain; the unsigned CI
-          # host has no keychain entitlement, so they stay a warning (lock rules are also covered by
-          # WatchlistNotSavedGateTests/WatchlistWriteLockTests here and WatchlistLockDeviceTest on Android; run the
-          # behaviour tests on a signed device/simulator before a release)
+          # Skipped tests (XCTSkip) are listed as warnings. Critical classes must not be skipped on main and release
+          # tags (error there): SharedStorageTests (test keychain), WatchlistLockBehaviorTests and
+          # BackgroundRefreshRunTests. The last two run on the test app's sealed watchlist; without a keychain
+          # entitlement (unsigned CI host) they use an in-memory test keychain (Tests/HostStorageKey.swift), so a
+          # missing or unwritable watchlist is a test failure, not a skip. Their only remaining skips are quiet hours
+          # of the test app and «not enough time left» for the extra-data alarms.
           SKIPPED=$(grep -oE "Test [Cc]ase '[^']+' skipped" "$LOG" | sed -E "s/^Test [Cc]ase '(.*)' skipped$/\1/" | sort -u || true)
           COUNT=$(printf '%s\n' "$SKIPPED" | grep -c . || true)
           echo "Skipped unit tests: $COUNT"
@@ -224,11 +225,11 @@ jobs:
             [ -n "$name" ] || continue
             echo "::warning title=Skipped iOS unit test::$name"
             case "$name" in
-              *SharedStorageTests*) CRITICAL=$((CRITICAL + 1)) ;;
+              *SharedStorageTests*|*WatchlistLockBehaviorTests*|*BackgroundRefreshRunTests*) CRITICAL=$((CRITICAL + 1)) ;;
             esac
           done <<< "$SKIPPED"
           if [ "$CRITICAL" -gt 0 ] && { [ "$GITHUB_REF" = "refs/heads/main" ] || [[ "$GITHUB_REF" == refs/tags/v* ]]; }; then
-            echo "::error title=Skipped critical iOS tests::$CRITICAL SharedStorageTests test(s) skipped on $GITHUB_REF"
+            echo "::error title=Skipped critical iOS tests::$CRITICAL critical test(s) (SharedStorage, WatchlistLockBehavior, BackgroundRefreshRun) skipped on $GITHUB_REF"
             [ "$status" -ne 0 ] || status=1
           fi
           exit $status

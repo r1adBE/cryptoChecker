@@ -7,7 +7,7 @@ private let cryptoComDollarQuotes: Set<String> = ["USD", "USDT", "USDC"]
 
 /// Crypto.com Exchange Spot (API v1). Ticker-Felder sind Einzelbuchstaben: a = letzter Kurs, b/k = Geld/Brief,
 /// h/l = Hoch/Tief, v = Menge, vv = Umsatz in USD, c = Veränderung, i = Instrument, t = Zeit.
-final class CryptoCom: SimpleMarket {
+final class CryptoCom: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "CryptoCom",

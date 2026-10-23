@@ -7,7 +7,7 @@ private let bitFlyerRegionLists = ["markets", "markets/usa", "markets/eu"]
 
 /// bitFlyer — Spot aus drei Regionen (Japan, USA, EU), je eine Produktliste; darum kein `SimpleMarket`. Der Ticker
 /// kennt weder 24-h-Hoch/-Tief noch ein Volumen in der Gegenwährung. https://lightning.bitflyer.com/docs
-final class BitFlyer: Market {
+final class BitFlyer: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() { super.init(key: "BitFlyer", name: "bitFlyer", ttsName: "bit flyer") }
 
     // MARK: Einzelkurs

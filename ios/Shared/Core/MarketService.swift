@@ -283,7 +283,17 @@ enum MarketService {
             if call == 0 { throw UserFriendlyMarketError(message: L("something_went_wrong")) }
             return
         }
-        let body = try await MarketHTTP.call(address, post: market.tickerPostBody(call: call, info: info))
+        let body: String
+        do {
+            body = try await MarketHTTP.call(address, post: market.tickerPostBody(call: call, info: info))
+        } catch let server as HttpMarketError {
+            // Serverfehler: Kurs über die Ausweichadresse der Börse, sonst bleibt er (`SingleTickerFallback`)
+            ticker = try await SingleTickerFallback.load(market: market, call: call, info: info, base: ticker,
+                                                         serverError: server) { fallback in
+                try await MarketHTTP.call(fallback, session: MarketHTTP.tickerBulkSession)
+            }
+            return
+        }
         if body.isEmpty { throw UserFriendlyMarketError(message: L("market_data_empty_error")) }
 
         var draft = ticker

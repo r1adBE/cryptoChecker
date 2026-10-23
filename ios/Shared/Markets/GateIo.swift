@@ -6,7 +6,7 @@ private let gateIoAPI = "https://api.gateio.ws/api/v4/spot"
 private let gateIoTickers = gateIoAPI + "/tickers"
 
 /// Gate.io Spot (API v4). Kennung = `id` der Paarliste («BTC_USDT»).
-final class GateIo: SimpleMarket {
+final class GateIo: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "GateIo",

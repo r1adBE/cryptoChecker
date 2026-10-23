@@ -16,7 +16,7 @@ private let krakenStatusOnline = "online"
 private let krakenEmptyResult = "Empty result"
 
 /// Kraken Spot: Paare aus AssetPairs, Kurse aus Ticker (Einzelpaar, Auswahl oder alle).
-final class Kraken: SimpleMarket {
+final class Kraken: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Kraken",

@@ -35,7 +35,7 @@ struct DexPool: Hashable, Sendable, Identifiable {
 /// Suche, `searchURL`), darum kein `SimpleMarket`. Mehrere Pools derselben Chain kommen gesammelt
 /// (`/latest/dex/pairs/{chain}/{a,b,…}`, höchstens `bulkMaxPools` je Anfrage), einzelne über dieselbe Adresse. Frei
 /// und ohne Schlüssel; laut Anbieter rund 300 Abfragen pro Minute.
-final class DexScreener: Market {
+final class DexScreener: Market, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     /// Schlüssel der Börse (Sicherung, Merkliste).
     static let key = "DexScreener"
     /// Lesefehler «Pool nicht gefunden» (Einzelkurs, ungültige Kennung).

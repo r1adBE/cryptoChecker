@@ -4,7 +4,7 @@ private let indodaxAPI = "https://indodax.com/api"
 
 /// Indodax (Indonesien). Vorsicht: In der Paarliste ist `base_currency` die Gegenwährung (IDR/USDT) und
 /// `traded_currency` der gehandelte Coin. https://github.com/btcid/indodax-official-api-docs
-final class Indodax: SimpleMarket {
+final class Indodax: SimpleMarket, @unchecked Sendable { // @unchecked: wie `Market` (keine veränderlichen Eigenschaften)
     init() {
         super.init(
             key: "Indodax",
