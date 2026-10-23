@@ -1,6 +1,7 @@
 package com.cryptochecker.app.ui.components
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
@@ -172,6 +173,9 @@ fun rememberNotificationPermissionRequest(reason: NotificationAsk = Notification
  * weg) — der wirft `IllegalStateException`; dann nicht fragen, nicht abstürzen und [onLaunched] (als gefragt merken) nicht
  * aufrufen. true = gestartet. Eigene Funktion, damit ein Unit-Test sie mit einem Fake-Launcher prüft (TST6-R1).
  */
+// Nur ab Android 13 aufgerufen (rememberNotificationPermissionRequest prüft TIRAMISU vorher); die Konstante ist ein
+// einkompilierter String und auf älteren Versionen harmlos.
+@SuppressLint("InlinedApi")
 internal fun launchOrSkip(launcher: ActivityResultLauncher<String>, onLaunched: () -> Unit): Boolean {
     try {
         launcher.launch(Manifest.permission.POST_NOTIFICATIONS)

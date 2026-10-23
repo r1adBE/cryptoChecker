@@ -2,6 +2,7 @@ package com.cryptochecker.app.notification
 
 import android.annotation.SuppressLint
 import android.content.Context
+import androidx.core.content.edit
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.portfolio.PortfolioDatabase
@@ -34,9 +35,7 @@ abstract class PrefsAlarmDeliveryMarkers(
         runCatching {
             val key = alarmId.toString()
             if (at == null && !prefs.contains(key)) return
-            val edit = prefs.edit()
-            if (at == null) edit.remove(key) else edit.putLong(key, at)
-            edit.commit()
+            prefs.edit(commit = true) { if (at == null) remove(key) else putLong(key, at) }
         }
     }
 
@@ -46,9 +45,7 @@ abstract class PrefsAlarmDeliveryMarkers(
         runCatching {
             val keys = alarmIds.map { it.toString() }.filter { prefs.contains(it) }
             if (keys.isEmpty()) return
-            val edit = prefs.edit()
-            keys.forEach { edit.remove(it) }
-            edit.commit()
+            prefs.edit(commit = true) { keys.forEach { key -> this.remove(key) } }
         }
     }
 
@@ -63,7 +60,9 @@ abstract class PrefsAlarmDeliveryMarkers(
         /** Alle Vermerke einer Datei löschen (Datenbank neu angelegt — Ids beginnen von vorn). */
         @SuppressLint("ApplySharedPref")
         fun clearAll(context: Context, prefsName: String) {
-            runCatching { context.getSharedPreferences(prefsName, Context.MODE_PRIVATE).edit().clear().commit() }
+            runCatching {
+                context.getSharedPreferences(prefsName, Context.MODE_PRIVATE).edit(commit = true) { clear() }
+            }
         }
 
         /**

@@ -48,7 +48,6 @@
     <string name="alarm_threshold_error_funding">Funding rate moet een getal tussen −10 en +10 procent zijn.</string>
     <string name="alarm_threshold_error_invalid">Voer een geldig getal groter dan 0 in.</string>
     <string name="alarm_threshold_error_oi">Verandering van open interest: hooguit 1000 procent.</string>
-    <string name="alarm_threshold_error_percent_down">Een daling kan maximaal 100 procent zijn.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">in %1$d u</item>
         <item quantity="other">in %1$d u</item>

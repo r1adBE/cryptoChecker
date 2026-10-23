@@ -44,7 +44,8 @@
     <string name="settings_exact_checks_nothing">No active pairs – nothing to check.</string>
     <string name="settings_exact_checks_permission_missing">Permission missing – while the device rests, Android checks irregularly, sometimes only after hours.</string>
     <string name="settings_notification_change">Notify only on price change</string>
-    <string name="settings_notification_change_always">Always</string>
+    <!-- Nur iOS: Android nutzt diesen Text nicht -->
+    <string name="settings_notification_change_always" tools:ignore="UnusedResources">Always</string>
     <!-- Eigene Melde-Schwelle: Eingabe ausserhalb 0–100 oder keine Zahl -->
     <string name="settings_percent_invalid">Enter a value from 0 to 100.</string>
     <string name="settings_notification_change_hint">A price notification appears only once the price has moved by at least this much since the last one. Nothing is shown while data is missing. Alerts are unaffected.</string>
@@ -71,11 +72,13 @@
     <string name="settings_battery_restricted">Battery usage: restricted</string>
     <string name="settings_check_runs_empty">No checks recorded yet.</string>
     <string name="settings_check_runs_honest_android">Android decides when to check – here you see when it really happened.</string>
-    <string name="settings_check_runs_honest_ios">iOS decides when to check – here you see when it really happened.</string>
+    <!-- Nur iOS: Android nutzt diesen Text nicht -->
+    <string name="settings_check_runs_honest_ios" tools:ignore="UnusedResources">iOS decides when to check – here you see when it really happened.</string>
     <string name="settings_check_runs_title">Recent checks</string>
     <string name="settings_http_log">Show HTTP log</string>
     <string name="settings_http_log_hint">Shows the requests to the exchanges at the bottom of the “Add pair” page – for troubleshooting.</string>
-    <string name="settings_live_service">Update frequently</string>
+    <!-- Nur iOS: Android nutzt diesen Text nicht -->
+    <string name="settings_live_service" tools:ignore="UnusedResources">Update frequently</string>
     <string name="settings_live_websocket">Live prices</string>
 
     <!-- Einstellungen › Merkliste (Namen, Sparkline, Aktivität) -->

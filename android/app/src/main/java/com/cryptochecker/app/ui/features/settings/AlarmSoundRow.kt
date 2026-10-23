@@ -34,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.ui.theme.Spacing
@@ -182,7 +183,7 @@ internal fun AlarmSoundRow(
                         putExtra(android.media.RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
                         putExtra(
                             android.media.RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
-                            currentUri?.let { android.net.Uri.parse(it) }
+                            currentUri?.toUri()
                                 ?: android.media.RingtoneManager.getDefaultUri(android.media.RingtoneManager.TYPE_NOTIFICATION)
                         )
                     }

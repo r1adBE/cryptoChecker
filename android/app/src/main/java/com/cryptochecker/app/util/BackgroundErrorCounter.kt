@@ -2,6 +2,7 @@ package com.cryptochecker.app.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.cryptochecker.app.domain.diagnostics.BackgroundErrorSummary
 import com.cryptochecker.app.domain.diagnostics.BackgroundErrors
 
@@ -29,10 +30,10 @@ object BackgroundErrorCounter {
         synchronized(this) {
             prefs = p
             if (pending.isEmpty()) return
-            val edit = p.edit()
-            pending.forEach { (area, n) -> edit.putInt(COUNT_PREFIX + area, p.getInt(COUNT_PREFIX + area, 0) + n) }
-            edit.putLong(KEY_LAST_AT, maxOf(pendingLastAt, p.getLong(KEY_LAST_AT, 0L)))
-            edit.apply()
+            p.edit {
+                pending.forEach { (area, n) -> putInt(COUNT_PREFIX + area, p.getInt(COUNT_PREFIX + area, 0) + n) }
+                putLong(KEY_LAST_AT, maxOf(pendingLastAt, p.getLong(KEY_LAST_AT, 0L)))
+            }
             pending.clear()
             pendingKinds.forEach { (area, kinds) -> kinds.forEach { (kind, n) -> addKind(p, area, kind, n) } }
             pendingKinds.clear()
@@ -58,7 +59,10 @@ object BackgroundErrorCounter {
                     }
                 } else {
                     val n = p.getInt(COUNT_PREFIX + code, 0)
-                    p.edit().putInt(COUNT_PREFIX + code, if (n == Int.MAX_VALUE) n else n + 1).putLong(KEY_LAST_AT, now).apply()
+                    p.edit {
+                        putInt(COUNT_PREFIX + code, if (n == Int.MAX_VALUE) n else n + 1)
+                        putLong(KEY_LAST_AT, now)
+                    }
                     if (errorKind != null) addKind(p, code, errorKind, 1)
                 }
             }
@@ -70,7 +74,7 @@ object BackgroundErrorCounter {
         val slot = BackgroundErrors.kindSlot(kindsOf(p)[area].orEmpty().keys, kind)
         val key = "$KIND_PREFIX$area|$slot"
         val old = p.getInt(key, 0)
-        p.edit().putInt(key, if (old > Int.MAX_VALUE - n) Int.MAX_VALUE else old + n).apply()
+        p.edit { putInt(key, if (old > Int.MAX_VALUE - n) Int.MAX_VALUE else old + n) }
     }
 
     /** Gespeicherte Arten: Bereich → (Art → Anzahl); nur bekannte Bereiche. */

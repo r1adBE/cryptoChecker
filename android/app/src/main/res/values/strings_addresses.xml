@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Portfolio: beobachtete Adressen (Wallets) -->
     <string name="portfolio_address_add">Add address</string>
     <string name="portfolio_address_count">Count</string>
@@ -19,9 +19,11 @@
     <string name="portfolio_address_show_only">Show only, don\'t add to portfolio</string>
     <string name="portfolio_address_show_only_short">Show only</string>
     <string name="portfolio_address_tokens">Count tokens</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d unknown tokens (not counted)</string>
+    <!-- Bewusst ohne Plural: kurzer Zähler «+N» wie ein Badge; eigene Plurals bräuchten alle Sprachen und iOS -->
+    <string name="portfolio_address_unknown_tokens" tools:ignore="PluralsCandidate">+%1$d unknown tokens (not counted)</string>
     <string name="portfolio_address_xpub_privacy">An xpub reveals all addresses of this wallet. They are derived on your device; only individual addresses are sent to %1$s – at least 40 requests on the first scan, later fewer. Private keys (xprv) are never accepted.</string>
-    <string name="portfolio_address_xpub_gap">The search stops after %1$d unused addresses in a row (the BIP44 standard most wallets use). A used address beyond that gap is not counted – add it separately.</string>
+    <!-- Kein Plural nötig: Zahl ist die feste Lückengrösse (XpubScan.GAP), nie 1 -->
+    <string name="portfolio_address_xpub_gap" tools:ignore="PluralsCandidate">The search stops after %1$d unused addresses in a row (the BIP44 standard most wallets use). A used address beyond that gap is not counted – add it separately.</string>
     <string name="portfolio_address_xpub_used">Addresses in use: %1$d</string>
     <!-- xpub mit mehr benutzten Adressen, als eine Aktualisierung abfragen darf (statt «Aktualisierung fehlgeschlagen») -->
     <string name="portfolio_address_xpub_too_many">Too many used addresses to update</string>

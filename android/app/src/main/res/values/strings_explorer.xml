@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="explorer_coin_back">All results</string>
     <plurals name="explorer_coin_exchanges">
         <item quantity="one">%1$d exchange</item>
@@ -82,19 +82,23 @@
     <string name="explorer_bulk_title">Several pairs at once</string>
 
     <!-- Handelspaare einer Börse laden und wählen -->
-    <string name="explorer_sync_sheet_text">Loads the current pairs of the selected exchange.</string>
+    <!-- Nur iOS: Android nutzt diesen Text nicht -->
+    <string name="explorer_sync_sheet_text" tools:ignore="UnusedResources">Loads the current pairs of the selected exchange.</string>
     <string name="explorer_no_pair_list">No currency pairs</string>
-    <string name="explorer_sync_sheet_last">Last sync: %1$s</string>
+    <!-- Nur iOS: Android nutzt diesen Text nicht -->
+    <string name="explorer_sync_sheet_last" tools:ignore="UnusedResources">Last sync: %1$s</string>
     <string name="explorer_sync_never">never</string>
-    <string name="explorer_sync_sheet_action">Sync now</string>
-    <string name="explorer_sync_sheet_title">Update currency pairs</string>
+    <!-- Nur iOS: Android nutzt diese Texte nicht -->
+    <string name="explorer_sync_sheet_action" tools:ignore="UnusedResources">Sync now</string>
+    <string name="explorer_sync_sheet_title" tools:ignore="UnusedResources">Update currency pairs</string>
     <string name="explorer_field_coin">Coin</string>
     <string name="explorer_field_contract">Contract type</string>
     <string name="explorer_field_exchange">Exchange</string>
     <string name="explorer_field_quote">Quote currency</string>
     <string name="explorer_contract_spot">Spot</string>
     <string name="explorer_reload_pairs">Sync</string>
-    <string name="sync_pairs_count">Trading pairs: %1$d</string>
+    <!-- Nur iOS: Android nutzt diesen Text nicht -->
+    <string name="sync_pairs_count" tools:ignore="UnusedResources">Trading pairs: %1$d</string>
 
     <!-- Token von dezentralen Börsen (DEX) -->
     <string name="dex_add">Add</string>

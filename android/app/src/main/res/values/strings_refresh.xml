@@ -84,7 +84,8 @@
         <item quantity="one">%1$d no longer traded</item>
         <item quantity="other">%1$d no longer traded</item>
     </plurals>
-    <string name="refresh_report_singles">%1$d individually</string>
+    <!-- Kein Plural nötig: Zähler «N einzeln», kein Mehrzahlwort -->
+    <string name="refresh_report_singles" tools:ignore="PluralsCandidate">%1$d individually</string>
 
     <!-- Prüfprotokoll der Hintergrundprüfungen (Ergebnis, Auslöser) -->
     <string name="check_result_failed">Failed</string>
@@ -95,7 +96,8 @@
     <string name="check_trigger_exact">On time</string>
     <string name="check_trigger_foreground">App</string>
     <string name="check_trigger_widget">Widget</string>
-    <string name="check_trigger_widget_ios">Widget · prices and price alerts</string>
+    <!-- Nur iOS: Android nutzt diesen Text nicht -->
+    <string name="check_trigger_widget_ios" tools:ignore="UnusedResources">Widget · prices and price alerts</string>
     <string name="check_trigger_worker">Background</string>
 
     <!-- Einschränkungen im Hintergrund (Akku, iOS-Hintergrundaktualisierung, Stromsparmodus) -->

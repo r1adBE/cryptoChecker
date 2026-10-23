@@ -6,6 +6,7 @@ import android.content.Context
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import androidx.core.content.getSystemService
+import androidx.core.net.toUri
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 
@@ -55,7 +56,7 @@ object NotificationChannels {
             description = context.getString(R.string.channel_alarms_description)
             enableVibration(mode.vibrate)
             if (mode.sound) {
-                val sound = soundUri?.let { runCatching { android.net.Uri.parse(it) }.getOrNull() }
+                val sound = soundUri?.let { runCatching { it.toUri() }.getOrNull() }
                     ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
                 setSound(
                     sound,

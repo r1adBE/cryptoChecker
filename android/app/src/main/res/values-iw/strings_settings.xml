@@ -260,7 +260,6 @@
     <plurals name="developer_taps_left">
         <item quantity="one">עוד %d הקשה לפתיחת אפשרויות המפתחים</item>
         <item quantity="two">עוד %d הקשות לפתיחת אפשרויות המפתחים</item>
-        <item quantity="many">עוד %d הקשות לפתיחת אפשרויות המפתחים</item>
         <item quantity="other">עוד %d הקשות לפתיחת אפשרויות המפתחים</item>
     </plurals>
     <string name="developer_unlocked">אפשרויות המפתחים נפתחו</string>

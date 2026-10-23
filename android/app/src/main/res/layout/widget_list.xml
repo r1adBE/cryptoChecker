@@ -67,7 +67,9 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
+                <!-- NestedWeights: Widget-Layout (RemoteViews, ohne ConstraintLayout); die Aufteilung geht nur mit verschachtelten Gewichten -->
                 <TextView
+                    tools:ignore="NestedWeights"
                     android:id="@+id/widget_duration"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

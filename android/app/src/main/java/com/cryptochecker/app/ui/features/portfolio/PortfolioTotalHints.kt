@@ -83,8 +83,8 @@ internal fun TotalCardHints(hints: List<TotalHintItem>, expanded: Boolean, onTog
 @Composable
 private fun TotalHint(
     text: String,
-    color: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.onSurfaceVariant,
     modifier: Modifier = Modifier,
+    color: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.onSurfaceVariant,
 ) {
     Text(
         text,

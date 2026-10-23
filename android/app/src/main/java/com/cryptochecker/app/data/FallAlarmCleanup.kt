@@ -2,6 +2,7 @@ package com.cryptochecker.app.data
 
 import android.annotation.SuppressLint
 import android.content.Context
+import androidx.core.content.edit
 import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchDao
@@ -55,7 +56,7 @@ class FallAlarmCleanup @Inject constructor(
 
     @SuppressLint("ApplySharedPref")
     private fun markDone(prefs: android.content.SharedPreferences) {
-        prefs.edit().putBoolean(KEY_DONE, true).commit()
+        prefs.edit(commit = true) { putBoolean(KEY_DONE, true) }
     }
 
     private companion object {

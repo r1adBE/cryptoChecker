@@ -57,7 +57,8 @@
     </plurals>
     <string name="widget_portfolio_name">Portfolio</string>
     <string name="widget_portfolio_off_hint">Turn it on in %1$s.</string>
-    <string name="widget_portfolio_off_short">Portfolio off</string>
+    <!-- Nur iOS: Android nutzt diesen Text nicht -->
+    <string name="widget_portfolio_off_short" tools:ignore="UnusedResources">Portfolio off</string>
     <string name="widget_portfolio_off_title">Portfolio is off</string>
     <string name="widget_portfolio_partly_stale">some prices outdated</string>
     <string name="widget_portfolio_period">Period</string>

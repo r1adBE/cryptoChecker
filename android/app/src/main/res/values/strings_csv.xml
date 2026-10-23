@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Portfolio: CSV-Import -->
     <string name="portfolio_csv_import_action">Import CSV</string>
     <string name="portfolio_csv_import_all_transfer">All to own wallet</string>
@@ -27,7 +27,8 @@
     <string name="portfolio_csv_import_loading">Reading file and daily rates…</string>
     <string name="portfolio_csv_import_missing_fx">No daily rate for lines %1$s – imported without price/fee.</string>
     <string name="portfolio_csv_import_missing_price">No price in the file for lines %1$s – imported without price.</string>
-    <string name="portfolio_csv_import_more">+ %1$d more</string>
+    <!-- Kein Plural nötig: Zähler «+ N weitere», kein Mehrzahlwort nach der Zahl -->
+    <string name="portfolio_csv_import_more" tools:ignore="PluralsCandidate">+ %1$d more</string>
     <plurals name="portfolio_csv_import_new">
         <item quantity="one">%d new transaction</item>
         <item quantity="other">%d new transactions</item>

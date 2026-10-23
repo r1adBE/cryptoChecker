@@ -135,6 +135,19 @@ android {
     lint {
         abortOnError = true
         enable += "LogNotTimber"
+        // Versions-Updates laufen bewusst über den Workflow «Supply chain update» und OSV (dazu muss
+        // gradle/verification-metadata.xml passen), nicht über Lint-Hinweise.
+        disable += setOf("GradleDependency", "NewerVersionAvailable", "AndroidGradlePluginVersion")
+        // Der Wechsel des targetSdk ist eine bewusste, getestete Entscheidung.
+        disable += "OldTargetApi"
+        // Die englische Wörterliste schlägt in übersetzten Texten falsch an (de «seit dem», Schweizer «ss»,
+        // Fachwörter wie «gas» in pt/tr).
+        disable += "Typos"
+        // Datumsangaben (1-3-2021, 1/3/2021), Aktenzeichen (Rev. Proc. 2024-28) und Quoten (1/2) in den Steuertexten
+        // stehen bewusst so; iOS übernimmt dieselben Texte (ios/tools/convert_strings.py).
+        disable += setOf("TypographyDashes", "TypographyFractions")
+        // Ordner values-in/values-iw (alte Codes) und id/he in res/xml/locales_config.xml sind dieselben Sprachen.
+        disable += "UnusedTranslation"
     }
 
     // JVM-Unit-Tests mit fester Sprache und Zeitzone: Erwartete Datums- und Zahlentexte sollen auf jedem Rechner gleich

@@ -6,7 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 import com.cryptochecker.app.R
 import timber.log.Timber
 
@@ -48,7 +48,7 @@ object WidgetPinner {
         val callback = Intent(context, WidgetPinReceiver::class.java).apply {
             action = WidgetPinReceiver.ACTION_PINNED
             // Eigene Uri je Art und Paar: Extras zählen nicht zur Identität eines PendingIntent
-            data = Uri.parse("cryptochecker://widget-pin/${kind.name}/${watchId ?: "none"}")
+            data = "cryptochecker://widget-pin/${kind.name}/${watchId ?: "none"}".toUri()
             putExtra(WidgetPinReceiver.EXTRA_KIND, kind.name)
             if (watchId != null) putExtra(WidgetPinReceiver.EXTRA_WATCH_ID, watchId)
         }

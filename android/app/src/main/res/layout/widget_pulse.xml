@@ -30,7 +30,9 @@
         android:orientation="vertical"
         android:padding="12dp">
 
+        <!-- UseCompoundDrawables: Logo als eigene 16-dp-ImageView, die der Renderer per RemoteViews setzt; als Compound-Drawable sähe es anders aus -->
         <LinearLayout
+            tools:ignore="UseCompoundDrawables"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -128,7 +130,10 @@
                 android:visibility="gone" />
 
             <!-- Platzhalter: hält Chips und Stand unten (FrameLayout, da <View> in RemoteViews nicht erlaubt ist) -->
+            <!-- UselessLeaf: Platzhalter mit Gewicht 1 hält den Rest unten (<View> ist in RemoteViews nicht erlaubt) -->
+            <!-- NestedWeights: Widget-Layout (RemoteViews, ohne ConstraintLayout); die Aufteilung geht nur mit verschachtelten Gewichten -->
             <FrameLayout
+                tools:ignore="UselessLeaf,NestedWeights"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />

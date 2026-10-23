@@ -5,6 +5,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import android.annotation.SuppressLint
 import com.cryptochecker.app.domain.watch.FirstAlarmCard
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import com.cryptochecker.app.ui.navigation.OnTabReselect
@@ -106,6 +107,8 @@ fun WatchlistScreen(
     val staleAfter = display.staleAfterMillis
     val outdatedAfter = display.staleAfterMillis
     // Mini-Chart nur mit genug Breite, damit der Paarname nicht gequetscht wird ([sparklinesFit])
+    // Bewusst die Bildschirmbreite aus der Configuration; ein Umbau auf containerSize wäre eine eigene Änderung
+    @SuppressLint("ConfigurationScreenWidthHeight")
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     val fontScale = LocalDensity.current.fontScale
     val fetchSparklines = sparklinesFit(display.sparklineEnabled, screenWidthDp, fontScale)

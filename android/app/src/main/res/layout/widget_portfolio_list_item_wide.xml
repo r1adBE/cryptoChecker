@@ -3,6 +3,7 @@
      Wert (Währung klein und grau) und Veränderung mit Pfeil in der Kursfarbe nebeneinander; darunter
      die Trennlinie. Gleiche Ids wie widget_portfolio_list_item.xml. Höhe: PortfolioWidgetViews.rowHeightDp. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -34,7 +35,9 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
+            <!-- UselessParent: der innere Rahmen packt Menge, Kürzel und Anteil links (wrap_content); ohne ihn misst die Zeile anders -->
             <LinearLayout
+                tools:ignore="UselessParent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">

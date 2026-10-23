@@ -61,11 +61,11 @@ internal fun WatchlistStatusPill(
     now: Long,
     tone: Color,
     reduceMotion: Boolean,
+    modifier: Modifier = Modifier,
     /** «Nur veraltete» an: ✕ am Ende. */
     staleOnly: Boolean = false,
     /** Tipp: nur veraltete zeigen bzw. wieder alle; null = nicht antippbar. */
     onClick: (() -> Unit)? = null,
-    modifier: Modifier = Modifier,
 ) {
     val clickLabel = stringResource(if (staleOnly) R.string.watchlist_show_all else R.string.watchlist_show_only_stale)
     Row(

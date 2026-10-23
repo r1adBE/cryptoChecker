@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Markt-Tab: Abschnitte, Zeilen, Herkunft und Alter -->
     <!-- «… · CoinGecko · vor 3 Min.»; «gerade eben» = time_just_now, «veraltet» = widget_outdated -->
     <plurals name="market_age_minutes">
@@ -18,11 +18,12 @@
     <string name="market_plain_direction_up_clear">The total value of all cryptocurrencies is clearly higher than 24 hours ago (%1$s).</string>
     <string name="market_plain_direction_up_slight">The total value of all cryptocurrencies is slightly higher than 24 hours ago (%1$s).</string>
     <string name="market_plain_footnote">Describes the last 24 hours – no forecast, no investment advice.</string>
-    <string name="market_plain_mood_extreme_fear">Investors are very fearful right now: the mood index (Fear &amp; Greed) is at %1$d out of 100.</string>
-    <string name="market_plain_mood_extreme_greed">Investors are very greedy right now: the mood index (Fear &amp; Greed) is at %1$d out of 100.</string>
-    <string name="market_plain_mood_fear">Investors are rather fearful: the mood index (Fear &amp; Greed) is at %1$d out of 100.</string>
-    <string name="market_plain_mood_greed">Investors are rather greedy: the mood index (Fear &amp; Greed) is at %1$d out of 100.</string>
-    <string name="market_plain_mood_neutral">Investor mood is balanced: the mood index (Fear &amp; Greed) is at %1$d out of 100.</string>
+    <!-- Kein Plural nötig: Indexwert «N von 100», keine Anzahl (gilt für die fünf Stimmungstexte) -->
+    <string name="market_plain_mood_extreme_fear" tools:ignore="PluralsCandidate">Investors are very fearful right now: the mood index (Fear &amp; Greed) is at %1$d out of 100.</string>
+    <string name="market_plain_mood_extreme_greed" tools:ignore="PluralsCandidate">Investors are very greedy right now: the mood index (Fear &amp; Greed) is at %1$d out of 100.</string>
+    <string name="market_plain_mood_fear" tools:ignore="PluralsCandidate">Investors are rather fearful: the mood index (Fear &amp; Greed) is at %1$d out of 100.</string>
+    <string name="market_plain_mood_greed" tools:ignore="PluralsCandidate">Investors are rather greedy: the mood index (Fear &amp; Greed) is at %1$d out of 100.</string>
+    <string name="market_plain_mood_neutral" tools:ignore="PluralsCandidate">Investor mood is balanced: the mood index (Fear &amp; Greed) is at %1$d out of 100.</string>
     <string name="market_plain_standout_above_btc">%1$s stands out: %2$s in 24 hours, well above Bitcoin (%3$s).</string>
     <string name="market_plain_standout_against_btc">%1$s stands out: %2$s in 24 hours, while Bitcoin went the other way (%3$s).</string>
     <string name="market_plain_standout_below_btc">%1$s stands out: %2$s in 24 hours, well below Bitcoin (%3$s).</string>
@@ -132,7 +133,8 @@
     <string name="pulse_breadth_note_broad_up">Broad move: most of the largest coins are rising.</string>
     <string name="pulse_breadth_note_narrow_down">Bitcoin is falling, but most other large coins are holding up.</string>
     <string name="pulse_breadth_note_narrow_up">Bitcoin is rising, but most other large coins aren\'t joining in.</string>
-    <string name="pulse_breadth_spoken">Top %1$d: %2$d up, %3$d down</string>
+    <!-- Kein Plural nötig: Zählerangaben «Top N: N hoch, N tief», kein Mehrzahlwort -->
+    <string name="pulse_breadth_spoken" tools:ignore="PluralsCandidate">Top %1$d: %2$d up, %3$d down</string>
 
     <!-- Crypto Pulse: Altcoins, Funding, Gas, Volumen -->
     <string name="pulse_alts_even">Altcoins and Bitcoin move alike</string>
@@ -140,16 +142,17 @@
     <string name="pulse_alts_weaker">Bitcoin stronger than altcoins</string>
     <string name="pulse_chip_funding_high">Funding elevated</string>
     <string name="pulse_chip_funding_negative">Funding negative</string>
-    <string name="pulse_funding_high">Funding clearly positive: many leveraged longs</string>
-    <string name="pulse_funding_negative">Funding negative: many shorts</string>
-    <string name="pulse_funding_neutral">Funding neutral</string>
-    <string name="pulse_funding_slight">Funding slightly positive</string>
-    <string name="pulse_gas_high">Ethereum gas high (%1$s gwei)</string>
-    <string name="pulse_gas_low">Ethereum gas low (%1$s gwei)</string>
-    <string name="pulse_gas_normal">Ethereum gas normal (%1$s gwei)</string>
-    <string name="pulse_volume_high">Trading volume unusually high (%1$s× normal)</string>
-    <string name="pulse_volume_low">Trading volume low (%1$s× normal)</string>
-    <string name="pulse_volume_normal">Trading volume normal</string>
+    <!-- Nur iOS: Android nutzt diese Texte nicht -->
+    <string name="pulse_funding_high" tools:ignore="UnusedResources">Funding clearly positive: many leveraged longs</string>
+    <string name="pulse_funding_negative" tools:ignore="UnusedResources">Funding negative: many shorts</string>
+    <string name="pulse_funding_neutral" tools:ignore="UnusedResources">Funding neutral</string>
+    <string name="pulse_funding_slight" tools:ignore="UnusedResources">Funding slightly positive</string>
+    <string name="pulse_gas_high" tools:ignore="UnusedResources">Ethereum gas high (%1$s gwei)</string>
+    <string name="pulse_gas_low" tools:ignore="UnusedResources">Ethereum gas low (%1$s gwei)</string>
+    <string name="pulse_gas_normal" tools:ignore="UnusedResources">Ethereum gas normal (%1$s gwei)</string>
+    <string name="pulse_volume_high" tools:ignore="UnusedResources">Trading volume unusually high (%1$s× normal)</string>
+    <string name="pulse_volume_low" tools:ignore="UnusedResources">Trading volume low (%1$s× normal)</string>
+    <string name="pulse_volume_normal" tools:ignore="UnusedResources">Trading volume normal</string>
 
     <!-- «Auffällig» im Markt-Tab (grösste Coins mit ungewöhnlicher Bewegung) -->
     <string name="unusual_a11y_row">%1$s, %2$s. %3$s.</string>

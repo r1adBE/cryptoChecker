@@ -49,7 +49,6 @@
     <string name="alarm_threshold_error_funding">La tasa de financiación debe ser un número entre −10 y +10 por ciento.</string>
     <string name="alarm_threshold_error_invalid">Introduce un número válido mayor que 0.</string>
     <string name="alarm_threshold_error_oi">Cambio del interés abierto: como máximo 1000 por ciento.</string>
-    <string name="alarm_threshold_error_percent_down">Una caída puede ser como máximo del 100 por ciento.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">en %1$d h</item>
         <item quantity="many">en %1$d h</item>

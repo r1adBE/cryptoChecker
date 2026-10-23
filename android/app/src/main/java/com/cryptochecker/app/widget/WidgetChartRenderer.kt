@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.Typeface
+import androidx.core.graphics.createBitmap
 import java.time.ZoneId
 import kotlin.math.max
 import kotlin.math.min
@@ -46,7 +47,7 @@ object WidgetChartRenderer {
     ): Bitmap {
         val w = widthPx.coerceAtLeast(2)
         val h = heightPx.coerceAtLeast(2)
-        val bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+        val bitmap = createBitmap(w, h)
         val canvas = Canvas(bitmap)
         val dp = density
 
@@ -213,7 +214,7 @@ object WidgetChartRenderer {
     ): Bitmap {
         val w = widthPx.coerceAtLeast(2)
         val h = heightPx.coerceAtLeast(2)
-        val bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+        val bitmap = createBitmap(w, h)
         if (!plan.hasChart) return bitmap
         val canvas = Canvas(bitmap)
         val dp = density

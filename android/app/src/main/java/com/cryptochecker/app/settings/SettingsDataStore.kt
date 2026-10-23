@@ -1,5 +1,6 @@
 package com.cryptochecker.app.settings
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.datastore.core.DataMigration
 import androidx.datastore.core.DataStore
@@ -45,6 +46,8 @@ internal val Context.settingsDataStore: DataStore<Preferences> by preferencesDat
 )
 
 /** App-Context für den Ersatz-Handler von [settingsDataStore] (gesetzt in `produceMigrations`). */
+// Nur der App-Context (applicationContext), kein Activity-Context: kein Speicherleck
+@SuppressLint("StaticFieldLeak")
 @Volatile private var settingsStoreContext: Context? = null
 
 /**

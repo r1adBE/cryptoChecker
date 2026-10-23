@@ -7,6 +7,7 @@ package com.cryptochecker.app.notification
 import android.app.PendingIntent
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.model.AlarmEntity
 import com.cryptochecker.app.data.local.model.WatchEntity
@@ -284,7 +285,7 @@ suspend fun AppNotifier.showDepeg(title: String, text: String, exchangeUrl: Stri
     val openExchange = PendingIntent.getActivity(
         context,
         DEPEG_EXCHANGE_REQUEST_CODE,
-        Intent(Intent.ACTION_VIEW, android.net.Uri.parse(exchangeUrl)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+        Intent(Intent.ACTION_VIEW, exchangeUrl.toUri()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     )
     val notification = NotificationCompat.Builder(context, channelId)

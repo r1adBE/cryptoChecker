@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="backup_device_bound">Before switching devices, create a backup file – the encrypted data can only be opened on this device.</string>
     <string name="backup_encryption_pending">Encryption not active yet – the app will try again at the next start.</string>
     <!-- Sicherung exportieren und wiederherstellen -->
@@ -18,7 +18,8 @@
     <string name="backup_password_continue">Continue</string>
     <string name="backup_password_hide">Hide password</string>
     <!-- %1$d = Mindestlänge des Passworts (8) -->
-    <string name="backup_password_min">At least %1$d characters</string>
+    <!-- Kein Plural nötig: Zahl ist die feste Mindestlänge (BackupCrypto.MIN_PASSWORD_LENGTH), nie 1 -->
+    <string name="backup_password_min" tools:ignore="PluralsCandidate">At least %1$d characters</string>
     <string name="backup_password_mismatch">Passwords don’t match</string>
     <string name="backup_password_prompt">Enter the password for this backup.</string>
     <string name="backup_password_repeat">Repeat password</string>

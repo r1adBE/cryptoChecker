@@ -49,7 +49,6 @@
     <string name="alarm_threshold_error_funding">Rata de finanțare trebuie să fie un număr între −10 și +10 la sută.</string>
     <string name="alarm_threshold_error_invalid">Introdu un număr valid mai mare decât 0.</string>
     <string name="alarm_threshold_error_oi">Variația interesului deschis: cel mult 1000 la sută.</string>
-    <string name="alarm_threshold_error_percent_down">O scădere poate fi de cel mult 100 la sută.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">în %1$d h</item>
         <item quantity="few">în %1$d h</item>

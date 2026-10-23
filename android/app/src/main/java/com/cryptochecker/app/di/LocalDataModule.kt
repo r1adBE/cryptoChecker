@@ -1,6 +1,7 @@
 package com.cryptochecker.app.di
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -182,7 +183,7 @@ object LocalDataModule {
                 db.checkpoint()
             }
             if (outcome.isSuccess) {
-                prefs.edit().putBoolean(KEY_DONE, true).apply()
+                prefs.edit { putBoolean(KEY_DONE, true) }
             } else {
                 Timber.w(outcome.exceptionOrNull(), "Portfolio-Datenbank: VACUUM fehlgeschlagen")
             }

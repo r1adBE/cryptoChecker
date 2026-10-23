@@ -48,7 +48,6 @@
     <string name="alarm_threshold_error_funding">Funding rate duhet të jetë një numër midis −10 dhe +10 përqind.</string>
     <string name="alarm_threshold_error_invalid">Fut një numër të vlefshëm më të madh se 0.</string>
     <string name="alarm_threshold_error_oi">Ndryshimi i open interest: deri në 1000 përqind.</string>
-    <string name="alarm_threshold_error_percent_down">Një rënie mund të jetë më së shumti 100 për qind.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">brenda %1$d ore</item>
         <item quantity="other">brenda %1$d orësh</item>

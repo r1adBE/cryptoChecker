@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.portfolio
 
 import android.annotation.SuppressLint
 import android.content.Context
+import androidx.core.content.edit
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.isDatabaseKeyUnavailable
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
@@ -54,7 +55,7 @@ class PortfolioFallAlarmCleanup @Inject constructor(
 
     @SuppressLint("ApplySharedPref")
     private fun markDone(prefs: android.content.SharedPreferences) {
-        prefs.edit().putBoolean(KEY_DONE, true).commit()
+        prefs.edit(commit = true) { putBoolean(KEY_DONE, true) }
     }
 
     private companion object {

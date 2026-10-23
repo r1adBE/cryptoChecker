@@ -91,7 +91,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    override fun onCleared() { backupManager.forgetPickedBackup(); super.onCleared() }
+    override fun onCleared() { backupManager.forgetPickedBackup() }
 
     // Start mit dem zuletzt gelesenen Stand statt Werks-Defaults: sonst springen Schalter beim Öffnen kurz um
     val settings: StateFlow<AppSettings> = settingsRepository.settings

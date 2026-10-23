@@ -48,7 +48,6 @@
     <string name="alarm_threshold_error_funding">Funding muss eine Zahl zwischen −10 und +10 Prozent sein.</string>
     <string name="alarm_threshold_error_invalid">Gib eine gültige Zahl grösser als 0 ein.</string>
     <string name="alarm_threshold_error_oi">Open-Interest-Änderung: höchstens 1000 Prozent.</string>
-    <string name="alarm_threshold_error_percent_down">Ein Rückgang beträgt höchstens 100 Prozent.</string>
     <plurals name="alarm_window_hours">
         <item quantity="one">in %1$d Std.</item>
         <item quantity="other">in %1$d Std.</item>

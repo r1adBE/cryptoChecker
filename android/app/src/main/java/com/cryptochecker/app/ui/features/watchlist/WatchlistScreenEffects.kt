@@ -9,6 +9,7 @@
 
 package com.cryptochecker.app.ui.features.watchlist
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
@@ -136,6 +137,8 @@ private fun WatchlistStorageNotice(banner: WatchlistBanner) {
  * Stand die Liste ganz oben, bleibt sie oben. Gelesen wird nur beim Wechsel und ohne
  * Beobachtung — Scrollen löst keinen Neuaufbau aus.
  */
+// Gelesen wird nur beim Wechsel und in Snapshot.withoutReadObservation: Scrollen setzt keinen Neuaufbau in Gang
+@SuppressLint("FrequentlyChangingValue")
 @Composable
 internal fun KeepTopWhenPulseAppears(pulseShown: Boolean, listState: LazyListState) {
     val pulseWasShown = remember { booleanArrayOf(pulseShown) }

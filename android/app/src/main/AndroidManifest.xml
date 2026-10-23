@@ -37,6 +37,8 @@
          bei 128–192 MiB; zusammen mit der laufenden App reicht das nicht, und die Sicherung liesse sich dort nie
          einspielen. Die Parameter bleiben fest (sonst passten bestehende Sicherungen nicht mehr); reicht der
          Speicher trotzdem nicht, meldet BackupCrypto «zu wenig Arbeitsspeicher» statt abzustürzen. -->
+    <!-- tools:targetApi 33: localeConfig (App-Sprache in den Systemeinstellungen) gibt es erst ab Android 13;
+         ältere Versionen übergehen das Attribut bewusst, die Sprachwahl in der App gilt dort weiter. -->
     <application
         android:name=".CryptoCheckerApp"
         android:largeHeap="true"
@@ -52,7 +54,7 @@
         android:backupAgent=".data.local.SystemBackupAgent"
         android:fullBackupOnly="true"
         android:usesCleartextTraffic="false"
-        tools:targetApi="31">
+        tools:targetApi="33">
 
         <!-- Startpunkt ohne eigenes Launcher-Icon: Die Einträge im Launcher
              kommen von den activity-alias unten, je einer pro Akzentfarbe.

@@ -9,6 +9,7 @@ import android.graphics.RectF
 import android.graphics.Typeface
 import android.util.LruCache
 import androidx.core.graphics.ColorUtils
+import androidx.core.graphics.createBitmap
 import com.cryptochecker.app.data.CoinLogoRepository
 import com.cryptochecker.app.domain.logos.CoinLogos
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -86,7 +87,7 @@ class WidgetCoinLogos @Inject constructor(
     }
 
     private fun render(symbol: String, logo: Bitmap?, colors: WidgetColors, px: Int): Bitmap {
-        val out = Bitmap.createBitmap(px, px, Bitmap.Config.ARGB_8888)
+        val out = createBitmap(px, px)
         val canvas = Canvas(out)
         val r = px / 2f
         val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)

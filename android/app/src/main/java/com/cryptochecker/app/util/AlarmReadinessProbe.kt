@@ -6,12 +6,12 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
+import androidx.core.net.toUri
 import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.alarm.QuietHours
@@ -109,7 +109,8 @@ object AlarmReadinessProbe {
 
     /** App-Info (dort u. a. «Akku» und «Hintergrundnutzung»). */
     fun openAppDetails(context: Context) {
-        start(context, Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:${context.packageName}")))
+        val uri = "package:${context.packageName}".toUri()
+        start(context, Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(uri))
     }
 
     private fun start(context: Context, intent: Intent): Boolean =
