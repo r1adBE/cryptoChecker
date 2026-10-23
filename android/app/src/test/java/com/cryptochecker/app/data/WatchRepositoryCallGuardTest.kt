@@ -14,6 +14,11 @@ import java.io.File
  * Frage (z. B. `deleteSnapshots`) gilt, wenn jeder seiner Aufrufer fragt. Gegenwart siehe [WatchRepositoryLockTest].
  * Review TST5-R2: Die Richtung der Bedingung zählt — nur die im Code benutzten Formen ([consentCovers]); ein Schreibweg im
  * Ablehnungszweig (`if (!confirmUserWrite()) { write() }`, `if (confirmUserWrite()) 0 else write()`) ist ein Befund.
+ * Review ARC7-01: auch der Rest der Bedingung zählt (`if (!c && flag) return`, `if (c || flag) write()` sind Befunde).
+ * Review ARC7-02: Die Zustimmung gilt nur für die Coroutine der Aktion samt Kindern (`WatchlistNotSavedGate`). Ein
+ * Schreibweg in einem Block `x.launch { … }`/`x.async { … }` mit Empfänger (anderer Scope, `GlobalScope`,
+ * `CoroutineScope(…)`, auch erneut `viewModelScope`), der NACH der Zustimmung beginnt, ist losgelöst und ein Befund
+ * ([escapes]); Kind-Coroutinen (`launch { … }` ohne Empfänger, `withContext`) bleiben erlaubt.
  */
 class WatchRepositoryCallGuardTest {
 
@@ -52,6 +57,7 @@ class WatchRepositoryCallGuardTest {
      * Review TST5-R2: Gegenprobe zur Richtung der Bedingung. Alle im Code benutzten Formen bestehen; Schreibwege im
      * Ablehnungszweig, nach einem Zweig ohne `return`, hinter unbenutztem Ergebnis, nach `||` einer positiven Zustimmung
      * oder hinter `!c &&` sind Befunde. Ebenso ein `launchWrite`, das seinen Block im Ablehnungszweig ausführt.
+     * ARC7-01: Rest der Bedingung — `!c && flag` vor `return`, `c || flag` und `c && flag || x` sind Befunde.
      */
     @Test
     fun conditionDirectionIsChecked() {
@@ -109,14 +115,25 @@ class WatchRepositoryCallGuardTest {
                     if (watchRepository.confirmUserWrite() || watchRepository.deleteAlarm(id)) other()
                 }
                 fun negatedAnd(id: Long) = scope.launch { onDone(!watchRepository.confirmUserWrite() && watchRepository.setAlarmEnabled(id, true)) }
+                fun okAndThen(id: Long) = scope.launch { if (watchRepository.confirmUserWrite() && flag) watchRepository.setFavorite(id, true) }
+                fun negatedAndRest(id: Long) = scope.launch {
+                    if (!watchRepository.confirmUserWrite() && flag) return@launch
+                    watchRepository.setFavorite(id, true)
+                }
+                fun positiveOrRest(id: Long) = scope.launch { if (watchRepository.confirmUserWrite() || flag) watchRepository.setFavorite(id, true) }
+                fun positiveAndOr(id: Long) = scope.launch { if (watchRepository.confirmUserWrite() && flag || other) watchRepository.setFavorite(id, true) }
+                fun andOrInCondition(id: Long) = scope.launch { if (watchRepository.confirmUserWrite() && flag || watchRepository.deleteAlarm(id)) other() }
             }
         """.trimIndent()
         val result = check(mapOf("ui/Sample.kt" to strip(sample)), writes)
         assertEquals(
-            listOf("negatedBlock", "negatedStatement", "positiveElse", "afterPositive", "noReturn", "ignoredResult", "positiveOr", "negatedAnd"),
+            listOf(
+                "negatedBlock", "negatedStatement", "positiveElse", "afterPositive", "noReturn", "ignoredResult", "positiveOr", "negatedAnd",
+                "negatedAndRest", "positiveOrRest", "positiveAndOr", "andOrInCondition",
+            ),
             result.problems.map { it.substringAfter("fun ").substringBefore(":") },
         )
-        assertEquals(16, result.calls)
+        assertEquals(21, result.calls)
         val launchWrites = """
             class D {
                 private fun launchWrite(cancelled: () -> Unit = {}, block: suspend () -> Unit) =
@@ -127,6 +144,66 @@ class WatchRepositoryCallGuardTest {
             }
         """.trimIndent()
         assertEquals(1, launchWriteProblems(strip(launchWrites)).size)
+    }
+
+    /**
+     * Review ARC7-02: Gegenprobe zum Ausweichen in eine losgelöste Coroutine. Kind-Coroutinen und ein geschlossener Block
+     * davor bestehen; ein Schreibweg in `x.launch`/`x.async` mit Empfänger nach der Zustimmung (anderer Scope, erneut
+     * `viewModelScope`, `GlobalScope`, `CoroutineScope(…)`, im Block von `launchWrite`, über einen Hilfsweg) ist ein Befund.
+     */
+    @Test
+    fun foreignScopeIsFlagged() {
+        val writes = setOf("setFavorite", "reorder", "deleteWatches")
+        val sample = """
+            class C(private val watchRepository: WatchRepository) {
+                private fun launchWrite(block: suspend () -> Unit) = scope.launch { if (watchRepository.confirmUserWrite()) block() }
+                fun okChild(id: Long) = viewModelScope.launch {
+                    if (!watchRepository.confirmUserWrite()) return@launch
+                    launch { watchRepository.setFavorite(id, true) }
+                    withContext(Dispatchers.IO) { watchRepository.reorder(listOf(id)) }
+                }
+                fun okClosedLaunch(id: Long) = viewModelScope.launch {
+                    if (!watchRepository.confirmUserWrite()) return@launch
+                    appScope.launch { log() }
+                    watchRepository.setFavorite(id, true)
+                }
+                fun foreign(id: Long) = viewModelScope.launch {
+                    if (!watchRepository.confirmUserWrite()) return@launch
+                    appScope.launch { watchRepository.setFavorite(id, true) }
+                }
+                fun sameScopeAgain(id: Long) = viewModelScope.launch {
+                    if (!watchRepository.confirmUserWrite()) return@launch
+                    viewModelScope.launch { watchRepository.setFavorite(id, true) }
+                }
+                fun global(id: Long) = viewModelScope.launch {
+                    if (watchRepository.confirmUserWrite()) GlobalScope.launch(Dispatchers.IO) { watchRepository.setFavorite(id, true) }
+                }
+                fun newScope(id: Long) = viewModelScope.launch {
+                    if (!watchRepository.confirmUserWrite()) return@launch
+                    CoroutineScope(Dispatchers.IO).async { watchRepository.reorder(listOf(id)) }
+                }
+                fun inLaunchWrite(id: Long) { launchWrite { appScope.launch { watchRepository.setFavorite(id, false) } } }
+                fun viaHelper(id: Long) = viewModelScope.launch {
+                    if (!watchRepository.confirmUserWrite()) return@launch
+                    appScope.launch { helper(id) }
+                }
+                private suspend fun helper(id: Long) { watchRepository.deleteWatches(listOf(id)) }
+            }
+        """.trimIndent()
+        val result = check(mapOf("ui/Sample.kt" to strip(sample)), writes)
+        assertEquals(
+            listOf("foreign", "sameScopeAgain", "global", "newScope", "inLaunchWrite", "helper"),
+            result.problems.map { it.substringAfter("fun ").substringBefore(":") },
+        )
+        assertEquals(9, result.calls)
+        assertEquals(emptyList<String>(), launchWriteProblems(strip(sample)))
+        val detached = """
+            class D {
+                private fun launchWrite(block: suspend () -> Unit) =
+                    scope.launch { if (watchRepository.confirmUserWrite()) appScope.launch { block() } }
+            }
+        """.trimIndent()
+        assertEquals(1, launchWriteProblems(strip(detached)).size)
     }
 
     /** Gegenprobe mit eingebautem Beispiel: ohne Rückfrage, nach dem Block, Hilfsweg ohne fragenden Aufrufer → Befund. */
@@ -295,7 +372,11 @@ class WatchRepositoryCallGuardTest {
     private fun asksBefore(text: String, from: Int, pos: Int): Boolean {
         val part = text.substring(from, pos)
         // confirmUserWrite(): nur im Zweig nach der Zustimmung (TST5-R2)
-        if (CONFIRM.findAll(part).any { consentCovers(text, from + it.range.first, from + it.range.last + 1, pos) }) return true
+        val consent = CONFIRM.findAll(part).any {
+            val end = from + it.range.last + 1
+            consentCovers(text, from + it.range.first, end, pos) && !escapes(text, end, pos)
+        }
+        if (consent) return true
         // launchWrite(…) { … }: Aufruf im Block
         return LAUNCH_WRITE.findAll(part).any { m ->
             var at = from + m.groups[1]!!.range.first
@@ -304,7 +385,7 @@ class WatchRepositoryCallGuardTest {
                 while (text[at].isWhitespace()) at++
             }
             // TST5-R1: Aufruf in den Klammern (z. B. `cancelled = { … }`) liegt vor dem Block, gilt nicht
-            text[at] == '{' && at < pos && neverBelow(text, at + 1, pos, 1, start = 1)
+            text[at] == '{' && at < pos && neverBelow(text, at + 1, pos, 1, start = 1) && !escapes(text, at + 1, pos)
         }
     }
 
@@ -313,8 +394,10 @@ class WatchRepositoryCallGuardTest {
         functions(text).filter { it.name == "launchWrite" }.filter { fn ->
             val blocks = BLOCK_CALL.findAll(text.substring(0, fn.end)).filter { it.range.first >= fn.bodyStart }.toList()
             blocks.isEmpty() || blocks.any { b ->
-                CONFIRM.findAll(text.substring(fn.bodyStart, b.range.first))
-                    .none { consentCovers(text, fn.bodyStart + it.range.first, fn.bodyStart + it.range.last + 1, b.range.first) }
+                CONFIRM.findAll(text.substring(fn.bodyStart, b.range.first)).none {
+                    val end = fn.bodyStart + it.range.last + 1
+                    consentCovers(text, fn.bodyStart + it.range.first, end, b.range.first) && !escapes(text, end, b.range.first)
+                }
             }
         }.map { "launchWrite@${it.start}" }
 
@@ -325,6 +408,7 @@ class WatchRepositoryCallGuardTest {
      * - `if (!c || write()) return…`: im Rest der Bedingung; `if (!c) 0 else write()`: im `else`-Zweig;
      * - `if (c) write() else …`: im Rest der Bedingung nach `&&` und im then-Zweig;
      * - `f(c && write())`: im Rest des Ausdrucks.
+     * ARC7-01: Der Rest der Bedingung muss passen — verneint leer oder `|| …`, positiv leer oder `&& …` ohne `||`.
      * Alles andere zählt nicht (Ablehnungszweig, Zweig ohne `return`, unbenutztes Ergebnis, `||` nach positiver Zustimmung).
      */
     private fun consentCovers(text: String, start: Int, end: Int, pos: Int): Boolean {
@@ -334,12 +418,21 @@ class WatchRepositoryCallGuardTest {
         if (head == null) {
             if (NEGATED.containsMatchIn(text.substring(window, start))) return false
             val rest = skipWs(text, end)
-            return text.startsWith("&&", rest) && pos < statementEnd(text, rest, stopAtElse = false)
+            return text.startsWith("&&", rest) && pos < statementEnd(text, rest, stopAtElse = false) && !hasTopLevelOr(text, rest, pos)
         }
         val negated = head.groups[1] != null
         val condOpen = text.indexOf('(', window + head.range.first)
         val condClose = matching(text, condOpen, '(', ')')
-        if (pos < condClose) return text.startsWith(if (negated) "||" else "&&", skipWs(text, end))
+        val restAt = skipWs(text, end)
+        // ARC7-01: verneint nur `|| …` (Ablehnung genügt fürs `return`), positiv nur `&& …` ohne `||` auf oberster Ebene
+        if (pos < condClose) return if (negated) text.startsWith("||", restAt)
+        else text.startsWith("&&", restAt) && !hasTopLevelOr(text, restAt, pos)
+        val restOk = when {
+            restAt >= condClose -> true
+            negated -> text.startsWith("||", restAt)
+            else -> text.startsWith("&&", restAt) && !hasTopLevelOr(text, restAt, condClose)
+        }
+        if (!restOk) return false
         val thenStart = skipWs(text, condClose + 1)
         val thenEnd = if (text.getOrNull(thenStart) == '{') matching(text, thenStart, '{', '}') + 1
         else statementEnd(text, thenStart, stopAtElse = true)
@@ -356,6 +449,34 @@ class WatchRepositoryCallGuardTest {
             if (pos < stmtEnd) return true
         }
         return exits && neverBelow(text, stmtEnd, pos, 0)
+    }
+
+    /**
+     * ARC7-02: Beginnt zwischen der Zustimmung ([from]) und dem Schreibweg ([pos]) ein Block `x.launch { … }` bzw.
+     * `x.async { … }` mit Empfänger, der [pos] noch umschliesst? Dann läuft der Schreibweg losgelöst von der Coroutine der
+     * Aktion (ihre Zustimmung gilt dort nicht). Geschlossene Blöcke davor zählen nicht.
+     */
+    private fun escapes(text: String, from: Int, pos: Int): Boolean =
+        from < pos && ESCAPE.findAll(text.substring(from, pos)).any { m ->
+            var at = from + m.groups[1]!!.range.first
+            if (text[at] == '(') {
+                at = matching(text, at, '(', ')') + 1
+                while (at < text.length && text[at].isWhitespace()) at++
+            }
+            at < pos && text[at] == '{' && neverBelow(text, at + 1, pos, 1, start = 1)
+        }
+
+    /** Steht zwischen [from] und [to] ein `||` auf oberster Klammerebene? */
+    private fun hasTopLevelOr(text: String, from: Int, to: Int): Boolean {
+        var depth = 0
+        for (i in from until minOf(to, text.length - 1)) {
+            when (text[i]) {
+                '(', '[', '{' -> depth++
+                ')', ']', '}' -> depth--
+                '|' -> if (depth == 0 && text[i + 1] == '|') return true
+            }
+        }
+        return false
     }
 
     private fun skipWs(text: String, from: Int): Int {
@@ -420,6 +541,8 @@ class WatchRepositoryCallGuardTest {
         val IF_HEAD = Regex("""\bif\s*\(\s*(!\s*)?(?:\w+\s*\??\.\s*)?$""")
         val NEGATED = Regex("""!\s*(?:\w+\s*\??\.\s*)?$""")
         val BLOCK_CALL = Regex("""(?<![\w.])block\(""")
+        /** ARC7-02: neue Coroutine mit Empfänger (`appScope.launch(…) {`, `GlobalScope.async {`, `CoroutineScope(…).launch {`). */
+        val ESCAPE = Regex("""(?:\b\w+|\))\s*\??\.\s*(?:launch|async)\s*([({])""")
         val LAUNCH_WRITE = Regex("""(?<!fun )\blaunchWrite\s*([({])""")
     }
 }

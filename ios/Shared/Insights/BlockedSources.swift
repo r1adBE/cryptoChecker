@@ -26,6 +26,12 @@ enum BlockedSources {
         return false
     }
 
+    /// Sperre (451/403) dieser Quelle aufheben, z. B. eigener Bitcoin-Server nach Speichern oder erfolgreichem Test.
+    static func unblock(_ key: String) {
+        lock.lock(); defer { lock.unlock() }
+        blockedUntil[key] = nil
+    }
+
     /// Wertet einen Fehler aus; true = Sperr- bzw. Pausen-Antwort, Quelle ist jetzt vermerkt.
     /// 451/403: diese Quelle 6 h. 429/418 eines Hosts mit gemeinsamer Pause: die ganze Gruppe.
     @discardableResult

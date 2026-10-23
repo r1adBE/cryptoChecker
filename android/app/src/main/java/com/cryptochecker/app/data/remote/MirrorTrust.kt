@@ -13,13 +13,16 @@ internal typealias MirrorLoader = suspend (url: String, maxBytes: Long) -> Strin
  * Speicher: gültig höchstens [OK_TTL_MILLIS], nach einem Fehlschlag (fehlt, ungültig, zu alt, nicht erreichbar) erst
  * nach [FAIL_TTL_MILLIS] wieder versucht — so kostet ein fehlendes Manifest nicht jede Spiegel-Anfrage zwei Abrufe.
  * Passt eine Datei nicht zum gemerkten Manifest (die Action lief seither), wird es einmal neu geholt, höchstens
- * einmal je [RELOAD_AFTER_MILLIS]. Gleich in iOS `MirrorTrust.swift`.
+ * einmal je [RELOAD_AFTER_MILLIS]. Manifest höchstens [MirrorManifest.MAX_BYTES], Signatur höchstens
+ * [MirrorManifest.SIGNATURE_MAX_BYTES]. Gleich in iOS `MirrorTrust.swift`.
+ *
+ * Die App nutzt nur [shared] (eingebauter Schlüssel, Systemuhr); Schlüssel und Uhr setzen nur Tests über den
+ * internen Konstruktor (Test-Schlüsselpaar aus `mirror_signature.json`).
  */
-internal object MirrorTrust {
-    private const val OK_TTL_MILLIS = 15L * 60 * 1000
-    private const val FAIL_TTL_MILLIS = 5L * 60 * 1000
-    private const val RELOAD_AFTER_MILLIS = 60L * 1000
-
+internal class MirrorTrust internal constructor(
+    private val publicKey: String,
+    private val clock: () -> Long,
+) {
     private class Cached(val loadedAt: Long, val verification: MirrorManifest.Verification)
 
     private val mutex = Mutex()
@@ -46,21 +49,25 @@ internal object MirrorTrust {
         v.manifest?.let { MirrorManifest.fileStatus(it, file, text) == MirrorManifest.FileStatus.OK } ?: false
 
     private suspend fun manifest(loader: MirrorLoader, okTtlMillis: Long): MirrorManifest.Verification = mutex.withLock {
-        val now = System.currentTimeMillis()
+        val now = clock()
         cached?.let { c ->
             val ttl = if (c.verification.status == MirrorManifest.Status.OK) okTtlMillis else FAIL_TTL_MILLIS
             if (now - c.loadedAt in 0 until ttl) return@withLock c.verification
         }
         val manifestText = loader(MirrorManifest.URL, MirrorManifest.MAX_BYTES)
         val signature = manifestText?.let { loader(MirrorManifest.SIGNATURE_URL, MirrorManifest.SIGNATURE_MAX_BYTES) }
-        val verification = MirrorManifest.verify(manifestText, signature, System.currentTimeMillis())
+        val verification = MirrorManifest.verify(manifestText, signature, clock(), publicKey)
         if (verification.status != MirrorManifest.Status.OK) Timber.d("Spiegel-Manifest: %s", verification.status)
         cached = Cached(now, verification)
         verification
     }
 
-    /** Nur Tests: gemerktes Manifest vergessen. */
-    internal fun resetForTest() {
-        cached = null
+    companion object {
+        private const val OK_TTL_MILLIS = 15L * 60 * 1000
+        private const val FAIL_TTL_MILLIS = 5L * 60 * 1000
+        private const val RELOAD_AFTER_MILLIS = 60L * 1000
+
+        /** Einzige Instanz der App. */
+        val shared = MirrorTrust(MirrorManifest.PUBLIC_KEY, System::currentTimeMillis)
     }
 }

@@ -2,8 +2,8 @@
 <resources>
     <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
     <string name="settings_address_server_title">Servidor próprio para endereços</string>
-    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
-    <string name="settings_address_server_hint">Só Bitcoin: seu próprio servidor compatível com Esplora ou mempool (ex.: https://no.example/api, é preciso um certificado válido). Se estiver definido, os endereços Bitcoin e as xpub são consultados só nele – nunca em nós públicos, nem quando seu servidor não está acessível. As outras redes continuam usando nós públicos. Vazio = nós públicos.</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Só Bitcoin: seu próprio servidor compatível com Esplora ou mempool (ex.: https://no.example/api, é preciso um certificado publicamente confiável, como Let\'s Encrypt). Se estiver definido, os endereços Bitcoin e as xpub são consultados só nele – nunca em nós públicos, nem quando seu servidor não está acessível. As outras redes continuam usando nós públicos. Vazio = nós públicos.</string>
     <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
     <string name="settings_address_server_field">Servidor Bitcoin (https://)</string>
     <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->

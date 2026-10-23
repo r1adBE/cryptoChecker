@@ -55,6 +55,11 @@ internal object BlockedSources {
         return false
     }
 
+    /** Sperre (451/403) dieser Quelle aufheben, z. B. eigener Bitcoin-Server nach Speichern oder erfolgreichem Test. */
+    fun unblock(key: String) {
+        blockedUntil.remove(key)
+    }
+
     /**
      * Wertet einen Fehler aus; true = Sperr- bzw. Pausen-Antwort, Quelle ist jetzt vermerkt.
      * 451/403: diese Quelle 6 h. 429/418 eines Hosts mit gemeinsamer Pause: die ganze Gruppe.

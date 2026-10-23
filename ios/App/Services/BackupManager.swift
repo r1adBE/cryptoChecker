@@ -177,13 +177,14 @@ enum BackupManager {
 
     /// Was eine Wiederherstellung übernommen hat (wie Android `RestoreResult`); `appLockKept` = eine Sicherung ohne
     /// Passwort wollte die Portfolio-Sperre ausschalten, sie blieb an; `droppedPairs`/`droppedAlarms` = über den Grenzen
-    /// nicht übernommen.
+    /// nicht übernommen; `addressServerNote` = Hinweis zum eigenen Bitcoin-Server (`BackupRestorePolicy`).
     struct RestoreResult: Equatable {
         let watches: Int
         let alarms: Int
         let appLockKept: Bool
         var droppedPairs = 0
         var droppedAlarms = 0
+        var addressServerNote: BackupRestorePolicy.AddressServerNote?
     }
 
     /// Nur die ungültigen Einträge aus `preview`.
@@ -252,6 +253,11 @@ enum BackupManager {
                                                current: data.settings.appLock, encrypted: encrypted,
                                                canAuthenticate: AppLock.canAuthenticate())
         if let v = lock.apply { newSettings?.appLock = v }
+        // Eigener Bitcoin-Server: Hinweis in der Meldung (nicht übernommen, entfernt oder ersetzt)
+        let serverNote = settingsJson.flatMap { o in
+            BackupRestorePolicy.addressServerNote(present: o["addressServerBtc"] != nil, value: string(o, "addressServerBtc"),
+                                                  current: data.settings.addressServerBtc, trusted: encrypted)
+        }
 
         // Ältere Sicherungen haben noch kein Portfolio: dann bleibt das bestehende stehen.
         // Ungültige Einträge nur mit Bestätigung weglassen (nie still)
@@ -340,7 +346,8 @@ enum BackupManager {
         AlarmDelivery.pairs.removeAll()
         if portfolioAlarms != nil { AlarmDelivery.portfolio.removeAll() }
         return RestoreResult(watches: watches.count, alarms: alarms.count, appLockKept: lock.keptOn,
-                             droppedPairs: watchlist.droppedPairs, droppedAlarms: watchlist.droppedAlarms)
+                             droppedPairs: watchlist.droppedPairs, droppedAlarms: watchlist.droppedAlarms,
+                             addressServerNote: serverNote)
     }
 
     /// Journal vor dem ersten Schreiben (Pflicht, wie Android `RestoreRun`): ohne bisherigen Stand

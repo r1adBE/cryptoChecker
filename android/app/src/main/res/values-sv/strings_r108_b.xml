@@ -2,8 +2,8 @@
 <resources>
     <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
     <string name="settings_address_server_title">Egen server för adresser</string>
-    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
-    <string name="settings_address_server_hint">Endast Bitcoin: din egen Esplora- eller mempool-kompatibla server (t.ex. https://nod.example/api, giltigt certifikat krävs). Är den angiven frågas Bitcoin-adresser och xpub bara där – aldrig hos offentliga noder, inte ens när din server inte svarar. Andra nätverk använder fortfarande offentliga noder. Tomt = offentliga noder.</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Endast Bitcoin: din egen Esplora- eller mempool-kompatibla server (t.ex. https://nod.example/api, offentligt betrott certifikat krävs, t.ex. Let\'s Encrypt). Är den angiven frågas Bitcoin-adresser och xpub bara där – aldrig hos offentliga noder, inte ens när din server inte svarar. Andra nätverk använder fortfarande offentliga noder. Tomt = offentliga noder.</string>
     <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
     <string name="settings_address_server_field">Bitcoin-server (https://)</string>
     <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->

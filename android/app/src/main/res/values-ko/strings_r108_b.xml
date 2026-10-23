@@ -2,8 +2,8 @@
 <resources>
     <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
     <string name="settings_address_server_title">주소용 자체 서버</string>
-    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
-    <string name="settings_address_server_hint">비트코인만: Esplora 또는 mempool 호환 자체 서버(예: https://node.example/api, 유효한 인증서 필요). 설정하면 비트코인 주소와 xpub은 그곳에만 조회합니다. 서버에 연결할 수 없어도 공개 노드에는 절대 조회하지 않습니다. 다른 네트워크는 계속 공개 노드를 사용합니다. 비워 두면 공개 노드를 사용합니다.</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">비트코인만: Esplora 또는 mempool 호환 자체 서버(예: https://node.example/api, Let\'s Encrypt 등 공개적으로 신뢰되는 인증서 필요). 설정하면 비트코인 주소와 xpub은 그곳에만 조회합니다. 서버에 연결할 수 없어도 공개 노드에는 절대 조회하지 않습니다. 다른 네트워크는 계속 공개 노드를 사용합니다. 비워 두면 공개 노드를 사용합니다.</string>
     <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
     <string name="settings_address_server_field">비트코인 서버(https://)</string>
     <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->

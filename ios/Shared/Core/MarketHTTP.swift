@@ -132,8 +132,18 @@ enum MarketHTTP {
 
     /// Signatur und SHA-256 der Spiegel-Datei prüfen (`MirrorTrust`); Manifest und Signatur über dieselbe Session.
     private static func verifiedMirror(file: String, text: String, session: URLSession) async -> Bool {
-        await MirrorTrust.shared.verified(file: file, text: text) { address in
-            try? await call(address, session: session)
+        await MirrorTrust.shared.verified(file: file, text: text) { address, limit in
+            await loadMirrorMeta(address, limit: limit, session: session)
+        }
+    }
+
+    /// Manifest oder Signatur mit eigener Höchstgrösse `limit` (wie Android); nil bei jedem Fehler, auch zu gross.
+    private static func loadMirrorMeta(_ address: String, limit: Int, session: URLSession) async -> String? {
+        guard let u = URL(string: address) else { return nil }
+        let request = URLRequest(url: u)
+        let effective = Self.sessionFor(host: u.host, requested: session)
+        return try? await RequestGate.shared.run(host: u.host ?? "") {
+            try await load(request, url: address, session: effective, limit: limit)
         }
     }
 
@@ -219,8 +229,9 @@ enum MarketHTTP {
         return data
     }
 
-    private static func load(_ request: URLRequest, url: String, session: URLSession) async throws -> String {
-        let (data, response) = try await readLimited(request, session: session)
+    private static func load(_ request: URLRequest, url: String, session: URLSession,
+                             limit: Int? = nil) async throws -> String {
+        let (data, response) = try await readLimited(request, session: session, limit: limit)
         let text = String(data: data, encoding: .utf8) ?? String(decoding: data, as: UTF8.self)
         if let http = response as? HTTPURLResponse {
             // «Zu viele Anfragen» auch ohne 429/418 (Kraken 200, Bybit 403/10006, OKX 50011) als 429 weiterreichen

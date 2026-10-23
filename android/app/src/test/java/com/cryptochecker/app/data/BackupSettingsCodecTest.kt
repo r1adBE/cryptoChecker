@@ -1,5 +1,8 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.data.BackupRestorePolicy.AddressServerNote.CHANGED
+import com.cryptochecker.app.data.BackupRestorePolicy.AddressServerNote.KEPT
+import com.cryptochecker.app.data.BackupRestorePolicy.AddressServerNote.PUBLIC
 import com.cryptochecker.app.domain.activity.ActivitySensitivity
 import com.cryptochecker.app.domain.alarm.AlarmSignal
 import com.cryptochecker.app.domain.market.IndicatorAlertKind
@@ -132,7 +135,7 @@ class BackupSettingsCodecTest {
         val source = FakeSettings().also { codec(it).restoreSettings(fixtureSettings, trusted = true) }
         val written = codec(source).settingsToJson()
         val target = FakeSettings()
-        assertFalse(codec(target).restoreSettings(written, trusted = true))
+        assertFalse(codec(target).restoreSettings(written, trusted = true).appLockKept)
         val again = codec(target).settingsToJson()
         assertEquals(keys(written), keys(again))
         for (key in keys(written)) assertTrue(key, sameValue(written.opt(key), again.opt(key)))
@@ -147,13 +150,13 @@ class BackupSettingsCodecTest {
             .put("appLock", false)
             .put("hidePortfolioAmounts", false)
             .put("portfolioSystemBackup", true)
-        val keptOn = codec(settings).restoreSettings(lessProtection, trusted = false)
+        val keptOn = codec(settings).restoreSettings(lessProtection, trusted = false).appLockKept
         assertTrue(keptOn)
         assertTrue(settings.s.appLock)
         assertTrue(settings.s.hidePortfolioAmounts)
         assertFalse(settings.s.portfolioSystemBackup)
         // Mit Passwort (echt): übernommen
-        assertFalse(codec(settings).restoreSettings(lessProtection, trusted = true))
+        assertFalse(codec(settings).restoreSettings(lessProtection, trusted = true).appLockKept)
         assertFalse(settings.s.appLock)
         assertFalse(settings.s.hidePortfolioAmounts)
         assertTrue(settings.s.portfolioSystemBackup)
@@ -166,26 +169,40 @@ class BackupSettingsCodecTest {
             .put("appLock", true)
             .put("hidePortfolioAmounts", true)
             .put("portfolioSystemBackup", false)
-        assertFalse(codec(settings).restoreSettings(moreProtection, trusted = false))
+        assertFalse(codec(settings).restoreSettings(moreProtection, trusted = false).appLockKept)
         assertTrue(settings.s.appLock)
         assertTrue(settings.s.hidePortfolioAmounts)
         assertFalse(settings.s.portfolioSystemBackup)
     }
 
-    /** Eigener Bitcoin-Server: ohne Passwort nie zurück auf öffentliche Knoten, ungültige Werte bleiben aussen vor. */
+    /**
+     * Eigener Bitcoin-Server: ohne Passwort nie gesetzt, ersetzt oder gelöscht (Hinweis KEPT), ungültige Werte bleiben
+     * aussen vor; mit Passwort ersetzt (CHANGED) bzw. entfernt (PUBLIC).
+     */
     @Test
     fun eigenerServerAusDerSicherung() = runTest {
         val settings = FakeSettings().apply { server = "https://a.example/api" }
-        codec(settings).restoreSettings(JSONObject().put("addressServerBtc", JSONObject.NULL), trusted = false)
+        suspend fun restore(value: Any?, trusted: Boolean) = codec(settings).restoreSettings(
+            if (value == Unit) JSONObject() else JSONObject().put("addressServerBtc", value ?: JSONObject.NULL), trusted,
+        ).addressServer
+        assertEquals(KEPT, restore(null, trusted = false))
         assertEquals("https://a.example/api", settings.server)
-        codec(settings).restoreSettings(JSONObject().put("addressServerBtc", "http://b.example"), trusted = true)
+        assertEquals(null, restore("http://b.example", trusted = true))
         assertEquals("https://a.example/api", settings.server)
-        codec(settings).restoreSettings(JSONObject().put("addressServerBtc", "https://B.example/api/"), trusted = false)
+        assertEquals(KEPT, restore("https://B.example/api/", trusted = false))
+        assertEquals("https://a.example/api", settings.server)
+        assertEquals(null, restore("https://A.example/api/", trusted = false))
+        assertEquals(CHANGED, restore("https://B.example/api/", trusted = true))
         assertEquals("https://b.example/api", settings.server)
-        codec(settings).restoreSettings(JSONObject(), trusted = true)
+        assertEquals(null, restore(Unit, trusted = true))
         assertEquals("https://b.example/api", settings.server)
-        codec(settings).restoreSettings(JSONObject().put("addressServerBtc", JSONObject.NULL), trusted = true)
+        assertEquals(PUBLIC, restore(null, trusted = true))
         assertEquals(null, settings.server)
+        // Ohne Passwort auch keinen Server setzen, wo keiner war
+        assertEquals(KEPT, restore("https://b.example/api", trusted = false))
+        assertEquals(null, settings.server)
+        assertEquals(null, restore("https://b.example/api", trusted = true))
+        assertEquals("https://b.example/api", settings.server)
     }
 
     @Test

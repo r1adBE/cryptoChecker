@@ -2,6 +2,8 @@ import Foundation
 
 /// Quelltext-Scan für `WatchlistConfirmCallGuardTests` (Review TST4-01): Schreibwege aus `AppData` ableiten
 /// und je Aufruf prüfen, ob die Rückfrage F-08 davor liegt. Arbeitet auf UTF-16 (Positionen passen zu NSRegularExpression).
+/// Review ARC7-02: nur der Block von `withWatchlistConfirm` (bzw. eines Hilfswegs, der seine Aktion nur darin ausführt)
+/// zählt, und nicht in einer losgelösten Ausführung darin (`escapes`).
 @MainActor
 enum CallGuard {
 
@@ -212,34 +214,51 @@ enum CallGuard {
         for i in from..<pos {
             if src.u[i] == 123 { open.append(i) } else if src.u[i] == 125, !open.isEmpty { open.removeLast() }
         }
+        // ARC7-02: Läuft pos losgelöst (`Task.detached`, `DispatchQueue….async`) im Block, gilt die Zustimmung dort nicht
         for brace in open.reversed() {
             guard let name = callee(src, before: brace) else { continue }
-            if name == "withWatchlistConfirm" { return true }
-            if !seen.contains(name) && helperConfirms(sources, name, seen: seen.union([name])) { return true }
+            if name == "withWatchlistConfirm" { return !escapes(src, brace + 1, pos) }
+            if !seen.contains(name) && helperConfirms(sources, name, seen: seen.union([name])) { return !escapes(src, brace + 1, pos) }
         }
-        // await confirmWatchlistWrite(): nur als `guard await …confirmWatchlistWrite() else { … }` und nur danach im selben
-        // Block (Review TST5-R2: die Richtung zählt — nicht im else-Block, keine anderen Formen wie `if`, `_ =`, `let ok =`)
-        return src.matches(confirmCall, from, pos).contains { m -> Bool in
-            guard let brace = guardElseBrace(src, m) else { return false }
-            let elseEnd = src.closing(brace)
-            guard elseEnd < pos else { return false }
-            var depth = 0
-            for i in (elseEnd + 1)..<pos {
-                if src.u[i] == 123 { depth += 1 } else if src.u[i] == 125 { depth -= 1; if depth < 0 { return false } }
-            }
-            return true
-        }
+        // ARC7-02: `confirmWatchlistWrite` ist privat (Aktion nur unter `runConsented`) — ein direkter Aufruf zählt nicht
+        return false
     }
 
-    /// «{» des else-Blocks, wenn der Aufruf `m` als `guard await [data.]confirmWatchlistWrite() else {` steht; sonst nil.
-    private static func guardElseBrace(_ src: Source, _ m: NSTextCheckingResult) -> Int? {
-        let start = max(0, m.range.location - 120)
-        let head = NSRange(location: start, length: m.range.location - start)
-        guard guardHead.firstMatch(in: src.text as String, range: head) != nil else { return nil }
-        let end = m.range.location + m.range.length
-        let tail = NSRange(location: end, length: src.u.count - end)
-        guard let e = elseOpen.firstMatch(in: src.text as String, options: .anchored, range: tail) else { return nil }
-        return e.range.location + e.range.length - 1
+    /// ARC7-02: Beginnt zwischen `from` und `pos` eine losgelöste Ausführung, die `pos` noch umschliesst (`Task.detached`,
+    /// `….async`/`….asyncAfter` einer Warteschlange)? Dort fehlt die Zustimmung der Aktion (TaskLocal). Ein `Task { … }`
+    /// erbt sie und zählt nicht.
+    private static func escapes(_ src: Source, _ from: Int, _ pos: Int) -> Bool {
+        guard from < pos else { return false }
+        var open: [Int] = []
+        for i in from..<pos {
+            switch src.u[i] {
+            case 40, 123: open.append(i)
+            case 41, 125: if !open.isEmpty { open.removeLast() }
+            default: break
+            }
+        }
+        return open.contains { detachedCall(src, at: $0) }
+    }
+
+    /// Steht vor der Klammer bei `at` (bei «{» auch über eine Argumentliste) `Task.detached`, `.async` oder `.asyncAfter`?
+    private static func detachedCall(_ src: Source, at: Int) -> Bool {
+        var k = at - 1
+        while k >= 0 && (src.u[k] == 32 || src.u[k] == 10 || src.u[k] == 9) { k -= 1 }
+        if src.u[at] == 123, k >= 0, src.u[k] == 41 {
+            var depth = 0
+            while k >= 0 {
+                if src.u[k] == 41 { depth += 1 } else if src.u[k] == 40 { depth -= 1; if depth == 0 { break } }
+                k -= 1
+            }
+            k -= 1
+        }
+        while k >= 0 && src.u[k] == 32 { k -= 1 }
+        var start = k
+        while start >= 0, isIdentifier(src.u[start]) { start -= 1 }
+        guard start < k, start > 0, src.u[start] == 46 else { return false }
+        let name = src.string(start + 1, k + 1)
+        if name == "async" || name == "asyncAfter" { return true }
+        return name == "detached" && src.string(max(0, start - 4), start) == "Task" && (start < 5 || !isIdentifier(src.u[start - 5]))
     }
 
     /// Funktion `name`, die jede ihrer Closure-Aktionen nur im Block von withWatchlistConfirm ausführt (z. B. `moveButton`).
@@ -298,9 +317,6 @@ enum CallGuard {
     private static let refusedCall = try! NSRegularExpression(pattern: #"watchlistWriteRefused\(([^)]*)\)"#)
     private static let bareCall = try! NSRegularExpression(pattern: #"(?<![\w.])(?:self\.)?(\w+)\("#)
     private static let dataCall = try! NSRegularExpression(pattern: #"\bdata\s*\.\s*(\w+)\("#)
-    private static let confirmCall = try! NSRegularExpression(pattern: #"confirmWatchlistWrite\(\)"#)
-    private static let guardHead = try! NSRegularExpression(pattern: #"\bguard\s+await\s+(?:\w+\s*\.\s*)?$"#)
-    private static let elseOpen = try! NSRegularExpression(pattern: #"\s*else\s*\{"#)
     private static let argLabel = try! NSRegularExpression(pattern: #"^\s*(\w+)\s*:(?!:)"#)
     private static let paramHead = try! NSRegularExpression(pattern: #"^(\w+)(?:\s+(\w+))?\s*:"#)
 }

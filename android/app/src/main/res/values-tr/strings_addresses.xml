@@ -19,7 +19,6 @@
     <string name="portfolio_address_show_only">Yalnızca göster, portföye ekleme</string>
     <string name="portfolio_address_show_only_short">Yalnızca göster</string>
     <string name="portfolio_address_tokens">Token\'ları say</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d bilinmeyen token (sayılmadı)</string>
     <string name="portfolio_address_xpub_privacy">Bir xpub bu cüzdanın tüm adreslerini açığa çıkarır. Adresler cihazında türetilir; %1$s hizmetine yalnızca tek tek adresler gider – ilk taramada en az 40 istek, sonra daha az. Özel anahtarlar (xprv) asla kabul edilmez.</string>
     <string name="portfolio_address_xpub_gap">Arama, art arda %1$d kullanılmamış adresten sonra durur (çoğu cüzdanın kullandığı BIP44 standardı). Bu boşluğun ötesindeki kullanılmış bir adres sayılmaz – onu ayrıca ekle.</string>
     <string name="portfolio_address_xpub_used">Kullanılan adresler: %1$d</string>

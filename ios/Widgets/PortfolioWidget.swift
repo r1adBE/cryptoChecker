@@ -54,6 +54,13 @@ struct PortfolioEntry: TimelineEntry {
         isSample ? range.range : PortfolioWidgetOptions.effectiveRange(view, range.range)
     }
 
+    /// Für den Sperrbildschirm: ohne Regel der gewählten Ansicht (`PortfolioWidgetOptions.lockScreenView`).
+    var lockScreen: PortfolioEntry {
+        var copy = self
+        copy.view = PortfolioWidgetOptions.lockScreenView
+        return copy
+    }
+
     /// Der Stand, wie das Widget ihn zeigt (bei «Nur USDT» in USDT).
     var shown: PortfolioWidgetSnapshot? {
         snapshot.map { PortfolioWidgetChart.displayed($0, display: effectiveDisplay) }
@@ -257,7 +264,7 @@ struct PortfolioWidgetView: View {
     var body: some View {
         switch family {
         case .accessoryRectangular:
-            PortfolioRectangularView(entry: entry)
+            PortfolioRectangularView(entry: entry.lockScreen)
                 .containerBackground(for: .widget) { Color.clear }
                 .widgetURL(PortfolioWidgetText.appURL)
         default:

@@ -2,8 +2,8 @@
 <resources>
     <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
     <string name="settings_address_server_title">Власний сервер для адрес</string>
-    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
-    <string name="settings_address_server_hint">Лише Bitcoin: твій власний сервер, сумісний з Esplora або mempool (наприклад, https://node.example/api, потрібен дійсний сертифікат). Якщо його задано, адреси Bitcoin і xpub запитуються лише там – ніколи в публічних вузлів, навіть коли твій сервер недоступний. Інші мережі й далі використовують публічні вузли. Порожньо = публічні вузли.</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Лише Bitcoin: твій власний сервер, сумісний з Esplora або mempool (наприклад, https://node.example/api, потрібен публічно довірений сертифікат, наприклад Let\'s Encrypt). Якщо його задано, адреси Bitcoin і xpub запитуються лише там – ніколи в публічних вузлів, навіть коли твій сервер недоступний. Інші мережі й далі використовують публічні вузли. Порожньо = публічні вузли.</string>
     <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
     <string name="settings_address_server_field">Сервер Bitcoin (https://)</string>
     <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->

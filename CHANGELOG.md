@@ -15,6 +15,20 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 111)
+
+Fixes from the seventh review round (on build 110):
+
+* Own Bitcoin server: a backup without password never sets, replaces or removes it any more; the restore message says so. A password backup that replaces or removes the server is mentioned in the restore message too.
+* Own Bitcoin server: no 6-hour block after HTTP 403/451; saving or a successful test lifts any pause. The test result belongs to the tested address only (discarded when the input changes) and is announced by TalkBack/VoiceOver. Pasting more than 200 characters is shortened the same way on both platforms. Switching back to public nodes while Bitcoin addresses or xpub keys are watched asks first and names the public hosts. The hint now asks for a publicly trusted certificate (e.g. Let's Encrypt).
+* iOS: concurrent address refreshes keep their own Bitcoin hosts; manifest and signature of the data mirror are size-limited like on Android (64 KB / 1 KB).
+* Android: the privacy dialog before the first xpub scrolls (long texts at large font sizes were cut off).
+* «+N unknown tokens» is a real plural in all 31 languages.
+* iOS lock screen portfolio widget keeps the chosen range and display (the per-view rule applies to home screen views only).
+* Confirmation «watchlist not saved»: iOS confirmation only via the action itself; guards on both platforms also catch writes in another scope or a detached task and two more condition forms; behaviour tests pin the boundary.
+* CI: the market data run ends red if the manifest stays unsigned (data is still uploaded); the supply chain check rejects a changed configuration block in the verification metadata. More tests: signed mirror success path with a test key, URL length boundary for bulk requests.
+* Docs: README, SECURITY and privacy policy describe the signed mirror and the own Bitcoin server.
+
 ## 16.2.2 (build 110)
 
 * Code comments describe the code as it is now: build-number history removed from comments in about 820 files (audit F-21); compatibility notes for older versions kept without numbers.

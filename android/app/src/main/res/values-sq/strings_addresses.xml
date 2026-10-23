@@ -19,7 +19,6 @@
     <string name="portfolio_address_show_only">Vetëm shfaq, mos e llogarit në portofol</string>
     <string name="portfolio_address_show_only_short">Vetëm shfaq</string>
     <string name="portfolio_address_tokens">Llogarit tokenët</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d tokenë të panjohur (të pallogaritur)</string>
     <string name="portfolio_address_xpub_privacy">Një xpub zbulon të gjitha adresat e këtij wallet-i. Ato derivohen në pajisjen tënde; te %1$s dërgohen vetëm adresa të veçanta – të paktën 40 kërkesa në kërkimin e parë, më pas më pak. Çelësat privatë (xprv) nuk pranohen kurrë.</string>
     <string name="portfolio_address_xpub_gap">Kërkimi ndalon pas %1$d adresash të papërdorura radhazi (standardi BIP44 që përdorin shumica e portofolave). Një adresë e përdorur përtej këtij boshllëku nuk numërohet – shtoje veçmas.</string>
     <string name="portfolio_address_xpub_used">Adresa në përdorim: %1$d</string>

@@ -14,6 +14,11 @@ enum PortfolioWidgetOptions {
     /// Übersicht ohne passende Wahl (auch neue Widgets mit 24 h als Standard).
     static let overviewDefaultRange: PortfolioWidgetRange = .month
 
+    /// Review IOS7-03: Das Sperrbildschirm-Widget (accessoryRectangular) zeigt nur Gesamtwert und Veränderung, keine
+    /// Ansicht — Zeitraum und Anzeige wirken dort wie gewählt (Regel des Charts). Nur iOS: Android hat keine
+    /// Sperrbildschirm-Widgets.
+    static let lockScreenView: PortfolioWidgetMode = .chart
+
     /// Angebotene Anzeigen der Ansicht, in dieser Reihenfolge.
     static func displays(_ view: PortfolioWidgetMode) -> [PortfolioWidgetDisplay] {
         switch view {

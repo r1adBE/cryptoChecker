@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">Server Bitcoin personale non ripristinato – un backup non cifrato non può modificarlo.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">Server Bitcoin personale rimosso come nel backup – gli indirizzi Bitcoin vengono di nuovo interrogati presso nodi pubblici.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">Server Bitcoin personale sostituito con quello del backup.</string>
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d token sconosciuto (non conteggiato)</item>
+        <item quantity="many">+%1$d di token sconosciuti (non conteggiati)</item>
+        <item quantity="other">+%1$d token sconosciuti (non conteggiati)</item>
+    </plurals>
+</resources>

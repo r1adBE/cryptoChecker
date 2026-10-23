@@ -71,12 +71,13 @@ object AddressServer {
         consentNeeded(addresses.size, addresses.count { it.isXpub }, check.kind in KEY_KINDS)
 
     /**
-     * Wert aus einer Sicherung: fehlt der Schlüssel, bleibt [current]; ungültig: bleibt [current]; leer/null löscht nur
-     * eine Sicherung mit Passwort ([trusted]) — eine Datei ohne Passwort schaltet nie auf die öffentlichen Knoten zurück.
+     * Wert aus einer Sicherung: fehlt der Schlüssel, bleibt [current]; ungültig: bleibt [current]; leer/null löscht.
+     * Nur eine Sicherung mit Passwort ([trusted]) ändert ihn: Eine Datei ohne Echtheitsprüfung setzt, ersetzt und
+     * löscht nie (sonst gingen die Bitcoin-Adressen an einen fremden Server bzw. an öffentliche Knoten).
      */
     fun restored(present: Boolean, value: String?, current: String?, trusted: Boolean): String? {
-        if (!present) return current
-        if (value.isNullOrBlank()) return if (trusted) null else current
+        if (!present || !trusted) return current
+        if (value.isNullOrBlank()) return null
         val c = check(value)
         return if (c.problem == null) c.url else current
     }

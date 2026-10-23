@@ -81,7 +81,8 @@ jobs:
 
       # Manifest (SHA-256 je Datei) in eigenem Ordner, signiert mit MIRROR_SIGNING_KEY (openssl, vorinstalliert; keine
       # Paket-Installation in diesem Job). Nicht erneuerte Dateien behalten ihren Hash nur aus einem gültig signierten
-      # bisherigen Manifest. Ohne Secret: Warnung, Manifest ohne Signatur (die Apps fragen dann die Anbieter direkt).
+      # bisherigen Manifest. Ohne Secret: Manifest ohne Signatur (die Apps fragen dann die Anbieter direkt); die Daten
+      # werden trotzdem hochgeladen, der Lauf endet aber rot (Upload, letzter Schritt).
       - name: Sign manifest
         env:
           GH_TOKEN: ${{ github.token }}
@@ -131,3 +132,8 @@ jobs:
             echo '```'
             if [ -f "$RUNNER_TEMP/manifest/manifest.json.sig" ]; then echo 'Manifest signed.'; else echo 'Manifest NOT signed (MIRROR_SIGNING_KEY).'; fi
           } >> "$GITHUB_STEP_SUMMARY"
+          # Unsigniertes Manifest: Daten sind oben hochgeladen, der Lauf wird trotzdem rot (sonst fällt es niemandem auf)
+          if [ ! -f "$RUNNER_TEMP/manifest/manifest.json.sig" ]; then
+            echo '::error title=Mirror signature::manifest.json was published without a valid signature (MIRROR_SIGNING_KEY missing or not usable); the apps ignore the mirror until it is signed again.'
+            exit 1
+          fi

@@ -57,7 +57,9 @@ extension AppData {
     /// Banner, Rückgängig, Ansage und Erst-Alarm. Gesperrte Merkliste fragt nicht (true): Dort lehnt der Schreibweg selbst
     /// ab und zeigt den Hinweis. Wie Android `WatchRepository.confirmUserWrite`.
     /// ARC4-R02: ohne sichtbare Szene erst kurz auf sie warten (`awaitWatchlistGateAsker`), dann fragen.
-    func confirmWatchlistWrite() async -> Bool {
+    /// ARC7-02: privat — Bildschirme fragen nur über `withWatchlistConfirm`, damit die Aktion unter `runConsented` läuft
+    /// (sonst fehlte ihr nach einem Durchlass ohne Szene die Zustimmung, und der Schreibweg lehnte still ab).
+    private func confirmWatchlistWrite() async -> Bool {
         if watchlistWritesBlocked { return true }
         return await WatchlistNotSavedGate.shared.confirm(notSaved: watchlistGateNotSaved, canAsk: watchlistGateCanAsk,
                                                           awaitAsker: { await self.awaitWatchlistGateAsker() })

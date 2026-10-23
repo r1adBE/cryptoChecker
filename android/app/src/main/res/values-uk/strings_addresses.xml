@@ -19,7 +19,6 @@
     <string name="portfolio_address_show_only">Лише показувати, не додавати до портфеля</string>
     <string name="portfolio_address_show_only_short">Лише показувати</string>
     <string name="portfolio_address_tokens">Враховувати токени</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d невідомих токенів (не враховано)</string>
     <string name="portfolio_address_xpub_privacy">Xpub розкриває всі адреси цього гаманця. Вони обчислюються на твоєму пристрої; до %1$s надсилаються лише окремі адреси – під час першого пошуку щонайменше 40 запитів, потім менше. Приватні ключі (xprv) ніколи не приймаються.</string>
     <string name="portfolio_address_xpub_gap">Пошук зупиняється після %1$d невикористаних адрес поспіль (стандарт BIP44, який використовує більшість гаманців). Використана адреса за цим проміжком не враховується – додай її окремо.</string>
     <string name="portfolio_address_xpub_used">Використані адреси: %1$d</string>

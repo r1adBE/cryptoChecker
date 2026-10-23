@@ -2,8 +2,8 @@
 <resources>
     <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
     <string name="settings_address_server_title">Server propriu pentru adrese</string>
-    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
-    <string name="settings_address_server_hint">Doar Bitcoin: serverul tău compatibil Esplora sau mempool (de ex. https://nod.example/api, e nevoie de un certificat valid). Dacă e setat, adresele Bitcoin și xpub sunt interogate doar acolo – niciodată la noduri publice, nici când serverul tău nu răspunde. Celelalte rețele folosesc în continuare noduri publice. Gol = noduri publice.</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Doar Bitcoin: serverul tău compatibil Esplora sau mempool (de ex. https://nod.example/api, e nevoie de un certificat de încredere publică, de ex. Let\'s Encrypt). Dacă e setat, adresele Bitcoin și xpub sunt interogate doar acolo – niciodată la noduri publice, nici când serverul tău nu răspunde. Celelalte rețele folosesc în continuare noduri publice. Gol = noduri publice.</string>
     <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
     <string name="settings_address_server_field">Server Bitcoin (https://)</string>
     <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->

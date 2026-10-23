@@ -2,8 +2,8 @@
 <resources>
     <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
     <string name="settings_address_server_title">Eigen server voor adressen</string>
-    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
-    <string name="settings_address_server_hint">Alleen Bitcoin: je eigen Esplora- of mempool-compatibele server (bijv. https://node.example/api, geldig certificaat vereist). Is hij ingesteld, dan worden Bitcoin-adressen en xpubs alleen daar opgevraagd – nooit bij openbare nodes, ook niet als je server onbereikbaar is. Andere netwerken gebruiken nog steeds openbare nodes. Leeg = openbare nodes.</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Alleen Bitcoin: je eigen Esplora- of mempool-compatibele server (bijv. https://node.example/api, publiek vertrouwd certificaat vereist, bijv. Let\'s Encrypt). Is hij ingesteld, dan worden Bitcoin-adressen en xpubs alleen daar opgevraagd – nooit bij openbare nodes, ook niet als je server onbereikbaar is. Andere netwerken gebruiken nog steeds openbare nodes. Leeg = openbare nodes.</string>
     <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
     <string name="settings_address_server_field">Bitcoin-server (https://)</string>
     <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->

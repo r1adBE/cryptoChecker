@@ -49,6 +49,17 @@ final class BulkPairChunksTests: XCTestCase {
                        [["AAAA"], ["BBBB"]])
     }
 
+    func testDefaultLimitReachedExactlySplits() throws {
+        // Präfix so lang, dass «AAAA,BBBB» die Adresse auf genau maxURLLength Zeichen brächte (wie Android)
+        let limit = BulkPairChunks.maxURLLength
+        let exact = String(repeating: "p", count: limit - 9)
+        XCTAssertEqual(BulkPairChunks.chunks(prefix: exact, pairIds: ["AAAA", "BBBB"]), [["AAAA"], ["BBBB"]])
+        let below = String(repeating: "p", count: limit - 10)
+        let one = try XCTUnwrap(BulkPairChunks.chunks(prefix: below, pairIds: ["AAAA", "BBBB"]))
+        XCTAssertEqual(one, [["AAAA", "BBBB"]])
+        XCTAssertEqual(BulkPairChunks.url(prefix: below, chunk: one[0]).count, limit - 1)
+    }
+
     func testSingleOverlongIdStaysAlone() {
         let long = String(repeating: "X", count: 50)
         XCTAssertEqual(BulkPairChunks.chunks(prefix: "0123456789", pairIds: ["AAAA", long, "ZZZZ"], maxURLLength: 30),

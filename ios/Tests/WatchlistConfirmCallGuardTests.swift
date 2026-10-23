@@ -4,11 +4,12 @@ import XCTest
 /// Android `WatchRepositoryCallGuardTest`. Die Schreibwege kommen aus `AppData` (Funktionen in `App/Services/AppData*.swift`,
 /// deren Rumpf `watchlistWriteRefused(` enthält, plus Weiterleitungen darauf; Überladungen nach Argument-Bezeichnern). Jeder
 /// Aufruf `data.<Schreibweg>(` in `App` ausserhalb von `Services` liegt im Block von `withWatchlistConfirm { … }` (nicht im
-/// `cancelled:`-Block), in der Aktion eines Hilfswegs, der seine Aktion nur darin ausführt (z. B. `moveButton`), oder hinter
-/// `await confirmWatchlistWrite()` (Block noch offen). Ein Hilfsweg ohne eigene Frage gilt, wenn jeder Aufrufer fragt (z. B.
-/// `addStarterConfirmed` oder `saveDraftNow`, dessen einziger Aufrufer `saveFromEditor` fragt). Der eigene Rumpf einer
-/// Funktion zählt dabei nie als fragender Hilfsweg. Review TST5-R2: Die Richtung der Bedingung zählt —
-/// `confirmWatchlistWrite` gilt nur als `guard await … else { … }` und nur für Schreibwege danach.
+/// `cancelled:`-Block) oder in der Aktion eines Hilfswegs, der seine Aktion nur darin ausführt (z. B. `moveButton`). Ein
+/// Hilfsweg ohne eigene Frage gilt, wenn jeder Aufrufer fragt (z. B. `addStarterConfirmed` oder `saveDraftNow`, dessen
+/// einziger Aufrufer `saveFromEditor` fragt). Der eigene Rumpf einer Funktion zählt dabei nie als fragender Hilfsweg.
+/// Review ARC7-02: `confirmWatchlistWrite` ist privat (die Aktion läuft nur über `withWatchlistConfirm` unter
+/// `runConsented`), ein direkter Aufruf zählt nie; ein Schreibweg in einer losgelösten Ausführung im Block
+/// (`Task.detached`, `DispatchQueue….async`/`asyncAfter`) ist ein Befund — ein erbender `Task { … }` nicht.
 @MainActor
 final class WatchlistConfirmCallGuardTests: XCTestCase {
 
@@ -37,8 +38,8 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
         XCTAssertTrue(result.problems.isEmpty, "Schreibweg ohne Rückfrage F-08 davor:\n" + result.problems.joined(separator: "\n"))
     }
 
-    /// Gegenprobe mit eingebautem Beispiel: ohne Rückfrage, im `cancelled:`-Block, nach dem Block, Zeichenkette mit
-    /// Kommentarzeichen → Befund; Hilfsweg, `confirmWatchlistWrite` und andere Überladung → kein Befund.
+    /// Gegenprobe mit eingebautem Beispiel: ohne Rückfrage, direkt hinter `confirmWatchlistWrite` (ARC7-02), im
+    /// `cancelled:`-Block, nach dem Block, Zeichenkette mit Kommentarzeichen → Befund; Hilfsweg und andere Überladung → kein Befund.
     /// Regex-Literal mit `//` verdeckt nichts; Schreibweg vor der Frage in einer Funktion mit Closure-Parameter → Befund.
     func testCounterSampleIsFlagged() {
         let repo = CallGuard.Source(#"""
@@ -64,7 +65,7 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
             private func tile(action: @escaping () -> Void) -> some View {
                 Button { data.withWatchlistConfirm { action() } } label: { Text("x") }
             }
-            func okAsync() {
+            func directConfirm() {
                 Task { guard await data.confirmWatchlistWrite() else { return }; data.setNote(w, nil) }
             }
             func bad() {
@@ -96,13 +97,15 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
         let result = CallGuard.check(["Features/Sample.swift": sample], writes: writes, allowed: [])
         XCTAssertEqual(result.calls, 9)
         XCTAssertEqual(result.problems.map { $0.components(separatedBy: " ").last ?? "" },
-                       ["bad", "cancelledPath", "afterBlock", "stringOpensComment", "regexHidesNothing", "ownClosureParam"])
+                       ["directConfirm", "bad", "cancelledPath", "afterBlock", "stringOpensComment", "regexHidesNothing",
+                        "ownClosureParam"])
     }
 
-    /// Review TST5-R2: Richtung der Bedingung. `guard await data.confirmWatchlistWrite() else { … }` mit Schreibweg danach
-    /// besteht; im else-Block, im `else` eines `if`, nach `if !(…)`, hinter unbenutztem oder gespeichertem Ergebnis, im
-    /// positiven `if` (im Code nicht benutzt) und ausserhalb des Blocks → Befund.
-    func testConditionDirectionIsChecked() {
+    /// Review TST5-R2/ARC7-02: `confirmWatchlistWrite` ist privat — keine Form eines direkten Aufrufs zählt, auch nicht
+    /// `guard await … else { … }` mit Schreibweg danach (die Aktion liefe nicht unter `runConsented`); ebenso im else-Block,
+    /// im `else` eines `if`, nach `if !(…)`, hinter unbenutztem oder gespeichertem Ergebnis, im positiven `if` und
+    /// ausserhalb des Blocks → Befund.
+    func testDirectConfirmCallNeverCounts() {
         let repo = CallGuard.Source(#"""
         extension AppData {
             func reorder(_ ids: [Int64]) { guard !watchlistWriteRefused() else { return } }
@@ -112,10 +115,10 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
         let writes = CallGuard.writePaths([repo])
         let sample = CallGuard.Source(#"""
         extension X {
-            func okGuard() {
+            func guardLine() {
                 Task { guard await data.confirmWatchlistWrite() else { return }; data.setNote(w, nil) }
             }
-            func okGuardBlock() {
+            func guardBlock() {
                 Task {
                     guard await data.confirmWatchlistWrite() else {
                         cancelled()
@@ -151,7 +154,57 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
         let result = CallGuard.check(["Features/Sample.swift": sample], writes: writes, allowed: [])
         XCTAssertEqual(result.calls, 9)
         XCTAssertEqual(result.problems.map { $0.components(separatedBy: " ").last ?? "" },
-                       ["inElse", "ifElse", "negatedIf", "ignored", "stored", "positiveIf", "outsideTask"])
+                       ["guardLine", "guardBlock", "inElse", "ifElse", "negatedIf", "ignored", "stored", "positiveIf", "outsideTask"])
+    }
+
+    /// Review ARC7-02: Gegenprobe zum Ausweichen aus der Aktion. Ein erbender `Task` im Block und ein geschlossener
+    /// losgelöster Block davor bestehen; ein Schreibweg in `Task.detached`, `DispatchQueue….async`/`asyncAfter` (auch mit
+    /// `execute:`) im Block von `withWatchlistConfirm` oder eines fragenden Hilfswegs → Befund.
+    func testDetachedExecutionIsFlagged() {
+        let repo = CallGuard.Source(#"""
+        extension AppData {
+            func reorder(_ ids: [Int64]) { guard !watchlistWriteRefused() else { return } }
+            func setNote(_ watch: Watch, _ note: String?) { guard !watchlistWriteRefused() else { return } }
+        }
+        """#)
+        let writes = CallGuard.writePaths([repo])
+        let sample = CallGuard.Source(#"""
+        extension X {
+            func okTask() {
+                data.withWatchlistConfirm { Task { await load(); data.reorder([]) } }
+            }
+            func okClosedDetached() {
+                data.withWatchlistConfirm {
+                    Task.detached { log() }
+                    data.setNote(w, nil)
+                }
+            }
+            func inDetached() {
+                data.withWatchlistConfirm { Task.detached(priority: .low) { await data.reorder([]) } }
+            }
+            func inMainAsync() {
+                data.withWatchlistConfirm { DispatchQueue.main.async { data.reorder([]) } }
+            }
+            func inAsyncAfter() {
+                data.withWatchlistConfirm {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { data.setNote(w, nil) }
+                }
+            }
+            func withExecute() {
+                data.withWatchlistConfirm({ DispatchQueue.global().async(execute: { data.reorder([]) }) }, cancelled: nil)
+            }
+            func viaHelper() {
+                tile { DispatchQueue.main.async { data.reorder([]) } }
+            }
+            private func tile(action: @escaping () -> Void) -> some View {
+                Button { data.withWatchlistConfirm { action() } } label: { Text("x") }
+            }
+        }
+        """#)
+        let result = CallGuard.check(["Features/Sample.swift": sample], writes: writes, allowed: [])
+        XCTAssertEqual(result.calls, 7)
+        XCTAssertEqual(result.problems.map { $0.components(separatedBy: " ").last ?? "" },
+                       ["inDetached", "inMainAsync", "inAsyncAfter", "withExecute", "viaHelper"])
     }
 
     /// REL6-R1: mehrzeiliges Regex-Literal auch mit Leerzeichen/Tab bzw. CRLF nach `#/` — ein `/*` darin öffnet keinen

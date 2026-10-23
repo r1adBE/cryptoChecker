@@ -19,7 +19,6 @@
     <string name="portfolio_address_show_only">仅显示，不计入投资组合</string>
     <string name="portfolio_address_show_only_short">仅显示</string>
     <string name="portfolio_address_tokens">计入代币</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d 个未知代币（未计入）</string>
     <string name="portfolio_address_xpub_privacy">xpub 会暴露此钱包的全部地址。地址在你的设备上推导；只向 %1$s 发送单个地址——首次扫描至少 40 次请求，之后更少。绝不接受私钥（xprv）。</string>
     <string name="portfolio_address_xpub_gap">连续出现 %1$d 个未使用的地址后停止搜索（大多数钱包采用的 BIP44 标准）。此间隔之后的已使用地址不会被计入，请单独添加。</string>
     <string name="portfolio_address_xpub_used">已用地址：%1$d</string>

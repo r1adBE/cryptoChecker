@@ -1,5 +1,6 @@
 package com.cryptochecker.app.parity
 
+import com.cryptochecker.app.data.BackupRestorePolicy
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressServer
 import org.junit.Assert.assertEquals
@@ -57,13 +58,19 @@ class AddressServerParityTest {
         }
     }
 
+    /** Übernahme aus der Sicherung (ohne Passwort nie geändert) samt Hinweis in der Meldung ([BackupRestorePolicy]). */
     @Test
     fun uebernahmeAusDerSicherung() {
-        for (c in fixture["restore"].list().map { it.obj() }) {
-            val result = AddressServer.restored(
-                c["present"] as Boolean, c["value"] as String?, c["current"] as String?, c["trusted"] as Boolean,
-            )
-            assertEquals(c.toString(), c["result"], result)
+        val cases = fixture["restore"].list().map { it.obj() }
+        assertTrue(cases.any { it["trusted"] == false && it["current"] == null && it["value"] != null })
+        for (c in cases) {
+            val present = c["present"] as Boolean
+            val value = c["value"] as String?
+            val current = c["current"] as String?
+            val trusted = c["trusted"] as Boolean
+            assertEquals(c.toString(), c["result"], AddressServer.restored(present, value, current, trusted))
+            val note = BackupRestorePolicy.addressServerNote(present, value, current, trusted)
+            assertEquals(c.toString(), c["note"], note?.name)
         }
     }
 

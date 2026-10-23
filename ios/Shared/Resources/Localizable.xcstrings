@@ -74284,6 +74284,579 @@
         }
       }
     },
+    "backup_restore_server_changed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استُبدل خادم بيتكوين الخاص بالخادم الموجود في النسخة الاحتياطية."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vlastní server pro Bitcoin nahrazen serverem ze zálohy."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen Bitcoin-server erstattet med den fra sikkerhedskopien."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigener Bitcoin-Server durch den aus der Sicherung ersetzt."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ο δικός σου διακομιστής Bitcoin αντικαταστάθηκε από αυτόν του αντιγράφου."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Own Bitcoin server replaced with the one from the backup."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor propio de Bitcoin reemplazado por el de la copia."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سرور بیت‌کوین خودت با سرور پشتیبان جایگزین شد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oma Bitcoin-palvelin korvattu varmuuskopion palvelimella."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveur Bitcoin perso remplacé par celui de la sauvegarde."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שרת הביטקוין שלכם הוחלף בשרת מהגיבוי."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अपना Bitcoin सर्वर बैकअप वाले सर्वर से बदला गया।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A saját Bitcoin-szerver lecserélve a mentésben szereplőre."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server Bitcoin sendiri diganti dengan yang dari cadangan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server Bitcoin personale sostituito con quello del backup."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "独自の Bitcoin サーバーをバックアップのサーバーに置き換えました。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "비트코인 자체 서버를 백업의 서버로 바꿨습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen Bitcoin-server erstattet med den fra sikkerhetskopien."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigen Bitcoin-server vervangen door die uit de back-up."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Własny serwer Bitcoin zastąpiony serwerem z kopii."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor Bitcoin próprio substituído pelo da cópia."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor Bitcoin próprio substituído pelo do backup."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serverul Bitcoin propriu a fost înlocuit cu cel din copie."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Свой сервер Bitcoin заменён сервером из копии."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveri yt Bitcoin u zëvendësua me atë nga kopja."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen Bitcoin-server ersatt med den från säkerhetskopian."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แทนที่เซิร์ฟเวอร์ Bitcoin ของคุณเองด้วยเซิร์ฟเวอร์จากข้อมูลสำรองแล้ว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kendi Bitcoin sunucun yedekteki sunucuyla değiştirildi."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Власний сервер Bitcoin замінено сервером із копії."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã thay máy chủ Bitcoin riêng bằng máy chủ trong bản sao lưu."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已将自有比特币服务器替换为备份中的服务器。"
+          }
+        }
+      }
+    },
+    "backup_restore_server_kept" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم يُعتمد خادم بيتكوين الخاص – لا يمكن لنسخة غير مشفرة تغييره."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vlastní server pro Bitcoin nebyl převzat – nešifrovaná záloha ho nemůže změnit."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen Bitcoin-server ikke overtaget – en ukrypteret sikkerhedskopi kan ikke ændre den."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigener Bitcoin-Server nicht übernommen – eine unverschlüsselte Sicherung kann ihn nicht ändern."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ο δικός σου διακομιστής Bitcoin δεν μεταφέρθηκε – ένα μη κρυπτογραφημένο αντίγραφο δεν μπορεί να τον αλλάξει."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Own Bitcoin server not applied – an unencrypted backup can’t change it."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor propio de Bitcoin no restaurado: una copia sin cifrar no puede cambiarlo."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سرور بیت‌کوین خودت بازیابی نشد – پشتیبان رمزنشده نمی‌تواند آن را تغییر دهد."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omaa Bitcoin-palvelinta ei palautettu – salaamaton varmuuskopio ei voi muuttaa sitä."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveur Bitcoin perso non restauré – une sauvegarde non chiffrée ne peut pas le modifier."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שרת הביטקוין שלכם לא שוחזר – גיבוי לא מוצפן לא יכול לשנות אותו."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अपना Bitcoin सर्वर बहाल नहीं हुआ – बिना एन्क्रिप्शन वाला बैकअप इसे बदल नहीं सकता।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A saját Bitcoin-szerver nem lett visszaállítva – titkosítatlan mentés nem módosíthatja."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server Bitcoin sendiri tidak dipulihkan – cadangan tanpa enkripsi tidak dapat mengubahnya."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server Bitcoin personale non ripristinato – un backup non cifrato non può modificarlo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "独自の Bitcoin サーバーは復元されませんでした。暗号化されていないバックアップでは変更できません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "비트코인 자체 서버는 복원되지 않았습니다. 암호화되지 않은 백업으로는 변경할 수 없습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen Bitcoin-server ikke overtatt – en ukryptert sikkerhetskopi kan ikke endre den."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigen Bitcoin-server niet overgenomen – een onversleutelde back-up kan hem niet wijzigen."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Własny serwer Bitcoin nie został przywrócony – niezaszyfrowana kopia nie może go zmienić."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor Bitcoin próprio não restaurado – uma cópia não encriptada não o pode alterar."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor Bitcoin próprio não restaurado – um backup sem criptografia não pode alterá-lo."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serverul Bitcoin propriu nu a fost preluat – o copie necriptată nu îl poate schimba."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Свой сервер Bitcoin не восстановлен – незашифрованная копия не может его изменить."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveri yt Bitcoin nuk u rikthye – një kopje e paenkriptuar nuk mund ta ndryshojë."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen Bitcoin-server inte överförd – en okrypterad säkerhetskopia kan inte ändra den."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ได้กู้คืนเซิร์ฟเวอร์ Bitcoin ของคุณเอง – ข้อมูลสำรองที่ไม่เข้ารหัสเปลี่ยนไม่ได้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kendi Bitcoin sunucun geri yüklenmedi – şifresiz bir yedek onu değiştiremez."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Власний сервер Bitcoin не відновлено – незашифрована копія не може його змінити."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không khôi phục máy chủ Bitcoin riêng – bản sao lưu không mã hóa không thể thay đổi nó."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未恢复自有比特币服务器——未加密的备份无法更改它。"
+          }
+        }
+      }
+    },
+    "backup_restore_server_public" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أُزيل خادم بيتكوين الخاص كما في النسخة الاحتياطية – يُستعلم عن عناوين بيتكوين من العُقد العامة مجددًا."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vlastní server pro Bitcoin odebrán jako v záloze – bitcoinové adresy se opět dotazují u veřejných uzlů."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen Bitcoin-server fjernet som i sikkerhedskopien – Bitcoin-adresser forespørges igen hos offentlige noder."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigener Bitcoin-Server entfernt wie in der Sicherung – Bitcoin-Adressen werden wieder bei öffentlichen Knoten abgefragt."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ο δικός σου διακομιστής Bitcoin αφαιρέθηκε όπως στο αντίγραφο – οι διευθύνσεις Bitcoin ερωτώνται ξανά σε δημόσιους κόμβους."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Own Bitcoin server removed as in the backup – Bitcoin addresses are queried at public nodes again."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor propio de Bitcoin eliminado como en la copia: las direcciones de Bitcoin vuelven a consultarse en nodos públicos."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سرور بیت‌کوین خودت مانند پشتیبان حذف شد – آدرس‌های بیت‌کوین دوباره از گره‌های عمومی پرسیده می‌شوند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oma Bitcoin-palvelin poistettu kuten varmuuskopiossa – Bitcoin-osoitteet kysytään taas julkisilta solmuilta."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveur Bitcoin perso supprimé comme dans la sauvegarde – les adresses Bitcoin sont de nouveau interrogées auprès de nœuds publics."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שרת הביטקוין שלכם הוסר כמו בגיבוי – כתובות ביטקוין נבדקות שוב בצמתים ציבוריים."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अपना Bitcoin सर्वर बैकअप की तरह हटाया गया – Bitcoin पते फिर से सार्वजनिक नोड्स से पूछे जाते हैं।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A saját Bitcoin-szerver eltávolítva, mint a mentésben – a Bitcoin-címeket ismét nyilvános csomópontoktól kérdezzük le."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server Bitcoin sendiri dihapus seperti di cadangan – alamat Bitcoin kembali ditanyakan ke node publik."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server Bitcoin personale rimosso come nel backup – gli indirizzi Bitcoin vengono di nuovo interrogati presso nodi pubblici."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックアップのとおり独自の Bitcoin サーバーを削除しました。Bitcoin アドレスは再び公開ノードに問い合わせます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "백업대로 비트코인 자체 서버를 삭제했습니다. 비트코인 주소는 다시 공개 노드에 조회합니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen Bitcoin-server fjernet som i sikkerhetskopien – Bitcoin-adresser spørres igjen hos offentlige noder."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eigen Bitcoin-server verwijderd zoals in de back-up – Bitcoin-adressen worden weer bij openbare nodes opgevraagd."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Własny serwer Bitcoin usunięty jak w kopii – adresy Bitcoin są znów sprawdzane w publicznych węzłach."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor Bitcoin próprio removido como na cópia – os endereços Bitcoin voltam a ser consultados em nós públicos."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servidor Bitcoin próprio removido como no backup – os endereços Bitcoin voltam a ser consultados em nós públicos."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serverul Bitcoin propriu a fost eliminat ca în copie – adresele Bitcoin sunt din nou interogate la noduri publice."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Свой сервер Bitcoin удалён, как в копии, – адреса Bitcoin снова запрашиваются у публичных узлов."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serveri yt Bitcoin u hoq si në kopje – adresat Bitcoin pyeten sërish te nyje publike."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egen Bitcoin-server borttagen som i säkerhetskopian – Bitcoin-adresser frågas åter hos offentliga noder."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ลบเซิร์ฟเวอร์ Bitcoin ของคุณเองตามข้อมูลสำรองแล้ว – ที่อยู่ Bitcoin จะถามจากโหนดสาธารณะอีกครั้ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kendi Bitcoin sunucun yedekteki gibi kaldırıldı – Bitcoin adresleri yeniden herkese açık düğümlerde sorgulanıyor."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Власний сервер Bitcoin видалено, як у копії, – адреси Bitcoin знову запитуються в публічних вузлів."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã xóa máy chủ Bitcoin riêng như trong bản sao lưu – địa chỉ Bitcoin lại được truy vấn ở nút công khai."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已按备份移除自有比特币服务器——比特币地址重新向公共节点查询。"
+          }
+        }
+      }
+    },
     "backup_restore_storage_in_memory" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -191777,189 +192350,639 @@
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld رموز غير معروفة (غير محتسبة)"
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld رموز غير معروفة (غير محتسبة)"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld رمزًا غير معروف (غير محتسبة)"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld رمز غير معروف (غير محتسب)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld رمز غير معروف (غير محتسبة)"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld رمز غير معروف (غير محتسبين)"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld رمز غير معروف (غير محتسب)"
+                }
+              }
+            }
           }
         },
         "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld neznámých tokenů (nezapočteno)"
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld neznámé tokeny (nezapočteno)"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld neznámého tokenu (nezapočteno)"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld neznámý token (nezapočteno)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld neznámých tokenů (nezapočteno)"
+                }
+              }
+            }
           }
         },
         "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld ukendte tokens (ikke medregnet)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld ukendt token (ikke medregnet)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld ukendte tokens (ikke medregnet)"
+                }
+              }
+            }
           }
         },
         "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld unbekannte Token (nicht gezählt)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld unbekannter Token (nicht gezählt)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld unbekannte Token (nicht gezählt)"
+                }
+              }
+            }
           }
         },
         "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld άγνωστα tokens (δεν μετρώνται)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld άγνωστο token (δεν μετράται)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld άγνωστα tokens (δεν μετρώνται)"
+                }
+              }
+            }
           }
         },
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld unknown tokens (not counted)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld unknown token (not counted)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld unknown tokens (not counted)"
+                }
+              }
+            }
           }
         },
         "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld tokens desconocidos (no contados)"
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld de tokens desconocidos (no contados)"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld token desconocido (no contado)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld tokens desconocidos (no contados)"
+                }
+              }
+            }
           }
         },
         "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld توکن ناشناخته (حساب نشده)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld توکن ناشناخته (حساب نشده)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld توکن ناشناخته (حساب نشده)"
+                }
+              }
+            }
           }
         },
         "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld tuntematonta tokenia (ei laskettu)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld tuntematon token (ei laskettu)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld tuntematonta tokenia (ei laskettu)"
+                }
+              }
+            }
           }
         },
         "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld tokens inconnus (non comptés)"
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld de tokens inconnus (non comptés)"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld token inconnu (non compté)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld tokens inconnus (non comptés)"
+                }
+              }
+            }
           }
         },
         "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld טוקנים לא מוכרים (לא נספרו)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld טוקן לא מוכר (לא נספר)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld טוקנים לא מוכרים (לא נספרו)"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld טוקנים לא מוכרים (לא נספרו)"
+                }
+              }
+            }
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld अज्ञात टोकन (गिने नहीं गए)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld अज्ञात टोकन (गिना नहीं गया)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld अज्ञात टोकन (गिने नहीं गए)"
+                }
+              }
+            }
           }
         },
         "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld ismeretlen token (nem számítva)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld ismeretlen token (nem számítva)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld ismeretlen token (nem számítva)"
+                }
+              }
+            }
           }
         },
         "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld token tak dikenal (tidak dihitung)"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld token tak dikenal (tidak dihitung)"
+                }
+              }
+            }
           }
         },
         "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld token sconosciuti (non conteggiati)"
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld di token sconosciuti (non conteggiati)"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld token sconosciuto (non conteggiato)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld token sconosciuti (non conteggiati)"
+                }
+              }
+            }
           }
         },
         "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld 件の不明なトークン（計上せず）"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld 件の不明なトークン（計上せず）"
+                }
+              }
+            }
           }
         },
         "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld개 알 수 없는 토큰(미포함)"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld개 알 수 없는 토큰(미포함)"
+                }
+              }
+            }
           }
         },
         "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld ukjente tokens (ikke regnet med)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld ukjent token (ikke regnet med)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld ukjente tokens (ikke regnet med)"
+                }
+              }
+            }
           }
         },
         "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld onbekende tokens (niet meegeteld)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld onbekende token (niet meegeteld)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld onbekende tokens (niet meegeteld)"
+                }
+              }
+            }
           }
         },
         "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld nieznanych tokenów (niewliczone)"
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld nieznane tokeny (niewliczone)"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld nieznanych tokenów (niewliczone)"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld nieznany token (niewliczony)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld nieznanego tokena (niewliczone)"
+                }
+              }
+            }
           }
         },
         "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld tokens desconhecidos (não contados)"
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld de tokens desconhecidos (não contados)"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld token desconhecido (não contado)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld tokens desconhecidos (não contados)"
+                }
+              }
+            }
           }
         },
         "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld tokens desconhecidos (não contados)"
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld de tokens desconhecidos (não contados)"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld token desconhecido (não contado)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld tokens desconhecidos (não contados)"
+                }
+              }
+            }
           }
         },
         "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld tokenuri necunoscute (neincluse)"
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld tokenuri necunoscute (neincluse)"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld token necunoscut (neinclus)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld de tokenuri necunoscute (neincluse)"
+                }
+              }
+            }
           }
         },
         "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld неизвестных токенов (не учтены)"
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld неизвестных токена (не учтены)"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld неизвестных токенов (не учтены)"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld неизвестный токен (не учтён)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld неизвестного токена (не учтены)"
+                }
+              }
+            }
           }
         },
         "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld tokenë të panjohur (të pallogaritur)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld token i panjohur (i pallogaritur)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld tokenë të panjohur (të pallogaritur)"
+                }
+              }
+            }
           }
         },
         "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld okända tokens (räknas inte)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld okänd token (räknas inte)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld okända tokens (räknas inte)"
+                }
+              }
+            }
           }
         },
         "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld โทเคนที่ไม่รู้จัก (ไม่นับรวม)"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld โทเคนที่ไม่รู้จัก (ไม่นับรวม)"
+                }
+              }
+            }
           }
         },
         "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld bilinmeyen token (sayılmadı)"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld bilinmeyen token (sayılmadı)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld bilinmeyen token (sayılmadı)"
+                }
+              }
+            }
           }
         },
         "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld невідомих токенів (не враховано)"
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld невідомі токени (не враховано)"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld невідомих токенів (не враховано)"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld невідомий токен (не враховано)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld невідомого токена (не враховано)"
+                }
+              }
+            }
           }
         },
         "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld token không xác định (không tính)"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld token không xác định (không tính)"
+                }
+              }
+            }
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "+%1$ld 个未知代币（未计入）"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "+%1$lld 个未知代币（未计入）"
+                }
+              }
+            }
           }
         }
       }
@@ -285885,187 +286908,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "بيتكوين فقط: خادمك الخاص المتوافق مع Esplora أو mempool (مثل https://node.example/api، ويلزم شهادة صالحة). عند ضبطه تُستعلم عناوين بيتكوين وxpub منه فقط – ولا تُرسل أبدًا إلى عُقد عامة، حتى إن تعذّر الوصول إلى خادمك. تستخدم الشبكات الأخرى العُقد العامة كما في السابق. فارغ = عُقد عامة."
+            "value" : "بيتكوين فقط: خادمك الخاص المتوافق مع Esplora أو mempool (مثل https://node.example/api، ويلزم شهادة موثوقة علنًا مثل Let's Encrypt). عند ضبطه تُستعلم عناوين بيتكوين وxpub منه فقط – ولا تُرسل أبدًا إلى عُقد عامة، حتى إن تعذّر الوصول إلى خادمك. تستخدم الشبكات الأخرى العُقد العامة كما في السابق. فارغ = عُقد عامة."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jen Bitcoin: tvůj vlastní server kompatibilní s Esplora nebo mempool (např. https://uzel.example/api, je nutný platný certifikát). Pokud je nastaven, bitcoinové adresy a xpub se dotazují jen tam – nikdy u veřejných uzlů, ani když tvůj server není dostupný. Ostatní sítě dál používají veřejné uzly. Prázdné = veřejné uzly."
+            "value" : "Jen Bitcoin: tvůj vlastní server kompatibilní s Esplora nebo mempool (např. https://uzel.example/api, je nutný veřejně důvěryhodný certifikát, např. Let's Encrypt). Pokud je nastaven, bitcoinové adresy a xpub se dotazují jen tam – nikdy u veřejných uzlů, ani když tvůj server není dostupný. Ostatní sítě dál používají veřejné uzly. Prázdné = veřejné uzly."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kun Bitcoin: din egen Esplora- eller mempool-kompatible server (f.eks. https://node.example/api, gyldigt certifikat påkrævet). Er den angivet, slås Bitcoin-adresser og xpub kun op dér – aldrig hos offentlige noder, heller ikke når din server ikke svarer. Andre netværk bruger fortsat offentlige noder. Tom = offentlige noder."
+            "value" : "Kun Bitcoin: din egen Esplora- eller mempool-kompatible server (f.eks. https://node.example/api, offentligt betroet certifikat påkrævet, f.eks. Let's Encrypt). Er den angivet, slås Bitcoin-adresser og xpub kun op dér – aldrig hos offentlige noder, heller ikke når din server ikke svarer. Andre netværk bruger fortsat offentlige noder. Tom = offentlige noder."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nur Bitcoin: dein eigener Esplora- oder mempool-kompatibler Server (z. B. https://knoten.example/api, gültiges Zertifikat nötig). Ist er gesetzt, werden Bitcoin-Adressen und xpub nur dort abgefragt – nie bei öffentlichen Knoten, auch nicht, wenn dein Server nicht erreichbar ist. Andere Netze nutzen weiter öffentliche Knoten. Leer = öffentliche Knoten."
+            "value" : "Nur Bitcoin: dein eigener Esplora- oder mempool-kompatibler Server (z. B. https://knoten.example/api, öffentlich vertrauenswürdiges Zertifikat nötig, etwa Let's Encrypt). Ist er gesetzt, werden Bitcoin-Adressen und xpub nur dort abgefragt – nie bei öffentlichen Knoten, auch nicht, wenn dein Server nicht erreichbar ist. Andere Netze nutzen weiter öffentliche Knoten. Leer = öffentliche Knoten."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Μόνο Bitcoin: ο δικός σου διακομιστής συμβατός με Esplora ή mempool (π.χ. https://node.example/api, απαιτείται έγκυρο πιστοποιητικό). Αν έχει οριστεί, οι διευθύνσεις Bitcoin και τα xpub ερωτώνται μόνο εκεί – ποτέ σε δημόσιους κόμβους, ούτε όταν ο διακομιστής σου δεν απαντά. Τα άλλα δίκτυα χρησιμοποιούν ακόμη δημόσιους κόμβους. Κενό = δημόσιοι κόμβοι."
+            "value" : "Μόνο Bitcoin: ο δικός σου διακομιστής συμβατός με Esplora ή mempool (π.χ. https://node.example/api, απαιτείται δημόσια αξιόπιστο πιστοποιητικό, π.χ. Let's Encrypt). Αν έχει οριστεί, οι διευθύνσεις Bitcoin και τα xpub ερωτώνται μόνο εκεί – ποτέ σε δημόσιους κόμβους, ούτε όταν ο διακομιστής σου δεν απαντά. Τα άλλα δίκτυα χρησιμοποιούν ακόμη δημόσιους κόμβους. Κενό = δημόσιοι κόμβοι."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bitcoin only: your own Esplora- or mempool-compatible server (e.g. https://node.example/api, valid certificate required). If set, Bitcoin addresses and xpub keys are queried only there – never at public nodes, not even when your server is unreachable. Other networks keep using public nodes. Empty = public nodes."
+            "value" : "Bitcoin only: your own Esplora- or mempool-compatible server (e.g. https://node.example/api, publicly trusted certificate required, such as Let's Encrypt). If set, Bitcoin addresses and xpub keys are queried only there – never at public nodes, not even when your server is unreachable. Other networks keep using public nodes. Empty = public nodes."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Solo Bitcoin: tu propio servidor compatible con Esplora o mempool (p. ej. https://nodo.example/api, se necesita un certificado válido). Si está configurado, las direcciones Bitcoin y las xpub solo se consultan allí, nunca en nodos públicos, ni siquiera si tu servidor no responde. Las demás redes siguen usando nodos públicos. Vacío = nodos públicos."
+            "value" : "Solo Bitcoin: tu propio servidor compatible con Esplora o mempool (p. ej. https://nodo.example/api, se necesita un certificado de confianza pública, como Let's Encrypt). Si está configurado, las direcciones Bitcoin y las xpub solo se consultan allí, nunca en nodos públicos, ni siquiera si tu servidor no responde. Las demás redes siguen usando nodos públicos. Vacío = nodos públicos."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فقط بیت‌کوین: سرور خودت که با Esplora یا mempool سازگار است (مثلاً https://node.example/api، گواهی معتبر لازم است). اگر تنظیم شده باشد، آدرس‌های بیت‌کوین و xpub فقط از همان‌جا پرسیده می‌شوند – هرگز از گره‌های عمومی، حتی وقتی سرورت در دسترس نیست. شبکه‌های دیگر همچنان از گره‌های عمومی استفاده می‌کنند. خالی = گره‌های عمومی."
+            "value" : "فقط بیت‌کوین: سرور خودت که با Esplora یا mempool سازگار است (مثلاً https://node.example/api، گواهی مورد اعتماد عمومی مانند Let's Encrypt لازم است). اگر تنظیم شده باشد، آدرس‌های بیت‌کوین و xpub فقط از همان‌جا پرسیده می‌شوند – هرگز از گره‌های عمومی، حتی وقتی سرورت در دسترس نیست. شبکه‌های دیگر همچنان از گره‌های عمومی استفاده می‌کنند. خالی = گره‌های عمومی."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vain Bitcoin: oma Esplora- tai mempool-yhteensopiva palvelimesi (esim. https://solmu.example/api, voimassa oleva varmenne vaaditaan). Jos se on asetettu, Bitcoin-osoitteet ja xpubit kysytään vain sieltä – ei koskaan julkisilta solmuilta, ei edes silloin, kun palvelimesi ei vastaa. Muut verkot käyttävät edelleen julkisia solmuja. Tyhjä = julkiset solmut."
+            "value" : "Vain Bitcoin: oma Esplora- tai mempool-yhteensopiva palvelimesi (esim. https://solmu.example/api, julkisesti luotettu varmenne vaaditaan, esim. Let's Encrypt). Jos se on asetettu, Bitcoin-osoitteet ja xpubit kysytään vain sieltä – ei koskaan julkisilta solmuilta, ei edes silloin, kun palvelimesi ei vastaa. Muut verkot käyttävät edelleen julkisia solmuja. Tyhjä = julkiset solmut."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bitcoin uniquement : ton propre serveur compatible Esplora ou mempool (p. ex. https://noeud.example/api, certificat valide requis). S’il est défini, les adresses Bitcoin et les xpub ne sont interrogées que là – jamais auprès de nœuds publics, même si ton serveur est injoignable. Les autres réseaux utilisent toujours des nœuds publics. Vide = nœuds publics."
+            "value" : "Bitcoin uniquement : ton propre serveur compatible Esplora ou mempool (p. ex. https://noeud.example/api, certificat reconnu publiquement requis, p. ex. Let's Encrypt). S’il est défini, les adresses Bitcoin et les xpub ne sont interrogées que là – jamais auprès de nœuds publics, même si ton serveur est injoignable. Les autres réseaux utilisent toujours des nœuds publics. Vide = nœuds publics."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "רק ביטקוין: שרת משלכם התואם ל-Esplora או ל-mempool (למשל https://node.example/api, נדרשת תעודה תקפה). אם הוגדר, כתובות ביטקוין ו-xpub נשאלות רק שם – אף פעם לא בצמתים ציבוריים, גם לא כשהשרת אינו זמין. רשתות אחרות ממשיכות להשתמש בצמתים ציבוריים. ריק = צמתים ציבוריים."
+            "value" : "רק ביטקוין: שרת משלכם התואם ל-Esplora או ל-mempool (למשל https://node.example/api, נדרשת תעודה מהימנה ציבורית, למשל Let's Encrypt). אם הוגדר, כתובות ביטקוין ו-xpub נשאלות רק שם – אף פעם לא בצמתים ציבוריים, גם לא כשהשרת אינו זמין. רשתות אחרות ממשיכות להשתמש בצמתים ציבוריים. ריק = צמתים ציבוריים."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "सिर्फ़ Bitcoin: तुम्हारा अपना Esplora- या mempool-संगत सर्वर (जैसे https://node.example/api, मान्य सर्टिफ़िकेट ज़रूरी)। सेट होने पर Bitcoin पते और xpub सिर्फ़ वहीं पूछे जाते हैं – सार्वजनिक नोड्स पर कभी नहीं, तब भी नहीं जब तुम्हारा सर्वर उपलब्ध न हो। बाकी नेटवर्क सार्वजनिक नोड्स ही इस्तेमाल करते हैं। खाली = सार्वजनिक नोड्स।"
+            "value" : "सिर्फ़ Bitcoin: तुम्हारा अपना Esplora- या mempool-संगत सर्वर (जैसे https://node.example/api, सार्वजनिक रूप से भरोसेमंद सर्टिफ़िकेट ज़रूरी, जैसे Let's Encrypt)। सेट होने पर Bitcoin पते और xpub सिर्फ़ वहीं पूछे जाते हैं – सार्वजनिक नोड्स पर कभी नहीं, तब भी नहीं जब तुम्हारा सर्वर उपलब्ध न हो। बाकी नेटवर्क सार्वजनिक नोड्स ही इस्तेमाल करते हैं। खाली = सार्वजनिक नोड्स।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Csak Bitcoin: a saját Esplora- vagy mempool-kompatibilis szervered (pl. https://csomopont.example/api, érvényes tanúsítvány kell). Ha be van állítva, a Bitcoin-címeket és az xpubokat csak ott kérdezzük le – soha nyilvános csomópontoknál, akkor sem, ha a szervered nem érhető el. A többi hálózat továbbra is nyilvános csomópontokat használ. Üres = nyilvános csomópontok."
+            "value" : "Csak Bitcoin: a saját Esplora- vagy mempool-kompatibilis szervered (pl. https://csomopont.example/api, nyilvánosan megbízható tanúsítvány kell, pl. Let's Encrypt). Ha be van állítva, a Bitcoin-címeket és az xpubokat csak ott kérdezzük le – soha nyilvános csomópontoknál, akkor sem, ha a szervered nem érhető el. A többi hálózat továbbra is nyilvános csomópontokat használ. Üres = nyilvános csomópontok."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hanya Bitcoin: server milikmu yang kompatibel dengan Esplora atau mempool (mis. https://node.example/api, perlu sertifikat yang valid). Jika diatur, alamat Bitcoin dan xpub hanya ditanyakan ke sana – tidak pernah ke node publik, bahkan saat servermu tidak bisa dijangkau. Jaringan lain tetap memakai node publik. Kosong = node publik."
+            "value" : "Hanya Bitcoin: server milikmu yang kompatibel dengan Esplora atau mempool (mis. https://node.example/api, perlu sertifikat yang tepercaya secara publik, mis. Let's Encrypt). Jika diatur, alamat Bitcoin dan xpub hanya ditanyakan ke sana – tidak pernah ke node publik, bahkan saat servermu tidak bisa dijangkau. Jaringan lain tetap memakai node publik. Kosong = node publik."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Solo Bitcoin: il tuo server compatibile con Esplora o mempool (ad es. https://nodo.example/api, serve un certificato valido). Se è impostato, gli indirizzi Bitcoin e le xpub vengono interrogati solo lì – mai su nodi pubblici, nemmeno se il tuo server non è raggiungibile. Le altre reti continuano a usare nodi pubblici. Vuoto = nodi pubblici."
+            "value" : "Solo Bitcoin: il tuo server compatibile con Esplora o mempool (ad es. https://nodo.example/api, serve un certificato pubblicamente attendibile, ad es. Let's Encrypt). Se è impostato, gli indirizzi Bitcoin e le xpub vengono interrogati solo lì – mai su nodi pubblici, nemmeno se il tuo server non è raggiungibile. Le altre reti continuano a usare nodi pubblici. Vuoto = nodi pubblici."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bitcoin のみ：Esplora または mempool 互換の独自サーバー（例：https://node.example/api、有効な証明書が必要）。設定すると、Bitcoin アドレスと xpub はそこにだけ問い合わせます。サーバーに接続できない場合でも、公開ノードには問い合わせません。他のネットワークは引き続き公開ノードを使います。空欄＝公開ノード。"
+            "value" : "Bitcoin のみ：Esplora または mempool 互換の独自サーバー（例：https://node.example/api、Let's Encrypt などの公的に信頼された証明書が必要）。設定すると、Bitcoin アドレスと xpub はそこにだけ問い合わせます。サーバーに接続できない場合でも、公開ノードには問い合わせません。他のネットワークは引き続き公開ノードを使います。空欄＝公開ノード。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "비트코인만: Esplora 또는 mempool 호환 자체 서버(예: https://node.example/api, 유효한 인증서 필요). 설정하면 비트코인 주소와 xpub은 그곳에만 조회합니다. 서버에 연결할 수 없어도 공개 노드에는 절대 조회하지 않습니다. 다른 네트워크는 계속 공개 노드를 사용합니다. 비워 두면 공개 노드를 사용합니다."
+            "value" : "비트코인만: Esplora 또는 mempool 호환 자체 서버(예: https://node.example/api, Let's Encrypt 등 공개적으로 신뢰되는 인증서 필요). 설정하면 비트코인 주소와 xpub은 그곳에만 조회합니다. 서버에 연결할 수 없어도 공개 노드에는 절대 조회하지 않습니다. 다른 네트워크는 계속 공개 노드를 사용합니다. 비워 두면 공개 노드를 사용합니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bare Bitcoin: din egen Esplora- eller mempool-kompatible server (f.eks. https://node.example/api, gyldig sertifikat kreves). Er den angitt, spørres Bitcoin-adresser og xpub bare der – aldri hos offentlige noder, heller ikke når serveren din ikke svarer. Andre nettverk bruker fortsatt offentlige noder. Tom = offentlige noder."
+            "value" : "Bare Bitcoin: din egen Esplora- eller mempool-kompatible server (f.eks. https://node.example/api, offentlig klarert sertifikat kreves, f.eks. Let's Encrypt). Er den angitt, spørres Bitcoin-adresser og xpub bare der – aldri hos offentlige noder, heller ikke når serveren din ikke svarer. Andre nettverk bruker fortsatt offentlige noder. Tom = offentlige noder."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alleen Bitcoin: je eigen Esplora- of mempool-compatibele server (bijv. https://node.example/api, geldig certificaat vereist). Is hij ingesteld, dan worden Bitcoin-adressen en xpubs alleen daar opgevraagd – nooit bij openbare nodes, ook niet als je server onbereikbaar is. Andere netwerken gebruiken nog steeds openbare nodes. Leeg = openbare nodes."
+            "value" : "Alleen Bitcoin: je eigen Esplora- of mempool-compatibele server (bijv. https://node.example/api, publiek vertrouwd certificaat vereist, bijv. Let's Encrypt). Is hij ingesteld, dan worden Bitcoin-adressen en xpubs alleen daar opgevraagd – nooit bij openbare nodes, ook niet als je server onbereikbaar is. Andere netwerken gebruiken nog steeds openbare nodes. Leeg = openbare nodes."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tylko Bitcoin: twój własny serwer zgodny z Esplora lub mempool (np. https://wezel.example/api, wymagany ważny certyfikat). Jeśli jest ustawiony, adresy Bitcoin i xpub są sprawdzane tylko tam – nigdy w publicznych węzłach, nawet gdy twój serwer jest nieosiągalny. Inne sieci nadal korzystają z publicznych węzłów. Puste = publiczne węzły."
+            "value" : "Tylko Bitcoin: twój własny serwer zgodny z Esplora lub mempool (np. https://wezel.example/api, wymagany publicznie zaufany certyfikat, np. Let's Encrypt). Jeśli jest ustawiony, adresy Bitcoin i xpub są sprawdzane tylko tam – nigdy w publicznych węzłach, nawet gdy twój serwer jest nieosiągalny. Inne sieci nadal korzystają z publicznych węzłów. Puste = publiczne węzły."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Só Bitcoin: o teu próprio servidor compatível com Esplora ou mempool (p. ex. https://no.example/api, é preciso um certificado válido). Se estiver definido, os endereços Bitcoin e as xpub só são consultados aí – nunca em nós públicos, nem quando o teu servidor não está acessível. As outras redes continuam a usar nós públicos. Vazio = nós públicos."
+            "value" : "Só Bitcoin: o teu próprio servidor compatível com Esplora ou mempool (p. ex. https://no.example/api, é preciso um certificado publicamente confiável, como Let's Encrypt). Se estiver definido, os endereços Bitcoin e as xpub só são consultados aí – nunca em nós públicos, nem quando o teu servidor não está acessível. As outras redes continuam a usar nós públicos. Vazio = nós públicos."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Só Bitcoin: seu próprio servidor compatível com Esplora ou mempool (ex.: https://no.example/api, é preciso um certificado válido). Se estiver definido, os endereços Bitcoin e as xpub são consultados só nele – nunca em nós públicos, nem quando seu servidor não está acessível. As outras redes continuam usando nós públicos. Vazio = nós públicos."
+            "value" : "Só Bitcoin: seu próprio servidor compatível com Esplora ou mempool (ex.: https://no.example/api, é preciso um certificado publicamente confiável, como Let's Encrypt). Se estiver definido, os endereços Bitcoin e as xpub são consultados só nele – nunca em nós públicos, nem quando seu servidor não está acessível. As outras redes continuam usando nós públicos. Vazio = nós públicos."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Doar Bitcoin: serverul tău compatibil Esplora sau mempool (de ex. https://nod.example/api, e nevoie de un certificat valid). Dacă e setat, adresele Bitcoin și xpub sunt interogate doar acolo – niciodată la noduri publice, nici când serverul tău nu răspunde. Celelalte rețele folosesc în continuare noduri publice. Gol = noduri publice."
+            "value" : "Doar Bitcoin: serverul tău compatibil Esplora sau mempool (de ex. https://nod.example/api, e nevoie de un certificat de încredere publică, de ex. Let's Encrypt). Dacă e setat, adresele Bitcoin și xpub sunt interogate doar acolo – niciodată la noduri publice, nici când serverul tău nu răspunde. Celelalte rețele folosesc în continuare noduri publice. Gol = noduri publice."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Только Bitcoin: твой собственный сервер, совместимый с Esplora или mempool (например, https://node.example/api, нужен действительный сертификат). Если он задан, адреса Bitcoin и xpub запрашиваются только там – никогда у публичных узлов, даже если твой сервер недоступен. Другие сети по-прежнему используют публичные узлы. Пусто = публичные узлы."
+            "value" : "Только Bitcoin: твой собственный сервер, совместимый с Esplora или mempool (например, https://node.example/api, нужен публично доверенный сертификат, например Let's Encrypt). Если он задан, адреса Bitcoin и xpub запрашиваются только там – никогда у публичных узлов, даже если твой сервер недоступен. Другие сети по-прежнему используют публичные узлы. Пусто = публичные узлы."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vetëm Bitcoin: serveri yt i përputhshëm me Esplora ose mempool (p.sh. https://nyje.example/api, duhet certifikatë e vlefshme). Nëse është vendosur, adresat Bitcoin dhe xpub pyeten vetëm aty – kurrë te nyjet publike, as kur serveri yt nuk arrihet. Rrjetet e tjera përdorin ende nyje publike. Bosh = nyje publike."
+            "value" : "Vetëm Bitcoin: serveri yt i përputhshëm me Esplora ose mempool (p.sh. https://nyje.example/api, duhet certifikatë e besuar publikisht, p.sh. Let's Encrypt). Nëse është vendosur, adresat Bitcoin dhe xpub pyeten vetëm aty – kurrë te nyjet publike, as kur serveri yt nuk arrihet. Rrjetet e tjera përdorin ende nyje publike. Bosh = nyje publike."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Endast Bitcoin: din egen Esplora- eller mempool-kompatibla server (t.ex. https://nod.example/api, giltigt certifikat krävs). Är den angiven frågas Bitcoin-adresser och xpub bara där – aldrig hos offentliga noder, inte ens när din server inte svarar. Andra nätverk använder fortfarande offentliga noder. Tomt = offentliga noder."
+            "value" : "Endast Bitcoin: din egen Esplora- eller mempool-kompatibla server (t.ex. https://nod.example/api, offentligt betrott certifikat krävs, t.ex. Let's Encrypt). Är den angiven frågas Bitcoin-adresser och xpub bara där – aldrig hos offentliga noder, inte ens när din server inte svarar. Andra nätverk använder fortfarande offentliga noder. Tomt = offentliga noder."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "เฉพาะ Bitcoin: เซิร์ฟเวอร์ของคุณเองที่รองรับ Esplora หรือ mempool (เช่น https://node.example/api ต้องมีใบรับรองที่ถูกต้อง) เมื่อตั้งค่าแล้ว ที่อยู่ Bitcoin และ xpub จะถูกสอบถามที่นั่นเท่านั้น ไม่สอบถามโหนดสาธารณะเลย แม้เซิร์ฟเวอร์ของคุณจะเชื่อมต่อไม่ได้ เครือข่ายอื่นยังใช้โหนดสาธารณะ เว้นว่าง = โหนดสาธารณะ"
+            "value" : "เฉพาะ Bitcoin: เซิร์ฟเวอร์ของคุณเองที่รองรับ Esplora หรือ mempool (เช่น https://node.example/api ต้องมีใบรับรองที่เชื่อถือได้แบบสาธารณะ เช่น Let's Encrypt) เมื่อตั้งค่าแล้ว ที่อยู่ Bitcoin และ xpub จะถูกสอบถามที่นั่นเท่านั้น ไม่สอบถามโหนดสาธารณะเลย แม้เซิร์ฟเวอร์ของคุณจะเชื่อมต่อไม่ได้ เครือข่ายอื่นยังใช้โหนดสาธารณะ เว้นว่าง = โหนดสาธารณะ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yalnızca Bitcoin: kendi Esplora veya mempool uyumlu sunucun (ör. https://node.example/api, geçerli sertifika gerekir). Ayarlıysa Bitcoin adresleri ve xpub’lar yalnızca orada sorgulanır – sunucuna ulaşılamasa bile asla herkese açık düğümlerde değil. Diğer ağlar herkese açık düğümleri kullanmaya devam eder. Boş = herkese açık düğümler."
+            "value" : "Yalnızca Bitcoin: kendi Esplora veya mempool uyumlu sunucun (ör. https://node.example/api, herkesçe güvenilen bir sertifika gerekir, ör. Let's Encrypt). Ayarlıysa Bitcoin adresleri ve xpub’lar yalnızca orada sorgulanır – sunucuna ulaşılamasa bile asla herkese açık düğümlerde değil. Diğer ağlar herkese açık düğümleri kullanmaya devam eder. Boş = herkese açık düğümler."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Лише Bitcoin: твій власний сервер, сумісний з Esplora або mempool (наприклад, https://node.example/api, потрібен дійсний сертифікат). Якщо його задано, адреси Bitcoin і xpub запитуються лише там – ніколи в публічних вузлів, навіть коли твій сервер недоступний. Інші мережі й далі використовують публічні вузли. Порожньо = публічні вузли."
+            "value" : "Лише Bitcoin: твій власний сервер, сумісний з Esplora або mempool (наприклад, https://node.example/api, потрібен публічно довірений сертифікат, наприклад Let's Encrypt). Якщо його задано, адреси Bitcoin і xpub запитуються лише там – ніколи в публічних вузлів, навіть коли твій сервер недоступний. Інші мережі й далі використовують публічні вузли. Порожньо = публічні вузли."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chỉ Bitcoin: máy chủ riêng của bạn tương thích Esplora hoặc mempool (vd. https://node.example/api, cần chứng chỉ hợp lệ). Khi đã đặt, địa chỉ Bitcoin và xpub chỉ được truy vấn ở đó – không bao giờ ở nút công khai, kể cả khi máy chủ của bạn không truy cập được. Các mạng khác vẫn dùng nút công khai. Để trống = nút công khai."
+            "value" : "Chỉ Bitcoin: máy chủ riêng của bạn tương thích Esplora hoặc mempool (vd. https://node.example/api, cần chứng chỉ được tin cậy công khai, vd. Let's Encrypt). Khi đã đặt, địa chỉ Bitcoin và xpub chỉ được truy vấn ở đó – không bao giờ ở nút công khai, kể cả khi máy chủ của bạn không truy cập được. Các mạng khác vẫn dùng nút công khai. Để trống = nút công khai."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "仅限比特币：你自己的 Esplora 或 mempool 兼容服务器（例如 https://node.example/api，需要有效证书）。设置后，比特币地址和 xpub 只向该服务器查询——即使服务器无法访问，也绝不改用公共节点。其他网络仍使用公共节点。留空 = 公共节点。"
+            "value" : "仅限比特币：你自己的 Esplora 或 mempool 兼容服务器（例如 https://node.example/api，需要公开受信任的证书，例如 Let's Encrypt）。设置后，比特币地址和 xpub 只向该服务器查询——即使服务器无法访问，也绝不改用公共节点。其他网络仍使用公共节点。留空 = 公共节点。"
           }
         }
       }
@@ -286257,6 +287280,579 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未设置——使用公共节点"
+          }
+        }
+      }
+    },
+    "settings_address_server_public_confirm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استخدام العُقد العامة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Použít veřejné uzly"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brug offentlige noder"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffentliche Knoten nutzen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χρήση δημόσιων κόμβων"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use public nodes"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usar nodos públicos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استفاده از گره‌های عمومی"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Käytä julkisia solmuja"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser les nœuds publics"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שימוש בצמתים ציבוריים"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सार्वजनिक नोड्स इस्तेमाल करो"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nyilvános csomópontok használata"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pakai node publik"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa nodi pubblici"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公開ノードを使う"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "공개 노드 사용"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bruk offentlige noder"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Openbare nodes gebruiken"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Użyj publicznych węzłów"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usar nós públicos"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usar nós públicos"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folosește noduri publice"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Использовать публичные узлы"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Përdor nyjet publike"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Använd offentliga noder"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ใช้โหนดสาธารณะ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herkese açık düğümleri kullan"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Використовувати публічні вузли"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dùng nút công khai"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用公共节点"
+          }
+        }
+      }
+    },
+    "settings_address_server_public_text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ستُستعلم عناوين بيتكوين وxpub الخاصة بك عندئذٍ من عُقد عامة: %1$@. وهي ترى هذه العناوين مع عنوان IP الخاص بك."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tvoje bitcoinové adresy a xpub se pak budou dotazovat u veřejných uzlů: %1$@. Ty uvidí tyto adresy spolu s tvou IP adresou."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dine Bitcoin-adresser og xpub slås så op hos offentlige noder: %1$@. De ser adresserne sammen med din IP-adresse."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine Bitcoin-Adressen und xpub werden dann bei öffentlichen Knoten abgefragt: %1$@. Diese sehen die Adressen zusammen mit deiner IP-Adresse."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι διευθύνσεις Bitcoin και τα xpub σου θα ερωτώνται τότε σε δημόσιους κόμβους: %1$@. Αυτοί βλέπουν τις διευθύνσεις μαζί με τη διεύθυνση IP σου."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Bitcoin addresses and xpub keys will then be queried at public nodes: %1$@. They see these addresses together with your IP address."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tus direcciones Bitcoin y xpub se consultarán entonces en nodos públicos: %1$@. Estos ven las direcciones junto con tu dirección IP."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در این صورت آدرس‌های بیت‌کوین و xpub تو از گره‌های عمومی پرسیده می‌شوند: %1$@. آن‌ها این آدرس‌ها را همراه با آدرس IP تو می‌بینند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin-osoitteesi ja xpubisi kysytään silloin julkisilta solmuilta: %1$@. Ne näkevät osoitteet yhdessä IP-osoitteesi kanssa."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tes adresses Bitcoin et tes xpub seront alors interrogées auprès de nœuds publics : %1$@. Ceux-ci voient ces adresses avec ton adresse IP."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כתובות הביטקוין וה-xpub שלכם ייבדקו אז בצמתים ציבוריים: %1$@. הם רואים את הכתובות יחד עם כתובת ה-IP שלכם."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "तब तुम्हारे Bitcoin पते और xpub सार्वजनिक नोड्स पर पूछे जाएँगे: %1$@। वे इन पतों को तुम्हारे IP पते के साथ देखते हैं।"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Bitcoin-címeidet és az xpubokat ekkor nyilvános csomópontoknál kérdezzük le: %1$@. Ezek a címeket az IP-címeddel együtt látják."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alamat Bitcoin dan xpub milikmu lalu akan ditanyakan ke node publik: %1$@. Node tersebut melihat alamat ini bersama alamat IP-mu."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I tuoi indirizzi Bitcoin e le xpub verranno allora interrogati su nodi pubblici: %1$@. Questi vedono gli indirizzi insieme al tuo indirizzo IP."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin アドレスと xpub は公開ノード（%1$@）に問い合わせるようになります。公開ノードにはこれらのアドレスと IP アドレスが見えます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "그러면 비트코인 주소와 xpub을 공개 노드(%1$@)에 조회합니다. 공개 노드는 이 주소를 IP 주소와 함께 볼 수 있습니다."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin-adressene og xpub-ene dine spørres da hos offentlige noder: %1$@. De ser adressene sammen med IP-adressen din."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je Bitcoin-adressen en xpubs worden dan bij openbare nodes opgevraagd: %1$@. Die zien deze adressen samen met je IP-adres."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Twoje adresy Bitcoin i xpub będą wtedy sprawdzane w publicznych węzłach: %1$@. Widzą one te adresy razem z twoim adresem IP."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Os teus endereços Bitcoin e xpub passam a ser consultados em nós públicos: %1$@. Estes veem os endereços juntamente com o teu endereço IP."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seus endereços Bitcoin e xpub passarão a ser consultados em nós públicos: %1$@. Eles veem esses endereços junto com seu endereço IP."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresele tale Bitcoin și xpub vor fi atunci interogate la noduri publice: %1$@. Acestea văd adresele împreună cu adresa ta IP."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Тогда твои адреса Bitcoin и xpub будут запрашиваться у публичных узлов: %1$@. Они видят эти адреса вместе с твоим IP-адресом."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresat e tua Bitcoin dhe xpub do të pyeten atëherë te nyjet publike: %1$@. Ato i shohin adresat bashkë me adresën tënde IP."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dina Bitcoin-adresser och xpub frågas då hos offentliga noder: %1$@. De ser adresserna tillsammans med din IP-adress."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จากนั้นที่อยู่ Bitcoin และ xpub ของคุณจะถูกสอบถามที่โหนดสาธารณะ: %1$@ โหนดเหล่านี้จะเห็นที่อยู่พร้อมกับที่อยู่ IP ของคุณ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitcoin adreslerin ve xpub’ların bundan sonra herkese açık düğümlerde sorgulanır: %1$@. Bu düğümler adresleri IP adresinle birlikte görür."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Тоді твої адреси Bitcoin і xpub запитуватимуться в публічних вузлів: %1$@. Вони бачать ці адреси разом із твоєю IP-адресою."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Khi đó địa chỉ Bitcoin và xpub của bạn sẽ được truy vấn ở nút công khai: %1$@. Các nút này thấy các địa chỉ cùng với địa chỉ IP của bạn."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "之后你的比特币地址和 xpub 将向公共节点查询：%1$@。这些节点会看到这些地址以及你的 IP 地址。"
+          }
+        }
+      }
+    },
+    "settings_address_server_public_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التبديل إلى العُقد العامة؟"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přepnout na veřejné uzly?"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skift til offentlige noder?"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zu öffentlichen Knoten wechseln?"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μετάβαση σε δημόσιους κόμβους;"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch to public nodes?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Cambiar a nodos públicos?"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تغییر به گره‌های عمومی؟"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vaihdetaanko julkisiin solmuihin?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passer aux nœuds publics ?"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לעבור לצמתים ציבוריים?"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सार्वजनिक नोड्स पर जाएँ?"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Átváltasz nyilvános csomópontokra?"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beralih ke node publik?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passare ai nodi pubblici?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公開ノードに切り替えますか？"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "공개 노드로 전환할까요?"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bytte til offentlige noder?"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overschakelen naar openbare nodes?"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przełączyć na publiczne węzły?"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mudar para nós públicos?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mudar para nós públicos?"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Treci la noduri publice?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перейти на публичные узлы?"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kalon te nyjet publike?"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Byta till offentliga noder?"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เปลี่ยนไปใช้โหนดสาธารณะไหม"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herkese açık düğümlere geçilsin mi?"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перейти на публічні вузли?"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuyển sang nút công khai?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "切换到公共节点？"
           }
         }
       }

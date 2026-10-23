@@ -5,7 +5,8 @@ import Foundation
 /// Eine Sicherung ohne Passwort hat keine Echtheitsprüfung: Eine bearbeitete Datei im gleichen Format
 /// wird angenommen. Darum schaltet sie die Portfolio-Sperre nie aus, wenn sie gerade an ist — und
 /// auch sonst nichts in Richtung «weniger Schutz»: «Portfolio in Systemsicherung» nie ein (`systemBackup`),
-/// «Beträge verbergen» nie aus (`hideAmounts`).
+/// «Beträge verbergen» nie aus (`hideAmounts`), eigener Bitcoin-Server nie gesetzt, ersetzt oder gelöscht
+/// (`AddressServer.restored`, Hinweis `addressServerNote`).
 enum BackupRestorePolicy {
     /// Was mit «appLock» aus der Sicherung geschieht: `apply` = neuer Wert (nil = unverändert lassen);
     /// `keptOn` = die Sicherung wollte die Sperre ausschalten, sie bleibt aber an (Hinweis in der Meldung).
@@ -40,6 +41,26 @@ enum BackupRestorePolicy {
     static func hideAmounts(wanted: Bool?, current: Bool, trusted: Bool) -> Bool? {
         if wanted == false && current && !trusted { return nil }
         return wanted
+    }
+
+    /// Hinweis zum eigenen Bitcoin-Server in der Meldung nach dem Wiederherstellen (`addressServerNote`, wie Android).
+    enum AddressServerNote: String, Equatable, Sendable {
+        /// Sicherung ohne Passwort hatte einen anderen gültigen Wert (oder keinen): nicht übernommen.
+        case KEPT
+        /// Sicherung mit Passwort ohne eigenen Server: der bisherige ist weg, wieder öffentliche Knoten.
+        case PUBLIC
+        /// Sicherung mit Passwort mit anderem Server: der bisherige ist ersetzt.
+        case CHANGED
+    }
+
+    /// Hinweis zum eigenen Bitcoin-Server (`AddressServer.restored`, gleiche Fälle in address_server.json «restore»):
+    /// nil = nichts zu sagen (Wert gleich, ungültig, fehlt, oder neu gesetzt, wo keiner war).
+    static func addressServerNote(present: Bool, value: String?, current: String?, trusted: Bool) -> AddressServerNote? {
+        let wanted = AddressServer.restored(present: present, value: value, current: current, trusted: true)
+        if wanted == current { return nil }
+        if !trusted { return .KEPT }
+        if current == nil { return nil }
+        return wanted == nil ? .PUBLIC : .CHANGED
     }
 
     /// Ungültige Einträge aus der Systemsicherung, die noch zu melden sind (aufsummiert, ohne Überlauf).

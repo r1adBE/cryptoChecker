@@ -38,6 +38,37 @@ class BulkPairChunksTest {
     }
 
     @Test
+    fun fuelltBisKnappUnterDieGrenze() {
+        // Präfix 10 + "AAAA" (4) + ",BBBB" (5) = 19 < 20; ",CCCC" ergäbe 24 → neue Gruppe (wie iOS)
+        assertEquals(
+            listOf(listOf("AAAA", "BBBB"), listOf("CCCC")),
+            BulkPairChunks.chunks("0123456789", listOf("AAAA", "BBBB", "CCCC"), maxUrlLength = 20),
+        )
+    }
+
+    @Test
+    fun genauAufDerGrenzeBeginntNeueGruppe() {
+        // 10 + 4 + 5 = 19 = Grenze: die Adresse wäre genau maxUrlLength lang → zweite Kennung in neue Gruppe (wie iOS)
+        assertEquals(
+            listOf(listOf("AAAA"), listOf("BBBB")),
+            BulkPairChunks.chunks("0123456789", listOf("AAAA", "BBBB"), maxUrlLength = 19),
+        )
+    }
+
+    @Test
+    fun standardgrenzeGenauErreichtTeilt() {
+        // Präfix so lang, dass «AAAA,BBBB» die Adresse auf genau MAX_URL_LENGTH Zeichen brächte
+        val limit = BulkPairChunks.MAX_URL_LENGTH
+        val exact = "p".repeat(limit - 9)
+        assertEquals(listOf(listOf("AAAA"), listOf("BBBB")), BulkPairChunks.chunks(exact, listOf("AAAA", "BBBB")))
+        // Ein Zeichen kürzer: eine Adresse mit MAX_URL_LENGTH - 1 Zeichen
+        val below = "p".repeat(limit - 10)
+        val one = BulkPairChunks.chunks(below, listOf("AAAA", "BBBB"))!!
+        assertEquals(listOf(listOf("AAAA", "BBBB")), one)
+        assertEquals(limit - 1, BulkPairChunks.url(below, one.single()).length)
+    }
+
+    @Test
     fun vieleKennungenBleibenUnterStandardgrenze() {
         val prefix = "https://example.com/tickers?pair="
         val ids = (0 until 500).map { "PAIR" + it.toString().padStart(3, '0') }

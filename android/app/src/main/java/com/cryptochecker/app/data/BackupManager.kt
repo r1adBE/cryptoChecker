@@ -282,7 +282,7 @@ class BackupManager @Inject constructor(
 
         // ── 3. Schreiben ── vorher das Journal: bricht der Prozess mittendrin ab, rollt der nächste Start zurück.
         // Ohne Journal nichts schreiben ([RestoreRun.execute], [BackupJournalUnavailableException])
-        var appLockKept = false
+        var settingsNotes = SettingsRestoreNotes()
         val journalText = journalJson(previous).toString()
         RestoreRun.execute(
             journal = object : RestoreRun.Journal {
@@ -304,7 +304,7 @@ class BackupManager @Inject constructor(
                     favorites.forEach { (kind, items) -> favoritesRepository.setAll(kind, items) }
                 },
                 RestoreRun.Write(Step.SETTINGS, touchedBefore = true) {
-                    settings?.let { appLockKept = settingsCodec.restoreSettings(it, trusted = encrypted) }
+                    settings?.let { settingsNotes = settingsCodec.restoreSettings(it, trusted = encrypted) }
                 },
             ),
             rollBack = { touched, cause -> rollBack(previous, touched, cause) },
@@ -316,13 +316,14 @@ class BackupManager @Inject constructor(
         activityRepository.retain(emptySet())
 
         RestoreResult(
-            watches.size, alarms.size, appLockKept,
+            watches.size, alarms.size, settingsNotes.appLockKept,
             // Alte Meldungen entfernt der Aufrufer (Ids können sich mit den neuen decken)
             replacedWatchIds = previous.watches.map { it.id },
             replacedAlarmIds = previous.alarms.map { it.id },
             replacedPortfolioAlarmIds = if (portfolioAlarms != null) previous.portfolioAlarms.map { it.id } else emptyList(),
             droppedPairs = watchlist.droppedPairs,
             droppedAlarms = watchlist.droppedAlarms,
+            addressServerNote = settingsNotes.addressServer,
         )
     }
 

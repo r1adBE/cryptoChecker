@@ -6,6 +6,7 @@
 package com.cryptochecker.app.ui.features.settings
 
 import androidx.lifecycle.viewModelScope
+import com.cryptochecker.app.data.BackupRestorePolicy
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.lock.PortfolioLockPolicy
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -115,7 +116,10 @@ fun SettingsViewModel.restoreBackup(uri: android.net.Uri, password: String?, acc
                 // Gleich Kurse holen: Widgets, Kurs-Mitteilungen und Alarme der neuen Paare
                 // warteten sonst bis zur nächsten Hintergrund-Aktualisierung (bis 15 Min. und mehr)
                 if (result.watches > 0) scheduler.refreshNow()
-                BackupMessage.Restored(result.watches, result.alarms, result.appLockKept, result.droppedPairs, result.droppedAlarms)
+                BackupMessage.Restored(
+                    result.watches, result.alarms, result.appLockKept, result.droppedPairs, result.droppedAlarms,
+                    result.addressServerNote,
+                )
             },
             onFailure = { BackupMessage.failure(it) }
         )
@@ -186,6 +190,7 @@ sealed interface BackupMessage {
     /**
      * [appLockKept] = Sicherung ohne Passwort wollte die Portfolio-Sperre ausschalten; sie blieb an.
      * [droppedPairs]/[droppedAlarms] = über den Grenzen nicht übernommen.
+     * [addressServerNote] = Hinweis zum eigenen Bitcoin-Server ([BackupRestorePolicy.addressServerNote]).
      */
     data class Restored(
         val watches: Int,
@@ -193,6 +198,7 @@ sealed interface BackupMessage {
         val appLockKept: Boolean = false,
         val droppedPairs: Int = 0,
         val droppedAlarms: Int = 0,
+        val addressServerNote: BackupRestorePolicy.AddressServerNote? = null,
     ) : BackupMessage
     data object Failed : BackupMessage
     /** Datei über 64 MB oder zu tief verschachtelt ([com.cryptochecker.app.data.BackupLimits]). */

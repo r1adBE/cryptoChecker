@@ -19,7 +19,6 @@
     <string name="portfolio_address_show_only">Bare vis, ikke tell med i porteføljen</string>
     <string name="portfolio_address_show_only_short">Bare vis</string>
     <string name="portfolio_address_tokens">Regn med tokens</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d ukjente tokens (ikke regnet med)</string>
     <string name="portfolio_address_xpub_privacy">En xpub avslører alle adressene i denne walleten. De utledes på enheten din; bare enkeltadresser sendes til %1$s – minst 40 forespørsler ved første søk, senere færre. Private nøkler (xprv) godtas aldri.</string>
     <string name="portfolio_address_xpub_gap">Søket stopper etter %1$d ubrukte adresser på rad (BIP44-standarden de fleste lommebøker bruker). En brukt adresse etter dette gapet telles ikke med – legg den til separat.</string>
     <string name="portfolio_address_xpub_used">Adresser i bruk: %1$d</string>

@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
@@ -141,7 +142,7 @@ internal fun AddressRow(
             }
             if (a.unknownTokens > 0 && a.countTokens) {
                 Text(
-                    stringResource(R.string.portfolio_address_unknown_tokens, a.unknownTokens),
+                    pluralStringResource(R.plurals.portfolio_address_unknown_tokens, a.unknownTokens, a.unknownTokens),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

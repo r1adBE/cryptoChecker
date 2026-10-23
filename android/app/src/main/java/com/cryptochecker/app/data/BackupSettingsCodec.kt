@@ -87,10 +87,11 @@ internal class BackupSettingsCodec(
 
     /**
      * Einstellungen übernehmen. [trusted] = verschlüsselte Sicherung oder eigener vorheriger Stand; sonst
-     * schaltet die Datei die Portfolio-Sperre und «Beträge verbergen» nicht aus und «Portfolio in Systemsicherung» nicht ein.
-     * @return true, wenn die Sicherung die Sperre ausschalten wollte, sie aber an blieb.
+     * schaltet die Datei die Portfolio-Sperre und «Beträge verbergen» nicht aus, «Portfolio in Systemsicherung» nicht ein
+     * und ändert den eigenen Bitcoin-Server nicht.
+     * @return Hinweise für die Meldung ([SettingsRestoreNotes]).
      */
-    suspend fun restoreSettings(o: JSONObject, trusted: Boolean): Boolean = with(settings) {
+    suspend fun restoreSettings(o: JSONObject, trusted: Boolean): SettingsRestoreNotes = with(settings) {
         // «Wie aktuell?»; ältere Sicherungen nur mit den früheren Schaltern (UpdateMode.fromBackup)
         com.cryptochecker.app.settings.UpdateMode.fromBackup(
             stored = o.string("updateMode"),
@@ -196,9 +197,13 @@ internal class BackupSettingsCodec(
         o.string("taxTemplate")?.let { setTaxTemplate(com.cryptochecker.app.domain.portfolio.TaxTemplate.fromName(it)) }
         // Spaltensortierung: ältere Sicherungen ohne das Feld lassen sie stehen; null/unbekannt = eigene Reihenfolge
         if (o.has(ColumnSort.BACKUP_FIELD)) setWatchlistColumnSort(ColumnSort.backupValue(o.string(ColumnSort.BACKUP_FIELD)))
-        // Eigener Bitcoin-Server: fehlt/ungültig bleibt er; ohne Passwort nie zurück auf öffentliche Knoten
-        val server = AddressServer.restored(o.has(ADDRESS_SERVER), o.string(ADDRESS_SERVER), addressServer(), trusted)
-        if (server != addressServer()) setAddressServer(server)
+        // Eigener Bitcoin-Server: fehlt/ungültig bleibt er; ohne Passwort nie gesetzt, ersetzt oder gelöscht
+        val currentServer = addressServer()
+        val server = AddressServer.restored(o.has(ADDRESS_SERVER), o.string(ADDRESS_SERVER), currentServer, trusted)
+        if (server != currentServer) setAddressServer(server)
+        val serverNote = BackupRestorePolicy.addressServerNote(
+            o.has(ADDRESS_SERVER), o.string(ADDRESS_SERVER), currentServer, trusted,
+        )
         // Portfolio-Sperre nur, wenn dieses Gerät entsperren kann — sonst sperrte sie das Portfolio aus
         // Ohne Passwort (nicht [trusted]) nie ausschalten, solange sie an ist
         val lock = BackupRestorePolicy.appLock(
@@ -208,7 +213,7 @@ internal class BackupSettingsCodec(
             canAuthenticate = canAuthenticate(),
         )
         lock.apply?.let { setAppLock(it) }
-        lock.keptOn
+        SettingsRestoreNotes(appLockKept = lock.keptOn, addressServer = serverNote)
     }
 
     private companion object {

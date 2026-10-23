@@ -21,6 +21,9 @@ enum MirrorManifest {
 
     /// Älter → verworfen (die Action läuft stündlich).
     static let maxAgeMillis: Int64 = 7 * 24 * 60 * 60 * 1000
+    /// Höchstgrösse von Manifest und Signatur beim Laden (wie Android `MAX_BYTES`/`SIGNATURE_MAX_BYTES`).
+    static let maxBytes = 64 * 1024
+    static let signatureMaxBytes = 1024
     /// Zeitpunkt in der Zukunft bis zu so viel gilt noch (Uhren gehen nicht genau gleich).
     private static let clockSkewMillis: Int64 = 5 * 60 * 1000
     /// Grösste ganze Zahl, die ein JSON-Double genau hält (2^53).

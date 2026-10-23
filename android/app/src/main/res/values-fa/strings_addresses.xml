@@ -19,7 +19,6 @@
     <string name="portfolio_address_show_only">فقط نمایش، بدون افزودن به سبد</string>
     <string name="portfolio_address_show_only_short">فقط نمایش</string>
     <string name="portfolio_address_tokens">احتساب توکن‌ها</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d توکن ناشناخته (حساب نشده)</string>
     <string name="portfolio_address_xpub_privacy">یک xpub همهٔ آدرس‌های این کیف پول را آشکار می‌کند. آن‌ها روی دستگاه تو ساخته می‌شوند؛ به %1$s فقط آدرس‌های جداگانه فرستاده می‌شود – در اولین جست‌وجو دست‌کم 40 درخواست و بعد کمتر. کلیدهای خصوصی (xprv) هرگز پذیرفته نمی‌شوند.</string>
     <string name="portfolio_address_xpub_gap">جستجو پس از %1$d نشانی استفاده‌نشده پشت سر هم متوقف می‌شود (استاندارد BIP44 که بیشتر کیف‌پول‌ها به کار می‌برند). نشانی استفاده‌شده‌ای که پس از این فاصله باشد شمرده نمی‌شود – آن را جداگانه اضافه کن.</string>
     <string name="portfolio_address_xpub_used">آدرس‌های استفاده‌شده: %1$d</string>

@@ -2,8 +2,8 @@
 <resources>
     <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
     <string name="settings_address_server_title">Máy chủ riêng cho địa chỉ</string>
-    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
-    <string name="settings_address_server_hint">Chỉ Bitcoin: máy chủ riêng của bạn tương thích Esplora hoặc mempool (vd. https://node.example/api, cần chứng chỉ hợp lệ). Khi đã đặt, địa chỉ Bitcoin và xpub chỉ được truy vấn ở đó – không bao giờ ở nút công khai, kể cả khi máy chủ của bạn không truy cập được. Các mạng khác vẫn dùng nút công khai. Để trống = nút công khai.</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Chỉ Bitcoin: máy chủ riêng của bạn tương thích Esplora hoặc mempool (vd. https://node.example/api, cần chứng chỉ được tin cậy công khai, vd. Let\'s Encrypt). Khi đã đặt, địa chỉ Bitcoin và xpub chỉ được truy vấn ở đó – không bao giờ ở nút công khai, kể cả khi máy chủ của bạn không truy cập được. Các mạng khác vẫn dùng nút công khai. Để trống = nút công khai.</string>
     <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
     <string name="settings_address_server_field">Máy chủ Bitcoin (https://)</string>
     <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->

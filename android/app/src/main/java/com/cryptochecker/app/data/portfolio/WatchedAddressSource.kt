@@ -8,6 +8,7 @@ import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
+import com.cryptochecker.app.domain.portfolio.AddressServerRules
 import com.cryptochecker.app.domain.portfolio.ChainAssets
 import com.cryptochecker.app.domain.portfolio.ChainBalance
 import com.cryptochecker.app.domain.portfolio.Erc20Tokens
@@ -41,7 +42,7 @@ import javax.inject.Singleton
  * Datenschutz: eigener Client ohne Mitschnitt (die Adresse landet nicht im Debug-Protokoll),
  * keine Cookies, neutraler User-Agent ([HttpUserAgent.NEUTRAL]), eigener Verbindungs-Pool und Dispatcher;
  * Protokolle nennen nur die gekürzte Adresse. Eigener Bitcoin-Server ([AddressServer]): nur dorthin.
- * Pausen: 451/403 → Host 6 h übersprungen ([BlockedSources]); 429/418 und wiederholte
+ * Pausen: 451/403 → Host 6 h übersprungen ([BlockedSources], nicht der eigene Server); 429/418 und wiederholte
  * Zeitüberschreitungen → Pause je Host nach [ExchangeBackoff] («Retry-After» gilt); dann der
  * nächste Host. Adressen der Reihe nach, nie parallel (schont die kostenlosen Anbieter).
  * ETH: mit «Tokens mitzählen» eine Stapel-Anfrage (ETH + ERC-20, [Erc20Tokens]). xpub: abgeleitete Adressen einzeln
@@ -65,7 +66,7 @@ class WatchedAddressSource @Inject constructor(
         .build()
 
     /** Pausen je Host (nur im Speicher; ein Neustart beginnt frisch). */
-    private val backoff = ConcurrentHashMap<String, ExchangeBackoff.State>()
+    internal val backoff = ConcurrentHashMap<String, ExchangeBackoff.State>()
     /** Bitcoin-Hosts dieser Runde: eigener Server allein oder die öffentlichen ([AddressServer.btcEntries]). */
     @Volatile internal var btcEntries: List<String> = AddressBalance.BTC_HOSTS
     private val mutex = Mutex()
@@ -153,7 +154,7 @@ class WatchedAddressSource @Inject constructor(
      * @param deadline Endzeit (ms) im Hintergrund, null = ohne Grenze
      */
     suspend fun fetch(chain: AddressChain, address: String, deadline: Long? = null): Fetched = when (chain) {
-        AddressChain.BTC -> firstWorking(btcEntries, deadline) { host ->
+        AddressChain.BTC -> firstWorking(btcEntries, deadline, AddressServerRules.isOwnServer(btcEntries)) { host ->
             AddressBalance.btcText(AddressBalance.parseBtc(client.callMarket(AddressServer.btcUrl(host, address), null), address))
         }
         AddressChain.ETH -> firstWorking(AddressBalance.ETH_RPCS, deadline) { rpc ->
@@ -335,13 +336,16 @@ class WatchedAddressSource @Inject constructor(
         }
     }
 
-    /** Erster Host, der liefert: Ergebnis und Anbieter-Name; wirft, wenn keiner liefert. */
-    internal suspend fun <T> firstWorking(hosts: List<String>, deadline: Long?, load: suspend (String) -> T): Pair<T, String> {
+    /**
+     * Erster Host, der liefert: Ergebnis und Anbieter-Name; wirft, wenn keiner liefert.
+     * @param own eigener Server ([AddressServerRules.isOwnServer]): nie 6 h sperren, nur die kurze Pause.
+     */
+    internal suspend fun <T> firstWorking(hosts: List<String>, deadline: Long?, own: Boolean = false, load: suspend (String) -> T): Pair<T, String> {
         var lastError: Exception? = null
         for (entry in hosts) {
-            val host = entry.removePrefix("https://").substringBefore('/').substringBefore(':')
+            val host = AddressServerRules.hostKey(entry)
             val now = System.currentTimeMillis()
-            if (BlockedSources.isBlocked(host) || ExchangeBackoff.isPaused(backoff[host], now)) continue
+            if ((!own && BlockedSources.isBlocked(host)) || ExchangeBackoff.isPaused(backoff[host], now)) continue
             // Hintergrund: je Anfrage höchstens BACKGROUND_REQUEST_MILLIS, nie über die Endzeit
             val limit = deadline?.let { minOf(BACKGROUND_REQUEST_MILLIS, it - now) }
             if (limit != null && limit < MIN_REQUEST_MILLIS) throw lastError ?: OutOfTime()
@@ -355,7 +359,7 @@ class WatchedAddressSource @Inject constructor(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                BlockedSources.noteFailure(host, e)
+                if (!own) BlockedSources.noteFailure(host, e)
                 val outcome = when {
                     e is HttpMarketError && ExchangeBackoff.isRateLimitCode(e.httpCode) -> ExchangeBackoff.Outcome.RATE_LIMITED
                     e is InterruptedIOException -> ExchangeBackoff.Outcome.TIMEOUT

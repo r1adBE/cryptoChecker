@@ -162,7 +162,18 @@ keys or other secrets never belong in this repository.
   file for everyone. Watched addresses (and, for an xpub, the addresses derived
   from it on the device – the xpub itself never leaves the device) go to the
   public blockchain nodes named in the privacy policy, together with your IP
-  address.
+  address. Optionally, Bitcoin addresses and xpubs can go to your own
+  Esplora/mempool-compatible server instead (Settings › Portfolio; https only, no user
+  name or password in the address): then only
+  that server is asked, with no fallback to the public nodes, so they never see these
+  addresses. Other networks stay with the public nodes.
+* **Integrity of the data mirror.** Market data that is the same for everyone comes
+  from the release «data» on GitHub (README, «Market data mirror»). The apps use a
+  mirror file only if it matches `manifest.json` (SHA-256 per file), whose ECDSA P-256
+  signature matches the public key built into the apps, and if that manifest is at
+  most 7 days old; manifest and signature are read with small size limits (64 KB /
+  1 KB). Otherwise the file is ignored and the app asks the provider directly. The
+  private key exists only as a repository secret; a run that cannot sign ends red.
 * **No sensitive logs, no tracking.** Release builds write no prices, amounts,
   holdings or alarm thresholds to the system log. No analytics, no ads, no
   WebView, no clipboard use for your data.
@@ -190,6 +201,10 @@ Android-Kopien für die Systemsicherung (Merkliste nur während des Sicherens �
 abgebrochener Sicherung liegengebliebene Kopie löscht der nächste App-Start – und
 erst ab Android 9, Portfolio nur mit Schalter). Verbindungen nur über HTTPS
 bzw. verschlüsselte WebSockets (`wss://`) für Live-Kurse.
+Bitcoin-Adressen und xpub können statt an öffentliche Knoten an einen eigenen
+Esplora-/mempool-Server gehen (nur https, ohne Rückfall auf öffentliche Knoten).
+Dateien des Daten-Spiegels nutzt die App nur mit gültiger Signatur (ECDSA P-256,
+Manifest höchstens 7 Tage alt, SHA-256 je Datei), sonst fragt sie den Anbieter direkt.
 Die Portfolio-Sperre verbirgt Werte im App-Umschalter, in Widgets und auf dem
 Sperrbildschirm; «Beträge verbergen» gilt auch für Widgets und Mitteilungen.
 Sperrt sie sich wieder, schliessen sich offene Portfolio- und Sicherungs-Dialoge.

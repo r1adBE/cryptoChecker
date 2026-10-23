@@ -2,8 +2,8 @@
 <resources>
     <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
     <string name="settings_address_server_title">Server sendiri untuk alamat</string>
-    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
-    <string name="settings_address_server_hint">Hanya Bitcoin: server milikmu yang kompatibel dengan Esplora atau mempool (mis. https://node.example/api, perlu sertifikat yang valid). Jika diatur, alamat Bitcoin dan xpub hanya ditanyakan ke sana – tidak pernah ke node publik, bahkan saat servermu tidak bisa dijangkau. Jaringan lain tetap memakai node publik. Kosong = node publik.</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Hanya Bitcoin: server milikmu yang kompatibel dengan Esplora atau mempool (mis. https://node.example/api, perlu sertifikat yang tepercaya secara publik, mis. Let\'s Encrypt). Jika diatur, alamat Bitcoin dan xpub hanya ditanyakan ke sana – tidak pernah ke node publik, bahkan saat servermu tidak bisa dijangkau. Jaringan lain tetap memakai node publik. Kosong = node publik.</string>
     <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
     <string name="settings_address_server_field">Server Bitcoin (https://)</string>
     <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->

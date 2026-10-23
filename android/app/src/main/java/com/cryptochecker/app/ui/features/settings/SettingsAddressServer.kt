@@ -7,7 +7,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -19,6 +22,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -27,15 +33,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.cryptochecker.app.R
+import com.cryptochecker.app.data.portfolio.PortfolioRepository
 import com.cryptochecker.app.data.portfolio.WatchedAddressSource
+import com.cryptochecker.app.data.portfolio.clearServerPauses
 import com.cryptochecker.app.data.portfolio.testBtcServer
+import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
+import com.cryptochecker.app.domain.portfolio.AddressServerRules
+import com.cryptochecker.app.domain.portfolio.ChainBalance
 import com.cryptochecker.app.settings.SettingsRepository
 import com.cryptochecker.app.ui.components.HapticEvent
 import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -53,18 +66,20 @@ import javax.inject.Inject
 /** Gespeicherter Server; [loaded] erst nach dem ersten Lesen (sonst stünde kurz «nicht gesetzt» da). */
 data class AddressServerState(val loaded: Boolean = false, val server: String? = null)
 
-/** Ergebnis von «Testen». */
+/** Ergebnis von «Testen» samt geprüfter [url] (angezeigt nur zur gleichen Eingabe, [AddressServerRules.testShown]). */
 sealed interface AddressServerTest {
-    data object Idle : AddressServerTest
-    data object Running : AddressServerTest
-    data class Ok(val height: Long) : AddressServerTest
-    data object Failed : AddressServerTest
+    val url: String?
+    data object Idle : AddressServerTest { override val url: String? = null }
+    data class Running(override val url: String) : AddressServerTest
+    data class Ok(override val url: String, val height: Long) : AddressServerTest
+    data class Failed(override val url: String) : AddressServerTest
 }
 
 @HiltViewModel
 class AddressServerViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val source: WatchedAddressSource,
+    private val portfolio: PortfolioRepository,
 ) : ViewModel() {
 
     val state: StateFlow<AddressServerState> = settingsRepository.addressServerFlow
@@ -77,28 +92,52 @@ class AddressServerViewModel @Inject constructor(
 
     private val _test = MutableStateFlow<AddressServerTest>(AddressServerTest.Idle)
     val test: StateFlow<AddressServerTest> = _test.asStateFlow()
+    private var testJob: Job? = null
 
-    /** Speichern (null = öffentliche Knoten); [onDone] nach dem Schreiben. */
+    /**
+     * Speichern über «Speichern»: vom eigenen Server auf öffentliche Knoten mit beobachteten Bitcoin-Adressen/xpub erst
+     * fragen ([onAsk], [AddressServerRules.confirmPublicSwitch]); sonst gleich [save]. Liste nicht lesbar: fragen.
+     */
+    fun requestSave(url: String?, current: String?, onAsk: () -> Unit, onDone: () -> Unit) {
+        viewModelScope.launch {
+            val count = if (url == null && current != null) {
+                runCatchingCancellable { AddressServerRules.btcCount(portfolio.getWatchedAddresses()) }.getOrDefault(1)
+            } else {
+                0
+            }
+            if (AddressServerRules.confirmPublicSwitch(current, url, count)) onAsk() else save(url, onDone)
+        }
+    }
+
+    /** Speichern (null = öffentliche Knoten); laufender Test wird verworfen, Sperre/Pause des Hosts aufgehoben. */
     fun save(url: String?, onDone: () -> Unit) {
+        resetTest()
         viewModelScope.launch {
             settingsRepository.setAddressServer(url)
-            _test.value = AddressServerTest.Idle
+            url?.let { source.clearServerPauses(it) }
             onDone()
         }
     }
 
-    /** Blockhöhe abfragen (nennt keine Adresse). */
+    /** Blockhöhe abfragen (nennt keine Adresse); Erfolg hebt Sperre/Pause des Hosts auf. */
     fun test(url: String) {
-        if (_test.value == AddressServerTest.Running) return
-        _test.value = AddressServerTest.Running
-        viewModelScope.launch {
+        if (_test.value is AddressServerTest.Running) return
+        _test.value = AddressServerTest.Running(url)
+        testJob = viewModelScope.launch {
             val height = source.testBtcServer(url)
-            _test.value = height?.let { AddressServerTest.Ok(it) } ?: AddressServerTest.Failed
+            if (height != null) source.clearServerPauses(url)
+            // Inzwischen geänderte Eingabe oder Speichern: Ergebnis verwerfen
+            if (_test.value == AddressServerTest.Running(url)) {
+                _test.value = height?.let { AddressServerTest.Ok(url, it) } ?: AddressServerTest.Failed(url)
+            }
         }
     }
 
+    /** Eingabe geändert oder gespeichert: Ergebnis und laufenden Test verwerfen. */
     fun resetTest() {
-        if (_test.value != AddressServerTest.Running) _test.value = AddressServerTest.Idle
+        testJob?.cancel()
+        testJob = null
+        _test.value = AddressServerTest.Idle
     }
 }
 
@@ -124,12 +163,21 @@ private fun AddressServerFields(state: AddressServerState, viewModel: AddressSer
     val test by viewModel.test.collectAsStateWithLifecycle()
     val haptics = rememberHaptics()
     var input by rememberSaveable(state.server) { mutableStateOf(state.server ?: "") }
+    var askPublic by rememberSaveable { mutableStateOf(false) }
     val check = AddressServer.check(input)
     val problem = check.problem
+    val onSaved = { haptics.play(HapticEvent.SUCCESS) }
+    if (askPublic) {
+        PublicNodesDialog(
+            onConfirm = { askPublic = false; viewModel.save(null, onSaved) },
+            onDismiss = { askPublic = false },
+        )
+    }
     OutlinedTextField(
         value = input,
         onValueChange = {
-            if (it.length <= AddressServer.MAX_LENGTH) input = it
+            // Zu lang (z. B. eingefügt): kürzen statt verwerfen — wie iOS
+            input = AddressServerRules.clamp(it)
             viewModel.resetTest()
         },
         label = { Text(stringResource(R.string.settings_address_server_field)) },
@@ -149,27 +197,61 @@ private fun AddressServerFields(state: AddressServerState, viewModel: AddressSer
     )
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         TextButton(
-            onClick = { viewModel.save(check.url) { haptics.play(HapticEvent.SUCCESS) } },
+            onClick = { viewModel.requestSave(check.url, state.server, onAsk = { askPublic = true }, onDone = onSaved) },
             enabled = check.problem == null && check.url != state.server,
         ) { Text(stringResource(R.string.action_save)) }
         TextButton(
             onClick = { check.url?.let { viewModel.test(it) } },
-            enabled = check.problem == null && check.url != null && test != AddressServerTest.Running,
+            enabled = check.problem == null && check.url != null && test !is AddressServerTest.Running,
         ) { Text(stringResource(R.string.settings_address_server_test)) }
     }
     val status = state.server?.let { stringResource(R.string.settings_address_server_active, AddressServer.host(it)) }
         ?: stringResource(R.string.settings_address_server_none)
     Hint(status, top = 4.dp)
-    when (val t = test) {
-        AddressServerTest.Running -> Hint(stringResource(R.string.settings_address_server_testing))
-        is AddressServerTest.Ok -> Hint(stringResource(R.string.settings_address_server_test_ok, t.height.toString()))
-        AddressServerTest.Failed -> Text(
+    if (AddressServerRules.testShown(test.url, check.url)) AddressServerTestResult(test)
+}
+
+/** Testergebnis; «gelungen»/«fehlgeschlagen» sagt TalkBack an (wie iOS die Ansage für VoiceOver). */
+@Composable
+private fun AddressServerTestResult(test: AddressServerTest) {
+    val announce = Modifier.padding(bottom = Spacing.sm).semantics { liveRegion = LiveRegionMode.Polite }
+    when (test) {
+        is AddressServerTest.Running -> Hint(stringResource(R.string.settings_address_server_testing))
+        is AddressServerTest.Ok -> Text(
+            stringResource(R.string.settings_address_server_test_ok, test.height.toString()),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = announce,
+        )
+        is AddressServerTest.Failed -> Text(
             stringResource(R.string.settings_address_server_test_failed),
             style = MaterialTheme.typography.bodySmall,
             color = AppColors.warningText,
+            modifier = announce,
         )
         AddressServerTest.Idle -> Unit
     }
+}
+
+/** Rückfrage vor dem Wechsel auf öffentliche Knoten (Bitcoin-Adressen/xpub vorhanden); «Abbrechen» behält den Server. */
+@Composable
+private fun PublicNodesDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    val hosts = ChainBalance.hosts(AddressChain.BTC).joinToString(", ")
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.settings_address_server_public_title)) },
+        text = {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                Text(stringResource(R.string.settings_address_server_public_text, hosts), style = MaterialTheme.typography.bodyMedium)
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onConfirm) { Text(stringResource(R.string.settings_address_server_public_confirm)) }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
+        },
+    )
 }
 
 /** Meldung zu einem Prüfergebnis — wie iOS `SettingsAddressServerCard.message`. */

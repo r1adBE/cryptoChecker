@@ -172,9 +172,15 @@ daily candles — are fetched once an hour by
 [`.github/workflows/market-data.yml`](.github/workflows/market-data.yml)
 ([`.github/scripts/mirror_data.py`](.github/scripts/mirror_data.py)) and attached to the
 release [`data`](https://github.com/r1adBE/cryptoChecker/releases/tag/data) (`fng.txt`,
-`onchain.txt`, `btcprice.txt`, `altseason.txt`). The apps read these files first and ask the
-providers themselves only when a file is missing or too old. Nothing is committed; live
-prices still come straight from the exchanges.
+`onchain.txt`, `btcprice.txt`, `altseason.txt`, plus `coin_meta.json` — only the symbols
+traded on Binance Spot, from the public endpoint `/api/v3/exchangeInfo`, used as a fallback).
+Every run also publishes `manifest.json` (SHA-256 of each file and the creation time) and
+`manifest.json.sig` (ECDSA P-256 signature with a key held only as a repository secret). The
+apps use a mirror file only if the signature matches the public key built into the apps, the
+manifest is at most 7 days old and the file's hash matches; otherwise they ask the providers
+themselves, exactly as when a file is missing or too old. A run that cannot sign the
+manifest still uploads the data but ends red. Nothing is committed; live prices still come
+straight from the exchanges.
 
 CoinGecko data is **not** mirrored: the CoinGecko API terms forbid redistributing it. The
 apps ask CoinGecko directly (market cap and dominance cached 30 minutes, top 30/40 for the
@@ -182,7 +188,8 @@ starter coins 24 hours, top 40 for the Spot tab and «What is moving with it?» 
 says «Powered by CoinGecko».
 
 > **Deutsch:** Marktdaten, die für alle gleich sind, holt eine GitHub Action stündlich an
-> einen Ort; die App fragt die Anbieter nur noch, wenn der Spiegel fehlt oder zu alt ist.
+> einen Ort; die App fragt die Anbieter nur noch, wenn der Spiegel fehlt, zu alt oder nicht
+> gültig signiert ist (signiertes Verzeichnis `manifest.json`, ECDSA P-256, höchstens 7 Tage alt).
 > CoinGecko-Daten werden nicht gespiegelt — die App fragt CoinGecko direkt.
 
 ## Privacy policy

@@ -2,8 +2,8 @@
 <resources>
     <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
     <string name="settings_address_server_title">Vlastní server pro adresy</string>
-    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
-    <string name="settings_address_server_hint">Jen Bitcoin: tvůj vlastní server kompatibilní s Esplora nebo mempool (např. https://uzel.example/api, je nutný platný certifikát). Pokud je nastaven, bitcoinové adresy a xpub se dotazují jen tam – nikdy u veřejných uzlů, ani když tvůj server není dostupný. Ostatní sítě dál používají veřejné uzly. Prázdné = veřejné uzly.</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">Jen Bitcoin: tvůj vlastní server kompatibilní s Esplora nebo mempool (např. https://uzel.example/api, je nutný veřejně důvěryhodný certifikát, např. Let\'s Encrypt). Pokud je nastaven, bitcoinové adresy a xpub se dotazují jen tam – nikdy u veřejných uzlů, ani když tvůj server není dostupný. Ostatní sítě dál používají veřejné uzly. Prázdné = veřejné uzly.</string>
     <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
     <string name="settings_address_server_field">Bitcoinový server (https://)</string>
     <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->

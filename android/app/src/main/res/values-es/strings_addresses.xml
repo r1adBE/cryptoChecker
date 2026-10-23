@@ -19,7 +19,6 @@
     <string name="portfolio_address_show_only">Solo mostrar, sin sumar a la cartera</string>
     <string name="portfolio_address_show_only_short">Solo mostrar</string>
     <string name="portfolio_address_tokens">Contar tokens</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d tokens desconocidos (no contados)</string>
     <string name="portfolio_address_xpub_privacy">Una xpub revela todas las direcciones de esta wallet. Se derivan en tu dispositivo; a %1$s solo se envían direcciones sueltas: al menos 40 consultas en la primera búsqueda y después menos. Las claves privadas (xprv) nunca se aceptan.</string>
     <string name="portfolio_address_xpub_gap">La búsqueda se detiene tras %1$d direcciones sin usar seguidas (el estándar BIP44 que usan la mayoría de los monederos). Una dirección usada más allá de ese hueco no se cuenta: añádela por separado.</string>
     <string name="portfolio_address_xpub_used">Direcciones en uso: %1$d</string>

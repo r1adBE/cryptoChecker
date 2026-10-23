@@ -87,7 +87,7 @@ private suspend fun OkHttpClient.fromMirror(entry: DataMirror.Entry, guardMillis
 
 /** Signatur und SHA-256 der Spiegel-Datei prüfen ([MirrorTrust]); Manifest und Signatur über denselben Client. */
 private suspend fun OkHttpClient.verifiedMirror(file: String, text: String, guardMillis: Long): Boolean =
-    MirrorTrust.verified(file, text) { url, limit ->
+    MirrorTrust.shared.verified(file, text) { url, limit ->
         try {
             request(url, null, limit, guardMillis)
         } catch (cancel: CancellationException) {
