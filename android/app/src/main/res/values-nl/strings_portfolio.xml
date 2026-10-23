@@ -270,8 +270,8 @@
     <string name="portfolio_tx_interest">Rente (uitlenen)</string>
     <string name="portfolio_tx_interest_hint">Telt als inkomen bij ontvangst (Oostenrijk). Laat uit voor stakingbeloningen en airdrops.</string>
     <string name="app_lock_no_screen_lock">Stel een schermvergrendeling in om het portfolio te openen.</string>
-    <string name="app_lock_turn_off_action">Portfoliovergrendeling uitzetten</string>
-    <string name="app_lock_turn_off_confirm_title">Portfoliovergrendeling uitzetten?</string>
+    <string name="app_lock_turn_off_action">Portfolio-vergrendeling uitzetten</string>
+    <string name="app_lock_turn_off_confirm_title">Portfolio-vergrendeling uitzetten?</string>
     <string name="app_lock_turn_off_confirm_message">Zonder schermvergrendeling kan het portfolio niet worden ontgrendeld. Uitgezet toont de app je portfolio weer zonder te vragen. Zodra er een schermvergrendeling is ingesteld, kun je de vergrendeling weer aanzetten in Instellingen.</string>
 
     <!-- Hinweis der Gesamtkarte: «Seit Kauf» und Einstand in der Anzeigewährung zum Devisenkurs des Kauftags (PortfolioCostFx); %1$s = Währung -->

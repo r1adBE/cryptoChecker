@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
-    <string name="backup_restore_server_kept">비트코인 자체 서버는 복원되지 않았습니다. 암호화되지 않은 백업으로는 변경할 수 없습니다.</string>
+    <string name="backup_restore_server_kept">‘주소용 자체 서버’는 복원되지 않았습니다. 암호화되지 않은 백업으로는 변경할 수 없습니다.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
-    <string name="backup_restore_server_public">백업대로 비트코인 자체 서버를 삭제했습니다. 비트코인 주소는 다시 공개 노드에 조회합니다.</string>
+    <string name="backup_restore_server_public">백업대로 ‘주소용 자체 서버’를 삭제했습니다. 비트코인 주소는 다시 공개 노드에 조회합니다.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
-    <string name="backup_restore_server_changed">비트코인 자체 서버를 백업의 서버로 바꿨습니다.</string>
+    <string name="backup_restore_server_changed">‘주소용 자체 서버’를 백업의 서버로 바꿨습니다.</string>
     <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
     <plurals name="portfolio_address_unknown_tokens">
         <item quantity="other">+%1$d개 알 수 없는 토큰(미포함)</item>

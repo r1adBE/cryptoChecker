@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
-    <string name="backup_restore_server_kept">Server Bitcoin sendiri tidak dipulihkan – cadangan tanpa enkripsi tidak dapat mengubahnya.</string>
+    <string name="backup_restore_server_kept">“Server sendiri untuk alamat” tidak dipulihkan – cadangan tanpa enkripsi tidak dapat mengubahnya.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
-    <string name="backup_restore_server_public">Server Bitcoin sendiri dihapus seperti di cadangan – alamat Bitcoin kembali ditanyakan ke node publik.</string>
+    <string name="backup_restore_server_public">“Server sendiri untuk alamat” dihapus seperti di cadangan – alamat Bitcoin kembali ditanyakan ke node publik.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
-    <string name="backup_restore_server_changed">Server Bitcoin sendiri diganti dengan yang dari cadangan.</string>
+    <string name="backup_restore_server_changed">“Server sendiri untuk alamat” diganti dengan yang dari cadangan.</string>
     <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
     <plurals name="portfolio_address_unknown_tokens">
         <item quantity="other">+%1$d token tak dikenal (tidak dihitung)</item>

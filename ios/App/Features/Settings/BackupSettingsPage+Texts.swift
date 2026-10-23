@@ -37,7 +37,7 @@ extension BackupSettingsPage {
     static func restoredAsDialog(_ result: BackupManager.RestoreResult, text: String) -> Bool {
         BackupResultPresentation.asDialog(key: "backup_restored", text: text, droppedPairs: result.droppedPairs,
                                           droppedAlarms: result.droppedAlarms, appLockKept: result.appLockKept,
-                                          addressServerNote: result.addressServerNote, fontScale: fontScale)
+                                          addressServerNote: result.addressServerNote, fontScale: fontScale())
     }
 
     /// Rückfrage «Ersetzen?»: Ohne Passwort keine Echtheitsprüfung — Herkunft prüfen lassen; ungültige Einträge und

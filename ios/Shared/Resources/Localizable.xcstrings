@@ -64959,7 +64959,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portfoliovergrendeling uitzetten"
+            "value" : "Portfolio-vergrendeling uitzetten"
           }
         },
         "pl" : {
@@ -65341,7 +65341,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portfoliovergrendeling uitzetten?"
+            "value" : "Portfolio-vergrendeling uitzetten?"
           }
         },
         "pl" : {
@@ -72229,7 +72229,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De portfoliovergrendeling blijft aan – een onversleutelde back-up kan hem niet uitzetten."
+            "value" : "De Portfolio-vergrendeling blijft aan – een onversleutelde back-up kan hem niet uitzetten."
           }
         },
         "pl" : {
@@ -74290,187 +74290,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "استُبدل خادم بيتكوين الخاص بالخادم الموجود في النسخة الاحتياطية."
+            "value" : "استُبدل «خادم خاص للعناوين» بالخادم الموجود في النسخة الاحتياطية."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vlastní server pro Bitcoin nahrazen serverem ze zálohy."
+            "value" : "„Vlastní server pro adresy“ byl nahrazen serverem ze zálohy."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Egen Bitcoin-server erstattet med den fra sikkerhedskopien."
+            "value" : "«Egen server til adresser» blev erstattet med den fra sikkerhedskopien."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eigener Bitcoin-Server durch den aus der Sicherung ersetzt."
+            "value" : "«Eigener Server für Adressen» wurde durch den aus der Sicherung ersetzt."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ο δικός σου διακομιστής Bitcoin αντικαταστάθηκε από αυτόν του αντιγράφου."
+            "value" : "Ο «Δικός σου διακομιστής για διευθύνσεις» αντικαταστάθηκε από αυτόν του αντιγράφου."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Own Bitcoin server replaced with the one from the backup."
+            "value" : "“Own server for addresses” was replaced with the one from the backup."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Servidor propio de Bitcoin reemplazado por el de la copia."
+            "value" : "«Servidor propio para direcciones» se reemplazó por el de la copia."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "سرور بیت‌کوین خودت با سرور پشتیبان جایگزین شد."
+            "value" : "«سرور خودت برای آدرس‌ها» با سرور پشتیبان جایگزین شد."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oma Bitcoin-palvelin korvattu varmuuskopion palvelimella."
+            "value" : "”Oma palvelin osoitteille” korvattiin varmuuskopion palvelimella."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Serveur Bitcoin perso remplacé par celui de la sauvegarde."
+            "value" : "« Serveur perso pour les adresses » a été remplacé par celui de la sauvegarde."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "שרת הביטקוין שלכם הוחלף בשרת מהגיבוי."
+            "value" : "«שרת משלכם לכתובות» הוחלף בשרת מהגיבוי."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अपना Bitcoin सर्वर बैकअप वाले सर्वर से बदला गया।"
+            "value" : "“पतों के लिए अपना सर्वर” बैकअप वाले सर्वर से बदला गया।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A saját Bitcoin-szerver lecserélve a mentésben szereplőre."
+            "value" : "A „Saját szerver a címekhez” le lett cserélve a mentésben szereplőre."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server Bitcoin sendiri diganti dengan yang dari cadangan."
+            "value" : "“Server sendiri untuk alamat” diganti dengan yang dari cadangan."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server Bitcoin personale sostituito con quello del backup."
+            "value" : "«Server personale per indirizzi» è stato sostituito con quello del backup."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "独自の Bitcoin サーバーをバックアップのサーバーに置き換えました。"
+            "value" : "「アドレス用の独自サーバー」をバックアップのサーバーに置き換えました。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "비트코인 자체 서버를 백업의 서버로 바꿨습니다."
+            "value" : "‘주소용 자체 서버’를 백업의 서버로 바꿨습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Egen Bitcoin-server erstattet med den fra sikkerhetskopien."
+            "value" : "«Egen server for adresser» ble erstattet med den fra sikkerhetskopien."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eigen Bitcoin-server vervangen door die uit de back-up."
+            "value" : "‘Eigen server voor adressen’ is vervangen door die uit de back-up."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Własny serwer Bitcoin zastąpiony serwerem z kopii."
+            "value" : "„Własny serwer dla adresów” został zastąpiony serwerem z kopii."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Servidor Bitcoin próprio substituído pelo da cópia."
+            "value" : "«Servidor próprio para endereços» foi substituído pelo da cópia."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Servidor Bitcoin próprio substituído pelo do backup."
+            "value" : "“Servidor próprio para endereços” foi substituído pelo do backup."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Serverul Bitcoin propriu a fost înlocuit cu cel din copie."
+            "value" : "„Server propriu pentru adrese” a fost înlocuit cu cel din copie."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Свой сервер Bitcoin заменён сервером из копии."
+            "value" : "«Свой сервер для адресов» заменён сервером из копии."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Serveri yt Bitcoin u zëvendësua me atë nga kopja."
+            "value" : "«Server i yti për adresat» u zëvendësua me atë nga kopja."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Egen Bitcoin-server ersatt med den från säkerhetskopian."
+            "value" : "”Egen server för adresser” ersattes med den från säkerhetskopian."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "แทนที่เซิร์ฟเวอร์ Bitcoin ของคุณเองด้วยเซิร์ฟเวอร์จากข้อมูลสำรองแล้ว"
+            "value" : "แทนที่ “เซิร์ฟเวอร์ของคุณเองสำหรับที่อยู่” ด้วยเซิร์ฟเวอร์จากข้อมูลสำรองแล้ว"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kendi Bitcoin sunucun yedekteki sunucuyla değiştirildi."
+            "value" : "“Adresler için kendi sunucun” yedekteki sunucuyla değiştirildi."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Власний сервер Bitcoin замінено сервером із копії."
+            "value" : "«Власний сервер для адрес» замінено сервером із копії."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đã thay máy chủ Bitcoin riêng bằng máy chủ trong bản sao lưu."
+            "value" : "Đã thay “Máy chủ riêng cho địa chỉ” bằng máy chủ trong bản sao lưu."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已将自有比特币服务器替换为备份中的服务器。"
+            "value" : "已将“地址专用的自有服务器”替换为备份中的服务器。"
           }
         }
       }
@@ -74481,187 +74481,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لم يُعتمد خادم بيتكوين الخاص – لا يمكن لنسخة غير مشفرة تغييره."
+            "value" : "لم يُعتمد «خادم خاص للعناوين» – لا يمكن لنسخة غير مشفرة تغييره."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vlastní server pro Bitcoin nebyl převzat – nešifrovaná záloha ho nemůže změnit."
+            "value" : "„Vlastní server pro adresy“ nebyl převzat – nešifrovaná záloha ho nemůže změnit."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Egen Bitcoin-server ikke overtaget – en ukrypteret sikkerhedskopi kan ikke ændre den."
+            "value" : "«Egen server til adresser» blev ikke overtaget – en ukrypteret sikkerhedskopi kan ikke ændre den."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eigener Bitcoin-Server nicht übernommen – eine unverschlüsselte Sicherung kann ihn nicht ändern."
+            "value" : "«Eigener Server für Adressen» wurde nicht übernommen – eine unverschlüsselte Sicherung kann ihn nicht ändern."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ο δικός σου διακομιστής Bitcoin δεν μεταφέρθηκε – ένα μη κρυπτογραφημένο αντίγραφο δεν μπορεί να τον αλλάξει."
+            "value" : "Ο «Δικός σου διακομιστής για διευθύνσεις» δεν μεταφέρθηκε – ένα μη κρυπτογραφημένο αντίγραφο δεν μπορεί να τον αλλάξει."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Own Bitcoin server not applied – an unencrypted backup can’t change it."
+            "value" : "“Own server for addresses” was not applied – an unencrypted backup can’t change it."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Servidor propio de Bitcoin no restaurado: una copia sin cifrar no puede cambiarlo."
+            "value" : "«Servidor propio para direcciones» no se restauró: una copia sin cifrar no puede cambiarlo."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "سرور بیت‌کوین خودت بازیابی نشد – پشتیبان رمزنشده نمی‌تواند آن را تغییر دهد."
+            "value" : "«سرور خودت برای آدرس‌ها» بازیابی نشد – پشتیبان رمزنشده نمی‌تواند آن را تغییر دهد."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Omaa Bitcoin-palvelinta ei palautettu – salaamaton varmuuskopio ei voi muuttaa sitä."
+            "value" : "”Oma palvelin osoitteille” -asetusta ei palautettu – salaamaton varmuuskopio ei voi muuttaa sitä."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Serveur Bitcoin perso non restauré – une sauvegarde non chiffrée ne peut pas le modifier."
+            "value" : "« Serveur perso pour les adresses » n’a pas été restauré – une sauvegarde non chiffrée ne peut pas le modifier."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "שרת הביטקוין שלכם לא שוחזר – גיבוי לא מוצפן לא יכול לשנות אותו."
+            "value" : "«שרת משלכם לכתובות» לא שוחזר – גיבוי לא מוצפן לא יכול לשנות אותו."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अपना Bitcoin सर्वर बहाल नहीं हुआ – बिना एन्क्रिप्शन वाला बैकअप इसे बदल नहीं सकता।"
+            "value" : "“पतों के लिए अपना सर्वर” बहाल नहीं हुआ – बिना एन्क्रिप्शन वाला बैकअप इसे बदल नहीं सकता।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A saját Bitcoin-szerver nem lett visszaállítva – titkosítatlan mentés nem módosíthatja."
+            "value" : "A „Saját szerver a címekhez” nem lett visszaállítva – titkosítatlan mentés nem módosíthatja."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server Bitcoin sendiri tidak dipulihkan – cadangan tanpa enkripsi tidak dapat mengubahnya."
+            "value" : "“Server sendiri untuk alamat” tidak dipulihkan – cadangan tanpa enkripsi tidak dapat mengubahnya."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server Bitcoin personale non ripristinato – un backup non cifrato non può modificarlo."
+            "value" : "«Server personale per indirizzi» non è stato ripristinato – un backup non cifrato non può modificarlo."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "独自の Bitcoin サーバーは復元されませんでした。暗号化されていないバックアップでは変更できません。"
+            "value" : "「アドレス用の独自サーバー」は復元されませんでした。暗号化されていないバックアップでは変更できません。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "비트코인 자체 서버는 복원되지 않았습니다. 암호화되지 않은 백업으로는 변경할 수 없습니다."
+            "value" : "‘주소용 자체 서버’는 복원되지 않았습니다. 암호화되지 않은 백업으로는 변경할 수 없습니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Egen Bitcoin-server ikke overtatt – en ukryptert sikkerhetskopi kan ikke endre den."
+            "value" : "«Egen server for adresser» ble ikke overtatt – en ukryptert sikkerhetskopi kan ikke endre den."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eigen Bitcoin-server niet overgenomen – een onversleutelde back-up kan hem niet wijzigen."
+            "value" : "‘Eigen server voor adressen’ is niet overgenomen – een onversleutelde back-up kan hem niet wijzigen."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Własny serwer Bitcoin nie został przywrócony – niezaszyfrowana kopia nie może go zmienić."
+            "value" : "„Własny serwer dla adresów” nie został przywrócony – niezaszyfrowana kopia nie może go zmienić."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Servidor Bitcoin próprio não restaurado – uma cópia não encriptada não o pode alterar."
+            "value" : "«Servidor próprio para endereços» não foi restaurado – uma cópia não encriptada não o pode alterar."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Servidor Bitcoin próprio não restaurado – um backup sem criptografia não pode alterá-lo."
+            "value" : "“Servidor próprio para endereços” não foi restaurado – um backup sem criptografia não pode alterá-lo."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Serverul Bitcoin propriu nu a fost preluat – o copie necriptată nu îl poate schimba."
+            "value" : "„Server propriu pentru adrese” nu a fost preluat – o copie necriptată nu îl poate schimba."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Свой сервер Bitcoin не восстановлен – незашифрованная копия не может его изменить."
+            "value" : "«Свой сервер для адресов» не восстановлен – незашифрованная копия не может его изменить."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Serveri yt Bitcoin nuk u rikthye – një kopje e paenkriptuar nuk mund ta ndryshojë."
+            "value" : "«Server i yti për adresat» nuk u rikthye – një kopje e paenkriptuar nuk mund ta ndryshojë."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Egen Bitcoin-server inte överförd – en okrypterad säkerhetskopia kan inte ändra den."
+            "value" : "”Egen server för adresser” överfördes inte – en okrypterad säkerhetskopia kan inte ändra den."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ไม่ได้กู้คืนเซิร์ฟเวอร์ Bitcoin ของคุณเอง – ข้อมูลสำรองที่ไม่เข้ารหัสเปลี่ยนไม่ได้"
+            "value" : "ไม่ได้กู้คืน “เซิร์ฟเวอร์ของคุณเองสำหรับที่อยู่” – ข้อมูลสำรองที่ไม่เข้ารหัสเปลี่ยนไม่ได้"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kendi Bitcoin sunucun geri yüklenmedi – şifresiz bir yedek onu değiştiremez."
+            "value" : "“Adresler için kendi sunucun” geri yüklenmedi – şifresiz bir yedek onu değiştiremez."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Власний сервер Bitcoin не відновлено – незашифрована копія не може його змінити."
+            "value" : "«Власний сервер для адрес» не відновлено – незашифрована копія не може його змінити."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Không khôi phục máy chủ Bitcoin riêng – bản sao lưu không mã hóa không thể thay đổi nó."
+            "value" : "Không khôi phục “Máy chủ riêng cho địa chỉ” – bản sao lưu không mã hóa không thể thay đổi nó."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "未恢复自有比特币服务器——未加密的备份无法更改它。"
+            "value" : "未恢复“地址专用的自有服务器”——未加密的备份无法更改它。"
           }
         }
       }
@@ -74672,187 +74672,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "أُزيل خادم بيتكوين الخاص كما في النسخة الاحتياطية – يُستعلم عن عناوين بيتكوين من العُقد العامة مجددًا."
+            "value" : "أُزيل «خادم خاص للعناوين» كما في النسخة الاحتياطية – يُستعلم عن عناوين بيتكوين من العُقد العامة مجددًا."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vlastní server pro Bitcoin odebrán jako v záloze – bitcoinové adresy se opět dotazují u veřejných uzlů."
+            "value" : "„Vlastní server pro adresy“ byl odebrán jako v záloze – bitcoinové adresy se opět dotazují u veřejných uzlů."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Egen Bitcoin-server fjernet som i sikkerhedskopien – Bitcoin-adresser forespørges igen hos offentlige noder."
+            "value" : "«Egen server til adresser» blev fjernet som i sikkerhedskopien – Bitcoin-adresser forespørges igen hos offentlige noder."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eigener Bitcoin-Server entfernt wie in der Sicherung – Bitcoin-Adressen werden wieder bei öffentlichen Knoten abgefragt."
+            "value" : "«Eigener Server für Adressen» wurde wie in der Sicherung entfernt – Bitcoin-Adressen werden wieder bei öffentlichen Knoten abgefragt."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ο δικός σου διακομιστής Bitcoin αφαιρέθηκε όπως στο αντίγραφο – οι διευθύνσεις Bitcoin ερωτώνται ξανά σε δημόσιους κόμβους."
+            "value" : "Ο «Δικός σου διακομιστής για διευθύνσεις» αφαιρέθηκε όπως στο αντίγραφο – οι διευθύνσεις Bitcoin ερωτώνται ξανά σε δημόσιους κόμβους."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Own Bitcoin server removed as in the backup – Bitcoin addresses are queried at public nodes again."
+            "value" : "“Own server for addresses” was removed as in the backup – Bitcoin addresses are queried at public nodes again."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Servidor propio de Bitcoin eliminado como en la copia: las direcciones de Bitcoin vuelven a consultarse en nodos públicos."
+            "value" : "«Servidor propio para direcciones» se eliminó como en la copia: las direcciones de Bitcoin vuelven a consultarse en nodos públicos."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "سرور بیت‌کوین خودت مانند پشتیبان حذف شد – آدرس‌های بیت‌کوین دوباره از گره‌های عمومی پرسیده می‌شوند."
+            "value" : "«سرور خودت برای آدرس‌ها» مانند پشتیبان حذف شد – آدرس‌های بیت‌کوین دوباره از گره‌های عمومی پرسیده می‌شوند."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oma Bitcoin-palvelin poistettu kuten varmuuskopiossa – Bitcoin-osoitteet kysytään taas julkisilta solmuilta."
+            "value" : "”Oma palvelin osoitteille” poistettiin kuten varmuuskopiossa – Bitcoin-osoitteet kysytään taas julkisilta solmuilta."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Serveur Bitcoin perso supprimé comme dans la sauvegarde – les adresses Bitcoin sont de nouveau interrogées auprès de nœuds publics."
+            "value" : "« Serveur perso pour les adresses » a été supprimé comme dans la sauvegarde – les adresses Bitcoin sont de nouveau interrogées auprès de nœuds publics."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "שרת הביטקוין שלכם הוסר כמו בגיבוי – כתובות ביטקוין נבדקות שוב בצמתים ציבוריים."
+            "value" : "«שרת משלכם לכתובות» הוסר כמו בגיבוי – כתובות ביטקוין נבדקות שוב בצמתים ציבוריים."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "अपना Bitcoin सर्वर बैकअप की तरह हटाया गया – Bitcoin पते फिर से सार्वजनिक नोड्स से पूछे जाते हैं।"
+            "value" : "“पतों के लिए अपना सर्वर” बैकअप की तरह हटाया गया – Bitcoin पते फिर से सार्वजनिक नोड्स से पूछे जाते हैं।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A saját Bitcoin-szerver eltávolítva, mint a mentésben – a Bitcoin-címeket ismét nyilvános csomópontoktól kérdezzük le."
+            "value" : "A „Saját szerver a címekhez” el lett távolítva, mint a mentésben – a Bitcoin-címeket ismét nyilvános csomópontoktól kérdezzük le."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server Bitcoin sendiri dihapus seperti di cadangan – alamat Bitcoin kembali ditanyakan ke node publik."
+            "value" : "“Server sendiri untuk alamat” dihapus seperti di cadangan – alamat Bitcoin kembali ditanyakan ke node publik."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server Bitcoin personale rimosso come nel backup – gli indirizzi Bitcoin vengono di nuovo interrogati presso nodi pubblici."
+            "value" : "«Server personale per indirizzi» è stato rimosso come nel backup – gli indirizzi Bitcoin vengono di nuovo interrogati presso nodi pubblici."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "バックアップのとおり独自の Bitcoin サーバーを削除しました。Bitcoin アドレスは再び公開ノードに問い合わせます。"
+            "value" : "バックアップのとおり「アドレス用の独自サーバー」を削除しました。Bitcoin アドレスは再び公開ノードに問い合わせます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "백업대로 비트코인 자체 서버를 삭제했습니다. 비트코인 주소는 다시 공개 노드에 조회합니다."
+            "value" : "백업대로 ‘주소용 자체 서버’를 삭제했습니다. 비트코인 주소는 다시 공개 노드에 조회합니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Egen Bitcoin-server fjernet som i sikkerhetskopien – Bitcoin-adresser spørres igjen hos offentlige noder."
+            "value" : "«Egen server for adresser» ble fjernet som i sikkerhetskopien – Bitcoin-adresser spørres igjen hos offentlige noder."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eigen Bitcoin-server verwijderd zoals in de back-up – Bitcoin-adressen worden weer bij openbare nodes opgevraagd."
+            "value" : "‘Eigen server voor adressen’ is verwijderd zoals in de back-up – Bitcoin-adressen worden weer bij openbare nodes opgevraagd."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Własny serwer Bitcoin usunięty jak w kopii – adresy Bitcoin są znów sprawdzane w publicznych węzłach."
+            "value" : "„Własny serwer dla adresów” został usunięty jak w kopii – adresy Bitcoin są znów sprawdzane w publicznych węzłach."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Servidor Bitcoin próprio removido como na cópia – os endereços Bitcoin voltam a ser consultados em nós públicos."
+            "value" : "«Servidor próprio para endereços» foi removido como na cópia – os endereços Bitcoin voltam a ser consultados em nós públicos."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Servidor Bitcoin próprio removido como no backup – os endereços Bitcoin voltam a ser consultados em nós públicos."
+            "value" : "“Servidor próprio para endereços” foi removido como no backup – os endereços Bitcoin voltam a ser consultados em nós públicos."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Serverul Bitcoin propriu a fost eliminat ca în copie – adresele Bitcoin sunt din nou interogate la noduri publice."
+            "value" : "„Server propriu pentru adrese” a fost eliminat ca în copie – adresele Bitcoin sunt din nou interogate la noduri publice."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Свой сервер Bitcoin удалён, как в копии, – адреса Bitcoin снова запрашиваются у публичных узлов."
+            "value" : "«Свой сервер для адресов» удалён, как в копии, – адреса Bitcoin снова запрашиваются у публичных узлов."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Serveri yt Bitcoin u hoq si në kopje – adresat Bitcoin pyeten sërish te nyje publike."
+            "value" : "«Server i yti për adresat» u hoq si në kopje – adresat Bitcoin pyeten sërish te nyje publike."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Egen Bitcoin-server borttagen som i säkerhetskopian – Bitcoin-adresser frågas åter hos offentliga noder."
+            "value" : "”Egen server för adresser” togs bort som i säkerhetskopian – Bitcoin-adresser frågas åter hos offentliga noder."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ลบเซิร์ฟเวอร์ Bitcoin ของคุณเองตามข้อมูลสำรองแล้ว – ที่อยู่ Bitcoin จะถามจากโหนดสาธารณะอีกครั้ง"
+            "value" : "ลบ “เซิร์ฟเวอร์ของคุณเองสำหรับที่อยู่” ตามข้อมูลสำรองแล้ว – ที่อยู่ Bitcoin จะถามจากโหนดสาธารณะอีกครั้ง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kendi Bitcoin sunucun yedekteki gibi kaldırıldı – Bitcoin adresleri yeniden herkese açık düğümlerde sorgulanıyor."
+            "value" : "“Adresler için kendi sunucun” yedekteki gibi kaldırıldı – Bitcoin adresleri yeniden herkese açık düğümlerde sorgulanıyor."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Власний сервер Bitcoin видалено, як у копії, – адреси Bitcoin знову запитуються в публічних вузлів."
+            "value" : "«Власний сервер для адрес» видалено, як у копії, – адреси Bitcoin знову запитуються в публічних вузлів."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đã xóa máy chủ Bitcoin riêng như trong bản sao lưu – địa chỉ Bitcoin lại được truy vấn ở nút công khai."
+            "value" : "Đã xóa “Máy chủ riêng cho địa chỉ” như trong bản sao lưu – địa chỉ Bitcoin lại được truy vấn ở nút công khai."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已按备份移除自有比特币服务器——比特币地址重新向公共节点查询。"
+            "value" : "已按备份移除“地址专用的自有服务器”——比特币地址重新向公共节点查询。"
           }
         }
       }
@@ -313824,7 +313824,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De instellingen konden niet worden gelezen en zijn teruggezet naar de standaardwaarden. Controleer de portfolio-vergrendeling, het interval van de alarmen en de valuta."
+            "value" : "De instellingen konden niet worden gelezen en zijn teruggezet naar de standaardwaarden. Controleer de Portfolio-vergrendeling, het interval van de alarmen en de valuta."
           }
         },
         "pl" : {

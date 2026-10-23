@@ -47,12 +47,7 @@ class WatchedAddressRefresher @Inject constructor(
         )
     }
 
-    private suspend fun save(u: WatchedAddressSource.Update) {
-        repository.updateWatchedAddressBalance(
-            u.id, u.fetched?.balance, u.time, u.error, u.fetched?.provider, u.fetched?.tokens, u.fetched?.xpub,
-            u.fetched?.networks, u.fetched?.unknownTokens, u.fetched?.keptTokens, u.snapshotAttempt,
-        )
-    }
+    private suspend fun save(u: WatchedAddressSource.Update) = repository.updateWatchedAddressBalance(u)
 }
 
 /**

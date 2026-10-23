@@ -436,6 +436,9 @@ def self_test():
         got = sorted(c for c in REQUIRED_REASON_APIS if any(f"({c})" in e for e in errors))
         assert got == expected, (text, got, errors)
     findings.clear()
+    parts = warning_details(["/w/ios/App/A.swift:3:5: warning: x" + str(i) for i in range(400)], lambda p: p[3:],
+                            max_chars=200, max_parts=3)
+    assert len(parts) == 3 and parts[0][0] == "ios/App/A.swift:3 x0" and parts[-1][-1].startswith("..."), parts
     print("ios_release_audit.py self-test passed")
     return 0
 
@@ -528,11 +531,36 @@ def cmd_app(app, widget, gradle, src, log, out):
         for w in warns[:8]:
             m = WARNING.match(w)
             add("warning", m.group(3), rel(m.group(1)), m.group(2))
+        for n, part in enumerate(warning_details(warns, rel), 1):
+            add("notice", f"Release warnings {n}: " + "\n".join(part))
 
     add("notice", f"Release app {os.path.basename(app)}: version {ver} ({build}), background modes {modes}, "
                   f"BGTask ids {bg_ids}")
     flush(out)
     return 0
+
+
+def warning_details(warns, rel_path, max_chars=3800, max_parts=5):
+    """All unique warnings as «file:line message» rows, split into at most max_parts notices under GitHub's
+    4096-character cut (so the full list can be read from the check annotations)."""
+    rows = []
+    for w in warns:
+        m = WARNING.match(w)
+        if m:
+            rows.append(f"{rel_path(m.group(1))}:{m.group(2)} {m.group(3)[:160]}")
+    parts, cur, size = [], [], 0
+    for row in rows:
+        if cur and size + len(row) + 1 > max_chars:
+            parts.append(cur)
+            cur, size = [], 0
+        cur.append(row)
+        size += len(row) + 1
+    if cur:
+        parts.append(cur)
+    if len(parts) > max_parts:
+        parts = parts[:max_parts]
+        parts[-1].append(f"... more in the build log ({len(rows)} in total)")
+    return parts
 
 
 def main():

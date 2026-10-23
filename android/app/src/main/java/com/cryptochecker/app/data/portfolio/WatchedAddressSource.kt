@@ -88,8 +88,11 @@ class WatchedAddressSource @Inject constructor(
         val keptTokens: List<String>? = null,
     )
 
-    /** Ergebnis je Adresse: entweder [fetched] oder [error]; [snapshotAttempt] = lastAttempt beim Lesen ([AddressBalance.resetDuringFetch]). */
-    data class Update(val id: Long, val time: Long, val fetched: Fetched?, val error: String?, val snapshotAttempt: Long = 0)
+    /** Ergebnis je Adresse: [fetched] oder [error]; Einstellungen des Abzugs für [AddressBalance.discardFetched] (Standard: ohne Prüfung). */
+    data class Update(
+        val id: Long, val time: Long, val fetched: Fetched?, val error: String?,
+        val snapshotCountTokens: Boolean = true, val snapshotNetworks: List<String>? = null,
+    )
 
     /**
      * Alle fälligen Adressen ([AddressBalance.isDue]) der Reihe nach laden.
@@ -125,20 +128,20 @@ class WatchedAddressSource @Inject constructor(
                         a.chain == AddressChain.TON -> fetchTon(a, deadline)
                         else -> fetch(a.chain, a.address, deadline)
                     }
-                    updates += Update(a.id, time, fetched, null, a.lastAttempt)
+                    updates += Update(a.id, time, fetched, null, a.countTokens, a.networks)
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: OutOfTime) {
                     break
                 } catch (e: XpubScan.TooMany) {
                     // Eigener Hinweis «Zu viele Adressen» statt «Aktualisierung fehlgeschlagen» (wiederholen hilft nicht)
-                    updates += Update(a.id, time, null, XpubScan.TOO_MANY_MARKER, a.lastAttempt)
+                    updates += Update(a.id, time, null, XpubScan.TOO_MANY_MARKER, a.countTokens, a.networks)
                 } catch (e: Exception) {
                     Timber.d("Adresse %s: %s", WatchedAddressRules.shortAddress(a.address), e.message)
                     // Nur kurzer Code speichern (Ausnahmetexte enthalten Hosts/URLs, teils die Adresse); eigener Server: eigener Hinweis
                     val ownServer = btcServer != null && a.chain == AddressChain.BTC
                     val code = if (ownServer) AddressServer.FAILED_MARKER else StoredError.sanitize(e.toString())
-                    updates += Update(a.id, time, null, code, a.lastAttempt)
+                    updates += Update(a.id, time, null, code, a.countTokens, a.networks)
                 }
             }
             return updates

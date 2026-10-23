@@ -10,14 +10,16 @@ let uiListTimeout: TimeInterval = 60
 extension XCTestCase {
     /// App frisch starten: Speicher leer (wie eine Neuinstallation), feste Börsen-Antworten, Englisch.
     /// `csv`: Text, den «CSV importieren» statt der Dateiauswahl bekommt; `keepBackup`: Sicherung des
-    /// vorigen Starts behalten (Wiederherstellen nach «Daten weg»).
+    /// vorigen Starts behalten (Wiederherstellen nach «Daten weg»); `backup`: Sicherungsdatei, die «Wiederherstellen»
+    /// statt der Dateiauswahl bekommt.
     @MainActor
-    func launchApp(csv: String? = nil, keepBackup: Bool = false) -> XCUIApplication {
+    func launchApp(csv: String? = nil, keepBackup: Bool = false, backup: String? = nil) -> XCUIApplication {
         let app = XCUIApplication()
         // Startargument zuletzt: ohne Wert, damit es kein «-AppleLocale»-Wert verschluckt
         app.launchArguments = ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", UiTestTags.launchArgument]
         if let csv { app.launchEnvironment[UiTestTags.csvEnvironment] = csv }
         if keepBackup { app.launchEnvironment[UiTestTags.keepBackupEnvironment] = "1" }
+        if let backup { app.launchEnvironment[UiTestTags.backupEnvironment] = backup }
         // Rückfallebene, falls die Mitteilungs-Abfrage eine Eingabe blockiert (sonst `allowNotificationsIfAsked`)
         addUIInterruptionMonitor(withDescription: "Notification permission") { alert in
             let allow = alert.buttons["Allow"]

@@ -20,13 +20,25 @@ extension BackupSettingsPage {
         let data: Data
     }
 
-    /// Schriftgrösse des Systems als Faktor (1 = Standard) — wie Android `Configuration.fontScale`.
-    static var fontScale: Double {
-        Double(UIFontMetrics.default.scaledValue(for: 1))
+    /// Schriftgrösse als Faktor (1 = Standard `.large`) — wie Android `Configuration.fontScale`; ohne `category` die
+    /// des Systems.
+    static func fontScale(_ category: ContentSizeCategory? = nil) -> Double {
+        let traits = category.map { UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory($0)) }
+        return Double(UIFontMetrics.default.scaledValue(for: 1, compatibleWith: traits))
     }
 
     static func isCancel(_ error: Error) -> Bool {
         (error as? CocoaError)?.code == .userCancelled
+    }
+
+    /// Meldung (Schlüssel) zu einem Fehler beim Lesen bzw. Entschlüsseln einer Sicherung.
+    static func failureKey(_ error: Error) -> String {
+        switch error {
+        case BackupCrypto.Failure.notEnoughMemory: return "backup_not_enough_memory"
+        case BackupLimits.Failure.tooLarge: return "backup_too_large"
+        case BackupVersion.Failure.newer: return "backup_restore_newer_version"
+        default: return "backup_failed"
+        }
     }
 }
 

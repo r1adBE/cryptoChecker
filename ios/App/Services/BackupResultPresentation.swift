@@ -50,6 +50,10 @@ enum BackupResultPresentation {
             || longKeys.contains(key) || Double(displayWidth(text)) > toastLimit(fontScale: fontScale)
     }
 
+    /// Wartezeit nach dem Schliessen von Rückfrage, Dateiauswahl oder Dialog, bis deren Schliess-Animation vorbei ist
+    /// (sonst zeigt iOS den nächsten Dialog nicht). Nur iOS.
+    static let presentDelayNanos: UInt64 = 450_000_000
+
     /// Ergebnis-Dialog erst zeigen, wenn nichts anderes offen ist (Rückfrage, Blatt, Dateiauswahl, voriges Ergebnis)
     /// — sonst erscheint er nicht. Nur iOS: Android zeigt den Dialog sofort.
     static func canPresent(confirmOpen: Bool, sheetOpen: Bool, pickerOpen: Bool, resultOpen: Bool) -> Bool {

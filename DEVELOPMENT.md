@@ -565,7 +565,7 @@ identifiers and the same test file on Android and iOS:
   through its normal `rememberLauncherForActivityResult`. No production code involved. iOS:
   `testableFileImporter` (in place of `.fileImporter` for the CSV import and the backup restore) and the
   export branch in `BackupSettingsPage.presentExport` use `UITesting.importURL`/`exportURL`: the CSV text
-  comes from the launch environment `UITEST_CSV`, the backup goes to `tmp/uitest_backup.json`.
+  comes from the launch environment `UITEST_CSV`, the backup goes to `tmp/uitest_backup.json`; `UITEST_BACKUP` puts a given backup text into that file for the restore test.
 * **iOS seams are inert in production.** All of `UITesting` and `UITestMarket` is inside `#if DEBUG` (a
   Release/App Store build does not contain it; `testableFileImporter` compiles to a plain `.fileImporter`
   there). In a Debug build they act only when the app is launched with `-uiTesting`: then every launch
@@ -2254,6 +2254,8 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 114: `AddressBalance.discardFetched` (+ `Update.snapshotCountTokens/snapshotNetworks`, replaces `resetDuringFetch`/`snapshotAttempt`),
+  `WatchedAddressBalanceWriter`, iOS `presentDelayNanos` / `UITEST_BACKUP`, `BackupSettingsTextsTests`, exchange check `onetradingbulk`.
 * Build 113: `AddressBalance.resetDuringFetch` (+ `Update.snapshotAttempt`), `BackupResultPresentation.displayWidth` / font scale /
   `canPresent`, iOS `ToastMessage`, `BackupUnencryptedWarningTest`, mirror signing key rotated (`MirrorManifest`, `mirror_data.py`).
 * Build 112: `singleFlightRefresh` / `AddressRefreshGate`, `AddressServerTestRun`, `BackupResultPresentation` (+ `backup_result_dialog.json`),

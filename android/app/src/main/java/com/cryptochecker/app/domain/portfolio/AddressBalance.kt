@@ -156,10 +156,17 @@ object AddressBalance {
     }
 
     /**
-     * Während des Abrufs vom Nutzer fällig gemacht («Tokens mitzählen» an, neues EVM-Netz: lastAttempt 0), der Abzug
-     * war schon versucht: Ergebnis verwerfen — es gilt der alten Einstellung, die Adresse bleibt für den nächsten Aufruf fällig.
+     * Abruf verwerfen, weil der Nutzer währenddessen etwas dazugenommen hat, das der Abruf (Einstellungen des Abzugs)
+     * nicht fragte: «Tokens mitzählen» an oder ein EVM-Netz neu gewählt. Netze wie die Abfrage: null = alle — aus null
+     * wird nie etwas neu, null nach einer Liste ohne alle Netze schon. Weniger (abgewählt, Tokens aus) verwirft nicht,
+     * [WatchedAddressRules.applyFetched] übernimmt nur, was noch zählt. Verworfen bleibt die Adresse fällig (die
+     * Änderung setzte lastAttempt 0), die wartende Runde lädt neu.
      */
-    fun resetDuringFetch(currentAttempt: Long, snapshotAttempt: Long): Boolean = currentAttempt == 0L && snapshotAttempt != 0L
+    fun discardFetched(countTokens: Boolean, networks: List<String>?, snapshotCountTokens: Boolean, snapshotNetworks: List<String>?): Boolean {
+        if (countTokens && !snapshotCountTokens) return true
+        if (snapshotNetworks == null) return false
+        return (networks ?: ChainAssets.EVM.map { it.id }).any { it !in snapshotNetworks }
+    }
 
     /**
      * Fällige Adressen ([isDue]) in Abruf-Reihenfolge: Vordergrund wie gespeichert; Hintergrund die am längsten nicht

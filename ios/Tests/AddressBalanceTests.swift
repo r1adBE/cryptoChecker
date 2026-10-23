@@ -112,15 +112,17 @@ final class AddressBalanceTests: XCTestCase {
         }
     }
 
-    /// Während des Abrufs vom Nutzer fällig gemacht: Ergebnis verwerfen (Single-Flight, wie Android).
-    func testResetDuringFetch() throws {
-        let d = try XCTUnwrap(try data()["resetDuringFetch"] as? [String: Any])
+    /// Während des Abrufs etwas dazugenommen (Tokens an, Netz neu): Ergebnis verwerfen (Single-Flight, wie Android).
+    func testDiscardFetched() throws {
+        let d = try XCTUnwrap(try data()["discardFetched"] as? [String: Any])
         let cases = S.list(d["cases"])
         XCTAssertFalse(cases.isEmpty)
         for c in cases {
-            let reset = AddressBalance.resetDuringFetch(currentAttempt: int64(c["current"]),
-                                                        snapshotAttempt: int64(c["snapshot"]))
-            XCTAssertEqual(reset, c["reset"] as? Bool, "reset: \(c)")
+            let discard = AddressBalance.discardFetched(countTokens: c["countTokens"] as? Bool ?? false,
+                                                        networks: c["networks"] as? [String],
+                                                        snapshotCountTokens: c["snapshotCountTokens"] as? Bool ?? false,
+                                                        snapshotNetworks: c["snapshotNetworks"] as? [String])
+            XCTAssertEqual(discard, c["discard"] as? Bool, "discard: \(c["_note"] ?? "")")
         }
     }
 
