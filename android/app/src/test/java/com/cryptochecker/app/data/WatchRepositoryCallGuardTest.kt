@@ -12,6 +12,8 @@ import java.io.File
  * Weiterleitungen darauf); jeder Aufruf ausserhalb von `data/` (Oberfläche, Mitteilungen, Widgets …) liegt in einer Funktion,
  * die vorher [confirmUserWrite] fragt (Block noch offen) bzw. im Block von `launchWrite { … }`. Ein Hilfsweg ohne eigene
  * Frage (z. B. `deleteSnapshots`) gilt, wenn jeder seiner Aufrufer fragt. Gegenwart siehe [WatchRepositoryLockTest].
+ * Review TST5-R2: Die Richtung der Bedingung zählt — nur die im Code benutzten Formen ([consentCovers]); ein Schreibweg im
+ * Ablehnungszweig (`if (!confirmUserWrite()) { write() }`, `if (confirmUserWrite()) 0 else write()`) ist ein Befund.
  */
 class WatchRepositoryCallGuardTest {
 
@@ -37,12 +39,94 @@ class WatchRepositoryCallGuardTest {
         assertTrue("zu wenige Aufrufe gefunden (${result.calls}) — Scan defekt?", result.calls >= 20)
         assertEquals("Ausnahmeliste veraltet", SYSTEM_CALLS.toSet(), result.exempted)
         assertTrue("Schreibweg ohne Rückfrage F-08 davor:\n" + result.problems.joinToString("\n"), result.problems.isEmpty())
-        // Jedes launchWrite fragt selbst
+        // Jedes launchWrite fragt selbst und führt seinen Block nur nach der Zustimmung aus
+        var launchWrites = 0
         for ((file, text) in sources) {
-            functions(text).filter { it.name == "launchWrite" }.forEach {
-                assertTrue(file, text.substring(it.start, it.end).contains("confirmUserWrite()"))
-            }
+            launchWrites += functions(text).count { it.name == "launchWrite" }
+            assertEquals(file, emptyList<String>(), launchWriteProblems(text))
         }
+        assertTrue("launchWrite nicht gefunden — Scan defekt?", launchWrites > 0)
+    }
+
+    /**
+     * Review TST5-R2: Gegenprobe zur Richtung der Bedingung. Alle im Code benutzten Formen bestehen; Schreibwege im
+     * Ablehnungszweig, nach einem Zweig ohne `return`, hinter unbenutztem Ergebnis, nach `||` einer positiven Zustimmung
+     * oder hinter `!c &&` sind Befunde. Ebenso ein `launchWrite`, das seinen Block im Ablehnungszweig ausführt.
+     */
+    @Test
+    fun conditionDirectionIsChecked() {
+        val writes = setOf("setFavorite", "reorder", "deleteAlarm", "setAlarmEnabled")
+        val sample = """
+            class C(private val watchRepository: WatchRepository) {
+                fun okReturn(id: Long) = scope.launch {
+                    if (!watchRepository.confirmUserWrite()) return@launch
+                    watchRepository.setFavorite(id, true)
+                }
+                fun okBlock(id: Long) = scope.launch {
+                    if (!watchRepository.confirmUserWrite()) {
+                        state = null
+                        return@launch
+                    }
+                    watchRepository.setFavorite(id, true)
+                }
+                fun okElse(id: Long) = scope.launch {
+                    if (!watchRepository.confirmUserWrite()) return@launch else watchRepository.setFavorite(id, true)
+                }
+                fun okOr(id: Long) = scope.launch {
+                    if (!watchRepository.confirmUserWrite() || !watchRepository.deleteAlarm(id)) return@launch
+                    watchRepository.setFavorite(id, false)
+                }
+                fun okValueElse(ids: List<Long>) = scope.launch {
+                    val n = if (!watchRepository.confirmUserWrite()) 0 else lock.withLock {
+                        watchRepository.reorder(ids)
+                    }
+                    onDone(n)
+                }
+                fun okThen(id: Long) = scope.launch { if (watchRepository.confirmUserWrite()) watchRepository.setFavorite(id, true) else other() }
+                fun okAnd(id: Long) = scope.launch { onDone(watchRepository.confirmUserWrite() && watchRepository.setAlarmEnabled(id, true)) }
+                fun negatedBlock(id: Long) = scope.launch {
+                    if (!watchRepository.confirmUserWrite()) { watchRepository.setFavorite(id, true) }
+                }
+                fun negatedStatement(id: Long) = scope.launch {
+                    if (!watchRepository.confirmUserWrite()) watchRepository.setFavorite(id, true)
+                }
+                fun positiveElse(ids: List<Long>) = scope.launch {
+                    val n = if (watchRepository.confirmUserWrite()) 0 else watchRepository.reorder(ids)
+                }
+                fun afterPositive(id: Long) = scope.launch {
+                    if (watchRepository.confirmUserWrite()) other()
+                    watchRepository.setFavorite(id, true)
+                }
+                fun noReturn(id: Long) = scope.launch {
+                    if (!watchRepository.confirmUserWrite()) { state = null }
+                    watchRepository.setFavorite(id, true)
+                }
+                fun ignoredResult(id: Long) = scope.launch {
+                    watchRepository.confirmUserWrite()
+                    watchRepository.setFavorite(id, true)
+                }
+                fun positiveOr(id: Long) = scope.launch {
+                    if (watchRepository.confirmUserWrite() || watchRepository.deleteAlarm(id)) other()
+                }
+                fun negatedAnd(id: Long) = scope.launch { onDone(!watchRepository.confirmUserWrite() && watchRepository.setAlarmEnabled(id, true)) }
+            }
+        """.trimIndent()
+        val result = check(mapOf("ui/Sample.kt" to strip(sample)), writes)
+        assertEquals(
+            listOf("negatedBlock", "negatedStatement", "positiveElse", "afterPositive", "noReturn", "ignoredResult", "positiveOr", "negatedAnd"),
+            result.problems.map { it.substringAfter("fun ").substringBefore(":") },
+        )
+        assertEquals(16, result.calls)
+        val launchWrites = """
+            class D {
+                private fun launchWrite(cancelled: () -> Unit = {}, block: suspend () -> Unit) =
+                    scope.launch { if (!watchRepository.confirmUserWrite()) block() else cancelled() }
+            }
+            class E {
+                private fun launchWrite(block: suspend () -> Unit) = scope.launch { if (watchRepository.confirmUserWrite()) block() }
+            }
+        """.trimIndent()
+        assertEquals(1, launchWriteProblems(strip(launchWrites)).size)
     }
 
     /** Gegenprobe mit eingebautem Beispiel: ohne Rückfrage, nach dem Block, Hilfsweg ohne fragenden Aufrufer → Befund. */
@@ -210,8 +294,8 @@ class WatchRepositoryCallGuardTest {
 
     private fun asksBefore(text: String, from: Int, pos: Int): Boolean {
         val part = text.substring(from, pos)
-        // confirmUserWrite(): sein Block ist beim Aufruf noch offen
-        if (Regex("""confirmUserWrite\(\)""").findAll(part).any { neverBelow(text, from + it.range.last + 1, pos, 0) }) return true
+        // confirmUserWrite(): nur im Zweig nach der Zustimmung (TST5-R2)
+        if (CONFIRM.findAll(part).any { consentCovers(text, from + it.range.first, from + it.range.last + 1, pos) }) return true
         // launchWrite(…) { … }: Aufruf im Block
         return LAUNCH_WRITE.findAll(part).any { m ->
             var at = from + m.groups[1]!!.range.first
@@ -222,6 +306,79 @@ class WatchRepositoryCallGuardTest {
             // seit Build 107 (TST5-R1): Aufruf in den Klammern (z. B. `cancelled = { … }`) liegt vor dem Block, gilt nicht
             text[at] == '{' && at < pos && neverBelow(text, at + 1, pos, 1, start = 1)
         }
+    }
+
+    /** `launchWrite`-Funktionen, die ihren Block nicht nur nach der Zustimmung ausführen (Befund je Funktion). */
+    private fun launchWriteProblems(text: String): List<String> =
+        functions(text).filter { it.name == "launchWrite" }.filter { fn ->
+            val blocks = BLOCK_CALL.findAll(text.substring(0, fn.end)).filter { it.range.first >= fn.bodyStart }.toList()
+            blocks.isEmpty() || blocks.any { b ->
+                CONFIRM.findAll(text.substring(fn.bodyStart, b.range.first))
+                    .none { consentCovers(text, fn.bodyStart + it.range.first, fn.bodyStart + it.range.last + 1, b.range.first) }
+            }
+        }.map { "launchWrite@${it.start}" }
+
+    /**
+     * Liegt [pos] im Zweig NACH der Zustimmung des Aufrufs `confirmUserWrite()` ([start] bis [end])? Nur die im Code
+     * benutzten Formen (TST5-R2):
+     * - `if (!c) return…` bzw. `if (!c) { …; return… }`: danach im selben Block, auch im `else`-Zweig;
+     * - `if (!c || write()) return…`: im Rest der Bedingung; `if (!c) 0 else write()`: im `else`-Zweig;
+     * - `if (c) write() else …`: im Rest der Bedingung nach `&&` und im then-Zweig;
+     * - `f(c && write())`: im Rest des Ausdrucks.
+     * Alles andere zählt nicht (Ablehnungszweig, Zweig ohne `return`, unbenutztes Ergebnis, `||` nach positiver Zustimmung).
+     */
+    private fun consentCovers(text: String, start: Int, end: Int, pos: Int): Boolean {
+        if (pos < end) return false
+        val window = maxOf(0, start - 200)
+        val head = IF_HEAD.find(text.substring(window, start))
+        if (head == null) {
+            if (NEGATED.containsMatchIn(text.substring(window, start))) return false
+            val rest = skipWs(text, end)
+            return text.startsWith("&&", rest) && pos < statementEnd(text, rest, stopAtElse = false)
+        }
+        val negated = head.groups[1] != null
+        val condOpen = text.indexOf('(', window + head.range.first)
+        val condClose = matching(text, condOpen, '(', ')')
+        if (pos < condClose) return text.startsWith(if (negated) "||" else "&&", skipWs(text, end))
+        val thenStart = skipWs(text, condClose + 1)
+        val thenEnd = if (text.getOrNull(thenStart) == '{') matching(text, thenStart, '{', '}') + 1
+        else statementEnd(text, thenStart, stopAtElse = true)
+        if (pos < thenEnd) return !negated && pos >= thenStart
+        if (!negated) return false
+        val exits = text.substring(thenStart, thenEnd).trim().removePrefix("{").removeSuffix("}").trim()
+            .lines().last().trim().startsWith("return")
+        var stmtEnd = thenEnd
+        val elseAt = skipWs(text, thenEnd)
+        if (isWord(text, elseAt, "else")) {
+            val elseStart = skipWs(text, elseAt + 4)
+            stmtEnd = if (text.getOrNull(elseStart) == '{') matching(text, elseStart, '{', '}') + 1
+            else statementEnd(text, elseStart, stopAtElse = false)
+            if (pos < stmtEnd) return true
+        }
+        return exits && neverBelow(text, stmtEnd, pos, 0)
+    }
+
+    private fun skipWs(text: String, from: Int): Int {
+        var i = from
+        while (i < text.length && text[i].isWhitespace()) i++
+        return i
+    }
+
+    private fun isWord(text: String, at: Int, word: String): Boolean =
+        text.startsWith(word, at) && (at == 0 || !text[at - 1].isLetterOrDigit() && text[at - 1] != '_') &&
+            (at + word.length >= text.length || !text[at + word.length].isLetterOrDigit() && text[at + word.length] != '_')
+
+    /** Ende einer Anweisung ab [from]: Zeilenende bzw. (mit [stopAtElse]) `else` auf oberster Ebene, oder eine Klammer zu. */
+    private fun statementEnd(text: String, from: Int, stopAtElse: Boolean): Int {
+        var depth = 0
+        for (i in from until text.length) {
+            when (text[i]) {
+                '(', '[', '{' -> depth++
+                ')', ']', '}' -> if (depth == 0) return i else depth--
+                else -> if (depth == 0 && (text[i] == '\n' || stopAtElse && isWord(text, i, "else"))) return i
+            }
+        }
+        return text.length
     }
 
     /** Klammertiefe von [from] bis [to] fällt nie unter [min] (Start bei [start]). */
@@ -259,6 +416,10 @@ class WatchRepositoryCallGuardTest {
         val CALL = Regex("""(?:\b(\w+)\s*\??\.\s*|(?<![\w.]))(\w+)\(""")
         val REFUSED = Regex("""userWriteRefused\(([^)]*)\)""")
         val TYPED = Regex("""\b(\w+)\s*:\s*([\w.]+)""")
+        val CONFIRM = Regex("""confirmUserWrite\(\)""")
+        val IF_HEAD = Regex("""\bif\s*\(\s*(!\s*)?(?:\w+\s*\??\.\s*)?$""")
+        val NEGATED = Regex("""!\s*(?:\w+\s*\??\.\s*)?$""")
+        val BLOCK_CALL = Regex("""(?<![\w.])block\(""")
         val LAUNCH_WRITE = Regex("""(?<!fun )\blaunchWrite\s*([({])""")
     }
 }

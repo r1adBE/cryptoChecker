@@ -1,6 +1,8 @@
 package com.cryptochecker.app.data.local
 
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +21,11 @@ import kotlinx.coroutines.withTimeoutOrNull
  * gefragt — dann wie bisher geschrieben. Gleich wie iOS (`WatchlistNotSavedGate`, Testfälle in beiden Tests).
  * Seit Build 106 (Review ARC4-R02, Variante A): Fehlt die Oberfläche beim Bestätigen nur kurz (Drehen, Dunkelmodus), wartet
  * [confirm] bis zu [ASKER_WAIT_MILLIS] auf sie und fragt dann. Ohne Oberfläche durchgelassen, lehnt die Sicherung im
- * Schreibweg danach nicht ab ([needsConfirmation]) — bis zur nächsten beantworteten Frage.
+ * Schreibweg danach nicht ab ([needsConfirmation]).
+ * Review F-27: Dieser Durchlass gilt nur für die eine Aktion — die Coroutine, die [confirm] aufrief, samt ihren Kindern
+ * (`withContext`, Transaktionen). Kein globaler Merker mehr: eine andere Aktion danach wird nicht still durchgelassen, und
+ * «Abbrechen» einer anderen Aktion lehnt die laufende nicht ab. Gewählt statt eines Kontext-Elements, weil [confirm] den
+ * Kontext seines Aufrufers nicht ändern kann; so bleiben alle Aufrufer (`if (!confirmUserWrite()) return`) unverändert.
  */
 object WatchlistNotSavedGate {
 
@@ -55,14 +61,25 @@ object WatchlistNotSavedGate {
         awaitAsker: suspend () -> Boolean = { awaitSubscriber(ASKER_WAIT_MILLIS) },
     ): Boolean {
         val asker = canAsk || !mayAsk(notSaved) || awaitAsker()
+        val action = currentCoroutineContext()[Job]
+        var granted: Job? = null
         val question = synchronized(this) {
-            if (!shouldAsk(notSaved, userWrite = true, confirmed = confirmed, canAsk = asker)) {
-                // Ohne Oberfläche durchgelassen: die Sicherung lehnt die Schreibwege dieser Aktion nicht ab
-                if (!asker && notSaved && !confirmed) passedUnasked = true
-                return true
+            if (shouldAsk(notSaved, userWrite = true, confirmed = confirmed, canAsk = asker)) {
+                waiting++
+                pending.value ?: CompletableDeferred<Boolean>().also { pending.value = it }
+            } else {
+                // Ohne Oberfläche durchgelassen: Zustimmung nur für diese Aktion (ihre Coroutine samt Kindern)
+                if (!asker && notSaved && !confirmed && action != null) {
+                    unaskedPasses += action
+                    granted = action
+                }
+                null
             }
-            waiting++
-            pending.value ?: CompletableDeferred<Boolean>().also { pending.value = it }
+        }
+        if (question == null) {
+            // Aktion fertig: ihre Zustimmung verfällt (ausserhalb der Sperre, der Rückruf kann sofort laufen)
+            granted?.let { job -> job.invokeOnCompletion { synchronized(this) { unaskedPasses.remove(job) } } }
+            return true
         }
         try {
             return question.await()
@@ -80,11 +97,21 @@ object WatchlistNotSavedGate {
 
     /**
      * Seit Build 105: Sicherung im Schreibweg — bräuchte dieser Schreibweg jetzt noch eine Antwort ([shouldAsk])? Dann
-     * lehnt das Repository ab (die Aktion hat [confirm] nicht vorher aufgerufen); fragt selbst nie. Seit Build 106 nicht
-     * nach einem Durchlass ohne Oberfläche ([passedUnasked]): sonst lehnte sie dieselbe Aktion still ab (ARC4-R02).
+     * lehnt das Repository ab (die Aktion hat [confirm] nicht vorher aufgerufen); fragt selbst nie. Nicht für Schreibwege
+     * einer Aktion, die ohne Oberfläche durchgelassen wurde (ARC4-R02) — seit F-27 nur in deren eigener Coroutine
+     * ([unaskedPasses]), nicht mehr global.
      */
-    fun needsConfirmation(notSaved: Boolean = notSavedNow(), canAsk: Boolean = canAskNow()): Boolean =
-        synchronized(this) { !passedUnasked && shouldAsk(notSaved, userWrite = true, confirmed = confirmed, canAsk = canAsk) }
+    suspend fun needsConfirmation(notSaved: Boolean = notSavedNow(), canAsk: Boolean = canAskNow()): Boolean {
+        val passes = synchronized(this) {
+            if (!shouldAsk(notSaved, userWrite = true, confirmed = confirmed, canAsk = canAsk)) return false
+            unaskedPasses.toList()
+        }
+        val current = currentCoroutineContext()[Job] ?: return true
+        return passes.none { it.covers(current) }
+    }
+
+    /** Ist [job] diese Coroutine oder eines ihrer Kinder (auch tiefer)? */
+    private fun Job.covers(job: Job): Boolean = this === job || children.any { it.covers(job) }
 
     /** Seit Build 106: Kann eine Aktion jetzt eine Frage brauchen (nicht gespeichert, noch nicht bestätigt), egal ob sichtbar? */
     fun mayAsk(notSaved: Boolean = notSavedNow()): Boolean =
@@ -97,8 +124,8 @@ object WatchlistNotSavedGate {
     internal suspend fun awaitSubscriber(millis: Long): Boolean =
         withTimeoutOrNull(millis) { pending.subscriptionCount.first { it > 0 } } != null
 
-    /** Seit Build 106: letzte Aktion ohne Oberfläche durchgelassen (unter `synchronized`; bis zur nächsten Antwort). */
-    private var passedUnasked = false
+    /** Ohne Oberfläche durchgelassene Aktionen (ihre Coroutine; unter `synchronized`; bis die Aktion endet). */
+    private val unaskedPasses = mutableSetOf<Job>()
 
     /** Wartende Aufrufer von [confirm] (unter `synchronized`). */
     private var waiting = 0
@@ -108,7 +135,6 @@ object WatchlistNotSavedGate {
         val question = synchronized(this) {
             val open = pending.value ?: return
             confirmed = confirmedAfter(confirmed, proceed)
-            passedUnasked = false
             pending.value = null
             open
         }
@@ -122,7 +148,7 @@ object WatchlistNotSavedGate {
     internal fun resetForTest() {
         synchronized(this) {
             confirmed = false
-            passedUnasked = false
+            unaskedPasses.clear()
             waiting = 0
             pending.value?.complete(false)
             pending.value = null

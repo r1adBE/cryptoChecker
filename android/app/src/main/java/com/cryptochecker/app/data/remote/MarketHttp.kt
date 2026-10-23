@@ -17,6 +17,7 @@ import com.cryptochecker.app.domain.exceptions.TimeoutError
 import com.cryptochecker.app.domain.exceptions.parseMarketError
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
 import com.cryptochecker.app.domain.mirror.DataMirror
+import com.cryptochecker.app.domain.mirror.MirrorManifest
 import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.app.domain.refresh.RateLimitSignal
 import com.cryptochecker.marketdata.model.PostRequestInfo
@@ -55,22 +56,46 @@ suspend fun OkHttpClient.callMarket(
         val entry = DataMirror.entryFor(url)
         if (entry != null) fromMirror(entry, guardMillis, maxBytes)?.let { return it }
     }
-    return request(url, postRequestInfo, maxBytes, guardMillis)
+    val text = request(url, postRequestInfo, maxBytes, guardMillis)
+    // Spiegel-Dateien direkt (Altcoin-Saison, coin_meta.json) nur mit gültig signiertem Manifest (MirrorManifest)
+    if (postRequestInfo == null && MirrorManifest.isSignedFile(url) &&
+        !verifiedMirror(url.removePrefix(DataMirror.BASE), text, guardMillis)
+    ) {
+        throw ParseError(IOException("Spiegel-Datei ohne gültige Signatur"))
+    }
+    return text
 }
 
 private const val GUARD_EXTRA_MILLIS = 5_000L
 private const val GUARD_DEFAULT_MILLIS = 35_000L
 
-/** Text aus dem Spiegel, wenn erreichbar und frisch genug; sonst null (dann direkt beim Anbieter). */
+/** Text aus dem Spiegel, wenn erreichbar, gültig signiert und frisch genug; sonst null (dann direkt beim Anbieter). */
 private suspend fun OkHttpClient.fromMirror(entry: DataMirror.Entry, guardMillis: Long, maxBytes: Long): String? =
     try {
         val text = request(entry.url, null, maxBytes, guardMillis)
-        DataMirror.unwrap(text, System.currentTimeMillis(), entry.maxAgeMillis)
+        if (verifiedMirror(entry.file, text, guardMillis)) {
+            DataMirror.unwrap(text, System.currentTimeMillis(), entry.maxAgeMillis)
+        } else {
+            null
+        }
     } catch (cancel: CancellationException) {
         throw cancel
     } catch (ex: Exception) {
         Timber.d("Spiegel %s nicht erreichbar: %s", entry.file, ex.message)
         null
+    }
+
+/** Signatur und SHA-256 der Spiegel-Datei prüfen ([MirrorTrust]); Manifest und Signatur über denselben Client. */
+private suspend fun OkHttpClient.verifiedMirror(file: String, text: String, guardMillis: Long): Boolean =
+    MirrorTrust.verified(file, text) { url, limit ->
+        try {
+            request(url, null, limit, guardMillis)
+        } catch (cancel: CancellationException) {
+            throw cancel
+        } catch (ex: Exception) {
+            Timber.d("Spiegel-Manifest nicht erreichbar: %s", ex.message)
+            null
+        }
     }
 
 /**

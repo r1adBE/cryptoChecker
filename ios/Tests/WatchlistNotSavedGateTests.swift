@@ -4,6 +4,7 @@ import XCTest
 /// Seit Build 104 (F-08): Frage vor der ersten Änderung je Lauf — gleiche Fälle wie `WatchlistNotSavedGateTest.kt`.
 /// Seit Build 105: einmal je Aktion vorher (`confirm`), Sicherung im Schreibweg, Abbruch des Wartenden räumt die Frage.
 /// Seit Build 106: ohne Szene kurz auf sie warten; ein Durchlass ohne Szene wird im Schreibweg nicht abgelehnt.
+/// Review F-27: dieser Durchlass gilt nur für die eigene Aktion (`runConsented`), nicht global.
 @MainActor
 final class WatchlistNotSavedGateTests: XCTestCase {
     private typealias S = TestSupport
@@ -93,13 +94,15 @@ final class WatchlistNotSavedGateTests: XCTestCase {
 
     /// Eine Nutzeraktion wie im Bildschirm: einmal `confirm` vorher, danach je Schreibweg nur die Sicherung von AppData
     /// (`needsConfirmation`, fragt nie), Folgen erst nach allen Schreibwegen. Rückgabe: geschriebene Wege, Folgen gelaufen.
+    /// Nach bestätigtem `confirm` laufen die Schreibwege mit Zustimmung der Aktion (`runConsented`, wie `run`).
     private func action(_ gate: WatchlistNotSavedGate, writes: Int, notSaved: Bool, canAsk: Bool,
                         skipConfirm: Bool, screenAppears: Bool = false, canAskAtWrite: Bool? = nil) async -> (Int, Bool) {
         if !skipConfirm, !(await gate.confirm(notSaved: notSaved, canAsk: canAsk, awaitAsker: { screenAppears })) {
             return (0, false)
         }
-        var written = 0
-        for _ in 0..<writes where !gate.needsConfirmation(notSaved: notSaved, canAsk: canAskAtWrite ?? canAsk) { written += 1 }
+        let atWrite = canAskAtWrite ?? canAsk
+        let write = { (0..<writes).filter { _ in !gate.needsConfirmation(notSaved: notSaved, canAsk: atWrite) }.count }
+        let written = skipConfirm ? write() : gate.runConsented(write)
         return (written, written == writes)
     }
 
@@ -213,6 +216,56 @@ final class WatchlistNotSavedGateTests: XCTestCase {
         let nextResult = await value(of: next)
         XCTAssertEqual(nextResult, false)
         XCTAssertEqual(gate.needsConfirmation(notSaved: true, canAsk: true), after["refusesAgainAfterCancel"] as? Bool)
+    }
+
+    // MARK: Review F-27: Zustimmung je Aktion statt globalem Durchlass
+
+    /// Aktion A über `run` (wie `withWatchlistConfirm`) ohne Szene durchgelassen, danach ist die Szene da: A und eine von A
+    /// gestartete Aufgabe schreiben, eine andere Aktion ohne Bestätigung wird abgelehnt, eine andere mit Bestätigung fragt,
+    /// ihr «Abbrechen» lehnt A nicht ab; ausserhalb von A gilt die Sicherung. Gleiche Fälle wie Android.
+    func testSharedUnaskedPassCoversOnlyItsAction() async throws {
+        let e = try XCTUnwrap(try S.fixture("watchlist_not_saved_gate")["unaskedPassScope"] as? [String: Any])
+        let gate = WatchlistNotSavedGate()
+        let probe = ConsentProbe()
+        gate.run(blocked: false, notSaved: true,
+                 confirm: { await gate.confirm(notSaved: true, canAsk: false, awaitAsker: { false }) },
+                 { probe.start(gate) }, cancelled: nil)
+        try await waitUntil { probe.own != nil && probe.child != nil }
+        XCTAssertFalse(gate.pending)
+        XCTAssertEqual(probe.own, e["ownWrites"] as? Bool)
+        XCTAssertEqual(probe.child, e["ownChildWrites"] as? Bool)
+        // Andere Aktion ohne Bestätigung (ausserhalb von A), während A noch läuft
+        XCTAssertEqual(gate.needsConfirmation(notSaved: true, canAsk: true), e["otherUnconfirmedRefused"] as? Bool)
+        // Andere Aktion mit Bestätigung fragt; «Abbrechen»
+        let other = Task { await gate.confirm(notSaved: true, canAsk: true) }
+        try await waitUntil { gate.pending }
+        XCTAssertEqual(gate.pending, e["otherAsks"] as? Bool)
+        gate.answer(proceed: false)
+        let otherResult = await value(of: other)
+        XCTAssertEqual(otherResult, false)
+        probe.go = true
+        try await waitUntil { probe.afterCancel != nil }
+        XCTAssertEqual(probe.afterCancel, e["ownWritesAfterOtherCancel"] as? Bool)
+        XCTAssertEqual(gate.needsConfirmation(notSaved: true, canAsk: true), e["refusedAfterOwnEnd"] as? Bool)
+    }
+}
+
+/// Messpunkte der Aktion A in `testSharedUnaskedPassCoversOnlyItsAction`: true = Schreibweg nicht abgelehnt.
+@MainActor
+private final class ConsentProbe {
+    var own: Bool?
+    var child: Bool?
+    var afterCancel: Bool?
+    var go = false
+
+    /// Aktion A (synchron, wie im Bildschirm): sofort prüfen, dann eine Aufgabe, die erbt, sofort und nach `go` prüft.
+    func start(_ gate: WatchlistNotSavedGate) {
+        own = !gate.needsConfirmation(notSaved: true, canAsk: true)
+        Task { @MainActor in
+            self.child = !gate.needsConfirmation(notSaved: true, canAsk: true)
+            while !self.go { try? await Task.sleep(nanoseconds: 10_000_000) }
+            self.afterCancel = !gate.needsConfirmation(notSaved: true, canAsk: true)
+        }
     }
 }
 

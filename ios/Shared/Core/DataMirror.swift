@@ -4,7 +4,8 @@ import Foundation
 /// Altcoin-Saison aus Binance-Kerzen). CoinGecko-Daten werden NICHT gespiegelt (API-Bedingungen
 /// verbieten Weitergabe und Speicherung) — die App fragt CoinGecko direkt. Eine GitHub Action
 /// (`.github/workflows/market-data.yml`) holt sie stündlich und legt sie als Anhänge der Release «data» ab. `MarketHTTP.call` fragt für
-/// diese Adressen zuerst den Spiegel und nur, wenn er fehlt oder zu alt ist, den Anbieter selbst.
+/// diese Adressen zuerst den Spiegel und nur, wenn er fehlt oder zu alt ist, den Anbieter selbst. Jede Spiegel-Datei
+/// gilt nur mit gültig signiertem Manifest (`MirrorManifest`).
 /// Gleich wie Android `DataMirror.kt`, gemeinsame Testfälle `data_mirror.json`.
 ///
 /// Datei: erste Zeile «CCDM1 <Abrufzeit in ms>», danach die Antwort des Anbieters unverändert.

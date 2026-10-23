@@ -13,7 +13,10 @@ final class EditorConfirmCloseTests: XCTestCase {
         let passed = await gate.confirm(notSaved: true, canAsk: false, awaitAsker: { false })
         XCTAssertTrue(passed)
         XCTAssertTrue(gate.mayAsk(notSaved: true), "zweite Prüfung würde wieder fragen")
-        XCTAssertFalse(gate.needsConfirmation(notSaved: true, canAsk: true), "Speicher-Kern darf ohne Frage schreiben")
+        let refusedInAction = gate.runConsented { gate.needsConfirmation(notSaved: true, canAsk: true) }
+        XCTAssertFalse(refusedInAction, "Speicher-Kern darf in dieser Aktion ohne Frage schreiben")
+        // Review F-27: ausserhalb der Aktion keine Zustimmung
+        XCTAssertTrue(gate.needsConfirmation(notSaved: true, canAsk: true))
         XCTAssertFalse(gate.pending)
     }
 

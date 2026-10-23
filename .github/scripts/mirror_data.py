@@ -32,13 +32,31 @@ A source that fails or answers nonsense is skipped: its old asset stays and the 
 fall back once it is too old. Exit 1 only if nothing at all could be fetched.
 CoinGecko data is NOT mirrored: the CoinGecko API terms forbid re-distributing and storing
 their data, so the apps ask CoinGecko directly.
-Python 3.9+ standard library only.
+
+Signed manifest (--manifest DIR, run in the publish job after artifact_check.py):
+  manifest.json      {"created":<ms>,"files":{"<file>":"<sha-256 hex of the file bytes>"…},"v":1}
+                     (compact, sorted keys, ASCII; the signature covers exactly these bytes)
+  manifest.json.sig  Base64 of the DER ECDSA P-256/SHA-256 signature, made with the secret
+                     MIRROR_SIGNING_KEY (PEM, PKCS#8) via the openssl command line tool
+The apps (MirrorManifest.kt / MirrorManifest.swift) check the signature with the built-in public key
+PUBLIC_KEY, the age of "created" (at most 7 days) and the SHA-256 of every mirror file; otherwise they
+ignore the mirror and ask the sources directly. Files not renewed in this run keep their hash from the
+previous manifest, but only if that one is validly signed (--previous DIR). Without the secret the
+manifest is published unsigned with a warning (the apps then use the sources directly).
+Python 3.9+ standard library only (plus the openssl command line tool for the manifest).
 """
 import argparse
+import base64
+import contextlib
 import datetime as dt
+import hashlib
+import io
 import json
 import os
+import re
+import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -295,17 +313,208 @@ def wrap(body, fetched_millis):
     return f"{MAGIC} {fetched_millis}\n{body}"
 
 
+# ---------------- Signed manifest (same rules as MirrorManifest.kt / MirrorManifest.swift)
+
+MANIFEST = "manifest.json"
+SIGNATURE = MANIFEST + ".sig"
+MANIFEST_VERSION = 1
+# Public key of MIRROR_SIGNING_KEY (ECDSA P-256, SubjectPublicKeyInfo DER, Base64), built into the apps
+PUBLIC_KEY = ("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEap5aFGMac2zZpTaPRry17dQxVQe+tG95C7aIo+cK"
+              "d9gtm8em3ZZeLFpTD6yALgH0HTiZxN6p7Z7BHyDSFils6g==")
+MANIFEST_MAX_AGE_MILLIS = 7 * 24 * 60 * 60 * 1000
+MANIFEST_MAX_BYTES = 64 * 1024
+# Files whose hash may be carried over from the previous signed manifest (old asset stays on the release)
+CARRIED = ("fng.txt", "onchain.txt", "btcprice.txt", "altseason.txt", "coin_meta.json")
+FILE_NAME = re.compile(r"[A-Za-z0-9._-]{1,64}\Z")
+SHA256_HEX = re.compile(r"[0-9a-f]{64}\Z")
+
+
+def manifest_bytes(files, created_millis):
+    doc = {"v": MANIFEST_VERSION, "created": created_millis, "files": dict(sorted(files.items()))}
+    return json.dumps(doc, separators=(",", ":"), sort_keys=True).encode("ascii")
+
+
+def parse_manifest(data):
+    """{"created", "files"} or None - same checks as the apps (after the signature)."""
+    try:
+        doc = json.loads(data.decode("utf-8"))
+    except (UnicodeDecodeError, ValueError):
+        return None
+    if not isinstance(doc, dict) or doc.get("v") != MANIFEST_VERSION or isinstance(doc.get("v"), bool):
+        return None
+    created, files = doc.get("created"), doc.get("files")
+    if not isinstance(created, int) or isinstance(created, bool) or created <= 0 or not isinstance(files, dict):
+        return None
+    if not all(isinstance(k, str) and FILE_NAME.match(k) and isinstance(v, str) and SHA256_HEX.match(v)
+               for k, v in files.items()):
+        return None
+    return {"created": created, "files": files}
+
+
+def sha256_file(path):
+    with open(path, "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+
+
+def public_pem(public_b64):
+    body = "".join(public_b64.split())
+    return "-----BEGIN PUBLIC KEY-----\n" + "\n".join(body[i:i + 64] for i in range(0, len(body), 64)) + \
+        "\n-----END PUBLIC KEY-----\n"
+
+
+def _private_file(directory, name, data):
+    path = os.path.join(directory, name)
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    with os.fdopen(fd, "wb") as f:
+        f.write(data)
+    return path
+
+
+def openssl_sign(data, key_pem):
+    """DER ECDSA signature (SHA-256) of data; raises on a bad key. The key only lives in a private temp dir."""
+    with tempfile.TemporaryDirectory() as d:
+        key = _private_file(d, "key.pem", key_pem.strip().replace("\r\n", "\n").encode("ascii") + b"\n")
+        msg = _private_file(d, "msg.bin", data)
+        out = os.path.join(d, "sig.der")
+        subprocess.run(["openssl", "dgst", "-sha256", "-sign", key, "-out", out, msg],
+                       check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        with open(out, "rb") as f:
+            return f.read()
+
+
+def openssl_verify(data, signature_der, public_b64):
+    with tempfile.TemporaryDirectory() as d:
+        pub = _private_file(d, "pub.pem", public_pem(public_b64).encode("ascii"))
+        msg = _private_file(d, "msg.bin", data)
+        sig = _private_file(d, "sig.der", signature_der)
+        r = subprocess.run(["openssl", "dgst", "-sha256", "-verify", pub, "-signature", sig, msg],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return r.returncode == 0
+
+
+def previous_hashes(previous_dir, public_b64, now_millis):
+    """Hashes of the previous manifest, only if it is validly signed and not too old; else {}."""
+    if not previous_dir:
+        return {}
+    try:
+        with open(os.path.join(previous_dir, MANIFEST), "rb") as f:
+            data = f.read(MANIFEST_MAX_BYTES + 1)
+        with open(os.path.join(previous_dir, SIGNATURE), "rb") as f:
+            sig = base64.b64decode(f.read(4096).strip(), validate=True)
+    except (OSError, ValueError):
+        return {}
+    if len(data) > MANIFEST_MAX_BYTES or not openssl_verify(data, sig, public_b64):
+        return {}
+    doc = parse_manifest(data)
+    if doc is None or not 0 <= now_millis - doc["created"] < MANIFEST_MAX_AGE_MILLIS:
+        return {}
+    return doc["files"]
+
+
+def build_manifest(data_dir, out_dir, key_pem, public_b64=PUBLIC_KEY, previous_dir=None, now_millis=None):
+    """Writes manifest.json (and manifest.json.sig if the key works) to out_dir; returns "signed"/"unsigned"."""
+    now_millis = now_millis if now_millis is not None else int(time.time() * 1000)
+    files = {name: sha256_file(os.path.join(data_dir, name)) for name in sorted(os.listdir(data_dir))
+             if name not in (MANIFEST, SIGNATURE) and os.path.isfile(os.path.join(data_dir, name))}
+    previous = previous_hashes(previous_dir, public_b64, now_millis)
+    for name in CARRIED:
+        if name not in files and name in previous:
+            files[name] = previous[name]
+            print(f"{name}: not renewed, hash carried over from the previous manifest")
+    data = manifest_bytes(files, now_millis)
+    os.makedirs(out_dir, exist_ok=True)
+    with open(os.path.join(out_dir, MANIFEST), "wb") as f:
+        f.write(data)
+    if not key_pem or not key_pem.strip():
+        print("::warning title=Mirror signature::MIRROR_SIGNING_KEY is not set: manifest.json published without "
+              "signature, the apps ignore the mirror and ask the sources directly")
+        return "unsigned"
+    try:
+        sig = openssl_sign(data, key_pem)
+    except (OSError, subprocess.CalledProcessError, UnicodeEncodeError):
+        print("::error title=Mirror signature::MIRROR_SIGNING_KEY could not be used (PEM, PKCS#8, EC P-256?): "
+              "manifest.json published without signature")
+        return "unsigned"
+    if not openssl_verify(data, sig, public_b64):
+        print("::error title=Mirror signature::MIRROR_SIGNING_KEY does not match the public key in the apps: "
+              "manifest.json published without signature")
+        return "unsigned"
+    with open(os.path.join(out_dir, SIGNATURE), "wb") as f:
+        f.write(base64.b64encode(sig))
+    print(f"{MANIFEST}: {len(files)} files, signed")
+    return "signed"
+
+
+def selftest_manifest():
+    """Manifest, signature and carry-over with a throw-away key (needs the openssl command line tool). Output
+    (including the annotations of the expected failures) is swallowed, so the run shows no false warnings."""
+    with contextlib.redirect_stdout(io.StringIO()):
+        _selftest_manifest()
+
+
+def _selftest_manifest():
+    with tempfile.TemporaryDirectory() as d:
+        def run(*args):
+            return subprocess.run(["openssl", *args], check=True, capture_output=True).stdout
+
+        run("genpkey", "-algorithm", "EC", "-pkeyopt", "ec_paramgen_curve:P-256", "-out", os.path.join(d, "k.pem"))
+        run("genpkey", "-algorithm", "EC", "-pkeyopt", "ec_paramgen_curve:P-256", "-out", os.path.join(d, "o.pem"))
+        key = open(os.path.join(d, "k.pem"), encoding="ascii").read()
+        other = open(os.path.join(d, "o.pem"), encoding="ascii").read()
+        assert "BEGIN PRIVATE KEY" in key  # PKCS#8 like the secret
+        pub = base64.b64encode(run("pkey", "-in", os.path.join(d, "k.pem"), "-pubout", "-outform", "DER")).decode()
+        data, out, out2 = (os.path.join(d, n) for n in ("data", "out", "out2"))
+        os.makedirs(data)
+        for name, text in (("fng.txt", 'CCDM1 5\n{"data":[1]}'), ("coin_meta.json", '{"binance":[{"name":"Ä"}]}'),
+                           ("status.json", "{}\n")):
+            with open(os.path.join(data, name), "w", encoding="utf-8") as f:
+                f.write(text)
+        now = 1_800_000_000_000
+        assert build_manifest(data, out, key, pub, None, now) == "signed"
+        raw = open(os.path.join(out, MANIFEST), "rb").read()
+        doc = parse_manifest(raw)
+        assert raw == manifest_bytes(doc["files"], now) and raw.startswith(b'{"created":1800000000000,"files":{')
+        assert doc["files"]["coin_meta.json"] == hashlib.sha256('{"binance":[{"name":"Ä"}]}'.encode()).hexdigest()
+        assert sorted(doc["files"]) == ["coin_meta.json", "fng.txt", "status.json"]
+        sig = base64.b64decode(open(os.path.join(out, SIGNATURE), "rb").read(), validate=True)
+        assert openssl_verify(raw, sig, pub) and not openssl_verify(raw + b" ", sig, pub)
+        # Not renewed: hash from the previous signed manifest; tampered or too old: nothing carried
+        os.remove(os.path.join(data, "fng.txt"))
+        assert build_manifest(data, out2, key, pub, out, now + 3_600_000) == "signed"
+        assert parse_manifest(open(os.path.join(out2, MANIFEST), "rb").read())["files"]["fng.txt"] == doc["files"]["fng.txt"]
+        assert previous_hashes(out, pub, now + MANIFEST_MAX_AGE_MILLIS) == {}
+        with open(os.path.join(out, MANIFEST), "ab") as f:
+            f.write(b" ")
+        assert previous_hashes(out, pub, now) == {}
+        # Without key or with a key that does not match the public key: manifest unsigned, no .sig
+        for k in ("", other, "not a key"):
+            out3 = os.path.join(d, "out3")
+            assert build_manifest(data, out3, k, pub, None, now) == "unsigned"
+            assert os.path.exists(os.path.join(out3, MANIFEST)) and not os.path.exists(os.path.join(out3, SIGNATURE))
+            os.remove(os.path.join(out3, MANIFEST))
+    assert parse_manifest(b'{"v":true,"created":1,"files":{}}') is None
+    assert parse_manifest(b'{"v":1,"created":1,"files":{"a/b":"' + b"0" * 64 + b'"}}') is None
+    assert parse_manifest(b'{"v":1,"created":1.5,"files":{}}') is None
+    assert base64.b64decode(PUBLIC_KEY)[:2] == b"\x30\x59"  # SubjectPublicKeyInfo of a P-256 key (91 bytes)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--output", required=True)
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--manifest", metavar="DIR", help="write manifest.json(.sig) for the files in --output to DIR")
+    ap.add_argument("--previous", metavar="DIR", help="previous manifest.json(.sig) for not renewed files")
     args = ap.parse_args()
+    if args.manifest:
+        build_manifest(args.output, args.manifest, os.environ.get("MIRROR_SIGNING_KEY", ""), previous_dir=args.previous)
+        return 0
     if args.selftest:
         assert wrap('{"a":1}', 5) == 'CCDM1 5\n{"a":1}'
         assert onchain_url(dt.date(2026, 10, 9)).endswith("&start_time=2025-08-05&page_size=1000")
         assert change90([1.0] * 90 + [2.0]) == 1.0 and change90([1.0] * 90) is None
         assert not any("coingecko" in url for _, url, _ in sources(dt.date(2026, 10, 9)))
         selftest_coin_meta()
+        selftest_manifest()
         print("selftest ok")
         return 0
     os.makedirs(args.output, exist_ok=True)

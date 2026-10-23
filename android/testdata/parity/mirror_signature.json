@@ -1,0 +1,227 @@
+{
+  "_comment": "Signed data mirror (MirrorManifest.kt / MirrorManifest.swift, mirror_data.py): signatures made with a TEST key pair (publicKey below), never with the real key. verify: manifest + signature (Base64 DER ECDSA P-256 SHA-256 over the exact UTF-8 bytes of manifest) -> ok / missing / invalid / too_old; a case may override publicKey. files: SHA-256 (hex) of the UTF-8 bytes of text against manifestFiles -> ok / hash_mismatch / not_listed.",
+  "productionPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEap5aFGMac2zZpTaPRry17dQxVQe+tG95C7aIo+cKd9gtm8em3ZZeLFpTD6yALgH0HTiZxN6p7Z7BHyDSFils6g==",
+  "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEeDRqPRnnYa7kL7/WKiiJf7X9rNiQfh6BJtdA+IWLznoSbaydF3eluPhJiCuaSkUSNYCAZLVjYsR6gmihJpmPSg==",
+  "now": 1792000000000,
+  "maxAgeMillis": 604800000,
+  "manifestFile": "manifest.json",
+  "signatureFile": "manifest.json.sig",
+  "verify": [
+    {
+      "name": "valid",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "MEYCIQDIbMV0SbdLgnGUD1nUFySQk9LUHlSs/GOVAnixynprpwIhALYWeyn6pHVYoQANrdj+ekk/4Yaz2vC91WouDqzvPR1p",
+      "expected": "ok",
+      "created": 1791996400000,
+      "fileCount": 3
+    },
+    {
+      "name": "signature with surrounding white space",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "\n MEYCIQDIbMV0SbdLgnGUD1nUFySQk9LUHlSs/GOVAnixynprpwIhALYWeyn6pHVYoQANrdj+ekk/4Yaz2vC91WouDqzvPR1p\n",
+      "expected": "ok"
+    },
+    {
+      "name": "signature missing",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": null,
+      "expected": "missing"
+    },
+    {
+      "name": "signature empty",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "  ",
+      "expected": "missing"
+    },
+    {
+      "name": "manifest missing",
+      "manifest": null,
+      "signature": "MEYCIQDIbMV0SbdLgnGUD1nUFySQk9LUHlSs/GOVAnixynprpwIhALYWeyn6pHVYoQANrdj+ekk/4Yaz2vC91WouDqzvPR1p",
+      "expected": "missing"
+    },
+    {
+      "name": "manifest empty",
+      "manifest": "",
+      "signature": "MEYCIQDIbMV0SbdLgnGUD1nUFySQk9LUHlSs/GOVAnixynprpwIhALYWeyn6pHVYoQANrdj+ekk/4Yaz2vC91WouDqzvPR1p",
+      "expected": "missing"
+    },
+    {
+      "name": "signature of another manifest",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "MEUCIDCHXGa301XL7+x5PYahi/hsScRZ7WvJPYHaww3ZeMxaAiEAyUpiGdoUd3VC8qw4j60LnRSC2YJ+7L2ZCHgj8MJIfFg=",
+      "expected": "invalid"
+    },
+    {
+      "name": "manifest changed after signing",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"b5c1fb2efc6d6b4674c2fdcc48ce01b43a3b7c03763c0c3355de0099ee0f8c73\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "MEYCIQDIbMV0SbdLgnGUD1nUFySQk9LUHlSs/GOVAnixynprpwIhALYWeyn6pHVYoQANrdj+ekk/4Yaz2vC91WouDqzvPR1p",
+      "expected": "invalid"
+    },
+    {
+      "name": "signature not Base64",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "!!YCIQDIbMV0SbdLgnGUD1nUFySQk9LUHlSs/GOVAnixynprpwIhALYWeyn6pHVYoQANrdj+ekk/4Yaz2vC91WouDqzvPR1p",
+      "expected": "invalid"
+    },
+    {
+      "name": "signature Base64 length not a multiple of 4",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "MEYCIQDIbMV0SbdLgnGUD1nUFySQk9LUHlSs/GOVAnixynprpwIhALYWeyn6pHVYoQANrdj+ekk/4Yaz2vC91WouDqzvPR1pA",
+      "expected": "invalid"
+    },
+    {
+      "name": "signature Base64 but no DER",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "AQIDBA==",
+      "expected": "invalid"
+    },
+    {
+      "name": "valid signature but other public key",
+      "manifest": "{\"created\":1791996400000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "MEYCIQDIbMV0SbdLgnGUD1nUFySQk9LUHlSs/GOVAnixynprpwIhALYWeyn6pHVYoQANrdj+ekk/4Yaz2vC91WouDqzvPR1p",
+      "expected": "invalid",
+      "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEap5aFGMac2zZpTaPRry17dQxVQe+tG95C7aIo+cKd9gtm8em3ZZeLFpTD6yALgH0HTiZxN6p7Z7BHyDSFils6g=="
+    },
+    {
+      "name": "created 8 days ago",
+      "manifest": "{\"created\":1791308800000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "MEUCIGJFzTqMW1e1MIzcSvtAnbniYHOyfTzVaFBrSIuvKvhiAiEAqPilZ1OWMTe5abn9ZnDrcNWFG1z0KkkJsrpxBCbzItE=",
+      "expected": "too_old"
+    },
+    {
+      "name": "created exactly 7 days ago",
+      "manifest": "{\"created\":1791395200000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "MEUCIDsQ5E1+IADim31nUmU9RJRzhgNYqnOTnm5ih7Sf3V51AiEA0/EWVNnM4K58IAw7CAbdtTqBh+A3+7N38UtkkGXejmE=",
+      "expected": "too_old"
+    },
+    {
+      "name": "created 7 days minus 1 ms ago",
+      "manifest": "{\"created\":1791395200001,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "MEQCIERV596gVX4s679DEdOWv5t07R20F7UmwrH6OdbshxhwAiBDgQ84RuFtPLUR5UHycRJyG1z/AYxlB2VJh4ezKRyPVw==",
+      "expected": "ok"
+    },
+    {
+      "name": "created 1 minute in the future (clock skew)",
+      "manifest": "{\"created\":1792000060000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "MEYCIQDXSJh896LSbJHCs9SpWhpaukAvW/3DNs6syZVP2d7ZyQIhANl/BMb3rbC0kzh3kOngudwPJrWl2xc+Hx2pFHii+eRW",
+      "expected": "ok"
+    },
+    {
+      "name": "created 10 minutes in the future",
+      "manifest": "{\"created\":1792000600000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
+      "signature": "MEYCIQDUFe4/BSagP/JUiCtbv5Z9kBfDgKKtxkRG6F6SLqKelQIhAMx+xgy6f6Kg17J5urjlxVv9HXxMrFWaKWnWDbvA+q6b",
+      "expected": "invalid"
+    },
+    {
+      "name": "signed but version 2",
+      "manifest": "{\"created\":1792000000000,\"files\":{},\"v\":2}",
+      "signature": "MEYCIQD1BfjmT9W9b0MEVE6pTxIs52QFQwSNXtSmPOgedZJxGwIhAM1HAjeMuwmSVuw9PSY0ehTiHoW3o934dgHxUpVPwC2e",
+      "expected": "invalid"
+    },
+    {
+      "name": "signed but version true",
+      "manifest": "{\"created\":1792000000000,\"files\":{},\"v\":true}",
+      "signature": "MEQCIEXdw39HjwK1GlB3tfGJaUIR1RiaE/mvjLUDMcFr0RWBAiA10SF5DOGPQVAsE5SXfeBbQG37C8HcnkOcSApXDaN+VQ==",
+      "expected": "invalid"
+    },
+    {
+      "name": "signed but created missing",
+      "manifest": "{\"files\":{},\"v\":1}",
+      "signature": "MEUCIDwY9etTXDaC5/QgLM8l3ytI17/u82+9VaFyLMqbTfS5AiEA7DrznTR49Ni9J4KbWCSVpcHeOcf58IYYabiIjqk+QGo=",
+      "expected": "invalid"
+    },
+    {
+      "name": "signed but created not whole",
+      "manifest": "{\"created\":1792000000000.5,\"files\":{},\"v\":1}",
+      "signature": "MEQCIF2ji/CtK1chyiklzwk2dixQgsppX5lPL2gSnqlExUHYAiBQvfUBVTz0TzWIMXAh8b2+s2tLsVkbUv7WNKWdrO8ruQ==",
+      "expected": "invalid"
+    },
+    {
+      "name": "signed but created zero",
+      "manifest": "{\"created\":0,\"files\":{},\"v\":1}",
+      "signature": "MEUCICXQfLKYBAb4Upw4VT17bdGeaA3XBTD7gnKKqnYRNL/IAiEAz0en9N/lRbG6od//TpIgunRyUTepDLAQ97GNAtL1U6k=",
+      "expected": "invalid"
+    },
+    {
+      "name": "signed but files not an object",
+      "manifest": "{\"created\":1792000000000,\"files\":[],\"v\":1}",
+      "signature": "MEUCIQDYi/Kv70tYrgo27KMyLu4dH192SjG67Wk+domhrjOtpQIgPxal8hrLE6EXzgHogI/frai4Lz3KOfpEpCbEydHu4UM=",
+      "expected": "invalid"
+    },
+    {
+      "name": "signed but hash upper case",
+      "manifest": "{\"created\":1792000000000,\"files\":{\"fng.txt\":\"77D820C2AE732601623B222CF3B802C8CF293E2FC3FAA2F0D03A0B8E7FF3896F\"},\"v\":1}",
+      "signature": "MEUCIAq9R2qKR/xKonRvs0Xl6hWoEXZWFxNT4kddS5vJGLSqAiEAzzHPfGyM8VpVOp00lN5/nc+Q8xQyN3wmTKRVNqgGTVE=",
+      "expected": "invalid"
+    },
+    {
+      "name": "signed but hash too short",
+      "manifest": "{\"created\":1792000000000,\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896\"},\"v\":1}",
+      "signature": "MEQCIAQwelRjLEhqxTeKtmwwrnxeYNbQrj5jlWcT2wxa9aFmAiAbGjPgKGedRmqDZ0gskqb/+NCYAlYkTD5pl86jMi0nYg==",
+      "expected": "invalid"
+    },
+    {
+      "name": "signed but file name with slash",
+      "manifest": "{\"created\":1792000000000,\"files\":{\"a/fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"v\":1}",
+      "signature": "MEQCIEBFGyPa3zzbpwxdaOtWhEB6FchdzQDOev7xBM5GLt+oAiBanaM/DCwjRbdjn5YsU5tpuRTFlLzOaGChRgLmEP3SUQ==",
+      "expected": "invalid"
+    },
+    {
+      "name": "signed but not JSON",
+      "manifest": "created=1792000000000",
+      "signature": "MEQCIF+NqvnAVHs0GuR9OadOwTadR1VwZSff0G67YxsPhNXQAiBbxUsOoVlmhEC/l/UZhcjjfgXa/ovzyjwHc2SkERNelg==",
+      "expected": "invalid"
+    },
+    {
+      "name": "signed but JSON array",
+      "manifest": "[1]",
+      "signature": "MEUCIQDoszYEfohjfhACZao69PVZpTBuva1jdziqGea7UI3+AgIgcKm31s1SjelHx1MQ3mRfgi2fhKtBuvws76di3LNI4tQ=",
+      "expected": "invalid"
+    },
+    {
+      "name": "signed with an unknown extra field",
+      "manifest": "{\"created\":1791999999000,\"extra\":\"later\",\"files\":{\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\"},\"v\":1}",
+      "signature": "MEUCIDS/gvMPj0xoSMAOkWoBu6TTwOHne0L84XP41ur6SWiNAiEAyed+wyvW8LKqz8JYYLxc+Wlp1PhtYfuEqxaktwIjnbE=",
+      "expected": "ok",
+      "created": 1791999999000,
+      "fileCount": 1
+    }
+  ],
+  "manifestFiles": {
+    "fng.txt": "77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f",
+    "coin_meta.json": "546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9",
+    "status.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+  },
+  "files": [
+    {
+      "name": "listed and same bytes",
+      "file": "fng.txt",
+      "text": "CCDM1 1791999000000\n{\"data\":[{\"value\":\"40\"}]}",
+      "expected": "ok"
+    },
+    {
+      "name": "UTF-8 hashed as bytes",
+      "file": "coin_meta.json",
+      "text": "{\"v\":1,\"generated\":1791999000000,\"binance\":[{\"name\":\"BTC\",\"fullName\":\"Bitcoin Ä €\"}],\"alpha\":[]}",
+      "expected": "ok"
+    },
+    {
+      "name": "listed but changed",
+      "file": "fng.txt",
+      "text": "CCDM1 1791999000000\n{\"data\":[{\"value\":\"41\"}]}",
+      "expected": "hash_mismatch"
+    },
+    {
+      "name": "trailing new line changes the hash",
+      "file": "fng.txt",
+      "text": "CCDM1 1791999000000\n{\"data\":[{\"value\":\"40\"}]}\n",
+      "expected": "hash_mismatch"
+    },
+    {
+      "name": "not listed",
+      "file": "onchain.txt",
+      "text": "CCDM1 1791999000000\n{\"data\":[{\"value\":\"40\"}]}",
+      "expected": "not_listed"
+    }
+  ]
+}

@@ -32,3 +32,13 @@ android {
 }
 
 // Kotlin ist ab AGP 9 eingebaut; jvmTarget folgt compileOptions (Java 17).
+
+dependencies {
+    // Unit-Tests der reinen Logik (src/test; ohne org.json, das läuft gegen die Android-Stubs)
+    testImplementation(libs.junit)
+}
+
+// Testabdeckung nur auf Anfrage (CI-Schritt «Coverage»: -Pcoverage=true), sonst laufen die Tests ohne Instrumentierung
+if (providers.gradleProperty("coverage").orNull == "true") {
+    apply(plugin = libs.plugins.kover.get().pluginId)
+}

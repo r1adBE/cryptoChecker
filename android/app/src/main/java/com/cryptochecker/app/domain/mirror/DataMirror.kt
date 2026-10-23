@@ -7,7 +7,8 @@ package com.cryptochecker.app.domain.mirror
  * (`.github/workflows/market-data.yml`, `.github/scripts/mirror_data.py`) holt sie stündlich und legt sie als Anhänge der Release «data»
  * ab. [com.cryptochecker.app.data.remote.callMarket] fragt für diese Adressen zuerst den Spiegel
  * und nur, wenn er fehlt oder zu alt ist, den Anbieter selbst — so fragen nicht alle Handys
- * einzeln. Gleich in iOS `DataMirror.swift`, gemeinsame Testfälle `data_mirror.json`.
+ * einzeln. Jede Spiegel-Datei gilt nur mit gültig signiertem Manifest ([MirrorManifest]). Gleich in iOS
+ * `DataMirror.swift`, gemeinsame Testfälle `data_mirror.json`.
  *
  * Datei: erste Zeile «CCDM1 <Abrufzeit in ms>», danach die Antwort des Anbieters unverändert.
  */
