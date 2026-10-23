@@ -6,9 +6,9 @@ comma-separated alternatives, the first existing file is read: the XML report (l
 report (lint-results-*.txt). Findings of several reports (debug, release, marketdata) are counted once per
 (id, file, line, message).
 
-With --details a second notice lists every warning as «id  file:line  message» (paths shortened to the part
-after «android/», messages cut to 100 characters, at most 60 000 characters), so the findings can be read from the
-check annotations without downloading the report.
+With --details further notices (at most 9, each under GitHub's 4096-character cut) list the findings grouped by id
+(with one sample message) and file (with all line numbers), so they can be read from the check annotations without
+downloading the report.
 
 Usage: python3 -I lint_warnings.py --report A.xml,A.txt [--report B.xml,B.txt ...] [--details]
        python3 -I lint_warnings.py --self-test
@@ -79,27 +79,46 @@ def summary(items):
     return head, lines
 
 
-DETAILS_MAX = 60000
+NOTICE_MAX = 3900  # GitHub cuts annotation messages at 4096 characters
+NOTICES_MAX = 9  # at most 10 notice annotations per step, one is the summary
 
 
 def short_path(path):
     path = path.replace("\\", "/")
     marker = "/android/"
-    return path.split(marker, 1)[1] if marker in path else path
+    path = path.split(marker, 1)[1] if marker in path else path
+    return path.replace("app/src/main/java/com/cryptochecker/app/", "~/").replace("app/src/main/res/", "res/")
 
 
 def details(items):
+    """Rows «id: sample message» followed by «  file:line,line» per file, grouped by id and file."""
+    by_id = collections.defaultdict(lambda: collections.defaultdict(set))
+    sample = {}
+    for issue_id, file, line, msg in sorted(items):
+        by_id[issue_id][short_path(file)].add(int(line) if line.isdigit() else 0)
+        sample.setdefault(issue_id, msg[:90])
     rows = []
-    for issue_id, file, line, msg in sorted(items, key=lambda i: (i[0], short_path(i[1]), int(i[2] or 0))):
-        where = short_path(file) + (f":{line}" if line else "")
-        rows.append(f"{issue_id}  {where}  {msg[:100]}")
-    out, size = [], 0
+    for issue_id in sorted(by_id, key=lambda i: (-sum(len(v) for v in by_id[i].values()), i)):
+        rows.append(f"{issue_id}: {sample[issue_id]}")
+        for file in sorted(by_id[issue_id]):
+            lines = ",".join(str(n) for n in sorted(by_id[issue_id][file]) if n)
+            rows.append(f"  {file}" + (f":{lines}" if lines else ""))
+    return rows
+
+
+def chunks(rows):
+    out, cur, size = [], [], 0
     for row in rows:
-        if size + len(row) + 1 > DETAILS_MAX:
-            out.append(f"... {len(rows) - len(out)} more")
-            break
-        out.append(row)
+        if cur and size + len(row) + 1 > NOTICE_MAX:
+            out.append(cur)
+            cur, size = [], 0
+        cur.append(row[:NOTICE_MAX])
         size += len(row) + 1
+    if cur:
+        out.append(cur)
+    if len(out) > NOTICES_MAX:
+        out = out[:NOTICES_MAX]
+        out[-1].append("... (cut, more findings in the report)")
     return out
 
 
@@ -119,8 +138,12 @@ def self_test():
         # A twice from XML, A line 1 again from text (same message: counted once), B once
         assert head.startswith("3 lint warnings in 2 ids"), head
         assert lines[0].split() == ["2", "A"] and lines[1].split() == ["1", "B"], lines
-        rows = details({("A", "/w/r/android/app/F.kt", "12", "m" * 150)})
-        assert rows == ["A  app/F.kt:12  " + "m" * 100], rows
+        rows = details({("A", "/w/r/android/app/src/main/res/values/s.xml", "12", "m" * 150),
+                        ("A", "/w/r/android/app/src/main/res/values/s.xml", "3", "x"), ("B", "/w/G.kt", "", "b")})
+        assert rows[1] == "  res/values/s.xml:3,12" and rows[2] == "B: b" and rows[3] == "  /w/G.kt", rows
+        assert rows[0] == "A: " + "m" * 90, rows
+        parts = chunks(["r" * 3000] * 30)
+        assert len(parts) == NOTICES_MAX and parts[-1][-1].startswith("..."), len(parts)
     print("lint_warnings self-test ok")
     return 0
 
@@ -143,7 +166,9 @@ def main():
     if items:
         print(f"::notice title=Lint warnings::{escape(head + chr(10) + chr(10).join(lines))}")
         if args.details:
-            print(f"::notice title=Lint warning details::{escape(chr(10).join(details(items)))}")
+            parts = chunks(details(items))
+            for n, part in enumerate(parts, 1):
+                print(f"::notice title=Lint warning details {n}/{len(parts)}::{escape(chr(10).join(part))}")
     return 0
 
 

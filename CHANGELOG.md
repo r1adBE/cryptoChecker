@@ -20,7 +20,8 @@ Detailed build history below.
 * Code comments describe the code as it is now: build-number history removed from comments in about 820 files (audit F-21); compatibility notes for older versions kept without numbers.
 * iOS: own text for the local network prompt (own address server in the home network), in all 31 languages.
 * Portfolio widget: the display hint now correctly says the USDT line is hidden for a USD stablecoin (e.g. USDC), not for USD.
-* CI: lint warnings additionally listed per finding (file, line, message) in the check annotations.
+* Supply chain active: Gradle dependency checksums (`gradle/verification-metadata.xml`) and lock files from the «Supply chain update» workflow; every build now verifies each dependency.
+* CI: lint warnings additionally listed per finding (grouped by id and file, with line numbers) in the check annotations.
 * Repository: a stray CI output line at the end of `docs/privacy/index.html` (published with build 109, after `</html>`) removed; the page is again identical to `android/docs/privacy/index.html`.
 
 ## 16.2.2 (build 109)
