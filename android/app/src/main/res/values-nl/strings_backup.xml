@@ -70,7 +70,7 @@
     <string name="storage_recovery_restored_title">Opgeslagen gegevens weer ontgrendeld</string>
     <string name="storage_recovery_restored_message">Een eerdere sleutel op dit apparaat opende de apart gezette gegevens weer, dus ze zijn terug. Wat in de tussentijd is opgeslagen, staat ongewijzigd ernaast.</string>
     <string name="settings_reset_notice_title">Instellingen teruggezet</string>
-    <string name="settings_reset_notice">De instellingen konden niet worden gelezen en zijn teruggezet naar de standaardwaarden. Controleer de portfolio-vergrendeling, het interval van de alarmen en de valuta.</string>
+    <string name="settings_reset_notice">De instellingen konden niet worden gelezen en zijn teruggezet naar de standaardwaarden. Controleer de Portfolio-vergrendeling, het interval van de alarmen en de valuta.</string>
     <string name="backup_restore_interrupted_title">Terugzetten is onderbroken</string>
     <string name="backup_restore_interrupted_rolled_back">De app werd gesloten tijdens het terugzetten van een back-up. Je vorige gegevens zijn teruggezet; er is niets uit de back-up behouden.</string>
     <string name="backup_restore_interrupted_incomplete">De app werd gesloten tijdens het terugzetten van een back-up en de vorige gegevens konden niet volledig worden teruggezet. Controleer je volglijst en portfolio, of zet de back-up opnieuw terug onder ‘%1$s’ in Instellingen.</string>

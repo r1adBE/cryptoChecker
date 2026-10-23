@@ -43,6 +43,24 @@ final class BackupSettingsTextsTests: XCTestCase {
         }
     }
 
+    /// Hinweise nach dem Wiederherstellen nennen Sperre bzw. eigenen Server wie die Einstellung (wie Android).
+    func testRestoreHintsNameSettingsInAllLanguages() throws {
+        let texts = try catalog()
+        let pairs = [("backup_restore_app_lock_kept", "settings_portfolio_lock"),
+                     ("backup_restore_server_kept", "settings_address_server_title"),
+                     ("backup_restore_server_public", "settings_address_server_title"),
+                     ("backup_restore_server_changed", "settings_address_server_title")]
+        for (hintKey, labelKey) in pairs {
+            let hints = try XCTUnwrap(texts[hintKey], "\(hintKey) fehlt")
+            XCTAssertEqual(hints.count, 31, hintKey)
+            for (language, hint) in hints {
+                let label = try XCTUnwrap(texts[labelKey]?[language], "\(language): \(labelKey) fehlt")
+                XCTAssertTrue(hint.lowercased().contains(label.lowercased()),
+                              "\(language): \(hintKey) nennt «\(label)» nicht wörtlich")
+            }
+        }
+    }
+
     @MainActor
     func testFontScaleFollowsContentSize() {
         XCTAssertEqual(BackupSettingsPage.fontScale(.large), 1, accuracy: 0.001)

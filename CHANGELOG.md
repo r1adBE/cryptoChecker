@@ -21,7 +21,7 @@ Fixes from the tenth review round (on build 113):
 
 * Watched addresses: a refresh result is discarded when «count tokens» was turned on or a network was added while it ran (compared with the settings the refresh used, instead of a reset marker); the address is then loaded again. Turning something off keeps the result (it is filtered). iOS refreshes after every network change, like Android.
 * iOS: the backup/restore result dialog appears shortly after a confirmation or file picker has finished closing and is checked again before showing; a result that arrives while a dialog is open follows after it. New UI test for the restore result dialog.
-* Restore hints name the own server exactly like the setting («Own server for addresses»); Dutch lock hint matches the setting name. Tests check this in all 31 languages, plus an iOS test for the warning.
+* Restore hints name the own server exactly like the setting («Own server for addresses»); Dutch uses «Portfolio-vergrendeling» everywhere. Tests check this in all 31 languages on both platforms.
 * CI: the weekly exchange check also tests One Trading's all-tickers endpoint (the single-ticker endpoint answers HTTP 500 since 21 October).
 * Android: the address balance write rule is tested against a real Room database.
 

@@ -64959,7 +64959,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portfoliovergrendeling uitzetten"
+            "value" : "Portfolio-vergrendeling uitzetten"
           }
         },
         "pl" : {
@@ -65341,7 +65341,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Portfoliovergrendeling uitzetten?"
+            "value" : "Portfolio-vergrendeling uitzetten?"
           }
         },
         "pl" : {
@@ -313824,7 +313824,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De instellingen konden niet worden gelezen en zijn teruggezet naar de standaardwaarden. Controleer de portfolio-vergrendeling, het interval van de alarmen en de valuta."
+            "value" : "De instellingen konden niet worden gelezen en zijn teruggezet naar de standaardwaarden. Controleer de Portfolio-vergrendeling, het interval van de alarmen en de valuta."
           }
         },
         "pl" : {
