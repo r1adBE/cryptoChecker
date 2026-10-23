@@ -23,6 +23,8 @@ enum SingleTickerFallback {
             try market.readTickerFallback(call: call, body: body, ticker: &draft, info: info)
         } catch {
             if error is CancellationError || Task.isCancelled { throw error }
+            // Bremst die Börse den Ausweg (429/418), gilt die Bremse: sonst fragt die App ohne Pause weiter an
+            if let http = error as? HttpMarketError, ExchangeBackoff.isRateLimitCode(http.httpCode) { throw error }
             HttpLog.add("Ausweg des Einzelkurses ohne Kurs (\(market.key)): \(error.localizedDescription)")
             throw serverError
         }

@@ -15,12 +15,22 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 116)
+
+Fixes from the twelfth review round (on build 115):
+
+* CI: pull requests always run the Android, iOS, Strings and Parity workflows (no paths filter there any more), so these jobs can be required checks without blocking documentation-only pull requests; pushes to main keep the paths filter.
+* iOS CI: environment-dependent skips of the background run tests (quiet hours of the test app, «not enough time left» on a slow runner) are reported but no longer fail main; the in-memory test keychain is only used when the test host lacks the keychain entitlement (never when a real keychain is merely locked).
+* One Trading: a rate limit (429/418) of the all-tickers fallback is passed on, so the exchange pause applies instead of the app asking again (both platforms).
+* Release checklists name all seven tag workflows, including the dependency vulnerability check.
+
 ## 16.2.2 (build 115)
 
 Quality towards a review score of 9:
 
 * iOS: all 94 compiler warnings of the Release build fixed (Swift strict concurrency: restated Sendable conformances, main-actor isolation of gestures and view helpers, async-safe locking, Live Activity calls without crossing actors); the warning ceiling drops from 94 to 0, so every new warning fails the build. The CI lists every warning in its annotations.
-* iOS: the watchlist lock and background run tests no longer need the real keychain (the lock test also waits for pending writes of the previous step before loading its data) (in-memory test keychain only when the real one is unavailable) and therefore run in every CI build; skipping them on main counts as failure.
+* iOS: the watchlist lock and background run tests no longer need the real keychain (an in-memory test keychain is used only when the real one is unavailable; the lock test also waits for pending writes of the previous step) and therefore run in every CI build; skipping them on main counts as failure.
+* Dutch: the remaining three texts use «Portfolio-vergrendeling».
 * iOS: second UI test – the result dialog after creating a backup (forced «could not be verified») appears and closes.
 * One Trading: when the single-ticker endpoint answers with a server error (5xx), the price is read from the all-tickers endpoint (both platforms); a pair missing there keeps the original error and is never marked as delisted.
 * CI: unique job names (Android build, iOS build, Strings check, Parity check, Release readiness check) so they can be required checks.
