@@ -2263,7 +2263,7 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
-* Build 115: iOS warning ceiling 1 (`MAX_COMPILER_WARNINGS`, `warning_details`), `HostStorageKey` / `StorageKey.replaceKeychainForTesting`,
+* Build 115: iOS warning ceiling 0 (`MAX_COMPILER_WARNINGS`, `warning_details`), `HostStorageKey` / `StorageKey.replaceKeychainForTesting`,
   `UITEST_FAIL_VERIFY`, `tickerFallbackAddress` / `SingleTickerFallback` (One Trading), job names for required checks.
 * Build 114: `AddressBalance.discardFetched` (+ `Update.snapshotCountTokens/snapshotNetworks`, replaces `resetDuringFetch`/`snapshotAttempt`),
   `WatchedAddressBalanceWriter`, iOS `presentDelayNanos` / `UITEST_BACKUP`, `BackupSettingsTextsTests`, exchange check `onetradingbulk`.

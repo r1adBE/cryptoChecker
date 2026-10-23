@@ -51,10 +51,9 @@ SIGNING = re.compile(r"(development team|code ?sign|signing|provisioning profile
                      r"No Accounts|requires a provisioning)", re.IGNORECASE)
 COMPILE_ERROR = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? error: (.*)$")
 WARNING = re.compile(r"^(/[^:]+):(\d+):(?:\d+:)? warning: (.*)$")
-# Ceiling for unique compiler warnings of the Release build (was 94; the known ones are fixed). 1 = margin for the one
-# warning the shortened CI annotations did not show (not identifiable without the full log). Above it -> error, so new
-# warnings are fixed instead of piling up; set it to 0 once a Release build reports 0.
-MAX_COMPILER_WARNINGS = 1
+# Ceiling for unique compiler warnings of the Release build: 0 (was 94 until build 115). Any new warning -> error, so it
+# is fixed right away; the annotations list every warning.
+MAX_COMPILER_WARNINGS = 0
 
 # Required Reason APIs (Apple, «Describing use of required reason API»), as they appear in Swift: category -> patterns.
 # Comments are removed before the scan, so a comment naming an API does not count (string-aware:
