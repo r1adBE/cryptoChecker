@@ -181,10 +181,15 @@ enum AddressBalance {
         return elapsed >= (force ? minForcedMillis : cacheMillis)
     }
 
-    /// Während des Abrufs vom Nutzer fällig gemacht («Tokens mitzählen» an, neues EVM-Netz: lastAttempt 0), der Abzug
-    /// war schon versucht: Ergebnis verwerfen — es gilt der alten Einstellung, die Adresse bleibt fällig. Wie Android.
-    static func resetDuringFetch(currentAttempt: Int64, snapshotAttempt: Int64) -> Bool {
-        currentAttempt == 0 && snapshotAttempt != 0
+    /// Abruf verwerfen, weil der Nutzer währenddessen etwas dazugenommen hat, das der Abruf (Einstellungen des Abzugs)
+    /// nicht fragte: «Tokens mitzählen» an oder ein EVM-Netz neu gewählt. Netze wie die Abfrage: nil = alle — aus nil
+    /// wird nie etwas neu, nil nach einer Liste ohne alle Netze schon. Weniger (abgewählt, Tokens aus) verwirft nicht,
+    /// `WatchedAddressRules.applyFetched` übernimmt nur, was noch zählt. Verworfen bleibt die Adresse fällig. Wie Android.
+    static func discardFetched(countTokens: Bool, networks: [String]?,
+                               snapshotCountTokens: Bool, snapshotNetworks: [String]?) -> Bool {
+        if countTokens && !snapshotCountTokens { return true }
+        guard let snapshotNetworks else { return false }
+        return (networks ?? ChainAssets.evm.map(\.id)).contains { !snapshotNetworks.contains($0) }
     }
 
     /// Anbieter für die Herkunftsangabe: «mempool.space», «publicnode.com», «llamarpc.com».

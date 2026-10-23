@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
-    <string name="backup_restore_server_kept">Serveri yt Bitcoin nuk u rikthye – një kopje e paenkriptuar nuk mund ta ndryshojë.</string>
+    <string name="backup_restore_server_kept">«Server i yti për adresat» nuk u rikthye – një kopje e paenkriptuar nuk mund ta ndryshojë.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
-    <string name="backup_restore_server_public">Serveri yt Bitcoin u hoq si në kopje – adresat Bitcoin pyeten sërish te nyje publike.</string>
+    <string name="backup_restore_server_public">«Server i yti për adresat» u hoq si në kopje – adresat Bitcoin pyeten sërish te nyje publike.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
-    <string name="backup_restore_server_changed">Serveri yt Bitcoin u zëvendësua me atë nga kopja.</string>
+    <string name="backup_restore_server_changed">«Server i yti për adresat» u zëvendësua me atë nga kopja.</string>
     <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
     <plurals name="portfolio_address_unknown_tokens">
         <item quantity="one">+%1$d token i panjohur (i pallogaritur)</item>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
-    <string name="backup_restore_server_kept">अपना Bitcoin सर्वर बहाल नहीं हुआ – बिना एन्क्रिप्शन वाला बैकअप इसे बदल नहीं सकता।</string>
+    <string name="backup_restore_server_kept">“पतों के लिए अपना सर्वर” बहाल नहीं हुआ – बिना एन्क्रिप्शन वाला बैकअप इसे बदल नहीं सकता।</string>
     <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
-    <string name="backup_restore_server_public">अपना Bitcoin सर्वर बैकअप की तरह हटाया गया – Bitcoin पते फिर से सार्वजनिक नोड्स से पूछे जाते हैं।</string>
+    <string name="backup_restore_server_public">“पतों के लिए अपना सर्वर” बैकअप की तरह हटाया गया – Bitcoin पते फिर से सार्वजनिक नोड्स से पूछे जाते हैं।</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
-    <string name="backup_restore_server_changed">अपना Bitcoin सर्वर बैकअप वाले सर्वर से बदला गया।</string>
+    <string name="backup_restore_server_changed">“पतों के लिए अपना सर्वर” बैकअप वाले सर्वर से बदला गया।</string>
     <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
     <plurals name="portfolio_address_unknown_tokens">
         <item quantity="one">+%1$d अज्ञात टोकन (गिना नहीं गया)</item>

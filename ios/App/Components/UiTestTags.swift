@@ -12,6 +12,8 @@ enum UiTestTags {
     static let csvEnvironment = "UITEST_CSV"
     /// Umgebung «1»: Sicherungsdatei des vorigen Starts behalten (Sichern → Neustart → Wiederherstellen).
     static let keepBackupEnvironment = "UITEST_KEEP_BACKUP"
+    /// Umgebung: Text der Sicherungsdatei, die «Wiederherstellen» statt der Dateiauswahl bekommt.
+    static let backupEnvironment = "UITEST_BACKUP"
 
     // MARK: Tableiste
     static let tabWatchlist = "tab_watchlist"

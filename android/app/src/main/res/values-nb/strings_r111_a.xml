@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
-    <string name="backup_restore_server_kept">Egen Bitcoin-server ikke overtatt – en ukryptert sikkerhetskopi kan ikke endre den.</string>
+    <string name="backup_restore_server_kept">«Egen server for adresser» ble ikke overtatt – en ukryptert sikkerhetskopi kan ikke endre den.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
-    <string name="backup_restore_server_public">Egen Bitcoin-server fjernet som i sikkerhetskopien – Bitcoin-adresser spørres igjen hos offentlige noder.</string>
+    <string name="backup_restore_server_public">«Egen server for adresser» ble fjernet som i sikkerhetskopien – Bitcoin-adresser spørres igjen hos offentlige noder.</string>
     <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
-    <string name="backup_restore_server_changed">Egen Bitcoin-server erstattet med den fra sikkerhetskopien.</string>
+    <string name="backup_restore_server_changed">«Egen server for adresser» ble erstattet med den fra sikkerhetskopien.</string>
     <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
     <plurals name="portfolio_address_unknown_tokens">
         <item quantity="one">+%1$d ukjent token (ikke regnet med)</item>

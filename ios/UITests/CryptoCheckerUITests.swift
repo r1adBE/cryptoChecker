@@ -7,6 +7,8 @@ import XCTest
 ///  3. CSV-Import: Datei → Vorschau → Importieren → Positionen sichtbar; «Importe › Rückgängig» entfernt sie.
 ///  4. Sichern: mit Passwort sichern → Neustart mit leerem Speicher → falsches Passwort abgelehnt →
 ///     richtiges stellt Merkliste und Portfolio wieder her.
+///  5. Ergebnis als Dialog (nur iOS): Sicherung ohne Passwort mit eigenem Bitcoin-Server → Rückfrage → Ergebnis mit
+///     Hinweis erscheint als Dialog, nachdem die Rückfrage zu ist.
 ///
 /// Jeder Start beginnt mit leerem Speicher und festen Börsen-Antworten (Startargument `-uiTesting`, nur im
 /// Debug-Build, siehe `UITesting` in der App); die Dateiauswahl ersetzen Testdateien. Kein Netz.
@@ -16,6 +18,13 @@ final class CryptoCheckerUITests: XCTestCase {
     private static let alarmThreshold = "200000"
     private static let testPassphrase = "Kiwi-Harbor-4821!"
     private static let wrongPassphrase = "Lemon-Valley-9034?"
+    /// Sicherung ohne Passwort: ein Paar und ein eigener Bitcoin-Server, den sie nicht setzen darf (Hinweis «nicht
+    /// übernommen» → Ergebnis als Dialog, `BackupResultPresentation`).
+    private static let serverNoteBackup = """
+        {"format":"cryptochecker-backup","version":1,"createdAt":0,\
+        "watches":[{"id":1,"marketKey":"Binance","marketName":"Binance","baseAsset":"BTC","quoteAsset":"USDT",\
+        "pairId":"BTCUSDT","sortOrder":0}],"alarms":[],"settings":{"addressServerBtc":"https://node.example.org"}}
+        """
 
     override func setUpWithError() throws {
         continueAfterFailure = false
@@ -124,6 +133,35 @@ final class CryptoCheckerUITests: XCTestCase {
         tap(app, UiTestTags.tabPortfolio)
         XCTAssertTrue(app.tagged(UiTestTags.portfolioCoin("BTC")).waitForExistence(timeout: uiTimeout), "portfolio not restored")
         XCTAssertTrue(app.tagged(UiTestTags.portfolioCoin("ETH")).exists)
+    }
+
+    // MARK: 5. Ergebnis als Dialog
+
+    /// iOS zeigt keinen Dialog, solange die Rückfrage noch zugeht: das Ergebnis wartet darauf und muss trotzdem
+    /// erscheinen. Danach würde die App nach Mitteilungen fragen (Paar eingespielt) — nicht prüfbar, weil die
+    /// Erlaubnis auf dem Simulator meist schon aus einem früheren Test geklärt ist; geprüft wird nur, dass die
+    /// Erklärung nicht über dem offenen Dialog liegt.
+    @MainActor
+    func testRestoreResultDialogAfterConfirmation() throws {
+        let app = launchApp(backup: Self.serverNoteBackup)
+        openBackupPage(app)
+        tap(app, UiTestTags.backupImport)
+        tapConfirmation(app, UiTestTags.backupRestoreConfirm, label: "Import")
+
+        // Titel «Backup & restore»; Text mit dem Hinweis zur Sicherung ohne Passwort
+        let dialog = app.alerts.containing(NSPredicate(format: "label == %@", "Backup & restore")).firstMatch
+        XCTAssertTrue(dialog.waitForExistence(timeout: 5), "restore result dialog not shown")
+        let note = dialog.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "unencrypted backup")).firstMatch
+        XCTAssertTrue(note.exists, "server note missing in the result dialog")
+        XCTAssertFalse(app.tagged(UiTestTags.notificationPrepromptContinue).exists, "notification explanation over the result")
+
+        let close = dialog.buttons["Close"]
+        XCTAssertTrue(close.exists, "close button missing")
+        close.tap()
+        XCTAssertTrue(wait(dialog, "exists == false", timeout: uiTimeout), "result dialog not closed")
+        allowNotificationsIfAsked(timeout: 6)
+        tap(app, UiTestTags.tabWatchlist)
+        XCTAssertTrue(app.tagged(UiTestTags.watchRow).waitForExistence(timeout: uiTimeout), "pair not restored")
     }
 
     // MARK: Gemeinsame Schritte

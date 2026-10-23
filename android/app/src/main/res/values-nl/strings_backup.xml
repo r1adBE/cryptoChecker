@@ -36,7 +36,7 @@
     <string name="backup_plain_contents_addresses">Opgeslagen walletadressen en xpub-sleutels met saldogeschiedenis en aankoopwaarde</string>
     <string name="backup_plain_contents_base">Volglijst met notities, groepen en bezit, alarmen, favorieten en instellingen</string>
     <string name="backup_plain_contents_portfolio">Portfolio: transacties met hoeveelheden en prijzen</string>
-    <string name="backup_restore_app_lock_kept">De portfoliovergrendeling blijft aan – een onversleutelde back-up kan hem niet uitzetten.</string>
+    <string name="backup_restore_app_lock_kept">De Portfolio-vergrendeling blijft aan – een onversleutelde back-up kan hem niet uitzetten.</string>
     <string name="backup_restore_confirm">Importeren vervangt je lijst (met notities en groepen), alarmen, favorieten, portfolio en instellingen door de back-up.</string>
     <plurals name="backup_restore_invalid">
         <item quantity="one">%d item in de back-up (portfolio of alarm) is ongeldig en wordt niet geïmporteerd.</item>

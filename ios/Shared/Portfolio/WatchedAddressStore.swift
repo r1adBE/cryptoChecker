@@ -113,12 +113,14 @@ enum WatchedAddressStore {
     }
 
     /// Ergebnis eines Abrufs übernehmen: Erfolg setzt Guthaben, Zeit und Anbieter und löscht den Fehler;
-    /// ein Fehler lässt das letzte Guthaben stehen. Wie `WatchedAddressDao.saveBalance` / `saveError`. Inzwischen vom
-    /// Nutzer fällig gemacht (`AddressBalance.resetDuringFetch`): verwerfen, die Adresse bleibt fällig (wie Android).
+    /// ein Fehler lässt das letzte Guthaben stehen. Wie `WatchedAddressBalanceWriter` (Android). Während des Abrufs
+    /// etwas dazugenommen (`AddressBalance.discardFetched`): verwerfen, die Adresse bleibt fällig.
     static func apply(_ update: WatchedAddressSource.Update, to file: inout WatchedAddressFile) {
         guard let i = file.addresses.firstIndex(where: { $0.id == update.id }) else { return }
-        if AddressBalance.resetDuringFetch(currentAttempt: file.addresses[i].lastAttempt,
-                                           snapshotAttempt: update.snapshotAttempt) { return }
+        let current = file.addresses[i]
+        if AddressBalance.discardFetched(countTokens: current.countTokens, networks: current.networks,
+                                         snapshotCountTokens: update.snapshotCountTokens,
+                                         snapshotNetworks: update.snapshotNetworks) { return }
         if let fetched = update.fetched {
             // Guthaben, Beobachtungen (nur bei geändertem Guthaben), Token und xpub-Zwischenspeicher — wie Android
             file.addresses[i] = WatchedAddressRules.applyFetched(file.addresses[i], time: update.time,

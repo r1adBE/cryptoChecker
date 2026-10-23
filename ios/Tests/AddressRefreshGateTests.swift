@@ -6,8 +6,9 @@ private let gateTestXpub =
 
 /// Single-Flight der Adress-Aktualisierung (`AddressRefreshGate`): zwei gleichzeitige Vordergrund-Aufrufe laden jede
 /// Adresse genau einmal (auch xpub); der Hintergrund kehrt sofort zurück, wenn schon eine Runde läuft. Während einer
-/// Runde vom Nutzer fällig gemacht («Tokens mitzählen» an): Ergebnis verworfen, der Wartende lädt neu. Abbruch des
-/// Startenden gibt das Gate frei. Gegenstück: `WatchedAddressSingleFlightTest.kt`.
+/// Runde etwas dazugenommen («Tokens mitzählen» an, weiteres Netz — auch wenn der Abzug noch nie versucht war):
+/// Ergebnis verworfen, der Wartende lädt neu. Abbruch des Startenden gibt das Gate frei.
+/// Gegenstück: `WatchedAddressSingleFlightTest.kt`.
 @MainActor
 final class AddressRefreshGateTests: XCTestCase {
     /// Fake-Loader mit Zähler je Adresse über der echten Datei (`WatchedAddressStore.apply`); eine Runde wartet auf
@@ -19,6 +20,8 @@ final class AddressRefreshGateTests: XCTestCase {
         var loads: [Int64: Int] = [:]
         /// «Tokens mitzählen» der Adresse 3 je Abruf.
         var ethCountTokens: [Bool] = []
+        /// Gewählte Netze je Abruf der Adresse 4 (nur in Tests, die sie anlegen).
+        var netsOf4: [[String]?] = []
         var rounds = 0
         var started = false
         var released = false
@@ -42,13 +45,15 @@ final class AddressRefreshGateTests: XCTestCase {
             let due = AddressBalance.dueOrder(stored, now: now, force: false, background: false)
             for a in due { loads[a.id, default: 0] += 1 }
             ethCountTokens += due.filter { $0.id == 3 }.map(\.countTokens)
+            netsOf4 += due.filter { $0.id == 4 }.map(\.networks)
             started = true
             while !released && !Task.isCancelled { await Task.yield() }
             if Task.isCancelled { return }
             for a in due {
                 let fetched = WatchedAddressSource.Fetched(balance: "1", provider: "test")
                 let update = WatchedAddressSource.Update(id: a.id, time: now, fetched: fetched, error: nil,
-                                                         snapshotAttempt: a.lastAttempt)
+                                                         snapshotCountTokens: a.countTokens,
+                                                         snapshotNetworks: a.networks)
                 WatchedAddressStore.apply(update, to: &file)
             }
         }
@@ -115,6 +120,59 @@ final class AddressRefreshGateTests: XCTestCase {
         XCTAssertEqual(store.ethCountTokens, [false, true])
         XCTAssertEqual(store.stored[2].lastAttempt, store.now)
         XCTAssertFalse(gate.isRunning)
+    }
+
+    /// Gemeinsamer Ablauf: Runde 1 starten, `change` währenddessen, Wartenden starten, beide beenden.
+    private func runWithChangeDuringRound(_ store: FakeStore, _ change: (inout WatchedAddressFile) -> Void) async {
+        let gate = AddressRefreshGate()
+        let first = start(gate, store)
+        await waitFor { store.started }
+        change(&store.file)
+        let second = start(gate, store)
+        await waitFor { gate.waiting == 1 }
+        store.released = true
+        _ = await first.value
+        _ = await second.value
+        XCTAssertFalse(gate.isRunning)
+    }
+
+    private func netsChange(_ nets: [String]) -> (inout WatchedAddressFile) -> Void {
+        { file in WatchedAddressStore.change(id: 4, in: &file) { WatchedAddressRules.withNetworks($0, nets) } }
+    }
+
+    /// Netz A angetippt (fällig, Runde 1 lädt mit A), während Runde 1 Netz B: B wird gleich geladen.
+    func testZweitesNetzWaehrendRundeWirdGeladen() async {
+        let store = FakeStore()
+        let evm = WatchedAddress(id: 4, chain: .ETH, address: "0x0000000000000000000000000000000000000004",
+                                 lastAttempt: store.now - 3_600_000, networks: ["BSC"])
+        store.file.addresses.append(WatchedAddressRules.withNetworks(evm, ["BSC", "POLYGON"]))
+        XCTAssertEqual(store.stored[3].lastAttempt, 0)
+        await runWithChangeDuringRound(store, netsChange(["BSC", "POLYGON", "ARBITRUM"]))
+        XCTAssertEqual(store.loads[4], 2)
+        XCTAssertEqual(store.netsOf4, [["BSC", "POLYGON"], ["BSC", "POLYGON", "ARBITRUM"]])
+        XCTAssertEqual(store.stored[3].lastAttempt, store.now)
+    }
+
+    /// Neue Adresse (nie versucht), «Tokens mitzählen» während der ersten Runde: verworfen, der Wartende lädt mit Token.
+    func testTokensWaehrendErsterRundeNeuerAdresseWerdenGeladen() async {
+        let store = FakeStore()
+        store.file.addresses[2].lastAttempt = 0
+        await runWithChangeDuringRound(store) { file in
+            WatchedAddressStore.change(id: 3, in: &file) { WatchedAddressRules.withCountTokens($0, true) }
+        }
+        XCTAssertEqual(store.ethCountTokens, [false, true])
+        XCTAssertEqual(store.stored[2].lastAttempt, store.now)
+    }
+
+    /// Erste Suche fragt alle Netze: eine Wahl während der Runde ist darin enthalten — gespeichert, nicht doppelt geladen.
+    func testNetzwahlWaehrendErsterSucheWirdGespeichert() async {
+        let store = FakeStore()
+        store.file.addresses.append(WatchedAddress(id: 4, chain: .ETH,
+                                                   address: "0x0000000000000000000000000000000000000004"))
+        await runWithChangeDuringRound(store, netsChange(["BSC"]))
+        XCTAssertEqual(store.netsOf4.count, 1)
+        XCTAssertNil(store.netsOf4.first ?? nil)
+        XCTAssertEqual(store.stored[3].lastAttempt, store.now)
     }
 
     func testAbbruchDesStartendenGibtGateFrei() async {

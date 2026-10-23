@@ -116,14 +116,17 @@ class AddressBalanceParityTest {
         assertEquals(d["background"].list().map { it.num()!!.toLong() }, AddressBalance.dueOrder(list, now, force = false, background = true).map { it.id })
     }
 
-    /** Während des Abrufs vom Nutzer fällig gemacht: Ergebnis verwerfen (Single-Flight, wie iOS). */
+    /** Während des Abrufs etwas dazugenommen (Tokens an, Netz neu): Ergebnis verwerfen (Single-Flight, wie iOS). */
     @Test
-    fun resetDuringFetch() {
-        val cases = data["resetDuringFetch"].obj()["cases"].list().map { it.obj() }
+    fun discardFetched() {
+        val cases = data["discardFetched"].obj()["cases"].list().map { it.obj() }
         assertTrue(cases.isNotEmpty())
+        fun nets(v: Any?): List<String>? = (v as List<*>?)?.map { it as String }
         for (c in cases) {
-            val reset = AddressBalance.resetDuringFetch(c["current"].num()!!.toLong(), c["snapshot"].num()!!.toLong())
-            assertEquals("reset: $c", c["reset"], reset)
+            val discard = AddressBalance.discardFetched(
+                c["countTokens"] as Boolean, nets(c["networks"]), c["snapshotCountTokens"] as Boolean, nets(c["snapshotNetworks"]),
+            )
+            assertEquals("discard: ${c["_note"]}", c["discard"], discard)
         }
     }
 

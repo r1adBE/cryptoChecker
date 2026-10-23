@@ -7,7 +7,6 @@ import com.cryptochecker.app.data.local.AppDatabase
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.data.local.WatchDao
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
-import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressValidation
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
@@ -237,32 +236,9 @@ class PortfolioRepository @Inject constructor(
     suspend fun setWatchedAddressLabel(id: Long, label: String?) =
         database.withTransaction { ensureWritable(); watchedAddressDao.setLabel(id, WatchedAddressRules.cleanLabel(label)) }
 
-    /**
-     * Ergebnis eines Abrufs speichern: mit [balanceText] (exakt, «0.00012345») Guthaben, Zeit und Anbieter,
-     * Fehler gelöscht; sonst nur Versuch und [error] — das letzte Guthaben bleibt stehen. [snapshotAttempt]: lastAttempt beim
-     * Lesen vor dem Abruf; inzwischen vom Nutzer fällig gemacht ([AddressBalance.resetDuringFetch]): verwerfen (wie iOS).
-     */
-    suspend fun updateWatchedAddressBalance(
-        id: Long,
-        balanceText: String?,
-        time: Long,
-        error: String?,
-        provider: String? = null,
-        tokens: Map<String, String>? = null,
-        xpub: com.cryptochecker.app.domain.portfolio.XpubCache? = null,
-        networks: List<String>? = null,
-        unknownTokens: Int? = null,
-        keptTokens: List<String>? = null, snapshotAttempt: Long = 0,
-    ) {
-        // Guthaben, Beobachtungen (nur bei geändertem Guthaben), Token, xpub zusammen ([WatchedAddressRules.applyFetched], wie iOS)
-        database.withTransaction {
-            val current = watchedAddressDao.getById(id)?.toDomain() ?: return@withTransaction
-            if (AddressBalance.resetDuringFetch(current.lastAttempt, snapshotAttempt)) return@withTransaction
-            if (balanceText == null) return@withTransaction watchedAddressDao.saveError(id, time, error ?: "unknown")
-            val updated = WatchedAddressRules.applyFetched(current, time, balanceText, provider, tokens, xpub, networks, unknownTokens, keptTokens)
-            watchedAddressDao.saveFetched(id, balanceText, time, provider, WatchedAddressExtras.encode(updated))
-        }
-    }
+    /** Ergebnis eines Abrufs speichern ([WatchedAddressBalanceWriter], ohne Schreibsperre). */
+    suspend fun updateWatchedAddressBalance(update: WatchedAddressSource.Update) =
+        WatchedAddressBalanceWriter.save(database, watchedAddressDao, update)
 
     /** «Tokens mitzählen» ([WatchedAddressRules.withCountTokens]: aus löscht die Token-Reihen). */
     suspend fun setWatchedAddressCountTokens(id: Long, on: Boolean) = changeWatched(id) { WatchedAddressRules.withCountTokens(it, on) }

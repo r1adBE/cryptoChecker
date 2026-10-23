@@ -169,15 +169,6 @@ extension AppData {
         setWatchedAddressFile(file)
     }
 
-    /// Ergebnis eines Abrufs speichern: mit `balanceText` (exakt, «0.00012345») Guthaben, Zeit und Anbieter,
-    /// Fehler gelöscht; sonst nur Versuch und `error` — das letzte Guthaben bleibt stehen.
-    func updateWatchedAddressBalance(_ id: Int64, balanceText: String?, time: Int64, error: String?,
-                                     provider: String? = nil) {
-        let fetched = balanceText.map { WatchedAddressSource.Fetched(balance: $0, provider: provider ?? "") }
-        applyWatchedAddressUpdates([WatchedAddressSource.Update(id: id, time: time, fetched: fetched,
-                                                                error: fetched == nil ? (error ?? "unknown") : nil)])
-    }
-
     /// Mehrere Abrufe auf einmal übernehmen (eine Schreibung).
     func applyWatchedAddressUpdates(_ updates: [WatchedAddressSource.Update]) {
         guard !updates.isEmpty else { return }

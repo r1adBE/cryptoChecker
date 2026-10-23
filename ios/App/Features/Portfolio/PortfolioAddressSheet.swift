@@ -313,7 +313,7 @@ struct PortfolioAddressSheet: View {
                                 let current = ChainAssets.evm.map(\.id).filter { a.networkSelected($0) }
                                 let next = selected ? current.filter { $0 != net.id } : current + [net.id]
                                 data.setWatchedAddressNetworks(a.id, networks: next)
-                                if !selected { Task { await model.refresh(force: false) } }
+                                Task { await model.refresh(force: false) }
                             } label: {
                                 Label(net.name, systemImage: selected ? "checkmark.circle.fill" : "circle")
                                     .font(.caption)

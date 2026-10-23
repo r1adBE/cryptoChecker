@@ -13,6 +13,8 @@ struct BackupSettingsPage: View {
     @State private var resultDialog: String?
     /// Ergebnis wartet, bis Rückfrage, Blatt und Dateiauswahl zu sind (`BackupResultPresentation.canPresent`).
     @State private var pendingResult: String?
+    /// Anzeige des wartenden Ergebnisses ist schon geplant (`showPendingResult`): kein zweiter Auftrag.
+    @State private var resultScheduled = false
     /// Blatt «Sichern» bzw. Passwort offen, bis sein onDismiss kam (auch während es sich schliesst).
     @State private var sheetShown = false
     @State private var askAfterResult = false
@@ -151,23 +153,10 @@ struct BackupSettingsPage: View {
                     return .accepted
                 } catch BackupCrypto.Failure.wrongPassword {
                     return .wrongPassword
-                } catch BackupCrypto.Failure.notEnoughMemory {
-                    // Kein erneuter Versuch mit demselben Passwort: erst Speicher freigeben
-                    encryptedFile = nil
-                    fail("backup_not_enough_memory")
-                    return .handled
-                } catch BackupLimits.Failure.tooLarge {
-                    encryptedFile = nil
-                    fail("backup_too_large")
-                    return .handled
-                } catch BackupVersion.Failure.newer {
-                    encryptedFile = nil
-                    fail("backup_restore_newer_version")
-                    return .handled
                 } catch {
-                    // Unbekannte Version oder kaputte Datei: kein erneuter Versuch
+                    // Kein erneuter Versuch: zu wenig Speicher, zu gross, neuere/unbekannte Version, kaputt (`failureKey`)
                     encryptedFile = nil
-                    fail("backup_failed")
+                    fail(Self.failureKey(error))
                     return .handled
                 }
             }
@@ -285,13 +274,9 @@ struct BackupSettingsPage: View {
                 pendingRestore = file
                 confirmRestore = true
             }
-        } catch BackupLimits.Failure.tooLarge {
-            fail("backup_too_large")
-        } catch BackupVersion.Failure.newer {
-            // Sicherung einer neueren App-Version: nichts übernommen
-            fail("backup_restore_newer_version")
         } catch {
-            fail("backup_failed")
+            // Zu gross, Sicherung einer neueren App-Version (nichts übernommen) oder unlesbar (`failureKey`)
+            fail(Self.failureKey(error))
         }
     }
 
@@ -348,7 +333,7 @@ struct BackupSettingsPage: View {
     /// Meldung mit Schlüssel `key`: lang als Dialog, sonst als Toast (`BackupResultPresentation`, wie Android).
     private func show(_ key: String) {
         let text = L(key)
-        present(text, asDialog: BackupResultPresentation.asDialog(key: key, text: text, fontScale: Self.fontScale))
+        present(text, asDialog: BackupResultPresentation.asDialog(key: key, text: text, fontScale: Self.fontScale()))
     }
 
     private func present(_ text: String, asDialog: Bool) {
@@ -361,18 +346,34 @@ struct BackupSettingsPage: View {
     }
 
     /// Wartendes Ergebnis zeigen, sobald Rückfrage, Blatt, Dateiauswahl und voriges Ergebnis zu sind (sonst erscheint
-    /// der Dialog nicht).
-    private func showPendingResult() {
-        guard let text = pendingResult, BackupResultPresentation.canPresent(
-            confirmOpen: confirmRestore, sheetOpen: sheetShown || exportOptions != nil || encryptedFile != nil,
-            pickerOpen: importing || exporting, resultOpen: resultDialog != nil) else { return }
+    /// der Dialog nicht). Rückfrage, Dateiauswahl und Dialog melden «zu» schon beim Start der Schliess-Animation: erst
+    /// danach zeigen (`presentDelayNanos`), erneut geprüft. `immediately`: onDismiss eines Blatts (Animation fertig).
+    private func showPendingResult(immediately: Bool = false) {
+        guard pendingResult != nil, canShowResult else { return }
+        guard !immediately else { return takePendingResult() }
+        guard !resultScheduled else { return }
+        resultScheduled = true
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: BackupResultPresentation.presentDelayNanos)
+            resultScheduled = false
+            if canShowResult { takePendingResult() }  // sonst ruft das nächste «zu» erneut
+        }
+    }
+
+    private func takePendingResult() {
+        guard let text = pendingResult else { return }
         pendingResult = nil
         resultDialog = text
     }
 
+    private var canShowResult: Bool {
+        BackupResultPresentation.canPresent(confirmOpen: confirmRestore, sheetOpen: sheetShown || exportOptions != nil
+            || encryptedFile != nil, pickerOpen: importing || exporting, resultOpen: resultDialog != nil)
+    }
+
     private func sheetClosed() {
         sheetShown = false
-        showPendingResult()
+        showPendingResult(immediately: true)
     }
 
     /// Seite verlassen, solange die Mitteilungs-Frage nach dem Ergebnis aussteht: trotzdem fragen (eigenes Fenster).
@@ -386,11 +387,13 @@ struct BackupSettingsPage: View {
         Binding(get: { resultDialog != nil }, set: { if !$0 { closeResult() } })
     }
 
-    /// Ergebnis-Dialog zu: erst jetzt nach Mitteilungen fragen (falls Paare eingespielt).
+    /// Ergebnis-Dialog zu: erst jetzt nach Mitteilungen fragen (falls Paare eingespielt), dann wartendes Ergebnis.
     private func closeResult() {
         resultDialog = nil
-        guard askAfterResult else { return }
-        askAfterResult = false
-        NotificationPrePrompt.request(.pairsAdded)
+        if askAfterResult {
+            askAfterResult = false
+            NotificationPrePrompt.request(.pairsAdded)
+        }
+        showPendingResult()
     }
 }

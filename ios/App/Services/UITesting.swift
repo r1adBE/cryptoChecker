@@ -14,7 +14,8 @@ import UniformTypeIdentifiers
 /// - Dateiauswahl und Dateiablage ersetzt: «CSV importieren» liest den Text aus der Umgebung `UITEST_CSV`,
 ///   «Sichern» schreibt nach `tmp/uitest_backup.json`, «Wiederherstellen» liest von dort
 ///   (`testableFileImporter`, `exportURL`). Die Sicherung bleibt über einen Neustart, wenn
-///   `UITEST_KEEP_BACKUP=1` gesetzt ist (Sichern → Neustart = Daten weg → Wiederherstellen).
+///   `UITEST_KEEP_BACKUP=1` gesetzt ist (Sichern → Neustart = Daten weg → Wiederherstellen); `UITEST_BACKUP`
+///   legt dort eine Sicherung des Tests ab.
 enum UITesting {
     static let isActive = ProcessInfo.processInfo.arguments.contains(UiTestTags.launchArgument)
 
@@ -36,6 +37,9 @@ enum UITesting {
         let fm = FileManager.default
         AppData.clearStoredFiles()
         if environment[UiTestTags.keepBackupEnvironment] != "1" { try? fm.removeItem(at: backupURL) }
+        if let backup = environment[UiTestTags.backupEnvironment] {
+            try? Data(backup.utf8).write(to: backupURL, options: .atomic)
+        }
         try? fm.removeItem(at: csvURL)
         if let csv = environment[UiTestTags.csvEnvironment] {
             try? Data(csv.utf8).write(to: csvURL, options: .atomic)
