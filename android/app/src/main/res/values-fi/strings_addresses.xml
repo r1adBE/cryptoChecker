@@ -19,7 +19,6 @@
     <string name="portfolio_address_show_only">Näytä vain, älä laske salkkuun</string>
     <string name="portfolio_address_show_only_short">Näytä vain</string>
     <string name="portfolio_address_tokens">Laske tokenit mukaan</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d tuntematonta tokenia (ei laskettu)</string>
     <string name="portfolio_address_xpub_privacy">Xpub paljastaa kaikki tämän lompakon osoitteet. Ne johdetaan laitteellasi; palveluun %1$s lähetetään vain yksittäisiä osoitteita – ensimmäisellä haulla vähintään 40 pyyntöä, myöhemmin vähemmän. Yksityisiä avaimia (xprv) ei koskaan hyväksytä.</string>
     <string name="portfolio_address_xpub_gap">Haku päättyy %1$d peräkkäisen käyttämättömän osoitteen jälkeen (useimpien lompakoiden käyttämä BIP44-standardi). Tämän aukon jälkeistä käytettyä osoitetta ei lasketa – lisää se erikseen.</string>
     <string name="portfolio_address_xpub_used">Käytössä olevat osoitteet: %1$d</string>

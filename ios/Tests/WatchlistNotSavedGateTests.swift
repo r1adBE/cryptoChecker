@@ -248,6 +248,32 @@ final class WatchlistNotSavedGateTests: XCTestCase {
         XCTAssertEqual(probe.afterCancel, e["ownWritesAfterOtherCancel"] as? Bool)
         XCTAssertEqual(gate.needsConfirmation(notSaved: true, canAsk: true), e["refusedAfterOwnEnd"] as? Bool)
     }
+
+    /// Review ARC7-02: Grenze der Zustimmung — ein erbender `Task` der Aktion behält sie, ein `Task.detached` aus der
+    /// Aktion nicht (keine TaskLocals): dessen Schreibweg wird abgelehnt. Wie Android (Coroutine in anderem Scope).
+    func testUnaskedPassDoesNotReachDetachedTask() async throws {
+        let gate = WatchlistNotSavedGate()
+        let probe = DetachedProbe()
+        gate.run(blocked: false, notSaved: true,
+                 confirm: { await gate.confirm(notSaved: true, canAsk: false, awaitAsker: { false }) },
+                 { probe.start(gate) }, cancelled: nil)
+        try await waitUntil { probe.inherited != nil && probe.detached != nil }
+        XCTAssertEqual(probe.inherited, true, "erbender Task gehört zur Aktion")
+        XCTAssertEqual(probe.detached, false, "Task.detached gehört nicht zur Aktion")
+    }
+}
+
+/// Messpunkte für `testUnaskedPassDoesNotReachDetachedTask`: true = Schreibweg nicht abgelehnt.
+@MainActor
+private final class DetachedProbe {
+    var inherited: Bool?
+    var detached: Bool?
+
+    /// Aktion (synchron unter `runConsented`): eine erbende und eine losgelöste Aufgabe prüfen die Sicherung.
+    func start(_ gate: WatchlistNotSavedGate) {
+        Task { @MainActor in self.inherited = !gate.needsConfirmation(notSaved: true, canAsk: true) }
+        Task.detached { @MainActor in self.detached = !gate.needsConfirmation(notSaved: true, canAsk: true) }
+    }
 }
 
 /// Messpunkte der Aktion A in `testSharedUnaskedPassCoversOnlyItsAction`: true = Schreibweg nicht abgelehnt.

@@ -1,12 +1,15 @@
 package com.cryptochecker.app.data
 
+import com.cryptochecker.app.domain.portfolio.AddressServer
+
 /**
  * Regeln beim Wiederherstellen (reines Kotlin, testbar; gespiegelt in `BackupRestorePolicy.swift`).
  *
  * Eine Sicherung ohne Passwort hat keine Echtheitsprüfung: Eine bearbeitete Datei im gleichen Format
  * wird angenommen. Darum schaltet sie die Portfolio-Sperre nie aus, wenn sie gerade an ist — und
  * auch sonst nichts in Richtung «weniger Schutz»: «Portfolio in Systemsicherung» nie ein ([systemBackup]),
- * «Beträge verbergen» nie aus ([hideAmounts]).
+ * «Beträge verbergen» nie aus ([hideAmounts]), eigener Bitcoin-Server nie gesetzt, ersetzt oder gelöscht
+ * ([AddressServer.restored], Hinweis [addressServerNote]).
  */
 object BackupRestorePolicy {
 
@@ -42,6 +45,33 @@ object BackupRestorePolicy {
      */
     fun hideAmounts(wanted: Boolean?, current: Boolean, trusted: Boolean): Boolean? =
         if (wanted == false && current && !trusted) null else wanted
+
+    /** Hinweis zum eigenen Bitcoin-Server in der Meldung nach dem Wiederherstellen ([addressServerNote]). */
+    enum class AddressServerNote {
+        /** Sicherung ohne Passwort hatte einen anderen gültigen Wert (oder keinen): nicht übernommen. */
+        KEPT,
+
+        /** Sicherung mit Passwort ohne eigenen Server: der bisherige ist weg, wieder öffentliche Knoten. */
+        PUBLIC,
+
+        /** Sicherung mit Passwort mit anderem Server: der bisherige ist ersetzt. */
+        CHANGED,
+    }
+
+    /**
+     * Hinweis zum eigenen Bitcoin-Server ([AddressServer.restored], gleiche Fälle in address_server.json «restore»):
+     * null = nichts zu sagen (Wert gleich, ungültig, fehlt, oder neu gesetzt, wo keiner war).
+     */
+    fun addressServerNote(present: Boolean, value: String?, current: String?, trusted: Boolean): AddressServerNote? {
+        val wanted = AddressServer.restored(present, value, current, trusted = true)
+        return when {
+            wanted == current -> null
+            !trusted -> AddressServerNote.KEPT
+            current == null -> null
+            wanted == null -> AddressServerNote.PUBLIC
+            else -> AddressServerNote.CHANGED
+        }
+    }
 
     /**
      * Nur Android: Gemerkten Stand (Journal) in eine Datenbank zurückschreiben? Nicht, solange sie nur leer im

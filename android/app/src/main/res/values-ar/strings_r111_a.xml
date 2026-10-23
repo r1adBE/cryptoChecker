@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">لم يُعتمد خادم بيتكوين الخاص – لا يمكن لنسخة غير مشفرة تغييره.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">أُزيل خادم بيتكوين الخاص كما في النسخة الاحتياطية – يُستعلم عن عناوين بيتكوين من العُقد العامة مجددًا.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">استُبدل خادم بيتكوين الخاص بالخادم الموجود في النسخة الاحتياطية.</string>
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="zero">+%1$d رمز غير معروف (غير محتسب)</item>
+        <item quantity="one">+%1$d رمز غير معروف (غير محتسب)</item>
+        <item quantity="two">+%1$d رمز غير معروف (غير محتسبين)</item>
+        <item quantity="few">+%1$d رموز غير معروفة (غير محتسبة)</item>
+        <item quantity="many">+%1$d رمزًا غير معروف (غير محتسبة)</item>
+        <item quantity="other">+%1$d رمز غير معروف (غير محتسبة)</item>
+    </plurals>
+</resources>

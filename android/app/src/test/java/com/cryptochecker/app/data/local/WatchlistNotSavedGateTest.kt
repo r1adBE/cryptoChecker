@@ -5,8 +5,10 @@ import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
@@ -249,6 +251,30 @@ class WatchlistNotSavedGateTest {
         // A beendet: ein Schreibweg ohne Bestätigung wird wieder abgelehnt (hier wie im Repository: andere Coroutine)
         assertEquals(e["refusedAfterOwnEnd"], async(Dispatchers.Default) { refused() }.await())
         assertEquals(e["refusedAfterOwnEnd"], refused())
+    }
+
+    /**
+     * Review ARC7-02: Grenze des Durchlasses — er gilt für Kind-Coroutinen von A, nicht für eine Coroutine, die A in
+     * einem anderen Scope startet (losgelöst, eigener Job): deren Schreibweg wird abgelehnt.
+     */
+    @Test
+    fun unaskedPassDoesNotReachAnotherScope() = runBlocking {
+        suspend fun refused() = WatchlistNotSavedGate.needsConfirmation(notSaved = true, canAsk = true)
+        val otherScope = CoroutineScope(Dispatchers.Default)
+        try {
+            val (child, other) = withTimeout(5_000) {
+                async(Dispatchers.Default) {
+                    assertTrue(WatchlistNotSavedGate.confirm(notSaved = true, canAsk = false, awaitAsker = { false }))
+                    val child = async { refused() }.await()
+                    val other = otherScope.async { refused() }.await()
+                    child to other
+                }.await()
+            }
+            assertFalse("Kind-Coroutine gehört zur Aktion", child)
+            assertTrue("anderer Scope gehört nicht zur Aktion", other)
+        } finally {
+            otherScope.cancel()
+        }
     }
 
     /** Die Oberfläche beginnt erst während des Wartens zu sammeln (Activity neu erstellt) → es wird gefragt. */

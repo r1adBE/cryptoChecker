@@ -19,7 +19,6 @@
     <string name="portfolio_address_show_only">Hanya tampilkan, jangan tambahkan ke portofolio</string>
     <string name="portfolio_address_show_only_short">Hanya tampilkan</string>
     <string name="portfolio_address_tokens">Hitung token</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d token tak dikenal (tidak dihitung)</string>
     <string name="portfolio_address_xpub_privacy">xpub mengungkap semua alamat dompet ini. Alamat diturunkan di perangkatmu; hanya alamat satu per satu yang dikirim ke %1$s – minimal 40 permintaan pada pemindaian pertama, setelahnya lebih sedikit. Kunci privat (xprv) tidak pernah diterima.</string>
     <string name="portfolio_address_xpub_gap">Pencarian berhenti setelah %1$d alamat tidak terpakai berturut-turut (standar BIP44 yang dipakai sebagian besar dompet). Alamat terpakai di luar celah itu tidak dihitung – tambahkan secara terpisah.</string>
     <string name="portfolio_address_xpub_used">Alamat terpakai: %1$d</string>

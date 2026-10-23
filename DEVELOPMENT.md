@@ -706,9 +706,9 @@ is less than 7 days old and not more than 5 minutes in the future (no replay of 
 its UTF-8 bytes) matches. Otherwise the file is ignored exactly like an unreachable mirror and the app asks the
 provider directly — no message, no crash. Manifest and signature are kept in memory only: 15 minutes when valid,
 5 minutes after a failure; a file newer than the remembered manifest reloads it once (at most once a minute).
-Without the secret the workflow keeps running, publishes the manifest unsigned (warning annotation; a key that does
-not match the public key gives an error annotation) and removes an old signature, so the apps use the providers
-directly. Tests use their own test key pair (`publicKey` in the fixture); the real private key never enters the
+Without the secret the workflow keeps running, publishes the data and the manifest unsigned (warning annotation; a key
+that does not match the public key gives an error annotation) and removes an old signature, so the apps use the
+providers directly; the run then ends red (error annotation after the upload) so that a missing signature is noticed. Tests use their own test key pair (`publicKey` in the fixture); the real private key never enters the
 repository.
 
 *Changing the key*: create a new pair (`openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -out
@@ -2240,6 +2240,9 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 111: `AddressServerRules` (+ `address_server_ui.json`), `BackupRestorePolicy.addressServerNote`, `SettingsRestoreNotes`,
+  `BlockedSources.unblock` / `clearServerPauses`, `MirrorTrust` with injectable key (Android class + `shared`), iOS mirror size
+  limits, `supply_chain_files.py` configuration check, market-data red on unsigned manifest, guard rules for detached scopes.
 * Build 110: comments without build numbers (F-21; history lives in CHANGELOG and git), `NSLocalNetworkUsageDescription`
   (`ios_local_network_usage` in `ios_extra_strings.json`, `convert_strings.py` `INFO_PLIST_KEYS`), `lint_warnings.py --details`.
 * Build 109: signed mirror (`MirrorManifest`, `MirrorTrust`, `mirror_signature.json`, `mirror_data.py --manifest`,

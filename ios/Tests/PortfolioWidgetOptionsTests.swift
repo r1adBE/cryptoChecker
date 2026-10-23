@@ -46,6 +46,23 @@ final class PortfolioWidgetOptionsTests: XCTestCase {
         }
     }
 
+    /// Review IOS7-03: Sperrbildschirm ohne Regel der Ansicht — Zeitraum und Anzeige wirken wie gewählt, auch wenn das
+    /// Widget auf «Übersicht» oder «Liste» steht; das Sperrbildschirm-Widget zeichnet mit dieser Regel.
+    func testLockScreenKeepsChoice() throws {
+        let lock = PortfolioWidgetOptions.lockScreenView
+        for r in PortfolioWidgetRange.allCases {
+            XCTAssertEqual(PortfolioWidgetOptions.effectiveRange(lock, r), r, "range \(r)")
+        }
+        for d in PortfolioWidgetDisplay.allCases {
+            XCTAssertEqual(PortfolioWidgetOptions.effectiveDisplay(lock, d), d, "display \(d)")
+        }
+        let widget = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+            .appendingPathComponent("Widgets/PortfolioWidget.swift")
+        let text = try String(contentsOf: widget, encoding: .utf8)
+        XCTAssertTrue(text.contains("PortfolioRectangularView(entry: entry.lockScreen)"), "Sperrbildschirm mit Ansicht-Regel")
+        XCTAssertTrue(text.contains("copy.view = PortfolioWidgetOptions.lockScreenView"))
+    }
+
     /// Was wirkt, ist auch angeboten (Zeitraum nur, wo die Ansicht ihn nutzt).
     func testEffectiveIsAlwaysOffered() {
         for v in PortfolioWidgetMode.allCases {

@@ -11,7 +11,9 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
@@ -198,7 +200,8 @@ internal fun PortfolioAddressSheet(
         AlertDialog(
             onDismissRequest = { askPrivacy = false },
             title = { Text(stringResource(R.string.portfolio_addresses_title)) },
-            text = { Text(privacyText(check, btcServer)) },
+            // Langer Hinweis (alle Hosts) bei grosser Schrift: scrollbar statt abgeschnitten
+            text = { Column(Modifier.verticalScroll(rememberScrollState())) { Text(privacyText(check, btcServer)) } },
             confirmButton = {
                 TextButton(onClick = { askPrivacy = false; addChecked() }) { Text(stringResource(R.string.portfolio_address_add)) }
             },

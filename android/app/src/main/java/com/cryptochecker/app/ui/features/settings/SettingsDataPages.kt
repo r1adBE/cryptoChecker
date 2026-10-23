@@ -31,6 +31,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.collectAsState
 import com.cryptochecker.app.R
 import com.cryptochecker.app.ui.components.rememberHaptics
+import com.cryptochecker.app.data.BackupRestorePolicy
 import com.cryptochecker.app.data.local.DatabaseEncryptionNotice
 import com.cryptochecker.app.domain.watch.WatchlistLimits
 import com.cryptochecker.app.util.LocaleNumbers
@@ -188,6 +189,11 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
     val exportTooLargeText = stringResource(R.string.backup_export_too_large)
     val restoredFormat = stringResource(R.string.backup_restored)
     val appLockKeptText = stringResource(R.string.backup_restore_app_lock_kept)
+    val serverNoteTexts = mapOf(
+        BackupRestorePolicy.AddressServerNote.KEPT to stringResource(R.string.backup_restore_server_kept),
+        BackupRestorePolicy.AddressServerNote.PUBLIC to stringResource(R.string.backup_restore_server_public),
+        BackupRestorePolicy.AddressServerNote.CHANGED to stringResource(R.string.backup_restore_server_changed),
+    )
     val haptics = rememberHaptics()
     LaunchedEffect(backupMessage) {
         val text = when (val m = backupMessage) {
@@ -207,11 +213,13 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                     resources.getQuantityString(R.plurals.backup_restored_pairs, m.watches, m.watches),
                     resources.getQuantityString(R.plurals.backup_restored_alarms, m.alarms, m.alarms)
                 )
-                // Über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort wollte sie ausschalten)
+                // Über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort wollte sie ausschalten);
+                // eigener Bitcoin-Server nicht übernommen, entfernt oder ersetzt
                 listOfNotNull(
                     restored,
                     overLimitsText(resources, R.string.backup_restored_over_limits, m.droppedPairs, m.droppedAlarms),
                     appLockKeptText.takeIf { m.appLockKept },
+                    m.addressServerNote?.let { serverNoteTexts[it] },
                 ).joinToString("\n")
             }
             null -> return@LaunchedEffect

@@ -19,6 +19,17 @@ data class RestoreResult(
     val droppedPairs: Int = 0,
     /** Alarme über den Grenzen bzw. weggelassener Paare ([BackupRestoreLimits]), nicht übernommen. */
     val droppedAlarms: Int = 0,
+    /** Hinweis zum eigenen Bitcoin-Server ([BackupRestorePolicy.addressServerNote]); null = keiner. */
+    val addressServerNote: BackupRestorePolicy.AddressServerNote? = null,
+)
+
+/**
+ * Hinweise aus den Einstellungen einer Sicherung ([BackupSettingsCodec.restoreSettings]): [appLockKept] wie
+ * [RestoreResult.appLockKept], [addressServer] wie [RestoreResult.addressServerNote].
+ */
+data class SettingsRestoreNotes(
+    val appLockKept: Boolean = false,
+    val addressServer: BackupRestorePolicy.AddressServerNote? = null,
 )
 
 /**

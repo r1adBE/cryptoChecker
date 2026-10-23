@@ -2,8 +2,8 @@
 <resources>
     <!-- Einstellungen › Portfolio: Titel der Karte «Eigener Server für Adressen» (nur Bitcoin; Adressabfragen dann nur dorthin); auch im Pfad von portfolio_address_xpub_own_server_hint -->
     <string name="settings_address_server_title">पतों के लिए अपना सर्वर</string>
-    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, gültiges Zertifikat nötig, kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
-    <string name="settings_address_server_hint">सिर्फ़ Bitcoin: तुम्हारा अपना Esplora- या mempool-संगत सर्वर (जैसे https://node.example/api, मान्य सर्टिफ़िकेट ज़रूरी)। सेट होने पर Bitcoin पते और xpub सिर्फ़ वहीं पूछे जाते हैं – सार्वजनिक नोड्स पर कभी नहीं, तब भी नहीं जब तुम्हारा सर्वर उपलब्ध न हो। बाकी नेटवर्क सार्वजनिक नोड्स ही इस्तेमाल करते हैं। खाली = सार्वजनिक नोड्स।</string>
+    <!-- Erklärung unter dem Titel: nur Bitcoin, Esplora-/mempool-kompatibel, öffentlich vertrauenswürdiges Zertifikat nötig (z. B. Let's Encrypt), kein Rückfall auf öffentliche Knoten, andere Netze weiter öffentlich, leer = öffentliche Knoten -->
+    <string name="settings_address_server_hint">सिर्फ़ Bitcoin: तुम्हारा अपना Esplora- या mempool-संगत सर्वर (जैसे https://node.example/api, सार्वजनिक रूप से भरोसेमंद सर्टिफ़िकेट ज़रूरी, जैसे Let\'s Encrypt)। सेट होने पर Bitcoin पते और xpub सिर्फ़ वहीं पूछे जाते हैं – सार्वजनिक नोड्स पर कभी नहीं, तब भी नहीं जब तुम्हारा सर्वर उपलब्ध न हो। बाकी नेटवर्क सार्वजनिक नोड्स ही इस्तेमाल करते हैं। खाली = सार्वजनिक नोड्स।</string>
     <!-- Beschriftung des Eingabefelds (Basis-URL des eigenen Bitcoin-Servers, nur https://) -->
     <string name="settings_address_server_field">Bitcoin सर्वर (https://)</string>
     <!-- Knopf: eigenen Server testen (fragt nur die aktuelle Blockhöhe ab, nennt keine Adresse) -->

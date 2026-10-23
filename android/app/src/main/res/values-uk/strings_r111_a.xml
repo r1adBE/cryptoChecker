@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">Власний сервер Bitcoin не відновлено – незашифрована копія не може його змінити.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">Власний сервер Bitcoin видалено, як у копії, – адреси Bitcoin знову запитуються в публічних вузлів.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">Власний сервер Bitcoin замінено сервером із копії.</string>
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d невідомий токен (не враховано)</item>
+        <item quantity="few">+%1$d невідомі токени (не враховано)</item>
+        <item quantity="many">+%1$d невідомих токенів (не враховано)</item>
+        <item quantity="other">+%1$d невідомого токена (не враховано)</item>
+    </plurals>
+</resources>

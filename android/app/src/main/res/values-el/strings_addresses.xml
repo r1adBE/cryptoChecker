@@ -19,7 +19,6 @@
     <string name="portfolio_address_show_only">Μόνο προβολή, χωρίς προσθήκη στο χαρτοφυλάκιο</string>
     <string name="portfolio_address_show_only_short">Μόνο προβολή</string>
     <string name="portfolio_address_tokens">Συμπερίληψη tokens</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d άγνωστα tokens (δεν μετρώνται)</string>
     <string name="portfolio_address_xpub_privacy">Ένα xpub αποκαλύπτει όλες τις διευθύνσεις αυτού του πορτοφολιού. Παράγονται στη συσκευή σου· στο %1$s στέλνονται μόνο μεμονωμένες διευθύνσεις – τουλάχιστον 40 αιτήματα στην πρώτη αναζήτηση, μετά λιγότερα. Ιδιωτικά κλειδιά (xprv) δεν γίνονται ποτέ δεκτά.</string>
     <string name="portfolio_address_xpub_gap">Η αναζήτηση σταματά μετά από %1$d αχρησιμοποίητες διευθύνσεις στη σειρά (το πρότυπο BIP44 που χρησιμοποιούν τα περισσότερα πορτοφόλια). Μια χρησιμοποιημένη διεύθυνση πέρα από αυτό το κενό δεν μετράται – πρόσθεσέ την ξεχωριστά.</string>
     <string name="portfolio_address_xpub_used">Διευθύνσεις σε χρήση: %1$d</string>

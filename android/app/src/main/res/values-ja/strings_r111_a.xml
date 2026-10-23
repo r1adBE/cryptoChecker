@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">独自の Bitcoin サーバーは復元されませんでした。暗号化されていないバックアップでは変更できません。</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">バックアップのとおり独自の Bitcoin サーバーを削除しました。Bitcoin アドレスは再び公開ノードに問い合わせます。</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">独自の Bitcoin サーバーをバックアップのサーバーに置き換えました。</string>
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="other">+%1$d 件の不明なトークン（計上せず）</item>
+    </plurals>
+</resources>

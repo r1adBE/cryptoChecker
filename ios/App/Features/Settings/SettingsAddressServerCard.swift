@@ -7,10 +7,25 @@ struct SettingsAddressServerCard: View {
     @EnvironmentObject private var data: AppData
     @State private var input = ""
     @State private var test: TestState = .idle
+    @State private var testTask: Task<Void, Never>?
+    /// Rückfrage vor dem Wechsel auf öffentliche Knoten (Bitcoin-Adressen/xpub vorhanden).
+    @State private var askPublic = false
 
-    /// Ergebnis von «Testen».
+    /// Ergebnis von «Testen» samt geprüfter URL (angezeigt nur zur gleichen Eingabe, `AddressServerRules.testShown`).
     enum TestState: Equatable {
-        case idle, running, ok(Int64), failed
+        case idle, running(String), ok(String, Int64), failed(String)
+
+        var url: String? {
+            switch self {
+            case .idle: return nil
+            case .running(let url), .ok(let url, _), .failed(let url): return url
+            }
+        }
+
+        var isRunning: Bool {
+            if case .running = self { return true }
+            return false
+        }
     }
 
     var body: some View {
@@ -33,62 +48,114 @@ struct SettingsAddressServerCard: View {
                         .padding(.top, 4)
                 }
                 HStack(spacing: Spacing.lg) {
-                    Button(L("action_save")) { save(check.url) }
+                    Button(L("action_save")) { requestSave(check.url, saved: saved) }
                         .disabled(check.problem != nil || check.url == saved)
                     Button(L("settings_address_server_test")) { runTest(check.url) }
-                        .disabled(check.problem != nil || check.url == nil || test == .running)
+                        .disabled(check.problem != nil || check.url == nil || test.isRunning)
                 }
                 .font(.body)
                 .padding(.vertical, Spacing.sm)
                 SettingsHint(text: statusText(saved), top: 0)
-                testResult
+                testResult(check.url)
             }
             .padding(.bottom, Spacing.sm)
         }
         .settingsAnchor("portfolio.address_server")
+        .alert(L("settings_address_server_public_title"), isPresented: $askPublic) {
+            Button(L("settings_address_server_public_confirm")) { save(nil) }
+            // «Abbrechen» behält den eigenen Server
+            Button(L("action_cancel"), role: .cancel) {}
+        } message: {
+            Text(publicMessage)
+        }
         .onAppear { input = data.settings.addressServerBtc ?? "" }
         // Von aussen geändert (z. B. Sicherung wiederhergestellt): Feld nachziehen
         .onChange(of: data.settings.addressServerBtc) { _, value in input = value ?? "" }
     }
 
-    @ViewBuilder private var testResult: some View {
-        switch test {
-        case .idle: EmptyView()
-        case .running: SettingsHint(text: L("settings_address_server_testing"), top: 0)
-        case .ok(let height): SettingsHint(text: L("settings_address_server_test_ok", String(height)), top: 0)
-        case .failed:
-            Text(L("settings_address_server_test_failed"))
-                .font(.footnote)
-                .foregroundStyle(AppColors.warningText)
-                .padding(.bottom, Spacing.sm)
+    /// Testergebnis nur zur aktuell geprüften Eingabe (`inputUrl`).
+    @ViewBuilder private func testResult(_ inputUrl: String?) -> some View {
+        if AddressServerRules.testShown(test.url, inputUrl: inputUrl) {
+            switch test {
+            case .idle: EmptyView()
+            case .running: SettingsHint(text: L("settings_address_server_testing"), top: 0)
+            case .ok: SettingsHint(text: Self.resultText(test), top: 0)
+            case .failed:
+                Text(Self.resultText(test))
+                    .font(.footnote)
+                    .foregroundStyle(AppColors.warningText)
+                    .padding(.bottom, Spacing.sm)
+            }
         }
+    }
+
+    /// Text eines fertigen Tests; derselbe wird für VoiceOver angesagt (Android: Live-Region).
+    static func resultText(_ state: TestState) -> String {
+        switch state {
+        case .ok(_, let height): return L("settings_address_server_test_ok", String(height))
+        case .failed: return L("settings_address_server_test_failed")
+        case .idle, .running: return ""
+        }
+    }
+
+    /// Rückfrage-Text mit den öffentlichen Bitcoin-Hosts.
+    private var publicMessage: String {
+        L("settings_address_server_public_text", ChainBalance.hosts(.BTC).joined(separator: ", "))
     }
 
     private func statusText(_ saved: String?) -> String {
         saved.map { L("settings_address_server_active", AddressServer.host($0)) } ?? L("settings_address_server_none")
     }
 
+    /// Zu lang (z. B. eingefügt): kürzen wie Android; Ergebnis und laufender Test gehören zur alten Eingabe.
     private func inputChanged() {
-        if input.count > AddressServer.maxLength { input = String(input.prefix(AddressServer.maxLength)) }
-        if test != .running { test = .idle }
+        let clamped = AddressServerRules.clamp(input)
+        if clamped != input { input = clamped }
+        resetTest()
     }
 
-    /// Speichern (nil = öffentliche Knoten); das Feld zeigt danach die normalisierte Form.
+    private func resetTest() {
+        testTask?.cancel()
+        testTask = nil
+        test = .idle
+    }
+
+    /// «Speichern»: vom eigenen Server auf öffentliche Knoten mit beobachteten Bitcoin-Adressen/xpub erst fragen.
+    private func requestSave(_ url: String?, saved: String?) {
+        let count = AddressServerRules.btcCount(data.watchedAddresses)
+        if AddressServerRules.confirmPublicSwitch(current: saved, next: url, btcCount: count) {
+            askPublic = true
+        } else {
+            save(url)
+        }
+    }
+
+    /// Speichern (nil = öffentliche Knoten); das Feld zeigt danach die normalisierte Form. Laufender Test wird
+    /// verworfen, Sperre/Pause des Hosts aufgehoben.
     private func save(_ url: String?) {
+        resetTest()
         data.settings.addressServerBtc = url
         input = url ?? ""
-        test = .idle
+        if let url { Task { await WatchedAddressSource.shared.clearServerPauses(url) } }
         Haptics.play(.success)
     }
 
     /// Blockhöhe abfragen (nennt keine Adresse).
     private func runTest(_ url: String?) {
-        guard let url, test != .running else { return }
-        test = .running
-        Task {
-            let height = await WatchedAddressSource.testBtcServer(url)
-            test = height.map { .ok($0) } ?? .failed
-        }
+        guard let url, !test.isRunning else { return }
+        test = .running(url)
+        testTask = Task { await finishTest(url) }
+    }
+
+    /// Erfolg hebt Sperre/Pause des Hosts auf; Ergebnis nur, wenn Eingabe und Test noch dazu passen, dann angesagt.
+    private func finishTest(_ url: String) async {
+        let height = await WatchedAddressSource.testBtcServer(url)
+        if height != nil { await WatchedAddressSource.shared.clearServerPauses(url) }
+        // Inzwischen geänderte Eingabe oder Speichern: Ergebnis verwerfen
+        guard !Task.isCancelled, test == .running(url) else { return }
+        let result: TestState = height.map { .ok(url, $0) } ?? .failed(url)
+        test = result
+        AccessibilityNotification.Announcement(Self.resultText(result)).post()
     }
 
     /// Meldung zu einem Prüfergebnis — wie Android `addressServerProblemText`.

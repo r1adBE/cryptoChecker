@@ -6,6 +6,7 @@ import com.cryptochecker.app.data.remote.callMarket
 import com.cryptochecker.app.domain.portfolio.AddressBalance
 import com.cryptochecker.app.domain.portfolio.AddressChain
 import com.cryptochecker.app.domain.portfolio.AddressServer
+import com.cryptochecker.app.domain.portfolio.AddressServerRules
 import com.cryptochecker.app.domain.portfolio.ChainBalance
 import com.cryptochecker.app.domain.portfolio.Bip32
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
@@ -106,7 +107,7 @@ internal suspend fun WatchedAddressSource.scanXpub(deriver: XpubDeriver, cache: 
         }
         val address = list[target.index]
         if (scan.requests > 1) delay(if (deadline == null) XPUB_PAUSE_MILLIS else XPUB_PAUSE_BACKGROUND_MILLIS)
-        val (stats, host) = firstWorking(entries, deadline) { h ->
+        val (stats, host) = firstWorking(entries, deadline, AddressServerRules.isOwnServer(entries)) { h ->
             AddressBalance.parseBtc(client.callMarket(AddressServer.btcUrl(h, address), null), address)
         }
         provider = host

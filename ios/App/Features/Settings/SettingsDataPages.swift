@@ -323,6 +323,15 @@ struct BackupSettingsPage: View {
                  LocaleNumbers.integer(WatchlistLimits.maxAlarmsPerPair))
     }
 
+    /// Hinweis zum eigenen Bitcoin-Server nach dem Wiederherstellen (wie Android).
+    static func serverNoteText(_ note: BackupRestorePolicy.AddressServerNote) -> String {
+        switch note {
+        case .KEPT: return L("backup_restore_server_kept")
+        case .PUBLIC: return L("backup_restore_server_public")
+        case .CHANGED: return L("backup_restore_server_changed")
+        }
+    }
+
     private func restore(_ json: Data, acceptInvalid: Int, encrypted: Bool) {
         pendingRestore = nil
         pendingPreview = BackupManager.RestorePreview()
@@ -341,11 +350,13 @@ struct BackupSettingsPage: View {
             Haptics.play(.success)
             let restored = L("backup_restored", L("backup_restored_pairs", count: result.watches),
                              L("backup_restored_alarms", count: result.alarms))
-            // Über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort wollte sie ausschalten)
+            // Über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort wollte sie ausschalten);
+            // eigener Bitcoin-Server nicht übernommen, entfernt oder ersetzt
             toast = [
                 restored,
                 Self.overLimitsText("backup_restored_over_limits", pairs: result.droppedPairs, alarms: result.droppedAlarms),
                 result.appLockKept ? L("backup_restore_app_lock_kept") : nil,
+                result.addressServerNote.map { Self.serverNoteText($0) },
             ].compactMap { $0 }.joined(separator: "\n")
             // Wie Android: Erlaubnis für Mitteilungen erfragen (eine Neuinstallation hat nie gefragt — sonst
             // kommen Alarme der eingespielten Paare nie an) und gleich Kurse holen (Widgets, Alarme)

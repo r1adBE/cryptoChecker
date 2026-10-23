@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Passer aux nœuds publics ?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Tes adresses Bitcoin et tes xpub seront alors interrogées auprès de nœuds publics : %1$s. Ceux-ci voient ces adresses avec ton adresse IP.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Utiliser les nœuds publics</string>
+</resources>

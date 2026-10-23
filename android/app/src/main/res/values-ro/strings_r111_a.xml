@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Wiederherstellen: Sicherung ohne Passwort wollte den eigenen Bitcoin-Server setzen, ersetzen oder löschen; er blieb (BackupRestorePolicy.addressServerNote KEPT) -->
+    <string name="backup_restore_server_kept">Serverul Bitcoin propriu nu a fost preluat – o copie necriptată nu îl poate schimba.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort ohne eigenen Bitcoin-Server hat den bisherigen entfernt (PUBLIC) -->
+    <string name="backup_restore_server_public">Serverul Bitcoin propriu a fost eliminat ca în copie – adresele Bitcoin sunt din nou interogate la noduri publice.</string>
+    <!-- Wiederherstellen: Sicherung mit Passwort hat den bisherigen eigenen Bitcoin-Server ersetzt (CHANGED) -->
+    <string name="backup_restore_server_changed">Serverul Bitcoin propriu a fost înlocuit cu cel din copie.</string>
+    <!-- Portfolio-Adresse: Anzahl Token ohne bekannten Kurs, nicht im Wert enthalten (%1$d = Anzahl) -->
+    <plurals name="portfolio_address_unknown_tokens">
+        <item quantity="one">+%1$d token necunoscut (neinclus)</item>
+        <item quantity="few">+%1$d tokenuri necunoscute (neincluse)</item>
+        <item quantity="other">+%1$d de tokenuri necunoscute (neincluse)</item>
+    </plurals>
+</resources>

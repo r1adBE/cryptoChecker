@@ -19,7 +19,6 @@
     <string name="portfolio_address_show_only">표시만(포트폴리오에 포함 안 함)</string>
     <string name="portfolio_address_show_only_short">표시만</string>
     <string name="portfolio_address_tokens">토큰 포함</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d개 알 수 없는 토큰(미포함)</string>
     <string name="portfolio_address_xpub_privacy">xpub는 이 지갑의 모든 주소를 드러냅니다. 주소는 기기에서 생성되며 %1$s에는 개별 주소만 전송됩니다 – 첫 검색 때 최소 40회 요청, 이후에는 더 적게. 개인 키(xprv)는 절대 받지 않습니다.</string>
     <string name="portfolio_address_xpub_gap">사용하지 않은 주소가 연속으로 %1$d개 나오면 검색을 멈춥니다(대부분의 지갑이 쓰는 BIP44 표준). 그 간격 뒤에 있는 사용된 주소는 계산되지 않으니 따로 추가하세요.</string>
     <string name="portfolio_address_xpub_used">사용 중인 주소: %1$d</string>

@@ -93,7 +93,8 @@ final class WatchlistWriteLockTests: XCTestCase {
         let lock = try source("AppData+WatchlistLock.swift")
         XCTAssertFalse(lock.contains("retry"), "Schreibweg führt nach «Trotzdem» nichts mehr erneut aus")
         XCTAssertTrue(body(lock, "func watchlistWriteRefused(").contains("needsConfirmation("))
-        XCTAssertTrue(lock.contains("func confirmWatchlistWrite() async -> Bool"))
+        // ARC7-02: nur über `withWatchlistConfirm` (Aktion unter `runConsented`), nicht direkt aus Bildschirmen
+        XCTAssertTrue(lock.contains("private func confirmWatchlistWrite() async -> Bool"))
         for file in ["AppData+Watchlist.swift", "AppData+WatchEdits.swift", "AppData+Reading.swift", "AppData+Alarms.swift"] {
             XCTAssertFalse(try source(file).contains("retry:"), "\(file): Schreibweg mit retry")
         }

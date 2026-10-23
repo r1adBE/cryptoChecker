@@ -1,0 +1,125 @@
+{
+ "description": "Own Bitcoin server, settings and fetch rules (Android AddressServerRules.kt, iOS AddressServerRules.swift). «clamp»: too long input (e.g. pasted) is cut to AddressServer.MAX_LENGTH (200) instead of being dropped (the field shows what is checked; same on both platforms) — inputs are ASCII. «hostKey»: entry → key for pauses/blocks. «own»: Bitcoin entries are the own server (https:// base) → never blocked 6 h after 403/451 (only the short ExchangeBackoff pause). «testShown»: test result (with its tested url) is shown only for the current checked input url. «confirmPublic»: switching from an own server to public nodes (next = null) asks first when Bitcoin addresses or xpub are watched.",
+ "clamp": [
+  {
+   "input": "",
+   "output": ""
+  },
+  {
+   "input": "https://node.example.org/api",
+   "output": "https://node.example.org/api"
+  },
+  {
+   "input": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+   "output": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  },
+  {
+   "input": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+   "output": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  },
+  {
+   "input": "https://node.example.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "output": "https://node.example.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  }
+ ],
+ "hostKey": [
+  {
+   "entry": "mempool.space",
+   "key": "mempool.space"
+  },
+  {
+   "entry": "https://node.example.org/api",
+   "key": "node.example.org"
+  },
+  {
+   "entry": "https://node.example.org:3006/api/v1",
+   "key": "node.example.org"
+  },
+  {
+   "entry": "https://192.168.1.20:3002",
+   "key": "192.168.1.20"
+  },
+  {
+   "entry": "https://ethereum-rpc.publicnode.com",
+   "key": "ethereum-rpc.publicnode.com"
+  }
+ ],
+ "own": [
+  {
+   "entries": [
+    "mempool.space",
+    "blockstream.info"
+   ],
+   "own": false
+  },
+  {
+   "entries": [
+    "https://node.example.org/api"
+   ],
+   "own": true
+  },
+  {
+   "entries": [],
+   "own": false
+  }
+ ],
+ "testShown": [
+  {
+   "tested": null,
+   "input": null,
+   "shown": false
+  },
+  {
+   "tested": null,
+   "input": "https://a.example",
+   "shown": false
+  },
+  {
+   "tested": "https://a.example",
+   "input": "https://a.example",
+   "shown": true
+  },
+  {
+   "tested": "https://a.example",
+   "input": "https://b.example",
+   "shown": false
+  },
+  {
+   "tested": "https://a.example",
+   "input": null,
+   "shown": false
+  }
+ ],
+ "confirmPublic": [
+  {
+   "current": "https://a.example",
+   "next": null,
+   "btcCount": 1,
+   "ask": true
+  },
+  {
+   "current": "https://a.example",
+   "next": null,
+   "btcCount": 0,
+   "ask": false
+  },
+  {
+   "current": "https://a.example",
+   "next": "https://b.example",
+   "btcCount": 3,
+   "ask": false
+  },
+  {
+   "current": null,
+   "next": null,
+   "btcCount": 3,
+   "ask": false
+  },
+  {
+   "current": null,
+   "next": "https://b.example",
+   "btcCount": 3,
+   "ask": false
+  }
+ ]
+}

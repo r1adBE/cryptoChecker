@@ -261,7 +261,7 @@ struct PortfolioAddressSheet: View {
                         .lineLimit(1)
                 }
                 if a.unknownTokens > 0 && a.countTokens {
-                    Text(L("portfolio_address_unknown_tokens", a.unknownTokens))
+                    Text(L("portfolio_address_unknown_tokens", count: a.unknownTokens))
                         .font(.caption2)
                         .foregroundStyle(AppColors.onSurfaceVariant)
                 }

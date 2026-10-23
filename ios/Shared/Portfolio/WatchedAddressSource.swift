@@ -7,7 +7,7 @@ import Foundation
 /// `MarketHTTP.call`, damit die Adresse nicht im HTTP-Protokoll der App landet; Protokolle nennen nur
 /// die gekürzte Adresse. Neutraler User-Agent (`HttpUserAgent.neutral`). Eigener Bitcoin-Server
 /// (`AddressServer`): nur dorthin.
-/// Pausen: 451/403 → Host 6 h übersprungen (`BlockedSources`); 429/418 und wiederholte
+/// Pausen: 451/403 → Host 6 h übersprungen (`BlockedSources`, nicht der eigene Server); 429/418 und wiederholte
 /// Zeitüberschreitungen → Pause je Host nach `ExchangeBackoff` («Retry-After» gilt); dann der
 /// nächste Host. Adressen der Reihe nach, nie parallel (schont die kostenlosen Anbieter).
 /// ETH: mit «Tokens mitzählen» eine Stapel-Anfrage (ETH + ERC-20, `Erc20Tokens`). xpub: abgeleitete Adressen einzeln mit
@@ -62,8 +62,6 @@ actor WatchedAddressSource {
 
     /// Pausen je Host (nur im Speicher; ein Neustart beginnt frisch).
     private var backoff: [String: ExchangeBackoff.State] = [:]
-    /// Bitcoin-Hosts dieser Runde: eigener Server allein oder die öffentlichen (`AddressServer.btcEntries`).
-    var btcEntries: [String] = AddressBalance.btcHosts
     /// Laufende Abrufe (der Hintergrund wartet nicht auf einen laufenden — wie Android `tryLock`).
     private var running = 0
 
@@ -84,7 +82,8 @@ actor WatchedAddressSource {
         if deadline != nil && running > 0 { return [] }
         running += 1
         defer { running -= 1 }
-        btcEntries = AddressServer.btcEntries(btcServer)
+        // Bitcoin-Hosts dieses Abrufs als Wert, nicht als Feld: Abrufe im Vordergrund können sich an `await` überlappen
+        let btcEntries = AddressServer.btcEntries(btcServer)
         var updates: [Update] = []
         for a in AddressBalance.dueOrder(addresses, now: now, force: force, background: deadline != nil) {
             try Task.checkCancellation()
@@ -92,7 +91,7 @@ actor WatchedAddressSource {
             do {
                 let fetched: Fetched
                 if a.isXpub {
-                    guard let result = try await fetchXpub(a, deadline: deadline) else { continue }
+                    guard let result = try await fetchXpub(a, deadline: deadline, btcEntries: btcEntries) else { continue }
                     fetched = result
                 } else if a.chain == .ETH {
                     fetched = try await fetchEvm(a, deadline: deadline)
@@ -103,7 +102,7 @@ actor WatchedAddressSource {
                 } else if a.chain == .TON {
                     fetched = try await fetchTon(a, deadline: deadline)
                 } else {
-                    fetched = try await fetch(a.chain, address: a.address, deadline: deadline)
+                    fetched = try await fetch(a.chain, address: a.address, deadline: deadline, btcEntries: btcEntries)
                 }
                 updates.append(Update(id: a.id, time: time, fetched: fetched, error: nil))
             } catch is CancellationError {
@@ -127,10 +126,13 @@ actor WatchedAddressSource {
 
     /// Ein Guthaben (einzelne Adresse, ohne Token); wirft, wenn kein Host liefert.
     /// - Parameter deadline: Endzeit (ms) im Hintergrund, nil = ohne Grenze.
-    func fetch(_ chain: AddressChain, address: String, deadline: Int64? = nil) async throws -> Fetched {
+    /// - Parameter btcEntries: Bitcoin-Hosts (`AddressServer.btcEntries`): eigener Server allein oder die öffentlichen.
+    func fetch(_ chain: AddressChain, address: String, deadline: Int64? = nil,
+               btcEntries: [String] = AddressBalance.btcHosts) async throws -> Fetched {
         switch chain {
         case .BTC:
-            let (balance, provider) = try await firstWorking(btcEntries, deadline: deadline) { (host: String) -> String in
+            let own = AddressServerRules.isOwnServer(btcEntries)
+            let (balance, provider) = try await firstWorking(btcEntries, deadline: deadline, own: own) { (host: String) -> String in
                 let body = try await Self.load(AddressServer.btcUrl(host, address: address), post: nil)
                 return AddressBalance.btcText(try AddressBalance.parseBtc(body, address: address))
             }
@@ -181,22 +183,23 @@ actor WatchedAddressSource {
         }
     }
 
-    private static func host(of entry: String) -> String {
-        var host = entry.hasPrefix("https://") ? String(entry.dropFirst(8)) : entry
-        if let slash = host.firstIndex(of: "/") { host = String(host[..<slash]) }
-        if let colon = host.firstIndex(of: ":") { host = String(host[..<colon]) }
-        return host
+    /// Speichern oder erfolgreicher Test des eigenen Servers: Sperre und Pause seines Hosts aufheben.
+    func clearServerPauses(_ server: String) {
+        let host = AddressServerRules.hostKey(server)
+        backoff[host] = nil
+        BlockedSources.unblock(host)
     }
 
     /// Erster Host, der liefert: Ergebnis und Anbieter-Name; wirft, wenn keiner liefert.
-    func firstWorking<T: Sendable>(_ entries: [String], deadline: Int64?,
-                                           _ load: @escaping @Sendable (String) async throws -> T) async throws -> (T, String) {
+    /// - Parameter own: eigener Server (`AddressServerRules.isOwnServer`): nie 6 h sperren, nur die kurze Pause.
+    func firstWorking<T: Sendable>(_ entries: [String], deadline: Int64?, own: Bool = false,
+                                   _ load: @escaping @Sendable (String) async throws -> T) async throws -> (T, String) {
         var lastError: Error = AddressBalance.ParseError(message: "Alle Anbieter pausiert")
         var tried = false
         for entry in entries {
-            let host = Self.host(of: entry)
+            let host = AddressServerRules.hostKey(entry)
             let now = TimeUtils.nowMillis
-            if BlockedSources.isBlocked(host) || ExchangeBackoff.isPaused(backoff[host], now: now) { continue }
+            if (!own && BlockedSources.isBlocked(host)) || ExchangeBackoff.isPaused(backoff[host], now: now) { continue }
             // Hintergrund: je Anfrage höchstens backgroundRequestMillis, nie über die Endzeit
             let limit = deadline.map { min(Self.backgroundRequestMillis, $0 - now) }
             if let limit, limit < Self.minRequestMillis {
@@ -211,7 +214,7 @@ actor WatchedAddressSource {
             } catch is CancellationError {
                 throw CancellationError()
             } catch {
-                BlockedSources.noteFailure(host, error)
+                if !own { BlockedSources.noteFailure(host, error) }
                 let outcome: ExchangeBackoff.Outcome
                 var retryAfterMillis: Int64?
                 if let http = error as? HttpMarketError, ExchangeBackoff.isRateLimitCode(http.httpCode) {

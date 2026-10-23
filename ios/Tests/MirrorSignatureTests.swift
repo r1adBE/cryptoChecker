@@ -66,9 +66,9 @@ final class MirrorSignatureTests: XCTestCase {
     }
 
     func testTrustRejectsMissingManifestAndRemembers() async {
-        let trust = MirrorTrust()
+        let trust = MirrorTrust(publicKey: MirrorManifest.publicKey, now: { TimeUtils.nowMillis })
         let asked = AskedURLs()
-        let load: MirrorTrust.Loader = { url in
+        let load: MirrorTrust.Loader = { url, _ in
             await asked.add(url)
             return nil
         }
@@ -84,9 +84,9 @@ final class MirrorSignatureTests: XCTestCase {
     }
 
     func testTrustRejectsInvalidSignature() async {
-        let trust = MirrorTrust()
+        let trust = MirrorTrust(publicKey: MirrorManifest.publicKey, now: { TimeUtils.nowMillis })
         let manifest = "{\"created\":\(TimeUtils.nowMillis),\"files\":{\"fng.txt\":\"\(MirrorManifest.sha256Hex("x"))\"},\"v\":1}"
-        let load: MirrorTrust.Loader = { url in
+        let load: MirrorTrust.Loader = { url, _ in
             switch url {
             case MirrorManifest.url: return manifest
             case MirrorManifest.signatureURL: return "MEUCIQDf"
@@ -97,6 +97,116 @@ final class MirrorSignatureTests: XCTestCase {
         XCTAssertFalse(ok)
         let status = await trust.lastStatus
         XCTAssertEqual(status, .invalid)
+    }
+
+    /// Gültiges Manifest des Test-Schlüssels, Text, der dazu passt, und Text mit anderem Hash (Fixture).
+    private func signedCase() throws -> (manifest: String, signature: String, key: String, now: Int64,
+                                         okText: String, changedText: String) {
+        let data = try S.fixture("mirror_signature")
+        let valid = try XCTUnwrap(S.list(data["verify"]).first { $0["name"] as? String == "valid" })
+        let files = S.list(data["files"])
+        let ok = try XCTUnwrap(files.first { $0["name"] as? String == "listed and same bytes" })
+        let changed = try XCTUnwrap(files.first { $0["name"] as? String == "listed but changed" })
+        return (try XCTUnwrap(valid["manifest"] as? String), try XCTUnwrap(valid["signature"] as? String),
+                try XCTUnwrap(data["publicKey"] as? String), try XCTUnwrap((data["now"] as? NSNumber)?.int64Value),
+                try XCTUnwrap(ok["text"] as? String), try XCTUnwrap(changed["text"] as? String))
+    }
+
+    func testTrustAcceptsValidManifestWithTestKey() async throws {
+        let c = try signedCase()
+        let now = c.now
+        let trust = MirrorTrust(publicKey: c.key, now: { now })
+        let asked = AskedURLs()
+        let load: MirrorTrust.Loader = { url, limit in
+            await asked.add("\(url) \(limit)")
+            switch url {
+            case MirrorManifest.url: return c.manifest
+            case MirrorManifest.signatureURL: return c.signature
+            default: return nil
+            }
+        }
+        let ok = await trust.verified(file: "fng.txt", text: c.okText, load: load)
+        XCTAssertTrue(ok)
+        let status = await trust.lastStatus
+        XCTAssertEqual(status, .ok)
+        // Grenzen wie Android: Manifest 64 KB, Signatur 1 KB
+        let urls = await asked.urls
+        XCTAssertEqual(urls, ["\(MirrorManifest.url) 65536", "\(MirrorManifest.signatureURL) 1024"])
+        // Der eingebaute Schlüssel lehnt dasselbe Manifest ab
+        let production = MirrorTrust(publicKey: MirrorManifest.publicKey, now: { now })
+        let rejected = await production.verified(file: "fng.txt", text: c.okText, load: load)
+        XCTAssertFalse(rejected)
+    }
+
+    func testTrustReloadsOnceOnHashMismatchAfterOneMinute() async throws {
+        let c = try signedCase()
+        let clock = MirrorTestClock(c.now)
+        let trust = MirrorTrust(publicKey: c.key, now: { clock.value })
+        let asked = AskedURLs()
+        let load: MirrorTrust.Loader = { url, _ in
+            await asked.add(url)
+            return url == MirrorManifest.url ? c.manifest : (url == MirrorManifest.signatureURL ? c.signature : nil)
+        }
+        let first = await trust.verified(file: "fng.txt", text: c.okText, load: load)
+        XCTAssertTrue(first)
+        var count = await asked.urls.count
+        XCTAssertEqual(count, 2)
+        // Abweichender Hash innerhalb einer Minute: kein Neuladen
+        clock.value = c.now + 59_000
+        let early = await trust.verified(file: "fng.txt", text: c.changedText, load: load)
+        XCTAssertFalse(early)
+        count = await asked.urls.count
+        XCTAssertEqual(count, 2)
+        // Nach 60 s: genau ein Neuladen (Manifest und Signatur), danach wieder gemerkt
+        clock.value = c.now + 60_000
+        let late = await trust.verified(file: "fng.txt", text: c.changedText, load: load)
+        XCTAssertFalse(late)
+        let again = await trust.verified(file: "fng.txt", text: c.changedText, load: load)
+        XCTAssertFalse(again)
+        let urls = await asked.urls
+        XCTAssertEqual(urls, [MirrorManifest.url, MirrorManifest.signatureURL, MirrorManifest.url, MirrorManifest.signatureURL])
+        let stillOk = await trust.verified(file: "fng.txt", text: c.okText, load: load)
+        XCTAssertTrue(stillOk)
+    }
+
+    func testTrustTreatsOversizedManifestOrSignatureAsMissing() async throws {
+        let c = try signedCase()
+        let now = c.now
+        // Lader hält die Grenze ein wie `MarketHTTP.readLimited` (zu gross → nil)
+        func loader(manifest: String, signature: String) -> MirrorTrust.Loader {
+            { url, limit in
+                let text = url == MirrorManifest.url ? manifest : (url == MirrorManifest.signatureURL ? signature : "")
+                return text.utf8.count > limit ? nil : text
+            }
+        }
+        let big = MirrorTrust(publicKey: c.key, now: { now })
+        let padded = c.manifest + String(repeating: " ", count: MirrorManifest.maxBytes)
+        let bigOk = await big.verified(file: "fng.txt", text: c.okText, load: loader(manifest: padded, signature: c.signature))
+        XCTAssertFalse(bigOk)
+        let bigStatus = await big.lastStatus
+        XCTAssertEqual(bigStatus, .missing)
+        let bigSig = MirrorTrust(publicKey: c.key, now: { now })
+        let longSignature = c.signature + String(repeating: "\n", count: MirrorManifest.signatureMaxBytes)
+        let sigOk = await bigSig.verified(file: "fng.txt", text: c.okText,
+                                          load: loader(manifest: c.manifest, signature: longSignature))
+        XCTAssertFalse(sigOk)
+        let sigStatus = await bigSig.lastStatus
+        XCTAssertEqual(sigStatus, .missing)
+    }
+}
+
+/// Verstellbare Uhr für `MirrorTrust` (die Closure muss @Sendable sein).
+private final class MirrorTestClock: @unchecked Sendable {
+    private let lock = NSLock()
+    private var current: Int64
+
+    init(_ start: Int64) {
+        current = start
+    }
+
+    var value: Int64 {
+        get { lock.withLock { current } }
+        set { lock.withLock { current = newValue } }
     }
 }
 

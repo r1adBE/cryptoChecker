@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Einstellungen › Portfolio › Eigener Server: Titel der Rückfrage beim Wechsel vom eigenen Server auf öffentliche Knoten (Feld geleert + Speichern, Bitcoin-Adressen oder xpub vorhanden) -->
+    <string name="settings_address_server_public_title">Treci la noduri publice?</string>
+    <!-- Text der Rückfrage: Bitcoin-Adressen und xpub gehen dann an die öffentlichen Knoten; %1$s = deren Hosts, kommagetrennt (z. B. mempool.space, blockstream.info) -->
+    <string name="settings_address_server_public_text">Adresele tale Bitcoin și xpub vor fi atunci interogate la noduri publice: %1$s. Acestea văd adresele împreună cu adresa ta IP.</string>
+    <!-- Bestätigen-Knopf der Rückfrage (öffentliche Knoten verwenden; «Abbrechen» behält den eigenen Server) -->
+    <string name="settings_address_server_public_confirm">Folosește noduri publice</string>
+</resources>

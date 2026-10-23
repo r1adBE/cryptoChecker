@@ -162,7 +162,7 @@ extension WatchedAddressSource {
     /// als zuletzt (`XpubScan.keepBackground`): nil (bleibt fällig). Vollständige Suche zu gross (`XpubScan.TooMany`) mit
     /// Zwischenspeicher: einmal schnell wiederholen statt Fehler; dieser Rückfall und der von `XpubScan.mode(for:)` setzen
     /// `XpubCache.limitedFallback`. Ohne Zwischenspeicher oder wenn auch die schnelle zu gross ist: Fehler. Wie Android.
-    func fetchXpub(_ a: WatchedAddress, deadline: Int64?) async throws -> Fetched? {
+    func fetchXpub(_ a: WatchedAddress, deadline: Int64?, btcEntries: [String]) async throws -> Fetched? {
         guard let key = Bip32.parse(a.address) else { throw AddressBalance.ParseError(message: "xpub ungültig") }
         let isXpub = key.detectsScript
         // Zwischenspeicher nur, wenn er zu diesem Schlüssel gehört (erste Adresse im gemerkten Typ stimmt)
@@ -200,13 +200,13 @@ extension WatchedAddressSource {
             }
             let scan: (used: Int, fetched: Fetched, complete: Bool, sats: Int64)
             do {
-                scan = try await scanXpub(deriver, cache: cache, mode: mode, deadline: deadline)
+                scan = try await scanXpub(deriver, cache: cache, mode: mode, deadline: deadline, entries: btcEntries)
             } catch let error as XpubScan.TooMany {
                 // Vollständige Suche doch zu gross: mit Zwischenspeicher einmal schnell (wirft sie auch TooMany: Fehler)
                 guard mode == .FULL, let cache, cache.fullScan > 0 else { throw error }
                 limited = true
                 retried = true
-                scan = try await scanXpub(deriver, cache: cache, mode: .QUICK, deadline: deadline)
+                scan = try await scanXpub(deriver, cache: cache, mode: .QUICK, deadline: deadline, entries: btcEntries)
             }
             var fetched = scan.fetched
             if limited { fetched.xpub?.limitedFallback = true }
@@ -228,13 +228,13 @@ extension WatchedAddressSource {
     }
 
     /// Eine Suche über die Adressen eines Adresstyps (`deriver`): benutzte Adressen, Ergebnis, vollständig
-    /// (`XpubScan.complete`) und Summe in Satoshi.
-    private func scanXpub(_ deriver: XpubDeriver, cache: XpubCache?, mode: XpubScan.Mode,
-                          deadline: Int64?) async throws -> (used: Int, fetched: Fetched, complete: Bool, sats: Int64) {
+    /// (`XpubScan.complete`) und Summe in Satoshi. `entries`: eigener Server oder die öffentlichen Hosts, für die ganze
+    /// Suche gleich.
+    private func scanXpub(_ deriver: XpubDeriver, cache: XpubCache?, mode: XpubScan.Mode, deadline: Int64?,
+                          entries: [String]) async throws -> (used: Int, fetched: Fetched, complete: Bool, sats: Int64) {
         var lists = [cache?.receive ?? [], cache?.change ?? []]
         let scan = XpubScan(mode: mode, cache: cache)
-        // Eigener Server oder die öffentlichen Hosts, für die ganze Suche gleich
-        let entries = btcEntries
+        let own = AddressServerRules.isOwnServer(entries)
         var provider = AddressBalance.providerName(ChainBalance.host(entries[0]))
         while let target = try scan.next() {
             try Task.checkCancellation()
@@ -249,7 +249,7 @@ extension WatchedAddressSource {
                 let pause = deadline == nil ? Self.xpubPauseMillis : Self.xpubPauseBackgroundMillis
                 try await Task.sleep(nanoseconds: UInt64(pause) * 1_000_000)
             }
-            let (stats, host) = try await firstWorking(entries, deadline: deadline) { (h: String) -> AddressBalance.BtcStats in
+            let (stats, host) = try await firstWorking(entries, deadline: deadline, own: own) { (h: String) -> AddressBalance.BtcStats in
                 try AddressBalance.parseBtc(try await Self.load(AddressServer.btcUrl(h, address: address), post: nil),
                                             address: address)
             }

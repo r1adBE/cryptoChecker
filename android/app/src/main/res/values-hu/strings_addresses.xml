@@ -19,7 +19,6 @@
     <string name="portfolio_address_show_only">Csak megjelenítés, nem számít a portfólióba</string>
     <string name="portfolio_address_show_only_short">Csak megjelenítés</string>
     <string name="portfolio_address_tokens">Tokenek beszámítása</string>
-    <string name="portfolio_address_unknown_tokens">+%1$d ismeretlen token (nem számítva)</string>
     <string name="portfolio_address_xpub_privacy">Az xpub felfedi ennek a tárcának az összes címét. Ezeket a készüléked származtatja; ide: %1$s csak egyes címek kerülnek – az első keresésnél legalább 40 lekérés, később kevesebb. Privát kulcsot (xprv) sosem fogadunk el.</string>
     <string name="portfolio_address_xpub_gap">A keresés %1$d egymást követő használatlan cím után leáll (a legtöbb tárca által használt BIP44-szabvány). Az ezen a résen túli használt címet nem számolja – add hozzá külön.</string>
     <string name="portfolio_address_xpub_used">Használt címek: %1$d</string>
