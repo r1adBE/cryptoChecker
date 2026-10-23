@@ -14,6 +14,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.settings.SettingsRepository
+import com.cryptochecker.app.ui.components.DialogText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -77,10 +78,12 @@ fun BatteryOptimizationDialog(
         onDismissRequest = viewModel::dismiss,
         title = { Text(stringResource(R.string.battery_title)) },
         text = {
-            Text(
-                stringResource(R.string.battery_message) + "\n\n" +
-                    stringResource(R.string.battery_steps)
-            )
+            DialogText {
+                Text(
+                    stringResource(R.string.battery_message) + "\n\n" +
+                        stringResource(R.string.battery_steps)
+                )
+            }
         },
         confirmButton = {
             TextButton(

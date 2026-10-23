@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.lock
 
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.theme.AppColors
 import android.view.WindowManager
 import androidx.compose.foundation.background
@@ -188,7 +189,7 @@ fun PortfolioLockedState(
         androidx.compose.material3.AlertDialog(
             onDismissRequest = { confirmTurnOff = false },
             title = { Text(stringResource(R.string.app_lock_turn_off_confirm_title)) },
-            text = { Text(stringResource(R.string.app_lock_turn_off_confirm_message)) },
+            text = { DialogText { Text(stringResource(R.string.app_lock_turn_off_confirm_message)) } },
             confirmButton = {
                 androidx.compose.material3.TextButton(onClick = {
                     confirmTurnOff = false

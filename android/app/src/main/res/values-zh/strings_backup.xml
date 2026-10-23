@@ -42,7 +42,7 @@
         <item quantity="other">备份中有 %d 条记录（投资组合或提醒）无效，不会导入。</item>
     </plurals>
     <string name="backup_restore_newer_version">此备份来自更新版本的应用——请先更新应用。未导入任何内容。</string>
-    <string name="backup_restore_unencrypted_warning">此备份未加密，请确认它来自你。设置会被应用；已开启的投资组合锁保持开启。</string>
+    <string name="backup_restore_unencrypted_warning">此备份未加密，请确认它来自你。设置会被应用，但降低保护的更改除外（投资组合锁、自有比特币服务器、隐藏金额、系统备份）。</string>
     <string name="backup_restored">已恢复：%1$s，%2$s。</string>
     <plurals name="backup_restored_alarms">
         <item quantity="other">%1$d 个提醒</item>

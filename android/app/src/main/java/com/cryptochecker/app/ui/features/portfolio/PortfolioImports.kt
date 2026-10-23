@@ -29,6 +29,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatchInfo
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportFormat
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.theme.tabularNumbers
 
 /**
@@ -46,7 +47,11 @@ fun PortfolioImportsDialog(
         AlertDialog(
             onDismissRequest = { confirm = null },
             title = { Text(stringResource(R.string.portfolio_import_undo_title)) },
-            text = { Text(pluralStringResource(R.plurals.portfolio_import_undo_confirm, batch.count, batch.count)) },
+            text = {
+                DialogText {
+                    Text(pluralStringResource(R.plurals.portfolio_import_undo_confirm, batch.count, batch.count))
+                }
+            },
             confirmButton = {
                 TextButton(
                     onClick = { confirm = null; onUndo(batch); onDismiss() },

@@ -15,6 +15,17 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 112)
+
+Fixes from the eighth review round (on build 111):
+
+* Watched addresses: only one refresh runs at a time; a second one waits and reads the list afresh, so no address is queried twice (both platforms, also for xpub keys).
+* Backup and restore results with a note (own Bitcoin server, portfolio lock kept, entries over the limits) or a long text now appear as a dialog instead of a short toast (Android limits toasts to two lines); the notification question follows after closing it. iOS announces toasts to VoiceOver and keeps them visible according to their length.
+* Android: all dialogs with longer texts scroll at large font sizes (shared building block, guarded by a test).
+* Own Bitcoin server: pasting more than 200 characters is reported as invalid again (build 111 shortened it to a valid-looking address); iOS also asks before switching to public nodes when the address list cannot be read; no public default hosts in the address code any more; a late result of a cancelled server test can no longer overwrite a newer test.
+* The warning before restoring a backup without password names what is not taken over (portfolio lock, own Bitcoin server, hide amounts, system backup), in all 31 languages; SECURITY.md describes the same rule. Arabic dual form for unknown tokens.
+* CI: the mirror signing step runs on main only and in the environment «mirror-signing»; the dependency graph is built with read rights only and submitted in a separate job without Gradle. More tests for the signed mirror (cancelled caller, size limits over the real loading path).
+
 ## 16.2.2 (build 111)
 
 Fixes from the seventh review round (on build 110):

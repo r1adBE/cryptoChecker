@@ -2,6 +2,7 @@
 
 package com.cryptochecker.app.ui.features.settings
 
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.rememberReduceMotion
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import com.cryptochecker.app.ui.navigation.OnTabReselect
@@ -92,7 +93,7 @@ fun SettingsScreen(
         AlertDialog(
             onDismissRequest = { askReset = false },
             title = { Text(stringResource(R.string.settings_reset_app_title)) },
-            text = { Text(stringResource(R.string.settings_reset_app_confirm)) },
+            text = { DialogText { Text(stringResource(R.string.settings_reset_app_confirm)) } },
             confirmButton = {
                 TextButton(onClick = {
                     askReset = false

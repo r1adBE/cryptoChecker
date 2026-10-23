@@ -17,6 +17,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.portfolio.PortfolioCalculator
 import com.cryptochecker.app.domain.portfolio.PortfolioDecimal
+import com.cryptochecker.app.ui.components.DialogText
 
 /**
  * Erfassen-Blatt aus der Merkliste bzw. dem Markt: Coin und Kurs vorbelegt. Auch mit ausgeschaltetem Portfolio.
@@ -43,7 +44,7 @@ fun PortfolioQuickAddSheet(
         AlertDialog(
             onDismissRequest = later,
             title = { Text(stringResource(R.string.portfolio_enable_ask_title)) },
-            text = { Text(stringResource(R.string.portfolio_enable_ask_text)) },
+            text = { DialogText { Text(stringResource(R.string.portfolio_enable_ask_text)) } },
             confirmButton = {
                 TextButton(onClick = {
                     askEnable = false

@@ -45,7 +45,7 @@
         <item quantity="other">%d položek zálohy (portfolio nebo alarmy) je neplatných a nebudou importovány.</item>
     </plurals>
     <string name="backup_restore_newer_version">Tato záloha je z novější verze aplikace – nejdřív aplikaci aktualizuj. Nic se neimportovalo.</string>
-    <string name="backup_restore_unencrypted_warning">Tato záloha není šifrovaná – ověř, že je tvoje. Nastavení se převezmou; zapnutý zámek portfolia zůstane zapnutý.</string>
+    <string name="backup_restore_unencrypted_warning">Tato záloha není šifrovaná – ověř, že je tvoje. Nastavení se převezmou – kromě změn, které snižují ochranu (zámek portfolia, vlastní server pro Bitcoin, skrytí částek, systémová záloha).</string>
     <string name="backup_restored">Obnoveno: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarm</item>

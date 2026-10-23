@@ -43,7 +43,7 @@
         <item quantity="other">%d varmuuskopion merkintää (salkku tai hälytykset) on virheellisiä eikä niitä tuoda.</item>
     </plurals>
     <string name="backup_restore_newer_version">Tämä varmuuskopio on uudemmasta sovellusversiosta – päivitä sovellus ensin. Mitään ei tuotu.</string>
-    <string name="backup_restore_unencrypted_warning">Tätä varmuuskopiota ei ole salattu – varmista, että se on sinun. Asetukset otetaan käyttöön; päällä oleva salkun lukitus pysyy päällä.</string>
+    <string name="backup_restore_unencrypted_warning">Tätä varmuuskopiota ei ole salattu – varmista, että se on sinun. Asetukset otetaan käyttöön – paitsi muutokset, jotka heikentävät suojaa (salkun lukitus, oma Bitcoin-palvelin, summien piilotus, järjestelmän varmuuskopio).</string>
     <string name="backup_restored">Palautettu: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d hälytys</item>

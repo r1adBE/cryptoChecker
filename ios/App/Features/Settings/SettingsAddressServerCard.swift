@@ -6,8 +6,8 @@ import SwiftUI
 struct SettingsAddressServerCard: View {
     @EnvironmentObject private var data: AppData
     @State private var input = ""
-    @State private var test: TestState = .idle
-    @State private var testTask: Task<Void, Never>?
+    /// «Testen»: Zustand und laufender Abruf (`AddressServerTestRun`).
+    @StateObject private var testRun = AddressServerTestRun()
     /// Rückfrage vor dem Wechsel auf öffentliche Knoten (Bitcoin-Adressen/xpub vorhanden).
     @State private var askPublic = false
 
@@ -27,6 +27,8 @@ struct SettingsAddressServerCard: View {
             return false
         }
     }
+
+    private var test: TestState { testRun.state }
 
     var body: some View {
         let check = AddressServer.check(input)
@@ -115,14 +117,13 @@ struct SettingsAddressServerCard: View {
     }
 
     private func resetTest() {
-        testTask?.cancel()
-        testTask = nil
-        test = .idle
+        testRun.reset()
     }
 
     /// «Speichern»: vom eigenen Server auf öffentliche Knoten mit beobachteten Bitcoin-Adressen/xpub erst fragen.
+    /// Liste nicht lesbar: fragen (wie Android).
     private func requestSave(_ url: String?, saved: String?) {
-        let count = AddressServerRules.btcCount(data.watchedAddresses)
+        let count = AddressServerRules.btcCount(data.watchedAddressIntact ? data.watchedAddresses : nil)
         if AddressServerRules.confirmPublicSwitch(current: saved, next: url, btcCount: count) {
             askPublic = true
         } else {
@@ -142,20 +143,8 @@ struct SettingsAddressServerCard: View {
 
     /// Blockhöhe abfragen (nennt keine Adresse).
     private func runTest(_ url: String?) {
-        guard let url, !test.isRunning else { return }
-        test = .running(url)
-        testTask = Task { await finishTest(url) }
-    }
-
-    /// Erfolg hebt Sperre/Pause des Hosts auf; Ergebnis nur, wenn Eingabe und Test noch dazu passen, dann angesagt.
-    private func finishTest(_ url: String) async {
-        let height = await WatchedAddressSource.testBtcServer(url)
-        if height != nil { await WatchedAddressSource.shared.clearServerPauses(url) }
-        // Inzwischen geänderte Eingabe oder Speichern: Ergebnis verwerfen
-        guard !Task.isCancelled, test == .running(url) else { return }
-        let result: TestState = height.map { .ok(url, $0) } ?? .failed(url)
-        test = result
-        AccessibilityNotification.Announcement(Self.resultText(result)).post()
+        guard let url else { return }
+        testRun.start(url)
     }
 
     /// Meldung zu einem Prüfergebnis — wie Android `addressServerProblemText`.

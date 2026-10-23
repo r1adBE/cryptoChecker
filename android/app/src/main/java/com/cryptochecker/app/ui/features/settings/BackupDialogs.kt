@@ -33,6 +33,7 @@ import com.cryptochecker.app.R
 import com.cryptochecker.app.data.BackupCrypto
 import com.cryptochecker.app.data.BackupPasswordStrength
 import com.cryptochecker.app.ui.UiTestTags
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.SwitchRow
 import androidx.compose.runtime.LaunchedEffect
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -224,7 +225,7 @@ internal fun BackupPasswordDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.backup_password_title)) },
         text = {
-            Column {
+            DialogText {
                 Text(
                     text = stringResource(R.string.backup_password_prompt),
                     style = MaterialTheme.typography.bodyMedium,

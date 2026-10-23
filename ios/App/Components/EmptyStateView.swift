@@ -129,13 +129,25 @@ struct ToastModifier: ViewModifier {
                     .padding(.bottom, 24)
                     .padding(.horizontal, 16)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
-                    .task(id: message) {
-                        try? await Task.sleep(nanoseconds: 2_500_000_000)
-                        withAnimation { self.message = nil }
-                    }
+                    .task(id: message) { await show(message) }
             }
         }
         .animation(.spring(duration: 0.3), value: message)
+    }
+
+    /// VoiceOver liest den Toast vor (er nimmt keinen Fokus); länger sichtbar je nach Textlänge.
+    @MainActor
+    private func show(_ text: String) async {
+        AccessibilityNotification.Announcement(text).post()
+        try? await Task.sleep(nanoseconds: UInt64(Self.seconds(for: text) * 1_000_000_000))
+        // Auch abgebrochen (Bildschirm weg) ausblenden — einen inzwischen neuen Text aber stehen lassen
+        guard message == text else { return }
+        withAnimation { message = nil }
+    }
+
+    /// Anzeigedauer: 0,06 s je Zeichen (Codepunkte), mindestens 2,5 s, höchstens 8 s.
+    nonisolated static func seconds(for text: String) -> Double {
+        min(8, max(2.5, 0.06 * Double(text.unicodeScalars.count)))
     }
 }
 

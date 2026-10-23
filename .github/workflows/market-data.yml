@@ -6,7 +6,7 @@
 # each provider: https://github.com/r1adBE/cryptoChecker/releases/download/data/<file>
 # Nothing is committed. The apps fall back to the providers when a file is too old.
 # Signed: the publish job adds manifest.json (SHA-256 of every file, creation time) and manifest.json.sig (ECDSA P-256,
-# secret MIRROR_SIGNING_KEY); the apps use mirror files only with a valid signature (DEVELOPMENT.md, «Data mirror»).
+# secret MIRROR_SIGNING_KEY, environment mirror-signing, main only); the apps use mirror files only with a valid signature (DEVELOPMENT.md, «Data mirror»).
 # CoinGecko data is never mirrored (CoinGecko API terms); the apps ask CoinGecko directly.
 name: Market data
 
@@ -56,6 +56,11 @@ jobs:
 
   publish:
     needs: fetch
+    # Nur auf main (auch workflow_dispatch auf einem anderen Zweig veröffentlicht nichts). Umgebung mirror-signing:
+    # Dort liegt MIRROR_SIGNING_KEY, sobald der Inhaber es verschoben hat (nur Zweig main zugelassen); bis dahin gilt
+    # das gleichnamige Repository-Secret (ein Umgebungs-Secret hat Vorrang).
+    if: github.ref == 'refs/heads/main'
+    environment: mirror-signing
     runs-on: ubuntu-24.04
     permissions:
       contents: write   # gh release create/edit/upload

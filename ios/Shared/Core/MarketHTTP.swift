@@ -138,7 +138,8 @@ enum MarketHTTP {
     }
 
     /// Manifest oder Signatur mit eigener Höchstgrösse `limit` (wie Android); nil bei jedem Fehler, auch zu gross.
-    private static func loadMirrorMeta(_ address: String, limit: Int, session: URLSession) async -> String? {
+    /// Nicht privat: `MirrorLoadLimitTests` prüft die Grenzen über diesen Weg.
+    static func loadMirrorMeta(_ address: String, limit: Int, session: URLSession) async -> String? {
         guard let u = URL(string: address) else { return nil }
         let request = URLRequest(url: u)
         let effective = Self.sessionFor(host: u.host, requested: session)

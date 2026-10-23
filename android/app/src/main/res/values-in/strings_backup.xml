@@ -42,7 +42,7 @@
         <item quantity="other">%d entri di cadangan (portofolio atau alarm) tidak valid dan tidak akan diimpor.</item>
     </plurals>
     <string name="backup_restore_newer_version">Cadangan ini dari versi aplikasi yang lebih baru – perbarui aplikasi terlebih dulu. Tidak ada yang diimpor.</string>
-    <string name="backup_restore_unencrypted_warning">Cadangan ini tidak dienkripsi – pastikan itu milikmu. Pengaturan akan diterapkan; kunci portofolio yang aktif tetap aktif.</string>
+    <string name="backup_restore_unencrypted_warning">Cadangan ini tidak dienkripsi – pastikan itu milikmu. Pengaturan akan diterapkan – kecuali perubahan yang menurunkan perlindungan (kunci portofolio, server Bitcoin sendiri, sembunyikan jumlah, cadangan sistem).</string>
     <string name="backup_restored">Dipulihkan: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="other">%1$d alarm</item>

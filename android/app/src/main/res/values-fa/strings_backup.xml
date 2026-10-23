@@ -43,7 +43,7 @@
         <item quantity="other">%d ورودی در پشتیبان (سبد یا هشدارها) نامعتبرند و وارد نمی‌شوند.</item>
     </plurals>
     <string name="backup_restore_newer_version">این پشتیبان از نسخهٔ جدیدتر برنامه است – اول برنامه را به‌روز کن. چیزی وارد نشد.</string>
-    <string name="backup_restore_unencrypted_warning">این پشتیبان رمزگذاری نشده است – مطمئن شو که مال توست. تنظیمات اعمال می‌شوند؛ قفل سبدِ روشن، روشن می‌ماند.</string>
+    <string name="backup_restore_unencrypted_warning">این پشتیبان رمزگذاری نشده است – مطمئن شو که مال توست. تنظیمات اعمال می‌شوند – به‌جز تغییراتی که حفاظت را کم می‌کنند (قفل سبد، سرور بیت‌کوین خودت، پنهان کردن مبالغ، پشتیبان سیستم).</string>
     <string name="backup_restored">بازیابی شد: %1$s، %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d هشدار</item>

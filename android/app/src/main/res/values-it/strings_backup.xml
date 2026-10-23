@@ -44,7 +44,7 @@
         <item quantity="other">%d voci del backup (portafoglio o allarmi) non sono valide e non verranno importate.</item>
     </plurals>
     <string name="backup_restore_newer_version">Questo backup proviene da una versione più recente dell’app – aggiorna prima l’app. Non è stato importato nulla.</string>
-    <string name="backup_restore_unencrypted_warning">Questo backup non è cifrato – verifica che provenga da te. Le impostazioni verranno applicate; un blocco del portafoglio attivo resta attivo.</string>
+    <string name="backup_restore_unencrypted_warning">Questo backup non è cifrato – verifica che provenga da te. Le impostazioni verranno applicate, tranne le modifiche che riducono la protezione (blocco del portafoglio, server Bitcoin personale, nascondi importi, backup di sistema).</string>
     <string name="backup_restored">Ripristinati: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d allarme</item>

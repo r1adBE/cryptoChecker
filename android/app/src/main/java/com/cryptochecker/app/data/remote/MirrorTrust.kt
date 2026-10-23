@@ -1,6 +1,8 @@
 package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.domain.mirror.MirrorManifest
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
@@ -56,6 +58,9 @@ internal class MirrorTrust internal constructor(
         }
         val manifestText = loader(MirrorManifest.URL, MirrorManifest.MAX_BYTES)
         val signature = manifestText?.let { loader(MirrorManifest.SIGNATURE_URL, MirrorManifest.SIGNATURE_MAX_BYTES) }
+        // Abgebrochen (auch wenn der Lader dabei null lieferte): nichts merken, sonst gälte «fehlt» auch für
+        // parallel Wartende
+        currentCoroutineContext().ensureActive()
         val verification = MirrorManifest.verify(manifestText, signature, clock(), publicKey)
         if (verification.status != MirrorManifest.Status.OK) Timber.d("Spiegel-Manifest: %s", verification.status)
         cached = Cached(now, verification)

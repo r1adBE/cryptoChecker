@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.alarms
 
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.EmptyState
 import androidx.compose.foundation.clickable
 import com.cryptochecker.app.ui.components.CardPadding
@@ -92,7 +93,11 @@ fun AlarmsOverviewScreen(
         AlertDialog(
             onDismissRequest = { askDeletePortfolio = null },
             title = { Text(stringResource(R.string.alarm_delete_title)) },
-            text = { Text(PortfolioAlarmTexts.sentence(context, alarm, portfolioDisplay.second, hidePortfolio)) },
+            text = {
+                DialogText {
+                    Text(PortfolioAlarmTexts.sentence(context, alarm, portfolioDisplay.second, hidePortfolio))
+                }
+            },
             confirmButton = {
                 TextButton(onClick = { viewModel.deletePortfolioAlarm(alarm.id); askDeletePortfolio = null }) {
                     Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)

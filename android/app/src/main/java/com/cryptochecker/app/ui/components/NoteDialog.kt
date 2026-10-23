@@ -1,6 +1,5 @@
 package com.cryptochecker.app.ui.components
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -46,7 +45,7 @@ fun NoteDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
         text = {
-            Column {
+            DialogText {
                 OutlinedTextField(
                     value = text,
                     onValueChange = { text = TextLimit.takeGraphemes(it, NOTE_MAX) },

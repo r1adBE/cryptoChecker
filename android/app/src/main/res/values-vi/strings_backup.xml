@@ -42,7 +42,7 @@
         <item quantity="other">%d mục trong bản sao lưu (danh mục hoặc cảnh báo) không hợp lệ và sẽ không được nhập.</item>
     </plurals>
     <string name="backup_restore_newer_version">Bản sao lưu này từ phiên bản ứng dụng mới hơn – hãy cập nhật ứng dụng trước. Không có gì được nhập.</string>
-    <string name="backup_restore_unencrypted_warning">Bản sao lưu này không được mã hóa – hãy kiểm tra nó là của bạn. Cài đặt sẽ được áp dụng; khóa danh mục đang bật sẽ vẫn bật.</string>
+    <string name="backup_restore_unencrypted_warning">Bản sao lưu này không được mã hóa – hãy kiểm tra nó là của bạn. Cài đặt sẽ được áp dụng, trừ các thay đổi làm giảm bảo vệ (khóa danh mục, máy chủ Bitcoin riêng, ẩn số tiền, sao lưu hệ thống).</string>
     <string name="backup_restored">Đã khôi phục: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="other">%1$d cảnh báo</item>

@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.explorer
 
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.ExpandChevronIcon
 import com.cryptochecker.app.ui.components.ExpandToggleButton
 import com.cryptochecker.app.ui.theme.AppColors
@@ -317,7 +318,9 @@ internal fun BulkConfirmDialog(count: Int, quote: String, market: String, onConf
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(pluralStringResource(R.plurals.explorer_bulk_confirm_title, count, count)) },
-        text = { Text(pluralStringResource(R.plurals.explorer_bulk_confirm_text, count, count, quote, market)) },
+        text = {
+            DialogText { Text(pluralStringResource(R.plurals.explorer_bulk_confirm_text, count, count, quote, market)) }
+        },
         confirmButton = {
             TextButton(onClick = onConfirm) { Text(stringResource(R.string.explorer_add_to_watchlist)) }
         },

@@ -12,7 +12,7 @@ extension WatchedAddressSource {
         if a.countTokens {
             result = try await fetchEthWithTokens(a.address, deadline: deadline)
         } else {
-            result = try await fetch(.ETH, address: a.address, deadline: deadline)
+            result = try await fetch(.ETH, address: a.address, deadline: deadline, btcEntries: [])
         }
         var tokens = result.tokens ?? [:]
         var found: [String] = []
@@ -50,7 +50,7 @@ extension WatchedAddressSource {
     /// TON: Guthaben und (mit «Tokens mitzählen») Jettons über TON Center v3 — ohne Schlüssel höchstens 1 Anfrage/s, daher eine
     /// Pause dazwischen. Jettons ohne Antwort bleiben wie zuletzt. Wie Android.
     func fetchTon(_ a: WatchedAddress, deadline: Int64?) async throws -> Fetched {
-        var ton = try await fetch(.TON, address: a.address, deadline: deadline)
+        var ton = try await fetch(.TON, address: a.address, deadline: deadline, btcEntries: [])
         guard a.countTokens else { return ton }
         let address = a.address
         do {
@@ -73,7 +73,7 @@ extension WatchedAddressSource {
 
     /// TRON: TRX und (mit «Tokens mitzählen») je TRC-20 eine Abfrage; ein Token ohne Antwort bleibt wie zuletzt.
     func fetchTron(_ a: WatchedAddress, deadline: Int64?) async throws -> Fetched {
-        var trx = try await fetch(.TRX, address: a.address, deadline: deadline)
+        var trx = try await fetch(.TRX, address: a.address, deadline: deadline, btcEntries: [])
         guard a.countTokens else { return trx }
         var tokens: [String: String] = [:]
         let address = a.address
@@ -99,7 +99,7 @@ extension WatchedAddressSource {
     /// Solana: SOL und (mit «Tokens mitzählen») Token-Konten beider Token-Programme in einer Stapel-Anfrage; ohne Stapel drei
     /// Einzelanfragen. Unbekannte Mints zählen nicht. Wie Android.
     func fetchSolana(_ a: WatchedAddress, deadline: Int64?) async throws -> Fetched {
-        guard a.countTokens else { return try await fetch(.SOL, address: a.address, deadline: deadline) }
+        guard a.countTokens else { return try await fetch(.SOL, address: a.address, deadline: deadline, btcEntries: []) }
         let address = a.address
         let loaded: (ChainBalance.Solana, String)
         do {
@@ -133,7 +133,7 @@ extension WatchedAddressSource {
         } catch is OutOfTime {
             throw OutOfTime()
         } catch {
-            var eth = try await fetch(.ETH, address: address, deadline: deadline)
+            var eth = try await fetch(.ETH, address: address, deadline: deadline, btcEntries: [])
             guard error is Erc20Tokens.BatchUnsupported, deadline == nil else { return eth }
             var tokens: [String: String] = [:]
             for token in Erc20Tokens.list {

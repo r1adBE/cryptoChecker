@@ -14,7 +14,10 @@ final class AddressServerRulesParityTests: XCTestCase {
 
     func testEingabeWirdGekuerzt() throws {
         for c in try cases("clamp") {
-            XCTAssertEqual(AddressServerRules.clamp(try XCTUnwrap(c["input"] as? String)), c["output"] as? String)
+            let output = AddressServerRules.clamp(try XCTUnwrap(c["input"] as? String))
+            XCTAssertEqual(output, c["output"] as? String)
+            // Gekürzte Eingabe gilt nie still als gültig: 201/250 Zeichen → INVALID, genau 200 → gültig
+            XCTAssertEqual(AddressServer.check(output).problem?.rawValue, c["problem"] as? String, "Länge \(output.count)")
         }
     }
 
@@ -37,10 +40,26 @@ final class AddressServerRulesParityTests: XCTestCase {
 
     func testRueckfrageVorOeffentlichenKnoten() throws {
         for c in try cases("confirmPublic") {
-            let count = try XCTUnwrap(c["btcCount"] as? Int)
+            // «chains» statt «btcCount»: Zahl aus der Liste (null = nicht lesbar → fragen)
+            let count = try c["btcCount"] != nil ? XCTUnwrap(c["btcCount"] as? Int)
+                : AddressServerRules.btcCount(Self.addresses(c["chains"]))
             let ask = AddressServerRules.confirmPublicSwitch(current: c["current"] as? String, next: c["next"] as? String,
                                                              btcCount: count)
             XCTAssertEqual(ask, c["ask"] as? Bool, "\(c)")
+        }
+    }
+
+    func testBitcoinAnzahlListeNichtLesbarFragt() throws {
+        for c in try cases("btcCount") {
+            XCTAssertEqual(AddressServerRules.btcCount(Self.addresses(c["chains"])), c["count"] as? Int, "\(c)")
+        }
+    }
+
+    /// Fixture-Liste der Ketten → Adressen; null (JSON) → nil = Liste nicht lesbar.
+    private static func addresses(_ chains: Any?) -> [WatchedAddress]? {
+        guard let list = chains as? [String] else { return nil }
+        return list.enumerated().map { i, chain in
+            WatchedAddress(id: Int64(i + 1), chain: AddressChain(rawValue: chain) ?? .BTC, address: "a\(i)")
         }
     }
 
@@ -52,6 +71,9 @@ final class AddressServerRulesParityTests: XCTestCase {
             let text = try String(contentsOf: root.appendingPathComponent("Shared/Portfolio/\(name)"), encoding: .utf8)
             XCTAssertFalse(text.contains("var btcEntries"), name)
             XCTAssertFalse(text.contains("= btcEntries\n"), name)
+            // Bitcoin-Hosts und eigener Server immer ausdrücklich: kein Standardwert, der still öffentliche Knoten wählt
+            XCTAssertFalse(text.contains("btcEntries: [String] ="), name)
+            XCTAssertFalse(text.contains("btcServer: String? = nil"), name)
         }
     }
 }

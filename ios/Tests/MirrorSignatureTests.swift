@@ -193,6 +193,61 @@ final class MirrorSignatureTests: XCTestCase {
         let sigStatus = await bigSig.lastStatus
         XCTAssertEqual(sigStatus, .missing)
     }
+
+    /// Abgebrochener erster Aufrufer: Der gemeinsame Abruf läuft weiter, der wartende zweite bekommt das gültige
+    /// Manifest, kein gemerktes «fehlt» (wie Android `MirrorTrustTest`). Der Lader liefert nil, falls sein Task
+    /// abgebrochen ist (wie eine abgebrochene URLSession-Anfrage).
+    func testCancelledCallerDoesNotRememberMissingForWaitingCaller() async throws {
+        let c = try signedCase()
+        let now = c.now
+        let trust = MirrorTrust(publicKey: c.key, now: { now })
+        let gate = MirrorLoadGate()
+        let load: MirrorTrust.Loader = { url, _ in
+            guard url == MirrorManifest.url else { return url == MirrorManifest.signatureURL ? c.signature : nil }
+            await gate.enter()
+            return Task.isCancelled ? nil : c.manifest
+        }
+        let first = Task { await trust.verified(file: "fng.txt", text: c.okText, load: load) }
+        await gate.waitUntilEntered()
+        let second = Task { await trust.verified(file: "fng.txt", text: c.okText, load: load) }
+        // Dem zweiten Zeit geben, auf den laufenden Abruf zu warten
+        try await Task.sleep(nanoseconds: 100_000_000)
+        first.cancel()
+        await gate.release()
+        let secondOk = await second.value
+        XCTAssertTrue(secondOk)
+        _ = await first.value
+        let status = await trust.lastStatus
+        XCTAssertEqual(status, .ok)
+    }
+}
+
+/// Hält den ersten Manifest-Abruf an, bis `release()` kommt; weitere laufen durch.
+private actor MirrorLoadGate {
+    private var calls = 0
+    private var released = false
+    private var held: CheckedContinuation<Void, Never>?
+    private var enteredWaiters: [CheckedContinuation<Void, Never>] = []
+
+    func enter() async {
+        calls += 1
+        guard calls == 1 else { return }
+        enteredWaiters.forEach { $0.resume() }
+        enteredWaiters.removeAll()
+        if released { return }
+        await withCheckedContinuation { held = $0 }
+    }
+
+    func waitUntilEntered() async {
+        if calls > 0 { return }
+        await withCheckedContinuation { enteredWaiters.append($0) }
+    }
+
+    func release() {
+        released = true
+        held?.resume()
+        held = nil
+    }
 }
 
 /// Verstellbare Uhr für `MirrorTrust` (die Closure muss @Sendable sein).

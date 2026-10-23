@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.theme.Spacing
 
 /**
@@ -90,7 +91,7 @@ internal fun AlarmTimingDialog(onDismiss: () -> Unit) {
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.alarm_timing_title)) },
         text = {
-            Column(verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+            DialogText(verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
                 Text(alarmTimingHintText())
                 Text(stringResource(R.string.alarm_timing_where, path))
             }

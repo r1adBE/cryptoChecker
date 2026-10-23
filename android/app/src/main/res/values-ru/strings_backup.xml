@@ -45,7 +45,7 @@
         <item quantity="other">%d записей в копии (портфель или оповещения) недействительны и не будут импортированы.</item>
     </plurals>
     <string name="backup_restore_newer_version">Эта копия создана более новой версией приложения – сначала обнови приложение. Ничего не импортировано.</string>
-    <string name="backup_restore_unencrypted_warning">Эта копия не зашифрована – убедись, что она твоя. Настройки будут применены; включённая блокировка портфеля останется включённой.</string>
+    <string name="backup_restore_unencrypted_warning">Эта копия не зашифрована – убедись, что она твоя. Настройки будут применены – кроме изменений, снижающих защиту (блокировка портфеля, свой сервер Bitcoin, скрытие сумм, системная копия).</string>
     <string name="backup_restored">Восстановлено: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d оповещение</item>

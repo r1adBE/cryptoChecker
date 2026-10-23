@@ -9,6 +9,9 @@ struct BackupSettingsPage: View {
     @ObservedObject private var lock = AppLock.shared
 
     @State private var toast: String?
+    /// Ergebnis mit Hinweisen oder langem Text (`BackupResultPresentation`); Mitteilungs-Frage erst nach dem Schliessen.
+    @State private var resultDialog: String?
+    @State private var askAfterResult = false
     @State private var exportDocument: BackupDocument?
     @State private var exporting = false
     @State private var importing = false
@@ -76,7 +79,7 @@ struct BackupSettingsPage: View {
                             return
                         }
                         Haptics.play(.success)
-                        toast = L("backup_exported")
+                        show("backup_exported")
                     case .failure(let error):
                         if !Self.isCancel(error) { fail("backup_failed") }
                     }
@@ -114,6 +117,9 @@ struct BackupSettingsPage: View {
             .padding(.bottom, 12)
         }
         .toast($toast)
+        .alert(L("backup_title"), isPresented: resultShown, presenting: resultDialog) { _ in
+            Button(L("action_close"), role: .cancel) { closeResult() }
+        } message: { Text($0) }
         .sheet(item: $exportOptions, onDismiss: {
             // Gleicher Weg wie bisher (Dateiablage des Systems), nur mit gewähltem Schutz
             guard let choice = exportChoice else { return }
@@ -273,7 +279,7 @@ struct BackupSettingsPage: View {
         #if DEBUG
         // UI-Test: in die Datei des Tests schreiben statt die Dateiablage zu öffnen (wie deren Erfolg)
         if let url = UITesting.exportURL {
-            toast = (try? file.write(to: url, options: .atomic)) != nil ? L("backup_exported") : L("backup_failed")
+            show((try? file.write(to: url, options: .atomic)) != nil ? "backup_exported" : "backup_failed")
             return
         }
         #endif
@@ -314,24 +320,6 @@ struct BackupSettingsPage: View {
         }
     }
 
-    /// «3 Paare und 12 Alarme überschreiten die Grenzen …» mit `key` vor (`backup_restore_over_limits`) bzw. nach dem
-    /// Wiederherstellen (`backup_restored_over_limits`); nil, wenn nichts wegfällt — wie Android `overLimitsText`.
-    static func overLimitsText(_ key: String, pairs: Int, alarms: Int) -> String? {
-        guard pairs > 0 || alarms > 0 else { return nil }
-        return L(key, L("backup_restored_pairs", count: pairs), L("backup_restored_alarms", count: alarms),
-                 LocaleNumbers.integer(WatchlistLimits.maxPairs, grouping: true),
-                 LocaleNumbers.integer(WatchlistLimits.maxAlarmsPerPair))
-    }
-
-    /// Hinweis zum eigenen Bitcoin-Server nach dem Wiederherstellen (wie Android).
-    static func serverNoteText(_ note: BackupRestorePolicy.AddressServerNote) -> String {
-        switch note {
-        case .KEPT: return L("backup_restore_server_kept")
-        case .PUBLIC: return L("backup_restore_server_public")
-        case .CHANGED: return L("backup_restore_server_changed")
-        }
-    }
-
     private func restore(_ json: Data, acceptInvalid: Int, encrypted: Bool) {
         pendingRestore = nil
         pendingPreview = BackupManager.RestorePreview()
@@ -348,21 +336,14 @@ struct BackupSettingsPage: View {
         do {
             let result = try BackupManager.restore(json, into: data, acceptInvalid: acceptInvalid, encrypted: encrypted)
             Haptics.play(.success)
-            let restored = L("backup_restored", L("backup_restored_pairs", count: result.watches),
-                             L("backup_restored_alarms", count: result.alarms))
-            // Über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort wollte sie ausschalten);
-            // eigener Bitcoin-Server nicht übernommen, entfernt oder ersetzt
-            toast = [
-                restored,
-                Self.overLimitsText("backup_restored_over_limits", pairs: result.droppedPairs, alarms: result.droppedAlarms),
-                result.appLockKept ? L("backup_restore_app_lock_kept") : nil,
-                result.addressServerNote.map { Self.serverNoteText($0) },
-            ].compactMap { $0 }.joined(separator: "\n")
+            let text = Self.restoredText(result)
+            let asDialog = Self.restoredAsDialog(result, text: text)
+            present(text, asDialog: asDialog)
             // Wie Android: Erlaubnis für Mitteilungen erfragen (eine Neuinstallation hat nie gefragt — sonst
             // kommen Alarme der eingespielten Paare nie an) und gleich Kurse holen (Widgets, Alarme)
-            // (wie neue Paare: erst die kurze Erklärung, `NotificationPrePrompt`)
+            // (erst die kurze Erklärung, `NotificationPrePrompt`; nach einem Ergebnis-Dialog erst nach dessen Schliessen)
             if result.watches > 0 {
-                NotificationPrePrompt.request(.pairsAdded)
+                if asDialog { askAfterResult = true } else { NotificationPrePrompt.request(.pairsAdded) }
                 Task { await data.refreshAll() }
             }
         } catch BackupVersion.Failure.newer {
@@ -378,7 +359,37 @@ struct BackupSettingsPage: View {
     /// Fehlgeschlagen: Hinweis mit Fehler-Haptik (wie Android `BackupMessage.haptic`).
     private func fail(_ key: String) {
         Haptics.play(.error)
-        toast = L(key)
+        show(key)
+    }
+
+    /// Meldung mit Schlüssel `key`: lang als Dialog, sonst als Toast (`BackupResultPresentation`, wie Android).
+    private func show(_ key: String) {
+        let text = L(key)
+        present(text, asDialog: BackupResultPresentation.asDialog(key: key, text: text))
+    }
+
+    private func present(_ text: String, asDialog: Bool) {
+        guard asDialog else {
+            toast = text
+            return
+        }
+        // Erst nach dem Schliessen von Rückfrage, Blatt oder Dateiauswahl (sonst erscheint der Dialog nicht)
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 600_000_000)
+            resultDialog = text
+        }
+    }
+
+    private var resultShown: Binding<Bool> {
+        Binding(get: { resultDialog != nil }, set: { if !$0 { closeResult() } })
+    }
+
+    /// Ergebnis-Dialog zu: erst jetzt nach Mitteilungen fragen (falls Paare eingespielt).
+    private func closeResult() {
+        resultDialog = nil
+        guard askAfterResult else { return }
+        askAfterResult = false
+        NotificationPrePrompt.request(.pairsAdded)
     }
 
     private static func isCancel(_ error: Error) -> Bool {

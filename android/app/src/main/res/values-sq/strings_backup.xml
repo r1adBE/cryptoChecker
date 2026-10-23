@@ -43,7 +43,7 @@
         <item quantity="other">%d hyrje në kopje (portofol ose alarme) janë të pavlefshme dhe nuk do të importohen.</item>
     </plurals>
     <string name="backup_restore_newer_version">Kjo kopje është nga një version më i ri i aplikacionit – përditëso fillimisht aplikacionin. Nuk u importua asgjë.</string>
-    <string name="backup_restore_unencrypted_warning">Kjo kopje nuk është e enkriptuar – kontrollo që është jotja. Cilësimet zbatohen; një kyçje portofoli aktive mbetet aktive.</string>
+    <string name="backup_restore_unencrypted_warning">Kjo kopje nuk është e enkriptuar – kontrollo që është jotja. Cilësimet zbatohen – përveç ndryshimeve që ulin mbrojtjen (kyçja e portofolit, serveri yt Bitcoin, fshehja e shumave, kopja e sistemit).</string>
     <string name="backup_restored">U rikthyen: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarm</item>

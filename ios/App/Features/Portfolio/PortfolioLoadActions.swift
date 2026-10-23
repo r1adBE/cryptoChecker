@@ -7,8 +7,17 @@ import SwiftUI
 
 extension PortfolioModel {
     /// Guthaben der beobachteten Adressen: nur fällige (10 min, manuell 60 s); ohne Adressen keine Anfrage.
-    /// - Parameter budgetMillis: Hintergrund: höchstens so lange insgesamt (`WatchedAddressSource.refresh`).
+    /// Eine Runde zur Zeit (`AddressRefreshGate`): ein zweiter Aufruf im Vordergrund wartet und liest danach frisch.
+    /// - Parameter budgetMillis: Hintergrund: höchstens so lange insgesamt (`WatchedAddressSource.refresh`); läuft
+    ///   schon eine Runde, sofort zurück.
     func refreshWatchedAddresses(force: Bool, budgetMillis: Int64? = nil) async {
+        await addressGate.run(background: budgetMillis != nil) { [weak self] in
+            await self?.loadWatchedAddresses(force: force, budgetMillis: budgetMillis)
+        }
+    }
+
+    /// Eine Runde: Liste frisch lesen, fällige laden, Ergebnis speichern.
+    private func loadWatchedAddresses(force: Bool, budgetMillis: Int64?) async {
         let list = data.watchedAddresses
         guard !list.isEmpty else { return }
         // Eigener Bitcoin-Server aus den Einstellungen: Bitcoin dann nur dort (`AddressServer`)

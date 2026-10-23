@@ -43,7 +43,7 @@
         <item quantity="other">बैकअप में %d प्रविष्टियाँ (पोर्टफ़ोलियो या अलार्म) अमान्य हैं और आयात नहीं होंगी।</item>
     </plurals>
     <string name="backup_restore_newer_version">यह बैकअप ऐप के नए संस्करण का है – पहले ऐप अपडेट करो। कुछ भी आयात नहीं हुआ।</string>
-    <string name="backup_restore_unencrypted_warning">यह बैकअप एन्क्रिप्टेड नहीं है – जाँच लो कि यह तुम्हारा है। सेटिंग लागू होंगी; चालू पोर्टफ़ोलियो लॉक चालू रहेगा।</string>
+    <string name="backup_restore_unencrypted_warning">यह बैकअप एन्क्रिप्टेड नहीं है – जाँच लो कि यह तुम्हारा है। सेटिंग लागू होंगी – सिवाय उन बदलावों के जो सुरक्षा घटाते हैं (पोर्टफ़ोलियो लॉक, अपना Bitcoin सर्वर, राशियाँ छिपाना, सिस्टम बैकअप)।</string>
     <string name="backup_restored">रीस्टोर हुआ: %1$s, %2$s।</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d अलार्म</item>

@@ -2,7 +2,11 @@ package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.domain.mirror.MirrorManifest
 import com.cryptochecker.app.parity.ParityJson
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.yield
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -125,5 +129,52 @@ class MirrorTrustTest {
         val longSignature = signature + "\n".repeat(MirrorManifest.SIGNATURE_MAX_BYTES.toInt())
         assertFalse(bigSignature.verified("fng.txt", okText, loader(manifest, longSignature)))
         assertEquals(MirrorManifest.Status.MISSING, bigSignature.lastStatus)
+    }
+
+    // ---- Abbruch eines Aufrufers
+
+    @Test
+    fun cancelledCallerDoesNotRememberMissingForWaitingCaller() = cancelWhileLoading(swallowCancel = false)
+
+    /** Auch ein Lader, der den Abbruch schluckt und null liefert (Netz meldet «abgebrochen» als Fehler). */
+    @Test
+    fun cancelledCallerWithSwallowingLoaderDoesNotRememberMissing() = cancelWhileLoading(swallowCancel = true)
+
+    private fun cancelWhileLoading(swallowCancel: Boolean) = runBlocking {
+        val trust = MirrorTrust(testKey) { fixtureNow }
+        val firstLoading = CompletableDeferred<Unit>()
+        val never = CompletableDeferred<String>()
+        var manifestCalls = 0
+        val loader: MirrorLoader = { url, _ ->
+            when (url) {
+                MirrorManifest.URL -> {
+                    manifestCalls++
+                    if (manifestCalls == 1) {
+                        firstLoading.complete(Unit)
+                        try {
+                            never.await()
+                        } catch (cancel: CancellationException) {
+                            if (!swallowCancel) throw cancel
+                            null
+                        }
+                    } else {
+                        manifest
+                    }
+                }
+                MirrorManifest.SIGNATURE_URL -> signature
+                else -> null
+            }
+        }
+        val first = async { trust.verified("fng.txt", okText, loader) }
+        firstLoading.await()
+        // Zweiter Aufrufer wartet auf die Sperre, während der erste lädt
+        val second = async { trust.verified("fng.txt", okText, loader) }
+        yield()
+        first.cancel()
+        assertTrue(second.await())
+        assertTrue(first.isCancelled)
+        // Der zweite hat selbst geladen statt ein gemerktes «fehlt» zu übernehmen
+        assertEquals(2, manifestCalls)
+        assertEquals(MirrorManifest.Status.OK, trust.lastStatus)
     }
 }

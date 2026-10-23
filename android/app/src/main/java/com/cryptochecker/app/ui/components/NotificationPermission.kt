@@ -132,7 +132,7 @@ fun rememberNotificationPermissionRequest(reason: NotificationAsk = Notification
         AlertDialog(
             onDismissRequest = later,
             title = { Text(stringResource(R.string.notification_permission_preprompt_title)) },
-            text = { Text(stringResource(R.string.notification_permission_preprompt_text)) },
+            text = { DialogText { Text(stringResource(R.string.notification_permission_preprompt_text)) } },
             confirmButton = {
                 TextButton(
                     onClick = {

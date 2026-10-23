@@ -1,8 +1,9 @@
 package com.cryptochecker.app.ui.features.settings
 
 import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.foundation.layout.Column
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalResources
+import com.cryptochecker.app.ui.components.DialogText
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -139,7 +140,7 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
             onDismissRequest = viewModel::cancelRestore,
             title = { Text(stringResource(R.string.backup_import)) },
             text = {
-                Column {
+                DialogText {
                     Text(stringResource(R.string.backup_restore_confirm))
                     // Ohne Passwort keine Echtheitsprüfung: Herkunft prüfen lassen
                     if (step.unencrypted) {
@@ -177,57 +178,71 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
         null -> Unit
     }
 
-    val exportedText = stringResource(R.string.backup_exported)
-    val failedText = stringResource(R.string.backup_failed)
-    val tooLargeText = stringResource(R.string.backup_too_large)
-    val newerVersionText = stringResource(R.string.backup_restore_newer_version)
-    val notVerifiedText = stringResource(R.string.backup_not_verified)
-    val notEnoughMemoryText = stringResource(R.string.backup_not_enough_memory)
-    val storageKeptText = stringResource(R.string.backup_storage_kept)
-    val storageInMemoryText = stringResource(R.string.backup_restore_storage_in_memory)
-    val journalUnavailableText = stringResource(R.string.backup_restore_journal_unavailable)
-    val exportTooLargeText = stringResource(R.string.backup_export_too_large)
-    val restoredFormat = stringResource(R.string.backup_restored)
-    val appLockKeptText = stringResource(R.string.backup_restore_app_lock_kept)
-    val serverNoteTexts = mapOf(
-        BackupRestorePolicy.AddressServerNote.KEPT to stringResource(R.string.backup_restore_server_kept),
-        BackupRestorePolicy.AddressServerNote.PUBLIC to stringResource(R.string.backup_restore_server_public),
-        BackupRestorePolicy.AddressServerNote.CHANGED to stringResource(R.string.backup_restore_server_changed),
-    )
+    // Ergebnis mit Hinweisen oder langem Text als Dialog (BackupResultPresentation); Mitteilungs-Frage erst danach
+    var resultDialog by rememberSaveable { mutableStateOf<String?>(null) }
+    var askAfterResult by rememberSaveable { mutableStateOf(false) }
     val haptics = rememberHaptics()
     LaunchedEffect(backupMessage) {
-        val text = when (val m = backupMessage) {
-            BackupMessage.Exported -> exportedText
-            BackupMessage.Failed -> failedText
-            BackupMessage.TooLarge -> tooLargeText
-            BackupMessage.NewerVersion -> newerVersionText
-            BackupMessage.NotVerified -> notVerifiedText
-            BackupMessage.NotEnoughMemory -> notEnoughMemoryText
-            BackupMessage.StorageKept -> storageKeptText
-            BackupMessage.StorageInMemory -> storageInMemoryText
-            BackupMessage.JournalUnavailable -> journalUnavailableText
-            BackupMessage.ExportTooLarge -> exportTooLargeText
-            is BackupMessage.Restored -> {
-                if (m.watches > 0) requestNotifications()
-                val restored = restoredFormat.format(
-                    resources.getQuantityString(R.plurals.backup_restored_pairs, m.watches, m.watches),
-                    resources.getQuantityString(R.plurals.backup_restored_alarms, m.alarms, m.alarms)
-                )
-                // Über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort wollte sie ausschalten);
-                // eigener Bitcoin-Server nicht übernommen, entfernt oder ersetzt
-                listOfNotNull(
-                    restored,
-                    overLimitsText(resources, R.string.backup_restored_over_limits, m.droppedPairs, m.droppedAlarms),
-                    appLockKeptText.takeIf { m.appLockKept },
-                    m.addressServerNote?.let { serverNoteTexts[it] },
-                ).joinToString("\n")
-            }
-            null -> return@LaunchedEffect
+        val m = backupMessage ?: return@LaunchedEffect
+        val res = BackupResultPresentation.messageRes(m)
+        val text = if (m is BackupMessage.Restored) restoredText(resources, m) else resources.getString(res)
+        val asDialog = if (m is BackupMessage.Restored) {
+            BackupResultPresentation.asDialog(
+                resources.getResourceEntryName(res), text, m.droppedPairs, m.droppedAlarms, m.appLockKept, m.addressServerNote,
+            )
+        } else {
+            BackupResultPresentation.asDialog(resources.getResourceEntryName(res), text)
         }
-        haptics.play(BackupMessage.haptic(backupMessage ?: return@LaunchedEffect))
-        Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+        val askNotifications = m is BackupMessage.Restored && m.watches > 0
+        haptics.play(BackupMessage.haptic(m))
+        if (asDialog) {
+            resultDialog = text
+            askAfterResult = askNotifications
+        } else {
+            if (askNotifications) requestNotifications()
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+        }
         viewModel.clearBackupMessage()
     }
+    resultDialog?.let { text ->
+        val close = {
+            resultDialog = null
+            if (askAfterResult) {
+                askAfterResult = false
+                requestNotifications()
+            }
+        }
+        AlertDialog(
+            onDismissRequest = close,
+            title = { Text(stringResource(R.string.backup_title)) },
+            text = { DialogText { Text(text) } },
+            confirmButton = { TextButton(onClick = close) { Text(stringResource(R.string.action_close)) } },
+        )
+    }
+}
+
+/**
+ * «Wiederhergestellt: …» samt Hinweisen: über den Grenzen weggelassen; Sperre blieb an (Sicherung ohne Passwort wollte
+ * sie ausschalten); eigener Bitcoin-Server nicht übernommen, entfernt oder ersetzt.
+ */
+private fun restoredText(resources: android.content.res.Resources, m: BackupMessage.Restored): String {
+    val restored = resources.getString(
+        R.string.backup_restored,
+        resources.getQuantityString(R.plurals.backup_restored_pairs, m.watches, m.watches),
+        resources.getQuantityString(R.plurals.backup_restored_alarms, m.alarms, m.alarms),
+    )
+    val serverNote = when (m.addressServerNote) {
+        BackupRestorePolicy.AddressServerNote.KEPT -> R.string.backup_restore_server_kept
+        BackupRestorePolicy.AddressServerNote.PUBLIC -> R.string.backup_restore_server_public
+        BackupRestorePolicy.AddressServerNote.CHANGED -> R.string.backup_restore_server_changed
+        null -> null
+    }
+    return listOfNotNull(
+        restored,
+        overLimitsText(resources, R.string.backup_restored_over_limits, m.droppedPairs, m.droppedAlarms),
+        resources.getString(R.string.backup_restore_app_lock_kept).takeIf { m.appLockKept },
+        serverNote?.let { resources.getString(it) },
+    ).joinToString("\n")
 }
 
 /**

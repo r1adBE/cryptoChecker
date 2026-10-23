@@ -7,8 +7,11 @@ package com.cryptochecker.app.domain.portfolio
  */
 object AddressServerRules {
 
-    /** Zu lange Eingabe (z. B. eingefügt) wird gekürzt statt verworfen; die Prüfung meldet dann «ungültig». */
-    fun clamp(input: String): String = input.take(AddressServer.MAX_LENGTH)
+    /**
+     * Zu lange Eingabe (z. B. eingefügt) wird gekürzt statt verworfen — auf [AddressServer.MAX_LENGTH] + 1, damit die
+     * Prüfung ([AddressServer.check]) weiter «ungültig» meldet (genau auf die Grenze gekürzt gälte sie still als gültig).
+     */
+    fun clamp(input: String): String = input.take(AddressServer.MAX_LENGTH + 1)
 
     /** Schlüssel für Pausen und Sperren: Hostname ohne Schema, Port und Pfad. */
     fun hostKey(entry: String): String = entry.removePrefix("https://").substringBefore('/').substringBefore(':')
@@ -29,6 +32,9 @@ object AddressServerRules {
     fun confirmPublicSwitch(current: String?, next: String?, btcCount: Int): Boolean =
         current != null && next == null && btcCount > 0
 
-    /** Anzahl beobachteter Bitcoin-Einträge (Adressen und xpub). */
-    fun btcCount(addresses: List<WatchedAddress>): Int = addresses.count { it.chain == AddressChain.BTC }
+    /**
+     * Anzahl beobachteter Bitcoin-Einträge (Adressen und xpub); Liste nicht lesbar (null) → 1: lieber fragen als still
+     * auf öffentliche Knoten wechseln.
+     */
+    fun btcCount(addresses: List<WatchedAddress>?): Int = addresses?.count { it.chain == AddressChain.BTC } ?: 1
 }

@@ -30,6 +30,7 @@ import com.cryptochecker.app.data.portfolio.PortfolioTxEntity
 import com.cryptochecker.app.domain.portfolio.PortfolioImportBatch
 import com.cryptochecker.app.domain.watch.ChangeBasis
 import com.cryptochecker.app.notification.PortfolioAlarmTexts
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.features.watchlist.WatchlistBanner
 import kotlinx.coroutines.flow.map
 import com.cryptochecker.app.ui.components.HapticEvent
@@ -154,8 +155,10 @@ internal fun PortfolioScreenDialogs(
             title = { Text(stringResource(R.string.portfolio_clear)) },
             // Anzahl nennen; beobachtete Adressen bleiben (nur Transaktionen werden gelöscht); «Rückgängig» danach
             text = {
-                val count = transactions?.size ?: 0
-                Text(pluralStringResource(R.plurals.portfolio_clear_confirm_count, count, count))
+                DialogText {
+                    val count = transactions?.size ?: 0
+                    Text(pluralStringResource(R.plurals.portfolio_clear_confirm_count, count, count))
+                }
             },
             confirmButton = {
                 // Danach «Rückgängig» im Banner (alle Transaktionen mit ihren ids zurück), wie beim Löschen eines Coins
@@ -192,7 +195,7 @@ internal fun DeleteCoinDialog(coin: String, count: Int, feeRefs: Int, onConfirm:
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.portfolio_coin_delete_title, coin)) },
-        text = { Text(if (feeText != null) "$confirm\n\n$feeText" else confirm) },
+        text = { DialogText { Text(if (feeText != null) "$confirm\n\n$feeText" else confirm) } },
         confirmButton = {
             TextButton(onClick = onConfirm) {
                 Text(stringResource(R.string.action_delete), color = MaterialTheme.colorScheme.error)

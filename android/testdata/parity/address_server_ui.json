@@ -1,25 +1,40 @@
 {
- "description": "Own Bitcoin server, settings and fetch rules (Android AddressServerRules.kt, iOS AddressServerRules.swift). «clamp»: too long input (e.g. pasted) is cut to AddressServer.MAX_LENGTH (200) instead of being dropped (the field shows what is checked; same on both platforms) — inputs are ASCII. «hostKey»: entry → key for pauses/blocks. «own»: Bitcoin entries are the own server (https:// base) → never blocked 6 h after 403/451 (only the short ExchangeBackoff pause). «testShown»: test result (with its tested url) is shown only for the current checked input url. «confirmPublic»: switching from an own server to public nodes (next = null) asks first when Bitcoin addresses or xpub are watched.",
+ "description": "Own Bitcoin server, settings and fetch rules (Android AddressServerRules.kt, iOS AddressServerRules.swift). «clamp»: too long input (e.g. pasted) is cut to AddressServer.MAX_LENGTH + 1 (201) instead of being dropped, so the check still sees that it was too long; «problem» = AddressServer.check(output).problem (null = valid or empty): 201/250 otherwise valid characters → INVALID, exactly 200 → valid (same on both platforms) — inputs are ASCII. «hostKey»: entry → key for pauses/blocks. «own»: Bitcoin entries are the own server (https:// base) → never blocked 6 h after 403/451 (only the short ExchangeBackoff pause). «testShown»: test result (with its tested url) is shown only for the current checked input url. «confirmPublic»: switching from an own server to public nodes (next = null) asks first when Bitcoin addresses or xpub are watched (btcCount, or «chains» → btcCount(chains); chains null = list not readable → ask). «btcCount»: watched Bitcoin entries by chain list; chains null = list not readable → 1 (ask rather than switch silently).",
  "clamp": [
   {
    "input": "",
-   "output": ""
+   "output": "",
+   "problem": null
   },
   {
    "input": "https://node.example.org/api",
-   "output": "https://node.example.org/api"
+   "output": "https://node.example.org/api",
+   "problem": null
   },
   {
    "input": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-   "output": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+   "output": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+   "problem": "NOT_HTTPS"
   },
   {
    "input": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-   "output": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+   "output": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+   "problem": "INVALID"
   },
   {
    "input": "https://node.example.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-   "output": "https://node.example.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+   "output": "https://node.example.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "problem": "INVALID"
+  },
+  {
+   "input": "https://node.example.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "output": "https://node.example.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "problem": null
+  },
+  {
+   "input": "https://node.example.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "output": "https://node.example.org/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+   "problem": "INVALID"
   }
  ],
  "hostKey": [
@@ -120,6 +135,45 @@
    "next": "https://b.example",
    "btcCount": 3,
    "ask": false
+  },
+  {
+   "current": "https://a.example",
+   "next": null,
+   "chains": null,
+   "ask": true
+  },
+  {
+   "current": "https://a.example",
+   "next": null,
+   "chains": [
+    "ETH"
+   ],
+   "ask": false
+  }
+ ],
+ "btcCount": [
+  {
+   "chains": [
+    "BTC",
+    "ETH",
+    "BTC"
+   ],
+   "count": 2
+  },
+  {
+   "chains": [
+    "ETH",
+    "SOL"
+   ],
+   "count": 0
+  },
+  {
+   "chains": [],
+   "count": 0
+  },
+  {
+   "chains": null,
+   "count": 1
   }
  ]
 }
