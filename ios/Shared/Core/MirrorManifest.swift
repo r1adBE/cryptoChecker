@@ -18,6 +18,12 @@ enum MirrorManifest {
     /// Öffentlicher Schlüssel zu MIRROR_SIGNING_KEY (SubjectPublicKeyInfo, DER, Base64); Wechsel: DEVELOPMENT.md.
     static let publicKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnyWpdnpqDJUM1yHZQxQKPAcaXyGpbk8HvfNVmnR1"
         + "MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw=="
+    /// Reserve-Schlüssel (F-29): privater Teil nur offline beim Inhaber. Geht MIRROR_SIGNING_KEY verloren oder wird er
+    /// bekannt, signiert die Action mit dem Reserve-Schlüssel weiter, ohne dass die Apps ein Update brauchen.
+    static let reservePublicKey = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2QmggFHrIqdCNnz8a03ZyaQoet4YwwLdBwy9MP4k"
+        + "lEv3ChD2aFAhLUyH2gs3vk7c4TUuihar2eMy/wx6He+Ltw=="
+    /// Alle Schlüssel, mit denen ein Manifest gültig ist (aktiver und Reserve-Schlüssel).
+    static let publicKeys = [publicKey, reservePublicKey]
 
     /// Älter → verworfen (die Action läuft stündlich).
     static let maxAgeMillis: Int64 = 7 * 24 * 60 * 60 * 1000
@@ -66,14 +72,21 @@ enum MirrorManifest {
 
     /// Manifest und Signatur prüfen — gleiche Regeln wie Android: fehlt eines (nil/leer) → `.missing`; Signatur
     /// ungültig, Inhalt unbekannt oder Erstellzeit mehr als 5 Minuten in der Zukunft → `.invalid`; `maxAgeMillis`
-    /// oder älter → `.tooOld`. `publicKey` nur für Tests anders.
+    /// oder älter → `.tooOld`. Gültig, wenn die Signatur zu einem der `publicKeys` passt; andere Schlüssel nur
+    /// für Tests.
     static func verify(_ manifestText: String?, signature signatureText: String?, now: Int64,
-                       publicKey: String = MirrorManifest.publicKey) -> Verification {
+                       publicKey: String) -> Verification {
+        verify(manifestText, signature: signatureText, now: now, publicKeys: [publicKey])
+    }
+
+    static func verify(_ manifestText: String?, signature signatureText: String?, now: Int64,
+                       publicKeys: [String] = MirrorManifest.publicKeys) -> Verification {
         let signature = (signatureText ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         guard let manifestText, !manifestText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
               !signature.isEmpty
         else { return Verification(status: .missing, manifest: nil) }
-        guard signatureValid(Data(manifestText.utf8), signature: signature, publicKey: publicKey),
+        let bytes = Data(manifestText.utf8)
+        guard publicKeys.contains(where: { signatureValid(bytes, signature: signature, publicKey: $0) }),
               let manifest = parse(manifestText), manifest.created <= now + clockSkewMillis
         else { return Verification(status: .invalid, manifest: nil) }
         if now - manifest.created >= maxAgeMillis { return Verification(status: .tooOld, manifest: nil) }

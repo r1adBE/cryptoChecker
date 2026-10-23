@@ -15,6 +15,11 @@ final class MirrorSignatureTests: XCTestCase {
         XCTAssertEqual(MirrorManifest.signatureFile, data["signatureFile"] as? String)
         XCTAssertEqual(MirrorManifest.url, DataMirror.base + MirrorManifest.file)
         XCTAssertNotEqual(data["publicKey"] as? String, MirrorManifest.publicKey)
+        // F-29: Reserve-Schlüssel eingebaut, verschieden vom aktiven und vom Test-Schlüssel
+        XCTAssertEqual(MirrorManifest.reservePublicKey, data["productionReservePublicKey"] as? String)
+        XCTAssertEqual(MirrorManifest.publicKeys, [MirrorManifest.publicKey, MirrorManifest.reservePublicKey])
+        XCTAssertNotEqual(MirrorManifest.reservePublicKey, MirrorManifest.publicKey)
+        XCTAssertNotEqual(data["publicKey"] as? String, MirrorManifest.reservePublicKey)
     }
 
     func testVerify() throws {
@@ -25,8 +30,9 @@ final class MirrorSignatureTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(cases.count, 20)
         for c in cases {
             let name = c["name"] as? String ?? "?"
+            let keys = c["publicKeys"] as? [String] ?? [c["publicKey"] as? String ?? testKey]
             let v = MirrorManifest.verify(c["manifest"] as? String, signature: c["signature"] as? String, now: now,
-                                          publicKey: c["publicKey"] as? String ?? testKey)
+                                          publicKeys: keys)
             XCTAssertEqual(v.status.rawValue, c["expected"] as? String, name)
             if v.status == .ok {
                 let manifest = try XCTUnwrap(v.manifest, name)

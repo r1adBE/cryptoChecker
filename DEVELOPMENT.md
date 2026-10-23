@@ -718,7 +718,7 @@ it is: create the environment secret with the same content first, then delete th
 environment exists GitHub creates it unprotected on the first run, which changes nothing. Files that were not renewed in a run keep their hash only from the previous manifest,
 and only if that one is validly signed (the old asset stays on the release). The apps read every file under
 `releases/download/data/` (also `altseason.txt` and `coin_meta.json`) only if the signature matches the built-in public
-key (`MirrorManifest.PUBLIC_KEY`, ECDSA P-256 because Android minSdk 26 has no Ed25519 in the platform), the manifest
+keys (`MirrorManifest.PUBLIC_KEYS`: the active `PUBLIC_KEY` and the reserve `RESERVE_PUBLIC_KEY`, ECDSA P-256 because Android minSdk 26 has no Ed25519 in the platform), the manifest
 is less than 7 days old and not more than 5 minutes in the future (no replay of old data), and the file's SHA-256 (over
 its UTF-8 bytes) matches. Otherwise the file is ignored exactly like an unreachable mirror and the app asks the
 provider directly — no message, no crash. Manifest and signature are kept in memory only: 15 minutes when valid,
@@ -728,12 +728,21 @@ that does not match the public key gives an error annotation) and removes an old
 providers directly; the run then ends red (error annotation after the upload) so that a missing signature is noticed. Tests use their own test key pair (`publicKey` in the fixture); the real private key never enters the
 repository.
 
+*Reserve key* (F-29): the apps and `mirror_data.py` (`PUBLIC_KEYS`) accept a second public key,
+`RESERVE_PUBLIC_KEY` (`productionReservePublicKey` in `mirror_signature.json`). Its private key is not a secret on
+GitHub; the owner keeps it offline in two separate places (password manager plus a second offline copy). If
+`MIRROR_SIGNING_KEY` is lost or leaks, set the environment secret to the reserve private key — the released apps keep
+trusting the mirror without an update. Then create a new reserve pair and ship it as the next `RESERVE_PUBLIC_KEY`
+(the used one becomes `PUBLIC_KEY`; drop the leaked key from the apps in the same release).
+Backup rule: every private signing key exists in two offline places before its public key ships; never in the
+repository, a chat, a ticket or a CI log.
+
 *Changing the key*: create a new pair (`openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -out
 mirror_key.pem`; public key for the apps: `openssl pkey -in mirror_key.pem -pubout -outform DER | base64 -w0`), put
 the public key into `MirrorManifest.kt`, `MirrorManifest.swift` and `productionPublicKey` in
 `mirror_signature.json`, and release the apps. Only once the new versions are out, replace the secret
 `MIRROR_SIGNING_KEY` with the new private key and, at the same time, `PUBLIC_KEY` in `mirror_data.py` (the workflow
-checks its own signature against it and otherwise publishes unsigned); older app versions then ignore the mirror and
+checks its own signature against `PUBLIC_KEYS` and otherwise publishes unsigned); older app versions then ignore the mirror and
 use the providers directly. If the private key leaked, replace the secret at once and ship the new public key quickly.
 Keep the private key file offline; never commit it. Rotated in build 113 (the previous private key was lost; no app
 with the old key was released).
@@ -2263,6 +2272,10 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 117: reserve mirror key (`RESERVE_PUBLIC_KEY` / `PUBLIC_KEYS`, `productionReservePublicKey`), CI step «Kotlin
+  warnings» (ceiling 0, main sources, from the unit test log), `DenseRowText.convertedMaxWidth` (+ iOS `CappedWidthLayout`),
+  `CurrencyConverter.usdtMeasured` / iOS `WatchlistConversion.waitForNextRound`, `WatchlistConversion.accessibilityText`,
+  `HostStorageKey.probeAddStatus`, trusted Gradle sources (`gradle-*-src.zip`) in the verification seed.
 * Build 116: no `paths` filter for `pull_request` (required checks), allowed environment skips in ios.yml,
   `HostStorageKey.shouldUseTestKeychain`, rate limit passthrough in `SingleTickerFallback`.
 * Build 115: iOS warning ceiling 0 (`MAX_COMPILER_WARNINGS`, `warning_details`), `HostStorageKey` / `StorageKey.replaceKeychainForTesting`,

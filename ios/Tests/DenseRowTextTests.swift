@@ -51,4 +51,10 @@ final class DenseRowTextTests: XCTestCase {
         XCTAssertTrue(DenseRowText.largePrice(scale: 1.5, rowWidth: 320))
         XCTAssertTrue(DenseRowText.largePrice(scale: 2, rowWidth: 412))
     }
+
+    /// Lange ≈ Zeile (Vermerk) höchstens halbe Zeile, Paar, Name und Börse bleiben sichtbar — wie Android.
+    func testConvertedAtMostHalfTheRow() {
+        XCTAssertEqual(DenseRowText.convertedMaxWidth(rowWidth: 411), 205.5, accuracy: 0.001)
+        XCTAssertEqual(DenseRowText.convertedMaxWidth(rowWidth: 320), 160, accuracy: 0.001)
+    }
 }

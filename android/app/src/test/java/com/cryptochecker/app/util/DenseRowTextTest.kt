@@ -53,4 +53,11 @@ class DenseRowTextTest {
         assertTrue(DenseRowText.largePrice(1.5f, 320f))
         assertTrue(DenseRowText.largePrice(2f, 412f))
     }
+
+    @Test
+    fun `Umrechnung hoechstens halbe Zeile`() {
+        // Lange ≈ Zeile (Vermerk) darf Paar, Name und Börse nicht verdrängen
+        assertEquals(205.5f, DenseRowText.convertedMaxWidth(411f), 0.001f)
+        assertEquals(160f, DenseRowText.convertedMaxWidth(320f), 0.001f)
+    }
 }

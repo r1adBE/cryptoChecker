@@ -181,6 +181,19 @@ internal fun LazyItemScope.WatchlistItem(
         ).then(dragModifier).testTag(UiTestTags.WATCH_ROW),
     ) {
         WithLiveQuote(watch, livePrices, rollingBasis = rollingBasis) { shown ->
+            // Devisenkurs älter als 3 h: dessen Uhrzeit dahinter («≈ 66’120 CHF · Kurs 08:15»)
+            val dated = convertedPrice(shown, convertTarget, convertRates)?.let { text ->
+                convertedFxTime(shown, convertFxTimes, now)?.let {
+                    stringResource(R.string.converted_fx_stale, text, com.cryptochecker.app.util.PriceFormat.shortTime(it))
+                } ?: text
+            }
+            // USDT/USD nicht gemessen bzw. nur unsicher über USDC: in der Zeile kurz «Umrechnung unsicher»
+            // (passt neben das Paar), im Screenreader beim nicht gemessenen USDT der ganze Satz
+            val usdtNote = convertedUsdtNote(shown, convertTarget, convertUsdtNotes)
+            val converted = dated?.let { if (usdtNote != null) "$it · " + stringResource(R.string.converted_unsure) else it }
+            val convertedA11y = dated?.takeIf {
+                usdtNote == com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState.ASSUMED
+            }?.let { "$it · " + stringResource(R.string.portfolio_usdt_assumed) }
             WatchRow(
                 watch = shown,
                 alarmCount = alarmCount,
@@ -189,20 +202,8 @@ internal fun LazyItemScope.WatchlistItem(
                 now = now,
                 staleAfter = staleAfter,
                 outdatedAfter = outdatedAfter,
-                converted = convertedPrice(shown, convertTarget, convertRates)?.let { text ->
-                    // Devisenkurs älter als 3 h: dessen Uhrzeit dahinter («≈ 66’120 CHF · Kurs 08:15»)
-                    val dated = convertedFxTime(shown, convertFxTimes, now)?.let {
-                        stringResource(R.string.converted_fx_stale, text, com.cryptochecker.app.util.PriceFormat.shortTime(it))
-                    } ?: text
-                    // USDT/USD nicht gemessen («USDT = 1 angenommen») bzw. nur unsicher über USDC: Vermerk dahinter
-                    when (convertedUsdtNote(shown, convertTarget, convertUsdtNotes)) {
-                        com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState.ASSUMED ->
-                            "$dated · " + stringResource(R.string.portfolio_usdt_assumed)
-                        com.cryptochecker.app.domain.convert.FiatAlarmGuard.UsdtState.UNSURE ->
-                            "$dated · " + stringResource(R.string.converted_unsure)
-                        else -> dated
-                    }
-                },
+                converted = converted,
+                convertedA11y = convertedA11y,
                 // Im Sortiermodus ausgeblendet (Platz für Griff und Menü)
                 sparkline = sparkline.takeIf { rowSparklines && !sortMode },
                 chartSource = chartSource,

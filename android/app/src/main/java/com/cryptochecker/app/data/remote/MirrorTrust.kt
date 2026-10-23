@@ -18,13 +18,16 @@ internal typealias MirrorLoader = suspend (url: String, maxBytes: Long) -> Strin
  * einmal je [RELOAD_AFTER_MILLIS]. Manifest höchstens [MirrorManifest.MAX_BYTES], Signatur höchstens
  * [MirrorManifest.SIGNATURE_MAX_BYTES]. Gleich in iOS `MirrorTrust.swift`.
  *
- * Die App nutzt nur [shared] (eingebauter Schlüssel, Systemuhr); Schlüssel und Uhr setzen nur Tests über den
+ * Die App nutzt nur [shared] (eingebaute Schlüssel [MirrorManifest.PUBLIC_KEYS], Systemuhr); Schlüssel und Uhr setzen nur Tests über den
  * internen Konstruktor (Test-Schlüsselpaar aus `mirror_signature.json`).
  */
 internal class MirrorTrust internal constructor(
-    private val publicKey: String,
+    private val publicKeys: List<String>,
     private val clock: () -> Long,
 ) {
+    /** Nur Tests: ein einzelner Schlüssel. */
+    internal constructor(publicKey: String, clock: () -> Long) : this(listOf(publicKey), clock)
+
     private class Cached(val loadedAt: Long, val verification: MirrorManifest.Verification)
 
     private val mutex = Mutex()
@@ -61,7 +64,7 @@ internal class MirrorTrust internal constructor(
         // Abgebrochen (auch wenn der Lader dabei null lieferte): nichts merken, sonst gälte «fehlt» auch für
         // parallel Wartende
         currentCoroutineContext().ensureActive()
-        val verification = MirrorManifest.verify(manifestText, signature, clock(), publicKey)
+        val verification = MirrorManifest.verify(manifestText, signature, clock(), publicKeys)
         if (verification.status != MirrorManifest.Status.OK) Timber.d("Spiegel-Manifest: %s", verification.status)
         cached = Cached(now, verification)
         verification
@@ -73,6 +76,6 @@ internal class MirrorTrust internal constructor(
         private const val RELOAD_AFTER_MILLIS = 60L * 1000
 
         /** Einzige Instanz der App. */
-        val shared = MirrorTrust(MirrorManifest.PUBLIC_KEY, System::currentTimeMillis)
+        val shared = MirrorTrust(MirrorManifest.PUBLIC_KEYS, System::currentTimeMillis)
     }
 }

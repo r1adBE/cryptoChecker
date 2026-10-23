@@ -173,11 +173,13 @@ keys or other secrets never belong in this repository.
 * **Integrity of the data mirror.** Market data that is the same for everyone comes
   from the release «data» on GitHub (README, «Market data mirror»). The apps use a
   mirror file only if it matches `manifest.json` (SHA-256 per file), whose ECDSA P-256
-  signature matches the public key built into the apps, and if that manifest is at
+  signature matches one of the two public keys built into the apps (active and
+  reserve key), and if that manifest is at
   most 7 days old; manifest and signature are read with small size limits (64 KB /
   1 KB). Otherwise the file is ignored and the app asks the provider directly. The
   private key exists only as a GitHub Actions secret in the environment `mirror-signing`, usable
-  from `main` only (until moved: repository secret); a run that cannot sign ends red.
+  from `main` only; a run that cannot sign ends red. The reserve private key is kept
+  offline by the maintainer, so a lost or leaked key can be replaced without an app update.
 * **No sensitive logs, no tracking.** Release builds write no prices, amounts,
   holdings or alarm thresholds to the system log. No analytics, no ads, no
   WebView, no clipboard use for your data.

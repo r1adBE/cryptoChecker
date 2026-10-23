@@ -48,8 +48,9 @@ enum HostStorageKey {
         guard case .unavailable = StorageKey.shared.lookup() else { return false }
         let status: OSStatus?
         do {
+            // Lesen ohne Fehler (Eintrag fehlt): erst ein Probe-Eintrag zeigt, ob Anlegen an der Berechtigung scheitert
             _ = try SystemStorageKeychain().read()
-            status = nil
+            status = probeAddStatus()
         } catch let error as StorageKeychainError {
             status = error.status
         } catch {
@@ -60,11 +61,26 @@ enum HostStorageKey {
         return true
     }
 
-    /// Fehlende Berechtigung (-34018), kein Schlüsselbund (-25291) oder Lesen ohne Fehler (Eintrag fehlt, Anlegen
-    /// scheitert erst danach) rechtfertigen den Test-Schlüsselbund; ein gesperrter oder verweigerter Schlüsselbund nicht.
+    /// Nur fehlende Berechtigung (-34018) oder kein Schlüsselbund (-25291) rechtfertigen den Test-Schlüsselbund; ein
+    /// gesperrter oder verweigerter Schlüsselbund nicht, ein unbekannter Zustand (nil) auch nicht (Review 116, P3).
     static func shouldUseTestKeychain(status: OSStatus?) -> Bool {
-        guard let status else { return true }
+        guard let status else { return false }
         return status == errSecMissingEntitlement || status == errSecNotAvailable
+    }
+
+    /// Status beim Anlegen eines eigenen Probe-Eintrags (eigener Dienstname, gleich wieder gelöscht); berührt den
+    /// Schlüssel der App nicht. errSecSuccess/errSecDuplicateItem = Schlüsselbund nutzbar.
+    static func probeAddStatus() -> OSStatus {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: "cryptochecker.tests.keychain-probe",
+            kSecAttrAccount as String: "probe",
+        ]
+        var item = query
+        item[kSecValueData as String] = Data([1])
+        let status = SecItemAdd(item as CFDictionary, nil)
+        SecItemDelete(query as CFDictionary)
+        return status
     }
 
     /// Wie `ensureAvailable`, dazu eine Merkliste auf der Platte und `AppData` im Einklang damit: Ohne Datei (frischer

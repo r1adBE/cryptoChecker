@@ -7,8 +7,8 @@ import Foundation
 /// einmal je `reloadAfterMillis`. Manifest höchstens `MirrorManifest.maxBytes`, Signatur höchstens
 /// `MirrorManifest.signatureMaxBytes` (grösser → wie fehlend). Gleich wie Android `MirrorTrust.kt`.
 actor MirrorTrust {
-    /// Einzige Instanz der App: eingebauter Schlüssel, Systemuhr.
-    static let shared = MirrorTrust(publicKey: MirrorManifest.publicKey, now: { TimeUtils.nowMillis })
+    /// Einzige Instanz der App: eingebaute Schlüssel (`MirrorManifest.publicKeys`), Systemuhr.
+    static let shared = MirrorTrust(publicKeys: MirrorManifest.publicKeys, now: { TimeUtils.nowMillis })
 
     /// Lädt eine Adresse mit Höchstgrösse (Bytes); nil bei jedem Fehler (auch zu gross).
     typealias Loader = @Sendable (String, Int) async -> String?
@@ -20,13 +20,18 @@ actor MirrorTrust {
     private var loadedAt: Int64 = 0
     private var cached: MirrorManifest.Verification?
     private var loading: Task<MirrorManifest.Verification, Never>?
-    private let publicKey: String
+    private let publicKeys: [String]
     private let clock: @Sendable () -> Int64
 
     /// Schlüssel und Uhr nur in Tests anders (Test-Schlüsselpaar aus `mirror_signature.json`); die App nutzt `shared`.
-    init(publicKey: String, now: @escaping @Sendable () -> Int64) {
-        self.publicKey = publicKey
+    init(publicKeys: [String], now: @escaping @Sendable () -> Int64) {
+        self.publicKeys = publicKeys
         self.clock = now
+    }
+
+    /// Nur Tests: ein einzelner Schlüssel.
+    init(publicKey: String, now: @escaping @Sendable () -> Int64) {
+        self.init(publicKeys: [publicKey], now: now)
     }
 
     /// Stand der letzten Prüfung; nil = noch keine.
@@ -55,9 +60,9 @@ actor MirrorTrust {
         }
         // Gleichzeitige Prüfungen teilen sich einen Abruf
         if let loading { return await loading.value }
-        let key = publicKey
+        let keys = publicKeys
         let clockNow = self.clock
-        let task = Task { await Self.fetch(load, publicKey: key, now: clockNow) }
+        let task = Task { await Self.fetch(load, publicKeys: keys, now: clockNow) }
         loading = task
         let verification = await task.value
         loading = nil
@@ -66,12 +71,12 @@ actor MirrorTrust {
         return verification
     }
 
-    private static func fetch(_ load: Loader, publicKey: String,
+    private static func fetch(_ load: Loader, publicKeys: [String],
                               now: @Sendable () -> Int64) async -> MirrorManifest.Verification {
         guard let manifest = await load(MirrorManifest.url, MirrorManifest.maxBytes) else {
-            return MirrorManifest.verify(nil, signature: nil, now: now(), publicKey: publicKey)
+            return MirrorManifest.verify(nil, signature: nil, now: now(), publicKeys: publicKeys)
         }
         let signature = await load(MirrorManifest.signatureURL, MirrorManifest.signatureMaxBytes)
-        return MirrorManifest.verify(manifest, signature: signature, now: now(), publicKey: publicKey)
+        return MirrorManifest.verify(manifest, signature: signature, now: now(), publicKeys: publicKeys)
     }
 }

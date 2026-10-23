@@ -28,6 +28,16 @@ object MirrorManifest {
     const val PUBLIC_KEY = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnyWpdnpqDJUM1yHZQxQKPAcaXyGpbk8HvfNVmnR1" +
         "MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw=="
 
+    /**
+     * Reserve-Schlüssel (F-29): privater Teil nur offline beim Inhaber. Geht MIRROR_SIGNING_KEY verloren oder wird er
+     * bekannt, signiert die Action mit dem Reserve-Schlüssel weiter, ohne dass die Apps ein Update brauchen.
+     */
+    const val RESERVE_PUBLIC_KEY = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE2QmggFHrIqdCNnz8a03ZyaQoet4YwwLdBwy9MP4k" +
+        "lEv3ChD2aFAhLUyH2gs3vk7c4TUuihar2eMy/wx6He+Ltw=="
+
+    /** Alle Schlüssel, mit denen ein Manifest gültig ist (aktiver und Reserve-Schlüssel). */
+    val PUBLIC_KEYS: List<String> = listOf(PUBLIC_KEY, RESERVE_PUBLIC_KEY)
+
     /** Älter → verworfen (die Action läuft stündlich). */
     const val MAX_AGE_MILLIS = 7L * 24 * 60 * 60 * 1000
 
@@ -60,13 +70,21 @@ object MirrorManifest {
     /**
      * Manifest und Signatur prüfen. Fehlt eines (null/leer) → [Status.MISSING]; Signatur ungültig, Inhalt unbekannt
      * oder Erstellzeit mehr als 5 Minuten in der Zukunft → [Status.INVALID]; [MAX_AGE_MILLIS] oder älter →
-     * [Status.TOO_OLD]. [publicKey] nur für Tests anders.
+     * [Status.TOO_OLD]. Gültig, wenn die Signatur zu einem der [publicKeys] passt; andere Schlüssel nur für Tests.
      */
-    fun verify(manifestText: String?, signatureText: String?, now: Long, publicKey: String = PUBLIC_KEY): Verification {
+    fun verify(manifestText: String?, signatureText: String?, now: Long, publicKey: String): Verification =
+        verify(manifestText, signatureText, now, listOf(publicKey))
+
+    fun verify(
+        manifestText: String?,
+        signatureText: String?,
+        now: Long,
+        publicKeys: List<String> = PUBLIC_KEYS,
+    ): Verification {
         val signature = signatureText?.trim().orEmpty()
         if (manifestText.isNullOrBlank() || signature.isEmpty()) return Verification(Status.MISSING, null)
         val der = decodeBase64(signature)
-        if (der == null || !signatureValid(manifestText.toByteArray(Charsets.UTF_8), der, publicKey)) {
+        if (der == null || publicKeys.none { signatureValid(manifestText.toByteArray(Charsets.UTF_8), der, it) }) {
             return Verification(Status.INVALID, null)
         }
         val manifest = parse(manifestText) ?: return Verification(Status.INVALID, null)

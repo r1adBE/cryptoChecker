@@ -1,9 +1,13 @@
 package com.cryptochecker.app.data.portfolio
 
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
+import com.cryptochecker.app.domain.alarm.DepegAlarm
 import com.cryptochecker.app.domain.convert.CurrencyConversion
 import com.cryptochecker.app.domain.convert.CurrencyConversion.QuoteKind
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -159,6 +163,13 @@ class CurrencyConverter @Inject constructor(
      */
     private fun freshMarket(prices: PortfolioPrices, code: String, now: Long = System.currentTimeMillis()): Double? =
         CurrencyConversion.freshQuotePrice(prices.prices[code], prices.times[code], now)
+
+    /**
+     * Gibt es eine frische USDT/USD-Messung ([DepegReadingStore.liveUsdtUsd])? Ändert sich, sobald die erste Messung nach
+     * dem Start eintrifft — die ≈ Umrechnung der Merkliste rechnet dann sofort neu statt erst im 60-s-Takt.
+     */
+    fun usdtMeasured(): Flow<Boolean> =
+        depegReadings.reading.map { DepegAlarm.liveUsdtUsd(it, System.currentTimeMillis()) != null }.distinctUntilChanged()
 
     /** Live-Kurs USDT/USD ([DepegReadingStore.liveUsdtUsd]); null = keiner (USDT gilt 1, bisherige Rechnung). */
     private fun liveUsdtUsd(): Double? = depegReadings.liveUsdtUsd()

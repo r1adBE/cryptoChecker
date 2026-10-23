@@ -85,6 +85,19 @@ jobs:
           set -o pipefail
           ./gradlew test --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-test.log"
 
+      # Kotlin compiler warnings in the app and library sources: ceiling 0 (like lint and the iOS release build).
+      # A fresh checkout compiles every changed module in full, so all warnings of that module appear in the log;
+      # test sources are not counted.
+      - name: Kotlin warnings
+        run: |
+          W=$(grep -E '^w: (file://)?[^ ]*/src/main/' "$RUNNER_TEMP/gradle-test.log" | sort -u || true)
+          if [ -n "$W" ]; then
+            echo "$W" | head -50 | sed 's/^w: /::error title=Kotlin warning::/'
+            echo "::error title=Kotlin warnings::$(echo "$W" | wc -l) Kotlin warning(s) in main sources (ceiling 0)"
+            exit 1
+          fi
+          echo "0 Kotlin warnings in main sources"
+
       # Compile errors and failed tests as annotations (the raw log is not always reachable)
       - name: Unit test errors
         if: failure()

@@ -9,6 +9,8 @@ final class HostStorageKeyTests: XCTestCase {
         XCTAssertTrue(HostStorageKey.shouldUseTestKeychain(status: errSecNotAvailable))
         XCTAssertFalse(HostStorageKey.shouldUseTestKeychain(status: errSecInteractionNotAllowed))
         XCTAssertFalse(HostStorageKey.shouldUseTestKeychain(status: errSecAuthFailed))
-        XCTAssertTrue(HostStorageKey.shouldUseTestKeychain(status: nil))
+        XCTAssertFalse(HostStorageKey.shouldUseTestKeychain(status: nil))
+        XCTAssertFalse(HostStorageKey.shouldUseTestKeychain(status: errSecSuccess))
+        XCTAssertFalse(HostStorageKey.shouldUseTestKeychain(status: errSecDuplicateItem))
     }
 }
