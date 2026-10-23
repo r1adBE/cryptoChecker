@@ -48,6 +48,7 @@ import com.cryptochecker.app.ui.components.rememberHaptics
 import com.cryptochecker.app.ui.theme.AppColors
 import com.cryptochecker.app.ui.theme.Spacing
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -75,6 +76,38 @@ sealed interface AddressServerTest {
     data class Failed(override val url: String) : AddressServerTest
 }
 
+/**
+ * «Testen» des eigenen Servers: Zustand und laufender Abruf ([load]). Jeder Start bekommt eine Kennung; ein spätes
+ * Ergebnis eines verworfenen Tests (Eingabe geändert, gespeichert) überschreibt nie einen neueren — auch wenn der
+ * Abruf den Abbruch nicht bemerkt. Wie iOS `AddressServerTestRun`.
+ */
+internal class AddressServerTestRun(private val load: suspend (String) -> Long?) {
+    private val _state = MutableStateFlow<AddressServerTest>(AddressServerTest.Idle)
+    val state: StateFlow<AddressServerTest> = _state.asStateFlow()
+    private var job: Job? = null
+    private var generation = 0
+
+    fun start(scope: CoroutineScope, url: String) {
+        if (_state.value is AddressServerTest.Running) return
+        val mine = ++generation
+        _state.value = AddressServerTest.Running(url)
+        job = scope.launch {
+            val height = load(url)
+            // Inzwischen geänderte Eingabe, Speichern oder ein neuerer Test: Ergebnis verwerfen
+            if (mine == generation && _state.value == AddressServerTest.Running(url)) {
+                _state.value = height?.let { AddressServerTest.Ok(url, it) } ?: AddressServerTest.Failed(url)
+            }
+        }
+    }
+
+    fun reset() {
+        generation++
+        job?.cancel()
+        job = null
+        _state.value = AddressServerTest.Idle
+    }
+}
+
 @HiltViewModel
 class AddressServerViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
@@ -90,9 +123,9 @@ class AddressServerViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AddressServerState())
 
-    private val _test = MutableStateFlow<AddressServerTest>(AddressServerTest.Idle)
-    val test: StateFlow<AddressServerTest> = _test.asStateFlow()
-    private var testJob: Job? = null
+    /** Erfolg hebt Sperre/Pause des Hosts auf. */
+    private val testRun = AddressServerTestRun { url -> source.testBtcServer(url)?.also { source.clearServerPauses(url) } }
+    val test: StateFlow<AddressServerTest> = testRun.state
 
     /**
      * Speichern über «Speichern»: vom eigenen Server auf öffentliche Knoten mit beobachteten Bitcoin-Adressen/xpub erst
@@ -101,7 +134,7 @@ class AddressServerViewModel @Inject constructor(
     fun requestSave(url: String?, current: String?, onAsk: () -> Unit, onDone: () -> Unit) {
         viewModelScope.launch {
             val count = if (url == null && current != null) {
-                runCatchingCancellable { AddressServerRules.btcCount(portfolio.getWatchedAddresses()) }.getOrDefault(1)
+                AddressServerRules.btcCount(runCatchingCancellable { portfolio.getWatchedAddresses() }.getOrNull())
             } else {
                 0
             }
@@ -119,26 +152,11 @@ class AddressServerViewModel @Inject constructor(
         }
     }
 
-    /** Blockhöhe abfragen (nennt keine Adresse); Erfolg hebt Sperre/Pause des Hosts auf. */
-    fun test(url: String) {
-        if (_test.value is AddressServerTest.Running) return
-        _test.value = AddressServerTest.Running(url)
-        testJob = viewModelScope.launch {
-            val height = source.testBtcServer(url)
-            if (height != null) source.clearServerPauses(url)
-            // Inzwischen geänderte Eingabe oder Speichern: Ergebnis verwerfen
-            if (_test.value == AddressServerTest.Running(url)) {
-                _test.value = height?.let { AddressServerTest.Ok(url, it) } ?: AddressServerTest.Failed(url)
-            }
-        }
-    }
+    /** Blockhöhe abfragen (nennt keine Adresse). */
+    fun test(url: String) = testRun.start(viewModelScope, url)
 
     /** Eingabe geändert oder gespeichert: Ergebnis und laufenden Test verwerfen. */
-    fun resetTest() {
-        testJob?.cancel()
-        testJob = null
-        _test.value = AddressServerTest.Idle
-    }
+    fun resetTest() = testRun.reset()
 }
 
 /** Karte unter den Portfolio-Einstellungen: Eingabe, Speichern, Testen, aktueller Stand. */

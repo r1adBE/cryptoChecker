@@ -43,7 +43,7 @@
         <item quantity="other">A mentés %d bejegyzése (portfólió vagy riasztások) érvénytelen, nem lesznek importálva.</item>
     </plurals>
     <string name="backup_restore_newer_version">Ez a mentés egy újabb alkalmazásverzióból származik – előbb frissítsd az alkalmazást. Semmi sem került importálásra.</string>
-    <string name="backup_restore_unencrypted_warning">Ez a mentés nincs titkosítva – ellenőrizd, hogy tőled származik. A beállítások átkerülnek; a bekapcsolt portfóliózár bekapcsolva marad.</string>
+    <string name="backup_restore_unencrypted_warning">Ez a mentés nincs titkosítva – ellenőrizd, hogy tőled származik. A beállítások átkerülnek – kivéve a védelmet csökkentő változásokat (portfóliózár, saját Bitcoin-szerver, összegek elrejtése, rendszermentés).</string>
     <string name="backup_restored">Visszaállítva: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d riasztás</item>

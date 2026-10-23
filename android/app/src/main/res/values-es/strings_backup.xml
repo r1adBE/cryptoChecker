@@ -44,7 +44,7 @@
         <item quantity="other">%d entradas de la copia (cartera o alarmas) no son válidas y no se importarán.</item>
     </plurals>
     <string name="backup_restore_newer_version">Esta copia es de una versión más reciente de la app: actualiza primero la app. No se ha importado nada.</string>
-    <string name="backup_restore_unencrypted_warning">Esta copia no está cifrada: comprueba que es tuya. Se aplicarán los ajustes; un bloqueo de cartera activo seguirá activo.</string>
+    <string name="backup_restore_unencrypted_warning">Esta copia no está cifrada: comprueba que es tuya. Se aplicarán los ajustes, salvo los cambios que reducen la protección (bloqueo de cartera, servidor propio de Bitcoin, ocultar importes, copia del sistema).</string>
     <string name="backup_restored">Restaurado: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarma</item>

@@ -75,9 +75,10 @@ actor WatchedAddressSource {
     ///   bleibt fällig. nil = Vordergrund, ohne Grenze. xpub im Hintergrund: die bekannten benutzten Adressen samt kurzem
     ///   Vorausblick und nur ganz (sonst bleibt er fällig). Hintergrund: die am längsten nicht versuchten zuerst
     ///   (`AddressBalance.dueOrder`).
-    /// - Parameter btcServer: eigener Bitcoin-Server (`AddressServer`): Bitcoin nur dort, ohne Rückfall; nil = öffentlich.
+    /// - Parameter btcServer: eigener Bitcoin-Server (`AddressServer`): Bitcoin nur dort, ohne Rückfall; nil = öffentlich
+    ///   (immer ausdrücklich).
     func refresh(_ addresses: [WatchedAddress], force: Bool, now: Int64 = TimeUtils.nowMillis,
-                 budgetMillis: Int64? = nil, btcServer: String? = nil) async throws -> [Update] {
+                 budgetMillis: Int64? = nil, btcServer: String?) async throws -> [Update] {
         let deadline = budgetMillis.map { TimeUtils.nowMillis + $0 }
         if deadline != nil && running > 0 { return [] }
         running += 1
@@ -126,9 +127,10 @@ actor WatchedAddressSource {
 
     /// Ein Guthaben (einzelne Adresse, ohne Token); wirft, wenn kein Host liefert.
     /// - Parameter deadline: Endzeit (ms) im Hintergrund, nil = ohne Grenze.
-    /// - Parameter btcEntries: Bitcoin-Hosts (`AddressServer.btcEntries`): eigener Server allein oder die öffentlichen.
+    /// - Parameter btcEntries: Bitcoin-Hosts (`AddressServer.btcEntries`): eigener Server allein oder die öffentlichen;
+    ///   immer ausdrücklich (andere Ketten: leer), damit Bitcoin nie still bei öffentlichen Knoten fragt.
     func fetch(_ chain: AddressChain, address: String, deadline: Int64? = nil,
-               btcEntries: [String] = AddressBalance.btcHosts) async throws -> Fetched {
+               btcEntries: [String]) async throws -> Fetched {
         switch chain {
         case .BTC:
             let own = AddressServerRules.isOwnServer(btcEntries)

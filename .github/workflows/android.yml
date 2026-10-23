@@ -215,12 +215,15 @@ jobs:
   # Only when «Dependency graph» is on in the repository settings AND the repository variable
   # DEPENDENCY_GRAPH is «true» (Settings › Secrets and variables › Actions › Variables);
   # otherwise GitHub rejects the upload with «The Dependency graph is disabled».
-  dependency-submission:
+  # Zwei Jobs: «dependency-graph» löst die Abhängigkeiten mit Gradle auf (nur Leserecht) und legt den Graphen als
+  # Artefakt dieses Laufs ab; «dependency-submission» (Schreibrecht) führt kein Gradle aus und reicht nur dieses
+  # Artefakt ein. So läuft der fremde Build-Code (lenient, Plugin der Action) nie mit einem Schreib-Token.
+  dependency-graph:
     if: github.event_name == 'push' && vars.DEPENDENCY_GRAPH == 'true'
     runs-on: ubuntu-24.04
     continue-on-error: true
     permissions:
-      contents: write
+      contents: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -229,13 +232,28 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Submit Gradle dependency graph
+      - name: Generate Gradle dependency graph
         uses: gradle/actions/dependency-submission@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
         with:
           build-root-directory: android
+          dependency-graph: generate-and-upload
           # The action injects its own Gradle plugin, which is not in gradle/verification-metadata.xml; this job only
-          # reports the graph and builds nothing
+          # reports the graph, builds nothing and has no write token
           additional-arguments: --dependency-verification lenient
+
+  dependency-submission:
+    needs: dependency-graph
+    if: github.event_name == 'push' && vars.DEPENDENCY_GRAPH == 'true'
+    runs-on: ubuntu-24.04
+    continue-on-error: true
+    permissions:
+      contents: write   # Dependency Submission API
+    steps:
+      # Kein Checkout, kein Gradle: lädt nur das Graph-Artefakt dieses Laufs und reicht es ein
+      - name: Submit Gradle dependency graph
+        uses: gradle/actions/dependency-submission@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          dependency-graph: download-and-submit
 
   # Pull requests: fail on newly added dependencies with known vulnerabilities (high and above).
   dependency-review:

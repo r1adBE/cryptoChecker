@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.local.StorageRecoveryNotice
 import com.cryptochecker.app.data.local.StorageRecoveryNotice.Kind
+import com.cryptochecker.app.ui.components.DialogText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -66,7 +67,7 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
         Kind.SETTINGS_RESET -> AlertDialog(
             onDismissRequest = { closeSettingsReset() },
             title = { Text(stringResource(R.string.settings_reset_notice_title)) },
-            text = { Text(stringResource(R.string.settings_reset_notice)) },
+            text = { DialogText { Text(stringResource(R.string.settings_reset_notice)) } },
             confirmButton = {
                 TextButton(onClick = { closeSettingsReset() }) { Text(stringResource(R.string.action_close)) }
             },
@@ -77,7 +78,11 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
                 StorageRecoveryNotice.hideSetAsideForNow()
             },
             title = { Text(stringResource(R.string.storage_recovery_title)) },
-            text = { Text(stringResource(R.string.storage_recovery_message, stringResource(R.string.backup_title))) },
+            text = {
+                DialogText {
+                    Text(stringResource(R.string.storage_recovery_message, stringResource(R.string.backup_title)))
+                }
+            },
             confirmButton = {
                 TextButton(onClick = {
                     shown = null
@@ -104,15 +109,18 @@ internal fun StorageRecoveryNoticeDialog(onRestoreBackup: () -> Unit = {}) {
                 )
             },
             text = {
-                Text(
-                    when (kind) {
-                        Kind.KEY_RESTORED -> stringResource(R.string.storage_recovery_restored_message)
-                        Kind.RESTORE_ROLLED_BACK -> stringResource(R.string.backup_restore_interrupted_rolled_back)
-                        Kind.SYSTEM_BACKUP_NOT_IMPORTED ->
-                            stringResource(R.string.system_backup_not_imported_message, stringResource(R.string.backup_title))
-                        else -> stringResource(R.string.backup_restore_interrupted_incomplete, stringResource(R.string.backup_title))
-                    }
-                )
+                DialogText {
+                    val backupTitle = stringResource(R.string.backup_title)
+                    Text(
+                        when (kind) {
+                            Kind.KEY_RESTORED -> stringResource(R.string.storage_recovery_restored_message)
+                            Kind.RESTORE_ROLLED_BACK -> stringResource(R.string.backup_restore_interrupted_rolled_back)
+                            Kind.SYSTEM_BACKUP_NOT_IMPORTED ->
+                                stringResource(R.string.system_backup_not_imported_message, backupTitle)
+                            else -> stringResource(R.string.backup_restore_interrupted_incomplete, backupTitle)
+                        }
+                    )
+                }
             },
             confirmButton = {
                 TextButton(onClick = { shown = null }) { Text(stringResource(R.string.action_close)) }

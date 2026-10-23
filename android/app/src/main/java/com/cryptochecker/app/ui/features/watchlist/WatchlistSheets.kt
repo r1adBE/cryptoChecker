@@ -20,6 +20,7 @@ import com.cryptochecker.app.domain.live.LiveQuote
 import com.cryptochecker.app.domain.watch.isNotTraded
 import com.cryptochecker.app.lock.PortfolioAccess
 import com.cryptochecker.app.lock.findFragmentActivity
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.GroupNameDialog
 import com.cryptochecker.app.ui.components.canonicalGroupName
 import com.cryptochecker.app.ui.components.rememberNotificationPermissionRequest
@@ -250,7 +251,7 @@ private fun ConfirmDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
-        text = { Text(text) },
+        text = { DialogText { Text(text) } },
         confirmButton = {
             TextButton(onClick = onConfirm) {
                 Text(confirm, color = MaterialTheme.colorScheme.error)

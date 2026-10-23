@@ -1,0 +1,212 @@
+{
+  "description": "Ergebnis von Sichern/Wiederherstellen als Dialog statt Toast (Android BackupResultPresentation.kt, iOS BackupResultPresentation.swift): Dialog, wenn Paare/Alarme über den Grenzen weggelassen (droppedPairs/droppedAlarms > 0), die Sperre an blieb (appLockKept), ein Hinweis zum eigenen Bitcoin-Server da ist (addressServerNote KEPT/PUBLIC/CHANGED), der Haupttext (key) in longKeys steht oder der Gesamttext mehr als toastMaxChars Unicode-Codepunkte hat; sonst Toast. «expected»: toast | dialog.",
+  "toastMaxChars": 80,
+  "longKeys": [
+    "backup_not_enough_memory",
+    "backup_storage_kept",
+    "backup_restore_storage_in_memory",
+    "backup_restore_journal_unavailable"
+  ],
+  "cases": [
+    {
+      "description": "Gesichert: kurz → Toast",
+      "key": "backup_exported",
+      "text": "Backup saved.",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "Fehlgeschlagen (englisch, 49 Zeichen) → Toast",
+      "key": "backup_failed",
+      "text": "That didn't work. Is it a Crypto Checker backup?",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "Zu wenig Arbeitsspeicher: Schlüssel immer Dialog, auch bei kurzem Text",
+      "key": "backup_not_enough_memory",
+      "text": "Kurz.",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Gespeicherter Stand nicht lesbar: immer Dialog",
+      "key": "backup_storage_kept",
+      "text": "Kurz.",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Nur im Arbeitsspeicher: immer Dialog",
+      "key": "backup_restore_storage_in_memory",
+      "text": "Kurz.",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Journal nicht geschrieben: immer Dialog",
+      "key": "backup_restore_journal_unavailable",
+      "text": "Kurz.",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Wiederhergestellt ohne Hinweise → Toast",
+      "key": "backup_restored",
+      "text": "Restored: 3 pairs, 2 alarms.",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "Sperre blieb an → Dialog (sonst fällt die zweite Zeile weg)",
+      "key": "backup_restored",
+      "text": "Restored: 3 pairs, 2 alarms.\nThe portfolio lock stays on.",
+      "appLockKept": true,
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Eigener Server nicht übernommen (KEPT) → Dialog",
+      "key": "backup_restored",
+      "text": "Restored: 1 pair, 0 alarms.\nServer kept.",
+      "addressServerNote": "KEPT",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "expected": "dialog"
+    },
+    {
+      "description": "Eigener Server entfernt (PUBLIC) → Dialog",
+      "key": "backup_restored",
+      "text": "Restored: 1 pair, 0 alarms.\nPublic.",
+      "addressServerNote": "PUBLIC",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "expected": "dialog"
+    },
+    {
+      "description": "Eigener Server ersetzt (CHANGED) → Dialog",
+      "key": "backup_restored",
+      "text": "Restored: 1 pair, 0 alarms.\nChanged.",
+      "addressServerNote": "CHANGED",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "expected": "dialog"
+    },
+    {
+      "description": "Paare über der Grenze weggelassen → Dialog",
+      "key": "backup_restored",
+      "text": "Restored: 500 pairs, 0 alarms.\nOver limits.",
+      "droppedPairs": 1,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Alarme über der Grenze weggelassen → Dialog",
+      "key": "backup_restored",
+      "text": "Restored: 2 pairs, 20 alarms.\nOver limits.",
+      "droppedAlarms": 3,
+      "droppedPairs": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Genau 80 Zeichen → Toast",
+      "key": "backup_failed",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "81 Zeichen → Dialog",
+      "key": "backup_failed",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "79 × «a» plus Emoji = 80 Codepunkte (81 UTF-16-Einheiten) → Toast",
+      "key": "backup_failed",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa😀",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "78 × «a» plus «e» mit kombinierendem Akzent = 80 Codepunkte → Toast",
+      "key": "backup_failed",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaé",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "79 × «a» plus «e» mit kombinierendem Akzent = 81 Codepunkte → Dialog (Codepunkte, nicht sichtbare Zeichen)",
+      "key": "backup_failed",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaé",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Lange Meldung (deutsch, nicht bestätigt) → Dialog",
+      "key": "backup_not_verified",
+      "text": "Die Sicherungsdatei liess sich nach dem Speichern nicht bestätigen – sie liest sich anders zurück. Bitte speichere die Sicherung in eine neue Datei.",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Neuere Version (englisch, 85 Zeichen) → Dialog",
+      "key": "backup_restore_newer_version",
+      "text": "This backup is from a newer app version – update the app first. Nothing was imported.",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    }
+  ]
+}

@@ -72,6 +72,7 @@ final class PortfolioModel: ObservableObject {
     @Published var costFxLoad: (currency: String, from: LocalDay, rates: [Int: Decimal]?, usdtUsd: [Int: Decimal], to: LocalDay)?
 
     var activeRefreshes = 0
+    let addressGate = AddressRefreshGate() // eine Adress-Aktualisierung zur Zeit
     private var loadingCoins = false
     /// Gesamtrechnung abseits des Hauptthreads (`summary`, `shownSummary`).
     private let summaryCache: PortfolioSummaryCache

@@ -57,6 +57,7 @@ import com.cryptochecker.app.domain.portfolio.AddressValidation
 import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.domain.portfolio.WatchedAddressRules
 import com.cryptochecker.app.domain.portfolio.WatchedAddressUndo
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.features.settings.AddressServerViewModel
 import com.cryptochecker.app.ui.features.watchlist.rememberWatchlistBanner
 import com.cryptochecker.app.ui.theme.Spacing
@@ -166,7 +167,7 @@ internal fun PortfolioAddressSheet(
         AlertDialog(
             onDismissRequest = { askOverlap = null },
             title = { Text(stringResource(R.string.portfolio_address_overlap_title)) },
-            text = { Text(stringResource(R.string.portfolio_address_overlap_ask, chain.coin)) },
+            text = { DialogText { Text(stringResource(R.string.portfolio_address_overlap_ask, chain.coin)) } },
             // «Nur anzeigen» ist die sichere Wahl (kein Doppelzählen) und steht vorn;
             // «Zählen» nur, wenn die Adresse sicher nicht dieselben Coins hält
             confirmButton = {
@@ -245,8 +246,10 @@ internal fun PortfolioAddressSheet(
             onDismissRequest = { askRemove = null },
             title = { Text(stringResource(R.string.portfolio_address_remove)) },
             text = {
-                val head = target.label?.let { "$it\n${target.address}" } ?: target.address
-                Text(alsoRemoved?.let { "$head\n\n$it" } ?: head)
+                DialogText {
+                    val head = target.label?.let { "$it\n${target.address}" } ?: target.address
+                    Text(alsoRemoved?.let { "$head\n\n$it" } ?: head)
+                }
             },
             confirmButton = {
                 TextButton(onClick = { askRemove = null; remove(target) }) {

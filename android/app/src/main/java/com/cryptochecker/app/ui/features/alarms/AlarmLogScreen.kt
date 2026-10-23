@@ -44,6 +44,7 @@ import com.cryptochecker.app.domain.alarm.AlarmLogOutcome
 import com.cryptochecker.app.domain.refresh.AlarmLogStore
 import com.cryptochecker.app.ui.components.AppCard
 import com.cryptochecker.app.ui.components.CardPadding
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.components.EmptyState
 import com.cryptochecker.app.ui.components.ReadableInset
 import com.cryptochecker.app.ui.theme.AppColors
@@ -103,7 +104,7 @@ fun AlarmLogScreen(
         AlertDialog(
             onDismissRequest = { askClear = false },
             title = { Text(stringResource(R.string.alarm_log_clear_title)) },
-            text = { Text(stringResource(R.string.alarm_log_clear_message)) },
+            text = { DialogText { Text(stringResource(R.string.alarm_log_clear_message)) } },
             confirmButton = {
                 TextButton(onClick = { viewModel.clear(); askClear = false }) {
                     Text(stringResource(R.string.alarm_log_clear), color = MaterialTheme.colorScheme.error)

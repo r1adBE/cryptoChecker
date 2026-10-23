@@ -87,16 +87,22 @@ private suspend fun OkHttpClient.fromMirror(entry: DataMirror.Entry, guardMillis
 
 /** Signatur und SHA-256 der Spiegel-Datei prüfen ([MirrorTrust]); Manifest und Signatur über denselben Client. */
 private suspend fun OkHttpClient.verifiedMirror(file: String, text: String, guardMillis: Long): Boolean =
-    MirrorTrust.shared.verified(file, text) { url, limit ->
-        try {
-            request(url, null, limit, guardMillis)
-        } catch (cancel: CancellationException) {
-            throw cancel
-        } catch (ex: Exception) {
-            Timber.d("Spiegel-Manifest nicht erreichbar: %s", ex.message)
-            null
-        }
+    MirrorTrust.shared.verified(file, text, mirrorLoader(guardMillis))
+
+/**
+ * Lader für Manifest und Signatur mit eigener Höchstgrösse (zu gross → null wie jeder Fehler); ein Abbruch wird
+ * weitergeworfen.
+ */
+internal fun OkHttpClient.mirrorLoader(guardMillis: Long): MirrorLoader = { url, limit ->
+    try {
+        request(url, null, limit, guardMillis)
+    } catch (cancel: CancellationException) {
+        throw cancel
+    } catch (ex: Exception) {
+        Timber.d("Spiegel-Manifest nicht erreichbar: %s", ex.message)
+        null
     }
+}
 
 /**
  * Eine Anfrage mit Wache ([CallGuard]). Gleiche gleichzeitige Anfragen laufen nur einmal ([InFlightRequests]): GETs

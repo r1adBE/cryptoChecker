@@ -121,8 +121,11 @@ keys or other secrets never belong in this repository.
   backups – the protection of an exported file depends on the password. Older
   files (minimum 8 characters back then) still decrypt with their password. The
   password is never stored. Importing a backup without a password shows a
-  warning (check that it comes from you) and can never turn the portfolio lock
-  off. When the portfolio comes back from a system or device backup, invalid
+  warning (check that it comes from you) and never lowers protection: it never
+  turns the portfolio lock or «Hide amounts» off, never turns «Portfolio in
+  system backup» on, and never sets, replaces or removes the user's own Bitcoin
+  server (after the import, a note names a portfolio lock or server that was
+  kept). When the portfolio comes back from a system or device backup, invalid
   rows are counted and named once in a notice instead of being dropped silently. Android's system backup covers only the app's own
   data files listed in its backup rules – the main database (watchlist, alarms)
   and settings, each only in an end-to-end encrypted cloud backup or a
@@ -217,7 +220,9 @@ Neue Sicherungs-Passwörter brauchen mindestens 12 Zeichen (seit Build 69); leic
 Anfang oder Ende –, zu 75 % dasselbe Zeichen, höchstens 3 verschiedene Zeichen,
 häufige Folgen) sind gesperrt, ältere
 Dateien lassen sich weiter öffnen. Eine unverschlüsselte Sicherung warnt beim
-Einspielen und kann die Portfolio-Sperre nicht ausschalten.
+Einspielen und senkt nie den Schutz: Sie schaltet die Portfolio-Sperre und
+«Beträge verbergen» nie aus, «Portfolio in Systemsicherung» nie ein und setzt,
+ersetzt oder löscht den eigenen Bitcoin-Server nie.
 Kurse kommen direkt von den Börsen: Sie sehen die abgefragten Paare und die
 IP-Adresse. Beobachtete Adressen (beim xpub die auf dem Gerät abgeleiteten
 Adressen – der xpub selbst bleibt auf dem Gerät) gehen zusammen mit der

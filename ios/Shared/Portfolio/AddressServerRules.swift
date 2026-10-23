@@ -4,9 +4,10 @@ import Foundation
 /// Sperr-Ausnahme, Testergebnis zur Eingabe und Rückfrage beim Wechsel auf öffentliche Knoten — wie `AddressServerRules.kt`
 /// (Fixture address_server_ui.json).
 enum AddressServerRules {
-    /// Zu lange Eingabe (z. B. eingefügt) wird gekürzt statt verworfen; die Prüfung meldet dann «ungültig».
+    /// Zu lange Eingabe (z. B. eingefügt) wird gekürzt statt verworfen — auf `AddressServer.maxLength` + 1, damit die
+    /// Prüfung (`AddressServer.check`) weiter «ungültig» meldet (genau auf die Grenze gekürzt gälte sie still als gültig).
     static func clamp(_ input: String) -> String {
-        input.count > AddressServer.maxLength ? String(input.prefix(AddressServer.maxLength)) : input
+        input.count > AddressServer.maxLength + 1 ? String(input.prefix(AddressServer.maxLength + 1)) : input
     }
 
     /// Schlüssel für Pausen und Sperren: Hostname ohne Schema, Port und Pfad.
@@ -30,6 +31,10 @@ enum AddressServerRules {
         current != nil && next == nil && btcCount > 0
     }
 
-    /// Anzahl beobachteter Bitcoin-Einträge (Adressen und xpub).
-    static func btcCount(_ addresses: [WatchedAddress]) -> Int { addresses.filter { $0.chain == .BTC }.count }
+    /// Anzahl beobachteter Bitcoin-Einträge (Adressen und xpub); Liste nicht lesbar (nil) → 1: lieber fragen als still
+    /// auf öffentliche Knoten wechseln.
+    static func btcCount(_ addresses: [WatchedAddress]?) -> Int {
+        guard let addresses else { return 1 }
+        return addresses.filter { $0.chain == .BTC }.count
+    }
 }

@@ -42,7 +42,7 @@
         <item quantity="other">バックアップ内の %d 件の項目（ポートフォリオまたはアラーム）が無効のため、取り込まれません。</item>
     </plurals>
     <string name="backup_restore_newer_version">このバックアップは新しいバージョンのアプリで作成されています。先にアプリを更新してください。何も読み込まれていません。</string>
-    <string name="backup_restore_unencrypted_warning">このバックアップは暗号化されていません。自分のものか確認してください。設定は反映されますが、オンのポートフォリオロックはオンのままです。</string>
+    <string name="backup_restore_unencrypted_warning">このバックアップは暗号化されていません。自分のものか確認してください。設定は反映されますが、保護を弱める変更（ポートフォリオロック、独自の Bitcoin サーバー、金額を隠す、システムバックアップ）は反映されません。</string>
     <string name="backup_restored">復元しました: %1$s、%2$s。</string>
     <plurals name="backup_restored_alarms">
         <item quantity="other">アラーム %1$d 件</item>

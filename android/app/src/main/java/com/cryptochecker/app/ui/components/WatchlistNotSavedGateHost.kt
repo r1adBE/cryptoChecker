@@ -21,7 +21,7 @@ fun WatchlistNotSavedGateHost() {
     if (request == null) return
     AlertDialog(
         onDismissRequest = { WatchlistNotSavedGate.answer(proceed = false) },
-        text = { Text(stringResource(R.string.watchlist_not_saved_confirm_message)) },
+        text = { DialogText { Text(stringResource(R.string.watchlist_not_saved_confirm_message)) } },
         confirmButton = {
             TextButton(onClick = { WatchlistNotSavedGate.answer(proceed = true) }) {
                 Text(stringResource(R.string.watchlist_not_saved_confirm_action))

@@ -27,6 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.cryptochecker.app.R
 import com.cryptochecker.app.data.remote.util.runCatchingCancellable
 import com.cryptochecker.app.domain.portfolio.csvimport.CsvImportParser
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.util.LocaleNumbers
 import kotlinx.coroutines.launch
 
@@ -102,20 +103,24 @@ fun PortfolioCsvImportFlow(
             onDismissRequest = close,
             title = { Text(stringResource(R.string.portfolio_csv_import_action)) },
             text = {
-                val message = when (s) {
-                    // Ganz abgelehnt: eigener Text statt «Änderungen werden nicht gespeichert»
-                    CsvImportState.Locked -> R.string.portfolio_csv_import_locked
-                    CsvImportState.SaveFailed -> R.string.portfolio_csv_import_failed
-                    else -> R.string.portfolio_csv_import_unreadable
-                }
-                // Zu gross: eigener Text mit der Zeilengrenze (16 MB steht im Text), nicht «kein unterstütztes Format»
-                Text(
-                    if (s == CsvImportState.TooLarge) {
-                        stringResource(R.string.portfolio_csv_import_too_large, LocaleNumbers.integer(CsvImportParser.MAX_ROWS, grouping = true))
-                    } else {
-                        stringResource(message)
+                DialogText {
+                    val message = when (s) {
+                        // Ganz abgelehnt: eigener Text statt «Änderungen werden nicht gespeichert»
+                        CsvImportState.Locked -> R.string.portfolio_csv_import_locked
+                        CsvImportState.SaveFailed -> R.string.portfolio_csv_import_failed
+                        else -> R.string.portfolio_csv_import_unreadable
                     }
-                )
+                    // Zu gross: eigener Text mit der Zeilengrenze (16 MB steht im Text),
+                    // nicht «kein unterstütztes Format»
+                    Text(
+                        if (s == CsvImportState.TooLarge) {
+                            val maxRows = LocaleNumbers.integer(CsvImportParser.MAX_ROWS, grouping = true)
+                            stringResource(R.string.portfolio_csv_import_too_large, maxRows)
+                        } else {
+                            stringResource(message)
+                        }
+                    )
+                }
             },
             confirmButton = { TextButton(onClick = close) { Text(stringResource(R.string.action_close)) } },
         )

@@ -6,6 +6,7 @@ import com.cryptochecker.app.domain.portfolio.WatchedAddress
 import com.cryptochecker.app.settings.SettingsRepository
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.sync.Mutex
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -24,31 +25,69 @@ class WatchedAddressRefresher @Inject constructor(
     private val source: WatchedAddressSource,
     private val settings: SettingsRepository,
 ) {
+    /** Eine Aktualisierung zur Zeit ([singleFlightRefresh]): Lesen, Laden und Speichern zusammen. */
+    private val gate = Mutex()
+
     /**
      * @param background Hintergrund/Widget: alle Adressen zusammen höchstens
-     *   [WatchedAddressSource.BACKGROUND_TOTAL_MILLIS] (je Anfrage kürzer), damit Kurse und Alarme nie warten
+     *   [WatchedAddressSource.BACKGROUND_TOTAL_MILLIS] (je Anfrage kürzer), damit Kurse und Alarme nie warten;
+     *   läuft schon eine Aktualisierung, sofort zurück. Vordergrund wartet und liest danach frisch.
      * @return true, wenn mindestens ein Abruf gespeichert wurde.
      */
     suspend fun refresh(force: Boolean, background: Boolean = false): Boolean {
         return try {
-            val addresses = repository.getWatchedAddresses()
-            if (addresses.isEmpty()) return false
             val budget = if (background) WatchedAddressSource.BACKGROUND_TOTAL_MILLIS else null
-            val server = settings.addressServerFlow.first()
-            val updates = source.refresh(addresses, force, budgetMillis = budget, btcServer = server)
-            for (u in updates) {
-                repository.updateWatchedAddressBalance(
-                    u.id, u.fetched?.balance, u.time, u.error, u.fetched?.provider, u.fetched?.tokens, u.fetched?.xpub,
-                    u.fetched?.networks, u.fetched?.unknownTokens, u.fetched?.keptTokens,
-                )
-            }
-            updates.isNotEmpty()
+            singleFlightRefresh(
+                gate, background,
+                read = { repository.getWatchedAddresses() },
+                load = { addresses ->
+                    val server = settings.addressServerFlow.first()
+                    source.refresh(addresses, force, budgetMillis = budget, btcServer = server)
+                },
+                save = { updates -> updates.forEach { save(it) } },
+            )
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
             Timber.w(e, "Adressen: Aktualisierung fehlgeschlagen")
             false
         }
+    }
+
+    private suspend fun save(u: WatchedAddressSource.Update) {
+        repository.updateWatchedAddressBalance(
+            u.id, u.fetched?.balance, u.time, u.error, u.fetched?.provider, u.fetched?.tokens, u.fetched?.xpub,
+            u.fetched?.networks, u.fetched?.unknownTokens, u.fetched?.keptTokens,
+        )
+    }
+}
+
+/**
+ * Single-Flight der Adress-Aktualisierung: Lesen, Laden und Speichern unter [gate]. Vordergrund wartet auf eine
+ * laufende Runde und liest danach frisch (eben geladene Adressen sind nicht mehr fällig, nichts doppelt);
+ * Hintergrund kehrt sofort zurück, wenn schon eine läuft.
+ * @return true, wenn mindestens ein Ergebnis gespeichert wurde.
+ */
+internal suspend fun <U> singleFlightRefresh(
+    gate: Mutex,
+    background: Boolean,
+    read: suspend () -> List<WatchedAddress>,
+    load: suspend (List<WatchedAddress>) -> List<U>,
+    save: suspend (List<U>) -> Unit,
+): Boolean {
+    if (background) {
+        if (!gate.tryLock()) return false
+    } else {
+        gate.lock()
+    }
+    try {
+        val addresses = read()
+        if (addresses.isEmpty()) return false
+        val updates = load(addresses)
+        save(updates)
+        return updates.isNotEmpty()
+    } finally {
+        gate.unlock()
     }
 }
 

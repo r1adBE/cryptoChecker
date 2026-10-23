@@ -43,7 +43,7 @@
         <item quantity="other">%d oppføringer i sikkerhetskopien (portefølje eller alarmer) er ugyldige og importeres ikke.</item>
     </plurals>
     <string name="backup_restore_newer_version">Denne sikkerhetskopien er fra en nyere appversjon – oppdater appen først. Ingenting ble importert.</string>
-    <string name="backup_restore_unencrypted_warning">Denne sikkerhetskopien er ikke kryptert – sjekk at den er din. Innstillinger overføres; en aktiv porteføljelås forblir på.</string>
+    <string name="backup_restore_unencrypted_warning">Denne sikkerhetskopien er ikke kryptert – sjekk at den er din. Innstillinger overføres – unntatt endringer som svekker beskyttelsen (porteføljelås, egen Bitcoin-server, skjul beløp, systemsikkerhetskopi).</string>
     <string name="backup_restored">Gjenopprettet: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarm</item>

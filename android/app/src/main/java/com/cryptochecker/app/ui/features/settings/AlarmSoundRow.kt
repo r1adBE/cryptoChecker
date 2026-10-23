@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.cryptochecker.app.R
 import com.cryptochecker.app.domain.alarm.AlarmSignal
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.theme.Spacing
 
 /** Anzeigename eines «Alarm-Signals». */
@@ -85,7 +86,7 @@ internal fun AlarmSignalRow(
             onDismissRequest = { open = false },
             title = { Text(stringResource(R.string.settings_alarm_signal)) },
             text = {
-                Column {
+                DialogText {
                     AlarmSignal.entries.forEach { signal ->
                         Row(
                             verticalAlignment = Alignment.CenterVertically,

@@ -152,7 +152,7 @@ fun WidgetManualDialog(onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.widgets_manual_title)) },
-        text = { Text(stringResource(R.string.widgets_manual_text)) },
+        text = { DialogText { Text(stringResource(R.string.widgets_manual_text)) } },
         confirmButton = {
             TextButton(onClick = onDismiss) { Text(stringResource(android.R.string.ok)) }
         }

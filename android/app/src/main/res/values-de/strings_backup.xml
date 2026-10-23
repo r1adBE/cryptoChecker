@@ -43,7 +43,7 @@
         <item quantity="other">%d Einträge der Sicherung (Portfolio oder Alarme) sind ungültig und werden nicht übernommen.</item>
     </plurals>
     <string name="backup_restore_newer_version">Diese Sicherung stammt aus einer neueren App-Version – aktualisiere zuerst die App. Nichts wurde übernommen.</string>
-    <string name="backup_restore_unencrypted_warning">Diese Sicherung ist nicht verschlüsselt – prüfe, ob sie von dir stammt. Einstellungen werden übernommen; eine eingeschaltete Portfolio-Sperre bleibt an.</string>
+    <string name="backup_restore_unencrypted_warning">Diese Sicherung ist nicht verschlüsselt – prüfe, ob sie von dir stammt. Einstellungen werden übernommen – ausser Änderungen, die den Schutz senken (Portfolio-Sperre, eigener Bitcoin-Server, Beträge verbergen, Systemsicherung).</string>
     <string name="backup_restored">Wiederhergestellt: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d Alarm</item>

@@ -600,7 +600,10 @@ screenshots is uploaded on failure).
 **CI gates** (`.github/workflows/android.yml`, on pushes to `main` and pull requests touching
 `android/` or the Swift sources checked by the source guards, and on every release tag `v*`): unit tests, lint (`lintDebug`, `abortOnError`), instrumented tests compiled, debug
 build and an unsigned release build with R8 (catches missing keep rules). Pushes to `main`
-submit the Gradle dependency graph (Dependabot alerts); pull requests run a dependency review
+submit the Gradle dependency graph (Dependabot alerts) in two jobs: `dependency-graph` (read-only, runs Gradle,
+`dependency-graph: generate-and-upload`, the only place with `--dependency-verification lenient`) and
+`dependency-submission` (`contents: write`, no checkout and no Gradle, `download-and-submit` of that run's
+artifact); pull requests run a dependency review
 that fails on new dependencies with known high-severity vulnerabilities.
 `.github/dependabot.yml` opens monthly version update PRs for GitHub Actions (at most two open);
 Gradle (version catalog `android/gradle/libs.versions.toml`) only gets security updates. The *iOS*
@@ -696,9 +699,14 @@ needs the same entry in `mirror_data.py`, both `DataMirror` files and `data_mirr
 parity cases `mirror_signature.json`): the publish job of `market-data.yml` writes, after `artifact_check.py`,
 `manifest.json` (`{"created":<ms>,"files":{"<file>":"<SHA-256 hex>"…},"v":1}`, compact, sorted keys) and
 `manifest.json.sig` (Base64 of the DER ECDSA P-256 / SHA-256 signature over the exact manifest bytes) with
-`mirror_data.py --manifest`, signed with the repository secret `MIRROR_SIGNING_KEY` (PEM, PKCS#8) through the
+`mirror_data.py --manifest`, signed with the secret `MIRROR_SIGNING_KEY` (PEM, PKCS#8) through the
 preinstalled `openssl` command line tool — no package is installed in the job that holds the write token. Both are
-uploaded after the data files. Files that were not renewed in a run keep their hash only from the previous manifest,
+uploaded after the data files. The publish job runs only on `main` (`if: github.ref == 'refs/heads/main'`; a manual
+run on another branch fetches and checks but publishes nothing) and in the environment `mirror-signing`. The secret
+belongs there as an environment secret, with *Deployment branches* limited to `main` (Settings › Environments ›
+mirror-signing); a repository secret of the same name also works (an environment secret takes precedence), so moving
+it is: create the environment secret with the same content first, then delete the repository secret. Until the
+environment exists GitHub creates it unprotected on the first run, which changes nothing. Files that were not renewed in a run keep their hash only from the previous manifest,
 and only if that one is validly signed (the old asset stays on the release). The apps read every file under
 `releases/download/data/` (also `altseason.txt` and `coin_meta.json`) only if the signature matches the built-in public
 key (`MirrorManifest.PUBLIC_KEY`, ECDSA P-256 because Android minSdk 26 has no Ed25519 in the platform), the manifest
@@ -2240,6 +2248,8 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 112: `singleFlightRefresh` / `AddressRefreshGate`, `AddressServerTestRun`, `BackupResultPresentation` (+ `backup_result_dialog.json`),
+  `DialogText` + `DialogScrollGuardTest`, `mirrorLoader` / `loadMirrorMeta` tests, environment `mirror-signing`, split dependency graph jobs.
 * Build 111: `AddressServerRules` (+ `address_server_ui.json`), `BackupRestorePolicy.addressServerNote`, `SettingsRestoreNotes`,
   `BlockedSources.unblock` / `clearServerPauses`, `MirrorTrust` with injectable key (Android class + `shared`), iOS mirror size
   limits, `supply_chain_files.py` configuration check, market-data red on unsigned manifest, guard rules for detached scopes.

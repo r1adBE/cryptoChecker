@@ -47,6 +47,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.cryptochecker.app.R
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.ui.theme.accentButtonColor
 import com.cryptochecker.app.data.portfolio.FxRateSource
 import com.cryptochecker.app.domain.alarm.ThresholdParser
@@ -245,20 +246,22 @@ internal fun PercentChoiceRow(label: String, selected: Double, onSelected: (Doub
             onDismissRequest = { editing = false },
             title = { Text(label) },
             text = {
-                OutlinedTextField(
-                    value = text,
-                    onValueChange = { input -> text = filterPercentInput(input) },
-                    singleLine = true,
-                    suffix = { Text(PercentText.symbol()) },
-                    isError = percentInputError(text),
-                    supportingText = if (percentInputError(text)) {
-                        { Text(stringResource(R.string.settings_percent_invalid)) }
-                    } else {
-                        null
-                    },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                    modifier = Modifier.fillMaxWidth()
-                )
+                DialogText {
+                    OutlinedTextField(
+                        value = text,
+                        onValueChange = { input -> text = filterPercentInput(input) },
+                        singleLine = true,
+                        suffix = { Text(PercentText.symbol()) },
+                        isError = percentInputError(text),
+                        supportingText = if (percentInputError(text)) {
+                            { Text(stringResource(R.string.settings_percent_invalid)) }
+                        } else {
+                            null
+                        },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             },
             confirmButton = {
                 TextButton(

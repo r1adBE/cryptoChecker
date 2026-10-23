@@ -10,7 +10,7 @@
     <plurals name="portfolio_address_unknown_tokens">
         <item quantity="zero">+%1$d رمز غير معروف (غير محتسب)</item>
         <item quantity="one">+%1$d رمز غير معروف (غير محتسب)</item>
-        <item quantity="two">+%1$d رمز غير معروف (غير محتسبين)</item>
+        <item quantity="two">+%1$d رمزان غير معروفين (غير محتسبين)</item>
         <item quantity="few">+%1$d رموز غير معروفة (غير محتسبة)</item>
         <item quantity="many">+%1$d رمزًا غير معروف (غير محتسبة)</item>
         <item quantity="other">+%1$d رمز غير معروف (غير محتسبة)</item>

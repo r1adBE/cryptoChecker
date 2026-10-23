@@ -44,7 +44,7 @@
         <item quantity="other">%d רשומות בגיבוי (תיק או התראות) אינן תקינות ולא ייובאו.</item>
     </plurals>
     <string name="backup_restore_newer_version">הגיבוי הזה הוא מגרסה חדשה יותר של האפליקציה – עדכנו קודם את האפליקציה. לא יובא דבר.</string>
-    <string name="backup_restore_unencrypted_warning">הגיבוי הזה לא מוצפן – ודאו שהוא שלך. ההגדרות יוחלו; נעילת תיק פעילה תישאר פעילה.</string>
+    <string name="backup_restore_unencrypted_warning">הגיבוי הזה לא מוצפן – ודאו שהוא שלכם. ההגדרות יוחלו – למעט שינויים שמפחיתים את ההגנה (נעילת תיק, שרת הביטקוין שלכם, הסתרת סכומים, גיבוי המערכת).</string>
     <string name="backup_restored">שוחזרו: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d התראה</item>

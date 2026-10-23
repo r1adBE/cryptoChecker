@@ -1,5 +1,6 @@
 package com.cryptochecker.app.ui.features.portfolio
 
+import com.cryptochecker.app.ui.components.DialogText
 import com.cryptochecker.app.util.PercentText
 import androidx.compose.ui.graphics.lerp
 import com.cryptochecker.app.ui.components.AppCard
@@ -186,7 +187,7 @@ internal fun PortfolioAlarmDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.portfolio_alarm_title)) },
         text = {
-            Column {
+            DialogText {
                 PortfolioAlarmKind.entries.forEach { option ->
                     val label = PortfolioAlarmTexts.kindLabel(context, option) +
                         if (option.isValue) "" else " (" + ChangeBasisText.shortLabel(context, basis) + ")"

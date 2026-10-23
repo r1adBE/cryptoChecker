@@ -100,14 +100,14 @@ class WatchedAddressSource @Inject constructor(
      *   xpub im Hintergrund: die bekannten benutzten Adressen samt kurzem Vorausblick und nur ganz (sonst bleibt er
      *   fällig). Hintergrund: die am längsten nicht versuchten zuerst ([AddressBalance.dueOrder]) — sonst kämen bei
      *   knappem Budget immer nur die zuerst erfassten dran.
-     * @param btcServer eigener Bitcoin-Server ([AddressServer]): Bitcoin nur dort, ohne Rückfall; null = öffentliche Knoten.
+     * @param btcServer eigener Bitcoin-Server ([AddressServer]): Bitcoin nur dort, ohne Rückfall; null = öffentliche Knoten (immer ausdrücklich übergeben).
      */
     suspend fun refresh(
         addresses: List<WatchedAddress>,
         force: Boolean,
         now: Long = System.currentTimeMillis(),
         budgetMillis: Long? = null,
-        btcServer: String? = null,
+        btcServer: String?,
     ): List<Update> {
         val deadline = budgetMillis?.let { System.currentTimeMillis() + it }
         if (deadline == null) mutex.lock() else if (!mutex.tryLock()) return emptyList()
