@@ -1,7 +1,5 @@
 package com.cryptochecker.app.domain.market
 
-import kotlin.math.abs
-
 /**
  * «Kurz gesagt» oben im Markt-Tab: höchstens drei Sätze in Alltagssprache aus Daten, die der Tab
  * ohnehin hat — Richtung des Gesamtmarkts, Stimmung, was heraussticht. Reine Regeln ohne Android
@@ -77,12 +75,6 @@ data class PlainSummary(
 
 object MarketPlainSummary {
 
-    /** Darunter «kaum verändert» (Betrag in %). */
-    const val FLAT_BELOW_PERCENT = 1.0
-
-    /** Ab hier «deutlich» statt «etwas» (Betrag in %). */
-    const val CLEAR_FROM_PERCENT = 3.0
-
     /**
      * Der Index-Wert selbst gilt so lange (er erscheint einmal am Tag mit dem Tagesbeginn als
      * Zeitpunkt; zwei Tage decken Zeitzone und späte Veröffentlichung ab). Älter: Anbieter hängt.
@@ -103,13 +95,14 @@ object MarketPlainSummary {
         return PlainDirection(directionKind(change), change)
     }
 
-    fun directionKind(change: Double): PlainDirectionKind {
-        val size = abs(change)
-        return when {
-            size < FLAT_BELOW_PERCENT -> PlainDirectionKind.FLAT
-            change > 0 -> if (size >= CLEAR_FROM_PERCENT) PlainDirectionKind.UP_CLEAR else PlainDirectionKind.UP_SLIGHT
-            else -> if (size >= CLEAR_FROM_PERCENT) PlainDirectionKind.DOWN_CLEAR else PlainDirectionKind.DOWN_SLIGHT
-        }
+    /**
+     * «kaum» / «etwas» / «deutlich» nach der gemeinsamen Skala [MarketMoveScale.level] — dieselben Schwellen
+     * wie Schlagzeile und Leitsatz des Pulses.
+     */
+    fun directionKind(change: Double): PlainDirectionKind = when (MarketMoveScale.level(change)) {
+        MarketMoveLevel.FLAT -> PlainDirectionKind.FLAT
+        MarketMoveLevel.SLIGHT -> if (change > 0) PlainDirectionKind.UP_SLIGHT else PlainDirectionKind.DOWN_SLIGHT
+        MarketMoveLevel.CLEAR -> if (change > 0) PlainDirectionKind.UP_CLEAR else PlainDirectionKind.DOWN_CLEAR
     }
 
     /** Satz 2: nur mit frischem Abruf und einem Index-Wert, der nicht älter als zwei Tage ist. */

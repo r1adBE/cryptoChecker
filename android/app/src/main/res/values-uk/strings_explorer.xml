@@ -31,7 +31,7 @@
     <string name="explorer_search_empty">Нічого не знайдено.</string>
     <string name="explorer_search_hint">Пошук монети, пари або біржі</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Введи назву або тикер монети, наприклад Bitcoin чи BTC, потім вибери пару. Пара — це монета на біржі в певній валюті, наприклад BTC/USDT на Binance.</string>
+    <string name="explorer_search_intro">Введи назву або тикер монети, наприклад Bitcoin чи BTC, потім вибери пару.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Додати до списку</string>
@@ -140,4 +140,18 @@
         <item quantity="many">Не додано: %1$d. У списку може бути не більше %2$s пар.</item>
         <item quantity="other">Не додано: %1$d. У списку може бути не більше %2$s пар.</item>
     </plurals>
+    <string name="bulk_add_progress">Додавання пар … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Додати %1$d нову пару до списку</item>
+        <item quantity="few">Додати %1$d нові пари до списку</item>
+        <item quantity="many">Додати %1$d нових пар до списку</item>
+        <item quantity="other">Додати %1$d нової пари до списку</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d нова, %2$d вже в списку</item>
+        <item quantity="few">%1$d нові, %2$d вже в списку</item>
+        <item quantity="many">%1$d нових, %2$d вже в списку</item>
+        <item quantity="other">%1$d нової, %2$d вже в списку</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Усі вже в списку</string>
 </resources>

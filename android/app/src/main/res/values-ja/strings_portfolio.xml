@@ -11,8 +11,7 @@
     <string name="portfolio_empty_action">最初の購入を追加</string>
     <string name="portfolio_empty_address">ウォレットアドレスだけを見守る</string>
     <string name="portfolio_empty_csv">取引所で購入？ファイルを読み込む</string>
-    <string name="portfolio_empty_example_plain">例：3 月 1 日に 0.01 BTC を購入。アプリが今日の価値と、利益か損失かを表示します。データはこの端末にのみ保存されます。</string>
-    <string name="portfolio_empty_text">購入したものを入力すると、今日の価値とどれだけ利益・損失が出ているかをアプリが表示します。</string>
+    <string name="portfolio_empty_example_plain">例：3 月 1 日に %1$s BTC を購入。アプリが今日の価値と、利益か損失かを表示します。データはこの端末にのみ保存されます。</string>
     <string name="portfolio_empty_title">まだ取引がありません</string>
     <string name="portfolio_enable_ask_text">取引を保存しました。ポートフォリオタブには保有分とその評価額が表示されます。</string>
     <string name="portfolio_enable_ask_title">ポートフォリオタブをオンにしますか？</string>

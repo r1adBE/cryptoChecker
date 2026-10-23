@@ -108,21 +108,21 @@
     <string name="pulse_lead_mixed">De grote munten lopen uiteen.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding verhoogd.</string>
-    <string name="pulse_detail_fund_negative">Funding negatief.</string>
-    <string name="pulse_detail_fund_neutral">Funding neutraal.</string>
+    <string name="pulse_detail_fund_high">Hefboomsentiment optimistisch.</string>
+    <string name="pulse_detail_fund_negative">Hefboomsentiment pessimistisch.</string>
+    <string name="pulse_detail_fund_neutral">Hefboomsentiment neutraal.</string>
     <string name="pulse_detail_vol_above">Volume %1$s boven normaal.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volume %1$s boven normaal, funding verhoogd.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s boven normaal, funding negatief.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s boven normaal, funding neutraal.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volume %1$s boven normaal, hefboomsentiment optimistisch.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s boven normaal, hefboomsentiment pessimistisch.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s boven normaal, hefboomsentiment neutraal.</string>
     <string name="pulse_detail_vol_below">Volume %1$s onder normaal.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volume %1$s onder normaal, funding verhoogd.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s onder normaal, funding negatief.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s onder normaal, funding neutraal.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volume %1$s onder normaal, hefboomsentiment optimistisch.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s onder normaal, hefboomsentiment pessimistisch.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s onder normaal, hefboomsentiment neutraal.</string>
     <string name="pulse_detail_vol_normal">Volume normaal.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volume normaal, funding verhoogd.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volume normaal, funding negatief.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volume normaal, funding neutraal.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volume normaal, hefboomsentiment optimistisch.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volume normaal, hefboomsentiment pessimistisch.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volume normaal, hefboomsentiment neutraal.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: de grootste munten naar marktwaarde, zonder stablecoins; verandering over 24 uur (CoinGecko).</string>

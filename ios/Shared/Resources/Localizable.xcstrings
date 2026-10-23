@@ -7259,197 +7259,6 @@
         }
       }
     },
-    "a11y_price_notification_on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "إشعار السعر مُفعّل"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oznámení kurzu zapnuto"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kursnotifikation til"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kursmitteilung an"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ειδοποίηση τιμής ενεργή"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Price notification on"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notificación de precio activada"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "اعلان قیمت روشن"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kurssi-ilmoitus päällä"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notification de cours activée"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "התראת שער פעילה"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "भाव सूचना चालू"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Árfolyam-értesítés be"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notifikasi harga aktif"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notifica del prezzo attiva"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "価格通知オン"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "가격 알림 켜짐"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kursvarsel på"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Koersmelding aan"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Powiadomienie o kursie wł."
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notificação de preço ativada"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notificação de preço ativada"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notificare de preț pornită"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Уведомление о курсе вкл."
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Njoftimi i kursit ndezur"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kursavisering på"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "การแจ้งราคาเปิดอยู่"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fiyat bildirimi açık"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сповіщення про курс увімк."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Thông báo giá đang bật"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "价格通知已开启"
-          }
-        }
-      }
-    },
     "a11y_price_outdated" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -46385,197 +46194,6 @@
         }
       }
     },
-    "alarm_reliability_recent" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "آخر فحص %1$@"
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Poslední kontrola %1$@"
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seneste tjek %1$@"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Letzte Prüfung %1$@"
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Τελευταίος έλεγχος %1$@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Last check %1$@"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Última comprobación %1$@"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "آخرین بررسی %1$@"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Viimeisin tarkistus %1$@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dernière vérification %1$@"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "בדיקה אחרונה %1$@"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "आख़िरी जाँच %1$@"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Utolsó ellenőrzés: %1$@"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pemeriksaan terakhir %1$@"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ultimo controllo %1$@"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "最終確認：%1$@"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "마지막 확인: %1$@"
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Siste sjekk %1$@"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Laatste controle %1$@"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ostatnie sprawdzenie: %1$@"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Última verificação %1$@"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Última verificação %1$@"
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ultima verificare %1$@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Последняя проверка %1$@"
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kontrolli i fundit %1$@"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Senaste kontroll %1$@"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ตรวจสอบล่าสุด %1$@"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Son kontrol: %1$@"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Остання перевірка %1$@"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kiểm tra gần nhất %1$@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "上次检查：%1$@"
-          }
-        }
-      }
-    },
     "alarm_reliability_stale" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -78622,6 +78240,197 @@
         }
       }
     },
+    "bulk_add_progress" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جارٍ إضافة الأزواج … %1$@ / %2$@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přidávají se páry … %1$@ / %2$@"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tilføjer par … %1$@ / %2$@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paare werden hinzugefügt … %1$@ / %2$@"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Προσθήκη ζευγών … %1$@ / %2$@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adding pairs … %1$@ / %2$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Añadiendo pares … %1$@ / %2$@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در حال افزودن جفت‌ها … %1$@ / %2$@"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lisätään pareja … %1$@ / %2$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajout des paires … %1$@ / %2$@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מוסיפים צמדים … %1$@ / %2$@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जोड़े जोड़े जा रहे हैं … %1$@ / %2$@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Párok hozzáadása … %1$@ / %2$@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menambahkan pasangan … %1$@ / %2$@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiunta delle coppie … %1$@ / %2$@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ペアを追加しています … %1$@ / %2$@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "페어를 추가하는 중 … %1$@ / %2$@"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Legger til par … %1$@ / %2$@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paren toevoegen … %1$@ / %2$@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodawanie par … %1$@ / %2$@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A adicionar pares … %1$@ / %2$@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionando pares … %1$@ / %2$@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se adaugă perechile … %1$@ / %2$@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавление пар … %1$@ / %2$@"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Po shtohen çiftet … %1$@ / %2$@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lägger till par … %1$@ / %2$@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กำลังเพิ่มคู่ … %1$@ / %2$@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Çiftler ekleniyor … %1$@ / %2$@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Додавання пар … %1$@ / %2$@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đang thêm các cặp … %1$@ / %2$@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在添加交易对 … %1$@ / %2$@"
+          }
+        }
+      }
+    },
     "bulk_all_pairs" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -81489,187 +81298,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "آخر تحديث"
+            "value" : "منذ آخر تحديث"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "posl. aktualizace"
+            "value" : "od posl. obnovení"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "sidste opdatering"
+            "value" : "siden sidste opdatering"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "letzter Stand"
+            "value" : "seit letzt. Abruf"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "τελ. ενημέρωση"
+            "value" : "από την τελ. ενημέρωση"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "last update"
+            "value" : "since last refresh"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "últ. actualización"
+            "value" : "desde últ. actualización"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "آخرین به‌روزرسانی"
+            "value" : "از آخرین تازه‌سازی"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ed. päivitys"
+            "value" : "ed. päivityksestä"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "dern. mise à jour"
+            "value" : "depuis dern. actualisation"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "עדכון אחרון"
+            "value" : "מאז הרענון האחרון"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "पिछला अपडेट"
+            "value" : "पिछले अपडेट से"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "utolsó frissítés"
+            "value" : "utolsó frissítés óta"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "pembaruan terakhir"
+            "value" : "sejak pembaruan terakhir"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ult. aggiornamento"
+            "value" : "dall'ult. aggiornamento"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "前回更新"
+            "value" : "前回の更新から"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "마지막 업데이트"
+            "value" : "마지막 새로고침 이후"
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "siste oppdatering"
+            "value" : "siden siste oppdatering"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "laatste update"
+            "value" : "sinds laatste vernieuwing"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ost. aktualizacja"
+            "value" : "od ost. odświeżenia"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "última atualização"
+            "value" : "desde a últ. atualização"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "última atualização"
+            "value" : "desde a últ. atualização"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ultima actualizare"
+            "value" : "de la ultima actualizare"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "посл. обновление"
+            "value" : "с посл. обновления"
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "përditësimi i fundit"
+            "value" : "që nga rifreskimi i fundit"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "senaste uppdatering"
+            "value" : "sedan senaste uppdatering"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "อัปเดตล่าสุด"
+            "value" : "ตั้งแต่รีเฟรชล่าสุด"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "son güncelleme"
+            "value" : "son yenilemeden beri"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ост. оновлення"
+            "value" : "з ост. оновлення"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "lần cập nhật cuối"
+            "value" : "từ lần làm mới gần nhất"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "上次更新"
+            "value" : "自上次刷新"
           }
         }
       }
@@ -107090,6 +106899,647 @@
         }
       }
     },
+    "explorer_add_new_pairs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "إضافة %1$lld أزواج جديدة إلى قائمة المتابعة"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "إضافة %1$lld زوجًا جديدًا إلى قائمة المتابعة"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "إضافة زوج جديد (%1$lld) إلى قائمة المتابعة"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "إضافة %1$lld زوج جديد إلى قائمة المتابعة"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "إضافة زوجين جديدين (%1$lld) إلى قائمة المتابعة"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "إضافة %1$lld زوج جديد إلى قائمة المتابعة"
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Přidat %1$lld nové páry do sledovaných"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Přidat %1$lld nových párů do sledovaných"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Přidat %1$lld nový pár do sledovaných"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Přidat %1$lld nových párů do sledovaných"
+                }
+              }
+            }
+          }
+        },
+        "da" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Føj %1$lld nyt par til overvågningslisten"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Føj %1$lld nye par til overvågningslisten"
+                }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld neues Paar in die Merkliste"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld neue Paare in die Merkliste"
+                }
+              }
+            }
+          }
+        },
+        "el" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Προσθήκη %1$lld νέου ζεύγους στη λίστα"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Προσθήκη %1$lld νέων ζευγών στη λίστα"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Add %1$lld new pair to watchlist"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Add %1$lld new pairs to watchlist"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Añadir %1$lld pares nuevos a la lista de seguimiento"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Añadir %1$lld par nuevo a la lista de seguimiento"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Añadir %1$lld pares nuevos a la lista de seguimiento"
+                }
+              }
+            }
+          }
+        },
+        "fa" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "افزودن %1$lld جفت جدید به واچ‌لیست"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "افزودن %1$lld جفت جدید به واچ‌لیست"
+                }
+              }
+            }
+          }
+        },
+        "fi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Lisää %1$lld uusi pari seurantalistaan"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Lisää %1$lld uutta paria seurantalistaan"
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ajouter %1$lld nouvelles paires à la liste de suivi"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ajouter %1$lld nouvelle paire à la liste de suivi"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Ajouter %1$lld nouvelles paires à la liste de suivi"
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "הוספת צמד חדש (%1$lld) לרשימת המעקב"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "הוספת %1$lld צמדים חדשים לרשימת המעקב"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "הוספת שני צמדים חדשים (%1$lld) לרשימת המעקב"
+                }
+              }
+            }
+          }
+        },
+        "hi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld नया पेयर वॉचलिस्ट में जोड़ो"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld नए पेयर वॉचलिस्ट में जोड़ो"
+                }
+              }
+            }
+          }
+        },
+        "hu" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld új pár hozzáadása a figyelőlistához"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld új pár hozzáadása a figyelőlistához"
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tambahkan %1$lld pasangan baru ke daftar pantau"
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Aggiungi %1$lld nuove coppie alla lista di osservazione"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Aggiungi %1$lld nuova coppia alla lista di osservazione"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Aggiungi %1$lld nuove coppie alla lista di osservazione"
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "新しいペア %1$lld 件をウォッチリストに追加"
+                }
+              }
+            }
+          }
+        },
+        "ko" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "새 거래쌍 %1$lld개를 관심 목록에 추가"
+                }
+              }
+            }
+          }
+        },
+        "nb" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Legg til %1$lld nytt par i overvåkingslisten"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Legg til %1$lld nye par i overvåkingslisten"
+                }
+              }
+            }
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld nieuw paar aan volglijst toevoegen"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld nieuwe paren aan volglijst toevoegen"
+                }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Dodaj %1$lld nowe pary do obserwowanych"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Dodaj %1$lld nowych par do obserwowanych"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Dodaj %1$lld nową parę do obserwowanych"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Dodaj %1$lld nowych par do obserwowanych"
+                }
+              }
+            }
+          }
+        },
+        "pt" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Adicionar %1$lld pares novos à lista de acompanhamento"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Adicionar %1$lld par novo à lista de acompanhamento"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Adicionar %1$lld pares novos à lista de acompanhamento"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Adicionar %1$lld pares novos à lista de acompanhamento"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Adicionar %1$lld par novo à lista de acompanhamento"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Adicionar %1$lld pares novos à lista de acompanhamento"
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Adaugă %1$lld perechi noi în lista de urmărire"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Adaugă %1$lld pereche nouă în lista de urmărire"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Adaugă %1$lld de perechi noi în lista de urmărire"
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Добавить %1$lld новые пары в список"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Добавить %1$lld новых пар в список"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Добавить %1$lld новую пару в список"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Добавить %1$lld новой пары в список"
+                }
+              }
+            }
+          }
+        },
+        "sq" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Shto %1$lld çift të ri në listën e ndjekjes"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Shto %1$lld çifte të reja në listën e ndjekjes"
+                }
+              }
+            }
+          }
+        },
+        "sv" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Lägg till %1$lld nytt par i bevakningslistan"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Lägg till %1$lld nya par i bevakningslistan"
+                }
+              }
+            }
+          }
+        },
+        "th" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "เพิ่มคู่ใหม่ %1$lld คู่ไปยังรายการติดตาม"
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld yeni çifti izleme listesine ekle"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%1$lld yeni çifti izleme listesine ekle"
+                }
+              }
+            }
+          }
+        },
+        "uk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Додати %1$lld нові пари до списку"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Додати %1$lld нових пар до списку"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Додати %1$lld нову пару до списку"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Додати %1$lld нової пари до списку"
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Thêm %1$lld cặp mới vào danh sách theo dõi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "将 %1$lld 个新交易对加入自选"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "explorer_add_to_watchlist" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -108610,6 +109060,197 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "explorer_bulk_all_present" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "كلها موجودة في قائمة المتابعة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Všechny už jsou ve sledovaných"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle er allerede på overvågningslisten"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle schon in der Merkliste"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Όλα είναι ήδη στη λίστα"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All already in the watchlist"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos ya están en la lista de seguimiento"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "همه از قبل در واچ‌لیست هستند"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaikki ovat jo seurantalistalla"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toutes sont déjà dans la liste de suivi"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "כולם כבר ברשימת המעקב"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सभी पहले से वॉचलिस्ट में हैं"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Már mind a figyelőlistán van"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semua sudah ada di daftar pantau"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutte già nella lista di osservazione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべてウォッチリストに登録済みです"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모두 이미 관심 목록에 있습니다"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle er allerede i overvåkingslisten"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle staan al in de volglijst"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wszystkie są już w obserwowanych"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos já estão na lista de acompanhamento"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos já estão na lista de acompanhamento"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toate sunt deja în lista de urmărire"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Все уже в списке"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Të gjitha janë tashmë në listën e ndjekjes"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alla finns redan i bevakningslistan"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทุกคู่อยู่ในรายการติดตามแล้ว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hepsi zaten izleme listesinde"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Усі вже в списку"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tất cả đã có trong danh sách theo dõi"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已全部在自选中"
           }
         }
       }
@@ -110199,6 +110840,957 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "添加 %1$lld 个交易对？"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "explorer_bulk_counts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "جديدة: %arg، موجودة في قائمة المتابعة: %2$lld"
+                    }
+                  },
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "جديدة: %arg، موجودة في قائمة المتابعة: %2$lld"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "جديدة: %arg، موجودة في قائمة المتابعة: %2$lld"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "جديدة: %arg، موجودة في قائمة المتابعة: %2$lld"
+                    }
+                  },
+                  "two" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "جديدة: %arg، موجودة في قائمة المتابعة: %2$lld"
+                    }
+                  },
+                  "zero" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "جديدة: %arg، موجودة في قائمة المتابعة: %2$lld"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nové, %2$lld už ve sledovaných"
+                    }
+                  },
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nových, %2$lld už ve sledovaných"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nový, %2$lld už ve sledovaných"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nových, %2$lld už ve sledovaných"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nyt, %2$lld allerede på overvågningslisten"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nye, %2$lld allerede på overvågningslisten"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg neu, %2$lld schon in der Merkliste"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg neu, %2$lld schon in der Merkliste"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg νέο, %2$lld ήδη στη λίστα"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg νέα, %2$lld ήδη στη λίστα"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg new, %2$lld already in the watchlist"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg new, %2$lld already in the watchlist"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nuevos, %2$lld ya en la lista de seguimiento"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nuevo, %2$lld ya en la lista de seguimiento"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nuevos, %2$lld ya en la lista de seguimiento"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg جدید، %2$lld از قبل در واچ‌لیست"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg جدید، %2$lld از قبل در واچ‌لیست"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg uusi, %2$lld jo seurantalistalla"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg uutta, %2$lld jo seurantalistalla"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nouvelles, %2$lld déjà dans la liste de suivi"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nouvelle, %2$lld déjà dans la liste de suivi"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nouvelles, %2$lld déjà dans la liste de suivi"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "חדשים: %arg, כבר ברשימת המעקב: %2$lld"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "חדשים: %arg, כבר ברשימת המעקב: %2$lld"
+                    }
+                  },
+                  "two" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "חדשים: %arg, כבר ברשימת המעקב: %2$lld"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg नया, %2$lld पहले से वॉचलिस्ट में"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg नए, %2$lld पहले से वॉचलिस्ट में"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg új, %2$lld már a figyelőlistán"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg új, %2$lld már a figyelőlistán"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg baru, %2$lld sudah ada di daftar pantau"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nuove, %2$lld già nella lista di osservazione"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nuova, %2$lld già nella lista di osservazione"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nuove, %2$lld già nella lista di osservazione"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "新規 %arg 件、ウォッチリスト登録済み %2$lld 件"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "새 거래쌍 %arg개, 이미 관심 목록에 %2$lld개"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nytt, %2$lld allerede i overvåkingslisten"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nye, %2$lld allerede i overvåkingslisten"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nieuw, %2$lld al in de volglijst"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nieuw, %2$lld al in de volglijst"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nowe, %2$lld już w obserwowanych"
+                    }
+                  },
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nowych, %2$lld już w obserwowanych"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nowa, %2$lld już w obserwowanych"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nowych, %2$lld już w obserwowanych"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg novos, %2$lld já na lista de acompanhamento"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg novo, %2$lld já na lista de acompanhamento"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg novos, %2$lld já na lista de acompanhamento"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg novos, %2$lld já na lista de acompanhamento"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg novo, %2$lld já na lista de acompanhamento"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg novos, %2$lld já na lista de acompanhamento"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg noi, %2$lld deja în lista de urmărire"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nouă, %2$lld deja în lista de urmărire"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg noi, %2$lld deja în lista de urmărire"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg новые, %2$lld уже в списке"
+                    }
+                  },
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg новых, %2$lld уже в списке"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg новая, %2$lld уже в списке"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg новой, %2$lld уже в списке"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg i ri, %2$lld tashmë në listën e ndjekjes"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg të reja, %2$lld tashmë në listën e ndjekjes"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nytt, %2$lld redan i bevakningslistan"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg nya, %2$lld redan i bevakningslistan"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "ใหม่ %arg คู่ อยู่ในรายการติดตามแล้ว %2$lld คู่"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg yeni, %2$lld zaten izleme listesinde"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg yeni, %2$lld zaten izleme listesinde"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg нові, %2$lld вже в списку"
+                    }
+                  },
+                  "many" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg нових, %2$lld вже в списку"
+                    }
+                  },
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg нова, %2$lld вже в списку"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg нової, %2$lld вже в списку"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg cặp mới, %2$lld cặp đã có trong danh sách theo dõi"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@count@"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "新增 %arg 个，%2$lld 个已在自选中"
+                    }
+                  }
                 }
               }
             }
@@ -120845,187 +122437,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "اكتب اسم العملة أو رمزها، مثل Bitcoin أو BTC، ثم اختر الزوج. الزوج هو عملة على منصة بعملة معيّنة، مثل BTC/USDT على Binance."
+            "value" : "اكتب اسم العملة أو رمزها، مثل Bitcoin أو BTC، ثم اختر الزوج."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zadej název nebo symbol mince, např. Bitcoin nebo BTC, a pak vyber pár. Pár je mince na burze v jedné měně, např. BTC/USDT na Binance."
+            "value" : "Zadej název nebo symbol mince, např. Bitcoin nebo BTC, a pak vyber pár."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skriv navnet eller symbolet på en mønt, f.eks. Bitcoin eller BTC – og vælg så parret. Et par er en mønt på en børs i én valuta, f.eks. BTC/USDT på Binance."
+            "value" : "Skriv navnet eller symbolet på en mønt, f.eks. Bitcoin eller BTC – og vælg så parret."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tippe Name oder Kürzel eines Coins, z. B. Bitcoin oder BTC – dann wählst du das Paar. Ein Paar ist ein Coin an einer Börse in einer Währung, z. B. BTC/USDT bei Binance."
+            "value" : "Tippe Name oder Kürzel eines Coins, z. B. Bitcoin oder BTC – dann wählst du das Paar."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Πληκτρολόγησε όνομα ή σύμβολο νομίσματος, π.χ. Bitcoin ή BTC, και μετά επίλεξε ζεύγος. Ζεύγος είναι ένα κρυπτονόμισμα σε ένα ανταλλακτήριο έναντι ενός νομίσματος, π.χ. BTC/USDT στο Binance."
+            "value" : "Πληκτρολόγησε όνομα ή σύμβολο νομίσματος, π.χ. Bitcoin ή BTC, και μετά επίλεξε ζεύγος."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Type a coin’s name or symbol, e.g. Bitcoin or BTC – then pick the pair. A pair is a coin on an exchange in one currency, e.g. BTC/USDT on Binance."
+            "value" : "Type a coin’s name or symbol, e.g. Bitcoin or BTC – then pick the pair."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Escribe el nombre o el símbolo de una moneda, p. ej. Bitcoin o BTC, y elige el par. Un par es una moneda en un exchange en una divisa, p. ej. BTC/USDT en Binance."
+            "value" : "Escribe el nombre o el símbolo de una moneda, p. ej. Bitcoin o BTC, y elige el par."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نام یا نماد یک کوین را بنویس، مثلاً Bitcoin یا BTC، سپس جفت را انتخاب کن. جفت یعنی یک کوین در یک صرافی با یک ارز، مثلاً BTC/USDT در Binance."
+            "value" : "نام یا نماد یک کوین را بنویس، مثلاً Bitcoin یا BTC، سپس جفت را انتخاب کن."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kirjoita kolikon nimi tai tunnus, esim. Bitcoin tai BTC, ja valitse sitten pari. Pari on kolikko tietyssä pörssissä tietyssä valuutassa, esim. BTC/USDT Binancessa."
+            "value" : "Kirjoita kolikon nimi tai tunnus, esim. Bitcoin tai BTC, ja valitse sitten pari."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Saisis le nom ou le symbole d’une crypto, p. ex. Bitcoin ou BTC, puis choisis la paire. Une paire, c’est une crypto sur une plateforme dans une devise, p. ex. BTC/USDT sur Binance."
+            "value" : "Saisis le nom ou le symbole d’une crypto, p. ex. Bitcoin ou BTC, puis choisis la paire."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "הקלידו שם או סימול של מטבע, למשל Bitcoin או BTC – ואז בחרו צמד. צמד הוא מטבע בבורסה מסוימת מול מטבע מסוים, למשל BTC/USDT ב-Binance."
+            "value" : "הקלידו שם או סימול של מטבע, למשל Bitcoin או BTC – ואז בחרו צמד."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "किसी कॉइन का नाम या चिह्न लिखो, जैसे Bitcoin या BTC – फिर पेयर चुनो। पेयर किसी एक्सचेंज पर किसी मुद्रा में एक कॉइन है, जैसे Binance पर BTC/USDT।"
+            "value" : "किसी कॉइन का नाम या चिह्न लिखो, जैसे Bitcoin या BTC – फिर पेयर चुनो।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Írd be egy érme nevét vagy jelét, pl. Bitcoin vagy BTC, majd válaszd ki a párt. A pár egy érme egy tőzsdén egy adott pénznemben, pl. BTC/USDT a Binance-en."
+            "value" : "Írd be egy érme nevét vagy jelét, pl. Bitcoin vagy BTC, majd válaszd ki a párt."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ketik nama atau simbol koin, mis. Bitcoin atau BTC – lalu pilih pasangannya. Pasangan adalah koin di sebuah bursa dalam satu mata uang, mis. BTC/USDT di Binance."
+            "value" : "Ketik nama atau simbol koin, mis. Bitcoin atau BTC – lalu pilih pasangannya."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Scrivi il nome o il simbolo di una moneta, ad es. Bitcoin o BTC, poi scegli la coppia. Una coppia è una moneta su un exchange in una valuta, ad es. BTC/USDT su Binance."
+            "value" : "Scrivi il nome o il simbolo di una moneta, ad es. Bitcoin o BTC, poi scegli la coppia."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "コイン名かシンボル（例：Bitcoin、BTC）を入力して、ペアを選びます。ペアとは、ある取引所で特定の通貨建てで取引されるコインのことです（例：Binance の BTC/USDT）。"
+            "value" : "コイン名かシンボル（例：Bitcoin、BTC）を入力して、ペアを選びます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "코인 이름이나 기호(예: Bitcoin, BTC)를 입력한 뒤 거래쌍을 고르세요. 거래쌍은 한 거래소에서 특정 통화로 거래되는 코인입니다(예: Binance의 BTC/USDT)."
+            "value" : "코인 이름이나 기호(예: Bitcoin, BTC)를 입력한 뒤 거래쌍을 고르세요."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skriv navnet eller symbolet til en mynt, f.eks. Bitcoin eller BTC – og velg så paret. Et par er en mynt på en børs i én valuta, f.eks. BTC/USDT på Binance."
+            "value" : "Skriv navnet eller symbolet til en mynt, f.eks. Bitcoin eller BTC – og velg så paret."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Typ de naam of het symbool van een munt, bijv. Bitcoin of BTC – en kies dan het paar. Een paar is een munt op een beurs in één valuta, bijv. BTC/USDT op Binance."
+            "value" : "Typ de naam of het symbool van een munt, bijv. Bitcoin of BTC – en kies dan het paar."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wpisz nazwę lub symbol monety, np. Bitcoin albo BTC – a potem wybierz parę. Para to moneta na giełdzie w jednej walucie, np. BTC/USDT na Binance."
+            "value" : "Wpisz nazwę lub symbol monety, np. Bitcoin albo BTC – a potem wybierz parę."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Escreve o nome ou o símbolo de uma moeda, p. ex. Bitcoin ou BTC, e depois escolhe o par. Um par é uma moeda numa exchange, cotada noutra moeda, p. ex. BTC/USDT na Binance."
+            "value" : "Escreve o nome ou o símbolo de uma moeda, p. ex. Bitcoin ou BTC, e depois escolhe o par."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Digite o nome ou o símbolo de uma moeda, p. ex. Bitcoin ou BTC, e depois escolha o par. Um par é uma moeda em uma exchange, cotada em outra moeda, p. ex. BTC/USDT na Binance."
+            "value" : "Digite o nome ou o símbolo de uma moeda, p. ex. Bitcoin ou BTC, e depois escolha o par."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Scrie numele sau simbolul unei monede, de ex. Bitcoin sau BTC, apoi alege perechea. O pereche este o monedă pe o bursă, cotată într-o valută, de ex. BTC/USDT pe Binance."
+            "value" : "Scrie numele sau simbolul unei monede, de ex. Bitcoin sau BTC, apoi alege perechea."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Введи название или тикер монеты, например Bitcoin или BTC, затем выбери пару. Пара — это монета на бирже в определённой валюте, например BTC/USDT на Binance."
+            "value" : "Введи название или тикер монеты, например Bitcoin или BTC, затем выбери пару."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shkruaj emrin ose simbolin e një monedhe, p.sh. Bitcoin ose BTC, pastaj zgjidh çiftin. Një çift është një monedhë në një bursë në një valutë, p.sh. BTC/USDT në Binance."
+            "value" : "Shkruaj emrin ose simbolin e një monedhe, p.sh. Bitcoin ose BTC, pastaj zgjidh çiftin."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skriv namnet eller symbolen för ett mynt, t.ex. Bitcoin eller BTC – och välj sedan par. Ett par är ett mynt på en börs i en valuta, t.ex. BTC/USDT på Binance."
+            "value" : "Skriv namnet eller symbolen för ett mynt, t.ex. Bitcoin eller BTC – och välj sedan par."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "พิมพ์ชื่อหรือสัญลักษณ์ของเหรียญ เช่น Bitcoin หรือ BTC แล้วเลือกคู่เทรด คู่เทรดคือเหรียญหนึ่งบนกระดานเทรดหนึ่งในสกุลเงินหนึ่ง เช่น BTC/USDT บน Binance"
+            "value" : "พิมพ์ชื่อหรือสัญลักษณ์ของเหรียญ เช่น Bitcoin หรือ BTC แล้วเลือกคู่เทรด"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bir coinin adını veya sembolünü yaz, ör. Bitcoin veya BTC – ardından çifti seç. Çift, bir borsada belirli bir para birimiyle işlem gören bir coindir, ör. Binance'te BTC/USDT."
+            "value" : "Bir coinin adını veya sembolünü yaz, ör. Bitcoin veya BTC – ardından çifti seç."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Введи назву або тикер монети, наприклад Bitcoin чи BTC, потім вибери пару. Пара — це монета на біржі в певній валюті, наприклад BTC/USDT на Binance."
+            "value" : "Введи назву або тикер монети, наприклад Bitcoin чи BTC, потім вибери пару."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nhập tên hoặc ký hiệu coin, ví dụ Bitcoin hoặc BTC – rồi chọn cặp. Cặp là một coin trên một sàn theo một loại tiền, ví dụ BTC/USDT trên Binance."
+            "value" : "Nhập tên hoặc ký hiệu coin, ví dụ Bitcoin hoặc BTC – rồi chọn cặp."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "输入币种名称或代码，例如 Bitcoin 或 BTC，然后选择交易对。交易对是某个交易所中以某种货币计价的币种，例如 Binance 上的 BTC/USDT。"
+            "value" : "输入币种名称或代码，例如 Bitcoin 或 BTC，然后选择交易对。"
           }
         }
       }
@@ -220655,378 +222247,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "مثال: شراء 0.01 BTC في 1 مارس. يعرض التطبيق بعدها قيمته اليوم وهل أنت رابح أم خاسر – يُحفظ على هذا الجهاز فقط."
+            "value" : "مثال: شراء %1$@ BTC في 1 مارس. يعرض التطبيق بعدها قيمته اليوم وهل أنت رابح أم خاسر – يُحفظ على هذا الجهاز فقط."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Příklad: 0,01 BTC koupeno 1. března. Aplikace pak ukáže, kolik má dnes hodnotu a zda jsi v plusu, nebo v minusu – uloženo jen v tomto zařízení."
+            "value" : "Příklad: %1$@ BTC koupeno 1. března. Aplikace pak ukáže, kolik má dnes hodnotu a zda jsi v plusu, nebo v minusu – uloženo jen v tomto zařízení."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eksempel: 0,01 BTC købt den 1. marts. Appen viser så, hvad den er værd i dag, og om du er i plus eller minus – gemt kun på denne enhed."
+            "value" : "Eksempel: %1$@ BTC købt den 1. marts. Appen viser så, hvad den er værd i dag, og om du er i plus eller minus – gemt kun på denne enhed."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Beispiel: 0,01 BTC am 1. März gekauft. Die App zeigt dann, was das heute wert ist und ob du im Plus oder im Minus bist – gespeichert nur auf diesem Gerät."
+            "value" : "Beispiel: %1$@ BTC am 1. März gekauft. Die App zeigt dann, was das heute wert ist und ob du im Plus oder im Minus bist – gespeichert nur auf diesem Gerät."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Παράδειγμα: 0,01 BTC αγορασμένο την 1η Μαρτίου. Η εφαρμογή δείχνει πόσο αξίζει σήμερα και αν είσαι σε κέρδος ή ζημία – αποθηκεύεται μόνο σε αυτή τη συσκευή."
+            "value" : "Παράδειγμα: %1$@ BTC αγορασμένο την 1η Μαρτίου. Η εφαρμογή δείχνει πόσο αξίζει σήμερα και αν είσαι σε κέρδος ή ζημία – αποθηκεύεται μόνο σε αυτή τη συσκευή."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Example: 0.01 BTC bought on 1 March. The app then shows what it is worth today and whether you are up or down – stored only on this device."
+            "value" : "Example: %1$@ BTC bought on 1 March. The app then shows what it is worth today and whether you are up or down – stored only on this device."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ejemplo: 0,01 BTC comprado el 1 de marzo. La app muestra cuánto vale hoy y si ganas o pierdes – guardado solo en este dispositivo."
+            "value" : "Ejemplo: %1$@ BTC comprado el 1 de marzo. La app muestra cuánto vale hoy y si ganas o pierdes – guardado solo en este dispositivo."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "مثال: خرید 0.01 BTC در ۱ مارس. برنامه نشان می‌دهد امروز چقدر می‌ارزد و در سود هستی یا زیان – فقط روی همین دستگاه ذخیره می‌شود."
+            "value" : "مثال: خرید %1$@ BTC در ۱ مارس. برنامه نشان می‌دهد امروز چقدر می‌ارزد و در سود هستی یا زیان – فقط روی همین دستگاه ذخیره می‌شود."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Esimerkki: 0,01 BTC ostettu 1. maaliskuuta. Sovellus näyttää sitten, paljonko se on tänään arvoinen ja oletko voitolla vai tappiolla – tallennetaan vain tähän laitteeseen."
+            "value" : "Esimerkki: %1$@ BTC ostettu 1. maaliskuuta. Sovellus näyttää sitten, paljonko se on tänään arvoinen ja oletko voitolla vai tappiolla – tallennetaan vain tähän laitteeseen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Exemple : 0,01 BTC acheté le 1er mars. L’app montre alors sa valeur aujourd’hui et si tu es en gain ou en perte – enregistré uniquement sur cet appareil."
+            "value" : "Exemple : %1$@ BTC acheté le 1er mars. L’app montre alors sa valeur aujourd’hui et si tu es en gain ou en perte – enregistré uniquement sur cet appareil."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "דוגמה: 0.01 BTC נקנה ב-1 במרץ. האפליקציה תראה כמה זה שווה היום ואם יש רווח או הפסד – נשמר רק במכשיר הזה."
+            "value" : "דוגמה: %1$@ BTC נקנה ב-1 במרץ. האפליקציה תראה כמה זה שווה היום ואם יש רווח או הפסד – נשמר רק במכשיר הזה."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "उदाहरण: 1 मार्च को 0.01 BTC खरीदा। फिर ऐप दिखाता है कि आज उसकी कीमत क्या है और तुम फ़ायदे में हो या नुकसान में – सिर्फ़ इसी डिवाइस पर सेव।"
+            "value" : "उदाहरण: 1 मार्च को %1$@ BTC खरीदा। फिर ऐप दिखाता है कि आज उसकी कीमत क्या है और तुम फ़ायदे में हो या नुकसान में – सिर्फ़ इसी डिवाइस पर सेव।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Példa: 0,01 BTC vásárolva március 1-jén. Az app megmutatja, mennyit ér ma, és hogy pluszban vagy mínuszban vagy – csak ezen az eszközön tárolva."
+            "value" : "Példa: %1$@ BTC vásárolva március 1-jén. Az app megmutatja, mennyit ér ma, és hogy pluszban vagy mínuszban vagy – csak ezen az eszközön tárolva."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Contoh: 0,01 BTC dibeli pada 1 Maret. Aplikasi lalu menunjukkan nilainya hari ini dan apakah kamu untung atau rugi – hanya disimpan di perangkat ini."
+            "value" : "Contoh: %1$@ BTC dibeli pada 1 Maret. Aplikasi lalu menunjukkan nilainya hari ini dan apakah kamu untung atau rugi – hanya disimpan di perangkat ini."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Esempio: 0,01 BTC acquistati il 1° marzo. L’app mostra quanto valgono oggi e se sei in guadagno o in perdita – salvato solo su questo dispositivo."
+            "value" : "Esempio: %1$@ BTC acquistati il 1° marzo. L’app mostra quanto valgono oggi e se sei in guadagno o in perdita – salvato solo su questo dispositivo."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "例：3 月 1 日に 0.01 BTC を購入。アプリが今日の価値と、利益か損失かを表示します。データはこの端末にのみ保存されます。"
+            "value" : "例：3 月 1 日に %1$@ BTC を購入。アプリが今日の価値と、利益か損失かを表示します。データはこの端末にのみ保存されます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "예: 3월 1일에 0.01 BTC 매수. 앱이 오늘의 가치와 수익인지 손실인지 보여 줍니다 – 이 기기에만 저장됩니다."
+            "value" : "예: 3월 1일에 %1$@ BTC 매수. 앱이 오늘의 가치와 수익인지 손실인지 보여 줍니다 – 이 기기에만 저장됩니다."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eksempel: 0,01 BTC kjøpt 1. mars. Appen viser da hva den er verdt i dag og om du er i pluss eller minus – lagret bare på denne enheten."
+            "value" : "Eksempel: %1$@ BTC kjøpt 1. mars. Appen viser da hva den er verdt i dag og om du er i pluss eller minus – lagret bare på denne enheten."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Voorbeeld: 0,01 BTC gekocht op 1 maart. De app toont dan wat het vandaag waard is en of je in de plus of min staat – alleen op dit apparaat opgeslagen."
+            "value" : "Voorbeeld: %1$@ BTC gekocht op 1 maart. De app toont dan wat het vandaag waard is en of je in de plus of min staat – alleen op dit apparaat opgeslagen."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Przykład: 0,01 BTC kupione 1 marca. Aplikacja pokaże, ile jest warte dziś i czy jesteś na plusie, czy na minusie – zapisane tylko na tym urządzeniu."
+            "value" : "Przykład: %1$@ BTC kupione 1 marca. Aplikacja pokaże, ile jest warte dziś i czy jesteś na plusie, czy na minusie – zapisane tylko na tym urządzeniu."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Exemplo: 0,01 BTC comprado a 1 de março. A app mostra quanto vale hoje e se estás a ganhar ou a perder – guardado só neste dispositivo."
+            "value" : "Exemplo: %1$@ BTC comprado a 1 de março. A app mostra quanto vale hoje e se estás a ganhar ou a perder – guardado só neste dispositivo."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Exemplo: 0,01 BTC comprado em 1º de março. O app mostra quanto vale hoje e se você está ganhando ou perdendo – salvo só neste aparelho."
+            "value" : "Exemplo: %1$@ BTC comprado em 1º de março. O app mostra quanto vale hoje e se você está ganhando ou perdendo – salvo só neste aparelho."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Exemplu: 0,01 BTC cumpărat pe 1 martie. Aplicația arată apoi cât valorează azi și dacă ești pe plus sau pe minus – salvat doar pe acest dispozitiv."
+            "value" : "Exemplu: %1$@ BTC cumpărat pe 1 martie. Aplicația arată apoi cât valorează azi și dacă ești pe plus sau pe minus – salvat doar pe acest dispozitiv."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Пример: 0,01 BTC куплено 1 марта. Приложение покажет, сколько это стоит сегодня и в плюсе ты или в минусе – хранится только на этом устройстве."
+            "value" : "Пример: %1$@ BTC куплено 1 марта. Приложение покажет, сколько это стоит сегодня и в плюсе ты или в минусе – хранится только на этом устройстве."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shembull: 0,01 BTC blerë më 1 mars. Aplikacioni tregon sa vlen sot dhe nëse je në fitim apo në humbje – ruhet vetëm në këtë pajisje."
+            "value" : "Shembull: %1$@ BTC blerë më 1 mars. Aplikacioni tregon sa vlen sot dhe nëse je në fitim apo në humbje – ruhet vetëm në këtë pajisje."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Exempel: 0,01 BTC köpt den 1 mars. Appen visar sedan vad den är värd i dag och om du ligger på plus eller minus – sparas bara på den här enheten."
+            "value" : "Exempel: %1$@ BTC köpt den 1 mars. Appen visar sedan vad den är värd i dag och om du ligger på plus eller minus – sparas bara på den här enheten."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ตัวอย่าง: ซื้อ 0.01 BTC เมื่อ 1 มีนาคม แอปจะแสดงว่าวันนี้มีมูลค่าเท่าไรและคุณกำไรหรือขาดทุน – บันทึกไว้ในอุปกรณ์นี้เท่านั้น"
+            "value" : "ตัวอย่าง: ซื้อ %1$@ BTC เมื่อ 1 มีนาคม แอปจะแสดงว่าวันนี้มีมูลค่าเท่าไรและคุณกำไรหรือขาดทุน – บันทึกไว้ในอุปกรณ์นี้เท่านั้น"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Örnek: 1 Mart’ta 0,01 BTC alındı. Uygulama bugün ne kadar ettiğini ve kârda mı zararda mı olduğunu gösterir – yalnızca bu cihazda saklanır."
+            "value" : "Örnek: 1 Mart’ta %1$@ BTC alındı. Uygulama bugün ne kadar ettiğini ve kârda mı zararda mı olduğunu gösterir – yalnızca bu cihazda saklanır."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Приклад: 0,01 BTC куплено 1 березня. Застосунок покаже, скільки це коштує сьогодні і чи ти в плюсі, чи в мінусі – зберігається лише на цьому пристрої."
+            "value" : "Приклад: %1$@ BTC куплено 1 березня. Застосунок покаже, скільки це коштує сьогодні і чи ти в плюсі, чи в мінусі – зберігається лише на цьому пристрої."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ví dụ: mua 0,01 BTC ngày 1 tháng 3. Ứng dụng sẽ cho thấy hôm nay nó đáng giá bao nhiêu và bạn đang lãi hay lỗ – chỉ lưu trên thiết bị này."
+            "value" : "Ví dụ: mua %1$@ BTC ngày 1 tháng 3. Ứng dụng sẽ cho thấy hôm nay nó đáng giá bao nhiêu và bạn đang lãi hay lỗ – chỉ lưu trên thiết bị này."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "示例：3 月 1 日买入 0.01 BTC。应用会显示它今天值多少，以及你是赚是亏——仅保存在本设备上。"
-          }
-        }
-      }
-    },
-    "portfolio_empty_text" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "أدخل ما اشتريته – يعرض التطبيق قيمته اليوم ومقدار ربحك أو خسارتك."
-          }
-        },
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zadej svoje nákupy – aplikace ukáže, kolik mají dnes hodnotu a kolik jsi v plusu nebo v minusu."
-          }
-        },
-        "da" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Skriv, hvad du har købt – appen viser, hvad det er værd i dag, og hvor meget du er i plus eller minus."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trag ein, was du gekauft hast – die App zeigt, was es heute wert ist und wie viel du im Plus oder Minus bist."
-          }
-        },
-        "el" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Καταχώρισε τι αγόρασες – η εφαρμογή δείχνει πόσο αξίζει σήμερα και πόσο είσαι σε κέρδος ή ζημία."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enter what you bought – the app shows what it is worth today and how much you are up or down."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anota lo que compraste – la app muestra cuánto vale hoy y cuánto ganas o pierdes."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "آنچه خریده‌ای را وارد کن – برنامه نشان می‌دهد امروز چقدر می‌ارزد و چقدر در سود یا زیان هستی."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kirjaa, mitä ostit – sovellus näyttää, paljonko se on tänään arvoinen ja paljonko olet voitolla tai tappiolla."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Indique ce que tu as acheté – l’app montre sa valeur aujourd’hui et combien tu gagnes ou perds."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "הזינו מה קנית – האפליקציה תראה כמה זה שווה היום ומה הרווח או ההפסד שלך."
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "जो खरीदा है वह दर्ज करो – ऐप दिखाता है कि आज उसकी कीमत क्या है और तुम कितने फ़ायदे या नुकसान में हो।"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add meg, mit vettél – az app megmutatja, mennyit ér ma, és mennyivel vagy pluszban vagy mínuszban."
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Masukkan apa yang kamu beli – aplikasi menunjukkan nilainya hari ini dan berapa untung atau rugimu."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Inserisci ciò che hai comprato – l’app mostra quanto vale oggi e quanto sei in guadagno o in perdita."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "購入したものを入力すると、今日の価値とどれだけ利益・損失が出ているかをアプリが表示します。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "산 것을 입력하세요 – 앱이 오늘의 가치와 수익 또는 손실이 얼마인지 보여 줍니다."
-          }
-        },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Legg inn det du har kjøpt – appen viser hva det er verdt i dag og hvor mye du er i pluss eller minus."
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Voer in wat je hebt gekocht – de app toont wat het vandaag waard is en hoeveel je in de plus of min staat."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wpisz, co kupiłeś – aplikacja pokaże, ile to jest warte dziś i ile jesteś na plusie lub minusie."
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Indica o que compraste – a app mostra quanto vale hoje e quanto estás a ganhar ou a perder."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Informe o que você comprou – o app mostra quanto vale hoje e quanto você está ganhando ou perdendo."
-          }
-        },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Introdu ce ai cumpărat – aplicația arată cât valorează azi și cât ești pe plus sau pe minus."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Укажи свои покупки – приложение покажет, сколько это стоит сегодня и насколько ты в плюсе или минусе."
-          }
-        },
-        "sq" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Shëno çfarë ke blerë – aplikacioni tregon sa vlen sot dhe sa je në fitim apo në humbje."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ange vad du har köpt – appen visar vad det är värt i dag och hur mycket du ligger på plus eller minus."
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "กรอกสิ่งที่คุณซื้อ – แอปจะแสดงว่าวันนี้มีมูลค่าเท่าไรและคุณกำไรหรือขาดทุนเท่าไร"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ne aldığını gir – uygulama bugün ne kadar ettiğini ve ne kadar kârda ya da zararda olduğunu gösterir."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вкажи свої покупки – застосунок покаже, скільки це коштує сьогодні й наскільки ти в плюсі чи мінусі."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nhập những gì bạn đã mua – ứng dụng cho thấy hôm nay nó đáng giá bao nhiêu và bạn lãi hay lỗ bao nhiêu."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "记下你买了什么——应用会显示它今天值多少，以及你赚了或亏了多少。"
+            "value" : "示例：3 月 1 日买入 %1$@ BTC。应用会显示它今天值多少，以及你是赚是亏——仅保存在本设备上。"
           }
         }
       }
@@ -263520,187 +264921,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "التمويل مرتفع."
+            "value" : "مزاج التداول بالرافعة متفائل."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding zvýšený."
+            "value" : "Nálada obchodníků s pákou optimistická."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding forhøjet."
+            "value" : "Gearingsstemning optimistisk."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding erhöht."
+            "value" : "Hebel-Stimmung optimistisch."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding αυξημένο."
+            "value" : "Διάθεση μόχλευσης αισιόδοξη."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding elevated."
+            "value" : "Leverage mood optimistic."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding elevado."
+            "value" : "Ánimo con apalancamiento optimista."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فاندینگ بالا."
+            "value" : "حال‌وهوای معاملات اهرمی خوش‌بین."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding koholla."
+            "value" : "Vipukaupan tunnelma optimistinen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding élevé."
+            "value" : "Humeur à effet de levier optimiste."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מימון גבוה."
+            "value" : "אווירת המינוף אופטימית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "फ़ंडिंग ऊँचा।"
+            "value" : "लीवरेज ट्रेडरों का मूड आशावादी।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding emelkedett."
+            "value" : "Tőkeáttételes hangulat optimista."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding tinggi."
+            "value" : "Sentimen leverage optimis."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding elevato."
+            "value" : "Umore con leva ottimista."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "資金調達率は高め。"
+            "value" : "レバレッジ取引の心理は強気。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "펀딩비 높음."
+            "value" : "레버리지 심리 낙관."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding forhøyet."
+            "value" : "Giringsstemning optimistisk."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding verhoogd."
+            "value" : "Hefboomsentiment optimistisch."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding podwyższony."
+            "value" : "Nastroje na dźwigni optymistyczne."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding elevado."
+            "value" : "Sentimento alavancado otimista."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding elevado."
+            "value" : "Sentimento alavancado otimista."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding ridicat."
+            "value" : "Starea pieței cu levier optimistă."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Фандинг повышен."
+            "value" : "Настрой трейдеров с плечом оптимистичный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding i lartë."
+            "value" : "Disponimi me levë optimist."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding förhöjd."
+            "value" : "Hävstångsstämning optimistisk."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding สูง"
+            "value" : "อารมณ์การเทรดเลเวอเรจมองบวก"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fonlama yüksek."
+            "value" : "Kaldıraç havası iyimser."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Фандинг підвищений."
+            "value" : "Настрій трейдерів із плечем оптимістичний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding cao."
+            "value" : "Tâm lý giao dịch đòn bẩy lạc quan."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "资金费率偏高。"
+            "value" : "杠杆情绪偏多。"
           }
         }
       }
@@ -263711,187 +265112,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "التمويل سلبي."
+            "value" : "مزاج التداول بالرافعة متشائم."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding záporný."
+            "value" : "Nálada obchodníků s pákou pesimistická."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negativ."
+            "value" : "Gearingsstemning pessimistisk."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negativ."
+            "value" : "Hebel-Stimmung pessimistisch."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding αρνητικό."
+            "value" : "Διάθεση μόχλευσης απαισιόδοξη."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negative."
+            "value" : "Leverage mood pessimistic."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negativo."
+            "value" : "Ánimo con apalancamiento pesimista."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فاندینگ منفی."
+            "value" : "حال‌وهوای معاملات اهرمی بدبین."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negatiivinen."
+            "value" : "Vipukaupan tunnelma pessimistinen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding négatif."
+            "value" : "Humeur à effet de levier pessimiste."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מימון שלילי."
+            "value" : "אווירת המינוף פסימית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "फ़ंडिंग नेगेटिव।"
+            "value" : "लीवरेज ट्रेडरों का मूड निराशावादी।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negatív."
+            "value" : "Tőkeáttételes hangulat pesszimista."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negatif."
+            "value" : "Sentimen leverage pesimis."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negativo."
+            "value" : "Umore con leva pessimista."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "資金調達率はマイナス。"
+            "value" : "レバレッジ取引の心理は弱気。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "펀딩비 마이너스."
+            "value" : "레버리지 심리 비관."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negativ."
+            "value" : "Giringsstemning pessimistisk."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negatief."
+            "value" : "Hefboomsentiment pessimistisch."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding ujemny."
+            "value" : "Nastroje na dźwigni pesymistyczne."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negativo."
+            "value" : "Sentimento alavancado pessimista."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negativo."
+            "value" : "Sentimento alavancado pessimista."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negativ."
+            "value" : "Starea pieței cu levier pesimistă."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Фандинг отрицательный."
+            "value" : "Настрой трейдеров с плечом пессимистичный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negativ."
+            "value" : "Disponimi me levë pesimist."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding negativ."
+            "value" : "Hävstångsstämning pessimistisk."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding ติดลบ"
+            "value" : "อารมณ์การเทรดเลเวอเรจมองลบ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fonlama negatif."
+            "value" : "Kaldıraç havası kötümser."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Фандинг від’ємний."
+            "value" : "Настрій трейдерів із плечем песимістичний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding âm."
+            "value" : "Tâm lý giao dịch đòn bẩy bi quan."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "资金费率为负。"
+            "value" : "杠杆情绪偏空。"
           }
         }
       }
@@ -263902,187 +265303,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "التمويل محايد."
+            "value" : "مزاج التداول بالرافعة محايد."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutrální."
+            "value" : "Nálada obchodníků s pákou neutrální."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutral."
+            "value" : "Gearingsstemning neutral."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutral."
+            "value" : "Hebel-Stimmung neutral."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding ουδέτερο."
+            "value" : "Διάθεση μόχλευσης ουδέτερη."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutral."
+            "value" : "Leverage mood neutral."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutral."
+            "value" : "Ánimo con apalancamiento neutral."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فاندینگ خنثی."
+            "value" : "حال‌وهوای معاملات اهرمی خنثی."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutraali."
+            "value" : "Vipukaupan tunnelma neutraali."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutre."
+            "value" : "Humeur à effet de levier neutre."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "מימון ניטרלי."
+            "value" : "אווירת המינוף ניטרלית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "फ़ंडिंग न्यूट्रल।"
+            "value" : "लीवरेज ट्रेडरों का मूड न्यूट्रल।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding semleges."
+            "value" : "Tőkeáttételes hangulat semleges."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding netral."
+            "value" : "Sentimen leverage netral."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutro."
+            "value" : "Umore con leva neutro."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "資金調達率は中立。"
+            "value" : "レバレッジ取引の心理は中立。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "펀딩비 중립."
+            "value" : "레버리지 심리 중립."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding nøytral."
+            "value" : "Giringsstemning nøytral."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutraal."
+            "value" : "Hefboomsentiment neutraal."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutralny."
+            "value" : "Nastroje na dźwigni neutralne."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutro."
+            "value" : "Sentimento alavancado neutro."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutro."
+            "value" : "Sentimento alavancado neutro."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutru."
+            "value" : "Starea pieței cu levier neutră."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Фандинг нейтральный."
+            "value" : "Настрой трейдеров с плечом нейтральный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutral."
+            "value" : "Disponimi me levë neutral."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding neutral."
+            "value" : "Hävstångsstämning neutral."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding เป็นกลาง"
+            "value" : "อารมณ์การเทรดเลเวอเรจเป็นกลาง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fonlama nötr."
+            "value" : "Kaldıraç havası nötr."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Фандинг нейтральний."
+            "value" : "Настрій трейдерів із плечем нейтральний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Funding trung tính."
+            "value" : "Tâm lý giao dịch đòn bẩy trung tính."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "资金费率中性。"
+            "value" : "杠杆情绪中性。"
           }
         }
       }
@@ -264284,187 +265685,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أعلى من المعتاد بنسبة %1$@، التمويل مرتفع."
+            "value" : "الحجم أعلى من المعتاد بنسبة %1$@، مزاج التداول بالرافعة متفائل."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$@ nad normálem, funding zvýšený."
+            "value" : "Objem o %1$@ nad normálem, nálada obchodníků s pákou optimistická."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ over normalt, funding forhøjet."
+            "value" : "Volumen %1$@ over normalt, gearingsstemning optimistisk."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ über normal, Funding erhöht."
+            "value" : "Volumen %1$@ über normal, Hebel-Stimmung optimistisch."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$@ πάνω από το κανονικό, funding αυξημένο."
+            "value" : "Όγκος %1$@ πάνω από το κανονικό, διάθεση μόχλευσης αισιόδοξη."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ above normal, funding elevated."
+            "value" : "Volume %1$@ above normal, leverage mood optimistic."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ por encima de lo normal, funding elevado."
+            "value" : "Volumen %1$@ por encima de lo normal, ánimo con apalancamiento optimista."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$@ بالاتر از حالت عادی، فاندینگ بالا."
+            "value" : "حجم %1$@ بالاتر از حالت عادی، حال‌وهوای معاملات اهرمی خوش‌بین."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$@ tavallista suurempi, funding koholla."
+            "value" : "Volyymi %1$@ tavallista suurempi, vipukaupan tunnelma optimistinen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ au-dessus de la normale, funding élevé."
+            "value" : "Volume %1$@ au-dessus de la normale, humeur à effet de levier optimiste."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח גבוה ב-%1$@ מהרגיל, מימון גבוה."
+            "value" : "נפח גבוה ב-%1$@ מהרגיל, אווירת המינוף אופטימית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$@ ज़्यादा, फ़ंडिंग ऊँचा।"
+            "value" : "वॉल्यूम सामान्य से %1$@ ज़्यादा, लीवरेज ट्रेडरों का मूड आशावादी।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@-kal a szokásos felett, funding emelkedett."
+            "value" : "Volumen %1$@-kal a szokásos felett, tőkeáttételes hangulat optimista."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ di atas normal, funding tinggi."
+            "value" : "Volume %1$@ di atas normal, sentimen leverage optimis."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ sopra il normale, funding elevato."
+            "value" : "Volume %1$@ sopra il normale, umore con leva ottimista."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$@ 多い、資金調達率は高め。"
+            "value" : "出来高は通常より %1$@ 多い、レバレッジ取引の心理は強気。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$@ 많음, 펀딩비 높음."
+            "value" : "거래량 평소보다 %1$@ 많음, 레버리지 심리 낙관."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$@ over normalt, funding forhøyet."
+            "value" : "Volum %1$@ over normalt, giringsstemning optimistisk."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ boven normaal, funding verhoogd."
+            "value" : "Volume %1$@ boven normaal, hefboomsentiment optimistisch."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$@ powyżej normy, funding podwyższony."
+            "value" : "Wolumen %1$@ powyżej normy, nastroje na dźwigni optymistyczne."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ acima do normal, funding elevado."
+            "value" : "Volume %1$@ acima do normal, sentimento alavancado otimista."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ acima do normal, funding elevado."
+            "value" : "Volume %1$@ acima do normal, sentimento alavancado otimista."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$@ peste normal, funding ridicat."
+            "value" : "Volum cu %1$@ peste normal, starea pieței cu levier optimistă."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$@ выше нормы, фандинг повышен."
+            "value" : "Объём на %1$@ выше нормы, настрой трейдеров с плечом оптимистичный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$@ mbi normalen, funding i lartë."
+            "value" : "Vëllimi %1$@ mbi normalen, disponimi me levë optimist."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$@ över det normala, funding förhöjd."
+            "value" : "Volym %1$@ över det normala, hävstångsstämning optimistisk."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณสูงกว่าปกติ %1$@ Funding สูง"
+            "value" : "ปริมาณสูงกว่าปกติ %1$@ อารมณ์การเทรดเลเวอเรจมองบวก"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %1$@ üzerinde, fonlama yüksek."
+            "value" : "Hacim normalin %1$@ üzerinde, kaldıraç havası iyimser."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$@ вищий за норму, фандинг підвищений."
+            "value" : "Обсяг на %1$@ вищий за норму, настрій трейдерів із плечем оптимістичний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng cao hơn bình thường %1$@, funding cao."
+            "value" : "Khối lượng cao hơn bình thường %1$@, tâm lý giao dịch đòn bẩy lạc quan."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量高于平常 %1$@，资金费率偏高。"
+            "value" : "成交量高于平常 %1$@，杠杆情绪偏多。"
           }
         }
       }
@@ -264475,187 +265876,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أعلى من المعتاد بنسبة %1$@، التمويل سلبي."
+            "value" : "الحجم أعلى من المعتاد بنسبة %1$@، مزاج التداول بالرافعة متشائم."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$@ nad normálem, funding záporný."
+            "value" : "Objem o %1$@ nad normálem, nálada obchodníků s pákou pesimistická."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ over normalt, funding negativ."
+            "value" : "Volumen %1$@ over normalt, gearingsstemning pessimistisk."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ über normal, Funding negativ."
+            "value" : "Volumen %1$@ über normal, Hebel-Stimmung pessimistisch."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$@ πάνω από το κανονικό, funding αρνητικό."
+            "value" : "Όγκος %1$@ πάνω από το κανονικό, διάθεση μόχλευσης απαισιόδοξη."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ above normal, funding negative."
+            "value" : "Volume %1$@ above normal, leverage mood pessimistic."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ por encima de lo normal, funding negativo."
+            "value" : "Volumen %1$@ por encima de lo normal, ánimo con apalancamiento pesimista."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$@ بالاتر از حالت عادی، فاندینگ منفی."
+            "value" : "حجم %1$@ بالاتر از حالت عادی، حال‌وهوای معاملات اهرمی بدبین."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$@ tavallista suurempi, funding negatiivinen."
+            "value" : "Volyymi %1$@ tavallista suurempi, vipukaupan tunnelma pessimistinen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ au-dessus de la normale, funding négatif."
+            "value" : "Volume %1$@ au-dessus de la normale, humeur à effet de levier pessimiste."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח גבוה ב-%1$@ מהרגיל, מימון שלילי."
+            "value" : "נפח גבוה ב-%1$@ מהרגיל, אווירת המינוף פסימית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$@ ज़्यादा, फ़ंडिंग नेगेटिव।"
+            "value" : "वॉल्यूम सामान्य से %1$@ ज़्यादा, लीवरेज ट्रेडरों का मूड निराशावादी।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@-kal a szokásos felett, funding negatív."
+            "value" : "Volumen %1$@-kal a szokásos felett, tőkeáttételes hangulat pesszimista."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ di atas normal, funding negatif."
+            "value" : "Volume %1$@ di atas normal, sentimen leverage pesimis."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ sopra il normale, funding negativo."
+            "value" : "Volume %1$@ sopra il normale, umore con leva pessimista."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$@ 多い、資金調達率はマイナス。"
+            "value" : "出来高は通常より %1$@ 多い、レバレッジ取引の心理は弱気。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$@ 많음, 펀딩비 마이너스."
+            "value" : "거래량 평소보다 %1$@ 많음, 레버리지 심리 비관."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$@ over normalt, funding negativ."
+            "value" : "Volum %1$@ over normalt, giringsstemning pessimistisk."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ boven normaal, funding negatief."
+            "value" : "Volume %1$@ boven normaal, hefboomsentiment pessimistisch."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$@ powyżej normy, funding ujemny."
+            "value" : "Wolumen %1$@ powyżej normy, nastroje na dźwigni pesymistyczne."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ acima do normal, funding negativo."
+            "value" : "Volume %1$@ acima do normal, sentimento alavancado pessimista."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ acima do normal, funding negativo."
+            "value" : "Volume %1$@ acima do normal, sentimento alavancado pessimista."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$@ peste normal, funding negativ."
+            "value" : "Volum cu %1$@ peste normal, starea pieței cu levier pesimistă."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$@ выше нормы, фандинг отрицательный."
+            "value" : "Объём на %1$@ выше нормы, настрой трейдеров с плечом пессимистичный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$@ mbi normalen, funding negativ."
+            "value" : "Vëllimi %1$@ mbi normalen, disponimi me levë pesimist."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$@ över det normala, funding negativ."
+            "value" : "Volym %1$@ över det normala, hävstångsstämning pessimistisk."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณสูงกว่าปกติ %1$@ Funding ติดลบ"
+            "value" : "ปริมาณสูงกว่าปกติ %1$@ อารมณ์การเทรดเลเวอเรจมองลบ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %1$@ üzerinde, fonlama negatif."
+            "value" : "Hacim normalin %1$@ üzerinde, kaldıraç havası kötümser."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$@ вищий за норму, фандинг від’ємний."
+            "value" : "Обсяг на %1$@ вищий за норму, настрій трейдерів із плечем песимістичний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng cao hơn bình thường %1$@, funding âm."
+            "value" : "Khối lượng cao hơn bình thường %1$@, tâm lý giao dịch đòn bẩy bi quan."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量高于平常 %1$@，资金费率为负。"
+            "value" : "成交量高于平常 %1$@，杠杆情绪偏空。"
           }
         }
       }
@@ -264666,187 +266067,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أعلى من المعتاد بنسبة %1$@، التمويل محايد."
+            "value" : "الحجم أعلى من المعتاد بنسبة %1$@، مزاج التداول بالرافعة محايد."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$@ nad normálem, funding neutrální."
+            "value" : "Objem o %1$@ nad normálem, nálada obchodníků s pákou neutrální."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ over normalt, funding neutral."
+            "value" : "Volumen %1$@ over normalt, gearingsstemning neutral."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ über normal, Funding neutral."
+            "value" : "Volumen %1$@ über normal, Hebel-Stimmung neutral."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$@ πάνω από το κανονικό, funding ουδέτερο."
+            "value" : "Όγκος %1$@ πάνω από το κανονικό, διάθεση μόχλευσης ουδέτερη."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ above normal, funding neutral."
+            "value" : "Volume %1$@ above normal, leverage mood neutral."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ por encima de lo normal, funding neutral."
+            "value" : "Volumen %1$@ por encima de lo normal, ánimo con apalancamiento neutral."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$@ بالاتر از حالت عادی، فاندینگ خنثی."
+            "value" : "حجم %1$@ بالاتر از حالت عادی، حال‌وهوای معاملات اهرمی خنثی."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$@ tavallista suurempi, funding neutraali."
+            "value" : "Volyymi %1$@ tavallista suurempi, vipukaupan tunnelma neutraali."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ au-dessus de la normale, funding neutre."
+            "value" : "Volume %1$@ au-dessus de la normale, humeur à effet de levier neutre."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח גבוה ב-%1$@ מהרגיל, מימון ניטרלי."
+            "value" : "נפח גבוה ב-%1$@ מהרגיל, אווירת המינוף ניטרלית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$@ ज़्यादा, फ़ंडिंग न्यूट्रल।"
+            "value" : "वॉल्यूम सामान्य से %1$@ ज़्यादा, लीवरेज ट्रेडरों का मूड न्यूट्रल।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@-kal a szokásos felett, funding semleges."
+            "value" : "Volumen %1$@-kal a szokásos felett, tőkeáttételes hangulat semleges."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ di atas normal, funding netral."
+            "value" : "Volume %1$@ di atas normal, sentimen leverage netral."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ sopra il normale, funding neutro."
+            "value" : "Volume %1$@ sopra il normale, umore con leva neutro."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$@ 多い、資金調達率は中立。"
+            "value" : "出来高は通常より %1$@ 多い、レバレッジ取引の心理は中立。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$@ 많음, 펀딩비 중립."
+            "value" : "거래량 평소보다 %1$@ 많음, 레버리지 심리 중립."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$@ over normalt, funding nøytral."
+            "value" : "Volum %1$@ over normalt, giringsstemning nøytral."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ boven normaal, funding neutraal."
+            "value" : "Volume %1$@ boven normaal, hefboomsentiment neutraal."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$@ powyżej normy, funding neutralny."
+            "value" : "Wolumen %1$@ powyżej normy, nastroje na dźwigni neutralne."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ acima do normal, funding neutro."
+            "value" : "Volume %1$@ acima do normal, sentimento alavancado neutro."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ acima do normal, funding neutro."
+            "value" : "Volume %1$@ acima do normal, sentimento alavancado neutro."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$@ peste normal, funding neutru."
+            "value" : "Volum cu %1$@ peste normal, starea pieței cu levier neutră."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$@ выше нормы, фандинг нейтральный."
+            "value" : "Объём на %1$@ выше нормы, настрой трейдеров с плечом нейтральный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$@ mbi normalen, funding neutral."
+            "value" : "Vëllimi %1$@ mbi normalen, disponimi me levë neutral."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$@ över det normala, funding neutral."
+            "value" : "Volym %1$@ över det normala, hävstångsstämning neutral."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณสูงกว่าปกติ %1$@ Funding เป็นกลาง"
+            "value" : "ปริมาณสูงกว่าปกติ %1$@ อารมณ์การเทรดเลเวอเรจเป็นกลาง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %1$@ üzerinde, fonlama nötr."
+            "value" : "Hacim normalin %1$@ üzerinde, kaldıraç havası nötr."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$@ вищий за норму, фандинг нейтральний."
+            "value" : "Обсяг на %1$@ вищий за норму, настрій трейдерів із плечем нейтральний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng cao hơn bình thường %1$@, funding trung tính."
+            "value" : "Khối lượng cao hơn bình thường %1$@, tâm lý giao dịch đòn bẩy trung tính."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量高于平常 %1$@，资金费率中性。"
+            "value" : "成交量高于平常 %1$@，杠杆情绪中性。"
           }
         }
       }
@@ -265048,187 +266449,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أقل من المعتاد بنسبة %1$@، التمويل مرتفع."
+            "value" : "الحجم أقل من المعتاد بنسبة %1$@، مزاج التداول بالرافعة متفائل."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$@ pod normálem, funding zvýšený."
+            "value" : "Objem o %1$@ pod normálem, nálada obchodníků s pákou optimistická."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ under normalt, funding forhøjet."
+            "value" : "Volumen %1$@ under normalt, gearingsstemning optimistisk."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ unter normal, Funding erhöht."
+            "value" : "Volumen %1$@ unter normal, Hebel-Stimmung optimistisch."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$@ κάτω από το κανονικό, funding αυξημένο."
+            "value" : "Όγκος %1$@ κάτω από το κανονικό, διάθεση μόχλευσης αισιόδοξη."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ below normal, funding elevated."
+            "value" : "Volume %1$@ below normal, leverage mood optimistic."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ por debajo de lo normal, funding elevado."
+            "value" : "Volumen %1$@ por debajo de lo normal, ánimo con apalancamiento optimista."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$@ پایین‌تر از حالت عادی، فاندینگ بالا."
+            "value" : "حجم %1$@ پایین‌تر از حالت عادی، حال‌وهوای معاملات اهرمی خوش‌بین."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$@ tavallista pienempi, funding koholla."
+            "value" : "Volyymi %1$@ tavallista pienempi, vipukaupan tunnelma optimistinen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ en dessous de la normale, funding élevé."
+            "value" : "Volume %1$@ en dessous de la normale, humeur à effet de levier optimiste."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח נמוך ב-%1$@ מהרגיל, מימון גבוה."
+            "value" : "נפח נמוך ב-%1$@ מהרגיל, אווירת המינוף אופטימית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$@ कम, फ़ंडिंग ऊँचा।"
+            "value" : "वॉल्यूम सामान्य से %1$@ कम, लीवरेज ट्रेडरों का मूड आशावादी।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@-kal a szokásos alatt, funding emelkedett."
+            "value" : "Volumen %1$@-kal a szokásos alatt, tőkeáttételes hangulat optimista."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ di bawah normal, funding tinggi."
+            "value" : "Volume %1$@ di bawah normal, sentimen leverage optimis."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ sotto il normale, funding elevato."
+            "value" : "Volume %1$@ sotto il normale, umore con leva ottimista."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$@ 少ない、資金調達率は高め。"
+            "value" : "出来高は通常より %1$@ 少ない、レバレッジ取引の心理は強気。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$@ 적음, 펀딩비 높음."
+            "value" : "거래량 평소보다 %1$@ 적음, 레버리지 심리 낙관."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$@ under normalt, funding forhøyet."
+            "value" : "Volum %1$@ under normalt, giringsstemning optimistisk."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ onder normaal, funding verhoogd."
+            "value" : "Volume %1$@ onder normaal, hefboomsentiment optimistisch."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$@ poniżej normy, funding podwyższony."
+            "value" : "Wolumen %1$@ poniżej normy, nastroje na dźwigni optymistyczne."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ abaixo do normal, funding elevado."
+            "value" : "Volume %1$@ abaixo do normal, sentimento alavancado otimista."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ abaixo do normal, funding elevado."
+            "value" : "Volume %1$@ abaixo do normal, sentimento alavancado otimista."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$@ sub normal, funding ridicat."
+            "value" : "Volum cu %1$@ sub normal, starea pieței cu levier optimistă."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$@ ниже нормы, фандинг повышен."
+            "value" : "Объём на %1$@ ниже нормы, настрой трейдеров с плечом оптимистичный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$@ nën normalen, funding i lartë."
+            "value" : "Vëllimi %1$@ nën normalen, disponimi me levë optimist."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$@ under det normala, funding förhöjd."
+            "value" : "Volym %1$@ under det normala, hävstångsstämning optimistisk."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณต่ำกว่าปกติ %1$@ Funding สูง"
+            "value" : "ปริมาณต่ำกว่าปกติ %1$@ อารมณ์การเทรดเลเวอเรจมองบวก"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %1$@ altında, fonlama yüksek."
+            "value" : "Hacim normalin %1$@ altında, kaldıraç havası iyimser."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$@ нижчий за норму, фандинг підвищений."
+            "value" : "Обсяг на %1$@ нижчий за норму, настрій трейдерів із плечем оптимістичний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng thấp hơn bình thường %1$@, funding cao."
+            "value" : "Khối lượng thấp hơn bình thường %1$@, tâm lý giao dịch đòn bẩy lạc quan."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量低于平常 %1$@，资金费率偏高。"
+            "value" : "成交量低于平常 %1$@，杠杆情绪偏多。"
           }
         }
       }
@@ -265239,187 +266640,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أقل من المعتاد بنسبة %1$@، التمويل سلبي."
+            "value" : "الحجم أقل من المعتاد بنسبة %1$@، مزاج التداول بالرافعة متشائم."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$@ pod normálem, funding záporný."
+            "value" : "Objem o %1$@ pod normálem, nálada obchodníků s pákou pesimistická."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ under normalt, funding negativ."
+            "value" : "Volumen %1$@ under normalt, gearingsstemning pessimistisk."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ unter normal, Funding negativ."
+            "value" : "Volumen %1$@ unter normal, Hebel-Stimmung pessimistisch."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$@ κάτω από το κανονικό, funding αρνητικό."
+            "value" : "Όγκος %1$@ κάτω από το κανονικό, διάθεση μόχλευσης απαισιόδοξη."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ below normal, funding negative."
+            "value" : "Volume %1$@ below normal, leverage mood pessimistic."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ por debajo de lo normal, funding negativo."
+            "value" : "Volumen %1$@ por debajo de lo normal, ánimo con apalancamiento pesimista."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$@ پایین‌تر از حالت عادی، فاندینگ منفی."
+            "value" : "حجم %1$@ پایین‌تر از حالت عادی، حال‌وهوای معاملات اهرمی بدبین."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$@ tavallista pienempi, funding negatiivinen."
+            "value" : "Volyymi %1$@ tavallista pienempi, vipukaupan tunnelma pessimistinen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ en dessous de la normale, funding négatif."
+            "value" : "Volume %1$@ en dessous de la normale, humeur à effet de levier pessimiste."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח נמוך ב-%1$@ מהרגיל, מימון שלילי."
+            "value" : "נפח נמוך ב-%1$@ מהרגיל, אווירת המינוף פסימית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$@ कम, फ़ंडिंग नेगेटिव।"
+            "value" : "वॉल्यूम सामान्य से %1$@ कम, लीवरेज ट्रेडरों का मूड निराशावादी।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@-kal a szokásos alatt, funding negatív."
+            "value" : "Volumen %1$@-kal a szokásos alatt, tőkeáttételes hangulat pesszimista."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ di bawah normal, funding negatif."
+            "value" : "Volume %1$@ di bawah normal, sentimen leverage pesimis."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ sotto il normale, funding negativo."
+            "value" : "Volume %1$@ sotto il normale, umore con leva pessimista."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$@ 少ない、資金調達率はマイナス。"
+            "value" : "出来高は通常より %1$@ 少ない、レバレッジ取引の心理は弱気。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$@ 적음, 펀딩비 마이너스."
+            "value" : "거래량 평소보다 %1$@ 적음, 레버리지 심리 비관."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$@ under normalt, funding negativ."
+            "value" : "Volum %1$@ under normalt, giringsstemning pessimistisk."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ onder normaal, funding negatief."
+            "value" : "Volume %1$@ onder normaal, hefboomsentiment pessimistisch."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$@ poniżej normy, funding ujemny."
+            "value" : "Wolumen %1$@ poniżej normy, nastroje na dźwigni pesymistyczne."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ abaixo do normal, funding negativo."
+            "value" : "Volume %1$@ abaixo do normal, sentimento alavancado pessimista."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ abaixo do normal, funding negativo."
+            "value" : "Volume %1$@ abaixo do normal, sentimento alavancado pessimista."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$@ sub normal, funding negativ."
+            "value" : "Volum cu %1$@ sub normal, starea pieței cu levier pesimistă."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$@ ниже нормы, фандинг отрицательный."
+            "value" : "Объём на %1$@ ниже нормы, настрой трейдеров с плечом пессимистичный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$@ nën normalen, funding negativ."
+            "value" : "Vëllimi %1$@ nën normalen, disponimi me levë pesimist."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$@ under det normala, funding negativ."
+            "value" : "Volym %1$@ under det normala, hävstångsstämning pessimistisk."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณต่ำกว่าปกติ %1$@ Funding ติดลบ"
+            "value" : "ปริมาณต่ำกว่าปกติ %1$@ อารมณ์การเทรดเลเวอเรจมองลบ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %1$@ altında, fonlama negatif."
+            "value" : "Hacim normalin %1$@ altında, kaldıraç havası kötümser."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$@ нижчий за норму, фандинг від’ємний."
+            "value" : "Обсяг на %1$@ нижчий за норму, настрій трейдерів із плечем песимістичний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng thấp hơn bình thường %1$@, funding âm."
+            "value" : "Khối lượng thấp hơn bình thường %1$@, tâm lý giao dịch đòn bẩy bi quan."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量低于平常 %1$@，资金费率为负。"
+            "value" : "成交量低于平常 %1$@，杠杆情绪偏空。"
           }
         }
       }
@@ -265430,187 +266831,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم أقل من المعتاد بنسبة %1$@، التمويل محايد."
+            "value" : "الحجم أقل من المعتاد بنسبة %1$@، مزاج التداول بالرافعة محايد."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem o %1$@ pod normálem, funding neutrální."
+            "value" : "Objem o %1$@ pod normálem, nálada obchodníků s pákou neutrální."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ under normalt, funding neutral."
+            "value" : "Volumen %1$@ under normalt, gearingsstemning neutral."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ unter normal, Funding neutral."
+            "value" : "Volumen %1$@ unter normal, Hebel-Stimmung neutral."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος %1$@ κάτω από το κανονικό, funding ουδέτερο."
+            "value" : "Όγκος %1$@ κάτω από το κανονικό, διάθεση μόχλευσης ουδέτερη."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ below normal, funding neutral."
+            "value" : "Volume %1$@ below normal, leverage mood neutral."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@ por debajo de lo normal, funding neutral."
+            "value" : "Volumen %1$@ por debajo de lo normal, ánimo con apalancamiento neutral."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم %1$@ پایین‌تر از حالت عادی، فاندینگ خنثی."
+            "value" : "حجم %1$@ پایین‌تر از حالت عادی، حال‌وهوای معاملات اهرمی خنثی."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi %1$@ tavallista pienempi, funding neutraali."
+            "value" : "Volyymi %1$@ tavallista pienempi, vipukaupan tunnelma neutraali."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ en dessous de la normale, funding neutre."
+            "value" : "Volume %1$@ en dessous de la normale, humeur à effet de levier neutre."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח נמוך ב-%1$@ מהרגיל, מימון ניטרלי."
+            "value" : "נפח נמוך ב-%1$@ מהרגיל, אווירת המינוף ניטרלית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य से %1$@ कम, फ़ंडिंग न्यूट्रल।"
+            "value" : "वॉल्यूम सामान्य से %1$@ कम, लीवरेज ट्रेडरों का मूड न्यूट्रल।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen %1$@-kal a szokásos alatt, funding semleges."
+            "value" : "Volumen %1$@-kal a szokásos alatt, tőkeáttételes hangulat semleges."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ di bawah normal, funding netral."
+            "value" : "Volume %1$@ di bawah normal, sentimen leverage netral."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ sotto il normale, funding neutro."
+            "value" : "Volume %1$@ sotto il normale, umore con leva neutro."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常より %1$@ 少ない、資金調達率は中立。"
+            "value" : "出来高は通常より %1$@ 少ない、レバレッジ取引の心理は中立。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소보다 %1$@ 적음, 펀딩비 중립."
+            "value" : "거래량 평소보다 %1$@ 적음, 레버리지 심리 중립."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum %1$@ under normalt, funding nøytral."
+            "value" : "Volum %1$@ under normalt, giringsstemning nøytral."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ onder normaal, funding neutraal."
+            "value" : "Volume %1$@ onder normaal, hefboomsentiment neutraal."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen %1$@ poniżej normy, funding neutralny."
+            "value" : "Wolumen %1$@ poniżej normy, nastroje na dźwigni neutralne."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ abaixo do normal, funding neutro."
+            "value" : "Volume %1$@ abaixo do normal, sentimento alavancado neutro."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume %1$@ abaixo do normal, funding neutro."
+            "value" : "Volume %1$@ abaixo do normal, sentimento alavancado neutro."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum cu %1$@ sub normal, funding neutru."
+            "value" : "Volum cu %1$@ sub normal, starea pieței cu levier neutră."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём на %1$@ ниже нормы, фандинг нейтральный."
+            "value" : "Объём на %1$@ ниже нормы, настрой трейдеров с плечом нейтральный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi %1$@ nën normalen, funding neutral."
+            "value" : "Vëllimi %1$@ nën normalen, disponimi me levë neutral."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym %1$@ under det normala, funding neutral."
+            "value" : "Volym %1$@ under det normala, hävstångsstämning neutral."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณต่ำกว่าปกติ %1$@ Funding เป็นกลาง"
+            "value" : "ปริมาณต่ำกว่าปกติ %1$@ อารมณ์การเทรดเลเวอเรจเป็นกลาง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normalin %1$@ altında, fonlama nötr."
+            "value" : "Hacim normalin %1$@ altında, kaldıraç havası nötr."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг на %1$@ нижчий за норму, фандинг нейтральний."
+            "value" : "Обсяг на %1$@ нижчий за норму, настрій трейдерів із плечем нейтральний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng thấp hơn bình thường %1$@, funding trung tính."
+            "value" : "Khối lượng thấp hơn bình thường %1$@, tâm lý giao dịch đòn bẩy trung tính."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量低于平常 %1$@，资金费率中性。"
+            "value" : "成交量低于平常 %1$@，杠杆情绪中性。"
           }
         }
       }
@@ -265812,187 +267213,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم معتاد، التمويل مرتفع."
+            "value" : "الحجم معتاد، مزاج التداول بالرافعة متفائل."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem normální, funding zvýšený."
+            "value" : "Objem normální, nálada obchodníků s pákou optimistická."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen normal, funding forhøjet."
+            "value" : "Volumen normal, gearingsstemning optimistisk."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen normal, Funding erhöht."
+            "value" : "Volumen normal, Hebel-Stimmung optimistisch."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος κανονικός, funding αυξημένο."
+            "value" : "Όγκος κανονικός, διάθεση μόχλευσης αισιόδοξη."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding elevated."
+            "value" : "Volume normal, leverage mood optimistic."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen normal, funding elevado."
+            "value" : "Volumen normal, ánimo con apalancamiento optimista."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم عادی، فاندینگ بالا."
+            "value" : "حجم عادی، حال‌وهوای معاملات اهرمی خوش‌بین."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi tavallinen, funding koholla."
+            "value" : "Volyymi tavallinen, vipukaupan tunnelma optimistinen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding élevé."
+            "value" : "Volume normal, humeur à effet de levier optimiste."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח רגיל, מימון גבוה."
+            "value" : "נפח רגיל, אווירת המינוף אופטימית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य, फ़ंडिंग ऊँचा।"
+            "value" : "वॉल्यूम सामान्य, लीवरेज ट्रेडरों का मूड आशावादी।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen szokásos, funding emelkedett."
+            "value" : "Volumen szokásos, tőkeáttételes hangulat optimista."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding tinggi."
+            "value" : "Volume normal, sentimen leverage optimis."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normale, funding elevato."
+            "value" : "Volume normale, umore con leva ottimista."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常どおり、資金調達率は高め。"
+            "value" : "出来高は通常どおり、レバレッジ取引の心理は強気。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소 수준, 펀딩비 높음."
+            "value" : "거래량 평소 수준, 레버리지 심리 낙관."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum normalt, funding forhøyet."
+            "value" : "Volum normalt, giringsstemning optimistisk."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normaal, funding verhoogd."
+            "value" : "Volume normaal, hefboomsentiment optimistisch."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen w normie, funding podwyższony."
+            "value" : "Wolumen w normie, nastroje na dźwigni optymistyczne."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding elevado."
+            "value" : "Volume normal, sentimento alavancado otimista."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding elevado."
+            "value" : "Volume normal, sentimento alavancado otimista."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum normal, funding ridicat."
+            "value" : "Volum normal, starea pieței cu levier optimistă."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём в норме, фандинг повышен."
+            "value" : "Объём в норме, настрой трейдеров с плечом оптимистичный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi normal, funding i lartë."
+            "value" : "Vëllimi normal, disponimi me levë optimist."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym normal, funding förhöjd."
+            "value" : "Volym normal, hävstångsstämning optimistisk."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณปกติ Funding สูง"
+            "value" : "ปริมาณปกติ อารมณ์การเทรดเลเวอเรจมองบวก"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normal, fonlama yüksek."
+            "value" : "Hacim normal, kaldıraç havası iyimser."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг у нормі, фандинг підвищений."
+            "value" : "Обсяг у нормі, настрій трейдерів із плечем оптимістичний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng bình thường, funding cao."
+            "value" : "Khối lượng bình thường, tâm lý giao dịch đòn bẩy lạc quan."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量正常，资金费率偏高。"
+            "value" : "成交量正常，杠杆情绪偏多。"
           }
         }
       }
@@ -266003,187 +267404,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم معتاد، التمويل سلبي."
+            "value" : "الحجم معتاد، مزاج التداول بالرافعة متشائم."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem normální, funding záporný."
+            "value" : "Objem normální, nálada obchodníků s pákou pesimistická."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen normal, funding negativ."
+            "value" : "Volumen normal, gearingsstemning pessimistisk."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen normal, Funding negativ."
+            "value" : "Volumen normal, Hebel-Stimmung pessimistisch."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος κανονικός, funding αρνητικό."
+            "value" : "Όγκος κανονικός, διάθεση μόχλευσης απαισιόδοξη."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding negative."
+            "value" : "Volume normal, leverage mood pessimistic."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen normal, funding negativo."
+            "value" : "Volumen normal, ánimo con apalancamiento pesimista."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم عادی، فاندینگ منفی."
+            "value" : "حجم عادی، حال‌وهوای معاملات اهرمی بدبین."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi tavallinen, funding negatiivinen."
+            "value" : "Volyymi tavallinen, vipukaupan tunnelma pessimistinen."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding négatif."
+            "value" : "Volume normal, humeur à effet de levier pessimiste."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח רגיל, מימון שלילי."
+            "value" : "נפח רגיל, אווירת המינוף פסימית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य, फ़ंडिंग नेगेटिव।"
+            "value" : "वॉल्यूम सामान्य, लीवरेज ट्रेडरों का मूड निराशावादी।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen szokásos, funding negatív."
+            "value" : "Volumen szokásos, tőkeáttételes hangulat pesszimista."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding negatif."
+            "value" : "Volume normal, sentimen leverage pesimis."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normale, funding negativo."
+            "value" : "Volume normale, umore con leva pessimista."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常どおり、資金調達率はマイナス。"
+            "value" : "出来高は通常どおり、レバレッジ取引の心理は弱気。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소 수준, 펀딩비 마이너스."
+            "value" : "거래량 평소 수준, 레버리지 심리 비관."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum normalt, funding negativ."
+            "value" : "Volum normalt, giringsstemning pessimistisk."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normaal, funding negatief."
+            "value" : "Volume normaal, hefboomsentiment pessimistisch."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen w normie, funding ujemny."
+            "value" : "Wolumen w normie, nastroje na dźwigni pesymistyczne."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding negativo."
+            "value" : "Volume normal, sentimento alavancado pessimista."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding negativo."
+            "value" : "Volume normal, sentimento alavancado pessimista."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum normal, funding negativ."
+            "value" : "Volum normal, starea pieței cu levier pesimistă."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём в норме, фандинг отрицательный."
+            "value" : "Объём в норме, настрой трейдеров с плечом пессимистичный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi normal, funding negativ."
+            "value" : "Vëllimi normal, disponimi me levë pesimist."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym normal, funding negativ."
+            "value" : "Volym normal, hävstångsstämning pessimistisk."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณปกติ Funding ติดลบ"
+            "value" : "ปริมาณปกติ อารมณ์การเทรดเลเวอเรจมองลบ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normal, fonlama negatif."
+            "value" : "Hacim normal, kaldıraç havası kötümser."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг у нормі, фандинг від’ємний."
+            "value" : "Обсяг у нормі, настрій трейдерів із плечем песимістичний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng bình thường, funding âm."
+            "value" : "Khối lượng bình thường, tâm lý giao dịch đòn bẩy bi quan."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量正常，资金费率为负。"
+            "value" : "成交量正常，杠杆情绪偏空。"
           }
         }
       }
@@ -266194,187 +267595,187 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الحجم معتاد، التمويل محايد."
+            "value" : "الحجم معتاد، مزاج التداول بالرافعة محايد."
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Objem normální, funding neutrální."
+            "value" : "Objem normální, nálada obchodníků s pákou neutrální."
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen normal, funding neutral."
+            "value" : "Volumen normal, gearingsstemning neutral."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen normal, Funding neutral."
+            "value" : "Volumen normal, Hebel-Stimmung neutral."
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Όγκος κανονικός, funding ουδέτερο."
+            "value" : "Όγκος κανονικός, διάθεση μόχλευσης ουδέτερη."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding neutral."
+            "value" : "Volume normal, leverage mood neutral."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen normal, funding neutral."
+            "value" : "Volumen normal, ánimo con apalancamiento neutral."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "حجم عادی، فاندینگ خنثی."
+            "value" : "حجم عادی، حال‌وهوای معاملات اهرمی خنثی."
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volyymi tavallinen, funding neutraali."
+            "value" : "Volyymi tavallinen, vipukaupan tunnelma neutraali."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding neutre."
+            "value" : "Volume normal, humeur à effet de levier neutre."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "נפח רגיל, מימון ניטרלי."
+            "value" : "נפח רגיל, אווירת המינוף ניטרלית."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "वॉल्यूम सामान्य, फ़ंडिंग न्यूट्रल।"
+            "value" : "वॉल्यूम सामान्य, लीवरेज ट्रेडरों का मूड न्यूट्रल।"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volumen szokásos, funding semleges."
+            "value" : "Volumen szokásos, tőkeáttételes hangulat semleges."
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding netral."
+            "value" : "Volume normal, sentimen leverage netral."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normale, funding neutro."
+            "value" : "Volume normale, umore con leva neutro."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "出来高は通常どおり、資金調達率は中立。"
+            "value" : "出来高は通常どおり、レバレッジ取引の心理は中立。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "거래량 평소 수준, 펀딩비 중립."
+            "value" : "거래량 평소 수준, 레버리지 심리 중립."
           }
         },
         "nb" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum normalt, funding nøytral."
+            "value" : "Volum normalt, giringsstemning nøytral."
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normaal, funding neutraal."
+            "value" : "Volume normaal, hefboomsentiment neutraal."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wolumen w normie, funding neutralny."
+            "value" : "Wolumen w normie, nastroje na dźwigni neutralne."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding neutro."
+            "value" : "Volume normal, sentimento alavancado neutro."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volume normal, funding neutro."
+            "value" : "Volume normal, sentimento alavancado neutro."
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volum normal, funding neutru."
+            "value" : "Volum normal, starea pieței cu levier neutră."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Объём в норме, фандинг нейтральный."
+            "value" : "Объём в норме, настрой трейдеров с плечом нейтральный."
           }
         },
         "sq" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vëllimi normal, funding neutral."
+            "value" : "Vëllimi normal, disponimi me levë neutral."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Volym normal, funding neutral."
+            "value" : "Volym normal, hävstångsstämning neutral."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปริมาณปกติ Funding เป็นกลาง"
+            "value" : "ปริมาณปกติ อารมณ์การเทรดเลเวอเรจเป็นกลาง"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hacim normal, fonlama nötr."
+            "value" : "Hacim normal, kaldıraç havası nötr."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обсяг у нормі, фандинг нейтральний."
+            "value" : "Обсяг у нормі, настрій трейдерів із плечем нейтральний."
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khối lượng bình thường, funding trung tính."
+            "value" : "Khối lượng bình thường, tâm lý giao dịch đòn bẩy trung tính."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "成交量正常，资金费率中性。"
+            "value" : "成交量正常，杠杆情绪中性。"
           }
         }
       }

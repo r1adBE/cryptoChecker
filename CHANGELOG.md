@@ -15,6 +15,17 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 118)
+
+UX review of build 117 (both platforms unless noted):
+
+* Adding many pairs at once (Android): continues when you leave «Add pair», with a progress bar there and above the watchlist and the result on the watchlist; both platforms count new pairs first («312 new, 434 already in the watchlist»), disable the button when all are there, name only the new ones in the confirmation and offer «Undo» for exactly the pairs just added.
+* Market tab: the headline follows the whole market and its breadth as well as BTC, ETH and SOL – never «mixed» when all three move the same way – and «slight»/«clear» use one shared scale (1 % / 3 %) everywhere.
+* Watchlist: token diamond and bell only when something differs from the default (TradFi, α, notification off, alarms), like the screen reader; relative times in lower case; the «last check» line only when background checks are late; «since last refresh» instead of «last state», and not repeated in every row when the column header shows it; the selected filter chip shows its name, and a fade at the edge hints that more chips follow.
+* Empty portfolio: one paragraph instead of two so the disclaimer fits on the screen; the example amount uses the app's number format.
+* Wording: «leverage mood» instead of «funding» in the market lead line; the search hint in «Add pair» is one sentence; the finished step badge no longer looks like a checkbox.
+* Exchange API check: One Trading is checked with BTC/USDC (BTC/EUR is closed), Lighter with the BTC market instead of the first row.
+
 ## 16.2.2 (build 117)
 
 * Watchlist: right after the start, the «≈ CHF» line with the note on the USDT rate could push pair, name and exchange out of the row. The converted line now takes at most half the row (longer text ends in «…»), the row shows the short note «conversion uncertain» (the full sentence stays for the screen reader), and the conversion is recalculated as soon as the first USDT/USD reading arrives instead of after up to 60 seconds (both platforms).

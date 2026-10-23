@@ -2272,6 +2272,10 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 118: `BulkAddRunner` (app-wide bulk add, progress, `undo`), `bulkNewCount` / iOS `ExplorerBulkCount`,
+  `BulkAddProgress` / `WatchlistBulkAdd`, `MarketMoveScale` (+ `market_move_scale.json`), `RowMarks` / iOS
+  `WatchlistRowMarks` (+ `watchlist_row_marks.json`), `alarmReliabilityLineShown`, `rowShowsPeriod` /
+  `LocalChangePeriodInHeader`, `PortfolioEmptyExample`, exchange check row selector (`{"symbol": "BTC"}`).
 * Build 117: reserve mirror key (`RESERVE_PUBLIC_KEY` / `PUBLIC_KEYS`, `productionReservePublicKey`), CI step «Kotlin
   warnings» (ceiling 0, main sources, from the unit test log), `DenseRowText.convertedMaxWidth` (+ iOS `CappedWidthLayout`),
   `CurrencyConverter.usdtMeasured` / iOS `WatchlistConversion.waitForNextRound`, `WatchlistConversion.accessibilityText`,

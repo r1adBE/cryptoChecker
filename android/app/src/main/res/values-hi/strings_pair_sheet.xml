@@ -38,7 +38,7 @@
     <string name="change_basis_utc_zone">00:00 %1$s से</string>
     <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
     <string name="change_candle_source">%1$s कैंडल से बदलाव</string>
-    <string name="change_short_since_last">पिछला अपडेट</string>
+    <string name="change_short_since_last">पिछले अपडेट से</string>
     <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
     <string name="change_short_today">आज</string>
     <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->

@@ -29,7 +29,7 @@
     <string name="explorer_search_empty">Aucun résultat.</string>
     <string name="explorer_search_hint">Rechercher une crypto, une paire ou une plateforme</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Saisis le nom ou le symbole d’une crypto, p. ex. Bitcoin ou BTC, puis choisis la paire. Une paire, c’est une crypto sur une plateforme dans une devise, p. ex. BTC/USDT sur Binance.</string>
+    <string name="explorer_search_intro">Saisis le nom ou le symbole d’une crypto, p. ex. Bitcoin ou BTC, puis choisis la paire.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Ajouter à la liste de suivi</string>
@@ -131,4 +131,16 @@
         <item quantity="many">%1$d paires non ajoutées : ta liste de suivi peut contenir au maximum %2$s paires.</item>
         <item quantity="other">%1$d paires non ajoutées : ta liste de suivi peut contenir au maximum %2$s paires.</item>
     </plurals>
+    <string name="bulk_add_progress">Ajout des paires … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Ajouter %1$d nouvelle paire à la liste de suivi</item>
+        <item quantity="many">Ajouter %1$d nouvelles paires à la liste de suivi</item>
+        <item quantity="other">Ajouter %1$d nouvelles paires à la liste de suivi</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d nouvelle, %2$d déjà dans la liste de suivi</item>
+        <item quantity="many">%1$d nouvelles, %2$d déjà dans la liste de suivi</item>
+        <item quantity="other">%1$d nouvelles, %2$d déjà dans la liste de suivi</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Toutes sont déjà dans la liste de suivi</string>
 </resources>

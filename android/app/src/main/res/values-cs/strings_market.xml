@@ -110,21 +110,21 @@
     <string name="pulse_lead_mixed">Velké mince se rozcházejí.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding zvýšený.</string>
-    <string name="pulse_detail_fund_negative">Funding záporný.</string>
-    <string name="pulse_detail_fund_neutral">Funding neutrální.</string>
+    <string name="pulse_detail_fund_high">Nálada obchodníků s pákou optimistická.</string>
+    <string name="pulse_detail_fund_negative">Nálada obchodníků s pákou pesimistická.</string>
+    <string name="pulse_detail_fund_neutral">Nálada obchodníků s pákou neutrální.</string>
     <string name="pulse_detail_vol_above">Objem o %1$s nad normálem.</string>
-    <string name="pulse_detail_vol_above_fund_high">Objem o %1$s nad normálem, funding zvýšený.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Objem o %1$s nad normálem, funding záporný.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Objem o %1$s nad normálem, funding neutrální.</string>
+    <string name="pulse_detail_vol_above_fund_high">Objem o %1$s nad normálem, nálada obchodníků s pákou optimistická.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Objem o %1$s nad normálem, nálada obchodníků s pákou pesimistická.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Objem o %1$s nad normálem, nálada obchodníků s pákou neutrální.</string>
     <string name="pulse_detail_vol_below">Objem o %1$s pod normálem.</string>
-    <string name="pulse_detail_vol_below_fund_high">Objem o %1$s pod normálem, funding zvýšený.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Objem o %1$s pod normálem, funding záporný.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Objem o %1$s pod normálem, funding neutrální.</string>
+    <string name="pulse_detail_vol_below_fund_high">Objem o %1$s pod normálem, nálada obchodníků s pákou optimistická.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Objem o %1$s pod normálem, nálada obchodníků s pákou pesimistická.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Objem o %1$s pod normálem, nálada obchodníků s pákou neutrální.</string>
     <string name="pulse_detail_vol_normal">Objem normální.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Objem normální, funding zvýšený.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Objem normální, funding záporný.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Objem normální, funding neutrální.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Objem normální, nálada obchodníků s pákou optimistická.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Objem normální, nálada obchodníků s pákou pesimistická.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Objem normální, nálada obchodníků s pákou neutrální.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: největší mince podle tržní hodnoty, bez stablecoinů; změna za 24 hodin (CoinGecko).</string>

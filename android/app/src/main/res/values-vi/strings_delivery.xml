@@ -58,7 +58,6 @@
     <string name="oem_battery_oneplus">OnePlus có thể dừng ứng dụng – khi đó không có cảnh báo nào đến. Cho phép “Tự khởi chạy” và hoạt động nền trong Sử dụng pin.</string>
     <string name="oem_battery_oppo">Oppo/Realme có thể dừng ứng dụng – khi đó không có cảnh báo nào đến. Cho phép “Tự khởi chạy” và hoạt động nền trong Sử dụng pin.</string>
     <string name="oem_battery_vivo">Vivo có thể dừng ứng dụng – khi đó không có cảnh báo nào đến. Cho phép “Tự khởi động” và mức dùng điện nền cao trong Pin.</string>
-    <string name="alarm_reliability_recent">Kiểm tra gần nhất %1$s</string>
     <string name="alarm_reliability_stale">Kiểm tra gần nhất %1$s – cảnh báo có thể đến muộn</string>
     <string name="alarm_reliability_never">Cảnh báo đang bật – chưa có lần kiểm tra nền nào</string>
     <string name="alarm_reliability_notifications_off">Thông báo đang tắt – cảnh báo sẽ không đến</string>

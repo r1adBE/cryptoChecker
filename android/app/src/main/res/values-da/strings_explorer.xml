@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">Ingen resultater.</string>
     <string name="explorer_search_hint">Søg efter mønt, par eller børs</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Skriv navnet eller symbolet på en mønt, f.eks. Bitcoin eller BTC – og vælg så parret. Et par er en mønt på en børs i én valuta, f.eks. BTC/USDT på Binance.</string>
+    <string name="explorer_search_intro">Skriv navnet eller symbolet på en mønt, f.eks. Bitcoin eller BTC – og vælg så parret.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Føj til overvågningslisten</string>
@@ -122,4 +122,14 @@
         <item quantity="one">%1$d par blev ikke tilføjet – din overvågningsliste kan højst indeholde %2$s par.</item>
         <item quantity="other">%1$d par blev ikke tilføjet – din overvågningsliste kan højst indeholde %2$s par.</item>
     </plurals>
+    <string name="bulk_add_progress">Tilføjer par … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Føj %1$d nyt par til overvågningslisten</item>
+        <item quantity="other">Føj %1$d nye par til overvågningslisten</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d nyt, %2$d allerede på overvågningslisten</item>
+        <item quantity="other">%1$d nye, %2$d allerede på overvågningslisten</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Alle er allerede på overvågningslisten</string>
 </resources>

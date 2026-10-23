@@ -109,21 +109,21 @@
     <string name="pulse_lead_mixed">Las grandes monedas van cada una por su lado.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding elevado.</string>
-    <string name="pulse_detail_fund_negative">Funding negativo.</string>
-    <string name="pulse_detail_fund_neutral">Funding neutral.</string>
+    <string name="pulse_detail_fund_high">Ánimo con apalancamiento optimista.</string>
+    <string name="pulse_detail_fund_negative">Ánimo con apalancamiento pesimista.</string>
+    <string name="pulse_detail_fund_neutral">Ánimo con apalancamiento neutral.</string>
     <string name="pulse_detail_vol_above">Volumen %1$s por encima de lo normal.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volumen %1$s por encima de lo normal, funding elevado.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volumen %1$s por encima de lo normal, funding negativo.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volumen %1$s por encima de lo normal, funding neutral.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volumen %1$s por encima de lo normal, ánimo con apalancamiento optimista.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volumen %1$s por encima de lo normal, ánimo con apalancamiento pesimista.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volumen %1$s por encima de lo normal, ánimo con apalancamiento neutral.</string>
     <string name="pulse_detail_vol_below">Volumen %1$s por debajo de lo normal.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volumen %1$s por debajo de lo normal, funding elevado.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volumen %1$s por debajo de lo normal, funding negativo.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volumen %1$s por debajo de lo normal, funding neutral.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volumen %1$s por debajo de lo normal, ánimo con apalancamiento optimista.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volumen %1$s por debajo de lo normal, ánimo con apalancamiento pesimista.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volumen %1$s por debajo de lo normal, ánimo con apalancamiento neutral.</string>
     <string name="pulse_detail_vol_normal">Volumen normal.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volumen normal, funding elevado.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volumen normal, funding negativo.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volumen normal, funding neutral.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volumen normal, ánimo con apalancamiento optimista.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volumen normal, ánimo con apalancamiento pesimista.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volumen normal, ánimo con apalancamiento neutral.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: las monedas más grandes por valor de mercado, sin stablecoins; variación en 24 horas (CoinGecko).</string>

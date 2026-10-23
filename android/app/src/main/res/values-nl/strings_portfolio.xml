@@ -12,8 +12,7 @@
     <string name="portfolio_empty_action">Eerste aankoop invoeren</string>
     <string name="portfolio_empty_address">Alleen een walletadres volgen</string>
     <string name="portfolio_empty_csv">Gekocht op een beurs? Bestand importeren</string>
-    <string name="portfolio_empty_example_plain">Voorbeeld: 0,01 BTC gekocht op 1 maart. De app toont dan wat het vandaag waard is en of je in de plus of min staat – alleen op dit apparaat opgeslagen.</string>
-    <string name="portfolio_empty_text">Voer in wat je hebt gekocht – de app toont wat het vandaag waard is en hoeveel je in de plus of min staat.</string>
+    <string name="portfolio_empty_example_plain">Voorbeeld: %1$s BTC gekocht op 1 maart. De app toont dan wat het vandaag waard is en of je in de plus of min staat – alleen op dit apparaat opgeslagen.</string>
     <string name="portfolio_empty_title">Nog geen transacties</string>
     <string name="portfolio_enable_ask_text">Je transactie is opgeslagen. Het tabblad Portfolio toont je bezit en de waarde ervan.</string>
     <string name="portfolio_enable_ask_title">Tabblad Portfolio inschakelen?</string>

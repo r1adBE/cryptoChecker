@@ -29,7 +29,7 @@
     <string name="explorer_search_empty">אין תוצאות.</string>
     <string name="explorer_search_hint">חיפוש מטבע, צמד או בורסה</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">הקלידו שם או סימול של מטבע, למשל Bitcoin או BTC – ואז בחרו צמד. צמד הוא מטבע בבורסה מסוימת מול מטבע מסוים, למשל BTC/USDT ב-Binance.</string>
+    <string name="explorer_search_intro">הקלידו שם או סימול של מטבע, למשל Bitcoin או BTC – ואז בחרו צמד.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">הוספה לרשימת המעקב</string>
@@ -131,4 +131,16 @@
         <item quantity="two">לא נוספו: %1$d. רשימת המעקב יכולה להכיל עד %2$s צמדים.</item>
         <item quantity="other">לא נוספו: %1$d. רשימת המעקב יכולה להכיל עד %2$s צמדים.</item>
     </plurals>
+    <string name="bulk_add_progress">מוסיפים צמדים … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">הוספת צמד חדש (%1$d) לרשימת המעקב</item>
+        <item quantity="two">הוספת שני צמדים חדשים (%1$d) לרשימת המעקב</item>
+        <item quantity="other">הוספת %1$d צמדים חדשים לרשימת המעקב</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">חדשים: %1$d, כבר ברשימת המעקב: %2$d</item>
+        <item quantity="two">חדשים: %1$d, כבר ברשימת המעקב: %2$d</item>
+        <item quantity="other">חדשים: %1$d, כבר ברשימת המעקב: %2$d</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">כולם כבר ברשימת המעקב</string>
 </resources>

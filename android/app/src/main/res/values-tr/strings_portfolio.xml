@@ -12,8 +12,7 @@
     <string name="portfolio_empty_action">İlk alımını ekle</string>
     <string name="portfolio_empty_address">Yalnızca bir cüzdan adresini izle</string>
     <string name="portfolio_empty_csv">Borsadan mı aldın? Dosyayı içe aktar</string>
-    <string name="portfolio_empty_example_plain">Örnek: 1 Mart’ta 0,01 BTC alındı. Uygulama bugün ne kadar ettiğini ve kârda mı zararda mı olduğunu gösterir – yalnızca bu cihazda saklanır.</string>
-    <string name="portfolio_empty_text">Ne aldığını gir – uygulama bugün ne kadar ettiğini ve ne kadar kârda ya da zararda olduğunu gösterir.</string>
+    <string name="portfolio_empty_example_plain">Örnek: 1 Mart’ta %1$s BTC alındı. Uygulama bugün ne kadar ettiğini ve kârda mı zararda mı olduğunu gösterir – yalnızca bu cihazda saklanır.</string>
     <string name="portfolio_empty_title">Henüz işlem yok</string>
     <string name="portfolio_enable_ask_text">İşlemin kaydedildi. Portföy sekmesi varlıklarını ve değerlerini gösterir.</string>
     <string name="portfolio_enable_ask_title">Portföy sekmesi açılsın mı?</string>

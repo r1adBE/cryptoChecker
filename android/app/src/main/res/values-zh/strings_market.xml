@@ -107,21 +107,21 @@
     <string name="pulse_lead_mixed">主流币走势分化。</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">资金费率偏高。</string>
-    <string name="pulse_detail_fund_negative">资金费率为负。</string>
-    <string name="pulse_detail_fund_neutral">资金费率中性。</string>
+    <string name="pulse_detail_fund_high">杠杆情绪偏多。</string>
+    <string name="pulse_detail_fund_negative">杠杆情绪偏空。</string>
+    <string name="pulse_detail_fund_neutral">杠杆情绪中性。</string>
     <string name="pulse_detail_vol_above">成交量高于平常 %1$s。</string>
-    <string name="pulse_detail_vol_above_fund_high">成交量高于平常 %1$s，资金费率偏高。</string>
-    <string name="pulse_detail_vol_above_fund_negative">成交量高于平常 %1$s，资金费率为负。</string>
-    <string name="pulse_detail_vol_above_fund_neutral">成交量高于平常 %1$s，资金费率中性。</string>
+    <string name="pulse_detail_vol_above_fund_high">成交量高于平常 %1$s，杠杆情绪偏多。</string>
+    <string name="pulse_detail_vol_above_fund_negative">成交量高于平常 %1$s，杠杆情绪偏空。</string>
+    <string name="pulse_detail_vol_above_fund_neutral">成交量高于平常 %1$s，杠杆情绪中性。</string>
     <string name="pulse_detail_vol_below">成交量低于平常 %1$s。</string>
-    <string name="pulse_detail_vol_below_fund_high">成交量低于平常 %1$s，资金费率偏高。</string>
-    <string name="pulse_detail_vol_below_fund_negative">成交量低于平常 %1$s，资金费率为负。</string>
-    <string name="pulse_detail_vol_below_fund_neutral">成交量低于平常 %1$s，资金费率中性。</string>
+    <string name="pulse_detail_vol_below_fund_high">成交量低于平常 %1$s，杠杆情绪偏多。</string>
+    <string name="pulse_detail_vol_below_fund_negative">成交量低于平常 %1$s，杠杆情绪偏空。</string>
+    <string name="pulse_detail_vol_below_fund_neutral">成交量低于平常 %1$s，杠杆情绪中性。</string>
     <string name="pulse_detail_vol_normal">成交量正常。</string>
-    <string name="pulse_detail_vol_normal_fund_high">成交量正常，资金费率偏高。</string>
-    <string name="pulse_detail_vol_normal_fund_negative">成交量正常，资金费率为负。</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">成交量正常，资金费率中性。</string>
+    <string name="pulse_detail_vol_normal_fund_high">成交量正常，杠杆情绪偏多。</string>
+    <string name="pulse_detail_vol_normal_fund_negative">成交量正常，杠杆情绪偏空。</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">成交量正常，杠杆情绪中性。</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">前 %1$d：按市值排名最大的币种（不含稳定币）；24 小时涨跌（CoinGecko）。</string>

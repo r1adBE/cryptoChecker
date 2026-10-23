@@ -94,22 +94,24 @@ extension WatchlistRow {
                     .lineLimit(line.warning ? 2 : DenseRowText.maxLines(typeScale))
                     .layoutPriority(-1)
 
-                // Art vor der Glocke: Token (Raute), TradFi (Bank), Alpha («α») wie die Chips;
-                // neutral wie die Glocke, in der Themenfarbe nur mit gewähltem passendem Chip
-                AssetKindIconView(kind: kind)
-                    .foregroundStyle(highlight.highlights(kind) ? accent.primary : AppColors.onSurfaceVariant)
-                    .opacity(iconOpacity)
-                // Kursmitteilung (Entscheid 16. Oktober 2026, wieder in der Zeile): schlichte Glocke = an,
-                // durchgestrichene = aus (Paar aus oder Hauptschalter aus). Danach die Alarmglocke (mit Wellen),
-                // nur bei mind. einem aktiven Alarm — wie Android
-                let priceOn: Bool = A11ySpeech.priceNotificationOn(pairOn: watch.notificationEnabled,
-                                                                   masterOn: priceNotificationsOn)
-                // 13 pt wie die 13-dp-Glocken in Android
-                Image(systemName: priceOn ? "bell" : "bell.slash")
-                    .scaledFont(size: 13, relativeTo: .caption2)
-                    .foregroundStyle(AppColors.onSurfaceVariant)
-                    .opacity(iconOpacity)
-                    .accessibilityLabel(L(priceOn ? "a11y_price_notification_on" : "a11y_price_notification_off"))
+                // Marken nur bei Abweichung vom Normalfall (`WatchlistRowMarks`, gleiche Regel wie der Zeilensatz):
+                // Art nur bei TradFi (Bank) bzw. Alpha («α») — neutral, in der Themenfarbe nur mit gewähltem Chip
+                if WatchlistRowMarks.showsKind(kind) {
+                    AssetKindIconView(kind: kind)
+                        .foregroundStyle(highlight.highlights(kind) ? accent.primary : AppColors.onSurfaceVariant)
+                        .opacity(iconOpacity)
+                }
+                // Kursmitteilung nur, wenn sie aus ist: durchgestrichene Glocke (Paar aus oder Hauptschalter aus).
+                // Danach die Alarmglocke (mit Wellen), nur bei mind. einem aktiven Alarm — wie Android
+                if WatchlistRowMarks.showsPriceBell(A11ySpeech.priceNotificationOn(pairOn: watch.notificationEnabled,
+                                                                                   masterOn: priceNotificationsOn)) {
+                    // 13 pt wie die 13-dp-Glocken in Android
+                    Image(systemName: "bell.slash")
+                        .scaledFont(size: 13, relativeTo: .caption2)
+                        .foregroundStyle(AppColors.onSurfaceVariant)
+                        .opacity(iconOpacity)
+                        .accessibilityLabel(L("a11y_price_notification_off"))
+                }
                 if alarmCount > 0 {
                     HStack(spacing: 2) {
                         Image(systemName: "bell.and.waves.left.and.right.fill").scaledFont(size: 13, relativeTo: .caption2)
@@ -187,8 +189,9 @@ extension WatchlistRow {
                     WatchlistDayChangePill(watch: watch, marker: changeMarker != nil,
                                            markerLabel: changeMarker.map(DayChange.rowMarkerLabel),
                                            markerHint: changeSourceHint, showMarkerHint: $showSourceHint)
-                        // Zeitraum («24h», «letzter Stand», «heute») in der Zeile immer klein an der Änderung, damit die
-                        // Basis der Prozentzahl nie verborgen ist; der Schalter gilt weiter für Puls und Einzel-Widget
+                        // Zeitraum («24h», «heute») in der Zeile immer klein an der Änderung, damit die Basis der
+                        // Prozentzahl nie verborgen ist — «seit letzt. Abruf» nur ohne Spaltenkopf
+                        // (`WatchlistRowMarks.showsPeriod`); der Schalter gilt weiter für Puls und Einzel-Widget
                         .environment(\.changeView, rowChangeView)
                         .frame(minHeight: namesEnabled ? line2 : nil, alignment: .trailing)
                 }
@@ -246,10 +249,10 @@ extension WatchlistRow {
         .environment(\.layoutDirection, .leftToRight)
     }
 
-    /// %-Basis der Zeile: Zeitraum immer sichtbar (wie Android `RowPrice`).
+    /// %-Basis der Zeile: Zeitraum sichtbar, ausser «seit letzt. Abruf» unter dem Spaltenkopf (wie Android `RowPrice`).
     private var rowChangeView: ChangeView {
         var view = changeView
-        view.showPeriod = true
+        view.showPeriod = WatchlistRowMarks.showsPeriod(view.basis, periodInHeader: changePeriodInHeader)
         return view
     }
 
@@ -274,5 +277,36 @@ struct CappedWidthLayout: Layout {
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
         subviews.first?.place(at: CGPoint(x: bounds.maxX, y: bounds.midY), anchor: .trailing,
                               proposal: ProposedViewSize(width: bounds.width, height: bounds.height))
+    }
+}
+
+/// Marken der Zeitzeile nach derselben Regel wie der Zeilensatz von VoiceOver: nur Abweichungen vom Normalfall.
+/// Token (Raute) und Kursmitteilung an (schlichte Glocke) stünden sonst in jeder Zeile. Wie `RowMarks` (Android);
+/// Fälle in `Parity/watchlist_row_marks.json`.
+enum WatchlistRowMarks {
+    /// Art-Symbol nur bei TradFi bzw. Alpha.
+    static func showsKind(_ kind: AssetKind) -> Bool { kind != .TOKEN }
+
+    /// Glocke der Kursmitteilung nur, wenn sie aus ist (durchgestrichen).
+    static func showsPriceBell(_ priceNotificationOn: Bool) -> Bool { !priceNotificationOn }
+
+    /// Zeitraum an der Änderung: grundsätzlich immer, damit die Basis der Prozentzahl nie verborgen ist — nur
+    /// «seit letzt. Abruf» nicht, wenn der Spaltenkopf ihn schon zeigt (stünde sonst in jeder Zeile doppelt).
+    /// «24h» und «heute» bleiben. Wie Android `rowShowsPeriod`.
+    static func showsPeriod(_ basis: ChangeBasis, periodInHeader: Bool) -> Bool {
+        !(basis.isSinceLast && periodInHeader)
+    }
+}
+
+/// Steht über den Paaren der Spaltenkopf «Name · Kurs · 24h» (`WatchlistSortBar`) mit dem Zeitraum der Änderung?
+/// Wie Android `LocalChangePeriodInHeader`.
+private struct ChangePeriodInHeaderKey: EnvironmentKey {
+    static let defaultValue = false
+}
+
+extension EnvironmentValues {
+    var changePeriodInHeader: Bool {
+        get { self[ChangePeriodInHeaderKey.self] }
+        set { self[ChangePeriodInHeaderKey.self] = newValue }
     }
 }

@@ -58,7 +58,6 @@
     <string name="oem_battery_oneplus">OnePlus può chiudere l’app – allora non arriva nessun allarme. Consenti «Avvio automatico» e, in Utilizzo batteria, l’attività in background.</string>
     <string name="oem_battery_oppo">Oppo/Realme può chiudere l’app – allora non arriva nessun allarme. Consenti «Avvio automatico» e, in Utilizzo batteria, l’attività in background.</string>
     <string name="oem_battery_vivo">Vivo può chiudere l’app – allora non arriva nessun allarme. Consenti «Avvio automatico» e, in Batteria, il consumo elevato in background.</string>
-    <string name="alarm_reliability_recent">Ultimo controllo %1$s</string>
     <string name="alarm_reliability_stale">Ultimo controllo %1$s – gli allarmi potrebbero arrivare in ritardo</string>
     <string name="alarm_reliability_never">Allarmi attivi – ancora nessun controllo in background</string>
     <string name="alarm_reliability_notifications_off">Notifiche disattivate – gli allarmi non arriveranno</string>

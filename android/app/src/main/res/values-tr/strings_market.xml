@@ -108,21 +108,21 @@
     <string name="pulse_lead_mixed">Büyük coin\'ler farklı yönlere gidiyor.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Fonlama yüksek.</string>
-    <string name="pulse_detail_fund_negative">Fonlama negatif.</string>
-    <string name="pulse_detail_fund_neutral">Fonlama nötr.</string>
+    <string name="pulse_detail_fund_high">Kaldıraç havası iyimser.</string>
+    <string name="pulse_detail_fund_negative">Kaldıraç havası kötümser.</string>
+    <string name="pulse_detail_fund_neutral">Kaldıraç havası nötr.</string>
     <string name="pulse_detail_vol_above">Hacim normalin %1$s üzerinde.</string>
-    <string name="pulse_detail_vol_above_fund_high">Hacim normalin %1$s üzerinde, fonlama yüksek.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Hacim normalin %1$s üzerinde, fonlama negatif.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Hacim normalin %1$s üzerinde, fonlama nötr.</string>
+    <string name="pulse_detail_vol_above_fund_high">Hacim normalin %1$s üzerinde, kaldıraç havası iyimser.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Hacim normalin %1$s üzerinde, kaldıraç havası kötümser.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Hacim normalin %1$s üzerinde, kaldıraç havası nötr.</string>
     <string name="pulse_detail_vol_below">Hacim normalin %1$s altında.</string>
-    <string name="pulse_detail_vol_below_fund_high">Hacim normalin %1$s altında, fonlama yüksek.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Hacim normalin %1$s altında, fonlama negatif.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Hacim normalin %1$s altında, fonlama nötr.</string>
+    <string name="pulse_detail_vol_below_fund_high">Hacim normalin %1$s altında, kaldıraç havası iyimser.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Hacim normalin %1$s altında, kaldıraç havası kötümser.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Hacim normalin %1$s altında, kaldıraç havası nötr.</string>
     <string name="pulse_detail_vol_normal">Hacim normal.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Hacim normal, fonlama yüksek.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Hacim normal, fonlama negatif.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Hacim normal, fonlama nötr.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Hacim normal, kaldıraç havası iyimser.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Hacim normal, kaldıraç havası kötümser.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Hacim normal, kaldıraç havası nötr.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">İlk %1$d: piyasa değerine göre en büyük coin\'ler, stablecoin\'ler hariç; 24 saatlik değişim (CoinGecko).</string>

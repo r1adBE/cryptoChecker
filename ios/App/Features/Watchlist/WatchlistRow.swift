@@ -62,6 +62,8 @@ struct WatchlistRow: View {
     private var stacked: Bool { DenseRowText.stacksTrailing(typeScale) }
     /// %-Basis (Zeitraum und Gültigkeit der Veränderung, für VoiceOver).
     @Environment(\.changeView) var changeView
+    /// Spaltenkopf über den Paaren zeigt den Zeitraum (`WatchlistRowMarks.showsPeriod`).
+    @Environment(\.changePeriodInHeader) var changePeriodInHeader
     @Environment(\.coinNamesEnabled) var namesEnabled
     // «Namen anzeigen»: drei feste Zeilen links und rechts — Paar/Kurs, Name/Änderung,
     // Börse/≈ Umrechnung stehen je auf einer Linie (wachsen mit der Schriftgrösse)

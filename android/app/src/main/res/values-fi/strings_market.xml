@@ -108,21 +108,21 @@
     <string name="pulse_lead_mixed">Suuret kolikot liikkuvat eri suuntiin.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding koholla.</string>
-    <string name="pulse_detail_fund_negative">Funding negatiivinen.</string>
-    <string name="pulse_detail_fund_neutral">Funding neutraali.</string>
+    <string name="pulse_detail_fund_high">Vipukaupan tunnelma optimistinen.</string>
+    <string name="pulse_detail_fund_negative">Vipukaupan tunnelma pessimistinen.</string>
+    <string name="pulse_detail_fund_neutral">Vipukaupan tunnelma neutraali.</string>
     <string name="pulse_detail_vol_above">Volyymi %1$s tavallista suurempi.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volyymi %1$s tavallista suurempi, funding koholla.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volyymi %1$s tavallista suurempi, funding negatiivinen.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volyymi %1$s tavallista suurempi, funding neutraali.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volyymi %1$s tavallista suurempi, vipukaupan tunnelma optimistinen.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volyymi %1$s tavallista suurempi, vipukaupan tunnelma pessimistinen.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volyymi %1$s tavallista suurempi, vipukaupan tunnelma neutraali.</string>
     <string name="pulse_detail_vol_below">Volyymi %1$s tavallista pienempi.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volyymi %1$s tavallista pienempi, funding koholla.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volyymi %1$s tavallista pienempi, funding negatiivinen.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volyymi %1$s tavallista pienempi, funding neutraali.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volyymi %1$s tavallista pienempi, vipukaupan tunnelma optimistinen.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volyymi %1$s tavallista pienempi, vipukaupan tunnelma pessimistinen.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volyymi %1$s tavallista pienempi, vipukaupan tunnelma neutraali.</string>
     <string name="pulse_detail_vol_normal">Volyymi tavallinen.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volyymi tavallinen, funding koholla.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volyymi tavallinen, funding negatiivinen.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volyymi tavallinen, funding neutraali.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volyymi tavallinen, vipukaupan tunnelma optimistinen.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volyymi tavallinen, vipukaupan tunnelma pessimistinen.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volyymi tavallinen, vipukaupan tunnelma neutraali.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: markkina-arvoltaan suurimmat kolikot ilman vakaakolikoita; muutos 24 tunnin aikana (CoinGecko).</string>

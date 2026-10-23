@@ -29,6 +29,8 @@ internal fun ExplorerFeedback(
     onOpenWatchlist: () -> Unit,
     onAddResultShown: () -> Unit,
     onBulkAddResultShown: () -> Unit,
+    /** «Rückgängig» nach dem Hinzufügen mehrerer Paare (die neu angelegten Ids). */
+    onUndoBulk: (List<Long>) -> Unit = {},
 ) {
     // Texte über LocalResources (Lint: kein getString über LocalContext in Compose)
     val resources = LocalResources.current
@@ -37,6 +39,7 @@ internal fun ExplorerFeedback(
         com.cryptochecker.app.ui.components.NotificationAsk.PAIRS_ADDED
     )
     val viewLabel = stringResource(R.string.action_view)
+    val undoLabel = stringResource(R.string.action_undo)
     val addedText = stringResource(R.string.explorer_added_to_watchlist)
     val alreadyText = stringResource(R.string.explorer_already_in_watchlist)
     val noPairText = stringResource(R.string.explorer_no_pair_selected)
@@ -138,13 +141,17 @@ internal fun ExplorerFeedback(
         val state = done ?: return@LaunchedEffect
         if (state.added > 0) requestNotifications()
         haptics.play(if (state.added > 0) HapticEvent.SUCCESS else HapticEvent.WARNING)
+        // Neue Paare angelegt: «Rückgängig» (genau diese wieder entfernen); sonst «Ansehen»
+        val undoable = state.addedIds.isNotEmpty()
         try {
             val result = snackbar.showSnackbar(
                 message = bulkAddedText(resources, state),
-                actionLabel = viewLabel,
+                actionLabel = if (undoable) undoLabel else viewLabel,
                 duration = SnackbarDuration.Long
             )
-            if (result == SnackbarResult.ActionPerformed) onOpenWatchlist()
+            if (result == SnackbarResult.ActionPerformed) {
+                if (undoable) onUndoBulk(state.addedIds) else onOpenWatchlist()
+            }
         } finally {
             onBulkAddResultShown()
         }
@@ -152,7 +159,7 @@ internal fun ExplorerFeedback(
 }
 
 /** «3 hinzugefügt, 2 bereits vorhanden.» — bei voller Merkliste dazu, wie viele nicht dazukamen und warum. */
-private fun bulkAddedText(resources: android.content.res.Resources, state: BulkAddResult): String {
+internal fun bulkAddedText(resources: android.content.res.Resources, state: BulkAddResult): String {
     val added = resources.getQuantityString(R.plurals.explorer_bulk_added, state.added, state.added, state.skipped)
     if (state.refused <= 0) return added
     val refused = resources.getQuantityString(

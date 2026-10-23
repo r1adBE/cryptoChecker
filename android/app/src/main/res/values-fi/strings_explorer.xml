@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">Ei tuloksia.</string>
     <string name="explorer_search_hint">Hae kolikkoa, paria tai pörssiä</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Kirjoita kolikon nimi tai tunnus, esim. Bitcoin tai BTC, ja valitse sitten pari. Pari on kolikko tietyssä pörssissä tietyssä valuutassa, esim. BTC/USDT Binancessa.</string>
+    <string name="explorer_search_intro">Kirjoita kolikon nimi tai tunnus, esim. Bitcoin tai BTC, ja valitse sitten pari.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Lisää seurantalistaan</string>
@@ -122,4 +122,14 @@
         <item quantity="one">%1$d pari jäi lisäämättä – seurantalistallasi voi olla enintään %2$s paria.</item>
         <item quantity="other">%1$d paria jäi lisäämättä – seurantalistallasi voi olla enintään %2$s paria.</item>
     </plurals>
+    <string name="bulk_add_progress">Lisätään pareja … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Lisää %1$d uusi pari seurantalistaan</item>
+        <item quantity="other">Lisää %1$d uutta paria seurantalistaan</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d uusi, %2$d jo seurantalistalla</item>
+        <item quantity="other">%1$d uutta, %2$d jo seurantalistalla</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">Kaikki ovat jo seurantalistalla</string>
 </resources>

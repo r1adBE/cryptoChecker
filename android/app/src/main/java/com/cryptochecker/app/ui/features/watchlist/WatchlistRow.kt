@@ -219,12 +219,11 @@ internal fun WatchRow(
             watch.note?.let { stringResource(R.string.a11y_note, it) },
             if (watch.favorite) stringResource(R.string.a11y_favorite) else null,
         ),
-        // Art vor der Glocke nur bei «TradFi» bzw. «Alpha-Token» — «Token» ist der Normalfall und
-        // stünde sonst in jeder Zeile
-        kind = if (kind == AssetKind.TOKEN) null else stringResource(kind.spokenRes),
+        // Art nur bei «TradFi» bzw. «Alpha-Token» — «Token» ist der Normalfall (wie die Marken, [RowMarks])
+        kind = if (RowMarks.showsKind(kind)) stringResource(kind.spokenRes) else null,
         alarms = listOf(
-            // Kursmitteilung nur, wenn sie aus ist — «an» ist der Normalfall und stünde sonst in jeder Zeile (wie iOS)
-            if (!priceNotificationOn) stringResource(R.string.a11y_price_notification_off) else null,
+            // Kursmitteilung nur, wenn sie aus ist — «an» ist der Normalfall (wie die Glocke, [RowMarks]; wie iOS)
+            stringResource(R.string.a11y_price_notification_off).takeIf { RowMarks.showsPriceBell(priceNotificationOn) },
             // Alarm eben ausgelöst (Mitteilung kam bei offener App): bis 15 Min. danach
             if (A11ySpeech.firedRecently(alarmFiredAt, now)) stringResource(R.string.a11y_alarm_fired) else null,
             // «Alarme (2)» wie die Glocke der Zeile und das Aktionsblatt (Mehrzahl je Sprache)

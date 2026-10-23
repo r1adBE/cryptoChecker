@@ -11,8 +11,7 @@
     <string name="portfolio_empty_action">Thêm lần mua đầu tiên</string>
     <string name="portfolio_empty_address">Chỉ theo dõi một địa chỉ ví</string>
     <string name="portfolio_empty_csv">Mua trên sàn? Nhập tệp của sàn</string>
-    <string name="portfolio_empty_example_plain">Ví dụ: mua 0,01 BTC ngày 1 tháng 3. Ứng dụng sẽ cho thấy hôm nay nó đáng giá bao nhiêu và bạn đang lãi hay lỗ – chỉ lưu trên thiết bị này.</string>
-    <string name="portfolio_empty_text">Nhập những gì bạn đã mua – ứng dụng cho thấy hôm nay nó đáng giá bao nhiêu và bạn lãi hay lỗ bao nhiêu.</string>
+    <string name="portfolio_empty_example_plain">Ví dụ: mua %1$s BTC ngày 1 tháng 3. Ứng dụng sẽ cho thấy hôm nay nó đáng giá bao nhiêu và bạn đang lãi hay lỗ – chỉ lưu trên thiết bị này.</string>
     <string name="portfolio_empty_title">Chưa có giao dịch</string>
     <string name="portfolio_enable_ask_text">Giao dịch của bạn đã được lưu. Tab Danh mục hiển thị số nắm giữ và giá trị của chúng.</string>
     <string name="portfolio_enable_ask_title">Bật tab Danh mục?</string>

@@ -16,6 +16,8 @@ data class BulkAddResult(
     val skipped: Int,
     val refused: Int = 0,
     val locked: Boolean = false,
+    /** Ids der neu angelegten Paare (für «Rückgängig»). */
+    val addedIds: List<Long> = emptyList(),
 )
 
 /** Richtung beim manuellen Sortieren. */

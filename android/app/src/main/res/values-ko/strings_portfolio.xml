@@ -11,8 +11,7 @@
     <string name="portfolio_empty_action">첫 매수 추가</string>
     <string name="portfolio_empty_address">지갑 주소만 지켜보기</string>
     <string name="portfolio_empty_csv">거래소에서 샀나요? 파일 가져오기</string>
-    <string name="portfolio_empty_example_plain">예: 3월 1일에 0.01 BTC 매수. 앱이 오늘의 가치와 수익인지 손실인지 보여 줍니다 – 이 기기에만 저장됩니다.</string>
-    <string name="portfolio_empty_text">산 것을 입력하세요 – 앱이 오늘의 가치와 수익 또는 손실이 얼마인지 보여 줍니다.</string>
+    <string name="portfolio_empty_example_plain">예: 3월 1일에 %1$s BTC 매수. 앱이 오늘의 가치와 수익인지 손실인지 보여 줍니다 – 이 기기에만 저장됩니다.</string>
     <string name="portfolio_empty_title">아직 거래가 없습니다</string>
     <string name="portfolio_enable_ask_text">거래가 저장되었습니다. 포트폴리오 탭에서 보유분과 그 가치를 볼 수 있습니다.</string>
     <string name="portfolio_enable_ask_title">포트폴리오 탭을 켤까요?</string>

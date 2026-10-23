@@ -1,0 +1,20 @@
+{
+  "_comment": "Marken der Merklisten-Zeile (Zeitzeile): nur Abweichungen vom Normalfall, gleiche Regel wie der Zeilensatz des Screenreaders. kind: Art des Paars (TOKEN, TRADFI, ALPHA) → showsKind; priceNotificationOn: Kursmitteilung an (Paar und Hauptschalter) → showsPriceBell (durchgestrichene Glocke). rowPeriod: Zeitraum an der Änderung der Zeile — basis (gespeicherter Name, ChangeBasis.parse bzw. init(rawValue:)) und periodInHeader (Spaltenkopf über den Paaren) → showsPeriod; nur «seit letzt. Abruf» unter dem Spaltenkopf entfällt. Gemeinsam für WatchlistRowMarksParityTest.kt und WatchlistRowMarksTests.swift.",
+  "kinds": [
+    { "kind": "TOKEN", "showsKind": false },
+    { "kind": "TRADFI", "showsKind": true },
+    { "kind": "ALPHA", "showsKind": true }
+  ],
+  "priceBell": [
+    { "priceNotificationOn": true, "showsPriceBell": false },
+    { "priceNotificationOn": false, "showsPriceBell": true }
+  ],
+  "rowPeriod": [
+    { "basis": "ROLLING_24H", "periodInHeader": true, "showsPeriod": true },
+    { "basis": "ROLLING_24H", "periodInHeader": false, "showsPeriod": true },
+    { "basis": "LOCAL_DAY", "periodInHeader": true, "showsPeriod": true },
+    { "basis": "UTC_DAY+8", "periodInHeader": true, "showsPeriod": true },
+    { "basis": "SINCE_LAST", "periodInHeader": true, "showsPeriod": false },
+    { "basis": "SINCE_LAST", "periodInHeader": false, "showsPeriod": true }
+  ]
+}

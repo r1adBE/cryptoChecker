@@ -58,7 +58,6 @@
     <string name="oem_battery_oneplus">OnePlus kann die App beenden – dann kommen keine Alarme an. «Automatischer Start» erlauben und unter Akkunutzung Hintergrundaktivität zulassen.</string>
     <string name="oem_battery_oppo">Oppo/Realme kann die App beenden – dann kommen keine Alarme an. «Automatischer Start» erlauben und unter Akkunutzung Hintergrundaktivität zulassen.</string>
     <string name="oem_battery_vivo">Vivo kann die App beenden – dann kommen keine Alarme an. «Autostart» erlauben und unter Akku hohen Hintergrundverbrauch zulassen.</string>
-    <string name="alarm_reliability_recent">Letzte Prüfung %1$s</string>
     <string name="alarm_reliability_stale">Letzte Prüfung %1$s – Alarme kommen evtl. verspätet</string>
     <string name="alarm_reliability_never">Alarme an – noch keine Prüfung im Hintergrund</string>
     <string name="alarm_reliability_notifications_off">Benachrichtigungen aus – Alarme kommen nicht an</string>

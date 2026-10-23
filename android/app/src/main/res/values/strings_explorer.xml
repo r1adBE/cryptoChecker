@@ -27,7 +27,7 @@
     <string name="explorer_search_empty">No matches.</string>
     <string name="explorer_search_hint">Search coin, pair or exchange</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">Type a coin’s name or symbol, e.g. Bitcoin or BTC – then pick the pair. A pair is a coin on an exchange in one currency, e.g. BTC/USDT on Binance.</string>
+    <string name="explorer_search_intro">Type a coin’s name or symbol, e.g. Bitcoin or BTC – then pick the pair.</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">Add to watchlist</string>
@@ -127,4 +127,14 @@
         <item quantity="one">%1$d pair not added: your watchlist can have at most %2$s pairs.</item>
         <item quantity="other">%1$d pairs not added: your watchlist can have at most %2$s pairs.</item>
     </plurals>
+    <string name="bulk_add_progress">Adding pairs … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="one">Add %1$d new pair to watchlist</item>
+        <item quantity="other">Add %1$d new pairs to watchlist</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="one">%1$d new, %2$d already in the watchlist</item>
+        <item quantity="other">%1$d new, %2$d already in the watchlist</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">All already in the watchlist</string>
 </resources>

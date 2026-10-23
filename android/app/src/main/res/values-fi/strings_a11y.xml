@@ -17,7 +17,6 @@
     <string name="a11y_note">muistiinpano: %1$s</string>
     <string name="a11y_price">hinta %1$s</string>
     <string name="a11y_price_notification_off">Kurssi-ilmoitus pois</string>
-    <string name="a11y_price_notification_on">Kurssi-ilmoitus päällä</string>
     <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
     <string name="a11y_price_outdated">Kurssi vanhentunut</string>
     <!-- Teile einer Zeile werden mit «, » verbunden -->

@@ -1,10 +1,10 @@
 import SwiftUI
 import UIKit
 
-/// Eine Zeile über der Merkliste: Kommen die Alarme an (`AlarmReliability`)? Ruhig eine graue Zeile
-/// «Letzte Prüfung vor 12 Min.», sonst Bernstein mit dem wichtigsten Grund; Tipp öffnet «Damit Alarme ankommen» als
-/// Blatt. Liest denselben Zustand wie die Seite (`AlarmReadinessProbe`), beim Zurückkehren in die App neu. Ohne Alarme
-/// nichts. Wie `AlarmReliabilityLine.kt`.
+/// Eine Zeile über der Merkliste, nur wenn bei den Alarmen etwas nicht stimmt (`AlarmReliability`, `isShown`): meist
+/// Bernstein mit dem wichtigsten Grund («Letzte Prüfung vor 7 Std. – …»), grau nur «noch keine Prüfung»; Tipp öffnet
+/// «Damit Alarme ankommen» als Blatt. Liest denselben Zustand wie die Seite (`AlarmReadinessProbe`), beim Zurückkehren
+/// in die App neu. Ohne Alarme oder im Normalfall nichts. Wie `AlarmReliabilityLine.kt`.
 @MainActor
 struct AlarmReliabilityLine: View {
     @EnvironmentObject private var data: AppData
@@ -40,6 +40,13 @@ struct AlarmReliabilityLine: View {
         }
     }
 
+    /// Zeigt die Zeile den Stand `kind`? Im Normalfall (letzte Prüfung im Hintergrund rechtzeitig, `.recent`) nicht —
+    /// erst wenn die Prüfung im Verzug ist (älter als `AlarmReliability.staleMillis`, `.stale`) oder etwas anderes
+    /// fehlt. Wie Android `alarmReliabilityLineShown`.
+    nonisolated static func isShown(_ kind: AlarmReliability.Kind) -> Bool {
+        kind != .hidden && kind != .recent
+    }
+
     private struct Line {
         let text: String
         let warn: Bool
@@ -50,13 +57,13 @@ struct AlarmReliabilityLine: View {
         guard var current = input else { return nil }
         current.now = now
         let status = AlarmReliability.status(current)
+        guard Self.isShown(status.kind) else { return nil }
         // Alle gespeicherten Läufe gescheitert: Zeit des letzten Versuchs (wie Android)
         let checkedAt = current.lastBackgroundCheck ?? current.lastFailedBackgroundCheck
         let ago = checkedAt.map { WatchlistTime.ago($0, now: now) } ?? ""
         let text: String
         switch status.kind {
-        case .hidden: return nil
-        case .recent: text = L("alarm_reliability_recent", ago)
+        case .hidden, .recent: return nil
         case .stale: text = L("alarm_reliability_stale", ago)
         case .never: text = L("alarm_reliability_never")
         case .notificationsOff: text = L("alarm_reliability_notifications_off")

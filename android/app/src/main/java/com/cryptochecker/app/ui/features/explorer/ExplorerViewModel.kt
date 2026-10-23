@@ -61,6 +61,8 @@ class ExplorerViewModel @Inject constructor(
     internal val dexLiquidityStore: com.cryptochecker.app.data.DexLiquidityStore,
     /** Token-Adresse der DEX-Pools aus der Suche, fürs Paar-Blatt. */
     internal val dexTokenAddressStore: com.cryptochecker.app.data.DexTokenAddressStore,
+    /** «Mehrere Paare auf einmal» app-weit (läuft nach Verlassen des Bildschirms weiter). */
+    internal val bulkAddRunner: com.cryptochecker.app.data.BulkAddRunner,
 ) : ViewModel() {
 
     // =============================================================================================
@@ -285,6 +287,7 @@ class ExplorerViewModel @Inject constructor(
             loadPriceOnSelection()
             collectHttpLog()
         }
+        viewModelScope.launch { collectBulkRunner() }
     }
 
     val pageState: StateFlow<ExplorerLoad> = reloadExchanges

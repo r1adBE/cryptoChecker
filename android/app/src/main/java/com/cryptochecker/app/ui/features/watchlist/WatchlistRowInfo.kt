@@ -195,35 +195,37 @@ internal fun RowInfo(
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f, fill = false)
             )
-            // Art vor der Glocke: Token (Raute), TradFi (Bank), Alpha («α») wie die Chips;
-            // neutral wie die Glocke, in der Themenfarbe nur mit gewähltem passendem Chip
-            val highlight = LocalRowHighlight.current
-            val kindHighlighted = when (kind) {
-                AssetKind.TOKEN -> highlight.tokens
-                AssetKind.TRADFI -> highlight.tradFi
-                AssetKind.ALPHA -> highlight.alpha
+            // Marken nur bei Abweichung vom Normalfall ([RowMarks], gleiche Regel wie der Zeilensatz): Art nur bei
+            // TradFi (Bank) bzw. Alpha («α») — neutral, in der Themenfarbe nur mit gewähltem passendem Chip
+            if (RowMarks.showsKind(kind)) {
+                val highlight = LocalRowHighlight.current
+                val kindHighlighted = when (kind) {
+                    AssetKind.TOKEN -> highlight.tokens
+                    AssetKind.TRADFI -> highlight.tradFi
+                    AssetKind.ALPHA -> highlight.alpha
+                }
+                AssetKindIcon(
+                    kind = kind,
+                    tint = if (kindHighlighted) accent else MaterialTheme.colorScheme.onSurfaceVariant,
+                    size = rowIcon,
+                    modifier = Modifier.padding(start = Spacing.xs).alpha(iconAlpha)
+                )
             }
-            AssetKindIcon(
-                kind = kind,
-                tint = if (kindHighlighted) accent else MaterialTheme.colorScheme.onSurfaceVariant,
-                size = rowIcon,
-                modifier = Modifier.padding(start = Spacing.xs).alpha(iconAlpha)
-            )
-            // Kursmitteilung (Entscheid 16. Oktober 2026, wieder in der Zeile): schlichte Glocke = an, durchgestrichene
-            // = aus (Paar aus oder Hauptschalter «Kursmitteilungen» aus). Danach die Alarmglocke (mit Wellen), nur bei
-            // mind. einem aktiven Alarm ([alarmCount] zählt nur eingeschaltete).
+            // Kursmitteilung nur, wenn sie aus ist: durchgestrichene Glocke (Paar aus oder Hauptschalter
+            // «Kursmitteilungen» aus). Danach die Alarmglocke (mit Wellen), nur bei mind. einem aktiven Alarm
+            // ([alarmCount] zählt nur eingeschaltete).
             val priceOn = com.cryptochecker.app.util.A11ySpeech.priceNotificationOn(
                 pairOn = watch.notificationEnabled,
                 masterOn = com.cryptochecker.app.ui.components.LocalPriceNotificationsOn.current,
             )
-            Icon(
-                painterResource(if (priceOn) R.drawable.ic_notifications else R.drawable.ic_notifications_off),
-                contentDescription = stringResource(
-                    if (priceOn) R.string.a11y_price_notification_on else R.string.a11y_price_notification_off
-                ),
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(start = Spacing.xs).size(rowIcon).alpha(iconAlpha)
-            )
+            if (RowMarks.showsPriceBell(priceOn)) {
+                Icon(
+                    painterResource(R.drawable.ic_notifications_off),
+                    contentDescription = stringResource(R.string.a11y_price_notification_off),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(start = Spacing.xs).size(rowIcon).alpha(iconAlpha)
+                )
+            }
             if (alarmCount > 0) {
                 Icon(
                     painterResource(R.drawable.ic_notifications_active),
@@ -276,6 +278,19 @@ internal fun RowInfo(
             }
         }
     }
+}
+
+/**
+ * Marken der Zeitzeile nach derselben Regel wie der Zeilensatz des Screenreaders: nur Abweichungen vom Normalfall.
+ * Token (Raute) und Kursmitteilung an (schlichte Glocke) stünden sonst in jeder Zeile. Wie `WatchlistRowMarks` (iOS);
+ * Fälle in `testdata/parity/watchlist_row_marks.json`.
+ */
+internal object RowMarks {
+    /** Art-Symbol nur bei TradFi bzw. Alpha. */
+    fun showsKind(kind: AssetKind): Boolean = kind != AssetKind.TOKEN
+
+    /** Glocke der Kursmitteilung nur, wenn sie aus ist (durchgestrichen). */
+    fun showsPriceBell(priceNotificationOn: Boolean): Boolean = !priceNotificationOn
 }
 
 /** Kennungen der ersten Zeile von [RowInfo] (Paar, Häkchen, «Was bewegt sich mit?»). */

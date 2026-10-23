@@ -13,8 +13,7 @@
     <string name="portfolio_empty_action">הוספת הקנייה הראשונה</string>
     <string name="portfolio_empty_address">רק לעקוב אחר כתובת ארנק</string>
     <string name="portfolio_empty_csv">קנית בבורסה? ייבוא הקובץ</string>
-    <string name="portfolio_empty_example_plain">דוגמה: 0.01 BTC נקנה ב-1 במרץ. האפליקציה תראה כמה זה שווה היום ואם יש רווח או הפסד – נשמר רק במכשיר הזה.</string>
-    <string name="portfolio_empty_text">הזינו מה קנית – האפליקציה תראה כמה זה שווה היום ומה הרווח או ההפסד שלך.</string>
+    <string name="portfolio_empty_example_plain">דוגמה: %1$s BTC נקנה ב-1 במרץ. האפליקציה תראה כמה זה שווה היום ואם יש רווח או הפסד – נשמר רק במכשיר הזה.</string>
     <string name="portfolio_empty_title">אין עדיין עסקאות</string>
     <string name="portfolio_enable_ask_text">העסקה שלך נשמרה. לשונית תיק השקעות מציגה את היתרות שלך ואת שוויין.</string>
     <string name="portfolio_enable_ask_title">להפעיל את לשונית תיק השקעות?</string>

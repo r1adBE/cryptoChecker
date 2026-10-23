@@ -4,6 +4,7 @@ import com.cryptochecker.app.domain.alarm.AlarmReadiness
 import com.cryptochecker.app.domain.alarm.AlarmReliability
 import com.cryptochecker.app.domain.alarm.OemBattery
 import com.cryptochecker.app.domain.refresh.CheckRunLog
+import com.cryptochecker.app.ui.features.alarms.alarmReliabilityLineShown
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -57,5 +58,12 @@ class AlarmReliabilityParityTest {
             assertEquals(c["name"] as String, c["kind"], actual.kind.code)
             assertEquals(c["name"] as String, c["warn"], actual.warn)
         }
+    }
+
+    @Test
+    fun lineShownOnlyWhenSomethingIsWrong() {
+        val expected = data["lineShownKinds"].list().map { it as String }.toSet()
+        val actual = AlarmReliability.Kind.entries.filter { alarmReliabilityLineShown(it) }.map { it.code }.toSet()
+        assertEquals(expected, actual)
     }
 }

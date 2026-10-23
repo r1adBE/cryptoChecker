@@ -17,7 +17,6 @@
     <string name="a11y_note">备注：%1$s</string>
     <string name="a11y_price">价格 %1$s</string>
     <string name="a11y_price_notification_off">价格通知已关闭</string>
-    <string name="a11y_price_notification_on">价格通知已开启</string>
     <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
     <string name="a11y_price_outdated">价格已过时</string>
     <!-- Teile einer Zeile werden mit «, » verbunden -->

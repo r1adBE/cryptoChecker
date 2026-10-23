@@ -12,8 +12,7 @@
     <string name="portfolio_empty_action">Lisää ensimmäinen ostosi</string>
     <string name="portfolio_empty_address">Seuraa vain lompakon osoitetta</string>
     <string name="portfolio_empty_csv">Ostettu pörssissä? Tuo tiedosto</string>
-    <string name="portfolio_empty_example_plain">Esimerkki: 0,01 BTC ostettu 1. maaliskuuta. Sovellus näyttää sitten, paljonko se on tänään arvoinen ja oletko voitolla vai tappiolla – tallennetaan vain tähän laitteeseen.</string>
-    <string name="portfolio_empty_text">Kirjaa, mitä ostit – sovellus näyttää, paljonko se on tänään arvoinen ja paljonko olet voitolla tai tappiolla.</string>
+    <string name="portfolio_empty_example_plain">Esimerkki: %1$s BTC ostettu 1. maaliskuuta. Sovellus näyttää sitten, paljonko se on tänään arvoinen ja oletko voitolla vai tappiolla – tallennetaan vain tähän laitteeseen.</string>
     <string name="portfolio_empty_title">Ei vielä tapahtumia</string>
     <string name="portfolio_enable_ask_text">Tapahtumasi on tallennettu. Salkku-välilehti näyttää omistuksesi ja niiden arvon.</string>
     <string name="portfolio_enable_ask_title">Otetaanko Salkku-välilehti käyttöön?</string>

@@ -107,21 +107,21 @@
     <string name="pulse_lead_mixed">Koin-koin besar bergerak ke arah berbeda.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding tinggi.</string>
-    <string name="pulse_detail_fund_negative">Funding negatif.</string>
-    <string name="pulse_detail_fund_neutral">Funding netral.</string>
+    <string name="pulse_detail_fund_high">Sentimen leverage optimis.</string>
+    <string name="pulse_detail_fund_negative">Sentimen leverage pesimis.</string>
+    <string name="pulse_detail_fund_neutral">Sentimen leverage netral.</string>
     <string name="pulse_detail_vol_above">Volume %1$s di atas normal.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volume %1$s di atas normal, funding tinggi.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s di atas normal, funding negatif.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s di atas normal, funding netral.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volume %1$s di atas normal, sentimen leverage optimis.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s di atas normal, sentimen leverage pesimis.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s di atas normal, sentimen leverage netral.</string>
     <string name="pulse_detail_vol_below">Volume %1$s di bawah normal.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volume %1$s di bawah normal, funding tinggi.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s di bawah normal, funding negatif.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s di bawah normal, funding netral.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volume %1$s di bawah normal, sentimen leverage optimis.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s di bawah normal, sentimen leverage pesimis.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s di bawah normal, sentimen leverage netral.</string>
     <string name="pulse_detail_vol_normal">Volume normal.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volume normal, funding tinggi.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volume normal, funding negatif.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volume normal, funding netral.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volume normal, sentimen leverage optimis.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volume normal, sentimen leverage pesimis.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volume normal, sentimen leverage netral.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: koin terbesar menurut nilai pasar, tanpa stablecoin; perubahan selama 24 jam (CoinGecko).</string>

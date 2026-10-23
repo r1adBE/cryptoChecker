@@ -17,7 +17,6 @@
     <string name="a11y_note">notat: %1$s</string>
     <string name="a11y_price">kurs %1$s</string>
     <string name="a11y_price_notification_off">Kursvarsel av</string>
-    <string name="a11y_price_notification_on">Kursvarsel på</string>
     <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
     <string name="a11y_price_outdated">Kursen er utdatert</string>
     <!-- Teile einer Zeile werden mit «, » verbunden -->

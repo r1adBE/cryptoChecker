@@ -14,8 +14,7 @@
     <string name="portfolio_empty_action">Добавить первую покупку</string>
     <string name="portfolio_empty_address">Только следить за адресом кошелька</string>
     <string name="portfolio_empty_csv">Покупки на бирже? Импортировать файл</string>
-    <string name="portfolio_empty_example_plain">Пример: 0,01 BTC куплено 1 марта. Приложение покажет, сколько это стоит сегодня и в плюсе ты или в минусе – хранится только на этом устройстве.</string>
-    <string name="portfolio_empty_text">Укажи свои покупки – приложение покажет, сколько это стоит сегодня и насколько ты в плюсе или минусе.</string>
+    <string name="portfolio_empty_example_plain">Пример: %1$s BTC куплено 1 марта. Приложение покажет, сколько это стоит сегодня и в плюсе ты или в минусе – хранится только на этом устройстве.</string>
     <string name="portfolio_empty_title">Операций пока нет</string>
     <string name="portfolio_enable_ask_text">Твоя транзакция сохранена. Вкладка «Портфель» показывает твои активы и их стоимость.</string>
     <string name="portfolio_enable_ask_title">Включить вкладку «Портфель»?</string>

@@ -12,8 +12,7 @@
     <string name="portfolio_empty_action">अपनी पहली खरीद जोड़ो</string>
     <string name="portfolio_empty_address">बस एक वॉलेट पता देखो</string>
     <string name="portfolio_empty_csv">एक्सचेंज पर खरीदा? उसकी फ़ाइल इम्पोर्ट करो</string>
-    <string name="portfolio_empty_example_plain">उदाहरण: 1 मार्च को 0.01 BTC खरीदा। फिर ऐप दिखाता है कि आज उसकी कीमत क्या है और तुम फ़ायदे में हो या नुकसान में – सिर्फ़ इसी डिवाइस पर सेव।</string>
-    <string name="portfolio_empty_text">जो खरीदा है वह दर्ज करो – ऐप दिखाता है कि आज उसकी कीमत क्या है और तुम कितने फ़ायदे या नुकसान में हो।</string>
+    <string name="portfolio_empty_example_plain">उदाहरण: 1 मार्च को %1$s BTC खरीदा। फिर ऐप दिखाता है कि आज उसकी कीमत क्या है और तुम फ़ायदे में हो या नुकसान में – सिर्फ़ इसी डिवाइस पर सेव।</string>
     <string name="portfolio_empty_title">अभी कोई लेन-देन नहीं</string>
     <string name="portfolio_enable_ask_text">तुम्हारा लेन-देन सहेज लिया गया। पोर्टफ़ोलियो टैब तुम्हारी होल्डिंग और उनका मूल्य दिखाता है।</string>
     <string name="portfolio_enable_ask_title">पोर्टफ़ोलियो टैब चालू करो?</string>

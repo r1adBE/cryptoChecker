@@ -32,10 +32,13 @@ extension AppData {
     func addWatches(market: Market, pairs: [MarketPair], group: String? = nil) -> BulkAddResult {
         guard !watchlistWriteRefused() else { return BulkAddResult(added: 0, skipped: 0, locked: true) }
         var added = 0, skipped = 0, refused = 0
+        var addedIds: [Int64] = []
         mutate { s in
             for p in pairs {
                 switch Self.insertOutcome(&s, market: market, pair: p, group: group) {
-                case .added: added += 1
+                case .added(let id):
+                    added += 1
+                    addedIds.append(id)
                 case .duplicate: skipped += 1
                 case .full: refused += 1
                 case .locked: break  // kommt hier nicht vor (`insertOutcome` sperrt nicht)
@@ -44,7 +47,7 @@ extension AppData {
         }
         if added > 0 { markFirstPairAdded() }
         pairs.forEach { noteTradFi(market: market, pair: $0) }
-        return BulkAddResult(added: added, skipped: skipped, refused: refused)
+        return BulkAddResult(added: added, skipped: skipped, refused: refused, addedIds: addedIds)
     }
 
     // MARK: Bearbeiten

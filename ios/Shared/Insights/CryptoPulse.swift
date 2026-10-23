@@ -6,8 +6,6 @@ import Foundation
 
 enum CryptoPulse {
     // Schwellen (gleich wie Android)
-    static let broadMovePercent = 1.5
-    static let calmPercent = 1.0
     static let altsGapPoints = 1.5
     static let volumeHighRatio = 1.5
     static let volumeLowRatio = 0.6
@@ -35,6 +33,8 @@ enum CryptoPulse {
 
         let breadth = Self.breadth(input.topChanges)
         let cap = finite(input.marketCapUsd).flatMap { $0 > 0 ? $0 : nil }
+        let cap24h = cap == nil ? nil : finite(input.marketCap24h)
+        let move = MarketMoveScale.decide(btc: btc, eth: eth, sol: sol, marketChange: cap24h, breadth: breadth)
         var report = PulseReport(
             coins: [
                 PulseCoinLine(name: "Bitcoin", changePercent: btc),
@@ -49,12 +49,12 @@ enum CryptoPulse {
             fundingPercent: funding,
             gas: gasGwei.map(gas),
             gasGwei: gasGwei,
-            summary: summary(btc: btc, eth: eth, sol: sol, volumeRatio: ratio)
+            summary: summary(move, volumeRatio: ratio)
         )
         report.breadth = breadth
         report.breadthNote = breadth.flatMap { breadthNote($0, btc24h: btc) }
         report.marketCapUsd = cap
-        report.marketCap24h = cap == nil ? nil : finite(input.marketCap24h)
+        report.marketCap24h = cap24h
         return report
     }
 
@@ -108,34 +108,37 @@ enum CryptoPulse {
 
     /// Leitsatz unter der Schlagzeile, höchstens zwei kurze Sätze — gleiche Regeln
     /// und Reihenfolge wie `CryptoPulse.leadSentence` in Android:
-    /// 1. ruhig → breit fallend → breit steigend mit BTC als grösster Bewegung →
-    ///    Altcoins stärker / schwächer → breit steigend → leicht steigend/fallend
-    ///    (alle gleichgerichtet) → auseinander.
+    /// 1. Nach derselben Richtung und Stärke wie die Schlagzeile (`move`): ruhig → deutlich fallend
+    ///    («breit») → deutlich steigend mit BTC als grösster Bewegung → Altcoins stärker / schwächer →
+    ///    deutlich steigend → leicht steigend/fallend → auseinander. «Leicht» kommt so nur, wo auch der
+    ///    Gesamtwert nicht «deutlich» ist.
     /// 2. Volumen (echtes Verhältnis, ±5 % = normal) und Funding, sofern bekannt.
     static func leadSentence(_ report: PulseReport) -> PulseLead {
         let all = report.coins.map(\.changePercent)
         let btc = all.first ?? 0
-        let broadUp = report.summary == .broadUp || report.summary == .broadUpVolume
-        let broadDown = report.summary == .broadDown || report.summary == .broadDownVolume
-        let btcLargest = all.allSatisfy { abs(btc) >= abs($0) }
+        let move = Self.move(report)
+        let clear = move.level == .clear
+        let up = move.direction == .up
+        let down = move.direction == .down
+        let btcLargest = btc > 0 && all.allSatisfy { abs(btc) >= abs($0) }
 
         let kind: PulseLeadKind
-        if report.summary == .calm {
+        if move.direction == .calm {
             kind = .calm
-        } else if broadDown {
+        } else if down && clear {
             kind = .broadDown
-        } else if broadUp && btcLargest && report.alts != .stronger {
+        } else if up && clear && btcLargest && report.alts != .stronger {
             // «Bitcoin steigt am stärksten» nur, wenn die Altcoins nicht klar stärker sind
             kind = .btcLeads
         } else if report.alts == .stronger {
             kind = .altsStronger
         } else if report.alts == .weaker {
             kind = .btcStronger
-        } else if broadUp {
+        } else if up && clear {
             kind = .broadUp
-        } else if all.allSatisfy({ $0 >= 0 }) && all.contains(where: { $0 > 0 }) {
+        } else if up {
             kind = .driftUp
-        } else if all.allSatisfy({ $0 <= 0 }) && all.contains(where: { $0 < 0 }) {
+        } else if down {
             kind = .driftDown
         } else {
             kind = .mixed
@@ -194,13 +197,23 @@ enum CryptoPulse {
         return out
     }
 
-    static func summary(btc: Double, eth: Double, sol: Double, volumeRatio: Double?) -> PulseSummary {
-        let all = [btc, eth, sol]
+    /// Schlagzeile aus der Marktrichtung (`MarketMoveScale.decide`) und dem BTC-Volumen.
+    static func summary(_ move: MarketMove, volumeRatio: Double?) -> PulseSummary {
         let highVolume = (volumeRatio ?? 0) >= volumeHighRatio
-        if all.allSatisfy({ $0 >= broadMovePercent }) { return highVolume ? .broadUpVolume : .broadUp }
-        if all.allSatisfy({ $0 <= -broadMovePercent }) { return highVolume ? .broadDownVolume : .broadDown }
-        if all.allSatisfy({ abs($0) < calmPercent }) { return .calm }
-        return .mixed
+        switch move.direction {
+        case .up: return highVolume ? .broadUpVolume : .broadUp
+        case .down: return highVolume ? .broadDownVolume : .broadDown
+        case .calm: return .calm
+        case .mixed: return .mixed
+        }
+    }
+
+    /// Marktrichtung eines Berichts — dieselbe Entscheidung wie für `PulseReport.summary`.
+    static func move(_ report: PulseReport) -> MarketMove {
+        let changes = report.coins.map(\.changePercent)
+        guard changes.count == 3 else { return MarketMove(direction: .mixed, level: nil) }
+        return MarketMoveScale.decide(btc: changes[0], eth: changes[1], sol: changes[2],
+                                      marketChange: report.marketCap24h, breadth: report.breadth)
     }
 
     private static func finite(_ value: Double?) -> Double? {

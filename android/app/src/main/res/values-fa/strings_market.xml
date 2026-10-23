@@ -108,21 +108,21 @@
     <string name="pulse_lead_mixed">کوین‌های بزرگ از هم فاصله می‌گیرند.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">فاندینگ بالا.</string>
-    <string name="pulse_detail_fund_negative">فاندینگ منفی.</string>
-    <string name="pulse_detail_fund_neutral">فاندینگ خنثی.</string>
+    <string name="pulse_detail_fund_high">حال‌وهوای معاملات اهرمی خوش‌بین.</string>
+    <string name="pulse_detail_fund_negative">حال‌وهوای معاملات اهرمی بدبین.</string>
+    <string name="pulse_detail_fund_neutral">حال‌وهوای معاملات اهرمی خنثی.</string>
     <string name="pulse_detail_vol_above">حجم %1$s بالاتر از حالت عادی.</string>
-    <string name="pulse_detail_vol_above_fund_high">حجم %1$s بالاتر از حالت عادی، فاندینگ بالا.</string>
-    <string name="pulse_detail_vol_above_fund_negative">حجم %1$s بالاتر از حالت عادی، فاندینگ منفی.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">حجم %1$s بالاتر از حالت عادی، فاندینگ خنثی.</string>
+    <string name="pulse_detail_vol_above_fund_high">حجم %1$s بالاتر از حالت عادی، حال‌وهوای معاملات اهرمی خوش‌بین.</string>
+    <string name="pulse_detail_vol_above_fund_negative">حجم %1$s بالاتر از حالت عادی، حال‌وهوای معاملات اهرمی بدبین.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">حجم %1$s بالاتر از حالت عادی، حال‌وهوای معاملات اهرمی خنثی.</string>
     <string name="pulse_detail_vol_below">حجم %1$s پایین‌تر از حالت عادی.</string>
-    <string name="pulse_detail_vol_below_fund_high">حجم %1$s پایین‌تر از حالت عادی، فاندینگ بالا.</string>
-    <string name="pulse_detail_vol_below_fund_negative">حجم %1$s پایین‌تر از حالت عادی، فاندینگ منفی.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">حجم %1$s پایین‌تر از حالت عادی، فاندینگ خنثی.</string>
+    <string name="pulse_detail_vol_below_fund_high">حجم %1$s پایین‌تر از حالت عادی، حال‌وهوای معاملات اهرمی خوش‌بین.</string>
+    <string name="pulse_detail_vol_below_fund_negative">حجم %1$s پایین‌تر از حالت عادی، حال‌وهوای معاملات اهرمی بدبین.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">حجم %1$s پایین‌تر از حالت عادی، حال‌وهوای معاملات اهرمی خنثی.</string>
     <string name="pulse_detail_vol_normal">حجم عادی.</string>
-    <string name="pulse_detail_vol_normal_fund_high">حجم عادی، فاندینگ بالا.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">حجم عادی، فاندینگ منفی.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">حجم عادی، فاندینگ خنثی.</string>
+    <string name="pulse_detail_vol_normal_fund_high">حجم عادی، حال‌وهوای معاملات اهرمی خوش‌بین.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">حجم عادی، حال‌وهوای معاملات اهرمی بدبین.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">حجم عادی، حال‌وهوای معاملات اهرمی خنثی.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">%1$d ارز برتر: بزرگ‌ترین ارزها بر اساس ارزش بازار، بدون استیبل‌کوین‌ها؛ تغییر در ۲۴ ساعت (CoinGecko).</string>

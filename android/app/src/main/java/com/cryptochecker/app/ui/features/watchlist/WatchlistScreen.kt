@@ -6,6 +6,7 @@
 package com.cryptochecker.app.ui.features.watchlist
 
 import android.annotation.SuppressLint
+import androidx.compose.ui.zIndex
 import com.cryptochecker.app.domain.watch.FirstAlarmCard
 import com.cryptochecker.app.ui.navigation.ScreenRoute
 import com.cryptochecker.app.ui.navigation.OnTabReselect
@@ -303,6 +304,8 @@ fun WatchlistScreen(
                 onOpenAlarms = onOpenAlarms,
                 onDelete = deleteWithUndo,
             )
+            // «Mehrere Paare auf einmal» läuft noch: Balken oben, über der Liste
+            WatchlistBulkAdd(banner, Modifier.padding(padding).zIndex(1f))
 
             if (!loaded) {
                 SkeletonList(modifier = Modifier.padding(padding))

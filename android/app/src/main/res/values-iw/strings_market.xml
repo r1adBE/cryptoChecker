@@ -109,21 +109,21 @@
     <string name="pulse_lead_mixed">המטבעות הגדולים נעים בכיוונים שונים.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">מימון גבוה.</string>
-    <string name="pulse_detail_fund_negative">מימון שלילי.</string>
-    <string name="pulse_detail_fund_neutral">מימון ניטרלי.</string>
+    <string name="pulse_detail_fund_high">אווירת המינוף אופטימית.</string>
+    <string name="pulse_detail_fund_negative">אווירת המינוף פסימית.</string>
+    <string name="pulse_detail_fund_neutral">אווירת המינוף ניטרלית.</string>
     <string name="pulse_detail_vol_above">נפח גבוה ב-%1$s מהרגיל.</string>
-    <string name="pulse_detail_vol_above_fund_high">נפח גבוה ב-%1$s מהרגיל, מימון גבוה.</string>
-    <string name="pulse_detail_vol_above_fund_negative">נפח גבוה ב-%1$s מהרגיל, מימון שלילי.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">נפח גבוה ב-%1$s מהרגיל, מימון ניטרלי.</string>
+    <string name="pulse_detail_vol_above_fund_high">נפח גבוה ב-%1$s מהרגיל, אווירת המינוף אופטימית.</string>
+    <string name="pulse_detail_vol_above_fund_negative">נפח גבוה ב-%1$s מהרגיל, אווירת המינוף פסימית.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">נפח גבוה ב-%1$s מהרגיל, אווירת המינוף ניטרלית.</string>
     <string name="pulse_detail_vol_below">נפח נמוך ב-%1$s מהרגיל.</string>
-    <string name="pulse_detail_vol_below_fund_high">נפח נמוך ב-%1$s מהרגיל, מימון גבוה.</string>
-    <string name="pulse_detail_vol_below_fund_negative">נפח נמוך ב-%1$s מהרגיל, מימון שלילי.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">נפח נמוך ב-%1$s מהרגיל, מימון ניטרלי.</string>
+    <string name="pulse_detail_vol_below_fund_high">נפח נמוך ב-%1$s מהרגיל, אווירת המינוף אופטימית.</string>
+    <string name="pulse_detail_vol_below_fund_negative">נפח נמוך ב-%1$s מהרגיל, אווירת המינוף פסימית.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">נפח נמוך ב-%1$s מהרגיל, אווירת המינוף ניטרלית.</string>
     <string name="pulse_detail_vol_normal">נפח רגיל.</string>
-    <string name="pulse_detail_vol_normal_fund_high">נפח רגיל, מימון גבוה.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">נפח רגיל, מימון שלילי.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">נפח רגיל, מימון ניטרלי.</string>
+    <string name="pulse_detail_vol_normal_fund_high">נפח רגיל, אווירת המינוף אופטימית.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">נפח רגיל, אווירת המינוף פסימית.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">נפח רגיל, אווירת המינוף ניטרלית.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: המטבעות הגדולים ביותר לפי שווי שוק, בלי מטבעות יציבים; שינוי ב-24 שעות (CoinGecko).</string>

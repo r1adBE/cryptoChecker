@@ -170,6 +170,8 @@ extension WatchlistScreen {
                 .accessibilityHidden(true)
         }
         .listStyle(.plain)
+        // Spaltenkopf da (wie oben): «seit letzt. Abruf» steht dann nicht zusätzlich in jeder Zeile
+        .environment(\.changePeriodInHeader, !sorting && rows.count > 1)
         // Fest oben (scrollt nicht mit): Kopfzeile mit Gruppen-Chips und Knöpfen, darunter
         // Status und Lupe. Puls, Aktivitätskarte und Paare scrollen darunter durch.
         .safeAreaInset(edge: .top, spacing: 0) {

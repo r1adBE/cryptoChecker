@@ -108,21 +108,21 @@
     <string name="pulse_lead_mixed">A nagy érmék eltérő irányba mozognak.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding emelkedett.</string>
-    <string name="pulse_detail_fund_negative">Funding negatív.</string>
-    <string name="pulse_detail_fund_neutral">Funding semleges.</string>
+    <string name="pulse_detail_fund_high">Tőkeáttételes hangulat optimista.</string>
+    <string name="pulse_detail_fund_negative">Tőkeáttételes hangulat pesszimista.</string>
+    <string name="pulse_detail_fund_neutral">Tőkeáttételes hangulat semleges.</string>
     <string name="pulse_detail_vol_above">Volumen %1$s-kal a szokásos felett.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volumen %1$s-kal a szokásos felett, funding emelkedett.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volumen %1$s-kal a szokásos felett, funding negatív.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volumen %1$s-kal a szokásos felett, funding semleges.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volumen %1$s-kal a szokásos felett, tőkeáttételes hangulat optimista.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volumen %1$s-kal a szokásos felett, tőkeáttételes hangulat pesszimista.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volumen %1$s-kal a szokásos felett, tőkeáttételes hangulat semleges.</string>
     <string name="pulse_detail_vol_below">Volumen %1$s-kal a szokásos alatt.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volumen %1$s-kal a szokásos alatt, funding emelkedett.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volumen %1$s-kal a szokásos alatt, funding negatív.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volumen %1$s-kal a szokásos alatt, funding semleges.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volumen %1$s-kal a szokásos alatt, tőkeáttételes hangulat optimista.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volumen %1$s-kal a szokásos alatt, tőkeáttételes hangulat pesszimista.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volumen %1$s-kal a szokásos alatt, tőkeáttételes hangulat semleges.</string>
     <string name="pulse_detail_vol_normal">Volumen szokásos.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volumen szokásos, funding emelkedett.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volumen szokásos, funding negatív.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volumen szokásos, funding semleges.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volumen szokásos, tőkeáttételes hangulat optimista.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volumen szokásos, tőkeáttételes hangulat pesszimista.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volumen szokásos, tőkeáttételes hangulat semleges.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: a piaci érték szerint legnagyobb érmék, stablecoinok nélkül; változás 24 óra alatt (CoinGecko).</string>

@@ -12,8 +12,7 @@
     <string name="portfolio_empty_action">افزودن اولین خرید</string>
     <string name="portfolio_empty_address">فقط دنبال کردن نشانی کیف پول</string>
     <string name="portfolio_empty_csv">از صرافی خریدی؟ وارد کردن فایل</string>
-    <string name="portfolio_empty_example_plain">مثال: خرید 0.01 BTC در ۱ مارس. برنامه نشان می‌دهد امروز چقدر می‌ارزد و در سود هستی یا زیان – فقط روی همین دستگاه ذخیره می‌شود.</string>
-    <string name="portfolio_empty_text">آنچه خریده‌ای را وارد کن – برنامه نشان می‌دهد امروز چقدر می‌ارزد و چقدر در سود یا زیان هستی.</string>
+    <string name="portfolio_empty_example_plain">مثال: خرید %1$s BTC در ۱ مارس. برنامه نشان می‌دهد امروز چقدر می‌ارزد و در سود هستی یا زیان – فقط روی همین دستگاه ذخیره می‌شود.</string>
     <string name="portfolio_empty_title">هنوز تراکنشی نیست</string>
     <string name="portfolio_enable_ask_text">تراکنشت ذخیره شد. زبانهٔ پرتفوی دارایی‌ها و ارزششان را نشان می‌دهد.</string>
     <string name="portfolio_enable_ask_title">زبانهٔ پرتفوی روشن شود؟</string>

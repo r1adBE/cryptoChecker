@@ -58,7 +58,6 @@
     <string name="oem_battery_oneplus">OnePlus kan stoppe appen – så kommer der ingen alarmer. Tillad «Automatisk start» og baggrundsaktivitet under Batteriforbrug.</string>
     <string name="oem_battery_oppo">Oppo/Realme kan stoppe appen – så kommer der ingen alarmer. Tillad «Automatisk start» og baggrundsaktivitet under Batteriforbrug.</string>
     <string name="oem_battery_vivo">Vivo kan stoppe appen – så kommer der ingen alarmer. Tillad «Autostart» og højt strømforbrug i baggrunden under Batteri.</string>
-    <string name="alarm_reliability_recent">Seneste tjek %1$s</string>
     <string name="alarm_reliability_stale">Seneste tjek %1$s – alarmer kan komme for sent</string>
     <string name="alarm_reliability_never">Alarmer slået til – intet tjek i baggrunden endnu</string>
     <string name="alarm_reliability_notifications_off">Notifikationer slået fra – alarmer når ikke frem</string>

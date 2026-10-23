@@ -25,7 +25,7 @@
     <string name="explorer_search_empty">ไม่พบผลลัพธ์</string>
     <string name="explorer_search_hint">ค้นหาเหรียญ คู่เทรด หรือกระดานเทรด</string>
     <!-- Suche als Hauptweg, Hinweis ohne «hier tippen» -->
-    <string name="explorer_search_intro">พิมพ์ชื่อหรือสัญลักษณ์ของเหรียญ เช่น Bitcoin หรือ BTC แล้วเลือกคู่เทรด คู่เทรดคือเหรียญหนึ่งบนกระดานเทรดหนึ่งในสกุลเงินหนึ่ง เช่น BTC/USDT บน Binance</string>
+    <string name="explorer_search_intro">พิมพ์ชื่อหรือสัญลักษณ์ของเหรียญ เช่น Bitcoin หรือ BTC แล้วเลือกคู่เทรด</string>
 
     <!-- Paar hinzufügen: Börse und Paar selbst wählen -->
     <string name="explorer_add_to_watchlist">เพิ่มไปยังรายการติดตาม</string>
@@ -113,4 +113,12 @@
     <plurals name="explorer_bulk_not_added_limit">
         <item quantity="other">ไม่ได้เพิ่ม %1$d คู่ – รายการติดตามของคุณมีได้สูงสุด %2$s คู่</item>
     </plurals>
+    <string name="bulk_add_progress">กำลังเพิ่มคู่ … %1$s / %2$s</string>
+    <plurals name="explorer_add_new_pairs">
+        <item quantity="other">เพิ่มคู่ใหม่ %1$d คู่ไปยังรายการติดตาม</item>
+    </plurals>
+    <plurals name="explorer_bulk_counts">
+        <item quantity="other">ใหม่ %1$d คู่ อยู่ในรายการติดตามแล้ว %2$d คู่</item>
+    </plurals>
+    <string name="explorer_bulk_all_present">ทุกคู่อยู่ในรายการติดตามแล้ว</string>
 </resources>

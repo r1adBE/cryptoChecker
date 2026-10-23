@@ -12,8 +12,7 @@
     <string name="portfolio_empty_action">Első vásárlás megadása</string>
     <string name="portfolio_empty_address">Csak egy tárcacím figyelése</string>
     <string name="portfolio_empty_csv">Tőzsdén vásároltál? Fájl importálása</string>
-    <string name="portfolio_empty_example_plain">Példa: 0,01 BTC vásárolva március 1-jén. Az app megmutatja, mennyit ér ma, és hogy pluszban vagy mínuszban vagy – csak ezen az eszközön tárolva.</string>
-    <string name="portfolio_empty_text">Add meg, mit vettél – az app megmutatja, mennyit ér ma, és mennyivel vagy pluszban vagy mínuszban.</string>
+    <string name="portfolio_empty_example_plain">Példa: %1$s BTC vásárolva március 1-jén. Az app megmutatja, mennyit ér ma, és hogy pluszban vagy mínuszban vagy – csak ezen az eszközön tárolva.</string>
     <string name="portfolio_empty_title">Még nincs tranzakció</string>
     <string name="portfolio_enable_ask_text">A tranzakció mentve. A Portfólió lap mutatja az állományodat és az értékét.</string>
     <string name="portfolio_enable_ask_title">Bekapcsolod a Portfólió lapot?</string>

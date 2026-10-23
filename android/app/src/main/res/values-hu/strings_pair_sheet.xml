@@ -38,7 +38,7 @@
     <string name="change_basis_utc_zone">00:00 %1$s óta</string>
     <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
     <string name="change_candle_source">Változás %1$s-gyertyák alapján</string>
-    <string name="change_short_since_last">utolsó frissítés</string>
+    <string name="change_short_since_last">utolsó frissítés óta</string>
     <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
     <string name="change_short_today">ma</string>
     <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->

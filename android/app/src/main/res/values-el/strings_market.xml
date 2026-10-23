@@ -108,21 +108,21 @@
     <string name="pulse_lead_mixed">Τα μεγάλα νομίσματα κινούνται σε διαφορετικές κατευθύνσεις.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding αυξημένο.</string>
-    <string name="pulse_detail_fund_negative">Funding αρνητικό.</string>
-    <string name="pulse_detail_fund_neutral">Funding ουδέτερο.</string>
+    <string name="pulse_detail_fund_high">Διάθεση μόχλευσης αισιόδοξη.</string>
+    <string name="pulse_detail_fund_negative">Διάθεση μόχλευσης απαισιόδοξη.</string>
+    <string name="pulse_detail_fund_neutral">Διάθεση μόχλευσης ουδέτερη.</string>
     <string name="pulse_detail_vol_above">Όγκος %1$s πάνω από το κανονικό.</string>
-    <string name="pulse_detail_vol_above_fund_high">Όγκος %1$s πάνω από το κανονικό, funding αυξημένο.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Όγκος %1$s πάνω από το κανονικό, funding αρνητικό.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Όγκος %1$s πάνω από το κανονικό, funding ουδέτερο.</string>
+    <string name="pulse_detail_vol_above_fund_high">Όγκος %1$s πάνω από το κανονικό, διάθεση μόχλευσης αισιόδοξη.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Όγκος %1$s πάνω από το κανονικό, διάθεση μόχλευσης απαισιόδοξη.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Όγκος %1$s πάνω από το κανονικό, διάθεση μόχλευσης ουδέτερη.</string>
     <string name="pulse_detail_vol_below">Όγκος %1$s κάτω από το κανονικό.</string>
-    <string name="pulse_detail_vol_below_fund_high">Όγκος %1$s κάτω από το κανονικό, funding αυξημένο.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Όγκος %1$s κάτω από το κανονικό, funding αρνητικό.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Όγκος %1$s κάτω από το κανονικό, funding ουδέτερο.</string>
+    <string name="pulse_detail_vol_below_fund_high">Όγκος %1$s κάτω από το κανονικό, διάθεση μόχλευσης αισιόδοξη.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Όγκος %1$s κάτω από το κανονικό, διάθεση μόχλευσης απαισιόδοξη.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Όγκος %1$s κάτω από το κανονικό, διάθεση μόχλευσης ουδέτερη.</string>
     <string name="pulse_detail_vol_normal">Όγκος κανονικός.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Όγκος κανονικός, funding αυξημένο.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Όγκος κανονικός, funding αρνητικό.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Όγκος κανονικός, funding ουδέτερο.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Όγκος κανονικός, διάθεση μόχλευσης αισιόδοξη.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Όγκος κανονικός, διάθεση μόχλευσης απαισιόδοξη.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Όγκος κανονικός, διάθεση μόχλευσης ουδέτερη.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: τα μεγαλύτερα νομίσματα κατά αξία αγοράς, χωρίς stablecoins· μεταβολή 24 ωρών (CoinGecko).</string>

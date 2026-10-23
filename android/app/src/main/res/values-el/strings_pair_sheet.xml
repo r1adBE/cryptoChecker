@@ -38,7 +38,7 @@
     <string name="change_basis_utc_zone">Από 00:00 %1$s</string>
     <!-- Prozent-Pille aus den Kerzen einer anderen Börse (z. B. Kraken-Paar → Binance); %1$s = Anbieter («Binance», «Binance.US», «Coinbase») -->
     <string name="change_candle_source">Μεταβολή από κεριά %1$s</string>
-    <string name="change_short_since_last">τελ. ενημέρωση</string>
+    <string name="change_short_since_last">από την τελ. ενημέρωση</string>
     <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 Ortszeit -->
     <string name="change_short_today">σήμερα</string>
     <!-- Kurz neben der Prozent-Pille (statt «24h»), Basis seit 00:00 einer gewählten Zeitzone; %1$s = Zeitzone (z. B. UTC) -->

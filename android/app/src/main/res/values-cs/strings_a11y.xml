@@ -17,7 +17,6 @@
     <string name="a11y_note">poznámka: %1$s</string>
     <string name="a11y_price">cena %1$s</string>
     <string name="a11y_price_notification_off">Oznámení kurzu vypnuto</string>
-    <string name="a11y_price_notification_on">Oznámení kurzu zapnuto</string>
     <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
     <string name="a11y_price_outdated">Kurz zastaralý</string>
     <!-- Teile einer Zeile werden mit «, » verbunden -->

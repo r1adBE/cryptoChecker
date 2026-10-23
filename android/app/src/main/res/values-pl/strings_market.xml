@@ -110,21 +110,21 @@
     <string name="pulse_lead_mixed">Duże monety idą w różnych kierunkach.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding podwyższony.</string>
-    <string name="pulse_detail_fund_negative">Funding ujemny.</string>
-    <string name="pulse_detail_fund_neutral">Funding neutralny.</string>
+    <string name="pulse_detail_fund_high">Nastroje na dźwigni optymistyczne.</string>
+    <string name="pulse_detail_fund_negative">Nastroje na dźwigni pesymistyczne.</string>
+    <string name="pulse_detail_fund_neutral">Nastroje na dźwigni neutralne.</string>
     <string name="pulse_detail_vol_above">Wolumen %1$s powyżej normy.</string>
-    <string name="pulse_detail_vol_above_fund_high">Wolumen %1$s powyżej normy, funding podwyższony.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Wolumen %1$s powyżej normy, funding ujemny.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Wolumen %1$s powyżej normy, funding neutralny.</string>
+    <string name="pulse_detail_vol_above_fund_high">Wolumen %1$s powyżej normy, nastroje na dźwigni optymistyczne.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Wolumen %1$s powyżej normy, nastroje na dźwigni pesymistyczne.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Wolumen %1$s powyżej normy, nastroje na dźwigni neutralne.</string>
     <string name="pulse_detail_vol_below">Wolumen %1$s poniżej normy.</string>
-    <string name="pulse_detail_vol_below_fund_high">Wolumen %1$s poniżej normy, funding podwyższony.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Wolumen %1$s poniżej normy, funding ujemny.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Wolumen %1$s poniżej normy, funding neutralny.</string>
+    <string name="pulse_detail_vol_below_fund_high">Wolumen %1$s poniżej normy, nastroje na dźwigni optymistyczne.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Wolumen %1$s poniżej normy, nastroje na dźwigni pesymistyczne.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Wolumen %1$s poniżej normy, nastroje na dźwigni neutralne.</string>
     <string name="pulse_detail_vol_normal">Wolumen w normie.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Wolumen w normie, funding podwyższony.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Wolumen w normie, funding ujemny.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Wolumen w normie, funding neutralny.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Wolumen w normie, nastroje na dźwigni optymistyczne.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Wolumen w normie, nastroje na dźwigni pesymistyczne.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Wolumen w normie, nastroje na dźwigni neutralne.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: największe monety według wartości rynkowej, bez stablecoinów; zmiana w ciągu 24 godzin (CoinGecko).</string>

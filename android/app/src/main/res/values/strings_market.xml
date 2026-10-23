@@ -109,21 +109,21 @@
     <string name="pulse_lead_mixed">The large coins are moving apart.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">Funding elevated.</string>
-    <string name="pulse_detail_fund_negative">Funding negative.</string>
-    <string name="pulse_detail_fund_neutral">Funding neutral.</string>
+    <string name="pulse_detail_fund_high">Leverage mood optimistic.</string>
+    <string name="pulse_detail_fund_negative">Leverage mood pessimistic.</string>
+    <string name="pulse_detail_fund_neutral">Leverage mood neutral.</string>
     <string name="pulse_detail_vol_above">Volume %1$s above normal.</string>
-    <string name="pulse_detail_vol_above_fund_high">Volume %1$s above normal, funding elevated.</string>
-    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s above normal, funding negative.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s above normal, funding neutral.</string>
+    <string name="pulse_detail_vol_above_fund_high">Volume %1$s above normal, leverage mood optimistic.</string>
+    <string name="pulse_detail_vol_above_fund_negative">Volume %1$s above normal, leverage mood pessimistic.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">Volume %1$s above normal, leverage mood neutral.</string>
     <string name="pulse_detail_vol_below">Volume %1$s below normal.</string>
-    <string name="pulse_detail_vol_below_fund_high">Volume %1$s below normal, funding elevated.</string>
-    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s below normal, funding negative.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s below normal, funding neutral.</string>
+    <string name="pulse_detail_vol_below_fund_high">Volume %1$s below normal, leverage mood optimistic.</string>
+    <string name="pulse_detail_vol_below_fund_negative">Volume %1$s below normal, leverage mood pessimistic.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">Volume %1$s below normal, leverage mood neutral.</string>
     <string name="pulse_detail_vol_normal">Volume normal.</string>
-    <string name="pulse_detail_vol_normal_fund_high">Volume normal, funding elevated.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">Volume normal, funding negative.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">Volume normal, funding neutral.</string>
+    <string name="pulse_detail_vol_normal_fund_high">Volume normal, leverage mood optimistic.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">Volume normal, leverage mood pessimistic.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">Volume normal, leverage mood neutral.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">Top %1$d: the largest coins by market value, without stablecoins; change over 24 hours (CoinGecko).</string>

@@ -17,7 +17,6 @@
     <string name="a11y_note">notă: %1$s</string>
     <string name="a11y_price">preț %1$s</string>
     <string name="a11y_price_notification_off">Notificare de preț oprită</string>
-    <string name="a11y_price_notification_on">Notificare de preț pornită</string>
     <!-- Frische einer Zeile, Teile mit «, » verbunden: «Kurs veraltet, zuletzt aktualisiert vor 45 Minuten» (A11ySpeech.freshnessText) -->
     <string name="a11y_price_outdated">Curs învechit</string>
     <!-- Teile einer Zeile werden mit «, » verbunden -->

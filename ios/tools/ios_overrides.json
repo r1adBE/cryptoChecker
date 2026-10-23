@@ -23,7 +23,6 @@
     "notification_price_first": "Erste Kursmitteilung für dieses Paar",
     "settings_price_notifications": "Kursmitteilungen",
     "settings_notification_change_hint": "Eine Kursmitteilung erscheint erst, wenn sich der Kurs seit der letzten um mindestens so viel bewegt hat. Fehlen Daten, wird nichts gezeigt. Alarme bleiben davon unberührt.",
-    "a11y_price_notification_on": "Kursmitteilung an",
     "a11y_price_notification_off": "Kursmitteilung aus",
     "refresh_sheet_notifications": {
       "one": "%1$d Kursmitteilung",

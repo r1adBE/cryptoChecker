@@ -81,29 +81,37 @@ suspend fun WatchRepository.tryAddWatch(
 /**
  * Legt mehrere Paare auf einmal an. Bereits vorhandene werden übersprungen, nicht doppelt eingetragen; ist die
  * Merkliste voll ([WatchlistLimits.MAX_PAIRS]), kommen die übrigen nicht mehr dazu ([BulkAddResult.refused]). Gesperrt
- * ([userWriteRefused]): nichts angelegt ([BulkAddResult.locked]), ein einziger Hinweis.
+ * ([userWriteRefused]): nichts angelegt ([BulkAddResult.locked]), ein einziger Hinweis. [onProgress] erhält nach
+ * jedem Paar die Zahl der verarbeiteten ([BulkAddRunner]: Fortschrittsbalken).
  */
 suspend fun WatchRepository.addWatches(
     market: MarketInfo,
     pairs: List<MarketPair>,
     group: String? = null,
+    onProgress: (Int) -> Unit = {},
 ): BulkAddResult {
     if (userWriteRefused()) return BulkAddResult(added = 0, skipped = 0, locked = true)
     var added = 0
     var skipped = 0
     var refused = 0
+    val addedIds = ArrayList<Long>()
 
     for (pair in pairs) {
-        when (tryAddWatch(market, pair, group)) {
-            is AddWatchOutcome.Added -> added++
+        when (val outcome = tryAddWatch(market, pair, group)) {
+            is AddWatchOutcome.Added -> {
+                added++
+                addedIds += outcome.id
+            }
             AddWatchOutcome.Duplicate -> skipped++
             AddWatchOutcome.Full -> refused++
             // Erst während der Aufnahme gesperrt (kommt praktisch nicht vor): die übrigen nicht mehr versuchen
-            AddWatchOutcome.Locked -> return BulkAddResult(added = added, skipped = skipped, refused = refused, locked = true)
+            AddWatchOutcome.Locked ->
+                return BulkAddResult(added = added, skipped = skipped, refused = refused, locked = true, addedIds = addedIds)
         }
+        onProgress(added + skipped + refused)
     }
 
-    return BulkAddResult(added = added, skipped = skipped, refused = refused)
+    return BulkAddResult(added = added, skipped = skipped, refused = refused, addedIds = addedIds)
 }
 
 /** Ausgang von [restore]. */

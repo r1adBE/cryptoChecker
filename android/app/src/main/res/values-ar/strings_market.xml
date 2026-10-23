@@ -112,21 +112,21 @@
     <string name="pulse_lead_mixed">العملات الكبيرة تتحرك في اتجاهات مختلفة.</string>
 
     <!-- Crypto Pulse: zweiter Satz (Volumen und Funding, je Fall ein ganzer Satz) -->
-    <string name="pulse_detail_fund_high">التمويل مرتفع.</string>
-    <string name="pulse_detail_fund_negative">التمويل سلبي.</string>
-    <string name="pulse_detail_fund_neutral">التمويل محايد.</string>
+    <string name="pulse_detail_fund_high">مزاج التداول بالرافعة متفائل.</string>
+    <string name="pulse_detail_fund_negative">مزاج التداول بالرافعة متشائم.</string>
+    <string name="pulse_detail_fund_neutral">مزاج التداول بالرافعة محايد.</string>
     <string name="pulse_detail_vol_above">الحجم أعلى من المعتاد بنسبة %1$s.</string>
-    <string name="pulse_detail_vol_above_fund_high">الحجم أعلى من المعتاد بنسبة %1$s، التمويل مرتفع.</string>
-    <string name="pulse_detail_vol_above_fund_negative">الحجم أعلى من المعتاد بنسبة %1$s، التمويل سلبي.</string>
-    <string name="pulse_detail_vol_above_fund_neutral">الحجم أعلى من المعتاد بنسبة %1$s، التمويل محايد.</string>
+    <string name="pulse_detail_vol_above_fund_high">الحجم أعلى من المعتاد بنسبة %1$s، مزاج التداول بالرافعة متفائل.</string>
+    <string name="pulse_detail_vol_above_fund_negative">الحجم أعلى من المعتاد بنسبة %1$s، مزاج التداول بالرافعة متشائم.</string>
+    <string name="pulse_detail_vol_above_fund_neutral">الحجم أعلى من المعتاد بنسبة %1$s، مزاج التداول بالرافعة محايد.</string>
     <string name="pulse_detail_vol_below">الحجم أقل من المعتاد بنسبة %1$s.</string>
-    <string name="pulse_detail_vol_below_fund_high">الحجم أقل من المعتاد بنسبة %1$s، التمويل مرتفع.</string>
-    <string name="pulse_detail_vol_below_fund_negative">الحجم أقل من المعتاد بنسبة %1$s، التمويل سلبي.</string>
-    <string name="pulse_detail_vol_below_fund_neutral">الحجم أقل من المعتاد بنسبة %1$s، التمويل محايد.</string>
+    <string name="pulse_detail_vol_below_fund_high">الحجم أقل من المعتاد بنسبة %1$s، مزاج التداول بالرافعة متفائل.</string>
+    <string name="pulse_detail_vol_below_fund_negative">الحجم أقل من المعتاد بنسبة %1$s، مزاج التداول بالرافعة متشائم.</string>
+    <string name="pulse_detail_vol_below_fund_neutral">الحجم أقل من المعتاد بنسبة %1$s، مزاج التداول بالرافعة محايد.</string>
     <string name="pulse_detail_vol_normal">الحجم معتاد.</string>
-    <string name="pulse_detail_vol_normal_fund_high">الحجم معتاد، التمويل مرتفع.</string>
-    <string name="pulse_detail_vol_normal_fund_negative">الحجم معتاد، التمويل سلبي.</string>
-    <string name="pulse_detail_vol_normal_fund_neutral">الحجم معتاد، التمويل محايد.</string>
+    <string name="pulse_detail_vol_normal_fund_high">الحجم معتاد، مزاج التداول بالرافعة متفائل.</string>
+    <string name="pulse_detail_vol_normal_fund_negative">الحجم معتاد، مزاج التداول بالرافعة متشائم.</string>
+    <string name="pulse_detail_vol_normal_fund_neutral">الحجم معتاد، مزاج التداول بالرافعة محايد.</string>
 
     <!-- Crypto Pulse: Marktbreite der grössten Coins (Top 30) -->
     <string name="pulse_breadth_hint">أكبر %1$d: أكبر العملات حسب القيمة السوقية دون العملات المستقرة؛ التغيّر خلال 24 ساعة (CoinGecko).</string>
