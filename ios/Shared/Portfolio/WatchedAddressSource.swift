@@ -36,6 +36,8 @@ actor WatchedAddressSource {
         let time: Int64
         let fetched: Fetched?
         let error: String?
+        /// lastAttempt beim Lesen vor dem Abruf (`AddressBalance.resetDuringFetch`); 0 = ohne Prüfung.
+        var snapshotAttempt: Int64 = 0
     }
 
     /// Nicht privat: Test prüft den neutralen User-Agent.
@@ -105,21 +107,23 @@ actor WatchedAddressSource {
                 } else {
                     fetched = try await fetch(a.chain, address: a.address, deadline: deadline, btcEntries: btcEntries)
                 }
-                updates.append(Update(id: a.id, time: time, fetched: fetched, error: nil))
+                updates.append(Update(id: a.id, time: time, fetched: fetched, error: nil, snapshotAttempt: a.lastAttempt))
             } catch is CancellationError {
                 throw CancellationError()
             } catch is OutOfTime {
                 break
             } catch is XpubScan.TooMany {
                 // Eigener Hinweis «Zu viele Adressen» statt «Aktualisierung fehlgeschlagen» (wiederholen hilft nicht)
-                updates.append(Update(id: a.id, time: time, fetched: nil, error: XpubScan.tooManyMarker))
+                updates.append(Update(id: a.id, time: time, fetched: nil, error: XpubScan.tooManyMarker,
+                                      snapshotAttempt: a.lastAttempt))
             } catch {
                 HttpLog.add("Adresse \(WatchedAddressRules.shortAddress(a.address)): \(error.localizedDescription)")
                 // Nur kurzer Code speichern (Fehlertexte enthalten Hosts/URLs, teils die Adresse); eigener Server: eigener Hinweis
                 let ownServer = btcServer != nil && a.chain == .BTC
                 updates.append(Update(id: a.id, time: time, fetched: nil,
                                       error: ownServer ? AddressServer.failedMarker
-                                          : StoredError.sanitize(ConnectionErrors.describe(error))))
+                                          : StoredError.sanitize(ConnectionErrors.describe(error)),
+                                      snapshotAttempt: a.lastAttempt))
             }
         }
         return updates

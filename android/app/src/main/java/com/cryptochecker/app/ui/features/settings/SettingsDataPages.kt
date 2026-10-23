@@ -3,6 +3,7 @@ package com.cryptochecker.app.ui.features.settings
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.platform.LocalDensity
 import com.cryptochecker.app.ui.components.DialogText
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -182,6 +183,8 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
     var resultDialog by rememberSaveable { mutableStateOf<String?>(null) }
     var askAfterResult by rememberSaveable { mutableStateOf(false) }
     val haptics = rememberHaptics()
+    // Grössere Schrift: Toast fasst weniger (BackupResultPresentation.toastLimit)
+    val fontScale = LocalDensity.current.fontScale
     LaunchedEffect(backupMessage) {
         val m = backupMessage ?: return@LaunchedEffect
         val res = BackupResultPresentation.messageRes(m)
@@ -189,9 +192,10 @@ internal fun BackupPage(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
         val asDialog = if (m is BackupMessage.Restored) {
             BackupResultPresentation.asDialog(
                 resources.getResourceEntryName(res), text, m.droppedPairs, m.droppedAlarms, m.appLockKept, m.addressServerNote,
+                fontScale,
             )
         } else {
-            BackupResultPresentation.asDialog(resources.getResourceEntryName(res), text)
+            BackupResultPresentation.asDialog(resources.getResourceEntryName(res), text, fontScale = fontScale)
         }
         val askNotifications = m is BackupMessage.Restored && m.watches > 0
         haptics.play(BackupMessage.haptic(m))

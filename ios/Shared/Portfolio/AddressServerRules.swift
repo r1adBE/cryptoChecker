@@ -6,8 +6,9 @@ import Foundation
 enum AddressServerRules {
     /// Zu lange Eingabe (z. B. eingefügt) wird gekürzt statt verworfen — auf `AddressServer.maxLength` + 1, damit die
     /// Prüfung (`AddressServer.check`) weiter «ungültig» meldet (genau auf die Grenze gekürzt gälte sie still als gültig).
+    /// Führender Leerraum fällt vorher weg (die Prüfung schneidet ihn ab; sonst gälte « » + 201 Zeichen als 200).
     static func clamp(_ input: String) -> String {
-        input.count > AddressServer.maxLength + 1 ? String(input.prefix(AddressServer.maxLength + 1)) : input
+        String(input.drop(while: \.isWhitespace).prefix(AddressServer.maxLength + 1))
     }
 
     /// Schlüssel für Pausen und Sperren: Hostname ohne Schema, Port und Pfad.

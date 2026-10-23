@@ -1,11 +1,47 @@
 {
-  "description": "Ergebnis von Sichern/Wiederherstellen als Dialog statt Toast (Android BackupResultPresentation.kt, iOS BackupResultPresentation.swift): Dialog, wenn Paare/Alarme über den Grenzen weggelassen (droppedPairs/droppedAlarms > 0), die Sperre an blieb (appLockKept), ein Hinweis zum eigenen Bitcoin-Server da ist (addressServerNote KEPT/PUBLIC/CHANGED), der Haupttext (key) in longKeys steht oder der Gesamttext mehr als toastMaxChars Unicode-Codepunkte hat; sonst Toast. «expected»: toast | dialog.",
+  "description": "Ergebnis von Sichern/Wiederherstellen als Dialog statt Toast (Android BackupResultPresentation.kt, iOS BackupResultPresentation.swift): Dialog, wenn Paare/Alarme über den Grenzen weggelassen (droppedPairs/droppedAlarms > 0), die Sperre an blieb (appLockKept), ein Hinweis zum eigenen Bitcoin-Server da ist (addressServerNote KEPT/PUBLIC/CHANGED), der Haupttext (key) in longKeys steht oder die Anzeigebreite des Gesamttexts grösser ist als toastMaxChars / max(1, fontScale); sonst Toast. Anzeigebreite: je Unicode-Codepunkt 1, in wideRanges (East Asian Wide/Fullwidth, Grenzen hexadezimal, einschliesslich) 2. fontScale = Schriftgrösse des Systems (Android Configuration.fontScale, iOS UIFontMetrics.default.scaledValue(for: 1)); fehlt er, gilt 1. «expected»: toast | dialog.",
   "toastMaxChars": 80,
+  "wideRanges": [
+    [
+      "1100",
+      "115F"
+    ],
+    [
+      "2E80",
+      "A4CF"
+    ],
+    [
+      "AC00",
+      "D7A3"
+    ],
+    [
+      "F900",
+      "FAFF"
+    ],
+    [
+      "FE30",
+      "FE4F"
+    ],
+    [
+      "FF00",
+      "FF60"
+    ],
+    [
+      "FFE0",
+      "FFE6"
+    ],
+    [
+      "20000",
+      "3FFFD"
+    ]
+  ],
   "longKeys": [
     "backup_not_enough_memory",
     "backup_storage_kept",
     "backup_restore_storage_in_memory",
-    "backup_restore_journal_unavailable"
+    "backup_restore_journal_unavailable",
+    "backup_not_verified",
+    "backup_restore_newer_version"
   ],
   "cases": [
     {
@@ -199,9 +235,227 @@
       "expected": "dialog"
     },
     {
-      "description": "Neuere Version (englisch, 85 Zeichen) → Dialog",
+      "description": "Neuere Version (englisch, 85 Zeichen) → Dialog (Schlüssel immer Dialog)",
       "key": "backup_restore_newer_version",
       "text": "This backup is from a newer app version – update the app first. Nothing was imported.",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "40 breite Zeichen (Hiragana) = Breite 80 → Toast",
+      "key": "backup_failed",
+      "text": "ああああああああああああああああああああああああああああああああああああああああ",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "41 breite Zeichen (Hiragana) = Breite 82 → Dialog",
+      "key": "backup_failed",
+      "text": "あああああああああああああああああああああああああああああああああああああああああ",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "40 Hangul-Silben = Breite 80 → Toast",
+      "key": "backup_failed",
+      "text": "가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가가",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "39 breite Zeichen + 2 schmale = Breite 80 → Toast",
+      "key": "backup_failed",
+      "text": "あああああああああああああああああああああああああああああああああああああああab",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "39 breite Zeichen + 3 schmale = Breite 81 → Dialog",
+      "key": "backup_failed",
+      "text": "あああああああああああああああああああああああああああああああああああああああabc",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "41 Vollbreite-Buchstaben (U+FF21) → Dialog",
+      "key": "backup_failed",
+      "text": "ＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡＡ",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "80 Halbbreite-Katakana (U+FF71, ausserhalb FF00–FF60) = Breite 80 → Toast",
+      "key": "backup_failed",
+      "text": "ｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱｱ",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "40 Zeichen U+20000 (ausserhalb der BMP, breit) = Breite 80 → Toast",
+      "key": "backup_failed",
+      "text": "𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "41 Zeichen U+20000 = Breite 82 → Dialog",
+      "key": "backup_failed",
+      "text": "𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀𠀀",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "ja: nicht bestätigt → immer Dialog",
+      "key": "backup_not_verified",
+      "text": "保存後にバックアップファイルを確認できませんでした（読み戻すと内容が異なります）。新しいファイルに保存し直してください。",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "zh: nicht bestätigt (35 Zeichen, Breite 70) → immer Dialog",
+      "key": "backup_not_verified",
+      "text": "保存后无法验证备份文件——读回的内容不一致。请将备份保存到新文件。",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "zh: neuere Version → immer Dialog",
+      "key": "backup_restore_newer_version",
+      "text": "此备份来自更新版本的应用——请先更新应用。未导入任何内容。",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Nicht bestätigt, kurzer Text → immer Dialog",
+      "key": "backup_not_verified",
+      "text": "Kurz.",
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Schrift 200 %: 40 Zeichen → Toast",
+      "key": "backup_failed",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "fontScale": 2.0,
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "Schrift 200 %: 41 Zeichen → Dialog",
+      "key": "backup_failed",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "fontScale": 2.0,
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Schrift 200 %: 20 breite Zeichen = Breite 40 → Toast",
+      "key": "backup_failed",
+      "text": "ああああああああああああああああああああ",
+      "fontScale": 2.0,
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "Schrift 200 %: 21 breite Zeichen = Breite 42 → Dialog",
+      "key": "backup_failed",
+      "text": "あああああああああああああああああああああ",
+      "fontScale": 2.0,
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Schrift 130 %: 61 Zeichen (Grenze 61,5) → Toast",
+      "key": "backup_failed",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "fontScale": 1.3,
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "Schrift 130 %: 62 Zeichen → Dialog",
+      "key": "backup_failed",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "fontScale": 1.3,
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "dialog"
+    },
+    {
+      "description": "Schrift 85 %: Grenze bleibt 80 → 80 Zeichen Toast",
+      "key": "backup_failed",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "fontScale": 0.85,
+      "droppedPairs": 0,
+      "droppedAlarms": 0,
+      "appLockKept": false,
+      "addressServerNote": null,
+      "expected": "toast"
+    },
+    {
+      "description": "Schrift 85 %: 81 Zeichen → Dialog",
+      "key": "backup_failed",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "fontScale": 0.85,
       "droppedPairs": 0,
       "droppedAlarms": 0,
       "appLockKept": false,

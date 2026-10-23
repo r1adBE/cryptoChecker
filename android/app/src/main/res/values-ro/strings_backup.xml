@@ -44,7 +44,7 @@
         <item quantity="other">%d intrări din copie (portofoliu sau alarme) sunt invalide și nu vor fi importate.</item>
     </plurals>
     <string name="backup_restore_newer_version">Această copie provine dintr-o versiune mai nouă a aplicației – actualizează mai întâi aplicația. Nu s-a importat nimic.</string>
-    <string name="backup_restore_unencrypted_warning">Această copie nu este criptată – verifică dacă e a ta. Setările vor fi preluate – cu excepția modificărilor care reduc protecția (blocarea portofoliului, serverul Bitcoin propriu, ascunderea sumelor, copia de sistem).</string>
+    <string name="backup_restore_unencrypted_warning">Această copie nu este criptată – verifică dacă e a ta. Setările vor fi preluate – cu excepția modificărilor care reduc protecția (Blocarea portofoliului, Server propriu pentru adrese, Ascunde sumele, Portofoliu în copia de sistem).</string>
     <string name="backup_restored">Restaurat: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarmă</item>

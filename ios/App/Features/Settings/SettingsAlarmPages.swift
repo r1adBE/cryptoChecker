@@ -252,7 +252,7 @@ struct NotificationPermissionRow: View {
 struct PricePairsPage: View {
     @EnvironmentObject var data: AppData
     /// Merkliste gesperrt: Hinweis «watchlist_storage_locked» nach einem abgelehnten Schalter (`.watchlistLockedHint`).
-    @State private var toast: String?
+    @State private var toast: ToastMessage?
     /// Zählt abgelehnte Schalter (Merkliste gesperrt): wertet den body neu aus, damit sie den echten Zustand zeigen — der
     /// gedrosselte Hinweis ändert AppData nicht bei jeder Ablehnung, ein umgelegter Schalter bliebe sonst stehen.
     /// Ohne `.id` (kein Identitätswechsel, der VoiceOver-Fokus bleibt).
@@ -302,7 +302,7 @@ struct PricePairsPage: View {
             }
         }
         // Schalter bzw. «Alle an/aus» abgelehnt (Merkliste gesperrt): kurzer Hinweis mit Warn-Haptik
-        .watchlistLockedHint { toast = $0 }
+        .watchlistLockedHint { toast = ToastMessage($0) }
         .toast($toast)
     }
 }

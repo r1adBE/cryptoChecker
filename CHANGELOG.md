@@ -15,6 +15,17 @@
 
 Detailed build history below.
 
+## 16.2.2 (build 113)
+
+Fixes from the ninth review round (on build 112):
+
+* Watched addresses: turning on «count tokens» or adding a network while a refresh runs is no longer overwritten by that refresh; the stale result is discarded and the address is loaded again with the new setting (both platforms).
+* Backup/restore results: the toast-or-dialog limit counts East Asian wide characters double and shrinks with the font size; «backup not verified» and «backup from a newer version» always appear as a dialog. iOS shows the result dialog as soon as no other sheet, picker or question is open (no fixed delay) and still asks the notification question when the page is left. iOS toasts are announced to VoiceOver after the focus change (400 ms) and restart when the same text appears again.
+* Own Bitcoin server: leading spaces no longer let an over-long address pass as valid.
+* The warning before restoring a backup without password uses the exact setting names of each language; the lock hint after restoring does too (fa, pt, he, th, hu, it).
+* Signed data mirror: new signing key (the previous private key was lost; no app with the old key was released). Docs: privacy policy, DEVELOPMENT, iOS README and SECURITY list all four rules for backups without password; SECURITY names the environment «mirror-signing».
+* More tests: cancelled and failing refresh rounds free the gate, late test results after a reset, robust waiting in iOS tests.
+
 ## 16.2.2 (build 112)
 
 Fixes from the eighth review round (on build 111):

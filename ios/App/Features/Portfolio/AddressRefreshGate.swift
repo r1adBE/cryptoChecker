@@ -10,6 +10,8 @@ final class AddressRefreshGate {
 
     /// Läuft gerade eine Runde?
     var isRunning: Bool { current != nil }
+    /// Vordergrund-Aufrufe, die auf eine laufende Runde warten (für Tests).
+    private(set) var waiting = 0
 
     /// - Parameter background: Hintergrund/Widget: nicht warten.
     /// - Returns: false, wenn der Hintergrund wegen einer laufenden Runde nichts tat.
@@ -17,7 +19,9 @@ final class AddressRefreshGate {
     func run(background: Bool, _ body: @escaping @MainActor @Sendable () async -> Void) async -> Bool {
         while let running = current {
             if background { return false }
+            waiting += 1
             await running.task.value
+            waiting -= 1
         }
         nextId += 1
         let id = nextId

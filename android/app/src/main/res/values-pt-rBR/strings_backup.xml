@@ -44,7 +44,7 @@
         <item quantity="other">%d itens do backup (portfólio ou alarmes) são inválidos e não serão importados.</item>
     </plurals>
     <string name="backup_restore_newer_version">Este backup é de uma versão mais recente do app – atualize o app primeiro. Nada foi importado.</string>
-    <string name="backup_restore_unencrypted_warning">Este backup não está criptografado – confira se ele é seu. As configurações serão aplicadas, exceto mudanças que reduzem a proteção (bloqueio do portfólio, servidor Bitcoin próprio, ocultar valores, backup do sistema).</string>
+    <string name="backup_restore_unencrypted_warning">Este backup não está criptografado – confira se ele é seu. As configurações serão aplicadas, exceto mudanças que reduzem a proteção (Bloqueio do portfólio, Servidor próprio para endereços, Ocultar valores, Portfólio no backup do sistema).</string>
     <string name="backup_restored">Restaurado: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarme</item>

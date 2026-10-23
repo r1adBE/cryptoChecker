@@ -110,14 +110,27 @@ struct TonalButtonStyle: ButtonStyle {
     }
 }
 
+/// Text eines Toasts mit eigener Kennung: derselbe Text erneut gesetzt zeigt und sagt ihn noch einmal an.
+struct ToastMessage: Equatable {
+    let id = UUID()
+    let text: String
+
+    init(_ text: String) {
+        self.text = text
+    }
+}
+
 /// Kleines Hinweis-Toast unten am Bildschirm.
 struct ToastModifier: ViewModifier {
-    @Binding var message: String?
+    @Binding var message: ToastMessage?
+
+    /// Ansage erst nach dem Einblenden (wie die Banner der Merkliste), sonst geht sie im Fokuswechsel unter.
+    nonisolated static let announceDelay: Double = 0.4
 
     func body(content: Content) -> some View {
         content.overlay(alignment: .bottom) {
             if let message {
-                Text(message)
+                Text(message.text)
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(AppColors.onToast)
                     .padding(.horizontal, Spacing.lg)
@@ -135,13 +148,20 @@ struct ToastModifier: ViewModifier {
         .animation(.spring(duration: 0.3), value: message)
     }
 
-    /// VoiceOver liest den Toast vor (er nimmt keinen Fokus); länger sichtbar je nach Textlänge.
+    /// VoiceOver liest den Toast nach `announceDelay` vor (er nimmt keinen Fokus; abgebrochen → keine Ansage); länger
+    /// sichtbar je nach Textlänge.
     @MainActor
-    private func show(_ text: String) async {
-        AccessibilityNotification.Announcement(text).post()
-        try? await Task.sleep(nanoseconds: UInt64(Self.seconds(for: text) * 1_000_000_000))
-        // Auch abgebrochen (Bildschirm weg) ausblenden — einen inzwischen neuen Text aber stehen lassen
-        guard message == text else { return }
+    private func show(_ shown: ToastMessage) async {
+        let total = Self.seconds(for: shown.text)
+        do {
+            try await Task.sleep(nanoseconds: UInt64(Self.announceDelay * 1_000_000_000))
+            AccessibilityNotification.Announcement(shown.text).post()
+            try await Task.sleep(nanoseconds: UInt64((total - Self.announceDelay) * 1_000_000_000))
+        } catch {
+            // Abgebrochen (Bildschirm weg oder neuer Toast): unten ausblenden, falls noch derselbe
+        }
+        // Auch abgebrochen ausblenden — einen inzwischen neuen Toast (auch mit gleichem Text) aber stehen lassen
+        guard message == shown else { return }
         withAnimation { message = nil }
     }
 
@@ -152,5 +172,5 @@ struct ToastModifier: ViewModifier {
 }
 
 extension View {
-    func toast(_ message: Binding<String?>) -> some View { modifier(ToastModifier(message: message)) }
+    func toast(_ message: Binding<ToastMessage?>) -> some View { modifier(ToastModifier(message: message)) }
 }

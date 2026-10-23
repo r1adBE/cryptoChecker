@@ -176,7 +176,8 @@ keys or other secrets never belong in this repository.
   signature matches the public key built into the apps, and if that manifest is at
   most 7 days old; manifest and signature are read with small size limits (64 KB /
   1 KB). Otherwise the file is ignored and the app asks the provider directly. The
-  private key exists only as a repository secret; a run that cannot sign ends red.
+  private key exists only as a GitHub Actions secret in the environment `mirror-signing`, usable
+  from `main` only (until moved: repository secret); a run that cannot sign ends red.
 * **No sensitive logs, no tracking.** Release builds write no prices, amounts,
   holdings or alarm thresholds to the system log. No analytics, no ads, no
   WebView, no clipboard use for your data.

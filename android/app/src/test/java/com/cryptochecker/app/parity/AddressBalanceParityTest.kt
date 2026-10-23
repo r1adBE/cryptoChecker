@@ -116,6 +116,17 @@ class AddressBalanceParityTest {
         assertEquals(d["background"].list().map { it.num()!!.toLong() }, AddressBalance.dueOrder(list, now, force = false, background = true).map { it.id })
     }
 
+    /** Während des Abrufs vom Nutzer fällig gemacht: Ergebnis verwerfen (Single-Flight, wie iOS). */
+    @Test
+    fun resetDuringFetch() {
+        val cases = data["resetDuringFetch"].obj()["cases"].list().map { it.obj() }
+        assertTrue(cases.isNotEmpty())
+        for (c in cases) {
+            val reset = AddressBalance.resetDuringFetch(c["current"].num()!!.toLong(), c["snapshot"].num()!!.toLong())
+            assertEquals("reset: $c", c["reset"], reset)
+        }
+    }
+
     @Test
     fun eth() {
         val eth = data["eth"].obj()

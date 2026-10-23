@@ -10,8 +10,9 @@ object AddressServerRules {
     /**
      * Zu lange Eingabe (z. B. eingefügt) wird gekürzt statt verworfen — auf [AddressServer.MAX_LENGTH] + 1, damit die
      * Prüfung ([AddressServer.check]) weiter «ungültig» meldet (genau auf die Grenze gekürzt gälte sie still als gültig).
+     * Führender Leerraum fällt vorher weg (die Prüfung schneidet ihn ab; sonst gälte « » + 201 Zeichen als 200).
      */
-    fun clamp(input: String): String = input.take(AddressServer.MAX_LENGTH + 1)
+    fun clamp(input: String): String = input.trimStart().take(AddressServer.MAX_LENGTH + 1)
 
     /** Schlüssel für Pausen und Sperren: Hostname ohne Schema, Port und Pfad. */
     fun hostKey(entry: String): String = entry.removePrefix("https://").substringBefore('/').substringBefore(':')

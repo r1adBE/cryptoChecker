@@ -37,6 +37,18 @@ extension BackupSettingsPage {
     static func restoredAsDialog(_ result: BackupManager.RestoreResult, text: String) -> Bool {
         BackupResultPresentation.asDialog(key: "backup_restored", text: text, droppedPairs: result.droppedPairs,
                                           droppedAlarms: result.droppedAlarms, appLockKept: result.appLockKept,
-                                          addressServerNote: result.addressServerNote)
+                                          addressServerNote: result.addressServerNote, fontScale: fontScale)
+    }
+
+    /// Rückfrage «Ersetzen?»: Ohne Passwort keine Echtheitsprüfung — Herkunft prüfen lassen; ungültige Einträge und
+    /// solche über den Grenzen nennen, bevor etwas ersetzt wird, statt sie still wegzulassen (wie Android).
+    static func confirmText(_ preview: BackupManager.RestorePreview, encrypted: Bool) -> String {
+        let parts: [String?] = [
+            L("backup_restore_confirm"),
+            encrypted ? nil : L("backup_restore_unencrypted_warning"),
+            preview.invalid > 0 ? L("backup_restore_invalid", count: preview.invalid) : nil,
+            overLimitsText("backup_restore_over_limits", pairs: preview.droppedPairs, alarms: preview.droppedAlarms),
+        ]
+        return parts.compactMap { $0 }.joined(separator: "\n\n")
     }
 }

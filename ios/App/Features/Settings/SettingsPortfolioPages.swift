@@ -5,7 +5,7 @@ import UIKit
 @MainActor
 struct PortfolioSettingsPage: View {
     @EnvironmentObject private var data: AppData
-    @State private var toast: String?
+    @State private var toast: ToastMessage?
     /// Gerätecode eingerichtet? Ohne hebt sich die Sperre selbst auf — ehrlich darunter sagen (wie Android).
     @State private var deviceSecure = AppLock.canAuthenticate()
     @Environment(\.scenePhase) private var scenePhase
@@ -128,7 +128,7 @@ struct PortfolioSettingsPage: View {
         }
         guard AppLock.canAuthenticate() else {
             Haptics.play(.error)
-            toast = L("app_lock_unavailable")
+            toast = ToastMessage(L("app_lock_unavailable"))
             return
         }
         Task {

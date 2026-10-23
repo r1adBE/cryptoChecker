@@ -47,7 +47,7 @@
         <item quantity="other">%d إدخالات في النسخة (المحفظة أو التنبيهات) غير صالحة ولن تُستورد.</item>
     </plurals>
     <string name="backup_restore_newer_version">هذه النسخة من إصدار أحدث من التطبيق – حدّث التطبيق أولًا. لم يُستورد شيء.</string>
-    <string name="backup_restore_unencrypted_warning">هذه النسخة غير مشفرة – تأكد أنها منك. ستُطبَّق الإعدادات – باستثناء التغييرات التي تُضعف الحماية (قفل المحفظة، خادم بيتكوين الخاص، إخفاء المبالغ، نسخ النظام الاحتياطي).</string>
+    <string name="backup_restore_unencrypted_warning">هذه النسخة غير مشفرة – تأكد أنها منك. ستُطبَّق الإعدادات – باستثناء التغييرات التي تُضعف الحماية (قفل المحفظة، خادم خاص للعناوين، إخفاء المبالغ، المحفظة في نسخ النظام الاحتياطي).</string>
     <string name="backup_restored">تمت الاستعادة: %1$s، %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="zero">%1$d تنبيه</item>

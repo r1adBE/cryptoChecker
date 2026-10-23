@@ -1,6 +1,6 @@
 {
   "_comment": "Signed data mirror (MirrorManifest.kt / MirrorManifest.swift, mirror_data.py): signatures made with a TEST key pair (publicKey below), never with the real key. verify: manifest + signature (Base64 DER ECDSA P-256 SHA-256 over the exact UTF-8 bytes of manifest) -> ok / missing / invalid / too_old; a case may override publicKey. files: SHA-256 (hex) of the UTF-8 bytes of text against manifestFiles -> ok / hash_mismatch / not_listed.",
-  "productionPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEap5aFGMac2zZpTaPRry17dQxVQe+tG95C7aIo+cKd9gtm8em3ZZeLFpTD6yALgH0HTiZxN6p7Z7BHyDSFils6g==",
+  "productionPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnyWpdnpqDJUM1yHZQxQKPAcaXyGpbk8HvfNVmnR1MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw==",
   "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEeDRqPRnnYa7kL7/WKiiJf7X9rNiQfh6BJtdA+IWLznoSbaydF3eluPhJiCuaSkUSNYCAZLVjYsR6gmihJpmPSg==",
   "now": 1792000000000,
   "maxAgeMillis": 604800000,
@@ -80,7 +80,7 @@
       "manifest": "{\"created\":1791996400000,\"files\":{\"coin_meta.json\":\"546f1f680876d4766d18d0afbef9bba32f338dd3a43507afb97bb7b0ce90b0a9\",\"fng.txt\":\"77d820c2ae732601623b222cf3b802c8cf293e2fc3faa2f0d03a0b8e7ff3896f\",\"status.json\":\"ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356\"},\"v\":1}",
       "signature": "MEYCIQDIbMV0SbdLgnGUD1nUFySQk9LUHlSs/GOVAnixynprpwIhALYWeyn6pHVYoQANrdj+ekk/4Yaz2vC91WouDqzvPR1p",
       "expected": "invalid",
-      "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEap5aFGMac2zZpTaPRry17dQxVQe+tG95C7aIo+cKd9gtm8em3ZZeLFpTD6yALgH0HTiZxN6p7Z7BHyDSFils6g=="
+      "publicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnyWpdnpqDJUM1yHZQxQKPAcaXyGpbk8HvfNVmnR1MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw=="
     },
     {
       "name": "created 8 days ago",

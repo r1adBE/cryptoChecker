@@ -43,7 +43,7 @@
         <item quantity="other">%d poster i sikkerhedskopien (portefølje eller alarmer) er ugyldige og importeres ikke.</item>
     </plurals>
     <string name="backup_restore_newer_version">Denne sikkerhedskopi er fra en nyere appversion – opdater appen først. Intet blev importeret.</string>
-    <string name="backup_restore_unencrypted_warning">Denne sikkerhedskopi er ikke krypteret – tjek, at den er din. Indstillinger overføres – undtagen ændringer, der sænker beskyttelsen (porteføljelås, egen Bitcoin-server, skjul beløb, systembackup).</string>
+    <string name="backup_restore_unencrypted_warning">Denne sikkerhedskopi er ikke krypteret – tjek, at den er din. Indstillinger overføres – undtagen ændringer, der sænker beskyttelsen (Porteføljelås, Egen server til adresser, Skjul beløb, Portefølje i systembackup).</string>
     <string name="backup_restored">Gendannet: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d alarm</item>

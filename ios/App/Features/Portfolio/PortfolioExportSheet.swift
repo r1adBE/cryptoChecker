@@ -31,7 +31,7 @@ struct PortfolioExportSheet: View {
     @State var exporting = false
     @State var document: CutoffCsvDocument? = nil
     @State var fileName = ""
-    @State var toast: String? = nil
+    @State var toast: ToastMessage? = nil
     /// nil = Standard (letztes volles Jahr mit Transaktionen).
     @State private var chosenYear: Int?
     /// Hinweis zu den Länder-Vorlagen weggewischt (bis zum nächsten Öffnen).
@@ -121,7 +121,7 @@ struct PortfolioExportSheet: View {
             case .failure(let error):
                 if (error as? CocoaError)?.code != .userCancelled {
                     Haptics.play(.error)
-                    toast = L("portfolio_export_failed")
+                    toast = ToastMessage(L("portfolio_export_failed"))
                 }
             }
         }

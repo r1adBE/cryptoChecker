@@ -6,7 +6,7 @@ import UIKit
 struct AboutSettingsPage: View {
     @EnvironmentObject private var data: AppData
     @State private var versionTaps = 0
-    @State private var toast: String?
+    @State private var toast: ToastMessage?
 
     init() {}
 
@@ -103,10 +103,10 @@ struct AboutSettingsPage: View {
         if left == 0 {
             data.settings.developerUnlocked = true
             Haptics.play(.success)
-            toast = L("developer_unlocked")
+            toast = ToastMessage(L("developer_unlocked"))
         } else if (1...Self.countdownFrom).contains(left) {
             Haptics.play(.lightImpact)
-            toast = L("developer_taps_left", count: left)
+            toast = ToastMessage(L("developer_taps_left", count: left))
         }
     }
 }

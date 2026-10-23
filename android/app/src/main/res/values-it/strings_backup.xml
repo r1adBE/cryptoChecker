@@ -36,7 +36,7 @@
     <string name="backup_plain_contents_addresses">Indirizzi wallet e chiavi xpub salvati, con cronologia dei saldi e costo di carico</string>
     <string name="backup_plain_contents_base">Lista con note, gruppi e saldi, allarmi, preferiti e impostazioni</string>
     <string name="backup_plain_contents_portfolio">Portafoglio: transazioni con quantità e prezzi</string>
-    <string name="backup_restore_app_lock_kept">Il blocco del portafoglio resta attivo – un backup non cifrato non può disattivarlo.</string>
+    <string name="backup_restore_app_lock_kept">Il «Blocco portafoglio» resta attivo – un backup non cifrato non può disattivarlo.</string>
     <string name="backup_restore_confirm">L\'importazione sostituisce lista (con note e gruppi), allarmi, preferiti, portafoglio e impostazioni con il backup.</string>
     <plurals name="backup_restore_invalid">
         <item quantity="one">%d voce del backup (portafoglio o allarme) non è valida e non verrà importata.</item>
@@ -44,7 +44,7 @@
         <item quantity="other">%d voci del backup (portafoglio o allarmi) non sono valide e non verranno importate.</item>
     </plurals>
     <string name="backup_restore_newer_version">Questo backup proviene da una versione più recente dell’app – aggiorna prima l’app. Non è stato importato nulla.</string>
-    <string name="backup_restore_unencrypted_warning">Questo backup non è cifrato – verifica che provenga da te. Le impostazioni verranno applicate, tranne le modifiche che riducono la protezione (blocco del portafoglio, server Bitcoin personale, nascondi importi, backup di sistema).</string>
+    <string name="backup_restore_unencrypted_warning">Questo backup non è cifrato – verifica che provenga da te. Le impostazioni verranno applicate, tranne le modifiche che riducono la protezione (Blocco portafoglio, Server personale per indirizzi, Nascondi importi, Portafoglio nel backup di sistema).</string>
     <string name="backup_restored">Ripristinati: %1$s, %2$s.</string>
     <plurals name="backup_restored_alarms">
         <item quantity="one">%1$d allarme</item>

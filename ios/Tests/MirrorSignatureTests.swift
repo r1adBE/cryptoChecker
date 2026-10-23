@@ -200,7 +200,12 @@ final class MirrorSignatureTests: XCTestCase {
     func testCancelledCallerDoesNotRememberMissingForWaitingCaller() async throws {
         let c = try signedCase()
         let now = c.now
-        let trust = MirrorTrust(publicKey: c.key, now: { now })
+        // Jede Prüfung liest zuerst die Uhr, direkt vor dem Warten auf den laufenden Abruf (ohne Unterbruch im Actor)
+        let clockCalls = MirrorCallSignal()
+        let trust = MirrorTrust(publicKey: c.key, now: {
+            clockCalls.tick()
+            return now
+        })
         let gate = MirrorLoadGate()
         let load: MirrorTrust.Loader = { url, _ in
             guard url == MirrorManifest.url else { return url == MirrorManifest.signatureURL ? c.signature : nil }
@@ -210,8 +215,8 @@ final class MirrorSignatureTests: XCTestCase {
         let first = Task { await trust.verified(file: "fng.txt", text: c.okText, load: load) }
         await gate.waitUntilEntered()
         let second = Task { await trust.verified(file: "fng.txt", text: c.okText, load: load) }
-        // Dem zweiten Zeit geben, auf den laufenden Abruf zu warten
-        try await Task.sleep(nanoseconds: 100_000_000)
+        // Signal statt fester Wartezeit: der zweite hat die Uhr gelesen und wartet damit auf den laufenden Abruf
+        await clockCalls.wait(for: 2)
         first.cancel()
         await gate.release()
         let secondOk = await second.value
@@ -247,6 +252,36 @@ private actor MirrorLoadGate {
         released = true
         held?.resume()
         held = nil
+    }
+}
+
+/// Zählt Aufrufe (aus einer @Sendable-Closure); `wait(for:)` kehrt zurück, sobald so viele erfolgt sind.
+private final class MirrorCallSignal: @unchecked Sendable {
+    private let lock = NSLock()
+    private var count = 0
+    private var waiters: [(target: Int, continuation: CheckedContinuation<Void, Never>)] = []
+
+    func tick() {
+        lock.lock()
+        count += 1
+        let current = count
+        let ready = waiters.filter { $0.target <= current }
+        waiters.removeAll { $0.target <= current }
+        lock.unlock()
+        ready.forEach { $0.continuation.resume() }
+    }
+
+    func wait(for target: Int) async {
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            lock.lock()
+            if count >= target {
+                lock.unlock()
+                continuation.resume()
+                return
+            }
+            waiters.append((target, continuation))
+            lock.unlock()
+        }
     }
 }
 

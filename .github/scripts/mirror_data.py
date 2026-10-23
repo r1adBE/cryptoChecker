@@ -319,8 +319,8 @@ MANIFEST = "manifest.json"
 SIGNATURE = MANIFEST + ".sig"
 MANIFEST_VERSION = 1
 # Public key of MIRROR_SIGNING_KEY (ECDSA P-256, SubjectPublicKeyInfo DER, Base64), built into the apps
-PUBLIC_KEY = ("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEap5aFGMac2zZpTaPRry17dQxVQe+tG95C7aIo+cK"
-              "d9gtm8em3ZZeLFpTD6yALgH0HTiZxN6p7Z7BHyDSFils6g==")
+PUBLIC_KEY = ("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEnyWpdnpqDJUM1yHZQxQKPAcaXyGpbk8HvfNVmnR1"
+              "MAuShndvEGub711SBOXLJ0aottnrndttNuskZV2BdiG/Pw==")
 MANIFEST_MAX_AGE_MILLIS = 7 * 24 * 60 * 60 * 1000
 MANIFEST_MAX_BYTES = 64 * 1024
 # Files whose hash may be carried over from the previous signed manifest (old asset stays on the release)
