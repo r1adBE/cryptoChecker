@@ -118,6 +118,21 @@ class SingleTickerFallbackTest {
         }
     }
 
+    @Test
+    fun rateLimitOfTheFallbackPassesThrough() = runBlocking {
+        for (code in listOf(429, 418)) {
+            val limited = HttpMarketError(code, "")
+            try {
+                SingleTickerFallback.load(OneTrading(), 0, btcEur, SimpleTicker(), HttpMarketError(500, "")) {
+                    throw limited
+                }
+                fail("Fehler erwartet")
+            } catch (e: HttpMarketError) {
+                assertSame("$code: Bremse des Auswegs geht durch", limited, e)
+            }
+        }
+    }
+
     // ── Ganzer Weg über MarketRemoteDataSource ──
 
     private val hits = HashMap<String, Int>()

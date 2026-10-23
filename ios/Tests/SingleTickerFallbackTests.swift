@@ -93,6 +93,20 @@ final class SingleTickerFallbackTests: XCTestCase {
         XCTAssertFalse(loaded)
     }
 
+    func testRateLimitOfTheFallbackPassesThrough() async {
+        for code in [429, 418] {
+            do {
+                _ = try await SingleTickerFallback.load(market: OneTrading(), call: 0, info: btcEur, base: Ticker(),
+                                                        serverError: HttpMarketError(httpCode: 500, body: "")) { _ in
+                    throw HttpMarketError(httpCode: code, body: "")
+                }
+                XCTFail("\(code): Fehler erwartet")
+            } catch {
+                XCTAssertEqual((error as? HttpMarketError)?.httpCode, code, "Bremse des Auswegs geht durch")
+            }
+        }
+    }
+
     func testFailingFallbackRequestKeepsTheServerError() async {
         do {
             _ = try await SingleTickerFallback.load(market: OneTrading(), call: 0, info: btcEur, base: Ticker(),

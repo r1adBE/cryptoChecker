@@ -2,6 +2,7 @@ package com.cryptochecker.app.data.remote
 
 import com.cryptochecker.app.domain.exceptions.HttpMarketError
 import com.cryptochecker.app.domain.exceptions.rethrowIfCritical
+import com.cryptochecker.app.domain.refresh.ExchangeBackoff
 import com.cryptochecker.marketdata.model.Market
 import com.cryptochecker.marketdata.model.PairQuery
 import com.cryptochecker.marketdata.model.Ticker
@@ -37,6 +38,8 @@ internal object SingleTickerFallback {
             market.readTickerFallback(call, load(address), ticker, info)
         } catch (ex: Exception) {
             ex.rethrowIfCritical()
+            // Bremst die Börse den Ausweg (429/418), gilt die Bremse: sonst fragt die App ohne Pause weiter an
+            if (ex is HttpMarketError && ExchangeBackoff.isRateLimitCode(ex.httpCode)) throw ex
             Timber.w("Ausweg des Einzelkurses ohne Kurs (%s): %s", market.key, ex.message)
             throw serverError
         }

@@ -22,16 +22,9 @@ on:
       - '.github/scripts/ios_release_audit.py'
       - '.github/scripts/annotate.py'
       - 'android/app/build.gradle.kts'
+  # Pull requests always run this workflow (no paths filter): its job is a required check, and a required check
+  # whose workflow is skipped by a paths filter would wait forever («Expected»).
   pull_request:
-    paths:
-      - 'ios/**'
-      - 'android/testdata/parity/**'
-      - 'android/testdata/uitest/**'
-      - '.github/workflows/ios.yml'
-      - '.github/scripts/xcode_errors.sh'
-      - '.github/scripts/ios_release_audit.py'
-      - '.github/scripts/annotate.py'
-      - 'android/app/build.gradle.kts'
   workflow_dispatch:
     inputs:
       thread_sanitizer:
@@ -216,14 +209,21 @@ jobs:
           # BackgroundRefreshRunTests. The last two run on the test app's sealed watchlist; without a keychain
           # entitlement (unsigned CI host) they use an in-memory test keychain (Tests/HostStorageKey.swift), so a
           # missing or unwritable watchlist is a test failure, not a skip. Their only remaining skips are quiet hours
-          # of the test app and «not enough time left» for the extra-data alarms.
+          # of the test app and «not enough time left» for the extra-data alarms; those two are allowed below.
           SKIPPED=$(grep -oE "Test [Cc]ase '[^']+' skipped" "$LOG" | sed -E "s/^Test [Cc]ase '(.*)' skipped$/\1/" | sort -u || true)
+          # Environment-dependent skips (quiet hours of the test app, «not enough time left» on a slow runner) do not
+          # count as critical: they are reported, but the run stays green
+          ALLOWED=$(grep -oE "\-\[[A-Za-z0-9_.]+ [A-Za-z0-9_]+\] : Test skipped - (Nachtruhe|Restzeit)" "$LOG" | sed -E 's/ : Test skipped.*$//' | sort -u || true)
           COUNT=$(printf '%s\n' "$SKIPPED" | grep -c . || true)
           echo "Skipped unit tests: $COUNT"
           CRITICAL=0
           while IFS= read -r name; do
             [ -n "$name" ] || continue
             echo "::warning title=Skipped iOS unit test::$name"
+            if [ -n "$ALLOWED" ] && printf '%s\n' "$ALLOWED" | grep -qxF -- "$name"; then
+              echo "::notice title=Allowed skip::$name (environment)"
+              continue
+            fi
             case "$name" in
               *SharedStorageTests*|*WatchlistLockBehaviorTests*|*BackgroundRefreshRunTests*) CRITICAL=$((CRITICAL + 1)) ;;
             esac

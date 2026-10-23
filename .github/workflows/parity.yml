@@ -16,12 +16,9 @@ on:
       - 'ios/Tests/Parity/**'
       - 'ios/tools/gen_xcodeproj.py'
       - '.github/workflows/parity.yml'
+  # Pull requests always run this workflow (no paths filter): its job is a required check, and a required check
+  # whose workflow is skipped by a paths filter would wait forever («Expected»).
   pull_request:
-    paths:
-      - 'android/testdata/parity/**'
-      - 'ios/Tests/Parity/**'
-      - 'ios/tools/gen_xcodeproj.py'
-      - '.github/workflows/parity.yml'
   workflow_dispatch:
 
 permissions:

@@ -1404,6 +1404,7 @@
 		DDF8921D6C943BA8BF2019E8 /* MarketAlertResetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE3180B90473051AF7E1456 /* MarketAlertResetTests.swift */; };
 		DDFF74C428E14BE03854FE6D /* exchange_coindcx.json in Resources */ = {isa = PBXBuildFile; fileRef = 242D453DC843D644FC0A4CEA /* exchange_coindcx.json */; };
 		DE2171270329FF59F15CF8B8 /* AlarmLogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D699AE1A91ECDFC9E21AC40 /* AlarmLogStore.swift */; };
+		DE6B0E56F5A73650C33FFE6A /* HostStorageKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C188BBA5C3B5E56FF7458BF /* HostStorageKeyTests.swift */; };
 		DE77A1F893FCA13EF572FE76 /* UnknownMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07D2B779D7244AD99C05D86 /* UnknownMarket.swift */; };
 		DEECE95204C59BB92CE21C58 /* PortfolioBackupWatchedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0275714761B1893710AC48 /* PortfolioBackupWatchedTests.swift */; };
 		DEF9DC7F930F9144C14212B6 /* AlarmLease.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6B91C90E43A0CF09AB7002 /* AlarmLease.swift */; };
@@ -2055,6 +2056,7 @@
 		5AEF0EEE8B42A6303FBC802A /* StarterPairs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterPairs.swift; sourceTree = "<group>"; };
 		5B7F2B405D3A8DFBA8060AF7 /* AlarmCardStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCardStatus.swift; sourceTree = "<group>"; };
 		5BE021B03A6FF323A61FF3CE /* market_plain_summary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = market_plain_summary.json; sourceTree = "<group>"; };
+		5C188BBA5C3B5E56FF7458BF /* HostStorageKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostStorageKeyTests.swift; sourceTree = "<group>"; };
 		5C8138AC4BF9753FCEB8EBC4 /* AlarmLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmLog.swift; sourceTree = "<group>"; };
 		5CAC5EF5DBCD570C5A40FDFF /* exchange_bitvavo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = exchange_bitvavo.json; sourceTree = "<group>"; };
 		5CC4FADADC8D7ED0DDBABC4A /* PortfolioWidgetList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioWidgetList.swift; sourceTree = "<group>"; };
@@ -4048,6 +4050,7 @@
 				0D7CFF3C0BEAFC89266A59FE /* HoldingsMethodParityTests.swift */,
 				0FF6D2B5C2C2DCE568673382 /* HostGroupBackoffTests.swift */,
 				5D839D82F1B0FEA95A28B015 /* HostStorageKey.swift */,
+				5C188BBA5C3B5E56FF7458BF /* HostStorageKeyTests.swift */,
 				9662FF0D6FA87AF74EA01966 /* InFlightRequestsTests.swift */,
 				17C63FE4E525FCA98D65897F /* KrakenTradableTests.swift */,
 				71342256EB761F8036E7BD6B /* LegacyStorageMigrationTests.swift */,
@@ -5331,6 +5334,7 @@
 				381B1ECB8734C9BD431EEA31 /* HoldingsMethodParityTests.swift in Sources */,
 				CC203476B34478626A7008A3 /* HostGroupBackoffTests.swift in Sources */,
 				DD39F96D662A506ABB767E51 /* HostStorageKey.swift in Sources */,
+				DE6B0E56F5A73650C33FFE6A /* HostStorageKeyTests.swift in Sources */,
 				E4C2EE19F45F81BBD0E4A15F /* InFlightRequestsTests.swift in Sources */,
 				39804B8B1977A6482AB330F6 /* KrakenTradableTests.swift in Sources */,
 				792C0EDF1AB2A272E55C870C /* LegacyStorageMigrationTests.swift in Sources */,
@@ -6301,7 +6305,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -6328,7 +6332,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -6348,7 +6352,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -6367,7 +6371,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -6454,7 +6458,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -6483,7 +6487,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = Widgets/CryptoCheckerWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -6509,7 +6513,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -6533,7 +6537,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = App/CryptoChecker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;

@@ -1,4 +1,5 @@
 import Foundation
+import Security
 import XCTest
 @testable import CryptoChecker
 
@@ -38,12 +39,32 @@ enum HostStorageKey {
     /// 32 feste Bytes, nur für den Test-Schlüsselbund.
     static let testKey = Data(UInt8(0xA0)...UInt8(0xBF))
 
-    /// Prozessweiten Schlüssel sicherstellen (nur ohne lesbaren Schlüsselbund ersetzt). true = Test-Schlüsselbund aktiv.
+    /// Prozessweiten Schlüssel sicherstellen: ersetzt NUR, wenn dem Test-Host die Schlüsselbund-Berechtigung fehlt
+    /// (unsignierter CI-Simulator, errSecMissingEntitlement). Andere Fehler (gesperrt, kaputter Eintrag) bleiben
+    /// sichtbar, damit auf einem signierten Gerät nie mit dem öffentlich bekannten Test-Schlüssel versiegelt wird.
+    /// true = Test-Schlüsselbund aktiv.
     @discardableResult
     static func ensureAvailable() -> Bool {
         guard case .unavailable = StorageKey.shared.lookup() else { return false }
+        let status: OSStatus?
+        do {
+            _ = try SystemStorageKeychain().read()
+            status = nil
+        } catch let error as StorageKeychainError {
+            status = error.status
+        } catch {
+            status = nil
+        }
+        guard shouldUseTestKeychain(status: status) else { return false }
         StorageKey.shared.replaceKeychainForTesting(MemoryKeychain(key: testKey))
         return true
+    }
+
+    /// Fehlende Berechtigung (-34018), kein Schlüsselbund (-25291) oder Lesen ohne Fehler (Eintrag fehlt, Anlegen
+    /// scheitert erst danach) rechtfertigen den Test-Schlüsselbund; ein gesperrter oder verweigerter Schlüsselbund nicht.
+    static func shouldUseTestKeychain(status: OSStatus?) -> Bool {
+        guard let status else { return true }
+        return status == errSecMissingEntitlement || status == errSecNotAvailable
     }
 
     /// Wie `ensureAvailable`, dazu eine Merkliste auf der Platte und `AppData` im Einklang damit: Ohne Datei (frischer

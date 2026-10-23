@@ -28,24 +28,9 @@ on:
       - '.github/scripts/line_limit.py'
       - '.github/scripts/lint_warnings.py'
       - '.github/scripts/coverage_summary.py'
+  # Pull requests always run this workflow (no paths filter): its job is a required check, and a required check
+  # whose workflow is skipped by a paths filter would wait forever («Expected»).
   pull_request:
-    paths:
-      - 'android/**'
-      # The source guards in the unit tests (FileLengthTest, HapticsUsageTest, licences, typography, …) also
-      # check the Swift sources: a pull request that only touches iOS must run them too
-      - 'ios/App/**'
-      - 'ios/Shared/**'
-      - 'ios/Widgets/**'
-      - '.github/workflows/android.yml'
-      - '.github/scripts/android_release_audit.sh'
-      - '.github/scripts/manifest_policy.py'
-      - '.github/scripts/apk_contents.py'
-      - '.github/scripts/annotate.py'
-      - '.github/scripts/lint_errors.sh'
-      - '.github/scripts/room_schema_drift.py'
-      - '.github/scripts/line_limit.py'
-      - '.github/scripts/lint_warnings.py'
-      - '.github/scripts/coverage_summary.py'
   workflow_dispatch:
 
 permissions:
