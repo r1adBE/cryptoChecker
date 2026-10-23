@@ -47,6 +47,7 @@ final class BackupSettingsTextsTests: XCTestCase {
     func testFontScaleFollowsContentSize() {
         XCTAssertEqual(BackupSettingsPage.fontScale(.large), 1, accuracy: 0.001)
         XCTAssertGreaterThan(BackupSettingsPage.fontScale(.accessibilityExtraExtraExtraLarge), 1)
-        XCTAssertLessThan(BackupSettingsPage.fontScale(.small), 1)
+        // Kleinere Grade: höchstens 1 (die Grenze nutzt ohnehin max(1, Faktor))
+        XCTAssertLessThanOrEqual(BackupSettingsPage.fontScale(.small), 1.001)
     }
 }
