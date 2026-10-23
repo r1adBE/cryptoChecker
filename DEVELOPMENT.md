@@ -625,6 +625,38 @@ uploading or managing the issue. Locally, without
 touching GitHub: `python3 .github/scripts/exchange_live_check.py --dry-run` (optionally
 `--only kraken,okx`).
 
+**Supply chain (Android).** Three layers, none needs a secret:
+
+* *Gradle itself*: `android/gradle/wrapper/gradle-wrapper.properties` pins the distribution with
+  `distributionSha256Sum`; `setup-gradle` validates the wrapper jar in CI.
+* *Checksums and locks*: `android/gradle/verification-metadata.xml` (sha256 of every dependency, plugin and tool
+  artifact) and `android/<module>/gradle.lockfile` (resolved versions per module). Gradle verifies the checksums on
+  every build as soon as the file exists; `android/build.gradle.kts` locks all configurations – LENIENT while a module
+  has no lock file, DEFAULT once it has one (a different version fails the build; configurations without an entry,
+  e.g. ones resolved only on a device, stay allowed). Both files are **generated, never edited by hand**: run
+  *Actions › Supply chain update › Run workflow* (`.github/workflows/supply-chain-update.yml`) on `main`. It runs the
+  CI task set with `--write-verification-metadata sha256 --write-locks` (plus Kover, the baseline-profile module and,
+  optionally, one device-test class on an emulator; Windows and macOS add their aapt2 builds for local builds), checks
+  the result (`.github/scripts/supply_chain_files.py`) and force-pushes ONLY these files to the branch
+  `supply-chain/update`; open a pull request from it and merge once CI is green. Repeat after every change to
+  `libs.versions.toml`, a plugin or the Gradle version (including Dependabot security updates – their pull request
+  fails verification until the files are regenerated: run the workflow on the Dependabot branch – `supply-chain/update`
+  then starts from that commit, so its pull request carries the version change plus the files; merge it instead).
+  Sources and javadoc jars (downloaded by Android Studio) are trusted without checksum; the trust rules live in the
+  seed in `supply_chain_files.py`. A local build failing with «Dependency verification failed» after a deliberate
+  change: regenerate; for a one-off local experiment `--dependency-verification lenient`.
+* *Known vulnerabilities*: `.github/workflows/osv.yml` (pushes and pull requests touching `android/`, release tags,
+  weekly on Tuesdays) resolves `:app` `releaseRuntimeClasspath` and checks every coordinate against the OSV database
+  (`.github/scripts/osv_check.py`, `--self-test`). A vulnerability with a fixed version is an error on `main`, tags
+  and the weekly run, a warning on pull requests; without a fix or when OSV is unreachable it is a warning. An
+  accepted finding goes into `.github/osv-ignore.txt` (`ID  # reason`) and is then only a notice.
+
+The *Android* workflow also shows, never failing: lint warnings counted by id (top 20, one notice;
+`.github/scripts/lint_warnings.py`) and unit-test line coverage of `:app` and `:marketdata` (Kover, one notice;
+`.github/scripts/coverage_summary.py`). Kover is applied only with `-Pcoverage=true`, so the normal test run is not
+instrumented; locally: `./gradlew -Pcoverage=true :app:koverHtmlReportDebug` (report under
+`app/build/reports/kover/`).
+
 ## 13. Market tab caching
 
 Every area of the Market tab is stored on the device with a timestamp (Android
@@ -659,6 +691,34 @@ on-chain values (`onchain.txt`, any `start_time`, 36 h) and BTC price since 2016
 (same 20 alts and 90-day rule; `{"outperformers":12,"total":20,"provider":"Binance"}`, read with
 `DataMirror.parseAltSeason`); without it the app computes it from ~21 candle requests as before. Live data (tickers, Crypto Pulse, gas, per-coin analysis) stays direct. A new mirrored URL
 needs the same entry in `mirror_data.py`, both `DataMirror` files and `data_mirror.json`.
+
+**Signed mirror** (`MirrorManifest.kt` / `MirrorManifest.swift`, cache `MirrorTrust.kt` / `MirrorTrust.swift`,
+parity cases `mirror_signature.json`): the publish job of `market-data.yml` writes, after `artifact_check.py`,
+`manifest.json` (`{"created":<ms>,"files":{"<file>":"<SHA-256 hex>"…},"v":1}`, compact, sorted keys) and
+`manifest.json.sig` (Base64 of the DER ECDSA P-256 / SHA-256 signature over the exact manifest bytes) with
+`mirror_data.py --manifest`, signed with the repository secret `MIRROR_SIGNING_KEY` (PEM, PKCS#8) through the
+preinstalled `openssl` command line tool — no package is installed in the job that holds the write token. Both are
+uploaded after the data files. Files that were not renewed in a run keep their hash only from the previous manifest,
+and only if that one is validly signed (the old asset stays on the release). The apps read every file under
+`releases/download/data/` (also `altseason.txt` and `coin_meta.json`) only if the signature matches the built-in public
+key (`MirrorManifest.PUBLIC_KEY`, ECDSA P-256 because Android minSdk 26 has no Ed25519 in the platform), the manifest
+is less than 7 days old and not more than 5 minutes in the future (no replay of old data), and the file's SHA-256 (over
+its UTF-8 bytes) matches. Otherwise the file is ignored exactly like an unreachable mirror and the app asks the
+provider directly — no message, no crash. Manifest and signature are kept in memory only: 15 minutes when valid,
+5 minutes after a failure; a file newer than the remembered manifest reloads it once (at most once a minute).
+Without the secret the workflow keeps running, publishes the manifest unsigned (warning annotation; a key that does
+not match the public key gives an error annotation) and removes an old signature, so the apps use the providers
+directly. Tests use their own test key pair (`publicKey` in the fixture); the real private key never enters the
+repository.
+
+*Changing the key*: create a new pair (`openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -out
+mirror_key.pem`; public key for the apps: `openssl pkey -in mirror_key.pem -pubout -outform DER | base64 -w0`), put
+the public key into `MirrorManifest.kt`, `MirrorManifest.swift` and `productionPublicKey` in
+`mirror_signature.json`, and release the apps. Only once the new versions are out, replace the secret
+`MIRROR_SIGNING_KEY` with the new private key and, at the same time, `PUBLIC_KEY` in `mirror_data.py` (the workflow
+checks its own signature against it and otherwise publishes unsigned); older app versions then ignore the mirror and
+use the providers directly. If the private key leaked, replace the secret at once and ship the new public key quickly.
+Keep the private key file offline; never commit it.
 
 **CoinGecko is never mirrored.** The CoinGecko API terms forbid redistributing and storing their
 data, so `global.txt`, `coins30.txt` and `coins40.txt` were removed in Build 42 (the workflow deletes
@@ -2180,6 +2240,11 @@ after the encryption step.
   play (Android media stream, iOS `.playback`). Alarm log entries carry the check origin (app, background/exact,
   widget).
 * Pull to refresh inside the 15 s window: accepted, 400 ms spinner, «Just updated · N s ago»; no network run.
+* Build 109: signed mirror (`MirrorManifest`, `MirrorTrust`, `mirror_signature.json`, `mirror_data.py --manifest`,
+  `artifact_check.py` profile `mirror_manifest`, secret `MIRROR_SIGNING_KEY`); consent per action
+  (`WatchlistNotSavedGate` job scope / `TaskLocal` `actionConsent`, `unaskedPassScope`); condition-direction guards;
+  `supply-chain-update.yml`, `osv.yml` (`osv_check.py`), Kover (`-Pcoverage=true`, `coverage_summary.py`),
+  `lint_warnings.py`, marketdata unit tests.
 * Build 108: transfer coverage «amount + network fee» on all methods (`uncoveredShare`, `portfolio.json` B108 cases,
   `tax_templates.json` `poolUncovered`, `TaxPool.addFee` with amount/fee); own address server (`AddressServer`,
   `address_server.json`, `WatchedAddressSourceServer` / `WatchedAddressSource+Server`, Bitcoin Esplora only, backup key

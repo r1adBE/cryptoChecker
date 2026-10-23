@@ -1,0 +1,51 @@
+package com.cryptochecker.marketdata.util
+
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Test
+
+/** Aufteilung gefilterter Sammelabfragen auf mehrere Adressen (BulkPairChunks), ohne Netz. */
+class BulkPairChunksTest {
+
+    @Test
+    fun sortiertOhneDoppelteUndUnterDerGrenze() {
+        val chunks = BulkPairChunks.chunks("p=", listOf("BBB", "AAA", "AAA", "CCC"), maxUrlLength = 10)
+        assertEquals(listOf(listOf("AAA", "BBB"), listOf("CCC")), chunks)
+        assertEquals("p=AAA,BBB", BulkPairChunks.url("p=", chunks!!.first()))
+    }
+
+    @Test
+    fun ohneFilterbareKennungKeineGruppen() {
+        assertNull(BulkPairChunks.chunks("p=", emptyList()))
+        assertNull(BulkPairChunks.chunks("p=", listOf("")))
+        // Eine Kennung, die kodiert werden müsste, schaltet den Filter ganz ab
+        assertNull(BulkPairChunks.chunks("p=", listOf("BTCUSD", "A B")))
+        assertNull(BulkPairChunks.chunks("p=", listOf("BTCUSD", "A&B")))
+    }
+
+    @Test
+    fun erlaubteSonderzeichen() {
+        val chunks = BulkPairChunks.chunks("p=", listOf("tDOGE:USD", "XXBTZUSD", "a.b_c~d-e"))
+        assertEquals(1, chunks!!.size)
+        assertEquals(listOf("XXBTZUSD", "a.b_c~d-e", "tDOGE:USD"), chunks.single())
+    }
+
+    @Test
+    fun zuLangeKennungBildetEigeneGruppe() {
+        val long = "X".repeat(20)
+        assertEquals(listOf(listOf(long)), BulkPairChunks.chunks("p=", listOf(long), maxUrlLength = 10))
+    }
+
+    @Test
+    fun vieleKennungenBleibenUnterStandardgrenze() {
+        val prefix = "https://example.com/tickers?pair="
+        val ids = (0 until 500).map { "PAIR" + it.toString().padStart(3, '0') }
+        val chunks = BulkPairChunks.chunks(prefix, ids)!!
+        assertTrue(chunks.size > 1)
+        for (chunk in chunks) {
+            assertTrue(BulkPairChunks.url(prefix, chunk).length < BulkPairChunks.MAX_URL_LENGTH)
+        }
+        assertEquals(ids, chunks.flatten())
+    }
+}

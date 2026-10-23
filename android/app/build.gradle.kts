@@ -67,7 +67,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
 
-        versionCode = 108
+        versionCode = 109
         versionName = "16.2.2"
 
         // Seit Build 103: Quell-Commit für «Diagnose teilen» (Berechnung siehe gitCommit oben).
@@ -299,4 +299,10 @@ tasks.withType<Test>().configureEach {
         events("failed")
         exceptionFormat = TestExceptionFormat.FULL
     }
+}
+
+// Testabdeckung nur auf Anfrage (CI-Schritt «Coverage»: -Pcoverage=true, Bericht :app:koverXmlReportDebug), sonst
+// laufen die Unit-Tests ohne Instrumentierung. Nur Anzeige, keine Schwelle.
+if (providers.gradleProperty("coverage").orNull == "true") {
+    apply(plugin = libs.plugins.kover.get().pluginId)
 }

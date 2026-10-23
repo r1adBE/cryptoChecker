@@ -42,7 +42,7 @@
     "nextActionAsks": true
   },
   "lateScreen": {
-    "_comment": "Seit Build 106 (Review ARC4-R02, Variante A): Fehlt beim Bestätigen die sichtbare Oberfläche (Drehen, kurz verdeckt), wartet die Aktion bis zu waitMillis auf sie. Erscheint sie (screenAppears), wird gefragt; sonst läuft die Aktion ohne Frage, und die Sicherung im Schreibweg lehnt ihre Schreibwege danach nicht ab, auch wenn die Oberfläche inzwischen da ist (canAskAtWrite) — vorher still abgelehnt. afterUnaskedPass: Die nächste Aktion mit Oberfläche fragt wieder; nach deren «Abbrechen» gilt die Sicherung wieder.",
+    "_comment": "Seit Build 106 (Review ARC4-R02, Variante A): Fehlt beim Bestätigen die sichtbare Oberfläche (Drehen, kurz verdeckt), wartet die Aktion bis zu waitMillis auf sie. Erscheint sie (screenAppears), wird gefragt; sonst läuft die Aktion ohne Frage, und die Sicherung im Schreibweg lehnt ihre Schreibwege danach nicht ab, auch wenn die Oberfläche inzwischen da ist (canAskAtWrite) — vorher still abgelehnt. afterUnaskedPass: Die nächste Aktion mit Oberfläche fragt wieder; nach deren «Abbrechen» bleibt die Sicherung für Schreibwege ohne Bestätigung (refusesAgainAfterCancel) — der Durchlass galt nur für seine eigene Aktion (unaskedPassScope).",
     "waitMillis": 2000,
     "cases": [
       {"name": "screen appears while waiting, proceed", "writes": 3, "screenAppears": true, "answer": true, "questions": 1, "written": 3, "effects": true},
@@ -51,5 +51,14 @@
       {"name": "no screen within wait, still hidden", "writes": 2, "screenAppears": false, "canAskAtWrite": false, "answer": null, "questions": 0, "written": 2, "effects": true}
     ],
     "afterUnaskedPass": {"nextActionAsks": true, "refusesAgainAfterCancel": true}
+  },
+  "unaskedPassScope": {
+    "_comment": "Review F-27: Zustimmung je Aktion statt globalem Durchlass. Aktion A wird ohne Oberfläche durchgelassen, danach ist die Oberfläche da. ownWrites: Schreibwege von A (auch in einer Kind-Coroutine bzw. einer Aufgabe, die A startet: ownChildWrites) werden nicht abgelehnt. otherUnconfirmedRefused: ein Schreibweg einer anderen Aktion ohne Bestätigung wird abgelehnt (nicht still durchgelassen), auch während A noch läuft. otherAsks: eine andere Aktion mit Bestätigung fragt. ownWritesAfterOtherCancel: «Abbrechen» dieser anderen Aktion lehnt die laufende A nicht ab. refusedAfterOwnEnd: nach dem Ende von A wird ein Schreibweg ohne Bestätigung wieder abgelehnt. Android: Coroutine von confirm samt Kindern; iOS: TaskLocal um die Aktion.",
+    "ownWrites": true,
+    "ownChildWrites": true,
+    "otherUnconfirmedRefused": true,
+    "otherAsks": true,
+    "ownWritesAfterOtherCancel": true,
+    "refusedAfterOwnEnd": true
   }
 }

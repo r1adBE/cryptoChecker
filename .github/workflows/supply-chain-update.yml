@@ -1,0 +1,299 @@
+# Writes the Gradle supply-chain files of the Android build and pushes ONLY them to the branch supply-chain/update:
+#   android/gradle/verification-metadata.xml  sha256 of every dependency, plugin and tool artifact (Gradle checks them
+#                                             on every build as soon as the file exists)
+#   android/*/gradle.lockfile                 locked versions per module (android/build.gradle.kts: DEFAULT mode once
+#                                             the file exists, LENIENT before)
+# Run by hand (Actions › Supply chain update › Run workflow) after any dependency, plugin or Gradle change; then
+# open a pull request from supply-chain/update (see DEVELOPMENT.md, «Supply chain»).
+# Jobs: «linux» runs the CI task set (unit tests, lint, instrumented-test APK, debug/release/AAB) with
+# --write-verification-metadata sha256 --write-locks, then Kover, the baseline-profile module and (optional) the
+# device tests on an emulator with --write-verification-metadata only; «windows» and «macos» add the
+# platform-specific artifacts (aapt2) for local builds. These jobs have read-only tokens and run third-party build
+# code; «publish» (contents: write, no Gradle) checks the artifact strictly and pushes it to the branch.
+name: Supply chain update
+
+on:
+  workflow_dispatch:
+    inputs:
+      device_tests:
+        description: 'Also resolve the device-test tooling (emulator run of one test class)'
+        type: boolean
+        default: true
+      windows:
+        description: 'Add Windows artifacts (aapt2) for local builds'
+        type: boolean
+        default: true
+      macos:
+        description: 'Add macOS artifacts (aapt2) for local builds'
+        type: boolean
+        default: true
+
+permissions: {}
+
+concurrency:
+  group: supply-chain-update
+  cancel-in-progress: false
+
+env:
+  # One flag set for every write run: no configuration or build cache (every artifact is resolved and checksummed)
+  GRADLE_WRITE_FLAGS: --no-configuration-cache --no-build-cache --write-verification-metadata sha256 --stacktrace
+
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read    # checkout only
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # No Gradle cache: a fresh dependency cache downloads (and checksums) every artifact
+      - name: Set up Gradle (no cache)
+        uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          cache-disabled: true
+
+      # Start from scratch: no stale checksums or locks; the seed only holds the configuration block
+      - name: Seed verification metadata
+        run: |
+          rm -f gradle/verification-metadata.xml gradle.lockfile */gradle.lockfile
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/supply_chain_files.py" --seed gradle/verification-metadata.xml
+
+      # Same tasks as android.yml (and record-exchange-fixtures.yml / android-device-tests.yml builds): every
+      # configuration CI resolves gets its checksums and its lock state
+      - name: Write checksums and locks (CI task set)
+        env:
+          REQUIRE_IOS_SOURCES: 'true'
+        run: |
+          chmod +x gradlew
+          # shellcheck disable=SC2086
+          ./gradlew $GRADLE_WRITE_FLAGS --write-locks \
+            test :app:lintDebug :app:lintRelease :marketdata:lintRelease \
+            :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease
+
+      # Kover (coverage step in android.yml, -Pcoverage=true): agent and reporter; checksums only
+      - name: Write checksums (Kover)
+        env:
+          REQUIRE_IOS_SOURCES: 'true'
+        run: |
+          # shellcheck disable=SC2086
+          ./gradlew $GRADLE_WRITE_FLAGS -Pcoverage=true :app:koverXmlReportDebug :marketdata:koverXmlReportDebug \
+            || echo "::warning::Kover run failed; its artifacts may be missing from the checksums"
+
+      # Baseline-profile generator module (local ./gradlew :app:generateBaselineProfile); checksums only
+      - name: Write checksums (baseline profile module)
+        run: |
+          # shellcheck disable=SC2086
+          ./gradlew $GRADLE_WRITE_FLAGS :baselineprofile:assemble \
+            || echo "::warning:::baselineprofile:assemble failed; its artifacts may be missing from the checksums"
+
+      - name: Enable KVM
+        if: inputs.device_tests
+        working-directory: .
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      # The test platform (UTP) is resolved only when connected tests run: one short test class is enough.
+      # A failing test does not matter here (warning); its tooling has been resolved by then.
+      - name: Write checksums (device tests)
+        if: inputs.device_tests
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          working-directory: android
+          emulator-boot-timeout: 900
+          script: ./gradlew $GRADLE_WRITE_FLAGS :app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.cryptochecker.app.TextLimitDeviceTest || echo "::warning::Device test run failed; check that the test platform artifacts are in the checksums"
+
+      - name: Collect files
+        run: |
+          STAGE="$RUNNER_TEMP/supply-chain"
+          mkdir -p "$STAGE/gradle"
+          cp gradle/verification-metadata.xml "$STAGE/gradle/"
+          for f in gradle.lockfile */gradle.lockfile; do
+            if [ -f "$f" ]; then mkdir -p "$STAGE/$(dirname "$f")"; cp "$f" "$STAGE/$f"; fi
+          done
+          python3 -I "$GITHUB_WORKSPACE/.github/scripts/supply_chain_files.py" --check "$STAGE"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: supply-chain-linux
+          path: ${{ runner.temp }}/supply-chain
+          if-no-files-found: error
+          retention-days: 3
+
+  # Local builds on Windows/macOS download the aapt2 build for their platform: add its checksums to the Linux file.
+  # Optional and tolerant (continue-on-error): publish falls back to the last file that was written.
+  windows:
+    needs: linux
+    if: inputs.windows
+    continue-on-error: true
+    runs-on: windows-2025
+    permissions:
+      contents: read    # checkout
+      actions: read     # download the artifact of this run (gh run download)
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+        working-directory: android
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          cache-disabled: true
+      - name: Take over the Linux file
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name supply-chain-linux --dir "$RUNNER_TEMP/supply-chain"
+          # Checksums and the new lock files (the checkout may still hold older ones)
+          cp -R "$RUNNER_TEMP/supply-chain/." .
+      - name: Write checksums (Windows build tools)
+        run: |
+          # shellcheck disable=SC2086
+          ./gradlew $GRADLE_WRITE_FLAGS :app:assembleDebug :app:bundleRelease
+          cp gradle/verification-metadata.xml "$RUNNER_TEMP/supply-chain/gradle/verification-metadata.xml"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: supply-chain-windows
+          path: ${{ runner.temp }}/supply-chain
+          if-no-files-found: error
+          retention-days: 3
+
+  macos:
+    needs: [linux, windows]
+    if: ${{ !cancelled() && inputs.macos && needs.linux.result == 'success' }}
+    continue-on-error: true
+    runs-on: macos-15
+    permissions:
+      contents: read    # checkout
+      actions: read     # download the artifact of this run (gh run download)
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+        with:
+          cache-disabled: true
+      # Windows result if there is one, else the Linux one
+      - name: Take over the latest file
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          D="$RUNNER_TEMP/supply-chain"
+          gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name supply-chain-windows --dir "$D" \
+            || { rm -rf "$D"; gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name supply-chain-linux --dir "$D"; }
+          # Checksums and the new lock files (the checkout may still hold older ones)
+          cp -R "$D/." .
+      - name: Write checksums (macOS build tools)
+        run: |
+          chmod +x gradlew
+          # shellcheck disable=SC2086
+          ./gradlew $GRADLE_WRITE_FLAGS :app:assembleDebug :app:bundleRelease
+          cp gradle/verification-metadata.xml "$RUNNER_TEMP/supply-chain/gradle/verification-metadata.xml"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: supply-chain-macos
+          path: ${{ runner.temp }}/supply-chain
+          if-no-files-found: error
+          retention-days: 3
+
+  publish:
+    needs: [linux, windows, macos]
+    if: ${{ !cancelled() && needs.linux.result == 'success' }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write   # push the branch supply-chain/update
+      actions: read     # download the artifact of this run (gh run download)
+    timeout-minutes: 10
+    steps:
+      # Fresh checkout of the commit the files were written for; the token is not stored in .git/config
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      # Latest file: macOS, else Windows, else Linux (each adds to the one before)
+      - name: Download artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          D="$RUNNER_TEMP/supply-chain"
+          for name in supply-chain-macos supply-chain-windows supply-chain-linux; do
+            rm -rf "$D"
+            if gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" --name "$name" --dir "$D"; then
+              echo "Using $name"
+              [ "$name" = supply-chain-linux ] || [ "$name" = supply-chain-macos ] \
+                || echo "::warning::macOS artifacts missing (job skipped or failed): local macOS builds may fail verification"
+              [ "$name" != supply-chain-linux ] \
+                || echo "::warning::Windows/macOS artifacts missing (jobs skipped or failed): local builds there may fail verification"
+              exit 0
+            fi
+          done
+          echo "::error::No supply-chain artifact found"
+          exit 1
+
+      # Only the expected files, size, well-formed XML, plain lock lines; nothing from the artifact is executed
+      - name: Check artifact
+        run: |
+          python3 -I .github/scripts/supply_chain_files.py --check "$RUNNER_TEMP/supply-chain"
+          cp -R "$RUNNER_TEMP/supply-chain/." android/
+
+      - name: Push branch supply-chain/update
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCH=supply-chain/update
+          git config user.name 'r1AD'
+          git config user.email '68864596+r1adBE@users.noreply.github.com'
+          git checkout -B "$BRANCH"
+          git add -- android/gradle/verification-metadata.xml
+          for f in android/gradle.lockfile android/*/gradle.lockfile; do
+            if [ -f "$f" ]; then git add -- "$f"; fi
+          done
+          if git diff --cached --quiet; then
+            echo "Files unchanged against $GITHUB_SHA; branch not updated."
+            exit 0
+          fi
+          git commit -m "Update Gradle verification metadata and lock files ($(date -u +%Y-%m-%d))"
+          # checkout ran with persist-credentials: false, so pass the token for this step only
+          AUTH=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)
+          echo "::add-mask::$AUTH"
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" push --force origin "HEAD:refs/heads/$BRANCH"
+          {
+            echo "### Supply chain files pushed to \`$BRANCH\`"
+            echo "Base commit: \`$GITHUB_SHA\` ($GITHUB_REF_NAME)."
+            echo "Open a pull request: https://github.com/$GITHUB_REPOSITORY/compare/$GITHUB_REF_NAME...$BRANCH"
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -217,14 +217,29 @@ enum CallGuard {
             if name == "withWatchlistConfirm" { return true }
             if !seen.contains(name) && helperConfirms(sources, name, seen: seen.union([name])) { return true }
         }
-        // await confirmWatchlistWrite(): sein Block ist beim Aufruf noch offen
+        // await confirmWatchlistWrite(): nur als `guard await …confirmWatchlistWrite() else { … }` und nur danach im selben
+        // Block (Review TST5-R2: die Richtung zählt — nicht im else-Block, keine anderen Formen wie `if`, `_ =`, `let ok =`)
         return src.matches(confirmCall, from, pos).contains { m -> Bool in
+            guard let brace = guardElseBrace(src, m) else { return false }
+            let elseEnd = src.closing(brace)
+            guard elseEnd < pos else { return false }
             var depth = 0
-            for i in (m.range.location + m.range.length)..<pos {
+            for i in (elseEnd + 1)..<pos {
                 if src.u[i] == 123 { depth += 1 } else if src.u[i] == 125 { depth -= 1; if depth < 0 { return false } }
             }
             return true
         }
+    }
+
+    /// «{» des else-Blocks, wenn der Aufruf `m` als `guard await [data.]confirmWatchlistWrite() else {` steht; sonst nil.
+    private static func guardElseBrace(_ src: Source, _ m: NSTextCheckingResult) -> Int? {
+        let start = max(0, m.range.location - 120)
+        let head = NSRange(location: start, length: m.range.location - start)
+        guard guardHead.firstMatch(in: src.text as String, range: head) != nil else { return nil }
+        let end = m.range.location + m.range.length
+        let tail = NSRange(location: end, length: src.u.count - end)
+        guard let e = elseOpen.firstMatch(in: src.text as String, options: .anchored, range: tail) else { return nil }
+        return e.range.location + e.range.length - 1
     }
 
     /// Funktion `name`, die jede ihrer Closure-Aktionen nur im Block von withWatchlistConfirm ausführt (z. B. `moveButton`).
@@ -284,6 +299,8 @@ enum CallGuard {
     private static let bareCall = try! NSRegularExpression(pattern: #"(?<![\w.])(?:self\.)?(\w+)\("#)
     private static let dataCall = try! NSRegularExpression(pattern: #"\bdata\s*\.\s*(\w+)\("#)
     private static let confirmCall = try! NSRegularExpression(pattern: #"confirmWatchlistWrite\(\)"#)
+    private static let guardHead = try! NSRegularExpression(pattern: #"\bguard\s+await\s+(?:\w+\s*\.\s*)?$"#)
+    private static let elseOpen = try! NSRegularExpression(pattern: #"\s*else\s*\{"#)
     private static let argLabel = try! NSRegularExpression(pattern: #"^\s*(\w+)\s*:(?!:)"#)
     private static let paramHead = try! NSRegularExpression(pattern: #"^(\w+)(?:\s+(\w+))?\s*:"#)
 }

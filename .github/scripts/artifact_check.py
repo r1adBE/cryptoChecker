@@ -6,11 +6,14 @@ fetch job talks to third-party servers without write permissions and uploads its
 publish job (write permissions, no third-party requests) checks out github.sha afresh, downloads the artifact and
 runs this script before it commits, uploads or manages an issue. Nothing from the artifact is executed.
 
-Usage: python3 -I artifact_check.py --dir DIR --profile macro|mirror|exchange
+Usage: python3 -I artifact_check.py --dir DIR --profile macro|mirror|mirror_manifest|exchange
        python3 -I artifact_check.py --self-test
 
 Checks: only expected file names (no subdirectories, no links, regular files), required files present, size per
 file, content shape (JSON, rough schema). Exit 1 with an annotation on the first problem.
+Profile mirror_manifest: the signed manifest that the publish job of market-data.yml writes itself (mirror_data.py
+--manifest) into a separate directory, checked once more before the upload; the artifact of the fetch job may not
+contain manifest.json or its signature (profile mirror).
 """
 import argparse
 import json
@@ -25,6 +28,9 @@ ISO_UTC = re.compile(r"\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ\Z")
 # Same event types as macro_calendar.py TYPES (kept in sync by hand; the self-test there does not import this)
 MACRO_TYPES = ("CPI", "PPI", "NFP", "FOMC", "PCE")
 MIRROR_HEADER = re.compile(r"CCDM1 \d{1,16}\Z")
+SHA256_HEX = re.compile(r"[0-9a-f]{64}\Z")
+MIRROR_FILE_NAME = re.compile(r"[A-Za-z0-9._-]{1,64}\Z")
+BASE64 = re.compile(rb"[A-Za-z0-9+/]{4,}={0,2}\Z")
 
 
 class Invalid(Exception):
@@ -89,6 +95,20 @@ def mirror_status(data, name):
                                                 for k, v in doc["files"].items()), f"{name}: unexpected files")
 
 
+def mirror_manifest(data, name):
+    doc = load_json(data, name)
+    need(isinstance(doc, dict) and set(doc) == {"v", "created", "files"} and doc["v"] == 1, f"{name}: unexpected keys")
+    need(isinstance(doc["created"], int) and not isinstance(doc["created"], bool) and doc["created"] > 0,
+         f"{name}: unexpected created")
+    need(isinstance(doc["files"], dict) and 0 < len(doc["files"]) <= 20, f"{name}: unexpected files")
+    need(all(isinstance(k, str) and MIRROR_FILE_NAME.match(k) and isinstance(v, str) and SHA256_HEX.match(v)
+             for k, v in doc["files"].items()), f"{name}: unexpected files")
+
+
+def mirror_signature(data, name):
+    need(BASE64.match(data) is not None and len(data) % 4 == 0, f"{name}: not Base64")
+
+
 def exchange_result(data, name):
     doc = load_json(data, name)
     need(isinstance(doc, dict) and set(doc) == {"failed", "body"}, f"{name}: unexpected keys")
@@ -110,6 +130,10 @@ PROFILES = {
         "altseason.txt": (64 * 1024, False, mirror_wrapped),
         "coin_meta.json": (16 * MB, False, mirror_coin_meta),
         "status.json": (64 * 1024, True, mirror_status),
+    },
+    "mirror_manifest": {
+        "manifest.json": (64 * 1024, True, mirror_manifest),
+        "manifest.json.sig": (1024, False, mirror_signature),
     },
     "exchange": {
         "exchange-result.json": (512 * 1024, True, exchange_result),
@@ -174,6 +198,23 @@ def self_test():
         try:
             check(d, "mirror")
             raise AssertionError("unwrapped mirror accepted")
+        except Invalid:
+            pass
+    with tempfile.TemporaryDirectory() as d:
+        write(d, "manifest.json", b'{"created":1,"files":{"fng.txt":"' + b"a" * 64 + b'"},"v":1}')
+        assert check(d, "mirror_manifest") == ["manifest.json"]
+        write(d, "manifest.json.sig", b"MEUCIQ" + b"A" * 90)
+        assert check(d, "mirror_manifest") == ["manifest.json", "manifest.json.sig"]
+        write(d, "manifest.json.sig", b"-----BEGIN")
+        try:
+            check(d, "mirror_manifest")
+            raise AssertionError("bad signature accepted")
+        except Invalid:
+            pass
+        write(d, "status.json", b'{"lastRun":"2026-10-17T11:44:24Z","files":{}}')
+        try:
+            check(d, "mirror")
+            raise AssertionError("manifest in the fetch artifact accepted")
         except Invalid:
             pass
     with tempfile.TemporaryDirectory() as d:

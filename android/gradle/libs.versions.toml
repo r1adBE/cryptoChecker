@@ -50,6 +50,9 @@ timber = "5.0.1"
 turbine = "1.2.1"
 junit = "4.13.2"
 androidJson = "0.0.20131108.vaadin1"
+# Testabdeckung (nur Anzeige in CI, keine Schwelle): Kover wird nur mit -Pcoverage=true angewendet, der normale
+# Testlauf bleibt ohne Instrumentierung. 0.9.4+ unterstützt AGP 9, 0.9.9+ Gradle 9.6+ ohne Warnung.
+kover = "0.9.11"
 
 # Instrumentierte Tests (app/src/androidTest, nur ./gradlew connectedDebugAndroidTest)
 androidxTest = "1.7.0"
@@ -139,3 +142,4 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 room = { id = "androidx.room", version.ref = "room" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }

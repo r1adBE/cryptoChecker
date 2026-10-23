@@ -4,6 +4,7 @@ import com.cryptochecker.app.parity.ParityJson
 import com.cryptochecker.app.parity.list
 import com.cryptochecker.app.parity.num
 import com.cryptochecker.app.parity.obj
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.cancelAndJoin
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -24,6 +26,7 @@ import org.junit.Test
  * Seit Build 104 (F-08): Frage vor der ersten Änderung je Lauf — gleiche Fälle wie `WatchlistNotSavedGateTests.swift`.
  * Seit Build 105: einmal je Aktion vorher, Sicherung im Schreibweg, Abbruch des Wartenden räumt die Frage weg.
  * Seit Build 106: ohne Oberfläche kurz auf sie warten, Durchlass ohne Oberfläche wird im Schreibweg nicht abgelehnt.
+ * Review F-27: dieser Durchlass gilt nur für die eigene Aktion (Coroutine samt Kindern), nicht global.
  */
 class WatchlistNotSavedGateTest {
 
@@ -194,16 +197,58 @@ class WatchlistNotSavedGateTest {
             assertEquals(name, c["effects"], effects)
             assertNull(name, WatchlistNotSavedGate.request.value)
         }
-        // Nach dem Durchlass: die nächste Aktion mit Oberfläche fragt wieder, nach «Abbrechen» gilt die Sicherung wieder
+        // Nach dem Durchlass (eigene, beendete Aktion): die nächste Aktion mit Oberfläche fragt wieder, nach «Abbrechen»
+        // gilt die Sicherung für Schreibwege ohne Bestätigung
         val after = late["afterUnaskedPass"].obj()
         WatchlistNotSavedGate.resetForTest()
-        assertTrue(WatchlistNotSavedGate.confirm(notSaved = true, canAsk = false, awaitAsker = { false }))
+        assertTrue(async(Dispatchers.Default) {
+            WatchlistNotSavedGate.confirm(notSaved = true, canAsk = false, awaitAsker = { false })
+        }.await())
         val next = async(Dispatchers.Default) { WatchlistNotSavedGate.confirm(notSaved = true, canAsk = true) }
         val asked = withTimeout(5_000) { WatchlistNotSavedGate.request.filterNotNull().first() }.isActive
         assertEquals(after["nextActionAsks"], asked)
         WatchlistNotSavedGate.answer(false)
         assertFalse(withTimeout(5_000) { next.await() })
         assertEquals(after["refusesAgainAfterCancel"], WatchlistNotSavedGate.needsConfirmation(notSaved = true, canAsk = true))
+    }
+
+    /**
+     * Review F-27: Durchlass ohne Oberfläche nur für die eigene Aktion. A läuft ohne Frage durch; danach ist die Oberfläche
+     * da. A (auch in einer Kind-Coroutine) schreibt, eine andere Aktion ohne Bestätigung wird abgelehnt, eine andere mit
+     * Bestätigung fragt, ihr «Abbrechen» lehnt A nicht ab; nach dem Ende von A gilt die Sicherung wieder.
+     */
+    @Test
+    fun sharedUnaskedPassCoversOnlyItsAction() = runBlocking {
+        val e = data["unaskedPassScope"].obj()
+        val passed = CompletableDeferred<Unit>()
+        val resume = CompletableDeferred<Unit>()
+        suspend fun refused() = WatchlistNotSavedGate.needsConfirmation(notSaved = true, canAsk = true)
+        val a = async(Dispatchers.Default) {
+            assertTrue(WatchlistNotSavedGate.confirm(notSaved = true, canAsk = false, awaitAsker = { false }))
+            val own = !refused()
+            passed.complete(Unit)
+            resume.await()
+            val child = withContext(Dispatchers.IO) { !refused() }
+            Triple(own, child, !refused())
+        }
+        withTimeout(5_000) { passed.await() }
+        assertNull(WatchlistNotSavedGate.request.value)
+        // Andere Aktion ohne Bestätigung (eigene Coroutine), während A noch läuft
+        assertEquals(e["otherUnconfirmedRefused"], async(Dispatchers.Default) { refused() }.await())
+        // Andere Aktion mit Bestätigung fragt; «Abbrechen»
+        val b = async(Dispatchers.Default) { WatchlistNotSavedGate.confirm(notSaved = true, canAsk = true) }
+        val asked = withTimeout(5_000) { WatchlistNotSavedGate.request.filterNotNull().first() }.isActive
+        assertEquals(e["otherAsks"], asked)
+        WatchlistNotSavedGate.answer(false)
+        assertFalse(withTimeout(5_000) { b.await() })
+        resume.complete(Unit)
+        val (own, child, afterCancel) = withTimeout(5_000) { a.await() }
+        assertEquals(e["ownWrites"], own)
+        assertEquals(e["ownChildWrites"], child)
+        assertEquals(e["ownWritesAfterOtherCancel"], afterCancel)
+        // A beendet: ein Schreibweg ohne Bestätigung wird wieder abgelehnt (hier wie im Repository: andere Coroutine)
+        assertEquals(e["refusedAfterOwnEnd"], async(Dispatchers.Default) { refused() }.await())
+        assertEquals(e["refusedAfterOwnEnd"], refused())
     }
 
     /** Seit Build 106: Die Oberfläche beginnt erst während des Wartens zu sammeln (Activity neu erstellt) → es wird gefragt. */

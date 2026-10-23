@@ -7,7 +7,8 @@ import XCTest
 /// `cancelled:`-Block), in der Aktion eines Hilfswegs, der seine Aktion nur darin ausführt (z. B. `moveButton`), oder hinter
 /// `await confirmWatchlistWrite()` (Block noch offen). Ein Hilfsweg ohne eigene Frage gilt, wenn jeder Aufrufer fragt (z. B.
 /// `addStarterConfirmed`; seit Build 107 `saveDraftNow`, einziger Aufrufer `saveFromEditor` fragt). Der eigene Rumpf einer
-/// Funktion zählt dabei nie als fragender Hilfsweg (seit Build 107).
+/// Funktion zählt dabei nie als fragender Hilfsweg (seit Build 107). Review TST5-R2: Die Richtung der Bedingung zählt —
+/// `confirmWatchlistWrite` gilt nur als `guard await … else { … }` und nur für Schreibwege danach.
 @MainActor
 final class WatchlistConfirmCallGuardTests: XCTestCase {
 
@@ -96,6 +97,61 @@ final class WatchlistConfirmCallGuardTests: XCTestCase {
         XCTAssertEqual(result.calls, 9)
         XCTAssertEqual(result.problems.map { $0.components(separatedBy: " ").last ?? "" },
                        ["bad", "cancelledPath", "afterBlock", "stringOpensComment", "regexHidesNothing", "ownClosureParam"])
+    }
+
+    /// Review TST5-R2: Richtung der Bedingung. `guard await data.confirmWatchlistWrite() else { … }` mit Schreibweg danach
+    /// besteht; im else-Block, im `else` eines `if`, nach `if !(…)`, hinter unbenutztem oder gespeichertem Ergebnis, im
+    /// positiven `if` (im Code nicht benutzt) und ausserhalb des Blocks → Befund.
+    func testConditionDirectionIsChecked() {
+        let repo = CallGuard.Source(#"""
+        extension AppData {
+            func reorder(_ ids: [Int64]) { guard !watchlistWriteRefused() else { return } }
+            func setNote(_ watch: Watch, _ note: String?) { guard !watchlistWriteRefused() else { return } }
+        }
+        """#)
+        let writes = CallGuard.writePaths([repo])
+        let sample = CallGuard.Source(#"""
+        extension X {
+            func okGuard() {
+                Task { guard await data.confirmWatchlistWrite() else { return }; data.setNote(w, nil) }
+            }
+            func okGuardBlock() {
+                Task {
+                    guard await data.confirmWatchlistWrite() else {
+                        cancelled()
+                        return
+                    }
+                    data.reorder([])
+                }
+            }
+            func inElse() {
+                Task { guard await data.confirmWatchlistWrite() else { data.reorder([]); return } }
+            }
+            func ifElse() {
+                Task { if await data.confirmWatchlistWrite() { } else { data.setNote(w, nil) } }
+            }
+            func negatedIf() {
+                Task { if !(await data.confirmWatchlistWrite()) { data.reorder([]) } }
+            }
+            func ignored() {
+                Task { _ = await data.confirmWatchlistWrite(); data.reorder([]) }
+            }
+            func stored() {
+                Task { let ok = await data.confirmWatchlistWrite(); if ok { data.reorder([]) } }
+            }
+            func positiveIf() {
+                Task { if await data.confirmWatchlistWrite() { data.reorder([]) } }
+            }
+            func outsideTask() {
+                Task { guard await data.confirmWatchlistWrite() else { return } }
+                data.reorder([])
+            }
+        }
+        """#)
+        let result = CallGuard.check(["Features/Sample.swift": sample], writes: writes, allowed: [])
+        XCTAssertEqual(result.calls, 9)
+        XCTAssertEqual(result.problems.map { $0.components(separatedBy: " ").last ?? "" },
+                       ["inElse", "ifElse", "negatedIf", "ignored", "stored", "positiveIf", "outsideTask"])
     }
 
     /// REL6-R1: mehrzeiliges Regex-Literal auch mit Leerzeichen/Tab bzw. CRLF nach `#/` — ein `/*` darin öffnet keinen

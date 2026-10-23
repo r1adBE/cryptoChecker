@@ -1,4 +1,6 @@
 // Wurzel-Buildskript. Alle Versionen stehen im Versionskatalog gradle/libs.versions.toml.
+import org.gradle.api.artifacts.dsl.LockMode
+
 buildscript {
     // AGP 9 bringt Kotlin eingebaut mit (ohne Plugin org.jetbrains.kotlin.android).
     // Die Kotlin-Version kommt über diesen Klassenpfad; Hilt 2.60 braucht >= 2.3.21.
@@ -21,6 +23,19 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.room) apply false
+    // Nur auf dem Klassenpfad; angewendet in app/ und marketdata/ erst mit -Pcoverage=true
+    alias(libs.plugins.kover) apply false
+}
+
+// Lieferkette: Abhängigkeiten je Modul gesperrt (gradle.lockfile, erzeugt vom Workflow «Supply chain update»).
+// Ohne Lockfile LENIENT (alles wie bisher), mit Lockfile DEFAULT: eine Abweichung von der gesperrten Version bricht
+// ab, Konfigurationen ohne Eintrag (z. B. nur auf dem Gerät aufgelöste) bleiben erlaubt. Die Prüfsummen
+// (gradle/verification-metadata.xml) prüft Gradle von selbst, sobald die Datei existiert. Siehe DEVELOPMENT.md.
+allprojects {
+    dependencyLocking {
+        lockAllConfigurations()
+        lockMode.set(if (file("gradle.lockfile").exists()) LockMode.DEFAULT else LockMode.LENIENT)
+    }
 }
 
 tasks.register<Delete>("clean") {

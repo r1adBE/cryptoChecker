@@ -118,8 +118,22 @@ enum MarketHTTP {
             key = "POST|" + key + "|" + headers.joined(separator: ",") + "|" + post.body
         }
         let shared = request
-        return try await InFlightRequests.shared.value(key) {
+        let text = try await InFlightRequests.shared.value(key) {
             try await gatedLoad(shared, url: url, session: effective)
+        }
+        // Spiegel-Dateien (auch Altcoin-Saison, coin_meta.json) nur mit gültig signiertem Manifest (`MirrorManifest`)
+        if post == nil, MirrorManifest.isSignedFile(url) {
+            let file = String(url.dropFirst(DataMirror.base.count))
+            let trusted = await verifiedMirror(file: file, text: text, session: session)
+            if !trusted { throw MirrorManifest.UnverifiedError() }
+        }
+        return text
+    }
+
+    /// Signatur und SHA-256 der Spiegel-Datei prüfen (`MirrorTrust`); Manifest und Signatur über dieselbe Session.
+    private static func verifiedMirror(file: String, text: String, session: URLSession) async -> Bool {
+        await MirrorTrust.shared.verified(file: file, text: text) { address in
+            try? await call(address, session: session)
         }
     }
 
